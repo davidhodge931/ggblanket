@@ -1,0 +1,27 @@
+Package: ggblanket
+Type: Package
+Title: Make ggplot2 Easier and Prettier, While Building Intuition For ggplot2
+Version: 0.1.0
+Author: David Hodge
+Maintainer: David Hodge <davidhodge931@gmail.com>
+Description: Build beautiful ggplots with ease. Focussed around the gg_blank 
+    function, but with various other shortcut functions available. Attempting to 
+    align with ggplot2 as much as possible, so users build intuition and
+    expertise in how the grammar of graphics works. 
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    forcats,
+    ggplot2,
+    lubridate,
+    magrittr,
+    rlang,
+    santoku,
+    scales,
+    snakecase,
+    stringr,
+    viridis
+Suggests: 
+    palmerpenguins
