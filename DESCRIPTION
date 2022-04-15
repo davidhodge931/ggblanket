@@ -25,3 +25,6 @@ Imports:
     viridis
 Suggests: 
     palmerpenguins
+RoxygenNote: 7.1.2
+URL: https://github.com/davidhodge931/ggblanket
+BugReports: https://github.com/davidhodge931/ggblanket/issues
