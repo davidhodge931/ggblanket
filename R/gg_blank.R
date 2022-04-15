@@ -123,7 +123,7 @@ gg_blank <- function(data = NULL,
                    x_oob = scales::oob_keep,
                    x_rev = FALSE,
                    x_title = NULL,
-                   x_zero = NULL,
+                   x_zero = FALSE,
                    y_balance = FALSE,
                    y_breaks = NULL,
                    y_breaks_n = NULL,
@@ -134,7 +134,7 @@ gg_blank <- function(data = NULL,
                    y_oob = scales::oob_keep,
                    y_rev = FALSE,
                    y_title = NULL,
-                   y_zero = TRUE,
+                   y_zero = FALSE,
                    dye_breaks = NULL,
                    dye_breaks_n = NULL,
                    dye_intervals_left = TRUE,
@@ -260,15 +260,57 @@ gg_blank <- function(data = NULL,
     }
   }
 
-  ##dye scale
-  if (!rlang::quo_is_null(dye)) {
+  ###theme
+  if (rlang::is_null(theme)) {
+    y_grid <- ifelse(is.numeric(rlang::eval_tidy(y, data)) |
+                       lubridate::is.Date(rlang::eval_tidy(y, data)) |
+                       lubridate::is.POSIXt(rlang::eval_tidy(y, data)), TRUE, FALSE)
 
-    if (rlang::is_null(dye_title)) dye_title <- snakecase::to_sentence_case(rlang::as_name(dye))
+    x_grid <- ifelse(is.numeric(rlang::eval_tidy(x, data)) |
+                       lubridate::is.Date(rlang::eval_tidy(x, data)) |
+                       lubridate::is.POSIXt(rlang::eval_tidy(x, data)), TRUE, FALSE)
 
-    if (rlang::is_null(dye_method)) {
-      if (!is.numeric(rlang::eval_tidy(dye, data))) dye_method <- "factor"
-      else if (is.numeric(rlang::eval_tidy(dye, data))) dye_method <- "continuous"
+    theme <- gg_theme(y_grid = y_grid, x_grid = x_grid)
+  }
+
+  ###width
+  if (is.null(size_width)) {
+    if (is.factor(rlang::eval_tidy(x, data)) | is.character(rlang::eval_tidy(x, data)) |
+        is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
+
+      size_width <- 0.75
     }
+  }
+
+  ##dye scale
+  if (rlang::quo_is_null(dye)) {
+    if (rlang::is_null(pal)) pal <-  pal_viridis_reorder(1)
+    else pal <- pal[1]
+
+    # alpha <- alpha_point #check
+    alpha <- alpha_line #check
+
+    pal_col <- scales::alpha(pal, alpha = alpha)
+    pal_na_col <- scales::alpha(pal_na, alpha = alpha)
+    pal_fill <- scales::alpha(pal, alpha = alpha_fill)
+    pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
+
+    dye_scale <- ggplot2::scale_colour_manual(
+      values = pal_col,
+      drop = FALSE,
+      labels = NULL,
+      na.value = pal_na_col, #check
+      name = NULL,
+      aesthetics = c("col", "fill")
+    )
+  }
+  else if (rlang::is_null(dye_method)) {
+    if (!is.numeric(rlang::eval_tidy(dye, data))) dye_method <- "factor"
+    else if (is.numeric(rlang::eval_tidy(dye, data))) dye_method <- "continuous"
+  }
+
+  if (!rlang::quo_is_null(dye)) {
+    if (rlang::is_null(dye_title)) dye_title <- snakecase::to_sentence_case(rlang::as_name(dye))
 
     if (dye_method == "continuous") {
       if (is.null(dye_breaks_n)) dye_breaks_n <- 2
@@ -388,79 +430,39 @@ gg_blank <- function(data = NULL,
     }
   }
 
-  ###theme
-  if (rlang::is_null(theme)) {
-    y_grid <- ifelse(is.numeric(rlang::eval_tidy(y, data)) |
-                       lubridate::is.Date(rlang::eval_tidy(y, data)) |
-                       lubridate::is.POSIXt(rlang::eval_tidy(y, data)), TRUE, FALSE)
-
-    x_grid <- ifelse(is.numeric(rlang::eval_tidy(x, data)) |
-                       lubridate::is.Date(rlang::eval_tidy(x, data)) |
-                       lubridate::is.POSIXt(rlang::eval_tidy(x, data)), TRUE, FALSE)
-
-    theme <- gg_theme(y_grid = y_grid, x_grid = x_grid)
-  }
-
-  ###width
-  if (is.null(size_width)) {
-    if (is.factor(rlang::eval_tidy(x, data)) | is.character(rlang::eval_tidy(x, data)) |
-        is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
-
-      size_width <- 0.75
-    }
-  }
-
   ###plot
-  if (rlang::quo_is_null(dye)) {
-    if (rlang::is_null(pal)) pal <-  pal_viridis_reorder(1)
-    else pal <- pal[1]
-
-    # alpha <- alpha_point #check
-    alpha <- alpha_line #check
-
-    pal_col <- scales::alpha(pal, alpha = alpha)
-    pal_na_col <- scales::alpha(pal_na, alpha = alpha)
-    pal_fill <- scales::alpha(pal, alpha = alpha_fill)
-    pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
-
-    plot <- data %>%
-      ggplot2::ggplot(mapping = ggplot2::aes(x = !!x,
-                                             y = !!y)) +
-      ggplot2::geom_blank(
-        mapping = ggplot2::aes(text = !!tooltip),
-        col = pal_col,
-        fill = pal_fill, #check
-        # alpha = alpha_point,  #check
-        # alpha = alpha_line,  #check
-        alpha = alpha_fill, #check
-        # size = size_point, #check
-        size = size_line, #check
-        width = size_width, #check
-        position =  position,
-        stat = stat
-      )
-  }
-  else if (!rlang::quo_is_null(dye)) {
+  if (!rlang::quo_is_null(dye)) {
     plot <- data %>%
       ggplot2::ggplot(mapping = ggplot2::aes(
         x = !!x,
         y = !!y,
         col = !!dye,
         fill = !!dye #check
-      )) +
-      ggplot2::geom_blank(
-        ggplot2::aes(text = !!tooltip),
-        # alpha = alpha_point,  #check
-        # alpha = alpha_line,  #check
-        alpha = alpha_fill, #check
-        # size = size_point, #check
-        size = size_line, #check
-        width = size_width, #check
-        position = position,
-        stat = stat
-      ) +
-      dye_scale
+      ))
   }
+  else {
+    plot <- data %>%
+      ggplot2::ggplot(mapping = ggplot2::aes(
+        x = !!x,
+        y = !!y,
+        col = "1",
+        fill = "1" #check
+      ))
+  }
+
+  plot <- plot +
+    ggplot2::geom_blank(
+      ggplot2::aes(text = !!tooltip),
+      # alpha = alpha_point,  #check
+      # alpha = alpha_line,  #check
+      alpha = alpha_fill, #check
+      # size = size_point, #check
+      size = size_line, #check
+      width = size_width, #check
+      position = position,
+      stat = stat
+    ) +
+    dye_scale
 
   if (!rlang::quo_is_null(facet)) {
     plot <- plot +
@@ -492,13 +494,13 @@ gg_blank <- function(data = NULL,
   build_data <- ggplot2::ggplot_build(plot)$data[[1]]
 
   ###x scale
-  if (is.null(x_zero)) {
-    if ((!is.character(rlang::eval_tidy(x, data)) & !is.factor(rlang::eval_tidy(x, data))) &
-        (!is.character(rlang::eval_tidy(y, data)) & !is.factor(rlang::eval_tidy(y, data)))) {
-      x_zero <- FALSE
-    }
-    else x_zero <- TRUE
-  }
+  # if (is.null(x_zero)) {
+  #   if ((!is.character(rlang::eval_tidy(x, data)) & !is.factor(rlang::eval_tidy(x, data))) &
+  #       (!is.character(rlang::eval_tidy(y, data)) & !is.factor(rlang::eval_tidy(y, data)))) {
+  #     x_zero <- FALSE
+  #   }
+  #   else x_zero <- TRUE
+  # }
 
   if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
     if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
@@ -665,6 +667,12 @@ gg_blank <- function(data = NULL,
     x_scale +
     y_scale +
     ggplot2::coord_cartesian(clip = "off")
+
+  if (rlang::quo_is_null(dye)) {
+    plot <- plot +
+      ggplot2::theme(legend.position = "none")
+  }
+
 
   return(plot)
 }
