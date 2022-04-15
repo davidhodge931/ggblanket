@@ -22,6 +22,8 @@ Imports:
     scales,
     snakecase,
     stringr,
+    tidyr,
+    tidyselect,
     viridis
 Suggests: 
     palmerpenguins
