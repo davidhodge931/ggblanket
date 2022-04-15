@@ -528,7 +528,7 @@ gg_blank <- function(data = NULL,
         x_min_max <- c(x_min, x_max)
         if (x_zero) x_min_max <- c(0, x_min_max)
         if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
-        if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
+        if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
         x_breaks <- pretty(x_min_max, n = x_breaks_n)
       }
 
