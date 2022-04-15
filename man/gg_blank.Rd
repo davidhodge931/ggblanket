@@ -13,6 +13,8 @@ gg_blank(
   tooltip = NULL,
   position = "identity",
   stat = "identity",
+  bins = NULL,
+  binwidth = NULL,
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha_fill = 1,

@@ -9,6 +9,8 @@
 #' @param tooltip Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(..., tooltip = "text").
 #' @param position How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).
 #' @param stat
+#' @param bins
+#' @param binwidth
 #' @param pal Character vector of hex codes.
 #' @param pal_na The hex code or name of the NA dye to be used.
 #' @param alpha_point Opacity of any points.
@@ -103,6 +105,8 @@ gg_blank <- function(data = NULL,
                    tooltip = NULL,
                    position = "identity",
                    stat = "identity",
+                   bins = NULL,
+                   binwidth = NULL,
                    pal = NULL,
                    pal_na = "#7F7F7F",
                    alpha_fill = 1,
@@ -168,9 +172,9 @@ gg_blank <- function(data = NULL,
   if (rlang::is_null(data)) rlang::abort("data is required")
   # if (rlang::quo_is_null(x)) rlang::abort("x is required")
   # if (rlang::quo_is_null(y)) rlang::abort("y is required")
-  if (!rlang::quo_is_null(dye)) rlang::inform(c("i" = "Note in {ggbilly} dye refers to both the {ggplot2} dye & fill aesthetics"))
-  rlang::inform(c("i" = "Note {ggbilly} gg_bar uses the {ggplot2} geom_blank function"))
-  if (is.null(position)) rlang::inform(c("i" = "Note {ggbilly} gg_bar uses a default of 'dodge2', where {ggplot2} uses a default of 'stack'"))
+  if (!rlang::quo_is_null(dye)) rlang::inform(c("i" = "Note in {ggblanket} dye refers to both the {ggplot2} dye & fill aesthetics"))
+  # rlang::inform(c("i" = "Note {ggblanket} gg_bar uses the {ggplot2} geom_blank function"))
+  # if (is.null(position)) rlang::inform(c("i" = "Note {ggblanket} gg_bar uses a default of 'dodge2', where {ggplot2} uses a default of 'stack'"))
 
   ###ungroup
   data <- dplyr::ungroup(data)
@@ -431,23 +435,45 @@ gg_blank <- function(data = NULL,
   }
 
   ###plot
-  if (!rlang::quo_is_null(dye)) {
-    plot <- data %>%
-      ggplot2::ggplot(mapping = ggplot2::aes(
-        x = !!x,
-        y = !!y,
-        col = !!dye,
-        fill = !!dye #check
-      ))
+  if (!rlang::quo_is_null(y)) {
+    if (!rlang::quo_is_null(dye)) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          x = !!x,
+          y = !!y,
+          col = !!dye,
+          fill = !!dye #check
+        ))
+    }
+    else {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          x = !!x,
+          y = !!y,
+          col = "1",
+          fill = "1" #check
+        ))
+    }
   }
-  else {
-    plot <- data %>%
-      ggplot2::ggplot(mapping = ggplot2::aes(
-        x = !!x,
-        y = !!y,
-        col = "1",
-        fill = "1" #check
-      ))
+  else if (rlang::quo_is_null(y)) {
+    if (!rlang::quo_is_null(dye)) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          x = !!x,
+          # y = !!y,
+          col = !!dye,
+          fill = !!dye #check
+        ))
+    }
+    else {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          x = !!x,
+          # y = !!y,
+          col = "1",
+          fill = "1" #check
+        ))
+    }
   }
 
   plot <- plot +
@@ -460,7 +486,9 @@ gg_blank <- function(data = NULL,
       size = size_line, #check
       width = size_width, #check
       position = position,
-      stat = stat
+      stat = stat,
+      bins = bins,
+      binwidth = binwidth
     ) +
     dye_scale
 
@@ -494,89 +522,83 @@ gg_blank <- function(data = NULL,
   build_data <- ggplot2::ggplot_build(plot)$data[[1]]
 
   ###x scale
-  # if (is.null(x_zero)) {
-  #   if ((!is.character(rlang::eval_tidy(x, data)) & !is.factor(rlang::eval_tidy(x, data))) &
-  #       (!is.character(rlang::eval_tidy(y, data)) & !is.factor(rlang::eval_tidy(y, data)))) {
-  #     x_zero <- FALSE
-  #   }
-  #   else x_zero <- TRUE
-  # }
+    if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
+      if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
+      if (rlang::is_null(x_labels)) x_labels <- snakecase::to_sentence_case
 
-  if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
-    if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
-    if (rlang::is_null(x_labels)) x_labels <- snakecase::to_sentence_case
+      x_scale <- ggplot2::scale_x_discrete(expand = x_expand, labels = x_labels)
+    }
+    if (is.numeric(rlang::eval_tidy(x, data)) |
+        lubridate::is.Date(rlang::eval_tidy(x, data)) |
+        lubridate::is.POSIXt(rlang::eval_tidy(x, data))) {
 
-    x_scale <- ggplot2::scale_x_discrete(expand = x_expand, labels = x_labels)
-  }
-  if (is.numeric(rlang::eval_tidy(x, data)) |
-      lubridate::is.Date(rlang::eval_tidy(x, data)) |
-      lubridate::is.POSIXt(rlang::eval_tidy(x, data))) {
+      if (facet_scales %in% c("fixed", "free_y")) {
 
-    if (facet_scales %in% c("fixed", "free_y")) {
+        if (any(stringr::str_detect(names(build_data), "xmin"))) {
+          x_min <- min(build_data$xmin, na.rm = TRUE)
+        }
+        else  x_min <- min(build_data$x, na.rm = TRUE)
 
-      if (any(stringr::str_detect(names(build_data), "xmin"))) {
-        x_min <- min(build_data$xmin, na.rm = TRUE)
-      } else  x_min <- min(build_data$x, na.rm = TRUE)
+        if (any(stringr::str_detect(names(build_data), "xmax"))) {
+          x_max <- max(build_data$xmax, na.rm = TRUE)
+        }
+        else  x_max <- max(build_data$x, na.rm = TRUE)
 
-      if (any(stringr::str_detect(names(build_data), "xmax"))) {
-        x_max <- max(build_data$xmax, na.rm = TRUE)
-      } else  x_max <- max(build_data$x, na.rm = TRUE)
+        if ((x_min < 0 & x_max > 0)) x_zero <- FALSE
 
-      if ((x_min < 0 & x_max > 0)) x_zero <- FALSE
+        if (rlang::is_null(x_breaks)) {
+          x_min_max <- c(x_min, x_max)
+          if (x_zero) x_min_max <- c(0, x_min_max)
+          if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
+          if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+          x_breaks <- pretty(x_min_max, n = x_breaks_n)
+        }
 
-      if (rlang::is_null(x_breaks)) {
-        x_min_max <- c(x_min, x_max)
-        if (x_zero) x_min_max <- c(0, x_min_max)
-        if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
-        if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
-        x_breaks <- pretty(x_min_max, n = x_breaks_n)
+        if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
+        if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
+      }
+      else if (facet_scales %in% c("free", "free_x")) {
+        if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
+        x_limits <- NULL
+        if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
       }
 
-      if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
-      if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
-    }
-    else if (facet_scales %in% c("free", "free_x")) {
-      if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
-      x_limits <- NULL
-      if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
-    }
+      if (rlang::is_null(x_labels)) {
+        if (is.numeric(rlang::eval_tidy(x, data))) x_labels <- scales::label_comma()
+        else if (lubridate::is.Date(rlang::eval_tidy(x, data))) x_labels <- scales::label_date()
+        else x_labels <- ggplot2::waiver()
+      }
 
-    if (rlang::is_null(x_labels)) {
-      if (is.numeric(rlang::eval_tidy(x, data))) x_labels <- scales::label_comma()
-      else if (lubridate::is.Date(rlang::eval_tidy(x, data))) x_labels <- scales::label_date()
-      else x_labels <- ggplot2::waiver()
-    }
+      if (is.numeric(rlang::eval_tidy(x, data))) {
+        x_scale <- ggplot2::scale_x_continuous(
+          breaks = x_breaks,
+          limits = x_limits,
+          expand = x_expand,
+          labels = x_labels,
+          oob = x_oob
+        )
+      }
+      else if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
+        x_scale <- ggplot2::scale_x_date(
+          breaks = x_breaks,
+          limits = x_limits,
+          expand = x_expand,
+          labels = x_labels,
+          oob = x_oob
+        )
+      }
+      else if (lubridate::is.POSIXt(rlang::eval_tidy(x, data))) {
+        x_scale <- ggplot2::scale_x_datetime(
+          breaks = x_breaks,
+          limits = x_limits,
+          expand = x_expand,
+          labels = x_labels,
+          oob = x_oob
+        )
+      }
 
-    if (is.numeric(rlang::eval_tidy(x, data))) {
-      x_scale <- ggplot2::scale_x_continuous(
-        breaks = x_breaks,
-        limits = x_limits,
-        expand = x_expand,
-        labels = x_labels,
-        oob = x_oob
-      )
+      if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
     }
-    else if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
-      x_scale <- ggplot2::scale_x_date(
-        breaks = x_breaks,
-        limits = x_limits,
-        expand = x_expand,
-        labels = x_labels,
-        oob = x_oob
-      )
-    }
-    else if (lubridate::is.POSIXt(rlang::eval_tidy(x, data))) {
-      x_scale <- ggplot2::scale_x_datetime(
-        breaks = x_breaks,
-        limits = x_limits,
-        expand = x_expand,
-        labels = x_labels,
-        oob = x_oob
-      )
-    }
-
-    if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
-  }
 
   ###y scale
   if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
@@ -587,7 +609,8 @@ gg_blank <- function(data = NULL,
   }
   if (is.numeric(rlang::eval_tidy(y, data)) |
       lubridate::is.Date(rlang::eval_tidy(y, data)) |
-      lubridate::is.POSIXt(rlang::eval_tidy(y, data))) {
+      lubridate::is.POSIXt(rlang::eval_tidy(y, data)) |
+      rlang::quo_is_null(y)) {
 
     if (facet_scales %in% c("fixed", "free_x")) {
 
@@ -619,12 +642,12 @@ gg_blank <- function(data = NULL,
     }
 
     if (rlang::is_null(y_labels)) {
-      if (is.numeric(rlang::eval_tidy(y, data))) y_labels <- scales::label_comma()
+      if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(y)) y_labels <- scales::label_comma()
       else if (lubridate::is.Date(rlang::eval_tidy(y, data))) y_labels <- scales::label_date()
       else y_labels <- ggplot2::waiver()
     }
 
-    if (is.numeric(rlang::eval_tidy(y, data))) {
+    if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(y)) {
       y_scale <- ggplot2::scale_y_continuous(
         breaks = y_breaks,
         limits = y_limits,
@@ -652,7 +675,7 @@ gg_blank <- function(data = NULL,
       )
     }
 
-    if (rlang::is_null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
+    if (rlang::is_null(y_title) & !rlang::quo_is_null(y)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
   }
 
   plot <- plot +
