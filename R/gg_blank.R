@@ -554,6 +554,12 @@ gg_blank <- function(data = NULL,
         tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "x") %>%
         dplyr::pull(.data$x)
 
+      if (lubridate::is.Date(rlang::eval_tidy(x, data)) |
+          lubridate::is.POSIXt(rlang::eval_tidy(x, data))) {
+
+        x_scale_vctr <- as.Date(x_scale_vctr, origin = "1970-01-01")
+      }
+
       x_min <- min(x_scale_vctr, na.rm = TRUE)
       x_max <- max(x_scale_vctr, na.rm = TRUE)
 
@@ -627,11 +633,6 @@ gg_blank <- function(data = NULL,
 
     if (facet_scales %in% c("fixed", "free_x")) {
 
-      # y_scale_vctr <- build_data %>%
-      #   dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$"))) %>%
-      #   tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "y") %>%
-      #   dplyr::pull(.data$y)
-
       temp <- build_data %>%
         dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^outliers$")))
 
@@ -643,6 +644,12 @@ gg_blank <- function(data = NULL,
       y_scale_vctr <- temp %>%
         tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "y") %>%
         dplyr::pull(.data$y)
+
+      if (lubridate::is.Date(rlang::eval_tidy(y, data)) |
+          lubridate::is.POSIXt(rlang::eval_tidy(y, data))) {
+
+        y_scale_vctr <- as.Date(y_scale_vctr, origin = "1970-01-01")
+      }
 
       y_min <- min(y_scale_vctr, na.rm = TRUE)
       y_max <- max(y_scale_vctr, na.rm = TRUE)
