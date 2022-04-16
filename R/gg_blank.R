@@ -127,7 +127,7 @@ gg_blank <- function(data = NULL,
                    x_oob = scales::oob_keep,
                    x_rev = FALSE,
                    x_title = NULL,
-                   x_zero = FALSE,
+                   x_zero = NULL,
                    y_balance = FALSE,
                    y_breaks = NULL,
                    y_breaks_n = NULL,
@@ -138,7 +138,7 @@ gg_blank <- function(data = NULL,
                    y_oob = scales::oob_keep,
                    y_rev = FALSE,
                    y_title = NULL,
-                   y_zero = FALSE,
+                   y_zero = TRUE,
                    dye_breaks = NULL,
                    dye_breaks_n = NULL,
                    dye_intervals_left = TRUE,
@@ -267,12 +267,14 @@ gg_blank <- function(data = NULL,
   ###theme
   if (rlang::is_null(theme)) {
     y_grid <- ifelse(is.numeric(rlang::eval_tidy(y, data)) |
-                       lubridate::is.Date(rlang::eval_tidy(y, data)) |
-                       lubridate::is.POSIXt(rlang::eval_tidy(y, data)), TRUE, FALSE)
+                     lubridate::is.Date(rlang::eval_tidy(y, data)) |
+                     lubridate::is.POSIXt(rlang::eval_tidy(y, data)) |
+                     rlang::quo_is_null(y), TRUE, FALSE)
 
     x_grid <- ifelse(is.numeric(rlang::eval_tidy(x, data)) |
-                       lubridate::is.Date(rlang::eval_tidy(x, data)) |
-                       lubridate::is.POSIXt(rlang::eval_tidy(x, data)), TRUE, FALSE)
+                     lubridate::is.Date(rlang::eval_tidy(x, data)) |
+                     lubridate::is.POSIXt(rlang::eval_tidy(x, data)) |
+                     rlang::quo_is_null(x), TRUE, FALSE)
 
     theme <- gg_theme(y_grid = y_grid, x_grid = x_grid)
   }
@@ -574,6 +576,13 @@ gg_blank <- function(data = NULL,
       rlang::quo_is_null(x)) {
 
     if (facet_scales %in% c("fixed", "free_y")) {
+      if (is.null(x_zero)) {
+        if ((!is.character(rlang::eval_tidy(x, data)) & !is.factor(rlang::eval_tidy(x, data))) &
+            (!is.character(rlang::eval_tidy(y, data)) & !is.factor(rlang::eval_tidy(y, data)))) {
+          x_zero <- FALSE
+        }
+        else x_zero <- TRUE
+      }
 
       x_scale_vctr <- build_data %>%
         dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$"))) %>%
