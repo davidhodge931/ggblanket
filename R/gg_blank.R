@@ -305,7 +305,10 @@ gg_blank <- function(data = NULL,
     if (rlang::is_null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col))
 
     if (col_method == "continuous") {
-      if (is.null(col_breaks_n)) col_breaks_n <- 2
+      if (is.null(col_breaks_n)) {
+        if (col_legend_bottom) col_breaks_n <- 3
+        if (!col_legend_bottom) col_breaks_n <- 4
+      }
       if (rlang::is_null(pal)) pal <- viridis::viridis(100)
       if (rlang::is_null(col_breaks)) col_breaks <- pretty(rlang::eval_tidy(col, data), col_breaks_n)
       if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
@@ -571,6 +574,15 @@ gg_blank <- function(data = NULL,
         if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
         if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
         x_breaks <- pretty(x_min_max, n = x_breaks_n)
+
+        # if (is.numeric(rlang::eval_tidy(x, data))) {
+        #   x_breaks <- pretty(x_min_max, n = x_breaks_n)
+        # }
+        # else if (lubridate::is.Date(rlang::eval_tidy(x, data)) |
+        #     lubridate::is.POSIXt(rlang::eval_tidy(x, data))) {
+        #
+        #   x_breaks <- lubridate::pretty_dates(x_min_max, n = x_breaks_n)
+        # }
       }
 
       if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
