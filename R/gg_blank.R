@@ -7,8 +7,8 @@
 #' @param col Unquoted variable to col and fill by.
 #' @param facet Unquoted categorical variable to facet by.
 #' @param tooltip Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(..., tooltip = "text").
-#' @param position How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).
 #' @param stat
+#' @param position How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).
 #' @param bins
 #' @param binwidth
 #' @param pal Character vector of hex codes.
@@ -103,8 +103,8 @@ gg_blank <- function(data = NULL,
                      col = NULL,
                      facet = NULL,
                      tooltip = NULL,
-                     position = "identity",
                      stat = "identity",
+                     position = "identity",
                      bins = NULL,
                      binwidth = NULL,
                      pal = NULL,
