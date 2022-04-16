@@ -542,8 +542,15 @@ gg_blank <- function(data = NULL,
         else x_zero <- TRUE
       }
 
-      x_scale_vctr <- build_data %>%
-        dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$"))) %>%
+      temp <- build_data %>%
+        dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^outliers$")))
+
+      if (any(stringr::str_detect(names(temp), stringr::regex("^outliers$")))) {
+        temp <- temp %>%
+          tidyr::unnest_longer(col = .data$outliers)
+      }
+
+      x_scale_vctr <- temp %>%
         tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "x") %>%
         dplyr::pull(.data$x)
 
@@ -620,8 +627,20 @@ gg_blank <- function(data = NULL,
 
     if (facet_scales %in% c("fixed", "free_x")) {
 
-      y_scale_vctr <- build_data %>%
-        dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$"))) %>%
+      # y_scale_vctr <- build_data %>%
+      #   dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$"))) %>%
+      #   tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "y") %>%
+      #   dplyr::pull(.data$y)
+
+      temp <- build_data %>%
+        dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^outliers$")))
+
+      if (any(stringr::str_detect(names(temp), stringr::regex("^outliers$")))) {
+        temp <- temp %>%
+          tidyr::unnest_longer(col = .data$outliers)
+      }
+
+      y_scale_vctr <- temp %>%
         tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "y") %>%
         dplyr::pull(.data$y)
 
