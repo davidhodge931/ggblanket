@@ -699,11 +699,6 @@ gg_blank <- function(data = NULL,
     y_scale +
     col_scale
 
-  if (rlang::quo_is_null(col)) {
-    plot <- plot +
-      ggplot2::theme(legend.position = "none")
-  }
-
   if (col_legend_bottom) {
     plot <- plot +
       ggplot2::theme(legend.direction = "horizontal") +
@@ -714,11 +709,10 @@ gg_blank <- function(data = NULL,
       ggplot2::theme(legend.position = "bottom") +
       ggplot2::theme(legend.direction = "vertical")
   }
-  if (col_legend_none) {
+  if (col_legend_none | rlang::quo_is_null(col)) {
     plot <- plot +
       ggplot2::theme(legend.position = "none")
   }
-
 
   return(plot)
 }
