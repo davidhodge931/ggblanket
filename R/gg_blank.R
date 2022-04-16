@@ -391,8 +391,7 @@ gg_blank <- function(data = NULL,
         if (col_method == "factor") col_legend_rev <- TRUE
         else if (col_method %in% c("bin", "quantile") & col_legend_bottom) col_legend_rev <- TRUE
         else col_legend_rev <- FALSE
-        pal <- rev(pal)
-        pal <- rev(pal)
+        pal <- rev(pal) #there was 2 rev pals here ??
       }
       else col_legend_rev <- FALSE
 
@@ -400,7 +399,7 @@ gg_blank <- function(data = NULL,
         values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.value = pal_na, #check
+        na.value = pal_na,
         name = col_title,
         aesthetics = c("col", "fill"),
         guide = ggplot2::guide_legend(
@@ -422,7 +421,7 @@ gg_blank <- function(data = NULL,
           x = !!x,
           y = !!y,
           col = !!col,
-          fill = !!col #check
+          fill = !!col
         ))
     }
     else {
@@ -431,7 +430,7 @@ gg_blank <- function(data = NULL,
           x = !!x,
           y = !!y,
           col = "1",
-          fill = "1" #check
+          fill = "1"
         ))
     }
   }
@@ -442,7 +441,7 @@ gg_blank <- function(data = NULL,
           x = !!x,
           # y = !!y,
           col = !!col,
-          fill = !!col #check
+          fill = !!col
         ))
     }
     else {
@@ -451,7 +450,7 @@ gg_blank <- function(data = NULL,
           x = !!x,
           # y = !!y,
           col = "1",
-          fill = "1" #check
+          fill = "1"
         ))
     }
   }
@@ -462,7 +461,7 @@ gg_blank <- function(data = NULL,
           # x = !!x,
           y = !!y,
           col = !!col,
-          fill = !!col #check
+          fill = !!col
         ))
     }
     else {
@@ -471,7 +470,7 @@ gg_blank <- function(data = NULL,
           # x = !!x,
           y = !!y,
           col = "1",
-          fill = "1" #check
+          fill = "1"
         ))
     }
   }
@@ -482,7 +481,7 @@ gg_blank <- function(data = NULL,
           # x = !!x,
           # y = !!y,
           col = !!col,
-          fill = !!col #check
+          fill = !!col
         ))
     }
     else {
@@ -491,7 +490,7 @@ gg_blank <- function(data = NULL,
           # x = !!x,
           # y = !!y,
           col = "1",
-          fill = "1" #check
+          fill = "1"
         ))
     }
   }
@@ -506,8 +505,7 @@ gg_blank <- function(data = NULL,
       stat = stat,
       bins = bins,
       binwidth = binwidth
-    ) +
-    col_scale
+    )
 
   if (!rlang::quo_is_null(facet)) {
     plot <- plot +
@@ -518,21 +516,6 @@ gg_blank <- function(data = NULL,
         ncol = facet_ncol,
         nrow = facet_nrow
       )
-  }
-
-  if (col_legend_bottom) {
-    plot <- plot +
-      ggplot2::theme(legend.direction = "horizontal") +
-      ggplot2::theme(legend.position = "bottom")
-  }
-  if (col_legend_mobile) {
-    plot <- plot +
-      ggplot2::theme(legend.position = "bottom") +
-      ggplot2::theme(legend.direction = "vertical")
-  }
-  if (col_legend_none) {
-    plot <- plot +
-      ggplot2::theme(legend.position = "none")
   }
 
   #build plot
@@ -711,11 +694,27 @@ gg_blank <- function(data = NULL,
       caption = caption
     ) +
     theme +
+    ggplot2::coord_cartesian(clip = "off") +
     x_scale +
     y_scale +
-    ggplot2::coord_cartesian(clip = "off")
+    col_scale
 
   if (rlang::quo_is_null(col)) {
+    plot <- plot +
+      ggplot2::theme(legend.position = "none")
+  }
+
+  if (col_legend_bottom) {
+    plot <- plot +
+      ggplot2::theme(legend.direction = "horizontal") +
+      ggplot2::theme(legend.position = "bottom")
+  }
+  if (col_legend_mobile) {
+    plot <- plot +
+      ggplot2::theme(legend.position = "bottom") +
+      ggplot2::theme(legend.direction = "vertical")
+  }
+  if (col_legend_none) {
     plot <- plot +
       ggplot2::theme(legend.position = "none")
   }
