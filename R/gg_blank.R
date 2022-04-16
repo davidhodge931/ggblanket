@@ -13,12 +13,9 @@
 #' @param binwidth
 #' @param pal Character vector of hex codes.
 #' @param pal_na The hex code or name of the NA col to be used.
-#' @param alpha_point Opacity of any points.
-#' @param alpha_line Opacity of any lines.
-#' @param alpha_fill Opacity of any polygons.
-#' @param size_line Size of any lines. Defaults to 1.
-#' @param size_point Size of any points. Defaults to 1.5.
-#' @param size_width Width of any polygons. Defaults to 0.75 if x or y is categorical. Otherwise NULL.
+#' @param alpha Opacity argument per ggplot2::geom_* function.
+#' @param size Size argument per ggplot2::geom_* function. Defaults to 0.5.
+#' @param width Width of any polygons. Defaults to 0.75 if x or y is categorical. Otherwise NULL.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
@@ -109,12 +106,9 @@ gg_blank <- function(data = NULL,
                      binwidth = NULL,
                      pal = NULL,
                      pal_na = "#7F7F7F",
-                     alpha_fill = 1,
-                     alpha_line = 1,
-                     alpha_point = 1,
-                     size_line = 0.5,
-                     size_point = 1.5,
-                     size_width = NULL,
+                     alpha = 1,
+                     size = 0.5,
+                     width = NULL,
                      title = NULL,
                      subtitle = NULL,
                      x_balance = FALSE,
@@ -280,11 +274,11 @@ gg_blank <- function(data = NULL,
   }
 
   ###width
-  if (is.null(size_width)) {
+  if (is.null(width)) {
     if (is.factor(rlang::eval_tidy(x, data)) | is.character(rlang::eval_tidy(x, data)) |
         is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
 
-      size_width <- 0.75
+      width <- 0.75
     }
   }
 
@@ -293,19 +287,11 @@ gg_blank <- function(data = NULL,
     if (rlang::is_null(pal)) pal <-  pal_viridis_reorder(1)
     else pal <- pal[1]
 
-    # alpha <- alpha_point #check
-    alpha <- alpha_line #check
-
-    pal_col <- scales::alpha(pal, alpha = alpha)
-    pal_na_col <- scales::alpha(pal_na, alpha = alpha)
-    pal_fill <- scales::alpha(pal, alpha = alpha_fill)
-    pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
-
     col_scale <- ggplot2::scale_colour_manual(
-      values = pal_col,
+      values = pal,
       drop = FALSE,
       labels = NULL,
-      na.value = pal_na_col, #check
+      na.value = pal_na, #check
       name = NULL,
       aesthetics = c("col", "fill")
     )
@@ -380,22 +366,14 @@ gg_blank <- function(data = NULL,
       }
     }
 
-    # alpha <- alpha_point #check
-    alpha <- alpha_line #check
-
-    pal_col <- scales::alpha(pal, alpha = alpha)
-    pal_na_col <- scales::alpha(pal_na, alpha = alpha)
-    pal_fill <- scales::alpha(pal, alpha = alpha_fill)
-    pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
-
     col_title_position <- ifelse(col_title == "", "right", "top")
 
     if (col_method == "continuous") {
       col_scale <- ggplot2::scale_colour_gradientn(
-        colors = pal_col,
+        colors = pal,
         labels = col_labels,
         breaks = col_breaks,
-        na.value = pal_na_col,
+        na.value = pal_na,
         name = col_title,
         aesthetics = c("col", "fill"),
         guide = ggplot2::guide_colorbar(title.position = col_title_position)
@@ -413,16 +391,16 @@ gg_blank <- function(data = NULL,
         if (col_method == "factor") col_legend_rev <- TRUE
         else if (col_method %in% c("bin", "quantile") & col_legend_bottom) col_legend_rev <- TRUE
         else col_legend_rev <- FALSE
-        pal_col <- rev(pal_col)
-        pal_fill <- rev(pal_fill)
+        pal <- rev(pal)
+        pal <- rev(pal)
       }
       else col_legend_rev <- FALSE
 
       col_scale <- ggplot2::scale_colour_manual(
-        values = pal_col,
+        values = pal,
         drop = FALSE,
         labels = col_labels,
-        na.value = pal_na_col, #check
+        na.value = pal_na, #check
         name = col_title,
         aesthetics = c("col", "fill"),
         guide = ggplot2::guide_legend(
@@ -521,12 +499,9 @@ gg_blank <- function(data = NULL,
   plot <- plot +
     ggplot2::geom_blank(
       ggplot2::aes(text = !!tooltip),
-      # alpha = alpha_point,  #check
-      # alpha = alpha_line,  #check
-      alpha = alpha_fill, #check
-      # size = size_point, #check
-      size = size_line, #check
-      width = size_width, #check
+      alpha = alpha,
+      size = size,
+      width = width,
       position = position,
       stat = stat,
       bins = bins,

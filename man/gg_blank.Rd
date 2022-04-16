@@ -17,12 +17,9 @@ gg_blank(
   binwidth = NULL,
   pal = NULL,
   pal_na = "#7F7F7F",
-  alpha_fill = 1,
-  alpha_line = 1,
-  alpha_point = 1,
-  size_line = 0.5,
-  size_point = 1.5,
-  size_width = NULL,
+  alpha = 1,
+  size = 0.5,
+  width = NULL,
   title = NULL,
   subtitle = NULL,
   x_balance = FALSE,
@@ -89,17 +86,11 @@ gg_blank(
 
 \item{pal_na}{The hex code or name of the NA col to be used.}
 
-\item{alpha_fill}{Opacity of any polygons.}
+\item{alpha}{Opacity argument per ggplot2::geom_* function.}
 
-\item{alpha_line}{Opacity of any lines.}
+\item{size}{Size argument per ggplot2::geom_* function. Defaults to 0.5.}
 
-\item{alpha_point}{Opacity of any points.}
-
-\item{size_line}{Size of any lines. Defaults to 1.}
-
-\item{size_point}{Size of any points. Defaults to 1.5.}
-
-\item{size_width}{Width of any polygons. Defaults to 0.75 if x or y is categorical. Otherwise NULL.}
+\item{width}{Width of any polygons. Defaults to 0.75 if x or y is categorical. Otherwise NULL.}
 
 \item{title}{Title string.}
 
