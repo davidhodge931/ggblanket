@@ -4,7 +4,7 @@
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.
 #' @param y Unquoted numeric variable to be on the y scale. Required input.
-#' @param dye Unquoted variable to dye and fill by.
+#' @param col Unquoted variable to col and fill by.
 #' @param facet Unquoted categorical variable to facet by.
 #' @param tooltip Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(..., tooltip = "text").
 #' @param position How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).
@@ -12,7 +12,7 @@
 #' @param bins
 #' @param binwidth
 #' @param pal Character vector of hex codes.
-#' @param pal_na The hex code or name of the NA dye to be used.
+#' @param pal_na The hex code or name of the NA col to be used.
 #' @param alpha_point Opacity of any points.
 #' @param alpha_line Opacity of any lines.
 #' @param alpha_fill Opacity of any polygons.
@@ -43,22 +43,22 @@
 #' @param y_rev For a categorical x variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
 #' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param dye_breaks For a numeric dye variable, a vector of breaks. If "continuous" dye_method is selected, this only affects the labels. If "bin" or "quantile" is selected, then this also affects the categories that dye is applied to. If "bin" dye_method is selected, the vector should start with -Inf and finish with Inf. If "quantile" dye_method is selected, the vector should start with 0 and finish with 1.
-#' @param dye_breaks_n For a numeric dye variable, the desired number of intervals on the dye scale.
-#' @param dye_intervals_left For a numeric dye variable of "bin" or "quantile" dye_method, TRUE or FALSE of whether bins or quantiles are to be cut left-closed. Defaults to TRUE.
-#' @param dye_labels A function or named vector to modify dye scale labels. Defaults to snakecase::to_sentence_case for categorical dye variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.
-#' @param dye_legend_bottom TRUE or FALSE of whether to position the legend horizontally on the bottom. Defaults to FALSE.
-#' @param dye_legend_mobile TRUE or FALSE of whether to position the legend for mobile vertically on the bottom. Defaults to FALSE.
-#' @param dye_legend_none TRUE or FALSE of whether to remove the legend.
-#' @param dye_legend_ncol The number of dyeumns for the legend elements.
-#' @param dye_legend_nrow The number of rows for the legend elements.
-#' @param dye_method The method of dyeing features, either "bin", "quantile", "continuous", or "factor". If numeric, defaults to "continuous".
-#' @param dye_na_rm TRUE or FALSE of whether to include dye NA values. Defaults to FALSE.
-#' @param dye_rev TRUE or FALSE of whether the dye scale is reversed. Defaults to FALSE.
-#' @param dye_title dye title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
+#' @param col_breaks For a numeric col variable, a vector of breaks. If "continuous" col_method is selected, this only affects the labels. If "bin" or "quantile" is selected, then this also affects the categories that col is applied to. If "bin" col_method is selected, the vector should start with -Inf and finish with Inf. If "quantile" col_method is selected, the vector should start with 0 and finish with 1.
+#' @param col_breaks_n For a numeric col variable, the desired number of intervals on the col scale.
+#' @param col_intervals_left For a numeric col variable of "bin" or "quantile" col_method, TRUE or FALSE of whether bins or quantiles are to be cut left-closed. Defaults to TRUE.
+#' @param col_labels A function or named vector to modify col scale labels. Defaults to snakecase::to_sentence_case for categorical col variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.
+#' @param col_legend_bottom TRUE or FALSE of whether to position the legend horizontally on the bottom. Defaults to FALSE.
+#' @param col_legend_mobile TRUE or FALSE of whether to position the legend for mobile vertically on the bottom. Defaults to FALSE.
+#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
+#' @param col_legend_ncol The number of columns for the legend elements.
+#' @param col_legend_nrow The number of rows for the legend elements.
+#' @param col_method The method of coling features, either "bin", "quantile", "continuous", or "factor". If numeric, defaults to "continuous".
+#' @param col_na_rm TRUE or FALSE of whether to include col NA values. Defaults to FALSE.
+#' @param col_rev TRUE or FALSE of whether the col scale is reversed. Defaults to FALSE.
+#' @param col_title col title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use function(x) x to keep labels untransformed.
 #' @param facet_na_rm TRUE or FALSE of whether to include facet NA values. Defaults to FALSE.
-#' @param facet_ncol The number of dyeumns of facetted plots.
+#' @param facet_ncol The number of columns of facetted plots.
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_rev TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -79,7 +79,7 @@
 #'   penguins,
 #'   x = bill_length_mm,
 #'   y = body_mass_g,
-#'   dye = sex,
+#'   col = sex,
 #' )
 #'
 #' gg_blank(
@@ -93,78 +93,78 @@
 #'   penguins,
 #'   x = bill_length_mm,
 #'   y = body_mass_g,
-#'   dye = sex,
+#'   col = sex,
 #'   facet = species
 #' )
 #'
 gg_blank <- function(data = NULL,
-                   x = NULL,
-                   y = NULL,
-                   dye = NULL,
-                   facet = NULL,
-                   tooltip = NULL,
-                   position = "identity",
-                   stat = "identity",
-                   bins = NULL,
-                   binwidth = NULL,
-                   pal = NULL,
-                   pal_na = "#7F7F7F",
-                   alpha_fill = 1,
-                   alpha_line = 1,
-                   alpha_point = 1,
-                   size_line = 0.5,
-                   size_point = 1.5,
-                   size_width = NULL,
-                   title = NULL,
-                   subtitle = NULL,
-                   x_balance = FALSE,
-                   x_breaks = NULL,
-                   x_breaks_n = NULL,
-                   x_expand = NULL,
-                   x_labels = NULL,
-                   x_limits = NULL,
-                   x_na_rm = FALSE,
-                   x_oob = scales::oob_keep,
-                   x_rev = FALSE,
-                   x_title = NULL,
-                   x_zero = NULL,
-                   y_balance = FALSE,
-                   y_breaks = NULL,
-                   y_breaks_n = NULL,
-                   y_expand = NULL,
-                   y_labels = NULL,
-                   y_limits = NULL,
-                   y_na_rm = FALSE,
-                   y_oob = scales::oob_keep,
-                   y_rev = FALSE,
-                   y_title = NULL,
-                   y_zero = TRUE,
-                   dye_breaks = NULL,
-                   dye_breaks_n = NULL,
-                   dye_intervals_left = TRUE,
-                   dye_labels = NULL,
-                   dye_legend_bottom = FALSE,
-                   dye_legend_none = FALSE,
-                   dye_legend_mobile = FALSE,
-                   dye_legend_ncol = NULL,
-                   dye_legend_nrow = NULL,
-                   dye_method = NULL,
-                   dye_na_rm = FALSE,
-                   dye_rev = FALSE,
-                   dye_title = NULL,
-                   facet_labels = snakecase::to_sentence_case,
-                   facet_na_rm = FALSE,
-                   facet_ncol = NULL,
-                   facet_nrow = NULL,
-                   facet_rev = FALSE,
-                   facet_scales = "fixed",
-                   caption = NULL,
-                   theme = NULL) {
+                     x = NULL,
+                     y = NULL,
+                     col = NULL,
+                     facet = NULL,
+                     tooltip = NULL,
+                     position = "identity",
+                     stat = "identity",
+                     bins = NULL,
+                     binwidth = NULL,
+                     pal = NULL,
+                     pal_na = "#7F7F7F",
+                     alpha_fill = 1,
+                     alpha_line = 1,
+                     alpha_point = 1,
+                     size_line = 0.5,
+                     size_point = 1.5,
+                     size_width = NULL,
+                     title = NULL,
+                     subtitle = NULL,
+                     x_balance = FALSE,
+                     x_breaks = NULL,
+                     x_breaks_n = NULL,
+                     x_expand = NULL,
+                     x_labels = NULL,
+                     x_limits = NULL,
+                     x_na_rm = FALSE,
+                     x_oob = scales::oob_keep,
+                     x_rev = FALSE,
+                     x_title = NULL,
+                     x_zero = NULL,
+                     y_balance = FALSE,
+                     y_breaks = NULL,
+                     y_breaks_n = NULL,
+                     y_expand = NULL,
+                     y_labels = NULL,
+                     y_limits = NULL,
+                     y_na_rm = FALSE,
+                     y_oob = scales::oob_keep,
+                     y_rev = FALSE,
+                     y_title = NULL,
+                     y_zero = TRUE,
+                     col_breaks = NULL,
+                     col_breaks_n = NULL,
+                     col_intervals_left = TRUE,
+                     col_labels = NULL,
+                     col_legend_bottom = FALSE,
+                     col_legend_none = FALSE,
+                     col_legend_mobile = FALSE,
+                     col_legend_ncol = NULL,
+                     col_legend_nrow = NULL,
+                     col_method = NULL,
+                     col_na_rm = FALSE,
+                     col_rev = FALSE,
+                     col_title = NULL,
+                     facet_labels = snakecase::to_sentence_case,
+                     facet_na_rm = FALSE,
+                     facet_ncol = NULL,
+                     facet_nrow = NULL,
+                     facet_rev = FALSE,
+                     facet_scales = "fixed",
+                     caption = NULL,
+                     theme = NULL) {
 
   #quote
   x <- rlang::enquo(x)
   y <- rlang::enquo(y)
-  dye <- rlang::enquo(dye)
+  col <- rlang::enquo(col)
   facet <- rlang::enquo(facet)
   tooltip <- rlang::enquo(tooltip)
 
@@ -172,7 +172,7 @@ gg_blank <- function(data = NULL,
   if (rlang::is_null(data)) rlang::abort("data is required")
   # if (rlang::quo_is_null(x)) rlang::abort("x is required")
   # if (rlang::quo_is_null(y)) rlang::abort("y is required")
-  if (!rlang::quo_is_null(dye)) rlang::inform(c("i" = "Note in {ggblanket} dye refers to both the {ggplot2} dye & fill aesthetics"))
+  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {ggblanket}, the {ggplot2} fill aesthetic inherits from col"))
   # rlang::inform(c("i" = "Note {ggblanket} gg_bar uses the {ggplot2} geom_blank function"))
   # if (is.null(position)) rlang::inform(c("i" = "Note {ggblanket} gg_bar uses a default of 'dodge2', where {ggplot2} uses a default of 'stack'"))
 
@@ -237,29 +237,29 @@ gg_blank <- function(data = NULL,
     }
   }
 
-  ###dye process
-  if (!rlang::quo_is_null(dye)) {
+  ###col process
+  if (!rlang::quo_is_null(col)) {
 
-    if (dye_na_rm) {
+    if (col_na_rm) {
       data <- data %>%
-        dplyr::filter(!is.na(!!dye))
+        dplyr::filter(!is.na(!!col))
     }
 
-    if (is.logical(rlang::eval_tidy(dye, data))) {
+    if (is.logical(rlang::eval_tidy(col, data))) {
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!dye, ~ factor(.x, levels = c("TRUE", "FALSE"))))
+        dplyr::mutate(dplyr::across(!!col, ~ factor(.x, levels = c("TRUE", "FALSE"))))
     }
 
-    if (is.factor(rlang::eval_tidy(dye, data)) | is.character(rlang::eval_tidy(dye, data))) {
+    if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
       if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
-        if (!dye_rev) {
+        if (!col_rev) {
           data <- data %>%
-            dplyr::mutate(dplyr::across(!!dye, ~ forcats::fct_rev(.x)))
+            dplyr::mutate(dplyr::across(!!col, ~ forcats::fct_rev(.x)))
         }
       }
-      else if (dye_rev) {
+      else if (col_rev) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!dye, ~ forcats::fct_rev(.x)))
+          dplyr::mutate(dplyr::across(!!col, ~ forcats::fct_rev(.x)))
       }
     }
   }
@@ -288,8 +288,8 @@ gg_blank <- function(data = NULL,
     }
   }
 
-  ##dye scale
-  if (rlang::quo_is_null(dye)) {
+  ##col scale
+  if (rlang::quo_is_null(col)) {
     if (rlang::is_null(pal)) pal <-  pal_viridis_reorder(1)
     else pal <- pal[1]
 
@@ -301,7 +301,7 @@ gg_blank <- function(data = NULL,
     pal_fill <- scales::alpha(pal, alpha = alpha_fill)
     pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
 
-    dye_scale <- ggplot2::scale_colour_manual(
+    col_scale <- ggplot2::scale_colour_manual(
       values = pal_col,
       drop = FALSE,
       labels = NULL,
@@ -310,52 +310,52 @@ gg_blank <- function(data = NULL,
       aesthetics = c("col", "fill")
     )
   }
-  else if (rlang::is_null(dye_method)) {
-    if (!is.numeric(rlang::eval_tidy(dye, data))) dye_method <- "factor"
-    else if (is.numeric(rlang::eval_tidy(dye, data))) dye_method <- "continuous"
+  else if (rlang::is_null(col_method)) {
+    if (!is.numeric(rlang::eval_tidy(col, data))) col_method <- "factor"
+    else if (is.numeric(rlang::eval_tidy(col, data))) col_method <- "continuous"
   }
 
-  if (!rlang::quo_is_null(dye)) {
-    if (rlang::is_null(dye_title)) dye_title <- snakecase::to_sentence_case(rlang::as_name(dye))
+  if (!rlang::quo_is_null(col)) {
+    if (rlang::is_null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col))
 
-    if (dye_method == "continuous") {
-      if (is.null(dye_breaks_n)) dye_breaks_n <- 2
+    if (col_method == "continuous") {
+      if (is.null(col_breaks_n)) col_breaks_n <- 2
       if (rlang::is_null(pal)) pal <- viridis::viridis(100)
-      if (rlang::is_null(dye_breaks)) dye_breaks <- pretty(rlang::eval_tidy(dye, data), dye_breaks_n)
-      if (rlang::is_null(dye_labels)) dye_labels <- scales::label_comma()
+      if (rlang::is_null(col_breaks)) col_breaks <- pretty(rlang::eval_tidy(col, data), col_breaks_n)
+      if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
     }
-    else if (dye_method %in% c("quantile", "bin", "factor")) {
-      if (dye_method %in% c("quantile", "bin")) {
-        if (is.null(dye_breaks_n)) dye_breaks_n <- 4
-        if (dye_method == "quantile") {
-          if (rlang::is_null(dye_breaks)) dye_breaks <- seq(0, 1, 1 / dye_breaks_n)
-          dye_breaks <- stats::quantile(rlang::eval_tidy(dye, data), probs = dye_breaks, na.rm = TRUE)
-          if (anyDuplicated(dye_breaks) > 0) stop("dye_breaks do not provide unique breaks")
+    else if (col_method %in% c("quantile", "bin", "factor")) {
+      if (col_method %in% c("quantile", "bin")) {
+        if (is.null(col_breaks_n)) col_breaks_n <- 4
+        if (col_method == "quantile") {
+          if (rlang::is_null(col_breaks)) col_breaks <- seq(0, 1, 1 / col_breaks_n)
+          col_breaks <- stats::quantile(rlang::eval_tidy(col, data), probs = col_breaks, na.rm = TRUE)
+          if (anyDuplicated(col_breaks) > 0) stop("col_breaks do not provide unique breaks")
         }
-        else if (dye_method == "bin") {
-          if (rlang::is_null(dye_breaks)) dye_breaks <- pretty(rlang::eval_tidy(dye, data), dye_breaks_n)
+        else if (col_method == "bin") {
+          if (rlang::is_null(col_breaks)) col_breaks <- pretty(rlang::eval_tidy(col, data), col_breaks_n)
         }
 
-        if (rlang::is_null(dye_labels)) dye_labels <- scales::label_comma()
+        if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
 
-        if (is.vector(dye_labels)) {
+        if (is.vector(col_labels)) {
           santoku_labeller <- santoku::lbl_dash(
             symbol = "\u2013", first = "<{r}", last = "\u2265{r}")
         }
         else {
           santoku_labeller <- santoku::lbl_dash(
-            fmt = dye_labels,
+            fmt = col_labels,
             symbol = "\u2013", first = "<{r}", last = "\u2265{r}")
 
-          dye_labels <- ggplot2::waiver()
+          col_labels <- ggplot2::waiver()
         }
 
         data <- data %>%
           dplyr::mutate(dplyr::across(
-            !!dye,
+            !!col,
             ~ santoku::chop(
               .x,
-              breaks = dye_breaks,
+              breaks = col_breaks,
               left = TRUE,
               close_end = TRUE,
               drop = FALSE,
@@ -363,20 +363,20 @@ gg_blank <- function(data = NULL,
             )
           ))
 
-        dye_n <- length(dye_breaks) - 1
-        if (rlang::is_null(pal)) pal <- pal_viridis_reorder(dye_n)
-        else pal <- pal[1:dye_n]
+        col_n <- length(col_breaks) - 1
+        if (rlang::is_null(pal)) pal <- pal_viridis_reorder(col_n)
+        else pal <- pal[1:col_n]
       }
-      else if (dye_method == "factor") {
-        if (is.factor(rlang::eval_tidy(dye, data)) & !rlang::is_null(levels(rlang::eval_tidy(dye, data)))) {
-          dye_n <- length(levels(rlang::eval_tidy(dye, data)))
+      else if (col_method == "factor") {
+        if (is.factor(rlang::eval_tidy(col, data)) & !rlang::is_null(levels(rlang::eval_tidy(col, data)))) {
+          col_n <- length(levels(rlang::eval_tidy(col, data)))
         }
-        else dye_n <- length(unique(rlang::eval_tidy(dye, data)))
+        else col_n <- length(unique(rlang::eval_tidy(col, data)))
 
-        if (rlang::is_null(pal)) pal <- pal_d3_reorder(dye_n)
-        else pal <- pal[1:dye_n]
+        if (rlang::is_null(pal)) pal <- pal_d3_reorder(col_n)
+        else pal <- pal[1:col_n]
 
-        if (rlang::is_null(dye_labels)) dye_labels <- snakecase::to_sentence_case
+        if (rlang::is_null(col_labels)) col_labels <- snakecase::to_sentence_case
       }
     }
 
@@ -388,48 +388,48 @@ gg_blank <- function(data = NULL,
     pal_fill <- scales::alpha(pal, alpha = alpha_fill)
     pal_na_fill <- scales::alpha(pal_na, alpha = alpha_fill)
 
-    dye_title_position <- ifelse(dye_title == "", "right", "top")
+    col_title_position <- ifelse(col_title == "", "right", "top")
 
-    if (dye_method == "continuous") {
-      dye_scale <- ggplot2::scale_colour_gradientn(
+    if (col_method == "continuous") {
+      col_scale <- ggplot2::scale_colour_gradientn(
         colors = pal_col,
-        labels = dye_labels,
-        breaks = dye_breaks,
+        labels = col_labels,
+        breaks = col_breaks,
         na.value = pal_na_col,
-        name = dye_title,
-        aesthetics = c("dye", "fill"),
-        guide = ggplot2::guide_colorbar(title.position = dye_title_position)
+        name = col_title,
+        aesthetics = c("col", "fill"),
+        guide = ggplot2::guide_colorbar(title.position = col_title_position)
       )
     }
-    else if (dye_method %in% c("quantile", "bin", "factor")) {
+    else if (col_method %in% c("quantile", "bin", "factor")) {
       if (is.numeric(rlang::eval_tidy(y, data)) |
           lubridate::is.Date(rlang::eval_tidy(y, data)) |
           lubridate::is.POSIXt(rlang::eval_tidy(y, data))) {
-        if (dye_method == "factor") dye_legend_rev <- FALSE
-        else if (dye_method %in% c("bin", "quantile") & dye_legend_bottom) dye_legend_rev <- FALSE
-        else dye_legend_rev <- TRUE
+        if (col_method == "factor") col_legend_rev <- FALSE
+        else if (col_method %in% c("bin", "quantile") & col_legend_bottom) col_legend_rev <- FALSE
+        else col_legend_rev <- TRUE
       }
       else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
-        if (dye_method == "factor") dye_legend_rev <- TRUE
-        else if (dye_method %in% c("bin", "quantile") & dye_legend_bottom) dye_legend_rev <- TRUE
-        else dye_legend_rev <- FALSE
+        if (col_method == "factor") col_legend_rev <- TRUE
+        else if (col_method %in% c("bin", "quantile") & col_legend_bottom) col_legend_rev <- TRUE
+        else col_legend_rev <- FALSE
         pal_col <- rev(pal_col)
         pal_fill <- rev(pal_fill)
       }
-      else dye_legend_rev <- FALSE
+      else col_legend_rev <- FALSE
 
-      dye_scale <- ggplot2::scale_colour_manual(
+      col_scale <- ggplot2::scale_colour_manual(
         values = pal_col,
         drop = FALSE,
-        labels = dye_labels,
+        labels = col_labels,
         na.value = pal_na_col, #check
-        name = dye_title,
+        name = col_title,
         aesthetics = c("col", "fill"),
         guide = ggplot2::guide_legend(
-          reverse = dye_legend_rev,
-          title.position = dye_title_position,
-          ncol = dye_legend_ncol,
-          nrow = dye_legend_nrow,
+          reverse = col_legend_rev,
+          title.position = col_title_position,
+          ncol = col_legend_ncol,
+          nrow = col_legend_nrow,
           byrow = TRUE
         )
       )
@@ -438,13 +438,13 @@ gg_blank <- function(data = NULL,
 
   ###plot
   if (!rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
-    if (!rlang::quo_is_null(dye)) {
+    if (!rlang::quo_is_null(col)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
-          col = !!dye,
-          fill = !!dye #check
+          col = !!col,
+          fill = !!col #check
         ))
     }
     else {
@@ -458,13 +458,13 @@ gg_blank <- function(data = NULL,
     }
   }
   else if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
-    if (!rlang::quo_is_null(dye)) {
+    if (!rlang::quo_is_null(col)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           # y = !!y,
-          col = !!dye,
-          fill = !!dye #check
+          col = !!col,
+          fill = !!col #check
         ))
     }
     else {
@@ -478,13 +478,13 @@ gg_blank <- function(data = NULL,
     }
   }
   else if (rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
-    if (!rlang::quo_is_null(dye)) {
+    if (!rlang::quo_is_null(col)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           # x = !!x,
           y = !!y,
-          col = !!dye,
-          fill = !!dye #check
+          col = !!col,
+          fill = !!col #check
         ))
     }
     else {
@@ -498,13 +498,13 @@ gg_blank <- function(data = NULL,
     }
   }
   else if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
-    if (!rlang::quo_is_null(dye)) {
+    if (!rlang::quo_is_null(col)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           # x = !!x,
           # y = !!y,
-          col = !!dye,
-          fill = !!dye #check
+          col = !!col,
+          fill = !!col #check
         ))
     }
     else {
@@ -532,7 +532,7 @@ gg_blank <- function(data = NULL,
       bins = bins,
       binwidth = binwidth
     ) +
-    dye_scale
+    col_scale
 
   if (!rlang::quo_is_null(facet)) {
     plot <- plot +
@@ -545,17 +545,17 @@ gg_blank <- function(data = NULL,
       )
   }
 
-  if (dye_legend_bottom) {
+  if (col_legend_bottom) {
     plot <- plot +
       ggplot2::theme(legend.direction = "horizontal") +
       ggplot2::theme(legend.position = "bottom")
   }
-  if (dye_legend_mobile) {
+  if (col_legend_mobile) {
     plot <- plot +
       ggplot2::theme(legend.position = "bottom") +
       ggplot2::theme(legend.direction = "vertical")
   }
-  if (dye_legend_none) {
+  if (col_legend_none) {
     plot <- plot +
       ggplot2::theme(legend.position = "none")
   }
@@ -740,7 +740,7 @@ gg_blank <- function(data = NULL,
     y_scale +
     ggplot2::coord_cartesian(clip = "off")
 
-  if (rlang::quo_is_null(dye)) {
+  if (rlang::quo_is_null(col)) {
     plot <- plot +
       ggplot2::theme(legend.position = "none")
   }

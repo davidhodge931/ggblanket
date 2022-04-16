@@ -8,7 +8,7 @@ gg_blank(
   data = NULL,
   x = NULL,
   y = NULL,
-  dye = NULL,
+  col = NULL,
   facet = NULL,
   tooltip = NULL,
   position = "identity",
@@ -47,19 +47,19 @@ gg_blank(
   y_rev = FALSE,
   y_title = NULL,
   y_zero = TRUE,
-  dye_breaks = NULL,
-  dye_breaks_n = NULL,
-  dye_intervals_left = TRUE,
-  dye_labels = NULL,
-  dye_legend_bottom = FALSE,
-  dye_legend_none = FALSE,
-  dye_legend_mobile = FALSE,
-  dye_legend_ncol = NULL,
-  dye_legend_nrow = NULL,
-  dye_method = NULL,
-  dye_na_rm = FALSE,
-  dye_rev = FALSE,
-  dye_title = NULL,
+  col_breaks = NULL,
+  col_breaks_n = NULL,
+  col_intervals_left = TRUE,
+  col_labels = NULL,
+  col_legend_bottom = FALSE,
+  col_legend_none = FALSE,
+  col_legend_mobile = FALSE,
+  col_legend_ncol = NULL,
+  col_legend_nrow = NULL,
+  col_method = NULL,
+  col_na_rm = FALSE,
+  col_rev = FALSE,
+  col_title = NULL,
   facet_labels = snakecase::to_sentence_case,
   facet_na_rm = FALSE,
   facet_ncol = NULL,
@@ -77,7 +77,7 @@ gg_blank(
 
 \item{y}{Unquoted numeric variable to be on the y scale. Required input.}
 
-\item{dye}{Unquoted variable to dye and fill by.}
+\item{col}{Unquoted variable to col and fill by.}
 
 \item{facet}{Unquoted categorical variable to facet by.}
 
@@ -87,7 +87,7 @@ gg_blank(
 
 \item{pal}{Character vector of hex codes.}
 
-\item{pal_na}{The hex code or name of the NA dye to be used.}
+\item{pal_na}{The hex code or name of the NA col to be used.}
 
 \item{alpha_fill}{Opacity of any polygons.}
 
@@ -149,37 +149,37 @@ gg_blank(
 
 \item{y_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
-\item{dye_breaks}{For a numeric dye variable, a vector of breaks. If "continuous" dye_method is selected, this only affects the labels. If "bin" or "quantile" is selected, then this also affects the categories that dye is applied to. If "bin" dye_method is selected, the vector should start with -Inf and finish with Inf. If "quantile" dye_method is selected, the vector should start with 0 and finish with 1.}
+\item{col_breaks}{For a numeric col variable, a vector of breaks. If "continuous" col_method is selected, this only affects the labels. If "bin" or "quantile" is selected, then this also affects the categories that col is applied to. If "bin" col_method is selected, the vector should start with -Inf and finish with Inf. If "quantile" col_method is selected, the vector should start with 0 and finish with 1.}
 
-\item{dye_breaks_n}{For a numeric dye variable, the desired number of intervals on the dye scale.}
+\item{col_breaks_n}{For a numeric col variable, the desired number of intervals on the col scale.}
 
-\item{dye_intervals_left}{For a numeric dye variable of "bin" or "quantile" dye_method, TRUE or FALSE of whether bins or quantiles are to be cut left-closed. Defaults to TRUE.}
+\item{col_intervals_left}{For a numeric col variable of "bin" or "quantile" col_method, TRUE or FALSE of whether bins or quantiles are to be cut left-closed. Defaults to TRUE.}
 
-\item{dye_labels}{A function or named vector to modify dye scale labels. Defaults to snakecase::to_sentence_case for categorical dye variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.}
+\item{col_labels}{A function or named vector to modify col scale labels. Defaults to snakecase::to_sentence_case for categorical col variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.}
 
-\item{dye_legend_bottom}{TRUE or FALSE of whether to position the legend horizontally on the bottom. Defaults to FALSE.}
+\item{col_legend_bottom}{TRUE or FALSE of whether to position the legend horizontally on the bottom. Defaults to FALSE.}
 
-\item{dye_legend_none}{TRUE or FALSE of whether to remove the legend.}
+\item{col_legend_none}{TRUE or FALSE of whether to remove the legend.}
 
-\item{dye_legend_mobile}{TRUE or FALSE of whether to position the legend for mobile vertically on the bottom. Defaults to FALSE.}
+\item{col_legend_mobile}{TRUE or FALSE of whether to position the legend for mobile vertically on the bottom. Defaults to FALSE.}
 
-\item{dye_legend_ncol}{The number of dyeumns for the legend elements.}
+\item{col_legend_ncol}{The number of columns for the legend elements.}
 
-\item{dye_legend_nrow}{The number of rows for the legend elements.}
+\item{col_legend_nrow}{The number of rows for the legend elements.}
 
-\item{dye_method}{The method of dyeing features, either "bin", "quantile", "continuous", or "factor". If numeric, defaults to "continuous".}
+\item{col_method}{The method of coling features, either "bin", "quantile", "continuous", or "factor". If numeric, defaults to "continuous".}
 
-\item{dye_na_rm}{TRUE or FALSE of whether to include dye NA values. Defaults to FALSE.}
+\item{col_na_rm}{TRUE or FALSE of whether to include col NA values. Defaults to FALSE.}
 
-\item{dye_rev}{TRUE or FALSE of whether the dye scale is reversed. Defaults to FALSE.}
+\item{col_rev}{TRUE or FALSE of whether the col scale is reversed. Defaults to FALSE.}
 
-\item{dye_title}{dye title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
+\item{col_title}{col title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
 \item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use function(x) x to keep labels untransformed.}
 
 \item{facet_na_rm}{TRUE or FALSE of whether to include facet NA values. Defaults to FALSE.}
 
-\item{facet_ncol}{The number of dyeumns of facetted plots.}
+\item{facet_ncol}{The number of columns of facetted plots.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 
@@ -210,7 +210,7 @@ gg_blank(
   penguins,
   x = bill_length_mm,
   y = body_mass_g,
-  dye = sex,
+  col = sex,
 )
 
 gg_blank(
@@ -224,7 +224,7 @@ gg_blank(
   penguins,
   x = bill_length_mm,
   y = body_mass_g,
-  dye = sex,
+  col = sex,
   facet = species
 )
 
