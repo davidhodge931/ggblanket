@@ -120,9 +120,9 @@ gg_blank(
 
 \item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
 
-\item{y_breaks}{For a numeric or date x variable, a vector of breaks for the x axis. Note the x_limits will be the min and max of this vector.}
+\item{y_breaks}{For a numeric or date y variable, a vector of breaks for the y axis.}
 
-\item{y_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.}
+\item{y_breaks_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm.}
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 

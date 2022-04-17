@@ -30,8 +30,8 @@
 #' @param x_title x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero.
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
-#' @param y_breaks For a numeric or date x variable, a vector of breaks for the x axis. Note the x_limits will be the min and max of this vector.
-#' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.
+#' @param y_breaks For a numeric or date y variable, a vector of breaks for the y axis.
+#' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.
 #' @param y_labels A function or named vector to modify y scale labels. Use function(x) x to keep labels untransformed.
 #' @param y_limits For a numeric or date y variable, a vector of length 2 to determine the limits of the y axis. Use c(NA, NA) for the min and max of the y variable.
@@ -551,7 +551,7 @@ gg_blank <- function(data = NULL,
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
           if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
-          if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+          if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
           x_breaks <- pretty(x_min_max, n = x_breaks_n)
         }
 
@@ -618,7 +618,7 @@ gg_blank <- function(data = NULL,
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
           if (y_balance) y_min_max <- c(-y_min_max, y_min_max)
-          if (rlang::is_null(y_breaks_n)) y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
+          if (rlang::is_null(y_breaks_n)) y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
           y_breaks <- pretty(y_min_max, n = y_breaks_n)
         }
 
@@ -712,7 +712,7 @@ gg_blank <- function(data = NULL,
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
           if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
-          if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+          if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
           x_breaks <- pretty(x_min_max, n = x_breaks_n)
         }
 
