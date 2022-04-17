@@ -70,7 +70,7 @@ gg_blank(
 \arguments{
 \item{data}{A data frame in a structure to be plotted untransformed. Required input.}
 
-\item{x}{Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, date or POSIXt). Required input.}
+\item{x}{Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, or date). Required input.}
 
 \item{y}{Unquoted numeric variable to be on the y scale. Required input.}
 
