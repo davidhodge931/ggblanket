@@ -112,14 +112,15 @@ gg_blank <- function(data = NULL,
                      # ymax = NULL,
                      # yend = NULL,
                      tooltip = NULL,
-                     stat = "identity",
-                     position = "identity",
-                     bins = NULL,
-                     binwidth = NULL,
+                     ...,
+                     # stat = "identity",
+                     # position = "identity",
+                     # bins = NULL,
+                     # binwidth = NULL,
                      palette = NULL,
                      palette_na = "#7F7F7F",
-                     alpha = 1,
-                     size = 0.5,
+                     # alpha = 1,
+                     # size = 0.5,
                      width = NULL,
                      title = NULL,
                      subtitle = NULL,
@@ -147,7 +148,6 @@ gg_blank <- function(data = NULL,
                      y_zero = TRUE,
                      col_breaks = NULL,
                      col_breaks_n = NULL,
-                     col_drop = FALSE,
                      col_intervals_left = TRUE,
                      col_labels = NULL,
                      col_legend_bottom = FALSE,
@@ -301,13 +301,13 @@ gg_blank <- function(data = NULL,
   }
 
   ###width
-  if (is.null(width)) {
-    if (is.factor(rlang::eval_tidy(x, data)) | is.character(rlang::eval_tidy(x, data)) |
-        is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
-
-      width <- 0.75
-    }
-  }
+  # if (is.null(width)) {
+  #   if (is.factor(rlang::eval_tidy(x, data)) | is.character(rlang::eval_tidy(x, data)) |
+  #       is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
+  #
+  #     width <- 0.75
+  #   }
+  # }
 
   ##col scale
   if (rlang::quo_is_null(col)) {
@@ -319,7 +319,6 @@ gg_blank <- function(data = NULL,
     col_scale <- ggplot2::scale_colour_manual(
       values = palette,
       breaks = col_breaks,
-      drop = col_drop,
       labels = NULL,
       na.value = palette_na, #check
       name = NULL,
@@ -432,7 +431,6 @@ gg_blank <- function(data = NULL,
       col_scale <- ggplot2::scale_colour_manual(
         values = palette,
         breaks = col_breaks,
-        drop = col_drop,
         labels = col_labels,
         na.value = palette_na,
         name = col_title,
@@ -568,13 +566,14 @@ gg_blank <- function(data = NULL,
                    # ymax = !!ymax,
                    # yend = !!yend
       ),
-      alpha = alpha,
-      size = size,
-      width = width,
-      position = position,
-      stat = stat,
-      bins = bins,
-      binwidth = binwidth
+      ...
+      # alpha = alpha,
+      # size = size,
+      # width = width,
+      # position = position,
+      # stat = stat,
+      # bins = bins,
+      # binwidth = binwidth
     )
 
   if (!rlang::quo_is_null(facet)) {

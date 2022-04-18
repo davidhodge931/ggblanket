@@ -11,14 +11,9 @@ gg_blank(
   col = NULL,
   facet = NULL,
   tooltip = NULL,
-  stat = "identity",
-  position = "identity",
-  bins = NULL,
-  binwidth = NULL,
+  ...,
   palette = NULL,
   palette_na = "#7F7F7F",
-  alpha = 1,
-  size = 0.5,
   width = NULL,
   title = NULL,
   subtitle = NULL,
@@ -46,7 +41,6 @@ gg_blank(
   y_zero = TRUE,
   col_breaks = NULL,
   col_breaks_n = NULL,
-  col_drop = FALSE,
   col_intervals_left = TRUE,
   col_labels = NULL,
   col_legend_bottom = FALSE,
@@ -81,15 +75,9 @@ gg_blank(
 
 \item{tooltip}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(..., tooltip = "text").}
 
-\item{position}{How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).}
-
 \item{palette}{Character vector of hex codes.}
 
 \item{palette_na}{The hex code or name of the NA col to be used.}
-
-\item{alpha}{Opacity argument per ggplot2::geom_* function.}
-
-\item{size}{Size argument per ggplot2::geom_* function. Defaults to 0.5.}
 
 \item{width}{Width of any polygons. Defaults to 0.75 if x or y is categorical. Otherwise NULL.}
 
@@ -182,6 +170,12 @@ gg_blank(
 \item{caption}{Caption title string.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{position}{How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).}
+
+\item{alpha}{Opacity argument per ggplot2::geom_* function.}
+
+\item{size}{Size argument per ggplot2::geom_* function. Defaults to 0.5.}
 }
 \value{
 A ggplot object.
