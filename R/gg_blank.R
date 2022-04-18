@@ -6,6 +6,12 @@
 #' @param y Unquoted numeric variable to be on the y scale. Required input.
 #' @param col Unquoted variable to col and fill by.
 #' @param facet Unquoted categorical variable to facet by.
+#' @param xmin
+#' @param xmax
+#' @param xend
+#' @param ymin
+#' @param ymax
+#' @param yend
 #' @param tooltip Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(..., tooltip = "text").
 #' @param stat
 #' @param position How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).
@@ -99,6 +105,12 @@ gg_blank <- function(data = NULL,
                      y = NULL,
                      col = NULL,
                      facet = NULL,
+                     # xmin = NULL,
+                     # xmax = NULL,
+                     # xend = NULL,
+                     # ymin = NULL,
+                     # ymax = NULL,
+                     # yend = NULL,
                      tooltip = NULL,
                      stat = "identity",
                      position = "identity",
@@ -161,6 +173,14 @@ gg_blank <- function(data = NULL,
   y <- rlang::enquo(y)
   col <- rlang::enquo(col)
   facet <- rlang::enquo(facet)
+
+  # xmin <- rlang::enquo(xmin)
+  # xmax <- rlang::enquo(xmax)
+  # xend <- rlang::enquo(xend)
+  # ymin <- rlang::enquo(ymin)
+  # ymax <- rlang::enquo(ymax)
+  # yend <- rlang::enquo(yend)
+
   tooltip <- rlang::enquo(tooltip)
 
   #stop, warn or message
@@ -436,7 +456,13 @@ gg_blank <- function(data = NULL,
           x = !!x,
           y = !!y,
           col = !!col,
-          fill = !!col
+          fill = !!col,
+          # xmin = !!xmin,
+          # xmax = !!xmax,
+          # xend = !!xend,
+          # ymin = !!ymin,
+          # ymax = !!ymax,
+          # yend = !!yend
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -445,7 +471,13 @@ gg_blank <- function(data = NULL,
           x = !!x,
           y = !!y,
           col = "1",
-          fill = "1"
+          fill = "1",
+          # xmin = !!xmin,
+          # xmax = !!xmax,
+          # xend = !!xend,
+          # ymin = !!ymin,
+          # ymax = !!ymax,
+          # yend = !!yend
         ))
     }
   }
@@ -455,7 +487,13 @@ gg_blank <- function(data = NULL,
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           col = !!col,
-          fill = !!col
+          fill = !!col,
+          # xmin = !!xmin,
+          # xmax = !!xmax,
+          # xend = !!xend,
+          # ymin = !!ymin,
+          # ymax = !!ymax,
+          # yend = !!yend
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -463,7 +501,13 @@ gg_blank <- function(data = NULL,
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           col = "1",
-          fill = "1"
+          fill = "1",
+          # xmin = !!xmin,
+          # xmax = !!xmax,
+          # xend = !!xend,
+          # ymin = !!ymin,
+          # ymax = !!ymax,
+          # yend = !!yend
         ))
     }
   }
@@ -473,7 +517,13 @@ gg_blank <- function(data = NULL,
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
           col = !!col,
-          fill = !!col
+          fill = !!col,
+          # xmin = !!xmin,
+          # xmax = !!xmax,
+          # xend = !!xend,
+          # ymin = !!ymin,
+          # ymax = !!ymax,
+          # yend = !!yend
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -481,7 +531,13 @@ gg_blank <- function(data = NULL,
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
           col = "1",
-          fill = "1"
+          fill = "1",
+          # xmin = !!xmin,
+          # xmax = !!xmax,
+          # xend = !!xend,
+          # ymin = !!ymin,
+          # ymax = !!ymax,
+          # yend = !!yend
         ))
     }
   }
@@ -504,7 +560,14 @@ gg_blank <- function(data = NULL,
 
   plot <- plot +
     ggplot2::geom_blank(
-      ggplot2::aes(text = !!tooltip),
+      ggplot2::aes(text = !!tooltip,
+                   # xmin = !!xmin,
+                   # xmax = !!xmax,
+                   # xend = !!xend,
+                   # ymin = !!ymin,
+                   # ymax = !!ymax,
+                   # yend = !!yend
+      ),
       alpha = alpha,
       size = size,
       width = width,
