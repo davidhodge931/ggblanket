@@ -15,8 +15,8 @@ gg_blank(
   position = "identity",
   bins = NULL,
   binwidth = NULL,
-  pal = NULL,
-  pal_na = "#7F7F7F",
+  palette = NULL,
+  palette_na = "#7F7F7F",
   alpha = 1,
   size = 0.5,
   width = NULL,
@@ -46,6 +46,7 @@ gg_blank(
   y_zero = TRUE,
   col_breaks = NULL,
   col_breaks_n = NULL,
+  col_drop = FALSE,
   col_intervals_left = TRUE,
   col_labels = NULL,
   col_legend_bottom = FALSE,
@@ -82,9 +83,9 @@ gg_blank(
 
 \item{position}{How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).}
 
-\item{pal}{Character vector of hex codes.}
+\item{palette}{Character vector of hex codes.}
 
-\item{pal_na}{The hex code or name of the NA col to be used.}
+\item{palette_na}{The hex code or name of the NA col to be used.}
 
 \item{alpha}{Opacity argument per ggplot2::geom_* function.}
 

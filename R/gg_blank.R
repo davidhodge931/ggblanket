@@ -11,8 +11,8 @@
 #' @param position How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).
 #' @param bins
 #' @param binwidth
-#' @param pal Character vector of hex codes.
-#' @param pal_na The hex code or name of the NA col to be used.
+#' @param palette Character vector of hex codes.
+#' @param palette_na The hex code or name of the NA col to be used.
 #' @param alpha Opacity argument per ggplot2::geom_* function.
 #' @param size Size argument per ggplot2::geom_* function. Defaults to 0.5.
 #' @param width Width of any polygons. Defaults to 0.75 if x or y is categorical. Otherwise NULL.
@@ -104,8 +104,8 @@ gg_blank <- function(data = NULL,
                      position = "identity",
                      bins = NULL,
                      binwidth = NULL,
-                     pal = NULL,
-                     pal_na = "#7F7F7F",
+                     palette = NULL,
+                     palette_na = "#7F7F7F",
                      alpha = 1,
                      size = 0.5,
                      width = NULL,
@@ -135,6 +135,7 @@ gg_blank <- function(data = NULL,
                      y_zero = TRUE,
                      col_breaks = NULL,
                      col_breaks_n = NULL,
+                     col_drop = FALSE,
                      col_intervals_left = TRUE,
                      col_labels = NULL,
                      col_legend_bottom = FALSE,
@@ -290,14 +291,17 @@ gg_blank <- function(data = NULL,
 
   ##col scale
   if (rlang::quo_is_null(col)) {
-    if (rlang::is_null(pal)) pal <-  pal_viridis_reorder(1)
-    else pal <- pal[1]
+    if (rlang::is_null(palette)) palette <-  pal_viridis_reorder(1)
+    else palette <- palette[1]
+
+    if (is.null(col_breaks)) col_breaks <- ggplot2::waiver()
 
     col_scale <- ggplot2::scale_colour_manual(
-      values = pal,
-      drop = FALSE,
+      values = palette,
+      breaks = col_breaks,
+      drop = col_drop,
       labels = NULL,
-      na.value = pal_na, #check
+      na.value = palette_na, #check
       name = NULL,
       aesthetics = c("col", "fill")
     )
@@ -315,7 +319,7 @@ gg_blank <- function(data = NULL,
         if (col_legend_bottom) col_breaks_n <- 3
         if (!col_legend_bottom) col_breaks_n <- 4
       }
-      if (rlang::is_null(pal)) pal <- viridis::viridis(100)
+      if (rlang::is_null(palette)) palette <- viridis::viridis(100)
       if (rlang::is_null(col_breaks)) col_breaks <- pretty(rlang::eval_tidy(col, data), col_breaks_n)
       if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
     }
@@ -359,8 +363,8 @@ gg_blank <- function(data = NULL,
           ))
 
         col_n <- length(col_breaks) - 1
-        if (rlang::is_null(pal)) pal <- pal_viridis_reorder(col_n)
-        else pal <- pal[1:col_n]
+        if (rlang::is_null(palette)) palette <- pal_viridis_reorder(col_n)
+        else palette <- palette[1:col_n]
       }
       else if (col_method == "factor") {
         if (is.factor(rlang::eval_tidy(col, data)) & !rlang::is_null(levels(rlang::eval_tidy(col, data)))) {
@@ -368,8 +372,8 @@ gg_blank <- function(data = NULL,
         }
         else col_n <- length(unique(rlang::eval_tidy(col, data)))
 
-        if (rlang::is_null(pal)) pal <- pal_d3_reorder(col_n)
-        else pal <- pal[1:col_n]
+        if (rlang::is_null(palette)) palette <- pal_d3_reorder(col_n)
+        else palette <- palette[1:col_n]
 
         if (rlang::is_null(col_labels)) col_labels <- snakecase::to_sentence_case
       }
@@ -379,10 +383,10 @@ gg_blank <- function(data = NULL,
 
     if (col_method == "continuous") {
       col_scale <- ggplot2::scale_colour_gradientn(
-        colors = pal,
+        colors = palette,
         labels = col_labels,
         breaks = col_breaks,
-        na.value = pal_na,
+        na.value = palette_na,
         name = col_title,
         aesthetics = c("col", "fill"),
         guide = ggplot2::guide_colorbar(title.position = col_title_position)
@@ -399,15 +403,18 @@ gg_blank <- function(data = NULL,
         if (col_method == "factor") col_legend_rev <- TRUE
         else if (col_method %in% c("bin", "quantile") & col_legend_bottom) col_legend_rev <- TRUE
         else col_legend_rev <- FALSE
-        pal <- rev(pal) #there was 2 rev pals here ??
+        palette <- rev(palette) #there was 2 rev palettes here ??
       }
       else col_legend_rev <- FALSE
 
+      if (is.null(col_breaks)) col_breaks <- ggplot2::waiver()
+
       col_scale <- ggplot2::scale_colour_manual(
-        values = pal,
-        drop = FALSE,
+        values = palette,
+        breaks = col_breaks,
+        drop = col_drop,
         labels = col_labels,
-        na.value = pal_na,
+        na.value = palette_na,
         name = col_title,
         aesthetics = c("col", "fill"),
         guide = ggplot2::guide_legend(
@@ -551,7 +558,7 @@ gg_blank <- function(data = NULL,
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
           if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
-          if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
+          if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
           x_breaks <- pretty(x_min_max, n = x_breaks_n)
         }
 
