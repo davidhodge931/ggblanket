@@ -449,6 +449,7 @@ gg_blank <- function(data = NULL,
   }
 
   ###plot
+  ###no xmin, xmax, xend, ymin, ymax, yend
   if (!rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
     if (!rlang::quo_is_null(col)) {
       plot <- data %>%
@@ -457,13 +458,7 @@ gg_blank <- function(data = NULL,
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group,
-          # xmin = !!xmin,
-          # xmax = !!xmax,
-          # xend = !!xend,
-          # ymin = !!ymin,
-          # ymax = !!ymax,
-          # yend = !!yend
+          group = !!group
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -473,13 +468,7 @@ gg_blank <- function(data = NULL,
           y = !!y,
           col = "1",
           fill = "1",
-          group = !!group,
-          # xmin = !!xmin,
-          # xmax = !!xmax,
-          # xend = !!xend,
-          # ymin = !!ymin,
-          # ymax = !!ymax,
-          # yend = !!yend
+          group = !!group
         ))
     }
   }
@@ -491,12 +480,7 @@ gg_blank <- function(data = NULL,
           col = !!col,
           fill = !!col,
           group = !!group,
-          # xmin = !!xmin,
-          # xmax = !!xmax,
-          # xend = !!xend,
-          # ymin = !!ymin,
-          # ymax = !!ymax,
-          # yend = !!yend
+          xmin = !!xmin
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -505,13 +489,7 @@ gg_blank <- function(data = NULL,
           x = !!x,
           col = "1",
           fill = "1",
-          group = !!group,
-          # xmin = !!xmin,
-          # xmax = !!xmax,
-          # xend = !!xend,
-          # ymin = !!ymin,
-          # ymax = !!ymax,
-          # yend = !!yend
+          group = !!group
         ))
     }
   }
@@ -522,13 +500,7 @@ gg_blank <- function(data = NULL,
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group,
-          # xmin = !!xmin,
-          # xmax = !!xmax,
-          # xend = !!xend,
-          # ymin = !!ymin,
-          # ymax = !!ymax,
-          # yend = !!yend
+          group = !!group
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -537,13 +509,7 @@ gg_blank <- function(data = NULL,
           y = !!y,
           col = "1",
           fill = "1",
-          group = !!group,
-          # xmin = !!xmin,
-          # xmax = !!xmax,
-          # xend = !!xend,
-          # ymin = !!ymin,
-          # ymax = !!ymax,
-          # yend = !!yend
+          group = !!group
         ))
     }
   }
@@ -568,14 +534,7 @@ gg_blank <- function(data = NULL,
 
   plot <- plot +
     ggplot2::geom_blank(
-      ggplot2::aes(text = !!tooltip,
-                   # xmin = !!xmin,
-                   # xmax = !!xmax,
-                   # xend = !!xend,
-                   # ymin = !!ymin,
-                   # ymax = !!ymax,
-                   # yend = !!yend
-      ),
+      ggplot2::aes(text = !!tooltip),
       width = width,
       ...
       # alpha = alpha,
