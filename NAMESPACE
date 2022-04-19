@@ -2,6 +2,7 @@
 
 export("%>%")
 export(gg_blank)
+export(gg_blank2)
 export(gg_theme)
 export(pal_d3_reorder)
 export(pal_na)
