@@ -597,6 +597,9 @@ gg_blank <- function(data = NULL,
       )
   }
 
+  #start .layer_data at NULL
+  .layer_data <- NULL
+
   ###x scale where y is NULL
   if (rlang::quo_is_null(y)) {
     if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
@@ -620,7 +623,27 @@ gg_blank <- function(data = NULL,
             x_zero <- TRUE
         }
 
-        x_vctr <- dplyr::pull(data, !!x)
+        if (is.null(.layer_data)) {
+          x_vctr <- dplyr::pull(data, !!x)
+        }
+        else if (!is.null(.layer_data)){
+          temp <- .layer_data %>%
+            dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^outliers$")))
+
+          if (any(stringr::str_detect(names(temp), stringr::regex("^outliers$")))) {
+            temp <- temp %>%
+              tidyr::unnest_longer(col = .data$outliers)
+          }
+
+          x_vctr <- temp %>%
+            tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "x") %>%
+            dplyr::pull(.data$x)
+
+          if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
+            x_vctr <- as.Date(x_vctr, origin = "1970-01-01")
+          }
+        }
+
         x_min <- min(x_vctr, na.rm = TRUE)
         x_max <- max(x_vctr, na.rm = TRUE)
 
@@ -687,7 +710,28 @@ gg_blank <- function(data = NULL,
 
       if (facet_scales %in% c("fixed", "free_x")) {
 
-        y_vctr <- dplyr::pull(data, !!y)
+        if (is.null(.layer_data)) {
+          x_vctr <- dplyr::pull(data, !!x)
+        }
+        else if (!is.null(.layer_data)){
+
+          temp <- .layer_data %>%
+            dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^outliers$")))
+
+          if (any(stringr::str_detect(names(temp), stringr::regex("^outliers$")))) {
+            temp <- temp %>%
+              tidyr::unnest_longer(col = .data$outliers)
+          }
+
+          y_vctr <- temp %>%
+            tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "y") %>%
+            dplyr::pull(.data$y)
+
+          if (lubridate::is.Date(rlang::eval_tidy(y, data))) {
+            y_vctr <- as.Date(y_vctr, origin = "1970-01-01")
+          }
+        }
+
         y_min <- min(y_vctr, na.rm = TRUE)
         y_max <- max(y_vctr, na.rm = TRUE)
 
@@ -697,7 +741,7 @@ gg_blank <- function(data = NULL,
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
           if (y_balance) y_min_max <- c(-y_min_max, y_min_max)
-          if (rlang::is_null(y_breaks_n)) y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+          if (rlang::is_null(y_breaks_n)) y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
           y_breaks <- pretty(y_min_max, n = y_breaks_n)
         }
 
@@ -741,7 +785,8 @@ gg_blank <- function(data = NULL,
   }
 
   #build plot
-  build_data <- ggplot2::layer_data(plot)
+  .layer_data <- ggplot2::layer_data(plot)
+  # return(.layer_data)
 
   ###x scale where y not NULL
   if (!rlang::quo_is_null(y)) {
@@ -766,20 +811,25 @@ gg_blank <- function(data = NULL,
             x_zero <- TRUE
         }
 
-        temp <- build_data %>%
-          dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^outliers$")))
-
-        if (any(stringr::str_detect(names(temp), stringr::regex("^outliers$")))) {
-          temp <- temp %>%
-            tidyr::unnest_longer(col = .data$outliers)
+        if (is.null(.layer_data)) {
+          x_vctr <- dplyr::pull(data, !!x)
         }
+        else if (!is.null(.layer_data)){
+          temp <- .layer_data %>%
+            dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^outliers$")))
 
-        x_vctr <- temp %>%
-          tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "x") %>%
-          dplyr::pull(.data$x)
+          if (any(stringr::str_detect(names(temp), stringr::regex("^outliers$")))) {
+            temp <- temp %>%
+              tidyr::unnest_longer(col = .data$outliers)
+          }
 
-        if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
-          x_vctr <- as.Date(x_vctr, origin = "1970-01-01")
+          x_vctr <- temp %>%
+            tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "x") %>%
+            dplyr::pull(.data$x)
+
+          if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
+            x_vctr <- as.Date(x_vctr, origin = "1970-01-01")
+          }
         }
 
         x_min <- min(x_vctr, na.rm = TRUE)
@@ -791,7 +841,7 @@ gg_blank <- function(data = NULL,
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
           if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
-          if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
+          if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
           x_breaks <- pretty(x_min_max, n = x_breaks_n)
         }
 
@@ -829,6 +879,7 @@ gg_blank <- function(data = NULL,
         )
       }
     }
+
     plot <- plot +
       x_scale
   }
@@ -847,7 +898,7 @@ gg_blank <- function(data = NULL,
 
       if (facet_scales %in% c("fixed", "free_x")) {
 
-        temp <- build_data %>%
+        temp <- .layer_data %>%
           dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^outliers$")))
 
         if (any(stringr::str_detect(names(temp), stringr::regex("^outliers$")))) {
