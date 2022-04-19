@@ -25,6 +25,7 @@ gg_blank(
   alpha = 1,
   size = 0.5,
   width = NULL,
+  bins = 40,
   ...,
   title = NULL,
   subtitle = NULL,

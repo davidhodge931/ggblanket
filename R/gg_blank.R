@@ -120,7 +120,7 @@ gg_blank <- function(data = NULL,
                      alpha = 1,
                      size = 0.5,
                      width = NULL,
-                     # bins = 40,
+                     bins = 40,
                      ...,
                      title = NULL,
                      subtitle = NULL,
@@ -587,7 +587,8 @@ gg_blank <- function(data = NULL,
       size = size,
       position = position,
       stat = stat,
-      # bins = bins,
+      bins = bins,
+      ...
     )
 
   if (!rlang::quo_is_null(facet)) {
@@ -609,10 +610,7 @@ gg_blank <- function(data = NULL,
 
       x_scale <- ggplot2::scale_x_discrete(expand = x_expand, labels = x_labels)
     }
-    else if (is.numeric(rlang::eval_tidy(x, data)) |
-             lubridate::is.Date(rlang::eval_tidy(x, data)) |
-             rlang::quo_is_null(x)) {
-
+    else {
       if (facet_scales %in% c("fixed", "free_y")) {
         if (is.null(x_zero)) {
           if ((is.numeric(rlang::eval_tidy(x, data)) |
@@ -620,12 +618,10 @@ gg_blank <- function(data = NULL,
               !(is.numeric(rlang::eval_tidy(y, data)) |
                 lubridate::is.Date(rlang::eval_tidy(y, data))))
             x_zero <- FALSE
-          else
-            x_zero <- TRUE
+          else x_zero <- TRUE
         }
 
         x_vctr <- dplyr::pull(data, !!x)
-
         x_min <- min(x_vctr, na.rm = TRUE)
         x_max <- max(x_vctr, na.rm = TRUE)
 
@@ -686,10 +682,7 @@ gg_blank <- function(data = NULL,
 
       y_scale <- ggplot2::scale_y_discrete(expand = y_expand, labels = y_labels)
     }
-    if (is.numeric(rlang::eval_tidy(y, data)) |
-        lubridate::is.Date(rlang::eval_tidy(y, data)) |
-        rlang::quo_is_null(y)) {
-
+    else {
       if (facet_scales %in% c("fixed", "free_x")) {
 
         y_vctr <- dplyr::pull(data, !!y)
@@ -758,10 +751,7 @@ gg_blank <- function(data = NULL,
 
       x_scale <- ggplot2::scale_x_discrete(expand = x_expand, labels = x_labels)
     }
-    else if (is.numeric(rlang::eval_tidy(x, data)) |
-             lubridate::is.Date(rlang::eval_tidy(x, data)) |
-             rlang::quo_is_null(x)) {
-
+    else {
       if (facet_scales %in% c("fixed", "free_y")) {
         if (is.null(x_zero)) {
           if ((is.numeric(rlang::eval_tidy(x, data)) |
@@ -769,19 +759,18 @@ gg_blank <- function(data = NULL,
               !(is.numeric(rlang::eval_tidy(y, data)) |
                 lubridate::is.Date(rlang::eval_tidy(y, data))))
             x_zero <- FALSE
-          else
-            x_zero <- TRUE
+          else x_zero <- TRUE
         }
 
-        temp <- layer_data %>%
+        x_temp_data <- layer_data %>%
           dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^outliers$")))
 
-        if (any(stringr::str_detect(names(temp), stringr::regex("^outliers$")))) {
-          temp <- temp %>%
+        if (any(stringr::str_detect(names(x_temp_data), stringr::regex("^outliers$")))) {
+          x_temp_data <- x_temp_data %>%
             tidyr::unnest_longer(col = .data$outliers)
         }
 
-        x_vctr <- temp %>%
+        x_vctr <- x_temp_data %>%
           tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "x") %>%
           dplyr::pull(.data$x)
 
@@ -849,21 +838,17 @@ gg_blank <- function(data = NULL,
 
       y_scale <- ggplot2::scale_y_discrete(expand = y_expand, labels = y_labels)
     }
-    if (is.numeric(rlang::eval_tidy(y, data)) |
-        lubridate::is.Date(rlang::eval_tidy(y, data)) |
-        rlang::quo_is_null(y)) {
-
+    else {
       if (facet_scales %in% c("fixed", "free_x")) {
-
-        temp <- layer_data %>%
+        y_temp_data <- layer_data %>%
           dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^outliers$")))
 
-        if (any(stringr::str_detect(names(temp), stringr::regex("^outliers$")))) {
-          temp <- temp %>%
+        if (any(stringr::str_detect(names(y_temp_data), stringr::regex("^outliers$")))) {
+          y_temp_data <- y_temp_data %>%
             tidyr::unnest_longer(col = .data$outliers)
         }
 
-        y_vctr <- temp %>%
+        y_vctr <- y_temp_data %>%
           tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "y") %>%
           dplyr::pull(.data$y)
 

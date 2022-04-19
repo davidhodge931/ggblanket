@@ -6,13 +6,19 @@
 #' @param y Unquoted numeric variable to be on the y scale. Required input.
 #' @param col Unquoted variable to col and fill by.
 #' @param facet Unquoted categorical variable to facet by.
+#' @param xmin
+#' @param xmax
+#' @param xend
+#' @param ymin
+#' @param ymax
+#' @param yend
 #' @param tooltip Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(..., tooltip = "text").
-#' @param stat
 #' @param position How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).
+#' @param stat
 #' @param bins
 #' @param binwidth
-#' @param pal Character vector of hex codes.
-#' @param pal_na The hex code or name of the NA col to be used.
+#' @param palette Character vector of hex codes.
+#' @param palette_na The hex code or name of the NA col to be used.
 #' @param alpha Opacity argument per ggplot2::geom_* function.
 #' @param size Size argument per ggplot2::geom_* function. Defaults to 0.5.
 #' @param width Width of any polygons. Defaults to 0.75 if x or y is categorical. Otherwise NULL.
@@ -30,8 +36,8 @@
 #' @param x_title x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero.
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
-#' @param y_breaks For a numeric or date x variable, a vector of breaks for the x axis. Note the x_limits will be the min and max of this vector.
-#' @param y_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 3.
+#' @param y_breaks For a numeric or date y variable, a vector of breaks for the y axis.
+#' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm.
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.
 #' @param y_labels A function or named vector to modify y scale labels. Use function(x) x to keep labels untransformed.
 #' @param y_limits For a numeric or date y variable, a vector of length 2 to determine the limits of the y axis. Use c(NA, NA) for the min and max of the y variable.
@@ -66,27 +72,27 @@
 #' @examples
 #' library(palmerpenguins)
 #'
-#' gg_blank2(
+#' gg_histogram(
 #'   penguins,
 #'   x = bill_length_mm,
 #'   y = body_mass_g
 #' )
 #'
-#' gg_blank2(
+#' gg_histogram(
 #'   penguins,
 #'   x = bill_length_mm,
 #'   y = body_mass_g,
 #'   col = sex,
 #' )
 #'
-#' gg_blank2(
+#' gg_histogram(
 #'   penguins,
 #'   x = bill_length_mm,
 #'   y = body_mass_g,
 #'   facet = species
 #' )
 #'
-#' gg_blank2(
+#' gg_histogram(
 #'   penguins,
 #'   x = bill_length_mm,
 #'   y = body_mass_g,
@@ -94,21 +100,28 @@
 #'   facet = species
 #' )
 #'
-gg_blank2 <- function(data = NULL,
+gg_histogram <- function(data = NULL,
                      x = NULL,
                      y = NULL,
                      col = NULL,
                      facet = NULL,
+                     group = NULL,
+                     xmin = NULL,
+                     xmax = NULL,
+                     xend = NULL,
+                     ymin = NULL,
+                     ymax = NULL,
+                     yend = NULL,
                      tooltip = NULL,
-                     stat = "identity",
+                     palette = NULL,
+                     palette_na = "#7F7F7F",
                      position = "identity",
-                     bins = NULL,
-                     binwidth = NULL,
-                     pal = NULL,
-                     pal_na = "#7F7F7F",
+                     stat = "identity",
                      alpha = 1,
                      size = 0.5,
                      width = NULL,
+                     bins = 40,
+                     ...,
                      title = NULL,
                      subtitle = NULL,
                      x_balance = FALSE,
@@ -160,6 +173,15 @@ gg_blank2 <- function(data = NULL,
   y <- rlang::enquo(y)
   col <- rlang::enquo(col)
   facet <- rlang::enquo(facet)
+  group <- rlang::enquo(group)
+
+  xmin <- rlang::enquo(xmin)
+  xmax <- rlang::enquo(xmax)
+  xend <- rlang::enquo(xend)
+  ymin <- rlang::enquo(ymin)
+  ymax <- rlang::enquo(ymax)
+  yend <- rlang::enquo(yend)
+
   tooltip <- rlang::enquo(tooltip)
 
   #stop, warn or message
@@ -167,7 +189,7 @@ gg_blank2 <- function(data = NULL,
   # if (rlang::quo_is_null(x)) rlang::abort("x is required")
   # if (rlang::quo_is_null(y)) rlang::abort("y is required")
   if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {ggblanket}, the {ggplot2} fill aesthetic inherits from col"))
-  # rlang::inform(c("i" = "Note {ggblanket} gg_bar uses the {ggplot2} geom_blank function"))
+  # rlang::inform(c("i" = "Note {ggblanket} gg_bar uses the {ggplot2} geom_histogram function"))
   # if (is.null(position)) rlang::inform(c("i" = "Note {ggblanket} gg_bar uses a default of 'dodge2', where {ggplot2} uses a default of 'stack'"))
 
   ###ungroup
@@ -290,14 +312,16 @@ gg_blank2 <- function(data = NULL,
 
   ##col scale
   if (rlang::quo_is_null(col)) {
-    if (rlang::is_null(pal)) pal <-  pal_viridis_reorder(1)
-    else pal <- pal[1]
+    if (rlang::is_null(palette)) palette <-  pal_viridis_reorder(1)
+    else palette <- palette[1]
+
+    if (is.null(col_breaks)) col_breaks <- ggplot2::waiver()
 
     col_scale <- ggplot2::scale_colour_manual(
-      values = pal,
-      drop = FALSE,
+      values = palette,
+      breaks = col_breaks,
       labels = NULL,
-      na.value = pal_na, #check
+      na.value = palette_na, #check
       name = NULL,
       aesthetics = c("col", "fill")
     )
@@ -315,7 +339,7 @@ gg_blank2 <- function(data = NULL,
         if (col_legend_bottom) col_breaks_n <- 3
         if (!col_legend_bottom) col_breaks_n <- 4
       }
-      if (rlang::is_null(pal)) pal <- viridis::viridis(100)
+      if (rlang::is_null(palette)) palette <- viridis::viridis(100)
       if (rlang::is_null(col_breaks)) col_breaks <- pretty(rlang::eval_tidy(col, data), col_breaks_n)
       if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
     }
@@ -359,8 +383,8 @@ gg_blank2 <- function(data = NULL,
           ))
 
         col_n <- length(col_breaks) - 1
-        if (rlang::is_null(pal)) pal <- pal_viridis_reorder(col_n)
-        else pal <- pal[1:col_n]
+        if (rlang::is_null(palette)) palette <- pal_viridis_reorder(col_n)
+        else palette <- palette[1:col_n]
       }
       else if (col_method == "factor") {
         if (is.factor(rlang::eval_tidy(col, data)) & !rlang::is_null(levels(rlang::eval_tidy(col, data)))) {
@@ -368,8 +392,8 @@ gg_blank2 <- function(data = NULL,
         }
         else col_n <- length(unique(rlang::eval_tidy(col, data)))
 
-        if (rlang::is_null(pal)) pal <- pal_d3_reorder(col_n)
-        else pal <- pal[1:col_n]
+        if (rlang::is_null(palette)) palette <- pal_d3_reorder(col_n)
+        else palette <- palette[1:col_n]
 
         if (rlang::is_null(col_labels)) col_labels <- snakecase::to_sentence_case
       }
@@ -379,10 +403,10 @@ gg_blank2 <- function(data = NULL,
 
     if (col_method == "continuous") {
       col_scale <- ggplot2::scale_colour_gradientn(
-        colors = pal,
+        colors = palette,
         labels = col_labels,
         breaks = col_breaks,
-        na.value = pal_na,
+        na.value = palette_na,
         name = col_title,
         aesthetics = c("col", "fill"),
         guide = ggplot2::guide_colorbar(title.position = col_title_position)
@@ -399,15 +423,17 @@ gg_blank2 <- function(data = NULL,
         if (col_method == "factor") col_legend_rev <- TRUE
         else if (col_method %in% c("bin", "quantile") & col_legend_bottom) col_legend_rev <- TRUE
         else col_legend_rev <- FALSE
-        pal <- rev(pal) #there was 2 rev pals here ??
+        palette <- rev(palette) #there was 2 rev palettes here ??
       }
       else col_legend_rev <- FALSE
 
+      if (is.null(col_breaks)) col_breaks <- ggplot2::waiver()
+
       col_scale <- ggplot2::scale_colour_manual(
-        values = pal,
-        drop = FALSE,
+        values = palette,
+        breaks = col_breaks,
         labels = col_labels,
-        na.value = pal_na,
+        na.value = palette_na,
         name = col_title,
         aesthetics = c("col", "fill"),
         guide = ggplot2::guide_legend(
@@ -422,6 +448,7 @@ gg_blank2 <- function(data = NULL,
   }
 
   ###plot
+  ###no xmin, xmax, xend, ymin, ymax, yend
   if (!rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
     if (!rlang::quo_is_null(col)) {
       plot <- data %>%
@@ -429,7 +456,14 @@ gg_blank2 <- function(data = NULL,
           x = !!x,
           y = !!y,
           col = !!col,
-          fill = !!col
+          fill = !!col,
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -438,7 +472,14 @@ gg_blank2 <- function(data = NULL,
           x = !!x,
           y = !!y,
           col = "1",
-          fill = "1"
+          fill = "1",
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
         ))
     }
   }
@@ -448,7 +489,15 @@ gg_blank2 <- function(data = NULL,
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           col = !!col,
-          fill = !!col
+          fill = !!col,
+          group = !!group,
+          xmin = !!xmin,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -456,7 +505,14 @@ gg_blank2 <- function(data = NULL,
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           col = "1",
-          fill = "1"
+          fill = "1",
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
         ))
     }
   }
@@ -466,7 +522,14 @@ gg_blank2 <- function(data = NULL,
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
           col = !!col,
-          fill = !!col
+          fill = !!col,
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -474,7 +537,14 @@ gg_blank2 <- function(data = NULL,
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
           col = "1",
-          fill = "1"
+          fill = "1",
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
         ))
     }
   }
@@ -483,28 +553,42 @@ gg_blank2 <- function(data = NULL,
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = !!col,
-          fill = !!col
+          fill = !!col,
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
         ))
     }
     else if (rlang::quo_is_null(col)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = "1",
-          fill = "1"
+          fill = "1",
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
         ))
     }
   }
 
   plot <- plot +
-    ggplot2::geom_blank(
+    ggplot2::geom_histogram(
       ggplot2::aes(text = !!tooltip),
+      width = width,
       alpha = alpha,
       size = size,
-      width = width,
       position = position,
       stat = stat,
       bins = bins,
-      binwidth = binwidth
+      ...
     )
 
   if (!rlang::quo_is_null(facet)) {
@@ -518,7 +602,7 @@ gg_blank2 <- function(data = NULL,
       )
   }
 
-  ###x scale where y is NULL
+  ###x scale where y is NULL #xscale1
   if (rlang::quo_is_null(y)) {
     if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
       if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
@@ -526,10 +610,7 @@ gg_blank2 <- function(data = NULL,
 
       x_scale <- ggplot2::scale_x_discrete(expand = x_expand, labels = x_labels)
     }
-    else if (is.numeric(rlang::eval_tidy(x, data)) |
-             lubridate::is.Date(rlang::eval_tidy(x, data)) |
-             rlang::quo_is_null(x)) {
-
+    else {
       if (facet_scales %in% c("fixed", "free_y")) {
         if (is.null(x_zero)) {
           if ((is.numeric(rlang::eval_tidy(x, data)) |
@@ -537,8 +618,7 @@ gg_blank2 <- function(data = NULL,
               !(is.numeric(rlang::eval_tidy(y, data)) |
                 lubridate::is.Date(rlang::eval_tidy(y, data))))
             x_zero <- FALSE
-          else
-            x_zero <- TRUE
+          else x_zero <- TRUE
         }
 
         x_vctr <- dplyr::pull(data, !!x)
@@ -594,7 +674,7 @@ gg_blank2 <- function(data = NULL,
       x_scale
   }
 
-  ###y scale where x is NULL
+  ###y scale where x is NULL #yscale1
   if (rlang::quo_is_null(x)) {
     if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
       if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
@@ -602,13 +682,11 @@ gg_blank2 <- function(data = NULL,
 
       y_scale <- ggplot2::scale_y_discrete(expand = y_expand, labels = y_labels)
     }
-    if (is.numeric(rlang::eval_tidy(y, data)) |
-        lubridate::is.Date(rlang::eval_tidy(y, data)) |
-        rlang::quo_is_null(y)) {
-
+    else {
       if (facet_scales %in% c("fixed", "free_x")) {
 
         y_vctr <- dplyr::pull(data, !!y)
+
         y_min <- min(y_vctr, na.rm = TRUE)
         y_max <- max(y_vctr, na.rm = TRUE)
 
@@ -662,9 +740,10 @@ gg_blank2 <- function(data = NULL,
   }
 
   #build plot
-  build_data <- ggplot2::ggplot_build(plot)$data[[1]]
+  layer_data <- ggplot2::layer_data(plot)
+  # return(layer_data)
 
-  ###x scale where y not NULL
+  ###x scale where y not NULL #xscale2
   if (!rlang::quo_is_null(y)) {
     if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
       if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
@@ -672,10 +751,7 @@ gg_blank2 <- function(data = NULL,
 
       x_scale <- ggplot2::scale_x_discrete(expand = x_expand, labels = x_labels)
     }
-    else if (is.numeric(rlang::eval_tidy(x, data)) |
-             lubridate::is.Date(rlang::eval_tidy(x, data)) |
-             rlang::quo_is_null(x)) {
-
+    else {
       if (facet_scales %in% c("fixed", "free_y")) {
         if (is.null(x_zero)) {
           if ((is.numeric(rlang::eval_tidy(x, data)) |
@@ -683,19 +759,18 @@ gg_blank2 <- function(data = NULL,
               !(is.numeric(rlang::eval_tidy(y, data)) |
                 lubridate::is.Date(rlang::eval_tidy(y, data))))
             x_zero <- FALSE
-          else
-            x_zero <- TRUE
+          else x_zero <- TRUE
         }
 
-        temp <- build_data %>%
+        x_temp_data <- layer_data %>%
           dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^outliers$")))
 
-        if (any(stringr::str_detect(names(temp), stringr::regex("^outliers$")))) {
-          temp <- temp %>%
+        if (any(stringr::str_detect(names(x_temp_data), stringr::regex("^outliers$")))) {
+          x_temp_data <- x_temp_data %>%
             tidyr::unnest_longer(col = .data$outliers)
         }
 
-        x_vctr <- temp %>%
+        x_vctr <- x_temp_data %>%
           tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "x") %>%
           dplyr::pull(.data$x)
 
@@ -750,11 +825,12 @@ gg_blank2 <- function(data = NULL,
         )
       }
     }
+
     plot <- plot +
       x_scale
   }
 
-  ###y scale where x not NULL
+  ###y scale where x not NULL #yscale2
   if (!rlang::quo_is_null(x)) {
     if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
       if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
@@ -762,21 +838,17 @@ gg_blank2 <- function(data = NULL,
 
       y_scale <- ggplot2::scale_y_discrete(expand = y_expand, labels = y_labels)
     }
-    if (is.numeric(rlang::eval_tidy(y, data)) |
-        lubridate::is.Date(rlang::eval_tidy(y, data)) |
-        rlang::quo_is_null(y)) {
-
+    else {
       if (facet_scales %in% c("fixed", "free_x")) {
-
-        temp <- build_data %>%
+        y_temp_data <- layer_data %>%
           dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^outliers$")))
 
-        if (any(stringr::str_detect(names(temp), stringr::regex("^outliers$")))) {
-          temp <- temp %>%
+        if (any(stringr::str_detect(names(y_temp_data), stringr::regex("^outliers$")))) {
+          y_temp_data <- y_temp_data %>%
             tidyr::unnest_longer(col = .data$outliers)
         }
 
-        y_vctr <- temp %>%
+        y_vctr <- y_temp_data %>%
           tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "y") %>%
           dplyr::pull(.data$y)
 
