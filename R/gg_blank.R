@@ -127,6 +127,7 @@ gg_blank <- function(data = NULL,
                      x_balance = FALSE,
                      x_breaks = NULL,
                      x_breaks_n = NULL,
+                     x_breaks_width = NULL,
                      x_expand = NULL,
                      x_labels = NULL,
                      x_limits = NULL,
@@ -138,6 +139,7 @@ gg_blank <- function(data = NULL,
                      y_balance = FALSE,
                      y_breaks = NULL,
                      y_breaks_n = NULL,
+                     y_breaks_width = NULL,
                      y_expand = NULL,
                      y_labels = NULL,
                      y_limits = NULL,
@@ -319,10 +321,7 @@ gg_blank <- function(data = NULL,
 
     col_scale <- ggplot2::scale_colour_manual(
       values = palette,
-      breaks = col_breaks,
-      labels = NULL,
       na.value = palette_na, #check
-      name = NULL,
       aesthetics = c("col", "fill")
     )
   }
@@ -631,11 +630,19 @@ gg_blank <- function(data = NULL,
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
           if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
-          if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
-          x_breaks <- pretty(x_min_max, n = x_breaks_n)
+
+          if (!rlang::is_null(x_breaks_width)) {
+            x_breaks <- scales::fullseq(x_min_max, size = x_breaks_width)
+          }
+          else {
+            if (rlang::is_null(x_breaks_n)) {
+              x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+            }
+            x_breaks <- pretty(x_min_max, n = x_breaks_n)
+          }
         }
 
-        if (rlang::is_null(x_limits) & is.numeric(x_breaks)) x_limits <- c(min(x_breaks), max(x_breaks))
+        if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
         if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
       }
       else if (facet_scales %in% c("free", "free_x")) {
@@ -696,11 +703,19 @@ gg_blank <- function(data = NULL,
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
           if (y_balance) y_min_max <- c(-y_min_max, y_min_max)
-          if (rlang::is_null(y_breaks_n)) y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
-          y_breaks <- pretty(y_min_max, n = y_breaks_n)
+
+          if (!rlang::is_null(y_breaks_width)) {
+            y_breaks <- scales::fullseq(y_min_max, size = y_breaks_width)
+          }
+          else {
+            if (rlang::is_null(y_breaks_n)) {
+              y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+            }
+            y_breaks <- pretty(y_min_max, n = y_breaks_n)
+          }
         }
 
-        if (rlang::is_null(y_limits) & is.numeric(y_breaks)) y_limits <- c(min(y_breaks), max(y_breaks))
+        if (rlang::is_null(y_limits)) y_limits <- c(min(y_breaks), max(y_breaks))
         if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
       }
       else if (facet_scales %in% c("free", "free_y")) {
@@ -787,11 +802,19 @@ gg_blank <- function(data = NULL,
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
           if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
-          if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
-          x_breaks <- pretty(x_min_max, n = x_breaks_n)
+
+          if (!rlang::is_null(x_breaks_width)) {
+            x_breaks <- scales::fullseq(x_min_max, size = x_breaks_width)
+          }
+          else {
+            if (rlang::is_null(x_breaks_n)) {
+              x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+            }
+            x_breaks <- pretty(x_min_max, n = x_breaks_n)
+          }
         }
 
-        if (rlang::is_null(x_limits) & is.numeric(x_breaks)) x_limits <- c(min(x_breaks), max(x_breaks))
+        if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
         if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
       }
       else if (facet_scales %in% c("free", "free_x")) {
@@ -865,11 +888,19 @@ gg_blank <- function(data = NULL,
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
           if (y_balance) y_min_max <- c(-y_min_max, y_min_max)
-          if (rlang::is_null(y_breaks_n)) y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
-          y_breaks <- pretty(y_min_max, n = y_breaks_n)
+
+          if (!rlang::is_null(y_breaks_width)) {
+            y_breaks <- scales::fullseq(y_min_max, size = y_breaks_width)
+          }
+          else {
+            if (rlang::is_null(y_breaks_n)) {
+              y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+            }
+            y_breaks <- pretty(y_min_max, n = y_breaks_n)
+          }
         }
 
-        if (rlang::is_null(y_limits) & is.numeric(y_breaks)) y_limits <- c(min(y_breaks), max(y_breaks))
+        if (rlang::is_null(y_limits)) y_limits <- c(min(y_breaks), max(y_breaks))
         if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
       }
       else if (facet_scales %in% c("free", "free_y")) {
