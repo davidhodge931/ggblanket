@@ -73,36 +73,6 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(palmerpenguins)
-#'
-#' gg_histogram(
-#'   penguins,
-#'   x = bill_length_mm,
-#'   y = body_mass_g
-#' )
-#'
-#' gg_histogram(
-#'   penguins,
-#'   x = bill_length_mm,
-#'   y = body_mass_g,
-#'   col = sex,
-#' )
-#'
-#' gg_histogram(
-#'   penguins,
-#'   x = bill_length_mm,
-#'   y = body_mass_g,
-#'   facet = species
-#' )
-#'
-#' gg_histogram(
-#'   penguins,
-#'   x = bill_length_mm,
-#'   y = body_mass_g,
-#'   col = sex,
-#'   facet = species
-#' )
-#'
 gg_histogram <- function(data = NULL,
                      x = NULL,
                      y = NULL,
@@ -118,8 +88,8 @@ gg_histogram <- function(data = NULL,
                      tooltip = NULL,
                      palette = NULL,
                      palette_na = "#7F7F7F",
-                     position = "identity",
-                     stat = "identity",
+                     # stat = "identity",
+                     # position = "identity",
                      alpha = 1,
                      size = 0.5,
                      width = NULL,
@@ -200,6 +170,10 @@ gg_histogram <- function(data = NULL,
 
   ###ungroup
   data <- dplyr::ungroup(data)
+
+  #zero's
+  if (rlang::is_null(x_zero)) x_zero <- FALSE
+  if (rlang::is_null(y_zero)) y_zero <- FALSE
 
   ###x var process
   if (!rlang::quo_is_null(x)) {
@@ -495,7 +469,6 @@ gg_histogram <- function(data = NULL,
           fill = !!col,
           group = !!group,
           xmin = !!xmin,
-          xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
           ymin = !!ymin,
@@ -588,8 +561,8 @@ gg_histogram <- function(data = NULL,
       width = width,
       alpha = alpha,
       size = size,
-      position = position,
-      stat = stat,
+      # stat = stat,
+      # position = position,
       bins = bins,
       ...
     )
@@ -615,10 +588,6 @@ gg_histogram <- function(data = NULL,
     }
     else {
       if (facet_scales %in% c("fixed", "free_y")) {
-        if (is.null(x_zero)) {
-          x_zero <- FALSE
-        }
-
         x_vctr <- dplyr::pull(data, !!x)
         x_min <- min(x_vctr, na.rm = TRUE)
         x_max <- max(x_vctr, na.rm = TRUE)
@@ -696,7 +665,6 @@ gg_histogram <- function(data = NULL,
         y_min <- min(y_vctr, na.rm = TRUE)
         y_max <- max(y_vctr, na.rm = TRUE)
 
-        if (rlang::is_null(y_zero)) y_zero <- FALSE
         if ((y_min < 0 & y_max > 0)) y_zero <- FALSE
 
         if (rlang::is_null(y_breaks)) {
@@ -709,7 +677,7 @@ gg_histogram <- function(data = NULL,
           }
           else {
             if (rlang::is_null(y_breaks_n)) {
-              y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+              y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
             }
             y_breaks <- pretty(y_min_max, n = y_breaks_n)
           }
@@ -768,26 +736,11 @@ gg_histogram <- function(data = NULL,
     }
     else {
       if (facet_scales %in% c("fixed", "free_y")) {
-        if (is.null(x_zero)) {
-          if ((is.numeric(rlang::eval_tidy(x, data)) |
-               lubridate::is.Date(rlang::eval_tidy(x, data))) &
-              !(is.numeric(rlang::eval_tidy(y, data)) |
-                lubridate::is.Date(rlang::eval_tidy(y, data))))
-            x_zero <- FALSE
-          else x_zero <- TRUE
-        }
 
-        x_temp_data <- layer_data %>%
-          dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^outliers$")))
-
-        if (any(stringr::str_detect(names(x_temp_data), stringr::regex("^outliers$")))) {
-          x_temp_data <- x_temp_data %>%
-            tidyr::unnest_longer(col = .data$outliers)
-        }
-
-        x_vctr <- x_temp_data %>%
-          tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "x") %>%
-          dplyr::pull(.data$x)
+        x_vctr <- layer_data %>%
+          dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmax_final$"))) %>%
+          tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+          dplyr::pull(.data$value)
 
         if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
           x_vctr <- as.Date(x_vctr, origin = "1970-01-01")
@@ -863,17 +816,11 @@ gg_histogram <- function(data = NULL,
     }
     else {
       if (facet_scales %in% c("fixed", "free_x")) {
-        y_temp_data <- layer_data %>%
-          dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^outliers$")))
 
-        if (any(stringr::str_detect(names(y_temp_data), stringr::regex("^outliers$")))) {
-          y_temp_data <- y_temp_data %>%
-            tidyr::unnest_longer(col = .data$outliers)
-        }
-
-        y_vctr <- y_temp_data %>%
-          tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "y") %>%
-          dplyr::pull(.data$y)
+        y_vctr <- layer_data %>%
+          dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymax_final$"))) %>%
+          tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+          dplyr::pull(.data$value)
 
         if (lubridate::is.Date(rlang::eval_tidy(y, data))) {
           y_vctr <- as.Date(y_vctr, origin = "1970-01-01")
@@ -881,11 +828,6 @@ gg_histogram <- function(data = NULL,
 
         y_min <- min(y_vctr, na.rm = TRUE)
         y_max <- max(y_vctr, na.rm = TRUE)
-
-        if (rlang::is_null(y_zero)) {
-          if (is.numeric(rlang::eval_tidy(y, data))) y_zero <- TRUE
-          else y_zero <- FALSE
-        }
 
         if ((y_min < 0 & y_max > 0)) y_zero <- FALSE
 
@@ -899,7 +841,7 @@ gg_histogram <- function(data = NULL,
           }
           else {
             if (rlang::is_null(y_breaks_n)) {
-              y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+              y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
             }
             y_breaks <- pretty(y_min_max, n = y_breaks_n)
           }

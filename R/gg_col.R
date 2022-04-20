@@ -1,6 +1,6 @@
-#' @title Blank ggplot.
+#' @title col ggplot.
 #'
-#' @description Blank ggplot.
+#' @description col ggplot.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, or date). Required input.
 #' @param y Unquoted numeric variable to be on the y scale. Required input.
@@ -73,7 +73,7 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-gg_blank <- function(data = NULL,
+gg_col <- function(data = NULL,
                      x = NULL,
                      y = NULL,
                      col = NULL,
@@ -164,9 +164,9 @@ gg_blank <- function(data = NULL,
   if (rlang::is_null(data)) rlang::abort("data is required")
   # if (rlang::quo_is_null(x)) rlang::abort("x is required")
   # if (rlang::quo_is_null(y)) rlang::abort("y is required")
-  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {ggblanket}, the {ggplot2} fill aesthetic inherits from col"))
-  # rlang::inform(c("i" = "Note {ggblanket} gg_bar uses the {ggplot2} geom_blank function"))
-  # if (is.null(position)) rlang::inform(c("i" = "Note {ggblanket} gg_bar uses a default of 'dodge2', where {ggplot2} uses a default of 'stack'"))
+  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {ggcolet}, the {ggplot2} fill aesthetic inherits from col"))
+  # rlang::inform(c("i" = "Note {ggcolet} gg_bar uses the {ggplot2} geom_col function"))
+  # if (is.null(position)) rlang::inform(c("i" = "Note {ggcolet} gg_bar uses a default of 'dodge2', where {ggplot2} uses a default of 'stack'"))
 
   ###ungroup
   data <- dplyr::ungroup(data)
@@ -556,7 +556,7 @@ gg_blank <- function(data = NULL,
   }
 
   plot <- plot +
-    ggplot2::geom_blank(
+    ggplot2::geom_col(
       ggplot2::aes(text = !!tooltip),
       width = width,
       alpha = alpha,

@@ -20,8 +20,6 @@ gg_blank(
   tooltip = NULL,
   palette = NULL,
   palette_na = "#7F7F7F",
-  position = "identity",
-  stat = "identity",
   alpha = 1,
   size = 0.5,
   width = NULL,
@@ -93,8 +91,6 @@ gg_blank(
 \item{palette}{Character vector of hex codes.}
 
 \item{palette_na}{The hex code or name of the NA col to be used.}
-
-\item{position}{How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).}
 
 \item{alpha}{Opacity argument per ggplot2::geom_* function.}
 
@@ -191,42 +187,12 @@ gg_blank(
 \item{caption}{Caption title string.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{position}{How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).}
 }
 \value{
 A ggplot object.
 }
 \description{
 Blank ggplot.
-}
-\examples{
-library(palmerpenguins)
-
-gg_blank(
-  penguins,
-  x = bill_length_mm,
-  y = body_mass_g
-)
-
-gg_blank(
-  penguins,
-  x = bill_length_mm,
-  y = body_mass_g,
-  col = sex,
-)
-
-gg_blank(
-  penguins,
-  x = bill_length_mm,
-  y = body_mass_g,
-  facet = species
-)
-
-gg_blank(
-  penguins,
-  x = bill_length_mm,
-  y = body_mass_g,
-  col = sex,
-  facet = species
-)
-
 }

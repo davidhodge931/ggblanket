@@ -73,7 +73,7 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-gg_blank <- function(data = NULL,
+gg_bar <- function(data = NULL,
                      x = NULL,
                      y = NULL,
                      col = NULL,
@@ -165,7 +165,7 @@ gg_blank <- function(data = NULL,
   # if (rlang::quo_is_null(x)) rlang::abort("x is required")
   # if (rlang::quo_is_null(y)) rlang::abort("y is required")
   if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {ggblanket}, the {ggplot2} fill aesthetic inherits from col"))
-  # rlang::inform(c("i" = "Note {ggblanket} gg_bar uses the {ggplot2} geom_blank function"))
+  # rlang::inform(c("i" = "Note {ggblanket} gg_bar uses the {ggplot2} geom_bar function"))
   # if (is.null(position)) rlang::inform(c("i" = "Note {ggblanket} gg_bar uses a default of 'dodge2', where {ggplot2} uses a default of 'stack'"))
 
   ###ungroup
@@ -556,7 +556,7 @@ gg_blank <- function(data = NULL,
   }
 
   plot <- plot +
-    ggplot2::geom_blank(
+    ggplot2::geom_bar(
       ggplot2::aes(text = !!tooltip),
       width = width,
       alpha = alpha,
