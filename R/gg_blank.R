@@ -104,75 +104,75 @@
 #' )
 #'
 gg_blank <- function(data = NULL,
-                     x = NULL,
-                     y = NULL,
-                     col = NULL,
-                     facet = NULL,
-                     group = NULL,
-                     xmin = NULL,
-                     xmax = NULL,
-                     xend = NULL,
-                     ymin = NULL,
-                     ymax = NULL,
-                     yend = NULL,
-                     tooltip = NULL,
-                     palette = NULL,
-                     palette_na = "#7F7F7F",
-                     position = "identity",
-                     stat = "identity",
-                     alpha = 1,
-                     size = 0.5,
-                     width = NULL,
-                     bins = 40,
-                     ...,
-                     title = NULL,
-                     subtitle = NULL,
-                     x_balance = FALSE,
-                     x_breaks = NULL,
-                     x_breaks_n = NULL,
-                     x_breaks_width = NULL,
-                     x_expand = NULL,
-                     x_labels = NULL,
-                     x_limits = NULL,
-                     x_na_rm = FALSE,
-                     x_oob = scales::oob_keep,
-                     x_rev = FALSE,
-                     x_title = NULL,
-                     x_zero = NULL,
-                     y_balance = FALSE,
-                     y_breaks = NULL,
-                     y_breaks_n = NULL,
-                     y_breaks_width = NULL,
-                     y_expand = NULL,
-                     y_labels = NULL,
-                     y_limits = NULL,
-                     y_na_rm = FALSE,
-                     y_oob = scales::oob_keep,
-                     y_rev = FALSE,
-                     y_title = NULL,
-                     y_zero = TRUE,
-                     col_breaks = NULL,
-                     col_breaks_n = NULL,
-                     col_intervals_left = TRUE,
-                     col_labels = NULL,
-                     col_legend_bottom = FALSE,
-                     col_legend_none = FALSE,
-                     col_legend_mobile = FALSE,
-                     col_legend_ncol = NULL,
-                     col_legend_nrow = NULL,
-                     col_limits = NULL,
-                     col_method = NULL,
-                     col_na_rm = FALSE,
-                     col_rev = FALSE,
-                     col_title = NULL,
-                     facet_labels = snakecase::to_sentence_case,
-                     facet_na_rm = FALSE,
-                     facet_ncol = NULL,
-                     facet_nrow = NULL,
-                     facet_rev = FALSE,
-                     facet_scales = "fixed",
-                     caption = NULL,
-                     theme = NULL) {
+                         x = NULL,
+                         y = NULL,
+                         col = NULL,
+                         facet = NULL,
+                         group = NULL,
+                         xmin = NULL,
+                         xmax = NULL,
+                         xend = NULL,
+                         ymin = NULL,
+                         ymax = NULL,
+                         yend = NULL,
+                         tooltip = NULL,
+                         palette = NULL,
+                         palette_na = "#7F7F7F",
+                         position = "identity",
+                         stat = "identity",
+                         alpha = 1,
+                         size = 0.5,
+                         width = NULL,
+                         bins = 40,
+                         ...,
+                         title = NULL,
+                         subtitle = NULL,
+                         x_balance = FALSE,
+                         x_breaks = NULL,
+                         x_breaks_n = NULL,
+                         x_breaks_width = NULL,
+                         x_expand = NULL,
+                         x_labels = NULL,
+                         x_limits = NULL,
+                         x_na_rm = FALSE,
+                         x_oob = scales::oob_keep,
+                         x_rev = FALSE,
+                         x_title = NULL,
+                         x_zero = NULL,
+                         y_balance = FALSE,
+                         y_breaks = NULL,
+                         y_breaks_n = NULL,
+                         y_breaks_width = NULL,
+                         y_expand = NULL,
+                         y_labels = NULL,
+                         y_limits = NULL,
+                         y_na_rm = FALSE,
+                         y_oob = scales::oob_keep,
+                         y_rev = FALSE,
+                         y_title = NULL,
+                         y_zero = NULL,
+                         col_breaks = NULL,
+                         col_breaks_n = NULL,
+                         col_intervals_left = TRUE,
+                         col_labels = NULL,
+                         col_legend_bottom = FALSE,
+                         col_legend_none = FALSE,
+                         col_legend_mobile = FALSE,
+                         col_legend_ncol = NULL,
+                         col_legend_nrow = NULL,
+                         col_limits = NULL,
+                         col_method = NULL,
+                         col_na_rm = FALSE,
+                         col_rev = FALSE,
+                         col_title = NULL,
+                         facet_labels = snakecase::to_sentence_case,
+                         facet_na_rm = FALSE,
+                         facet_ncol = NULL,
+                         facet_nrow = NULL,
+                         facet_rev = FALSE,
+                         facet_scales = "fixed",
+                         caption = NULL,
+                         theme = NULL) {
 
   #quote
   x <- rlang::enquo(x)
@@ -616,7 +616,7 @@ gg_blank <- function(data = NULL,
     else {
       if (facet_scales %in% c("fixed", "free_y")) {
         if (is.null(x_zero)) {
-            x_zero <- FALSE
+          x_zero <- FALSE
         }
 
         x_vctr <- dplyr::pull(data, !!x)
@@ -696,6 +696,7 @@ gg_blank <- function(data = NULL,
         y_min <- min(y_vctr, na.rm = TRUE)
         y_max <- max(y_vctr, na.rm = TRUE)
 
+        if (rlang::is_null(y_zero)) y_zero <- FALSE
         if ((y_min < 0 & y_max > 0)) y_zero <- FALSE
 
         if (rlang::is_null(y_breaks)) {
@@ -880,6 +881,11 @@ gg_blank <- function(data = NULL,
 
         y_min <- min(y_vctr, na.rm = TRUE)
         y_max <- max(y_vctr, na.rm = TRUE)
+
+        if (rlang::is_null(y_zero)) {
+          if (is.numeric(rlang::eval_tidy(y, data))) y_zero <- TRUE
+          else y_zero <- FALSE
+        }
 
         if ((y_min < 0 & y_max > 0)) y_zero <- FALSE
 

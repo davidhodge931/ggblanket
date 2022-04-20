@@ -150,7 +150,7 @@ gg_histogram <- function(data = NULL,
                      y_oob = scales::oob_keep,
                      y_rev = FALSE,
                      y_title = NULL,
-                     y_zero = TRUE,
+                     y_zero = NULL,
                      col_breaks = NULL,
                      col_breaks_n = NULL,
                      col_intervals_left = TRUE,
@@ -696,6 +696,7 @@ gg_histogram <- function(data = NULL,
         y_min <- min(y_vctr, na.rm = TRUE)
         y_max <- max(y_vctr, na.rm = TRUE)
 
+        if (rlang::is_null(y_zero)) y_zero <- FALSE
         if ((y_min < 0 & y_max > 0)) y_zero <- FALSE
 
         if (rlang::is_null(y_breaks)) {
@@ -880,6 +881,11 @@ gg_histogram <- function(data = NULL,
 
         y_min <- min(y_vctr, na.rm = TRUE)
         y_max <- max(y_vctr, na.rm = TRUE)
+
+        if (rlang::is_null(y_zero)) {
+          if (is.numeric(rlang::eval_tidy(y, data))) y_zero <- TRUE
+          else y_zero <- FALSE
+        }
 
         if ((y_min < 0 & y_max > 0)) y_zero <- FALSE
 

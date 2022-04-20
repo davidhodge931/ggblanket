@@ -52,7 +52,7 @@ gg_histogram(
   y_oob = scales::oob_keep,
   y_rev = FALSE,
   y_title = NULL,
-  y_zero = TRUE,
+  y_zero = NULL,
   col_breaks = NULL,
   col_breaks_n = NULL,
   col_intervals_left = TRUE,
