@@ -27,6 +27,7 @@
 #' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
 #' @param x_breaks For a numeric or date x variable, a vector of breaks for the x axis. Note the x_limits will be the min and max of this vector.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2.
+#' @param x_breaks_width
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.
 #' @param x_oob scales function for how to deal with out-of-bounds values on the x axis. See ggplot2::scale_x_continuous for further information.
 #' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
@@ -38,6 +39,7 @@
 #' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
 #' @param y_breaks For a numeric or date y variable, a vector of breaks for the y axis.
 #' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm.
+#' @param y_breaks_width
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.
 #' @param y_labels A function or named vector to modify y scale labels. Use function(x) x to keep labels untransformed.
 #' @param y_limits For a numeric or date y variable, a vector of length 2 to determine the limits of the y axis. Use c(NA, NA) for the min and max of the y variable.
@@ -55,6 +57,7 @@
 #' @param col_legend_none TRUE or FALSE of whether to remove the legend.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
+#' @param col_limits
 #' @param col_method The method of coling features, either "bin", "quantile", "continuous", or "factor". If numeric, defaults to "continuous".
 #' @param col_na_rm TRUE or FALSE of whether to include col NA values. Defaults to FALSE.
 #' @param col_rev TRUE or FALSE of whether the col scale is reversed. Defaults to FALSE.
@@ -127,6 +130,7 @@ gg_histogram <- function(data = NULL,
                      x_balance = FALSE,
                      x_breaks = NULL,
                      x_breaks_n = NULL,
+                     x_breaks_width = NULL,
                      x_expand = NULL,
                      x_labels = NULL,
                      x_limits = NULL,
@@ -138,6 +142,7 @@ gg_histogram <- function(data = NULL,
                      y_balance = FALSE,
                      y_breaks = NULL,
                      y_breaks_n = NULL,
+                     y_breaks_width = NULL,
                      y_expand = NULL,
                      y_labels = NULL,
                      y_limits = NULL,
@@ -155,6 +160,7 @@ gg_histogram <- function(data = NULL,
                      col_legend_mobile = FALSE,
                      col_legend_ncol = NULL,
                      col_legend_nrow = NULL,
+                     col_limits = NULL,
                      col_method = NULL,
                      col_na_rm = FALSE,
                      col_rev = FALSE,
@@ -315,14 +321,9 @@ gg_histogram <- function(data = NULL,
     if (rlang::is_null(palette)) palette <-  pal_viridis_reorder(1)
     else palette <- palette[1]
 
-    if (is.null(col_breaks)) col_breaks <- ggplot2::waiver()
-
     col_scale <- ggplot2::scale_colour_manual(
       values = palette,
-      breaks = col_breaks,
-      labels = NULL,
       na.value = palette_na, #check
-      name = NULL,
       aesthetics = c("col", "fill")
     )
   }
@@ -406,6 +407,7 @@ gg_histogram <- function(data = NULL,
         colors = palette,
         labels = col_labels,
         breaks = col_breaks,
+        # limits = col_limits,
         na.value = palette_na,
         name = col_title,
         aesthetics = c("col", "fill"),
@@ -432,6 +434,7 @@ gg_histogram <- function(data = NULL,
       col_scale <- ggplot2::scale_colour_manual(
         values = palette,
         breaks = col_breaks,
+        limits = col_limits,
         labels = col_labels,
         na.value = palette_na,
         name = col_title,
@@ -613,12 +616,7 @@ gg_histogram <- function(data = NULL,
     else {
       if (facet_scales %in% c("fixed", "free_y")) {
         if (is.null(x_zero)) {
-          if ((is.numeric(rlang::eval_tidy(x, data)) |
-               lubridate::is.Date(rlang::eval_tidy(x, data))) &
-              !(is.numeric(rlang::eval_tidy(y, data)) |
-                lubridate::is.Date(rlang::eval_tidy(y, data))))
-            x_zero <- FALSE
-          else x_zero <- TRUE
+          x_zero <- FALSE
         }
 
         x_vctr <- dplyr::pull(data, !!x)
@@ -631,8 +629,16 @@ gg_histogram <- function(data = NULL,
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
           if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
-          if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
-          x_breaks <- pretty(x_min_max, n = x_breaks_n)
+
+          if (!rlang::is_null(x_breaks_width)) {
+            x_breaks <- scales::fullseq(x_min_max, size = x_breaks_width)
+          }
+          else {
+            if (rlang::is_null(x_breaks_n)) {
+              x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+            }
+            x_breaks <- pretty(x_min_max, n = x_breaks_n)
+          }
         }
 
         if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
@@ -696,8 +702,16 @@ gg_histogram <- function(data = NULL,
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
           if (y_balance) y_min_max <- c(-y_min_max, y_min_max)
-          if (rlang::is_null(y_breaks_n)) y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
-          y_breaks <- pretty(y_min_max, n = y_breaks_n)
+
+          if (!rlang::is_null(y_breaks_width)) {
+            y_breaks <- scales::fullseq(y_min_max, size = y_breaks_width)
+          }
+          else {
+            if (rlang::is_null(y_breaks_n)) {
+              y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+            }
+            y_breaks <- pretty(y_min_max, n = y_breaks_n)
+          }
         }
 
         if (rlang::is_null(y_limits)) y_limits <- c(min(y_breaks), max(y_breaks))
@@ -787,8 +801,16 @@ gg_histogram <- function(data = NULL,
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
           if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
-          if (rlang::is_null(x_breaks_n)) x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
-          x_breaks <- pretty(x_min_max, n = x_breaks_n)
+
+          if (!rlang::is_null(x_breaks_width)) {
+            x_breaks <- scales::fullseq(x_min_max, size = x_breaks_width)
+          }
+          else {
+            if (rlang::is_null(x_breaks_n)) {
+              x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+            }
+            x_breaks <- pretty(x_min_max, n = x_breaks_n)
+          }
         }
 
         if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
@@ -865,8 +887,16 @@ gg_histogram <- function(data = NULL,
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
           if (y_balance) y_min_max <- c(-y_min_max, y_min_max)
-          if (rlang::is_null(y_breaks_n)) y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
-          y_breaks <- pretty(y_min_max, n = y_breaks_n)
+
+          if (!rlang::is_null(y_breaks_width)) {
+            y_breaks <- scales::fullseq(y_min_max, size = y_breaks_width)
+          }
+          else {
+            if (rlang::is_null(y_breaks_n)) {
+              y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+            }
+            y_breaks <- pretty(y_min_max, n = y_breaks_n)
+          }
         }
 
         if (rlang::is_null(y_limits)) y_limits <- c(min(y_breaks), max(y_breaks))

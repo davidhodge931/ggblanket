@@ -62,6 +62,7 @@ gg_blank(
   col_legend_mobile = FALSE,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
+  col_limits = NULL,
   col_method = NULL,
   col_na_rm = FALSE,
   col_rev = FALSE,
