@@ -3,7 +3,6 @@
 export("%>%")
 export(gg_bar)
 export(gg_blank)
-export(gg_blank_debug1)
 export(gg_boxplot)
 export(gg_col)
 export(gg_function)
