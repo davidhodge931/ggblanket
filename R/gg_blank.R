@@ -28,8 +28,8 @@
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2.
 #' @param x_breaks_width
 #' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.
-#' @param x_oob scales function for how to deal with out-of-bounds values on the x axis. See ggplot2::scale_x_continuous for further information.
-#' @param x_labels A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.
+#' @param x_oob Scales function for how to deal with out-of-bounds values on the x axis.
+#' @param x_labels A function to format the x scale labels, including in rlang lambda format. Use ~.x to remove default transformations.
 #' @param x_limits For a numeric or date x variable, a vector of length 2 to determine the limits of the x axis. Use c(NA, NA) for the min and max of the x variable.
 #' @param x_na_rm TRUE or FALSE of whether to include x NA values. Defaults to FALSE.
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
@@ -40,7 +40,7 @@
 #' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm.
 #' @param y_breaks_width
 #' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.
-#' @param y_labels A function or named vector to modify y scale labels. Use function(x) x to keep labels untransformed.
+#' @param y_labels A function to format the y scale labels, including in rlang lambda format. Use ~.x to remove default transformations.
 #' @param y_limits For a numeric or date y variable, a vector of length 2 to determine the limits of the y axis. Use c(NA, NA) for the min and max of the y variable.
 #' @param y_na_rm TRUE or FALSE of whether to remove y NA values. Defaults to FALSE.
 #' @param y_oob scales function for how to deal with out-of-bounds values on the y axis. See ggplot2::scale_y_continuous for further information.
@@ -49,7 +49,8 @@
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param col_breaks For a numeric col variable, a vector of breaks. If "continuous" col_method is selected, this only affects the labels. If "bin" or "quantile" is selected, then this also affects the categories that col is applied to. If "bin" col_method is selected, the vector should start with -Inf and finish with Inf. If "quantile" col_method is selected, the vector should start with 0 and finish with 1.
 #' @param col_breaks_n For a numeric col variable, the desired number of intervals on the col scale.
-#' @param col_labels A function or named vector to modify col scale labels. Defaults to snakecase::to_sentence_case for categorical col variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.
+#' @param col_intervals A function to cut the numeric variable, including in rlang lambda format (e.g. ~ santoku::chop_evenly(.x, intervals = 4, drop = F)).
+#' @param col_labels A function to format the col scale labels, including in rlang lambda format. Use ~.x to remove default transformations.
 #' @param col_legend_place
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
@@ -104,7 +105,6 @@ gg_blank <- function(data = NULL,
                      x_title = NULL,
                      x_zero = NULL,
                      x_zero_mid = FALSE,
-
                      y_breaks = NULL,
                      y_breaks_n = NULL,
                      y_breaks_width = NULL,
@@ -119,6 +119,7 @@ gg_blank <- function(data = NULL,
                      y_zero = NULL,
                      col_breaks = NULL,
                      col_breaks_n = NULL,
+                     col_breaks_width = NULL,
                      col_intervals = NULL,
                      col_labels = NULL,
                      col_legend_place = "right",
@@ -297,13 +298,23 @@ gg_blank <- function(data = NULL,
 
     if (is.numeric(rlang::eval_tidy(col, data))) {
       if (rlang::is_null(col_intervals)) { #continuous col
-        if (rlang::is_null(col_breaks_n)) {
-          if (col_legend_place %in% c("b", "bottom", "t", "top")) col_breaks_n <- 3
-          else col_breaks_n <- 4
-        }
-        if (rlang::is_null(pal)) pal <- viridis::viridis(100)
+        if (rlang::is_null(col_breaks)) {
+          col_vctr <- dplyr::pull(data, !!col)
+          col_min_max <- c(min(col_vctr, na.rm = TRUE), max(col_vctr, na.rm = TRUE))
 
-        if (rlang::is_null(col_breaks)) col_breaks <- pretty(rlang::eval_tidy(col, data), col_breaks_n)
+          if (!rlang::is_null(col_breaks_width)) {
+            col_breaks <- scales::fullseq(col_min_max, size = col_breaks_width)
+          }
+          else {
+            if (rlang::is_null(col_breaks_n)) {
+              if (col_legend_place %in% c("b", "bottom", "t", "top")) col_breaks_n <- 3
+              else col_breaks_n <- 4
+            }
+            col_breaks <- pretty(col_min_max, n = col_breaks_n)
+          }
+        }
+
+        if (rlang::is_null(pal)) pal <- viridis::viridis(100)
         if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
 
         col_scale <- ggplot2::scale_colour_gradientn(
@@ -321,7 +332,8 @@ gg_blank <- function(data = NULL,
         data <- data %>%
           dplyr::mutate(dplyr::across(!!col, col_intervals))
 
-        col_n <- length(levels(rlang::eval_tidy(col, data)))
+        col_levels <- levels(rlang::eval_tidy(col, data))
+        col_n <- length(col_levels)
 
         if (rlang::is_null(pal)) pal <- pal_viridis_reorder(col_n)
         else pal <- pal[1:col_n]
@@ -344,8 +356,8 @@ gg_blank <- function(data = NULL,
 
         col_scale <- ggplot2::scale_colour_manual(
           values = pal,
-          breaks = col_breaks,
-          limits = col_limits,
+          breaks = col_levels,
+          limits = col_levels,
           labels = col_labels,
           na.value = pal_na,
           name = col_title,
@@ -581,8 +593,6 @@ gg_blank <- function(data = NULL,
         x_min <- min(x_vctr, na.rm = TRUE)
         x_max <- max(x_vctr, na.rm = TRUE)
 
-        if ((x_min < 0 & x_max > 0)) x_zero <- FALSE
-
         if (rlang::is_null(x_breaks)) {
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
@@ -653,8 +663,6 @@ gg_blank <- function(data = NULL,
 
         y_min <- min(y_vctr, na.rm = TRUE)
         y_max <- max(y_vctr, na.rm = TRUE)
-
-        if ((y_min < 0 & y_max > 0)) y_zero <- FALSE
 
         if (rlang::is_null(y_breaks)) {
           y_min_max <- c(y_min, y_max)
@@ -738,8 +746,6 @@ gg_blank <- function(data = NULL,
         x_min <- min(x_vctr, na.rm = TRUE)
         x_max <- max(x_vctr, na.rm = TRUE)
 
-        if ((x_min < 0 & x_max > 0)) x_zero <- FALSE
-
         if (rlang::is_null(x_breaks)) {
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
@@ -817,8 +823,6 @@ gg_blank <- function(data = NULL,
 
         y_min <- min(y_vctr, na.rm = TRUE)
         y_max <- max(y_vctr, na.rm = TRUE)
-
-        if ((y_min < 0 & y_max > 0)) y_zero <- FALSE
 
         if (rlang::is_null(y_breaks)) {
           y_min_max <- c(y_min, y_max)

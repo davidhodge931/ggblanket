@@ -51,6 +51,7 @@ gg_blank(
   y_zero = NULL,
   col_breaks = NULL,
   col_breaks_n = NULL,
+  col_breaks_width = NULL,
   col_intervals = NULL,
   col_labels = NULL,
   col_legend_place = "right",
@@ -113,13 +114,13 @@ gg_blank(
 
 \item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{x_labels}{A function or named vector to modify x scale labels. Use function(x) x to keep labels untransformed.}
+\item{x_labels}{A function to format the x scale labels, including in rlang lambda format. Use ~.x to remove default transformations.}
 
 \item{x_limits}{For a numeric or date x variable, a vector of length 2 to determine the limits of the x axis. Use c(NA, NA) for the min and max of the x variable.}
 
 \item{x_na_rm}{TRUE or FALSE of whether to include x NA values. Defaults to FALSE.}
 
-\item{x_oob}{scales function for how to deal with out-of-bounds values on the x axis. See ggplot2::scale_x_continuous for further information.}
+\item{x_oob}{Scales function for how to deal with out-of-bounds values on the x axis.}
 
 \item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
 
@@ -135,7 +136,7 @@ gg_blank(
 
 \item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
 
-\item{y_labels}{A function or named vector to modify y scale labels. Use function(x) x to keep labels untransformed.}
+\item{y_labels}{A function to format the y scale labels, including in rlang lambda format. Use ~.x to remove default transformations.}
 
 \item{y_limits}{For a numeric or date y variable, a vector of length 2 to determine the limits of the y axis. Use c(NA, NA) for the min and max of the y variable.}
 
@@ -155,7 +156,9 @@ gg_blank(
 
 \item{col_breaks_n}{For a numeric col variable, the desired number of intervals on the col scale.}
 
-\item{col_labels}{A function or named vector to modify col scale labels. Defaults to snakecase::to_sentence_case for categorical col variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.}
+\item{col_intervals}{A function to cut the numeric variable, including in rlang lambda format (e.g. ~ santoku::chop_evenly(.x, intervals = 4, drop = F)).}
+
+\item{col_labels}{A function to format the col scale labels, including in rlang lambda format. Use ~.x to remove default transformations.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
