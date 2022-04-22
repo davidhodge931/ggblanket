@@ -18,16 +18,13 @@ gg_blank(
   ymax = NULL,
   yend = NULL,
   tooltip = NULL,
-  palette = NULL,
-  palette_na = "#7F7F7F",
-  alpha = 1,
-  size = 0.5,
+  pal = NULL,
+  pal_na = "#7F7F7F",
   width = NULL,
   bins = 40,
   ...,
   title = NULL,
   subtitle = NULL,
-  x_balance = FALSE,
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_breaks_width = NULL,
@@ -39,7 +36,7 @@ gg_blank(
   x_rev = FALSE,
   x_title = NULL,
   x_zero = NULL,
-  y_balance = FALSE,
+  x_zero_mid = FALSE,
   y_breaks = NULL,
   y_breaks_n = NULL,
   y_breaks_width = NULL,
@@ -50,18 +47,16 @@ gg_blank(
   y_oob = scales::oob_keep,
   y_rev = FALSE,
   y_title = NULL,
+  y_zero_mid = FALSE,
   y_zero = NULL,
   col_breaks = NULL,
   col_breaks_n = NULL,
-  col_intervals_left = TRUE,
+  col_intervals = NULL,
   col_labels = NULL,
-  col_legend_bottom = FALSE,
-  col_legend_none = FALSE,
-  col_legend_mobile = FALSE,
+  col_legend_place = "right",
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_limits = NULL,
-  col_method = NULL,
   col_na_rm = FALSE,
   col_rev = FALSE,
   col_title = NULL,
@@ -78,31 +73,39 @@ gg_blank(
 \arguments{
 \item{data}{A data frame in a structure to be plotted untransformed. Required input.}
 
-\item{x}{Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, or date). Required input.}
+\item{x}{Unquoted x variable to be on the x scale (i.e. character, factor, logical, numeric, or date).}
 
-\item{y}{Unquoted numeric variable to be on the y scale. Required input.}
+\item{y}{Unquoted y variable to be on the y scale (i.e. character, factor, logical, numeric, or date).}
 
-\item{col}{Unquoted variable to col and fill by.}
+\item{col}{Unquoted variable to col and fill by (i.e. character, factor, logical, numeric)}
 
-\item{facet}{Unquoted categorical variable to facet by.}
+\item{facet}{Unquoted facet variable (i.e. character, factor, logical)}
 
-\item{tooltip}{Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(..., tooltip = "text").}
+\item{xmin}{Unquoted xmin variable (i.e. numeric).}
 
-\item{palette}{Character vector of hex codes.}
+\item{xmax}{Unquoted xmax variable (i.e. numeric).}
 
-\item{palette_na}{The hex code or name of the NA col to be used.}
+\item{xend}{Unquoted xend variable (i.e. numeric).}
 
-\item{alpha}{Opacity argument per ggplot2::geom_* function.}
+\item{ymin}{Unquoted ymin variable (i.e. numeric).}
 
-\item{size}{Size argument per ggplot2::geom_* function. Defaults to 0.5.}
+\item{ymax}{Unquoted ymax variable (i.e. numeric).}
 
-\item{width}{Width of any polygons. Defaults to 0.75 if x or y is categorical. Otherwise NULL.}
+\item{yend}{Unquoted xend variable (i.e. numeric).}
+
+\item{tooltip}{Unquoted tooltip variable to be used with plotly::ggplotly(..., tooltip = "text").}
+
+\item{pal}{Character vector of hex codes.}
+
+\item{pal_na}{The hex code or name of the NA colour to be used.}
+
+\item{width}{Width. A number above 0 upwards.}
+
+\item{bins}{Number of bins to transform the data into.}
 
 \item{title}{Title string.}
 
 \item{subtitle}{Subtitle string.}
-
-\item{x_balance}{For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.}
 
 \item{x_breaks}{For a numeric or date x variable, a vector of breaks for the x axis. Note the x_limits will be the min and max of this vector.}
 
@@ -124,7 +127,7 @@ gg_blank(
 
 \item{x_zero}{For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero.}
 
-\item{y_balance}{For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.}
+\item{x_zero_mid}{For a numeric x variable, centre the x scale on zero. Defaults to FALSE.}
 
 \item{y_breaks}{For a numeric or date y variable, a vector of breaks for the y axis.}
 
@@ -144,27 +147,19 @@ gg_blank(
 
 \item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
 
+\item{y_zero_mid}{For a numeric x variable, centre the x scale on zero.}
+
 \item{y_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
 
 \item{col_breaks}{For a numeric col variable, a vector of breaks. If "continuous" col_method is selected, this only affects the labels. If "bin" or "quantile" is selected, then this also affects the categories that col is applied to. If "bin" col_method is selected, the vector should start with -Inf and finish with Inf. If "quantile" col_method is selected, the vector should start with 0 and finish with 1.}
 
 \item{col_breaks_n}{For a numeric col variable, the desired number of intervals on the col scale.}
 
-\item{col_intervals_left}{For a numeric col variable of "bin" or "quantile" col_method, TRUE or FALSE of whether bins or quantiles are to be cut left-closed. Defaults to TRUE.}
-
 \item{col_labels}{A function or named vector to modify col scale labels. Defaults to snakecase::to_sentence_case for categorical col variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.}
-
-\item{col_legend_bottom}{TRUE or FALSE of whether to position the legend horizontally on the bottom. Defaults to FALSE.}
-
-\item{col_legend_none}{TRUE or FALSE of whether to remove the legend.}
-
-\item{col_legend_mobile}{TRUE or FALSE of whether to position the legend for mobile vertically on the bottom. Defaults to FALSE.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
 \item{col_legend_nrow}{The number of rows for the legend elements.}
-
-\item{col_method}{The method of coling features, either "bin", "quantile", "continuous", or "factor". If numeric, defaults to "continuous".}
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col NA values. Defaults to FALSE.}
 
@@ -188,7 +183,13 @@ gg_blank(
 
 \item{theme}{A ggplot2 theme.}
 
-\item{position}{How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).}
+\item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
+
+\item{stat}{Statistical transformation. A character string (e.g. "identity").}
+
+\item{alpha}{Opacity. A number between 0 and 1.}
+
+\item{size}{Size. A number 0 upwards.}
 }
 \value{
 A ggplot object.

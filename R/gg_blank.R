@@ -2,29 +2,28 @@
 #'
 #' @description Blank ggplot.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
-#' @param x Unquoted variable to be on the x scale (i.e. character, factor, logical, numeric, or date). Required input.
-#' @param y Unquoted numeric variable to be on the y scale. Required input.
-#' @param col Unquoted variable to col and fill by.
-#' @param facet Unquoted categorical variable to facet by.
-#' @param xmin
-#' @param xmax
-#' @param xend
-#' @param ymin
-#' @param ymax
-#' @param yend
-#' @param tooltip Unquoted variable to be used as a customised tooltip in combination with plotly::ggplotly(..., tooltip = "text").
-#' @param position How overlapping geom's should be positioned with a character string (e.g."identity", "dodge", "dodge2", "fill"), or a function (e.g. ggplot2::position_*()).
-#' @param stat
-#' @param bins
-#' @param binwidth
-#' @param palette Character vector of hex codes.
-#' @param palette_na The hex code or name of the NA col to be used.
-#' @param alpha Opacity argument per ggplot2::geom_* function.
-#' @param size Size argument per ggplot2::geom_* function. Defaults to 0.5.
-#' @param width Width of any polygons. Defaults to 0.75 if x or y is categorical. Otherwise NULL.
+#' @param x Unquoted x variable to be on the x scale (i.e. character, factor, logical, numeric, or date).
+#' @param y Unquoted y variable to be on the y scale (i.e. character, factor, logical, numeric, or date).
+#' @param col Unquoted variable to col and fill by (i.e. character, factor, logical, numeric)
+#' @param facet Unquoted facet variable (i.e. character, factor, logical)
+#' @param xmin Unquoted xmin variable (i.e. numeric).
+#' @param xmax Unquoted xmax variable (i.e. numeric).
+#' @param xend Unquoted xend variable (i.e. numeric).
+#' @param ymin Unquoted ymin variable (i.e. numeric).
+#' @param ymax Unquoted ymax variable (i.e. numeric).
+#' @param yend Unquoted xend variable (i.e. numeric).
+#' @param tooltip Unquoted tooltip variable to be used with plotly::ggplotly(..., tooltip = "text").
+#' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
+#' @param stat Statistical transformation. A character string (e.g. "identity").
+#' @param pal Character vector of hex codes.
+#' @param pal_na The hex code or name of the NA colour to be used.
+#' @param alpha Opacity. A number between 0 and 1.
+#' @param size Size. A number 0 upwards.
+#' @param width Width. A number above 0 upwards.
+#' @param bins Number of bins to transform the data into.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
-#' @param x_balance For a numeric x variable, add balance to the x scale so that zero is in the centre. Defaults to FALSE.
+#' @param x_zero_mid For a numeric x variable, centre the x scale on zero. Defaults to FALSE.
 #' @param x_breaks For a numeric or date x variable, a vector of breaks for the x axis. Note the x_limits will be the min and max of this vector.
 #' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2.
 #' @param x_breaks_width
@@ -36,7 +35,7 @@
 #' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
 #' @param x_title x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
 #' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero.
-#' @param y_balance For a numeric y variable, add balance to the y scale so that zero is in the centre of the y scale.
+#' @param y_zero_mid For a numeric x variable, centre the x scale on zero.
 #' @param y_breaks For a numeric or date y variable, a vector of breaks for the y axis.
 #' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm.
 #' @param y_breaks_width
@@ -50,15 +49,11 @@
 #' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
 #' @param col_breaks For a numeric col variable, a vector of breaks. If "continuous" col_method is selected, this only affects the labels. If "bin" or "quantile" is selected, then this also affects the categories that col is applied to. If "bin" col_method is selected, the vector should start with -Inf and finish with Inf. If "quantile" col_method is selected, the vector should start with 0 and finish with 1.
 #' @param col_breaks_n For a numeric col variable, the desired number of intervals on the col scale.
-#' @param col_intervals_left For a numeric col variable of "bin" or "quantile" col_method, TRUE or FALSE of whether bins or quantiles are to be cut left-closed. Defaults to TRUE.
 #' @param col_labels A function or named vector to modify col scale labels. Defaults to snakecase::to_sentence_case for categorical col variables and scales::label_comma() for numeric. Use function(x) x to keep labels untransformed.
-#' @param col_legend_bottom TRUE or FALSE of whether to position the legend horizontally on the bottom. Defaults to FALSE.
-#' @param col_legend_mobile TRUE or FALSE of whether to position the legend for mobile vertically on the bottom. Defaults to FALSE.
-#' @param col_legend_none TRUE or FALSE of whether to remove the legend.
+#' @param col_legend_place
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_limits
-#' @param col_method The method of coling features, either "bin", "quantile", "continuous", or "factor". If numeric, defaults to "continuous".
 #' @param col_na_rm TRUE or FALSE of whether to include col NA values. Defaults to FALSE.
 #' @param col_rev TRUE or FALSE of whether the col scale is reversed. Defaults to FALSE.
 #' @param col_title col title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
@@ -86,18 +81,17 @@ gg_blank <- function(data = NULL,
                      ymax = NULL,
                      yend = NULL,
                      tooltip = NULL,
-                     palette = NULL,
-                     palette_na = "#7F7F7F",
+                     pal = NULL,
+                     pal_na = "#7F7F7F",
                      # stat = "identity",
                      # position = "identity",
-                     alpha = 1,
-                     size = 0.5,
+                     # alpha = 1,
+                     # size = 0.5,
                      width = NULL,
                      bins = 40,
                      ...,
                      title = NULL,
                      subtitle = NULL,
-                     x_balance = FALSE,
                      x_breaks = NULL,
                      x_breaks_n = NULL,
                      x_breaks_width = NULL,
@@ -109,7 +103,8 @@ gg_blank <- function(data = NULL,
                      x_rev = FALSE,
                      x_title = NULL,
                      x_zero = NULL,
-                     y_balance = FALSE,
+                     x_zero_mid = FALSE,
+
                      y_breaks = NULL,
                      y_breaks_n = NULL,
                      y_breaks_width = NULL,
@@ -120,18 +115,16 @@ gg_blank <- function(data = NULL,
                      y_oob = scales::oob_keep,
                      y_rev = FALSE,
                      y_title = NULL,
+                     y_zero_mid = FALSE,
                      y_zero = NULL,
                      col_breaks = NULL,
                      col_breaks_n = NULL,
-                     col_intervals_left = TRUE,
+                     col_intervals = NULL,
                      col_labels = NULL,
-                     col_legend_bottom = FALSE,
-                     col_legend_none = FALSE,
-                     col_legend_mobile = FALSE,
+                     col_legend_place = "right",
                      col_legend_ncol = NULL,
                      col_legend_nrow = NULL,
                      col_limits = NULL,
-                     col_method = NULL,
                      col_na_rm = FALSE,
                      col_rev = FALSE,
                      col_title = NULL,
@@ -162,11 +155,8 @@ gg_blank <- function(data = NULL,
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
-  # if (rlang::quo_is_null(x)) rlang::abort("x is required")
-  # if (rlang::quo_is_null(y)) rlang::abort("y is required")
   if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {ggblanket}, the {ggplot2} fill aesthetic inherits from col"))
-  # rlang::inform(c("i" = "Note {ggblanket} gg_bar uses the {ggplot2} geom_blank function"))
-  # if (is.null(position)) rlang::inform(c("i" = "Note {ggblanket} gg_bar uses a default of 'dodge2', where {ggplot2} uses a default of 'stack'"))
+  # if (rlang::is_null(position)) rlang::inform(c("i" = "Note {ggblanket} gg_bar uses a default of 'dodge2', where {ggplot2} uses a default of 'stack'"))
 
   ###ungroup
   data <- dplyr::ungroup(data)
@@ -282,7 +272,7 @@ gg_blank <- function(data = NULL,
   }
 
   ###width
-  if (is.null(width)) {
+  if (rlang::is_null(width)) {
     if (is.factor(rlang::eval_tidy(x, data)) | is.character(rlang::eval_tidy(x, data)) |
         is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
 
@@ -292,125 +282,125 @@ gg_blank <- function(data = NULL,
 
   ##col scale
   if (rlang::quo_is_null(col)) {
-    if (rlang::is_null(palette)) palette <-  pal_viridis_reorder(1)
-    else palette <- palette[1]
+    if (rlang::is_null(pal)) pal <-  pal_viridis_reorder(1)
+    else pal <- pal[1]
 
     col_scale <- ggplot2::scale_colour_manual(
-      values = palette,
-      na.value = palette_na, #check
+      values = pal,
+      na.value = pal_na,
       aesthetics = c("col", "fill")
     )
   }
-  else if (rlang::is_null(col_method)) {
-    if (!is.numeric(rlang::eval_tidy(col, data))) col_method <- "factor"
-    else if (is.numeric(rlang::eval_tidy(col, data))) col_method <- "continuous"
-  }
-
-  if (!rlang::quo_is_null(col)) {
+  else {
     if (rlang::is_null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col))
+    col_title_position <- ifelse(col_title == "", "right", "top")
 
-    if (col_method == "continuous") {
-      if (is.null(col_breaks_n)) {
-        if (col_legend_bottom) col_breaks_n <- 3
-        if (!col_legend_bottom) col_breaks_n <- 4
-      }
-      if (rlang::is_null(palette)) palette <- viridis::viridis(100)
-      if (rlang::is_null(col_breaks)) col_breaks <- pretty(rlang::eval_tidy(col, data), col_breaks_n)
-      if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
-    }
-    else if (col_method %in% c("quantile", "bin", "factor")) {
-      if (col_method %in% c("quantile", "bin")) {
-        if (is.null(col_breaks_n)) col_breaks_n <- 4
-        if (col_method == "quantile") {
-          if (rlang::is_null(col_breaks)) col_breaks <- seq(0, 1, 1 / col_breaks_n)
-          col_breaks <- stats::quantile(rlang::eval_tidy(col, data), probs = col_breaks, na.rm = TRUE)
-          if (anyDuplicated(col_breaks) > 0) stop("col_breaks do not provide unique breaks")
+    if (is.numeric(rlang::eval_tidy(col, data))) {
+      if (rlang::is_null(col_intervals)) { #continuous col
+        if (rlang::is_null(col_breaks_n)) {
+          if (col_legend_place %in% c("b", "bottom", "t", "top")) col_breaks_n <- 3
+          else col_breaks_n <- 4
         }
-        else if (col_method == "bin") {
-          if (rlang::is_null(col_breaks)) col_breaks <- pretty(rlang::eval_tidy(col, data), col_breaks_n)
-        }
+        if (rlang::is_null(pal)) pal <- viridis::viridis(100)
 
+        if (rlang::is_null(col_breaks)) col_breaks <- pretty(rlang::eval_tidy(col, data), col_breaks_n)
         if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
 
-        if (is.vector(col_labels)) {
-          santoku_labeller <- santoku::lbl_dash(
-            symbol = "\u2013", first = "<{r}", last = "\u2265{r}")
-        }
-        else {
-          santoku_labeller <- santoku::lbl_dash(
-            fmt = col_labels,
-            symbol = "\u2013", first = "<{r}", last = "\u2265{r}")
-
-          col_labels <- ggplot2::waiver()
-        }
-
-        data <- data %>%
-          dplyr::mutate(dplyr::across(
-            !!col,
-            ~ santoku::chop(
-              .x,
-              breaks = col_breaks,
-              left = TRUE,
-              close_end = TRUE,
-              drop = FALSE,
-              labels = santoku_labeller
-            )
-          ))
-
-        col_n <- length(col_breaks) - 1
-        if (rlang::is_null(palette)) palette <- pal_viridis_reorder(col_n)
-        else palette <- palette[1:col_n]
+        col_scale <- ggplot2::scale_colour_gradientn(
+          colors = pal,
+          labels = col_labels,
+          breaks = col_breaks,
+          limits = col_limits,
+          na.value = pal_na,
+          name = col_title,
+          aesthetics = c("col", "fill"),
+          guide = ggplot2::guide_colorbar(title.position = col_title_position)
+        )
       }
-      else if (col_method == "factor") {
-        if (is.factor(rlang::eval_tidy(col, data)) & !rlang::is_null(levels(rlang::eval_tidy(col, data)))) {
+      else { #intervals col
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!col, col_intervals))
+
+        col_n <- length(levels(rlang::eval_tidy(col, data)))
+
+        if (rlang::is_null(pal)) pal <- pal_viridis_reorder(col_n)
+        else pal <- pal[1:col_n]
+
+        if (is.numeric(rlang::eval_tidy(y, data)) |
+            lubridate::is.Date(rlang::eval_tidy(y, data))) {
+
+          if (col_legend_place %in% c("b", "bottom", "t", "top")) col_legend_rev <- FALSE
+          else col_legend_rev <- TRUE
+        }
+        else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
+          if (col_legend_place %in% c("b", "bottom", "t", "top")) col_legend_rev <- TRUE
+          else col_legend_rev <- FALSE
+          pal <- rev(pal)
+        }
+        else col_legend_rev <- FALSE
+
+        if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
+        if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
+
+        col_scale <- ggplot2::scale_colour_manual(
+          values = pal,
+          breaks = col_breaks,
+          limits = col_limits,
+          labels = col_labels,
+          na.value = pal_na,
+          name = col_title,
+          aesthetics = c("col", "fill"),
+          guide = ggplot2::guide_legend(
+            reverse = col_legend_rev,
+            title.position = col_title_position,
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow,
+            byrow = TRUE
+          )
+        )
+      }
+    }
+    else { #categorical col
+      if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
+      else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
+      else {
+        if (is.factor(rlang::eval_tidy(col, data))) {
           col_n <- length(levels(rlang::eval_tidy(col, data)))
         }
         else col_n <- length(unique(rlang::eval_tidy(col, data)))
-
-        if (rlang::is_null(palette)) palette <- pal_d3_reorder(col_n)
-        else palette <- palette[1:col_n]
-
-        if (rlang::is_null(col_labels)) col_labels <- snakecase::to_sentence_case
       }
-    }
 
-    col_title_position <- ifelse(col_title == "", "right", "top")
+      if (rlang::is_null(pal)) pal <- pal_d3_reorder(col_n)
+      else pal <- pal[1:col_n]
 
-    if (col_method == "continuous") {
-      col_scale <- ggplot2::scale_colour_gradientn(
-        colors = palette,
-        labels = col_labels,
-        breaks = col_breaks,
-        # limits = col_limits,
-        na.value = palette_na,
-        name = col_title,
-        aesthetics = c("col", "fill"),
-        guide = ggplot2::guide_colorbar(title.position = col_title_position)
-      )
-    }
-    else if (col_method %in% c("quantile", "bin", "factor")) {
       if (is.numeric(rlang::eval_tidy(y, data)) |
           lubridate::is.Date(rlang::eval_tidy(y, data))) {
-        if (col_method == "factor") col_legend_rev <- FALSE
-        else if (col_method %in% c("bin", "quantile") & col_legend_bottom) col_legend_rev <- FALSE
+
+        if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
+          col_legend_rev <- FALSE
+        }
+        else if (col_legend_place %in% c("b", "bottom", "t", "top")) col_legend_rev <- FALSE
         else col_legend_rev <- TRUE
       }
       else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
-        if (col_method == "factor") col_legend_rev <- TRUE
-        else if (col_method %in% c("bin", "quantile") & col_legend_bottom) col_legend_rev <- TRUE
+        if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
+          col_legend_rev <- TRUE
+        }
+        else if (col_legend_place %in% c("b", "bottom", "t", "top")) col_legend_rev <- TRUE
         else col_legend_rev <- FALSE
-        palette <- rev(palette) #there was 2 rev palettes here ??
+        pal <- rev(pal)
       }
       else col_legend_rev <- FALSE
 
-      if (is.null(col_breaks)) col_breaks <- ggplot2::waiver()
+      if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
+      if (rlang::is_null(col_labels)) col_labels <- snakecase::to_sentence_case
 
       col_scale <- ggplot2::scale_colour_manual(
-        values = palette,
+        values = pal,
         breaks = col_breaks,
         limits = col_limits,
         labels = col_labels,
-        na.value = palette_na,
+        na.value = pal_na,
         name = col_title,
         aesthetics = c("col", "fill"),
         guide = ggplot2::guide_legend(
@@ -418,8 +408,7 @@ gg_blank <- function(data = NULL,
           title.position = col_title_position,
           ncol = col_legend_ncol,
           nrow = col_legend_nrow,
-          byrow = TRUE
-        )
+          byrow = TRUE)
       )
     }
   }
@@ -559,8 +548,8 @@ gg_blank <- function(data = NULL,
     ggplot2::geom_blank(
       ggplot2::aes(text = !!tooltip),
       width = width,
-      alpha = alpha,
-      size = size,
+      # alpha = alpha,
+      # size = size,
       # stat = stat,
       # position = position,
       bins = bins,
@@ -597,7 +586,7 @@ gg_blank <- function(data = NULL,
         if (rlang::is_null(x_breaks)) {
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
-          if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
+          if (x_zero_mid) x_min_max <- c(-x_min_max, x_min_max)
 
           if (!rlang::is_null(x_breaks_width)) {
             x_breaks <- scales::fullseq(x_min_max, size = x_breaks_width)
@@ -670,7 +659,7 @@ gg_blank <- function(data = NULL,
         if (rlang::is_null(y_breaks)) {
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
-          if (y_balance) y_min_max <- c(-y_min_max, y_min_max)
+          if (y_zero_mid) y_min_max <- c(-y_min_max, y_min_max)
 
           if (!rlang::is_null(y_breaks_width)) {
             y_breaks <- scales::fullseq(y_min_max, size = y_breaks_width)
@@ -754,7 +743,7 @@ gg_blank <- function(data = NULL,
         if (rlang::is_null(x_breaks)) {
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
-          if (x_balance) x_min_max <- c(-x_min_max, x_min_max)
+          if (x_zero_mid) x_min_max <- c(-x_min_max, x_min_max)
 
           if (!rlang::is_null(x_breaks_width)) {
             x_breaks <- scales::fullseq(x_min_max, size = x_breaks_width)
@@ -834,7 +823,7 @@ gg_blank <- function(data = NULL,
         if (rlang::is_null(y_breaks)) {
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
-          if (y_balance) y_min_max <- c(-y_min_max, y_min_max)
+          if (y_zero_mid) y_min_max <- c(-y_min_max, y_min_max)
 
           if (!rlang::is_null(y_breaks_width)) {
             y_breaks <- scales::fullseq(y_min_max, size = y_breaks_width)
@@ -903,19 +892,28 @@ gg_blank <- function(data = NULL,
     ggplot2::coord_cartesian(clip = "off") +
     col_scale
 
-  if (col_legend_bottom) {
+  if (col_legend_place %in% c("b", "bottom")) {
     plot <- plot +
       ggplot2::theme(legend.direction = "horizontal") +
       ggplot2::theme(legend.position = "bottom")
   }
-  if (col_legend_mobile) {
+  else if (col_legend_place %in% c("t", "top")) {
+    plot <- plot +
+      ggplot2::theme(legend.direction = "horizontal") +
+      ggplot2::theme(legend.position = "top")
+  }
+  else if (col_legend_place %in% c("n", "none") | rlang::quo_is_null(col)) {
+    plot <- plot +
+      ggplot2::theme(legend.position = "none")
+  }
+  else if (col_legend_place %in% c("l", "left")) {
+    plot <- plot +
+      ggplot2::theme(legend.position = "left")
+  }
+  else if (col_legend_place == "mobile") {
     plot <- plot +
       ggplot2::theme(legend.position = "bottom") +
       ggplot2::theme(legend.direction = "vertical")
-  }
-  if (col_legend_none | rlang::quo_is_null(col)) {
-    plot <- plot +
-      ggplot2::theme(legend.position = "none")
   }
 
   return(plot)
