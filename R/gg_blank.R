@@ -12,7 +12,7 @@
 #' @param ymin Unquoted ymin variable (i.e. numeric).
 #' @param ymax Unquoted ymax variable (i.e. numeric).
 #' @param yend Unquoted xend variable (i.e. numeric).
-#' @param tooltip Unquoted tooltip variable to be used with plotly::ggplotly(..., tooltip = "text").
+#' @param text Unquoted text variable to be used as a tooltip with plotly::ggplotly(..., tooltip = "text").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param pal Character vector of hex codes.
@@ -23,46 +23,47 @@
 #' @param bins Number of bins to transform the data into.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
-#' @param x_zero_mid For a numeric x variable, centre the x scale on zero. Defaults to FALSE.
-#' @param x_breaks For a numeric or date x variable, a vector of breaks for the x axis. Note the x_limits will be the min and max of this vector.
-#' @param x_breaks_n For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2.
-#' @param x_breaks_width
-#' @param x_expand A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.
-#' @param x_oob Scales function for how to deal with out-of-bounds values on the x axis.
-#' @param x_labels A function to format the x scale labels, including in rlang lambda format. Use ~.x to remove default transformations.
-#' @param x_limits For a numeric or date x variable, a vector of length 2 to determine the limits of the x axis. Use c(NA, NA) for the min and max of the x variable.
-#' @param x_na_rm TRUE or FALSE of whether to include x NA values. Defaults to FALSE.
-#' @param x_rev For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.
-#' @param x_title x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
-#' @param x_zero For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero.
-#' @param y_zero_mid For a numeric x variable, centre the x scale on zero.
-#' @param y_breaks For a numeric or date y variable, a vector of breaks for the y axis.
-#' @param y_breaks_n For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm.
-#' @param y_breaks_width
-#' @param y_expand A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.
-#' @param y_labels A function to format the y scale labels, including in rlang lambda format. Use ~.x to remove default transformations.
-#' @param y_limits For a numeric or date y variable, a vector of length 2 to determine the limits of the y axis. Use c(NA, NA) for the min and max of the y variable.
-#' @param y_na_rm TRUE or FALSE of whether to remove y NA values. Defaults to FALSE.
-#' @param y_oob scales function for how to deal with out-of-bounds values on the y axis. See ggplot2::scale_y_continuous for further information.
-#' @param y_rev For a categorical x variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.
-#' @param y_title y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
-#' @param y_zero For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.
-#' @param col_breaks For a numeric col variable, a vector of breaks. If "continuous" col_method is selected, this only affects the labels. If "bin" or "quantile" is selected, then this also affects the categories that col is applied to. If "bin" col_method is selected, the vector should start with -Inf and finish with Inf. If "quantile" col_method is selected, the vector should start with 0 and finish with 1.
-#' @param col_breaks_n For a numeric col variable, the desired number of intervals on the col scale.
-#' @param col_intervals A function to cut the numeric variable, including in rlang lambda format (e.g. ~ santoku::chop_evenly(.x, intervals = 4, drop = F)).
-#' @param col_labels A function to format the col scale labels, including in rlang lambda format. Use ~.x to remove default transformations.
-#' @param col_legend_place
+#' @param x_breaks For a numeric or date variable, a vector of breaks for the axis.
+#' @param x_breaks_n For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.
+#' @param x_breaks_width For a numeric or date variable, the width of breaks, as calculated by the scales::fulseq function.
+#' @param x_expand Add padding to the limits with the ggplot2::ggplot2::expansion function, or a vector of length 2.
+#' @param x_oob A scales::oob_* function for how to deal with out-of-bounds values.
+#' @param x_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.
+#' @param x_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.
+#' @param x_na_rm TRUE or FALSE of whether to include NA values. Defaults to FALSE.
+#' @param x_rev For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.
+#' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param x_zero For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
+#' @param x_zero_mid For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.
+#' @param y_breaks For a numeric or date variable, a vector of breaks for the axis.
+#' @param y_breaks_n For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.
+#' @param y_breaks_width For a numeric or date variable, the width of breaks, as calculated by the scales::fulseq function.
+#' @param y_expand Add padding to the limits with the ggplot2::ggplot2::expansion function, or a vector of length 2.
+#' @param y_oob A scales::oob_* function for how to deal with out-of-bounds values.
+#' @param y_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.
+#' @param y_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.
+#' @param y_na_rm TRUE or FALSE of whether to include NA values. Defaults to FALSE.
+#' @param y_rev For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.
+#' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param y_zero For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
+#' @param y_zero_mid For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.
+#' @param col_breaks A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.
+#' @param col_breaks_n For a numeric variable where col_intervals is NULL, an integer guiding the number of breaks, as calculated by the pretty function.
+#' @param col_breaks_width For a numeric variable, the width of breaks, as calculated by the scales::fulseq function.
+#' @param col_intervals A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
+#' @param col_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector. Note this does not affect where col_intervals is not NULL.
+#' @param col_limits A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For a numeric variable where col_intervals is NULL, this will make all values outside the limits coloured NA.
+#' @param col_na_rm TRUE or FALSE of whether to include NA values. Defaults to FALSE.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
-#' @param col_limits
-#' @param col_na_rm TRUE or FALSE of whether to include col NA values. Defaults to FALSE.
-#' @param col_rev TRUE or FALSE of whether the col scale is reversed. Defaults to FALSE.
-#' @param col_title col title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
-#' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use function(x) x to keep labels untransformed.
+#' @param col_legend_place The place for the legend. "r" for right, "b" for bottom, "t" for top, "l" for left, or "m" for a mobile-friendly legend.
+#' @param col_rev For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.
+#' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param facet_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.
 #' @param facet_na_rm TRUE or FALSE of whether to include facet NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots.
 #' @param facet_nrow The number of rows of facetted plots.
-#' @param facet_rev TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.
+#' @param facet_rev TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
@@ -81,13 +82,13 @@ gg_blank <- function(data = NULL,
                      ymin = NULL,
                      ymax = NULL,
                      yend = NULL,
-                     tooltip = NULL,
+                     text = NULL,
                      pal = NULL,
                      pal_na = "#7F7F7F",
-                     # stat = "identity",
-                     # position = "identity",
-                     # alpha = 1,
-                     # size = 0.5,
+                     position = "identity",
+                     stat = "identity",
+                     alpha = 1,
+                     size = 0.5,
                      width = NULL,
                      bins = 40,
                      ...,
@@ -152,7 +153,7 @@ gg_blank <- function(data = NULL,
   ymax <- rlang::enquo(ymax)
   yend <- rlang::enquo(yend)
 
-  tooltip <- rlang::enquo(tooltip)
+  text <- rlang::enquo(text)
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
@@ -311,6 +312,7 @@ gg_blank <- function(data = NULL,
         if (rlang::is_null(col_breaks)) {
           col_vctr <- dplyr::pull(data, !!col)
           col_min_max <- c(min(col_vctr, na.rm = TRUE), max(col_vctr, na.rm = TRUE))
+          if (!rlang::is_null(col_limits)) col_min_max <- col_limits
 
           if (!rlang::is_null(col_breaks_width)) {
             col_breaks <- scales::fullseq(col_min_max, size = col_breaks_width)
@@ -568,7 +570,7 @@ gg_blank <- function(data = NULL,
 
   plot <- plot +
     ggplot2::geom_blank(
-      ggplot2::aes(text = !!tooltip),
+      ggplot2::aes(text = !!text),
       width = width,
       # alpha = alpha,
       # size = size,
@@ -607,6 +609,7 @@ gg_blank <- function(data = NULL,
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
           if (x_zero_mid) x_min_max <- c(-x_min_max, x_min_max)
+          if (!rlang::is_null(x_limits)) x_min_max <- x_limits
 
           if (!rlang::is_null(x_breaks_width)) {
             x_breaks <- scales::fullseq(x_min_max, size = x_breaks_width)
@@ -678,6 +681,7 @@ gg_blank <- function(data = NULL,
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
           if (y_zero_mid) y_min_max <- c(-y_min_max, y_min_max)
+          if (!rlang::is_null(y_limits)) y_min_max <- y_limits
 
           if (!rlang::is_null(y_breaks_width)) {
             y_breaks <- scales::fullseq(y_min_max, size = y_breaks_width)
@@ -760,6 +764,7 @@ gg_blank <- function(data = NULL,
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
           if (x_zero_mid) x_min_max <- c(-x_min_max, x_min_max)
+          if (!rlang::is_null(x_limits)) x_min_max <- x_limits
 
           if (!rlang::is_null(x_breaks_width)) {
             x_breaks <- scales::fullseq(x_min_max, size = x_breaks_width)
@@ -838,6 +843,7 @@ gg_blank <- function(data = NULL,
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
           if (y_zero_mid) y_min_max <- c(-y_min_max, y_min_max)
+          if (!rlang::is_null(y_limits)) y_min_max <- y_limits
 
           if (!rlang::is_null(y_breaks_width)) {
             y_breaks <- scales::fullseq(y_min_max, size = y_breaks_width)

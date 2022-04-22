@@ -17,7 +17,7 @@ gg_point(
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
-  tooltip = NULL,
+  text = NULL,
   pal = NULL,
   pal_na = "#7F7F7F",
   width = NULL,
@@ -94,7 +94,7 @@ gg_point(
 
 \item{yend}{Unquoted xend variable (i.e. numeric).}
 
-\item{tooltip}{Unquoted tooltip variable to be used with plotly::ggplotly(..., tooltip = "text").}
+\item{text}{Unquoted text variable to be used as a tooltip with plotly::ggplotly(..., tooltip = "text").}
 
 \item{pal}{Character vector of hex codes.}
 
@@ -108,53 +108,59 @@ gg_point(
 
 \item{subtitle}{Subtitle string.}
 
-\item{x_breaks}{For a numeric or date x variable, a vector of breaks for the x axis. Note the x_limits will be the min and max of this vector.}
+\item{x_breaks}{For a numeric or date variable, a vector of breaks for the axis.}
 
-\item{x_breaks_n}{For a numeric or date x variable, the desired number of intervals on the x scale, as calculated by the pretty algorithm. Defaults to 2.}
+\item{x_breaks_n}{For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.}
 
-\item{x_expand}{A vector of range expansion constants used to add padding to the x scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
+\item{x_breaks_width}{For a numeric or date variable, the width of breaks, as calculated by the scales::fulseq function.}
 
-\item{x_labels}{A function to format the x scale labels, including in rlang lambda format. Use ~.x to remove default transformations.}
+\item{x_expand}{Add padding to the limits with the ggplot2::ggplot2::expansion function, or a vector of length 2.}
 
-\item{x_limits}{For a numeric or date x variable, a vector of length 2 to determine the limits of the x axis. Use c(NA, NA) for the min and max of the x variable.}
+\item{x_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.}
 
-\item{x_na_rm}{TRUE or FALSE of whether to include x NA values. Defaults to FALSE.}
+\item{x_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.}
 
-\item{x_oob}{Scales function for how to deal with out-of-bounds values on the x axis.}
+\item{x_na_rm}{TRUE or FALSE of whether to include NA values. Defaults to FALSE.}
 
-\item{x_rev}{For a categorical x variable, TRUE or FALSE of whether the x variable variable is reversed. Defaults to FALSE.}
+\item{x_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
 
-\item{x_title}{x scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
+\item{x_rev}{For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.}
 
-\item{x_zero}{For a numeric x variable, TRUE or FALSE of whether the minimum of the x scale is zero.}
+\item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{x_zero_mid}{For a numeric x variable, centre the x scale on zero. Defaults to FALSE.}
+\item{x_zero}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
 
-\item{y_breaks}{For a numeric or date y variable, a vector of breaks for the y axis.}
+\item{x_zero_mid}{For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.}
 
-\item{y_breaks_n}{For a numeric or date y variable, the desired number of intervals on the y scale, as calculated by the pretty algorithm.}
+\item{y_breaks}{For a numeric or date variable, a vector of breaks for the axis.}
 
-\item{y_expand}{A vector of range expansion constants used to add padding to the y scale, as per the ggplot2 expand argument in ggplot2 scales functions.}
+\item{y_breaks_n}{For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.}
 
-\item{y_labels}{A function to format the y scale labels, including in rlang lambda format. Use ~.x to remove default transformations.}
+\item{y_breaks_width}{For a numeric or date variable, the width of breaks, as calculated by the scales::fulseq function.}
 
-\item{y_limits}{For a numeric or date y variable, a vector of length 2 to determine the limits of the y axis. Use c(NA, NA) for the min and max of the y variable.}
+\item{y_expand}{Add padding to the limits with the ggplot2::ggplot2::expansion function, or a vector of length 2.}
 
-\item{y_na_rm}{TRUE or FALSE of whether to remove y NA values. Defaults to FALSE.}
+\item{y_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.}
 
-\item{y_oob}{scales function for how to deal with out-of-bounds values on the y axis. See ggplot2::scale_y_continuous for further information.}
+\item{y_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.}
 
-\item{y_rev}{For a categorical x variable, TRUE or FALSE of whether the y variable variable is reversed. Defaults to FALSE.}
+\item{y_na_rm}{TRUE or FALSE of whether to include NA values. Defaults to FALSE.}
 
-\item{y_title}{y scale title string. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
+\item{y_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
 
-\item{y_zero_mid}{For a numeric x variable, centre the x scale on zero.}
+\item{y_rev}{For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.}
 
-\item{y_zero}{For a numeric y variable, TRUE or FALSE of whether the minimum of the y scale is zero. Defaults to TRUE.}
+\item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{col_breaks}{For a numeric col variable, a vector of breaks. If "continuous" col_method is selected, this only affects the labels. If "bin" or "quantile" is selected, then this also affects the categories that col is applied to. If "bin" col_method is selected, the vector should start with -Inf and finish with Inf. If "quantile" col_method is selected, the vector should start with 0 and finish with 1.}
+\item{y_zero_mid}{For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.}
+
+\item{y_zero}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
+
+\item{col_breaks}{}
 
 \item{col_breaks_n}{For a numeric col variable, the desired number of intervals on the col scale.}
+
+\item{col_breaks_width}{For a numeric variable, the width of breaks, as calculated by the scales::fulseq function.}
 
 \item{col_intervals}{A function to cut the numeric variable, including in rlang lambda format (e.g. ~ santoku::chop_evenly(.x, intervals = 4, drop = F)).}
 
@@ -163,6 +169,8 @@ gg_point(
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
 \item{col_legend_nrow}{The number of rows for the legend elements.}
+
+\item{col_limits}{A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For where col_intervals is NULL, this affects the labels on the legend.}
 
 \item{col_na_rm}{TRUE or FALSE of whether to include col NA values. Defaults to FALSE.}
 
@@ -193,6 +201,15 @@ gg_point(
 \item{alpha}{Opacity. A number between 0 and 1.}
 
 \item{size}{Size. A number 0 upwards.}
+
+\item{col_expand}{A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For a numeric
+Add padding to the limits with the ggplot2::ggplot2::expansion function, or a vector of length 2.}
+
+\item{col_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
+
+\item{col_zero}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
+
+\item{col_zero_mid}{For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.}
 }
 \value{
 A ggplot object.
