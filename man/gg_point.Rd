@@ -54,7 +54,7 @@ gg_point(
   col_breaks_width = NULL,
   col_intervals = NULL,
   col_labels = NULL,
-  col_legend_place = "right",
+  col_legend_place = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_limits = NULL,

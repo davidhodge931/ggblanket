@@ -122,7 +122,7 @@ gg_point <- function(data = NULL,
                      col_breaks_width = NULL,
                      col_intervals = NULL,
                      col_labels = NULL,
-                     col_legend_place = "right",
+                     col_legend_place = NULL,
                      col_legend_ncol = NULL,
                      col_legend_nrow = NULL,
                      col_limits = NULL,
@@ -296,6 +296,14 @@ gg_point <- function(data = NULL,
     if (rlang::is_null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col))
     col_title_position <- ifelse(col_title == "", "right", "top")
 
+    if (rlang::is_null(col_legend_place)) {
+      if (!rlang::quo_is_null(facet) &
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data)))) {
+        col_legend_place <- "n"
+      }
+      else col_legend_place <- "r"
+    }
+
     if (is.numeric(rlang::eval_tidy(col, data))) {
       if (rlang::is_null(col_intervals)) { #continuous col
         if (rlang::is_null(col_breaks)) {
@@ -307,7 +315,7 @@ gg_point <- function(data = NULL,
           }
           else {
             if (rlang::is_null(col_breaks_n)) {
-              if (col_legend_place %in% c("b", "bottom", "t", "top")) col_breaks_n <- 3
+              if (col_legend_place %in% c("b", "t")) col_breaks_n <- 3
               else col_breaks_n <- 4
             }
             col_breaks <- pretty(col_min_max, n = col_breaks_n)
@@ -341,11 +349,11 @@ gg_point <- function(data = NULL,
         if (is.numeric(rlang::eval_tidy(y, data)) |
             lubridate::is.Date(rlang::eval_tidy(y, data))) {
 
-          if (col_legend_place %in% c("b", "bottom", "t", "top")) col_legend_rev <- FALSE
+          if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
           else col_legend_rev <- TRUE
         }
         else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
-          if (col_legend_place %in% c("b", "bottom", "t", "top")) col_legend_rev <- TRUE
+          if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
           else col_legend_rev <- FALSE
           pal <- rev(pal)
         }
@@ -391,14 +399,14 @@ gg_point <- function(data = NULL,
         if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
           col_legend_rev <- FALSE
         }
-        else if (col_legend_place %in% c("b", "bottom", "t", "top")) col_legend_rev <- FALSE
+        else if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
         else col_legend_rev <- TRUE
       }
       else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
         if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
           col_legend_rev <- TRUE
         }
-        else if (col_legend_place %in% c("b", "bottom", "t", "top")) col_legend_rev <- TRUE
+        else if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
         else col_legend_rev <- FALSE
         pal <- rev(pal)
       }
@@ -525,7 +533,7 @@ gg_point <- function(data = NULL,
         ))
     }
   }
-  else if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
+  else if (rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
     if (!rlang::quo_is_null(col)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
@@ -896,25 +904,25 @@ gg_point <- function(data = NULL,
     ggplot2::coord_cartesian(clip = "off") +
     col_scale
 
-  if (col_legend_place %in% c("b", "bottom")) {
+  if (col_legend_place == "b") {
     plot <- plot +
       ggplot2::theme(legend.direction = "horizontal") +
       ggplot2::theme(legend.position = "bottom")
   }
-  else if (col_legend_place %in% c("t", "top")) {
+  else if (col_legend_place == "t") {
     plot <- plot +
       ggplot2::theme(legend.direction = "horizontal") +
       ggplot2::theme(legend.position = "top")
   }
-  else if (col_legend_place %in% c("n", "none") | rlang::quo_is_null(col)) {
+  else if (col_legend_place == "n" | rlang::quo_is_null(col)) {
     plot <- plot +
       ggplot2::theme(legend.position = "none")
   }
-  else if (col_legend_place %in% c("l", "left")) {
+  else if (col_legend_place == "l") {
     plot <- plot +
       ggplot2::theme(legend.position = "left")
   }
-  else if (col_legend_place == "mobile") {
+  else if (col_legend_place == "m") {
     plot <- plot +
       ggplot2::theme(legend.position = "bottom") +
       ggplot2::theme(legend.direction = "vertical")
