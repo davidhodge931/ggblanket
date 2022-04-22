@@ -291,6 +291,8 @@ gg_blank <- function(data = NULL,
       na.value = pal_na,
       aesthetics = c("col", "fill")
     )
+
+    col_legend_place <- "n"
   }
   else {
     if (rlang::is_null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col))
