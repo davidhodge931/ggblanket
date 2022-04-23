@@ -1,6 +1,6 @@
-#' @title function ggplot.
+#' @title line ggplot.
 #'
-#' @description function ggplot.
+#' @description line ggplot.
 #' @param data A data frame in a structure to be plotted untransformed. Required input.
 #' @param x Unquoted x variable to be on the x scale (i.e. character, factor, logical, numeric, or date).
 #' @param y Unquoted y variable to be on the y scale (i.e. character, factor, logical, numeric, or date).
@@ -74,7 +74,7 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-gg_function <- function(data = NULL,
+gg_line <- function(data = NULL,
                      x = NULL,
                      y = NULL,
                      col = NULL,
@@ -87,7 +87,7 @@ gg_function <- function(data = NULL,
                      ymax = NULL,
                      yend = NULL,
                      text = NULL,
-                     stat = "function",
+                     stat = "identity",
                      position = "identity",
                      pal = NULL,
                      pal_na = "#7F7F7F",
@@ -163,7 +163,8 @@ gg_function <- function(data = NULL,
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
-  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {ggbilly}, the {ggplot2} fill aesthetic inherits from col"))
+  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {gglineet}, the {ggplot2} fill aesthetic inherits from col"))
+  # if (rlang::is_null(position)) rlang::inform(c("i" = "Note {gglineet} gg_bar uses a default of 'dodge2', where {ggplot2} uses a default of 'stack'"))
 
   ###ungroup
   data <- dplyr::ungroup(data)
@@ -579,7 +580,7 @@ gg_function <- function(data = NULL,
   }
 
   plot <- plot +
-    ggplot2::geom_function(
+    ggplot2::geom_line(
       ggplot2::aes(text = !!text),
       stat = stat,
       position = position,

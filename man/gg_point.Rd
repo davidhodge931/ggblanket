@@ -23,7 +23,7 @@ gg_point(
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 1,
-  size = 0.5,
+  size = 1.5,
   width = NULL,
   bins = 40,
   ...,

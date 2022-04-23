@@ -226,8 +226,11 @@ gg_theme <-
       theme <- theme +
         ggplot2::theme(axis.line = ggplot2::element_blank()) +
         ggplot2::theme(axis.ticks = ggplot2::element_blank()) +
+        ggplot2::theme(axis.title.x = ggplot2::element_blank()) +
+        ggplot2::theme(axis.title.y = ggplot2::element_blank()) +
         ggplot2::theme(axis.text.x = ggplot2::element_blank()) +
         ggplot2::theme(axis.text.y = ggplot2::element_blank())
+
     }
 
     return(theme)

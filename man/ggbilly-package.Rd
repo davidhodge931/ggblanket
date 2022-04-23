@@ -4,9 +4,9 @@
 \name{ggbilly-package}
 \alias{ggbilly}
 \alias{ggbilly-package}
-\title{ggbilly: Make ggplot2 Easier and Prettier, While Building Intuition For ggplot2}
+\title{ggbilly: Build beautiful ggplots with less brainpower}
 \description{
-Build beautiful ggplots with ease. Focussed around the gg_blank function, but with various other shortcut functions available. Attempting to align with ggplot2 as much as possible, so users build intuition and expertise in how the grammar of graphics works.
+Build beautiful ggplots with less brainpower.
 }
 \seealso{
 Useful links:
