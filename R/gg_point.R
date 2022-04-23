@@ -25,6 +25,7 @@
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
+#' @param coord Coordinate system.
 #' @param x_breaks For a numeric or date variable, a vector of breaks for the axis.
 #' @param x_breaks_n For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.
 #' @param x_breaks_width For a numeric or date variable, the width of breaks, as calculated by the scales::fulseq function.
@@ -97,6 +98,7 @@ gg_point <- function(data = NULL,
                      ...,
                      title = NULL,
                      subtitle = NULL,
+                     coord = ggplot2::coord_cartesian(clip = "off"),
                      x_breaks = NULL,
                      x_breaks_n = NULL,
                      x_breaks_width = NULL,
@@ -612,7 +614,7 @@ gg_point <- function(data = NULL,
   }
 
   ###x scale where y is NULL #xscale1
-  if (rlang::quo_is_null(y)) {
+  if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
     if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
       if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
       if (rlang::is_null(x_labels)) x_labels <- snakecase::to_sentence_case
@@ -682,7 +684,7 @@ gg_point <- function(data = NULL,
   }
 
   ###y scale where x is NULL #yscale1
-  if (rlang::quo_is_null(x)) {
+  if (!rlang::quo_is_null(y) & rlang::quo_is_null(x)) {
     if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
       if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
       if (rlang::is_null(y_labels)) y_labels <- snakecase::to_sentence_case
@@ -929,7 +931,7 @@ gg_point <- function(data = NULL,
       caption = caption
     ) +
     theme +
-    ggplot2::coord_cartesian(clip = "off") +
+    coord +
     col_scale
 
   if (col_legend_place == "b") {

@@ -29,6 +29,7 @@ gg_blank(
   ...,
   title = NULL,
   subtitle = NULL,
+  coord = ggplot2::coord_cartesian(clip = "off"),
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_breaks_width = NULL,
@@ -124,6 +125,8 @@ gg_blank(
 \item{title}{Title string.}
 
 \item{subtitle}{Subtitle string.}
+
+\item{coord}{Coordinate system.}
 
 \item{x_breaks}{For a numeric or date variable, a vector of breaks for the axis.}
 
