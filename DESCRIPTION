@@ -18,7 +18,6 @@ Imports:
     lubridate,
     magrittr,
     rlang,
-    santoku,
     scales,
     snakecase,
     stringr,

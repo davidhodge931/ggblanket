@@ -18,8 +18,12 @@ gg_blank(
   ymax = NULL,
   yend = NULL,
   text = NULL,
+  stat = "identity",
+  position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
+  alpha = 1,
+  size = 0.5,
   width = NULL,
   bins = 40,
   ...,
@@ -32,7 +36,7 @@ gg_blank(
   x_labels = NULL,
   x_limits = NULL,
   x_na_rm = FALSE,
-  x_oob = scales::oob_keep,
+  x_oob = scales::oob_censor,
   x_rev = FALSE,
   x_title = NULL,
   x_zero = NULL,
@@ -44,7 +48,7 @@ gg_blank(
   y_labels = NULL,
   y_limits = NULL,
   y_na_rm = FALSE,
-  y_oob = scales::oob_keep,
+  y_oob = scales::oob_censor,
   y_rev = FALSE,
   y_title = NULL,
   y_zero_mid = FALSE,
@@ -61,6 +65,7 @@ gg_blank(
   col_na_rm = FALSE,
   col_rev = FALSE,
   col_title = NULL,
+  facet_intervals = NULL,
   facet_labels = snakecase::to_sentence_case,
   facet_na_rm = FALSE,
   facet_ncol = NULL,
@@ -82,6 +87,8 @@ gg_blank(
 
 \item{facet}{Unquoted facet variable (i.e. character, factor, logical)}
 
+\item{group}{Unquoted group variable.}
+
 \item{xmin}{Unquoted xmin variable (i.e. numeric).}
 
 \item{xmax}{Unquoted xmax variable (i.e. numeric).}
@@ -96,13 +103,23 @@ gg_blank(
 
 \item{text}{Unquoted text variable to be used as a tooltip with plotly::ggplotly(..., tooltip = "text").}
 
+\item{stat}{Statistical transformation. A character string (e.g. "identity").}
+
+\item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
+
 \item{pal}{Character vector of hex codes.}
 
 \item{pal_na}{The hex code or name of the NA colour to be used.}
 
+\item{alpha}{Opacity. A number between 0 and 1.}
+
+\item{size}{Size. A number 0 upwards.}
+
 \item{width}{Width. A number above 0 upwards.}
 
 \item{bins}{Number of bins to transform the data into.}
+
+\item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
 \item{title}{Title string.}
 
@@ -156,29 +173,33 @@ gg_blank(
 
 \item{y_zero}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
 
-\item{col_breaks}{}
+\item{col_breaks}{A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.}
 
-\item{col_breaks_n}{For a numeric col variable, the desired number of intervals on the col scale.}
+\item{col_breaks_n}{For a numeric variable where col_intervals is NULL, an integer guiding the number of breaks, as calculated by the pretty function.}
 
 \item{col_breaks_width}{For a numeric variable, the width of breaks, as calculated by the scales::fulseq function.}
 
-\item{col_intervals}{A function to cut the numeric variable, including in rlang lambda format (e.g. ~ santoku::chop_evenly(.x, intervals = 4, drop = F)).}
+\item{col_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
 
-\item{col_labels}{A function to format the col scale labels, including in rlang lambda format. Use ~.x to remove default transformations.}
+\item{col_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector. Note this does not affect where col_intervals is not NULL.}
+
+\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, "l" for left, or "m" for a mobile-friendly legend.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
 \item{col_legend_nrow}{The number of rows for the legend elements.}
 
-\item{col_limits}{A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For where col_intervals is NULL, this affects the labels on the legend.}
+\item{col_limits}{A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For a numeric variable where col_intervals is NULL, this will make all values outside the limits coloured NA.}
 
-\item{col_na_rm}{TRUE or FALSE of whether to include col NA values. Defaults to FALSE.}
+\item{col_na_rm}{TRUE or FALSE of whether to include NA values. Defaults to FALSE.}
 
-\item{col_rev}{TRUE or FALSE of whether the col scale is reversed. Defaults to FALSE.}
+\item{col_rev}{For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.}
 
-\item{col_title}{col title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.}
+\item{col_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{facet_labels}{A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use function(x) x to keep labels untransformed.}
+\item{facet_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
+
+\item{facet_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.}
 
 \item{facet_na_rm}{TRUE or FALSE of whether to include facet NA values. Defaults to FALSE.}
 
@@ -186,30 +207,13 @@ gg_blank(
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 
-\item{facet_rev}{TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.}
+\item{facet_rev}{TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
 \item{caption}{Caption title string.}
 
 \item{theme}{A ggplot2 theme.}
-
-\item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
-
-\item{stat}{Statistical transformation. A character string (e.g. "identity").}
-
-\item{alpha}{Opacity. A number between 0 and 1.}
-
-\item{size}{Size. A number 0 upwards.}
-
-\item{col_expand}{A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For a numeric
-Add padding to the limits with the ggplot2::ggplot2::expansion function, or a vector of length 2.}
-
-\item{col_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
-
-\item{col_zero}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
-
-\item{col_zero_mid}{For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.}
 }
 \value{
 A ggplot object.

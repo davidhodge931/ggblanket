@@ -12,15 +12,17 @@
 #' @param ymin Unquoted ymin variable (i.e. numeric).
 #' @param ymax Unquoted ymax variable (i.e. numeric).
 #' @param yend Unquoted xend variable (i.e. numeric).
+#' @param group Unquoted group variable.
 #' @param text Unquoted text variable to be used as a tooltip with plotly::ggplotly(..., tooltip = "text").
-#' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param stat Statistical transformation. A character string (e.g. "identity").
+#' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param pal Character vector of hex codes.
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param size Size. A number 0 upwards.
 #' @param width Width. A number above 0 upwards.
 #' @param bins Number of bins to transform the data into.
+#' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks For a numeric or date variable, a vector of breaks for the axis.
@@ -47,41 +49,24 @@
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_zero For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
 #' @param y_zero_mid For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.
-
 #' @param col_breaks A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.
 #' @param col_breaks_n For a numeric variable where col_intervals is NULL, an integer guiding the number of breaks, as calculated by the pretty function.
 #' @param col_breaks_width For a numeric variable, the width of breaks, as calculated by the scales::fulseq function.
-#' @param col_expand A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For a numeric
-#' Add padding to the limits with the ggplot2::ggplot2::expansion function, or a vector of length 2.
-#' @param col_oob A scales::oob_* function for how to deal with out-of-bounds values.
-#' @param col_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.
-#' @param col_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.
+#' @param col_intervals A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
+#' @param col_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector. Note this does not affect where col_intervals is not NULL.
+#' @param col_limits A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For a numeric variable where col_intervals is NULL, this will make all values outside the limits coloured NA.
 #' @param col_na_rm TRUE or FALSE of whether to include NA values. Defaults to FALSE.
-#' @param col_rev For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.
-#' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param col_zero For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
-#' @param col_zero_mid For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.
-
-
-#' @param col_breaks
-#'
-#' @param col_breaks_n For a numeric col variable, the desired number of intervals on the col scale.
-#' @param col_intervals A function to cut the numeric variable, including in rlang lambda format (e.g. ~ santoku::chop_evenly(.x, intervals = 4, drop = F)).
-#' @param col_labels A function to format the col scale labels, including in rlang lambda format. Use ~.x to remove default transformations.
-#' @param col_legend_place
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
-#' @param col_limits A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For where col_intervals is NULL, this affects the labels on the legend.
-#' @param col_na_rm TRUE or FALSE of whether to include col NA values. Defaults to FALSE.
-#' @param col_rev TRUE or FALSE of whether the col scale is reversed. Defaults to FALSE.
-#' @param col_title col title string for the legend. Defaults to NULL, which converts to sentence case with spaces. Use "" if you would like no title.
-
-
-#' @param facet_labels A function or named vector to modify facet scale labels. Defaults to converting labels to sentence case. Use function(x) x to keep labels untransformed.
+#' @param col_legend_place The place for the legend. "r" for right, "b" for bottom, "t" for top, "l" for left, or "m" for a mobile-friendly legend.
+#' @param col_rev For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.
+#' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param facet_intervals A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
+#' @param facet_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.
 #' @param facet_na_rm TRUE or FALSE of whether to include facet NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots.
 #' @param facet_nrow The number of rows of facetted plots.
-#' @param facet_rev TRUE or FALSE of whether the facet variable variable is reversed. Defaults to FALSE.
+#' @param facet_rev TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
@@ -101,12 +86,12 @@ gg_point <- function(data = NULL,
                      ymax = NULL,
                      yend = NULL,
                      text = NULL,
+                     stat = "identity",
+                     position = "identity",
                      pal = NULL,
                      pal_na = "#7F7F7F",
-                     # stat = "identity",
-                     # position = "identity",
-                     # alpha = 1,
-                     # size = 0.5,
+                     alpha = 1,
+                     size = 0.5,
                      width = NULL,
                      bins = 40,
                      ...,
@@ -119,7 +104,7 @@ gg_point <- function(data = NULL,
                      x_labels = NULL,
                      x_limits = NULL,
                      x_na_rm = FALSE,
-                     x_oob = scales::oob_keep,
+                     x_oob = scales::oob_censor,
                      x_rev = FALSE,
                      x_title = NULL,
                      x_zero = NULL,
@@ -131,7 +116,7 @@ gg_point <- function(data = NULL,
                      y_labels = NULL,
                      y_limits = NULL,
                      y_na_rm = FALSE,
-                     y_oob = scales::oob_keep,
+                     y_oob = scales::oob_censor,
                      y_rev = FALSE,
                      y_title = NULL,
                      y_zero_mid = FALSE,
@@ -148,6 +133,7 @@ gg_point <- function(data = NULL,
                      col_na_rm = FALSE,
                      col_rev = FALSE,
                      col_title = NULL,
+                     facet_intervals = NULL,
                      facet_labels = snakecase::to_sentence_case,
                      facet_na_rm = FALSE,
                      facet_ncol = NULL,
@@ -235,6 +221,11 @@ gg_point <- function(data = NULL,
     if (is.logical(class(rlang::eval_tidy(facet, data)))) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!facet, ~ factor(.x, levels = c("TRUE", "FALSE"))))
+    }
+
+    if (!rlang::is_null(facet_intervals)) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!facet, facet_intervals))
     }
 
     if (facet_rev) {
@@ -589,24 +580,35 @@ gg_point <- function(data = NULL,
   plot <- plot +
     ggplot2::geom_point(
       ggplot2::aes(text = !!text),
+      stat = stat,
+      position = position,
+      alpha = alpha,
+      size = size,
       width = width,
-      # alpha = alpha,
-      # size = size,
-      # stat = stat,
-      # position = position,
       bins = bins,
       ...
     )
 
   if (!rlang::quo_is_null(facet)) {
-    plot <- plot +
-      ggplot2::facet_wrap(
-        ggplot2::vars(!!facet),
-        labeller = ggplot2::as_labeller(facet_labels),
-        scales = facet_scales,
-        ncol = facet_ncol,
-        nrow = facet_nrow
-      )
+    if (!rlang::is_null(facet_intervals)) {
+      plot <- plot +
+        ggplot2::facet_wrap(
+          ggplot2::vars(!!facet),
+          scales = facet_scales,
+          ncol = facet_ncol,
+          nrow = facet_nrow
+        )
+    }
+    else {
+      plot <- plot +
+        ggplot2::facet_wrap(
+          ggplot2::vars(!!facet),
+          labeller = ggplot2::as_labeller(facet_labels),
+          scales = facet_scales,
+          ncol = facet_ncol,
+          nrow = facet_nrow
+        )
+    }
   }
 
   ###x scale where y is NULL #xscale1
