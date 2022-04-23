@@ -2,7 +2,12 @@ Package: ggbilly
 Type: Package
 Title: Build beautiful ggplots with less brainpower
 Version: 0.1.0
-Author: David Hodge
+Authors@R: 
+    c(person(given = "David",
+             family = "Hodge",
+             role = c("aut", "cre"),
+             email = "davidhodge931@gmail.com",
+             comment = c(ORCID = "0000-0002-3868-7501")))
 Maintainer: David Hodge <davidhodge931@gmail.com>
 Description: Build beautiful ggplots with less brainpower. 
 License: MIT + file LICENSE
