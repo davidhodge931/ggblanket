@@ -798,6 +798,13 @@ gg_col <- function(data = NULL,
           }
         }
 
+        if (length(class(position)) == 1) {
+          if (position == "fill") x_limits <- c(NA, NA)
+        }
+        else if (class(position)[1] == "PositionFill"){
+          x_limits <- c(NA, NA)
+        }
+
         if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
         if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
       }
@@ -877,13 +884,12 @@ gg_col <- function(data = NULL,
           }
         }
 
-        # if (length(class(position)) == 1) {
-        #   if (position == "fill") y_limits <- NULL
-        # }
-        # else if (class(position)[1] == "PositionFill"){
-        #   y_limits <- NULL
-        # }
-        # else if (rlang::is_null(y_limits)) y_limits <- c(min(y_breaks), max(y_breaks))
+        if (length(class(position)) == 1) {
+          if (position == "fill") y_limits <- c(NA, NA)
+        }
+        else if (class(position)[1] == "PositionFill"){
+          y_limits <- c(NA, NA)
+        }
 
         if (rlang::is_null(y_limits)) y_limits <- c(min(y_breaks), max(y_breaks))
         if (rlang::is_null(y_expand)) y_expand <- c(0, 0)

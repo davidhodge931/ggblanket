@@ -121,8 +121,8 @@ gg_blank <- function(data = NULL,
                      y_oob = scales::oob_censor,
                      y_rev = FALSE,
                      y_title = NULL,
-                     y_zero_middle = FALSE,
                      y_zero = NULL,
+                     y_zero_middle = FALSE,
                      col_breaks = NULL,
                      col_breaks_n = NULL,
                      col_breaks_width = NULL,
@@ -798,6 +798,13 @@ gg_blank <- function(data = NULL,
           }
         }
 
+        if (length(class(position)) == 1) {
+          if (position == "fill") x_limits <- c(NA, NA)
+        }
+        else if (class(position)[1] == "PositionFill"){
+          x_limits <- c(NA, NA)
+        }
+
         if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
         if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
       }
@@ -875,6 +882,13 @@ gg_blank <- function(data = NULL,
             }
             y_breaks <- pretty(y_min_max, n = y_breaks_n)
           }
+        }
+
+        if (length(class(position)) == 1) {
+          if (position == "fill") y_limits <- c(NA, NA)
+        }
+        else if (class(position)[1] == "PositionFill"){
+          y_limits <- c(NA, NA)
         }
 
         if (rlang::is_null(y_limits)) y_limits <- c(min(y_breaks), max(y_breaks))
