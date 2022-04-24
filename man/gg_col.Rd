@@ -17,7 +17,7 @@ gg_col(
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
-  stat = "count",
+  stat = "identity",
   position = "stack",
   pal = NULL,
   pal_na = "#7F7F7F",

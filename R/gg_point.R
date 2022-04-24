@@ -315,11 +315,20 @@ gg_point <- function(data = NULL,
     col_title_position <- ifelse(col_title == "", "right", "top")
 
     if (rlang::is_null(col_legend_place)) {
-      if (!rlang::quo_is_null(facet) &
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data)))) {
+      if (!rlang::quo_is_null(x) &
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data)))) {
         col_legend_place <- "n"
       }
-      else col_legend_place <- "r"
+      else if (!rlang::quo_is_null(y) &
+               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data)))) {
+        col_legend_place <- "n"
+      }
+      else if (!rlang::quo_is_null(facet) &
+               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data)))) {
+        col_legend_place <- "n"
+      }
+      else
+        col_legend_place <- "r"
     }
 
     if (is.numeric(rlang::eval_tidy(col, data))) {
