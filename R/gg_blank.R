@@ -13,7 +13,6 @@
 #' @param ymax Unquoted ymax variable (i.e. numeric).
 #' @param yend Unquoted xend variable (i.e. numeric).
 #' @param group Unquoted group variable.
-#' @param text Unquoted text variable to be used as a tooltip with plotly::ggplotly(..., tooltip = "text").
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param pal Character vector of hex codes.
@@ -86,7 +85,6 @@ gg_blank <- function(data = NULL,
                      ymin = NULL,
                      ymax = NULL,
                      yend = NULL,
-                     text = NULL,
                      stat = "identity",
                      position = "identity",
                      pal = NULL,
@@ -158,8 +156,6 @@ gg_blank <- function(data = NULL,
   ymin <- rlang::enquo(ymin)
   ymax <- rlang::enquo(ymax)
   yend <- rlang::enquo(yend)
-
-  text <- rlang::enquo(text)
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
@@ -580,7 +576,6 @@ gg_blank <- function(data = NULL,
 
   plot <- plot +
     ggplot2::geom_blank(
-      ggplot2::aes(text = !!text),
       stat = stat,
       position = position,
       alpha = alpha,

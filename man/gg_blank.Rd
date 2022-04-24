@@ -17,7 +17,6 @@ gg_blank(
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
-  text = NULL,
   stat = "identity",
   position = "identity",
   pal = NULL,
@@ -101,8 +100,6 @@ gg_blank(
 \item{ymax}{Unquoted ymax variable (i.e. numeric).}
 
 \item{yend}{Unquoted xend variable (i.e. numeric).}
-
-\item{text}{Unquoted text variable to be used as a tooltip with plotly::ggplotly(..., tooltip = "text").}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
