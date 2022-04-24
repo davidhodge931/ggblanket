@@ -37,7 +37,7 @@
 #' @param x_rev For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param x_zero For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
-#' @param x_zero_middle For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.
+#' @param x_zero_mid For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.
 #' @param y_breaks For a numeric or date variable, a vector of breaks for the axis.
 #' @param y_breaks_n For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.
 #' @param y_breaks_width For a numeric or date variable, the width of breaks, as calculated by the scales::fulseq function.
@@ -49,7 +49,7 @@
 #' @param y_rev For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_zero For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
-#' @param y_zero_middle For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.
+#' @param y_zero_mid For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.
 #' @param col_breaks A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.
 #' @param col_breaks_n For a numeric variable where col_intervals is NULL, an integer guiding the number of breaks, as calculated by the pretty function.
 #' @param col_breaks_width For a numeric variable, the width of breaks, as calculated by the scales::fulseq function.
@@ -110,7 +110,7 @@ gg_density <- function(data = NULL,
                      x_rev = FALSE,
                      x_title = NULL,
                      x_zero = NULL,
-                     x_zero_middle = FALSE,
+                     x_zero_mid = FALSE,
                      y_breaks = NULL,
                      y_breaks_n = NULL,
                      y_breaks_width = NULL,
@@ -122,7 +122,7 @@ gg_density <- function(data = NULL,
                      y_rev = FALSE,
                      y_title = NULL,
                      y_zero = NULL,
-                     y_zero_middle = FALSE,
+                     y_zero_mid = FALSE,
                      col_breaks = NULL,
                      col_breaks_n = NULL,
                      col_breaks_width = NULL,
@@ -629,7 +629,7 @@ gg_density <- function(data = NULL,
         if (rlang::is_null(x_breaks)) {
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
-          if (x_zero_middle) x_min_max <- c(-x_min_max, x_min_max)
+          if (x_zero_mid) x_min_max <- c(-x_min_max, x_min_max)
           if (!rlang::is_null(x_limits)) x_min_max <- x_limits
 
           if (!rlang::is_null(x_breaks_width)) {
@@ -701,7 +701,7 @@ gg_density <- function(data = NULL,
         if (rlang::is_null(y_breaks)) {
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
-          if (y_zero_middle) y_min_max <- c(-y_min_max, y_min_max)
+          if (y_zero_mid) y_min_max <- c(-y_min_max, y_min_max)
           if (!rlang::is_null(y_limits)) y_min_max <- y_limits
 
           if (!rlang::is_null(y_breaks_width)) {
@@ -784,7 +784,7 @@ gg_density <- function(data = NULL,
         if (rlang::is_null(x_breaks)) {
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
-          if (x_zero_middle) x_min_max <- c(-x_min_max, x_min_max)
+          if (x_zero_mid) x_min_max <- c(-x_min_max, x_min_max)
           if (!rlang::is_null(x_limits)) x_min_max <- x_limits
 
           if (!rlang::is_null(x_breaks_width)) {
@@ -870,7 +870,7 @@ gg_density <- function(data = NULL,
         if (rlang::is_null(y_breaks)) {
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
-          if (y_zero_middle) y_min_max <- c(-y_min_max, y_min_max)
+          if (y_zero_mid) y_min_max <- c(-y_min_max, y_min_max)
           if (!rlang::is_null(y_limits)) y_min_max <- y_limits
 
           if (!rlang::is_null(y_breaks_width)) {
@@ -931,8 +931,23 @@ gg_density <- function(data = NULL,
   }
 
   ###titles
-  if (rlang::is_null(x_title) & !rlang::quo_is_null(x)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
-  if (rlang::is_null(y_title) & !rlang::quo_is_null(y)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
+  if (rlang::quo_is_null(x)) {
+    if (rlang::is_null(x_title)) {
+      if (stat %in% c("bin", "count")) x_title <- "Count"
+      else if (stat == "density") x_title <- "Density"
+      else if (stat == "function") x_title <- "X"
+    }
+  }
+  else if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
+
+  if (rlang::quo_is_null(y)) {
+    if (rlang::is_null(y_title)) {
+      if (stat %in% c("bin", "count")) y_title <- "Count"
+      else if (stat == "density") y_title <- "Density"
+      else if (stat == "function") y_title <- "Y"
+    }
+  }
+  else if (rlang::is_null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
 
   #make the plot
   plot <- plot +

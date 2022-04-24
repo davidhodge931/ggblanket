@@ -121,8 +121,8 @@ gg_freqpoly <- function(data = NULL,
                      y_oob = scales::oob_censor,
                      y_rev = FALSE,
                      y_title = NULL,
-                     y_zero_mid = FALSE,
                      y_zero = NULL,
+                     y_zero_mid = FALSE,
                      col_breaks = NULL,
                      col_breaks_n = NULL,
                      col_breaks_width = NULL,
@@ -163,8 +163,7 @@ gg_freqpoly <- function(data = NULL,
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
-  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {ggfreqpolyet}, the {ggplot2} fill aesthetic inherits from col"))
-  # if (rlang::is_null(position)) rlang::inform(c("i" = "Note {ggfreqpolyet} gg_bar uses a default of 'dodge2', where {ggplot2} uses a default of 'stack'"))
+  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {ggbilly}, the {ggplot2} fill aesthetic inherits from col"))
 
   ###ungroup
   data <- dplyr::ungroup(data)
@@ -799,6 +798,13 @@ gg_freqpoly <- function(data = NULL,
           }
         }
 
+        if (length(class(position)) == 1) {
+          if (position == "fill") x_limits <- c(NA, NA)
+        }
+        else if (class(position)[1] == "PositionFill"){
+          x_limits <- c(NA, NA)
+        }
+
         if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
         if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
       }
@@ -878,6 +884,13 @@ gg_freqpoly <- function(data = NULL,
           }
         }
 
+        if (length(class(position)) == 1) {
+          if (position == "fill") y_limits <- c(NA, NA)
+        }
+        else if (class(position)[1] == "PositionFill"){
+          y_limits <- c(NA, NA)
+        }
+
         if (rlang::is_null(y_limits)) y_limits <- c(min(y_breaks), max(y_breaks))
         if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
       }
@@ -918,8 +931,23 @@ gg_freqpoly <- function(data = NULL,
   }
 
   ###titles
-  if (rlang::is_null(x_title) & !rlang::quo_is_null(x)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
-  if (rlang::is_null(y_title) & !rlang::quo_is_null(y)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
+  if (rlang::quo_is_null(x)) {
+    if (rlang::is_null(x_title)) {
+      if (stat %in% c("bin", "count")) x_title <- "Count"
+      else if (stat == "freqpoly") x_title <- "freqpoly"
+      else if (stat == "function") x_title <- "X"
+    }
+  }
+  else if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
+
+  if (rlang::quo_is_null(y)) {
+    if (rlang::is_null(y_title)) {
+      if (stat %in% c("bin", "count")) y_title <- "Count"
+      else if (stat == "freqpoly") y_title <- "freqpoly"
+      else if (stat == "function") y_title <- "Y"
+    }
+  }
+  else if (rlang::is_null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
 
   #make the plot
   plot <- plot +
