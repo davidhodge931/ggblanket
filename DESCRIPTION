@@ -13,12 +13,12 @@ Description: Build beautiful ggplots with less brainpower.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 4.1.0)
 Imports: 
     dplyr,
     forcats,
     ggplot2,
     lubridate,
-    magrittr,
     rlang,
     scales,
     snakecase,

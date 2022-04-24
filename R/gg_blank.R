@@ -171,18 +171,18 @@ gg_blank <- function(data = NULL,
   ###x var process
   if (!rlang::quo_is_null(x)) {
     if (x_na_rm) {
-      data <- data %>%
+      data <- data |>
         dplyr::filter(!is.na(!!x))
     }
 
     if (is.logical(rlang::eval_tidy(x, data))) {
-      data <- data %>%
+      data <- data |>
         dplyr::mutate(dplyr::across(!!x, ~ factor(.x, levels = c("TRUE", "FALSE"))))
     }
 
     if (x_rev) {
       if (is.factor(rlang::eval_tidy(x, data)) | is.character(rlang::eval_tidy(x, data))) {
-        data <- data %>%
+        data <- data |>
           dplyr::mutate(dplyr::across(!!x, ~ forcats::fct_rev(.x)))
       }
     }
@@ -191,12 +191,12 @@ gg_blank <- function(data = NULL,
   ###y process
   if (!rlang::quo_is_null(y)) {
     if (y_na_rm) {
-      data <- data  %>%
+      data <- data  |>
         dplyr::filter(!is.na(!!y))
     }
 
     if (is.logical(rlang::eval_tidy(y, data))) {
-      data <- data %>%
+      data <- data |>
         dplyr::mutate(dplyr::across(!!y, ~ factor(.x, levels = c("TRUE", "FALSE"))))
     }
 
@@ -206,12 +206,12 @@ gg_blank <- function(data = NULL,
           (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data)))) {
 
         if (y_rev) {
-          data <- data %>%
+          data <- data |>
             dplyr::mutate(dplyr::across(!!y, ~ forcats::fct_rev(.x)))
         }
       }
       else if (!y_rev) {
-        data <- data %>%
+        data <- data |>
           dplyr::mutate(dplyr::across(!!y, ~ forcats::fct_rev(.x)))
       }
     }
@@ -220,22 +220,22 @@ gg_blank <- function(data = NULL,
   ###facet process
   if (!rlang::quo_is_null(facet)) {
     if (facet_na_rm) {
-      data <- data %>%
+      data <- data |>
         dplyr::filter(!is.na(!!facet))
     }
 
     if (is.logical(class(rlang::eval_tidy(facet, data)))) {
-      data <- data %>%
+      data <- data |>
         dplyr::mutate(dplyr::across(!!facet, ~ factor(.x, levels = c("TRUE", "FALSE"))))
     }
 
     if (!rlang::is_null(facet_intervals)) {
-      data <- data %>%
+      data <- data |>
         dplyr::mutate(dplyr::across(!!facet, facet_intervals))
     }
 
     if (facet_rev) {
-      data <- data %>%
+      data <- data |>
         dplyr::mutate(dplyr::across(!!facet, ~ forcats::fct_rev(.x)))
     }
   }
@@ -244,24 +244,24 @@ gg_blank <- function(data = NULL,
   if (!rlang::quo_is_null(col)) {
 
     if (col_na_rm) {
-      data <- data %>%
+      data <- data |>
         dplyr::filter(!is.na(!!col))
     }
 
     if (is.logical(rlang::eval_tidy(col, data))) {
-      data <- data %>%
+      data <- data |>
         dplyr::mutate(dplyr::across(!!col, ~ factor(.x, levels = c("TRUE", "FALSE"))))
     }
 
     if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
       if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
         if (!col_rev) {
-          data <- data %>%
+          data <- data |>
             dplyr::mutate(dplyr::across(!!col, ~ forcats::fct_rev(.x)))
         }
       }
       else if (col_rev) {
-        data <- data %>%
+        data <- data |>
           dplyr::mutate(dplyr::across(!!col, ~ forcats::fct_rev(.x)))
       }
     }
@@ -365,7 +365,7 @@ gg_blank <- function(data = NULL,
         )
       }
       else { #intervals col
-        data <- data %>%
+        data <- data |>
           dplyr::mutate(dplyr::across(!!col, col_intervals))
 
         col_levels <- levels(rlang::eval_tidy(col, data))
@@ -465,7 +465,7 @@ gg_blank <- function(data = NULL,
   ###no xmin, xmax, xend, ymin, ymax, yend
   if (!rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
     if (!rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
@@ -481,7 +481,7 @@ gg_blank <- function(data = NULL,
         ))
     }
     else if (rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
@@ -499,7 +499,7 @@ gg_blank <- function(data = NULL,
   }
   else if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
     if (!rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           col = !!col,
@@ -514,7 +514,7 @@ gg_blank <- function(data = NULL,
         ))
     }
     else if (rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           col = "1",
@@ -531,7 +531,7 @@ gg_blank <- function(data = NULL,
   }
   else if (rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
     if (!rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
           col = !!col,
@@ -546,7 +546,7 @@ gg_blank <- function(data = NULL,
         ))
     }
     else if (rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
           col = "1",
@@ -563,7 +563,7 @@ gg_blank <- function(data = NULL,
   }
   else if (rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
     if (!rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = !!col,
           fill = !!col,
@@ -577,7 +577,7 @@ gg_blank <- function(data = NULL,
         ))
     }
     else if (rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = "1",
           fill = "1",
@@ -782,9 +782,9 @@ gg_blank <- function(data = NULL,
     else {
       if (facet_scales %in% c("fixed", "free_y")) {
 
-        x_vctr <- layer_data %>%
-          dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmax_final$"))) %>%
-          tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+        x_vctr <- layer_data |>
+          dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmax_final$"))) |>
+          tidyr::pivot_longer(cols = tidyselect::everything()) |>
           dplyr::pull(.data$value)
 
         if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
@@ -868,9 +868,9 @@ gg_blank <- function(data = NULL,
     else {
       if (facet_scales %in% c("fixed", "free_x")) {
 
-        y_vctr <- layer_data %>%
-          dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymax_final$"))) %>%
-          tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+        y_vctr <- layer_data |>
+          dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymax_final$"))) |>
+          tidyr::pivot_longer(cols = tidyselect::everything()) |>
           dplyr::pull(.data$value)
 
         if (lubridate::is.Date(rlang::eval_tidy(y, data))) {
