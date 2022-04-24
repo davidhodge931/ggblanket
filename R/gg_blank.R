@@ -1,26 +1,28 @@
 #' @title Blank ggplot.
 #'
 #' @description Blank ggplot.
-#' @param data A data frame in a structure to be plotted untransformed. Required input.
-#' @param x Unquoted x variable to be on the x scale (i.e. character, factor, logical, numeric, or date).
-#' @param y Unquoted y variable to be on the y scale (i.e. character, factor, logical, numeric, or date).
-#' @param col Unquoted variable to col and fill by (i.e. character, factor, logical, numeric)
-#' @param facet Unquoted facet variable (i.e. character, factor, logical)
-#' @param xmin Unquoted xmin variable (i.e. numeric).
-#' @param xmax Unquoted xmax variable (i.e. numeric).
-#' @param xend Unquoted xend variable (i.e. numeric).
-#' @param ymin Unquoted ymin variable (i.e. numeric).
-#' @param ymax Unquoted ymax variable (i.e. numeric).
-#' @param yend Unquoted xend variable (i.e. numeric).
-#' @param group Unquoted group variable.
+#' @param data A data frame or tibble. Required input.
+#' @param x Unquoted x aesthetic variable (i.e. character, factor, logical, numeric, or date).
+#' @param y Unquoted y aesthetic variable (i.e. character, factor, logical, numeric, or date).
+#' @param col Unquoted col and fill aesthetic variable (i.e. character, factor, logical, numeric)
+#' @param facet Unquoted facet aesthetic variable (i.e. character, factor, logical)
+#' @param xmin Unquoted xmin aesthetic variable (i.e. numeric).
+#' @param xmax Unquoted xmax aesthetic variable (i.e. numeric).
+#' @param xend Unquoted xend aesthetic variable (i.e. numeric).
+#' @param ymin Unquoted ymin aesthetic variable (i.e. numeric).
+#' @param ymax Unquoted ymax aesthetic variable (i.e. numeric).
+#' @param yend Unquoted xend aesthetic variable (i.e. numeric).
+#' @param label Unquoted label aesthetic variable.
+#' @param sample Unquoted sample aesthetic variable.
+#' @param group Unquoted group aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param pal Character vector of hex codes.
 #' @param pal_na The hex code or name of the NA colour to be used.
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param size Size. A number 0 upwards.
-#' @param width Width. A number above 0 upwards.
-#' @param bins Number of bins to transform the data into.
+#' @param width Width. A number 0 upwards.
+#' @param bins If "bin" stat selected, number of bins to transform the data into.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
@@ -28,9 +30,9 @@
 #' @param x_breaks For a numeric or date variable, a vector of breaks for the axis.
 #' @param x_breaks_n For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.
 #' @param x_breaks_width For a numeric or date variable, the width of breaks, as calculated by the scales::fulseq function.
-#' @param x_expand Add padding to the limits with the ggplot2::ggplot2::expansion function, or a vector of length 2.
+#' @param x_expand Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.
 #' @param x_oob A scales::oob_* function for how to deal with out-of-bounds values.
-#' @param x_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.
+#' @param x_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
 #' @param x_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.
 #' @param x_na_rm TRUE or FALSE of whether to include NA values. Defaults to FALSE.
 #' @param x_rev For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.
@@ -40,9 +42,9 @@
 #' @param y_breaks For a numeric or date variable, a vector of breaks for the axis.
 #' @param y_breaks_n For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.
 #' @param y_breaks_width For a numeric or date variable, the width of breaks, as calculated by the scales::fulseq function.
-#' @param y_expand Add padding to the limits with the ggplot2::ggplot2::expansion function, or a vector of length 2.
+#' @param y_expand Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.
 #' @param y_oob A scales::oob_* function for how to deal with out-of-bounds values.
-#' @param y_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.
+#' @param y_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
 #' @param y_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.
 #' @param y_na_rm TRUE or FALSE of whether to include NA values. Defaults to FALSE.
 #' @param y_rev For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.
@@ -53,7 +55,7 @@
 #' @param col_breaks_n For a numeric variable where col_intervals is NULL, an integer guiding the number of breaks, as calculated by the pretty function.
 #' @param col_breaks_width For a numeric variable, the width of breaks, as calculated by the scales::fulseq function.
 #' @param col_intervals A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
-#' @param col_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector. Note this does not affect where col_intervals is not NULL.
+#' @param col_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.
 #' @param col_limits A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For a numeric variable where col_intervals is NULL, this will make all values outside the limits coloured NA.
 #' @param col_na_rm TRUE or FALSE of whether to include NA values. Defaults to FALSE.
 #' @param col_legend_ncol The number of columns for the legend elements.
@@ -62,7 +64,7 @@
 #' @param col_rev For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.
 #' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param facet_intervals A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
-#' @param facet_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.
+#' @param facet_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
 #' @param facet_na_rm TRUE or FALSE of whether to include facet NA values. Defaults to FALSE.
 #' @param facet_ncol The number of columns of facetted plots.
 #' @param facet_nrow The number of rows of facetted plots.
@@ -85,6 +87,8 @@ gg_blank <- function(data = NULL,
                      ymin = NULL,
                      ymax = NULL,
                      yend = NULL,
+                     label = NULL,
+                     sample = NULL,
                      stat = "identity",
                      position = "identity",
                      pal = NULL,
@@ -156,6 +160,9 @@ gg_blank <- function(data = NULL,
   ymin <- rlang::enquo(ymin)
   ymax <- rlang::enquo(ymax)
   yend <- rlang::enquo(yend)
+
+  label <- rlang::enquo(label)
+  sample <- rlang::enquo(sample)
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
@@ -478,6 +485,8 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
+          label = !!label,
+          sample = !!sample
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -494,6 +503,8 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
+          label = !!label,
+          sample = !!sample
         ))
     }
   }
@@ -511,6 +522,8 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
+          label = !!label,
+          sample = !!sample
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -526,6 +539,8 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
+          label = !!label,
+          sample = !!sample
         ))
     }
   }
@@ -543,6 +558,8 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
+          label = !!label,
+          sample = !!sample
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -558,6 +575,8 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
+          label = !!label,
+          sample = !!sample
         ))
     }
   }
@@ -574,6 +593,8 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
+          label = !!label,
+          sample = !!sample
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -588,6 +609,8 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
+          label = !!label,
+          sample = !!sample
         ))
     }
   }
@@ -643,7 +666,7 @@ gg_blank <- function(data = NULL,
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
           if (x_zero_mid) x_min_max <- c(-x_min_max, x_min_max)
-          if (!rlang::is_null(x_limits)) x_min_max <- x_limits
+          if (!rlang::is_null(x_limits) & !any(is.na(x_limits))) x_min_max <- x_limits
 
           if (!rlang::is_null(x_breaks_width)) {
             x_breaks <- scales::fullseq(x_min_max, size = x_breaks_width)
@@ -715,7 +738,7 @@ gg_blank <- function(data = NULL,
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
           if (y_zero_mid) y_min_max <- c(-y_min_max, y_min_max)
-          if (!rlang::is_null(y_limits)) y_min_max <- y_limits
+          if (!rlang::is_null(y_limits) & !any(is.na(y_limits))) y_min_max <- y_limits
 
           if (!rlang::is_null(y_breaks_width)) {
             y_breaks <- scales::fullseq(y_min_max, size = y_breaks_width)
@@ -772,7 +795,7 @@ gg_blank <- function(data = NULL,
   # return(layer_data)
 
   ###x scale where y not NULL #xscale2
-  if (!rlang::quo_is_null(y)) {
+  # if (!rlang::quo_is_null(y)) {
     if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
       if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
       if (rlang::is_null(x_labels)) x_labels <- snakecase::to_sentence_case
@@ -798,7 +821,7 @@ gg_blank <- function(data = NULL,
           x_min_max <- c(x_min, x_max)
           if (x_zero) x_min_max <- c(0, x_min_max)
           if (x_zero_mid) x_min_max <- c(-x_min_max, x_min_max)
-          if (!rlang::is_null(x_limits)) x_min_max <- x_limits
+          if (!rlang::is_null(x_limits) & !any(is.na(x_limits))) x_min_max <- x_limits
 
           if (!rlang::is_null(x_breaks_width)) {
             x_breaks <- scales::fullseq(x_min_max, size = x_breaks_width)
@@ -855,10 +878,10 @@ gg_blank <- function(data = NULL,
 
     plot <- plot +
       x_scale
-  }
+  # }
 
   ###y scale where x not NULL #yscale2
-  if (!rlang::quo_is_null(x)) {
+  # if (!rlang::quo_is_null(x)) {
     if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
       if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
       if (rlang::is_null(y_labels)) y_labels <- snakecase::to_sentence_case
@@ -884,7 +907,7 @@ gg_blank <- function(data = NULL,
           y_min_max <- c(y_min, y_max)
           if (y_zero) y_min_max <- c(0, y_min_max)
           if (y_zero_mid) y_min_max <- c(-y_min_max, y_min_max)
-          if (!rlang::is_null(y_limits)) y_min_max <- y_limits
+          if (!rlang::is_null(y_limits) & !any(is.na(y_limits))) y_min_max <- y_limits
 
           if (!rlang::is_null(y_breaks_width)) {
             y_breaks <- scales::fullseq(y_min_max, size = y_breaks_width)
@@ -941,7 +964,7 @@ gg_blank <- function(data = NULL,
 
     plot <- plot +
       y_scale
-  }
+  # }
 
   ###titles
   if (rlang::quo_is_null(x)) {

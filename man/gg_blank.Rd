@@ -17,6 +17,8 @@ gg_blank(
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
+  label = NULL,
+  sample = NULL,
   stat = "identity",
   position = "identity",
   pal = NULL,
@@ -77,29 +79,33 @@ gg_blank(
 )
 }
 \arguments{
-\item{data}{A data frame in a structure to be plotted untransformed. Required input.}
+\item{data}{A data frame or tibble. Required input.}
 
-\item{x}{Unquoted x variable to be on the x scale (i.e. character, factor, logical, numeric, or date).}
+\item{x}{Unquoted x aesthetic variable (i.e. character, factor, logical, numeric, or date).}
 
-\item{y}{Unquoted y variable to be on the y scale (i.e. character, factor, logical, numeric, or date).}
+\item{y}{Unquoted y aesthetic variable (i.e. character, factor, logical, numeric, or date).}
 
-\item{col}{Unquoted variable to col and fill by (i.e. character, factor, logical, numeric)}
+\item{col}{Unquoted col and fill aesthetic variable (i.e. character, factor, logical, numeric)}
 
-\item{facet}{Unquoted facet variable (i.e. character, factor, logical)}
+\item{facet}{Unquoted facet aesthetic variable (i.e. character, factor, logical)}
 
-\item{group}{Unquoted group variable.}
+\item{group}{Unquoted group aesthetic variable.}
 
-\item{xmin}{Unquoted xmin variable (i.e. numeric).}
+\item{xmin}{Unquoted xmin aesthetic variable (i.e. numeric).}
 
-\item{xmax}{Unquoted xmax variable (i.e. numeric).}
+\item{xmax}{Unquoted xmax aesthetic variable (i.e. numeric).}
 
-\item{xend}{Unquoted xend variable (i.e. numeric).}
+\item{xend}{Unquoted xend aesthetic variable (i.e. numeric).}
 
-\item{ymin}{Unquoted ymin variable (i.e. numeric).}
+\item{ymin}{Unquoted ymin aesthetic variable (i.e. numeric).}
 
-\item{ymax}{Unquoted ymax variable (i.e. numeric).}
+\item{ymax}{Unquoted ymax aesthetic variable (i.e. numeric).}
 
-\item{yend}{Unquoted xend variable (i.e. numeric).}
+\item{yend}{Unquoted xend aesthetic variable (i.e. numeric).}
+
+\item{label}{Unquoted label aesthetic variable.}
+
+\item{sample}{Unquoted sample aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
@@ -113,9 +119,9 @@ gg_blank(
 
 \item{size}{Size. A number 0 upwards.}
 
-\item{width}{Width. A number above 0 upwards.}
+\item{width}{Width. A number 0 upwards.}
 
-\item{bins}{Number of bins to transform the data into.}
+\item{bins}{If "bin" stat selected, number of bins to transform the data into.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
@@ -131,9 +137,9 @@ gg_blank(
 
 \item{x_breaks_width}{For a numeric or date variable, the width of breaks, as calculated by the scales::fulseq function.}
 
-\item{x_expand}{Add padding to the limits with the ggplot2::ggplot2::expansion function, or a vector of length 2.}
+\item{x_expand}{Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.}
 
-\item{x_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.}
+\item{x_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
 \item{x_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.}
 
@@ -155,9 +161,9 @@ gg_blank(
 
 \item{y_breaks_width}{For a numeric or date variable, the width of breaks, as calculated by the scales::fulseq function.}
 
-\item{y_expand}{Add padding to the limits with the ggplot2::ggplot2::expansion function, or a vector of length 2.}
+\item{y_expand}{Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.}
 
-\item{y_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.}
+\item{y_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
 \item{y_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.}
 
@@ -181,7 +187,7 @@ gg_blank(
 
 \item{col_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
 
-\item{col_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector. Note this does not affect where col_intervals is not NULL.}
+\item{col_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.}
 
 \item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, "l" for left, or "m" for a mobile-friendly legend.}
 
@@ -199,7 +205,7 @@ gg_blank(
 
 \item{facet_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
 
-\item{facet_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformations. Also accepts a vector.}
+\item{facet_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
 \item{facet_na_rm}{TRUE or FALSE of whether to include facet NA values. Defaults to FALSE.}
 

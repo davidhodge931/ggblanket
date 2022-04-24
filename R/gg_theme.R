@@ -230,39 +230,7 @@ gg_theme <-
         ggplot2::theme(axis.title.y = ggplot2::element_blank()) +
         ggplot2::theme(axis.text.x = ggplot2::element_blank()) +
         ggplot2::theme(axis.text.y = ggplot2::element_blank())
-
     }
 
     return(theme)
   }
-
-#' @title Theme extra elements for a ggplot2 on mobile devices.
-#'
-#' @description Theme elements for ggplot2 on mobile devices.
-#' @param void TRUE or FALSE of whether to drop all axis lines, ticks and x and y labels. Useful for maps. Defaults to FALSE.
-#'
-#' @return A ggplot theme.
-#' @keywords internal
-theme_mobile_extra <- function(void = FALSE) {
-  if (void == FALSE) {
-    ggplot2::theme(
-      plot.title.position = "plot",
-      plot.margin = ggplot2::margin(t = 2, l = 2, b = 2, r = 10),
-      legend.position = "bottom",
-      legend.direction = "vertical",
-      legend.justification = "left",
-      legend.margin = ggplot2::margin(t = 0, b = 0, l = 0, r = 0),
-      axis.text.x = ggplot2::element_text(hjust = 0.75)
-    )
-  }
-  else if (void == TRUE) {
-    ggplot2::theme(
-      plot.title.position = "plot",
-      plot.margin = ggplot2::margin(t = 2, l = 2, b = 2, r = 10),
-      legend.position = "bottom",
-      legend.direction = "vertical",
-      legend.justification = "left",
-      legend.margin = ggplot2::margin(t = 0, b = 0, l = 0, r = 0)
-    )
-  }
-}
