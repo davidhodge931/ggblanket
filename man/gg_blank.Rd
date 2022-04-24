@@ -24,7 +24,7 @@ gg_blank(
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 1,
-  size = 0.5,
+  size = 0.75,
   width = NULL,
   bins = 40,
   ...,
