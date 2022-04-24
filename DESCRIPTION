@@ -1,7 +1,7 @@
 Package: ggbilly
 Type: Package
 Title: Build beautiful ggplots with less brainpower
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: 
     c(person(given = "David",
              family = "Hodge",

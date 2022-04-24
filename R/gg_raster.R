@@ -1,6 +1,6 @@
-#' @title Blank ggplot.
+#' @title Raster ggplot.
 #'
-#' @description Blank ggplot.
+#' @description Raster ggplot.
 #' @param data A data frame or tibble. Required input.
 #' @param x Unquoted x aesthetic variable (i.e. character, factor, logical, numeric, or date).
 #' @param y Unquoted y aesthetic variable (i.e. character, factor, logical, numeric, or date).
@@ -12,17 +12,17 @@
 #' @param ymin Unquoted ymin aesthetic variable (i.e. numeric).
 #' @param ymax Unquoted ymax aesthetic variable (i.e. numeric).
 #' @param yend Unquoted xend aesthetic variable (i.e. numeric).
-#' @param z Unquoted z aesthetic variable.
 #' @param label Unquoted label aesthetic variable.
 #' @param sample Unquoted sample aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
-#' @param pal Character vector of hex codes.
-#' @param pal_na The hex code or name of the NA colour to be used.
+#' @param pal Character vector of raster codes.
+#' @param pal_na The raster code or name of the NA colour to be used.
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param size Size. A number 0 upwards.
 #' @param width Width. A number 0 upwards.
+#' @param bins If "bin" stat selected, number of bins to transform the data into.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
@@ -75,7 +75,7 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-gg_blank <- function(data = NULL,
+gg_raster <- function(data = NULL,
                      x = NULL,
                      y = NULL,
                      col = NULL,
@@ -87,7 +87,6 @@ gg_blank <- function(data = NULL,
                      ymin = NULL,
                      ymax = NULL,
                      yend = NULL,
-                     z = NULL,
                      label = NULL,
                      sample = NULL,
                      stat = "identity",
@@ -97,6 +96,7 @@ gg_blank <- function(data = NULL,
                      alpha = 1,
                      size = 0.75,
                      width = NULL,
+                     bins = 40,
                      ...,
                      title = NULL,
                      subtitle = NULL,
@@ -106,7 +106,7 @@ gg_blank <- function(data = NULL,
                      x_breaks_width = NULL,
                      x_expand = NULL,
                      x_labels = NULL,
-                     x_limits = NULL,
+                     x_limits = c(NA, NA),
                      x_na_rm = FALSE,
                      x_oob = scales::oob_censor,
                      x_rev = FALSE,
@@ -118,7 +118,7 @@ gg_blank <- function(data = NULL,
                      y_breaks_width = NULL,
                      y_expand = NULL,
                      y_labels = NULL,
-                     y_limits = NULL,
+                     y_limits = c(NA, NA),
                      y_na_rm = FALSE,
                      y_oob = scales::oob_censor,
                      y_rev = FALSE,
@@ -160,7 +160,6 @@ gg_blank <- function(data = NULL,
   ymin <- rlang::enquo(ymin)
   ymax <- rlang::enquo(ymax)
   yend <- rlang::enquo(yend)
-  z <- rlang::enquo(z)
 
   label <- rlang::enquo(label)
   sample <- rlang::enquo(sample)
@@ -486,7 +485,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -505,7 +503,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -525,7 +522,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -543,7 +539,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -563,7 +558,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -581,7 +575,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -600,7 +593,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -617,7 +609,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -625,12 +616,13 @@ gg_blank <- function(data = NULL,
   }
 
   plot <- plot +
-    ggplot2::geom_blank(
+    ggplot2::geom_raster(
       stat = stat,
       position = position,
       alpha = alpha,
       size = size,
       width = width,
+      bins = bins,
       ...
     )
 
@@ -656,7 +648,7 @@ gg_blank <- function(data = NULL,
     }
   }
 
-  ###Make x scale for where y is NULL
+  ###x scale where y is NULL #xscale1
   if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
     if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
       if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
@@ -726,7 +718,7 @@ gg_blank <- function(data = NULL,
       x_scale
   }
 
-  ###Make y scale where x is NULL
+  ###y scale where x is NULL #yscale1
   if (!rlang::quo_is_null(y) & rlang::quo_is_null(x)) {
     if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
       if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
@@ -802,7 +794,8 @@ gg_blank <- function(data = NULL,
   layer_data <- ggplot2::layer_data(plot)
   # return(layer_data)
 
-  ###Make x scale based on layer_data
+  ###x scale where y not NULL #xscale2
+  # if (!rlang::quo_is_null(y)) {
   if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
     if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
     if (rlang::is_null(x_labels)) x_labels <- snakecase::to_sentence_case
@@ -885,8 +878,10 @@ gg_blank <- function(data = NULL,
 
   plot <- plot +
     x_scale
+  # }
 
-  ###Make y scale based on layer_data
+  ###y scale where x not NULL #yscale2
+  # if (!rlang::quo_is_null(x)) {
   if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
     if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
     if (rlang::is_null(y_labels)) y_labels <- snakecase::to_sentence_case
@@ -969,6 +964,7 @@ gg_blank <- function(data = NULL,
 
   plot <- plot +
     y_scale
+  # }
 
   ###titles
   if (rlang::quo_is_null(x)) {
@@ -1028,3 +1024,4 @@ gg_blank <- function(data = NULL,
 
   return(plot)
 }
+

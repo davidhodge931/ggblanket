@@ -1,6 +1,6 @@
-#' @title Blank ggplot.
+#' @title rect ggplot.
 #'
-#' @description Blank ggplot.
+#' @description rect ggplot.
 #' @param data A data frame or tibble. Required input.
 #' @param x Unquoted x aesthetic variable (i.e. character, factor, logical, numeric, or date).
 #' @param y Unquoted y aesthetic variable (i.e. character, factor, logical, numeric, or date).
@@ -75,7 +75,7 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-gg_blank <- function(data = NULL,
+gg_rect <- function(data = NULL,
                      x = NULL,
                      y = NULL,
                      col = NULL,
@@ -625,7 +625,7 @@ gg_blank <- function(data = NULL,
   }
 
   plot <- plot +
-    ggplot2::geom_blank(
+    ggplot2::geom_rect(
       stat = stat,
       position = position,
       alpha = alpha,
