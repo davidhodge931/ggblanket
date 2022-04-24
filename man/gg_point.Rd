@@ -17,13 +17,12 @@ gg_point(
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
-  text = NULL,
   stat = "identity",
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 1,
-  size = 1.5,
+  size = 0.5,
   width = NULL,
   bins = 40,
   ...,
@@ -52,8 +51,8 @@ gg_point(
   y_oob = scales::oob_censor,
   y_rev = FALSE,
   y_title = NULL,
-  y_zero_mid = FALSE,
   y_zero = NULL,
+  y_zero_mid = FALSE,
   col_breaks = NULL,
   col_breaks_n = NULL,
   col_breaks_width = NULL,
@@ -101,8 +100,6 @@ gg_point(
 \item{ymax}{Unquoted ymax variable (i.e. numeric).}
 
 \item{yend}{Unquoted xend variable (i.e. numeric).}
-
-\item{text}{Unquoted text variable to be used as a tooltip with plotly::ggplotly(..., tooltip = "text").}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
@@ -172,9 +169,9 @@ gg_point(
 
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{y_zero_mid}{For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.}
-
 \item{y_zero}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
+
+\item{y_zero_mid}{For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.}
 
 \item{col_breaks}{A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.}
 

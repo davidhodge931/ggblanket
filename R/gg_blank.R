@@ -201,7 +201,16 @@ gg_blank <- function(data = NULL,
     }
 
     if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
-      if (!y_rev) {
+
+      if (!rlang::quo_is_null(col) &
+          (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data)))) {
+
+        if (y_rev) {
+          data <- data %>%
+            dplyr::mutate(dplyr::across(!!y, ~ forcats::fct_rev(.x)))
+        }
+      }
+      else if (!y_rev) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!y, ~ forcats::fct_rev(.x)))
       }

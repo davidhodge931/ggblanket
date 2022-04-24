@@ -17,8 +17,7 @@ gg_col(
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
-  text = NULL,
-  stat = "identity",
+  stat = "count",
   position = "stack",
   pal = NULL,
   pal_na = "#7F7F7F",
@@ -41,7 +40,7 @@ gg_col(
   x_rev = FALSE,
   x_title = NULL,
   x_zero = NULL,
-  x_zero_middle = FALSE,
+  x_zero_mid = FALSE,
   y_breaks = NULL,
   y_breaks_n = NULL,
   y_breaks_width = NULL,
@@ -52,8 +51,8 @@ gg_col(
   y_oob = scales::oob_censor,
   y_rev = FALSE,
   y_title = NULL,
-  y_zero_middle = FALSE,
   y_zero = NULL,
+  y_zero_mid = FALSE,
   col_breaks = NULL,
   col_breaks_n = NULL,
   col_breaks_width = NULL,
@@ -102,8 +101,6 @@ gg_col(
 
 \item{yend}{Unquoted xend variable (i.e. numeric).}
 
-\item{text}{Unquoted text variable to be used as a tooltip with plotly::ggplotly(..., tooltip = "text").}
-
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
@@ -150,7 +147,7 @@ gg_col(
 
 \item{x_zero}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
 
-\item{x_zero_middle}{For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.}
+\item{x_zero_mid}{For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.}
 
 \item{y_breaks}{For a numeric or date variable, a vector of breaks for the axis.}
 
@@ -172,9 +169,9 @@ gg_col(
 
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{y_zero_middle}{For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.}
-
 \item{y_zero}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
+
+\item{y_zero_mid}{For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.}
 
 \item{col_breaks}{A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.}
 

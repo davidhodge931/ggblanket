@@ -13,7 +13,6 @@
 #' @param ymax Unquoted ymax variable (i.e. numeric).
 #' @param yend Unquoted xend variable (i.e. numeric).
 #' @param group Unquoted group variable.
-#' @param text Unquoted text variable to be used as a tooltip with plotly::ggplotly(..., tooltip = "text").
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param pal Character vector of hex codes.
@@ -86,13 +85,12 @@ gg_point <- function(data = NULL,
                      ymin = NULL,
                      ymax = NULL,
                      yend = NULL,
-                     text = NULL,
                      stat = "identity",
                      position = "identity",
                      pal = NULL,
                      pal_na = "#7F7F7F",
                      alpha = 1,
-                     size = 1.5,
+                     size = 0.5,
                      width = NULL,
                      bins = 40,
                      ...,
@@ -121,8 +119,8 @@ gg_point <- function(data = NULL,
                      y_oob = scales::oob_censor,
                      y_rev = FALSE,
                      y_title = NULL,
-                     y_zero_mid = FALSE,
                      y_zero = NULL,
+                     y_zero_mid = FALSE,
                      col_breaks = NULL,
                      col_breaks_n = NULL,
                      col_breaks_width = NULL,
@@ -159,12 +157,9 @@ gg_point <- function(data = NULL,
   ymax <- rlang::enquo(ymax)
   yend <- rlang::enquo(yend)
 
-  text <- rlang::enquo(text)
-
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
-  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {ggpointet}, the {ggplot2} fill aesthetic inherits from col"))
-  # if (rlang::is_null(position)) rlang::inform(c("i" = "Note {ggpointet} gg_bar uses a default of 'dodge2', where {ggplot2} uses a default of 'stack'"))
+  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {ggbilly}, the {ggplot2} fill aesthetic inherits from col"))
 
   ###ungroup
   data <- dplyr::ungroup(data)
@@ -206,7 +201,16 @@ gg_point <- function(data = NULL,
     }
 
     if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
-      if (!y_rev) {
+
+      if (!rlang::quo_is_null(col) &
+          (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data)))) {
+
+        if (y_rev) {
+          data <- data %>%
+            dplyr::mutate(dplyr::across(!!y, ~ forcats::fct_rev(.x)))
+        }
+      }
+      else if (!y_rev) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!y, ~ forcats::fct_rev(.x)))
       }
@@ -581,7 +585,6 @@ gg_point <- function(data = NULL,
 
   plot <- plot +
     ggplot2::geom_point(
-      ggplot2::aes(text = !!text),
       stat = stat,
       position = position,
       alpha = alpha,
@@ -799,6 +802,13 @@ gg_point <- function(data = NULL,
           }
         }
 
+        if (length(class(position)) == 1) {
+          if (position == "fill") x_limits <- c(NA, NA)
+        }
+        else if (class(position)[1] == "PositionFill"){
+          x_limits <- c(NA, NA)
+        }
+
         if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
         if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
       }
@@ -878,6 +888,13 @@ gg_point <- function(data = NULL,
           }
         }
 
+        if (length(class(position)) == 1) {
+          if (position == "fill") y_limits <- c(NA, NA)
+        }
+        else if (class(position)[1] == "PositionFill"){
+          y_limits <- c(NA, NA)
+        }
+
         if (rlang::is_null(y_limits)) y_limits <- c(min(y_breaks), max(y_breaks))
         if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
       }
@@ -918,8 +935,23 @@ gg_point <- function(data = NULL,
   }
 
   ###titles
-  if (rlang::is_null(x_title) & !rlang::quo_is_null(x)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
-  if (rlang::is_null(y_title) & !rlang::quo_is_null(y)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
+  if (rlang::quo_is_null(x)) {
+    if (rlang::is_null(x_title)) {
+      if (stat %in% c("bin", "count")) x_title <- "Count"
+      else if (stat == "density") x_title <- "Density"
+      else if (stat == "function") x_title <- "X"
+    }
+  }
+  else if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
+
+  if (rlang::quo_is_null(y)) {
+    if (rlang::is_null(y_title)) {
+      if (stat %in% c("bin", "count")) y_title <- "Count"
+      else if (stat == "density") y_title <- "Density"
+      else if (stat == "function") y_title <- "Y"
+    }
+  }
+  else if (rlang::is_null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
 
   #make the plot
   plot <- plot +
