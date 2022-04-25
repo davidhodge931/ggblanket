@@ -1,24 +1,24 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggbilly
+# ggblanket
 
 <!-- badges: start -->
 
 [![CRAN
-status](https://www.r-pkg.org/badges/version/ggbilly)](https://CRAN.R-project.org/package=ggbilly)
+status](https://www.r-pkg.org/badges/version/ggblanket)](https://CRAN.R-project.org/package=ggblanket)
 <!-- badges: end -->
 
-The goal of ggbilly is to assist used
+The goal of ggblanket is to assist used
 
 ## Installation
 
-You can install the development version of ggbilly from
+You can install the development version of ggblanket from
 [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("davidhodge931/ggbilly")
+devtools::install_github("davidhodge931/ggblanket")
 ```
 
 ## Example
@@ -26,7 +26,7 @@ devtools::install_github("davidhodge931/ggbilly")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(ggbilly)
+library(ggblanket)
 ## basic example code
 ```
 
