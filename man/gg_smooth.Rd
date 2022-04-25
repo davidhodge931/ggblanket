@@ -26,81 +26,6 @@ gg_smooth(
   alpha = 1,
   size = 0.75,
   width = NULL,
-  bins = 40,
-  ...,
-  title = NULL,
-  subtitle = NULL,
-  coord = ggplot2::coord_cartesian(clip = "off"),
-  x_breaks = NULL,
-  x_breaks_n = NULL,
-  x_breaks_width = NULL,
-  x_expand = NULL,
-  x_labels = NULL,
-  x_limits = NULL,
-  x_na_rm = FALSE,
-  x_oob = scales::oob_censor,
-  x_rev = FALSE,
-  x_title = NULL,
-  x_zero = NULL,
-  x_zero_mid = FALSE,
-  y_breaks = NULL,
-  y_breaks_n = NULL,
-  y_breaks_width = NULL,
-  y_expand = NULL,
-  y_labels = NULL,
-  y_limits = NULL,
-  y_na_rm = FALSE,
-  y_oob = scales::oob_censor,
-  y_rev = FALSE,
-  y_title = NULL,
-  y_zero = NULL,
-  y_zero_mid = FALSE,
-  col_breaks = NULL,
-  col_breaks_n = NULL,
-  col_breaks_width = NULL,
-  col_intervals = NULL,
-  col_labels = NULL,
-  col_legend_place = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
-  col_limits = NULL,
-  col_na_rm = FALSE,
-  col_rev = FALSE,
-  col_title = NULL,
-  facet_intervals = NULL,
-  facet_labels = snakecase::to_sentence_case,
-  facet_na_rm = FALSE,
-  facet_ncol = NULL,
-  facet_nrow = NULL,
-  facet_rev = FALSE,
-  facet_scales = "fixed",
-  caption = NULL,
-  theme = NULL
-)
-
-gg_smooth(
-  data = NULL,
-  x = NULL,
-  y = NULL,
-  col = NULL,
-  facet = NULL,
-  group = NULL,
-  xmin = NULL,
-  xmax = NULL,
-  xend = NULL,
-  ymin = NULL,
-  ymax = NULL,
-  yend = NULL,
-  label = NULL,
-  sample = NULL,
-  stat = "smooth",
-  position = "identity",
-  pal = NULL,
-  pal_na = "#7F7F7F",
-  alpha = 1,
-  size = 0.75,
-  width = NULL,
-  bins = 40,
   ...,
   title = NULL,
   subtitle = NULL,
@@ -194,8 +119,6 @@ gg_smooth(
 \item{size}{Size. A number 0 upwards.}
 
 \item{width}{Width. A number 0 upwards.}
-
-\item{bins}{If "bin" stat selected, number of bins to transform the data into.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
@@ -297,11 +220,7 @@ gg_smooth(
 }
 \value{
 A ggplot object.
-
-A ggplot object.
 }
 \description{
-Smooth ggplot.
-
 Smooth ggplot.
 }

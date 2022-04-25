@@ -158,14 +158,13 @@ gg_jitter <- function(data = NULL,
   ymin <- rlang::enquo(ymin)
   ymax <- rlang::enquo(ymax)
   yend <- rlang::enquo(yend)
-  z <- rlang::enquo(z)
 
   label <- rlang::enquo(label)
   sample <- rlang::enquo(sample)
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
-  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {ggbilly}, the {ggplot2} fill aesthetic inherits from col"))
+  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Note in {ggblanket}, the {ggplot2} fill aesthetic inherits from col"))
 
   ###ungroup
   data <- dplyr::ungroup(data)

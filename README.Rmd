@@ -78,3 +78,48 @@ summary(cars)
 * `gg_theme`
 * `gg_tile`	
 * `gg_violin`	
+
+Default changes:
+- gg_sf defaults coord_sf and gg_theme(void = TRUE)
+- gg_qq defaults oob_squish
+- width default = 0.75 for categorical vars
+- size defaults 0.75
+- alpha for fill defaults to 0.9 generally
+- alpha on boxplot and smooth is 0.25
+
+# library(palmerpenguins)
+# 
+# penguins |>
+#   gg_point(x = flipper_length_mm, 
+#            y = body_mass_g)
+# 
+# penguins |>
+#   gg_point(x = flipper_length_mm, 
+#            y = body_mass_g,
+#            col = sex)
+# 
+# penguins |>
+#   gg_point(x = flipper_length_mm, 
+#            y = body_mass_g,
+#            col = species)
+# 
+# penguins |>
+#   gg_point(x = body_mass_g, 
+#            y = species,
+#            col = sex)
+# 
+# penguins |>
+#   gg_point(x = body_mass_g, 
+#            y = species,
+#            col = flipper_length_mm)
+# 
+# penguins |>
+#   gg_point(x = flipper_length_mm, 
+#            y = body_mass_g,
+#            col = sex, 
+#            facet = species)
+# 
+# penguins |>
+#   gg_point(x = body_mass_g, 
+#            y = species,
+#            col = sex)
