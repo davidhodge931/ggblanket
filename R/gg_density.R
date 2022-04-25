@@ -962,7 +962,7 @@ gg_density <- function(data = NULL,
   if (rlang::quo_is_null(x)) {
     if (rlang::is_null(x_title)) {
       if (stat %in% c("bin", "count")) x_title <- "Count"
-      else if (stat == "density") x_title <- "density"
+      else if (stat == "density") x_title <- "Density"
       else if (stat == "function") x_title <- "X"
       else if (stat == "qq") x_title <- "Theoretical"
     }
