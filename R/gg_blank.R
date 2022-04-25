@@ -12,7 +12,6 @@
 #' @param ymin Unquoted ymin aesthetic variable (i.e. numeric).
 #' @param ymax Unquoted ymax aesthetic variable (i.e. numeric).
 #' @param yend Unquoted xend aesthetic variable (i.e. numeric).
-#' @param z Unquoted z aesthetic variable.
 #' @param label Unquoted label aesthetic variable.
 #' @param sample Unquoted sample aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
@@ -87,7 +86,6 @@ gg_blank <- function(data = NULL,
                      ymin = NULL,
                      ymax = NULL,
                      yend = NULL,
-                     z = NULL,
                      label = NULL,
                      sample = NULL,
                      stat = "identity",
@@ -486,7 +484,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -505,7 +502,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -525,7 +521,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -543,7 +538,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -563,7 +557,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -581,7 +574,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -600,7 +592,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -617,7 +608,6 @@ gg_blank <- function(data = NULL,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          z = !!z,
           label = !!label,
           sample = !!sample
         ))
@@ -975,6 +965,7 @@ gg_blank <- function(data = NULL,
       if (stat %in% c("bin", "count")) x_title <- "Count"
       else if (stat == "density") x_title <- "Density"
       else if (stat == "function") x_title <- "X"
+      else if (stat == "qq") x_title <- "Theoretical"
     }
   }
   else if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
@@ -984,6 +975,7 @@ gg_blank <- function(data = NULL,
       if (stat %in% c("bin", "count")) y_title <- "Count"
       else if (stat == "density") y_title <- "Density"
       else if (stat == "function") y_title <- "Y"
+      else if (stat == "qq") y_title <- "Sample"
     }
   }
   else if (rlang::is_null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))

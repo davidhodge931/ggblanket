@@ -17,7 +17,6 @@ gg_blank(
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
-  z = NULL,
   label = NULL,
   sample = NULL,
   stat = "identity",
@@ -102,8 +101,6 @@ gg_blank(
 \item{ymax}{Unquoted ymax aesthetic variable (i.e. numeric).}
 
 \item{yend}{Unquoted xend aesthetic variable (i.e. numeric).}
-
-\item{z}{Unquoted z aesthetic variable.}
 
 \item{label}{Unquoted label aesthetic variable.}
 

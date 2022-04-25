@@ -56,3 +56,38 @@ You can also embed plots, for example:
 
 In that case, don’t forget to commit and push the resulting figure
 files, so they display on GitHub and CRAN.
+
+Wrapper functions:
+
+-   `gg_area`
+-   gg_bar  
+-   gg_blank  
+-   gg_boxplot  
+-   gg_col  
+-   gg_crossbar
+-   gg_density
+-   gg_errorbar  
+-   gg_freqpoly  
+-   gg_function  
+-   gg_histogram  
+-   gg_jitter
+-   gg_label
+-   gg_line
+-   gg_linerange
+-   gg_path  
+-   gg_point  
+-   gg_pointrange
+-   gg_polygon
+-   gg_qq
+-   gg_raster
+-   gg_rect  
+-   gg_ribbon
+-   gg_rug
+-   gg_segment  
+-   gg_sf
+-   gg_smooth
+-   gg_step  
+-   gg_text  
+-   gg_theme
+-   gg_tile  
+-   gg_violin

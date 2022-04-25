@@ -4,9 +4,9 @@
 \name{ggblanket-package}
 \alias{ggblanket}
 \alias{ggblanket-package}
-\title{ggblanket: Build beautiful ggplots with less brainpower}
+\title{ggblanket: Wrapper Functions For Beautiful Ggplots with Less Brainpower}
 \description{
-Build beautiful ggplots with less brainpower.
+Wrapper functions for beautiful ggplots with less brainpower.
 }
 \seealso{
 Useful links:

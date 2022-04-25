@@ -1,7 +1,7 @@
 Package: ggblanket
 Type: Package
-Title: Build beautiful ggplots with less brainpower
-Version: 1.0.0
+Title: Wrapper Functions For Beautiful Ggplots with Less Brainpower
+Version: 0.1.0
 Authors@R: 
     c(person(given = "David",
              family = "Hodge",
@@ -9,7 +9,7 @@ Authors@R:
              email = "davidhodge931@gmail.com",
              comment = c(ORCID = "0000-0002-3868-7501")))
 Maintainer: David Hodge <davidhodge931@gmail.com>
-Description: Build beautiful ggplots with less brainpower. 
+Description: Wrapper functions for beautiful ggplots with less brainpower. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -17,7 +17,7 @@ Depends: R (>= 4.1.0)
 Imports: 
     dplyr,
     forcats,
-    ggplot2,
+    ggplot2 (>= 3.3.0),
     lubridate,
     rlang,
     scales,
