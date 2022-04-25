@@ -92,7 +92,7 @@ gg_density <- function(data = NULL,
                      position = "identity",
                      pal = NULL,
                      pal_na = "#7F7F7F",
-                     alpha = 1,
+                     alpha = 0.9,
                      size = 0.75,
                      width = NULL,
                      ...,
@@ -972,7 +972,7 @@ gg_density <- function(data = NULL,
   if (rlang::quo_is_null(y)) {
     if (rlang::is_null(y_title)) {
       if (stat %in% c("bin", "count")) y_title <- "Count"
-      else if (stat == "density") y_title <- "density"
+      else if (stat == "density") y_title <- "Density"
       else if (stat == "function") y_title <- "Y"
       else if (stat == "qq") y_title <- "Sample"
     }

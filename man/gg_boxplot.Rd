@@ -23,7 +23,7 @@ gg_boxplot(
   position = "dodge2",
   pal = NULL,
   pal_na = "#7F7F7F",
-  alpha = 1,
+  alpha = 0.25,
   size = 0.75,
   width = NULL,
   ...,
