@@ -6,6 +6,8 @@
 \alias{ggblanket-package}
 \title{ggblanket: Wrapper Functions For Beautiful Ggplots with Less Brainpower}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 Wrapper functions for beautiful ggplots with less brainpower.
 }
 \seealso{

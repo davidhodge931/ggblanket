@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<img src="man/figures/logo.png" align="right" height="139" />
+
 # ggblanket
 
 <!-- badges: start -->
@@ -9,7 +11,9 @@
 status](https://www.r-pkg.org/badges/version/ggblanket)](https://CRAN.R-project.org/package=ggblanket)
 <!-- badges: end -->
 
-The goal of ggblanket is to assist used
+The goal of ggblanket is to assist users make beautiful ggplots faster
+and with less brainpower - while building intuition for how ggplot2
+works.
 
 ## Installation
 
@@ -30,9 +34,6 @@ library(ggblanket)
 ## basic example code
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
 ``` r
 summary(cars)
 #>      speed           dist       
@@ -44,50 +45,114 @@ summary(cars)
 #>  Max.   :25.0   Max.   :120.00
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
-
-Wrapper functions:
+## Wrapper functions available
 
 -   `gg_area`
--   gg_bar  
--   gg_blank  
--   gg_boxplot  
--   gg_col  
--   gg_crossbar
--   gg_density
--   gg_errorbar  
--   gg_freqpoly  
--   gg_function  
--   gg_histogram  
--   gg_jitter
--   gg_label
--   gg_line
--   gg_linerange
--   gg_path  
--   gg_point  
--   gg_pointrange
--   gg_polygon
--   gg_qq
--   gg_raster
--   gg_rect  
--   gg_ribbon
--   gg_rug
--   gg_segment  
--   gg_sf
--   gg_smooth
--   gg_step  
--   gg_text  
--   gg_theme
--   gg_tile  
--   gg_violin
+-   `gg_bar`  
+-   `gg_blank`  
+-   `gg_boxplot`  
+-   `gg_col`  
+-   `gg_crossbar`
+-   `gg_density`
+-   `gg_errorbar`
+-   `gg_freqpoly`
+-   `gg_function`
+-   `gg_histogram`  
+-   `gg_jitter`  
+-   `gg_label`
+-   `gg_line`
+-   `gg_linerange`
+-   `gg_path`
+-   `gg_point`  
+-   `gg_pointrange`  
+-   `gg_polygon`
+-   `gg_qq`
+-   `gg_raster`  
+-   `gg_rect`
+-   `gg_ribbon`
+-   `gg_rug`
+-   `gg_segment`  
+-   `gg_sf`  
+-   `gg_smooth`  
+-   `gg_step`
+-   `gg_text`
+-   `gg_theme`
+-   `gg_tile`
+-   `gg_violin`
+
+Default changes: - gg_sf defaults coord_sf and gg_theme(void = TRUE) -
+gg_qq defaults oob_squish - width default = 0.75 for categorical vars -
+size defaults 0.75 - alpha for fill defaults to 0.9 generally - alpha on
+boxplot and smooth is 0.25
+
+# library(palmerpenguins)
+
+# 
+
+# penguins \|\>
+
+# gg_point(x = flipper_length_mm,
+
+# y = body_mass_g)
+
+# 
+
+# penguins \|\>
+
+# gg_point(x = flipper_length_mm,
+
+# y = body_mass_g,
+
+# col = sex)
+
+# 
+
+# penguins \|\>
+
+# gg_point(x = flipper_length_mm,
+
+# y = body_mass_g,
+
+# col = species)
+
+# 
+
+# penguins \|\>
+
+# gg_point(x = body_mass_g,
+
+# y = species,
+
+# col = sex)
+
+# 
+
+# penguins \|\>
+
+# gg_point(x = body_mass_g,
+
+# y = species,
+
+# col = flipper_length_mm)
+
+# 
+
+# penguins \|\>
+
+# gg_point(x = flipper_length_mm,
+
+# y = body_mass_g,
+
+# col = sex,
+
+# facet = species)
+
+# 
+
+# penguins \|\>
+
+# gg_point(x = body_mass_g,
+
+# y = species,
+
+# col = sex)
