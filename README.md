@@ -11,9 +11,14 @@
 status](https://www.r-pkg.org/badges/version/ggblanket)](https://CRAN.R-project.org/package=ggblanket)
 <!-- badges: end -->
 
-The goal of ggblanket is to assist users make beautiful ggplots faster
-and with less brainpower - while building intuition for how ggplot2
-works.
+The objective is primarily to enable less thought for ggplot2, so you
+make beautiful visualisation quickly and effortless.
+
+A secondary objective was to build intuition for ggplot2, such that
+users can move between the two packages without too much confusion.
+
+As such, and with this balance in mind, the ggblanket package of wrapper
+functions was created.
 
 ## Installation
 
@@ -31,18 +36,50 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(ggblanket)
-## basic example code
+library(palmerpenguins)
+library(tidyverse)
+#> -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+#> v ggplot2 3.3.5     v purrr   0.3.4
+#> v tibble  3.1.6     v dplyr   1.0.8
+#> v tidyr   1.2.0     v stringr 1.4.0
+#> v readr   2.1.2     v forcats 0.5.1
+#> -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+#> x dplyr::filter() masks stats::filter()
+#> x dplyr::lag()    masks stats::lag()
 ```
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+penguins |>
+  ggplot() +
+  geom_point(aes(x = bill_length_mm,  
+                 y = flipper_length_mm, 
+                 col = sex)) +
+  facet_wrap(facets = ~species)
+#> Warning: Removed 2 rows containing missing values (geom_point).
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" /> Key
+changes from ggplot2:
+
+-   aesthetics not required to be called within an aes function.
+-   facet treated as an aesthetic
+-   col and fill aesthetics merged together into a single col aesthetic
+-   controlling input of all customised colours via pal argument
+-   pushing x and y limits to the max of the x and y breaks by default
+-   arranging the order of y values and col legends etc to be correct by
+    default
+-   providing quick arguments for scale adjustment and legend placement
+-   changes to default colours, alphas, and widths used.
+
+Other than that, each wrapper is faithful to ggplot2 to avoid too much
+confusion.
+
+``` r
+penguins |>
+  gg_point(x = bill_length_mm, 
+           y = flipper_length_mm, 
+           col = sex, 
+           facet = species)
 ```
 
 ## Wrapper functions available

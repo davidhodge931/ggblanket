@@ -21,7 +21,11 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/ggblanket)](https://CRAN.R-project.org/package=ggblanket)
 <!-- badges: end -->
 
-The goal of ggblanket is to assist users make beautiful ggplots faster and with less brainpower - while building intuition for how ggplot2 works.
+The objective is primarily to enable less thought for ggplot2, so you make beautiful visualisation quickly and effortless. 
+
+A secondary objective was to build intuition for ggplot2, such that users can move between the two packages without too much confusion.   
+
+As such, and with this balance in mind, the ggblanket package of wrapper functions was created.
 
 ## Installation
 
@@ -36,14 +40,40 @@ devtools::install_github("davidhodge931/ggblanket")
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
+```{r}
 library(ggblanket)
-## basic example code
+library(palmerpenguins)
+library(tidyverse)
 ```
 
+```{r}
+penguins |>
+  ggplot() +
+  geom_point(aes(x = bill_length_mm,  
+                 y = flipper_length_mm, 
+                 col = sex)) +
+  facet_wrap(facets = ~species)
 
-```{r cars}
-summary(cars)
+```
+Key changes from ggplot2:
+
+* aesthetics not required to be called within an aes function. 
+* facet treated as an aesthetic
+* col and fill aesthetics merged together into a single col aesthetic
+* controlling input of all customised colours via pal argument
+* pushing x and y limits to the max of the x and y breaks by default
+* arranging the order of y values and col legends etc to be correct by default
+* providing quick arguments for scale adjustment and legend placement
+* changes to default colours, alphas, and widths used.
+
+Other than that, each wrapper is faithful to ggplot2 to avoid too much confusion. 
+
+```{r, eval=F}
+penguins |>
+  gg_point(x = bill_length_mm, 
+           y = flipper_length_mm, 
+           col = sex, 
+           facet = species)
 ```
 
 ## Wrapper functions available
