@@ -3,24 +3,15 @@
 # library(ggblanket)
 # library(palmerpenguins)
 #
-# pal_sides <- pal_d3_reorder(1)
-# pal_interior <- pal_d3_reorder(2)[2]
-# pal <- c(pal_interior, pal_sides)
-# scales::show_col(pal)
-#
-# bg <- gg_density(
-#   penguins,
-#   x = body_mass_g,
-#   col = sex,
-#   col_na_rm = T,
-#   pal = pal,
-#   position = "fill",
-#   theme = gg_theme(void = T),
-#   col_legend_place = "n"
-# )
+# plot <- iris |>
+#   gg_density(x = Sepal.Length,
+#              col = Species,
+#              alpha = 0.9,
+#              position = "stack",
+#              col_legend_place = "n")
 #
 # sticker(
-#   bg,
+#   plot,
 #   package = "ggblanket",
 #   p_color = "white",
 #   h_color = ggblanket:::pal_viridis_reorder(1),
@@ -28,8 +19,8 @@
 #   p_size = 25,
 #   p_y = 1.1,
 #   p_x = 1.0,
-#   s_width = 50,
-#   s_height = 150,
+#   s_width = 7,
+#   s_height = 3.5,
 #   filename = "logo.png",
 #   white_around_sticker = TRUE
 # )

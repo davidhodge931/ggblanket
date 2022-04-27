@@ -40,29 +40,42 @@ devtools::install_github("davidhodge931/ggblanket")
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r}
+```{r example}
 library(ggblanket)
 library(palmerpenguins)
 library(tidyverse)
-```
 
-```{r}
 penguins |>
   ggplot() +
   geom_point(aes(x = bill_length_mm,  
-                 y = flipper_length_mm, 
-                 col = sex)) +
+                 col = sex, 
+                 fill = sex), 
+                 alpha = 0.9) +
   facet_wrap(facets = ~species)
 
 ```
+```{r, example}
+library(ggblanket)
+penguins |>
+  drop_na() |> 
+  gg_density(x = bill_length_mm, 
+               col = sex, 
+               facet = species, 
+               y_breaks_n = 4)
+
+```
+
+
 Key changes from ggplot2:
 
 * aesthetics not required to be called within an aes function. 
 * facet treated as an aesthetic
 * col and fill aesthetics merged together into a single col aesthetic
 * controlling input of all customised colours via pal argument
+
 * pushing x and y limits to the max of the x and y breaks by default
 * arranging the order of y values and col legends etc to be correct by default
+* make titles and labels convert by default to sentence case and comma
 * providing quick arguments for scale adjustment and legend placement
 * changes to default colours, alphas, and widths used.
 
@@ -73,7 +86,8 @@ penguins |>
   gg_point(x = bill_length_mm, 
            y = flipper_length_mm, 
            col = sex, 
-           facet = species)
+           facet = species, 
+           size = 1.5)
 ```
 
 ## Wrapper functions available
@@ -101,7 +115,6 @@ penguins |>
 * `gg_raster`	
 * `gg_rect`
 * `gg_ribbon`
-* `gg_rug`
 * `gg_segment`	
 * `gg_sf`	
 * `gg_smooth`	
@@ -112,46 +125,28 @@ penguins |>
 * `gg_violin`	
 
 Default changes:
-- gg_sf defaults coord_sf and gg_theme(void = TRUE)
-- gg_qq defaults oob_squish
-- width default = 0.75 for categorical vars
-- size defaults 0.75
-- alpha for fill defaults to 0.9 generally
-- alpha on boxplot and smooth is 0.25
 
-# library(palmerpenguins)
-# 
-# penguins |>
-#   gg_point(x = flipper_length_mm, 
-#            y = body_mass_g)
-# 
-# penguins |>
-#   gg_point(x = flipper_length_mm, 
-#            y = body_mass_g,
-#            col = sex)
-# 
-# penguins |>
-#   gg_point(x = flipper_length_mm, 
-#            y = body_mass_g,
-#            col = species)
-# 
-# penguins |>
-#   gg_point(x = body_mass_g, 
-#            y = species,
-#            col = sex)
-# 
-# penguins |>
-#   gg_point(x = body_mass_g, 
-#            y = species,
-#            col = flipper_length_mm)
-# 
-# penguins |>
-#   gg_point(x = flipper_length_mm, 
-#            y = body_mass_g,
-#            col = sex, 
-#            facet = species)
-# 
-# penguins |>
-#   gg_point(x = body_mass_g, 
-#            y = species,
-#            col = sex)
+* gg_sf defaults coord_sf and gg_theme(void = TRUE)
+* gg_qq defaults oob_squish
+* width default = 0.75 except for boxplot 0.5 and errorbar 0.1
+* size defaults 0.5 for lines and 1.5 for points
+* alpha for fill defaults to 1 or 0.9 generally
+* alpha on boxplot and smooth is 0.25 or 0.5?
+*
+
+alpha
+
+-smooth 0.25
+
+-density 0.5
+-histogram 0.5
+-boxplot 0.5
+
+
+-bar 0.9
+-col 0.9
+-area 0.9
+-ribbon 0.9
+-polygon 0.9
+
+

@@ -46,9 +46,7 @@ library(tidyverse)
 #> -- Conflicts ------------------------------------------ tidyverse_conflicts() --
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
-```
 
-``` r
 penguins |>
   ggplot() +
   geom_point(aes(x = bill_length_mm,  
@@ -58,8 +56,8 @@ penguins |>
 #> Warning: Removed 2 rows containing missing values (geom_point).
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" /> Key
-changes from ggplot2:
+<img src="man/figures/README-example-1.png" width="100%" /> Key changes
+from ggplot2:
 
 -   aesthetics not required to be called within an aes function.
 -   facet treated as an aesthetic
