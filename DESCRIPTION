@@ -16,9 +16,9 @@ LazyData: true
 Imports: 
     dplyr,
     forcats,
+    magrittr,
     ggplot2,
     lubridate,
-    magrittr,
     rlang,
     scales,
     snakecase,

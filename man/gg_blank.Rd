@@ -203,3 +203,11 @@ A ggplot object.
 \description{
 Blank ggplot.
 }
+\examples{
+ iris |>
+   gg_blank(x = Sepal.Width,
+            y = Sepal.Length,
+            col = Species,
+            alpha = 0.9)
+
+}
