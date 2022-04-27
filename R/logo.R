@@ -1,4 +1,6 @@
-# library(tidyverse)
+# 1. Make empty logo
+#
+# library(ggplot2)
 # library(hexSticker)
 #
 # plot <- ggplot() +
@@ -23,6 +25,14 @@
 #   white_around_sticker = TRUE
 # )
 #
-# usethis::use_logo("logo.png")
+# 2. Add to word and add text
+# blanket = Karma 72 (from Google fonts)
+# gg = Abadi 72
 #
-# file.remove("logo.png")
+# 3. Use snipping tool to make an image
+#
+# 4. Make background transparent
+# https://www.remove.bg/upload
+#
+# 5. Add to package
+# usethis::use_logo(...)
