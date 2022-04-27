@@ -29,7 +29,9 @@
 # blanket = Karma 70 (from Google fonts)
 # gg = Abadi 70
 #
-# 3. Zoom as big in Word Use snipping tool to make an image
+# 3. Zoom as big in Word, printscreen, add to paint & save
+#
+# 4. Crop to rectangle
 #
 # 4. Make background transparent
 # https://www.remove.bg/upload
