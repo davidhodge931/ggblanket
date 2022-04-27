@@ -26,10 +26,10 @@
 # )
 #
 # 2. Add to word and add text
-# blanket = Karma 72 (from Google fonts)
-# gg = Abadi 72
+# blanket = Karma 70 (from Google fonts)
+# gg = Abadi 70
 #
-# 3. Use snipping tool to make an image
+# 3. Zoom as big in Word Use snipping tool to make an image
 #
 # 4. Make background transparent
 # https://www.remove.bg/upload
