@@ -23,7 +23,7 @@ gg_label(
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
-  alpha = 1,
+  alpha = 0.1,
   size = 3.88,
   width = NULL,
   bins = 40,

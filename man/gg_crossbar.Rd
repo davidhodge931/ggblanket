@@ -23,7 +23,7 @@ gg_crossbar(
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
-  alpha = 1,
+  alpha = 0.5,
   size = 0.5,
   width = NULL,
   bins = 40,
