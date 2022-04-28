@@ -35,16 +35,15 @@ With these objectives in mind, the ggblanket package:
 
 * uses quick functions that wrap around a single geom
 * merges col and fill aesthetics together into a single col aesthetic
-* customises colours via a pal argument
+* provides colour customisation via a pal argument
 * treats faceting as an aesthetic
 * pushes x and y limits to the max of the x and y breaks by default
-* arranges horizontal geom y and col labels etc to be correct 
-* makes titles and labels convert to sentence case and comma format by default 
+* arranges horizontal geom y and col labels etc to be in correct order 
+* makes titles and labels sentence case and comma format by default 
 * provides arguments for scale adjustment and legend placement
 * changes default colours, alphas, widths and themes 
 * allows users to access all other non-aesthetic geom functionality 
 * keeps all stat and position arguments consistent with the applicable geom's 
-
 
 ## Installation
 
