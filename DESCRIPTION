@@ -26,6 +26,6 @@ Imports:
     stringr,
     tidyr,
     tidyselect,
-    viridis
+    viridis,
 Suggests: 
     palmerpenguins

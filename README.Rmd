@@ -34,7 +34,7 @@ A secondary objective is to help users build intuition for ggplot2, such that th
 With these objectives in mind, the ggblanket package:
 
 * uses quick functions that wrap around a single geom
-* merges col and fill aesthetics together into a single col aesthetic
+* merges col and fill aesthetics into a single col aesthetic
 * provides colour customisation via a pal argument
 * treats faceting as an aesthetic
 * pushes x and y limits to the max of the x and y breaks by default

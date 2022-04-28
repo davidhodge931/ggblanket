@@ -1,7 +1,7 @@
 #' @title Blank ggplot.
 #'
-#' @description Blank ggplot.
-#' @param data A data frame or tibble. Required input.
+#' @description Create a blank plot with a wrapper around the ggplot2::geom_blank function.
+#' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
@@ -42,7 +42,7 @@
 #' @param y_breaks_width For a numeric or date variable, the width of breaks, as calculated by the scales::fullseq function.
 #' @param y_expand Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.
 #' @param y_oob A scales::oob_* function for how to deal with out-of-bounds values.
-#' @param y_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
+#' @param y_labels A functiyon to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
 #' @param y_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_zero For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
@@ -67,11 +67,6 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#'  iris |>
-#'    gg_blank(x = Sepal.Width,
-#'             y = Sepal.Length,
-#'             col = Species,
-#'             alpha = 0.9)
 #'
 gg_blank <- function(data = NULL,
                      x = NULL,
@@ -156,8 +151,8 @@ gg_blank <- function(data = NULL,
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
-  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Remember in {ggblanket}, the {ggplot2} fill aesthetic inherits from col"))
-  if (!rlang::quo_is_null(facet)) rlang::inform(c("i" = "Remember in {ggblanket}, the {ggplot2} facet layer is treated as an aesthetic"))
+  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "{ggblanket} merges col and fill aesthetics into a single col aesthetic"))
+  if (!rlang::quo_is_null(facet)) rlang::inform(c("i" = "{ggblanket} treats faceting as an aesthetic"))
 
   ###ungroup
   data <- dplyr::ungroup(data)
