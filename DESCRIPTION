@@ -1,24 +1,25 @@
 Package: ggblanket
-Type: Package
-Title: Wrapper Functions For Beautiful Ggplots with Less Brainpower
-Version: 0.1.0
+Title: Wrappers for Beautiful ggplot2 Visualisation with Less Code and Cognitive Load
+Version: 0.0.0.9000
 Authors@R: 
-    c(person(given = "David",
-             family = "Hodge",
-             role = c("aut", "cre"),
-             email = "davidhodge931@gmail.com",
-             comment = c(ORCID = "0000-0002-3868-7501")))
-Maintainer: David Hodge <davidhodge931@gmail.com>
-Description: Wrapper functions for beautiful ggplots with less brainpower. 
+    person(given = "David",family = "Hodge", email = "davidhodge931@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-3868-7501"))
+Description: ggblanket is a package of wrapper functions around the
+    amazing ggplot2 package. Hence the blanket metaphor in the package
+    name. The primary objective of the package is to help users make
+    beautiful ggplot2 visualisation with less code and cognitive load. A 
+    secondary objective is to help users build intuition for ggplot2, such that 
+    they can move between ggplot2 and ggblanket as needed.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
 Imports: 
     dplyr,
     forcats,
-    magrittr,
     ggplot2,
     lubridate,
+    magrittr,
     rlang,
     scales,
     snakecase,
@@ -28,6 +29,3 @@ Imports:
     viridis
 Suggests: 
     palmerpenguins
-RoxygenNote: 7.1.2
-URL: https://github.com/davidhodge931/ggblanket
-BugReports: https://github.com/davidhodge931/ggblanket/issues

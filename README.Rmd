@@ -21,11 +21,30 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/ggblanket)](https://CRAN.R-project.org/package=ggblanket)
 <!-- badges: end -->
 
-The objective is primarily to enable less thought for ggplot2, so you make beautiful visualisation quickly and effortless. 
+## Overview
 
-A secondary objective was to build intuition for ggplot2, such that users can move between the two packages without too much confusion.   
+ggblanket is a package of wrapper functions around the amazing ggplot2 package. 
 
-As such, and with this balance in mind, the ggblanket package of wrapper functions was created.
+Hence the blanket metaphor in the package name. 
+
+The primary objective of the package is to help users make beautiful ggplot2 visualisation with less code and cognitive load. 
+
+A secondary objective is to help users build intuition for ggplot2, such that they can move between ggplot2 and ggblanket as needed.   
+
+With these objectives in mind, the ggblanket package:
+
+* uses quick functions that wrap around a single geom
+* merges col and fill aesthetics together into a single col aesthetic
+* customises colours via a pal argument
+* treats faceting as an aesthetic
+* pushes x and y limits to the max of the x and y breaks by default
+* arranges horizontal geom y and col labels etc to be correct 
+* makes titles and labels convert to sentence case and comma format by default 
+* provides arguments for scale adjustment and legend placement
+* changes default colours, alphas, widths and themes 
+* allows users to access all other non-aesthetic geom functionality 
+* keeps all stat and position arguments consistent with the applicable geom's 
+
 
 ## Installation
 
@@ -35,118 +54,8 @@ You can install the development version of ggblanket from [GitHub](https://githu
 # install.packages("devtools")
 devtools::install_github("davidhodge931/ggblanket")
 ```
-
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-```{r example}
-library(ggblanket)
-library(palmerpenguins)
-library(tidyverse)
-
-penguins |>
-  ggplot() +
-  geom_point(aes(x = bill_length_mm,  
-                 col = sex, 
-                 fill = sex), 
-                 alpha = 0.9) +
-  facet_wrap(facets = ~species)
-
-```
-```{r, example}
-library(ggblanket)
-penguins |>
-  drop_na() |> 
-  gg_density(x = bill_length_mm, 
-               col = sex, 
-               facet = species, 
-               y_breaks_n = 4)
-
-```
-
-
-Key changes from ggplot2:
-
-* aesthetics not required to be called within an aes function. 
-* facet treated as an aesthetic
-* col and fill aesthetics merged together into a single col aesthetic
-* controlling input of all customised colours via pal argument
-
-* pushing x and y limits to the max of the x and y breaks by default
-* arranging the order of y values and col legends etc to be correct by default
-* make titles and labels convert by default to sentence case and comma
-* providing quick arguments for scale adjustment and legend placement
-* changes to default colours, alphas, and widths used.
-
-Other than that, each wrapper is faithful to ggplot2 to avoid too much confusion. 
-
+## Examples
 ```{r, eval=F}
-penguins |>
-  gg_point(x = bill_length_mm, 
-           y = flipper_length_mm, 
-           col = sex, 
-           facet = species, 
-           size = 1.5)
+
 ```
-
-## Wrapper functions available
-
-* `gg_area`	
-* `gg_bar`	
-* `gg_blank`	
-* `gg_boxplot`	
-* `gg_col`	
-* `gg_crossbar`
-* `gg_density`
-* `gg_errorbar`	
-* `gg_freqpoly`	
-* `gg_function`	
-* `gg_histogram`	
-* `gg_jitter`	
-* `gg_label`
-* `gg_line`
-* `gg_linerange`
-* `gg_path`	
-* `gg_point`	
-* `gg_pointrange`	
-* `gg_polygon`
-* `gg_qq`
-* `gg_raster`	
-* `gg_rect`
-* `gg_ribbon`
-* `gg_segment`	
-* `gg_sf`	
-* `gg_smooth`	
-* `gg_step`	
-* `gg_text`	
-* `gg_theme`
-* `gg_tile`	
-* `gg_violin`	
-
-Default changes:
-
-* gg_sf defaults coord_sf and gg_theme(void = TRUE)
-* gg_qq defaults oob_squish
-* width default = 0.75 except for boxplot 0.5 and errorbar 0.1
-* size defaults 0.5 for lines and 1.5 for points
-* alpha for fill defaults to 1 or 0.9 generally
-* alpha on boxplot and smooth is 0.25 or 0.5?
-*
-
-alpha
-
--smooth 0.25
-
--density 0.5
--histogram 0.5
--boxplot 0.5
-
-
--bar 0.9
--col 0.9
--area 0.9
--ribbon 0.9
--polygon 0.9
-
 
