@@ -20,7 +20,7 @@ gg_col(
   label = NULL,
   sample = NULL,
   stat = "identity",
-  position = "identity",
+  position = "stack",
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 0.9,

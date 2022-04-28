@@ -19,7 +19,7 @@ gg_density(
   yend = NULL,
   label = NULL,
   sample = NULL,
-  stat = "identity",
+  stat = "density",
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",

@@ -19,7 +19,7 @@ gg_smooth(
   yend = NULL,
   label = NULL,
   sample = NULL,
-  stat = "identity",
+  stat = "smooth",
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",

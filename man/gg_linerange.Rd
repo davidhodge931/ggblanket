@@ -23,7 +23,7 @@ gg_linerange(
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
-  alpha = 0.9,
+  alpha = 1,
   size = 0.5,
   width = NULL,
   bins = 40,
