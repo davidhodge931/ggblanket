@@ -19,13 +19,14 @@ gg_freqpoly(
   yend = NULL,
   label = NULL,
   sample = NULL,
-  stat = "bin",
+  stat = "identity",
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
-  alpha = 1,
-  size = 0.75,
+  alpha = 0.9,
+  size = 0.5,
   width = NULL,
+  bins = 40,
   ...,
   title = NULL,
   subtitle = NULL,
@@ -36,9 +37,7 @@ gg_freqpoly(
   x_expand = NULL,
   x_labels = NULL,
   x_limits = NULL,
-  x_na_rm = FALSE,
   x_oob = scales::oob_censor,
-  x_rev = FALSE,
   x_title = NULL,
   x_zero = NULL,
   x_zero_mid = FALSE,
@@ -48,9 +47,7 @@ gg_freqpoly(
   y_expand = NULL,
   y_labels = NULL,
   y_limits = NULL,
-  y_na_rm = FALSE,
   y_oob = scales::oob_censor,
-  y_rev = FALSE,
   y_title = NULL,
   y_zero = NULL,
   y_zero_mid = FALSE,
@@ -63,44 +60,40 @@ gg_freqpoly(
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_limits = NULL,
-  col_na_rm = FALSE,
-  col_rev = FALSE,
   col_title = NULL,
   facet_intervals = NULL,
   facet_labels = snakecase::to_sentence_case,
-  facet_na_rm = FALSE,
   facet_ncol = NULL,
   facet_nrow = NULL,
-  facet_rev = FALSE,
   facet_scales = "fixed",
   caption = NULL,
   theme = NULL
 )
 }
 \arguments{
-\item{data}{A data frame or tibble. Required input.}
+\item{data}{A data frame or tibble.}
 
-\item{x}{Unquoted x aesthetic variable (i.e. character, factor, logical, numeric, or date).}
+\item{x}{Unquoted x aesthetic variable.}
 
-\item{y}{Unquoted y aesthetic variable (i.e. character, factor, logical, numeric, or date).}
+\item{y}{Unquoted y aesthetic variable.}
 
-\item{col}{Unquoted col and fill aesthetic variable (i.e. character, factor, logical, numeric)}
+\item{col}{Unquoted col and fill aesthetic variable.}
 
-\item{facet}{Unquoted facet aesthetic variable (i.e. character, factor, logical)}
+\item{facet}{Unquoted facet aesthetic variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
 
-\item{xmin}{Unquoted xmin aesthetic variable (i.e. numeric).}
+\item{xmin}{Unquoted xmin aesthetic variable.}
 
-\item{xmax}{Unquoted xmax aesthetic variable (i.e. numeric).}
+\item{xmax}{Unquoted xmax aesthetic variable.}
 
-\item{xend}{Unquoted xend aesthetic variable (i.e. numeric).}
+\item{xend}{Unquoted xend aesthetic variable.}
 
-\item{ymin}{Unquoted ymin aesthetic variable (i.e. numeric).}
+\item{ymin}{Unquoted ymin aesthetic variable.}
 
-\item{ymax}{Unquoted ymax aesthetic variable (i.e. numeric).}
+\item{ymax}{Unquoted ymax aesthetic variable.}
 
-\item{yend}{Unquoted xend aesthetic variable (i.e. numeric).}
+\item{yend}{Unquoted xend aesthetic variable.}
 
 \item{label}{Unquoted label aesthetic variable.}
 
@@ -110,15 +103,17 @@ gg_freqpoly(
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
-\item{pal}{Character vector of hex codes.}
+\item{pal}{Colours to use. A character vector of hex codes (or names).}
 
-\item{pal_na}{The hex code or name of the NA colour to be used.}
+\item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
 
 \item{alpha}{Opacity. A number between 0 and 1.}
 
 \item{size}{Size. A number 0 upwards.}
 
 \item{width}{Width. A number 0 upwards.}
+
+\item{bins}{Number of bins. An integer 0 upwards.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
@@ -132,7 +127,7 @@ gg_freqpoly(
 
 \item{x_breaks_n}{For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.}
 
-\item{x_breaks_width}{For a numeric or date variable, the width of breaks, as calculated by the scales::fulseq function.}
+\item{x_breaks_width}{For a numeric or date variable, the width of breaks, as calculated by the scales::fullseq function.}
 
 \item{x_expand}{Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.}
 
@@ -140,11 +135,7 @@ gg_freqpoly(
 
 \item{x_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.}
 
-\item{x_na_rm}{TRUE or FALSE of whether to include NA values. Defaults to FALSE.}
-
 \item{x_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
-
-\item{x_rev}{For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.}
 
 \item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
@@ -156,19 +147,15 @@ gg_freqpoly(
 
 \item{y_breaks_n}{For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.}
 
-\item{y_breaks_width}{For a numeric or date variable, the width of breaks, as calculated by the scales::fulseq function.}
+\item{y_breaks_width}{For a numeric or date variable, the width of breaks, as calculated by the scales::fullseq function.}
 
 \item{y_expand}{Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.}
 
-\item{y_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
+\item{y_labels}{A functiyon to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
 \item{y_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.}
 
-\item{y_na_rm}{TRUE or FALSE of whether to include NA values. Defaults to FALSE.}
-
 \item{y_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
-
-\item{y_rev}{For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.}
 
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
@@ -180,7 +167,7 @@ gg_freqpoly(
 
 \item{col_breaks_n}{For a numeric variable where col_intervals is NULL, an integer guiding the number of breaks, as calculated by the pretty function.}
 
-\item{col_breaks_width}{For a numeric variable, the width of breaks, as calculated by the scales::fulseq function.}
+\item{col_breaks_width}{For a numeric variable, the width of breaks, as calculated by the scales::fullseq function.}
 
 \item{col_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
 
@@ -194,23 +181,15 @@ gg_freqpoly(
 
 \item{col_limits}{A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For a numeric variable where col_intervals is NULL, this will make all values outside the limits coloured NA.}
 
-\item{col_na_rm}{TRUE or FALSE of whether to include NA values. Defaults to FALSE.}
-
-\item{col_rev}{For a categorical variable, TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.}
-
 \item{col_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
 \item{facet_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
 
 \item{facet_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
-\item{facet_na_rm}{TRUE or FALSE of whether to include facet NA values. Defaults to FALSE.}
-
 \item{facet_ncol}{The number of columns of facetted plots.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
-
-\item{facet_rev}{TRUE or FALSE of whether the variable should be reversed. Defaults to FALSE.}
 
 \item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
@@ -222,5 +201,8 @@ gg_freqpoly(
 A ggplot object.
 }
 \description{
-Freqpoly ggplot.
+Create a freqpoly plot with a wrapper around the ggplot2::geom_freqpoly function.
+}
+\examples{
+
 }

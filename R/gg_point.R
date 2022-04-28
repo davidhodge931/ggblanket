@@ -1,7 +1,7 @@
-#' @title Blank ggplot.
+#' @title Point ggplot.
 #'
-#' @description Blank ggplot.
-#' @param data A data frame or tibble. Required input.
+#' @description Create a point plot with a wrapper around the ggplot2::geom_point function.
+#' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
@@ -42,7 +42,7 @@
 #' @param y_breaks_width For a numeric or date variable, the width of breaks, as calculated by the scales::fullseq function.
 #' @param y_expand Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.
 #' @param y_oob A scales::oob_* function for how to deal with out-of-bounds values.
-#' @param y_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
+#' @param y_labels A functiyon to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
 #' @param y_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_zero For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
@@ -67,69 +67,70 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#'
 gg_point <- function(data = NULL,
-                     x = NULL,
-                     y = NULL,
-                     col = NULL,
-                     facet = NULL,
-                     group = NULL,
-                     xmin = NULL,
-                     xmax = NULL,
-                     xend = NULL,
-                     ymin = NULL,
-                     ymax = NULL,
-                     yend = NULL,
-                     label = NULL,
-                     sample = NULL,
-                     stat = "identity",
-                     position = "identity",
-                     pal = NULL,
-                     pal_na = "#7F7F7F",
-                     alpha = 0.9,
-                     size = 0.5,
-                     width = NULL,
-                     bins = 40,
-                     ...,
-                     title = NULL,
-                     subtitle = NULL,
-                     coord = ggplot2::coord_cartesian(clip = "off"),
-                     x_breaks = NULL,
-                     x_breaks_n = NULL,
-                     x_breaks_width = NULL,
-                     x_expand = NULL,
-                     x_labels = NULL,
-                     x_limits = NULL,
-                     x_oob = scales::oob_censor,
-                     x_title = NULL,
-                     x_zero = NULL,
-                     x_zero_mid = FALSE,
-                     y_breaks = NULL,
-                     y_breaks_n = NULL,
-                     y_breaks_width = NULL,
-                     y_expand = NULL,
-                     y_labels = NULL,
-                     y_limits = NULL,
-                     y_oob = scales::oob_censor,
-                     y_title = NULL,
-                     y_zero = NULL,
-                     y_zero_mid = FALSE,
-                     col_breaks = NULL,
-                     col_breaks_n = NULL,
-                     col_breaks_width = NULL,
-                     col_intervals = NULL,
-                     col_labels = NULL,
-                     col_legend_place = NULL,
-                     col_legend_ncol = NULL,
-                     col_legend_nrow = NULL,
-                     col_limits = NULL,
-                     col_title = NULL,
-                     facet_intervals = NULL,
-                     facet_labels = snakecase::to_sentence_case,
-                     facet_ncol = NULL,
-                     facet_nrow = NULL,
-                     facet_scales = "fixed",
-                     caption = NULL,
-                     theme = NULL) {
+                  x = NULL,
+                  y = NULL,
+                  col = NULL,
+                  facet = NULL,
+                  group = NULL,
+                  xmin = NULL,
+                  xmax = NULL,
+                  xend = NULL,
+                  ymin = NULL,
+                  ymax = NULL,
+                  yend = NULL,
+                  label = NULL,
+                  sample = NULL,
+                  stat = "identity",
+                  position = "identity",
+                  pal = NULL,
+                  pal_na = "#7F7F7F",
+                  alpha = 0.9,
+                  size = 0.5,
+                  width = NULL,
+                  bins = 40,
+                  ...,
+                  title = NULL,
+                  subtitle = NULL,
+                  coord = ggplot2::coord_cartesian(clip = "off"),
+                  x_breaks = NULL,
+                  x_breaks_n = NULL,
+                  x_breaks_width = NULL,
+                  x_expand = NULL,
+                  x_labels = NULL,
+                  x_limits = NULL,
+                  x_oob = scales::oob_censor,
+                  x_title = NULL,
+                  x_zero = NULL,
+                  x_zero_mid = FALSE,
+                  y_breaks = NULL,
+                  y_breaks_n = NULL,
+                  y_breaks_width = NULL,
+                  y_expand = NULL,
+                  y_labels = NULL,
+                  y_limits = NULL,
+                  y_oob = scales::oob_censor,
+                  y_title = NULL,
+                  y_zero = NULL,
+                  y_zero_mid = FALSE,
+                  col_breaks = NULL,
+                  col_breaks_n = NULL,
+                  col_breaks_width = NULL,
+                  col_intervals = NULL,
+                  col_labels = NULL,
+                  col_legend_place = NULL,
+                  col_legend_ncol = NULL,
+                  col_legend_nrow = NULL,
+                  col_limits = NULL,
+                  col_title = NULL,
+                  facet_intervals = NULL,
+                  facet_labels = snakecase::to_sentence_case,
+                  facet_ncol = NULL,
+                  facet_nrow = NULL,
+                  facet_scales = "fixed",
+                  caption = NULL,
+                  theme = NULL) {
 
   #quote
   x <- rlang::enquo(x)
@@ -150,8 +151,8 @@ gg_point <- function(data = NULL,
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
-  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "Remember in {ggblanket}, the {ggplot2} fill aesthetic inherits from col"))
-  if (!rlang::quo_is_null(facet)) rlang::inform(c("i" = "Remember in {ggblanket}, the {ggplot2} facet layer is treated as an aesthetic"))
+  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "{ggblanket} merges col and fill aesthetics into a single col aesthetic"))
+  if (!rlang::quo_is_null(facet)) rlang::inform(c("i" = "{ggblanket} treats faceting as an aesthetic"))
 
   ###ungroup
   data <- dplyr::ungroup(data)

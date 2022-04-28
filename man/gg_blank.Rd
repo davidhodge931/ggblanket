@@ -71,7 +71,7 @@ gg_blank(
 )
 }
 \arguments{
-\item{data}{A data frame or tibble. Required input.}
+\item{data}{A data frame or tibble.}
 
 \item{x}{Unquoted x aesthetic variable.}
 
@@ -151,7 +151,7 @@ gg_blank(
 
 \item{y_expand}{Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.}
 
-\item{y_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
+\item{y_labels}{A functiyon to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
 \item{y_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.}
 
@@ -201,13 +201,8 @@ gg_blank(
 A ggplot object.
 }
 \description{
-Blank ggplot.
+Create a blank plot with a wrapper around the ggplot2::geom_blank function.
 }
 \examples{
- iris |>
-   gg_blank(x = Sepal.Width,
-            y = Sepal.Length,
-            col = Species,
-            alpha = 0.9)
 
 }
