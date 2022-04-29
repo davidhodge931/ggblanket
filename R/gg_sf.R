@@ -97,7 +97,7 @@ gg_sf <- function(data = NULL,
     if (any(sf_geometry %in% c("POINT", "MULTIPOINT"))) {
       size <- 1.5
     }
-    else alpha <- 0.5
+    else size <- 0.5
   }
 
 
