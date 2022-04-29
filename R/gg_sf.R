@@ -140,8 +140,8 @@ gg_sf <- function(data = NULL,
   else if (rlang::quo_is_null(col)) {
     plot <- data %>%
       ggplot2::ggplot(mapping = ggplot2::aes(
-        col = "1",
-        fill = "1",
+        col = "",
+        fill = "",
         group = !!group
       ))
   }

@@ -241,8 +241,8 @@ gg_function <- function(data = NULL,
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
-          col = "1",
-          fill = "1",
+          col = "",
+          fill = "",
           group = !!group
         ))
     }
@@ -261,8 +261,8 @@ gg_function <- function(data = NULL,
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
-          col = "1",
-          fill = "1",
+          col = "",
+          fill = "",
           group = !!group
         ))
     }
@@ -281,8 +281,8 @@ gg_function <- function(data = NULL,
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
-          col = "1",
-          fill = "1",
+          col = "",
+          fill = "",
           group = !!group
         ))
     }
@@ -299,8 +299,8 @@ gg_function <- function(data = NULL,
     else if (rlang::quo_is_null(col)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          col = "1",
-          fill = "1",
+          col = "",
+          fill = "",
           group = !!group
         ))
     }
