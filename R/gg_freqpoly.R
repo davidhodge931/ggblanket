@@ -13,7 +13,6 @@
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param size Size. A number 0 upwards.
-#' @param width Width. A number 0 upwards.
 #' @param bins Number of bins. An integer 0 upwards.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
 #' @param title Title string.
@@ -72,7 +71,6 @@ gg_freqpoly <- function(data = NULL,
                   pal_na = "#7F7F7F",
                   alpha = 1,
                   size = 0.5,
-                  width = NULL,
                   bins = 40,
                   ...,
                   title = NULL,
@@ -170,17 +168,6 @@ gg_freqpoly <- function(data = NULL,
     )
 
     theme <- gg_theme(x_grid = x_grid, y_grid = y_grid)
-  }
-
-  if (rlang::is_null(width)) {
-    if ((lubridate::is.Date(rlang::eval_tidy(x, data)) & is.numeric(rlang::eval_tidy(y, data))) |
-        (lubridate::is.Date(rlang::eval_tidy(y, data)) & is.numeric(rlang::eval_tidy(x, data)))) {
-      width <- 0.75 * 365
-    }
-    else if (is.numeric(rlang::eval_tidy(x, data)) & is.numeric(rlang::eval_tidy(y, data))) {
-      width <- NULL
-    }
-    else width <- 0.75
   }
 
   if (rlang::is_null(x_zero)) x_zero <- FALSE
@@ -333,7 +320,6 @@ gg_freqpoly <- function(data = NULL,
       position = position,
       alpha = alpha,
       size = size,
-      width = width,
       bins = bins,
       ...
     )

@@ -6,14 +6,6 @@
 #' @param y Unquoted y aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
-#' @param xmin Unquoted xmin aesthetic variable.
-#' @param xmax Unquoted xmax aesthetic variable.
-#' @param xend Unquoted xend aesthetic variable.
-#' @param ymin Unquoted ymin aesthetic variable.
-#' @param ymax Unquoted ymax aesthetic variable.
-#' @param yend Unquoted xend aesthetic variable.
-#' @param label Unquoted label aesthetic variable.
-#' @param sample Unquoted sample aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
@@ -21,8 +13,6 @@
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param size Size. A number 0 upwards.
-#' @param width Width. A number 0 upwards.
-#' @param bins Number of bins. An integer 0 upwards.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
@@ -74,22 +64,12 @@ gg_blank <- function(data = NULL,
                      col = NULL,
                      facet = NULL,
                      group = NULL,
-                     xmin = NULL,
-                     xmax = NULL,
-                     xend = NULL,
-                     ymin = NULL,
-                     ymax = NULL,
-                     yend = NULL,
-                     label = NULL,
-                     sample = NULL,
                      stat = "identity",
                      position = "identity",
                      pal = NULL,
                      pal_na = "#7F7F7F",
-                     alpha = 0.9,
-                     size = 0.5,
-                     width = NULL,
-                     bins = 40,
+                     alpha = 1,
+                     size = 1.5,
                      ...,
                      title = NULL,
                      subtitle = NULL,
@@ -139,16 +119,6 @@ gg_blank <- function(data = NULL,
   facet <- rlang::enquo(facet)
   group <- rlang::enquo(group)
 
-  xmin <- rlang::enquo(xmin)
-  xmax <- rlang::enquo(xmax)
-  xend <- rlang::enquo(xend)
-  ymin <- rlang::enquo(ymin)
-  ymax <- rlang::enquo(ymax)
-  yend <- rlang::enquo(yend)
-
-  label <- rlang::enquo(label)
-  sample <- rlang::enquo(sample)
-
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
   if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "{ggblanket} merges col and fill aesthetics into a single col aesthetic"))
@@ -196,17 +166,6 @@ gg_blank <- function(data = NULL,
     )
 
     theme <- gg_theme(x_grid = x_grid, y_grid = y_grid)
-  }
-
-  if (rlang::is_null(width)) {
-    if ((lubridate::is.Date(rlang::eval_tidy(x, data)) & is.numeric(rlang::eval_tidy(y, data))) |
-        (lubridate::is.Date(rlang::eval_tidy(y, data)) & is.numeric(rlang::eval_tidy(x, data)))) {
-      width <- 0.75 * 365
-    }
-    else if (is.numeric(rlang::eval_tidy(x, data)) & is.numeric(rlang::eval_tidy(y, data))) {
-      width <- NULL
-    }
-    else width <- 0.75
   }
 
   if (rlang::is_null(x_zero)) x_zero <- FALSE
@@ -280,15 +239,7 @@ gg_blank <- function(data = NULL,
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          group = !!group
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -298,15 +249,7 @@ gg_blank <- function(data = NULL,
           y = !!y,
           col = "1",
           fill = "1",
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          group = !!group
         ))
     }
   }
@@ -317,15 +260,7 @@ gg_blank <- function(data = NULL,
           x = !!x,
           col = !!col,
           fill = !!col,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          group = !!group
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -334,15 +269,7 @@ gg_blank <- function(data = NULL,
           x = !!x,
           col = "1",
           fill = "1",
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          group = !!group
         ))
     }
   }
@@ -353,15 +280,7 @@ gg_blank <- function(data = NULL,
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          group = !!group
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -370,15 +289,7 @@ gg_blank <- function(data = NULL,
           y = !!y,
           col = "1",
           fill = "1",
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          group = !!group
         ))
     }
   }
@@ -388,15 +299,7 @@ gg_blank <- function(data = NULL,
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = !!col,
           fill = !!col,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          group = !!group
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -404,15 +307,7 @@ gg_blank <- function(data = NULL,
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = "1",
           fill = "1",
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          group = !!group
         ))
     }
   }
@@ -423,8 +318,6 @@ gg_blank <- function(data = NULL,
       position = position,
       alpha = alpha,
       size = size,
-      width = width,
-      bins = bins,
       ...
     )
 

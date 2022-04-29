@@ -11,22 +11,14 @@ gg_tile(
   col = NULL,
   facet = NULL,
   group = NULL,
-  xmin = NULL,
-  xmax = NULL,
-  xend = NULL,
-  ymin = NULL,
-  ymax = NULL,
-  yend = NULL,
-  label = NULL,
-  sample = NULL,
+  width = NULL,
+  height = NULL,
   stat = "identity",
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 0.9,
   size = 0.5,
-  width = NULL,
-  bins = 40,
   ...,
   title = NULL,
   subtitle = NULL,
@@ -83,21 +75,9 @@ gg_tile(
 
 \item{group}{Unquoted group aesthetic variable.}
 
-\item{xmin}{Unquoted xmin aesthetic variable.}
+\item{width}{Unquoted width aesthetic variable.}
 
-\item{xmax}{Unquoted xmax aesthetic variable.}
-
-\item{xend}{Unquoted xend aesthetic variable.}
-
-\item{ymin}{Unquoted ymin aesthetic variable.}
-
-\item{ymax}{Unquoted ymax aesthetic variable.}
-
-\item{yend}{Unquoted xend aesthetic variable.}
-
-\item{label}{Unquoted label aesthetic variable.}
-
-\item{sample}{Unquoted sample aesthetic variable.}
+\item{height}{Unquoted height aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
@@ -110,10 +90,6 @@ gg_tile(
 \item{alpha}{Opacity. A number between 0 and 1.}
 
 \item{size}{Size. A number 0 upwards.}
-
-\item{width}{Width. A number 0 upwards.}
-
-\item{bins}{Number of bins. An integer 0 upwards.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 

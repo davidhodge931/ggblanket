@@ -173,14 +173,14 @@ gg_col <- function(data = NULL,
   }
 
   if (rlang::is_null(width)) {
-    if ((lubridate::is.Date(rlang::eval_tidy(x, data)) & is.numeric(rlang::eval_tidy(y, data))) |
-        (lubridate::is.Date(rlang::eval_tidy(y, data)) & is.numeric(rlang::eval_tidy(x, data)))) {
-      width <- 0.75 * 365
-    }
-    else if (is.numeric(rlang::eval_tidy(x, data)) & is.numeric(rlang::eval_tidy(y, data))) {
+    if (lubridate::is.Date(rlang::eval_tidy(x, data)) |
+        lubridate::is.Date(rlang::eval_tidy(y, data)) |
+        (is.numeric(rlang::eval_tidy(x, data)) &
+         is.numeric(rlang::eval_tidy(y, data)))) {
       width <- NULL
     }
-    else width <- 0.75
+    else
+      width <- 0.75
   }
 
   if (rlang::is_null(x_zero)) x_zero <- FALSE

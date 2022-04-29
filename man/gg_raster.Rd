@@ -17,8 +17,6 @@ gg_raster(
   pal_na = "#7F7F7F",
   alpha = 0.9,
   size = 0.5,
-  width = NULL,
-  bins = 40,
   ...,
   title = NULL,
   subtitle = NULL,
@@ -86,10 +84,6 @@ gg_raster(
 \item{alpha}{Opacity. A number between 0 and 1.}
 
 \item{size}{Size. A number 0 upwards.}
-
-\item{width}{Width. A number 0 upwards.}
-
-\item{bins}{Number of bins. An integer 0 upwards.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 

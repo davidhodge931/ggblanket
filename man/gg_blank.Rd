@@ -11,22 +11,12 @@ gg_blank(
   col = NULL,
   facet = NULL,
   group = NULL,
-  xmin = NULL,
-  xmax = NULL,
-  xend = NULL,
-  ymin = NULL,
-  ymax = NULL,
-  yend = NULL,
-  label = NULL,
-  sample = NULL,
   stat = "identity",
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
-  alpha = 0.9,
-  size = 0.5,
-  width = NULL,
-  bins = 40,
+  alpha = 1,
+  size = 1.5,
   ...,
   title = NULL,
   subtitle = NULL,
@@ -83,22 +73,6 @@ gg_blank(
 
 \item{group}{Unquoted group aesthetic variable.}
 
-\item{xmin}{Unquoted xmin aesthetic variable.}
-
-\item{xmax}{Unquoted xmax aesthetic variable.}
-
-\item{xend}{Unquoted xend aesthetic variable.}
-
-\item{ymin}{Unquoted ymin aesthetic variable.}
-
-\item{ymax}{Unquoted ymax aesthetic variable.}
-
-\item{yend}{Unquoted xend aesthetic variable.}
-
-\item{label}{Unquoted label aesthetic variable.}
-
-\item{sample}{Unquoted sample aesthetic variable.}
-
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
@@ -110,10 +84,6 @@ gg_blank(
 \item{alpha}{Opacity. A number between 0 and 1.}
 
 \item{size}{Size. A number 0 upwards.}
-
-\item{width}{Width. A number 0 upwards.}
-
-\item{bins}{Number of bins. An integer 0 upwards.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
