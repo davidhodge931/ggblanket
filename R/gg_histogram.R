@@ -133,9 +133,6 @@ gg_histogram <- function(data = NULL,
   if (rlang::quo_is_null(x)) {
     if (rlang::is_null(x_title)) {
       if (stat %in% c("bin", "count")) x_title <- "Count"
-      else if (stat == "density") x_title <- "Density"
-      else if (stat == "function") x_title <- "X"
-      else if (stat == "qq") x_title <- "Theoretical"
     }
   }
   else if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
@@ -143,9 +140,6 @@ gg_histogram <- function(data = NULL,
   if (rlang::quo_is_null(y)) {
     if (rlang::is_null(y_title)) {
       if (stat %in% c("bin", "count")) y_title <- "Count"
-      else if (stat == "density") y_title <- "Density"
-      else if (stat == "function") y_title <- "Y"
-      else if (stat == "qq") y_title <- "Sample"
     }
   }
   else if (rlang::is_null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
