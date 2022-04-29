@@ -11,14 +11,7 @@ gg_text(
   col = NULL,
   facet = NULL,
   group = NULL,
-  xmin = NULL,
-  xmax = NULL,
-  xend = NULL,
-  ymin = NULL,
-  ymax = NULL,
-  yend = NULL,
   label = NULL,
-  sample = NULL,
   stat = "identity",
   position = "identity",
   pal = NULL,
@@ -83,21 +76,7 @@ gg_text(
 
 \item{group}{Unquoted group aesthetic variable.}
 
-\item{xmin}{Unquoted xmin aesthetic variable.}
-
-\item{xmax}{Unquoted xmax aesthetic variable.}
-
-\item{xend}{Unquoted xend aesthetic variable.}
-
-\item{ymin}{Unquoted ymin aesthetic variable.}
-
-\item{ymax}{Unquoted ymax aesthetic variable.}
-
-\item{yend}{Unquoted xend aesthetic variable.}
-
 \item{label}{Unquoted label aesthetic variable.}
-
-\item{sample}{Unquoted sample aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 

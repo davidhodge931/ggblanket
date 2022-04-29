@@ -6,14 +6,7 @@
 #' @param y Unquoted y aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
-#' @param xmin Unquoted xmin aesthetic variable.
-#' @param xmax Unquoted xmax aesthetic variable.
-#' @param xend Unquoted xend aesthetic variable.
-#' @param ymin Unquoted ymin aesthetic variable.
-#' @param ymax Unquoted ymax aesthetic variable.
-#' @param yend Unquoted xend aesthetic variable.
 #' @param label Unquoted label aesthetic variable.
-#' @param sample Unquoted sample aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
@@ -69,68 +62,61 @@
 #' @examples
 #'
 gg_label <- function(data = NULL,
-                          x = NULL,
-                          y = NULL,
-                          col = NULL,
-                          facet = NULL,
-                          group = NULL,
-                          xmin = NULL,
-                          xmax = NULL,
-                          xend = NULL,
-                          ymin = NULL,
-                          ymax = NULL,
-                          yend = NULL,
-                          label = NULL,
-                          sample = NULL,
-                          stat = "identity",
-                          position = "identity",
-                          pal = NULL,
-                          pal_na = "#7F7F7F",
-                          alpha = 0.1,
-                          size = 3.88,
-                     width = NULL,
-                     bins = 40,
-                     ...,
-                     title = NULL,
-                     subtitle = NULL,
-                     coord = ggplot2::coord_cartesian(clip = "off"),
-                     x_breaks = NULL,
-                     x_breaks_n = NULL,
-                     x_breaks_width = NULL,
-                     x_expand = NULL,
-                     x_labels = NULL,
-                     x_limits = NULL,
-                     x_oob = scales::oob_censor,
-                     x_title = NULL,
-                     x_zero = NULL,
-                     x_zero_mid = FALSE,
-                     y_breaks = NULL,
-                     y_breaks_n = NULL,
-                     y_breaks_width = NULL,
-                     y_expand = NULL,
-                     y_labels = NULL,
-                     y_limits = NULL,
-                     y_oob = scales::oob_censor,
-                     y_title = NULL,
-                     y_zero = NULL,
-                     y_zero_mid = FALSE,
-                     col_breaks = NULL,
-                     col_breaks_n = NULL,
-                     col_breaks_width = NULL,
-                     col_intervals = NULL,
-                     col_labels = NULL,
-                     col_legend_place = NULL,
-                     col_legend_ncol = NULL,
-                     col_legend_nrow = NULL,
-                     col_limits = NULL,
-                     col_title = NULL,
-                     facet_intervals = NULL,
-                     facet_labels = snakecase::to_sentence_case,
-                     facet_ncol = NULL,
-                     facet_nrow = NULL,
-                     facet_scales = "fixed",
-                     caption = NULL,
-                     theme = NULL) {
+                    x = NULL,
+                    y = NULL,
+                    col = NULL,
+                    facet = NULL,
+                    group = NULL,
+                    label = NULL,
+                    stat = "identity",
+                    position = "identity",
+                    pal = NULL,
+                    pal_na = "#7F7F7F",
+                    alpha = 0.1,
+                    size = 3.88,
+                    width = NULL,
+                    bins = 40,
+                    ...,
+                    title = NULL,
+                    subtitle = NULL,
+                    coord = ggplot2::coord_cartesian(clip = "off"),
+                    x_breaks = NULL,
+                    x_breaks_n = NULL,
+                    x_breaks_width = NULL,
+                    x_expand = NULL,
+                    x_labels = NULL,
+                    x_limits = NULL,
+                    x_oob = scales::oob_censor,
+                    x_title = NULL,
+                    x_zero = NULL,
+                    x_zero_mid = FALSE,
+                    y_breaks = NULL,
+                    y_breaks_n = NULL,
+                    y_breaks_width = NULL,
+                    y_expand = NULL,
+                    y_labels = NULL,
+                    y_limits = NULL,
+                    y_oob = scales::oob_censor,
+                    y_title = NULL,
+                    y_zero = NULL,
+                    y_zero_mid = FALSE,
+                    col_breaks = NULL,
+                    col_breaks_n = NULL,
+                    col_breaks_width = NULL,
+                    col_intervals = NULL,
+                    col_labels = NULL,
+                    col_legend_place = NULL,
+                    col_legend_ncol = NULL,
+                    col_legend_nrow = NULL,
+                    col_limits = NULL,
+                    col_title = NULL,
+                    facet_intervals = NULL,
+                    facet_labels = snakecase::to_sentence_case,
+                    facet_ncol = NULL,
+                    facet_nrow = NULL,
+                    facet_scales = "fixed",
+                    caption = NULL,
+                    theme = NULL) {
 
   #quote
   x <- rlang::enquo(x)
@@ -139,15 +125,7 @@ gg_label <- function(data = NULL,
   facet <- rlang::enquo(facet)
   group <- rlang::enquo(group)
 
-  xmin <- rlang::enquo(xmin)
-  xmax <- rlang::enquo(xmax)
-  xend <- rlang::enquo(xend)
-  ymin <- rlang::enquo(ymin)
-  ymax <- rlang::enquo(ymax)
-  yend <- rlang::enquo(yend)
-
   label <- rlang::enquo(label)
-  sample <- rlang::enquo(sample)
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
@@ -281,14 +259,7 @@ gg_label <- function(data = NULL,
           col = !!col,
           fill = !!col,
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          label = !!label
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -299,14 +270,7 @@ gg_label <- function(data = NULL,
           col = "1",
           fill = "1",
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          label = !!label
         ))
     }
   }
@@ -318,14 +282,7 @@ gg_label <- function(data = NULL,
           col = !!col,
           fill = !!col,
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          label = !!label
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -335,14 +292,7 @@ gg_label <- function(data = NULL,
           col = "1",
           fill = "1",
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          label = !!label
         ))
     }
   }
@@ -354,14 +304,7 @@ gg_label <- function(data = NULL,
           col = !!col,
           fill = !!col,
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          label = !!label
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -371,14 +314,7 @@ gg_label <- function(data = NULL,
           col = "1",
           fill = "1",
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          label = !!label
         ))
     }
   }
@@ -389,14 +325,7 @@ gg_label <- function(data = NULL,
           col = !!col,
           fill = !!col,
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          label = !!label
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -405,14 +334,7 @@ gg_label <- function(data = NULL,
           col = "1",
           fill = "1",
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          label = !!label
         ))
     }
   }

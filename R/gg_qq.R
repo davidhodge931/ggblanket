@@ -6,13 +6,6 @@
 #' @param y Unquoted y aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
-#' @param xmin Unquoted xmin aesthetic variable.
-#' @param xmax Unquoted xmax aesthetic variable.
-#' @param xend Unquoted xend aesthetic variable.
-#' @param ymin Unquoted ymin aesthetic variable.
-#' @param ymax Unquoted ymax aesthetic variable.
-#' @param yend Unquoted xend aesthetic variable.
-#' @param label Unquoted label aesthetic variable.
 #' @param sample Unquoted sample aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
@@ -74,13 +67,6 @@ gg_qq <- function(data = NULL,
                   col = NULL,
                   facet = NULL,
                   group = NULL,
-                  xmin = NULL,
-                  xmax = NULL,
-                  xend = NULL,
-                  ymin = NULL,
-                  ymax = NULL,
-                  yend = NULL,
-                  label = NULL,
                   sample = NULL,
                   stat = "qq",
                   position = "identity",
@@ -139,14 +125,6 @@ gg_qq <- function(data = NULL,
   facet <- rlang::enquo(facet)
   group <- rlang::enquo(group)
 
-  xmin <- rlang::enquo(xmin)
-  xmax <- rlang::enquo(xmax)
-  xend <- rlang::enquo(xend)
-  ymin <- rlang::enquo(ymin)
-  ymax <- rlang::enquo(ymax)
-  yend <- rlang::enquo(yend)
-
-  label <- rlang::enquo(label)
   sample <- rlang::enquo(sample)
 
   #stop, warn or message
@@ -281,13 +259,6 @@ gg_qq <- function(data = NULL,
           col = !!col,
           fill = !!col,
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
           sample = !!sample
         ))
     }
@@ -299,13 +270,6 @@ gg_qq <- function(data = NULL,
           col = "1",
           fill = "1",
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
           sample = !!sample
         ))
     }
@@ -318,13 +282,6 @@ gg_qq <- function(data = NULL,
           col = !!col,
           fill = !!col,
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
           sample = !!sample
         ))
     }
@@ -335,13 +292,6 @@ gg_qq <- function(data = NULL,
           col = "1",
           fill = "1",
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
           sample = !!sample
         ))
     }
@@ -354,13 +304,6 @@ gg_qq <- function(data = NULL,
           col = !!col,
           fill = !!col,
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
           sample = !!sample
         ))
     }
@@ -371,13 +314,6 @@ gg_qq <- function(data = NULL,
           col = "1",
           fill = "1",
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
           sample = !!sample
         ))
     }
@@ -389,13 +325,6 @@ gg_qq <- function(data = NULL,
           col = !!col,
           fill = !!col,
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
           sample = !!sample
         ))
     }
@@ -405,13 +334,6 @@ gg_qq <- function(data = NULL,
           col = "1",
           fill = "1",
           group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
           sample = !!sample
         ))
     }

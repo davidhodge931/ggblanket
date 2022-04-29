@@ -8,12 +8,8 @@
 #' @param facet Unquoted facet aesthetic variable.
 #' @param xmin Unquoted xmin aesthetic variable.
 #' @param xmax Unquoted xmax aesthetic variable.
-#' @param xend Unquoted xend aesthetic variable.
 #' @param ymin Unquoted ymin aesthetic variable.
 #' @param ymax Unquoted ymax aesthetic variable.
-#' @param yend Unquoted xend aesthetic variable.
-#' @param label Unquoted label aesthetic variable.
-#' @param sample Unquoted sample aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
@@ -76,12 +72,8 @@ gg_crossbar <- function(data = NULL,
                   group = NULL,
                   xmin = NULL,
                   xmax = NULL,
-                  xend = NULL,
                   ymin = NULL,
                   ymax = NULL,
-                  yend = NULL,
-                  label = NULL,
-                  sample = NULL,
                   stat = "identity",
                   position = "identity",
                   pal = NULL,
@@ -141,13 +133,8 @@ gg_crossbar <- function(data = NULL,
 
   xmin <- rlang::enquo(xmin)
   xmax <- rlang::enquo(xmax)
-  xend <- rlang::enquo(xend)
   ymin <- rlang::enquo(ymin)
   ymax <- rlang::enquo(ymax)
-  yend <- rlang::enquo(yend)
-
-  label <- rlang::enquo(label)
-  sample <- rlang::enquo(sample)
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
@@ -283,12 +270,8 @@ gg_crossbar <- function(data = NULL,
           group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
-          xend = !!xend,
           ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          ymax = !!ymax
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -301,12 +284,8 @@ gg_crossbar <- function(data = NULL,
           group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
-          xend = !!xend,
           ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          ymax = !!ymax
         ))
     }
   }
@@ -320,12 +299,8 @@ gg_crossbar <- function(data = NULL,
           group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
-          xend = !!xend,
           ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          ymax = !!ymax
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -337,12 +312,8 @@ gg_crossbar <- function(data = NULL,
           group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
-          xend = !!xend,
           ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          ymax = !!ymax
         ))
     }
   }
@@ -356,12 +327,8 @@ gg_crossbar <- function(data = NULL,
           group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
-          xend = !!xend,
           ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          ymax = !!ymax
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -373,12 +340,8 @@ gg_crossbar <- function(data = NULL,
           group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
-          xend = !!xend,
           ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          ymax = !!ymax
         ))
     }
   }
@@ -391,12 +354,8 @@ gg_crossbar <- function(data = NULL,
           group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
-          xend = !!xend,
           ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          ymax = !!ymax
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -407,12 +366,8 @@ gg_crossbar <- function(data = NULL,
           group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
-          xend = !!xend,
           ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          label = !!label,
-          sample = !!sample
+          ymax = !!ymax
         ))
     }
   }
