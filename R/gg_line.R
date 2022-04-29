@@ -151,17 +151,6 @@ gg_line <- function(data = NULL,
     theme <- gg_theme(x_grid = x_grid, y_grid = y_grid)
   }
 
-  if (rlang::is_null(width)) {
-    if ((lubridate::is.Date(rlang::eval_tidy(x, data)) & is.numeric(rlang::eval_tidy(y, data))) |
-        (lubridate::is.Date(rlang::eval_tidy(y, data)) & is.numeric(rlang::eval_tidy(x, data)))) {
-      width <- 0.75 * 365
-    }
-    else if (is.numeric(rlang::eval_tidy(x, data)) & is.numeric(rlang::eval_tidy(y, data))) {
-      width <- NULL
-    }
-    else width <- 0.75
-  }
-
   if (rlang::is_null(x_zero)) x_zero <- FALSE
   if (rlang::is_null(y_zero)) y_zero <- FALSE
 
