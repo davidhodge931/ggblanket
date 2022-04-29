@@ -22,10 +22,11 @@ Imports:
     magrittr,
     rlang,
     scales,
+    sf,
     snakecase,
     stringr,
     tidyr,
     tidyselect,
-    viridis,
+    viridis
 Suggests: 
     palmerpenguins

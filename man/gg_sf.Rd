@@ -6,51 +6,19 @@
 \usage{
 gg_sf(
   data = NULL,
-  x = NULL,
-  y = NULL,
   col = NULL,
   facet = NULL,
   group = NULL,
-  xmin = NULL,
-  xmax = NULL,
-  xend = NULL,
-  ymin = NULL,
-  ymax = NULL,
-  yend = NULL,
-  label = NULL,
-  sample = NULL,
   stat = "sf",
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 0.9,
-  size = 0.5,
-  width = NULL,
-  bins = 40,
+  size = NULL,
   ...,
   title = NULL,
   subtitle = NULL,
   coord = ggplot2::coord_sf(),
-  x_breaks = NULL,
-  x_breaks_n = NULL,
-  x_breaks_width = NULL,
-  x_expand = NULL,
-  x_labels = NULL,
-  x_limits = NULL,
-  x_oob = scales::oob_censor,
-  x_title = NULL,
-  x_zero = NULL,
-  x_zero_mid = FALSE,
-  y_breaks = NULL,
-  y_breaks_n = NULL,
-  y_breaks_width = NULL,
-  y_expand = NULL,
-  y_labels = NULL,
-  y_limits = NULL,
-  y_oob = scales::oob_censor,
-  y_title = NULL,
-  y_zero = NULL,
-  y_zero_mid = FALSE,
   col_breaks = NULL,
   col_breaks_n = NULL,
   col_breaks_width = NULL,
@@ -65,39 +33,18 @@ gg_sf(
   facet_labels = snakecase::to_sentence_case,
   facet_ncol = NULL,
   facet_nrow = NULL,
-  facet_scales = "fixed",
   caption = NULL,
   theme = NULL
 )
 }
 \arguments{
-\item{data}{A data frame or tibble.}
-
-\item{x}{Unquoted x aesthetic variable.}
-
-\item{y}{Unquoted y aesthetic variable.}
+\item{data}{A sf object.}
 
 \item{col}{Unquoted col and fill aesthetic variable.}
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
-
-\item{xmin}{Unquoted xmin aesthetic variable.}
-
-\item{xmax}{Unquoted xmax aesthetic variable.}
-
-\item{xend}{Unquoted xend aesthetic variable.}
-
-\item{ymin}{Unquoted ymin aesthetic variable.}
-
-\item{ymax}{Unquoted ymax aesthetic variable.}
-
-\item{yend}{Unquoted xend aesthetic variable.}
-
-\item{label}{Unquoted label aesthetic variable.}
-
-\item{sample}{Unquoted sample aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
@@ -111,10 +58,6 @@ gg_sf(
 
 \item{size}{Size. A number 0 upwards.}
 
-\item{width}{Width. A number 0 upwards.}
-
-\item{bins}{Number of bins. An integer 0 upwards.}
-
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
 \item{title}{Title string.}
@@ -122,46 +65,6 @@ gg_sf(
 \item{subtitle}{Subtitle string.}
 
 \item{coord}{Coordinate system.}
-
-\item{x_breaks}{For a numeric or date variable, a vector of breaks for the axis.}
-
-\item{x_breaks_n}{For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.}
-
-\item{x_breaks_width}{For a numeric or date variable, the width of breaks, as calculated by the scales::fullseq function.}
-
-\item{x_expand}{Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.}
-
-\item{x_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
-
-\item{x_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.}
-
-\item{x_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
-
-\item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
-
-\item{x_zero}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
-
-\item{x_zero_mid}{For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.}
-
-\item{y_breaks}{For a numeric or date variable, a vector of breaks for the axis.}
-
-\item{y_breaks_n}{For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.}
-
-\item{y_breaks_width}{For a numeric or date variable, the width of breaks, as calculated by the scales::fullseq function.}
-
-\item{y_expand}{Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.}
-
-\item{y_labels}{A functiyon to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
-
-\item{y_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.}
-
-\item{y_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
-
-\item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
-
-\item{y_zero}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
-
-\item{y_zero_mid}{For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.}
 
 \item{col_breaks}{A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.}
 
@@ -190,8 +93,6 @@ gg_sf(
 \item{facet_ncol}{The number of columns of facetted plots.}
 
 \item{facet_nrow}{The number of rows of facetted plots.}
-
-\item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
 \item{caption}{Caption title string.}
 
