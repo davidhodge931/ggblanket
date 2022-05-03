@@ -141,8 +141,15 @@ gg_linerange <- function(data = NULL,
   data <- dplyr::ungroup(data)
 
   ###get default NULL values
-  if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
-  if (rlang::is_null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
+  if (!rlang::quo_is_null(x)) {
+    if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
+  }
+  else if (rlang::is_null(x_title)) x_title <- ggplot2::waiver()
+
+  if (!rlang::quo_is_null(y)) {
+    if (rlang::is_null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
+  }
+  else if (rlang::is_null(y_title)) y_title <- ggplot2::waiver()
 
   if (rlang::is_null(theme)) {
     x_grid <- ifelse(
