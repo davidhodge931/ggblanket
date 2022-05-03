@@ -194,11 +194,6 @@ gg_point <- function(data = NULL,
           dplyr::mutate(dplyr::across(!!col, ~ forcats::fct_rev(.x)))
       }
     }
-
-    if (!rlang::is_null(col_intervals)) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col, col_intervals))
-    }
   }
 
   if (!rlang::quo_is_null(facet)) {
@@ -210,6 +205,170 @@ gg_point <- function(data = NULL,
     if (!rlang::is_null(facet_intervals)) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!facet, facet_intervals))
+    }
+  }
+
+  ###make col scale
+  if (rlang::quo_is_null(col)) {
+    if (rlang::is_null(pal)) pal <-  pal_viridis_reorder(1)
+    else pal <- pal[1]
+
+    col_scale <- ggplot2::scale_colour_manual(
+      values = pal,
+      na.value = pal_na,
+      aesthetics = c("col", "fill")
+    )
+
+    col_legend_place <- "n"
+  }
+  else {
+    if (rlang::is_null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col))
+    col_title_position <- ifelse(col_title == "", "right", "top")
+
+    if (rlang::is_null(col_legend_place)) {
+      if (!rlang::quo_is_null(x) &
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data)))) {
+        col_legend_place <- "n"
+      }
+      else if (!rlang::quo_is_null(y) &
+               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data)))) {
+        col_legend_place <- "n"
+      }
+      else if (!rlang::quo_is_null(facet) &
+               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data)))) {
+        col_legend_place <- "n"
+      }
+      else
+        col_legend_place <- "r"
+    }
+
+    if (is.numeric(rlang::eval_tidy(col, data))) {
+      if (rlang::is_null(col_intervals)) { #continuous col
+        if (rlang::is_null(col_breaks)) {
+          col_vctr <- dplyr::pull(data, !!col)
+          col_min_max <- c(min(col_vctr, na.rm = TRUE), max(col_vctr, na.rm = TRUE))
+          if (!rlang::is_null(col_limits)) col_min_max <- col_limits
+
+          if (!rlang::is_null(col_breaks_width)) {
+            col_breaks <- scales::fullseq(col_min_max, size = col_breaks_width)
+          }
+          else {
+            if (rlang::is_null(col_breaks_n)) {
+              if (col_legend_place %in% c("b", "t")) col_breaks_n <- 3
+              else col_breaks_n <- 4
+            }
+            col_breaks <- pretty(col_min_max, n = col_breaks_n)
+          }
+        }
+
+        if (rlang::is_null(pal)) pal <- viridis::viridis(100)
+        if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
+
+        col_scale <- ggplot2::scale_colour_gradientn(
+          colors = pal,
+          labels = col_labels,
+          breaks = col_breaks,
+          limits = col_limits,
+          na.value = pal_na,
+          name = col_title,
+          aesthetics = c("col", "fill"),
+          guide = ggplot2::guide_colorbar(title.position = col_title_position)
+        )
+      }
+      else { #intervals col
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!col, col_intervals))
+
+        col_levels <- levels(rlang::eval_tidy(col, data))
+        col_n <- length(col_levels)
+
+        if (rlang::is_null(pal)) pal <- pal_viridis_reorder(col_n)
+        else pal <- pal[1:col_n]
+
+        if (is.numeric(rlang::eval_tidy(y, data)) |
+            lubridate::is.Date(rlang::eval_tidy(y, data))) {
+
+          if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
+          else col_legend_rev <- TRUE
+        }
+        else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
+          if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
+          else col_legend_rev <- FALSE
+          pal <- rev(pal)
+        }
+        else col_legend_rev <- FALSE
+
+        if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
+        if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
+
+        col_scale <- ggplot2::scale_colour_manual(
+          values = pal,
+          breaks = col_levels,
+          limits = col_levels,
+          labels = col_labels,
+          na.value = pal_na,
+          name = col_title,
+          aesthetics = c("col", "fill"),
+          guide = ggplot2::guide_legend(
+            reverse = col_legend_rev,
+            title.position = col_title_position,
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow,
+            byrow = TRUE
+          )
+        )
+      }
+    }
+    else { #categorical col
+      if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
+      else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
+      else {
+        if (is.factor(rlang::eval_tidy(col, data))) {
+          col_n <- length(levels(rlang::eval_tidy(col, data)))
+        }
+        else col_n <- length(unique(rlang::eval_tidy(col, data)))
+      }
+
+      if (rlang::is_null(pal)) pal <- pal_d3_reorder(col_n)
+      else pal <- pal[1:col_n]
+
+      if (is.numeric(rlang::eval_tidy(y, data)) |
+          lubridate::is.Date(rlang::eval_tidy(y, data))) {
+
+        if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
+          col_legend_rev <- FALSE
+        }
+        else if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
+        else col_legend_rev <- TRUE
+      }
+      else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
+        if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
+          col_legend_rev <- TRUE
+        }
+        else if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
+        else col_legend_rev <- FALSE
+        pal <- rev(pal)
+      }
+      else col_legend_rev <- FALSE
+
+      if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
+      if (rlang::is_null(col_labels)) col_labels <- snakecase::to_sentence_case
+
+      col_scale <- ggplot2::scale_colour_manual(
+        values = pal,
+        breaks = col_breaks,
+        limits = col_limits,
+        labels = col_labels,
+        na.value = pal_na,
+        name = col_title,
+        aesthetics = c("col", "fill"),
+        guide = ggplot2::guide_legend(
+          reverse = col_legend_rev,
+          title.position = col_title_position,
+          ncol = col_legend_ncol,
+          nrow = col_legend_nrow,
+          byrow = TRUE)
+      )
     }
   }
 
@@ -637,167 +796,6 @@ gg_point <- function(data = NULL,
 
   plot <- plot +
     y_scale
-
-  ###make col scale
-  if (rlang::quo_is_null(col)) {
-    if (rlang::is_null(pal)) pal <-  pal_viridis_reorder(1)
-    else pal <- pal[1]
-
-    col_scale <- ggplot2::scale_colour_manual(
-      values = pal,
-      na.value = pal_na,
-      aesthetics = c("col", "fill")
-    )
-
-    col_legend_place <- "n"
-  }
-  else {
-    if (rlang::is_null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col))
-    col_title_position <- ifelse(col_title == "", "right", "top")
-
-    if (rlang::is_null(col_legend_place)) {
-      if (!rlang::quo_is_null(x) &
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data)))) {
-        col_legend_place <- "n"
-      }
-      else if (!rlang::quo_is_null(y) &
-               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data)))) {
-        col_legend_place <- "n"
-      }
-      else if (!rlang::quo_is_null(facet) &
-               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data)))) {
-        col_legend_place <- "n"
-      }
-      else
-        col_legend_place <- "r"
-    }
-
-    if (is.numeric(rlang::eval_tidy(col, data))) {
-      if (rlang::is_null(col_intervals)) { #continuous col
-        if (rlang::is_null(col_breaks)) {
-          col_vctr <- dplyr::pull(data, !!col)
-          col_min_max <- c(min(col_vctr, na.rm = TRUE), max(col_vctr, na.rm = TRUE))
-          if (!rlang::is_null(col_limits)) col_min_max <- col_limits
-
-          if (!rlang::is_null(col_breaks_width)) {
-            col_breaks <- scales::fullseq(col_min_max, size = col_breaks_width)
-          }
-          else {
-            if (rlang::is_null(col_breaks_n)) {
-              if (col_legend_place %in% c("b", "t")) col_breaks_n <- 3
-              else col_breaks_n <- 4
-            }
-            col_breaks <- pretty(col_min_max, n = col_breaks_n)
-          }
-        }
-
-        if (rlang::is_null(pal)) pal <- viridis::viridis(100)
-        if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
-
-        col_scale <- ggplot2::scale_colour_gradientn(
-          colors = pal,
-          labels = col_labels,
-          breaks = col_breaks,
-          limits = col_limits,
-          na.value = pal_na,
-          name = col_title,
-          aesthetics = c("col", "fill"),
-          guide = ggplot2::guide_colorbar(title.position = col_title_position)
-        )
-      }
-      else { #intervals col
-        col_levels <- levels(rlang::eval_tidy(col, data))
-        col_n <- length(col_levels)
-
-        if (rlang::is_null(pal)) pal <- pal_viridis_reorder(col_n)
-        else pal <- pal[1:col_n]
-
-        if (is.numeric(rlang::eval_tidy(y, data)) |
-            lubridate::is.Date(rlang::eval_tidy(y, data))) {
-
-          if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
-          else col_legend_rev <- TRUE
-        }
-        else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
-          if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
-          else col_legend_rev <- FALSE
-          pal <- rev(pal)
-        }
-        else col_legend_rev <- FALSE
-
-        if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
-        if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
-
-        col_scale <- ggplot2::scale_colour_manual(
-          values = pal,
-          breaks = col_levels,
-          limits = col_levels,
-          labels = col_labels,
-          na.value = pal_na,
-          name = col_title,
-          aesthetics = c("col", "fill"),
-          guide = ggplot2::guide_legend(
-            reverse = col_legend_rev,
-            title.position = col_title_position,
-            ncol = col_legend_ncol,
-            nrow = col_legend_nrow,
-            byrow = TRUE
-          )
-        )
-      }
-    }
-    else { #categorical col
-      if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
-      else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
-      else {
-        if (is.factor(rlang::eval_tidy(col, data))) {
-          col_n <- length(levels(rlang::eval_tidy(col, data)))
-        }
-        else col_n <- length(unique(rlang::eval_tidy(col, data)))
-      }
-
-      if (rlang::is_null(pal)) pal <- pal_d3_reorder(col_n)
-      else pal <- pal[1:col_n]
-
-      if (is.numeric(rlang::eval_tidy(y, data)) |
-          lubridate::is.Date(rlang::eval_tidy(y, data))) {
-
-        if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
-          col_legend_rev <- FALSE
-        }
-        else if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
-        else col_legend_rev <- TRUE
-      }
-      else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
-        if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
-          col_legend_rev <- TRUE
-        }
-        else if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
-        else col_legend_rev <- FALSE
-        pal <- rev(pal)
-      }
-      else col_legend_rev <- FALSE
-
-      if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
-      if (rlang::is_null(col_labels)) col_labels <- snakecase::to_sentence_case
-
-      col_scale <- ggplot2::scale_colour_manual(
-        values = pal,
-        breaks = col_breaks,
-        limits = col_limits,
-        labels = col_labels,
-        na.value = pal_na,
-        name = col_title,
-        aesthetics = c("col", "fill"),
-        guide = ggplot2::guide_legend(
-          reverse = col_legend_rev,
-          title.position = col_title_position,
-          ncol = col_legend_ncol,
-          nrow = col_legend_nrow,
-          byrow = TRUE)
-      )
-    }
-  }
 
   #make the plot
   plot <- plot +

@@ -100,7 +100,6 @@ gg_sf <- function(data = NULL,
     else size <- 0.5
   }
 
-
   ###process plot data
   ###factorise logical, reverse for horizontal, and chop intervals
   if (!rlang::quo_is_null(col)) {
@@ -108,11 +107,6 @@ gg_sf <- function(data = NULL,
     if (is.logical(rlang::eval_tidy(col, data))) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col, ~ factor(.x, levels = c("TRUE", "FALSE"))))
-    }
-
-    if (!rlang::is_null(col_intervals)) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col, col_intervals))
     }
   }
 
@@ -125,55 +119,6 @@ gg_sf <- function(data = NULL,
     if (!rlang::is_null(facet_intervals)) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!facet, facet_intervals))
-    }
-  }
-
-  ###make plot
-  if (!rlang::quo_is_null(col)) {
-    plot <- data %>%
-      ggplot2::ggplot(mapping = ggplot2::aes(
-        col = !!col,
-        fill = !!col,
-        group = !!group
-      ))
-  }
-  else if (rlang::quo_is_null(col)) {
-    plot <- data %>%
-      ggplot2::ggplot(mapping = ggplot2::aes(
-        col = "",
-        fill = "",
-        group = !!group
-      ))
-  }
-
-  plot <- plot +
-    ggplot2::geom_sf(
-      stat = stat,
-      position = position,
-      alpha = alpha,
-      size = size,
-      ...
-    )
-
-  if (!rlang::quo_is_null(facet)) {
-    if (!rlang::is_null(facet_intervals)) {
-      plot <- plot +
-        ggplot2::facet_wrap(
-          ggplot2::vars(!!facet),
-          scales = "fixed",
-          ncol = facet_ncol,
-          nrow = facet_nrow
-        )
-    }
-    else {
-      plot <- plot +
-        ggplot2::facet_wrap(
-          ggplot2::vars(!!facet),
-          labeller = ggplot2::as_labeller(facet_labels),
-          scales = "fixed",
-          ncol = facet_ncol,
-          nrow = facet_nrow
-        )
     }
   }
 
@@ -237,6 +182,9 @@ gg_sf <- function(data = NULL,
         )
       }
       else { #intervals col
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!col, col_intervals))
+
         col_levels <- levels(rlang::eval_tidy(col, data))
         col_n <- length(col_levels)
 
@@ -304,6 +252,55 @@ gg_sf <- function(data = NULL,
           nrow = col_legend_nrow,
           byrow = TRUE)
       )
+    }
+  }
+
+  ###make plot
+  if (!rlang::quo_is_null(col)) {
+    plot <- data %>%
+      ggplot2::ggplot(mapping = ggplot2::aes(
+        col = !!col,
+        fill = !!col,
+        group = !!group
+      ))
+  }
+  else if (rlang::quo_is_null(col)) {
+    plot <- data %>%
+      ggplot2::ggplot(mapping = ggplot2::aes(
+        col = "",
+        fill = "",
+        group = !!group
+      ))
+  }
+
+  plot <- plot +
+    ggplot2::geom_sf(
+      stat = stat,
+      position = position,
+      alpha = alpha,
+      size = size,
+      ...
+    )
+
+  if (!rlang::quo_is_null(facet)) {
+    if (!rlang::is_null(facet_intervals)) {
+      plot <- plot +
+        ggplot2::facet_wrap(
+          ggplot2::vars(!!facet),
+          scales = "fixed",
+          ncol = facet_ncol,
+          nrow = facet_nrow
+        )
+    }
+    else {
+      plot <- plot +
+        ggplot2::facet_wrap(
+          ggplot2::vars(!!facet),
+          labeller = ggplot2::as_labeller(facet_labels),
+          scales = "fixed",
+          ncol = facet_ncol,
+          nrow = facet_nrow
+        )
     }
   }
 
