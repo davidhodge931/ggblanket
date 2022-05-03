@@ -151,6 +151,15 @@ penguins %>%
 ```
 
 ```{r}
+penguins %>%
+  gg_violin(
+    x = species,
+    y = body_mass_g,
+    col = flipper_length_mm,
+    col_intervals = ~santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)))
+```
+
+```{r}
 simplevis::example_polygon %>% 
   gg_sf(density)
 ```

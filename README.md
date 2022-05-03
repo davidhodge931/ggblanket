@@ -156,8 +156,19 @@ penguins %>%
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
 ``` r
+penguins %>%
+  gg_violin(
+    x = species,
+    y = body_mass_g,
+    col = flipper_length_mm,
+    col_intervals = ~santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)))
+```
+
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+
+``` r
 simplevis::example_polygon %>% 
   gg_sf(density)
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
