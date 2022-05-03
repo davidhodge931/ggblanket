@@ -417,7 +417,7 @@ gg_errorbar <- function(data = NULL,
           }
           else {
             if (rlang::is_null(x_breaks_n)) {
-              x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+              x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
             }
             x_breaks <- pretty(x_min_max, n = x_breaks_n)
           }
@@ -489,7 +489,7 @@ gg_errorbar <- function(data = NULL,
           }
           else {
             if (rlang::is_null(y_breaks_n)) {
-              y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
+              y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
             }
             y_breaks <- pretty(y_min_max, n = y_breaks_n)
           }
@@ -569,7 +569,7 @@ gg_errorbar <- function(data = NULL,
         }
         else {
           if (rlang::is_null(x_breaks_n)) {
-            x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 2)
+            x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
           }
           x_breaks <- pretty(x_min_max, n = x_breaks_n)
         }
@@ -653,7 +653,7 @@ gg_errorbar <- function(data = NULL,
         }
         else {
           if (rlang::is_null(y_breaks_n)) {
-            y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
+            y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
           }
           y_breaks <- pretty(y_min_max, n = y_breaks_n)
         }
