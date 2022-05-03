@@ -51,3 +51,113 @@ devtools::install_github("davidhodge931/ggblanket")
 ```
 
 ## Examples
+
+``` r
+library(dplyr)
+library(ggplot2)
+library(ggblanket)
+library(palmerpenguins)
+```
+
+``` r
+penguins %>% 
+  tidyr::drop_na() %>% 
+  mutate(body_mass_kg = body_mass_g / 1000) %>%
+  ggplot() +
+  geom_histogram(aes(x = body_mass_kg)) 
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+``` r
+penguins %>% 
+  tidyr::drop_na() %>% 
+  mutate(body_mass_kg = body_mass_g / 1000) %>% 
+  gg_histogram(x = body_mass_kg) 
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+
+``` r
+penguins %>%
+  tidyr::drop_na(sex) %>%
+  group_by(species, sex, island) %>%
+  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
+  ggplot() +
+  geom_col(
+    aes(x = body_mass_kg, y = species, fill = sex), 
+    position = "dodge"
+    ) +
+  facet_wrap( ~ island) +
+  theme(legend.position = "bottom")
+```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+
+``` r
+penguins %>%
+  tidyr::drop_na(sex) %>%
+  group_by(species, sex, island) %>%
+  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
+  gg_col(
+    x = body_mass_kg,
+    y = species,
+    col = sex,
+    facet = island,
+    position = "dodge",
+    col_legend_place = "b"
+  )
+```
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+
+Other nice graphs
+
+``` r
+penguins %>%
+  tidyr::drop_na(sex) %>% 
+  mutate(body_mass_kg = body_mass_g / 1000) %>% 
+  gg_histogram(
+    x = body_mass_kg,
+    col = species, 
+    facet = sex, 
+    col_legend_place = "b", 
+    pal = pals::brewer.dark2(3))
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+
+``` r
+storms %>% 
+  group_by(year) %>% 
+  summarise(wind = mean(wind, na.rm = TRUE)) %>% 
+  gg_line(x = year, 
+          y = wind, 
+          y_zero = TRUE,
+          x_labels = ~.x, 
+          title = "USA average storm wind speed, 1975-2020",
+          subtitle = "Storms are stormy", 
+          y_title = "Wind speed (knots)") +
+  geom_point()
+```
+
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+
+``` r
+penguins %>% 
+  tidyr::drop_na() %>% 
+  mutate(body_mass_kg = body_mass_g / 1000) %>% 
+  gg_density(
+    y = body_mass_kg, 
+    col = sex, 
+    facet = species)
+```
+
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+
+``` r
+simplevis::example_polygon %>% 
+  gg_sf(density)
+```
+
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
