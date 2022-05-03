@@ -413,7 +413,7 @@ gg_pointrange <- function(data = NULL,
 
       if (rlang::is_null(x_labels)) {
         if (is.numeric(rlang::eval_tidy(x, data)) | rlang::quo_is_null(x)) x_labels <- scales::label_comma()
-        else if (lubridate::is.Date(rlang::eval_tidy(x, data))) x_labels <- scales::label_date()
+        else if (lubridate::is.Date(rlang::eval_tidy(x, data))) x_labels <- scales::label_date_short()
         else x_labels <- ggplot2::waiver()
       }
 
@@ -485,7 +485,7 @@ gg_pointrange <- function(data = NULL,
 
       if (rlang::is_null(y_labels)) {
         if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(y)) y_labels <- scales::label_comma()
-        else if (lubridate::is.Date(rlang::eval_tidy(y, data))) y_labels <- scales::label_date()
+        else if (lubridate::is.Date(rlang::eval_tidy(y, data))) y_labels <- scales::label_date_short()
         else y_labels <- ggplot2::waiver()
       }
 
@@ -572,7 +572,7 @@ gg_pointrange <- function(data = NULL,
 
     if (rlang::is_null(x_labels)) {
       if (is.numeric(rlang::eval_tidy(x, data)) | rlang::quo_is_null(x)) x_labels <- scales::label_comma()
-      else if (lubridate::is.Date(rlang::eval_tidy(x, data))) x_labels <- scales::label_date()
+      else if (lubridate::is.Date(rlang::eval_tidy(x, data))) x_labels <- scales::label_date_short()
       else x_labels <- ggplot2::waiver()
     }
 
@@ -656,7 +656,7 @@ gg_pointrange <- function(data = NULL,
 
     if (rlang::is_null(y_labels)) {
       if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(y)) y_labels <- scales::label_comma()
-      else if (lubridate::is.Date(rlang::eval_tidy(y, data))) y_labels <- scales::label_date()
+      else if (lubridate::is.Date(rlang::eval_tidy(y, data))) y_labels <- scales::label_date_short()
       else y_labels <- ggplot2::waiver()
     }
 
