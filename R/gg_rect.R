@@ -2,15 +2,15 @@
 #'
 #' @description Create a rect plot with a wrapper around the ggplot2::geom_rect function.
 #' @param data A data frame or tibble.
-#' @param x Unquoted x aesthetic variable.
-#' @param y Unquoted y aesthetic variable.
-#' @param col Unquoted col and fill aesthetic variable.
-#' @param facet Unquoted facet aesthetic variable.
 #' @param xmin Unquoted xmin aesthetic variable.
 #' @param xmax Unquoted xmax aesthetic variable.
 #' @param ymin Unquoted ymin aesthetic variable.
 #' @param ymax Unquoted ymax aesthetic variable.
+#' @param col Unquoted col and fill aesthetic variable.
+#' @param facet Unquoted facet aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
+#' @param x Unquoted x aesthetic variable.
+#' @param y Unquoted y aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param pal Colours to use. A character vector of hex codes (or names).
@@ -63,15 +63,15 @@
 #' @examples
 #'
 gg_rect <- function(data = NULL,
-                    x = NULL,
-                    y = NULL,
-                    col = NULL,
-                    facet = NULL,
-                    group = NULL,
                     xmin = NULL,
                     xmax = NULL,
                     ymin = NULL,
                     ymax = NULL,
+                    col = NULL,
+                    facet = NULL,
+                    group = NULL,
+                    x = NULL,
+                    y = NULL,
                     stat = "identity",
                     position = "identity",
                     pal = NULL,

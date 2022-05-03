@@ -6,12 +6,12 @@
 \usage{
 gg_qq(
   data = NULL,
-  x = NULL,
-  y = NULL,
+  sample = NULL,
   col = NULL,
   facet = NULL,
   group = NULL,
-  sample = NULL,
+  x = NULL,
+  y = NULL,
   stat = "qq",
   position = "identity",
   pal = NULL,
@@ -64,9 +64,7 @@ gg_qq(
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{x}{Unquoted x aesthetic variable.}
-
-\item{y}{Unquoted y aesthetic variable.}
+\item{sample}{Unquoted sample aesthetic variable.}
 
 \item{col}{Unquoted col and fill aesthetic variable.}
 
@@ -74,7 +72,9 @@ gg_qq(
 
 \item{group}{Unquoted group aesthetic variable.}
 
-\item{sample}{Unquoted sample aesthetic variable.}
+\item{x}{Unquoted x aesthetic variable.}
+
+\item{y}{Unquoted y aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 

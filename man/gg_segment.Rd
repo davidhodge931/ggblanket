@@ -7,12 +7,12 @@
 gg_segment(
   data = NULL,
   x = NULL,
+  xend = NULL,
   y = NULL,
+  yend = NULL,
   col = NULL,
   facet = NULL,
   group = NULL,
-  xend = NULL,
-  yend = NULL,
   stat = "identity",
   position = "identity",
   pal = NULL,
@@ -67,17 +67,17 @@ gg_segment(
 
 \item{x}{Unquoted x aesthetic variable.}
 
+\item{xend}{Unquoted xend aesthetic variable.}
+
 \item{y}{Unquoted y aesthetic variable.}
+
+\item{yend}{Unquoted xend aesthetic variable.}
 
 \item{col}{Unquoted col and fill aesthetic variable.}
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
-
-\item{xend}{Unquoted xend aesthetic variable.}
-
-\item{yend}{Unquoted xend aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 

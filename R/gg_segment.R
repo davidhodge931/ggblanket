@@ -3,11 +3,11 @@
 #' @description Create a segment plot with a wrapper around the ggplot2::geom_segment function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
+#' @param xend Unquoted xend aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
+#' @param yend Unquoted xend aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
-#' @param xend Unquoted xend aesthetic variable.
-#' @param yend Unquoted xend aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
@@ -62,12 +62,12 @@
 #'
 gg_segment <- function(data = NULL,
                        x = NULL,
+                       xend = NULL,
                        y = NULL,
+                       yend = NULL,
                        col = NULL,
                        facet = NULL,
                        group = NULL,
-                       xend = NULL,
-                       yend = NULL,
                        stat = "identity",
                        position = "identity",
                        pal = NULL,

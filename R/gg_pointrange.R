@@ -3,13 +3,13 @@
 #' @description Create a pointrange plot with a wrapper around the ggplot2::geom_pointrange function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
-#' @param y Unquoted y aesthetic variable.
-#' @param col Unquoted col and fill aesthetic variable.
-#' @param facet Unquoted facet aesthetic variable.
 #' @param xmin Unquoted xmin aesthetic variable.
 #' @param xmax Unquoted xmax aesthetic variable.
+#' @param y Unquoted y aesthetic variable.
 #' @param ymin Unquoted ymin aesthetic variable.
 #' @param ymax Unquoted ymax aesthetic variable.
+#' @param col Unquoted col and fill aesthetic variable.
+#' @param facet Unquoted facet aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
@@ -64,14 +64,14 @@
 #'
 gg_pointrange <- function(data = NULL,
                           x = NULL,
+                          xmin = NULL,
+                          xmax = NULL,
                           y = NULL,
+                          ymin = NULL,
+                          ymax = NULL,
                           col = NULL,
                           facet = NULL,
                           group = NULL,
-                          xmin = NULL,
-                          xmax = NULL,
-                          ymin = NULL,
-                          ymax = NULL,
                           stat = "identity",
                           position = "identity",
                           pal = NULL,

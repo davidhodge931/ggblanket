@@ -7,14 +7,14 @@
 gg_linerange(
   data = NULL,
   x = NULL,
+  xmin = NULL,
+  xmax = NULL,
   y = NULL,
+  ymin = NULL,
+  ymax = NULL,
   col = NULL,
   facet = NULL,
   group = NULL,
-  xmin = NULL,
-  xmax = NULL,
-  ymin = NULL,
-  ymax = NULL,
   stat = "identity",
   position = "identity",
   pal = NULL,
@@ -69,21 +69,21 @@ gg_linerange(
 
 \item{x}{Unquoted x aesthetic variable.}
 
+\item{xmin}{Unquoted xmin aesthetic variable.}
+
+\item{xmax}{Unquoted xmax aesthetic variable.}
+
 \item{y}{Unquoted y aesthetic variable.}
+
+\item{ymin}{Unquoted ymin aesthetic variable.}
+
+\item{ymax}{Unquoted ymax aesthetic variable.}
 
 \item{col}{Unquoted col and fill aesthetic variable.}
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
-
-\item{xmin}{Unquoted xmin aesthetic variable.}
-
-\item{xmax}{Unquoted xmax aesthetic variable.}
-
-\item{ymin}{Unquoted ymin aesthetic variable.}
-
-\item{ymax}{Unquoted ymax aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 

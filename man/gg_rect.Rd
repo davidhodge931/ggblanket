@@ -6,15 +6,15 @@
 \usage{
 gg_rect(
   data = NULL,
-  x = NULL,
-  y = NULL,
-  col = NULL,
-  facet = NULL,
-  group = NULL,
   xmin = NULL,
   xmax = NULL,
   ymin = NULL,
   ymax = NULL,
+  col = NULL,
+  facet = NULL,
+  group = NULL,
+  x = NULL,
+  y = NULL,
   stat = "identity",
   position = "identity",
   pal = NULL,
@@ -67,16 +67,6 @@ gg_rect(
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{x}{Unquoted x aesthetic variable.}
-
-\item{y}{Unquoted y aesthetic variable.}
-
-\item{col}{Unquoted col and fill aesthetic variable.}
-
-\item{facet}{Unquoted facet aesthetic variable.}
-
-\item{group}{Unquoted group aesthetic variable.}
-
 \item{xmin}{Unquoted xmin aesthetic variable.}
 
 \item{xmax}{Unquoted xmax aesthetic variable.}
@@ -84,6 +74,16 @@ gg_rect(
 \item{ymin}{Unquoted ymin aesthetic variable.}
 
 \item{ymax}{Unquoted ymax aesthetic variable.}
+
+\item{col}{Unquoted col and fill aesthetic variable.}
+
+\item{facet}{Unquoted facet aesthetic variable.}
+
+\item{group}{Unquoted group aesthetic variable.}
+
+\item{x}{Unquoted x aesthetic variable.}
+
+\item{y}{Unquoted y aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
