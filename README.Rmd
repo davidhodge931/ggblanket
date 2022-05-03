@@ -25,9 +25,9 @@ knitr::opts_chunk$set(
 
 ggblanket is a package of wrapper functions around the amazing ggplot2 package. 
 
-Hence the blanket metaphor in the package name. 
+Hence the blanket metaphor. 
 
-The primary objective of the package is to help users make beautiful ggplot2 visualisation with less code and cognitive load. 
+The primary objective of the package is to help users make beautiful ggplot2 visualisation with less code and less cognitive load. 
 
 A secondary objective is to help users build intuition for ggplot2, such that they can move between ggplot2 and ggblanket as needed.   
 
