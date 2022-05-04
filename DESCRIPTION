@@ -1,15 +1,14 @@
 Package: ggblanket
-Title: Wrappers for Beautiful ggplot2 Visualisation with Less Code and Cognitive Load
+Title: Wrappers to Make Beautiful ggplot2 Visualisation Simpler
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "David",family = "Hodge", email = "davidhodge931@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-3868-7501"))
 Description: ggblanket is a package of wrapper functions around the
-    amazing ggplot2 package. Hence the blanket metaphor in the package
-    name. The primary objective of the package is to help users make
-    beautiful ggplot2 visualisation with less code and cognitive load. A 
-    secondary objective is to help users build intuition for ggplot2, such that 
-    they can move between ggplot2 and ggblanket as needed.
+    amazing ggplot2 package. Hence the blanket metaphor. The primary objective 
+    of the package is to help users make beautiful ggplot2 visualisation 
+    simpler. A secondary objective is to help users build intuition for ggplot2, 
+     such that they can move between the two packages as needed.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

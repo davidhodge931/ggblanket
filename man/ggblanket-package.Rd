@@ -4,11 +4,11 @@
 \name{ggblanket-package}
 \alias{ggblanket}
 \alias{ggblanket-package}
-\title{ggblanket: Wrappers for Beautiful ggplot2 Visualisation with Less Code and Cognitive Load}
+\title{ggblanket: Wrappers to Make Beautiful ggplot2 Visualisation Simpler}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-ggblanket is a package of wrapper functions around the amazing ggplot2 package. Hence the blanket metaphor in the package name. The primary objective of the package is to help users make beautiful ggplot2 visualisation with less code and cognitive load. A secondary objective is to help users build intuition for ggplot2, such that they can move between ggplot2 and ggblanket as needed.
+ggblanket is a package of wrapper functions around the amazing ggplot2 package. Hence the blanket metaphor. The primary objective of the package is to help users make beautiful ggplot2 visualisation simpler. A secondary objective is to help users build intuition for ggplot2, such that they can move between the two packages as needed.
 }
 \author{
 \strong{Maintainer}: David Hodge \email{davidhodge931@gmail.com} (\href{https://orcid.org/0000-0002-3868-7501}{ORCID})
