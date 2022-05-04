@@ -13,16 +13,16 @@ status](https://www.r-pkg.org/badges/version/ggblanket)](https://CRAN.R-project.
 
 ## Overview
 
-ggblanket is a package of wrapper functions around the amazing ggplot2
-package.
+{ggblanket} is a package of wrapper functions around the amazing
+{ggplot2} package.
 
 Hence the blanket metaphor.
 
 The primary objective of the package is to help users make beautiful
-ggplot2 visualisation with less code and less cognitive load.
+{ggplot2} visualisation simpler.
 
-A secondary objective is to help users build intuition for ggplot2, such
-that they can move between ggplot2 and ggblanket as needed.
+A secondary objective is to help users build intuition for {ggplot2},
+such that they can move between the two packages as needed.
 
 With these objectives in mind, the ggblanket package:
 
