@@ -152,11 +152,12 @@ penguins %>%
 
 ``` r
 penguins %>%
-  gg_violin(
+  gg_jitter(
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
-    col_intervals = ~santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)))
+    col_intervals = ~santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
+    position = position_jitter(width = 0.2, height = 0))
 ```
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />

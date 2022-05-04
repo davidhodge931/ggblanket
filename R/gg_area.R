@@ -45,7 +45,7 @@
 #' @param col_limits A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For a numeric variable where col_intervals is NULL, this will make all values outside the limits coloured NA.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
-#' @param col_legend_place The place for the legend. "r" for right, "b" for bottom, "t" for top, "l" for left, or "m" for a mobile-friendly legend.
+#' @param col_legend_place The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.
 #' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param facet_intervals A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
 #' @param facet_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
@@ -842,11 +842,6 @@ gg_area <- function(data = NULL,
   else if (col_legend_place == "l") {
     plot <- plot +
       ggplot2::theme(legend.position = "left")
-  }
-  else if (col_legend_place == "m") {
-    plot <- plot +
-      ggplot2::theme(legend.position = "bottom") +
-      ggplot2::theme(legend.direction = "vertical")
   }
 
   #return beautiful plot
