@@ -75,6 +75,7 @@ gg_sf <- function(data = NULL,
   if (rlang::is_null(data)) rlang::abort("data is required")
   if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "{ggblanket} merges col and fill aesthetics into a single col aesthetic"))
   if (!rlang::quo_is_null(facet)) rlang::inform(c("i" = "{ggblanket} treats faceting as an aesthetic"))
+  if(!(requireNamespace("sf"))) stop("gg_sf() requires the sf package to be installed")
 
   ###ungroup
   data <- dplyr::ungroup(data)
