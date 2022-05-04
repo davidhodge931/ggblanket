@@ -174,5 +174,19 @@ A ggplot object.
 Create a area plot with a wrapper around the ggplot2::geom_area function.
 }
 \examples{
+huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
+
+huron \%>\%
+  gg_area(
+    x = year,
+    y = level,
+    x_labels = ~.x)
+
+huron \%>\%
+  gg_area(
+    y = year,
+    x = level,
+    x_labels = ~.x,
+    orientation = "y")
 
 }

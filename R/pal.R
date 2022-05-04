@@ -7,8 +7,8 @@
 #' @return A character vector of hex codes.
 #' @export
 #' @examples
-#' scales::show_col(pal_d3_reorder(9))
-pal_d3_reorder <- function(n) {
+#' scales::show_col(pal_d3_mix(9))
+pal_d3_mix <- function(n) {
 
   c("#17BECF", "#BCBD22", "#8C564B", "#E377C2", "#1F77B4", "#FF7F0E", "#2CA02C", "#9467BD", "#D62728")[1:n]
 }
@@ -22,8 +22,8 @@ pal_d3_reorder <- function(n) {
 #' @return A character vector of hex codes.
 #' @export
 #' @examples
-#' scales::show_col(pal_viridis_reorder(9))
-pal_viridis_reorder <- function(n) {
+#' scales::show_col(pal_viridis_mix(9))
+pal_viridis_mix <- function(n) {
 
   if(n == 1) viridis::viridis(4)[2]
   else if(n == 2) viridis::viridis(4)[c(2, 3)]

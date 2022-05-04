@@ -61,6 +61,24 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#' huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
+#'
+#' huron %>%
+#'   gg_ribbon(
+#'     x = year,
+#'     ymin = 0,
+#'     ymax = level,
+#'     x_labels = ~.x,
+#'     alpha = 0.9)
+#'
+#' huron %>%
+#'   gg_ribbon(
+#'     x = year,
+#'     ymin = level - 1,
+#'     ymax = level + 1,
+#'     pal = scales::alpha(pal_viridis_mix(1), 0)) +
+#'   geom_line(aes(x = year, y = level), col = pal_viridis_mix(1))
 #'
 gg_ribbon <- function(data = NULL,
                       x = NULL,
@@ -230,7 +248,7 @@ gg_ribbon <- function(data = NULL,
 
   ###make col scale
   if (rlang::quo_is_null(col)) {
-    if (rlang::is_null(pal)) pal <-  pal_viridis_reorder(1)
+    if (rlang::is_null(pal)) pal <-  pal_viridis_mix(1)
     else pal <- pal[1]
 
     col_scale <- ggplot2::scale_colour_manual(
@@ -302,7 +320,7 @@ gg_ribbon <- function(data = NULL,
         col_levels <- levels(rlang::eval_tidy(col, data))
         col_n <- length(col_levels)
 
-        if (rlang::is_null(pal)) pal <- pal_viridis_reorder(col_n)
+        if (rlang::is_null(pal)) pal <- pal_viridis_mix(col_n)
         else pal <- pal[1:col_n]
 
         if (is.numeric(rlang::eval_tidy(y, data)) |
@@ -349,7 +367,7 @@ gg_ribbon <- function(data = NULL,
         else col_n <- length(unique(rlang::eval_tidy(col, data)))
       }
 
-      if (rlang::is_null(pal)) pal <- pal_d3_reorder(col_n)
+      if (rlang::is_null(pal)) pal <- pal_d3_mix(col_n)
       else pal <- pal[1:col_n]
 
       if (is.numeric(rlang::eval_tidy(y, data)) |

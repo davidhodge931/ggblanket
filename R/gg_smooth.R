@@ -210,7 +210,7 @@ gg_smooth <- function(data = NULL,
 
   ###make col scale
   if (rlang::quo_is_null(col)) {
-    if (rlang::is_null(pal)) pal <-  pal_viridis_reorder(1)
+    if (rlang::is_null(pal)) pal <-  pal_viridis_mix(1)
     else pal <- pal[1]
 
     col_scale <- ggplot2::scale_colour_manual(
@@ -282,7 +282,7 @@ gg_smooth <- function(data = NULL,
         col_levels <- levels(rlang::eval_tidy(col, data))
         col_n <- length(col_levels)
 
-        if (rlang::is_null(pal)) pal <- pal_viridis_reorder(col_n)
+        if (rlang::is_null(pal)) pal <- pal_viridis_mix(col_n)
         else pal <- pal[1:col_n]
 
         if (is.numeric(rlang::eval_tidy(y, data)) |
@@ -329,7 +329,7 @@ gg_smooth <- function(data = NULL,
         else col_n <- length(unique(rlang::eval_tidy(col, data)))
       }
 
-      if (rlang::is_null(pal)) pal <- pal_d3_reorder(col_n)
+      if (rlang::is_null(pal)) pal <- pal_d3_mix(col_n)
       else pal <- pal[1:col_n]
 
       if (is.numeric(rlang::eval_tidy(y, data)) |

@@ -186,5 +186,23 @@ A ggplot object.
 Create a ribbon plot with a wrapper around the ggplot2::geom_ribbon function.
 }
 \examples{
+library(ggplot2)
+huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
+
+huron \%>\%
+  gg_ribbon(
+    x = year,
+    ymin = 0,
+    ymax = level,
+    x_labels = ~.x,
+    alpha = 0.9)
+
+huron \%>\%
+  gg_ribbon(
+    x = year,
+    ymin = level - 1,
+    ymax = level + 1,
+    pal = scales::alpha(pal_viridis_mix(1), 0)) +
+  geom_line(aes(x = year, y = level), col = pal_viridis_mix(1))
 
 }

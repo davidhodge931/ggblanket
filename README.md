@@ -57,12 +57,14 @@ library(dplyr)
 library(ggplot2)
 library(ggblanket)
 library(palmerpenguins)
+
+penguins <- penguins %>% 
+  tidyr::drop_na() %>% 
+  mutate(body_mass_kg = body_mass_g / 1000) 
 ```
 
 ``` r
 penguins %>% 
-  tidyr::drop_na() %>% 
-  mutate(body_mass_kg = body_mass_g / 1000) %>%
   ggplot() +
   geom_histogram(aes(x = body_mass_kg)) 
 ```
@@ -71,8 +73,6 @@ penguins %>%
 
 ``` r
 penguins %>% 
-  tidyr::drop_na() %>% 
-  mutate(body_mass_kg = body_mass_g / 1000) %>% 
   gg_histogram(x = body_mass_kg) 
 ```
 
@@ -80,9 +80,8 @@ penguins %>%
 
 ``` r
 penguins %>%
-  tidyr::drop_na(sex) %>%
   group_by(species, sex, island) %>%
-  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
+  summarise(body_mass_kg = mean(body_mass_kg)) %>%
   ggplot() +
   geom_col(
     aes(x = body_mass_kg, y = species, fill = sex), 
@@ -96,9 +95,8 @@ penguins %>%
 
 ``` r
 penguins %>%
-  tidyr::drop_na(sex) %>%
   group_by(species, sex, island) %>%
-  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
+  summarise(body_mass_kg = mean(body_mass_kg)) %>%
   gg_col(
     x = body_mass_kg,
     y = species,
@@ -115,8 +113,6 @@ Other nice graphs
 
 ``` r
 penguins %>%
-  tidyr::drop_na(sex) %>% 
-  mutate(body_mass_kg = body_mass_g / 1000) %>% 
   gg_histogram(
     x = body_mass_kg,
     col = species, 
@@ -146,8 +142,6 @@ storms %>%
 
 ``` r
 penguins %>% 
-  tidyr::drop_na() %>% 
-  mutate(body_mass_kg = body_mass_g / 1000) %>% 
   gg_density(
     y = body_mass_kg, 
     col = sex, 
@@ -166,10 +160,3 @@ penguins %>%
 ```
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
-
-``` r
-simplevis::example_polygon %>% 
-  gg_sf(density)
-```
-
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
