@@ -92,7 +92,7 @@ gg_crossbar <- function(data = NULL,
                         x_expand = NULL,
                         x_labels = NULL,
                         x_limits = NULL,
-                        x_oob = scales::oob_censor,
+                        x_oob = scales::oob_squish,
                         x_title = NULL,
                         x_zero = NULL,
                         x_zero_mid = FALSE,
@@ -102,7 +102,7 @@ gg_crossbar <- function(data = NULL,
                         y_expand = NULL,
                         y_labels = NULL,
                         y_limits = NULL,
-                        y_oob = scales::oob_censor,
+                        y_oob = scales::oob_squish,
                         y_title = NULL,
                         y_zero = NULL,
                         y_zero_mid = FALSE,
@@ -145,8 +145,15 @@ gg_crossbar <- function(data = NULL,
   data <- dplyr::ungroup(data)
 
   ###get default NULL values
-  if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
-  if (rlang::is_null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
+  if (!rlang::quo_is_null(x)) {
+    if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
+  }
+  else if (rlang::is_null(x_title)) x_title <- ggplot2::waiver()
+
+  if (!rlang::quo_is_null(y)) {
+    if (rlang::is_null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
+  }
+  else if (rlang::is_null(y_title)) y_title <- ggplot2::waiver()
 
   if (rlang::is_null(theme)) {
     x_grid <- ifelse(

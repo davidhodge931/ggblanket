@@ -3,7 +3,11 @@
 #' @description Create a blank plot with a wrapper around the ggplot2::geom_blank function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
+#' @param xmin Unquoted xmin aesthetic variable.
+#' @param xmax Unquoted xmax aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
+#' @param ymin Unquoted ymin aesthetic variable.
+#' @param ymax Unquoted ymax aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
@@ -57,60 +61,79 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#'
+#' df <- data.frame(
+#'   trt = factor(c(1, 1, 2, 2)),
+#'   resp = c(1, 5, 3, 4),
+#'   group = factor(c(1, 2, 1, 2)),
+#'   upper = c(1.1, 5.3, 3.3, 4.2),
+#'   lower = c(0.8, 4.6, 2.4, 3.6)
+#' )
+#'
+#' dodger <- position_dodge(width = 0.75)
+#'
+#' gg_blank(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group) +
+#'   geom_col(position = dodger, width = 0.75) +
+#'   geom_errorbar(position = dodger, width = 0.2, col = "#'232323")
 #'
 gg_blank <- function(data = NULL,
-                     x = NULL,
-                     y = NULL,
-                     col = NULL,
-                     facet = NULL,
-                     group = NULL,
-                     stat = "identity",
-                     position = "identity",
-                     pal = NULL,
-                     pal_na = "#7F7F7F",
-                     alpha = 1,
-                     size = 1.5,
-                     ...,
-                     title = NULL,
-                     subtitle = NULL,
-                     coord = ggplot2::coord_cartesian(clip = "off"),
-                     x_breaks = NULL,
-                     x_breaks_n = NULL,
-                     x_breaks_width = NULL,
-                     x_expand = NULL,
-                     x_labels = NULL,
-                     x_limits = NULL,
-                     x_oob = scales::oob_censor,
-                     x_title = NULL,
-                     x_zero = NULL,
-                     x_zero_mid = FALSE,
-                     y_breaks = NULL,
-                     y_breaks_n = NULL,
-                     y_breaks_width = NULL,
-                     y_expand = NULL,
-                     y_labels = NULL,
-                     y_limits = NULL,
-                     y_oob = scales::oob_censor,
-                     y_title = NULL,
-                     y_zero = NULL,
-                     y_zero_mid = FALSE,
-                     col_breaks = NULL,
-                     col_breaks_n = NULL,
-                     col_breaks_width = NULL,
-                     col_intervals = NULL,
-                     col_labels = NULL,
-                     col_legend_place = NULL,
-                     col_legend_ncol = NULL,
-                     col_legend_nrow = NULL,
-                     col_limits = NULL,
-                     col_title = NULL,
-                     facet_intervals = NULL,
-                     facet_labels = snakecase::to_sentence_case,
-                     facet_ncol = NULL,
-                     facet_nrow = NULL,
-                     facet_scales = "fixed",
-                     caption = NULL,
-                     theme = NULL) {
+                          x = NULL,
+                          xmin = NULL,
+                          xmax = NULL,
+                          y = NULL,
+                          ymin = NULL,
+                          ymax = NULL,
+                          col = NULL,
+                          facet = NULL,
+                          group = NULL,
+                          stat = "identity",
+                          position = "identity",
+                          pal = NULL,
+                          pal_na = "#7F7F7F",
+                          alpha = 1,
+                          size = 0.5,
+                          ...,
+                          title = NULL,
+                          subtitle = NULL,
+                          coord = ggplot2::coord_cartesian(clip = "off"),
+                          x_breaks = NULL,
+                          x_breaks_n = NULL,
+                          x_breaks_width = NULL,
+                          x_expand = NULL,
+                          x_labels = NULL,
+                          x_limits = NULL,
+                          x_oob = scales::oob_squish,
+                          x_title = NULL,
+                          x_zero = NULL,
+                          x_zero_mid = FALSE,
+                          y_breaks = NULL,
+                          y_breaks_n = NULL,
+                          y_breaks_width = NULL,
+                          y_expand = NULL,
+                          y_labels = NULL,
+                          y_limits = NULL,
+                          y_oob = scales::oob_squish,
+                          y_title = NULL,
+                          y_zero = NULL,
+                          y_zero_mid = FALSE,
+                          col_breaks = NULL,
+                          col_breaks_n = NULL,
+                          col_breaks_width = NULL,
+                          col_intervals = NULL,
+                          col_labels = NULL,
+                          col_legend_place = NULL,
+                          col_legend_ncol = NULL,
+                          col_legend_nrow = NULL,
+                          col_limits = NULL,
+                          col_title = NULL,
+                          facet_intervals = NULL,
+                          facet_labels = snakecase::to_sentence_case,
+                          facet_ncol = NULL,
+                          facet_nrow = NULL,
+                          facet_scales = "fixed",
+                          caption = NULL,
+                          theme = NULL) {
 
   #quote
   x <- rlang::enquo(x)
@@ -118,6 +141,11 @@ gg_blank <- function(data = NULL,
   col <- rlang::enquo(col)
   facet <- rlang::enquo(facet)
   group <- rlang::enquo(group)
+
+  xmin <- rlang::enquo(xmin)
+  xmax <- rlang::enquo(xmax)
+  ymin <- rlang::enquo(ymin)
+  ymax <- rlang::enquo(ymax)
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
@@ -128,25 +156,15 @@ gg_blank <- function(data = NULL,
   data <- dplyr::ungroup(data)
 
   ###get default NULL values
-  if (rlang::quo_is_null(x)) {
-    if (rlang::is_null(x_title)) {
-      if (stat %in% c("bin", "count")) x_title <- "Count"
-      else if (stat == "density") x_title <- "Density"
-      else if (stat == "function") x_title <- "X"
-      else if (stat == "qq") x_title <- "Theoretical"
-    }
+  if (!rlang::quo_is_null(x)) {
+    if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
   }
-  else if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
+  else if (rlang::is_null(x_title)) x_title <- ggplot2::waiver()
 
-  if (rlang::quo_is_null(y)) {
-    if (rlang::is_null(y_title)) {
-      if (stat %in% c("bin", "count")) y_title <- "Count"
-      else if (stat == "density") y_title <- "Density"
-      else if (stat == "function") y_title <- "Y"
-      else if (stat == "qq") y_title <- "Sample"
-    }
+  if (!rlang::quo_is_null(y)) {
+    if (rlang::is_null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
   }
-  else if (rlang::is_null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
+  else if (rlang::is_null(y_title)) y_title <- ggplot2::waiver()
 
   if (rlang::is_null(theme)) {
     x_grid <- ifelse(
@@ -398,7 +416,11 @@ gg_blank <- function(data = NULL,
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          ymin = !!ymin,
+          ymax = !!ymax
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -408,7 +430,11 @@ gg_blank <- function(data = NULL,
           y = !!y,
           col = "",
           fill = "",
-          group = !!group
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          ymin = !!ymin,
+          ymax = !!ymax
         ))
     }
   }
@@ -419,7 +445,11 @@ gg_blank <- function(data = NULL,
           x = !!x,
           col = !!col,
           fill = !!col,
-          group = !!group
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          ymin = !!ymin,
+          ymax = !!ymax
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -428,7 +458,11 @@ gg_blank <- function(data = NULL,
           x = !!x,
           col = "",
           fill = "",
-          group = !!group
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          ymin = !!ymin,
+          ymax = !!ymax
         ))
     }
   }
@@ -439,7 +473,11 @@ gg_blank <- function(data = NULL,
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          ymin = !!ymin,
+          ymax = !!ymax
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -448,7 +486,11 @@ gg_blank <- function(data = NULL,
           y = !!y,
           col = "",
           fill = "",
-          group = !!group
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          ymin = !!ymin,
+          ymax = !!ymax
         ))
     }
   }
@@ -458,7 +500,11 @@ gg_blank <- function(data = NULL,
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = !!col,
           fill = !!col,
-          group = !!group
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          ymin = !!ymin,
+          ymax = !!ymax
         ))
     }
     else if (rlang::quo_is_null(col)) {
@@ -466,7 +512,11 @@ gg_blank <- function(data = NULL,
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = "",
           fill = "",
-          group = !!group
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          ymin = !!ymin,
+          ymax = !!ymax
         ))
     }
   }

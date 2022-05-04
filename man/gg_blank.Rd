@@ -7,7 +7,11 @@
 gg_blank(
   data = NULL,
   x = NULL,
+  xmin = NULL,
+  xmax = NULL,
   y = NULL,
+  ymin = NULL,
+  ymax = NULL,
   col = NULL,
   facet = NULL,
   group = NULL,
@@ -16,7 +20,7 @@ gg_blank(
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 1,
-  size = 1.5,
+  size = 0.5,
   ...,
   title = NULL,
   subtitle = NULL,
@@ -27,7 +31,7 @@ gg_blank(
   x_expand = NULL,
   x_labels = NULL,
   x_limits = NULL,
-  x_oob = scales::oob_censor,
+  x_oob = scales::oob_squish,
   x_title = NULL,
   x_zero = NULL,
   x_zero_mid = FALSE,
@@ -37,7 +41,7 @@ gg_blank(
   y_expand = NULL,
   y_labels = NULL,
   y_limits = NULL,
-  y_oob = scales::oob_censor,
+  y_oob = scales::oob_squish,
   y_title = NULL,
   y_zero = NULL,
   y_zero_mid = FALSE,
@@ -65,7 +69,15 @@ gg_blank(
 
 \item{x}{Unquoted x aesthetic variable.}
 
+\item{xmin}{Unquoted xmin aesthetic variable.}
+
+\item{xmax}{Unquoted xmax aesthetic variable.}
+
 \item{y}{Unquoted y aesthetic variable.}
+
+\item{ymin}{Unquoted ymin aesthetic variable.}
+
+\item{ymax}{Unquoted ymax aesthetic variable.}
 
 \item{col}{Unquoted col and fill aesthetic variable.}
 
@@ -174,5 +186,20 @@ A ggplot object.
 Create a blank plot with a wrapper around the ggplot2::geom_blank function.
 }
 \examples{
+library(ggplot2)
+
+df <- data.frame(
+  trt = factor(c(1, 1, 2, 2)),
+  resp = c(1, 5, 3, 4),
+  group = factor(c(1, 2, 1, 2)),
+  upper = c(1.1, 5.3, 3.3, 4.2),
+  lower = c(0.8, 4.6, 2.4, 3.6)
+)
+
+dodger <- position_dodge(width = 0.75)
+
+gg_blank(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group) +
+  geom_col(position = dodger, width = 0.75) +
+  geom_errorbar(position = dodger, width = 0.2, col = "#'232323")
 
 }

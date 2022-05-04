@@ -154,3 +154,19 @@ penguins %>%
     col_intervals = ~santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)))
 ```
 
+```{r}
+df <- data.frame(
+  trt = factor(c(1, 1, 2, 2)),
+  resp = c(1, 5, 3, 4),
+  group = factor(c(1, 2, 1, 2)),
+  upper = c(1.1, 5.3, 3.3, 4.2),
+  lower = c(0.8, 4.6, 2.4, 3.6)
+)
+
+dodger <- position_dodge(width = 0.75)
+
+gg_blank(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group) +
+  geom_col(position = dodger, width = 0.75) +
+  geom_errorbar(position = dodger, width = 0.2, col = "#232323")
+```
+

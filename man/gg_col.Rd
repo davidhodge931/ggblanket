@@ -29,7 +29,7 @@ gg_col(
   x_expand = NULL,
   x_labels = NULL,
   x_limits = NULL,
-  x_oob = scales::oob_censor,
+  x_oob = scales::oob_squish,
   x_title = NULL,
   x_zero = NULL,
   x_zero_mid = FALSE,
@@ -39,7 +39,7 @@ gg_col(
   y_expand = NULL,
   y_labels = NULL,
   y_limits = NULL,
-  y_oob = scales::oob_censor,
+  y_oob = scales::oob_squish,
   y_title = NULL,
   y_zero = NULL,
   y_zero_mid = FALSE,
@@ -180,5 +180,8 @@ A ggplot object.
 Create a col plot with a wrapper around the ggplot2::geom_col function.
 }
 \examples{
+df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
+gg_col(df, x = trt, y = outcome)
+gg_col(df, x = trt, y = outcome, col = trt)
 
 }

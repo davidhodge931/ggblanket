@@ -59,6 +59,11 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#' gg_bar(mpg, x = class)
+#' gg_bar(mpg, y = class)
+#' gg_bar(mpg, x = class, col = drv)
+#' gg_bar(mpg, y = class, col = drv, col_legend_place = "t")
 #'
 gg_bar <- function(data = NULL,
                    x = NULL,
@@ -84,7 +89,7 @@ gg_bar <- function(data = NULL,
                    x_expand = NULL,
                    x_labels = NULL,
                    x_limits = NULL,
-                   x_oob = scales::oob_censor,
+                   x_oob = scales::oob_squish,
                    x_title = NULL,
                    x_zero = NULL,
                    x_zero_mid = FALSE,
@@ -94,7 +99,7 @@ gg_bar <- function(data = NULL,
                    y_expand = NULL,
                    y_labels = NULL,
                    y_limits = NULL,
-                   y_oob = scales::oob_censor,
+                   y_oob = scales::oob_squish,
                    y_title = NULL,
                    y_zero = NULL,
                    y_zero_mid = FALSE,
@@ -169,7 +174,7 @@ gg_bar <- function(data = NULL,
   if (rlang::is_null(width)) {
     if (lubridate::is.Date(rlang::eval_tidy(x, data)) |
         lubridate::is.Date(rlang::eval_tidy(y, data)) |
-        (is.numeric(rlang::eval_tidy(x, data)) &
+        (is.numeric(rlang::eval_tidy(x, data)) |
          is.numeric(rlang::eval_tidy(y, data)))) {
       width <- NULL
     }

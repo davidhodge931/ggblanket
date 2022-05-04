@@ -29,7 +29,7 @@ gg_boxplot(
   x_expand = NULL,
   x_labels = NULL,
   x_limits = NULL,
-  x_oob = scales::oob_censor,
+  x_oob = scales::oob_squish,
   x_title = NULL,
   x_zero = NULL,
   x_zero_mid = FALSE,
@@ -39,7 +39,7 @@ gg_boxplot(
   y_expand = NULL,
   y_labels = NULL,
   y_limits = NULL,
-  y_oob = scales::oob_censor,
+  y_oob = scales::oob_squish,
   y_title = NULL,
   y_zero = NULL,
   y_zero_mid = FALSE,
@@ -180,5 +180,26 @@ A ggplot object.
 Create a boxplot plot with a wrapper around the ggplot2::geom_boxplot function.
 }
 \examples{
+#' library(ggplot2)
+gg_boxplot(mpg, x = class, y = hwy)
+gg_boxplot(mpg, x = hwy, y = class)
+gg_boxplot(mpg, x = hwy, y = class, notch = TRUE)
+gg_boxplot(mpg, x = hwy, y = class, varwidth = TRUE)
+gg_boxplot(mpg, x = hwy, y = class, pal = "#3366FF", fill = "white")
+gg_boxplot(mpg, x = hwy, y = class, outlier.colour = "red", outlier.shape = 1)
+
+gg_boxplot(mpg, x = hwy, y = class, outlier.shape = NA) +
+  geom_jitter(width = 0.2)
+
+gg_boxplot(mpg, x = hwy, y = class, col = drv)
+
+gg_boxplot(diamonds, x = carat, y = price)
+
+gg_boxplot(diamonds, x = carat, y = price)
+
+gg_boxplot(diamonds, carat, price, group = ggplot2::cut_width(carat, 0.25))
+
+gg_boxplot(diamonds, carat, price, group = ggplot2::cut_width(carat, 0.25),
+           outlier.alpha = 0.1)
 
 }

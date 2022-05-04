@@ -29,7 +29,7 @@ gg_bar(
   x_expand = NULL,
   x_labels = NULL,
   x_limits = NULL,
-  x_oob = scales::oob_censor,
+  x_oob = scales::oob_squish,
   x_title = NULL,
   x_zero = NULL,
   x_zero_mid = FALSE,
@@ -39,7 +39,7 @@ gg_bar(
   y_expand = NULL,
   y_labels = NULL,
   y_limits = NULL,
-  y_oob = scales::oob_censor,
+  y_oob = scales::oob_squish,
   y_title = NULL,
   y_zero = NULL,
   y_zero_mid = FALSE,
@@ -180,5 +180,10 @@ A ggplot object.
 Create a bar plot with a wrapper around the ggplot2::geom_bar function.
 }
 \examples{
+library(ggplot2)
+gg_bar(mpg, x = class)
+gg_bar(mpg, y = class)
+gg_bar(mpg, x = class, col = drv)
+gg_bar(mpg, y = class, col = drv, col_legend_place = "t")
 
 }
