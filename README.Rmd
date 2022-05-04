@@ -160,8 +160,3 @@ penguins %>%
     col_intervals = ~santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)))
 ```
 
-```{r}
-simplevis::example_polygon %>% 
-  gg_sf(density)
-```
-

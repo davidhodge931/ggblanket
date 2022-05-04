@@ -22,11 +22,11 @@ Imports:
     magrittr,
     rlang,
     scales,
-    sf,
     snakecase,
     stringr,
     tidyr,
     tidyselect,
     viridis
 Suggests: 
-    palmerpenguins
+    palmerpenguins,
+    sf
