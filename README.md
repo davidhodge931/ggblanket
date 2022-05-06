@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggblanket <img src="man/figures/logo.png" style="float:right; height:139px;">
+# ggblanket <img src="man/figures/logo.png" align="right" width="120" />
 
 <!-- badges: start -->
 
