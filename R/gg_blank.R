@@ -75,7 +75,7 @@
 #'
 #' gg_blank(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group) +
 #'   geom_col(position = dodger, width = 0.75) +
-#'   geom_errorbar(position = dodger, width = 0.2, col = "#'232323")
+#'   geom_errorbar(position = dodger, width = 0.2, col = "#232323")
 #'
 gg_blank <- function(data = NULL,
                           x = NULL,

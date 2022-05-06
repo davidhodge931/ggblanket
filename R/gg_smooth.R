@@ -57,6 +57,21 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#'
+#' gg_smooth(mpg, x = displ, y = hwy)
+#'
+#' gg_smooth(mpg, x = displ, y = hwy) +
+#'   geom_point()
+#'
+#' gg_smooth(mpg, x = hwy, y = displ) +
+#'   geom_point()
+#'
+#' gg_smooth(mpg, x = hwy, y = displ, orientation = "y") +
+#'   geom_point()
+#'
+#' gg_smooth(mpg, x = displ, y = hwy, method = "lm") +
+#'   geom_point()
 #'
 gg_smooth <- function(data = NULL,
                       x = NULL,

@@ -143,7 +143,7 @@ gg_point(
 
 \item{col_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.}
 
-\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, "l" for left, or "m" for a mobile-friendly legend.}
+\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
@@ -174,5 +174,15 @@ A ggplot object.
 Create a point plot with a wrapper around the ggplot2::geom_point function.
 }
 \examples{
+library(ggplot2)
+
+gg_point(mtcars, x = wt, y = mpg)
+gg_point(mtcars, x = wt, y = mpg, col = cyl)
+
+mtcars \%>\%
+  dplyr::mutate(cyl = factor(cyl)) \%>\%
+  gg_point(x = wt, y = mpg, col = cyl, size = 1)
+
+gg_point(diamonds, x = carat, y = price, alpha = 0.01)
 
 }

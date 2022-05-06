@@ -59,6 +59,17 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#'
+#' df <- data.frame(
+#'   x = rep(c(2, 5, 7, 9, 12), 2),
+#'   y = rep(c(1, 2), each = 5),
+#'   z = factor(rep(1:5, each = 2)),
+#'   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
+#' )
+#'
+#' gg_tile(df, x = x, y = y, col = z)
+#' gg_tile(df, x = x, y = y, width = w, col = z)
 #'
 gg_tile <- function(data = NULL,
                     x = NULL,

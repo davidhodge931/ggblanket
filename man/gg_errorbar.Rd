@@ -158,7 +158,7 @@ gg_errorbar(
 
 \item{col_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.}
 
-\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, "l" for left, or "m" for a mobile-friendly legend.}
+\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
@@ -189,5 +189,30 @@ A ggplot object.
 Create a errorbar plot with a wrapper around the ggplot2::geom_errorbar function.
 }
 \examples{
+library(ggplot2)
+
+df <- data.frame(
+  trt = factor(c(1, 1, 2, 2)),
+  resp = c(1, 5, 3, 4),
+  group = factor(c(1, 2, 1, 2)),
+  upper = c(1.1, 5.3, 3.3, 4.2),
+  lower = c(0.8, 4.6, 2.4, 3.6)
+)
+
+gg_errorbar(df, x = trt, ymin = lower, ymax = upper, col = group)
+gg_errorbar(df, y = trt, xmin = lower, xmax = upper, col = group)
+
+gg_errorbar(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group) +
+  geom_line(aes(group = group)) +
+  geom_point()
+
+dodger <- position_dodge(width = 0.75)
+
+gg_blank(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group) +
+  geom_col(position = dodger, width = 0.75) +
+  geom_errorbar(aes(x = trt, ymin = lower, ymax = upper, group = group),
+                inherit.aes = FALSE,
+                position = dodger,
+                width = 0.1)
 
 }

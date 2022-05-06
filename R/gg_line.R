@@ -57,6 +57,11 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#' gg_line(economics, x = date, y = unemploy)
+#' gg_line(economics, x = date, y = unemploy, linetype = 2)
+#' gg_line(economics_long, x = date, y = value01, col = variable)
+#' gg_line(economics, x = unemploy, y = date, orientation = "y")
 #'
 gg_line <- function(data = NULL,
                     x = NULL,

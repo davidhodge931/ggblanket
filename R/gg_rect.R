@@ -61,6 +61,18 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#'
+#' df <- data.frame(
+#'   x = rep(c(2, 5, 7, 9, 12), 2),
+#'   y = rep(c(1, 2), each = 5),
+#'   z = factor(rep(1:5, each = 2)),
+#'   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
+#' )
+#'
+#' df %>%
+#'   dplyr::mutate(xmin = x - w / 2, xmax = x + w / 2, ymin = y, ymax = y + 1) %>%
+#'   gg_rect(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, col = z)
 #'
 gg_rect <- function(data = NULL,
                     xmin = NULL,
@@ -131,9 +143,6 @@ gg_rect <- function(data = NULL,
   xmax <- rlang::enquo(xmax)
   ymin <- rlang::enquo(ymin)
   ymax <- rlang::enquo(ymax)
-
-  label <- rlang::enquo(label)
-  sample <- rlang::enquo(sample)
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")

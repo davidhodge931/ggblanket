@@ -11,7 +11,7 @@ gg_freqpoly(
   col = NULL,
   facet = NULL,
   group = NULL,
-  stat = "identity",
+  stat = "bin",
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
@@ -146,7 +146,7 @@ gg_freqpoly(
 
 \item{col_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.}
 
-\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, "l" for left, or "m" for a mobile-friendly legend.}
+\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
@@ -177,5 +177,11 @@ A ggplot object.
 Create a freqpoly plot with a wrapper around the ggplot2::geom_freqpoly function.
 }
 \examples{
+library(ggplot2)
+gg_freqpoly(diamonds, x = carat)
+gg_freqpoly(diamonds, x = carat, binwidth = 0.01)
+gg_freqpoly(diamonds, x = carat, bins = 200)
+gg_freqpoly(diamonds, y = carat)
+gg_freqpoly(diamonds, x = price, col = cut)
 
 }

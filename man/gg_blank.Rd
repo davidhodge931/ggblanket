@@ -155,7 +155,7 @@ gg_blank(
 
 \item{col_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.}
 
-\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, "l" for left, or "m" for a mobile-friendly legend.}
+\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
@@ -200,6 +200,6 @@ dodger <- position_dodge(width = 0.75)
 
 gg_blank(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group) +
   geom_col(position = dodger, width = 0.75) +
-  geom_errorbar(position = dodger, width = 0.2, col = "#'232323")
+  geom_errorbar(position = dodger, width = 0.2, col = "#232323")
 
 }

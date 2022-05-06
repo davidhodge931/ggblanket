@@ -58,6 +58,19 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#'
+#' gg_histogram(diamonds, x = carat)
+#' gg_histogram(diamonds, x = carat, binwidth = 0.01)
+#' gg_histogram(diamonds, x = carat, bins = 200)
+#' gg_histogram(diamonds, y = carat)
+#'
+#' gg_histogram(diamonds, x = price, col = cut)
+#' gg_histogram(diamonds, x = price, col = cut, position = "fill")
+#'
+#' gg_histogram(economics_long, x = value, facet = variable,
+#'              binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)),
+#'              facet_scales = "free_x")
 #'
 gg_histogram <- function(data = NULL,
                          x = NULL,

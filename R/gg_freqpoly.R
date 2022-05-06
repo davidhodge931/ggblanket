@@ -58,6 +58,12 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#' gg_freqpoly(diamonds, x = carat)
+#' gg_freqpoly(diamonds, x = carat, binwidth = 0.01)
+#' gg_freqpoly(diamonds, x = carat, bins = 200)
+#' gg_freqpoly(diamonds, y = carat)
+#' gg_freqpoly(diamonds, x = price, col = cut)
 #'
 gg_freqpoly <- function(data = NULL,
                         x = NULL,
@@ -65,7 +71,7 @@ gg_freqpoly <- function(data = NULL,
                         col = NULL,
                         facet = NULL,
                         group = NULL,
-                        stat = "identity",
+                        stat = "bin",
                         position = "identity",
                         pal = NULL,
                         pal_na = "#7F7F7F",

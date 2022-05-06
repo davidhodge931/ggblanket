@@ -146,7 +146,7 @@ gg_histogram(
 
 \item{col_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.}
 
-\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, "l" for left, or "m" for a mobile-friendly legend.}
+\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
@@ -177,5 +177,18 @@ A ggplot object.
 Create a histogram plot with a wrapper around the ggplot2::geom_histogram function.
 }
 \examples{
+library(ggplot2)
+
+gg_histogram(diamonds, x = carat)
+gg_histogram(diamonds, x = carat, binwidth = 0.01)
+gg_histogram(diamonds, x = carat, bins = 200)
+gg_histogram(diamonds, y = carat)
+
+gg_histogram(diamonds, x = price, col = cut)
+gg_histogram(diamonds, x = price, col = cut, position = "fill")
+
+gg_histogram(economics_long, x = value, facet = variable,
+             binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)),
+             facet_scales = "free_x")
 
 }

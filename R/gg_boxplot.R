@@ -59,7 +59,7 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' #' library(ggplot2)
+#' library(ggplot2)
 #' gg_boxplot(mpg, x = class, y = hwy)
 #' gg_boxplot(mpg, x = hwy, y = class)
 #' gg_boxplot(mpg, x = hwy, y = class, notch = TRUE)

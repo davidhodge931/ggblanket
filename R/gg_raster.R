@@ -57,6 +57,12 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#'
+#' gg_raster(faithfuld, x = waiting, y = eruptions, col = density)
+#'
+#' gg_raster(faithfuld, x = waiting, y = eruptions, col = density,
+#'           x_limits = c(NA, NA), y_limits = c(NA, NA))
 #'
 gg_raster <- function(data = NULL,
                       x = NULL,

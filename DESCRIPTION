@@ -11,6 +11,7 @@ Description: ggblanket is a package of wrapper functions around the
      such that they can move between the two packages as needed.
 License: MIT + file LICENSE
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports: 

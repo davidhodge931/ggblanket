@@ -57,6 +57,16 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#'
+#' gg_point(mtcars, x = wt, y = mpg)
+#' gg_point(mtcars, x = wt, y = mpg, col = cyl)
+#'
+#' mtcars %>%
+#'   dplyr::mutate(cyl = factor(cyl)) %>%
+#'   gg_point(x = wt, y = mpg, col = cyl, size = 1)
+#'
+#' gg_point(diamonds, x = carat, y = price, alpha = 0.01)
 #'
 gg_point <- function(data = NULL,
                      x = NULL,

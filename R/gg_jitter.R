@@ -57,6 +57,11 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#' gg_jitter(mpg, x = cyl, y = hwy)
+#' gg_jitter(mpg, x = cyl, y = hwy, col = class)
+#' gg_jitter(mpg, x = cyl, y = hwy, col = class,
+#'           position = position_jitter(width = 0.25))
 #'
 gg_jitter <- function(data = NULL,
                       x = NULL,

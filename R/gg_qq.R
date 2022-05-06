@@ -58,6 +58,11 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#' df <- data.frame(y = rt(200, df = 5))
+#'
+#' gg_qq(df, sample = y, distribution = stats::qnorm) +
+#'   geom_qq_line(distribution = stats::qnorm)
 #'
 gg_qq <- function(data = NULL,
                   sample = NULL,

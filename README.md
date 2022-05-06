@@ -151,16 +151,28 @@ penguins %>%
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
 ``` r
+penguins %>% 
+  gg_boxplot(
+    x = sex,
+    y = body_mass_g, 
+    col = species, 
+    facet = species)
+```
+
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+
+``` r
 penguins %>%
   gg_jitter(
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
     col_intervals = ~santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
-    position = position_jitter(width = 0.2, height = 0))
+    position = position_jitter(width = 0.2, height = 0, seed = 123), 
+    y_zero = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
 
 ``` r
 df <- data.frame(
@@ -178,4 +190,12 @@ gg_blank(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group) +
   geom_errorbar(position = dodger, width = 0.2, col = "#232323")
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
+
+``` r
+library(ggplot2)
+ggplot(mpg, aes(displ, hwy, colour = class)) + 
+  geom_point()
+```
+
+<img src="man/figures/README-unnamed-chunk-13-1.png" width="100%" />

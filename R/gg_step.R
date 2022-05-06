@@ -57,6 +57,9 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#' recent <- economics[economics$date > as.Date("2013-01-01"), ]
+#' gg_step(recent, x = date, y = unemploy)
 #'
 gg_step <- function(data = NULL,
                     x = NULL,

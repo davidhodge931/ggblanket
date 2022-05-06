@@ -58,6 +58,9 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#' gg_label(mtcars, wt, mpg, label = rownames(mtcars))
+#' gg_label(mtcars, wt, mpg, label = rownames(mtcars), alpha = 0.1)
 #'
 gg_label <- function(data = NULL,
                      x = NULL,

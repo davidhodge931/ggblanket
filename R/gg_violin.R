@@ -59,6 +59,10 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#' mtcars %>%
+#'   dplyr::mutate(cyl = as.factor(cyl)) %>%
+#'   gg_violin(x = cyl, y = mpg)
 #'
 gg_violin <- function(data = NULL,
                       x = NULL,

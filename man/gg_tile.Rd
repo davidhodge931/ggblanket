@@ -149,7 +149,7 @@ gg_tile(
 
 \item{col_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.}
 
-\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, "l" for left, or "m" for a mobile-friendly legend.}
+\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
@@ -180,5 +180,16 @@ A ggplot object.
 Create a tile plot with a wrapper around the ggplot2::geom_tile function.
 }
 \examples{
+library(ggplot2)
+
+df <- data.frame(
+  x = rep(c(2, 5, 7, 9, 12), 2),
+  y = rep(c(1, 2), each = 5),
+  z = factor(rep(1:5, each = 2)),
+  w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
+)
+
+gg_tile(df, x = x, y = y, col = z)
+gg_tile(df, x = x, y = y, width = w, col = z)
 
 }

@@ -58,6 +58,8 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#' gg_text(mtcars, wt, mpg, label = rownames(mtcars), size = 2.5)
 #'
 gg_text <- function(data = NULL,
                     x = NULL,

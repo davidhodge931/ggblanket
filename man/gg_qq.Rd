@@ -146,7 +146,7 @@ gg_qq(
 
 \item{col_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.}
 
-\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, "l" for left, or "m" for a mobile-friendly legend.}
+\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
@@ -177,5 +177,10 @@ A ggplot object.
 Create a qq plot with a wrapper around the ggplot2::geom_qq function.
 }
 \examples{
+library(ggplot2)
+df <- data.frame(y = rt(200, df = 5))
+
+gg_qq(df, sample = y, distribution = stats::qnorm) +
+  geom_qq_line(distribution = stats::qnorm)
 
 }
