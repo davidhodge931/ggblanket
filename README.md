@@ -1,14 +1,20 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<img src="man/figures/logo.png" align="right" height="139" />
-
-# ggblanket
+# ggblanket <img src="man/figures/logo.png" style="float:right; height:139px;">
 
 <!-- badges: start -->
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ggblanket)](https://CRAN.R-project.org/package=ggblanket)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/ggblanket?color=lightgrey)](https://r-pkg.org/pkg/ggblanket)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/last-month/ggblanket?color=lightgrey)](https://r-pkg.org/pkg/ggblanket)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/last-week/ggblanket?color=lightgrey)](https://r-pkg.org/pkg/ggblanket)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/last-day/ggblanket?color=lightgrey)](https://r-pkg.org/pkg/ggblanket)
 <!-- badges: end -->
 
 ## Overview
@@ -16,15 +22,10 @@ status](https://www.r-pkg.org/badges/version/ggblanket)](https://CRAN.R-project.
 {ggblanket} is a package of wrapper functions around the amazing
 {ggplot2} package.
 
-Hence the blanket metaphor.
+The primary objective of the package is to **make beautiful {ggplot2}
+visualisation simpler**.
 
-The primary objective of the package is to help users make beautiful
-{ggplot2} visualisation simpler.
-
-A secondary objective is to help users build intuition for {ggplot2},
-such that they can move between the two packages as needed.
-
-With these objectives in mind, the ggblanket package:
+With this objective in mind, the ggblanket package:
 
 -   uses quick functions that wrap around a single geom
 -   merges col and fill aesthetics into a single col aesthetic
@@ -35,15 +36,18 @@ With these objectives in mind, the ggblanket package:
 -   converts titles and labels to sentence case and comma format by
     default
 -   provides arguments for scale adjustment and legend placement
--   changes default colours, alphas, widths and themes
 -   allows users to access all other non-aesthetic geom functionality
--   keeps all stat and position arguments consistent with the applicable
-    geom’s
+-   changes default colours, alphas, widths and themes
 
 ## Installation
 
-You can install the development version of ggblanket from
-[GitHub](https://github.com/) with:
+Install either from CRAN with:
+
+``` r
+install.packages("ggblanket")
+```
+
+Or install the development version with:
 
 ``` r
 # install.packages("devtools")
@@ -191,11 +195,3 @@ gg_blank(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group) +
 ```
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
-
-``` r
-library(ggplot2)
-ggplot(mpg, aes(displ, hwy, colour = class)) + 
-  geom_point()
-```
-
-<img src="man/figures/README-unnamed-chunk-13-1.png" width="100%" />

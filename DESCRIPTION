@@ -5,10 +5,8 @@ Authors@R:
     person(given = "David",family = "Hodge", email = "davidhodge931@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-3868-7501"))
 Description: ggblanket is a package of wrapper functions around the
-    amazing ggplot2 package. Hence the blanket metaphor. The primary objective 
-    of the package is to help users make beautiful ggplot2 visualisation 
-    simpler. A secondary objective is to help users build intuition for ggplot2, 
-     such that they can move between the two packages as needed.
+    amazing ggplot2 package. The primary objective of the package is to help   
+    make beautiful ggplot2 visualisation simpler. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
