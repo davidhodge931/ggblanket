@@ -14,7 +14,6 @@
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param size Size. A number 0 upwards.
 #' @param width Width. A number 0 upwards.
-#' @param bins Number of bins. An integer 0 upwards.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
@@ -76,7 +75,6 @@ gg_col <- function(data = NULL,
                    alpha = 0.9,
                    size = 0.5,
                    width = NULL,
-                   bins = 40,
                    ...,
                    title = NULL,
                    subtitle = NULL,
@@ -479,7 +477,6 @@ gg_col <- function(data = NULL,
       alpha = alpha,
       size = size,
       width = width,
-      bins = bins,
       ...
     )
 

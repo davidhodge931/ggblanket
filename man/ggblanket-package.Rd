@@ -10,6 +10,14 @@
 
 ggblanket is a package of wrapper functions around the amazing ggplot2 package. The primary objective of the package is to help make beautiful ggplot2 visualisation simpler.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/davidhodge931/ggblanket/}
+  \item \url{https://davidhodge931.github.io/ggblanket/}
+}
+
+}
 \author{
 \strong{Maintainer}: David Hodge \email{davidhodge931@gmail.com} (\href{https://orcid.org/0000-0002-3868-7501}{ORCID})
 

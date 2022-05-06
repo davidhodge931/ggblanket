@@ -73,14 +73,14 @@ penguins %>%
   geom_histogram(aes(x = body_mass_kg)) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
 
 ``` r
 penguins %>% 
   gg_histogram(x = body_mass_kg) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
 penguins %>%
@@ -95,7 +95,7 @@ penguins %>%
   theme(legend.position = "bottom")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
 
 ``` r
 penguins %>%
@@ -111,7 +111,7 @@ penguins %>%
   )
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
 Other nice graphs
 
@@ -125,7 +125,7 @@ penguins %>%
     pal = pals::brewer.dark2(3))
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
 storms %>% 
@@ -142,7 +142,7 @@ storms %>%
   geom_point()
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
 penguins %>% 
@@ -152,7 +152,7 @@ penguins %>%
     facet = species)
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
 penguins %>% 
@@ -163,7 +163,7 @@ penguins %>%
     facet = species)
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
 penguins %>%
@@ -176,7 +176,7 @@ penguins %>%
     y_zero = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
+![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
 
 ``` r
 df <- data.frame(
@@ -194,4 +194,4 @@ gg_blank(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group) +
   geom_errorbar(position = dodger, width = 0.2, col = "#232323")
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
+![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->

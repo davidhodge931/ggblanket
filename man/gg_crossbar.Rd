@@ -22,7 +22,6 @@ gg_crossbar(
   alpha = 0.5,
   size = 0.5,
   width = NULL,
-  bins = 40,
   ...,
   title = NULL,
   subtitle = NULL,
@@ -100,8 +99,6 @@ gg_crossbar(
 \item{size}{Size. A number 0 upwards.}
 
 \item{width}{Width. A number 0 upwards.}
-
-\item{bins}{Number of bins. An integer 0 upwards.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
