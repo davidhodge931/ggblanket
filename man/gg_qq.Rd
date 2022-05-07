@@ -17,7 +17,7 @@ gg_qq(
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 1,
-  size = 0.5,
+  size = 1.5,
   ...,
   title = NULL,
   subtitle = NULL,

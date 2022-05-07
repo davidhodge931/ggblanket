@@ -71,7 +71,8 @@
 #'   lower = c(0.8, 4.6, 2.4, 3.6)
 #' )
 #'
-#' gg_pointrange(df, x = trt, y = resp, col = group, ymin = lower, ymax = upper)
+#' gg_pointrange(df, x = trt, y = resp, col = group, ymin = lower, ymax = upper,
+#'              position = position_dodge(width = 0.2))
 #'
 gg_pointrange <- function(data = NULL,
                           x = NULL,

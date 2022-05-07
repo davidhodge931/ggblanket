@@ -15,8 +15,6 @@
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
-#' @param alpha Opacity. A number between 0 and 1.
-#' @param size Size. A number 0 upwards.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
@@ -91,8 +89,6 @@ gg_blank <- function(data = NULL,
                           position = "identity",
                           pal = NULL,
                           pal_na = "#7F7F7F",
-                          alpha = 1,
-                          size = 0.5,
                           ...,
                           title = NULL,
                           subtitle = NULL,
@@ -525,8 +521,6 @@ gg_blank <- function(data = NULL,
     ggplot2::geom_blank(
       stat = stat,
       position = position,
-      alpha = alpha,
-      size = size,
       ...
     )
 

@@ -196,6 +196,7 @@ df <- data.frame(
   lower = c(0.8, 4.6, 2.4, 3.6)
 )
 
-gg_linerange(df, x = trt, ymin = lower, ymax = upper, col = group)
+gg_linerange(df, x = trt, ymin = lower, ymax = upper, col = group,
+             position = position_dodge(width = 0.2))
 
 }
