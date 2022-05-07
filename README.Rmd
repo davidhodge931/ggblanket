@@ -137,6 +137,7 @@ storms %>%
           title = "USA average storm wind speed, 1975-2020",
           subtitle = "Storms are stormy", 
           y_title = "Wind speed (knots)", 
+          caption = "Source: NOAA",
           theme = gg_theme(y_grid = TRUE)) +
   geom_point()
 ```

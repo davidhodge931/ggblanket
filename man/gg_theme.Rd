@@ -9,18 +9,22 @@ gg_theme(
   font_title = NULL,
   font_subtitle = NULL,
   font_body = NULL,
+  font_caption = NULL,
   size_title = 11,
   size_subtitle = 10,
   size_body = 10,
+  size_caption = 9,
   size_axis = 0.3,
   size_ticks = 0.3,
   size_grid = 0.2,
   style_title = "bold",
   style_subtitle = "plain",
   style_body = "plain",
+  style_caption = "plain",
   pal_title = "#000000",
   pal_subtitle = "#323232",
   pal_body = "#323232",
+  pal_caption = "#7F7F7F",
   pal_axis = "#323232",
   pal_ticks = "#323232",
   pal_background = c("#ffffff", "#ffffff"),
@@ -37,13 +41,17 @@ gg_theme(
 
 \item{font_subtitle}{The font for the subtitle. If NULL, inherits from font argument.}
 
-\item{font_body}{The font for the subtitle. If NULL, inherits from font argument.}
+\item{font_body}{The font for all text other than the title, subtitle and caption. If NULL, inherits from font argument.}
+
+\item{font_caption}{The font for the caption. If NULL, inherits from font argument.}
 
 \item{size_title}{The size of the title font. Defaults to 11.}
 
 \item{size_subtitle}{The size of the subtitle font. Defaults to 10.}
 
-\item{size_body}{The size of all text other than the title or subtitle. Defaults to 10.}
+\item{size_body}{The size of all text other than the title, subtitle and caption. Defaults to 10.}
+
+\item{size_caption}{The size of the caption. Defaults to 9.}
 
 \item{size_axis}{The size of the axis. Defaults to 0.3.}
 
@@ -55,13 +63,17 @@ gg_theme(
 
 \item{style_subtitle}{The style of the subtitle font. Defaults to "plain".}
 
-\item{style_body}{The style of all text other than the title or subtitle. Defaults to "plain".}
+\item{style_body}{The style of all text other than the title, subtitle or caption. Defaults to "plain".}
+
+\item{style_caption}{The style of the caption. Defaults to "plain".}
 
 \item{pal_title}{The colour palette for the title font. Defaults to "#000000".}
 
 \item{pal_subtitle}{The colour palette for the subtitle font. Defaults to "#323232".}
 
-\item{pal_body}{The colour palette for all text other than the title or subtitle. Defaults to "#323232".}
+\item{pal_body}{The colour palette for all text other than the title, subtitle or caption. Defaults to "#323232".}
+
+\item{pal_caption}{The colour palette for the caption. Defaults to "#7F7F7F".}
 
 \item{pal_axis}{The colour palette for the axis. Defaults to "#323232".}
 

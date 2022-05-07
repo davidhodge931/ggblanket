@@ -4,19 +4,23 @@
 #' @param font The font for all text to use. Defaults to "".
 #' @param font_title The font for the title. If NULL, inherits from font argument.
 #' @param font_subtitle The font for the subtitle. If NULL, inherits from font argument.
-#' @param font_body The font for the subtitle. If NULL, inherits from font argument.
+#' @param font_body The font for all text other than the title, subtitle and caption. If NULL, inherits from font argument.
+#' @param font_caption The font for the caption. If NULL, inherits from font argument.
 #' @param size_title The size of the title font. Defaults to 11.
 #' @param size_subtitle The size of the subtitle font. Defaults to 10.
-#' @param size_body The size of all text other than the title or subtitle. Defaults to 10.
+#' @param size_body The size of all text other than the title, subtitle and caption. Defaults to 10.
+#' @param size_caption The size of the caption. Defaults to 9.
 #' @param size_axis The size of the axis. Defaults to 0.3.
 #' @param size_ticks The size of the ticks. Defaults to 0.3.
 #' @param size_grid The size of the vertical major gridlines. Defaults to 0.2.
 #' @param style_title The style of the title font. Defaults to "bold".
 #' @param style_subtitle The style of the subtitle font. Defaults to "plain".
-#' @param style_body The style of all text other than the title or subtitle. Defaults to "plain".
+#' @param style_body The style of all text other than the title, subtitle or caption. Defaults to "plain".
+#' @param style_caption The style of the caption. Defaults to "plain".
 #' @param pal_title The colour palette for the title font. Defaults to "#000000".
 #' @param pal_subtitle The colour palette for the subtitle font. Defaults to "#323232".
-#' @param pal_body The colour palette for all text other than the title or subtitle. Defaults to "#323232".
+#' @param pal_body The colour palette for all text other than the title, subtitle or caption. Defaults to "#323232".
+#' @param pal_caption The colour palette for the caption. Defaults to "#7F7F7F".
 #' @param pal_axis The colour palette for the axis. Defaults to "#323232".
 #' @param pal_ticks The colour palette for the ticks. Defaults to "#323232".
 #' @param pal_background A two colour vector. The first colour if for the panel (and legend key). The second colour is for the rest of the background.
@@ -33,18 +37,22 @@ gg_theme <-
            font_title = NULL,
            font_subtitle = NULL,
            font_body = NULL,
+           font_caption = NULL,
            size_title = 11,
            size_subtitle = 10,
            size_body = 10,
+           size_caption = 9,
            size_axis = 0.3,
            size_ticks = 0.3,
            size_grid = 0.2,
            style_title = "bold",
            style_subtitle = "plain",
            style_body = "plain",
+           style_caption = "plain",
            pal_title = "#000000",
            pal_subtitle = "#323232",
            pal_body = "#323232",
+           pal_caption = "#7F7F7F",
            pal_axis = "#323232",
            pal_ticks = "#323232",
            pal_background = c("#ffffff", "#ffffff"),
@@ -66,7 +74,7 @@ gg_theme <-
           axis.title.x = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = ggplot2::margin(t = size_body / 1.33)),
           axis.title.y = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, angle = 90, margin = ggplot2::margin(r = size_body)),
           legend.title = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 0, vjust = 0.5),
-          plot.caption = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 1, margin = ggplot2::margin(t = size_body)),
+          plot.caption = ggplot2::element_text(family = font_caption, size = size_caption, colour = pal_caption, face = style_caption, hjust = 1, margin = ggplot2::margin(t = size_caption)),
           axis.text.x = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = ggplot2::margin(t = 2)),
           axis.text.y = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 1, margin = ggplot2::margin(r = 2)),
           strip.text = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 0.5, margin = ggplot2::margin(b = size_body / 2)),
@@ -106,7 +114,7 @@ gg_theme <-
           axis.title.x = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = ggplot2::margin(t = size_body / 1.33)),
           axis.title.y = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, angle = 90, margin = ggplot2::margin(r = size_body)),
           legend.title = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 0, vjust = 0.5),
-          plot.caption = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 1, margin = ggplot2::margin(t = size_body)),
+          plot.caption = ggplot2::element_text(family = font_caption, size = size_caption, colour = pal_caption, face = style_caption, hjust = 1, margin = ggplot2::margin(t = size_caption)),
           axis.text.x = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = ggplot2::margin(t = 2)),
           axis.text.y = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 1, margin = ggplot2::margin(r = 2)),
           strip.text = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 0.5, margin = ggplot2::margin(b = size_body / 2)),
@@ -148,7 +156,7 @@ gg_theme <-
           axis.title.x = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = ggplot2::margin(t = size_body / 1.33)),
           axis.title.y = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, angle = 90, margin = ggplot2::margin(r = size_body)),
           legend.title = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 0, vjust = 0.5),
-          plot.caption = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 1, margin = ggplot2::margin(t = size_body)),
+          plot.caption = ggplot2::element_text(family = font_caption, size = size_caption, colour = pal_caption, face = style_caption, hjust = 1, margin = ggplot2::margin(t = size_caption)),
           axis.text.x = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = ggplot2::margin(t = 2)),
           axis.text.y = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 1, margin = ggplot2::margin(r = 2)),
           strip.text = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 0.5, margin = ggplot2::margin(b = size_body / 2)),
@@ -188,7 +196,7 @@ gg_theme <-
           axis.title.x = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = ggplot2::margin(t = size_body / 1.33)),
           axis.title.y = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, angle = 90, margin = ggplot2::margin(r = size_body)),
           legend.title = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 0, vjust = 0.5),
-          plot.caption = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 1, margin = ggplot2::margin(t = size_body)),
+          plot.caption = ggplot2::element_text(family = font_caption, size = size_caption, colour = pal_caption, face = style_caption, hjust = 1, margin = ggplot2::margin(t = size_caption)),
           axis.text.x = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, margin = ggplot2::margin(t = 2)),
           axis.text.y = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 1, margin = ggplot2::margin(r = 2)),
           strip.text = ggplot2::element_text(family = font_body, size = size_body, colour = pal_body, face = style_body, hjust = 0.5, margin = ggplot2::margin(b = size_body / 2)),
