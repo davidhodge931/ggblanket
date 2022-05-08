@@ -22,8 +22,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-day/ggblanket?color=lightgrey)
 {ggblanket} is a package of wrapper functions around the amazing
 {ggplot2} package.
 
-The primary objective of the package is to **make beautiful {ggplot2}
-visualisation simpler**.
+The objective is to **make beautiful {ggplot2} visualisation simpler**.
 
 With this in mind, the {ggblanket} package:
 
@@ -196,3 +195,8 @@ gg_blank(df, x = resp, xmin = lower, xmax = upper, y = trt, col = group) +
 ```
 
 ![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
+
+## Website
+
+Click [here](https://davidhodge931.github.io/ggblanket/) for the
+{ggblanket} website.
