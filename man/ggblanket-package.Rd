@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-ggblanket is a package of wrapper functions around the amazing ggplot2 package. The primary objective of the package is to help make beautiful ggplot2 visualisation simpler.
+ggblanket is a package of wrapper functions around the amazing ggplot2 package. The primary objective of the package is to make beautiful ggplot2 visualisation simpler.
 }
 \seealso{
 Useful links:

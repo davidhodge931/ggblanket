@@ -60,15 +60,14 @@ devtools::install_github("davidhodge931/ggblanket")
 library(dplyr)
 library(ggplot2)
 library(ggblanket)
-library(palmerpenguins)
 
-penguins <- penguins %>% 
+penguins2 <- palmerpenguins::penguins %>% 
   tidyr::drop_na() %>% 
   mutate(body_mass_kg = body_mass_g / 1000) 
 ```
 
 ``` r
-penguins %>% 
+penguins2 %>% 
   ggplot() +
   geom_histogram(aes(x = body_mass_kg)) 
 ```
@@ -76,14 +75,14 @@ penguins %>%
 ![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
 
 ``` r
-penguins %>% 
+penguins2 %>% 
   gg_histogram(x = body_mass_kg) 
 ```
 
 ![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
-penguins %>%
+penguins2 %>%
   group_by(species, sex, island) %>%
   summarise(body_mass_kg = mean(body_mass_kg)) %>%
   ggplot() +
@@ -98,7 +97,7 @@ penguins %>%
 ![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
 
 ``` r
-penguins %>%
+penguins2 %>%
   group_by(species, sex, island) %>%
   summarise(body_mass_kg = mean(body_mass_kg)) %>%
   gg_col(
@@ -113,19 +112,7 @@ penguins %>%
 
 ![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
-Other nice graphs
-
-``` r
-penguins %>%
-  gg_histogram(
-    x = body_mass_kg,
-    col = species, 
-    facet = sex, 
-    col_legend_place = "b", 
-    pal = pals::brewer.dark2(3))
-```
-
-![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
+Other examples
 
 ``` r
 storms %>% 
@@ -135,39 +122,29 @@ storms %>%
           y = wind, 
           y_zero = TRUE,
           x_labels = ~.x, 
-          title = "USA average storm wind speed, 1975-2020",
-          subtitle = "Storms are stormy", 
+          title = "Storm wind speed",
+          subtitle = "USA average storm wind speed, 1975\u20132020", 
           y_title = "Wind speed (knots)", 
           caption = "Source: NOAA",
           theme = gg_theme(y_grid = TRUE)) +
   geom_point()
 ```
 
+![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
+
+``` r
+penguins2 %>% 
+  gg_density(
+    x = body_mass_kg, 
+    col = species, 
+    facet = sex, 
+    col_legend_place = "b")
+```
+
 ![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
-penguins %>% 
-  gg_density(
-    y = body_mass_kg, 
-    col = sex, 
-    facet = species)
-```
-
-![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
-
-``` r
-penguins %>% 
-  gg_boxplot(
-    x = sex,
-    y = body_mass_g, 
-    col = species, 
-    facet = species)
-```
-
-![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
-
-``` r
-penguins %>%
+penguins2 %>%
   gg_jitter(
     x = species,
     y = body_mass_g,
@@ -177,7 +154,19 @@ penguins %>%
     y_zero = TRUE)
 ```
 
-![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
+
+``` r
+penguins2 %>%
+  gg_histogram(
+    x = body_mass_kg,
+    col = species, 
+    facet = sex, 
+    col_legend_place = "b", 
+    pal = pals::brewer.dark2(3))
+```
+
+![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
 df <- data.frame(
@@ -190,9 +179,9 @@ df <- data.frame(
 
 dodger <- position_dodge(width = 0.75)
 
-gg_blank(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group) +
-  geom_col(position = dodger, width = 0.75) +
+gg_blank(df, x = resp, xmin = lower, xmax = upper, y = trt, col = group) +
+  geom_col(position = dodger, width = 0.75, alpha = 0.9) +
   geom_errorbar(position = dodger, width = 0.2, col = "#232323")
 ```
 
-![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
