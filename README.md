@@ -25,7 +25,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-day/ggblanket?color=lightgrey)
 The primary objective of the package is to **make beautiful {ggplot2}
 visualisation simpler**.
 
-With this objective in mind, the ggblanket package:
+With this in mind, the {ggblanket} package:
 
 -   uses quick functions that wrap around a single geom
 -   merges col and fill aesthetics into a single col aesthetic
@@ -157,6 +157,17 @@ penguins2 %>%
 ![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
+penguins2 %>% 
+  gg_smooth(
+    x = bill_length_mm,
+    y = flipper_length_mm,
+    col = species,
+    ) 
+```
+
+![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
+
+``` r
 penguins2 %>%
   gg_histogram(
     x = body_mass_kg,
@@ -166,7 +177,7 @@ penguins2 %>%
     pal = pals::brewer.dark2(3))
 ```
 
-![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
 
 ``` r
 df <- data.frame(
@@ -184,4 +195,4 @@ gg_blank(df, x = resp, xmin = lower, xmax = upper, y = trt, col = group) +
   geom_errorbar(position = dodger, width = 0.2, col = "#232323")
 ```
 
-![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->

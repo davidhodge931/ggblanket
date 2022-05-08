@@ -8,7 +8,8 @@ Description: ggblanket is a package of wrapper functions around the amazing
     ggplot2 package. The primary objective of the package is to make beautiful   
     ggplot2 visualisation simpler. 
 License: MIT + file LICENSE
-URL: https://github.com/davidhodge931/ggblanket/, https://davidhodge931.github.io/ggblanket/
+URL: https://github.com/davidhodge931/ggblanket/,
+    https://davidhodge931.github.io/ggblanket/
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

@@ -33,7 +33,7 @@ knitr::opts_chunk$set(
 
 The primary objective of the package is to **make beautiful {ggplot2} visualisation simpler**. 
 
-With this objective in mind, the ggblanket package:
+With this in mind, the {ggblanket} package:
 
 * uses quick functions that wrap around a single geom
 * merges col and fill aesthetics into a single col aesthetic
@@ -148,6 +148,15 @@ penguins2 %>%
     col_intervals = ~santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
     position = position_jitter(width = 0.2, height = 0, seed = 123), 
     y_zero = TRUE)
+```
+
+```{r}
+penguins2 %>% 
+  gg_smooth(
+    x = bill_length_mm,
+    y = flipper_length_mm,
+    col = species,
+    ) 
 ```
 
 ```{r}
