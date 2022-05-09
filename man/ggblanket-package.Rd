@@ -4,11 +4,11 @@
 \name{ggblanket-package}
 \alias{ggblanket}
 \alias{ggblanket-package}
-\title{ggblanket: Wrappers to Make Beautiful ggplot2 Visualisation Simpler}
+\title{ggblanket: Wrappers to Make Beautiful 'ggplot2' Visualisation Simpler}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-ggblanket is a package of wrapper functions around the amazing ggplot2 package. The objective is to make beautiful ggplot2 visualisation simpler.
+Wrapper functions around the amazing 'ggplot2' package with the objective to make beautiful 'ggplot2' visualisation simpler.
 }
 \seealso{
 Useful links:
