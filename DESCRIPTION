@@ -2,8 +2,8 @@ Package: ggblanket
 Title: Wrappers to Make Beautiful 'ggplot2' Visualisation Simpler
 Version: 1.0.0
 Authors@R: 
-    person(given = "David",family = "Hodge", email = "davidhodge931@gmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-3868-7501"))
+    person("David", "Hodge", email = "davidhodge931@gmail.com", 
+           role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3868-7501"))
 Description: Wrapper functions around the amazing 'ggplot2' package with the
     objective to make beautiful 'ggplot2' visualisation simpler. 
 License: MIT + file LICENSE
