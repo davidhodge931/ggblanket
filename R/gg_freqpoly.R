@@ -24,7 +24,7 @@
 #' @param x_expand Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.
 #' @param x_oob A scales::oob_* function for how to deal with out-of-bounds values.
 #' @param x_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
-#' @param x_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.
+#' @param x_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. For a numeric variable, use c(NA, NA) to use the min and max as limits. For a date variable, load lubridate package and use c(NA_Date_, NA_Date_) to use the min and max as limits.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param x_zero For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
 #' @param x_zero_mid For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.
@@ -34,7 +34,7 @@
 #' @param y_expand Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.
 #' @param y_oob A scales::oob_* function for how to deal with out-of-bounds values.
 #' @param y_labels A functiyon to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
-#' @param y_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.
+#' @param y_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. For a numeric variable, use c(NA, NA) to use the min and max as limits. For a date variable, load lubridate package and use c(NA_Date_, NA_Date_) to use the min and max as limits.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_zero For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
 #' @param y_zero_mid For a numeric variable, TRUE or FALSE of whether to put zero in the middle of the axis. Defaults to FALSE.
@@ -686,13 +686,6 @@ gg_freqpoly <- function(data = NULL,
         }
       }
 
-      if (length(class(position)) == 1) {
-        if (position == "fill") x_limits <- c(NA, NA)
-      }
-      else if (class(position)[1] == "PositionFill"){
-        x_limits <- c(NA, NA)
-      }
-
       if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
       if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
     }
@@ -768,13 +761,6 @@ gg_freqpoly <- function(data = NULL,
           }
           y_breaks <- pretty(y_min_max, n = y_breaks_n)
         }
-      }
-
-      if (length(class(position)) == 1) {
-        if (position == "fill") y_limits <- c(NA, NA)
-      }
-      else if (class(position)[1] == "PositionFill"){
-        y_limits <- c(NA, NA)
       }
 
       if (rlang::is_null(y_limits)) y_limits <- c(min(y_breaks), max(y_breaks))

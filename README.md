@@ -22,7 +22,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-day/ggblanket?color=lightgrey)
 {ggblanket} is a package of wrapper functions around the amazing
 {ggplot2} package.
 
-The objective is to **make beautiful {ggplot2} visualisation simpler**.
+The objective is to **simplify beautiful {ggplot2} visualisation**.
 
 With this in mind, the {ggblanket} package:
 
@@ -30,13 +30,14 @@ With this in mind, the {ggblanket} package:
 -   merges col and fill aesthetics into a single col aesthetic
 -   provides colour customisation via a pal argument
 -   treats faceting as an aesthetic
--   pushes x and y limits to the max of the x and y breaks by default
+-   pushes x and y limits to the max of x and y breaks with no expanding
+    by default
 -   arranges horizontal geom y and col labels etc to be in correct order
+-   provides arguments for scale adjustment and legend placement
+-   changes default colours, alphas, widths and themes
 -   converts titles to sentence case by default
 -   converts numeric labels to comma format by default
--   provides arguments for scale adjustment and legend placement
 -   allows users to access all other non-aesthetic geom functionality
--   changes default colours, alphas, widths and themes
 
 ## Installation
 

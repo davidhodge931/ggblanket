@@ -34,7 +34,7 @@ gg_sf(
   facet_ncol = NULL,
   facet_nrow = NULL,
   caption = NULL,
-  theme = NULL
+  theme = gg_theme(void = TRUE)
 )
 }
 \arguments{

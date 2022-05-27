@@ -73,7 +73,7 @@ gg_sf <- function(data = NULL,
                   facet_ncol = NULL,
                   facet_nrow = NULL,
                   caption = NULL,
-                  theme = NULL) {
+                  theme = gg_theme(void = TRUE)) {
 
   #quote
   col <- rlang::enquo(col)
@@ -89,10 +89,6 @@ gg_sf <- function(data = NULL,
   data <- dplyr::ungroup(data)
 
   ###get default NULL values
-  if (rlang::is_null(theme)) {
-    theme <- gg_theme(void = TRUE)
-  }
-
   sf_geometry <- sf::st_geometry_type(data)
 
   if (rlang::is_null(alpha)) {

@@ -103,7 +103,7 @@ gg_point(
 
 \item{x_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
-\item{x_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.}
+\item{x_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. For a numeric variable, use c(NA, NA) to use the min and max as limits. For a date variable, load lubridate package and use c(NA_Date_, NA_Date_) to use the min and max as limits.}
 
 \item{x_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
 
@@ -123,7 +123,7 @@ gg_point(
 
 \item{y_labels}{A functiyon to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
-\item{y_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. Use c(NA, NA) for the min and max.}
+\item{y_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. For a numeric variable, use c(NA, NA) to use the min and max as limits. For a date variable, load lubridate package and use c(NA_Date_, NA_Date_) to use the min and max as limits.}
 
 \item{y_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
 
