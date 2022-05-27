@@ -234,6 +234,7 @@ gg_smooth <- function(data = NULL,
       aesthetics = c("col", "fill")
     )
 
+    if (rlang::is_null(col_title)) col_title
     col_legend_place <- "n"
   }
   else {
@@ -285,7 +286,6 @@ gg_smooth <- function(data = NULL,
           breaks = col_breaks,
           limits = col_limits,
           na.value = pal_na,
-          name = col_title,
           aesthetics = c("col", "fill"),
           guide = ggplot2::guide_colorbar(title.position = col_title_position)
         )
@@ -322,7 +322,6 @@ gg_smooth <- function(data = NULL,
           limits = col_levels,
           labels = col_labels,
           na.value = pal_na,
-          name = col_title,
           aesthetics = c("col", "fill"),
           guide = ggplot2::guide_legend(
             reverse = col_legend_rev,
@@ -375,7 +374,6 @@ gg_smooth <- function(data = NULL,
         limits = col_limits,
         labels = col_labels,
         na.value = pal_na,
-        name = col_title,
         aesthetics = c("col", "fill"),
         guide = ggplot2::guide_legend(
           reverse = col_legend_rev,
@@ -821,6 +819,8 @@ gg_smooth <- function(data = NULL,
       subtitle = subtitle,
       x = x_title,
       y = y_title,
+      col = col_title,
+      fill = col_title,
       caption = caption
     ) +
     theme
