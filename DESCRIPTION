@@ -28,4 +28,5 @@ Imports:
     viridis
 Suggests: 
     palmerpenguins,
+    santoku,
     sf
