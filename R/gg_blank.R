@@ -124,7 +124,7 @@ gg_blank <- function(data = NULL,
                           col_limits = NULL,
                           col_title = NULL,
                           facet_intervals = NULL,
-                          facet_labels = snakecase::to_sentence_case,
+                          facet_labels = NULL,
                           facet_ncol = NULL,
                           facet_nrow = NULL,
                           facet_scales = "fixed",
@@ -382,7 +382,7 @@ gg_blank <- function(data = NULL,
       else col_legend_rev <- FALSE
 
       if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
-      if (rlang::is_null(col_labels)) col_labels <- snakecase::to_sentence_case
+      if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
 
       col_scale <- ggplot2::scale_colour_manual(
         values = pal,
@@ -548,7 +548,7 @@ gg_blank <- function(data = NULL,
   if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
     if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
       if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
-      if (rlang::is_null(x_labels)) x_labels <- snakecase::to_sentence_case
+      if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
 
       x_scale <- ggplot2::scale_x_discrete(expand = x_expand, labels = x_labels)
     }
@@ -618,7 +618,7 @@ gg_blank <- function(data = NULL,
   if (!rlang::quo_is_null(y) & rlang::quo_is_null(x)) {
     if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
       if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
-      if (rlang::is_null(y_labels)) y_labels <- snakecase::to_sentence_case
+      if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
 
       y_scale <- ggplot2::scale_y_discrete(expand = y_expand, labels = y_labels)
     }
@@ -692,7 +692,7 @@ gg_blank <- function(data = NULL,
   ###Make x scale based on layer_data
   if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
     if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
-    if (rlang::is_null(x_labels)) x_labels <- snakecase::to_sentence_case
+    if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
 
     x_scale <- ggplot2::scale_x_discrete(expand = x_expand, labels = x_labels)
   }
@@ -775,7 +775,7 @@ gg_blank <- function(data = NULL,
   ###Make y scale based on layer_data
   if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
     if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
-    if (rlang::is_null(y_labels)) y_labels <- snakecase::to_sentence_case
+    if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
 
     y_scale <- ggplot2::scale_y_discrete(expand = y_expand, labels = y_labels)
   }

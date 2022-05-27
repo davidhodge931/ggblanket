@@ -69,7 +69,7 @@ gg_sf <- function(data = NULL,
                   col_limits = NULL,
                   col_title = NULL,
                   facet_intervals = NULL,
-                  facet_labels = snakecase::to_sentence_case,
+                  facet_labels = NULL,
                   facet_ncol = NULL,
                   facet_nrow = NULL,
                   caption = NULL,
@@ -243,7 +243,7 @@ gg_sf <- function(data = NULL,
       else col_legend_rev <- TRUE
 
       if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
-      if (rlang::is_null(col_labels)) col_labels <- snakecase::to_sentence_case
+      if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
 
       col_scale <- ggplot2::scale_colour_manual(
         values = pal,

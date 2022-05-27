@@ -32,8 +32,8 @@ With this in mind, the {ggblanket} package:
 -   treats faceting as an aesthetic
 -   pushes x and y limits to the max of the x and y breaks by default
 -   arranges horizontal geom y and col labels etc to be in correct order
--   converts titles and labels to sentence case and comma format by
-    default
+-   converts titles to sentence case by default
+-   converts numeric labels to comma format by default
 -   provides arguments for scale adjustment and legend placement
 -   allows users to access all other non-aesthetic geom functionality
 -   changes default colours, alphas, widths and themes
@@ -62,7 +62,8 @@ library(ggblanket)
 
 penguins2 <- palmerpenguins::penguins %>% 
   tidyr::drop_na() %>% 
-  mutate(body_mass_kg = body_mass_g / 1000) 
+  mutate(body_mass_kg = body_mass_g / 1000) %>% 
+  mutate(sex = stringr::str_to_sentence(sex))
 ```
 
 ``` r

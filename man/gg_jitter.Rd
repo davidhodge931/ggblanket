@@ -52,7 +52,7 @@ gg_jitter(
   col_limits = NULL,
   col_title = NULL,
   facet_intervals = NULL,
-  facet_labels = snakecase::to_sentence_case,
+  facet_labels = NULL,
   facet_ncol = NULL,
   facet_nrow = NULL,
   facet_scales = "fixed",
