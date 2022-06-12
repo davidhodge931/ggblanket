@@ -11,6 +11,7 @@ gg_label(
   col = NULL,
   facet = NULL,
   group = NULL,
+  text = NULL,
   label = NULL,
   stat = "identity",
   position = "identity",
@@ -72,7 +73,9 @@ gg_label(
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
-\item{group}{Unquoted group aesthetic variable.}
+\item{group}{Unquoted group aesthetic variable.#'}
+
+\item{text}{Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").}
 
 \item{label}{Unquoted label aesthetic variable.}
 

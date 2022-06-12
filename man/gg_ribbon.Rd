@@ -11,6 +11,7 @@ gg_ribbon(
   col = NULL,
   facet = NULL,
   group = NULL,
+  text = NULL,
   xmin = NULL,
   xmax = NULL,
   ymin = NULL,
@@ -75,7 +76,9 @@ gg_ribbon(
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
-\item{group}{Unquoted group aesthetic variable.}
+\item{group}{Unquoted group aesthetic variable.#'}
+
+\item{text}{Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").}
 
 \item{xmin}{Unquoted xmin aesthetic variable.}
 
