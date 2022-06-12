@@ -6,7 +6,8 @@
 #' @param y Unquoted y aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
-#' @param group Unquoted group aesthetic variable.
+#' @param group Unquoted group aesthetic variable.#'
+#' @param text Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param pal Colours to use. A character vector of hex codes (or names).
@@ -69,6 +70,7 @@ gg_violin <- function(data = NULL,
                       col = NULL,
                       facet = NULL,
                       group = NULL,
+                    text = NULL,
                       stat = "ydensity",
                       position = "dodge",
                       pal = NULL,
@@ -124,6 +126,7 @@ gg_violin <- function(data = NULL,
   col <- rlang::enquo(col)
   facet <- rlang::enquo(facet)
   group <- rlang::enquo(group)
+  text <- rlang::enquo(text)
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required")
@@ -471,6 +474,7 @@ gg_violin <- function(data = NULL,
 
   plot <- plot +
     ggplot2::geom_violin(
+      ggplot2::aes(text = !!text),
       stat = stat,
       position = position,
       alpha = alpha,

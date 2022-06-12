@@ -8,7 +8,8 @@
 #' @param ymax Unquoted ymax aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
-#' @param group Unquoted group aesthetic variable.
+#' @param group Unquoted group aesthetic variable.#'
+#' @param text Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
@@ -82,6 +83,7 @@ gg_rect <- function(data = NULL,
                     col = NULL,
                     facet = NULL,
                     group = NULL,
+                    text = NULL,
                     x = NULL,
                     y = NULL,
                     stat = "identity",
@@ -138,6 +140,7 @@ gg_rect <- function(data = NULL,
   col <- rlang::enquo(col)
   facet <- rlang::enquo(facet)
   group <- rlang::enquo(group)
+  text <- rlang::enquo(text)
 
   xmin <- rlang::enquo(xmin)
   xmax <- rlang::enquo(xmax)
@@ -517,6 +520,7 @@ gg_rect <- function(data = NULL,
 
   plot <- plot +
     ggplot2::geom_rect(
+      ggplot2::aes(text = !!text),
       stat = stat,
       position = position,
       alpha = alpha,
