@@ -9,6 +9,7 @@ gg_sf(
   col = NULL,
   facet = NULL,
   group = NULL,
+  text = NULL,
   stat = "sf",
   position = "identity",
   pal = NULL,
@@ -44,7 +45,9 @@ gg_sf(
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
-\item{group}{Unquoted group aesthetic variable.}
+\item{group}{Unquoted group aesthetic variable.#'}
+
+\item{text}{Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 

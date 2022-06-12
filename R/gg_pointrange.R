@@ -241,10 +241,15 @@ gg_pointrange <- function(data = NULL,
     if (rlang::is_null(pal)) pal <-  pal_viridis_mix(1)
     else pal <- pal[1]
 
-    col_scale <- ggplot2::scale_colour_manual(
-      values = pal,
-      na.value = pal_na,
-      aesthetics = c("col", "fill")
+    col_scale <- list(
+      ggplot2::scale_colour_manual(
+        values = pal,
+        na.value = pal_na,
+      ),
+      ggplot2::scale_fill_manual(
+        values = pal,
+        na.value = pal_na,
+      )
     )
 
     if (rlang::is_null(col_title)) col_title
@@ -293,14 +298,24 @@ gg_pointrange <- function(data = NULL,
         if (rlang::is_null(pal)) pal <- viridis::viridis(100)
         if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
 
-        col_scale <- ggplot2::scale_colour_gradientn(
-          colors = pal,
-          labels = col_labels,
-          breaks = col_breaks,
-          limits = col_limits,
-          na.value = pal_na,
-          aesthetics = c("col", "fill"),
-          guide = ggplot2::guide_colorbar(title.position = col_title_position)
+        col_scale <- list(
+          ggplot2::scale_colour_gradientn(
+            colors = pal,
+            labels = col_labels,
+            breaks = col_breaks,
+            limits = col_limits,
+            na.value = pal_na,
+            guide = ggplot2::guide_colorbar(title.position = col_title_position)
+          ),
+          col_scale <- ggplot2::scale_fill_gradientn(
+            colors = pal,
+            labels = col_labels,
+            breaks = col_breaks,
+            limits = col_limits,
+            na.value = pal_na,
+            guide = ggplot2::guide_colorbar(title.position = col_title_position)
+          )
+
         )
       }
       else { #intervals col
@@ -329,19 +344,35 @@ gg_pointrange <- function(data = NULL,
         if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
         if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
 
-        col_scale <- ggplot2::scale_colour_manual(
-          values = pal,
-          breaks = col_levels,
-          limits = col_levels,
-          labels = col_labels,
-          na.value = pal_na,
-          aesthetics = c("col", "fill"),
-          guide = ggplot2::guide_legend(
-            reverse = col_legend_rev,
-            title.position = col_title_position,
-            ncol = col_legend_ncol,
-            nrow = col_legend_nrow,
-            byrow = TRUE
+        col_scale <- list(
+          ggplot2::scale_colour_manual(
+            values = pal,
+            breaks = col_levels,
+            limits = col_levels,
+            labels = col_labels,
+            na.value = pal_na,
+            guide = ggplot2::guide_legend(
+              reverse = col_legend_rev,
+              title.position = col_title_position,
+              ncol = col_legend_ncol,
+              nrow = col_legend_nrow,
+              byrow = TRUE
+            )
+          ),
+          ggplot2::scale_fill_manual(
+            values = pal,
+            breaks = col_levels,
+            limits = col_levels,
+            labels = col_labels,
+            na.value = pal_na,
+            # aesthetics = c("col", "fill"),
+            guide = ggplot2::guide_legend(
+              reverse = col_legend_rev,
+              title.position = col_title_position,
+              ncol = col_legend_ncol,
+              nrow = col_legend_nrow,
+              byrow = TRUE
+            )
           )
         )
       }
@@ -381,19 +412,33 @@ gg_pointrange <- function(data = NULL,
       if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
       if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
 
-      col_scale <- ggplot2::scale_colour_manual(
-        values = pal,
-        breaks = col_breaks,
-        limits = col_limits,
-        labels = col_labels,
-        na.value = pal_na,
-        aesthetics = c("col", "fill"),
-        guide = ggplot2::guide_legend(
-          reverse = col_legend_rev,
-          title.position = col_title_position,
-          ncol = col_legend_ncol,
-          nrow = col_legend_nrow,
-          byrow = TRUE)
+      col_scale <- list(
+        ggplot2::scale_colour_manual(
+          values = pal,
+          breaks = col_breaks,
+          limits = col_limits,
+          labels = col_labels,
+          na.value = pal_na,
+          guide = ggplot2::guide_legend(
+            reverse = col_legend_rev,
+            title.position = col_title_position,
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow,
+            byrow = TRUE)
+        ),
+        ggplot2::scale_fill_manual(
+          values = pal,
+          breaks = col_breaks,
+          limits = col_limits,
+          labels = col_labels,
+          na.value = pal_na,
+          guide = ggplot2::guide_legend(
+            reverse = col_legend_rev,
+            title.position = col_title_position,
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow,
+            byrow = TRUE)
+        )
       )
     }
   }

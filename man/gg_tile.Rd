@@ -11,6 +11,7 @@ gg_tile(
   col = NULL,
   facet = NULL,
   group = NULL,
+  text = NULL,
   width = NULL,
   height = NULL,
   stat = "identity",
@@ -73,7 +74,9 @@ gg_tile(
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
-\item{group}{Unquoted group aesthetic variable.}
+\item{group}{Unquoted group aesthetic variable.#'}
+
+\item{text}{Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").}
 
 \item{width}{Unquoted width aesthetic variable.}
 

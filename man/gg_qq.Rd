@@ -10,6 +10,7 @@ gg_qq(
   col = NULL,
   facet = NULL,
   group = NULL,
+  text = NULL,
   x = NULL,
   y = NULL,
   stat = "qq",
@@ -70,7 +71,9 @@ gg_qq(
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
-\item{group}{Unquoted group aesthetic variable.}
+\item{group}{Unquoted group aesthetic variable.#'}
+
+\item{text}{Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").}
 
 \item{x}{Unquoted x aesthetic variable.}
 
