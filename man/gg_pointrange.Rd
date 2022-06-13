@@ -22,6 +22,7 @@ gg_pointrange(
   pal_na = "#7F7F7F",
   alpha = 1,
   size = 0.5,
+  fatten = 1,
   ...,
   title = NULL,
   subtitle = NULL,
@@ -99,6 +100,8 @@ gg_pointrange(
 \item{alpha}{Opacity. A number between 0 and 1.}
 
 \item{size}{Size. A number 0 upwards.}
+
+\item{fatten}{A multiplicative factor used to increase the size of the point.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 

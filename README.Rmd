@@ -62,6 +62,11 @@ Or install the development version with:
 # install.packages("devtools")
 devtools::install_github("davidhodge931/ggblanket")
 ```
+
+## Website
+
+Click [here](https://davidhodge931.github.io/ggblanket/) for the {ggblanket} website.
+
 ## Examples
 
 ```{r}
@@ -187,6 +192,15 @@ gg_blank(df, x = resp, xmin = lower, xmax = upper, y = trt, col = group) +
   geom_errorbar(position = dodger, width = 0.2, col = "#232323")
 ```
 
-## Website
+```{r}
+iris %>% 
+  add_tooltip_text() %>% 
+  gg_point(x = Sepal.Width, 
+           y = Sepal.Length, 
+           col = Species, 
+           text = text, 
+           theme = gg_theme("helvetica", x_grid = TRUE, y_grid = TRUE)) %>% 
+  plotly::ggplotly(tooltip = "text")
 
-Click [here](https://davidhodge931.github.io/ggblanket/) for the {ggblanket} website.
+```
+

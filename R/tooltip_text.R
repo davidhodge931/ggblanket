@@ -17,8 +17,7 @@
 #'   head(1)
 add_tooltip_text <- function(data,
                              ...,
-                             rename_with = ~ snakecase::to_sentence_case(.x),
-                             sep = "<br>") {
+                             rename_with = ~ snakecase::to_sentence_case(.x)) {
 
   if (class(data)[1] == "sf") {
     temp_data <- data %>%
@@ -41,8 +40,8 @@ add_tooltip_text <- function(data,
       ~ paste0(dplyr::cur_column(), ": ", .x),
       .names = ".add_{.col}"
     )) %>%
-    tidyr::unite(text, starts_with(".add_"), sep = sep) %>%
-    dplyr::select(text)
+    tidyr::unite("text", tidyselect::starts_with(".add_"), sep = "<br>") %>%
+    dplyr::select("text")
 
   data %>%
     dplyr::bind_cols(temp_data)
