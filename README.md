@@ -54,6 +54,11 @@ Or install the development version with:
 devtools::install_github("davidhodge931/ggblanket")
 ```
 
+## Website
+
+Click [here](https://davidhodge931.github.io/ggblanket/) for the
+{ggblanket} website.
+
 ## Examples
 
 ``` r
@@ -198,7 +203,13 @@ gg_blank(df, x = resp, xmin = lower, xmax = upper, y = trt, col = group) +
 
 ![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
 
-## Website
-
-Click [here](https://davidhodge931.github.io/ggblanket/) for the
-{ggblanket} website.
+``` r
+iris %>% 
+  add_tooltip_text() %>% 
+  gg_point(x = Sepal.Width, 
+           y = Sepal.Length, 
+           col = Species, 
+           text = text, 
+           theme = gg_theme("helvetica", x_grid = TRUE, y_grid = TRUE)) %>% 
+  plotly::ggplotly(tooltip = "text")
+```

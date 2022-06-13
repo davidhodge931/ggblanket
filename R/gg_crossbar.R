@@ -19,7 +19,6 @@
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param size Size. A number 0 upwards.
 #' @param width Width. A number 0 upwards.
-#' @param fatten A multiplicative factor used to increase the size of the middle bar.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
@@ -94,7 +93,6 @@ gg_crossbar <- function(
     pal_na = "#7F7F7F",
     alpha = 0.5,
     size = 0.5,
-    fatten = 1,
     width = NULL,
     ...,
     title = NULL,
@@ -587,7 +585,6 @@ gg_crossbar <- function(
       alpha = alpha,
       size = size,
       width = width,
-      fatten = fatten,
       ...
     )
 

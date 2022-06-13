@@ -22,7 +22,6 @@ gg_crossbar(
   pal_na = "#7F7F7F",
   alpha = 0.5,
   size = 0.5,
-  fatten = 1,
   width = NULL,
   ...,
   title = NULL,
@@ -101,8 +100,6 @@ gg_crossbar(
 \item{alpha}{Opacity. A number between 0 and 1.}
 
 \item{size}{Size. A number 0 upwards.}
-
-\item{fatten}{A multiplicative factor used to increase the size of the middle bar.}
 
 \item{width}{Width. A number 0 upwards.}
 

@@ -192,7 +192,7 @@ gg_blank(df, x = resp, xmin = lower, xmax = upper, y = trt, col = group) +
   geom_errorbar(position = dodger, width = 0.2, col = "#232323")
 ```
 
-```{r}
+```{r, eval = F}
 iris %>% 
   add_tooltip_text() %>% 
   gg_point(x = Sepal.Width, 
@@ -201,6 +201,5 @@ iris %>%
            text = text, 
            theme = gg_theme("helvetica", x_grid = TRUE, y_grid = TRUE)) %>% 
   plotly::ggplotly(tooltip = "text")
-
 ```
 

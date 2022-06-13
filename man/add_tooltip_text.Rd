@@ -27,4 +27,16 @@ iris \%>\%
 iris \%>\%
   add_tooltip_text(Species, tidyselect::contains("Sepal")) \%>\%
   head(1)
+  iris \%>\%
+  add_tooltip_text(Species, tidyselect::contains("Sepal")) \%>\%
+  head(1)
+
+  iris \%>\%
+    add_tooltip_text() \%>\%
+    gg_point(x = Sepal.Width,
+             y = Sepal.Length,
+             col = Species,
+             text = text,
+             theme = gg_theme("helvetica", x_grid = TRUE, y_grid = TRUE)) \%>\%
+    plotly::ggplotly(tooltip = "text")
 }
