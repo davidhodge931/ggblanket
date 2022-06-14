@@ -213,3 +213,5 @@ iris %>%
            theme = gg_theme("helvetica", x_grid = TRUE, y_grid = TRUE)) %>% 
   plotly::ggplotly(tooltip = "text")
 ```
+
+![](man/figures/ggplotly_screenshot.png)

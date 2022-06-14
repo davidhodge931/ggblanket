@@ -203,3 +203,5 @@ iris %>%
   plotly::ggplotly(tooltip = "text")
 ```
 
+![](man/figures/ggplotly_screenshot.png)
+
