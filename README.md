@@ -26,17 +26,19 @@ The objective is to **simplify beautiful {ggplot2} visualisation**.
 
 With this in mind, the {ggblanket} package:
 
--   uses quick functions that wrap around a single geom
--   merges col and fill aesthetics into a single col aesthetic
--   provides colour customisation via a pal argument
--   treats faceting as an aesthetic
--   pushes x and y limits to the max of x and y breaks with no expanding
-    by default
--   arranges horizontal geom y and col labels etc to be in correct order
--   provides quick arguments for scale, title and legend adjustment
--   changes default colours, alphas, widths and themes
--   converts numeric labels to comma format by default
--   allows users to access all other non-aesthetic geom functionality
+1.  uses quick functions that wrap around a single geom
+2.  merges col and fill aesthetics into a single col aesthetic
+3.  provides colour customisation via pal and alpha arguments
+4.  treats faceting as an aesthetic
+5.  provides prefixed arguments for scale, title and legend adjustment
+6.  For numeric or dates, changes default limits to the min/max of x and
+    y breaks with zero expanding
+7.  arranges horizontal geom y and col labels etc to be in correct order
+8.  changes default colours, alphas, widths, themes, and numeric label
+    format
+9.  provides access to all of the relevant geom arg’s through the dots
+    argument
+10. supports ggplotly use.
 
 ## Installation
 
@@ -68,108 +70,46 @@ library(snakecase)
 library(palmerpenguins)
 ```
 
-``` r
-iris %>%
-  ggplot() +
-  geom_point(aes(x = Sepal.Width, y = Sepal.Length, col = Species))
-```
-
-![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
+1.  uses quick functions that wrap around a single geom
 
 ``` r
 iris %>%
   gg_point(x = Sepal.Width, y = Sepal.Length, col = Species)
 ```
 
-![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
+
+2.  merges col and fill aesthetics into a single col aesthetic
 
 ``` r
 penguins %>% 
-  ggplot() +
-  geom_histogram(aes(x = body_mass_g)) 
+  gg_histogram(x = body_mass_g, col = species) 
+```
+
+![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
+
+3.  provides colour customisation via pal and alpha arguments
+
+``` r
+penguins %>% 
+  gg_density(x = body_mass_g, col = species, 
+             pal = pals::brewer.dark2(3), 
+             alpha = 0.5)
 ```
 
 ![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
 
+4.  treats faceting as an aesthetic
+
 ``` r
 penguins %>% 
-  gg_histogram(x = body_mass_g) 
+  tidyr::drop_na() %>% 
+  gg_violin(x = sex, y = body_mass_g, facet = species)
 ```
 
 ![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
-``` r
-penguins %>%
-  tidyr::drop_na() %>%
-  group_by(species, sex, island) %>%
-  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
-  ggplot() +
-  geom_col(aes(x = body_mass_kg, y = forcats::fct_rev(species), fill = sex),
-           position = "dodge", width = 0.75) +
-  facet_wrap(~ island) +
-  theme(legend.position = "bottom") +
-  scale_fill_manual(name = "Sex", 
-                    values = rev(scales::hue_pal()(2)), 
-                    labels = ~ to_sentence_case(.x)) +
-  labs(x = "Body mass kg", y = "Species") 
-```
-
-![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
-
-``` r
-penguins %>%
-  tidyr::drop_na() %>% 
-  group_by(species, sex, island) %>%
-  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
-  gg_col(
-    x = body_mass_kg,
-    y = species,
-    col = sex,
-    facet = island,
-    position = "dodge",
-    col_legend_place = "b",
-    titles = ~to_sentence_case(.x),
-    col_labels = ~to_sentence_case(.x)
-  )
-```
-
-![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
-
-Other examples
-
-``` r
-storms %>% 
-  group_by(year) %>% 
-  summarise(wind = mean(wind, na.rm = TRUE)) %>% 
-  gg_line(x = year, 
-          y = wind, 
-          x_labels = ~.x,
-          y_zero = TRUE,
-          titles = ~ to_sentence_case(.x),
-          title = "Storm wind speed",
-          subtitle = "USA average storm wind speed, 1975\u20132020", 
-          y_title = "Wind speed (knots)", 
-          caption = "Source: NOAA",
-          theme = gg_theme(y_grid = TRUE)) +
-  geom_point()
-```
-
-![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
-
-``` r
-penguins %>% 
-  tidyr::drop_na() %>% 
-  mutate(body_mass_kg = body_mass_g / 1000) %>%
-  gg_density(
-    x = body_mass_kg, 
-    col = species, 
-    facet = sex, 
-    titles = ~ to_sentence_case(.x),
-    facet_labels = ~ to_sentence_case(.x),
-    col_legend_place = "b")
-```
-
-![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
+5.  provides prefixed arguments for scale, title and legend adjustment
 
 ``` r
 penguins %>%
@@ -177,68 +117,112 @@ penguins %>%
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
-    col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
     position = position_jitter(width = 0.2, height = 0, seed = 123), 
+    col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
+    col_legend_place = "b",
     y_zero = TRUE,
-    titles = ~ to_sentence_case(.x)
+    y_breaks_width = 1500,
+    titles = to_sentence_case
     )
 ```
 
-![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
+
+6.  For numeric or dates, changes default limits to the min/max of x and
+    y breaks with zero expanding
+
+This often looks visually very nice. However, it is simple to adjust to
+the {ggplot2} default by applying `*_limits = c(NA, NA)` or
+`c(lubridate::NA_Date_, lubridate::NA_Date_)` in combination with
+`*_expand = c(0.05, 0.05)`.
+
+You can also change the default theme gridlines to make this look more
+balanced.
 
 ``` r
-penguins %>% 
+storms %>% 
+  group_by(year) %>% 
+  summarise(wind = mean(wind, na.rm = TRUE)) %>%
+  gg_line(x = year, 
+          y = wind, 
+          x_labels = ~.x,
+          x_expand = c(0.05, 0.05),
+          x_limits = c(NA, NA),
+          y_zero = TRUE,
+          title = "Storm wind speed",
+          subtitle = "USA average storm wind speed, 1975\u20132020", 
+          x_title = "Year",
+          y_title = "Wind speed (knots)", 
+          caption = "Source: NOAA",
+          theme = gg_theme(y_grid = TRUE)) +
+  geom_point()
+```
+
+![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
+
+7.  arranges horizontal geom y and col labels etc to be in correct order
+
+``` r
+penguins %>%
+  tidyr::drop_na() %>% 
+  group_by(species, sex, island) %>%
+  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
+  gg_col(x = body_mass_kg, y = species, col = sex, facet = island,
+    position = "dodge", 
+    col_legend_place = "b", 
+    titles = to_sentence_case, 
+    col_labels = to_sentence_case)
+```
+
+![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
+
+8.  changes default colours, alphas, widths and themes
+
+``` r
+penguins %>%
+  group_by(species, sex) %>%
+  summarise(across(body_mass_g, ~ round(mean(.x, na.rm = TRUE)), 0)) %>% 
+  gg_tile(sex, species, col = body_mass_g, 
+          titles = to_sentence_case,
+          x_labels = to_sentence_case,
+          pal = pals::brewer.blues(9),
+          width = 0.9, height = 0.9, 
+          theme = gg_theme(pal_axis = "#ffffff", pal_ticks = "#ffffff")) +
+  geom_text(aes(label = body_mass_g), size = 3.5, col = "#232323") 
+```
+
+![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
+
+9.  provides access to all of the relevant geom arg’s through the dots
+    argument
+
+``` r
+penguins %>%
+  tidyr::drop_na() %>% 
   gg_smooth(
     x = bill_length_mm,
     y = flipper_length_mm,
     col = species,
-    titles = ~ to_sentence_case(.x)
+    titles = to_sentence_case,
+    level = 0.99
     ) 
 ```
 
-![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
 
-``` r
-penguins %>%
-  gg_histogram(
-    x = body_mass_g,
-    col = species, 
-    facet = sex, 
-    col_legend_place = "b", 
-    pal = pals::brewer.dark2(3),
-    titles = ~ to_sentence_case(.x),
-    facet_labels = ~ to_sentence_case(.x), 
-    x_labels = ~ .x / 1000, 
-    x_title = "Body mass kg")
-```
+10. supports ggplotly use
 
-![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
-
-``` r
-df <- data.frame(
-  trt = factor(c(1, 1, 2, 2)),
-  resp = c(1, 5, 3, 4),
-  group = factor(c(1, 2, 1, 2)),
-  upper = c(1.1, 5.3, 3.3, 4.2),
-  lower = c(0.8, 4.6, 2.4, 3.6)
-)
-
-dodger <- position_dodge(width = 0.75)
-
-gg_blank(df, x = resp, xmin = lower, xmax = upper, y = trt, col = group) +
-  geom_col(position = dodger, width = 0.75, alpha = 0.9) +
-  geom_errorbar(position = dodger, width = 0.2, col = "#232323")
-```
-
-![](man/figures/README-unnamed-chunk-14-1.png)<!-- -->
+`ggplotly` won’t work in all situations. But it does work a lot of the
+time.
 
 ``` r
 iris %>% 
-  add_tooltip_text(rename_with = snakecase::to_sentence_case) %>% 
+  add_tooltip_text(rename_with = to_sentence_case) %>% 
   gg_point(x = Sepal.Width, 
            y = Sepal.Length, 
            col = Species, 
            text = text, 
+           titles = to_sentence_case,
            theme = gg_theme("helvetica", x_grid = TRUE, y_grid = TRUE)) %>% 
   plotly::ggplotly(tooltip = "text")
 ```

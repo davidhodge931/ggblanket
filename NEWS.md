@@ -1,9 +1,11 @@
 # ggblanket 1.1.9000
 
-* Support for ggplotly.
-* New add_plotly_text function.
+* Removed default to_sentence categorical label conversion.
+* Added new titles argument to apply a function across titles.
+* Provided support for ggplotly.
+* Added new add_tooltip_text function.
 * Updated theme title vjust and margins.
-* Fixed bug in gg_sf.
+* Fixed bug with _zero and _breaks_width arguments not working together.
 
 # ggblanket 1.1.0
 

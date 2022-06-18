@@ -39,12 +39,11 @@ With this in mind, the {ggblanket} package:
 2. merges col and fill aesthetics into a single col aesthetic
 3. provides colour customisation via pal and alpha arguments
 4. treats faceting as an aesthetic
-5. arranges horizontal geom y and col labels etc to be in correct order 
-
-6. provides prefixed arguments for scale, title and legend adjustment 
-7. For numeric or dates, changes default limits to the min/max of x and y breaks with zero expanding
-8. changes default colours, alphas, widths and themes
-9. converts numeric labels to comma format by default
+5. provides prefixed arguments for scale, title and legend adjustment 
+6. For numeric or dates, changes default limits to the min/max of x and y breaks with zero expanding
+7. arranges horizontal geom y and col labels etc to be in correct order 
+8. changes default colours, alphas, widths, themes, and numeric label format
+9. provides access to all of the relevant geom arg's through the dots argument
 10. supports ggplotly use.
 
 ## Installation
@@ -108,23 +107,7 @@ penguins %>%
   gg_violin(x = sex, y = body_mass_g, facet = species)
 ```
 
-5. arranges horizontal geom y and col labels etc to be in correct order
-
-```{r}
-penguins %>%
-  tidyr::drop_na() %>% 
-  group_by(species, sex, island) %>%
-  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
-  gg_col(
-    x = body_mass_kg,
-    y = species,
-    col = sex,
-    facet = island,
-    position = "dodge",
-  )
-```
-
-6. provides prefixed arguments for scale, title and legend adjustment 
+5. provides prefixed arguments for scale, title and legend adjustment 
 
 ```{r}
 penguins %>%
@@ -134,71 +117,18 @@ penguins %>%
     col = flipper_length_mm,
     position = position_jitter(width = 0.2, height = 0, seed = 123), 
     col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
+    col_legend_place = "b",
     y_zero = TRUE,
     y_breaks_width = 1500,
-    titles = ~ to_sentence_case(.x)
+    titles = to_sentence_case
     )
 ```
 
+6. For numeric or dates, changes default limits to the min/max of x and y breaks with zero expanding
 
+This often looks visually very nice. However, it is simple to adjust to the {ggplot2} default by applying `*_limits = c(NA, NA)` or `c(lubridate::NA_Date_, lubridate::NA_Date_)` in combination with `*_expand = c(0.05, 0.05)`.
 
-
-
-
-
-
-
-7. provides access to all of the relevant geom arg's through the ... argument
-
-```{r}
-penguins %>%
-  tidyr::drop_na() %>% 
-  gg_smooth(
-    x = bill_length_mm,
-    y = flipper_length_mm,
-    col = species,
-    titles = ~ to_sentence_case(.x),
-    col_legend_place = "b",
-    level = 0.99
-    ) 
-```
-
-
-
-
-
-
-```{r}
-penguins %>% 
-  gg_smooth(
-    x = bill_length_mm,
-    y = flipper_length_mm,
-    col = species,
-    titles = ~ to_sentence_case(.x)
-    ) 
-```
-
-
-```{r, fig.height= 2.5}
-df <- data.frame(
-  trt = factor(c(1, 1, 2, 2)),
-  resp = c(1, 5, 3, 4),
-  group = factor(c(1, 2, 1, 2)),
-  upper = c(1.1, 5.3, 3.3, 4.2),
-  lower = c(0.8, 4.6, 2.4, 3.6)
-)
-
-dodger <- position_dodge(width = 0.75)
-
-gg_blank(df, x = resp, xmin = lower, xmax = upper, y = trt, col = group) +
-  geom_col(position = dodger, width = 0.75, alpha = 0.9) +
-  geom_errorbar(position = dodger, width = 0.2, col = "#232323")
-```
-
-6. provides prefixed arguments for scale, title and legend adjustment 
-
-
-7. For numeric or dates, changes default limits to the min/max of x and y breaks with zero expanding. But flexibility to adjust.
+You can also change the default theme gridlines to make this look more balanced.
 
 ```{r}
 storms %>% 
@@ -219,16 +149,61 @@ storms %>%
   geom_point()
 ```
 
+7. arranges horizontal geom y and col labels etc to be in correct order
 
-10. supports ggplotly use.
+```{r}
+penguins %>%
+  tidyr::drop_na() %>% 
+  group_by(species, sex, island) %>%
+  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
+  gg_col(x = body_mass_kg, y = species, col = sex, facet = island,
+    position = "dodge", 
+    col_legend_place = "b", 
+    titles = to_sentence_case, 
+    col_labels = to_sentence_case)
+```
+
+8. changes default colours, alphas, widths and themes
+
+```{r}
+penguins %>%
+  group_by(species, sex) %>%
+  summarise(across(body_mass_g, ~ round(mean(.x, na.rm = TRUE)), 0)) %>% 
+  gg_tile(sex, species, col = body_mass_g, 
+          titles = to_sentence_case,
+          x_labels = to_sentence_case,
+          pal = pals::brewer.blues(9),
+          width = 0.9, height = 0.9, 
+          theme = gg_theme(pal_axis = "#ffffff", pal_ticks = "#ffffff")) +
+  geom_text(aes(label = body_mass_g), size = 3.5, col = "#232323") 
+```
+
+9. provides access to all of the relevant geom arg's through the dots argument
+
+```{r}
+penguins %>%
+  tidyr::drop_na() %>% 
+  gg_smooth(
+    x = bill_length_mm,
+    y = flipper_length_mm,
+    col = species,
+    titles = to_sentence_case,
+    level = 0.99
+    ) 
+```
+
+10. supports ggplotly use
+
+`ggplotly` won't work in all situations. But it does work a lot of the time.
 
 ```{r, eval = F}
 iris %>% 
-  add_tooltip_text(rename_with = ~ to_sentence_case(.x)) %>% 
+  add_tooltip_text(rename_with = to_sentence_case) %>% 
   gg_point(x = Sepal.Width, 
            y = Sepal.Length, 
            col = Species, 
            text = text, 
+           titles = to_sentence_case,
            theme = gg_theme("helvetica", x_grid = TRUE, y_grid = TRUE)) %>% 
   plotly::ggplotly(tooltip = "text")
 ```
