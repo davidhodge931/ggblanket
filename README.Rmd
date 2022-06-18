@@ -173,7 +173,10 @@ penguins %>%
           titles = to_sentence_case,
           x_labels = to_sentence_case,
           pal = pals::brewer.blues(9),
-          width = 0.9, height = 0.9, 
+          width = 0.9, 
+          height = 0.9, 
+          title = "Average penguin body mass",
+          subtitle = "Palmer Archipelago, Antarctica",
           theme = gg_theme(pal_axis = "#ffffff", pal_ticks = "#ffffff")) +
   geom_text(aes(label = body_mass_g), size = 3.5, col = "#232323") 
 ```
