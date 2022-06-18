@@ -600,7 +600,7 @@ gg_bar <- function(data = NULL,
           if (!rlang::is_null(x_limits) & !any(is.na(x_limits))) x_min_max <- x_limits
 
           if (!rlang::is_null(x_breaks_width)) {
-            x_breaks <- scales::fullseq(x_min_max, size = x_breaks_width)
+            x_breaks <- scales::fullseq(range(x_min_max), size = x_breaks_width)
           }
           else {
             if (rlang::is_null(x_breaks_n)) {
@@ -672,7 +672,7 @@ gg_bar <- function(data = NULL,
           if (!rlang::is_null(y_limits) & !any(is.na(y_limits))) y_min_max <- y_limits
 
           if (!rlang::is_null(y_breaks_width)) {
-            y_breaks <- scales::fullseq(y_min_max, size = y_breaks_width)
+            y_breaks <- scales::fullseq(range(y_min_max), size = y_breaks_width)
           }
           else {
             if (rlang::is_null(y_breaks_n)) {
@@ -752,7 +752,7 @@ gg_bar <- function(data = NULL,
         if (x_zero_mid) x_min_max <- c(-x_min_max, x_min_max)
 
         if (!rlang::is_null(x_breaks_width)) {
-          x_breaks <- scales::fullseq(x_min_max, size = x_breaks_width)
+          x_breaks <- scales::fullseq(range(x_min_max), size = x_breaks_width)
         }
         else {
           if (rlang::is_null(x_breaks_n)) {
@@ -829,7 +829,7 @@ gg_bar <- function(data = NULL,
         if (!rlang::is_null(y_limits) & !any(is.na(y_limits))) y_min_max <- y_limits
 
         if (!rlang::is_null(y_breaks_width)) {
-          y_breaks <- scales::fullseq(y_min_max, size = y_breaks_width)
+          y_breaks <- scales::fullseq(range(y_min_max), size = y_breaks_width)
         }
         else {
           if (rlang::is_null(y_breaks_n)) {

@@ -29,6 +29,7 @@ Imports:
     viridis
 Suggests: 
     palmerpenguins,
+    pals,
     patchwork,
     plotly,
     santoku,
