@@ -4,7 +4,7 @@
 #' @param data A sf object.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
-#' @param group Unquoted group aesthetic variable.#'
+#' @param group Unquoted group aesthetic variable.
 #' @param text Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
@@ -13,6 +13,7 @@
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param size Size. A number 0 upwards.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
+#' @param titles A function to format the x, y and col titles, including in rlang lambda format.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param coord Coordinate system.
@@ -20,14 +21,14 @@
 #' @param col_breaks_n For a numeric variable where col_intervals is NULL, an integer guiding the number of breaks, as calculated by the pretty function.
 #' @param col_breaks_width For a numeric variable, the width of breaks, as calculated by the scales::fullseq function.
 #' @param col_intervals A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
-#' @param col_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.
+#' @param col_labels A function to format the scale labels, including in rlang lambda format.  If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.
 #' @param col_limits A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For a numeric variable where col_intervals is NULL, this will make all values outside the limits coloured NA.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.
 #' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param facet_intervals A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
-#' @param facet_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
+#' @param facet_labels A function to format the scale labels, including in rlang lambda format.  If categorical, accepts a named vector (e.g. c(value = "label", ...)).
 #' @param facet_ncol The number of columns of facetted plots.
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param caption Caption title string.
@@ -57,6 +58,7 @@ gg_sf <- function(data = NULL,
                   alpha = 0.9,
                   size = NULL,
                   ...,
+                  titles = NULL,
                   title = NULL,
                   subtitle = NULL,
                   coord = ggplot2::coord_sf(),
@@ -146,11 +148,14 @@ gg_sf <- function(data = NULL,
       )
     )
 
-    if (rlang::is_null(col_title)) col_title
+
     col_legend_place <- "n"
   }
   else {
-    if (rlang::is_null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col))
+    if (rlang::is_null(col_title)) {
+       if (rlang::is_null(titles)) col_title <- rlang::as_name(col)
+       else col_title <- purrr::map(rlang::as_name(col), titles)
+    }
     col_title_position <- ifelse(col_title == "", "right", "top")
 
     if (rlang::is_null(col_legend_place)) {

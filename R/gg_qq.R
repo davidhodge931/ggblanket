@@ -5,7 +5,7 @@
 #' @param sample Unquoted sample aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
-#' @param group Unquoted group aesthetic variable.#'
+#' @param group Unquoted group aesthetic variable.
 #' @param text Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
@@ -16,6 +16,7 @@
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param size Size. A number 0 upwards.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
+#' @param titles A function to format the x, y and col titles, including in rlang lambda format. 
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param coord Coordinate system.
@@ -24,7 +25,7 @@
 #' @param x_breaks_width For a numeric or date variable, the width of breaks, as calculated by the scales::fullseq function.
 #' @param x_expand Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.
 #' @param x_oob A scales::oob_* function for how to deal with out-of-bounds values.
-#' @param x_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
+#' @param x_labels A function to format the scale labels, including in rlang lambda format.  If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
 #' @param x_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. For a numeric variable, use c(NA, NA) to use the min and max as limits. For a date variable, load lubridate package and use c(NA_Date_, NA_Date_) to use the min and max as limits.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param x_zero For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
@@ -34,7 +35,7 @@
 #' @param y_breaks_width For a numeric or date variable, the width of breaks, as calculated by the scales::fullseq function.
 #' @param y_expand Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.
 #' @param y_oob A scales::oob_* function for how to deal with out-of-bounds values.
-#' @param y_labels A functiyon to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
+#' @param y_labels A functiyon to format the scale labels, including in rlang lambda format.  If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
 #' @param y_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. For a numeric variable, use c(NA, NA) to use the min and max as limits. For a date variable, load lubridate package and use c(NA_Date_, NA_Date_) to use the min and max as limits.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_zero For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
@@ -43,14 +44,14 @@
 #' @param col_breaks_n For a numeric variable where col_intervals is NULL, an integer guiding the number of breaks, as calculated by the pretty function.
 #' @param col_breaks_width For a numeric variable, the width of breaks, as calculated by the scales::fullseq function.
 #' @param col_intervals A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
-#' @param col_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.
+#' @param col_labels A function to format the scale labels, including in rlang lambda format.  If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.
 #' @param col_limits A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For a numeric variable where col_intervals is NULL, this will make all values outside the limits coloured NA.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.
 #' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param facet_intervals A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
-#' @param facet_labels A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
+#' @param facet_labels A function to format the scale labels, including in rlang lambda format.  If categorical, accepts a named vector (e.g. c(value = "label", ...)).
 #' @param facet_ncol The number of columns of facetted plots.
 #' @param facet_nrow The number of rows of facetted plots.
 #' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -80,6 +81,7 @@ gg_qq <- function(data = NULL,
                   alpha = 1,
                   size = 1.5,
                   ...,
+                  titles = NULL,
                   title = NULL,
                   subtitle = NULL,
                   coord = ggplot2::coord_cartesian(clip = "off"),
@@ -142,17 +144,29 @@ gg_qq <- function(data = NULL,
   ###get default NULL values
   if (rlang::quo_is_null(x)) {
     if (rlang::is_null(x_title)) {
-      if (stat == "qq") x_title <- "Theoretical"
+      if (stat == "qq") {
+        if (rlang::is_null(titles)) x_title <- "theoretical"
+        else x_title <- purrr::map_chr("theoretical", titles)
+      }
     }
   }
-  else if (rlang::is_null(x_title)) x_title <- snakecase::to_sentence_case(rlang::as_name(x))
+  else if (rlang::is_null(x_title)) {
+    if (rlang::is_null(titles)) x_title <- rlang::as_name(x)
+    else x_title <- purrr::map_chr(rlang::as_name(x), titles)
+  }
 
   if (rlang::quo_is_null(y)) {
     if (rlang::is_null(y_title)) {
-      if (stat == "qq") y_title <- "Sample"
+      if (stat == "qq") {
+        if (rlang::is_null(titles)) y_title <- "sample"
+        else y_title <- purrr::map_chr("sample", titles)
+      }
     }
   }
-  else if (rlang::is_null(y_title)) y_title <- snakecase::to_sentence_case(rlang::as_name(y))
+  else if (rlang::is_null(y_title)) {
+    if (rlang::is_null(titles)) y_title <- rlang::as_name(y)
+    else y_title <- purrr::map(rlang::as_name(y), titles)
+  }
 
   if (rlang::is_null(theme)) {
     x_grid <- ifelse(
@@ -247,11 +261,14 @@ gg_qq <- function(data = NULL,
       )
     )
 
-    if (rlang::is_null(col_title)) col_title
+
     col_legend_place <- "n"
   }
   else {
-    if (rlang::is_null(col_title)) col_title <- snakecase::to_sentence_case(rlang::as_name(col))
+    if (rlang::is_null(col_title)) {
+       if (rlang::is_null(titles)) col_title <- rlang::as_name(col)
+       else col_title <- purrr::map(rlang::as_name(col), titles)
+    }
     col_title_position <- ifelse(col_title == "", "right", "top")
 
     if (rlang::is_null(col_legend_place)) {

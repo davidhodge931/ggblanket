@@ -33,9 +33,8 @@ With this in mind, the {ggblanket} package:
 -   pushes x and y limits to the max of x and y breaks with no expanding
     by default
 -   arranges horizontal geom y and col labels etc to be in correct order
--   provides arguments for scale adjustment and legend placement
+-   provides quick arguments for scale, title and legend adjustment
 -   changes default colours, alphas, widths and themes
--   converts titles to sentence case by default
 -   converts numeric labels to comma format by default
 -   allows users to access all other non-aesthetic geom functionality
 
@@ -65,58 +64,76 @@ Click [here](https://davidhodge931.github.io/ggblanket/) for the
 library(dplyr)
 library(ggplot2)
 library(ggblanket)
-
-penguins2 <- palmerpenguins::penguins %>% 
-  tidyr::drop_na() %>% 
-  mutate(body_mass_kg = body_mass_g / 1000) %>% 
-  mutate(sex = stringr::str_to_sentence(sex))
+library(snakecase)
+library(palmerpenguins)
 ```
 
 ``` r
-penguins2 %>% 
+iris %>%
   ggplot() +
-  geom_histogram(aes(x = body_mass_kg)) 
+  geom_point(aes(x = Sepal.Width, y = Sepal.Length, col = Species))
 ```
 
 ![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
 
 ``` r
-penguins2 %>% 
-  gg_histogram(x = body_mass_kg) 
+iris %>%
+  gg_point(x = Sepal.Width, y = Sepal.Length, col = Species)
 ```
 
 ![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
-penguins2 %>%
-  group_by(species, sex, island) %>%
-  summarise(body_mass_kg = mean(body_mass_kg)) %>%
+penguins %>% 
   ggplot() +
-  geom_col(
-    aes(x = body_mass_kg, y = species, fill = sex), 
-    position = "dodge"
-    ) +
-  facet_wrap( ~ island) +
-  theme(legend.position = "bottom")
+  geom_histogram(aes(x = body_mass_g)) 
 ```
 
 ![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
 
 ``` r
-penguins2 %>%
+penguins %>% 
+  gg_histogram(x = body_mass_g) 
+```
+
+![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
+
+``` r
+penguins %>%
+  tidyr::drop_na() %>%
   group_by(species, sex, island) %>%
-  summarise(body_mass_kg = mean(body_mass_kg)) %>%
+  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
+  ggplot() +
+  geom_col(aes(x = body_mass_kg, y = forcats::fct_rev(species), fill = sex),
+           position = "dodge", width = 0.75) +
+  facet_wrap(~ island) +
+  theme(legend.position = "bottom") +
+  scale_fill_manual(name = "Sex", 
+                    values = rev(scales::hue_pal()(2)), 
+                    labels = ~ to_sentence_case(.x)) +
+  labs(x = "Body mass kg", y = "Species") 
+```
+
+![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
+
+``` r
+penguins %>%
+  tidyr::drop_na() %>% 
+  group_by(species, sex, island) %>%
+  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
   gg_col(
     x = body_mass_kg,
     y = species,
     col = sex,
     facet = island,
     position = "dodge",
-    col_legend_place = "b"
+    col_legend_place = "b",
+    titles = ~to_sentence_case(.x),
+    col_labels = ~to_sentence_case(.x)
   )
 ```
 
-![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
 
 Other examples
 
@@ -126,8 +143,9 @@ storms %>%
   summarise(wind = mean(wind, na.rm = TRUE)) %>% 
   gg_line(x = year, 
           y = wind, 
+          x_labels = ~.x,
           y_zero = TRUE,
-          x_labels = ~.x, 
+          titles = ~ to_sentence_case(.x),
           title = "Storm wind speed",
           subtitle = "USA average storm wind speed, 1975\u20132020", 
           y_title = "Wind speed (knots)", 
@@ -136,54 +154,65 @@ storms %>%
   geom_point()
 ```
 
-![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
-penguins2 %>% 
+penguins %>% 
+  tidyr::drop_na() %>% 
+  mutate(body_mass_kg = body_mass_g / 1000) %>%
   gg_density(
     x = body_mass_kg, 
     col = species, 
     facet = sex, 
+    titles = ~ to_sentence_case(.x),
+    facet_labels = ~ to_sentence_case(.x),
     col_legend_place = "b")
-```
-
-![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
-
-``` r
-penguins2 %>%
-  gg_jitter(
-    x = species,
-    y = body_mass_g,
-    col = flipper_length_mm,
-    col_intervals = ~santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
-    position = position_jitter(width = 0.2, height = 0, seed = 123), 
-    y_zero = TRUE)
-```
-
-![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
-
-``` r
-penguins2 %>% 
-  gg_smooth(
-    x = bill_length_mm,
-    y = flipper_length_mm,
-    col = species,
-    ) 
 ```
 
 ![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
-penguins2 %>%
-  gg_histogram(
-    x = body_mass_kg,
-    col = species, 
-    facet = sex, 
-    col_legend_place = "b", 
-    pal = pals::brewer.dark2(3))
+penguins %>%
+  gg_jitter(
+    x = species,
+    y = body_mass_g,
+    col = flipper_length_mm,
+    col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
+    position = position_jitter(width = 0.2, height = 0, seed = 123), 
+    y_zero = TRUE,
+    titles = ~ to_sentence_case(.x)
+    )
 ```
 
 ![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
+
+``` r
+penguins %>% 
+  gg_smooth(
+    x = bill_length_mm,
+    y = flipper_length_mm,
+    col = species,
+    titles = ~ to_sentence_case(.x)
+    ) 
+```
+
+![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
+
+``` r
+penguins %>%
+  gg_histogram(
+    x = body_mass_g,
+    col = species, 
+    facet = sex, 
+    col_legend_place = "b", 
+    pal = pals::brewer.dark2(3),
+    titles = ~ to_sentence_case(.x),
+    facet_labels = ~ to_sentence_case(.x), 
+    x_labels = ~ .x / 1000, 
+    x_title = "Body mass kg")
+```
+
+![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
 
 ``` r
 df <- data.frame(
@@ -201,11 +230,11 @@ gg_blank(df, x = resp, xmin = lower, xmax = upper, y = trt, col = group) +
   geom_errorbar(position = dodger, width = 0.2, col = "#232323")
 ```
 
-![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-14-1.png)<!-- -->
 
 ``` r
 iris %>% 
-  add_tooltip_text() %>% 
+  add_tooltip_text(rename_with = snakecase::to_sentence_case) %>% 
   gg_point(x = Sepal.Width, 
            y = Sepal.Length, 
            col = Species, 

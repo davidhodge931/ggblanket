@@ -41,9 +41,8 @@ With this in mind, the {ggblanket} package:
 * treats faceting as an aesthetic
 * pushes x and y limits to the max of x and y breaks with no expanding by default
 * arranges horizontal geom y and col labels etc to be in correct order 
-* provides arguments for scale adjustment and legend placement
+* provides quick arguments for scale, title and legend adjustment 
 * changes default colours, alphas, widths and themes
-* converts titles to sentence case by default
 * converts numeric labels to comma format by default
 * allows users to access all other non-aesthetic geom functionality 
 
@@ -73,49 +72,62 @@ Click [here](https://davidhodge931.github.io/ggblanket/) for the {ggblanket} web
 library(dplyr)
 library(ggplot2)
 library(ggblanket)
+library(snakecase)
+library(palmerpenguins)
+```
 
-penguins2 <- palmerpenguins::penguins %>% 
+```{r}
+iris %>%
+  ggplot() +
+  geom_point(aes(x = Sepal.Width, y = Sepal.Length, col = Species))
+```
+
+```{r}
+iris %>%
+  gg_point(x = Sepal.Width, y = Sepal.Length, col = Species)
+```
+
+```{r}
+penguins %>% 
+  ggplot() +
+  geom_histogram(aes(x = body_mass_g)) 
+```
+
+```{r}
+penguins %>% 
+  gg_histogram(x = body_mass_g) 
+```
+
+```{r}
+penguins %>%
+  tidyr::drop_na() %>%
+  group_by(species, sex, island) %>%
+  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
+  ggplot() +
+  geom_col(aes(x = body_mass_kg, y = forcats::fct_rev(species), fill = sex),
+           position = "dodge", width = 0.75) +
+  facet_wrap(~ island) +
+  theme(legend.position = "bottom") +
+  scale_fill_manual(name = "Sex", 
+                    values = rev(scales::hue_pal()(2)), 
+                    labels = ~ to_sentence_case(.x)) +
+  labs(x = "Body mass kg", y = "Species") 
+```
+
+```{r}
+penguins %>%
   tidyr::drop_na() %>% 
-  mutate(body_mass_kg = body_mass_g / 1000) %>% 
-  mutate(sex = stringr::str_to_sentence(sex))
-```
-
-```{r}
-penguins2 %>% 
-  ggplot() +
-  geom_histogram(aes(x = body_mass_kg)) 
-```
-
-```{r}
-penguins2 %>% 
-  gg_histogram(x = body_mass_kg) 
-```
-
-```{r}
-penguins2 %>%
   group_by(species, sex, island) %>%
-  summarise(body_mass_kg = mean(body_mass_kg)) %>%
-  ggplot() +
-  geom_col(
-    aes(x = body_mass_kg, y = species, fill = sex), 
-    position = "dodge"
-    ) +
-  facet_wrap( ~ island) +
-  theme(legend.position = "bottom")
-
-```
-
-```{r}
-penguins2 %>%
-  group_by(species, sex, island) %>%
-  summarise(body_mass_kg = mean(body_mass_kg)) %>%
+  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
   gg_col(
     x = body_mass_kg,
     y = species,
     col = sex,
     facet = island,
     position = "dodge",
-    col_legend_place = "b"
+    col_legend_place = "b",
+    titles = ~to_sentence_case(.x),
+    col_labels = ~to_sentence_case(.x)
   )
 ```
 
@@ -127,8 +139,9 @@ storms %>%
   summarise(wind = mean(wind, na.rm = TRUE)) %>% 
   gg_line(x = year, 
           y = wind, 
+          x_labels = ~.x,
           y_zero = TRUE,
-          x_labels = ~.x, 
+          titles = ~ to_sentence_case(.x),
           title = "Storm wind speed",
           subtitle = "USA average storm wind speed, 1975\u20132020", 
           y_title = "Wind speed (knots)", 
@@ -138,45 +151,56 @@ storms %>%
 ```
 
 ```{r}
-penguins2 %>% 
+penguins %>% 
+  tidyr::drop_na() %>% 
+  mutate(body_mass_kg = body_mass_g / 1000) %>%
   gg_density(
     x = body_mass_kg, 
     col = species, 
     facet = sex, 
+    titles = ~ to_sentence_case(.x),
+    facet_labels = ~ to_sentence_case(.x),
     col_legend_place = "b")
 ```
 
 ```{r}
-penguins2 %>%
+penguins %>%
   gg_jitter(
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
-    col_intervals = ~santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
+    col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
     position = position_jitter(width = 0.2, height = 0, seed = 123), 
-    y_zero = TRUE)
+    y_zero = TRUE,
+    titles = ~ to_sentence_case(.x)
+    )
 ```
 
 ```{r}
-penguins2 %>% 
+penguins %>% 
   gg_smooth(
     x = bill_length_mm,
     y = flipper_length_mm,
     col = species,
+    titles = ~ to_sentence_case(.x)
     ) 
 ```
 
 ```{r}
-penguins2 %>%
+penguins %>%
   gg_histogram(
-    x = body_mass_kg,
+    x = body_mass_g,
     col = species, 
     facet = sex, 
     col_legend_place = "b", 
-    pal = pals::brewer.dark2(3))
+    pal = pals::brewer.dark2(3),
+    titles = ~ to_sentence_case(.x),
+    facet_labels = ~ to_sentence_case(.x), 
+    x_labels = ~ .x / 1000, 
+    x_title = "Body mass kg")
 ```
 
-```{r}
+```{r, fig.height= 2.5}
 df <- data.frame(
   trt = factor(c(1, 1, 2, 2)),
   resp = c(1, 5, 3, 4),
@@ -194,7 +218,7 @@ gg_blank(df, x = resp, xmin = lower, xmax = upper, y = trt, col = group) +
 
 ```{r, eval = F}
 iris %>% 
-  add_tooltip_text() %>% 
+  add_tooltip_text(rename_with = snakecase::to_sentence_case) %>% 
   gg_point(x = Sepal.Width, 
            y = Sepal.Length, 
            col = Species, 

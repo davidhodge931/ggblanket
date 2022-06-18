@@ -23,6 +23,7 @@ gg_crossbar(
   alpha = 0.5,
   size = 0.5,
   width = NULL,
+  titles = NULL,
   ...,
   title = NULL,
   subtitle = NULL,
@@ -85,7 +86,7 @@ gg_crossbar(
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
-\item{group}{Unquoted group aesthetic variable.#'}
+\item{group}{Unquoted group aesthetic variable.}
 
 \item{text}{Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").}
 
@@ -103,6 +104,8 @@ gg_crossbar(
 
 \item{width}{Width. A number 0 upwards.}
 
+\item{titles}{A function to format the x, y and col titles, including in rlang lambda format.}
+
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
 \item{title}{Title string.}
@@ -119,7 +122,7 @@ gg_crossbar(
 
 \item{x_expand}{Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.}
 
-\item{x_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
+\item{x_labels}{A function to format the scale labels, including in rlang lambda format.  If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
 \item{x_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. For a numeric variable, use c(NA, NA) to use the min and max as limits. For a date variable, load lubridate package and use c(NA_Date_, NA_Date_) to use the min and max as limits.}
 
@@ -139,7 +142,7 @@ gg_crossbar(
 
 \item{y_expand}{Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.}
 
-\item{y_labels}{A functiyon to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
+\item{y_labels}{A functiyon to format the scale labels, including in rlang lambda format.  If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
 \item{y_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. For a numeric variable, use c(NA, NA) to use the min and max as limits. For a date variable, load lubridate package and use c(NA_Date_, NA_Date_) to use the min and max as limits.}
 
@@ -159,7 +162,7 @@ gg_crossbar(
 
 \item{col_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
 
-\item{col_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.}
+\item{col_labels}{A function to format the scale labels, including in rlang lambda format.  If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.}
 
 \item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.}
 
@@ -173,7 +176,7 @@ gg_crossbar(
 
 \item{facet_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
 
-\item{facet_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
+\item{facet_labels}{A function to format the scale labels, including in rlang lambda format.  If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
 

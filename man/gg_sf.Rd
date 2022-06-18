@@ -17,6 +17,7 @@ gg_sf(
   alpha = 0.9,
   size = NULL,
   ...,
+  titles = NULL,
   title = NULL,
   subtitle = NULL,
   coord = ggplot2::coord_sf(),
@@ -45,7 +46,7 @@ gg_sf(
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
-\item{group}{Unquoted group aesthetic variable.#'}
+\item{group}{Unquoted group aesthetic variable.}
 
 \item{text}{Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").}
 
@@ -63,6 +64,8 @@ gg_sf(
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
+\item{titles}{A function to format the x, y and col titles, including in rlang lambda format.}
+
 \item{title}{Title string.}
 
 \item{subtitle}{Subtitle string.}
@@ -77,7 +80,7 @@ gg_sf(
 
 \item{col_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
 
-\item{col_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.}
+\item{col_labels}{A function to format the scale labels, including in rlang lambda format.  If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.}
 
 \item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.}
 
@@ -91,7 +94,7 @@ gg_sf(
 
 \item{facet_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
 
-\item{facet_labels}{A function to format the scale labels, including in rlang lambda format. Use ~.x to remove default transformation. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
+\item{facet_labels}{A function to format the scale labels, including in rlang lambda format.  If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
 

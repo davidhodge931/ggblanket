@@ -2,7 +2,7 @@
 #'
 #' @param data A data frame or tibble.
 #' @param ... Arguments passed to select (i.e unquoted variables, tidyselect helpers etc). If no arguments provided, uses all columns.
-#' @param rename_with A function to rename all variables in the text column.
+#' @param rename_with A function to format the variable names, including in rlang lambda format.
 #'
 #' @return A data frame or tibble with a column of text
 #' @export
@@ -12,24 +12,27 @@
 #'   add_tooltip_text() %>%
 #'   head(1)
 #'
-#' iris %>%
-#'   add_tooltip_text(Species, tidyselect::contains("Sepal")) %>%
-#'   head(1)
-#'   iris %>%
+#'  iris %>%
 #'   add_tooltip_text(Species, tidyselect::contains("Sepal")) %>%
 #'   head(1)
 #'
-#'   iris %>%
-#'     add_tooltip_text() %>%
-#'     gg_point(x = Sepal.Width,
-#'              y = Sepal.Length,
-#'              col = Species,
-#'              text = text,
-#'              theme = gg_theme("helvetica", x_grid = TRUE, y_grid = TRUE)) %>%
+#'   library(snakecase)
+#'
+#'  iris %>%
+#'   add_tooltip_text(rename_with = ~ to_sentence_case(.x)) %>%
+#'   head(1)
+#'
+#'  iris %>%
+#'    add_tooltip_text() %>%
+#'    gg_point(x = Sepal.Width,
+#'             y = Sepal.Length,
+#'             col = Species,
+#'             text = text,
+#'             theme = gg_theme("helvetica", x_grid = TRUE, y_grid = TRUE)) %>%
 #'     plotly::ggplotly(tooltip = "text")
 add_tooltip_text <- function(data,
                              ...,
-                             rename_with = ~ snakecase::to_sentence_case(.x)) {
+                             rename_with = NULL) {
 
   if (class(data)[1] == "sf") {
     temp_data <- data %>%
@@ -45,8 +48,12 @@ add_tooltip_text <- function(data,
       dplyr::select(...)
   }
 
+  if (!rlang::is_null(rename_with)) {
+    temp_data <- temp_data %>%
+      dplyr::rename_with(rename_with)
+  }
+
   temp_data <- temp_data %>%
-    dplyr::rename_with(rename_with) %>%
     dplyr::mutate(dplyr::across(
       dplyr::everything(),
       ~ paste0(dplyr::cur_column(), ": ", .x),
