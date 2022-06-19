@@ -201,7 +201,7 @@ penguins %>%
 
 ```{r, eval = F}
 iris %>% 
-  add_tooltip_text(rename_with = to_sentence_case) %>% 
+  add_tooltip_text(titles = to_sentence_case) %>% 
   gg_point(x = Sepal.Width, 
            y = Sepal.Length, 
            col = Species, 
