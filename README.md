@@ -26,16 +26,17 @@ The objective is to **simplify beautiful {ggplot2} visualisation**.
 
 With this in mind, the {ggblanket} package:
 
-1.  uses quick functions that wrap around a single geom
+1.  uses `gg_*` functions that each wrap a `ggplot2::ggplot()` call with
+    a single `ggplot2::geom_*` function
 2.  merges col and fill aesthetics into a single col aesthetic
 3.  provides colour customisation via pal and alpha arguments
 4.  treats faceting as an aesthetic
-5.  provides prefixed arguments for scale, title and legend adjustment
-6.  For numeric or dates, changes default limits to the min/max of x and
-    y breaks with zero expanding
+5.  provides prefixed arguments for scale and title adjustment
+6.  for numeric or dates, defaults limits to the min/max of x and y
+    breaks and zero expanding
 7.  arranges horizontal geom y and col labels etc to be in correct order
-8.  changes default colours, alphas, widths, themes, and numeric label
-    format
+8.  outputs a {ggplot2} object, so extra `ggplot2::geom_*` layers can be
+    added
 9.  provides access to all of the relevant geom arg’s through the dots
     argument
 10. supports ggplotly use.
@@ -70,7 +71,8 @@ library(snakecase)
 library(palmerpenguins)
 ```
 
-1.  uses quick functions that wrap around a single geom
+1.  {ggblanket} uses `gg_*` functions that each wrap a
+    `ggplot2::ggplot()` call with a single `ggplot2::geom_*` function
 
 ``` r
 iris %>%
@@ -79,7 +81,8 @@ iris %>%
 
 ![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
 
-2.  merges col and fill aesthetics into a single col aesthetic
+2.  {ggblanket} merges col and fill aesthetics into a single col
+    aesthetic.
 
 ``` r
 penguins %>% 
@@ -88,7 +91,8 @@ penguins %>%
 
 ![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
 
-3.  provides colour customisation via pal and alpha arguments
+3.  {ggblanket} provides colour customisation via pal and alpha
+    arguments.
 
 ``` r
 penguins %>% 
@@ -99,7 +103,7 @@ penguins %>%
 
 ![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
 
-4.  treats faceting as an aesthetic
+4.  {ggblanket} treats faceting as an aesthetic.
 
 ``` r
 penguins %>% 
@@ -109,7 +113,11 @@ penguins %>%
 
 ![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
-5.  provides prefixed arguments for scale, title and legend adjustment
+5.  {ggblanket} provides prefixed arguments for scale and title
+    adjustment.
+
+This is designed to work with the Rstudio autocomplete to help you find
+the adjustment you need.
 
 ``` r
 penguins %>%
@@ -128,8 +136,8 @@ penguins %>%
 
 ![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
 
-6.  For numeric or dates, changes default limits to the min/max of x and
-    y breaks with zero expanding
+6.  For numeric or date variables, {ggblanket} defaults limits to the
+    min/max of x and y breaks and zero expanding.
 
 This often looks visually very nice. However, it is simple to adjust to
 the {ggplot2} default by applying `*_limits = c(NA, NA)` or
@@ -160,7 +168,8 @@ storms %>%
 
 ![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
 
-7.  arranges horizontal geom y and col labels etc to be in correct order
+7.  {ggblanket} arranges horizontal geom y and col labels etc to be in
+    correct order.
 
 ``` r
 penguins %>%
@@ -169,14 +178,15 @@ penguins %>%
   summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
   gg_col(x = body_mass_kg, y = species, col = sex, facet = island,
     position = "dodge", 
-    col_legend_place = "b", 
+    col_legend_place = "t", 
     titles = to_sentence_case, 
     col_labels = to_sentence_case)
 ```
 
 ![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
 
-8.  changes default colours, alphas, widths and themes
+8.  {ggblanket} outputs a {ggplot2} object, so extra `ggplot2::geom_*`
+    layers can be added.
 
 ``` r
 penguins %>%
@@ -196,8 +206,8 @@ penguins %>%
 
 ![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
 
-9.  provides access to all of the relevant geom arg’s through the dots
-    argument
+9.  {ggblanket} provides access to all of the relevant geom arg’s
+    through the dots argument.
 
 ``` r
 penguins %>%
@@ -213,14 +223,14 @@ penguins %>%
 
 ![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
 
-10. supports ggplotly use
+10. {ggblanket} supports ggplotly use.
 
-`ggplotly` won’t work in all situations. But it does work a lot of the
-time.
+`ggplotly` won’t work in all situations, and with all functions and
+arguments. But it does work a lot of the time.
 
 ``` r
 iris %>% 
-  add_tooltip_text(rename_with = to_sentence_case) %>% 
+  add_tooltip_text(titles = to_sentence_case) %>% 
   gg_point(x = Sepal.Width, 
            y = Sepal.Length, 
            col = Species, 

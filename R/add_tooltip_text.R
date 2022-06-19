@@ -50,7 +50,7 @@ add_tooltip_text <- function(data,
 
   if (!rlang::is_null(titles)) {
     temp_data <- temp_data %>%
-      dplyr::titles(titles)
+      dplyr::rename_with(titles)
   }
 
   temp_data <- temp_data %>%
