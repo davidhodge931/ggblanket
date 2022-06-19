@@ -4,14 +4,14 @@
 \alias{add_tooltip_text}
 \title{Add a tooltip text column of united variable names and values.}
 \usage{
-add_tooltip_text(data, ..., rename_with = NULL)
+add_tooltip_text(data, ..., titles = NULL)
 }
 \arguments{
 \item{data}{A data frame or tibble.}
 
 \item{...}{Arguments passed to select (i.e unquoted variables, tidyselect helpers etc). If no arguments provided, uses all columns.}
 
-\item{rename_with}{A function to format the variable names, including in rlang lambda format.}
+\item{titles}{A function to format the variable names, including in rlang lambda format.}
 }
 \value{
 A data frame or tibble with a column of text
@@ -31,7 +31,7 @@ iris \%>\%
   library(snakecase)
 
  iris \%>\%
-  add_tooltip_text(rename_with = ~ to_sentence_case(.x)) \%>\%
+  add_tooltip_text(titles = ~ to_sentence_case(.x)) \%>\%
   head(1)
 
  iris \%>\%

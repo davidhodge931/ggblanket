@@ -2,7 +2,7 @@
 #'
 #' @param data A data frame or tibble.
 #' @param ... Arguments passed to select (i.e unquoted variables, tidyselect helpers etc). If no arguments provided, uses all columns.
-#' @param rename_with A function to format the variable names, including in rlang lambda format.
+#' @param titles A function to format the variable names, including in rlang lambda format.
 #'
 #' @return A data frame or tibble with a column of text
 #' @export
@@ -19,7 +19,7 @@
 #'   library(snakecase)
 #'
 #'  iris %>%
-#'   add_tooltip_text(rename_with = ~ to_sentence_case(.x)) %>%
+#'   add_tooltip_text(titles = ~ to_sentence_case(.x)) %>%
 #'   head(1)
 #'
 #'  iris %>%
@@ -32,7 +32,7 @@
 #'     plotly::ggplotly(tooltip = "text")
 add_tooltip_text <- function(data,
                              ...,
-                             rename_with = NULL) {
+                             titles = NULL) {
 
   if (class(data)[1] == "sf") {
     temp_data <- data %>%
@@ -48,9 +48,9 @@ add_tooltip_text <- function(data,
       dplyr::select(...)
   }
 
-  if (!rlang::is_null(rename_with)) {
+  if (!rlang::is_null(titles)) {
     temp_data <- temp_data %>%
-      dplyr::rename_with(rename_with)
+      dplyr::titles(titles)
   }
 
   temp_data <- temp_data %>%
