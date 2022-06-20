@@ -2,7 +2,7 @@
 #'
 #' @param data A data frame or tibble.
 #' @param ... Arguments passed to select (i.e unquoted variables, tidyselect helpers etc). If no arguments provided, uses all columns.
-#' @param titles A function to format the variable names, including in rlang lambda format.
+#' @param titles A function to format the variable names, including in rlang lambda format. Defaults to snakecase::to_sentence_case.
 #'
 #' @return A data frame or tibble with a column of text
 #' @export
@@ -48,7 +48,10 @@ add_tooltip_text <- function(data,
       dplyr::select(...)
   }
 
-  if (!rlang::is_null(titles)) {
+  if (rlang::is_null(titles)) {
+    temp_data <- temp_data %>%
+      dplyr::rename_with(snakecase::to_sentence_case)
+  } else {
     temp_data <- temp_data %>%
       dplyr::rename_with(titles)
   }

@@ -94,7 +94,7 @@ gg_label(
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
-\item{titles}{A function to format the x, y and col titles, including in rlang lambda format.}
+\item{titles}{A function to format the x, y and col titles, including in rlang lambda format. Defaults to snakecase::to_sentence_case.}
 
 \item{title}{Title string.}
 

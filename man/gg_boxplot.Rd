@@ -94,7 +94,7 @@ gg_boxplot(
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
-\item{titles}{A function to format the x, y and col titles, including in rlang lambda format.}
+\item{titles}{A function to format the x, y and col titles, including in rlang lambda format. Defaults to snakecase::to_sentence_case.}
 
 \item{title}{Title string.}
 
@@ -189,18 +189,11 @@ gg_boxplot(mpg, x = hwy, y = class)
 gg_boxplot(mpg, x = hwy, y = class, notch = TRUE)
 gg_boxplot(mpg, x = hwy, y = class, varwidth = TRUE)
 gg_boxplot(mpg, x = hwy, y = class, pal = "#3366FF", alpha = 0)
-gg_boxplot(mpg, x = hwy, y = class, outlier.colour = "red", outlier.shape = 1)
-
-gg_boxplot(mpg, x = hwy, y = class, outlier.shape = NA) +
-  geom_jitter(width = 0.2)
 
 gg_boxplot(mpg, x = hwy, y = class, col = drv)
 
 gg_boxplot(diamonds, x = carat, y = price)
 
 gg_boxplot(diamonds, carat, price, group = ggplot2::cut_width(carat, 0.25))
-
-gg_boxplot(diamonds, carat, price, group = ggplot2::cut_width(carat, 0.25),
-           outlier.alpha = 0.1)
 
 }

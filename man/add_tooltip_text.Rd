@@ -11,7 +11,7 @@ add_tooltip_text(data, ..., titles = NULL)
 
 \item{...}{Arguments passed to select (i.e unquoted variables, tidyselect helpers etc). If no arguments provided, uses all columns.}
 
-\item{titles}{A function to format the variable names, including in rlang lambda format.}
+\item{titles}{A function to format the variable names, including in rlang lambda format. Defaults to snakecase::to_sentence_case.}
 }
 \value{
 A data frame or tibble with a column of text
