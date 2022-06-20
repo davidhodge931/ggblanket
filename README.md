@@ -31,12 +31,11 @@ With this in mind, the {ggblanket} package:
 2.  merges col and fill aesthetics into a single col aesthetic
 3.  provides colour customisation via pal and alpha arguments
 4.  treats faceting as an aesthetic
-5.  provides prefixed arguments for scale and title adjustment
+5.  provides prefixed arguments for scale adjustment
 6.  for numeric or dates, defaults limits to the min/max of x and y
     breaks and zero expanding
 7.  arranges horizontal geom y and col labels etc to be in correct order
-8.  outputs a {ggplot2} object, so extra `ggplot2::geom_*` layers can be
-    added
+8.  converts unspecified titles to snakecase::to_sentence by default
 9.  provides access to all of the relevant geom arg’s through the dots
     argument
 10. supports ggplotly use.
@@ -113,8 +112,7 @@ penguins %>%
 
 ![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
-5.  {ggblanket} provides prefixed arguments for scale and title
-    adjustment.
+5.  {ggblanket} provides prefixed arguments for scale adjustment.
 
 This is designed to work with the Rstudio autocomplete to help you find
 the adjustment you need.
@@ -129,8 +127,7 @@ penguins %>%
     col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
     col_legend_place = "b",
     y_zero = TRUE,
-    y_breaks_width = 1500,
-    titles = to_sentence_case
+    y_breaks_width = 1500
     )
 ```
 
@@ -178,22 +175,20 @@ penguins %>%
   summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
   gg_col(x = body_mass_kg, y = species, col = sex, facet = island,
     position = "dodge", 
-    col_legend_place = "t", 
-    titles = to_sentence_case, 
+    col_legend_place = "b", 
     col_labels = to_sentence_case)
 ```
 
 ![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
 
-8.  {ggblanket} outputs a {ggplot2} object, so extra `ggplot2::geom_*`
-    layers can be added.
+8.  {ggblanket} converts unspecified titles to snakecase::to_sentence by
+    default.
 
 ``` r
 penguins %>%
   group_by(species, sex) %>%
   summarise(across(body_mass_g, ~ round(mean(.x, na.rm = TRUE)), 0)) %>% 
   gg_tile(sex, species, col = body_mass_g, 
-          titles = to_sentence_case,
           x_labels = to_sentence_case,
           pal = pals::brewer.blues(9),
           width = 0.9, 
@@ -216,7 +211,6 @@ penguins %>%
     x = bill_length_mm,
     y = flipper_length_mm,
     col = species,
-    titles = to_sentence_case,
     level = 0.99
     ) 
 ```
@@ -235,7 +229,7 @@ iris %>%
            y = Sepal.Length, 
            col = Species, 
            text = text, 
-           titles = to_sentence_case,
+           titles = to_title_case,
            theme = gg_theme("helvetica", x_grid = TRUE, y_grid = TRUE)) %>% 
   plotly::ggplotly(tooltip = "text")
 ```

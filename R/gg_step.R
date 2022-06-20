@@ -15,7 +15,7 @@
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param size Size. A number 0 upwards.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
-#' @param titles A function to format the x, y and col titles, including in rlang lambda format. 
+#' @param titles A function to format the x, y and col titles, including in rlang lambda format.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param coord Coordinate system.
@@ -128,20 +128,21 @@ gg_step <- function(data = NULL,
   text <- rlang::enquo(text)
 
   #stop, warn or message
-  if (rlang::is_null(data)) rlang::abort("data is required")
-  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "{ggblanket} merges col and fill aesthetics into a single col aesthetic"))
-  if (!rlang::quo_is_null(facet)) rlang::inform(c("i" = "{ggblanket} treats faceting as an aesthetic"))
+  if (rlang::is_null(data)) rlang::abort("data is required.")
+  if (rlang::is_null(titles)) rlang::inform(c("i" = "{ggblanket} converts unspecified titles using snakecase::to_sentence_case. Use titles = ~.x to leave unspecified titles as is, and/or specify individual titles manually using *_title arguments."))
+  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "{ggblanket} merges col and fill aesthetics into a single col aesthetic."))
+  if (!rlang::quo_is_null(facet)) rlang::inform(c("i" = "{ggblanket} treats faceting as an aesthetic."))
 
   ###ungroup
   data <- dplyr::ungroup(data)
 
   ###get default NULL values
   if (rlang::is_null(x_title)) {
-    if (rlang::is_null(titles)) x_title <- rlang::as_name(x)
+    if (rlang::is_null(titles)) x_title <- purrr::map_chr(rlang::as_name(x), snakecase::to_sentence_case)
     else x_title <- purrr::map(rlang::as_name(x), titles)
     }
   if (rlang::is_null(y_title)) {
-    if (rlang::is_null(titles)) y_title <- rlang::as_name(y)
+    if (rlang::is_null(titles)) y_title <- purrr::map_chr(rlang::as_name(y), snakecase::to_sentence_case)
     else y_title <- purrr::map(rlang::as_name(y), titles)
     }
 
@@ -243,7 +244,7 @@ gg_step <- function(data = NULL,
   }
   else {
     if (rlang::is_null(col_title)) {
-       if (rlang::is_null(titles)) col_title <- rlang::as_name(col)
+       if (rlang::is_null(titles)) col_title <- purrr::map_chr(rlang::as_name(col), snakecase::to_sentence_case)
        else col_title <- purrr::map(rlang::as_name(col), titles)
     }
     col_title_position <- ifelse(col_title == "", "right", "top")

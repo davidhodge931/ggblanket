@@ -86,9 +86,10 @@ gg_sf <- function(data = NULL,
   text <- rlang::enquo(text)
 
   #stop, warn or message
-  if (rlang::is_null(data)) rlang::abort("data is required")
-  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "{ggblanket} merges col and fill aesthetics into a single col aesthetic"))
-  if (!rlang::quo_is_null(facet)) rlang::inform(c("i" = "{ggblanket} treats faceting as an aesthetic"))
+  if (rlang::is_null(data)) rlang::abort("data is required.")
+  if (rlang::is_null(titles)) rlang::inform(c("i" = "{ggblanket} converts unspecified titles using snakecase::to_sentence_case. Use titles = ~.x to leave unspecified titles as is, and/or specify individual titles manually using *_title arguments."))
+  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "{ggblanket} merges col and fill aesthetics into a single col aesthetic."))
+  if (!rlang::quo_is_null(facet)) rlang::inform(c("i" = "{ggblanket} treats faceting as an aesthetic."))
 
   ###ungroup
   data <- dplyr::ungroup(data)
@@ -153,7 +154,7 @@ gg_sf <- function(data = NULL,
   }
   else {
     if (rlang::is_null(col_title)) {
-       if (rlang::is_null(titles)) col_title <- rlang::as_name(col)
+       if (rlang::is_null(titles)) col_title <- purrr::map_chr(rlang::as_name(col), snakecase::to_sentence_case)
        else col_title <- purrr::map(rlang::as_name(col), titles)
     }
     col_title_position <- ifelse(col_title == "", "right", "top")
