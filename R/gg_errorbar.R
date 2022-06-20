@@ -20,7 +20,7 @@
 #' @param size Size. A number 0 upwards.
 #' @param width Width. A number 0 upwards.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
-#' @param titles A function to format the x, y and col titles, including in rlang lambda format. Defaults to snakecase::to_sentence_case. 
+#' @param titles A function to format the x, y and col titles, including in rlang lambda format. Defaults to snakecase::to_sentence_case.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param coord Coordinate system.
@@ -100,7 +100,7 @@ gg_errorbar <- function(data = NULL,
                         col = NULL,
                         facet = NULL,
                         group = NULL,
-                    text = NULL,
+                        text = NULL,
                         stat = "identity",
                         position = "identity",
                         pal = NULL,
@@ -109,7 +109,7 @@ gg_errorbar <- function(data = NULL,
                         size = 0.5,
                         width = 0.1,
                         ...,
-                    titles = NULL,
+                        titles = NULL,
                         title = NULL,
                         subtitle = NULL,
                         coord = ggplot2::coord_cartesian(clip = "off"),
@@ -119,7 +119,7 @@ gg_errorbar <- function(data = NULL,
                         x_expand = NULL,
                         x_labels = NULL,
                         x_limits = NULL,
-                        x_oob = scales::oob_squish,
+                        x_oob = scales::oob_censor,
                         x_title = NULL,
                         x_zero = NULL,
                         x_zero_mid = FALSE,
@@ -129,7 +129,7 @@ gg_errorbar <- function(data = NULL,
                         y_expand = NULL,
                         y_labels = NULL,
                         y_limits = NULL,
-                        y_oob = scales::oob_squish,
+                        y_oob = scales::oob_censor,
                         y_title = NULL,
                         y_zero = NULL,
                         y_zero_mid = FALSE,
