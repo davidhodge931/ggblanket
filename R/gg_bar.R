@@ -190,7 +190,9 @@ gg_bar <- function(data = NULL,
   if (rlang::is_null(width)) {
     if (lubridate::is.Date(rlang::eval_tidy(x, data)) |
         lubridate::is.Date(rlang::eval_tidy(y, data)) |
-        (is.numeric(rlang::eval_tidy(x, data)) |
+        (rlang::quo_is_null(y) & is.numeric(rlang::eval_tidy(x, data))) |
+        (rlang::quo_is_null(x) & is.numeric(rlang::eval_tidy(y, data))) |
+        (is.numeric(rlang::eval_tidy(x, data)) &
          is.numeric(rlang::eval_tidy(y, data)))) {
       width <- NULL
     }
