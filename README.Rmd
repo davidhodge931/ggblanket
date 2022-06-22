@@ -125,29 +125,33 @@ penguins %>%
     )
 ```
 
-6. For numeric or date variables, {ggblanket} defaults limits to the min/max of x and y breaks and zero expanding.
+6. For numeric or date variables, {ggblanket} defaults limits to the min/max of x and y breaks with zero expanding.
 
-This often looks visually very nice. However, it is simple to adjust to the {ggplot2} default by applying `*_limits = c(NA, NA)` or `c(lubridate::NA_Date_, lubridate::NA_Date_)` in combination with `*_expand = c(0.05, 0.05)`.
+Benefits of this approach is that: 
 
-You can also change the default theme gridlines to make this look more balanced.
+* it can look visually very nice with gridlines in both directions. 
+* it is simple to change to the min and max of geoms on the scale by using `*_limits = c(NA, NA)` (or `c(lubridate::NA_Date_, lubridate::NA_Date_)`).
+
+However, there is something to be aware of for polygons on a numeric or date x axis. This is that the limits may result in the first or last polygon being lost from the plot, if the limits are equal to the first of last value of the x variable. One way to deal with this is to use `x_limits = c(NA, NA)` or `c(lubridate::NA_Date_, lubridate::NA_Date_)`. This is demonstrated below, where if `x_limits = c(1980, 2020)` was used, the first and last column would have been lost. Instead data is filtered, and then x_limits = c(NA, NA) is added, and everything is fine.
 
 ```{r}
-storms %>% 
-  group_by(year) %>% 
+storms %>%
+  group_by(year) %>%
+  filter(between(year, 1980, 2020)) %>%
   summarise(wind = mean(wind, na.rm = TRUE)) %>%
-  gg_line(x = year, 
-          y = wind, 
-          x_labels = ~.x,
-          x_expand = c(0.05, 0.05),
-          x_limits = c(NA, NA),
-          y_zero = TRUE,
-          title = "Storm wind speed",
-          subtitle = "USA average storm wind speed, 1975\u20132020", 
-          x_title = "Year",
-          y_title = "Wind speed (knots)", 
-          caption = "Source: NOAA",
-          theme = gg_theme(y_grid = TRUE)) +
-  geom_point()
+  gg_col(
+    x = year,
+    y = wind,
+    x_labels = ~ .x,
+    x_limits = c(NA, NA),
+    y_zero = TRUE,
+    title = "Storm wind speed",
+    subtitle = "USA average storm wind speed, 1980\u20132020",
+    x_title = "Year",
+    y_title = "Wind speed (knots)",
+    caption = "Source: NOAA",
+    theme = gg_theme(y_grid = TRUE)
+  ) 
 ```
 
 7. {ggblanket} arranges horizontal geom y and col labels etc to be in correct order.
