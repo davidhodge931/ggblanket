@@ -39,8 +39,8 @@ With this in mind, the {ggblanket} package:
 2. merges col and fill aesthetics into a single col aesthetic
 3. provides colour customisation via pal and alpha arguments
 4. treats faceting as an aesthetic
-5. provides prefixed arguments for scale adjustment 
-6. for numeric or dates, defaults limits to the min/max of x and y breaks and zero expanding
+5. provides default x and y scales that look super nice
+6. provides prefixed arguments for scale adjustment 
 7. arranges horizontal geom y and col labels etc to be in correct order 
 8. converts unspecified titles to snakecase::to_sentence by default
 9. provides access to all of the relevant geom arg's through the dots argument
@@ -107,32 +107,15 @@ penguins %>%
   gg_violin(x = sex, y = body_mass_g, facet = species)
 ```
 
-5. {ggblanket} provides prefixed arguments for scale adjustment.
+5. {ggblanket} provides default x and y scales that look super nice.
 
-This is designed to work with the Rstudio autocomplete to help you find the adjustment you need.
+For where:
 
-```{r}
-penguins %>%
-  gg_jitter(
-    x = species,
-    y = body_mass_g,
-    col = flipper_length_mm,
-    position = position_jitter(width = 0.2, height = 0, seed = 123), 
-    col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
-    col_legend_place = "b",
-    y_zero = TRUE,
-    y_breaks_width = 1500
-    )
-```
+* x categorical and y numeric/date: y_limits default to min/max of y_breaks with y_expand of c(0, 0)
+* y categorical and x numeric/date: x_limits default to min/max of x_breaks with x_expand of c(0, 0)
+* x numeric/date and y numeric/date: y_limits default to min/max of y_breaks with y_expand of c(0, 0), and x_limits default to NULL (i.e. min/max of x variable) and x_expand of c(0.025, 0.025) 
 
-6. For numeric or date variables, {ggblanket} defaults limits to the min/max of x and y breaks with zero expanding.
-
-Benefits of this approach is that: 
-
-* it can look visually very nice with gridlines in both directions. 
-* it is simple to change to the min and max of geoms on the scale by using `*_limits = c(NA, NA)` (or `c(lubridate::NA_Date_, lubridate::NA_Date_)`).
-
-However, there is something to be aware of for polygons on a numeric or date x axis. This is that the limits may result in the first or last polygon being lost from the plot, if the limits are equal to the first of last value of the x variable. One way to deal with this is to use `x_limits = c(NA, NA)` or `c(lubridate::NA_Date_, lubridate::NA_Date_)`. This is demonstrated below, where if `x_limits = c(1980, 2020)` was used, the first and last column would have been lost. Instead data is filtered, and then x_limits = c(NA, NA) is added, and everything is fine.
+Hopefully, this is not too magical. But, I think this is a way to create a graph that visually has very nice symmetry, and is vital to the look and feel of {ggblanket}. 
 
 ```{r}
 storms %>%
@@ -153,6 +136,28 @@ storms %>%
     theme = gg_theme(y_grid = TRUE)
   ) 
 ```
+
+5. {ggblanket} provides prefixed arguments for scale adjustment.
+
+This is designed to work with the Rstudio autocomplete to help you find the adjustment you need.
+
+Available arguments are `*_limits`, `*_expand`, `*_labels`, `*_breaks_n`, and , `*_breaks`, `*_breaks_width`, `*_zero`, `*_zero_mid`, and `col_intervals` arguments.
+
+```{r}
+penguins %>%
+  gg_jitter(
+    x = species,
+    y = body_mass_g,
+    col = flipper_length_mm,
+    position = position_jitter(width = 0.2, height = 0, seed = 123), 
+    col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
+    col_legend_place = "b",
+    y_zero = TRUE,
+    y_breaks_width = 1500
+    )
+```
+
+
 
 7. {ggblanket} arranges horizontal geom y and col labels etc to be in correct order.
 

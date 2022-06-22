@@ -31,9 +31,8 @@ With this in mind, the {ggblanket} package:
 2.  merges col and fill aesthetics into a single col aesthetic
 3.  provides colour customisation via pal and alpha arguments
 4.  treats faceting as an aesthetic
-5.  provides prefixed arguments for scale adjustment
-6.  for numeric or dates, defaults limits to the min/max of x and y
-    breaks and zero expanding
+5.  provides default x and y scales that look super nice
+6.  provides prefixed arguments for scale adjustment
 7.  arranges horizontal geom y and col labels etc to be in correct order
 8.  converts unspecified titles to snakecase::to_sentence by default
 9.  provides access to all of the relevant geom arg’s through the dots
@@ -112,10 +111,52 @@ penguins %>%
 
 ![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
+5.  {ggblanket} provides default x and y scales that look super nice.
+
+For where:
+
+-   x categorical and y numeric/date: y_limits default to min/max of
+    y_breaks with y_expand of c(0, 0)
+-   y categorical and x numeric/date: x_limits default to min/max of
+    x_breaks with x_expand of c(0, 0)
+-   x numeric/date and y numeric/date: y_limits default to min/max of
+    y_breaks with y_expand of c(0, 0), and x_limits default to NULL
+    (i.e. min/max of x variable) and x_expand of c(0.025, 0.025)
+
+Hopefully, this is not too magical. But, I think this is a way to create
+a graph that visually has very nice symmetry, and is vital to the look
+and feel of {ggblanket}.
+
+``` r
+storms %>%
+  group_by(year) %>%
+  filter(between(year, 1980, 2020)) %>%
+  summarise(wind = mean(wind, na.rm = TRUE)) %>%
+  gg_col(
+    x = year,
+    y = wind,
+    x_labels = ~ .x,
+    x_limits = c(NA, NA),
+    y_zero = TRUE,
+    title = "Storm wind speed",
+    subtitle = "USA average storm wind speed, 1980\u20132020",
+    x_title = "Year",
+    y_title = "Wind speed (knots)",
+    caption = "Source: NOAA",
+    theme = gg_theme(y_grid = TRUE)
+  ) 
+```
+
+![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
+
 5.  {ggblanket} provides prefixed arguments for scale adjustment.
 
 This is designed to work with the Rstudio autocomplete to help you find
 the adjustment you need.
+
+Available arguments are `*_limits`, `*_expand`, `*_labels`,
+`*_breaks_n`, and , `*_breaks`, `*_breaks_width`, `*_zero`,
+`*_zero_mid`, and `col_intervals` arguments.
 
 ``` r
 penguins %>%
@@ -129,38 +170,6 @@ penguins %>%
     y_zero = TRUE,
     y_breaks_width = 1500
     )
-```
-
-![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
-
-6.  For numeric or date variables, {ggblanket} defaults limits to the
-    min/max of x and y breaks and zero expanding.
-
-This often looks visually very nice. However, it is simple to adjust to
-the {ggplot2} default by applying `*_limits = c(NA, NA)` or
-`c(lubridate::NA_Date_, lubridate::NA_Date_)` in combination with
-`*_expand = c(0.05, 0.05)`.
-
-You can also change the default theme gridlines to make this look more
-balanced.
-
-``` r
-storms %>% 
-  group_by(year) %>% 
-  summarise(wind = mean(wind, na.rm = TRUE)) %>%
-  gg_line(x = year, 
-          y = wind, 
-          x_labels = ~.x,
-          x_expand = c(0.05, 0.05),
-          x_limits = c(NA, NA),
-          y_zero = TRUE,
-          title = "Storm wind speed",
-          subtitle = "USA average storm wind speed, 1975\u20132020", 
-          x_title = "Year",
-          y_title = "Wind speed (knots)", 
-          caption = "Source: NOAA",
-          theme = gg_theme(y_grid = TRUE)) +
-  geom_point()
 ```
 
 ![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
