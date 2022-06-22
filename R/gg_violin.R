@@ -166,7 +166,8 @@ gg_violin <- function(data = NULL,
       FALSE
     )
 
-    theme <- gg_theme(x_grid = x_grid, y_grid = y_grid)
+  if (x_grid & y_grid) x_grid <- FALSE
+  theme <- gg_theme(x_grid = x_grid, y_grid = y_grid)
   }
 
   if (rlang::is_null(width)) {
@@ -593,8 +594,8 @@ gg_violin <- function(data = NULL,
           }
         }
 
-        if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
-        if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
+        if (rlang::is_null(x_limits)) x_limits <- NULL
+        if (rlang::is_null(x_expand)) x_expand <- c(0.025, 0.025)
       }
       else if (facet_scales %in% c("free", "free_x")) {
         if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
@@ -745,8 +746,14 @@ gg_violin <- function(data = NULL,
         }
       }
 
-      if (rlang::is_null(x_limits)) x_limits <- c(min(x_breaks), max(x_breaks))
-      if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
+      if (rlang::is_null(x_limits)) {
+        if (!(is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data)))) x_limits <- NULL
+        else x_limits <- c(min(x_breaks), max(x_breaks))
+      }
+      if (rlang::is_null(x_expand)) {
+        if (!(is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data)))) x_expand <- c(0.025, 0.025)
+        else x_expand <- c(0, 0)
+      }
     }
     else if (facet_scales %in% c("free", "free_x")) {
       if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
