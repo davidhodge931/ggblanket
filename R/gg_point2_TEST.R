@@ -697,30 +697,26 @@ gg_point2 <- function(data = NULL,
             if (y_trans %in% c("log10", "log2", "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
             else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
 
-            if (xy_numeric_date) y_limits <- y_range
-            else {
-              if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
-              else y_limits <- c(min(y_breaks), max(y_breaks))
-            }
+            if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
+            else y_limits <- c(min(y_breaks), max(y_breaks))
+
             if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
           }
           else if (!rlang::is_null(y_breaks)) {
-            if (xy_numeric_date) y_limits <- y_range
+            if (is.vector(y_breaks)) {
+              if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
+              else y_limits <- c(min(y_breaks), max(y_breaks))
+            }
             else {
-              if (is.vector(y_breaks)) {
-                if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
-                else y_limits <- c(min(y_breaks), max(y_breaks))
-              }
+              if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
               else {
-                if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
-                else {
-                  y_limits <- list(y_range) %>%
-                    purrr::map(.f = y_breaks) %>%
-                    unlist() %>%
-                    range()
-                }
+                y_limits <- list(y_range) %>%
+                  purrr::map(.f = y_breaks) %>%
+                  unlist() %>%
+                  range()
               }
             }
+
             if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
           }
         }
@@ -745,12 +741,7 @@ gg_point2 <- function(data = NULL,
 
       if (rlang::is_null(y_expand)) {
         if (facet_scales %in% c("fixed", "free_x")) {
-          if (xy_numeric_date) {
-            if (y_limits[1] == 0) y_expand <- ggplot2::expansion(mult = c(0, 0.025))
-            else if (y_limits[2] == 0) y_expand <- ggplot2::expansion(mult = c(0.025, 0))
-            else y_expand <- c(0.025, 0.025)
-          }
-          else y_expand <- c(0, 0)
+          y_expand <- c(0, 0)
         }
         else y_expand <- c(0.025, 0.025)
       }
@@ -945,28 +936,24 @@ gg_point2 <- function(data = NULL,
           if (y_trans %in% c("log10", "log2", "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
           else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
 
-          if (xy_numeric_date) y_limits <- y_range
-          else {
-            if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
-            else y_limits <- c(min(y_breaks), max(y_breaks))
-          }
+          y_limits <- y_range
+          if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
+          else y_limits <- c(min(y_breaks), max(y_breaks))
+
           if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
         }
         else if (!rlang::is_null(y_breaks)) {
-          if (xy_numeric_date) y_limits <- y_range
+          if (is.vector(y_breaks)) {
+            if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
+            else y_limits <- c(min(y_breaks), max(y_breaks))
+          }
           else {
-            if (is.vector(y_breaks)) {
-              if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
-              else y_limits <- c(min(y_breaks), max(y_breaks))
-            }
+            if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
             else {
-              if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
-              else {
-                y_limits <- list(y_range) %>%
-                  purrr::map(.f = y_breaks) %>%
-                  unlist() %>%
-                  range()
-              }
+              y_limits <- list(y_range) %>%
+                purrr::map(.f = y_breaks) %>%
+                unlist() %>%
+                range()
             }
           }
           if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
@@ -993,12 +980,7 @@ gg_point2 <- function(data = NULL,
 
     if (rlang::is_null(y_expand)) {
       if (facet_scales %in% c("fixed", "free_x")) {
-        if (xy_numeric_date) {
-          if (y_limits[1] == 0) y_expand <- ggplot2::expansion(mult = c(0, 0.025))
-          else if (y_limits[2] == 0) y_expand <- ggplot2::expansion(mult = c(0.025, 0))
-          else y_expand <- c(0.025, 0.025)
-        }
-        else y_expand <- c(0, 0)
+        y_expand <- c(0, 0)
       }
       else y_expand <- c(0.025, 0.025)
     }
