@@ -24,8 +24,6 @@ gg_point2(
   subtitle = NULL,
   coord = ggplot2::coord_cartesian(clip = "off"),
   x_breaks = NULL,
-  x_breaks_n = NULL,
-  x_breaks_width = NULL,
   x_expand = NULL,
   x_include = NULL,
   x_labels = NULL,
@@ -34,8 +32,6 @@ gg_point2(
   x_title = NULL,
   x_trans = "identity",
   y_breaks = NULL,
-  y_breaks_n = NULL,
-  y_breaks_width = NULL,
   y_expand = NULL,
   y_include = NULL,
   y_labels = NULL,
@@ -101,10 +97,6 @@ gg_point2(
 
 \item{x_breaks}{For a numeric or date variable, a vector of breaks for the axis.}
 
-\item{x_breaks_n}{For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.}
-
-\item{x_breaks_width}{For a numeric or date variable, the width of breaks, as calculated by the scales::fullseq function.}
-
 \item{x_expand}{Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.}
 
 \item{x_include}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
@@ -117,23 +109,23 @@ gg_point2(
 
 \item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
+\item{x_trans}{For a numeric variable, a transformation object (e.g. "log10").}
+
 \item{y_breaks}{For a numeric or date variable, a vector of breaks for the axis.}
-
-\item{y_breaks_n}{For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.}
-
-\item{y_breaks_width}{For a numeric or date variable, the width of breaks, as calculated by the scales::fullseq function.}
 
 \item{y_expand}{Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.}
 
 \item{y_include}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
 
-\item{y_labels}{A functiyon to format the scale labels, including in rlang lambda format.  If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
+\item{y_labels}{A function to format the scale labels, including in rlang lambda format.  If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
 \item{y_limits}{For a numeric or date variable, a vector of length 2 to determine the limits of the axis. For a numeric variable, use c(NA, NA) to use the min and max as limits. For a date variable, load lubridate package and use c(NA_Date_, NA_Date_) to use the min and max as limits.}
 
 \item{y_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
 
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
+
+\item{y_trans}{For a numeric variable, a transformation object (e.g. "log10").}
 
 \item{col_breaks}{A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.}
 

@@ -1,11 +1,13 @@
 # ggblanket 1.1.9000
 
-* Provided support for ggplotly.
-* Added new add_tooltip_text function.
-* Added new titles argument to apply a function across titles.
-* Updated theme title vjust and margins.
-* Fixed bug with _zero and _breaks_width arguments not working together.
-* Changed default oob to squish to prevent losing data.
+* Modified default `x_breaks` for when both x and y are numeric or date.
+* Added support for `*_breaks` to receive a function.
+* Added `*_trans` argument.
+* Removed `*_breaks_n` and `*_breaks_width`
+* Provided support for `ggplotly`.
+* Added new `add_tooltip_text` function.
+* Added new `titles` argument to apply a function across titles.
+* Updated `gg_theme` title vjust and margins.
 
 # ggblanket 1.1.0
 

@@ -20,23 +20,21 @@
 #' @param subtitle Subtitle string.
 #' @param coord Coordinate system.
 #' @param x_breaks For a numeric or date variable, a vector of breaks for the axis.
-#' @param x_breaks_n For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.
-#' @param x_breaks_width For a numeric or date variable, the width of breaks, as calculated by the scales::fullseq function.
 #' @param x_expand Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.
+#' @param x_include For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
 #' @param x_oob A scales::oob_* function for how to deal with out-of-bounds values.
 #' @param x_labels A function to format the scale labels, including in rlang lambda format.  If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
 #' @param x_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. For a numeric variable, use c(NA, NA) to use the min and max as limits. For a date variable, load lubridate package and use c(NA_Date_, NA_Date_) to use the min and max as limits.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param x_include For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
+#' @param x_trans For a numeric variable, a transformation object (e.g. "log10").
 #' @param y_breaks For a numeric or date variable, a vector of breaks for the axis.
-#' @param y_breaks_n For a numeric or date variable, an integer guiding the number of breaks, as calculated by the pretty function.
-#' @param y_breaks_width For a numeric or date variable, the width of breaks, as calculated by the scales::fullseq function.
 #' @param y_expand Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.
+#' @param y_include For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
 #' @param y_oob A scales::oob_* function for how to deal with out-of-bounds values.
-#' @param y_labels A functiyon to format the scale labels, including in rlang lambda format.  If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
+#' @param y_labels A function to format the scale labels, including in rlang lambda format.  If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
 #' @param y_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. For a numeric variable, use c(NA, NA) to use the min and max as limits. For a date variable, load lubridate package and use c(NA_Date_, NA_Date_) to use the min and max as limits.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param y_include For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
+#' @param y_trans For a numeric variable, a transformation object (e.g. "log10").
 #' @param col_breaks A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.
 #' @param col_breaks_n For a numeric variable where col_intervals is NULL, an integer guiding the number of breaks, as calculated by the pretty function.
 #' @param col_breaks_width For a numeric variable, the width of breaks, as calculated by the scales::fullseq function.
@@ -87,8 +85,6 @@ gg_point2 <- function(data = NULL,
                      subtitle = NULL,
                      coord = ggplot2::coord_cartesian(clip = "off"),
                      x_breaks = NULL,
-                     x_breaks_n = NULL,
-                     x_breaks_width = NULL,
                      x_expand = NULL,
                      x_include = NULL,
                      x_labels = NULL,
@@ -97,8 +93,6 @@ gg_point2 <- function(data = NULL,
                      x_title = NULL,
                      x_trans = "identity",
                      y_breaks = NULL,
-                     y_breaks_n = NULL,
-                     y_breaks_width = NULL,
                      y_expand = NULL,
                      y_include = NULL,
                      y_labels = NULL,
@@ -554,68 +548,87 @@ gg_point2 <- function(data = NULL,
     }
     else {
       if (facet_scales %in% c("fixed", "free_y")) {
+
         x_min <- data %>% dplyr::pull(!!x) %>% min(na.rm = TRUE)
         x_max <- data %>% dplyr::pull(!!x) %>% max(na.rm = TRUE)
 
-        if (!rlang::is_null(x_limits)) {
-          if (is.na(x_limits)[1]) x_limits[1] <- x_min
-          if (is.na(x_limits)[2]) x_limits[2] <- x_max
-        }
+        # x_vctr <- layer_data %>%
+        #   dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmax_final$"))) %>%
+        #   tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+        #   dplyr::pull(.data$value)
 
-        x_range <- c(x_min, x_max)
-        if (!rlang::is_null(x_include)) x_range <- range(c(x_include, x_range))
+        # if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
+        #   x_vctr <- as.Date(x_vctr, origin = "1970-01-01")
+        # }
 
-        if (rlang::is_null(x_limits) & rlang::is_null(x_breaks)) {
-          x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
-          if (x_trans %in% c("log10", "log2", "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
-          else if (x_numeric) x_breaks <- scales::breaks_extended(n = x_breaks_n)(x_range)
-          else if (x_date) x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+        # x_min <- x_vctr %>% min(na.rm = TRUE)
+        # x_max <- x_vctr %>% max(na.rm = TRUE)
 
-          if (x_trans %in% c("log10", "log2", "log", "sqrt")) x_limits <- x_range
-          else x_limits <- c(min(x_breaks), max(x_breaks))
+        if (rlang::is_null(x_limits)) {
+          x_range <- c(x_min, x_max)
+          if (!rlang::is_null(x_include)) x_range <- range(c(x_include, x_range))
 
-          if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
-          if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
-        }
-        else if (rlang::is_null(x_limits) & !rlang::is_null(x_breaks)) {
-          if (is.vector(x_breaks)) {
-            if (x_trans %in% c("log10", "log2", "log", "sqrt")) x_limits <- x_range
-            else x_limits <- c(min(x_breaks), max(x_breaks))
-            if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
-            if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
-          }
-          else {
-            if (x_trans %in% c("log10", "log2", "log", "sqrt")) x_limits <- x_range
+          if (rlang::is_null(x_breaks)) {
+            x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+            if (x_trans %in% c("log10", "log2", "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
+            else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+
+            if (xy_numeric_date) x_limits <- x_range
             else {
-              x_limits <- list(x_range) %>%
-                purrr::map(.f = x_breaks) %>%
-                unlist() %>%
-                range()
+              if (x_trans %in% c("log10", "log2", "log", "sqrt")) x_limits <- x_range
+              else x_limits <- c(min(x_breaks), max(x_breaks))
             }
-
             if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
-            if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
+          }
+          else if (!rlang::is_null(x_breaks)) {
+            if (xy_numeric_date) x_limits <- x_range
+            else {
+              if (is.vector(x_breaks)) {
+                if (x_trans %in% c("log10", "log2", "log", "sqrt")) x_limits <- x_range
+                else x_limits <- c(min(x_breaks), max(x_breaks))
+              }
+              else {
+                if (x_trans %in% c("log10", "log2", "log", "sqrt")) x_limits <- x_range
+                else {
+                  x_limits <- list(x_range) %>%
+                    purrr::map(.f = x_breaks) %>%
+                    unlist() %>%
+                    range()
+                }
+              }
+            }
+            if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
           }
         }
-        else if (!rlang::is_null(x_limits) & rlang::is_null(x_breaks)) {
-          if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
-          x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
-          if (x_trans %in% c("log10", "log2", "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
-          else if (x_numeric) x_breaks <- scales::breaks_extended(n = x_breaks_n)(x_limits)
-          else if (x_date) x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+        else if (!rlang::is_null(x_limits)) {
+          if (!rlang::is_null(x_limits)) {
+            if (is.na(x_limits)[1]) x_limits[1] <- x_min
+            if (is.na(x_limits)[2]) x_limits[2] <- x_max
+          }
 
-          if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
-        }
-        else if (!rlang::is_null(x_limits) & !rlang::is_null(x_breaks)) {
           if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
 
-          if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
+          if (rlang::is_null(x_breaks)) {
+            x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+            if (x_trans %in% c("log10", "log2", "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
+            else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+          }
         }
       }
       else if (facet_scales %in% c("free", "free_x")) {
         if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
-        x_limits <- NULL
-        if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
+      }
+
+      if (rlang::is_null(x_expand)) {
+        if (facet_scales %in% c("fixed", "free_y")) {
+          if (xy_numeric_date) {
+            if (x_limits[1] == 0) x_expand <- ggplot2::expansion(mult = c(0, 0.025))
+            else if (x_limits[2] == 0) x_expand <- ggplot2::expansion(mult = c(0.025, 0))
+            else x_expand <- c(0.025, 0.025)
+          }
+          else x_expand <- c(0, 0)
+        }
+        else x_expand <- c(0.025, 0.025)
       }
 
       if (rlang::is_null(x_labels)) {
@@ -659,66 +672,104 @@ gg_point2 <- function(data = NULL,
     }
     else {
       if (facet_scales %in% c("fixed", "free_x")) {
-        # y_min <- y_vctr %>% min(na.rm = TRUE)
-        # y_max <- y_vctr %>% max(na.rm = TRUE)
 
         y_min <- data %>% dplyr::pull(!!y) %>% min(na.rm = TRUE)
         y_max <- data %>% dplyr::pull(!!y) %>% max(na.rm = TRUE)
 
-        if (!rlang::is_null(y_limits)) {
-          if (is.na(y_limits)[1]) y_limits[1] <- y_min
-          if (is.na(y_limits)[2]) y_limits[2] <- y_max
-        }
+        # y_vctr <- layer_data %>%
+        #   dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymax_final$"))) %>%
+        #   tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+        #   dplyr::pull(.data$value)
 
-        y_range <- c(y_min, y_max)
-        if (!rlang::is_null(y_include)) y_range <- range(c(y_include, y_range))
+        # if (lubridate::is.Date(rlang::eval_tidy(y, data))) {
+        #   y_vctr <- as.Date(y_vctr, origin = "1970-01-01")
+        # }
 
-        if (rlang::is_null(y_limits) & rlang::is_null(y_breaks)) {
-          y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
-          if (y_trans %in% c("log10", "log2", "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
-          else if (y_numeric) y_breaks <- scales::breaks_extended(n = y_breaks_n)(y_range)
-          else if (y_date) y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+        # y_min <- y_vctr %>% min(na.rm = TRUE)
+        # y_max <- y_vctr %>% max(na.rm = TRUE)
 
-          if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
-          else y_limits <- c(min(y_breaks), max(y_breaks))
+        if (rlang::is_null(y_limits)) {
+          y_range <- c(y_min, y_max)
+          if (!rlang::is_null(y_include)) y_range <- range(c(y_include, y_range))
 
-          if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
-          if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
-        }
-        else if (rlang::is_null(y_limits) & !rlang::is_null(y_breaks)) {
-          if (is.vector(y_breaks)) {
-            if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
-            else y_limits <- c(min(y_breaks), max(y_breaks))
-            if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
-            if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
-          }
-          else {
-            if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
+          if (rlang::is_null(y_breaks)) {
+            y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+            if (y_trans %in% c("log10", "log2", "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
+            else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+
+            if (xy_numeric_date) y_limits <- y_range
             else {
-              y_limits <- list(y_range) %>%
-                purrr::map(.f = y_breaks) %>%
-                unlist() %>%
-                range()
+              if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
+              else y_limits <- c(min(y_breaks), max(y_breaks))
             }
-
             if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
-            if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
+          }
+          else if (!rlang::is_null(y_breaks)) {
+            if (xy_numeric_date) y_limits <- y_range
+            else {
+              if (is.vector(y_breaks)) {
+                if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
+                else y_limits <- c(min(y_breaks), max(y_breaks))
+              }
+              else {
+                if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
+                else {
+                  y_limits <- list(y_range) %>%
+                    purrr::map(.f = y_breaks) %>%
+                    unlist() %>%
+                    range()
+                }
+              }
+            }
+            if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
           }
         }
-        else if (!rlang::is_null(y_limits) & rlang::is_null(y_breaks)) {
-          if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
-          y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
-          if (y_trans %in% c("log10", "log2", "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
-          else if (y_numeric) y_breaks <- scales::breaks_extended(n = y_breaks_n)(y_limits)
-          else if (y_date) y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+        else if (!rlang::is_null(y_limits)) {
+          if (!rlang::is_null(y_limits)) {
+            if (is.na(y_limits)[1]) y_limits[1] <- y_min
+            if (is.na(y_limits)[2]) y_limits[2] <- y_max
+          }
 
-          if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
-        }
-        else if (!rlang::is_null(y_limits) & !rlang::is_null(y_breaks)) {
           if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
 
-          if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
+          if (rlang::is_null(y_breaks)) {
+            y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+            if (y_trans %in% c("log10", "log2", "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
+            else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+          }
         }
+      }
+      else if (facet_scales %in% c("free", "free_y")) {
+        if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
+      }
+
+      if (rlang::is_null(y_expand)) {
+        if (facet_scales %in% c("fixed", "free_x")) {
+          if (xy_numeric_date) {
+            if (y_limits[1] == 0) y_expand <- ggplot2::expansion(mult = c(0, 0.025))
+            else if (y_limits[2] == 0) y_expand <- ggplot2::expansion(mult = c(0.025, 0))
+            else y_expand <- c(0.025, 0.025)
+          }
+          else y_expand <- c(0, 0)
+        }
+        else y_expand <- c(0.025, 0.025)
+      }
+
+      if (rlang::is_null(y_labels)) {
+        if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(y)) y_labels <- scales::label_comma()
+        else if (lubridate::is.Date(rlang::eval_tidy(y, data))) y_labels <- scales::label_date_short()
+        else y_labels <- ggplot2::waiver()
+      }
+
+      if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(y)) {
+        y_scale <- ggplot2::scale_y_continuous(
+          breaks = y_breaks,
+          limits = y_limits,
+          expand = y_expand,
+          labels = y_labels,
+          oob = y_oob,
+          trans = y_trans
+        )
       }
       else if (lubridate::is.Date(rlang::eval_tidy(y, data))) {
         y_scale <- ggplot2::scale_y_date(
@@ -748,6 +799,9 @@ gg_point2 <- function(data = NULL,
   else {
     if (facet_scales %in% c("fixed", "free_y")) {
 
+      # x_min <- data %>% dplyr::pull(!!x) %>% min(na.rm = TRUE)
+      # x_max <- data %>% dplyr::pull(!!x) %>% max(na.rm = TRUE)
+
       x_vctr <- layer_data %>%
         dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmax_final$"))) %>%
         tidyr::pivot_longer(cols = tidyselect::everything()) %>%
@@ -760,65 +814,71 @@ gg_point2 <- function(data = NULL,
       x_min <- x_vctr %>% min(na.rm = TRUE)
       x_max <- x_vctr %>% max(na.rm = TRUE)
 
-      if (!rlang::is_null(x_limits)) {
-        if (is.na(x_limits)[1]) x_limits[1] <- x_min
-        if (is.na(x_limits)[2]) x_limits[2] <- x_max
-      }
+      if (rlang::is_null(x_limits)) {
+        x_range <- c(x_min, x_max)
+        if (!rlang::is_null(x_include)) x_range <- range(c(x_include, x_range))
 
-      x_range <- c(x_min, x_max)
-      if (!rlang::is_null(x_include)) x_range <- range(c(x_include, x_range))
+        if (rlang::is_null(x_breaks)) {
+          x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+          if (x_trans %in% c("log10", "log2", "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
+          else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
 
-      if (rlang::is_null(x_limits) & rlang::is_null(x_breaks)) {
-        x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
-        if (x_trans %in% c("log10", "log2", "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
-        else if (x_numeric) x_breaks <- scales::breaks_extended(n = x_breaks_n)(x_range)
-        else if (x_date) x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
-
-        if (x_trans %in% c("log10", "log2", "log", "sqrt")) x_limits <- x_range
-        else x_limits <- c(min(x_breaks), max(x_breaks))
-
-        if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
-        if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
-      }
-      else if (rlang::is_null(x_limits) & !rlang::is_null(x_breaks)) {
-        if (is.vector(x_breaks)) {
-          if (x_trans %in% c("log10", "log2", "log", "sqrt")) x_limits <- x_range
-          else x_limits <- c(min(x_breaks), max(x_breaks))
-          if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
-          if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
-        }
-        else {
-          if (x_trans %in% c("log10", "log2", "log", "sqrt")) x_limits <- x_range
+          if (xy_numeric_date) x_limits <- x_range
           else {
-            x_limits <- list(x_range) %>%
-              purrr::map(.f = x_breaks) %>%
-              unlist() %>%
-              range()
+            if (x_trans %in% c("log10", "log2", "log", "sqrt")) x_limits <- x_range
+            else x_limits <- c(min(x_breaks), max(x_breaks))
           }
-
           if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
-          if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
+        }
+        else if (!rlang::is_null(x_breaks)) {
+          if (xy_numeric_date) x_limits <- x_range
+          else {
+            if (is.vector(x_breaks)) {
+              if (x_trans %in% c("log10", "log2", "log", "sqrt")) x_limits <- x_range
+              else x_limits <- c(min(x_breaks), max(x_breaks))
+            }
+            else {
+              if (x_trans %in% c("log10", "log2", "log", "sqrt")) x_limits <- x_range
+              else {
+                x_limits <- list(x_range) %>%
+                  purrr::map(.f = x_breaks) %>%
+                  unlist() %>%
+                  range()
+              }
+            }
+          }
+          if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
         }
       }
-      else if (!rlang::is_null(x_limits) & rlang::is_null(x_breaks)) {
-        if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
-        x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
-        if (x_trans %in% c("log10", "log2", "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
-        else if (x_numeric) x_breaks <- scales::breaks_extended(n = x_breaks_n)(x_limits)
-        else if (x_date) x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+      else if (!rlang::is_null(x_limits)) {
+        if (!rlang::is_null(x_limits)) {
+          if (is.na(x_limits)[1]) x_limits[1] <- x_min
+          if (is.na(x_limits)[2]) x_limits[2] <- x_max
+        }
 
-        if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
-      }
-      else if (!rlang::is_null(x_limits) & !rlang::is_null(x_breaks)) {
         if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
 
-        if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
+        if (rlang::is_null(x_breaks)) {
+          x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+          if (x_trans %in% c("log10", "log2", "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
+          else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+        }
       }
     }
     else if (facet_scales %in% c("free", "free_x")) {
       if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
-      x_limits <- NULL
-      if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
+    }
+
+    if (rlang::is_null(x_expand)) {
+      if (facet_scales %in% c("fixed", "free_y")) {
+        if (xy_numeric_date) {
+          if (x_limits[1] == 0) x_expand <- ggplot2::expansion(mult = c(0, 0.025))
+          else if (x_limits[2] == 0) x_expand <- ggplot2::expansion(mult = c(0.025, 0))
+          else x_expand <- c(0.025, 0.025)
+        }
+        else x_expand <- c(0, 0)
+      }
+      else x_expand <- c(0.025, 0.025)
     }
 
     if (rlang::is_null(x_labels)) {
@@ -861,6 +921,9 @@ gg_point2 <- function(data = NULL,
   else {
     if (facet_scales %in% c("fixed", "free_x")) {
 
+      # y_min <- data %>% dplyr::pull(!!y) %>% min(na.rm = TRUE)
+      # y_max <- data %>% dplyr::pull(!!y) %>% max(na.rm = TRUE)
+
       y_vctr <- layer_data %>%
         dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymax_final$"))) %>%
         tidyr::pivot_longer(cols = tidyselect::everything()) %>%
@@ -873,65 +936,71 @@ gg_point2 <- function(data = NULL,
       y_min <- y_vctr %>% min(na.rm = TRUE)
       y_max <- y_vctr %>% max(na.rm = TRUE)
 
-      if (!rlang::is_null(y_limits)) {
-        if (is.na(y_limits)[1]) y_limits[1] <- y_min
-        if (is.na(y_limits)[2]) y_limits[2] <- y_max
-      }
+      if (rlang::is_null(y_limits)) {
+        y_range <- c(y_min, y_max)
+        if (!rlang::is_null(y_include)) y_range <- range(c(y_include, y_range))
 
-      y_range <- c(y_min, y_max)
-      if (!rlang::is_null(y_include)) y_range <- range(c(y_include, y_range))
+        if (rlang::is_null(y_breaks)) {
+          y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+          if (y_trans %in% c("log10", "log2", "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
+          else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
 
-      if (rlang::is_null(y_limits) & rlang::is_null(y_breaks)) {
-        y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
-        if (y_trans %in% c("log10", "log2", "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
-        else if (y_numeric) y_breaks <- scales::breaks_extended(n = y_breaks_n)(y_range)
-        else if (y_date) y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
-
-        if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
-        else y_limits <- c(min(y_breaks), max(y_breaks))
-
-        if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
-        if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
-      }
-      else if (rlang::is_null(y_limits) & !rlang::is_null(y_breaks)) {
-        if (is.vector(y_breaks)) {
-          if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
-          else y_limits <- c(min(y_breaks), max(y_breaks))
-          if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
-          if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
-        }
-        else {
-          if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
+          if (xy_numeric_date) y_limits <- y_range
           else {
-            y_limits <- list(y_range) %>%
-              purrr::map(.f = y_breaks) %>%
-              unlist() %>%
-              range()
+            if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
+            else y_limits <- c(min(y_breaks), max(y_breaks))
           }
-
           if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
-          if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
+        }
+        else if (!rlang::is_null(y_breaks)) {
+          if (xy_numeric_date) y_limits <- y_range
+          else {
+            if (is.vector(y_breaks)) {
+              if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
+              else y_limits <- c(min(y_breaks), max(y_breaks))
+            }
+            else {
+              if (y_trans %in% c("log10", "log2", "log", "sqrt")) y_limits <- y_range
+              else {
+                y_limits <- list(y_range) %>%
+                  purrr::map(.f = y_breaks) %>%
+                  unlist() %>%
+                  range()
+              }
+            }
+          }
+          if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
         }
       }
-      else if (!rlang::is_null(y_limits) & rlang::is_null(y_breaks)) {
-        if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
-        y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
-        if (y_trans %in% c("log10", "log2", "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
-        else if (y_numeric) y_breaks <- scales::breaks_extended(n = y_breaks_n)(y_limits)
-        else if (y_date) y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+      else if (!rlang::is_null(y_limits)) {
+        if (!rlang::is_null(y_limits)) {
+          if (is.na(y_limits)[1]) y_limits[1] <- y_min
+          if (is.na(y_limits)[2]) y_limits[2] <- y_max
+        }
 
-        if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
-      }
-      else if (!rlang::is_null(y_limits) & !rlang::is_null(y_breaks)) {
         if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
 
-        if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
+        if (rlang::is_null(y_breaks)) {
+          y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+          if (y_trans %in% c("log10", "log2", "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
+          else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+        }
       }
     }
     else if (facet_scales %in% c("free", "free_y")) {
       if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
-      y_limits <- NULL
-      if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
+    }
+
+    if (rlang::is_null(y_expand)) {
+      if (facet_scales %in% c("fixed", "free_x")) {
+        if (xy_numeric_date) {
+          if (y_limits[1] == 0) y_expand <- ggplot2::expansion(mult = c(0, 0.025))
+          else if (y_limits[2] == 0) y_expand <- ggplot2::expansion(mult = c(0.025, 0))
+          else y_expand <- c(0.025, 0.025)
+        }
+        else y_expand <- c(0, 0)
+      }
+      else y_expand <- c(0.025, 0.025)
     }
 
     if (rlang::is_null(y_labels)) {
