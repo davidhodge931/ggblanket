@@ -154,13 +154,21 @@ gg_sf <- function(data = NULL,
   }
   else {
     if (rlang::is_null(col_title)) {
-       if (rlang::is_null(titles)) col_title <- purrr::map_chr(rlang::as_name(col), snakecase::to_sentence_case)
-       else col_title <- purrr::map(rlang::as_name(col), titles)
+      if (rlang::is_null(titles)) col_title <- purrr::map_chr(rlang::as_name(col), snakecase::to_sentence_case)
+      else col_title <- purrr::map_chr(rlang::as_name(col), titles)
     }
     col_title_position <- ifelse(col_title == "", "right", "top")
 
     if (rlang::is_null(col_legend_place)) {
-      if (!rlang::quo_is_null(facet) &
+      if (!rlang::quo_is_null(x) &
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data)))) {
+        col_legend_place <- "n"
+      }
+      else if (!rlang::quo_is_null(y) &
+               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data)))) {
+        col_legend_place <- "n"
+      }
+      else if (!rlang::quo_is_null(facet) &
                (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data)))) {
         col_legend_place <- "n"
       }
@@ -170,21 +178,21 @@ gg_sf <- function(data = NULL,
 
     if (is.numeric(rlang::eval_tidy(col, data))) {
       if (rlang::is_null(col_intervals)) { #continuous col
-        if (rlang::is_null(col_breaks)) {
-          col_vctr <- dplyr::pull(data, !!col)
-          col_min_max <- c(min(col_vctr, na.rm = TRUE), max(col_vctr, na.rm = TRUE))
-          if (!rlang::is_null(col_limits)) col_min_max <- col_limits
+        col_min <- data %>% dplyr::pull(!!col) %>% min(na.rm = TRUE)
+        col_max <- data %>% dplyr::pull(!!col) %>% max(na.rm = TRUE)
 
-          if (!rlang::is_null(col_breaks_width)) {
-            col_breaks <- scales::fullseq(col_min_max, size = col_breaks_width)
-          }
-          else {
-            if (rlang::is_null(col_breaks_n)) {
-              if (col_legend_place %in% c("b", "t")) col_breaks_n <- 3
-              else col_breaks_n <- 4
-            }
-            col_breaks <- pretty(col_min_max, n = col_breaks_n)
-          }
+        if (!rlang::is_null(col_limits)) {
+          if (is.na(col_limits)[1]) col_limits[1] <- col_min
+          if (is.na(col_limits)[2]) col_limits[2] <- col_max
+        }
+
+        if (rlang::is_null(col_limits)) col_limits <- c(col_min, col_max)
+        if (!rlang::is_null(col_include)) col_limits <- range(c(col_include, col_limits))
+
+        if (rlang::is_null(col_breaks)) {
+          if (col_legend_place %in% c("b", "t")) col_breaks_n <- 3
+          else col_breaks_n <- 4
+          col_breaks <- scales::breaks_pretty(n = col_breaks_n)(col_limits)
         }
 
         if (rlang::is_null(pal)) pal <- viridis::viridis(100)
@@ -220,8 +228,18 @@ gg_sf <- function(data = NULL,
         if (rlang::is_null(pal)) pal <- pal_viridis_mix(col_n)
         else pal <- pal[1:col_n]
 
-        if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
-        else col_legend_rev <- TRUE
+        if (is.numeric(rlang::eval_tidy(y, data)) |
+            lubridate::is.Date(rlang::eval_tidy(y, data))) {
+
+          if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
+          else col_legend_rev <- TRUE
+        }
+        else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
+          if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
+          else col_legend_rev <- FALSE
+          pal <- rev(pal)
+        }
+        else col_legend_rev <- FALSE
 
         if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
         if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
@@ -272,11 +290,24 @@ gg_sf <- function(data = NULL,
       if (rlang::is_null(pal)) pal <- pal_d3_mix(col_n)
       else pal <- pal[1:col_n]
 
-      if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
-        col_legend_rev <- FALSE
+      if (is.numeric(rlang::eval_tidy(y, data)) |
+          lubridate::is.Date(rlang::eval_tidy(y, data))) {
+
+        if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
+          col_legend_rev <- FALSE
+        }
+        else if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
+        else col_legend_rev <- TRUE
       }
-      else if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
-      else col_legend_rev <- TRUE
+      else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
+        if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
+          col_legend_rev <- TRUE
+        }
+        else if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
+        else col_legend_rev <- FALSE
+        pal <- rev(pal)
+      }
+      else col_legend_rev <- FALSE
 
       if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
       if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()

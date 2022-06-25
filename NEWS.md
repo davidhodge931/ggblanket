@@ -1,10 +1,11 @@
 # ggblanket 1.1.9000
 
+* Added `linewidth` argument, and removed size where unnecessary.
 * Modified default `x_breaks` for when both x and y are numeric or date.
 * Added support for `*_breaks` to receive a function.
 * Added `*_trans` argument.
 * Added `*_include` argument.
-* Removed `*_breaks_n` and `*_breaks_width`
+* Removed `*_breaks_n` and `*_breaks_width`.
 * Provided support for `ggplotly`.
 * Added new `add_tooltip_text` function.
 * Added new `titles` argument to apply a function across titles.

@@ -36,8 +36,7 @@
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_trans For a numeric variable, a transformation object (e.g. "log10").
 #' @param col_breaks A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.
-#' @param col_breaks_n For a numeric variable where col_intervals is NULL, an integer guiding the number of breaks, as calculated by the pretty function.
-#' @param col_breaks_width For a numeric variable, the width of breaks, as calculated by the scales::fullseq function.
+#' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param col_intervals A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
 #' @param col_labels A function to format the scale labels, including in rlang lambda format.  If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.
 #' @param col_limits A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For a numeric variable where col_intervals is NULL, this will make all values outside the limits coloured NA.
@@ -101,8 +100,7 @@ gg_point2 <- function(data = NULL,
                      y_title = NULL,
                      y_trans = "identity",
                      col_breaks = NULL,
-                     col_breaks_n = NULL,
-                     col_breaks_width = NULL,
+                     col_include = NULL,
                      col_intervals = NULL,
                      col_labels = NULL,
                      col_legend_place = NULL,
@@ -259,21 +257,21 @@ gg_point2 <- function(data = NULL,
 
     if (is.numeric(rlang::eval_tidy(col, data))) {
       if (rlang::is_null(col_intervals)) { #continuous col
-        if (rlang::is_null(col_breaks)) {
-          col_vctr <- dplyr::pull(data, !!col)
-          col_min_max <- c(min(col_vctr, na.rm = TRUE), max(col_vctr, na.rm = TRUE))
-          if (!rlang::is_null(col_limits)) col_min_max <- col_limits
+        col_min <- data %>% dplyr::pull(!!col) %>% min(na.rm = TRUE)
+        col_max <- data %>% dplyr::pull(!!col) %>% max(na.rm = TRUE)
 
-          if (!rlang::is_null(col_breaks_width)) {
-            col_breaks <- scales::fullseq(col_min_max, size = col_breaks_width)
-          }
-          else {
-            if (rlang::is_null(col_breaks_n)) {
-              if (col_legend_place %in% c("b", "t")) col_breaks_n <- 3
-              else col_breaks_n <- 4
-            }
-            col_breaks <- pretty(col_min_max, n = col_breaks_n)
-          }
+        if (!rlang::is_null(col_limits)) {
+          if (is.na(col_limits)[1]) col_limits[1] <- col_min
+          if (is.na(col_limits)[2]) col_limits[2] <- col_max
+        }
+
+        if (rlang::is_null(col_limits)) col_limits <- c(col_min, col_max)
+        if (!rlang::is_null(col_include)) col_limits <- range(c(col_include, col_limits))
+
+        if (rlang::is_null(col_breaks)) {
+          if (col_legend_place %in% c("b", "t")) col_breaks_n <- 3
+          else col_breaks_n <- 4
+          col_breaks <- scales::breaks_pretty(n = col_breaks_n)(col_limits)
         }
 
         if (rlang::is_null(pal)) pal <- viridis::viridis(100)

@@ -40,8 +40,7 @@ gg_point2(
   y_title = NULL,
   y_trans = "identity",
   col_breaks = NULL,
-  col_breaks_n = NULL,
-  col_breaks_width = NULL,
+  col_include = NULL,
   col_intervals = NULL,
   col_labels = NULL,
   col_legend_place = NULL,
@@ -129,9 +128,7 @@ gg_point2(
 
 \item{col_breaks}{A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.}
 
-\item{col_breaks_n}{For a numeric variable where col_intervals is NULL, an integer guiding the number of breaks, as calculated by the pretty function.}
-
-\item{col_breaks_width}{For a numeric variable, the width of breaks, as calculated by the scales::fullseq function.}
+\item{col_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
 \item{col_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
 
