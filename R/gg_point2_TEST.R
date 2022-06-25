@@ -21,18 +21,18 @@
 #' @param coord Coordinate system.
 #' @param x_breaks For a numeric or date variable, a vector of breaks for the axis.
 #' @param x_expand Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.
-#' @param x_include For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
-#' @param x_oob A scales::oob_* function for how to deal with out-of-bounds values.
+#' @param x_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param x_labels A function to format the scale labels, including in rlang lambda format.  If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
 #' @param x_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. For a numeric variable, use c(NA, NA) to use the min and max as limits. For a date variable, load lubridate package and use c(NA_Date_, NA_Date_) to use the min and max as limits.
+#' @param x_oob A scales::oob_* function for how to deal with out-of-bounds values.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param x_trans For a numeric variable, a transformation object (e.g. "log10").
 #' @param y_breaks For a numeric or date variable, a vector of breaks for the axis.
 #' @param y_expand Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.
-#' @param y_include For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.
-#' @param y_oob A scales::oob_* function for how to deal with out-of-bounds values.
+#' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param y_labels A function to format the scale labels, including in rlang lambda format.  If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).
 #' @param y_limits For a numeric or date variable, a vector of length 2 to determine the limits of the axis. For a numeric variable, use c(NA, NA) to use the min and max as limits. For a date variable, load lubridate package and use c(NA_Date_, NA_Date_) to use the min and max as limits.
+#' @param y_oob A scales::oob_* function for how to deal with out-of-bounds values.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_trans For a numeric variable, a transformation object (e.g. "log10").
 #' @param col_breaks A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.

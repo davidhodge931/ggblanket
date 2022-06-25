@@ -99,7 +99,7 @@ gg_point2(
 
 \item{x_expand}{Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.}
 
-\item{x_include}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
+\item{x_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
 \item{x_labels}{A function to format the scale labels, including in rlang lambda format.  If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
@@ -115,7 +115,7 @@ gg_point2(
 
 \item{y_expand}{Add padding to the limits with the ggplot2::expansion function, or a vector of length 2.}
 
-\item{y_include}{For a numeric variable, TRUE or FALSE of whether the axis should include zero. Defaults to FALSE.}
+\item{y_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
 \item{y_labels}{A function to format the scale labels, including in rlang lambda format.  If numeric, accepts a vector. If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
 
