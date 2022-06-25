@@ -39,8 +39,8 @@ With this in mind, the {ggblanket} package:
 2. merges col and fill aesthetics into a single col aesthetic
 3. provides colour customisation via pal and alpha arguments
 4. treats faceting as an aesthetic
-5. provides customisable x and y scales that look nice by default
-6. provides prefixed arguments for scale adjustment 
+5. provides good-looking default x and y scales
+6. provides prefixed arguments for customisable scale adjustment 
 7. arranges horizontal geom y and col labels etc to be in correct order 
 8. converts unspecified titles to snakecase::to_sentence by default
 9. provides access to all of the relevant geom arg's through the dots argument
@@ -76,7 +76,7 @@ library(snakecase)
 library(palmerpenguins)
 ```
 
-1. {ggblanket} uses `gg_*` functions that each wrap a `ggplot2::ggplot` call with a single `ggplot2::geom_*` function
+1. {ggblanket} uses `gg_*` functions that each wrap a `ggplot2::ggplot` call with a single `ggplot2::geom_*` function.
 
 ```{r}
 iris %>%
@@ -107,15 +107,13 @@ penguins %>%
   gg_violin(x = sex, y = body_mass_g, facet = species)
 ```
 
-5. {ggblanket} provides customisable x and y scales that look nice by default
+5. {ggblanket} provides good-looking default x and y scales.
 
 For where:
 
 * x categorical and y numeric/date: y_limits default to min/max of y_breaks with y_expand of c(0, 0)
 * y categorical and x numeric/date: x_limits default to min/max of x_breaks with x_expand of c(0, 0)
 * x numeric/date and y numeric/date: y_limits default to min/max of y_breaks with y_expand of c(0, 0), and x_limits default to NULL (i.e. min/max of x variable) and x_expand of c(0.025, 0.025) 
-
-Hopefully, this is not too magical. But, I think this is a way to create a graph that visually has nice symmetry, and is vital to the look and feel of {ggblanket}. 
 
 ```{r}
 storms %>%
@@ -135,7 +133,7 @@ storms %>%
   ) 
 ```
 
-5. {ggblanket} provides prefixed arguments for scale adjustment.
+5. {ggblanket} provides prefixed arguments for customisable scale adjustment.
 
 This is designed to work with the Rstudio autocomplete to help you find the adjustment you need.
 
@@ -182,7 +180,7 @@ penguins %>%
           title = "Average penguin body mass",
           subtitle = "Palmer Archipelago, Antarctica",
           theme = gg_theme(pal_axis = "#ffffff", pal_ticks = "#ffffff")) +
-  geom_text(aes(label = body_mass_g), size = 3.5, col = "#232323") 
+  geom_text(aes(label = body_mass_g), col = "#232323") 
 ```
 
 9. {ggblanket} provides access to all of the relevant geom arg's through the dots argument.
@@ -204,13 +202,12 @@ penguins %>%
 
 ```{r, eval = F}
 iris %>% 
-  add_tooltip_text(titles = to_sentence_case) %>% 
+  add_tooltip_text() %>% 
   gg_point(x = Sepal.Width, 
            y = Sepal.Length, 
            col = Species, 
            text = text, 
-           titles = to_title_case,
-           theme = gg_theme("helvetica", x_grid = TRUE, y_grid = TRUE)) %>% 
+           theme = gg_theme("helvetica", y_grid = TRUE)) %>% 
   plotly::ggplotly(tooltip = "text")
 ```
 

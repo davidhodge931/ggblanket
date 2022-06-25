@@ -130,9 +130,21 @@ gg_function <- function(data = NULL,
   ###get default NULL values
   if (rlang::quo_is_null(x)) {
     if (rlang::is_null(x_title)) {
-      if (stat == "function") {
+      if (stat %in% c("bin", "count")) {
+        if (rlang::is_null(titles)) x_title <- purrr::map_chr("count", snakecase::to_sentence_case)
+        else x_title <- purrr::map_chr("count", titles)
+      }
+      else if (stat %in% c("density", "ydensity")) {
+        if (rlang::is_null(titles)) x_title <- purrr::map_chr("density", snakecase::to_sentence_case)
+        else x_title <- purrr::map_chr("density", titles)
+      }
+      else if (stat == "function") {
         if (rlang::is_null(titles)) x_title <- purrr::map_chr("x", snakecase::to_sentence_case)
         else x_title <- purrr::map_chr("x", titles)
+      }
+      else if (stat == "qq") {
+        if (rlang::is_null(titles)) x_title <- purrr::map_chr("theoretical", snakecase::to_sentence_case)
+        else x_title <- purrr::map_chr("theoretical", titles)
       }
     }
   }
@@ -143,9 +155,21 @@ gg_function <- function(data = NULL,
 
   if (rlang::quo_is_null(y)) {
     if (rlang::is_null(y_title)) {
-      if (stat == "function") {
+      if (stat %in% c("bin", "count")) {
+        if (rlang::is_null(titles)) y_title <- purrr::map_chr("count", snakecase::to_sentence_case)
+        else y_title <- purrr::map_chr("count", titles)
+      }
+      else if (stat %in% c("density", "ydensity")) {
+        if (rlang::is_null(titles)) y_title <- purrr::map_chr("density", snakecase::to_sentence_case)
+        else y_title <- purrr::map_chr("density", titles)
+      }
+      else if (stat == "function") {
         if (rlang::is_null(titles)) y_title <- purrr::map_chr("y", snakecase::to_sentence_case)
         else y_title <- purrr::map_chr("y", titles)
+      }
+      else if (stat == "qq") {
+        if (rlang::is_null(titles)) y_title <- purrr::map_chr("sample", snakecase::to_sentence_case)
+        else y_title <- purrr::map_chr("sample", titles)
       }
     }
   }

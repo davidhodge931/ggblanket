@@ -164,21 +164,55 @@ gg_errorbar <- function(data = NULL,
   data <- dplyr::ungroup(data)
 
   ###get default NULL values
-  if (!rlang::quo_is_null(x)) {
+  if (rlang::quo_is_null(x)) {
     if (rlang::is_null(x_title)) {
+      if (stat %in% c("bin", "count")) {
+        if (rlang::is_null(titles)) x_title <- purrr::map_chr("count", snakecase::to_sentence_case)
+        else x_title <- purrr::map_chr("count", titles)
+      }
+      else if (stat %in% c("density", "ydensity")) {
+        if (rlang::is_null(titles)) x_title <- purrr::map_chr("density", snakecase::to_sentence_case)
+        else x_title <- purrr::map_chr("density", titles)
+      }
+      else if (stat == "function") {
+        if (rlang::is_null(titles)) x_title <- purrr::map_chr("x", snakecase::to_sentence_case)
+        else x_title <- purrr::map_chr("x", titles)
+      }
+      else if (stat == "qq") {
+        if (rlang::is_null(titles)) x_title <- purrr::map_chr("theoretical", snakecase::to_sentence_case)
+        else x_title <- purrr::map_chr("theoretical", titles)
+      }
+    }
+  }
+  else if (rlang::is_null(x_title)) {
     if (rlang::is_null(titles)) x_title <- purrr::map_chr(rlang::as_name(x), snakecase::to_sentence_case)
     else x_title <- purrr::map_chr(rlang::as_name(x), titles)
+  }
+
+  if (rlang::quo_is_null(y)) {
+    if (rlang::is_null(y_title)) {
+      if (stat %in% c("bin", "count")) {
+        if (rlang::is_null(titles)) y_title <- purrr::map_chr("count", snakecase::to_sentence_case)
+        else y_title <- purrr::map_chr("count", titles)
+      }
+      else if (stat %in% c("density", "ydensity")) {
+        if (rlang::is_null(titles)) y_title <- purrr::map_chr("density", snakecase::to_sentence_case)
+        else y_title <- purrr::map_chr("density", titles)
+      }
+      else if (stat == "function") {
+        if (rlang::is_null(titles)) y_title <- purrr::map_chr("y", snakecase::to_sentence_case)
+        else y_title <- purrr::map_chr("y", titles)
+      }
+      else if (stat == "qq") {
+        if (rlang::is_null(titles)) y_title <- purrr::map_chr("sample", snakecase::to_sentence_case)
+        else y_title <- purrr::map_chr("sample", titles)
+      }
     }
   }
-  else if (rlang::is_null(x_title)) x_title <- ggplot2::waiver()
-
-  if (!rlang::quo_is_null(y)) {
-    if (rlang::is_null(y_title)) {
+  else if (rlang::is_null(y_title)) {
     if (rlang::is_null(titles)) y_title <- purrr::map_chr(rlang::as_name(y), snakecase::to_sentence_case)
     else y_title <- purrr::map_chr(rlang::as_name(y), titles)
-    }
   }
-  else if (rlang::is_null(y_title)) y_title <- ggplot2::waiver()
 
   x_numeric <- ifelse(is.numeric(rlang::eval_tidy(x, data)) | rlang::quo_is_null(x), TRUE, FALSE)
   x_date <- ifelse(lubridate::is.Date(rlang::eval_tidy(x, data)), TRUE, FALSE)

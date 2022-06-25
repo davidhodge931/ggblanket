@@ -31,8 +31,8 @@ With this in mind, the {ggblanket} package:
 2.  merges col and fill aesthetics into a single col aesthetic
 3.  provides colour customisation via pal and alpha arguments
 4.  treats faceting as an aesthetic
-5.  provides default x and y scales that look super nice
-6.  provides prefixed arguments for scale adjustment
+5.  provides good-looking default x and y scales
+6.  provides prefixed arguments for customisable scale adjustment
 7.  arranges horizontal geom y and col labels etc to be in correct order
 8.  converts unspecified titles to snakecase::to_sentence by default
 9.  provides access to all of the relevant geom arg’s through the dots
@@ -70,7 +70,7 @@ library(palmerpenguins)
 ```
 
 1.  {ggblanket} uses `gg_*` functions that each wrap a `ggplot2::ggplot`
-    call with a single `ggplot2::geom_*` function
+    call with a single `ggplot2::geom_*` function.
 
 ``` r
 iris %>%
@@ -111,7 +111,7 @@ penguins %>%
 
 ![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
-5.  {ggblanket} provides default x and y scales that look super nice.
+5.  {ggblanket} provides good-looking default x and y scales.
 
 For where:
 
@@ -123,10 +123,6 @@ For where:
     y_breaks with y_expand of c(0, 0), and x_limits default to NULL
     (i.e. min/max of x variable) and x_expand of c(0.025, 0.025)
 
-Hopefully, this is not too magical. But, I think this is a way to create
-a graph that visually has very nice symmetry, and is vital to the look
-and feel of {ggblanket}.
-
 ``` r
 storms %>%
   group_by(year) %>%
@@ -135,9 +131,7 @@ storms %>%
   gg_col(
     x = year,
     y = wind,
-    x_labels = ~ .x,
-    x_limits = c(NA, NA),
-    y_zero = TRUE,
+    y_include = 0,
     title = "Storm wind speed",
     subtitle = "USA average storm wind speed, 1980\u20132020",
     x_title = "Year",
@@ -149,14 +143,14 @@ storms %>%
 
 ![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
 
-5.  {ggblanket} provides prefixed arguments for scale adjustment.
+5.  {ggblanket} provides prefixed arguments for customisable scale
+    adjustment.
 
 This is designed to work with the Rstudio autocomplete to help you find
 the adjustment you need.
 
-Available arguments are `*_limits`, `*_expand`, `*_labels`,
-`*_breaks_n`, and , `*_breaks`, `*_breaks_width`, `*_zero`,
-`*_zero_mid`, and `col_intervals` arguments.
+Available arguments are `*_limits`, `*_expand`, `*_labels`, `*_breaks`,
+`*_include`, and `col_intervals` arguments.
 
 ``` r
 penguins %>%
@@ -167,8 +161,8 @@ penguins %>%
     position = position_jitter(width = 0.2, height = 0, seed = 123), 
     col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
     col_legend_place = "b",
-    y_zero = TRUE,
-    y_breaks_width = 1500
+    y_breaks = scales::breaks_width(1500), 
+    y_labels = scales::label_number()
     )
 ```
 
@@ -205,7 +199,7 @@ penguins %>%
           title = "Average penguin body mass",
           subtitle = "Palmer Archipelago, Antarctica",
           theme = gg_theme(pal_axis = "#ffffff", pal_ticks = "#ffffff")) +
-  geom_text(aes(label = body_mass_g), size = 3.5, col = "#232323") 
+  geom_text(aes(label = body_mass_g), col = "#232323") 
 ```
 
 ![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
@@ -233,13 +227,12 @@ arguments. But it does work a lot of the time.
 
 ``` r
 iris %>% 
-  add_tooltip_text(titles = to_sentence_case) %>% 
+  add_tooltip_text() %>% 
   gg_point(x = Sepal.Width, 
            y = Sepal.Length, 
            col = Species, 
            text = text, 
-           titles = to_title_case,
-           theme = gg_theme("helvetica", x_grid = TRUE, y_grid = TRUE)) %>% 
+           theme = gg_theme("helvetica", y_grid = TRUE)) %>% 
   plotly::ggplotly(tooltip = "text")
 ```
 
