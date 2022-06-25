@@ -30,7 +30,6 @@
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).
 #' @param facet_ncol The number of columns of facetted plots.
 #' @param facet_nrow The number of rows of facetted plots.
-#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
 #' @return A ggplot object.
@@ -159,13 +158,7 @@ gg_sf <- function(data = NULL,
     col_title_position <- ifelse(col_title == "", "right", "top")
 
     if (rlang::is_null(col_legend_place)) {
-      if (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) {
-        col_legend_place <- "n"
-      }
-      else if (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) {
-        col_legend_place <- "n"
-      }
-      else if (!rlang::quo_is_null(facet) &
+      if (!rlang::quo_is_null(facet) &
                (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data)))) {
         col_legend_place <- "n"
       }
@@ -225,18 +218,8 @@ gg_sf <- function(data = NULL,
         if (rlang::is_null(pal)) pal <- pal_viridis_mix(col_n)
         else pal <- pal[1:col_n]
 
-        if (is.numeric(rlang::eval_tidy(y, data)) |
-            lubridate::is.Date(rlang::eval_tidy(y, data))) {
-
-          if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
-          else col_legend_rev <- TRUE
-        }
-        else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
-          if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
-          else col_legend_rev <- FALSE
-          pal <- rev(pal)
-        }
-        else col_legend_rev <- FALSE
+        if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
+        else col_legend_rev <- TRUE
 
         if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
         if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
@@ -287,24 +270,12 @@ gg_sf <- function(data = NULL,
       if (rlang::is_null(pal)) pal <- pal_d3_mix(col_n)
       else pal <- pal[1:col_n]
 
-      if (is.numeric(rlang::eval_tidy(y, data)) |
-          lubridate::is.Date(rlang::eval_tidy(y, data))) {
+      if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
+        col_legend_rev <- FALSE
+      }
+      else if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
+      else col_legend_rev <- TRUE
 
-        if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
-          col_legend_rev <- FALSE
-        }
-        else if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
-        else col_legend_rev <- TRUE
-      }
-      else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
-        if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
-          col_legend_rev <- TRUE
-        }
-        else if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
-        else col_legend_rev <- FALSE
-        pal <- rev(pal)
-      }
-      else col_legend_rev <- FALSE
 
       if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
       if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()

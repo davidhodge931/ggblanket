@@ -26,7 +26,7 @@
 #' @param x_limits A vector of length 2 to determine the limits of the axis.
 #' @param x_oob A scales::oob_* function for how to deal with out-of-bounds values.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param y_trans For a numeric variable, a transformation object (e.g. "log10").
+#' @param x_trans For a numeric variable, a transformation object (e.g. "log10").
 #' @param y_breaks A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).

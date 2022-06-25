@@ -39,7 +39,7 @@ With this in mind, the {ggblanket} package:
 2. merges col and fill aesthetics into a single col aesthetic
 3. provides colour customisation via pal and alpha arguments
 4. treats faceting as an aesthetic
-5. provides default x and y scales that look super nice
+5. provides customisable x and y scales that look nice by default
 6. provides prefixed arguments for scale adjustment 
 7. arranges horizontal geom y and col labels etc to be in correct order 
 8. converts unspecified titles to snakecase::to_sentence by default
@@ -107,7 +107,7 @@ penguins %>%
   gg_violin(x = sex, y = body_mass_g, facet = species)
 ```
 
-5. {ggblanket} provides default x and y scales that look super nice.
+5. {ggblanket} provides customisable x and y scales that look nice by default
 
 For where:
 
@@ -115,7 +115,7 @@ For where:
 * y categorical and x numeric/date: x_limits default to min/max of x_breaks with x_expand of c(0, 0)
 * x numeric/date and y numeric/date: y_limits default to min/max of y_breaks with y_expand of c(0, 0), and x_limits default to NULL (i.e. min/max of x variable) and x_expand of c(0.025, 0.025) 
 
-Hopefully, this is not too magical. But, I think this is a way to create a graph that visually has very nice symmetry, and is vital to the look and feel of {ggblanket}. 
+Hopefully, this is not too magical. But, I think this is a way to create a graph that visually has nice symmetry, and is vital to the look and feel of {ggblanket}. 
 
 ```{r}
 storms %>%
@@ -125,8 +125,6 @@ storms %>%
   gg_col(
     x = year,
     y = wind,
-    x_labels = ~ .x,
-    x_limits = c(NA, NA),
     y_include = 0,
     title = "Storm wind speed",
     subtitle = "USA average storm wind speed, 1980\u20132020",
@@ -152,7 +150,8 @@ penguins %>%
     position = position_jitter(width = 0.2, height = 0, seed = 123), 
     col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
     col_legend_place = "b",
-    y_breaks = scales::breaks_width(1500)
+    y_breaks = scales::breaks_width(1500), 
+    y_labels = scales::label_number()
     )
 ```
 

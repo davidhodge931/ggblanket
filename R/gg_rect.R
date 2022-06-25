@@ -30,7 +30,7 @@
 #' @param x_limits A vector of length 2 to determine the limits of the axis.
 #' @param x_oob A scales::oob_* function for how to deal with out-of-bounds values.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param y_trans For a numeric variable, a transformation object (e.g. "log10").
+#' @param x_trans For a numeric variable, a transformation object (e.g. "log10").
 #' @param y_breaks A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).
@@ -38,7 +38,7 @@
 #' @param y_limits A vector of length 2 to determine the limits of the axis.
 #' @param y_oob A scales::oob_* function for how to deal with out-of-bounds values.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param y_trans For a numeric variable, a transformation object (e.g. "log10").#' @param col_breaks A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.
+#' @param y_trans For a numeric variable, a transformation object (e.g. "log10").
 #' @param col_breaks A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param col_intervals A function to cut or chop the numeric variable into intervals (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).

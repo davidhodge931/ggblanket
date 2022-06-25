@@ -108,6 +108,8 @@ gg_step(
 
 \item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
+\item{x_trans}{For a numeric variable, a transformation object (e.g. "log10").}
+
 \item{y_breaks}{A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
 \item{y_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}

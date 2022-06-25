@@ -100,8 +100,6 @@ gg_sf(
 \item{caption}{Caption title string.}
 
 \item{theme}{A ggplot2 theme.}
-
-\item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 }
 \value{
 A ggplot object.

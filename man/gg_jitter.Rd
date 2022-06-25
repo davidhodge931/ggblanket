@@ -108,6 +108,8 @@ gg_jitter(
 
 \item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
+\item{x_trans}{For a numeric variable, a transformation object (e.g. "log10").}
+
 \item{y_breaks}{A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
 \item{y_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
@@ -122,7 +124,7 @@ gg_jitter(
 
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{y_trans}{For a numeric variable, a transformation object (e.g. "log10").#' @param col_breaks A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.}
+\item{y_trans}{For a numeric variable, a transformation object (e.g. "log10").}
 
 \item{col_breaks}{A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
