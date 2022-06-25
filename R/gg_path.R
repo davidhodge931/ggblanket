@@ -13,7 +13,6 @@
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
-#' @param size Size. A number 0 upwards.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
 #' @param titles A function to format the x, y and col titles, including in rlang lambda format. Defaults to snakecase::to_sentence_case.
 #' @param title Title string.
@@ -72,7 +71,7 @@ gg_path <- function(data = NULL,
                     pal = NULL,
                     pal_na = "#7F7F7F",
                     alpha = 1,
-                    size = 0.5,
+                    #linewidth = 0.5,
                     ...,
                     titles = NULL,
                     title = NULL,
@@ -547,7 +546,7 @@ gg_path <- function(data = NULL,
       stat = stat,
       position = position,
       alpha = alpha,
-      size = size,
+      #linewidth = linewidth,
       ...
     )
 

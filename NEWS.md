@@ -1,6 +1,6 @@
 # ggblanket 1.1.9000
 
-* Added `linewidth` argument, and removed size where unnecessary.
+* Removed `lsize` argument, in anticipation of ggplot2 3.4.0.
 * Modified default `x_breaks` for when both x and y are numeric or date.
 * Added support for `*_breaks` to receive a function.
 * Added `*_trans` argument.

@@ -19,7 +19,6 @@ gg_segment(
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 1,
-  size = 0.5,
   ...,
   titles = NULL,
   title = NULL,
@@ -87,8 +86,6 @@ gg_segment(
 \item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
 
 \item{alpha}{Opacity. A number between 0 and 1.}
-
-\item{size}{Size. A number 0 upwards.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
