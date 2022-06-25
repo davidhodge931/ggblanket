@@ -127,7 +127,7 @@ storms %>%
     y = wind,
     x_labels = ~ .x,
     x_limits = c(NA, NA),
-    y_zero = TRUE,
+    y_include = 0,
     title = "Storm wind speed",
     subtitle = "USA average storm wind speed, 1980\u20132020",
     x_title = "Year",
@@ -141,7 +141,7 @@ storms %>%
 
 This is designed to work with the Rstudio autocomplete to help you find the adjustment you need.
 
-Available arguments are `*_limits`, `*_expand`, `*_labels`, `*_breaks_n`, and , `*_breaks`, `*_breaks_width`, `*_zero`, `*_zero_mid`, and `col_intervals` arguments.
+Available arguments are `*_limits`, `*_expand`, `*_labels`, `*_breaks`, `*_include`,  and `col_intervals` arguments.
 
 ```{r}
 penguins %>%
@@ -152,12 +152,9 @@ penguins %>%
     position = position_jitter(width = 0.2, height = 0, seed = 123), 
     col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
     col_legend_place = "b",
-    y_zero = TRUE,
-    y_breaks_width = 1500
+    y_breaks = scales::breaks_width(1500)
     )
 ```
-
-
 
 7. {ggblanket} arranges horizontal geom y and col labels etc to be in correct order.
 

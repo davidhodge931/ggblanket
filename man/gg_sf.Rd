@@ -22,8 +22,7 @@ gg_sf(
   subtitle = NULL,
   coord = ggplot2::coord_sf(),
   col_breaks = NULL,
-  col_breaks_n = NULL,
-  col_breaks_width = NULL,
+  col_include = NULL,
   col_intervals = NULL,
   col_labels = NULL,
   col_legend_place = NULL,
@@ -72,15 +71,13 @@ gg_sf(
 
 \item{coord}{Coordinate system.}
 
-\item{col_breaks}{A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.}
+\item{col_breaks}{A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
-\item{col_breaks_n}{For a numeric variable where col_intervals is NULL, an integer guiding the number of breaks, as calculated by the pretty function.}
+\item{col_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
-\item{col_breaks_width}{For a numeric variable, the width of breaks, as calculated by the scales::fullseq function.}
+\item{col_intervals}{A function to cut or chop the numeric variable into intervals (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
 
-\item{col_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
-
-\item{col_labels}{A function to format the scale labels, including in rlang lambda format.  If categorical, accepts a named vector (e.g. c(value = "label", ...)). Note this does not affect where col_intervals is not NULL.}
+\item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.}
 
 \item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.}
 
@@ -88,13 +85,13 @@ gg_sf(
 
 \item{col_legend_nrow}{The number of rows for the legend elements.}
 
-\item{col_limits}{A vector of limits. For a categorical col variable, this links pal values with col variable values keeping those not used. For a numeric variable where col_intervals is NULL, this will make all values outside the limits coloured NA.}
+\item{col_limits}{A vector to determine the limits of the axis.}
 
 \item{col_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
 \item{facet_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
 
-\item{facet_labels}{A function to format the scale labels, including in rlang lambda format.  If categorical, accepts a named vector (e.g. c(value = "label", ...)).}
+\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).}
 
 \item{facet_ncol}{The number of columns of facetted plots.}
 
@@ -103,6 +100,8 @@ gg_sf(
 \item{caption}{Caption title string.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 }
 \value{
 A ggplot object.
