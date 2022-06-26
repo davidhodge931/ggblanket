@@ -65,7 +65,6 @@ Click [here](https://davidhodge931.github.io/ggblanket/) for the
 library(dplyr)
 library(ggplot2)
 library(ggblanket)
-library(snakecase)
 library(palmerpenguins)
 ```
 
@@ -131,23 +130,22 @@ storms %>%
   gg_col(
     x = year,
     y = wind,
-    y_include = 0,
     title = "Storm wind speed",
     subtitle = "USA average storm wind speed, 1980\u20132020",
-    x_title = "Year",
     y_title = "Wind speed (knots)",
-    caption = "Source: NOAA",
-    theme = gg_theme(y_grid = TRUE)
+    caption = "Source: NOAA"
   ) 
 ```
 
 ![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
 
-5.  {ggblanket} provides prefixed arguments for customisable scale
+6.  {ggblanket} provides prefixed arguments for customisable scale
     adjustment.
 
 This is designed to work with the Rstudio autocomplete to help you find
-the adjustment you need.
+the adjustment you need. Press the tab key after typing `x_`,`y_`,
+`col_` or `facet_` to access this. Then use arrow keys, and press tab
+again to select.
 
 Available arguments are `*_limits`, `*_expand`, `*_labels`, `*_breaks`,
 `*_include`, and `col_intervals` arguments.
@@ -158,12 +156,13 @@ penguins %>%
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
-    position = position_jitter(width = 0.2, height = 0, seed = 123), 
+    position = ggplot2::position_jitter(width = 0.2, height = 0, seed = 123), 
     col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
     col_legend_place = "b",
+    y_include = 0,
     y_breaks = scales::breaks_width(1500), 
     y_labels = scales::label_number()
-    )
+  )
 ```
 
 ![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
@@ -177,9 +176,9 @@ penguins %>%
   group_by(species, sex, island) %>%
   summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
   gg_col(x = body_mass_kg, y = species, col = sex, facet = island,
-    position = "dodge", 
-    col_legend_place = "b", 
-    col_labels = to_sentence_case)
+         col_labels = stringr::str_to_sentence, 
+         position = "dodge", 
+         col_legend_place = "b")
 ```
 
 ![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
@@ -192,14 +191,14 @@ penguins %>%
   group_by(species, sex) %>%
   summarise(across(body_mass_g, ~ round(mean(.x, na.rm = TRUE)), 0)) %>% 
   gg_tile(sex, species, col = body_mass_g, 
-          x_labels = to_sentence_case,
+          x_labels = snakecase::to_sentence_case,
           pal = pals::brewer.blues(9),
           width = 0.9, 
           height = 0.9, 
           title = "Average penguin body mass",
           subtitle = "Palmer Archipelago, Antarctica",
           theme = gg_theme(pal_axis = "#ffffff", pal_ticks = "#ffffff")) +
-  geom_text(aes(label = body_mass_g), col = "#232323") 
+  geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
 ```
 
 ![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
