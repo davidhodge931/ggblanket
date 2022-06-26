@@ -20,11 +20,9 @@ downloads](https://cranlogs.r-pkg.org/badges/last-day/ggblanket?color=lightgrey)
 ## Overview
 
 {ggblanket} is a package of wrapper functions around the amazing
-{ggplot2} package.
+‘ggplot2’ package to **simplify pretty visualisation**.
 
-The objective is to **simplify beautiful {ggplot2} visualisation**.
-
-With this in mind, the {ggblanket} package:
+With this objective in mind, the {ggblanket} package:
 
 1.  uses `gg_*` functions that each wrap a `ggplot2::ggplot` call with a
     single `ggplot2::geom_*` function
@@ -195,6 +193,7 @@ penguins %>%
           pal = pals::brewer.blues(9),
           width = 0.9, 
           height = 0.9, 
+          size = 0.5,
           title = "Average penguin body mass",
           subtitle = "Palmer Archipelago, Antarctica",
           theme = gg_theme(pal_axis = "#ffffff", pal_ticks = "#ffffff")) +
@@ -213,7 +212,8 @@ penguins %>%
     x = bill_length_mm,
     y = flipper_length_mm,
     col = species,
-    level = 0.99
+    level = 0.99,
+    size = 0.5
     ) 
 ```
 
@@ -226,6 +226,7 @@ arguments. But it does work a lot of the time.
 
 ``` r
 iris %>% 
+  mutate(Species = stringr::str_to_sentence(Species)) %>% 
   add_tooltip_text() %>% 
   gg_point(x = Sepal.Width, 
            y = Sepal.Length, 

@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Wrapper functions around the amazing 'ggplot2' package with the objective to simplify pretty 'ggplot2' visualisation.
+Wrapper functions around the amazing 'ggplot2' package to simplify pretty visualisation.
 }
 \seealso{
 Useful links:
