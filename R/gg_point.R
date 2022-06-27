@@ -579,6 +579,245 @@ gg_point <- function(data = NULL,
   ###Get layer plot to finalise x and y scales
   layer_data <- ggplot2::layer_data(plot)
 
+  ###Add x scale for where y is NULL
+  if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
+    if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
+      if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
+      if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
+
+      x_scale <- ggplot2::scale_x_discrete(expand = x_expand, labels = x_labels)
+    }
+    else {
+      if (facet_scales %in% c("fixed", "free_y")) {
+
+        x_min <- data %>% dplyr::pull(!!x) %>% min(na.rm = TRUE)
+        x_max <- data %>% dplyr::pull(!!x) %>% max(na.rm = TRUE)
+
+        # x_vctr <- layer_data %>%
+        #   dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmax_final$"))) %>%
+        #   tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+        #   dplyr::pull(.data$value)
+
+        # if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
+        #   x_vctr <- as.Date(x_vctr, origin = "1970-01-01")
+        # }
+
+        # x_min <- x_vctr %>% min(na.rm = TRUE)
+        # x_max <- x_vctr %>% max(na.rm = TRUE)
+
+        if (rlang::is_null(x_limits)) {
+          x_range <- c(x_min, x_max)
+          if (!rlang::is_null(x_include)) x_range <- range(c(x_include, x_range))
+
+          if (rlang::is_null(x_breaks)) {
+            x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+            if (x_trans %in% c("log10", "log2", "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
+            else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+
+            if (xy_numeric_date) x_limits <- x_range
+            else {
+              if (x_trans %in% c("log10", "log2", "log")) x_limits <- x_range
+              else x_limits <- c(min(x_breaks), max(x_breaks))
+            }
+            if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
+          }
+          else if (!rlang::is_null(x_breaks)) {
+            if (xy_numeric_date) x_limits <- x_range
+            else {
+              if (is.vector(x_breaks)) {
+                if (x_trans %in% c("log10", "log2", "log")) x_limits <- x_range
+                else x_limits <- c(min(x_breaks), max(x_breaks))
+              }
+              else {
+                if (x_trans %in% c("log10", "log2", "log")) x_limits <- x_range
+                else {
+                  x_limits <- list(x_range) %>%
+                    purrr::map(.f = x_breaks) %>%
+                    unlist() %>%
+                    range()
+                }
+              }
+            }
+            if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
+          }
+        }
+        else if (!rlang::is_null(x_limits)) {
+          if (!rlang::is_null(x_limits)) {
+            if (is.na(x_limits)[1]) x_limits[1] <- x_min
+            if (is.na(x_limits)[2]) x_limits[2] <- x_max
+          }
+
+          if (!rlang::is_null(x_include)) x_limits <- range(x_include, x_limits)
+
+          if (rlang::is_null(x_breaks)) {
+            x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+            if (x_trans %in% c("log10", "log2", "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
+            else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+          }
+        }
+      }
+      else if (facet_scales %in% c("free", "free_x")) {
+        if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
+      }
+
+      if (rlang::is_null(x_expand)) {
+        if (facet_scales %in% c("fixed", "free_y")) {
+          if (xy_numeric_date) {
+            if (x_limits[1] == 0) x_expand <- ggplot2::expansion(mult = c(0, 0.025))
+            else if (x_limits[2] == 0) x_expand <- ggplot2::expansion(mult = c(0.025, 0))
+            else x_expand <- c(0.025, 0.025)
+          }
+          else x_expand <- c(0, 0)
+        }
+        else x_expand <- c(0.025, 0.025)
+      }
+
+      if (rlang::is_null(x_labels)) {
+        if (is.numeric(rlang::eval_tidy(x, data)) | rlang::quo_is_null(x)) x_labels <- scales::label_comma()
+        else if (lubridate::is.Date(rlang::eval_tidy(x, data))) x_labels <- scales::label_date_short()
+        else x_labels <- ggplot2::waiver()
+      }
+
+      if (is.numeric(rlang::eval_tidy(x, data)) | rlang::quo_is_null(x)) {
+        x_scale <- ggplot2::scale_x_continuous(
+          breaks = x_breaks,
+          limits = x_limits,
+          expand = x_expand,
+          labels = x_labels,
+          oob = x_oob,
+          trans = x_trans
+        )
+      }
+      else if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
+        x_scale <- ggplot2::scale_x_date(
+          breaks = x_breaks,
+          limits = x_limits,
+          expand = x_expand,
+          labels = x_labels,
+          oob = x_oob
+        )
+      }
+    }
+
+    plot <- plot +
+      x_scale
+  }
+
+  ###Add y scale where x is NULL
+  if (!rlang::quo_is_null(y) & rlang::quo_is_null(x)) {
+    if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
+      if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
+      if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
+
+      y_scale <- ggplot2::scale_y_discrete(expand = y_expand, labels = y_labels)
+    }
+    else {
+      if (facet_scales %in% c("fixed", "free_x")) {
+
+        y_min <- data %>% dplyr::pull(!!y) %>% min(na.rm = TRUE)
+        y_max <- data %>% dplyr::pull(!!y) %>% max(na.rm = TRUE)
+
+        # y_vctr <- layer_data %>%
+        #   dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymax_final$"))) %>%
+        #   tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+        #   dplyr::pull(.data$value)
+
+        # if (lubridate::is.Date(rlang::eval_tidy(y, data))) {
+        #   y_vctr <- as.Date(y_vctr, origin = "1970-01-01")
+        # }
+
+        # y_min <- y_vctr %>% min(na.rm = TRUE)
+        # y_max <- y_vctr %>% max(na.rm = TRUE)
+
+        if (rlang::is_null(y_limits)) {
+          y_range <- c(y_min, y_max)
+          if (!rlang::is_null(y_include)) y_range <- range(c(y_include, y_range))
+
+          if (rlang::is_null(y_breaks)) {
+            y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+            if (y_trans %in% c("log10", "log2", "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
+            else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+
+            if (y_trans %in% c("log10", "log2", "log")) y_limits <- y_range
+            else y_limits <- c(min(y_breaks), max(y_breaks))
+
+            if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
+          }
+          else if (!rlang::is_null(y_breaks)) {
+            if (is.vector(y_breaks)) {
+              if (y_trans %in% c("log10", "log2", "log")) y_limits <- y_range
+              else y_limits <- c(min(y_breaks), max(y_breaks))
+            }
+            else {
+              if (y_trans %in% c("log10", "log2", "log")) y_limits <- y_range
+              else {
+                y_limits <- list(y_range) %>%
+                  purrr::map(.f = y_breaks) %>%
+                  unlist() %>%
+                  range()
+              }
+            }
+
+            if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
+          }
+        }
+        else if (!rlang::is_null(y_limits)) {
+          if (!rlang::is_null(y_limits)) {
+            if (is.na(y_limits)[1]) y_limits[1] <- y_min
+            if (is.na(y_limits)[2]) y_limits[2] <- y_max
+          }
+
+          if (!rlang::is_null(y_include)) y_limits <- range(y_include, y_limits)
+
+          if (rlang::is_null(y_breaks)) {
+            y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+            if (y_trans %in% c("log10", "log2", "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
+            else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+          }
+        }
+      }
+      else if (facet_scales %in% c("free", "free_y")) {
+        if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
+      }
+
+      if (rlang::is_null(y_expand)) {
+        if (facet_scales %in% c("fixed", "free_x")) {
+          y_expand <- c(0, 0)
+        }
+        else y_expand <- c(0.025, 0.025)
+      }
+
+      if (rlang::is_null(y_labels)) {
+        if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(y)) y_labels <- scales::label_comma()
+        else if (lubridate::is.Date(rlang::eval_tidy(y, data))) y_labels <- scales::label_date_short()
+        else y_labels <- ggplot2::waiver()
+      }
+
+      if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(y)) {
+        y_scale <- ggplot2::scale_y_continuous(
+          breaks = y_breaks,
+          limits = y_limits,
+          expand = y_expand,
+          labels = y_labels,
+          oob = y_oob,
+          trans = y_trans
+        )
+      }
+      else if (lubridate::is.Date(rlang::eval_tidy(y, data))) {
+        y_scale <- ggplot2::scale_y_date(
+          breaks = y_breaks,
+          limits = y_limits,
+          expand = y_expand,
+          labels = y_labels,
+          oob = y_oob
+        )
+      }
+    }
+
+    plot <- plot +
+      y_scale
+  }
+
   ###Make x scale based on layer_data
   if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
     if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()

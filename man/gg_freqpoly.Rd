@@ -17,7 +17,7 @@ gg_freqpoly(
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 1,
-  bins = 40,
+  bins = 30,
   ...,
   titles = NULL,
   title = NULL,
