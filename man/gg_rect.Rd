@@ -25,7 +25,7 @@ gg_rect(
   titles = NULL,
   title = NULL,
   subtitle = NULL,
-  coord = ggplot2::coord_cartesian(clip = "off"),
+  coord = NULL,
   x_breaks = NULL,
   x_expand = NULL,
   x_include = NULL,

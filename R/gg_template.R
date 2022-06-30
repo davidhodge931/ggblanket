@@ -13,7 +13,6 @@
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
-#' @param width Width. A number 0 upwards.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
 #' @param titles A function to format the x, y and col titles, including in rlang lambda format. Defaults to snakecase::to_sentence_case.
 #' @param title Title string.
@@ -66,57 +65,57 @@
 #' gg_template(diamonds, x = carat, y = price, alpha = 0.01)
 #'
 gg_template <- function(data = NULL,
-                      x = NULL,
-                      y = NULL,
-                      col = NULL,
-                      facet = NULL,
-                      group = NULL,
-                      text = NULL,
-                      stat = "identity",
-                      position = "identity",
-                      pal = NULL,
-                      pal_na = "#7F7F7F",
-                      alpha = 1,
-                      # size = 1.5,
-                      # linewidth = 0.5,
-                      width = NULL,
-                      ...,
-                      titles = NULL,
-                      title = NULL,
-                      subtitle = NULL,
-                      coord = NULL,
-                      x_breaks = NULL,
-                      x_expand = NULL,
-                      x_include = NULL,
-                      x_labels = NULL,
-                      x_limits = NULL,
-                      x_oob = scales::oob_censor,
-                      x_title = NULL,
-                      x_trans = "identity",
-                      y_breaks = NULL,
-                      y_expand = NULL,
-                      y_include = NULL,
-                      y_labels = NULL,
-                      y_limits = NULL,
-                      y_oob = scales::oob_censor,
-                      y_title = NULL,
-                      y_trans = "identity",
-                      col_breaks = NULL,
-                      col_include = NULL,
-                      col_intervals = NULL,
-                      col_labels = NULL,
-                      col_legend_place = NULL,
-                      col_legend_ncol = NULL,
-                      col_legend_nrow = NULL,
-                      col_limits = NULL,
-                      col_title = NULL,
-                      facet_intervals = NULL,
-                      facet_labels = NULL,
-                      facet_ncol = NULL,
-                      facet_nrow = NULL,
-                      facet_scales = "fixed",
-                      caption = NULL,
-                      theme = NULL) {
+                        x = NULL,
+                        y = NULL,
+                        col = NULL,
+                        facet = NULL,
+                        group = NULL,
+                        text = NULL,
+                        stat = "identity",
+                        position = "identity",
+                        pal = NULL,
+                        pal_na = "#7F7F7F",
+                        alpha = 1,
+                        # size = 1.5,
+                        # linewidth = 0.5,
+                        # width = NULL,
+                        ...,
+                        titles = NULL,
+                        title = NULL,
+                        subtitle = NULL,
+                        coord = NULL,
+                        x_breaks = NULL,
+                        x_expand = NULL,
+                        x_include = NULL,
+                        x_labels = NULL,
+                        x_limits = NULL,
+                        x_oob = scales::oob_censor,
+                        x_title = NULL,
+                        x_trans = "identity",
+                        y_breaks = NULL,
+                        y_expand = NULL,
+                        y_include = NULL,
+                        y_labels = NULL,
+                        y_limits = NULL,
+                        y_oob = scales::oob_censor,
+                        y_title = NULL,
+                        y_trans = "identity",
+                        col_breaks = NULL,
+                        col_include = NULL,
+                        col_intervals = NULL,
+                        col_labels = NULL,
+                        col_legend_place = NULL,
+                        col_legend_ncol = NULL,
+                        col_legend_nrow = NULL,
+                        col_limits = NULL,
+                        col_title = NULL,
+                        facet_intervals = NULL,
+                        facet_labels = NULL,
+                        facet_ncol = NULL,
+                        facet_nrow = NULL,
+                        facet_scales = "fixed",
+                        caption = NULL,
+                        theme = NULL) {
 
   #quote
   x <- rlang::enquo(x)
@@ -187,14 +186,14 @@ gg_template <- function(data = NULL,
   }
 
   xy_numeric_date <- ifelse(((
-      is.numeric(rlang::eval_tidy(x, data)) |
+    is.numeric(rlang::eval_tidy(x, data)) |
       rlang::quo_is_null(x) |
       lubridate::is.Date(rlang::eval_tidy(x, data))
   ) &
     (
       is.numeric(rlang::eval_tidy(y, data)) |
-      rlang::quo_is_null(y) |
-      lubridate::is.Date(rlang::eval_tidy(y, data))
+        rlang::quo_is_null(y) |
+        lubridate::is.Date(rlang::eval_tidy(y, data))
     )),
   TRUE,
   FALSE
@@ -221,14 +220,18 @@ gg_template <- function(data = NULL,
     theme <- gg_theme(x_grid = x_grid, y_grid = y_grid)
   }
 
-  if (rlang::is_null(width)) {
-    if (lubridate::is.Date(rlang::eval_tidy(x, data)) |
-        lubridate::is.Date(rlang::eval_tidy(y, data))) {
-      width <- NULL
-    }
-    else
-      width <- 0.75
-  }
+  # if (rlang::is_null(width)) {
+  #   if (lubridate::is.Date(rlang::eval_tidy(x, data)) |
+  #       lubridate::is.Date(rlang::eval_tidy(y, data)) |
+  #       (rlang::quo_is_null(y) & is.numeric(rlang::eval_tidy(x, data))) |
+  #       (rlang::quo_is_null(x) & is.numeric(rlang::eval_tidy(y, data))) |
+  #       (is.numeric(rlang::eval_tidy(x, data)) &
+  #        is.numeric(rlang::eval_tidy(y, data)))) {
+  #     width <- NULL
+  #   }
+  #   else
+  #     width <- 0.75
+  # }
 
   if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
 
@@ -586,7 +589,7 @@ gg_template <- function(data = NULL,
       alpha = alpha,
       # linewidth = linewidth,
       # size = size,
-      width = width,
+      # width = width,
       ...
     )
 

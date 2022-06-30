@@ -12,18 +12,18 @@ gg_tile(
   facet = NULL,
   group = NULL,
   text = NULL,
-  width = NULL,
-  height = NULL,
   stat = "identity",
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 0.9,
+  height = 1,
+  width = 1,
   ...,
   titles = NULL,
   title = NULL,
   subtitle = NULL,
-  coord = ggplot2::coord_cartesian(clip = "off"),
+  coord = NULL,
   x_breaks = NULL,
   x_expand = NULL,
   x_include = NULL,
@@ -73,10 +73,6 @@ gg_tile(
 
 \item{text}{Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").}
 
-\item{width}{Unquoted width aesthetic variable.}
-
-\item{height}{Unquoted height aesthetic variable.}
-
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
@@ -86,6 +82,10 @@ gg_tile(
 \item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
 
 \item{alpha}{Opacity. A number between 0 and 1.}
+
+\item{height}{Height. A number 0 upwards.}
+
+\item{width}{Width. A number 0 upwards.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 

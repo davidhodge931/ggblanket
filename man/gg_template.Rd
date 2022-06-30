@@ -17,12 +17,11 @@ gg_template(
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 1,
-  width = NULL,
   ...,
   titles = NULL,
   title = NULL,
   subtitle = NULL,
-  coord = ggplot2::coord_cartesian(clip = "off"),
+  coord = NULL,
   x_breaks = NULL,
   x_expand = NULL,
   x_include = NULL,
@@ -81,8 +80,6 @@ gg_template(
 \item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
 
 \item{alpha}{Opacity. A number between 0 and 1.}
-
-\item{width}{Width. A number 0 upwards.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
