@@ -40,6 +40,6 @@ pal_viridis_mix <- function(n) {
 #' @export
 #' @examples
 #' scales::show_col(pal_na())
-pal_na <- function(pal = "#7F7F7FFF") {
+pal_na <- function(pal = "#7F7F7F") {
   return(pal)
 }

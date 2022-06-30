@@ -4,7 +4,7 @@
 \alias{pal_na}
 \title{NA palette.}
 \usage{
-pal_na(pal = "#7F7F7FFF")
+pal_na(pal = "#7F7F7F")
 }
 \arguments{
 \item{pal}{The hex code or name of the NA colour. Defaults to "#7F7F7FFF".}

@@ -48,10 +48,7 @@ add_tooltip_text <- function(data,
       dplyr::select(...)
   }
 
-  if (rlang::is_null(titles)) {
-    temp_data <- temp_data %>%
-      dplyr::rename_with(snakecase::to_sentence_case)
-  } else {
+  if (!rlang::is_null(titles)) {
     temp_data <- temp_data %>%
       dplyr::rename_with(titles)
   }

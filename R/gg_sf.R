@@ -1,6 +1,6 @@
 #' @title Sf ggplot.
 #'
-#' @description Create a sf plot with a wrapper around the ggplot2::geom_sf function.
+#' @description Create a sf plot with a wrapper around the ggplot2:: %>%  function.
 #' @param data A sf object.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
@@ -75,7 +75,7 @@ gg_sf <- function(data = NULL,
                   facet_ncol = NULL,
                   facet_nrow = NULL,
                   caption = NULL,
-                  theme = gg_theme(void = TRUE)) {
+                  theme = gg_theme(x_grid = TRUE, y_grid = TRUE)) {
 
   #quote
   col <- rlang::enquo(col)
@@ -152,7 +152,7 @@ gg_sf <- function(data = NULL,
 
     if (rlang::is_null(col_legend_place)) {
       if (!rlang::quo_is_null(facet) &
-               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data)))) {
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data)))) {
         col_legend_place <- "n"
       }
       else
