@@ -84,7 +84,7 @@ gg_template <- function(data = NULL,
                       titles = NULL,
                       title = NULL,
                       subtitle = NULL,
-                      coord = ggplot2::coord_cartesian(clip = "off"),
+                      coord = NULL,
                       x_breaks = NULL,
                       x_expand = NULL,
                       x_include = NULL,
@@ -229,6 +229,8 @@ gg_template <- function(data = NULL,
     else
       width <- 0.75
   }
+
+  if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
 
   ###process plot data
   ###factorise logical, reverse for horizontal, and chop intervals
