@@ -1,7 +1,7 @@
 # ggblanket 1.2.0
 
 * Added support for `*_breaks` to receive a function.
-* Added `*_include` argument.
+* Added `*_include` argument. 
 * Added `*_trans` argument.
 * Modified default `x_breaks` behaviour for when both x and y are numeric or date.
 * Breaking: Removed `*_breaks_n` and `*_breaks_width`.
