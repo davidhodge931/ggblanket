@@ -66,7 +66,9 @@
 #'
 #' gg_histogram(economics_long, x = value, facet = variable,
 #'              binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)),
-#'              facet_scales = "free_x")
+#'              facet_scales = "free_x",
+#'              x_breaks = scales::breaks_pretty(3),
+#'              facet_ncol = 2)
 #'
 gg_histogram <- function(data = NULL,
                          x = NULL,
@@ -211,12 +213,14 @@ gg_histogram <- function(data = NULL,
     else {
       x_grid <-
         ifelse(is.numeric(rlang::eval_tidy(x, data)) |
-                 lubridate::is.Date(rlang::eval_tidy(x, data)),
+                 lubridate::is.Date(rlang::eval_tidy(x, data)) |
+                 rlang::quo_is_null(x),
                TRUE,
                FALSE)
       y_grid <-
         ifelse(is.numeric(rlang::eval_tidy(y, data)) |
-                 lubridate::is.Date(rlang::eval_tidy(y, data)),
+                 lubridate::is.Date(rlang::eval_tidy(y, data)) |
+                 rlang::quo_is_null(y),
                TRUE,
                FALSE)
     }
@@ -862,16 +866,26 @@ gg_histogram <- function(data = NULL,
     theme
 
   ###adjust legend
-  if (col_legend_place == "b") {
+  if (col_legend_place %in% c("b", "t")) {
     plot <- plot +
-      ggplot2::theme(legend.direction = "horizontal") +
-      ggplot2::theme(legend.position = "bottom")
+      ggplot2::theme(legend.direction = "horizontal")
+
+    if (is.numeric(rlang::eval_tidy(col, data))) {
+      plot <- plot +
+        ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
+        ggplot2::theme(legend.text.align = 0.5)
+    }
+
+    if (col_legend_place == "b") {
+      plot <- plot +
+        ggplot2::theme(legend.position = "bottom")
+    }
+    else if (col_legend_place == "t") {
+      plot <- plot +
+        ggplot2::theme(legend.position = "top")
+    }
   }
-  else if (col_legend_place == "t") {
-    plot <- plot +
-      ggplot2::theme(legend.direction = "horizontal") +
-      ggplot2::theme(legend.position = "top")
-  }
+
   else if (col_legend_place == "n" | rlang::quo_is_null(col)) {
     plot <- plot +
       ggplot2::theme(legend.position = "none")

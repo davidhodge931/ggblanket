@@ -43,6 +43,7 @@ With this objective in mind, the {ggblanket} package:
 8. converts unspecified titles to snakecase::to_sentence by default
 9. provides access to all of the relevant geom arg's through the dots argument
 10. supports ggplotly use.
+11. provides a `gg_blank` function for even more flexibility.
 
 ## Installation
 
@@ -100,7 +101,8 @@ penguins %>%
 
 ```{r}
 penguins %>% 
-  tidyr::drop_na() %>% 
+  tidyr::drop_na() %>%
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
   gg_violin(x = sex, y = body_mass_g, facet = species)
 ```
 
@@ -131,7 +133,11 @@ storms %>%
 
 This is designed to work with the Rstudio autocomplete to help you find the adjustment you need. Press the tab key after typing `x_`,`y_`, `col_` or `facet_` to access this. Then use arrow keys, and press tab again to select.
 
-Available arguments are `*_limits`, `*_expand`, `*_labels`, `*_breaks`, `*_include`,  and `col_intervals` arguments.
+Available arguments are for `x`, `y`, `col` and `facet`: `*_breaks``*_limits`, `*_include`, `*_expand`, and `*_labels`.
+
+For `x` and `y`, there is also a `*_trans` argument.
+
+For `col` and `facet`, there is also a `*_intervals` argument.
 
 ```{r}
 penguins %>%
@@ -172,11 +178,11 @@ penguins %>%
           pal = pals::brewer.blues(9),
           width = 0.9, 
           height = 0.9, 
-          size = 0.5,
           title = "Average penguin body mass",
           subtitle = "Palmer Archipelago, Antarctica",
           theme = gg_theme(pal_axis = "#ffffff", pal_ticks = "#ffffff")) +
   geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
+
 ```
 
 9. {ggblanket} provides access to all of the relevant geom arg's through the dots argument.
@@ -200,7 +206,7 @@ penguins %>%
 ```{r, eval = F}
 iris %>% 
   mutate(Species = stringr::str_to_sentence(Species)) %>% 
-  add_tooltip_text() %>% 
+  add_tooltip_text(titles = snakecase::to_sentence_case) %>% 
   gg_point(x = Sepal.Width, 
            y = Sepal.Length, 
            col = Species, 
@@ -210,4 +216,72 @@ iris %>%
 ```
 
 ![](man/figures/ggplotly_screenshot.png)
+
+11. {ggblanket} provides a `gg_blank` function for even more flexibility.
+
+```{r}
+penguins %>%
+  tidyr::drop_na() %>%
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
+  gg_blank(x = flipper_length_mm, col = sex, facet = species, 
+           col_legend_place = "b") +
+  geom_histogram(aes(y = after_stat(density)), alpha = 0.9) +
+  labs(y = "Density")
+```
+
+```{r}
+penguins %>%
+  tidyr::drop_na() %>%
+  mutate(sex = stringr::str_to_sentence(sex)) %>%
+  group_by(species, sex) %>%
+  summarise(
+    bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 0),
+    n = n(),
+    se = bill_length_mm / sqrt(n),
+    upper = bill_length_mm + 1.96 * se,
+    lower = bill_length_mm - 1.96 * se
+  ) %>%
+  gg_blank(
+    x = sex,
+    y = bill_length_mm,
+    col = sex,
+    facet = species,
+    label = bill_length_mm,
+    ymin = lower,
+    ymax = upper,
+    yend = upper + 10,
+    y_include = 0
+  ) +
+  geom_col(width = 0.75, alpha = 0.9) +
+  geom_errorbar(width = 0.1, col = "black") +
+  geom_text(aes(y = upper + 5), fill = NA, size = 3)
+```
+
+```{r, fig.height=5}
+x_zoom <- c(4, 6)
+
+iris %>%
+  gg_blank(
+    x = Petal.Length,
+    y = Petal.Width,
+    col = Species,
+    facet_scales = "free_x",
+    col_legend_place = "b",
+    col_labels = stringr::str_to_sentence,
+    y_expand = expansion(mult = c(0, 0.05))
+  ) +
+  geom_rect(aes(
+    xmin = x_zoom[1] * 0.975,
+    xmax = x_zoom[2] * 1.025,
+    ymin = 0,
+    ymax = Inf
+  ),
+  col = NA,
+  fill = "#F0F0F0"
+  ) +
+  geom_point() +
+  ggforce::facet_zoom(xlim = c(x_zoom[1], x_zoom[2]), zoom.size = 1) +
+  theme(strip.background = element_rect(fill = "#E6E6E6")) +
+  theme(panel.spacing = unit(0.2, "cm"))
+```
 

@@ -178,6 +178,5 @@ df <- data.frame(
 )
 
 gg_tile(df, x = x, y = y, col = z)
-gg_tile(df, x = x, y = y, width = w, col = z)
 
 }

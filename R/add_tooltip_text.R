@@ -2,7 +2,7 @@
 #'
 #' @param data A data frame or tibble.
 #' @param ... Arguments passed to select (i.e unquoted variables, tidyselect helpers etc). If no arguments provided, uses all columns.
-#' @param titles A function to format the variable names, including in rlang lambda format. Defaults to snakecase::to_sentence_case.
+#' @param titles A function to format the variable names, including in rlang lambda format.
 #'
 #' @return A data frame or tibble with a column of text
 #' @export

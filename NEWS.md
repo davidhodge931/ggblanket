@@ -1,14 +1,15 @@
 # ggblanket 1.1.9000
 
-* Modified default `x_breaks` for when both x and y are numeric or date.
 * Added support for `*_breaks` to receive a function.
-* Added `*_trans` argument.
 * Added `*_include` argument.
-* Removed `*_breaks_n` and `*_breaks_width`.
+* Added `*_trans` argument.
+* Modified default `x_breaks` behaviour for when both x and y are numeric or date.
+* Breaking: Removed `*_breaks_n` and `*_breaks_width`.
+* Enhanced `gg_blank` to work with only one x or y.
 * Provided support for `ggplotly`.
 * Added new `add_tooltip_text` function.
 * Added new `titles` argument to apply a function across titles.
-* Support `gg_` functions working with more unusual stats.
+* Support `gg_` functions working with more stats.
 * Removed `size` argument, in anticipation of ggplot2 3.4.0.
 * Updated `gg_theme` title vjust and margins.
 

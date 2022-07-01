@@ -223,12 +223,14 @@ gg_blank <- function(data = NULL,
     else {
       x_grid <-
         ifelse(is.numeric(rlang::eval_tidy(x, data)) |
-                 lubridate::is.Date(rlang::eval_tidy(x, data)),
+                 lubridate::is.Date(rlang::eval_tidy(x, data)) |
+                 rlang::quo_is_null(x),
                TRUE,
                FALSE)
       y_grid <-
         ifelse(is.numeric(rlang::eval_tidy(y, data)) |
-                 lubridate::is.Date(rlang::eval_tidy(y, data)),
+                 lubridate::is.Date(rlang::eval_tidy(y, data)) |
+                 rlang::quo_is_null(y),
                TRUE,
                FALSE)
     }
@@ -787,8 +789,44 @@ gg_blank <- function(data = NULL,
       else x_labels <- ggplot2::waiver()
     }
 
-    if ((facet_scales %in% c("fixed", "free_y") & ncol(x_temp_df) != 0) |
-        facet_scales %in% c("free", "free_x")) {
+    if (facet_scales %in% c("fixed", "free_y")) {
+      if (ncol(x_temp_df) != 0) {
+        if (is.numeric(rlang::eval_tidy(x, data)) | rlang::quo_is_null(x)) {
+          x_scale <- ggplot2::scale_x_continuous(
+            breaks = x_breaks,
+            limits = x_limits,
+            expand = x_expand,
+            labels = x_labels,
+            oob = x_oob,
+            trans = x_trans
+          )
+        }
+        else if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
+          x_scale <- ggplot2::scale_x_date(
+            breaks = x_breaks,
+            limits = x_limits,
+            expand = x_expand,
+            labels = x_labels,
+            oob = x_oob
+          )
+        }
+      }
+      else if (ncol(x_temp_df) == 0) {
+        if (is.numeric(rlang::eval_tidy(x, data)) | rlang::quo_is_null(x)) {
+          x_scale <- ggplot2::scale_x_continuous(
+            expand = x_expand,
+            labels = x_labels
+          )
+        }
+        else if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
+          x_scale <- ggplot2::scale_x_date(
+            expand = x_expand,
+            labels = x_labels
+          )
+        }
+      }
+    }
+    else if (facet_scales %in% c("free", "free_x")) {
       if (is.numeric(rlang::eval_tidy(x, data)) | rlang::quo_is_null(x)) {
         x_scale <- ggplot2::scale_x_continuous(
           breaks = x_breaks,
@@ -808,14 +846,7 @@ gg_blank <- function(data = NULL,
           oob = x_oob
         )
       }
-    } else if (facet_scales %in% c("fixed", "free_y") & ncol(x_temp_df) == 0) {
-      if (is.numeric(rlang::eval_tidy(x, data)) | rlang::quo_is_null(x)) {
-        x_scale <- ggplot2::scale_x_continuous(
-          expand = x_expand,
-          labels = x_labels
-        )
-      }
-    }
+  }
 
     plot <- plot +
       x_scale
@@ -910,9 +941,45 @@ gg_blank <- function(data = NULL,
       else y_labels <- ggplot2::waiver()
     }
 
-    if ((facet_scales %in% c("fixed", "free_x") & ncol(y_temp_df) != 0) |
-        facet_scales %in% c("free", "free_y")) {
-      if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(y)) {
+    if (facet_scales %in% c("fixed", "free_x")) {
+      if (ncol(y_temp_df) != 0) {
+        if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(x)) {
+          y_scale <- ggplot2::scale_y_continuous(
+            breaks = y_breaks,
+            limits = y_limits,
+            expand = y_expand,
+            labels = y_labels,
+            oob = y_oob,
+            trans = y_trans
+          )
+        }
+        else if (lubridate::is.Date(rlang::eval_tidy(y, data))) {
+          y_scale <- ggplot2::scale_y_date(
+            breaks = y_breaks,
+            limits = y_limits,
+            expand = y_expand,
+            labels = y_labels,
+            oob = y_oob
+          )
+        }
+      }
+      else if (ncol(y_temp_df) == 0) {
+        if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(y)) {
+          y_scale <- ggplot2::scale_y_continuous(
+            expand = y_expand,
+            labels = y_labels
+          )
+        }
+        else if (lubridate::is.Date(rlang::eval_tidy(y, data))) {
+          y_scale <- ggplot2::scale_y_date(
+            expand = y_expand,
+            labels = y_labels
+          )
+        }
+      }
+    }
+    else if (facet_scales %in% c("free", "free_y")) {
+      if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(x)) {
         y_scale <- ggplot2::scale_y_continuous(
           breaks = y_breaks,
           limits = y_limits,
@@ -929,13 +996,6 @@ gg_blank <- function(data = NULL,
           expand = y_expand,
           labels = y_labels,
           oob = y_oob
-        )
-      }
-    } else if (facet_scales %in% c("fixed", "free_x") & ncol(y_temp_df) == 0) {
-      if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(y)) {
-        y_scale <- ggplot2::scale_y_continuous(
-          expand = y_expand,
-          labels = y_labels
         )
       }
     }
@@ -966,7 +1026,7 @@ gg_blank <- function(data = NULL,
 
     if (is.numeric(rlang::eval_tidy(col, data))) {
       plot <- plot +
-        ggplot2::theme(legend.key.width = grid::unit(0.6, "cm")) +
+        ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
         ggplot2::theme(legend.text.align = 0.5)
     }
 

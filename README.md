@@ -36,6 +36,8 @@ With this objective in mind, the {ggblanket} package:
 9.  provides access to all of the relevant geom arg’s through the dots
     argument
 10. supports ggplotly use.
+11. {ggblanket} provides a `gg_blank` function for even more
+    flexibility.
 
 ## Installation
 
@@ -227,7 +229,7 @@ arguments. But it does work a lot of the time.
 ``` r
 iris %>% 
   mutate(Species = stringr::str_to_sentence(Species)) %>% 
-  add_tooltip_text() %>% 
+  add_tooltip_text(titles = snakecase::to_sentence_case) %>% 
   gg_point(x = Sepal.Width, 
            y = Sepal.Length, 
            col = Species, 
@@ -237,3 +239,76 @@ iris %>%
 ```
 
 ![](man/figures/ggplotly_screenshot.png)
+
+11. {ggblanket} provides a `gg_blank` function for even more
+    flexibility.
+
+``` r
+penguins %>%
+  tidyr::drop_na() %>%
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
+  gg_blank(x = flipper_length_mm, col = sex, facet = species) +
+  geom_histogram(aes(y = after_stat(density)), alpha = 0.9) +
+  labs(y = "Density")
+```
+
+![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
+
+``` r
+penguins %>%
+  tidyr::drop_na() %>%
+  mutate(sex = stringr::str_to_sentence(sex)) %>%
+  group_by(species, sex) %>%
+  summarise(
+    bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 0),
+    n = n(),
+    se = bill_length_mm / sqrt(n),
+    upper = bill_length_mm + 1.96 * se,
+    lower = bill_length_mm - 1.96 * se
+  ) %>%
+  gg_blank(
+    x = sex,
+    y = bill_length_mm,
+    col = sex,
+    facet = species,
+    label = bill_length_mm,
+    ymin = lower,
+    ymax = upper,
+    yend = upper + 10,
+    y_include = 0
+  ) +
+  geom_col(width = 0.75, alpha = 0.9) +
+  geom_errorbar(width = 0.1, col = "black") +
+  geom_text(aes(y = upper + 5), fill = NA, size = 3)
+```
+
+![](man/figures/README-unnamed-chunk-14-1.png)<!-- -->
+
+``` r
+x_zoom <- c(4, 6)
+
+iris %>%
+  gg_blank(
+    x = Petal.Length,
+    y = Petal.Width,
+    col = Species,
+    facet_scales = "free_x",
+    col_legend_place = "b",
+    y_expand = expansion(mult = c(0, 0.05))
+  ) +
+  geom_rect(aes(
+    xmin = x_zoom[1] * 0.975,
+    xmax = x_zoom[2] * 1.025,
+    ymin = 0,
+    ymax = Inf
+  ),
+  col = NA,
+  fill = "#F0F0F0"
+  ) +
+  geom_point() +
+  ggforce::facet_zoom(xlim = c(x_zoom[1], x_zoom[2]), zoom.size = 1) +
+  theme(strip.background = element_rect(fill = "#E6E6E6")) +
+  theme(panel.spacing = unit(0.2, "cm"))
+```
+
+![](man/figures/README-unnamed-chunk-15-1.png)<!-- -->

@@ -109,10 +109,7 @@ if (requireNamespace("sf", quietly = TRUE)) {
   library(ggplot2)
   nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
 
-  gg_sf(nc, col = AREA)
-
-  gg_sf(nc[1:3, ], col = AREA) +
-    geom_sf_label(aes(label = AREA), fill = "white")
+  gg_sf(nc, col = AREA, col_legend_place = "b")
 }
 
 }

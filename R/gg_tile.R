@@ -13,8 +13,8 @@
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
-#' @param width Width. A number 0 upwards.
 #' @param height Height. A number 0 upwards.
+#' @param width Width. A number 0 upwards.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
 #' @param titles A function to format the x, y and col titles, including in rlang lambda format. Defaults to snakecase::to_sentence_case.
 #' @param title Title string.
@@ -65,7 +65,6 @@
 #' )
 #'
 #' gg_tile(df, x = x, y = y, col = z)
-#' gg_tile(df, x = x, y = y, width = w, col = z)
 #'
 gg_tile <- function(data = NULL,
                    x = NULL,
@@ -210,12 +209,14 @@ gg_tile <- function(data = NULL,
     else {
       x_grid <-
         ifelse(is.numeric(rlang::eval_tidy(x, data)) |
-                 lubridate::is.Date(rlang::eval_tidy(x, data)),
+                 lubridate::is.Date(rlang::eval_tidy(x, data)) |
+                 rlang::quo_is_null(x),
                TRUE,
                FALSE)
       y_grid <-
         ifelse(is.numeric(rlang::eval_tidy(y, data)) |
-                 lubridate::is.Date(rlang::eval_tidy(y, data)),
+                 lubridate::is.Date(rlang::eval_tidy(y, data)) |
+                 rlang::quo_is_null(y),
                TRUE,
                FALSE)
     }
@@ -590,6 +591,8 @@ gg_tile <- function(data = NULL,
       stat = stat,
       position = position,
       alpha = alpha,
+      height = height,
+      width = width,
       #linewidth = linewidth,
       ...
     )
@@ -860,16 +863,26 @@ gg_tile <- function(data = NULL,
     theme
 
   ###adjust legend
-  if (col_legend_place == "b") {
+  if (col_legend_place %in% c("b", "t")) {
     plot <- plot +
-      ggplot2::theme(legend.direction = "horizontal") +
-      ggplot2::theme(legend.position = "bottom")
+      ggplot2::theme(legend.direction = "horizontal")
+
+    if (is.numeric(rlang::eval_tidy(col, data))) {
+      plot <- plot +
+        ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
+        ggplot2::theme(legend.text.align = 0.5)
+    }
+
+    if (col_legend_place == "b") {
+      plot <- plot +
+        ggplot2::theme(legend.position = "bottom")
+    }
+    else if (col_legend_place == "t") {
+      plot <- plot +
+        ggplot2::theme(legend.position = "top")
+    }
   }
-  else if (col_legend_place == "t") {
-    plot <- plot +
-      ggplot2::theme(legend.direction = "horizontal") +
-      ggplot2::theme(legend.position = "top")
-  }
+
   else if (col_legend_place == "n" | rlang::quo_is_null(col)) {
     plot <- plot +
       ggplot2::theme(legend.position = "none")
@@ -878,7 +891,6 @@ gg_tile <- function(data = NULL,
     plot <- plot +
       ggplot2::theme(legend.position = "left")
   }
-
 
   #return beautiful plot
   return(plot)

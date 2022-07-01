@@ -177,6 +177,8 @@ gg_histogram(diamonds, x = price, col = cut, position = "fill")
 
 gg_histogram(economics_long, x = value, facet = variable,
              binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)),
-             facet_scales = "free_x")
+             facet_scales = "free_x",
+             x_breaks = scales::breaks_pretty(3),
+             facet_ncol = 2)
 
 }
