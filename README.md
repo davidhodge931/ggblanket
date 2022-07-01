@@ -264,25 +264,26 @@ penguins %>%
   mutate(sex = stringr::str_to_sentence(sex)) %>%
   group_by(species, sex) %>%
   summarise(
-    bill_length_mm = round(mean(bill_length_mm, na.rm = TRUE), 0),
+    mean = round(mean(bill_length_mm, na.rm = TRUE), 0),
     n = n(),
-    se = bill_length_mm / sqrt(n),
-    upper = bill_length_mm + 1.96 * se,
-    lower = bill_length_mm - 1.96 * se
+    se = mean / sqrt(n),
+    upper = mean + 1.96 * se,
+    lower = mean - 1.96 * se
   ) %>%
   gg_blank(
     x = sex,
-    y = bill_length_mm,
+    y = mean,
     col = sex,
     facet = species,
-    label = bill_length_mm,
+    label = mean,
     ymin = lower,
     ymax = upper,
     yend = upper + 10,
-    y_include = 0
+    y_include = 0,
+    y_title = "Bill length mm"
   ) +
   geom_col(width = 0.75, alpha = 0.9) +
-  geom_errorbar(width = 0.1, col = "black") +
+  geom_errorbar(width = 0.1, colour = pal_na()) +
   geom_text(aes(y = upper + 5), fill = NA, size = 3)
 ```
 
@@ -307,7 +308,7 @@ iris %>%
     ymin = 0,
     ymax = Inf
   ),
-  col = NA,
+  colour = NA,
   fill = "#F0F0F0"
   ) +
   geom_point() +
