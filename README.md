@@ -36,8 +36,7 @@ With this objective in mind, the {ggblanket} package:
 9.  provides access to all of the relevant geom arg’s through the dots
     argument
 10. supports ggplotly use.
-11. {ggblanket} provides a `gg_blank` function for even more
-    flexibility.
+11. provides a `gg_blank` function for even more flexibility.
 
 ## Installation
 
@@ -104,7 +103,8 @@ penguins %>%
 
 ``` r
 penguins %>% 
-  tidyr::drop_na() %>% 
+  tidyr::drop_na() %>%
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
   gg_violin(x = sex, y = body_mass_g, facet = species)
 ```
 
@@ -147,8 +147,12 @@ the adjustment you need. Press the tab key after typing `x_`,`y_`,
 `col_` or `facet_` to access this. Then use arrow keys, and press tab
 again to select.
 
-Available arguments are `*_limits`, `*_expand`, `*_labels`, `*_breaks`,
-`*_include`, and `col_intervals` arguments.
+Available arguments are for `x`, `y`, `col` and `facet`:
+``` *_breaks``*_limits ```, `*_include`, `*_expand`, and `*_labels`.
+
+For `x` and `y`, there is also a `*_trans` argument.
+
+For `col` and `facet`, there is also a `*_intervals` argument.
 
 ``` r
 penguins %>%
@@ -195,7 +199,6 @@ penguins %>%
           pal = pals::brewer.blues(9),
           width = 0.9, 
           height = 0.9, 
-          size = 0.5,
           title = "Average penguin body mass",
           subtitle = "Palmer Archipelago, Antarctica",
           theme = gg_theme(pal_axis = "#ffffff", pal_ticks = "#ffffff")) +
@@ -247,7 +250,8 @@ iris %>%
 penguins %>%
   tidyr::drop_na() %>%
   mutate(sex = stringr::str_to_sentence(sex)) %>% 
-  gg_blank(x = flipper_length_mm, col = sex, facet = species) +
+  gg_blank(x = flipper_length_mm, col = sex, facet = species, 
+           col_legend_place = "b") +
   geom_histogram(aes(y = after_stat(density)), alpha = 0.9) +
   labs(y = "Density")
 ```
@@ -294,6 +298,7 @@ iris %>%
     col = Species,
     facet_scales = "free_x",
     col_legend_place = "b",
+    col_labels = stringr::str_to_sentence,
     y_expand = expansion(mult = c(0, 0.05))
   ) +
   geom_rect(aes(
