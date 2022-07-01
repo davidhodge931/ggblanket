@@ -1,4 +1,4 @@
-# ggblanket 1.1.9000
+# ggblanket 1.2.0
 
 * Added support for `*_breaks` to receive a function.
 * Added `*_include` argument.
