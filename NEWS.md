@@ -1,3 +1,7 @@
+# ggblanket 1.2.1
+
+* Fixed issue with `*_limits` and `*_include` not working correctly.  
+
 # ggblanket 1.2.0
 
 * Added support for `*_breaks` to receive a function.
