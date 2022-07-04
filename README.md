@@ -20,9 +20,11 @@ downloads](https://cranlogs.r-pkg.org/badges/last-day/ggblanket?color=lightgrey)
 ## Overview
 
 {ggblanket} is a package of wrapper functions around the amazing
-‘ggplot2’ package to **simplify pretty visualisation**.
+{ggplot2} package.
 
-With this objective in mind, the {ggblanket} package:
+It aims to **simplify pretty {ggplot2} visualisation**.
+
+To do this, the {ggblanket} package:
 
 1.  uses `gg_*` functions that each wrap a `ggplot2::ggplot` call with a
     single `ggplot2::geom_*` function
@@ -130,6 +132,7 @@ storms %>%
   gg_col(
     x = year,
     y = wind,
+    x_labels = ~.x,
     title = "Storm wind speed",
     subtitle = "USA average storm wind speed, 1980\u20132020",
     y_title = "Wind speed (knots)",
@@ -251,9 +254,8 @@ penguins %>%
   tidyr::drop_na() %>%
   mutate(sex = stringr::str_to_sentence(sex)) %>% 
   gg_blank(x = flipper_length_mm, col = sex, facet = species, 
-           col_legend_place = "b") +
-  geom_histogram(aes(y = after_stat(density)), alpha = 0.9) +
-  labs(y = "Density")
+           col_legend_place = "b", y_title = "Density") +
+  geom_histogram(aes(y = after_stat(density)), alpha = 0.9) 
 ```
 
 ![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
@@ -288,33 +290,3 @@ penguins %>%
 ```
 
 ![](man/figures/README-unnamed-chunk-14-1.png)<!-- -->
-
-``` r
-x_zoom <- c(4, 6)
-
-iris %>%
-  gg_blank(
-    x = Petal.Length,
-    y = Petal.Width,
-    col = Species,
-    facet_scales = "free_x",
-    col_legend_place = "b",
-    col_labels = stringr::str_to_sentence,
-    y_expand = expansion(mult = c(0, 0.05))
-  ) +
-  geom_rect(aes(
-    xmin = x_zoom[1] * 0.975,
-    xmax = x_zoom[2] * 1.025,
-    ymin = 0,
-    ymax = Inf
-  ),
-  colour = NA,
-  fill = "#F0F0F0"
-  ) +
-  geom_point() +
-  ggforce::facet_zoom(xlim = c(x_zoom[1], x_zoom[2]), zoom.size = 1) +
-  theme(strip.background = element_rect(fill = "#E6E6E6")) +
-  theme(panel.spacing = unit(0.2, "cm"))
-```
-
-![](man/figures/README-unnamed-chunk-15-1.png)<!-- -->
