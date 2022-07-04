@@ -653,12 +653,13 @@ gg_label <- function(data = NULL,
       x_max <- x_vctr %>% max(na.rm = TRUE)
 
       if (rlang::is_null(x_limits)) {
-        x_range <- range(x_min, x_max, x_include)
+        x_limits <- range(c(x_min, x_max))
+        if (!rlang::is_null(x_include)) x_limits <- range(c(x_limits, x_include))
 
         if (rlang::is_null(x_breaks)) {
           x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
-          if (x_trans != c("identity")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
-          else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+          if (x_trans != c("identity")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
+          else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
 
           if (xy_numeric_date) x_limits <- NULL
           else {
@@ -676,7 +677,7 @@ gg_label <- function(data = NULL,
             else {
               if (x_trans != "identity") x_limits <- NULL
               else {
-                x_limits <- list(x_range) %>%
+                x_limits <- list(x_limits) %>%
                   purrr::map(.f = x_breaks) %>%
                   unlist() %>%
                   range()
@@ -688,7 +689,7 @@ gg_label <- function(data = NULL,
       else if (!rlang::is_null(x_limits)) {
         if (is.na(x_limits)[1]) x_limits[1] <- x_min
         if (is.na(x_limits)[2]) x_limits[2] <- x_max
-        x_limits <- range(c(x_min, x_max, x_include))
+        if (!rlang::is_null(x_include)) x_limits <- range(c(x_limits, x_include))
 
         if (rlang::is_null(x_breaks)) {
           x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
@@ -704,11 +705,11 @@ gg_label <- function(data = NULL,
     if (rlang::is_null(x_expand)) {
       if (facet_scales %in% c("fixed", "free_y")) {
         if (xy_numeric_date) {
-          x_expand <- c(0.025, 0.025)
+          x_expand <- c(0.05, 0.05)
         }
         else x_expand <- c(0, 0)
       }
-      else x_expand <- c(0.025, 0.025)
+      else x_expand <- c(0.05, 0.05)
     }
 
     if (rlang::is_null(x_labels)) {
@@ -750,7 +751,6 @@ gg_label <- function(data = NULL,
   }
   else {
     if (facet_scales %in% c("fixed", "free_x")) {
-
       y_vctr <- layer_data %>%
         dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymay_final$"))) %>%
         tidyr::pivot_longer(cols = tidyselect::everything()) %>%
@@ -764,12 +764,13 @@ gg_label <- function(data = NULL,
       y_max <- y_vctr %>% max(na.rm = TRUE)
 
       if (rlang::is_null(y_limits)) {
-        y_range <- range(y_min, y_max, y_include)
+        y_limits <- range(c(y_min, y_max))
+        if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
 
         if (rlang::is_null(y_breaks)) {
-          y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
-          if (y_trans != c("identity")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
-          else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+          y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
+          if (y_trans != c("identity")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
+          else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
 
           if (y_trans != "identity") y_limits <- NULL
           else y_limits <- c(min(y_breaks), max(y_breaks))
@@ -782,7 +783,7 @@ gg_label <- function(data = NULL,
           else {
             if (y_trans != "identity") y_limits <- NULL
             else {
-              y_limits <- list(y_range) %>%
+              y_limits <- list(y_limits) %>%
                 purrr::map(.f = y_breaks) %>%
                 unlist() %>%
                 range()
@@ -793,7 +794,7 @@ gg_label <- function(data = NULL,
       else if (!rlang::is_null(y_limits)) {
         if (is.na(y_limits)[1]) y_limits[1] <- y_min
         if (is.na(y_limits)[2]) y_limits[2] <- y_max
-        y_limits <- range(c(y_min, y_max, y_include))
+        if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
 
         if (rlang::is_null(y_breaks)) {
           y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
@@ -811,9 +812,9 @@ gg_label <- function(data = NULL,
         y_expand <- c(0, 0)
       }
       else if (!rlang::is_null(y_include)) {
-        if (min(y_include) == 0 | max(y_include) == 0) y_expand <- ggplot2::expansion(mult = c(0, 0.025))
+        if (min(y_include) == 0 | max(y_include) == 0) y_expand <- ggplot2::expansion(mult = c(0, 0.05))
       }
-      else y_expand <- c(0.025, 0.025)
+      else y_expand <- c(0.05, 0.05)
     }
 
     if (rlang::is_null(y_labels)) {

@@ -724,12 +724,13 @@ gg_blank <- function(data = NULL,
         x_max <- x_vctr %>% max(na.rm = TRUE)
 
         if (rlang::is_null(x_limits)) {
-          x_range <- range(x_min, x_max, x_include)
+          x_limits <- range(c(x_min, x_max))
+          if (!rlang::is_null(x_include)) x_limits <- range(c(x_limits, x_include))
 
           if (rlang::is_null(x_breaks)) {
             x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
-            if (x_trans != c("identity")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
-            else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+            if (x_trans != c("identity")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
+            else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
 
             if (xy_numeric_date) x_limits <- NULL
             else {
@@ -747,7 +748,7 @@ gg_blank <- function(data = NULL,
               else {
                 if (x_trans != "identity") x_limits <- NULL
                 else {
-                  x_limits <- list(x_range) %>%
+                  x_limits <- list(x_limits) %>%
                     purrr::map(.f = x_breaks) %>%
                     unlist() %>%
                     range()
@@ -759,7 +760,7 @@ gg_blank <- function(data = NULL,
         else if (!rlang::is_null(x_limits)) {
           if (is.na(x_limits)[1]) x_limits[1] <- x_min
           if (is.na(x_limits)[2]) x_limits[2] <- x_max
-          x_limits <- range(c(x_min, x_max, x_include))
+          if (!rlang::is_null(x_include)) x_limits <- range(c(x_limits, x_include))
 
           if (rlang::is_null(x_breaks)) {
             x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
@@ -882,12 +883,13 @@ gg_blank <- function(data = NULL,
         y_max <- y_vctr %>% max(na.rm = TRUE)
 
         if (rlang::is_null(y_limits)) {
-          y_range <- range(y_min, y_max, y_include)
+          y_limits <- range(c(y_min, y_max))
+          if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
 
           if (rlang::is_null(y_breaks)) {
-            y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
-            if (y_trans != c("identity")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
-            else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+            y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
+            if (y_trans != c("identity")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
+            else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
 
             if (y_trans != "identity") y_limits <- NULL
             else y_limits <- c(min(y_breaks), max(y_breaks))
@@ -900,7 +902,7 @@ gg_blank <- function(data = NULL,
             else {
               if (y_trans != "identity") y_limits <- NULL
               else {
-                y_limits <- list(y_range) %>%
+                y_limits <- list(y_limits) %>%
                   purrr::map(.f = y_breaks) %>%
                   unlist() %>%
                   range()
@@ -911,7 +913,7 @@ gg_blank <- function(data = NULL,
         else if (!rlang::is_null(y_limits)) {
           if (is.na(y_limits)[1]) y_limits[1] <- y_min
           if (is.na(y_limits)[2]) y_limits[2] <- y_max
-          y_limits <- range(c(y_min, y_max, y_include))
+          if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
 
           if (rlang::is_null(y_breaks)) {
             y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
