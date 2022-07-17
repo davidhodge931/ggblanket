@@ -134,7 +134,7 @@ gg_boxplot(
 
 \item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.}
 
-\item{col_legend_place}{The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.}
+\item{col_legend_place}{The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 

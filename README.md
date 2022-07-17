@@ -137,6 +137,7 @@ storms %>%
     x = year,
     y = wind,
     x_labels = ~.x,
+    x_expand = c(0, 0),
     title = "Storm wind speed",
     subtitle = "USA average storm wind speed, 1980\u20132020",
     y_title = "Wind speed (knots)",
@@ -169,7 +170,7 @@ penguins %>%
     col = flipper_length_mm,
     position = ggplot2::position_jitter(width = 0.2, height = 0, seed = 123), 
     col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
-    col_legend_place = "b",
+    col_legend_place = "r",
     y_include = 0,
     y_breaks = scales::breaks_width(1500), 
     y_labels = scales::label_number()
@@ -188,8 +189,7 @@ penguins %>%
   summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
   gg_col(x = body_mass_kg, y = species, col = sex, facet = island,
          col_labels = stringr::str_to_sentence, 
-         position = "dodge", 
-         col_legend_place = "b")
+         position = "dodge")
 ```
 
 ![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
@@ -206,6 +206,7 @@ penguins %>%
           pal = pals::brewer.blues(9),
           width = 0.9, 
           height = 0.9, 
+          col_legend_place = "r",
           title = "Average penguin body mass",
           subtitle = "Palmer Archipelago, Antarctica",
           theme = gg_theme(pal_axis = "#ffffff", pal_ticks = "#ffffff")) +
@@ -219,14 +220,17 @@ penguins %>%
 
 ``` r
 penguins %>%
-  tidyr::drop_na() %>% 
+  tidyr::drop_na() %>%
   gg_smooth(
-    x = bill_length_mm,
-    y = flipper_length_mm,
-    col = species,
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
     level = 0.99,
-    size = 0.5
-    ) 
+    size = 0.5, 
+    col_legend_place = "t",
+    col_title = "", 
+    col_labels = stringr::str_to_sentence
+  ) 
 ```
 
 ![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
@@ -258,7 +262,7 @@ penguins %>%
   tidyr::drop_na() %>%
   mutate(sex = stringr::str_to_sentence(sex)) %>% 
   gg_blank(x = flipper_length_mm, col = sex, facet = species, 
-           col_legend_place = "b", y_title = "Density") +
+           y_title = "Density") +
   geom_histogram(aes(y = after_stat(density)), alpha = 0.9) 
 ```
 

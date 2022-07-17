@@ -42,7 +42,7 @@
 #' @param col_limits A vector to determine the limits of the axis.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
-#' @param col_legend_place The place for the legend. "r" for right, "b" for bottom, "t" for top, or "l" for left.
+#' @param col_legend_place The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left.
 #' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param facet_intervals A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).
@@ -325,7 +325,7 @@ gg_text <- function(data = NULL,
         col_legend_place <- "n"
       }
       else
-        col_legend_place <- "r"
+        col_legend_place <- "b"
     }
 
     if (is.numeric(rlang::eval_tidy(col, data))) {
@@ -889,6 +889,11 @@ gg_text <- function(data = NULL,
   else if (col_legend_place == "l") {
     plot <- plot +
       ggplot2::theme(legend.position = "left")
+  }
+
+  else if (col_legend_place == "r") {
+    plot <- plot +
+      ggplot2::theme(legend.position = "right")
   }
 
   #return beautiful plot
