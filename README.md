@@ -145,7 +145,6 @@ storms %>%
     x = year,
     y = wind,
     x_labels = ~.x,
-    x_expand = c(0, 0),
     title = "Storm wind speed",
     subtitle = "USA average storm wind speed, 1980\u20132020",
     y_title = "Wind speed (knots)",
