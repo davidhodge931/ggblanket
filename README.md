@@ -96,11 +96,16 @@ penguins %>%
 3.  {ggblanket} provides colour customisation via pal and alpha
     arguments.
 
+These arguments are the same regardless of whether a col variable is
+specified. If more colours are provided than needed by the pal argument,
+then the excess colours will just be dropped. Note all colours specified
+by the pal argument will inherit to any further `ggplot2::geom_*` layers
+added.
+
 ``` r
 penguins %>% 
   gg_density(x = body_mass_g, col = species, 
-             pal = pals::brewer.dark2(3), 
-             alpha = 0.5)
+             pal = pals::brewer.dark2(9))
 ```
 
 ![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
@@ -111,7 +116,10 @@ penguins %>%
 penguins %>% 
   tidyr::drop_na() %>%
   mutate(sex = stringr::str_to_sentence(sex)) %>% 
-  gg_violin(x = sex, y = body_mass_g, facet = species)
+  gg_violin(x = sex, y = body_mass_g, facet = species, 
+            y_include = 0, 
+            y_breaks = scales::breaks_width(1000),
+            pal = pals::brewer.dark2(9))
 ```
 
 ![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
