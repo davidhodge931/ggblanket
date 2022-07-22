@@ -32,13 +32,18 @@ To do this, the {ggblanket} package:
 3.  provides colour customisation via pal and alpha arguments
 4.  treats faceting as an aesthetic
 5.  provides good-looking default x and y scales
-6.  provides prefixed arguments for customisable scale adjustment
+6.  provides prefixed arguments for easy customisation with Rstudio
+    autocomplete
 7.  arranges horizontal geom y and col labels etc to be in correct order
 8.  converts unspecified titles to snakecase::to_sentence by default
-9.  provides access to all of the relevant geom arg’s through the dots
+9.  outputs a `ggplot2` object, so extra `ggplot2` layers can be added
+    if necessary
+10. provides access to all of the relevant geom arg’s through the dots
     argument
-10. supports ggplotly use.
-11. provides a `gg_blank` function for even more flexibility.
+11. provides a `gg_blank` function for extra flexibility
+12. is useful for creating custom {ggblanket} functions with your own
+    defaults
+13. supports ggplotly use
 
 If you would like to show your support for {ggblanket}, you can
 <a href="https://www.buymeacoffee.com/davidhodge931" target="_blank">buy
@@ -154,8 +159,8 @@ storms %>%
 
 ![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
 
-6.  {ggblanket} provides prefixed arguments for customisable scale
-    adjustment.
+6.  {ggblanket} provides prefixed arguments for easy customisation with
+    Rstudio autocomplete.
 
 This is designed to work with the Rstudio autocomplete to help you find
 the adjustment you need. Press the tab key after typing `x_`,`y_`,
@@ -222,7 +227,24 @@ penguins %>%
 
 ![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
 
-9.  {ggblanket} provides access to all of the relevant geom arg’s
+9.  {ggblanket} outputs a `ggplot2` object, so extra `ggplot2` layers
+    can be added if necessary.
+
+``` r
+penguins %>%
+  tidyr::drop_na() %>% 
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
+  gg_point(
+    x = bill_length_mm,
+    y = body_mass_g,
+    size = 1, 
+  ) + 
+  facet_grid(sex ~ species)
+```
+
+![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
+
+10. {ggblanket} provides access to all of the relevant geom arg’s
     through the dots argument.
 
 ``` r
@@ -240,40 +262,9 @@ penguins %>%
   ) 
 ```
 
-![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
 
-10. {ggblanket} supports ggplotly use.
-
-`ggplotly` won’t work in all situations, and with all functions and
-arguments. But it does work a lot of the time.
-
-``` r
-iris %>% 
-  mutate(Species = stringr::str_to_sentence(Species)) %>% 
-  add_tooltip_text(titles = snakecase::to_sentence_case) %>% 
-  gg_point(x = Sepal.Width, 
-           y = Sepal.Length, 
-           col = Species, 
-           text = text, 
-           theme = gg_theme("helvetica", y_grid = TRUE)) %>% 
-  plotly::ggplotly(tooltip = "text")
-```
-
-![](man/figures/ggplotly_screenshot.png)
-
-11. {ggblanket} provides a `gg_blank` function for even more
-    flexibility.
-
-``` r
-penguins %>%
-  tidyr::drop_na() %>%
-  mutate(sex = stringr::str_to_sentence(sex)) %>% 
-  gg_blank(x = flipper_length_mm, col = sex, facet = species, 
-           y_title = "Density") +
-  geom_histogram(aes(y = after_stat(density)), alpha = 0.9) 
-```
-
-![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
+11. {ggblanket} provides a `gg_blank` function for extra flexibility.
 
 ``` r
 penguins %>%
@@ -295,13 +286,59 @@ penguins %>%
     label = mean,
     ymin = lower,
     ymax = upper,
-    yend = upper + 10,
     y_include = 0,
     y_title = "Bill length mm"
   ) +
   geom_col(width = 0.75, alpha = 0.9) +
-  geom_errorbar(width = 0.1, colour = pal_na()) +
-  geom_text(aes(y = upper + 5), fill = NA, size = 3)
+  geom_errorbar(width = 0.1, colour = pal_na()) 
+```
+
+![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
+
+12. {ggblanket} is useful for creating custom {ggblanket} functions with
+    your own defaults.
+
+The dots argument will allow you to access all other arguments within
+the {ggblanket} function.
+
+``` r
+gg_point_custom <- function(data, x, y, col, 
+                            size = 3, pal = pals::brewer.dark2(9), ...) {
+    data %>% 
+      gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
+               size = size, pal = pal, ...)
+}
+
+iris %>%
+  gg_point_custom(
+    x = Sepal.Width,
+    y = Sepal.Length,
+    col = Species, 
+    x_breaks = scales::breaks_width(1)
+  )
 ```
 
 ![](man/figures/README-unnamed-chunk-14-1.png)<!-- -->
+
+13. {ggblanket} supports ggplotly use.
+
+`ggplotly` won’t work in all situations. But it does work a lot of the
+time.
+
+{ggblanket} provides an `add_tooltip` function to assist with creating
+nice tooltips in combination with the `text` argument, and the
+`tooltip = "text"` argument in `ggplotly`.
+
+``` r
+iris %>% 
+  mutate(Species = stringr::str_to_sentence(Species)) %>% 
+  add_tooltip_text(titles = snakecase::to_sentence_case) %>% 
+  gg_point(x = Sepal.Width, 
+           y = Sepal.Length, 
+           col = Species, 
+           text = text, 
+           theme = gg_theme("helvetica", y_grid = TRUE)) %>% 
+  plotly::ggplotly(tooltip = "text")
+```
+
+![](man/figures/ggplotly_screenshot.png)
