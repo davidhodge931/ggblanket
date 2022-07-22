@@ -264,10 +264,17 @@ The `...` argument will allow you to access all other arguments within the {ggbl
 
 ```{r}
 gg_point_custom <- function(data, x, y, col, 
-                            size = 2.5, pal = pals::brewer.dark2(9), ...) {
-    data %>% 
-      gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
-               size = size, pal = pal, ...)
+                            size = 3, 
+                            pal = pals::brewer.dark2(9), 
+                            col_title = "", 
+                            col_legend_place = "t", ...) {
+  data %>% 
+    gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
+             size = size, 
+             pal = pal, 
+             col_title = col_title, 
+             col_legend_place = col_legend_place, 
+             ...)
 }
 
 iris %>%

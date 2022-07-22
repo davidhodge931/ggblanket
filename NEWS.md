@@ -1,4 +1,4 @@
-# ggblanket 1.3.0
+# ggblanket 1.2.2
 
 * Defaulted col_legend_place to bottom.  
 * Fixed bug with `*_limits` and `*_include` not working correctly.  
