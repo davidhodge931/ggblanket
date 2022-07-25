@@ -12,6 +12,7 @@ gg_rect(
   ymax = NULL,
   col = NULL,
   facet = NULL,
+  facet2 = NULL,
   group = NULL,
   text = NULL,
   x = NULL,
@@ -51,7 +52,6 @@ gg_rect(
   col_legend_nrow = NULL,
   col_limits = NULL,
   col_title = NULL,
-  facet_intervals = NULL,
   facet_labels = NULL,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -74,6 +74,8 @@ gg_rect(
 \item{col}{Unquoted col and fill aesthetic variable.}
 
 \item{facet}{Unquoted facet aesthetic variable.}
+
+\item{facet2}{Unquoted second facet variable for a facet grid of facet by facet2 variables.}
 
 \item{group}{Unquoted group aesthetic variable.}
 
@@ -152,8 +154,6 @@ gg_rect(
 \item{col_limits}{A vector to determine the limits of the axis.}
 
 \item{col_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
-
-\item{facet_intervals}{A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
 
 \item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).}
 
