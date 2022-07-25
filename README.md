@@ -38,7 +38,7 @@ To do this, the {ggblanket} package:
 8.  converts unspecified titles to snakecase::to_sentence by default
 9.  outputs a `ggplot2` object, so extra `ggplot2` layers can be added
     if necessary
-10. provides access to all of the relevant geom arg’s through the dots
+10. provides access to all of the relevant geom arg’s through the `...`
     argument
 11. provides a `gg_blank` function for extra flexibility
 12. is useful for creating custom {ggblanket} functions with your own
@@ -172,7 +172,8 @@ Available arguments are for `x`, `y`, `col` and `facet`:
 
 For `x` and `y`, there is also a `*_trans` argument.
 
-For `col` and `facet`, there is also a `*_intervals` argument.
+There is also a `col_intervals` argument, so that legends can be
+arranged in appropriate order by default.
 
 ``` r
 penguins %>%
@@ -230,22 +231,25 @@ penguins %>%
 9.  {ggblanket} outputs a `ggplot2` object, so extra `ggplot2` layers
     can be added if necessary.
 
+Aesthetics and the pal are inherited to any subsequent geoms.
+
 ``` r
-penguins %>%
-  tidyr::drop_na() %>% 
-  mutate(sex = stringr::str_to_sentence(sex)) %>% 
-  gg_point(
-    x = bill_length_mm,
-    y = body_mass_g,
-    size = 1, 
-  ) + 
-  facet_grid(sex ~ species)
+storms %>%
+  group_by(year) %>%
+  filter(between(year, 1980, 2020)) %>%
+  summarise(wind = mean(wind, na.rm = TRUE)) %>%
+  gg_line(
+    x = year,
+    y = wind,
+    x_labels = ~.x
+  ) +
+  geom_point()
 ```
 
 ![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
 
 10. {ggblanket} provides access to all of the relevant geom arg’s
-    through the dots argument.
+    through the `...` argument.
 
 ``` r
 penguins %>%
@@ -298,18 +302,34 @@ penguins %>%
 12. {ggblanket} is useful for creating custom {ggblanket} functions with
     your own defaults.
 
-The dots argument will allow you to access all other arguments within
+The `...` argument will allow you to access all other arguments within
 the {ggblanket} function.
 
 ``` r
 gg_point_custom <- function(data, x, y, col, 
-                            size = 3, pal = pals::brewer.dark2(9), ...) {
-    data %>% 
-      gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
-               size = size, pal = pal, ...)
+                            size = 3, 
+                            pal = pals::brewer.dark2(9), 
+                            col_title = "", 
+                            col_legend_place = "t", 
+                            theme = gg_theme(pal_body = "white", 
+                                             pal_title = "white", 
+                                             pal_subtitle = "white", 
+                                             pal_background = c("#232323", "black"), 
+                                             pal_grid = "black",
+                                             y_grid = TRUE),
+                            ...) {
+  data %>% 
+    gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
+             size = size, 
+             pal = pal, 
+             col_title = col_title, 
+             col_legend_place = col_legend_place, 
+             theme = theme,
+             ...)
 }
 
 iris %>%
+  mutate(Species = stringr::str_to_sentence(Species)) %>% 
   gg_point_custom(
     x = Sepal.Width,
     y = Sepal.Length,

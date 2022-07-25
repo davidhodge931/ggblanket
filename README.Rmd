@@ -198,18 +198,19 @@ penguins %>%
 
 9. {ggblanket} outputs a `ggplot2` object, so extra `ggplot2` layers can be added if necessary.
 
+Aesthetics and the pal are inherited to any subsequent geoms.
+
 ```{r}
-penguins %>%
-  tidyr::drop_na() %>% 
-  mutate(sex = stringr::str_to_sentence(sex)) %>% 
-  gg_point(
-    x = bill_length_mm,
-    y = body_mass_g,
-    size = 1, 
-    x_breaks = scales::breaks_width(10), 
-    y_breaks = scales::breaks_width(1500)
-  ) + 
-  facet_grid(sex ~ species)
+storms %>%
+  group_by(year) %>%
+  filter(between(year, 1980, 2020)) %>%
+  summarise(wind = mean(wind, na.rm = TRUE)) %>%
+  gg_line(
+    x = year,
+    y = wind,
+    x_labels = ~.x
+  ) +
+  geom_point()
 ```
 
 10. {ggblanket} provides access to all of the relevant geom arg's through the `...` argument.
@@ -267,17 +268,26 @@ gg_point_custom <- function(data, x, y, col,
                             size = 3, 
                             pal = pals::brewer.dark2(9), 
                             col_title = "", 
-                            col_legend_place = "t", ...) {
+                            col_legend_place = "t", 
+                            theme = gg_theme(pal_body = "white", 
+                                             pal_title = "white", 
+                                             pal_subtitle = "white", 
+                                             pal_background = c("#232323", "black"), 
+                                             pal_grid = "black",
+                                             y_grid = TRUE),
+                            ...) {
   data %>% 
     gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
              size = size, 
              pal = pal, 
              col_title = col_title, 
              col_legend_place = col_legend_place, 
+             theme = theme,
              ...)
 }
 
 iris %>%
+  mutate(Species = stringr::str_to_sentence(Species)) %>% 
   gg_point_custom(
     x = Sepal.Width,
     y = Sepal.Length,
