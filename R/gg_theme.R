@@ -27,7 +27,6 @@
 #' @param pal_grid The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".
 #' @param y_grid TRUE or FALSE of whether to show hotizontal gridlines.
 #' @param x_grid TRUE or FALSE of whether to show vertical gridlines.
-#' @param void TRUE or FALSE of whether to drop all axis lines, ticks and x and y labels. Useful for maps. Defaults to FALSE.
 #'
 #' @return A ggplot theme.
 #' @export
@@ -57,8 +56,7 @@ gg_theme <- function(font = "",
                      pal_background = c("#ffffff", "#ffffff"),
                      pal_grid = "#D3D3D3",
                      x_grid = FALSE,
-                     y_grid = FALSE,
-                     void = FALSE) {
+                     y_grid = FALSE) {
 
     if (is.null(font_title)) font_title <- font
     if (is.null(font_subtitle)) font_subtitle <- font
@@ -226,16 +224,6 @@ gg_theme <- function(font = "",
           complete = TRUE
         )
       }
-    }
-
-    if (void == TRUE) {
-      theme <- theme +
-        ggplot2::theme(axis.line = ggplot2::element_blank()) +
-        ggplot2::theme(axis.ticks = ggplot2::element_blank()) +
-        ggplot2::theme(axis.title.x = ggplot2::element_blank()) +
-        ggplot2::theme(axis.title.y = ggplot2::element_blank()) +
-        ggplot2::theme(axis.text.x = ggplot2::element_blank()) +
-        ggplot2::theme(axis.text.y = ggplot2::element_blank())
     }
 
     return(theme)

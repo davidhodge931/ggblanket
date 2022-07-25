@@ -1,6 +1,15 @@
+# ggblanket 1.2.3
+
+* Added `facet2` aesthetic in to support effortless grid facetting.
+* Removed reversal of logical variable order.
+* Breaking: removed `facet_intervals` argument.
+* Breaking: removed void argument from `gg_theme`.
+
 # ggblanket 1.2.2
 
 * Defaulted col_legend_place to bottom.  
+
+# ggblanket 1.2.1
 * Fixed bug with `*_limits` and `*_include` not working correctly.  
 
 # ggblanket 1.2.0

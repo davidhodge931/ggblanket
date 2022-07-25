@@ -148,7 +148,7 @@ Available arguments are for `x`, `y`, `col` and `facet`: `*_breaks``*_limits`, `
 
 For `x` and `y`, there is also a `*_trans` argument.
 
-For `col` and `facet`, there is also a `*_intervals` argument.
+There is also a `col_intervals` argument, so that legends can be arranged in appropriate order by default.
 
 ```{r}
 penguins %>%

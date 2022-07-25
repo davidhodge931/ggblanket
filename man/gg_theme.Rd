@@ -30,8 +30,7 @@ gg_theme(
   pal_background = c("#ffffff", "#ffffff"),
   pal_grid = "#D3D3D3",
   x_grid = FALSE,
-  y_grid = FALSE,
-  void = FALSE
+  y_grid = FALSE
 )
 }
 \arguments{
@@ -86,8 +85,6 @@ gg_theme(
 \item{x_grid}{TRUE or FALSE of whether to show vertical gridlines.}
 
 \item{y_grid}{TRUE or FALSE of whether to show hotizontal gridlines.}
-
-\item{void}{TRUE or FALSE of whether to drop all axis lines, ticks and x and y labels. Useful for maps. Defaults to FALSE.}
 }
 \value{
 A ggplot theme.

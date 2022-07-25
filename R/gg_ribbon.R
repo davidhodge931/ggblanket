@@ -6,6 +6,7 @@
 #' @param y Unquoted y aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
+#' @param facet2 Unquoted second facet variable for a facet grid of facet by facet2 variables.
 #' @param xmin Unquoted xmin aesthetic variable.
 #' @param xmax Unquoted xmax aesthetic variable.
 #' @param ymin Unquoted ymin aesthetic variable.
@@ -47,7 +48,7 @@
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left.
 #' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param facet_intervals A function to cut or chop the numeric variable into intervals, including in rlang lambda format (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
+
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).
 #' @param facet_ncol The number of columns of facetted plots.
 #' @param facet_nrow The number of rows of facetted plots.
@@ -80,7 +81,7 @@ gg_ribbon <- function(data = NULL,
                       x = NULL,
                       y = NULL,
                       col = NULL,
-                      facet = NULL,
+                      facet = NULL,facet2 = NULL,
                       group = NULL,
                       text = NULL,
                       xmin = NULL,
@@ -123,7 +124,7 @@ gg_ribbon <- function(data = NULL,
                       col_legend_nrow = NULL,
                       col_limits = NULL,
                       col_title = NULL,
-                      facet_intervals = NULL,
+
                       facet_labels = NULL,
                       facet_ncol = NULL,
                       facet_nrow = NULL,
@@ -136,6 +137,7 @@ gg_ribbon <- function(data = NULL,
   y <- rlang::enquo(y)
   col <- rlang::enquo(col)
   facet <- rlang::enquo(facet)
+  facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
   text <- rlang::enquo(text)
 
@@ -261,14 +263,14 @@ gg_ribbon <- function(data = NULL,
   if (!rlang::quo_is_null(x)) {
     if (is.logical(rlang::eval_tidy(x, data))) {
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!x, ~ factor(.x, levels = c("TRUE", "FALSE"))))
+        dplyr::mutate(dplyr::across(!!x, ~ factor(.x, levels = c("FALSE", "TRUE"))))
     }
   }
 
   if (!rlang::quo_is_null(y)) {
     if (is.logical(rlang::eval_tidy(y, data))) {
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!y, ~ factor(.x, levels = c("TRUE", "FALSE"))))
+        dplyr::mutate(dplyr::across(!!y, ~ factor(.x, levels = c("FALSE", "TRUE"))))
     }
 
     if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
@@ -287,11 +289,11 @@ gg_ribbon <- function(data = NULL,
 
     if (is.logical(rlang::eval_tidy(col, data))) {
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!col, ~ factor(.x, levels = c("TRUE", "FALSE"))))
+        dplyr::mutate(dplyr::across(!!col, ~ factor(.x, levels = c("FALSE", "TRUE"))))
     }
 
-    if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
-      if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
+    if (is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data))) {
+      if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!col, ~ forcats::fct_rev(.x)))
       }
@@ -301,12 +303,13 @@ gg_ribbon <- function(data = NULL,
   if (!rlang::quo_is_null(facet)) {
     if (is.logical(class(rlang::eval_tidy(facet, data)))) {
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!facet, ~ factor(.x, levels = c("TRUE", "FALSE"))))
+        dplyr::mutate(dplyr::across(!!facet, ~ factor(.x, levels = c("FALSE", "TRUE"))))
     }
-
-    if (!rlang::is_null(facet_intervals)) {
+  }
+  if (!rlang::quo_is_null(facet2)) {
+    if (is.logical(class(rlang::eval_tidy(facet2, data)))) {
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!facet, facet_intervals))
+        dplyr::mutate(dplyr::across(!!facet2, ~ factor(.x, levels = c("FALSE", "TRUE"))))
     }
   }
 
@@ -347,6 +350,10 @@ gg_ribbon <- function(data = NULL,
       }
       else if (!rlang::quo_is_null(facet) &
                (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data)))) {
+        col_legend_place <- "n"
+      }
+      else if (!rlang::quo_is_null(facet2) &
+               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
         col_legend_place <- "n"
       }
       else
@@ -411,7 +418,7 @@ gg_ribbon <- function(data = NULL,
           if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
           else col_legend_rev <- TRUE
         }
-        else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
+        else if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
           if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
           else col_legend_rev <- FALSE
           pal <- rev(pal)
@@ -470,14 +477,14 @@ gg_ribbon <- function(data = NULL,
       if (is.numeric(rlang::eval_tidy(y, data)) |
           lubridate::is.Date(rlang::eval_tidy(y, data))) {
 
-        if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
+        if (is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data))) {
           col_legend_rev <- FALSE
         }
         else if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
         else col_legend_rev <- TRUE
       }
-      else if (is.factor(rlang::eval_tidy(y, data)) | is.character(rlang::eval_tidy(y, data))) {
-        if (is.factor(rlang::eval_tidy(col, data)) | is.character(rlang::eval_tidy(col, data))) {
+      else if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
+        if (is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data))) {
           col_legend_rev <- TRUE
         }
         else if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
@@ -645,7 +652,7 @@ gg_ribbon <- function(data = NULL,
     )
 
   if (!rlang::quo_is_null(facet)) {
-    if (!rlang::is_null(facet_intervals)) {
+    if (rlang::quo_is_null(facet2)) {
       plot <- plot +
         ggplot2::facet_wrap(
           ggplot2::vars(!!facet),
@@ -656,12 +663,11 @@ gg_ribbon <- function(data = NULL,
     }
     else {
       plot <- plot +
-        ggplot2::facet_wrap(
-          ggplot2::vars(!!facet),
+        ggplot2::facet_grid(
+          rows = ggplot2::vars(!!facet2),
+          cols = ggplot2::vars(!!facet),
           labeller = ggplot2::as_labeller(facet_labels),
-          scales = facet_scales,
-          ncol = facet_ncol,
-          nrow = facet_nrow
+          scales = facet_scales
         )
     }
   }
