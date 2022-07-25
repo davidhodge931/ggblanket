@@ -116,6 +116,17 @@ penguins %>%
             pal = pals::brewer.dark2(9))
 ```
 
+```{r}
+penguins %>% 
+  tidyr::drop_na() %>% 
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
+  gg_point(x = bill_length_mm, 
+           y = body_mass_g,
+           col = sex,
+           facet = species,
+           facet2 = sex)
+```
+
 5. {ggblanket} provides good-looking default x and y scales.
 
 For where:
@@ -191,7 +202,7 @@ penguins %>%
           col_legend_place = "r",
           title = "Average penguin body mass",
           subtitle = "Palmer Archipelago, Antarctica",
-          theme = gg_theme(pal_axis = "#ffffff", pal_ticks = "#ffffff")) +
+          theme = gg_theme(axis_pal = "#ffffff", ticks_pal = "#ffffff")) +
   geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
 
 ```
@@ -269,13 +280,7 @@ gg_point_custom <- function(data, x, y, col,
                             size = 3, 
                             pal = pals::brewer.dark2(9), 
                             col_title = "", 
-                            col_legend_place = "t", 
-                            theme = gg_theme(pal_body = "white", 
-                                             pal_title = "white", 
-                                             pal_subtitle = "white", 
-                                             pal_background = c("#232323", "black"), 
-                                             pal_grid = "black",
-                                             y_grid = TRUE),
+                            col_legend_place = "t",
                             ...) {
   data %>% 
     gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
@@ -283,7 +288,6 @@ gg_point_custom <- function(data, x, y, col,
              pal = pal, 
              col_title = col_title, 
              col_legend_place = col_legend_place, 
-             theme = theme,
              ...)
 }
 

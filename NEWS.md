@@ -1,3 +1,9 @@
+# ggblanket 1.2.4
+
+* Breaking: gg_theme rearranged the prefixes of arguments.
+* Improved the position of vertical facet labels.
+* Changed default theme to have a light grey background.
+
 # ggblanket 1.2.3
 
 * Added `facet2` aesthetic in to support effortless grid facetting.
