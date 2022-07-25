@@ -241,7 +241,8 @@ storms %>%
   gg_line(
     x = year,
     y = wind,
-    x_labels = ~.x
+    x_labels = ~.x,
+    y_include = 0
   ) +
   geom_point()
 ```
