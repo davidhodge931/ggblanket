@@ -124,7 +124,9 @@ penguins %>%
            y = body_mass_g,
            col = sex,
            facet = species,
-           facet2 = sex)
+           facet2 = sex, 
+           y_breaks = scales::breaks_width(1500), 
+           size = 1)
 ```
 
 5. {ggblanket} provides good-looking default x and y scales.

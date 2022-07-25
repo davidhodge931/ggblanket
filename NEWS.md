@@ -2,7 +2,6 @@
 
 * Breaking: gg_theme rearranged the prefixes of arguments.
 * Improved the position of vertical facet labels.
-* Changed default theme to have a light grey background.
 
 # ggblanket 1.2.3
 

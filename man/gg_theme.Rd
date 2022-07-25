@@ -28,7 +28,7 @@ gg_theme(
   ticks_pal = "#323232",
   grid_size = 0.2,
   grid_pal = "#D3D3D3",
-  background_pal = c("#ffffff", "#f7f7f7"),
+  background_pal = c("#ffffff", "#ffffff"),
   x_grid = FALSE,
   y_grid = FALSE
 )

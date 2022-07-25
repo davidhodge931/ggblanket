@@ -129,6 +129,21 @@ penguins %>%
 
 ![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
+``` r
+penguins %>% 
+  tidyr::drop_na() %>% 
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
+  gg_point(x = bill_length_mm, 
+           y = body_mass_g,
+           col = sex,
+           facet = species,
+           facet2 = sex, 
+           y_breaks = scales::breaks_width(1500), 
+           size = 1)
+```
+
+![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
+
 5.  {ggblanket} provides good-looking default x and y scales.
 
 For where:
@@ -157,7 +172,7 @@ storms %>%
   ) 
 ```
 
-![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
 
 6.  {ggblanket} provides prefixed arguments for easy customisation with
     Rstudio autocomplete.
@@ -190,7 +205,7 @@ penguins %>%
   )
 ```
 
-![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
 
 7.  {ggblanket} arranges horizontal geom y and col labels etc to be in
     correct order.
@@ -205,7 +220,7 @@ penguins %>%
          position = "dodge")
 ```
 
-![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
 
 8.  {ggblanket} converts unspecified titles to snakecase::to_sentence by
     default.
@@ -226,7 +241,7 @@ penguins %>%
   geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
 ```
 
-![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
 
 9.  {ggblanket} outputs a `ggplot2` object, so extra `ggplot2` layers
     can be added if necessary.
@@ -247,7 +262,7 @@ storms %>%
   geom_point()
 ```
 
-![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
 
 10. {ggblanket} provides access to all of the relevant geom arg’s
     through the `...` argument.
@@ -267,7 +282,7 @@ penguins %>%
   ) 
 ```
 
-![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
 
 11. {ggblanket} provides a `gg_blank` function for extra flexibility.
 
@@ -298,7 +313,7 @@ penguins %>%
   geom_errorbar(width = 0.1, colour = pal_na()) 
 ```
 
-![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-14-1.png)<!-- -->
 
 12. {ggblanket} is useful for creating custom {ggblanket} functions with
     your own defaults.
@@ -332,7 +347,7 @@ iris %>%
   )
 ```
 
-![](man/figures/README-unnamed-chunk-14-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-15-1.png)<!-- -->
 
 13. {ggblanket} supports ggplotly use.
 
