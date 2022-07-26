@@ -19,18 +19,19 @@ gg_theme(
   body_size = 10,
   body_style = "plain",
   caption_font = NULL,
-  caption_pal = "#7F7F7F",
+  caption_pal = "#7f7f7f",
   caption_size = 9,
   caption_style = "plain",
   axis_size = 0.3,
   axis_pal = "#323232",
   ticks_size = 0.3,
   ticks_pal = "#323232",
+  bg_plot_pal = "#ffffff",
+  bg_panel_pal = "#ffffff",
   grid_size = 0.2,
-  grid_pal = "#D3D3D3",
-  background_pal = c("#ffffff", "#ffffff"),
-  x_grid = FALSE,
-  y_grid = FALSE
+  grid_pal = "#d3d3d3",
+  grid_v = FALSE,
+  grid_h = FALSE
 )
 }
 \arguments{
@@ -76,15 +77,17 @@ gg_theme(
 
 \item{ticks_pal}{The colour palette for the ticks. Defaults to "#323232".}
 
+\item{bg_plot_pal}{The colour palette for the plot background colour.}
+
+\item{bg_panel_pal}{The colour palette for the panel background colour.}
+
 \item{grid_size}{The size of the vertical major gridlines. Defaults to 0.2.}
 
 \item{grid_pal}{The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".}
 
-\item{background_pal}{A two colour vector. The first colour is for the panel. The second colour is for the rest of the background.}
+\item{grid_v}{TRUE or FALSE of whether to show vertical gridlines.}
 
-\item{x_grid}{TRUE or FALSE of whether to show vertical gridlines.}
-
-\item{y_grid}{TRUE or FALSE of whether to show hotizontal gridlines.}
+\item{grid_h}{TRUE or FALSE of whether to show hotizontal gridlines.}
 }
 \value{
 A ggplot theme.

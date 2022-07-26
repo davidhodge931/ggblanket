@@ -102,7 +102,7 @@ gg_sf <- function(data = NULL,
   }
 
   if (rlang::is_null(theme)) {
-    theme <- gg_theme(x_grid = TRUE, y_grid = TRUE) +
+    theme <- gg_theme(grid_v = TRUE, grid_h = TRUE) +
       ggplot2::theme(axis.text = ggplot2::element_blank()) +
       ggplot2::theme(axis.line = ggplot2::element_blank()) +
       ggplot2::theme(axis.ticks = ggplot2::element_blank())

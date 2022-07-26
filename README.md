@@ -22,7 +22,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-day/ggblanket?color=lightgrey)
 {ggblanket} is a package of wrapper functions around the amazing
 {ggplot2} package.
 
-It aims to **simplify pretty {ggplot2} visualisation**.
+It aims to **simplify {ggplot2} visualisation**.
 
 To do this, the {ggblanket} package:
 
@@ -60,6 +60,7 @@ install.packages("ggblanket")
 Or install the development version with:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("davidhodge931/ggblanket")
 ```
@@ -366,7 +367,7 @@ iris %>%
            y = Sepal.Length, 
            col = Species, 
            text = text, 
-           theme = gg_theme("helvetica", y_grid = TRUE)) %>% 
+           theme = gg_theme("helvetica", grid_h = TRUE)) %>% 
   plotly::ggplotly(tooltip = "text")
 ```
 

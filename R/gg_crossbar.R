@@ -217,17 +217,17 @@ gg_crossbar <- function(data = NULL,
 
   if (rlang::is_null(theme)) {
     if (xy_numeric_date) {
-      x_grid <- FALSE
-      y_grid <- TRUE
+      grid_v <- FALSE
+      grid_h <- TRUE
     }
     else {
-      x_grid <-
+      grid_v <-
         ifelse(is.numeric(rlang::eval_tidy(x, data)) |
                  lubridate::is.Date(rlang::eval_tidy(x, data)) |
                  rlang::quo_is_null(x),
                TRUE,
                FALSE)
-      y_grid <-
+      grid_h <-
         ifelse(is.numeric(rlang::eval_tidy(y, data)) |
                  lubridate::is.Date(rlang::eval_tidy(y, data)) |
                  rlang::quo_is_null(y),
@@ -235,7 +235,7 @@ gg_crossbar <- function(data = NULL,
                FALSE)
     }
 
-    theme <- gg_theme(x_grid = x_grid, y_grid = y_grid)
+    theme <- gg_theme(grid_v = grid_v, grid_h = grid_h)
   }
 
   if (rlang::is_null(width)) {

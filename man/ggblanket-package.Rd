@@ -4,11 +4,11 @@
 \name{ggblanket-package}
 \alias{ggblanket}
 \alias{ggblanket-package}
-\title{ggblanket: Wrappers to Simplify Pretty 'ggplot2' Visualisation}
+\title{ggblanket: Wrappers to Simplify 'ggplot2' Visualisation}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Wrapper functions around the amazing 'ggplot2' package to simplify pretty visualisation.
+'ggplot2' wrapper functions to simplify visualisation.
 }
 \seealso{
 Useful links:

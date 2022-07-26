@@ -1,3 +1,8 @@
+# ggblanket 1.2.5
+
+* gg_theme updated for seperate agruments for background pal.
+* Breaking: changed gg_theme y_grid to grid_h and x_grid to grid_v.
+
 # ggblanket 1.2.4
 
 * Breaking: gg_theme rearranged the prefixes of arguments.

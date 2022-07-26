@@ -40,6 +40,6 @@ iris \%>\%
             y = Sepal.Length,
             col = Species,
             text = text,
-            theme = gg_theme("helvetica", x_grid = TRUE, y_grid = TRUE)) \%>\%
+            theme = gg_theme("helvetica", grid_v = TRUE, grid_h = TRUE)) \%>\%
     plotly::ggplotly(tooltip = "text")
 }
