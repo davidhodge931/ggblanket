@@ -1,3 +1,7 @@
+# ggblanket 1.2.6
+
+* Changed *_oob default to scales::oob_keep.
+
 # ggblanket 1.2.5
 
 * gg_theme updated for seperate agruments for background pal.
