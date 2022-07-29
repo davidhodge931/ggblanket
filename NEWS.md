@@ -1,3 +1,8 @@
+# ggblanket 1.2.7
+
+* Added a bg_legend_pal argument to gg_theme.
+* Changed default background theme colours.
+
 # ggblanket 1.2.6
 
 * Changed *_oob default to scales::oob_keep.

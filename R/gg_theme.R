@@ -22,12 +22,13 @@
 #' @param axis_size The size of the axis. Defaults to 0.3.
 #' @param ticks_pal The colour palette for the ticks. Defaults to "#323232".
 #' @param ticks_size The size of the ticks. Defaults to 0.3.
-#' @param grid_h TRUE or FALSE of whether to show hotizontal gridlines.
-#' @param grid_v TRUE or FALSE of whether to show vertical gridlines.
-#' @param grid_pal The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".
-#' @param grid_size The size of the vertical major gridlines. Defaults to 0.2.
 #' @param bg_panel_pal The colour palette for the panel background colour.
 #' @param bg_plot_pal The colour palette for the plot background colour.
+#' @param bg_legend_pal The colour palette for the legend key. Can also use special values of "plot" and "panel".
+#' @param grid_h TRUE or FALSE of whether to show hotizontal gridlines. Defaults to TRUE.
+#' @param grid_v TRUE or FALSE of whether to show vertical gridlines. Defaults to FALSE.
+#' @param grid_pal The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".
+#' @param grid_size The size of the vertical major gridlines. Defaults to 0.2.
 #'
 #' @return A ggplot theme.
 #' @export
@@ -53,16 +54,20 @@ gg_theme <- function(font = "",
                      axis_pal = "#323232",
                      ticks_size = 0.3,
                      ticks_pal = "#323232",
-                     bg_plot_pal = "#ffffff",
-                     bg_panel_pal = "#ffffff",
+                     bg_plot_pal = "#f5f5f5",
+                     bg_panel_pal = "#fefefe",
+                     bg_legend_pal = "plot",
                      grid_size = 0.2,
                      grid_pal = "#d3d3d3",
                      grid_v = FALSE,
-                     grid_h = FALSE) {
+                     grid_h = TRUE) {
 
     if (is.null(title_font)) title_font <- font
     if (is.null(subtitle_font)) subtitle_font <- font
     if (is.null(body_font)) body_font <- font
+
+    if (bg_legend_pal == "plot") bg_legend_pal <- bg_plot_pal
+    else if (bg_legend_pal == "panel") bg_legend_pal <- bg_panel_pal
 
     if (grid_h == TRUE) {
       if (grid_v == FALSE) { #horizontal
@@ -95,7 +100,7 @@ gg_theme <- function(font = "",
           axis.line = ggplot2::element_line(colour = axis_pal, size = axis_size),
           axis.ticks = ggplot2::element_line(colour = ticks_pal, size = ticks_size),
           legend.margin = ggplot2::margin(),
-          legend.key = ggplot2::element_rect(colour = bg_panel_pal, fill = bg_panel_pal),
+          legend.key = ggplot2::element_rect(colour = bg_legend_pal, fill = bg_legend_pal),
           legend.key.height = ggplot2::unit(5, "mm"),
           legend.key.width = ggplot2::unit(5, "mm"),
           legend.spacing.y = ggplot2::unit(0.15, "cm"),
@@ -135,7 +140,7 @@ gg_theme <- function(font = "",
           axis.line = ggplot2::element_line(colour = axis_pal, size = axis_size),
           axis.ticks = ggplot2::element_line(colour = ticks_pal, size = ticks_size),
           legend.margin = ggplot2::margin(),
-          legend.key = ggplot2::element_rect(colour = bg_panel_pal, fill = bg_panel_pal),
+          legend.key = ggplot2::element_rect(colour = bg_legend_pal, fill = bg_legend_pal),
           legend.key.height = ggplot2::unit(5, "mm"),
           legend.key.width = ggplot2::unit(5, "mm"),
           legend.spacing.y = ggplot2::unit(0.15, "cm"),
@@ -178,7 +183,7 @@ gg_theme <- function(font = "",
           axis.line = ggplot2::element_line(colour = axis_pal, size = axis_size),
           axis.ticks = ggplot2::element_line(colour = ticks_pal, size = ticks_size),
           legend.margin = ggplot2::margin(),
-          legend.key = ggplot2::element_rect(colour = bg_panel_pal, fill = bg_panel_pal),
+          legend.key = ggplot2::element_rect(colour = bg_legend_pal, fill = bg_legend_pal),
           legend.key.height = ggplot2::unit(5, "mm"),
           legend.key.width = ggplot2::unit(5, "mm"),
           legend.spacing.y = ggplot2::unit(0.15, "cm"),
@@ -219,7 +224,7 @@ gg_theme <- function(font = "",
           axis.line = ggplot2::element_line(colour = axis_pal, size = axis_size),
           axis.ticks = ggplot2::element_line(colour = ticks_pal, size = ticks_size),
           legend.margin = ggplot2::margin(),
-          legend.key = ggplot2::element_rect(colour = bg_panel_pal, fill = bg_panel_pal),
+          legend.key = ggplot2::element_rect(colour = bg_legend_pal, fill = bg_legend_pal),
           legend.key.height = ggplot2::unit(5, "mm"),
           legend.key.width = ggplot2::unit(5, "mm"),
           legend.spacing.y = ggplot2::unit(0.15, "cm"),

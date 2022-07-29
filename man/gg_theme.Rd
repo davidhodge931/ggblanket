@@ -26,12 +26,13 @@ gg_theme(
   axis_pal = "#323232",
   ticks_size = 0.3,
   ticks_pal = "#323232",
-  bg_plot_pal = "#ffffff",
-  bg_panel_pal = "#ffffff",
+  bg_plot_pal = "#f5f5f5",
+  bg_panel_pal = "#fefefe",
+  bg_legend_pal = "plot",
   grid_size = 0.2,
   grid_pal = "#d3d3d3",
   grid_v = FALSE,
-  grid_h = FALSE
+  grid_h = TRUE
 )
 }
 \arguments{
@@ -81,13 +82,15 @@ gg_theme(
 
 \item{bg_panel_pal}{The colour palette for the panel background colour.}
 
+\item{bg_legend_pal}{The colour palette for the legend key. Can also use special values of "plot" and "panel".}
+
 \item{grid_size}{The size of the vertical major gridlines. Defaults to 0.2.}
 
 \item{grid_pal}{The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".}
 
-\item{grid_v}{TRUE or FALSE of whether to show vertical gridlines.}
+\item{grid_v}{TRUE or FALSE of whether to show vertical gridlines. Defaults to FALSE.}
 
-\item{grid_h}{TRUE or FALSE of whether to show hotizontal gridlines.}
+\item{grid_h}{TRUE or FALSE of whether to show hotizontal gridlines. Defaults to TRUE.}
 }
 \value{
 A ggplot theme.

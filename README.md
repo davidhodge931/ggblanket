@@ -238,7 +238,9 @@ penguins %>%
           col_legend_place = "r",
           title = "Average penguin body mass",
           subtitle = "Palmer Archipelago, Antarctica",
-          theme = gg_theme(axis_pal = "#ffffff", ticks_pal = "#ffffff")) +
+          theme = gg_theme(grid_h = FALSE, 
+                           axis_pal = "#ffffff", 
+                           ticks_pal = "#ffffff")) +
   geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
 ```
 
