@@ -369,7 +369,9 @@ iris %>%
            y = Sepal.Length, 
            col = Species, 
            text = text, 
-           theme = gg_theme("helvetica", grid_h = TRUE)) %>% 
+           theme = gg_theme("helvetica", 
+                            bg_plot_pal = "white", 
+                            bg_panel_pal = "white")) %>% 
   plotly::ggplotly(tooltip = "text")
 ```
 
