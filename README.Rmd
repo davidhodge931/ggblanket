@@ -46,9 +46,9 @@ To do this, the {ggblanket} package:
 11. provides a `gg_blank` function for extra flexibility
 12. supports nice `plotly::ggplotly` tooltips
 13. provides access to all other `geom_*` arguments via `...`
-14. is useful for creating customised {ggblanket} functions with your own defaults
+14. is useful for creating customised functions with your own defaults
  
-If you would like to show your support for {ggblanket}, you can <a href="https://www.buymeacoffee.com/davidhodge931" target="_blank">buy me a coffee</a> or give the repository a star.
+If you would like to show your appreciation for {ggblanket}, you can give this repository a star, or even <a href="https://www.buymeacoffee.com/davidhodge931" target="_blank">buy me a coffee</a>.
 
 ## Website
 
@@ -82,14 +82,20 @@ library(stringr)
 
 ```{r}
 iris %>%
-  gg_point(x = Sepal.Width, y = Sepal.Length, col = Species)
+  mutate(Species = str_to_sentence(Species)) %>% 
+  gg_point(
+    x = Sepal.Width, 
+    y = Sepal.Length, 
+    col = Species)
 ```
 
 2. {ggblanket} merges col and fill aesthetics into a single `col` argument.
 
 ```{r}
 penguins %>% 
-  gg_histogram(x = body_mass_g, col = species) 
+  gg_histogram(
+    x = body_mass_g, 
+    col = species) 
 ```
 
 3. {ggblanket} customises colours via `pal` and `alpha` arguments consistently.
@@ -101,9 +107,12 @@ penguins %>%
   mutate(sex = str_to_sentence(sex)) %>% 
   group_by(species, sex) %>% 
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
-  gg_col(species, body_mass_g, sex, 
-         position = position_dodge2(preserve = "single"), 
-         pal = c("#1B9E77", "brown"))
+  gg_col(
+    x = species, 
+    y = body_mass_g, 
+    col = sex, 
+    position = position_dodge2(preserve = "single"),
+    pal = c("#1B9E77", "#9E361B"))
 ```
 
 4. {ggblanket} provides a `facet` argument to facet by a single variable.
@@ -112,25 +121,29 @@ penguins %>%
 penguins %>% 
   tidyr::drop_na(sex) %>%
   mutate(sex = str_to_sentence(sex)) %>% 
-  gg_violin(x = sex, y = body_mass_g, facet = species, 
-            y_include = 0, 
-            y_breaks = scales::breaks_width(1000),
-            pal = pals::brewer.dark2(9))
+  gg_violin(
+    x = sex, 
+    y = body_mass_g, 
+    facet = species, 
+    y_include = 0, 
+    y_breaks = scales::breaks_width(1000),
+    pal = "#1B9E77")
 ```
 
 5. {ggblanket} provides an additional `facet2` argument to facet in a grid.
 
-```{r, fig.height=4}
+```{r, fig.height=3.5}
 penguins %>% 
   tidyr::drop_na(sex) %>% 
   mutate(sex = str_to_sentence(sex)) %>% 
-  gg_point(x = bill_length_mm, 
-           y = body_mass_g,
-           col = sex,
-           facet = species,
-           facet2 = sex, 
-           y_breaks = scales::breaks_width(1500), 
-           size = 1)
+  gg_point(
+    x = bill_length_mm, 
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    facet2 = sex, 
+    y_breaks = scales::breaks_width(1500), 
+    size = 1)
 ```
 
 6. {ggblanket} provides prefixed arguments to help find arguments.
@@ -209,9 +222,13 @@ penguins %>%
   tidyr::drop_na(sex) %>% 
   group_by(species, sex, island) %>%
   summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
-  gg_col(x = body_mass_kg, y = species, col = sex, facet = island,
-         col_labels = to_sentence_case, 
-         position = "dodge")
+  gg_col(
+    x = body_mass_kg, 
+    y = species, 
+    col = sex, 
+    facet = island,
+    col_labels = to_sentence_case, 
+    position = "dodge")
 ```
 
 10. {ggblanket} converts unspecified titles to snakecase::to_sentence.
@@ -220,18 +237,21 @@ penguins %>%
 penguins %>%
   group_by(species, sex) %>%
   summarise(across(body_mass_g, ~ round(mean(.x, na.rm = TRUE)), 0)) %>% 
-  gg_tile(sex, species, col = body_mass_g, 
-          x_labels = to_sentence_case,
-          pal = pals::brewer.blues(9),
-          width = 0.9, 
-          height = 0.9, 
-          col_legend_place = "r",
-          title = "Average penguin body mass",
-          subtitle = "Palmer Archipelago, Antarctica",
-          theme = gg_theme(grid_h = FALSE, 
-                           bg_plot_pal = "white",
-                           axis_pal = "white", 
-                           ticks_pal = "white")) +
+  gg_tile(
+    x = sex, 
+    y = species, 
+    col = body_mass_g, 
+    x_labels = to_sentence_case,
+    pal = pals::brewer.blues(9), 
+    width = 0.9,
+    height = 0.9,
+    col_legend_place = "r",
+    title = "Average penguin body mass",
+    subtitle = "Palmer Archipelago, Antarctica",
+    theme = gg_theme(grid_h = FALSE,
+                     bg_plot_pal = "white",
+                     axis_pal = "white", 
+                     ticks_pal = "white")) +
   geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
 ```
 
@@ -272,12 +292,14 @@ The `add_tooltip` function allows users to create nice tooltips in combination w
 iris %>% 
   mutate(Species = str_to_sentence(Species)) %>% 
   add_tooltip_text(titles = to_sentence_case) %>% 
-  gg_point(x = Sepal.Width, 
-           y = Sepal.Length, 
-           col = Species, 
-           text = text, 
-           theme = gg_theme("helvetica", 
-                            bg_plot_pal = "white")) %>% 
+  gg_point(
+    x = Sepal.Width, 
+    y = Sepal.Length, 
+    col = Species, 
+    text = text, 
+    theme = gg_theme(
+      "helvetica", 
+      bg_plot_pal = "white")) %>% 
   plotly::ggplotly(tooltip = "text")
 ```
 
@@ -292,14 +314,14 @@ penguins %>%
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    level = 0.99, 
+    level = 0.99, #argument from geom_smooth
     col_legend_place = "t",
     col_title = "", 
     col_labels = to_sentence_case
   ) 
 ```
 
-14. {ggblanket} is useful for creating customised {ggblanket} functions with your own defaults.
+14. {ggblanket} is useful for creating customised functions with your own defaults.
 
 This is because the `...` argument can allow you to access _all_  arguments within the {ggblanket} `gg_` function. 
 
