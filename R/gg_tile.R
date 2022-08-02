@@ -209,17 +209,17 @@ gg_tile <- function(
 
   if (rlang::is_null(theme)) {
     if (xy_numeric_date) {
-      grid_add_v <- FALSE
-      grid_add_h <- TRUE
+      grid_v <- FALSE
+      grid_h <- TRUE
     }
     else {
-      grid_add_v <-
+      grid_v <-
         ifelse(is.numeric(rlang::eval_tidy(x, data)) |
                  lubridate::is.Date(rlang::eval_tidy(x, data)) |
                  rlang::quo_is_null(x),
                TRUE,
                FALSE)
-      grid_add_h <-
+      grid_h <-
         ifelse(is.numeric(rlang::eval_tidy(y, data)) |
                  lubridate::is.Date(rlang::eval_tidy(y, data)) |
                  rlang::quo_is_null(y),
@@ -227,7 +227,7 @@ gg_tile <- function(
                FALSE)
     }
 
-    theme <- gg_theme(grid_add_v = grid_add_v, grid_add_h = grid_add_h)
+    theme <- gg_theme(grid_v = grid_v, grid_h = grid_h)
   }
 
   # if (rlang::is_null(width)) {

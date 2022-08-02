@@ -31,13 +31,14 @@ To do this, the {ggblanket} package:
 5.  provides an additional `facet2` argument to facet in a grid
 6.  provides prefixed arguments to help find arguments
 7.  uses nice numeric/date default scales.
-8.  supports quick theme adjustments via `gg_theme` function
-9.  arranges horizontal plot labels to be in correct order
-10. converts unspecified titles to `snakecase::to_sentence`
-11. provides a `gg_blank` function for extra flexibility
-12. supports nice `plotly::ggplotly` tooltips
-13. provides access to all other `geom_*` arguments via `...`
-14. is useful for creating customised functions with your own defaults
+8.  provides a `theme` argument for customisation.
+9.  provides a `gg_theme` function to create a quick theme.
+10. arranges horizontal plot labels to be in correct order
+11. converts unspecified titles to `snakecase::to_sentence`
+12. provides a `gg_blank` function for extra flexibility
+13. supports nice `plotly::ggplotly` tooltips
+14. provides access to all other `geom_*` arguments via `...`
+15. is useful for creating customised functions with your own defaults
 
 If you would like to show your appreciation for {ggblanket}, you can
 give this repository a star, or even
@@ -229,8 +230,42 @@ storms %>%
 
 ![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
 
-8.  {ggblanket} supports quick theme adjustments via `gg_theme`
-    function.
+8.  {ggblanket} provides a `theme` argument for customisation.
+
+This allows you to utilise the simplicity of {ggblanket}, while making
+content that has your required look and feel.
+
+``` r
+penguins %>%
+  mutate(sex = str_to_sentence(sex)) %>% 
+  gg_point(x = bill_depth_mm,
+           y = bill_length_mm,
+           col = sex,
+           facet = species, 
+           pal = c("#1B9E77", "#9E361B"), 
+           theme = theme_grey())
+```
+
+![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
+
+9.  {ggblanket} provides a `gg_theme` function to create a quick theme.
+
+The `gg_theme` function allows you to create a quick theme that looks
+similar to the {ggblanket} look and feel.
+
+This includes the following arguments:
+
+-   `grid_h` and `grid_v`: arguments for adding horizontal and vertical
+    gridlines
+-   `bg_plot_pal`: an argument for the background colour of the plot
+-   `bg_panel_pal`: an argument for the background colour of the panel
+-   `title_*`: arguments to adjust the title
+-   `subtitle_*`: arguments to adjust the subtitle
+-   `body_*`: arguments to adjust all other text
+-   `axis_*`: arguments to adjust the axis line
+-   `ticks_*`: arguments to adjust the axis line
+-   `caption_*`: arguments to adjust the caption
+-   `grid_*`: other arguments to adjust the gridlines
 
 ``` r
 storms %>%
@@ -243,16 +278,15 @@ storms %>%
     x_labels = ~.x,
     x_expand = c(0, 0),
     theme = gg_theme(
-      bg_plot_pal = "#ffffff",
-      bg_panel_pal = "#f1f3f5",
-      body_size = 8,
+      bg_plot_pal = "white",
+      bg_panel_pal = "white",
       grid_h = TRUE, 
       grid_v = TRUE))
 ```
 
-![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
 
-9.  {ggblanket} arranges horizontal plot labels to be in correct order.
+10. {ggblanket} arranges horizontal plot labels to be in correct order.
 
 ``` r
 penguins %>%
@@ -268,9 +302,9 @@ penguins %>%
     position = "dodge")
 ```
 
-![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
 
-10. {ggblanket} converts unspecified titles to snakecase::to_sentence.
+11. {ggblanket} converts unspecified titles to snakecase::to_sentence.
 
 ``` r
 penguins %>%
@@ -294,9 +328,9 @@ penguins %>%
   geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
 ```
 
-![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
 
-11. {ggblanket} provides a `gg_blank` function for extra flexibility.
+12. {ggblanket} provides a `gg_blank` function for extra flexibility.
 
 ``` r
 penguins %>%
@@ -325,15 +359,22 @@ penguins %>%
   geom_errorbar(width = 0.1, colour = pal_na()) 
 ```
 
-![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-14-1.png)<!-- -->
 
-12. {ggblanket} supports nice `plotly::ggplotly` tooltips.
+13. {ggblanket} supports nice `plotly::ggplotly` tooltips.
 
 The `add_tooltip` function allows users to create nice tooltips in
 combination with the `text` argument, and the `tooltip = "text"`
 argument in `ggplotly`.
 
 ``` r
+theme_custom <- gg_theme(
+  "helvetica",
+  bg_plot_pal = "white",
+  bg_panel_pal = "white",
+  grid_h = TRUE
+)
+
 iris %>% 
   mutate(Species = str_to_sentence(Species)) %>% 
   add_tooltip_text(titles = to_sentence_case) %>% 
@@ -342,15 +383,14 @@ iris %>%
     y = Sepal.Length, 
     col = Species, 
     text = text, 
-    theme = gg_theme(
-      "helvetica", 
-      bg_plot_pal = "white")) %>% 
+    col_legend_place = "r",
+    theme = theme_custom) %>% 
   plotly::ggplotly(tooltip = "text")
 ```
 
 ![](man/figures/ggplotly_screenshot.png)
 
-13. {ggblanket} provides access to all other `geom_*` arguments via
+14. {ggblanket} provides access to all other `geom_*` arguments via
     `...`
 
 ``` r
@@ -367,9 +407,9 @@ penguins %>%
   ) 
 ```
 
-![](man/figures/README-unnamed-chunk-15-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-16-1.png)<!-- -->
 
-14. {ggblanket} is useful for creating customised functions with your
+15. {ggblanket} is useful for creating customised functions with your
     own defaults.
 
 This is because the `...` argument can allow you to access *all*
@@ -397,8 +437,9 @@ iris %>%
     x = Sepal.Width,
     y = Sepal.Length,
     col = Species, 
-    x_breaks = scales::breaks_width(1)
+    title = "Edgar Anderson's Iris Data",
+    subtitle = "Iris sepal length by width and species"
   )
 ```
 
-![](man/figures/README-unnamed-chunk-16-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-17-1.png)<!-- -->

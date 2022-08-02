@@ -29,7 +29,7 @@ gg_theme(
   bg_plot_pal = "#F1F3F5",
   bg_panel_pal = "#FEFEFE",
   bg_legend_pal = "plot",
-  grid_h = TRUE,
+  grid_h = FALSE,
   grid_v = FALSE,
   grid_pal = "#D3D3D3",
   grid_size = 0.2
