@@ -25,7 +25,7 @@
 #' @param bg_panel_pal The colour palette for the panel background colour.
 #' @param bg_plot_pal The colour palette for the plot background colour.
 #' @param bg_legend_pal The colour palette for the legend key. Can also use special values of "plot" and "panel".
-#' @param grid_h TRUE or FALSE of whether to show hotizontal gridlines. Defaults to TRUE.
+#' @param grid_h TRUE or FALSE of whether to show hotizontal gridlines. Defaults to FALSE.
 #' @param grid_v TRUE or FALSE of whether to show vertical gridlines. Defaults to FALSE.
 #' @param grid_pal The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".
 #' @param grid_size The size of the vertical major gridlines. Defaults to 0.2.
@@ -55,12 +55,12 @@ gg_theme <- function(font = "",
                      ticks_size = 0.3,
                      ticks_pal = "#323232",
                      bg_plot_pal = "#F1F3F5",
-                     bg_panel_pal = "#FDFDFD",
+                     bg_panel_pal = "#FEFEFE",
                      bg_legend_pal = "plot",
-                     grid_size = 0.2,
-                     grid_pal = "#D3D3D3",
+                     grid_h = TRUE,
                      grid_v = FALSE,
-                     grid_h = TRUE) {
+                     grid_pal = "#D3D3D3",
+                     grid_size = 0.2) {
 
     if (is.null(title_font)) title_font <- font
     if (is.null(subtitle_font)) subtitle_font <- font

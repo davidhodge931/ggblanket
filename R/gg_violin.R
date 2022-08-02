@@ -201,11 +201,11 @@ gg_violin <- function(
 
   if (rlang::is_null(theme)) {
     if (xy_numeric_date) {
-      grid_v <- FALSE
+      grid_add_v <- FALSE
       grid_h <- TRUE
     }
     else {
-      grid_v <-
+      grid_add_v <-
         ifelse(is.numeric(rlang::eval_tidy(x, data)) |
                  lubridate::is.Date(rlang::eval_tidy(x, data)) |
                  rlang::quo_is_null(x),
@@ -219,7 +219,7 @@ gg_violin <- function(
                FALSE)
     }
 
-    theme <- gg_theme(grid_v = grid_v, grid_h = grid_h)
+    theme <- gg_theme(grid_add_v = grid_add_v, grid_h = grid_h)
   }
 
   if (rlang::is_null(width)) {

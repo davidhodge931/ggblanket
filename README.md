@@ -171,14 +171,14 @@ again to select.
 
 Available arguments are:
 
--   `*_breaks`
--   `*_expand`
--   `*_include`
--   `*_labels`
--   `*_limits`
--   `*_trans`
--   `*_sec_axis`
--   `col_intervals`
+-   `*_breaks`: Adjust the breaks of an axis
+-   `*_expand`: Adjust the padding beyond the limits
+-   `*_include`: Include a value within a scale
+-   `*_labels`: Adjust the labels on the breaks
+-   `*_limits`: Adjust the limits
+-   `*_trans`: Transform an axis
+-   `*_sec_axis`: Add a secondary axis
+-   `col_intervals`: Determine intervals to colour by.
 
 ``` r
 penguins %>%
@@ -214,15 +214,17 @@ storms %>%
   group_by(year) %>%
   filter(between(year, 1980, 2020)) %>%
   summarise(wind = mean(wind, na.rm = TRUE)) %>%
-  gg_col(
+  gg_line(
     x = year,
     y = wind,
     x_labels = ~.x,
+    y_include = 0,
     title = "Storm wind speed",
     subtitle = "USA average storm wind speed, 1980\u20132020",
     y_title = "Wind speed (knots)",
     caption = "Source: NOAA"
-  ) 
+  ) +
+  geom_point()
 ```
 
 ![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
@@ -235,19 +237,17 @@ storms %>%
   group_by(year) %>%
   filter(between(year, 1980, 2020)) %>%
   summarise(wind = mean(wind, na.rm = TRUE)) %>%
-  gg_line(
+  gg_col(
     x = year,
     y = wind,
     x_labels = ~.x,
-    y_include = 0, 
+    x_expand = c(0, 0),
     theme = gg_theme(
-      bg_plot_pal = "white",
-      bg_panel_pal = "#F1F3F5",
-      title_size = 13,
-      body_size = 12,
-      grid_v = TRUE, 
-      grid_h = FALSE)) +
-  geom_point()
+      bg_plot_pal = "#ffffff",
+      bg_panel_pal = "#f1f3f5",
+      body_size = 8,
+      grid_h = TRUE, 
+      grid_v = TRUE))
 ```
 
 ![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
