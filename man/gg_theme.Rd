@@ -27,7 +27,7 @@ gg_theme(
   ticks_size = 0.3,
   ticks_pal = "#323232",
   bg_plot_pal = "#F1F3F5",
-  bg_panel_pal = "#FFFFFF",
+  bg_panel_pal = "#FDFDFD",
   bg_legend_pal = "plot",
   grid_size = 0.2,
   grid_pal = "#D3D3D3",

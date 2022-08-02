@@ -169,13 +169,16 @@ the adjustment you need. Press the tab key after typing `x_`,`y_`,
 `col_` or `facet_` to access this. Then use arrow keys, and press tab
 again to select.
 
-Available arguments are for `x`, `y`, `col` and `facet`:
-``` *_breaks``*_limits ```, `*_include`, `*_expand`, and `*_labels`.
+Available arguments are:
 
-For `x` and `y`, there is also a `*_trans` argument.
-
-There is also a `col_intervals` argument, so that legends can be
-arranged in appropriate order by default.
+-   `*_breaks`
+-   `*_expand`
+-   `*_include`
+-   `*_labels`
+-   `*_limits`
+-   `*_trans`
+-   `*_sec_axis`
+-   `col_intervals`
 
 ``` r
 penguins %>%

@@ -28,7 +28,8 @@ gg_raster(
   x_include = NULL,
   x_labels = NULL,
   x_limits = NULL,
-  x_oob = scales::oob_censor,
+  x_oob = scales::oob_keep,
+  x_sec_axis = ggplot2::waiver(),
   x_title = NULL,
   x_trans = "identity",
   y_breaks = NULL,
@@ -36,7 +37,8 @@ gg_raster(
   y_include = NULL,
   y_labels = NULL,
   y_limits = NULL,
-  y_oob = scales::oob_censor,
+  y_oob = scales::oob_keep,
+  y_sec_axis = ggplot2::waiver(),
   y_title = NULL,
   y_trans = "identity",
   col_breaks = NULL,
@@ -105,6 +107,8 @@ gg_raster(
 
 \item{x_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
 
+\item{x_sec_axis}{A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.}
+
 \item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
 \item{x_trans}{For a numeric variable, a transformation object (e.g. "log10").}
@@ -120,6 +124,8 @@ gg_raster(
 \item{y_limits}{A vector of length 2 to determine the limits of the axis.}
 
 \item{y_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
+
+\item{y_sec_axis}{A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 

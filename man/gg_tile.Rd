@@ -30,7 +30,8 @@ gg_tile(
   x_include = NULL,
   x_labels = NULL,
   x_limits = NULL,
-  x_oob = scales::oob_censor,
+  x_oob = scales::oob_keep,
+  x_sec_axis = ggplot2::waiver(),
   x_title = NULL,
   x_trans = "identity",
   y_breaks = NULL,
@@ -38,7 +39,8 @@ gg_tile(
   y_include = NULL,
   y_labels = NULL,
   y_limits = NULL,
-  y_oob = scales::oob_censor,
+  y_oob = scales::oob_keep,
+  y_sec_axis = ggplot2::waiver(),
   y_title = NULL,
   y_trans = "identity",
   col_breaks = NULL,
@@ -111,6 +113,8 @@ gg_tile(
 
 \item{x_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
 
+\item{x_sec_axis}{A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.}
+
 \item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
 \item{x_trans}{For a numeric variable, a transformation object (e.g. "log10").}
@@ -127,9 +131,11 @@ gg_tile(
 
 \item{y_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
 
+\item{y_sec_axis}{A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.}
+
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{y_trans}{For a numeric variable, a transformation object (e.g. "log10").#' @param col_breaks A vector of breaks. For a categorical col variable, this links pal values with col variable values dropping those not used. For a numeric variable where col_intervals is NULL, this only affects the labels on the legend.}
+\item{y_trans}{For a numeric variable, a transformation object (e.g. "log10").}
 
 \item{col_breaks}{A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.}
 

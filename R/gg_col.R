@@ -26,6 +26,7 @@
 #' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param x_limits A vector of length 2 to determine the limits of the axis.
 #' @param x_oob A scales::oob_* function for how to deal with out-of-bounds values.
+#' @param x_sec_axis A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param x_trans For a numeric variable, a transformation object (e.g. "log10").
 #' @param y_breaks A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -34,6 +35,7 @@
 #' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param y_limits A vector of length 2 to determine the limits of the axis.
 #' @param y_oob A scales::oob_* function for how to deal with out-of-bounds values.
+#' @param y_sec_axis A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_trans For a numeric variable, a transformation object (e.g. "log10").
 #' @param col_breaks A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -45,7 +47,6 @@
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left.
 #' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).
 #' @param facet_ncol The number of columns of facetted plots.
 #' @param facet_nrow The number of rows of facetted plots.
@@ -59,58 +60,60 @@
 #' gg_col(df, x = trt, y = outcome)
 #' gg_col(df, x = trt, y = outcome, col = trt)
 #'
-gg_col <- function(data = NULL,
-                   x = NULL,
-                   y = NULL,
-                   col = NULL,
-                   facet = NULL,facet2 = NULL,
-                   group = NULL,
-                   text = NULL,
-                   stat = "identity",
-                   position = "stack",
-                   pal = NULL,
-                   pal_na = "#7F7F7F",
-                   alpha = 0.9,
-                   #linewidth = 0.5,
-                   width = NULL,
-                   ...,
-                   titles = NULL,
-                   title = NULL,
-                   subtitle = NULL,
-                   coord = NULL,
-                   x_breaks = NULL,
-                   x_expand = NULL,
-                   x_include = NULL,
-                   x_labels = NULL,
-                   x_limits = NULL,
-                   x_oob = scales::oob_keep,
-                   x_title = NULL,
-                   x_trans = "identity",
-                   y_breaks = NULL,
-                   y_expand = NULL,
-                   y_include = NULL,
-                   y_labels = NULL,
-                   y_limits = NULL,
-                   y_oob = scales::oob_keep,
-                   y_title = NULL,
-                   y_trans = "identity",
-                   col_breaks = NULL,
-                   col_include = NULL,
-                   col_intervals = NULL,
-                   col_labels = NULL,
-                   col_legend_place = NULL,
-                   col_legend_ncol = NULL,
-                   col_legend_nrow = NULL,
-                   col_limits = NULL,
-                   col_title = NULL,
-
-                   facet_labels = NULL,
-                   facet_ncol = NULL,
-                   facet_nrow = NULL,
-                   facet_scales = "fixed",
-                   caption = NULL,
-                   theme = NULL) {
-
+gg_col <- function(
+    data = NULL,
+    x = NULL,
+    y = NULL,
+    col = NULL,
+    facet = NULL,
+    facet2 = NULL,
+    group = NULL,
+    text = NULL,
+    stat = "identity",
+    position = "stack",
+    pal = NULL,
+    pal_na = "#7F7F7F",
+    alpha = 0.9,
+    #linewidth = 0.5,
+    width = NULL,
+    ...,
+    titles = NULL,
+    title = NULL,
+    subtitle = NULL,
+    coord = NULL,
+    x_breaks = NULL,
+    x_expand = NULL,
+    x_include = NULL,
+    x_labels = NULL,
+    x_limits = NULL,
+    x_oob = scales::oob_keep,
+    x_sec_axis = ggplot2::waiver(),
+    x_title = NULL,
+    x_trans = "identity",
+    y_breaks = NULL,
+    y_expand = NULL,
+    y_include = NULL,
+    y_labels = NULL,
+    y_limits = NULL,
+    y_oob = scales::oob_keep,
+    y_sec_axis = ggplot2::waiver(),
+    y_title = NULL,
+    y_trans = "identity",
+    col_breaks = NULL,
+    col_include = NULL,
+    col_intervals = NULL,
+    col_labels = NULL,
+    col_legend_place = NULL,
+    col_legend_ncol = NULL,
+    col_legend_nrow = NULL,
+    col_limits = NULL,
+    col_title = NULL,
+    facet_labels = NULL,
+    facet_ncol = NULL,
+    facet_nrow = NULL,
+    facet_scales = "fixed",
+    caption = NULL,
+    theme = NULL) {
 
   #quote
   x <- rlang::enquo(x)
@@ -722,7 +725,7 @@ gg_col <- function(data = NULL,
         limits = x_limits,
         expand = x_expand,
         labels = x_labels,
-        oob = x_oob,
+        oob = x_oob, sec.axis = x_sec_axis,
         trans = x_trans
       )
     }
@@ -732,7 +735,7 @@ gg_col <- function(data = NULL,
         limits = x_limits,
         expand = x_expand,
         labels = x_labels,
-        oob = x_oob
+        oob = x_oob, sec.axis = x_sec_axis
       )
     }
   }
@@ -827,7 +830,7 @@ gg_col <- function(data = NULL,
         limits = y_limits,
         expand = y_expand,
         labels = y_labels,
-        oob = y_oob,
+        oob = y_oob, sec.axis = y_sec_axis,
         trans = y_trans
       )
     }
@@ -837,7 +840,7 @@ gg_col <- function(data = NULL,
         limits = y_limits,
         expand = y_expand,
         labels = y_labels,
-        oob = y_oob
+        oob = y_oob, sec.axis = y_sec_axis
       )
     }
   }

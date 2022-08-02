@@ -1,3 +1,7 @@
+# ggblanket 1.2.8
+
+* Added *_sec_axis arguments.
+
 # ggblanket 1.2.7
 
 * Added a bg_legend_pal argument to gg_theme.
