@@ -41,38 +41,39 @@
 #'   gg_sf(nc, col = AREA, col_legend_place = "b")
 #' }
 #'
-gg_sf <- function(data = NULL,
-                  col = NULL,
-                  facet = NULL,facet2 = NULL,
-                  group = NULL,
-                  text = NULL,
-                  stat = "sf",
-                  position = "identity",
-                  pal = NULL,
-                  pal_na = "#7F7F7F",
-                  alpha = 0.9,
-                  #linewidth = 0.5,
-                  #size = 1.5,
-                  ...,
-                  titles = NULL,
-                  title = NULL,
-                  subtitle = NULL,
-                  coord = ggplot2::coord_sf(),
-                  col_breaks = NULL,
-                  col_include = NULL,
-                  col_intervals = NULL,
-                  col_labels = NULL,
-                  col_legend_place = NULL,
-                  col_legend_ncol = NULL,
-                  col_legend_nrow = NULL,
-                  col_limits = NULL,
-                  col_title = NULL,
-
-                  facet_labels = NULL,
-                  facet_ncol = NULL,
-                  facet_nrow = NULL,
-                  caption = NULL,
-                  theme = NULL) {
+gg_sf <- function(
+    data = NULL,
+    col = NULL,
+    facet = NULL,
+    facet2 = NULL,
+    group = NULL,
+    text = NULL,
+    stat = "sf",
+    position = "identity",
+    pal = NULL,
+    pal_na = "#7F7F7F",
+    alpha = 0.9,
+    #linewidth = 0.5,
+    #size = 1.5,
+    ...,
+    titles = NULL,
+    title = NULL,
+    subtitle = NULL,
+    coord = ggplot2::coord_sf(),
+    col_breaks = NULL,
+    col_include = NULL,
+    col_intervals = NULL,
+    col_labels = NULL,
+    col_legend_place = NULL,
+    col_legend_ncol = NULL,
+    col_legend_nrow = NULL,
+    col_limits = NULL,
+    col_title = NULL,
+    facet_labels = NULL,
+    facet_ncol = NULL,
+    facet_nrow = NULL,
+    caption = NULL,
+    theme = NULL) {
 
   #quote
   col <- rlang::enquo(col)
@@ -101,10 +102,7 @@ gg_sf <- function(data = NULL,
   }
 
   if (rlang::is_null(theme)) {
-    theme <- gg_theme(grid_v = TRUE, grid_h = TRUE) +
-      ggplot2::theme(axis.text = ggplot2::element_blank()) +
-      ggplot2::theme(axis.line = ggplot2::element_blank()) +
-      ggplot2::theme(axis.ticks = ggplot2::element_blank())
+    theme <- gg_theme(grid_v = TRUE, grid_h = TRUE, map = TRUE)
   }
 
   ###process plot data

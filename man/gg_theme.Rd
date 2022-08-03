@@ -32,7 +32,8 @@ gg_theme(
   grid_h = FALSE,
   grid_v = FALSE,
   grid_pal = "#D3D3D3",
-  grid_size = 0.2
+  grid_size = 0.2,
+  map = FALSE
 )
 }
 \arguments{
@@ -91,6 +92,8 @@ gg_theme(
 \item{grid_pal}{The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".}
 
 \item{grid_size}{The size of the vertical major gridlines. Defaults to 0.2.}
+
+\item{map}{TRUE or FALSE of whether to remove axis lines, ticks and x/y labels, which looks good in maps.}
 }
 \value{
 A ggplot theme.

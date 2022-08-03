@@ -29,38 +29,41 @@
 #' @param grid_v TRUE or FALSE of whether to show vertical gridlines. Defaults to FALSE.
 #' @param grid_pal The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".
 #' @param grid_size The size of the vertical major gridlines. Defaults to 0.2.
+#' @param map TRUE or FALSE of whether to remove axis lines, ticks and x/y labels, which looks good in maps.
 #'
 #' @return A ggplot theme.
 #' @export
 #'
-gg_theme <- function(font = "",
-                     title_pal = "#000000",
-                     title_font = NULL,
-                     title_size = 11,
-                     title_style = "bold",
-                     subtitle_font = NULL,
-                     subtitle_pal = "#323232",
-                     subtitle_size = 10,
-                     subtitle_style = "plain",
-                     body_font = NULL,
-                     body_pal = "#323232",
-                     body_size = 10,
-                     body_style = "plain",
-                     caption_font = NULL,
-                     caption_pal = "#7F7F7F",
-                     caption_size = 9,
-                     caption_style = "plain",
-                     axis_size = 0.3,
-                     axis_pal = "#323232",
-                     ticks_size = 0.3,
-                     ticks_pal = "#323232",
-                     bg_plot_pal = "#F1F3F5",
-                     bg_panel_pal = "#FEFEFE",
-                     bg_legend_key_pal = "plot",
-                     grid_h = FALSE,
-                     grid_v = FALSE,
-                     grid_pal = "#D3D3D3",
-                     grid_size = 0.2) {
+gg_theme <- function(
+    font = "",
+    title_pal = "#000000",
+    title_font = NULL,
+    title_size = 11,
+    title_style = "bold",
+    subtitle_font = NULL,
+    subtitle_pal = "#323232",
+    subtitle_size = 10,
+    subtitle_style = "plain",
+    body_font = NULL,
+    body_pal = "#323232",
+    body_size = 10,
+    body_style = "plain",
+    caption_font = NULL,
+    caption_pal = "#7F7F7F",
+    caption_size = 9,
+    caption_style = "plain",
+    axis_size = 0.3,
+    axis_pal = "#323232",
+    ticks_size = 0.3,
+    ticks_pal = "#323232",
+    bg_plot_pal = "#F1F3F5",
+    bg_panel_pal = "#FEFEFE",
+    bg_legend_key_pal = "plot",
+    grid_h = FALSE,
+    grid_v = FALSE,
+    grid_pal = "#D3D3D3",
+    grid_size = 0.2,
+    map = FALSE) {
 
     if (is.null(title_font)) title_font <- font
     if (is.null(subtitle_font)) subtitle_font <- font
@@ -235,6 +238,13 @@ gg_theme <- function(font = "",
           complete = TRUE
         )
       }
+    }
+
+    if (map) {
+      theme <- theme +
+        ggplot2::theme(axis.text = ggplot2::element_blank()) +
+        ggplot2::theme(axis.line = ggplot2::element_blank()) +
+        ggplot2::theme(axis.ticks = ggplot2::element_blank())
     }
 
     return(theme)

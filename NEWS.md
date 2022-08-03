@@ -1,39 +1,14 @@
-# ggblanket 1.2.8
-
-* Added *_sec_axis arguments.
-
-# ggblanket 1.2.7
-
-* Added a bg_legend_pal argument to gg_theme.
-* Changed default background theme colours.
-
-# ggblanket 1.2.6
-
-* Changed *_oob default to scales::oob_keep.
-
-# ggblanket 1.2.5
-
-* gg_theme updated for seperate agruments for background pal.
-* Breaking: changed gg_theme y_grid to grid_h and x_grid to grid_v.
-
-# ggblanket 1.2.4
-
-* Breaking: gg_theme rearranged the prefixes of arguments.
-* Improved the position of vertical facet labels.
-
-# ggblanket 1.2.3
+# ggblanket 1.3.0
 
 * Added `facet2` aesthetic in to support effortless grid facetting.
-* Removed reversal of logical variable order.
-* Breaking: removed `facet_intervals` argument.
-* Breaking: removed void argument from `gg_theme`.
-
-# ggblanket 1.2.2
-
-* Defaulted col_legend_place to bottom.  
-
-# ggblanket 1.2.1
+* Changed default background theme colours.
 * Fixed bug with `*_limits` and `*_include` not working correctly.  
+* Added *_sec_axis arguments.
+* Changed *_oob default to `scales::oob_keep`.
+* Removed reversal of logical variable order.
+* Defaulted col_legend_place to bottom.  
+* Breaking: removed `facet_intervals` argument.
+* Breaking: made extensive changes to `gg_theme` function.
 
 # ggblanket 1.2.0
 
