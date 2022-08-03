@@ -28,7 +28,7 @@ gg_theme(
   ticks_pal = "#323232",
   bg_plot_pal = "#F1F3F5",
   bg_panel_pal = "#FEFEFE",
-  bg_legend_pal = "plot",
+  bg_legend_key_pal = "plot",
   grid_h = FALSE,
   grid_v = FALSE,
   grid_pal = "#D3D3D3",
@@ -82,7 +82,7 @@ gg_theme(
 
 \item{bg_panel_pal}{The colour palette for the panel background colour.}
 
-\item{bg_legend_pal}{The colour palette for the legend key. Can also use special values of "plot" and "panel".}
+\item{bg_legend_key_pal}{The colour palette for the legend key. Can also use special values of "plot" and "panel".}
 
 \item{grid_h}{TRUE or FALSE of whether to show hotizontal gridlines. Defaults to FALSE.}
 

@@ -218,20 +218,9 @@ penguins %>%
 
 9. {ggblanket} provides a `gg_theme` function to create a quick theme. 
 
-The `gg_theme` function allows you to create a quick theme that looks similar to the {ggblanket} look and feel. 
+The `gg_theme` function allows you to create a theme that looks similar to the {ggblanket} look and feel. 
 
-This includes the following arguments:
-
-* `grid_h` and `grid_v`: arguments for adding horizontal and vertical gridlines
-* `bg_plot_pal`: an argument for the background colour of the plot
-* `bg_panel_pal`: an argument for the background colour of the panel
-* `title_*`: arguments to adjust the title
-* `subtitle_*`: arguments to adjust the subtitle
-* `body_*`: arguments to adjust all other text
-* `axis_*`: arguments to adjust the axis line
-* `ticks_*`: arguments to adjust the axis line
-* `caption_*`: arguments to adjust the caption
-* `grid_*`: other arguments to adjust the gridlines
+This includes the following arguments for adjusting  gridlines, background colours, text and axis lines and ticks. 
 
 ```{r}
 storms %>%
@@ -246,8 +235,7 @@ storms %>%
     theme = gg_theme(
       bg_plot_pal = "white",
       bg_panel_pal = "white",
-      grid_h = TRUE, 
-      grid_v = TRUE))
+      grid_h = TRUE))
 ```
 
 10. {ggblanket} arranges horizontal plot labels to be in correct order.
@@ -388,8 +376,9 @@ iris %>%
     x = Sepal.Width,
     y = Sepal.Length,
     col = Species, 
-    title = "Edgar Anderson's Iris Data",
-    subtitle = "Iris sepal length by width and species"
+    title = "Edgar Anderson's iris data",
+    subtitle = "Iris sepal length by width and species",
+    caption = "Edgar Anderson, 1935"
   )
 ```
 
