@@ -29,6 +29,7 @@
 #' @param grid_v TRUE or FALSE of whether to show vertical gridlines. Defaults to FALSE.
 #' @param grid_pal The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".
 #' @param grid_size The size of the vertical major gridlines. Defaults to 0.2.
+#' @param spacing_size The size of the spacing between facet panels. Defaults to 1.33.
 #' @param map TRUE or FALSE of whether to remove axis lines, ticks and x/y labels, which looks good in maps.
 #'
 #' @return A ggplot theme.
@@ -63,6 +64,7 @@ gg_theme <- function(
     grid_v = FALSE,
     grid_pal = "#D3D3D3",
     grid_size = 0.2,
+    spacing_size = 1.33,
     map = FALSE) {
 
     if (is.null(title_font)) title_font <- font
@@ -91,7 +93,7 @@ gg_theme <- function(
           plot.title.position = "plot",
           plot.caption.position = "plot",
           panel.border = ggplot2::element_blank(),
-          panel.spacing = ggplot2::unit(1.5, "lines"),
+          panel.spacing = ggplot2::unit(spacing_size, "lines"),
           panel.grid.major.x = ggplot2::element_blank(),
           panel.grid.major.y = ggplot2::element_line(colour = grid_pal, size = grid_size),
           panel.grid.minor.x = ggplot2::element_blank(),
@@ -132,7 +134,7 @@ gg_theme <- function(
           plot.title.position = "plot",
           plot.caption.position = "plot",
           panel.border = ggplot2::element_blank(),
-          panel.spacing = ggplot2::unit(1.5, "lines"),
+          panel.spacing = ggplot2::unit(spacing_size, "lines"),
           plot.background = ggplot2::element_rect(colour = bg_plot_pal, fill = bg_plot_pal),
           panel.background = ggplot2::element_rect(colour = bg_panel_pal, fill = bg_panel_pal),
           panel.grid.major = ggplot2::element_line(colour = grid_pal, size = grid_size),
@@ -174,7 +176,7 @@ gg_theme <- function(
           plot.title.position = "plot",
           plot.caption.position = "plot",
           panel.border = ggplot2::element_blank(),
-          panel.spacing = ggplot2::unit(1.5, "lines"),
+          panel.spacing = ggplot2::unit(spacing_size, "lines"),
           panel.grid.major.x = ggplot2::element_blank(),
           panel.grid.major.y = ggplot2::element_blank(),
           panel.grid.minor.x = ggplot2::element_blank(),
@@ -215,7 +217,7 @@ gg_theme <- function(
           plot.title.position = "plot",
           plot.caption.position = "plot",
           panel.border = ggplot2::element_blank(),
-          panel.spacing = ggplot2::unit(1.5, "lines"),
+          panel.spacing = ggplot2::unit(spacing_size, "lines"),
           plot.background = ggplot2::element_rect(colour = bg_plot_pal, fill = bg_plot_pal),
           panel.background = ggplot2::element_rect(colour = bg_panel_pal, fill = bg_panel_pal),
           panel.grid.major.x = ggplot2::element_line(colour = grid_pal, size = grid_size),

@@ -33,6 +33,7 @@ gg_theme(
   grid_v = FALSE,
   grid_pal = "#D3D3D3",
   grid_size = 0.2,
+  spacing_size = 1.33,
   map = FALSE
 )
 }
@@ -92,6 +93,8 @@ gg_theme(
 \item{grid_pal}{The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".}
 
 \item{grid_size}{The size of the vertical major gridlines. Defaults to 0.2.}
+
+\item{spacing_size}{The size of the spacing between facet panels. Defaults to 1.33.}
 
 \item{map}{TRUE or FALSE of whether to remove axis lines, ticks and x/y labels, which looks good in maps.}
 }
