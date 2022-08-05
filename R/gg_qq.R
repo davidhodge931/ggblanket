@@ -614,7 +614,7 @@ gg_qq <- function(
       plot <- plot +
         ggplot2::facet_wrap(
           ggplot2::vars(!!facet),
-          scales = facet_scales,
+          scales = facet_scales, labeller = ggplot2::as_labeller(facet_labels),
           ncol = facet_ncol,
           nrow = facet_nrow
         )
