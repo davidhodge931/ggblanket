@@ -27,7 +27,6 @@ Imports:
     tidyselect,
     viridis
 Suggests: 
-    ggforce,
     palmerpenguins,
     pals,
     patchwork,
