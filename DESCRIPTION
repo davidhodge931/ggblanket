@@ -4,7 +4,7 @@ Version: 1.3.0
 Authors@R: 
     person("David", "Hodge", email = "davidhodge931@gmail.com", 
            role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3868-7501"))
-Description: 'ggplot2' wrapper functions to simplify visualisation. 
+Description: Simplify visualisation with 'ggplot2' wrapper functions. 
 License: MIT + file LICENSE
 URL: https://github.com/davidhodge931/ggblanket/,
     https://davidhodge931.github.io/ggblanket/
