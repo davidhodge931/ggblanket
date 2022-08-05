@@ -30,7 +30,7 @@
 #' @param grid_pal The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".
 #' @param grid_size The size of the vertical major gridlines. Defaults to 0.2.
 #' @param facet_gap_size The size of the spacing between facet panels in units of "lines". Defaults to 1.5.
-#' @param map TRUE or FALSE of whether to remove axis lines, ticks and x/y labels, which looks good in maps.
+#' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
 #'
 #' @return A ggplot theme.
 #' @export
@@ -65,7 +65,7 @@ gg_theme <- function(
     grid_pal = "#D3D3D3",
     grid_size = 0.2,
     facet_gap_size = 1.5,
-    map = FALSE) {
+    void = FALSE) {
 
     if (is.null(title_font)) title_font <- font
     if (is.null(subtitle_font)) subtitle_font <- font
@@ -242,11 +242,12 @@ gg_theme <- function(
       }
     }
 
-    if (map) {
+    if (void) {
       theme <- theme +
         ggplot2::theme(axis.text = ggplot2::element_blank()) +
         ggplot2::theme(axis.line = ggplot2::element_blank()) +
-        ggplot2::theme(axis.ticks = ggplot2::element_blank())
+        ggplot2::theme(axis.ticks = ggplot2::element_blank()) +
+        ggplot2::theme(axis.title = ggplot2::element_blank())
     }
 
     return(theme)

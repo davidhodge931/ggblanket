@@ -34,7 +34,7 @@ gg_theme(
   grid_pal = "#D3D3D3",
   grid_size = 0.2,
   facet_gap_size = 1.5,
-  map = FALSE
+  void = FALSE
 )
 }
 \arguments{
@@ -96,7 +96,7 @@ gg_theme(
 
 \item{facet_gap_size}{The size of the spacing between facet panels in units of "lines". Defaults to 1.5.}
 
-\item{map}{TRUE or FALSE of whether to remove axis lines, ticks and x/y labels, which looks good in maps.}
+\item{void}{TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.}
 }
 \value{
 A ggplot theme.

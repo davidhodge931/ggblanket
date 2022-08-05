@@ -76,15 +76,13 @@ library(dplyr)
 library(ggplot2)
 library(ggblanket)
 library(palmerpenguins)
-library(snakecase)
-library(stringr)
 ```
 
 1. {ggblanket} uses `gg_*` functions that wrap a single `ggplot2::geom_*` function.
 
 ```{r}
 iris %>%
-  mutate(Species = str_to_sentence(Species)) %>% 
+  mutate(Species = stringr::str_to_sentence(Species)) %>% 
   gg_point(
     x = Sepal.Width, 
     y = Sepal.Length, 
@@ -106,7 +104,7 @@ These arguments are the same regardless of whether a `col` variable is specified
 
 ```{r}
 penguins %>% 
-  mutate(sex = str_to_sentence(sex)) %>% 
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
   group_by(species, sex) %>% 
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
   gg_col(
@@ -122,7 +120,7 @@ penguins %>%
 ```{r}
 penguins %>% 
   tidyr::drop_na(sex) %>%
-  mutate(sex = str_to_sentence(sex)) %>% 
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
   gg_violin(
     x = sex, 
     y = body_mass_g, 
@@ -137,7 +135,7 @@ penguins %>%
 ```{r}
 penguins %>% 
   tidyr::drop_na(sex) %>% 
-  mutate(sex = str_to_sentence(sex)) %>% 
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
   gg_point(
     x = bill_length_mm, 
     y = body_mass_g,
@@ -206,9 +204,11 @@ storms %>%
 
 This allows you to utilise the simplicity of {ggblanket}, while making content that has your required look and feel.
 
+Your theme will control all theme aspects, other than the legend position and direction. You must instead control these within the `gg_*` function with the `col_legend_place` argument (e.g. ``col_legend_place = "r"`).
+
 ```{r}
 penguins %>%
-  mutate(sex = str_to_sentence(sex)) %>% 
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
   gg_point(x = bill_depth_mm,
            y = bill_length_mm,
            col = sex,
@@ -251,7 +251,7 @@ penguins %>%
     y = species, 
     col = sex, 
     facet = island,
-    col_labels = to_sentence_case, 
+    col_labels = snakecase::to_sentence_case, 
     position = "dodge")
 ```
 
@@ -265,7 +265,7 @@ penguins %>%
     x = sex, 
     y = species, 
     col = body_mass_g, 
-    x_labels = to_sentence_case,
+    x_labels = snakecase::to_sentence_case,
     pal = pals::brewer.blues(9), 
     width = 0.9,
     height = 0.9,
@@ -284,7 +284,7 @@ penguins %>%
 ```{r}
 penguins %>%
   tidyr::drop_na(sex) %>%
-  mutate(sex = str_to_sentence(sex)) %>%
+  mutate(sex = stringr::str_to_sentence(sex)) %>%
   group_by(species, sex) %>%
   summarise(
     mean = round(mean(bill_length_mm, na.rm = TRUE), 0),
@@ -321,8 +321,8 @@ theme_custom <- gg_theme(
 )
 
 iris %>% 
-  mutate(Species = str_to_sentence(Species)) %>% 
-  add_tooltip_text(titles = to_sentence_case) %>% 
+  mutate(Species = stringr::str_to_sentence(Species)) %>% 
+  add_tooltip_text(titles = snakecase::to_sentence_case) %>% 
   gg_point(
     x = Sepal.Width, 
     y = Sepal.Length, 
@@ -349,7 +349,7 @@ penguins %>%
     level = 0.99, #argument from geom_smooth
     col_legend_place = "t",
     col_title = "", 
-    col_labels = to_sentence_case
+    col_labels = snakecase::to_sentence_case
   ) 
 ```
 
@@ -374,7 +374,7 @@ gg_point_custom <- function(data, x, y, col,
 }
 
 iris %>%
-  mutate(Species = str_to_sentence(Species)) %>% 
+  mutate(Species = stringr::str_to_sentence(Species)) %>% 
   gg_point_custom(
     x = Sepal.Width,
     y = Sepal.Length,

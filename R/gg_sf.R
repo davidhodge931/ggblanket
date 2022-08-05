@@ -102,7 +102,7 @@ gg_sf <- function(
   }
 
   if (rlang::is_null(theme)) {
-    theme <- gg_theme(grid_v = TRUE, grid_h = TRUE, map = TRUE)
+    theme <- gg_theme(grid_v = TRUE, grid_h = TRUE, void = TRUE)
   }
 
   ###process plot data

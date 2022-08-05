@@ -72,8 +72,6 @@ library(dplyr)
 library(ggplot2)
 library(ggblanket)
 library(palmerpenguins)
-library(snakecase)
-library(stringr)
 ```
 
 1.  {ggblanket} uses `gg_*` functions that wrap a single
@@ -81,14 +79,14 @@ library(stringr)
 
 ``` r
 iris %>%
-  mutate(Species = str_to_sentence(Species)) %>% 
+  mutate(Species = stringr::str_to_sentence(Species)) %>% 
   gg_point(
     x = Sepal.Width, 
     y = Sepal.Length, 
     col = Species)
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="70%" />
 
 2.  {ggblanket} merges col and fill aesthetics into a single `col`
     argument.
@@ -100,7 +98,7 @@ penguins %>%
     col = species) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="70%" />
 
 3.  {ggblanket} customises colours via `pal` and `alpha` arguments
     consistently.
@@ -113,7 +111,7 @@ added.
 
 ``` r
 penguins %>% 
-  mutate(sex = str_to_sentence(sex)) %>% 
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
   group_by(species, sex) %>% 
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
   gg_col(
@@ -124,7 +122,7 @@ penguins %>%
     pal = c("#1B9E77", "#9E361B"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="70%" />
 
 4.  {ggblanket} provides a `facet` argument to facet by a single
     variable.
@@ -132,7 +130,7 @@ penguins %>%
 ``` r
 penguins %>% 
   tidyr::drop_na(sex) %>%
-  mutate(sex = str_to_sentence(sex)) %>% 
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
   gg_violin(
     x = sex, 
     y = body_mass_g, 
@@ -142,7 +140,7 @@ penguins %>%
     pal = "#1B9E77")
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="70%" />
 
 5.  {ggblanket} provides an additional `facet2` argument to facet in a
     grid.
@@ -150,7 +148,7 @@ penguins %>%
 ``` r
 penguins %>% 
   tidyr::drop_na(sex) %>% 
-  mutate(sex = str_to_sentence(sex)) %>% 
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
   gg_point(
     x = bill_length_mm, 
     y = body_mass_g,
@@ -161,7 +159,7 @@ penguins %>%
     size = 1)
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="70%" />
 
 6.  {ggblanket} provides prefixed arguments to help find arguments.
 
@@ -196,7 +194,7 @@ penguins %>%
   )
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="70%" />
 
 7.  {ggblanket} uses nice numeric/date default scales.
 
@@ -228,16 +226,21 @@ storms %>%
   geom_point()
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="70%" />
 
 8.  {ggblanket} provides a `theme` argument for customisation.
 
 This allows you to utilise the simplicity of {ggblanket}, while making
 content that has your required look and feel.
 
+Your theme will control all theme aspects, other than the legend
+position and direction. You must instead control these within the `gg_*`
+function with the `col_legend_place` argument
+(e.g. \``col_legend_place = "r"`).
+
 ``` r
 penguins %>%
-  mutate(sex = str_to_sentence(sex)) %>% 
+  mutate(sex = stringr::str_to_sentence(sex)) %>% 
   gg_point(x = bill_depth_mm,
            y = bill_length_mm,
            col = sex,
@@ -246,7 +249,7 @@ penguins %>%
            theme = theme_grey())
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="70%" />
 
 9.  {ggblanket} provides a `gg_theme` function to create a quick theme.
 
@@ -272,7 +275,7 @@ storms %>%
       grid_h = TRUE))
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="70%" />
 
 10. {ggblanket} arranges horizontal plot labels to be in correct order.
 
@@ -286,11 +289,11 @@ penguins %>%
     y = species, 
     col = sex, 
     facet = island,
-    col_labels = to_sentence_case, 
+    col_labels = snakecase::to_sentence_case, 
     position = "dodge")
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-12-1.png" width="70%" />
 
 11. {ggblanket} converts unspecified titles to snakecase::to_sentence.
 
@@ -302,7 +305,7 @@ penguins %>%
     x = sex, 
     y = species, 
     col = body_mass_g, 
-    x_labels = to_sentence_case,
+    x_labels = snakecase::to_sentence_case,
     pal = pals::brewer.blues(9), 
     width = 0.9,
     height = 0.9,
@@ -316,14 +319,14 @@ penguins %>%
   geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-13-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-13-1.png" width="70%" />
 
 12. {ggblanket} provides a `gg_blank` function for extra flexibility.
 
 ``` r
 penguins %>%
   tidyr::drop_na(sex) %>%
-  mutate(sex = str_to_sentence(sex)) %>%
+  mutate(sex = stringr::str_to_sentence(sex)) %>%
   group_by(species, sex) %>%
   summarise(
     mean = round(mean(bill_length_mm, na.rm = TRUE), 0),
@@ -347,7 +350,7 @@ penguins %>%
   geom_errorbar(width = 0.1, colour = pal_na()) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-14-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-14-1.png" width="70%" />
 
 13. {ggblanket} supports nice `plotly::ggplotly` tooltips.
 
@@ -364,8 +367,8 @@ theme_custom <- gg_theme(
 )
 
 iris %>% 
-  mutate(Species = str_to_sentence(Species)) %>% 
-  add_tooltip_text(titles = to_sentence_case) %>% 
+  mutate(Species = stringr::str_to_sentence(Species)) %>% 
+  add_tooltip_text(titles = snakecase::to_sentence_case) %>% 
   gg_point(
     x = Sepal.Width, 
     y = Sepal.Length, 
@@ -376,7 +379,7 @@ iris %>%
   plotly::ggplotly(tooltip = "text")
 ```
 
-<img src="man/figures/ggplotly_screenshot.png" width="75%" />
+<img src="man/figures/ggplotly_screenshot.png" width="70%" />
 
 14. {ggblanket} provides access to all other `geom_*` arguments via
     `...`
@@ -391,11 +394,11 @@ penguins %>%
     level = 0.99, #argument from geom_smooth
     col_legend_place = "t",
     col_title = "", 
-    col_labels = to_sentence_case
+    col_labels = snakecase::to_sentence_case
   ) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-17-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-17-1.png" width="70%" />
 
 15. {ggblanket} is useful for creating customised functions with your
     own defaults.
@@ -420,7 +423,7 @@ gg_point_custom <- function(data, x, y, col,
 }
 
 iris %>%
-  mutate(Species = str_to_sentence(Species)) %>% 
+  mutate(Species = stringr::str_to_sentence(Species)) %>% 
   gg_point_custom(
     x = Sepal.Width,
     y = Sepal.Length,
@@ -431,4 +434,4 @@ iris %>%
   )
 ```
 
-<img src="man/figures/README-unnamed-chunk-18-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-18-1.png" width="70%" />
