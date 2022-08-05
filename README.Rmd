@@ -11,9 +11,10 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   message = FALSE,
   warning = FALSE,
-  fig.height = 3, 
-  fig.width = 5,
-  dpi = 300 
+  fig.width = 6,
+  fig.asp = 0.618,
+  out.width = "70%",
+  dpi = 300
 )
 ```
 
@@ -133,7 +134,7 @@ penguins %>%
 
 5. {ggblanket} provides an additional `facet2` argument to facet in a grid.
 
-```{r, fig.height=3.5}
+```{r}
 penguins %>% 
   tidyr::drop_na(sex) %>% 
   mutate(sex = str_to_sentence(sex)) %>% 
@@ -332,7 +333,9 @@ iris %>%
   plotly::ggplotly(tooltip = "text")
 ```
 
-![](man/figures/ggplotly_screenshot.png)
+```{r, echo=FALSE}
+knitr::include_graphics("man/figures/ggplotly_screenshot.png", dpi = 300)
+```
 
 14. {ggblanket} provides access to all other `geom_*` arguments via `...`
 
@@ -354,7 +357,7 @@ penguins %>%
 
 This is because the `...` argument can allow you to access _all_  arguments within the {ggblanket} `gg_` function. 
 
-```{r, fig.height=3.5}
+```{r}
 gg_point_custom <- function(data, x, y, col, 
                             size = 3, 
                             pal = pals::brewer.dark2(9), 

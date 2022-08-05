@@ -88,7 +88,7 @@ iris %>%
     col = Species)
 ```
 
-![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="70%" />
 
 2.  {ggblanket} merges col and fill aesthetics into a single `col`
     argument.
@@ -100,7 +100,7 @@ penguins %>%
     col = species) 
 ```
 
-![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="70%" />
 
 3.  {ggblanket} customises colours via `pal` and `alpha` arguments
     consistently.
@@ -124,7 +124,7 @@ penguins %>%
     pal = c("#1B9E77", "#9E361B"))
 ```
 
-![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="70%" />
 
 4.  {ggblanket} provides a `facet` argument to facet by a single
     variable.
@@ -142,7 +142,7 @@ penguins %>%
     pal = "#1B9E77")
 ```
 
-![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="70%" />
 
 5.  {ggblanket} provides an additional `facet2` argument to facet in a
     grid.
@@ -161,7 +161,7 @@ penguins %>%
     size = 1)
 ```
 
-![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="70%" />
 
 6.  {ggblanket} provides prefixed arguments to help find arguments.
 
@@ -196,7 +196,7 @@ penguins %>%
   )
 ```
 
-![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="70%" />
 
 7.  {ggblanket} uses nice numeric/date default scales.
 
@@ -228,7 +228,7 @@ storms %>%
   geom_point()
 ```
 
-![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="70%" />
 
 8.  {ggblanket} provides a `theme` argument for customisation.
 
@@ -246,7 +246,7 @@ penguins %>%
            theme = theme_grey())
 ```
 
-![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="70%" />
 
 9.  {ggblanket} provides a `gg_theme` function to create a quick theme.
 
@@ -272,7 +272,7 @@ storms %>%
       grid_h = TRUE))
 ```
 
-![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="70%" />
 
 10. {ggblanket} arranges horizontal plot labels to be in correct order.
 
@@ -290,7 +290,7 @@ penguins %>%
     position = "dodge")
 ```
 
-![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-12-1.png" width="70%" />
 
 11. {ggblanket} converts unspecified titles to snakecase::to_sentence.
 
@@ -316,7 +316,7 @@ penguins %>%
   geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
 ```
 
-![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-13-1.png" width="70%" />
 
 12. {ggblanket} provides a `gg_blank` function for extra flexibility.
 
@@ -347,7 +347,7 @@ penguins %>%
   geom_errorbar(width = 0.1, colour = pal_na()) 
 ```
 
-![](man/figures/README-unnamed-chunk-14-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-14-1.png" width="70%" />
 
 13. {ggblanket} supports nice `plotly::ggplotly` tooltips.
 
@@ -376,7 +376,7 @@ iris %>%
   plotly::ggplotly(tooltip = "text")
 ```
 
-![](man/figures/ggplotly_screenshot.png)
+<img src="man/figures/ggplotly_screenshot.png" width="70%" />
 
 14. {ggblanket} provides access to all other `geom_*` arguments via
     `...`
@@ -395,7 +395,7 @@ penguins %>%
   ) 
 ```
 
-![](man/figures/README-unnamed-chunk-16-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-17-1.png" width="70%" />
 
 15. {ggblanket} is useful for creating customised functions with your
     own defaults.
@@ -431,4 +431,4 @@ iris %>%
   )
 ```
 
-![](man/figures/README-unnamed-chunk-17-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-18-1.png" width="70%" />
