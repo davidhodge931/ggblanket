@@ -107,7 +107,7 @@ gg_ribbon <- function(
     x_include = NULL,
     x_labels = NULL,
     x_limits = NULL,
-    x_oob = scales::oob_keep,
+    x_oob = scales::oob_censor,
     x_sec_axis = ggplot2::waiver(),
     x_title = NULL,
     x_trans = "identity",
@@ -116,7 +116,7 @@ gg_ribbon <- function(
     y_include = NULL,
     y_labels = NULL,
     y_limits = NULL,
-    y_oob = scales::oob_keep,
+    y_oob = scales::oob_censor,
     y_sec_axis = ggplot2::waiver(),
     y_title = NULL,
     y_trans = "identity",
@@ -722,6 +722,10 @@ gg_ribbon <- function(
           if (xy_numeric_date) x_limits <- NULL
           else {
             if (x_trans != "identity") x_limits <- NULL
+            else if (class(position)[1] == "character") {
+              if (position[1] == "fill") x_limits <- NULL
+            }
+            else if (class(position)[1] == "PositionFill") x_limits <- NULL
             else x_limits <- c(min(x_breaks), max(x_breaks))
           }
         }
@@ -730,10 +734,18 @@ gg_ribbon <- function(
           else {
             if (is.vector(x_breaks)) {
               if (x_trans != "identity") x_limits <- NULL
+              else if (class(position)[1] == "character") {
+                if (position[1] == "fill") x_limits <- NULL
+              }
+              else if (class(position)[1] == "PositionFill") x_limits <- NULL
               else x_limits <- c(min(x_breaks), max(x_breaks))
             }
             else {
               if (x_trans != "identity") x_limits <- NULL
+              else if (class(position)[1] == "character") {
+                if (position[1] == "fill") x_limits <- NULL
+              }
+              else if (class(position)[1] == "PositionFill") x_limits <- NULL
               else {
                 x_limits <- list(x_limits) %>%
                   purrr::map(.f = x_breaks) %>%
@@ -831,15 +843,27 @@ gg_ribbon <- function(
           else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
 
           if (y_trans != "identity") y_limits <- NULL
+          else if (class(position)[1] == "character") {
+            if (position[1] == "fill") y_limits <- NULL
+          }
+          else if (class(position)[1] == "PositionFill") y_limits <- NULL
           else y_limits <- c(min(y_breaks), max(y_breaks))
         }
         else if (!rlang::is_null(y_breaks)) {
           if (is.vector(y_breaks)) {
             if (y_trans != "identity") y_limits <- NULL
+            else if (class(position)[1] == "character") {
+              if (position[1] == "fill") y_limits <- NULL
+            }
+            else if (class(position)[1] == "PositionFill") y_limits <- NULL
             else y_limits <- c(min(y_breaks), max(y_breaks))
           }
           else {
             if (y_trans != "identity") y_limits <- NULL
+            else if (class(position)[1] == "character") {
+              if (position[1] == "fill") y_limits <- NULL
+            }
+            else if (class(position)[1] == "PositionFill") y_limits <- NULL
             else {
               y_limits <- list(y_limits) %>%
                 purrr::map(.f = y_breaks) %>%

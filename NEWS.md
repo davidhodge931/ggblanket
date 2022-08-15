@@ -1,3 +1,7 @@
+# ggblanket 1.3.1
+
+* Changed `*_oob` default back to censor, and fix `position = "fill"` bug
+
 # ggblanket 1.3.0
 
 * Added `facet2` aesthetic in to support effortless grid facetting.
