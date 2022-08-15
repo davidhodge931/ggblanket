@@ -718,7 +718,7 @@ gg_blank <- function(
     if (facet_scales %in% c("fixed", "free_y")) {
 
       x_temp_df <- layer_data %>%
-        dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmax_final$")))
+        dplyr::select(tidyselect::starts_with("x"))
 
       if (ncol(x_temp_df) != 0) {
         x_vctr <- x_temp_df %>%
@@ -876,7 +876,7 @@ gg_blank <- function(
     if (facet_scales %in% c("fixed", "free_x")) {
 
       y_temp_df <- layer_data %>%
-        dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymay_final$")))
+        dplyr::select(tidyselect::starts_with("y"))
 
       if (ncol(y_temp_df) != 0) {
 

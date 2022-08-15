@@ -699,7 +699,7 @@ gg_ribbon <- function(
     if (facet_scales %in% c("fixed", "free_y")) {
 
       x_vctr <- layer_data %>%
-        dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmax_final$"))) %>%
+        dplyr::select(tidyselect::starts_with("x")) %>%
         tidyr::pivot_longer(cols = tidyselect::everything()) %>%
         dplyr::pull(.data$value)
 
@@ -810,7 +810,7 @@ gg_ribbon <- function(
   else {
     if (facet_scales %in% c("fixed", "free_x")) {
       y_vctr <- layer_data %>%
-        dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymay_final$"))) %>%
+        dplyr::select(tidyselect::starts_with("y")) %>%
         tidyr::pivot_longer(cols = tidyselect::everything()) %>%
         dplyr::pull(.data$value)
 
