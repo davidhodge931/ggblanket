@@ -1,3 +1,7 @@
+# ggblanket 1.3.2
+
+* Corrected unintended affect on scales with v1.3.1.
+
 # ggblanket 1.3.1
 
 * Changed `*_oob` default back to censor, and fix `position = "fill"` bug

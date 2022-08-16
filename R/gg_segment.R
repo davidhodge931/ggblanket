@@ -688,6 +688,7 @@ gg_segment <- function(
             if (x_trans != "identity") x_limits <- NULL
             else if (class(position)[1] == "character") {
               if (position[1] == "fill") x_limits <- NULL
+              else x_limits <- c(min(x_breaks), max(x_breaks))
             }
             else if (class(position)[1] == "PositionFill") x_limits <- NULL
             else x_limits <- c(min(x_breaks), max(x_breaks))
@@ -700,6 +701,7 @@ gg_segment <- function(
               if (x_trans != "identity") x_limits <- NULL
               else if (class(position)[1] == "character") {
                 if (position[1] == "fill") x_limits <- NULL
+                else x_limits <- c(min(x_breaks), max(x_breaks))
               }
               else if (class(position)[1] == "PositionFill") x_limits <- NULL
               else x_limits <- c(min(x_breaks), max(x_breaks))
@@ -708,6 +710,7 @@ gg_segment <- function(
               if (x_trans != "identity") x_limits <- NULL
               else if (class(position)[1] == "character") {
                 if (position[1] == "fill") x_limits <- NULL
+                else x_limits <- c(min(x_breaks), max(x_breaks))
               }
               else if (class(position)[1] == "PositionFill") x_limits <- NULL
               else {
@@ -809,6 +812,7 @@ gg_segment <- function(
           if (y_trans != "identity") y_limits <- NULL
           else if (class(position)[1] == "character") {
             if (position[1] == "fill") y_limits <- NULL
+            else y_limits <- c(min(y_breaks), max(y_breaks))
           }
           else if (class(position)[1] == "PositionFill") y_limits <- NULL
           else y_limits <- c(min(y_breaks), max(y_breaks))
@@ -818,6 +822,7 @@ gg_segment <- function(
             if (y_trans != "identity") y_limits <- NULL
             else if (class(position)[1] == "character") {
               if (position[1] == "fill") y_limits <- NULL
+              else y_limits <- c(min(y_breaks), max(y_breaks))
             }
             else if (class(position)[1] == "PositionFill") y_limits <- NULL
             else y_limits <- c(min(y_breaks), max(y_breaks))
@@ -826,6 +831,7 @@ gg_segment <- function(
             if (y_trans != "identity") y_limits <- NULL
             else if (class(position)[1] == "character") {
               if (position[1] == "fill") y_limits <- NULL
+              else y_limits <- c(min(y_breaks), max(y_breaks))
             }
             else if (class(position)[1] == "PositionFill") y_limits <- NULL
             else {
