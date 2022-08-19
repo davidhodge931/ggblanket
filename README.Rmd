@@ -78,7 +78,7 @@ library(ggblanket)
 library(palmerpenguins)
 ```
 
-1. {ggblanket} uses `gg_*` functions that wrap a single `ggplot2::geom_*` function.
+##### 1. {ggblanket} uses `gg_*` functions that wrap a single `ggplot2::geom_*` function.
 
 ```{r}
 iris %>%
@@ -89,7 +89,7 @@ iris %>%
     col = Species)
 ```
 
-2. {ggblanket} merges col and fill aesthetics into a single `col` argument.
+##### 2. {ggblanket} merges col and fill aesthetics into a single `col` argument.
 
 ```{r}
 penguins %>% 
@@ -98,7 +98,7 @@ penguins %>%
     col = species) 
 ```
 
-3. {ggblanket} customises colours via `pal` and `alpha` arguments consistently.
+##### 3. {ggblanket} customises colours via `pal` and `alpha` arguments consistently.
 
 These arguments are the same regardless of whether a `col` variable is specified. If more colours are provided than needed by the pal argument, then the excess colours will just be dropped. Note all colours specified by the pal argument will inherit to any further `ggplot2::geom_*` layers added.
 
@@ -115,7 +115,7 @@ penguins %>%
     pal = c("#1B9E77", "#9E361B"))
 ```
 
-4. {ggblanket} provides a `facet` argument to facet by a single variable.
+##### 4. {ggblanket} provides a `facet` argument to facet by a single variable.
 
 ```{r}
 penguins %>% 
@@ -130,7 +130,7 @@ penguins %>%
     pal = "#1B9E77")
 ```
 
-5. {ggblanket} provides an additional `facet2` argument to facet in a grid.
+##### 5. {ggblanket} provides an additional `facet2` argument to facet in a grid.
 
 ```{r}
 penguins %>% 
@@ -146,7 +146,7 @@ penguins %>%
     size = 1)
 ```
 
-6. {ggblanket} provides prefixed arguments to help find arguments.
+##### 6. {ggblanket} provides prefixed arguments to help find arguments.
 
 This is designed to work with the Rstudio autocomplete to help you find the adjustment you need. Press the tab key after typing `x_`,`y_`, `col_` or `facet_` to access this. Then use arrow keys, and press tab again to select.
 
@@ -176,7 +176,7 @@ penguins %>%
   )
 ```
 
-7. {ggblanket} uses nice numeric/date default scales.
+##### 7. {ggblanket} uses nice numeric/date default scales.
 
 Where x variable is categorical and y numeric, the numeric y scale defaults to the limits being the min and max of the _breaks_, with expand of c(0, 0). Equivalent happens for the horizontal vice versa situation.
 
@@ -200,7 +200,7 @@ storms %>%
   geom_point()
 ```
 
-8. {ggblanket} provides a `theme` argument for customisation.
+##### 8. {ggblanket} provides a `theme` argument for customisation.
 
 This allows you to utilise the simplicity of {ggblanket}, while making content that has your required look and feel.
 
@@ -217,7 +217,7 @@ penguins %>%
            theme = theme_grey())
 ```
 
-9. {ggblanket} provides a `gg_theme` function to create a quick theme. 
+##### 9. {ggblanket} provides a `gg_theme` function to create a quick theme. 
 
 The `gg_theme` function allows you to create a theme that looks similar to the {ggblanket} look and feel. 
 
@@ -239,7 +239,7 @@ storms %>%
       grid_h = TRUE))
 ```
 
-10. {ggblanket} arranges horizontal plot labels to be in correct order.
+##### 10. {ggblanket} arranges horizontal plot labels to be in correct order.
 
 ```{r}
 penguins %>%
@@ -255,7 +255,7 @@ penguins %>%
     position = "dodge")
 ```
 
-11. {ggblanket} converts unspecified titles to snakecase::to_sentence.
+##### 11. {ggblanket} converts unspecified titles to snakecase::to_sentence.
 
 ```{r}
 penguins %>%
@@ -279,7 +279,7 @@ penguins %>%
   geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
 ```
 
-12. {ggblanket} provides a `gg_blank` function for extra flexibility.
+##### 12. {ggblanket} provides a `gg_blank` function for extra flexibility.
 
 ```{r}
 penguins %>%
@@ -308,7 +308,7 @@ penguins %>%
   geom_errorbar(width = 0.1, colour = pal_na()) 
 ```
 
-13. {ggblanket} supports nice `plotly::ggplotly` tooltips.
+##### 13. {ggblanket} supports nice `plotly::ggplotly` tooltips.
 
 The `add_tooltip` function allows users to create nice tooltips in combination with the `text` argument, and the `tooltip = "text"` argument in `ggplotly`.
 
@@ -337,7 +337,7 @@ iris %>%
 knitr::include_graphics("man/figures/ggplotly_screenshot.png", dpi = 300)
 ```
 
-14. {ggblanket} provides access to all other `geom_*` arguments via `...`
+##### 14. {ggblanket} provides access to all other `geom_*` arguments via `...`
 
 ```{r}
 penguins %>%
@@ -353,7 +353,7 @@ penguins %>%
   ) 
 ```
 
-15. {ggblanket} is useful for creating customised functions with your own defaults.
+##### 15. {ggblanket} is useful for creating customised functions with your own defaults.
 
 This is because the `...` argument can allow you to access _all_  arguments within the {ggblanket} `gg_` function. 
 
