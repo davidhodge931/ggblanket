@@ -65,7 +65,7 @@ Or install the development version with:
 devtools::install_github("davidhodge931/ggblanket")
 ```
 
-## Examples
+## Why {ggblanket}?
 
 ``` r
 library(dplyr)
@@ -74,7 +74,7 @@ library(ggblanket)
 library(palmerpenguins)
 ```
 
-##### 1. {ggblanket} uses `gg_*` functions that wrap a single `ggplot2::geom_*` function.
+#### 1. {ggblanket} uses `gg_*` functions that wrap a single `ggplot2::geom_*` function.
 
 ``` r
 iris %>%
@@ -87,7 +87,7 @@ iris %>%
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="70%" />
 
-##### 2. {ggblanket} merges col and fill aesthetics into a single `col` argument.
+#### 2. {ggblanket} merges col and fill aesthetics into a single `col` argument.
 
 ``` r
 penguins %>% 
@@ -98,7 +98,7 @@ penguins %>%
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="70%" />
 
-##### 3. {ggblanket} customises colours via `pal` and `alpha` arguments consistently.
+#### 3. {ggblanket} customises colours via `pal` and `alpha` arguments consistently.
 
 These arguments are the same regardless of whether a `col` variable is
 specified. If more colours are provided than needed by the pal argument,
@@ -121,7 +121,7 @@ penguins %>%
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="70%" />
 
-##### 4. {ggblanket} provides a `facet` argument to facet by a single variable.
+#### 4. {ggblanket} provides a `facet` argument to facet by a single variable.
 
 ``` r
 penguins %>% 
@@ -138,7 +138,7 @@ penguins %>%
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="70%" />
 
-##### 5. {ggblanket} provides an additional `facet2` argument to facet in a grid.
+#### 5. {ggblanket} provides an additional `facet2` argument to facet in a grid.
 
 ``` r
 penguins %>% 
@@ -156,7 +156,7 @@ penguins %>%
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="70%" />
 
-##### 6. {ggblanket} provides prefixed arguments to help find arguments.
+#### 6. {ggblanket} provides prefixed arguments to help find arguments.
 
 This is designed to work with the Rstudio autocomplete to help you find
 the adjustment you need. Press the tab key after typing `x_`,`y_`,
@@ -191,7 +191,7 @@ penguins %>%
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="70%" />
 
-##### 7. {ggblanket} uses nice numeric/date default scales.
+#### 7. {ggblanket} uses nice numeric/date default scales.
 
 Where x variable is categorical and y numeric, the numeric y scale
 defaults to the limits being the min and max of the *breaks*, with
@@ -223,7 +223,7 @@ storms %>%
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="70%" />
 
-##### 8. {ggblanket} provides a `theme` argument for customisation.
+#### 8. {ggblanket} provides a `theme` argument for customisation.
 
 This allows you to utilise the simplicity of {ggblanket}, while making
 content that has your required look and feel.
@@ -246,7 +246,7 @@ penguins %>%
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="70%" />
 
-##### 9. {ggblanket} provides a `gg_theme` function to create a quick theme.
+#### 9. {ggblanket} provides a `gg_theme` function to create a quick theme.
 
 The `gg_theme` function allows you to create a theme that looks similar
 to the {ggblanket} look and feel.
@@ -272,7 +272,7 @@ storms %>%
 
 <img src="man/figures/README-unnamed-chunk-11-1.png" width="70%" />
 
-##### 10. {ggblanket} arranges horizontal plot labels to be in correct order.
+#### 10. {ggblanket} arranges horizontal plot labels to be in correct order.
 
 ``` r
 penguins %>%
@@ -290,7 +290,7 @@ penguins %>%
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" width="70%" />
 
-##### 11. {ggblanket} converts unspecified titles to snakecase::to_sentence.
+#### 11. {ggblanket} converts unspecified titles to snakecase::to_sentence.
 
 ``` r
 penguins %>%
@@ -316,7 +316,7 @@ penguins %>%
 
 <img src="man/figures/README-unnamed-chunk-13-1.png" width="70%" />
 
-##### 12. {ggblanket} provides a `gg_blank` function for extra flexibility.
+#### 12. {ggblanket} provides a `gg_blank` function for extra flexibility.
 
 ``` r
 penguins %>%
@@ -347,7 +347,7 @@ penguins %>%
 
 <img src="man/figures/README-unnamed-chunk-14-1.png" width="70%" />
 
-##### 13. {ggblanket} supports nice `plotly::ggplotly` tooltips.
+#### 13. {ggblanket} supports nice `plotly::ggplotly` tooltips.
 
 The `add_tooltip` function allows users to create nice tooltips in
 combination with the `text` argument, and the `tooltip = "text"`
@@ -376,7 +376,7 @@ iris %>%
 
 <img src="man/figures/ggplotly_screenshot.png" width="70%" />
 
-##### 14. {ggblanket} provides access to all other `geom_*` arguments via `...`
+#### 14. {ggblanket} provides access to all other `geom_*` arguments via `...`
 
 ``` r
 penguins %>%
@@ -394,7 +394,7 @@ penguins %>%
 
 <img src="man/figures/README-unnamed-chunk-17-1.png" width="70%" />
 
-##### 15. {ggblanket} is useful for creating customised functions with your own defaults.
+#### 15. {ggblanket} is useful for creating customised functions with your own defaults.
 
 This is because the `...` argument can allow you to access *all*
 arguments within the {ggblanket} `gg_` function.
