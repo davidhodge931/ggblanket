@@ -360,9 +360,9 @@ gg_segment <- function(
         if (!rlang::is_null(col_include)) col_limits <- range(c(col_include, col_limits))
 
         if (rlang::is_null(col_breaks)) {
-          if (col_legend_place %in% c("b", "t")) col_breaks_n <- 3
-          else col_breaks_n <- 4
-          col_breaks <- scales::breaks_pretty(n = col_breaks_n)(col_limits)
+          
+          
+          col_breaks <- scales::breaks_pretty(n = 4)
         }
 
         if (rlang::is_null(pal)) pal <- viridis::viridis(100)

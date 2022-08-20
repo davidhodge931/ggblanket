@@ -1,6 +1,10 @@
+# ggblanket 1.3.6
+
+* Updated default col breaks to breaks_pretty(4).
+
 # ggblanket 1.3.5
 
-* Reverted to scales::oob_keep 
+* Reverted to scales::oob_keep. 
 * Breaking: removed option to adjust oob. 
 
 # ggblanket 1.3.4
