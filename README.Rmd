@@ -169,7 +169,6 @@ Available arguments are:
 * `*_include`: Include a value within a scale 
 * `*_labels`: Adjust the labels on the breaks
 * `*_limits`: Adjust the limits 
-* `*_oob`: Adjust treatment of out-of-bound values
 * `*_trans`: Transform an axis 
 * `*_sec_axis`: Add a secondary axis
 * `*_title`: Add a title

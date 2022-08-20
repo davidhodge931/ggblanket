@@ -33,7 +33,6 @@ gg_crossbar(
   x_include = NULL,
   x_labels = NULL,
   x_limits = NULL,
-  x_oob = scales::oob_censor,
   x_sec_axis = ggplot2::waiver(),
   x_title = NULL,
   x_trans = "identity",
@@ -42,7 +41,6 @@ gg_crossbar(
   y_include = NULL,
   y_labels = NULL,
   y_limits = NULL,
-  y_oob = scales::oob_censor,
   y_sec_axis = ggplot2::waiver(),
   y_title = NULL,
   y_trans = "identity",
@@ -121,8 +119,6 @@ gg_crossbar(
 
 \item{x_limits}{A vector of length 2 to determine the limits of the axis.}
 
-\item{x_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
-
 \item{x_sec_axis}{A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
 \item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
@@ -138,8 +134,6 @@ gg_crossbar(
 \item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
 \item{y_limits}{A vector of length 2 to determine the limits of the axis.}
-
-\item{y_oob}{A scales::oob_* function for how to deal with out-of-bounds values.}
 
 \item{y_sec_axis}{A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.}
 

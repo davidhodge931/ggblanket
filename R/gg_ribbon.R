@@ -28,7 +28,7 @@
 #' @param x_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param x_limits A vector of length 2 to determine the limits of the axis.
-#' @param x_oob A scales::oob_* function for how to deal with out-of-bounds values.
+
 #' @param x_sec_axis A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param x_trans For a numeric variable, a transformation object (e.g. "log10").
@@ -37,7 +37,7 @@
 #' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param y_limits A vector of length 2 to determine the limits of the axis.
-#' @param y_oob A scales::oob_* function for how to deal with out-of-bounds values.
+
 #' @param y_sec_axis A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_trans For a numeric variable, a transformation object (e.g. "log10").
@@ -108,7 +108,7 @@ gg_ribbon <- function(
     x_include = NULL,
     x_labels = NULL,
     x_limits = NULL,
-    x_oob = scales::oob_censor,
+    
     x_sec_axis = ggplot2::waiver(),
     x_title = NULL,
     x_trans = "identity",
@@ -117,7 +117,7 @@ gg_ribbon <- function(
     y_include = NULL,
     y_labels = NULL,
     y_limits = NULL,
-    y_oob = scales::oob_censor,
+    
     y_sec_axis = ggplot2::waiver(),
     y_title = NULL,
     y_trans = "identity",
@@ -804,7 +804,8 @@ gg_ribbon <- function(
         limits = x_limits,
         expand = x_expand,
         labels = x_labels,
-        oob = x_oob, sec.axis = x_sec_axis,
+        oob = scales::oob_keep,
+        sec.axis = x_sec_axis,
         trans = x_trans
       )
     }
@@ -814,7 +815,8 @@ gg_ribbon <- function(
         limits = x_limits,
         expand = x_expand,
         labels = x_labels,
-        oob = x_oob, sec.axis = x_sec_axis
+        oob = scales::oob_keep,
+        sec.axis = x_sec_axis
       )
     }
   }
@@ -929,7 +931,8 @@ gg_ribbon <- function(
         limits = y_limits,
         expand = y_expand,
         labels = y_labels,
-        oob = y_oob, sec.axis = y_sec_axis,
+        oob = scales::oob_keep,
+        sec.axis = y_sec_axis,
         trans = y_trans
       )
     }
@@ -939,7 +942,8 @@ gg_ribbon <- function(
         limits = y_limits,
         expand = y_expand,
         labels = y_labels,
-        oob = y_oob, sec.axis = y_sec_axis
+        oob = scales::oob_keep,
+        sec.axis = y_sec_axis,
       )
     }
   }
