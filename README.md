@@ -65,7 +65,7 @@ Or install the development version with:
 devtools::install_github("davidhodge931/ggblanket")
 ```
 
-## Why {ggblanket}?
+## Examples
 
 ``` r
 library(dplyr)
@@ -75,6 +75,10 @@ library(palmerpenguins)
 ```
 
 #### 1. {ggblanket} uses `gg_*` functions that wrap a single `ggplot2::geom_*` function.
+
+These functions wrap a `ggplot2::ggplot(aes(...))` function that
+includes any aesthetics provided with a single `ggplot2::geom_*()`
+function.
 
 ``` r
 iris %>%
@@ -89,6 +93,10 @@ iris %>%
 
 #### 2. {ggblanket} merges col and fill aesthetics into a single `col` argument.
 
+There is no `fill` concept in {ggblanket}. Instead, `col` relates to
+both the `col` and `fill` concepts of {ggplot2}. A message is provided
+to users in the console to remind them of this.
+
 ``` r
 penguins %>% 
   gg_histogram(
@@ -100,11 +108,9 @@ penguins %>%
 
 #### 3. {ggblanket} customises colours via `pal` and `alpha` arguments consistently.
 
-These arguments are the same regardless of whether a `col` variable is
-specified. If more colours are provided than needed by the pal argument,
-then the excess colours will just be dropped. Note all colours specified
-by the pal argument will inherit to any further `ggplot2::geom_*` layers
-added.
+These arguments work in the same way regardless of whether a `col`
+variable is specified or not. This is therefore one less thing for users
+to remember.
 
 ``` r
 penguins %>% 
@@ -123,6 +129,10 @@ penguins %>%
 
 #### 4. {ggblanket} provides a `facet` argument to facet by a single variable.
 
+Facetting is treated as if it is an aesthetic, where the users just
+provide an unquoted variable to facet by. A message is provided to users
+in the console to remind them of this.
+
 ``` r
 penguins %>% 
   tidyr::drop_na(sex) %>%
@@ -139,6 +149,12 @@ penguins %>%
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="70%" />
 
 #### 5. {ggblanket} provides an additional `facet2` argument to facet in a grid.
+
+If only `facet` is provided, the `gg_*` function under the hood uses
+`ggplot2::facet_wrap` to wrap by that variable.
+
+However, if `facet2` is also provided, then the gg\_\* function uses
+`ggplot2::facet_grid` to facet in grid of `facet` by `facet2`.
 
 ``` r
 penguins %>% 
@@ -163,6 +179,10 @@ the adjustment you need. Press the tab key after typing `x_`,`y_`,
 `col_` or `facet_` to access this. Then use arrow keys, and press tab
 again to select.
 
+In general, arguments follow the prefix with the argument name that they
+relate to in the `ggplot2` function (e.g. `scale_*_continuous`,
+`facet_wrap` or `facet_grid`).
+
 Available arguments are:
 
 -   `*_breaks`: Adjust the breaks of an axis
@@ -170,9 +190,18 @@ Available arguments are:
 -   `*_include`: Include a value within a scale
 -   `*_labels`: Adjust the labels on the breaks
 -   `*_limits`: Adjust the limits
+-   `*_oob`: Adjust treatment of out-of-bound values
 -   `*_trans`: Transform an axis
 -   `*_sec_axis`: Add a secondary axis
--   `col_intervals`: Determine intervals to colour by.
+-   `*_title`: Add a title
+-   `col_intervals`: Determine intervals to colour by
+-   `col_legend_place`: Place to put the legend (e.g. “r”)
+-   `col_legend_ncol`: Number of columns to arrange legend elements into
+-   `col_legend_nrow`: Number of rows to arrange legend elements into
+-   `facet_scales`: How facet scales are to be treated
+-   `facet_space`: Whether facet space is to be treated in the grid
+-   `facet_ncol`: How many columns to wrap facets into  
+-   `facet_nrow`: How many rows to wrap facets into
 
 ``` r
 penguins %>%
@@ -202,6 +231,8 @@ Where both x and y are numeric/date, the y scale defaults to the limits
 being the min and max of the *breaks* with expand of c(0, 0) - and x
 scales default to the min and max of the *variable* with expand of
 `c(0.025, 0.025)`.
+
+These defaults look good with the default theme.
 
 ``` r
 storms %>%
@@ -274,6 +305,9 @@ storms %>%
 
 #### 10. {ggblanket} arranges horizontal plot labels to be in correct order.
 
+When plots are horizontal, {ggblanket} ensures y labels and colours are
+in the right order.
+
 ``` r
 penguins %>%
   tidyr::drop_na(sex) %>% 
@@ -290,7 +324,17 @@ penguins %>%
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" width="70%" />
 
-#### 11. {ggblanket} converts unspecified titles to snakecase::to_sentence.
+#### 11. {ggblanket} defaults to converting unspecified titles to snakecase::to_sentence.
+
+This will make quicker to get to a plot that has titles that are good
+for external people to see, and will often work nicely for your
+`snakecase` column names.
+
+For titles that you need to change manually, you can change manually
+using `x_title`, `y_title`, or `col_title`.
+
+You can also use `titles = ~.x` to leave unspecified titles as per
+variable names.
 
 ``` r
 penguins %>%
@@ -317,6 +361,9 @@ penguins %>%
 <img src="man/figures/README-unnamed-chunk-13-1.png" width="70%" />
 
 #### 12. {ggblanket} provides a `gg_blank` function for extra flexibility.
+
+This function means is useful where you want to use non-supported
+geom’s, aesthetics or if you want to add subsequent layers.
 
 ``` r
 penguins %>%
@@ -377,6 +424,9 @@ iris %>%
 <img src="man/figures/ggplotly_screenshot.png" width="70%" />
 
 #### 14. {ggblanket} provides access to all other `geom_*` arguments via `...`
+
+This relates to all other arguments other than the mapping argument with
+aesthetics.
 
 ``` r
 penguins %>%
