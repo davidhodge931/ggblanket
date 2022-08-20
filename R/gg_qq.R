@@ -50,7 +50,8 @@
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).
 #' @param facet_ncol The number of columns of facetted plots.
 #' @param facet_nrow The number of rows of facetted plots.
-#' @param facet_scales Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
+#' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
+#' @param facet_space Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Only applies Where facet2 is provided and facet_scales are not fixed. Defaults to "fixed".
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
 #' @return A ggplot object.
@@ -114,6 +115,7 @@ gg_qq <- function(
     facet_ncol = NULL,
     facet_nrow = NULL,
     facet_scales = "fixed",
+    facet_space = "fixed",
     caption = NULL,
     theme = NULL) {
 
@@ -623,7 +625,7 @@ gg_qq <- function(
       plot <- plot +
         ggplot2::facet_grid(
           rows = ggplot2::vars(!!facet2),
-          cols = ggplot2::vars(!!facet),
+          cols = ggplot2::vars(!!facet), space = facet_space,
           labeller = ggplot2::as_labeller(facet_labels),
           scales = facet_scales
         )

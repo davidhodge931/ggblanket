@@ -357,7 +357,7 @@ gg_sf <- function(
           rows = ggplot2::vars(!!facet2),
           cols = ggplot2::vars(!!facet),
           labeller = ggplot2::as_labeller(facet_labels),
-          scales = "fixed"
+          scales = "fixed", space = "fixed"
         )
     }
   }

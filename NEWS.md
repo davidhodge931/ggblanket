@@ -1,3 +1,7 @@
+# ggblanket 1.3.4
+
+* Added `facet_space` argument.
+
 # ggblanket 1.3.3
 
 * Corrected unintended affect on scales with v1.3.2.

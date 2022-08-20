@@ -69,7 +69,7 @@ Or install the development version with:
 devtools::install_github("davidhodge931/ggblanket")
 ```
 
-## Why {ggblanket}?
+## Examples
 
 ```{r}
 library(dplyr)

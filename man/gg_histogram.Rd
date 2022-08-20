@@ -55,6 +55,7 @@ gg_histogram(
   facet_ncol = NULL,
   facet_nrow = NULL,
   facet_scales = "fixed",
+  facet_space = "fixed",
   caption = NULL,
   theme = NULL
 )
@@ -158,7 +159,9 @@ gg_histogram(
 
 \item{facet_nrow}{The number of rows of facetted plots.}
 
-\item{facet_scales}{Whether facet_scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
+\item{facet_scales}{Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
+
+\item{facet_space}{Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Only applies Where facet2 is provided and facet_scales are not fixed. Defaults to "fixed".}
 
 \item{caption}{Caption title string.}
 
