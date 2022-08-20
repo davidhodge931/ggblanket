@@ -641,7 +641,7 @@ gg_function <- function(
     if (facet_scales %in% c("fixed", "free_y")) {
 
       x_vctr <- layer_data %>%
-        dplyr::select(tidyselect::starts_with("x")) %>%
+        dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmax_final$"))) %>%
         tidyr::pivot_longer(cols = tidyselect::everything()) %>%
         dplyr::pull(.data$value)
 
@@ -772,7 +772,7 @@ gg_function <- function(
   else {
     if (facet_scales %in% c("fixed", "free_x")) {
       y_vctr <- layer_data %>%
-        dplyr::select(tidyselect::starts_with("y")) %>%
+        dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymax_final$"))) %>%
         tidyr::pivot_longer(cols = tidyselect::everything()) %>%
         dplyr::pull(.data$value)
 
