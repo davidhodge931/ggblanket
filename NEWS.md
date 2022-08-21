@@ -1,5 +1,6 @@
 # ggblanket 1.3.6
 
+* Added col_continuous argument to support "steps". 
 * Updated default col breaks to breaks_pretty(4).
 
 # ggblanket 1.3.5

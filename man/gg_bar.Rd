@@ -49,6 +49,7 @@ gg_bar(
   col_legend_nrow = NULL,
   col_limits = NULL,
   col_title = NULL,
+  col_continuous = "gradient",
   facet_labels = NULL,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -146,6 +147,8 @@ gg_bar(
 \item{col_limits}{A vector to determine the limits of the axis.}
 
 \item{col_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
+
+\item{col_continuous}{Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps".}
 
 \item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).}
 

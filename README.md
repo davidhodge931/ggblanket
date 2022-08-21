@@ -172,7 +172,7 @@ penguins %>%
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="70%" />
 
-#### 6. {ggblanket} provides prefixed arguments to help find arguments.
+#### 6. {ggblanket} provides prefixed arguments for customisation.
 
 This is designed to work with the Rstudio autocomplete to help you find
 the adjustment you need. Press the tab key after typing `x_`,`y_`,
@@ -190,11 +190,9 @@ Available arguments are:
 -   `*_include`: Include a value within a scale
 -   `*_labels`: Adjust the labels on the breaks
 -   `*_limits`: Adjust the limits
--   `*_oob`: Adjust treatment of out-of-bound values
 -   `*_trans`: Transform an axis
 -   `*_sec_axis`: Add a secondary axis
 -   `*_title`: Add a title
--   `col_intervals`: Determine intervals to colour by
 -   `col_legend_place`: Place to put the legend (e.g. “r”)
 -   `col_legend_ncol`: Number of columns to arrange legend elements into
 -   `col_legend_nrow`: Number of rows to arrange legend elements into
@@ -203,6 +201,10 @@ Available arguments are:
 -   `facet_ncol`: How many columns to wrap facets into  
 -   `facet_nrow`: How many rows to wrap facets into
 
+Note that {ggblanket} keeps out-of-bound values (i.e. uses
+scales::oob_keep under the hood). However, you can zoom in using
+`coord = coord_cartesian(xlim = ..., ylim = ...)`.
+
 ``` r
 penguins %>%
   gg_jitter(
@@ -210,7 +212,6 @@ penguins %>%
     y = body_mass_g,
     col = flipper_length_mm,
     position = ggplot2::position_jitter(width = 0.2, height = 0, seed = 123), 
-    col_intervals = ~ santoku::chop_quantiles(.x, probs = seq(0, 1, 0.25)),
     col_legend_place = "r",
     y_include = 0,
     y_breaks = scales::breaks_width(1500), 

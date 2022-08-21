@@ -47,6 +47,7 @@
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left.
 #' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps".
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).
 #' @param facet_ncol The number of columns of facetted plots.
 #' @param facet_nrow The number of rows of facetted plots.
@@ -88,7 +89,7 @@ gg_violin <- function(
     x_include = NULL,
     x_labels = NULL,
     x_limits = NULL,
-    
+
     x_sec_axis = ggplot2::waiver(),
     x_title = NULL,
     x_trans = "identity",
@@ -97,7 +98,7 @@ gg_violin <- function(
     y_include = NULL,
     y_labels = NULL,
     y_limits = NULL,
-    
+
     y_sec_axis = ggplot2::waiver(),
     y_title = NULL,
     y_trans = "identity",
@@ -110,6 +111,7 @@ gg_violin <- function(
     col_legend_nrow = NULL,
     col_limits = NULL,
     col_title = NULL,
+    col_continuous = "gradient",
     facet_labels = NULL,
     facet_ncol = NULL,
     facet_nrow = NULL,
@@ -355,33 +357,54 @@ gg_violin <- function(
         if (!rlang::is_null(col_include)) col_limits <- range(c(col_include, col_limits))
 
         if (rlang::is_null(col_breaks)) {
-          
-          
+
+
           col_breaks <- scales::breaks_pretty(n = 4)
         }
 
-        if (rlang::is_null(pal)) pal <- viridis::viridis(100)
+        if (rlang::is_null(pal)) pal <- viridis::viridis(10)
         if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
 
-        col_scale <- list(
-          ggplot2::scale_colour_gradientn(
-            colors = pal,
-            labels = col_labels,
-            breaks = col_breaks,
-            limits = col_limits,
-            na.value = pal_na,
-            guide = ggplot2::guide_colorbar(title.position = col_title_position)
-          ),
-          col_scale <- ggplot2::scale_fill_gradientn(
-            colors = pal,
-            labels = col_labels,
-            breaks = col_breaks,
-            limits = col_limits,
-            na.value = pal_na,
-            guide = ggplot2::guide_colorbar(title.position = col_title_position)
+        if (col_continuous == "gradient") {
+          col_scale <- list(
+            ggplot2::scale_colour_gradientn(
+              colors = pal,
+              labels = col_labels,
+              breaks = col_breaks,
+              limits = col_limits,
+              na.value = pal_na,
+              guide = ggplot2::guide_colourbar(title.position = col_title_position, ticks.colour = "#F1F3F5")
+            ),
+            col_scale <- ggplot2::scale_fill_gradientn(
+              colors = pal,
+              labels = col_labels,
+              breaks = col_breaks,
+              limits = col_limits,
+              na.value = pal_na,
+              guide = ggplot2::guide_colourbar(title.position = col_title_position, ticks.colour = "#F1F3F5")
+            )
           )
-
-        )
+        }
+        else if (col_continuous == "steps") {
+          col_scale <- list(
+            ggplot2::scale_colour_stepsn(
+              colors = pal,
+              labels = col_labels,
+              breaks = col_breaks,
+              limits = col_limits,
+              na.value = pal_na,
+              guide = ggplot2::guide_coloursteps(title.position = col_title_position)
+            ),
+            col_scale <- ggplot2::scale_fill_stepsn(
+              colors = pal,
+              labels = col_labels,
+              breaks = col_breaks,
+              limits = col_limits,
+              na.value = pal_na,
+              guide = ggplot2::guide_coloursteps(title.position = col_title_position)
+            )
+          )
+        }
       }
       else { #intervals col
         data <- data %>%
