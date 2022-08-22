@@ -1,3 +1,9 @@
+# ggblanket 1.3.7
+
+* Improved default legend for gradient.
+* Added col_legend_rev argument.
+* Breaking: Removed col_intervals argument.
+
 # ggblanket 1.3.6
 
 * Added col_continuous argument to support "steps". 

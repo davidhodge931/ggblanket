@@ -24,7 +24,6 @@
 #' @param x_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param x_limits A vector of length 2 to determine the limits of the axis.
-
 #' @param x_sec_axis A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param x_trans For a numeric variable, a transformation object (e.g. "log10").
@@ -33,7 +32,6 @@
 #' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param y_limits A vector of length 2 to determine the limits of the axis.
-
 #' @param y_sec_axis A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_trans For a numeric variable, a transformation object (e.g. "log10").
@@ -45,6 +43,7 @@
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left.
+#' @param col_legend_rev Reverse the elements of the legend. Defaults to FALSE.
 #' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps".
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).
@@ -102,15 +101,19 @@ gg_path <- function(
     y_title = NULL,
     y_trans = "identity",
     col_breaks = NULL,
+    col_continuous = "gradient",
+
+
     col_include = NULL,
     col_intervals = NULL,
     col_labels = NULL,
     col_legend_place = NULL,
     col_legend_ncol = NULL,
     col_legend_nrow = NULL,
+    col_legend_rev = FALSE,
     col_limits = NULL,
     col_title = NULL,
-    col_continuous = "gradient",
+
     facet_labels = NULL,
     facet_ncol = NULL,
     facet_nrow = NULL,
@@ -130,7 +133,7 @@ gg_path <- function(
 
   #stop, warn or message
   if (rlang::is_null(data)) rlang::abort("data is required.")
-  if (rlang::is_null(titles)) rlang::inform(c("i" = "{ggblanket} converts unspecified titles using snakecase::to_sentence_case. Use titles = ~.x to leave unspecified titles as is, and/or specify individual titles manually using *_title arguments."))
+  if (rlang::is_null(titles)) rlang::inform(c("i" = "{ggblanket} converts unspecified titles using snakecase::to_sentence_case."))
   if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "{ggblanket} merges col and fill aesthetics into a single col aesthetic."))
   if (!rlang::quo_is_null(facet)) rlang::inform(c("i" = "{ggblanket} treats faceting as an aesthetic."))
 
@@ -338,128 +341,97 @@ gg_path <- function(
                (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
         col_legend_place <- "n"
       }
-      else
+      else {
         col_legend_place <- "b"
+      }
     }
 
     if (is.numeric(rlang::eval_tidy(col, data))) {
-      if (rlang::is_null(col_intervals)) { #continuous col
-        col_min <- data %>% dplyr::pull(!!col) %>% min(na.rm = TRUE)
-        col_max <- data %>% dplyr::pull(!!col) %>% max(na.rm = TRUE)
+      col_min <- data %>% dplyr::pull(!!col) %>% min(na.rm = TRUE)
+      col_max <- data %>% dplyr::pull(!!col) %>% max(na.rm = TRUE)
 
-        if (!rlang::is_null(col_limits)) {
-          if (is.na(col_limits)[1]) col_limits[1] <- col_min
-          if (is.na(col_limits)[2]) col_limits[2] <- col_max
+      if (!rlang::is_null(col_limits)) {
+        if (is.na(col_limits)[1]) col_limits[1] <- col_min
+        if (is.na(col_limits)[2]) col_limits[2] <- col_max
+      }
+
+      if (rlang::is_null(col_limits)) col_limits <- c(col_min, col_max)
+      if (!rlang::is_null(col_include)) col_limits <- range(c(col_include, col_limits))
+
+      if (rlang::is_null(pal)) pal <- viridis::viridis(10)
+      if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
+
+      if (col_continuous == "gradient") {
+        if (rlang::is_null(col_breaks)) {
+          if (col_legend_place %in% c("b", "t")) {
+            col_breaks <- function(x) c(x, stats::median(x))
+            draw_llim <- TRUE #should be FALSE
+            draw_ulim <- FALSE
+          }
+          else if (col_legend_place %in% c("l", "r")) {
+            col_breaks <- scales::breaks_pretty(4)
+            draw_llim <- TRUE
+            draw_ulim <- TRUE
+          }
+        } else {
+          draw_llim <- TRUE
+          draw_ulim <- TRUE
         }
 
-        if (rlang::is_null(col_limits)) col_limits <- c(col_min, col_max)
-        if (!rlang::is_null(col_include)) col_limits <- range(c(col_include, col_limits))
-
+        col_scale <- list(
+          ggplot2::scale_colour_gradientn(
+            colors = pal,
+            labels = col_labels,
+            breaks = col_breaks,
+            limits = col_limits,
+            na.value = pal_na,
+            guide = ggplot2::guide_colourbar(
+              title.position = col_title_position,
+              draw.ulim = draw_ulim,
+              draw.llim = draw_llim,
+              ticks.colour = "#F1F3F5",
+              reverse = col_legend_rev)
+          ),
+          col_scale <- ggplot2::scale_fill_gradientn(
+            colors = pal,
+            labels = col_labels,
+            breaks = col_breaks,
+            limits = col_limits,
+            na.value = pal_na,
+            guide = ggplot2::guide_colourbar(
+              title.position = col_title_position,
+              draw.ulim = draw_ulim,
+              draw.llim = draw_llim,
+              ticks.colour = "#F1F3F5",
+              reverse = col_legend_rev)
+          )
+        )
+      }
+      else if (col_continuous == "steps") {
         if (rlang::is_null(col_breaks)) {
-
-
           col_breaks <- scales::breaks_pretty(n = 4)
         }
 
-        if (rlang::is_null(pal)) pal <- viridis::viridis(10)
-        if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
-
-        if (col_continuous == "gradient") {
-          col_scale <- list(
-            ggplot2::scale_colour_gradientn(
-              colors = pal,
-              labels = col_labels,
-              breaks = col_breaks,
-              limits = col_limits,
-              na.value = pal_na,
-              guide = ggplot2::guide_colourbar(title.position = col_title_position, ticks.colour = "#F1F3F5")
-            ),
-            col_scale <- ggplot2::scale_fill_gradientn(
-              colors = pal,
-              labels = col_labels,
-              breaks = col_breaks,
-              limits = col_limits,
-              na.value = pal_na,
-              guide = ggplot2::guide_colourbar(title.position = col_title_position, ticks.colour = "#F1F3F5")
-            )
-          )
-        }
-        else if (col_continuous == "steps") {
-          col_scale <- list(
-            ggplot2::scale_colour_stepsn(
-              colors = pal,
-              labels = col_labels,
-              breaks = col_breaks,
-              limits = col_limits,
-              na.value = pal_na,
-              guide = ggplot2::guide_coloursteps(title.position = col_title_position)
-            ),
-            col_scale <- ggplot2::scale_fill_stepsn(
-              colors = pal,
-              labels = col_labels,
-              breaks = col_breaks,
-              limits = col_limits,
-              na.value = pal_na,
-              guide = ggplot2::guide_coloursteps(title.position = col_title_position)
-            )
-          )
-        }
-      }
-      else { #intervals col
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!col, col_intervals))
-
-        col_levels <- levels(rlang::eval_tidy(col, data))
-        col_n <- length(col_levels)
-
-        if (rlang::is_null(pal)) pal <- pal_viridis_mix(col_n)
-        else pal <- pal[1:col_n]
-
-        if (is.numeric(rlang::eval_tidy(y, data)) |
-            lubridate::is.Date(rlang::eval_tidy(y, data))) {
-
-          if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
-          else col_legend_rev <- TRUE
-        }
-        else if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
-          if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
-          else col_legend_rev <- FALSE
-          pal <- rev(pal)
-        }
-        else col_legend_rev <- FALSE
-
-        if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
-        if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
-
         col_scale <- list(
-          ggplot2::scale_colour_manual(
-            values = pal,
-            breaks = col_levels,
-            limits = col_levels,
+          ggplot2::scale_colour_stepsn(
+            colors = pal,
             labels = col_labels,
+            breaks = col_breaks,
+            limits = col_limits,
             na.value = pal_na,
-            guide = ggplot2::guide_legend(
-              reverse = col_legend_rev,
+            guide = ggplot2::guide_coloursteps(
               title.position = col_title_position,
-              ncol = col_legend_ncol,
-              nrow = col_legend_nrow,
-              byrow = TRUE
-            )
+              reverse = col_legend_rev)
           ),
-          ggplot2::scale_fill_manual(
-            values = pal,
-            breaks = col_levels,
-            limits = col_levels,
+          col_scale <- ggplot2::scale_fill_stepsn(
+            colors = pal,
             labels = col_labels,
+            breaks = col_breaks,
+            limits = col_limits,
             na.value = pal_na,
-            # aesthetics = c("col", "fill"),
-            guide = ggplot2::guide_legend(
-              reverse = col_legend_rev,
+            guide = ggplot2::guide_coloursteps(
               title.position = col_title_position,
-              ncol = col_legend_ncol,
-              nrow = col_legend_nrow,
-              byrow = TRUE
-            )
+              reverse = col_legend_rev)
           )
         )
       }
@@ -481,23 +453,25 @@ gg_path <- function(
           lubridate::is.Date(rlang::eval_tidy(y, data))) {
 
         if (is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data))) {
-          col_legend_rev <- FALSE
+          col_legend_rev_auto <- FALSE
         }
-        else if (col_legend_place %in% c("b", "t")) col_legend_rev <- FALSE
-        else col_legend_rev <- TRUE
+        else if (col_legend_place %in% c("b", "t")) col_legend_rev_auto <- FALSE
+        else col_legend_rev_auto <- TRUE
       }
       else if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
         if (is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data))) {
-          col_legend_rev <- TRUE
+          col_legend_rev_auto <- TRUE
         }
-        else if (col_legend_place %in% c("b", "t")) col_legend_rev <- TRUE
-        else col_legend_rev <- FALSE
+        else if (col_legend_place %in% c("b", "t")) col_legend_rev_auto <- TRUE
+        else col_legend_rev_auto <- FALSE
         pal <- rev(pal)
       }
-      else col_legend_rev <- FALSE
+      else col_legend_rev_auto <- FALSE
 
       if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
       if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
+
+      if (col_legend_rev) col_legend_rev_auto <- !col_legend_rev_auto
 
       col_scale <- list(
         ggplot2::scale_colour_manual(
@@ -507,7 +481,7 @@ gg_path <- function(
           labels = col_labels,
           na.value = pal_na,
           guide = ggplot2::guide_legend(
-            reverse = col_legend_rev,
+            reverse = col_legend_rev_auto,
             title.position = col_title_position,
             ncol = col_legend_ncol,
             nrow = col_legend_nrow,
@@ -520,7 +494,7 @@ gg_path <- function(
           labels = col_labels,
           na.value = pal_na,
           guide = ggplot2::guide_legend(
-            reverse = col_legend_rev,
+            reverse = col_legend_rev_auto,
             title.position = col_title_position,
             ncol = col_legend_ncol,
             nrow = col_legend_nrow,

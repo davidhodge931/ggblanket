@@ -44,15 +44,16 @@ gg_pointrange(
   y_title = NULL,
   y_trans = "identity",
   col_breaks = NULL,
+  col_continuous = "gradient",
   col_include = NULL,
   col_intervals = NULL,
   col_labels = NULL,
   col_legend_place = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
+  col_legend_rev = FALSE,
   col_limits = NULL,
   col_title = NULL,
-  col_continuous = "gradient",
   facet_labels = NULL,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -141,6 +142,8 @@ gg_pointrange(
 
 \item{col_breaks}{A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
+\item{col_continuous}{Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps".}
+
 \item{col_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
 \item{col_intervals}{A function to cut or chop the numeric variable into intervals (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
@@ -153,11 +156,11 @@ gg_pointrange(
 
 \item{col_legend_nrow}{The number of rows for the legend elements.}
 
+\item{col_legend_rev}{Reverse the elements of the legend. Defaults to FALSE.}
+
 \item{col_limits}{A vector to determine the limits of the axis.}
 
 \item{col_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
-
-\item{col_continuous}{Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps".}
 
 \item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).}
 

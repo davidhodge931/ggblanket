@@ -193,6 +193,7 @@ Available arguments are:
 -   `*_trans`: Transform an axis
 -   `*_sec_axis`: Add a secondary axis
 -   `*_title`: Add a title
+-   `col_continuous` How to colour a continuous variable
 -   `col_legend_place`: Place to put the legend (e.g. “r”)
 -   `col_legend_ncol`: Number of columns to arrange legend elements into
 -   `col_legend_nrow`: Number of rows to arrange legend elements into
@@ -212,7 +213,7 @@ penguins %>%
     y = body_mass_g,
     col = flipper_length_mm,
     position = ggplot2::position_jitter(width = 0.2, height = 0, seed = 123), 
-    col_legend_place = "r",
+    col_continuous = "steps",
     y_include = 0,
     y_breaks = scales::breaks_width(1500), 
     y_labels = scales::label_number()
