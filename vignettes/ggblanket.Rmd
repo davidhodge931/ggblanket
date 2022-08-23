@@ -22,15 +22,15 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-ggblanket is a package of wrapper functions around the incredible ggplot2 package.
+ggblanket is a package of wrapper functions around the fantastic ggplot2 package.
 
-The primary objective is to **simplify visualisation** for users.
+The primary objective is to **simplify visualisation**.
 
 Secondary objectives are:
 
-* scope: cover >90% of what ggplot2 does
-* design: produce well-designed visualisation by default
-* alignment: use conventions aligned with ggplot2 where possible
+* Scope: cover >90% of what ggplot2 does
+* Design: produce well-designed visualisation by default
+* Alignment: use conventions aligned with ggplot2 where possible
 
 It is intended to be useful for all levels of experience from beginners all the way to expert ggplot-ers.
 
@@ -50,9 +50,9 @@ To simplify visualisation, the ggblanket package provides:
 10. A `theme` argument for customisation
 11. A `gg_theme` function to create a quick theme 
 12. A `gg_blank` function for extra flexibility
-13. Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
-14. Access to other `geom_*` arguments via `...`
-15. A way to easily create your own customised plot functions.
+13. Access to other `geom_*` arguments via `...`
+14. A way to easily create your own customised plot functions
+15. Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
 
 ```{r setup}
 library(dplyr)
@@ -324,36 +324,7 @@ penguins %>%
   geom_errorbar(width = 0.1, colour = pal_na()) 
 ```
 
-### 13. Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
-
-The `add_tooltip_text` function allows users to create nice tooltips in combination with the `gg_*()` `text` argument, and the `tooltip = "text"` argument in `ggplotly`.
-
-```{r, eval = F}
-theme_custom <- gg_theme(
-  "helvetica",
-  bg_plot_pal = "white",
-  bg_panel_pal = "white",
-  grid_h = TRUE
-)
-
-iris %>% 
-  mutate(Species = stringr::str_to_sentence(Species)) %>% 
-  add_tooltip_text(titles = snakecase::to_sentence_case) %>% 
-  gg_point(
-    x = Sepal.Width, 
-    y = Sepal.Length, 
-    col = Species, 
-    text = text, 
-    col_legend_place = "r",
-    theme = theme_custom) %>% 
-  plotly::ggplotly(tooltip = "text")
-```
-
-```{r, echo=FALSE}
-knitr::include_graphics("../man/figures/ggplotly_screenshot.png", dpi = 300)
-```
-
-### 14. Access to other `geom_*` arguments via `...`
+### 13. Access to other `geom_*` arguments via `...`
 
 This relates to all other arguments other than the mapping argument with aesthetics.
 
@@ -371,7 +342,7 @@ penguins %>%
   ) 
 ```
 
-### 15. A way to easily create your own customised plot functions
+### 14. A way to easily create your own customised plot functions
 
 This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_` function. 
 
@@ -401,4 +372,33 @@ iris %>%
     subtitle = "Iris sepal length by width and species",
     caption = "Edgar Anderson, 1935"
   )
+```
+
+### 15. Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
+
+The `add_tooltip_text` function allows users to create nice tooltips in combination with the `gg_*()` `text` argument, and the `tooltip = "text"` argument in `ggplotly`.
+
+```{r, eval = F}
+theme_custom <- gg_theme(
+  "helvetica",
+  bg_plot_pal = "white",
+  bg_panel_pal = "white",
+  grid_h = TRUE
+)
+
+iris %>% 
+  mutate(Species = stringr::str_to_sentence(Species)) %>% 
+  add_tooltip_text(titles = snakecase::to_sentence_case) %>% 
+  gg_point(
+    x = Sepal.Width, 
+    y = Sepal.Length, 
+    col = Species, 
+    text = text, 
+    col_legend_place = "r",
+    theme = theme_custom) %>% 
+  plotly::ggplotly(tooltip = "text")
+```
+
+```{r, echo=FALSE}
+knitr::include_graphics("../man/figures/ggplotly_screenshot.png", dpi = 300)
 ```
