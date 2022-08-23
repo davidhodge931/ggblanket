@@ -34,15 +34,15 @@ knitr::opts_chunk$set(
 
 To do this, the {ggblanket} package:
 
-1. uses `gg_*` functions that wrap a single `ggplot2::geom_*` function
+1. provides `gg_*` short-cut functions to plot a `ggplot2::geom`
 2. merges col and fill aesthetics into a single `col` argument
-3. customises colours via `pal` and `alpha` arguments consistently
+3. customises colours consistently via a `pal` argument
 4. provides a `facet` argument to facet by a single variable
 5. provides an additional `facet2` argument to facet in a grid 
 6. provides prefixed arguments to help find arguments
-7. uses nice numeric/date default scales.
-8. provides a `theme` argument for customisation.
-9. provides a `gg_theme` function to create a quick theme. 
+7. uses nice numeric/date default scales
+8. provides a `theme` argument for customisation
+9. provides a `gg_theme` function to create a quick theme 
 10. arranges horizontal plot labels to be in correct order
 11. converts unspecified titles to `snakecase::to_sentence`
 12. provides a `gg_blank` function for extra flexibility
@@ -78,7 +78,7 @@ library(ggblanket)
 library(palmerpenguins)
 ```
 
-#### 1. {ggblanket} uses `gg_*` functions that wrap a single `ggplot2::geom_*` function.
+#### 1. {ggblanket} provides `gg_*` short-cut functions to plot a `geom`.
 
 These functions wrap a `ggplot2::ggplot(aes(...))` function that includes any aesthetics provided with a single `ggplot2::geom_*()` function.
 

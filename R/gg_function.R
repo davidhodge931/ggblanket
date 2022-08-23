@@ -85,7 +85,6 @@ gg_function <- function(
     x_include = NULL,
     x_labels = NULL,
     x_limits = NULL,
-
     x_sec_axis = ggplot2::waiver(),
     x_title = NULL,
     x_trans = "identity",
@@ -94,14 +93,11 @@ gg_function <- function(
     y_include = NULL,
     y_labels = NULL,
     y_limits = NULL,
-
     y_sec_axis = ggplot2::waiver(),
     y_title = NULL,
     y_trans = "identity",
     col_breaks = NULL,
     col_continuous = "gradient",
-
-
     col_include = NULL,
     col_intervals = NULL,
     col_labels = NULL,
@@ -111,7 +107,6 @@ gg_function <- function(
     col_legend_rev = FALSE,
     col_limits = NULL,
     col_title = NULL,
-
     facet_labels = NULL,
     facet_ncol = NULL,
     facet_nrow = NULL,
