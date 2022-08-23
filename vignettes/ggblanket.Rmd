@@ -36,7 +36,7 @@ It is intended to be useful for all levels of experience from beginners all the 
 
 ## How ggblanket works
 
-To do this, the ggblanket package provides:
+To simplify visualisation, the ggblanket package provides:
 
 1. `gg_*` functions to plot a single geom
 2. col and fill aesthetics merged into a single `col` argument
