@@ -1,34 +1,12 @@
-# ggblanket 1.3.7
+# ggblanket 1.3.9000
 
-* Improved default legend for gradient.
-* Added col_legend_rev argument.
-* Breaking: Removed col_intervals argument.
-
-# ggblanket 1.3.6
-
-* Added col_continuous argument to support "steps". 
-* Updated default col breaks to breaks_pretty(4).
-
-# ggblanket 1.3.5
-
-* Reverted to scales::oob_keep. 
-* Breaking: removed option to adjust oob. 
-
-# ggblanket 1.3.4
-
-* Added `facet_space` argument.
-
-# ggblanket 1.3.3
-
-* Corrected unintended affect on scales with v1.3.2.
-
-# ggblanket 1.3.2
-
-* Corrected unintended affect on scales with v1.3.1.
-
-# ggblanket 1.3.1
-
-* Changed `*_oob` default back to censor, and fix `position = "fill"` bug
+* Breaking: Removed `col_intervals` argument.
+* Breaking: removed `*_oob` arguments. 
+* Added `col_continuous` argument to support colouring by "steps". 
+* Added `facet_space` argument to support proportional facet panels.
+* Added `col_legend_rev` argument to reverse legends.
+* Improved default legend look for where continuous gradient.
+* Fixed bug with `position = "fill"`.
 
 # ggblanket 1.3.0
 
