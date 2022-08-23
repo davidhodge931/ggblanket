@@ -9,6 +9,7 @@
 * Added `col_legend_rev` argument to reverse legends.
 * Improved default legend look for where continuous gradient.
 * Fixed bug with `position = "fill"`.
+* Added vignette.
 
 # ggblanket 1.3.0
 
