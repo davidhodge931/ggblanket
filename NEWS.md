@@ -1,7 +1,9 @@
 # ggblanket 1.3.9000
 
 * Breaking: Removed `col_intervals` argument.
-* Breaking: removed `*_oob` arguments. 
+* Breaking: Removed `*_oob` arguments.
+* Breaking: In gg_theme, changed `*_style` arguments to `*_face`.
+* Breaking: In gg_theme, changed `font` arguments to `family`.
 * Added `col_continuous` argument to support colouring by "steps". 
 * Added `facet_space` argument to support proportional facet panels.
 * Added `col_legend_rev` argument to reverse legends.

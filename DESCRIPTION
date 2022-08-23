@@ -26,10 +26,13 @@ Imports:
     tidyselect,
     viridis
 Suggests: 
+    knitr,
     palmerpenguins,
     pals,
     patchwork,
     plotly,
+    rmarkdown,
     santoku,
     sf,
     stringr
+VignetteBuilder: knitr

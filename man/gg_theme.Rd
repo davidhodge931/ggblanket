@@ -5,23 +5,23 @@
 \title{Quick theme for a ggplot.}
 \usage{
 gg_theme(
-  font = "",
+  family = "",
   title_pal = "#000000",
-  title_font = NULL,
+  title_family = NULL,
   title_size = 11,
-  title_style = "bold",
-  subtitle_font = NULL,
+  title_face = "bold",
+  subtitle_family = NULL,
   subtitle_pal = "#323232",
   subtitle_size = 10,
-  subtitle_style = "plain",
-  body_font = NULL,
+  subtitle_face = "plain",
+  body_family = NULL,
   body_pal = "#323232",
   body_size = 10,
-  body_style = "plain",
-  caption_font = NULL,
+  body_face = "plain",
+  caption_family = NULL,
   caption_pal = "#7F7F7F",
   caption_size = 9,
-  caption_style = "plain",
+  caption_face = "plain",
   axis_size = 0.3,
   axis_pal = "#323232",
   ticks_size = 0.3,
@@ -38,39 +38,39 @@ gg_theme(
 )
 }
 \arguments{
-\item{font}{The font for all text to use. Defaults to "".}
+\item{family}{The font family for all text to use. Defaults to "".}
 
-\item{title_pal}{The colour palette for the title font. Defaults to "#000000".}
+\item{title_pal}{The colour palette for the title family. Defaults to "#000000".}
 
-\item{title_font}{The font for the title. If NULL, inherits from font argument.}
+\item{title_family}{The font family for the title. If NULL, inherits from family argument.}
 
-\item{title_size}{The size of the title font. Defaults to 11.}
+\item{title_size}{The size of the title family. Defaults to 11.}
 
-\item{title_style}{The style of the title font. Defaults to "bold".}
+\item{title_face}{The font style of the title family. Defaults to "bold".}
 
-\item{subtitle_font}{The font for the subtitle. If NULL, inherits from font argument.}
+\item{subtitle_family}{The font family for the subtitle. If NULL, inherits from family argument.}
 
-\item{subtitle_pal}{The colour palette for the subtitle font. Defaults to "#323232".}
+\item{subtitle_pal}{The colour palette for the subtitle family. Defaults to "#323232".}
 
-\item{subtitle_size}{The size of the subtitle font. Defaults to 10.}
+\item{subtitle_size}{The size of the subtitle family. Defaults to 10.}
 
-\item{subtitle_style}{The style of the subtitle font. Defaults to "plain".}
+\item{subtitle_face}{The font style of the subtitle family. Defaults to "plain".}
 
-\item{body_font}{The font for all text other than the title, subtitle and caption. If NULL, inherits from font argument.}
+\item{body_family}{The font family for all text other than the title, subtitle and caption. If NULL, inherits from family argument.}
 
 \item{body_pal}{The colour palette for all text other than the title, subtitle or caption. Defaults to "#323232".}
 
 \item{body_size}{The size of all text other than the title, subtitle and caption. Defaults to 10.}
 
-\item{body_style}{The style of all text other than the title, subtitle or caption. Defaults to "plain".}
+\item{body_face}{The font style of all text other than the title, subtitle or caption. Defaults to "plain".}
 
-\item{caption_font}{The font for the caption. If NULL, inherits from font argument.}
+\item{caption_family}{The font family for the caption. If NULL, inherits from family argument.}
 
 \item{caption_pal}{The colour palette for the caption. Defaults to "#7F7F7F".}
 
 \item{caption_size}{The size of the caption. Defaults to 9.}
 
-\item{caption_style}{The style of the caption. Defaults to "plain".}
+\item{caption_face}{The font style of the caption. Defaults to "plain".}
 
 \item{axis_size}{The size of the axis. Defaults to 0.3.}
 
