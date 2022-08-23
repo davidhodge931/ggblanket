@@ -163,7 +163,7 @@ penguins %>%
   gg_point(
     x = bill_length_mm, 
     y = body_mass_g,
-    col = sex,
+    col = flipper_length_mm,
     facet = species,
     facet2 = sex, 
     y_breaks = scales::breaks_width(1500), 
