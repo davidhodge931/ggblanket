@@ -40,10 +40,10 @@ To simplify visualisation, the ggblanket package provides:
 
 1. `gg_*` functions to plot a single geom
 2. col and fill aesthetics merged into a single `col` argument
-3. Colours customised consistently via a `pal` argument
+3. Colours customised via a `pal` argument consistently
 4. A `facet` argument to facet by a single variable
 5. An additional `facet2` argument to facet in a grid 
-6. Consistent prefixed arguments to help find arguments to customise
+6. Ability to customise via arguments with consistent prefix's 
 7. Unspecified titles converted to `snakecase::to_sentence`
 8. Horizontal labels generally arranged in correct order
 9. Nice default scales and theme
@@ -63,7 +63,7 @@ library(palmerpenguins)
 
 ### 1. `gg_*` functions to plot a single geom
 
-These functions wrap a `ggplot2::ggplot(aes(...))` function that includes any aesthetics provided with a single `ggplot2::geom_*()` function.
+These `gg_*`functions each wrap a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function.
 
 ```{r}
 iris %>%
@@ -85,9 +85,9 @@ penguins %>%
     col = species) 
 ```
 
-### 3. Colours customised consistently via a `pal` argument consistently
+### 3. Colours customised via a `pal` argument consistently
 
-These arguments work in the same way regardless of whether a `col` variable is specified or not. This is therefore one less thing for users to remember. 
+These arguments work in the same way regardless of whether a `col` variable is specified or not. This is therefore one less thing for users to remember. The `alpha` argument is also available.
 
 ```{r}
 penguins %>% 
@@ -139,11 +139,11 @@ penguins %>%
     size = 1)
 ```
 
-### 6. Consistent prefixed arguments to help find arguments to customise
+### 6. Ability to customise via arguments with consistent prefix's
 
-This is designed to work with the Rstudio autocomplete to help you find the adjustment you need. Press the tab key after typing `x_`,`y_`, `col_` or `facet_` to access this. Then use arrow keys, and press tab again to select.
+There is lots of customisation available through carefully named arguments with consistent prefixes.
 
-In general, arguments follow the prefix with the argument name that they relate to in the `ggplot2` function (e.g. `scale_*_continuous`, `facet_wrap` or `facet_grid`).
+This is designed to work with the Rstudio autocomplete to help you find the adjustment you need. Press the tab key after typing `x`,`y`, `col` or `facet` to access the list from autocomplete. Then use arrow keys, and press tab again to select.
 
 Available arguments are:
 
@@ -160,11 +160,11 @@ Available arguments are:
 * `col_legend_ncol`: Number of columns to arrange legend elements into
 * `col_legend_nrow`: Number of rows to arrange legend elements into
 * `facet_scales`: How facet scales are to be treated
-* `facet_space`: Whether facet space is to be treated in the grid
+* `facet_space`: Whether facet space is to be allocated proportionally
 * `facet_ncol`: How many columns to wrap facets into  
 * `facet_nrow`: How many rows to wrap facets into
 
-Note that ggblanket keeps out-of-bound values (i.e. uses scales::oob_keep under the hood). However, you can zoom in using `coord = coord_cartesian(xlim = ..., ylim = ...)`.
+Note that ggblanket keeps out-of-bound values (i.e. it uses scales::oob_keep under the hood). However, you can zoom in using `coord = coord_cartesian(xlim = ..., ylim = ...)` (or by filtering the data).
 
 ```{r}
 penguins %>%
@@ -236,6 +236,8 @@ The default x and y scales have been designed to create symmetry and balance.
 
 The default theme has a clean look designed to draw attention to the patterns of the data in the panel.
 
+Note if you do adjust the theme, ggblanket guesses the gridlines you want based on the type of data provided to the `gg_*` function. 
+
 ```{r}
 storms %>%
   group_by(year) %>%
@@ -259,6 +261,8 @@ storms %>%
 This allows you to utilise the simplicity of ggblanket, while making content that has your required look and feel.
 
 Your theme will control all theme aspects, other than the legend position and direction. You must instead control these within the `gg_*` function with the `col_legend_place` argument (e.g. ``col_legend_place = "r"`).
+
+Note that as soon as you add a theme using `gg_theme()`, you will need to add any gridlines you want using the `grid_h` and `grid_v` arguments. 
 
 ```{r}
 penguins %>%
