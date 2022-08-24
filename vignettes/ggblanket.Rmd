@@ -184,7 +184,7 @@ penguins %>%
 
 This will make quicker to get to a plot that has titles that are good for external people to see, and will often work nicely for your `snakecase` column names. 
 
-For titles that you need to change manually, you can change manually using `x_title`, `y_title`, or `col_title`. 
+For titles that you need to change manually, you can change manually using `x_title`, `y_title`, or `col_title`. To remove titles, you can use `x_title = ""` within the `gg_*` function and equivalent for the y and col titles. 
 
 You can also use `titles = ~.x` to leave unspecified titles as per variable names. 
 
