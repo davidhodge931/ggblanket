@@ -7,6 +7,7 @@
 * Added `col_continuous` argument to support colouring by "steps". 
 * Added `facet_space` argument to support proportional facet panels.
 * Added `col_legend_rev` argument to reverse legends.
+* Added `gg_polygon` function.
 * Improved default legend look for where continuous gradient.
 * Fixed bug with `position = "fill"`.
 * Added vignette.
