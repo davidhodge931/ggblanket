@@ -30,9 +30,9 @@ Secondary objectives are:
 
 * Scope: cover >90% of what ggplot2 does
 * Design: produce well-designed visualisation by default
-* Alignment: use conventions aligned with ggplot2 where possible
+* Alignment: use conventions generally aligned with ggplot2. 
 
-It is intended to be useful for all levels of experience from beginners to experts.
+It is intended to be useful for all levels of experience from beginner to expert.
 
 ## How ggblanket works
 

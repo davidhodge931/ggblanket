@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-ggblanket is a package of wrapper functions around the incredible ggplot2 package.
+ggblanket is a package of wrapper functions around the fantastic ggplot2 package.
 
 The primary objective is to **simplify visualisation**.
 
@@ -40,7 +40,7 @@ Secondary objectives are:
 * Design: produce well-designed visualisation by default
 * Alignment: use conventions generally aligned with ggplot2. 
 
-It is intended to be useful for all levels of experience from beginners to experts.
+It is intended to be useful for all levels of experience from beginner to expert.
 
 ## Website
 
