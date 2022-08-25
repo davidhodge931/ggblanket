@@ -28,7 +28,7 @@ The primary objective is to **simplify visualisation**.
 
 Secondary objectives are:
 
-* Scope: cover >90% of what ggplot2 does
+* Scope: cover 80%+ of what ggplot2 does
 * Design: produce well-designed visualisation by default
 * Alignment: use conventions generally aligned with ggplot2. 
 
@@ -66,8 +66,8 @@ library(palmerpenguins)
 These `gg_*`functions each wrap a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function.
 
 ```{r}
-iris %>%
-  mutate(Species = stringr::str_to_sentence(Species)) %>% 
+iris |>
+  mutate(Species = stringr::str_to_sentence(Species)) |> 
   gg_point(
     x = Sepal.Width, 
     y = Sepal.Length, 
@@ -79,7 +79,7 @@ iris %>%
 There is no `fill` concept in ggblanket. Instead, `col` relates to both the `col` and `fill` concepts of ggplot2. A message is provided to users in the console to remind them of this. 
 
 ```{r}
-penguins %>% 
+penguins |> 
   gg_histogram(
     x = body_mass_g, 
     col = species) 
@@ -90,10 +90,10 @@ penguins %>%
 These arguments work in the same way regardless of whether a `col` variable is specified or not. This is therefore one less thing for users to remember. The `alpha` argument is also available.
 
 ```{r}
-penguins %>% 
-  mutate(sex = stringr::str_to_sentence(sex)) %>% 
-  group_by(species, sex) %>% 
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
+penguins |> 
+  mutate(sex = stringr::str_to_sentence(sex)) |> 
+  group_by(species, sex) |> 
+  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) |> 
   gg_col(
     x = species, 
     y = body_mass_g, 
@@ -107,9 +107,9 @@ penguins %>%
 Facetting is treated as if it is an aesthetic, where the users just provide an unquoted variable to facet by. A message is provided to users in the console to remind them of this.
 
 ```{r}
-penguins %>% 
-  tidyr::drop_na(sex) %>%
-  mutate(sex = stringr::str_to_sentence(sex)) %>% 
+penguins |> 
+  tidyr::drop_na(sex) |>
+  mutate(sex = stringr::str_to_sentence(sex)) |> 
   gg_violin(
     x = sex, 
     y = body_mass_g, 
@@ -126,9 +126,9 @@ If only `facet` is provided, the `gg_*` function under the hood uses `ggplot2::f
 However, if `facet2` is also provided, then the gg_* function uses `ggplot2::facet_grid` to facet in grid of `facet` by `facet2`.
 
 ```{r, fig.asp=0.75}
-penguins %>% 
-  tidyr::drop_na(sex) %>% 
-  mutate(sex = stringr::str_to_sentence(sex)) %>% 
+penguins |> 
+  tidyr::drop_na(sex) |> 
+  mutate(sex = stringr::str_to_sentence(sex)) |> 
   gg_point(
     x = bill_length_mm, 
     y = body_mass_g,
@@ -155,7 +155,7 @@ Available arguments are:
 * `*_trans`: Transform an axis 
 * `*_sec_axis`: Add a secondary axis
 * `*_title`: Add a title
-* `col_continuous` How to colour a continuous variable
+* `col_continuous` How to colour a continuous variable (e.g. "steps")
 * `col_legend_place`: Place to put the legend (e.g. "r")
 * `col_legend_ncol`: Number of columns to arrange legend elements into
 * `col_legend_nrow`: Number of rows to arrange legend elements into
@@ -167,7 +167,7 @@ Available arguments are:
 Note that ggblanket keeps out-of-bound values (i.e. it uses scales::oob_keep under the hood). However, you can zoom in using `coord = coord_cartesian(xlim = ..., ylim = ...)` (or by filtering the data).
 
 ```{r}
-penguins %>%
+penguins |>
   gg_jitter(
     x = species,
     y = body_mass_g,
@@ -184,14 +184,12 @@ penguins %>%
 
 This will make quicker to get to a plot that has titles that are good for external people to see, and will often work nicely for your `snakecase` column names. 
 
-For titles that you need to change manually, you can change manually using `x_title`, `y_title`, or `col_title`. To remove titles, you can use `x_title = ""` within the `gg_*` function and equivalent for the y and col titles. 
-
-You can also use `titles = ~.x` to leave unspecified titles as per variable names. 
+For titles that you need to change manually, you can change manually using `x_title`, `y_title`, or `col_title`. To remove titles, you can use `x_title = ""` within the `gg_*` function and equivalent for the y and col titles. Or add a `+ ggplot2::labs(x = NULL, y = NULL, col = NULL, fill = NULL)` layer as applicable.
 
 ```{r}
-penguins %>%
-  group_by(species, sex) %>%
-  summarise(across(body_mass_g, ~ round(mean(.x, na.rm = TRUE)), 0)) %>% 
+penguins |>
+  group_by(species, sex) |>
+  summarise(across(body_mass_g, ~ round(mean(.x, na.rm = TRUE)), 0)) |> 
   gg_tile(
     x = sex, 
     y = species, 
@@ -217,10 +215,10 @@ When plots are horizontal, ggblanket ensures y labels and colours are in the rig
 However, if it gets the legend direction wrong at any point, you can reverse using the `col_legend_rev` argument.
 
 ```{r}
-penguins %>%
-  tidyr::drop_na(sex) %>% 
-  group_by(species, sex, island) %>%
-  summarise(body_mass_kg = mean(body_mass_g) / 1000) %>%
+penguins |>
+  tidyr::drop_na(sex) |> 
+  group_by(species, sex, island) |>
+  summarise(body_mass_kg = mean(body_mass_g) / 1000) |>
   gg_col(
     x = body_mass_kg, 
     y = species, 
@@ -239,10 +237,10 @@ The default theme has a clean look designed to draw attention to the patterns of
 Note if you do adjust the theme, ggblanket guesses the gridlines you want based on the type of data provided to the `gg_*` function. 
 
 ```{r}
-storms %>%
-  group_by(year) %>%
-  filter(between(year, 1980, 2020)) %>%
-  summarise(wind = mean(wind, na.rm = TRUE)) %>%
+storms |>
+  group_by(year) |>
+  filter(between(year, 1980, 2020)) |>
+  summarise(wind = mean(wind, na.rm = TRUE)) |>
   gg_line(
     x = year,
     y = wind,
@@ -265,8 +263,8 @@ Your theme will control all theme aspects, other than the legend position and di
 Note that as soon as you add a theme using `gg_theme()`, you will need to add any gridlines you want using the `grid_h` and `grid_v` arguments. 
 
 ```{r}
-penguins %>%
-  mutate(sex = stringr::str_to_sentence(sex)) %>% 
+penguins |>
+  mutate(sex = stringr::str_to_sentence(sex)) |> 
   gg_point(x = bill_depth_mm,
            y = bill_length_mm,
            col = sex,
@@ -282,10 +280,10 @@ The `gg_theme` function allows you to create a theme that looks similar to the g
 This includes the following arguments for adjusting  gridlines, background colours, text and axis lines and ticks. 
 
 ```{r}
-storms %>%
-  group_by(year) %>%
-  filter(between(year, 1980, 2020)) %>%
-  summarise(wind = mean(wind, na.rm = TRUE)) %>%
+storms |>
+  group_by(year) |>
+  filter(between(year, 1980, 2020)) |>
+  summarise(wind = mean(wind, na.rm = TRUE)) |>
   gg_col(
     x = year,
     y = wind,
@@ -302,17 +300,17 @@ storms %>%
 This function means is useful where you want to use non-supported geom's, aesthetics or if you want to add subsequent layers. 
 
 ```{r}
-penguins %>%
-  tidyr::drop_na(sex) %>%
-  mutate(sex = stringr::str_to_sentence(sex)) %>%
-  group_by(species, sex) %>%
+penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(sex = stringr::str_to_sentence(sex)) |>
+  group_by(species, sex) |>
   summarise(
     mean = round(mean(bill_length_mm, na.rm = TRUE), 0),
     n = n(),
     se = mean / sqrt(n),
     upper = mean + 1.96 * se,
     lower = mean - 1.96 * se
-  ) %>%
+  ) |>
   gg_blank(
     x = sex,
     y = mean,
@@ -333,8 +331,8 @@ penguins %>%
 This relates to all other arguments other than the mapping argument with aesthetics.
 
 ```{r}
-penguins %>%
-  tidyr::drop_na(sex) %>%
+penguins |>
+  tidyr::drop_na(sex) |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -357,7 +355,7 @@ gg_point_custom <- function(data, x, y, col,
                             col_title = "", 
                             col_legend_place = "t",
                             ...) {
-  data %>% 
+  data |> 
     gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
              size = size, 
              pal = pal, 
@@ -366,8 +364,8 @@ gg_point_custom <- function(data, x, y, col,
              ...)
 }
 
-iris %>%
-  mutate(Species = stringr::str_to_sentence(Species)) %>% 
+iris |>
+  mutate(Species = stringr::str_to_sentence(Species)) |> 
   gg_point_custom(
     x = Sepal.Width,
     y = Sepal.Length,
@@ -390,16 +388,16 @@ theme_custom <- gg_theme(
   grid_h = TRUE
 )
 
-iris %>% 
-  mutate(Species = stringr::str_to_sentence(Species)) %>% 
-  add_tooltip_text(titles = snakecase::to_sentence_case) %>% 
+iris |> 
+  mutate(Species = stringr::str_to_sentence(Species)) |> 
+  add_tooltip_text(titles = snakecase::to_sentence_case) |> 
   gg_point(
     x = Sepal.Width, 
     y = Sepal.Length, 
     col = Species, 
     text = text, 
     col_legend_place = "r",
-    theme = theme_custom) %>% 
+    theme = theme_custom) |> 
   plotly::ggplotly(tooltip = "text")
 ```
 

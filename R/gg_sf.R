@@ -4,7 +4,7 @@
 #' @param data A sf object.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
-#' @param facet2 Unquoted second facet variable for a facet grid of facet by facet2 variables.
+#' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param text Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").
 #' @param stat Statistical transformation. A character string (e.g. "identity").
@@ -29,8 +29,8 @@
 #' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps".
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).
-#' @param facet_ncol The number of columns of facetted plots.
-#' @param facet_nrow The number of rows of facetted plots.
+#' @param facet_ncol The number of columns of faceted plots.
+#' @param facet_nrow The number of rows of faceted plots.
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
 #' @return A ggplot object.
@@ -350,11 +350,11 @@ gg_sf <- function(
     if (rlang::quo_is_null(facet2)) {
       plot <- plot +
         ggplot2::facet_wrap(
-          ggplot2::vars(!!facet),
+          facets = ggplot2::vars(!!facet),
           scales = "fixed",
-          labeller = ggplot2::as_labeller(facet_labels),
+          nrow = facet_nrow,
           ncol = facet_ncol,
-          nrow = facet_nrow
+          labeller = ggplot2::as_labeller(facet_labels)
         )
     }
     else {
@@ -362,8 +362,9 @@ gg_sf <- function(
         ggplot2::facet_grid(
           rows = ggplot2::vars(!!facet2),
           cols = ggplot2::vars(!!facet),
-          labeller = ggplot2::as_labeller(facet_labels),
-          scales = "fixed", space = "fixed"
+          scales = "fixed",
+          space = "fixed",
+          labeller = ggplot2::as_labeller(facet_labels)
         )
     }
   }

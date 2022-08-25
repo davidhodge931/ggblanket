@@ -46,7 +46,7 @@ gg_sf(
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
-\item{facet2}{Unquoted second facet variable for a facet grid of facet by facet2 variables.}
+\item{facet2}{Unquoted second facet variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
 
@@ -96,9 +96,9 @@ gg_sf(
 
 \item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).}
 
-\item{facet_ncol}{The number of columns of facetted plots.}
+\item{facet_ncol}{The number of columns of faceted plots.}
 
-\item{facet_nrow}{The number of rows of facetted plots.}
+\item{facet_nrow}{The number of rows of faceted plots.}
 
 \item{caption}{Caption title string.}
 

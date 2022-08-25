@@ -18,8 +18,6 @@ gg_tile(
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 0.9,
-  height = 1,
-  width = 1,
   ...,
   titles = NULL,
   title = NULL,
@@ -57,6 +55,7 @@ gg_tile(
   facet_nrow = NULL,
   facet_scales = "fixed",
   facet_space = "fixed",
+  facet_layout = NULL,
   caption = NULL,
   theme = NULL
 )
@@ -87,10 +86,6 @@ gg_tile(
 \item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
 
 \item{alpha}{Opacity. A number between 0 and 1.}
-
-\item{height}{Height. A number 0 upwards.}
-
-\item{width}{Width. A number 0 upwards.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
@@ -158,13 +153,15 @@ gg_tile(
 
 \item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).}
 
-\item{facet_ncol}{The number of columns of facetted plots.}
+\item{facet_ncol}{The number of columns of faceted plots.}
 
-\item{facet_nrow}{The number of rows of facetted plots.}
+\item{facet_nrow}{The number of rows of faceted plots.}
 
 \item{facet_scales}{Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
-\item{facet_space}{Whether facet_space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Only applies Where facet2 is provided and facet_scales are not fixed. Defaults to "fixed".}
+\item{facet_space}{Whether facet_space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Only applies where the facet layout is a 'grid' and facet_scales are not fixed. Defaults to "fixed".}
+
+\item{facet_layout}{Whether the facet type is to be "wrap" or "grid".}
 
 \item{caption}{Caption title string.}
 
@@ -186,6 +183,8 @@ df <- data.frame(
   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
 )
 
-gg_tile(df, x = x, y = y, col = z)
+df \%>\%
+gg_tile(x = x, y = y, col = z,
+        height = 0.9, width = 0.9)
 
 }

@@ -6,7 +6,7 @@
 #' @param y Unquoted y aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
-#' @param facet2 Unquoted second facet variable for a facet grid of facet by facet2 variables.
+#' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param text Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").
 #' @param stat Statistical transformation. A character string (e.g. "identity").
@@ -47,10 +47,11 @@
 #' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps".
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).
-#' @param facet_ncol The number of columns of facetted plots.
-#' @param facet_nrow The number of rows of facetted plots.
+#' @param facet_ncol The number of columns of faceted plots.
+#' @param facet_nrow The number of rows of faceted plots.
 #' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param facet_space Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Only applies Where facet2 is provided and facet_scales are not fixed. Defaults to "fixed".
+#' @param facet_space Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Only applies where the facet layout is a 'grid' and facet_scales are not fixed. Defaults to "fixed".
+#' @param facet_layout Whether the facet type is to be "wrap" or "grid".
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
 #' @return A ggplot object.
@@ -117,6 +118,7 @@ gg_density <- function(
     facet_nrow = NULL,
     facet_scales = "fixed",
     facet_space = "fixed",
+    facet_layout = NULL,
     caption = NULL,
     theme = NULL) {
 
@@ -594,23 +596,52 @@ gg_density <- function(
       ...
     )
 
-  if (!rlang::quo_is_null(facet)) {
-    if (rlang::quo_is_null(facet2)) {
-      plot <- plot +
-        ggplot2::facet_wrap(
-          ggplot2::vars(!!facet),
-          scales = facet_scales, labeller = ggplot2::as_labeller(facet_labels),
-          ncol = facet_ncol,
-          nrow = facet_nrow
-        )
+  if (rlang::is_null(facet_layout)) {
+    if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) facet_layout <- "wrap"
+    else facet_layout <- "grid"
+  }
+
+  if (facet_layout == "wrap") {
+    if (rlang::quo_is_null(facet)) {
+      rlang::abort("A facet variable must be provided for facet_layout = 'wrap'")
     }
-    else {
+
+    plot <- plot +
+      ggplot2::facet_wrap(
+        facets = ggplot2::vars(!!facet),
+        scales = facet_scales,
+        nrow = facet_nrow,
+        ncol = facet_ncol,
+        labeller = ggplot2::as_labeller(facet_labels)
+      )
+  }
+  else if (facet_layout == "grid") {
+    if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
       plot <- plot +
         ggplot2::facet_grid(
           rows = ggplot2::vars(!!facet2),
-          cols = ggplot2::vars(!!facet), space = facet_space,
-          labeller = ggplot2::as_labeller(facet_labels),
-          scales = facet_scales
+          cols = ggplot2::vars(!!facet),
+          scales = facet_scales,
+          space = facet_space,
+          labeller = ggplot2::as_labeller(facet_labels)
+        )
+    }
+    else if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
+      plot <- plot +
+        ggplot2::facet_grid(
+          cols = ggplot2::vars(!!facet),
+          scales = facet_scales,
+          space = facet_space,
+          labeller = ggplot2::as_labeller(facet_labels)
+        )
+    }
+    else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+      plot <- plot +
+        ggplot2::facet_grid(
+          rows = ggplot2::vars(!!facet2),
+          scales = facet_scales,
+          space = facet_space,
+          labeller = ggplot2::as_labeller(facet_labels)
         )
     }
   }

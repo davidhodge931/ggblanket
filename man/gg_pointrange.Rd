@@ -59,6 +59,7 @@ gg_pointrange(
   facet_nrow = NULL,
   facet_scales = "fixed",
   facet_space = "fixed",
+  facet_layout = NULL,
   caption = NULL,
   theme = NULL
 )
@@ -82,7 +83,7 @@ gg_pointrange(
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
-\item{facet2}{Unquoted second facet variable for a facet grid of facet by facet2 variables.}
+\item{facet2}{Unquoted second facet variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
 
@@ -164,13 +165,15 @@ gg_pointrange(
 
 \item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).}
 
-\item{facet_ncol}{The number of columns of facetted plots.}
+\item{facet_ncol}{The number of columns of faceted plots.}
 
-\item{facet_nrow}{The number of rows of facetted plots.}
+\item{facet_nrow}{The number of rows of faceted plots.}
 
 \item{facet_scales}{Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
-\item{facet_space}{Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Only applies Where facet2 is provided and facet_scales are not fixed. Defaults to "fixed".}
+\item{facet_space}{Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Only applies where the facet layout is a 'grid' and facet_scales are not fixed. Defaults to "fixed".}
+
+\item{facet_layout}{Whether the facet type is to be "wrap" or "grid".}
 
 \item{caption}{Caption title string.}
 

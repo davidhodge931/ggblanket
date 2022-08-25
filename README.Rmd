@@ -36,7 +36,7 @@ The primary objective is to **simplify visualisation**.
 
 Secondary objectives are:
 
-* Scope: cover >90% of what ggplot2 does
+* Scope: cover 80%+ of what ggplot2 does
 * Design: produce well-designed visualisation by default
 * Alignment: use conventions generally aligned with ggplot2. 
 
@@ -58,9 +58,9 @@ library(dplyr)
 library(ggblanket)
 library(palmerpenguins)
 
-palmerpenguins::penguins %>%
-  tidyr::drop_na() %>%
-  mutate(sex = stringr::str_to_sentence(sex)) %>% 
+palmerpenguins::penguins |>
+  tidyr::drop_na() |>
+  mutate(sex = stringr::str_to_sentence(sex)) |> 
   gg_histogram(x = flipper_length_mm,
                col = sex,
                facet = species,
