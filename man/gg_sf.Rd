@@ -24,7 +24,6 @@ gg_sf(
   col_breaks = NULL,
   col_continuous = "gradient",
   col_include = NULL,
-  col_intervals = NULL,
   col_labels = NULL,
   col_legend_place = NULL,
   col_legend_ncol = NULL,
@@ -78,11 +77,9 @@ gg_sf(
 
 \item{col_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
-\item{col_intervals}{A function to cut or chop the numeric variable into intervals (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
-
 \item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.}
 
-\item{col_legend_place}{The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left.}
+\item{col_legend_place}{The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left. Defaults to "b".}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
@@ -92,13 +89,13 @@ gg_sf(
 
 \item{col_limits}{A vector to determine the limits of the axis.}
 
-\item{col_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
+\item{col_title}{Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).}
+\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).}
 
-\item{facet_ncol}{The number of columns of faceted plots.}
+\item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of "wrap".}
 
-\item{facet_nrow}{The number of rows of faceted plots.}
+\item{facet_nrow}{The number of rows of facets. Only applies to a facet layout of "wrap".}
 
 \item{caption}{Caption title string.}
 

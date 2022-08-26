@@ -18,19 +18,19 @@
 #' @param subtitle Subtitle string.
 #' @param coord Coordinate system.
 #' @param col_breaks A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.
+#' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
-#' @param col_intervals A function to cut or chop the numeric variable into intervals (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.
 #' @param col_limits A vector to determine the limits of the axis.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left.
 #' @param col_legend_rev Reverse the elements of the legend. Defaults to FALSE.
-#' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps".
-#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).
-#' @param facet_ncol The number of columns of faceted plots.
-#' @param facet_nrow The number of rows of faceted plots.
+#' @param col_legend_place The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left. Defaults to "b".
+#' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
+#' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
+#' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
 #' @return A ggplot object.
@@ -65,7 +65,6 @@ gg_sf <- function(
     col_breaks = NULL,
     col_continuous = "gradient",
     col_include = NULL,
-    col_intervals = NULL,
     col_labels = NULL,
     col_legend_place = NULL,
     col_legend_ncol = NULL,

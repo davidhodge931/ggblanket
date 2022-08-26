@@ -42,7 +42,61 @@ gg_smooth(
   col_breaks = NULL,
   col_continuous = "gradient",
   col_include = NULL,
-  col_intervals = NULL,
+  col_labels = NULL,
+  col_legend_place = NULL,
+  col_legend_ncol = NULL,
+  col_legend_nrow = NULL,
+  col_legend_rev = FALSE,
+  col_limits = NULL,
+  col_title = NULL,
+  facet_labels = NULL,
+  facet_ncol = NULL,
+  facet_nrow = NULL,
+  facet_scales = "fixed",
+  facet_space = "fixed",
+  facet_layout = NULL,
+  caption = NULL,
+  theme = NULL
+)
+
+gg_smooth(
+  data = NULL,
+  x = NULL,
+  y = NULL,
+  col = NULL,
+  facet = NULL,
+  facet2 = NULL,
+  group = NULL,
+  text = NULL,
+  stat = "smooth",
+  position = "identity",
+  pal = NULL,
+  pal_na = "#7F7F7F",
+  alpha = 0.5,
+  ...,
+  titles = NULL,
+  title = NULL,
+  subtitle = NULL,
+  coord = NULL,
+  x_breaks = NULL,
+  x_expand = NULL,
+  x_include = NULL,
+  x_labels = NULL,
+  x_limits = NULL,
+  x_sec_axis = ggplot2::waiver(),
+  x_title = NULL,
+  x_trans = "identity",
+  y_breaks = NULL,
+  y_expand = NULL,
+  y_include = NULL,
+  y_labels = NULL,
+  y_limits = NULL,
+  y_sec_axis = ggplot2::waiver(),
+  y_title = NULL,
+  y_trans = "identity",
+  col_breaks = NULL,
+  col_continuous = "gradient",
+  col_include = NULL,
   col_labels = NULL,
   col_legend_place = NULL,
   col_legend_ncol = NULL,
@@ -105,9 +159,9 @@ gg_smooth(
 
 \item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
-\item{x_limits}{A vector of length 2 to determine the limits of the axis.}
+\item{x_limits}{A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(xlim = ...).}
 
-\item{x_sec_axis}{A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.}
+\item{x_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
 \item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
@@ -121,9 +175,9 @@ gg_smooth(
 
 \item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
-\item{y_limits}{A vector of length 2 to determine the limits of the axis.}
+\item{y_limits}{A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(ylim = ...).}
 
-\item{y_sec_axis}{A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.}
+\item{y_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
@@ -135,11 +189,9 @@ gg_smooth(
 
 \item{col_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
-\item{col_intervals}{A function to cut or chop the numeric variable into intervals (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
-
 \item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.}
 
-\item{col_legend_place}{The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left.}
+\item{col_legend_place}{The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left. Defaults to "b".}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
@@ -149,19 +201,19 @@ gg_smooth(
 
 \item{col_limits}{A vector to determine the limits of the axis.}
 
-\item{col_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
+\item{col_title}{Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).}
+\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).}
 
-\item{facet_ncol}{The number of columns of faceted plots.}
+\item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of "wrap".}
 
-\item{facet_nrow}{The number of rows of faceted plots.}
+\item{facet_nrow}{The number of rows of facets. Only applies to a facet layout of "wrap".}
 
 \item{facet_scales}{Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
 \item{facet_space}{Whether facet_space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Only applies where the facet layout is a 'grid' and facet_scales are not fixed. Defaults to "fixed".}
 
-\item{facet_layout}{Whether the facet type is to be "wrap" or "grid".}
+\item{facet_layout}{Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".}
 
 \item{caption}{Caption title string.}
 
@@ -169,11 +221,31 @@ gg_smooth(
 }
 \value{
 A ggplot object.
+
+A ggplot object.
 }
 \description{
 Create a smooth plot with a wrapper around the ggplot2::geom_smooth function.
+
+Create a smooth plot with a wrapper around the ggplot2::geom_smooth function.
 }
 \examples{
+library(ggplot2)
+
+gg_smooth(mpg, x = displ, y = hwy)
+
+gg_smooth(mpg, x = displ, y = hwy) +
+  geom_point()
+
+gg_smooth(mpg, x = hwy, y = displ) +
+  geom_point()
+
+gg_smooth(mpg, x = hwy, y = displ, orientation = "y") +
+  geom_point()
+
+gg_smooth(mpg, x = displ, y = hwy, method = "lm") +
+  geom_point()
+
 library(ggplot2)
 
 gg_smooth(mpg, x = displ, y = hwy)

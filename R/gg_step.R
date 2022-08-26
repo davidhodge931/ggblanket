@@ -23,7 +23,7 @@
 #' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param x_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
-#' @param x_limits A vector of length 2 to determine the limits of the axis.
+#' @param x_limits A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(xlim = ...).
 #' @param x_sec_axis A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param x_trans For a numeric variable, a transformation object (e.g. "log10").
@@ -31,27 +31,27 @@
 #' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
-#' @param y_limits A vector of length 2 to determine the limits of the axis.
+#' @param y_limits A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(ylim = ...).
 #' @param y_sec_axis A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_trans For a numeric variable, a transformation object (e.g. "log10").
 #' @param col_breaks A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.
+#' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
-#' @param col_intervals A function to cut or chop the numeric variable into intervals (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.
 #' @param col_limits A vector to determine the limits of the axis.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left.
 #' @param col_legend_rev Reverse the elements of the legend. Defaults to FALSE.
-#' @param col_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps".
-#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).
-#' @param facet_ncol The number of columns of faceted plots.
-#' @param facet_nrow The number of rows of faceted plots.
+#' @param col_legend_place The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left. Defaults to "b".
+#' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
+#' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
+#' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
 #' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_space Whether facet_space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Only applies where the facet layout is a 'grid' and facet_scales are not fixed. Defaults to "fixed".
-#' @param facet_layout Whether the facet type is to be "wrap" or "grid".
+#' @param facet_layout Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
 #' @return A ggplot object.
@@ -100,7 +100,6 @@ gg_step <- function(
     col_breaks = NULL,
     col_continuous = "gradient",
     col_include = NULL,
-    col_intervals = NULL,
     col_labels = NULL,
     col_legend_place = NULL,
     col_legend_ncol = NULL,
@@ -593,22 +592,33 @@ gg_step <- function(
 
   if (rlang::is_null(facet_layout)) {
     if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) facet_layout <- "wrap"
-    else facet_layout <- "grid"
+    else if (!rlang::quo_is_null(facet2) & rlang::quo_is_null(facet)) facet_layout <- "wrap"
+    else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) facet_layout <- "grid"
+    else if (rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) facet_layout <- "grid"
+    else facet_layout <- "null"
   }
 
   if (facet_layout == "wrap") {
-    if (rlang::quo_is_null(facet)) {
-      rlang::abort("A facet variable must be provided for facet_layout = 'wrap'")
+    if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
+      plot <- plot +
+        ggplot2::facet_wrap(
+          facets = ggplot2::vars(!!facet),
+          scales = facet_scales,
+          nrow = facet_nrow,
+          ncol = facet_ncol,
+          labeller = ggplot2::as_labeller(facet_labels)
+        )
     }
-
-    plot <- plot +
-      ggplot2::facet_wrap(
-        facets = ggplot2::vars(!!facet),
-        scales = facet_scales,
-        nrow = facet_nrow,
-        ncol = facet_ncol,
-        labeller = ggplot2::as_labeller(facet_labels)
-      )
+    else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+      plot <- plot +
+        ggplot2::facet_wrap(
+          facets = ggplot2::vars(!!facet2),
+          scales = facet_scales,
+          nrow = facet_nrow,
+          ncol = facet_ncol,
+          labeller = ggplot2::as_labeller(facet_labels)
+        )
+    }
   }
   else if (facet_layout == "grid") {
     if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {

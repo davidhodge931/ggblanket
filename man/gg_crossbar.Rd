@@ -47,7 +47,6 @@ gg_crossbar(
   col_breaks = NULL,
   col_continuous = "gradient",
   col_include = NULL,
-  col_intervals = NULL,
   col_labels = NULL,
   col_legend_place = NULL,
   col_legend_ncol = NULL,
@@ -112,7 +111,7 @@ gg_crossbar(
 
 \item{coord}{Coordinate system.}
 
-\item{x_breaks}{A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.}
+\item{x_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
 \item{x_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
@@ -120,15 +119,15 @@ gg_crossbar(
 
 \item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
-\item{x_limits}{A vector of length 2 to determine the limits of the axis.}
+\item{x_limits}{A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(xlim = ...).}
 
-\item{x_sec_axis}{A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.}
+\item{x_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
 \item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
 \item{x_trans}{For a numeric variable, a transformation object (e.g. "log10").}
 
-\item{y_breaks}{A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.}
+\item{y_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
 \item{y_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
@@ -136,25 +135,23 @@ gg_crossbar(
 
 \item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
-\item{y_limits}{A vector of length 2 to determine the limits of the axis.}
+\item{y_limits}{A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(ylim = ...).}
 
-\item{y_sec_axis}{A secondary axis specified by the ggplot2::sec_axis or ggplot2::dup_axis function.}
+\item{y_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
 \item{y_trans}{For a numeric variable, a transformation object (e.g. "log10").}
 
-\item{col_breaks}{A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.}
+\item{col_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
 \item{col_continuous}{Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps".}
 
 \item{col_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
-\item{col_intervals}{A function to cut or chop the numeric variable into intervals (e.g. ~ santoku::chop_mean_sd(.x, drop = FALSE)).}
-
 \item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.}
 
-\item{col_legend_place}{The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left.}
+\item{col_legend_place}{The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left. Defaults to "b".}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
@@ -164,19 +161,19 @@ gg_crossbar(
 
 \item{col_limits}{A vector to determine the limits of the axis.}
 
-\item{col_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
+\item{col_title}{Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c(value = "label", ...)).}
+\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).}
 
-\item{facet_ncol}{The number of columns of faceted plots.}
+\item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of "wrap".}
 
-\item{facet_nrow}{The number of rows of faceted plots.}
+\item{facet_nrow}{The number of rows of facets. Only applies to a facet layout of "wrap".}
 
 \item{facet_scales}{Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
-\item{facet_space}{Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Only applies where the facet layout is a 'grid' and facet_scales are not fixed. Defaults to "fixed".}
+\item{facet_space}{Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed". Only applies where the facet layout is "grid" and facet scales are not "fixed".}
 
-\item{facet_layout}{Whether the facet type is to be "wrap" or "grid".}
+\item{facet_layout}{Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".}
 
 \item{caption}{Caption title string.}
 

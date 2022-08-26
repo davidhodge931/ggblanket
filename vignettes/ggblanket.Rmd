@@ -65,6 +65,8 @@ library(palmerpenguins)
 
 These `gg_*`functions each wrap a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function.
 
+Always pipe in your data, so that you can access variable names from the Rstudio autocomplete.
+
 ```{r}
 iris |>
   mutate(Species = stringr::str_to_sentence(Species)) |> 
@@ -104,7 +106,7 @@ penguins |>
 
 ### 4. A `facet` argument to facet by a single variable
 
-Facetting is treated as if it is an aesthetic, where the users just provide an unquoted variable to facet by. A message is provided to users in the console to remind them of this.
+Facetting is treated as if it is an aesthetic, where the users just provide an unquoted variable to facet by. 
 
 ```{r}
 penguins |> 
@@ -121,9 +123,9 @@ penguins |>
 
 ### 5. An additional `facet2` argument to facet in a grid 
 
-If only `facet` is provided, the `gg_*` function under the hood uses `ggplot2::facet_wrap` to wrap by that variable. 
+If both `facet`and `facet2` variables are provided, then the gg_* function will facet in a grid of `facet` by `facet2`.
 
-However, if `facet2` is also provided, then the gg_* function uses `ggplot2::facet_grid` to facet in grid of `facet` by `facet2`.
+If only one facet (or facet2) variable is provided, it will default to using a facet layout of `"wrap"`. The user can specify `facet_layout = "grid"`, if they wish to access the proportional facet sizes enabled by the `facet_space` argument. 
 
 ```{r, fig.asp=0.75}
 penguins |> 
