@@ -24,7 +24,7 @@ package.
 
 The primary objective is to **simplify visualisation**.
 
-Secondary objectives are:
+Secondary objectives relate to:
 
 -   Scope: cover the most useful 80% of what ggplot2 does
 -   Design: produce well-designed visualisation by default
