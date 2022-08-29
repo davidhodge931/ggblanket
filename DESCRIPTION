@@ -6,8 +6,8 @@ Authors@R:
            role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3868-7501"))
 Description: Simplify visualisation with 'ggplot2' wrapper functions. 
 License: MIT + file LICENSE
-URL: https://github.com/davidhodge931/ggblanket/,
-    https://davidhodge931.github.io/ggblanket/
+URL: https://davidhodge931.github.io/ggblanket/,
+    https://github.com/davidhodge931/ggblanket/
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

@@ -41,11 +41,11 @@ To simplify visualisation, the ggblanket package provides:
 1. `gg_*` functions to plot a single geom
 2. col and fill aesthetics merged into a single `col` argument
 3. Colours customised via a `pal` argument consistently
-4. A `facet` argument to facet by a single variable
-5. An additional `facet2` argument to facet in a grid 
+4. A `facet` argument to facet in a "wrap" or "grid" layout
+5. An additional `facet2` argument to support facetting by 2 variables
 6. Ability to customise via arguments with consistent prefix's 
 7. Unspecified titles converted to `snakecase::to_sentence`
-8. Horizontal labels generally arranged in correct order
+8. Horizontal labels, colours and legends generally arranged in correct order
 9. Nice default scales and theme
 10. A `theme` argument for customisation
 11. A `gg_theme` function to create a quick theme 
@@ -104,9 +104,9 @@ penguins |>
     pal = c("#1B9E77", "#9E361B"))
 ```
 
-### 4. A `facet` argument to facet by a single variable
+### 4. A `facet` argument to facet in a "wrap" or "grid" layout
 
-Facetting is treated as if it is an aesthetic, where the users just provide an unquoted variable to facet by. 
+Facetting is treated as if it is an aesthetic, where the users just provide an unquoted variable to facet by. If a single facet (or facet2) variable is provided, it'll default to a "wrap" layout.
 
 ```{r}
 penguins |> 
@@ -121,11 +121,9 @@ penguins |>
     pal = "#1B9E77")
 ```
 
-### 5. An additional `facet2` argument to facet in a grid 
+### 5. An additional `facet2` argument to support facetting by 2 variables
 
-If both `facet`and `facet2` variables are provided, then the gg_* function will facet in a grid of `facet` by `facet2`.
-
-If only one facet (or facet2) variable is provided, it will default to using a facet layout of `"wrap"`. The user can specify `facet_layout = "grid"`, if they wish to access the proportional facet sizes enabled by the `facet_space` argument. 
+Faceting by two variables is often useful. If both `facet`and `facet2` variables are provided, then the gg_* function will default to a "grid" layout of `facet` by `facet2`.
 
 ```{r, fig.asp=0.75}
 penguins |> 
@@ -210,11 +208,9 @@ penguins |>
   geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
 ```
 
-### 8. Horizontal labels generally arranged in correct order
+### 8. Horizontal labels, colours and legends generally arranged in correct order
 
-When plots are horizontal, ggblanket ensures y labels and colours are in the right order. 
-
-However, if it gets the legend direction wrong at any point, you can reverse using the `col_legend_rev` argument.
+When plots are horizontal, ggblanket ensures y labels, colours and legends are generally in the right order. 
 
 ```{r}
 penguins |>

@@ -13,8 +13,8 @@ Simplify visualisation with 'ggplot2' wrapper functions.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/davidhodge931/ggblanket/}
   \item \url{https://davidhodge931.github.io/ggblanket/}
+  \item \url{https://github.com/davidhodge931/ggblanket/}
 }
 
 }
