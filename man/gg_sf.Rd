@@ -34,6 +34,7 @@ gg_sf(
   facet_labels = NULL,
   facet_ncol = NULL,
   facet_nrow = NULL,
+  facet_layout = NULL,
   caption = NULL,
   theme = NULL
 )
@@ -96,6 +97,8 @@ gg_sf(
 \item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of "wrap".}
 
 \item{facet_nrow}{The number of rows of facets. Only applies to a facet layout of "wrap".}
+
+\item{facet_layout}{Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".}
 
 \item{caption}{Caption title string.}
 

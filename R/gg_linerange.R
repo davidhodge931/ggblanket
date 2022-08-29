@@ -672,6 +672,16 @@ gg_linerange <- function(
           labeller = ggplot2::as_labeller(facet_labels)
         )
     }
+    else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+      plot <- plot +
+        ggplot2::facet_wrap(
+          facets = ggplot2::vars(!!facet, !!facet2),
+          scales = facet_scales,
+          nrow = facet_nrow,
+          ncol = facet_ncol,
+          labeller = ggplot2::as_labeller(facet_labels)
+        )
+    }
   }
   else if (facet_layout == "grid") {
     if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {

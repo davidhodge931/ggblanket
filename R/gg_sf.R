@@ -31,6 +31,7 @@
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
 #' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
 #' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
+#' @param facet_layout Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
 #' @return A ggplot object.
@@ -75,6 +76,7 @@ gg_sf <- function(
     facet_labels = NULL,
     facet_ncol = NULL,
     facet_nrow = NULL,
+    facet_layout = NULL,
     caption = NULL,
     theme = NULL) {
 
@@ -345,8 +347,16 @@ gg_sf <- function(
       ...
     )
 
-  if (!rlang::quo_is_null(facet)) {
-    if (rlang::quo_is_null(facet2)) {
+  if (rlang::is_null(facet_layout)) {
+    if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) facet_layout <- "wrap"
+    else if (!rlang::quo_is_null(facet2) & rlang::quo_is_null(facet)) facet_layout <- "wrap"
+    else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) facet_layout <- "grid"
+    else if (rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) facet_layout <- "grid"
+    else facet_layout <- "null"
+  }
+
+  if (facet_layout == "wrap") {
+    if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet),
@@ -356,11 +366,51 @@ gg_sf <- function(
           labeller = ggplot2::as_labeller(facet_labels)
         )
     }
-    else {
+    else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+      plot <- plot +
+        ggplot2::facet_wrap(
+          facets = ggplot2::vars(!!facet2),
+          scales = "fixed",
+          nrow = facet_nrow,
+          ncol = facet_ncol,
+          labeller = ggplot2::as_labeller(facet_labels)
+        )
+    }
+    else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+      plot <- plot +
+        ggplot2::facet_wrap(
+          facets = ggplot2::vars(!!facet, !!facet2),
+          scales = "fixed",
+          nrow = facet_nrow,
+          ncol = facet_ncol,
+          labeller = ggplot2::as_labeller(facet_labels)
+        )
+    }
+  }
+  else if (facet_layout == "grid") {
+    if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
       plot <- plot +
         ggplot2::facet_grid(
           rows = ggplot2::vars(!!facet2),
           cols = ggplot2::vars(!!facet),
+          scales = "fixed",
+          space = "fixed",
+          labeller = ggplot2::as_labeller(facet_labels)
+        )
+    }
+    else if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
+      plot <- plot +
+        ggplot2::facet_grid(
+          cols = ggplot2::vars(!!facet),
+          scales = "fixed",
+          space = "fixed",
+          labeller = ggplot2::as_labeller(facet_labels)
+        )
+    }
+    else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+      plot <- plot +
+        ggplot2::facet_grid(
+          rows = ggplot2::vars(!!facet2),
           scales = "fixed",
           space = "fixed",
           labeller = ggplot2::as_labeller(facet_labels)
