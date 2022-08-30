@@ -130,10 +130,8 @@ gg_density <- function(
   text <- rlang::enquo(text)
 
   #stop, warn or message
+  rlang::inform(c("i" = paste0("Hello! See the ggblanket ", cli::style_hyperlink("website", "https://davidhodge931.github.io/ggblanket/"), " for further information.")), .frequency = "regularly", .frequency_id = "hello")
   if (rlang::is_null(data)) rlang::abort("data is required.")
-  if (rlang::is_null(titles)) rlang::inform(c("i" = "{ggblanket} converts unspecified titles using snakecase::to_sentence_case."))
-  if (!rlang::quo_is_null(col)) rlang::inform(c("i" = "{ggblanket} merges col and fill aesthetics into a single col aesthetic."))
-  if (!rlang::quo_is_null(facet)) rlang::inform(c("i" = "{ggblanket} treats faceting as an aesthetic."))
 
   ###ungroup
   data <- dplyr::ungroup(data)

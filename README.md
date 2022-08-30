@@ -48,20 +48,33 @@ install.packages("ggblanket")
 ## Examples
 
 ``` r
-library(dplyr)
 library(ggblanket)
+library(dplyr)
+library(stringr)
 library(palmerpenguins)
 
-palmerpenguins::penguins |>
-  tidyr::drop_na() |>
-  mutate(sex = stringr::str_to_sentence(sex)) |> 
-  gg_histogram(x = flipper_length_mm,
-               col = sex,
-               facet = species,
-               pal = c("#1B9E77", "#9E361B"))
+iris |>
+  mutate(Species = str_to_sentence(Species)) |> 
+  gg_point(
+    x = Sepal.Width,
+    y = Sepal.Length,
+    col = Species)
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" /> <br>
+<br>
+
+``` r
+penguins |>
+  mutate(sex = str_to_sentence(sex)) |> 
+  gg_histogram(
+    x = flipper_length_mm,
+    col = sex,
+    facet = species,
+    pal = c("#1B9E77", "#9E361B"))
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" />
 
 ## Thanks
 

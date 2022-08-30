@@ -58,61 +58,6 @@ gg_smooth(
   caption = NULL,
   theme = NULL
 )
-
-gg_smooth(
-  data = NULL,
-  x = NULL,
-  y = NULL,
-  col = NULL,
-  facet = NULL,
-  facet2 = NULL,
-  group = NULL,
-  text = NULL,
-  stat = "smooth",
-  position = "identity",
-  pal = NULL,
-  pal_na = "#7F7F7F",
-  alpha = 0.5,
-  ...,
-  titles = NULL,
-  title = NULL,
-  subtitle = NULL,
-  coord = NULL,
-  x_breaks = NULL,
-  x_expand = NULL,
-  x_include = NULL,
-  x_labels = NULL,
-  x_limits = NULL,
-  x_sec_axis = ggplot2::waiver(),
-  x_title = NULL,
-  x_trans = "identity",
-  y_breaks = NULL,
-  y_expand = NULL,
-  y_include = NULL,
-  y_labels = NULL,
-  y_limits = NULL,
-  y_sec_axis = ggplot2::waiver(),
-  y_title = NULL,
-  y_trans = "identity",
-  col_breaks = NULL,
-  col_continuous = "gradient",
-  col_include = NULL,
-  col_labels = NULL,
-  col_legend_place = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
-  col_legend_rev = FALSE,
-  col_limits = NULL,
-  col_title = NULL,
-  facet_labels = NULL,
-  facet_ncol = NULL,
-  facet_nrow = NULL,
-  facet_scales = "fixed",
-  facet_space = "fixed",
-  facet_layout = NULL,
-  caption = NULL,
-  theme = NULL
-)
 }
 \arguments{
 \item{data}{A data frame or tibble.}
@@ -221,31 +166,11 @@ gg_smooth(
 }
 \value{
 A ggplot object.
-
-A ggplot object.
 }
 \description{
 Create a smooth plot with a wrapper around the ggplot2::geom_smooth function.
-
-Create a smooth plot with a wrapper around the ggplot2::geom_smooth function.
 }
 \examples{
-library(ggplot2)
-
-gg_smooth(mpg, x = displ, y = hwy)
-
-gg_smooth(mpg, x = displ, y = hwy) +
-  geom_point()
-
-gg_smooth(mpg, x = hwy, y = displ) +
-  geom_point()
-
-gg_smooth(mpg, x = hwy, y = displ, orientation = "y") +
-  geom_point()
-
-gg_smooth(mpg, x = displ, y = hwy, method = "lm") +
-  geom_point()
-
 library(ggplot2)
 
 gg_smooth(mpg, x = displ, y = hwy)
