@@ -94,6 +94,22 @@ gg_sf <- function(
   ###ungroup
   data <- dplyr::ungroup(data)
 
+  #get classes
+  x_numeric <- TRUE
+  x_null <- TRUE
+
+  y_numeric <- TRUE
+  y_null <- TRUE
+
+  col_character <- is.character(rlang::eval_tidy(col, data))
+  col_factor <- is.factor(rlang::eval_tidy(col, data))
+  col_logical <- is.logical(rlang::eval_tidy(col, data))
+  col_numeric <- is.numeric(rlang::eval_tidy(col, data))
+  col_null <- rlang::quo_is_null(col)
+
+  facet_null <- rlang::quo_is_null(facet)
+  facet2_null <- rlang::quo_is_null(facet2)
+
   ###get default NULL values
   sf_geometry <- sf::st_geometry_type(data)
 
@@ -110,21 +126,21 @@ gg_sf <- function(
 
   ###process plot data
   ###factorise logical, reverse for horizontal, and chop intervals
-  if (!rlang::quo_is_null(col)) {
+  if (!col_null) {
 
-    if (is.logical(rlang::eval_tidy(col, data))) {
+    if (col_logical) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col, ~ factor(.x, levels = c("FALSE", "TRUE"))))
     }
   }
 
-  if (!rlang::quo_is_null(facet)) {
+  if (!facet_null) {
     if (is.logical(class(rlang::eval_tidy(facet, data)))) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!facet, ~ factor(.x, levels = c("FALSE", "TRUE"))))
     }
   }
-  if (!rlang::quo_is_null(facet2)) {
+  if (!facet2_null) {
     if (is.logical(class(rlang::eval_tidy(facet2, data)))) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!facet2, ~ factor(.x, levels = c("FALSE", "TRUE"))))
@@ -132,7 +148,7 @@ gg_sf <- function(
   }
 
   ###make col scale
-  if (rlang::quo_is_null(col)) {
+  if (col_null) {
     if (rlang::is_null(pal)) pal <-  pal_viridis_mix(1)
     else pal <- pal[1]
 
@@ -158,11 +174,11 @@ gg_sf <- function(
     col_title_position <- ifelse(col_title == "", "right", "top")
 
     if (rlang::is_null(col_legend_place)) {
-      if (!rlang::quo_is_null(facet) &
+      if (!facet_null &
                (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data)))) {
         col_legend_place <- "n"
       }
-      else if (!rlang::quo_is_null(facet2) &
+      else if (!facet2_null &
                (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
         col_legend_place <- "n"
       }
@@ -171,7 +187,7 @@ gg_sf <- function(
       }
     }
 
-    if (is.numeric(rlang::eval_tidy(col, data))) {
+    if (col_numeric) {
       col_min <- data %>% dplyr::pull(!!col) %>% min(na.rm = TRUE)
       col_max <- data %>% dplyr::pull(!!col) %>% max(na.rm = TRUE)
 
@@ -265,7 +281,7 @@ gg_sf <- function(
       if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
       else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
       else {
-        if (is.factor(rlang::eval_tidy(col, data))) {
+        if (col_factor) {
           col_n <- length(levels(rlang::eval_tidy(col, data)))
         }
         else col_n <- length(unique(rlang::eval_tidy(col, data)))
@@ -274,7 +290,7 @@ gg_sf <- function(
       if (rlang::is_null(pal)) pal <- pal_d3_mix(col_n)
       else pal <- pal[1:col_n]
 
-      if (is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data))) {
+      if (col_character | col_factor) {
         col_legend_rev_auto <- FALSE
       }
       else if (col_legend_place %in% c("b", "t")) col_legend_rev_auto <- FALSE
@@ -317,7 +333,7 @@ gg_sf <- function(
   }
 
   ###make plot
-  if (!rlang::quo_is_null(col)) {
+  if (!col_null) {
     plot <- data %>%
       ggplot2::ggplot(mapping = ggplot2::aes(
         col = !!col,
@@ -325,7 +341,7 @@ gg_sf <- function(
         group = !!group
       ))
   }
-  else if (rlang::quo_is_null(col)) {
+  else if (col_null) {
     plot <- data %>%
       ggplot2::ggplot(mapping = ggplot2::aes(
         col = "",
@@ -346,15 +362,15 @@ gg_sf <- function(
     )
 
   if (rlang::is_null(facet_layout)) {
-    if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) facet_layout <- "wrap"
-    else if (!rlang::quo_is_null(facet2) & rlang::quo_is_null(facet)) facet_layout <- "wrap"
-    else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) facet_layout <- "grid"
-    else if (rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) facet_layout <- "grid"
+    if (!facet_null & facet2_null) facet_layout <- "wrap"
+    else if (!facet2_null & facet_null) facet_layout <- "wrap"
+    else if (!facet_null & !facet2_null) facet_layout <- "grid"
+    else if (facet_null & facet2_null) facet_layout <- "grid"
     else facet_layout <- "null"
   }
 
   if (facet_layout == "wrap") {
-    if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
+    if (!facet_null & facet2_null) {
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet),
@@ -364,7 +380,7 @@ gg_sf <- function(
           labeller = ggplot2::as_labeller(facet_labels)
         )
     }
-    else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+    else if (facet_null & !facet2_null) {
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet2),
@@ -374,7 +390,7 @@ gg_sf <- function(
           labeller = ggplot2::as_labeller(facet_labels)
         )
     }
-    else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+    else if (!facet_null & !facet2_null) {
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet, !!facet2),
@@ -386,7 +402,7 @@ gg_sf <- function(
     }
   }
   else if (facet_layout == "grid") {
-    if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+    if (!facet_null & !facet2_null) {
       plot <- plot +
         ggplot2::facet_grid(
           rows = ggplot2::vars(!!facet2),
@@ -396,7 +412,7 @@ gg_sf <- function(
           labeller = ggplot2::as_labeller(facet_labels)
         )
     }
-    else if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
+    else if (!facet_null & facet2_null) {
       plot <- plot +
         ggplot2::facet_grid(
           cols = ggplot2::vars(!!facet),
@@ -405,7 +421,7 @@ gg_sf <- function(
           labeller = ggplot2::as_labeller(facet_labels)
         )
     }
-    else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+    else if (facet_null & !facet2_null) {
       plot <- plot +
         ggplot2::facet_grid(
           rows = ggplot2::vars(!!facet2),
@@ -434,7 +450,7 @@ gg_sf <- function(
     plot <- plot +
       ggplot2::theme(legend.direction = "horizontal")
 
-    if (is.numeric(rlang::eval_tidy(col, data))) {
+    if (col_numeric) {
       plot <- plot +
         ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
         ggplot2::theme(legend.text.align = 0.5)
@@ -450,7 +466,7 @@ gg_sf <- function(
     }
   }
 
-  else if (col_legend_place == "n" | rlang::quo_is_null(col)) {
+  else if (col_legend_place == "n" | col_null) {
     plot <- plot +
       ggplot2::theme(legend.position = "none")
   }

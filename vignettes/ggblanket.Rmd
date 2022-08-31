@@ -55,9 +55,10 @@ To simplify visualisation, the ggblanket package provides:
 15. Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
 
 ```{r setup}
-library(dplyr)
 library(ggblanket)
 library(ggplot2)
+library(dplyr)
+library(stringr)
 library(palmerpenguins)
 ```
 
@@ -69,7 +70,7 @@ Always pipe in your data, so that you can access variable names from the Rstudio
 
 ```{r}
 iris |>
-  mutate(Species = stringr::str_to_sentence(Species)) |> 
+  mutate(Species = str_to_sentence(Species)) |> 
   gg_point(
     x = Sepal.Width, 
     y = Sepal.Length, 
@@ -93,7 +94,7 @@ These arguments work in the same way regardless of whether a `col` variable is s
 
 ```{r}
 penguins |> 
-  mutate(sex = stringr::str_to_sentence(sex)) |> 
+  mutate(sex = str_to_sentence(sex)) |> 
   group_by(species, sex) |> 
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) |> 
   gg_col(
@@ -111,7 +112,7 @@ Facetting is treated as if it is an aesthetic, where the users just provide an u
 ```{r}
 penguins |> 
   tidyr::drop_na(sex) |>
-  mutate(sex = stringr::str_to_sentence(sex)) |> 
+  mutate(sex = str_to_sentence(sex)) |> 
   gg_violin(
     x = sex, 
     y = body_mass_g, 
@@ -126,17 +127,15 @@ penguins |>
 Faceting by two variables is often useful. If both `facet`and `facet2` variables are provided, then the gg_* function will default to a "grid" layout of `facet` by `facet2`.
 
 ```{r, fig.asp=0.75}
-penguins |> 
-  tidyr::drop_na(sex) |> 
-  mutate(sex = stringr::str_to_sentence(sex)) |> 
-  gg_point(
-    x = bill_length_mm, 
-    y = body_mass_g,
-    col = flipper_length_mm,
+penguins %>%
+  tidyr::drop_na(sex) %>%
+  mutate(sex = str_to_sentence(sex)) %>% 
+  gg_density(
+    x = flipper_length_mm,
+    col = sex,
     facet = species,
-    facet2 = sex, 
-    y_breaks = scales::breaks_width(1500), 
-    size = 1)
+    facet2 = island
+  )
 ```
 
 ### 6. Ability to customise via arguments with consistent prefix's
@@ -230,6 +229,8 @@ penguins |>
 
 The default x and y scales have been designed to create symmetry and balance.
 
+If the y is numeric, the y limits will default to the max of the y breaks with zero y expanding. It will do similar with the x scale, if y is character/factor/logical and x is numeric. 
+
 The default theme has a clean look designed to draw attention to the patterns of the data in the panel.
 
 Note if you do adjust the theme, ggblanket guesses the gridlines you want based on the type of data provided to the `gg_*` function. 
@@ -262,7 +263,7 @@ Note that as soon as you add a theme using `gg_theme()`, you will need to add an
 
 ```{r}
 penguins |>
-  mutate(sex = stringr::str_to_sentence(sex)) |> 
+  mutate(sex = str_to_sentence(sex)) |> 
   gg_point(x = bill_depth_mm,
            y = bill_length_mm,
            col = sex,
@@ -300,7 +301,7 @@ This function means is useful where you want to use non-supported geom's, aesthe
 ```{r}
 penguins |>
   tidyr::drop_na(sex) |>
-  mutate(sex = stringr::str_to_sentence(sex)) |>
+  mutate(sex = str_to_sentence(sex)) |>
   group_by(species, sex) |>
   summarise(
     mean = round(mean(bill_length_mm, na.rm = TRUE), 0),
@@ -363,7 +364,7 @@ gg_point_custom <- function(data, x, y, col,
 }
 
 iris |>
-  mutate(Species = stringr::str_to_sentence(Species)) |> 
+  mutate(Species = str_to_sentence(Species)) |> 
   gg_point_custom(
     x = Sepal.Width,
     y = Sepal.Length,
@@ -387,7 +388,7 @@ theme_custom <- gg_theme(
 )
 
 iris |> 
-  mutate(Species = stringr::str_to_sentence(Species)) |> 
+  mutate(Species = str_to_sentence(Species)) |> 
   add_tooltip_text(titles = snakecase::to_sentence_case) |> 
   gg_point(
     x = Sepal.Width, 

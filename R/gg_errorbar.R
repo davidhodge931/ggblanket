@@ -168,8 +168,32 @@ gg_errorbar <- function(
   ###ungroup
   data <- dplyr::ungroup(data)
 
+  #get classes
+  x_character <- is.character(rlang::eval_tidy(x, data))
+  x_factor <- is.factor(rlang::eval_tidy(x, data))
+  x_logical <- is.logical(rlang::eval_tidy(x, data))
+  x_date <- lubridate::is.Date(rlang::eval_tidy(x, data))
+  x_numeric <- is.numeric(rlang::eval_tidy(x, data))
+  x_null <- rlang::quo_is_null(x)
+
+  y_character <- is.character(rlang::eval_tidy(y, data))
+  y_factor <- is.factor(rlang::eval_tidy(y, data))
+  y_date <- lubridate::is.Date(rlang::eval_tidy(y, data))
+  y_logical <- is.logical(rlang::eval_tidy(y, data))
+  y_numeric <- is.numeric(rlang::eval_tidy(y, data))
+  y_null <- rlang::quo_is_null(y)
+
+  col_character <- is.character(rlang::eval_tidy(col, data))
+  col_factor <- is.factor(rlang::eval_tidy(col, data))
+  col_logical <- is.logical(rlang::eval_tidy(col, data))
+  col_numeric <- is.numeric(rlang::eval_tidy(col, data))
+  col_null <- rlang::quo_is_null(col)
+
+  facet_null <- rlang::quo_is_null(facet)
+  facet2_null <- rlang::quo_is_null(facet2)
+
   ###get default NULL values
-  if (rlang::quo_is_null(x)) {
+  if (x_null) {
     if (rlang::is_null(x_title)) {
       if (stat %in% c("bin", "count")) {
         if (rlang::is_null(titles)) x_title <- purrr::map_chr("count", snakecase::to_sentence_case)
@@ -194,7 +218,7 @@ gg_errorbar <- function(
     else x_title <- purrr::map_chr(rlang::as_name(x), titles)
   }
 
-  if (rlang::quo_is_null(y)) {
+  if (y_null) {
     if (rlang::is_null(y_title)) {
       if (stat %in% c("bin", "count")) {
         if (rlang::is_null(titles)) y_title <- purrr::map_chr("count", snakecase::to_sentence_case)
@@ -219,76 +243,46 @@ gg_errorbar <- function(
     else y_title <- purrr::map_chr(rlang::as_name(y), titles)
   }
 
-  xy_numeric_date <- ifelse(((
-    is.numeric(rlang::eval_tidy(x, data)) |
-      rlang::quo_is_null(x) |
-      lubridate::is.Date(rlang::eval_tidy(x, data))
-  ) &
-    (
-      is.numeric(rlang::eval_tidy(y, data)) |
-        rlang::quo_is_null(y) |
-        lubridate::is.Date(rlang::eval_tidy(y, data))
-    )),
-  TRUE,
-  FALSE
-  )
-
   if (rlang::is_null(theme)) {
-    if (xy_numeric_date) {
-      grid_v <- FALSE
-      grid_h <- TRUE
-    }
-    else {
-      grid_v <-
-        ifelse(is.numeric(rlang::eval_tidy(x, data)) |
-                 lubridate::is.Date(rlang::eval_tidy(x, data)) |
-                 rlang::quo_is_null(x),
-               TRUE,
-               FALSE)
-      grid_h <-
-        ifelse(is.numeric(rlang::eval_tidy(y, data)) |
-                 lubridate::is.Date(rlang::eval_tidy(y, data)) |
-                 rlang::quo_is_null(y),
-               TRUE,
-               FALSE)
-    }
-
-    theme <- gg_theme(grid_v = grid_v, grid_h = grid_h)
+    if ((x_character | x_factor | x_logical) & (y_numeric | y_null)) theme <- gg_theme(grid_h = TRUE, grid_v = FALSE)
+    else if ((y_character | y_factor | y_logical) & (x_numeric | x_null)) theme <- gg_theme(grid_h = FALSE, grid_v = TRUE)
+    else if ((x_character | x_factor | x_logical) & (y_character | y_factor | y_logical)) theme <- gg_theme(grid_h = FALSE, grid_v = FALSE)
+    else if ((x_numeric | x_date) & (y_date | y_numeric | y_null)) theme <- gg_theme(grid_h = TRUE, grid_v = FALSE)
+    else if ((y_numeric | y_date) & (x_null)) theme <- gg_theme(grid_h = FALSE, grid_v = TRUE)
   }
 
   if (rlang::is_null(width)) {
-    if (lubridate::is.Date(rlang::eval_tidy(x, data)) |
-        lubridate::is.Date(rlang::eval_tidy(y, data)) |
-        (rlang::quo_is_null(y) & is.numeric(rlang::eval_tidy(x, data))) |
-        (rlang::quo_is_null(x) & is.numeric(rlang::eval_tidy(y, data))) |
-        (is.numeric(rlang::eval_tidy(x, data)) &
-         is.numeric(rlang::eval_tidy(y, data)))) {
+    if ((x_null & y_numeric) | (y_null & x_numeric)) {
       width <- NULL
     }
-    else
+    else if (x_date | y_date) {
+      width <- 0.1 * 365/12
+    }
+    else {
       width <- 0.1
+    }
   }
 
   if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
 
   ###process plot data
   ###factorise logical, reverse for horizontal, and chop intervals
-  if (!rlang::quo_is_null(x)) {
-    if (is.logical(rlang::eval_tidy(x, data))) {
+  if (!x_null) {
+    if (x_logical) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x, ~ factor(.x, levels = c("FALSE", "TRUE"))))
     }
   }
 
-  if (!rlang::quo_is_null(y)) {
-    if (is.logical(rlang::eval_tidy(y, data))) {
+  if (!y_null) {
+    if (y_logical) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!y, ~ factor(.x, levels = c("FALSE", "TRUE"))))
     }
 
-    if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
+    if (y_character | y_factor) {
 
-      if (!rlang::quo_is_null(col) &
+      if (!col_null &
           (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data)))) {
       }
       else {
@@ -298,28 +292,28 @@ gg_errorbar <- function(
     }
   }
 
-  if (!rlang::quo_is_null(col)) {
+  if (!col_null) {
 
-    if (is.logical(rlang::eval_tidy(col, data))) {
+    if (col_logical) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!col, ~ factor(.x, levels = c("FALSE", "TRUE"))))
     }
 
-    if (is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data))) {
-      if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
+    if (col_character | col_factor) {
+      if (y_character | y_factor) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!col, ~ forcats::fct_rev(.x)))
       }
     }
   }
 
-  if (!rlang::quo_is_null(facet)) {
+  if (!facet_null) {
     if (is.logical(class(rlang::eval_tidy(facet, data)))) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!facet, ~ factor(.x, levels = c("FALSE", "TRUE"))))
     }
   }
-  if (!rlang::quo_is_null(facet2)) {
+  if (!facet2_null) {
     if (is.logical(class(rlang::eval_tidy(facet2, data)))) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!facet2, ~ factor(.x, levels = c("FALSE", "TRUE"))))
@@ -327,7 +321,7 @@ gg_errorbar <- function(
   }
 
   ###make col scale
-  if (rlang::quo_is_null(col)) {
+  if (col_null) {
     if (rlang::is_null(pal)) pal <-  pal_viridis_mix(1)
     else pal <- pal[1]
 
@@ -353,19 +347,19 @@ gg_errorbar <- function(
     col_title_position <- ifelse(col_title == "", "right", "top")
 
     if (rlang::is_null(col_legend_place)) {
-      if (!rlang::quo_is_null(x) &
+      if (!x_null &
           (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data)))) {
         col_legend_place <- "n"
       }
-      else if (!rlang::quo_is_null(y) &
+      else if (!y_null &
                (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data)))) {
         col_legend_place <- "n"
       }
-      else if (!rlang::quo_is_null(facet) &
+      else if (!facet_null &
                (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data)))) {
         col_legend_place <- "n"
       }
-      else if (!rlang::quo_is_null(facet2) &
+      else if (!facet2_null &
                (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
         col_legend_place <- "n"
       }
@@ -374,7 +368,7 @@ gg_errorbar <- function(
       }
     }
 
-    if (is.numeric(rlang::eval_tidy(col, data))) {
+    if (col_numeric) {
       col_min <- data %>% dplyr::pull(!!col) %>% min(na.rm = TRUE)
       col_max <- data %>% dplyr::pull(!!col) %>% max(na.rm = TRUE)
 
@@ -468,7 +462,7 @@ gg_errorbar <- function(
       if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
       else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
       else {
-        if (is.factor(rlang::eval_tidy(col, data))) {
+        if (col_factor) {
           col_n <- length(levels(rlang::eval_tidy(col, data)))
         }
         else col_n <- length(unique(rlang::eval_tidy(col, data)))
@@ -477,17 +471,17 @@ gg_errorbar <- function(
       if (rlang::is_null(pal)) pal <- pal_d3_mix(col_n)
       else pal <- pal[1:col_n]
 
-      if (is.numeric(rlang::eval_tidy(y, data)) |
-          lubridate::is.Date(rlang::eval_tidy(y, data))) {
+      if (y_numeric |
+          y_date) {
 
-        if (is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data))) {
+        if (col_character | col_factor) {
           col_legend_rev_auto <- FALSE
         }
         else if (col_legend_place %in% c("b", "t")) col_legend_rev_auto <- FALSE
         else col_legend_rev_auto <- TRUE
       }
-      else if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
-        if (is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data))) {
+      else if (y_character | y_factor) {
+        if (col_character | col_factor) {
           col_legend_rev_auto <- TRUE
         }
         else if (col_legend_place %in% c("b", "t")) col_legend_rev_auto <- TRUE
@@ -533,8 +527,8 @@ gg_errorbar <- function(
   }
 
   ###make plot
-  if (!rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
-    if (!rlang::quo_is_null(col)) {
+  if (!x_null & !y_null) {
+    if (!col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
@@ -548,7 +542,7 @@ gg_errorbar <- function(
           ymax = !!ymax
         ))
     }
-    else if (rlang::quo_is_null(col)) {
+    else if (col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
@@ -563,8 +557,8 @@ gg_errorbar <- function(
         ))
     }
   }
-  else if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
-    if (!rlang::quo_is_null(col)) {
+  else if (!x_null & y_null) {
+    if (!col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
@@ -577,7 +571,7 @@ gg_errorbar <- function(
           ymax = !!ymax
         ))
     }
-    else if (rlang::quo_is_null(col)) {
+    else if (col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
@@ -591,8 +585,8 @@ gg_errorbar <- function(
         ))
     }
   }
-  else if (rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
-    if (!rlang::quo_is_null(col)) {
+  else if (x_null & !y_null) {
+    if (!col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
@@ -605,7 +599,7 @@ gg_errorbar <- function(
           ymax = !!ymax
         ))
     }
-    else if (rlang::quo_is_null(col)) {
+    else if (col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
@@ -619,8 +613,8 @@ gg_errorbar <- function(
         ))
     }
   }
-  else if (rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
-    if (!rlang::quo_is_null(col)) {
+  else if (x_null & y_null) {
+    if (!col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = !!col,
@@ -632,7 +626,7 @@ gg_errorbar <- function(
           ymax = !!ymax
         ))
     }
-    else if (rlang::quo_is_null(col)) {
+    else if (col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = "",
@@ -658,15 +652,15 @@ gg_errorbar <- function(
     )
 
   if (rlang::is_null(facet_layout)) {
-    if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) facet_layout <- "wrap"
-    else if (!rlang::quo_is_null(facet2) & rlang::quo_is_null(facet)) facet_layout <- "wrap"
-    else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) facet_layout <- "grid"
-    else if (rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) facet_layout <- "grid"
+    if (!facet_null & facet2_null) facet_layout <- "wrap"
+    else if (!facet2_null & facet_null) facet_layout <- "wrap"
+    else if (!facet_null & !facet2_null) facet_layout <- "grid"
+    else if (facet_null & facet2_null) facet_layout <- "grid"
     else facet_layout <- "null"
   }
 
   if (facet_layout == "wrap") {
-    if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
+    if (!facet_null & facet2_null) {
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet),
@@ -676,7 +670,7 @@ gg_errorbar <- function(
           labeller = ggplot2::as_labeller(facet_labels)
         )
     }
-    else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+    else if (facet_null & !facet2_null) {
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet2),
@@ -686,7 +680,7 @@ gg_errorbar <- function(
           labeller = ggplot2::as_labeller(facet_labels)
         )
     }
-    else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+    else if (!facet_null & !facet2_null) {
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet, !!facet2),
@@ -698,7 +692,7 @@ gg_errorbar <- function(
     }
   }
   else if (facet_layout == "grid") {
-    if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+    if (!facet_null & !facet2_null) {
       plot <- plot +
         ggplot2::facet_grid(
           rows = ggplot2::vars(!!facet2),
@@ -708,7 +702,7 @@ gg_errorbar <- function(
           labeller = ggplot2::as_labeller(facet_labels)
         )
     }
-    else if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
+    else if (!facet_null & facet2_null) {
       plot <- plot +
         ggplot2::facet_grid(
           cols = ggplot2::vars(!!facet),
@@ -717,7 +711,7 @@ gg_errorbar <- function(
           labeller = ggplot2::as_labeller(facet_labels)
         )
     }
-    else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+    else if (facet_null & !facet2_null) {
       plot <- plot +
         ggplot2::facet_grid(
           rows = ggplot2::vars(!!facet2),
@@ -741,7 +735,7 @@ gg_errorbar <- function(
   layer_data <- ggplot2::layer_data(plot)
 
   ###Make x scale based on layer_data
-  if (is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data))) {
+  if (x_character | x_factor) {
     if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
     if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
 
@@ -755,7 +749,7 @@ gg_errorbar <- function(
         tidyr::pivot_longer(cols = tidyselect::everything()) %>%
         dplyr::pull(.data$value)
 
-      if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
+      if (x_date) {
         x_vctr <- as.Date(x_vctr, origin = "1970-01-01")
       }
 
@@ -767,11 +761,11 @@ gg_errorbar <- function(
         if (!rlang::is_null(x_include)) x_limits <- range(c(x_limits, x_include))
 
         if (rlang::is_null(x_breaks)) {
-          x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
+          x_breaks_n <- ifelse(facet_null, 5, 3)
           if (x_trans != c("identity")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
           else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
 
-          if (xy_numeric_date) x_limits <- NULL
+          if ((x_numeric | x_date) & (y_date | y_numeric | y_null)) x_limits <- NULL
           else {
             if (x_trans != "identity") x_limits <- NULL
             else if (class(position)[1] == "PositionFill") x_limits <- NULL
@@ -783,7 +777,7 @@ gg_errorbar <- function(
           }
         }
         else if (!rlang::is_null(x_breaks)) {
-          if (xy_numeric_date) x_limits <- NULL
+          if ((x_numeric | x_date) & (y_date | y_numeric | y_null)) x_limits <- NULL
           else {
             if (is.vector(x_breaks)) {
               if (x_trans != "identity") x_limits <- NULL
@@ -822,7 +816,7 @@ gg_errorbar <- function(
         if (!rlang::is_null(x_include)) x_limits <- range(c(x_limits, x_include))
 
         if (rlang::is_null(x_breaks)) {
-          x_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+          x_breaks_n <- ifelse(facet_null, 5, 4)
           if (x_trans != "identity") x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
           else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
         }
@@ -834,7 +828,7 @@ gg_errorbar <- function(
 
     if (rlang::is_null(x_expand)) {
       if (facet_scales %in% c("fixed", "free_y")) {
-        if (xy_numeric_date) {
+        if ((x_numeric | x_date) & (y_date | y_numeric | y_null)) {
           x_expand <- c(0.05, 0.05)
         }
         else x_expand <- c(0, 0)
@@ -843,12 +837,12 @@ gg_errorbar <- function(
     }
 
     if (rlang::is_null(x_labels)) {
-      if (is.numeric(rlang::eval_tidy(x, data)) | rlang::quo_is_null(x)) x_labels <- scales::label_comma()
-      else if (lubridate::is.Date(rlang::eval_tidy(x, data))) x_labels <- scales::label_date_short()
+      if (x_numeric | x_null) x_labels <- scales::label_comma()
+      else if (x_date) x_labels <- scales::label_date_short()
       else x_labels <- ggplot2::waiver()
     }
 
-    if (is.numeric(rlang::eval_tidy(x, data)) | rlang::quo_is_null(x)) {
+    if (x_numeric | x_null) {
       x_scale <- ggplot2::scale_x_continuous(
         breaks = x_breaks,
         limits = x_limits,
@@ -859,7 +853,7 @@ gg_errorbar <- function(
         trans = x_trans
       )
     }
-    else if (lubridate::is.Date(rlang::eval_tidy(x, data))) {
+    else if (x_date) {
       x_scale <- ggplot2::scale_x_date(
         breaks = x_breaks,
         limits = x_limits,
@@ -875,7 +869,7 @@ gg_errorbar <- function(
     x_scale
 
   ###Make y scale based on layer_data
-  if (is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data))) {
+  if (y_character | y_factor) {
     if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
     if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
 
@@ -888,7 +882,7 @@ gg_errorbar <- function(
         tidyr::pivot_longer(cols = tidyselect::everything()) %>%
         dplyr::pull(.data$value)
 
-      if (lubridate::is.Date(rlang::eval_tidy(y, data))) {
+      if (y_date) {
         y_vctr <- as.Date(y_vctr, origin = "1970-01-01")
       }
 
@@ -900,7 +894,7 @@ gg_errorbar <- function(
         if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
 
         if (rlang::is_null(y_breaks)) {
-          y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 3)
+          y_breaks_n <- ifelse(facet_null, 5, 3)
           if (y_trans != c("identity")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
           else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
 
@@ -949,7 +943,7 @@ gg_errorbar <- function(
         if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
 
         if (rlang::is_null(y_breaks)) {
-          y_breaks_n <- ifelse(rlang::quo_is_null(facet), 5, 4)
+          y_breaks_n <- ifelse(facet_null, 5, 4)
           if (y_trans != "identity") y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
           else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
         }
@@ -970,12 +964,12 @@ gg_errorbar <- function(
     }
 
     if (rlang::is_null(y_labels)) {
-      if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(x)) y_labels <- scales::label_comma()
-      else if (lubridate::is.Date(rlang::eval_tidy(y, data))) y_labels <- scales::label_date_short()
+      if (y_numeric | y_null) y_labels <- scales::label_comma()
+      else if (y_date) y_labels <- scales::label_date_short()
       else y_labels <- ggplot2::waiver()
     }
 
-    if (is.numeric(rlang::eval_tidy(y, data)) | rlang::quo_is_null(y)) {
+    if (y_numeric | y_null) {
       y_scale <- ggplot2::scale_y_continuous(
         breaks = y_breaks,
         limits = y_limits,
@@ -986,7 +980,7 @@ gg_errorbar <- function(
         trans = y_trans
       )
     }
-    else if (lubridate::is.Date(rlang::eval_tidy(y, data))) {
+    else if (y_date) {
       y_scale <- ggplot2::scale_y_date(
         breaks = y_breaks,
         limits = y_limits,
@@ -1021,7 +1015,7 @@ gg_errorbar <- function(
     plot <- plot +
       ggplot2::theme(legend.direction = "horizontal")
 
-    if (is.numeric(rlang::eval_tidy(col, data))) {
+    if (col_numeric) {
       plot <- plot +
         ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
         ggplot2::theme(legend.text.align = 0.5)
@@ -1037,7 +1031,7 @@ gg_errorbar <- function(
     }
   }
 
-  else if (col_legend_place == "n" | rlang::quo_is_null(col)) {
+  else if (col_legend_place == "n" | col_null) {
     plot <- plot +
       ggplot2::theme(legend.position = "none")
   }
