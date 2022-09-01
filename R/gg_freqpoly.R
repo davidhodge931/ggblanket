@@ -14,7 +14,6 @@
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
-#' @param bins Number of bins. An integer 0 upwards.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
 #' @param titles A function to format the x, y and col titles, including in rlang lambda format. Defaults to snakecase::to_sentence_case.
 #' @param title Title string.
@@ -79,7 +78,6 @@ gg_freqpoly <- function(
     pal_na = "#7F7F7F",
     alpha = 1,
     #linewidth = 0.5,
-    bins = 30,
     ...,
     titles = NULL,
     title = NULL,
@@ -130,7 +128,7 @@ gg_freqpoly <- function(
   text <- rlang::enquo(text)
 
   #stop, warn or message
-  rlang::inform(c("i" = paste0("Hello! See the ggblanket ", cli::style_hyperlink("website", "https://davidhodge931.github.io/ggblanket/"), " for further information.")), .frequency = "regularly", .frequency_id = "hello")
+  rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
   if (rlang::is_null(data)) rlang::abort("data is required.")
 
   ###ungroup
@@ -218,18 +216,6 @@ gg_freqpoly <- function(
     else if ((x_numeric | x_date) & (y_date | y_numeric | y_null)) theme <- gg_theme(grid_h = TRUE, grid_v = FALSE)
     else if ((y_numeric | y_date) & (x_null)) theme <- gg_theme(grid_h = FALSE, grid_v = TRUE)
   }
-
-  # if (rlang::is_null(width)) {
-  #   if ((x_null & y_numeric) | (y_null & x_numeric)) {
-  #     width <- NULL
-  #   }
-  #   else if (x_date | y_date) {
-  #     width <- 0.75 * 365/12
-  #   }
-  #   else {
-  #     width <- 0.75
-  #   }
-  # }
 
   if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
 
@@ -583,7 +569,6 @@ gg_freqpoly <- function(
       position = position,
       alpha = alpha,
       #linewidth = linewidth,
-      bins = bins,
       ...
     )
 

@@ -136,7 +136,7 @@ gg_area <- function(
   text <- rlang::enquo(text)
 
   #stop, warn or message
-  rlang::inform(c("i" = paste0("Hello! See the ggblanket ", cli::style_hyperlink("website", "https://davidhodge931.github.io/ggblanket/"), " for further information.")), .frequency = "regularly", .frequency_id = "hello")
+  rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
   if (rlang::is_null(data)) rlang::abort("data is required.")
 
   ###ungroup
@@ -224,18 +224,6 @@ gg_area <- function(
     else if ((x_numeric | x_date) & (y_date | y_numeric | y_null)) theme <- gg_theme(grid_h = TRUE, grid_v = FALSE)
     else if ((y_numeric | y_date) & (x_null)) theme <- gg_theme(grid_h = FALSE, grid_v = TRUE)
   }
-
-  # if (rlang::is_null(width)) {
-  #   if ((x_null & y_numeric) | (y_null & x_numeric)) {
-  #     width <- NULL
-  #   }
-  #   else if (x_date | y_date) {
-  #     width <- 0.75 * 365/12
-  #   }
-  #   else {
-  #     width <- 0.75
-  #   }
-  # }
 
   if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
 

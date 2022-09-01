@@ -22,7 +22,6 @@ gg_crossbar(
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 0.5,
-  width = NULL,
   titles = NULL,
   ...,
   title = NULL,
@@ -98,8 +97,6 @@ gg_crossbar(
 \item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
 
 \item{alpha}{Opacity. A number between 0 and 1.}
-
-\item{width}{Width. A number 0 upwards.}
 
 \item{titles}{A function to format the x, y and col titles, including in rlang lambda format. Defaults to snakecase::to_sentence_case.}
 

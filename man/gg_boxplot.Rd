@@ -18,7 +18,6 @@ gg_boxplot(
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 0.5,
-  width = NULL,
   ...,
   titles = NULL,
   title = NULL,
@@ -86,8 +85,6 @@ gg_boxplot(
 \item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
 
 \item{alpha}{Opacity. A number between 0 and 1.}
-
-\item{width}{Width. A number 0 upwards.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 

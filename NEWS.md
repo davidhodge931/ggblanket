@@ -8,6 +8,7 @@
 * Added `col_legend_rev` argument to reverse legends.
 * Added `gg_polygon` function.
 * Added `facet_space` and `facet_layout` arguments to support proportional facet panels.
+* Removed `width` default.
 * Improved default legend look for where continuous gradient.
 * Fixed bug with `position = "fill"`.
 * Added vignette.

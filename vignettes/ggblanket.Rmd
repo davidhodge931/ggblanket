@@ -47,10 +47,11 @@ To simplify visualisation, the ggblanket package provides:
 7. Unspecified titles converted to `snakecase::to_sentence`
 8. Horizontal labels, colours and legends generally arranged in correct order
 9. Nice default scales and theme
-10. A `theme` argument for customisation
-11. A `gg_theme` function to create a quick theme 
-12. A `gg_blank` function for extra flexibility
-13. Access to other `geom_*` arguments via `...`
+10. Access to other `geom_*` arguments via `...`
+
+11. A `theme` argument for customisation
+12. A `gg_theme` function to create a quick theme 
+13. A `gg_blank` function for extra flexibility
 14. A way to easily create your own customised plot functions
 15. Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
 
@@ -253,7 +254,27 @@ storms |>
   geom_point()
 ```
 
-### 10. A `theme` argument for customisation
+### 10. Access to other `geom_*` arguments via `...`
+
+This relates to all other arguments other than the mapping argument with aesthetics.
+
+Common arguments to add are `size`, `linewidth` and `width`.
+
+```{r}
+penguins |>
+  tidyr::drop_na(sex) |>
+  gg_smooth(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    level = 0.99, #argument from geom_smooth
+    col_legend_place = "t",
+    col_title = "", 
+    col_labels = snakecase::to_sentence_case
+  ) 
+```
+
+### 11. A `theme` argument for customisation
 
 This allows you to utilise the simplicity of ggblanket, while making content that has your required look and feel.
 
@@ -272,7 +293,7 @@ penguins |>
            theme = theme_grey())
 ```
 
-### 11. A `gg_theme` function to create a quick theme 
+### 12. A `gg_theme` function to create a quick theme 
 
 The `gg_theme` function allows you to create a theme that looks similar to the ggblanket look and feel. 
 
@@ -294,7 +315,7 @@ storms |>
       grid_h = TRUE))
 ```
 
-### 12. A `gg_blank` function for extra flexibility
+### 13. A `gg_blank` function for extra flexibility
 
 This function means is useful where you want to use non-supported geom's, aesthetics or if you want to add subsequent layers. 
 
@@ -323,24 +344,6 @@ penguins |>
   ) +
   geom_col(width = 0.75, alpha = 0.9) +
   geom_errorbar(width = 0.1, colour = pal_na()) 
-```
-
-### 13. Access to other `geom_*` arguments via `...`
-
-This relates to all other arguments other than the mapping argument with aesthetics.
-
-```{r}
-penguins |>
-  tidyr::drop_na(sex) |>
-  gg_smooth(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    level = 0.99, #argument from geom_smooth
-    col_legend_place = "t",
-    col_title = "", 
-    col_labels = snakecase::to_sentence_case
-  ) 
 ```
 
 ### 14. A way to easily create your own customised plot functions

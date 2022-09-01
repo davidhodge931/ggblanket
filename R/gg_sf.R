@@ -88,7 +88,7 @@ gg_sf <- function(
   text <- rlang::enquo(text)
 
   #stop, warn or message
-  rlang::inform(c("i" = paste0("Hello! See the ggblanket ", cli::style_hyperlink("website", "https://davidhodge931.github.io/ggblanket/"), " for further information.")), .frequency = "regularly", .frequency_id = "hello")
+  rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
   if (rlang::is_null(data)) rlang::abort("data is required.")
 
   ###ungroup

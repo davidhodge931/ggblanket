@@ -18,7 +18,6 @@ gg_histogram(
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 0.9,
-  bins = 30,
   ...,
   titles = NULL,
   title = NULL,
@@ -86,8 +85,6 @@ gg_histogram(
 \item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
 
 \item{alpha}{Opacity. A number between 0 and 1.}
-
-\item{bins}{Number of bins. An integer 0 upwards.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 

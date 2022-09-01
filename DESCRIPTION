@@ -1,6 +1,6 @@
 Package: ggblanket
 Title: Wrappers to Simplify 'ggplot2' Visualisation
-Version: 1.3.960
+Version: 1.3.970
 Authors@R: 
     person("David", "Hodge", email = "davidhodge931@gmail.com", 
            role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3868-7501"))
@@ -13,7 +13,6 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Imports: 
-    cli,
     dplyr,
     forcats,
     ggplot2,
