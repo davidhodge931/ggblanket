@@ -1018,6 +1018,6 @@ gg_pointrange <- function(
       ggplot2::theme(legend.position = "right")
   }
 
-  #return beautiful plot
+  plot <- plot + ggplot2::theme(legend.justification = "left") #return beautiful plot
   return(plot)
 }

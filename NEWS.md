@@ -1,7 +1,7 @@
 # ggblanket 1.3.9000
 
 * Breaking: Removed `col_intervals` argument.
-* Breaking: Removed `*_oob` arguments.
+* Breaking: Removed `*_oob` argument.
 * Breaking: In gg_theme, changed `*_style` arguments to `*_face`.
 * Breaking: In gg_theme, changed `font` arguments to `family`.
 * Added `col_continuous` argument to support colouring by "steps". 
@@ -10,7 +10,9 @@
 * Added `facet_space` and `facet_layout` arguments to support proportional facet panels.
 * Removed `width` default.
 * Improved default legend look for where continuous gradient.
+* Improved scales where `y` is NULL and plot is horizontal.
 * Fixed bug with `position = "fill"`.
+* Updated messages.
 * Added vignette.
 
 # ggblanket 1.3.0

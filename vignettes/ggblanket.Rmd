@@ -34,27 +34,6 @@ Secondary objectives relate to:
 
 It is intended to be useful for all levels of experience from beginner to expert.
 
-## How ggblanket works
-
-To simplify visualisation, the ggblanket package provides:
-
-1. `gg_*` functions to plot a single geom
-2. col and fill aesthetics merged into a single `col` argument
-3. Colours customised via a `pal` argument consistently
-4. A `facet` argument to facet in a "wrap" or "grid" layout
-5. An additional `facet2` argument to support facetting by 2 variables
-6. Ability to customise via arguments with consistent prefix's 
-7. Unspecified titles converted to `snakecase::to_sentence`
-8. Horizontal labels, colours and legends generally arranged in correct order
-9. Nice default scales and theme
-10. Access to other `geom_*` arguments via `...`
-
-11. A `theme` argument for customisation
-12. A `gg_theme` function to create a quick theme 
-13. A `gg_blank` function for extra flexibility
-14. A way to easily create your own customised plot functions
-15. Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
-
 ```{r setup}
 library(ggblanket)
 library(ggplot2)
@@ -62,6 +41,25 @@ library(dplyr)
 library(stringr)
 library(palmerpenguins)
 ```
+
+## How ggblanket works
+
+To simplify visualisation, the ggblanket package provides:
+
+* `gg_*` functions to plot a single geom
+*  col and fill aesthetics merged into a single `col` argument
+*  Colours customised via a `pal` argument consistently
+*  A `facet` argument to facet in a "wrap" or "grid" layout
+*  An additional `facet2` argument to support facetting by two variables
+*  Ability to customise via arguments with consistent prefix's 
+*  Unspecified titles converted to `snakecase::to_sentence`
+*  Horizontal labels, colours and legends generally arranged in correct order
+*  Nice default scales and theme
+*  Access to other `geom_*` arguments via `...`
+*  A `theme` argument for customisation
+*  A `gg_theme` function to create a quick theme 
+*  A way to easily create your own customised plot functions
+*  Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
 
 ### 1. `gg_*` functions to plot a single geom
 
@@ -103,12 +101,17 @@ penguins |>
     y = body_mass_g, 
     col = sex, 
     position = position_dodge2(preserve = "single"),
+    width = 0.75, 
     pal = c("#1B9E77", "#9E361B"))
 ```
 
 ### 4. A `facet` argument to facet in a "wrap" or "grid" layout
 
-Facetting is treated as if it is an aesthetic, where the users just provide an unquoted variable to facet by. If a single facet (or facet2) variable is provided, it'll default to a "wrap" layout.
+Facetting is treated as if it is an aesthetic, where the users just provide an unquoted variable to facet by. 
+
+If a single facet (or facet2) variable is provided, it'll default to a "wrap" layout. But you can change this with a `facet_layout = "grid"` argument.
+
+Both layouts have `facet_scales` and `facet_labels` arguments available. The "wrap" layout also has `facet_ncol` and `facet_nrow` arguments available, while the "grid" layout also has the `facet_space`, 
 
 ```{r}
 penguins |> 
@@ -123,14 +126,14 @@ penguins |>
     pal = "#1B9E77")
 ```
 
-### 5. An additional `facet2` argument to support facetting by 2 variables
+### 5. An additional `facet2` argument to support facetting by two variables
 
-Faceting by two variables is often useful. If both `facet`and `facet2` variables are provided, then the gg_* function will default to a "grid" layout of `facet` by `facet2`.
+Faceting by two variables is often useful. If both `facet`and `facet2` variables are provided, then the gg_* function will default to a "grid" layout of `facet` by `facet2`. But you can change this with a `facet_layout = "wrap"` argument. 
 
 ```{r, fig.asp=0.75}
-penguins %>%
-  tidyr::drop_na(sex) %>%
-  mutate(sex = str_to_sentence(sex)) %>% 
+penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(sex = str_to_sentence(sex)) |> 
   gg_density(
     x = flipper_length_mm,
     col = sex,
@@ -159,6 +162,8 @@ Available arguments are:
 * `col_legend_place`: Place to put the legend (e.g. "r")
 * `col_legend_ncol`: Number of columns to arrange legend elements into
 * `col_legend_nrow`: Number of rows to arrange legend elements into
+* `col_legend_rev`: Whether to reverse the legend 
+* `facet_layout`: Whether the layout is to be "wrap" or "grid"
 * `facet_scales`: How facet scales are to be treated
 * `facet_space`: Whether facet space is to be allocated proportionally
 * `facet_ncol`: How many columns to wrap facets into  
@@ -172,7 +177,6 @@ penguins |>
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
-    position = ggplot2::position_jitter(width = 0.2, height = 0, seed = 123), 
     col_continuous = "steps",
     y_include = 0,
     y_breaks = scales::breaks_width(1500), 
@@ -184,7 +188,9 @@ penguins |>
 
 This will make quicker to get to a plot that has titles that are good for external people to see, and will often work nicely for your `snakecase` column names. 
 
-For titles that you need to change manually, you can change manually using `x_title`, `y_title`, or `col_title`. To remove titles, you can use `x_title = ""` within the `gg_*` function and equivalent for the y and col titles. Or add a `+ ggplot2::labs(x = NULL, y = NULL, col = NULL, fill = NULL)` layer as applicable.
+For titles that you need to change manually, you can change manually using `x_title`, `y_title`, or `col_title`. 
+
+To remove titles, you can use `x_title = ""` within the `gg_*` function and equivalent for the y and col titles. Or add a `+ ggplot2::labs(x = NULL, y = NULL, col = NULL, fill = NULL)` layer as applicable.
 
 ```{r}
 penguins |>
@@ -222,6 +228,7 @@ penguins |>
     y = species, 
     col = sex, 
     facet = island,
+    width = 0.75,
     col_labels = snakecase::to_sentence_case, 
     position = "dodge")
 ```
@@ -234,7 +241,7 @@ If the y is numeric, the y limits will default to the max of the y breaks with z
 
 The default theme has a clean look designed to draw attention to the patterns of the data in the panel.
 
-Note if you do adjust the theme, ggblanket guesses the gridlines you want based on the type of data provided to the `gg_*` function. 
+Note if you use default theme, ggblanket guesses the gridlines you want based on the type of data provided to the `gg_*` function. If you provide a theme, you will need that theme to provide any gridlines that you want. 
 
 ```{r}
 storms |>
@@ -244,7 +251,7 @@ storms |>
   gg_line(
     x = year,
     y = wind,
-    x_labels = ~.x,
+    x_labels = scales::label_number(big.mark = ""),
     y_include = 0,
     title = "Storm wind speed",
     subtitle = "USA average storm wind speed, 1980\u20132020",
@@ -258,7 +265,7 @@ storms |>
 
 This relates to all other arguments other than the mapping argument with aesthetics.
 
-Common arguments to add are `size`, `linewidth` and `width`.
+Common arguments to add are `size`, `linewidth` and `width`. All arguments and can be identified through the help on the relevant `ggplot2::geom_*` function.
 
 ```{r}
 penguins |>
@@ -267,7 +274,8 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    level = 0.99, #argument from geom_smooth
+    size = 0.5, 
+    level = 0.99, 
     col_legend_place = "t",
     col_title = "", 
     col_labels = snakecase::to_sentence_case
@@ -278,9 +286,11 @@ penguins |>
 
 This allows you to utilise the simplicity of ggblanket, while making content that has your required look and feel.
 
-Your theme will control all theme aspects, other than the legend position and direction. You must instead control these within the `gg_*` function with the `col_legend_place` argument (e.g. ``col_legend_place = "r"`).
+By using the `theme` argument, your theme will control all theme aspects, _other_ than the legend position, direction and justification. 
 
-Note that as soon as you add a theme using `gg_theme()`, you will need to add any gridlines you want using the `grid_h` and `grid_v` arguments. 
+These are controlled within the `gg_*` function, so that legend positions can be adjusted easily with the `col_legend_place` argument (e.g. ``col_legend_place = "r"`).
+
+If you prefer to have your `theme` adjust everything _including_ the legend, then add your theme as a layer instead (e.g. `+ theme_grey()`). 
 
 ```{r}
 penguins |>
@@ -299,6 +309,10 @@ The `gg_theme` function allows you to create a theme that looks similar to the g
 
 This includes the following arguments for adjusting  gridlines, background colours, text and axis lines and ticks. 
 
+Use the `grid_h` and `grid_v` logical arguments to add gridlines. Otherwise this function defaults to no gridlines.
+
+There is a `void = TRUE` argument that is useful for maps.
+
 ```{r}
 storms |>
   group_by(year) |>
@@ -309,44 +323,14 @@ storms |>
     y = wind,
     x_labels = ~.x,
     x_expand = c(0, 0),
+    width = 0.75,
     theme = gg_theme(
       bg_plot_pal = "white",
       bg_panel_pal = "white",
       grid_h = TRUE))
 ```
 
-### 13. A `gg_blank` function for extra flexibility
-
-This function means is useful where you want to use non-supported geom's, aesthetics or if you want to add subsequent layers. 
-
-```{r}
-penguins |>
-  tidyr::drop_na(sex) |>
-  mutate(sex = str_to_sentence(sex)) |>
-  group_by(species, sex) |>
-  summarise(
-    mean = round(mean(bill_length_mm, na.rm = TRUE), 0),
-    n = n(),
-    se = mean / sqrt(n),
-    upper = mean + 1.96 * se,
-    lower = mean - 1.96 * se
-  ) |>
-  gg_blank(
-    x = sex,
-    y = mean,
-    col = sex,
-    facet = species,
-    label = mean,
-    ymin = lower,
-    ymax = upper,
-    y_include = 0,
-    y_title = "Bill length mm"
-  ) +
-  geom_col(width = 0.75, alpha = 0.9) +
-  geom_errorbar(width = 0.1, colour = pal_na()) 
-```
-
-### 14. A way to easily create your own customised plot functions
+### 13. A way to easily create your own customised plot functions
 
 This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_` function. 
 
@@ -378,7 +362,7 @@ iris |>
   )
 ```
 
-### 15. Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
+### 14. Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
 
 The `add_tooltip_text` function allows users to create nice tooltips in combination with the `gg_*()` `text` argument, and the `tooltip = "text"` argument in `ggplotly`.
 
@@ -406,3 +390,52 @@ iris |>
 ```{r, echo=FALSE}
 knitr::include_graphics("../man/figures/ggplotly_screenshot.png", dpi = 300)
 ```
+
+## Working with limitations
+
+Like everything, ggblanket has it's limitations. 
+
+You cannot plot:
+
+* aesthetics of alpha, size, linewidth, and linetype
+* x or y computed variables other than the default (e.g. `density` in `geom_histogram`)
+* any geom that has a col or fill computed variable (e.g. `geom_bin2d`)
+
+There are also other more minor and unusual things that you cannot do.
+
+For aesthetics of alpha, size, linewidth, and linetype, use `gg_blank` and change the title of the aesthetic you've added to align with the title of the col aesthetic.
+
+```{r}
+penguins |> 
+  gg_blank(x = flipper_length_mm, y = body_mass_g, col = species) +
+  geom_point(aes(x = flipper_length_mm, y = body_mass_g, col = species, shape = species)) +
+  labs(shape = "Species")
+```
+
+For situations related to unsupported computed variables, use ggplot2. You can mimic the ggblanket look and feel if you would like using gg_theme and other scale_* modifications.
+
+```{r}
+diamonds |> 
+  ggplot() +
+  geom_bin_2d(aes(x = carat, y = price, fill = after_stat(count))) +
+  gg_theme(grid_h = TRUE) +
+  scale_fill_gradientn(colours = viridis::viridis(9)) +
+  scale_y_continuous(expand = c(0, 0), 
+                     breaks = scales::breaks_pretty(5), 
+                     limits = range(scales::breaks_pretty(5)(diamonds$price))) +
+  labs(x = "Carat", y = "Price", fill = "Count")
+```
+
+For some other minor ggplot2 functionality that is unsupported by ggblanket, you can just add a ggplot2 layer to your ggblanket code. For example, using `+ labs(x = NULL)` enables the space to work better than `x_title = ""`.
+
+```{r}
+penguins |>
+  gg_bar(species) +
+  labs(x = NULL)
+```
+
+## Thanks
+
+Thank you Hadley Wickham and all other authors of the ggplot2 package. 
+
+If you like ggblanket, please give the repository a star, tweet or blog about it, or tell a friend or colleague.

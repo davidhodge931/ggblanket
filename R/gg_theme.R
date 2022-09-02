@@ -251,7 +251,8 @@ gg_theme <- function(
       ggplot2::theme(axis.text = ggplot2::element_blank()) +
       ggplot2::theme(axis.line = ggplot2::element_blank()) +
       ggplot2::theme(axis.ticks = ggplot2::element_blank()) +
-      ggplot2::theme(axis.title = ggplot2::element_blank())
+      ggplot2::theme(axis.title = ggplot2::element_blank()) +
+      theme(plot.margin = ggplot2::margin(t = 15, l = 20, b = 10, r = 20))
   }
 
   return(theme)
