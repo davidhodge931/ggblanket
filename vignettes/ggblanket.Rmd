@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 ggblanket is a package of wrapper functions around the fantastic ggplot2 package.
 
-The primary objective is to **simplify visualisation**.
+The primary objective is to **simplify ggplot2 visualisation**.
 
 Secondary objectives relate to:
 
@@ -44,9 +44,9 @@ library(palmerpenguins)
 
 ## How it works
 
-To simplify visualisation, the ggblanket package provides:
+To simplify ggplot2 visualisation, the ggblanket package provides:
 
-* `gg_*` functions to plot a single geom
+* `gg_*` wrapper functions to plot a single geom
 *  col and fill aesthetics merged into a single `col` argument
 *  Colours customised via a `pal` argument consistently
 *  A `facet` argument to facet in a "wrap" or "grid" layout
@@ -61,7 +61,7 @@ To simplify visualisation, the ggblanket package provides:
 *  A way to easily create your own customised plot functions
 *  Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
 
-### 1. `gg_*` functions to plot a single geom
+### 1. `gg_*` wrapper functions to plot a single geom
 
 These `gg_*`functions each wrap a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function.
 

@@ -22,7 +22,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-day/ggblanket?color=lightgrey)
 ggblanket is a package of wrapper functions around the fantastic ggplot2
 package.
 
-The primary objective is to **simplify visualisation**.
+The primary objective is to **simplify ggplot2 visualisation**.
 
 Secondary objectives relate to:
 
