@@ -396,11 +396,11 @@ Like everything, ggblanket has it's limitations.
 
 You cannot easily plot:
   
-* aesthetics of alpha, size, linewidth, and linetype
-* x or y computed variables other than the default (e.g. `density` in `geom_histogram`)
-* any geom that has a col or fill computed variable (e.g. `geom_bin2d`)
+* _aesthetics_ of `alpha`, `size`, `linewidth`, `shape`, and `linetype`
+* x or y _computed_ variables other than the default (e.g. `density` in `geom_histogram`)
+* any geom that has a col _computed_ variable (e.g. `geom_bin2d`)
 
-For aesthetics of `alpha`, `size`, `linewidth`, and `linetype`, you can use `gg_blank` in addition to a `col` argument and then add the title of your new aesthetic to align with the col_title.
+For aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`, you can use `gg_blank` in addition to a `col` argument and then add the title of your new aesthetic to align with the `col_title`.
 
 ```{r}
 penguins |> 
