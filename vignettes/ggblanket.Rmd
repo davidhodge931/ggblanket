@@ -42,7 +42,7 @@ library(stringr)
 library(palmerpenguins)
 ```
 
-## How ggblanket works
+## How it works
 
 To simplify visualisation, the ggblanket package provides:
 
@@ -101,7 +101,6 @@ penguins |>
     y = body_mass_g, 
     col = sex, 
     position = position_dodge2(preserve = "single"),
-    width = 0.75, 
     pal = c("#1B9E77", "#9E361B"))
 ```
 
@@ -321,7 +320,7 @@ storms |>
   gg_col(
     x = year,
     y = wind,
-    x_labels = ~.x,
+    x_labels = scales::label_comma(big.mark = ""),
     x_expand = c(0, 0),
     width = 0.75,
     theme = gg_theme(
@@ -391,28 +390,42 @@ iris |>
 knitr::include_graphics("../man/figures/ggplotly_screenshot.png", dpi = 300)
 ```
 
-## Working with limitations
+## Getting around limitations
 
 Like everything, ggblanket has it's limitations. 
 
-You cannot plot:
+You cannot easily plot:
 
 * aesthetics of alpha, size, linewidth, and linetype
 * x or y computed variables other than the default (e.g. `density` in `geom_histogram`)
 * any geom that has a col or fill computed variable (e.g. `geom_bin2d`)
 
-There are also other more minor and unusual things that you cannot do.
+There are also other somewhat unusual things that you cannot do.
 
-For aesthetics of alpha, size, linewidth, and linetype, use `gg_blank` and change the title of the aesthetic you've added to align with the title of the col aesthetic.
+For aesthetics of alpha, size, linewidth, and linetype, use `gg_blank` with a col argument and add a title of the aesthetic you've added to align with the col_title.
 
 ```{r}
 penguins |> 
   gg_blank(x = flipper_length_mm, y = body_mass_g, col = species) +
-  geom_point(aes(x = flipper_length_mm, y = body_mass_g, col = species, shape = species)) +
+  geom_point(aes(shape = species)) +
   labs(shape = "Species")
 ```
 
 For situations related to unsupported computed variables, use ggplot2. You can mimic the ggblanket look and feel if you would like using gg_theme and other scale_* modifications.
+
+```{r}
+diamonds |> 
+  ggplot() +
+  geom_histogram(aes(x = carat, y = after_stat(density)), 
+                 col = pal_viridis_mix(1), 
+                 fill = pal_viridis_mix(1), 
+                 alpha = 0.9) +
+  gg_theme(grid_h = TRUE) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), 
+                     breaks = scales::breaks_pretty(5)) +
+  labs(x = "Carat", y = "Density")
+```
+
 
 ```{r}
 diamonds |> 
@@ -426,16 +439,31 @@ diamonds |>
   labs(x = "Carat", y = "Price", fill = "Count")
 ```
 
-For some other minor ggplot2 functionality that is unsupported by ggblanket, you can just add a ggplot2 layer to your ggblanket code. For example, using `+ labs(x = NULL)` enables the space to work better than `x_title = ""`.
+For some other minor ggplot2 functionality that is unsupported by ggblanket, you can just add a ggplot2 layer to your ggblanket code. 
+
+For example, using `+ labs(x = NULL)` enables the space to work better than `x_title = ""`.
 
 ```{r}
 penguins |>
-  gg_bar(species) +
+  gg_bar(species, width = 0.75) +
   labs(x = NULL)
 ```
 
-## Thanks
+Likewise, for example, users could access the unsupported `switch` argument in `ggplot2::facet_grid` by adding this as a layer.  
 
-Thank you Hadley Wickham and all other authors of the ggplot2 package. 
-
-If you like ggblanket, please give the repository a star, tweet or blog about it, or tell a friend or colleague.
+```{r, fig.asp=0.75}
+penguins |>
+  tidyr::drop_na() |>
+  mutate(sex = str_to_sentence(sex)) |>
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g,
+    col = island,
+    x_breaks = scales::breaks_pretty(3),
+    y_breaks = scales::breaks_width(1500)
+  ) +
+  facet_grid(cols = vars(species),
+             rows = vars(sex), 
+             switch = "y") +
+  theme(strip.switch.pad.grid = unit(2, "mm"))
+```

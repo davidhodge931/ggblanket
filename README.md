@@ -76,7 +76,7 @@ penguins |>
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" />
 
-## Thanks
+## Thanks!
 
 Thank you Hadley Wickham and all other authors of the ggplot2 package.
 

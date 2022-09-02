@@ -101,7 +101,6 @@ gg_violin <- function(
     col_breaks = NULL,
     col_continuous = "gradient",
     col_include = NULL,
-
     col_labels = NULL,
     col_legend_place = NULL,
     col_legend_ncol = NULL,
