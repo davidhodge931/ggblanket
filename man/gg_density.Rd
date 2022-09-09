@@ -48,6 +48,7 @@ gg_density(
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
   col_limits = NULL,
+  col_rescale = NULL,
   col_title = NULL,
   facet_labels = NULL,
   facet_ncol = NULL,
@@ -145,6 +146,8 @@ gg_density(
 \item{col_legend_rev}{Reverse the elements of the legend. Defaults to FALSE.}
 
 \item{col_limits}{A vector to determine the limits of the axis.}
+
+\item{col_rescale}{For a continuous col variable, rescale the position of each pal colour using the scales::rescale function.}
 
 \item{col_title}{Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
