@@ -691,7 +691,7 @@ gg_area <- function(
         if (!rlang::is_null(x_include)) x_limits <- range(c(x_limits, x_include))
 
         if (rlang::is_null(x_breaks)) {
-          x_breaks_n <- ifelse(facet_null | facet2_null, 5, 3)
+          x_breaks_n <- ifelse(facet_null & facet2_null, 5, 3)
           if (x_time) x_breaks <- ggplot2::waiver()
           else if (!x_trans %in% c("identity", "reverse")) x_breaks <- ggplot2::waiver()
           else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
@@ -750,7 +750,7 @@ gg_area <- function(
         if (!rlang::is_null(x_include)) x_limits <- range(c(x_limits, x_include))
 
         if (rlang::is_null(x_breaks)) {
-          x_breaks_n <- ifelse(facet_null, 5, 4)
+          x_breaks_n <- ifelse(facet_null & facet2_null, 5, 3)
           if (x_time) x_breaks <- ggplot2::waiver()
           else if (x_trans %in% c("identity", "reverse")) x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
           else x_breaks <- ggplot2::waiver()
@@ -853,7 +853,7 @@ gg_area <- function(
         if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
 
         if (rlang::is_null(y_breaks)) {
-          y_breaks_n <- ifelse(facet_null, 5, 3)
+          y_breaks_n <- ifelse(facet_null & facet2_null, 5, 4)
           if (y_time) y_breaks <- ggplot2::waiver()
           else if (!y_trans %in% c("identity", "reverse")) y_breaks <- ggplot2::waiver()
           else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
@@ -906,7 +906,7 @@ gg_area <- function(
         if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
 
         if (rlang::is_null(y_breaks)) {
-          y_breaks_n <- ifelse(facet_null, 5, 4)
+          y_breaks_n <- ifelse(facet_null & facet2_null, 5, 4)
 
           if (y_time) y_breaks <- ggplot2::waiver()
           else if (y_trans %in% c("identity", "reverse")) y_breaks <- scales::breaks_pretty(n = x_breaks_n)(y_limits)
