@@ -46,24 +46,27 @@ library(palmerpenguins)
 
 To simplify ggplot2 visualisation, the ggblanket package provides:
 
-* `gg_*` wrapper functions to plot a single geom
-*  col and fill aesthetics merged into a single `col` argument
-*  Colours customised via a `pal` argument consistently
-*  A `facet` argument to facet in a "wrap" or "grid" layout
-*  An additional `facet2` argument to support facetting by two variables
-*  Ability to customise via arguments with consistent prefix's 
-*  Unspecified titles converted to `snakecase::to_sentence`
-*  Horizontal labels, colours and legends generally arranged in correct order
-*  Nice default scales and theme
-*  Access to other `geom_*` arguments via `...`
-*  A `theme` argument for customisation
-*  A `gg_theme` function to create a quick theme 
-*  A way to easily create your own customised plot functions
-*  Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
+1. `gg_*` wrapper functions to plot a single geom
+2.  col and fill aesthetics merged into a single `col` argument
+3.  Colours customised via a `pal` argument consistently
+4.  A `facet` argument to facet in a "wrap" or "grid" layout
+5.  An additional `facet2` argument to support facetting by two variables
+6.  Ability to customise via arguments with consistent prefix's 
+7.  Unspecified titles converted to `snakecase::to_sentence`
+8.  Horizontal labels, colours and legends _generally_ arranged in correct order
+9.  Nice default scales and theme
+10.  Colouring that _generally_ enables inheriting to subsequent layers
+11.  Access to other `geom_*` arguments via `...`
+12.  A `theme` argument for customisation
+13.  A `gg_theme` function to create a quick theme 
+14.  A way to easily create your own customised plot functions
+15.  Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
 
 ### 1. `gg_*` wrapper functions to plot a single geom
 
 These `gg_*`functions each wrap a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function.
+
+All aesthetics (other than `text`) are within the `ggplot` function, and therefore will inherit to any subsequent geom's added by default.
 
 Always pipe in your data, so that you can access variable names from the Rstudio autocomplete.
 
@@ -158,6 +161,7 @@ Available arguments are:
 * `*_sec_axis`: Add a secondary axis
 * `*_title`: Add a title
 * `col_continuous` How to colour a continuous variable (e.g. "steps")
+* `col_rescale`: whether to rescale the pal across a continuous col variable
 * `col_legend_place`: Place to put the legend (e.g. "r")
 * `col_legend_ncol`: Number of columns to arrange legend elements into
 * `col_legend_nrow`: Number of rows to arrange legend elements into
@@ -213,7 +217,7 @@ penguins |>
   geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
 ```
 
-### 8. Horizontal labels, colours and legends generally arranged in correct order
+### 8. Horizontal labels, colours and legends _generally_ arranged in correct order
 
 When plots are horizontal, ggblanket ensures y labels, colours and legends are generally in the right order. 
 
@@ -260,7 +264,26 @@ storms |>
   geom_point()
 ```
 
-### 10. Access to other `geom_*` arguments via `...`
+### 10. A pal that is generally inherited to additional geoms
+
+The pal is _generally_ inherited to subsequent geom layers regardless of whether there is a `col` aesthetic.
+
+This often looks really nice. 
+
+It does this because 'under the hood', dummy `col` and `fill` aesthetic variables are added, and a colour scale is then added with the legend turned off. 
+
+This approach in great in most simple plots, but can cause some challenges. These are discussed further in the 'Getting around limitations' section. 
+
+```{r}
+penguins %>%
+  gg_boxplot(x = species,
+             y = body_mass_g,
+             width = 0.5,
+             pal = "#1B9E77") +
+  geom_jitter()
+```
+
+### 11. Access to other `geom_*` arguments via `...`
 
 This relates to all other arguments other than the mapping argument with aesthetics.
 
@@ -281,7 +304,7 @@ penguins |>
   ) 
 ```
 
-### 11. A `theme` argument for customisation
+### 12. A `theme` argument for customisation
 
 This allows you to utilise the simplicity of ggblanket, while making content that has your required look and feel.
 
@@ -302,7 +325,7 @@ penguins |>
            theme = theme_grey())
 ```
 
-### 12. A `gg_theme` function to create a quick theme 
+### 13. A `gg_theme` function to create a quick theme 
 
 The `gg_theme` function allows you to create a theme that looks similar to the ggblanket look and feel. 
 
@@ -329,7 +352,7 @@ storms |>
       grid_h = TRUE))
 ```
 
-### 13. A way to easily create your own customised plot functions
+### 14. A way to easily create your own customised plot functions
 
 This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_` function. 
 
@@ -361,7 +384,7 @@ iris |>
   )
 ```
 
-### 14. Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
+### 15. Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
 
 The `add_tooltip_text` function allows users to create nice tooltips in combination with the `gg_*()` `text` argument, and the `tooltip = "text"` argument in `ggplotly`.
 
@@ -395,7 +418,6 @@ knitr::include_graphics("../man/figures/ggplotly_screenshot.png", dpi = 300)
 Like everything, ggblanket has it's limitations. 
 
 You cannot easily plot:
-  
 * _aesthetics_ of `alpha`, `size`, `linewidth`, `shape`, and `linetype`
 * x or y _computed_ variables other than the default (e.g. `density` in `geom_histogram`)
 * any geom that has a col _computed_ variable (e.g. `geom_bin2d`)

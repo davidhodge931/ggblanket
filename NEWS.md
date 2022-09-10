@@ -1,8 +1,8 @@
 # ggblanket 1.4.9000
 
-* Supported datetime variables.
-* Supported time variables with hms class.
-* Added col_rescale argument to rescale a colour gradient.
+* Supported `x` and `y` datetime variables.
+* Supported `x` and `y` time variables.
+* Added `col_rescale` argument to rescale a colour gradient.
 
 # ggblanket 1.4.0
 
