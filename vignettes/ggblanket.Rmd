@@ -270,16 +270,17 @@ The pal is _generally_ inherited to subsequent geom layers regardless of whether
 
 This often looks really nice. 
 
-It does this because 'under the hood', dummy `col` and `fill` aesthetic variables are added, and a colour scale is then added with the legend turned off. 
+It does this because 'under the hood', dummy `col` and `fill` aesmthetic variables are added, and a colour scale is then added with the legend turned off. 
 
-This approach in great in most simple plots, but can cause some challenges. These are discussed further in the 'Getting around limitations' section. 
+This approach in great in most simple plots but can cause some challenges. These are discussed further in the 'Multiple geom layers' section. 
 
 ```{r}
 penguins %>%
   gg_boxplot(x = species,
              y = body_mass_g,
              width = 0.5,
-             pal = "#1B9E77") +
+             pal = "#1B9E77", 
+             outlier.colour = NA) +
   geom_jitter()
 ```
 
@@ -413,16 +414,47 @@ iris |>
 knitr::include_graphics("../man/figures/ggplotly_screenshot.png", dpi = 300)
 ```
 
-## Getting around limitations
+## Multiple geom layers 
 
-Like everything, ggblanket has it's limitations. 
+For _all_ plots with multiple geom's, you will need to think about if there is any desired drawing order you want, and if so choose the `gg_*` function of the layer you would like on the bottom.
 
-You cannot easily plot:
-* _aesthetics_ of `alpha`, `size`, `linewidth`, `shape`, and `linetype`
-* x or y _computed_ variables other than the default (e.g. `density` in `geom_histogram`)
-* any geom that has a col _computed_ variable (e.g. `geom_bin2d`)
+For plots where some geoms have a col aesthetic and some do not, you must choose a `gg_*` function that relates one of the layers with a col aesthetic. Or, if this conficts the desired drawing order, then choose `gg_blank`. The reason for this is as alluded to earlier, of how ggblanket under the hood creates a dummy col scale for when there is no `col` aesthetic. 
 
-For aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`, you can use `gg_blank` in addition to a `col` argument and then add the title of your new aesthetic to align with the `col_title`.
+Once you know you're `gg_*` function you are going to use, then you might need to use the  `*_include` argument to adjust the x and y scale if it will not include all of the range needed by subsequent layers. 
+
+If subsequent layers do _not_ require all of the aesthetics from the `gg_*` function, use the  `inherit.aes = FALSE` argument in the `geom_*` function.
+
+For example, to make a coloured column graph with grey error bars, use the `gg_col` function as this layer has a col aesthetic and the drawing order means it should be underneath the errorbars. 
+
+```{r}
+df <- data.frame(
+  trt = factor(c(1, 1, 2, 2)),
+  resp = c(1, 5, 3, 4),
+  group = factor(c(1, 2, 1, 2)),
+  upper = c(1.1, 5.3, 3.3, 4.2),
+  lower = c(0.8, 4.6, 2.4, 3.6)
+)
+
+df %>% 
+  gg_col(
+    x = trt,
+    y = resp,
+    col = group,
+    position = "dodge",
+    y_include = max(df$upper) 
+  ) +
+  geom_errorbar(
+    aes(x = trt, ymin = lower, ymax = upper, group = group),
+    inherit.aes = FALSE,
+    col = "#7F7F7F",
+    position = position_dodge(width = 0.9),
+    width = 0.1
+    )
+```
+
+## Other challenges 
+
+`gg_*` functions do not directly support aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`. However, you could use `gg_blank` in addition to a `col` aesthetic, and then add the title of your new aesthetic to align with the `col_title`.
 
 ```{r}
 penguins |> 
@@ -431,22 +463,7 @@ penguins |>
   labs(shape = "Species")
 ```
 
-If you wish to use non-default _computed_ `x` or `y` variables, you need to use `ggplot2`. You can mimic the ggblanket look and feel if you would like using `gg_theme` and other `scale_*` modifications. Alternatively, you could instead settle for using the default _computed_ variable with ggblanket. 
-
-```{r}
-diamonds |> 
-  ggplot() +
-  geom_histogram(aes(x = carat, y = after_stat(density)), 
-                 col = pal_viridis_mix(1), 
-                 fill = pal_viridis_mix(1), 
-                 alpha = 0.9) +
-  gg_theme(grid_h = TRUE) +
-  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), 
-                     breaks = scales::breaks_pretty(5)) +
-  labs(x = "Carat", y = "Density")
-```
-
-All geom's that use a _computed_ `col` variable are not supported by ggblanket, and you will have to use ggplot2 for these plots. 
+You cannot use _computed_ variables. Instead you will need to ggplot2, if these are required.
 
 ```{r}
 diamonds |> 
@@ -460,4 +477,4 @@ diamonds |>
   labs(x = "Carat", y = "Price", fill = "Count")
 ```
 
-For some ggplot2 functionality unsupported by ggblanket, you will be able to add a ggplot2 layer to your ggblanket code. For example, using `+ labs(x = NULL)` or `+ facet_grid(..., switch = "y")`.
+For some ggplot2 functionality unsupported by ggblanket, you could add a ggplot2 layer to your ggblanket code. For example, using `+ labs(x = NULL)` or `+ facet_grid(..., switch = "y")`.
