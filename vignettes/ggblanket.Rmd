@@ -418,11 +418,11 @@ knitr::include_graphics("../man/figures/ggplotly_screenshot.png", dpi = 300)
 
 For _all_ plots with multiple geom's, you will need to think about if there is any desired drawing order you want, and if so choose the `gg_*` function that permits this order.
 
-For plots where some geoms have a` col` aesthetic and some do not, you must choose a `gg_*` function that relates one of the layers with a col argument. Or, if this conficts the desired drawing order, then choose `gg_blank`. The reason for this is as alluded to earlier, of how ggblanket under the hood creates a dummy col scale for when there is no `col` argument. 
+For plots where some geoms have a` col` aesthetic and some do not, you must choose a `gg_*` function that relates to one of the layers with a `col` argument. Or, if this conflicts with the desired drawing order, then choose `gg_blank` (i.e. with the `col` argument). The reason for this is that ggblanket under the hood creates a dummy colour scale for when there is no `col` argument. 
 
-Once you know you're `gg_*` function you are going to use, then you might need to use the  `*_include` argument to adjust the x and y scale if it will not include all of the range needed by subsequent layers. 
+Once you know what `gg_*` function you are going to use, then you might need to use the  `*_include` argument to adjust the x or y scale if it will not include all of the range needed by subsequent layers. 
 
-If subsequent layers do _not_ require all of the aesthetics from the `gg_*` function, use the  `inherit.aes = FALSE` argument in the `geom_*` function.
+If subsequent layers do _not_ require all of the aesthetics from the `gg_*` function, use the `inherit.aes = FALSE` argument in the `geom_*` function.
 
 For example, to make a coloured column graph with grey error bars, use the `gg_col` function as this layer has a col aesthetic and the drawing order means it should be underneath the errorbars. 
 
