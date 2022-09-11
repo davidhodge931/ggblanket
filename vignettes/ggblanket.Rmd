@@ -266,7 +266,7 @@ storms |>
 
 ### 10. A pal that is generally inherited to additional geoms
 
-The pal is _generally_ inherited to subsequent geom layers regardless of whether there is a `col` aesthetic.
+The pal is _generally_ inherited to subsequent geom layers regardless of whether there is a `col` argument.
 
 This often looks really nice. 
 
@@ -416,9 +416,9 @@ knitr::include_graphics("../man/figures/ggplotly_screenshot.png", dpi = 300)
 
 ## Multiple geom layers 
 
-For _all_ plots with multiple geom's, you will need to think about if there is any desired drawing order you want, and if so choose the `gg_*` function of the layer you would like on the bottom.
+For _all_ plots with multiple geom's, you will need to think about if there is any desired drawing order you want, and if so choose the `gg_*` function that permits this order.
 
-For plots where some geoms have a col aesthetic and some do not, you must choose a `gg_*` function that relates one of the layers with a col aesthetic. Or, if this conficts the desired drawing order, then choose `gg_blank`. The reason for this is as alluded to earlier, of how ggblanket under the hood creates a dummy col scale for when there is no `col` aesthetic. 
+For plots where some geoms have a` col` aesthetic and some do not, you must choose a `gg_*` function that relates one of the layers with a col argument. Or, if this conficts the desired drawing order, then choose `gg_blank`. The reason for this is as alluded to earlier, of how ggblanket under the hood creates a dummy col scale for when there is no `col` argument. 
 
 Once you know you're `gg_*` function you are going to use, then you might need to use the  `*_include` argument to adjust the x and y scale if it will not include all of the range needed by subsequent layers. 
 
@@ -454,7 +454,7 @@ df %>%
 
 ## Other challenges 
 
-`gg_*` functions do not directly support aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`. However, you could use `gg_blank` in addition to a `col` aesthetic, and then add the title of your new aesthetic to align with the `col_title`.
+`gg_*` functions do not directly support aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`. However, you could use `gg_blank` in addition to a `col` argument, and then add the title of your new aesthetic to align with the `col_title`.
 
 ```{r}
 penguins |> 
