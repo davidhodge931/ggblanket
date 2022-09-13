@@ -310,6 +310,8 @@ These are controlled within the `gg_*` function, so that legend positions can be
 
 If you prefer to have your `theme` adjust everything _including_ the legend, then add your theme as a layer instead (e.g. `+ theme_grey()`). 
 
+Note if you use the default theme, ggblanket guesses the gridlines you want based on the type of data provided to the `gg_*` function. If you provide a theme, you will need that theme to provide any gridlines that you want. 
+
 ```{r}
 penguins |>
   mutate(sex = str_to_sentence(sex)) |> 
