@@ -47,19 +47,19 @@ library(palmerpenguins)
 To simplify ggplot2 visualisation, the ggblanket package provides:
 
 1. `gg_*` wrapper functions to plot a single geom
-2.  col and fill aesthetics merged into a single `col` argument
-3.  A `facet` argument to effortlessly facet
+2.  A single `col` argument to colour and fill by a variable
+3.  A `facet` argument to facet by a variable
 4.  An additional `facet2` argument to facet by a second variable
 5.  A `pal` argument to customise colours
-6.  Prefixed arguments to customise scales, guides, titles and facetting 
-7.  Default titles converted to `snakecase::to_sentence`
-8.  Numeric limits that default to the max/min break
-9.  Horizontal plots nicely arranged
-10.  Colours that generally inherit to subsequent geoms
+6.  Prefixed arguments to customise scales, guides, titles and faceting 
+7.  Default titles converted with `snakecase::to_sentence`
+8.  Numeric limits that default to the min and max break
+9.  Horizontal plots with y labels in order etc
+10.  A `pal` that generally inherits to subsequent geoms
 11.  Access to other `geom_*` arguments via `...`
-12.  A `theme` argument for customisation
+12.  A `theme` argument to customise the look and feel
 13.  A `gg_theme` function to create a quick theme 
-14.  A way to easily create your own customised plot functions
+14.  A way to create powerful custom plot functions
 15.  Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
 
 ### 1. `gg_*` wrapper functions to plot a single geom
@@ -79,9 +79,9 @@ iris |>
     col = Species)
 ```
 
-### 2. col and fill aesthetics merged into a single `col` argument
+### 2.A single `col` argument to colour and fill by a variable
 
-There is no `fill` concept in ggblanket. Instead, `col` relates to both the `col` and `fill` concepts of ggplot2.  
+{ggblanket} merges the col and fill aesthetics of ggplot2 into one concept represented by the `col` argument. In ggplot2 language, this argument always represents both col and fill.
 
 ```{r}
 penguins |> 
@@ -90,9 +90,9 @@ penguins |>
     col = species) 
 ```
 
-### 3. A `facet` argument to effortlessly facet
+### 3. A `facet` argument to facet by a variable
 
-Facetting is treated as if it is an aesthetic, where the users just provide an unquoted variable to facet by. 
+faceting is treated essentially as if it were an aesthetic, where users just provide an unquoted variable to facet by. 
 
 If a single facet (or facet2) variable is provided, it'll default to a "wrap" layout. But you can change this with a `facet_layout = "grid"` argument.
 
@@ -108,9 +108,9 @@ penguins |>
 
 ### 4. An additional `facet2` argument to facet by a second variable
 
-Faceting by two variables is often useful. 
+A `facet2` argument is also provided for extra functionality and flexibility.
 
-If both `facet`and `facet2` variables are provided, then the gg_* function will default to a "grid" layout of `facet` by `facet2`. But you can change this with a `facet_layout = "wrap"` argument. 
+If both `facet`and `facet2` variables are provided, then it'll default to a "grid" layout of `facet` by `facet2`. But you can change this with a `facet_layout = "wrap"` argument. 
 
 ```{r, fig.asp=0.75}
 penguins |>
@@ -143,7 +143,7 @@ penguins |>
     pal = c("#1B9E77", "#9E361B"))
 ```
 
-### 6.  Prefixed arguments to customise scales, guides, titles and facetting 
+### 6.  Prefixed arguments to customise scales, guides, titles and faceting 
 
 These prefixed arguments are designed to work with the Rstudio autocomplete to help you remember and find the adjustment you need. 
 
@@ -184,7 +184,7 @@ penguins |>
   )
 ```
 
-### 7. Default titles converted to `snakecase::to_sentence`
+### 7. Default titles converted with `snakecase::to_sentence`
 
 This will make quicker to get to a plot that has titles that are good for external people to see, and will often work nicely for your `snakecase` column names. 
 
@@ -214,7 +214,7 @@ penguins |>
   geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
 ```
 
-### 8. Numeric limits that default to the max/min break
+### 8. Numeric limits that default to the min and max break
 
 The default x and y scales have been designed to create symmetry.
 
@@ -240,9 +240,11 @@ storms |>
   geom_point()
 ```
 
-### 9. Horizontal plots nicely arranged
+### 9. Horizontal plots with y labels in order etc
 
-When plots are horizontal, ggblanket ensures y labels, colours and legends are generally in the right order. 
+When plots are horizontal, ggblanket ensures y labels are in order.
+
+The position of bars, `pal` colours and legend elements will mostly be in the right order too.
 
 ```{r}
 penguins |>
@@ -259,9 +261,9 @@ penguins |>
     position = "dodge")
 ```
 
-### 10. Colours that generally inherit to subsequent geoms
+### 10. A `pal` that inherits to subsequent geoms
 
-The pal is generally inherited to subsequent geom layers regardless of whether there is a `col` argument.
+The `pal` is generally inherited to subsequent geom layers regardless of whether there is a `col` argument.
 
 It does this because 'under the hood', dummy `col` and `fill` aesmthetic variables are added, and a colour scale is then added with the legend turned off. 
 
@@ -300,17 +302,15 @@ penguins |>
   ) 
 ```
 
-### 12. A `theme` argument for customisation
+### 12. A `theme` argument to customise the look and feel
 
 This allows you to utilise the simplicity of ggblanket, while making content that has your required look and feel.
 
-By using the `theme` argument, your theme will control all theme aspects, _other_ than the legend position, direction and justification. 
+By using the `theme` argument, your theme will control all theme aspects, _other_ than the legend position, direction and justification. These are controlled within the `gg_*` function, so that legend positions can be adjusted easily with the `col_legend_place` argument (e.g. ``col_legend_place = "r"`). If you prefer to have your `theme` adjust everything _including_ the legend, then add your theme as a layer instead (e.g. `+ theme_grey()`). 
 
-These are controlled within the `gg_*` function, so that legend positions can be adjusted easily with the `col_legend_place` argument (e.g. ``col_legend_place = "r"`).
+Note, the default theme within `gg_*` guesses the gridlines you might want based on the class of `x` and `y` variables in the data. 
 
-If you prefer to have your `theme` adjust everything _including_ the legend, then add your theme as a layer instead (e.g. `+ theme_grey()`). 
-
-Note if you use the default theme, ggblanket guesses the gridlines you want based on the type of data provided to the `gg_*` function. If you provide a theme, you will need that theme to provide any gridlines that you want. 
+If you provide a theme, it will add gridlines, as per that theme. You may want to create two versions of your custom theme: one with horizontal gridlines and one with vertical gridlines.
 
 ```{r}
 penguins |>
@@ -325,13 +325,13 @@ penguins |>
 
 ### 13. A `gg_theme` function to create a quick theme 
 
-The `gg_theme` function allows you to create a theme that looks similar to the ggblanket look and feel. 
+The `gg_theme` function allows you to create a quick simple theme. 
 
-This includes the following arguments for adjusting  gridlines, background colours, text and axis lines and ticks. 
+It includes arguments for adjusting gridlines, background colours, text, axis lines and ticks. 
 
 Use the `grid_h` and `grid_v` logical arguments to add gridlines. Otherwise this function defaults to no gridlines.
 
-There is a `void = TRUE` argument that is useful for maps.
+There is also a `void = TRUE` argument that is useful for maps.
 
 ```{r}
 storms |>
@@ -350,13 +350,14 @@ storms |>
       grid_h = TRUE))
 ```
 
-### 14. A way to easily create your own customised plot functions
+### 14. A way to create powerful custom plot functions
 
-This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_` function. 
+You can easily create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
 ```{r}
 gg_point_custom <- function(data, x, y, col, 
                             size = 3, 
+                            shape = 17,
                             pal = pals::brewer.dark2(9), 
                             col_title = "", 
                             col_legend_place = "t",
@@ -364,6 +365,7 @@ gg_point_custom <- function(data, x, y, col,
   data |> 
     gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
              size = size, 
+             shape = shape,
              pal = pal, 
              col_title = col_title, 
              col_legend_place = col_legend_place, 
