@@ -899,7 +899,7 @@ gg_step <- function(
           y_breaks_n <- ifelse(facet_null & facet2_null, 5, 4)
 
           if (y_time) y_breaks <- ggplot2::waiver()
-          else if (y_trans %in% c("identity", "reverse")) y_breaks <- scales::breaks_pretty(n = x_breaks_n)(y_limits)
+          else if (y_trans %in% c("identity", "reverse")) y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
           else y_breaks <- ggplot2::waiver()
         }
       }
