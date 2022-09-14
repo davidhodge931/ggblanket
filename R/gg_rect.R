@@ -582,7 +582,7 @@ gg_rect <- function(
         plot <- plot +
           ggplot2::scale_colour_gradientn(
             colors = pal,
-            values = col_rescale,
+            values = scales::rescale(col_rescale),
             labels = col_labels,
             breaks = col_breaks,
             limits = col_limits,
@@ -595,7 +595,7 @@ gg_rect <- function(
               reverse = col_legend_rev)) +
           ggplot2::scale_fill_gradientn(
             colors = pal,
-            values = col_rescale,
+            values = scales::rescale(col_rescale),
             labels = col_labels,
             breaks = col_breaks,
             limits = col_limits,
@@ -615,7 +615,7 @@ gg_rect <- function(
         plot <- plot +
           ggplot2::scale_colour_stepsn(
             colors = pal,
-            values = col_rescale,
+            values = scales::rescale(col_rescale),
             labels = col_labels,
             breaks = col_breaks,
             limits = col_limits,
@@ -625,7 +625,7 @@ gg_rect <- function(
               reverse = col_legend_rev)) +
           ggplot2::scale_fill_stepsn(
             colors = pal,
-            values = col_rescale,
+            values = scales::rescale(col_rescale),
             labels = col_labels,
             breaks = col_breaks,
             limits = col_limits,
