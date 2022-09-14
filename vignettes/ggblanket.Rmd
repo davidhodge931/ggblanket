@@ -59,7 +59,7 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 11.  Access to other `geom_*` arguments via `...`
 12.  A `theme` argument to customise the look and feel
 13.  A `gg_theme` function to create a quick theme 
-14.  A way to create powerful custom plot functions
+14.  A base from which to create custom plot functions with your own defaults
 15.  Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
 
 ### 1. `gg_*` wrapper functions to plot a single geom
@@ -350,7 +350,7 @@ storms |>
       grid_h = TRUE))
 ```
 
-### 14. A way to create powerful custom plot functions
+### 14. A base from which to create custom plot functions with your own defaults
 
 You can easily create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
@@ -462,7 +462,36 @@ penguins |>
   labs(shape = "Species")
 ```
 
-You cannot use _computed_ variables. Instead you will need to ggplot2, if these are required.
+ggblanket keeps `x` and `y` out-of-bound values (i.e. it uses scales::oob_keep under the hood). However, you can zoom in using `coord = coord_cartesian(xlim = ..., ylim = ...)` (or by filtering the data).
+
+```{r}
+penguins %>% 
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    coord = coord_cartesian(xlim = c(190, 200)),
+    x_breaks = scales::breaks_width(2))
+```
+
+For some ggplot2 functionality unsupported by ggblanket, you can add the applicable ggplot2 layer to your ggblanket code. For example, using `+ labs(x = NULL)` or `+ facet_grid(..., switch = "y")`.
+
+```{r}
+penguins |>
+  tidyr::drop_na() |>
+  mutate(sex = str_to_sentence(sex)) |>
+  gg_jitter(
+    x = sex, 
+    y = body_mass_g,
+    col = sex, 
+    size = 1) +
+  facet_grid(cols = vars(species),
+             rows = vars(island), 
+             switch = "y") +
+  theme(strip.switch.pad.grid = unit(3, "mm")) +
+  labs(x = NULL)
+```
+
+Some functionality is just not supported in ggblanket. For example, you cannot use _computed_ variables. Instead you will need to use  ggplot2, if these are required.
 
 ```{r}
 diamonds |> 
@@ -475,8 +504,3 @@ diamonds |>
                      limits = range(scales::breaks_pretty(5)(diamonds$price))) +
   labs(x = "Carat", y = "Price", fill = "Count")
 ```
-
-For some ggplot2 functionality unsupported by ggblanket, you could add a ggplot2 layer to your ggblanket code. For example, using `+ labs(x = NULL)` or `+ facet_grid(..., switch = "y")`.
-
-Note that ggblanket keeps `x` and `y` out-of-bound values (i.e. it uses scales::oob_keep under the hood). However, you can zoom in using `coord = coord_cartesian(xlim = ..., ylim = ...)` (or by filtering the data).
-
