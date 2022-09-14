@@ -476,7 +476,7 @@ penguins %>%
 
 For some ggplot2 functionality unsupported by ggblanket, you can add the applicable ggplot2 layer to your ggblanket code. For example, using `+ labs(x = NULL)` or `+ facet_grid(..., switch = "y")`.
 
-```{r}
+```{r, fig.asp=0.75}
 penguins |>
   tidyr::drop_na() |>
   mutate(sex = str_to_sentence(sex)) |>
@@ -484,7 +484,8 @@ penguins |>
     x = sex, 
     y = body_mass_g,
     col = sex, 
-    size = 1) +
+    size = 1, 
+    y_limits = c(NA, NA)) +
   facet_grid(cols = vars(species),
              rows = vars(island), 
              switch = "y") +
