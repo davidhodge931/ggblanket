@@ -195,23 +195,24 @@ To remove titles, you can use `x_title = ""` within the `gg_*` function and equi
 ```{r}
 penguins |>
   group_by(species, sex) |>
-  summarise(across(body_mass_g, ~ round(mean(.x, na.rm = TRUE)), 0)) |> 
+  summarise(across(flipper_length_mm, ~ round(mean(.x, na.rm = TRUE)), 0)) |> 
   gg_tile(
     x = sex, 
     y = species, 
-    col = body_mass_g, 
-    x_labels = snakecase::to_sentence_case,
-    pal = pals::brewer.blues(9), 
+    col = flipper_length_mm, 
     width = 0.9,
     height = 0.9,
+    pal = rev(pals::brewer.rdbu(9)), 
     col_legend_place = "r",
+    col_rescale = c(186, 215, 222),
+    x_labels = snakecase::to_sentence_case,
     title = "Average penguin body mass",
     subtitle = "Palmer Archipelago, Antarctica",
     theme = gg_theme(grid_h = FALSE,
                      bg_plot_pal = "white",
                      axis_pal = "white", 
                      ticks_pal = "white")) +
-  geom_text(aes(label = body_mass_g), col = "#232323", size = 3.5) 
+  geom_text(aes(label = flipper_length_mm), col = "#232323", size = 3.5) 
 ```
 
 ### 8. Numeric limits that default to the min and max break
