@@ -493,7 +493,7 @@ penguins |>
   theme(strip.switch.pad.grid = unit(3, "mm"))
 ```
 
-Some functionality is just not supported in ggblanket. For example, you cannot use _computed_ variables. Instead you will need to use  ggplot2, if these are required.
+Some other functionality is not supported in ggblanket. You cannon access non-default _computed_ variables. Some geom's are not supported (e.g. `geom_contour`, `geom_density_2d`, `geom_hex`, and `geom_bin_2d`). You also cannot colour by a date, datetime or time variable. In these situations  you will need to use ggplot2.
 
 ```{r}
 diamonds |> 
