@@ -587,7 +587,7 @@ gg_point <- function(
               reverse = col_legend_rev))
       }
     }
-    else { #categorical col
+    else if (col_character | col_factor | col_logical) { #categorical col  
       if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
       else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
       else {
