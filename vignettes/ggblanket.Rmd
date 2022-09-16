@@ -160,7 +160,7 @@ Available arguments are:
 * `*_sec_axis`: Add a secondary axis
 * `*_title`: Add a title
 * `col_continuous` How to colour a continuous variable (e.g. "steps")
-* `col_rescale`: whether to rescale the pal across a continuous col variable
+* `col_rescale`: Rescale a continuous col variable non-linearly
 * `col_legend_place`: Place to put the legend (e.g. "r")
 * `col_legend_ncol`: Number of columns to arrange legend elements into
 * `col_legend_nrow`: Number of rows to arrange legend elements into
