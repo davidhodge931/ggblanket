@@ -1073,6 +1073,20 @@ gg_pointrange <- function(
   plot <- plot +
     ggplot2::theme(legend.justification = "left")
 
+  #support NULL x and y titles
+  if (!rlang::is_null(x_title)) {
+    if (x_title == "") {
+      plot <- plot +
+        ggplot2::labs(x = NULL)
+    }
+  }
+  if (!rlang::is_null(y_title)) {
+    if (y_title == "") {
+      plot <- plot +
+        ggplot2::labs(y = NULL)
+    }
+  }
+
   #return beautiful plot
   return(plot)
 }

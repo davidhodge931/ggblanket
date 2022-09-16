@@ -190,7 +190,7 @@ This will make quicker to get to a plot that has titles that are good for extern
 
 For titles that you need to change manually, you can change manually using `x_title`, `y_title`, or `col_title`. 
 
-To remove titles, you can use `x_title = ""` within the `gg_*` function and equivalent for the y and col titles. Or add a `+ ggplot2::labs(x = NULL, y = NULL, col = NULL, fill = NULL)` layer as applicable.
+To remove titles, you can use `x_title = ""` within the `gg_*` function and equivalent for the y and col titles. 
 
 ```{r}
 penguins |>
@@ -474,7 +474,7 @@ penguins %>%
     x_breaks = scales::breaks_width(2))
 ```
 
-For some ggplot2 functionality unsupported by ggblanket, you can add the applicable ggplot2 layer to your ggblanket code. For example, using `+ labs(x = NULL)` or `+ facet_grid(..., switch = "y")`.
+For some ggplot2 functionality unsupported by ggblanket, you can add the applicable ggplot2 layer to your ggblanket code. For example, using `+ facet_grid(..., switch = "y")`.
 
 ```{r, fig.asp=0.75}
 penguins |>
@@ -485,12 +485,12 @@ penguins |>
     y = body_mass_g,
     col = sex, 
     size = 1, 
+    x_title = "",
     y_limits = c(NA, NA)) +
   facet_grid(cols = vars(species),
              rows = vars(island), 
              switch = "y") +
-  theme(strip.switch.pad.grid = unit(3, "mm")) +
-  labs(x = NULL)
+  theme(strip.switch.pad.grid = unit(3, "mm"))
 ```
 
 Some functionality is just not supported in ggblanket. For example, you cannot use _computed_ variables. Instead you will need to use  ggplot2, if these are required.
