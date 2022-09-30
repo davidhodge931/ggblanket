@@ -75,13 +75,13 @@ gg_sf(
 
 \item{col_breaks}{A function that takes the limits as input (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
-\item{col_continuous}{Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps".}
+\item{col_continuous}{Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".}
 
 \item{col_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
 \item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.}
 
-\item{col_legend_place}{The place for the legend. "b" for bottom, "r" for right, "t" for top, or "l" for left. Defaults to "b".}
+\item{col_legend_place}{The place for the legend. Either "bottom", "right", "top" or "left" - or just the first letter of these e.g. "b".}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 

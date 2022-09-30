@@ -1,5 +1,9 @@
 # ggblanket 1.4.9000
 
+* Added automatic gridline removal.
+* Added shortcuts for col_continuous (e.g. "g").
+* Added the longer values for col_legend_place in addition to shortcuts (e.g. "bottom").
+* Made `*_title = ""` equivalent to `+ labs(* = NULL)`.
 * Supported `x` and `y` datetime variables.
 * Supported `x` and `y` time variables.
 * Added `col_rescale` argument to rescale a colour gradient.

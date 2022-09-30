@@ -1,18 +1,14 @@
-#' @title Rect ggplot.
+#' @title Point ggplot.
 #'
-#' @description Create a rect plot with a wrapper around the ggplot2::geom_rect function.
+#' @description Create a point plot with a wrapper around the ggplot2::geom_point function.
 #' @param data A data frame or tibble.
-#' @param xmin Unquoted xmin aesthetic variable.
-#' @param xmax Unquoted xmax aesthetic variable.
-#' @param ymin Unquoted ymin aesthetic variable.
-#' @param ymax Unquoted ymax aesthetic variable.
+#' @param x Unquoted x aesthetic variable.
+#' @param y Unquoted y aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param text Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").
-#' @param x Unquoted x aesthetic variable.
-#' @param y Unquoted y aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param pal Colours to use. A character vector of hex codes (or names).
@@ -25,6 +21,7 @@
 #' @param coord Coordinate system.
 #' @param x_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
+#' @param x_grid TRUE or FALSE of whether to keep any vertical gridlines. NULL guesses based on the classes of the x and y.
 #' @param x_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param x_limits A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(xlim = ...).
@@ -33,6 +30,7 @@
 #' @param x_trans For a numeric variable, a transformation object (e.g. "log10").
 #' @param y_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
+#' @param y_grid TRUE or FALSE of whether to keep any horizontal gridlines. NULL guesses based on the classes of the x and y.
 #' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param y_limits A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(ylim = ...).
@@ -40,13 +38,13 @@
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_trans For a numeric variable, a transformation object (e.g. "log10").
 #' @param col_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
-#' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g". 
+#' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.
 #' @param col_limits A vector to determine the limits of the colour scale.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
-#' @param col_legend_place The place for the legend. Either "bottom", "right", "top" or "left" - or just the first letter of these e.g. "b". 
+#' @param col_legend_place The place for the legend. Either "bottom", "right", "top" or "left" - or just the first letter of these e.g. "b".
 #' @param col_legend_rev Reverse the elements of the legend. Defaults to FALSE.
 #' @param col_rescale For a continuous col variable, a vector to rescale the pal non-linearly.
 #' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
@@ -63,36 +61,30 @@
 #' @examples
 #' library(ggplot2)
 #'
-#' df <- data.frame(
-#'   x = rep(c(2, 5, 7, 9, 12), 2),
-#'   y = rep(c(1, 2), each = 5),
-#'   z = factor(rep(1:5, each = 2)),
-#'   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
-#' )
+#' gg_point2(mtcars, x = wt, y = mpg)
+#' gg_point2(mtcars, x = wt, y = mpg, col = cyl)
 #'
-#' df %>%
-#'   dplyr::mutate(xmin = x - w / 2, xmax = x + w / 2, ymin = y, ymax = y + 1) %>%
-#'   gg_rect(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, col = z)
+#' mtcars %>%
+#'   dplyr::mutate(cyl = factor(cyl)) %>%
+#'   gg_point2(x = wt, y = mpg, col = cyl, size = 1)
 #'
-gg_rect <- function(
+#' gg_point2(diamonds, x = carat, y = price, alpha = 0.01)
+#'
+gg_point2 <- function(
     data = NULL,
-    xmin = NULL,
-    xmax = NULL,
-    ymin = NULL,
-    ymax = NULL,
+    x = NULL,
+    y = NULL,
     col = NULL,
     facet = NULL,
     facet2 = NULL,
     group = NULL,
     text = NULL,
-    x = NULL,
-    y = NULL,
     stat = "identity",
     position = "identity",
     pal = NULL,
     pal_na = "#7F7F7F",
-    alpha = 0.9,
-    #linewidth = 0.5,
+    alpha = 1,
+    #size = 1.5,
     ...,
     titles = NULL,
     title = NULL,
@@ -100,6 +92,7 @@ gg_rect <- function(
     coord = NULL,
     x_breaks = NULL,
     x_expand = NULL,
+    x_grid = NULL,
     x_include = NULL,
     x_labels = NULL,
     x_limits = NULL,
@@ -108,6 +101,7 @@ gg_rect <- function(
     x_trans = "identity",
     y_breaks = NULL,
     y_expand = NULL,
+    y_grid = NULL,
     y_include = NULL,
     y_labels = NULL,
     y_limits = NULL,
@@ -117,7 +111,6 @@ gg_rect <- function(
     col_breaks = NULL,
     col_continuous = "gradient",
     col_include = NULL,
-
     col_labels = NULL,
     col_legend_place = NULL,
     col_legend_ncol = NULL,
@@ -133,7 +126,7 @@ gg_rect <- function(
     facet_space = "fixed",
     facet_layout = NULL,
     caption = NULL,
-    theme = NULL) {
+    theme = gg_theme()) {
 
   #quote
   x <- rlang::enquo(x)
@@ -143,11 +136,6 @@ gg_rect <- function(
   facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
   text <- rlang::enquo(text)
-
-  xmin <- rlang::enquo(xmin)
-  xmax <- rlang::enquo(xmax)
-  ymin <- rlang::enquo(ymin)
-  ymax <- rlang::enquo(ymax)
 
   #stop, warn or message
   rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
@@ -286,12 +274,17 @@ gg_rect <- function(
     else y_title <- purrr::map_chr(rlang::as_name(y), titles)
   }
 
-  if (rlang::is_null(theme)) {
-    if ((x_character | x_factor | x_logical) & (y_numeric | y_null)) theme <- gg_theme(grid_h = TRUE, grid_v = FALSE)
-    else if ((y_character | y_factor | y_logical) & (x_numeric | x_null)) theme <- gg_theme(grid_h = FALSE, grid_v = TRUE)
-    else if ((x_character | x_factor | x_logical) & (y_character | y_factor | y_logical)) theme <- gg_theme(grid_h = FALSE, grid_v = FALSE)
-    else if ((x_numeric | x_date | x_datetime | x_time) & (y_date | y_datetime | y_time | y_numeric | y_null)) theme <- gg_theme(grid_h = TRUE, grid_v = FALSE)
-    else if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) theme <- gg_theme(grid_h = FALSE, grid_v = TRUE)
+  if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) {
+    if (rlang::is_null(x_grid)) x_grid <- TRUE
+    if (rlang::is_null(y_grid)) y_grid <- FALSE
+  }
+  else if ((y_character | y_factor | y_logical) & (x_numeric | x_null)) {
+    if (rlang::is_null(x_grid)) x_grid <- TRUE
+    if (rlang::is_null(y_grid)) y_grid <- FALSE
+  }
+  else {
+    if (rlang::is_null(x_grid)) x_grid <- FALSE
+    if (rlang::is_null(y_grid)) y_grid <- TRUE
   }
 
   if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
@@ -305,11 +298,7 @@ gg_rect <- function(
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group
         ))
     }
     else if (col_null) {
@@ -319,11 +308,7 @@ gg_rect <- function(
           y = !!y,
           col = "",
           fill = "",
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group
         ))
     }
   }
@@ -334,11 +319,7 @@ gg_rect <- function(
           x = !!x,
           col = !!col,
           fill = !!col,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group
         ))
     }
     else if (col_null) {
@@ -347,11 +328,7 @@ gg_rect <- function(
           x = !!x,
           col = "",
           fill = "",
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group
         ))
     }
   }
@@ -362,11 +339,7 @@ gg_rect <- function(
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group
         ))
     }
     else if (col_null) {
@@ -375,11 +348,7 @@ gg_rect <- function(
           y = !!y,
           col = "",
           fill = "",
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group
         ))
     }
   }
@@ -389,11 +358,7 @@ gg_rect <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = !!col,
           fill = !!col,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group
         ))
     }
     else if (col_null) {
@@ -401,17 +366,13 @@ gg_rect <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = "",
           fill = "",
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group
         ))
     }
   }
 
   plot <- plot +
-    ggplot2::geom_rect(
+    ggplot2::geom_point(
       ggplot2::aes(text = !!text),
       stat = stat,
       position = position,
@@ -522,7 +483,6 @@ gg_rect <- function(
       if (rlang::is_null(titles)) col_title <- purrr::map_chr(rlang::as_name(col), snakecase::to_sentence_case)
       else col_title <- purrr::map_chr(rlang::as_name(col), titles)
     }
-    col_title_position <- ifelse(col_title == "", "right", "top")
 
     if (rlang::is_null(col_legend_place)) {
       if (!x_null &
@@ -561,14 +521,14 @@ gg_rect <- function(
       if (rlang::is_null(pal)) pal <- viridis::viridis(10)
       if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
 
-      if (col_continuous == "gradient") {
+      if (col_continuous %in% c("gradient", "g")) {
         if (rlang::is_null(col_breaks)) {
-          if (col_legend_place %in% c("b", "t")) {
+          if (col_legend_place %in% c("b", "t", "bottom", "top")) {
             col_breaks <- function(x) c(x, stats::median(x))
             draw_llim <- TRUE #should be FALSE
             draw_ulim <- FALSE
           }
-          else if (col_legend_place %in% c("l", "r")) {
+          else if (col_legend_place %in% c("l", "r", "left", "right")) {
             col_breaks <- scales::breaks_pretty(4)
             draw_llim <- TRUE
             draw_ulim <- TRUE
@@ -588,7 +548,7 @@ gg_rect <- function(
             limits = col_limits,
             na.value = pal_na,
             guide = ggplot2::guide_colourbar(
-              title.position = col_title_position,
+              title.position = "top",
               draw.ulim = draw_ulim,
               draw.llim = draw_llim,
               ticks.colour = "#F1F3F5",
@@ -601,13 +561,13 @@ gg_rect <- function(
             limits = col_limits,
             na.value = pal_na,
             guide = ggplot2::guide_colourbar(
-              title.position = col_title_position,
+              title.position = "top",
               draw.ulim = draw_ulim,
               draw.llim = draw_llim,
               ticks.colour = "#F1F3F5",
               reverse = col_legend_rev))
       }
-      else if (col_continuous == "steps") {
+      else if (col_continuous %in% c("steps", "s")) {
         if (rlang::is_null(col_breaks)) {
           col_breaks <- scales::breaks_pretty(n = 4)
         }
@@ -621,7 +581,7 @@ gg_rect <- function(
             limits = col_limits,
             na.value = pal_na,
             guide = ggplot2::guide_coloursteps(
-              title.position = col_title_position,
+              title.position = "top",
               reverse = col_legend_rev)) +
           ggplot2::scale_fill_stepsn(
             colors = pal,
@@ -631,11 +591,11 @@ gg_rect <- function(
             limits = col_limits,
             na.value = pal_na,
             guide = ggplot2::guide_coloursteps(
-              title.position = col_title_position,
+              title.position = "top",
               reverse = col_legend_rev))
       }
     }
-    else if (col_character | col_factor | col_logical) { #categorical col  
+    else if (col_character | col_factor | col_logical) { #categorical col
       if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
       else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
       else {
@@ -655,12 +615,12 @@ gg_rect <- function(
         if (col_character | col_factor | col_logical) {
           col_legend_rev_auto <- FALSE
         }
-        else if (col_legend_place %in% c("b", "t")) col_legend_rev_auto <- FALSE
+        else if (col_legend_place %in% c("b", "t", "bottom", "top")) col_legend_rev_auto <- FALSE
         else col_legend_rev_auto <- TRUE
       }
       else if (y_character | y_factor | y_logical) {
         if (col_character | col_factor | col_logical) col_legend_rev_auto <- TRUE
-        else if (col_legend_place %in% c("b", "t")) col_legend_rev_auto <- TRUE
+        else if (col_legend_place %in% c("b", "t", "bottom", "top")) col_legend_rev_auto <- TRUE
         else col_legend_rev_auto <- FALSE
         pal <- rev(pal)
       }
@@ -680,7 +640,7 @@ gg_rect <- function(
           na.value = pal_na,
           guide = ggplot2::guide_legend(
             reverse = col_legend_rev_auto,
-            title.position = col_title_position,
+            title.position = "top",
             ncol = col_legend_ncol,
             nrow = col_legend_nrow,
             byrow = TRUE)) +
@@ -692,7 +652,7 @@ gg_rect <- function(
           na.value = pal_na,
           guide = ggplot2::guide_legend(
             reverse = col_legend_rev_auto,
-            title.position = col_title_position,
+            title.position = "top",
             ncol = col_legend_ncol,
             nrow = col_legend_nrow,
             byrow = TRUE))
@@ -1038,7 +998,7 @@ gg_rect <- function(
     )
 
   ###adjust the legend
-  if (col_legend_place %in% c("b", "t")) {
+  if (col_legend_place %in% c("b", "t", "bottom", "top")) {
     plot <- plot +
       ggplot2::theme(legend.direction = "horizontal")
 
@@ -1048,24 +1008,24 @@ gg_rect <- function(
         ggplot2::theme(legend.text.align = 0.5)
     }
 
-    if (col_legend_place == "b") {
+    if (col_legend_place %in% c("b", "bottom")) {
       plot <- plot +
         ggplot2::theme(legend.position = "bottom")
     }
-    else if (col_legend_place == "t") {
+    else if (col_legend_place %in% c("t", "top")) {
       plot <- plot +
         ggplot2::theme(legend.position = "top")
     }
   }
-  else if (col_legend_place == "n" | col_null) {
+  else if (col_legend_place %in% c("n", "none") | col_null) {
     plot <- plot +
       ggplot2::theme(legend.position = "none")
   }
-  else if (col_legend_place == "l") {
+  else if (col_legend_place %in% c("l", "left")) {
     plot <- plot +
       ggplot2::theme(legend.position = "left")
   }
-  else if (col_legend_place == "r") {
+  else if (col_legend_place %in% c("r", "right")) {
     plot <- plot +
       ggplot2::theme(legend.position = "right")
   }
@@ -1085,6 +1045,24 @@ gg_rect <- function(
       plot <- plot +
         ggplot2::labs(y = NULL)
     }
+  }
+  if (!rlang::is_null(col_title)) {
+    if (col_title == "") {
+      plot <- plot +
+        ggplot2::labs(col = NULL, fill = NULL)
+    }
+  }
+
+  if (!x_grid) {
+    plot <- plot +
+      ggplot2::theme(panel.grid.major.x = ggplot2::element_blank()) +
+      ggplot2::theme(panel.grid.minor.x = ggplot2::element_blank())
+  }
+
+  if (!y_grid) {
+    plot <- plot +
+      ggplot2::theme(panel.grid.major.y = ggplot2::element_blank()) +
+      ggplot2::theme(panel.grid.minor.y = ggplot2::element_blank())
   }
 
   #return beautiful plot
