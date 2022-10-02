@@ -1,12 +1,15 @@
 # ggblanket 1.4.9000
 
+* Breaking: redesigned `gg_theme`.
+* Added `gg_bin2d` function.
+* Added `gg_hex` function.
 * Added automatic gridline removal.
-* Added shortcuts for col_continuous (e.g. "g").
-* Added the longer values for col_legend_place in addition to shortcuts (e.g. "bottom").
 * Made `*_title = ""` equivalent to `+ labs(* = NULL)`.
 * Supported `x` and `y` datetime variables.
 * Supported `x` and `y` time variables.
 * Added `col_rescale` argument to rescale a colour gradient.
+* Added shortcut values for `col_continuous`.
+* Added longer values for `col_legend_place` in addition to shortcuts.
 
 # ggblanket 1.4.0
 
