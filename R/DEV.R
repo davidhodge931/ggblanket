@@ -41,7 +41,7 @@
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.
-#' @param col_limits A vector to determine the limits of the colour scale.
+#' @param col_limits For a categorical variable, a vector to determine the limits of the colour scale.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. Either "bottom", "right", "top" or "left" - or just the first letter of these e.g. "b".
@@ -442,19 +442,6 @@ gg_blank2 <- function(
     }
   }
 
-  if (!rlang::is_null(x_include)) {
-    plot <- plot +
-      ggplot2::expand_limits(x = x_include)
-  }
-  if (!rlang::is_null(y_include)) {
-    plot <- plot +
-      ggplot2::expand_limits(y = y_include)
-  }
-  if (!rlang::is_null(col_include)) {
-    plot <- plot +
-      ggplot2::expand_limits(colour = col_include, fill = col_include)
-  }
-
   ###Get layer data for x, y and col scales
   layer_data <- ggplot2::layer_data(plot)
 
@@ -814,7 +801,8 @@ gg_blank2 <- function(
     }
 
     if (rlang::is_null(col_legend_place)) {
-      if (!stat %in% c("bin2d", "binhex")) {
+      if (stat %in% c("bin2d", "binhex")) col_legend_place <- "b"
+      else {
         if (!x_null &
             (identical(
               rlang::eval_tidy(col, data),
@@ -842,28 +830,17 @@ gg_blank2 <- function(
         }
         else col_legend_place <- "b"
       }
-      else col_legend_place <- "b"
     }
 
-    if (!stat %in% c("bin2d", "binhex")) col_vctr <- data %>% dplyr::pull(!!col)
-    else if (stat %in% c("bin2d", "binhex")) col_vctr <- layer_data %>% dplyr::pull(.data$count)
+    if (stat %in% c("bin2d", "binhex")) col_vctr <- layer_data %>% dplyr::pull(.data$count)
+    else col_vctr <- data %>% dplyr::pull(!!col)
 
-    if (col_numeric) {
-      col_min <- col_vctr %>% min(na.rm = TRUE)
-      col_max <- col_vctr %>% max(na.rm = TRUE)
-
-      if (!rlang::is_null(col_limits)) {
-        if (is.na(col_limits)[1]) col_limits[1] <- col_min
-        if (is.na(col_limits)[2]) col_limits[2] <- col_max
-      }
-
-      if (rlang::is_null(col_limits)) col_limits <- c(col_min, col_max)
-      if (!rlang::is_null(col_include)) col_limits <- range(c(col_include, col_limits))
+    if (col_numeric | stat %in% c("bin2d", "binhex")) {
 
       if (rlang::is_null(pal)) pal <- viridis::viridis(10)
       if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
 
-      if (col_continuous %in% c("gradient", "g")) {
+      if (col_continuous %in% c("g", "gradient")) {
         if (rlang::is_null(col_breaks)) {
           if (col_legend_place %in% c("b", "t", "bottom", "top")) {
             col_breaks <- function(x) c(x, stats::median(x))
@@ -887,7 +864,6 @@ gg_blank2 <- function(
             values = scales::rescale(col_rescale),
             labels = col_labels,
             breaks = col_breaks,
-            limits = col_limits,
             na.value = pal_na,
             guide = ggplot2::guide_colourbar(
               title.position = "top",
@@ -902,7 +878,6 @@ gg_blank2 <- function(
             values = scales::rescale(col_rescale),
             labels = col_labels,
             breaks = col_breaks,
-            limits = col_limits,
             na.value = pal_na,
             guide = ggplot2::guide_colourbar(
               title.position = "top",
@@ -913,7 +888,7 @@ gg_blank2 <- function(
             )
           )
       }
-      else if (col_continuous %in% c("steps", "s")) {
+      else if (col_continuous %in% c("s", "steps")) {
         if (rlang::is_null(col_breaks)) {
           col_breaks <- scales::breaks_pretty(n = 4)
         }
@@ -924,7 +899,6 @@ gg_blank2 <- function(
             values = scales::rescale(col_rescale),
             labels = col_labels,
             breaks = col_breaks,
-            limits = col_limits,
             na.value = pal_na,
             guide = ggplot2::guide_coloursteps(
               title.position = "top",
@@ -935,7 +909,6 @@ gg_blank2 <- function(
             values = scales::rescale(col_rescale),
             labels = col_labels,
             breaks = col_breaks,
-            limits = col_limits,
             na.value = pal_na,
             guide = ggplot2::guide_coloursteps(
               title.position = "top",
@@ -1040,12 +1013,33 @@ gg_blank2 <- function(
     }
   }
 
+  ###expand the limits if necessary
+  if (!rlang::is_null(x_include)) {
+    plot <- plot +
+      ggplot2::expand_limits(x = x_include)
+  }
+  if (!rlang::is_null(y_include)) {
+    plot <- plot +
+      ggplot2::expand_limits(y = y_include)
+  }
+  if (!rlang::is_null(col_include)) {
+    if (stat %in% c("bin2d", "binhex")) {
+      plot <- plot +
+        ggplot2::expand_limits(fill = col_include)
+    }
+    else {
+      plot <- plot +
+        ggplot2::expand_limits(colour = col_include, fill = col_include)
+
+    }
+  }
+
   ###adjust the legend
   if (col_legend_place %in% c("b", "t", "bottom", "top")) {
     plot <- plot +
       ggplot2::theme(legend.direction = "horizontal")
 
-    if (col_numeric) {
+    if (col_numeric | stat %in% c("bin2d", "binhex")) {
       plot <- plot +
         ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
         ggplot2::theme(legend.text.align = 0.5)
@@ -1060,7 +1054,7 @@ gg_blank2 <- function(
         ggplot2::theme(legend.position = "top")
     }
   }
-  else if (col_legend_place %in% c("n", "none") | col_null) {
+  else if (col_legend_place %in% c("n", "none")) {
     plot <- plot +
       ggplot2::theme(legend.position = "none")
   }
