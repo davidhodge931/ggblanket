@@ -1,6 +1,6 @@
-#' @title Blank ggplot.
+#' @title Line ggplot.
 #'
-#' @description Create a point plot with a wrapper around the ggplot2::geom_blank function.
+#' @description Create a line plot with a wrapper around the ggplot2::geom_line function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
@@ -60,17 +60,12 @@
 #' @export
 #' @examples
 #' library(ggplot2)
+#' gg_line(economics, x = date, y = unemploy)
+#' gg_line(economics, x = date, y = unemploy, linetype = 2)
+#' gg_line(economics_long, x = date, y = value01, col = variable)
+#' gg_line(economics, x = unemploy, y = date, orientation = "y")
 #'
-#' gg_blank2(mtcars, x = wt, y = mpg)
-#' gg_blank2(mtcars, x = wt, y = mpg, col = cyl)
-#'
-#' mtcars %>%
-#'   dplyr::mutate(cyl = factor(cyl)) %>%
-#'   gg_blank2(x = wt, y = mpg, col = cyl, size = 1)
-#'
-#' gg_blank2(diamonds, x = carat, y = price, alpha = 0.01)
-#'
-gg_blank2 <- function(
+gg_line <- function(
     data = NULL,
     x = NULL,
     y = NULL,
@@ -130,7 +125,7 @@ gg_blank2 <- function(
   #quote
   x <- rlang::enquo(x)
   y <- rlang::enquo(y)
-  col <- rlang::enquo(col)
+  if (!stat %in% c("bin2d", "binhex")) col <- rlang::enquo(col)
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
@@ -162,11 +157,20 @@ gg_blank2 <- function(
   y_numeric <- is.numeric(rlang::eval_tidy(y, data))
   y_null <- rlang::quo_is_null(y)
 
-  col_character <- is.character(rlang::eval_tidy(col, data))
-  col_factor <- is.factor(rlang::eval_tidy(col, data))
-  col_logical <- is.logical(rlang::eval_tidy(col, data))
-  col_numeric <- is.numeric(rlang::eval_tidy(col, data))
-  col_null <- rlang::quo_is_null(col)
+  if (!stat %in% c("bin2d", "binhex")) {
+    col_character <- is.character(rlang::eval_tidy(col, data))
+    col_factor <- is.factor(rlang::eval_tidy(col, data))
+    col_logical <- is.logical(rlang::eval_tidy(col, data))
+    col_numeric <- is.numeric(rlang::eval_tidy(col, data))
+    col_null <- rlang::quo_is_null(col)
+  } else {
+    col_character <- FALSE
+    col_factor <- FALSE
+    col_logical <- FALSE
+    col_numeric <- FALSE
+    col_null <- TRUE
+  }
+
 
   facet_null <- rlang::quo_is_null(facet)
   facet2_null <- rlang::quo_is_null(facet2)
@@ -363,7 +367,7 @@ gg_blank2 <- function(
   }
 
   plot <- plot +
-    ggplot2::geom_blank(
+    ggplot2::geom_line(
       ggplot2::aes(text = !!text),
       stat = stat,
       position = position,
@@ -801,7 +805,7 @@ gg_blank2 <- function(
     }
 
     if (rlang::is_null(col_legend_place)) {
-      if (stat %in% c("bin2d", "binhex")) col_legend_place <- "b"
+      if (stat %in% c("bin2d", "binhex")) col_legend_place <- "r"
       else {
         if (!x_null &
             (identical(
@@ -828,6 +832,7 @@ gg_blank2 <- function(
                    rlang::eval_tidy(facet2, data)))) {
           col_legend_place <- "n"
         }
+        else if (col_numeric) col_legend_place <- "r"
         else col_legend_place <- "b"
       }
     }
@@ -842,16 +847,9 @@ gg_blank2 <- function(
 
       if (col_continuous %in% c("g", "gradient")) {
         if (rlang::is_null(col_breaks)) {
-          if (col_legend_place %in% c("b", "t", "bottom", "top")) {
-            col_breaks <- function(x) c(x, stats::median(x))
-            draw_llim <- TRUE #should be FALSE
-            draw_ulim <- FALSE
-          }
-          else if (col_legend_place %in% c("l", "r", "left", "right")) {
-            col_breaks <- scales::breaks_pretty(4)
-            draw_llim <- TRUE
-            draw_ulim <- TRUE
-          }
+          col_breaks <- scales::breaks_pretty(4)
+          draw_llim <- TRUE
+          draw_ulim <- TRUE
         }
         else {
           draw_llim <- TRUE

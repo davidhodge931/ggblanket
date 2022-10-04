@@ -8,7 +8,6 @@ gg_bin2d(
   data = NULL,
   x = NULL,
   y = NULL,
-  col = NULL,
   facet = NULL,
   facet2 = NULL,
   group = NULL,
@@ -68,8 +67,6 @@ gg_bin2d(
 \item{x}{Unquoted x aesthetic variable.}
 
 \item{y}{Unquoted y aesthetic variable.}
-
-\item{col}{Unquoted col and fill aesthetic variable.}
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
@@ -177,7 +174,7 @@ gg_bin2d(
 A ggplot object.
 }
 \description{
-Create a point plot with a wrapper around the ggplot2::geom_bin2d function.
+Create a bin2d plot with a wrapper around the ggplot2::geom_bin2d function.
 }
 \examples{
 library(ggplot2)

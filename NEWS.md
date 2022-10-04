@@ -1,5 +1,6 @@
 # ggblanket 1.4.9000
 
+* Make `col_legend_place` default "r" where numeric col variable. 
 * Breaking: redesigned `gg_theme`.
 * Added `gg_bin2d` function.
 * Added `gg_hex` function.

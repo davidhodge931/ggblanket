@@ -1,10 +1,9 @@
 #' @title Hex ggplot.
 #'
-#' @description Create a point plot with a wrapper around the ggplot2::geom_hex function.
+#' @description Create a hex plot with a wrapper around the ggplot2::geom_hex function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
-#' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
@@ -67,7 +66,6 @@ gg_hex <- function(
     data = NULL,
     x = NULL,
     y = NULL,
-    col = NULL,
     facet = NULL,
     facet2 = NULL,
     group = NULL,
@@ -123,7 +121,7 @@ gg_hex <- function(
   #quote
   x <- rlang::enquo(x)
   y <- rlang::enquo(y)
-  col <- rlang::enquo(col)
+  if (!stat %in% c("bin2d", "binhex")) col <- rlang::enquo(col)
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
@@ -155,11 +153,20 @@ gg_hex <- function(
   y_numeric <- is.numeric(rlang::eval_tidy(y, data))
   y_null <- rlang::quo_is_null(y)
 
-  col_character <- is.character(rlang::eval_tidy(col, data))
-  col_factor <- is.factor(rlang::eval_tidy(col, data))
-  col_logical <- is.logical(rlang::eval_tidy(col, data))
-  col_numeric <- is.numeric(rlang::eval_tidy(col, data))
-  col_null <- rlang::quo_is_null(col)
+  if (!stat %in% c("bin2d", "binhex")) {
+    col_character <- is.character(rlang::eval_tidy(col, data))
+    col_factor <- is.factor(rlang::eval_tidy(col, data))
+    col_logical <- is.logical(rlang::eval_tidy(col, data))
+    col_numeric <- is.numeric(rlang::eval_tidy(col, data))
+    col_null <- rlang::quo_is_null(col)
+  } else {
+    col_character <- FALSE
+    col_factor <- FALSE
+    col_logical <- FALSE
+    col_numeric <- FALSE
+    col_null <- TRUE
+  }
+
 
   facet_null <- rlang::quo_is_null(facet)
   facet2_null <- rlang::quo_is_null(facet2)
@@ -794,7 +801,7 @@ gg_hex <- function(
     }
 
     if (rlang::is_null(col_legend_place)) {
-      if (stat %in% c("bin2d", "binhex")) col_legend_place <- "b"
+      if (stat %in% c("bin2d", "binhex")) col_legend_place <- "r"
       else {
         if (!x_null &
             (identical(
@@ -821,6 +828,7 @@ gg_hex <- function(
                    rlang::eval_tidy(facet2, data)))) {
           col_legend_place <- "n"
         }
+        else if (col_numeric) col_legend_place <- "r"
         else col_legend_place <- "b"
       }
     }
@@ -835,16 +843,9 @@ gg_hex <- function(
 
       if (col_continuous %in% c("g", "gradient")) {
         if (rlang::is_null(col_breaks)) {
-          if (col_legend_place %in% c("b", "t", "bottom", "top")) {
-            col_breaks <- function(x) c(x, stats::median(x))
-            draw_llim <- TRUE #should be FALSE
-            draw_ulim <- FALSE
-          }
-          else if (col_legend_place %in% c("l", "r", "left", "right")) {
-            col_breaks <- scales::breaks_pretty(4)
-            draw_llim <- TRUE
-            draw_ulim <- TRUE
-          }
+          col_breaks <- scales::breaks_pretty(4)
+          draw_llim <- TRUE
+          draw_ulim <- TRUE
         }
         else {
           draw_llim <- TRUE
