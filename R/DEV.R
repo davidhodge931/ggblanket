@@ -293,6 +293,8 @@ gg_line <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
+          col = ggplot2::after_stat(.data$count),
+          fill = ggplot2::after_stat(.data$count),
           group = !!group
         ))
     }
