@@ -486,37 +486,70 @@ gg_bin2d <- function(
           else if (!x_trans %in% c("identity", "reverse")) x_breaks <- ggplot2::waiver()
           else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
 
-          if ((x_numeric | x_date | x_datetime | x_time) & (y_date | y_datetime | y_time | y_numeric | y_null)) x_limits <- NULL
+          if ((x_numeric | x_date | x_datetime | x_time) & (y_date | y_datetime | y_time | y_numeric | y_null)) {
+            if (x_numeric) x_limits <- c(NA, NA)
+            else x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+          }
           else {
-            if (x_time) x_limits <- NULL
-            else if (!x_trans %in% c("identity", "reverse")) x_limits <- NULL
-            else if (class(position)[1] == "PositionFill") x_limits <- NULL
+            if (x_time) c(lubridate::NA_Date_, lubridate::NA_Date_)
+            else if (!x_trans %in% c("identity", "reverse")) {
+              if (x_numeric) x_limits <- c(NA, NA)
+              else x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+            }
+            else if (class(position)[1] == "PositionFill") {
+              if (x_numeric) x_limits <- c(NA, NA)
+              else x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+            }
             else if (class(position)[1] == "character") {
-              if (position[1] == "fill") x_limits <- NULL
+              if (position[1] == "fill") {
+                if (x_numeric) x_limits <- c(NA, NA)
+                else x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+              }
               else x_limits <- c(min(x_breaks), max(x_breaks))
             }
             else x_limits <- c(min(x_breaks), max(x_breaks))
           }
         }
         else if (!rlang::is_null(x_breaks)) {
-          if ((x_numeric | x_date | x_datetime | x_time) & (y_date | y_datetime | y_time | y_numeric | y_null)) x_limits <- NULL
+          if ((x_numeric | x_date | x_datetime | x_time) & (y_date | y_datetime | y_time | y_numeric | y_null)) {
+            if (x_numeric) x_limits <- c(NA, NA)
+            else x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+          }
           else {
             if (is.vector(x_breaks)) {
-              if (x_time) x_limits <- NULL
-              else if (!x_trans %in% c("identity", "reverse")) x_limits <- NULL
-              else if (class(position)[1] == "PositionFill") x_limits <- NULL
+              if (x_time) x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+              else if (!x_trans %in% c("identity", "reverse")) {
+                if (x_numeric) x_limits <- c(NA, NA)
+                else x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+              }
+              else if (class(position)[1] == "PositionFill") {
+                if (x_numeric) x_limits <- c(NA, NA)
+                else x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+              }
               else if (class(position)[1] == "character") {
-                if (position[1] == "fill") x_limits <- NULL
+                if (position[1] == "fill") {
+                  if (x_numeric) x_limits <- c(NA, NA)
+                  else x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+                }
                 else x_limits <- c(min(x_breaks), max(x_breaks))
               }
               else x_limits <- c(min(x_breaks), max(x_breaks))
             }
             else {
-              if (x_time) x_limits <- NULL
-              else if (!x_trans %in% c("identity", "reverse")) x_limits <- NULL
-              else if (class(position)[1] == "PositionFill") x_limits <- NULL
+              if (x_time) x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+              else if (!x_trans %in% c("identity", "reverse")) {
+                if (x_numeric) x_limits <- c(NA, NA)
+                else x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+              }
+              else if (class(position)[1] == "PositionFill") {
+                if (x_numeric) x_limits <- c(NA, NA)
+                else x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+              }
               else if (class(position)[1] == "character") {
-                if (position[1] == "fill") x_limits <- NULL
+                if (position[1] == "fill") {
+                  if (x_numeric) x_limits <- c(NA, NA)
+                  else x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+                }
                 else {
                   x_limits <- list(x_limits) %>%
                     purrr::map(.f = x_breaks) %>%
@@ -653,32 +686,59 @@ gg_bin2d <- function(
           else if (!y_trans %in% c("identity", "reverse")) y_breaks <- ggplot2::waiver()
           else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
 
-          if (y_time) y_limits <- NULL
-          else if (!y_trans %in% c("identity", "reverse")) y_limits <- NULL
-          else if (class(position)[1] == "PositionFill") y_limits <- NULL
+          if (y_time) y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+          else if (!y_trans %in% c("identity", "reverse")) {
+            if (y_numeric) y_limits <- c(NA, NA)
+            else y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+          }
+          else if (class(position)[1] == "PositionFill") {
+            if (y_numeric) y_limits <- c(NA, NA)
+            else y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+          }
           else if (class(position)[1] == "character") {
-            if (position[1] == "fill") y_limits <- NULL
+            if (position[1] == "fill") {
+              if (y_numeric) y_limits <- c(NA, NA)
+              else y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+            }
             else y_limits <- c(min(y_breaks), max(y_breaks))
           }
           else y_limits <- c(min(y_breaks), max(y_breaks))
         }
         else if (!rlang::is_null(y_breaks)) {
           if (is.vector(y_breaks)) {
-            if (y_time) y_limits <- NULL
-            else if (!y_trans %in% c("identity", "reverse")) y_limits <- NULL
-            else if (class(position)[1] == "PositionFill") y_limits <- NULL
+            if (y_time) y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+            else if (!y_trans %in% c("identity", "reverse")) {
+              if (y_numeric) y_limits <- c(NA, NA)
+              else y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+            }
+            else if (class(position)[1] == "PositionFill") {
+              if (y_numeric) y_limits <- c(NA, NA)
+              else y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+            }
             else if (class(position)[1] == "character") {
-              if (position[1] == "fill") y_limits <- NULL
+              if (position[1] == "fill") {
+                if (y_numeric) y_limits <- c(NA, NA)
+                else y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+              }
               else y_limits <- c(min(y_breaks), max(y_breaks))
             }
             else y_limits <- c(min(y_breaks), max(y_breaks))
           }
           else {
-            if (y_time) y_limits <- NULL
-            else if (!y_trans %in% c("identity", "reverse")) y_limits <- NULL
-            else if (class(position)[1] == "PositionFill") y_limits <- NULL
+            if (y_time) y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+            else if (!y_trans %in% c("identity", "reverse")) {
+              if (y_numeric) y_limits <- c(NA, NA)
+              else y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+            }
+            else if (class(position)[1] == "PositionFill") {
+              if (y_numeric) y_limits <- c(NA, NA)
+              else y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+            }
             else if (class(position)[1] == "character") {
-              if (position[1] == "fill") y_limits <- NULL
+              if (position[1] == "fill") {
+                if (y_numeric) y_limits <- c(NA, NA)
+                else y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+              }
               else {
                 y_limits <- list(y_limits) %>%
                   purrr::map(.f = y_breaks) %>%
