@@ -39,7 +39,7 @@
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.
-#' @param col_limits For a categorical variable, a vector to determine the limits of the colour scale.
+#' @param col_limits A vector to determine the limits of the colour scale.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. Either "bottom", "right", "top" or "left" - or just the first letter of these e.g. "b".
@@ -58,10 +58,15 @@
 #' @export
 #' @examples
 #' library(ggplot2)
-#' gg_line(economics, x = date, y = unemploy)
-#' gg_line(economics, x = date, y = unemploy, linetype = 2)
-#' gg_line(economics_long, x = date, y = value01, col = variable)
-#' gg_line(economics, x = unemploy, y = date, orientation = "y")
+#'
+#' gg_line(mtcars, x = wt, y = mpg)
+#' gg_line(mtcars, x = wt, y = mpg, col = cyl)
+#'
+#' mtcars %>%
+#'   dplyr::mutate(cyl = factor(cyl)) %>%
+#'   gg_line(x = wt, y = mpg, col = cyl, size = 1)
+#'
+#' gg_line(diamonds, x = carat, y = price, alpha = 0.01)
 #'
 gg_line <- function(
     data = NULL,
@@ -77,7 +82,7 @@ gg_line <- function(
     pal = NULL,
     pal_na = "#7F7F7F",
     alpha = 1,
-    #linewidth = 0.5,
+    #size = 1.5,
     ...,
     titles = NULL,
     title = NULL,
