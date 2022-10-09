@@ -491,40 +491,38 @@ gg_line2 <- function(
 
     x_range <- x_vctr %>% range(na.rm = TRUE)
     if (!rlang::is_null(x_include)) x_range <- range(c(x_range, x_include))
-    if (x_trans == "reverse") x_range <- rev(x_range)
+    if (!rlang::is_null(x_limits)) x_limits <- range(x_limits)
 
     if (facet_scales %in% c("fixed", "free_y")) {
       if (rlang::is_null(x_limits)) {
         if (rlang::is_null(x_breaks)) {
-          if (x_time) x_breaks <- ggplot2::waiver()
-          else if (!x_trans %in% c("identity", "reverse")) x_breaks <- ggplot2::waiver()
+          if (x_time | !x_trans %in% c("identity", "reverse")) {
+            x_breaks <- ggplot2::waiver()
+            x_limits2 <- x_range
+          }
           else {
             if (!facet_null & !facet2_null) x_breaks_n <- 3
             else if (!facet_null & facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 5
 
             x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
-          }
 
-          if (y_date | y_datetime | y_time | y_numeric | y_null) {
-            if (x_numeric | x_null) x_limits <- c(NA, NA)
-            else x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
-          }
-          else if (y_character | y_factor | y_logical) {
-            x_limits <- c(min(x_breaks), max(x_breaks))
+            if (y_date | y_datetime | y_time | y_numeric | y_null) {
+              x_limits2 <- x_range
+            }
+            else if (y_character | y_factor | y_logical) {
+              x_limits2 <- c(min(x_breaks), max(x_breaks))
+            }
           }
         }
         else if (!rlang::is_null(x_breaks)) {
           if (y_date | y_datetime | y_time | y_numeric | y_null) {
-            if (x_numeric | x_null) x_limits <- c(NA, NA)
-            else if (x_date | x_datetime | x_time) {
-              x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
-            }
+            x_limits2 <- x_range
           }
           else if (y_character | y_factor | y_logical) {
-            if (is.vector(x_breaks)) x_limits <- c(min(x_breaks), max(x_breaks))
+            if (is.vector(x_breaks)) x_limits2 <- c(min(x_breaks), max(x_breaks))
             else if (is.function(x_breaks)) {
-              x_limits <- list(x_range) %>%
+              x_limits2 <- list(x_range) %>%
                 purrr::map(.f = x_breaks) %>%
                 unlist() %>%
                 range()
@@ -533,9 +531,11 @@ gg_line2 <- function(
         }
       }
       else if (!rlang::is_null(x_limits)) {
-        if (is.na(x_limits)[1]) x_limits[1] <- min(x_range)
-        if (is.na(x_limits)[2]) x_limits[2] <- max(x_range)
-        if (!rlang::is_null(x_include)) x_limits <- range(c(x_limits, x_include))
+        if (is.na(x_limits2)[1]) x_limits2[1] <- min(x_range)
+        if (is.na(x_limits2)[2]) x_limits2[2] <- max(x_range)
+        if (!rlang::is_null(x_include)) {
+          x_limits2 <- range(c(x_limits2, x_include))
+        }
 
         if (rlang::is_null(x_breaks)) {
           if (x_time) x_breaks <- ggplot2::waiver()
@@ -545,15 +545,16 @@ gg_line2 <- function(
             else if (!facet_null & facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 5
 
-            x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+            x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits2)
           }
         }
       }
     }
     else if (facet_scales %in% c("free", "free_x")) {
-      if (rlang::is_null(x_limits)) x_limits <- x_range
+      if (rlang::is_null(x_limits)) x_limits2 <- x_range
       if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
     }
+    if (x_trans == "reverse") x_limits2 <- rev(x_limits2)
 
     if (rlang::is_null(x_expand)) {
       if (facet_scales %in% c("fixed", "free_y") &
@@ -573,7 +574,7 @@ gg_line2 <- function(
       plot <- plot +
         ggplot2::scale_x_continuous(
           breaks = x_breaks,
-          limits = x_limits,
+          limits = x_limits2,
           expand = x_expand,
           labels = x_labels,
           oob = scales::oob_keep,
@@ -585,7 +586,7 @@ gg_line2 <- function(
       plot <- plot +
         ggplot2::scale_x_date(
           breaks = x_breaks,
-          limits = x_limits,
+          limits = x_limits2,
           expand = x_expand,
           labels = x_labels,
           oob = scales::oob_keep,
@@ -596,7 +597,7 @@ gg_line2 <- function(
       plot <- plot +
         ggplot2::scale_x_datetime(
           breaks = x_breaks,
-          limits = x_limits,
+          limits = x_limits2,
           expand = x_expand,
           labels = x_labels,
           oob = scales::oob_keep,
@@ -607,7 +608,7 @@ gg_line2 <- function(
       plot <- plot +
         ggplot2::scale_x_time(
           breaks = x_breaks,
-          limits = x_limits,
+          limits = x_limits2,
           expand = x_expand,
           labels = x_labels,
           oob = scales::oob_keep,
@@ -642,38 +643,42 @@ gg_line2 <- function(
 
     y_range <- y_vctr %>% range(na.rm = TRUE)
     if (!rlang::is_null(y_include)) y_range <- range(c(y_range, y_include))
-    if (y_trans == "reverse") y_range <- rev(y_range)
+    if (!rlang::is_null(y_limits)) y_limits <- range(y_limits)
 
     if (facet_scales %in% c("fixed", "free_x")) {
 
       if (rlang::is_null(y_limits)) {
         if (rlang::is_null(y_breaks)) {
-          if (y_time) y_breaks <- ggplot2::waiver()
-          else if (!y_trans %in% c("identity", "reverse")) y_breaks <- ggplot2::waiver()
+          if (y_time | !y_trans %in% c("identity", "reverse")) {
+            y_breaks <- ggplot2::waiver()
+            y_limits2 <- y_range
+          }
           else {
             if (!facet_null & !facet2_null) y_breaks_n <- 4
             else if (facet_null & !facet2_null) y_breaks_n <- 4
             else y_breaks_n <- 5
 
             y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+            y_limits2 <- c(min(y_breaks), max(y_breaks))
           }
-
-          y_limits <- c(min(y_breaks), max(y_breaks))
         }
         else if (!rlang::is_null(y_breaks)) {
-          if (is.vector(y_breaks)) y_limits <- c(min(y_breaks), max(y_breaks))
-          else if (is.function(y_breaks)) {
-            y_limits <- list(y_range) %>%
-              purrr::map(.f = y_breaks) %>%
-              unlist() %>%
-              range()
+          if (y_trans %in% c("identity", "reverse")) {
+            if (is.vector(y_breaks)) y_limits2 <- c(min(y_breaks), max(y_breaks))
+            else if (is.function(y_breaks)) {
+              y_limits2 <- list(y_range) %>%
+                purrr::map(.f = y_breaks) %>%
+                unlist() %>%
+                range()
+            }
           }
+          else y_limits2 <- y_range
         }
       }
       else if (!rlang::is_null(y_limits)) {
-        if (is.na(y_limits)[1]) y_limits[1] <- min(y_range)
-        if (is.na(y_limits)[2]) y_limits[2] <- max(y_range)
-        if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
+        if (is.na(y_limits2)[1]) y_limits2[1] <- min(y_range)
+        if (is.na(y_limits2)[2]) y_limits2[2] <- max(y_range)
+        if (!rlang::is_null(y_include)) y_limits2 <- range(c(y_limits2, y_include))
 
         if (rlang::is_null(y_breaks)) {
           if (y_time) y_breaks <- ggplot2::waiver()
@@ -683,15 +688,16 @@ gg_line2 <- function(
             else if (facet_null & !facet2_null) y_breaks_n <- 4
             else y_breaks_n <- 5
 
-            y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+            y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits2)
           }
         }
       }
     }
     else if (facet_scales %in% c("free", "free_y")) {
-      if (rlang::is_null(y_limits)) y_limits <- y_range
+      if (rlang::is_null(y_limits)) y_limits2 <- y_range
       if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
     }
+    if (y_trans == "reverse") y_limits2 <- rev(y_limits2)
 
     if (rlang::is_null(y_expand)) {
       if (!y_trans %in% c("identity", "reverse")) y_expand <- ggplot2::expansion(mult = c(0, 0.05))
@@ -707,7 +713,7 @@ gg_line2 <- function(
       plot <- plot +
         ggplot2::scale_y_continuous(
           breaks = y_breaks,
-          limits = y_limits,
+          limits = y_limits2,
           expand = y_expand,
           labels = y_labels,
           oob = scales::oob_keep,
@@ -719,7 +725,7 @@ gg_line2 <- function(
       plot <- plot +
         ggplot2::scale_y_date(
           breaks = y_breaks,
-          limits = y_limits,
+          limits = y_limits2,
           expand = y_expand,
           labels = y_labels,
           oob = scales::oob_keep,
@@ -730,7 +736,7 @@ gg_line2 <- function(
       plot <- plot +
         ggplot2::scale_y_datetime(
           breaks = y_breaks,
-          limits = y_limits,
+          limits = y_limits2,
           expand = y_expand,
           labels = y_labels,
           oob = scales::oob_keep,
@@ -741,7 +747,7 @@ gg_line2 <- function(
       plot <- plot +
         ggplot2::scale_y_time(
           breaks = y_breaks,
-          limits = y_limits,
+          limits = y_limits2,
           expand = y_expand,
           labels = y_labels,
           oob = scales::oob_keep,
@@ -800,9 +806,13 @@ gg_line2 <- function(
       if (rlang::is_null(col_limits)) {
         col_limits <- col_vctr %>% range(na.rm = TRUE)
         if (!rlang::is_null(col_include)) col_limits <- range(c(col_limits, col_include))
-        if (col_trans == "reverse") col_limits <- rev(col_limits)
       }
-      else if (!rlang::is_null(col_include)) col_limits <- range(col_limits, col_include)
+      else if (!rlang::is_null(col_include)) {
+        col_limits <- range(c(col_limits, col_include))
+      }
+      else col_limits <- range(col_limits)
+
+      if (col_trans == "reverse") col_limits <- rev(col_limits)
 
       if (rlang::is_null(col_breaks)) {
         if (!col_trans %in% c("identity", "reverse")) col_breaks <- ggplot2::waiver()
