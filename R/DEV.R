@@ -137,7 +137,7 @@ gg_point2 <- function(
   rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
   if (rlang::is_null(data)) rlang::abort("data is required.")
 
-  ###ungroup
+  #ungroup
   data <- dplyr::ungroup(data)
 
   #get classes
@@ -184,7 +184,7 @@ gg_point2 <- function(
 
   facet2_null <- rlang::quo_is_null(facet2)
 
-  ###process data for logical & horizontal
+  #process data for logical & horizontal
   if (!x_null) {
     if (x_logical) {
       data <- data %>%
@@ -231,7 +231,7 @@ gg_point2 <- function(
     }
   }
 
-  ###get default NULL values
+  #get default NULL values
   if (x_null) {
     if (rlang::is_null(x_title)) {
       if (stat %in% c("bin", "count")) x_name <- "count"
@@ -289,7 +289,7 @@ gg_point2 <- function(
     if (col_legend_place == "n") col_legend_place <- "none"
   }
 
-  ###make plot
+  #make plot
   if (!x_null & !y_null) {
     if (!col_null) {
       plot <- data %>%
@@ -461,10 +461,10 @@ gg_point2 <- function(
     }
   }
 
-  ###Get layer data for x, y and col scales
+  #Get layer data for x, y and col scales
   layer_data <- ggplot2::layer_data(plot)
 
-  ###Make x scale based on layer_data
+  #Make x scale based on layer_data
   if (x_character | x_factor | x_logical) {
     if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
     if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
@@ -616,7 +616,7 @@ gg_point2 <- function(
     }
   }
 
-  ###Make y scale based on layer_data
+  #Make y scale based on layer_data
   if (y_character | y_factor | y_logical) {
     if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
     if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
@@ -750,7 +750,7 @@ gg_point2 <- function(
     }
   }
 
-  ###make col scale based on layer_data
+  #make col scale based on layer_data
   if (col_null & !stat %in% c("bin2d", "binhex")) {
     if (rlang::is_null(pal)) pal <-  pal_viridis_mix(1)
     else pal <- pal[1]
@@ -988,7 +988,7 @@ gg_point2 <- function(
     }
   }
 
-  ###expand the limits if necessary
+  #expand the limits if necessary
   if (!rlang::is_null(x_include)) {
     plot <- plot +
       ggplot2::expand_limits(x = x_include)
@@ -1002,13 +1002,11 @@ gg_point2 <- function(
       ggplot2::expand_limits(colour = col_include, fill = col_include)
   }
 
-  ###adjust the legend
-  plot <- plot +
-    ggplot2::theme(legend.position = col_legend_place) +
-    ggplot2::theme(legend.justification = "left")
-
+  #adjust the legend
   if (col_legend_place %in% c("top", "bottom")) {
     plot <- plot +
+      ggplot2::theme(legend.position = col_legend_place) +
+      ggplot2::theme(legend.justification = "left") +
       ggplot2::theme(legend.direction = "horizontal")
 
     if (col_numeric | stat %in% c("bin2d", "binhex")) {
@@ -1016,6 +1014,16 @@ gg_point2 <- function(
         ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
         ggplot2::theme(legend.text.align = 0.5)
     }
+  }
+  else if (col_legend_place %in% c("left", "right")) {
+    plot <- plot +
+      ggplot2::theme(legend.position = col_legend_place) +
+      ggplot2::theme(legend.justification = "left")
+
+    if (col_numeric | stat %in% c("bin2d", "binhex")) {
+      plot <- plot +
+        ggplot2::theme(legend.title = ggplot2::element_text(vjust = 1))
+      }
   }
 
   #remove gridlines not needed
