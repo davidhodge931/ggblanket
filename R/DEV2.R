@@ -531,6 +531,7 @@ gg_line2 <- function(
         }
       }
       else if (!rlang::is_null(x_limits)) {
+        x_limits2 <- x_limits
         if (is.na(x_limits2)[1]) x_limits2[1] <- min(x_range)
         if (is.na(x_limits2)[2]) x_limits2[2] <- max(x_range)
         if (!rlang::is_null(x_include)) {
@@ -552,6 +553,8 @@ gg_line2 <- function(
     }
     else if (facet_scales %in% c("free", "free_x")) {
       if (rlang::is_null(x_limits)) x_limits2 <- x_range
+      else x_limits2 <- x_limits
+
       if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
     }
     if (x_trans == "reverse") x_limits2 <- rev(x_limits2)
@@ -676,6 +679,7 @@ gg_line2 <- function(
         }
       }
       else if (!rlang::is_null(y_limits)) {
+        y_limits2 <- y_limits
         if (is.na(y_limits2)[1]) y_limits2[1] <- min(y_range)
         if (is.na(y_limits2)[2]) y_limits2[2] <- max(y_range)
         if (!rlang::is_null(y_include)) y_limits2 <- range(c(y_limits2, y_include))
@@ -695,6 +699,8 @@ gg_line2 <- function(
     }
     else if (facet_scales %in% c("free", "free_y")) {
       if (rlang::is_null(y_limits)) y_limits2 <- y_range
+      else y_limits2 <- y_limits
+
       if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
     }
     if (y_trans == "reverse") y_limits2 <- rev(y_limits2)
