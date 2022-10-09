@@ -797,6 +797,18 @@ gg_line2 <- function(
 
     if (col_numeric | stat %in% c("bin2d", "binhex")) {
 
+      if (rlang::is_null(col_limits)) {
+        col_limits <- col_vctr %>% range(na.rm = TRUE)
+        if (!rlang::is_null(col_include)) col_limits <- range(c(col_limits, col_include))
+        if (col_trans == "reverse") col_limits <- rev(col_limits)
+      }
+      else if (!rlang::is_null(col_include)) col_limits <- range(col_limits, col_include)
+
+      if (rlang::is_null(col_breaks)) {
+        if (!col_trans %in% c("identity", "reverse")) col_breaks <- ggplot2::waiver()
+        else col_breaks <- scales::breaks_pretty(4)
+      }
+
       if (rlang::is_null(pal)) pal <- viridis::viridis(10)
 
       if (rlang::is_null(col_labels)) {
@@ -809,11 +821,16 @@ gg_line2 <- function(
         else col_breaks <- scales::breaks_pretty(4)
       }
 
+      if (!rlang::is_null(col_rescale)) {
+        col_rescale <- scales::rescale(col_rescale)
+      }
+      else col_rescale <- NULL
+
       if (col_continuous == "gradient") {
         plot <- plot +
           ggplot2::scale_colour_gradientn(
             colours = pal,
-            values = scales::rescale(col_rescale),
+            values = col_rescale,
             labels = col_labels,
             breaks = col_breaks,
             limits = col_limits,
@@ -829,7 +846,7 @@ gg_line2 <- function(
           ) +
           ggplot2::scale_fill_gradientn(
             colours = pal,
-            values = scales::rescale(col_rescale),
+            values = col_rescale,
             labels = col_labels,
             breaks = col_breaks,
             limits = col_limits,
@@ -848,7 +865,7 @@ gg_line2 <- function(
         plot <- plot +
           ggplot2::scale_colour_stepsn(
             colours = pal,
-            values = scales::rescale(col_rescale),
+            values = col_rescale,
             labels = col_labels,
             breaks = col_breaks,
             limits = col_limits,
@@ -860,7 +877,7 @@ gg_line2 <- function(
           ) +
           ggplot2::scale_fill_stepsn(
             colours = pal,
-            values = scales::rescale(col_rescale),
+            values = col_rescale,
             labels = col_labels,
             breaks = col_breaks,
             limits = col_limits,
@@ -873,24 +890,15 @@ gg_line2 <- function(
       }
     }
     else if (col_character | col_factor | col_logical) {
-      if (!rlang::is_null(col_limits)) {
-        if (rlang::is_null(col_include)) col_n <- length(col_limits)
-        else col_n <- length(unique(c(col_limits, col_include)))
-      }
-      else if (!rlang::is_null(col_breaks)) {
-        if (rlang::is_null(col_include)) col_n <- length(col_breaks)
-        else col_n <- length(unique(c(col_breaks, col_include)))
-      }
+      if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
+      else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
       else {
-        if (col_factor) {
-          if (rlang::is_null(col_include)) col_n <- length(levels(col_vctr))
-          else col_n <- length(unique(c(levels(col_vctr), col_include)))
-        }
-        else {
-          if (rlang::is_null(col_include)) col_unique <- unique(col_vctr)
-          else col_unique <- unique(c(col_vctr, col_include))
-
+        if (col_character | col_logical){
+          col_unique <- unique(col_vctr)
           col_n <- length(col_unique[!is.na(col_unique)])
+        }
+        else if (col_factor) {
+          col_n <- length(levels(col_vctr))
         }
       }
 
@@ -899,12 +907,12 @@ gg_line2 <- function(
 
       if (y_numeric | y_date | y_datetime | y_time) {
         if (col_character | col_factor | col_logical) col_legend_rev_auto <- FALSE
-        else if (col_legend_place %in% c("bottom", "top")) col_legend_rev_auto <- FALSE
+        else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- FALSE
         else col_legend_rev_auto <- TRUE
       }
       else if (y_character | y_factor | y_logical) {
         if (col_character | col_factor | col_logical) col_legend_rev_auto <- TRUE
-        else if (col_legend_place %in% c("bottom", "top")) col_legend_rev_auto <- TRUE
+        else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- TRUE
         else col_legend_rev_auto <- FALSE
         pal <- rev(pal)
       }
@@ -999,7 +1007,7 @@ gg_line2 <- function(
     ggplot2::theme(legend.position = col_legend_place) +
     ggplot2::theme(legend.justification = "left")
 
-  if (col_legend_place %in% c("bottom", "top")) {
+  if (col_legend_place %in% c("top", "bottom")) {
     plot <- plot +
       ggplot2::theme(legend.direction = "horizontal")
 

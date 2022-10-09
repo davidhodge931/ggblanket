@@ -145,7 +145,7 @@ gg_boxplot(
 
 \item{col_legend_rev}{Reverse the elements of the legend. Defaults to FALSE.}
 
-\item{col_limits}{For a categorical variable, a vector to determine the limits of the colour scale.}
+\item{col_limits}{A vector to determine the limits of the colour scale.}
 
 \item{col_rescale}{For a continuous col variable, a vector to rescale the pal non-linearly.}
 
