@@ -777,7 +777,7 @@ gg_point2 <- function(
         na.value = pal_na,
       )
 
-    if (rlang::is_null(col_legend_place)) col_legend_place <- "none"
+    col_legend_place <- "none"
   }
   else {
     if (rlang::is_null(col_title)) {
@@ -1040,6 +1040,10 @@ gg_point2 <- function(
       plot <- plot +
         ggplot2::theme(legend.title = ggplot2::element_text(vjust = 1))
       }
+  }
+  else if (col_legend_place == "none") {
+    plot <- plot +
+      ggplot2::theme(legend.position = col_legend_place)
   }
 
   #remove gridlines not needed
