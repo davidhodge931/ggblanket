@@ -158,26 +158,14 @@ gg_violin <- function(
   y_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(y, data))
   y_time <- hms::is_hms(rlang::eval_tidy(y, data))
 
-  if (stat %in% c("bin2d", "binhex")) {
-    col_null <- TRUE
-    col_character <- FALSE
-    col_factor <- FALSE
-    col_logical <- FALSE
-    col_numeric <- FALSE
-    col_date <- FALSE
-    col_datetime <- FALSE
-    col_time <- FALSE
-  }
-  else {
-    col_null <- rlang::quo_is_null(col)
-    col_character <- is.character(rlang::eval_tidy(col, data))
-    col_factor <- is.factor(rlang::eval_tidy(col, data))
-    col_logical <- is.logical(rlang::eval_tidy(col, data))
-    col_numeric <- is.numeric(rlang::eval_tidy(col, data))
-    col_date <- lubridate::is.Date(rlang::eval_tidy(col, data))
-    col_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(col, data))
-    col_time <- hms::is_hms(rlang::eval_tidy(col, data))
-  }
+  col_null <- rlang::quo_is_null(col)
+  col_character <- is.character(rlang::eval_tidy(col, data))
+  col_factor <- is.factor(rlang::eval_tidy(col, data))
+  col_logical <- is.logical(rlang::eval_tidy(col, data))
+  col_numeric <- is.numeric(rlang::eval_tidy(col, data))
+  col_date <- lubridate::is.Date(rlang::eval_tidy(col, data))
+  col_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(col, data))
+  col_time <- hms::is_hms(rlang::eval_tidy(col, data))
 
   facet_null <- rlang::quo_is_null(facet)
 
@@ -237,6 +225,7 @@ gg_violin <- function(
       else if (stat %in% c("density", "ydensity")) x_name <- "density"
       else if (stat == "function") x_name <- "x"
       else if (stat == "qq") x_name <- "theoretical"
+      else x_name <- ""
 
       if (rlang::is_null(titles)) x_title <- purrr::map_chr(x_name, snakecase::to_sentence_case)
       else x_title <- purrr::map_chr(x_name, titles)
@@ -253,6 +242,7 @@ gg_violin <- function(
       else if (stat %in% c("density", "ydensity")) y_name <- "density"
       else if (stat == "function") y_name <- "y"
       else if (stat == "qq") y_name <- "sample"
+      else y_name <- ""
 
       if (rlang::is_null(titles)) y_title <- purrr::map_chr(y_name, snakecase::to_sentence_case)
       else y_title <- purrr::map_chr(y_name, titles)

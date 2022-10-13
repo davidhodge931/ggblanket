@@ -484,8 +484,7 @@ penguins |>
     y_limits = c(NA, NA)) +
   facet_grid(cols = vars(species),
              rows = vars(island), 
-             switch = "y") +
-  theme(strip.switch.pad.grid = unit(3, "mm"))
+             switch = "y")
 ```
 
 Some other functionality is not supported in ggblanket. You cannon access non-default _computed_ variables. Some geom's are not supported (e.g. `geom_contour`, `geom_density_2d`). You also cannot colour by a date, datetime or time variable. In these situations  you will need to use ggplot2.

@@ -234,6 +234,7 @@ gg_hex <- function(
       else if (stat %in% c("density", "ydensity")) x_name <- "density"
       else if (stat == "function") x_name <- "x"
       else if (stat == "qq") x_name <- "theoretical"
+      else x_name <- ""
 
       if (rlang::is_null(titles)) x_title <- purrr::map_chr(x_name, snakecase::to_sentence_case)
       else x_title <- purrr::map_chr(x_name, titles)
@@ -250,6 +251,7 @@ gg_hex <- function(
       else if (stat %in% c("density", "ydensity")) y_name <- "density"
       else if (stat == "function") y_name <- "y"
       else if (stat == "qq") y_name <- "sample"
+      else y_name <- ""
 
       if (rlang::is_null(titles)) y_title <- purrr::map_chr(y_name, snakecase::to_sentence_case)
       else y_title <- purrr::map_chr(y_name, titles)

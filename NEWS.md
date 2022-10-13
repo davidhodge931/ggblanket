@@ -1,19 +1,15 @@
 # ggblanket 1.4.9000
 
-* Made `col_limits` work on numeric variables.
-* Added `col_trans` argument.
-* Redesigned internal `x` and `y` scales.
-* Made `x` and `y` scale limits default to `c(NA, NA)` rather than `NULL`. 
-* Made `col_legend_place` default "r" where numeric col variable. 
 * Breaking: redesigned `gg_theme`.
+* Added automatic gridline removal.
 * Added `gg_bin2d` function.
 * Added `gg_hex` function.
-* Added automatic gridline removal.
+* Redesigned internal code for `x`, `y` and `col` scales.
+* Added `col_trans` and `col_rescale` arguments.
+* Made `col_legend_place` default "r" where numeric col variable. 
 * Made `*_title = ""` equivalent to `+ labs(* = NULL)`.
 * Supported `x` and `y` datetime variables.
 * Supported `x` and `y` time variables.
-* Added `col_rescale` argument to rescale a colour gradient.
-* Added longer values for `col_legend_place` in addition to shortcuts.
 
 # ggblanket 1.4.0
 
