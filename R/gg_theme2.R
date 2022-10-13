@@ -23,7 +23,7 @@
 #' @param axis_line_pal The colour palette for the axis. Defaults to "#323232".
 #' @param axis_ticks_linewidth The size of the ticks. Defaults to 0.3.
 #' @param axis_ticks_pal The colour palette for the ticks. Defaults to "#323232".
-#' @param legend_key_pal The colour palette for the legend key. Can also use special value of "panel" to align with panel background.
+#' @param legend_key_pal The colour palette for the legend key. Defaults to the plot_background_pal.
 #' @param panel_background_pal The colour palette for the panel background colour.
 #' @param panel_grid_linewidth The size of the vertical major gridlines. Defaults to 0.2.
 #' @param panel_grid_pal The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".
@@ -39,17 +39,17 @@ gg_theme2 <- function(
     text_size = 10,
     text_pal = "#323232",
     text_face = "plain",
-    title_size = 11,
+    title_size = text_size + 1,
     title_pal = "#000000",
     title_face = "bold",
     title_vjust = text_size / 5,
-    title_margin = ggplot2::margin(b = text_size),
-    subtitle_size = 10,
+    title_margin = ggplot2::margin(t = text_size * -0.5, b = text_size * 1.25),
+    subtitle_size = text_size,
     subtitle_pal = "#323232",
     subtitle_face = "plain",
     subtitle_vjust = text_size / 2.5,
-    subtitle_margin = ggplot2::margin(t = text_size * -0.2, b = text_size * 0.3),
-    caption_size = 9,
+    subtitle_margin = ggplot2::margin(t = text_size * -0.5, b = text_size),
+    caption_size = text_size - 1,
     caption_pal = "#7F7F7F",
     caption_face = "plain",
     caption_hjust = 0,
@@ -67,7 +67,6 @@ gg_theme2 <- function(
 
   if (is.null(axis_ticks_pal)) axis_ticks_pal <- axis_line_pal
   if (is.null(legend_key_pal)) legend_key_pal <- plot_background_pal
-  if (legend_key_pal == "panel") legend_key_pal <- panel_background_pal
   if (is.null(axis_ticks_linewidth)) axis_ticks_linewidth <- axis_line_linewidth
 
   theme <- ggplot2::theme(
@@ -82,8 +81,7 @@ gg_theme2 <- function(
     axis.text.y = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, hjust = 1, margin = ggplot2::margin(r = 2)),
     strip.text.x = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, hjust = 0.5, margin = ggplot2::margin(b = text_size / 2)),
     strip.text.y = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, hjust = 0.5, margin = ggplot2::margin(l = text_size / 2), angle = 270),
-    legend.text = ggplot2::element_text(hjust = 0, margin = ggplot2::margin(r = 7.5, unit = "pt")),
-    plot.margin = ggplot2::margin(t = 15, l = 7.5, b = 10, r = 20),
+    plot.margin = ggplot2::margin(t = 15, l = 10, b = 10, r = 20),
     plot.title.position = "plot",
     plot.caption.position = "plot",
     panel.border = ggplot2::element_blank(),
@@ -103,9 +101,12 @@ gg_theme2 <- function(
     legend.key.height = ggplot2::unit(5, "mm"),
     legend.key.width = ggplot2::unit(5, "mm"),
     legend.spacing.y = ggplot2::unit(0.15, "cm"),
-    legend.position = "right",
-    legend.direction = "vertical",
+    legend.position = "bottom",
+    legend.direction = "horizontal",
     legend.justification = "left",
+    legend.box.margin = ggplot2::margin(t = -2.5),
+    legend.text = ggplot2::element_text(
+        margin = ggplot2::margin(r = 7.5)),
     legend.box = NULL,
     complete = TRUE
   )

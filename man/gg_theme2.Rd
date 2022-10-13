@@ -9,17 +9,17 @@ gg_theme2(
   text_size = 10,
   text_pal = "#323232",
   text_face = "plain",
-  title_size = 11,
+  title_size = text_size + 1,
   title_pal = "#000000",
   title_face = "bold",
   title_vjust = text_size/5,
-  title_margin = ggplot2::margin(b = text_size),
-  subtitle_size = 10,
+  title_margin = ggplot2::margin(t = text_size * -0.5, b = text_size * 1.25),
+  subtitle_size = text_size,
   subtitle_pal = "#323232",
   subtitle_face = "plain",
   subtitle_vjust = text_size/2.5,
-  subtitle_margin = ggplot2::margin(t = text_size * -0.2, b = text_size * 0.3),
-  caption_size = 9,
+  subtitle_margin = ggplot2::margin(t = text_size * -0.5, b = text_size),
+  caption_size = text_size - 1,
   caption_pal = "#7F7F7F",
   caption_face = "plain",
   caption_hjust = 0,
@@ -81,7 +81,7 @@ gg_theme2(
 
 \item{axis_ticks_pal}{The colour palette for the ticks. Defaults to "#323232".}
 
-\item{legend_key_pal}{The colour palette for the legend key. Can also use special value of "panel" to align with panel background.}
+\item{legend_key_pal}{The colour palette for the legend key. Defaults to the plot_background_pal.}
 
 \item{panel_background_pal}{The colour palette for the panel background colour.}
 

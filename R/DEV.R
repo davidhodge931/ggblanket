@@ -1022,8 +1022,11 @@ gg_point2 <- function(
   if (col_legend_place %in% c("top", "bottom")) {
     plot <- plot +
       ggplot2::theme(legend.position = col_legend_place) +
+      ggplot2::theme(legend.direction = "horizontal") +
       ggplot2::theme(legend.justification = "left") +
-      ggplot2::theme(legend.direction = "horizontal")
+      ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
+      ggplot2::theme(legend.text = ggplot2::element_text(
+        margin = ggplot2::margin(r = 7.5, unit = "pt")))
 
     if (col_numeric | stat %in% c("bin2d", "binhex")) {
       plot <- plot +
@@ -1034,7 +1037,11 @@ gg_point2 <- function(
   else if (col_legend_place %in% c("left", "right")) {
     plot <- plot +
       ggplot2::theme(legend.position = col_legend_place) +
-      ggplot2::theme(legend.justification = "left")
+      ggplot2::theme(legend.direction = "vertical") +
+      ggplot2::theme(legend.justification = "left") +
+      ggplot2::theme(legend.box.margin = ggplot2::margin(t = 0)) +
+      ggplot2::theme(legend.text = ggplot2::element_text(
+        margin = ggplot2::margin(r = 0)))
 
     if (col_numeric | stat %in% c("bin2d", "binhex")) {
       plot <- plot +
