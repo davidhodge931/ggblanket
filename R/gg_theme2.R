@@ -19,15 +19,15 @@
 #' @param caption_pal The colour palette for the caption. Defaults to "#7F7F7F".
 #' @param caption_face The font style of the caption. Defaults to "plain".
 #' @param caption_hjust The horizontal adjustment for the caption.
-#' @param axis_line_linewidth The size of the axis. Defaults to 0.3.
+#' @param axis_line_linewidth The linewidth of the axis. Defaults to 0.3.
 #' @param axis_line_pal The colour palette for the axis. Defaults to "#323232".
-#' @param axis_ticks_linewidth The size of the ticks. Defaults to 0.3.
+#' @param axis_ticks_linewidth The linewidth of the ticks. Defaults to 0.3.
 #' @param axis_ticks_pal The colour palette for the ticks. Defaults to "#323232".
 #' @param legend_key_pal The colour palette for the legend key. Defaults to the plot_background_pal.
 #' @param panel_background_pal The colour palette for the panel background colour.
-#' @param panel_grid_linewidth The size of the vertical major gridlines. Defaults to 0.2.
+#' @param panel_grid_linewidth The linewidth of the vertical major gridlines. Defaults to 0.2.
 #' @param panel_grid_pal The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".
-#' @param panel_spacing_units The size of the spacing between facet panels in units of "lines". Defaults to 1.5.
+#' @param panel_spacing_lines The size of the spacing between facet panels in units of "lines". Defaults to 1.25.
 #' @param plot_background_pal The colour palette for the plot background colour.
 #' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
 #'
@@ -61,7 +61,7 @@ gg_theme2 <- function(
     panel_background_pal = "#FEFEFE",
     panel_grid_linewidth = 0.2,
     panel_grid_pal = "#D3D3D3",
-    panel_spacing_units = 1.5,
+    panel_spacing_lines = 1.25,
     plot_background_pal = "#F1F3F5",
     void = FALSE) {
 
@@ -85,7 +85,7 @@ gg_theme2 <- function(
     plot.title.position = "plot",
     plot.caption.position = "plot",
     panel.border = ggplot2::element_blank(),
-    panel.spacing = ggplot2::unit(panel_spacing_units, "lines"),
+    panel.spacing = ggplot2::unit(panel_spacing_lines, "lines"),
     plot.background = ggplot2::element_rect(colour = plot_background_pal, fill = plot_background_pal),
     panel.background = ggplot2::element_rect(colour = panel_background_pal, fill = panel_background_pal),
     panel.grid.major = ggplot2::element_line(colour = panel_grid_pal, size = panel_grid_linewidth),
