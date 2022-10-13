@@ -15,7 +15,7 @@
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
-#' @param titles A function to format the x, y and col titles, including in rlang lambda format. Defaults to snakecase::to_sentence_case.
+#' @param titles A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param coord Coordinate system.
@@ -27,7 +27,7 @@
 #' @param x_limits A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(xlim = ...).
 #' @param x_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param x_trans For a numeric variable, a transformation object (e.g. "log10").
+#' @param x_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param y_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param y_grid TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
@@ -36,7 +36,7 @@
 #' @param y_limits A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(ylim = ...).
 #' @param y_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param y_trans For a numeric variable, a transformation object (e.g. "log10").
+#' @param y_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param col_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
@@ -48,7 +48,7 @@
 #' @param col_legend_rev Reverse the elements of the legend. Defaults to FALSE.
 #' @param col_rescale For a continuous col variable, a vector to rescale the pal non-linearly.
 #' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param col_trans For a numeric variable, a transformation object (e.g. "log10").
+#' @param col_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
 #' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
 #' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
@@ -127,7 +127,7 @@ gg_point2 <- function(
   #quote
   x <- rlang::enquo(x)
   y <- rlang::enquo(y)
-  if (!stat %in% c("bin2d", "binhex")) col <- rlang::enquo(col)
+  col <- rlang::enquo(col)
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
@@ -159,7 +159,7 @@ gg_point2 <- function(
   y_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(y, data))
   y_time <- hms::is_hms(rlang::eval_tidy(y, data))
 
-  if (stat %in% c("bin2d", "binhex")){
+  if (stat %in% c("bin2d", "binhex")) {
     col_null <- TRUE
     col_character <- FALSE
     col_factor <- FALSE
@@ -909,7 +909,7 @@ gg_point2 <- function(
       if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
       else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
       else {
-        if (col_character | col_logical){
+        if (col_character | col_logical) {
           col_unique <- unique(col_vctr)
           col_n <- length(col_unique[!is.na(col_unique)])
         }

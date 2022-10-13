@@ -94,7 +94,7 @@ gg_point2(
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
-\item{titles}{A function to format the x, y and col titles, including in rlang lambda format. Defaults to snakecase::to_sentence_case.}
+\item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
 
 \item{title}{Title string.}
 
@@ -116,7 +116,7 @@ gg_point2(
 
 \item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{x_trans}{For a numeric variable, a transformation object (e.g. "log10").}
+\item{x_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
 \item{y_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -134,7 +134,7 @@ gg_point2(
 
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{y_trans}{For a numeric variable, a transformation object (e.g. "log10").}
+\item{y_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
 \item{col_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -158,7 +158,7 @@ gg_point2(
 
 \item{col_title}{Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{col_trans}{For a numeric variable, a transformation object (e.g. "log10").}
+\item{col_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
 \item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).}
 

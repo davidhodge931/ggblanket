@@ -5,96 +5,93 @@
 \title{Quick theme for a ggplot.}
 \usage{
 gg_theme(
-  family = "",
+  text_family = "",
+  text_size = 10,
+  text_pal = "#323232",
+  text_face = "plain",
+  title_size = text_size + 1,
   title_pal = "#000000",
-  title_family = NULL,
-  title_size = 11,
   title_face = "bold",
-  subtitle_family = NULL,
+  title_vjust = text_size * 0.2,
+  title_margin = ggplot2::margin(t = text_size * -0.5, b = text_size * 1.25),
+  subtitle_size = text_size,
   subtitle_pal = "#323232",
-  subtitle_size = 10,
   subtitle_face = "plain",
-  body_family = NULL,
-  body_pal = "#323232",
-  body_size = 10,
-  body_face = "plain",
-  caption_family = NULL,
+  subtitle_vjust = text_size * 0.4,
+  subtitle_margin = ggplot2::margin(t = text_size * -0.5, b = text_size),
+  caption_size = text_size - 1,
   caption_pal = "#7F7F7F",
-  caption_size = 9,
   caption_face = "plain",
-  axis_size = 0.3,
-  axis_pal = "#323232",
-  ticks_size = 0.3,
-  ticks_pal = "#323232",
-  bg_plot_pal = "#F1F3F5",
-  bg_panel_pal = "#FEFEFE",
-  bg_legend_key_pal = "plot",
-  grid_h = TRUE,
-  grid_v = TRUE,
-  grid_pal = "#D3D3D3",
-  grid_size = 0.2,
-  facet_gap_size = 1.5,
+  caption_hjust = 0,
+  axis_line_linewidth = 0.3,
+  axis_line_pal = "#323232",
+  axis_ticks_linewidth = NULL,
+  axis_ticks_pal = NULL,
+  legend_key_pal = NULL,
+  panel_background_pal = "#FEFEFE",
+  panel_grid_linewidth = 0.2,
+  panel_grid_pal = "#D3D3D3",
+  panel_spacing_lines = 1.25,
+  plot_background_pal = "#F1F3F5",
   void = FALSE
 )
 }
 \arguments{
-\item{family}{The font family for all text to use. Defaults to "".}
+\item{text_family}{The font family for all text to use. Defaults to "".}
 
-\item{title_pal}{The colour palette for the title family. Defaults to "#000000".}
+\item{text_size}{The size of all text other than the title, subtitle and caption. Defaults to 10.}
 
-\item{title_family}{The font family for the title. If NULL, inherits from family argument.}
+\item{text_pal}{The colour palette for all text other than the title, subtitle or caption. Defaults to "#323232".}
 
-\item{title_size}{The size of the title family. Defaults to 11.}
+\item{text_face}{The font style of all text other than the title, subtitle or caption. Defaults to "plain".}
 
-\item{title_face}{The font style of the title family. Defaults to "bold".}
+\item{title_size}{The size of the title text_family. Defaults to 11.}
 
-\item{subtitle_family}{The font family for the subtitle. If NULL, inherits from family argument.}
+\item{title_pal}{The colour palette for the title text_family. Defaults to "#000000".}
 
-\item{subtitle_pal}{The colour palette for the subtitle family. Defaults to "#323232".}
+\item{title_face}{The font style of the title text_family. Defaults to "bold".}
 
-\item{subtitle_size}{The size of the subtitle family. Defaults to 10.}
+\item{title_vjust}{The vertical adjustment for the title.}
 
-\item{subtitle_face}{The font style of the subtitle family. Defaults to "plain".}
+\item{title_margin}{The margin for the title.}
 
-\item{body_family}{The font family for all text other than the title, subtitle and caption. If NULL, inherits from family argument.}
+\item{subtitle_size}{The size of the subtitle text_family. Defaults to 10.}
 
-\item{body_pal}{The colour palette for all text other than the title, subtitle or caption. Defaults to "#323232".}
+\item{subtitle_pal}{The colour palette for the subtitle text_family. Defaults to "#323232".}
 
-\item{body_size}{The size of all text other than the title, subtitle and caption. Defaults to 10.}
+\item{subtitle_face}{The font style of the subtitle text_family. Defaults to "plain".}
 
-\item{body_face}{The font style of all text other than the title, subtitle or caption. Defaults to "plain".}
+\item{subtitle_vjust}{The vertical adjustment for the subtitle.}
 
-\item{caption_family}{The font family for the caption. If NULL, inherits from family argument.}
-
-\item{caption_pal}{The colour palette for the caption. Defaults to "#7F7F7F".}
+\item{subtitle_margin}{The margin for the title.}
 
 \item{caption_size}{The size of the caption. Defaults to 9.}
 
+\item{caption_pal}{The colour palette for the caption. Defaults to "#7F7F7F".}
+
 \item{caption_face}{The font style of the caption. Defaults to "plain".}
 
-\item{axis_size}{The size of the axis. Defaults to 0.3.}
+\item{caption_hjust}{The horizontal adjustment for the caption.}
 
-\item{axis_pal}{The colour palette for the axis. Defaults to "#323232".}
+\item{axis_line_linewidth}{The linewidth of the axis. Defaults to 0.3.}
 
-\item{ticks_size}{The size of the ticks. Defaults to 0.3.}
+\item{axis_line_pal}{The colour palette for the axis. Defaults to "#323232".}
 
-\item{ticks_pal}{The colour palette for the ticks. Defaults to "#323232".}
+\item{axis_ticks_linewidth}{The linewidth of the ticks. Defaults to 0.3.}
 
-\item{bg_plot_pal}{The colour palette for the plot background colour.}
+\item{axis_ticks_pal}{The colour palette for the ticks. Defaults to "#323232".}
 
-\item{bg_panel_pal}{The colour palette for the panel background colour.}
+\item{legend_key_pal}{The colour palette for the legend key. Defaults to the plot_background_pal.}
 
-\item{bg_legend_key_pal}{The colour palette for the legend key. Can also use special values of "plot" and "panel".}
+\item{panel_background_pal}{The colour palette for the panel background colour.}
 
-\item{grid_h}{TRUE or FALSE of whether to show hotizontal gridlines. Defaults to FALSE.}
+\item{panel_grid_linewidth}{The linewidth of the vertical major gridlines. Defaults to 0.2.}
 
-\item{grid_v}{TRUE or FALSE of whether to show vertical gridlines. Defaults to FALSE.}
+\item{panel_grid_pal}{The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".}
 
-\item{grid_pal}{The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".}
+\item{panel_spacing_lines}{The size of the spacing between facet panels in units of "lines". Defaults to 1.25.}
 
-\item{grid_size}{The size of the vertical major gridlines. Defaults to 0.2.}
-
-\item{facet_gap_size}{The size of the spacing between facet panels in units of "lines". Defaults to 1.5.}
+\item{plot_background_pal}{The colour palette for the plot background colour.}
 
 \item{void}{TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.}
 }

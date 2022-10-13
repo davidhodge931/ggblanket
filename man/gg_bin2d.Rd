@@ -14,7 +14,6 @@ gg_bin2d(
   text = NULL,
   stat = "bin2d",
   position = "identity",
-  coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 1,
@@ -22,6 +21,7 @@ gg_bin2d(
   titles = NULL,
   title = NULL,
   subtitle = NULL,
+  coord = ggplot2::coord_cartesian(clip = "off"),
   x_breaks = NULL,
   x_expand = NULL,
   x_grid = NULL,
@@ -51,6 +51,7 @@ gg_bin2d(
   col_limits = NULL,
   col_rescale = NULL,
   col_title = NULL,
+  col_trans = "identity",
   facet_labels = NULL,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -80,8 +81,6 @@ gg_bin2d(
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
-\item{coord}{Coordinate system.}
-
 \item{pal}{Colours to use. A character vector of hex codes (or names).}
 
 \item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
@@ -90,11 +89,13 @@ gg_bin2d(
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
 
-\item{titles}{A function to format the x, y and col titles, including in rlang lambda format. Defaults to snakecase::to_sentence_case.}
+\item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
 
 \item{title}{Title string.}
 
 \item{subtitle}{Subtitle string.}
+
+\item{coord}{Coordinate system.}
 
 \item{x_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -112,7 +113,7 @@ gg_bin2d(
 
 \item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{x_trans}{For a numeric variable, a transformation object (e.g. "log10").}
+\item{x_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
 \item{y_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -130,7 +131,7 @@ gg_bin2d(
 
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{y_trans}{For a numeric variable, a transformation object (e.g. "log10").}
+\item{y_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
 \item{col_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -153,6 +154,8 @@ gg_bin2d(
 \item{col_rescale}{For a continuous col variable, a vector to rescale the pal non-linearly.}
 
 \item{col_title}{Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
+
+\item{col_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
 \item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).}
 

@@ -208,10 +208,9 @@ penguins |>
     x_labels = snakecase::to_sentence_case,
     title = "Average penguin body mass",
     subtitle = "Palmer Archipelago, Antarctica",
-    theme = gg_theme(grid_h = FALSE,
-                     bg_plot_pal = "white",
-                     axis_pal = "white", 
-                     ticks_pal = "white")) +
+    theme = gg_theme(plot_background_pal = "white",
+                     axis_line_pal = "white", 
+                     axis_ticks_pal = "white")) +
   geom_text(aes(label = flipper_length_mm), col = "#232323", size = 3.5) 
 ```
 
@@ -330,8 +329,6 @@ The `gg_theme` function allows you to create a quick simple theme.
 
 It includes arguments for adjusting gridlines, background colours, text, axis lines and ticks. 
 
-Use the `grid_h` and `grid_v` logical arguments to add gridlines. Otherwise this function defaults to no gridlines.
-
 There is also a `void = TRUE` argument that is useful for maps.
 
 ```{r}
@@ -346,9 +343,8 @@ storms |>
     x_expand = c(0, 0),
     width = 0.75,
     theme = gg_theme(
-      bg_plot_pal = "white",
-      bg_panel_pal = "white",
-      grid_h = TRUE))
+      plot_background_pal = "white",
+      panel_background_pal = "white"))
 ```
 
 ### 14. A base from which to create custom plot functions with your own defaults
@@ -392,9 +388,8 @@ The `add_tooltip_text` function allows users to create nice tooltips in combinat
 ```{r, eval = F}
 theme_custom <- gg_theme(
   "helvetica",
-  bg_plot_pal = "white",
-  bg_panel_pal = "white",
-  grid_h = TRUE
+  plot_background_pal = "white",
+  panel_background_pal = "white",
 )
 
 iris |> 
@@ -493,16 +488,17 @@ penguins |>
   theme(strip.switch.pad.grid = unit(3, "mm"))
 ```
 
-Some other functionality is not supported in ggblanket. You cannon access non-default _computed_ variables. Some geom's are not supported (e.g. `geom_contour`, `geom_density_2d`, `geom_hex`, and `geom_bin_2d`). You also cannot colour by a date, datetime or time variable. In these situations  you will need to use ggplot2.
+Some other functionality is not supported in ggblanket. You cannon access non-default _computed_ variables. Some geom's are not supported (e.g. `geom_contour`, `geom_density_2d`). You also cannot colour by a date, datetime or time variable. In these situations  you will need to use ggplot2.
 
 ```{r}
 diamonds |> 
   ggplot() +
-  geom_bin_2d(aes(x = carat, y = price, fill = after_stat(count))) +
-  gg_theme(grid_h = TRUE) +
-  scale_fill_gradientn(colours = viridis::viridis(9)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     breaks = scales::breaks_pretty(5), 
-                     limits = range(scales::breaks_pretty(5)(diamonds$price))) +
-  labs(x = "Carat", y = "Price", fill = "Count")
+  geom_density2d(aes(x = carat, y = price, colour = after_stat(level))) +
+  scale_colour_gradientn(colours = viridis::viridis(9)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 6000)) +
+  labs(x = "Carat", y = "Price", colour = "Level") +
+  gg_theme() +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(legend.position = "right") +
+  theme(legend.direction = "vertical")
 ```

@@ -28,7 +28,7 @@
 #'             y = Sepal.Length,
 #'             col = Species,
 #'             text = text,
-#'             theme = gg_theme("helvetica", grid_v = TRUE, grid_h = TRUE)) %>%
+#'             theme = gg_theme(text_family = "helvetica")) %>%
 #'     plotly::ggplotly(tooltip = "text")
 add_tooltip_text <- function(data,
                              ...,
