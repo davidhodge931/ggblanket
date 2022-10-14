@@ -1,4 +1,4 @@
-# ggblanket 1.4.9000
+# ggblanket 1.5.0
 
 * Breaking: redesigned `gg_theme`.
 * Added automatic gridline removal.
