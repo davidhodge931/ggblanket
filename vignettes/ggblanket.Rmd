@@ -151,14 +151,15 @@ Determine whether what you want to change relates to `x`,`y`, `col` or `facet`, 
 
 Available arguments are:
 
-* `*_breaks`: Adjust the breaks of an axis
-* `*_expand`: Adjust the padding beyond the limits
+* `*_breaks`: Adjust the breaks of a scale
+* `*_expand`: Adjust the padding beyond the limits on a scale
 * `*_include`: Include a value within a scale 
-* `*_labels`: Adjust the labels on the breaks
-* `*_limits`: Adjust the limits 
-* `*_trans`: Transform an axis 
-* `*_sec_axis`: Add a secondary axis
+* `*_labels`: Adjust the labels on the breaks of a scale
+* `*_limits`: Adjust the limits on a scale
+* `*_trans`: Transform a scale (e.g. "log10", "sqrt" or "reverse") 
 * `*_title`: Add a title
+* `*_sec_axis`: Add a secondary x or y axis
+* `*_grid`: Add or remove a x or y gridline
 * `col_continuous` How to colour a continuous variable (e.g. "steps")
 * `col_rescale`: Rescale a continuous col variable non-linearly
 * `col_legend_place`: Place to put the legend (e.g. "r")
@@ -179,6 +180,7 @@ penguins |>
     col = flipper_length_mm,
     col_continuous = "steps",
     y_include = 0,
+    y_trans = "sqrt",
     y_breaks = scales::breaks_width(1500), 
     y_labels = scales::label_number()
   )
@@ -272,7 +274,7 @@ This approach can cause some challenges. These are discussed further in the 'Mul
 Note `alpha` does not inherit.
 
 ```{r}
-penguins %>%
+penguins |>
   gg_boxplot(x = species,
              y = body_mass_g,
              width = 0.5,
@@ -306,9 +308,13 @@ penguins |>
 
 This allows you to utilise the simplicity of ggblanket, while making content that has your required look and feel.
 
-By using the `theme` argument, your theme will control all theme aspects, but with some magic relating to the legend position/direction and gridline removal. The gridline removal means that it is useful to provide a theme with major gridlines in both directions.
+By using the `theme` argument, your theme will control all theme aspects, but with some magic relating to the legend and gridline removal within the `gg_* function`. 
 
-If you prefer to have your `theme` adjust _everything_, then add your theme as a layer instead (e.g. `+ theme_grey()`). 
+This is why: 
+
+* the `col_legend_place` argument will work regardless of the theme provided to the `theme` argument and
+* a theme with gridlines in both directions can be provided so that you get generally appropriate gridlines automatically (e.g. vertical gridlines for horizontal bar plots).  
+However... if you do not want any magic and want your theme to adjust _everything_, then just add your theme as a layer instead (e.g. `+ theme_grey()`). 
 
 ```{r}
 penguins |>
@@ -323,9 +329,9 @@ penguins |>
 
 ### 13. A `gg_theme` function to create a quick theme 
 
-The `gg_theme` function allows you to create a quick simple theme. 
+The `gg_theme` function allows you to modify the default theme by changing text size, colours, margins, among other. 
 
-It includes arguments for adjusting gridlines, background colours, text, axis lines and ticks. 
+It includes arguments for adjusting text, background colours, axis lines, ticks and gridlines.
 
 There is also a `void = TRUE` argument that is useful for maps.
 
