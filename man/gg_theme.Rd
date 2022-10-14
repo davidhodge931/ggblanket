@@ -41,13 +41,13 @@ gg_theme(
 
 \item{text_size}{The size of all text other than the title, subtitle and caption. Defaults to 10.}
 
-\item{text_pal}{The colour palette for all text other than the title, subtitle or caption. Defaults to "#323232".}
+\item{text_pal}{The colour for all text other than the title, subtitle or caption. Defaults to "#323232".}
 
 \item{text_face}{The font style of all text other than the title, subtitle or caption. Defaults to "plain".}
 
 \item{title_size}{The size of the title text_family. Defaults to 11.}
 
-\item{title_pal}{The colour palette for the title text_family. Defaults to "#000000".}
+\item{title_pal}{The colour for the title text_family. Defaults to "#000000".}
 
 \item{title_face}{The font style of the title text_family. Defaults to "bold".}
 
@@ -57,7 +57,7 @@ gg_theme(
 
 \item{subtitle_size}{The size of the subtitle text_family. Defaults to 10.}
 
-\item{subtitle_pal}{The colour palette for the subtitle text_family. Defaults to "#323232".}
+\item{subtitle_pal}{The colour for the subtitle text_family. Defaults to "#323232".}
 
 \item{subtitle_face}{The font style of the subtitle text_family. Defaults to "plain".}
 
@@ -67,7 +67,7 @@ gg_theme(
 
 \item{caption_size}{The size of the caption. Defaults to 9.}
 
-\item{caption_pal}{The colour palette for the caption. Defaults to "#7F7F7F".}
+\item{caption_pal}{The colour for the caption. Defaults to "#7F7F7F".}
 
 \item{caption_face}{The font style of the caption. Defaults to "plain".}
 
@@ -75,23 +75,23 @@ gg_theme(
 
 \item{axis_line_linewidth}{The linewidth of the axis. Defaults to 0.3.}
 
-\item{axis_line_pal}{The colour palette for the axis. Defaults to "#323232".}
+\item{axis_line_pal}{The colour for the axis. Defaults to "#323232".}
 
 \item{axis_ticks_linewidth}{The linewidth of the ticks. Defaults to 0.3.}
 
-\item{axis_ticks_pal}{The colour palette for the ticks. Defaults to "#323232".}
+\item{axis_ticks_pal}{The colour for the ticks. Defaults to "#323232".}
 
-\item{legend_key_pal}{The colour palette for the legend key. Defaults to the plot_background_pal.}
+\item{legend_key_pal}{The colour for the legend key. Defaults to the plot_background_pal.}
 
-\item{panel_background_pal}{The colour palette for the panel background colour.}
+\item{panel_background_pal}{The colour for the panel background colour.}
 
 \item{panel_grid_linewidth}{The linewidth of the vertical major gridlines. Defaults to 0.2.}
 
-\item{panel_grid_pal}{The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".}
+\item{panel_grid_pal}{The colour for the vertical major gridlines. Defaults to "#D3D3D3".}
 
 \item{panel_spacing_lines}{The size of the spacing between facet panels in units of "lines". Defaults to 1.25.}
 
-\item{plot_background_pal}{The colour palette for the plot background colour.}
+\item{plot_background_pal}{The colour for the plot background colour.}
 
 \item{void}{TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.}
 }

@@ -3,32 +3,32 @@
 #' @description Quick theme for a ggplot visualisation.
 #' @param text_family The font family for all text to use. Defaults to "".
 #' @param text_size The size of all text other than the title, subtitle and caption. Defaults to 10.
-#' @param text_pal The colour palette for all text other than the title, subtitle or caption. Defaults to "#323232".
+#' @param text_pal The colour for all text other than the title, subtitle or caption. Defaults to "#323232".
 #' @param text_face The font style of all text other than the title, subtitle or caption. Defaults to "plain".
 #' @param title_size The size of the title text_family. Defaults to 11.
-#' @param title_pal The colour palette for the title text_family. Defaults to "#000000".
+#' @param title_pal The colour for the title text_family. Defaults to "#000000".
 #' @param title_face The font style of the title text_family. Defaults to "bold".
 #' @param title_vjust The vertical adjustment for the title.
 #' @param title_margin The margin for the title.
 #' @param subtitle_size The size of the subtitle text_family. Defaults to 10.
-#' @param subtitle_pal The colour palette for the subtitle text_family. Defaults to "#323232".
+#' @param subtitle_pal The colour for the subtitle text_family. Defaults to "#323232".
 #' @param subtitle_face The font style of the subtitle text_family. Defaults to "plain".
 #' @param subtitle_vjust The vertical adjustment for the subtitle.
 #' @param subtitle_margin The margin for the title.
 #' @param caption_size The size of the caption. Defaults to 9.
-#' @param caption_pal The colour palette for the caption. Defaults to "#7F7F7F".
+#' @param caption_pal The colour for the caption. Defaults to "#7F7F7F".
 #' @param caption_face The font style of the caption. Defaults to "plain".
 #' @param caption_hjust The horizontal adjustment for the caption.
 #' @param axis_line_linewidth The linewidth of the axis. Defaults to 0.3.
-#' @param axis_line_pal The colour palette for the axis. Defaults to "#323232".
+#' @param axis_line_pal The colour for the axis. Defaults to "#323232".
 #' @param axis_ticks_linewidth The linewidth of the ticks. Defaults to 0.3.
-#' @param axis_ticks_pal The colour palette for the ticks. Defaults to "#323232".
-#' @param legend_key_pal The colour palette for the legend key. Defaults to the plot_background_pal.
-#' @param panel_background_pal The colour palette for the panel background colour.
+#' @param axis_ticks_pal The colour for the ticks. Defaults to "#323232".
+#' @param legend_key_pal The colour for the legend key. Defaults to the plot_background_pal.
+#' @param panel_background_pal The colour for the panel background colour.
 #' @param panel_grid_linewidth The linewidth of the vertical major gridlines. Defaults to 0.2.
-#' @param panel_grid_pal The colour palette for the vertical major gridlines. Defaults to "#D3D3D3".
+#' @param panel_grid_pal The colour for the vertical major gridlines. Defaults to "#D3D3D3".
 #' @param panel_spacing_lines The size of the spacing between facet panels in units of "lines". Defaults to 1.25.
-#' @param plot_background_pal The colour palette for the plot background colour.
+#' @param plot_background_pal The colour for the plot background colour.
 #' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
 #'
 #' @return A ggplot theme.
