@@ -306,11 +306,9 @@ penguins |>
 
 This allows you to utilise the simplicity of ggblanket, while making content that has your required look and feel.
 
-By using the `theme` argument, your theme will control all theme aspects, _other_ than the legend position, direction and justification. These are controlled within the `gg_*` function, so that legend positions can be adjusted easily with the `col_legend_place` argument (e.g. ``col_legend_place = "r"`). If you prefer to have your `theme` adjust everything _including_ the legend, then add your theme as a layer instead (e.g. `+ theme_grey()`). 
+By using the `theme` argument, your theme will control all theme aspects, but with some magic relating to the legend position/direction and gridline removal. The gridline removal means that it is useful to provide a theme with major gridlines in both directions.
 
-Note, the default theme within `gg_*` guesses the gridlines you might want based on the class of `x` and `y` variables in the data. 
-
-If you provide a theme, it will add gridlines, as per that theme. You may want to create two versions of your custom theme: one with horizontal gridlines and one with vertical gridlines.
+If you prefer to have your `theme` adjust _everything_, then add your theme as a layer instead (e.g. `+ theme_grey()`). 
 
 ```{r}
 penguins |>
@@ -343,6 +341,7 @@ storms |>
     x_expand = c(0, 0),
     width = 0.75,
     theme = gg_theme(
+      text_size = 11,
       plot_background_pal = "white",
       panel_background_pal = "white"))
 ```
