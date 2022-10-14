@@ -514,12 +514,16 @@ gg_sf <- function(
   }
 
   #remove gridlines not needed
-  if (!x_grid) {
+  if (!x_grid & !y_grid) {
+    plot <- plot +
+      ggplot2::theme(panel.grid = ggplot2::element_blank())
+  }
+  else if (!x_grid & y_grid) {
     plot <- plot +
       ggplot2::theme(panel.grid.major.x = ggplot2::element_blank()) +
       ggplot2::theme(panel.grid.minor.x = ggplot2::element_blank())
   }
-  if (!y_grid) {
+  else if (x_grid & !y_grid) {
     plot <- plot +
       ggplot2::theme(panel.grid.major.y = ggplot2::element_blank()) +
       ggplot2::theme(panel.grid.minor.y = ggplot2::element_blank())
