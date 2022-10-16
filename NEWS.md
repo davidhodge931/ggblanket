@@ -1,3 +1,7 @@
+# ggblanket 1.5.1
+
+* Fixed bug relating to free `facet_scales`.
+
 # ggblanket 1.5.0
 
 * Breaking: redesigned `gg_theme`.
