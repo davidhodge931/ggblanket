@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_raster.R
 \name{gg_raster}
 \alias{gg_raster}
-\title{Raster ggplot.}
+\title{Raster ggplot}
 \usage{
 gg_raster(
   data = NULL,
@@ -180,7 +180,7 @@ gg_raster(
 A ggplot object.
 }
 \description{
-Create a raster plot with a wrapper around the ggplot2::geom_raster function.
+Create a raster ggplot with a wrapper around the ggplot2::geom_raster function.
 }
 \examples{
 library(ggplot2)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_col.R
 \name{gg_col}
 \alias{gg_col}
-\title{Col ggplot.}
+\title{Col ggplot}
 \usage{
 gg_col(
   data = NULL,
@@ -180,7 +180,7 @@ gg_col(
 A ggplot object.
 }
 \description{
-Create a col plot with a wrapper around the ggplot2::geom_col function.
+Create a col ggplot with a wrapper around the ggplot2::geom_col function.
 }
 \examples{
 df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))

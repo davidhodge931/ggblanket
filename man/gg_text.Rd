@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_text.R
 \name{gg_text}
 \alias{gg_text}
-\title{Text ggplot.}
+\title{Text ggplot}
 \usage{
 gg_text(
   data = NULL,

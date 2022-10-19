@@ -1,6 +1,6 @@
-#' @title Path ggplot.
+#' @title Path ggplot
 #'
-#' @description Create a path plot with a wrapper around the ggplot2::geom_path function.
+#' @description Create a path ggplot with a wrapper around the ggplot2::geom_path function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

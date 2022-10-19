@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_step.R
 \name{gg_step}
 \alias{gg_step}
-\title{Step ggplot.}
+\title{Step ggplot}
 \usage{
 gg_step(
   data = NULL,

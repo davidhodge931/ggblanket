@@ -1,6 +1,6 @@
-#' @title Line ggplot.
+#' @title Line ggplot
 #'
-#' @description Create a line plot with a wrapper around the ggplot2::geom_line function.
+#' @description Create a line ggplot with a wrapper around the ggplot2::geom_line function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_errorbar.R
 \name{gg_errorbar}
 \alias{gg_errorbar}
-\title{Errorbar ggplot.}
+\title{Errorbar ggplot}
 \usage{
 gg_errorbar(
   data = NULL,
@@ -192,7 +192,7 @@ gg_errorbar(
 A ggplot object.
 }
 \description{
-Create a errorbar plot with a wrapper around the ggplot2::geom_errorbar function.
+Create a errorbar ggplot with a wrapper around the ggplot2::geom_errorbar function.
 }
 \examples{
 library(ggplot2)

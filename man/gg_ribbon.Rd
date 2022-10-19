@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_ribbon.R
 \name{gg_ribbon}
 \alias{gg_ribbon}
-\title{Ribbon ggplot.}
+\title{Ribbon ggplot}
 \usage{
 gg_ribbon(
   data = NULL,
@@ -192,7 +192,7 @@ gg_ribbon(
 A ggplot object.
 }
 \description{
-Create a ribbon plot with a wrapper around the ggplot2::geom_ribbon function.
+Create a ribbon ggplot with a wrapper around the ggplot2::geom_ribbon function.
 }
 \examples{
 library(ggplot2)

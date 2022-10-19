@@ -1,4 +1,4 @@
-#' @title Tile ggplot.
+#' @title Tile ggplot
 #'
 #' @description Create a tile plot with a wrapper around the ggplot2::geom_tile function.
 #' @param data A data frame or tibble.

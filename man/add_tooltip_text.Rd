@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_tooltip_text.R
 \name{add_tooltip_text}
 \alias{add_tooltip_text}
-\title{Add a tooltip text column.}
+\title{Add a tooltip text column}
 \usage{
 add_tooltip_text(data, ..., titles = NULL)
 }

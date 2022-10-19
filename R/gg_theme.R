@@ -1,4 +1,4 @@
-#' @title Quick theme for a ggplot.
+#' @title Quick theme for a ggplot
 #'
 #' @description Quick theme for a ggplot visualisation.
 #' @param text_family The font family for all text to use. Defaults to "".

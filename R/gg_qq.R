@@ -1,6 +1,6 @@
-#' @title Qq ggplot.
+#' @title Qq ggplot
 #'
-#' @description Create a qq plot with a wrapper around the ggplot2::geom_qq function.
+#' @description Create a qq ggplot with a wrapper around the ggplot2::geom_qq function.
 #' @param data A data frame or tibble.
 #' @param sample Unquoted sample aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.

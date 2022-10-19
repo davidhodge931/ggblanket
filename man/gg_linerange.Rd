@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_linerange.R
 \name{gg_linerange}
 \alias{gg_linerange}
-\title{Linerange ggplot.}
+\title{Linerange ggplot}
 \usage{
 gg_linerange(
   data = NULL,
@@ -192,7 +192,7 @@ gg_linerange(
 A ggplot object.
 }
 \description{
-Create a linerange plot with a wrapper around the ggplot2::geom_linerange function.
+Create a linerange ggplot with a wrapper around the ggplot2::geom_linerange function.
 }
 \examples{
 library(ggplot2)

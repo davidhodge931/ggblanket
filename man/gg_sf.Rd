@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_sf.R
 \name{gg_sf}
 \alias{gg_sf}
-\title{Sf ggplot.}
+\title{Sf ggplot}
 \usage{
 gg_sf(
   data = NULL,
@@ -123,7 +123,7 @@ gg_sf(
 A ggplot object.
 }
 \description{
-Create a sf plot with a wrapper around the ggplot2::geom_sf function.
+Create a sf ggplot with a wrapper around the ggplot2::geom_sf function.
 }
 \examples{
 if (requireNamespace("sf", quietly = TRUE)) {

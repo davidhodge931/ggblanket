@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_area.R
 \name{gg_area}
 \alias{gg_area}
-\title{Area ggplot.}
+\title{Area ggplot}
 \usage{
 gg_area(
   data = NULL,
@@ -180,7 +180,7 @@ gg_area(
 A ggplot object.
 }
 \description{
-Create a area plot with a wrapper around the ggplot2::geom_area function.
+Create a area ggplot with a wrapper around the ggplot2::geom_area function.
 }
 \examples{
 huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))

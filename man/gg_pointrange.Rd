@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_pointrange.R
 \name{gg_pointrange}
 \alias{gg_pointrange}
-\title{Pointrange ggplot.}
+\title{Pointrange ggplot}
 \usage{
 gg_pointrange(
   data = NULL,
@@ -192,7 +192,7 @@ gg_pointrange(
 A ggplot object.
 }
 \description{
-Create a pointrange plot with a wrapper around the ggplot2::geom_pointrange function.
+Create a pointrange ggplot with a wrapper around the ggplot2::geom_pointrange function.
 }
 \examples{
 library(ggplot2)

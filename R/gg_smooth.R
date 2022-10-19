@@ -1,6 +1,6 @@
-#' @title Smooth ggplot.
+#' @title Smooth ggplot
 #'
-#' @description Create a smooth plot with a wrapper around the ggplot2::geom_smooth function.
+#' @description Create a smooth ggplot with a wrapper around the ggplot2::geom_smooth function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

@@ -1,6 +1,6 @@
-#' @title Function ggplot.
+#' @title Function ggplot
 #'
-#' @description Create a function plot with a wrapper around the ggplot2::geom_function function.
+#' @description Create a function ggplot with a wrapper around the ggplot2::geom_function function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

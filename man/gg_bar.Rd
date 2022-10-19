@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_bar.R
 \name{gg_bar}
 \alias{gg_bar}
-\title{Bar ggplot.}
+\title{Bar ggplot}
 \usage{
 gg_bar(
   data = NULL,
@@ -180,7 +180,7 @@ gg_bar(
 A ggplot object.
 }
 \description{
-Create a bar plot with a wrapper around the ggplot2::geom_bar function.
+Create a bar ggplot with a wrapper around the ggplot2::geom_bar function.
 }
 \examples{
 library(ggplot2)

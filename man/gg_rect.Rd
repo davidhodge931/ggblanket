@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_rect.R
 \name{gg_rect}
 \alias{gg_rect}
-\title{Rect ggplot.}
+\title{Rect ggplot}
 \usage{
 gg_rect(
   data = NULL,
@@ -192,7 +192,7 @@ gg_rect(
 A ggplot object.
 }
 \description{
-Create a rect plot with a wrapper around the ggplot2::geom_rect function.
+Create a rect ggplot with a wrapper around the ggplot2::geom_rect function.
 }
 \examples{
 library(ggplot2)

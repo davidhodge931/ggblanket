@@ -1,6 +1,6 @@
-#' @title Histogram ggplot.
+#' @title Histogram ggplot
 #'
-#' @description Create a histogram plot with a wrapper around the ggplot2::geom_histogram function.
+#' @description Create a histogram ggplot with a wrapper around the ggplot2::geom_histogram function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

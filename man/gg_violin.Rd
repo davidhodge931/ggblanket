@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_violin.R
 \name{gg_violin}
 \alias{gg_violin}
-\title{Violin ggplot.}
+\title{Violin ggplot}
 \usage{
 gg_violin(
   data = NULL,

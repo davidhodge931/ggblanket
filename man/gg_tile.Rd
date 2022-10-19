@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_tile.R
 \name{gg_tile}
 \alias{gg_tile}
-\title{Tile ggplot.}
+\title{Tile ggplot}
 \usage{
 gg_tile(
   data = NULL,

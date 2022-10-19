@@ -1,6 +1,6 @@
-#' @title Segment ggplot.
+#' @title Segment ggplot
 #'
-#' @description Create a segment plot with a wrapper around the ggplot2::geom_segment function.
+#' @description Create a segment ggplot with a wrapper around the ggplot2::geom_segment function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param xend Unquoted xend aesthetic variable.

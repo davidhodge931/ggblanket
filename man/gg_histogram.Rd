@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_histogram.R
 \name{gg_histogram}
 \alias{gg_histogram}
-\title{Histogram ggplot.}
+\title{Histogram ggplot}
 \usage{
 gg_histogram(
   data = NULL,
@@ -180,7 +180,7 @@ gg_histogram(
 A ggplot object.
 }
 \description{
-Create a histogram plot with a wrapper around the ggplot2::geom_histogram function.
+Create a histogram ggplot with a wrapper around the ggplot2::geom_histogram function.
 }
 \examples{
 library(ggplot2)

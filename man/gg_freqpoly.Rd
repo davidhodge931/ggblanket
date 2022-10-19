@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_freqpoly.R
 \name{gg_freqpoly}
 \alias{gg_freqpoly}
-\title{Freqpoly ggplot.}
+\title{Freqpoly ggplot}
 \usage{
 gg_freqpoly(
   data = NULL,
@@ -180,7 +180,7 @@ gg_freqpoly(
 A ggplot object.
 }
 \description{
-Create a freqpoly plot with a wrapper around the ggplot2::geom_freqpoly function.
+Create a freqpoly ggplot with a wrapper around the ggplot2::geom_freqpoly function.
 }
 \examples{
 library(ggplot2)

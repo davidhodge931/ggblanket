@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_smooth.R
 \name{gg_smooth}
 \alias{gg_smooth}
-\title{Smooth ggplot.}
+\title{Smooth ggplot}
 \usage{
 gg_smooth(
   data = NULL,
@@ -180,7 +180,7 @@ gg_smooth(
 A ggplot object.
 }
 \description{
-Create a smooth plot with a wrapper around the ggplot2::geom_smooth function.
+Create a smooth ggplot with a wrapper around the ggplot2::geom_smooth function.
 }
 \examples{
 library(ggplot2)

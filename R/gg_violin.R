@@ -1,4 +1,4 @@
-#' @title Violin ggplot.
+#' @title Violin ggplot
 #'
 #' @description Create a violin plot with a wrapper around the ggplot2::geom_violin function.
 #' @param data A data frame or tibble.

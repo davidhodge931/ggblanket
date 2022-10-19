@@ -1,6 +1,6 @@
-#' @title Point ggplot.
+#' @title Point ggplot
 #'
-#' @description Create a point plot with a wrapper around the ggplot2::geom_point function.
+#' @description Create a point ggplot with a wrapper around the ggplot2::geom_point function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_polygon.R
 \name{gg_polygon}
 \alias{gg_polygon}
-\title{polygon ggplot.}
+\title{Polygon ggplot}
 \usage{
 gg_polygon(
   data = NULL,
@@ -183,7 +183,7 @@ gg_polygon(
 A ggplot object.
 }
 \description{
-Create a polygon plot with a wrapper around the ggplot2::geom_polygon function.
+Create a polygon ggplot with a wrapper around the ggplot2::geom_polygon function.
 }
 \examples{
 library(ggplot2)

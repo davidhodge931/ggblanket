@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_blank.R
 \name{gg_blank}
 \alias{gg_blank}
-\title{Blank ggplot.}
+\title{Blank ggplot}
 \usage{
 gg_blank(
   data = NULL,
@@ -195,7 +195,7 @@ gg_blank(
 A ggplot object.
 }
 \description{
-Create a blank plot with a wrapper around the ggplot2::geom_blank function.
+Create a blank ggplot with a wrapper around the ggplot2::geom_blank function.
 }
 \examples{
 library(ggplot2)

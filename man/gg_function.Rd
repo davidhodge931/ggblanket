@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_function.R
 \name{gg_function}
 \alias{gg_function}
-\title{Function ggplot.}
+\title{Function ggplot}
 \usage{
 gg_function(
   data = NULL,
@@ -180,7 +180,7 @@ gg_function(
 A ggplot object.
 }
 \description{
-Create a function plot with a wrapper around the ggplot2::geom_function function.
+Create a function ggplot with a wrapper around the ggplot2::geom_function function.
 }
 \examples{
 library(ggplot2)

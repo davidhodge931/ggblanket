@@ -1,6 +1,6 @@
-#' @title Pointrange ggplot.
+#' @title Pointrange ggplot
 #'
-#' @description Create a pointrange plot with a wrapper around the ggplot2::geom_pointrange function.
+#' @description Create a pointrange ggplot with a wrapper around the ggplot2::geom_pointrange function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param xmin Unquoted xmin aesthetic variable.

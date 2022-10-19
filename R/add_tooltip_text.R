@@ -1,4 +1,4 @@
-#' Add a tooltip text column.
+#' Add a tooltip text column
 #'
 #' @description Add a tooltip text column of united variable names and values.
 #' @param data A data frame or tibble.

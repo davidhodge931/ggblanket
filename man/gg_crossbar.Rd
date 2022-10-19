@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_crossbar.R
 \name{gg_crossbar}
 \alias{gg_crossbar}
-\title{Crossbar ggplot.}
+\title{Crossbar ggplot}
 \usage{
 gg_crossbar(
   data = NULL,
@@ -192,7 +192,7 @@ gg_crossbar(
 A ggplot object.
 }
 \description{
-Create a crossbar plot with a wrapper around the ggplot2::geom_crossbar function.
+Create a crossbar ggplot with a wrapper around the ggplot2::geom_crossbar function.
 }
 \examples{
 library(ggplot2)

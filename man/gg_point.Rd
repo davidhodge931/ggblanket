@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_point.R
 \name{gg_point}
 \alias{gg_point}
-\title{Point ggplot.}
+\title{Point ggplot}
 \usage{
 gg_point(
   data = NULL,
@@ -180,7 +180,7 @@ gg_point(
 A ggplot object.
 }
 \description{
-Create a point plot with a wrapper around the ggplot2::geom_point function.
+Create a point ggplot with a wrapper around the ggplot2::geom_point function.
 }
 \examples{
 library(ggplot2)

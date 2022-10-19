@@ -1,6 +1,6 @@
-#' @title Hex ggplot.
+#' @title Hex ggplot
 #'
-#' @description Create a hex plot with a wrapper around the ggplot2::geom_hex function.
+#' @description Create a hex ggplot with a wrapper around the ggplot2::geom_hex function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

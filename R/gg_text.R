@@ -1,4 +1,4 @@
-#' @title Text ggplot.
+#' @title Text ggplot
 #'
 #' @description Create a text plot with a wrapper around the ggplot2::geom_text function.
 #' @param data A data frame or tibble.

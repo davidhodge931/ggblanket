@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_path.R
 \name{gg_path}
 \alias{gg_path}
-\title{Path ggplot.}
+\title{Path ggplot}
 \usage{
 gg_path(
   data = NULL,
@@ -180,7 +180,7 @@ gg_path(
 A ggplot object.
 }
 \description{
-Create a path plot with a wrapper around the ggplot2::geom_path function.
+Create a path ggplot with a wrapper around the ggplot2::geom_path function.
 }
 \examples{
 library(ggplot2)

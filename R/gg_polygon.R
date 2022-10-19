@@ -1,6 +1,6 @@
-#' @title polygon ggplot.
+#' @title Polygon ggplot
 #'
-#' @description Create a polygon plot with a wrapper around the ggplot2::geom_polygon function.
+#' @description Create a polygon ggplot with a wrapper around the ggplot2::geom_polygon function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

@@ -1,6 +1,6 @@
-#' @title Ribbon ggplot.
+#' @title Ribbon ggplot
 #'
-#' @description Create a ribbon plot with a wrapper around the ggplot2::geom_ribbon function.
+#' @description Create a ribbon ggplot with a wrapper around the ggplot2::geom_ribbon function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

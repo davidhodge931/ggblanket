@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_theme.R
 \name{gg_theme}
 \alias{gg_theme}
-\title{Quick theme for a ggplot.}
+\title{Quick theme for a ggplot}
 \usage{
 gg_theme(
   text_family = "",

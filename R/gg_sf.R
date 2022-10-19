@@ -1,6 +1,6 @@
-#' @title Sf ggplot.
+#' @title Sf ggplot
 #'
-#' @description Create a sf plot with a wrapper around the ggplot2::geom_sf function.
+#' @description Create a sf ggplot with a wrapper around the ggplot2::geom_sf function.
 #' @param data A sf object.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.

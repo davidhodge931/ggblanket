@@ -1,6 +1,6 @@
-#' @title Bin2d ggplot.
+#' @title Bin2d ggplot
 #'
-#' @description Create a bin2d plot with a wrapper around the ggplot2::geom_bin2d function.
+#' @description Create a bin2d ggplot with a wrapper around the ggplot2::geom_bin2d function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

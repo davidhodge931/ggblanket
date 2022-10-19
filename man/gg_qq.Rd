@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_qq.R
 \name{gg_qq}
 \alias{gg_qq}
-\title{Qq ggplot.}
+\title{Qq ggplot}
 \usage{
 gg_qq(
   data = NULL,
@@ -183,7 +183,7 @@ gg_qq(
 A ggplot object.
 }
 \description{
-Create a qq plot with a wrapper around the ggplot2::geom_qq function.
+Create a qq ggplot with a wrapper around the ggplot2::geom_qq function.
 }
 \examples{
 library(ggplot2)

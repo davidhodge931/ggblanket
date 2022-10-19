@@ -1,6 +1,6 @@
-#' @title Freqpoly ggplot.
+#' @title Freqpoly ggplot
 #'
-#' @description Create a freqpoly plot with a wrapper around the ggplot2::geom_freqpoly function.
+#' @description Create a freqpoly ggplot with a wrapper around the ggplot2::geom_freqpoly function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

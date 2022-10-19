@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_label.R
 \name{gg_label}
 \alias{gg_label}
-\title{Label ggplot.}
+\title{Label ggplot}
 \usage{
 gg_label(
   data = NULL,
@@ -183,7 +183,7 @@ gg_label(
 A ggplot object.
 }
 \description{
-Create a label plot with a wrapper around the ggplot2::geom_label function.
+Create a label ggplot with a wrapper around the ggplot2::geom_label function.
 }
 \examples{
 library(ggplot2)

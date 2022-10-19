@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_boxplot.R
 \name{gg_boxplot}
 \alias{gg_boxplot}
-\title{Boxplot ggplot.}
+\title{Boxplot ggplot}
 \usage{
 gg_boxplot(
   data = NULL,
@@ -180,7 +180,7 @@ gg_boxplot(
 A ggplot object.
 }
 \description{
-Create a boxplot plot with a wrapper around the ggplot2::geom_boxplot function.
+Create a boxplot ggplot with a wrapper around the ggplot2::geom_boxplot function.
 }
 \examples{
 library(ggplot2)

@@ -1,6 +1,6 @@
-#' @title Errorbar ggplot.
+#' @title Errorbar ggplot
 #'
-#' @description Create a errorbar plot with a wrapper around the ggplot2::geom_errorbar function.
+#' @description Create a errorbar ggplot with a wrapper around the ggplot2::geom_errorbar function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param xmin Unquoted xmin aesthetic variable.

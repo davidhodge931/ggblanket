@@ -1,6 +1,6 @@
-#' @title Jitter ggplot.
+#' @title Jitter ggplot
 #'
-#' @description Create a jitter plot with a wrapper around the ggplot2::geom_jitter function.
+#' @description Create a jitter ggplot with a wrapper around the ggplot2::geom_jitter function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

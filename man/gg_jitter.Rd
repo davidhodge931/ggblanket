@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_jitter.R
 \name{gg_jitter}
 \alias{gg_jitter}
-\title{Jitter ggplot.}
+\title{Jitter ggplot}
 \usage{
 gg_jitter(
   data = NULL,
@@ -180,7 +180,7 @@ gg_jitter(
 A ggplot object.
 }
 \description{
-Create a jitter plot with a wrapper around the ggplot2::geom_jitter function.
+Create a jitter ggplot with a wrapper around the ggplot2::geom_jitter function.
 }
 \examples{
 library(ggplot2)

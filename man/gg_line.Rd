@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_line.R
 \name{gg_line}
 \alias{gg_line}
-\title{Line ggplot.}
+\title{Line ggplot}
 \usage{
 gg_line(
   data = NULL,
@@ -180,7 +180,7 @@ gg_line(
 A ggplot object.
 }
 \description{
-Create a line plot with a wrapper around the ggplot2::geom_line function.
+Create a line ggplot with a wrapper around the ggplot2::geom_line function.
 }
 \examples{
 library(ggplot2)

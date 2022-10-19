@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_density.R
 \name{gg_density}
 \alias{gg_density}
-\title{Density ggplot.}
+\title{Density ggplot}
 \usage{
 gg_density(
   data = NULL,
@@ -180,7 +180,7 @@ gg_density(
 A ggplot object.
 }
 \description{
-Create a density plot with a wrapper around the ggplot2::geom_density function.
+Create a density ggplot with a wrapper around the ggplot2::geom_density function.
 }
 \examples{
 library(ggplot2)

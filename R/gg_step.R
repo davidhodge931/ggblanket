@@ -1,4 +1,4 @@
-#' @title Step ggplot.
+#' @title Step ggplot
 #'
 #' @description Create a step plot with a wrapper around the ggplot2::geom_step function.
 #' @param data A data frame or tibble.

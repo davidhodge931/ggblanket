@@ -1,6 +1,6 @@
-#' @title Raster ggplot.
+#' @title Raster ggplot
 #'
-#' @description Create a raster plot with a wrapper around the ggplot2::geom_raster function.
+#' @description Create a raster ggplot with a wrapper around the ggplot2::geom_raster function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

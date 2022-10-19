@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_segment.R
 \name{gg_segment}
 \alias{gg_segment}
-\title{Segment ggplot.}
+\title{Segment ggplot}
 \usage{
 gg_segment(
   data = NULL,
@@ -186,7 +186,7 @@ gg_segment(
 A ggplot object.
 }
 \description{
-Create a segment plot with a wrapper around the ggplot2::geom_segment function.
+Create a segment ggplot with a wrapper around the ggplot2::geom_segment function.
 }
 \examples{
 library(ggplot2)

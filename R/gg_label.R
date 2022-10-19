@@ -1,6 +1,6 @@
-#' @title Label ggplot.
+#' @title Label ggplot
 #'
-#' @description Create a label plot with a wrapper around the ggplot2::geom_label function.
+#' @description Create a label ggplot with a wrapper around the ggplot2::geom_label function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

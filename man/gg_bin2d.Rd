@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_bin2d.R
 \name{gg_bin2d}
 \alias{gg_bin2d}
-\title{Bin2d ggplot.}
+\title{Bin2d ggplot}
 \usage{
 gg_bin2d(
   data = NULL,
@@ -177,7 +177,7 @@ gg_bin2d(
 A ggplot object.
 }
 \description{
-Create a bin2d plot with a wrapper around the ggplot2::geom_bin2d function.
+Create a bin2d ggplot with a wrapper around the ggplot2::geom_bin2d function.
 }
 \examples{
 library(ggplot2)

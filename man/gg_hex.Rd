@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_hex.R
 \name{gg_hex}
 \alias{gg_hex}
-\title{Hex ggplot.}
+\title{Hex ggplot}
 \usage{
 gg_hex(
   data = NULL,
@@ -177,7 +177,7 @@ gg_hex(
 A ggplot object.
 }
 \description{
-Create a hex plot with a wrapper around the ggplot2::geom_hex function.
+Create a hex ggplot with a wrapper around the ggplot2::geom_hex function.
 }
 \examples{
 library(ggplot2)
