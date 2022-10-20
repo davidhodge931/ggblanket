@@ -1,6 +1,7 @@
 # ggblanket 1.5.1
 
 * Fixed bug relating to free `facet_scales`.
+* Changed `gg_qq` `coord` default to `coord_cartesian(clip = "on")`.
 
 # ggblanket 1.5.0
 
