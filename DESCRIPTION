@@ -1,6 +1,6 @@
 Package: ggblanket
 Title: Simplify 'ggplot2' Visualisation
-Version: 1.5.1
+Version: 1.5.9000
 Authors@R: 
     person("David", "Hodge", email = "davidhodge931@gmail.com", 
            role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3868-7501"))

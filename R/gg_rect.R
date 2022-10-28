@@ -539,10 +539,16 @@ gg_rect <- function(
   else if (x_numeric | x_date | x_datetime | x_time | x_null) {
 
     if (facet_scales %in% c("fixed", "free_y")) {
-      x_vctr <- layer_data %>%
-        dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmax_final$"))) %>%
-        tidyr::pivot_longer(cols = tidyselect::everything()) %>%
-        dplyr::pull(.data$value)
+      if (!stat %in% c("bin2d", "binhex")) {
+        x_vctr <- layer_data %>%
+          dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmax_final$"))) %>%
+          tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+          dplyr::pull(.data$value)
+      }
+      else {
+        x_vctr <- data %>%
+          dplyr::pull(!!x)
+      }
 
       if (x_date) {
         x_vctr <- lubridate::as_date(x_vctr, origin = "1970-01-01")
@@ -615,7 +621,7 @@ gg_rect <- function(
         }
       }
 
-      if (x_trans == "reverse") x_limits <- rev(x_limits)
+      if (x_trans == "reverse") x_limits <- rev(sort(x_limits))
     }
     else if (facet_scales %in% c("free", "free_x")) {
       if (rlang::is_null(x_limits)) x_limits <- NULL
@@ -694,10 +700,17 @@ gg_rect <- function(
   else if (y_numeric | y_date | y_datetime | y_time | y_null) {
 
     if (facet_scales %in% c("fixed", "free_x")) {
-      y_vctr <- layer_data %>%
-        dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymax_final$"))) %>%
-        tidyr::pivot_longer(cols = tidyselect::everything()) %>%
-        dplyr::pull(.data$value)
+
+      if (!stat %in% c("bin2d", "binhex")) {
+        y_vctr <- layer_data %>%
+          dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymax_final$"))) %>%
+          tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+          dplyr::pull(.data$value)
+      }
+      else {
+        y_vctr <- data %>%
+          dplyr::pull(!!y)
+      }
 
       if (y_date) {
         y_vctr <- lubridate::as_date(y_vctr, origin = "1970-01-01")
@@ -760,7 +773,7 @@ gg_rect <- function(
         }
       }
 
-      if (y_trans == "reverse") y_limits <- rev(y_limits)
+      if (y_trans == "reverse") y_limits <- rev(sort(y_limits))
     }
     else if (facet_scales %in% c("free", "free_y")) {
       if (rlang::is_null(y_limits)) y_limits <- NULL
@@ -871,16 +884,7 @@ gg_rect <- function(
 
     if (col_numeric | stat %in% c("bin2d", "binhex")) {
 
-      if (rlang::is_null(col_limits)) {
-        col_limits <- col_vctr %>% range(na.rm = TRUE)
-        if (!rlang::is_null(col_include)) col_limits <- range(c(col_limits, col_include))
-      }
-      else if (!rlang::is_null(col_include)) {
-        col_limits <- range(c(col_limits, col_include))
-      }
-      else col_limits <- range(col_limits)
-
-      if (col_trans == "reverse") col_limits <- rev(col_limits)
+      if (col_trans == "reverse") col_limits <- rev(sort(col_limits))
 
       if (rlang::is_null(col_breaks)) {
         if (!col_trans %in% c("identity", "reverse")) col_breaks <- ggplot2::waiver()

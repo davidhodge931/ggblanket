@@ -300,16 +300,7 @@ gg_sf <- function(
 
     if (col_numeric | stat %in% c("bin2d", "binhex")) {
 
-      if (rlang::is_null(col_limits)) {
-        col_limits <- col_vctr %>% range(na.rm = TRUE)
-        if (!rlang::is_null(col_include)) col_limits <- range(c(col_limits, col_include))
-      }
-      else if (!rlang::is_null(col_include)) {
-        col_limits <- range(c(col_limits, col_include))
-      }
-      else col_limits <- range(col_limits)
-
-      if (col_trans == "reverse") col_limits <- rev(col_limits)
+      if (col_trans == "reverse") col_limits <- rev(sort(col_limits))
 
       if (rlang::is_null(col_breaks)) {
         if (!col_trans %in% c("identity", "reverse")) col_breaks <- ggplot2::waiver()
