@@ -92,7 +92,7 @@ gg_theme <- function(
     panel.grid.minor.x = ggplot2::element_blank(),
     panel.grid.minor.y = ggplot2::element_blank(),
     legend.background = ggplot2::element_rect(colour = plot_background_pal, fill = plot_background_pal),
-    strip.background = ggplot2::element_rect(colour = plot_background_pal, fill = plot_background_pal),
+    strip.background = ggplot2::element_blank(),
     strip.placement = "outside",
     axis.line = ggplot2::element_line(colour = axis_line_pal, size = axis_line_linewidth),
     axis.ticks = ggplot2::element_line(colour = axis_ticks_pal, size = axis_ticks_linewidth),

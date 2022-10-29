@@ -1,5 +1,7 @@
 # ggblanket 1.5.9000
 
+* Breaking: For `gg_histogram` and `gg_freqpoly`, removed `y` argument.
+* Fixed bug relating to x and y scale limits.
 * Fixed bug relating to free `facet_scales`.
 * Changed `gg_qq`, `qq_bin2d` and `gg_hex` `coord` default to `coord_cartesian(clip = "on")`.
 * Fixed `gg_bin2d` and `gg_hex` limits.
