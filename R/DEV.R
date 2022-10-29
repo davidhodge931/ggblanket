@@ -413,23 +413,41 @@ gg_histogram2 <- function(
 
     if (!rlang::is_null(x_limits)) {
       if (!rlang::is_null(x_include)) x_limits <- range(x_limits, x_include)
-      if (x_trans == "reverse") x_limits <- rev(x_limits)
+      if (x_trans == "reverse") x_limits <- rev(sort(x_limits))
 
       if (x_numeric) {
         plot <- plot +
-          ggplot2::scale_x_continuous(limits = x_limits)
+          ggplot2::scale_x_continuous(limits = x_limits, trans = x_trans, oob = scales::oob_keep)
       }
       else if (x_date) {
         plot <- plot +
-          ggplot2::scale_x_date(limits = x_limits)
+          ggplot2::scale_x_date(limits = x_limits, trans = x_trans, oob = scales::oob_keep)
       }
       else if (x_datetime) {
         plot <- plot +
-          ggplot2::scale_x_datetime(limits = x_limits)
+          ggplot2::scale_x_datetime(limits = x_limits, trans = x_trans, oob = scales::oob_keep)
       }
       else if (x_time) {
         plot <- plot +
-          ggplot2::scale_x_time(limits = x_limits)
+          ggplot2::scale_x_time(limits = x_limits, trans = x_trans, oob = scales::oob_keep)
+      }
+    }
+    else {
+      if (x_numeric) {
+        plot <- plot +
+          ggplot2::scale_x_continuous(trans = x_trans, oob = scales::oob_keep)
+      }
+      else if (x_date) {
+        plot <- plot +
+          ggplot2::scale_x_date(trans = x_trans, oob = scales::oob_keep)
+      }
+      else if (x_datetime) {
+        plot <- plot +
+          ggplot2::scale_x_datetime(trans = x_trans, oob = scales::oob_keep)
+      }
+      else if (x_time) {
+        plot <- plot +
+          ggplot2::scale_x_time(trans = x_trans, oob = scales::oob_keep)
       }
     }
   }
@@ -475,7 +493,6 @@ gg_histogram2 <- function(
         x_range <- range(x_limits)
         if (!rlang::is_null(x_include)) x_range <- range(x_range, x_include)
       }
-      if (x_trans == "reverse") x_range <- rev(x_range)
 
       if (rlang::is_null(x_limits)) {
         if (rlang::is_null(x_breaks)) {
@@ -640,7 +657,6 @@ gg_histogram2 <- function(
         y_range <- range(y_limits)
         if (!rlang::is_null(y_include)) y_range <- range(y_range, y_include)
       }
-      if (y_trans == "reverse") y_range <- rev(y_range)
 
       if (rlang::is_null(y_limits)) {
         if (rlang::is_null(y_breaks)) {
