@@ -303,30 +303,6 @@ gg_histogram2 <- function(
           group = !!group
         ))
     }
-
-    if (!rlang::is_null(x_limits)) {
-      if (x_numeric | x_null) {
-        plot <- plot +
-          scale_x_continuous(limits = x_limits)
-      }
-      else if (x_date) {
-        plot <- plot +
-          scale_x_date(limits = x_limits)
-      }
-      else if (x_datetime) {
-        plot <- plot +
-          scale_x_datetime(limits = x_limits)
-      }
-      else if (x_time) {
-        plot <- plot +
-          scale_x_time(limits = x_limits)
-      }
-    }
-
-    if (!rlang::is_null(x_include)) {
-      plot <- plot +
-        ggplot2::expand_limits(x = x_include)
-    }
   }
   else if (x_null & !y_null) {
     if (!col_null) {
@@ -347,30 +323,6 @@ gg_histogram2 <- function(
           group = !!group
         ))
     }
-
-      if (!rlang::is_null(y_limits)) {
-        if (y_numeric | y_null) {
-          plot <- plot +
-            scale_y_continuous(limits = y_limits)
-        }
-        else if (y_date) {
-          plot <- plot +
-            scale_y_date(limits = y_limits)
-        }
-        else if (y_datetime) {
-          plot <- plot +
-            scale_y_datetime(limits = y_limits)
-        }
-        else if (y_time) {
-          plot <- plot +
-            scale_y_time(limits = y_limits)
-        }
-      }
-
-      if (!rlang::is_null(y_include)) {
-        plot <- plot +
-          ggplot2::expand_limits(y = y_include)
-      }
   }
 
   plot <- plot +
@@ -453,6 +405,35 @@ gg_histogram2 <- function(
     }
   }
 
+  if (!x_null & y_null) {
+    if (!rlang::is_null(x_include)) {
+      plot <- plot +
+        ggplot2::expand_limits(x = x_include)
+    }
+
+    if (!rlang::is_null(x_limits)) {
+      if (!rlang::is_null(x_include)) x_limits <- range(x_limits, x_include)
+      if (x_trans == "reverse") x_limits <- rev(x_limits)
+
+      if (x_numeric) {
+        plot <- plot +
+          ggplot2::scale_x_continuous(limits = x_limits)
+      }
+      else if (x_date) {
+        plot <- plot +
+          ggplot2::scale_x_date(limits = x_limits)
+      }
+      else if (x_datetime) {
+        plot <- plot +
+          ggplot2::scale_x_datetime(limits = x_limits)
+      }
+      else if (x_time) {
+        plot <- plot +
+          ggplot2::scale_x_time(limits = x_limits)
+      }
+    }
+  }
+
   #Get layer data for x, y and col scales
   layer_data <- ggplot2::layer_data(plot)
 
@@ -491,15 +472,16 @@ gg_histogram2 <- function(
       x_range <- x_vctr %>% range(na.rm = TRUE)
       if (!rlang::is_null(x_include)) x_range <- range(c(x_range, x_include))
       if (!rlang::is_null(x_limits)) {
-        x_limits <- range(x_limits)
-        x_range <- range(x_limits, x_range)
+        x_range <- range(x_limits)
+        if (!rlang::is_null(x_include)) x_range <- range(x_range, x_include)
       }
+      if (x_trans == "reverse") x_range <- rev(x_range)
 
       if (rlang::is_null(x_limits)) {
         if (rlang::is_null(x_breaks)) {
           if (x_time | !x_trans %in% c("identity", "reverse")) {
-            x_breaks <- ggplot2::waiver()
             x_limits <- NULL
+            x_breaks <- ggplot2::waiver()
           }
           else {
             if (!facet_null & !facet2_null) x_breaks_n <- 3
@@ -512,7 +494,7 @@ gg_histogram2 <- function(
               x_limits <- NULL
             }
             else if (y_character | y_factor | y_logical) {
-              x_limits <- c(min(x_breaks), max(x_breaks))
+              x_limits <- range(x_breaks)
             }
           }
         }
@@ -521,7 +503,7 @@ gg_histogram2 <- function(
             x_limits <- NULL
           }
           else if (y_character | y_factor | y_logical) {
-            if (is.vector(x_breaks)) x_limits <- c(min(x_breaks), max(x_breaks))
+            if (is.vector(x_breaks)) x_limits <- range(x_breaks)
             else if (is.function(x_breaks)) {
               x_limits <- list(x_range) %>%
                 purrr::map(.f = x_breaks) %>%
@@ -532,7 +514,6 @@ gg_histogram2 <- function(
         }
       }
       else if (!rlang::is_null(x_limits)) {
-        x_limits <- x_limits
         if (is.na(x_limits)[1]) x_limits[1] <- min(x_range)
         if (is.na(x_limits)[2]) x_limits[2] <- max(x_range)
         if (!rlang::is_null(x_include)) {
@@ -656,9 +637,10 @@ gg_histogram2 <- function(
       y_range <- y_vctr %>% range(na.rm = TRUE)
       if (!rlang::is_null(y_include)) y_range <- range(c(y_range, y_include))
       if (!rlang::is_null(y_limits)) {
-        y_limits <- range(y_limits)
-        y_range <- range(y_limits, y_range)
+        y_range <- range(y_limits)
+        if (!rlang::is_null(y_include)) y_range <- range(y_range, y_include)
       }
+      if (y_trans == "reverse") y_range <- rev(y_range)
 
       if (rlang::is_null(y_limits)) {
         if (rlang::is_null(y_breaks)) {
@@ -672,12 +654,12 @@ gg_histogram2 <- function(
             else y_breaks_n <- 5
 
             y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
-            y_limits <- c(min(y_breaks), max(y_breaks))
+            y_limits <- range(y_breaks)
           }
         }
         else if (!rlang::is_null(y_breaks)) {
           if (y_trans %in% c("identity", "reverse")) {
-            if (is.vector(y_breaks)) y_limits <- c(min(y_breaks), max(y_breaks))
+            if (is.vector(y_breaks)) y_limits <- range(y_breaks)
             else if (is.function(y_breaks)) {
               y_limits <- list(y_range) %>%
                 purrr::map(.f = y_breaks) %>%
