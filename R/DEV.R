@@ -669,15 +669,15 @@ gg_blank2 <- function(
             }
             else if (x_date) {
               plot <- plot +
-                ggplot2::scale_x_date(limits = x_limits, trans = x_trans, oob = scales::oob_keep)
+                ggplot2::scale_x_date(limits = x_limits, oob = scales::oob_keep)
             }
             else if (x_datetime) {
               plot <- plot +
-                ggplot2::scale_x_datetime(limits = x_limits, trans = x_trans, oob = scales::oob_keep)
+                ggplot2::scale_x_datetime(limits = x_limits, oob = scales::oob_keep)
             }
             else if (x_time) {
               plot <- plot +
-                ggplot2::scale_x_time(limits = x_limits, trans = x_trans, oob = scales::oob_keep)
+                ggplot2::scale_x_time(limits = x_limits, oob = scales::oob_keep)
             }
           }
           else {
@@ -687,15 +687,15 @@ gg_blank2 <- function(
             }
             else if (x_date) {
               plot <- plot +
-                ggplot2::scale_x_date(trans = x_trans, oob = scales::oob_keep)
+                ggplot2::scale_x_date(oob = scales::oob_keep)
             }
             else if (x_datetime) {
               plot <- plot +
-                ggplot2::scale_x_datetime(trans = x_trans, oob = scales::oob_keep)
+                ggplot2::scale_x_datetime(oob = scales::oob_keep)
             }
             else if (x_time) {
               plot <- plot +
-                ggplot2::scale_x_time(trans = x_trans, oob = scales::oob_keep)
+                ggplot2::scale_x_time(oob = scales::oob_keep)
             }
           }
         }
@@ -715,15 +715,15 @@ gg_blank2 <- function(
             }
             else if (y_date) {
               plot <- plot +
-                ggplot2::scale_y_date(limits = y_limits, trans = y_trans, oob = scales::oob_keep)
+                ggplot2::scale_y_date(limits = y_limits, oob = scales::oob_keep)
             }
             else if (y_datetime) {
               plot <- plot +
-                ggplot2::scale_y_datetime(limits = y_limits, trans = y_trans, oob = scales::oob_keep)
+                ggplot2::scale_y_datetime(limits = y_limits, oob = scales::oob_keep)
             }
             else if (y_time) {
               plot <- plot +
-                ggplot2::scale_y_time(limits = y_limits, trans = y_trans, oob = scales::oob_keep)
+                ggplot2::scale_y_time(limits = y_limits, oob = scales::oob_keep)
             }
           }
           else {
@@ -733,15 +733,15 @@ gg_blank2 <- function(
             }
             else if (y_date) {
               plot <- plot +
-                ggplot2::scale_y_date(trans = y_trans, oob = scales::oob_keep)
+                ggplot2::scale_y_date(oob = scales::oob_keep)
             }
             else if (y_datetime) {
               plot <- plot +
-                ggplot2::scale_y_datetime(trans = y_trans, oob = scales::oob_keep)
+                ggplot2::scale_y_datetime(oob = scales::oob_keep)
             }
             else if (y_time) {
               plot <- plot +
-                ggplot2::scale_y_time(trans = y_trans, oob = scales::oob_keep)
+                ggplot2::scale_y_time(oob = scales::oob_keep)
             }
           }
         }
