@@ -2,8 +2,8 @@
 
 * Made code for each gg_* function essentially the same.
 * Made `gg_blank` more powerful by adding more aesthetics to it.
-* Made horizontal flipped plot scales nicer. 
-* Fixed bug relating to x and y scale limits.
+* Made horizontal flipped plot `x` and `y` scales nice. 
+* Fixed bug relating to `x` and `y` scale limits.
 * Fixed bug relating to free `facet_scales`.
 * Changed `gg_qq`, `qq_bin2d` and `gg_hex` `coord` default to `coord_cartesian(clip = "on")`.
 * Fixed `gg_bin2d` and `gg_hex` limits.

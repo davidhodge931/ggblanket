@@ -2,7 +2,7 @@
 % Please edit documentation in R/DEV2.R
 \name{gg_histogram2}
 \alias{gg_histogram2}
-\title{Histogram ggplot}
+\title{Blank ggplot}
 \usage{
 gg_histogram2(
   data = NULL,

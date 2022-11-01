@@ -2,7 +2,7 @@
 % Please edit documentation in R/DEV3.R
 \name{gg_density2}
 \alias{gg_density2}
-\title{Density ggplot}
+\title{Blank ggplot}
 \usage{
 gg_density2(
   data = NULL,
@@ -31,7 +31,7 @@ gg_density2(
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
-  alpha = 0.5,
+  alpha = 1,
   ...,
   titles = NULL,
   title = NULL,
