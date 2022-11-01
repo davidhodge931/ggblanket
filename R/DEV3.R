@@ -749,6 +749,7 @@ gg_density2 <- function(
 
   flippable <- any(stringr::str_detect(colnames(layer_data), "flipped_aes"))
   if (flippable) flipped <- all(layer_data["flipped_aes"])
+  else flipped <- FALSE
 
   if (stat != "sf") {
     #Make x scale based on layer_data
