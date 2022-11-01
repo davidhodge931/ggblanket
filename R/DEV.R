@@ -746,6 +746,7 @@ gg_blank2 <- function(
 
         if (!stat %in% c("bin2d", "binhex")) {
           if (stat == "boxplot") {
+
             if (!all(layer_data[["flipped_aes"]])) {
               y_vctr <- layer_data %>%
                 dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$|^outliers$"))) %>%
