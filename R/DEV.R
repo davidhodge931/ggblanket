@@ -111,7 +111,7 @@ gg_blank2 <- function(
     position = "identity",
     pal = NULL,
     pal_na = "#7F7F7F",
-    alpha = 0.9, #MAKE NULL
+    alpha = 1, #MAKE NULL
     ...,
     titles = NULL,
     title = NULL,
@@ -279,7 +279,7 @@ gg_blank2 <- function(
 
   if (rlang::is_null(coord)) {
     if (stat == "sf") coord <- ggplot2::coord_sf()
-    else if (stat %in% c("bin2d", "binhex")) coord <- ggplot2::coord_cartesian(clip = "on")
+    else if (stat %in% c("bin2d", "bin_2d", "binhex")) coord <- ggplot2::coord_cartesian(clip = "on")
     else coord <- ggplot2::coord_cartesian(clip = "off")
   }
 
@@ -310,7 +310,7 @@ gg_blank2 <- function(
   }
 
   if (rlang::is_null(col_legend_place)) {
-    if (stat %in% c("bin2d", "binhex")) col_legend_place <- "right"
+    if (stat %in% c("bin2d", "bin_2d", "binhex")) col_legend_place <- "right"
     else if (stat == "sf") {
       if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
           (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
@@ -342,7 +342,7 @@ gg_blank2 <- function(
   }
 
   ###make plot
-  if (stat %in% c("bin2d", "binhex")) {
+  if (stat %in% c("bin2d", "bin_2d", "binhex")) {
     plot <- data %>%
       ggplot2::ggplot(mapping = ggplot2::aes(
         x = !!x,
@@ -649,7 +649,7 @@ gg_blank2 <- function(
     }
   }
 
-  if (stat %in% c("bin", "bin2d", "binhex")) {
+  if (stat %in% c("bin", "bin2d", "bin_2d", "binhex")) {
     if (!x_null & y_null) {
       if (!rlang::is_null(x_include)) {
         plot <- plot +
@@ -696,6 +696,52 @@ gg_blank2 <- function(
         }
       }
     }
+    else if (stat == "bin" & x_null & !y_null) {
+      if (!rlang::is_null(y_include)) {
+        plot <- plot +
+          ggplot2::expand_limits(x = y_include)
+      }
+
+      if (!rlang::is_null(y_limits)) {
+        if (!rlang::is_null(y_include)) y_limits <- range(y_limits, y_include)
+        if (y_trans == "reverse") y_limits <- rev(sort(y_limits))
+
+        if (y_numeric) {
+          plot <- plot +
+            ggplot2::scale_y_continuous(limits = y_limits, trans = y_trans, oob = scales::oob_keep)
+        }
+        else if (y_date) {
+          plot <- plot +
+            ggplot2::scale_y_date(limits = y_limits, trans = y_trans, oob = scales::oob_keep)
+        }
+        else if (y_datetime) {
+          plot <- plot +
+            ggplot2::scale_y_datetime(limits = y_limits, trans = y_trans, oob = scales::oob_keep)
+        }
+        else if (y_time) {
+          plot <- plot +
+            ggplot2::scale_y_time(limits = y_limits, trans = y_trans, oob = scales::oob_keep)
+        }
+      }
+      else {
+        if (y_numeric) {
+          plot <- plot +
+            ggplot2::scale_y_continuous(trans = y_trans, oob = scales::oob_keep)
+        }
+        else if (y_date) {
+          plot <- plot +
+            ggplot2::scale_y_date(trans = y_trans, oob = scales::oob_keep)
+        }
+        else if (y_datetime) {
+          plot <- plot +
+            ggplot2::scale_y_datetime(trans = y_trans, oob = scales::oob_keep)
+        }
+        else if (y_time) {
+          plot <- plot +
+            ggplot2::scale_y_time(trans = y_trans, oob = scales::oob_keep)
+        }
+      }
+    }
   }
 
   #Get layer data for x, y and col scales
@@ -713,7 +759,7 @@ gg_blank2 <- function(
     else if (x_numeric | x_date | x_datetime | x_time | x_null) {
 
       if (facet_scales %in% c("fixed", "free_y")) {
-        if (!stat %in% c("bin2d", "binhex")) {
+        if (!stat %in% c("bin2d", "bin_2d", "binhex")) {
           x_vctr <- layer_data %>%
             dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$|^outliers$"))) %>%
             dplyr::mutate(dplyr::across(tidyr::matches("^outliers$"), ~ list(c(xmin_final2 = min(unlist(.x)), xmax_final2 = max(unlist(.x)))))) %>%
@@ -828,49 +874,57 @@ gg_blank2 <- function(
 
       if (!rlang::is_null(x_vctr)) {
         if (x_numeric | x_null) {
-          plot <- plot +
-            ggplot2::scale_x_continuous(
-              breaks = x_breaks,
-              limits = x_limits,
-              expand = x_expand,
-              labels = x_labels,
-              oob = scales::oob_keep,
-              sec.axis = x_sec_axis,
-              trans = x_trans
-            )
+          suppressWarnings({
+            plot <- plot +
+              ggplot2::scale_x_continuous(
+                breaks = x_breaks,
+                limits = x_limits,
+                expand = x_expand,
+                labels = x_labels,
+                oob = scales::oob_keep,
+                sec.axis = x_sec_axis,
+                trans = x_trans
+              )
+          })
         }
         else if (x_date) {
-          plot <- plot +
-            ggplot2::scale_x_date(
-              breaks = x_breaks,
-              limits = x_limits,
-              expand = x_expand,
-              labels = x_labels,
-              oob = scales::oob_keep,
-              sec.axis = x_sec_axis
-            )
+          suppressWarnings({
+            plot <- plot +
+              ggplot2::scale_x_date(
+                breaks = x_breaks,
+                limits = x_limits,
+                expand = x_expand,
+                labels = x_labels,
+                oob = scales::oob_keep,
+                sec.axis = x_sec_axis
+              )
+          })
         }
         else if (x_datetime) {
-          plot <- plot +
-            ggplot2::scale_x_datetime(
-              breaks = x_breaks,
-              limits = x_limits,
-              expand = x_expand,
-              labels = x_labels,
-              oob = scales::oob_keep,
-              sec.axis = x_sec_axis
-            )
+          suppressWarnings({
+            plot <- plot +
+              ggplot2::scale_x_datetime(
+                breaks = x_breaks,
+                limits = x_limits,
+                expand = x_expand,
+                labels = x_labels,
+                oob = scales::oob_keep,
+                sec.axis = x_sec_axis
+              )
+          })
         }
         else if (x_time) {
-          plot <- plot +
-            ggplot2::scale_x_time(
-              breaks = x_breaks,
-              limits = x_limits,
-              expand = x_expand,
-              labels = x_labels,
-              oob = scales::oob_keep,
-              sec.axis = x_sec_axis
-            )
+          suppressWarnings({
+            plot <- plot +
+              ggplot2::scale_x_time(
+                breaks = x_breaks,
+                limits = x_limits,
+                expand = x_expand,
+                labels = x_labels,
+                oob = scales::oob_keep,
+                sec.axis = x_sec_axis
+              )
+          })
         }
       }
     }
@@ -887,7 +941,7 @@ gg_blank2 <- function(
 
       if (facet_scales %in% c("fixed", "free_x")) {
 
-        if (!stat %in% c("bin2d", "binhex")) {
+        if (!stat %in% c("bin2d", "bin_2d", "binhex")) {
           y_vctr <- layer_data %>%
             dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$|^outliers$"))) %>%
             dplyr::mutate(dplyr::across(tidyr::matches("^outliers$"), ~ list(c(ymin_final2 = min(unlist(.x)), ymax_final2 = max(unlist(.x)))))) %>%
@@ -925,8 +979,8 @@ gg_blank2 <- function(
                 y_limits <- NULL
               }
               else {
-                if (!facet_null & !facet2_null) y_breaks_n <- 5
-                else if (facet_null & !facet2_null) y_breaks_n <- 5
+                if (!facet_null & !facet2_null) y_breaks_n <- 4
+                else if (facet_null & !facet2_null) y_breaks_n <- 4
                 else y_breaks_n <- 6
 
                 y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
@@ -958,8 +1012,8 @@ gg_blank2 <- function(
               if (y_time) y_breaks <- ggplot2::waiver()
               else if (!y_trans %in% c("identity", "reverse")) y_breaks <- ggplot2::waiver()
               else {
-                if (!facet_null & !facet2_null) y_breaks_n <- 5
-                else if (facet_null & !facet2_null) y_breaks_n <- 5
+                if (!facet_null & !facet2_null) y_breaks_n <- 4
+                else if (facet_null & !facet2_null) y_breaks_n <- 4
                 else y_breaks_n <- 6
 
                 y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
@@ -988,56 +1042,64 @@ gg_blank2 <- function(
 
       if (!rlang::is_null(y_vctr)) {
         if (y_numeric | y_null) {
-          plot <- plot +
-            ggplot2::scale_y_continuous(
-              breaks = y_breaks,
-              limits = y_limits,
-              expand = y_expand,
-              labels = y_labels,
-              oob = scales::oob_keep,
-              sec.axis = y_sec_axis,
-              trans = y_trans
-            )
+          suppressWarnings({
+            plot <- plot +
+              ggplot2::scale_y_continuous(
+                breaks = y_breaks,
+                limits = y_limits,
+                expand = y_expand,
+                labels = y_labels,
+                oob = scales::oob_keep,
+                sec.axis = y_sec_axis,
+                trans = y_trans
+              )
+          })
         }
         else if (y_date) {
-          plot <- plot +
-            ggplot2::scale_y_date(
-              breaks = y_breaks,
-              limits = y_limits,
-              expand = y_expand,
-              labels = y_labels,
-              oob = scales::oob_keep,
-              sec.axis = y_sec_axis
-            )
+          suppressWarnings({
+            plot <- plot +
+              ggplot2::scale_y_date(
+                breaks = y_breaks,
+                limits = y_limits,
+                expand = y_expand,
+                labels = y_labels,
+                oob = scales::oob_keep,
+                sec.axis = y_sec_axis
+              )
+          })
         }
         else if (y_datetime) {
-          plot <- plot +
-            ggplot2::scale_y_datetime(
-              breaks = y_breaks,
-              limits = y_limits,
-              expand = y_expand,
-              labels = y_labels,
-              oob = scales::oob_keep,
-              sec.axis = y_sec_axis
-            )
+          suppressWarnings({
+            plot <- plot +
+              ggplot2::scale_y_datetime(
+                breaks = y_breaks,
+                limits = y_limits,
+                expand = y_expand,
+                labels = y_labels,
+                oob = scales::oob_keep,
+                sec.axis = y_sec_axis
+              )
+          })
         }
         else if (y_time) {
-          plot <- plot +
-            ggplot2::scale_y_time(
-              breaks = y_breaks,
-              limits = y_limits,
-              expand = y_expand,
-              labels = y_labels,
-              oob = scales::oob_keep,
-              sec.axis = y_sec_axis
-            )
+          suppressWarnings({
+            plot <- plot +
+              ggplot2::scale_y_time(
+                breaks = y_breaks,
+                limits = y_limits,
+                expand = y_expand,
+                labels = y_labels,
+                oob = scales::oob_keep,
+                sec.axis = y_sec_axis
+              )
+          })
         }
       }
     }
   }
 
   #make col scale based on layer_data
-  if (col_null & !stat %in% c("bin2d", "binhex")) {
+  if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
     if (rlang::is_null(pal)) pal <-  pal_viridis_mix(1)
     else pal <- pal[1]
 
@@ -1055,17 +1117,17 @@ gg_blank2 <- function(
   }
   else {
     if (rlang::is_null(col_title)) {
-      if (stat %in% c("bin2d", "binhex")) col_name <- "count"
+      if (stat %in% c("bin2d", "bin_2d", "binhex")) col_name <- "count"
       else col_name <- rlang::as_name(col)
 
       if (rlang::is_null(titles)) col_title <- purrr::map_chr(col_name, snakecase::to_sentence_case)
       else col_title <- purrr::map_chr(col_name, titles)
     }
 
-    if (stat %in% c("bin2d", "binhex")) col_vctr <- layer_data %>% dplyr::pull(.data$count)
+    if (stat %in% c("bin2d", "bin_2d", "binhex")) col_vctr <- layer_data %>% dplyr::pull(.data$count)
     else col_vctr <- data %>% dplyr::pull(!!col)
 
-    if (col_numeric | stat %in% c("bin2d", "binhex")) {
+    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
 
       if (col_trans == "reverse") col_limits <- rev(sort(col_limits))
 
@@ -1275,7 +1337,7 @@ gg_blank2 <- function(
       ggplot2::theme(legend.text = ggplot2::element_text(
         margin = ggplot2::margin(r = 7.5, unit = "pt")))
 
-    if (col_numeric | stat %in% c("bin2d", "binhex")) {
+    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
       plot <- plot +
         ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
         ggplot2::theme(legend.text.align = 0.5)
@@ -1290,7 +1352,7 @@ gg_blank2 <- function(
       ggplot2::theme(legend.text = ggplot2::element_text(
         margin = ggplot2::margin(r = 0)))
 
-    if (col_numeric | stat %in% c("bin2d", "binhex")) {
+    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
       plot <- plot +
         ggplot2::theme(legend.title = ggplot2::element_text(vjust = 1))
     }

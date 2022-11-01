@@ -31,7 +31,7 @@ gg_blank2(
   position = "identity",
   pal = NULL,
   pal_na = "#7F7F7F",
-  alpha = 0.9,
+  alpha = 1,
   ...,
   titles = NULL,
   title = NULL,
