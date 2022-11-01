@@ -1,6 +1,6 @@
-#' @title Blank ggplot
+#' @title Density ggplot
 #'
-#' @description Create a histogram ggplot with a wrapper around the ggplot2::geom_blank function.
+#' @description Create a histogram ggplot with a wrapper around the ggplot2::geom_density function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
@@ -76,15 +76,15 @@
 #' @examples
 #' library(ggplot2)
 #'
-#' gg_blank2(diamonds, x = carat)
-#' gg_blank2(diamonds, x = carat, binwidth = 0.01)
-#' gg_blank2(diamonds, x = carat, bins = 200)
-#' gg_blank2(diamonds, y = carat)
+#' gg_density2(diamonds, x = carat)
+#' gg_density2(diamonds, x = carat, binwidth = 0.01)
+#' gg_density2(diamonds, x = carat, bins = 200)
+#' gg_density2(diamonds, y = carat)
 #'
-#' gg_blank2(diamonds, x = price, col = cut)
-#' gg_blank2(diamonds, x = price, col = cut, position = "fill")
+#' gg_density2(diamonds, x = price, col = cut)
+#' gg_density2(diamonds, x = price, col = cut, position = "fill")
 #'
-gg_blank2 <- function(
+gg_density2 <- function(
     data = NULL,
     x = NULL,
     y = NULL,
@@ -107,11 +107,11 @@ gg_blank2 <- function(
     sample = NULL,
     label = NULL,
     subgroup = NULL,
-    stat = "identity",
+    stat = "density",
     position = "identity",
     pal = NULL,
     pal_na = "#7F7F7F",
-    alpha = 1, #MAKE NULL
+    alpha = 0.5, #MAKE NULL
     ...,
     titles = NULL,
     title = NULL,
@@ -218,7 +218,7 @@ gg_blank2 <- function(
   #process data for horizontal
   if (y_forcat) {
     if (!(!col_null &
-        (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))))) {
+          (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))))) {
 
       if (is.logical(rlang::eval_tidy(y, data))) {
         data <- data %>%
@@ -571,7 +571,7 @@ gg_blank2 <- function(
   }
 
   plot <- plot +
-    ggplot2::geom_blank(
+    ggplot2::geom_density(
       stat = stat,
       position = position,
       alpha = alpha,
@@ -856,14 +856,14 @@ gg_blank2 <- function(
         }
       }
       else if (facet_scales %in% c("free", "free_x")) {
-          if (rlang::is_null(x_limits)) x_limits <- NULL
-          if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
-        }
+        if (rlang::is_null(x_limits)) x_limits <- NULL
+        if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
+      }
 
       if (rlang::is_null(x_expand)) {
         if (flippable & flipped) x_expand <- c(0, 0)
         else if (facet_scales %in% c("fixed", "free_y") &
-            (y_date | y_datetime | y_time | y_numeric | y_null)) {
+                 (y_date | y_datetime | y_time | y_numeric | y_null)) {
           x_expand <- c(0.05, 0.05)
         }
         else if (!x_trans %in% c("identity", "reverse")) x_expand <- ggplot2::expansion(mult = c(0, 0.05))
