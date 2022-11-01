@@ -12,25 +12,21 @@ gg_blank2(
   facet = NULL,
   facet2 = NULL,
   group = NULL,
-  text = NULL,
   xmin = NULL,
   xmax = NULL,
   xend = NULL,
   xlower = NULL,
   xupper = NULL,
   xmiddle = NULL,
-  xintercept = NULL,
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
   ylower = NULL,
   yupper = NULL,
   ymiddle = NULL,
-  yintercept = NULL,
   sample = NULL,
   label = NULL,
   subgroup = NULL,
-  slope = NULL,
   stat = "identity",
   position = "identity",
   pal = NULL,
@@ -96,7 +92,35 @@ gg_blank2(
 
 \item{group}{Unquoted group aesthetic variable.}
 
-\item{text}{Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").}
+\item{xmin}{Unquoted xmin aesthetic variable.}
+
+\item{xmax}{Unquoted xmax aesthetic variable.}
+
+\item{xend}{Unquoted xend aesthetic variable.}
+
+\item{xlower}{Unquoted xlower aesthetic variable.}
+
+\item{xupper}{Unquoted xupper aesthetic variable.}
+
+\item{xmiddle}{Unquoted xmiddle aesthetic variable.}
+
+\item{ymin}{Unquoted ymin aesthetic variable.}
+
+\item{ymax}{Unquoted ymax aesthetic variable.}
+
+\item{yend}{Unquoted yend aesthetic variable.}
+
+\item{ylower}{Unquoted ylower aesthetic variable.}
+
+\item{yupper}{Unquoted yupper aesthetic variable.}
+
+\item{ymiddle}{Unquoted ymiddle aesthetic variable.}
+
+\item{sample}{Unquoted sample aesthetic variable.}
+
+\item{label}{Unquoted label aesthetic variable.}
+
+\item{subgroup}{Unquoted subgroup aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
