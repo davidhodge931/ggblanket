@@ -925,9 +925,9 @@ gg_blank2 <- function(
                 y_limits <- NULL
               }
               else {
-                if (!facet_null & !facet2_null) y_breaks_n <- 4
-                else if (facet_null & !facet2_null) y_breaks_n <- 4
-                else y_breaks_n <- 5
+                if (!facet_null & !facet2_null) y_breaks_n <- 5
+                else if (facet_null & !facet2_null) y_breaks_n <- 5
+                else y_breaks_n <- 6
 
                 y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
                 if (stat == "bin" & x_null) y_limits <- NULL
@@ -958,9 +958,9 @@ gg_blank2 <- function(
               if (y_time) y_breaks <- ggplot2::waiver()
               else if (!y_trans %in% c("identity", "reverse")) y_breaks <- ggplot2::waiver()
               else {
-                if (!facet_null & !facet2_null) y_breaks_n <- 4
-                else if (facet_null & !facet2_null) y_breaks_n <- 4
-                else y_breaks_n <- 5
+                if (!facet_null & !facet2_null) y_breaks_n <- 5
+                else if (facet_null & !facet2_null) y_breaks_n <- 5
+                else y_breaks_n <- 6
 
                 y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
               }
