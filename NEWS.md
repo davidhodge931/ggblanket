@@ -1,5 +1,7 @@
 # ggblanket 1.5.9000
 
+* Breaking: coord argument removed.
+* x and y uses scales::oob_keep with limits also within coord. 
 * Made code for each gg_* function essentially the same.
 * Made `gg_blank` more powerful by adding more aesthetics to it.
 * Made horizontal flipped plot `x` and `y` scales nice. 

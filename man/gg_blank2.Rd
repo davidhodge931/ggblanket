@@ -29,6 +29,7 @@ gg_blank2(
   subgroup = NULL,
   stat = "identity",
   position = "identity",
+  clip = "on",
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 1,
@@ -36,7 +37,6 @@ gg_blank2(
   titles = NULL,
   title = NULL,
   subtitle = NULL,
-  coord = NULL,
   x_breaks = NULL,
   x_expand = NULL,
   x_grid = NULL,
@@ -126,6 +126,8 @@ gg_blank2(
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
+\item{clip}{Whether to clip geometries outside of the panel. Either "on" or "off".}
+
 \item{pal}{Colours to use. A character vector of hex codes (or names).}
 
 \item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
@@ -140,8 +142,6 @@ gg_blank2(
 
 \item{subtitle}{Subtitle string.}
 
-\item{coord}{Coordinate system.}
-
 \item{x_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
 \item{x_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
@@ -152,7 +152,7 @@ gg_blank2(
 
 \item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
-\item{x_limits}{A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(xlim = ...).}
+\item{x_limits}{A vector of length 2 to determine the limits of the axis (and the zoom via the coord).}
 
 \item{x_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
@@ -170,7 +170,7 @@ gg_blank2(
 
 \item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
-\item{y_limits}{A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(ylim = ...).}
+\item{y_limits}{A vector of length 2 to determine the limits of the axis (and the zoom via the coord).}
 
 \item{y_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
