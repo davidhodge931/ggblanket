@@ -34,7 +34,6 @@ gg_blank2(
   pal_na = "#7F7F7F",
   alpha = 1,
   ...,
-  titles = NULL,
   title = NULL,
   subtitle = NULL,
   x_breaks = NULL,
@@ -74,6 +73,7 @@ gg_blank2(
   facet_space = "fixed",
   facet_layout = NULL,
   caption = NULL,
+  titles = snakecase::to_sentence_case,
   theme = NULL
 )
 }
@@ -135,8 +135,6 @@ gg_blank2(
 \item{alpha}{Opacity. A number between 0 and 1.}
 
 \item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
-
-\item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
 
 \item{title}{Title string.}
 
@@ -215,6 +213,8 @@ gg_blank2(
 \item{facet_layout}{Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".}
 
 \item{caption}{Caption title string.}
+
+\item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
 
 \item{theme}{A ggplot2 theme.}
 }

@@ -23,16 +23,17 @@ Imports:
     rlang,
     scales,
     snakecase,
+    stringr,
     tidyr,
     tidyselect,
     viridis
 Suggests: 
+    ggiraph,
+    hexbin,
     knitr,
     palmerpenguins,
     pals,
     patchwork,
-    plotly,
     rmarkdown,
-    sf,
-    stringr
+    sf
 VignetteBuilder: knitr

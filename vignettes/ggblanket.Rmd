@@ -60,7 +60,7 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 12.  A `theme` argument to customise the look and feel
 13.  A `gg_theme` function to create a quick theme 
 14.  A base from which to create custom plot functions with your own defaults
-15.  Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
+15.  Helper `add_tooltip` function to assist with tooltips in `ggiraph` (or `plotly::ggplotly`)
 
 ### 1. `gg_*` wrapper functions to plot a single geom
 
@@ -386,28 +386,25 @@ iris |>
   )
 ```
 
-### 15. Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
+### 15. Helper `add_tooltip` function to assist with tooltips in `ggiraph` (or `plotly::ggplotly`)
 
-The `add_tooltip_text` function allows users to create nice tooltips in combination with the `gg_*()` `text` argument, and the `tooltip = "text"` argument in `ggplotly`.
-
+The `add_tooltip` function allows users to create nice tooltips in combination with `ggiraph` (or `plotly::ggplotly`).
+`
 ```{r, eval = F}
-theme_custom <- gg_theme(
-  "helvetica",
-  plot_background_pal = "white",
-  panel_background_pal = "white",
-)
+df <- iris %>%
+  tibble::tibble() %>%
+  add_tooltip(Sepal.Width, Sepal.Length, Species)
 
-iris |> 
-  mutate(Species = str_to_sentence(Species)) |> 
-  add_tooltip_text(titles = snakecase::to_sentence_case) |> 
-  gg_point(
-    x = Sepal.Width, 
-    y = Sepal.Length, 
-    col = Species, 
-    text = text, 
-    col_legend_place = "r",
-    theme = theme_custom) |> 
-  plotly::ggplotly(tooltip = "text")
+df
+
+p <- df %>% 
+  gg_blank(x = Sepal.Width,
+           y = Sepal.Length,
+           col = Species, 
+           facet = Species) +
+  ggiraph::geom_point_interactive(aes(tooltip = tooltip))
+
+ggiraph::ggiraph(ggobj = p, width_svg = 5, height_svg = 4)      
 ```
 
 ```{r, echo=FALSE}

@@ -180,8 +180,9 @@ A ggplot object.
 Create a hex ggplot with a wrapper around the ggplot2::geom_hex function.
 }
 \examples{
-library(ggplot2)
-
-diamonds \%>\% gg_hex(depth, price)
-
+if (requireNamespace("hexbin", quietly = TRUE)) {
+ library(ggplot2)
+ diamonds \%>\%
+   gg_hex(depth, price)
+}
 }

@@ -30,7 +30,6 @@
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
-#' @param titles A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -69,6 +68,7 @@
 #' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_space Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed". Only applies where the facet layout is "grid" and facet scales are not "fixed".
 #' @param facet_layout Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".
+#' @param titles A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
 #' @return A ggplot object.
@@ -114,7 +114,6 @@ gg_blank2 <- function(
     pal_na = "#7F7F7F",
     alpha = 1,
     ...,
-    titles = NULL,
     title = NULL,
     subtitle = NULL,
     x_breaks = NULL,
@@ -154,6 +153,7 @@ gg_blank2 <- function(
     facet_space = "fixed",
     facet_layout = NULL,
     caption = NULL,
+    titles = snakecase::to_sentence_case,
     theme = NULL) {
 
   #stop, warn or message
@@ -250,13 +250,11 @@ gg_blank2 <- function(
       else if (stat == "qq") x_name <- "theoretical"
       else x_name <- ""
 
-      if (rlang::is_null(titles)) x_title <- purrr::map_chr(x_name, snakecase::to_sentence_case)
-      else x_title <- purrr::map_chr(x_name, titles)
+      x_title <- purrr::map_chr(x_name, titles)
     }
   }
   else if (rlang::is_null(x_title)) {
-    if (rlang::is_null(titles)) x_title <- purrr::map_chr(rlang::as_name(x), snakecase::to_sentence_case)
-    else x_title <- purrr::map_chr(rlang::as_name(x), titles)
+    x_title <- purrr::map_chr(rlang::as_name(x), titles)
   }
 
   if (y_null) {
@@ -267,13 +265,11 @@ gg_blank2 <- function(
       else if (stat == "qq") y_name <- "sample"
       else y_name <- ""
 
-      if (rlang::is_null(titles)) y_title <- purrr::map_chr(y_name, snakecase::to_sentence_case)
-      else y_title <- purrr::map_chr(y_name, titles)
+      y_title <- purrr::map_chr(y_name, titles)
     }
   }
   else if (rlang::is_null(y_title)) {
-    if (rlang::is_null(titles)) y_title <- purrr::map_chr(rlang::as_name(y), snakecase::to_sentence_case)
-    else y_title <- purrr::map_chr(rlang::as_name(y), titles)
+    y_title <- purrr::map_chr(rlang::as_name(y), titles)
   }
 
   if (rlang::is_null(theme)) {
@@ -1138,8 +1134,7 @@ gg_blank2 <- function(
       if (stat %in% c("bin2d", "bin_2d", "binhex")) col_name <- "count"
       else col_name <- rlang::as_name(col)
 
-      if (rlang::is_null(titles)) col_title <- purrr::map_chr(col_name, snakecase::to_sentence_case)
-      else col_title <- purrr::map_chr(col_name, titles)
+      col_title <- purrr::map_chr(col_name, titles)
     }
 
     if (stat %in% c("bin2d", "bin_2d", "binhex")) col_vctr <- layer_data %>% dplyr::pull(.data$count)
