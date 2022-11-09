@@ -102,8 +102,8 @@ gg_theme <- function(
     legend.key.height = ggplot2::unit(5, "mm"),
     legend.key.width = ggplot2::unit(5, "mm"),
     legend.spacing.y = ggplot2::unit(0.15, "cm"),
-    legend.position = "bottom",
-    legend.direction = "horizontal",
+    legend.position = "right",
+    legend.direction = "vertical",
     legend.justification = "left",
     legend.box.margin = ggplot2::margin(t = -2.5),
     legend.text = ggplot2::element_text(

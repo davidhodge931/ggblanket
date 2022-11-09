@@ -830,7 +830,7 @@ gg_blank2 <- function(
               else {
                 if (!facet_null & !facet2_null) x_breaks_n <- 3
                 else if (!facet_null & facet2_null) x_breaks_n <- 3
-                else x_breaks_n <- 5
+                else x_breaks_n <- 6
 
                 x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
 
@@ -874,7 +874,7 @@ gg_blank2 <- function(
               else {
                 if (!facet_null & !facet2_null) x_breaks_n <- 3
                 else if (!facet_null & facet2_null) x_breaks_n <- 3
-                else x_breaks_n <- 5
+                else x_breaks_n <- 6
 
                 x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
               }
