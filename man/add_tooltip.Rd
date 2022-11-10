@@ -40,5 +40,7 @@ p <- iris \%>\%
             col = Species,
             facet = Species) +
   ggiraph::geom_point_interactive(aes(tooltip = tooltip))
+
+  ggiraph::girafe(ggobj = p, width_svg = 5, height_svg = 4)
 }
 }

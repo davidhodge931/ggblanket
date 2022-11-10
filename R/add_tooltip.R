@@ -24,10 +24,12 @@
 #' p <- iris %>%
 #'   add_tooltip(tidyselect::contains("Sepal"), Species) %>%
 #'   gg_blank(x = Sepal.Width,
-#'             y = Sepal.Length,
-#'             col = Species,
-#'             facet = Species) +
+#'            y = Sepal.Length,
+#'            col = Species,
+#'            facet = Species) +
 #'   ggiraph::geom_point_interactive(aes(tooltip = tooltip))
+#'
+#'   ggiraph::girafe(ggobj = p, width_svg = 5, height_svg = 4)
 #' }
 add_tooltip <- function(data,
                         ...,
