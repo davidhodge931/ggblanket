@@ -793,6 +793,7 @@ gg_blank2 <- function(
           if (ncol(x_vctr) != 0) {
             x_vctr <- x_vctr %>%
               tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+              dplyr::filter(!is.infinite(.data$value)) %>%
               dplyr::pull(.data$value)
           } else {
             x_vctr <- NULL
@@ -800,6 +801,7 @@ gg_blank2 <- function(
         }
         else {
           x_vctr <- data %>%
+            dplyr::filter(!is.infinite(!!x)) %>%
             dplyr::pull(!!x)
         }
 
@@ -970,11 +972,13 @@ gg_blank2 <- function(
           if (ncol(y_vctr) != 0) {
             y_vctr <- y_vctr %>%
               tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+              dplyr::filter(!is.infinite(.data$value)) %>%
               dplyr::pull(.data$value)
           }
         }
         else {
           y_vctr <- data %>%
+            dplyr::filter(!is.infinite(!!y)) %>%
             dplyr::pull(!!y)
         }
 
@@ -1141,8 +1145,16 @@ gg_blank2 <- function(
       col_title <- purrr::map_chr(col_name, titles)
     }
 
-    if (stat %in% c("bin2d", "bin_2d", "binhex")) col_vctr <- layer_data %>% dplyr::pull(.data$count)
-    else col_vctr <- data %>% dplyr::pull(!!col)
+    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+      col_vctr <- layer_data %>%
+        dplyr::filter(!is.infinite(.data$count)) %>%
+        dplyr::pull(.data$count)
+    }
+    else {
+      col_vctr <- data %>%
+        dplyr::filter(!is.infinite(!!col)) %>%
+        dplyr::pull(!!col)
+    }
 
     if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
 
