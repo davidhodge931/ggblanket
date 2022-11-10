@@ -60,7 +60,7 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 12.  A `theme` argument to customise the look and feel
 13.  A `gg_theme` function to create a quick theme 
 14.  A base from which to create custom plot functions with your own defaults
-15.  Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
+15.  Supports `ggiraph` interactivity with `gg_blank` and `add_tooltip`
 
 ### 1. `gg_*` wrapper functions to plot a single geom
 
@@ -197,7 +197,8 @@ To remove titles, you can use `x_title = ""` within the `gg_*` function and equi
 ```{r}
 penguins |>
   group_by(species, sex) |>
-  summarise(across(flipper_length_mm, ~ round(mean(.x, na.rm = TRUE)), 0)) |> 
+  summarise(
+    flipper_length_mm = round(mean(flipper_length_mm, na.rm = TRUE), 0)) |>
   gg_tile(
     x = sex, 
     y = species, 
@@ -386,28 +387,33 @@ iris |>
   )
 ```
 
-### 15. Control over `plotly::ggplotly` tooltips with `add_tooltip_text`
+### 15. Supports `ggiraph` interactivity with `gg_blank` and `add_tooltip`
 
-The `add_tooltip_text` function allows users to create nice tooltips in combination with the `gg_*()` `text` argument, and the `tooltip = "text"` argument in `ggplotly`.
+ggblanket supports `ggiraph` interactivity with `gg_blank` and `add_tooltip` functions. Users could use a similar approach with `plotly::ggplotly`, if they prefer. 
 
 ```{r, eval = F}
-theme_custom <- gg_theme(
-  "helvetica",
-  plot_background_pal = "white",
-  panel_background_pal = "white",
-)
+df <- iris |>
+  tibble::tibble() |>
+  add_tooltip(Sepal.Width, Sepal.Length, Species)
 
-iris |> 
-  mutate(Species = str_to_sentence(Species)) |> 
-  add_tooltip_text(titles = snakecase::to_sentence_case) |> 
-  gg_point(
-    x = Sepal.Width, 
-    y = Sepal.Length, 
-    col = Species, 
-    text = text, 
-    col_legend_place = "r",
-    theme = theme_custom) |> 
-  plotly::ggplotly(tooltip = "text")
+df |> 
+  head(1)
+
+p <- iris |>
+  add_tooltip(tidyselect::contains("Sepal"), Species) |>
+  mutate(id = row_number()) |>
+  gg_blank(x = Sepal.Width,
+           y = Sepal.Length,
+           col = Species,
+           facet = Species) +
+  ggiraph::geom_point_interactive(aes(tooltip = tooltip, data_id = id))
+
+girafe(
+  ggobj = p,
+  width_svg = 5,
+  height_svg = 4,
+  options = list(opts_hover(css = "fill:red; stroke: red"))
+)
 ```
 
 ```{r, echo=FALSE}
@@ -435,7 +441,7 @@ df <- data.frame(
   lower = c(0.8, 4.6, 2.4, 3.6)
 )
 
-df %>% 
+df |> 
   gg_col(
     x = trt,
     y = resp,
@@ -466,7 +472,7 @@ penguins |>
 ggblanket keeps `x` and `y` out-of-bound values (i.e. it uses scales::oob_keep under the hood). However, you can zoom in using `coord = coord_cartesian(xlim = ..., ylim = ...)` (or by filtering the data).
 
 ```{r}
-penguins %>% 
+penguins |> 
   gg_point(
     x = flipper_length_mm, 
     y = body_mass_g, 

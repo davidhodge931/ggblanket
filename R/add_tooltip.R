@@ -1,39 +1,40 @@
-#' Add a tooltip text column
+#' Add a tooltip column
 #'
-#' @description Add a tooltip text column of united variable names and values.
+#' @description Add a tooltip column of united variable names and values.
 #' @param data A data frame or tibble.
 #' @param ... Arguments passed to select (i.e unquoted variables, tidyselect helpers etc). If no arguments provided, uses all columns.
 #' @param titles A function to format the variable names, including in rlang lambda format.
+#' @param name The name of the column created. Defaults to "tooltip".
 #'
 #' @return A data frame or tibble with a column of text
 #' @export
 #'
 #' @examples
+#' library(ggplot2)
+#'
 #' iris %>%
-#'   add_tooltip_text() %>%
+#'   add_tooltip() %>%
 #'   head(1)
 #'
 #'  iris %>%
-#'   add_tooltip_text(Species, tidyselect::contains("Sepal")) %>%
+#'   add_tooltip(tidyselect::contains("Sepal"), Species) %>%
 #'   head(1)
 #'
-#'   library(snakecase)
+#' if (requireNamespace("ggiraph", quietly = TRUE)) {
+#' p <- iris %>%
+#'   add_tooltip(tidyselect::contains("Sepal"), Species) %>%
+#'   gg_blank(x = Sepal.Width,
+#'            y = Sepal.Length,
+#'            col = Species,
+#'            facet = Species) +
+#'   ggiraph::geom_point_interactive(aes(tooltip = tooltip))
 #'
-#'  iris %>%
-#'   add_tooltip_text(titles = ~ to_sentence_case(.x)) %>%
-#'   head(1)
-#'
-#'  iris %>%
-#'    add_tooltip_text() %>%
-#'    gg_point(x = Sepal.Width,
-#'             y = Sepal.Length,
-#'             col = Species,
-#'             text = text,
-#'             theme = gg_theme(text_family = "helvetica")) %>%
-#'     plotly::ggplotly(tooltip = "text")
-add_tooltip_text <- function(data,
-                             ...,
-                             titles = NULL) {
+#'   ggiraph::girafe(ggobj = p, width_svg = 5, height_svg = 4)
+#' }
+add_tooltip <- function(data,
+                        ...,
+                        titles = snakecase::to_sentence_case,
+                        name = "tooltip") {
 
   if (class(data)[1] == "sf") {
     temp_data <- data %>%
@@ -58,10 +59,10 @@ add_tooltip_text <- function(data,
     dplyr::mutate(dplyr::across(
       dplyr::everything(),
       ~ paste0(dplyr::cur_column(), ": ", .x),
-      .names = ".add_{.col}"
+      .names = ".unite_{.col}"
     )) %>%
-    tidyr::unite("text", tidyselect::starts_with(".add_"), sep = "<br>") %>%
-    dplyr::select("text")
+    tidyr::unite(!!(name), tidyselect::starts_with(".unite_"), sep = "<br>") %>%
+    dplyr::select(!!(name))
 
   data %>%
     dplyr::bind_cols(temp_data)
