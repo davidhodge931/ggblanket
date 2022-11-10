@@ -186,7 +186,17 @@ gg_blank2 <- function(
   subgroup <- rlang::enquo(subgroup)
 
   #ungroup
-  data <- dplyr::ungroup(data)
+  data <- data %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(dplyr::across(
+      c(!!x, !!y,
+        !!xmin, !!ymin,
+        !!xmax, !!ymax,
+        !!xend, !!yend,
+        !!xlower, !!xmiddle, !!xupper, !!ylower, !!ymiddle, !!yupper,
+        !!col
+        ),
+      function(x) dplyr::na_if(x, Inf)))
 
   #get classes
   x_null <- rlang::quo_is_null(x)
@@ -221,11 +231,11 @@ gg_blank2 <- function(
 
       if (is.logical(rlang::eval_tidy(y, data))) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!y, ~ as.character(.x)))
+          dplyr::mutate(dplyr::across(!!y, function(x) as.character(x)))
       }
 
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!y, ~ forcats::fct_rev(.x)))
+        dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
     }
   }
 
@@ -233,11 +243,11 @@ gg_blank2 <- function(
     if (y_forcat) {
       if (is.logical(rlang::eval_tidy(col, data))) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!col, ~ as.character(.x)))
+          dplyr::mutate(dplyr::across(!!col, function(x) as.character(x)))
       }
 
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!col, ~ forcats::fct_rev(.x)))
+        dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
     }
   }
 
@@ -793,7 +803,6 @@ gg_blank2 <- function(
           if (ncol(x_vctr) != 0) {
             x_vctr <- x_vctr %>%
               tidyr::pivot_longer(cols = tidyselect::everything()) %>%
-              dplyr::filter(!is.infinite(.data$value)) %>%
               dplyr::pull(.data$value)
           } else {
             x_vctr <- NULL
@@ -801,7 +810,6 @@ gg_blank2 <- function(
         }
         else {
           x_vctr <- data %>%
-            dplyr::filter(!is.infinite(!!x)) %>%
             dplyr::pull(!!x)
         }
 
@@ -972,13 +980,11 @@ gg_blank2 <- function(
           if (ncol(y_vctr) != 0) {
             y_vctr <- y_vctr %>%
               tidyr::pivot_longer(cols = tidyselect::everything()) %>%
-              dplyr::filter(!is.infinite(.data$value)) %>%
               dplyr::pull(.data$value)
           }
         }
         else {
           y_vctr <- data %>%
-            dplyr::filter(!is.infinite(!!y)) %>%
             dplyr::pull(!!y)
         }
 
@@ -1147,12 +1153,10 @@ gg_blank2 <- function(
 
     if (stat %in% c("bin2d", "bin_2d", "binhex")) {
       col_vctr <- layer_data %>%
-        dplyr::filter(!is.infinite(.data$count)) %>%
         dplyr::pull(.data$count)
     }
     else {
       col_vctr <- data %>%
-        dplyr::filter(!is.infinite(!!col)) %>%
         dplyr::pull(!!col)
     }
 
