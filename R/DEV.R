@@ -897,7 +897,9 @@ gg_blank2 <- function(
 
       if (rlang::is_null(x_labels)) {
         if (x_numeric | x_null) x_labels <- scales::label_comma()
-        else if (x_date | x_datetime | x_time) x_labels <- scales::label_date_short()
+        else if (x_date | x_datetime | x_time) {
+          x_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
+        }
       }
 
       if (!rlang::is_null(x_vctr)) {
@@ -1055,7 +1057,9 @@ gg_blank2 <- function(
 
       if (rlang::is_null(y_labels)) {
         if (y_numeric | y_null) y_labels <- scales::label_comma()
-        else if (y_date | y_datetime | y_time) y_labels <- scales::label_date_short()
+        else if (y_date | y_datetime | y_time) {
+          y_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
+        }
       }
 
       if (!rlang::is_null(y_vctr)) {
@@ -1153,7 +1157,9 @@ gg_blank2 <- function(
 
       if (rlang::is_null(col_labels)) {
         if (col_numeric | col_null) col_labels <- scales::label_comma()
-        else if (col_date | col_datetime | col_time) col_labels <- scales::label_date_short()
+        else if (col_date | col_datetime | col_time) {
+          col_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
+        }
       }
 
       if (rlang::is_null(col_breaks)) {
