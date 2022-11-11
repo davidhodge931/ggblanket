@@ -199,19 +199,68 @@ gg_blank2 <- function(
       function(x) dplyr::na_if(x, Inf)))
 
   #get classes
-  x_null <- rlang::quo_is_null(x)
+  # x_null <- rlang::quo_is_null(x)
+  x_null <- rlang::quo_is_null(x) & rlang::quo_is_null(xmin) & rlang::quo_is_null(xmax) & rlang::quo_is_null(xend)
   x_forcat <- is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data)) | is.logical(rlang::eval_tidy(x, data))
-  x_numeric <- is.numeric(rlang::eval_tidy(x, data))
-  x_date <- lubridate::is.Date(rlang::eval_tidy(x, data))
-  x_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(x, data))
-  x_time <- hms::is_hms(rlang::eval_tidy(x, data))
+  # x_numeric <- is.numeric(rlang::eval_tidy(x, data))
+  # x_date <- lubridate::is.Date(rlang::eval_tidy(x, data))
+  # x_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(x, data))
+  # x_time <- hms::is_hms(rlang::eval_tidy(x, data))
+  x_numeric <- {
+    is.numeric(rlang::eval_tidy(x, data)) |
+    is.numeric(rlang::eval_tidy(xmin, data)) |
+    is.numeric(rlang::eval_tidy(xmax, data)) |
+    is.numeric(rlang::eval_tidy(xend, data))
+  }
+  x_date <- {
+    lubridate::is.Date(rlang::eval_tidy(x, data)) |
+    lubridate::is.Date(rlang::eval_tidy(xmin, data)) |
+    lubridate::is.Date(rlang::eval_tidy(xmax, data)) |
+    lubridate::is.Date(rlang::eval_tidy(xend, data))
+  }
+  x_datetime <- {
+    lubridate::is.POSIXct(rlang::eval_tidy(x, data)) |
+    lubridate::is.POSIXct(rlang::eval_tidy(xmin, data)) |
+    lubridate::is.POSIXct(rlang::eval_tidy(xmax, data)) |
+    lubridate::is.POSIXct(rlang::eval_tidy(xend, data))
+  }
+  x_time <- {
+    hms::is_hms(rlang::eval_tidy(x, data)) |
+    hms::is_hms(rlang::eval_tidy(xmin, data)) |
+    hms::is_hms(rlang::eval_tidy(xmax, data)) |
+    hms::is_hms(rlang::eval_tidy(xend, data))
+  }
 
-  y_null <- rlang::quo_is_null(y)
+  # y_null <- rlang::quo_is_null(y)
+  y_null <- rlang::quo_is_null(y) & rlang::quo_is_null(ymin) & rlang::quo_is_null(ymax) & rlang::quo_is_null(yend)
   y_forcat <- is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data)) | is.logical(rlang::eval_tidy(y, data))
-  y_numeric <- is.numeric(rlang::eval_tidy(y, data))
-  y_date <- lubridate::is.Date(rlang::eval_tidy(y, data))
-  y_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(y, data))
-  y_time <- hms::is_hms(rlang::eval_tidy(y, data))
+  # y_numeric <- is.numeric(rlang::eval_tidy(y, data))
+  # y_date <- lubridate::is.Date(rlang::eval_tidy(y, data))
+  # y_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(y, data))
+  # y_time <- hms::is_hms(rlang::eval_tidy(y, data))
+  y_numeric <- {
+    is.numeric(rlang::eval_tidy(y, data)) |
+    is.numeric(rlang::eval_tidy(ymin, data)) |
+    is.numeric(rlang::eval_tidy(ymax, data)) |
+    is.numeric(rlang::eval_tidy(yend, data))
+  }
+  y_date <- {
+    lubridate::is.Date(rlang::eval_tidy(y, data)) |
+    lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
+    lubridate::is.Date(rlang::eval_tidy(ymax, data)) |
+    lubridate::is.Date(rlang::eval_tidy(yend, data))
+  }
+  y_datetime <- {
+    lubridate::is.POSIXct(rlang::eval_tidy(y, data)) |
+    lubridate::is.POSIXct(rlang::eval_tidy(ymin, data)) |
+    lubridate::is.POSIXct(rlang::eval_tidy(ymax, data))
+  }
+  y_time <- {
+    hms::is_hms(rlang::eval_tidy(y, data)) |
+    hms::is_hms(rlang::eval_tidy(ymin, data)) |
+    hms::is_hms(rlang::eval_tidy(ymax, data)) |
+    hms::is_hms(rlang::eval_tidy(yend, data))
+  }
 
   col_null <- rlang::quo_is_null(col)
   col_factor <- is.factor(rlang::eval_tidy(col, data))
@@ -264,7 +313,13 @@ gg_blank2 <- function(
     }
   }
   else if (rlang::is_null(x_title)) {
-    x_title <- purrr::map_chr(rlang::as_name(x), titles)
+    if (!rlang::quo_is_null(x) &
+        rlang::quo_is_null(xmin) &
+        rlang::quo_is_null(xmax) &
+        rlang::quo_is_null(xend)) {
+      x_title <- purrr::map_chr(rlang::as_name(x), titles)
+    }
+    else x_title <- ""
   }
 
   if (y_null) {
@@ -279,7 +334,13 @@ gg_blank2 <- function(
     }
   }
   else if (rlang::is_null(y_title)) {
-    y_title <- purrr::map_chr(rlang::as_name(y), titles)
+    if (!rlang::quo_is_null(y) &
+        rlang::quo_is_null(ymin) &
+        rlang::quo_is_null(ymax) &
+        rlang::quo_is_null(yend)) {
+      y_title <- purrr::map_chr(rlang::as_name(y), titles)
+    }
+    else y_title <- ""
   }
 
   if (rlang::is_null(theme)) {
