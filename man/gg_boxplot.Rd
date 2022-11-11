@@ -12,17 +12,25 @@ gg_boxplot(
   facet = NULL,
   facet2 = NULL,
   group = NULL,
-  text = NULL,
+  xmin = NULL,
+  xlower = NULL,
+  xmiddle = NULL,
+  xupper = NULL,
+  xmax = NULL,
+  ymin = NULL,
+  ylower = NULL,
+  ymiddle = NULL,
+  yupper = NULL,
+  ymax = NULL,
   stat = "boxplot",
   position = "dodge2",
+  clip = "on",
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 0.5,
   ...,
-  titles = NULL,
   title = NULL,
   subtitle = NULL,
-  coord = ggplot2::coord_cartesian(clip = "off"),
   x_breaks = NULL,
   x_expand = NULL,
   x_grid = NULL,
@@ -60,7 +68,8 @@ gg_boxplot(
   facet_space = "fixed",
   facet_layout = NULL,
   caption = NULL,
-  theme = gg_theme()
+  titles = function(x) snakecase::to_sentence_case(x),
+  theme = NULL
 )
 }
 \arguments{
@@ -78,11 +87,31 @@ gg_boxplot(
 
 \item{group}{Unquoted group aesthetic variable.}
 
-\item{text}{Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").}
+\item{xmin}{Unquoted xmin aesthetic variable.}
+
+\item{xlower}{Unquoted xlower aesthetic variable.}
+
+\item{xmiddle}{Unquoted xmiddle aesthetic variable.}
+
+\item{xupper}{Unquoted xupper aesthetic variable.}
+
+\item{xmax}{Unquoted xmax aesthetic variable.}
+
+\item{ymin}{Unquoted ymin aesthetic variable.}
+
+\item{ylower}{Unquoted ylower aesthetic variable.}
+
+\item{ymiddle}{Unquoted ymiddle aesthetic variable.}
+
+\item{yupper}{Unquoted yupper aesthetic variable.}
+
+\item{ymax}{Unquoted ymax aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
+
+\item{clip}{Whether to clip geometries outside of the panel. Either "on" or "off".}
 
 \item{pal}{Colours to use. A character vector of hex codes (or names).}
 
@@ -90,15 +119,11 @@ gg_boxplot(
 
 \item{alpha}{Opacity. A number between 0 and 1.}
 
-\item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
-
-\item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
+\item{...}{Other arguments passed to the ggplot2::geom_boxplot function.}
 
 \item{title}{Title string.}
 
 \item{subtitle}{Subtitle string.}
-
-\item{coord}{Coordinate system.}
 
 \item{x_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -110,7 +135,7 @@ gg_boxplot(
 
 \item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
-\item{x_limits}{A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(xlim = ...).}
+\item{x_limits}{A vector of length 2 to determine the limits of the axis (and the zoom via the coord).}
 
 \item{x_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
@@ -128,7 +153,7 @@ gg_boxplot(
 
 \item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
-\item{y_limits}{A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(ylim = ...).}
+\item{y_limits}{A vector of length 2 to determine the limits of the axis (and the zoom via the coord).}
 
 \item{y_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
@@ -173,6 +198,8 @@ gg_boxplot(
 \item{facet_layout}{Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".}
 
 \item{caption}{Caption title string.}
+
+\item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
 
 \item{theme}{A ggplot2 theme.}
 }

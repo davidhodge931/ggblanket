@@ -15,20 +15,19 @@
 #' @param text Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
+#' @param clip Whether to clip geometries outside of the panel. Either "on" or "off".
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
-#' @param ... Other arguments passed to the relevant ggplot2::geom_* function.
-#' @param titles A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.
+#' @param ... Other arguments passed to the ggplot2::geom_crossbar function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
-#' @param coord Coordinate system.
 #' @param x_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param x_grid TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
 #' @param x_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
-#' @param x_limits A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(xlim = ...).
+#' @param x_limits A vector of length 2 to determine the limits of the axis (and the zoom via the coord).
 #' @param x_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param x_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
@@ -37,7 +36,7 @@
 #' @param y_grid TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
 #' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
-#' @param y_limits A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(ylim = ...).
+#' @param y_limits A vector of length 2 to determine the limits of the axis (and the zoom via the coord).
 #' @param y_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
@@ -59,6 +58,7 @@
 #' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param facet_space Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed". Only applies where the facet layout is "grid" and facet scales are not "fixed".
 #' @param facet_layout Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".
+#' @param titles A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
 #' @return A ggplot object.
@@ -91,14 +91,13 @@ gg_crossbar <- function(
     text = NULL,
     stat = "identity",
     position = "identity",
+    clip = "on",
     pal = NULL,
     pal_na = "#7F7F7F",
     alpha = 0.5,
     ...,
-    titles = NULL,
     title = NULL,
     subtitle = NULL,
-    coord = ggplot2::coord_cartesian(clip = "off"),
     x_breaks = NULL,
     x_expand = NULL,
     x_grid = NULL,
@@ -136,7 +135,11 @@ gg_crossbar <- function(
     facet_space = "fixed",
     facet_layout = NULL,
     caption = NULL,
-    theme = gg_theme()) {
+    titles = function(x) snakecase::to_sentence_case(x),
+    theme = NULL) {
+
+  #stop, warn or message
+  rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
 
   #quote
   x <- rlang::enquo(x)
@@ -145,25 +148,27 @@ gg_crossbar <- function(
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
-  text <- rlang::enquo(text)
 
   xmin <- rlang::enquo(xmin)
   xmax <- rlang::enquo(xmax)
+
   ymin <- rlang::enquo(ymin)
   ymax <- rlang::enquo(ymax)
 
-  #stop, warn or message
-  rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
-  if (rlang::is_null(data)) rlang::abort("data is required.")
-
   #ungroup
-  data <- dplyr::ungroup(data)
+  data <- data %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(dplyr::across(
+      c(!!x, !!y,
+        !!xmin, !!ymin,
+        !!xmax, !!ymax,
+        !!col
+      ),
+      function(x) dplyr::na_if(x, Inf)))
 
   #get classes
-  x_null <- rlang::quo_is_null(x)
-  x_character <- is.character(rlang::eval_tidy(x, data))
-  x_factor <- is.factor(rlang::eval_tidy(x, data))
-  x_logical <- is.logical(rlang::eval_tidy(x, data))
+  x_null <- rlang::quo_is_null(x) & rlang::quo_is_null(xmin) & rlang::quo_is_null(xmax)
+  x_forcat <- is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data)) | is.logical(rlang::eval_tidy(x, data))
   x_numeric <- {
     is.numeric(rlang::eval_tidy(x, data)) |
     is.numeric(rlang::eval_tidy(xmin, data)) |
@@ -185,88 +190,64 @@ gg_crossbar <- function(
     hms::is_hms(rlang::eval_tidy(xmax, data))
   }
 
-  y_null <- rlang::quo_is_null(y)
-  y_character <- is.character(rlang::eval_tidy(y, data))
-  y_factor <- is.factor(rlang::eval_tidy(y, data))
-  y_logical <- is.logical(rlang::eval_tidy(y, data))
+  # y_null <- rlang::quo_is_null(y)
+  y_null <- rlang::quo_is_null(y) & rlang::quo_is_null(ymin) & rlang::quo_is_null(ymax)
+  y_forcat <- is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data)) | is.logical(rlang::eval_tidy(y, data))
   y_numeric <- {
     is.numeric(rlang::eval_tidy(y, data)) |
-      is.numeric(rlang::eval_tidy(ymin, data)) |
-      is.numeric(rlang::eval_tidy(ymax, data))
+    is.numeric(rlang::eval_tidy(ymin, data)) |
+    is.numeric(rlang::eval_tidy(ymax, data))
   }
   y_date <- {
     lubridate::is.Date(rlang::eval_tidy(y, data)) |
-      lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
-      lubridate::is.Date(rlang::eval_tidy(ymax, data))
+    lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
+    lubridate::is.Date(rlang::eval_tidy(ymax, data))
   }
   y_datetime <- {
     lubridate::is.POSIXct(rlang::eval_tidy(y, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(ymin, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(ymax, data))
+    lubridate::is.POSIXct(rlang::eval_tidy(ymin, data))
   }
   y_time <- {
     hms::is_hms(rlang::eval_tidy(y, data)) |
-      hms::is_hms(rlang::eval_tidy(ymin, data)) |
-      hms::is_hms(rlang::eval_tidy(ymax, data))
+    hms::is_hms(rlang::eval_tidy(ymin, data)) |
+    hms::is_hms(rlang::eval_tidy(ymax, data))
   }
 
   col_null <- rlang::quo_is_null(col)
-  col_character <- is.character(rlang::eval_tidy(col, data))
   col_factor <- is.factor(rlang::eval_tidy(col, data))
-  col_logical <- is.logical(rlang::eval_tidy(col, data))
+  col_forcat <- is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data)) | is.logical(rlang::eval_tidy(col, data))
   col_numeric <- is.numeric(rlang::eval_tidy(col, data))
   col_date <- lubridate::is.Date(rlang::eval_tidy(col, data))
   col_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(col, data))
   col_time <- hms::is_hms(rlang::eval_tidy(col, data))
 
   facet_null <- rlang::quo_is_null(facet)
-
   facet2_null <- rlang::quo_is_null(facet2)
 
-  #process data for logical & horizontal
-  if (!x_null) {
-    if (x_logical) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x, ~ factor(stringr::str_to_sentence(.x), levels = c("False", "True"))))
-    }
-  }
-  if (!y_null) {
-    if (y_logical) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!y, ~ factor(stringr::str_to_sentence(.x), levels = c("False", "True"))))
-    }
-    if (y_character | y_factor | y_logical) {
-      if (!col_null &
-          (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data)))) {
-      }
-      else {
+  #process data for horizontal
+  if (y_forcat) {
+    if (!(!col_null &
+          (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))))) {
+
+      if (is.logical(rlang::eval_tidy(y, data))) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!y, ~ forcats::fct_rev(.x)))
+          dplyr::mutate(dplyr::across(!!y, function(x) as.character(x)))
       }
+
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
     }
   }
-  if (!col_null) {
-    if (col_logical) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col, ~ factor(stringr::str_to_sentence(.x), levels = c("False", "True"))))
-    }
-    if (col_character | col_factor | col_logical) {
-      if (y_character | y_factor | y_logical) {
+
+  if (col_forcat) {
+    if (y_forcat) {
+      if (is.logical(rlang::eval_tidy(col, data))) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!col, ~ forcats::fct_rev(.x)))
+          dplyr::mutate(dplyr::across(!!col, function(x) as.character(x)))
       }
-    }
-  }
-  if (!facet_null) {
-    if (is.logical(class(rlang::eval_tidy(facet, data)))) {
+
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!facet, ~ factor(stringr::str_to_sentence(.x), levels = c("False", "True"))))
-    }
-  }
-  if (!facet2_null) {
-    if (is.logical(class(rlang::eval_tidy(facet2, data)))) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!facet2, ~ factor(stringr::str_to_sentence(.x), levels = c("False", "True"))))
+        dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
     }
   }
 
@@ -279,13 +260,16 @@ gg_crossbar <- function(
       else if (stat == "qq") x_name <- "theoretical"
       else x_name <- ""
 
-      if (rlang::is_null(titles)) x_title <- purrr::map_chr(x_name, snakecase::to_sentence_case)
-      else x_title <- purrr::map_chr(x_name, titles)
+      x_title <- purrr::map_chr(x_name, titles)
     }
   }
   else if (rlang::is_null(x_title)) {
-    if (rlang::is_null(titles)) x_title <- purrr::map_chr(rlang::as_name(x), snakecase::to_sentence_case)
-    else x_title <- purrr::map_chr(rlang::as_name(x), titles)
+    if (!rlang::quo_is_null(x) &
+        rlang::quo_is_null(xmin) &
+        rlang::quo_is_null(xmax)) {
+      x_title <- purrr::map_chr(rlang::as_name(x), titles)
+    }
+    else x_title <- ""
   }
 
   if (y_null) {
@@ -296,38 +280,42 @@ gg_crossbar <- function(
       else if (stat == "qq") y_name <- "sample"
       else y_name <- ""
 
-      if (rlang::is_null(titles)) y_title <- purrr::map_chr(y_name, snakecase::to_sentence_case)
-      else y_title <- purrr::map_chr(y_name, titles)
+      y_title <- purrr::map_chr(y_name, titles)
     }
   }
   else if (rlang::is_null(y_title)) {
-    if (rlang::is_null(titles)) y_title <- purrr::map_chr(rlang::as_name(y), snakecase::to_sentence_case)
-    else y_title <- purrr::map_chr(rlang::as_name(y), titles)
+    if (!rlang::quo_is_null(y) &
+        rlang::quo_is_null(ymin) &
+        rlang::quo_is_null(ymax)) {
+      y_title <- purrr::map_chr(rlang::as_name(y), titles)
+    }
+    else y_title <- ""
   }
 
-  if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) {
+  if (rlang::is_null(theme)) {
+    if (stat == "sf") theme <- gg_theme(void = TRUE)
+    else theme <- gg_theme(void = FALSE)
+  }
+
+  if (stat == "sf") {
     if (rlang::is_null(x_grid)) x_grid <- TRUE
     if (rlang::is_null(y_grid)) y_grid <- FALSE
   }
-  else if ((y_character | y_factor | y_logical) & (x_numeric | x_null)) {
+  else if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) {
     if (rlang::is_null(x_grid)) x_grid <- TRUE
     if (rlang::is_null(y_grid)) y_grid <- FALSE
   }
-  else if ((y_character | y_factor | y_logical) & (x_character | x_factor | x_logical)) {
+  else if ((y_forcat) & (x_numeric | x_null)) {
+    if (rlang::is_null(x_grid)) x_grid <- TRUE
+    if (rlang::is_null(y_grid)) y_grid <- FALSE
+  }
+  else if ((y_forcat) & (x_forcat)) {
     if (rlang::is_null(x_grid)) x_grid <- FALSE
     if (rlang::is_null(y_grid)) y_grid <- FALSE
   }
   else {
     if (rlang::is_null(x_grid)) x_grid <- FALSE
     if (rlang::is_null(y_grid)) y_grid <- TRUE
-  }
-
-  if (!rlang::is_null(col_legend_place)) {
-    if (col_legend_place == "b") col_legend_place <- "bottom"
-    if (col_legend_place == "t") col_legend_place <- "top"
-    if (col_legend_place == "l") col_legend_place <- "left"
-    if (col_legend_place == "r") col_legend_place <- "right"
-    if (col_legend_place == "n") col_legend_place <- "none"
   }
 
   ###make plot
@@ -446,7 +434,6 @@ gg_crossbar <- function(
 
   plot <- plot +
     ggplot2::geom_crossbar(
-      ggplot2::aes(text = !!text),
       stat = stat,
       position = position,
       alpha = alpha,
@@ -524,320 +511,451 @@ gg_crossbar <- function(
     }
   }
 
+  if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+    if (!x_null & y_null) {
+      if (!rlang::is_null(x_include)) {
+        plot <- plot +
+          ggplot2::expand_limits(x = x_include)
+      }
+
+      if (!rlang::is_null(x_limits)) {
+        if (!rlang::is_null(x_include)) x_limits <- range(x_limits, x_include)
+        if (x_trans == "reverse") x_limits <- rev(sort(x_limits))
+
+        if (x_numeric) {
+          plot <- plot +
+            ggplot2::scale_x_continuous(limits = x_limits, trans = x_trans, oob = scales::oob_keep)
+        }
+        else if (x_date) {
+          plot <- plot +
+            ggplot2::scale_x_date(limits = x_limits, oob = scales::oob_keep)
+        }
+        else if (x_datetime) {
+          plot <- plot +
+            ggplot2::scale_x_datetime(limits = x_limits, oob = scales::oob_keep)
+        }
+        else if (x_time) {
+          plot <- plot +
+            ggplot2::scale_x_time(limits = x_limits, oob = scales::oob_keep)
+        }
+      }
+      else {
+        if (x_numeric) {
+          plot <- plot +
+            ggplot2::scale_x_continuous(trans = x_trans, oob = scales::oob_keep)
+        }
+        else if (x_date) {
+          plot <- plot +
+            ggplot2::scale_x_date(oob = scales::oob_keep)
+        }
+        else if (x_datetime) {
+          plot <- plot +
+            ggplot2::scale_x_datetime(oob = scales::oob_keep)
+        }
+        else if (x_time) {
+          plot <- plot +
+            ggplot2::scale_x_time(oob = scales::oob_keep)
+        }
+      }
+    }
+    else if (x_null & !y_null) {
+      if (!rlang::is_null(y_include)) {
+        plot <- plot +
+          ggplot2::expand_limits(y = y_include)
+      }
+
+      if (!rlang::is_null(y_limits)) {
+        if (!rlang::is_null(y_include)) y_limits <- range(y_limits, y_include)
+        if (y_trans == "reverse") y_limits <- rev(sort(y_limits))
+
+        if (y_numeric) {
+          plot <- plot +
+            ggplot2::scale_y_continuous(limits = y_limits, trans = y_trans, oob = scales::oob_keep)
+        }
+        else if (y_date) {
+          plot <- plot +
+            ggplot2::scale_y_date(limits = y_limits, oob = scales::oob_keep)
+        }
+        else if (y_datetime) {
+          plot <- plot +
+            ggplot2::scale_y_datetime(limits = y_limits, oob = scales::oob_keep)
+        }
+        else if (y_time) {
+          plot <- plot +
+            ggplot2::scale_y_time(limits = y_limits, oob = scales::oob_keep)
+        }
+      }
+      else {
+        if (y_numeric) {
+          plot <- plot +
+            ggplot2::scale_y_continuous(trans = y_trans, oob = scales::oob_keep)
+        }
+        else if (y_date) {
+          plot <- plot +
+            ggplot2::scale_y_date(oob = scales::oob_keep)
+        }
+        else if (y_datetime) {
+          plot <- plot +
+            ggplot2::scale_y_datetime(oob = scales::oob_keep)
+        }
+        else if (y_time) {
+          plot <- plot +
+            ggplot2::scale_y_time(oob = scales::oob_keep)
+        }
+      }
+    }
+  }
+
   #Get layer data for x, y and col scales
   layer_data <- ggplot2::layer_data(plot)
 
-  #Make x scale based on layer_data
-  if (x_character | x_factor | x_logical) {
-    if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
-    if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
+  flippable <- any(stringr::str_detect(colnames(layer_data), "flipped_aes"))
 
-    plot <- plot +
-      ggplot2::scale_x_discrete(expand = x_expand, labels = x_labels)
-  }
-  else if (x_numeric | x_date | x_datetime | x_time | x_null) {
+  if (flippable) flipped <- all(layer_data["flipped_aes"])
+  else flipped <- FALSE
 
-    if (facet_scales %in% c("fixed", "free_y")) {
-      if (!stat %in% c("bin2d", "binhex")) {
-        x_vctr <- layer_data %>%
-          dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmax_final$"))) %>%
-          tidyr::pivot_longer(cols = tidyselect::everything()) %>%
-          dplyr::pull(.data$value)
-      }
-      else {
-        x_vctr <- data %>%
-          dplyr::pull(!!x)
-      }
+  if (stat != "sf") {
+    #Make x scale based on layer_data
+    if (x_forcat) {
+      if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
+      if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
 
-      if (x_date) {
-        x_vctr <- lubridate::as_date(x_vctr, origin = "1970-01-01")
-      }
-      else if (x_datetime) {
-        x_vctr <- lubridate::as_datetime(x_vctr, origin = "1970-01-01")
-      }
-      else if (x_time) {
-        x_vctr <- hms::as_hms(x_vctr)
-      }
+      plot <- plot +
+        ggplot2::scale_x_discrete(expand = x_expand, labels = x_labels)
+    }
+    else if (x_numeric | x_date | x_datetime | x_time | x_null) {
 
-      x_range <- x_vctr %>% range(na.rm = TRUE)
-      if (!rlang::is_null(x_include)) x_range <- range(c(x_range, x_include))
-      if (!rlang::is_null(x_limits)) x_limits <- range(x_limits)
+      if (facet_scales %in% c("fixed", "free_y")) {
+        if (!stat %in% c("bin2d", "bin_2d", "binhex")) {
+          x_vctr <- layer_data %>%
+            dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")))
 
-      if (rlang::is_null(x_limits)) {
-        if (rlang::is_null(x_breaks)) {
-          if (x_time | !x_trans %in% c("identity", "reverse")) {
-            x_breaks <- ggplot2::waiver()
-            x_limits <- x_range
+          if (ncol(x_vctr) != 0) {
+            x_vctr <- x_vctr %>%
+              tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+              dplyr::pull(.data$value)
+          } else {
+            x_vctr <- NULL
           }
-          else {
-            if (!facet_null & !facet2_null) x_breaks_n <- 3
-            else if (!facet_null & facet2_null) x_breaks_n <- 3
-            else x_breaks_n <- 5
+        }
+        else {
+          x_vctr <- data %>%
+            dplyr::pull(!!x)
+        }
 
-            x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+        if (!rlang::is_null(x_vctr)) {
+          if (x_date) {
+            x_vctr <- lubridate::as_date(x_vctr, origin = "1970-01-01")
+          }
+          else if (x_datetime) {
+            x_vctr <- lubridate::as_datetime(x_vctr, origin = "1970-01-01")
+          }
+          else if (x_time) {
+            x_vctr <- hms::as_hms(x_vctr)
+          }
 
-            if (y_date | y_datetime | y_time | y_numeric | y_null) {
-              x_limits <- x_range
+          x_range <- x_vctr %>% range(na.rm = TRUE)
+          if (!rlang::is_null(x_include)) x_range <- range(c(x_range, x_include))
+
+          if (rlang::is_null(x_limits)) {
+            if (rlang::is_null(x_breaks)) {
+              if (x_time | !x_trans %in% c("identity", "reverse")) {
+                x_limits <- NULL
+                x_breaks <- ggplot2::waiver()
+              }
+              else {
+                if (!facet_null & !facet2_null) x_breaks_n <- 3
+                else if (!facet_null & facet2_null) x_breaks_n <- 3
+                else x_breaks_n <- 6
+
+                x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+
+                if (flipped) x_limits <- range(x_breaks)
+                else if (y_date | y_datetime | y_time | y_numeric | y_null) {
+                  x_limits <- NULL
+                }
+                else if (y_forcat) {
+                  x_limits <- range(x_breaks)
+                }
+              }
             }
-            else if (y_character | y_factor | y_logical) {
-              x_limits <- c(min(x_breaks), max(x_breaks))
-            }
-          }
-        }
-        else if (!rlang::is_null(x_breaks)) {
-          if (y_date | y_datetime | y_time | y_numeric | y_null) {
-            x_limits <- x_range
-          }
-          else if (y_character | y_factor | y_logical) {
-            if (is.vector(x_breaks)) x_limits <- c(min(x_breaks), max(x_breaks))
-            else if (is.function(x_breaks)) {
-              x_limits <- list(x_range) %>%
-                purrr::map(.f = x_breaks) %>%
-                unlist() %>%
-                range()
-            }
-          }
-        }
-      }
-      else if (!rlang::is_null(x_limits)) {
-        x_limits <- x_limits
-        if (is.na(x_limits)[1]) x_limits[1] <- min(x_range)
-        if (is.na(x_limits)[2]) x_limits[2] <- max(x_range)
-        if (!rlang::is_null(x_include)) {
-          x_limits <- range(c(x_limits, x_include))
-        }
-
-        if (rlang::is_null(x_breaks)) {
-          if (x_time) x_breaks <- ggplot2::waiver()
-          else if (!x_trans %in% c("identity", "reverse")) x_breaks <- ggplot2::waiver()
-          else {
-            if (!facet_null & !facet2_null) x_breaks_n <- 3
-            else if (!facet_null & facet2_null) x_breaks_n <- 3
-            else x_breaks_n <- 5
-
-            x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
-          }
-        }
-      }
-
-      if (x_trans == "reverse") x_limits <- rev(sort(x_limits))
-    }
-    else if (facet_scales %in% c("free", "free_x")) {
-      if (rlang::is_null(x_limits)) x_limits <- NULL
-      if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
-    }
-
-    if (rlang::is_null(x_expand)) {
-      if (facet_scales %in% c("fixed", "free_y") &
-          (y_date | y_datetime | y_time | y_numeric | y_null)) {
-        x_expand <- c(0.05, 0.05)
-      }
-      else if (!x_trans %in% c("identity", "reverse")) x_expand <- ggplot2::expansion(mult = c(0, 0.05))
-      else x_expand <- c(0, 0)
-    }
-
-    if (rlang::is_null(x_labels)) {
-      if (x_numeric | x_null) x_labels <- scales::label_comma()
-      else if (x_date | x_datetime | x_time) x_labels <- scales::label_date_short()
-    }
-
-    if (x_numeric | x_null) {
-      plot <- plot +
-        ggplot2::scale_x_continuous(
-          breaks = x_breaks,
-          limits = x_limits,
-          expand = x_expand,
-          labels = x_labels,
-          oob = scales::oob_keep,
-          sec.axis = x_sec_axis,
-          trans = x_trans
-        )
-    }
-    else if (x_date) {
-      plot <- plot +
-        ggplot2::scale_x_date(
-          breaks = x_breaks,
-          limits = x_limits,
-          expand = x_expand,
-          labels = x_labels,
-          oob = scales::oob_keep,
-          sec.axis = x_sec_axis
-        )
-    }
-    else if (x_datetime) {
-      plot <- plot +
-        ggplot2::scale_x_datetime(
-          breaks = x_breaks,
-          limits = x_limits,
-          expand = x_expand,
-          labels = x_labels,
-          oob = scales::oob_keep,
-          sec.axis = x_sec_axis
-        )
-    }
-    else if (x_time) {
-      plot <- plot +
-        ggplot2::scale_x_time(
-          breaks = x_breaks,
-          limits = x_limits,
-          expand = x_expand,
-          labels = x_labels,
-          oob = scales::oob_keep,
-          sec.axis = x_sec_axis
-        )
-    }
-  }
-
-  #Make y scale based on layer_data
-  if (y_character | y_factor | y_logical) {
-    if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
-    if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
-
-    plot <- plot +
-      ggplot2::scale_y_discrete(expand = y_expand, labels = y_labels)
-  }
-  else if (y_numeric | y_date | y_datetime | y_time | y_null) {
-
-    if (facet_scales %in% c("fixed", "free_x")) {
-
-      if (!stat %in% c("bin2d", "binhex")) {
-        y_vctr <- layer_data %>%
-          dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymax_final$"))) %>%
-          tidyr::pivot_longer(cols = tidyselect::everything()) %>%
-          dplyr::pull(.data$value)
-      }
-      else {
-        y_vctr <- data %>%
-          dplyr::pull(!!y)
-      }
-
-      if (y_date) {
-        y_vctr <- lubridate::as_date(y_vctr, origin = "1970-01-01")
-      }
-      else if (y_datetime) {
-        y_vctr <- lubridate::as_datetime(y_vctr, origin = "1970-01-01")
-      }
-      else if (y_time) {
-        y_vctr <- hms::as_hms(y_vctr)
-      }
-
-      y_range <- y_vctr %>% range(na.rm = TRUE)
-      if (!rlang::is_null(y_include)) y_range <- range(c(y_range, y_include))
-      if (!rlang::is_null(y_limits)) y_limits <- range(y_limits)
-
-      if (rlang::is_null(y_limits)) {
-        if (rlang::is_null(y_breaks)) {
-          if (y_time | !y_trans %in% c("identity", "reverse")) {
-            y_breaks <- ggplot2::waiver()
-            y_limits <- y_range
-          }
-          else {
-            if (!facet_null & !facet2_null) y_breaks_n <- 4
-            else if (facet_null & !facet2_null) y_breaks_n <- 4
-            else y_breaks_n <- 5
-
-            y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
-            y_limits <- c(min(y_breaks), max(y_breaks))
-          }
-        }
-        else if (!rlang::is_null(y_breaks)) {
-          if (y_trans %in% c("identity", "reverse")) {
-            if (is.vector(y_breaks)) y_limits <- c(min(y_breaks), max(y_breaks))
-            else if (is.function(y_breaks)) {
-              y_limits <- list(y_range) %>%
-                purrr::map(.f = y_breaks) %>%
-                unlist() %>%
-                range()
+            else if (!rlang::is_null(x_breaks)) {
+              if (x_time | !x_trans %in% c("identity", "reverse")) {
+                x_limits <- NULL
+              }
+              else if (y_forcat | flipped) {
+                if (is.vector(x_breaks)) x_limits <- range(x_breaks)
+                else if (is.function(x_breaks)) {
+                  x_limits <- list(x_range) %>%
+                    purrr::map(.f = x_breaks) %>%
+                    unlist() %>%
+                    range()
+                }
+              }
+              else if (y_date | y_datetime | y_time | y_numeric | y_null) {
+                x_limits <- NULL
+              }
             }
           }
-          else y_limits <- y_range
+          else if (!rlang::is_null(x_limits)) {
+            if (is.na(x_limits)[1]) x_limits[1] <- min(x_range)
+            if (is.na(x_limits)[2]) x_limits[2] <- max(x_range)
+            if (!rlang::is_null(x_include)) {
+              x_limits <- range(c(x_limits, x_include))
+            }
+
+            if (rlang::is_null(x_breaks)) {
+              if (x_time) x_breaks <- ggplot2::waiver()
+              else if (!x_trans %in% c("identity", "reverse")) x_breaks <- ggplot2::waiver()
+              else {
+                if (!facet_null & !facet2_null) x_breaks_n <- 3
+                else if (!facet_null & facet2_null) x_breaks_n <- 3
+                else x_breaks_n <- 6
+
+                x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+              }
+            }
+          }
+
+          if (x_trans == "reverse") x_limits <- rev(sort(x_limits))
         }
       }
-      else if (!rlang::is_null(y_limits)) {
-        y_limits <- y_limits
-        if (is.na(y_limits)[1]) y_limits[1] <- min(y_range)
-        if (is.na(y_limits)[2]) y_limits[2] <- max(y_range)
-        if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
+      else if (facet_scales %in% c("free", "free_x")) {
+        if (rlang::is_null(x_limits)) x_limits <- NULL
+        if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
+      }
 
-        if (rlang::is_null(y_breaks)) {
-          if (y_time) y_breaks <- ggplot2::waiver()
-          else if (!y_trans %in% c("identity", "reverse")) y_breaks <- ggplot2::waiver()
-          else {
-            if (!facet_null & !facet2_null) y_breaks_n <- 4
-            else if (facet_null & !facet2_null) y_breaks_n <- 4
-            else y_breaks_n <- 5
+      if (rlang::is_null(x_expand)) {
+        if (flipped) x_expand <- c(0, 0)
+        else if (facet_scales %in% c("fixed", "free_y") &
+                 (y_date | y_datetime | y_time | y_numeric | y_null)) {
+          x_expand <- c(0.05, 0.05)
+        }
+        else if (!x_trans %in% c("identity", "reverse")) x_expand <- ggplot2::expansion(mult = c(0, 0.05))
+        else x_expand <- c(0, 0)
+      }
 
-            y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+      if (rlang::is_null(x_labels)) {
+        if (x_numeric | x_null) x_labels <- scales::label_comma()
+        else if (x_date | x_datetime | x_time) {
+          x_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
+        }
+      }
+
+      if (!rlang::is_null(x_vctr)) {
+        if (x_numeric | x_null) {
+          plot <- plot +
+            ggplot2::scale_x_continuous(
+              breaks = x_breaks,
+              limits = x_limits,
+              expand = x_expand,
+              labels = x_labels,
+              oob = scales::oob_keep,
+              sec.axis = x_sec_axis,
+              trans = x_trans
+            )
+        }
+        else if (x_date) {
+          plot <- plot +
+            ggplot2::scale_x_date(
+              breaks = x_breaks,
+              limits = x_limits,
+              expand = x_expand,
+              labels = x_labels,
+              oob = scales::oob_keep,
+              sec.axis = x_sec_axis
+            )
+        }
+        else if (x_datetime) {
+          plot <- plot +
+            ggplot2::scale_x_datetime(
+              breaks = x_breaks,
+              limits = x_limits,
+              expand = x_expand,
+              labels = x_labels,
+              oob = scales::oob_keep,
+              sec.axis = x_sec_axis
+            )
+        }
+        else if (x_time) {
+          plot <- plot +
+            ggplot2::scale_x_time(
+              breaks = x_breaks,
+              limits = x_limits,
+              expand = x_expand,
+              labels = x_labels,
+              oob = scales::oob_keep,
+              sec.axis = x_sec_axis
+            )
+        }
+      }
+    }
+
+    #Make y scale based on layer_data
+    if (y_forcat) {
+      if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
+      if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
+
+      plot <- plot +
+        ggplot2::scale_y_discrete(expand = y_expand, labels = y_labels)
+    }
+    else if (y_numeric | y_date | y_datetime | y_time | y_null) {
+
+      if (facet_scales %in% c("fixed", "free_x")) {
+
+        if (!stat %in% c("bin2d", "bin_2d", "binhex")) {
+          y_vctr <- layer_data %>%
+            dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")))
+
+          if (ncol(y_vctr) != 0) {
+            y_vctr <- y_vctr %>%
+              tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+              dplyr::pull(.data$value)
           }
         }
+        else {
+          y_vctr <- data %>%
+            dplyr::pull(!!y)
+        }
+
+        if (!rlang::is_null(y_vctr)) {
+          if (y_date) {
+            y_vctr <- lubridate::as_date(y_vctr, origin = "1970-01-01")
+          }
+          else if (y_datetime) {
+            y_vctr <- lubridate::as_datetime(y_vctr, origin = "1970-01-01")
+          }
+          else if (y_time) {
+            y_vctr <- hms::as_hms(y_vctr)
+          }
+
+          y_range <- y_vctr %>% range(na.rm = TRUE)
+          if (!rlang::is_null(y_include)) y_range <- range(c(y_range, y_include))
+
+          if (rlang::is_null(y_limits)) {
+            if (rlang::is_null(y_breaks)) {
+              if (y_time | !y_trans %in% c("identity", "reverse")) {
+                y_breaks <- ggplot2::waiver()
+                y_limits <- NULL
+              }
+              else {
+                if (!facet_null & !facet2_null) y_breaks_n <- 4
+                else if (facet_null & !facet2_null) y_breaks_n <- 4
+                else y_breaks_n <- 6
+
+                y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+                if (flipped) y_limits <- NULL
+                else y_limits <- range(y_breaks)
+              }
+            }
+            else if (!rlang::is_null(y_breaks)) {
+              if (flipped) y_limits <- NULL
+              else if (y_trans %in% c("identity", "reverse")) {
+                if (is.vector(y_breaks)) y_limits <- range(y_breaks)
+                else if (is.function(y_breaks)) {
+                  y_limits <- list(y_range) %>%
+                    purrr::map(.f = y_breaks) %>%
+                    unlist() %>%
+                    range()
+                }
+              }
+              else y_limits <- NULL
+            }
+          }
+          else if (!rlang::is_null(y_limits)) {
+            y_limits <- y_limits
+            if (is.na(y_limits)[1]) y_limits[1] <- min(y_range)
+            if (is.na(y_limits)[2]) y_limits[2] <- max(y_range)
+            if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
+
+            if (rlang::is_null(y_breaks)) {
+              if (y_time) y_breaks <- ggplot2::waiver()
+              else if (!y_trans %in% c("identity", "reverse")) y_breaks <- ggplot2::waiver()
+              else {
+                if (!facet_null & !facet2_null) y_breaks_n <- 4
+                else if (facet_null & !facet2_null) y_breaks_n <- 4
+                else y_breaks_n <- 6
+
+                y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+              }
+            }
+          }
+
+          if (y_trans == "reverse") y_limits <- rev(sort(y_limits))
+        }
+      }
+      else if (facet_scales %in% c("free", "free_y")) {
+        if (rlang::is_null(y_limits)) y_limits <- NULL
+        if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
       }
 
-      if (y_trans == "reverse") y_limits <- rev(sort(y_limits))
-    }
-    else if (facet_scales %in% c("free", "free_y")) {
-      if (rlang::is_null(y_limits)) y_limits <- NULL
-      if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
-    }
+      if (rlang::is_null(y_expand)) {
+        if (flipped) y_expand <- ggplot2::waiver()
+        else if (!y_trans %in% c("identity", "reverse")) y_expand <- ggplot2::expansion(mult = c(0, 0.05))
+        else y_expand <- c(0, 0)
+      }
 
-    if (rlang::is_null(y_expand)) {
-      if (!y_trans %in% c("identity", "reverse")) y_expand <- ggplot2::expansion(mult = c(0, 0.05))
-      else y_expand <- c(0, 0)
-    }
+      if (rlang::is_null(y_labels)) {
+        if (y_numeric | y_null) y_labels <- scales::label_comma()
+        else if (y_date | y_datetime | y_time) {
+          y_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
+        }
+      }
 
-    if (rlang::is_null(y_labels)) {
-      if (y_numeric | y_null) y_labels <- scales::label_comma()
-      else if (y_date | y_datetime | y_time) y_labels <- scales::label_date_short()
-    }
-
-    if (y_numeric | y_null) {
-      plot <- plot +
-        ggplot2::scale_y_continuous(
-          breaks = y_breaks,
-          limits = y_limits,
-          expand = y_expand,
-          labels = y_labels,
-          oob = scales::oob_keep,
-          sec.axis = y_sec_axis,
-          trans = y_trans
-        )
-    }
-    else if (y_date) {
-      plot <- plot +
-        ggplot2::scale_y_date(
-          breaks = y_breaks,
-          limits = y_limits,
-          expand = y_expand,
-          labels = y_labels,
-          oob = scales::oob_keep,
-          sec.axis = y_sec_axis
-        )
-    }
-    else if (y_datetime) {
-      plot <- plot +
-        ggplot2::scale_y_datetime(
-          breaks = y_breaks,
-          limits = y_limits,
-          expand = y_expand,
-          labels = y_labels,
-          oob = scales::oob_keep,
-          sec.axis = y_sec_axis
-        )
-    }
-    else if (y_time) {
-      plot <- plot +
-        ggplot2::scale_y_time(
-          breaks = y_breaks,
-          limits = y_limits,
-          expand = y_expand,
-          labels = y_labels,
-          oob = scales::oob_keep,
-          sec.axis = y_sec_axis
-        )
+      if (!rlang::is_null(y_vctr)) {
+        if (y_numeric | y_null) {
+          plot <- plot +
+            ggplot2::scale_y_continuous(
+              breaks = y_breaks,
+              limits = y_limits,
+              expand = y_expand,
+              labels = y_labels,
+              oob = scales::oob_keep,
+              sec.axis = y_sec_axis,
+              trans = y_trans
+            )
+        }
+        else if (y_date) {
+          plot <- plot +
+            ggplot2::scale_y_date(
+              breaks = y_breaks,
+              limits = y_limits,
+              expand = y_expand,
+              labels = y_labels,
+              oob = scales::oob_keep,
+              sec.axis = y_sec_axis
+            )
+        }
+        else if (y_datetime) {
+          plot <- plot +
+            ggplot2::scale_y_datetime(
+              breaks = y_breaks,
+              limits = y_limits,
+              expand = y_expand,
+              labels = y_labels,
+              oob = scales::oob_keep,
+              sec.axis = y_sec_axis
+            )
+        }
+        else if (y_time) {
+          plot <- plot +
+            ggplot2::scale_y_time(
+              breaks = y_breaks,
+              limits = y_limits,
+              expand = y_expand,
+              labels = y_labels,
+              oob = scales::oob_keep,
+              sec.axis = y_sec_axis
+            )
+        }
+      }
     }
   }
 
   #make col scale based on layer_data
-  if (col_null & !stat %in% c("bin2d", "binhex")) {
+  if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
+    # if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
+
     if (rlang::is_null(pal)) pal <-  pal_viridis_mix(1)
     else pal <- pal[1]
 
@@ -845,43 +963,34 @@ gg_crossbar <- function(
       ggplot2::scale_colour_manual(
         values = pal,
         na.value = pal_na,
+        guide = "none"
       ) +
       ggplot2::scale_fill_manual(
         values = pal,
         na.value = pal_na,
+        guide = "none"
       )
 
-    col_legend_place <- "none"
+    if (rlang::is_null(col_legend_place)) col_legend_place <- "none"
   }
   else {
     if (rlang::is_null(col_title)) {
-      if (stat %in% c("bin2d", "binhex")) col_name <- "count"
+      if (stat %in% c("bin2d", "bin_2d", "binhex")) col_name <- "count"
       else col_name <- rlang::as_name(col)
 
-      if (rlang::is_null(titles)) col_title <- purrr::map_chr(col_name, snakecase::to_sentence_case)
-      else col_title <- purrr::map_chr(col_name, titles)
+      col_title <- purrr::map_chr(col_name, titles)
     }
 
-    if (rlang::is_null(col_legend_place)) {
-      if (stat %in% c("bin2d", "binhex")) col_legend_place <- "right"
-      else {
-        if (
-          (!x_null & (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data)))) |
-          (!y_null & (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data)))) |
-          (!facet_null & (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data)))) |
-          (!facet2_null & (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data))))) {
-
-          col_legend_place <- "none"
-        }
-        else if (col_numeric) col_legend_place <- "right"
-        else col_legend_place <- "bottom"
-      }
+    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+      col_vctr <- layer_data %>%
+        dplyr::pull(.data$count)
+    }
+    else {
+      col_vctr <- data %>%
+        dplyr::pull(!!col)
     }
 
-    if (stat %in% c("bin2d", "binhex")) col_vctr <- layer_data %>% dplyr::pull(.data$count)
-    else col_vctr <- data %>% dplyr::pull(!!col)
-
-    if (col_numeric | stat %in% c("bin2d", "binhex")) {
+    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
 
       if (col_trans == "reverse") col_limits <- rev(sort(col_limits))
 
@@ -894,7 +1003,9 @@ gg_crossbar <- function(
 
       if (rlang::is_null(col_labels)) {
         if (col_numeric | col_null) col_labels <- scales::label_comma()
-        else if (col_date | col_datetime | col_time) col_labels <- scales::label_date_short()
+        else if (col_date | col_datetime | col_time) {
+          col_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
+        }
       }
 
       if (rlang::is_null(col_breaks)) {
@@ -970,16 +1081,14 @@ gg_crossbar <- function(
           )
       }
     }
-    else if (col_character | col_factor | col_logical) {
+    else if (col_forcat) {
       if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
       else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
       else {
-        if (col_character | col_logical) {
+        if (col_factor) col_n <- length(levels(col_vctr))
+        else {
           col_unique <- unique(col_vctr)
           col_n <- length(col_unique[!is.na(col_unique)])
-        }
-        else if (col_factor) {
-          col_n <- length(levels(col_vctr))
         }
       }
 
@@ -987,12 +1096,12 @@ gg_crossbar <- function(
       else pal <- pal[1:col_n]
 
       if (y_numeric | y_date | y_datetime | y_time) {
-        if (col_character | col_factor | col_logical) col_legend_rev_auto <- FALSE
+        if (col_forcat) col_legend_rev_auto <- FALSE
         else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- FALSE
         else col_legend_rev_auto <- TRUE
       }
-      else if (y_character | y_factor | y_logical) {
-        if (col_character | col_factor | col_logical) col_legend_rev_auto <- TRUE
+      else if (y_forcat) {
+        if (col_forcat) col_legend_rev_auto <- TRUE
         else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- TRUE
         else col_legend_rev_auto <- FALSE
         pal <- rev(pal)
@@ -1036,17 +1145,61 @@ gg_crossbar <- function(
     }
   }
 
+  plot <- plot +
+    ggplot2::labs(
+      colour = col_title,
+      fill = col_title)
+
+  if (rlang::is_null(col_legend_place)) {
+    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+      col_legend_place <- "right"
+    }
+    else if (stat == "sf") {
+      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+        col_legend_place <- "none"
+      }
+    }
+    else if (stat == "qq") {
+      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(sample, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+        col_legend_place <- "none"
+      }
+    }
+    else if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+      col_legend_place <- "none"
+    }
+    else if (col_numeric) col_legend_place <- "right"
+    else col_legend_place <- "bottom"
+  }
+  else {
+    if (col_legend_place == "b") col_legend_place <- "bottom"
+    if (col_legend_place == "t") col_legend_place <- "top"
+    if (col_legend_place == "l") col_legend_place <- "left"
+    if (col_legend_place == "r") col_legend_place <- "right"
+    if (col_legend_place == "n") col_legend_place <- "none"
+  }
+
+  if (stat == "sf") coord <- ggplot2::coord_sf(clip = clip)
+  else {
+    if (x_forcat) x_limits <- NULL
+    if (y_forcat) y_limits <- NULL
+    coord <- ggplot2::coord_cartesian(xlim = x_limits, ylim = y_limits, clip = clip)
+  }
+
   #Add coord, theme and titles
   plot <- plot +
-    coord +
     theme +
+    coord +
     ggplot2::labs(
       title = title,
       subtitle = subtitle,
       x = x_title,
       y = y_title,
-      colour = col_title,
-      fill = col_title,
       caption = caption
     )
 
@@ -1093,7 +1246,7 @@ gg_crossbar <- function(
       ggplot2::theme(legend.text = ggplot2::element_text(
         margin = ggplot2::margin(r = 7.5, unit = "pt")))
 
-    if (col_numeric | stat %in% c("bin2d", "binhex")) {
+    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
       plot <- plot +
         ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
         ggplot2::theme(legend.text.align = 0.5)
@@ -1108,7 +1261,7 @@ gg_crossbar <- function(
       ggplot2::theme(legend.text = ggplot2::element_text(
         margin = ggplot2::margin(r = 0)))
 
-    if (col_numeric | stat %in% c("bin2d", "binhex")) {
+    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
       plot <- plot +
         ggplot2::theme(legend.title = ggplot2::element_text(vjust = 1))
     }
@@ -1132,4 +1285,5 @@ gg_crossbar <- function(
 
   #return beautiful plot
   return(plot)
+
 }

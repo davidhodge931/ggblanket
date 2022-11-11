@@ -12,22 +12,30 @@ gg_blank(
   facet = NULL,
   facet2 = NULL,
   group = NULL,
-  label = NULL,
   xmin = NULL,
   xmax = NULL,
   xend = NULL,
+  xlower = NULL,
+  xupper = NULL,
+  xmiddle = NULL,
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
+  ylower = NULL,
+  yupper = NULL,
+  ymiddle = NULL,
+  sample = NULL,
+  label = NULL,
+  subgroup = NULL,
   stat = "identity",
   position = "identity",
+  clip = "on",
   pal = NULL,
   pal_na = "#7F7F7F",
+  alpha = 1,
   ...,
-  titles = NULL,
   title = NULL,
   subtitle = NULL,
-  coord = ggplot2::coord_cartesian(clip = "off"),
   x_breaks = NULL,
   x_expand = NULL,
   x_grid = NULL,
@@ -65,7 +73,8 @@ gg_blank(
   facet_space = "fixed",
   facet_layout = NULL,
   caption = NULL,
-  theme = gg_theme()
+  titles = function(x) snakecase::to_sentence_case(x),
+  theme = NULL
 )
 }
 \arguments{
@@ -83,37 +92,53 @@ gg_blank(
 
 \item{group}{Unquoted group aesthetic variable.}
 
-\item{label}{Unquoted label aesthetic variable.}
-
 \item{xmin}{Unquoted xmin aesthetic variable.}
 
 \item{xmax}{Unquoted xmax aesthetic variable.}
 
 \item{xend}{Unquoted xend aesthetic variable.}
 
+\item{xlower}{Unquoted xlower aesthetic variable.}
+
+\item{xupper}{Unquoted xupper aesthetic variable.}
+
+\item{xmiddle}{Unquoted xmiddle aesthetic variable.}
+
 \item{ymin}{Unquoted ymin aesthetic variable.}
 
 \item{ymax}{Unquoted ymax aesthetic variable.}
 
-\item{yend}{Unquoted xend aesthetic variable.}
+\item{yend}{Unquoted yend aesthetic variable.}
+
+\item{ylower}{Unquoted ylower aesthetic variable.}
+
+\item{yupper}{Unquoted yupper aesthetic variable.}
+
+\item{ymiddle}{Unquoted ymiddle aesthetic variable.}
+
+\item{sample}{Unquoted sample aesthetic variable.}
+
+\item{label}{Unquoted label aesthetic variable.}
+
+\item{subgroup}{Unquoted subgroup aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
+\item{clip}{Whether to clip geometries outside of the panel. Either "on" or "off".}
+
 \item{pal}{Colours to use. A character vector of hex codes (or names).}
 
 \item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
 
-\item{...}{Other arguments passed to the relevant ggplot2::geom_* function.}
+\item{alpha}{Opacity. A number between 0 and 1.}
 
-\item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
+\item{...}{Other arguments passed to the ggplot2::geom_blank function.}
 
 \item{title}{Title string.}
 
 \item{subtitle}{Subtitle string.}
-
-\item{coord}{Coordinate system.}
 
 \item{x_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -125,7 +150,7 @@ gg_blank(
 
 \item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
-\item{x_limits}{A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(xlim = ...).}
+\item{x_limits}{A vector of length 2 to determine the limits of the axis (and the zoom via the coord).}
 
 \item{x_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
@@ -143,7 +168,7 @@ gg_blank(
 
 \item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
-\item{y_limits}{A vector of length 2 to determine the limits of the axis. Alternatively, zoom in using coord = coord_cartesian(ylim = ...).}
+\item{y_limits}{A vector of length 2 to determine the limits of the axis (and the zoom via the coord).}
 
 \item{y_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
@@ -189,6 +214,8 @@ gg_blank(
 
 \item{caption}{Caption title string.}
 
+\item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
+
 \item{theme}{A ggplot2 theme.}
 }
 \value{
@@ -200,13 +227,12 @@ Create a blank ggplot with a wrapper around the ggplot2::geom_blank function.
 \examples{
 library(ggplot2)
 
-gg_blank(mtcars, x = wt, y = mpg)
-gg_blank(mtcars, x = wt, y = mpg, col = cyl)
+gg_blank(diamonds, x = carat)
+gg_blank(diamonds, x = carat, binwidth = 0.01)
+gg_blank(diamonds, x = carat, bins = 200)
+gg_blank(diamonds, y = carat)
 
-mtcars \%>\%
-  dplyr::mutate(cyl = factor(cyl)) \%>\%
-  gg_blank(x = wt, y = mpg, col = cyl, size = 1)
-
-gg_blank(diamonds, x = carat, y = price)
+gg_blank(diamonds, x = price, col = cut)
+gg_blank(diamonds, x = price, col = cut, position = "fill")
 
 }

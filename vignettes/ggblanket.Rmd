@@ -469,17 +469,6 @@ penguins |>
   labs(shape = "Species")
 ```
 
-ggblanket keeps `x` and `y` out-of-bound values (i.e. it uses scales::oob_keep under the hood). However, you can zoom in using `coord = coord_cartesian(xlim = ..., ylim = ...)` (or by filtering the data).
-
-```{r}
-penguins |> 
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g, 
-    coord = coord_cartesian(xlim = c(190, 200)),
-    x_breaks = scales::breaks_width(2))
-```
-
 For some ggplot2 functionality unsupported by ggblanket, you can add the applicable ggplot2 layer to your ggblanket code. For example, using `+ facet_grid(..., switch = "y")`.
 
 ```{r, fig.asp=0.75}

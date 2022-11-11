@@ -33,7 +33,7 @@
 #' }
 add_tooltip <- function(data,
                         ...,
-                        titles = snakecase::to_sentence_case,
+                        titles = function(x) snakecase::to_sentence_case(x),
                         name = "tooltip") {
 
   if (class(data)[1] == "sf") {
