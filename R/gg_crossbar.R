@@ -169,23 +169,23 @@ gg_crossbar <- function(
   x_forcat <- is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data)) | is.logical(rlang::eval_tidy(x, data))
   x_numeric <- {
     is.numeric(rlang::eval_tidy(x, data)) |
-    is.numeric(rlang::eval_tidy(xmin, data)) |
-    is.numeric(rlang::eval_tidy(xmax, data))
+      is.numeric(rlang::eval_tidy(xmin, data)) |
+      is.numeric(rlang::eval_tidy(xmax, data))
   }
   x_date <- {
     lubridate::is.Date(rlang::eval_tidy(x, data)) |
-    lubridate::is.Date(rlang::eval_tidy(xmin, data)) |
-    lubridate::is.Date(rlang::eval_tidy(xmax, data))
+      lubridate::is.Date(rlang::eval_tidy(xmin, data)) |
+      lubridate::is.Date(rlang::eval_tidy(xmax, data))
   }
   x_datetime <- {
     lubridate::is.POSIXct(rlang::eval_tidy(x, data)) |
-    lubridate::is.POSIXct(rlang::eval_tidy(xmin, data)) |
-    lubridate::is.POSIXct(rlang::eval_tidy(xmax, data))
+      lubridate::is.POSIXct(rlang::eval_tidy(xmin, data)) |
+      lubridate::is.POSIXct(rlang::eval_tidy(xmax, data))
   }
   x_time <- {
     hms::is_hms(rlang::eval_tidy(x, data)) |
-    hms::is_hms(rlang::eval_tidy(xmin, data)) |
-    hms::is_hms(rlang::eval_tidy(xmax, data))
+      hms::is_hms(rlang::eval_tidy(xmin, data)) |
+      hms::is_hms(rlang::eval_tidy(xmax, data))
   }
 
   # y_null <- rlang::quo_is_null(y)
@@ -193,22 +193,22 @@ gg_crossbar <- function(
   y_forcat <- is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data)) | is.logical(rlang::eval_tidy(y, data))
   y_numeric <- {
     is.numeric(rlang::eval_tidy(y, data)) |
-    is.numeric(rlang::eval_tidy(ymin, data)) |
-    is.numeric(rlang::eval_tidy(ymax, data))
+      is.numeric(rlang::eval_tidy(ymin, data)) |
+      is.numeric(rlang::eval_tidy(ymax, data))
   }
   y_date <- {
     lubridate::is.Date(rlang::eval_tidy(y, data)) |
-    lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
-    lubridate::is.Date(rlang::eval_tidy(ymax, data))
+      lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
+      lubridate::is.Date(rlang::eval_tidy(ymax, data))
   }
   y_datetime <- {
     lubridate::is.POSIXct(rlang::eval_tidy(y, data)) |
-    lubridate::is.POSIXct(rlang::eval_tidy(ymin, data))
+      lubridate::is.POSIXct(rlang::eval_tidy(ymin, data))
   }
   y_time <- {
     hms::is_hms(rlang::eval_tidy(y, data)) |
-    hms::is_hms(rlang::eval_tidy(ymin, data)) |
-    hms::is_hms(rlang::eval_tidy(ymax, data))
+      hms::is_hms(rlang::eval_tidy(ymin, data)) |
+      hms::is_hms(rlang::eval_tidy(ymax, data))
   }
 
   col_null <- rlang::quo_is_null(col)
@@ -314,6 +314,42 @@ gg_crossbar <- function(
   else {
     if (rlang::is_null(x_grid)) x_grid <- FALSE
     if (rlang::is_null(y_grid)) y_grid <- TRUE
+  }
+
+  if (rlang::is_null(col_legend_place)) {
+    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+      col_legend_place <- "right"
+    }
+    else if (stat == "sf") {
+      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+        col_legend_place <- "none"
+      }
+      else col_legend_place <- "right"
+    }
+    else if (stat == "qq") {
+      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(sample, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+        col_legend_place <- "none"
+      }
+      col_legend_place <- "bottom"
+    }
+    else if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+      col_legend_place <- "none"
+    }
+    else if (col_numeric) col_legend_place <- "right"
+    else col_legend_place <- "bottom"
+  }
+  else {
+    if (col_legend_place == "b") col_legend_place <- "bottom"
+    if (col_legend_place == "t") col_legend_place <- "top"
+    if (col_legend_place == "l") col_legend_place <- "left"
+    if (col_legend_place == "r") col_legend_place <- "right"
+    if (col_legend_place == "n") col_legend_place <- "none"
   }
 
   ###make plot
@@ -509,7 +545,7 @@ gg_crossbar <- function(
     }
   }
 
-  if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+  if (stat %in% c("bin", "bin2d", "bin_2d", "binhex")) {
     if (!x_null & y_null) {
       if (!rlang::is_null(x_include)) {
         plot <- plot +
@@ -1143,45 +1179,6 @@ gg_crossbar <- function(
     }
   }
 
-  plot <- plot +
-    ggplot2::labs(
-      colour = col_title,
-      fill = col_title)
-
-  if (rlang::is_null(col_legend_place)) {
-    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
-      col_legend_place <- "right"
-    }
-    else if (stat == "sf") {
-      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-        col_legend_place <- "none"
-      }
-    }
-    else if (stat == "qq") {
-      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(sample, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-        col_legend_place <- "none"
-      }
-    }
-    else if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-      col_legend_place <- "none"
-    }
-    else if (col_numeric) col_legend_place <- "right"
-    else col_legend_place <- "bottom"
-  }
-  else {
-    if (col_legend_place == "b") col_legend_place <- "bottom"
-    if (col_legend_place == "t") col_legend_place <- "top"
-    if (col_legend_place == "l") col_legend_place <- "left"
-    if (col_legend_place == "r") col_legend_place <- "right"
-    if (col_legend_place == "n") col_legend_place <- "none"
-  }
-
   if (stat == "sf") coord <- ggplot2::coord_sf(clip = clip)
   else {
     if (x_forcat) x_limits <- NULL
@@ -1199,7 +1196,10 @@ gg_crossbar <- function(
       x = x_title,
       y = y_title,
       caption = caption
-    )
+    ) +
+    ggplot2::labs(
+      colour = col_title,
+      fill = col_title)
 
   if (!rlang::is_null(x_title)) {
     if (x_title == "") {

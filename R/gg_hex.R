@@ -75,7 +75,7 @@ gg_hex <- function(
     clip = "on",
     pal = NULL,
     pal_na = "#7F7F7F",
-    alpha = 0.9,
+    alpha = 1,
     ...,
     title = NULL,
     subtitle = NULL,
@@ -250,6 +250,42 @@ gg_hex <- function(
   else {
     if (rlang::is_null(x_grid)) x_grid <- FALSE
     if (rlang::is_null(y_grid)) y_grid <- TRUE
+  }
+
+  if (rlang::is_null(col_legend_place)) {
+    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+      col_legend_place <- "right"
+    }
+    else if (stat == "sf") {
+      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+        col_legend_place <- "none"
+      }
+      else col_legend_place <- "right"
+    }
+    else if (stat == "qq") {
+      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(sample, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+        col_legend_place <- "none"
+      }
+      col_legend_place <- "bottom"
+    }
+    else if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+      col_legend_place <- "none"
+    }
+    else if (col_numeric) col_legend_place <- "right"
+    else col_legend_place <- "bottom"
+  }
+  else {
+    if (col_legend_place == "b") col_legend_place <- "bottom"
+    if (col_legend_place == "t") col_legend_place <- "top"
+    if (col_legend_place == "l") col_legend_place <- "left"
+    if (col_legend_place == "r") col_legend_place <- "right"
+    if (col_legend_place == "n") col_legend_place <- "none"
   }
 
   ###make plot
@@ -445,7 +481,7 @@ gg_hex <- function(
     }
   }
 
-  if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+  if (stat %in% c("bin", "bin2d", "bin_2d", "binhex")) {
     if (!x_null & y_null) {
       if (!rlang::is_null(x_include)) {
         plot <- plot +
@@ -1079,45 +1115,6 @@ gg_hex <- function(
     }
   }
 
-  plot <- plot +
-    ggplot2::labs(
-      colour = col_title,
-      fill = col_title)
-
-  if (rlang::is_null(col_legend_place)) {
-    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
-      col_legend_place <- "right"
-    }
-    else if (stat == "sf") {
-      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-        col_legend_place <- "none"
-      }
-    }
-    else if (stat == "qq") {
-      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(sample, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-        col_legend_place <- "none"
-      }
-    }
-    else if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-      col_legend_place <- "none"
-    }
-    else if (col_numeric) col_legend_place <- "right"
-    else col_legend_place <- "bottom"
-  }
-  else {
-    if (col_legend_place == "b") col_legend_place <- "bottom"
-    if (col_legend_place == "t") col_legend_place <- "top"
-    if (col_legend_place == "l") col_legend_place <- "left"
-    if (col_legend_place == "r") col_legend_place <- "right"
-    if (col_legend_place == "n") col_legend_place <- "none"
-  }
-
   if (stat == "sf") coord <- ggplot2::coord_sf(clip = clip)
   else {
     if (x_forcat) x_limits <- NULL
@@ -1135,7 +1132,10 @@ gg_hex <- function(
       x = x_title,
       y = y_title,
       caption = caption
-    )
+    ) +
+    ggplot2::labs(
+      colour = col_title,
+      fill = col_title)
 
   if (!rlang::is_null(x_title)) {
     if (x_title == "") {

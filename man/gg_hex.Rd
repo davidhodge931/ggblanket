@@ -16,7 +16,7 @@ gg_hex(
   clip = "on",
   pal = NULL,
   pal_na = "#7F7F7F",
-  alpha = 0.9,
+  alpha = 1,
   ...,
   title = NULL,
   subtitle = NULL,

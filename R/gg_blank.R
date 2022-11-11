@@ -197,67 +197,97 @@ gg_blank <- function(
       function(x) dplyr::na_if(x, Inf)))
 
   #get classes
-  x_null <- rlang::quo_is_null(x) & rlang::quo_is_null(xmin) & rlang::quo_is_null(xmax) & rlang::quo_is_null(xend)
-  x_forcat <- is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data)) | is.logical(rlang::eval_tidy(x, data))
-  x_numeric <- {
-    is.numeric(rlang::eval_tidy(x, data)) |
-      is.numeric(rlang::eval_tidy(xmin, data)) |
-      is.numeric(rlang::eval_tidy(xmax, data)) |
-      is.numeric(rlang::eval_tidy(xend, data))
+  if (stat == "sf") {
+    x_null <- TRUE
+    x_factor <- FALSE
+    x_forcat <- FALSE
+    x_numeric <- FALSE
+    x_date <- FALSE
+    x_datetime <- FALSE
+    x_time <- FALSE
+
+    y_null <- TRUE
+    y_factor <- FALSE
+    y_forcat <- FALSE
+    y_numeric <- FALSE
+    y_date <- FALSE
+    y_datetime <- FALSE
+    y_time <- FALSE
   }
-  x_date <- {
-    lubridate::is.Date(rlang::eval_tidy(x, data)) |
-      lubridate::is.Date(rlang::eval_tidy(xmin, data)) |
-      lubridate::is.Date(rlang::eval_tidy(xmax, data)) |
-      lubridate::is.Date(rlang::eval_tidy(xend, data))
-  }
-  x_datetime <- {
-    lubridate::is.POSIXct(rlang::eval_tidy(x, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(xmin, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(xmax, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(xend, data))
-  }
-  x_time <- {
-    hms::is_hms(rlang::eval_tidy(x, data)) |
-      hms::is_hms(rlang::eval_tidy(xmin, data)) |
-      hms::is_hms(rlang::eval_tidy(xmax, data)) |
-      hms::is_hms(rlang::eval_tidy(xend, data))
+  else {
+    x_null <- rlang::quo_is_null(x) & rlang::quo_is_null(xmin) & rlang::quo_is_null(xmax) & rlang::quo_is_null(xend)
+    x_forcat <- is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data)) | is.logical(rlang::eval_tidy(x, data))
+    x_numeric <- {
+      is.numeric(rlang::eval_tidy(x, data)) |
+        is.numeric(rlang::eval_tidy(xmin, data)) |
+        is.numeric(rlang::eval_tidy(xmax, data)) |
+        is.numeric(rlang::eval_tidy(xend, data))
+    }
+    x_date <- {
+      lubridate::is.Date(rlang::eval_tidy(x, data)) |
+        lubridate::is.Date(rlang::eval_tidy(xmin, data)) |
+        lubridate::is.Date(rlang::eval_tidy(xmax, data)) |
+        lubridate::is.Date(rlang::eval_tidy(xend, data))
+    }
+    x_datetime <- {
+      lubridate::is.POSIXct(rlang::eval_tidy(x, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(xmin, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(xmax, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(xend, data))
+    }
+    x_time <- {
+      hms::is_hms(rlang::eval_tidy(x, data)) |
+        hms::is_hms(rlang::eval_tidy(xmin, data)) |
+        hms::is_hms(rlang::eval_tidy(xmax, data)) |
+        hms::is_hms(rlang::eval_tidy(xend, data))
+    }
+
+    y_null <- rlang::quo_is_null(y) & rlang::quo_is_null(ymin) & rlang::quo_is_null(ymax) & rlang::quo_is_null(yend)
+    y_forcat <- is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data)) | is.logical(rlang::eval_tidy(y, data))
+    y_numeric <- {
+      is.numeric(rlang::eval_tidy(y, data)) |
+        is.numeric(rlang::eval_tidy(ymin, data)) |
+        is.numeric(rlang::eval_tidy(ymax, data)) |
+        is.numeric(rlang::eval_tidy(yend, data))
+    }
+    y_date <- {
+      lubridate::is.Date(rlang::eval_tidy(y, data)) |
+        lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
+        lubridate::is.Date(rlang::eval_tidy(ymax, data)) |
+        lubridate::is.Date(rlang::eval_tidy(yend, data))
+    }
+    y_datetime <- {
+      lubridate::is.POSIXct(rlang::eval_tidy(y, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(ymin, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(ymax, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(yend, data))
+    }
+    y_time <- {
+      hms::is_hms(rlang::eval_tidy(y, data)) |
+        hms::is_hms(rlang::eval_tidy(ymin, data)) |
+        hms::is_hms(rlang::eval_tidy(ymax, data)) |
+        hms::is_hms(rlang::eval_tidy(yend, data))
+    }
   }
 
-  y_null <- rlang::quo_is_null(y) & rlang::quo_is_null(ymin) & rlang::quo_is_null(ymax) & rlang::quo_is_null(yend)
-  y_forcat <- is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data)) | is.logical(rlang::eval_tidy(y, data))
-  y_numeric <- {
-    is.numeric(rlang::eval_tidy(y, data)) |
-      is.numeric(rlang::eval_tidy(ymin, data)) |
-      is.numeric(rlang::eval_tidy(ymax, data)) |
-      is.numeric(rlang::eval_tidy(yend, data))
+  if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+    col_null <- TRUE
+    col_factor <- FALSE
+    col_forcat <- FALSE
+    col_numeric <- FALSE
+    col_date <- FALSE
+    col_datetime <- FALSE
+    col_time <- FALSE
   }
-  y_date <- {
-    lubridate::is.Date(rlang::eval_tidy(y, data)) |
-      lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
-      lubridate::is.Date(rlang::eval_tidy(ymax, data)) |
-      lubridate::is.Date(rlang::eval_tidy(yend, data))
+  else {
+    col_null <- rlang::quo_is_null(col)
+    col_factor <- is.factor(rlang::eval_tidy(col, data))
+    col_forcat <- is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data)) | is.logical(rlang::eval_tidy(col, data))
+    col_numeric <- is.numeric(rlang::eval_tidy(col, data))
+    col_date <- lubridate::is.Date(rlang::eval_tidy(col, data))
+    col_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(col, data))
+    col_time <- hms::is_hms(rlang::eval_tidy(col, data))
   }
-  y_datetime <- {
-    lubridate::is.POSIXct(rlang::eval_tidy(y, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(ymin, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(ymax, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(yend, data))
-  }
-  y_time <- {
-    hms::is_hms(rlang::eval_tidy(y, data)) |
-      hms::is_hms(rlang::eval_tidy(ymin, data)) |
-      hms::is_hms(rlang::eval_tidy(ymax, data)) |
-      hms::is_hms(rlang::eval_tidy(yend, data))
-  }
-
-  col_null <- rlang::quo_is_null(col)
-  col_factor <- is.factor(rlang::eval_tidy(col, data))
-  col_forcat <- is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data)) | is.logical(rlang::eval_tidy(col, data))
-  col_numeric <- is.numeric(rlang::eval_tidy(col, data))
-  col_date <- lubridate::is.Date(rlang::eval_tidy(col, data))
-  col_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(col, data))
-  col_time <- hms::is_hms(rlang::eval_tidy(col, data))
 
   facet_null <- rlang::quo_is_null(facet)
   facet2_null <- rlang::quo_is_null(facet2)
@@ -358,8 +388,64 @@ gg_blank <- function(
     if (rlang::is_null(y_grid)) y_grid <- TRUE
   }
 
+  if (rlang::is_null(col_legend_place)) {
+    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+      col_legend_place <- "right"
+    }
+    else if (stat == "sf") {
+      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+        col_legend_place <- "none"
+      }
+      else col_legend_place <- "right"
+    }
+    else if (stat == "qq") {
+      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(sample, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+        col_legend_place <- "none"
+      }
+      col_legend_place <- "bottom"
+    }
+    else if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+      col_legend_place <- "none"
+    }
+    else if (col_numeric) col_legend_place <- "right"
+    else col_legend_place <- "bottom"
+  }
+  else {
+    if (col_legend_place == "b") col_legend_place <- "bottom"
+    if (col_legend_place == "t") col_legend_place <- "top"
+    if (col_legend_place == "l") col_legend_place <- "left"
+    if (col_legend_place == "r") col_legend_place <- "right"
+    if (col_legend_place == "n") col_legend_place <- "none"
+  }
+
   ###make plot
-  if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+  if (stat == "sf") {
+    if (!col_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          geometry = .data$geometry,
+          col = !!col,
+          fill = !!col,
+          group = !!group
+        ))
+    }
+    else if (col_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          geometry = .data$geometry,
+          col = "",
+          fill = "",
+          group = !!group
+        ))
+    }
+  }
+  else if (stat %in% c("bin2d", "bin_2d", "binhex")) {
     if (!x_null & !y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
@@ -730,7 +816,7 @@ gg_blank <- function(
     }
   }
 
-  if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+  if (stat %in% c("bin", "bin2d", "bin_2d", "binhex")) {
     if (!x_null & y_null) {
       if (!rlang::is_null(x_include)) {
         plot <- plot +
@@ -1364,45 +1450,6 @@ gg_blank <- function(
     }
   }
 
-  plot <- plot +
-    ggplot2::labs(
-      colour = col_title,
-      fill = col_title)
-
-  if (rlang::is_null(col_legend_place)) {
-    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
-      col_legend_place <- "right"
-    }
-    else if (stat == "sf") {
-      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-        col_legend_place <- "none"
-      }
-    }
-    else if (stat == "qq") {
-      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(sample, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-        col_legend_place <- "none"
-      }
-    }
-    else if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-      col_legend_place <- "none"
-    }
-    else if (col_numeric) col_legend_place <- "right"
-    else col_legend_place <- "bottom"
-  }
-  else {
-    if (col_legend_place == "b") col_legend_place <- "bottom"
-    if (col_legend_place == "t") col_legend_place <- "top"
-    if (col_legend_place == "l") col_legend_place <- "left"
-    if (col_legend_place == "r") col_legend_place <- "right"
-    if (col_legend_place == "n") col_legend_place <- "none"
-  }
-
   if (stat == "sf") coord <- ggplot2::coord_sf(clip = clip)
   else {
     if (x_forcat) x_limits <- NULL
@@ -1420,7 +1467,10 @@ gg_blank <- function(
       x = x_title,
       y = y_title,
       caption = caption
-    )
+    ) +
+    ggplot2::labs(
+      colour = col_title,
+      fill = col_title)
 
   if (!rlang::is_null(x_title)) {
     if (x_title == "") {
@@ -1442,13 +1492,15 @@ gg_blank <- function(
   }
 
   #expand the limits if necessary
-  if (!rlang::is_null(x_include)) {
-    plot <- plot +
-      ggplot2::expand_limits(x = x_include)
-  }
-  if (!rlang::is_null(y_include)) {
-    plot <- plot +
-      ggplot2::expand_limits(y = y_include)
+  if (stat != "sf") {
+    if (!rlang::is_null(x_include)) {
+      plot <- plot +
+        ggplot2::expand_limits(x = x_include)
+    }
+    if (!rlang::is_null(y_include)) {
+      plot <- plot +
+        ggplot2::expand_limits(y = y_include)
+    }
   }
   if (!rlang::is_null(col_include)) {
     plot <- plot +
