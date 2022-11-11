@@ -7,7 +7,6 @@
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
-#' @param text Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param clip Whether to clip geometries outside of the panel. Either "on" or "off".
@@ -71,7 +70,6 @@ gg_bin2d <- function(
     facet = NULL,
     facet2 = NULL,
     group = NULL,
-    text = NULL,
     stat = "bin2d",
     position = "identity",
     clip = "on",
@@ -118,7 +116,7 @@ gg_bin2d <- function(
     facet_space = "fixed",
     facet_layout = NULL,
     caption = NULL,
-    titles = function(x) snakecase::to_sentence_case(x),
+    titles = snakecase::to_sentence_case,
     theme = NULL) {
 
   #stop, warn or message

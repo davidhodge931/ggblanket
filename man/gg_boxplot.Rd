@@ -68,7 +68,7 @@ gg_boxplot(
   facet_space = "fixed",
   facet_layout = NULL,
   caption = NULL,
-  titles = function(x) snakecase::to_sentence_case(x),
+  titles = snakecase::to_sentence_case,
   theme = NULL
 )
 }

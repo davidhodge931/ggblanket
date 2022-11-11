@@ -11,7 +11,6 @@ gg_bin2d(
   facet = NULL,
   facet2 = NULL,
   group = NULL,
-  text = NULL,
   stat = "bin2d",
   position = "identity",
   clip = "on",
@@ -58,7 +57,7 @@ gg_bin2d(
   facet_space = "fixed",
   facet_layout = NULL,
   caption = NULL,
-  titles = function(x) snakecase::to_sentence_case(x),
+  titles = snakecase::to_sentence_case,
   theme = NULL
 )
 }
@@ -74,8 +73,6 @@ gg_bin2d(
 \item{facet2}{Unquoted second facet variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
-
-\item{text}{Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 

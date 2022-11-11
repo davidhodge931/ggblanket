@@ -32,7 +32,6 @@ gg_blank(
   clip = "on",
   pal = NULL,
   pal_na = "#7F7F7F",
-  alpha = 1,
   ...,
   title = NULL,
   subtitle = NULL,
@@ -73,7 +72,7 @@ gg_blank(
   facet_space = "fixed",
   facet_layout = NULL,
   caption = NULL,
-  titles = function(x) snakecase::to_sentence_case(x),
+  titles = snakecase::to_sentence_case,
   theme = NULL
 )
 }
@@ -131,8 +130,6 @@ gg_blank(
 \item{pal}{Colours to use. A character vector of hex codes (or names).}
 
 \item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
-
-\item{alpha}{Opacity. A number between 0 and 1.}
 
 \item{...}{Other arguments passed to the ggplot2::geom_blank function.}
 

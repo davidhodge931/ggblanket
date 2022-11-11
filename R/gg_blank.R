@@ -28,7 +28,6 @@
 #' @param clip Whether to clip geometries outside of the panel. Either "on" or "off".
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
-#' @param alpha Opacity. A number between 0 and 1.
 #' @param ... Other arguments passed to the ggplot2::geom_blank function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
@@ -112,7 +111,6 @@ gg_blank <- function(
     clip = "on",
     pal = NULL,
     pal_na = "#7F7F7F",
-    alpha = 1,
     ...,
     title = NULL,
     subtitle = NULL,
@@ -153,7 +151,7 @@ gg_blank <- function(
     facet_space = "fixed",
     facet_layout = NULL,
     caption = NULL,
-    titles = function(x) snakecase::to_sentence_case(x),
+    titles = snakecase::to_sentence_case,
     theme = NULL) {
 
   #stop, warn or message
@@ -658,7 +656,6 @@ gg_blank <- function(
     ggplot2::geom_blank(
       stat = stat,
       position = position,
-      alpha = alpha,
       ...
     )
 

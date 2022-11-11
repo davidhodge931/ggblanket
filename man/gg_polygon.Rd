@@ -13,7 +13,6 @@ gg_polygon(
   facet2 = NULL,
   group = NULL,
   subgroup = NULL,
-  text = NULL,
   stat = "identity",
   position = "identity",
   clip = "on",
@@ -60,7 +59,7 @@ gg_polygon(
   facet_space = "fixed",
   facet_layout = NULL,
   caption = NULL,
-  titles = function(x) snakecase::to_sentence_case(x),
+  titles = snakecase::to_sentence_case,
   theme = NULL
 )
 }
@@ -80,8 +79,6 @@ gg_polygon(
 \item{group}{Unquoted group aesthetic variable.}
 
 \item{subgroup}{Unquoted subgroup aesthetic variable.}
-
-\item{text}{Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 

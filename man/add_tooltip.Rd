@@ -4,12 +4,7 @@
 \alias{add_tooltip}
 \title{Add a tooltip column}
 \usage{
-add_tooltip(
-  data,
-  ...,
-  titles = function(x) snakecase::to_sentence_case(x),
-  name = "tooltip"
-)
+add_tooltip(data, ..., titles = snakecase::to_sentence_case, name = "tooltip")
 }
 \arguments{
 \item{data}{A data frame or tibble.}

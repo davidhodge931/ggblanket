@@ -10,7 +10,6 @@
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
-#' @param text Unquoted text aesthetic variable, which can be used in combination with plotly::ggplotly(., tooltip = "text").
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
@@ -87,7 +86,6 @@ gg_rect <- function(
     facet = NULL,
     facet2 = NULL,
     group = NULL,
-    text = NULL,
     x = NULL,
     y = NULL,
     stat = "identity",
@@ -136,7 +134,7 @@ gg_rect <- function(
     facet_space = "fixed",
     facet_layout = NULL,
     caption = NULL,
-    titles = function(x) snakecase::to_sentence_case(x),
+    titles = snakecase::to_sentence_case,
     theme = NULL) {
 
   #stop, warn or message
