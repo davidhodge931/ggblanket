@@ -685,82 +685,80 @@ gg_ribbon <- function(
             dplyr::pull(!!x)
         }
 
-        if (!rlang::is_null(x_vctr)) {
-          if (x_date) {
-            x_vctr <- lubridate::as_date(x_vctr, origin = "1970-01-01")
-          }
-          else if (x_datetime) {
-            x_vctr <- lubridate::as_datetime(x_vctr, origin = "1970-01-01")
-          }
-          else if (x_time) {
-            x_vctr <- hms::as_hms(x_vctr)
-          }
+        if (x_date) {
+          x_vctr <- lubridate::as_date(x_vctr, origin = "1970-01-01")
+        }
+        else if (x_datetime) {
+          x_vctr <- lubridate::as_datetime(x_vctr, origin = "1970-01-01")
+        }
+        else if (x_time) {
+          x_vctr <- hms::as_hms(x_vctr)
+        }
 
-          x_range <- x_vctr %>% range(na.rm = TRUE)
-          if (!rlang::is_null(x_include)) x_range <- range(c(x_range, x_include))
+        x_range <- x_vctr %>% range(na.rm = TRUE)
+        if (!rlang::is_null(x_include)) x_range <- range(c(x_range, x_include))
 
-          if (rlang::is_null(x_limits)) {
-            if (rlang::is_null(x_breaks)) {
-              if (x_time | !x_trans %in% c("identity", "reverse")) {
-                x_limits <- NULL
-                x_breaks <- ggplot2::waiver()
-              }
-              else {
-                if (!facet_null & !facet2_null) x_breaks_n <- 3
-                else if (!facet_null & facet2_null) x_breaks_n <- 3
-                else x_breaks_n <- 6
-
-                x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
-
-                if (flipped) x_limits <- range(x_breaks)
-                else if (y_date | y_datetime | y_time | y_numeric | y_null) {
-                  x_limits <- NULL
-                }
-                else if (y_forcat) {
-                  x_limits <- range(x_breaks)
-                }
-              }
+        if (rlang::is_null(x_limits)) {
+          if (rlang::is_null(x_breaks)) {
+            if (x_time | !x_trans %in% c("identity", "reverse")) {
+              x_limits <- NULL
+              x_breaks <- ggplot2::waiver()
             }
-            else if (!rlang::is_null(x_breaks)) {
-              if (x_time | !x_trans %in% c("identity", "reverse")) {
-                x_limits <- NULL
-              }
-              else if (y_forcat | flipped) {
-                if (is.vector(x_breaks)) x_limits <- range(x_breaks)
-                else if (is.function(x_breaks)) {
-                  x_limits <- list(x_range) %>%
-                    purrr::map(.f = x_breaks) %>%
-                    unlist() %>%
-                    range()
-                }
-              }
+            else {
+              if (!facet_null & !facet2_null) x_breaks_n <- 3
+              else if (!facet_null & facet2_null) x_breaks_n <- 3
+              else x_breaks_n <- 6
+
+              x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+
+              if (flipped) x_limits <- range(x_breaks)
               else if (y_date | y_datetime | y_time | y_numeric | y_null) {
                 x_limits <- NULL
               }
-            }
-          }
-          else if (!rlang::is_null(x_limits)) {
-            if (is.na(x_limits)[1]) x_limits[1] <- min(x_range)
-            if (is.na(x_limits)[2]) x_limits[2] <- max(x_range)
-            if (!rlang::is_null(x_include)) {
-              x_limits <- range(c(x_limits, x_include))
-            }
-
-            if (rlang::is_null(x_breaks)) {
-              if (x_time) x_breaks <- ggplot2::waiver()
-              else if (!x_trans %in% c("identity", "reverse")) x_breaks <- ggplot2::waiver()
-              else {
-                if (!facet_null & !facet2_null) x_breaks_n <- 3
-                else if (!facet_null & facet2_null) x_breaks_n <- 3
-                else x_breaks_n <- 6
-
-                x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+              else if (y_forcat) {
+                x_limits <- range(x_breaks)
               }
             }
           }
-
-          if (x_trans == "reverse") x_limits <- rev(sort(x_limits))
+          else if (!rlang::is_null(x_breaks)) {
+            if (x_time | !x_trans %in% c("identity", "reverse")) {
+              x_limits <- NULL
+            }
+            else if (y_forcat | flipped) {
+              if (is.vector(x_breaks)) x_limits <- range(x_breaks)
+              else if (is.function(x_breaks)) {
+                x_limits <- list(x_range) %>%
+                  purrr::map(.f = x_breaks) %>%
+                  unlist() %>%
+                  range()
+              }
+            }
+            else if (y_date | y_datetime | y_time | y_numeric | y_null) {
+              x_limits <- NULL
+            }
+          }
         }
+        else if (!rlang::is_null(x_limits)) {
+          if (is.na(x_limits)[1]) x_limits[1] <- min(x_range)
+          if (is.na(x_limits)[2]) x_limits[2] <- max(x_range)
+          if (!rlang::is_null(x_include)) {
+            x_limits <- range(c(x_limits, x_include))
+          }
+
+          if (rlang::is_null(x_breaks)) {
+            if (x_time) x_breaks <- ggplot2::waiver()
+            else if (!x_trans %in% c("identity", "reverse")) x_breaks <- ggplot2::waiver()
+            else {
+              if (!facet_null & !facet2_null) x_breaks_n <- 3
+              else if (!facet_null & facet2_null) x_breaks_n <- 3
+              else x_breaks_n <- 6
+
+              x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+            }
+          }
+        }
+
+        if (x_trans == "reverse") x_limits <- rev(sort(x_limits))
       }
       else if (facet_scales %in% c("free", "free_x")) {
         if (rlang::is_null(x_limits)) x_limits <- NULL
@@ -784,52 +782,50 @@ gg_ribbon <- function(
         }
       }
 
-      if (!rlang::is_null(x_vctr)) {
-        if (x_numeric | x_null) {
-          plot <- plot +
-            ggplot2::scale_x_continuous(
-              breaks = x_breaks,
-              limits = x_limits,
-              expand = x_expand,
-              labels = x_labels,
-              oob = scales::oob_keep,
-              sec.axis = x_sec_axis,
-              trans = x_trans
-            )
-        }
-        else if (x_date) {
-          plot <- plot +
-            ggplot2::scale_x_date(
-              breaks = x_breaks,
-              limits = x_limits,
-              expand = x_expand,
-              labels = x_labels,
-              oob = scales::oob_keep,
-              sec.axis = x_sec_axis
-            )
-        }
-        else if (x_datetime) {
-          plot <- plot +
-            ggplot2::scale_x_datetime(
-              breaks = x_breaks,
-              limits = x_limits,
-              expand = x_expand,
-              labels = x_labels,
-              oob = scales::oob_keep,
-              sec.axis = x_sec_axis
-            )
-        }
-        else if (x_time) {
-          plot <- plot +
-            ggplot2::scale_x_time(
-              breaks = x_breaks,
-              limits = x_limits,
-              expand = x_expand,
-              labels = x_labels,
-              oob = scales::oob_keep,
-              sec.axis = x_sec_axis
-            )
-        }
+      if (x_numeric | x_null) {
+        plot <- plot +
+          ggplot2::scale_x_continuous(
+            breaks = x_breaks,
+            limits = x_limits,
+            expand = x_expand,
+            labels = x_labels,
+            oob = scales::oob_keep,
+            sec.axis = x_sec_axis,
+            trans = x_trans
+          )
+      }
+      else if (x_date) {
+        plot <- plot +
+          ggplot2::scale_x_date(
+            breaks = x_breaks,
+            limits = x_limits,
+            expand = x_expand,
+            labels = x_labels,
+            oob = scales::oob_keep,
+            sec.axis = x_sec_axis
+          )
+      }
+      else if (x_datetime) {
+        plot <- plot +
+          ggplot2::scale_x_datetime(
+            breaks = x_breaks,
+            limits = x_limits,
+            expand = x_expand,
+            labels = x_labels,
+            oob = scales::oob_keep,
+            sec.axis = x_sec_axis
+          )
+      }
+      else if (x_time) {
+        plot <- plot +
+          ggplot2::scale_x_time(
+            breaks = x_breaks,
+            limits = x_limits,
+            expand = x_expand,
+            labels = x_labels,
+            oob = scales::oob_keep,
+            sec.axis = x_sec_axis
+          )
       }
     }
 
@@ -860,71 +856,69 @@ gg_ribbon <- function(
             dplyr::pull(!!y)
         }
 
-        if (!rlang::is_null(y_vctr)) {
-          if (y_date) {
-            y_vctr <- lubridate::as_date(y_vctr, origin = "1970-01-01")
-          }
-          else if (y_datetime) {
-            y_vctr <- lubridate::as_datetime(y_vctr, origin = "1970-01-01")
-          }
-          else if (y_time) {
-            y_vctr <- hms::as_hms(y_vctr)
-          }
-
-          y_range <- y_vctr %>% range(na.rm = TRUE)
-          if (!rlang::is_null(y_include)) y_range <- range(c(y_range, y_include))
-
-          if (rlang::is_null(y_limits)) {
-            if (rlang::is_null(y_breaks)) {
-              if (y_time | !y_trans %in% c("identity", "reverse")) {
-                y_breaks <- ggplot2::waiver()
-                y_limits <- NULL
-              }
-              else {
-                if (!facet_null & !facet2_null) y_breaks_n <- 4
-                else if (facet_null & !facet2_null) y_breaks_n <- 4
-                else y_breaks_n <- 6
-
-                y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
-                if (flipped) y_limits <- NULL
-                else y_limits <- range(y_breaks)
-              }
-            }
-            else if (!rlang::is_null(y_breaks)) {
-              if (flipped) y_limits <- NULL
-              else if (y_trans %in% c("identity", "reverse")) {
-                if (is.vector(y_breaks)) y_limits <- range(y_breaks)
-                else if (is.function(y_breaks)) {
-                  y_limits <- list(y_range) %>%
-                    purrr::map(.f = y_breaks) %>%
-                    unlist() %>%
-                    range()
-                }
-              }
-              else y_limits <- NULL
-            }
-          }
-          else if (!rlang::is_null(y_limits)) {
-            y_limits <- y_limits
-            if (is.na(y_limits)[1]) y_limits[1] <- min(y_range)
-            if (is.na(y_limits)[2]) y_limits[2] <- max(y_range)
-            if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
-
-            if (rlang::is_null(y_breaks)) {
-              if (y_time) y_breaks <- ggplot2::waiver()
-              else if (!y_trans %in% c("identity", "reverse")) y_breaks <- ggplot2::waiver()
-              else {
-                if (!facet_null & !facet2_null) y_breaks_n <- 4
-                else if (facet_null & !facet2_null) y_breaks_n <- 4
-                else y_breaks_n <- 6
-
-                y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
-              }
-            }
-          }
-
-          if (y_trans == "reverse") y_limits <- rev(sort(y_limits))
+        if (y_date) {
+          y_vctr <- lubridate::as_date(y_vctr, origin = "1970-01-01")
         }
+        else if (y_datetime) {
+          y_vctr <- lubridate::as_datetime(y_vctr, origin = "1970-01-01")
+        }
+        else if (y_time) {
+          y_vctr <- hms::as_hms(y_vctr)
+        }
+
+        y_range <- y_vctr %>% range(na.rm = TRUE)
+        if (!rlang::is_null(y_include)) y_range <- range(c(y_range, y_include))
+
+        if (rlang::is_null(y_limits)) {
+          if (rlang::is_null(y_breaks)) {
+            if (y_time | !y_trans %in% c("identity", "reverse")) {
+              y_breaks <- ggplot2::waiver()
+              y_limits <- NULL
+            }
+            else {
+              if (!facet_null & !facet2_null) y_breaks_n <- 4
+              else if (facet_null & !facet2_null) y_breaks_n <- 4
+              else y_breaks_n <- 6
+
+              y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+              if (flipped) y_limits <- NULL
+              else y_limits <- range(y_breaks)
+            }
+          }
+          else if (!rlang::is_null(y_breaks)) {
+            if (flipped) y_limits <- NULL
+            else if (y_trans %in% c("identity", "reverse")) {
+              if (is.vector(y_breaks)) y_limits <- range(y_breaks)
+              else if (is.function(y_breaks)) {
+                y_limits <- list(y_range) %>%
+                  purrr::map(.f = y_breaks) %>%
+                  unlist() %>%
+                  range()
+              }
+            }
+            else y_limits <- NULL
+          }
+        }
+        else if (!rlang::is_null(y_limits)) {
+          y_limits <- y_limits
+          if (is.na(y_limits)[1]) y_limits[1] <- min(y_range)
+          if (is.na(y_limits)[2]) y_limits[2] <- max(y_range)
+          if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
+
+          if (rlang::is_null(y_breaks)) {
+            if (y_time) y_breaks <- ggplot2::waiver()
+            else if (!y_trans %in% c("identity", "reverse")) y_breaks <- ggplot2::waiver()
+            else {
+              if (!facet_null & !facet2_null) y_breaks_n <- 4
+              else if (facet_null & !facet2_null) y_breaks_n <- 4
+              else y_breaks_n <- 6
+
+              y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+            }
+          }
+        }
+
+        if (y_trans == "reverse") y_limits <- rev(sort(y_limits))
       }
       else if (facet_scales %in% c("free", "free_y")) {
         if (rlang::is_null(y_limits)) y_limits <- NULL
@@ -944,59 +938,56 @@ gg_ribbon <- function(
         }
       }
 
-      if (!rlang::is_null(y_vctr)) {
-        if (y_numeric | y_null) {
-          plot <- plot +
-            ggplot2::scale_y_continuous(
-              breaks = y_breaks,
-              limits = y_limits,
-              expand = y_expand,
-              labels = y_labels,
-              oob = scales::oob_keep,
-              sec.axis = y_sec_axis,
-              trans = y_trans
-            )
-        }
-        else if (y_date) {
-          plot <- plot +
-            ggplot2::scale_y_date(
-              breaks = y_breaks,
-              limits = y_limits,
-              expand = y_expand,
-              labels = y_labels,
-              oob = scales::oob_keep,
-              sec.axis = y_sec_axis
-            )
-        }
-        else if (y_datetime) {
-          plot <- plot +
-            ggplot2::scale_y_datetime(
-              breaks = y_breaks,
-              limits = y_limits,
-              expand = y_expand,
-              labels = y_labels,
-              oob = scales::oob_keep,
-              sec.axis = y_sec_axis
-            )
-        }
-        else if (y_time) {
-          plot <- plot +
-            ggplot2::scale_y_time(
-              breaks = y_breaks,
-              limits = y_limits,
-              expand = y_expand,
-              labels = y_labels,
-              oob = scales::oob_keep,
-              sec.axis = y_sec_axis
-            )
-        }
+      if (y_numeric | y_null) {
+        plot <- plot +
+          ggplot2::scale_y_continuous(
+            breaks = y_breaks,
+            limits = y_limits,
+            expand = y_expand,
+            labels = y_labels,
+            oob = scales::oob_keep,
+            sec.axis = y_sec_axis,
+            trans = y_trans
+          )
+      }
+      else if (y_date) {
+        plot <- plot +
+          ggplot2::scale_y_date(
+            breaks = y_breaks,
+            limits = y_limits,
+            expand = y_expand,
+            labels = y_labels,
+            oob = scales::oob_keep,
+            sec.axis = y_sec_axis
+          )
+      }
+      else if (y_datetime) {
+        plot <- plot +
+          ggplot2::scale_y_datetime(
+            breaks = y_breaks,
+            limits = y_limits,
+            expand = y_expand,
+            labels = y_labels,
+            oob = scales::oob_keep,
+            sec.axis = y_sec_axis
+          )
+      }
+      else if (y_time) {
+        plot <- plot +
+          ggplot2::scale_y_time(
+            breaks = y_breaks,
+            limits = y_limits,
+            expand = y_expand,
+            labels = y_labels,
+            oob = scales::oob_keep,
+            sec.axis = y_sec_axis
+          )
       }
     }
   }
 
   #make col scale based on layer_data
   if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
-    # if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
 
     if (rlang::is_null(pal)) pal <-  pal_viridis_mix(1)
     else pal <- pal[1]
@@ -1229,13 +1220,15 @@ gg_ribbon <- function(
   }
 
   #expand the limits if necessary
-  if (!rlang::is_null(x_include)) {
-    plot <- plot +
-      ggplot2::expand_limits(x = x_include)
-  }
-  if (!rlang::is_null(y_include)) {
-    plot <- plot +
-      ggplot2::expand_limits(y = y_include)
+  if (stat != "sf") {
+    if (!rlang::is_null(x_include)) {
+      plot <- plot +
+        ggplot2::expand_limits(x = x_include)
+    }
+    if (!rlang::is_null(y_include)) {
+      plot <- plot +
+        ggplot2::expand_limits(y = y_include)
+    }
   }
   if (!rlang::is_null(col_include)) {
     plot <- plot +

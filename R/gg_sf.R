@@ -302,8 +302,6 @@ gg_sf <- function(
   #Get layer data for x, y and col scales
   layer_data <- ggplot2::layer_data(plot)
 
-  flippable <- any(stringr::str_detect(colnames(layer_data), "flipped_aes"))
-
   #make col scale based on layer_data
   if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
     # if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
