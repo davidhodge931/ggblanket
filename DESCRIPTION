@@ -15,7 +15,7 @@ RoxygenNote: 7.2.1
 Imports: 
     dplyr,
     forcats,
-    ggplot2,
+    ggplot2 (>= 3.4.0),
     hms,
     lubridate,
     magrittr,
