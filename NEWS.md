@@ -2,13 +2,11 @@
 
 * Breaking: renamed `add_tooltip_text` to `add_tooltip` and changed output default column name to "tooltip".
 * Breaking: `coord` argument removed.
-* Made `x` and `y` limits also act within the coord. 
 * Added `clip` argument and defaulted to "on".
-* Made `gg_blank` more powerful.
+* Made `x` and `y` limits also act within the coord. 
+* Made `gg_blank` more powerful and flexible.
 * Improved horizontal flipped plot scales. 
-* Fixed bug relating to `x` and `y` scale limits.
-* Fixed bug relating to free `facet_scales`.
-* Fixed `gg_bin2d` and `gg_hex` limits.
+* Fixed bugs relating to free `facet_scales` and scale limits.
 
 # ggblanket 1.5.0
 

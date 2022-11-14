@@ -53,14 +53,14 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 5.  A `pal` argument to customise colours
 6.  Prefixed arguments to customise scales, guides, titles and faceting 
 7.  Default titles converted with `snakecase::to_sentence`
-8.  Numeric limits that default to the min and max break
+8.  Pretty default numeric limits
 9.  Horizontal plots with y labels in order etc
-10.  A `pal` that generally inherits to subsequent geoms
-11.  Access to other `geom_*` arguments via `...`
-12.  A `theme` argument to customise the look and feel
-13.  A `gg_theme` function to create a quick theme 
-14.  A base from which to create custom plot functions with your own defaults
-15.  Supports `ggiraph` interactivity with `gg_blank` and `add_tooltip`
+10. A `pal` that generally inherits to subsequent geoms
+11. Access to other `geom_*` arguments via `...`
+12. A `theme` argument to customise the look and feel
+13. A `gg_theme` function to create a quick theme 
+14. A base from which to create custom plot functions with your own defaults
+15. Supports `ggiraph` interactivity with `gg_blank` and `add_tooltip`
 
 ### 1. `gg_*` wrapper functions to plot a single geom
 
@@ -171,6 +171,7 @@ Available arguments are:
 * `facet_space`: Whether facet space is to be allocated proportionally
 * `facet_ncol`: How many columns to wrap facets into  
 * `facet_nrow`: How many rows to wrap facets into
+* `clip`: Whether to clip to the panel ("on") or not ("off")
 
 ```{r}
 penguins |>
@@ -217,7 +218,7 @@ penguins |>
   geom_text(aes(label = flipper_length_mm), col = "#232323", size = 3.5) 
 ```
 
-### 8. Numeric limits that default to the min and max break
+### 8. Pretty default numeric limits
 
 The default x and y scales have been designed to create symmetry.
 
@@ -424,7 +425,7 @@ knitr::include_graphics("../man/figures/ggplotly_screenshot.png", dpi = 300)
 
 For _all_ plots with multiple geom's, you will need to think about if there is any desired drawing order you want, and if so choose the `gg_*` function that permits this order.
 
-For plots where some geoms have a` col` aesthetic and some do not, you must choose a `gg_*` function that relates to one of the layers with a `col` argument. Or, if this conflicts with the desired drawing order, then choose `gg_blank` (i.e. with the `col` argument). The reason for this is that ggblanket under the hood creates a dummy colour scale for when there is no `col` argument. 
+For plots where some geoms have a` col` aesthetic and some do not, you must choose a `gg_*` function that relates to one of the layers with a `col` argument. Or, if this conflicts with the desired drawing order, then choose `gg_blank` with the `col` argument. 
 
 Once you know what `gg_*` function you are going to use, then you might need to use the  `*_include` argument to adjust the x or y scale if it will not include all of the range needed by subsequent layers. 
 
@@ -460,7 +461,7 @@ df |>
 
 ## Other challenges 
 
-`gg_*` functions do not directly support aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`. However, you could use `gg_blank` in addition to a `col` argument, and then add the title of your new aesthetic to align with the `col_title`.
+`gg_*` functions do not directly support aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`. However, you can use `gg_blank` in addition to a `col` argument, and then add the title of your new aesthetic to align with the `col_title`.
 
 ```{r}
 penguins |> 
@@ -469,35 +470,20 @@ penguins |>
   labs(shape = "Species")
 ```
 
-For some ggplot2 functionality unsupported by ggblanket, you can add the applicable ggplot2 layer to your ggblanket code. For example, using `+ facet_grid(..., switch = "y")`.
-
-```{r, fig.asp=0.75}
-penguins |>
-  tidyr::drop_na() |>
-  mutate(sex = str_to_sentence(sex)) |>
-  gg_jitter(
-    x = sex, 
-    y = body_mass_g,
-    col = sex, 
-    size = 1, 
-    x_title = "",
-    y_limits = c(NA, NA)) +
-  facet_grid(cols = vars(species),
-             rows = vars(island), 
-             switch = "y")
-```
-
-Some other functionality is not supported in ggblanket. You cannon access non-default _computed_ variables. Some geom's are not supported (e.g. `geom_contour`, `geom_density_2d`). You also cannot colour by a date, datetime or time variable. In these situations  you will need to use ggplot2.
+Use `colour = NA` or `fill = NA` to turn off one of the aesthetics that are part of the ggblanket col aesthetic. You can also use `gg_blank` to work with many other extension geom's that have a stat of "identity" or similar. 
 
 ```{r}
-diamonds |> 
-  ggplot() +
-  geom_density2d(aes(x = carat, y = price, colour = after_stat(level))) +
-  scale_colour_gradientn(colours = viridis::viridis(9)) +
-  scale_y_continuous(expand = c(0, 0), limits = c(0, 6000)) +
-  labs(x = "Carat", y = "Price", colour = "Level") +
-  gg_theme() +
-  theme(panel.grid.major.x = element_blank()) +
-  theme(legend.position = "right") +
-  theme(legend.direction = "vertical")
+penguins %>%
+  gg_blank(
+    x = flipper_length_mm,
+    y = bill_length_mm,
+    col = species,
+    col_legend_place = "r"
+  ) +
+  ggdensity::geom_hdr(colour = NA) +
+  labs(alpha = "Probs") +
+  guides(alpha = guide_legend(title.position = "top"))
 ```
+
+Happy plotting!
+

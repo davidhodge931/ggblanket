@@ -28,6 +28,7 @@ Imports:
     tidyselect,
     viridis
 Suggests: 
+    ggdensity,
     ggiraph,
     hexbin,
     knitr,
