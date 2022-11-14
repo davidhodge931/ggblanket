@@ -12,7 +12,7 @@ gg_area(
   facet = NULL,
   facet2 = NULL,
   group = NULL,
-  stat = "identity",
+  stat = "align",
   position = "stack",
   clip = "on",
   pal = NULL,
