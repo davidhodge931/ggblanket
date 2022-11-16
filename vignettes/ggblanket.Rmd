@@ -40,6 +40,8 @@ library(ggplot2)
 library(dplyr)
 library(stringr)
 library(palmerpenguins)
+library(ggiraph)
+library(patchwork)
 ```
 
 ## How it works
@@ -62,7 +64,7 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 14. A base from which to create custom plot functions with your own defaults
 15. Works with the `patchwork` package
 16. Works with the `ggiraph` package
-17. 32 different geoms wrapped into a `gg_*` function! 
+17. Over 30 different geoms wrapped into a `gg_*` function 
 
 ### 1. `gg_*` wrapper functions to plot a single geom
 
@@ -395,8 +397,6 @@ iris |>
 As `ggblanket` output objects are ggplot's, it works fine with the patchwork,
 
 ```{r}
-library(patchwork)
-
 p1 <- diamonds %>% 
   gg_point(
     x = carat,
@@ -423,7 +423,6 @@ When using `gg_blank`, be sure to change the stat to that which will be in your 
 `ggblanket` also provides a `add_tooltip` function to create a column of variable names and values, which can then be used for the tooltip. Note this approach only works where the `stat = identity`.
 
 ```{r, eval = F}
-library(ggiraph)
 df <- iris |>
   tibble::tibble() |>
   add_tooltip(Sepal.Width, Sepal.Length, Species)
@@ -456,7 +455,7 @@ girafe(
 knitr::include_graphics("../man/figures/ggiraph_screenshot.png", dpi = 300)
 ```
 
-17. Over 30 different geoms wrapped into a `gg_*` function
+### 17. Over 30 different geoms wrapped into a `gg_*` function
 
 This is the majority of the geoms in ggplot2. See the [reference](https://davidhodge931.github.io/ggblanket/reference/index.html) for the full list of functions available. 
 
@@ -467,7 +466,9 @@ nc %>%
   gg_sf(col = AREA)
 ```
 
-## Multiple geom layers 
+## Challenges
+
+### Multiple geom layers 
 
 For _all_ plots with multiple geom's, you will need to think about if there is any desired drawing order you want, and if so choose the `gg_*` function that permits this order.
 
@@ -505,18 +506,9 @@ df |>
     )
 ```
 
-## Other challenges 
+### Turning off _part_ of the col aesthetic
 
-`gg_*` functions do not directly support aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`. However, you can use `gg_blank` in addition to a `col` argument, and then add the title of your new aesthetic to align with the `col_title`.
-
-```{r}
-penguins |> 
-  gg_blank(x = flipper_length_mm, y = body_mass_g, col = species) +
-  geom_point(aes(shape = species)) +
-  labs(shape = "Species")
-```
-
-Use `colour = NA` or `fill = NA` to turn off one of the aesthetics that are part of the ggblanket col aesthetic. You can also use `gg_blank` to work with many other extension geom's that have a stat of "identity" or similar. 
+In ggblanket, the `col` aesthetic refers to both the ggplot2 colour and fill aesthetics. If you wish to turn off one of these, you can via the ... and `colour = NA` or `fill = NA`.
 
 ```{r}
 penguins %>%
@@ -531,5 +523,35 @@ penguins %>%
   guides(alpha = guide_legend(title.position = "top"))
 ```
 
-Happy plotting!
+### Other aesthetics 
+
+`gg_*` functions do not directly support aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`. However, you can use `gg_blank`, if you wish to in a slightly hacky way. Note this is easier and works better for graphs with a col aesthetic. 
+
+```{r}
+p1 <- penguins |>
+  gg_blank(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    col = species, 
+    col_legend_ncol = 2) +
+  geom_point(aes(alpha = species)) +
+  labs(alpha = "Species") +
+  scale_alpha_manual(values = c(0.1, 1, 0.5))
+
+p2 <- penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    group = species,
+    pal = "black",
+    col_legend_place = "b", 
+    col_legend_ncol = 2
+  ) +
+  geom_point(aes(alpha = species)) +
+  labs(alpha = "Species") +
+  scale_alpha_manual(values = c(0.1, 1, 0.5)) +
+  guides(alpha = guide_legend(title.position = "top"))
+
+p1 + p2
+```
 
