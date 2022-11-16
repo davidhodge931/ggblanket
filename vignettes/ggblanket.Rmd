@@ -60,7 +60,9 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 12. A `theme` argument to customise the look and feel
 13. A `gg_theme` function to create a quick theme 
 14. A base from which to create custom plot functions with your own defaults
-15. Supports `ggiraph` interactivity with `gg_blank` and `add_tooltip`
+15. Works with the `patchwork` package
+16. Works with the `ggiraph` package
+17. 32 different geoms wrapped into a `gg_*` function! 
 
 ### 1. `gg_*` wrapper functions to plot a single geom
 
@@ -388,11 +390,40 @@ iris |>
   )
 ```
 
-### 15. Supports `ggiraph` interactivity with `gg_blank` and `add_tooltip`
+### 15. Works with the `patchwork` package
 
-ggblanket supports `ggiraph` interactivity with `gg_blank` and `add_tooltip` functions. Users could use a similar approach with `plotly::ggplotly`, if they prefer. 
+As `ggblanket` output objects are ggplot's, it works fine with the patchwork,
+
+```{r}
+library(patchwork)
+
+p1 <- diamonds %>% 
+  gg_point(
+    x = carat,
+    y = price
+  )
+
+p2 <- diamonds %>% 
+  gg_bin2d(
+    x = carat,
+    y = price,
+    caption = "Source: Diamonds Association",
+    theme = gg_theme(caption_hjust = 1)
+  )
+
+p1 + p2
+```
+
+### 16. Works with the `ggiraph` package
+
+By using the powerful `gg_blank` function, you can then use then access the interactivity of `ggiraph`.
+
+When using `gg_blank`, be sure to change the stat to that which will be in your subsequent layer, so that the scales are built appropriately.
+
+`ggblanket` also provides a `add_tooltip` function to create a column of variable names and values, which can then be used for the tooltip. Note this approach only works where the `stat = identity`.
 
 ```{r, eval = F}
+library(ggiraph)
 df <- iris |>
   tibble::tibble() |>
   add_tooltip(Sepal.Width, Sepal.Length, Species)
@@ -409,7 +440,7 @@ p <- iris |>
            facet = Species, 
            theme = gg_theme("helvetica"),
            facet_labels = snakecase::to_sentence_case) +
-  ggiraph::geom_point_interactive(aes(tooltip = tooltip, data_id = id))
+  geom_point_interactive(aes(tooltip = tooltip, data_id = id))
 
 girafe(
   ggobj = p,
@@ -423,6 +454,17 @@ girafe(
 
 ```{r, echo=FALSE}
 knitr::include_graphics("../man/figures/ggiraph_screenshot.png", dpi = 300)
+```
+
+17. Over 30 different geoms wrapped into a `gg_*` function
+
+This is the majority of the geoms in ggplot2. See the [reference](https://davidhodge931.github.io/ggblanket/reference/index.html) for the full list of functions available. 
+
+```{r}
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+
+nc %>% 
+  gg_sf(col = AREA)
 ```
 
 ## Multiple geom layers 
