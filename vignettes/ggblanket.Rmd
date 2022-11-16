@@ -406,19 +406,23 @@ p <- iris |>
   gg_blank(x = Sepal.Width,
            y = Sepal.Length,
            col = Species,
-           facet = Species) +
+           facet = Species, 
+           theme = gg_theme("helvetica"),
+           facet_labels = snakecase::to_sentence_case) +
   ggiraph::geom_point_interactive(aes(tooltip = tooltip, data_id = id))
 
 girafe(
   ggobj = p,
   width_svg = 5,
-  height_svg = 4,
-  options = list(opts_hover(css = "fill:red; stroke: red"))
+  height_svg = 3.25,
+  options = list(
+    opts_tooltip(use_fill = TRUE, use_stroke = TRUE),
+    opts_hover(css = "fill: #d62728; stroke: #d62728"))
 )
 ```
 
 ```{r, echo=FALSE}
-knitr::include_graphics("../man/figures/ggplotly_screenshot.png", dpi = 300)
+knitr::include_graphics("../man/figures/ggiraph_screenshot.png", dpi = 300)
 ```
 
 ## Multiple geom layers 
