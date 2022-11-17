@@ -78,6 +78,6 @@ penguins |>
 
 ## Thanks!
 
-Thank you Hadley Wickham and all other ggplot2 (and ggplot2 extension)
-authors and contributors. If you like ggblanket, please give the
-repository a star and help spread the word.
+Thank you to all authors and contributors to ggplot2, tidyverse, and the
+wider R ecosystem. If you like ggblanket, please give the repository a
+star and help spread the word.
