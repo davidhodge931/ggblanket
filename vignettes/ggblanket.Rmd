@@ -42,6 +42,7 @@ library(stringr)
 library(palmerpenguins)
 library(ggiraph)
 library(patchwork)
+library(ggtext)
 ```
 
 ## How it works
@@ -64,15 +65,19 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 14. A base from which to create custom plot functions with your own defaults
 15. Works with the `patchwork` package
 16. Works with the `ggiraph` package
-17. Over 30 different geoms wrapped into a `gg_*` function 
+17. Works with the `ggtext` package
 
 ### 1. `gg_*` wrapper functions to plot a single geom
 
-These `gg_*`functions each wrap a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function.
+ggblanket provides over 30 `gg_*` functions. This is the majority of the geoms in ggplot2.  
 
-All aesthetics (other than `text`) are within the `ggplot` function, and therefore will inherit to any subsequent geom's added by default.
+Each `gg_*`function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function.
+
+All aesthetics are within the `ggplot` function, and therefore will inherit to any subsequent geom's added by default.
 
 Always pipe in your data, so that you can access variable names from the Rstudio autocomplete.
+
+See the [reference](https://davidhodge931.github.io/ggblanket/reference/index.html) for the full list of functions available.
 
 ```{r}
 iris |>
@@ -351,7 +356,6 @@ storms |>
     y = wind,
     x_labels = scales::label_comma(big.mark = ""),
     x_expand = c(0, 0),
-    width = 0.75,
     theme = gg_theme(
       text_size = 11,
       plot_background_pal = "white",
@@ -397,13 +401,13 @@ iris |>
 As `ggblanket` output objects are ggplot's, it works fine with the patchwork,
 
 ```{r}
-p1 <- diamonds %>% 
+p1 <- diamonds |> 
   gg_point(
     x = carat,
     y = price
   )
 
-p2 <- diamonds %>% 
+p2 <- diamonds |> 
   gg_bin2d(
     x = carat,
     y = price,
@@ -455,15 +459,18 @@ girafe(
 knitr::include_graphics("../man/figures/ggiraph_screenshot.png", dpi = 300)
 ```
 
-### 17. Over 30 different geoms wrapped into a `gg_*` function
+### 17. Works with the `ggtext` package
 
-This is the majority of the geoms in ggplot2. See the [reference](https://davidhodge931.github.io/ggblanket/reference/index.html) for the full list of functions available. 
+If you wish to have a markdown title, make sure the face is plain, and then add the applicable theme layer with `element_markdown`.
 
 ```{r}
 nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
 
-nc %>% 
-  gg_sf(col = AREA)
+nc |>
+  gg_sf(col = AREA,
+        title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
+        theme = gg_theme(title_face = "plain")) +
+  theme(plot.title = ggtext::element_markdown())
 ```
 
 ## Challenges
@@ -537,12 +544,28 @@ p2 <- penguins |>
 p1 + p2
 ```
 
-### Turning off _part_ of the col aesthetic
+### Making _part_ of the col aesthetic fixed or off
 
-In ggblanket, the `col` aesthetic refers to both the ggplot2 colour and fill aesthetics. If you wish to turn off one of these, you can via the ... and `colour = NA` or `fill = NA`.
+In ggblanket, the `col` aesthetic refers to both the ggplot2 colour and fill aesthetics. If you wish to turn off one of these, or set it to a fixed colour, you can via the ... arguments which access the geom_* function. Use `colour = NA` or `fill = NA` to turn off part of the `col` aesthetic, or `colour = "red"` or `fill = "red"` to fix part of the colour aesthetic to a colour.
 
 ```{r}
-penguins %>%
+penguins |>
+  tidyr::drop_na(sex) |>
+  gg_boxplot(
+    x = body_mass_g,
+    y = species,
+    col = sex,
+    colour = "#232323",
+    position = position_dodge2(preserve = "single")
+  )
+```
+
+### Other non-supported geoms
+
+You may or may not be able to work with other geom's by using `gg_blank`, depending on what the stat is in the function. If the stat is "identity" or another stat used by ggblanket, it will work `gg_blank` and that stat referenced. For other stat's, it depends on the nature of the stat.  
+
+```{r}
+penguins |>
   gg_blank(
     x = flipper_length_mm,
     y = bill_length_mm,
@@ -550,7 +573,5 @@ penguins %>%
     col_legend_place = "r"
   ) +
   ggdensity::geom_hdr(colour = NA) +
-  labs(alpha = "Probs") +
-  guides(alpha = guide_legend(title.position = "top"))
+  labs(alpha = "Probs")
 ```
-

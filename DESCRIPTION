@@ -30,6 +30,7 @@ Imports:
 Suggests: 
     ggdensity,
     ggiraph,
+    ggtext,
     hexbin,
     knitr,
     palmerpenguins,
