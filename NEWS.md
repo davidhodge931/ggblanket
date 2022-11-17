@@ -7,6 +7,7 @@
 * Made `gg_blank` more powerful and flexible.
 * Improved horizontal flipped plot scales. 
 * Fixed bugs relating to free `facet_scales` and scale limits.
+* Improved vignette.
 
 # ggblanket 1.5.0
 

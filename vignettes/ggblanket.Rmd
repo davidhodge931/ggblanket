@@ -40,9 +40,7 @@ library(ggplot2)
 library(dplyr)
 library(stringr)
 library(palmerpenguins)
-library(ggiraph)
 library(patchwork)
-library(ggtext)
 ```
 
 ## How it works
@@ -93,7 +91,7 @@ iris |>
 
 ### 2. A single `col` argument to colour and fill by a variable
 
-{ggblanket} merges the col and fill aesthetics of ggplot2 into one concept represented by the `col` argument. In ggplot2 language, this argument always represents both col and fill.
+ggblanket merges the col and fill aesthetics of ggplot2 into one concept represented by the `col` argument. In ggplot2 language, this argument always represents both col and fill.
 
 ```{r}
 penguins |> 
@@ -104,7 +102,7 @@ penguins |>
 
 ### 3. A `facet` argument to facet by a variable
 
-faceting is treated essentially as if it were an aesthetic, where users just provide an unquoted variable to facet by. 
+Faceting is treated essentially as if it were an aesthetic, where users just provide an unquoted variable to facet by. 
 
 If a single facet (or facet2) variable is provided, it'll default to a "wrap" layout. But you can change this with a `facet_layout = "grid"` argument.
 
@@ -132,8 +130,7 @@ penguins |>
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    facet2 = island
-  )
+    facet2 = island)
 ```
 
 ### 5.  A `pal` argument to customise colours
@@ -195,8 +192,7 @@ penguins |>
     y_include = 0,
     y_trans = "sqrt",
     y_breaks = scales::breaks_width(1500), 
-    y_labels = scales::label_number()
-  )
+    y_labels = scales::label_number())
 ```
 
 ### 7. Default titles converted with `snakecase::to_sentence`
@@ -251,8 +247,7 @@ storms |>
     title = "Storm wind speed",
     subtitle = "USA average storm wind speed, 1980\u20132020",
     y_title = "Wind speed (knots)",
-    caption = "Source: NOAA"
-  ) +
+    caption = "Source: NOAA") +
   geom_point()
 ```
 
@@ -282,8 +277,6 @@ penguins |>
 The `pal` is generally inherited to subsequent geom layers regardless of whether there is a `col` argument.
 
 It does this because 'under the hood', dummy `col` and `fill` aesmthetic variables are added, and a colour scale is then added with the legend turned off. 
-
-This approach can cause some challenges. These are discussed further in the 'Multiple geom layers' section. 
 
 Note `alpha` does not inherit.
 
@@ -319,8 +312,7 @@ penguins |>
     col_legend_place = "t",
     col_title = "", 
     col_labels = snakecase::to_sentence_case, 
-    colour = "white" #accessed via geom_smooth
-  ) 
+    colour = "white") #accessed via geom_smooth
 ```
 
 ### 12. A `theme` argument to customise the look and feel
@@ -329,12 +321,7 @@ This allows you to utilise the simplicity of ggblanket, while making content tha
 
 By using the `theme` argument, your theme will control all theme aspects, but with some magic relating to the legend and gridline removal within the `gg_* function`. 
 
-This is why: 
-
-* the `col_legend_place` argument will work regardless of the theme provided to the `theme` argument and
-* a theme with gridlines in both directions can be provided so that you get generally appropriate gridlines automatically (e.g. vertical gridlines for horizontal bar plots).  
-However... if you do not want any magic and want your theme to adjust _everything_, then just add your theme as a layer instead (e.g. `+ theme_grey()`). 
-
+However, if you want your theme to adjust _everything_, then just add your theme as a layer instead (e.g. `+ theme_grey()`). 
 ```{r}
 penguins |>
   mutate(sex = str_to_sentence(sex)) |> 
@@ -386,22 +373,20 @@ nc |>
 
 ### 15. Compatibility with the `patchwork` package to join plots together
 
-As `ggblanket` output objects are ggplot's, it works fine with the patchwork,
+As ggblanket output objects are ggplot's, it works fine with the patchwork package to join plots together.
 
 ```{r}
 p1 <- diamonds |> 
   gg_point(
     x = carat,
-    y = price
-  )
+    y = price)
 
 p2 <- diamonds |> 
   gg_bin2d(
     x = carat,
     y = price,
     caption = "Source: Diamonds Association",
-    theme = gg_theme(caption_hjust = 1)
-  )
+    theme = gg_theme(caption_hjust = 1))
 
 p1 + p2
 ```
@@ -412,9 +397,9 @@ By using the powerful `gg_blank` function, you can then use then access the inte
 
 When using `gg_blank`, be sure to change the stat to that which will be in your subsequent layer, so that the scales are built appropriately.
 
-`ggblanket` also provides a `add_tooltip` function to create a column of variable names and values, which can then be used for the tooltip. Note this approach only works where the `stat = identity`.
+ggblanket also provides a `add_tooltip` function to create a column of variable names and values, which can then be used for the tooltip. Note this approach only works where the `stat = identity`.
 
-```{r, eval = F}
+```{r, eval = FALSE}
 df <- iris |>
   tibble::tibble() |>
   add_tooltip(Sepal.Width, Sepal.Length, Species)
@@ -431,16 +416,20 @@ p <- iris |>
            facet = Species, 
            theme = gg_theme("helvetica"),
            facet_labels = snakecase::to_sentence_case) +
-  geom_point_interactive(aes(tooltip = tooltip, data_id = id))
+  ggiraph::geom_point_interactive(aes(tooltip = tooltip, data_id = id))
 
-girafe(
+ggiraph::girafe(
   ggobj = p,
   width_svg = 5,
   height_svg = 3.25,
   options = list(
-    opts_tooltip(use_fill = TRUE, use_stroke = TRUE),
-    opts_hover(css = "fill: #d62728; stroke: #d62728"))
+    ggiraph::opts_tooltip(use_fill = TRUE, use_stroke = TRUE),
+    ggiraph::opts_hover(css = "fill: #d62728; stroke: #d62728"))
 )
+```
+
+```{r, echo = FALSE}
+knitr::include_graphics("../man/figures/ggiraph_screenshot.png", dpi = 300)
 ```
 
 ### 17. A hack to use other non-supported aesthetics
@@ -454,8 +443,8 @@ p1 <- penguins |>
     y = body_mass_g,
     col = species,
     pal = rep(pal_viridis_mix(1), 3), 
-    col_legend_ncol = 2
-  ) +
+    x_breaks = scales::breaks_pretty(3),
+    col_legend_ncol = 2) +
   geom_point(aes(alpha = species)) +
   labs(alpha = "Species") +
   scale_alpha_manual(values = c(0.1, 1, 0.5))
@@ -465,6 +454,7 @@ p2 <- penguins |>
     x = flipper_length_mm, 
     y = body_mass_g, 
     col = species, 
+    x_breaks = scales::breaks_pretty(3), 
     col_legend_ncol = 2) +
   geom_point(aes(alpha = species)) +
   labs(alpha = "Species") +
@@ -477,7 +467,7 @@ p1 + p2
 
 You can easily create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
-```{r}
+```{r, fig.asp=0.7}
 gg_point_custom <- function(data, x, y, col, 
                             size = 3, 
                             shape = 17,
@@ -503,12 +493,7 @@ iris |>
     col = Species, 
     title = "Edgar Anderson's iris data",
     subtitle = "Iris sepal length by width and species",
-    caption = "Edgar Anderson, 1935"
-  )
-```
-
-```{r, echo=FALSE}
-knitr::include_graphics("../man/figures/ggiraph_screenshot.png", dpi = 300)
+    caption = "Edgar Anderson, 1935")
 ```
 
 ### 19. Ability to work with multiple geom layers, if care is taken
@@ -519,40 +504,36 @@ For plots where some geoms have a` col` aesthetic and some do not, you must choo
 
 Once you know what `gg_*` function you are going to use, then you might need to use the  `*_include` argument to adjust the x or y scale if it will not include all of the range needed by subsequent layers. 
 
-If subsequent layers do _not_ require all of the aesthetics from the `gg_*` function, use the `inherit.aes = FALSE` argument in the `geom_*` function.
-
-For example, to make a coloured column graph with grey error bars, use the `gg_col` function as this layer has a col aesthetic and the drawing order means it should be underneath the errorbars. 
+If subsequent layers need to _not_ require all of the aesthetics from the `gg_*` function, use the `inherit.aes = FALSE` argument in the `geom_*` function.
 
 ```{r}
 df <- data.frame(
-  trt = factor(c(1, 1, 2, 2)),
-  resp = c(1, 5, 3, 4),
+  treatment = factor(c(1, 1, 2, 2)),
+  response = c(1, 5, 3, 4),
   group = factor(c(1, 2, 1, 2)),
   upper = c(1.1, 5.3, 3.3, 4.2),
   lower = c(0.8, 4.6, 2.4, 3.6)
 )
 
-df |> 
+df %>%  
   gg_col(
-    x = trt,
-    y = resp,
+    x = response,
+    y = treatment,
     col = group,
     position = "dodge",
-    y_include = max(df$upper),
-    width = 0.66
-  ) +
+    x_include = max(.$upper),
+    width = 0.66, 
+    pal = c("#1B9E77", "#9E361B")) +
   geom_errorbar(
-    aes(x = trt, ymin = lower, ymax = upper, group = group),
-    inherit.aes = FALSE,
+    aes(xmin = lower, xmax = upper, group = group),
     col = "#7F7F7F",
     position = position_dodge(width = 0.66),
-    width = 0.1
-    )
+    width = 0.1)
 ```
 
-### 20. Compatibility with many other non-supported geoms with `gg_blank``
+### 20. Compatibility with many other non-supported geoms with `gg_blank`
 
-You may or may not be able to work with other non-supported geom's by using `gg_blank`, depending on what the stat is in the function. If the stat is "identity" or another stat used by ggblanket, it can work `gg_blank` and that stat referenced. For other stat's, it depends on the nature of the stat.  
+You may or may not be able to work with other non-supported geom's by using `gg_blank`, depending on what the stat is in the function. If the stat is "identity" or another stat used by ggblanket, it can work `gg_blank` and that stat referenced. For other stat's, it depends on the nature of the stat. If the stat is creating something to do with the `col` aesthetic, then `gg_blank` will not work. 
 
 ```{r}
 iris |>
@@ -563,8 +544,8 @@ iris |>
     col = Species,
     facet = Species,
     col_legend_place = "r",
-    col_labels = snakecase::to_sentence_case
-  ) +
+    col_labels = snakecase::to_sentence_case) +
   ggdensity::geom_hdr(colour = NA) +
-  labs(alpha = "Probs")
+  labs(alpha = "Probs") +
+  theme(legend.title = element_text(margin = margin(t = 5)))
 ```
