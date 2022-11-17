@@ -1,4 +1,4 @@
-# ggblanket 1.5.9000
+# ggblanket 1.6.0
 
 * Breaking: renamed `add_tooltip_text` to `add_tooltip` and changed column name to "tooltip".
 * Breaking: `coord` argument removed.
