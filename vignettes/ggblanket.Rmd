@@ -49,27 +49,30 @@ library(ggtext)
 
 To simplify ggplot2 visualisation, the ggblanket package provides:
 
-1. `gg_*` wrapper functions to plot a single geom
-2.  A single `col` argument to colour and fill by a variable
-3.  A `facet` argument to facet by a variable
-4.  An additional `facet2` argument to facet by a second variable
-5.  A `pal` argument to customise colours
-6.  Prefixed arguments to customise scales, guides, titles and faceting 
-7.  Default titles converted with `snakecase::to_sentence`
-8.  Pretty default numeric limits
-9.  Horizontal plots with y labels in order etc
+1. Over thirty `gg_*` wrapper functions to plot a single geom
+2. A single `col` argument to colour and fill by a variable
+3. A `facet` argument to facet by a variable
+4. An additional `facet2` argument to facet by a second variable
+5. A `pal` argument to customise colours
+6. Prefixed arguments to customise scales, guides, titles and faceting 
+7. Default titles converted with `snakecase::to_sentence`
+8. Pretty default numeric limits
+9. Horizontal plots with y labels in order etc
 10. A `pal` that generally inherits to subsequent geoms
 11. Access to other `geom_*` arguments via `...`
 12. A `theme` argument to customise the look and feel
 13. A `gg_theme` function to create a quick theme 
-14. A base from which to create custom plot functions with your own defaults
-15. Works with the `patchwork` package
-16. Works with the `ggiraph` package
-17. Works with the `ggtext` package
+14. Compatibility with the `ggtext` package to adjust titles etc with markdown
+15. Compatibility with the `patchwork` package to join plots together
+16. Compatibility with the `ggiraph` package to make interactive plots
+17. A hack to use other non-supported aesthetics
+18. A base from which to create custom plot functions with your own defaults
+19. Ability to work with multiple geom layers, if care is taken
+20. Compatibility with many other non-supported geoms with `gg_blank`
 
-### 1. `gg_*` wrapper functions to plot a single geom
+### 1. Over thirty `gg_*` wrapper functions to plot a single geom
 
-ggblanket provides over 30 `gg_*` functions. This is the majority of the geoms in ggplot2.  
+ggblanket supports the majority of geoms in ggplot2.   
 
 Each `gg_*`function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function.
 
@@ -88,7 +91,7 @@ iris |>
     col = Species)
 ```
 
-### 2.A single `col` argument to colour and fill by a variable
+### 2. A single `col` argument to colour and fill by a variable
 
 {ggblanket} merges the col and fill aesthetics of ggplot2 into one concept represented by the `col` argument. In ggplot2 language, this argument always represents both col and fill.
 
@@ -298,7 +301,11 @@ penguins |>
 
 This relates to all other arguments other than the mapping argument with aesthetics.
 
-Common arguments to add are `size`, `linewidth` and `width`. All arguments and can be identified through the help on the relevant `ggplot2::geom_*` function.
+All arguments and can be identified through the help on the relevant `ggplot2::geom_*` function.
+
+Common arguments to add are `size`, `linewidth` and `width`. 
+
+Additionally, you can use the `colour` or `fill` arguments to turn off part of the ggblanket col aesthetic (e.g. `colour = NA` or `fill = NA`), or fix it to single colour.  
 
 ```{r}
 penguins |>
@@ -307,11 +314,12 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    size = 0.5, 
-    level = 0.99, 
+    linewidth = 0.5, #accessed via geom_smooth
+    level = 0.99, #accessed via geom_smooth
     col_legend_place = "t",
     col_title = "", 
-    col_labels = snakecase::to_sentence_case
+    col_labels = snakecase::to_sentence_case, 
+    colour = "white" #accessed via geom_smooth
   ) 
 ```
 
@@ -362,41 +370,21 @@ storms |>
       panel_background_pal = "white"))
 ```
 
-### 14. A base from which to create custom plot functions with your own defaults
+### 14. Compatibility with the `ggtext` package to adjust titles etc with markdown
 
-You can easily create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
+If you wish to have a markdown title, make sure the face is plain, and then add the applicable theme layer with `element_markdown`.
 
 ```{r}
-gg_point_custom <- function(data, x, y, col, 
-                            size = 3, 
-                            shape = 17,
-                            pal = pals::brewer.dark2(9), 
-                            col_title = "", 
-                            col_legend_place = "t",
-                            ...) {
-  data |> 
-    gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
-             size = size, 
-             shape = shape,
-             pal = pal, 
-             col_title = col_title, 
-             col_legend_place = col_legend_place, 
-             ...)
-}
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
 
-iris |>
-  mutate(Species = str_to_sentence(Species)) |> 
-  gg_point_custom(
-    x = Sepal.Width,
-    y = Sepal.Length,
-    col = Species, 
-    title = "Edgar Anderson's iris data",
-    subtitle = "Iris sepal length by width and species",
-    caption = "Edgar Anderson, 1935"
-  )
+nc |>
+  gg_sf(col = AREA,
+        title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
+        theme = gg_theme(title_face = "plain")) +
+  theme(plot.title = ggtext::element_markdown())
 ```
 
-### 15. Works with the `patchwork` package
+### 15. Compatibility with the `patchwork` package to join plots together
 
 As `ggblanket` output objects are ggplot's, it works fine with the patchwork,
 
@@ -418,7 +406,7 @@ p2 <- diamonds |>
 p1 + p2
 ```
 
-### 16. Works with the `ggiraph` package
+### 16. Compatibility with the `ggiraph` package to make interactive plots
 
 By using the powerful `gg_blank` function, you can then use then access the interactivity of `ggiraph`.
 
@@ -455,27 +443,75 @@ girafe(
 )
 ```
 
+### 17. A hack to use other non-supported aesthetics
+
+`gg_*` functions do not directly support aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`. However, you can use `gg_blank`. The hack is to make your additional aesthetic equivalent to the `col` aesthetic. If you do not want things to be coloured by the aesthetic, you need to make the `pal` the same colour for each of the values in the `col` aesthetic. You will need to make the titles of the legend equivalent, so that the legend can be merged into one.  The examples below demonstrate how this works for an alpha aesthetic.
+
+```{r}
+p1 <- penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+    pal = rep(pal_viridis_mix(1), 3), 
+    col_legend_ncol = 2
+  ) +
+  geom_point(aes(alpha = species)) +
+  labs(alpha = "Species") +
+  scale_alpha_manual(values = c(0.1, 1, 0.5))
+
+p2 <- penguins |>
+  gg_blank(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    col = species, 
+    col_legend_ncol = 2) +
+  geom_point(aes(alpha = species)) +
+  labs(alpha = "Species") +
+  scale_alpha_manual(values = c(0.1, 1, 0.5))
+
+p1 + p2
+```
+
+### 18. A base from which to create custom plot functions with your own defaults
+
+You can easily create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
+
+```{r}
+gg_point_custom <- function(data, x, y, col, 
+                            size = 3, 
+                            shape = 17,
+                            pal = pals::brewer.dark2(9), 
+                            col_title = "", 
+                            col_legend_place = "t",
+                            ...) {
+  data |> 
+    gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
+             size = size, 
+             shape = shape,
+             pal = pal, 
+             col_title = col_title, 
+             col_legend_place = col_legend_place, 
+             ...)
+}
+
+iris |>
+  mutate(Species = str_to_sentence(Species)) |> 
+  gg_point_custom(
+    x = Sepal.Width,
+    y = Sepal.Length,
+    col = Species, 
+    title = "Edgar Anderson's iris data",
+    subtitle = "Iris sepal length by width and species",
+    caption = "Edgar Anderson, 1935"
+  )
+```
+
 ```{r, echo=FALSE}
 knitr::include_graphics("../man/figures/ggiraph_screenshot.png", dpi = 300)
 ```
 
-### 17. Works with the `ggtext` package
-
-If you wish to have a markdown title, make sure the face is plain, and then add the applicable theme layer with `element_markdown`.
-
-```{r}
-nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
-
-nc |>
-  gg_sf(col = AREA,
-        title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
-        theme = gg_theme(title_face = "plain")) +
-  theme(plot.title = ggtext::element_markdown())
-```
-
-## Challenges
-
-### Multiple geom layers 
+### 19. Ability to work with multiple geom layers, if care is taken
 
 For _all_ plots with multiple geom's, you will need to think about if there is any desired drawing order you want, and if so choose the `gg_*` function that permits this order.
 
@@ -514,63 +550,20 @@ df |>
     )
 ```
 
-### Other aesthetics 
+### 20. Compatibility with many other non-supported geoms with `gg_blank``
 
-`gg_*` functions do not directly support aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`. However, you can use `gg_blank`. The hack is to make your additional aesthetic equivalent to the `col` aesthetic. If you do not want things to be coloured by the aesthetic, you need to make the `pal` the same colour for each of the values in the `col` aesthetic. You will need to make the titles of the legend equivalent, so that the legend can be merged into one.  The examples below demonstrate how this works for an alpha aesthetic.
-
-```{r}
-p1 <- penguins |>
-  gg_blank(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = species,
-    pal = rep(pal_viridis_mix(1), 3), 
-    col_legend_ncol = 2
-  ) +
-  geom_point(aes(alpha = species)) +
-  labs(alpha = "Species") +
-  scale_alpha_manual(values = c(0.1, 1, 0.5))
-
-p2 <- penguins |>
-  gg_blank(
-    x = flipper_length_mm, 
-    y = body_mass_g, 
-    col = species, 
-    col_legend_ncol = 2) +
-  geom_point(aes(alpha = species)) +
-  labs(alpha = "Species") +
-  scale_alpha_manual(values = c(0.1, 1, 0.5))
-
-p1 + p2
-```
-
-### Making _part_ of the col aesthetic fixed or off
-
-In ggblanket, the `col` aesthetic refers to both the ggplot2 colour and fill aesthetics. If you wish to turn off one of these, or set it to a fixed colour, you can via the ... arguments which access the geom_* function. Use `colour = NA` or `fill = NA` to turn off part of the `col` aesthetic, or `colour = "red"` or `fill = "red"` to fix part of the colour aesthetic to a colour.
+You may or may not be able to work with other non-supported geom's by using `gg_blank`, depending on what the stat is in the function. If the stat is "identity" or another stat used by ggblanket, it can work `gg_blank` and that stat referenced. For other stat's, it depends on the nature of the stat.  
 
 ```{r}
-penguins |>
-  tidyr::drop_na(sex) |>
-  gg_boxplot(
-    x = body_mass_g,
-    y = species,
-    col = sex,
-    colour = "#232323",
-    position = position_dodge2(preserve = "single")
-  )
-```
-
-### Other non-supported geoms
-
-You may or may not be able to work with other geom's by using `gg_blank`, depending on what the stat is in the function. If the stat is "identity" or another stat used by ggblanket, it will work `gg_blank` and that stat referenced. For other stat's, it depends on the nature of the stat.  
-
-```{r}
-penguins |>
+iris |>
+  mutate(Species = stringr::str_to_sentence(Species)) |> 
   gg_blank(
-    x = flipper_length_mm,
-    y = bill_length_mm,
-    col = species,
-    col_legend_place = "r"
+    x = Sepal.Width,
+    y = Sepal.Length,
+    col = Species,
+    facet = Species,
+    col_legend_place = "r",
+    col_labels = snakecase::to_sentence_case
   ) +
   ggdensity::geom_hdr(colour = NA) +
   labs(alpha = "Probs")

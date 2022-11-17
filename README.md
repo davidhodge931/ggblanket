@@ -79,5 +79,7 @@ penguins |>
 ## Thanks!
 
 Thank you to all authors and contributors to ggplot2, tidyverse, and the
-wider R ecosystem. If you like ggblanket, please give the repository a
-star and help spread the word.
+wider R ecosystem.
+
+If you like ggblanket, please give the repository a star and help spread
+the word.
