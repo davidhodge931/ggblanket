@@ -507,6 +507,36 @@ df |>
     )
 ```
 
+### Other aesthetics 
+
+`gg_*` functions do not directly support aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`. However, you can use `gg_blank`. The hack is to make your additional aesthetic equivalent to the `col` aesthetic. If you do not want things to be coloured by the aesthetic, you need to make the `pal` the same colour for each of the values in the `col` aesthetic. You will need to make the titles of the legend equivalent, so that the legend can be merged into one.  The examples below demonstrate how this works for an alpha aesthetic.
+
+```{r}
+p1 <- penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+    pal = rep(pal_viridis_mix(1), 3), 
+    col_legend_ncol = 2
+  ) +
+  geom_point(aes(alpha = species)) +
+  labs(alpha = "Species") +
+  scale_alpha_manual(values = c(0.1, 1, 0.5))
+
+p2 <- penguins |>
+  gg_blank(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    col = species, 
+    col_legend_ncol = 2) +
+  geom_point(aes(alpha = species)) +
+  labs(alpha = "Species") +
+  scale_alpha_manual(values = c(0.1, 1, 0.5))
+
+p1 + p2
+```
+
 ### Turning off _part_ of the col aesthetic
 
 In ggblanket, the `col` aesthetic refers to both the ggplot2 colour and fill aesthetics. If you wish to turn off one of these, you can via the ... and `colour = NA` or `fill = NA`.
@@ -522,38 +552,5 @@ penguins %>%
   ggdensity::geom_hdr(colour = NA) +
   labs(alpha = "Probs") +
   guides(alpha = guide_legend(title.position = "top"))
-```
-
-### Other aesthetics 
-
-`gg_*` functions do not directly support aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`. However, you can use `gg_blank`, if you wish to in a slightly hacky way. Note this is easier and works better for plots with a col aesthetic. 
-
-```{r}
-p1 <- penguins |>
-  gg_blank(
-    x = flipper_length_mm, 
-    y = body_mass_g, 
-    col = species, 
-    col_legend_ncol = 2) +
-  geom_point(aes(alpha = species)) +
-  labs(alpha = "Species") +
-  scale_alpha_manual(values = c(0.1, 1, 0.5))
-
-p2 <- penguins |>
-  gg_blank(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    group = species,
-    pal = "black",
-    col_legend_place = "b", 
-    col_legend_ncol = 2
-  ) +
-  geom_point(aes(alpha = species)) +
-  labs(alpha = "Species") +
-  scale_alpha_manual(values = c(0.1, 1, 0.5)) +
-  guides(alpha = guide_legend(title.position = "top", 
-                              ncol = 2))
-
-p1 + p2
 ```
 
