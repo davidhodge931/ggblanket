@@ -1,6 +1,6 @@
 # ggblanket 1.5.9000
 
-* Breaking: renamed `add_tooltip_text` to `add_tooltip` and changed output default column name to "tooltip".
+* Breaking: renamed `add_tooltip_text` to `add_tooltip` and changed column name to "tooltip".
 * Breaking: `coord` argument removed.
 * Added `clip` argument and defaulted to "on".
 * Made `x` and `y` limits also act within the coord. 
