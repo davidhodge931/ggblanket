@@ -1,7 +1,7 @@
 # ggblanket 1.6.1
 
 * Breaking: removed `void` argument from `gg_theme`.
-* Added void argument to `gg_sf` and `gg_blank`.
+* Added `void` argument to `gg_sf` and `gg_blank`.
 
 # ggblanket 1.6.0
 
