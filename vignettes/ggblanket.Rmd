@@ -366,6 +366,7 @@ nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
 
 nc |>
   gg_sf(col = AREA,
+        col_legend_place = "b",
         title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
         theme = gg_theme(title_face = "plain")) +
   theme(plot.title = ggtext::element_markdown())

@@ -63,7 +63,7 @@ gg_crossbar(
   facet_layout = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
-  theme = NULL
+  theme = gg_theme()
 )
 }
 \arguments{

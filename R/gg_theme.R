@@ -29,7 +29,6 @@
 #' @param panel_grid_pal The colour for the vertical major gridlines. Defaults to "#D3D3D3".
 #' @param panel_spacing_lines The size of the spacing between facet panels in units of "lines". Defaults to 1.25.
 #' @param plot_background_pal The colour for the plot background colour.
-#' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
 #'
 #' @return A ggplot theme.
 #' @export
@@ -62,8 +61,7 @@ gg_theme <- function(
     panel_grid_linewidth = 0.2,
     panel_grid_pal = "#D3D3D3",
     panel_spacing_lines = 1.25,
-    plot_background_pal = "#F1F3F5",
-    void = FALSE) {
+    plot_background_pal = "#F1F3F5") {
 
   if (is.null(axis_ticks_pal)) axis_ticks_pal <- axis_line_pal
   if (is.null(legend_key_pal)) legend_key_pal <- plot_background_pal
@@ -111,15 +109,6 @@ gg_theme <- function(
     legend.box = NULL,
     complete = TRUE
   )
-
-  if (void) {
-    theme <- theme +
-      ggplot2::theme(axis.text = ggplot2::element_blank()) +
-      ggplot2::theme(axis.line = ggplot2::element_blank()) +
-      ggplot2::theme(axis.ticks = ggplot2::element_blank()) +
-      ggplot2::theme(axis.title = ggplot2::element_blank()) +
-      theme(plot.margin = ggplot2::margin(t = 15, l = 20, b = 10, r = 20))
-  }
 
   return(theme)
 }

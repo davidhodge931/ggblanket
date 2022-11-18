@@ -39,6 +39,7 @@
 #' @param titles A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
+#' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -87,7 +88,8 @@ gg_sf <- function(
     facet_layout = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case,
-    theme = NULL) {
+    theme = gg_theme(),
+    void = TRUE) {
 
   #stop, warn or message
   rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
@@ -139,11 +141,6 @@ gg_sf <- function(
   }
   if (rlang::is_null(y_title)) {
     y_title <- ""
-  }
-
-  if (rlang::is_null(theme)) {
-    if (stat == "sf") theme <- gg_theme(void = TRUE)
-    else theme <- gg_theme(void = FALSE)
   }
 
   if (stat == "sf") {
@@ -578,15 +575,30 @@ gg_sf <- function(
   }
 
   #remove gridlines not needed
-  if (!x_grid) {
-    plot <- plot +
-      ggplot2::theme(panel.grid.major.x = ggplot2::element_blank()) +
-      ggplot2::theme(panel.grid.minor.x = ggplot2::element_blank())
+  if (!x_grid & !y_grid) {
+    plot <- plot + #resolve sf bug https://github.com/tidyverse/ggplot2/issues/4730
+      ggplot2::theme(panel.grid.major = ggplot2::element_blank())
   }
-  if (!y_grid) {
+  else {
+    if (!x_grid) {
+      plot <- plot +
+        ggplot2::theme(panel.grid.major.x = ggplot2::element_blank()) +
+        ggplot2::theme(panel.grid.minor.x = ggplot2::element_blank())
+    }
+    if (!y_grid) {
+      plot <- plot +
+        ggplot2::theme(panel.grid.major.y = ggplot2::element_blank()) +
+        ggplot2::theme(panel.grid.minor.y = ggplot2::element_blank())
+    }
+  }
+
+  if (void) {
     plot <- plot +
-      ggplot2::theme(panel.grid.major.y = ggplot2::element_blank()) +
-      ggplot2::theme(panel.grid.minor.y = ggplot2::element_blank())
+      ggplot2::theme(axis.text = ggplot2::element_blank()) +
+      ggplot2::theme(axis.line = ggplot2::element_blank()) +
+      ggplot2::theme(axis.ticks = ggplot2::element_blank()) +
+      ggplot2::theme(axis.title = ggplot2::element_blank()) +
+      ggplot2::theme(plot.margin = ggplot2::margin(t = 15, l = 20, b = 10, r = 20))
   }
 
   #return beautiful plot

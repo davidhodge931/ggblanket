@@ -123,7 +123,7 @@ gg_density <- function(
     facet_layout = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case,
-    theme = NULL) {
+    theme = gg_theme()) {
 
   #stop, warn or message
   rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
@@ -233,11 +233,6 @@ gg_density <- function(
       y_title <- purrr::map_chr(rlang::as_name(y), titles)
     }
     else y_title <- ""
-  }
-
-  if (rlang::is_null(theme)) {
-    if (stat == "sf") theme <- gg_theme(void = TRUE)
-    else theme <- gg_theme(void = FALSE)
   }
 
   if (stat == "sf") {

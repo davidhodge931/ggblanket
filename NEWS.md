@@ -1,3 +1,8 @@
+# ggblanket 1.6.1
+
+* Breaking: removed `void` argument from `gg_theme`.
+* Added void argument to `gg_sf` and `gg_blank`.
+
 # ggblanket 1.6.0
 
 * Breaking: renamed `add_tooltip_text` to `add_tooltip` and changed column name to "tooltip".

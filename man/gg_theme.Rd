@@ -32,8 +32,7 @@ gg_theme(
   panel_grid_linewidth = 0.2,
   panel_grid_pal = "#D3D3D3",
   panel_spacing_lines = 1.25,
-  plot_background_pal = "#F1F3F5",
-  void = FALSE
+  plot_background_pal = "#F1F3F5"
 )
 }
 \arguments{
@@ -92,8 +91,6 @@ gg_theme(
 \item{panel_spacing_lines}{The size of the spacing between facet panels in units of "lines". Defaults to 1.25.}
 
 \item{plot_background_pal}{The colour for the plot background colour.}
-
-\item{void}{TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.}
 }
 \value{
 A ggplot theme.
