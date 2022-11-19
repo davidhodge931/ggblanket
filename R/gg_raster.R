@@ -56,6 +56,7 @@
 #' @param titles A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
+#' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels. Defaults to FALSE.
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -84,20 +85,20 @@ gg_raster <- function(
     title = NULL,
     subtitle = NULL,
     x_breaks = NULL,
-    x_expand = NULL,
+    x_expand = c(0, 0),
     x_grid = NULL,
     x_include = NULL,
     x_labels = NULL,
-    x_limits = NULL,
+    x_limits = c(NA, NA),
     x_sec_axis = ggplot2::waiver(),
     x_title = NULL,
     x_trans = "identity",
     y_breaks = NULL,
-    y_expand = NULL,
+    y_expand = c(0, 0),
     y_grid = NULL,
     y_include = NULL,
     y_labels = NULL,
-    y_limits = NULL,
+    y_limits = c(NA, NA),
     y_sec_axis = ggplot2::waiver(),
     y_title = NULL,
     y_trans = "identity",
@@ -121,7 +122,8 @@ gg_raster <- function(
     facet_layout = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case,
-    theme = gg_theme()) {
+    theme = gg_theme(),
+    void = FALSE) {
 
   #stop, warn or message
   rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
@@ -856,22 +858,22 @@ gg_raster <- function(
 
       if (col_continuous == "gradient") {
         plot <- plot +
-          ggplot2::scale_colour_gradientn(
-            colours = pal,
-            values = col_rescale,
-            labels = col_labels,
-            breaks = col_breaks,
-            limits = col_limits,
-            trans = col_trans,
-            na.value = pal_na,
-            guide = ggplot2::guide_colourbar(
-              title.position = "top",
-              draw.ulim = TRUE,
-              draw.llim = TRUE,
-              ticks.colour = "#F1F3F5",
-              reverse = col_legend_rev
-            )
-          ) +
+          # ggplot2::scale_colour_gradientn(
+          #   colours = pal,
+          #   values = col_rescale,
+          #   labels = col_labels,
+          #   breaks = col_breaks,
+          #   limits = col_limits,
+          #   trans = col_trans,
+          #   na.value = pal_na,
+          #   guide = ggplot2::guide_colourbar(
+          #     title.position = "top",
+          #     draw.ulim = TRUE,
+          #     draw.llim = TRUE,
+          #     ticks.colour = "#F1F3F5",
+          #     reverse = col_legend_rev
+          #   )
+          # ) +
           ggplot2::scale_fill_gradientn(
             colours = pal,
             values = col_rescale,
@@ -891,18 +893,18 @@ gg_raster <- function(
       }
       else if (col_continuous == "steps") {
         plot <- plot +
-          ggplot2::scale_colour_stepsn(
-            colours = pal,
-            values = col_rescale,
-            labels = col_labels,
-            breaks = col_breaks,
-            limits = col_limits,
-            trans = col_trans,
-            na.value = pal_na,
-            guide = ggplot2::guide_coloursteps(
-              title.position = "top",
-              reverse = col_legend_rev)
-          ) +
+          # ggplot2::scale_colour_stepsn(
+          #   colours = pal,
+          #   values = col_rescale,
+          #   labels = col_labels,
+          #   breaks = col_breaks,
+          #   limits = col_limits,
+          #   trans = col_trans,
+          #   na.value = pal_na,
+          #   guide = ggplot2::guide_coloursteps(
+          #     title.position = "top",
+          #     reverse = col_legend_rev)
+          # ) +
           ggplot2::scale_fill_stepsn(
             colours = pal,
             values = col_rescale,
@@ -1083,6 +1085,15 @@ gg_raster <- function(
     plot <- plot +
       ggplot2::theme(panel.grid.major.y = ggplot2::element_blank()) +
       ggplot2::theme(panel.grid.minor.y = ggplot2::element_blank())
+  }
+
+  if (void) {
+    plot <- plot +
+      ggplot2::theme(axis.text = ggplot2::element_blank()) +
+      ggplot2::theme(axis.line = ggplot2::element_blank()) +
+      ggplot2::theme(axis.ticks = ggplot2::element_blank()) +
+      ggplot2::theme(axis.title = ggplot2::element_blank()) +
+      ggplot2::theme(plot.margin = ggplot2::margin(t = 15, l = 20, b = 10, r = 20))
   }
 
   #return beautiful plot

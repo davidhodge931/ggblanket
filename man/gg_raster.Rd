@@ -22,20 +22,20 @@ gg_raster(
   title = NULL,
   subtitle = NULL,
   x_breaks = NULL,
-  x_expand = NULL,
+  x_expand = c(0, 0),
   x_grid = NULL,
   x_include = NULL,
   x_labels = NULL,
-  x_limits = NULL,
+  x_limits = c(NA, NA),
   x_sec_axis = ggplot2::waiver(),
   x_title = NULL,
   x_trans = "identity",
   y_breaks = NULL,
-  y_expand = NULL,
+  y_expand = c(0, 0),
   y_grid = NULL,
   y_include = NULL,
   y_labels = NULL,
-  y_limits = NULL,
+  y_limits = c(NA, NA),
   y_sec_axis = ggplot2::waiver(),
   y_title = NULL,
   y_trans = "identity",
@@ -59,7 +59,8 @@ gg_raster(
   facet_layout = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
-  theme = gg_theme()
+  theme = gg_theme(),
+  void = FALSE
 )
 }
 \arguments{
@@ -172,6 +173,8 @@ gg_raster(
 \item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{void}{TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels. Defaults to FALSE.}
 }
 \value{
 A ggplot object.

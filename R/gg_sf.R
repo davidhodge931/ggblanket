@@ -39,7 +39,7 @@
 #' @param titles A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
-#' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
+#' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels. Defaults to TRUE.
 #' @return A ggplot object.
 #' @export
 #' @examples

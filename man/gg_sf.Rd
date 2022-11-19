@@ -123,7 +123,7 @@ gg_sf(
 
 \item{theme}{A ggplot2 theme.}
 
-\item{void}{TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.}
+\item{void}{TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels. Defaults to TRUE.}
 }
 \value{
 A ggplot object.
