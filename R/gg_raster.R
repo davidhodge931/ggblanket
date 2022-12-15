@@ -143,7 +143,7 @@ gg_raster <- function(
       c(!!x, !!y,
         !!col
       ),
-      function(x) dplyr::na_if(x, Inf)))
+      na_if_double))
 
   #get classes
   x_null <- rlang::quo_is_null(x)

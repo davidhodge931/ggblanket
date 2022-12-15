@@ -162,7 +162,7 @@ gg_crossbar <- function(
         !!xmax, !!ymax,
         !!col
       ),
-      function(x) dplyr::na_if(x, Inf)))
+      na_if_double))
 
   #get classes
   x_null <- rlang::quo_is_null(x) & rlang::quo_is_null(xmin) & rlang::quo_is_null(xmax)

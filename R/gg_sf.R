@@ -105,7 +105,7 @@ gg_sf <- function(
     dplyr::ungroup() %>%
     dplyr::mutate(dplyr::across(
       c(!!col),
-      function(x) dplyr::na_if(x, Inf)))
+      na_if_double))
 
   #get classes
   x_null <- TRUE
