@@ -1,3 +1,7 @@
+# ggblanket 1.6.1.9000
+
+* Make compatible with dplyr 1.1.0.
+
 # ggblanket 1.6.1
 
 * Breaking: removed `void` argument from `gg_theme`.

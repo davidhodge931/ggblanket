@@ -1,3 +1,9 @@
+#' Convert NA numeric values to Infinite
+#'
+#' @param x A vector
+#'
+#' @return A vector
+#' @keywords internal
 na_if_double <- function(x) {
   if (is.object(x)) {
     return(x)
