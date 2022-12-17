@@ -59,20 +59,16 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
+#' library(ggplot2)
 #'
-#' huron %>%
-#'   gg_area(
-#'     x = year,
-#'     y = level,
-#'     x_labels = ~.x)
+#' gg_area(mtcars, x = wt, y = mpg)
+#' gg_area(mtcars, x = wt, y = mpg, col = cyl)
 #'
-#' huron %>%
-#'   gg_area(
-#'     y = year,
-#'     x = level,
-#'     x_labels = ~.x,
-#'     orientation = "y")
+#' mtcars %>%
+#'   dplyr::mutate(cyl = factor(cyl)) %>%
+#'   gg_area(x = wt, y = mpg, col = cyl, size = 1)
+#'
+#' gg_area(diamonds, x = carat, y = price, alpha = 0.01)
 #'
 gg_area <- function(
     data = NULL,
@@ -83,7 +79,7 @@ gg_area <- function(
     facet2 = NULL,
     group = NULL,
     stat = "align",
-    position = "stack",
+    position = "identity",
     clip = "on",
     pal = NULL,
     pal_na = "#7F7F7F",
@@ -287,7 +283,7 @@ gg_area <- function(
              (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
       col_legend_place <- "none"
     }
-    else if (col_numeric) col_legend_place <- "right"
+    else if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
     else col_legend_place <- "bottom"
   }
   else {
@@ -557,7 +553,7 @@ gg_area <- function(
           }
 
           if (rlang::is_null(x_breaks)) {
-            if (x_time) x_breaks <- ggplot2::waiver()
+            if (x_time | x_datetime) x_breaks <- ggplot2::waiver()
             else if (!x_trans %in% c("identity", "reverse")) x_breaks <- ggplot2::waiver()
             else {
               if (!facet_null & !facet2_null) x_breaks_n <- 3
@@ -717,7 +713,7 @@ gg_area <- function(
           if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
 
           if (rlang::is_null(y_breaks)) {
-            if (y_time) y_breaks <- ggplot2::waiver()
+            if (y_time | y_datetime) y_breaks <- ggplot2::waiver()
             else if (!y_trans %in% c("identity", "reverse")) y_breaks <- ggplot2::waiver()
             else {
               if (!facet_null & !facet2_null) y_breaks_n <- 4
@@ -834,12 +830,15 @@ gg_area <- function(
         dplyr::pull(!!col)
     }
 
-    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
+    if (col_numeric | col_date | col_datetime | col_time | stat %in% c("bin2d", "bin_2d", "binhex")) {
+      if (col_date) col_trans <- "date"
+      if (col_datetime | col_time) col_trans <- "time"
 
       if (col_trans == "reverse") col_limits <- rev(sort(col_limits))
 
       if (rlang::is_null(col_breaks)) {
         if (!col_trans %in% c("identity", "reverse")) col_breaks <- ggplot2::waiver()
+        else if (col_time | col_datetime) col_breaks <- ggplot2::waiver()
         else col_breaks <- scales::breaks_pretty(4)
       }
 
@@ -850,11 +849,6 @@ gg_area <- function(
         else if (col_date | col_datetime | col_time) {
           col_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
         }
-      }
-
-      if (rlang::is_null(col_breaks)) {
-        if (!col_trans %in% c("identity", "reverse")) col_breaks <- ggplot2::waiver()
-        else col_breaks <- scales::breaks_pretty(4)
       }
 
       if (!rlang::is_null(col_rescale)) {

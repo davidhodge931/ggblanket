@@ -13,7 +13,7 @@ gg_area(
   facet2 = NULL,
   group = NULL,
   stat = "align",
-  position = "stack",
+  position = "identity",
   clip = "on",
   pal = NULL,
   pal_na = "#7F7F7F",
@@ -180,19 +180,15 @@ A ggplot object.
 Create a area ggplot with a wrapper around the ggplot2::geom_area function.
 }
 \examples{
-huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
+library(ggplot2)
 
-huron \%>\%
-  gg_area(
-    x = year,
-    y = level,
-    x_labels = ~.x)
+gg_area(mtcars, x = wt, y = mpg)
+gg_area(mtcars, x = wt, y = mpg, col = cyl)
 
-huron \%>\%
-  gg_area(
-    y = year,
-    x = level,
-    x_labels = ~.x,
-    orientation = "y")
+mtcars \%>\%
+  dplyr::mutate(cyl = factor(cyl)) \%>\%
+  gg_area(x = wt, y = mpg, col = cyl, size = 1)
+
+gg_area(diamonds, x = carat, y = price, alpha = 0.01)
 
 }

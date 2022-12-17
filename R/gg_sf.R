@@ -187,7 +187,7 @@ gg_sf <- function(
              (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
       col_legend_place <- "none"
     }
-    else if (col_numeric) col_legend_place <- "right"
+    else if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
     else col_legend_place <- "bottom"
   }
   else {
@@ -337,12 +337,15 @@ gg_sf <- function(
         dplyr::pull(!!col)
     }
 
-    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
+    if (col_numeric | col_date | col_datetime | col_time | stat %in% c("bin2d", "bin_2d", "binhex")) {
+      if (col_date) col_trans <- "date"
+      if (col_datetime | col_time) col_trans <- "time"
 
       if (col_trans == "reverse") col_limits <- rev(sort(col_limits))
 
       if (rlang::is_null(col_breaks)) {
         if (!col_trans %in% c("identity", "reverse")) col_breaks <- ggplot2::waiver()
+        else if (col_time | col_datetime) col_breaks <- ggplot2::waiver()
         else col_breaks <- scales::breaks_pretty(4)
       }
 
@@ -353,11 +356,6 @@ gg_sf <- function(
         else if (col_date | col_datetime | col_time) {
           col_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
         }
-      }
-
-      if (rlang::is_null(col_breaks)) {
-        if (!col_trans %in% c("identity", "reverse")) col_breaks <- ggplot2::waiver()
-        else col_breaks <- scales::breaks_pretty(4)
       }
 
       if (!rlang::is_null(col_rescale)) {

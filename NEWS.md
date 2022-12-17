@@ -1,6 +1,8 @@
 # ggblanket 1.6.1.9000
 
-* Make compatible with dplyr 1.1.0.
+* Made compatible with dplyr 1.1.0.
+* Made datetime breaks default to waiver.
+* Supported colouring date, datetime and time variables.
 
 # ggblanket 1.6.1
 

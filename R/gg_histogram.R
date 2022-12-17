@@ -282,7 +282,7 @@ gg_histogram <- function(
              (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
       col_legend_place <- "none"
     }
-    else if (col_numeric) col_legend_place <- "right"
+    else if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
     else col_legend_place <- "bottom"
   }
   else {
@@ -552,7 +552,7 @@ gg_histogram <- function(
           }
 
           if (rlang::is_null(x_breaks)) {
-            if (x_time) x_breaks <- ggplot2::waiver()
+            if (x_time | x_datetime) x_breaks <- ggplot2::waiver()
             else if (!x_trans %in% c("identity", "reverse")) x_breaks <- ggplot2::waiver()
             else {
               if (!facet_null & !facet2_null) x_breaks_n <- 3
@@ -712,7 +712,7 @@ gg_histogram <- function(
           if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
 
           if (rlang::is_null(y_breaks)) {
-            if (y_time) y_breaks <- ggplot2::waiver()
+            if (y_time | y_datetime) y_breaks <- ggplot2::waiver()
             else if (!y_trans %in% c("identity", "reverse")) y_breaks <- ggplot2::waiver()
             else {
               if (!facet_null & !facet2_null) y_breaks_n <- 4
@@ -829,12 +829,15 @@ gg_histogram <- function(
         dplyr::pull(!!col)
     }
 
-    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
+    if (col_numeric | col_date | col_datetime | col_time | stat %in% c("bin2d", "bin_2d", "binhex")) {
+      if (col_date) col_trans <- "date"
+      if (col_datetime | col_time) col_trans <- "time"
 
       if (col_trans == "reverse") col_limits <- rev(sort(col_limits))
 
       if (rlang::is_null(col_breaks)) {
         if (!col_trans %in% c("identity", "reverse")) col_breaks <- ggplot2::waiver()
+        else if (col_time | col_datetime) col_breaks <- ggplot2::waiver()
         else col_breaks <- scales::breaks_pretty(4)
       }
 
@@ -845,11 +848,6 @@ gg_histogram <- function(
         else if (col_date | col_datetime | col_time) {
           col_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
         }
-      }
-
-      if (rlang::is_null(col_breaks)) {
-        if (!col_trans %in% c("identity", "reverse")) col_breaks <- ggplot2::waiver()
-        else col_breaks <- scales::breaks_pretty(4)
       }
 
       if (!rlang::is_null(col_rescale)) {
