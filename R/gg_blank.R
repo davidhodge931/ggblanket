@@ -196,7 +196,7 @@ gg_blank <- function(
         !!xlower, !!xmiddle, !!xupper, !!ylower, !!ymiddle, !!yupper,
         !!col
       ),
-      function(x) dplyr::na_if(x, Inf)))
+      na_if_double))
 
   #get classes
   if (stat == "sf") {

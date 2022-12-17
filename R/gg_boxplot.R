@@ -180,7 +180,7 @@ gg_boxplot <- function(
         !!xlower, !!xmiddle, !!xupper, !!ylower, !!ymiddle, !!yupper,
         !!col
       ),
-      function(x) dplyr::na_if(x, Inf)))
+      na_if_double))
 
   #get classes
   # x_null <- rlang::quo_is_null(x)
