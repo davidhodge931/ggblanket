@@ -1,4 +1,4 @@
-# ggblanket 1.6.2.0
+# ggblanket 1.6.2
 
 * Critical fix to support dplyr 1.1.0.
 * Supported colouring date, datetime and time variables.
