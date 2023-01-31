@@ -458,6 +458,101 @@ gg_text <- function(
     }
   }
 
+  if (stat %in% c("bin", "bin2d", "bin_2d", "binhex")) {
+    if (!x_null) {
+      if (!rlang::is_null(x_include)) {
+        plot <- plot +
+          ggplot2::expand_limits(x = x_include)
+      }
+
+      if (!rlang::is_null(x_limits)) {
+        if (!rlang::is_null(x_include)) x_limits <- range(x_limits, x_include)
+        if (x_trans == "reverse") x_limits <- rev(sort(x_limits))
+
+        if (x_numeric) {
+          plot <- plot +
+            ggplot2::scale_x_continuous(limits = x_limits, trans = x_trans, oob = scales::oob_keep)
+        }
+        else if (x_date) {
+          plot <- plot +
+            ggplot2::scale_x_date(limits = x_limits, oob = scales::oob_keep)
+        }
+        else if (x_datetime) {
+          plot <- plot +
+            ggplot2::scale_x_datetime(limits = x_limits, oob = scales::oob_keep)
+        }
+        else if (x_time) {
+          plot <- plot +
+            ggplot2::scale_x_time(limits = x_limits, oob = scales::oob_keep)
+        }
+      }
+      else {
+        if (x_numeric) {
+          plot <- plot +
+            ggplot2::scale_x_continuous(trans = x_trans, oob = scales::oob_keep)
+        }
+        else if (x_date) {
+          plot <- plot +
+            ggplot2::scale_x_date(oob = scales::oob_keep)
+        }
+        else if (x_datetime) {
+          plot <- plot +
+            ggplot2::scale_x_datetime(oob = scales::oob_keep)
+        }
+        else if (x_time) {
+          plot <- plot +
+            ggplot2::scale_x_time(oob = scales::oob_keep)
+        }
+      }
+    }
+    else if (!y_null) {
+      if (!rlang::is_null(y_include)) {
+        plot <- plot +
+          ggplot2::expand_limits(y = y_include)
+      }
+
+      if (!rlang::is_null(y_limits)) {
+        if (!rlang::is_null(y_include)) y_limits <- range(y_limits, y_include)
+        if (y_trans == "reverse") y_limits <- rev(sort(y_limits))
+
+        if (y_numeric) {
+          plot <- plot +
+            ggplot2::scale_y_continuous(limits = y_limits, trans = y_trans, oob = scales::oob_keep)
+        }
+        else if (y_date) {
+          plot <- plot +
+            ggplot2::scale_y_date(limits = y_limits, oob = scales::oob_keep)
+        }
+        else if (y_datetime) {
+          plot <- plot +
+            ggplot2::scale_y_datetime(limits = y_limits, oob = scales::oob_keep)
+        }
+        else if (y_time) {
+          plot <- plot +
+            ggplot2::scale_y_time(limits = y_limits, oob = scales::oob_keep)
+        }
+      }
+      else {
+        if (y_numeric) {
+          plot <- plot +
+            ggplot2::scale_y_continuous(trans = y_trans, oob = scales::oob_keep)
+        }
+        else if (y_date) {
+          plot <- plot +
+            ggplot2::scale_y_date(oob = scales::oob_keep)
+        }
+        else if (y_datetime) {
+          plot <- plot +
+            ggplot2::scale_y_datetime(oob = scales::oob_keep)
+        }
+        else if (y_time) {
+          plot <- plot +
+            ggplot2::scale_y_time(oob = scales::oob_keep)
+        }
+      }
+    }
+  }
+
   #Get layer data for x, y and col scales
   layer_data <- ggplot2::layer_data(plot)
 
