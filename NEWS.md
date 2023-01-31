@@ -1,3 +1,7 @@
+# ggblanket 1.6.2.9000
+
+* Fixed bug with default x_expand.
+
 # ggblanket 1.6.2
 
 * Critical fix to support dplyr 1.1.0.

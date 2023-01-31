@@ -692,7 +692,7 @@ gg_hex <- function(
         if (flipped) x_expand <- c(0, 0)
         else if (facet_scales %in% c("fixed", "free_y") &
                  (y_date | y_datetime | y_time | y_numeric | y_null)) {
-          x_expand <- c(0.05, 0.05)
+          x_expand <- ggplot2::expansion(mult = c(0.05, 0.05))
         }
         else if (!x_trans %in% c("identity", "reverse")) x_expand <- ggplot2::expansion(mult = c(0, 0.05))
         else x_expand <- c(0, 0)
