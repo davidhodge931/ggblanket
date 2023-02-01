@@ -1,7 +1,7 @@
-# ggblanket 1.6.2.9000
+# ggblanket 1.6.3
 
 * Fixed bug with default `x_expand`.
-* Fixed bug with `gg_histogram` scales and `*_limit`, `*_trans` and `*_include` modifications.
+* Fixed bug with `gg_histogram` scales.
 
 # ggblanket 1.6.2
 
