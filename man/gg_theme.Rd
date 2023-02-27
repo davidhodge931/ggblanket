@@ -23,7 +23,7 @@ gg_theme(
   caption_pal = "#7F7F7F",
   caption_face = "plain",
   caption_hjust = 0,
-  axis_line_linewidth = 0.2,
+  axis_line_linewidth = 0.125,
   axis_line_pal = "#323232",
   axis_ticks_linewidth = NULL,
   axis_ticks_pal = NULL,
@@ -72,7 +72,7 @@ gg_theme(
 
 \item{caption_hjust}{The horizontal adjustment for the caption.}
 
-\item{axis_line_linewidth}{The linewidth of the axis. Defaults to 0.1.}
+\item{axis_line_linewidth}{The linewidth of the axis. Defaults to 0.125.}
 
 \item{axis_line_pal}{The colour for the axis. Defaults to "#323232".}
 

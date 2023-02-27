@@ -19,7 +19,7 @@
 #' @param caption_pal The colour for the caption. Defaults to "#7F7F7F".
 #' @param caption_face The font style of the caption. Defaults to "plain".
 #' @param caption_hjust The horizontal adjustment for the caption.
-#' @param axis_line_linewidth The linewidth of the axis. Defaults to 0.1.
+#' @param axis_line_linewidth The linewidth of the axis. Defaults to 0.125.
 #' @param axis_line_pal The colour for the axis. Defaults to "#323232".
 #' @param axis_ticks_linewidth The linewidth of the ticks. Defaults to that of the axis_line_linewidth argument.
 #' @param axis_ticks_pal The colour for the ticks. Defaults to "#323232".
@@ -52,7 +52,7 @@ gg_theme <- function(
     caption_pal = "#7F7F7F",
     caption_face = "plain",
     caption_hjust = 0,
-    axis_line_linewidth = 0.2,
+    axis_line_linewidth = 0.125,
     axis_line_pal = "#323232",
     axis_ticks_linewidth = NULL,
     axis_ticks_pal = NULL,
