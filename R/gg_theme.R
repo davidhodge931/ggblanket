@@ -19,16 +19,16 @@
 #' @param caption_pal The colour for the caption. Defaults to "#7F7F7F".
 #' @param caption_face The font style of the caption. Defaults to "plain".
 #' @param caption_hjust The horizontal adjustment for the caption.
-#' @param axis_line_linewidth The linewidth of the axis. Defaults to 0.3.
+#' @param axis_line_linewidth The linewidth of the axis. Defaults to 0.1.
 #' @param axis_line_pal The colour for the axis. Defaults to "#323232".
-#' @param axis_ticks_linewidth The linewidth of the ticks. Defaults to 0.3.
+#' @param axis_ticks_linewidth The linewidth of the ticks. Defaults to that of the axis_line_linewidth argument.
 #' @param axis_ticks_pal The colour for the ticks. Defaults to "#323232".
 #' @param legend_key_pal The colour for the legend key. Defaults to the plot_background_pal.
-#' @param panel_background_pal The colour for the panel background colour.
-#' @param panel_grid_linewidth The linewidth of the vertical major gridlines. Defaults to 0.2.
+#' @param panel_background_pal The colour for the panel background colour. Defaults to "#FEFEFE".
+#' @param panel_grid_linewidth The linewidth of the vertical major gridlines. Defaults to 0.1.
 #' @param panel_grid_pal The colour for the vertical major gridlines. Defaults to "#D3D3D3".
 #' @param panel_spacing_lines The size of the spacing between facet panels in units of "lines". Defaults to 1.25.
-#' @param plot_background_pal The colour for the plot background colour.
+#' @param plot_background_pal The colour for the plot background colour. Defaults to "#F1F3F5".
 #'
 #' @return A ggplot theme.
 #' @export
@@ -52,13 +52,13 @@ gg_theme <- function(
     caption_pal = "#7F7F7F",
     caption_face = "plain",
     caption_hjust = 0,
-    axis_line_linewidth = 0.3,
+    axis_line_linewidth = 0.2,
     axis_line_pal = "#323232",
     axis_ticks_linewidth = NULL,
     axis_ticks_pal = NULL,
     legend_key_pal = NULL,
     panel_background_pal = "#FEFEFE",
-    panel_grid_linewidth = 0.2,
+    panel_grid_linewidth = 0.1,
     panel_grid_pal = "#D3D3D3",
     panel_spacing_lines = 1.25,
     plot_background_pal = "#F1F3F5") {
