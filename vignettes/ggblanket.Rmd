@@ -62,8 +62,8 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 13. A `gg_theme` function to create a quick theme 
 14. Compatibility with the `ggtext` package to adjust titles etc with markdown
 15. Compatibility with the `patchwork` package to join plots together
-16. Compatibility with the `ggiraph` package to make interactive plots
-17. A hack to use other non-supported aesthetics
+16. A hack to use other non-supported aesthetics
+17. Compatibility with the `ggiraph` package and `plotly::ggplotly` function to make interactive plots
 18. A base from which to create custom plot functions with your own defaults
 19. Ability to work with multiple geom layers, if care is taken
 20. Compatibility with many other non-supported geoms with `gg_blank`
@@ -394,48 +394,7 @@ p2 <- diamonds |>
 p1 + p2
 ```
 
-### 16. Compatibility with the `ggiraph` package to make interactive plots
-
-By using the powerful `gg_blank` function, you can then use then access the interactivity of `ggiraph`.
-
-When using `gg_blank`, be sure to change the stat to that which will be in your subsequent layer, so that the scales are built appropriately.
-
-ggblanket also provides a `add_tooltip` function to create a column of variable names and values, which can then be used for the tooltip. Note this approach only works where the `stat = identity`.
-
-```{r, eval = FALSE}
-df <- iris |>
-  tibble::tibble() |>
-  add_tooltip(Sepal.Width, Sepal.Length, Species)
-
-df |> 
-  head(1)
-
-p <- iris |>
-  add_tooltip(tidyselect::contains("Sepal"), Species) |>
-  mutate(id = row_number()) |>
-  gg_blank(x = Sepal.Width,
-           y = Sepal.Length,
-           col = Species,
-           facet = Species, 
-           theme = gg_theme("helvetica"),
-           facet_labels = snakecase::to_sentence_case) +
-  ggiraph::geom_point_interactive(aes(tooltip = tooltip, data_id = id))
-
-ggiraph::girafe(
-  ggobj = p,
-  width_svg = 5,
-  height_svg = 3.25,
-  options = list(
-    ggiraph::opts_tooltip(use_fill = TRUE, use_stroke = TRUE),
-    ggiraph::opts_hover(css = "fill: #d62728; stroke: #d62728"))
-)
-```
-
-```{r, echo = FALSE}
-knitr::include_graphics("../man/figures/ggiraph_screenshot.png", dpi = 300)
-```
-
-### 17. A hack to use other non-supported aesthetics
+### 16. A hack to use other non-supported aesthetics
 
 `gg_*` functions do not directly support aesthetics of `alpha`, `size`, `linewidth`, `shape`, and `linetype`. However, you can use `gg_blank`. The hack is to make your additional aesthetic equivalent to the `col` aesthetic. If you do not want things to be coloured by the aesthetic, you need to make the `pal` the same colour for each of the values in the `col` aesthetic. You will need to make the titles of the legend equivalent, so that the legend can be merged into one.  The examples below demonstrate how this works for an alpha aesthetic.
 
@@ -464,6 +423,57 @@ p2 <- penguins |>
   scale_alpha_manual(values = c(0.1, 1, 0.5))
 
 p1 + p2
+```
+
+### 17. Compatibility with the `ggiraph` package and `plotly::ggplotly` function to make interactive plots
+
+By using the powerful `gg_blank` function, you can then use then access the interactivity of `ggiraph`.
+
+When using `gg_blank`, be sure to change the stat to that which will be in your subsequent layer, so that the scales are built appropriately.
+
+ggblanket also provides a `add_tooltip` function to create a column of variable names and values, which can then be used for a customised tooltip. Note this approach only works where the `stat = identity`.
+
+```{r, eval = FALSE}
+df <- iris |>
+  tibble::tibble() |>
+  add_tooltip(Sepal.Width, Sepal.Length, Species)
+
+df |> 
+  slice_head()
+
+b <- iris |>
+  add_tooltip(tidyselect::contains("Sepal"), Species) |>
+  mutate(id = row_number()) |>
+  gg_blank(x = Sepal.Width,
+           y = Sepal.Length,
+           col = Species,
+           facet = Species, 
+           theme = gg_theme("helvetica"),
+           facet_labels = snakecase::to_sentence_case)
+
+ p <- b +
+  ggiraph::geom_point_interactive(aes(tooltip = tooltip, data_id = id))
+
+ggiraph::girafe(
+  ggobj = p,
+  width_svg = 5,
+  height_svg = 3,
+  options = list(
+    ggiraph::opts_tooltip(use_fill = TRUE, use_stroke = TRUE),
+    ggiraph::opts_hover(css = "fill: #d62728; stroke: #d62728"))
+)
+```
+
+```{r, echo = FALSE}
+knitr::include_graphics("../man/figures/ggiraph_screenshot.png", dpi = 300)
+```
+
+Likewise, the `plotly::ggplotly` can also be used to quickly explore interactive graphics.
+
+```{r, eval = FALSE}
+b +
+  geom_point(aes(text = tooltip)) |>
+  plotly::ggplotly(tooltip = "text")
 ```
 
 ### 18. A base from which to create custom plot functions with your own defaults
