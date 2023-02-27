@@ -1021,7 +1021,7 @@ gg_jitter <- function(
       }
 
       if (rlang::is_null(pal)) pal <- pal_d3_mix(col_n)
-      else pal <- pal[1:col_n]
+      else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
 
       if (y_numeric | y_date | y_datetime | y_time) {
         if (col_forcat) col_legend_rev_auto <- FALSE

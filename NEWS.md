@@ -1,3 +1,8 @@
+# ggblanket 1.6.3.9000
+
+* Updated default `gg_theme` `panel_grid_linewidth` and `axis_line_linewidth` arguments.
+* Named `pal` vectors are now not filtered.
+
 # ggblanket 1.6.3
 
 * Fixed bug with default `x_expand`.

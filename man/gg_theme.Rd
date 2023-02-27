@@ -72,25 +72,25 @@ gg_theme(
 
 \item{caption_hjust}{The horizontal adjustment for the caption.}
 
-\item{axis_line_linewidth}{The linewidth of the axis. Defaults to 0.3.}
+\item{axis_line_linewidth}{The linewidth of the axis. Defaults to 0.1.}
 
 \item{axis_line_pal}{The colour for the axis. Defaults to "#323232".}
 
-\item{axis_ticks_linewidth}{The linewidth of the ticks. Defaults to 0.3.}
+\item{axis_ticks_linewidth}{The linewidth of the ticks. Defaults to that of the axis_line_linewidth argument.}
 
 \item{axis_ticks_pal}{The colour for the ticks. Defaults to "#323232".}
 
 \item{legend_key_pal}{The colour for the legend key. Defaults to the plot_background_pal.}
 
-\item{panel_background_pal}{The colour for the panel background colour.}
+\item{panel_background_pal}{The colour for the panel background colour. Defaults to "#FEFEFE".}
 
-\item{panel_grid_linewidth}{The linewidth of the vertical major gridlines. Defaults to 0.2.}
+\item{panel_grid_linewidth}{The linewidth of the vertical major gridlines. Defaults to 0.1.}
 
 \item{panel_grid_pal}{The colour for the vertical major gridlines. Defaults to "#D3D3D3".}
 
 \item{panel_spacing_lines}{The size of the spacing between facet panels in units of "lines". Defaults to 1.25.}
 
-\item{plot_background_pal}{The colour for the plot background colour.}
+\item{plot_background_pal}{The colour for the plot background colour. Defaults to "#F1F3F5".}
 }
 \value{
 A ggplot theme.
