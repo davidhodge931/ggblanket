@@ -1,9 +1,12 @@
 Package: ggblanket
 Title: Simplify 'ggplot2' Visualisation
 Version: 1.6.3.9000
-Authors@R: 
+Authors@R: c(
     person("David", "Hodge", email = "davidhodge931@gmail.com", 
-           role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3868-7501"))
+           role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3868-7501")), 
+    person("Nik", "Mitchell", role = "ctb", comment = c(ORCID = "0009-0002-8126-7745")),
+    person("Rosie", "Percival", role = "ctb", comment = c(ORCID = "0009-0005-7696-162X"))
+    )
 Description: Simplify 'ggplot2' visualisation with 'ggblanket' wrapper functions. 
 License: MIT + file LICENSE
 URL: https://davidhodge931.github.io/ggblanket/,

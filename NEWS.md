@@ -1,7 +1,13 @@
 # ggblanket 1.6.3.9000
 
-* Updated default `gg_theme` `panel_grid_linewidth` and `axis_line_linewidth` arguments.
-* Named `pal` vectors are now not filtered.
+* Updated `gg_theme` default axis-line and gridline thickness.
+* Supported named `pal` vectors.
+* Removed `clip` argument.
+* Added in `coord` argument.
+* Added in `*_oob` arguments.
+* Improved how `*_limits` works.
+* Removed default gridlines for `gg_sf`.
+* Removed `void` argument.
 
 # ggblanket 1.6.3
 

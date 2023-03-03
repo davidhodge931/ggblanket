@@ -21,5 +21,11 @@ Useful links:
 \author{
 \strong{Maintainer}: David Hodge \email{davidhodge931@gmail.com} (\href{https://orcid.org/0000-0002-3868-7501}{ORCID})
 
+Other contributors:
+\itemize{
+  \item Nik Mitchell (\href{https://orcid.org/0009-0002-8126-7745}{ORCID}) [contributor]
+  \item Rosie Percival (\href{https://orcid.org/0009-0005-7696-162X}{ORCID}) [contributor]
+}
+
 }
 \keyword{internal}
