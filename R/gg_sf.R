@@ -483,22 +483,47 @@
 #'
 #'       if (facet_scales %in% c("fixed", "free_y")) {
 #'         if (!stat %in% c("bin2d", "bin_2d", "binhex")) {
-#'           if (!rlang::is_null(y_limits)) {
+#'           if (rlang::is_null(y_limits)) {
 #'             x_vctr <- layer_data %>%
-#'               dplyr::filter(dplyr::if_any(tidyselect::matches(
-#'                 stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
-#'               ),
-#'               \(x) dplyr::between(x, y_limits[1], y_limits[2])
-#'               )) %>%
 #'               dplyr::select(tidyselect::matches(
 #'                 stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
 #'               ))
 #'           }
 #'           else {
-#'             x_vctr <- layer_data %>%
-#'               dplyr::select(tidyselect::matches(
-#'                 stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
-#'               ))
+#'             if (!is.na(y_limits[1]) & !is.na(y_limits[2])) {
+#'               x_vctr <- layer_data %>%
+#'                 dplyr::filter(dplyr::if_any(tidyselect::matches(
+#'                   stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
+#'                 ), \(x) dplyr::between(x, y_limits[1], y_limits[2])
+#'                 )) %>%
+#'                 dplyr::select(tidyselect::matches(
+#'                   stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
+#'                 ))
+#'             }
+#'             else if (!is.na(y_limits[1]) & is.na(y_limits[2])) {
+#'               x_vctr <- layer_data %>%
+#'                 dplyr::filter(dplyr::if_any(tidyselect::matches(
+#'                   stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
+#'                 ), \(x) x >= y_limits[1])) %>%
+#'                 dplyr::select(tidyselect::matches(
+#'                   stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
+#'                 ))
+#'             }
+#'             else if (is.na(y_limits[1]) & !is.na(y_limits[2])) {
+#'               x_vctr <- layer_data %>%
+#'                 dplyr::filter(dplyr::if_any(tidyselect::matches(
+#'                   stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
+#'                 ), \(x) x <= y_limits[2])) %>%
+#'                 dplyr::select(tidyselect::matches(
+#'                   stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
+#'                 ))
+#'             }
+#'             else if (is.na(y_limits[1]) & is.na(y_limits[2])) {
+#'               x_vctr <- layer_data %>%
+#'                 dplyr::select(tidyselect::matches(
+#'                   stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
+#'                 ))
+#'             }
 #'           }
 #'
 #'           if (ncol(x_vctr) != 0) {
@@ -671,28 +696,55 @@
 #'       if (facet_scales %in% c("fixed", "free_x")) {
 #'
 #'         if (!stat %in% c("bin2d", "bin_2d", "binhex")) {
-#'           if (!rlang::is_null(x_limits)) {
+#'           if (rlang::is_null(x_limits)) {
 #'             y_vctr <- layer_data %>%
-#'               dplyr::filter(dplyr::if_any(tidyselect::matches(
-#'                 stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
-#'               ),
-#'               \(x) dplyr::between(x, x_limits[1], x_limits[2])
-#'               )) %>%
 #'               dplyr::select(tidyselect::matches(
 #'                 stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
 #'               ))
 #'           }
 #'           else {
-#'             y_vctr <- layer_data %>%
-#'               dplyr::select(tidyselect::matches(
-#'                 stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
-#'               ))
+#'             if (!is.na(x_limits[1]) & !is.na(x_limits[2])) {
+#'               y_vctr <- layer_data %>%
+#'                 dplyr::filter(dplyr::if_any(tidyselect::matches(
+#'                   stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
+#'                 ), \(x) dplyr::between(x, x_limits[1], x_limits[2])
+#'                 )) %>%
+#'                 dplyr::select(tidyselect::matches(
+#'                   stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
+#'                 ))
+#'             }
+#'             else if (!is.na(x_limits[1]) & is.na(x_limits[2])) {
+#'               y_vctr <- layer_data %>%
+#'                 dplyr::filter(dplyr::if_any(tidyselect::matches(
+#'                   stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
+#'                 ), \(x) x >= x_limits[1])) %>%
+#'                 dplyr::select(tidyselect::matches(
+#'                   stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
+#'                 ))
+#'             }
+#'             else if (is.na(x_limits[1]) & !is.na(x_limits[2])) {
+#'               y_vctr <- layer_data %>%
+#'                 dplyr::filter(dplyr::if_any(tidyselect::matches(
+#'                   stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
+#'                 ), \(x) x <= x_limits[2])) %>%
+#'                 dplyr::select(tidyselect::matches(
+#'                   stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
+#'                 ))
+#'             }
+#'             else if (is.na(x_limits[1]) & is.na(x_limits[2])) {
+#'               y_vctr <- layer_data %>%
+#'                 dplyr::select(tidyselect::matches(
+#'                   stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
+#'                 ))
+#'             }
 #'           }
 #'
 #'           if (ncol(y_vctr) != 0) {
 #'             y_vctr <- y_vctr %>%
 #'               tidyr::pivot_longer(cols = tidyselect::everything()) %>%
 #'               dplyr::pull(.data$value)
+#'           } else {
+#'             y_vctr <- NULL
 #'           }
 #'         }
 #'         else {
@@ -744,7 +796,6 @@
 #'           }
 #'         }
 #'         else if (!rlang::is_null(y_limits)) {
-#'           y_limits <- y_limits
 #'           if (is.na(y_limits)[1]) y_limits[1] <- min(y_range)
 #'           if (is.na(y_limits)[2]) y_limits[2] <- max(y_range)
 #'           if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
