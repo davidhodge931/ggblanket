@@ -183,7 +183,7 @@ gg_density <- function(
   facet2_null <- rlang::quo_is_null(facet2)
 
   ##############################################################################
-  #Generic code: part 1
+  #Generic code: part 1 (except gg_sf)
   ##############################################################################
 
   #stop, warn or message
@@ -399,7 +399,7 @@ gg_density <- function(
     )
 
   ##############################################################################
-  #Generic code: part 2
+  #Generic code: part 2 (except gg_sf)
   ##############################################################################
 
   if (rlang::is_null(facet_layout)) {
