@@ -362,16 +362,16 @@ storms |>
 If you wish to have a markdown title, make sure the face is plain, and then add the applicable theme layer with `element_markdown`.
 
 ```{r}
-nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
-
-nc |>
-  gg_sf(col = AREA,
-        col_legend_place = "b",
-        col_breaks = scales::breaks_width(0.1),
-        pal = pals::brewer.reds(9),
-        title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
-        theme = gg_theme(title_face = "plain")) +
-  theme(plot.title = ggtext::element_markdown())
+# nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+# 
+# nc |>
+#   gg_sf(col = AREA,
+#         col_legend_place = "b",
+#         col_breaks = scales::breaks_width(0.1),
+#         pal = pals::brewer.reds(9),
+#         title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
+#         theme = gg_theme(title_face = "plain")) +
+#   theme(plot.title = ggtext::element_markdown())
 ```
 
 ### 15. Compatibility with the `patchwork` package to join plots together

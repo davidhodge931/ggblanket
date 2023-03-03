@@ -25,7 +25,7 @@
 #' @param subgroup Unquoted subgroup aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
-#' @param coord A coordinate function from ggplot2.
+#' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian()).
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param ... Other arguments passed to the ggplot2::geom_blank function.
@@ -73,6 +73,8 @@
 #' @param titles A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
+#' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
+#'
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -158,7 +160,8 @@ gg_blank2 <- function(
     facet_layout = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case,
-    theme = gg_theme()) {
+    theme = gg_theme(),
+    void = FALSE) {
 
   ##############################################################################
   #Unique code: part 1
@@ -202,13 +205,6 @@ gg_blank2 <- function(
         !!col
       ),
       na_if_double))
-
-  ##############################################################################
-  #Generic code: part 1
-  ##############################################################################
-
-  #stop, warn or message
-  rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
 
   #get classes
   if (stat == "sf") {
@@ -306,6 +302,13 @@ gg_blank2 <- function(
   facet_null <- rlang::quo_is_null(facet)
   facet2_null <- rlang::quo_is_null(facet2)
 
+  ##############################################################################
+  #Generic code: part 1
+  ##############################################################################
+
+  #stop, warn or message
+  rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
+
   #process data for horizontal
   if (y_forcat) {
     if (!(!col_null &
@@ -334,7 +337,7 @@ gg_blank2 <- function(
   }
 
   #get default NULL values
-  if (x_null) {
+  if (rlang::quo_is_null(x)) {
     if (rlang::is_null(x_title)) {
       if (stat %in% c("bin", "count")) x_name <- "count"
       else if (stat %in% c("density", "ydensity")) x_name <- "density"
@@ -346,16 +349,10 @@ gg_blank2 <- function(
     }
   }
   else if (rlang::is_null(x_title)) {
-    if (!rlang::quo_is_null(x) &
-        rlang::quo_is_null(xmin) &
-        rlang::quo_is_null(xmax) &
-        rlang::quo_is_null(xend)) {
-      x_title <- purrr::map_chr(rlang::as_name(x), titles)
-    }
-    else x_title <- ""
+    x_title <- purrr::map_chr(rlang::as_name(x), titles)
   }
 
-  if (y_null) {
+  if (rlang::quo_is_null(y)) {
     if (rlang::is_null(y_title)) {
       if (stat %in% c("bin", "count")) y_name <- "count"
       else if (stat %in% c("density", "ydensity")) y_name <- "density"
@@ -367,13 +364,7 @@ gg_blank2 <- function(
     }
   }
   else if (rlang::is_null(y_title)) {
-    if (!rlang::quo_is_null(y) &
-        rlang::quo_is_null(ymin) &
-        rlang::quo_is_null(ymax) &
-        rlang::quo_is_null(yend)) {
-      y_title <- purrr::map_chr(rlang::as_name(y), titles)
-    }
-    else y_title <- ""
+    y_title <- purrr::map_chr(rlang::as_name(y), titles)
   }
 
   if (stat == "sf") {
@@ -1591,9 +1582,8 @@ gg_blank2 <- function(
     }
   }
 
-  #make sf plot's void-ish
-  if (stat == "sf") {
-    plot <- plot +
+  if (void) {
+    theme <- theme +
       ggplot2::theme(axis.text = ggplot2::element_blank()) +
       ggplot2::theme(axis.line = ggplot2::element_blank()) +
       ggplot2::theme(axis.ticks = ggplot2::element_blank()) +

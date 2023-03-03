@@ -76,7 +76,8 @@ gg_blank2(
   facet_layout = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
-  theme = gg_theme()
+  theme = gg_theme(),
+  void = FALSE
 )
 }
 \arguments{
@@ -128,7 +129,7 @@ gg_blank2(
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
-\item{coord}{A coordinate function from ggplot2.}
+\item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian()).}
 
 \item{pal}{Colours to use. A character vector of hex codes (or names).}
 
@@ -223,6 +224,8 @@ gg_blank2(
 \item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{void}{TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.}
 }
 \value{
 A ggplot object.

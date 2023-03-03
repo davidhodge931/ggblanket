@@ -15,7 +15,7 @@ gg_polygon(
   subgroup = NULL,
   stat = "identity",
   position = "identity",
-  clip = "on",
+  coord = ggplot2::coord_cartesian(),
   pal = NULL,
   pal_na = "#7F7F7F",
   alpha = 0.9,
@@ -28,6 +28,7 @@ gg_polygon(
   x_include = NULL,
   x_labels = NULL,
   x_limits = NULL,
+  x_oob = scales::oob_keep,
   x_sec_axis = ggplot2::waiver(),
   x_title = NULL,
   x_trans = "identity",
@@ -37,6 +38,7 @@ gg_polygon(
   y_include = NULL,
   y_labels = NULL,
   y_limits = NULL,
+  y_oob = scales::oob_keep,
   y_sec_axis = ggplot2::waiver(),
   y_title = NULL,
   y_trans = "identity",
@@ -49,6 +51,7 @@ gg_polygon(
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
   col_limits = NULL,
+  col_oob = scales::oob_keep,
   col_rescale = NULL,
   col_title = NULL,
   col_trans = "identity",
@@ -60,7 +63,8 @@ gg_polygon(
   facet_layout = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
-  theme = gg_theme()
+  theme = gg_theme(),
+  void = FALSE
 )
 }
 \arguments{
@@ -84,7 +88,7 @@ gg_polygon(
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
-\item{clip}{Whether to clip geometries outside of the panel. Either "on" or "off".}
+\item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian()).}
 
 \item{pal}{Colours to use. A character vector of hex codes (or names).}
 
@@ -108,7 +112,9 @@ gg_polygon(
 
 \item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
-\item{x_limits}{A vector of length 2 to determine the limits of the axis (and the zoom via the coord).}
+\item{x_limits}{A vector of length 2 to determine the limits of the axis.}
+
+\item{x_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.}
 
 \item{x_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
@@ -126,7 +132,9 @@ gg_polygon(
 
 \item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
-\item{y_limits}{A vector of length 2 to determine the limits of the axis (and the zoom via the coord).}
+\item{y_limits}{A vector of length 2 to determine the limits of the axis.}
+
+\item{y_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.}
 
 \item{y_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
@@ -152,6 +160,8 @@ gg_polygon(
 
 \item{col_limits}{A vector to determine the limits of the colour scale.}
 
+\item{col_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.}
+
 \item{col_rescale}{For a continuous col variable, a vector to rescale the pal non-linearly.}
 
 \item{col_title}{Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
@@ -175,6 +185,8 @@ gg_polygon(
 \item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{void}{TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.}
 }
 \value{
 A ggplot object.

@@ -25,7 +25,7 @@
 #' @param subgroup Unquoted subgroup aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
-#' @param clip Whether to clip geometries outside of the panel. Either "on" or "off".
+#' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian()).
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param ... Other arguments passed to the ggplot2::geom_blank function.
@@ -36,7 +36,8 @@
 #' @param x_grid TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
 #' @param x_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
-#' @param x_limits A vector of length 2 to determine the limits of the axis (and the zoom via the coord).
+#' @param x_limits A vector of length 2 to determine the limits of the axis.
+#' @param x_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.
 #' @param x_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param x_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
@@ -45,7 +46,8 @@
 #' @param y_grid TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
 #' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
-#' @param y_limits A vector of length 2 to determine the limits of the axis (and the zoom via the coord).
+#' @param y_limits A vector of length 2 to determine the limits of the axis.
+#' @param y_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.
 #' @param y_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
@@ -53,11 +55,12 @@
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.
-#' @param col_limits A vector to determine the limits of the colour scale.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. Either "bottom", "right", "top" or "left" - or just the first letter of these e.g. "b".
 #' @param col_legend_rev Reverse the elements of the legend. Defaults to FALSE.
+#' @param col_limits A vector to determine the limits of the colour scale.
+#' @param col_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.
 #' @param col_rescale For a continuous col variable, a vector to rescale the pal non-linearly.
 #' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param col_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
@@ -71,6 +74,8 @@
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
 #' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
+#' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
+#'
 #' @return A ggplot object.
 #' @export
 #' @examples
@@ -109,7 +114,7 @@ gg_blank <- function(
     subgroup = NULL,
     stat = "identity",
     position = "identity",
-    clip = "on",
+    coord = ggplot2::coord_cartesian(),
     pal = NULL,
     pal_na = "#7F7F7F",
     ...,
@@ -121,6 +126,7 @@ gg_blank <- function(
     x_include = NULL,
     x_labels = NULL,
     x_limits = NULL,
+    x_oob = scales::oob_keep,
     x_sec_axis = ggplot2::waiver(),
     x_title = NULL,
     x_trans = "identity",
@@ -130,6 +136,7 @@ gg_blank <- function(
     y_include = NULL,
     y_labels = NULL,
     y_limits = NULL,
+    y_oob = scales::oob_keep,
     y_sec_axis = ggplot2::waiver(),
     y_title = NULL,
     y_trans = "identity",
@@ -142,6 +149,7 @@ gg_blank <- function(
     col_legend_nrow = NULL,
     col_legend_rev = FALSE,
     col_limits = NULL,
+    col_oob = scales::oob_keep,
     col_rescale = NULL,
     col_title = NULL,
     col_trans = "identity",
@@ -154,10 +162,11 @@ gg_blank <- function(
     caption = NULL,
     titles = snakecase::to_sentence_case,
     theme = gg_theme(),
-    void = NULL) {
+    void = FALSE) {
 
-  #stop, warn or message
-  rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
+  ##############################################################################
+  #Unique code: part 1
+  ##############################################################################
 
   #quote
   x <- rlang::enquo(x)
@@ -294,6 +303,13 @@ gg_blank <- function(
   facet_null <- rlang::quo_is_null(facet)
   facet2_null <- rlang::quo_is_null(facet2)
 
+  ##############################################################################
+  #Generic code: part 1
+  ##############################################################################
+
+  #stop, warn or message
+  rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
+
   #process data for horizontal
   if (y_forcat) {
     if (!(!col_null &
@@ -322,7 +338,7 @@ gg_blank <- function(
   }
 
   #get default NULL values
-  if (x_null) {
+  if (rlang::quo_is_null(x)) {
     if (rlang::is_null(x_title)) {
       if (stat %in% c("bin", "count")) x_name <- "count"
       else if (stat %in% c("density", "ydensity")) x_name <- "density"
@@ -334,16 +350,10 @@ gg_blank <- function(
     }
   }
   else if (rlang::is_null(x_title)) {
-    if (!rlang::quo_is_null(x) &
-        rlang::quo_is_null(xmin) &
-        rlang::quo_is_null(xmax) &
-        rlang::quo_is_null(xend)) {
-      x_title <- purrr::map_chr(rlang::as_name(x), titles)
-    }
-    else x_title <- ""
+    x_title <- purrr::map_chr(rlang::as_name(x), titles)
   }
 
-  if (y_null) {
+  if (rlang::quo_is_null(y)) {
     if (rlang::is_null(y_title)) {
       if (stat %in% c("bin", "count")) y_name <- "count"
       else if (stat %in% c("density", "ydensity")) y_name <- "density"
@@ -355,17 +365,11 @@ gg_blank <- function(
     }
   }
   else if (rlang::is_null(y_title)) {
-    if (!rlang::quo_is_null(y) &
-        rlang::quo_is_null(ymin) &
-        rlang::quo_is_null(ymax) &
-        rlang::quo_is_null(yend)) {
-      y_title <- purrr::map_chr(rlang::as_name(y), titles)
-    }
-    else y_title <- ""
+    y_title <- purrr::map_chr(rlang::as_name(y), titles)
   }
 
   if (stat == "sf") {
-    if (rlang::is_null(x_grid)) x_grid <- TRUE
+    if (rlang::is_null(x_grid)) x_grid <- FALSE
     if (rlang::is_null(y_grid)) y_grid <- FALSE
   }
   else if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) {
@@ -420,6 +424,10 @@ gg_blank <- function(
     if (col_legend_place == "r") col_legend_place <- "right"
     if (col_legend_place == "n") col_legend_place <- "none"
   }
+
+  ##############################################################################
+  #Unique code: part 2
+  ##############################################################################
 
   ###make plot
   if (stat == "sf") {
@@ -742,6 +750,10 @@ gg_blank <- function(
       ...
     )
 
+  ##############################################################################
+  #Generic code: part 2
+  ##############################################################################
+
   if (rlang::is_null(facet_layout)) {
     if (!facet_null & facet2_null) facet_layout <- "wrap"
     else if (!facet2_null & facet_null) facet_layout <- "wrap"
@@ -826,37 +838,37 @@ gg_blank <- function(
 
         if (x_numeric) {
           plot <- plot +
-            ggplot2::scale_x_continuous(limits = x_limits, trans = x_trans, oob = scales::oob_keep)
+            ggplot2::scale_x_continuous(limits = x_limits, trans = x_trans, oob = x_oob)
         }
         else if (x_date) {
           plot <- plot +
-            ggplot2::scale_x_date(limits = x_limits, oob = scales::oob_keep)
+            ggplot2::scale_x_date(limits = x_limits, oob = x_oob)
         }
         else if (x_datetime) {
           plot <- plot +
-            ggplot2::scale_x_datetime(limits = x_limits, oob = scales::oob_keep)
+            ggplot2::scale_x_datetime(limits = x_limits, oob = x_oob)
         }
         else if (x_time) {
           plot <- plot +
-            ggplot2::scale_x_time(limits = x_limits, oob = scales::oob_keep)
+            ggplot2::scale_x_time(limits = x_limits, oob = x_oob)
         }
       }
       else {
         if (x_numeric) {
           plot <- plot +
-            ggplot2::scale_x_continuous(trans = x_trans, oob = scales::oob_keep)
+            ggplot2::scale_x_continuous(trans = x_trans, oob = x_oob)
         }
         else if (x_date) {
           plot <- plot +
-            ggplot2::scale_x_date(oob = scales::oob_keep)
+            ggplot2::scale_x_date(oob = x_oob)
         }
         else if (x_datetime) {
           plot <- plot +
-            ggplot2::scale_x_datetime(oob = scales::oob_keep)
+            ggplot2::scale_x_datetime(oob = x_oob)
         }
         else if (x_time) {
           plot <- plot +
-            ggplot2::scale_x_time(oob = scales::oob_keep)
+            ggplot2::scale_x_time(oob = x_oob)
         }
       }
     }
@@ -872,37 +884,37 @@ gg_blank <- function(
 
         if (y_numeric) {
           plot <- plot +
-            ggplot2::scale_y_continuous(limits = y_limits, trans = y_trans, oob = scales::oob_keep)
+            ggplot2::scale_y_continuous(limits = y_limits, trans = y_trans, oob = y_oob)
         }
         else if (y_date) {
           plot <- plot +
-            ggplot2::scale_y_date(limits = y_limits, oob = scales::oob_keep)
+            ggplot2::scale_y_date(limits = y_limits, oob = y_oob)
         }
         else if (y_datetime) {
           plot <- plot +
-            ggplot2::scale_y_datetime(limits = y_limits, oob = scales::oob_keep)
+            ggplot2::scale_y_datetime(limits = y_limits, oob = y_oob)
         }
         else if (y_time) {
           plot <- plot +
-            ggplot2::scale_y_time(limits = y_limits, oob = scales::oob_keep)
+            ggplot2::scale_y_time(limits = y_limits, oob = y_oob)
         }
       }
       else {
         if (y_numeric) {
           plot <- plot +
-            ggplot2::scale_y_continuous(trans = y_trans, oob = scales::oob_keep)
+            ggplot2::scale_y_continuous(trans = y_trans, oob = y_oob)
         }
         else if (y_date) {
           plot <- plot +
-            ggplot2::scale_y_date(oob = scales::oob_keep)
+            ggplot2::scale_y_date(oob = y_oob)
         }
         else if (y_datetime) {
           plot <- plot +
-            ggplot2::scale_y_datetime(oob = scales::oob_keep)
+            ggplot2::scale_y_datetime(oob = y_oob)
         }
         else if (y_time) {
           plot <- plot +
-            ggplot2::scale_y_time(oob = scales::oob_keep)
+            ggplot2::scale_y_time(oob = y_oob)
         }
       }
     }
@@ -929,8 +941,23 @@ gg_blank <- function(
 
       if (facet_scales %in% c("fixed", "free_y")) {
         if (!stat %in% c("bin2d", "bin_2d", "binhex")) {
-          x_vctr <- layer_data %>%
-            dplyr::select(tidyselect::matches(stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")))
+          if (!rlang::is_null(y_limits)) {
+            x_vctr <- layer_data %>%
+              dplyr::filter(dplyr::if_any(tidyselect::matches(
+                stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
+              ),
+              \(x) dplyr::between(x, y_limits[1], y_limits[2])
+              )) %>%
+              dplyr::select(tidyselect::matches(
+                stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
+              ))
+          }
+          else {
+            x_vctr <- layer_data %>%
+              dplyr::select(tidyselect::matches(
+                stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
+              ))
+          }
 
           if (ncol(x_vctr) != 0) {
             x_vctr <- x_vctr %>%
@@ -1049,7 +1076,7 @@ gg_blank <- function(
             limits = x_limits,
             expand = x_expand,
             labels = x_labels,
-            oob = scales::oob_keep,
+            oob = x_oob,
             sec.axis = x_sec_axis,
             trans = x_trans
           )
@@ -1061,7 +1088,7 @@ gg_blank <- function(
             limits = x_limits,
             expand = x_expand,
             labels = x_labels,
-            oob = scales::oob_keep,
+            oob = x_oob,
             sec.axis = x_sec_axis
           )
       }
@@ -1072,7 +1099,7 @@ gg_blank <- function(
             limits = x_limits,
             expand = x_expand,
             labels = x_labels,
-            oob = scales::oob_keep,
+            oob = x_oob,
             sec.axis = x_sec_axis
           )
       }
@@ -1083,7 +1110,7 @@ gg_blank <- function(
             limits = x_limits,
             expand = x_expand,
             labels = x_labels,
-            oob = scales::oob_keep,
+            oob = x_oob,
             sec.axis = x_sec_axis
           )
       }
@@ -1102,8 +1129,23 @@ gg_blank <- function(
       if (facet_scales %in% c("fixed", "free_x")) {
 
         if (!stat %in% c("bin2d", "bin_2d", "binhex")) {
-          y_vctr <- layer_data %>%
-            dplyr::select(tidyselect::matches(stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")))
+          if (!rlang::is_null(x_limits)) {
+            y_vctr <- layer_data %>%
+              dplyr::filter(dplyr::if_any(tidyselect::matches(
+                stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
+              ),
+              \(x) dplyr::between(x, x_limits[1], x_limits[2])
+              )) %>%
+              dplyr::select(tidyselect::matches(
+                stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
+              ))
+          }
+          else {
+            y_vctr <- layer_data %>%
+              dplyr::select(tidyselect::matches(
+                stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
+              ))
+          }
 
           if (ncol(y_vctr) != 0) {
             y_vctr <- y_vctr %>%
@@ -1205,7 +1247,7 @@ gg_blank <- function(
             limits = y_limits,
             expand = y_expand,
             labels = y_labels,
-            oob = scales::oob_keep,
+            oob = y_oob,
             sec.axis = y_sec_axis,
             trans = y_trans
           )
@@ -1217,7 +1259,7 @@ gg_blank <- function(
             limits = y_limits,
             expand = y_expand,
             labels = y_labels,
-            oob = scales::oob_keep,
+            oob = y_oob,
             sec.axis = y_sec_axis
           )
       }
@@ -1228,7 +1270,7 @@ gg_blank <- function(
             limits = y_limits,
             expand = y_expand,
             labels = y_labels,
-            oob = scales::oob_keep,
+            oob = y_oob,
             sec.axis = y_sec_axis
           )
       }
@@ -1239,7 +1281,7 @@ gg_blank <- function(
             limits = y_limits,
             expand = y_expand,
             labels = y_labels,
-            oob = scales::oob_keep,
+            oob = y_oob,
             sec.axis = y_sec_axis
           )
       }
@@ -1250,17 +1292,17 @@ gg_blank <- function(
   if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
 
     if (rlang::is_null(pal)) pal <-  pal_viridis_mix(1)
-    else pal <- pal[1]
+    else pal <- as.vector(pal[1])
 
     plot <- plot +
       ggplot2::scale_colour_manual(
         values = pal,
-        na.value = pal_na,
+        na.value = as.vector(pal_na),
         guide = "none"
       ) +
       ggplot2::scale_fill_manual(
         values = pal,
-        na.value = pal_na,
+        na.value = as.vector(pal_na),
         guide = "none"
       )
 
@@ -1318,7 +1360,7 @@ gg_blank <- function(
             breaks = col_breaks,
             limits = col_limits,
             trans = col_trans,
-            na.value = pal_na,
+            na.value = as.vector(pal_na),
             guide = ggplot2::guide_colourbar(
               title.position = "top",
               draw.ulim = TRUE,
@@ -1334,7 +1376,7 @@ gg_blank <- function(
             breaks = col_breaks,
             limits = col_limits,
             trans = col_trans,
-            na.value = pal_na,
+            na.value = as.vector(pal_na),
             guide = ggplot2::guide_colourbar(
               title.position = "top",
               draw.ulim = TRUE,
@@ -1353,7 +1395,8 @@ gg_blank <- function(
             breaks = col_breaks,
             limits = col_limits,
             trans = col_trans,
-            na.value = pal_na,
+            oob = col_oob,
+            na.value = as.vector(pal_na),
             guide = ggplot2::guide_coloursteps(
               title.position = "top",
               reverse = col_legend_rev)
@@ -1365,7 +1408,8 @@ gg_blank <- function(
             breaks = col_breaks,
             limits = col_limits,
             trans = col_trans,
-            na.value = pal_na,
+            oob = col_oob,
+            na.value = as.vector(pal_na),
             guide = ggplot2::guide_coloursteps(
               title.position = "top",
               reverse = col_legend_rev)
@@ -1410,7 +1454,7 @@ gg_blank <- function(
           breaks = col_breaks,
           limits = col_limits,
           labels = col_labels,
-          na.value = pal_na,
+          na.value = as.vector(pal_na),
           guide = ggplot2::guide_legend(
             reverse = col_legend_rev_auto,
             title.position = "top",
@@ -1424,7 +1468,7 @@ gg_blank <- function(
           breaks = col_breaks,
           limits = col_limits,
           labels = col_labels,
-          na.value = pal_na,
+          na.value = as.vector(pal_na),
           guide = ggplot2::guide_legend(
             reverse = col_legend_rev_auto,
             title.position = "top",
@@ -1434,13 +1478,6 @@ gg_blank <- function(
           )
         )
     }
-  }
-
-  if (stat == "sf") coord <- ggplot2::coord_sf(clip = clip)
-  else {
-    if (x_forcat) x_limits <- NULL
-    if (y_forcat) y_limits <- NULL
-    coord <- ggplot2::coord_cartesian(xlim = x_limits, ylim = y_limits, clip = clip)
   }
 
   #Add coord, theme and titles
@@ -1546,13 +1583,8 @@ gg_blank <- function(
     }
   }
 
-  if (rlang::is_null(void)) {
-    if (stat == "sf") void <- TRUE
-    else void <- FALSE
-  }
-
   if (void) {
-    plot <- plot +
+    theme <- theme +
       ggplot2::theme(axis.text = ggplot2::element_blank()) +
       ggplot2::theme(axis.line = ggplot2::element_blank()) +
       ggplot2::theme(axis.ticks = ggplot2::element_blank()) +
@@ -1562,5 +1594,4 @@ gg_blank <- function(
 
   #return beautiful plot
   return(plot)
-
 }
