@@ -597,7 +597,7 @@ gg_raster <- function(
               x_vctr <- layer_data %>%
                 dplyr::filter(dplyr::if_any(tidyselect::matches(
                   stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
-                ), \(x) dplyr::between(x, y_limits[1], y_limits[2])
+                ), \(x) x >= y_limits[1] & x <= y_limits[2]
                 )) %>%
                 dplyr::select(tidyselect::matches(
                   stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
@@ -810,7 +810,7 @@ gg_raster <- function(
               y_vctr <- layer_data %>%
                 dplyr::filter(dplyr::if_any(tidyselect::matches(
                   stringr::regex("^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$")
-                ), \(x) dplyr::between(x, x_limits[1], x_limits[2])
+                ), \(x) x >= x_limits[1] & x <= x_limits[2]
                 )) %>%
                 dplyr::select(tidyselect::matches(
                   stringr::regex("^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$")
