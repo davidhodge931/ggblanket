@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.3.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.3.9999</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,7 @@
 <span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  stat <span class="op">=</span> <span class="st">"bin"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
-<span>  clip <span class="op">=</span> <span class="st">"on"</span>,</span>
+<span>  coord <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  pal <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  pal_na <span class="op">=</span> <span class="st">"#7F7F7F"</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -77,6 +77,7 @@
 <span>  x_include <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  x_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
 <span>  x_sec_axis <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  x_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
@@ -86,6 +87,7 @@
 <span>  y_include <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  y_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
 <span>  y_sec_axis <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  y_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
@@ -98,6 +100,7 @@
 <span>  col_legend_nrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_legend_rev <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  col_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
 <span>  col_rescale <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
@@ -109,7 +112,8 @@
 <span>  facet_layout <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  caption <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  titles <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span>,</span>
-<span>  theme <span class="op">=</span> <span class="fu"><a href="gg_theme.html">gg_theme</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  theme <span class="op">=</span> <span class="fu"><a href="gg_theme.html">gg_theme</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  void <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -151,8 +155,8 @@
 <dd><p>Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).</p></dd>
 
 
-<dt>clip</dt>
-<dd><p>Whether to clip geometries outside of the panel. Either "on" or "off".</p></dd>
+<dt>coord</dt>
+<dd><p>A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian()).</p></dd>
 
 
 <dt>pal</dt>
@@ -200,7 +204,11 @@
 
 
 <dt>x_limits</dt>
-<dd><p>A vector of length 2 to determine the limits of the axis (and the zoom via the coord).</p></dd>
+<dd><p>A vector of length 2 to determine the limits of the axis.</p></dd>
+
+
+<dt>x_oob</dt>
+<dd><p>A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.</p></dd>
 
 
 <dt>x_sec_axis</dt>
@@ -236,7 +244,11 @@
 
 
 <dt>y_limits</dt>
-<dd><p>A vector of length 2 to determine the limits of the axis (and the zoom via the coord).</p></dd>
+<dd><p>A vector of length 2 to determine the limits of the axis.</p></dd>
+
+
+<dt>y_oob</dt>
+<dd><p>A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.</p></dd>
 
 
 <dt>y_sec_axis</dt>
@@ -287,6 +299,10 @@
 <dd><p>A vector to determine the limits of the colour scale.</p></dd>
 
 
+<dt>col_oob</dt>
+<dd><p>A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.</p></dd>
+
+
 <dt>col_rescale</dt>
 <dd><p>For a continuous col variable, a vector to rescale the pal non-linearly.</p></dd>
 
@@ -333,6 +349,10 @@
 
 <dt>theme</dt>
 <dd><p>A ggplot2 theme.</p></dd>
+
+
+<dt>void</dt>
+<dd><p>TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.</p></dd>
 
 </dl></div>
     <div class="section level2">
