@@ -1,4 +1,4 @@
-#' Convert NA numeric values to Infinite
+#' Convert Infinite values to NA
 #'
 #' @param x A vector
 #'

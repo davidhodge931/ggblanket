@@ -1,4 +1,4 @@
-# ggblanket 1.6.3.9000
+# ggblanket 1.6.3.9999
 
 * Updated `gg_theme` default axis-line and gridline thickness.
 * Supported named `pal` vectors.

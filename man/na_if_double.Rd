@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{na_if_double}
 \alias{na_if_double}
-\title{Convert NA numeric values to Infinite}
+\title{Convert Infinite values to NA}
 \usage{
 na_if_double(x)
 }
@@ -13,6 +13,6 @@ na_if_double(x)
 A vector
 }
 \description{
-Convert NA numeric values to Infinite
+Convert Infinite values to NA
 }
 \keyword{internal}

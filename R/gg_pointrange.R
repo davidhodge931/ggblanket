@@ -1366,7 +1366,7 @@ gg_pointrange <- function(
   }
 
   if (void) {
-    theme <- theme +
+    plot <- plot +
       ggplot2::theme(axis.text = ggplot2::element_blank()) +
       ggplot2::theme(axis.line = ggplot2::element_blank()) +
       ggplot2::theme(axis.ticks = ggplot2::element_blank()) +
