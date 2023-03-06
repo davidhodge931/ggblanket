@@ -7,7 +7,7 @@
 * Added in `*_oob` arguments.
 * Improved how `*_limits` works.
 * Removed default gridlines for `gg_sf`.
-* Removed `void` argument.
+* Removed `void` argument. 
 
 # ggblanket 1.6.3
 
