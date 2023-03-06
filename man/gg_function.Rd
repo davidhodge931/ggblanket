@@ -195,8 +195,9 @@ Create a function ggplot with a wrapper around the ggplot2::geom_function functi
 data.frame(x = rnorm(100)) |>
   gg_function(
     x = x,
-    fun = ~ dnorm(.x),
-    pal = "#1B9E77"
+    fun = \(x) dnorm(x),
+    pal = "#1B9E77",
+    x_limits = c(-3, 3)
   )
 
 }
