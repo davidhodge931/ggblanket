@@ -24,6 +24,12 @@
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/functions_demo.html">Functions demo</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -414,30 +420,21 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">gg_boxplot</span><span class="op">(</span><span class="va">mpg</span>, x <span class="op">=</span> <span class="va">class</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">palmerpenguins</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">gg_boxplot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    x <span class="op">=</span> <span class="va">sex</span>,</span></span>
+<span class="r-in"><span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span></span>
+<span class="r-in"><span>    col <span class="op">=</span> <span class="va">sex</span>,</span></span>
+<span class="r-in"><span>    facet <span class="op">=</span> <span class="va">species</span>,</span></span>
+<span class="r-in"><span>    x_labels <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span>,</span></span>
+<span class="r-in"><span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#1B9E77"</span>, <span class="st">"#9E361B"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 2 rows containing non-finite values (`stat_boxplot()`).</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 2 rows containing non-finite values (`stat_boxplot()`).</span>
 <span class="r-plt img"><img src="gg_boxplot-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">gg_boxplot</span><span class="op">(</span><span class="va">mpg</span>, x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">class</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="gg_boxplot-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">gg_boxplot</span><span class="op">(</span><span class="va">mpg</span>, x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">class</span>, notch <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Notch went outside hinges</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Do you want `notch = FALSE`?</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Notch went outside hinges</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Do you want `notch = FALSE`?</span>
-<span class="r-plt img"><img src="gg_boxplot-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">gg_boxplot</span><span class="op">(</span><span class="va">mpg</span>, x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">class</span>, varwidth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="gg_boxplot-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">gg_boxplot</span><span class="op">(</span><span class="va">mpg</span>, x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">class</span>, pal <span class="op">=</span> <span class="st">"#3366FF"</span>, alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="gg_boxplot-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">gg_boxplot</span><span class="op">(</span><span class="va">mpg</span>, x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">class</span>, col <span class="op">=</span> <span class="va">drv</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="gg_boxplot-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">gg_boxplot</span><span class="op">(</span><span class="va">diamonds</span>, x <span class="op">=</span> <span class="va">carat</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="gg_boxplot-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">gg_boxplot</span><span class="op">(</span><span class="va">diamonds</span>, <span class="va">carat</span>, <span class="va">price</span>, group <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html" class="external-link">cut_width</a></span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="gg_boxplot-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

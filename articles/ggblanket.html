@@ -48,6 +48,12 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/functions_demo.html">Functions demo</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -76,6 +82,8 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>ggblanket</h1>
+                        <h4 data-toc-skip class="author">David
+Hodge</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/davidhodge931/ggblanket/blob/HEAD/vignettes/ggblanket.Rmd" class="external-link"><code>vignettes/ggblanket.Rmd</code></a></small>
@@ -354,7 +362,7 @@ using <code>x_title</code>, <code>y_title</code>, or
 <span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu">pals</span><span class="fu">::</span><span class="fu"><a href="https://kwstat.github.io/pals/reference/brewer.html" class="external-link">brewer.rdbu</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>    col_legend_place <span class="op">=</span> <span class="st">"r"</span>,</span>
 <span>    col_rescale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">186</span>, <span class="fl">215</span>, <span class="fl">222</span><span class="op">)</span>,</span>
-<span>    x_labels <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span>,</span>
+<span>    x_labels <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="va"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"Average penguin body mass"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/gg_theme.html">gg_theme</a></span><span class="op">(</span>plot_background_pal <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -409,7 +417,7 @@ will generally be in the right order too.</p>
 <span>    col <span class="op">=</span> <span class="va">sex</span>, </span>
 <span>    facet <span class="op">=</span> <span class="va">island</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
-<span>    col_labels <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span>, </span>
+<span>    col_labels <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="va"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span>, </span>
 <span>    position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-10-1.png" width="70%"></p>
 </div>
@@ -457,7 +465,7 @@ fix it to single colour.</p>
 <span>    level <span class="op">=</span> <span class="fl">0.99</span>, <span class="co">#accessed via geom_smooth</span></span>
 <span>    col_legend_place <span class="op">=</span> <span class="st">"t"</span>,</span>
 <span>    col_title <span class="op">=</span> <span class="st">""</span>, </span>
-<span>    col_labels <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span>, </span>
+<span>    col_labels <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="va"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span>, </span>
 <span>    colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="co">#accessed via geom_smooth</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.png" width="70%"></p>
 </div>
@@ -476,8 +484,8 @@ just add your theme as a layer instead
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>sex <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
-<span>           y <span class="op">=</span> <span class="va">bill_length_mm</span>,</span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>           y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>           col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>           facet <span class="op">=</span> <span class="va">species</span>, </span>
 <span>           pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#1B9E77"</span>, <span class="st">"#9E361B"</span><span class="op">)</span>, </span>
@@ -491,8 +499,6 @@ just add your theme as a layer instead
 theme by changing text size, colours, margins, among other.</p>
 <p>It includes arguments for adjusting text, background colours, axis
 lines, ticks and gridlines.</p>
-<p>There is also a <code>void = TRUE</code> argument that is useful for
-maps.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">storms</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -618,7 +624,7 @@ customised tooltip. Note this approach only works where the
 <span>           col <span class="op">=</span> <span class="va">Species</span>,</span>
 <span>           facet <span class="op">=</span> <span class="va">Species</span>, </span>
 <span>           theme <span class="op">=</span> <span class="fu"><a href="../reference/gg_theme.html">gg_theme</a></span><span class="op">(</span><span class="st">"helvetica"</span><span class="op">)</span>,</span>
-<span>           facet_labels <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span><span class="op">)</span></span>
+<span>           facet_labels <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="va"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">)</span></span>
 <span></span>
 <span> <span class="va">p</span> <span class="op">&lt;-</span> <span class="va">b</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggiraph</span><span class="fu">::</span><span class="fu"><a href="https://davidgohel.github.io/ggiraph/reference/geom_point_interactive.html" class="external-link">geom_point_interactive</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>tooltip <span class="op">=</span> <span class="va">tooltip</span>, data_id <span class="op">=</span> <span class="va">id</span><span class="op">)</span><span class="op">)</span></span>
@@ -740,7 +746,7 @@ something to do with the <code>col</code> aesthetic, then
 <span>    col <span class="op">=</span> <span class="va">Species</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">Species</span>,</span>
 <span>    col_legend_place <span class="op">=</span> <span class="st">"r"</span>,</span>
-<span>    col_labels <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span><span class="op">)</span> <span class="op">+</span></span>
+<span>    col_labels <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="va"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggdensity</span><span class="fu">::</span><span class="fu"><a href="https://jamesotto852.github.io/ggdensity/reference/geom_hdr.html" class="external-link">geom_hdr</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="st">"Probs"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
