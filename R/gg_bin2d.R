@@ -63,10 +63,12 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
-#'
-#' diamonds %>%
-#'   gg_bin2d(depth, price)
+#' ggplot2::diamonds |>
+#'   gg_bin2d(
+#'     x = carat,
+#'     y = price,
+#'     pal = viridis::cividis(9)
+#'   )
 #'
 gg_bin2d <- function(
     data = NULL,

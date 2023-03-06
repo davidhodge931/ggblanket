@@ -63,10 +63,18 @@
 #'
 #' @return A ggplot object.
 #' @export
+#'
 #' @examples
-#' library(ggplot2)
-#' recent <- economics[economics$date > as.Date("2013-01-01"), ]
-#' gg_step(recent, x = date, y = unemploy)
+#' library(economics)
+#'
+#' economics |>
+#'   gg_step(
+#'     x = date,
+#'     y = unemploy,
+#'     y_title = "Unemployment",
+#'     pal = "#'1B9E77",
+#'     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_)
+#'   )
 #'
 gg_step <- function(
     data = NULL,

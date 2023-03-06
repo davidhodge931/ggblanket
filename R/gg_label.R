@@ -65,9 +65,22 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' gg_label(mtcars, wt, mpg, label = rownames(mtcars))
-#' gg_label(mtcars, wt, mpg, label = rownames(mtcars), alpha = 0.1)
+#' library(dplyr)
+#'
+#' bind_rows(
+#'   mtcars %>% slice_min(order_by = mpg),
+#'   mtcars %>% slice_max(order_by = mpg)
+#' ) %>%
+#'   tibble::rownames_to_column(var = "model") %>%
+#'   gg_label(
+#'     x = model,
+#'     y = mpg,
+#'     col = mpg,
+#'     label = model,
+#'     y_include = c(min(.$mpg) * 0.95, max(.$mpg) * 1.05),
+#'     pal = pals::brewer.rdbu(9),
+#'     y_title = "Miles per gallon"
+#'   )
 #'
 gg_label <- function(
     data = NULL,

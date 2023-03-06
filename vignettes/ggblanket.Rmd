@@ -165,6 +165,7 @@ Available arguments are:
 * `*_include`: Include a value within a scale 
 * `*_labels`: Adjust the labels on the breaks of a scale
 * `*_limits`: Adjust the limits on a scale
+* `*_oob`: How to treat out-of-bound values. Defaults to `scales::oob_keep`
 * `*_trans`: Transform a scale (e.g. "log10", "sqrt" or "reverse") 
 * `*_title`: Add a title
 * `*_sec_axis`: Add a secondary x or y axis
@@ -180,7 +181,7 @@ Available arguments are:
 * `facet_space`: Whether facet space is to be allocated proportionally
 * `facet_ncol`: How many columns to wrap facets into  
 * `facet_nrow`: How many rows to wrap facets into
-* `clip`: Whether to clip to the panel ("on") or not ("off")
+* `coord`: A ggplot2 `coord_*` function.
 
 ```{r}
 penguins |>

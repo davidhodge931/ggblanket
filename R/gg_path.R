@@ -63,12 +63,18 @@
 #'
 #' @return A ggplot object.
 #' @export
-#' @examples
-#' library(ggplot2)
 #'
-#' economics %>%
-#'   dplyr::mutate(unemploy_rate = unemploy / pop) %>%
-#'   gg_path(x = unemploy_rate, y = psavert)
+#' @examples
+#' library(dplyr)
+#'
+#' ggplot2::economics %>%
+#'   mutate(unemploy_rate = unemploy / pop) %>%
+#'   gg_path(
+#'     x = unemploy_rate,
+#'     y = psavert,
+#'     x_title = "Unemployment rate",
+#'     y_title = "Personal savings rate"
+#'   )
 #'
 gg_path <- function(
     data = NULL,

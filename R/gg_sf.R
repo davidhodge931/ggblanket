@@ -43,12 +43,15 @@
 #'
 #' @return A ggplot object.
 #' @export
+#'
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
-#'   library(ggplot2)
 #'   nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
 #'
-#'   gg_sf(nc, col = AREA, col_legend_place = "b")
+#'   nc |>
+#'     gg_sf(
+#'       col = AREA,
+#'       pal = viridis::cividis(9))
 #' }
 #'
 gg_sf <- function(

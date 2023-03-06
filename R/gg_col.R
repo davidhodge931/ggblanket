@@ -64,10 +64,24 @@
 #'
 #' @return A ggplot object.
 #' @export
+#'
 #' @examples
-#' df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
-#' gg_col(df, x = trt, y = outcome)
-#' gg_col(df, x = trt, y = outcome, col = trt)
+#' library(dplyr)
+#' library(palmerpenguins)
+#'
+#' penguins |>
+#'   group_by(sex, species) |>
+#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) |>
+#'   tidyr::drop_na(sex) |>
+#'   gg_col(
+#'     x = sex,
+#'     y = body_mass_g,
+#'     col = sex,
+#'     facet = species,
+#'     width = 0.75,
+#'     x_labels = stringr::str_to_sentence,
+#'     pal = c("#'1B9E77", "#'9E361B")
+#'   )
 #'
 gg_col <- function(
     data = NULL,

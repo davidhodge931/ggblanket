@@ -63,22 +63,17 @@
 #'
 #' @return A ggplot object.
 #' @export
+#'
 #' @examples
-#' library(ggplot2)
+#' library(palmerpenguins)
 #'
-#' gg_smooth(mpg, x = displ, y = hwy)
-#'
-#' gg_smooth(mpg, x = displ, y = hwy) +
-#'   geom_point()
-#'
-#' gg_smooth(mpg, x = hwy, y = displ) +
-#'   geom_point()
-#'
-#' gg_smooth(mpg, x = hwy, y = displ, orientation = "y") +
-#'   geom_point()
-#'
-#' gg_smooth(mpg, x = displ, y = hwy, method = "lm") +
-#'   geom_point()
+#' penguins |>
+#'   tidyr::drop_na(sex) |>
+#'   gg_smooth(
+#'     x = bill_depth_mm,
+#'     y = body_mass_g,
+#'     facet = species
+#'   )
 #'
 gg_smooth <- function(
     data = NULL,

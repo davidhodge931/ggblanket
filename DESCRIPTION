@@ -41,5 +41,6 @@ Suggests:
     pals,
     patchwork,
     rmarkdown,
-    sf
+    sf,
+    tibble
 VignetteBuilder: knitr

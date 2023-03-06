@@ -64,15 +64,19 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
+#' library(dplyr)
+#' library(palmerpenguins)
 #'
-#' gg_histogram(diamonds, x = carat)
-#' gg_histogram(diamonds, x = carat, binwidth = 0.01)
-#' gg_histogram(diamonds, x = carat, bins = 200)
-#' gg_histogram(diamonds, y = carat)
-#'
-#' gg_histogram(diamonds, x = price, col = cut)
-#' gg_histogram(diamonds, x = price, col = cut, position = "fill")
+#' penguins |>
+#'   tidyr::drop_na(sex) |>
+#'   gg_histogram(
+#'     x = body_mass_g,
+#'     col = sex,
+#'     facet = species,
+#'     bins = 50,
+#'     pal = c("#'1B9E77", "#'9E361B"),
+#'     col_labels = stringr::str_to_sentence
+#'   )
 #'
 gg_histogram <- function(
     data = NULL,

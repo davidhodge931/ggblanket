@@ -74,18 +74,18 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' gg_boxplot(mpg, x = class, y = hwy)
-#' gg_boxplot(mpg, x = hwy, y = class)
-#' gg_boxplot(mpg, x = hwy, y = class, notch = TRUE)
-#' gg_boxplot(mpg, x = hwy, y = class, varwidth = TRUE)
-#' gg_boxplot(mpg, x = hwy, y = class, pal = "#3366FF", alpha = 0)
+#' library(dplyr)
+#' library(palmerpenguins)
 #'
-#' gg_boxplot(mpg, x = hwy, y = class, col = drv)
-#'
-#' gg_boxplot(diamonds, x = carat, y = price)
-#'
-#' gg_boxplot(diamonds, carat, price, group = ggplot2::cut_width(carat, 0.25))
+#' penguins |>
+#'   gg_boxplot(
+#'     x = sex,
+#'     y = body_mass_g,
+#'     col = sex,
+#'     facet = species,
+#'     x_labels = snakecase::to_sentence_case,
+#'     pal = c("#'1B9E77", "#'9E361B")
+#'   )
 #'
 gg_boxplot <- function(
     data = NULL,

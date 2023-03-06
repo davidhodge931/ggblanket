@@ -62,12 +62,15 @@
 #'
 #' @return A ggplot object.
 #' @export
+#'
 #' @examples
-#' if (requireNamespace("hexbin", quietly = TRUE)) {
-#'  library(ggplot2)
-#'  diamonds %>%
-#'    gg_hex(depth, price)
-#' }
+#' ggplot2::diamonds |>
+#'   gg_hex(
+#'     x = carat,
+#'     y = price,
+#'     pal = viridis::cividis(9)
+#'  )
+#'
 gg_hex <- function(
     data = NULL,
     x = NULL,

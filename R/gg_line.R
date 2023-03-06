@@ -64,16 +64,15 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
+#' library(dplyr)
 #'
-#' gg_line(mtcars, x = wt, y = mpg)
-#' gg_line(mtcars, x = wt, y = mpg, col = cyl)
-#'
-#' mtcars %>%
-#'   dplyr::mutate(cyl = factor(cyl)) %>%
-#'   gg_line(x = wt, y = mpg, col = cyl, size = 1)
-#'
-#' gg_line(diamonds, x = carat, y = price, alpha = 0.01)
+#' economics |>
+#'   gg_line(
+#'     x = date,
+#'     y = unemploy,
+#'     y_title = "Unemployment",
+#'     pal = "#'9E361B"
+#'   )
 #'
 gg_line <- function(
     data = NULL,

@@ -79,15 +79,18 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
+#' library(dplyr)
+#' library(palmerpenguins)
 #'
-#' gg_blank(diamonds, x = carat)
-#' gg_blank(diamonds, x = carat, binwidth = 0.01)
-#' gg_blank(diamonds, x = carat, bins = 200)
-#' gg_blank(diamonds, y = carat)
-#'
-#' gg_blank(diamonds, x = price, col = cut)
-#' gg_blank(diamonds, x = price, col = cut, position = "fill")
+#' penguins |>
+#'   gg_blank(
+#'     x = bill_depth_mm,
+#'     y = body_mass_g,
+#'     col = sex,
+#'     facet = species,
+#'     col_labels = stringr::str_to_sentence,
+#'     pal = c("#'1B9E77", "#'9E361B")
+#'   )
 #'
 gg_blank <- function(
     data = NULL,

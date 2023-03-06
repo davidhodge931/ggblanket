@@ -64,11 +64,18 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(ggplot2)
-#' gg_bar(mpg, x = class)
-#' gg_bar(mpg, y = class)
-#' gg_bar(mpg, x = class, col = drv)
-#' gg_bar(mpg, y = class, col = drv, col_legend_place = "t")
+#' library(dplyr)
+#' library(palmerpenguins)
+#'
+#' penguins |>
+#'   gg_bar(
+#'     x = sex,
+#'     col = sex,
+#'     facet = species,
+#'     width = 0.75,
+#'     x_labels = stringr::str_to_sentence,
+#'     pal = c("#'1B9E77", "#'9E361B")
+#'   )
 #'
 gg_bar <- function(
     data = NULL,

@@ -67,26 +67,21 @@
 #'
 #' @return A ggplot object.
 #' @export
+#'
 #' @examples
+#' library(dplyr)
 #' library(ggplot2)
-#' huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
 #'
-#' huron %>%
-#'   gg_ribbon(
-#'     x = year,
-#'     ymin = 0,
-#'     ymax = level,
-#'     x_labels = ~.x,
-#'     alpha = 0.9)
-#'
-#' huron %>%
-#'   dplyr::mutate(level_min = level - 1, level_max = level + 1) %>%
+#' data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
+#'   mutate(level_min = level - 1, level_max = level + 1) |>
 #'   gg_ribbon(
 #'     x = year,
 #'     ymin = level_min,
 #'     ymax = level_max,
-#'     pal = scales::alpha(pal_viridis_mix(1), 0)) +
-#'   geom_line(aes(x = year, y = level), col = pal_viridis_mix(1))
+#'     pal = scales::alpha("#'1B9E77", 0),
+#'     y_title = "Level"
+#'   ) +
+#'   geom_line(aes(x = year, y = level), col = "#'1B9E77")
 #'
 gg_ribbon <- function(
     data = NULL,

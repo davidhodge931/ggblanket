@@ -64,9 +64,8 @@
 #'
 #' @return A ggplot object.
 #' @export
-#' @examples
-#' library(ggplot2)
 #'
+#' @examples
 #' ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
 #'
 #' values <- data.frame(
@@ -85,30 +84,14 @@
 #' datapoly <- merge(values, positions, by = c("id"))
 #'
 #' datapoly %>%
-#'   gg_polygon(x = x,
-#'              y = y,
-#'              col = value,
-#'              group = id)
-#'
-#' holes <-
-#'   do.call(rbind, lapply(split(datapoly, datapoly$id), function(df) {
-#'     df$x <- df$x + 0.5 * (mean(df$x) - df$x)
-#'     df$y <- df$y + 0.5 * (mean(df$y) - df$y)
-#'     df
-#'   }))
-#'
-#' datapoly$subid <- 1L
-#' holes$subid <- 2L
-#' datapoly <- rbind(datapoly, holes)
-#'
-#' datapoly %>%
 #'   gg_polygon(
 #'     x = x,
 #'     y = y,
 #'     col = value,
 #'     group = id,
-#'     subgroup = subid
+#'     pal = viridis::cividis(9)
 #'   )
+#'
 gg_polygon <- function(
     data = NULL,
     x = NULL,
