@@ -269,6 +269,10 @@ scale</li>
 <li>
 <code>*_limits</code>: Adjust the limits on a scale</li>
 <li>
+<code>*_oob</code>: How to treat out-of-bound values. Defaults to
+<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>
+</li>
+<li>
 <code>*_trans</code>: Transform a scale (e.g. “log10”, “sqrt” or
 “reverse”)</li>
 <li>
@@ -308,8 +312,7 @@ proportionally</li>
 <li>
 <code>facet_nrow</code>: How many rows to wrap facets into</li>
 <li>
-<code>clip</code>: Whether to clip to the panel (“on”) or not
-(“off”)</li>
+<code>coord</code>: A ggplot2 <code>coord_*</code> function.</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
