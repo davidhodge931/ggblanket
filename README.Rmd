@@ -59,22 +59,26 @@ library(dplyr)
 library(stringr)
 library(palmerpenguins)
 
-iris |>
-  mutate(Species = str_to_sentence(Species)) |> 
+penguins |>
   gg_point(
-    x = Sepal.Width,
-    y = Sepal.Length,
-    col = Species)
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    col_labels = stringr::str_to_sentence,
+    pal = c("#1B9E77", "#9E361B")
+  )
 ```
 <br>
 <br>  
 ```{r}
 penguins |>
-  mutate(sex = str_to_sentence(sex)) |> 
-  gg_histogram(
+  tidyr::drop_na() |> 
+  gg_density(
     x = flipper_length_mm,
     col = sex,
     facet = species,
+    col_labels = stringr::str_to_sentence,
     pal = c("#1B9E77", "#9E361B"))
 ```
 

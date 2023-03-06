@@ -26,9 +26,9 @@ The primary objective is to **simplify ggplot2 visualisation**.
 
 Secondary objectives relate to:
 
--   Scope: cover the most useful 80% of what ggplot2 does
--   Design: produce well-designed visualisation by default
--   Alignment: use conventions generally aligned with ggplot2.
+- Scope: cover the most useful 80% of what ggplot2 does
+- Design: produce well-designed visualisation by default
+- Alignment: use conventions generally aligned with ggplot2.
 
 It is intended to be useful for all levels of experience from beginner
 to expert.
@@ -53,12 +53,15 @@ library(dplyr)
 library(stringr)
 library(palmerpenguins)
 
-iris |>
-  mutate(Species = str_to_sentence(Species)) |> 
+penguins |>
   gg_point(
-    x = Sepal.Width,
-    y = Sepal.Length,
-    col = Species)
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    col_labels = stringr::str_to_sentence,
+    pal = c("#1B9E77", "#9E361B")
+  )
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" /> <br>
@@ -66,11 +69,12 @@ iris |>
 
 ``` r
 penguins |>
-  mutate(sex = str_to_sentence(sex)) |> 
-  gg_histogram(
+  tidyr::drop_na() |> 
+  gg_density(
     x = flipper_length_mm,
     col = sex,
     facet = species,
+    col_labels = stringr::str_to_sentence,
     pal = c("#1B9E77", "#9E361B"))
 ```
 
