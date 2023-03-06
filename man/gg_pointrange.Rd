@@ -204,17 +204,24 @@ A ggplot object.
 Create a pointrange ggplot with a wrapper around the ggplot2::geom_pointrange function.
 }
 \examples{
-library(ggplot2)
-
-df <- data.frame(
+data.frame(
   trt = factor(c(1, 1, 2, 2)),
   resp = c(1, 5, 3, 4),
   group = factor(c(1, 2, 1, 2)),
   upper = c(1.1, 5.3, 3.3, 4.2),
   lower = c(0.8, 4.6, 2.4, 3.6)
-)
-
-gg_pointrange(df, x = trt, y = resp, col = group, ymin = lower, ymax = upper,
-             position = position_dodge(width = 0.2))
+) |>
+  gg_pointrange(
+    x = trt,
+    y = resp,
+    col = group,
+    ymin = lower,
+    ymax = upper,
+    position = ggplot2::position_dodge(width = 0.2),
+    size = 0.2,
+    pal = c("#1B9E77", "#9E361B"),
+    x_title = "Treatment",
+    y_title = "Response"
+  )
 
 }

@@ -192,8 +192,11 @@ A ggplot object.
 Create a function ggplot with a wrapper around the ggplot2::geom_function function.
 }
 \examples{
-library(ggplot2)
-gg_function(data.frame(x = rnorm(100)), x = x, fun = ~dnorm(.x))
-gg_function(data.frame(x = rnorm(100)), x = x, fun = ~0.5*exp(-abs(.x)))
+data.frame(x = rnorm(100)) |>
+  gg_function(
+    x = x,
+    fun = ~ dnorm(.x),
+    pal = "#1B9E77"
+  )
 
 }

@@ -70,7 +70,7 @@
 #' penguins |>
 #'   tidyr::drop_na(sex) |>
 #'   gg_smooth(
-#'     x = bill_depth_mm,
+#'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     facet = species
 #'   )

@@ -68,7 +68,7 @@
 #'   gg_function(
 #'     x = x,
 #'     fun = ~ dnorm(.x),
-#'     pal = "#'1B9E77"
+#'     pal = "#1B9E77"
 #'   )
 #'
 gg_function <- function(

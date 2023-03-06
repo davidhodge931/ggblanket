@@ -192,15 +192,12 @@ A ggplot object.
 Create a area ggplot with a wrapper around the ggplot2::geom_area function.
 }
 \examples{
-library(ggplot2)
-
-gg_area(mtcars, x = wt, y = mpg)
-gg_area(mtcars, x = wt, y = mpg, col = cyl)
-
-mtcars \%>\%
-  dplyr::mutate(cyl = factor(cyl)) \%>\%
-  gg_area(x = wt, y = mpg, col = cyl, size = 1)
-
-gg_area(diamonds, x = carat, y = price, alpha = 0.01)
+ggplot2::economics |>
+  gg_area(
+    x = date,
+    y = unemploy,
+    y_title = "Unemployment",
+    pal = "#1B9E77"
+  )
 
 }

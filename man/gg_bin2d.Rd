@@ -189,9 +189,11 @@ A ggplot object.
 Create a bin2d ggplot with a wrapper around the ggplot2::geom_bin2d function.
 }
 \examples{
-library(ggplot2)
-
-diamonds \%>\%
-  gg_bin2d(depth, price)
+ggplot2::diamonds |>
+  gg_bin2d(
+    x = carat,
+    y = price,
+    pal = viridis::cividis(9)
+  )
 
 }

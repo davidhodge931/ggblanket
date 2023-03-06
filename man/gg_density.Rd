@@ -192,13 +192,17 @@ A ggplot object.
 Create a density ggplot with a wrapper around the ggplot2::geom_density function.
 }
 \examples{
-library(ggplot2)
-gg_density(diamonds, x = carat)
-gg_density(diamonds, y = carat)
-gg_density(diamonds, x = carat, adjust = 1/5)
-gg_density(diamonds, x = carat, adjust = 5)
-gg_density(diamonds, x = depth, col = cut, x_limits = c(55, 70))
-gg_density(diamonds, x = carat, col = cut, position = "stack", alpha = 0.9)
-gg_density(diamonds, x = carat, col = cut, position = "fill", alpha = 0.9)
+library(dplyr)
+library(palmerpenguins)
+
+penguins |>
+  tidyr::drop_na(sex) |>
+  gg_density(
+    x = flipper_length_mm,
+    col = sex,
+    facet = species,
+    pal = c("#1B9E77", "#9E361B"),
+    col_labels = stringr::str_to_sentence
+  )
 
 }

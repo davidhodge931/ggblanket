@@ -64,14 +64,12 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(dplyr)
-#'
-#' economics |>
+#' ggplot2::economics |>
 #'   gg_line(
 #'     x = date,
 #'     y = unemploy,
 #'     y_title = "Unemployment",
-#'     pal = "#'9E361B"
+#'     pal = "#9E361B"
 #'   )
 #'
 gg_line <- function(

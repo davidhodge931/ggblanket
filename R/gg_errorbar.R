@@ -81,9 +81,10 @@
 #'     ymax = upper,
 #'     col = group,
 #'     width = 0.1,
-#'     pal = c("#'1B9E77", "#'9E361B"),
+#'     pal = c("#1B9E77", "#9E361B"),
 #'     x_title = "Treatment",
-#'     y_title = "Response"
+#'     y_title = "Response",
+#'     position = ggplot2::position_dodge(0.2)
 #'   )
 #'
 gg_errorbar <- function(

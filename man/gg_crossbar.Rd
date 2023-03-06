@@ -204,16 +204,26 @@ A ggplot object.
 Create a crossbar ggplot with a wrapper around the ggplot2::geom_crossbar function.
 }
 \examples{
-library(ggplot2)
+library(dplyr)
+library(palmerpenguins)
 
-df <- data.frame(
+data.frame(
   trt = factor(c(1, 1, 2, 2)),
   resp = c(1, 5, 3, 4),
   group = factor(c(1, 2, 1, 2)),
   upper = c(1.1, 5.3, 3.3, 4.2),
   lower = c(0.8, 4.6, 2.4, 3.6)
-)
-
-gg_crossbar(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group)
+) |>
+  gg_crossbar(
+    x = trt,
+    y = resp,
+    ymin = lower,
+    ymax = upper,
+    col = group,
+    width = 0.5,
+    x_title = "Treatment",
+    y_title = "Response",
+    pal = c("#1B9E77", "#9E361B")
+  )
 
 }

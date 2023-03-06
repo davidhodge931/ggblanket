@@ -189,9 +189,11 @@ A ggplot object.
 Create a hex ggplot with a wrapper around the ggplot2::geom_hex function.
 }
 \examples{
-if (requireNamespace("hexbin", quietly = TRUE)) {
- library(ggplot2)
- diamonds \%>\%
-   gg_hex(depth, price)
-}
+ggplot2::diamonds |>
+  gg_hex(
+    x = carat,
+    y = price,
+    pal = viridis::cividis(9)
+ )
+
 }

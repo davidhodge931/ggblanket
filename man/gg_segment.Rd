@@ -198,9 +198,13 @@ A ggplot object.
 Create a segment ggplot with a wrapper around the ggplot2::geom_segment function.
 }
 \examples{
-library(ggplot2)
-df <- data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0)
-
-gg_segment(df, x = x1, y = y1, xend = x2, yend = y2)
+data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
+  gg_segment(
+    x = x1,
+    xend = x2,
+    y = y1,
+    yend = y2,
+    pal = "#1B9E77"
+  )
 
 }

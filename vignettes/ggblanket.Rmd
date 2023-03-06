@@ -1,5 +1,6 @@
 ---
 title: "ggblanket"
+author: "David Hodge"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{ggblanket}
@@ -218,7 +219,7 @@ penguins |>
     pal = rev(pals::brewer.rdbu(9)), 
     col_legend_place = "r",
     col_rescale = c(186, 215, 222),
-    x_labels = snakecase::to_sentence_case,
+    x_labels = stringr::str_to_sentence,
     title = "Average penguin body mass",
     subtitle = "Palmer Archipelago, Antarctica",
     theme = gg_theme(plot_background_pal = "white",
@@ -269,7 +270,7 @@ penguins |>
     col = sex, 
     facet = island,
     width = 0.75,
-    col_labels = snakecase::to_sentence_case, 
+    col_labels = stringr::str_to_sentence, 
     position = "dodge")
 ```
 
@@ -312,7 +313,7 @@ penguins |>
     level = 0.99, #accessed via geom_smooth
     col_legend_place = "t",
     col_title = "", 
-    col_labels = snakecase::to_sentence_case, 
+    col_labels = stringr::str_to_sentence, 
     colour = "white") #accessed via geom_smooth
 ```
 
@@ -322,12 +323,13 @@ This allows you to utilise the simplicity of ggblanket, while making content tha
 
 By using the `theme` argument, your theme will control all theme aspects, but with some magic relating to the legend and gridline removal within the `gg_* function`. 
 
-However, if you want your theme to adjust _everything_, then just add your theme as a layer instead (e.g. `+ theme_grey()`). 
+However, if you want your theme to adjust _everything_, then just add your theme as a layer instead (e.g. `+ theme_grey()`).
+
 ```{r}
 penguins |>
   mutate(sex = str_to_sentence(sex)) |> 
-  gg_point(x = bill_depth_mm,
-           y = bill_length_mm,
+  gg_point(x = flipper_length_mm,
+           y = body_mass_g,
            col = sex,
            facet = species, 
            pal = c("#1B9E77", "#9E361B"), 
@@ -339,8 +341,6 @@ penguins |>
 The `gg_theme` function allows you to modify the default theme by changing text size, colours, margins, among other. 
 
 It includes arguments for adjusting text, background colours, axis lines, ticks and gridlines.
-
-There is also a `void = TRUE` argument that is useful for maps.
 
 ```{r}
 storms |>
@@ -448,7 +448,7 @@ b <- iris |>
            col = Species,
            facet = Species, 
            theme = gg_theme("helvetica"),
-           facet_labels = snakecase::to_sentence_case)
+           facet_labels = stringr::str_to_sentence)
 
  p <- b +
   ggiraph::geom_point_interactive(aes(tooltip = tooltip, data_id = id))
@@ -556,7 +556,7 @@ iris |>
     col = Species,
     facet = Species,
     col_legend_place = "r",
-    col_labels = snakecase::to_sentence_case) +
+    col_labels = stringr::str_to_sentence) +
   ggdensity::geom_hdr(colour = NA) +
   labs(alpha = "Probs") +
   theme(legend.title = element_text(margin = margin(t = 5)))

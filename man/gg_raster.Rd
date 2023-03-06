@@ -192,11 +192,12 @@ A ggplot object.
 Create a raster ggplot with a wrapper around the ggplot2::geom_raster function.
 }
 \examples{
-library(ggplot2)
-
-gg_raster(faithfuld, x = waiting, y = eruptions, col = density)
-
-gg_raster(faithfuld, x = waiting, y = eruptions, col = density,
-          x_limits = c(NA, NA), y_limits = c(NA, NA))
+ggplot2::faithfuld |>
+  gg_raster(
+    x = waiting,
+    y = eruptions,
+    col = density,
+    pal = viridis::cividis(9)
+  )
 
 }

@@ -192,15 +192,12 @@ A ggplot object.
 Create a line ggplot with a wrapper around the ggplot2::geom_line function.
 }
 \examples{
-library(ggplot2)
-
-gg_line(mtcars, x = wt, y = mpg)
-gg_line(mtcars, x = wt, y = mpg, col = cyl)
-
-mtcars \%>\%
-  dplyr::mutate(cyl = factor(cyl)) \%>\%
-  gg_line(x = wt, y = mpg, col = cyl, size = 1)
-
-gg_line(diamonds, x = carat, y = price, alpha = 0.01)
+ggplot2::economics |>
+  gg_line(
+    x = date,
+    y = unemploy,
+    y_title = "Unemployment",
+    pal = "#9E361B"
+  )
 
 }

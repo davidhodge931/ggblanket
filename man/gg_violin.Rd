@@ -192,9 +192,18 @@ A ggplot object.
 Create a violin plot with a wrapper around the ggplot2::geom_violin function.
 }
 \examples{
-library(ggplot2)
-mtcars \%>\%
-  dplyr::mutate(cyl = as.factor(cyl)) \%>\%
-  gg_violin(x = cyl, y = mpg)
+library(dplyr)
+library(palmerpenguins)
+
+penguins |>
+  group_by(species, sex) |>
+  summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
+  gg_tile(
+    x = sex,
+    y = species,
+    col = flipper_length_mm,
+    pal = pals::brewer.blues(9),
+    col_labels = stringr::str_to_sentence
+  )
 
 }

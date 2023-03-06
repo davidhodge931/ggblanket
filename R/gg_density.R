@@ -71,10 +71,10 @@
 #' penguins |>
 #'   tidyr::drop_na(sex) |>
 #'   gg_density(
-#'     x = body_mass_g,
+#'     x = flipper_length_mm,
 #'     col = sex,
 #'     facet = species,
-#'     pal = c("#'1B9E77", "#'9E361B"),
+#'     pal = c("#1B9E77", "#9E361B"),
 #'     col_labels = stringr::str_to_sentence
 #'   )
 #'

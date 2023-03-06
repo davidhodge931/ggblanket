@@ -64,14 +64,12 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' library(dplyr)
-#'
-#' economics |>
+#' ggplot2::economics |>
 #'   gg_area(
 #'     x = date,
 #'     y = unemploy,
 #'     y_title = "Unemployment",
-#'     pal = "#'1B9E77"
+#'     pal = "#1B9E77"
 #'   )
 #'
 gg_area <- function(

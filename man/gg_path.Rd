@@ -192,10 +192,15 @@ A ggplot object.
 Create a path ggplot with a wrapper around the ggplot2::geom_path function.
 }
 \examples{
-library(ggplot2)
+library(dplyr)
 
-economics \%>\%
-  dplyr::mutate(unemploy_rate = unemploy / pop) \%>\%
-  gg_path(x = unemploy_rate, y = psavert)
+ggplot2::economics \%>\%
+  mutate(unemploy_rate = unemploy / pop) \%>\%
+  gg_path(
+    x = unemploy_rate,
+    y = psavert,
+    x_title = "Unemployment rate",
+    y_title = "Personal savings rate"
+  )
 
 }

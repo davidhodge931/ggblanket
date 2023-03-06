@@ -192,8 +192,22 @@ A ggplot object.
 Create a col ggplot with a wrapper around the ggplot2::geom_col function.
 }
 \examples{
-df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
-gg_col(df, x = trt, y = outcome)
-gg_col(df, x = trt, y = outcome, col = trt)
+library(dplyr)
+library(palmerpenguins)
+
+penguins |>
+  group_by(sex, species) |>
+  summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
+  tidyr::drop_na(sex) |>
+  gg_col(
+    x = flipper_length_mm,
+    y = species,
+    col = sex,
+    width = 0.75,
+    y_labels = stringr::str_to_sentence,
+    position = "dodge",
+    pal = c("#1B9E77", "#9E361B"),
+    col_labels = stringr::str_to_sentence
+  )
 
 }

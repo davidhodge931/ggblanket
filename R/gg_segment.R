@@ -72,7 +72,7 @@
 #'     xend = x2,
 #'     y = y1,
 #'     yend = y2,
-#'     pal = "#'1B9E77"
+#'     pal = "#1B9E77"
 #'   )
 #'
 gg_segment <- function(

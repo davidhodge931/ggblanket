@@ -72,7 +72,7 @@
 #'   gg_qq(
 #'     sample = body_mass_g,
 #'     facet = species,
-#'     pal = "#'1B9E77"
+#'     pal = "#1B9E77"
 #'   ) +
 #'   ggplot2::geom_qq_line(alpha = 0.5)
 #'

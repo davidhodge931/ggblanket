@@ -204,30 +204,23 @@ A ggplot object.
 Create a errorbar ggplot with a wrapper around the ggplot2::geom_errorbar function.
 }
 \examples{
-library(ggplot2)
-
-df <- data.frame(
+data.frame(
   trt = factor(c(1, 1, 2, 2)),
   resp = c(1, 5, 3, 4),
   group = factor(c(1, 2, 1, 2)),
   upper = c(1.1, 5.3, 3.3, 4.2),
   lower = c(0.8, 4.6, 2.4, 3.6)
-)
-
-gg_errorbar(df, x = trt, ymin = lower, ymax = upper, col = group)
-gg_errorbar(df, y = trt, xmin = lower, xmax = upper, col = group)
-
-gg_errorbar(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group) +
-  geom_line(aes(group = group)) +
-  geom_point()
-
-dodger <- position_dodge(width = 0.75)
-
-gg_blank(df, x = trt, y = resp, ymin = lower, ymax = upper, col = group) +
-  geom_col(position = dodger, width = 0.75) +
-  geom_errorbar(aes(x = trt, ymin = lower, ymax = upper, group = group),
-                inherit.aes = FALSE,
-                position = dodger,
-                width = 0.1)
+) |>
+  gg_errorbar(
+    x = trt,
+    ymin = lower,
+    ymax = upper,
+    col = group,
+    width = 0.1,
+    pal = c("#1B9E77", "#9E361B"),
+    x_title = "Treatment",
+    y_title = "Response",
+    position = ggplot2::position_dodge(0.2)
+  )
 
 }

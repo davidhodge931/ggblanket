@@ -204,17 +204,24 @@ A ggplot object.
 Create a rect ggplot with a wrapper around the ggplot2::geom_rect function.
 }
 \examples{
-library(ggplot2)
-
-df <- data.frame(
+data.frame(
   x = rep(c(2, 5, 7, 9, 12), 2),
   y = rep(c(1, 2), each = 5),
   z = factor(rep(1:5, each = 2)),
   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
-)
-
-df \%>\%
-  dplyr::mutate(xmin = x - w / 2, xmax = x + w / 2, ymin = y, ymax = y + 1) \%>\%
-  gg_rect(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, col = z)
+) \%>\%
+  dplyr::mutate(
+    xmin = x - w / 2,
+    xmax = x + w / 2,
+    ymin = y,
+    ymax = y + 1
+  ) \%>\%
+  gg_rect(
+    xmin = xmin,
+    xmax = xmax,
+    ymin = ymin,
+    ymax = ymax,
+    col = z
+  )
 
 }

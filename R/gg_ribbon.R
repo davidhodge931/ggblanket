@@ -81,7 +81,7 @@
 #'     pal = scales::alpha("#'1B9E77", 0),
 #'     y_title = "Level"
 #'   ) +
-#'   geom_line(aes(x = year, y = level), col = "#'1B9E77")
+#'   geom_line(aes(x = year, y = level), col = "#1B9E77")
 #'
 gg_ribbon <- function(
     data = NULL,

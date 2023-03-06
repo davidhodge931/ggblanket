@@ -195,10 +195,14 @@ A ggplot object.
 Create a qq ggplot with a wrapper around the ggplot2::geom_qq function.
 }
 \examples{
-library(ggplot2)
-df <- data.frame(y = rt(200, df = 5))
+library(palmerpenguins)
 
-gg_qq(df, sample = y, distribution = stats::qnorm) +
-  geom_qq_line(distribution = stats::qnorm)
+penguins |>
+  gg_qq(
+    sample = body_mass_g,
+    facet = species,
+    pal = "#1B9E77"
+  ) +
+  ggplot2::geom_qq_line(alpha = 0.5)
 
 }

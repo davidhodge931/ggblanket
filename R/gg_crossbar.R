@@ -87,7 +87,7 @@
 #'     width = 0.5,
 #'     x_title = "Treatment",
 #'     y_title = "Response",
-#'     pal = c("#'1B9E77", "#'9E361B")
+#'     pal = c("#1B9E77", "#9E361B")
 #'   )
 #'
 gg_crossbar <- function(

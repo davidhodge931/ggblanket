@@ -71,16 +71,17 @@
 #'
 #' penguins |>
 #'   group_by(sex, species) |>
-#'   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) |>
+#'   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
 #'   tidyr::drop_na(sex) |>
 #'   gg_col(
-#'     x = sex,
-#'     y = body_mass_g,
+#'     x = flipper_length_mm,
+#'     y = species,
 #'     col = sex,
-#'     facet = species,
 #'     width = 0.75,
-#'     x_labels = stringr::str_to_sentence,
-#'     pal = c("#'1B9E77", "#'9E361B")
+#'     y_labels = stringr::str_to_sentence,
+#'     position = "dodge",
+#'     pal = c("#1B9E77", "#9E361B"),
+#'     col_labels = stringr::str_to_sentence
 #'   )
 #'
 gg_col <- function(

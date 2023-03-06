@@ -192,11 +192,17 @@ A ggplot object.
 Create a freqpoly ggplot with a wrapper around the ggplot2::geom_freqpoly function.
 }
 \examples{
-library(ggplot2)
-gg_freqpoly(diamonds, x = carat)
-gg_freqpoly(diamonds, x = carat, binwidth = 0.01)
-gg_freqpoly(diamonds, x = carat, bins = 200)
-gg_freqpoly(diamonds, y = carat)
-gg_freqpoly(diamonds, x = price, col = cut)
+library(dplyr)
+library(palmerpenguins)
+
+penguins |>
+  tidyr::drop_na(sex) |>
+  gg_freqpoly(
+    x = flipper_length_mm,
+    col = sex,
+    facet = species,
+    pal = c("#1B9E77", "#9E361B"),
+    col_labels = stringr::str_to_sentence
+  )
 
 }

@@ -74,7 +74,7 @@
 #'     facet = species,
 #'     width = 0.75,
 #'     x_labels = stringr::str_to_sentence,
-#'     pal = c("#'1B9E77", "#'9E361B")
+#'     pal = c("#1B9E77", "#9E361B")
 #'   )
 #'
 gg_bar <- function(

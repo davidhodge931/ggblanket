@@ -192,10 +192,16 @@ A ggplot object.
 Create a jitter ggplot with a wrapper around the ggplot2::geom_jitter function.
 }
 \examples{
-library(ggplot2)
-gg_jitter(mpg, x = cyl, y = hwy)
-gg_jitter(mpg, x = cyl, y = hwy, col = class)
-gg_jitter(mpg, x = cyl, y = hwy, col = class,
-          position = position_jitter(width = 0.25))
+library(palmerpenguins)
+
+penguins |>
+  gg_jitter(
+    x = species,
+    y = body_mass_g,
+    col = flipper_length_mm,
+    col_continuous = "steps",
+    y_include = 0,
+    position = ggplot2::position_jitter(height = 0)
+ )
 
 }

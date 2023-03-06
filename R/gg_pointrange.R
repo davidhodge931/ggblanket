@@ -81,9 +81,9 @@
 #'     col = group,
 #'     ymin = lower,
 #'     ymax = upper,
-#'     position = position_dodge(width = 0.2),
+#'     position = ggplot2::position_dodge(width = 0.2),
 #'     size = 0.2,
-#'     pal = c("#'1B9E77", "#'9E361B"),
+#'     pal = c("#1B9E77", "#9E361B"),
 #'     x_title = "Treatment",
 #'     y_title = "Response"
 #'   )

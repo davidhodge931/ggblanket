@@ -84,7 +84,7 @@
 #'     col = sex,
 #'     facet = species,
 #'     x_labels = snakecase::to_sentence_case,
-#'     pal = c("#'1B9E77", "#'9E361B")
+#'     pal = c("#1B9E77", "#9E361B")
 #'   )
 #'
 gg_boxplot <- function(

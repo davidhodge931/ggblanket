@@ -192,15 +192,16 @@ A ggplot object.
 Create a point ggplot with a wrapper around the ggplot2::geom_point function.
 }
 \examples{
-library(ggplot2)
+library(palmerpenguins)
 
-gg_point(mtcars, x = wt, y = mpg)
-gg_point(mtcars, x = wt, y = mpg, col = cyl)
-
-mtcars \%>\%
-  dplyr::mutate(cyl = factor(cyl)) \%>\%
-  gg_point(x = wt, y = mpg, col = cyl, size = 1)
-
-gg_point(diamonds, x = carat, y = price, alpha = 0.01)
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    col_labels = stringr::str_to_sentence,
+    pal = c("#1B9E77", "#9E361B")
+  )
 
 }
