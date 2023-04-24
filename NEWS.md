@@ -1,7 +1,7 @@
 # ggblanket 1.8.0
 
 * Updated default colour palette.
-* Updated default NA colour.
+* Updated default NA colour. 
 
 # ggblanket 1.7.0
 
