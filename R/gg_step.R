@@ -86,7 +86,7 @@ gg_step <- function(
     position = "identity",
     coord = ggplot2::coord_cartesian(),
     pal = NULL,
-    pal_na = "#7F7F7F",
+    pal_na = "#88837D",
     alpha = 1,
     ...,
     title = NULL,
@@ -990,7 +990,7 @@ gg_step <- function(
   #make col scale based on layer_data
   if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
 
-    if (rlang::is_null(pal)) pal <-  pal_viridis_mix(1)
+    if (rlang::is_null(pal)) pal <-  pal_default(1)
     else pal <- as.vector(pal[1])
 
     plot <- plot +
@@ -1126,7 +1126,7 @@ gg_step <- function(
         }
       }
 
-      if (rlang::is_null(pal)) pal <- pal_d3_mix(col_n)
+      if (rlang::is_null(pal)) pal <- pal_default(col_n)
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
 
       if (y_numeric | y_date | y_datetime | y_time) {

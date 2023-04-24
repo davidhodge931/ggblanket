@@ -13,7 +13,7 @@ gg_sf(
   position = "identity",
   coord = ggplot2::coord_sf(),
   pal = NULL,
-  pal_na = "#7F7F7F",
+  pal_na = "#88837D",
   ...,
   title = NULL,
   subtitle = NULL,

@@ -20,7 +20,7 @@ gg_theme(
   subtitle_vjust = text_size * 0.4,
   subtitle_margin = ggplot2::margin(t = text_size * -0.5, b = text_size),
   caption_size = text_size - 1,
-  caption_pal = "#7F7F7F",
+  caption_pal = "#88837D",
   caption_face = "plain",
   caption_hjust = 0,
   axis_line_linewidth = 0.125,
@@ -66,7 +66,7 @@ gg_theme(
 
 \item{caption_size}{The size of the caption. Defaults to 9.}
 
-\item{caption_pal}{The colour for the caption. Defaults to "#7F7F7F".}
+\item{caption_pal}{The colour for the caption. Defaults to "#88837D".}
 
 \item{caption_face}{The font style of the caption. Defaults to "plain".}
 

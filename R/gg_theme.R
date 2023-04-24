@@ -16,7 +16,7 @@
 #' @param subtitle_vjust The vertical adjustment for the subtitle.
 #' @param subtitle_margin The margin for the title.
 #' @param caption_size The size of the caption. Defaults to 9.
-#' @param caption_pal The colour for the caption. Defaults to "#7F7F7F".
+#' @param caption_pal The colour for the caption. Defaults to "#88837D".
 #' @param caption_face The font style of the caption. Defaults to "plain".
 #' @param caption_hjust The horizontal adjustment for the caption.
 #' @param axis_line_linewidth The linewidth of the axis. Defaults to 0.125.
@@ -49,7 +49,7 @@ gg_theme <- function(
     subtitle_vjust = text_size * 0.4,
     subtitle_margin = ggplot2::margin(t = text_size * -0.5, b = text_size),
     caption_size = text_size - 1,
-    caption_pal = "#7F7F7F",
+    caption_pal = "#88837D",
     caption_face = "plain",
     caption_hjust = 0,
     axis_line_linewidth = 0.125,

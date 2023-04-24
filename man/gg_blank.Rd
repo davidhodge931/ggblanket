@@ -31,7 +31,7 @@ gg_blank(
   position = "identity",
   coord = ggplot2::coord_cartesian(),
   pal = NULL,
-  pal_na = "#7F7F7F",
+  pal_na = "#88837D",
   ...,
   title = NULL,
   subtitle = NULL,

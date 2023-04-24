@@ -24,7 +24,6 @@ Useful links:
 Other contributors:
 \itemize{
   \item Nik Mitchell (\href{https://orcid.org/0009-0002-8126-7745}{ORCID}) [contributor]
-  \item Rosie Percival (\href{https://orcid.org/0009-0005-7696-162X}{ORCID}) [contributor]
 }
 
 }

@@ -57,10 +57,7 @@ penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex,
-    facet = species,
-    col_labels = stringr::str_to_sentence,
-    pal = c("#1B9E77", "#9E361B")
+    col = species
   )
 ```
 

@@ -7,39 +7,34 @@
 #' @return A character vector of hex codes.
 #' @export
 #' @examples
-#' scales::show_col(pal_d3_mix(9))
-pal_d3_mix <- function(n) {
+#' scales::show_col(pal_default(9))
+#' @references
+#' https://blog.datawrapper.de/colors-for-data-vis-style-guides/
+pal_default <- function(n) {
 
-  c("#17BECF", "#BCBD22", "#8C564B", "#E377C2", "#1F77B4", "#FF7F0E", "#2CA02C", "#9467BD", "#D62728")[1:n]
-}
+  if (n > 5) rlang::warn("The default ggblanket only has 5 colours")
 
-#' Viridis palette reordered.
-#'
-#' @description A function to retreive a vector of hex codes for a numeric (or ordererd) variable.
-#'
-#' @param n The number of colours (excluding an NA colour).
-#'
-#' @return A character vector of hex codes.
-#' @export
-#' @examples
-#' scales::show_col(pal_viridis_mix(9))
-pal_viridis_mix <- function(n) {
+  if (n == 1) {
+    "#2B6999"
+  }
 
-  if(n == 1) viridis::viridis(4)[2]
-  else if(n == 2) viridis::viridis(4)[c(2, 3)]
-  else if(n >= 3) viridis::viridis(n)
+  else {
+    c("#53B0AE", "#A31414", "#B2C615", "#E37000", "#2B6999")[1:n]
+  }
 }
 
 #' NA palette.
 #'
 #' @description A function to retreive a hex code for a colour to use for NA values.
 #'
-#' @param pal The hex code or name of the NA colour. Defaults to "#7F7F7FFF".
+#' @param pal The hex code or name of the NA colour. Defaults to "#88837D".
 #'
 #' @return A character vector.
 #' @export
 #' @examples
-#' scales::show_col(pal_na())
-pal_na <- function(pal = "#7F7F7F") {
+#' scales::show_col(pal_na_default())
+#' @references
+#' https://blog.datawrapper.de/colors-for-data-vis-style-guides/
+pal_na_default <- function(pal = "#88837D") {
   return(pal)
 }
