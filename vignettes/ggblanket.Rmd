@@ -324,7 +324,7 @@ penguins |>
 Where the orientation is normal (i.e. vertical): 
 
 * Default x scale limits and expanding are as per ggplot2 defaults
-* Default numeric y scale limits start and end on a break with zero expanding
+* Default numeric non-transformed y scale limits start and end on a break with zero expanding
 * Default categorical y scale limits and expanding are as per ggplot2 defaults
 * The ggblanket function removes vertical gridlines, unless specified otherwise
 
