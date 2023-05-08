@@ -2,9 +2,9 @@
 % Please edit documentation in R/pal.R
 \name{pal_default}
 \alias{pal_default}
-\title{D3 palette reordered.}
+\title{Default ggblanket palette.}
 \usage{
-pal_default(n)
+pal_default(n = 7)
 }
 \arguments{
 \item{n}{The number of colours (excluding an NA colour).}
@@ -16,7 +16,8 @@ A character vector of hex codes.
 A function to retreive a vector of hex codes for a non-numeric (or non-ordererd) variable.
 }
 \examples{
-scales::show_col(pal_default(9))
+scales::show_col(pal_default(1))
+scales::show_col(pal_default())
 }
 \references{
 https://blog.datawrapper.de/colors-for-data-vis-style-guides/

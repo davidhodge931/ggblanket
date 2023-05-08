@@ -1,4 +1,4 @@
-#' D3 palette reordered.
+#' Default ggblanket palette.
 #'
 #' @description A function to retreive a vector of hex codes for a non-numeric (or non-ordererd) variable.
 #'
@@ -7,19 +7,17 @@
 #' @return A character vector of hex codes.
 #' @export
 #' @examples
-#' scales::show_col(pal_default(9))
+#' scales::show_col(pal_default(1))
+#' scales::show_col(pal_default())
 #' @references
 #' https://blog.datawrapper.de/colors-for-data-vis-style-guides/
-pal_default <- function(n) {
-
-  if (n > 5) rlang::warn("The default ggblanket only has 5 colours")
+pal_default <- function(n = 7) {
 
   if (n == 1) {
     "#2B6999"
   }
-
   else {
-    c("#53B0AE", "#A31414", "#B2C615", "#E37000", "#2B6999")[1:n]
+    c("#53B0AE", "#A31414", "#B2C615", "#E37000", "#2B6999", "#ff4676", "#14a35c")[1:n]
   }
 }
 

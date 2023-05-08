@@ -59,7 +59,8 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 3. A pal argument to customise colours
 4. A facet argument to facet by a variable
 5. An additional facet2 argument to facet by a second variable
-6. Prefixed arguments to customise scales, guides, titles and faceting 7. Default titles converted with snakecase::to_sentence
+6. Prefixed arguments to customise scales, guides, titles and faceting 
+7. Default titles converted with snakecase::to_sentence
 8. A theme argument to customise the look and feel
 9. A gg_theme function to create a ggblanket style quick theme 
 10. Access to other geom_* arguments via ...
@@ -69,11 +70,11 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 
 ggblanket supports the majority of geoms in ggplot2.   
 
-Each `gg_*`function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function.
+Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function.
 
 All aesthetics are within the `ggplot` function, and therefore will inherit to any subsequent geom's added by default.
 
-Always pipe in your data, so that you can access variable names from the Rstudio autocomplete.
+Always pipe in your data, so that you can access variable names from the Rstudio auto-complete.
 
 ```{r}
 penguins |> 
@@ -117,7 +118,7 @@ penguins |>
 
 The `pal` argument allows the users to pick the vector of colours they want.
 
-These arguments work in the same way regardless of whether a `col` variable is specified or not. 
+These arguments work in the same way regardless of whether a `col` variable is added or not. 
 
 ```{r}
 penguins |>
@@ -184,7 +185,7 @@ penguins |>
 
 These prefixed arguments are designed to work with the Rstudio autocomplete to help you remember and find the adjustment you need. 
 
-Determine whether what you want to change relates to `x`,`y`, `col` or `facet`, and then type this prefix and press the tab key to access the list from autocomplete. Then use arrow keys, and press tab again to select.
+Determine whether what you want to change relates to x, y, col or facet, and then type this prefix and press the tab key to access the list from autocomplete. Then use arrow keys, and press tab again to select.
 
 ```{r, echo = FALSE}
 knitr::include_graphics("screenshot_y_autotab.png", dpi = 300)
@@ -329,7 +330,7 @@ Where the orientation is normal (i.e. vertical):
 
 It does the opposite where the orientation is horizontal.
 
-Default gridllines work with this, and the effect is that the plot looks very nice and symmetrical.. to my eye anyway.
+Default gridlines work with this, and the effect is that the plot looks very nice and symmetrical... to my eye anyway.
 
 ## Thanks!
 
