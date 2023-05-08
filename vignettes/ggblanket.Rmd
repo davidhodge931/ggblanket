@@ -40,10 +40,8 @@ This article will illustrate the essence of how ggblanket works compared to ggpl
 ```{r setup}
 library(dplyr)
 library(ggplot2)
-library(ggplot2)
 library(ggblanket)
 library(palmerpenguins)
-library(patchwork)
 
 penguins <- penguins |>
   mutate(sex = stringr::str_to_sentence(sex)) |>
@@ -65,6 +63,7 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 9. A gg_theme function to create a ggblanket style quick theme 
 10. Access to other geom_* arguments via ...
 11. Pretty default limits, expanding and gridlines
+12. A powerful gg_blank function for extra flexibility
 
 ### 1. Over thirty gg_* wrapper functions to plot a single geom
 
@@ -331,6 +330,57 @@ Where the orientation is normal (i.e. vertical):
 It does the opposite where the orientation is horizontal.
 
 Default gridlines work with this, and the effect is that the plot looks very nice and symmetrical... to my eye anyway.
+
+### 12. A powerful gg_blank function for extra flexibility
+
+The gg_blank function can be used to:
+
+* make plots with other non-supported aesthetics, e.g. `alpha`, `size`, `linewidth`, `shape`, and `linetype`
+* make plots with non-supported geoms that make a stat based on the positional x and y aesthetics (i.e not the col aesthetic)
+* make plots with multiple geoms, where the first layer does not have a col aesthetic but a later layers do require a col aesthetic.
+
+```{r}
+library(patchwork)
+
+p1 <- penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+    pal = rep(pal_default(1), 3), 
+    x_breaks = scales::breaks_pretty(3),
+    col_legend_ncol = 2) +
+  geom_point(aes(alpha = species)) +
+  labs(alpha = "Species") +
+  scale_alpha_manual(values = c(0.1, 1, 0.5))
+
+p2 <- penguins |>
+  gg_blank(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    col = species, 
+    x_breaks = scales::breaks_pretty(3), 
+    col_legend_ncol = 2) +
+  geom_point(aes(alpha = species)) +
+  labs(alpha = "Species") +
+  scale_alpha_manual(values = c(0.1, 1, 0.5))
+
+p1 + p2
+```
+
+```{r}
+iris |>
+  mutate(Species = stringr::str_to_sentence(Species)) |> 
+  gg_blank(
+    x = Sepal.Width,
+    y = Sepal.Length,
+    col = Species,
+    facet = Species,
+    col_legend_place = "r") +
+  ggdensity::geom_hdr(colour = NA) +
+  labs(alpha = "Probs") +
+  theme(legend.title = element_text(margin = margin(t = 10)))
+```
 
 ## Thanks!
 
