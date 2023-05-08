@@ -382,7 +382,7 @@ iris |>
   theme(legend.title = element_text(margin = margin(t = 10)))
 ```
 
-* make plots with multiple geoms, where the first layer does not have a col aesthetic but a later layers do require a col aesthetic.
+* make plots with multiple geoms, where the first non-blank layer does not have a col aesthetic but a later layer does require a col aesthetic.
 
 ```{r}
 penguins |>
