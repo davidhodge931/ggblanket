@@ -35,19 +35,6 @@ Secondary objectives relate to:
 
 It is intended to be useful for all levels of experience from beginner to expert.
 
-This article will illustrate the essence of how ggblanket works compared to ggplot2.
-
-```{r setup}
-library(dplyr)
-library(ggplot2)
-library(ggblanket)
-library(palmerpenguins)
-
-penguins <- penguins |>
-  mutate(sex = stringr::str_to_sentence(sex)) |>
-  tidyr::drop_na(sex)
-```
-
 ## How it works
 
 To simplify ggplot2 visualisation, the ggblanket package provides:
@@ -64,6 +51,17 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 10. Access to other geom_* arguments via ...
 11. Pretty default limits, expanding and gridlines
 12. A powerful gg_blank function for extra flexibility
+
+```{r setup}
+library(dplyr)
+library(ggplot2)
+library(ggblanket)
+library(palmerpenguins)
+
+penguins <- penguins |>
+  mutate(sex = stringr::str_to_sentence(sex)) |>
+  tidyr::drop_na(sex)
+```
 
 ### 1. Over thirty gg_* wrapper functions to plot a single geom
 
