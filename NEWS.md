@@ -1,3 +1,8 @@
+# ggblanket 1.8.0900
+
+* Added two more colours to default colour palette.
+* Updated vignette.
+
 # ggblanket 1.8.0
 
 * Updated default colour palette.
