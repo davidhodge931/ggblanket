@@ -385,27 +385,26 @@ iris |>
 * make plots with multiple geoms, where the first layer does not have a col aesthetic but a later layers do require a col aesthetic.
 
 ```{r}
-  penguins |>
-    group_by(sex, species) |>
-    summarise(across(body_mass_g, sum)) |>
-    mutate(upper = body_mass_g * 1.05) |>
-    mutate(lower = body_mass_g * 0.95) |>
-    gg_blank(
-      x = sex,
-      y = body_mass_g,
-      ymin = lower,
-      ymax = upper, 
-      col = sex,
-      facet = species,
-      y_include = 0, 
-      col_legend_place = "b"
-    ) +
-    geom_errorbar(width = 0.33) +
-    geom_col(aes(x = sex,
-                 y = body_mass_g),
-             inherit.aes = FALSE,
-             width = 0.75,
-             alpha = 0.5)
+penguins |>
+  group_by(sex, species) |>
+  summarise(across(body_mass_g, sum)) |>
+  mutate(upper = body_mass_g * 1.05) |>
+  mutate(lower = body_mass_g * 0.95) |>
+  gg_blank(
+    x = sex,
+    y = body_mass_g,
+    ymin = lower,
+    ymax = upper, 
+    col = sex,
+    facet = species,
+    y_include = 0, 
+    col_legend_place = "b"
+  ) +
+  geom_col(aes(x = sex, y = body_mass_g),
+           fill = "#d3d3d3",
+           inherit.aes = FALSE,
+           width = 0.75) +
+  geom_errorbar(width = 0.33) 
 ```
 
 ## Thanks!
