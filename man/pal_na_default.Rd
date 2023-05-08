@@ -4,10 +4,7 @@
 \alias{pal_na_default}
 \title{NA palette.}
 \usage{
-pal_na_default(pal = "#88837D")
-}
-\arguments{
-\item{pal}{The hex code or name of the NA colour. Defaults to "#88837D".}
+pal_na_default()
 }
 \value{
 A character vector.

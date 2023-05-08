@@ -25,14 +25,12 @@ pal_default <- function(n = 7) {
 #'
 #' @description A function to retreive a hex code for a colour to use for NA values.
 #'
-#' @param pal The hex code or name of the NA colour. Defaults to "#88837D".
-#'
 #' @return A character vector.
 #' @export
 #' @examples
 #' scales::show_col(pal_na_default())
 #' @references
 #' https://blog.datawrapper.de/colors-for-data-vis-style-guides/
-pal_na_default <- function(pal = "#88837D") {
-  return(pal)
+pal_na_default <- function() {
+  "#88837D"
 }

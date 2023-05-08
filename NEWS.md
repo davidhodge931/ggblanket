@@ -1,7 +1,9 @@
-# ggblanket 1.8.0900
+# ggblanket 1.8.9000
 
 * Added two more colours to default colour palette.
 * Updated vignette.
+* Breaking: removed add_tooltip function. Added it to simplevis package.
+* Breaking: removed argument from pal_na_default, as unnecessary.
 
 # ggblanket 1.8.0
 
