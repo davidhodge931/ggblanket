@@ -132,8 +132,9 @@ provides:</p>
 <li>A pal argument to customise colours</li>
 <li>A facet argument to facet by a variable</li>
 <li>An additional facet2 argument to facet by a second variable</li>
-<li>Prefixed arguments to customise scales, guides, titles and faceting
-7. Default titles converted with snakecase::to_sentence</li>
+<li>Prefixed arguments to customise scales, guides, titles and
+faceting</li>
+<li>Default titles converted with snakecase::to_sentence</li>
 <li>A theme argument to customise the look and feel</li>
 <li>A gg_theme function to create a ggblanket style quick theme</li>
 <li>Access to other geom_* arguments via …</li>
@@ -143,13 +144,13 @@ provides:</p>
 <h3 id="over-thirty-gg_-wrapper-functions-to-plot-a-single-geom">1. Over thirty gg_* wrapper functions to plot a single geom<a class="anchor" aria-label="anchor" href="#over-thirty-gg_-wrapper-functions-to-plot-a-single-geom"></a>
 </h3>
 <p>ggblanket supports the majority of geoms in ggplot2.</p>
-<p>Each <code>gg_*</code>function wraps a ggplot2
+<p>Each <code>gg_*</code> function wraps a ggplot2
 <code>ggplot(aes(...))</code> function with the applicable ggplot2
 <code>geom_*()</code> function.</p>
 <p>All aesthetics are within the <code>ggplot</code> function, and
 therefore will inherit to any subsequent geom’s added by default.</p>
 <p>Always pipe in your data, so that you can access variable names from
-the Rstudio autocomplete.</p>
+the Rstudio auto-complete.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -201,7 +202,7 @@ language, this argument always represents both colour and fill.</p>
 <p>The <code>pal</code> argument allows the users to pick the vector of
 colours they want.</p>
 <p>These arguments work in the same way regardless of whether a
-<code>col</code> variable is specified or not.</p>
+<code>col</code> variable is added or not.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -281,10 +282,10 @@ faceting<a class="anchor" aria-label="anchor" href="#prefixed-arguments-to-adjus
 </h3>
 <p>These prefixed arguments are designed to work with the Rstudio
 autocomplete to help you remember and find the adjustment you need.</p>
-<p>Determine whether what you want to change relates to
-<code>x</code>,<code>y</code>, <code>col</code> or <code>facet</code>,
-and then type this prefix and press the tab key to access the list from
-autocomplete. Then use arrow keys, and press tab again to select.</p>
+<p>Determine whether what you want to change relates to x, y, col or
+facet, and then type this prefix and press the tab key to access the
+list from autocomplete. Then use arrow keys, and press tab again to
+select.</p>
 <p><img src="screenshot_y_autotab.png" width="70%"></p>
 <p><img src="screenshot_col_autotab.png" width="70%"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -445,8 +446,8 @@ defaults</li>
 otherwise</li>
 </ul>
 <p>It does the opposite where the orientation is horizontal.</p>
-<p>Default gridllines work with this, and the effect is that the plot
-looks very nice and symmetrical.. to my eye anyway.</p>
+<p>Default gridlines work with this, and the effect is that the plot
+looks very nice and symmetrical… to my eye anyway.</p>
 </div>
 </div>
 <div class="section level2">
