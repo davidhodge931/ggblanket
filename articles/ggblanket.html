@@ -504,8 +504,9 @@ positional x and y aesthetics (i.e not the col aesthetic)</li>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-17-1.png" width="70%"></p>
 <ul>
-<li>make plots with multiple geoms, where the first layer does not have
-a col aesthetic but a later layers do require a col aesthetic.</li>
+<li>make plots with multiple geoms, where the first non-blank layer does
+not have a col aesthetic but a later layer does require a col
+aesthetic.</li>
 </ul>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
