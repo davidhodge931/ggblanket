@@ -325,9 +325,56 @@ Where the orientation is normal (i.e. vertical):
 * Default categorical y scale limits and expanding are as per ggplot2 defaults
 * The ggblanket function removes vertical gridlines, unless specified otherwise
 
-It does the opposite where the orientation is horizontal.
+It does the opposite where the orientation is horizontal. 
 
 Default gridlines work with this, and the effect is that the plot looks very nice and symmetrical... to my eye anyway.
+
+Also, note for ggblanket plots y values are in order, and the col values are given pal colours as per a vertical plot - nice!
+
+```{r}
+penguins |>
+  group_by(species, sex) |> 
+  summarise(across(body_mass_g, mean)) |> 
+  ggplot() +
+  geom_col(aes(x = species, y = body_mass_g, fill = sex),
+    position = "dodge",
+    width = 0.5
+  )
+
+penguins |>
+  group_by(species, sex) |> 
+  summarise(across(body_mass_g, mean)) |> 
+  gg_col(
+    x = species,
+    y = body_mass_g,
+    col = sex,
+    position = "dodge",
+    width = 0.5
+  )
+```
+
+```{r}
+penguins |>
+  group_by(species, sex) |> 
+  summarise(across(body_mass_g, mean)) |> 
+  ggplot() +
+  geom_col(aes(x = body_mass_g, y = species, fill = sex),
+           position = "dodge",
+           width = 0.75
+  )
+
+penguins |>
+  group_by(species, sex) |> 
+  summarise(across(body_mass_g, mean)) |> 
+  gg_col(
+    x = body_mass_g,
+    y = species,
+    col = sex,
+    position = "dodge",
+    width = 0.75
+  )
+```
+
 
 ### 12. A powerful gg_blank function for extra flexibility
 
