@@ -56,6 +56,7 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 library(dplyr)
 library(ggplot2)
 library(ggblanket)
+library(patchwork)
 library(palmerpenguins)
 
 penguins <- penguins |>
@@ -374,35 +375,49 @@ penguins |>
 
 It can be used to:
 
-* make plots with other non-supported aesthetics, i.e. `alpha`, `size`, `linewidth`, `shape`, and `linetype`
+* make plots with other non-supported aesthetics, i.e. `shape`, `linetype`, `alpha`, `size`, and `linewidth` 
 
 ```{r}
-library(patchwork)
-
-p1 <- penguins |>
+#for discrete non-col aesthetic & col aesthetic
+penguins |>
   gg_blank(
     x = flipper_length_mm,
-    y = body_mass_g,
-    col = species,
-    pal = rep(pal_default(1), 3), 
-    x_breaks = scales::breaks_pretty(3),
-    col_legend_ncol = 2) +
-  geom_point(aes(alpha = species)) +
-  labs(alpha = "Species") +
-  scale_alpha_manual(values = c(0.1, 1, 0.5))
-
-p2 <- penguins |>
-  gg_blank(
-    x = flipper_length_mm, 
     y = body_mass_g, 
-    col = species, 
-    x_breaks = scales::breaks_pretty(3), 
-    col_legend_ncol = 2) +
-  geom_point(aes(alpha = species)) +
-  labs(alpha = "Species") +
-  scale_alpha_manual(values = c(0.1, 1, 0.5))
+    col = sex) + 
+  geom_point(aes(shape = sex, col = sex)) +  
+  labs(shape = "Sex") 
 
-p1 + p2
+#for discrete non-col aesthetic & no col aesthetic
+penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g, 
+    col = sex) + 
+  geom_point(aes(shape = sex), 
+             col = pal_default(1)) + 
+  labs(shape = "Sex") 
+```
+
+```{r}
+#for continuous non-col aesthetic & col aesthetic
+penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g, 
+    col = species,
+    col_legend_place = "r") +
+  geom_point(aes(size = body_mass_g, col = species)) +
+  labs(size = "Body mass g") 
+
+#for continuous non-col aesthetic & no col aesthetic
+penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g, 
+    col_legend_place = "r") +
+  geom_point(aes(size = body_mass_g), 
+             col = pal_default(1)) +
+  labs(size = "Body mass g") 
 ```
 
 * make plots with other non-supported geoms
@@ -443,7 +458,7 @@ penguins |>
            fill = "#d3d3d3",
            inherit.aes = FALSE,
            width = 0.75) +
-  geom_errorbar(width = 0.33) 
+  geom_errorbar(width = 0.1) 
 ```
 
 ## Further information
