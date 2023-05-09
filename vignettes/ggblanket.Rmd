@@ -325,11 +325,9 @@ Where the orientation is normal (i.e. vertical):
 * Default categorical y scale limits and expanding are as per ggplot2 defaults
 * The ggblanket function removes vertical gridlines, unless specified otherwise
 
-It does the opposite where the orientation is horizontal. 
+It does the opposite where the orientation is horizontal. Default gridlines work with this, and the effect is that the plot looks very nice and symmetrical... to my eye anyway.
 
-Default gridlines work with this, and the effect is that the plot looks very nice and symmetrical... to my eye anyway.
-
-Also, note for ggblanket plots y values are in order, and the col values are given pal colours as per a vertical plot - nice!
+Also, note for ggblanket horizontal plots, y categorical values are in order.
 
 ```{r}
 penguins |>
@@ -411,7 +409,7 @@ p2 <- penguins |>
 p1 + p2
 ```
 
-* make plots with non-supported geoms that make a stat based on the positional x and y aesthetics (i.e not the col aesthetic)
+* make plots with other non-supported geoms
 
 ```{r}
 iris |>
@@ -427,7 +425,7 @@ iris |>
   theme(legend.title = element_text(margin = margin(t = 10)))
 ```
 
-* make plots with multiple geoms, where the first non-blank layer does not have a col aesthetic but a later layer does require a col aesthetic.
+* make plots with multiple geoms, where the first non-blank layer does not have a col aesthetic but a later layer does require a col aesthetic. 
 
 ```{r}
 penguins |>
