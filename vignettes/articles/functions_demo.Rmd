@@ -16,13 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Overview
-
-ggblanket provides over 30 `gg_*` wrapper functions around the fantastic ggplot2 package.
-
-This article will demo a simple example for each of these without explanation.
-
-## Function examples
+## Functions demo
 
 ```{r setup}
 library(ggblanket)
@@ -32,7 +26,7 @@ library(lubridate)
 library(palmerpenguins)
 ```
 
-`gg_area`
+### gg_area
 
 ```{r }
 economics |>
@@ -45,7 +39,7 @@ economics |>
   )
 ```
 
-`gg_bar`
+### gg_bar
 
 ```{r }
 penguins |>
@@ -59,7 +53,7 @@ penguins |>
   )
 ```
 
-`gg_bin2d`
+### gg_bin2d
 
 ```{r}
 ggplot2::diamonds |>
@@ -70,7 +64,7 @@ ggplot2::diamonds |>
   )
 ```
 
-`gg_blank`
+### gg_blank
 
 ```{r}
 penguins |>
@@ -85,7 +79,7 @@ penguins |>
   )
 ```
 
-`gg_boxplot`
+### gg_boxplot
 
 ```{r}
 penguins |>
@@ -99,7 +93,7 @@ penguins |>
   )
 ```
 
-`gg_col`
+### gg_col
 
 ```{r}
 penguins |>
@@ -118,7 +112,7 @@ penguins |>
   )
 ```
 
-`gg_crossbar`
+### gg_crossbar
 
 ```{r}
 data.frame(
@@ -141,7 +135,7 @@ data.frame(
   )
 ```
 
-`gg_density`
+### gg_density
 
 ```{r}
 penguins |>
@@ -155,7 +149,7 @@ penguins |>
   )
 ```
 
-`gg_errorbar`
+### gg_errorbar
 
 ```{r}
 data.frame(
@@ -177,7 +171,7 @@ data.frame(
   )
 ```
 
-`gg_freqpoly`
+### gg_freqpoly
 
 ```{r}
 penguins |>
@@ -191,7 +185,7 @@ penguins |>
   )
 ```
 
-`gg_function`
+### gg_function
 
 ```{r}
 data.frame(x = rnorm(100)) |>
@@ -203,7 +197,7 @@ data.frame(x = rnorm(100)) |>
   )
 ```
 
-`gg_hex`
+### gg_hex
 
 ```{r}
 ggplot2::diamonds |>
@@ -214,7 +208,7 @@ ggplot2::diamonds |>
   )
 ```
 
-`gg_histogram`
+### gg_histogram
 
 ```{r}
 penguins |>
@@ -229,7 +223,7 @@ penguins |>
   )
 ```
 
-`gg_freqpoly`
+### gg_freqpoly
 
 ```{r}
 penguins |>
@@ -243,7 +237,7 @@ penguins |>
   )
 ```
 
-`gg_jitter`
+### gg_jitter
 
 ```{r}
 penguins |>
@@ -257,7 +251,7 @@ penguins |>
   )
 ```
 
-`gg_label`
+### gg_label
 
 ```{r}
 bind_rows(
@@ -276,7 +270,7 @@ gg_label(
 )
 ```
 
-`gg_line`
+### gg_line
 
 ```{r}
 economics |>
@@ -290,7 +284,7 @@ economics |>
   )
 ```
 
-`gg_linerange`
+### gg_linerange
 
 ```{r}
 data.frame(
@@ -311,7 +305,7 @@ gg_linerange(
 )
 ```
 
-`gg_path`
+### gg_path
 
 ```{r}
 ggplot2::economics %>%
@@ -324,7 +318,7 @@ ggplot2::economics %>%
   )
 ```
 
-`gg_point`
+### gg_point
 
 ```{r}
 penguins |>
@@ -338,7 +332,7 @@ penguins |>
   )
 ```
 
-`gg_pointrange`
+### gg_pointrange
 
 ```{r}
 data.frame(
@@ -362,7 +356,7 @@ gg_pointrange(
 )
 ```
 
-`gg_polygon`
+### gg_polygon
 
 ```{r}
 ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
@@ -392,7 +386,7 @@ datapoly %>%
   )
 ```
 
-`gg_qq`
+### gg_qq
 
 ```{r}
 penguins |>
@@ -404,7 +398,7 @@ penguins |>
   ggplot2::geom_qq_line(alpha = 0.5)
 ```
 
-`gg_raster`
+### gg_raster
 
 ```{r}
 faithfuld |>
@@ -416,7 +410,7 @@ faithfuld |>
   )
 ```
 
-`gg_rect`
+### gg_rect
 
 ```{r}
 data.frame(
@@ -440,10 +434,9 @@ data.frame(
   )
 ```
 
-`gg_ribbon`
+### gg_ribbon
 
 ```{r}
-# gg_ribbon
 data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
   mutate(level_min = level - 1, level_max = level + 1) |>
   gg_ribbon(
@@ -456,7 +449,7 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
   geom_line(aes(x = year, y = level), col = "#1B9E77")
 ```
 
-`gg_segment`
+### gg_segment
 
 ```{r}
 data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
@@ -469,7 +462,7 @@ data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
   )
 ```
 
-`gg_sf`
+### gg_sf
 
 ```{r}
 if (requireNamespace("sf", quietly = TRUE)) {
@@ -482,7 +475,7 @@ if (requireNamespace("sf", quietly = TRUE)) {
 }
 ```
 
-`gg_smooth`
+### gg_smooth
 
 ```{r}
 penguins |>
@@ -495,7 +488,7 @@ penguins |>
 
 ```
 
-`gg_step`
+### gg_step
 
 ```{r}
 economics |>
@@ -508,7 +501,7 @@ economics |>
   )
 ```
 
-`gg_text`
+### gg_text
 
 ```{r}
 bind_rows(
@@ -527,7 +520,7 @@ bind_rows(
   )
 ```
 
-`gg_tile`
+### gg_tile
 
 ```{r}
 penguins |>
@@ -542,7 +535,7 @@ penguins |>
   )
 ```
 
-`gg_violin`
+### gg_violin
 
 ```{r}
 penguins |>

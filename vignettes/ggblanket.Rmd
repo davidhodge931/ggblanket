@@ -83,8 +83,6 @@ penguins |>
     y = body_mass_g)
 ```
 
-See the [reference](https://davidhodge931.github.io/ggblanket/reference/index.html) for the full list of functions available.
-
 ### 2. A single col argument to colour and fill by a variable
 
 ggblanket merges the col and fill aesthetics of ggplot2 into one concept represented by the `col` argument. In ggplot2 language, this argument always represents both colour and fill. 
@@ -276,9 +274,9 @@ The `gg_theme` function allows you to tweak the default ggblanket theme by chang
 ```{r}
 custom_theme <- gg_theme(
   text_size = 13,
-  plot_background_pal = "white",
-  panel_background_pal = "white"
-)
+  panel_grid_pal = "grey",
+  panel_background_pal = "#f1f3f5",
+  plot_background_pal = "white")
 
 storms |>
   group_by(year) |>
@@ -447,6 +445,10 @@ penguins |>
            width = 0.75) +
   geom_errorbar(width = 0.33) 
 ```
+
+## Further information
+
+See the [functions demo article](https://davidhodge931.github.io/ggblanket/articles/functions_demo.html) for a demonstration of all of the functions available.
 
 ## Thanks!
 
