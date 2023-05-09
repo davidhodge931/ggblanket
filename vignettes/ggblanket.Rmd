@@ -325,9 +325,7 @@ Where the orientation is normal (i.e. vertical):
 * Default categorical y scale limits and expanding are as per ggplot2 defaults
 * The ggblanket function removes vertical gridlines, unless specified otherwise
 
-It does the opposite where the orientation is horizontal. Default gridlines work with this, and the effect is that the plot looks very nice and symmetrical... to my eye anyway.
-
-Also, note for ggblanket horizontal plots, y categorical values are in order.
+It does the opposite where the orientation is horizontal (and also keeps y categorical values are in correct order). `
 
 ```{r}
 penguins |>
