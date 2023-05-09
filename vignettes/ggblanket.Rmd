@@ -462,7 +462,7 @@ penguins |>
   geom_errorbar(width = 0.1) 
 ```
 
-All this is a little bit hacky. It might be easier just to use ggplot2 in these situations. 
+Extending ggblanket with `gg_blank` might feel a bit hacky - it might be easier just to use ggplot2 in some situations. 
 
 ## Further information
 
