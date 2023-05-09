@@ -374,9 +374,9 @@ penguins |>
 
 ### 12. A powerful gg_blank function for extra flexibility
 
-The gg_blank function can be used to:
+It can be used to:
 
-* make plots with other non-supported aesthetics, e.g. `alpha`, `size`, `linewidth`, `shape`, and `linetype`
+* make plots with other non-supported aesthetics, i.e. `alpha`, `size`, `linewidth`, `shape`, and `linetype`
 
 ```{r}
 library(patchwork)
