@@ -405,19 +405,20 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g, 
     col = species,
-    col_legend_place = "r") +
-  geom_point(aes(size = body_mass_g, col = species)) +
-  labs(size = "Body mass g") 
+    col_legend_place = "r") + 
+  geom_point(aes(size = bill_depth_mm, col = species)) +
+  labs(size = "Bill depth mm") +
+  theme(legend.title = element_text(margin = margin(t = 10)))
 
 #for continuous non-col aesthetic & no col aesthetic
 penguins |>
   gg_blank(
     x = flipper_length_mm,
     y = body_mass_g, 
-    col_legend_place = "r") +
-  geom_point(aes(size = body_mass_g), 
+    col_legend_place = "r") + 
+  geom_point(aes(size = bill_depth_mm), 
              col = pal_default(1)) +
-  labs(size = "Body mass g") 
+  labs(size = "Bill depth mm") 
 ```
 
 * make plots with other non-supported geoms
@@ -460,6 +461,8 @@ penguins |>
            width = 0.75) +
   geom_errorbar(width = 0.1) 
 ```
+
+All this is a little bit hacky. It might be easier just to use ggplot2 in these situations. 
 
 ## Further information
 
