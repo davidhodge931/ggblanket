@@ -32,8 +32,6 @@ Imports:
 Suggests: 
     colorspace,
     ggdensity,
-    ggiraph,
-    ggtext,
     hexbin,
     knitr,
     palmerpenguins,
