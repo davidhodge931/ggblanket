@@ -31,7 +31,7 @@ Secondary objectives relate to:
 
 * Scope: cover the most useful 80% of what ggplot2 does
 * Design: produce well-designed visualisation by default
-* Alignment: use conventions generally aligned with ggplot2. 
+* Alignment: use conventions generally aligned with ggplot2
 
 It is intended to be useful for all levels of experience from beginner to expert.
 
@@ -371,11 +371,11 @@ penguins |>
 There is ability to:
 
 * join plots together using the patchwork package
-* make plots with other non-supported aesthetics
-* make plots with other non-supported geoms
-* make plots with multiple geom layers. 
 * make plots that use the ggtext package
-* use non-supported arguments within ggplot2 layers
+* make plots with other non-supported geoms
+* make plots with other non-supported aesthetics
+* use other non-supported arguments within ggplot2 layers
+* make plots with multiple geom layers
 * create custom functions that wrap ggblanket functions
 
 See the [Extending further article](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) for further discussion and example code.
