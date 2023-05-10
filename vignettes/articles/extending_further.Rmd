@@ -51,14 +51,16 @@ p1 <- penguins |>
   gg_point(
     x = flipper_length_mm, 
     y = body_mass_g, 
-    col = species) 
+    col = species, 
+    x_breaks = scales::breaks_pretty(3), 
+    col_legend_ncol = 2) 
 
 p2 <- penguins |> 
   gg_jitter(
     x = species, 
     y = body_mass_g, 
     col = sex, 
-    pal = pal_default()[c(5, 4)]) 
+    pal = c("#2B6999", "#E37000")) 
 
 p1 + p2
 ```
