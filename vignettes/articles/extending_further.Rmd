@@ -44,6 +44,31 @@ penguins <- penguins |>
 
 ### 1. join plots together using the patchwork package
 
+The fantastic patchwork package can be used to patch plots together.
+
+```{r}
+p1 <- data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
+  mutate(level_min = level - 1, level_max = level + 1) |>
+  gg_ribbon(
+    x = year,
+    ymin = level_min,
+    ymax = level_max,
+    pal = scales::alpha("#1B9E77", 0),
+    y_title = "Level",
+    x_labels = \(x) stringr::str_sub(x, 3, 4)
+  ) +
+  geom_line(aes(x = year, y = level), col = "#1B9E77")
+
+p2 <- ggplot2::diamonds |>
+  gg_hex(
+    x = carat,
+    y = price,
+    pal = viridis::cividis(9)
+  )
+
+p1 + p2
+```
+
 
 ### 2. make plots with other non-supported aesthetics
 
