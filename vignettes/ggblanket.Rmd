@@ -378,12 +378,11 @@ There is ability to:
 * use non-supported arguments within ggplot2 layers
 * create custom functions that wrap ggblanket functions
 
-These are discussed further at
-[Extending ggblanket further article]() with example code.
+See the [Extending further article](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) for further discussion and example code.
 
 ## Further information
 
-See the [functions demo article](https://davidhodge931.github.io/ggblanket/articles/functions_demo.html) for a demonstration of all of the functions available.
+See the [functions demo article](https://davidhodge931.github.io/ggblanket/articles/functions_demo.html) for examples using each of the functions available.
 
 ## Thanks!
 
