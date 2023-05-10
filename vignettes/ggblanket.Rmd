@@ -272,7 +272,7 @@ The `gg_theme` function allows you to tweak the default ggblanket theme by chang
 
 ```{r}
 custom_theme <- gg_theme(
-  text_size = 11,
+  text_size = 9,
   plot_background_pal = "#000000",
   panel_background_pal = "#232323",
   panel_grid_pal = "#000000",
