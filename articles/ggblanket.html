@@ -124,8 +124,8 @@ faceting</li>
 <li>Default titles converted with snakecase::to_sentence</li>
 <li>A theme argument to customise the look and feel</li>
 <li>A gg_theme function to create a ggblanket style quick theme</li>
-<li>Access to other geom_* arguments via …</li>
 <li>Pretty default limits, expanding and gridlines</li>
+<li>Access to other geom_* arguments via …</li>
 <li>A powerful gg_blank function for extra flexibility</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -398,34 +398,7 @@ and gridlines.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="access-to-other-geom_-arguments-via----">10. Access to other geom_* arguments via <code>...</code><a class="anchor" aria-label="anchor" href="#access-to-other-geom_-arguments-via----"></a>
-</h3>
-<p>This relates to all other arguments other than the mapping argument
-with aesthetics.</p>
-<p>All arguments and can be identified through the help on the relevant
-<code>ggplot2::geom_*</code> function.</p>
-<p>Common arguments to add are <code>size</code>, <code>linewidth</code>
-and <code>width</code>.</p>
-<p>Additionally, you can use the <code>colour</code> or
-<code>fill</code> arguments to turn off part of the ggblanket col
-aesthetic (e.g. <code>colour = NA</code> or <code>fill = NA</code>), or
-fix it to single colour.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    linewidth <span class="op">=</span> <span class="fl">0.5</span>, <span class="co">#accessed via geom_smooth</span></span>
-<span>    level <span class="op">=</span> <span class="fl">0.99</span>, <span class="co">#accessed via geom_smooth</span></span>
-<span>    col_legend_place <span class="op">=</span> <span class="st">"t"</span>,</span>
-<span>    col_title <span class="op">=</span> <span class="st">""</span>, </span>
-<span>    col_labels <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="va"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span>, </span>
-<span>    colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="co">#accessed via geom_smooth</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.png" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="pretty-default-limits-expanding-and-gridlines">11. Pretty default limits, expanding and gridlines<a class="anchor" aria-label="anchor" href="#pretty-default-limits-expanding-and-gridlines"></a>
+<h3 id="pretty-default-limits-expanding-and-gridlines">10. Pretty default limits, expanding and gridlines<a class="anchor" aria-label="anchor" href="#pretty-default-limits-expanding-and-gridlines"></a>
 </h3>
 <p>Where the orientation is normal (i.e. vertical):</p>
 <ul>
@@ -440,7 +413,7 @@ otherwise</li>
 </ul>
 <p>It does the opposite where the orientation is horizontal (and also
 puts y categorical values in correct order).</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">body_mass_g</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -449,8 +422,8 @@ puts y categorical values in correct order).</p>
 <span>    position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.5</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.png" width="70%"></p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.png" width="70%"></p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -462,8 +435,8 @@ puts y categorical values in correct order).</p>
 <span>    position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.5</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-2.png" width="70%"></p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-2.png" width="70%"></p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">body_mass_g</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -472,8 +445,8 @@ puts y categorical values in correct order).</p>
 <span>           position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
 <span>           width <span class="op">=</span> <span class="fl">0.75</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-17-1.png" width="70%"></p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.png" width="70%"></p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -485,7 +458,34 @@ puts y categorical values in correct order).</p>
 <span>    position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-17-2.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-2.png" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="access-to-other-geom_-arguments-via----">11. Access to other geom_* arguments via <code>...</code><a class="anchor" aria-label="anchor" href="#access-to-other-geom_-arguments-via----"></a>
+</h3>
+<p>This relates to all other arguments other than the mapping argument
+with aesthetics.</p>
+<p>All arguments and can be identified through the help on the relevant
+<code>ggplot2::geom_*</code> function.</p>
+<p>Common arguments to add are <code>size</code>, <code>linewidth</code>
+and <code>width</code>.</p>
+<p>Additionally, you can use the <code>colour</code> or
+<code>fill</code> arguments to turn off part of the ggblanket col
+aesthetic (e.g. <code>colour = NA</code> or <code>fill = NA</code>), or
+fix it to single colour.</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">0.5</span>, <span class="co">#accessed via geom_smooth</span></span>
+<span>    level <span class="op">=</span> <span class="fl">0.99</span>, <span class="co">#accessed via geom_smooth</span></span>
+<span>    col_legend_place <span class="op">=</span> <span class="st">"t"</span>,</span>
+<span>    col_title <span class="op">=</span> <span class="st">""</span>, </span>
+<span>    col_labels <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="va"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span>, </span>
+<span>    colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="co">#accessed via geom_smooth</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-17-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="a-powerful-gg_blank-function-for-extra-flexibility">12. A powerful gg_blank function for extra flexibility<a class="anchor" aria-label="anchor" href="#a-powerful-gg_blank-function-for-extra-flexibility"></a>
