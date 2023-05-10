@@ -48,8 +48,8 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 7. Default titles converted with snakecase::to_sentence
 8. A theme argument to customise the look and feel
 9. A gg_theme function to create a ggblanket style quick theme 
-10. Access to other geom_* arguments via ...
-11. Pretty default limits, expanding and gridlines
+10. Pretty default limits, expanding and gridlines
+11. Access to other geom_* arguments via ...
 12. A powerful gg_blank function for extra flexibility
 
 ```{r setup}
@@ -288,31 +288,7 @@ penguins |>
     theme = custom_theme) 
 ```
 
-### 10. Access to other geom_* arguments via `...`
-
-This relates to all other arguments other than the mapping argument with aesthetics.
-
-All arguments and can be identified through the help on the relevant `ggplot2::geom_*` function.
-
-Common arguments to add are `size`, `linewidth` and `width`. 
-
-Additionally, you can use the `colour` or `fill` arguments to turn off part of the ggblanket col aesthetic (e.g. `colour = NA` or `fill = NA`), or fix it to single colour.  
-
-```{r}
-penguins |>
-  gg_smooth(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    linewidth = 0.5, #accessed via geom_smooth
-    level = 0.99, #accessed via geom_smooth
-    col_legend_place = "t",
-    col_title = "", 
-    col_labels = stringr::str_to_sentence, 
-    colour = "white") #accessed via geom_smooth
-```
-
-### 11. Pretty default limits, expanding and gridlines
+### 10. Pretty default limits, expanding and gridlines
 
 Where the orientation is normal (i.e. vertical): 
 
@@ -365,6 +341,30 @@ penguins |>
     position = "dodge",
     width = 0.75
   )
+```
+
+### 11. Access to other geom_* arguments via `...`
+
+This relates to all other arguments other than the mapping argument with aesthetics.
+
+All arguments and can be identified through the help on the relevant `ggplot2::geom_*` function.
+
+Common arguments to add are `size`, `linewidth` and `width`. 
+
+Additionally, you can use the `colour` or `fill` arguments to turn off part of the ggblanket col aesthetic (e.g. `colour = NA` or `fill = NA`), or fix it to single colour.  
+
+```{r}
+penguins |>
+  gg_smooth(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    linewidth = 0.5, #accessed via geom_smooth
+    level = 0.99, #accessed via geom_smooth
+    col_legend_place = "t",
+    col_title = "", 
+    col_labels = stringr::str_to_sentence, 
+    colour = "white") #accessed via geom_smooth
 ```
 
 ### 12. A powerful gg_blank function for extra flexibility
