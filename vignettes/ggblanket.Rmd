@@ -232,7 +232,6 @@ penguins |>
        subtitle = " Palmer Archipelago, Antarctica",
        x = "Flipper length (mm)", 
        caption = "Source: Gorman, 2020")
-
 penguins |>
   gg_blank(
     x = flipper_length_mm,
@@ -275,20 +274,18 @@ The `gg_theme` function allows you to tweak the default ggblanket theme by chang
 ```{r}
 custom_theme <- gg_theme(
   text_size = 13,
-  panel_grid_pal = "grey",
-  panel_background_pal = "#f1f3f5",
-  plot_background_pal = "white")
+  plot_background_pal = "#000000",
+  panel_background_pal = "#232323",
+  panel_grid_pal = "#000000",
+  text_pal = "#d3d3d3"
+)
 
-storms |>
-  group_by(year) |>
-  filter(between(year, 1980, 2020)) |>
-  summarise(wind = mean(wind, na.rm = TRUE)) |>
-  gg_col(
-    x = year,
-    y = wind,
-    x_labels = \(x) stringr::str_sub(x, 3, 4),
-    x_expand = c(0, 0),
-    theme = custom_theme)
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g, 
+    col = species, 
+    theme = custom_theme) 
 ```
 
 ### 10. Access to other geom_* arguments via `...`
@@ -369,7 +366,6 @@ penguins |>
     width = 0.75
   )
 ```
-
 
 ### 12. A powerful gg_blank function for extra flexibility
 
@@ -461,8 +457,6 @@ penguins |>
            width = 0.75) +
   geom_errorbar(width = 0.1) 
 ```
-
-Extending ggblanket with `gg_blank` might feel a bit hacky - it might be easier just to use ggplot2 in some situations. 
 
 ## Further information
 
