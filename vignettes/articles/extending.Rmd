@@ -1,0 +1,221 @@
+---
+title: "Extending further"
+author: "David Hodge"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 6,
+  fig.asp = 0.618,
+  out.width = "70%",
+  dpi = 300
+)
+```
+
+## Overview
+
+ggblanket is able to be extended further.
+
+There is ability to:
+
+1. join plots together using the patchwork package
+2. make plots with other non-supported aesthetics
+3. make plots with other non-supported geoms
+4. make plots with multiple geom layers. 
+5. make plots that use the ggtext package
+6. use non-supported arguments within ggplot2 layers
+7. create custom functions that wrap ggblanket functions
+
+```{r setup}
+library(dplyr)
+library(ggplot2)
+library(ggblanket)
+library(palmerpenguins)
+library(patchwork)
+
+penguins <- penguins |>
+  mutate(sex = stringr::str_to_sentence(sex)) |>
+  tidyr::drop_na(sex)
+```
+
+### 1. join plots together using the patchwork package
+
+
+### 2. make plots with other non-supported aesthetics
+
+While aesthetics other than col/fill are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
+
+```{r}
+#for discrete non-col aesthetic & col aesthetic
+penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g, 
+    col = sex) + 
+  geom_point(aes(shape = sex, col = sex)) +  
+  labs(shape = "Sex") 
+
+#for discrete non-col aesthetic & no col aesthetic
+penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g, 
+    col = sex) + 
+  geom_point(aes(shape = sex), 
+             col = pal_default(1)) + 
+  labs(shape = "Sex") 
+```
+
+```{r}
+#for continuous non-col aesthetic & col aesthetic
+penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g, 
+    col = species,
+    col_legend_place = "r") + 
+  geom_point(aes(size = bill_depth_mm, col = species)) +
+  labs(size = "Bill depth mm") +
+  theme(legend.title = element_text(margin = margin(t = 10)))
+
+#for continuous non-col aesthetic & no col aesthetic
+penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g, 
+    col_legend_place = "r") + 
+  geom_point(aes(size = bill_depth_mm), 
+             col = pal_default(1)) +
+  labs(size = "Bill depth mm") 
+```
+
+### 3. make plots with other non-supported geoms
+
+There are lots of other non-supported geoms in ggplot2 and other extension packages that can be used in combination with   ggblanket. 
+
+```{r}
+iris |>
+  mutate(Species = stringr::str_to_sentence(Species)) |> 
+  gg_blank(
+    x = Sepal.Width,
+    y = Sepal.Length,
+    col = Species,
+    facet = Species,
+    col_legend_place = "r") +
+  ggdensity::geom_hdr(colour = NA) +
+  labs(alpha = "Probs") +
+  theme(legend.title = element_text(margin = margin(t = 10)))
+```
+
+### 4. make plots with multiple geom layers. 
+
+Geom's will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it.
+
+Note the `pal` inherits to subsequent `geom_*` layers, but `alpha` does not.
+
+```{r}
+penguins |>
+  gg_boxplot(x = species,
+             y = body_mass_g,
+             width = 0.5,
+             pal = "#1B9E77", 
+             outlier.colour = NA) +
+  geom_jitter()
+```
+
+If some geoms have a `col` aesthetic and some do not, then you need to take care. In this case, your `gg_*` function should have a `col` aesthetic. However, if the first geom required to be plotted to be underneath other geoms does not have a `col` aesthetic, then you can use `gg_blank` instead.
+
+```{r}
+penguins |>
+  group_by(sex, species) |>
+  summarise(across(body_mass_g, sum)) |>
+  mutate(upper = body_mass_g * 1.05) |>
+  mutate(lower = body_mass_g * 0.95) |>
+  gg_blank(
+    x = sex,
+    y = body_mass_g,
+    ymin = lower,
+    ymax = upper, 
+    col = sex,
+    facet = species,
+    y_include = 0, 
+    col_legend_place = "b"
+  ) +
+  geom_col(aes(x = sex, y = body_mass_g),
+           fill = "#d3d3d3",
+           inherit.aes = FALSE,
+           width = 0.75) +
+  geom_errorbar(width = 0.1) 
+```
+
+### 5. make plots that use the ggtext package
+
+You can modify plot text using the ggtext package. For titles, it's important to make the theme have a plain title first before adding a theme layer to state that the title is in markdown. 
+
+```{r}
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+
+nc |>
+  gg_sf(col = AREA,
+        pal = RColorBrewer::brewer.pal(9, "Reds"),
+        title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
+        theme = gg_theme(title_face = "plain")) +
+  theme(plot.title = ggtext::element_markdown())
+```
+
+### 6. use non-supported arguments within ggplot2 layers
+
+The switch argument within facet_grid is not supported within ggblanket. As the `...` relates to the `geom_*` function, this cannot be accessed. A way to access this functionality is to `+` the `facet_grid(..., switch = "y")` in.
+
+```{r}
+penguins |>
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g,
+    col = island,
+    facet = species, 
+    facet2 = sex
+  ) +
+  facet_grid(cols = vars(species),
+             rows = vars(sex), 
+             switch = "y") +
+  theme(strip.switch.pad.grid = unit(2, "mm"))
+```
+
+### 7. create custom functions that wrap ggblanket functions
+
+You can easily create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
+
+```{r}
+gg_point_custom <- function(data, x, y, col, 
+                            size = 3, 
+                            shape = 17,
+                            pal = pals::brewer.dark2(9), 
+                            col_title = "", 
+                            col_legend_place = "t",
+                            ...) {
+  data |> 
+    gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
+             size = size, 
+             shape = shape,
+             pal = pal, 
+             col_title = col_title, 
+             col_legend_place = col_legend_place, 
+             ...)
+}
+
+iris |>
+  mutate(Species = stringr::str_to_sentence(Species)) |> 
+  gg_point_custom(
+    x = Sepal.Width,
+    y = Sepal.Length,
+    col = Species, 
+    title = "Edgar Anderson's iris data",
+    subtitle = "Iris sepal length by width and species",
+    caption = "Edgar Anderson, 1935")
+```
+

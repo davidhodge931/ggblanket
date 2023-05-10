@@ -50,13 +50,12 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 9. A gg_theme function to create a ggblanket style quick theme 
 10. Pretty default limits, expanding and gridlines
 11. Access to other geom_* arguments via ...
-12. A powerful gg_blank function for extra flexibility
+12. Able to be extended further
 
 ```{r setup}
 library(dplyr)
 library(ggplot2)
 library(ggblanket)
-library(patchwork)
 library(palmerpenguins)
 
 penguins <- penguins |>
@@ -351,7 +350,7 @@ All arguments and can be identified through the help on the relevant `ggplot2::g
 
 Common arguments to add are `size`, `linewidth` and `width`. 
 
-Additionally, you can use the `colour` or `fill` arguments to turn off part of the ggblanket col aesthetic (e.g. `colour = NA` or `fill = NA`), or fix it to single colour.  
+Additionally, you can use the `colour` or `fill` arguments to turn off part of the ggblanket col aesthetic (e.g. `colour = NA` or `fill = NA`), or fix it to single colour.
 
 ```{r}
 penguins |>
@@ -367,96 +366,20 @@ penguins |>
     colour = "white") #accessed via geom_smooth
 ```
 
-### 12. A powerful gg_blank function for extra flexibility
+### 12. Able to be extended further
 
-It can be used to:
+There is ability to:
 
-* make plots with other non-supported aesthetics, i.e. `shape`, `linetype`, `alpha`, `size`, and `linewidth` 
-
-```{r}
-#for discrete non-col aesthetic & col aesthetic
-penguins |>
-  gg_blank(
-    x = flipper_length_mm,
-    y = body_mass_g, 
-    col = sex) + 
-  geom_point(aes(shape = sex, col = sex)) +  
-  labs(shape = "Sex") 
-
-#for discrete non-col aesthetic & no col aesthetic
-penguins |>
-  gg_blank(
-    x = flipper_length_mm,
-    y = body_mass_g, 
-    col = sex) + 
-  geom_point(aes(shape = sex), 
-             col = pal_default(1)) + 
-  labs(shape = "Sex") 
-```
-
-```{r}
-#for continuous non-col aesthetic & col aesthetic
-penguins |>
-  gg_blank(
-    x = flipper_length_mm,
-    y = body_mass_g, 
-    col = species,
-    col_legend_place = "r") + 
-  geom_point(aes(size = bill_depth_mm, col = species)) +
-  labs(size = "Bill depth mm") +
-  theme(legend.title = element_text(margin = margin(t = 10)))
-
-#for continuous non-col aesthetic & no col aesthetic
-penguins |>
-  gg_blank(
-    x = flipper_length_mm,
-    y = body_mass_g, 
-    col_legend_place = "r") + 
-  geom_point(aes(size = bill_depth_mm), 
-             col = pal_default(1)) +
-  labs(size = "Bill depth mm") 
-```
-
+* join plots together using the patchwork package
+* make plots with other non-supported aesthetics
 * make plots with other non-supported geoms
+* make plots with multiple geom layers. 
+* make plots that use the ggtext package
+* use non-supported arguments within ggplot2 layers
+* create custom functions that wrap ggblanket functions
 
-```{r}
-iris |>
-  mutate(Species = stringr::str_to_sentence(Species)) |> 
-  gg_blank(
-    x = Sepal.Width,
-    y = Sepal.Length,
-    col = Species,
-    facet = Species,
-    col_legend_place = "r") +
-  ggdensity::geom_hdr(colour = NA) +
-  labs(alpha = "Probs") +
-  theme(legend.title = element_text(margin = margin(t = 10)))
-```
-
-* make plots with multiple geoms, where the first non-blank layer does not have a col aesthetic but a later layer does require a col aesthetic. 
-
-```{r}
-penguins |>
-  group_by(sex, species) |>
-  summarise(across(body_mass_g, sum)) |>
-  mutate(upper = body_mass_g * 1.05) |>
-  mutate(lower = body_mass_g * 0.95) |>
-  gg_blank(
-    x = sex,
-    y = body_mass_g,
-    ymin = lower,
-    ymax = upper, 
-    col = sex,
-    facet = species,
-    y_include = 0, 
-    col_legend_place = "b"
-  ) +
-  geom_col(aes(x = sex, y = body_mass_g),
-           fill = "#d3d3d3",
-           inherit.aes = FALSE,
-           width = 0.75) +
-  geom_errorbar(width = 0.1) 
-```
+These are discussed further at
+[Extending ggblanket further article]() with example code.
 
 ## Further information
 
