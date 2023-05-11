@@ -39,16 +39,16 @@ It is intended to be useful for all levels of experience from beginner to expert
 
 To simplify ggplot2 visualisation, the ggblanket package provides:
 
-1. Over thirty gg_* wrapper functions to plot a single geom
+1. Over thirty gg_* wrapper functions
 2. A single col argument to colour and fill by a variable
 3. A pal argument to customise colours
 4. A facet argument to facet by a variable
-5. An additional facet2 argument to facet by a second variable
-6. Prefixed arguments to customise scales, guides, titles and faceting 
-7. Default titles converted with snakecase::to_sentence
+5. An additional facet2 argument to facet by a 2nd variable
+6. Prefixed arguments to customise scales etc
+7. Default titles converted with to sentence case
 8. A theme argument to customise the look and feel
-9. A gg_theme function to create a ggblanket style quick theme 
-10. Pretty default limits, expanding and gridlines
+9. A gg_theme function to create a quick theme
+10. Pretty defaults for symmetry
 11. Access to other geom_* arguments via ...
 12. Able to be extended further
 
@@ -63,7 +63,7 @@ penguins <- penguins |>
   tidyr::drop_na(sex)
 ```
 
-### 1. Over thirty gg_* wrapper functions to plot a single geom
+### 1. Over thirty gg_* wrapper functions
 
 Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. 
 
@@ -166,7 +166,7 @@ penguins |>
     facet = species)
 ```
 
-### 5. An additional facet2 argument to facet by a second variable
+### 5. An additional facet2 argument to facet by a 2nd variable
 
 A `facet2` argument is also provided for extra functionality and flexibility. If both `facet`and `facet2` variables are provided, then it'll default to a "grid" layout of `facet` by `facet2`. But users can change this with a `facet_layout = "wrap"` argument. 
 
@@ -185,9 +185,9 @@ penguins |>
     facet2 = species)
 ```
 
-### 6.  Prefixed arguments to adjust scales, guides, titles and faceting 
+### 6.  Prefixed arguments to customise scales etc
 
-Prefixed arguments are available to customise plots. These are designed to work with the Rstudio auto-complete to help users remember and find the adjustment they need. Users should first determine whether they want to change something that relates to  x, y, col or facet. Then they should type this prefix and press the tab key to access the list of options from the Rstudio auto-complete. Then they can use the arrow keys, and press tab again to select what they want.
+Prefixed arguments are available to customise scales, guides, titles and faceting etc. These are designed to work with the Rstudio auto-complete to help users remember and find the adjustment they need. Users should first determine whether they want to change something that relates to  x, y, col or facet. Then they should type this prefix and press the tab key to access the list of options from the Rstudio auto-complete. Then they can use the arrow keys, and press tab again to select what they want.
 
 ```{r, echo = FALSE}
 knitr::include_graphics("screenshot_autotab_y.png", dpi = 300)
@@ -228,7 +228,7 @@ penguins |>
     col_legend_place = "t")
 ```
 
-### 7. Default titles converted with snakecase::to_sentence
+### 7. Default titles converted to sentence case
 
 Default titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. However, with the default conversion, it is intended that titles are less likely to need to be manually changed than if default titles were left as variable names.
 
@@ -298,7 +298,7 @@ penguins |>
     theme = custom_theme) 
 ```
 
-### 10. Pretty default limits, expanding and gridlines
+### 10. Pretty defaults for symmetry
 
 Where the orientation is normal (i.e. vertical): 
 
