@@ -255,11 +255,13 @@ to <code>+</code> the <code>facet_grid(..., switch = "y")</code> in.</p>
 <div class="section level3">
 <h3 id="make-plots-with-multiple-geom-layers">6. make plots with multiple geom layers<a class="anchor" aria-label="anchor" href="#make-plots-with-multiple-geom-layers"></a>
 </h3>
-<p>Geom’s will plot in order. The <code>gg_*</code> function will plot
-the associated geom as the first layer, and then other geoms will be
-plotted on top of it.</p>
-<p>Note the <code>pal</code> inherits to subsequent <code>geom_*</code>
-layers, but <code>alpha</code> does not.</p>
+<p>The <code>gg_*</code> function puts the aesthetics within the wrapped
+<code>ggplot</code> function. Therefore, the aesthetics will inherit to
+any subsequent geom’s added by default. Geom’s will plot in order. The
+<code>gg_*</code> function will plot the associated geom as the first
+layer, and then other geoms will be plotted on top of it. Note the
+<code>pal</code> also inherits to subsequent <code>geom_*</code> layers,
+but <code>alpha</code> does not.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_boxplot.html">gg_boxplot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>,</span>
