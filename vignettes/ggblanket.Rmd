@@ -418,7 +418,6 @@ There is ability to:
 * join plots together using the patchwork package
 * make plots that use the ggtext package
 * make plots with other non-supported geoms
-* Creating quick interactive plots with plotly::ggplotly
 * make plots with other non-supported aesthetics
 * use other non-supported arguments within ggplot2 layers
 * make plots with multiple geom layers
