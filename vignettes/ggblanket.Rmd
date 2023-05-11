@@ -244,9 +244,7 @@ penguins |>
 
 ### 7. Default titles converted with snakecase::to_sentence
 
-This will make quicker to get to a plot that has titles that are good for external people to see, and will often work nicely for your snakecase column names. 
-
-You might have noticed this in the examples above, where ggblanket by default makes a title of the variable body_mass_g called Body mass g - whereas ggplot2 leaves it as is.
+This is intended to make it quicker to get to a plot that has titles that are good for external people to see.
 
 For titles that you need to change manually in ggblanket, you can use the  `x_title`, `y_title`, or `col_title` arguments. 
 
@@ -279,8 +277,6 @@ This allows you to utilise the simplicity of ggblanket, while making content tha
 
 By using the `theme` argument, your theme will control all theme aspects, but with some `gg_*` magic thrown in relating to (1) the placement of the legend and (2) gridline removal depending on plot orientation. 
 
-However, if you want your theme to adjust _everything_, then just add your theme as a layer instead.
-
 ```{r}
 penguins |>
   gg_point(x = flipper_length_mm,
@@ -290,6 +286,8 @@ penguins |>
            pal = c("#1B9E77", "#9E361B"), 
            theme = theme_grey())
 ```
+
+However, if you want your theme to adjust _everything_, then just add your theme as a layer instead.
 
 ```{r}
 penguins |>
