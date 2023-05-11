@@ -199,7 +199,12 @@ penguins |>
   scale_y_continuous(breaks = scales::breaks_width(1500),
                      labels = scales::label_number(big.mark = " "),
                      trans = "sqrt") +
-  labs(y = "Body mass (g)")
+  labs(x = "Species", y = "Body mass (g)", col = "Sex") +
+  theme(legend.position = "top") +
+  theme(legend.justification = "left") +
+  scale_colour_manual(values = scales::hue_pal()(2), 
+                      guide = ggplot2::guide_legend(title.position = "top"))
+
 penguins |>
   gg_jitter(
     x = species,
@@ -210,7 +215,8 @@ penguins |>
     y_breaks = scales::breaks_width(1500), 
     y_labels = scales::label_number(big.mark = " "), 
     y_trans = "sqrt",
-    y_title = "Body mass (g)")
+    y_title = "Body mass (g)", 
+    col_legend_place = "t")
 ```
 
 ### 7. Default titles converted with snakecase::to_sentence
