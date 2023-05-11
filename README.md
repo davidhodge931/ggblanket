@@ -57,6 +57,7 @@ penguins |>
 
 ``` r
 penguins |>
+  tidyr::drop_na(sex) |> 
   gg_histogram(
     x = bill_depth_mm,
     col = sex,

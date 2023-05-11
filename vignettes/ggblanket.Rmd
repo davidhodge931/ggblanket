@@ -65,13 +65,7 @@ penguins <- penguins |>
 
 ### 1. Over thirty gg_* wrapper functions to plot a single geom
 
-ggblanket supports the majority of geoms in ggplot2.   
-
-Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function.
-
-All aesthetics are within the `ggplot` function, and therefore will inherit to any subsequent geom's added by default.
-
-Always pipe in your data, so that you can access variable names from the Rstudio auto-complete.
+Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. 
 
 ```{r}
 penguins |> 
@@ -88,7 +82,7 @@ penguins |>
 
 ### 2. A single col argument to colour and fill by a variable
 
-ggblanket merges the col and fill aesthetics of ggplot2 into one concept represented by the `col` argument. In ggplot2 language, this argument always represents both colour and fill. 
+The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. This always represents the colour of everything in the geom: all points, lines and polygon interiors. 
 
 ```{r}
 penguins |> 
@@ -120,9 +114,7 @@ penguins |>
 
 ### 3.  A pal argument to customise colours
 
-The `pal` argument allows the users to pick the vector of colours they want.
-
-These arguments work in the same way regardless of whether a `col` variable is added or not. 
+The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` aesthetic is added or not. 
 
 ```{r}
 penguins |>
@@ -157,9 +149,7 @@ penguins |>
 
 ### 4. A facet argument to facet by a variable
 
-Faceting is treated essentially as if it were an aesthetic, where users just provide an unquoted variable to facet by. 
-
-If a single facet (or facet2) variable is provided, it'll default to a "wrap" layout. But you can change this with a `facet_layout = "grid"` argument.
+Faceting is treated as if it were an aesthetic. Users just provide an unquoted variable to facet by. If a single facet (or facet2) variable is provided, it'll default to a "wrap" layout. But users can change this with a `facet_layout = "grid"` argument.
 
 ```{r}
 penguins |>
@@ -178,15 +168,13 @@ penguins |>
 
 ### 5. An additional facet2 argument to facet by a second variable
 
-A `facet2` argument is also provided for extra functionality and flexibility.
-
-If both `facet`and `facet2` variables are provided, then it'll default to a "grid" layout of `facet` by `facet2`. But you can change this with a `facet_layout = "wrap"` argument. 
+A `facet2` argument is also provided for extra functionality and flexibility. If both `facet`and `facet2` variables are provided, then it'll default to a "grid" layout of `facet` by `facet2`. But users can change this with a `facet_layout = "wrap"` argument. 
 
 ```{r, fig.asp=0.75}
 penguins |>
   ggplot() +
   geom_histogram(aes(x = flipper_length_mm)) +
-  facet_grid(rows = vars(species), cols = vars(sex))
+  facet_grid(species ~ sex)
 ```
 
 ```{r}
@@ -199,9 +187,7 @@ penguins |>
 
 ### 6.  Prefixed arguments to adjust scales, guides, titles and faceting 
 
-These prefixed arguments are designed to work with the Rstudio autocomplete to help you remember and find the adjustment you need. 
-
-Determine whether what you want to change relates to x, y, col or facet, and then type this prefix and press the tab key to access the list from autocomplete. Then use arrow keys, and press tab again to select.
+Prefixed arguments are available to customise plots. These are designed to work with the Rstudio auto-complete to help users remember and find the adjustment they need. Users should first determine whether they want to change something that relates to  x, y, col or facet. Then they should type this prefix and press the tab key to access the list of options from the Rstudio auto-complete. Then they can use the arrow keys, and press tab again to select what they want.
 
 ```{r, echo = FALSE}
 knitr::include_graphics("screenshot_autotab_y.png", dpi = 300)
@@ -244,11 +230,7 @@ penguins |>
 
 ### 7. Default titles converted with snakecase::to_sentence
 
-This is intended to make it quicker to get to a plot that has titles that are good for external people to see.
-
-For titles that you need to change manually in ggblanket, you can use the  `x_title`, `y_title`, or `col_title` arguments. 
-
-Additionally, you can use `x_title = ""` to remove titles within the `gg_*` function and equivalent for the `y` and `col` titles. 
+Default titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. However, with the default conversion, it is intended that titles are less likely to need to be manually changed than if default titles were left as variable names.
 
 ```{r}
 penguins |>
@@ -273,9 +255,7 @@ penguins |>
 
 ### 8. A theme argument to customise the look and feel
 
-This allows you to utilise the simplicity of ggblanket, while making content that has your required look and feel.
-
-By using the `theme` argument, your theme will control all theme aspects, but with some `gg_*` magic thrown in relating to (1) the placement of the legend and (2) gridline removal depending on plot orientation. 
+A `theme` argument is available. This allows users to make content that has their required look and feel. By using the `theme` argument, the theme will control all theme aspects, except (1) the placement of the legend and (2) gridline removal. However, if users want their theme to adjust _everything_, then they can `+` their theme as a layer instead.
 
 ```{r}
 penguins |>
@@ -286,8 +266,6 @@ penguins |>
            pal = c("#1B9E77", "#9E361B"), 
            theme = theme_grey())
 ```
-
-However, if you want your theme to adjust _everything_, then just add your theme as a layer instead.
 
 ```{r}
 penguins |>
@@ -301,7 +279,7 @@ penguins |>
 
 ### 9. A gg_theme function to create a quick theme 
 
-The `gg_theme` function allows you to tweak the default ggblanket theme by changing text, background colours, axis lines, ticks and gridlines.
+A `gg_theme` function is provided to allow users to quickly adjust the default ggblanket theme by changing text, background colours, axis lines, ticks and gridlines etc.
 
 ```{r}
 custom_theme <- gg_theme(
@@ -327,9 +305,9 @@ Where the orientation is normal (i.e. vertical):
 * Default x scale limits and expanding are as per ggplot2 defaults
 * Default numeric non-transformed y scale limits start and end on a break with zero expanding
 * Default categorical y scale limits and expanding are as per ggplot2 defaults
-* The ggblanket function removes vertical gridlines, unless specified otherwise
+* Default removal of vertical gridlines
 
-It does the opposite where the orientation is horizontal (and also puts y categorical values in correct order). 
+It does the opposite where the orientation is horizontal (and also keeps y categorical values in correct order). 
 
 ```{r}
 penguins |>
@@ -381,13 +359,7 @@ penguins |>
 
 ### 11. Access to other geom_* arguments via `...`
 
-This relates to all other arguments other than the mapping argument with aesthetics.
-
-All arguments and can be identified through the help on the relevant `ggplot2::geom_*` function.
-
-Common arguments to add are `size`, `linewidth` and `width`. 
-
-Additionally, you can use the `colour` or `fill` arguments to turn off part of the ggblanket col aesthetic (e.g. `colour = NA` or `fill = NA`), or fix it to single colour.
+The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users (except the mapping argument). Common arguments from `...` to add are `size`, `linewidth` and `width`. Additionally, users can use the `colour` or `fill` arguments to turn off part of the ggblanket `col` aesthetic (e.g. `colour = NA` or `fill = NA`), or fix it to single colour.
 
 ```{r}
 penguins |>

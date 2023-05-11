@@ -173,9 +173,7 @@ penguins |>
 
 ### 6. make plots with multiple geom layers
 
-Geom's will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it.
-
-Note the `pal` inherits to subsequent `geom_*` layers, but `alpha` does not.
+The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geom's added by default. Geom's will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it. Note the `pal` also inherits to subsequent `geom_*` layers, but `alpha` does not.
 
 ```{r}
 penguins |>
