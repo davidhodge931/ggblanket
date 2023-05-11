@@ -48,17 +48,9 @@ install.packages("ggblanket")
 ## Examples
 
 ``` r
-library(dplyr)
-library(ggplot2)
 library(ggblanket)
 library(palmerpenguins)
 
-penguins <- penguins |>
-  mutate(sex = stringr::str_to_sentence(sex)) |>
-  tidyr::drop_na(sex)
-```
-
-``` r
 penguins |>
   gg_point(
     x = flipper_length_mm,
@@ -74,7 +66,9 @@ penguins |>
   gg_histogram(
     x = bill_depth_mm,
     col = sex,
-    facet = species)
+    facet = species,
+    pal = c("#2596be", "#fc7c24"),
+    col_labels = stringr::str_to_sentence)
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" />
