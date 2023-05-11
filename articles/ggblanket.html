@@ -115,17 +115,16 @@ beginner to expert.</p>
 <p>To simplify ggplot2 visualisation, the ggblanket package
 provides:</p>
 <ol style="list-style-type: decimal">
-<li>Over thirty gg_* wrapper functions to plot a single geom</li>
+<li>Over thirty gg_* wrapper functions</li>
 <li>A single col argument to colour and fill by a variable</li>
 <li>A pal argument to customise colours</li>
 <li>A facet argument to facet by a variable</li>
-<li>An additional facet2 argument to facet by a second variable</li>
-<li>Prefixed arguments to customise scales, guides, titles and
-faceting</li>
-<li>Default titles converted with snakecase::to_sentence</li>
+<li>An additional facet2 argument to facet by a 2nd variable</li>
+<li>Prefixed arguments to customise scales etc</li>
+<li>Default titles converted with to sentence case</li>
 <li>A theme argument to customise the look and feel</li>
-<li>A gg_theme function to create a ggblanket style quick theme</li>
-<li>Pretty default limits, expanding and gridlines</li>
+<li>A gg_theme function to create a quick theme</li>
+<li>Pretty defaults for symmetry</li>
 <li>Access to other geom_* arguments via …</li>
 <li>Able to be extended further</li>
 </ol>
@@ -139,7 +138,7 @@ faceting</li>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>sex <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
-<h3 id="over-thirty-gg_-wrapper-functions-to-plot-a-single-geom">1. Over thirty gg_* wrapper functions to plot a single geom<a class="anchor" aria-label="anchor" href="#over-thirty-gg_-wrapper-functions-to-plot-a-single-geom"></a>
+<h3 id="over-thirty-gg_-wrapper-functions">1. Over thirty gg_* wrapper functions<a class="anchor" aria-label="anchor" href="#over-thirty-gg_-wrapper-functions"></a>
 </h3>
 <p>Each <code>gg_*</code> function wraps a ggplot2
 <code>ggplot(aes(...))</code> function with the applicable ggplot2
@@ -247,7 +246,7 @@ with a <code>facet_layout = "grid"</code> argument.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="an-additional-facet2-argument-to-facet-by-a-second-variable">5. An additional facet2 argument to facet by a second variable<a class="anchor" aria-label="anchor" href="#an-additional-facet2-argument-to-facet-by-a-second-variable"></a>
+<h3 id="an-additional-facet2-argument-to-facet-by-a-2nd-variable">5. An additional facet2 argument to facet by a 2nd variable<a class="anchor" aria-label="anchor" href="#an-additional-facet2-argument-to-facet-by-a-2nd-variable"></a>
 </h3>
 <p>A <code>facet2</code> argument is also provided for extra
 functionality and flexibility. If both <code>facet</code>and
@@ -269,16 +268,16 @@ can change this with a <code>facet_layout = "wrap"</code> argument.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="prefixed-arguments-to-adjust-scales-guides-titles-and-faceting">6. Prefixed arguments to adjust scales, guides, titles and
-faceting<a class="anchor" aria-label="anchor" href="#prefixed-arguments-to-adjust-scales-guides-titles-and-faceting"></a>
+<h3 id="prefixed-arguments-to-customise-scales-etc">6. Prefixed arguments to customise scales etc<a class="anchor" aria-label="anchor" href="#prefixed-arguments-to-customise-scales-etc"></a>
 </h3>
-<p>Prefixed arguments are available to customise plots. These are
-designed to work with the Rstudio auto-complete to help users remember
-and find the adjustment they need. Users should first determine whether
-they want to change something that relates to x, y, col or facet. Then
-they should type this prefix and press the tab key to access the list of
-options from the Rstudio auto-complete. Then they can use the arrow
-keys, and press tab again to select what they want.</p>
+<p>Prefixed arguments are available to customise scales, guides, titles
+and faceting etc. These are designed to work with the Rstudio
+auto-complete to help users remember and find the adjustment they need.
+Users should first determine whether they want to change something that
+relates to x, y, col or facet. Then they should type this prefix and
+press the tab key to access the list of options from the Rstudio
+auto-complete. Then they can use the arrow keys, and press tab again to
+select what they want.</p>
 <p><img src="screenshot_autotab_y.png" width="70%"></p>
 <p><img src="screenshot_autotab_col.png" width="70%"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -312,7 +311,7 @@ keys, and press tab again to select what they want.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-19-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="default-titles-converted-with-snakecaseto_sentence">7. Default titles converted with snakecase::to_sentence<a class="anchor" aria-label="anchor" href="#default-titles-converted-with-snakecaseto_sentence"></a>
+<h3 id="default-titles-converted-to-sentence-case">7. Default titles converted to sentence case<a class="anchor" aria-label="anchor" href="#default-titles-converted-to-sentence-case"></a>
 </h3>
 <p>Default titles are converted to sentence case with
 snakecase::to_sentence. All titles can be manually changed using the
@@ -391,7 +390,7 @@ colours, axis lines, ticks and gridlines etc.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-24-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="pretty-default-limits-expanding-and-gridlines">10. Pretty default limits, expanding and gridlines<a class="anchor" aria-label="anchor" href="#pretty-default-limits-expanding-and-gridlines"></a>
+<h3 id="pretty-defaults-for-symmetry">10. Pretty defaults for symmetry<a class="anchor" aria-label="anchor" href="#pretty-defaults-for-symmetry"></a>
 </h3>
 <p>Where the orientation is normal (i.e. vertical):</p>
 <ul>
