@@ -360,10 +360,16 @@ penguins |>
     col = sex,
     linewidth = 0.5, #accessed via geom_smooth
     level = 0.99, #accessed via geom_smooth
-    col_legend_place = "t",
-    col_title = "", 
-    col_labels = stringr::str_to_sentence, 
     colour = "white") #accessed via geom_smooth
+
+penguins |>
+  gg_smooth(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    linewidth = 0.5, #accessed via geom_smooth
+    level = 0.99, #accessed via geom_smooth
+    fill = "#a8a8a8") #accessed via geom_smooth
 ```
 
 ### 12. Able to be extended further
