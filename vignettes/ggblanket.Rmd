@@ -77,6 +77,9 @@ Always pipe in your data, so that you can access variable names from the Rstudio
 penguins |> 
   ggplot() + 
   geom_point(aes(x = flipper_length_mm, y = body_mass_g))
+```
+
+```{r}
 penguins |>
   gg_point(
     x = flipper_length_mm,
@@ -92,6 +95,9 @@ penguins |>
   ggplot() + 
   geom_point(aes(x = flipper_length_mm, y = body_mass_g,
                  col = species))
+```
+
+```{r}
 penguins |>
   gg_point(
     x = flipper_length_mm,
@@ -103,6 +109,9 @@ penguins |>
 penguins |>
   ggplot() +
   geom_density(aes(x = body_mass_g, fill = species))
+```
+
+```{r}
 penguins |>
   gg_density(
     x = body_mass_g, 
@@ -121,6 +130,9 @@ penguins |>
   geom_histogram(
     aes(x = body_mass_g),
     fill = "#1B9E77")
+```
+
+```{r}
 penguins |>
   gg_histogram(
     x = body_mass_g, 
@@ -132,6 +144,9 @@ penguins |>
   ggplot() +
   geom_jitter(aes(x = species, y = body_mass_g, col = sex)) +
   scale_color_manual(values = c("#1B9E77", "#9E361B"))
+```
+
+```{r}
 penguins |>
   gg_jitter(
     x = species, 
@@ -151,6 +166,9 @@ penguins |>
   ggplot() +
   geom_violin(aes(x = sex, y = body_mass_g)) +
   facet_wrap(~species) 
+```
+
+```{r}
 penguins |>
   gg_violin(
     x = sex,
@@ -169,6 +187,9 @@ penguins |>
   ggplot() +
   geom_histogram(aes(x = flipper_length_mm)) +
   facet_grid(rows = vars(species), cols = vars(sex))
+```
+
+```{r}
 penguins |>
   gg_histogram(
     x = flipper_length_mm,
@@ -204,7 +225,9 @@ penguins |>
   theme(legend.justification = "left") +
   scale_colour_manual(values = scales::hue_pal()(2), 
                       guide = ggplot2::guide_legend(title.position = "top"))
+```
 
+```{r}
 penguins |>
   gg_jitter(
     x = species,
@@ -237,6 +260,9 @@ penguins |>
        subtitle = " Palmer Archipelago, Antarctica",
        x = "Flipper length (mm)", 
        caption = "Source: Gorman, 2020")
+```
+
+```{r}
 penguins |>
   gg_blank(
     x = flipper_length_mm,
@@ -263,6 +289,9 @@ penguins |>
            facet = species, 
            pal = c("#1B9E77", "#9E361B"), 
            theme = theme_grey())
+```
+
+```{r}
 penguins |>
   gg_point(x = flipper_length_mm,
            y = body_mass_g,
@@ -313,7 +342,9 @@ penguins |>
     position = "dodge",
     width = 0.5
   )
+```
 
+```{r}
 penguins |>
   group_by(species, sex) |> 
   summarise(across(body_mass_g, mean)) |> 
@@ -335,7 +366,9 @@ penguins |>
            position = "dodge",
            width = 0.75
   )
+```
 
+```{r}
 penguins |>
   group_by(species, sex) |> 
   summarise(across(body_mass_g, mean)) |> 
@@ -367,7 +400,9 @@ penguins |>
     linewidth = 0.5, #accessed via geom_smooth
     level = 0.99, #accessed via geom_smooth
     colour = "white") #accessed via geom_smooth
+```
 
+```{r}
 penguins |>
   gg_smooth(
     x = flipper_length_mm,

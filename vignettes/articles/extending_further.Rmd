@@ -111,7 +111,9 @@ penguins |>
     col = sex) + 
   geom_point(aes(shape = sex, col = sex)) +  
   labs(shape = "Sex") 
+```
 
+```{r}
 #for discrete non-col aesthetic & no col aesthetic
 penguins |>
   gg_blank(
@@ -134,7 +136,9 @@ penguins |>
   geom_point(aes(size = bill_depth_mm, col = species)) +
   labs(size = "Bill depth mm") +
   theme(legend.title = element_text(margin = margin(t = 10)))
+```
 
+```{r}
 #for continuous non-col aesthetic & no col aesthetic
 penguins |>
   gg_blank(
@@ -206,8 +210,6 @@ penguins |>
   geom_errorbar(width = 0.1) 
 ```
 
-
-
 ### 7. create custom functions that wrap ggblanket functions
 
 You can easily create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
@@ -236,7 +238,9 @@ iris |>
     x = Sepal.Width,
     y = Sepal.Length,
     col = Species)
+```
 
+```{r}
 penguins |>
   gg_point_custom(
     x = species,
@@ -244,4 +248,3 @@ penguins |>
     col = sex,
     position = position_jitter())
 ```
-
