@@ -42,10 +42,6 @@ Secondary objectives relate to:
 
 It is intended to be useful for all levels of experience from beginner to expert.
 
-## Website
-
-Click [here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html) to get started learning how ggblanket works.
-
 ## Installation
 
 ``` r
@@ -75,6 +71,10 @@ penguins |>
     pal = c("#2596be", "#fc7c24"),
     col_labels = stringr::str_to_sentence)
 ```
+
+## Website
+
+Click [here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html) to get started learning how ggblanket works.
 
 ## Thanks!
 

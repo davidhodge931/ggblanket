@@ -33,12 +33,6 @@ Secondary objectives relate to:
 It is intended to be useful for all levels of experience from beginner
 to expert.
 
-## Website
-
-Click
-[here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html)
-to get started learning how ggblanket works.
-
 ## Installation
 
 ``` r
@@ -72,6 +66,12 @@ penguins |>
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" />
+
+## Website
+
+Click
+[here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html)
+to get started learning how ggblanket works.
 
 ## Thanks!
 
