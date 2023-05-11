@@ -53,30 +53,32 @@ install.packages("ggblanket")
 ```
 ## Examples
 
-```{r}
-library(ggblanket)
+```{r setup}
 library(dplyr)
-library(stringr)
+library(ggplot2)
+library(ggblanket)
 library(palmerpenguins)
 
+penguins <- penguins |>
+  mutate(sex = stringr::str_to_sentence(sex)) |>
+  tidyr::drop_na(sex)
+```
+
+```{r}
 penguins |>
   gg_point(
     x = flipper_length_mm,
-    y = body_mass_g,
-    col = species
-  )
+    y = body_mass_g, 
+    col = species)
 ```
 <br>
 <br>  
 ```{r}
 penguins |>
-  tidyr::drop_na() |> 
-  gg_density(
-    x = flipper_length_mm,
+  gg_histogram(
+    x = bill_depth_mm,
     col = sex,
-    facet = species,
-    col_labels = stringr::str_to_sentence,
-    pal = c("#1B9E77", "#9E361B"))
+    facet = species)
 ```
 
 ## Thanks!

@@ -48,17 +48,22 @@ install.packages("ggblanket")
 ## Examples
 
 ``` r
-library(ggblanket)
 library(dplyr)
-library(stringr)
+library(ggplot2)
+library(ggblanket)
 library(palmerpenguins)
 
+penguins <- penguins |>
+  mutate(sex = stringr::str_to_sentence(sex)) |>
+  tidyr::drop_na(sex)
+```
+
+``` r
 penguins |>
   gg_point(
     x = flipper_length_mm,
-    y = body_mass_g,
-    col = species
-  )
+    y = body_mass_g, 
+    col = species)
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" /> <br>
@@ -66,13 +71,10 @@ penguins |>
 
 ``` r
 penguins |>
-  tidyr::drop_na() |> 
-  gg_density(
-    x = flipper_length_mm,
+  gg_histogram(
+    x = bill_depth_mm,
     col = sex,
-    facet = species,
-    col_labels = stringr::str_to_sentence,
-    pal = c("#1B9E77", "#9E361B"))
+    facet = species)
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" />
@@ -80,7 +82,5 @@ penguins |>
 ## Thanks!
 
 Thank you to all authors and contributors to ggplot2, tidyverse, and the
-wider R ecosystem.
-
-If you like ggblanket, please give the repository a star and help spread
-the word.
+wider R ecosystem. If you like ggblanket, please give the repository a
+star and help spread the word.
