@@ -25,10 +25,11 @@ There is ability to:
 1. join plots together using the patchwork package
 2. make plots that use the ggtext package
 3. make plots with other non-supported geoms
-4. make plots with other non-supported aesthetics
-5. use other non-supported arguments within ggplot2 layers
-6. make plots with multiple geom layers
-7. create custom functions that wrap ggblanket functions
+4. Creating quick interactive plots with plotly::ggplotly
+5. make plots with other non-supported aesthetics
+6. use other non-supported arguments within ggplot2 layers
+7. make plots with multiple geom layers
+8. create custom functions that wrap ggblanket functions
 
 ```{r setup}
 library(dplyr)
@@ -98,7 +99,24 @@ iris |>
   theme(legend.title = element_text(margin = margin(t = 10)))
 ```
 
-### 4. make plots with other non-supported aesthetics
+### 4. Creating quick interactive plots with plotly::ggplotly
+
+```{r, eval=FALSE}
+diamonds |>
+  gg_bar(
+    x = cut,
+    col = clarity,
+    position = "dodge",
+    theme = gg_theme("helvetica")
+  ) |>
+  plotly::ggplotly(tooltip = c("x", "y", "fill")) 
+```
+
+```{r, echo = FALSE}
+knitr::include_graphics("screenshot_ggplotly.png", dpi = 300)
+```
+
+### 5. make plots with other non-supported aesthetics
 
 While aesthetics other than col/fill are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
 
@@ -150,7 +168,7 @@ penguins |>
   labs(size = "Bill depth mm") 
 ```
 
-### 5. use non-supported arguments within ggplot2 layers
+### 6. use non-supported arguments within ggplot2 layers
 
 The switch argument within facet_grid is not supported within ggblanket. As the `...` relates to the `geom_*` function, this cannot be accessed. A way to access this functionality is to `+` the `facet_grid(..., switch = "y")` in.
 
@@ -169,7 +187,7 @@ penguins |>
   theme(strip.switch.pad.grid = unit(2, "mm"))
 ```
 
-### 6. make plots with multiple geom layers
+### 7. make plots with multiple geom layers
 
 Geom's will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it.
 
@@ -210,7 +228,7 @@ penguins |>
   geom_errorbar(width = 0.1) 
 ```
 
-### 7. create custom functions that wrap ggblanket functions
+### 8. create custom functions that wrap ggblanket functions
 
 You can easily create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 

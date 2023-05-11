@@ -204,11 +204,11 @@ These prefixed arguments are designed to work with the Rstudio autocomplete to h
 Determine whether what you want to change relates to x, y, col or facet, and then type this prefix and press the tab key to access the list from autocomplete. Then use arrow keys, and press tab again to select.
 
 ```{r, echo = FALSE}
-knitr::include_graphics("screenshot_y_autotab.png", dpi = 300)
+knitr::include_graphics("screenshot_autotab_y.png", dpi = 300)
 ```
 
 ```{r, echo = FALSE}
-knitr::include_graphics("screenshot_col_autotab.png", dpi = 300)
+knitr::include_graphics("screenshot_autotab_col.png", dpi = 300)
 ```
 
 ```{r}
@@ -420,6 +420,7 @@ There is ability to:
 * join plots together using the patchwork package
 * make plots that use the ggtext package
 * make plots with other non-supported geoms
+* Creating quick interactive plots with plotly::ggplotly
 * make plots with other non-supported aesthetics
 * use other non-supported arguments within ggplot2 layers
 * make plots with multiple geom layers
