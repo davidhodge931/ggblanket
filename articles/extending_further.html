@@ -137,7 +137,9 @@ together.</p>
 <span>    x <span class="op">=</span> <span class="va">species</span>, </span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>, </span>
-<span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2B6999"</span>, <span class="st">"#E37000"</span><span class="op">)</span><span class="op">)</span> </span>
+<span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2B6999"</span>, <span class="st">"#E37000"</span><span class="op">)</span>,</span>
+<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    y_title <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="extending_further_files/figure-html/unnamed-chunk-2-1.png" width="70%"></p>
