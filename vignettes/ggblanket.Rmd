@@ -38,8 +38,6 @@ To simplify ggplot2 visualisation, ggblanket provides:
 11. Access to other geom_* arguments via ...
 12. Able to be extended further
 
-This article will discuss these points further to help users understand how ggblanket works.
-
 ```{r setup}
 library(dplyr)
 library(ggplot2)
