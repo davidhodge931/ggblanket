@@ -96,8 +96,7 @@ Hodge</h4>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>To simplify ggplot2 visualisation, the ggblanket package
-provides:</p>
+<p>To simplify ggplot2 visualisation, ggblanket provides:</p>
 <ol style="list-style-type: decimal">
 <li>Over thirty gg_* wrapper functions</li>
 <li>A single col argument to colour and fill by a variable</li>
@@ -112,6 +111,8 @@ provides:</p>
 <li>Access to other geom_* arguments via …</li>
 <li>Able to be extended further</li>
 </ol>
+<p>This article will discuss these points further to help users
+understand how ggblanket works.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
@@ -128,8 +129,7 @@ provides:</p>
 <code>ggplot(aes(...))</code> function with the applicable ggplot2
 <code>geom_*()</code> function. All aesthetics are placed directly in
 the <code>gg_*</code> function: they are not within a
-<code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes</a></code> function. See the <a href="https://davidhodge931.github.io/ggblanket/articles/functions_demo.html">Functions
-demo</a> article for an example of each of the functions available.</p>
+<code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes</a></code> function.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
