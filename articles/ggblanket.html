@@ -96,22 +96,6 @@ Hodge</h4>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>ggblanket is a package of wrapper functions around the fantastic
-ggplot2 package.</p>
-<p>The primary objective is to <strong>simplify ggplot2
-visualisation</strong>.</p>
-<p>Secondary objectives relate to:</p>
-<ul>
-<li>Scope: cover the most useful 80% of what ggplot2 does</li>
-<li>Design: produce well-designed visualisation by default</li>
-<li>Alignment: use conventions generally aligned with ggplot2</li>
-</ul>
-<p>It is intended to be useful for all levels of experience from
-beginner to expert.</p>
-</div>
-<div class="section level2">
-<h2 id="how-it-works">How it works<a class="anchor" aria-label="anchor" href="#how-it-works"></a>
-</h2>
 <p>To simplify ggplot2 visualisation, the ggblanket package
 provides:</p>
 <ol style="list-style-type: decimal">
@@ -144,7 +128,8 @@ provides:</p>
 <code>ggplot(aes(...))</code> function with the applicable ggplot2
 <code>geom_*()</code> function. All aesthetics are placed directly in
 the <code>gg_*</code> function: they are not within a
-<code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes</a></code> function.</p>
+<code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes</a></code> function. See the <a href="https://davidhodge931.github.io/ggblanket/articles/functions_demo.html">Functions
+demo</a> article for an example of each of the functions available.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -498,19 +483,6 @@ or <code>fill = NA</code>), or fix it to single colour.</p>
 <p>See the <a href="https://davidhodge931.github.io/ggblanket/articles/extending_further.html">Extending
 further</a> article for further discussion and example code.</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="further-information">Further information<a class="anchor" aria-label="anchor" href="#further-information"></a>
-</h2>
-<p>See the <a href="https://davidhodge931.github.io/ggblanket/articles/functions_demo.html">Functions
-demo</a> article for an example of each of the functions available.</p>
-</div>
-<div class="section level2">
-<h2 id="thanks">Thanks!<a class="anchor" aria-label="anchor" href="#thanks"></a>
-</h2>
-<p>Thank you to all authors and contributors to ggplot2, tidyverse, and
-the wider R ecosystem. If you like ggblanket, please give the repository
-a star and help spread the word.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
