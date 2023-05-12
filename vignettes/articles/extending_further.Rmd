@@ -30,6 +30,8 @@ There is ability to:
 6. make plots with multiple geom layers
 7. create custom functions that wrap ggblanket functions
 
+This article will discuss these points further to help users understand how to extend ggblanket further.
+
 ```{r setup}
 library(dplyr)
 library(ggplot2)

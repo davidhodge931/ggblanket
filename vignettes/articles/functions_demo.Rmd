@@ -16,7 +16,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Functions demo
+## Overview
+
+ggblanket has over thirty `gg_*` wrapper functions. This article will provide a simple example of how each function works.
 
 ```{r setup}
 library(ggblanket)

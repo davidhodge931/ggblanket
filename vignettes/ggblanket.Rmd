@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-To simplify ggplot2 visualisation, the ggblanket package provides:
+To simplify ggplot2 visualisation, ggblanket provides:
 
 1. Over thirty gg_* wrapper functions
 2. A single col argument to colour and fill by a variable
@@ -38,6 +38,8 @@ To simplify ggplot2 visualisation, the ggblanket package provides:
 11. Access to other geom_* arguments via ...
 12. Able to be extended further
 
+This article will discuss these points further to help users understand how ggblanket works.
+
 ```{r setup}
 library(dplyr)
 library(ggplot2)
@@ -51,7 +53,7 @@ penguins <- penguins |>
 
 ### 1. Over thirty gg_* wrapper functions
 
-Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. See the [Functions demo](https://davidhodge931.github.io/ggblanket/articles/functions_demo.html) article for an example of each of the functions available.
+Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. 
 
 ```{r}
 penguins |> 
