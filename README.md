@@ -17,7 +17,7 @@ downloads](https://cranlogs.r-pkg.org/badges/last-week/ggblanket?color=lightgrey
 downloads](https://cranlogs.r-pkg.org/badges/last-day/ggblanket?color=lightgrey)](https://r-pkg.org/pkg/ggblanket)
 <!-- badges: end -->
 
-## Overview
+## Purpose
 
 ggblanket is a package of wrapper functions around the fantastic ggplot2
 package.
@@ -68,7 +68,7 @@ penguins |>
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" />
 
-## Website
+## Get started
 
 Click
 [here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html)
