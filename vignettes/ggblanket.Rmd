@@ -23,20 +23,6 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-ggblanket is a package of wrapper functions around the fantastic ggplot2 package.
-
-The primary objective is to **simplify ggplot2 visualisation**.
-
-Secondary objectives relate to:
-
-* Scope: cover the most useful 80% of what ggplot2 does
-* Design: produce well-designed visualisation by default
-* Alignment: use conventions generally aligned with ggplot2
-
-It is intended to be useful for all levels of experience from beginner to expert.
-
-## How it works
-
 To simplify ggplot2 visualisation, the ggblanket package provides:
 
 1. Over thirty gg_* wrapper functions
@@ -65,7 +51,7 @@ penguins <- penguins |>
 
 ### 1. Over thirty gg_* wrapper functions
 
-Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. 
+Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. See the [Functions demo](https://davidhodge931.github.io/ggblanket/articles/functions_demo.html) article for an example of each of the functions available.
 
 ```{r}
 penguins |> 
@@ -396,11 +382,3 @@ There is ability to:
 * create custom functions that wrap ggblanket functions
 
 See the [Extending further](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) article for further discussion and example code.
-
-## Further information
-
-See the [Functions demo](https://davidhodge931.github.io/ggblanket/articles/functions_demo.html) article for an example of each of the functions available.
-
-## Thanks!
-
-Thank you to all authors and contributors to ggplot2, tidyverse, and the wider R ecosystem. If you like ggblanket, please give the repository a star and help spread the word.

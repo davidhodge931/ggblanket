@@ -73,7 +73,7 @@ penguins |>
     col_labels = stringr::str_to_sentence)
 ```
 
-## Website
+## Get started
 
 Click [here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html) to get started learning how ggblanket works.
 
