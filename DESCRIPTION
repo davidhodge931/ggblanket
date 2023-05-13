@@ -36,6 +36,7 @@ Suggests:
     palmerpenguins,
     patchwork,
     RColorBrewer,
+    rmarkdown,
     sf,
     tibble
 VignetteBuilder: knitr
