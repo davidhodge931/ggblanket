@@ -30,14 +30,12 @@ Imports:
     tidyselect,
     viridis
 Suggests: 
-    colorspace,
-    ggdensity,
+    ggtext,
     hexbin,
     knitr,
     palmerpenguins,
-    pals,
     patchwork,
-    rmarkdown,
+    RColorBrewer,
     sf,
     tibble
 VignetteBuilder: knitr

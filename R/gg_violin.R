@@ -75,7 +75,7 @@
 #'     x = sex,
 #'     y = species,
 #'     col = flipper_length_mm,
-#'     pal = pals::brewer.blues(9),
+#'     pal = RColorBrewer::brewer.pal(9, "Blues"),
 #'     col_labels = stringr::str_to_sentence
 #'   )
 #'

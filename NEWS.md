@@ -1,7 +1,7 @@
 # ggblanket 1.8.9000
 
 * Added two more colours to default colour palette.
-* Updated vignette.
+* Updated vignette and articles.
 * Breaking: removed add_tooltip function.
 * Breaking: removed argument from pal_na_default.
 

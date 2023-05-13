@@ -79,7 +79,7 @@
 #'     col = mpg,
 #'     label = model,
 #'     y_include = c(min(.$mpg) * 0.95, max(.$mpg) * 1.05),
-#'     pal = pals::brewer.rdbu(9),
+#'     pal = RColorBrewer::brewer.pal(9, "RdBu"),
 #'     y_title = "Miles per gallon"
 #'   )
 #'
