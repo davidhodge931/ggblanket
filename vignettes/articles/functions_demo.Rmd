@@ -257,16 +257,16 @@ penguins |>
 
 ```{r}
 bind_rows(
-  mtcars %>% slice_min(order_by = mpg),
-  mtcars %>% slice_max(order_by = mpg)
-) %>%
-tibble::rownames_to_column(var = "model") %>%
+  mtcars |> slice_min(order_by = mpg),
+  mtcars |> slice_max(order_by = mpg)
+) |>
+tibble::rownames_to_column("model") |>
 gg_label(
   x = model,
   y = mpg,
   col = mpg,
   label = model,
-  y_include = c(min(.$mpg) * 0.95, max(.$mpg) * 1.05),
+  y_include = 0,
   pal = RColorBrewer::brewer.pal(9, "RdBu"),
   y_title = "Miles per gallon"
 )
@@ -507,16 +507,16 @@ economics |>
 
 ```{r}
 bind_rows(
-  mtcars %>% slice_min(order_by = mpg),
-  mtcars %>% slice_max(order_by = mpg)
-) %>%
-  tibble::rownames_to_column(var = "model") %>%
+  mtcars |> slice_min(order_by = mpg),
+  mtcars |> slice_max(order_by = mpg)
+) |>
+  tibble::rownames_to_column("model") |>
   gg_text(
     x = model,
     y = mpg,
     col = mpg,
     label = model,
-    y_include = c(min(.$mpg) * 0.95, max(.$mpg) * 1.05),
+    y_include = 0,
     pal = RColorBrewer::brewer.pal(9, "RdBu"),
     y_title = "Miles per gallon"
   )
