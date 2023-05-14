@@ -349,16 +349,16 @@ article will demonstrate each of these.</p>
 </h3>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span></span>
-<span>  <span class="va">mtcars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span>,</span>
-<span>  <span class="va">mtcars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span>var <span class="op">=</span> <span class="st">"model"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="va">mtcars</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span>,</span>
+<span>  <span class="va">mtcars</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"model"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span><span class="fu"><a href="../reference/gg_label.html">gg_label</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">model</span>,</span>
 <span>  y <span class="op">=</span> <span class="va">mpg</span>,</span>
 <span>  col <span class="op">=</span> <span class="va">mpg</span>,</span>
 <span>  label <span class="op">=</span> <span class="va">model</span>,</span>
-<span>  y_include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.95</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1.05</span><span class="op">)</span>,</span>
+<span>  y_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  pal <span class="op">=</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">9</span>, <span class="st">"RdBu"</span><span class="op">)</span>,</span>
 <span>  y_title <span class="op">=</span> <span class="st">"Miles per gallon"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -613,16 +613,16 @@ article will demonstrate each of these.</p>
 </h3>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span></span>
-<span>  <span class="va">mtcars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span>,</span>
-<span>  <span class="va">mtcars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span>var <span class="op">=</span> <span class="st">"model"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="va">mtcars</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span>,</span>
+<span>  <span class="va">mtcars</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"model"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_text.html">gg_text</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">model</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">mpg</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">mpg</span>,</span>
 <span>    label <span class="op">=</span> <span class="va">model</span>,</span>
-<span>    y_include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.95</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1.05</span><span class="op">)</span>,</span>
+<span>    y_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    pal <span class="op">=</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">9</span>, <span class="st">"RdBu"</span><span class="op">)</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Miles per gallon"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
