@@ -380,6 +380,5 @@ To extend ggblanket further, users can:
 * Use other non-supported arguments within ggplot2 layers
 * Make plots with multiple geom layers
 * create custom functions that wrap ggblanket functions
-* Understand ggblanket uses scales::oob_keep by default
 
 See the [Extending further](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) article for further discussion and example code.

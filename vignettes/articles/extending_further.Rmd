@@ -27,7 +27,6 @@ To extend ggblanket further, users can:
 5. Use non-supported arguments within ggplot2 layers
 6. Make plots with multiple geom layers
 7. Create custom functions that wrap ggblanket functions
-8. Understand ggblanket uses scales::oob_keep by default
 
 ```{r setup}
 library(dplyr)
@@ -246,56 +245,5 @@ penguins |>
     y = body_mass_g,
     col = sex,
     position = position_jitter())
-```
-
-### 8. Understand ggblanket uses scales::oob_keep by default
-
-A key difference between ggplot2 and ggblanket alignment is the out-of-bound (oob) default used for continuous scales. ggblanket uses `scales::oob_keep`, whereas ggplot2 uses `scales::oob_censor`. Both use the default `coord_cartesian` function with the default `clip = "on"`, which clips anything that is out-of-bounds. Subsequently, plots where limits are set and the stat is _not_ identity may differ between ggblanket and ggplot2 - unless ggblanket defaults are changed to align with ggplot2 or vice versa (e.g. `*_oob = scales::oob_censor`). This ggblanket design decision was made to support the pretty defaults for symmetry that are discussed in the [Getting Started](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html) article. 
-
-```{r}
-economics |> 
-  ggplot() +
-  geom_smooth(aes(x = date, y = unemploy)) 
-```
-
-```{r}
-economics |> 
-  gg_smooth(
-    x = date, 
-    y = unemploy)
-```
-```{r}
-economics |> 
-  ggplot() +
-  geom_smooth(aes(x = date, y = unemploy)) +
-  scale_x_date(limits = c(lubridate::ymd("1985-01-01", "1995-01-01"))) 
-```
-
-```{r}
-economics |> 
-  gg_smooth(
-    x = date, 
-    y = unemploy, 
-    x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
-    x_oob = scales::oob_censor) 
-```
-
-
-```{r}
-economics |> 
-  ggplot() +
-  geom_smooth(aes(x = date, y = unemploy)) +
-  scale_x_date(
-    limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
-    oob = scales::oob_keep) +
-  geom_hline(yintercept = c(7000, 9000), linetype = 3)
-```
-
-```{r}
-economics |> 
-  gg_smooth(
-    x = date, 
-    y = unemploy, 
-    x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01"))) 
 ```
 

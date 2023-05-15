@@ -1,5 +1,8 @@
 # ggblanket 1.8.9000
 
+* Breaking: changed default *oob agument to scales::oob_censor.
+* Breaking: changed default coord agument to clip = "off"
+
 * Fixed bug where limits were not being calculated correctly where stat not equal to identity and limits were manually set.
 * Added two more colours to default colour palette.
 * Updated vignette and articles.
