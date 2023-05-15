@@ -96,16 +96,16 @@ Hodge</h4>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>ggblanket is able to be extended further.</p>
-<p>There is ability to:</p>
+<p>To extend ggblanket further, users can:</p>
 <ol style="list-style-type: decimal">
-<li>join plots together using the patchwork package</li>
-<li>make plots that use the ggtext package</li>
-<li>make plots with other non-supported geoms</li>
-<li>make plots with other non-supported aesthetics</li>
-<li>use other non-supported arguments within ggplot2 layers</li>
-<li>make plots with multiple geom layers</li>
-<li>create custom functions that wrap ggblanket functions</li>
+<li>Join plots together using the patchwork package</li>
+<li>Make plots that use the ggtext package</li>
+<li>Make plots with non-supported geoms</li>
+<li>Make plots with non-supported aesthetics</li>
+<li>Use non-supported arguments within ggplot2 layers</li>
+<li>Make plots with multiple geom layers</li>
+<li>Create custom functions that wrap ggblanket functions</li>
+<li>Understand ggblanket uses scales::oob_keep by default</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -118,7 +118,7 @@ Hodge</h4>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>sex <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
-<h3 id="join-plots-together-using-the-patchwork-package">1. join plots together using the patchwork package<a class="anchor" aria-label="anchor" href="#join-plots-together-using-the-patchwork-package"></a>
+<h3 id="join-plots-together-using-the-patchwork-package">1. Join plots together using the patchwork package<a class="anchor" aria-label="anchor" href="#join-plots-together-using-the-patchwork-package"></a>
 </h3>
 <p>The fantastic patchwork package can be used to patch plots
 together.</p>
@@ -144,7 +144,7 @@ together.</p>
 <p><img src="extending_further_files/figure-html/unnamed-chunk-2-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="make-plots-that-use-the-ggtext-package">2. make plots that use the ggtext package<a class="anchor" aria-label="anchor" href="#make-plots-that-use-the-ggtext-package"></a>
+<h3 id="make-plots-that-use-the-ggtext-package">2. Make plots that use the ggtext package<a class="anchor" aria-label="anchor" href="#make-plots-that-use-the-ggtext-package"></a>
 </h3>
 <p>You can modify plot text using the ggtext package. For titles, it’s
 important to make the theme have a plain title first before adding a
@@ -161,10 +161,10 @@ theme layer to state that the title is in markdown.</p>
 <p><img src="extending_further_files/figure-html/unnamed-chunk-3-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="make-plots-with-other-non-supported-geoms">3. make plots with other non-supported geoms<a class="anchor" aria-label="anchor" href="#make-plots-with-other-non-supported-geoms"></a>
+<h3 id="make-plots-with-non-supported-geoms">3. Make plots with non-supported geoms<a class="anchor" aria-label="anchor" href="#make-plots-with-non-supported-geoms"></a>
 </h3>
-<p>There are lots of other non-supported geoms in ggplot2 and other
-extension packages that can be used in combination with ggblanket.</p>
+<p>There are lots of non-supported geoms in ggplot2 and other extension
+packages that can be used in combination with ggblanket.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Species <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -180,7 +180,7 @@ extension packages that can be used in combination with ggblanket.</p>
 <p><img src="extending_further_files/figure-html/unnamed-chunk-4-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="make-plots-with-other-non-supported-aesthetics">4. make plots with other non-supported aesthetics<a class="anchor" aria-label="anchor" href="#make-plots-with-other-non-supported-aesthetics"></a>
+<h3 id="make-plots-with-non-supported-aesthetics">4. Make plots with non-supported aesthetics<a class="anchor" aria-label="anchor" href="#make-plots-with-non-supported-aesthetics"></a>
 </h3>
 <p>While aesthetics other than col/fill are not supported by ggblanket,
 it is possible to access these in plots made with a combination of
@@ -231,7 +231,7 @@ it is possible to access these in plots made with a combination of
 <p><img src="extending_further_files/figure-html/unnamed-chunk-8-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="use-non-supported-arguments-within-ggplot2-layers">5. use non-supported arguments within ggplot2 layers<a class="anchor" aria-label="anchor" href="#use-non-supported-arguments-within-ggplot2-layers"></a>
+<h3 id="use-non-supported-arguments-within-ggplot2-layers">5. Use non-supported arguments within ggplot2 layers<a class="anchor" aria-label="anchor" href="#use-non-supported-arguments-within-ggplot2-layers"></a>
 </h3>
 <p>The switch argument within facet_grid is not supported within
 ggblanket. As the <code>...</code> relates to the <code>geom_*</code>
@@ -253,7 +253,7 @@ to <code>+</code> the <code>facet_grid(..., switch = "y")</code> in.</p>
 <p><img src="extending_further_files/figure-html/unnamed-chunk-9-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="make-plots-with-multiple-geom-layers">6. make plots with multiple geom layers<a class="anchor" aria-label="anchor" href="#make-plots-with-multiple-geom-layers"></a>
+<h3 id="make-plots-with-multiple-geom-layers">6. Make plots with multiple geom layers<a class="anchor" aria-label="anchor" href="#make-plots-with-multiple-geom-layers"></a>
 </h3>
 <p>The <code>gg_*</code> function puts the aesthetics within the wrapped
 <code>ggplot</code> function. Therefore, the aesthetics will inherit to
@@ -261,7 +261,9 @@ any subsequent geom’s added by default. Geom’s will plot in order. The
 <code>gg_*</code> function will plot the associated geom as the first
 layer, and then other geoms will be plotted on top of it. Note the
 <code>pal</code> also inherits to subsequent <code>geom_*</code> layers,
-but <code>alpha</code> does not.</p>
+but <code>alpha</code> does not. Use the <code>*_include</code>
+arguments as necessary to ensure the min and max of all layers are
+included in your numeric scales.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_boxplot.html">gg_boxplot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>,</span>
@@ -301,7 +303,7 @@ instead.</p>
 <p><img src="extending_further_files/figure-html/unnamed-chunk-11-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="create-custom-functions-that-wrap-ggblanket-functions">7. create custom functions that wrap ggblanket functions<a class="anchor" aria-label="anchor" href="#create-custom-functions-that-wrap-ggblanket-functions"></a>
+<h3 id="create-custom-functions-that-wrap-ggblanket-functions">7. Create custom functions that wrap ggblanket functions<a class="anchor" aria-label="anchor" href="#create-custom-functions-that-wrap-ggblanket-functions"></a>
 </h3>
 <p>You can easily create powerful custom functions. This is because the
 <code>...</code> argument can allow you to access <em>all</em> arguments
@@ -340,6 +342,50 @@ within the ggblanket <code>gg_*</code> function (and applicable
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html" class="external-link">position_jitter</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending_further_files/figure-html/unnamed-chunk-13-1.png" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="understand-ggblanket-uses-scalesoob_keep-by-default">8. Understand ggblanket uses scales::oob_keep by default<a class="anchor" aria-label="anchor" href="#understand-ggblanket-uses-scalesoob_keep-by-default"></a>
+</h3>
+<p>A key difference between ggplot2 and ggblanket alignment is the
+out-of-bound (oob) default used for continuous scales. ggblanket uses
+<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>, whereas ggplot2 uses
+<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_censor</a></code>. Both use the default
+<code>coord_cartesian</code> function with the default
+<code>clip = "on"</code>, which clips anything that is out-of-bounds.
+Subsequently, plots where limits are set and the stat is <em>not</em>
+identity may differ between ggblanket and ggplot2 - unless ggblanket
+defaults are changed to align with ggplot2 or vice versa
+(e.g. <code>*_oob = scales::oob_censor</code>). This ggblanket design
+decision was made to support the pretty defaults for symmetry that are
+discussed in the <a href="https://davidhodge931.github.io/ggblanket/articles/ggblanket.html">Getting
+Started</a> article.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">economics</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">unemploy</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-14-1.png" width="70%"></p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">economics</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">date</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">unemploy</span><span class="op">)</span></span></code></pre></div>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-15-1.png" width="70%"></p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">economics</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">unemploy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html" class="external-link">scale_x_date</a></span><span class="op">(</span></span>
+<span>    limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"1985-01-01"</span>, <span class="st">"1995-01-01"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7000</span>, <span class="fl">9000</span><span class="op">)</span>, linetype <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-16-1.png" width="70%"></p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">economics</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">date</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">unemploy</span>, </span>
+<span>    x_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"1985-01-01"</span>, <span class="st">"1995-01-01"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-17-1.png" width="70%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
