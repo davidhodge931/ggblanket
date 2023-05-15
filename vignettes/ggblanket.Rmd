@@ -130,7 +130,7 @@ penguins |>
     x = species, 
     y = body_mass_g, 
     col = sex, 
-    pal = c("#1B9E77", "#9E361B"))
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### 4. A facet argument to facet by a variable
@@ -249,7 +249,7 @@ penguins |>
            y = body_mass_g,
            col = sex,
            facet = species, 
-           pal = c("#1B9E77", "#9E361B"), 
+           pal = c("#2596be", "#fc7c24"), 
            theme = theme_grey())
 ```
 
@@ -259,7 +259,7 @@ penguins |>
            y = body_mass_g,
            col = sex,
            facet = species, 
-           pal = c("#1B9E77", "#9E361B")) +
+           pal = c("#2596be", "#fc7c24")) +
   theme_grey()
 ```
 
@@ -371,14 +371,15 @@ penguins |>
 
 ### 12. Able to be extended further
 
-There is ability to:
+To extend ggblanket further, users can:
 
-* join plots together using the patchwork package
-* make plots that use the ggtext package
-* make plots with other non-supported geoms
-* make plots with other non-supported aesthetics
-* use other non-supported arguments within ggplot2 layers
-* make plots with multiple geom layers
+* Join plots together using the patchwork package
+* Make plots that use the ggtext package
+* Make plots with other non-supported geoms
+* Make plots with other non-supported aesthetics
+* Use other non-supported arguments within ggplot2 layers
+* Make plots with multiple geom layers
 * create custom functions that wrap ggblanket functions
+* Understand ggblanket uses scales::oob_keep by default
 
 See the [Extending further](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) article for further discussion and example code.

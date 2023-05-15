@@ -51,7 +51,7 @@ penguins |>
     facet = species,
     width = 0.75,
     x_labels = stringr::str_to_sentence,
-    pal = c("#1B9E77", "#9E361B")
+    pal = c("#2596be", "#fc7c24")
   )
 ```
 
@@ -76,7 +76,7 @@ penguins |>
     col = sex,
     facet = species,
     col_labels = stringr::str_to_sentence,
-    pal = c("#1B9E77", "#9E361B"),
+    pal = c("#2596be", "#fc7c24"),
     y_include = 0
   )
 ```
@@ -91,7 +91,7 @@ penguins |>
     col = sex,
     facet = species,
     x_labels = snakecase::to_sentence_case,
-    pal = c("#1B9E77", "#9E361B")
+    pal = c("#2596be", "#fc7c24")
   )
 ```
 
@@ -109,7 +109,7 @@ penguins |>
     width = 0.75,
     y_labels = stringr::str_to_sentence,
     position = "dodge",
-    pal = c("#1B9E77", "#9E361B"),
+    pal = c("#2596be", "#fc7c24"),
     col_labels = stringr::str_to_sentence
   )
 ```
@@ -133,7 +133,7 @@ data.frame(
     width = 0.5,
     x_title = "Treatment",
     y_title = "Response",
-    pal = c("#1B9E77", "#9E361B")
+    pal = c("#2596be", "#fc7c24")
   )
 ```
 
@@ -146,7 +146,7 @@ penguins |>
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    pal = c("#1B9E77", "#9E361B"),
+    pal = c("#2596be", "#fc7c24"),
     col_labels = stringr::str_to_sentence
   )
 ```
@@ -167,7 +167,7 @@ data.frame(
     ymax = upper,
     col = group,
     width = 0.1,
-    pal = c("#1B9E77", "#9E361B"),
+    pal = c("#2596be", "#fc7c24"),
     x_title = "Treatment",
     y_title = "Response"
   )
@@ -182,7 +182,7 @@ penguins |>
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    pal = c("#1B9E77", "#9E361B"),
+    pal = c("#2596be", "#fc7c24"),
     col_labels = stringr::str_to_sentence
   )
 ```
@@ -220,7 +220,7 @@ penguins |>
     col = sex,
     facet = species,
     bins = 50,
-    pal = c("#1B9E77", "#9E361B"),
+    pal = c("#2596be", "#fc7c24"),
     col_labels = stringr::str_to_sentence
   )
 ```
@@ -234,7 +234,7 @@ penguins |>
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    pal = c("#1B9E77", "#9E361B"),
+    pal = c("#2596be", "#fc7c24"),
     col_labels = stringr::str_to_sentence
   )
 ```
@@ -330,7 +330,7 @@ penguins |>
     col = sex,
     facet = species,
     col_labels = stringr::str_to_sentence,
-    pal = c("#1B9E77", "#9E361B")
+    pal = c("#2596be", "#fc7c24")
   )
 ```
 
@@ -352,7 +352,7 @@ gg_pointrange(
   ymax = upper,
   position = position_dodge(width = 0.2),
   size = 0.2,
-  pal = c("#1B9E77", "#9E361B"),
+  pal = c("#2596be", "#fc7c24"),
   x_title = "Treatment",
   y_title = "Response"
 )
@@ -548,6 +548,6 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    pal = c("#1B9E77", "#9E361B")
+    pal = c("#2596be", "#fc7c24")
   )
 ```

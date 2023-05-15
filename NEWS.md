@@ -1,5 +1,6 @@
 # ggblanket 1.8.9000
 
+* Fixed bug where limits were not being calculated correctly where stat not equal to identity and limits were manually set.
 * Added two more colours to default colour palette.
 * Updated vignette and articles.
 * Breaking: removed add_tooltip function.

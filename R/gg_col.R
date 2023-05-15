@@ -483,7 +483,7 @@ gg_col <- function(
     }
   }
 
-  if (stat %in% c("bin", "bin2d", "bin_2d", "binhex")) {
+  if (stat != "identity") {
     if (!x_null) {
       if (!rlang::is_null(x_include)) {
         plot <- plot +
