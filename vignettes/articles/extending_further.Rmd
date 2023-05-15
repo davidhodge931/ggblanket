@@ -264,6 +264,22 @@ economics |>
     x = date, 
     y = unemploy)
 ```
+```{r}
+economics |> 
+  ggplot() +
+  geom_smooth(aes(x = date, y = unemploy)) +
+  scale_x_date(limits = c(lubridate::ymd("1985-01-01", "1995-01-01"))) 
+```
+
+```{r}
+economics |> 
+  gg_smooth(
+    x = date, 
+    y = unemploy, 
+    x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
+    x_oob = scales::oob_censor) 
+```
+
 
 ```{r}
 economics |> 
