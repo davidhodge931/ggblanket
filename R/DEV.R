@@ -628,12 +628,11 @@ gg_point2 <- function(
             dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !is.na(x)))
 
           if (!y_forcat) {
-
             x_vctr <- x_vctr %>%
               dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), \(x) !is.na(x)))
 
             if (!rlang::is_null(y_limits)) {
-              if (y_trans != "reverse") {
+              if (y_trans == "identity") {
                 if (!is.na(y_limits[1])) {
                   x_vctr <- x_vctr %>%
                     dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), \(x) x >= y_limits[1]))
@@ -853,7 +852,7 @@ gg_point2 <- function(
               dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !is.na(x)))
 
             if (!rlang::is_null(x_limits)) {
-              if (x_trans != "reverse") {
+              if (x_trans == "identity") {
                 if (!is.na(x_limits)[1]) {
                   y_vctr <- y_vctr %>%
                     dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) x >= x_limits[1]))
@@ -927,6 +926,7 @@ gg_point2 <- function(
             else if (y_trans == "reverse") {
               y_breaks <- sort(scales::breaks_pretty(n = y_breaks_n)(y_range), decreasing = TRUE)
             }
+            else y_breaks <- ggplot2::waiver()
 
             if (flipped) y_limits <- NULL
             else {
@@ -951,7 +951,9 @@ gg_point2 <- function(
             }
             if (y_trans == "reverse") y_limits <- sort(y_limits, decreasing = TRUE)
           }
-          else y_limits <- y_range
+          else {
+            y_limits <- NULL
+          }
         }
         else if (!rlang::is_null(y_limits) & rlang::is_null(y_breaks)) {
           if (y_time | y_datetime) y_breaks <- ggplot2::waiver()
