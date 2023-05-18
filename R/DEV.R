@@ -493,104 +493,106 @@ gg_point2 <- function(
   }
 
   #Prepare the scales, so that layer_data can be extracted
-  if (!rlang::is_null(x_limits)) {
-    if (x_numeric) {
-      plot <- plot +
-        ggplot2::scale_x_continuous(limits = x_limits, trans = x_trans, oob = x_oob)
+  if (stat != "sf") {
+    if (!rlang::is_null(x_limits)) {
+      if (x_numeric) {
+        plot <- plot +
+          ggplot2::scale_x_continuous(limits = x_limits, trans = x_trans, oob = x_oob)
+      }
+      else if (x_date) {
+        plot <- plot +
+          ggplot2::scale_x_date(limits = x_limits, oob = x_oob)
+      }
+      else if (x_datetime) {
+        plot <- plot +
+          ggplot2::scale_x_datetime(limits = x_limits, oob = x_oob)
+      }
+      else if (x_time) {
+        plot <- plot +
+          ggplot2::scale_x_time(limits = x_limits, oob = x_oob)
+      }
+      else if (x_forcat) {
+        plot <- plot +
+          ggplot2::scale_x_discrete(drop = FALSE)
+      }
     }
-    else if (x_date) {
-      plot <- plot +
-        ggplot2::scale_x_date(limits = x_limits, oob = x_oob)
+    else {
+      if (x_numeric) {
+        plot <- plot +
+          ggplot2::scale_x_continuous(trans = x_trans, oob = x_oob)
+      }
+      else if (x_date) {
+        plot <- plot +
+          ggplot2::scale_x_date(oob = x_oob)
+      }
+      else if (x_datetime) {
+        plot <- plot +
+          ggplot2::scale_x_datetime(oob = x_oob)
+      }
+      else if (x_time) {
+        plot <- plot +
+          ggplot2::scale_x_time(oob = x_oob)
+      }
+      else if (x_forcat) {
+        plot <- plot +
+          ggplot2::scale_x_discrete(drop = FALSE)
+      }
     }
-    else if (x_datetime) {
-      plot <- plot +
-        ggplot2::scale_x_datetime(limits = x_limits, oob = x_oob)
-    }
-    else if (x_time) {
-      plot <- plot +
-        ggplot2::scale_x_time(limits = x_limits, oob = x_oob)
-    }
-    else if (x_forcat) {
-      plot <- plot +
-        ggplot2::scale_x_discrete(drop = FALSE)
-    }
-  }
-  else {
-    if (x_numeric) {
-      plot <- plot +
-        ggplot2::scale_x_continuous(trans = x_trans, oob = x_oob)
-    }
-    else if (x_date) {
-      plot <- plot +
-        ggplot2::scale_x_date(oob = x_oob)
-    }
-    else if (x_datetime) {
-      plot <- plot +
-        ggplot2::scale_x_datetime(oob = x_oob)
-    }
-    else if (x_time) {
-      plot <- plot +
-        ggplot2::scale_x_time(oob = x_oob)
-    }
-    else if (x_forcat) {
-      plot <- plot +
-        ggplot2::scale_x_discrete(drop = FALSE)
-    }
-  }
 
-  if (!rlang::is_null(x_include)) {
-    plot <- plot +
-      ggplot2::expand_limits(x = x_include)
-  }
+    if (!rlang::is_null(x_include)) {
+      plot <- plot +
+        ggplot2::expand_limits(x = x_include)
+    }
 
-  if (!rlang::is_null(y_limits)) {
-    if (y_numeric) {
-      plot <- plot +
-        ggplot2::scale_y_continuous(limits = y_limits, trans = y_trans, oob = y_oob)
+    if (!rlang::is_null(y_limits)) {
+      if (y_numeric) {
+        plot <- plot +
+          ggplot2::scale_y_continuous(limits = y_limits, trans = y_trans, oob = y_oob)
+      }
+      else if (y_date) {
+        plot <- plot +
+          ggplot2::scale_y_date(limits = y_limits, oob = y_oob)
+      }
+      else if (y_datetime) {
+        plot <- plot +
+          ggplot2::scale_y_datetime(limits = y_limits, oob = y_oob)
+      }
+      else if (y_time) {
+        plot <- plot +
+          ggplot2::scale_y_time(limits = y_limits, oob = y_oob)
+      }
+      else if (y_forcat) {
+        plot <- plot +
+          ggplot2::scale_y_discrete(drop = FALSE)
+      }
     }
-    else if (y_date) {
-      plot <- plot +
-        ggplot2::scale_y_date(limits = y_limits, oob = y_oob)
+    else {
+      if (y_numeric) {
+        plot <- plot +
+          ggplot2::scale_y_continuous(trans = y_trans, oob = y_oob)
+      }
+      else if (y_date) {
+        plot <- plot +
+          ggplot2::scale_y_date(oob = y_oob)
+      }
+      else if (y_datetime) {
+        plot <- plot +
+          ggplot2::scale_y_datetime(oob = y_oob)
+      }
+      else if (y_time) {
+        plot <- plot +
+          ggplot2::scale_y_time(oob = y_oob)
+      }
+      else if (y_forcat) {
+        plot <- plot +
+          ggplot2::scale_y_discrete(drop = FALSE)
+      }
     }
-    else if (y_datetime) {
-      plot <- plot +
-        ggplot2::scale_y_datetime(limits = y_limits, oob = y_oob)
-    }
-    else if (y_time) {
-      plot <- plot +
-        ggplot2::scale_y_time(limits = y_limits, oob = y_oob)
-    }
-    else if (y_forcat) {
-      plot <- plot +
-        ggplot2::scale_y_discrete(drop = FALSE)
-    }
-  }
-  else {
-    if (y_numeric) {
-      plot <- plot +
-        ggplot2::scale_y_continuous(trans = y_trans, oob = y_oob)
-    }
-    else if (y_date) {
-      plot <- plot +
-        ggplot2::scale_y_date(oob = y_oob)
-    }
-    else if (y_datetime) {
-      plot <- plot +
-        ggplot2::scale_y_datetime(oob = y_oob)
-    }
-    else if (y_time) {
-      plot <- plot +
-        ggplot2::scale_y_time(oob = y_oob)
-    }
-    else if (y_forcat) {
-      plot <- plot +
-        ggplot2::scale_y_discrete(drop = FALSE)
-    }
-  }
 
-  if (!rlang::is_null(y_include)) {
-    plot <- plot +
-      ggplot2::expand_limits(y = y_include)
+    if (!rlang::is_null(y_include)) {
+      plot <- plot +
+        ggplot2::expand_limits(y = y_include)
+    }
   }
 
   #Get layer data for x, y and col scales
