@@ -756,7 +756,27 @@ gg_point2 <- function(
             else if (!facet_null & facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
 
-            x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+            if (any(is.na(x_limits))) {
+              if (is.na(x_limits)[1] & x_trans != "reverse") {
+                x_limits2 <- c(min(x_range, x_include), x_limits[2])
+              }
+              else if (is.na(x_limits)[1] & x_trans == "reverse") {
+                x_limits2 <- c(max(x_range, x_include), x_limits[2])
+              }
+
+              if (is.na(x_limits)[2] & x_trans != "reverse") {
+                x_limits2 <- c(x_limits[1], max(x_range, x_include))
+              }
+              else if (is.na(x_limits)[2] & x_trans == "reverse") {
+                x_limits2 <- c(x_limits[2], min(x_range, x_include))
+              }
+
+              x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits2)
+            }
+            else {
+              x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+            }
+
             if(x_trans == "reverse") x_breaks <- sort(x_breaks, decreasing = TRUE)
           }
         }
@@ -970,7 +990,28 @@ gg_point2 <- function(
             else if (facet_null & !facet2_null) y_breaks_n <- 4
             else y_breaks_n <- 6
 
-            y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+
+            if (any(is.na(y_limits))) {
+              if (is.na(y_limits)[1] & y_trans != "reverse") {
+                y_limits2 <- c(min(y_range, y_include), y_limits[2])
+              }
+              else if (is.na(y_limits)[1] & y_trans == "reverse") {
+                y_limits2 <- c(max(y_range, y_include), y_limits[2])
+              }
+
+              if (is.na(y_limits)[2] & y_trans != "reverse") {
+                y_limits2 <- c(y_limits[1], max(y_range, y_include))
+              }
+              else if (is.na(y_limits)[2] & y_trans == "reverse") {
+                y_limits2 <- c(y_limits[2], min(y_range, y_include))
+              }
+
+              y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits2)
+            }
+            else {
+              y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+            }
+
             if (y_trans == "reverse") y_breaks <- sort(y_breaks, decreasing = TRUE)
           }
         }
