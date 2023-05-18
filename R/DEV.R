@@ -715,18 +715,16 @@ gg_point2 <- function(
             else if (!facet_null & facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
 
-            x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
-            if(x_trans == "reverse") x_breaks <- sort(x_breaks, decreasing = TRUE)
-
             if (flipped) {
+              x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+              if(x_trans == "reverse") x_breaks <- sort(x_breaks, decreasing = TRUE)
+
               x_limits <- range(x_breaks)
               if (x_trans == "reverse") x_limits <- sort(x_limits, decreasing = TRUE)
             }
-            else if (y_date | y_datetime | y_time | y_numeric | y_null) {
-              x_limits <- NULL
-            }
-            else if (y_forcat) {
-              x_limits <- range(x_breaks)
+            else if (y_numeric | y_null | y_date | y_datetime | y_time) {
+              x_breaks <- scales::breaks_pretty(n = x_breaks_n)
+              x_limits <- x_range
             }
           }
         }
@@ -745,7 +743,7 @@ gg_point2 <- function(
             if (x_trans == "reverse") x_limits <- sort(x_limits, decreasing = TRUE)
           }
           else if (y_date | y_datetime | y_time | y_numeric | y_null) {
-            x_limits <- NULL
+            x_limits <- x_range
           }
         }
         else if (!rlang::is_null(x_limits) & rlang::is_null(x_breaks)) {
@@ -782,7 +780,6 @@ gg_point2 <- function(
         }
       }
       else if (facet_scales %in% c("free", "free_x")) {
-        x_limits <- NULL
         if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
       }
 
@@ -877,7 +874,6 @@ gg_point2 <- function(
             dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), \(x) !is.na(x)))
 
           if (!x_forcat) {
-
             y_vctr <- y_vctr %>%
               dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !is.na(x)))
 
