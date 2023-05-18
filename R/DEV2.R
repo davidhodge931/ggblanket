@@ -1,6 +1,6 @@
 #' @title Point ggplot
 #'
-#' @description Create a point ggplot with a wrapper around the ggplot2::geom_point function.
+#' @description Create a point ggplot with a wrapper around the ggplot2::geom_col function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
@@ -14,7 +14,7 @@
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
-#' @param ... Other arguments passed to the ggplot2::geom_point function.
+#' @param ... Other arguments passed to the ggplot2::geom_col function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -68,7 +68,7 @@
 #' library(palmerpenguins)
 #'
 #' penguins %>%
-#'   gg_point2(
+#'   gg_col2(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = sex,
@@ -77,7 +77,7 @@
 #'     pal = c("#1B9E77", "#9E361B")
 #'   )
 #'
-gg_point2 <- function(
+gg_col2 <- function(
     data = NULL,
     x = NULL,
     y = NULL,
@@ -86,7 +86,7 @@ gg_point2 <- function(
     facet2 = NULL,
     group = NULL,
     stat = "identity",
-    position = "identity",
+    position = "stack",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
     pal_na = "#88837D",
@@ -398,7 +398,7 @@ gg_point2 <- function(
     else pal <- as.vector(pal[1])
 
     plot <- plot +
-      ggplot2::geom_point(
+      ggplot2::geom_col(
         stat = stat,
         position = position,
         alpha = alpha,
@@ -409,7 +409,7 @@ gg_point2 <- function(
   }
   else {
     plot <- plot +
-      ggplot2::geom_point(
+      ggplot2::geom_col(
         stat = stat,
         position = position,
         alpha = alpha,
