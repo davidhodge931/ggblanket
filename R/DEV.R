@@ -613,6 +613,7 @@ gg_point2 <- function(
           expand = x_expand,
           labels = x_labels,
           breaks = x_breaks,
+          limits = x_limits,
           drop = FALSE
         )
     }
