@@ -494,13 +494,6 @@ gg_point2 <- function(
 
   #Prepare the scales, so that layer_data can be extracted
   if (!rlang::is_null(x_limits)) {
-    if (!x_forcat) {
-      if (!rlang::is_null(x_include)) {
-        if (x_trans != "reverse") x_limits <- range(x_limits, x_include)
-        if (x_trans == "reverse") x_limits <- sort(range(x_limits, x_include), decreasing = TRUE)
-      }
-    }
-
     if (x_numeric) {
       plot <- plot +
         ggplot2::scale_x_continuous(limits = x_limits, trans = x_trans, oob = x_oob)
@@ -551,13 +544,6 @@ gg_point2 <- function(
   }
 
   if (!rlang::is_null(y_limits)) {
-    if (!y_forcat) {
-      if (!rlang::is_null(y_include)) {
-        if (y_trans != "reverse") y_limits <- range(y_limits, y_include)
-        if (y_trans == "reverse") y_limits <- sort(range(y_limits, y_include), decreasing = TRUE)
-      }
-    }
-
     if (y_numeric) {
       plot <- plot +
         ggplot2::scale_y_continuous(limits = y_limits, trans = y_trans, oob = y_oob)
@@ -723,7 +709,7 @@ gg_point2 <- function(
               if (x_trans == "reverse") x_limits <- sort(x_limits, decreasing = TRUE)
             }
             else if (y_numeric | y_null | y_date | y_datetime | y_time) {
-              x_breaks <- scales::breaks_pretty(n = x_breaks_n)
+              x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
               x_limits <- x_range
             }
           }
@@ -755,19 +741,8 @@ gg_point2 <- function(
             else x_breaks_n <- 6
 
             if (any(is.na(x_limits))) {
-              if (is.na(x_limits)[1] & x_trans != "reverse") {
-                x_limits2 <- c(min(x_range, x_include), x_limits[2])
-              }
-              else if (is.na(x_limits)[1] & x_trans == "reverse") {
-                x_limits2 <- c(max(x_range, x_include), x_limits[2])
-              }
-
-              if (is.na(x_limits)[2] & x_trans != "reverse") {
-                x_limits2 <- c(x_limits[1], max(x_range, x_include))
-              }
-              else if (is.na(x_limits)[2] & x_trans == "reverse") {
-                x_limits2 <- c(x_limits[2], min(x_range, x_include))
-              }
+              x_limits2 <- range(x_limits[!is.na(x_limits)], x_range)
+              if (x_trans == "reverse") x_limits2 <- sort(x_limits2, decreasing = TRUE)
 
               x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits2)
             }
@@ -775,7 +750,7 @@ gg_point2 <- function(
               x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
             }
 
-            if(x_trans == "reverse") x_breaks <- sort(x_breaks, decreasing = TRUE)
+            if (x_trans == "reverse") x_breaks <- sort(x_breaks, decreasing = TRUE)
           }
         }
       }
@@ -976,7 +951,7 @@ gg_point2 <- function(
             }
             if (y_trans == "reverse") y_limits <- sort(y_limits, decreasing = TRUE)
           }
-          else y_limits <- NULL
+          else y_limits <- y_range
         }
         else if (!rlang::is_null(y_limits) & rlang::is_null(y_breaks)) {
           if (y_time | y_datetime) y_breaks <- ggplot2::waiver()
@@ -986,21 +961,9 @@ gg_point2 <- function(
             else if (facet_null & !facet2_null) y_breaks_n <- 4
             else y_breaks_n <- 6
 
-
             if (any(is.na(y_limits))) {
-              if (is.na(y_limits)[1] & y_trans != "reverse") {
-                y_limits2 <- c(min(y_range, y_include), y_limits[2])
-              }
-              else if (is.na(y_limits)[1] & y_trans == "reverse") {
-                y_limits2 <- c(max(y_range, y_include), y_limits[2])
-              }
-
-              if (is.na(y_limits)[2] & y_trans != "reverse") {
-                y_limits2 <- c(y_limits[1], max(y_range, y_include))
-              }
-              else if (is.na(y_limits)[2] & y_trans == "reverse") {
-                y_limits2 <- c(y_limits[2], min(y_range, y_include))
-              }
+              y_limits2 <- range(y_limits[!is.na(y_limits)], y_range)
+              if (y_trans == "reverse") y_limits2 <- sort(y_limits2, decreasing = TRUE)
 
               y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits2)
             }
