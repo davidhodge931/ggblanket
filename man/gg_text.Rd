@@ -15,7 +15,7 @@ gg_text(
   label = NULL,
   stat = "identity",
   position = "identity",
-  coord = ggplot2::coord_cartesian(),
+  coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
   pal_na = "#88837D",
   alpha = 1,
@@ -28,7 +28,7 @@ gg_text(
   x_include = NULL,
   x_labels = NULL,
   x_limits = NULL,
-  x_oob = scales::oob_keep,
+  x_oob = scales::oob_censor,
   x_sec_axis = ggplot2::waiver(),
   x_title = NULL,
   x_trans = "identity",
@@ -38,7 +38,7 @@ gg_text(
   y_include = NULL,
   y_labels = NULL,
   y_limits = NULL,
-  y_oob = scales::oob_keep,
+  y_oob = scales::oob_censor,
   y_sec_axis = ggplot2::waiver(),
   y_title = NULL,
   y_trans = "identity",
@@ -51,7 +51,7 @@ gg_text(
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
   col_limits = NULL,
-  col_oob = scales::oob_keep,
+  col_oob = scales::oob_censor,
   col_rescale = NULL,
   col_title = NULL,
   col_trans = "identity",
@@ -114,7 +114,7 @@ gg_text(
 
 \item{x_limits}{A vector of length 2 to determine the limits of the axis.}
 
-\item{x_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.}
+\item{x_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.}
 
 \item{x_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
@@ -134,7 +134,7 @@ gg_text(
 
 \item{y_limits}{A vector of length 2 to determine the limits of the axis.}
 
-\item{y_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.}
+\item{y_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.}
 
 \item{y_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
@@ -160,7 +160,7 @@ gg_text(
 
 \item{col_limits}{A vector to determine the limits of the colour scale.}
 
-\item{col_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.}
+\item{col_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.}
 
 \item{col_rescale}{For a continuous col variable, a vector to rescale the pal non-linearly.}
 

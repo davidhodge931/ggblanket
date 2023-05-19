@@ -26,7 +26,7 @@
 #' @param col_legend_place The place for the legend. Either "bottom", "right", "top" or "left" - or just the first letter of these e.g. "b".
 #' @param col_legend_rev Reverse the elements of the legend. Defaults to FALSE.
 #' @param col_limits A vector to determine the limits of the colour scale.
-#' @param col_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.
+#' @param col_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.
 #' @param col_rescale For a continuous col variable, a vector to rescale the pal non-linearly.
 #' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param col_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
@@ -61,7 +61,7 @@ gg_sf <- function(
     facet2 = NULL,
     group = NULL,
     position = "identity",
-    coord = ggplot2::coord_sf(),
+    coord = ggplot2::coord_sf(clip = "off"),
     pal = NULL,
     pal_na = "#88837D",
     ...,
@@ -80,7 +80,7 @@ gg_sf <- function(
     col_legend_nrow = NULL,
     col_legend_rev = FALSE,
     col_limits = NULL,
-    col_oob = scales::oob_keep,
+    col_oob = scales::oob_censor,
     col_rescale = NULL,
     col_title = NULL,
     col_trans = "identity",
