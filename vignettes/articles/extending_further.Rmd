@@ -109,7 +109,7 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g, 
     col = sex) + 
-  geom_point(aes(shape = sex, col = sex)) +  
+  geom_point(aes(shape = sex)) +  
   labs(shape = "Sex") 
 ```
 
@@ -120,8 +120,7 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g, 
     col = sex) + 
-  geom_point(aes(shape = sex), 
-             col = pal_default(1)) + 
+  geom_point(aes(shape = sex), col = pal_default(1)) + 
   labs(shape = "Sex") 
 ```
 
@@ -143,10 +142,8 @@ penguins |>
 penguins |>
   gg_blank(
     x = flipper_length_mm,
-    y = body_mass_g, 
-    col_legend_place = "r") + 
-  geom_point(aes(size = bill_depth_mm), 
-             col = pal_default(1)) +
+    y = body_mass_g) + 
+  geom_point(aes(size = bill_depth_mm), col = pal_default(1)) +
   labs(size = "Bill depth mm") 
 ```
 
@@ -171,7 +168,7 @@ penguins |>
 
 ### 6. Make plots with multiple geom layers
 
-The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geom's added by default. Geom's will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it. Note the `pal` also inherits to subsequent `geom_*` layers, but `alpha` does not. Use the `*_include` arguments as necessary to ensure the min and max of all layers are included in your numeric scales.
+The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geom's added by default. Geom's will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it. Use the `*_include` and `*_limits` arguments as necessary to ensure the min and max of all layers are included in your numeric scales.
 
 ```{r}
 penguins |>
@@ -180,7 +177,7 @@ penguins |>
              width = 0.5,
              pal = "#1B9E77", 
              outlier.colour = NA) +
-  geom_jitter()
+  geom_jitter(col = "#1B9E77")
 ```
 
 If some geoms have a `col` aesthetic and some do not, then you need to take care. In this case, your `gg_*` function should have a `col` aesthetic. However, if the first geom required to be plotted to be underneath other geoms does not have a `col` aesthetic, then you can use `gg_blank` instead.

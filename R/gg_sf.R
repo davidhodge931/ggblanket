@@ -181,18 +181,33 @@ gg_sf <- function(
     plot <- data %>%
       ggplot2::ggplot(mapping = ggplot2::aes(
         geometry = .data$geometry,
-        col = "",
-        fill = "",
+        # col = "",
+        # fill = "",
         group = !!group
       ))
   }
 
-  plot <- plot +
-    ggplot2::geom_sf(
-      stat = "sf",
-      position = position,
-      ...
-    )
+  if (col_null) {
+    if (rlang::is_null(pal)) pal <-  pal_default(1)
+    else pal <- as.vector(pal[1])
+
+    plot <- plot +
+      ggplot2::geom_sf(
+        stat = "sf",
+        position = position,
+        col = pal,
+        fill = pal,
+        ...
+      )
+  }
+  else {
+    plot <- plot +
+      ggplot2::geom_sf(
+        stat = "sf",
+        position = position,
+        ...
+      )
+  }
 
   ##############################################################################
   #Generic code: part 2 (except gg_sf)
@@ -269,29 +284,14 @@ gg_sf <- function(
     }
   }
 
+  #Get layer data for x, y and col scales
+  layer_data <- ggplot2::layer_data(plot)
+
   #make col scale based on layer_data
-  if (col_null) {
-
-    if (rlang::is_null(pal)) pal <-  pal_default(1)
-    else pal <- as.vector(pal[1])
-
-    plot <- plot +
-      ggplot2::scale_colour_manual(
-        values = pal,
-        na.value = as.vector(pal_na),
-        guide = "none"
-      ) +
-      ggplot2::scale_fill_manual(
-        values = pal,
-        na.value = as.vector(pal_na),
-        guide = "none"
-      )
-
-    if (rlang::is_null(col_legend_place)) col_legend_place <- "none"
-  }
-  else {
+  if (!col_null) {
     if (rlang::is_null(col_title)) {
       col_name <- rlang::as_name(col)
+
       col_title <- purrr::map_chr(col_name, titles)
     }
 
@@ -301,8 +301,6 @@ gg_sf <- function(
     if (col_numeric | col_date | col_datetime | col_time) {
       if (col_date) col_trans <- "date"
       if (col_datetime | col_time) col_trans <- "time"
-
-      if (col_trans == "reverse") col_limits <- rev(sort(col_limits))
 
       if (rlang::is_null(col_breaks)) {
         if (!col_trans %in% c("identity", "reverse")) col_breaks <- ggplot2::waiver()
@@ -388,6 +386,7 @@ gg_sf <- function(
               reverse = col_legend_rev)
           )
       }
+
     }
     else if (col_forcat) {
       if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
@@ -463,10 +462,7 @@ gg_sf <- function(
       x = x_title,
       y = y_title,
       caption = caption
-    ) +
-    ggplot2::labs(
-      colour = col_title,
-      fill = col_title)
+    )
 
   if (!rlang::is_null(x_title)) {
     if (x_title == "") {
@@ -480,52 +476,59 @@ gg_sf <- function(
         ggplot2::labs(y = NULL)
     }
   }
-  if (!rlang::is_null(col_title)) {
-    if (col_title == "") {
-      plot <- plot +
-        ggplot2::labs(colour = NULL, fill = NULL)
+
+  #Adjust legend etc
+  if (!col_null) {
+    plot <- plot +
+      ggplot2::labs(
+        colour = col_title,
+        fill = col_title)
+
+    if (!rlang::is_null(col_title)) {
+      if (col_title == "") {
+        plot <- plot +
+          ggplot2::labs(colour = NULL, fill = NULL)
+      }
     }
-  }
-
-  #expand the limits if necessary
-  if (!rlang::is_null(col_include)) {
-    plot <- plot +
-      ggplot2::expand_limits(colour = col_include, fill = col_include)
-  }
-
-  #adjust the legend
-  if (col_legend_place %in% c("top", "bottom")) {
-    plot <- plot +
-      ggplot2::theme(legend.position = col_legend_place) +
-      ggplot2::theme(legend.direction = "horizontal") +
-      ggplot2::theme(legend.justification = "left") +
-      ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
-      ggplot2::theme(legend.text = ggplot2::element_text(
-        margin = ggplot2::margin(r = 7.5, unit = "pt")))
-
-    if (col_numeric) {
+    if (!rlang::is_null(col_include)) {
       plot <- plot +
-        ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
-        ggplot2::theme(legend.text.align = 0.5)
+        ggplot2::expand_limits(colour = col_include, fill = col_include)
     }
-  }
-  else if (col_legend_place %in% c("left", "right")) {
-    plot <- plot +
-      ggplot2::theme(legend.position = col_legend_place) +
-      ggplot2::theme(legend.direction = "vertical") +
-      ggplot2::theme(legend.justification = "left") +
-      ggplot2::theme(legend.box.margin = ggplot2::margin(t = 0)) +
-      ggplot2::theme(legend.text = ggplot2::element_text(
-        margin = ggplot2::margin(r = 0)))
 
-    if (col_numeric) {
+    #adjust the legend
+    if (col_legend_place %in% c("top", "bottom")) {
       plot <- plot +
-        ggplot2::theme(legend.title = ggplot2::element_text(vjust = 1))
+        ggplot2::theme(legend.position = col_legend_place) +
+        ggplot2::theme(legend.direction = "horizontal") +
+        ggplot2::theme(legend.justification = "left") +
+        ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
+        ggplot2::theme(legend.text = ggplot2::element_text(
+          margin = ggplot2::margin(r = 7.5, unit = "pt")))
+
+      if (col_numeric) {
+        plot <- plot +
+          ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
+          ggplot2::theme(legend.text.align = 0.5)
+      }
     }
-  }
-  else if (col_legend_place == "none") {
-    plot <- plot +
-      ggplot2::theme(legend.position = col_legend_place)
+    else if (col_legend_place %in% c("left", "right")) {
+      plot <- plot +
+        ggplot2::theme(legend.position = col_legend_place) +
+        ggplot2::theme(legend.direction = "vertical") +
+        ggplot2::theme(legend.justification = "left") +
+        ggplot2::theme(legend.box.margin = ggplot2::margin(t = 0)) +
+        ggplot2::theme(legend.text = ggplot2::element_text(
+          margin = ggplot2::margin(r = 0)))
+
+      if (col_numeric) {
+        plot <- plot +
+          ggplot2::theme(legend.title = ggplot2::element_text(vjust = 1))
+      }
+    }
+    else if (col_legend_place == "none") {
+      plot <- plot +
+        ggplot2::theme(legend.position = col_legend_place)
+    }
   }
 
   #remove gridlines not needed
@@ -558,3 +561,5 @@ gg_sf <- function(
   #return beautiful plot
   return(plot)
 }
+
+
