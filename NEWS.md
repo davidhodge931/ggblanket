@@ -5,7 +5,7 @@
 * Breaking: changed default coord agument to clip = "off".
 
 * Fixed bug where limits were not being calculated correctly where stat not equal to identity and limits were manually set.
-* Added two more colours to default colour palette.
+* Updated default palette to work with more colours. 
 * Updated vignette and articles.
 * Breaking: removed add_tooltip function.
 * Breaking: removed argument from pal_na_default.
