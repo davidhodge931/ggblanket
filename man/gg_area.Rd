@@ -13,7 +13,7 @@ gg_area(
   facet2 = NULL,
   group = NULL,
   stat = "align",
-  position = "identity",
+  position = "stack",
   coord = ggplot2::coord_cartesian(),
   pal = NULL,
   pal_na = "#88837D",
