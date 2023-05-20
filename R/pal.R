@@ -17,10 +17,9 @@ pal_default <- function(n = 7) {
   if (n == 1) {
     "#2B6999"
   }
-  else if (n <= 7) {
+  else {
     c("#53B0AE", "#A31414", "#B2C615", "#E37000", "#2B6999", "#ff4676", "#14a35c")[1:n]
   }
-  else (scales::hue_pal()(n))
 }
 
 #' NA palette.

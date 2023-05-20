@@ -180,29 +180,23 @@ penguins |>
   geom_jitter(col = "#1B9E77")
 ```
 
-If some geoms have a `col` aesthetic and some do not, then you need to take care. In this case, your `gg_*` function should have a `col` aesthetic. However, if the first geom required to be plotted to be underneath other geoms does not have a `col` aesthetic, then you can use `gg_blank` instead.
+If some geoms have a `col` aesthetic and some do not, then it is useful to have the col aesthetic in the `gg_*` function. If you do not actually want a col aesthetic in this layer, then you can over-rule the aesthetic by adding colour and fill arguments. In some circumstances, it may be useful to use `gg_blank`.
 
 ```{r}
 penguins |>
   group_by(sex, species) |>
-  summarise(across(body_mass_g, sum)) |>
+  summarise(across(body_mass_g, mean)) |>
   mutate(upper = body_mass_g * 1.05) |>
-  mutate(lower = body_mass_g * 0.95) |>
-  gg_blank(
+  mutate(lower = body_mass_g * 0.95) %>%
+  gg_col(
     x = sex,
     y = body_mass_g,
-    ymin = lower,
-    ymax = upper, 
     col = sex,
     facet = species,
-    y_include = 0, 
-    col_legend_place = "b"
-  ) +
-  geom_col(aes(x = sex, y = body_mass_g),
-           fill = "#d3d3d3",
-           inherit.aes = FALSE,
-           width = 0.75) +
-  geom_errorbar(width = 0.1) 
+    y_include = max(.$upper),
+    fill = "#d3d3d3",
+    colour = "#d3d3d3") +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.1)
 ```
 
 ### 7. Create custom functions that wrap ggblanket functions
