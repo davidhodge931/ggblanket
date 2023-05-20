@@ -269,32 +269,26 @@ scales.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"#1B9E77"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending_further_files/figure-html/unnamed-chunk-10-1.png" width="70%"></p>
 <p>If some geoms have a <code>col</code> aesthetic and some do not, then
-you need to take care. In this case, your <code>gg_*</code> function
-should have a <code>col</code> aesthetic. However, if the first geom
-required to be plotted to be underneath other geoms does not have a
-<code>col</code> aesthetic, then you can use <code>gg_blank</code>
-instead.</p>
+it is useful to have the col aesthetic in the <code>gg_*</code>
+function. If you do not actually want a col aesthetic in this layer,
+then you can over-rule the aesthetic by adding colour and fill
+arguments. In some circumstances, it may be useful to use
+<code>gg_blank</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">body_mass_g</span>, <span class="va">sum</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">body_mass_g</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>upper <span class="op">=</span> <span class="va">body_mass_g</span> <span class="op">*</span> <span class="fl">1.05</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="va">body_mass_g</span> <span class="op">*</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_blank.html">gg_blank</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="va">body_mass_g</span> <span class="op">*</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    ymin <span class="op">=</span> <span class="va">lower</span>,</span>
-<span>    ymax <span class="op">=</span> <span class="va">upper</span>, </span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    y_include <span class="op">=</span> <span class="fl">0</span>, </span>
-<span>    col_legend_place <span class="op">=</span> <span class="st">"b"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sex</span>, y <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">)</span>,</span>
-<span>           fill <span class="op">=</span> <span class="st">"#d3d3d3"</span>,</span>
-<span>           inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>           width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> </span></code></pre></div>
+<span>    y_include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">upper</span><span class="op">)</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"#d3d3d3"</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"#d3d3d3"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending_further_files/figure-html/unnamed-chunk-11-1.png" width="70%"></p>
 </div>
 <div class="section level3">
