@@ -69,7 +69,7 @@
 #'
 #' penguins |>
 #'   tidyr::drop_na(sex) |>
-#'   gg_histogram2(
+#'   gg_histogram3(
 #'     x = flipper_length_mm,
 #'     col = sex,
 #'     facet = species,
@@ -78,7 +78,7 @@
 #'     col_labels = stringr::str_to_sentence
 #'   )
 #'
-gg_histogram2 <- function(
+gg_histogram3 <- function(
     data = NULL,
     x = NULL,
     y = NULL,
@@ -495,49 +495,34 @@ gg_histogram2 <- function(
 
   #Prepare the scales, so that layer_data can be extracted
   if (stat != "sf") {
-    if (!rlang::is_null(x_limits)) {
-      if (x_numeric) {
-        plot <- plot +
-          ggplot2::scale_x_continuous(limits = x_limits, trans = x_trans, oob = x_oob)
-      }
-      else if (x_date) {
-        plot <- plot +
-          ggplot2::scale_x_date(limits = x_limits, oob = x_oob)
-      }
-      else if (x_datetime) {
-        plot <- plot +
-          ggplot2::scale_x_datetime(limits = x_limits, oob = x_oob)
-      }
-      else if (x_time) {
-        plot <- plot +
-          ggplot2::scale_x_time(limits = x_limits, oob = x_oob)
-      }
-      else if (x_forcat) {
-        plot <- plot +
-          ggplot2::scale_x_discrete(drop = FALSE)
+    if (rlang::is_null(x_limits)) {
+      if (stat %in% c("bin", "bin2d", "bin_2d", "binhex")) {
+        if (x_numeric) x_limits <- c(NA, NA)
+        if (x_date | x_datetime | x_time) {
+          x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+        }
       }
     }
-    else {
-      if (x_numeric) {
-        plot <- plot +
-          ggplot2::scale_x_continuous(trans = x_trans, oob = x_oob)
-      }
-      else if (x_date) {
-        plot <- plot +
-          ggplot2::scale_x_date(oob = x_oob)
-      }
-      else if (x_datetime) {
-        plot <- plot +
-          ggplot2::scale_x_datetime(oob = x_oob)
-      }
-      else if (x_time) {
-        plot <- plot +
-          ggplot2::scale_x_time(oob = x_oob)
-      }
-      else if (x_forcat) {
-        plot <- plot +
-          ggplot2::scale_x_discrete(drop = FALSE)
-      }
+
+    if (x_numeric) {
+      plot <- plot +
+        ggplot2::scale_x_continuous(limits = x_limits, trans = x_trans, oob = x_oob)
+    }
+    else if (x_date) {
+      plot <- plot +
+        ggplot2::scale_x_date(limits = x_limits, oob = x_oob)
+    }
+    else if (x_datetime) {
+      plot <- plot +
+        ggplot2::scale_x_datetime(limits = x_limits, oob = x_oob)
+    }
+    else if (x_time) {
+      plot <- plot +
+        ggplot2::scale_x_time(limits = x_limits, oob = x_oob)
+    }
+    else if (x_forcat) {
+      plot <- plot +
+        ggplot2::scale_x_discrete(drop = FALSE)
     }
 
     if (!rlang::is_null(x_include)) {
@@ -545,49 +530,34 @@ gg_histogram2 <- function(
         ggplot2::expand_limits(x = x_include)
     }
 
-    if (!rlang::is_null(y_limits)) {
-      if (y_numeric) {
-        plot <- plot +
-          ggplot2::scale_y_continuous(limits = y_limits, trans = y_trans, oob = y_oob)
-      }
-      else if (y_date) {
-        plot <- plot +
-          ggplot2::scale_y_date(limits = y_limits, oob = y_oob)
-      }
-      else if (y_datetime) {
-        plot <- plot +
-          ggplot2::scale_y_datetime(limits = y_limits, oob = y_oob)
-      }
-      else if (y_time) {
-        plot <- plot +
-          ggplot2::scale_y_time(limits = y_limits, oob = y_oob)
-      }
-      else if (y_forcat) {
-        plot <- plot +
-          ggplot2::scale_y_discrete(drop = FALSE)
+    if (rlang::is_null(y_limits)) {
+      if (stat %in% c("bin")) {
+        if (y_numeric) y_limits <- c(NA, NA)
+        if (y_date | y_datetime | y_time) {
+          y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+        }
       }
     }
-    else {
-      if (y_numeric) {
-        plot <- plot +
-          ggplot2::scale_y_continuous(trans = y_trans, oob = y_oob)
-      }
-      else if (y_date) {
-        plot <- plot +
-          ggplot2::scale_y_date(oob = y_oob)
-      }
-      else if (y_datetime) {
-        plot <- plot +
-          ggplot2::scale_y_datetime(oob = y_oob)
-      }
-      else if (y_time) {
-        plot <- plot +
-          ggplot2::scale_y_time(oob = y_oob)
-      }
-      else if (y_forcat) {
-        plot <- plot +
-          ggplot2::scale_y_discrete(drop = FALSE)
-      }
+
+    if (y_numeric) {
+      plot <- plot +
+        ggplot2::scale_y_continuous(limits = y_limits, trans = y_trans, oob = y_oob)
+    }
+    else if (y_date) {
+      plot <- plot +
+        ggplot2::scale_y_date(limits = y_limits, oob = y_oob)
+    }
+    else if (y_datetime) {
+      plot <- plot +
+        ggplot2::scale_y_datetime(limits = y_limits, oob = y_oob)
+    }
+    else if (y_time) {
+      plot <- plot +
+        ggplot2::scale_y_time(limits = y_limits, oob = y_oob)
+    }
+    else if (y_forcat) {
+      plot <- plot +
+        ggplot2::scale_y_discrete(drop = FALSE)
     }
 
     if (!rlang::is_null(y_include)) {
@@ -694,7 +664,7 @@ gg_histogram2 <- function(
           x_vctr <- hms::as_hms(x_vctr)
         }
 
-        if(x_trans != "reverse") {
+        if (x_trans == "identity") {
           x_range <- x_vctr %>% range(na.rm = TRUE)
           if (!rlang::is_null(x_include)) x_range <- range(c(x_range, x_include))
         }
@@ -705,7 +675,7 @@ gg_histogram2 <- function(
 
         if (rlang::is_null(x_limits) & rlang::is_null(x_breaks)) {
           if (x_time | !x_trans %in% c("identity", "reverse")) {
-            x_limits <- NULL
+            x_limits <- c(NA, NA)
             x_breaks <- ggplot2::waiver()
           }
           else {
@@ -728,7 +698,7 @@ gg_histogram2 <- function(
         }
         else if (rlang::is_null(x_limits) & !rlang::is_null(x_breaks)) {
           if (x_time | !x_trans %in% c("identity", "reverse")) {
-            x_limits <- NULL
+            x_limits <- c(NA, NA)
           }
           else if (y_forcat | flipped) {
             if (is.vector(x_breaks)) x_limits <- range(x_breaks)
@@ -753,11 +723,6 @@ gg_histogram2 <- function(
             else x_breaks_n <- 6
 
             if (any(is.na(x_limits))) {
-              # x_limits2 <- range(x_limits[!is.na(x_limits)], x_range)
-              # if (x_trans == "reverse") x_limits2 <- sort(x_limits2, decreasing = TRUE)
-              #
-              # x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits2)
-
               x_breaks <- scales::breaks_pretty(n = x_breaks_n)
             }
             else {
@@ -876,7 +841,7 @@ gg_histogram2 <- function(
               dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !is.na(x)))
 
             if (!rlang::is_null(x_limits)) {
-              if (x_trans == "identity") {
+              if (x_trans != "reverse") {
                 if (!is.na(x_limits)[1]) {
                   y_vctr <- y_vctr %>%
                     dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) x >= x_limits[1]))
@@ -929,7 +894,7 @@ gg_histogram2 <- function(
           y_range <- y_vctr %>% range(na.rm = TRUE)
           if (!rlang::is_null(y_include)) y_range <- range(c(y_range, y_include))
         }
-        else if(y_trans == "reverse") {
+        else if (y_trans == "reverse") {
           y_range <- y_vctr %>% range(na.rm = TRUE) * -1
           if (!rlang::is_null(y_include)) y_range <- sort(range(c(y_range, y_include)), decreasing = TRUE)
         }
@@ -937,7 +902,7 @@ gg_histogram2 <- function(
         if (rlang::is_null(y_limits) & rlang::is_null(y_breaks)) {
           if (y_time | !y_trans %in% c("identity", "reverse")) {
             y_breaks <- ggplot2::waiver()
-            y_limits <- NULL
+            y_limits <- c(NA, NA)
           }
           else {
             if (!facet_null & !facet2_null) y_breaks_n <- 4
@@ -976,7 +941,7 @@ gg_histogram2 <- function(
             if (y_trans == "reverse") y_limits <- sort(y_limits, decreasing = TRUE)
           }
           else {
-            y_limits <- NULL
+            y_limits <- c(NA, NA)
           }
         }
         else if (!rlang::is_null(y_limits) & rlang::is_null(y_breaks)) {
@@ -989,11 +954,6 @@ gg_histogram2 <- function(
 
             if (any(is.na(y_limits))) {
               y_breaks <- scales::breaks_pretty(n = y_breaks_n)
-
-              # y_limits2 <- range(y_limits[!is.na(y_limits)], y_range)
-              # if (y_trans == "reverse") y_limits2 <- sort(y_limits2, decreasing = TRUE)
-
-              # y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits2)
             }
             else {
               y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
