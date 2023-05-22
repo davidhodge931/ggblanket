@@ -20,135 +20,25 @@ knitr::opts_chunk$set(
 
 To extend ggblanket further, users can:
 
-1. Make plots with multiple geom layers
-2. Make plots with non-supported aesthetics
-3. Use non-supported arguments within ggplot2 layers
-4. Create custom functions that wrap ggblanket functions
-5. Join plots together using the patchwork package
-6. Make plots that use the ggtext package
-7. Make plots that use the gghighlight package 
-8. Make plots with non-supported geoms
+1. Create custom wrapper functions
+2. Use non-supported aesthetics
+3. Use non-supported arguments
+4. Use the ggtext package
+5. Use the gghighlight package 
+6. Use non-supported geoms
 
 ```{r setup}
 library(dplyr)
 library(ggplot2)
 library(ggblanket)
 library(palmerpenguins)
-library(patchwork)
 
 penguins <- penguins |>
   mutate(sex = stringr::str_to_sentence(sex)) |>
   tidyr::drop_na(sex)
 ```
 
-### 1. Make plots with multiple geom layers
-
-The `gg_*` function outputs a ggplot object. 
-
-The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geom's added by default.
-
-Geom's will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it. 
-
-```{r}
-penguins |>
-  gg_boxplot(x = species,
-             y = body_mass_g,
-             width = 0.5,
-             pal = "#1B9E77", 
-             outlier.colour = NA) +
-  geom_jitter(col = "#1B9E77")
-```
-
-If some geoms have a `col` aesthetic and some do not, then it is useful to have the col aesthetic in the `gg_*` function. That way you can get pretty ggblanket legend placement - and also adjust the col scale via the ease of the `gg_*` function. If you do not actually want a col aesthetic in your bottom plot layer, then you can over-rule the aesthetic by adding `colour` and `fill` arguments. 
-
-Use the `*_include` and `*_limits` arguments as necessary to ensure the min and max of all layers are included in your numeric scales.
-
-```{r}
-penguins |>
-  group_by(sex, species) |>
-  summarise(across(body_mass_g, mean)) |>
-  mutate(upper = body_mass_g * 1.05) |>
-  mutate(lower = body_mass_g * 0.95) %>%
-  gg_col(
-    x = sex,
-    y = body_mass_g,
-    col = sex,
-    facet = species,
-    y_include = max(.$upper, na.rm = TRUE),
-    fill = "#d3d3d3",
-    colour = "#d3d3d3") +
-  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.1)
-```
-
-### 2. Make plots with non-supported aesthetics
-
-While aesthetics other than col/fill are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
-
-```{r}
-#for discrete non-col aesthetic & col aesthetic
-penguins |>
-  gg_blank(
-    x = flipper_length_mm,
-    y = body_mass_g, 
-    col = sex) + 
-  geom_point(aes(shape = sex)) +  
-  labs(shape = "Sex") 
-```
-
-```{r}
-#for discrete non-col aesthetic & no col aesthetic
-penguins |>
-  gg_blank(
-    x = flipper_length_mm,
-    y = body_mass_g, 
-    col = sex) + 
-  geom_point(aes(shape = sex), col = "#2B6999") + 
-  labs(shape = "Sex") 
-```
-
-```{r}
-#for continuous non-col aesthetic & col aesthetic
-penguins |>
-  gg_blank(
-    x = flipper_length_mm,
-    y = body_mass_g, 
-    col = species,
-    col_legend_place = "r") + 
-  geom_point(aes(size = bill_depth_mm, col = species)) +
-  labs(size = "Bill depth mm") +
-  theme(legend.title = element_text(margin = margin(t = 10)))
-```
-
-```{r}
-#for continuous non-col aesthetic & no col aesthetic
-penguins |>
-  gg_blank(
-    x = flipper_length_mm,
-    y = body_mass_g) + 
-  geom_point(aes(size = bill_depth_mm), col = "#2B6999") +
-  labs(size = "Bill depth mm") 
-```
-
-### 3. Use non-supported arguments within ggplot2 layers
-
-The `gg_*` function provides access to all arguments within the `geom_*` function other than the `mapping` argument. It also provides access to most of the useful arguments you might need in the various guide, scale and facet functions etc. However, it does not provide all such arguments. For example, the switch argument within `facet_grid` is not supported. A way to access this functionality is to `+` the `facet_grid(..., switch = "y")` in.
-
-```{r}
-penguins |>
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g,
-    col = island,
-    facet = species, 
-    facet2 = sex
-  ) +
-  facet_grid(cols = vars(species),
-             rows = vars(sex), 
-             switch = "y") +
-  theme(strip.switch.pad.grid = unit(2, "mm"))
-```
-
-### 4. Create custom functions that wrap ggblanket functions
+### 1. Create custom wrapper functions
 
 You can easily create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
@@ -187,32 +77,75 @@ penguins |>
     position = position_jitter())
 ```
 
-### 5. Join plots together using the patchwork package
+### 2. Use non-supported aesthetics
 
-The patchwork package can be used to patch plots together. 
+While aesthetics other than col/fill are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
 
 ```{r}
-p1 <- penguins |> 
-  gg_point(
-    x = flipper_length_mm, 
+#for discrete non-col aesthetic & col aesthetic
+penguins |>
+  gg_blank(
+    x = flipper_length_mm,
     y = body_mass_g, 
-    col = species, 
-    x_breaks = scales::breaks_pretty(3), 
-    col_legend_ncol = 2) 
-
-p2 <- penguins |> 
-  gg_jitter(
-    x = species, 
-    y = body_mass_g, 
-    col = sex, 
-    pal = c("#2B6999", "#E37000"),
-    y_labels = \(x) stringr::str_sub(x, 0, 0),
-    y_title = "")
-
-p1 + p2
+    col = sex) + 
+  geom_point(aes(shape = sex)) +  
+  labs(shape = "Sex") 
 ```
 
-### 6. Make plots that use the ggtext package
+```{r}
+#for discrete non-col aesthetic & no col aesthetic
+penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g, 
+    col = sex) + #just to make legend on bottom
+  geom_point(aes(shape = sex), col = "#2B6999") + 
+  labs(shape = "Sex") 
+```
+
+```{r}
+#for continuous non-col aesthetic & col aesthetic
+penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g, 
+    col = species,
+    col_legend_place = "r") + 
+  geom_point(aes(size = bill_depth_mm)) +
+  labs(size = "Bill depth mm") +
+  theme(legend.title = element_text(margin = margin(t = 10)))
+```
+
+```{r}
+#for continuous non-col aesthetic & no col aesthetic
+penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g) + 
+  geom_point(aes(size = bill_depth_mm), col = "#2B6999") +
+  labs(size = "Bill depth mm") 
+```
+
+### 3. Use non-supported arguments
+
+The `gg_*` function provides access to all arguments within the `geom_*` function other than the `mapping` argument. It also provides access to most of the useful arguments you might need in the various guide, scale and facet functions etc. However, it does not provide all such arguments. For example, the switch argument within `facet_grid` is not supported. A way to access this functionality is to `+` the `facet_grid(..., switch = "y")` in.
+
+```{r}
+penguins |>
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g,
+    col = island,
+    facet = species, 
+    facet2 = sex
+  ) +
+  facet_grid(cols = vars(species),
+             rows = vars(sex), 
+             switch = "y") +
+  theme(strip.switch.pad.grid = unit(2, "mm"))
+```
+
+### 4. Use the ggtext package
 
 You can modify plot text using the ggtext package. If you want to have some of a title not bold, then it's important to make the theme have a plain title. 
 
@@ -227,7 +160,7 @@ nc |>
   theme(plot.title = ggtext::element_markdown())
 ```
 
-### 7. Make plots that use the gghighlight package
+### 5. Use the gghighlight package
 
 The gghighlight package can be used with ggblanket. 
 
@@ -252,9 +185,35 @@ iris |>
   gghighlight::gghighlight()
 ```
 
-### 8. Make plots with non-supported geoms
+### 6. Use non-supported geoms
 
 There are lots of non-supported geoms in ggplot2 and other extension packages that can be used in combination with ggblanket. Whether they actually do or do not is dependent on the specifics of that stat within the geom.
+
+```{r, fig.asp=1}
+library(patchwork)
+
+p1 <- faithful %>% 
+  gg_blank(x = eruptions, y = waiting, 
+           x_breaks = scales::breaks_pretty(3)) + 
+  geom_density2d(aes(col = after_stat(level))) +
+  labs(col = "Level") +
+  scale_colour_viridis_c()
+
+p2 <- faithfuld %>% 
+  gg_blank(x = waiting, y = eruptions, 
+           x_breaks = scales::breaks_pretty(3)) + 
+  geom_contour(aes(z = density, col = after_stat(level))) + 
+  labs(col = "Level") +
+  scale_colour_viridis_c()
+
+p3 <- faithfuld %>% 
+  gg_blank(x = waiting, y = eruptions) + 
+  geom_contour_filled(aes(z = density)) +
+  labs(fill = "Level") +
+  scale_colour_viridis_d()
+
+(p1 + p2) / p3
+```
 
 ```{r}
 iris |>

@@ -36,7 +36,8 @@ To simplify ggplot2 visualisation, ggblanket provides:
 9. A gg_theme function to create a quick theme
 10. Pretty defaults for symmetry
 11. Access to other geom_* arguments via ...
-12. Able to be extended further
+12. Ability to add additional geom_* layers
+13. Ability to extend further
 
 ```{r setup}
 library(dplyr)
@@ -214,6 +215,57 @@ penguins |>
     col_legend_place = "t")
 ```
 
+```{r, fig.asp = 1}
+library(patchwork)
+p1 <- penguins |> 
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    y_include = 0)
+
+p2 <- penguins |> 
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    y_limits = c(0, NA),
+    x_breaks = scales::breaks_pretty(3))
+
+p3 <- penguins |> 
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    x_breaks = scales::breaks_width(25))
+
+p4 <- penguins |> 
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    x_limits = c(190, 210))
+
+p5 <- penguins |> 
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    x_limits = c(190, 210),
+    x_oob = scales::oob_keep,
+    y_trans = "log10",
+    y_limits = c(1000, NA),
+    y_breaks = scales::breaks_width(1000),
+    coord = coord_cartesian(clip = "on"))
+
+p6 <- penguins |> 
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g,
+    x_trans = "reverse",
+    x_limits = c(210, 190),
+    x_breaks = scales::breaks_width(-10), 
+    y_include = 0,
+    y_trans = "sqrt")
+
+(p1 + p2) / (p3 + p4) / (p5 + p6)
+```
+
 ### 7. Default titles converted to sentence case
 
 Default titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. However, with the default conversion, it is intended that titles are less likely to need to be manually changed than if default titles were left as variable names.
@@ -347,7 +399,7 @@ penguins |>
 
 ### 11. Access to other geom_* arguments via `...`
 
-The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users (except the mapping argument). Common arguments from `...` to add are `size`, `linewidth` and `width`. Additionally, users can use the `colour` or `fill` arguments to turn off part of the ggblanket `col` aesthetic (e.g. `colour = NA` or `fill = NA`), or fix it to single colour.
+The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users (except the mapping argument). Common arguments from `...` to add are `size`, `linewidth` and `width`. Additionally, users can use the `colour` or `fill` arguments to turn off part of the ggblanket `col` aesthetic (e.g. `colour = NA` or `fill = NA`), or fix it to single colour (e.g. colour = "black" or fill = "#d3d3d3").
 
 ```{r}
 penguins |>
@@ -371,17 +423,51 @@ penguins |>
     fill = "#a8a8a8") #accessed via geom_smooth
 ```
 
-### 12. Able to be extended further
+### 12. Ability to add additional geom layers
+
+Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geom's added. Geom's will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it. 
+
+```{r}
+penguins |>
+  gg_boxplot(x = species,
+             y = body_mass_g,
+             width = 0.5,
+             pal = "#1B9E77", 
+             outlier.colour = NA) +
+  geom_jitter(col = "#1B9E77")
+```
+
+If some geoms have a `col` aesthetic and some do not, then it can be useful to have the col aesthetic in the `gg_*` function. That way you can get pretty ggblanket legend placement - and also adjust the col scale via the ease of the `gg_*` function. If you do not actually want a col aesthetic in your bottom plot layer, then you can over-rule the aesthetic by adding `colour` and `fill` arguments - or use the `gg_blank` function instead. 
+
+Use the `*_include` (or `*_limits`) argument as necessary to ensure the range of all layers are included in your numeric scales.
+
+```{r}
+penguins |>
+  group_by(sex, species) |>
+  summarise(across(body_mass_g, mean)) |>
+  mutate(upper = body_mass_g * 1.05) |>
+  mutate(lower = body_mass_g * 0.95) |>
+  tidyr::drop_na(sex) %>% 
+  gg_col(
+    x = sex,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    y_include = range(.$lower, .$upper),
+    fill = "#d3d3d3",
+    colour = "#d3d3d3") +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.1)
+```
+
+### 13. Ability to extend further
 
 To extend ggblanket further, users can:
 
-* Make plots with multiple geom layers
-* Make plots with non-supported aesthetics
-* Use non-supported arguments within ggplot2 layers
-* Create custom functions that wrap ggblanket functions
-* Join plots together using the patchwork package
-* Make plots that use the ggtext package
-* Make plots that use the gghighlight package 
-* Make plots with non-supported geoms
+* Create custom wrapper functions
+* Use non-supported aesthetics
+* Use non-supported arguments
+* Use the ggtext package
+* Use the gghighlight package 
+* Use non-supported geoms
 
 See the [Extending further](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) article for further discussion and example code.
