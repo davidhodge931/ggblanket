@@ -20,12 +20,12 @@ knitr::opts_chunk$set(
 
 To extend ggblanket further, users can:
 
-1. Create custom wrapper functions
-2. Use non-supported aesthetics
-3. Use non-supported arguments
-4. Use the ggtext package
-5. Use the gghighlight package 
-6. Use non-supported geoms
+1. Use non-supported aesthetics
+2. Use non-supported arguments
+3. Use the ggtext package
+4. Use the gghighlight package 
+5. Use non-supported geoms
+6. Create custom wrapper functions
 
 ```{r setup}
 library(dplyr)
@@ -38,46 +38,7 @@ penguins <- penguins |>
   tidyr::drop_na(sex)
 ```
 
-### 1. Create custom wrapper functions
-
-You can easily create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
-
-```{r}
-gg_point_custom <- function(data, x, y, col, 
-                            size = 3, 
-                            shape = 17,
-                            pal = RColorBrewer::brewer.pal(8, "Dark2"), 
-                            col_title = "", 
-                            col_legend_place = "t",
-                            ...) {
-  data |> 
-    gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
-             size = size, 
-             shape = shape,
-             pal = pal, 
-             col_title = col_title, 
-             col_legend_place = col_legend_place, 
-             col_labels = stringr::str_to_sentence,
-             ...)
-}
-
-iris |>
-  gg_point_custom(
-    x = Sepal.Width,
-    y = Sepal.Length,
-    col = Species)
-```
-
-```{r}
-penguins |>
-  gg_point_custom(
-    x = species,
-    y = body_mass_g,
-    col = sex,
-    position = position_jitter())
-```
-
-### 2. Use non-supported aesthetics
+### 1. Use non-supported aesthetics
 
 While aesthetics other than col/fill are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
 
@@ -126,7 +87,7 @@ penguins |>
   labs(size = "Bill depth mm") 
 ```
 
-### 3. Use non-supported arguments
+### 2. Use non-supported arguments
 
 The `gg_*` function provides access to all arguments within the `geom_*` function other than the `mapping` argument. It also provides access to most of the useful arguments you might need in the various guide, scale and facet functions etc. However, it does not provide all such arguments. For example, the switch argument within `facet_grid` is not supported. A way to access this functionality is to `+` the `facet_grid(..., switch = "y")` in.
 
@@ -145,7 +106,7 @@ penguins |>
   theme(strip.switch.pad.grid = unit(2, "mm"))
 ```
 
-### 4. Use the ggtext package
+### 3. Use the ggtext package
 
 You can modify plot text using the ggtext package. If you want to have some of a title not bold, then it's important to make the theme have a plain title. 
 
@@ -185,7 +146,7 @@ iris |>
   gghighlight::gghighlight()
 ```
 
-### 6. Use non-supported geoms
+### 5. Use non-supported geoms
 
 There are lots of non-supported geoms in ggplot2 and other extension packages that can be used in combination with ggblanket. Whether they actually do or do not is dependent on the specifics of that stat within the geom.
 
@@ -227,4 +188,43 @@ iris |>
   ggdensity::geom_hdr(colour = NA) +
   labs(alpha = "Probs") +
   theme(legend.title = element_text(margin = margin(t = 10)))
+```
+
+### 6. Create custom wrapper functions
+
+You can easily create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
+
+```{r}
+gg_point_custom <- function(data, x, y, col, 
+                            size = 3, 
+                            shape = 17,
+                            pal = RColorBrewer::brewer.pal(8, "Dark2"), 
+                            col_title = "", 
+                            col_legend_place = "t",
+                            ...) {
+  data |> 
+    gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
+             size = size, 
+             shape = shape,
+             pal = pal, 
+             col_title = col_title, 
+             col_legend_place = col_legend_place, 
+             col_labels = stringr::str_to_sentence,
+             ...)
+}
+
+iris |>
+  gg_point_custom(
+    x = Sepal.Width,
+    y = Sepal.Length,
+    col = Species)
+```
+
+```{r}
+penguins |>
+  gg_point_custom(
+    x = species,
+    y = body_mass_g,
+    col = sex,
+    position = position_jitter())
 ```

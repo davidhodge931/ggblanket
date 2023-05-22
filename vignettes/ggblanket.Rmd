@@ -36,7 +36,7 @@ To simplify ggplot2 visualisation, ggblanket provides:
 9. A gg_theme function to create a quick theme
 10. Pretty defaults for symmetry
 11. Access to other geom_* arguments via ...
-12. Ability to add additional geom_* layers
+12. Ability to add geom_* layers
 13. Ability to extend further
 
 ```{r setup}
@@ -423,7 +423,7 @@ penguins |>
     fill = "#a8a8a8") #accessed via geom_smooth
 ```
 
-### 12. Ability to add additional geom layers
+### 12. Ability to add geom layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geom's added. Geom's will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it. 
 
@@ -462,11 +462,11 @@ penguins |>
 
 To extend ggblanket further, users can:
 
-* Create custom wrapper functions
 * Use non-supported aesthetics
 * Use non-supported arguments
 * Use the ggtext package
 * Use the gghighlight package 
 * Use non-supported geoms
+* Create custom wrapper functions
 
 See the [Extending further](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) article for further discussion and example code.
