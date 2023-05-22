@@ -375,12 +375,13 @@ penguins |>
 
 To extend ggblanket further, users can:
 
+* Make plots with multiple geom layers
+* Make plots with non-supported aesthetics
+* Use non-supported arguments within ggplot2 layers
+* Create custom functions that wrap ggblanket functions
 * Join plots together using the patchwork package
 * Make plots that use the ggtext package
-* Make plots with other non-supported geoms
-* Make plots with other non-supported aesthetics
-* Use other non-supported arguments within ggplot2 layers
-* Make plots with multiple geom layers
-* create custom functions that wrap ggblanket functions
+* Make plots that use the gghighlight package 
+* Make plots with non-supported geoms
 
 See the [Extending further](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) article for further discussion and example code.

@@ -30,6 +30,7 @@ Imports:
     tidyselect,
     viridis
 Suggests: 
+    gghighlight,
     ggtext,
     hexbin,
     knitr,
