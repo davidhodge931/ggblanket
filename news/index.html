@@ -56,14 +56,15 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.8.9000" id="ggblanket-189000">ggblanket 1.8.9000<a class="anchor" aria-label="anchor" href="#ggblanket-189000"></a></h2>
-<ul><li><p>Breaking: removed col &amp; fill = “” where col = NULL.</p></li>
-<li><p>Breaking: changed default *oob agument to scales::oob_censor.</p></li>
-<li><p>Breaking: changed default coord agument to clip = “off”.</p></li>
-<li><p>Fixed bug where limits were not being calculated correctly where stat not equal to identity and limits were manually set.</p></li>
-<li><p>Updated default palette to work with more colours.</p></li>
-<li><p>Updated vignette and articles.</p></li>
-<li><p>Breaking: removed add_tooltip function.</p></li>
-<li><p>Breaking: removed argument from pal_na_default.</p></li>
+<ul><li>Made ggblanket work better with adding layers.</li>
+<li>Made the pal no longer inherit to subsequent layers where no col aesthetic.</li>
+<li>Made x and y scales work better, including with NA in the limits.</li>
+<li>Added 2 colours to the default palette.</li>
+<li>Updated vignette and articles.</li>
+<li>Breaking: changed default *oob agument to scales::oob_censor.</li>
+<li>Breaking: changed default coord agument to clip = “off”.</li>
+<li>Breaking: removed add_tooltip function.</li>
+<li>Breaking: removed argument from pal_na_default.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.8.0" id="ggblanket-180">ggblanket 1.8.0<a class="anchor" aria-label="anchor" href="#ggblanket-180"></a></h2><p class="text-muted">CRAN release: 2023-04-24</p>
