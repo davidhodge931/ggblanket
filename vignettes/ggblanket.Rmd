@@ -432,9 +432,8 @@ penguins |>
   gg_boxplot(x = species,
              y = body_mass_g,
              width = 0.5,
-             pal = "#1B9E77", 
              outlier.colour = NA) +
-  geom_jitter(col = "#1B9E77")
+  geom_jitter(colour = "#2B6999")
 ```
 
 If some geoms have a `col` aesthetic and some do not, then it can be useful to have the col aesthetic in the `gg_*` function. That way you can get pretty ggblanket legend placement - and also adjust the col scale via the ease of the `gg_*` function. If you do not actually want a col aesthetic in your bottom plot layer, then you can over-rule the aesthetic by adding `colour` and `fill` arguments - or use the `gg_blank` function instead. 

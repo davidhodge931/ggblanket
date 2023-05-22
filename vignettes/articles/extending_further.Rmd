@@ -99,7 +99,7 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g, 
     col = sex) + #just to make legend on bottom
-  geom_point(aes(shape = sex), col = "#2B6999") + 
+  geom_point(aes(shape = sex), colour = "#2B6999") + 
   labs(shape = "Sex") 
 ```
 
@@ -122,7 +122,7 @@ penguins |>
   gg_blank(
     x = flipper_length_mm,
     y = body_mass_g) + 
-  geom_point(aes(size = bill_depth_mm), col = "#2B6999") +
+  geom_point(aes(size = bill_depth_mm), colour = "#2B6999") +
   labs(size = "Bill depth mm") 
 ```
 
