@@ -59,7 +59,7 @@ penguins |>
 penguins |>
   tidyr::drop_na(sex) |> 
   gg_histogram(
-    x = bill_depth_mm,
+    x = flipper_length_mm,
     col = sex,
     facet = species,
     pal = c("#2596be", "#fc7c24"),
