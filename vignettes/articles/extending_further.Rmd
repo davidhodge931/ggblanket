@@ -121,7 +121,7 @@ nc |>
   theme(plot.title = ggtext::element_markdown())
 ```
 
-### 5. Use the gghighlight package
+### 4. Use the gghighlight package
 
 The gghighlight package can be used with ggblanket. 
 

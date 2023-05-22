@@ -436,6 +436,16 @@ penguins |>
   geom_jitter(colour = "#2B6999")
 ```
 
+Any required aesthetics not able to be included in the `gg_*` function will need to be added in the subsequent layers.
+
+```{r}
+mtcars %>% 
+  tibble::rownames_to_column("car") %>%
+  filter(wt > 2.75, wt < 3.45) %>% 
+  gg_point(x = wt, y = mpg) +
+  ggrepel::geom_text_repel(aes(label = car), colour = "#2B6999") 
+```
+
 If some geoms have a `col` aesthetic and some do not, then it can be useful to have the col aesthetic in the `gg_*` function. That way you can get pretty ggblanket legend placement - and also adjust the col scale via the ease of the `gg_*` function. If you do not actually want a col aesthetic in your bottom plot layer, then you can over-rule the aesthetic by adding `colour` and `fill` arguments - or use the `gg_blank` function instead. 
 
 Use the `*_include` (or `*_limits`) argument as necessary to ensure the range of all layers are included in your numeric scales.

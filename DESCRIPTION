@@ -31,6 +31,7 @@ Imports:
     viridis
 Suggests: 
     gghighlight,
+    ggrepel,
     ggtext,
     hexbin,
     knitr,
