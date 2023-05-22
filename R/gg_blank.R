@@ -1661,4 +1661,3 @@ gg_blank <- function(
   #return beautiful plot
   return(plot)
 }
-

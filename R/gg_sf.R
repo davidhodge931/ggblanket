@@ -286,7 +286,7 @@ gg_sf <- function(
     }
   }
 
-  #Prepare the scales, so that layer_data can be extracted
+  # #Prepare the scales, so that layer_data can be extracted
   # if (stat != "sf") {
   #   if (rlang::is_null(x_limits)) {
   #     if (stat %in% c("bin", "bin2d", "bin_2d", "binhex")) {
@@ -471,7 +471,7 @@ gg_sf <- function(
   #           else if (!facet_null & facet2_null) x_breaks_n <- 3
   #           else x_breaks_n <- 6
   #
-  #           if (flipped) {
+  #           if (flipped | y_forcat) {
   #             x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
   #             if(x_trans == "reverse") x_breaks <- sort(x_breaks, decreasing = TRUE)
   #
@@ -526,7 +526,7 @@ gg_sf <- function(
   #     }
   #
   #     if (rlang::is_null(x_expand)) {
-  #       if (flipped) x_expand <- c(0, 0)
+  #       if (flipped | y_forcat) x_expand <- c(0, 0)
   #       else if (facet_scales %in% c("fixed", "free_y") &
   #                (y_date | y_datetime | y_time | y_numeric | y_null)) {
   #         x_expand <- ggplot2::expansion(mult = c(0.05, 0.05))
@@ -698,7 +698,7 @@ gg_sf <- function(
   #           }
   #           else y_breaks <- ggplot2::waiver()
   #
-  #           if (flipped) y_limits <- NULL
+  #           if (flipped | y_forcat) y_limits <- NULL
   #           else {
   #             if (y_trans == "identity") {
   #               y_limits <- range(y_breaks)
@@ -710,7 +710,7 @@ gg_sf <- function(
   #         }
   #       }
   #       else if (rlang::is_null(y_limits) & !rlang::is_null(y_breaks)) {
-  #         if (flipped) y_limits <- NULL
+  #         if (flipped | y_forcat) y_limits <- NULL
   #         else if (y_trans %in% c("identity", "reverse")) {
   #           if (is.vector(y_breaks)) y_limits <- range(y_breaks)
   #           else if (is.function(y_breaks)) {
@@ -750,7 +750,7 @@ gg_sf <- function(
   #
   #     if (rlang::is_null(y_expand)) {
   #       if (!y_trans %in% c("identity", "reverse")) y_expand <- ggplot2::expansion(mult = c(0, 0.05))
-  #       else if (flipped) y_expand <- ggplot2::waiver()
+  #       else if (flipped | y_forcat) y_expand <- ggplot2::waiver()
   #       else y_expand <- c(0, 0)
   #     }
   #
@@ -1008,7 +1008,7 @@ gg_sf <- function(
     }
   }
 
-  #expand the limits if necessary
+  # # expand the limits if necessary
   # if (stat != "sf") {
   #   if (!rlang::is_null(x_include)) {
   #     plot <- plot +
@@ -1104,4 +1104,5 @@ gg_sf <- function(
   #return beautiful plot
   return(plot)
 }
+
 

@@ -1,12 +1,12 @@
 # ggblanket 1.8.9000
 
-* Breaking: removed col & fill = "" where col = NULL. 
+* Made ggblanket work better with adding layers. 
+* Made the pal no longer inherit to subsequent layers where no col aesthetic.
+* Made x and y scales work better, including with NA in the limits.
+* Added 2 colours to the default palette. 
+* Updated vignette and articles.
 * Breaking: changed default *oob agument to scales::oob_censor.
 * Breaking: changed default coord agument to clip = "off".
-
-* Fixed bug where limits were not being calculated correctly where stat not equal to identity and limits were manually set.
-* Updated default palette to work with more colours. 
-* Updated vignette and articles.
 * Breaking: removed add_tooltip function.
 * Breaking: removed argument from pal_na_default.
 
