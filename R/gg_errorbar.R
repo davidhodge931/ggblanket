@@ -243,8 +243,8 @@ gg_errorbar <- function(
   #Generic code: part 1 (except gg_sf)
   ##############################################################################
 
-  #stop, warn or message
-  rlang::inform(c("i" = "For further ggblanket information, see https://davidhodge931.github.io/ggblanket/"), .frequency = "regularly", .frequency_id = "hello")
+  
+  
 
   #process data for horizontal
   if (y_forcat) {
@@ -480,7 +480,7 @@ gg_errorbar <- function(
   }
 
   if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
-    if (rlang::is_null(pal)) pal <-  pal_default(1)
+    if (rlang::is_null(pal)) pal <-  pal_cat(n = 1)
     else pal <- as.vector(pal[1])
 
     plot <- plot +
@@ -1222,7 +1222,7 @@ gg_errorbar <- function(
         }
       }
 
-      if (rlang::is_null(pal)) pal <- pal_default(col_n)
+      if (rlang::is_null(pal)) pal <- pal_cat(n = col_n)
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
 
       if (y_numeric | y_date | y_datetime | y_time) {

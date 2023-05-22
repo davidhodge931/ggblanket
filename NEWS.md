@@ -8,7 +8,7 @@
 * Breaking: changed default *oob agument to scales::oob_censor.
 * Breaking: changed default coord agument to clip = "off".
 * Breaking: removed add_tooltip function.
-* Breaking: removed argument from pal_na_default.
+* Breaking: removed pal functions.
 
 # ggblanket 1.8.0
 

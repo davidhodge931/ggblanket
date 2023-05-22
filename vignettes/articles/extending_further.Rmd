@@ -102,7 +102,7 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g, 
     col = sex) + 
-  geom_point(aes(shape = sex), col = pal_default(1)) + 
+  geom_point(aes(shape = sex), col = "#2B6999") + 
   labs(shape = "Sex") 
 ```
 
@@ -125,7 +125,7 @@ penguins |>
   gg_blank(
     x = flipper_length_mm,
     y = body_mass_g) + 
-  geom_point(aes(size = bill_depth_mm), col = pal_default(1)) +
+  geom_point(aes(size = bill_depth_mm), col = "#2B6999") +
   labs(size = "Bill depth mm") 
 ```
 
