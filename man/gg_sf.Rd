@@ -11,6 +11,7 @@ gg_sf(
   facet2 = NULL,
   group = NULL,
   position = "identity",
+  stat = "sf",
   coord = ggplot2::coord_sf(clip = "off"),
   pal = NULL,
   pal_na = "#88837D",
@@ -58,6 +59,8 @@ gg_sf(
 \item{group}{Unquoted group aesthetic variable.}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
+
+\item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian()).}
 
