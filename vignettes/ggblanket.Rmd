@@ -464,7 +464,8 @@ penguins |>
     facet = species,
     y_include = range(.$lower, .$upper),
     fill = "#d3d3d3",
-    colour = "#d3d3d3") +
+    colour = "#d3d3d3", 
+    width = 0.75) +
   geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.1)
 ```
 
