@@ -17,7 +17,9 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = 0.618,
   out.width = "70%",
-  dpi = 300
+  dpi = 300,
+  dev.args = list(png = list(type = "cairo")),
+  fig.retina = 2
 )
 ```
 
@@ -180,10 +182,6 @@ Prefixed arguments are available to customise scales, guides, titles and facetin
 knitr::include_graphics("screenshot_autotab_y.png", dpi = 300)
 ```
 
-```{r, echo = FALSE}
-knitr::include_graphics("screenshot_autotab_col.png", dpi = 300)
-```
-
 ```{r}
 penguins |>
   ggplot() +
@@ -215,55 +213,24 @@ penguins |>
     col_legend_place = "t")
 ```
 
-```{r, fig.asp = 1}
+```{r}
 library(patchwork)
 p1 <- penguins |> 
   gg_point(
     x = flipper_length_mm, 
     y = body_mass_g, 
-    y_include = 0)
+    y_include = 0, 
+    x_breaks = scales::breaks_width(25))
 
 p2 <- penguins |> 
   gg_point(
     x = flipper_length_mm, 
     y = body_mass_g, 
     y_limits = c(0, NA),
-    x_breaks = scales::breaks_pretty(3))
+    x_breaks = scales::breaks_pretty(3), 
+    x_trans = "reverse")
 
-p3 <- penguins |> 
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g, 
-    x_breaks = scales::breaks_width(25))
-
-p4 <- penguins |> 
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g, 
-    x_limits = c(190, 210))
-
-p5 <- penguins |> 
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g, 
-    x_limits = c(190, 210),
-    x_oob = scales::oob_keep,
-    y_trans = "log10",
-    y_limits = c(1000, NA),
-    y_breaks = scales::breaks_width(1000),
-    coord = coord_cartesian(clip = "on"))
-
-p6 <- penguins |> 
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g,
-    x_trans = "reverse",
-    x_limits = c(210, 190),
-    x_breaks = scales::breaks_width(-10), 
-    y_include = 0,
-    y_trans = "sqrt")
-
-(p1 + p2) / (p3 + p4) / (p5 + p6)
+(p1 + p2)
 ```
 
 ### 7. Default titles converted to sentence case
@@ -436,16 +403,6 @@ penguins |>
   geom_jitter(colour = "#2B6999")
 ```
 
-Any required aesthetics not able to be included in the `gg_*` function will need to be added in the subsequent layers.
-
-```{r}
-mtcars %>% 
-  tibble::rownames_to_column("car") %>%
-  filter(wt > 2.75, wt < 3.45) %>% 
-  gg_point(x = wt, y = mpg) +
-  ggrepel::geom_text_repel(aes(label = car), col = "#2B6999") 
-```
-
 If some geoms have a `col` aesthetic and some do not, then it can be useful to have the col aesthetic in the `gg_*` function. That way you can get pretty ggblanket legend placement - and also adjust the col scale via the ease of the `gg_*` function. If you do not actually want a col aesthetic in your bottom plot layer, then you can over-rule the aesthetic by adding `colour` and `fill` arguments - or use the `gg_blank` function instead. 
 
 Use the `*_include` (or `*_limits`) argument as necessary to ensure the range of all layers are included in your numeric scales.
@@ -475,9 +432,8 @@ To extend ggblanket further, users can:
 
 * Use non-supported aesthetics
 * Use non-supported arguments
-* Use the ggtext package
-* Use the gghighlight package 
 * Use non-supported geoms
 * Create custom wrapper functions
+* Work with extension packages
 
-See the [Extending further](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) article for further discussion and example code.
+See the [Extending further](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) article for further information.

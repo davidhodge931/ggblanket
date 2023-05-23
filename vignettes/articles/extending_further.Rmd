@@ -12,7 +12,9 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = 0.618,
   out.width = "70%",
-  dpi = 300
+  dpi = 300, 
+  dev.args = list(png = list(type = "cairo")),
+  fig.retina = 2
 )
 ```
 
@@ -22,23 +24,30 @@ To extend ggblanket further, users can:
 
 1. Use non-supported aesthetics
 2. Use non-supported arguments
-3. Use the ggtext package
-4. Use the gghighlight package 
-5. Use non-supported geoms
-6. Create custom wrapper functions
+3. Use non-supported geoms
+4. Create custom wrapper functions
+5. Work with extension packages 
+
+* patchwork
+* ggtext
+* gghighlight
+* ggrepel
+* ggdensity
+* ggblend
 
 ```{r setup}
 library(dplyr)
 library(ggplot2)
 library(ggblanket)
 library(palmerpenguins)
+library(patchwork)
 
 penguins <- penguins |>
   mutate(sex = stringr::str_to_sentence(sex)) |>
   tidyr::drop_na(sex)
 ```
 
-### 1. Use non-supported aesthetics
+### 1. Use non-supported ggplot2 aesthetics
 
 While aesthetics other than col/fill are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
 
@@ -106,93 +115,48 @@ penguins |>
   theme(strip.switch.pad.grid = unit(2, "mm"))
 ```
 
-### 3. Use the ggtext package
+### 3. Use non-supported geoms
 
-You can modify plot text using the ggtext package. If you want to have some of a title not bold, then it's important to make the theme have a plain title. 
-
-```{r}
-nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
-
-nc |>
-  gg_sf(col = AREA,
-        pal = RColorBrewer::brewer.pal(9, "Reds"),
-        title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
-        theme = gg_theme(title_face = "plain")) +
-  theme(plot.title = ggtext::element_markdown())
-```
-
-### 4. Use the gghighlight package
-
-The gghighlight package can be used with ggblanket. 
-
-```{r}
-penguins |>
-  gg_point(x = flipper_length_mm,
-           y = body_mass_g) +
-  gghighlight::gghighlight(body_mass_g >= 5000)
-```
-
-It should be noted that the `gg_*` function builds the scale for the data that it thinks will be within the panel. In some situations such as the below example, you will _need_ to add a `*_limits = c(NA, NA)` argument to make sure that the scale builds to include the full height of the non-highlighted data. 
-
-```{r}
-iris |>
-  gg_histogram(
-    x = Sepal.Length,
-    col = Species,
-    facet = Species,
-    facet_labels = stringr::str_to_sentence,
-    y_limits = c(NA, NA)
-  ) +
-  gghighlight::gghighlight()
-```
-
-### 5. Use non-supported geoms
-
-There are lots of non-supported geoms in ggplot2 and other extension packages that can be used in combination with ggblanket. Whether they actually do or do not is dependent on the specifics of that stat within the geom.
+gblanket does not support _all_ ggplot2 geoms. However, some of these can be accessed via the gg_blank function.
 
 ```{r, fig.asp=1}
-library(patchwork)
-
 p1 <- faithful %>% 
-  gg_blank(x = eruptions, y = waiting, 
-           x_breaks = scales::breaks_pretty(3)) + 
-  geom_density2d(aes(col = after_stat(level))) +
-  labs(col = "Level") +
-  scale_colour_viridis_c()
+  gg_blank(x = eruptions, 
+           y = waiting, 
+           x_breaks = scales::breaks_pretty(3), 
+           subtitle = "geom_density_2d") + 
+  geom_density2d(aes(col = after_stat(level)),
+                 show.legend = FALSE)
 
-p2 <- faithfuld %>% 
-  gg_blank(x = waiting, y = eruptions, 
-           x_breaks = scales::breaks_pretty(3)) + 
-  geom_contour(aes(z = density, col = after_stat(level))) + 
-  labs(col = "Level") +
-  scale_colour_viridis_c()
+p2 <- faithful %>% 
+  gg_blank(x = waiting, 
+           y = eruptions, 
+           x_breaks = scales::breaks_pretty(3), 
+           subtitle = "geom_density_2d_filled") + 
+  geom_density_2d_filled(show.legend = FALSE)
 
 p3 <- faithfuld %>% 
-  gg_blank(x = waiting, y = eruptions) + 
-  geom_contour_filled(aes(z = density)) +
-  labs(fill = "Level") +
-  scale_colour_viridis_d()
+  gg_blank(x = waiting, 
+           y = eruptions, 
+           x_breaks = scales::breaks_pretty(3), 
+           subtitle = "geom_contour") + 
+  geom_contour(aes(z = density, col = after_stat(level)),
+               show.legend = FALSE) 
 
-(p1 + p2) / p3
+p4 <- faithfuld %>% 
+  gg_blank(x = waiting, 
+           y = eruptions, 
+           x_breaks = scales::breaks_pretty(3),
+           subtitle = "geom_contour_filled") + 
+  geom_contour_filled(aes(z = density), 
+                      show.legend = FALSE)
+
+(p1 + p2) / (p3 + p4)
 ```
 
-```{r}
-iris |>
-  mutate(Species = stringr::str_to_sentence(Species)) |> 
-  gg_blank(
-    x = Sepal.Width,
-    y = Sepal.Length,
-    col = Species,
-    facet = Species,
-    col_legend_place = "r") +
-  ggdensity::geom_hdr(colour = NA) +
-  labs(alpha = "Probs") +
-  theme(legend.title = element_text(margin = margin(t = 10)))
-```
+### 4. Create custom wrapper functions
 
-### 6. Create custom wrapper functions
-
-You can easily create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
+You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
 ```{r}
 gg_point_custom <- function(data, x, y, col, 
@@ -228,3 +192,142 @@ penguins |>
     col = sex,
     position = position_jitter())
 ```
+
+### 5. Work with extension packages
+
+ggblanket can work with numerous extension packages. 
+
+#### patchwork
+
+This fantastic package is straightforward to use with ggblanket.
+
+```{r}
+p1 <- data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
+  mutate(level_min = level - 1, level_max = level + 1) |>
+  gg_ribbon(
+    x = year,
+    ymin = level_min,
+    ymax = level_max,
+    pal = scales::alpha("#1B9E77", 0),
+    y_title = "Level",
+    x_labels = \(x) stringr::str_sub(x, 3, 4)
+  ) +
+  geom_line(aes(x = year, y = level), col = "#1B9E77")
+
+p2 <- ggplot2::diamonds |>
+  gg_hex(
+    x = carat,
+    y = price,
+    pal = viridis::cividis(9)
+  )
+
+p1 + p2
+```
+
+#### ggtext
+
+The ggtext package can modify plot text using markdown syntax. Note if you want to have some or all of a title not bold, then it's important to change the default theme have a plain title. 
+
+```{r}
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+
+nc |>
+  gg_sf(col = AREA,
+        pal = RColorBrewer::brewer.pal(9, "Reds"),
+        title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
+        theme = gg_theme(title_face = "plain")) +
+  theme(plot.title = ggtext::element_markdown())
+```
+
+#### gghighlight
+
+The gghighlight package can be used to highlight geoms. It should be noted that the `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you will _need_ to add a `*_limits = c(NA, NA)` argument to make sure that the scale builds to include the full height of the non-highlighted data. 
+
+```{r}
+penguins |>
+  gg_point(x = flipper_length_mm,
+           y = body_mass_g) +
+  gghighlight::gghighlight(body_mass_g >= 5000)
+```
+
+```{r}
+iris |>
+  gg_histogram(
+    x = Sepal.Length,
+    col = Species,
+    facet = Species,
+    facet_labels = stringr::str_to_sentence,
+    y_limits = c(NA, NA)
+  ) +
+  gghighlight::gghighlight()
+```
+
+#### ggrepel
+
+The ggrepel package can be used to neatly avoid labels overlapping with geoms and each other. 
+
+```{r}
+mtcars |> 
+  tibble::rownames_to_column("car") |>
+  filter(wt > 2.75, wt < 3.45) |> 
+  gg_point(x = wt, y = mpg) +
+  ggrepel::geom_text_repel(aes(label = car), col = "#2B6999") 
+```
+
+#### ggdensity
+
+The ggdensity package provides visualizations of density estimates. Use `gg_blank` to work with these geoms 
+
+```{r}
+iris |>
+  mutate(Species = stringr::str_to_sentence(Species)) |> 
+  gg_blank(
+    x = Sepal.Width,
+    y = Sepal.Length,
+    col = Species,
+    facet = Species,
+    col_legend_place = "r") +
+  ggdensity::geom_hdr(colour = NA) +
+  labs(alpha = "Probs") +
+  theme(legend.title = element_text(margin = margin(t = 10)))
+```
+
+#### ggblend
+ 
+ggblend allows blending colours. It works by piping in ggblend code on the geom_point layer. Therefore, you should use the gg_blank function to work with ggblend. 
+ 
+```{r ggplot2}
+library(ggblend)
+set.seed(1234)
+
+df_a <- data.frame(
+  x = rnorm(500, 0), 
+  y = rnorm(500, 1), 
+  set = "A")
+
+df_b <- data.frame(
+  x = rnorm(500, 1), 
+  y = rnorm(500, 2), 
+  set = "B")
+
+df <- rbind(
+  rbind(df_a, df_b) |> transform(order = "Draw A then B"),
+  rbind(df_b, df_a) |> transform(order = "Draw B then A")
+)
+
+df |>
+  gg_blank(
+    x = x,
+    y = y,
+    col = set,
+    facet = order,
+    pal = RColorBrewer::brewer.pal(9, "Set1"),
+  ) +
+  geom_point(size = 3, alpha = 0.5) |> 
+    partition(vars(set)) |> 
+    blend("lighten") +
+  geom_point(size = 3, alpha = 0.5) |> 
+    partition(vars(set)) |> 
+    blend("multiply", alpha = 0.5) 
+```
+
