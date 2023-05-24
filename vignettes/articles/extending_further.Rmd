@@ -12,10 +12,8 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = 0.618,
   out.width = "70%",
-  dpi = 300, 
-  dev.args = list(png = list(type = "cairo")),
-  fig.retina = 2
-)
+  dpi = 300,
+  dev.args = list(png = list(type = "cairo")))
 ```
 
 ## Overview
@@ -296,7 +294,7 @@ iris |>
  
 ggblend allows blending colours. It works by piping in ggblend code on the geom_point layer. Therefore, you should use the gg_blank function to work with ggblend. 
  
-```{r ggplot2}
+```{r fig.retina = 3}
 library(ggblend)
 set.seed(1234)
 
