@@ -328,4 +328,18 @@ df |>
     partition(vars(set)) |> 
     blend("multiply", alpha = 0.5) 
 ```
+### plotly
+
+```{r}
+library(plotly)
+
+p <- diamonds |>
+  gg_bar(
+    x = color,
+    col = color,
+    width = 0.75,
+    theme = gg_theme("helvetica"))
+
+plotly::ggplotly(p, tooltip = c("x", "y"))
+```
 
