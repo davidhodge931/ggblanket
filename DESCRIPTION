@@ -30,10 +30,15 @@ Imports:
     tidyselect,
     viridis
 Suggests: 
+    ggblend,
+    gghighlight,
+    ggiraph,
+    ggrepel,
     hexbin,
     knitr,
     palmerpenguins,
     patchwork,
+    plotly,
     RColorBrewer,
     rmarkdown,
     sf,
