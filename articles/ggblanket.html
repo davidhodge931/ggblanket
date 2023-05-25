@@ -128,7 +128,8 @@ Hodge</h4>
 <code>ggplot(aes(...))</code> function with the applicable ggplot2
 <code>geom_*()</code> function. All aesthetics are placed directly in
 the <code>gg_*</code> function: they are not within a
-<code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes</a></code> function.</p>
+<code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes</a></code> function. This also provides access to the
+arguments of the relevant stat function.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -515,9 +516,12 @@ function. If you do not actually want a col aesthetic in your bottom
 plot layer, then you can over-rule the aesthetic by adding
 <code>colour</code> and <code>fill</code> arguments - or use the
 <code>gg_blank</code> function instead.</p>
-<p>Use the <code>*_include</code> (or <code>*_limits</code>) argument as
-necessary to ensure the range of all layers are included in your numeric
-scales.</p>
+<p>The <code>gg_*</code> function builds the x and y scales based on the
+<code>data</code>, <code>stat</code>, and <code>x</code> and
+<code>y</code> variables in the <code>gg_*</code> function. It does not
+know about any subsequent layers that are added. You use
+<code>*_include</code>, <code>*_limits</code> and <code>stat</code> to
+adjust the pre-built scales to accommodate subsequent layers.</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
