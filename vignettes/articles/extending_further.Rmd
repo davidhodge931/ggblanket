@@ -23,11 +23,11 @@ knitr::opts_chunk$set(
 To extend ggblanket further, users can:
 
 1. Use the ggblank function
-2. Use non-supported aesthetics
-3. Use non-supported arguments
-4. Use non-supported geoms
-5. Create custom wrapper functions
-6. Work with non-default stat's
+2. Work with non-default stat's
+3. Use non-supported aesthetics
+4. Use non-supported arguments
+5. Use non-supported geoms
+6. Create custom wrapper functions
 7. Work with extension packages 
 
 * patchwork
@@ -78,15 +78,28 @@ penguins |>
   geom_histogram(col = pal_blue, fill = pal_blue, alpha = 0.9)
 ```
 
-```{r}
-nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE) 
+### 2. Work with non-default stats
 
-nc |>
-  gg_blank(col = AREA, stat = "sf") +
-  geom_sf(alpha = 0.9)
+Users can change the default stat. The ... argument provides access to the relevant `stat_*` function as well as the `geom_*` function. ggblanket limits the aesthetics available in each `gg_*` function to what is required. 
+
+```{r}
+penguins %>%
+  gg_errorbar(
+    x = species,
+    y = body_mass_g,
+    stat = "summary",
+    fun.data = \(x) mean_se(x, 1.96),
+    width = 0.1,
+    y_include = 0
+  ) +
+  geom_bar(
+    stat = "summary",
+    fun = \(x) mean(x),
+    alpha = 0.2,
+    width = 0.75)
 ```
 
-### 2. Use non-supported ggplot2 aesthetics
+### 3. Use non-supported ggplot2 aesthetics
 
 While aesthetics other than col/fill are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
 
@@ -135,7 +148,7 @@ penguins |>
   labs(size = "Bill depth mm") 
 ```
 
-### 3. Use non-supported arguments
+### 4. Use non-supported arguments
 
 The `gg_*` function provides access to all arguments within the `geom_*` function other than the `mapping` argument. It also provides access to most of the useful arguments you might need in the various guide, scale and facet functions etc. However, it does not provide all such arguments. For example, the switch argument within `facet_grid` is not supported. A way to access this functionality is to `+` the `facet_grid(..., switch = "y")` in.
 
@@ -154,7 +167,7 @@ penguins |>
   theme(strip.switch.pad.grid = unit(2, "mm"))
 ```
 
-### 4. Use non-supported geoms
+### 5. Use non-supported geoms
 
 gblanket does not support _all_ ggplot2 geoms. However, some of these can be accessed via the gg_blank function.
 
@@ -193,7 +206,7 @@ p4 <- faithfuld %>%
 (p1 + p2) / (p3 + p4)
 ```
 
-### 5. Create custom wrapper functions
+### 6. Create custom wrapper functions
 
 You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
@@ -230,27 +243,6 @@ penguins |>
     y = body_mass_g,
     col = sex,
     position = position_jitter())
-```
-
-### 6. Work with non-default stats
-
-Users can change the default stat. The ... argument provides access to the relevant `stat_*` function as well as the `geom_*` function. ggblanket limits the aesthetics available in each `gg_*` function to what is required. 
-
-```{r}
-penguins %>%
-  gg_errorbar(
-    x = species,
-    y = body_mass_g,
-    stat = "summary",
-    fun.data = \(x) mean_se(x, 1.96),
-    width = 0.1,
-    y_include = 0
-  ) +
-  geom_bar(
-    stat = "summary",
-    fun = \(x) mean(x),
-    alpha = 0.2,
-    width = 0.75)
 ```
 
 ### 7. Work with extension packages

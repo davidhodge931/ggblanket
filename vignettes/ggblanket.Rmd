@@ -428,10 +428,12 @@ penguins |>
 
 To extend ggblanket further, users can:
 
+* Use the ggblank function
+* Work with non-default stat's
 * Use non-supported aesthetics
 * Use non-supported arguments
 * Use non-supported geoms
 * Create custom wrapper functions
-* Work with extension packages
+* Work with extension packages 
 
 See the [Extending further](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) article for further information.
