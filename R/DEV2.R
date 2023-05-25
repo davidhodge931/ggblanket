@@ -1,6 +1,6 @@
-#' @title Point ggplot
+#' @title Blank ggplot
 #'
-#' @description Create a point ggplot with a wrapper around the ggplot2::geom_point function.
+#' @description Create a blank ggplot with a wrapper around the ggplot2::geom_blank function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
@@ -8,13 +8,27 @@
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
+#' @param xmin Unquoted xmin aesthetic variable.
+#' @param xmax Unquoted xmax aesthetic variable.
+#' @param xend Unquoted xend aesthetic variable.
+#' @param xlower Unquoted xlower aesthetic variable.
+#' @param xupper Unquoted xupper aesthetic variable.
+#' @param xmiddle Unquoted xmiddle aesthetic variable.
+#' @param ymin Unquoted ymin aesthetic variable.
+#' @param ymax Unquoted ymax aesthetic variable.
+#' @param yend Unquoted yend aesthetic variable.
+#' @param ylower Unquoted ylower aesthetic variable.
+#' @param yupper Unquoted yupper aesthetic variable.
+#' @param ymiddle Unquoted ymiddle aesthetic variable.
+#' @param sample Unquoted sample aesthetic variable.
+#' @param label Unquoted label aesthetic variable.
+#' @param subgroup Unquoted subgroup aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian()).
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
-#' @param alpha Opacity. A number between 0 and 1.
-#' @param ... Other arguments passed to the ggplot2::geom_point function.
+#' @param ... Other arguments passed to the ggplot2::geom_blank function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -60,15 +74,16 @@
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
 #' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
+#' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
 #'
 #' @return A ggplot object.
 #' @export
-#'
 #' @examples
+#' library(dplyr)
 #' library(palmerpenguins)
 #'
 #' penguins |>
-#'   gg_point(
+#'   gg_blank2(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = sex,
@@ -77,7 +92,7 @@
 #'     pal = c("#1B9E77", "#9E361B")
 #'   )
 #'
-gg_point <- function(
+gg_blank2 <- function(
     data = NULL,
     x = NULL,
     y = NULL,
@@ -85,12 +100,26 @@ gg_point <- function(
     facet = NULL,
     facet2 = NULL,
     group = NULL,
+    xmin = NULL,
+    xmax = NULL,
+    xend = NULL,
+    xlower = NULL,
+    xupper = NULL,
+    xmiddle = NULL,
+    ymin = NULL,
+    ymax = NULL,
+    yend = NULL,
+    ylower = NULL,
+    yupper = NULL,
+    ymiddle = NULL,
+    sample = NULL,
+    label = NULL,
+    subgroup = NULL,
     stat = "identity",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
     pal_na = "#88837D",
-    alpha = 1,
     ...,
     title = NULL,
     subtitle = NULL,
@@ -137,11 +166,11 @@ gg_point <- function(
     titles = snakecase::to_sentence_case,
     theme = gg_theme(),
     void = FALSE) {
-
+  
   ##############################################################################
   #Unique code: part 1
   ##############################################################################
-
+  
   #quote
   x <- rlang::enquo(x)
   y <- rlang::enquo(y)
@@ -149,14 +178,38 @@ gg_point <- function(
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
-
-  #ungroup & convert infinite values to NA
+  
+  xmin <- rlang::enquo(xmin)
+  xmax <- rlang::enquo(xmax)
+  xend <- rlang::enquo(xend)
+  xlower <- rlang::enquo(xlower)
+  xupper <- rlang::enquo(xupper)
+  xmiddle <- rlang::enquo(xmiddle)
+  
+  ymin <- rlang::enquo(ymin)
+  ymax <- rlang::enquo(ymax)
+  yend <- rlang::enquo(yend)
+  ylower <- rlang::enquo(ylower)
+  yupper <- rlang::enquo(yupper)
+  ymiddle <- rlang::enquo(ymiddle)
+  
+  sample <- rlang::enquo(sample)
+  label <- rlang::enquo(label)
+  subgroup <- rlang::enquo(subgroup)
+  
+  #ungroup
   data <- data %>%
     dplyr::ungroup() %>%
     dplyr::mutate(dplyr::across(
-      c(!!x, !!y, !!col),
+      c(!!x, !!y,
+        !!xmin, !!ymin,
+        !!xmax, !!ymax,
+        !!xend, !!yend,
+        !!xlower, !!xmiddle, !!xupper, !!ylower, !!ymiddle, !!yupper,
+        !!col
+      ),
       na_if_inf))
-
+  
   #get classes
   if (stat == "sf") {
     x_null <- TRUE
@@ -166,7 +219,7 @@ gg_point <- function(
     x_date <- FALSE
     x_datetime <- FALSE
     x_time <- FALSE
-
+    
     y_null <- TRUE
     y_factor <- FALSE
     y_forcat <- FALSE
@@ -176,26 +229,66 @@ gg_point <- function(
     y_time <- FALSE
   }
   else {
-    x_null <- rlang::quo_is_null(x)
+    x_null <- rlang::quo_is_null(x) & rlang::quo_is_null(xmin) & rlang::quo_is_null(xmax) & rlang::quo_is_null(xend)
     x_forcat <- is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data)) | is.logical(rlang::eval_tidy(x, data))
-    x_numeric <- is.numeric(rlang::eval_tidy(x, data))
-    x_date <- lubridate::is.Date(rlang::eval_tidy(x, data))
-    x_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(x, data))
-    x_time <- hms::is_hms(rlang::eval_tidy(x, data))
-
-    y_null <- rlang::quo_is_null(y)
+    x_numeric <- {
+      is.numeric(rlang::eval_tidy(x, data)) |
+        is.numeric(rlang::eval_tidy(xmin, data)) |
+        is.numeric(rlang::eval_tidy(xmax, data)) |
+        is.numeric(rlang::eval_tidy(xend, data))
+    }
+    x_date <- {
+      lubridate::is.Date(rlang::eval_tidy(x, data)) |
+        lubridate::is.Date(rlang::eval_tidy(xmin, data)) |
+        lubridate::is.Date(rlang::eval_tidy(xmax, data)) |
+        lubridate::is.Date(rlang::eval_tidy(xend, data))
+    }
+    x_datetime <- {
+      lubridate::is.POSIXct(rlang::eval_tidy(x, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(xmin, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(xmax, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(xend, data))
+    }
+    x_time <- {
+      hms::is_hms(rlang::eval_tidy(x, data)) |
+        hms::is_hms(rlang::eval_tidy(xmin, data)) |
+        hms::is_hms(rlang::eval_tidy(xmax, data)) |
+        hms::is_hms(rlang::eval_tidy(xend, data))
+    }
+    
+    y_null <- rlang::quo_is_null(y) & rlang::quo_is_null(ymin) & rlang::quo_is_null(ymax) & rlang::quo_is_null(yend)
     y_forcat <- is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data)) | is.logical(rlang::eval_tidy(y, data))
-    y_numeric <- is.numeric(rlang::eval_tidy(y, data))
-    y_date <- lubridate::is.Date(rlang::eval_tidy(y, data))
-    y_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(y, data))
-    y_time <- hms::is_hms(rlang::eval_tidy(y, data))
+    y_numeric <- {
+      is.numeric(rlang::eval_tidy(y, data)) |
+        is.numeric(rlang::eval_tidy(ymin, data)) |
+        is.numeric(rlang::eval_tidy(ymax, data)) |
+        is.numeric(rlang::eval_tidy(yend, data))
+    }
+    y_date <- {
+      lubridate::is.Date(rlang::eval_tidy(y, data)) |
+        lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
+        lubridate::is.Date(rlang::eval_tidy(ymax, data)) |
+        lubridate::is.Date(rlang::eval_tidy(yend, data))
+    }
+    y_datetime <- {
+      lubridate::is.POSIXct(rlang::eval_tidy(y, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(ymin, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(ymax, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(yend, data))
+    }
+    y_time <- {
+      hms::is_hms(rlang::eval_tidy(y, data)) |
+        hms::is_hms(rlang::eval_tidy(ymin, data)) |
+        hms::is_hms(rlang::eval_tidy(ymax, data)) |
+        hms::is_hms(rlang::eval_tidy(yend, data))
+    }
   }
-
+  
   if (stat %in% c("bin2d", "bin_2d", "binhex")) {
     col_null <- TRUE
     col_factor <- FALSE
     col_forcat <- FALSE
-    col_numeric <- TRUE
+    col_numeric <- FALSE
     col_date <- FALSE
     col_datetime <- FALSE
     col_time <- FALSE
@@ -209,54 +302,51 @@ gg_point <- function(
     col_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(col, data))
     col_time <- hms::is_hms(rlang::eval_tidy(col, data))
   }
-
+  
   facet_null <- rlang::quo_is_null(facet)
   facet2_null <- rlang::quo_is_null(facet2)
-
+  
   ##############################################################################
-  #Generic code: part 1 (adjust for gg_sf)
+  #Generic code: part 1 (except gg_sf)
   ##############################################################################
-
-  #process for horizontal
-  if (stat != "sf") {
-    if (y_forcat) {
-      if (!(!col_null &
-            (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))))) {
-
-        if (is.logical(rlang::eval_tidy(y, data))) {
-          data <- data %>%
-            dplyr::mutate(dplyr::across(!!y, function(x) as.character(x)))
-        }
-
+  
+  #process data for horizontal
+  if (y_forcat) {
+    if (!(!col_null &
+          (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))))) {
+      
+      if (is.logical(rlang::eval_tidy(y, data))) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
+          dplyr::mutate(dplyr::across(!!y, function(x) as.character(x)))
       }
+      
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
     }
-
-    if (col_forcat) {
-      if (y_forcat) {
-        if (is.logical(rlang::eval_tidy(col, data))) {
-          data <- data %>%
-            dplyr::mutate(dplyr::across(!!col, function(x) as.character(x)))
-        }
-
+  }
+  
+  if (col_forcat) {
+    if (y_forcat) {
+      if (is.logical(rlang::eval_tidy(col, data))) {
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
+          dplyr::mutate(dplyr::across(!!col, function(x) as.character(x)))
       }
+      
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
     }
   }
 
   ##############################################################################
   #Unique code: part 2
   ##############################################################################
-
+  
   ###make plot
-  if (!x_null & !y_null) {
+  if (stat == "sf") {
     if (!col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          y = !!y,
+          geometry = .data$geometry,
           col = !!col,
           fill = !!col,
           group = !!group
@@ -265,82 +355,314 @@ gg_point <- function(
     else if (col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          y = !!y,
+          geometry = .data$geometry,
           # col = "",
           # fill = "",
           group = !!group
         ))
     }
   }
-  else if (!x_null & y_null) {
-    if (!col_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          col = !!col,
-          fill = !!col,
-          group = !!group
-        ))
-    }
-    else if (col_null) {
+  else if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+    if (!x_null & !y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
-          # col = "",
-          # fill = "",
-          group = !!group
+          y = !!y,
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          xlower = !!xlower,
+          xupper = !!xupper,
+          xmiddle = !!xmiddle,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          lower = !!ylower,
+          upper = !!yupper,
+          middle = !!ymiddle,
+          sample = !!sample,
+          label = !!label,
+          subgroup = !!subgroup
         ))
     }
-  }
-  else if (x_null & !y_null) {
-    if (!col_null) {
+    else if (!x_null & y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          x = !!x,
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          xlower = !!xlower,
+          xupper = !!xupper,
+          xmiddle = !!xmiddle,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          lower = !!ylower,
+          upper = !!yupper,
+          middle = !!ymiddle,
+          sample = !!sample,
+          label = !!label,
+          subgroup = !!subgroup
+        ))
+    }
+    else if (x_null & !y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
-          col = !!col,
-          fill = !!col,
-          group = !!group
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          xlower = !!xlower,
+          xupper = !!xupper,
+          xmiddle = !!xmiddle,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          lower = !!ylower,
+          upper = !!yupper,
+          middle = !!ymiddle,
+          sample = !!sample,
+          label = !!label,
+          subgroup = !!subgroup
         ))
     }
-    else if (col_null) {
+    else if (x_null & y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          y = !!y,
-          # col = "",
-          # fill = "",
-          group = !!group
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          xlower = !!xlower,
+          xupper = !!xupper,
+          xmiddle = !!xmiddle,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          lower = !!ylower,
+          upper = !!yupper,
+          middle = !!ymiddle,
+          sample = !!sample,
+          label = !!label,
+          subgroup = !!subgroup
         ))
     }
   }
-  else if (x_null & y_null) {
-    if (!col_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          col = !!col,
-          fill = !!col,
-          group = !!group
-        ))
+  else {
+    if (!x_null & !y_null) {
+      if (!col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            x = !!x,
+            y = !!y,
+            col = !!col,
+            fill = !!col,
+            group = !!group,
+            xmin = !!xmin,
+            xmax = !!xmax,
+            xend = !!xend,
+            xlower = !!xlower,
+            xupper = !!xupper,
+            xmiddle = !!xmiddle,
+            ymin = !!ymin,
+            ymax = !!ymax,
+            yend = !!yend,
+            lower = !!ylower,
+            upper = !!yupper,
+            middle = !!ymiddle,
+            sample = !!sample,
+            label = !!label,
+            subgroup = !!subgroup
+          ))
+      }
+      else if (col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            x = !!x,
+            y = !!y,
+            # col = "",
+            # fill = "",
+            group = !!group,
+            xmin = !!xmin,
+            xmax = !!xmax,
+            xend = !!xend,
+            xlower = !!xlower,
+            xupper = !!xupper,
+            xmiddle = !!xmiddle,
+            ymin = !!ymin,
+            ymax = !!ymax,
+            yend = !!yend,
+            lower = !!ylower,
+            upper = !!yupper,
+            middle = !!ymiddle,
+            sample = !!sample,
+            label = !!label,
+            subgroup = !!subgroup
+          ))
+      }
     }
-    else if (col_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          # col = "",
-          # fill = "",
-          group = !!group
-        ))
+    else if (!x_null & y_null) {
+      if (!col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            x = !!x,
+            col = !!col,
+            fill = !!col,
+            group = !!group,
+            xmin = !!xmin,
+            xmax = !!xmax,
+            xend = !!xend,
+            xlower = !!xlower,
+            xupper = !!xupper,
+            xmiddle = !!xmiddle,
+            ymin = !!ymin,
+            ymax = !!ymax,
+            yend = !!yend,
+            lower = !!ylower,
+            upper = !!yupper,
+            middle = !!ymiddle,
+            sample = !!sample,
+            label = !!label,
+            subgroup = !!subgroup
+          ))
+      }
+      else if (col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            x = !!x,
+            # col = "",
+            # fill = "",
+            group = !!group,
+            xmin = !!xmin,
+            xmax = !!xmax,
+            xend = !!xend,
+            xlower = !!xlower,
+            xupper = !!xupper,
+            xmiddle = !!xmiddle,
+            ymin = !!ymin,
+            ymax = !!ymax,
+            yend = !!yend,
+            lower = !!ylower,
+            upper = !!yupper,
+            middle = !!ymiddle,
+            sample = !!sample,
+            label = !!label,
+            subgroup = !!subgroup
+          ))
+      }
+    }
+    else if (x_null & !y_null) {
+      if (!col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            y = !!y,
+            col = !!col,
+            fill = !!col,
+            group = !!group,
+            xmin = !!xmin,
+            xmax = !!xmax,
+            xend = !!xend,
+            xlower = !!xlower,
+            xupper = !!xupper,
+            xmiddle = !!xmiddle,
+            ymin = !!ymin,
+            ymax = !!ymax,
+            yend = !!yend,
+            lower = !!ylower,
+            upper = !!yupper,
+            middle = !!ymiddle,
+            sample = !!sample,
+            label = !!label,
+            subgroup = !!subgroup
+          ))
+      }
+      else if (col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            y = !!y,
+            # col = "",
+            # fill = "",
+            group = !!group,
+            xmin = !!xmin,
+            xmax = !!xmax,
+            xend = !!xend,
+            xlower = !!xlower,
+            xupper = !!xupper,
+            xmiddle = !!xmiddle,
+            ymin = !!ymin,
+            ymax = !!ymax,
+            yend = !!yend,
+            lower = !!ylower,
+            upper = !!yupper,
+            middle = !!ymiddle,
+            sample = !!sample,
+            label = !!label,
+            subgroup = !!subgroup
+          ))
+      }
+    }
+    else if (x_null & y_null) {
+      if (!col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            col = !!col,
+            fill = !!col,
+            group = !!group,
+            xmin = !!xmin,
+            xmax = !!xmax,
+            xend = !!xend,
+            xlower = !!xlower,
+            xupper = !!xupper,
+            xmiddle = !!xmiddle,
+            ymin = !!ymin,
+            ymax = !!ymax,
+            yend = !!yend,
+            lower = !!ylower,
+            upper = !!yupper,
+            middle = !!ymiddle,
+            sample = !!sample,
+            label = !!label,
+            subgroup = !!subgroup
+          ))
+      }
+      else if (col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            # col = "",
+            # fill = "",
+            group = !!group,
+            xmin = !!xmin,
+            xmax = !!xmax,
+            xend = !!xend,
+            xlower = !!xlower,
+            xupper = !!xupper,
+            xmiddle = !!xmiddle,
+            ymin = !!ymin,
+            ymax = !!ymax,
+            yend = !!yend,
+            lower = !!ylower,
+            upper = !!yupper,
+            middle = !!ymiddle,
+            sample = !!sample,
+            label = !!label,
+            subgroup = !!subgroup
+          ))
+      }
     }
   }
-
+  
   if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
     if (rlang::is_null(pal)) pal <-  pal_cat(n = 1)
     else pal <- as.vector(pal[1])
-
+    
     plot <- plot +
-      ggplot2::geom_point(
+      ggplot2::geom_blank(
         stat = stat,
         position = position,
-        alpha = alpha,
         col = pal,
         fill = pal,
         ...
@@ -350,20 +672,19 @@ gg_point <- function(
   }
   else {
     plot <- plot +
-      ggplot2::geom_point(
+      ggplot2::geom_blank(
         stat = stat,
         position = position,
-        alpha = alpha,
         ...
       ) +
       coord +
       theme
   }
-
+  
   ##############################################################################
   #Generic code: part 2 (adjust for gg_sf)
   ##############################################################################
-
+  
   #Add faceting
   if (rlang::is_null(facet_layout)) {
     if (!facet_null & facet2_null) facet_layout <- "wrap"
@@ -372,7 +693,7 @@ gg_point <- function(
     else if (facet_null & facet2_null) facet_layout <- "grid"
     else facet_layout <- "null"
   }
-
+  
   if (facet_layout == "wrap") {
     if (!facet_null & facet2_null) {
       plot <- plot +
@@ -435,7 +756,7 @@ gg_point <- function(
         )
     }
   }
-
+  
   #Get the positional scales right first
   if (stat != "sf") {
     if (rlang::is_null(x_limits)) {
@@ -446,7 +767,7 @@ gg_point <- function(
         }
       }
     }
-
+    
     if (x_numeric) {
       plot <- plot +
         ggplot2::scale_x_continuous(limits = x_limits, trans = x_trans, oob = x_oob)
@@ -467,12 +788,12 @@ gg_point <- function(
       plot <- plot +
         ggplot2::scale_x_discrete(drop = FALSE)
     }
-
+    
     if (!rlang::is_null(x_include)) {
       plot <- plot +
         ggplot2::expand_limits(x = x_include)
     }
-
+    
     if (rlang::is_null(y_limits)) {
       if (stat %in% c("bin", "bin2d", "bin_2d", "binhex")) {
         if (y_numeric) y_limits <- c(NA, NA)
@@ -481,7 +802,7 @@ gg_point <- function(
         }
       }
     }
-
+    
     if (y_numeric) {
       plot <- plot +
         ggplot2::scale_y_continuous(limits = y_limits, trans = y_trans, oob = y_oob)
@@ -502,22 +823,22 @@ gg_point <- function(
       plot <- plot +
         ggplot2::scale_y_discrete(drop = FALSE)
     }
-
+    
     if (!rlang::is_null(y_include)) {
       plot <- plot +
         ggplot2::expand_limits(y = y_include)
     }
   }
-
+  
   #Get plot data and flipped status
   plot_build <- ggplot2::ggplot_build(plot)
   plot_data <- plot_build$data[[1]]
-
+  
   flippable <- any(stringr::str_detect(colnames(plot_data), "flipped_aes"))
-
+  
   if (flippable) flipped <- all(plot_data["flipped_aes"])
   else flipped <- FALSE
-
+  
   #Make x, y scales
   if (stat != "sf") {
     #Make x scale based on plot_data
@@ -525,7 +846,7 @@ gg_point <- function(
       if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
       if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
       if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
-
+      
       plot <- plot +
         ggplot2::scale_x_discrete(
           expand = x_expand,
@@ -536,7 +857,7 @@ gg_point <- function(
         )
     }
     else if (x_numeric | x_date | x_datetime | x_time | x_null) {
-
+      
       if (class(position)[1] == "character") {
         if (position == "fill") {
           if (y_forcat | flipped) x_limits <- c(NA, NA)
@@ -545,19 +866,19 @@ gg_point <- function(
       else if (class(position)[1] == "PositionFill") {
         if (y_forcat | flipped) x_limits <- c(NA, NA)
       }
-
+      
       if (facet_scales %in% c("fixed", "free_y")) {
-
+        
         x_vars_str <- "^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$"
         y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
-
+        
         x_vctr <- plot_data %>%
           dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !is.na(x)))
-
+        
         if (!y_forcat) {
           x_vctr <- x_vctr %>%
             dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), \(x) !is.na(x)))
-
+          
           if (!rlang::is_null(y_limits)) {
             if (y_trans != "reverse") {
               if (!is.na(y_limits[1])) {
@@ -581,10 +902,10 @@ gg_point <- function(
             }
           }
         }
-
+        
         x_vctr <- x_vctr %>%
           dplyr::select(tidyselect::matches(stringr::regex(x_vars_str)))
-
+        
         if (ncol(x_vctr) != 0) {
           x_vctr <- x_vctr %>%
             tidyr::pivot_longer(cols = tidyselect::everything()) %>%
@@ -592,8 +913,8 @@ gg_point <- function(
         } else {
           x_vctr <- NULL
         }
-
-
+        
+        
         if (x_date) {
           x_vctr <- lubridate::as_date(x_vctr, origin = "1970-01-01")
         }
@@ -603,7 +924,7 @@ gg_point <- function(
         else if (x_time) {
           x_vctr <- hms::as_hms(x_vctr)
         }
-
+        
         if (x_trans != "reverse") {
           x_range <- x_vctr %>% range(na.rm = TRUE)
           if (!rlang::is_null(x_include)) x_range <- range(c(x_range, x_include))
@@ -612,7 +933,7 @@ gg_point <- function(
           x_range <- x_vctr %>% range(na.rm = TRUE) * -1
           if (!rlang::is_null(x_include)) x_range <- sort(range(c(x_range, x_include)), decreasing = TRUE)
         }
-
+        
         if (rlang::is_null(x_limits) & rlang::is_null(x_breaks)) {
           if (x_time | !x_trans %in% c("identity", "reverse")) {
             x_limits <- c(NA, NA)
@@ -622,11 +943,11 @@ gg_point <- function(
             if (!facet_null & !facet2_null) x_breaks_n <- 3
             else if (!facet_null & facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
-
+            
             if (flipped | y_forcat) {
               x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
               if(x_trans == "reverse") x_breaks <- sort(x_breaks, decreasing = TRUE)
-
+              
               x_limits <- range(x_breaks)
               if (x_trans == "reverse") x_limits <- sort(x_limits, decreasing = TRUE)
             }
@@ -661,14 +982,14 @@ gg_point <- function(
             if (!facet_null & !facet2_null) x_breaks_n <- 3
             else if (!facet_null & facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
-
+            
             if (any(is.na(x_limits))) {
               x_breaks <- scales::breaks_pretty(n = x_breaks_n)
             }
             else {
               x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
             }
-
+            
             if (x_trans == "reverse") x_breaks <- sort(x_breaks, decreasing = TRUE)
           }
         }
@@ -676,7 +997,7 @@ gg_point <- function(
       else if (facet_scales %in% c("free", "free_x")) {
         if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
       }
-
+      
       if (rlang::is_null(x_expand)) {
         if (flipped | y_forcat) x_expand <- c(0, 0)
         else if (facet_scales %in% c("fixed", "free_y") &
@@ -686,14 +1007,14 @@ gg_point <- function(
         else if (!x_trans %in% c("identity", "reverse")) x_expand <- ggplot2::expansion(mult = c(0, 0.05))
         else x_expand <- c(0, 0)
       }
-
+      
       if (rlang::is_null(x_labels)) {
         if (x_numeric | x_null) x_labels <- scales::label_comma()
         else if (x_date | x_datetime | x_time) {
           x_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
         }
       }
-
+      
       if (x_numeric | x_null) {
         plot <- plot +
           ggplot2::scale_x_continuous(
@@ -740,13 +1061,13 @@ gg_point <- function(
           )
       }
     }
-
+    
     #Make y scale based on plot_data
     if (y_forcat) {
       if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
       if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
       if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
-
+      
       plot <- plot +
         ggplot2::scale_y_discrete(
           expand = y_expand,
@@ -756,7 +1077,7 @@ gg_point <- function(
         )
     }
     else if (y_numeric | y_date | y_datetime | y_time | y_null) {
-
+      
       if (class(position)[1] == "character") {
         if (position == "fill") {
           if (x_forcat | !flipped) y_limits <- c(NA, NA)
@@ -765,19 +1086,19 @@ gg_point <- function(
       else if (class(position)[1] == "PositionFill") {
         if (x_forcat | !flipped) y_limits <- c(NA, NA)
       }
-
+      
       if (facet_scales %in% c("fixed", "free_x")) {
-
+        
         x_vars_str <- "^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$"
         y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
-
+        
         y_vctr <- plot_data %>%
           dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), \(x) !is.na(x)))
-
+        
         if (!x_forcat) {
           y_vctr <- y_vctr %>%
             dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !is.na(x)))
-
+          
           if (!rlang::is_null(x_limits)) {
             if (x_trans != "reverse") {
               if (!is.na(x_limits)[1]) {
@@ -801,10 +1122,10 @@ gg_point <- function(
             }
           }
         }
-
+        
         y_vctr <- y_vctr %>%
           dplyr::select(tidyselect::matches(stringr::regex(y_vars_str)))
-
+        
         if (ncol(y_vctr) != 0) {
           y_vctr <- y_vctr %>%
             tidyr::pivot_longer(cols = tidyselect::everything()) %>%
@@ -812,7 +1133,7 @@ gg_point <- function(
         } else {
           y_vctr <- NULL
         }
-
+        
         if (y_date) {
           y_vctr <- lubridate::as_date(y_vctr, origin = "1970-01-01")
         }
@@ -822,7 +1143,7 @@ gg_point <- function(
         else if (y_time) {
           y_vctr <- hms::as_hms(y_vctr)
         }
-
+        
         if (y_trans != "reverse") {
           y_range <- y_vctr %>% range(na.rm = TRUE)
           if (!rlang::is_null(y_include)) y_range <- range(c(y_range, y_include))
@@ -831,7 +1152,7 @@ gg_point <- function(
           y_range <- y_vctr %>% range(na.rm = TRUE) * -1
           if (!rlang::is_null(y_include)) y_range <- sort(range(c(y_range, y_include)), decreasing = TRUE)
         }
-
+        
         if (rlang::is_null(y_limits) & rlang::is_null(y_breaks)) {
           if (y_time | !y_trans %in% c("identity", "reverse")) {
             y_breaks <- ggplot2::waiver()
@@ -841,7 +1162,7 @@ gg_point <- function(
             if (!facet_null & !facet2_null) y_breaks_n <- 4
             else if (facet_null & !facet2_null) y_breaks_n <- 4
             else y_breaks_n <- 6
-
+            
             if (y_trans == "identity") {
               y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
             }
@@ -849,7 +1170,7 @@ gg_point <- function(
               y_breaks <- sort(scales::breaks_pretty(n = y_breaks_n)(y_range), decreasing = TRUE)
             }
             else y_breaks <- ggplot2::waiver()
-
+            
             if (flipped | y_forcat) y_limits <- NULL
             else {
               if (y_trans == "identity") {
@@ -884,14 +1205,14 @@ gg_point <- function(
             if (!facet_null & !facet2_null) y_breaks_n <- 4
             else if (facet_null & !facet2_null) y_breaks_n <- 4
             else y_breaks_n <- 6
-
+            
             if (any(is.na(y_limits))) {
               y_breaks <- scales::breaks_pretty(n = y_breaks_n)
             }
             else {
               y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
             }
-
+            
             if (y_trans == "reverse") y_breaks <- sort(y_breaks, decreasing = TRUE)
           }
         }
@@ -899,20 +1220,20 @@ gg_point <- function(
       else if (facet_scales %in% c("free", "free_y")) {
         if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
       }
-
+      
       if (rlang::is_null(y_expand)) {
         if (!y_trans %in% c("identity", "reverse")) y_expand <- ggplot2::expansion(mult = c(0, 0.05))
         else if (flipped | y_forcat) y_expand <- ggplot2::waiver()
         else y_expand <- c(0, 0)
       }
-
+      
       if (rlang::is_null(y_labels)) {
         if (y_numeric | y_null) y_labels <- scales::label_comma()
         else if (y_date | y_datetime | y_time) {
           y_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
         }
       }
-
+      
       if (y_numeric | y_null) {
         plot <- plot +
           ggplot2::scale_y_continuous(
@@ -960,7 +1281,7 @@ gg_point <- function(
       }
     }
   }
-
+  
   #make col scale
   if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex")) {
     if (stat %in% c("bin2d", "bin_2d", "binhex")) {
@@ -971,7 +1292,7 @@ gg_point <- function(
       col_vctr <- data %>%
         dplyr::pull(!!col)
     }
-
+    
     if (col_forcat) {
       if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
       else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
@@ -984,7 +1305,7 @@ gg_point <- function(
       }
       if (rlang::is_null(pal)) pal <- pal_cat(n = col_n)
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
-
+      
       if (y_numeric | y_date | y_datetime | y_time) {
         if (col_forcat) col_legend_rev_auto <- FALSE
         else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- FALSE
@@ -997,12 +1318,12 @@ gg_point <- function(
         pal <- rev(pal)
       }
       else col_legend_rev_auto <- FALSE
-
+      
       if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
       if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
-
+      
       if (col_legend_rev) col_legend_rev_auto <- !col_legend_rev_auto
-
+      
       plot <- plot +
         ggplot2::scale_colour_manual(
           values = pal,
@@ -1036,27 +1357,27 @@ gg_point <- function(
     else {
       if (col_date) col_trans <- "date"
       if (col_datetime | col_time) col_trans <- "time"
-
+      
       if (rlang::is_null(col_breaks)) {
         if (!col_trans %in% c("identity", "reverse")) col_breaks <- ggplot2::waiver()
         else if (col_time | col_datetime) col_breaks <- ggplot2::waiver()
         else col_breaks <- scales::breaks_pretty(4)
       }
-
+      
       if (rlang::is_null(pal)) pal <- viridis::viridis(10)
-
+      
       if (rlang::is_null(col_labels)) {
         if (col_numeric | col_null) col_labels <- scales::label_comma()
         else if (col_date | col_datetime | col_time) {
           col_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
         }
       }
-
+      
       if (!rlang::is_null(col_rescale)) {
         col_rescale <- scales::rescale(col_rescale)
       }
       else col_rescale <- NULL
-
+      
       if (col_continuous == "gradient") {
         plot <- plot +
           ggplot2::scale_colour_gradientn(
@@ -1123,7 +1444,7 @@ gg_point <- function(
       }
     }
   }
-
+  
   #Add titles
   if (rlang::is_null(x_title)) {
     if (!rlang::is_null(plot_build$plot$labels$x)) {
@@ -1143,7 +1464,7 @@ gg_point <- function(
       col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$fill[1]), titles)
     }
   }
-
+  
   plot <- plot +
     ggplot2::labs(
       title = title,
@@ -1152,20 +1473,20 @@ gg_point <- function(
       col = col_title,
       fill = col_title
     )
-
+  
   if (stat != "sf") {
     plot <- plot +
       ggplot2::labs(
         x = x_title,
         y = y_title)
-
+    
     if (!rlang::is_null(x_title)) {
       if (x_title == "") {
         plot <- plot +
           ggplot2::labs(x = NULL)
       }
     }
-
+    
     if (!rlang::is_null(y_title)) {
       if (y_title == "") {
         plot <- plot +
@@ -1173,14 +1494,14 @@ gg_point <- function(
       }
     }
   }
-
+  
   if (!rlang::is_null(col_title)) {
     if (col_title == "") {
       plot <- plot +
         ggplot2::labs(colour = NULL, fill = NULL)
     }
   }
-
+  
   #expand limits if necessary
   if (stat != "sf") {
     if (!rlang::is_null(x_include)) {
@@ -1196,7 +1517,7 @@ gg_point <- function(
     plot <- plot +
       ggplot2::expand_limits(colour = col_include, fill = col_include)
   }
-
+  
   #Adjust legend
   if (rlang::is_null(col_legend_place)) {
     if (stat %in% c("bin2d", "bin_2d", "binhex")) {
@@ -1233,7 +1554,7 @@ gg_point <- function(
     if (col_legend_place == "r") col_legend_place <- "right"
     if (col_legend_place == "n") col_legend_place <- "none"
   }
-
+  
   if (col_legend_place %in% c("top", "bottom")) {
     plot <- plot +
       ggplot2::theme(legend.position = col_legend_place) +
@@ -1242,7 +1563,7 @@ gg_point <- function(
       ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
       ggplot2::theme(legend.text = ggplot2::element_text(
         margin = ggplot2::margin(r = 7.5, unit = "pt")))
-
+    
     if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
       plot <- plot +
         ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
@@ -1257,7 +1578,7 @@ gg_point <- function(
       ggplot2::theme(legend.box.margin = ggplot2::margin(t = 0)) +
       ggplot2::theme(legend.text = ggplot2::element_text(
         margin = ggplot2::margin(r = 0)))
-
+    
     if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
       plot <- plot +
         ggplot2::theme(legend.title = ggplot2::element_text(vjust = 1))
@@ -1267,7 +1588,7 @@ gg_point <- function(
     plot <- plot +
       ggplot2::theme(legend.position = col_legend_place)
   }
-
+  
   #remove gridlines not needed
   if (stat == "sf") {
     if (rlang::is_null(x_grid)) x_grid <- FALSE
@@ -1289,7 +1610,7 @@ gg_point <- function(
     if (rlang::is_null(x_grid)) x_grid <- FALSE
     if (rlang::is_null(y_grid)) y_grid <- TRUE
   }
-
+  
   if (!x_grid & !y_grid) {
     plot <- plot + #resolve sf bug https://github.com/tidyverse/ggplot2/issues/4730
       ggplot2::theme(panel.grid.major = ggplot2::element_blank())
@@ -1306,7 +1627,7 @@ gg_point <- function(
         ggplot2::theme(panel.grid.minor.y = ggplot2::element_blank())
     }
   }
-
+  
   if (void) {
     plot <- plot +
       ggplot2::theme(axis.text = ggplot2::element_blank()) +
@@ -1315,8 +1636,7 @@ gg_point <- function(
       ggplot2::theme(axis.title = ggplot2::element_blank()) +
       ggplot2::theme(plot.margin = ggplot2::margin(t = 15, l = 20, b = 10, r = 20))
   }
-
+  
   #return beautiful plot
   return(plot)
 }
-

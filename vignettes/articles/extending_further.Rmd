@@ -13,7 +13,9 @@ knitr::opts_chunk$set(
   fig.asp = 0.618,
   out.width = "70%",
   dpi = 300,
-  dev.args = list(png = list(type = "cairo")))
+  dev.args = list(png = list(type = "cairo")),
+  fig.retina = 2
+  )
 ```
 
 ## Overview
@@ -32,6 +34,9 @@ To extend ggblanket further, users can:
 * ggrepel
 * ggdensity
 * ggblend
+* plotly
+* ggiraph
+* gganimate
 
 ```{r setup}
 library(dplyr)
@@ -294,7 +299,7 @@ iris |>
  
 ggblend allows blending colours. It works by piping in ggblend code on the geom_point layer. Therefore, you should use the gg_blank function to work with ggblend. 
  
-```{r fig.retina = 3}
+```{r}
 library(ggblend)
 set.seed(1234)
 
@@ -328,9 +333,10 @@ df |>
     partition(vars(set)) |> 
     blend("multiply", alpha = 0.5) 
 ```
-### plotly
 
-```{r}
+#### plotly
+
+```{r, eval=FALSE}
 library(plotly)
 
 p <- diamonds |>
@@ -341,5 +347,51 @@ p <- diamonds |>
     theme = gg_theme("helvetica"))
 
 plotly::ggplotly(p, tooltip = c("x", "y"))
+```
+
+#### ggiraph
+
+```{r, eval=FALSE}
+library(ggiraph)
+
+p <- diamonds |>
+  gg_blank(
+    x = color,
+    col = color,
+    width = 0.75,
+    y_include = 0,
+    stat = "count") +
+  geom_bar_interactive(
+    aes(tooltip = after_stat(count), 
+        data_id = color), width = 0.75)
+
+girafe(ggobj = p, height_svg = 3, options = list(
+  opts_tooltip(use_fill = TRUE), 
+  opts_hover(css = "stroke:black;stroke-width:2px;")))
+```
+
+#### gganimate
+
+```{r, eval=FALSE}
+library(gapminder)
+library(gganimate)
+
+gapminder |> 
+  gg_blank(
+    x = gdpPercap, 
+    y = lifeExp, 
+    col = country, 
+    facet = continent, 
+    x_trans = "log10", 
+    pal = country_colors,
+    col_legend_place = "n", 
+    title = "Year: {frame_time}", 
+    x_title = "GDP per capita", 
+    y_title = "Life expectancy", 
+    y_include = 0) +
+  geom_point(aes(size = pop), alpha = 0.7) +
+  scale_size(range = c(2, 12)) +
+  transition_time(year) +
+  ease_aes("linear")
 ```
 
