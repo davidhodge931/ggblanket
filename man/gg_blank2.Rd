@@ -24,6 +24,7 @@ gg_blank2(
   ylower = NULL,
   yupper = NULL,
   ymiddle = NULL,
+  z = NULL,
   sample = NULL,
   label = NULL,
   subgroup = NULL,
@@ -31,7 +32,7 @@ gg_blank2(
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
-  pal_na = "#88837D",
+  pal_na = pal_grey,
   ...,
   title = NULL,
   subtitle = NULL,
@@ -118,6 +119,8 @@ gg_blank2(
 \item{yupper}{Unquoted yupper aesthetic variable.}
 
 \item{ymiddle}{Unquoted ymiddle aesthetic variable.}
+
+\item{z}{Unquoted z aesthetic variable.}
 
 \item{sample}{Unquoted sample aesthetic variable.}
 

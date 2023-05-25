@@ -65,7 +65,7 @@ gg_sf <- function(
     stat = "sf",
     coord = ggplot2::coord_sf(clip = "off"),
     pal = NULL,
-    pal_na = "#88837D",
+    pal_na = pal_grey,
     ...,
     title = NULL,
     subtitle = NULL,
@@ -190,7 +190,7 @@ gg_sf <- function(
   }
 
   if (col_null) {
-    if (rlang::is_null(pal)) pal <-  pal_cat(n = 1)
+    if (rlang::is_null(pal)) pal <-  pal_blue
     else pal <- as.vector(pal[1])
 
     plot <- plot +
@@ -930,7 +930,7 @@ gg_sf <- function(
         }
       }
 
-      if (rlang::is_null(pal)) pal <- pal_cat(n = col_n)
+      if (rlang::is_null(pal)) pal <- pal_hue[1:col_n]
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
 
       if (y_numeric | y_date | y_datetime | y_time) {

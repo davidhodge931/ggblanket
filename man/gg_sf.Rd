@@ -14,7 +14,7 @@ gg_sf(
   stat = "sf",
   coord = ggplot2::coord_sf(clip = "off"),
   pal = NULL,
-  pal_na = "#88837D",
+  pal_na = pal_grey,
   ...,
   title = NULL,
   subtitle = NULL,

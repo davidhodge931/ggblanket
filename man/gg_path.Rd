@@ -16,7 +16,7 @@ gg_path(
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
-  pal_na = "#88837D",
+  pal_na = pal_grey,
   alpha = 1,
   ...,
   title = NULL,

@@ -52,7 +52,7 @@ penguins <- penguins |>
 
 ### 1. Over thirty gg_* wrapper functions
 
-Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. 
+Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. This also provides access to the arguments of the relevant stat function.
 
 ```{r}
 penguins |> 
@@ -403,7 +403,7 @@ penguins |>
 
 If some geoms have a `col` aesthetic and some do not, then it can be useful to have the col aesthetic in the `gg_*` function. That way you can get pretty ggblanket legend placement - and also adjust the col scale via the ease of the `gg_*` function. If you do not actually want a col aesthetic in your bottom plot layer, then you can over-rule the aesthetic by adding `colour` and `fill` arguments - or use the `gg_blank` function instead. 
 
-Use the `*_include` (or `*_limits`) argument as necessary to ensure the range of all layers are included in your numeric scales.
+The `gg_*` function builds the x and y scales based on the `data`, `stat`, and `x` and `y` variables in the `gg_*` function. It does not know about any subsequent layers that are added. You use `*_include`, `*_limits` and `stat` to adjust the pre-built scales to accommodate subsequent layers.
 
 ```{r}
 penguins |>

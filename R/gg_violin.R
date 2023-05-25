@@ -91,7 +91,7 @@ gg_violin <- function(
     position = "dodge",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
-    pal_na = "#88837D",
+    pal_na = pal_grey,
     alpha = 0.9,
     ...,
     title = NULL,
@@ -396,7 +396,7 @@ gg_violin <- function(
   }
 
   if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
-    if (rlang::is_null(pal)) pal <-  pal_cat(n = 1)
+    if (rlang::is_null(pal)) pal <-  pal_blue
     else pal <- as.vector(pal[1])
 
     plot <- plot +
@@ -1138,7 +1138,7 @@ gg_violin <- function(
         }
       }
 
-      if (rlang::is_null(pal)) pal <- pal_cat(n = col_n)
+      if (rlang::is_null(pal)) pal <- pal_hue[1:col_n]
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
 
       if (y_numeric | y_date | y_datetime | y_time) {
