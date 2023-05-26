@@ -1,4 +1,4 @@
-# ggblanket 1.9.9000
+# ggblanket 2.0.0
 
 * Made ggblanket work better with adding layers. 
 * Made the pal no longer inherit to subsequent layers where there is no col aesthetic.

@@ -25,6 +25,7 @@ library(ggblanket)
 library(dplyr)
 library(ggplot2)
 library(lubridate)
+library(stringr)
 library(palmerpenguins)
 ```
 
@@ -50,7 +51,7 @@ penguins |>
     col = sex,
     facet = species,
     width = 0.75,
-    x_labels = stringr::str_to_sentence,
+    x_labels = str_to_sentence,
     pal = c("#2596be", "#fc7c24")
   )
 ```
@@ -58,7 +59,7 @@ penguins |>
 ### gg_bin2d
 
 ```{r}
-ggplot2::diamonds |>
+diamonds |>
   gg_bin2d(
     x = carat,
     y = price,
@@ -75,7 +76,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    col_labels = stringr::str_to_sentence,
+    col_labels = str_to_sentence,
     pal = c("#2596be", "#fc7c24"),
     y_include = 0
   )
@@ -107,10 +108,10 @@ penguins |>
     y = species,
     col = sex,
     width = 0.75,
-    y_labels = stringr::str_to_sentence,
+    y_labels = str_to_sentence,
     position = "dodge",
     pal = c("#2596be", "#fc7c24"),
-    col_labels = stringr::str_to_sentence
+    col_labels = str_to_sentence
   )
 ```
 
@@ -147,7 +148,7 @@ penguins |>
     col = sex,
     facet = species,
     pal = c("#2596be", "#fc7c24"),
-    col_labels = stringr::str_to_sentence
+    col_labels = str_to_sentence
   )
 ```
 
@@ -183,7 +184,7 @@ penguins |>
     col = sex,
     facet = species,
     pal = c("#2596be", "#fc7c24"),
-    col_labels = stringr::str_to_sentence
+    col_labels = str_to_sentence
   )
 ```
 
@@ -202,7 +203,7 @@ data.frame(x = rnorm(100)) |>
 ### gg_hex
 
 ```{r}
-ggplot2::diamonds |>
+diamonds |>
   gg_hex(
     x = carat,
     y = price,
@@ -221,7 +222,7 @@ penguins |>
     facet = species,
     bins = 50,
     pal = c("#2596be", "#fc7c24"),
-    col_labels = stringr::str_to_sentence
+    col_labels = str_to_sentence
   )
 ```
 
@@ -235,7 +236,7 @@ penguins |>
     col = sex,
     facet = species,
     pal = c("#2596be", "#fc7c24"),
-    col_labels = stringr::str_to_sentence
+    col_labels = str_to_sentence
   )
 ```
 
@@ -249,7 +250,7 @@ penguins |>
     col = flipper_length_mm,
     col_continuous = "steps",
     y_include = 0,
-    position = ggplot2::position_jitter(height = 0)
+    position = position_jitter(height = 0)
   )
 ```
 
@@ -301,7 +302,7 @@ gg_linerange(
   ymin = lower,
   ymax = upper,
   col = group,
-  position = ggplot2::position_dodge(width = 0.2),
+  position = position_dodge(width = 0.2),
   x_title = "Treatment",
   y_title = "Response"
 )
@@ -310,8 +311,8 @@ gg_linerange(
 ### gg_path
 
 ```{r}
-ggplot2::economics %>%
-  mutate(unemploy_rate = unemploy / pop) %>%
+economics |>
+  mutate(unemploy_rate = unemploy / pop) |>
   gg_path(
     x = unemploy_rate,
     y = psavert,
@@ -329,7 +330,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    col_labels = stringr::str_to_sentence,
+    col_labels = str_to_sentence,
     pal = c("#2596be", "#fc7c24")
   )
 ```
@@ -378,7 +379,7 @@ positions <- data.frame(
 
 datapoly <- merge(values, positions, by = c("id"))
 
-datapoly %>%
+datapoly |>
   gg_polygon(
     x = x,
     y = y,
@@ -397,7 +398,7 @@ penguins |>
     facet = species,
     pal = "#1B9E77"
   ) +
-  ggplot2::geom_qq_line(alpha = 0.5)
+  geom_qq_line(alpha = 0.5)
 ```
 
 ### gg_raster
@@ -420,13 +421,13 @@ data.frame(
   y = rep(c(1, 2), each = 5),
   z = factor(rep(1:5, each = 2)),
   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
-) %>%
-  dplyr::mutate(
+) |>
+  mutate(
     xmin = x - w / 2,
     xmax = x + w / 2,
     ymin = y,
     ymax = y + 1
-  ) %>%
+  ) |>
   gg_rect(
     xmin = xmin,
     xmax = xmax,
@@ -499,7 +500,7 @@ economics |>
     y = unemploy,
     y_title = "Unemployment",
     pal = "#1B9E77",
-    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_)
+    x_limits = c(ymd("2010-01-01"), NA_Date_)
   )
 ```
 
@@ -533,7 +534,7 @@ penguins |>
     y = species,
     col = flipper_length_mm,
     pal = RColorBrewer::brewer.pal(9, "Blues"),
-    col_labels = stringr::str_to_sentence
+    col_labels = str_to_sentence
   )
 ```
 
@@ -542,7 +543,7 @@ penguins |>
 ```{r}
 penguins |>
   tidyr::drop_na(sex) |>
-  mutate(sex = stringr::str_to_sentence(sex)) |>
+  mutate(sex = str_to_sentence(sex)) |>
   gg_violin(
     x = sex,
     y = body_mass_g,

@@ -58,7 +58,7 @@ The `ggblank` function is the most flexibility function in ggblanket.
 
 It provides access to the most aesthetics. It provides lots of flexibility to use ggblanket with ggplot2 layers and other extension packages. 
 
-Remember the `gg_*` function builds the x and y scales based on the `data`, `stat`, and `x` and `y` variables in the `gg_*` function. It does not know about any subsequent layers that are added. You use `*_include`, `*_limits` and `stat` to adjust the pre-built scales to accommodate subsequent layers.
+Remember the `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function - but these can be adjusted using the `facet_scales`, `*_include` and `*_limits` arguments. The plot scales are constructed without knowledge of subsequent layers. 
 
 So with `ggblank`, you _must_ include the ggplot2 stat in the gg_blank function where it deviates from `"identity"`.     
 

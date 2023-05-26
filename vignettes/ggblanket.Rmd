@@ -42,11 +42,12 @@ To simplify ggplot2 visualisation, ggblanket provides:
 ```{r setup}
 library(dplyr)
 library(ggplot2)
+library(stringr)
 library(ggblanket)
 library(palmerpenguins)
 
 penguins <- penguins |>
-  mutate(sex = stringr::str_to_sentence(sex)) |>
+  mutate(sex = str_to_sentence(sex)) |>
   tidyr::drop_na(sex)
 ```
 
@@ -185,7 +186,7 @@ penguins |>
   ggplot() +
   geom_jitter(aes(x = species, y = body_mass_g, col = sex)) +
   expand_limits(y = 0) +
-  scale_x_discrete(labels = \(x) stringr::str_sub(x, 1, 1)) +
+  scale_x_discrete(labels = \(x) str_sub(x, 1, 1)) +
   scale_y_continuous(breaks = scales::breaks_width(1500),
                      labels = scales::label_number(big.mark = " "),
                      trans = "sqrt") +
@@ -202,7 +203,7 @@ penguins |>
     x = species,
     y = body_mass_g,
     col = sex,
-    x_labels = \(x) stringr::str_sub(x, 1, 1),
+    x_labels = \(x) str_sub(x, 1, 1),
     y_include = 0,
     y_breaks = scales::breaks_width(1500), 
     y_labels = scales::label_number(big.mark = " "), 
@@ -211,7 +212,7 @@ penguins |>
     col_legend_place = "t")
 ```
 
-```{r}
+```{r, fig.asp = 0.618}
 library(patchwork)
 p1 <- penguins |> 
   gg_point(
@@ -225,10 +226,30 @@ p2 <- penguins |>
     x = flipper_length_mm, 
     y = body_mass_g, 
     y_limits = c(0, NA),
-    x_breaks = scales::breaks_pretty(3), 
-    x_trans = "reverse")
+    x_breaks = scales::breaks_pretty(3))
 
-(p1 + p2)
+p3 <- penguins |>
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    x_limits = c(190, 210),
+    x_oob = scales::oob_keep,
+    y_trans = "log10",
+    y_limits = c(1000, NA),
+    y_breaks = scales::breaks_width(1000),
+    coord = coord_cartesian(clip = "on"))
+
+p4 <- penguins |>
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g,
+    x_trans = "reverse",
+    x_limits = c(210, 190),
+    x_breaks = scales::breaks_width(-10), 
+    y_include = 0,
+    y_trans = "sqrt")
+
+(p1 + p2) / (p3 + p4)
 ```
 
 ### 7. Default titles converted to sentence case
@@ -403,7 +424,7 @@ penguins |>
 
 If some geoms have a `col` aesthetic and some do not, then it can be useful to have the col aesthetic in the `gg_*` function. That way you can get pretty ggblanket legend placement - and also adjust the col scale via the ease of the `gg_*` function. If you do not actually want a col aesthetic in your bottom plot layer, then you can over-rule the aesthetic by adding `colour` and `fill` arguments - or use the `gg_blank` function instead. 
 
-The `gg_*` function builds the x and y scales based on the `data`, `stat`, and `x` and `y` variables in the `gg_*` function. It does not know about any subsequent layers that are added. You use `*_include`, `*_limits` and `stat` to adjust the pre-built scales to accommodate subsequent layers.
+The `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function - but these can be adjusted using the `facet_scales`, `*_include` and `*_limits` arguments. The plot scales are constructed without knowledge of subsequent layers. 
 
 ```{r}
 penguins |>

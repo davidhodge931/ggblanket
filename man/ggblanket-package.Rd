@@ -19,7 +19,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: David Hodge \email{davidhodge931@gmail.com} (\href{https://orcid.org/0000-0002-3868-7501}{ORCID})
+\strong{Maintainer}: David Hodge \email{davidhodge931@gmail.com} (\href{https://orcid.org/0000-0002-3868-7501}{ORCID}) [copyright holder]
 
 Other contributors:
 \itemize{
