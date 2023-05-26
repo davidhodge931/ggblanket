@@ -149,7 +149,7 @@ stat in the gg_blank function where it deviates from
 <span>  <span class="fu"><a href="../reference/gg_blank.html">gg_blank</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
 <span>    stat <span class="op">=</span> <span class="st">"density"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html" class="external-link">geom_density</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html" class="external-link">geom_density</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span>, fill <span class="op">=</span> <span class="va">pal_blue</span>, alpha <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span></code></pre></div>
 <p><img src="extending_further_files/figure-html/unnamed-chunk-2-1.png" width="70%"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -169,12 +169,12 @@ in each <code>gg_*</code> function to what is required.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_errorbar.html">gg_errorbar</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    x <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    stat <span class="op">=</span> <span class="st">"summary"</span>,</span>
 <span>    fun.data <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/mean_se.html" class="external-link">mean_se</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1.96</span><span class="op">)</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>    y_include <span class="op">=</span> <span class="fl">0</span></span>
+<span>    width <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>    x_include <span class="op">=</span> <span class="fl">0</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span></span>
 <span>    stat <span class="op">=</span> <span class="st">"summary"</span>,</span>
