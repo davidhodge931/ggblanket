@@ -467,8 +467,9 @@ available to users (except the mapping argument). Common arguments from
 and <code>width</code>. Additionally, users can use the
 <code>colour</code> or <code>fill</code> arguments to turn off part of
 the ggblanket <code>col</code> aesthetic (e.g. <code>colour = NA</code>
-or <code>fill = NA</code>), or fix it to single colour (e.g. colour =
-“black” or fill = “#d3d3d3”).</p>
+or <code>fill = NA</code>), or fix it to single colour
+(e.g. <code>colour = "black"</code> or
+<code>fill = "#d3d3d3"</code>).</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
@@ -506,7 +507,7 @@ on top of it.</p>
 <span>             y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>             width <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>             outlier.colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"#2B6999"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-31-1.png" width="70%"></p>
 <p>If some geoms have a <code>col</code> aesthetic and some do not, then
 it can be useful to have the col aesthetic in the <code>gg_*</code>
