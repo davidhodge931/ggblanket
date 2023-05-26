@@ -1,14 +1,13 @@
-# ggblanket 1.8.9000
+# ggblanket 1.9.9000
 
 * Made ggblanket work better with adding layers. 
-* Made the pal no longer inherit to subsequent layers where no col aesthetic.
+* Made the pal no longer inherit to subsequent layers where there is no col aesthetic.
 * Made x and y scales work better, including with NA in the limits.
 * Added 2 colours to the default palette. 
-* Updated vignette and articles.
 * Breaking: changed default *oob agument to scales::oob_censor.
 * Breaking: changed default coord agument to clip = "off".
 * Breaking: removed add_tooltip function.
-* Breaking: removed pal functions.
+* Breaking: changed pal functions to pal_blue, pal_grey, and pal_hue.
 
 # ggblanket 1.8.0
 
