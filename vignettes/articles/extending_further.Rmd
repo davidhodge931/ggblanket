@@ -67,7 +67,7 @@ penguins |>
   gg_blank(
     x = body_mass_g, 
     stat = "density") +
-  geom_density(col = pal_blue)
+  geom_density(col = pal_blue, fill = pal_blue, alpha = 0.9)
 ```
 
 ```{r}
@@ -85,12 +85,12 @@ Users can change the default stat. The ... argument provides access to the relev
 ```{r}
 penguins |>
   gg_errorbar(
-    x = species,
-    y = body_mass_g,
+    x = body_mass_g,
+    y = species,
     stat = "summary",
     fun.data = \(x) mean_se(x, 1.96),
-    width = 0.1,
-    y_include = 0
+    width = 0.25,
+    x_include = 0
   ) +
   geom_bar(
     stat = "summary",
