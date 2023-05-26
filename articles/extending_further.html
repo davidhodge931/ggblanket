@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,11 +136,11 @@ ggblanket.</p>
 flexibility to use ggblanket with ggplot2 layers and other extension
 packages.</p>
 <p>Remember the <code>gg_*</code> function builds the x and y scales
-based on the <code>data</code>, <code>stat</code>, and <code>x</code>
-and <code>y</code> variables in the <code>gg_*</code> function. It does
-not know about any subsequent layers that are added. You use
-<code>*_include</code>, <code>*_limits</code> and <code>stat</code> to
-adjust the pre-built scales to accommodate subsequent layers.</p>
+based on the <code>data</code>, <code>stat</code>, <code>x</code>, and
+<code>y</code> in the <code>gg_*</code> function - but these can be
+adjusted using the <code>facet_scales</code>, <code>*_include</code> and
+<code>*_limits</code> arguments. The plot scales are constructed without
+knowledge of subsequent layers.</p>
 <p>So with <code>ggblank</code>, you <em>must</em> include the ggplot2
 stat in the gg_blank function where it deviates from
 <code>"identity"</code>.</p>
