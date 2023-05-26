@@ -36,7 +36,7 @@ To extend ggblanket further, users can:
 * ggrepel
 * ggdensity
 * ggblend
-* plotly
+* plotly::ggplotly
 * ggiraph
 * gganimate
 
@@ -83,7 +83,7 @@ penguins |>
 Users can change the default stat. The ... argument provides access to the relevant `stat_*` function as well as the `geom_*` function. ggblanket limits the aesthetics available in each `gg_*` function to what is required. 
 
 ```{r}
-penguins %>%
+penguins |>
   gg_errorbar(
     x = species,
     y = body_mass_g,
@@ -172,7 +172,7 @@ penguins |>
 gblanket does not support _all_ ggplot2 geoms. However, some of these can be accessed via the gg_blank function.
 
 ```{r, fig.asp=1}
-p1 <- faithful %>% 
+p1 <- faithful |> 
   gg_blank(x = eruptions, 
            y = waiting, 
            x_breaks = scales::breaks_pretty(3), 
@@ -180,14 +180,14 @@ p1 <- faithful %>%
   geom_density2d(aes(col = after_stat(level)),
                  show.legend = FALSE)
 
-p2 <- faithful %>% 
+p2 <- faithful |>
   gg_blank(x = waiting, 
            y = eruptions, 
            x_breaks = scales::breaks_pretty(3), 
            subtitle = "geom_density_2d_filled") + 
   geom_density_2d_filled(show.legend = FALSE)
 
-p3 <- faithfuld %>% 
+p3 <- faithfuld |> 
   gg_blank(x = waiting, 
            y = eruptions, 
            x_breaks = scales::breaks_pretty(3), 
@@ -195,7 +195,7 @@ p3 <- faithfuld %>%
   geom_contour(aes(z = density, col = after_stat(level)),
                show.legend = FALSE) 
 
-p4 <- faithfuld %>% 
+p4 <- faithfuld |> 
   gg_blank(x = waiting, 
            y = eruptions, 
            x_breaks = scales::breaks_pretty(3),
@@ -254,31 +254,29 @@ ggblanket can work with numerous extension packages.
 This fantastic package is straightforward to use with ggblanket.
 
 ```{r}
-p1 <- data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
-  mutate(level_min = level - 1, level_max = level + 1) |>
-  gg_ribbon(
-    x = year,
-    ymin = level_min,
-    ymax = level_max,
-    pal = scales::alpha("#1B9E77", 0),
-    y_title = "Level",
-    x_labels = \(x) stringr::str_sub(x, 3, 4)
-  ) +
-  geom_line(aes(x = year, y = level), col = "#1B9E77")
+p1 <- diamonds |>
+  gg_point(
+    x = carat,
+    y = price)
 
-p2 <- ggplot2::diamonds |>
+p2 <- diamonds |>
   gg_hex(
     x = carat,
     y = price,
-    pal = viridis::cividis(9)
-  )
+    pal = viridis::cividis(9),
+    y_limits = c(0, 20000), 
+    y_title = ""
+  ) +
+  theme(axis.text.y = element_blank())
 
 p1 + p2
 ```
 
 #### ggtext
 
-The ggtext package can modify plot text using markdown syntax. Note if you want to have some or all of a title not bold, then it's important to change the default theme have a plain title. 
+The ggtext package can modify plot text using markdown syntax. 
+
+Note if you want to have some or all of a title not bold, then it's important to change the default theme have a plain title. 
 
 ```{r}
 nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
@@ -293,7 +291,9 @@ nc |>
 
 #### gghighlight
 
-The gghighlight package can be used to highlight geoms. It should be noted that the `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you will _need_ to add a `*_limits = c(NA, NA)` argument to make sure that the scale builds to include the full height of the non-highlighted data. 
+The gghighlight package can be used to highlight geoms or parts thereof. 
+
+It should be noted that the `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you will _need_ to add a `*_limits = c(NA, NA)` argument to make sure that the scale builds to include the full height of the non-highlighted data. 
 
 ```{r}
 penguins |>
@@ -316,7 +316,7 @@ iris |>
 
 #### ggrepel
 
-The ggrepel package can be used to neatly avoid labels overlapping with geoms and each other. 
+The ggrepel package can be used to neatly avoid overlapping labels. 
 
 ```{r}
 mtcars |> 
@@ -328,7 +328,7 @@ mtcars |>
 
 #### ggdensity
 
-The ggdensity package provides visualizations of density estimates. Use `gg_blank` to work with these geoms 
+The ggdensity package provides visualizations of density estimates.  
 
 ```{r}
 iris |>
@@ -346,33 +346,21 @@ iris |>
 
 #### ggblend
  
-ggblend allows blending colours. It works by piping in ggblend code on the geom_point layer. Therefore, you should use the gg_blank function to work with ggblend. 
+The ggblend package provides blending of discrete colours. 
  
-```{r}
+```{r, eval=FALSE}
 library(ggblend)
 set.seed(1234)
 
-df_a <- data.frame(
-  x = rnorm(500, 0), 
-  y = rnorm(500, 1), 
-  set = "A")
-
-df_b <- data.frame(
-  x = rnorm(500, 1), 
-  y = rnorm(500, 2), 
-  set = "B")
-
 df <- rbind(
-  rbind(df_a, df_b) |> transform(order = "Draw A then B"),
-  rbind(df_b, df_a) |> transform(order = "Draw B then A")
-)
+    data.frame(x = rnorm(500, 0), y = rnorm(500, 1), set = "A"), 
+    data.frame(x = rnorm(500, 1), y = rnorm(500, 2), set = "B")) 
 
 df |>
   gg_blank(
     x = x,
     y = y,
     col = set,
-    facet = order,
     pal = RColorBrewer::brewer.pal(9, "Set1"),
   ) +
   geom_point(size = 3, alpha = 0.5) |> 
@@ -383,7 +371,9 @@ df |>
     blend("multiply", alpha = 0.5) 
 ```
 
-#### plotly
+#### plotly::ggplotly
+
+The plotly::ggplotly function enables interactive plots.
 
 ```{r, eval=FALSE}
 library(plotly)
@@ -399,6 +389,8 @@ plotly::ggplotly(p, tooltip = c("x", "y"))
 ```
 
 #### ggiraph
+
+The ggiraph package enables interactive plots.
 
 ```{r, eval=FALSE}
 library(ggiraph)
@@ -420,6 +412,8 @@ girafe(ggobj = p, height_svg = 3, options = list(
 ```
 
 #### gganimate
+
+The gganimate package enables animated plots.
 
 ```{r, eval=FALSE}
 library(gapminder)

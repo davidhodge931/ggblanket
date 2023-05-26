@@ -364,7 +364,7 @@ penguins |>
 
 ### 11. Access to other geom_* arguments via `...`
 
-The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users (except the mapping argument). Common arguments from `...` to add are `size`, `linewidth` and `width`. Additionally, users can use the `colour` or `fill` arguments to turn off part of the ggblanket `col` aesthetic (e.g. `colour = NA` or `fill = NA`), or fix it to single colour (e.g. colour = "black" or fill = "#d3d3d3").
+The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users (except the mapping argument). Common arguments from `...` to add are `size`, `linewidth` and `width`. Additionally, users can use the `colour` or `fill` arguments to turn off part of the ggblanket `col` aesthetic (e.g. `colour = NA` or `fill = NA`), or fix it to single colour (e.g. `colour = "black"` or `fill = "#d3d3d3"`).
 
 ```{r}
 penguins |>
@@ -398,7 +398,7 @@ penguins |>
              y = body_mass_g,
              width = 0.5,
              outlier.colour = NA) +
-  geom_jitter(colour = "#2B6999")
+  geom_jitter(colour = pal_blue)
 ```
 
 If some geoms have a `col` aesthetic and some do not, then it can be useful to have the col aesthetic in the `gg_*` function. That way you can get pretty ggblanket legend placement - and also adjust the col scale via the ease of the `gg_*` function. If you do not actually want a col aesthetic in your bottom plot layer, then you can over-rule the aesthetic by adding `colour` and `fill` arguments - or use the `gg_blank` function instead. 

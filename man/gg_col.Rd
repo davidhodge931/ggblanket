@@ -189,7 +189,7 @@ gg_col(
 A ggplot object.
 }
 \description{
-Create a col ggplot with a wrapper around the ggplot2::geom_col function.
+Create a col ggplot with a wrapper around the ggplot2::geom_col function (i.e geom_bar(stat = "identity", ...).
 }
 \examples{
 library(dplyr)

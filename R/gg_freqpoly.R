@@ -157,7 +157,7 @@ gg_freqpoly <- function(
       c(!!x, !!y,
         !!col
       ),
-      na_if_double))
+      na_if_inf))
 
   #get classes
   x_null <- rlang::quo_is_null(x)
@@ -186,125 +186,36 @@ gg_freqpoly <- function(
   facet2_null <- rlang::quo_is_null(facet2)
 
   ##############################################################################
-  #Generic code: part 1 (except gg_sf)
+  #Generic code: part 1 (adjust for gg_sf)
   ##############################################################################
 
-  
-  
-
-  #process data for horizontal
-  if (y_forcat) {
-    if (!(!col_null &
-          (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))))) {
-
-      if (is.logical(rlang::eval_tidy(y, data))) {
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!y, function(x) as.character(x)))
-      }
-
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
-    }
-  }
-
-  if (col_forcat) {
+  #process for horizontal
+  if (stat != "sf") {
     if (y_forcat) {
-      if (is.logical(rlang::eval_tidy(col, data))) {
+      if (!(!col_null &
+            (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))))) {
+
+        if (is.logical(rlang::eval_tidy(y, data))) {
+          data <- data %>%
+            dplyr::mutate(dplyr::across(!!y, function(x) as.character(x)))
+        }
+
         data <- data %>%
-          dplyr::mutate(dplyr::across(!!col, function(x) as.character(x)))
+          dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
       }
-
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
     }
-  }
 
-  #get default NULL values
-  if (rlang::quo_is_null(x)) {
-    if (rlang::is_null(x_title)) {
-      if (stat %in% c("bin", "count")) x_name <- "count"
-      else if (stat %in% c("density", "ydensity")) x_name <- "density"
-      else if (stat == "function") x_name <- "x"
-      else if (stat == "qq") x_name <- "theoretical"
-      else x_name <- ""
+    if (col_forcat) {
+      if (y_forcat) {
+        if (is.logical(rlang::eval_tidy(col, data))) {
+          data <- data %>%
+            dplyr::mutate(dplyr::across(!!col, function(x) as.character(x)))
+        }
 
-      x_title <- purrr::map_chr(x_name, titles)
-    }
-  }
-  else if (rlang::is_null(x_title)) {
-    x_title <- purrr::map_chr(rlang::as_name(x), titles)
-  }
-
-  if (rlang::quo_is_null(y)) {
-    if (rlang::is_null(y_title)) {
-      if (stat %in% c("bin", "count")) y_name <- "count"
-      else if (stat %in% c("density", "ydensity")) y_name <- "density"
-      else if (stat == "function") y_name <- "y"
-      else if (stat == "qq") y_name <- "sample"
-      else y_name <- ""
-
-      y_title <- purrr::map_chr(y_name, titles)
-    }
-  }
-  else if (rlang::is_null(y_title)) {
-    y_title <- purrr::map_chr(rlang::as_name(y), titles)
-  }
-
-  if (stat == "sf") {
-    if (rlang::is_null(x_grid)) x_grid <- FALSE
-    if (rlang::is_null(y_grid)) y_grid <- FALSE
-  }
-  else if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) {
-    if (rlang::is_null(x_grid)) x_grid <- TRUE
-    if (rlang::is_null(y_grid)) y_grid <- FALSE
-  }
-  else if ((y_forcat) & (x_numeric | x_null)) {
-    if (rlang::is_null(x_grid)) x_grid <- TRUE
-    if (rlang::is_null(y_grid)) y_grid <- FALSE
-  }
-  else if ((y_forcat) & (x_forcat)) {
-    if (rlang::is_null(x_grid)) x_grid <- FALSE
-    if (rlang::is_null(y_grid)) y_grid <- FALSE
-  }
-  else {
-    if (rlang::is_null(x_grid)) x_grid <- FALSE
-    if (rlang::is_null(y_grid)) y_grid <- TRUE
-  }
-
-  if (rlang::is_null(col_legend_place)) {
-    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
-      col_legend_place <- "right"
-    }
-    else if (stat == "sf") {
-      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-        col_legend_place <- "none"
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
       }
-      else col_legend_place <- "right"
     }
-    else if (stat == "qq") {
-      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(sample, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-        col_legend_place <- "none"
-      }
-      col_legend_place <- "bottom"
-    }
-    else if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-      col_legend_place <- "none"
-    }
-    else if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
-    else col_legend_place <- "bottom"
-  }
-  else {
-    if (col_legend_place == "b") col_legend_place <- "bottom"
-    if (col_legend_place == "t") col_legend_place <- "top"
-    if (col_legend_place == "l") col_legend_place <- "left"
-    if (col_legend_place == "r") col_legend_place <- "right"
-    if (col_legend_place == "n") col_legend_place <- "none"
   }
 
   ##############################################################################
@@ -413,7 +324,9 @@ gg_freqpoly <- function(
         col = pal,
         fill = pal,
         ...
-      )
+      ) +
+      coord +
+      theme
   }
   else {
     plot <- plot +
@@ -422,13 +335,16 @@ gg_freqpoly <- function(
         position = position,
         alpha = alpha,
         ...
-      )
+      ) +
+      coord +
+      theme
   }
 
   ##############################################################################
-  #Generic code: part 2 (except gg_sf)
+  #Generic code: part 2 (adjust for gg_sf)
   ##############################################################################
 
+  #Add faceting
   if (rlang::is_null(facet_layout)) {
     if (!facet_null & facet2_null) facet_layout <- "wrap"
     else if (!facet2_null & facet_null) facet_layout <- "wrap"
@@ -500,7 +416,7 @@ gg_freqpoly <- function(
     }
   }
 
-  #Prepare the scales, so that layer_data can be extracted
+  #Get the positional scales right first
   if (stat != "sf") {
     if (rlang::is_null(x_limits)) {
       if (stat %in% c("bin", "bin2d", "bin_2d", "binhex")) {
@@ -573,16 +489,18 @@ gg_freqpoly <- function(
     }
   }
 
-  #Get layer data for x, y and col scales
-  layer_data <- ggplot2::layer_data(plot)
+  #Get plot data and flipped status
+  plot_build <- ggplot2::ggplot_build(plot)
+  plot_data <- plot_build$data[[1]]
 
-  flippable <- any(stringr::str_detect(colnames(layer_data), "flipped_aes"))
+  flippable <- any(stringr::str_detect(colnames(plot_data), "flipped_aes"))
 
-  if (flippable) flipped <- all(layer_data["flipped_aes"])
+  if (flippable) flipped <- all(plot_data["flipped_aes"])
   else flipped <- FALSE
 
+  #Make x, y scales
   if (stat != "sf") {
-    #Make x scale based on layer_data
+    #Make x scale based on plot_data
     if (x_forcat) {
       if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
       if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
@@ -613,7 +531,7 @@ gg_freqpoly <- function(
         x_vars_str <- "^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$"
         y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
 
-        x_vctr <- layer_data %>%
+        x_vctr <- plot_data %>%
           dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !is.na(x)))
 
         if (!y_forcat) {
@@ -803,7 +721,7 @@ gg_freqpoly <- function(
       }
     }
 
-    #Make y scale based on layer_data
+    #Make y scale based on plot_data
     if (y_forcat) {
       if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
       if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
@@ -833,7 +751,7 @@ gg_freqpoly <- function(
         x_vars_str <- "^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$"
         y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
 
-        y_vctr <- layer_data %>%
+        y_vctr <- plot_data %>%
           dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), \(x) !is.na(x)))
 
         if (!x_forcat) {
@@ -1023,19 +941,10 @@ gg_freqpoly <- function(
     }
   }
 
-  #make col scale based on layer_data
+  #make col scale
   if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex")) {
-    if (!col_null) {
-      if (rlang::is_null(col_title)) {
-        col_title <- purrr::map_chr(rlang::as_name(col), titles)
-      }
-    }
-    else if (stat %in% c("bin2d", "bin_2d", "binhex")) {
-      if (rlang::is_null(col_title)) col_title <- "Count"
-    }
-
     if (stat %in% c("bin2d", "bin_2d", "binhex")) {
-      col_vctr <- layer_data %>%
+      col_vctr <- plot_data %>%
         dplyr::pull(.data$count)
     }
     else {
@@ -1043,7 +952,68 @@ gg_freqpoly <- function(
         dplyr::pull(!!col)
     }
 
-    if (col_numeric | col_date | col_datetime | col_time | stat %in% c("bin2d", "bin_2d", "binhex")) {
+    if (col_forcat) {
+      if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
+      else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
+      else {
+        if (col_factor) col_n <- length(levels(col_vctr))
+        else {
+          col_unique <- unique(col_vctr)
+          col_n <- length(col_unique[!is.na(col_unique)])
+        }
+      }
+      if (rlang::is_null(pal)) pal <- pal_hue[1:col_n]
+      else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
+
+      if (y_numeric | y_date | y_datetime | y_time) {
+        if (col_forcat) col_legend_rev_auto <- FALSE
+        else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- FALSE
+        else col_legend_rev_auto <- TRUE
+      }
+      else if (y_forcat) {
+        if (col_forcat) col_legend_rev_auto <- TRUE
+        else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- TRUE
+        else col_legend_rev_auto <- FALSE
+        pal <- rev(pal)
+      }
+      else col_legend_rev_auto <- FALSE
+
+      if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
+      if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
+
+      if (col_legend_rev) col_legend_rev_auto <- !col_legend_rev_auto
+
+      plot <- plot +
+        ggplot2::scale_colour_manual(
+          values = pal,
+          breaks = col_breaks,
+          limits = col_limits,
+          labels = col_labels,
+          na.value = as.vector(pal_na),
+          guide = ggplot2::guide_legend(
+            reverse = col_legend_rev_auto,
+            title.position = "top",
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow,
+            byrow = TRUE
+          )
+        ) +
+        ggplot2::scale_fill_manual(
+          values = pal,
+          breaks = col_breaks,
+          limits = col_limits,
+          labels = col_labels,
+          na.value = as.vector(pal_na),
+          guide = ggplot2::guide_legend(
+            reverse = col_legend_rev_auto,
+            title.position = "top",
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow,
+            byrow = TRUE
+          )
+        )
+    }
+    else {
       if (col_date) col_trans <- "date"
       if (col_datetime | col_time) col_trans <- "time"
 
@@ -1131,98 +1101,71 @@ gg_freqpoly <- function(
               reverse = col_legend_rev)
           )
       }
-
-    }
-    else if (col_forcat) {
-      if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
-      else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
-      else {
-        if (col_factor) col_n <- length(levels(col_vctr))
-        else {
-          col_unique <- unique(col_vctr)
-          col_n <- length(col_unique[!is.na(col_unique)])
-        }
-      }
-
-      if (rlang::is_null(pal)) pal <- pal_hue[1:col_n]
-      else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
-
-      if (y_numeric | y_date | y_datetime | y_time) {
-        if (col_forcat) col_legend_rev_auto <- FALSE
-        else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- FALSE
-        else col_legend_rev_auto <- TRUE
-      }
-      else if (y_forcat) {
-        if (col_forcat) col_legend_rev_auto <- TRUE
-        else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- TRUE
-        else col_legend_rev_auto <- FALSE
-        pal <- rev(pal)
-      }
-      else col_legend_rev_auto <- FALSE
-
-      if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
-      if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
-
-      if (col_legend_rev) col_legend_rev_auto <- !col_legend_rev_auto
-
-      plot <- plot +
-        ggplot2::scale_colour_manual(
-          values = pal,
-          breaks = col_breaks,
-          limits = col_limits,
-          labels = col_labels,
-          na.value = as.vector(pal_na),
-          guide = ggplot2::guide_legend(
-            reverse = col_legend_rev_auto,
-            title.position = "top",
-            ncol = col_legend_ncol,
-            nrow = col_legend_nrow,
-            byrow = TRUE
-          )
-        ) +
-        ggplot2::scale_fill_manual(
-          values = pal,
-          breaks = col_breaks,
-          limits = col_limits,
-          labels = col_labels,
-          na.value = as.vector(pal_na),
-          guide = ggplot2::guide_legend(
-            reverse = col_legend_rev_auto,
-            title.position = "top",
-            ncol = col_legend_ncol,
-            nrow = col_legend_nrow,
-            byrow = TRUE
-          )
-        )
     }
   }
 
-  #Add coord, theme and titles
+  #Add titles
+  if (rlang::is_null(x_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$x)) {
+      x_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), titles)
+    }
+  }
+  if (rlang::is_null(y_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$y)) {
+      y_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$y[1]), titles)
+    }
+  }
+  if (rlang::is_null(col_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$colour)) {
+      col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), titles)
+    }
+    else if (!rlang::is_null(plot_build$plot$labels$fill)) {
+      col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$fill[1]), titles)
+    }
+  }
+
   plot <- plot +
-    theme +
-    coord +
     ggplot2::labs(
       title = title,
       subtitle = subtitle,
-      x = x_title,
-      y = y_title,
-      caption = caption
-    )
+      caption = caption)
 
-  if (!rlang::is_null(x_title)) {
-    if (x_title == "") {
-      plot <- plot +
-        ggplot2::labs(x = NULL)
-    }
-  }
-  if (!rlang::is_null(y_title)) {
-    if (y_title == "") {
-      plot <- plot +
-        ggplot2::labs(y = NULL)
-    }
+  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex")) {
+    plot <- plot +
+      ggplot2::labs(
+        col = col_title,
+        fill = col_title)
   }
 
-  #expand the limits if necessary
+  if (stat != "sf") {
+    plot <- plot +
+      ggplot2::labs(
+        x = x_title,
+        y = y_title)
+
+    if (!rlang::is_null(x_title)) {
+      if (x_title == "") {
+        plot <- plot +
+          ggplot2::labs(x = NULL)
+      }
+    }
+
+    if (!rlang::is_null(y_title)) {
+      if (y_title == "") {
+        plot <- plot +
+          ggplot2::labs(y = NULL)
+      }
+    }
+  }
+
+  if (!rlang::is_null(col_title)) {
+    if (col_title == "") {
+      plot <- plot +
+        ggplot2::labs(colour = NULL, fill = NULL)
+    }
+  }
+
+  #expand limits if necessary
   if (stat != "sf") {
     if (!rlang::is_null(x_include)) {
       plot <- plot +
@@ -1233,26 +1176,49 @@ gg_freqpoly <- function(
         ggplot2::expand_limits(y = y_include)
     }
   }
-
-  #Adjust legend etc
-  if (!rlang::is_null(col_title)) {
+  if (!rlang::is_null(col_include)) {
     plot <- plot +
-      ggplot2::labs(
-        colour = col_title,
-        fill = col_title)
+      ggplot2::expand_limits(colour = col_include, fill = col_include)
+  }
 
-    if (!rlang::is_null(col_title)) {
-      if (col_title == "") {
-        plot <- plot +
-          ggplot2::labs(colour = NULL, fill = NULL)
+  #Adjust legend
+  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex")) {
+    if (rlang::is_null(col_legend_place)) {
+      if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+        col_legend_place <- "right"
       }
+      else if (stat == "sf") {
+        if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+            (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+          col_legend_place <- "none"
+        }
+        else col_legend_place <- "right"
+      }
+      else if (stat == "qq") {
+        if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(sample, data))) |
+            (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+            (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+          col_legend_place <- "none"
+        }
+        col_legend_place <- "bottom"
+      }
+      else if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) |
+               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
+               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+        col_legend_place <- "none"
+      }
+      else if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
+      else col_legend_place <- "bottom"
     }
-    if (!rlang::is_null(col_include)) {
-      plot <- plot +
-        ggplot2::expand_limits(colour = col_include, fill = col_include)
+    else {
+      if (col_legend_place == "b") col_legend_place <- "bottom"
+      if (col_legend_place == "t") col_legend_place <- "top"
+      if (col_legend_place == "l") col_legend_place <- "left"
+      if (col_legend_place == "r") col_legend_place <- "right"
+      if (col_legend_place == "n") col_legend_place <- "none"
     }
 
-    #adjust the legend
     if (col_legend_place %in% c("top", "bottom")) {
       plot <- plot +
         ggplot2::theme(legend.position = col_legend_place) +
@@ -1289,6 +1255,27 @@ gg_freqpoly <- function(
   }
 
   #remove gridlines not needed
+  if (stat == "sf") {
+    if (rlang::is_null(x_grid)) x_grid <- FALSE
+    if (rlang::is_null(y_grid)) y_grid <- FALSE
+  }
+  else if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) {
+    if (rlang::is_null(x_grid)) x_grid <- TRUE
+    if (rlang::is_null(y_grid)) y_grid <- FALSE
+  }
+  else if ((y_forcat) & (x_numeric | x_null)) {
+    if (rlang::is_null(x_grid)) x_grid <- TRUE
+    if (rlang::is_null(y_grid)) y_grid <- FALSE
+  }
+  else if ((y_forcat) & (x_forcat)) {
+    if (rlang::is_null(x_grid)) x_grid <- FALSE
+    if (rlang::is_null(y_grid)) y_grid <- FALSE
+  }
+  else {
+    if (rlang::is_null(x_grid)) x_grid <- FALSE
+    if (rlang::is_null(y_grid)) y_grid <- TRUE
+  }
+
   if (!x_grid & !y_grid) {
     plot <- plot + #resolve sf bug https://github.com/tidyverse/ggplot2/issues/4730
       ggplot2::theme(panel.grid.major = ggplot2::element_blank())
