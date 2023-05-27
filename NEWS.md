@@ -1,9 +1,9 @@
 # ggblanket 2.0.0
 
-* Made ggblanket work better with adding layers. 
+* Made ggblanket work better with adding layers.
 * Made the pal no longer inherit to subsequent layers where there is no col aesthetic.
 * Made x and y scales work better, including with NA in the limits.
-* Added 2 colours to the default palette. 
+* Added 2 colours to the default palette.
 * Breaking: changed default *oob agument to scales::oob_censor.
 * Breaking: changed default coord agument to clip = "off".
 * Breaking: removed add_tooltip function.
