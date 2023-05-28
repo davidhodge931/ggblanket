@@ -150,14 +150,14 @@ stat in the gg_blank function where it deviates from
 <span>    x <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
 <span>    stat <span class="op">=</span> <span class="st">"density"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html" class="external-link">geom_density</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span>, fill <span class="op">=</span> <span class="va">pal_blue</span>, alpha <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-2-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-2-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_blank.html">gg_blank</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
 <span>    stat <span class="op">=</span> <span class="st">"bin"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span>, fill <span class="op">=</span> <span class="va">pal_blue</span>, alpha <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-3-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-3-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="work-with-non-default-stats">2. Work with non-default stats<a class="anchor" aria-label="anchor" href="#work-with-non-default-stats"></a>
@@ -181,7 +181,7 @@ in each <code>gg_*</code> function to what is required.</p>
 <span>    fun <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>    alpha <span class="op">=</span> <span class="fl">0.2</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-4-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-4-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="use-non-supported-ggplot2-aesthetics">3. Use non-supported ggplot2 aesthetics<a class="anchor" aria-label="anchor" href="#use-non-supported-ggplot2-aesthetics"></a>
@@ -198,7 +198,7 @@ it is possible to access these in plots made with a combination of
 <span>    col <span class="op">=</span> <span class="va">sex</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>  </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"Sex"</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-5-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#for discrete non-col aesthetic &amp; no col aesthetic</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -208,7 +208,7 @@ it is possible to access these in plots made with a combination of
 <span>    col <span class="op">=</span> <span class="va">sex</span><span class="op">)</span> <span class="op">+</span> <span class="co">#just to make legend on bottom</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">sex</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"#2B6999"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"Sex"</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-6-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#for continuous non-col aesthetic &amp; col aesthetic</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -220,7 +220,7 @@ it is possible to access these in plots made with a combination of
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">bill_depth_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>size <span class="op">=</span> <span class="st">"Bill depth mm"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-7-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#for continuous non-col aesthetic &amp; no col aesthetic</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -229,7 +229,7 @@ it is possible to access these in plots made with a combination of
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">bill_depth_mm</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"#2B6999"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>size <span class="op">=</span> <span class="st">"Bill depth mm"</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-8-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="use-non-supported-arguments">4. Use non-supported arguments<a class="anchor" aria-label="anchor" href="#use-non-supported-arguments"></a>
@@ -255,7 +255,7 @@ supported. A way to access this functionality is to <code>+</code> the
 <span>             rows <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span>, </span>
 <span>             switch <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>strip.switch.pad.grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">2</span>, <span class="st">"mm"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-9-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="use-non-supported-geoms">5. Use non-supported geoms<a class="anchor" aria-label="anchor" href="#use-non-supported-geoms"></a>
@@ -295,7 +295,7 @@ of these can be accessed via the gg_blank function.</p>
 <span>                      show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-10-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="create-custom-wrapper-functions">6. Create custom wrapper functions<a class="anchor" aria-label="anchor" href="#create-custom-wrapper-functions"></a>
@@ -328,7 +328,7 @@ within the ggblanket <code>gg_*</code> function (and applicable
 <span>    x <span class="op">=</span> <span class="va">Sepal.Width</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">Species</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-11-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gg_point_custom</span><span class="op">(</span></span>
@@ -336,7 +336,7 @@ within the ggblanket <code>gg_*</code> function (and applicable
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html" class="external-link">position_jitter</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-12-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="work-with-extension-packages">7. Work with extension packages<a class="anchor" aria-label="anchor" href="#work-with-extension-packages"></a>
@@ -363,7 +363,7 @@ within the ggblanket <code>gg_*</code> function (and applicable
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-13-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="ggtext">ggtext<a class="anchor" aria-label="anchor" href="#ggtext"></a>
@@ -380,7 +380,7 @@ important to change the default theme have a plain title.</p>
 <span>        title <span class="op">=</span> <span class="st">"**Bold** or _italics_ or &lt;span style = 'color:red;'&gt;red&lt;/span&gt;"</span>,</span>
 <span>        theme <span class="op">=</span> <span class="fu"><a href="../reference/gg_theme.html">gg_theme</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu">ggtext</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html" class="external-link">element_markdown</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-14-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="gghighlight">gghighlight<a class="anchor" aria-label="anchor" href="#gghighlight"></a>
@@ -397,7 +397,7 @@ builds to include the full height of the non-highlighted data.</p>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>           y <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">gghighlight</span><span class="fu">::</span><span class="fu"><a href="https://yutannihilation.github.io/gghighlight/reference/gghighlight.html" class="external-link">gghighlight</a></span><span class="op">(</span><span class="va">body_mass_g</span> <span class="op">&gt;=</span> <span class="fl">5000</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-15-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
@@ -408,7 +408,7 @@ builds to include the full height of the non-highlighted data.</p>
 <span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">gghighlight</span><span class="fu">::</span><span class="fu"><a href="https://yutannihilation.github.io/gghighlight/reference/gghighlight.html" class="external-link">gghighlight</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-16-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="ggrepel">ggrepel<a class="anchor" aria-label="anchor" href="#ggrepel"></a>
@@ -421,7 +421,7 @@ labels.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">wt</span> <span class="op">&gt;</span> <span class="fl">2.75</span>, <span class="va">wt</span> <span class="op">&lt;</span> <span class="fl">3.45</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">wt</span>, y <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggrepel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html" class="external-link">geom_text_repel</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">car</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"#2B6999"</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-17-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="ggdensity">ggdensity<a class="anchor" aria-label="anchor" href="#ggdensity"></a>
@@ -440,7 +440,7 @@ estimates.</p>
 <span>  <span class="fu">ggdensity</span><span class="fu">::</span><span class="fu"><a href="https://jamesotto852.github.io/ggdensity/reference/geom_hdr.html" class="external-link">geom_hdr</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="st">"Probs"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending_further_files/figure-html/unnamed-chunk-18-1.png" width="70%"></p>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="ggblend">ggblend<a class="anchor" aria-label="anchor" href="#ggblend"></a>
@@ -450,11 +450,9 @@ estimates.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mjskay.github.io/ggblend/" class="external-link">ggblend</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">0</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">1</span><span class="op">)</span>, set <span class="op">=</span> <span class="st">"A"</span><span class="op">)</span>, </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">1</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">2</span><span class="op">)</span>, set <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="va">df</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">0</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">1</span><span class="op">)</span>, set <span class="op">=</span> <span class="st">"A"</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">1</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">2</span><span class="op">)</span>, set <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_blank.html">gg_blank</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">x</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">y</span>,</span>
@@ -467,6 +465,7 @@ estimates.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://mjskay.github.io/ggblend/reference/partition.html" class="external-link">partition</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">set</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://mjskay.github.io/ggblend/reference/blend.html" class="external-link">blend</a></span><span class="op">(</span><span class="st">"multiply"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> </span></code></pre></div>
+<p><img src="extending_further_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="plotlyggplotly">plotly::ggplotly<a class="anchor" aria-label="anchor" href="#plotlyggplotly"></a>
