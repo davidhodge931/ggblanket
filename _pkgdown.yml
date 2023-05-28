@@ -1,4 +1,8 @@
 url: https://davidhodge931.github.io/ggblanket/
+
 template:
   bootstrap: 5
 
+figures:
+  dev: svg
+  fig.ext: svg

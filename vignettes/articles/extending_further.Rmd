@@ -348,15 +348,13 @@ iris |>
  
 The ggblend package provides blending of discrete colours. 
  
-```{r, eval=FALSE}
+```{r}
 library(ggblend)
 set.seed(1234)
 
-df <- rbind(
-    data.frame(x = rnorm(500, 0), y = rnorm(500, 1), set = "A"), 
-    data.frame(x = rnorm(500, 1), y = rnorm(500, 2), set = "B")) 
-
-df |>
+rbind(
+  data.frame(x = rnorm(500, 0), y = rnorm(500, 1), set = "A"), 
+  data.frame(x = rnorm(500, 1), y = rnorm(500, 2), set = "B")) |>
   gg_blank(
     x = x,
     y = y,
