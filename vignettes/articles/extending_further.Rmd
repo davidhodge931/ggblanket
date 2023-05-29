@@ -48,7 +48,6 @@ library(ggplot2)
 library(ggblanket)
 library(palmerpenguins)
 library(patchwork)
-library(ggridges)
 
 penguins <- penguins |>
   mutate(sex = str_to_sentence(sex)) |>
@@ -351,7 +350,6 @@ The ggblend package provides blending of discrete colours.
  
 ```{r}
 set.seed(123)
-library(ggblend)
 
 rbind(
   data.frame(x = rnorm(500, 0), y = rnorm(500, 1), set = "A"), 
@@ -361,13 +359,14 @@ rbind(
     y = y,
     col = set,
     pal = RColorBrewer::brewer.pal(9, "Set1"),
+    col_legend_rev = TRUE
   ) +
   geom_point(size = 3, alpha = 0.5) |> 
-    partition(vars(set)) |> 
-    blend("lighten") +
+    ggblend::partition(vars(set)) |> 
+    ggblend::blend("lighten") +
   geom_point(size = 3, alpha = 0.5) |> 
-    partition(vars(set)) |> 
-    blend("multiply", alpha = 0.5) 
+    ggblend::partition(vars(set)) |> 
+    ggblend::blend("multiply", alpha = 0.5) 
 ```
 
 #### ggridges
@@ -375,9 +374,7 @@ rbind(
 The ggridges package enables ridgeline plots. 
 
 ```{r}
-library(ggridges)
-
-Catalan_elections |>
+ggridges::Catalan_elections |>
   rename_with(snakecase::to_snake_case) |> 
   mutate(across(year, factor)) |>
   gg_blank(
@@ -385,7 +382,7 @@ Catalan_elections |>
     x = percent, 
     col = option, 
     y_expand = c(0, 0)) +
-  geom_density_ridges(
+  ggridges::geom_density_ridges(
     alpha = 0.8, 
     col = "white")
 ```
@@ -395,8 +392,6 @@ Catalan_elections |>
 The plotly::ggplotly function enables interactive plots.
 
 ```{r, out.width=500, out.height=300}
-library(plotly)
-
 p <- diamonds |>
   gg_bar(
     x = color,
@@ -405,7 +400,7 @@ p <- diamonds |>
     theme = gg_theme("helvetica")) 
 
 plotly::ggplotly(p, tooltip = c("x", "y")) %>% 
-    layout(autosize = F, width = 500, height = 300)
+    plotly::layout(autosize = F, width = 500, height = 300)
 ```
 
 #### ggiraph
@@ -413,8 +408,6 @@ plotly::ggplotly(p, tooltip = c("x", "y")) %>%
 The ggiraph package enables interactive plots.
 
 ```{r}
-library(ggiraph)
-
 p <- diamonds |>
   gg_blank(
     x = color,
@@ -423,18 +416,18 @@ p <- diamonds |>
     y_include = 0,
     stat = "count", 
     theme = gg_theme("helvetica", text_size = 9)) +
-  geom_bar_interactive(
+  ggiraph::geom_bar_interactive(
     aes(tooltip = after_stat(count), 
         data_id = color), width = 0.75)
 
-girafe(ggobj = p, 
-       height_svg = 3, 
-       width_svg = 5,
-       options = list(
-  opts_sizing(rescale = TRUE, 
-              width = 0.7),
-  opts_tooltip(use_fill = TRUE), 
-  opts_hover(css = "stroke:black;stroke-width:1px;")))
+ggiraph::girafe(
+  ggobj = p, 
+  height_svg = 3, 
+  width_svg = 5,
+  options = list(
+    ggiraph::opts_sizing(rescale = TRUE, width = 0.7),
+    ggiraph::opts_tooltip(use_fill = TRUE), 
+    ggiraph::opts_hover(css = "stroke:black;stroke-width:1px;")))
 ```
 
 #### gganimate
@@ -442,10 +435,7 @@ girafe(ggobj = p,
 The gganimate package enables animated plots.
 
 ```{r, eval=FALSE}
-library(gapminder)
-library(gganimate)
-
-gapminder |> 
+gapminder::gapminder |> 
   gg_blank(
     x = gdpPercap, 
     y = lifeExp, 
@@ -460,8 +450,8 @@ gapminder |>
     y_include = 0) +
   geom_point(aes(size = pop), alpha = 0.7) +
   scale_size(range = c(2, 12)) +
-  transition_time(year) +
-  ease_aes("linear")
+  gganimate::transition_time(year) +
+  gganimate::ease_aes("linear")
 ```
 ```{r, echo=FALSE}
 knitr::include_graphics("gganimate.gif")

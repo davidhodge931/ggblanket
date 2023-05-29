@@ -12,8 +12,7 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = 0.618,
   out.width = "70%",
-  dpi = 300
-)
+  dpi = 300)
 ```
 
 ## Overview
@@ -38,8 +37,7 @@ economics |>
     y = unemploy,
     y_title = "Unemployment",
     pal = "#1B9E77",
-    x_limits = c(ymd("2010-01-01"), NA_Date_)
-  )
+    x_limits = c(ymd("2010-01-01"), NA_Date_))
 ```
 
 ### gg_bar
@@ -52,8 +50,7 @@ penguins |>
     facet = species,
     width = 0.75,
     x_labels = str_to_sentence,
-    pal = c("#2596be", "#fc7c24")
-  )
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### gg_bin2d
@@ -63,8 +60,7 @@ diamonds |>
   gg_bin2d(
     x = carat,
     y = price,
-    pal = viridis::cividis(9)
-  )
+    pal = viridis::cividis(9))
 ```
 
 ### gg_blank
@@ -78,8 +74,7 @@ penguins |>
     facet = species,
     col_labels = str_to_sentence,
     pal = c("#2596be", "#fc7c24"),
-    y_include = 0
-  )
+    y_include = 0)
 ```
 
 ### gg_boxplot
@@ -92,8 +87,7 @@ penguins |>
     col = sex,
     facet = species,
     x_labels = snakecase::to_sentence_case,
-    pal = c("#2596be", "#fc7c24")
-  )
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### gg_col
@@ -111,8 +105,7 @@ penguins |>
     y_labels = str_to_sentence,
     position = "dodge",
     pal = c("#2596be", "#fc7c24"),
-    col_labels = str_to_sentence
-  )
+    col_labels = str_to_sentence)
 ```
 
 ### gg_crossbar
@@ -123,8 +116,7 @@ data.frame(
   resp = c(1, 5, 3, 4),
   group = factor(c(1, 2, 1, 2)),
   upper = c(1.1, 5.3, 3.3, 4.2),
-  lower = c(0.8, 4.6, 2.4, 3.6)
-) |>
+  lower = c(0.8, 4.6, 2.4, 3.6)) |>
   gg_crossbar(
     x = trt,
     y = resp,
@@ -134,8 +126,7 @@ data.frame(
     width = 0.5,
     x_title = "Treatment",
     y_title = "Response",
-    pal = c("#2596be", "#fc7c24")
-  )
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### gg_density
@@ -148,8 +139,7 @@ penguins |>
     col = sex,
     facet = species,
     pal = c("#2596be", "#fc7c24"),
-    col_labels = str_to_sentence
-  )
+    col_labels = str_to_sentence)
 ```
 
 ### gg_errorbar
@@ -170,8 +160,7 @@ data.frame(
     width = 0.1,
     pal = c("#2596be", "#fc7c24"),
     x_title = "Treatment",
-    y_title = "Response"
-  )
+    y_title = "Response")
 ```
 
 ### gg_freqpoly
@@ -184,8 +173,7 @@ penguins |>
     col = sex,
     facet = species,
     pal = c("#2596be", "#fc7c24"),
-    col_labels = str_to_sentence
-  )
+    col_labels = str_to_sentence)
 ```
 
 ### gg_function
@@ -196,8 +184,7 @@ data.frame(x = rnorm(100)) |>
     x = x,
     fun = \(x) dnorm(x),
     pal = "#1B9E77",
-    x_limits = c(-3, 3)
-  )
+    x_limits = c(-3, 3))
 ```
 
 ### gg_hex
@@ -207,8 +194,7 @@ diamonds |>
   gg_hex(
     x = carat,
     y = price,
-    pal = viridis::cividis(9)
-  )
+    pal = viridis::cividis(9))
 ```
 
 ### gg_histogram
@@ -222,8 +208,7 @@ penguins |>
     facet = species,
     bins = 50,
     pal = c("#2596be", "#fc7c24"),
-    col_labels = str_to_sentence
-  )
+    col_labels = str_to_sentence)
 ```
 
 ### gg_freqpoly
@@ -236,13 +221,14 @@ penguins |>
     col = sex,
     facet = species,
     pal = c("#2596be", "#fc7c24"),
-    col_labels = str_to_sentence
-  )
+    col_labels = str_to_sentence)
 ```
 
 ### gg_jitter
 
 ```{r}
+set.seed(123)
+
 penguins |>
   gg_jitter(
     x = species,
@@ -250,8 +236,7 @@ penguins |>
     col = flipper_length_mm,
     col_continuous = "steps",
     y_include = 0,
-    position = position_jitter(height = 0)
-  )
+    position = position_jitter(height = 0))
 ```
 
 ### gg_label
@@ -259,18 +244,16 @@ penguins |>
 ```{r}
 bind_rows(
   mtcars |> slice_min(order_by = mpg),
-  mtcars |> slice_max(order_by = mpg)
-) |>
-tibble::rownames_to_column("model") |>
-gg_label(
-  x = model,
-  y = mpg,
-  col = mpg,
-  label = model,
-  y_include = 0,
-  pal = RColorBrewer::brewer.pal(9, "RdBu"),
-  y_title = "Miles per gallon"
-)
+  mtcars |> slice_max(order_by = mpg)) |>
+  tibble::rownames_to_column("model") |>
+  gg_label(
+    x = model,
+    y = mpg,
+    col = mpg,
+    label = model,
+    y_include = 0,
+    pal = RColorBrewer::brewer.pal(9, "RdBu"),
+    y_title = "Miles per gallon")
 ```
 
 ### gg_line
@@ -283,8 +266,7 @@ economics |>
     y_title = "Unemployment",
     pal = "#9E361B",
     x_limits = c(ymd("2010-01-01"), NA_Date_),
-    y_include = 0
-  )
+    y_include = 0)
 ```
 
 ### gg_linerange
@@ -295,17 +277,15 @@ data.frame(
   resp = c(1, 5, 3, 4),
   group = factor(c(1, 2, 1, 2)),
   upper = c(1.1, 5.3, 3.3, 4.2),
-  lower = c(0.8, 4.6, 2.4, 3.6)
-) |>
-gg_linerange(
-  x = trt,
-  ymin = lower,
-  ymax = upper,
-  col = group,
-  position = position_dodge(width = 0.2),
-  x_title = "Treatment",
-  y_title = "Response"
-)
+  lower = c(0.8, 4.6, 2.4, 3.6)) |>
+  gg_linerange(
+    x = trt,
+    ymin = lower,
+    ymax = upper,
+    col = group,
+    position = position_dodge(width = 0.2),
+    x_title = "Treatment",
+    y_title = "Response")
 ```
 
 ### gg_path
@@ -317,8 +297,7 @@ economics |>
     x = unemploy_rate,
     y = psavert,
     x_title = "Unemployment rate",
-    y_title = "Personal savings rate"
-  )
+    y_title = "Personal savings rate")
 ```
 
 ### gg_point
@@ -331,8 +310,7 @@ penguins |>
     col = sex,
     facet = species,
     col_labels = str_to_sentence,
-    pal = c("#2596be", "#fc7c24")
-  )
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### gg_pointrange
@@ -343,20 +321,18 @@ data.frame(
   resp = c(1, 5, 3, 4),
   group = factor(c(1, 2, 1, 2)),
   upper = c(1.1, 5.3, 3.3, 4.2),
-  lower = c(0.8, 4.6, 2.4, 3.6)
-) |>
-gg_pointrange(
-  x = trt,
-  y = resp,
-  col = group,
-  ymin = lower,
-  ymax = upper,
-  position = position_dodge(width = 0.2),
-  size = 0.2,
-  pal = c("#2596be", "#fc7c24"),
-  x_title = "Treatment",
-  y_title = "Response"
-)
+  lower = c(0.8, 4.6, 2.4, 3.6)) |>
+  gg_pointrange(
+    x = trt,
+    y = resp,
+    col = group,
+    ymin = lower,
+    ymax = upper,
+    position = position_dodge(width = 0.2),
+    size = 0.2,
+    pal = c("#2596be", "#fc7c24"),
+    x_title = "Treatment",
+    y_title = "Response")
 ```
 
 ### gg_polygon
@@ -385,8 +361,7 @@ datapoly |>
     y = y,
     col = value,
     group = id,
-    pal = viridis::cividis(9)
-  )
+    pal = viridis::cividis(9))
 ```
 
 ### gg_qq
@@ -396,8 +371,7 @@ penguins |>
   gg_qq(
     sample = body_mass_g,
     facet = species,
-    pal = "#1B9E77"
-  ) +
+    pal = "#1B9E77") +
   geom_qq_line(alpha = 0.5)
 ```
 
@@ -409,8 +383,7 @@ faithfuld |>
     x = waiting,
     y = eruptions,
     col = density,
-    pal = viridis::cividis(9)
-  )
+    pal = viridis::cividis(9))
 ```
 
 ### gg_rect
@@ -420,8 +393,7 @@ data.frame(
   x = rep(c(2, 5, 7, 9, 12), 2),
   y = rep(c(1, 2), each = 5),
   z = factor(rep(1:5, each = 2)),
-  w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
-) |>
+  w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)) |>
   mutate(
     xmin = x - w / 2,
     xmax = x + w / 2,
@@ -433,8 +405,7 @@ data.frame(
     xmax = xmax,
     ymin = ymin,
     ymax = ymax,
-    col = z
-  )
+    col = z)
 ```
 
 ### gg_ribbon
@@ -447,8 +418,7 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     ymin = level_min,
     ymax = level_max,
     pal = scales::alpha("#1B9E77", 0),
-    y_title = "Level"
-  ) +
+    y_title = "Level") +
   geom_line(aes(x = year, y = level), col = "#1B9E77")
 ```
 
@@ -461,8 +431,7 @@ data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
     xend = x2,
     y = y1,
     yend = y2,
-    pal = "#1B9E77"
-  )
+    pal = "#1B9E77")
 ```
 
 ### gg_sf
@@ -486,9 +455,7 @@ penguins |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    facet = species
-  )
-
+    facet = species)
 ```
 
 ### gg_step
@@ -500,8 +467,7 @@ economics |>
     y = unemploy,
     y_title = "Unemployment",
     pal = "#1B9E77",
-    x_limits = c(ymd("2010-01-01"), NA_Date_)
-  )
+    x_limits = c(ymd("2010-01-01"), NA_Date_))
 ```
 
 ### gg_text
@@ -509,8 +475,7 @@ economics |>
 ```{r}
 bind_rows(
   mtcars |> slice_min(order_by = mpg),
-  mtcars |> slice_max(order_by = mpg)
-) |>
+  mtcars |> slice_max(order_by = mpg)) |>
   tibble::rownames_to_column("model") |>
   gg_text(
     x = model,
@@ -519,8 +484,7 @@ bind_rows(
     label = model,
     y_include = 0,
     pal = RColorBrewer::brewer.pal(9, "RdBu"),
-    y_title = "Miles per gallon"
-  )
+    y_title = "Miles per gallon")
 ```
 
 ### gg_tile
@@ -534,8 +498,7 @@ penguins |>
     y = species,
     col = flipper_length_mm,
     pal = RColorBrewer::brewer.pal(9, "Blues"),
-    col_labels = str_to_sentence
-  )
+    col_labels = str_to_sentence)
 ```
 
 ### gg_violin
@@ -549,6 +512,5 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    pal = c("#2596be", "#fc7c24")
-  )
+    pal = c("#2596be", "#fc7c24"))
 ```
