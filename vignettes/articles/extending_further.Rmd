@@ -248,6 +248,8 @@ ggblanket can work with numerous extension packages.
 The patchwork package enables plots to be patched together.
 
 ```{r}
+set.seed(123)
+
 p1 <- penguins |>
   gg_jitter(
     x = species,
@@ -348,8 +350,8 @@ iris |>
 The ggblend package provides blending of discrete colours. 
  
 ```{r}
+set.seed(123)
 library(ggblend)
-set.seed(1234)
 
 rbind(
   data.frame(x = rnorm(500, 0), y = rnorm(500, 1), set = "A"), 
