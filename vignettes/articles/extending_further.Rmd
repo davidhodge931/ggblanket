@@ -380,6 +380,7 @@ ggridges::Catalan_elections |>
     x = percent, 
     col = option, 
     y_expand = c(0, 0), 
+    col_title = "",
     col_legend_rev = TRUE, 
     pal = pal_hue[c(2, 5)]) +
   ggridges::geom_density_ridges(
