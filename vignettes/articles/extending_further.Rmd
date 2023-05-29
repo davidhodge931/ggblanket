@@ -251,19 +251,22 @@ p1 <- penguins |>
     x = species,
     y = body_mass_g,
     col = sex, 
-    col_legend_place = "n")
+    pal = pal_hue[1:2],
+    col_legend_ncol = 2,
+    col_legend_nrow = 2)
 
 p2 <- penguins |>
-  gg_violin(
-    x = species,
+  gg_point(
+    x = flipper_length_mm,
     y = body_mass_g,
-    col = sex, 
-    col_legend_place = "r", 
+    col = species, 
+    pal = pal_hue[3:5],
     y_title = "", 
-    y_labels = \(x) str_sub(x, 0, 0),
-    theme = gg_theme(axis_ticks_linewidth = 0))
+    y_labels = \(x) str_sub(x, 0, 0), 
+    col_legend_ncol = 2,
+    col_legend_nrow = 2)
 
-p1 + p2
+p1 + p2 
 ```
 
 #### ggtext
