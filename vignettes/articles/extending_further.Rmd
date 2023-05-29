@@ -392,7 +392,7 @@ p <- diamonds |>
     width = 0.75,
     y_include = 0,
     stat = "count", 
-    theme = gg_theme(text_size = 8)) +
+    theme = gg_theme("helvetica")) +
   geom_bar_interactive(
     aes(tooltip = after_stat(count), 
         data_id = color), width = 0.75)
