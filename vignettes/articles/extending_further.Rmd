@@ -42,19 +42,20 @@ To extend ggblanket further, users can:
 
 ```{r setup}
 library(dplyr)
+library(stringr)
 library(ggplot2)
 library(ggblanket)
 library(palmerpenguins)
 library(patchwork)
 
 penguins <- penguins |>
-  mutate(sex = stringr::str_to_sentence(sex)) |>
+  mutate(sex = str_to_sentence(sex)) |>
   tidyr::drop_na(sex)
 ```
 
 ### 1. Use the ggblank function
 
-The `ggblank` function is the most flexibility function in ggblanket.
+The `ggblank` function is the most flexible function in ggblanket.
 
 It provides access to the most aesthetics. It provides lots of flexibility to use ggblanket with ggplot2 layers and other extension packages. 
 
@@ -225,7 +226,7 @@ gg_point_custom <- function(data, x, y, col,
              pal = pal, 
              col_title = col_title, 
              col_legend_place = col_legend_place, 
-             col_labels = stringr::str_to_sentence,
+             col_labels = str_to_sentence,
              ...)
 }
 
@@ -242,23 +243,25 @@ ggblanket can work with numerous extension packages.
 
 #### patchwork
 
-This fantastic package is straightforward to use with ggblanket.
+The patchwork package is straightforward to use with ggblanket.
 
 ```{r}
-p1 <- diamonds |>
-  gg_point(
-    x = carat,
-    y = price)
+p1 <- penguins |>
+  gg_jitter(
+    x = species,
+    y = body_mass_g,
+    col = sex, 
+    col_legend_place = "n")
 
-p2 <- diamonds |>
-  gg_hex(
-    x = carat,
-    y = price,
-    pal = viridis::cividis(9),
-    y_limits = c(0, 20000), 
-    y_title = ""
-  ) +
-  theme(axis.text.y = element_blank())
+p2 <- penguins |>
+  gg_violin(
+    x = species,
+    y = body_mass_g,
+    col = sex, 
+    col_legend_place = "r", 
+    y_title = "", 
+    y_labels = \(x) str_sub(x, 0, 0),
+    theme = gg_theme(axis_ticks_linewidth = 0))
 
 p1 + p2
 ```
@@ -299,7 +302,7 @@ iris |>
     x = Sepal.Length,
     col = Species,
     facet = Species,
-    facet_labels = stringr::str_to_sentence,
+    facet_labels = str_to_sentence,
     y_limits = c(NA, NA)
   ) +
   gghighlight::gghighlight()
@@ -323,7 +326,7 @@ The ggdensity package provides visualizations of density estimates.
 
 ```{r}
 iris |>
-  mutate(Species = stringr::str_to_sentence(Species)) |> 
+  mutate(Species = str_to_sentence(Species)) |> 
   gg_blank(
     x = Sepal.Width,
     y = Sepal.Length,
