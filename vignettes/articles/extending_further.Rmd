@@ -31,11 +31,11 @@ To extend ggblanket further, users can:
 7. Work with extension packages 
 
 * patchwork
+* ggrepel
 * ggtext
 * gghighlight
-* ggrepel
-* ggdensity
 * ggblend
+* ggdensity
 * ggridges
 * plotly::ggplotly
 * ggiraph
@@ -272,6 +272,18 @@ p2 <- penguins |>
 p1 + p2 
 ```
 
+#### ggrepel
+
+The ggrepel package can be used to neatly avoid overlapping labels. 
+
+```{r}
+mtcars |> 
+  tibble::rownames_to_column("car") |>
+  filter(wt > 2.75, wt < 3.45) |> 
+  gg_point(x = wt, y = mpg) +
+  ggrepel::geom_text_repel(aes(label = car), col = "#2B6999") 
+```
+
 #### ggtext
 
 The ggtext package enables plot text to use markdown syntax. 
@@ -314,36 +326,6 @@ iris |>
   gghighlight::gghighlight()
 ```
 
-#### ggrepel
-
-The ggrepel package can be used to neatly avoid overlapping labels. 
-
-```{r}
-mtcars |> 
-  tibble::rownames_to_column("car") |>
-  filter(wt > 2.75, wt < 3.45) |> 
-  gg_point(x = wt, y = mpg) +
-  ggrepel::geom_text_repel(aes(label = car), col = "#2B6999") 
-```
-
-#### ggdensity
-
-The ggdensity package provides visualizations of density estimates.  
-
-```{r}
-iris |>
-  mutate(across(Species, str_to_sentence)) |> 
-  gg_blank(
-    x = Sepal.Width,
-    y = Sepal.Length,
-    col = Species,
-    facet = Species,
-    col_legend_place = "r") +
-  ggdensity::geom_hdr(colour = NA) +
-  labs(alpha = "Probs") +
-  theme(legend.title = element_text(margin = margin(t = 10)))
-```
-
 #### ggblend
  
 The ggblend package provides blending of discrete colours. 
@@ -367,6 +349,24 @@ rbind(
     ggblend::blend("multiply", alpha = 0.5) 
 ```
 
+#### ggdensity
+
+The ggdensity package provides visualizations of density estimates.  
+
+```{r}
+iris |>
+  mutate(across(Species, str_to_sentence)) |> 
+  gg_blank(
+    x = Sepal.Width,
+    y = Sepal.Length,
+    col = Species,
+    facet = Species,
+    col_legend_place = "r") +
+  ggdensity::geom_hdr(colour = NA) +
+  labs(alpha = "Probs") +
+  theme(legend.title = element_text(margin = margin(t = 10)))
+```
+
 #### ggridges
 
 The ggridges package enables ridgeline plots. 
@@ -381,7 +381,7 @@ ggridges::Catalan_elections |>
     col = option, 
     y_expand = c(0, 0), 
     col_legend_rev = TRUE, 
-    pal = pal_hue[c(2, 1)]) +
+    pal = pal_hue[c(2, 5)]) +
   ggridges::geom_density_ridges(
     alpha = 0.8, 
     col = "white")

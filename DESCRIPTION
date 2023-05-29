@@ -1,6 +1,6 @@
 Package: ggblanket
 Title: Simplify 'ggplot2' Visualisation
-Version: 2.0.0
+Version: 2.0.0900
 Authors@R: c(
     person("David", "Hodge", email = "davidhodge931@gmail.com", 
            role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-3868-7501")), 
@@ -38,5 +38,13 @@ Suggests:
     rmarkdown,
     sf,
     tibble
-Config/Needs/website: ggridges
+Config/Needs/website: 
+    pkgdown,
+    ggrepel,
+    ggtext,
+    gghighlight,
+    ggblend,
+    ggdensity,
+    ggridges,
+    ggiraph
 VignetteBuilder: knitr
