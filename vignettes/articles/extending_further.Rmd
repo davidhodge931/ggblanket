@@ -409,7 +409,7 @@ plotly::ggplotly(p, tooltip = c("x", "y")) %>%
 
 The ggiraph package enables interactive plots.
 
-```{r, fig.align='left', }
+```{r}
 library(ggiraph)
 
 p <- diamonds |>
