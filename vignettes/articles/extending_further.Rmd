@@ -36,6 +36,7 @@ To extend ggblanket further, users can:
 * ggrepel
 * ggdensity
 * ggblend
+* ggridges
 * plotly::ggplotly
 * ggiraph
 * gganimate
@@ -364,6 +365,26 @@ rbind(
   geom_point(size = 3, alpha = 0.5) |> 
     partition(vars(set)) |> 
     blend("multiply", alpha = 0.5) 
+```
+
+#### ggridges
+
+The ggridges package enables ridgeline plots.
+
+```{r}
+library(ggridges)
+
+Catalan_elections |>
+  rename_with(snakecase::to_snake_case) |> 
+  mutate(across(year, factor)) |>
+  gg_blank(
+    y = year, 
+    x = percent, 
+    col = option, 
+    y_expand = c(0, 0)) +
+  geom_density_ridges(
+    alpha = 0.8, 
+    color = "white")
 ```
 
 #### plotly::ggplotly
