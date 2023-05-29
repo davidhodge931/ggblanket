@@ -384,7 +384,7 @@ Catalan_elections |>
     y_expand = c(0, 0)) +
   geom_density_ridges(
     alpha = 0.8, 
-    color = "white")
+    col = "white")
 ```
 
 #### plotly::ggplotly
