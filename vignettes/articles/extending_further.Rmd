@@ -48,6 +48,7 @@ library(ggplot2)
 library(ggblanket)
 library(palmerpenguins)
 library(patchwork)
+library(ggridges)
 
 penguins <- penguins |>
   mutate(sex = str_to_sentence(sex)) |>
