@@ -30,7 +30,6 @@ Imports:
     tidyselect,
     viridis
 Suggests: 
-    ggridges,
     hexbin,
     knitr,
     palmerpenguins,
