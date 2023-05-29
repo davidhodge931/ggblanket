@@ -328,7 +328,7 @@ iris |>
 
 #### ggblend
  
-The ggblend package provides blending of discrete colours. 
+The ggblend package provides blending of colours. 
  
 ```{r}
 set.seed(123)
