@@ -236,15 +236,6 @@ iris |>
     col = Species)
 ```
 
-```{r}
-penguins |>
-  gg_point_custom(
-    x = species,
-    y = body_mass_g,
-    col = sex,
-    position = position_jitter())
-```
-
 ### 7. Work with extension packages
 
 ggblanket can work with numerous extension packages. 
@@ -373,7 +364,7 @@ rbind(
 
 The plotly::ggplotly function enables interactive plots.
 
-```{r, eval=FALSE}
+```{r, out.width=500, out.height=300}
 library(plotly)
 
 p <- diamonds |>
@@ -383,14 +374,15 @@ p <- diamonds |>
     width = 0.75,
     theme = gg_theme("helvetica"))
 
-plotly::ggplotly(p, tooltip = c("x", "y"))
+plotly::ggplotly(p, tooltip = c("x", "y")) %>% 
+    layout(autosize = F, width = 500, height = 300)
 ```
 
 #### ggiraph
 
 The ggiraph package enables interactive plots.
 
-```{r, eval=FALSE}
+```{r, fig.align='left', }
 library(ggiraph)
 
 p <- diamonds |>
@@ -399,14 +391,20 @@ p <- diamonds |>
     col = color,
     width = 0.75,
     y_include = 0,
-    stat = "count") +
+    stat = "count", 
+    theme = gg_theme(text_size = 8)) +
   geom_bar_interactive(
     aes(tooltip = after_stat(count), 
         data_id = color), width = 0.75)
 
-girafe(ggobj = p, height_svg = 3, options = list(
+girafe(ggobj = p, 
+       height_svg = 3, 
+       width_svg = 5,
+       options = list(
+  opts_sizing(rescale = TRUE, 
+              width = 0.7),
   opts_tooltip(use_fill = TRUE), 
-  opts_hover(css = "stroke:black;stroke-width:2px;")))
+  opts_hover(css = "stroke:black;stroke-width:1px;")))
 ```
 
 #### gganimate
@@ -434,5 +432,8 @@ gapminder |>
   scale_size(range = c(2, 12)) +
   transition_time(year) +
   ease_aes("linear")
+```
+```{r, echo=FALSE}
+knitr::include_graphics("gganimate.gif")
 ```
 
