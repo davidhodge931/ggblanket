@@ -358,9 +358,7 @@ rbind(
     x = x,
     y = y,
     col = set,
-    pal = RColorBrewer::brewer.pal(9, "Set1"),
-    col_legend_rev = TRUE
-  ) +
+    pal = RColorBrewer::brewer.pal(9, "Set1")) +
   geom_point(size = 3, alpha = 0.5) |> 
     ggblend::partition(vars(set)) |> 
     ggblend::blend("lighten") +
@@ -381,7 +379,9 @@ ggridges::Catalan_elections |>
     y = year, 
     x = percent, 
     col = option, 
-    y_expand = c(0, 0)) +
+    y_expand = c(0, 0), 
+    col_legend_rev = TRUE, 
+    pal = pal_hue[c(2, 1)]) +
   ggridges::geom_density_ridges(
     alpha = 0.8, 
     col = "white")
