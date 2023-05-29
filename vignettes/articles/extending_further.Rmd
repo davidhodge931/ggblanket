@@ -372,19 +372,22 @@ rbind(
 The ggridges package enables ridgeline plots. 
 
 ```{r}
-ggridges::Catalan_elections |>
-  rename_with(snakecase::to_snake_case) |> 
-  mutate(across(year, factor)) |>
-  gg_blank(
-    y = year, 
-    x = percent, 
-    col = option, 
-    y_expand = c(0, 0), 
-    col_legend_rev = TRUE, 
-    pal = pal_hue[c(2, 1)]) +
-  ggridges::geom_density_ridges(
-    alpha = 0.8, 
-    col = "white")
+if (requireNamespace("ggridges", quietly = TRUE)) {
+
+  ggridges::Catalan_elections |>
+    rename_with(snakecase::to_snake_case) |> 
+    mutate(across(year, factor)) |>
+    gg_blank(
+      y = year, 
+      x = percent, 
+      col = option, 
+      y_expand = c(0, 0), 
+      col_legend_rev = TRUE, 
+      pal = pal_hue[c(2, 1)]) +
+    ggridges::geom_density_ridges(
+      alpha = 0.8, 
+      col = "white")
+}
 ```
 
 #### plotly::ggplotly
