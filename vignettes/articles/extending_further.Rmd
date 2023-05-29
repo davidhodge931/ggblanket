@@ -369,7 +369,7 @@ rbind(
 
 #### ggridges
 
-The ggridges package enables ridgeline plots.
+The ggridges package enables ridgeline plots. 
 
 ```{r}
 library(ggridges)
