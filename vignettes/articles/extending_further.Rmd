@@ -26,9 +26,10 @@ To extend ggblanket further, users can:
 2. Work with non-default stat's
 3. Use non-supported aesthetics
 4. Use non-supported arguments
-5. Use non-supported geoms
-6. Create custom wrapper functions
-7. Work with extension packages 
+5. Modifying a part of the colouring 
+6. Use non-supported geoms
+7. Create custom wrapper functions
+8. Work with extension packages 
 
 * patchwork
 * ggrepel
@@ -68,14 +69,6 @@ So with `ggblank`, you _must_ include the ggplot2 stat in the gg_blank function 
 penguins |>
   gg_blank(
     x = body_mass_g, 
-    stat = "density") +
-  geom_density(col = pal_blue, fill = pal_blue, alpha = 0.9)
-```
-
-```{r}
-penguins |>
-  gg_blank(
-    x = body_mass_g, 
     stat = "bin") +
   geom_histogram(col = pal_blue, fill = pal_blue, alpha = 0.9)
 ```
@@ -103,51 +96,47 @@ penguins |>
 
 ### 3. Use non-supported ggplot2 aesthetics
 
-While aesthetics other than col/fill are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
+While aesthetics other than colouring are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
 
-```{r}
-#for discrete non-col aesthetic & col aesthetic
-penguins |>
+```{r, fig.asp=1}
+p1 <- penguins |>
   gg_blank(
-    x = flipper_length_mm,
+    x = bill_length_mm,
     y = body_mass_g, 
     col = sex) + 
   geom_point(aes(shape = sex)) +  
   labs(shape = "Sex") 
-```
 
-```{r}
-#for discrete non-col aesthetic & no col aesthetic
-penguins |>
+p2 <- penguins |>
   gg_blank(
-    x = flipper_length_mm,
+    x = bill_length_mm,
     y = body_mass_g, 
     col = sex) + #just to make legend on bottom
-  geom_point(aes(shape = sex), colour = "#2B6999") + 
+  geom_point(aes(shape = sex), col = "#2B6999") + 
   labs(shape = "Sex") 
+
+p1 / p2
 ```
 
-```{r}
-#for continuous non-col aesthetic & col aesthetic
-penguins |>
+```{r, fig.asp=1}
+p3 <- penguins |>
   gg_blank(
-    x = flipper_length_mm,
+    x = bill_length_mm,
     y = body_mass_g, 
     col = species,
     col_legend_place = "r") + 
-  geom_point(aes(size = bill_depth_mm)) +
-  labs(size = "Bill depth mm") +
+  geom_point(aes(alpha = flipper_length_mm)) +
+  labs(alpha = "Flipper length mm") +
   theme(legend.title = element_text(margin = margin(t = 10)))
-```
 
-```{r}
-#for continuous non-col aesthetic & no col aesthetic
-penguins |>
+p4 <- penguins |>
   gg_blank(
-    x = flipper_length_mm,
+    x = bill_length_mm,
     y = body_mass_g) + 
-  geom_point(aes(size = bill_depth_mm), colour = "#2B6999") +
-  labs(size = "Bill depth mm") 
+  geom_point(aes(alpha = bill_depth_mm), col = "#2B6999") +
+  labs(alpha = "Flipper length mm") 
+
+p3 / p4
 ```
 
 ### 4. Use non-supported arguments
@@ -169,7 +158,43 @@ penguins |>
   theme(strip.switch.pad.grid = unit(2, "mm"))
 ```
 
-### 5. Use non-supported geoms
+### 5. Modifying a part of the colouring 
+
+Where a `gg_*` function contains a geom that can colour both outlines and fill, users can turn off a part of this using the `alpha` and `pal` arguments as shown below. 
+
+If it is desired to fix either the outline or fill to a single colour that is different to the `pal`, then users should instead use `gg_blank`.
+
+```{r, fig.asp=1}
+p1 <- iris |>
+  gg_density(
+    x = Sepal.Length,
+    col = Species, 
+    alpha = 0, 
+    col_legend_nrow = 2, 
+    col_labels = str_to_sentence)
+
+p2 <- iris |>
+  gg_density(
+    x = Sepal.Length,
+    alpha = 0)
+
+p3 <- iris |>
+  gg_density(
+    x = Sepal.Length, 
+    col = Species,
+    pal = scales::alpha(pal_hue, 0), 
+    col_legend_nrow = 2, 
+    col_labels = str_to_sentence)
+
+p4 <- iris |>
+  gg_density(
+    x = Sepal.Length,
+    pal = scales::alpha(pal_blue, 0))
+
+(p1 + p2) / (p3 + p4) 
+```
+
+### 6. Use non-supported geoms
 
 gblanket does not support _all_ ggplot2 geoms. However, some of these can be accessed via the gg_blank function.
 
@@ -208,7 +233,7 @@ p4 <- faithfuld |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 6. Create custom wrapper functions
+### 7. Create custom wrapper functions
 
 You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
@@ -238,7 +263,7 @@ iris |>
     col = Species)
 ```
 
-### 7. Work with extension packages
+### 8. Work with extension packages
 
 ggblanket can work with numerous extension packages. 
 
@@ -340,13 +365,10 @@ rbind(
     x = x,
     y = y,
     col = set,
-    pal = RColorBrewer::brewer.pal(9, "Set1")) +
-  geom_point(size = 3, alpha = 0.5) |> 
-    ggblend::partition(vars(set)) |> 
-    ggblend::blend("lighten") +
-  geom_point(size = 3, alpha = 0.5) |> 
-    ggblend::partition(vars(set)) |> 
-    ggblend::blend("multiply", alpha = 0.5) 
+    pal = RColorBrewer::brewer.pal(9, "Set1"),
+  ) +
+  geom_point(size = 3, alpha = 0.5) * (ggblend::blend("lighten") + 
+                                       ggblend::blend("multiply", alpha = 0.5))
 ```
 
 #### ggdensity
@@ -362,7 +384,7 @@ iris |>
     col = Species,
     facet = Species,
     col_legend_place = "r") +
-  ggdensity::geom_hdr(colour = NA) +
+  ggdensity::geom_hdr(col = NA) +
   labs(alpha = "Probs") +
   theme(legend.title = element_text(margin = margin(t = 10)))
 ```
