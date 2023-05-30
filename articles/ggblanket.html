@@ -485,12 +485,7 @@ function within the wrapped <code>ggplot2::geom_*</code> function. This
 means all other arguments in the <code>geom_*</code> function are
 available to users (except the mapping argument). Common arguments from
 <code>...</code> to add are <code>size</code>, <code>linewidth</code>
-and <code>width</code>. Additionally, users can use the
-<code>colour</code> or <code>fill</code> arguments to turn off part of
-the ggblanket <code>col</code> aesthetic (e.g. <code>colour = NA</code>
-or <code>fill = NA</code>), or fix it to single colour
-(e.g. <code>colour = "black"</code> or
-<code>fill = "#d3d3d3"</code>).</p>
+and <code>width</code>.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
@@ -498,19 +493,8 @@ or <code>fill = NA</code>), or fix it to single colour
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    linewidth <span class="op">=</span> <span class="fl">0.5</span>, <span class="co">#accessed via geom_smooth</span></span>
-<span>    level <span class="op">=</span> <span class="fl">0.99</span>, <span class="co">#accessed via geom_smooth</span></span>
-<span>    colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="co">#accessed via geom_smooth</span></span></code></pre></div>
+<span>    level <span class="op">=</span> <span class="fl">0.99</span><span class="op">)</span> <span class="co">#accessed via geom_smooth</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-29-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    linewidth <span class="op">=</span> <span class="fl">0.5</span>, <span class="co">#accessed via geom_smooth</span></span>
-<span>    level <span class="op">=</span> <span class="fl">0.99</span>, <span class="co">#accessed via geom_smooth</span></span>
-<span>    fill <span class="op">=</span> <span class="st">"#a8a8a8"</span><span class="op">)</span> <span class="co">#accessed via geom_smooth</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-30-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="ability-to-add-geom-layers">12. Ability to add geom layers<a class="anchor" aria-label="anchor" href="#ability-to-add-geom-layers"></a>
@@ -522,46 +506,46 @@ Therefore, the aesthetics will inherit to any subsequent geom’s added.
 Geom’s will plot in order. The <code>gg_*</code> function will plot the
 associated geom as the first layer, and then other geoms will be plotted
 on top of it.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_boxplot.html">gg_boxplot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>,</span>
 <span>             y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>             width <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>             outlier.colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-31-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-30-1.svg" width="70%"></p>
 <p>If some geoms have a <code>col</code> aesthetic and some do not, then
 it can be useful to have the col aesthetic in the <code>gg_*</code>
 function. That way you can get pretty ggblanket legend placement - and
 also adjust the col scale via the ease of the <code>gg_*</code>
 function. If you do not actually want a col aesthetic in your bottom
-plot layer, then you can over-rule the aesthetic by adding
-<code>colour</code> and <code>fill</code> arguments - or use the
-<code>gg_blank</code> function instead.</p>
-<p>The <code>gg_*</code> function builds the x and y scales based on the
-<code>data</code>, <code>stat</code>, <code>x</code>, and <code>y</code>
-in the <code>gg_*</code> function - but these can be adjusted using the
-<code>facet_scales</code>, <code>*_include</code> and
+plot layer, but do want it in subsequent layers- then you should use the
+<code>gg_blank</code> function. The subsequent layer without the col
+aesthetic can use <code>inherit.aes = FALSE</code> argument.</p>
+<p>Note the <code>gg_*</code> function builds the x and y scales based
+on the <code>data</code>, <code>stat</code>, <code>x</code>, and
+<code>y</code> in the <code>gg_*</code> function - but these can be
+adjusted using the <code>facet_scales</code>, <code>*_include</code> and
 <code>*_limits</code> arguments. The plot scales are constructed without
 knowledge of subsequent layers.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">body_mass_g</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>upper <span class="op">=</span> <span class="va">body_mass_g</span> <span class="op">*</span> <span class="fl">1.05</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="va">body_mass_g</span> <span class="op">*</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/gg_blank.html">gg_blank</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    ymin <span class="op">=</span> <span class="va">lower</span>, </span>
+<span>    ymax <span class="op">=</span> <span class="va">upper</span>, </span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    y_include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">lower</span>, <span class="va">.</span><span class="op">$</span><span class="va">upper</span><span class="op">)</span>,</span>
-<span>    fill <span class="op">=</span> <span class="st">"#d3d3d3"</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"#d3d3d3"</span>, </span>
+<span>    y_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-32-1.svg" width="70%"></p>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sex</span>, y <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"#d3d3d3"</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-31-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="ability-to-extend-further">13. Ability to extend further<a class="anchor" aria-label="anchor" href="#ability-to-extend-further"></a>
@@ -573,6 +557,7 @@ knowledge of subsequent layers.</p>
 <li>Use non-supported aesthetics</li>
 <li>Use non-supported arguments</li>
 <li>Use non-supported geoms</li>
+<li>Modifying a part of the colouring</li>
 <li>Create custom wrapper functions</li>
 <li>Work with extension packages</li>
 </ul>
