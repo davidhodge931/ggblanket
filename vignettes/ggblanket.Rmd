@@ -286,21 +286,23 @@ A `theme` argument is available. This allows users to make content that has thei
 
 ```{r}
 penguins |>
-  gg_point(x = flipper_length_mm,
-           y = body_mass_g,
-           col = sex,
-           facet = species, 
-           pal = c("#2596be", "#fc7c24"), 
-           theme = theme_grey())
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    facet = species, 
+    pal = c("#2596be", "#fc7c24"), 
+    theme = theme_grey())
 ```
 
 ```{r}
 penguins |>
-  gg_point(x = flipper_length_mm,
-           y = body_mass_g,
-           col = sex,
-           facet = species, 
-           pal = c("#2596be", "#fc7c24")) +
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    facet = species, 
+    pal = c("#2596be", "#fc7c24")) +
   theme_grey()
 ```
 
