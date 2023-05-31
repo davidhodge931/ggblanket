@@ -259,22 +259,25 @@ Default titles are converted to sentence case with snakecase::to_sentence. All t
 ```{r}
 penguins |>
   ggplot() +
-  geom_blank(aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(x = flipper_length_mm, y = body_mass_g, col = species)) +
   labs(title = "Penguins body mass by flipper length",
        subtitle = " Palmer Archipelago, Antarctica",
        x = "Flipper length (mm)", 
+       col = "Species",
        caption = "Source: Gorman, 2020")
 ```
 
 ```{r}
 penguins |>
-  gg_blank(
+  gg_point(
     x = flipper_length_mm,
     y = body_mass_g, 
+    col = species,
     title = "Penguins body mass by flipper length",
     subtitle = " Palmer Archipelago, Antarctica",
     x_title = "Flipper length (mm)",
-    caption = "Source: Gorman, 2020")
+    caption = "Source: Gorman, 2020", 
+    theme = gg_theme(caption_hjust = 1))
 ```
 
 ### 8. A theme argument to customise the look and feel
