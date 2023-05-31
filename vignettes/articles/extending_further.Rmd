@@ -26,8 +26,8 @@ To extend ggblanket further, users can:
 2. Work with non-default stat's
 3. Use non-supported aesthetics
 4. Use non-supported arguments
-5. Modifying a part of the colouring 
-6. Use non-supported geoms
+5. Use non-supported geoms
+6. Modifying a part of the colouring 
 7. Create custom wrapper functions
 8. Work with extension packages 
 
@@ -158,43 +158,7 @@ penguins |>
   theme(strip.switch.pad.grid = unit(2, "mm"))
 ```
 
-### 5. Modifying a part of the colouring 
-
-Where a `gg_*` function contains a geom that can colour both outlines and fill, users can turn off a part of this using the `alpha` and `pal` arguments as shown below. 
-
-If it is desired to fix either the outline or fill to a single colour that is different to the `pal`, then users should instead use `gg_blank`.
-
-```{r, fig.asp=1}
-p1 <- iris |>
-  gg_density(
-    x = Sepal.Length,
-    col = Species, 
-    alpha = 0, 
-    col_legend_nrow = 2, 
-    col_labels = str_to_sentence)
-
-p2 <- iris |>
-  gg_density(
-    x = Sepal.Length,
-    alpha = 0)
-
-p3 <- iris |>
-  gg_density(
-    x = Sepal.Length, 
-    col = Species,
-    pal = scales::alpha(pal_hue, 0), 
-    col_legend_nrow = 2, 
-    col_labels = str_to_sentence)
-
-p4 <- iris |>
-  gg_density(
-    x = Sepal.Length,
-    pal = scales::alpha(pal_blue, 0))
-
-(p1 + p2) / (p3 + p4) 
-```
-
-### 6. Use non-supported geoms
+### 5. Use non-supported geoms
 
 gblanket does not support _all_ ggplot2 geoms. However, some of these can be accessed via the gg_blank function.
 
@@ -231,6 +195,42 @@ p4 <- faithfuld |>
                       show.legend = FALSE)
 
 (p1 + p2) / (p3 + p4)
+```
+
+### 6. Modifying a part of the colouring 
+
+Where a `gg_*` function contains a geom that can colour both outlines and fill, users can turn off a part of this using the `alpha` and `pal` arguments. 
+
+If it is desired to fix either the outline or fill to a single colour that is different to the `pal`, then users should instead use `gg_blank`.
+
+```{r, fig.asp=1}
+p1 <- iris |>
+  gg_density(
+    x = Sepal.Length,
+    col = Species, 
+    alpha = 0, 
+    col_legend_nrow = 2, 
+    col_labels = str_to_sentence)
+
+p2 <- iris |>
+  gg_density(
+    x = Sepal.Length,
+    alpha = 0)
+
+p3 <- iris |>
+  gg_density(
+    x = Sepal.Length, 
+    col = Species,
+    pal = scales::alpha(pal_hue, 0), 
+    col_legend_nrow = 2, 
+    col_labels = str_to_sentence)
+
+p4 <- iris |>
+  gg_density(
+    x = Sepal.Length,
+    pal = scales::alpha(pal_blue, 0))
+
+(p1 + p2) / (p3 + p4) 
 ```
 
 ### 7. Create custom wrapper functions
@@ -346,6 +346,7 @@ iris |>
     col = Species,
     facet = Species,
     facet_labels = str_to_sentence,
+    pal = rep(pal_blue, 3),
     y_limits = c(NA, NA)
   ) +
   gghighlight::gghighlight()
