@@ -19,6 +19,8 @@
 #' @param caption_pal The colour for the caption. Defaults to "#88837D".
 #' @param caption_face The font style of the caption. Defaults to "plain".
 #' @param caption_hjust The horizontal adjustment for the caption.
+#' @param caption_vjust The vertical adjustment for the caption.
+#' @param caption_margin The margin for the caption.
 #' @param axis_line_linewidth The linewidth of the axis. Defaults to 0.125.
 #' @param axis_line_pal The colour for the axis. Defaults to "#323232".
 #' @param axis_ticks_linewidth The linewidth of the ticks. Defaults to that of the axis_line_linewidth argument.
@@ -41,17 +43,19 @@ gg_theme <- function(
     title_size = text_size + 1,
     title_pal = "#000000",
     title_face = "bold",
-    title_vjust = text_size * 0.2,
-    title_margin = ggplot2::margin(t = text_size * -0.5, b = text_size * 1.25),
+    title_vjust = text_size * 0.1,
+    title_margin = ggplot2::margin(t = text_size * -0.5, b = text_size * 2),
     subtitle_size = text_size,
     subtitle_pal = "#323232",
     subtitle_face = "plain",
-    subtitle_vjust = text_size * 0.4,
-    subtitle_margin = ggplot2::margin(t = text_size * -0.5, b = text_size),
+    subtitle_vjust = text_size * 0.15,
+    subtitle_margin = ggplot2::margin(t = text_size * -1.5, b = text_size * 2),
     caption_size = text_size - 1,
     caption_pal = "#88837D",
     caption_face = "plain",
     caption_hjust = 0,
+    caption_vjust = 0,
+    caption_margin = ggplot2::margin(t = caption_size * 1.25),
     axis_line_linewidth = 0.125,
     axis_line_pal = "#323232",
     axis_ticks_linewidth = NULL,
@@ -75,10 +79,10 @@ gg_theme <- function(
     axis.title.y.left = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, angle = 90, margin = ggplot2::margin(r = text_size)),
     axis.title.y.right = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, angle = 270, margin = ggplot2::margin(l = text_size - 1)),
     legend.title = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, hjust = 0, vjust = 0.5),
-    plot.caption = ggplot2::element_text(family = text_family, size = caption_size, colour = caption_pal, face = caption_face, hjust = caption_hjust, margin = ggplot2::margin(t = caption_size * 5/3)),
+    plot.caption = ggplot2::element_text(family = text_family, size = caption_size, colour = caption_pal, face = caption_face, hjust = caption_hjust, vjust = caption_vjust, margin = caption_margin),
     axis.text.x = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, margin = ggplot2::margin(t = 2)),
     axis.text.y = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, hjust = 1, margin = ggplot2::margin(r = 2)),
-    strip.text.x = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, hjust = 0.5, margin = ggplot2::margin(t = text_size * 0.25, b = text_size * 0.75)),
+    strip.text.x = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, hjust = 0.5, vjust = text_size * 0.33, margin = ggplot2::margin(t = text_size * 0.25)),
     strip.text.y = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, hjust = 0.5, margin = ggplot2::margin(l = text_size * 0.75), angle = 270),
     plot.margin = ggplot2::margin(t = 15, l = 10, b = 10, r = 20),
     plot.title.position = "plot",

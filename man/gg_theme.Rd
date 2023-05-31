@@ -12,17 +12,19 @@ gg_theme(
   title_size = text_size + 1,
   title_pal = "#000000",
   title_face = "bold",
-  title_vjust = text_size * 0.2,
-  title_margin = ggplot2::margin(t = text_size * -0.5, b = text_size * 1.25),
+  title_vjust = text_size * 0.1,
+  title_margin = ggplot2::margin(t = text_size * -0.5, b = text_size * 2),
   subtitle_size = text_size,
   subtitle_pal = "#323232",
   subtitle_face = "plain",
-  subtitle_vjust = text_size * 0.4,
-  subtitle_margin = ggplot2::margin(t = text_size * -0.5, b = text_size),
+  subtitle_vjust = text_size * 0.15,
+  subtitle_margin = ggplot2::margin(t = text_size * -1.5, b = text_size * 2),
   caption_size = text_size - 1,
   caption_pal = "#88837D",
   caption_face = "plain",
   caption_hjust = 0,
+  caption_vjust = 0,
+  caption_margin = ggplot2::margin(t = caption_size * 1.25),
   axis_line_linewidth = 0.125,
   axis_line_pal = "#323232",
   axis_ticks_linewidth = NULL,
@@ -71,6 +73,10 @@ gg_theme(
 \item{caption_face}{The font style of the caption. Defaults to "plain".}
 
 \item{caption_hjust}{The horizontal adjustment for the caption.}
+
+\item{caption_vjust}{The vertical adjustment for the caption.}
+
+\item{caption_margin}{The margin for the caption.}
 
 \item{axis_line_linewidth}{The linewidth of the axis. Defaults to 0.125.}
 

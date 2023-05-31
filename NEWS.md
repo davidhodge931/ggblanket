@@ -1,3 +1,7 @@
+# ggblanket 2.0.0900
+
+* Adjust theme defaults.
+
 # ggblanket 2.0.0
 
 * Made ggblanket work better with adding layers.
