@@ -356,19 +356,13 @@ iris |>
 The ggblend package provides blending of colours. 
  
 ```{r}
-set.seed(123)
-
-rbind(
-  data.frame(x = rnorm(500, 0), y = rnorm(500, 1), set = "A"), 
-  data.frame(x = rnorm(500, 1), y = rnorm(500, 2), set = "B")) |>
+penguins |>
   gg_blank(
-    x = x,
-    y = y,
-    col = set,
+    x = flipper_length_mm,
+    col = species,
     pal = RColorBrewer::brewer.pal(9, "Set1"),
-  ) +
-  geom_point(size = 3, alpha = 0.5) * (ggblend::blend("lighten") + 
-                                       ggblend::blend("multiply", alpha = 0.5))
+    stat = "density") +
+  geom_density(alpha = 0.5) |> ggblend::blend("multiply")
 ```
 
 #### ggdensity
