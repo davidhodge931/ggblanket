@@ -399,7 +399,7 @@ ggridges::Catalan_elections |>
     y_expand = c(0, 0), 
     col_title = "",
     col_legend_rev = TRUE, 
-    pal = pal_hue[c(2, 5)]) +
+    pal = pal_hue[c(3, 1)]) +
   ggridges::geom_density_ridges(
     alpha = 0.8, 
     col = "white")
