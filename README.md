@@ -49,7 +49,9 @@ penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g, 
-    col = species)
+    col = species,
+    title = "Penguins body mass by flipper length",
+    subtitle = " Palmer Archipelago, Antarctica")
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" /> <br>

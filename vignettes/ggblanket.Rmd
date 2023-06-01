@@ -45,6 +45,7 @@ library(ggplot2)
 library(stringr)
 library(ggblanket)
 library(palmerpenguins)
+library(patchwork)
 
 penguins <- penguins |>
   mutate(sex = str_to_sentence(sex)) |>
@@ -212,8 +213,7 @@ penguins |>
     col_legend_place = "t")
 ```
 
-```{r, fig.asp = 0.618}
-library(patchwork)
+```{r}
 p1 <- penguins |> 
   gg_point(
     x = flipper_length_mm, 
@@ -277,7 +277,9 @@ penguins |>
     subtitle = " Palmer Archipelago, Antarctica",
     x_title = "Flipper length (mm)",
     caption = "Source: Gorman, 2020", 
-    theme = gg_theme(caption_hjust = 1))
+    theme = gg_theme(
+      caption_hjust = 1, 
+      caption_margin = margin()))
 ```
 
 ### 8. A theme argument to customise the look and feel
