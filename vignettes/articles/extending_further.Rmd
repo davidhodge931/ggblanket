@@ -417,8 +417,10 @@ p <- diamonds |>
     width = 0.75,
     theme = gg_theme("helvetica")) 
 
-plotly::ggplotly(p, tooltip = c("x", "y")) %>% 
-    plotly::layout(autosize = F, width = 500, height = 300)
+plotly::ggplotly(p, 
+  tooltip = c("x", "y"), 
+  width = 500, 
+  height = 300)
 ```
 
 #### ggiraph
@@ -460,7 +462,7 @@ gapminder::gapminder |>
     col = country, 
     facet = continent, 
     x_trans = "log10", 
-    pal = country_colors,
+    pal = gapminder::country_colors,
     col_legend_place = "n", 
     title = "Year: {frame_time}", 
     x_title = "GDP per capita", 
