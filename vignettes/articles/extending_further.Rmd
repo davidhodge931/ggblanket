@@ -425,12 +425,12 @@ data.frame(
       dist_normal(5, 1), 
       weights = c(0.4, 0.6))
   )) |>
-  mutate(mindist = quantile(dist, 0.001)) |>
-  mutate(maxdist = quantile(dist, 0.999)) |>
+  mutate(dist_min = quantile(dist, 0.001)) |>
+  mutate(dist_max = quantile(dist, 0.999)) |>
   gg_blank(
     y = name, 
-    xmin = mindist,
-    xmax = maxdist,
+    xmin = dist_min,
+    xmax = dist_max,
     y_title = "") +
   stat_dist_halfeye(
     aes(dist = dist),
