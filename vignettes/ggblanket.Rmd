@@ -418,27 +418,45 @@ penguins |>
 ```
 
 If some geoms have a `col` aesthetic and some do not, then it can be useful to have the col aesthetic in the `gg_*` function. That way you can get pretty ggblanket legend placement - and also adjust the col scale via the ease of the `gg_*` function. 
-If you do not actually want a col aesthetic in your bottom plot layer, but do want it in subsequent layers- then you should  use the `gg_blank` function. The subsequent layer without the col aesthetic can use `inherit.aes = FALSE` argument. 
 
-Note the `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function - but these can be adjusted using the `facet_scales`, `*_include` and `*_limits` arguments. The plot scales are constructed without knowledge of subsequent layers. 
+If you do not actually want a col aesthetic in your bottom plot layer, but do want it in subsequent layers - then you should  use the `gg_blank` function. The subsequent `geom_*` layer without the col aesthetic can have `col = NA` and/or `fill = NA` arguments, or use the `inherit.aes = FALSE` argument. 
 
-```{r}
-penguins |>
-  group_by(sex, species) |>
+Note the `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function - but these can be adjusted using the `*_include`, `*_limits` and `facet_scales` arguments. The plot scales are constructed without knowledge of subsequent layers. 
+
+```{r, fig.asp=1}
+d <- penguins |>
+  group_by(species) |>
   summarise(across(body_mass_g, mean)) |>
-  mutate(upper = body_mass_g * 1.05) |>
-  mutate(lower = body_mass_g * 0.95) |>
+  mutate(lower = body_mass_g * 0.95) %>% 
+  mutate(upper = body_mass_g * 1.2)
+
+p1 <- d |>
+  gg_blank(    
+    y = species,
+    x = body_mass_g,
+    col = species,
+    xmin = lower,
+    xmax = upper,
+    x_include = 0, 
+    x_labels = \(x) x / 1000, 
+    x_title = "Body mass kg") +
+  geom_col(width = 0.75) +
+  geom_errorbar(col = "black", width = 0.1)
+
+p2 <- d |>
   gg_blank(
-    x = sex,
-    y = body_mass_g,
-    ymin = lower, 
-    ymax = upper, 
-    col = sex,
-    facet = species,
-    y_include = 0,
-    width = 0.75) +
-  geom_col(aes(x = sex, y = body_mass_g), fill = "#d3d3d3", inherit.aes = FALSE) +
+    y = species,
+    x = body_mass_g,
+    xmin = lower, 
+    xmax = upper, 
+    col = species,
+    x_include = 0, 
+    x_labels = \(x) x / 1000, 
+    x_title = "Body mass kg") +
+  geom_col(width = 0.75, fill = "#d3d3d3", col = NA) +
   geom_errorbar(width = 0.1)
+
+p1 / p2
 ```
 
 ### 13. Ability to extend further

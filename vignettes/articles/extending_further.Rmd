@@ -76,7 +76,7 @@ penguins |>
 
 ### 2. Work with non-default stats
 
-Users can change the default stat. The ... argument provides access to the relevant `stat_*` function as well as the `geom_*` function. ggblanket limits the aesthetics available in each `gg_*` function to what is required. 
+Users can change the default stat. The ... argument provides access to the relevant `stat_*` function as well as the `geom_*` function. Note, the `gg_*` functions do not support using a stat that is a function - it must be a character (e.g. "summary").  
 
 ```{r}
 penguins |>
@@ -408,13 +408,12 @@ ggridges::Catalan_elections |>
 
 #### ggdist
 
-The ggdist package enables the visualisation of uncertainty.
-The key to making this work is ensuring that `gg_blank` builds the distribution scale correctly. You can hack this by adding `*min` and `*max` aesthetics of a very low and very high quantile of the distribution.  
+The ggdist package enables the visualisation of uncertainty. The key to making this work with ggblanket is ensuring that `gg_blank` builds the distribution scale correctly. You can hack this by adding `*min` and `*max` aesthetics of a very low and very high quantile of the distributions. However, it might be easier to just use ggplot2 here. 
 
 ```{r}
 library(distributional)
 
-data.frame(
+d <- data.frame(
   name = c("Gamma(2,1)", "Normal(5,1)", "Mixture"),
   dist = c(
     dist_gamma(2, 1),
@@ -423,13 +422,14 @@ data.frame(
       dist_gamma(2, 1), 
       dist_normal(5, 1), 
       weights = c(0.4, 0.6))
-  )) |>
-  mutate(dist_min = quantile(dist, 0.001)) |>
-  mutate(dist_max = quantile(dist, 0.999)) |>
+  )) 
+
+d |>
+  mutate(dist_min = quantile(dist, 0.001), 
+         dist_max = quantile(dist, 0.999)) |> #to get scales functionally
   gg_blank(
     y = name, 
-    xmin = dist_min,
-    xmax = dist_max,
+    xmin = dist_min, xmax = dist_max, #to get scales functionally
     y_expand = c(0.05, 0.05),
     y_title = "") +
   ggdist::stat_slabinterval(
@@ -439,15 +439,16 @@ data.frame(
 ```
 
 ```{r}
-tibble(x = 1:10,
+d <- tibble(x = 1:10,
        sd = seq(1, 3, length.out = 10)) |>
-  mutate(dist = dist_normal(x, sd)) |>
-  mutate(dist_min = quantile(dist, 0.001)) |>
-  mutate(dist_max = quantile(dist, 0.999)) |>
+  mutate(dist = distributional::dist_normal(x, sd)) 
+
+d |>
+  mutate(dist_min = quantile(dist, 0.001), 
+         dist_max = quantile(dist, 0.999)) |> #to get scales functionally
   gg_blank(
     x = x,
-    ymin = dist_min,
-    ymax = dist_max) +
+    ymin = dist_min, ymax = dist_max) + #to get scales functionally
   ggdist::stat_lineribbon(aes(ydist = dist)) +
   scale_fill_brewer() +
   labs(fill = "Level")
