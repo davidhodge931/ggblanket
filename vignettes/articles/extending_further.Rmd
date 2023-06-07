@@ -409,11 +409,10 @@ ggridges::Catalan_elections |>
 #### ggdist
 
 The ggdist package enables the visualisation of uncertainty.
-The key to making this work is ensuring that `gg_blank` builds the distribution scale correctly. You can hack this by adding `*min` and `*max` aesthetics of a very low and very high quantile of the distribution.
+The key to making this work is ensuring that `gg_blank` builds the distribution scale correctly. You can hack this by adding `*min` and `*max` aesthetics of a very low and very high quantile of the distribution.  
 
 ```{r}
 library(distributional)
-library(ggdist)
 
 data.frame(
   name = c("Gamma(2,1)", "Normal(5,1)", "Mixture"),
@@ -431,11 +430,27 @@ data.frame(
     y = name, 
     xmin = dist_min,
     xmax = dist_max,
+    y_expand = c(0.05, 0.05),
     y_title = "") +
-  stat_dist_halfeye(
+  ggdist::stat_slabinterval(
     aes(dist = dist),
-    fill = pal_blue,
-    alpha = 0.9)
+    col = pal_blue,
+    fill = scales::alpha(pal_blue, 0.5))
+```
+
+```{r}
+tibble(x = 1:10,
+       sd = seq(1, 3, length.out = 10)) |>
+  mutate(dist = dist_normal(x, sd)) |>
+  mutate(dist_min = quantile(dist, 0.001)) |>
+  mutate(dist_max = quantile(dist, 0.999)) |>
+  gg_blank(
+    x = x,
+    ymin = dist_min,
+    ymax = dist_max) +
+  ggdist::stat_lineribbon(aes(ydist = dist)) +
+  scale_fill_brewer() +
+  labs(fill = "Level")
 ```
 
 

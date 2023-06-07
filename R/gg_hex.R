@@ -64,12 +64,14 @@
 #' @export
 #'
 #' @examples
-#' ggplot2::diamonds |>
+#' library(ggplot2)
+#'
+#' diamonds |>
 #'   gg_hex(
 #'     x = carat,
 #'     y = price,
-#'     pal = viridis::cividis(9)
-#'  )
+#'     pal = viridis::cividis(9),
+#'     coord = coord_cartesian(clip = "on"))
 #'
 gg_hex <- function(
     data = NULL,
