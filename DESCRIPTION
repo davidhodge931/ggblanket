@@ -40,11 +40,14 @@ Suggests:
     tibble
 Config/Needs/website: 
     pkgdown,
-    ggrepel,
     ggtext,
-    gghighlight,
+    ggrepel,
     ggblend,
+    gghighlight,
     ggdensity,
     ggridges,
+    ggdist,
+    distributional,
+    plotly,
     ggiraph
 VignetteBuilder: knitr

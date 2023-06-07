@@ -38,6 +38,7 @@ To extend ggblanket further, users can:
 * gghighlight
 * ggdensity
 * ggridges
+* ggdist
 * plotly::ggplotly
 * ggiraph
 * gganimate
@@ -63,7 +64,7 @@ It provides access to the most aesthetics. It provides lots of flexibility to us
 
 Remember the `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function - but these can be adjusted using the `facet_scales`, `*_include` and `*_limits` arguments. The plot scales are constructed without knowledge of subsequent layers. 
 
-So with `ggblank`, you _must_ include the ggplot2 stat in the gg_blank function where it deviates from `"identity"`.     
+So with `ggblank`, you _must_ include the ggplot2 stat in the `gg_blank` function where it deviates from `"identity"`. The stat must be a character, as stat functions are not supported.      
 
 ```{r}
 penguins |>
@@ -160,7 +161,7 @@ penguins |>
 
 ### 5. Use non-supported geoms
 
-gblanket does not support _all_ ggplot2 geoms. However, some of these can be accessed via the gg_blank function.
+gblanket does not support _all_ ggplot2 geoms. However, some of these can be accessed via the `gg_blank` function.
 
 ```{r, fig.asp=1}
 p1 <- faithful |> 
@@ -404,6 +405,39 @@ ggridges::Catalan_elections |>
     alpha = 0.8, 
     col = "white")
 ```
+
+#### ggdist
+
+The ggdist package enables the visualisation of uncertainty.
+The key to making this work is ensuring that `gg_blank` builds the distribution scale correctly. You can hack this by adding `*min` and `*max` aesthetics of a very low and very high quantile of the distribution.
+
+```{r}
+library(distributional)
+library(ggdist)
+
+data.frame(
+  name = c("Gamma(2,1)", "Normal(5,1)", "Mixture"),
+  dist = c(
+    dist_gamma(2, 1),
+    dist_normal(5, 1),
+    dist_mixture(
+      dist_gamma(2, 1), 
+      dist_normal(5, 1), 
+      weights = c(0.4, 0.6))
+  )) |>
+  mutate(mindist = quantile(dist, 0.001)) |>
+  mutate(maxdist = quantile(dist, 0.999)) |>
+  gg_blank(
+    y = name, 
+    xmin = mindist,
+    xmax = maxdist,
+    y_title = "") +
+  stat_dist_halfeye(
+    aes(dist = dist),
+    fill = pal_blue,
+    alpha = 0.9)
+```
+
 
 #### plotly::ggplotly
 
