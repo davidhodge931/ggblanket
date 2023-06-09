@@ -349,8 +349,7 @@ penguins |>
   ggplot() +
   geom_col(aes(x = species, y = body_mass_g, fill = sex),
     position = "dodge",
-    width = 0.5
-  )
+    width = 0.5)
 ```
 
 ```{r}
@@ -362,8 +361,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     position = "dodge",
-    width = 0.5
-  )
+    width = 0.5)
 ```
 
 ```{r}
@@ -373,8 +371,7 @@ penguins |>
   ggplot() +
   geom_col(aes(x = body_mass_g, y = species, fill = sex),
            position = "dodge",
-           width = 0.75
-  )
+           width = 0.75)
 ```
 
 ```{r}
@@ -386,8 +383,7 @@ penguins |>
     y = species,
     col = sex,
     position = "dodge",
-    width = 0.75
-  )
+    width = 0.75)
 ```
 
 ### 11. Access to other geom_* arguments via `...`
@@ -440,7 +436,7 @@ p1 <- d |>
     x_include = 0, 
     x_labels = \(x) x / 1000, 
     x_title = "Body mass kg") +
-  geom_col(width = 0.75) +
+  geom_col(alpha = 0.9, width = 0.75) +
   geom_errorbar(col = "black", width = 0.1)
 
 p2 <- d |>
@@ -453,7 +449,7 @@ p2 <- d |>
     x_include = 0, 
     x_labels = \(x) x / 1000, 
     x_title = "Body mass kg") +
-  geom_col(width = 0.75, fill = "#d3d3d3", col = NA) +
+  geom_col(col = NA, fill = "#d3d3d3", width = 0.75) +
   geom_errorbar(width = 0.1)
 
 p1 / p2
