@@ -176,17 +176,6 @@ penguins |>
     col_labels = str_to_sentence)
 ```
 
-### gg_function
-
-```{r}
-data.frame(x = rnorm(100)) |>
-  gg_function(
-    x = x,
-    fun = \(x) dnorm(x),
-    pal = "#1B9E77",
-    x_limits = c(-3, 3))
-```
-
 ### gg_hex
 
 ```{r}

@@ -1,5 +1,6 @@
 # ggblanket 2.0.0900
 
+* Breaking: removed gg_function.
 * Adjust theme defaults.
 
 # ggblanket 2.0.0
