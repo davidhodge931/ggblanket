@@ -273,13 +273,12 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g, 
     col = species,
+    col_legend_place = "r",
     title = "Penguins body mass by flipper length",
     subtitle = " Palmer Archipelago, Antarctica",
     x_title = "Flipper length (mm)",
     caption = "Source: Gorman, 2020", 
-    theme = gg_theme(
-      caption_hjust = 1, 
-      caption_margin = margin()))
+    theme = gg_theme(caption_hjust = 1))
 ```
 
 ### 8. A theme argument to customise the look and feel
@@ -423,7 +422,7 @@ Note the `gg_*` function builds the x and y scales based on the `data`, `stat`, 
 d <- penguins |>
   group_by(species) |>
   summarise(across(body_mass_g, mean)) |>
-  mutate(lower = body_mass_g * 0.95) %>% 
+  mutate(lower = body_mass_g * 0.95) |> 
   mutate(upper = body_mass_g * 1.2)
 
 p1 <- d |>
