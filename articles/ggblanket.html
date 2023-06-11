@@ -358,13 +358,12 @@ than if default titles were left as variable names.</p>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    col_legend_place <span class="op">=</span> <span class="st">"r"</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"Penguins body mass by flipper length"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">" Palmer Archipelago, Antarctica"</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">"Flipper length (mm)"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/gg_theme.html">gg_theme</a></span><span class="op">(</span></span>
-<span>      caption_hjust <span class="op">=</span> <span class="fl">1</span>, </span>
-<span>      caption_margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/gg_theme.html">gg_theme</a></span><span class="op">(</span>caption_hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -538,7 +537,7 @@ without knowledge of subsequent layers.</p>
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">body_mass_g</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="va">body_mass_g</span> <span class="op">*</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="va">body_mass_g</span> <span class="op">*</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>upper <span class="op">=</span> <span class="va">body_mass_g</span> <span class="op">*</span> <span class="fl">1.2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
