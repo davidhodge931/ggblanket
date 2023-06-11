@@ -31,7 +31,7 @@ To simplify ggplot2 visualisation, ggblanket provides:
 4. A facet argument to facet by a variable
 5. An additional facet2 argument to facet by a 2nd variable
 6. Prefixed arguments to customise scales etc
-7. Default titles converted with to sentence case
+7. Default x/y/col titles converted with to sentence case
 8. A theme argument to customise the look and feel
 9. A gg_theme function to create a quick theme
 10. Pretty defaults for symmetry
@@ -259,9 +259,9 @@ p4 <- penguins |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 7. Default titles converted to sentence case
+### 7. Default x/y/col titles converted to sentence case
 
-Default titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. However, with the default conversion, it is intended that titles are less likely to need to be manually changed than if default titles were left as variable names.
+Default x/y/col titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. However, with the default conversion, it is intended that titles are less likely to need to be manually changed than if default titles were left as variable names.
 
 ```{r}
 penguins |>
