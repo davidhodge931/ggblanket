@@ -59,7 +59,8 @@ Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applic
 ```{r}
 penguins |> 
   ggplot() + 
-  geom_point(aes(x = flipper_length_mm, y = body_mass_g))
+  geom_point(aes(x = flipper_length_mm, 
+                 y = body_mass_g))
 ```
 
 ```{r}
@@ -76,7 +77,8 @@ The colour and fill aesthetics of ggplot2 are merged into a single concept repre
 ```{r}
 penguins |> 
   ggplot() + 
-  geom_point(aes(x = flipper_length_mm, y = body_mass_g,
+  geom_point(aes(x = flipper_length_mm, 
+                 y = body_mass_g,
                  col = species))
 ```
 
@@ -91,7 +93,8 @@ penguins |>
 ```{r}
 penguins |>
   ggplot() +
-  geom_density(aes(x = body_mass_g, fill = species))
+  geom_density(aes(x = body_mass_g, 
+                   fill = species))
 ```
 
 ```{r}
@@ -108,8 +111,7 @@ The `pal` argument is used to customise the colours of the geom. A user can prov
 ```{r}
 penguins |>
   ggplot() +
-  geom_histogram(
-    aes(x = body_mass_g),
+  geom_histogram(aes(x = body_mass_g),
     fill = "#1B9E77")
 ```
 
@@ -123,7 +125,9 @@ penguins |>
 ```{r}
 penguins |>
   ggplot() +
-  geom_jitter(aes(x = species, y = body_mass_g, col = sex)) +
+  geom_jitter(aes(x = species, 
+                  y = body_mass_g, 
+                  col = sex)) +
   scale_color_manual(values = c("#1B9E77", "#9E361B"))
 ```
 
@@ -143,7 +147,8 @@ Faceting is treated as if it were an aesthetic. Users just provide an unquoted v
 ```{r}
 penguins |>
   ggplot() +
-  geom_violin(aes(x = sex, y = body_mass_g)) +
+  geom_violin(aes(x = sex, 
+                  y = body_mass_g)) +
   facet_wrap(~species) 
 ```
 
@@ -185,7 +190,9 @@ knitr::include_graphics("screenshot_autotab_y.png", dpi = 300)
 ```{r}
 penguins |>
   ggplot() +
-  geom_jitter(aes(x = species, y = body_mass_g, col = sex)) +
+  geom_jitter(aes(x = species, 
+                  y = body_mass_g, 
+                  col = sex)) +
   expand_limits(y = 0) +
   scale_x_discrete(labels = \(x) str_sub(x, 1, 1)) +
   scale_y_continuous(breaks = scales::breaks_width(1500),
@@ -259,24 +266,22 @@ Default titles are converted to sentence case with snakecase::to_sentence. All t
 ```{r}
 penguins |>
   ggplot() +
-  geom_point(aes(x = flipper_length_mm, y = body_mass_g, col = species)) +
+  geom_point(aes(x = flipper_length_mm, 
+                 y = body_mass_g, 
+                 col = species)) +
   labs(title = "Penguins body mass by flipper length",
        subtitle = " Palmer Archipelago, Antarctica",
-       x = "Flipper length (mm)", 
-       col = "Species",
        caption = "Source: Gorman, 2020")
 ```
 
-```{r}
+```{r, fig.asp = 0.75}
 penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g, 
     col = species,
-    col_legend_place = "r",
     title = "Penguins body mass by flipper length",
     subtitle = " Palmer Archipelago, Antarctica",
-    x_title = "Flipper length (mm)",
     caption = "Source: Gorman, 2020", 
     theme = gg_theme(caption_hjust = 1))
 ```
@@ -346,7 +351,9 @@ penguins |>
   group_by(species, sex) |> 
   summarise(across(body_mass_g, mean)) |> 
   ggplot() +
-  geom_col(aes(x = species, y = body_mass_g, fill = sex),
+  geom_col(aes(x = species, 
+               y = body_mass_g, 
+               fill = sex),
     position = "dodge",
     width = 0.5)
 ```
@@ -368,7 +375,9 @@ penguins |>
   group_by(species, sex) |> 
   summarise(across(body_mass_g, mean)) |> 
   ggplot() +
-  geom_col(aes(x = body_mass_g, y = species, fill = sex),
+  geom_col(aes(x = body_mass_g, 
+               y = species, 
+               fill = sex),
            position = "dodge",
            width = 0.75)
 ```
