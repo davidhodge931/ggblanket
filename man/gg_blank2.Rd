@@ -77,7 +77,7 @@ gg_blank2(
   caption = NULL,
   titles = snakecase::to_sentence_case,
   theme = gg_theme(),
-  void = FALSE
+  void = NULL
 )
 }
 \arguments{
@@ -222,8 +222,6 @@ gg_blank2(
 \item{caption}{Caption title string.}
 
 \item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
-
-\item{theme}{A ggplot2 theme.}
 
 \item{void}{TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.}
 }

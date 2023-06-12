@@ -72,8 +72,7 @@
 #' @param facet_layout Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".
 #' @param titles A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.
 #' @param caption Caption title string.
-#' @param theme A ggplot2 theme.
-#' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
+#' @paramv theme A ggplot2 theme.
 #' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
 #'
 #' @return A ggplot object.
@@ -165,7 +164,7 @@ gg_blank2 <- function(
     caption = NULL,
     titles = snakecase::to_sentence_case,
     theme = gg_theme(),
-    void = FALSE) {
+    void = NULL) {
 
   ##############################################################################
   #Unique code: part 1
@@ -337,6 +336,11 @@ gg_blank2 <- function(
           dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
       }
     }
+  }
+
+  if (rlang::is_null(void)) {
+    if (stat == "sf") void <- TRUE
+    else void <- FALSE
   }
 
   ##############################################################################

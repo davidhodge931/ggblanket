@@ -74,7 +74,6 @@
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
 #' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
-#' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
 #'
 #' @return A ggplot object.
 #' @export
