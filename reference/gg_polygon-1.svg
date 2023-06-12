@@ -57,12 +57,12 @@
 <clipPath id="clip1">
   <path d="M 463.671875 119.582031 L 477.84375 119.582031 L 477.84375 190.449219 L 463.671875 190.449219 Z M 463.671875 119.582031 "/>
 </clipPath>
-<image id="image106" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAAwElEQVQ4jZ2RURLEIAhDHxyu9z/HnmFr9qNWQZnOdD+cShJCpOhzuGQumSNc2KglOm4dJ3HPOLtPgUk45Fqpv/uNbEH3un6aseiTNnKRp+jd9Wxeuw/lnJwZav9bx+a/9qy4vdT/g2tm46pJWk3teIPyXlDJR880Ey27UJlz9Z5Yob11Bb/mENWcmW3zKXdoNQ7eihwN2/jW+RbwiDXMz4414Sf4V9dp4Ej93Rr3+L33krjY0//D2pv9ag8NLPX/AGPI49MMQ1BSAAAAAElFTkSuQmCC"/>
+<image id="image111" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAAwElEQVQ4jZ2RURLEIAhDHxyu9z/HnmFr9qNWQZnOdD+cShJCpOhzuGQumSNc2KglOm4dJ3HPOLtPgUk45Fqpv/uNbEH3un6aseiTNnKRp+jd9Wxeuw/lnJwZav9bx+a/9qy4vdT/g2tm46pJWk3teIPyXlDJR880Ey27UJlz9Z5Yob11Bb/mENWcmW3zKXdoNQ7eihwN2/jW+RbwiDXMz4414Sf4V9dp4Ej93Rr3+L33krjY0//D2pv9ag8NLPX/AGPI49MMQ1BSAAAAAElFTkSuQmCC"/>
 <pattern id="pattern0" patternUnits="userSpaceOnUse" width="1" height="300"  patternTransform="matrix(14.173228,0,0,0.23622,463.670171,119.581456)">
-  <use xlink:href="#image106"/>
+  <use xlink:href="#image111"/>
 </pattern>
 </defs>
-<g id="surface102">
+<g id="surface107">
 <rect x="0" y="0" width="525" height="324" style="fill:rgb(94.509804%,95.294118%,96.078431%);fill-opacity:1;stroke:none;"/>
 <path style="fill:none;stroke-width:1.066978;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(94.509804%,95.294118%,96.078431%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 324 L 525 324 L 525 0 L 0 0 Z M 0 324 "/>
 <path style="fill-rule:nonzero;fill:rgb(99.607843%,99.607843%,99.607843%);fill-opacity:1;stroke-width:1.066978;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(99.607843%,99.607843%,99.607843%);stroke-opacity:1;stroke-miterlimit:10;" d="M 52.65625 281.832031 L 452.710938 281.832031 L 452.710938 14.941406 L 52.65625 14.941406 Z M 52.65625 281.832031 "/>
