@@ -11,6 +11,7 @@
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian()).
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
+#' @param alpha Opacity. A number between 0 and 1.
 #' @param ... Other arguments passed to the ggplot2::geom_sf function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
@@ -66,6 +67,7 @@ gg_sf <- function(
     coord = ggplot2::coord_sf(clip = "off"),
     pal = NULL,
     pal_na = pal_grey,
+    alpha = NULL,
     ...,
     title = NULL,
     subtitle = NULL,
@@ -142,6 +144,27 @@ gg_sf <- function(
   facet_null <- rlang::quo_is_null(facet)
   facet2_null <- rlang::quo_is_null(facet2)
 
+  if (rlang::is_null(alpha)) {
+    # geometry_type <- unique(sf::st_geometry_type(data))
+    # if (length(geometry_type) > 1) geometry_type <- "GEOMETRY"
+    geometry_type <-
+      stringr::str_remove(attributes(sf::st_geometry(data))$class[1], "sfc_")
+
+    if (geometry_type %in% c("POINT",
+                             "MULTIPOINT",
+                             "LINESTRING",
+                             "MULTILINESTRING",
+                             "CIRCULARSTRING",
+                             "COMPOUNDCURVE",
+                             "MULTICURVE",
+                             "CURVE")) {
+      alpha <- 1
+    }
+    else {
+      alpha <- 0.9
+    }
+  }
+
   ##############################################################################
   #Generic code: part 1 (adjust for gg_sf)
   ##############################################################################
@@ -212,6 +235,7 @@ gg_sf <- function(
       ggplot2::geom_sf(
         stat = "sf",
         position = position,
+        alpha = alpha,
         col = pal,
         fill = pal,
         ...
@@ -224,6 +248,7 @@ gg_sf <- function(
       ggplot2::geom_sf(
         stat = "sf",
         position = position,
+        alpha = alpha,
         ...
       ) +
       coord +

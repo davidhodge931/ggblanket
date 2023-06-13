@@ -305,6 +305,27 @@ gg_blank <- function(
   facet_null <- rlang::quo_is_null(facet)
   facet2_null <- rlang::quo_is_null(facet2)
 
+  # if (rlang::is_null(alpha)) {
+  #   # geometry_type <- unique(sf::st_geometry_type(data))
+  #   # if (length(geometry_type) > 1) geometry_type <- "GEOMETRY"
+  #   geometry_type <-
+  #     stringr::str_remove(attributes(sf::st_geometry(data))$class[1], "sfc_")
+  #
+  #   if (geometry_type %in% c("POINT",
+  #                            "MULTIPOINT",
+  #                            "LINESTRING",
+  #                            "MULTILINESTRING",
+  #                            "CIRCULARSTRING",
+  #                            "COMPOUNDCURVE",
+  #                            "MULTICURVE",
+  #                            "CURVE")) {
+  #     alpha <- 1
+  #   }
+  #   else {
+  #     alpha <- 0.9
+  #   }
+  # }
+
   ##############################################################################
   #Generic code: part 1 (adjust for gg_sf)
   ##############################################################################

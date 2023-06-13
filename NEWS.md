@@ -1,6 +1,8 @@
-# ggblanket 2.0.0900
+# ggblanket 2.0.9000
 
 * Breaking: removed gg_function.
+* Improved gg_sf default alpha.
+* Supported gg_sf working on non-standard named geometry.
 * Adjust theme defaults.
 
 # ggblanket 2.0.0
