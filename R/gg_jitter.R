@@ -136,7 +136,7 @@ gg_jitter <- function(
     caption = NULL,
     titles = snakecase::to_sentence_case,
     theme = gg_theme(),
-    void = FALSE) {
+    void = NULL) {
 
   ##############################################################################
   #Unique code: part 1
@@ -216,6 +216,11 @@ gg_jitter <- function(
           dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
       }
     }
+  }
+
+  if (rlang::is_null(void)) {
+    if (stat == "sf") void <- TRUE
+    else void <- FALSE
   }
 
   ##############################################################################

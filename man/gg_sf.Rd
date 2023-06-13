@@ -44,7 +44,7 @@ gg_sf(
   caption = NULL,
   titles = snakecase::to_sentence_case,
   theme = gg_theme(),
-  void = TRUE
+  void = NULL
 )
 }
 \arguments{

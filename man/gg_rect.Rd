@@ -67,7 +67,7 @@ gg_rect(
   caption = NULL,
   titles = snakecase::to_sentence_case,
   theme = gg_theme(),
-  void = FALSE
+  void = NULL
 )
 }
 \arguments{

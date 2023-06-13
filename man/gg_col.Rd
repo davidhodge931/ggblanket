@@ -63,7 +63,7 @@ gg_col(
   caption = NULL,
   titles = snakecase::to_sentence_case,
   theme = gg_theme(),
-  void = FALSE
+  void = NULL
 )
 }
 \arguments{
