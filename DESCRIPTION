@@ -49,5 +49,6 @@ Config/Needs/website:
     ggdist,
     distributional,
     plotly,
-    ggiraph
+    ggiraph,
+    sf
 VignetteBuilder: knitr
