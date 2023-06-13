@@ -188,7 +188,7 @@ gg_sf <- function(
   if (!col_null) {
     plot <- data %>%
       ggplot2::ggplot(mapping = ggplot2::aes(
-        geometry = .data$geometry,
+        geometry = sf::st_geometry(data),
         col = !!col,
         fill = !!col,
         group = !!group
@@ -197,7 +197,7 @@ gg_sf <- function(
   else if (col_null) {
     plot <- data %>%
       ggplot2::ggplot(mapping = ggplot2::aes(
-        geometry = .data$geometry,
+        geometry = sf::st_geometry(data),
         # col = "",
         # fill = "",
         group = !!group
