@@ -111,7 +111,7 @@ gg_sf2 <- function(
 
   #ungroup
   data <- data %>%
-    # dplyr::ungroup() %>%
+    dplyr::ungroup() %>%
     dplyr::mutate(dplyr::across(
       c(!!col),
       na_if_inf))
@@ -209,7 +209,8 @@ gg_sf2 <- function(
   if (rlang::is_null(alpha)) {
     # geometry_type <- unique(sf::st_geometry_type(data))
     # if (length(geometry_type) > 1) geometry_type <- "GEOMETRY"
-    geometry_type <- stringr::str_remove(attributes(sf::st_geometry(data))$class[1], "sfc_")
+    geometry_type <-
+      stringr::str_remove(attributes(sf::st_geometry(data))$class[1], "sfc_")
 
     if (geometry_type %in% c("POINT",
                              "MULTIPOINT",

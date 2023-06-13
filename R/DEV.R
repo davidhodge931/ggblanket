@@ -198,7 +198,7 @@ gg_blank2 <- function(
 
   #ungroup
   data <- data %>%
-    # dplyr::ungroup() %>%
+    dplyr::ungroup() %>%
     dplyr::mutate(dplyr::across(
       c(!!x, !!y,
         !!xmin, !!ymin,
