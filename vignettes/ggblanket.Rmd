@@ -268,22 +268,25 @@ penguins |>
   ggplot() +
   geom_point(aes(x = flipper_length_mm, 
                  y = body_mass_g, 
-                 col = species)) +
+                 col = sex)) +
+  facet_wrap(~species) +
+  scale_x_continuous(breaks = scales::breaks_pretty(n = 3)) +
   labs(title = "Penguins body mass by flipper length",
        subtitle = "Palmer Archipelago, Antarctica",
-       caption = "Source: Gorman, 2020")
+       caption = "Source: Gorman, 2020") 
 ```
 
 ```{r, fig.asp = 0.75}
 penguins |>
   gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g, 
-    col = species,
-    title = "Penguins body mass by flipper length",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020", 
-    theme = gg_theme(caption_hjust = 1))
+      x = flipper_length_mm,
+      y = body_mass_g, 
+      col = sex,
+      facet = species,
+      title = "Penguins body mass by flipper length",
+      subtitle = "Palmer Archipelago, Antarctica",
+      caption = "Source: Gorman, 2020", 
+      theme = gg_theme(caption_hjust = 1))
 ```
 
 ### 8. A theme argument to customise the look and feel
