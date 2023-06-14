@@ -270,7 +270,7 @@ penguins |>
                  y = body_mass_g, 
                  col = species)) +
   labs(title = "Penguins body mass by flipper length",
-       subtitle = " Palmer Archipelago, Antarctica",
+       subtitle = "Palmer Archipelago, Antarctica",
        caption = "Source: Gorman, 2020")
 ```
 
@@ -281,7 +281,7 @@ penguins |>
     y = body_mass_g, 
     col = species,
     title = "Penguins body mass by flipper length",
-    subtitle = " Palmer Archipelago, Antarctica",
+    subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
     theme = gg_theme(caption_hjust = 1))
 ```

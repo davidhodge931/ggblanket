@@ -49,7 +49,7 @@ gg_theme <- function(
     subtitle_pal = "#323232",
     subtitle_face = "plain",
     subtitle_vjust = text_size * 0.15,
-    subtitle_margin = ggplot2::margin(t = text_size * -1.5, b = text_size * 2),
+    subtitle_margin = ggplot2::margin(t = text_size * -1.5, b = text_size * 1.5),
     caption_size = text_size - 1,
     caption_pal = "#88837D",
     caption_face = "plain",
