@@ -37,6 +37,7 @@ Suggests:
     RColorBrewer,
     rmarkdown,
     sf,
+    stars,
     tibble
 Config/Needs/website: 
     pkgdown,
