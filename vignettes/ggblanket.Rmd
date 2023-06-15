@@ -43,6 +43,7 @@ To simplify ggplot2 visualisation, ggblanket provides:
 library(dplyr)
 library(ggplot2)
 library(stringr)
+library(forcats)
 library(ggblanket)
 library(palmerpenguins)
 library(patchwork)
@@ -430,7 +431,7 @@ If you do not actually want a col aesthetic in your bottom plot layer, but do wa
 
 Note the `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function - but these can be adjusted using the `*_include`, `*_limits` and `facet_scales` arguments. The plot scales are constructed without knowledge of subsequent layers. 
 
-```{r, fig.asp=1}
+```{r, fig.asp=0.75}
 d <- penguins |>
   group_by(species) |>
   summarise(across(body_mass_g, mean)) |>
@@ -464,6 +465,38 @@ p2 <- d |>
   geom_errorbar(width = 0.1)
 
 p1 / p2
+```
+
+```{r}
+d_wide <- gapminder::gapminder |>
+  filter(year %in% c(1967, 2007)) |>
+  select(country, year, lifeExp) |>
+  tidyr::pivot_wider(names_from = year, values_from = lifeExp) |>
+  mutate(gap = `2007` - `1967`) |>
+  slice_max(gap, n = 10) |> 
+  mutate(across(country, \(x) fct_drop(fct_inorder(x)))) 
+
+d_long <- d_wide |>
+  select(-gap) |> 
+  tidyr::pivot_longer(-country, 
+                      names_to = "year", 
+                      values_to = "life_expectancy")
+
+d_long |> 
+  gg_blank(x = life_expectancy,
+           y = country,
+           col = year,
+           pal = pal_hue[c(2, 1)],
+           col_legend_place = "r",
+           title = "We're living longer",
+           subtitle = "Biggest life expectancy rise, 1967\u20132007",
+           x_title = "Life expectancy", 
+           y_title = "") +
+  geom_segment(aes(x = `1967`, xend = `2007`, 
+                   y = country, yend = country), 
+               data = d_wide, inherit.aes = FALSE, 
+               colour = "#dddddd", linewidth = 2) +
+  geom_point(size = 2) 
 ```
 
 ### 13. Ability to extend further
