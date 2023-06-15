@@ -82,7 +82,7 @@ gg_theme <- function(
     plot.caption = ggplot2::element_text(family = text_family, size = caption_size, colour = caption_pal, face = caption_face, hjust = caption_hjust, vjust = caption_vjust, margin = caption_margin),
     axis.text.x = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, margin = ggplot2::margin(t = 2)),
     axis.text.y = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, hjust = 1, margin = ggplot2::margin(r = 2)),
-    strip.text.x = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, hjust = 0.5, vjust = text_size * 0.33, margin = ggplot2::margin(t = text_size * 0.25)),
+    strip.text.x = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, hjust = 0.5, vjust = text_size * 0.33, margin = ggplot2::margin(t = text_size * 0.5)),
     strip.text.y = ggplot2::element_text(family = text_family, size = text_size, colour = text_pal, face = text_face, hjust = 0.5, margin = ggplot2::margin(l = text_size * 0.75), angle = 270),
     plot.margin = ggplot2::margin(t = 15, l = 10, b = 10, r = 20),
     plot.title.position = "plot",
