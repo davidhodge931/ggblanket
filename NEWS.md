@@ -3,6 +3,7 @@
 * Breaking: removed gg_function.
 * Improved gg_sf default alpha.
 * Supported gg_sf to work with non-standard named geometry.
+* Fixed gg_raster bug where legend was not showing. 
 * Adjusted theme defaults (e.g. title positioning).
 
 # ggblanket 2.0.0

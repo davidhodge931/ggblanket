@@ -229,7 +229,7 @@ gg_raster <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
-          col = !!col,
+          # col = !!col,
           fill = !!col,
           group = !!group
         ))
@@ -250,7 +250,7 @@ gg_raster <- function(
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
-          col = !!col,
+          # col = !!col,
           fill = !!col,
           group = !!group
         ))
@@ -270,7 +270,7 @@ gg_raster <- function(
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
-          col = !!col,
+          # col = !!col,
           fill = !!col,
           group = !!group
         ))
@@ -289,7 +289,7 @@ gg_raster <- function(
     if (!col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          col = !!col,
+          # col = !!col,
           fill = !!col,
           group = !!group
         ))
