@@ -343,13 +343,12 @@ The ggtext package enables plot text to use markdown syntax.
 Note if you want to have some or all of a title not bold, then it's important to change the default theme have a plain title. 
 
 ```{r}
-nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
-
-nc |>
-  gg_sf(col = AREA,
-        pal = RColorBrewer::brewer.pal(9, "Reds"),
-        title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
-        theme = gg_theme(title_face = "plain")) +
+penguins |>
+  gg_blank(
+    x = flipper_length_mm, 
+    y = body_mass_g,
+    title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
+    theme = gg_theme(title_face = "plain")) +
   theme(plot.title = ggtext::element_markdown())
 ```
 
