@@ -48,9 +48,7 @@
 #'
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
-#'   nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
-#'
-#'   nc |>
+#'   sf::st_read(system.file("shape/nc.shp", package = "sf")) %>%
 #'     gg_sf(
 #'       col = AREA,
 #'       pal = viridis::cividis(9))

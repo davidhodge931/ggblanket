@@ -73,14 +73,14 @@
 #'   )
 #'
 #' if (requireNamespace("stars", quietly = TRUE)) {
-#'  stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
+#'  stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) %>%
 #'    tibble::as_tibble() %>%
 #'    gg_raster(x = x,
 #'              y = y,
 #'              col = L7_ETMs.tif,
 #'              facet = band,
 #'              void = TRUE,
-#'              titles = \(x) x)
+#'              col_title = "")
 #' }
 #'
 gg_raster <- function(

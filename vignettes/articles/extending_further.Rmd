@@ -28,8 +28,9 @@ To extend ggblanket further, users can:
 4. Use non-supported arguments
 5. Use non-supported geoms
 6. Modifying a part of the colouring 
-7. Create custom wrapper functions
-8. Work with extension packages 
+7. Visualise spatial data
+8. Create custom wrapper functions
+9. Work with extension packages 
 
 * patchwork
 * ggtext
@@ -249,7 +250,29 @@ p4 <- iris |>
 (p1 + p2) / (p3 + p4) 
 ```
 
-### 7. Create custom wrapper functions
+### 7. Visualise spatial data
+
+ggblanket can visualise vector and array data using the `gg_sf` and `gg_raster` functions. 
+
+```{r}
+sf::st_read(system.file("shape/nc.shp", package = "sf"), 
+                  quiet = TRUE) |>
+  gg_sf(col = AREA,
+        pal = viridis::cividis(9))
+```
+
+```{r}
+stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
+ tibble::as_tibble() |>
+ gg_raster(x = x,
+           y = y,
+           col = L7_ETMs.tif,
+           facet = band,
+           void = TRUE,
+           col_title = "")
+```
+
+### 8. Create custom wrapper functions
 
 You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
@@ -279,7 +302,7 @@ iris |>
     col = Species)
 ```
 
-### 8. Work with extension packages
+### 9. Work with extension packages
 
 ggblanket can work with numerous extension packages. 
 

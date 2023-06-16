@@ -507,6 +507,7 @@ To extend ggblanket further, users can:
 * Use non-supported arguments
 * Use non-supported geoms
 * Modifying a part of the colouring 
+* Visualise spatial data
 * Create custom wrapper functions
 * Work with extension packages 
 
