@@ -126,7 +126,7 @@ penguins |>
   geom_jitter(aes(x = species, 
                   y = body_mass_g, 
                   col = sex)) +
-  scale_color_manual(values = c("#1B9E77", "#9E361B"))
+  scale_color_manual(values = c("#2596be", "#fc7c24"))
 ```
 
 ```{r}
