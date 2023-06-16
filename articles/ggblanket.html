@@ -527,7 +527,7 @@ on top of it.</p>
 <span>             y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>             width <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>             outlier.colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-30-1.svg" width="70%"></p>
 <p>If some geoms have a <code>col</code> aesthetic and some do not, then
 it can be useful to have the col aesthetic in the <code>gg_*</code>
@@ -610,7 +610,7 @@ without knowledge of subsequent layers.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">`1967`</span>, xend <span class="op">=</span> <span class="va">`2007`</span>, </span>
 <span>                   y <span class="op">=</span> <span class="va">country</span>, yend <span class="op">=</span> <span class="va">country</span><span class="op">)</span>, </span>
 <span>               data <span class="op">=</span> <span class="va">d_wide</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>, </span>
-<span>               colour <span class="op">=</span> <span class="st">"#dddddd"</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>               col <span class="op">=</span> <span class="st">"#dddddd"</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-32-1.svg" width="70%"></p>
 </div>
