@@ -422,7 +422,7 @@ penguins |>
              y = body_mass_g,
              width = 0.5,
              outlier.colour = NA) +
-  geom_jitter(colour = pal_blue)
+  geom_jitter(col = pal_blue)
 ```
 
 If some geoms have a `col` aesthetic and some do not, then it can be useful to have the col aesthetic in the `gg_*` function. That way you can get pretty ggblanket legend placement - and also adjust the col scale via the ease of the `gg_*` function. 
@@ -496,7 +496,7 @@ d_long |>
   geom_segment(aes(x = `1967`, xend = `2007`, 
                    y = country, yend = country), 
                data = d_wide, inherit.aes = FALSE, 
-               colour = "#dddddd", linewidth = 2) +
+               col = "#dddddd", linewidth = 2) +
   geom_point(size = 2) 
 ```
 
