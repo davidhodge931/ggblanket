@@ -99,45 +99,61 @@ penguins |>
 
 While aesthetics other than colouring are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
 
-```{r, fig.asp=1}
-p1 <- penguins |>
+_Discrete non-col aesthetic_
+```{r}
+penguins |>
+  gg_blank(
+    x = bill_length_mm,
+    y = body_mass_g, 
+    col = sex) + #hack to enable ggblanket legend placement
+  geom_point(aes(shape = sex), col = "#2B6999") + 
+  labs(shape = "Sex") #name must be the same as the col_title
+```
+
+```{r}
+penguins |>
   gg_blank(
     x = bill_length_mm,
     y = body_mass_g, 
     col = sex) + 
   geom_point(aes(shape = sex)) +  
-  labs(shape = "Sex") 
+  labs(shape = "Sex") #name must be the same as the col_title 
+```
 
-p2 <- penguins |>
+_Continuous non-col aesthetic_
+```{r, fig.asp=0.5}
+#legend on right
+penguins |>
+  gg_blank(
+    x = bill_length_mm,
+    y = body_mass_g) +  
+  geom_point(aes(alpha = bill_depth_mm), col = "#2B6999") +
+  labs(alpha = "Bill depth mm")
+```
+
+```{r}
+#legend on bottom
+penguins |>
   gg_blank(
     x = bill_length_mm,
     y = body_mass_g, 
-    col = sex) + #just to make legend on bottom
-  geom_point(aes(shape = sex), col = "#2B6999") + 
-  labs(shape = "Sex") 
-
-p1 / p2
+    col = bill_depth_mm, #hack for ggblanket legend placement
+    col_legend_place = "b") + #hack for ggblanket legend placement 
+  geom_point(aes(alpha = bill_depth_mm), col = "#2B6999") +
+  labs(alpha = "Bill depth mm") +
+  guides(alpha = guide_legend(title.position = "top"))
 ```
 
-```{r, fig.asp=1}
-p3 <- penguins |>
+```{r, fig.asp=0.5}
+penguins |>
   gg_blank(
     x = bill_length_mm,
     y = body_mass_g, 
     col = species,
-    col_legend_place = "r") + 
-  geom_point(aes(alpha = flipper_length_mm)) +
-  labs(alpha = "Flipper length mm") +
-  theme(legend.title = element_text(margin = margin(t = 10)))
-
-p4 <- penguins |>
-  gg_blank(
-    x = bill_length_mm,
-    y = body_mass_g) + 
-  geom_point(aes(alpha = bill_depth_mm), col = "#2B6999") +
-  labs(alpha = "Flipper length mm") 
-
-p3 / p4
+    col_legend_place = "r", #two legends look better on right
+    col_title = "\nSpecies") + #hack to add space between legends
+  geom_point(aes(alpha = bill_depth_mm)) +
+  labs(alpha = "Bill depth mm") #name must be the same as the col_title
 ```
 
 ### 4. Use non-supported arguments
@@ -151,12 +167,11 @@ penguins |>
     y = body_mass_g,
     col = island,
     facet = species, 
-    facet2 = sex
-  ) +
+    facet2 = sex,
+    y_labels = \(x) glue::glue(" {x}")) + #hack to add space
   facet_grid(cols = vars(species),
              rows = vars(sex), 
-             switch = "y") +
-  theme(strip.switch.pad.grid = unit(2, "mm"))
+             switch = "y")
 ```
 
 ### 5. Use non-supported geoms
@@ -373,16 +388,16 @@ The ggdensity package provides visualizations of density estimates.
 
 ```{r}
 iris |>
-  mutate(across(Species, str_to_sentence)) |> 
+  mutate(Species = str_to_sentence(Species)) |> 
   gg_blank(
     x = Sepal.Width,
     y = Sepal.Length,
     col = Species,
     facet = Species,
-    col_legend_place = "r") +
+    col_legend_place = "r", #two legends look better on right
+    col_title = "\nSpecies") + #hack to add space between legends
   ggdensity::geom_hdr(col = NA) +
-  labs(alpha = "Probs") +
-  theme(legend.title = element_text(margin = margin(t = 10)))
+  labs(alpha = "Probs")
 ```
 
 #### ggridges
@@ -392,7 +407,7 @@ The ggridges package enables ridgeline plots.
 ```{r}
 ggridges::Catalan_elections |>
   rename_with(snakecase::to_snake_case) |> 
-  mutate(across(year, factor)) |>
+  mutate(year = factor(year)) |>
   gg_blank(
     y = year, 
     x = percent, 
@@ -454,7 +469,6 @@ d |>
   labs(fill = "Level")
 ```
 
-
 #### plotly::ggplotly
 
 The plotly::ggplotly function enables interactive plots.
@@ -465,7 +479,7 @@ p <- diamonds |>
     x = color,
     col = color,
     width = 0.75,
-    theme = gg_theme("helvetica")) 
+    theme = gg_theme(text_family = "helvetica")) 
 
 plotly::ggplotly(p, 
   tooltip = c("x", "y"), 
@@ -485,7 +499,7 @@ p <- diamonds |>
     width = 0.75,
     y_include = 0,
     stat = "count", 
-    theme = gg_theme("helvetica", text_size = 9)) +
+    theme = gg_theme(text_family = "helvetica", text_size = 9)) +
   ggiraph::geom_bar_interactive(
     aes(tooltip = after_stat(count), 
         data_id = color), width = 0.75)

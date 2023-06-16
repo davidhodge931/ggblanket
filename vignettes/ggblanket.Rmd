@@ -42,14 +42,11 @@ To simplify ggplot2 visualisation, ggblanket provides:
 ```{r setup}
 library(dplyr)
 library(ggplot2)
-library(stringr)
-library(forcats)
 library(ggblanket)
-library(palmerpenguins)
 library(patchwork)
 
-penguins <- penguins |>
-  mutate(sex = str_to_sentence(sex)) |>
+penguins <- palmerpenguins::penguins |>
+  mutate(sex = stringr::str_to_sentence(sex)) |>
   tidyr::drop_na(sex)
 ```
 
@@ -195,7 +192,7 @@ penguins |>
                   y = body_mass_g, 
                   col = sex)) +
   expand_limits(y = 0) +
-  scale_x_discrete(labels = \(x) str_sub(x, 1, 1)) +
+  scale_x_discrete(labels = \(x) stringr::str_sub(x, 1, 1)) +
   scale_y_continuous(breaks = scales::breaks_width(1500),
                      labels = scales::label_number(big.mark = " "),
                      trans = "sqrt") +
@@ -212,7 +209,7 @@ penguins |>
     x = species,
     y = body_mass_g,
     col = sex,
-    x_labels = \(x) str_sub(x, 1, 1),
+    x_labels = \(x) stringr::str_sub(x, 1, 1),
     y_include = 0,
     y_breaks = scales::breaks_width(1500), 
     y_labels = scales::label_number(big.mark = " "), 
@@ -353,7 +350,7 @@ Note `gg_bin2d`, `gg_hex` and `gg_raster` deviate from this approach out of nece
 ```{r}
 penguins |>
   group_by(species, sex) |> 
-  summarise(across(body_mass_g, mean)) |> 
+  summarise(body_mass_g = mean(body_mass_g)) |> 
   ggplot() +
   geom_col(aes(x = species, 
                y = body_mass_g, 
@@ -365,7 +362,7 @@ penguins |>
 ```{r}
 penguins |>
   group_by(species, sex) |> 
-  summarise(across(body_mass_g, mean)) |> 
+  summarise(body_mass_g = mean(body_mass_g)) |> 
   gg_col(
     x = species,
     y = body_mass_g,
@@ -377,7 +374,7 @@ penguins |>
 ```{r}
 penguins |>
   group_by(species, sex) |> 
-  summarise(across(body_mass_g, mean)) |> 
+  summarise(body_mass_g = mean(body_mass_g)) |> 
   ggplot() +
   geom_col(aes(x = body_mass_g, 
                y = species, 
@@ -389,7 +386,7 @@ penguins |>
 ```{r}
 penguins |>
   group_by(species, sex) |> 
-  summarise(across(body_mass_g, mean)) |> 
+  summarise(body_mass_g = mean(body_mass_g)) |> 
   gg_col(
     x = body_mass_g,
     y = species,
@@ -434,7 +431,7 @@ Note the `gg_*` function builds the x and y scales based on the `data`, `stat`, 
 ```{r, fig.asp=0.75}
 d <- penguins |>
   group_by(species) |>
-  summarise(across(body_mass_g, mean)) |>
+  summarise(body_mass_g = mean(body_mass_g)) |>
   mutate(lower = body_mass_g * 0.95) |> 
   mutate(upper = body_mass_g * 1.2)
 
@@ -473,8 +470,8 @@ d_wide <- gapminder::gapminder |>
   select(country, year, lifeExp) |>
   tidyr::pivot_wider(names_from = year, values_from = lifeExp) |>
   mutate(gap = `2007` - `1967`) |>
-  slice_max(gap, n = 10) |> 
-  mutate(across(country, \(x) fct_drop(fct_inorder(x)))) 
+  slice_max(gap, n = 10) |>
+  mutate(country = forcats::fct_inorder(forcats::fct_drop(country))) 
 
 d_long <- d_wide |>
   select(-gap) |> 

@@ -52,5 +52,6 @@ Config/Needs/website:
     distributional,
     plotly,
     ggiraph,
+    glue,
     sf
 VignetteBuilder: knitr
