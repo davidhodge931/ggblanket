@@ -487,6 +487,7 @@ d_long |>
            y = country,
            col = year,
            pal = pal_hue[c(2, 1)],
+           x_include = 0,
            col_legend_place = "r",
            title = "We're living longer",
            subtitle = "Biggest life expectancy rise, 1967\u20132007",
