@@ -36,8 +36,9 @@ To simplify ggplot2 visualisation, ggblanket provides:
 9. A gg_theme function to create a quick theme
 10. Pretty defaults for symmetry
 11. Access to other geom_* arguments via ...
-12. Ability to add geom_* layers
-13. Ability to extend further
+12. Spatial data visualisation
+13. Ability to add multiple geom_* layers
+14. A framework able to be extended further
 
 ```{r setup}
 library(dplyr)
@@ -104,7 +105,7 @@ penguins |>
 
 ### 3.  A pal argument to customise colours
 
-The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` aesthetic is added or not. 
+The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. 
 
 ```{r}
 penguins |>
@@ -409,7 +410,7 @@ penguins |>
     level = 0.99) #accessed via geom_smooth
 ```
 
-### 12. Ability to add geom layers
+### 12. Ability to add multiple geom_* layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geom's added. Geom's will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it. 
 
@@ -422,11 +423,11 @@ penguins |>
   geom_jitter(col = pal_blue)
 ```
 
-If some geoms have a `col` aesthetic and some do not, then it can be useful to have the col aesthetic in the `gg_*` function. That way you can get pretty ggblanket legend placement - and also adjust the col scale via the ease of the `gg_*` function. 
+If some geoms have a `col` aesthetic and some do not, then it is recommended to have the `col` aesthetic in the `gg_*` function. This enables ggblanket legend placement, as well as the ability to adjust the col scale via the `gg_*` function. 
 
-If you do not actually want a col aesthetic in your bottom plot layer, but do want it in subsequent layers - then you should  use the `gg_blank` function. The subsequent `geom_*` layer without the col aesthetic can have `col = NA` and/or `fill = NA` arguments, or use the `inherit.aes = FALSE` argument. 
+If you do not want a col aesthetic in your bottom plot layer, but require it in subsequent layers - then you should use the `gg_blank` function. Subsequent `geom_*` layers where the col aesthetic is not required can have `col = NA` and/or `fill = NA` arguments - or use the `inherit.aes = FALSE` argument. 
 
-Note the `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function - but these can be adjusted using the `*_include`, `*_limits` and `facet_scales` arguments. The plot scales are constructed without knowledge of subsequent layers. 
+Note the plot scales are constructed without knowledge of subsequent layers. The `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function. These scales can be adjusted to accomodate subsequent layers using the `*_include` or `*_limits` arguments. 
 
 ```{r, fig.asp=0.75}
 d <- penguins |>
@@ -497,7 +498,7 @@ d_long |>
   geom_point(size = 2) 
 ```
 
-### 13. Ability to extend further
+### 13. A framework able to be extended further
 
 To extend ggblanket further, users can:
 
@@ -507,8 +508,8 @@ To extend ggblanket further, users can:
 * Use non-supported arguments
 * Use non-supported geoms
 * Modifying a part of the colouring 
-* Visualise spatial data
 * Create custom wrapper functions
+* Visualise spatial data
 * Work with extension packages 
 
 See the [Extending further](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) article for further information.

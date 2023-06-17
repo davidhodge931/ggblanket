@@ -28,8 +28,8 @@ To extend ggblanket further, users can:
 4. Use non-supported arguments
 5. Use non-supported geoms
 6. Modifying a part of the colouring 
-7. Visualise spatial data
-8. Create custom wrapper functions
+7. Create custom wrapper functions
+8. Visualise spatial data
 9. Work with extension packages 
 
 * patchwork
@@ -216,9 +216,9 @@ p4 <- faithfuld |>
 
 ### 6. Modifying a part of the colouring 
 
-Where a `gg_*` function contains a geom that can colour both outlines and fill, users can turn off a part of this using the `alpha` and `pal` arguments. 
+Where a `gg_*` function contains a geom that can colour both outlines and fill, users can turn off a part of this using the `alpha = 0` or `pal = scales::alpha("red", 0)`. 
 
-If it is desired to fix either the outline or fill to a single colour that is different to the `pal`, then users should instead use `gg_blank`.
+If `col` is not NULL, then you can use `col = NA`, `fill = NA`, `col = "red"` or `fill = "red"` to modify a part of the colouring. But _not_ if col is NULL. In this case, you _must_ use `gg_blank`.
 
 ```{r, fig.asp=1}
 p1 <- iris |>
@@ -250,29 +250,7 @@ p4 <- iris |>
 (p1 + p2) / (p3 + p4) 
 ```
 
-### 7. Visualise spatial data
-
-ggblanket can visualise vector and array data using the `gg_sf` and `gg_raster` functions. 
-
-```{r}
-sf::st_read(system.file("shape/nc.shp", package = "sf"), 
-                  quiet = TRUE) |>
-  gg_sf(col = AREA,
-        pal = viridis::cividis(9))
-```
-
-```{r}
-stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
- tibble::as_tibble() |>
- gg_raster(x = x,
-           y = y,
-           col = L7_ETMs.tif,
-           facet = band,
-           void = TRUE,
-           col_title = "")
-```
-
-### 8. Create custom wrapper functions
+### 7. Create custom wrapper functions
 
 You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
@@ -300,6 +278,28 @@ iris |>
     x = Sepal.Width,
     y = Sepal.Length,
     col = Species)
+```
+
+### 8. Visualise spatial data
+
+As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, spatial vector and array data can be visualised. 
+
+```{r}
+sf::st_read(system.file("shape/nc.shp", package = "sf"), 
+                  quiet = TRUE) |>
+  gg_sf(col = AREA,
+        pal = RColorBrewer::brewer.pal(9, "Blues"))
+```
+
+```{r}
+stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
+ tibble::as_tibble() |>
+ gg_raster(x = x,
+           y = y,
+           col = L7_ETMs.tif,
+           facet = band,
+           void = TRUE,
+           col_title = "")
 ```
 
 ### 9. Work with extension packages
@@ -338,9 +338,9 @@ p1 + p2
 
 #### ggtext
 
-The ggtext package enables plot text to use markdown syntax. 
+The ggtext package enables plot text to use markdown syntax. The applicable markdown theme elements need to be added to the plot.
 
-Note if you want to have some or all of a title not bold, then it's important to change the default theme have a plain title. 
+Note if you want to have some or all of a title not bold, then it's important to change the default theme have a plain title - as otherwise the `gg_theme` defaults to bold. 
 
 ```{r}
 penguins |>
@@ -351,6 +351,41 @@ penguins |>
     theme = gg_theme(title_face = "plain")) +
   theme(plot.title = ggtext::element_markdown())
 ```
+
+```{r}
+penguins |>
+  gg_point(
+    x = bill_length_mm,
+    y = bill_depth_mm,
+    col = species,
+    facet = island,
+    facet2 = sex,
+    x_title = "**Bill length** (mm)", 
+    y_title = "**Bill depth** (mm)",
+    col_title = "**Species**",
+    title = "***Pygoscelis*** **penguin** bill lengths and depths",
+    subtitle = "<span style = 'color: #53B0AE ;'>**Adelie**</span>, 
+       <span style = 'color:#A31414;'>**Chinstrap**</span>, 
+       *and* <span style = 'color:#B2C615;'>**Gentoo**</span>", 
+    x_labels = \(x) glue::glue("_{x}_"),
+    y_labels = \(x) glue::glue("_{x}_"),
+    col_labels = \(x) glue::glue("_{x}_"),
+    facet_labels = \(x) glue::glue("_{x}_"),
+    theme = gg_theme(title_face = "plain")     
+  ) +
+  theme(  
+    plot.title = ggtext::element_markdown(),
+    plot.subtitle = ggtext::element_markdown(),
+    axis.title.x = ggtext::element_markdown(), 
+    axis.title.y = ggtext::element_markdown(), 
+    axis.text.x = ggtext::element_markdown(), 
+    axis.text.y = ggtext::element_markdown(),
+    legend.title = ggtext::element_markdown(),
+    legend.text = ggtext::element_markdown(), 
+    strip.text.x = ggtext::element_markdown(margin = margin(b = 5)),
+    strip.text.y = ggtext::element_markdown())
+```
+
 
 #### ggrepel
 
