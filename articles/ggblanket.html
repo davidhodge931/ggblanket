@@ -109,8 +109,9 @@ Hodge</h4>
 <li>A gg_theme function to create a quick theme</li>
 <li>Pretty defaults for symmetry</li>
 <li>Access to other geom_* arguments via …</li>
-<li>Ability to add geom_* layers</li>
-<li>Ability to extend further</li>
+<li>Spatial data visualisation</li>
+<li>Ability to add multiple geom_* layers</li>
+<li>A framework able to be extended further</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -183,7 +184,7 @@ polygon interiors.</p>
 <p>The <code>pal</code> argument is used to customise the colours of the
 geom. A user can provide a vector of colours to this argument. It can be
 named or not. It works in a consistent way - regardless of whether a
-<code>col</code> aesthetic is added or not.</p>
+<code>col</code> argument is added or not.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -509,7 +510,7 @@ and <code>width</code>.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-29-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="ability-to-add-geom-layers">12. Ability to add geom layers<a class="anchor" aria-label="anchor" href="#ability-to-add-geom-layers"></a>
+<h3 id="ability-to-add-multiple-geom_-layers">12. Ability to add multiple geom_* layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
 </h3>
 <p>Users can make plots with multiple layers with ggblanket by adding on
 <code>ggplot2::geom_*</code> layers. The <code>gg_*</code> function puts
@@ -527,22 +528,22 @@ on top of it.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-30-1.svg" width="70%"></p>
 <p>If some geoms have a <code>col</code> aesthetic and some do not, then
-it can be useful to have the col aesthetic in the <code>gg_*</code>
-function. That way you can get pretty ggblanket legend placement - and
-also adjust the col scale via the ease of the <code>gg_*</code>
+it is recommended to have the <code>col</code> aesthetic in the
+<code>gg_*</code> function. This enables ggblanket legend placement, as
+well as the ability to adjust the col scale via the <code>gg_*</code>
 function.</p>
-<p>If you do not actually want a col aesthetic in your bottom plot
-layer, but do want it in subsequent layers - then you should use the
-<code>gg_blank</code> function. The subsequent <code>geom_*</code> layer
-without the col aesthetic can have <code>col = NA</code> and/or
-<code>fill = NA</code> arguments, or use the
+<p>If you do not want a col aesthetic in your bottom plot layer, but
+require it in subsequent layers - then you should use the
+<code>gg_blank</code> function. Subsequent <code>geom_*</code> layers
+where the col aesthetic is not required can have <code>col = NA</code>
+and/or <code>fill = NA</code> arguments - or use the
 <code>inherit.aes = FALSE</code> argument.</p>
-<p>Note the <code>gg_*</code> function builds the x and y scales based
+<p>Note the plot scales are constructed without knowledge of subsequent
+layers. The <code>gg_*</code> function builds the x and y scales based
 on the <code>data</code>, <code>stat</code>, <code>x</code>, and
-<code>y</code> in the <code>gg_*</code> function - but these can be
-adjusted using the <code>*_include</code>, <code>*_limits</code> and
-<code>facet_scales</code> arguments. The plot scales are constructed
-without knowledge of subsequent layers.</p>
+<code>y</code> in the <code>gg_*</code> function. These scales can be
+adjusted to accomodate subsequent layers using the
+<code>*_include</code> or <code>*_limits</code> arguments.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -612,7 +613,7 @@ without knowledge of subsequent layers.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-32-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="ability-to-extend-further">13. Ability to extend further<a class="anchor" aria-label="anchor" href="#ability-to-extend-further"></a>
+<h3 id="a-framework-able-to-be-extended-further">13. A framework able to be extended further<a class="anchor" aria-label="anchor" href="#a-framework-able-to-be-extended-further"></a>
 </h3>
 <p>To extend ggblanket further, users can:</p>
 <ul>
@@ -622,8 +623,8 @@ without knowledge of subsequent layers.</p>
 <li>Use non-supported arguments</li>
 <li>Use non-supported geoms</li>
 <li>Modifying a part of the colouring</li>
-<li>Visualise spatial data</li>
 <li>Create custom wrapper functions</li>
+<li>Visualise spatial data</li>
 <li>Work with extension packages</li>
 </ul>
 <p>See the <a href="https://davidhodge931.github.io/ggblanket/articles/extending_further.html">Extending
