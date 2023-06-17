@@ -4,7 +4,7 @@
 * Improved gg_sf default alpha.
 * Supported gg_sf to work with non-standard named geometry.
 * Fixed gg_raster bug where legend was not showing. 
-* Fixed gg_theme, so that it would work better with ggtext. 
+* Adjusted gg_theme to work better with ggtext. 
 * Adjusted theme defaults (e.g. title positioning).
 
 # ggblanket 2.0.0

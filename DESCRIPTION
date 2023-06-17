@@ -50,6 +50,7 @@ Config/Needs/website:
     ggridges,
     ggdist,
     distributional,
+    ggbeeswarm,
     plotly,
     ggiraph,
     glue,

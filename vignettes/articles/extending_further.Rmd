@@ -35,6 +35,7 @@ To extend ggblanket further, users can:
 * patchwork
 * ggtext
 * ggrepel
+* ggbeeswarm
 * ggblend
 * gghighlight
 * ggdensity
@@ -79,7 +80,7 @@ penguins |>
 
 Users can change the default stat. The ... argument provides access to the relevant `stat_*` function as well as the `geom_*` function. Note, the `gg_*` functions do not support using a stat that is a function - it must be a character (e.g. "summary").  
 
-```{r}
+```{r, fig.asp=0.5}
 penguins |>
   gg_errorbar(
     x = body_mass_g,
@@ -397,6 +398,17 @@ mtcars |>
   filter(wt > 2.75, wt < 3.45) |> 
   gg_point(x = wt, y = mpg) +
   ggrepel::geom_text_repel(aes(label = car), col = "#2B6999") 
+```
+
+#### ggbeeswarm
+
+The ggbeeswarm package can be used to create scatter plots that avoid overlapping points.
+
+```{r}
+penguins |> 
+  gg_blank(x = species, 
+           y = body_mass_g) + 
+  ggbeeswarm::geom_quasirandom(col = pal_blue)
 ```
 
 #### ggblend
