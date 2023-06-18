@@ -48,7 +48,7 @@
 #' @param col_legend_rev Reverse the elements of the legend. Defaults to FALSE.
 #' @param col_limits A vector to determine the limits of the colour scale.
 #' @param col_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.
-#' @param col_rescale For a continuous col variable, a vector to rescale the pal non-linearly.
+#' @param col_rescale For a continuous col variable, a scales::rescale function.
 #' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param col_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
@@ -124,7 +124,7 @@ gg_qq <- function(
     col_legend_rev = FALSE,
     col_limits = NULL,
     col_oob = scales::oob_censor,
-    col_rescale = NULL,
+    col_rescale = scales::rescale(),
     col_title = NULL,
     col_trans = "identity",
     facet_labels = NULL,
@@ -1037,11 +1037,6 @@ gg_qq <- function(
           col_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
         }
       }
-
-      if (!rlang::is_null(col_rescale)) {
-        col_rescale <- scales::rescale(col_rescale)
-      }
-      else col_rescale <- NULL
 
       if (col_continuous == "gradient") {
         plot <- plot +

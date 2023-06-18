@@ -61,7 +61,7 @@ gg_boxplot(
   col_legend_rev = FALSE,
   col_limits = NULL,
   col_oob = scales::oob_censor,
-  col_rescale = NULL,
+  col_rescale = scales::rescale(),
   col_title = NULL,
   col_trans = "identity",
   facet_labels = NULL,
@@ -189,7 +189,7 @@ gg_boxplot(
 
 \item{col_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.}
 
-\item{col_rescale}{For a continuous col variable, a vector to rescale the pal non-linearly.}
+\item{col_rescale}{For a continuous col variable, a scales::rescale function.}
 
 \item{col_title}{Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
