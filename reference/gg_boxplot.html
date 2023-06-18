@@ -118,7 +118,7 @@
 <span>  col_legend_rev <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  col_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_censor</a></span>,</span>
-<span>  col_rescale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col_rescale <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  col_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  facet_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -361,7 +361,7 @@
 
 
 <dt>col_rescale</dt>
-<dd><p>For a continuous col variable, a vector to rescale the pal non-linearly.</p></dd>
+<dd><p>For a continuous col variable, a scales::rescale function.</p></dd>
 
 
 <dt>col_title</dt>
