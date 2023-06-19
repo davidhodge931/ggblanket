@@ -21,10 +21,10 @@
 #' @param caption_hjust The horizontal adjustment for the caption.
 #' @param caption_vjust The vertical adjustment for the caption.
 #' @param caption_margin The margin for the caption.
-#' @param axis_line_linewidth The linewidth of the axis. Defaults to 0.125.
-#' @param axis_line_pal The colour for the axis. Defaults to "#323232".
-#' @param axis_ticks_linewidth The linewidth of the ticks. Defaults to that of the axis_line_linewidth argument.
-#' @param axis_ticks_pal The colour for the ticks. Defaults to "#323232".
+#' @param line_linewidth The linewidth of the axis. Defaults to 0.125.
+#' @param line_pal The colour for the axis. Defaults to "#323232".
+#' @param ticks_linewidth The linewidth of the ticks. Defaults to that of the line_linewidth argument.
+#' @param ticks_pal The colour for the ticks. Defaults to "#323232".
 #' @param background_pal_plot The colour for the plot background colour. Defaults to "#F1F3F5".
 #' @param background_pal_panel The colour for the panel background colour. Defaults to "#FEFEFE".
 #' @param background_pal_key The colour for the legend key. Defaults to the background_pal_plot.
@@ -58,16 +58,16 @@ gg_theme2 <- function(
     background_pal_plot = "#F1F3F5",
     background_pal_panel = "#FEFEFE",
     background_pal_key = NULL,
-    axis_line_linewidth = 0.125,
-    axis_line_pal = "#323232",
-    axis_ticks_linewidth = NULL,
-    axis_ticks_pal = NULL,
+    line_linewidth = 0.125,
+    line_pal = "#323232",
+    ticks_linewidth = NULL,
+    ticks_pal = NULL,
     grid_linewidth = 0.1,
     grid_pal = "#D3D3D3") {
 
-  if (is.null(axis_ticks_pal)) axis_ticks_pal <- axis_line_pal
+  if (is.null(ticks_pal)) ticks_pal <- line_pal
   if (is.null(background_pal_key)) background_pal_key <- background_pal_plot
-  if (is.null(axis_ticks_linewidth)) axis_ticks_linewidth <- axis_line_linewidth
+  if (is.null(ticks_linewidth)) ticks_linewidth <- line_linewidth
 
   theme <- ggplot2::theme(
 
@@ -92,8 +92,8 @@ gg_theme2 <- function(
     strip.text.x = ggplot2::element_text(vjust = text_size * 0.33, margin = ggplot2::margin(t = text_size * 0.5), angle = 0),
     strip.text.y = ggplot2::element_text(vjust = 0.5, margin = ggplot2::margin(l = text_size * 0.75), angle = 270),
 
-    axis.line = ggplot2::element_line(colour = axis_line_pal, linewidth = axis_line_linewidth),
-    axis.ticks = ggplot2::element_line(colour = axis_ticks_pal, linewidth = axis_ticks_linewidth),
+    axis.line = ggplot2::element_line(colour = line_pal, linewidth = line_linewidth),
+    axis.ticks = ggplot2::element_line(colour = ticks_pal, linewidth = ticks_linewidth),
     plot.background = ggplot2::element_rect(colour = background_pal_plot, fill = background_pal_plot),
     plot.margin = ggplot2::margin(t = 15, l = 10, b = 10, r = 20),
     panel.background = ggplot2::element_rect(colour = background_pal_panel, fill = background_pal_panel),

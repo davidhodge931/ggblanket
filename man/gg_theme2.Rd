@@ -25,13 +25,13 @@ gg_theme2(
   caption_hjust = 0,
   caption_vjust = 0,
   caption_margin = ggplot2::margin(t = caption_size * 1.25),
-  axis_linewidth = 0.125,
-  axis_pal = "#323232",
-  ticks_linewidth = NULL,
-  ticks_pal = NULL,
   background_pal_plot = "#F1F3F5",
   background_pal_panel = "#FEFEFE",
   background_pal_key = NULL,
+  line_linewidth = 0.125,
+  line_pal = "#323232",
+  ticks_linewidth = NULL,
+  ticks_pal = NULL,
   grid_linewidth = 0.1,
   grid_pal = "#D3D3D3"
 )
@@ -77,19 +77,19 @@ gg_theme2(
 
 \item{caption_margin}{The margin for the caption.}
 
-\item{axis_linewidth}{The linewidth of the axis. Defaults to 0.125.}
-
-\item{axis_pal}{The colour for the axis. Defaults to "#323232".}
-
-\item{ticks_linewidth}{The linewidth of the ticks. Defaults to that of the axis_linewidth argument.}
-
-\item{ticks_pal}{The colour for the ticks. Defaults to "#323232".}
-
 \item{background_pal_plot}{The colour for the plot background colour. Defaults to "#F1F3F5".}
 
 \item{background_pal_panel}{The colour for the panel background colour. Defaults to "#FEFEFE".}
 
 \item{background_pal_key}{The colour for the legend key. Defaults to the background_pal_plot.}
+
+\item{line_linewidth}{The linewidth of the axis. Defaults to 0.125.}
+
+\item{line_pal}{The colour for the axis. Defaults to "#323232".}
+
+\item{ticks_linewidth}{The linewidth of the ticks. Defaults to that of the line_linewidth argument.}
+
+\item{ticks_pal}{The colour for the ticks. Defaults to "#323232".}
 
 \item{grid_linewidth}{The linewidth of the vertical major gridlines. Defaults to 0.1.}
 
