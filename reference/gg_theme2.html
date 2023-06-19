@@ -82,13 +82,13 @@
 <span>  caption_hjust <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  caption_vjust <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  caption_margin <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="va">caption_size</span> <span class="op">*</span> <span class="fl">1.25</span><span class="op">)</span>,</span>
-<span>  axis_linewidth <span class="op">=</span> <span class="fl">0.125</span>,</span>
-<span>  axis_pal <span class="op">=</span> <span class="st">"#323232"</span>,</span>
-<span>  ticks_linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  ticks_pal <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  background_pal_plot <span class="op">=</span> <span class="st">"#F1F3F5"</span>,</span>
 <span>  background_pal_panel <span class="op">=</span> <span class="st">"#FEFEFE"</span>,</span>
 <span>  background_pal_key <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  line_linewidth <span class="op">=</span> <span class="fl">0.125</span>,</span>
+<span>  line_pal <span class="op">=</span> <span class="st">"#323232"</span>,</span>
+<span>  ticks_linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ticks_pal <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  grid_linewidth <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>  grid_pal <span class="op">=</span> <span class="st">"#D3D3D3"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -176,22 +176,6 @@
 <dd><p>The margin for the caption.</p></dd>
 
 
-<dt>axis_linewidth</dt>
-<dd><p>The linewidth of the axis. Defaults to 0.125.</p></dd>
-
-
-<dt>axis_pal</dt>
-<dd><p>The colour for the axis. Defaults to "#323232".</p></dd>
-
-
-<dt>ticks_linewidth</dt>
-<dd><p>The linewidth of the ticks. Defaults to that of the axis_linewidth argument.</p></dd>
-
-
-<dt>ticks_pal</dt>
-<dd><p>The colour for the ticks. Defaults to "#323232".</p></dd>
-
-
 <dt>background_pal_plot</dt>
 <dd><p>The colour for the plot background colour. Defaults to "#F1F3F5".</p></dd>
 
@@ -202,6 +186,22 @@
 
 <dt>background_pal_key</dt>
 <dd><p>The colour for the legend key. Defaults to the background_pal_plot.</p></dd>
+
+
+<dt>line_linewidth</dt>
+<dd><p>The linewidth of the axis. Defaults to 0.125.</p></dd>
+
+
+<dt>line_pal</dt>
+<dd><p>The colour for the axis. Defaults to "#323232".</p></dd>
+
+
+<dt>ticks_linewidth</dt>
+<dd><p>The linewidth of the ticks. Defaults to that of the line_linewidth argument.</p></dd>
+
+
+<dt>ticks_pal</dt>
+<dd><p>The colour for the ticks. Defaults to "#323232".</p></dd>
 
 
 <dt>grid_linewidth</dt>
