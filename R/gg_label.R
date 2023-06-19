@@ -68,9 +68,9 @@
 #' library(dplyr)
 #'
 #' bind_rows(
-#'   mtcars %>% slice_min(order_by = mpg),
-#'   mtcars %>% slice_max(order_by = mpg)
-#' ) %>%
+#'   mtcars |> slice_min(order_by = mpg),
+#'   mtcars |> slice_max(order_by = mpg)
+#'   ) |>
 #'   tibble::rownames_to_column(var = "model") %>%
 #'   gg_label(
 #'     x = model,
