@@ -56,7 +56,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.9000" id="ggblanket-209000">ggblanket 2.0.9000<a class="anchor" aria-label="anchor" href="#ggblanket-209000"></a></h2>
-<ul><li>Breaking: removed gg_function.</li>
+<ul><li>Breaking: renamed <code>_grid</code> arguments with <code>*_gridlines</code>.</li>
+<li>Breaking: renamed numerous theme arguments for intuition.</li>
+<li>Breaking: removed gg_function.</li>
 <li>Breaking: made col_rescale require a function (e.g. scales::rescale()).</li>
 <li>Improved gg_sf default alpha.</li>
 <li>Supported gg_sf to work with non-standard named geometry.</li>
@@ -69,10 +71,10 @@
 <li>Made the pal no longer inherit to subsequent layers where there is no col aesthetic.</li>
 <li>Made x and y scales work better, including with NA in the limits.</li>
 <li>Added 2 colours to the default palette.</li>
-<li>Breaking: changed default *oob agument to scales::oob_censor.</li>
-<li>Breaking: changed default coord agument to clip = “off”.</li>
-<li>Breaking: removed add_tooltip function.</li>
-<li>Breaking: changed pal functions to pal_blue, pal_grey, and pal_hue.</li>
+<li>Breaking: changed default <code>*oob</code> agument to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_censor</a></code>.</li>
+<li>Breaking: changed default <code>coord</code> agument to include <code>clip = "off"</code> argument.</li>
+<li>Breaking: removed <code>add_tooltip</code> function.</li>
+<li>Breaking: changed pal functions to <code>pal_blue</code>, <code>pal_grey</code>, and <code>pal_hue</code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.8.0" id="ggblanket-180">ggblanket 1.8.0<a class="anchor" aria-label="anchor" href="#ggblanket-180"></a></h2><p class="text-muted">CRAN release: 2023-04-24</p>
