@@ -3,80 +3,80 @@
 #' @description Quick theme for a ggplot visualisation.
 #' @param text_family The font family for all text to use. Defaults to "".
 #' @param text_size The size of all text other than the title, subtitle and caption. Defaults to 10.
-#' @param text_pal The colour for all text other than the title, subtitle or caption. Defaults to "#323232".
+#' @param text_pal The colour for all text other than the title, subtitle or caption. Defaults to "#d3d3d3".
 #' @param text_face The font style of all text other than the title, subtitle or caption. Defaults to "plain".
 #' @param title_size The size of the title text_family. Defaults to 11.
-#' @param title_pal The colour for the title text_family. Defaults to "#000000".
+#' @param title_pal The colour for the title text_family. Defaults to "#d3d3d3".
 #' @param title_face The font style of the title text_family. Defaults to "bold".
 #' @param title_position The horizontal alignment of the title (and subtitle) to either "plot" or "panel".
 #' @param title_hjust The horizontal adjustment for the title.
 #' @param title_vjust The vertical adjustment for the title.
 #' @param title_margin The margin for the title. A ggplot2::margin function.
 #' @param subtitle_size The size of the subtitle text_family. Defaults to 10.
-#' @param subtitle_pal The colour for the subtitle text_family. Defaults to "#323232".
+#' @param subtitle_pal The colour for the subtitle text_family. Defaults to "#a8a8a8".
 #' @param subtitle_face The font style of the subtitle text_family. Defaults to "plain".
 #' @param subtitle_hjust The horizontal adjustment for the subtitle.
 #' @param subtitle_vjust The vertical adjustment for the subtitle.
 #' @param subtitle_margin The margin for the title. A ggplot2::margin function.
 #' @param caption_size The size of the caption. Defaults to 9.
-#' @param caption_pal The colour for the caption. Defaults to "#88837D".
+#' @param caption_pal The colour for the caption. Defaults to "#777777".
 #' @param caption_face The font style of the caption. Defaults to "plain".
 #' @param caption_position The horizontal alignment of the caption to either "plot" or "panel".
 #' @param caption_hjust The horizontal adjustment for the caption.
 #' @param caption_vjust The vertical adjustment for the caption.
 #' @param caption_margin The margin for the caption. A ggplot2::margin function.
 #' @param line_linewidth The linewidth of the axis. Defaults to 0.125.
-#' @param line_pal The colour for the axis. Defaults to "#323232".
+#' @param line_pal The colour for the axis. Defaults to "#adadad".
 #' @param ticks_linewidth The linewidth of the ticks. Defaults to that of the line_linewidth argument.
 #' @param ticks_length The length of the ticks. A grid::unit function.
-#' @param ticks_pal The colour for the ticks. Defaults to "#323232".
-#' @param background_pal_plot The colour for the plot background colour. Defaults to "#F1F3F5".
-#' @param background_pal_panel The colour for the panel background colour. Defaults to "#FEFEFE".
-#' @param background_pal_key The colour for the legend key. Defaults to the background_pal_plot.
+#' @param ticks_pal The colour for the ticks. Defaults to the line_pal.
+#' @param background_pal_plot The colour for the plot background colour. Defaults to "#000000".
+#' @param background_pal_panel The colour for the panel background colour. Defaults to "#232323".
+#' @param background_pal_key The colour for the legend key. Defaults to the background_pal_panel.
 #' @param gridlines_linewidth The linewidth of the vertical major gridlines. Defaults to 0.1.
-#' @param gridlines_pal The colour for the vertical major gridlines. Defaults to "#D3D3D3".
+#' @param gridlines_pal The colour for the vertical major gridlines. Defaults to "#474747".
 #'
 #' @return A ggplot theme.
 #' @export
 #'
-gg_theme <- function(
+gg_theme_dark <- function(
     text_family = "",
     text_size = 10,
-    text_pal = "#323232",
+    text_pal = "#a8a8a8",
     text_face = "plain",
     title_size = text_size * 1.1,
-    title_pal = "#000000",
+    title_pal = "#d3d3d3",
     title_face = "bold",
     title_position = "plot",
     title_hjust = 0,
     title_vjust = 1,
     title_margin = ggplot2::margin(t = title_size * -0.5, b = title_size * 1.75),
     subtitle_size = text_size,
-    subtitle_pal = "#323232",
+    subtitle_pal = "#a8a8a8",
     subtitle_face = "plain",
     subtitle_hjust = 0,
     subtitle_vjust = 1,
     subtitle_margin = ggplot2::margin(t = subtitle_size * -1.5, b = subtitle_size * 1.75),
     caption_size = text_size * 0.9,
-    caption_pal = "#88837D",
+    caption_pal = "#777777",
     caption_face = "plain",
     caption_position = "plot",
     caption_hjust = 0,
     caption_vjust = 0,
     caption_margin = ggplot2::margin(t = caption_size * 1.25),
-    background_pal_plot = "#F1F3F5",
-    background_pal_panel = "#FEFEFE",
+    background_pal_plot = "#0a0a0a",
+    background_pal_panel = "#232323",
     background_pal_key = NULL,
     line_linewidth = 0.125,
-    line_pal = "#323232",
+    line_pal = "#adadad",
     ticks_pal = NULL,
     ticks_linewidth = NULL,
     ticks_length = grid::unit(0.1, "cm"),
     gridlines_linewidth = 0.1,
-    gridlines_pal = "#D3D3D3") {
+    gridlines_pal = "#474747") {
 
   if (is.null(ticks_pal)) ticks_pal <- line_pal
-  if (is.null(background_pal_key)) background_pal_key <- background_pal_plot
+  if (is.null(background_pal_key)) background_pal_key <- background_pal_panel
   if (is.null(ticks_linewidth)) ticks_linewidth <- line_linewidth
 
   theme <- ggplot2::theme(

@@ -2,19 +2,20 @@
 
 * Breaking: renamed `_grid` arguments with `*_gridlines`.
 * Breaking: renamed numerous theme arguments for intuition.
-* Breaking: removed gg_function.
-* Breaking: made col_rescale require a function (e.g. scales::rescale()).
-* Improved gg_sf default alpha.
-* Supported gg_sf to work with non-standard named geometry.
-* Adjusted gg_theme to work better with ggtext. 
-* Adjusted theme defaults (e.g. title positioning).
+* Breaking: removed `void` argument.
+* Breaking: removed `gg_function`.
+* Breaking: made `col_rescale` require a function (e.g. `scales::rescale()`).
+* Added new `gg_theme_void` and `gg_theme_dark` functions.
+* Improved `gg_sf` default `alpha`.
+* Supported `gg_sf` to work with non-standard named geometry.
+* Improved `gg_theme`.
 
 # ggblanket 2.0.0
 
 * Made ggblanket work better with adding layers.
-* Made the pal no longer inherit to subsequent layers where there is no col aesthetic.
+* Made the `pal` no longer inherit to layers where no `col` aesthetic.
 * Made x and y scales work better, including with NA in the limits.
-* Added 2 colours to the default palette.
+* Added 2 colours to `pal_hue`.
 * Breaking: changed default `*oob` agument to `scales::oob_censor`.
 * Breaking: changed default `coord` agument to include `clip = "off"` argument.
 * Breaking: removed `add_tooltip` function.
