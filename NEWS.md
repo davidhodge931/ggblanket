@@ -1,5 +1,7 @@
 # ggblanket 2.0.9000
 
+* Breaking: renamed `_grid` arguments with `*_gridlines`.
+* Breaking: renamed numerous theme arguments for intuition.
 * Breaking: removed gg_function.
 * Breaking: made col_rescale require a function (e.g. scales::rescale()).
 * Improved gg_sf default alpha.
@@ -13,10 +15,10 @@
 * Made the pal no longer inherit to subsequent layers where there is no col aesthetic.
 * Made x and y scales work better, including with NA in the limits.
 * Added 2 colours to the default palette.
-* Breaking: changed default *oob agument to scales::oob_censor.
-* Breaking: changed default coord agument to clip = "off".
-* Breaking: removed add_tooltip function.
-* Breaking: changed pal functions to pal_blue, pal_grey, and pal_hue.
+* Breaking: changed default `*oob` agument to `scales::oob_censor`.
+* Breaking: changed default `coord` agument to include `clip = "off"` argument.
+* Breaking: removed `add_tooltip` function.
+* Breaking: changed pal functions to `pal_blue`, `pal_grey`, and `pal_hue`.
 
 # ggblanket 1.8.0
 

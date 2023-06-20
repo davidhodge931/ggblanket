@@ -24,7 +24,7 @@ gg_text(
   subtitle = NULL,
   x_breaks = NULL,
   x_expand = NULL,
-  x_grid = NULL,
+  x_gridlines = NULL,
   x_include = NULL,
   x_labels = NULL,
   x_limits = NULL,
@@ -34,7 +34,7 @@ gg_text(
   x_trans = "identity",
   y_breaks = NULL,
   y_expand = NULL,
-  y_grid = NULL,
+  y_gridlines = NULL,
   y_include = NULL,
   y_labels = NULL,
   y_limits = NULL,
@@ -106,7 +106,7 @@ gg_text(
 
 \item{x_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
-\item{x_grid}{TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.}
+\item{x_gridlines}{TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.}
 
 \item{x_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
@@ -126,7 +126,7 @@ gg_text(
 
 \item{y_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
-\item{y_grid}{TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.}
+\item{y_gridlines}{TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.}
 
 \item{y_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 

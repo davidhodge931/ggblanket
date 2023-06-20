@@ -19,9 +19,9 @@ gg_sf(
   ...,
   title = NULL,
   subtitle = NULL,
-  x_grid = FALSE,
+  x_gridlines = FALSE,
   x_title = NULL,
-  y_grid = FALSE,
+  y_gridlines = FALSE,
   y_title = NULL,
   col_breaks = NULL,
   col_continuous = "gradient",
@@ -77,11 +77,11 @@ gg_sf(
 
 \item{subtitle}{Subtitle string.}
 
-\item{x_grid}{TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.}
+\item{x_gridlines}{TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.}
 
 \item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{y_grid}{TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.}
+\item{y_gridlines}{TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.}
 
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 

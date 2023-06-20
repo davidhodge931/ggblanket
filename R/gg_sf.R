@@ -15,9 +15,9 @@
 #' @param ... Other arguments passed to the ggplot2::geom_sf function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
-#' @param x_grid TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
+#' @param x_gridlines TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param y_grid TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
+#' @param y_gridlines TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param col_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
@@ -69,9 +69,9 @@ gg_sf <- function(
     ...,
     title = NULL,
     subtitle = NULL,
-    x_grid = FALSE,
+    x_gridlines = FALSE,
     x_title = NULL,
-    y_grid = FALSE,
+    y_gridlines = FALSE,
     y_title = NULL,
     col_breaks = NULL,
     col_continuous = "gradient",
@@ -1164,37 +1164,37 @@ gg_sf <- function(
 
   #remove gridlines not needed
   if (stat == "sf") {
-    if (rlang::is_null(x_grid)) x_grid <- FALSE
-    if (rlang::is_null(y_grid)) y_grid <- FALSE
+    if (rlang::is_null(x_gridlines)) x_gridlines <- FALSE
+    if (rlang::is_null(y_gridlines)) y_gridlines <- FALSE
   }
   # else if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) {
-  #   if (rlang::is_null(x_grid)) x_grid <- TRUE
-  #   if (rlang::is_null(y_grid)) y_grid <- FALSE
+  #   if (rlang::is_null(x_gridlines)) x_gridlines <- TRUE
+  #   if (rlang::is_null(y_gridlines)) y_gridlines <- FALSE
   # }
   # else if ((y_forcat) & (x_numeric | x_null)) {
-  #   if (rlang::is_null(x_grid)) x_grid <- TRUE
-  #   if (rlang::is_null(y_grid)) y_grid <- FALSE
+  #   if (rlang::is_null(x_gridlines)) x_gridlines <- TRUE
+  #   if (rlang::is_null(y_gridlines)) y_gridlines <- FALSE
   # }
   # else if ((y_forcat) & (x_forcat)) {
-  #   if (rlang::is_null(x_grid)) x_grid <- FALSE
-  #   if (rlang::is_null(y_grid)) y_grid <- FALSE
+  #   if (rlang::is_null(x_gridlines)) x_gridlines <- FALSE
+  #   if (rlang::is_null(y_gridlines)) y_gridlines <- FALSE
   # }
   # else {
-  #   if (rlang::is_null(x_grid)) x_grid <- FALSE
-  #   if (rlang::is_null(y_grid)) y_grid <- TRUE
+  #   if (rlang::is_null(x_gridlines)) x_gridlines <- FALSE
+  #   if (rlang::is_null(y_gridlines)) y_gridlines <- TRUE
   # }
 
-  if (!x_grid & !y_grid) {
+  if (!x_gridlines & !y_gridlines) {
     plot <- plot + #resolve sf bug https://github.com/tidyverse/ggplot2/issues/4730
       ggplot2::theme(panel.grid.major = ggplot2::element_blank())
   }
   else {
-    if (!x_grid) {
+    if (!x_gridlines) {
       plot <- plot +
         ggplot2::theme(panel.grid.major.x = ggplot2::element_blank()) +
         ggplot2::theme(panel.grid.minor.x = ggplot2::element_blank())
     }
-    if (!y_grid) {
+    if (!y_gridlines) {
       plot <- plot +
         ggplot2::theme(panel.grid.major.y = ggplot2::element_blank()) +
         ggplot2::theme(panel.grid.minor.y = ggplot2::element_blank())

@@ -19,7 +19,7 @@
 #' @param subtitle Subtitle string.
 #' @param x_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
-#' @param x_grid TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
+#' @param x_gridlines TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
 #' @param x_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param x_limits A vector of length 2 to determine the limits of the axis.
@@ -29,7 +29,7 @@
 #' @param x_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param y_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
-#' @param y_grid TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
+#' @param y_gridlines TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
 #' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param y_limits A vector of length 2 to determine the limits of the axis.
@@ -97,7 +97,7 @@ gg_density <- function(
     subtitle = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_grid = NULL,
+    x_gridlines = NULL,
     x_include = NULL,
     x_labels = NULL,
     x_limits = NULL,
@@ -107,7 +107,7 @@ gg_density <- function(
     x_trans = "identity",
     y_breaks = NULL,
     y_expand = NULL,
-    y_grid = NULL,
+    y_gridlines = NULL,
     y_include = NULL,
     y_labels = NULL,
     y_limits = NULL,
@@ -1249,37 +1249,37 @@ gg_density <- function(
 
   #remove gridlines not needed
   if (stat == "sf") {
-    if (rlang::is_null(x_grid)) x_grid <- FALSE
-    if (rlang::is_null(y_grid)) y_grid <- FALSE
+    if (rlang::is_null(x_gridlines)) x_gridlines <- FALSE
+    if (rlang::is_null(y_gridlines)) y_gridlines <- FALSE
   }
   else if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) {
-    if (rlang::is_null(x_grid)) x_grid <- TRUE
-    if (rlang::is_null(y_grid)) y_grid <- FALSE
+    if (rlang::is_null(x_gridlines)) x_gridlines <- TRUE
+    if (rlang::is_null(y_gridlines)) y_gridlines <- FALSE
   }
   else if ((y_forcat) & (x_numeric | x_null)) {
-    if (rlang::is_null(x_grid)) x_grid <- TRUE
-    if (rlang::is_null(y_grid)) y_grid <- FALSE
+    if (rlang::is_null(x_gridlines)) x_gridlines <- TRUE
+    if (rlang::is_null(y_gridlines)) y_gridlines <- FALSE
   }
   else if ((y_forcat) & (x_forcat)) {
-    if (rlang::is_null(x_grid)) x_grid <- FALSE
-    if (rlang::is_null(y_grid)) y_grid <- FALSE
+    if (rlang::is_null(x_gridlines)) x_gridlines <- FALSE
+    if (rlang::is_null(y_gridlines)) y_gridlines <- FALSE
   }
   else {
-    if (rlang::is_null(x_grid)) x_grid <- FALSE
-    if (rlang::is_null(y_grid)) y_grid <- TRUE
+    if (rlang::is_null(x_gridlines)) x_gridlines <- FALSE
+    if (rlang::is_null(y_gridlines)) y_gridlines <- TRUE
   }
 
-  if (!x_grid & !y_grid) {
+  if (!x_gridlines & !y_gridlines) {
     plot <- plot + #resolve sf bug https://github.com/tidyverse/ggplot2/issues/4730
       ggplot2::theme(panel.grid.major = ggplot2::element_blank())
   }
   else {
-    if (!x_grid) {
+    if (!x_gridlines) {
       plot <- plot +
         ggplot2::theme(panel.grid.major.x = ggplot2::element_blank()) +
         ggplot2::theme(panel.grid.minor.x = ggplot2::element_blank())
     }
-    if (!y_grid) {
+    if (!y_gridlines) {
       plot <- plot +
         ggplot2::theme(panel.grid.major.y = ggplot2::element_blank()) +
         ggplot2::theme(panel.grid.minor.y = ggplot2::element_blank())
