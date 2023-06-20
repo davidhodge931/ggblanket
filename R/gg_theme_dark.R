@@ -71,7 +71,7 @@ gg_theme_dark <- function(
     line_pal = "#adadad",
     ticks_pal = NULL,
     ticks_linewidth = NULL,
-    ticks_length = grid::unit(0.1, "cm"),
+    ticks_length = grid::unit(text_size / 4, "pt"),
     gridlines_linewidth = 0.1,
     gridlines_pal = "#474747") {
 
