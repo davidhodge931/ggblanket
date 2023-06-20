@@ -63,7 +63,6 @@
 #' @param titles A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.
 #' @param caption Caption title string.
 #' @param theme A ggplot2 theme.
-#' @param void TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.
 #'
 #' @return A ggplot object.
 #' @export
@@ -145,8 +144,7 @@ gg_ribbon <- function(
     facet_layout = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case,
-    theme = gg_theme(),
-    void = NULL) {
+    theme = gg_theme()) {
 
   ##############################################################################
   #Unique code: part 1
@@ -266,11 +264,6 @@ gg_ribbon <- function(
           dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
       }
     }
-  }
-
-  if (rlang::is_null(void)) {
-    if (stat == "sf") void <- TRUE
-    else void <- FALSE
   }
 
   ##############################################################################
@@ -1328,31 +1321,27 @@ gg_ribbon <- function(
     }
   }
 
-  #remove gridlines not needed
-  if (stat == "sf") {
-    if (rlang::is_null(x_gridlines)) x_gridlines <- FALSE
-    if (rlang::is_null(y_gridlines)) y_gridlines <- FALSE
+  #remove gridlines as per x_gridlines and y_gridlines. Guess if NULL
+  if (rlang::is_null(x_gridlines)) {
+    if (stat == "sf") x_gridlines <- FALSE
+    else if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) x_gridlines <- TRUE
+    else if ((y_forcat) & (x_numeric | x_null)) x_gridlines <- TRUE
+    else if ((y_forcat) & (x_forcat)) x_gridlines <- FALSE
+    else x_gridlines <- FALSE
   }
-  else if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) {
-    if (rlang::is_null(x_gridlines)) x_gridlines <- TRUE
-    if (rlang::is_null(y_gridlines)) y_gridlines <- FALSE
-  }
-  else if ((y_forcat) & (x_numeric | x_null)) {
-    if (rlang::is_null(x_gridlines)) x_gridlines <- TRUE
-    if (rlang::is_null(y_gridlines)) y_gridlines <- FALSE
-  }
-  else if ((y_forcat) & (x_forcat)) {
-    if (rlang::is_null(x_gridlines)) x_gridlines <- FALSE
-    if (rlang::is_null(y_gridlines)) y_gridlines <- FALSE
-  }
-  else {
-    if (rlang::is_null(x_gridlines)) x_gridlines <- FALSE
-    if (rlang::is_null(y_gridlines)) y_gridlines <- TRUE
+
+  if (rlang::is_null(y_gridlines)) {
+    if (stat == "sf") y_gridlines <- FALSE
+    else if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) y_gridlines <- FALSE
+    else if ((y_forcat) & (x_numeric | x_null)) y_gridlines <- FALSE
+    else if ((y_forcat) & (x_forcat)) y_gridlines <- FALSE
+    else y_gridlines <- TRUE
   }
 
   if (!x_gridlines & !y_gridlines) {
-    plot <- plot + #resolve sf bug https://github.com/tidyverse/ggplot2/issues/4730
-      ggplot2::theme(panel.grid.major = ggplot2::element_blank())
+    plot <- plot + #resolve sf bug 4730
+      ggplot2::theme(panel.grid.major = ggplot2::element_blank()) +
+      ggplot2::theme(panel.grid.minor = ggplot2::element_blank())
   }
   else {
     if (!x_gridlines) {
@@ -1365,15 +1354,6 @@ gg_ribbon <- function(
         ggplot2::theme(panel.grid.major.y = ggplot2::element_blank()) +
         ggplot2::theme(panel.grid.minor.y = ggplot2::element_blank())
     }
-  }
-
-  if (void) {
-    plot <- plot +
-      ggplot2::theme(axis.text = ggplot2::element_blank()) +
-      ggplot2::theme(axis.line = ggplot2::element_blank()) +
-      ggplot2::theme(axis.ticks = ggplot2::element_blank()) +
-      ggplot2::theme(axis.title = ggplot2::element_blank()) +
-      ggplot2::theme(plot.margin = ggplot2::margin(t = 15, l = 20, b = 10, r = 20))
   }
 
   #return beautiful plot

@@ -63,8 +63,7 @@ gg_polygon(
   facet_layout = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
-  theme = gg_theme(),
-  void = NULL
+  theme = gg_theme()
 )
 }
 \arguments{
@@ -185,8 +184,6 @@ gg_polygon(
 \item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
 
 \item{theme}{A ggplot2 theme.}
-
-\item{void}{TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.}
 }
 \value{
 A ggplot object.

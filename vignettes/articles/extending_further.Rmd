@@ -299,7 +299,6 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
            y = y,
            col = L7_ETMs.tif,
            facet = band,
-           void = TRUE,
            col_title = "")
 ```
 
