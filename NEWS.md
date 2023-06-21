@@ -1,14 +1,13 @@
 # ggblanket 2.0.9000
 
+* Breaking: redesigned the themes, including their arguments. 
+* New theme functions: `gg_theme_light`, `gg_theme_dark` and `gg_theme_void`.
 * Breaking: renamed `_grid` arguments with `*_gridlines`.
-* Breaking: renamed numerous theme arguments for intuition.
 * Breaking: removed `void` argument.
 * Breaking: removed `gg_function`.
 * Breaking: made `col_rescale` require a function (e.g. `scales::rescale()`).
-* Added new `gg_theme_void` and `gg_theme_dark` functions.
 * Improved `gg_sf` default `alpha`.
 * Supported `gg_sf` to work with non-standard named geometry.
-* Improved `gg_theme`.
 
 # ggblanket 2.0.0
 

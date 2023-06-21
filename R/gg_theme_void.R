@@ -26,7 +26,7 @@
 #' @param other_text_size The size of all text other than the title, subtitle and caption. Defaults to the text_size.
 #' @param other_text_pal The colour of all text other than the title, subtitle or caption. Defaults to "#121b24".
 #' @param other_text_face The font face of all text other than the title, subtitle or caption. Defaults to "plain".
-#' @param background_pal_plot The colour of the plot background colour. Defaults to "#f3f6f9".
+#' @param background_pal_plot The colour of the plot background colour. Defaults to "#e6ecf2".
 #' @param background_pal_panel The colour of the panel background colour. Defaults to "#fcfdfe".
 #' @param background_pal_key The colour of the legend key. Defaults to the background_pal_panel.
 #' @param gridlines_linewidth The linewidth of the vertical major gridlines. Defaults to other_text_size / 100 (i.e. 0.1).
@@ -75,7 +75,7 @@ gg_theme_void <- function(
     other_text_size = text_size,
     other_text_pal = "#121b24",
     other_text_face = "plain",
-    background_pal_plot = "#f3f6f9",
+    background_pal_plot = "#e6ecf2",
     background_pal_panel = "#fcfdfe",
     background_pal_key = NULL,
     gridlines_linewidth = other_text_size / 100,

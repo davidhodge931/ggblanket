@@ -33,7 +33,7 @@ To simplify ggplot2 visualisation, ggblanket provides:
 6. Prefixed arguments to customise scales etc
 7. Default x/y/col titles converted with to sentence case
 8. A theme argument to customise the look and feel
-9. A gg_theme function to create a quick theme
+9. Three gg_theme_* functions to create a quick theme
 10. Pretty defaults for symmetry
 11. Access to other geom_* arguments via ...
 12. Spatial data visualisation
@@ -315,7 +315,7 @@ penguins |>
 
 ### 9. Three gg_theme functions to create a quick theme 
 
-Three theme functions are provided to allow users to quickly adjust the default ggblanket theme: `gg_theme_light`, `gg_theme_dark` and `gg_theme_void`. A key argument to adjust is the text_size. The themes also contain other arguments to change the title, subtitle, caption, other text, background colours, axis lines and ticks, and gridlines. 
+Three theme functions are provided to help users create a quick clean looking theme: `gg_theme_light` (the default), `gg_theme_dark` and `gg_theme_void`. A key argument to adjust is the text_size. The themes also contain numerous other arguments to change the title, subtitle, caption, other text, background colours, axis lines and ticks, and gridlines. 
 
 ```{r, fig.asp = 0.75}
 penguins |>

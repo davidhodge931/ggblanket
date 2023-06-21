@@ -44,16 +44,42 @@ install.packages("ggblanket")
 ``` r
 library(ggblanket)
 library(palmerpenguins)
+library(dplyr)
 
 penguins |>
+  tidyr::drop_na() |>
+  mutate(sex = stringr::str_to_sentence(sex)) |>
   gg_point(
     x = flipper_length_mm,
-    y = body_mass_g, 
-    col = species)
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020"
+  )
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" /> <br>
 <br>
+
+``` r
+penguins |>
+  tidyr::drop_na() |>
+  mutate(sex = stringr::str_to_sentence(sex)) |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020",
+    theme = gg_theme_dark()
+  )
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" />
 
 ``` r
 penguins |>
@@ -66,7 +92,7 @@ penguins |>
     col_labels = stringr::str_to_sentence)
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="75%" />
 
 ## Get started
 

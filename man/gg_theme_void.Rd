@@ -31,7 +31,7 @@ gg_theme_void(
   other_text_size = text_size,
   other_text_pal = "#121b24",
   other_text_face = "plain",
-  background_pal_plot = "#f3f6f9",
+  background_pal_plot = "#e6ecf2",
   background_pal_panel = "#fcfdfe",
   background_pal_key = NULL,
   gridlines_linewidth = other_text_size/100,
@@ -89,7 +89,7 @@ gg_theme_void(
 
 \item{other_text_face}{The font face of all text other than the title, subtitle or caption. Defaults to "plain".}
 
-\item{background_pal_plot}{The colour of the plot background colour. Defaults to "#f3f6f9".}
+\item{background_pal_plot}{The colour of the plot background colour. Defaults to "#e6ecf2".}
 
 \item{background_pal_panel}{The colour of the panel background colour. Defaults to "#fcfdfe".}
 

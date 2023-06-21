@@ -49,18 +49,42 @@ install.packages("ggblanket")
 ```
 ## Examples
 
-```{r}
+```{r, fig.asp = 0.75}
 library(ggblanket)
 library(palmerpenguins)
+library(dplyr)
 
 penguins |>
+  tidyr::drop_na() |>
+  mutate(sex = stringr::str_to_sentence(sex)) |>
   gg_point(
     x = flipper_length_mm,
-    y = body_mass_g, 
-    col = species)
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020"
+  )
 ```
 <br>
 <br>
+```{r, fig.asp = 0.75}
+penguins |>
+  tidyr::drop_na() |>
+  mutate(sex = stringr::str_to_sentence(sex)) |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020",
+    theme = gg_theme_dark()
+  )
+```
+
 ```{r}
 penguins |>
   tidyr::drop_na(sex) |> 

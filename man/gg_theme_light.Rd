@@ -31,7 +31,7 @@ gg_theme_light(
   other_text_size = text_size,
   other_text_pal = "#121b24",
   other_text_face = "plain",
-  background_pal_plot = "#f3f6f9",
+  background_pal_plot = "#e6ecf2",
   background_pal_panel = "#fcfdfe",
   background_pal_key = NULL,
   line_linewidth = other_text_size/80,

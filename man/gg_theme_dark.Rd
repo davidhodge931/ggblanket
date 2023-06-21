@@ -21,7 +21,7 @@ gg_theme_dark(
   subtitle_vjust = 1,
   subtitle_margin = ggplot2::margin(t = subtitle_size * -1.5, b = subtitle_size * 1.75),
   caption_size = other_text_size * 0.9,
-  caption_pal = scales::alpha("#d5dfea", 0.5),
+  caption_pal = scales::alpha("#d5dfea", 0.4),
   caption_face = "plain",
   caption_position = "plot",
   caption_hjust = 0,
@@ -75,7 +75,7 @@ gg_theme_dark(
 
 \item{caption_size}{The size of the caption. Defaults to text_size * 0.9.}
 
-\item{caption_pal}{The colour of the caption. Defaults to scales::alpha("#d5dfea", 0.5).}
+\item{caption_pal}{The colour of the caption. Defaults to scales::alpha("#d5dfea", 0.4).}
 
 \item{caption_face}{The font face of the caption. Defaults to "plain".}
 
