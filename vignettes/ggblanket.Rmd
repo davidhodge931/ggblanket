@@ -275,7 +275,7 @@ penguins |>
        caption = "Source: Gorman, 2020") 
 ```
 
-```{r}
+```{r, fig.asp=0.7}
 penguins |>
   gg_point(
       x = flipper_length_mm,
