@@ -182,7 +182,7 @@ penguins |>
 
 Prefixed arguments are available to customise scales, guides, titles and faceting etc. These are designed to work with the Rstudio auto-complete to help users remember and find the adjustment they need. Users should first determine whether they want to change something that relates to  x, y, col or facet. Then they should type this prefix and press the tab key to access the list of options from the Rstudio auto-complete. Then they can use the arrow keys, and press tab again to select what they want.
 
-```{r, echo = FALSE}
+```{r, echo = FALSE,   fig.width = 3, fig.asp = 2}
 knitr::include_graphics("screenshot_autotab_y.png", dpi = 300)
 ```
 
@@ -317,7 +317,7 @@ penguins |>
 
 Three theme functions are provided to help users create a quick clean looking theme: `gg_theme_light` (the default), `gg_theme_dark` and `gg_theme_void`. A key argument to adjust is the text_size. The themes also contain numerous other arguments to change the title, subtitle, caption, other text, background colours, axis lines and ticks, and gridlines. 
 
-```{r, fig.asp = 0.75}
+```{r, fig.asp = 0.7}
 penguins |>
   gg_point(
       x = flipper_length_mm,

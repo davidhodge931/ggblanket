@@ -84,12 +84,12 @@ penguins |>
 ``` r
 penguins |>
   tidyr::drop_na(sex) |> 
+  mutate(sex = stringr::str_to_sentence(sex)) |>
   gg_histogram(
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    pal = c("#2596be", "#fc7c24"),
-    col_labels = stringr::str_to_sentence)
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="75%" />
