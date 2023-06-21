@@ -78,7 +78,8 @@
 #'              y = y,
 #'              col = L7_ETMs.tif,
 #'              facet = band,
-#'              col_title = "")
+#'              col_title = "",
+#'              theme = gg_theme_void())
 #' }
 #'
 gg_raster <- function(
@@ -139,7 +140,7 @@ gg_raster <- function(
     facet_layout = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case,
-    theme = gg_theme()) {
+    theme = gg_theme_light()) {
 
   ##############################################################################
   #Unique code: part 1

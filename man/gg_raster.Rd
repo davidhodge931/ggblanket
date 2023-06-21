@@ -62,7 +62,7 @@ gg_raster(
   facet_layout = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
-  theme = gg_theme()
+  theme = gg_theme_light()
 )
 }
 \arguments{
@@ -204,7 +204,8 @@ if (requireNamespace("stars", quietly = TRUE)) {
              y = y,
              col = L7_ETMs.tif,
              facet = band,
-             col_title = "")
+             col_title = "",
+             theme = gg_theme_void())
 }
 
 }

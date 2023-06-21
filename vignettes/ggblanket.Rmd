@@ -275,7 +275,7 @@ penguins |>
        caption = "Source: Gorman, 2020") 
 ```
 
-```{r, fig.asp = 0.75}
+```{r}
 penguins |>
   gg_point(
       x = flipper_length_mm,
@@ -284,8 +284,7 @@ penguins |>
       facet = species,
       title = "Penguins body mass by flipper length",
       subtitle = "Palmer Archipelago, Antarctica",
-      caption = "Source: Gorman, 2020", 
-      theme = gg_theme(caption_hjust = 1))
+      caption = "Source: Gorman, 2020")
 ```
 
 ### 8. A theme argument to customise the look and feel
@@ -314,25 +313,21 @@ penguins |>
   theme_grey()
 ```
 
-### 9. A gg_theme function to create a quick theme 
+### 9. Three gg_theme functions to create a quick theme 
 
-A `gg_theme` function is provided to allow users to quickly adjust the default ggblanket theme by changing text, background colours, axis lines, ticks and gridlines etc.
+Three theme functions are provided to allow users to quickly adjust the default ggblanket theme: `gg_theme_light`, `gg_theme_dark` and `gg_theme_void`. A key argument to adjust is the text_size. The themes also contain other arguments to change the title, subtitle, caption, other text, background colours, axis lines and ticks, and gridlines. 
 
-```{r}
-custom_theme <- gg_theme(
-  text_size = 9,
-  background_pal_plot = "#000000",
-  background_pal_panel = "#232323",
-  gridlines_pal = "#000000",
-  text_pal = "#d3d3d3"
-)
-
+```{r, fig.asp = 0.75}
 penguins |>
   gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g, 
-    col = species, 
-    theme = custom_theme) 
+      x = flipper_length_mm,
+      y = body_mass_g, 
+      col = sex,
+      facet = species,
+      title = "Penguins body mass by flipper length",
+      subtitle = "Palmer Archipelago, Antarctica",
+      caption = "Source: Gorman, 2020", 
+      theme = gg_theme_dark())
 ```
 
 ### 10. Pretty defaults for symmetry

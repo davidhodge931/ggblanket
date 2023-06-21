@@ -134,7 +134,7 @@ gg_point <- function(
     facet_layout = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case,
-    theme = gg_theme()) {
+    theme = gg_theme_light()) {
 
   ##############################################################################
   #Unique code: part 1

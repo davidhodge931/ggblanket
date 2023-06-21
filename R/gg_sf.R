@@ -93,7 +93,7 @@ gg_sf <- function(
     facet_layout = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case,
-    theme = gg_theme()) {
+    theme = gg_theme_void()) {
 
   ##############################################################################
   #Unique code: part 1
@@ -872,9 +872,9 @@ gg_sf <- function(
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
 
       # if (y_numeric | y_date | y_datetime | y_time) {
-        if (col_forcat) col_legend_rev_auto <- FALSE
-        else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- FALSE
-        else col_legend_rev_auto <- TRUE
+      if (col_forcat) col_legend_rev_auto <- FALSE
+      else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- FALSE
+      else col_legend_rev_auto <- TRUE
       # }
       # else if (y_forcat) {
       #   if (col_forcat) col_legend_rev_auto <- TRUE
@@ -1104,9 +1104,9 @@ gg_sf <- function(
         col_legend_place <- "bottom"
       }
       else if (#(identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) |
-               #(identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
-               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+        #(identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
+        (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+        (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
         col_legend_place <- "none"
       }
       else if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"

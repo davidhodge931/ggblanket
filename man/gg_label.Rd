@@ -63,7 +63,7 @@ gg_label(
   facet_layout = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
-  theme = gg_theme()
+  theme = gg_theme_light()
 )
 }
 \arguments{
