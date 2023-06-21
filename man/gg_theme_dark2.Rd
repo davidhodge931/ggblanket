@@ -13,7 +13,7 @@ gg_theme_dark2(
   title_position = "plot",
   title_hjust = 0,
   title_vjust = 1,
-  title_margin = ggplot2::margin(t = title_size * -0.5, b = title_size * 1.75),
+  title_margin = ggplot2::margin(((title_size^0.5) * -0.5) - 3.85, b = title_size * 1.75),
   subtitle_size = other_text_size,
   subtitle_pal = "#a8a8a8",
   subtitle_face = "plain",
@@ -33,12 +33,12 @@ gg_theme_dark2(
   background_pal_plot = "#0a0a0a",
   background_pal_panel = "#232323",
   background_pal_key = NULL,
-  line_linewidth = 0.125,
+  line_linewidth = other_text_size/80,
   line_pal = "#adadad",
   ticks_pal = NULL,
   ticks_linewidth = NULL,
   ticks_length = grid::unit(other_text_size/4, "pt"),
-  gridlines_linewidth = 0.1,
+  gridlines_linewidth = other_text_size/100,
   gridlines_pal = "#474747"
 )
 }
@@ -99,7 +99,7 @@ gg_theme_dark2(
 
 \item{background_pal_key}{The colour of the legend key. Defaults to the background_pal_panel.}
 
-\item{line_linewidth}{The linewidth of the axis line. Defaults to 0.125.}
+\item{line_linewidth}{The linewidth of the axis line. Defaults to the other_text_size / 80 (i.e. 0.125).}
 
 \item{line_pal}{The colour of the axis line. Defaults to "#adadad".}
 
@@ -109,7 +109,7 @@ gg_theme_dark2(
 
 \item{ticks_length}{The length of the ticks. A grid::unit function.}
 
-\item{gridlines_linewidth}{The linewidth of the vertical major gridlines. Defaults to 0.1.}
+\item{gridlines_linewidth}{The linewidth of the vertical major gridlines. Defaults to other_text_size / 100 (i.e. 0.1).}
 
 \item{gridlines_pal}{The colour of the vertical major gridlines. Defaults to "#474747".}
 }

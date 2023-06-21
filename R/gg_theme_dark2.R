@@ -29,12 +29,12 @@
 #' @param background_pal_plot The colour of the plot background colour. Defaults to "#000000".
 #' @param background_pal_panel The colour of the panel background colour. Defaults to "#232323".
 #' @param background_pal_key The colour of the legend key. Defaults to the background_pal_panel.
-#' @param line_linewidth The linewidth of the axis line. Defaults to 0.125.
+#' @param line_linewidth The linewidth of the axis line. Defaults to the other_text_size / 80 (i.e. 0.125).
 #' @param line_pal The colour of the axis line. Defaults to "#adadad".
 #' @param ticks_linewidth The linewidth of the axis ticks. Defaults to the line_linewidth.
 #' @param ticks_length The length of the ticks. A grid::unit function.
 #' @param ticks_pal The colour of the ticks. Defaults to the line_pal.
-#' @param gridlines_linewidth The linewidth of the vertical major gridlines. Defaults to 0.1.
+#' @param gridlines_linewidth The linewidth of the vertical major gridlines. Defaults to other_text_size / 100 (i.e. 0.1).
 #' @param gridlines_pal The colour of the vertical major gridlines. Defaults to "#474747".
 #'
 #' @return A ggplot theme.
@@ -49,7 +49,7 @@ gg_theme_dark2 <- function(
     title_position = "plot",
     title_hjust = 0,
     title_vjust = 1,
-    title_margin = ggplot2::margin(t = title_size * -0.5, b = title_size * 1.75),
+    title_margin = ggplot2::margin(((title_size ^ 0.5) * -0.5) - 3.85, b = title_size * 1.75),
     subtitle_size = other_text_size,
     subtitle_pal = "#a8a8a8",
     subtitle_face = "plain",
@@ -69,12 +69,12 @@ gg_theme_dark2 <- function(
     background_pal_plot = "#0a0a0a",
     background_pal_panel = "#232323",
     background_pal_key = NULL,
-    line_linewidth = 0.125,
+    line_linewidth = other_text_size / 80,
     line_pal = "#adadad",
     ticks_pal = NULL,
     ticks_linewidth = NULL,
     ticks_length = grid::unit(other_text_size / 4, "pt"),
-    gridlines_linewidth = 0.1,
+    gridlines_linewidth = other_text_size / 100,
     gridlines_pal = "#474747") {
 
   if (is.null(ticks_pal)) ticks_pal <- line_pal
