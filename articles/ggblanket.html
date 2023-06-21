@@ -106,7 +106,7 @@ Hodge</h4>
 <li>Prefixed arguments to customise scales etc</li>
 <li>Default x/y/col titles converted with to sentence case</li>
 <li>A theme argument to customise the look and feel</li>
-<li>A gg_theme function to create a quick theme</li>
+<li>Three gg_theme_* functions to create a quick theme</li>
 <li>Pretty defaults for symmetry</li>
 <li>Access to other geom_* arguments via …</li>
 <li>Spatial data visualisation</li>
@@ -405,12 +405,12 @@ they can <code>+</code> their theme as a layer instead.</p>
 <div class="section level3">
 <h3 id="three-gg_theme-functions-to-create-a-quick-theme">9. Three gg_theme functions to create a quick theme<a class="anchor" aria-label="anchor" href="#three-gg_theme-functions-to-create-a-quick-theme"></a>
 </h3>
-<p>Three theme functions are provided to allow users to quickly adjust
-the default ggblanket theme: <code>gg_theme_light</code>,
+<p>Three theme functions are provided to help users create a quick clean
+looking theme: <code>gg_theme_light</code> (the default),
 <code>gg_theme_dark</code> and <code>gg_theme_void</code>. A key
-argument to adjust is the text_size. The themes also contain other
-arguments to change the title, subtitle, caption, other text, background
-colours, axis lines and ticks, and gridlines.</p>
+argument to adjust is the text_size. The themes also contain numerous
+other arguments to change the title, subtitle, caption, other text,
+background colours, axis lines and ticks, and gridlines.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
