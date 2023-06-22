@@ -407,10 +407,11 @@ they can <code>+</code> their theme as a layer instead.</p>
 </h3>
 <p>Three theme functions are provided to help users create a quick clean
 looking theme: <code>gg_theme_light</code> (the default),
-<code>gg_theme_dark</code> and <code>gg_theme_void</code>. A key
-argument to adjust is the text_size. The themes also contain numerous
-other arguments to change the title, subtitle, caption, other text,
-background colours, axis lines and ticks, and gridlines.</p>
+<code>gg_theme_dark</code> and <code>gg_theme_void</code>.</p>
+<p>Element prefixes to modify are: <code>text_*</code>,
+<code>title_*</code>, <code>subtitle_*</code>, <code>caption_*</code>,
+<code>background_pal_*</code>, <code>line_*</code> (i.e. the axis line),
+<code>ticks_*</code>, and <code>gridlines_*</code>.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
