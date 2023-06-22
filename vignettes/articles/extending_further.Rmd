@@ -30,7 +30,8 @@ To extend ggblanket further, users can:
 6. Modifying a part of the colouring 
 7. Create custom wrapper functions
 8. Visualise spatial data
-9. Work with extension packages 
+9. Use different fonts
+10. Work with extension packages 
 
 * patchwork
 * ggtext
@@ -303,7 +304,33 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
            theme = gg_theme_void())
 ```
 
-### 9. Work with extension packages
+### 9. Use different fonts
+
+The showtext and sysfonts packages support the use of different fonts from google. The `gg_theme_*` functions provide `text_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
+
+```{r, fig.asp = 0.75, fig.showtext = TRUE}
+sysfonts::font_add_google("Covered By Your Grace", "grace")
+showtext::showtext_begin()
+
+p <- penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020",
+    theme = gg_theme_light(text_family = "grace",
+                           text_size = 12))
+
+showtext::showtext_end()
+
+p
+```
+
+
+### 10. Work with extension packages
 
 ggblanket can work with numerous extension packages. 
 

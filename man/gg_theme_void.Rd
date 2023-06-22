@@ -34,7 +34,7 @@ gg_theme_void(
   caption_margin = ggplot2::margin(t = caption_size * 1.25),
   background_pal_plot = "#e6ecf2",
   background_pal_panel = "#fcfdfe",
-  background_pal_key = NULL,
+  background_pal_key = background_pal_plot,
   gridlines_linewidth = text_size/150,
   gridlines_pal = "#95b8dc"
 )

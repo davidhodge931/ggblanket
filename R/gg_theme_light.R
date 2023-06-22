@@ -84,18 +84,14 @@ gg_theme_light <- function(
     caption_margin = ggplot2::margin(t = caption_size * 1.25),
     background_pal_plot = "#e6ecf2",
     background_pal_panel = "#fcfdfe",
-    background_pal_key = NULL,
+    background_pal_key = background_pal_plot,
     line_linewidth = text_size / 80,
     line_pal = "#121b24",
-    ticks_pal = NULL,
-    ticks_linewidth = NULL,
+    ticks_pal = line_pal,
+    ticks_linewidth = line_linewidth,
     ticks_length = grid::unit(text_size / 4, "pt"),
     gridlines_linewidth = text_size / 150,
     gridlines_pal = "#95b8dc") {
-
-  if (is.null(ticks_pal)) ticks_pal <- line_pal
-  if (is.null(background_pal_key)) background_pal_key <- background_pal_plot
-  if (is.null(ticks_linewidth)) ticks_linewidth <- line_linewidth
 
   theme <- ggplot2::theme(
 
@@ -124,7 +120,7 @@ gg_theme_light <- function(
     axis.ticks = ggplot2::element_line(colour = ticks_pal, linewidth = ticks_linewidth),
     axis.ticks.length = ticks_length,
     plot.background = ggplot2::element_rect(colour = background_pal_plot, fill = background_pal_plot),
-    plot.margin = ggplot2::margin(t = 15, r = 20, b = 10, l = 10),
+    plot.margin = ggplot2::margin(t = 15, r = 20, b = 11, l = 10),
     panel.background = ggplot2::element_rect(colour = background_pal_panel, fill = background_pal_panel),
     panel.border = ggplot2::element_blank(),
     panel.grid.major = ggplot2::element_line(colour = gridlines_pal, linewidth = gridlines_linewidth),

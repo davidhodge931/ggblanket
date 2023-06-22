@@ -79,11 +79,9 @@ gg_theme_void <- function(
     caption_margin = ggplot2::margin(t = caption_size * 1.25),
     background_pal_plot = "#e6ecf2",
     background_pal_panel = "#fcfdfe",
-    background_pal_key = NULL,
+    background_pal_key = background_pal_plot,
     gridlines_linewidth = text_size / 150,
     gridlines_pal = "#95b8dc") {
-
-  if (is.null(background_pal_key)) background_pal_key <- background_pal_plot
 
   theme <- ggplot2::theme(
 
@@ -106,7 +104,7 @@ gg_theme_void <- function(
     axis.line = ggplot2::element_blank(),
     axis.ticks = ggplot2::element_blank(),
     plot.background = ggplot2::element_rect(colour = background_pal_plot, fill = background_pal_plot),
-    plot.margin = ggplot2::margin(t = 15, r = 20, b = 10, l = 20),
+    plot.margin = ggplot2::margin(t = 15, r = 23, b = 11, l = 20),
     panel.background = ggplot2::element_rect(colour = background_pal_panel, fill = background_pal_panel),
     panel.border = ggplot2::element_blank(),
     panel.grid.major = ggplot2::element_line(colour = gridlines_pal, linewidth = gridlines_linewidth),

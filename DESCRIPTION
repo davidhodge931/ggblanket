@@ -56,5 +56,7 @@ Config/Needs/website:
     plotly,
     ggiraph,
     glue,
-    sf
+    sf,
+    showtext,
+    sysfonts
 VignetteBuilder: knitr

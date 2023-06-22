@@ -319,17 +319,31 @@ Three theme functions are provided to help users create a quick clean looking th
 
 Element prefixes to modify are: `text_*`, `title_*`, `subtitle_*`, `caption_*`, `background_pal_*`, `line_*` (i.e. the axis line), `ticks_*`, and `gridlines_*`.
 
-```{r, fig.asp = 0.7}
+If you wish to use these theme functions outside of a ggblanket visualisation function, remember to remove the appropriate gridlines with `theme(panel.grid.major.y = element_blank())`. 
+
+```{r, fig.asp=0.7}
 penguins |>
   gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g, 
-      col = sex,
-      facet = species,
-      title = "Penguins body mass by flipper length",
-      subtitle = "Palmer Archipelago, Antarctica",
-      caption = "Source: Gorman, 2020", 
-      theme = gg_theme_dark())
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020",
+    theme = gg_theme_dark(text_size = 10))
+```
+
+```{r}
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020",
+    theme = gg_theme_void(text_size = 10))
 ```
 
 ### 10. Pretty defaults for symmetry
@@ -507,6 +521,7 @@ To extend ggblanket further, users can:
 * Modifying a part of the colouring 
 * Create custom wrapper functions
 * Visualise spatial data
+* Use different fonts
 * Work with extension packages 
 
 See the [Extending further](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) article for further information.
