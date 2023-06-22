@@ -1,12 +1,12 @@
-#' @title Dark theme for a ggplot
+#' @title Light theme for a ggplot
 #'
-#' @description Dark theme for a ggplot visualisation. Element prefixes to modify are: text_, title_, subtitle_, caption_, background_pal_, line_ (i.e. the axis line), ticks_, and gridlines_.
+#' @description Light theme for a ggplot visualisation. Element prefixes to modify are: text_, title_, subtitle_, caption_, background_pal_, line_ (i.e. the axis line), ticks_, and gridlines_.
 #' @param text_size The base size of the text. Defaults to 10.
 #' @param text_family The base font family of the text. Defaults to "".
-#' @param text_pal The base colour of the text. Defaults to "#bbccdd".
+#' @param text_pal The base colour of the text. Defaults to "#121b24".
 #' @param title_size The size of the title. Defaults to text_size * 1.1.
 #' @param title_family The font family of the title. Defaults to the text_family.
-#' @param title_pal The colour of the title. Defaults to 0.08 lighter than the text_pal.
+#' @param title_pal The colour of the title. Defaults to 0.08 darker than the text_pal.
 #' @param title_face The font face of the title. Defaults to "bold".
 #' @param title_position The horizontal alignment of the title (and subtitle) to either "plot" or "panel".
 #' @param title_hjust The horizontal adjustment of the title.
@@ -21,22 +21,22 @@
 #' @param subtitle_margin The margin of the subtitle. A ggplot2::margin function.
 #' @param caption_size The size of the caption. Defaults to text_size * 0.9.
 #' @param caption_family The font family of the caption. Defaults to the text_family.
-#' @param caption_pal The colour of the caption. Defaults to the text_pal with an alpha of 0.4.
+#' @param caption_pal The colour of the caption. Defaults to the text_pal with an alpha of 0.45.
 #' @param caption_face The font face of the caption. Defaults to "plain".
 #' @param caption_position The horizontal alignment of the caption to either "plot" or "panel".
 #' @param caption_hjust The horizontal adjustment of the caption.
 #' @param caption_vjust The vertical adjustment of the caption.
 #' @param caption_margin The margin of the caption. A ggplot2::margin function.
-#' @param background_pal_plot The colour of the plot background colour. Defaults to "#121b24".
-#' @param background_pal_panel The colour of the panel background colour. Defaults to "#1f2f3e".
-#' @param background_pal_key The colour of the legend key. Defaults to the background_pal_panel.
+#' @param background_pal_plot The colour of the plot background colour. Defaults to "#f3f6f9".
+#' @param background_pal_panel The colour of the panel background colour. Defaults to "#fcfdfe".
+#' @param background_pal_key The colour of the legend key. Defaults to the background_pal_plot.
 #' @param line_linewidth The linewidth of the axis line. Defaults to the text_size / 80 (i.e. 0.125).
-#' @param line_pal The colour of the axis line. Defaults to "#bbccdd".
+#' @param line_pal The colour of the axis line. Defaults to "#121b24".
 #' @param ticks_linewidth The linewidth of the axis ticks. Defaults to the line_linewidth.
 #' @param ticks_length The length of the ticks. A grid::unit function.
 #' @param ticks_pal The colour of the ticks. Defaults to the line_pal.
 #' @param gridlines_linewidth The linewidth of the vertical major gridlines. Defaults to text_size / 150.
-#' @param gridlines_pal The colour of the vertical major gridlines. Defaults to "#334d65".
+#' @param gridlines_pal The colour of the vertical major gridlines. Defaults to "#95b8dc".
 #'
 #' @return A ggplot theme.
 #' @export
@@ -52,16 +52,16 @@
 #'     title = "Penguins body mass by flipper length",
 #'     subtitle = "Palmer Archipelago, Antarctica",
 #'     caption = "Source: Gorman, 2020",
-#'     theme = gg_theme_dark()
+#'     theme = gg_theme_light()
 #'   )
 #'
-gg_theme_dark <- function(
+gg_theme_light <- function(
     text_size = 10,
     text_family = "",
-    text_pal = "#bbccdd",
+    text_pal = "#121b24",
     title_size = text_size * 1.1,
     title_family = text_family,
-    title_pal = colorspace::lighten(text_pal, 0.08, method = "absolute"),
+    title_pal = colorspace::darken(text_pal, 0.08, method = "absolute"),
     title_face = "bold",
     title_position = "plot",
     title_hjust = 0,
@@ -76,25 +76,25 @@ gg_theme_dark <- function(
     subtitle_margin = ggplot2::margin(t = subtitle_size * -1.5, b = subtitle_size * 1.75),
     caption_size = text_size * 0.9,
     caption_family = text_family,
-    caption_pal = scales::alpha(text_pal, 0.4),
+    caption_pal = scales::alpha(text_pal, 0.45),
     caption_face = "plain",
     caption_position = "plot",
     caption_hjust = 0,
     caption_vjust = 0,
     caption_margin = ggplot2::margin(t = caption_size * 1.25),
-    background_pal_plot = "#121b24",
-    background_pal_panel = "#1f2f3e",
+    background_pal_plot = "#e6ecf2",
+    background_pal_panel = "#fcfdfe",
     background_pal_key = NULL,
     line_linewidth = text_size / 80,
-    line_pal = "#bbccdd",
+    line_pal = "#121b24",
     ticks_pal = NULL,
     ticks_linewidth = NULL,
     ticks_length = grid::unit(text_size / 4, "pt"),
     gridlines_linewidth = text_size / 150,
-    gridlines_pal = "#334d65") {
+    gridlines_pal = "#95b8dc") {
 
   if (is.null(ticks_pal)) ticks_pal <- line_pal
-  if (is.null(background_pal_key)) background_pal_key <- background_pal_panel
+  if (is.null(background_pal_key)) background_pal_key <- background_pal_plot
   if (is.null(ticks_linewidth)) ticks_linewidth <- line_linewidth
 
   theme <- ggplot2::theme(

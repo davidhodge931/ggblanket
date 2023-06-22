@@ -2,7 +2,7 @@
 
 * Breaking: redesigned the themes, including their arguments. 
 * New theme functions: `gg_theme_light`, `gg_theme_dark` and `gg_theme_void`.
-* Breaking: renamed `_grid` arguments with `*_gridlines`.
+* Breaking: renamed `*_grid` arguments to `*_gridlines`.
 * Breaking: removed `void` argument.
 * Breaking: removed `gg_function`.
 * Breaking: made `col_rescale` require a function (e.g. `scales::rescale()`).
