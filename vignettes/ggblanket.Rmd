@@ -302,7 +302,7 @@ penguins |>
     theme = theme_grey())
 ```
 
-```{r}
+```{r, fig.asp=0.6}
 penguins |>
   gg_point(
     x = flipper_length_mm,
@@ -319,8 +319,6 @@ Three theme functions are provided to help users create a quick clean looking th
 
 Element prefixes to modify are: `text_*`, `title_*`, `subtitle_*`, `caption_*`, `background_pal_*`, `line_*` (i.e. the axis line), `ticks_*`, and `gridlines_*`.
 
-If you wish to use these theme functions outside of a ggblanket visualisation function, remember to remove the appropriate gridlines with `theme(panel.grid.major.y = element_blank())`. 
-
 ```{r, fig.asp=0.7}
 penguins |>
   gg_point(
@@ -331,7 +329,7 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    theme = gg_theme_dark(text_size = 10))
+    theme = gg_theme_dark())
 ```
 
 ```{r}
@@ -343,7 +341,21 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    theme = gg_theme_void(text_size = 10))
+    theme = gg_theme_void())
+```
+
+You can use these themes outside of ggblanket functions. 
+
+```{r, fig.asp=0.6}
+faithfuld |>
+  ggplot() +
+  geom_contour(aes(
+    x = waiting,
+    y = eruptions,
+    z = density
+  ), col = pal_blue) +
+  gg_theme_light(text_size = 10) +
+  theme(panel.grid.major.x = element_blank()) 
 ```
 
 ### 10. Pretty defaults for symmetry

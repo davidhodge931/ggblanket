@@ -42,6 +42,7 @@ To extend ggblanket further, users can:
 * ggdensity
 * ggridges
 * ggdist
+* ggeasy
 * plotly::ggplotly
 * ggiraph
 * gganimate
@@ -563,6 +564,19 @@ d |>
   ggdist::stat_lineribbon(aes(ydist = dist)) +
   scale_fill_brewer() +
   labs(fill = "Level")
+```
+
+### ggeasy
+
+The ggeasy package provides a lot of support for easy modifying themes. 
+
+```{r}
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex) +
+  ggeasy::easy_remove_axes("x") 
 ```
 
 #### plotly::ggplotly
