@@ -315,7 +315,9 @@ penguins |>
 
 ### 9. Three gg_theme functions to create a quick theme 
 
-Three theme functions are provided to help users create a quick clean looking theme: `gg_theme_light` (the default), `gg_theme_dark` and `gg_theme_void`. A key argument to adjust is the text_size. The themes also contain numerous other arguments to change the title, subtitle, caption, other text, background colours, axis lines and ticks, and gridlines. 
+Three theme functions are provided to help users create a quick clean looking theme: `gg_theme_light` (the default), `gg_theme_dark` and `gg_theme_void`. 
+
+Element prefixes to modify are: `text_*`, `title_*`, `subtitle_*`, `caption_*`, `background_pal_*`, `line_*` (i.e. the axis line), `ticks_*`, and `gridlines_*`.
 
 ```{r, fig.asp = 0.7}
 penguins |>

@@ -61,7 +61,6 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    facet = species,
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020"
