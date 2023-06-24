@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.8.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +51,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Point ggplot</h1>
-      <small class="dont-index">Source: <a href="https://github.com/davidhodge931/ggblanket/blob/HEAD/R/DEV.R" class="external-link"><code>R/DEV.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/davidhodge931/ggblanket/blob/HEAD/R/gg_point2.R" class="external-link"><code>R/gg_point2.R</code></a></small>
       <div class="d-none name"><code>gg_point2.Rd</code></div>
     </div>
 
@@ -73,14 +73,14 @@
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  coord <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span>,</span>
 <span>  pal <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  pal_na <span class="op">=</span> <span class="st">"#88837D"</span>,</span>
+<span>  pal_na <span class="op">=</span> <span class="va">pal_grey</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  x_grid <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  x_gridlines <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_include <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -90,7 +90,7 @@
 <span>  x_trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  y_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  y_grid <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  y_gridlines <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_include <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -108,7 +108,7 @@
 <span>  col_legend_rev <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  col_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_censor</a></span>,</span>
-<span>  col_rescale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col_rescale <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  col_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  facet_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -119,8 +119,7 @@
 <span>  facet_layout <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  caption <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  titles <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span>,</span>
-<span>  theme <span class="op">=</span> <span class="fu"><a href="gg_theme.html">gg_theme</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  void <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  theme <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -198,7 +197,7 @@
 <dd><p>Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).</p></dd>
 
 
-<dt>x_grid</dt>
+<dt>x_gridlines</dt>
 <dd><p>TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.</p></dd>
 
 
@@ -238,7 +237,7 @@
 <dd><p>Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).</p></dd>
 
 
-<dt>y_grid</dt>
+<dt>y_gridlines</dt>
 <dd><p>TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.</p></dd>
 
 
@@ -311,7 +310,7 @@
 
 
 <dt>col_rescale</dt>
-<dd><p>For a continuous col variable, a vector to rescale the pal non-linearly.</p></dd>
+<dd><p>For a continuous col variable, a scales::rescale function.</p></dd>
 
 
 <dt>col_title</dt>
@@ -357,10 +356,6 @@
 <dt>theme</dt>
 <dd><p>A ggplot2 theme.</p></dd>
 
-
-<dt>void</dt>
-<dd><p>TRUE or FALSE of whether to remove axis lines, ticks and x and y titles and labels.</p></dd>
-
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -387,7 +382,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">y</span> is already present.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 2 rows containing missing values (`geom_point()`).</span>
-<span class="r-plt img"><img src="gg_point2-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="gg_point2-1.svg" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
