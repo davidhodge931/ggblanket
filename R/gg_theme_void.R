@@ -21,7 +21,7 @@
 #' @param subtitle_margin The margin of the subtitle. A ggplot2::margin function.
 #' @param caption_size The size of the caption. Defaults to text_size * 0.9.
 #' @param caption_family The font family of the caption. Defaults to the text_family.
-#' @param caption_pal The colour of the caption. Defaults to the text_pal with an alpha of 0.45.
+#' @param caption_pal The colour of the caption. Defaults to the text_pal with an alpha of 0.5.
 #' @param caption_face The font face of the caption. Defaults to "plain".
 #' @param caption_position The horizontal alignment of the caption to either "plot" or "panel".
 #' @param caption_hjust The horizontal adjustment of the caption.
@@ -71,7 +71,7 @@ gg_theme_void <- function(
     subtitle_margin = ggplot2::margin(t = subtitle_size * -1.5, b = subtitle_size * 1.75),
     caption_size = text_size * 0.9,
     caption_family = text_family,
-    caption_pal = scales::alpha(text_pal, 0.45),
+    caption_pal = scales::alpha(text_pal, 0.5),
     caption_face = "plain",
     caption_position = "plot",
     caption_hjust = 0,

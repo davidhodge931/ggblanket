@@ -26,7 +26,7 @@ gg_theme_dark(
   subtitle_margin = ggplot2::margin(t = subtitle_size * -1.5, b = subtitle_size * 1.75),
   caption_size = text_size * 0.9,
   caption_family = text_family,
-  caption_pal = scales::alpha(text_pal, 0.33),
+  caption_pal = "#717C8A",
   caption_face = "plain",
   caption_position = "plot",
   caption_hjust = 0,
@@ -35,13 +35,13 @@ gg_theme_dark(
   background_pal_plot = "#121b24",
   background_pal_panel = "#1f2f3e",
   background_pal_key = background_pal_panel,
-  line_linewidth = text_size/80,
+  line_linewidth = text_size/33,
   line_pal = "#bbccdd",
   ticks_pal = line_pal,
   ticks_linewidth = line_linewidth,
-  ticks_length = grid::unit(text_size/4, "pt"),
-  gridlines_linewidth = text_size/150,
-  gridlines_pal = "#334d65"
+  ticks_length = grid::unit(text_size/3, "pt"),
+  gridlines_linewidth = text_size/100,
+  gridlines_pal = "#2C3A48"
 )
 }
 \arguments{
@@ -85,7 +85,7 @@ gg_theme_dark(
 
 \item{caption_family}{The font family of the caption. Defaults to the text_family.}
 
-\item{caption_pal}{The colour of the caption. Defaults to the text_pal with an alpha of 0.33.}
+\item{caption_pal}{The colour of the caption. Defaults to the text_pal with an alpha of 0.5.}
 
 \item{caption_face}{The font face of the caption. Defaults to "plain".}
 
@@ -103,7 +103,7 @@ gg_theme_dark(
 
 \item{background_pal_key}{The colour of the legend key. Defaults to the background_pal_panel.}
 
-\item{line_linewidth}{The linewidth of the axis line. Defaults to the text_size / 80 (i.e. 0.125).}
+\item{line_linewidth}{The linewidth of the axis line. Defaults to the text_size / 33.}
 
 \item{line_pal}{The colour of the axis line. Defaults to "#bbccdd".}
 
@@ -113,9 +113,9 @@ gg_theme_dark(
 
 \item{ticks_length}{The length of the ticks. A grid::unit function.}
 
-\item{gridlines_linewidth}{The linewidth of the vertical major gridlines. Defaults to text_size / 150.}
+\item{gridlines_linewidth}{The linewidth of the vertical major gridlines. Defaults to text_size / 100.}
 
-\item{gridlines_pal}{The colour of the vertical major gridlines. Defaults to "#334d65".}
+\item{gridlines_pal}{The colour of the vertical major gridlines. Defaults to "#2C3A48".}
 }
 \value{
 A ggplot theme.

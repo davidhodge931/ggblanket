@@ -21,7 +21,7 @@
 #' @param subtitle_margin The margin of the subtitle. A ggplot2::margin function.
 #' @param caption_size The size of the caption. Defaults to text_size * 0.9.
 #' @param caption_family The font family of the caption. Defaults to the text_family.
-#' @param caption_pal The colour of the caption. Defaults to the text_pal with an alpha of 0.33.
+#' @param caption_pal The colour of the caption. Defaults to the text_pal with an alpha of 0.5.
 #' @param caption_face The font face of the caption. Defaults to "plain".
 #' @param caption_position The horizontal alignment of the caption to either "plot" or "panel".
 #' @param caption_hjust The horizontal adjustment of the caption.
@@ -30,13 +30,13 @@
 #' @param background_pal_plot The colour of the plot background colour. Defaults to "#121b24".
 #' @param background_pal_panel The colour of the panel background colour. Defaults to "#1f2f3e".
 #' @param background_pal_key The colour of the legend key. Defaults to the background_pal_panel.
-#' @param line_linewidth The linewidth of the axis line. Defaults to the text_size / 80 (i.e. 0.125).
+#' @param line_linewidth The linewidth of the axis line. Defaults to the text_size / 33.
 #' @param line_pal The colour of the axis line. Defaults to "#bbccdd".
 #' @param ticks_linewidth The linewidth of the axis ticks. Defaults to the line_linewidth.
 #' @param ticks_length The length of the ticks. A grid::unit function.
 #' @param ticks_pal The colour of the ticks. Defaults to the line_pal.
-#' @param gridlines_linewidth The linewidth of the vertical major gridlines. Defaults to text_size / 150.
-#' @param gridlines_pal The colour of the vertical major gridlines. Defaults to "#334d65".
+#' @param gridlines_linewidth The linewidth of the vertical major gridlines. Defaults to text_size / 100.
+#' @param gridlines_pal The colour of the vertical major gridlines. Defaults to "#2C3A48".
 #'
 #' @return A ggplot theme.
 #' @export
@@ -76,7 +76,7 @@ gg_theme_dark <- function(
     subtitle_margin = ggplot2::margin(t = subtitle_size * -1.5, b = subtitle_size * 1.75),
     caption_size = text_size * 0.9,
     caption_family = text_family,
-    caption_pal = scales::alpha(text_pal, 0.33),
+    caption_pal = "#717C8A", #colorspace::lighten("#1f2f3e", 0.33, method = "absolute")
     caption_face = "plain",
     caption_position = "plot",
     caption_hjust = 0,
@@ -85,13 +85,14 @@ gg_theme_dark <- function(
     background_pal_plot = "#121b24",
     background_pal_panel = "#1f2f3e",
     background_pal_key = background_pal_panel,
-    line_linewidth = text_size / 80,
+    line_linewidth = text_size / 33,
     line_pal = "#bbccdd",
     ticks_pal = line_pal,
     ticks_linewidth = line_linewidth,
-    ticks_length = grid::unit(text_size / 4, "pt"),
-    gridlines_linewidth = text_size / 150,
-    gridlines_pal = "#334d65") {
+    ticks_length = grid::unit(text_size / 3, "pt"),
+    gridlines_linewidth = text_size / 100,
+    gridlines_pal =  "#2C3A48" #colorspace::lighten("#1f2f3e", 0.05, method = "absolute")
+    ) {
 
   theme <- ggplot2::theme(
 
@@ -116,7 +117,7 @@ gg_theme_dark <- function(
     strip.text.x = ggplot2::element_text(vjust = 0.5, margin = ggplot2::margin(b = text_size * 0.5), angle = 0),
     strip.text.y = ggplot2::element_text(vjust = 0.5, margin = ggplot2::margin(l = text_size * 0.75), angle = 270),
 
-    axis.line = ggplot2::element_line(colour = line_pal, linewidth = line_linewidth),
+    axis.line = ggplot2::element_line(colour = line_pal, linewidth = line_linewidth, lineend = "square"),
     axis.ticks = ggplot2::element_line(colour = ticks_pal, linewidth = ticks_linewidth),
     axis.ticks.length = ticks_length,
     plot.background = ggplot2::element_rect(colour = background_pal_plot, fill = background_pal_plot),

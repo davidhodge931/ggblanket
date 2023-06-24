@@ -26,7 +26,7 @@ gg_theme_void(
   subtitle_margin = ggplot2::margin(t = subtitle_size * -1.5, b = subtitle_size * 1.75),
   caption_size = text_size * 0.9,
   caption_family = text_family,
-  caption_pal = scales::alpha(text_pal, 0.45),
+  caption_pal = scales::alpha(text_pal, 0.5),
   caption_face = "plain",
   caption_position = "plot",
   caption_hjust = 0,
@@ -80,7 +80,7 @@ gg_theme_void(
 
 \item{caption_family}{The font family of the caption. Defaults to the text_family.}
 
-\item{caption_pal}{The colour of the caption. Defaults to the text_pal with an alpha of 0.45.}
+\item{caption_pal}{The colour of the caption. Defaults to the text_pal with an alpha of 0.5.}
 
 \item{caption_face}{The font face of the caption. Defaults to "plain".}
 
