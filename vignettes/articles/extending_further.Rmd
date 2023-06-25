@@ -311,9 +311,9 @@ The showtext and sysfonts packages support the use of different fonts from googl
 
 ```{r, fig.asp = 0.75, fig.showtext = TRUE}
 sysfonts::font_add_google("Covered By Your Grace", "grace")
-showtext::showtext_begin()
+showtext::showtext_auto(enable = TRUE)
 
-p <- penguins |>
+penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -325,9 +325,7 @@ p <- penguins |>
     theme = gg_theme_light(text_family = "grace",
                            text_size = 12))
 
-showtext::showtext_end()
-
-p
+showtext::showtext_auto(enable = FALSE)
 ```
 
 
