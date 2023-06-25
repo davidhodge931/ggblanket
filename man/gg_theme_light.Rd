@@ -5,57 +5,47 @@
 \title{Light theme for a ggplot}
 \usage{
 gg_theme_light(
-  text_size = 10,
-  text_family = "",
-  text_pal = "#121b24",
-  title_size = text_size * 1.1,
-  title_family = text_family,
-  title_pal = colorspace::darken(text_pal, 0.08, method = "absolute"),
+  base_size = 10,
+  base_family = "",
+  base_pal = "#121b24",
+  title_size = base_size * 1.1,
+  title_family = base_family,
+  title_pal = colorspace::darken(base_pal, 0.08, method = "absolute"),
   title_face = "bold",
   title_position = "plot",
   title_hjust = 0,
   title_vjust = 1,
   title_margin = ggplot2::margin(t = ((title_size^0.5) * -0.5) - 3.85, b = title_size *
     1.75),
-  subtitle_size = text_size,
-  subtitle_family = text_family,
-  subtitle_pal = text_pal,
+  subtitle_size = base_size,
+  subtitle_family = base_family,
+  subtitle_pal = base_pal,
   subtitle_face = "plain",
   subtitle_hjust = 0,
   subtitle_vjust = 1,
   subtitle_margin = ggplot2::margin(t = subtitle_size * -1.5, b = subtitle_size * 1.75),
-  caption_size = text_size * 0.9,
-  caption_family = text_family,
+  caption_size = base_size * 0.9,
+  caption_family = base_family,
   caption_pal = "#71767C",
   caption_face = "plain",
   caption_position = "plot",
   caption_hjust = 0,
   caption_vjust = 0,
-  caption_margin = ggplot2::margin(t = caption_size * 1.25),
-  background_pal_plot = "#e6ecf2",
-  background_pal_panel = "#fcfdfe",
-  background_pal_key = background_pal_plot,
-  line_linewidth = text_size/33,
-  line_pal = "#121b24",
-  ticks_pal = line_pal,
-  ticks_linewidth = line_linewidth,
-  ticks_length = grid::unit(text_size/3, "pt"),
-  gridlines_linewidth = text_size/100,
-  gridlines_pal = "#DBE1E7"
+  caption_margin = ggplot2::margin(t = caption_size * 1.25)
 )
 }
 \arguments{
-\item{text_size}{The base size of the text. Defaults to 10.}
+\item{base_size}{The base size of the text. Defaults to 10.}
 
-\item{text_family}{The base font family of the text. Defaults to "".}
+\item{base_family}{The base family of the text. Defaults to "".}
 
-\item{text_pal}{The base colour of the text. Defaults to "#121b24".}
+\item{base_pal}{The base colour of the text. Defaults to "#121b24".}
 
-\item{title_size}{The size of the title. Defaults to text_size * 1.1.}
+\item{title_size}{The size of the title. Defaults to base_size * 1.1.}
 
-\item{title_family}{The font family of the title. Defaults to the text_family.}
+\item{title_family}{The font family of the title. Defaults to the base_family.}
 
-\item{title_pal}{The colour of the title. Defaults to 0.08 darker than the text_pal.}
+\item{title_pal}{The colour of the title. Defaults to 0.08 darker than the base_pal.}
 
 \item{title_face}{The font face of the title. Defaults to "bold".}
 
@@ -67,11 +57,11 @@ gg_theme_light(
 
 \item{title_margin}{The margin of the title. A ggplot2::margin function.}
 
-\item{subtitle_size}{The size of the subtitle. Defaults to the text_size.}
+\item{subtitle_size}{The size of the subtitle. Defaults to the base_size.}
 
-\item{subtitle_family}{The font family of the subtitle. Defaults to the text_family.}
+\item{subtitle_family}{The font family of the subtitle. Defaults to the base_family.}
 
-\item{subtitle_pal}{The colour of the subtitle. Defaults to the text_pal.}
+\item{subtitle_pal}{The colour of the subtitle. Defaults to the base_pal.}
 
 \item{subtitle_face}{The font face of the subtitle. Defaults to "plain".}
 
@@ -81,11 +71,11 @@ gg_theme_light(
 
 \item{subtitle_margin}{The margin of the subtitle. A ggplot2::margin function.}
 
-\item{caption_size}{The size of the caption. Defaults to text_size * 0.9.}
+\item{caption_size}{The size of the caption. Defaults to base_size * 0.9.}
 
-\item{caption_family}{The font family of the caption. Defaults to the text_family.}
+\item{caption_family}{The font family of the caption. Defaults to the base_family.}
 
-\item{caption_pal}{The colour of the caption. Defaults to the text_pal with an alpha of 0.5.}
+\item{caption_pal}{The colour of the caption. Defaults to the base_pal with an alpha of 0.5.}
 
 \item{caption_face}{The font face of the caption. Defaults to "plain".}
 
@@ -96,32 +86,12 @@ gg_theme_light(
 \item{caption_vjust}{The vertical adjustment of the caption.}
 
 \item{caption_margin}{The margin of the caption. A ggplot2::margin function.}
-
-\item{background_pal_plot}{The colour of the plot background colour. Defaults to "#f3f6f9".}
-
-\item{background_pal_panel}{The colour of the panel background colour. Defaults to "#fcfdfe".}
-
-\item{background_pal_key}{The colour of the legend key. Defaults to the background_pal_plot.}
-
-\item{line_linewidth}{The linewidth of the axis line. Defaults to the text_size / 33.}
-
-\item{line_pal}{The colour of the axis line. Defaults to "#121b24".}
-
-\item{ticks_pal}{The colour of the ticks. Defaults to the line_pal.}
-
-\item{ticks_linewidth}{The linewidth of the axis ticks. Defaults to the line_linewidth.}
-
-\item{ticks_length}{The length of the ticks. A grid::unit function.}
-
-\item{gridlines_linewidth}{The linewidth of the vertical major gridlines. Defaults to text_size / 100.}
-
-\item{gridlines_pal}{The colour of the vertical major gridlines. Defaults to "#DBE1E7".}
 }
 \value{
 A ggplot theme.
 }
 \description{
-Light theme for a ggplot visualisation. Element prefixes to modify are: text_, title_, subtitle_, caption_, background_pal_, line_ (i.e. the axis line), ticks_, and gridlines_.
+Light theme for a ggplot visualisation.
 }
 \examples{
 library(palmerpenguins)

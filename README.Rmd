@@ -14,8 +14,7 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = 0.6,
   out.width = "75%",
-  dpi = 300,
-  fig.retina = 5)
+  dpi = 300)
 ```
 
 # ggblanket <img src="man/figures/logo.png" align="right" width="120" />

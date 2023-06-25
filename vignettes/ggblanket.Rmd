@@ -315,9 +315,7 @@ penguins |>
 
 ### 9. Three gg_theme functions to create a quick theme 
 
-Three theme functions are provided to help users create a quick clean looking theme: `gg_theme_light` (the default), `gg_theme_dark` and `gg_theme_void`. 
-
-Element prefixes to modify are: `text_*`, `title_*`, `subtitle_*`, `caption_*`, `background_pal_*`, `line_*` (i.e. the axis line), `ticks_*`, and `gridlines_*`.
+Three theme functions are provided to help users create a quick clean looking theme: `gg_theme_light` (the default), `gg_theme_dark` (and `gg_theme_light_void` and `gg_theme_dark_void`). 
 
 ```{r, fig.asp=0.7}
 penguins |>
@@ -332,18 +330,6 @@ penguins |>
     theme = gg_theme_dark())
 ```
 
-```{r}
-penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    title = "Penguins body mass by flipper length",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020",
-    theme = gg_theme_void())
-```
-
 You can use these themes outside of ggblanket functions. 
 
 ```{r, fig.asp=0.6}
@@ -354,7 +340,7 @@ faithfuld |>
     y = eruptions,
     z = density
   ), col = pal_blue) +
-  gg_theme_light(text_size = 10) +
+  gg_theme_light() +
   theme(panel.grid.major.x = element_blank()) 
 ```
 
