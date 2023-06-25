@@ -20,26 +20,22 @@ gg_theme_light2 <- function (
         axis.line.x = NULL,
         axis.line.y = NULL,
         axis.text = NULL,
-
         axis.text.x = element_text(margin = margin(t = base_size * 0.2), vjust = 1),
         axis.text.x.top = element_text(margin = margin(b = base_size * 0.2), vjust = 0),
         axis.text.y = element_text(margin = margin(r = base_size * 0.2), hjust = 1),
         axis.text.y.right = element_text(margin = margin(l = base_size * 0.2), hjust = 0),
-
-        axis.ticks.length.x = grid::unit(10 / 3, "pt"),
+        axis.ticks.length.x = grid::unit(10/3, "pt"),
         axis.ticks.length.x.top = NULL,
         axis.ticks.length.x.bottom = NULL,
-        axis.ticks.length.y = grid::unit(10 / 4, "pt"),
+        axis.ticks.length.y = grid::unit(10/4, "pt"),
         axis.ticks.length.y.left = NULL,
         axis.ticks.length.y.right = NULL,
-
         axis.title = NULL,
         axis.title.x = element_text(margin = margin(t = base_size * 0.75)),
         axis.title.x.top = element_text(margin = margin(b = base_size * 0.75)),
         axis.title.y = element_text(margin = margin(r = base_size * 1), angle = 90),
         axis.title.y.right = element_text(margin = margin(l = base_size * 1), angle = -90),
-
-        legend.spacing = unit(base_size / 8, "pt"),
+        legend.spacing = unit(base_size * 0.125, "pt"),
         legend.spacing.x = NULL,
         legend.margin = margin(),
         legend.key = NULL,
@@ -57,7 +53,6 @@ gg_theme_light2 <- function (
         legend.box.margin = ggplot2::margin(t = -2.5),
         legend.box.background = NULL,
         legend.box.spacing = NULL,
-
         panel.background = element_rect(fill = "#fcfdfe", colour = "#fcfdfe"),
         panel.border = element_blank(),
         panel.grid = NULL,
@@ -69,38 +64,25 @@ gg_theme_light2 <- function (
         panel.ontop = FALSE,
         strip.background = NULL,
         strip.clip = "inherit",
-
         strip.text = NULL,
         strip.text.x = element_text(margin = margin(b = base_size * 0.5)),
         strip.text.x.bottom = element_text(margin = margin(t = base_size * 0.5)),
         strip.text.y = element_text(margin = margin(l = base_size * 2/3), angle = -90),
         strip.text.y.left = element_text(margin = margin(r = base_size * 2/3), angle = 90),
-
         strip.placement = "outside",
         strip.placement.x = NULL,
         strip.placement.y = NULL,
         strip.switch.pad.grid = unit(0.15, "pt"),
         strip.switch.pad.wrap = unit(0.15, "pt"),
-
         plot.background = element_rect(),
-        plot.title = element_text(size = rel(1.1), face = "bold", hjust = 0, vjust = 1,
-                                  margin = margin(b = (base_size/2))),
-                                  # margin = margin(t = ((base_size ^ 0.5) * -0.5) - 3.85, b = base_size * 1.75)),
+        plot.title = element_text(size = rel(1.1), face = "bold", hjust = 0, vjust = 1, margin = margin(b = base_size * 1.5)),
         plot.title.position = "plot",
-        plot.subtitle = element_text(hjust = 0, vjust = 1,
-                                     margin = margin(b = (base_size/2))),
-                                     # margin = margin(t = base_size * -1.5, b = base_size * 1.5)),
+        plot.subtitle = element_text(hjust = 0, vjust = 1, margin = margin(t = base_size * -1, b = base_size * 1.5)),
         plot.caption = element_text(size = rel(0.9), colour = scales::alpha(base_pal, 0.33), hjust = 0, vjust = 1, margin = margin(t = base_size/1)),
         plot.caption.position = "plot",
         plot.tag = element_text(size = rel(1.2), hjust = 0, vjust = 0.5),
         plot.tag.position = "topleft",
-        # plot.margin = ggplot2::margin(t = base_size * 1.5, r = base_size * 2, b = base_size * 1.1, l = base_size * 1),
-        plot.margin = margin(t = (base_size/1.5), r = (base_size/0.5), b = (base_size/1.5), l = (base_size/2)),
+        plot.margin = ggplot2::margin(t = base_size * 0.75, r = base_size * 1.5, b = base_size * 0.75, l = base_size * 0.75),
         complete = TRUE
   )
 }
-
-
-
-(2) / (10)
-
