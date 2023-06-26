@@ -4,14 +4,81 @@
 \alias{gg_theme_light}
 \title{Light theme for a ggplot}
 \usage{
-gg_theme_light(base_size = 10, base_family = "", base_pal = "#121b24")
+gg_theme_light(
+  base_size = 10,
+  base_family = "",
+  base_face = "plain",
+  base_pal = "#121b24",
+  title_family = NULL,
+  title_face = "bold",
+  title_pal = NULL,
+  title_size = ggplot2::rel(1.1),
+  title_vjust = 1,
+  title_margin = ggplot2::margin(t = base_size * -0.5, b = base_size * 1.5),
+  subtitle_family = NULL,
+  subtitle_face = NULL,
+  subtitle_pal = NULL,
+  subtitle_size = NULL,
+  subtitle_vjust = 1,
+  subtitle_margin = ggplot2::margin(t = base_size * -1, b = base_size * 1.5),
+  caption_family = NULL,
+  caption_face = NULL,
+  caption_alpha = 0.33,
+  caption_pal = base_pal,
+  caption_size = ggplot2::rel(0.9),
+  caption_hjust = 0,
+  caption_vjust = 1,
+  caption_margin = ggplot2::margin(t = base_size)
+)
 }
 \arguments{
 \item{base_size}{The base size of the text. Defaults to 10.}
 
 \item{base_family}{The base family of the text. Defaults to "".}
 
+\item{base_face}{The base face of the text. Defaults to "plain".}
+
 \item{base_pal}{The base colour of the text. Defaults to "#121b24".}
+
+\item{title_family}{The font family of the title. Defaults to the base_family.}
+
+\item{title_face}{The font face of the title. Defaults to "bold".}
+
+\item{title_pal}{The colour of the title. Defaults to the base_pal.}
+
+\item{title_size}{The size of the title. Defaults to the base_size * 1.1.}
+
+\item{title_vjust}{The vertical adjustment of the title. Defaults to 1.}
+
+\item{title_margin}{The margin of the title. A ggplot2::margin function.}
+
+\item{subtitle_family}{The font family of the subtitle. Defaults to the base_family.}
+
+\item{subtitle_face}{The font face of the subtitle. Defaults to the base_face.}
+
+\item{subtitle_pal}{The colour of the subtitle. Defaults to the base_pal.}
+
+\item{subtitle_size}{The size of the subtitle. Defaults to the base_size.}
+
+\item{subtitle_vjust}{The vertical adjustment of the subtitle. Defaults to 1.}
+
+\item{subtitle_margin}{The margin of the subtitle. A ggplot2::margin function.}
+
+\item{caption_family}{The font family of the caption. Defaults to the base_family.}
+
+\item{caption_face}{The font face of the caption. Defaults to the base_face.}
+
+\item{caption_alpha}{The alpha of the caption pal. Defaults to 0.33. Use 1 for no alpha.}
+
+\item{caption_pal}{The colour of the caption (before caption_alpha is applied). Defaults to the base_pal.}
+
+\item{caption_size}{The size of the caption. Defaults to the base_size * 0.9.}
+
+\item{caption_hjust}{The horizontal adjustment of the caption. Defaults to 0.}
+
+\item{caption_vjust}{The vertical adjustment of the caption. Defaults to 1.}
+
+\item{caption_margin}{The margin of the caption. A ggplot2::margin function.}
 }
 \value{
 A ggplot theme.
