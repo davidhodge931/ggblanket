@@ -61,7 +61,32 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gg_theme_light</span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">10</span>, base_family <span class="op">=</span> <span class="st">""</span>, base_pal <span class="op">=</span> <span class="st">"#121b24"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gg_theme_light</span><span class="op">(</span></span>
+<span>  base_size <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  base_face <span class="op">=</span> <span class="st">"plain"</span>,</span>
+<span>  base_pal <span class="op">=</span> <span class="st">"#121b24"</span>,</span>
+<span>  title_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  title_face <span class="op">=</span> <span class="st">"bold"</span>,</span>
+<span>  title_pal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  title_size <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">rel</a></span><span class="op">(</span><span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>  title_vjust <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  title_margin <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="va">base_size</span> <span class="op">*</span> <span class="op">-</span><span class="fl">0.5</span>, b <span class="op">=</span> <span class="va">base_size</span> <span class="op">*</span> <span class="fl">1.5</span><span class="op">)</span>,</span>
+<span>  subtitle_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  subtitle_face <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  subtitle_pal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  subtitle_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  subtitle_vjust <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  subtitle_margin <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="va">base_size</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1</span>, b <span class="op">=</span> <span class="va">base_size</span> <span class="op">*</span> <span class="fl">1.5</span><span class="op">)</span>,</span>
+<span>  caption_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  caption_face <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  caption_alpha <span class="op">=</span> <span class="fl">0.33</span>,</span>
+<span>  caption_pal <span class="op">=</span> <span class="va">base_pal</span>,</span>
+<span>  caption_size <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">rel</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>,</span>
+<span>  caption_hjust <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  caption_vjust <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  caption_margin <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="va">base_size</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -74,8 +99,92 @@
 <dd><p>The base family of the text. Defaults to "".</p></dd>
 
 
+<dt>base_face</dt>
+<dd><p>The base face of the text. Defaults to "plain".</p></dd>
+
+
 <dt>base_pal</dt>
 <dd><p>The base colour of the text. Defaults to "#121b24".</p></dd>
+
+
+<dt>title_family</dt>
+<dd><p>The font family of the title. Defaults to the base_family.</p></dd>
+
+
+<dt>title_face</dt>
+<dd><p>The font face of the title. Defaults to "bold".</p></dd>
+
+
+<dt>title_pal</dt>
+<dd><p>The colour of the title. Defaults to the base_pal.</p></dd>
+
+
+<dt>title_size</dt>
+<dd><p>The size of the title. Defaults to the base_size * 1.1.</p></dd>
+
+
+<dt>title_vjust</dt>
+<dd><p>The vertical adjustment of the title. Defaults to 1.</p></dd>
+
+
+<dt>title_margin</dt>
+<dd><p>The margin of the title. A ggplot2::margin function.</p></dd>
+
+
+<dt>subtitle_family</dt>
+<dd><p>The font family of the subtitle. Defaults to the base_family.</p></dd>
+
+
+<dt>subtitle_face</dt>
+<dd><p>The font face of the subtitle. Defaults to the base_face.</p></dd>
+
+
+<dt>subtitle_pal</dt>
+<dd><p>The colour of the subtitle. Defaults to the base_pal.</p></dd>
+
+
+<dt>subtitle_size</dt>
+<dd><p>The size of the subtitle. Defaults to the base_size.</p></dd>
+
+
+<dt>subtitle_vjust</dt>
+<dd><p>The vertical adjustment of the subtitle. Defaults to 1.</p></dd>
+
+
+<dt>subtitle_margin</dt>
+<dd><p>The margin of the subtitle. A ggplot2::margin function.</p></dd>
+
+
+<dt>caption_family</dt>
+<dd><p>The font family of the caption. Defaults to the base_family.</p></dd>
+
+
+<dt>caption_face</dt>
+<dd><p>The font face of the caption. Defaults to the base_face.</p></dd>
+
+
+<dt>caption_alpha</dt>
+<dd><p>The alpha of the caption pal. Defaults to 0.33. Use 1 for no alpha.</p></dd>
+
+
+<dt>caption_pal</dt>
+<dd><p>The colour of the caption (before caption_alpha is applied). Defaults to the base_pal.</p></dd>
+
+
+<dt>caption_size</dt>
+<dd><p>The size of the caption. Defaults to the base_size * 0.9.</p></dd>
+
+
+<dt>caption_hjust</dt>
+<dd><p>The horizontal adjustment of the caption. Defaults to 0.</p></dd>
+
+
+<dt>caption_vjust</dt>
+<dd><p>The vertical adjustment of the caption. Defaults to 1.</p></dd>
+
+
+<dt>caption_margin</dt>
+<dd><p>The margin of the caption. A ggplot2::margin function.</p></dd>
 
 </dl></div>
     <div class="section level2">
