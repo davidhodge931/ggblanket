@@ -322,8 +322,8 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    theme = gg_theme_light(text_family = "grace",
-                           text_size = 12))
+    theme = gg_theme_light(base_family = "grace",
+                           base_size = 12))
 
 showtext::showtext_auto(enable = FALSE)
 ```
@@ -375,7 +375,8 @@ penguins |>
     x = flipper_length_mm, 
     y = body_mass_g,
     title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
-    theme = gg_theme_light(title_face = "plain")) +
+    # theme = gg_theme_light(title_face = "plain")
+    ) +
   theme(plot.title = ggtext::element_markdown())
 ```
 
@@ -398,7 +399,7 @@ penguins |>
     y_labels = \(x) glue::glue("_{x}_"),
     col_labels = \(x) glue::glue("_{x}_"),
     facet_labels = \(x) glue::glue("_{x}_"),
-    theme = gg_theme_light(title_face = "plain")     
+    # theme = gg_theme_light(title_face = "plain")     
   ) +
   theme(  
     plot.title = ggtext::element_markdown(),
@@ -587,7 +588,7 @@ p <- diamonds |>
     x = color,
     col = color,
     width = 0.75,
-    theme = gg_theme_light(text_family = "helvetica")) 
+    theme = gg_theme_light(base_family = "helvetica")) 
 
 plotly::ggplotly(p, 
   tooltip = c("x", "y"), 
@@ -607,7 +608,7 @@ p <- diamonds |>
     width = 0.75,
     y_include = 0,
     stat = "count", 
-    theme = gg_theme_light(text_family = "helvetica", text_size = 9)) +
+    theme = gg_theme_light(base_family = "helvetica", base_size = 9)) +
   ggiraph::geom_bar_interactive(
     aes(tooltip = after_stat(count), 
         data_id = color), width = 0.75)

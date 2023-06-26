@@ -43,7 +43,7 @@
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
-#' @param col_legend_place The place for the legend. Either "bottom", "right", "top" or "left" - or just the first letter of these e.g. "b".
+#' @param col_legend_place The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).
 #' @param col_legend_rev Reverse the elements of the legend. Defaults to FALSE.
 #' @param col_limits A vector to determine the limits of the colour scale.
 #' @param col_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.
@@ -67,7 +67,7 @@
 #' library(palmerpenguins)
 #'
 #' penguins |>
-#'   gg_point2(
+#'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = sex,
@@ -76,7 +76,7 @@
 #'     pal = c("#1B9E77", "#9E361B")
 #'   )
 #'
-gg_point2 <- function(
+gg_point <- function(
     data = NULL,
     x = NULL,
     y = NULL,
@@ -1215,10 +1215,9 @@ gg_point2 <- function(
       plot <- plot +
         ggplot2::theme(legend.position = col_legend_place) +
         ggplot2::theme(legend.direction = "horizontal") +
-        ggplot2::theme(legend.justification = "left") +
         ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
-        ggplot2::theme(legend.text = ggplot2::element_text(
-          margin = ggplot2::margin(r = 7.5, unit = "pt")))
+        ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5))) +
+        ggplot2::theme(legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 5)))
 
       if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
         plot <- plot +
@@ -1226,23 +1225,10 @@ gg_point2 <- function(
           ggplot2::theme(legend.text.align = 0.5)
       }
     }
-    else if (col_legend_place %in% c("left", "right")) {
-      plot <- plot +
-        ggplot2::theme(legend.position = col_legend_place) +
-        ggplot2::theme(legend.direction = "vertical") +
-        ggplot2::theme(legend.justification = "left") +
-        ggplot2::theme(legend.box.margin = ggplot2::margin(t = 0)) +
-        ggplot2::theme(legend.text = ggplot2::element_text(
-          margin = ggplot2::margin(r = 0)))
 
-      if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
-        plot <- plot +
-          ggplot2::theme(legend.title = ggplot2::element_text(vjust = 1))
-      }
-    }
     else if (col_legend_place == "none") {
       plot <- plot +
-        ggplot2::theme(legend.position = col_legend_place)
+        ggplot2::guides(colour = FALSE, fill = FALSE)
     }
   }
 

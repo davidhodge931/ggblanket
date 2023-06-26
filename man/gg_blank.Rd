@@ -188,7 +188,7 @@ gg_blank(
 
 \item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.}
 
-\item{col_legend_place}{The place for the legend. Either "bottom", "right", "top" or "left" - or just the first letter of these e.g. "b".}
+\item{col_legend_place}{The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
