@@ -23,7 +23,6 @@ ggblanket has over thirty `gg_*` wrapper functions. This article will demonstrat
 library(ggblanket)
 library(dplyr)
 library(ggplot2)
-library(lubridate)
 library(stringr)
 library(palmerpenguins)
 ```
@@ -37,7 +36,7 @@ economics |>
     y = unemploy,
     y_title = "Unemployment",
     pal = "#1B9E77",
-    x_limits = c(ymd("2010-01-01"), NA_Date_))
+    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_))
 ```
 
 ### gg_bar
@@ -49,7 +48,7 @@ penguins |>
     col = sex,
     facet = species,
     width = 0.75,
-    x_labels = str_to_sentence,
+    x_labels = \(x) stringr::str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"))
 ```
 
@@ -72,7 +71,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    col_labels = str_to_sentence,
+    col_labels = \(x) stringr::str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"),
     y_include = 0)
 ```
@@ -102,7 +101,7 @@ penguins |>
     y = species,
     col = sex,
     width = 0.75,
-    y_labels = str_to_sentence,
+    y_labels = \(x) stringr::str_to_sentence(x),
     position = "dodge",
     pal = c("#2596be", "#fc7c24"),
     col_labels = str_to_sentence)
@@ -255,7 +254,7 @@ economics |>
     y = unemploy,
     y_title = "Unemployment",
     pal = "#9E361B",
-    x_limits = c(ymd("2010-01-01"), NA_Date_),
+    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
     y_include = 0)
 ```
 
@@ -299,7 +298,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    col_labels = str_to_sentence,
+    col_labels = \(x) stringr::str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"))
 ```
 
@@ -457,7 +456,7 @@ economics |>
     y = unemploy,
     y_title = "Unemployment",
     pal = "#1B9E77",
-    x_limits = c(ymd("2010-01-01"), NA_Date_))
+    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_))
 ```
 
 ### gg_text

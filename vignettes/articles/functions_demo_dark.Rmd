@@ -1,5 +1,5 @@
 ---
-title: "Functions demo: dark theme"
+title: "Functions demo in dark"
 author: "David Hodge"
 ---
 
@@ -49,7 +49,7 @@ penguins |>
     col = sex,
     facet = species,
     width = 0.75,
-    x_labels = stringr::str_to_sentence,
+    x_labels = \(x) stringr::str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"))
 ```
 
@@ -72,7 +72,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    col_labels = stringr::str_to_sentence,
+    col_labels = \(x) stringr::str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"),
     y_include = 0)
 ```
@@ -102,7 +102,7 @@ penguins |>
     y = species,
     col = sex,
     width = 0.75,
-    y_labels = stringr::str_to_sentence,
+    y_labels = \(x) stringr::str_to_sentence(x),
     position = "dodge",
     pal = c("#2596be", "#fc7c24"),
     col_labels = stringr::str_to_sentence)
@@ -299,7 +299,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    col_labels = stringr::str_to_sentence,
+    col_labels = \(x) stringr::str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"))
 ```
 

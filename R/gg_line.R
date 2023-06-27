@@ -185,11 +185,7 @@ gg_line <- function(
   #get default theme if global theme not set
   if (rlang::is_null(theme)) {
     if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
-      if (stat == "sf") {
-        theme <- gg_theme_light_void()
-      } else {
-        theme <- gg_theme_light()
-      }
+      theme <- gg_theme_light()
     }
   }
 

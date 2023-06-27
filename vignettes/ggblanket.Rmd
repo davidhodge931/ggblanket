@@ -313,11 +313,13 @@ penguins |>
   theme_grey()
 ```
 
-### 9. Three gg_theme functions to create a quick theme 
+### 9. Light and dark gg_theme functions to create a quick theme 
 
-Three theme functions are provided to help users create a quick clean looking theme: `gg_theme_light` (the default), `gg_theme_dark` (and `gg_theme_light_void` and `gg_theme_dark_void`). 
+Light and dark theme functions are provided to help users create a quick clean looking theme: `gg_theme_light` (the default) and `gg_theme_dark`.
 
-Note you can set the theme globally using `ggplot2::theme_set`. If you wish to set the theme to theme_grey with the default base_size, then you must it tweak it ever so slightly (e.g. `theme_set(theme_grey(11.01)))`
+There are also void variations on these that may be useful for spatial visualisation and other purposes called `gg_theme_light_void` and `gg_theme_dark_void`. 
+
+You can set the theme globally using `ggplot2::theme_set`. If you wish to set the theme to `ggplot2::theme_grey` with the default `base_size`, then you must it tweak it ever so slightly (e.g. `theme_set(theme_grey(11.01)))`
 
 ```{r, fig.asp=0.7}
 penguins |>
@@ -332,7 +334,7 @@ penguins |>
     theme = gg_theme_dark())
 ```
 
-You can use these themes outside of ggblanket functions. 
+These themes can be used outside of ggblanket functions. However, users will have to remove the unnecessary x or y gridlines themselves. 
 
 ```{r, fig.asp=0.6}
 faithfuld |>
