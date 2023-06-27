@@ -2,36 +2,33 @@
 % Please edit documentation in R/gg_theme_dark.R
 \name{gg_theme_dark}
 \alias{gg_theme_dark}
-\title{Dark theme for a ggplot}
+\title{Light theme for a ggplot}
 \usage{
 gg_theme_dark(
   base_size = 10,
   base_family = "",
+  base_face = "plain",
   base_pal = "#bbccdd",
-  title_size = base_size * 1.1,
-  title_family = base_family,
-  title_pal = colorspace::lighten(base_pal, 0.08, method = "absolute"),
+  title_family = NULL,
   title_face = "bold",
-  title_position = "plot",
-  title_hjust = 0,
-  title_vjust = 1,
-  title_margin = ggplot2::margin(t = ((title_size^0.5) * -0.5) - 3.85, b = title_size *
-    1.75),
-  subtitle_size = base_size,
-  subtitle_family = base_family,
-  subtitle_pal = base_pal,
-  subtitle_face = "plain",
-  subtitle_hjust = 0,
+  title_pal = NULL,
+  title_size = ggplot2::rel(1.1),
+  title_vjust = 0,
+  title_margin = ggplot2::margin(t = base_size * -0.75, b = base_size * 2),
+  subtitle_family = NULL,
+  subtitle_face = NULL,
+  subtitle_pal = NULL,
+  subtitle_size = NULL,
   subtitle_vjust = 1,
-  subtitle_margin = ggplot2::margin(t = subtitle_size * -1.5, b = subtitle_size * 1.75),
-  caption_size = base_size * 0.9,
-  caption_family = base_family,
-  caption_pal = "#717C8A",
-  caption_face = "plain",
-  caption_position = "plot",
+  subtitle_margin = ggplot2::margin(t = base_size * -1, b = base_size * 2),
+  caption_family = NULL,
+  caption_face = NULL,
+  caption_alpha = 0.33,
+  caption_pal = base_pal,
+  caption_size = ggplot2::rel(0.9),
   caption_hjust = 0,
-  caption_vjust = 0,
-  caption_margin = ggplot2::margin(t = caption_size * 1.25)
+  caption_vjust = 1,
+  caption_margin = ggplot2::margin(t = base_size)
 )
 }
 \arguments{
@@ -39,51 +36,47 @@ gg_theme_dark(
 
 \item{base_family}{The base family of the text. Defaults to "".}
 
-\item{base_pal}{The base colour of the text. Defaults to "#bbccdd".}
+\item{base_face}{The base face of the text. Defaults to "plain".}
 
-\item{title_size}{The size of the title. Defaults to base_size * 1.1.}
+\item{base_pal}{The base colour of the text. Defaults to "#bbccdd".}
 
 \item{title_family}{The font family of the title. Defaults to the base_family.}
 
-\item{title_pal}{The colour of the title. Defaults to 0.08 lighter than the base_pal.}
-
 \item{title_face}{The font face of the title. Defaults to "bold".}
 
-\item{title_position}{The horizontal alignment of the title (and subtitle) to either "plot" or "panel".}
+\item{title_pal}{The colour of the title. Defaults to the base_pal.}
 
-\item{title_hjust}{The horizontal adjustment of the title.}
+\item{title_size}{The size of the title. Defaults to the base_size * 1.1.}
 
-\item{title_vjust}{The vertical adjustment of the title.}
+\item{title_vjust}{The vertical adjustment of the title. Defaults to 0.}
 
 \item{title_margin}{The margin of the title. A ggplot2::margin function.}
 
-\item{subtitle_size}{The size of the subtitle. Defaults to the base_size.}
-
 \item{subtitle_family}{The font family of the subtitle. Defaults to the base_family.}
+
+\item{subtitle_face}{The font face of the subtitle. Defaults to the base_face.}
 
 \item{subtitle_pal}{The colour of the subtitle. Defaults to the base_pal.}
 
-\item{subtitle_face}{The font face of the subtitle. Defaults to "plain".}
+\item{subtitle_size}{The size of the subtitle. Defaults to the base_size.}
 
-\item{subtitle_hjust}{The horizontal adjustment of the subtitle.}
-
-\item{subtitle_vjust}{The vertical adjustment of the subtitle.}
+\item{subtitle_vjust}{The vertical adjustment of the subtitle. Defaults to 1.}
 
 \item{subtitle_margin}{The margin of the subtitle. A ggplot2::margin function.}
 
-\item{caption_size}{The size of the caption. Defaults to base_size * 0.9.}
-
 \item{caption_family}{The font family of the caption. Defaults to the base_family.}
 
-\item{caption_pal}{The colour of the caption. Defaults to the base_pal with an alpha of 0.5.}
+\item{caption_face}{The font face of the caption. Defaults to the base_face.}
 
-\item{caption_face}{The font face of the caption. Defaults to "plain".}
+\item{caption_alpha}{The alpha of the caption pal. Defaults to 0.33. Use 1 for no alpha.}
 
-\item{caption_position}{The horizontal alignment of the caption to either "plot" or "panel".}
+\item{caption_pal}{The colour of the caption (before caption_alpha is applied). Defaults to the base_pal.}
 
-\item{caption_hjust}{The horizontal adjustment of the caption.}
+\item{caption_size}{The size of the caption. Defaults to the base_size * 0.9.}
 
-\item{caption_vjust}{The vertical adjustment of the caption.}
+\item{caption_hjust}{The horizontal adjustment of the caption. Defaults to 0.}
+
+\item{caption_vjust}{The vertical adjustment of the caption. Defaults to 1.}
 
 \item{caption_margin}{The margin of the caption. A ggplot2::margin function.}
 }
@@ -91,7 +84,7 @@ gg_theme_dark(
 A ggplot theme.
 }
 \description{
-Dark theme for a ggplot visualisation. Element prefixes to modify are: text_, title_, subtitle_, caption_, background_pal_, line_ (i.e. the axis line), ticks_, and gridlines_.
+Light theme for a ggplot visualisation.
 }
 \examples{
 library(palmerpenguins)

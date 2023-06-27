@@ -375,7 +375,7 @@ penguins |>
     x = flipper_length_mm, 
     y = body_mass_g,
     title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
-    # theme = gg_theme_light(title_face = "plain")
+    theme = gg_theme_light(title_face = "plain")
     ) +
   theme(plot.title = ggtext::element_markdown())
 ```
@@ -399,7 +399,7 @@ penguins |>
     y_labels = \(x) glue::glue("_{x}_"),
     col_labels = \(x) glue::glue("_{x}_"),
     facet_labels = \(x) glue::glue("_{x}_"),
-    # theme = gg_theme_light(title_face = "plain")     
+    theme = gg_theme_light(title_face = "plain")
   ) +
   theme(  
     plot.title = ggtext::element_markdown(),
@@ -565,9 +565,9 @@ d |>
   labs(fill = "Level")
 ```
 
-### ggeasy
+#### ggeasy
 
-The ggeasy package provides a lot of support for easy modifying themes. 
+The ggeasy package provides a lot of support for easily modifying themes. 
 
 ```{r}
 penguins |>
