@@ -410,6 +410,10 @@ they can <code>+</code> their theme as a layer instead.</p>
 looking theme: <code>gg_theme_light</code> (the default),
 <code>gg_theme_dark</code> (and <code>gg_theme_light_void</code> and
 <code>gg_theme_dark_void</code>).</p>
+<p>Note you can set the theme globally using
+<code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set</a></code>. If you wish to set the theme to
+theme_grey with the default base_size, then you must it tweak it ever so
+slightly (e.g. <code>theme_set(theme_grey(11.01)))</code></p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
