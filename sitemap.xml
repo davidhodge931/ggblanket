@@ -121,15 +121,6 @@
     <loc>https://davidhodge931.github.io/ggblanket/reference/gg_text.html</loc>
   </url>
   <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/gg_theme_dark.html</loc>
-  </url>
-  <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/gg_theme_light.html</loc>
-  </url>
-  <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/gg_theme_light_void.html</loc>
-  </url>
-  <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/gg_tile.html</loc>
   </url>
   <url>
@@ -155,5 +146,11 @@
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/theme_dark_mode.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/theme_light_mode.html</loc>
   </url>
 </urlset>
