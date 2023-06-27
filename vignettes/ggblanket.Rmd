@@ -317,6 +317,8 @@ penguins |>
 
 Three theme functions are provided to help users create a quick clean looking theme: `gg_theme_light` (the default), `gg_theme_dark` (and `gg_theme_light_void` and `gg_theme_dark_void`). 
 
+Note you can set the theme globally using `ggplot2::theme_set`. If you wish to set the theme to theme_grey with the default base_size, then you must it tweak it ever so slightly (e.g. `theme_set(theme_grey(11.01)))`
+
 ```{r, fig.asp=0.7}
 penguins |>
   gg_point(

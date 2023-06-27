@@ -190,7 +190,11 @@ gg_point <- function(
   #get default theme if global theme not set
   if (rlang::is_null(theme)) {
     if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
-      theme <- gg_theme_light()
+      if (stat == "sf") {
+        theme <- gg_theme_light_void()
+      } else {
+        theme <- gg_theme_light()
+      }
     }
   }
 

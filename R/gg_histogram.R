@@ -135,7 +135,7 @@ gg_histogram <- function(
     facet_layout = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case,
-    theme = gg_theme_light()) {
+    theme = NULL) {
 
   ##############################################################################
   #Unique code: part 1
@@ -187,6 +187,17 @@ gg_histogram <- function(
   ##############################################################################
   #Generic code: part 1 (adjust for gg_sf)
   ##############################################################################
+
+  #get default theme if global theme not set
+  if (rlang::is_null(theme)) {
+    if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
+      if (stat == "sf") {
+        theme <- gg_theme_light_void()
+      } else {
+        theme <- gg_theme_light()
+      }
+    }
+  }
 
   #process for horizontal
   if (stat != "sf") {

@@ -47,10 +47,10 @@
 #'     title = "Penguins body mass by flipper length",
 #'     subtitle = "Palmer Archipelago, Antarctica",
 #'     caption = "Source: Gorman, 2020",
-#'     theme = gg_theme_void()
+#'     theme = gg_theme_light_void()
 #'   )
 #'
-gg_theme_void <- function(
+gg_theme_light_void <- function(
     text_size = 10,
     text_family = "",
     text_pal = "#121b24",

@@ -302,7 +302,7 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
            col = L7_ETMs.tif,
            facet = band,
            col_title = "",
-           theme = gg_theme_void())
+           theme = gg_theme_light_void())
 ```
 
 ### 9. Use different fonts

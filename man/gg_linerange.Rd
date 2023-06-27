@@ -66,7 +66,7 @@ gg_linerange(
   facet_layout = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
-  theme = gg_theme_light()
+  theme = NULL
 )
 }
 \arguments{
