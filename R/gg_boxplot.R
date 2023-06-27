@@ -1322,76 +1322,68 @@ gg_boxplot <- function(
   }
 
   #Adjust legend
-  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex")) {
-    if (rlang::is_null(col_legend_place)) {
-      if (stat %in% c("bin2d", "bin_2d", "binhex")) {
-        col_legend_place <- "right"
-      }
-      else if (stat == "sf") {
-        if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-            (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-          col_legend_place <- "none"
-        }
-        else col_legend_place <- "right"
-      }
-      else if (stat == "qq") {
-        if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(sample, data))) |
-            (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-            (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-          col_legend_place <- "none"
-        }
-        col_legend_place <- "bottom"
-      }
-      else if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) |
-               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
-               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-               (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+  if (rlang::is_null(col_legend_place)) {
+    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+      col_legend_place <- "right"
+    }
+    else if (stat == "sf") {
+      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
         col_legend_place <- "none"
       }
-      else if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
-      else col_legend_place <- "bottom"
+      else col_legend_place <- "right"
     }
-    else {
-      if (col_legend_place == "b") col_legend_place <- "bottom"
-      if (col_legend_place == "t") col_legend_place <- "top"
-      if (col_legend_place == "l") col_legend_place <- "left"
-      if (col_legend_place == "r") col_legend_place <- "right"
-      if (col_legend_place == "n") col_legend_place <- "none"
-    }
-
-    if (col_legend_place %in% c("top", "bottom")) {
-      plot <- plot +
-        ggplot2::theme(legend.position = col_legend_place) +
-        ggplot2::theme(legend.direction = "horizontal") +
-        ggplot2::theme(legend.justification = "left") +
-        ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
-        ggplot2::theme(legend.text = ggplot2::element_text(
-          margin = ggplot2::margin(r = 7.5, unit = "pt")))
-
-      if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
-        plot <- plot +
-          ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
-          ggplot2::theme(legend.text.align = 0.5)
+    else if (stat == "qq") {
+      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(sample, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+        col_legend_place <- "none"
       }
+      col_legend_place <- "bottom"
     }
-    else if (col_legend_place %in% c("left", "right")) {
-      plot <- plot +
-        ggplot2::theme(legend.position = col_legend_place) +
-        ggplot2::theme(legend.direction = "vertical") +
-        ggplot2::theme(legend.justification = "left") +
-        ggplot2::theme(legend.box.margin = ggplot2::margin(t = 0)) +
-        ggplot2::theme(legend.text = ggplot2::element_text(
-          margin = ggplot2::margin(r = 0)))
+    else if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
+             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
+      col_legend_place <- "none"
+    }
+    else if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
+    else if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
+      col_legend_place <- "none"
+    }
+    else col_legend_place <- "bottom"
+  }
 
-      if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
-        plot <- plot +
-          ggplot2::theme(legend.title = ggplot2::element_text(vjust = 1))
-      }
-    }
-    else if (col_legend_place == "none") {
+  if (col_legend_place == "b") col_legend_place <- "bottom"
+  if (col_legend_place == "t") col_legend_place <- "top"
+  if (col_legend_place == "l") col_legend_place <- "left"
+  if (col_legend_place == "r") col_legend_place <- "right"
+  if (col_legend_place == "n") col_legend_place <- "none"
+
+  if (col_legend_place %in% c("top", "bottom")) {
+    plot <- plot +
+      ggplot2::theme(legend.position = col_legend_place) +
+      ggplot2::theme(legend.direction = "horizontal") +
+      ggplot2::theme(legend.justification = "left") +
+      ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
+      ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5))) +
+      ggplot2::theme(legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 5)))
+
+    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
       plot <- plot +
-        ggplot2::theme(legend.position = col_legend_place)
+        ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
+        ggplot2::theme(legend.text.align = 0.5)
     }
+  }
+  else if (col_legend_place %in% c("left", "right")) {
+    plot <- plot +
+      ggplot2::theme(legend.position = col_legend_place) +
+      ggplot2::theme(legend.direction = "vertical") +
+      ggplot2::theme(legend.justification = "left")
+  }
+  else if (col_legend_place == "none") {
+    plot <- plot +
+      ggplot2::theme(legend.position = col_legend_place)
   }
 
   #remove gridlines as per x_gridlines and y_gridlines. Guess if NULL

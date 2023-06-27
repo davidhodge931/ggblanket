@@ -115,7 +115,7 @@ gg_theme_dark <- function (
     panel.background = ggplot2::element_rect(fill = "#1f2f3e", colour = "#1f2f3e"),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = "#2C3A48", linewidth = ggplot2::rel(0.33)),
+    panel.grid.major = ggplot2::element_line(colour = "#2C3A48", linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(1.25, "lines"),
     panel.spacing.x = NULL,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_theme_dark.R
 \name{gg_theme_dark}
 \alias{gg_theme_dark}
-\title{Light theme for a ggplot}
+\title{Dark theme for a ggplot}
 \usage{
 gg_theme_dark(
   base_size = 10,
@@ -84,7 +84,7 @@ gg_theme_dark(
 A ggplot theme.
 }
 \description{
-Light theme for a ggplot visualisation.
+Dark theme for a ggplot visualisation.
 }
 \examples{
 library(palmerpenguins)
