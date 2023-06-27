@@ -410,7 +410,7 @@ penguins |>
     axis.text.y = ggtext::element_markdown(),
     legend.title = ggtext::element_markdown(),
     legend.text = ggtext::element_markdown(), 
-    strip.text.x = ggtext::element_markdown(margin = margin(b = 5)),
+    strip.text.x = ggtext::element_markdown(),
     strip.text.y = ggtext::element_markdown())
 ```
 
