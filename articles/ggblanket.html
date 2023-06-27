@@ -53,7 +53,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/extending_further.html">Extending further</a>
     <a class="dropdown-item" href="../articles/functions_demo.html">Functions demo</a>
-    <a class="dropdown-item" href="../articles/functions_demo_dark.html">Functions demo: dark theme</a>
+    <a class="dropdown-item" href="../articles/functions_demo_dark.html">Functions demo in dark</a>
   </div>
 </li>
 <li class="nav-item">
@@ -404,15 +404,18 @@ they can <code>+</code> their theme as a layer instead.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-23-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="three-gg_theme-functions-to-create-a-quick-theme">9. Three gg_theme functions to create a quick theme<a class="anchor" aria-label="anchor" href="#three-gg_theme-functions-to-create-a-quick-theme"></a>
+<h3 id="light-and-dark-gg_theme-functions-to-create-a-quick-theme">9. Light and dark gg_theme functions to create a quick theme<a class="anchor" aria-label="anchor" href="#light-and-dark-gg_theme-functions-to-create-a-quick-theme"></a>
 </h3>
-<p>Three theme functions are provided to help users create a quick clean
-looking theme: <code>gg_theme_light</code> (the default),
-<code>gg_theme_dark</code> (and <code>gg_theme_light_void</code> and
-<code>gg_theme_dark_void</code>).</p>
-<p>Note you can set the theme globally using
-<code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set</a></code>. If you wish to set the theme to
-theme_grey with the default base_size, then you must it tweak it ever so
+<p>Light and dark theme functions are provided to help users create a
+quick clean looking theme: <code>gg_theme_light</code> (the default) and
+<code>gg_theme_dark</code>.</p>
+<p>There are also void variations on these that may be useful for
+spatial visualisation and other purposes called
+<code>gg_theme_light_void</code> and
+<code>gg_theme_dark_void</code>.</p>
+<p>You can set the theme globally using <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set</a></code>.
+If you wish to set the theme to <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">ggplot2::theme_grey</a></code> with
+the default <code>base_size</code>, then you must it tweak it ever so
 slightly (e.g. <code>theme_set(theme_grey(11.01)))</code></p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -426,7 +429,9 @@ slightly (e.g. <code>theme_set(theme_grey(11.01)))</code></p>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>,</span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/gg_theme_dark.html">gg_theme_dark</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
-<p>You can use these themes outside of ggblanket functions.</p>
+<p>These themes can be used outside of ggblanket functions. However,
+users will have to remove the unnecessary x or y gridlines
+themselves.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">faithfuld</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
