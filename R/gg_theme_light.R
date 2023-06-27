@@ -71,7 +71,7 @@ gg_theme_light <- function (
     ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
+    line = ggplot2::element_line(colour = "#121b24", linewidth = 10/33, linetype = 1, lineend = "square"),
     rect = ggplot2::element_rect(fill = "#e6ecf2", colour = "#e6ecf2", linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal, size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
@@ -83,6 +83,7 @@ gg_theme_light <- function (
     axis.text.x.top = ggplot2::element_text(margin = ggplot2::margin(b = base_size * 0.2), vjust = 0),
     axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = base_size * 0.2), hjust = 1),
     axis.text.y.right = ggplot2::element_text(margin = ggplot2::margin(l = base_size * 0.2), hjust = 0),
+    axis.ticks = NULL,
     axis.ticks.length.x = grid::unit(10/3, "pt"),
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
