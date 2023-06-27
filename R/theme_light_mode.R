@@ -1,10 +1,10 @@
-#' @title Dark theme for a ggplot
+#' @title Light theme for a ggplot
 #'
-#' @description Dark theme for a ggplot visualisation.
+#' @description Light theme for a ggplot visualisation.
 #' @param base_size The base size of the text. Defaults to 10.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal The base colour of the text. Defaults to "#bbccdd".
+#' @param base_pal The base colour of the text. Defaults to "#121b24".
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "bold".
 #' @param title_pal The colour of the title. Defaults to the base_pal.
@@ -40,14 +40,14 @@
 #'     title = "Penguins body mass by flipper length",
 #'     subtitle = "Palmer Archipelago, Antarctica",
 #'     caption = "Source: Gorman, 2020",
-#'     theme = gg_theme_dark()
+#'     theme = NULL
 #'   )
 #'
-gg_theme_dark <- function (
+theme_light_mode <- function (
     base_size = 10,
     base_family = "",
     base_face = "plain",
-    base_pal = "#bbccdd",
+    base_pal = "#121b24",
     title_family = NULL,
     title_face = "bold",
     title_pal = NULL,
@@ -68,11 +68,11 @@ gg_theme_dark <- function (
     caption_hjust = 0,
     caption_vjust = 1,
     caption_margin = ggplot2::margin(t = base_size)
-) {
+    ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = "#bbccdd", linewidth = 10/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = "#121b24", colour = "#121b24", linewidth = base_size/33, linetype = 1),
+    line = ggplot2::element_line(colour = "#121b24", linewidth = 10/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = "#e6ecf2", colour = "#e6ecf2", linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal, size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
@@ -98,7 +98,7 @@ gg_theme_dark <- function (
     legend.spacing = grid::unit(base_size * 0.125, "pt"),
     legend.spacing.x = NULL,
     legend.margin = ggplot2::margin(),
-    legend.key = ggplot2::element_rect(fill = "#1f2f3e", colour = "#1f2f3e"),
+    legend.key = NULL,
     legend.key.size = grid::unit(1.2, "lines"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -113,10 +113,10 @@ gg_theme_dark <- function (
     legend.box.margin = ggplot2::margin(l = base_size * 0.5),
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = "#1f2f3e", colour = "#1f2f3e"),
+    panel.background = ggplot2::element_rect(fill = "#fcfdfe", colour = "#fcfdfe"),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = "#2C3A48", linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = "#dbe1e7", linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(1.25, "lines"),
     panel.spacing.x = NULL,

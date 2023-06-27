@@ -78,8 +78,7 @@
 #'              y = y,
 #'              col = L7_ETMs.tif,
 #'              facet = band,
-#'              col_title = "",
-#'              theme = gg_theme_light_void())
+#'              col_title = "")
 #' }
 #'
 gg_raster <- function(
@@ -196,7 +195,7 @@ gg_raster <- function(
   #get default theme if global theme not set
   if (rlang::is_null(theme)) {
     if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
-      theme <- gg_theme_light()
+      theme <- theme_light_mode()
     }
   }
 

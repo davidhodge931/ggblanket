@@ -25,7 +25,7 @@ library(dplyr)
 library(ggplot2)
 library(palmerpenguins)
 
-ggplot2::theme_set(gg_theme_dark())
+ggplot2::theme_set(theme_dark_mode())
 ```
 
 ### gg_area

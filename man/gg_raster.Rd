@@ -204,8 +204,7 @@ if (requireNamespace("stars", quietly = TRUE)) {
              y = y,
              col = L7_ETMs.tif,
              facet = band,
-             col_title = "",
-             theme = gg_theme_light_void())
+             col_title = "")
 }
 
 }

@@ -302,12 +302,12 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
            col = L7_ETMs.tif,
            facet = band,
            col_title = "",
-           theme = gg_theme_light_void())
+           theme = theme_light_mode())
 ```
 
 ### 9. Use different fonts
 
-The showtext and sysfonts packages support the use of different fonts from google. The `gg_theme_*` functions provide `text_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
+The showtext and sysfonts packages support the use of different fonts from google. The `theme_*_mode` functions provide `base_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
 
 ```{r, fig.asp = 0.75, fig.showtext = TRUE}
 sysfonts::font_add_google("Covered By Your Grace", "grace")
@@ -322,8 +322,7 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    theme = gg_theme_light(base_family = "grace",
-                           base_size = 12))
+    theme = theme_light_mode(base_family = "grace", base_size = 12))
 
 showtext::showtext_auto(enable = FALSE)
 ```
@@ -375,12 +374,12 @@ penguins |>
     x = flipper_length_mm, 
     y = body_mass_g,
     title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
-    theme = gg_theme_light(title_face = "plain")
+    theme = theme_light_mode(title_face = "plain")
     ) +
   theme(plot.title = ggtext::element_markdown())
 ```
 
-```{r}
+```{r, fig.asp=0.75}
 penguins |>
   gg_point(
     x = bill_length_mm,
@@ -399,7 +398,7 @@ penguins |>
     y_labels = \(x) glue::glue("_{x}_"),
     col_labels = \(x) glue::glue("_{x}_"),
     facet_labels = \(x) glue::glue("_{x}_"),
-    theme = gg_theme_light(title_face = "plain")
+    theme = theme_light_mode(title_face = "plain")
   ) +
   theme(  
     plot.title = ggtext::element_markdown(),
@@ -575,7 +574,7 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex) +
-  ggeasy::easy_remove_axes("x") 
+  ggeasy::easy_remove_axes("both") 
 ```
 
 #### plotly::ggplotly
@@ -588,7 +587,7 @@ p <- diamonds |>
     x = color,
     col = color,
     width = 0.75,
-    theme = gg_theme_light(base_family = "helvetica")) 
+    theme = theme_light_mode(base_family = "helvetica")) 
 
 plotly::ggplotly(p, 
   tooltip = c("x", "y"), 
@@ -608,7 +607,7 @@ p <- diamonds |>
     width = 0.75,
     y_include = 0,
     stat = "count", 
-    theme = gg_theme_light(base_family = "helvetica", base_size = 9)) +
+    theme = theme_light_mode(base_family = "helvetica", base_size = 9)) +
   ggiraph::geom_bar_interactive(
     aes(tooltip = after_stat(count), 
         data_id = color), width = 0.75)

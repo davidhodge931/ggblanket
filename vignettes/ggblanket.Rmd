@@ -33,7 +33,7 @@ To simplify ggplot2 visualisation, ggblanket provides:
 6. Prefixed arguments to customise scales etc
 7. Default x/y/col titles converted with to sentence case
 8. A theme argument to customise the look and feel
-9. Three gg_theme_* functions to create a quick theme
+9. A theme_light_mode and a theme_dark_mode function
 10. Pretty defaults for symmetry
 11. Access to other geom_* arguments via ...
 12. Spatial data visualisation
@@ -313,13 +313,11 @@ penguins |>
   theme_grey()
 ```
 
-### 9. Light and dark gg_theme functions to create a quick theme 
+### 9. Light and dark mode theme functions
 
-Light and dark theme functions are provided to help users create a quick clean looking theme: `gg_theme_light` (the default) and `gg_theme_dark`.
+Light and dark theme functions are provided to help users create a quick clean looking theme: `theme_light_mode` (the default) and `theme_dark_mode`. These have arguments to change the family, face, colour, size, margins and vertical adjustment of the title, subtitle, caption and base text.
 
-There are also void variations on these that may be useful for spatial visualisation and other purposes called `gg_theme_light_void` and `gg_theme_dark_void`. 
-
-You can set the theme globally using `ggplot2::theme_set`. If you wish to set the theme to `ggplot2::theme_grey` with the default `base_size`, then you must it tweak it ever so slightly (e.g. `theme_set(theme_grey(11.01)))`
+The theme can be set globally using `ggplot2::theme_set`. If you wish to set the theme to `ggplot2::theme_grey` with the default `base_size` of 11, then you must it tweak it ever so slightly (e.g. `theme_set(theme_grey(11.01)))`
 
 ```{r, fig.asp=0.7}
 penguins |>
@@ -331,21 +329,7 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    theme = gg_theme_dark())
-```
-
-These themes can be used outside of ggblanket functions. However, users will have to remove the unnecessary x or y gridlines themselves. 
-
-```{r, fig.asp=0.6}
-faithfuld |>
-  ggplot() +
-  geom_contour(aes(
-    x = waiting,
-    y = eruptions,
-    z = density
-  ), col = pal_blue) +
-  gg_theme_light() +
-  theme(panel.grid.major.x = element_blank()) 
+    theme = theme_dark_mode())
 ```
 
 ### 10. Pretty defaults for symmetry
