@@ -287,11 +287,12 @@ iris |>
 
 As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, spatial vector and array data can be visualised. 
 
-```{r}
+```{r, fig.asp=0.33}
 sf::st_read(system.file("shape/nc.shp", package = "sf"), 
                   quiet = TRUE) |>
   gg_sf(col = AREA,
-        pal = RColorBrewer::brewer.pal(9, "Blues"))
+        pal = RColorBrewer::brewer.pal(9, "Blues")) +
+  ggeasy::easy_remove_axes()
 ```
 
 ```{r}
@@ -301,16 +302,19 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
            y = y,
            col = L7_ETMs.tif,
            facet = band,
-           col_title = "",
-           theme = light_mode())
+           col_title = "") +
+  ggeasy::easy_remove_axes()
 ```
 
 ### 9. Use different fonts
 
-The showtext and sysfonts packages support the use of different fonts from google. The `theme_*_mode` functions provide `base_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
+The showtext and sysfonts packages support the use of different fonts from Google. The `theme_*_mode` functions provide `base_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
 
 ```{r, fig.asp = 0.75, fig.showtext = TRUE}
 sysfonts::font_add_google("Covered By Your Grace", "grace")
+sysfonts::font_add_google('Anton', 'anton')
+sysfonts::font_add_google('Syne Mono', 'syne')
+
 showtext::showtext_auto(enable = TRUE)
 
 penguins |>
@@ -322,7 +326,11 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    theme = light_mode(base_family = "grace", base_size = 12))
+    pal = c("#2596be", "#fc7c24"),
+    theme = light_mode(
+      base_family = "grace", 
+      title_family = "anton",
+      subtitle_family = "syne"))
 
 showtext::showtext_auto(enable = FALSE)
 ```
@@ -552,7 +560,7 @@ d |>
 
 #### ggeasy
 
-The ggeasy package provides a lot of support for easily modifying themes. 
+The ggeasy package provides a lot of support for easily modifying themes. Removing axes often is useful for maps. 
 
 ```{r}
 penguins |>
@@ -561,7 +569,6 @@ penguins |>
     y = body_mass_g,
     col = sex) +
   ggeasy::easy_remove_axes() 
-  # theme(plot.margin = ggplot2::margin(t = 15, r = 17.5, b = 7.5, l = 15))
 ```
 
 #### plotly::ggplotly

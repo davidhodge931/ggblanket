@@ -301,7 +301,7 @@ p1 <- penguins |>
     col = sex,
     pal = c("#2596be", "#fc7c24"),
     x_breaks = scales::breaks_pretty(3),
-    title = "theme = theme_grey()",
+    title = "theme=theme_grey()",
     theme = theme_grey())
 
 p2 <- penguins |>
@@ -348,6 +348,21 @@ penguins |>
 
 theme_set(light_mode())
 ```
+
+```{r}
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020",
+    pal = c("#2596be", "#fc7c24"),
+    theme = light_mode(base_size = 12))
+```
+
 
 ### 10. Pretty defaults for symmetry
 
@@ -426,7 +441,7 @@ penguins |>
 
 ### 12. Ability to add multiple geom_* layers
 
-Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geom's added. Geom's will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it. 
+Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geoms added. Geoms will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it. 
 
 ```{r}
 penguins |>
@@ -441,7 +456,7 @@ If some geoms have a `col` aesthetic and some do not, then it is recommended to 
 
 If you do not want a col aesthetic in your bottom plot layer, but require it in subsequent layers - then you should use the `gg_blank` function. Subsequent `geom_*` layers where the col aesthetic is not required can have `col = NA` and/or `fill = NA` arguments - or use the `inherit.aes = FALSE` argument. 
 
-Note the plot scales are constructed without knowledge of subsequent layers. The `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function. These scales can be adjusted to accomodate subsequent layers using the `*_include` or `*_limits` arguments. 
+Note the plot scales are constructed without knowledge of subsequent layers. The `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function. These scales can be adjusted to accommodate subsequent layers using the `*_include` or `*_limits` arguments. 
 
 ```{r, fig.asp=0.75}
 d <- penguins |>
