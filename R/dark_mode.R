@@ -40,10 +40,10 @@
 #'     title = "Penguins body mass by flipper length",
 #'     subtitle = "Palmer Archipelago, Antarctica",
 #'     caption = "Source: Gorman, 2020",
-#'     theme = theme_dark_mode()
+#'     theme = dark_mode()
 #'   )
 #'
-theme_dark_mode <- function (
+dark_mode <- function (
     base_size = 10,
     base_family = "",
     base_face = "plain",

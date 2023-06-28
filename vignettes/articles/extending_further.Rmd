@@ -302,7 +302,7 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
            col = L7_ETMs.tif,
            facet = band,
            col_title = "",
-           theme = theme_light_mode())
+           theme = light_mode())
 ```
 
 ### 9. Use different fonts
@@ -322,11 +322,10 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    theme = theme_light_mode(base_family = "grace", base_size = 12))
+    theme = light_mode(base_family = "grace", base_size = 12))
 
 showtext::showtext_auto(enable = FALSE)
 ```
-
 
 ### 10. Work with extension packages
 
@@ -374,7 +373,7 @@ penguins |>
     x = flipper_length_mm, 
     y = body_mass_g,
     title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>",
-    theme = theme_light_mode(title_face = "plain")
+    theme = light_mode(title_face = "plain")
     ) +
   theme(plot.title = ggtext::element_markdown())
 ```
@@ -398,7 +397,7 @@ penguins |>
     y_labels = \(x) glue::glue("_{x}_"),
     col_labels = \(x) glue::glue("_{x}_"),
     facet_labels = \(x) glue::glue("_{x}_"),
-    theme = theme_light_mode(title_face = "plain")
+    theme = light_mode(title_face = "plain")
   ) +
   theme(  
     plot.title = ggtext::element_markdown(),
@@ -411,19 +410,6 @@ penguins |>
     legend.text = ggtext::element_markdown(), 
     strip.text.x = ggtext::element_markdown(),
     strip.text.y = ggtext::element_markdown())
-```
-
-
-#### ggrepel
-
-The ggrepel package can be used to neatly avoid overlapping labels. 
-
-```{r}
-mtcars |> 
-  tibble::rownames_to_column("car") |>
-  filter(wt > 2.75, wt < 3.45) |> 
-  gg_point(x = wt, y = mpg) +
-  ggrepel::geom_text_repel(aes(label = car), col = "#2B6999") 
 ```
 
 #### ggbeeswarm
@@ -574,7 +560,8 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex) +
-  ggeasy::easy_remove_axes("both") 
+  ggeasy::easy_remove_axes() 
+  # theme(plot.margin = ggplot2::margin(t = 15, r = 17.5, b = 7.5, l = 15))
 ```
 
 #### plotly::ggplotly
@@ -587,7 +574,7 @@ p <- diamonds |>
     x = color,
     col = color,
     width = 0.75,
-    theme = theme_light_mode(base_family = "helvetica")) 
+    theme = light_mode(base_family = "helvetica")) 
 
 plotly::ggplotly(p, 
   tooltip = c("x", "y"), 
@@ -607,7 +594,7 @@ p <- diamonds |>
     width = 0.75,
     y_include = 0,
     stat = "count", 
-    theme = theme_light_mode(base_family = "helvetica", base_size = 9)) +
+    theme = light_mode(base_family = "helvetica", base_size = 9)) +
   ggiraph::geom_bar_interactive(
     aes(tooltip = after_stat(count), 
         data_id = color), width = 0.75)

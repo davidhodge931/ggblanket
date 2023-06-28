@@ -32,8 +32,8 @@ To simplify ggplot2 visualisation, ggblanket provides:
 5. An additional facet2 argument to facet by a 2nd variable
 6. Prefixed arguments to customise scales etc
 7. Default x/y/col titles converted with to sentence case
-8. A theme argument to customise the look and feel
-9. A theme_light_mode and a theme_dark_mode function
+8. Ability to set the theme 
+9. Light_mode and dark_mode theme functions
 10. Pretty defaults for symmetry
 11. Access to other geom_* arguments via ...
 12. Spatial data visualisation
@@ -287,39 +287,54 @@ penguins |>
       caption = "Source: Gorman, 2020")
 ```
 
-### 8. A theme argument to customise the look and feel
+### 8. Ability to set the theme 
 
-A `theme` argument is available. This allows users to make content that has their required look and feel. By using the `theme` argument, the theme will control all theme aspects, except (1) the placement of the legend and (2) gridline removal. However, if users want their theme to adjust _everything_, then they can `+` their theme as a layer instead.
+A `theme` argument is available to set the theme on a plot. By using the `theme` argument, the theme provided will control all theme aspects, except (1) the placement of the legend and (2) gridline removal. Note gridlines can be adjusted within the `gg_*` function, if necessary. If users want their theme to adjust _everything_, then they can `+` their theme as a layer instead.
+
+Users can set the theme globally as well using `ggplot2::theme_set`. This will set all subsequent plots to use this theme by default - unless the theme argument in a `gg_*` plot is changed. The hack of how this works under the hood means that if you wish to set the theme to `ggplot2::theme_grey` with the default `base_size` of 11, then you must it adjust it slightly (e.g. `theme_set(theme_grey(11.01)))`
 
 ```{r}
-penguins |>
+p1 <- penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    facet = species, 
-    pal = c("#2596be", "#fc7c24"), 
+    pal = c("#2596be", "#fc7c24"),
+    x_breaks = scales::breaks_pretty(3),
+    title = "theme = theme_grey()",
     theme = theme_grey())
+
+p2 <- penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    pal = c("#2596be", "#fc7c24"), 
+    x_breaks = scales::breaks_pretty(3),
+    title = "+ theme_grey()") +
+  theme_grey()
+
+p1 + p2
 ```
 
-```{r, fig.asp=0.6}
+```{r}
+theme_set(theme_classic())
+
 penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    facet = species, 
-    pal = c("#2596be", "#fc7c24")) +
-  theme_grey()
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### 9. Light and dark mode theme functions
 
-Light and dark theme functions are provided to help users create a quick clean looking theme: `theme_light_mode` (the default) and `theme_dark_mode`. These have arguments to change the family, face, colour, size, margins and vertical adjustment of the title, subtitle, caption and base text.
-
-The theme can be set globally using `ggplot2::theme_set`. If you wish to set the theme to `ggplot2::theme_grey` with the default `base_size` of 11, then you must it tweak it ever so slightly (e.g. `theme_set(theme_grey(11.01)))`
+ggplot2 provides two complete ggplot2 theme functions called `light_mode` (the default) and `dark_mode`. The first argument is the `base_size`, which changes the size of text to this with the title being 10% higher and the caption 10% lower. There are other arguments to change the family, face, colour, size, margins and vertical adjustment of text.
 
 ```{r, fig.asp=0.7}
+theme_set(dark_mode())
+
 penguins |>
   gg_point(
     x = flipper_length_mm,
@@ -329,7 +344,9 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    theme = theme_dark_mode())
+    pal = c("#2596be", "#fc7c24"))
+
+theme_set(light_mode())
 ```
 
 ### 10. Pretty defaults for symmetry

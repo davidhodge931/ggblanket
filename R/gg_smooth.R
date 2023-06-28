@@ -188,7 +188,7 @@ gg_smooth <- function(
   #get default theme if global theme not set
   if (rlang::is_null(theme)) {
     if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
-      theme <- theme_light_mode()
+      theme <- light_mode()
     }
   }
 

@@ -43,7 +43,7 @@
 #'     theme = NULL
 #'   )
 #'
-theme_light_mode <- function (
+light_mode <- function (
     base_size = 10,
     base_family = "",
     base_face = "plain",
@@ -68,7 +68,7 @@ theme_light_mode <- function (
     caption_hjust = 0,
     caption_vjust = 1,
     caption_margin = ggplot2::margin(t = base_size)
-    ) {
+) {
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = "#121b24", linewidth = 10/33, linetype = 1, lineend = "square"),
