@@ -111,12 +111,12 @@
 <clipPath id="clip1">
   <path d="M 415.597656 115.625 L 432.878906 115.625 L 432.878906 202.023438 L 415.597656 202.023438 Z M 415.597656 115.625 "/>
 </clipPath>
-<image id="image199" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAAwUlEQVQ4ja2SsRLDMAhDJU39nP5X/39uhmAiCM516OADwxOW78Dr/RFIgTojWO9xSG16luOhV+ZL3yeGFEkREQkx6yj1ZKOOiY93nUfUMzdtZ7pWRM69/KB4rX0ULz0CfkfzNzGrXz1o8JS1picw8u6588Vjzu9656++Qi/Tr1ztznPZcp5stsyfzI+av6pp/sBLj/qf/KdHNE/gXjPp/X+Fjb0yBosBci9vTOaw3f1d94/3ksmZvDOZD8zkYTF7nweUFAZIrAq1EQAAAABJRU5ErkJggg=="/>
+<image id="image204" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAAwUlEQVQ4ja2SsRLDMAhDJU39nP5X/39uhmAiCM516OADwxOW78Dr/RFIgTojWO9xSG16luOhV+ZL3yeGFEkREQkx6yj1ZKOOiY93nUfUMzdtZ7pWRM69/KB4rX0ULz0CfkfzNzGrXz1o8JS1picw8u6588Vjzu9656++Qi/Tr1ztznPZcp5stsyfzI+av6pp/sBLj/qf/KdHNE/gXjPp/X+Fjb0yBosBci9vTOaw3f1d94/3ksmZvDOZD8zkYTF7nweUFAZIrAq1EQAAAABJRU5ErkJggg=="/>
 <pattern id="pattern0" patternUnits="userSpaceOnUse" width="1" height="300"  patternTransform="matrix(17.28,0,0,0.288,415.59663,115.624616)">
-  <use xlink:href="#image199"/>
+  <use xlink:href="#image204"/>
 </pattern>
 </defs>
-<g id="surface195">
+<g id="surface200">
 <rect x="0" y="0" width="525" height="324" style="fill:rgb(90.196078%,92.54902%,94.901961%);fill-opacity:1;stroke:none;"/>
 <path style="fill:none;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(90.196078%,92.54902%,94.901961%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 324 L 525 324 L 525 0 L 0 0 Z M 0 324 "/>
 <path style="fill-rule:nonzero;fill:rgb(98.823529%,99.215686%,99.607843%);fill-opacity:1;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(98.823529%,99.215686%,99.607843%);stroke-opacity:1;stroke-miterlimit:10;" d="M 78.410156 283.742188 L 404.949219 283.742188 L 404.949219 14.945312 L 78.410156 14.945312 Z M 78.410156 283.742188 "/>

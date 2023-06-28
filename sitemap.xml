@@ -34,6 +34,9 @@
     <loc>https://davidhodge931.github.io/ggblanket/news/index.html</loc>
   </url>
   <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/dark_mode.html</loc>
+  </url>
+  <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/gg_area.html</loc>
   </url>
   <url>
@@ -133,6 +136,9 @@
     <loc>https://davidhodge931.github.io/ggblanket/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/light_mode.html</loc>
+  </url>
+  <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/na_if_inf.html</loc>
   </url>
   <url>
@@ -146,11 +152,5 @@
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/theme_dark_mode.html</loc>
-  </url>
-  <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/theme_light_mode.html</loc>
   </url>
 </urlset>
