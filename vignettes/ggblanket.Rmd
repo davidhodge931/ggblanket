@@ -32,12 +32,11 @@ To simplify ggplot2 visualisation, ggblanket provides:
 5. An additional facet2 argument to facet by a 2nd variable
 6. Prefixed arguments to customise scales etc
 7. Default x/y/col titles converted with to sentence case
-8. Ability to set the theme 
-9. Light and dark mode theme functions
-10. Pretty defaults for symmetry
-11. Access to other geom_* arguments via ...
-12. Ability to add multiple geom_* layers
-13. A framework able to be extended further
+8. Ability to set the theme, including with provided themes
+9. Pretty defaults for symmetry
+10. Access to other geom_* arguments via ...
+11. Ability to add multiple geom_* layers
+12. A framework able to be extended further
 
 ```{r setup}
 library(dplyr)
@@ -286,34 +285,15 @@ penguins |>
       caption = "Source: Gorman, 2020")
 ```
 
-### 8. Ability to set the theme 
+### 8. Ability to set the theme, including with provided themes
 
 The `ggplot2::theme_set` function can be used to set the theme globally, such that all subsequent plots will use this theme by default. Once the theme has been set globally, you can override this on a per plot basis using the `theme` argument. 
 
-The `gg_*` function will control what gridlines are present and the placement of the legend. If users want their theme to adjust _everything_ as per the theme, then they can `+` their theme onto the plot instead.
-
-If you wish to set the theme to `ggplot2::theme_grey` with the default `base_size` of 11, then you must it adjust it slightly (e.g. `theme_set(theme_grey(11.01)))`
-
-```{r}
-theme_set(theme_grey(11.01))
-
-p1 <- penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    pal = c("#2596be", "#fc7c24"), 
-    x_breaks = scales::breaks_pretty(3)) 
-
-p2 <- p1 +
-   theme_grey()
-
-p1 + p2
-```
-
-### 9. Light and dark mode theme functions
-
 ggblanket provides two complete ggplot2 theme functions called `light_mode` (the default) and `dark_mode`. The first argument is the `base_size`, which changes the size of text to this with the title being 10% higher and the caption 10% lower. There are other arguments to change the family, face, colour, size, margins and vertical adjustment of text.
+
+Note that the `gg_*` function will control what gridlines are present and the placement of the legend - despite the theme provided. If you are providing a theme other than light_mode or dark_mode, it works best if the plot has major vertical and horizontal gridlines. If users want everything adjusted as per the theme, then they can `+` their theme onto the plot instead.
+
+Note If you wish to set the theme to `ggplot2::theme_grey` with the default `base_size` of 11, then you must it adjust it slightly (e.g. `theme_set(theme_grey(11.01)))`. This is due to the hack of how theme_set has been made to work with ggblanket.
 
 ```{r, fig.asp=0.7}
 theme_set(dark_mode())
@@ -341,10 +321,9 @@ penguins |>
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
     pal = c("#2596be", "#fc7c24"))
-
 ```
 
-### 10. Pretty defaults for symmetry
+### 9. Pretty defaults for symmetry
 
 Where the orientation is normal (i.e. vertical): 
 
@@ -405,7 +384,7 @@ penguins |>
     width = 0.75)
 ```
 
-### 11. Access to other geom_* arguments via `...`
+### 10. Access to other geom_* arguments via `...`
 
 The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users (except the mapping argument). Common arguments from `...` to add are `size`, `linewidth` and `width`. 
 
@@ -419,7 +398,7 @@ penguins |>
     level = 0.99) #accessed via geom_smooth
 ```
 
-### 12. Ability to add multiple geom_* layers
+### 11. Ability to add multiple geom_* layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geoms added. Geoms will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it. 
 
@@ -507,7 +486,7 @@ d_long |>
   geom_point(size = 2) 
 ```
 
-### 13. A framework able to be extended further
+### 12. A framework able to be extended further
 
 To extend ggblanket further, users can:
 
