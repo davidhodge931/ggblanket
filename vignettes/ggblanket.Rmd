@@ -71,7 +71,7 @@ penguins |>
 
 ### 2. A single col argument to colour and fill by a variable
 
-The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. This always represents the colour of everything in the geom: all points, lines and polygon interiors. 
+The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. This argument means that everything should be coloured according to it, i.e. all points, lines and polygon interiors. 
 
 ```{r}
 # ggplot2
@@ -118,7 +118,7 @@ p1 + p2
 
 ### 3.  A pal argument to customise colours
 
-The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. 
+The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. A named palette can be used to make individual colours stick to particular values. 
 
 ```{r}
 # ggplot2
@@ -254,23 +254,17 @@ penguins |>
                  y = body_mass_g, 
                  col = sex)) +
   facet_wrap(~species) +
-  scale_x_continuous(breaks = scales::breaks_pretty(n = 3)) +
-  labs(title = "Penguins body mass by flipper length",
-       subtitle = "Palmer Archipelago, Antarctica",
-       caption = "Source: Gorman, 2020") 
+  scale_x_continuous(breaks = scales::breaks_pretty(n = 3)) 
 ```
 
-```{r, fig.asp=0.7}
+```{r}
 # ggblanket
 penguins |>
   gg_point(
       x = flipper_length_mm,
       y = body_mass_g, 
       col = sex,
-      facet = species,
-      title = "Penguins body mass by flipper length",
-      subtitle = "Palmer Archipelago, Antarctica",
-      caption = "Source: Gorman, 2020")
+      facet = species)
 ```
 
 ### 8. Ability to set the theme, including to provided themes
@@ -300,7 +294,7 @@ penguins |>
 
 ```{r, fig.asp=0.7}
 # ggblanket
-theme_set(light_mode())
+theme_set(light_mode(base_size = 12))
 
 penguins |>
   gg_point(
@@ -466,7 +460,6 @@ To extend ggblanket further, users can:
 * Use the ggblank function
 * Work with non-default stat's
 * Use non-supported aesthetics
-* Use non-supported arguments
 * Use non-supported geoms
 * Modifying a part of the colouring 
 * Create custom wrapper functions

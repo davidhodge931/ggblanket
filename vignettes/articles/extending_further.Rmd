@@ -25,24 +25,23 @@ To extend ggblanket further, users can:
 1. Use the ggblank function
 2. Work with non-default stat's
 3. Use non-supported aesthetics
-4. Use non-supported arguments
-5. Use non-supported geoms
-6. Modifying a part of the colouring 
-7. Create custom wrapper functions
-8. Visualise spatial data
-9. Use different fonts
-10. Work with extension packages 
+4. Use non-supported geoms
+5. Modifying a part of the colouring 
+6. Create custom wrapper functions
+7. Visualise spatial data
+8. Use different fonts
+9. Work with extension packages 
 
 * patchwork
 * ggtext
 * ggrepel
-* ggbeeswarm
 * ggblend
 * gghighlight
+* ggeasy
+* ggbeeswarm
 * ggdensity
 * ggridges
 * ggdist
-* ggeasy
 * plotly::ggplotly
 * ggiraph
 * gganimate
@@ -146,25 +145,7 @@ penguins |>
   labs(alpha = "Bill depth mm") 
 ```
 
-### 4. Use non-supported arguments
-
-The `gg_*` function provides access to all arguments within the `geom_*` function other than the `mapping` argument. It also provides access to most of the useful arguments you might need in the various guide, scale and facet functions etc. However, it does not provide all such arguments. For example, the switch argument within `facet_grid` is not supported. A way to access this functionality is to `+` the `facet_grid(..., switch = "y")` in.
-
-```{r}
-penguins |>
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g,
-    col = island,
-    facet = species, 
-    facet2 = sex,
-    y_labels = \(x) glue::glue(" {x}")) + #add space
-  facet_grid(cols = vars(species),
-             rows = vars(sex), 
-             switch = "y")
-```
-
-### 5. Use non-supported geoms
+### 4. Use non-supported geoms
 
 gblanket does not support _all_ ggplot2 geoms. However, some of these can be accessed via the `gg_blank` function.
 
@@ -203,7 +184,7 @@ p4 <- faithfuld |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 6. Modifying a part of the colouring 
+### 5. Modifying a part of the colouring 
 
 Where a `gg_*` function contains a geom that can colour both outlines and fill, users can turn off a part of this using the `alpha = 0` or `pal = scales::alpha("red", 0)`. 
 
@@ -239,7 +220,7 @@ p4 <- iris |>
 (p1 + p2) / (p3 + p4) 
 ```
 
-### 7. Create custom wrapper functions
+### 6. Create custom wrapper functions
 
 You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
@@ -269,7 +250,7 @@ iris |>
     col = Species)
 ```
 
-### 8. Visualise spatial data
+### 7. Visualise spatial data
 
 As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, spatial vector and array data can be visualised. 
 
@@ -292,7 +273,7 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
   ggeasy::easy_remove_axes()
 ```
 
-### 9. Use different fonts
+### 8. Use different fonts
 
 The showtext and sysfonts packages support the use of different fonts from Google. The `theme_*_mode` functions provide `base_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
 
@@ -320,7 +301,7 @@ penguins |>
 showtext::showtext_auto(enable = FALSE)
 ```
 
-### 10. Work with extension packages
+### 9. Work with extension packages
 
 ggblanket can work with numerous extension packages. 
 
@@ -398,15 +379,16 @@ penguins |>
     strip.text.y = ggtext::element_markdown())
 ```
 
-#### ggbeeswarm
+#### ggrepel
 
-The ggbeeswarm package can be used to create scatter plots that avoid overlapping points.
+The ggrepel package can be used to neatly avoid overlapping labels. 
 
 ```{r}
-penguins |> 
-  gg_blank(x = species, 
-           y = body_mass_g) + 
-  ggbeeswarm::geom_quasirandom(col = pal_blue)
+mtcars |> 
+  tibble::rownames_to_column("car") |>
+  filter(wt > 2.75, wt < 3.45) |> 
+  gg_point(x = wt, y = mpg) +
+  ggrepel::geom_text_repel(aes(label = car), col = "#2B6999") 
 ```
 
 #### ggblend
@@ -447,6 +429,30 @@ iris |>
     y_limits = c(NA, NA)
   ) +
   gghighlight::gghighlight()
+```
+
+#### ggeasy
+
+The ggeasy package provides a lot of support for easily modifying themes. Removing axes often is useful for maps. 
+
+```{r}
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex) +
+  ggeasy::easy_remove_axes() 
+```
+
+#### ggbeeswarm
+
+The ggbeeswarm package can be used to create scatter plots that avoid overlapping points.
+
+```{r}
+penguins |> 
+  gg_blank(x = species, 
+           y = body_mass_g) + 
+  ggbeeswarm::geom_quasirandom(col = pal_blue)
 ```
 
 #### ggdensity
@@ -534,19 +540,6 @@ d |>
   ggdist::stat_lineribbon(aes(ydist = dist)) +
   scale_fill_brewer() +
   labs(fill = "Level")
-```
-
-#### ggeasy
-
-The ggeasy package provides a lot of support for easily modifying themes. Removing axes often is useful for maps. 
-
-```{r}
-penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex) +
-  ggeasy::easy_remove_axes() 
 ```
 
 #### plotly::ggplotly
