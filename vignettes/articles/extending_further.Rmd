@@ -343,30 +343,23 @@ ggblanket can work with numerous extension packages.
 
 The patchwork package enables plots to be patched together.
 
-```{r}
-set.seed(123)
+```{r, fig.asp=0.75}
+p1 <- mtcars |> 
+  gg_point(x = mpg, 
+           y = disp)
 
-p1 <- penguins |>
-  gg_jitter(
-    x = species,
-    y = body_mass_g,
-    col = sex, 
-    pal = pal_hue[1:2],
-    col_legend_ncol = 2,
-    col_legend_nrow = 2)
+p2 <- mtcars |> 
+  gg_boxplot(x = gear, 
+             y = disp, 
+             group = gear, 
+             width = 0.5)
 
-p2 <- penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = species, 
-    pal = pal_hue[3:5],
-    y_title = "", 
-    y_labels = \(x) str_sub(x, 0, 0), 
-    col_legend_ncol = 2,
-    col_legend_nrow = 2)
+p3 <- mtcars |> 
+  gg_smooth(x = disp, 
+            y = qsec, 
+            x_breaks = scales::breaks_pretty(4))
 
-p1 + p2 
+(p1 | p2) / p3
 ```
 
 #### ggtext

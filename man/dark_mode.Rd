@@ -88,6 +88,9 @@ Dark theme for a ggplot visualisation.
 }
 \examples{
 library(palmerpenguins)
+library(ggplot2)
+
+theme_set(light_mode())
 
 penguins |>
   gg_point(
@@ -96,8 +99,7 @@ penguins |>
     col = species,
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020",
-    theme = dark_mode()
+    caption = "Source: Gorman, 2020"
   )
 
 }
