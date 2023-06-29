@@ -1,4 +1,4 @@
-# ggblanket 3.0.9000
+# ggblanket 3.0.0
 
 * New theme functions: `light_mode` and `dark_mode`.
 * Breaking: removed `gg_theme`. 

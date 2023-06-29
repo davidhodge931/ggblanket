@@ -30,8 +30,8 @@ To simplify ggplot2 visualisation, ggblanket provides:
 3. A pal argument to customise colours
 4. A facet argument to facet by a variable
 5. An additional facet2 argument to facet by a 2nd variable
-6. Prefixed arguments to customise scales etc
-7. Default x/y/col titles converted with to sentence case
+6. Prefixed arguments to customise titles, scales, guides, and faceting
+7. Unspecified x/y/col titles converted to sentence case
 8. Ability to set the theme, including to provided themes
 9. Pretty defaults for symmetry
 10. Access to other geom_* arguments via ...
@@ -54,6 +54,7 @@ penguins <- palmerpenguins::penguins |>
 Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. This also provides access to the arguments of the relevant stat function.
 
 ```{r}
+# ggplot2 example
 penguins |> 
   ggplot() + 
   geom_point(aes(x = flipper_length_mm, 
@@ -72,33 +73,45 @@ penguins |>
 The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. This always represents the colour of everything in the geom: all points, lines and polygon interiors. 
 
 ```{r}
-penguins |> 
+# ggplot2 example
+p1 <- penguins |> 
   ggplot() + 
   geom_point(aes(x = flipper_length_mm, 
                  y = body_mass_g,
-                 col = species))
+                 col = species)) + 
+  theme(legend.position = "bottom") +
+  guides(col = guide_legend(title.position = "top")) +
+  labs(col = "Species") +
+  scale_x_continuous(breaks = scales::breaks_pretty(n = 3))
+
+p2 <- penguins |>
+  ggplot() +
+  geom_density(aes(x = body_mass_g, 
+                   fill = species)) +
+  theme(legend.position = "bottom") +
+  guides(fill = guide_legend(title.position = "top")) +
+  labs(fill = "Species")
+
+p1 + p2
 ```
 
 ```{r}
-penguins |>
+p1 <- penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g, 
-    col = species)
-```
+    col = species, 
+    x_breaks = scales::breaks_pretty(n = 3), 
+    col_legend_ncol = 2)
 
-```{r}
-penguins |>
-  ggplot() +
-  geom_density(aes(x = body_mass_g, 
-                   fill = species))
-```
-
-```{r}
-penguins |>
+p2 <- penguins |>
   gg_density(
     x = body_mass_g, 
-    col = species)
+    col = species,
+    x_breaks = scales::breaks_pretty(n = 3), 
+    col_legend_ncol = 2)
+
+p1 + p2
 ```
 
 ### 3.  A pal argument to customise colours
@@ -106,35 +119,38 @@ penguins |>
 The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. 
 
 ```{r}
-penguins |>
+# ggplot2 example
+p1 <- penguins |>
   ggplot() +
   geom_histogram(aes(x = body_mass_g),
-    fill = "#1B9E77")
-```
+                 fill = "#1B9E77") +
+  scale_x_continuous(breaks = scales::breaks_pretty(n = 3)) 
 
-```{r}
-penguins |>
-  gg_histogram(
-    x = body_mass_g, 
-    pal = "#1B9E77")
-```
-
-```{r}
-penguins |>
+p2 <- penguins |>
   ggplot() +
   geom_jitter(aes(x = species, 
                   y = body_mass_g, 
                   col = sex)) +
   scale_color_manual(values = c("#2596be", "#fc7c24"))
+
+p1 + p2
 ```
 
 ```{r}
-penguins |>
+p1 <- penguins |>
+  gg_histogram(
+    x = body_mass_g, 
+    pal = "#1B9E77", 
+    x_breaks = scales::breaks_pretty(n = 3))
+
+p2 <- penguins |>
   gg_jitter(
     x = species, 
     y = body_mass_g, 
     col = sex, 
     pal = c("#2596be", "#fc7c24"))
+
+p1 + p2
 ```
 
 ### 4. A facet argument to facet by a variable
@@ -142,6 +158,7 @@ penguins |>
 Faceting is treated as if it were an aesthetic. Users just provide an unquoted variable to facet by. If a single facet (or facet2) variable is provided, it'll default to a "wrap" layout. But users can change this with a `facet_layout = "grid"` argument.
 
 ```{r}
+# ggplot2 example
 penguins |>
   ggplot() +
   geom_violin(aes(x = sex, 
@@ -162,6 +179,7 @@ penguins |>
 A `facet2` argument is also provided for extra functionality and flexibility. If both `facet`and `facet2` variables are provided, then it'll default to a "grid" layout of `facet` by `facet2`. But users can change this with a `facet_layout = "wrap"` argument. 
 
 ```{r, fig.asp=0.75}
+# ggplot2 example
 penguins |>
   ggplot() +
   geom_histogram(aes(x = flipper_length_mm)) +
@@ -176,15 +194,16 @@ penguins |>
     facet2 = species)
 ```
 
-### 6.  Prefixed arguments to customise scales etc
+### 6.  Prefixed arguments to customise titles, scales, guides, and faceting
 
-Prefixed arguments are available to customise scales, guides, titles and faceting etc. These are designed to work with the Rstudio auto-complete to help users remember and find the adjustment they need. Users should first determine whether they want to change something that relates to  x, y, col or facet. Then they should type this prefix and press the tab key to access the list of options from the Rstudio auto-complete. Then they can use the arrow keys, and press tab again to select what they want.
+Prefixed arguments are available to customise titles, scales, guides, and faceting. These are designed to work with the Rstudio auto-complete to help users remember and find the adjustment they need. Users should first determine whether they want to change something that relates to  x, y, col or facet. Then they should type this prefix and press the tab key to access the list of options from the Rstudio auto-complete. Then they can use the arrow keys, and press tab again to select what they want.
 
 ```{r, echo = FALSE,   fig.width = 3, fig.asp = 2}
 knitr::include_graphics("screenshot_autotab_y.png", dpi = 300)
 ```
 
 ```{r}
+# ggplot2 example
 penguins |>
   ggplot() +
   geom_jitter(aes(x = species, 
@@ -217,50 +236,12 @@ penguins |>
     col_legend_place = "t")
 ```
 
-```{r}
-p1 <- penguins |> 
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g, 
-    y_include = 0, 
-    x_breaks = scales::breaks_width(25))
+### 7. Unspecified x/y/col titles converted to sentence case
 
-p2 <- penguins |> 
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g, 
-    y_limits = c(0, NA),
-    x_breaks = scales::breaks_pretty(3))
-
-p3 <- penguins |>
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g, 
-    x_limits = c(190, 210),
-    x_oob = scales::oob_keep,
-    y_trans = "log10",
-    y_limits = c(1000, NA),
-    y_breaks = scales::breaks_width(1000),
-    coord = coord_cartesian(clip = "on"))
-
-p4 <- penguins |>
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g,
-    x_trans = "reverse",
-    x_limits = c(210, 190),
-    x_breaks = scales::breaks_width(-10), 
-    y_include = 0,
-    y_trans = "sqrt")
-
-(p1 + p2) / (p3 + p4)
-```
-
-### 7. Default x/y/col titles converted to sentence case
-
-Default x/y/col titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. However, with the default conversion, it is intended that titles are less likely to need to be manually changed than if default titles were left as variable names.
+Unspecified x/y/col titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is.
 
 ```{r}
+# ggplot2 example
 penguins |>
   ggplot() +
   geom_point(aes(x = flipper_length_mm, 
@@ -293,7 +274,7 @@ ggblanket provides two complete ggplot2 theme functions called `light_mode` (the
 
 Note that the `gg_*` function will control what gridlines are present and the placement of the legend - despite the theme provided. If you are providing a theme other than light_mode or dark_mode, it works best if the plot has major vertical and horizontal gridlines. If users want everything adjusted as per the theme, then they can `+` their theme onto the plot instead.
 
-Note If you wish to set the theme to `ggplot2::theme_grey` with the default `base_size` of 11, then you must it adjust it slightly (e.g. `theme_set(theme_grey(11.01)))`. This is due to `gg_*()`  functions changing the theme to `light_mode`, if no theme is set and the global theme is `theme_grey`.
+Note that `theme_set(theme_grey())` resets the set theme for ggplot2 code to theme_grey and for ggblanket `gg_*` functions to `light_mode()`. If you want ggblanket `gg_*` functions to default to using `theme_grey()`, then you must modify the base_size slightly (e.g. `theme_set(theme_grey(11.01))`). 
 
 ```{r, fig.asp=0.7}
 theme_set(dark_mode())
@@ -321,6 +302,8 @@ penguins |>
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
     pal = c("#2596be", "#fc7c24"))
+
+theme_set(theme_grey()) #unset the theme
 ```
 
 ### 9. Pretty defaults for symmetry
@@ -337,30 +320,7 @@ It does the opposite where the orientation is horizontal (and also keeps y categ
 Note `gg_bin2d`, `gg_hex` and `gg_raster` deviate from this approach out of necessity, and instead just place the limits as the min and max of the data by default.
 
 ```{r}
-penguins |>
-  group_by(species, sex) |> 
-  summarise(body_mass_g = mean(body_mass_g)) |> 
-  ggplot() +
-  geom_col(aes(x = species, 
-               y = body_mass_g, 
-               fill = sex),
-    position = "dodge",
-    width = 0.5)
-```
-
-```{r}
-penguins |>
-  group_by(species, sex) |> 
-  summarise(body_mass_g = mean(body_mass_g)) |> 
-  gg_col(
-    x = species,
-    y = body_mass_g,
-    col = sex,
-    position = "dodge",
-    width = 0.5)
-```
-
-```{r}
+#ggplot2 example
 penguins |>
   group_by(species, sex) |> 
   summarise(body_mass_g = mean(body_mass_g)) |> 
