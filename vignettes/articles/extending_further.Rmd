@@ -109,9 +109,9 @@ penguins |>
   gg_blank(
     x = bill_length_mm,
     y = body_mass_g, 
-    col = sex) + #hack to enable ggblanket legend placement
+    col = sex) + #hack for legend placement
   geom_point(aes(shape = sex), col = "#2B6999") + 
-  labs(shape = "Sex") #name must be the same as the col_title
+  labs(shape = "Sex") #name same as the col_title  
 ```
 
 ```{r}
@@ -121,12 +121,11 @@ penguins |>
     y = body_mass_g, 
     col = sex) + 
   geom_point(aes(shape = sex)) +  
-  labs(shape = "Sex") #name must be the same as the col_title 
+  labs(shape = "Sex") #name same as the col_title 
 ```
 
 _Continuous non-col aesthetic_
 ```{r, fig.asp=0.5}
-#legend on right
 penguins |>
   gg_blank(
     x = bill_length_mm,
@@ -135,29 +134,16 @@ penguins |>
   labs(alpha = "Bill depth mm")
 ```
 
-```{r}
-#legend on bottom
-penguins |>
-  gg_blank(
-    x = bill_length_mm,
-    y = body_mass_g, 
-    col = bill_depth_mm, #hack for ggblanket legend placement
-    col_legend_place = "b") + #hack for ggblanket legend placement 
-  geom_point(aes(alpha = bill_depth_mm), col = "#2B6999") +
-  labs(alpha = "Bill depth mm") +
-  guides(alpha = guide_legend(title.position = "top"))
-```
-
 ```{r, fig.asp=0.5}
 penguins |>
   gg_blank(
     x = bill_length_mm,
     y = body_mass_g, 
     col = species,
-    col_legend_place = "r", #two legends look better on right
-    col_title = "\nSpecies") + #hack to add space between legends
+    col_legend_place = "r", #two legends works better on right
+    col_title = "\nSpecies") + #add space between legends
   geom_point(aes(alpha = bill_depth_mm)) +
-  labs(alpha = "Bill depth mm") #name must be the same as the col_title
+  labs(alpha = "Bill depth mm") 
 ```
 
 ### 4. Use non-supported arguments
@@ -172,7 +158,7 @@ penguins |>
     col = island,
     facet = species, 
     facet2 = sex,
-    y_labels = \(x) glue::glue(" {x}")) + #hack to add space
+    y_labels = \(x) glue::glue(" {x}")) + #add space
   facet_grid(cols = vars(species),
              rows = vars(sex), 
              switch = "y")
@@ -476,8 +462,8 @@ iris |>
     y = Sepal.Length,
     col = Species,
     facet = Species,
-    col_legend_place = "r", #two legends look better on right
-    col_title = "\nSpecies") + #hack to add space between legends
+    col_legend_place = "r", 
+    col_title = "\nSpecies") + #add space between legends
   ggdensity::geom_hdr(col = NA) +
   labs(alpha = "Probs")
 ```

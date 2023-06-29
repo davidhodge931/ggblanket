@@ -1233,7 +1233,7 @@ gg_smooth <- function(
   }
   else if (col_legend_place == "none") {
     plot <- plot +
-      ggplot2::theme(legend.position = col_legend_place)
+      ggplot2::guides(col = FALSE, fill = FALSE)
   }
 
   #remove gridlines as per x_gridlines and y_gridlines. Guess if NULL
