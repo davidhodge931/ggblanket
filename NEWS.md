@@ -6,7 +6,8 @@
 * Breaking: removed `void` argument.
 * Breaking: removed `gg_function`.
 * Breaking: made `col_rescale` require a function (e.g. `scales::rescale()`).
-* Made col_legend_place = "none" only remove the col legend.  
+* Added `facet_switch` argument.
+* Made `col_legend_place = "none"` only remove the col legend.  
 * For raster, removed col aesthetic so that legend would work.
 * Improved `gg_sf` default `alpha`.
 * Supported `gg_sf` to work with non-standard named geometry.

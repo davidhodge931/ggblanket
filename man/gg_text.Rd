@@ -61,6 +61,7 @@ gg_text(
   facet_scales = "fixed",
   facet_space = "fixed",
   facet_layout = NULL,
+  facet_switch = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
   theme = NULL
@@ -178,6 +179,8 @@ gg_text(
 \item{facet_space}{Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed". Only applies where the facet layout is "grid" and facet scales are not "fixed".}
 
 \item{facet_layout}{Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".}
+
+\item{facet_switch}{Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".}
 
 \item{caption}{Caption title string.}
 
