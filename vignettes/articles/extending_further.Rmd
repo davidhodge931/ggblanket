@@ -30,21 +30,7 @@ To extend ggblanket further, users can:
 6. Create custom wrapper functions
 7. Visualise spatial data
 8. Use different fonts
-9. Work with extension packages 
-
-* patchwork
-* ggtext
-* ggrepel
-* ggblend
-* gghighlight
-* ggeasy
-* ggbeeswarm
-* ggdensity
-* ggridges
-* ggdist
-* plotly::ggplotly
-* ggiraph
-* gganimate
+9. Work with some extension packages 
 
 ```{r setup}
 library(dplyr)
@@ -102,7 +88,7 @@ penguins |>
 
 While aesthetics other than colouring are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
 
-_Discrete non-col aesthetic_
+_Discrete other aesthetic_
 ```{r}
 penguins |>
   gg_blank(
@@ -123,7 +109,7 @@ penguins |>
   labs(shape = "Sex") #name same as the col_title 
 ```
 
-_Continuous non-col aesthetic_
+_Continuous other aesthetic_
 ```{r, fig.asp=0.5}
 penguins |>
   gg_blank(
@@ -301,9 +287,9 @@ penguins |>
 showtext::showtext_auto(enable = FALSE)
 ```
 
-### 9. Work with extension packages
+### 9. Work with some extension packages
 
-ggblanket can work with numerous extension packages. 
+ggblanket can work with some extension packages. 
 
 #### patchwork
 
