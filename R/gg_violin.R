@@ -69,16 +69,14 @@
 #' library(palmerpenguins)
 #'
 #' penguins |>
-#'   group_by(species, sex) |>
-#'   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
-#'   gg_tile(
+#'   tidyr::drop_na(sex) |>
+#'   gg_violin(
 #'     x = sex,
-#'     y = species,
-#'     col = flipper_length_mm,
-#'     pal = RColorBrewer::brewer.pal(9, "Blues"),
+#'     y = flipper_length_mm,
+#'     col = sex,
+#'     facet = species,
 #'     col_labels = stringr::str_to_sentence
 #'   )
-#'
 gg_violin <- function(
     data = NULL,
     x = NULL,
