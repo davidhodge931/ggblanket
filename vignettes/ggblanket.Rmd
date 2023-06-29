@@ -32,7 +32,7 @@ To simplify ggplot2 visualisation, ggblanket provides:
 5. An additional facet2 argument to facet by a 2nd variable
 6. Prefixed arguments to customise scales etc
 7. Default x/y/col titles converted with to sentence case
-8. Ability to set the theme, including with provided themes
+8. Ability to set the theme, including to provided themes
 9. Pretty defaults for symmetry
 10. Access to other geom_* arguments via ...
 11. Ability to add multiple geom_* layers
@@ -285,15 +285,15 @@ penguins |>
       caption = "Source: Gorman, 2020")
 ```
 
-### 8. Ability to set the theme, including with provided themes
+### 8. Ability to set the theme, including to provided themes
 
-The `ggplot2::theme_set` function can be used to set the theme globally, such that all subsequent plots will use this theme by default. Once the theme has been set globally, you can override this on a per plot basis using the `theme` argument. 
+The `ggplot2::theme_set` function can be used to set the theme globally, such that all subsequent plots will use this where the `theme` argument of a plot is left as NULL. 
 
 ggblanket provides two complete ggplot2 theme functions called `light_mode` (the default) and `dark_mode`. The first argument is the `base_size`, which changes the size of text to this with the title being 10% higher and the caption 10% lower. There are other arguments to change the family, face, colour, size, margins and vertical adjustment of text.
 
 Note that the `gg_*` function will control what gridlines are present and the placement of the legend - despite the theme provided. If you are providing a theme other than light_mode or dark_mode, it works best if the plot has major vertical and horizontal gridlines. If users want everything adjusted as per the theme, then they can `+` their theme onto the plot instead.
 
-Note If you wish to set the theme to `ggplot2::theme_grey` with the default `base_size` of 11, then you must it adjust it slightly (e.g. `theme_set(theme_grey(11.01)))`. This is due to the hack of how theme_set has been made to work with ggblanket.
+Note If you wish to set the theme to `ggplot2::theme_grey` with the default `base_size` of 11, then you must it adjust it slightly (e.g. `theme_set(theme_grey(11.01)))`. This is due to `gg_*()`  functions changing the theme to `light_mode`, if no theme is set and the global theme is `theme_grey`.
 
 ```{r, fig.asp=0.7}
 theme_set(dark_mode())

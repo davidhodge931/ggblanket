@@ -173,7 +173,7 @@ p1 <- faithful |>
   gg_blank(x = eruptions, 
            y = waiting, 
            x_breaks = scales::breaks_pretty(3), 
-           subtitle = "geom_density_2d") + 
+           title = "geom_density_2d") + 
   geom_density2d(aes(col = after_stat(level)),
                  show.legend = FALSE)
 
@@ -181,14 +181,14 @@ p2 <- faithful |>
   gg_blank(x = waiting, 
            y = eruptions, 
            x_breaks = scales::breaks_pretty(3), 
-           subtitle = "geom_density_2d_filled") + 
+           title = "geom_density_2d_filled") + 
   geom_density_2d_filled(show.legend = FALSE)
 
 p3 <- faithfuld |> 
   gg_blank(x = waiting, 
            y = eruptions, 
            x_breaks = scales::breaks_pretty(3), 
-           subtitle = "geom_contour") + 
+           title = "geom_contour") + 
   geom_contour(aes(z = density, col = after_stat(level)),
                show.legend = FALSE) 
 
@@ -196,7 +196,7 @@ p4 <- faithfuld |>
   gg_blank(x = waiting, 
            y = eruptions, 
            x_breaks = scales::breaks_pretty(3),
-           subtitle = "geom_contour_filled") + 
+           title = "geom_contour_filled") + 
   geom_contour_filled(aes(z = density), 
                       show.legend = FALSE)
 
@@ -207,7 +207,7 @@ p4 <- faithfuld |>
 
 Where a `gg_*` function contains a geom that can colour both outlines and fill, users can turn off a part of this using the `alpha = 0` or `pal = scales::alpha("red", 0)`. 
 
-If `col` is not NULL, then you can use `col = NA`, `fill = NA`, `col = "red"` or `fill = "red"` to modify a part of the colouring. But _not_ if col is NULL. In this case, you _must_ use `gg_blank`.
+If a `col` variable is specified, then you can use `col = NA`, `fill = NA`, `col = "red"` or `fill = "red"` to modify a part of the colouring. But you cannot do this, if `col = NULL`. In this case, you _must_ use `gg_blank`.
 
 ```{r, fig.asp=1}
 p1 <- iris |>
