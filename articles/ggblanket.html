@@ -106,7 +106,7 @@ Hodge</h4>
 <li>An additional facet2 argument to facet by a 2nd variable</li>
 <li>Prefixed arguments to customise scales etc</li>
 <li>Default x/y/col titles converted with to sentence case</li>
-<li>Ability to set the theme, including with provided themes</li>
+<li>Ability to set the theme, including to provided themes</li>
 <li>Pretty defaults for symmetry</li>
 <li>Access to other geom_* arguments via …</li>
 <li>Ability to add multiple geom_* layers</li>
@@ -372,12 +372,11 @@ than if default titles were left as variable names.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="ability-to-set-the-theme-including-with-provided-themes">8. Ability to set the theme, including with provided themes<a class="anchor" aria-label="anchor" href="#ability-to-set-the-theme-including-with-provided-themes"></a>
+<h3 id="ability-to-set-the-theme-including-to-provided-themes">8. Ability to set the theme, including to provided themes<a class="anchor" aria-label="anchor" href="#ability-to-set-the-theme-including-to-provided-themes"></a>
 </h3>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set</a></code> function can be used to set the
-theme globally, such that all subsequent plots will use this theme by
-default. Once the theme has been set globally, you can override this on
-a per plot basis using the <code>theme</code> argument.</p>
+theme globally, such that all subsequent plots will use this where the
+<code>theme</code> argument of a plot is left as NULL.</p>
 <p>ggblanket provides two complete ggplot2 theme functions called
 <code>light_mode</code> (the default) and <code>dark_mode</code>. The
 first argument is the <code>base_size</code>, which changes the size of
@@ -393,8 +392,9 @@ can <code>+</code> their theme onto the plot instead.</p>
 <p>Note If you wish to set the theme to <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">ggplot2::theme_grey</a></code>
 with the default <code>base_size</code> of 11, then you must it adjust
 it slightly (e.g. <code>theme_set(theme_grey(11.01)))</code>. This is
-due to the hack of how theme_set has been made to work with
-ggblanket.</p>
+due to <code>gg_*()</code> functions changing the theme to
+<code>light_mode</code>, if no theme is set and the global theme is
+<code>theme_grey</code>.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">theme_set</a></span><span class="op">(</span><span class="fu"><a href="../reference/dark_mode.html">dark_mode</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
