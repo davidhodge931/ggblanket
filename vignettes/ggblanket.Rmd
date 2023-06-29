@@ -54,7 +54,7 @@ penguins <- palmerpenguins::penguins |>
 Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. This also provides access to the arguments of the relevant stat function.
 
 ```{r}
-# ggplot2 example
+# ggplot2
 penguins |> 
   ggplot() + 
   geom_point(aes(x = flipper_length_mm, 
@@ -62,6 +62,7 @@ penguins |>
 ```
 
 ```{r}
+# ggblanket
 penguins |>
   gg_point(
     x = flipper_length_mm,
@@ -73,7 +74,7 @@ penguins |>
 The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. This always represents the colour of everything in the geom: all points, lines and polygon interiors. 
 
 ```{r}
-# ggplot2 example
+# ggplot2
 p1 <- penguins |> 
   ggplot() + 
   geom_point(aes(x = flipper_length_mm, 
@@ -96,6 +97,7 @@ p1 + p2
 ```
 
 ```{r}
+# ggblanket
 p1 <- penguins |>
   gg_point(
     x = flipper_length_mm,
@@ -119,7 +121,7 @@ p1 + p2
 The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. 
 
 ```{r}
-# ggplot2 example
+# ggplot2
 p1 <- penguins |>
   ggplot() +
   geom_histogram(aes(x = body_mass_g),
@@ -137,6 +139,7 @@ p1 + p2
 ```
 
 ```{r}
+# ggblanket
 p1 <- penguins |>
   gg_histogram(
     x = body_mass_g, 
@@ -158,7 +161,7 @@ p1 + p2
 Faceting is treated as if it were an aesthetic. Users just provide an unquoted variable to facet by. If a single facet (or facet2) variable is provided, it'll default to a "wrap" layout. But users can change this with a `facet_layout = "grid"` argument.
 
 ```{r}
-# ggplot2 example
+# ggplot2
 penguins |>
   ggplot() +
   geom_violin(aes(x = sex, 
@@ -167,6 +170,7 @@ penguins |>
 ```
 
 ```{r}
+# ggblanket
 penguins |>
   gg_violin(
     x = sex,
@@ -179,7 +183,7 @@ penguins |>
 A `facet2` argument is also provided for extra functionality and flexibility. If both `facet`and `facet2` variables are provided, then it'll default to a "grid" layout of `facet` by `facet2`. But users can change this with a `facet_layout = "wrap"` argument. 
 
 ```{r, fig.asp=0.75}
-# ggplot2 example
+# ggplot2
 penguins |>
   ggplot() +
   geom_histogram(aes(x = flipper_length_mm)) +
@@ -187,6 +191,7 @@ penguins |>
 ```
 
 ```{r}
+# ggblanket
 penguins |>
   gg_histogram(
     x = flipper_length_mm,
@@ -203,7 +208,7 @@ knitr::include_graphics("screenshot_autotab_y.png", dpi = 300)
 ```
 
 ```{r}
-# ggplot2 example
+# ggplot2
 penguins |>
   ggplot() +
   geom_jitter(aes(x = species, 
@@ -222,6 +227,7 @@ penguins |>
 ```
 
 ```{r}
+# ggblanket
 penguins |>
   gg_jitter(
     x = species,
@@ -241,7 +247,7 @@ penguins |>
 Unspecified x/y/col titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is.
 
 ```{r}
-# ggplot2 example
+# ggplot2
 penguins |>
   ggplot() +
   geom_point(aes(x = flipper_length_mm, 
@@ -255,6 +261,7 @@ penguins |>
 ```
 
 ```{r, fig.asp=0.7}
+# ggblanket
 penguins |>
   gg_point(
       x = flipper_length_mm,
@@ -277,6 +284,7 @@ Note that the `gg_*` function will control what gridlines are present and the pl
 Note that `theme_set(theme_grey())` resets the set theme for ggplot2 code to theme_grey and for ggblanket `gg_*` functions to `light_mode()`. If you want ggblanket `gg_*` functions to default to using `theme_grey()`, then you must modify the base_size slightly (e.g. `theme_set(theme_grey(11.01))`). 
 
 ```{r, fig.asp=0.7}
+# ggblanket
 theme_set(dark_mode())
 
 penguins |>
@@ -291,6 +299,7 @@ penguins |>
 ```
 
 ```{r, fig.asp=0.7}
+# ggblanket
 theme_set(light_mode())
 
 penguins |>
@@ -302,7 +311,6 @@ penguins |>
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
     pal = c("#2596be", "#fc7c24"))
-
 theme_set(theme_grey()) #unset the theme
 ```
 
@@ -320,7 +328,7 @@ It does the opposite where the orientation is horizontal (and also keeps y categ
 Note `gg_bin2d`, `gg_hex` and `gg_raster` deviate from this approach out of necessity, and instead just place the limits as the min and max of the data by default.
 
 ```{r}
-#ggplot2 example
+# ggplot2
 penguins |>
   group_by(species, sex) |> 
   summarise(body_mass_g = mean(body_mass_g)) |> 
@@ -333,6 +341,7 @@ penguins |>
 ```
 
 ```{r}
+# ggblanket
 penguins |>
   group_by(species, sex) |> 
   summarise(body_mass_g = mean(body_mass_g)) |> 
@@ -349,6 +358,7 @@ penguins |>
 The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users (except the mapping argument). Common arguments from `...` to add are `size`, `linewidth` and `width`. 
 
 ```{r}
+# ggblanket
 penguins |>
   gg_smooth(
     x = flipper_length_mm,
@@ -363,6 +373,7 @@ penguins |>
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geoms added. Geoms will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it. 
 
 ```{r}
+# ggblanket + ggplot2
 penguins |>
   gg_boxplot(x = species,
              y = body_mass_g,
@@ -378,6 +389,7 @@ If you do not want a col aesthetic in your bottom plot layer, but require it in 
 Note the plot scales are constructed without knowledge of subsequent layers. The `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function. These scales can be adjusted to accommodate subsequent layers using the `*_include` or `*_limits` arguments. 
 
 ```{r, fig.asp=0.75}
+# ggblanket + ggplot2
 d <- penguins |>
   group_by(species) |>
   summarise(body_mass_g = mean(body_mass_g)) |>
@@ -414,6 +426,7 @@ p1 / p2
 ```
 
 ```{r}
+# ggblanket + ggplot2
 d_wide <- gapminder::gapminder |>
   filter(year %in% c(1967, 2007)) |>
   select(country, year, lifeExp) |>

@@ -317,7 +317,6 @@ penguins |>
       base_family = "grace", 
       title_family = "anton",
       subtitle_family = "syne"))
-
 showtext::showtext_auto(enable = FALSE)
 ```
 
