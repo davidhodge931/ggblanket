@@ -150,9 +150,9 @@ arguments of the relevant stat function.</p>
 <h3 id="a-single-col-argument-to-colour-and-fill-by-a-variable">2. A single col argument to colour and fill by a variable<a class="anchor" aria-label="anchor" href="#a-single-col-argument-to-colour-and-fill-by-a-variable"></a>
 </h3>
 <p>The colour and fill aesthetics of ggplot2 are merged into a single
-concept represented by the <code>col</code> argument. This always
-represents the colour of everything in the geom: all points, lines and
-polygon interiors.</p>
+concept represented by the <code>col</code> argument. This argument
+means that everything should be coloured according to it, i.e. all
+points, lines and polygon interiors.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggplot2</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -201,7 +201,8 @@ polygon interiors.</p>
 <p>The <code>pal</code> argument is used to customise the colours of the
 geom. A user can provide a vector of colours to this argument. It can be
 named or not. It works in a consistent way - regardless of whether a
-<code>col</code> argument is added or not.</p>
+<code>col</code> argument is added or not. A named palette can be used
+to make individual colours stick to particular values.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggplot2</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -347,10 +348,7 @@ make titles sometimes able to be left as is.</p>
 <span>                 y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
 <span>                 col <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Penguins body mass by flipper length"</span>,</span>
-<span>       subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
-<span>       caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span><span class="op">)</span> </span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket</span></span>
@@ -359,10 +357,7 @@ make titles sometimes able to be left as is.</p>
 <span>      x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>      y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
 <span>      col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>      facet <span class="op">=</span> <span class="va">species</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Penguins body mass by flipper length"</span>,</span>
-<span>      subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
-<span>      caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span><span class="op">)</span></span></code></pre></div>
+<span>      facet <span class="op">=</span> <span class="va">species</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -405,7 +400,7 @@ functions to <code><a href="../reference/light_mode.html">light_mode()</a></code
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">theme_set</a></span><span class="op">(</span><span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">theme_set</a></span><span class="op">(</span><span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
@@ -598,7 +593,6 @@ adjusted to accommodate subsequent layers using the
 <li>Use the ggblank function</li>
 <li>Work with non-default stat’s</li>
 <li>Use non-supported aesthetics</li>
-<li>Use non-supported arguments</li>
 <li>Use non-supported geoms</li>
 <li>Modifying a part of the colouring</li>
 <li>Create custom wrapper functions</li>
