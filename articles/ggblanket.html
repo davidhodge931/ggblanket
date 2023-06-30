@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -365,19 +365,22 @@ make titles sometimes able to be left as is.</p>
 </h3>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set</a></code> function can be used to set the
 theme globally, such that all subsequent plots will use this where the
-<code>theme</code> argument of a plot is left as NULL.</p>
+<code>theme</code> argument of a plot is left as NULL. Alternatively,
+users can use the <code>theme</code> argument in a <code>gg_*</code>
+function.</p>
 <p>ggblanket provides two complete ggplot2 theme functions called
 <code>light_mode</code> (the default) and <code>dark_mode</code>. The
-first argument is the <code>base_size</code>, which changes the size of
-text to this with the title being 10% higher and the caption 10% lower.
-There are other arguments to change the family, face, colour, size,
-margins and vertical adjustment of text.</p>
+first argument is the <code>base_size</code>. This changes the size of
+all the text to this, except the title is 10% higher and the caption is
+10% lower. There are other arguments to change the family, face, colour,
+size, margins and vertical adjustment of text.</p>
 <p>Note that the <code>gg_*</code> function will control what gridlines
 are present and the placement of the legend - despite the theme
-provided. If you are providing a theme other than light_mode or
-dark_mode, it works best if the plot has major vertical and horizontal
-gridlines. If users want everything adjusted as per the theme, then they
-can <code>+</code> their theme onto the plot instead.</p>
+provided. Therefore, if you are providing a theme other than
+<code>light_mode</code> or <code>dark_mode</code>, ggblanket works well
+if this theme has both vertical and horizontal gridlines. If users want
+everything adjusted as per the theme, then they can <code>+</code> their
+theme onto the plot instead.</p>
 <p>Note that <code>theme_set(theme_grey())</code> resets the set theme
 for ggplot2 code to theme_grey and for ggblanket <code>gg_*</code>
 functions to <code><a href="../reference/light_mode.html">light_mode()</a></code>. If you want ggblanket
@@ -591,14 +594,14 @@ adjusted to accommodate subsequent layers using the
 <p>To extend ggblanket further, users can:</p>
 <ul>
 <li>Use the ggblank function</li>
-<li>Work with non-default stat’s</li>
 <li>Use non-supported aesthetics</li>
 <li>Use non-supported geoms</li>
 <li>Modifying a part of the colouring</li>
 <li>Create custom wrapper functions</li>
 <li>Visualise spatial data</li>
 <li>Use different fonts</li>
-<li>Work with some extension packages</li>
+<li>Work with non-default stat’s</li>
+<li>Work with extension packages</li>
 </ul>
 <p>See the <a href="https://davidhodge931.github.io/ggblanket/articles/extending_further.html">Extending
 further</a> article for further information.</p>
