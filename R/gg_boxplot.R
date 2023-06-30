@@ -573,7 +573,7 @@ gg_boxplot <- function(
   #Get the positional scales right first
   if (stat != "sf") {
     if (rlang::is_null(x_limits)) {
-      if (stat %in% c("bin", "bin2d", "bin_2d", "binhex")) {
+      if (stat == "bin") {
         if (x_numeric) x_limits <- c(NA, NA)
         if (x_date | x_datetime | x_time) {
           x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
@@ -608,7 +608,7 @@ gg_boxplot <- function(
     }
 
     if (rlang::is_null(y_limits)) {
-      if (stat %in% c("bin", "bin2d", "bin_2d", "binhex")) {
+      if (stat == "bin") {
         if (y_numeric) y_limits <- c(NA, NA)
         if (y_date | y_datetime | y_time) {
           y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)

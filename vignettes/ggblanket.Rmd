@@ -319,7 +319,7 @@ Where the orientation is normal (i.e. vertical):
 
 It does the opposite where the orientation is horizontal (and also keeps y categorical values in correct order).
 
-Note `gg_bin2d`, `gg_hex` and `gg_raster` deviate from this approach out of necessity, and instead just place the limits as the min and max of the data by default.
+Note `gg_raster` deviates froms this approach, and instead places the limits as the min and max of the data by default.
 
 ```{r}
 # ggplot2

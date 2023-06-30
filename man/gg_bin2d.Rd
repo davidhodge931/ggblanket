@@ -193,7 +193,8 @@ ggplot2::diamonds |>
   gg_bin2d(
     x = carat,
     y = price,
-    pal = viridis::cividis(9)
+    pal = viridis::cividis(9),
+    y_limits = c(NA, 20000)
   )
 
 }

@@ -196,6 +196,8 @@ diamonds |>
     x = carat,
     y = price,
     pal = viridis::cividis(9),
-    coord = coord_cartesian(clip = "on"))
+    y_limits = c(NA, 20000),
+    coord = coord_cartesian(clip = "on")
+  )
 
 }

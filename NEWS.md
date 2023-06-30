@@ -8,6 +8,7 @@
 * Breaking: made `col_rescale` require a function (e.g. `scales::rescale()`).
 * Added `facet_switch` argument.
 * Made `col_legend_place = "none"` only remove the col legend.  
+* Made `gg_bin2d` and `gg_hex` scales calculate in the same way as other functions.
 * For raster, removed col aesthetic so that legend would work.
 * Improved `gg_sf` default `alpha`.
 * Supported `gg_sf` to work with non-standard named geometry.
