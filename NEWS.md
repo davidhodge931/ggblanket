@@ -11,7 +11,7 @@
 * Made `gg_bin2d` and `gg_hex` scales calculate in the same way as other functions.
 * For raster, removed col aesthetic so that legend would work.
 * Improved `gg_sf` default `alpha`.
-* Supported `gg_sf` to work with non-standard named geometry.
+* Supported `gg_sf` to work with non-standard named geometry. 
 
 # ggblanket 2.0.0
 
