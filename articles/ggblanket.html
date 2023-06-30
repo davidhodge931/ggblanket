@@ -53,7 +53,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/extending_further.html">Extending further</a>
     <a class="dropdown-item" href="../articles/functions_demo.html">Functions demo</a>
-    <a class="dropdown-item" href="../articles/functions_demo_dark.html">Functions demo in dark</a>
+    <a class="dropdown-item" href="../articles/functions_demo_dark.html">Functions demo (dark mode)</a>
   </div>
 </li>
 <li class="nav-item">
@@ -433,10 +433,8 @@ expanding are as per ggplot2 defaults</li>
 </ul>
 <p>It does the opposite where the orientation is horizontal (and also
 keeps y categorical values in correct order).</p>
-<p>Note <code>gg_bin2d</code>, <code>gg_hex</code> and
-<code>gg_raster</code> deviate from this approach out of necessity, and
-instead just place the limits as the min and max of the data by
-default.</p>
+<p>Note <code>gg_raster</code> deviates froms this approach, and instead
+places the limits as the min and max of the data by default.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggplot2</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
