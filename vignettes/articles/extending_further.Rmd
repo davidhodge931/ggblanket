@@ -23,14 +23,14 @@ knitr::opts_chunk$set(
 To extend ggblanket further, users can:
 
 1. Use the ggblank function
-2. Work with non-default stat's
-3. Use non-supported aesthetics
-4. Use non-supported geoms
-5. Modifying a part of the colouring 
-6. Create custom wrapper functions
-7. Visualise spatial data
-8. Use different fonts
-9. Work with some extension packages 
+2. Use non-supported aesthetics
+3. Use non-supported geoms
+4. Modifying a part of the colouring 
+5. Create custom wrapper functions
+6. Visualise spatial data
+7. Use different fonts
+8. Work with non-default stat's
+9. Work with extension packages 
 
 ```{r setup}
 library(dplyr)
@@ -63,64 +63,43 @@ penguins |>
   geom_histogram(col = pal_blue, fill = pal_blue, alpha = 0.9)
 ```
 
-### 2. Work with non-default stats
-
-Users can change the default stat. The ... argument provides access to the relevant `stat_*` function as well as the `geom_*` function. Note, the `gg_*` functions do not support using a stat that is a function - it must be a character (e.g. "summary").  
-
-```{r, fig.asp=0.5}
-penguins |>
-  gg_errorbar(
-    x = body_mass_g,
-    y = species,
-    stat = "summary",
-    fun.data = \(x) mean_se(x, 1.96),
-    width = 0.25,
-    x_include = 0
-  ) +
-  geom_bar(
-    stat = "summary",
-    fun = \(x) mean(x),
-    alpha = 0.2,
-    width = 0.75)
-```
-
-### 3. Use non-supported ggplot2 aesthetics
+### 2. Use non-supported ggplot2 aesthetics
 
 While aesthetics other than colouring are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
 
-_Discrete other aesthetic_
 ```{r}
-penguins |>
+# Discrete other aesthetic
+p1 <- penguins |>
   gg_blank(
     x = bill_length_mm,
     y = body_mass_g, 
-    col = sex) + #hack for legend placement
+    col = sex, #hack for legend placement
+    x_breaks = scales::breaks_pretty(n = 3)) + 
   geom_point(aes(shape = sex), col = "#2B6999") + 
   labs(shape = "Sex") #name same as the col_title  
-```
 
-```{r}
-penguins |>
+p2 <- penguins |>
   gg_blank(
     x = bill_length_mm,
     y = body_mass_g, 
-    col = sex) + 
+    col = sex,
+    x_breaks = scales::breaks_pretty(n = 3)) + 
   geom_point(aes(shape = sex)) +  
   labs(shape = "Sex") #name same as the col_title 
+
+p1 + p2
 ```
 
-_Continuous other aesthetic_
-```{r, fig.asp=0.5}
-penguins |>
+```{r, fig.asp=1}
+# Continuous other aesthetic
+p1 <- penguins |>
   gg_blank(
     x = bill_length_mm,
     y = body_mass_g) +  
   geom_point(aes(alpha = bill_depth_mm), col = "#2B6999") +
   labs(alpha = "Bill depth mm")
-```
 
-```{r, fig.asp=0.5}
-penguins |>
+p2 <- penguins |>
   gg_blank(
     x = bill_length_mm,
     y = body_mass_g, 
@@ -129,9 +108,11 @@ penguins |>
     col_title = "\nSpecies") + #add space between legends
   geom_point(aes(alpha = bill_depth_mm)) +
   labs(alpha = "Bill depth mm") 
+
+p1 / p2
 ```
 
-### 4. Use non-supported geoms
+### 3. Use non-supported geoms
 
 gblanket does not support _all_ ggplot2 geoms. However, some of these can be accessed via the `gg_blank` function.
 
@@ -170,7 +151,7 @@ p4 <- faithfuld |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 5. Modifying a part of the colouring 
+### 4. Modifying a part of the colouring 
 
 Where a `gg_*` function contains a geom that can colour both outlines and fill, users can turn off a part of this using the `alpha = 0` or `pal = scales::alpha("red", 0)`. 
 
@@ -206,7 +187,7 @@ p4 <- iris |>
 (p1 + p2) / (p3 + p4) 
 ```
 
-### 6. Create custom wrapper functions
+### 5. Create custom wrapper functions
 
 You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
@@ -236,7 +217,7 @@ iris |>
     col = Species)
 ```
 
-### 7. Visualise spatial data
+### 6. Visualise spatial data
 
 As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, spatial vector and array data can be visualised. 
 
@@ -259,7 +240,7 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
   ggeasy::easy_remove_axes()
 ```
 
-### 8. Use different fonts
+### 7. Use different fonts
 
 The showtext and sysfonts packages support the use of different fonts from Google. The `theme_*_mode` functions provide `base_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
 
@@ -287,9 +268,30 @@ penguins |>
 showtext::showtext_auto(enable = FALSE)
 ```
 
-### 9. Work with some extension packages
+### 8. Work with non-default stats
 
-ggblanket can work with some extension packages. 
+Users can change the default stat. The ... argument provides access to the relevant `stat_*` function as well as the `geom_*` function. Note, the `gg_*` functions do not support using a stat that is a function - it must be a character (e.g. "summary").  
+
+```{r, fig.asp=0.4}
+penguins |>
+  gg_errorbar(
+    x = body_mass_g,
+    y = species,
+    stat = "summary",
+    fun.data = \(x) mean_se(x, 1.96),
+    width = 0.25,
+    x_include = 0
+  ) +
+  geom_bar(
+    stat = "summary",
+    fun = \(x) mean(x),
+    alpha = 0.2,
+    width = 0.75)
+```
+
+### 9. Work with extension packages
+
+ggblanket can work with a lot of extension packages. 
 
 #### patchwork
 
@@ -599,4 +601,5 @@ gapminder::gapminder |>
 ```{r, echo=FALSE}
 knitr::include_graphics("gganimate.gif")
 ```
+
 

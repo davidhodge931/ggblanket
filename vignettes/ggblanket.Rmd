@@ -25,17 +25,17 @@ knitr::opts_chunk$set(
 
 To simplify ggplot2 visualisation, ggblanket provides:
 
-1. Over thirty gg_* wrapper functions
-2. A single col argument to colour and fill by a variable
-3. A pal argument to customise colours
-4. A facet argument to facet by a variable
-5. An additional facet2 argument to facet by a 2nd variable
-6. Prefixed arguments to customise titles, scales, guides, and faceting
-7. Unspecified x/y/col titles converted to sentence case
-8. Ability to set the theme, including to provided themes
-9. Pretty defaults for symmetry
-10. Access to other geom_* arguments via ...
-11. Ability to add multiple geom_* layers
+1.  Over thirty gg\_\* wrapper functions
+2.  A single col argument to colour and fill by a variable
+3.  A pal argument to customise colours
+4.  A facet argument to facet by a variable
+5.  An additional facet2 argument to facet by a 2nd variable
+6.  Prefixed arguments to customise titles, scales, guides, and faceting
+7.  Unspecified x/y/col titles converted to sentence case
+8.  Ability to set the theme, including to provided themes
+9.  Pretty defaults for symmetry
+10. Access to other geom\_\* arguments via ...
+11. Ability to add multiple geom\_\* layers
 12. A framework able to be extended further
 
 ```{r setup}
@@ -49,7 +49,7 @@ penguins <- palmerpenguins::penguins |>
   tidyr::drop_na(sex)
 ```
 
-### 1. Over thirty gg_* wrapper functions
+### 1. Over thirty gg\_\* wrapper functions
 
 Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. This also provides access to the arguments of the relevant stat function.
 
@@ -71,7 +71,7 @@ penguins |>
 
 ### 2. A single col argument to colour and fill by a variable
 
-The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. This argument means that everything should be coloured according to it, i.e. all points, lines and polygon interiors. 
+The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. This argument means that everything should be coloured according to it, i.e. all points, lines and polygon interiors.
 
 ```{r}
 # ggplot2
@@ -116,9 +116,9 @@ p2 <- penguins |>
 p1 + p2
 ```
 
-### 3.  A pal argument to customise colours
+### 3. A pal argument to customise colours
 
-The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. A named palette can be used to make individual colours stick to particular values. 
+The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. A named palette can be used to make individual colours stick to particular values.
 
 ```{r}
 # ggplot2
@@ -180,7 +180,7 @@ penguins |>
 
 ### 5. An additional facet2 argument to facet by a 2nd variable
 
-A `facet2` argument is also provided for extra functionality and flexibility. If both `facet`and `facet2` variables are provided, then it'll default to a "grid" layout of `facet` by `facet2`. But users can change this with a `facet_layout = "wrap"` argument. 
+A `facet2` argument is also provided for extra functionality and flexibility. If both `facet`and `facet2` variables are provided, then it'll default to a "grid" layout of `facet` by `facet2`. But users can change this with a `facet_layout = "wrap"` argument.
 
 ```{r, fig.asp=0.75}
 # ggplot2
@@ -199,9 +199,9 @@ penguins |>
     facet2 = species)
 ```
 
-### 6.  Prefixed arguments to customise titles, scales, guides, and faceting
+### 6. Prefixed arguments to customise titles, scales, guides, and faceting
 
-Prefixed arguments are available to customise titles, scales, guides, and faceting. These are designed to work with the Rstudio auto-complete to help users remember and find the adjustment they need. Users should first determine whether they want to change something that relates to  x, y, col or facet. Then they should type this prefix and press the tab key to access the list of options from the Rstudio auto-complete. Then they can use the arrow keys, and press tab again to select what they want.
+Prefixed arguments are available to customise titles, scales, guides, and faceting. These are designed to work with the Rstudio auto-complete to help users remember and find the adjustment they need. Users should first determine whether they want to change something that relates to x, y, col or facet. Then they should type this prefix and press the tab key to access the list of options from the Rstudio auto-complete. Then they can use the arrow keys, and press tab again to select what they want.
 
 ```{r, echo = FALSE,   fig.width = 3, fig.asp = 2}
 knitr::include_graphics("screenshot_autotab_y.png", dpi = 300)
@@ -269,13 +269,13 @@ penguins |>
 
 ### 8. Ability to set the theme, including to provided themes
 
-The `ggplot2::theme_set` function can be used to set the theme globally, such that all subsequent plots will use this where the `theme` argument of a plot is left as NULL. 
+The `ggplot2::theme_set` function can be used to set the theme globally, such that all subsequent plots will use this where the `theme` argument of a plot is left as NULL. Alternatively, users can use the `theme` argument in a `gg_*` function.
 
-ggblanket provides two complete ggplot2 theme functions called `light_mode` (the default) and `dark_mode`. The first argument is the `base_size`, which changes the size of text to this with the title being 10% higher and the caption 10% lower. There are other arguments to change the family, face, colour, size, margins and vertical adjustment of text.
+ggblanket provides two complete ggplot2 theme functions called `light_mode` (the default) and `dark_mode`. The first argument is the `base_size`. This changes the size of all the text to this, except the title is 10% higher and the caption is 10% lower. There are other arguments to change the family, face, colour, size, margins and vertical adjustment of text.
 
-Note that the `gg_*` function will control what gridlines are present and the placement of the legend - despite the theme provided. If you are providing a theme other than light_mode or dark_mode, it works best if the plot has major vertical and horizontal gridlines. If users want everything adjusted as per the theme, then they can `+` their theme onto the plot instead.
+Note that the `gg_*` function will control what gridlines are present and the placement of the legend - despite the theme provided. Therefore, if you are providing a theme other than `light_mode` or `dark_mode`, ggblanket works well  if this theme has both vertical and horizontal gridlines. If users want everything adjusted as per the theme, then they can `+` their theme onto the plot instead.
 
-Note that `theme_set(theme_grey())` resets the set theme for ggplot2 code to theme_grey and for ggblanket `gg_*` functions to `light_mode()`. If you want ggblanket `gg_*` functions to default to using `theme_grey()`, then you must modify the base_size slightly (e.g. `theme_set(theme_grey(11.01))`). 
+Note that `theme_set(theme_grey())` resets the set theme for ggplot2 code to theme_grey and for ggblanket `gg_*` functions to `light_mode()`. If you want ggblanket `gg_*` functions to default to using `theme_grey()`, then you must modify the base_size slightly (e.g. `theme_set(theme_grey(11.01))`).
 
 ```{r, fig.asp=0.7}
 # ggblanket
@@ -292,7 +292,7 @@ penguins |>
     pal = c("#2596be", "#fc7c24"))
 ```
 
-```{r, fig.asp=0.7}
+```{r, fig.asp=0.75}
 # ggblanket
 theme_set(light_mode(base_size = 12))
 
@@ -310,14 +310,14 @@ theme_set(theme_grey()) #unset the theme
 
 ### 9. Pretty defaults for symmetry
 
-Where the orientation is normal (i.e. vertical): 
+Where the orientation is normal (i.e. vertical):
 
-* Default x scale limits and expanding are as per ggplot2 defaults
-* Default numeric y scale limits (that are non-transformed) start and end on a break with zero expanding
-* Default categorical (or numeric transformed) y scale limits and expanding are as per ggplot2 defaults
-* Default removal of vertical gridlines
+-   Default x scale limits and expanding are as per ggplot2 defaults
+-   Default numeric y scale limits (that are non-transformed) start and end on a break with zero expanding
+-   Default categorical (or numeric transformed) y scale limits and expanding are as per ggplot2 defaults
+-   Default removal of vertical gridlines
 
-It does the opposite where the orientation is horizontal (and also keeps y categorical values in correct order). 
+It does the opposite where the orientation is horizontal (and also keeps y categorical values in correct order).
 
 Note `gg_bin2d`, `gg_hex` and `gg_raster` deviate from this approach out of necessity, and instead just place the limits as the min and max of the data by default.
 
@@ -347,9 +347,9 @@ penguins |>
     width = 0.75)
 ```
 
-### 10. Access to other geom_* arguments via `...`
+### 10. Access to other geom\_\* arguments via `...`
 
-The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users (except the mapping argument). Common arguments from `...` to add are `size`, `linewidth` and `width`. 
+The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users (except the mapping argument). Common arguments from `...` to add are `size`, `linewidth` and `width`.
 
 ```{r}
 # ggblanket
@@ -362,9 +362,9 @@ penguins |>
     level = 0.99) #accessed via geom_smooth
 ```
 
-### 11. Ability to add multiple geom_* layers
+### 11. Ability to add multiple geom\_\* layers
 
-Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geoms added. Geoms will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it. 
+Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geoms added. Geoms will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it.
 
 ```{r}
 # ggblanket + ggplot2
@@ -376,11 +376,11 @@ penguins |>
   geom_jitter(col = pal_blue)
 ```
 
-If some geoms have a `col` aesthetic and some do not, then it is recommended to have the `col` aesthetic in the `gg_*` function. This enables ggblanket legend placement, as well as the ability to adjust the col scale via the `gg_*` function. 
+If some geoms have a `col` aesthetic and some do not, then it is recommended to have the `col` aesthetic in the `gg_*` function. This enables ggblanket legend placement, as well as the ability to adjust the col scale via the `gg_*` function.
 
-If you do not want a col aesthetic in your bottom plot layer, but require it in subsequent layers - then you should use the `gg_blank` function. Subsequent `geom_*` layers where the col aesthetic is not required can have `col = NA` and/or `fill = NA` arguments - or use the `inherit.aes = FALSE` argument. 
+If you do not want a col aesthetic in your bottom plot layer, but require it in subsequent layers - then you should use the `gg_blank` function. Subsequent `geom_*` layers where the col aesthetic is not required can have `col = NA` and/or `fill = NA` arguments - or use the `inherit.aes = FALSE` argument.
 
-Note the plot scales are constructed without knowledge of subsequent layers. The `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function. These scales can be adjusted to accommodate subsequent layers using the `*_include` or `*_limits` arguments. 
+Note the plot scales are constructed without knowledge of subsequent layers. The `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function. These scales can be adjusted to accommodate subsequent layers using the `*_include` or `*_limits` arguments.
 
 ```{r, fig.asp=0.75}
 # ggblanket + ggplot2
@@ -457,14 +457,14 @@ d_long |>
 
 To extend ggblanket further, users can:
 
-* Use the ggblank function
-* Work with non-default stat's
-* Use non-supported aesthetics
-* Use non-supported geoms
-* Modifying a part of the colouring 
-* Create custom wrapper functions
-* Visualise spatial data
-* Use different fonts
-* Work with some extension packages 
+-   Use the ggblank function
+-   Use non-supported aesthetics
+-   Use non-supported geoms
+-   Modifying a part of the colouring
+-   Create custom wrapper functions
+-   Visualise spatial data
+-   Use different fonts
+-   Work with non-default stat's
+-   Work with extension packages
 
 See the [Extending further](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) article for further information.
