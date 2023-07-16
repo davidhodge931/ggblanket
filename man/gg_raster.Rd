@@ -107,7 +107,7 @@ gg_raster(
 
 \item{x_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
-\item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
+\item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.}
 
 \item{x_limits}{A vector of length 2 to determine the limits of the axis.}
 
@@ -127,7 +127,7 @@ gg_raster(
 
 \item{y_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
-\item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
+\item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.}
 
 \item{y_limits}{A vector of length 2 to determine the limits of the axis.}
 
@@ -145,7 +145,7 @@ gg_raster(
 
 \item{col_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
-\item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.}
+\item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels. Note this does not affect where col_intervals is not NULL.}
 
 \item{col_legend_place}{The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).}
 
@@ -165,7 +165,7 @@ gg_raster(
 
 \item{col_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
-\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).}
+\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a named vector of labels (e.g. c("value" = "label", ...)).}
 
 \item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of "wrap".}
 
@@ -199,15 +199,5 @@ ggplot2::faithfuld |>
     col = density,
     pal = viridis::cividis(9)
   )
-
-if (requireNamespace("stars", quietly = TRUE)) {
- stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
-   tibble::as_tibble() |>
-   gg_raster(x = x,
-             y = y,
-             col = L7_ETMs.tif,
-             facet = band,
-             col_title = "")
-}
 
 }

@@ -1,5 +1,10 @@
 # ggblanket 3.0.0
 
+* Made default to not drop any unused factors across all scales and facets.
+* Made default continuous label function drop trailing zeros.
+
+# ggblanket 3.0.0
+
 * New theme functions: `light_mode` and `dark_mode`.
 * Breaking: removed `gg_theme`. 
 * Breaking: renamed `*_grid` arguments to `*_gridlines`.

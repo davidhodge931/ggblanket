@@ -25,7 +25,7 @@
 #' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param x_gridlines TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
 #' @param x_include For a numeric or date variable, any values that the scale should include (e.g. 0).
-#' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
+#' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.
 #' @param x_limits A vector of length 2 to determine the limits of the axis.
 #' @param x_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.
 #' @param x_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
@@ -35,7 +35,7 @@
 #' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param y_gridlines TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
 #' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).
-#' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
+#' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.
 #' @param y_limits A vector of length 2 to determine the limits of the axis.
 #' @param y_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.
 #' @param y_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
@@ -44,7 +44,7 @@
 #' @param col_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
-#' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.
+#' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels. Note this does not affect where col_intervals is not NULL.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).
@@ -54,7 +54,7 @@
 #' @param col_rescale For a continuous col variable, a scales::rescale function.
 #' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param col_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
-#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
+#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a named vector of labels (e.g. c("value" = "label", ...)).
 #' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
 #' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
 #' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -445,7 +445,7 @@ gg_rect <- function(
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet),
-          scales = facet_scales,
+          scales = facet_scales, drop = FALSE,
           nrow = facet_nrow,
           ncol = facet_ncol,
           labeller = ggplot2::as_labeller(facet_labels)
@@ -455,7 +455,7 @@ gg_rect <- function(
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet2),
-          scales = facet_scales,
+          scales = facet_scales, drop = FALSE,
           nrow = facet_nrow,
           ncol = facet_ncol,
           labeller = ggplot2::as_labeller(facet_labels)
@@ -465,7 +465,7 @@ gg_rect <- function(
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet, !!facet2),
-          scales = facet_scales,
+          scales = facet_scales, drop = FALSE,
           nrow = facet_nrow,
           ncol = facet_ncol,
           labeller = ggplot2::as_labeller(facet_labels)
@@ -478,7 +478,7 @@ gg_rect <- function(
         ggplot2::facet_grid(switch = facet_switch,
           rows = ggplot2::vars(!!facet2),
           cols = ggplot2::vars(!!facet),
-          scales = facet_scales,
+          scales = facet_scales, drop = FALSE,
           space = facet_space,
           labeller = ggplot2::as_labeller(facet_labels)
         )
@@ -487,7 +487,7 @@ gg_rect <- function(
       plot <- plot +
         ggplot2::facet_grid(switch = facet_switch,
           cols = ggplot2::vars(!!facet),
-          scales = facet_scales,
+          scales = facet_scales, drop = FALSE,
           space = facet_space,
           labeller = ggplot2::as_labeller(facet_labels)
         )
@@ -496,7 +496,7 @@ gg_rect <- function(
       plot <- plot +
         ggplot2::facet_grid(switch = facet_switch,
           rows = ggplot2::vars(!!facet2),
-          scales = facet_scales,
+          scales = facet_scales, drop = FALSE,
           space = facet_space,
           labeller = ggplot2::as_labeller(facet_labels)
         )
@@ -755,7 +755,7 @@ gg_rect <- function(
       }
 
       if (rlang::is_null(x_labels)) {
-        if (x_numeric | x_null) x_labels <- scales::label_comma()
+        if (x_numeric | x_null) x_labels <- scales::label_comma(drop0trailing = TRUE)
         else if (x_date | x_datetime | x_time) {
           x_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
         }
@@ -974,7 +974,7 @@ gg_rect <- function(
       }
 
       if (rlang::is_null(y_labels)) {
-        if (y_numeric | y_null) y_labels <- scales::label_comma()
+        if (y_numeric | y_null) y_labels <- scales::label_comma(drop0trailing = TRUE)
         else if (y_date | y_datetime | y_time) {
           y_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
         }
@@ -1072,7 +1072,7 @@ gg_rect <- function(
 
       plot <- plot +
         ggplot2::scale_colour_manual(
-          values = pal,
+          values = pal, drop = FALSE, 
           breaks = col_breaks,
           limits = col_limits,
           labels = col_labels,
@@ -1086,7 +1086,7 @@ gg_rect <- function(
           )
         ) +
         ggplot2::scale_fill_manual(
-          values = pal,
+          values = pal, drop = FALSE, 
           breaks = col_breaks,
           limits = col_limits,
           labels = col_labels,
@@ -1113,7 +1113,7 @@ gg_rect <- function(
       if (rlang::is_null(pal)) pal <- viridis::viridis(10)
 
       if (rlang::is_null(col_labels)) {
-        if (col_numeric | col_null) col_labels <- scales::label_comma()
+        if (col_numeric | col_null) col_labels <- scales::label_comma(drop0trailing = TRUE)
         else if (col_date | col_datetime | col_time) {
           col_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
         }
@@ -1325,7 +1325,7 @@ gg_rect <- function(
   }
   else if (col_legend_place == "none") {
     plot <- plot +
-      ggplot2::guides(col = FALSE, fill = FALSE)
+      ggplot2::guides(col = "none", fill = "none")
   }
 
   #remove gridlines as per x_gridlines and y_gridlines. Guess if NULL
