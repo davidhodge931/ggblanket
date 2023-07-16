@@ -127,6 +127,7 @@ p2 <- faithful |>
   gg_blank(x = waiting, 
            y = eruptions, 
            x_breaks = scales::breaks_pretty(3), 
+           y_breaks = c(NA, NA),
            title = "geom_density_2d_filled") + 
   geom_density_2d_filled(show.legend = FALSE)
 
@@ -142,6 +143,7 @@ p4 <- faithfuld |>
   gg_blank(x = waiting, 
            y = eruptions, 
            x_breaks = scales::breaks_pretty(3),
+           y_breaks = c(NA, NA),
            title = "geom_contour_filled") + 
   geom_contour_filled(aes(z = density), 
                       show.legend = FALSE)
@@ -389,8 +391,7 @@ iris |>
   gg_point(x = sepal_width, 
            y = sepal_length, 
            x_breaks = scales::breaks_pretty(n = 3)) +
-  ggh4x::facet_nested(cols = vars(size, species),
-                      nest_line = TRUE, solo_line = TRUE) +
+  ggh4x::facet_nested(cols = vars(size, species), nest_line = TRUE) +
   theme(strip.text.x = element_text(margin = margin(t = 2.5, b = 5)))
 ```
 
