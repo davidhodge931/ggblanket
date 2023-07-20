@@ -417,17 +417,17 @@ gg_point2 <- function(
 
   #Get the positional scales right first
   if (stat != "sf") {
-    if (rlang::is_null(x_limits)) {
-      if (stat == "bin") {
-        if (x_numeric) x_limits <- c(NA, NA)
-        if (x_date | x_datetime | x_time) {
-          x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
-        }
-      }
-    }
+    # if (rlang::is_null(x_limits)) {
+    #   if (stat == "bin") {
+    #     if (x_numeric) x_limits <- c(NA, NA)
+    #     if (x_date | x_datetime | x_time) {
+    #       x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+    #     }
+    #   }
+    # }
 
     if (x_numeric) {
-      if (x_trans == "reverse" & !rlang::is_null(x_limits)) {
+      if (any(x_trans %in% "reverse") & !rlang::is_null(x_limits)) {
         plot <- plot +
           ggplot2::scale_x_continuous(limits = x_limits[c(2, 1)], oob = x_oob)
       } else {
@@ -457,17 +457,17 @@ gg_point2 <- function(
         ggplot2::expand_limits(x = x_include)
     }
 
-    if (rlang::is_null(y_limits)) {
-      if (stat == "bin") {
-        if (y_numeric) y_limits <- c(NA, NA)
-        if (y_date | y_datetime | y_time) {
-          y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
-        }
-      }
-    }
+    # if (rlang::is_null(y_limits)) {
+    #   if (stat == "bin") {
+    #     if (y_numeric) y_limits <- c(NA, NA)
+    #     if (y_date | y_datetime | y_time) {
+    #       y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
+    #     }
+    #   }
+    # }
 
     if (y_numeric) {
-      if (y_trans == "reverse" & !rlang::is_null(y_limits)) {
+      if (any(y_trans %in% "reverse") & !rlang::is_null(y_limits)) {
         plot <- plot +
           ggplot2::scale_y_continuous(limits = y_limits[c(2, 1)], oob = y_oob)
       } else {
@@ -564,7 +564,7 @@ gg_point2 <- function(
 
         x_range <- range(x_vctr, na.rm = TRUE)
         if (!rlang::is_null(x_include)) x_range <- range(c(x_range, x_include))
-        if (x_trans == "reverse") x_range <- sort(x_range, decreasing = TRUE)
+        if (any(x_trans %in% "reverse")) x_range <- sort(x_range, decreasing = TRUE)
 
         if (rlang::is_null(x_limits)) {
           if (rlang::is_null(x_breaks)) {
@@ -573,8 +573,9 @@ gg_point2 <- function(
             else if (facet_null & !facet2_null) x_breaks_n <- 4
             else x_breaks_n <- 6
 
-            if (x_trans == "log10") x_breaks <- scales::breaks_log(n = x_breaks_n)(x_range)
-            else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+            if (x_date | x_datetime | x_time) x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+            else if (any(x_trans %in% "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n)(x_range)
+            else x_breaks <- scales::breaks_extended(n = x_breaks_n)(x_range)
 
             if (!flipped) x_limits <- x_range
             else x_limits <- x_breaks[c(1, length(x_breaks))]
@@ -582,19 +583,14 @@ gg_point2 <- function(
           else if (!(rlang::is_null(x_breaks))) {
             if (!flipped) x_limits <- x_range
             else {
+              if (is.function(x_breaks)) x_breaks <- x_breaks(x_range)
               if (is.vector(x_breaks)) {
                 x_limits <- x_breaks[c(1, length(x_breaks))]
                 if (!rlang::is_null(x_include)) x_limits <- range(x_limits, x_include)
               }
-              else if (is.function(x_breaks)) {
-                x_limits <- list(x_range) %>%
-                  purrr::map(.f = x_breaks) %>%
-                  unlist() %>%
-                  range()
-              }
             }
           }
-          if (x_trans == "reverse") x_limits <- sort(x_limits, decreasing = TRUE)
+          if (any(x_trans %in% "reverse")) x_limits <- sort(x_limits, decreasing = TRUE)
         }
         else if (!rlang::is_null(x_limits)) {
           if (rlang::is_na(x_limits[1])) {
@@ -606,15 +602,16 @@ gg_point2 <- function(
 
           if (!rlang::is_null(x_include)) x_limits <- range(c(x_limits, x_include))
 
-          if (x_trans == "reverse") x_limits <- sort(x_limits, decreasing = TRUE)
+          if (any(x_trans %in% "reverse")) x_limits <- sort(x_limits, decreasing = TRUE)
 
           if (rlang::is_null(x_breaks)) {
             if (!facet_null & !facet2_null) x_breaks_n <- 4
             else if (facet_null & !facet2_null) x_breaks_n <- 4
             else x_breaks_n <- 6
 
-            if (x_trans == "log10") x_breaks <- scales::breaks_log(n = x_breaks_n)(x_limits)
-            else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+            if (x_date | x_datetime | x_time) x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+            else if (any(x_trans %in% "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n)(x_limits)
+            else x_breaks <- scales::breaks_extended(n = x_breaks_n)(x_limits)
           }
         }
       }
@@ -740,17 +737,18 @@ gg_point2 <- function(
 
         y_range <- range(y_vctr, na.rm = TRUE)
         if (!rlang::is_null(y_include)) y_range <- range(c(y_range, y_include))
-        if (y_trans == "reverse") y_range <- sort(y_range, decreasing = TRUE)
+        if (any(y_trans %in% "reverse")) y_range <- sort(y_range, decreasing = TRUE)
 
         if (rlang::is_null(y_limits)) {
           if (rlang::is_null(y_breaks)) {
 
-            if (!facet_null & !facet2_null) y_breaks_n <- 4
-            else if (facet_null & !facet2_null) y_breaks_n <- 4
-            else y_breaks_n <- 6
+            if (!facet_null & !facet2_null) y_breaks_n <- 5
+            else if (facet_null & !facet2_null) y_breaks_n <- 5
+            else y_breaks_n <- 7
 
-            if (y_trans == "log10") y_breaks <- scales::breaks_log(n = y_breaks_n)(y_range)
-            else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+            if (y_date | y_datetime | y_time) y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+            else if (any(y_trans %in% "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n)(y_range)
+            else y_breaks <- scales::breaks_extended(n = y_breaks_n)(y_range)
 
             if (flipped | y_forcat) y_limits <- y_range
             else y_limits <- y_breaks[c(1, length(y_breaks))]
@@ -758,19 +756,14 @@ gg_point2 <- function(
           else if (!(rlang::is_null(y_breaks))) {
             if (flipped | y_forcat) y_limits <- y_range
             else {
+              if (is.function(y_breaks)) y_breaks <- y_breaks(y_range)
               if (is.vector(y_breaks)) {
                 y_limits <- y_breaks[c(1, length(y_breaks))]
                 if (!rlang::is_null(y_include)) y_limits <- range(y_limits, y_include)
               }
-              else if (is.function(y_breaks)) {
-                y_limits <- list(y_range) %>%
-                  purrr::map(.f = y_breaks) %>%
-                  unlist() %>%
-                  range()
-              }
             }
           }
-          if (y_trans == "reverse") y_limits <- sort(y_limits, decreasing = TRUE)
+          if (any(y_trans %in% "reverse")) y_limits <- sort(y_limits, decreasing = TRUE)
         }
         else if (!rlang::is_null(y_limits)) {
           if (rlang::is_na(y_limits[1])) y_limits[1] <- y_range[1]
@@ -778,15 +771,16 @@ gg_point2 <- function(
 
           if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
 
-          if (y_trans == "reverse") y_limits <- sort(y_limits, decreasing = TRUE)
+          if (any(y_trans %in% "reverse")) y_limits <- sort(y_limits, decreasing = TRUE)
 
           if (rlang::is_null(y_breaks)) {
-            if (!facet_null & !facet2_null) y_breaks_n <- 4
-            else if (facet_null & !facet2_null) y_breaks_n <- 4
-            else y_breaks_n <- 6
+            if (!facet_null & !facet2_null) y_breaks_n <- 5
+            else if (facet_null & !facet2_null) y_breaks_n <- 5
+            else y_breaks_n <- 7
 
-            if (y_trans == "log10") y_breaks <- scales::breaks_log(n = y_breaks_n)(y_limits)
-            else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+            if (y_date | y_datetime | y_time) y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+            else if (any(y_trans %in% "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n)(y_limits)
+            else y_breaks <- scales::breaks_extended(n = y_breaks_n)(y_limits)
           }
         }
       }
@@ -931,9 +925,9 @@ gg_point2 <- function(
       if (col_datetime | col_time) col_trans <- "time"
 
       if (rlang::is_null(col_breaks)) {
-        if (!col_trans %in% c("identity", "reverse")) col_breaks <- ggplot2::waiver()
-        else if (col_time | col_datetime) col_breaks <- ggplot2::waiver()
-        else col_breaks <- scales::breaks_pretty(4)
+        if (col_date | col_datetime | col_time) col_breaks <- scales::breaks_pretty(n = 5)
+        else if (any(col_trans %in% "log10")) col_breaks <- scales::breaks_log(n = 5)
+        else col_breaks <- scales::breaks_extended(n = 5)
       }
 
       if (rlang::is_null(pal)) pal <- viridis::viridis(10)

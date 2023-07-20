@@ -381,7 +381,7 @@ mtcars |>
 
 #### ggh4x
 
-The ggh4x package includes enhanced facet functionality, amongst numerous other features.
+The ggh4x package includes enhanced facet functionality.
 
 ```{r}
 iris |> 
@@ -391,7 +391,7 @@ iris |>
   gg_point(x = sepal_width, 
            y = sepal_length, 
            x_breaks = scales::breaks_pretty(n = 3)) +
-  ggh4x::facet_nested(cols = vars(size, species), nest_line = TRUE) +
+  ggh4x::facet_nested(cols = vars(size, species), nest_line = TRUE, solo_line = TRUE) +
   theme(strip.text.x = element_text(margin = margin(t = 2.5, b = 5)))
 ```
 
@@ -486,9 +486,8 @@ ggridges::Catalan_elections |>
   rename_with(snakecase::to_snake_case) |> 
   mutate(year = factor(year)) |>
   gg_blank(
-    y = year, 
     x = percent, 
-    col = option, 
+    y = year, 
     y_expand = c(0, 0), 
     col_title = "",
     col_legend_rev = TRUE, 

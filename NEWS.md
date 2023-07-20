@@ -1,4 +1,4 @@
-# ggblanket 3.0.0
+# ggblanket 3.0.9000
 
 * Made default to not drop any unused factors across all scales and facets.
 * Made default continuous label function drop trailing zeros.
