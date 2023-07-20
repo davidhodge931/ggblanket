@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,6 +29,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/extending_further.html">Extending further</a>
     <a class="dropdown-item" href="../articles/functions_demo.html">Functions demo</a>
+    <a class="dropdown-item" href="../articles/functions_demo_dark.html">Functions demo (dark mode)</a>
   </div>
 </li>
 <li class="nav-item">
@@ -84,7 +85,7 @@
 <span>  x_include <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  x_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_censor</a></span>,</span>
+<span>  x_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
 <span>  x_sec_axis <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  x_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
@@ -94,7 +95,7 @@
 <span>  y_include <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  y_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_censor</a></span>,</span>
+<span>  y_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
 <span>  y_sec_axis <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  y_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
@@ -107,16 +108,17 @@
 <span>  col_legend_nrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_legend_rev <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  col_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  col_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_censor</a></span>,</span>
+<span>  col_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
 <span>  col_rescale <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  col_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  col_trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  col_trans <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_nrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_scales <span class="op">=</span> <span class="st">"fixed"</span>,</span>
 <span>  facet_space <span class="op">=</span> <span class="st">"fixed"</span>,</span>
 <span>  facet_layout <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  facet_switch <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  caption <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  titles <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span>,</span>
 <span>  theme <span class="op">=</span> <span class="cn">NULL</span></span>
@@ -190,7 +192,7 @@
 
 
 <dt>x_breaks</dt>
-<dd><p>A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.</p></dd>
+<dd><p>A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.</p></dd>
 
 
 <dt>x_expand</dt>
@@ -206,7 +208,7 @@
 
 
 <dt>x_labels</dt>
-<dd><p>A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.</p></dd>
+<dd><p>A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.</p></dd>
 
 
 <dt>x_limits</dt>
@@ -214,7 +216,7 @@
 
 
 <dt>x_oob</dt>
-<dd><p>A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.</p></dd>
+<dd><p>A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.</p></dd>
 
 
 <dt>x_sec_axis</dt>
@@ -230,7 +232,7 @@
 
 
 <dt>y_breaks</dt>
-<dd><p>A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.</p></dd>
+<dd><p>A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.</p></dd>
 
 
 <dt>y_expand</dt>
@@ -246,7 +248,7 @@
 
 
 <dt>y_labels</dt>
-<dd><p>A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.</p></dd>
+<dd><p>A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.</p></dd>
 
 
 <dt>y_limits</dt>
@@ -254,7 +256,7 @@
 
 
 <dt>y_oob</dt>
-<dd><p>A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.</p></dd>
+<dd><p>A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.</p></dd>
 
 
 <dt>y_sec_axis</dt>
@@ -270,7 +272,7 @@
 
 
 <dt>col_breaks</dt>
-<dd><p>A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.</p></dd>
+<dd><p>A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.</p></dd>
 
 
 <dt>col_continuous</dt>
@@ -282,11 +284,11 @@
 
 
 <dt>col_labels</dt>
-<dd><p>A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels. Note this does not affect where col_intervals is not NULL.</p></dd>
+<dd><p>A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.</p></dd>
 
 
 <dt>col_legend_place</dt>
-<dd><p>The place for the legend. Either "bottom", "right", "top" or "left" - or just the first letter of these e.g. "b".</p></dd>
+<dd><p>The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).</p></dd>
 
 
 <dt>col_legend_ncol</dt>
@@ -306,7 +308,7 @@
 
 
 <dt>col_oob</dt>
-<dd><p>A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.</p></dd>
+<dd><p>A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.</p></dd>
 
 
 <dt>col_rescale</dt>
@@ -322,7 +324,7 @@
 
 
 <dt>facet_labels</dt>
-<dd><p>A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).</p></dd>
+<dd><p>A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a named vector of labels (e.g. c("value" = "label", ...)).</p></dd>
 
 
 <dt>facet_ncol</dt>
@@ -343,6 +345,10 @@
 
 <dt>facet_layout</dt>
 <dd><p>Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".</p></dd>
+
+
+<dt>facet_switch</dt>
+<dd><p>Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".</p></dd>
 
 
 <dt>caption</dt>
