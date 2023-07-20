@@ -124,7 +124,7 @@ light_mode <- function (
     panel.spacing.x = NULL,
     panel.spacing.y = NULL,
     panel.ontop = FALSE,
-    strip.background = NULL,
+    strip.background = ggplot2::element_rect(fill = NA, colour = NA),
     strip.clip = "inherit",
     strip.text = NULL,
     strip.text.x = ggplot2::element_text(margin = ggplot2::margin(b = base_size * 0.5)),

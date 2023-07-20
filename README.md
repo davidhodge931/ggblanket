@@ -45,22 +45,22 @@ install.packages("ggblanket")
 library(ggblanket)
 library(palmerpenguins)
 library(dplyr)
-
-penguins |>
-  tidyr::drop_na() |>
-  mutate(sex = stringr::str_to_sentence(sex)) |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    title = "Penguins body mass by flipper length",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020"
-  )
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" /> <br>
 <br>
+
+``` r
+penguins |>
+  tidyr::drop_na(sex) |> 
+  mutate(sex = stringr::str_to_sentence(sex)) |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = sex,
+    facet = species,
+    pal = c("#2596be", "#fc7c24"))
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" /> <br>
 
 ``` r
 penguins |>
@@ -76,19 +76,6 @@ penguins |>
     caption = "Source: Gorman, 2020",
     theme = dark_mode()
   )
-```
-
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" />
-
-``` r
-penguins |>
-  tidyr::drop_na(sex) |> 
-  mutate(sex = stringr::str_to_sentence(sex)) |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = sex,
-    facet = species,
-    pal = c("#2596be", "#fc7c24"))
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="75%" />

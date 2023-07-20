@@ -37,7 +37,7 @@ gg_boxplot(
   x_include = NULL,
   x_labels = NULL,
   x_limits = NULL,
-  x_oob = scales::oob_censor,
+  x_oob = scales::oob_keep,
   x_sec_axis = ggplot2::waiver(),
   x_title = NULL,
   x_trans = "identity",
@@ -47,7 +47,7 @@ gg_boxplot(
   y_include = NULL,
   y_labels = NULL,
   y_limits = NULL,
-  y_oob = scales::oob_censor,
+  y_oob = scales::oob_keep,
   y_sec_axis = ggplot2::waiver(),
   y_title = NULL,
   y_trans = "identity",
@@ -60,7 +60,7 @@ gg_boxplot(
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
   col_limits = NULL,
-  col_oob = scales::oob_censor,
+  col_oob = scales::oob_keep,
   col_rescale = scales::rescale(),
   col_title = NULL,
   col_trans = "identity",
@@ -129,7 +129,7 @@ gg_boxplot(
 
 \item{subtitle}{Subtitle string.}
 
-\item{x_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
+\item{x_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
 \item{x_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
@@ -141,7 +141,7 @@ gg_boxplot(
 
 \item{x_limits}{A vector of length 2 to determine the limits of the axis.}
 
-\item{x_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.}
+\item{x_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.}
 
 \item{x_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
@@ -149,7 +149,7 @@ gg_boxplot(
 
 \item{x_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
-\item{y_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
+\item{y_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
 \item{y_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
@@ -161,7 +161,7 @@ gg_boxplot(
 
 \item{y_limits}{A vector of length 2 to determine the limits of the axis.}
 
-\item{y_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.}
+\item{y_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.}
 
 \item{y_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
@@ -169,7 +169,7 @@ gg_boxplot(
 
 \item{y_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
-\item{col_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
+\item{col_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
 \item{col_continuous}{Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".}
 
@@ -187,7 +187,7 @@ gg_boxplot(
 
 \item{col_limits}{A vector to determine the limits of the colour scale.}
 
-\item{col_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.}
+\item{col_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.}
 
 \item{col_rescale}{For a continuous col variable, a scales::rescale function.}
 

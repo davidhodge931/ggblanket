@@ -19,7 +19,7 @@
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_gridlines TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
-#' @param col_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
+#' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels. 
@@ -28,7 +28,7 @@
 #' @param col_legend_place The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).
 #' @param col_legend_rev Reverse the elements of the legend. Defaults to FALSE.
 #' @param col_limits A vector to determine the limits of the colour scale.
-#' @param col_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.
+#' @param col_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.
 #' @param col_rescale For a continuous col variable, a scales::rescale function.
 #' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param col_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
@@ -82,7 +82,7 @@ gg_sf <- function(
     col_legend_nrow = NULL,
     col_legend_rev = FALSE,
     col_limits = NULL,
-    col_oob = scales::oob_censor,
+    col_oob = scales::oob_keep,
     col_rescale = scales::rescale(),
     col_title = NULL,
     col_trans = "identity",

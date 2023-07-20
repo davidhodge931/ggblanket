@@ -32,7 +32,7 @@ gg_sf(
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
   col_limits = NULL,
-  col_oob = scales::oob_censor,
+  col_oob = scales::oob_keep,
   col_rescale = scales::rescale(),
   col_title = NULL,
   col_trans = "identity",
@@ -85,7 +85,7 @@ gg_sf(
 
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{col_breaks}{A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.}
+\item{col_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
 \item{col_continuous}{Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".}
 
@@ -103,7 +103,7 @@ gg_sf(
 
 \item{col_limits}{A vector to determine the limits of the colour scale.}
 
-\item{col_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_censor.}
+\item{col_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.}
 
 \item{col_rescale}{For a continuous col variable, a scales::rescale function.}
 

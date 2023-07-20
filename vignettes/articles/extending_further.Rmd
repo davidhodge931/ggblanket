@@ -127,7 +127,7 @@ p2 <- faithful |>
   gg_blank(x = waiting, 
            y = eruptions, 
            x_breaks = scales::breaks_pretty(3), 
-           y_breaks = c(NA, NA),
+           y_limits = c(NA, NA),
            title = "geom_density_2d_filled") + 
   geom_density_2d_filled(show.legend = FALSE)
 
@@ -143,7 +143,7 @@ p4 <- faithfuld |>
   gg_blank(x = waiting, 
            y = eruptions, 
            x_breaks = scales::breaks_pretty(3),
-           y_breaks = c(NA, NA),
+           y_limits = c(NA, NA),
            title = "geom_contour_filled") + 
   geom_contour_filled(aes(z = density), 
                       show.legend = FALSE)

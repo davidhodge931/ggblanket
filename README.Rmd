@@ -52,20 +52,18 @@ install.packages("ggblanket")
 library(ggblanket)
 library(palmerpenguins)
 library(dplyr)
-
-penguins |>
-  tidyr::drop_na() |>
-  mutate(sex = stringr::str_to_sentence(sex)) |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    title = "Penguins body mass by flipper length",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020"
-  )
 ```
 <br>
+```{r}
+penguins |>
+  tidyr::drop_na(sex) |> 
+  mutate(sex = stringr::str_to_sentence(sex)) |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = sex,
+    facet = species,
+    pal = c("#2596be", "#fc7c24"))
+```
 <br>
 ```{r, fig.asp = 0.7}
 penguins |>
@@ -81,17 +79,6 @@ penguins |>
     caption = "Source: Gorman, 2020",
     theme = dark_mode()
   )
-```
-
-```{r}
-penguins |>
-  tidyr::drop_na(sex) |> 
-  mutate(sex = stringr::str_to_sentence(sex)) |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = sex,
-    facet = species,
-    pal = c("#2596be", "#fc7c24"))
 ```
 
 ## Get started
