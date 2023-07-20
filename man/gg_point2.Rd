@@ -53,7 +53,7 @@ gg_point2(
   col_oob = scales::oob_censor,
   col_rescale = scales::rescale(),
   col_title = NULL,
-  col_trans = "identity",
+  col_trans = NULL,
   facet_labels = NULL,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -145,7 +145,7 @@ gg_point2(
 
 \item{col_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
-\item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels. Note this does not affect where col_intervals is not NULL.}
+\item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.}
 
 \item{col_legend_place}{The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).}
 

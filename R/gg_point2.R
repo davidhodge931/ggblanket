@@ -40,7 +40,7 @@
 #' @param col_breaks A function on the limits (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
-#' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels. Note this does not affect where col_intervals is not NULL.
+#' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels. 
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).
@@ -126,7 +126,7 @@ gg_point2 <- function(
     col_oob = scales::oob_censor,
     col_rescale = scales::rescale(),
     col_title = NULL,
-    col_trans = "identity",
+    col_trans = NULL,
     facet_labels = NULL,
     facet_ncol = NULL,
     facet_nrow = NULL,
@@ -573,7 +573,8 @@ gg_point2 <- function(
             else if (facet_null & !facet2_null) x_breaks_n <- 4
             else x_breaks_n <- 6
 
-            if (x_date | x_datetime | x_time) x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+            if (x_time) x_breaks <- ggplot2::waiver()
+            else if (x_date | x_datetime) x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
             else if (any(x_trans %in% "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n)(x_range)
             else x_breaks <- scales::breaks_extended(n = x_breaks_n)(x_range)
 
@@ -609,7 +610,8 @@ gg_point2 <- function(
             else if (facet_null & !facet2_null) x_breaks_n <- 4
             else x_breaks_n <- 6
 
-            if (x_date | x_datetime | x_time) x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+            if (x_time) x_breaks <- ggplot2::waiver
+            else if (x_date | x_datetime) x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
             else if (any(x_trans %in% "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n)(x_limits)
             else x_breaks <- scales::breaks_extended(n = x_breaks_n)(x_limits)
           }
@@ -631,8 +633,11 @@ gg_point2 <- function(
 
       if (rlang::is_null(x_labels)) {
         if (x_numeric | x_null) x_labels <- scales::label_comma(drop0trailing = TRUE)
-        else if (x_date | x_datetime | x_time) {
+        else if (x_date | x_datetime) {
           x_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
+        }
+        else if (x_time) {
+          x_labels <- scales::label_time()
         }
       }
 
@@ -746,7 +751,8 @@ gg_point2 <- function(
             else if (facet_null & !facet2_null) y_breaks_n <- 5
             else y_breaks_n <- 7
 
-            if (y_date | y_datetime | y_time) y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+            if (y_time) y_breaks <- ggplot2::waiver
+            else if (y_date | y_datetime) y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
             else if (any(y_trans %in% "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n)(y_range)
             else y_breaks <- scales::breaks_extended(n = y_breaks_n)(y_range)
 
@@ -778,7 +784,8 @@ gg_point2 <- function(
             else if (facet_null & !facet2_null) y_breaks_n <- 5
             else y_breaks_n <- 7
 
-            if (y_date | y_datetime | y_time) y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+            if (y_time) y_breaks <- ggplot2::waiver
+            else if (y_date | y_datetime | y_time) y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
             else if (any(y_trans %in% "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n)(y_limits)
             else y_breaks <- scales::breaks_extended(n = y_breaks_n)(y_limits)
           }
@@ -795,8 +802,11 @@ gg_point2 <- function(
 
       if (rlang::is_null(y_labels)) {
         if (y_numeric | y_null) y_labels <- scales::label_comma(drop0trailing = TRUE)
-        else if (y_date | y_datetime | y_time) {
+        else if (y_date | y_datetime) {
           y_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
+        }
+        else if (y_time) {
+          y_labels <- scales::label_time()
         }
       }
 
@@ -921,11 +931,16 @@ gg_point2 <- function(
         )
     }
     else {
-      if (col_date) col_trans <- "date"
-      if (col_datetime | col_time) col_trans <- "time"
+      if (rlang::is_null(col_trans)) {
+        if (col_date) col_trans <- "date"
+        else if (col_datetime) col_trans <- "time"
+        else if (col_time) col_trans <- "hms"
+        else col_trans <- "identity"
+      }
 
       if (rlang::is_null(col_breaks)) {
-        if (col_date | col_datetime | col_time) col_breaks <- scales::breaks_pretty(n = 5)
+        if (col_time) col_breaks <- ggplot2::waiver()
+        else if (col_date | col_datetime) col_breaks <- scales::breaks_pretty(n = 5)
         else if (any(col_trans %in% "log10")) col_breaks <- scales::breaks_log(n = 5)
         else col_breaks <- scales::breaks_extended(n = 5)
       }
@@ -934,8 +949,11 @@ gg_point2 <- function(
 
       if (rlang::is_null(col_labels)) {
         if (col_numeric | col_null) col_labels <- scales::label_comma(drop0trailing = TRUE)
-        else if (col_date | col_datetime | col_time) {
-          col_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
+        else if (col_date | col_datetime) {
+          col_labels <- scales::label_date(format = c("%Y", "%b", "%e"))
+        }
+        else if (col_time) {
+          col_labels <- scales::label_time()
         }
       }
 
