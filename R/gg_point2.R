@@ -22,7 +22,7 @@
 #' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param x_gridlines TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
 #' @param x_include For a numeric or date variable, any values that the scale should include (e.g. 0).
-#' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
+#' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.
 #' @param x_limits A vector of length 2 to determine the limits of the axis.
 #' @param x_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.
 #' @param x_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
@@ -33,7 +33,7 @@
 #' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param y_gridlines TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
 #' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).
-#' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
+#' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.
 #' @param y_limits A vector of length 2 to determine the limits of the axis.
 #' @param y_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.
 #' @param y_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
@@ -43,7 +43,7 @@
 #' @param col_breaks_n If col_breaks is not specified, the number of pretty or (or log10) breaks to aim for.
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
-#' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
+#' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).
@@ -53,7 +53,7 @@
 #' @param col_rescale For a continuous col variable, a scales::rescale function.
 #' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param col_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
-#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
+#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a named vector of labels (e.g. c("value" = "label", ...)).
 #' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
 #' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
 #' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -656,7 +656,7 @@ gg_point2 <- function(
           if (any(x_trans == "log10")) x_labels <- scales::label_log(base = 10)
           else if (any(x_trans == "log2")) x_labels <- scales::label_log(base = 2)
           else if (any(x_trans == "log")) x_labels <- scales::label_math("e"^.x, format = log)
-          else x_labels <- scales::label_comma()
+          else x_labels <- scales::label_comma(drop0trailing = TRUE)
         }
         else if (x_date | x_datetime) {
           x_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
@@ -849,7 +849,7 @@ gg_point2 <- function(
           if (any(y_trans == "log10")) y_labels <- scales::label_log(base = 10)
           else if (any(y_trans == "log2")) y_labels <- scales::label_log(base = 2)
           else if (any(y_trans == "log")) y_labels <- scales::label_math("e"^.x, format = log)
-          else y_labels <- scales::label_comma()
+          else y_labels <- scales::label_comma(drop0trailing = TRUE)
         }
         else if (y_date | y_datetime) {
           y_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
@@ -1004,7 +1004,7 @@ gg_point2 <- function(
           if (any(col_trans == "log10")) col_labels <- scales::label_log(base = 10)
           else if (any(col_trans == "log2")) col_labels <- scales::label_log(base = 2)
           else if (any(col_trans == "log")) col_labels <- scales::label_math("e"^.x, format = log)
-          else col_labels <- scales::label_comma()
+          else col_labels <- scales::label_comma(drop0trailing = TRUE)
         }
         else if (col_date | col_datetime) {
           col_labels <- scales::label_date(format = c("%Y", "%b", "%e"))
