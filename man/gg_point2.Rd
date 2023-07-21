@@ -22,6 +22,7 @@ gg_point2(
   title = NULL,
   subtitle = NULL,
   x_breaks = NULL,
+  x_breaks_n = NULL,
   x_expand = NULL,
   x_gridlines = NULL,
   x_include = NULL,
@@ -32,6 +33,7 @@ gg_point2(
   x_title = NULL,
   x_trans = "identity",
   y_breaks = NULL,
+  y_breaks_n = NULL,
   y_expand = NULL,
   y_gridlines = NULL,
   y_include = NULL,
@@ -42,6 +44,7 @@ gg_point2(
   y_title = NULL,
   y_trans = "identity",
   col_breaks = NULL,
+  col_breaks_n = NULL,
   col_continuous = "gradient",
   col_include = NULL,
   col_labels = NULL,
@@ -101,13 +104,15 @@ gg_point2(
 
 \item{x_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
+\item{x_breaks_n}{If x_breaks is not specified, the number of pretty (or log10) breaks to aim for.}
+
 \item{x_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
 \item{x_gridlines}{TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.}
 
 \item{x_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
-\item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.}
+\item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
 \item{x_limits}{A vector of length 2 to determine the limits of the axis.}
 
@@ -121,13 +126,15 @@ gg_point2(
 
 \item{y_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
+\item{y_breaks_n}{If y_breaks is not specified, the number of pretty or (or log10) breaks to aim for.}
+
 \item{y_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
 \item{y_gridlines}{TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.}
 
 \item{y_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
-\item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.}
+\item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
 \item{y_limits}{A vector of length 2 to determine the limits of the axis.}
 
@@ -141,11 +148,13 @@ gg_point2(
 
 \item{col_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
+\item{col_breaks_n}{If col_breaks is not specified, the number of pretty or (or log10) breaks to aim for.}
+
 \item{col_continuous}{Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".}
 
 \item{col_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
 
-\item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.}
+\item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
 \item{col_legend_place}{The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).}
 
@@ -165,7 +174,7 @@ gg_point2(
 
 \item{col_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
-\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a named vector of labels (e.g. c("value" = "label", ...)).}
+\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).}
 
 \item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of "wrap".}
 
