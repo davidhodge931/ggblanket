@@ -8,11 +8,12 @@
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
+#' @param text A text aesthetics for use with plotly::ggplotly.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian()).
-#' @param pal Colours to use. A character vector of hex codes (or names).
-#' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
+#' @param pal Colours to use. A character vector of point codes (or names).
+#' @param pal_na Colour to use for NA values. A character vector of a point code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param ... Other arguments passed to the ggplot2::geom_point function.
 #' @param title Title string.
@@ -37,6 +38,7 @@
 #' @param y_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
+#' @param col_after_stat TRUE or FALSE whether to colour by a variable calculated by the stat.
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
@@ -65,16 +67,10 @@
 #' @export
 #'
 #' @examples
-#' library(palmerpenguins)
-#'
-#' penguins |>
+#' ggplot2::diamonds |>
 #'   gg_point2(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = sex,
-#'     facet = species,
-#'     col_labels = stringr::str_to_sentence,
-#'     pal = c("#1B9E77", "#9E361B")
+#'     x = carat,
+#'     y = price,
 #'   )
 #'
 gg_point2 <- function(
@@ -85,6 +81,7 @@ gg_point2 <- function(
     facet = NULL,
     facet2 = NULL,
     group = NULL,
+    text = NULL,
     stat = "identity",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
@@ -114,6 +111,7 @@ gg_point2 <- function(
     y_sec_axis = ggplot2::waiver(),
     y_title = NULL,
     y_trans = "identity",
+    col_after_stat = FALSE,
     col_breaks = NULL,
     col_continuous = "gradient",
     col_include = NULL,
@@ -149,6 +147,7 @@ gg_point2 <- function(
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
+  text <- rlang::enquo(text)
 
   #ungroup
   data <- data %>%
@@ -311,12 +310,13 @@ gg_point2 <- function(
     }
   }
 
-  if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
+  if (col_null & !col_after_stat) {
     if (rlang::is_null(pal)) pal <-  pal_blue
     else pal <- as.vector(pal[1])
 
     plot <- plot +
       ggplot2::geom_point(
+        mapping = ggplot2::aes(text = !!text),
         stat = stat,
         position = position,
         alpha = alpha,
@@ -330,6 +330,7 @@ gg_point2 <- function(
   else {
     plot <- plot +
       ggplot2::geom_point(
+        mapping = ggplot2::aes(text = !!text),
         stat = stat,
         position = position,
         alpha = alpha,
@@ -417,15 +418,6 @@ gg_point2 <- function(
 
   #Get the positional scales right first
   if (stat != "sf") {
-    # if (rlang::is_null(x_limits)) {
-    #   if (stat == "bin") {
-    #     if (x_numeric) x_limits <- c(NA, NA)
-    #     if (x_date | x_datetime | x_time) {
-    #       x_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
-    #     }
-    #   }
-    # }
-
     if (x_numeric) {
       if (any(x_trans %in% "reverse") & !rlang::is_null(x_limits)) {
         plot <- plot +
@@ -456,15 +448,6 @@ gg_point2 <- function(
       plot <- plot +
         ggplot2::expand_limits(x = x_include)
     }
-
-    # if (rlang::is_null(y_limits)) {
-    #   if (stat == "bin") {
-    #     if (y_numeric) y_limits <- c(NA, NA)
-    #     if (y_date | y_datetime | y_time) {
-    #       y_limits <- c(lubridate::NA_Date_, lubridate::NA_Date_)
-    #     }
-    #   }
-    # }
 
     if (y_numeric) {
       if (any(y_trans %in% "reverse") & !rlang::is_null(y_limits)) {
@@ -504,7 +487,12 @@ gg_point2 <- function(
 
   flippable <- any(stringr::str_detect(colnames(plot_data), "flipped_aes"))
 
-  if (flippable) flipped <- all(plot_data["flipped_aes"])
+  if (flippable) {
+    flipped <- all(plot_data["flipped_aes"])
+  }
+  else if (y_forcat & (x_null | x_numeric | x_date | x_datetime | x_time)) {
+    flipped <- TRUE
+  }
   else flipped <- FALSE
 
   #Make x, y scales
@@ -528,11 +516,11 @@ gg_point2 <- function(
 
       if (class(position)[1] == "character") {
         if (position == "fill") {
-          if (y_forcat | flipped) x_limits <- c(NA, NA)
+          if (flipped) x_limits <- c(NA, NA)
         }
       }
       else if (class(position)[1] == "PositionFill") {
-        if (y_forcat | flipped) x_limits <- c(NA, NA)
+        if (flipped) x_limits <- c(NA, NA)
       }
 
       if (facet_scales %in% c("fixed", "free_y")) {
@@ -540,14 +528,23 @@ gg_point2 <- function(
         x_vars_str <- "^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$"
         y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
 
-        x_vctr <- plot_data %>%
-          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !is.na(x))) |>
+        x_vctr_temp <- plot_data %>%
+          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !is.na(x))) %>%
           dplyr::select(tidyselect::matches(stringr::regex(x_vars_str)))
 
-        if (ncol(x_vctr) != 0) {
-          x_vctr <- x_vctr %>%
-            tidyr::pivot_longer(cols = tidyselect::everything()) %>%
-            dplyr::pull(.data$value)
+        if (ncol(x_vctr_temp) != 0) {
+          if (stringr::str_detect(stat, "bin")) {
+            x_vctr <- x_vctr_temp %>%
+              dplyr::select(tidyselect::matches(stringr::regex("^x$"))) %>%
+              tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+              dplyr::pull(.data$value)
+          }
+          else {
+            x_vctr <- x_vctr_temp %>%
+              tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+              dplyr::pull(.data$value)
+          }
+          if (rlang::is_null(x_include)) x_vctr <- c(x_vctr, x_include)
         } else {
           x_vctr <- NULL
         }
@@ -633,7 +630,7 @@ gg_point2 <- function(
         if (any(!x_trans %in% c("identity", "reverse"))) {
           x_expand <- ggplot2::expansion(mult = c(0.05, 0.05))
         }
-        else if (flipped | y_forcat) x_expand <- c(0, 0)
+        else if (flipped) x_expand <- c(0, 0)
         else if (facet_scales %in% c("fixed", "free_y") &
                  (y_date | y_datetime | y_time | y_numeric | y_null)) {
           x_expand <- ggplot2::expansion(mult = c(0.05, 0.05))
@@ -721,11 +718,11 @@ gg_point2 <- function(
 
       if (class(position)[1] == "character") {
         if (position == "fill") {
-          if (x_forcat | !flipped) y_limits <- c(NA, NA)
+          if (!flipped) y_limits <- c(NA, NA)
         }
       }
       else if (class(position)[1] == "PositionFill") {
-        if (x_forcat | !flipped) y_limits <- c(NA, NA)
+        if (!flipped) y_limits <- c(NA, NA)
       }
 
       if (facet_scales %in% c("fixed", "free_x")) {
@@ -733,14 +730,23 @@ gg_point2 <- function(
         x_vars_str <- "^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$"
         y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
 
-        y_vctr <- plot_data %>%
-          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), \(x) !is.na(x))) |>
+        y_vctr_temp <- plot_data %>%
+          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), \(x) !is.na(x))) %>%
           dplyr::select(tidyselect::matches(stringr::regex(y_vars_str)))
 
-        if (ncol(y_vctr) != 0) {
-          y_vctr <- y_vctr %>%
-            tidyr::pivot_longer(cols = tidyselect::everything()) %>%
-            dplyr::pull(.data$value)
+        if (ncol(y_vctr_temp) != 0) {
+          if (stringr::str_detect(stat, "bin")) {
+            y_vctr <- y_vctr_temp %>%
+              dplyr::select(tidyselect::matches(stringr::regex("^y$"))) %>%
+              tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+              dplyr::pull(.data$value)
+          }
+          else {
+            y_vctr <- y_vctr_temp %>%
+              tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+              dplyr::pull(.data$value)
+          }
+          if (rlang::is_null(y_include)) y_vctr <- c(y_vctr, y_include)
         } else {
           y_vctr <- NULL
         }
@@ -772,12 +778,12 @@ gg_point2 <- function(
             else if (any(y_trans == "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = exp(1))(y_range)
             else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
 
-            if (flipped | y_forcat) y_limits <- y_range
+            if (flipped) y_limits <- y_range
             else if (any(!y_trans %in% c("identity", "reverse"))) y_limits <- y_range
             else y_limits <- y_breaks[c(1, length(y_breaks))]
           }
           else if (!(rlang::is_null(y_breaks))) {
-            if (flipped | y_forcat) y_limits <- y_range
+            if (flipped) y_limits <- y_range
             else {
               if (any(!y_trans %in% c("identity", "reverse"))) {
                 y_limits <- y_range
@@ -822,7 +828,7 @@ gg_point2 <- function(
         if (any(!y_trans %in% c("identity", "reverse"))) {
           y_expand <- ggplot2::expansion(mult = c(0.05, 0.05))
         }
-        else if (!flipped | x_forcat) y_expand <- c(0, 0)
+        else if (!flipped) y_expand <- c(0, 0)
         else if (facet_scales %in% c("fixed", "free_x") &
                  (y_date | y_datetime | y_time | y_numeric | y_null)) {
           y_expand <- ggplot2::expansion(mult = c(0.05, 0.05))
@@ -894,10 +900,16 @@ gg_point2 <- function(
   }
 
   #make col scale
-  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex")) {
-    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
-      col_vctr <- plot_data %>%
-        dplyr::pull(.data$count)
+  if (!col_null | col_after_stat) {
+    if (col_after_stat) {
+      if (rlang::is_null(col_title)) {
+        if (!rlang::is_null(plot_build$plot$labels$colour)) {
+          col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))
+        }
+        else if (!rlang::is_null(plot_build$plot$labels$fill)) {
+          col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))
+        }
+      }
     }
     else {
       col_vctr <- data %>%
@@ -1089,7 +1101,7 @@ gg_point2 <- function(
       subtitle = subtitle,
       caption = caption)
 
-  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex")) {
+  if (!col_null | col_after_stat) {
     plot <- plot +
       ggplot2::labs(
         col = col_title,
@@ -1142,34 +1154,8 @@ gg_point2 <- function(
 
   #Adjust legend
   if (rlang::is_null(col_legend_place)) {
-    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
-      col_legend_place <- "right"
-    }
-    else if (stat == "sf") {
-      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-        col_legend_place <- "none"
-      }
-      else col_legend_place <- "right"
-    }
-    else if (stat == "qq") {
-      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(sample, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-          (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-        col_legend_place <- "none"
-      }
-      col_legend_place <- "bottom"
-    }
-    else if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(x, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(y, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet, data))) |
-             (identical(rlang::eval_tidy(col, data), rlang::eval_tidy(facet2, data)))) {
-      col_legend_place <- "none"
-    }
-    else if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
-    else if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
-      col_legend_place <- "none"
-    }
+    if (col_after_stat | col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
+    else if (!col_after_stat & col_null) col_legend_place <- "none"
     else col_legend_place <- "bottom"
   }
 
@@ -1188,7 +1174,7 @@ gg_point2 <- function(
       ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5))) +
       ggplot2::theme(legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 5)))
 
-    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
+    if (col_numeric | col_after_stat) {
       plot <- plot +
         ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
         ggplot2::theme(legend.text.align = 0.5)
