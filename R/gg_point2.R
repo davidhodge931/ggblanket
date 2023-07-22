@@ -18,7 +18,6 @@
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
-#' @param x_breaks_n If x_breaks is not specified, the number of pretty (or log10) breaks to aim for.
 #' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param x_gridlines TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
 #' @param x_include For a numeric or date variable, any values that the scale should include (e.g. 0).
@@ -29,7 +28,6 @@
 #' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param x_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param y_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
-#' @param y_breaks_n If y_breaks is not specified, the number of pretty or (or log10) breaks to aim for.
 #' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param y_gridlines TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
 #' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).
@@ -40,7 +38,6 @@
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
-#' @param col_breaks_n If col_breaks is not specified, the number of pretty or (or log10) breaks to aim for.
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.
@@ -98,7 +95,6 @@ gg_point2 <- function(
     title = NULL,
     subtitle = NULL,
     x_breaks = NULL,
-    x_breaks_n = NULL,
     x_expand = NULL,
     x_gridlines = NULL,
     x_include = NULL,
@@ -109,7 +105,6 @@ gg_point2 <- function(
     x_title = NULL,
     x_trans = "identity",
     y_breaks = NULL,
-    y_breaks_n = NULL,
     y_expand = NULL,
     y_gridlines = NULL,
     y_include = NULL,
@@ -120,7 +115,6 @@ gg_point2 <- function(
     y_title = NULL,
     y_trans = "identity",
     col_breaks = NULL,
-    col_breaks_n = NULL,
     col_continuous = "gradient",
     col_include = NULL,
     col_labels = NULL,
@@ -575,11 +569,9 @@ gg_point2 <- function(
         if (rlang::is_null(x_limits)) {
           if (rlang::is_null(x_breaks)) {
 
-            if (rlang::is_null(x_breaks_n)) {
-              if (!facet_null & !facet2_null) x_breaks_n <- 4
-              else if (facet_null & !facet2_null) x_breaks_n <- 4
-              else x_breaks_n <- 6
-            }
+            if (!facet_null & !facet2_null) x_breaks_n <- 4
+            else if (facet_null & !facet2_null) x_breaks_n <- 4
+            else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver()
             else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
@@ -621,11 +613,9 @@ gg_point2 <- function(
 
           if (rlang::is_null(x_breaks)) {
 
-            if (rlang::is_null(x_breaks_n)) {
-              if (!facet_null & !facet2_null) x_breaks_n <- 4
-              else if (facet_null & !facet2_null) x_breaks_n <- 4
-              else x_breaks_n <- 6
-            }
+            if (!facet_null & !facet2_null) x_breaks_n <- 4
+            else if (facet_null & !facet2_null) x_breaks_n <- 4
+            else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver
             else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
@@ -772,11 +762,9 @@ gg_point2 <- function(
         if (rlang::is_null(y_limits)) {
           if (rlang::is_null(y_breaks)) {
 
-            if (rlang::is_null(y_breaks_n)) {
-              if (!facet_null & !facet2_null) y_breaks_n <- 6
-              else if (facet_null & !facet2_null) y_breaks_n <- 6
-              else y_breaks_n <- 8
-            }
+            if (!facet_null & !facet2_null) y_breaks_n <- 6
+            else if (facet_null & !facet2_null) y_breaks_n <- 6
+            else y_breaks_n <- 8
 
             if (y_time) y_breaks <- ggplot2::waiver
             else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
@@ -814,11 +802,9 @@ gg_point2 <- function(
 
           if (rlang::is_null(y_breaks)) {
 
-            if (rlang::is_null(y_breaks_n)) {
-              if (!facet_null & !facet2_null) y_breaks_n <- 6
-              else if (facet_null & !facet2_null) y_breaks_n <- 6
-              else y_breaks_n <- 8
-            }
+            if (!facet_null & !facet2_null) y_breaks_n <- 6
+            else if (facet_null & !facet2_null) y_breaks_n <- 6
+            else y_breaks_n <- 8
 
             if (y_time) y_breaks <- ggplot2::waiver
             else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
@@ -987,15 +973,11 @@ gg_point2 <- function(
         else col_trans <- "identity"
       }
 
-      if (rlang::is_null(col_breaks)) {
-        if (rlang::is_null(col_breaks_n)) col_breaks_n <- 5
-
-        if (col_time) col_breaks <- ggplot2::waiver()
-        else if (any(col_trans == "log10")) col_breaks <- scales::breaks_log(n = col_breaks_n, base = 10)
-        else if (any(col_trans == "log2")) col_breaks <- scales::breaks_log(n = col_breaks_n, base = 2)
-        else if (any(col_trans == "log")) col_breaks <- scales::breaks_log(n = col_breaks_n, base = exp(1))
-        else col_breaks <- scales::breaks_pretty(n = col_breaks_n)
-      }
+      if (col_time) col_breaks <- ggplot2::waiver()
+      else if (any(col_trans == "log10")) col_breaks <- scales::breaks_log(n = 5, base = 10)
+      else if (any(col_trans == "log2")) col_breaks <- scales::breaks_log(n = 5, base = 2)
+      else if (any(col_trans == "log")) col_breaks <- scales::breaks_log(n = 5, base = exp(1))
+      else col_breaks <- scales::breaks_pretty(n = 5)
 
       if (rlang::is_null(pal)) pal <- viridis::viridis(10)
 
