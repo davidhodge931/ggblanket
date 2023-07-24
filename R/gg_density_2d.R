@@ -222,13 +222,12 @@ gg_density_2d <- function(
   ##############################################################################
 
   ###make plot
-  if (stat %in% c("bin2d", "bin_2d", "binhex", "contour", "contour_filled", "density_2d", "density_2d_filled")) {
+  if (stat %in% c("bin2d", "bin_2d", "binhex", "density2d", "density_2d", "density2d_filled", "density_2d_filled")) {
     if (!x_null & !y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
-          z = !!z,
           group = !!group
         ))
     }
@@ -236,7 +235,6 @@ gg_density_2d <- function(
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
-          z = !!z,
           group = !!group
         ))
     }
@@ -244,14 +242,12 @@ gg_density_2d <- function(
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
-          z = !!z,
           group = !!group
         ))
     }
     else if (x_null & y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          z = !!z,
           group = !!group
         ))
     }
@@ -263,7 +259,6 @@ gg_density_2d <- function(
           ggplot2::ggplot(mapping = ggplot2::aes(
             x = !!x,
             y = !!y,
-            z = !!z,
             col = !!col,
             fill = !!col,
             group = !!group
@@ -274,7 +269,6 @@ gg_density_2d <- function(
           ggplot2::ggplot(mapping = ggplot2::aes(
             x = !!x,
             y = !!y,
-            z = !!z,
             # col = "",
             # fill = "",
             group = !!group
@@ -286,7 +280,6 @@ gg_density_2d <- function(
         plot <- data %>%
           ggplot2::ggplot(mapping = ggplot2::aes(
             x = !!x,
-            z = !!z,
             col = !!col,
             fill = !!col,
             group = !!group
@@ -296,7 +289,6 @@ gg_density_2d <- function(
         plot <- data %>%
           ggplot2::ggplot(mapping = ggplot2::aes(
             x = !!x,
-            z = !!z,
             # col = "",
             # fill = "",
             group = !!group
@@ -308,7 +300,6 @@ gg_density_2d <- function(
         plot <- data %>%
           ggplot2::ggplot(mapping = ggplot2::aes(
             y = !!y,
-            z = !!z,
             col = !!col,
             fill = !!col,
             group = !!group
@@ -318,7 +309,6 @@ gg_density_2d <- function(
         plot <- data %>%
           ggplot2::ggplot(mapping = ggplot2::aes(
             y = !!y,
-            z = !!z,
             # col = "",
             # fill = "",
             group = !!group
@@ -329,7 +319,6 @@ gg_density_2d <- function(
       if (!col_null) {
         plot <- data %>%
           ggplot2::ggplot(mapping = ggplot2::aes(
-            z = !!z,
             col = !!col,
             fill = !!col,
             group = !!group
@@ -338,7 +327,6 @@ gg_density_2d <- function(
       else if (col_null) {
         plot <- data %>%
           ggplot2::ggplot(mapping = ggplot2::aes(
-            z = !!z,
             # col = "",
             # fill = "",
             group = !!group
@@ -347,7 +335,7 @@ gg_density_2d <- function(
     }
   }
 
-  if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density_2d_filled")) {
+  if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
     if (rlang::is_null(pal)) pal <-  pal_blue
     else pal <- as.vector(pal[1])
 
@@ -988,8 +976,8 @@ gg_density_2d <- function(
   }
 
   #make col scale
-  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density_2d_filled")) {
-    if (stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density_2d_filled")) {
+  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
+    if (stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
       if (!rlang::is_null(plot_build$plot$labels$fill)) {
         col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))
       }
@@ -1005,7 +993,7 @@ gg_density_2d <- function(
 
     if (rlang::is_null(col_legend_place)) {
       if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
-      else if (stat %in% c("bin2d", "binhex", "density_2d_filled", "contour_filled")) col_legend_place <- "right"
+      else if (stat %in% c("bin2d", "binhex", "density2d_filled", "density_2d_filled", "contour_filled")) col_legend_place <- "right"
       else col_legend_place <- "bottom"
     }
 
@@ -1015,7 +1003,7 @@ gg_density_2d <- function(
     if (col_legend_place == "r") col_legend_place <- "right"
     if (col_legend_place == "n") col_legend_place <- "none"
 
-    if (col_forcat | stat %in% c("contour_filled", "density_2d_filled")) {
+    if (col_forcat | stat %in% c("contour_filled", "density2d_filled", "density_2d_filled")) {
       if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
       else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
       else {
@@ -1026,7 +1014,7 @@ gg_density_2d <- function(
         }
       }
       if (rlang::is_null(pal)) {
-        if (stat %in% c("contour_filled", "density_2d_filled")) pal <- viridis::viridis(col_n)
+        if (stat %in% c("contour_filled", "density2d_filled", "density_2d_filled")) pal <- viridis::viridis(col_n)
         else pal <- pal_hue[1:col_n]
       }
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
@@ -1204,7 +1192,7 @@ gg_density_2d <- function(
       subtitle = subtitle,
       caption = caption)
 
-  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density_2d_filled")) {
+  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
     plot <- plot +
       ggplot2::labs(
         col = col_title,
@@ -1302,7 +1290,7 @@ gg_density_2d <- function(
   }
 
   if (!x_gridlines & !y_gridlines) {
-    plot <- plot + #resolve sf bug 4730
+    plot <- plot + #resolve ggplot2 issue #4730
       ggplot2::theme(panel.grid.major = ggplot2::element_blank()) +
       ggplot2::theme(panel.grid.minor = ggplot2::element_blank())
   }

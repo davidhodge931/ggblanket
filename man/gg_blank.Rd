@@ -21,6 +21,7 @@ gg_blank(
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
+  z = NULL,
   ylower = NULL,
   yupper = NULL,
   ymiddle = NULL,
@@ -112,6 +113,8 @@ gg_blank(
 \item{ymax}{Unquoted ymax aesthetic variable.}
 
 \item{yend}{Unquoted yend aesthetic variable.}
+
+\item{z}{Unquoted z aesthetic variable.}
 
 \item{ylower}{Unquoted ylower aesthetic variable.}
 

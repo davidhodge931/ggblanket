@@ -17,6 +17,7 @@
 #' @param ymin Unquoted ymin aesthetic variable.
 #' @param ymax Unquoted ymax aesthetic variable.
 #' @param yend Unquoted yend aesthetic variable.
+#' @param z Unquoted z aesthetic variable.
 #' @param ylower Unquoted ylower aesthetic variable.
 #' @param yupper Unquoted yupper aesthetic variable.
 #' @param ymiddle Unquoted ymiddle aesthetic variable.
@@ -108,6 +109,7 @@ gg_blank <- function(
     ymin = NULL,
     ymax = NULL,
     yend = NULL,
+    z = NULL,
     ylower = NULL,
     yupper = NULL,
     ymiddle = NULL,
@@ -191,6 +193,8 @@ gg_blank <- function(
   ylower <- rlang::enquo(ylower)
   yupper <- rlang::enquo(yupper)
   ymiddle <- rlang::enquo(ymiddle)
+
+  z <- rlang::enquo(z)
 
   sample <- rlang::enquo(sample)
   label <- rlang::enquo(label)
@@ -392,7 +396,7 @@ gg_blank <- function(
         ))
     }
   }
-  else if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+  else if (stat %in% c("bin2d", "bin_2d", "binhex", "density2d", "density_2d", "density2d_filled", "density_2d_filled")) {
     if (!x_null & !y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
@@ -473,6 +477,100 @@ gg_blank <- function(
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
+          lower = !!ylower,
+          upper = !!yupper,
+          middle = !!ymiddle,
+          sample = !!sample,
+          label = !!label,
+          subgroup = !!subgroup
+        ))
+    }
+  }
+  else if (stat %in% c("contour", "contour_filled")) {
+    if (!x_null & !y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          x = !!x,
+          y = !!y,
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          xlower = !!xlower,
+          xupper = !!xupper,
+          xmiddle = !!xmiddle,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          lower = !!ylower,
+          upper = !!yupper,
+          middle = !!ymiddle,
+          sample = !!sample,
+          label = !!label,
+          subgroup = !!subgroup
+        ))
+    }
+    else if (!x_null & y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          x = !!x,
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          xlower = !!xlower,
+          xupper = !!xupper,
+          xmiddle = !!xmiddle,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          lower = !!ylower,
+          upper = !!yupper,
+          middle = !!ymiddle,
+          sample = !!sample,
+          label = !!label,
+          subgroup = !!subgroup
+        ))
+    }
+    else if (x_null & !y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          y = !!y,
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          xlower = !!xlower,
+          xupper = !!xupper,
+          xmiddle = !!xmiddle,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          lower = !!ylower,
+          upper = !!yupper,
+          middle = !!ymiddle,
+          sample = !!sample,
+          label = !!label,
+          subgroup = !!subgroup
+        ))
+    }
+    else if (x_null & y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          group = !!group,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          xlower = !!xlower,
+          xupper = !!xupper,
+          xmiddle = !!xmiddle,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
           lower = !!ylower,
           upper = !!yupper,
           middle = !!ymiddle,
@@ -685,7 +783,7 @@ gg_blank <- function(
     }
   }
 
-  if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
+  if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
     if (rlang::is_null(pal)) pal <-  pal_blue
     else pal <- as.vector(pal[1])
 
@@ -1324,21 +1422,34 @@ gg_blank <- function(
   }
 
   #make col scale
-  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex")) {
-    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
-      if (!rlang::is_null(plot_build$plot$labels$colour)) {
-        col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))
-      }
-      else if (!rlang::is_null(plot_build$plot$labels$fill)) {
+  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
+    if (stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
+      if (!rlang::is_null(plot_build$plot$labels$fill)) {
         col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))
       }
+      else if (!rlang::is_null(plot_build$plot$labels$colour)) {
+        col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))
+      }
+
     }
     else if (!col_null) {
       col_vctr <- data %>%
         dplyr::pull(!!col)
     }
 
-    if (col_forcat) {
+    if (rlang::is_null(col_legend_place)) {
+      if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
+      else if (stat %in% c("bin2d", "binhex", "density2d_filled", "density_2d_filled", "contour_filled")) col_legend_place <- "right"
+      else col_legend_place <- "bottom"
+    }
+
+    if (col_legend_place == "b") col_legend_place <- "bottom"
+    if (col_legend_place == "t") col_legend_place <- "top"
+    if (col_legend_place == "l") col_legend_place <- "left"
+    if (col_legend_place == "r") col_legend_place <- "right"
+    if (col_legend_place == "n") col_legend_place <- "none"
+
+    if (col_forcat | stat %in% c("contour_filled", "density2d_filled", "density_2d_filled")) {
       if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
       else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
       else {
@@ -1348,7 +1459,10 @@ gg_blank <- function(
           col_n <- length(col_unique[!is.na(col_unique)])
         }
       }
-      if (rlang::is_null(pal)) pal <- pal_hue[1:col_n]
+      if (rlang::is_null(pal)) {
+        if (stat %in% c("contour_filled", "density2d_filled", "density_2d_filled")) pal <- viridis::viridis(col_n)
+        else pal <- pal_hue[1:col_n]
+      }
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
 
       if (y_numeric | y_date | y_datetime | y_time) {
@@ -1509,12 +1623,13 @@ gg_blank <- function(
     }
   }
   if (rlang::is_null(col_title)) {
-    if (!rlang::is_null(plot_build$plot$labels$colour)) {
-      col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), titles)
-    }
-    else if (!rlang::is_null(plot_build$plot$labels$fill)) {
+    if (!rlang::is_null(plot_build$plot$labels$fill)) {
       col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$fill[1]), titles)
     }
+    else if (!rlang::is_null(plot_build$plot$labels$colour)) {
+      col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), titles)
+    }
+
   }
 
   plot <- plot +
@@ -1523,7 +1638,7 @@ gg_blank <- function(
       subtitle = subtitle,
       caption = caption)
 
-  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex")) {
+  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
     plot <- plot +
       ggplot2::labs(
         col = col_title,
@@ -1575,42 +1690,32 @@ gg_blank <- function(
   }
 
   #Adjust legend
-  if (rlang::is_null(col_legend_place)) {
-    if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
-    else if (stat %in% c("bin2d", "binhex", "density_2d_filled", "contour_filled")) col_legend_place <- "right"
-    else col_legend_place <- "bottom"
-  }
-
-  if (col_legend_place == "b") col_legend_place <- "bottom"
-  if (col_legend_place == "t") col_legend_place <- "top"
-  if (col_legend_place == "l") col_legend_place <- "left"
-  if (col_legend_place == "r") col_legend_place <- "right"
-  if (col_legend_place == "n") col_legend_place <- "none"
-
-  if (col_legend_place %in% c("top", "bottom")) {
-    plot <- plot +
-      ggplot2::theme(legend.position = col_legend_place) +
-      ggplot2::theme(legend.direction = "horizontal") +
-      ggplot2::theme(legend.justification = "left") +
-      ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
-      ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5))) +
-      ggplot2::theme(legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 5)))
-
-    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
+  if (!rlang::is_null(col_legend_place)){
+    if (col_legend_place %in% c("top", "bottom")) {
       plot <- plot +
-        ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
-        ggplot2::theme(legend.text.align = 0.5)
+        ggplot2::theme(legend.position = col_legend_place) +
+        ggplot2::theme(legend.direction = "horizontal") +
+        ggplot2::theme(legend.justification = "left") +
+        ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
+        ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5))) +
+        ggplot2::theme(legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 5)))
+
+      if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
+        plot <- plot +
+          ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
+          ggplot2::theme(legend.text.align = 0.5)
+      }
     }
-  }
-  else if (col_legend_place %in% c("left", "right")) {
-    plot <- plot +
-      ggplot2::theme(legend.position = col_legend_place) +
-      ggplot2::theme(legend.direction = "vertical") +
-      ggplot2::theme(legend.justification = "left")
-  }
-  else if (col_legend_place == "none") {
-    plot <- plot +
-      ggplot2::guides(col = "none", fill = "none")
+    else if (col_legend_place %in% c("left", "right")) {
+      plot <- plot +
+        ggplot2::theme(legend.position = col_legend_place) +
+        ggplot2::theme(legend.direction = "vertical") +
+        ggplot2::theme(legend.justification = "left")
+    }
+    else if (col_legend_place == "none") {
+      plot <- plot +
+        ggplot2::guides(col = "none", fill = "none")
+    }
   }
 
   #remove gridlines as per x_gridlines and y_gridlines. Guess if NULL
@@ -1631,7 +1736,7 @@ gg_blank <- function(
   }
 
   if (!x_gridlines & !y_gridlines) {
-    plot <- plot + #resolve sf bug 4730
+    plot <- plot + #resolve ggplot2 issue #4730
       ggplot2::theme(panel.grid.major = ggplot2::element_blank()) +
       ggplot2::theme(panel.grid.minor = ggplot2::element_blank())
   }
@@ -1651,3 +1756,4 @@ gg_blank <- function(
   #return beautiful plot
   return(plot)
 }
+

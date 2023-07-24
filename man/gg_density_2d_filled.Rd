@@ -8,7 +8,6 @@ gg_density_2d_filled(
   data = NULL,
   x = NULL,
   y = NULL,
-  z = NULL,
   facet = NULL,
   facet2 = NULL,
   group = NULL,
@@ -72,8 +71,6 @@ gg_density_2d_filled(
 \item{x}{Unquoted x aesthetic variable.}
 
 \item{y}{Unquoted y aesthetic variable.}
-
-\item{z}{Unquoted z aesthetic variable}
 
 \item{facet}{Unquoted facet aesthetic variable.}
 
