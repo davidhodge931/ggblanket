@@ -1,28 +1,27 @@
-#' @title Point ggplot
+#' @title Density_2d ggplot
 #'
-#' @description Create a blank ggplot with a wrapper around the ggplot2::geom_point function.
+#' @description Create a bin2d ggplot with a wrapper around the ggplot2::geom_density_2d function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
-#' @param col Unquoted col and fill aesthetic variable.
+#' @param z Unquoted z aesthetic variable
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
-#' @param text A text aesthetics for use with plotly::ggplotly.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian()).
-#' @param pal Colours to use. A character vector of blank codes (or names).
-#' @param pal_na Colour to use for NA values. A character vector of a blank code (or name).
+#' @param pal Colours to use. A character vector of hex codes (or names).
+#' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
-#' @param ... Other arguments passed to the ggplot2::geom_point function.
+#' @param ... Other arguments passed to the ggplot2::geom_density_2d function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param x_gridlines TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
 #' @param x_include For a numeric or date variable, any values that the scale should include (e.g. 0).
-#' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.
+#' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param x_limits A vector of length 2 to determine the limits of the axis.
 #' @param x_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.
 #' @param x_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
@@ -32,7 +31,7 @@
 #' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param y_gridlines TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
 #' @param y_include For a numeric or date variable, any values that the scale should include (e.g. 0).
-#' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.
+#' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param y_limits A vector of length 2 to determine the limits of the axis.
 #' @param y_oob A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.
 #' @param y_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
@@ -41,7 +40,7 @@
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
-#' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a vector of labels.
+#' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).
@@ -51,7 +50,7 @@
 #' @param col_rescale For a continuous col variable, a scales::rescale function.
 #' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param col_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
-#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma(drop0trailing = TRUE)), or a named vector of labels (e.g. c("value" = "label", ...)).
+#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
 #' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
 #' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
 #' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -64,24 +63,23 @@
 #'
 #' @return A ggplot object.
 #' @export
-#'
 #' @examples
-#' ggplot2::diamonds |>
-#'   gg_point2(
-#'     x = carat,
-#'     y = price,
-#'   )
+#' faithful |>
+#'  gg_density_2d(
+#'    x = waiting,
+#'    y = eruptions,
+#'    bins = 8,
+#'  )
 #'
-gg_point2 <- function(
+gg_density_2d <- function(
     data = NULL,
     x = NULL,
     y = NULL,
-    col = NULL,
+    z = NULL,
     facet = NULL,
     facet2 = NULL,
     group = NULL,
-    text = NULL,
-    stat = "identity",
+    stat = "density_2d",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
@@ -122,7 +120,7 @@ gg_point2 <- function(
     col_oob = scales::oob_keep,
     col_rescale = scales::rescale(),
     col_title = NULL,
-    col_trans = NULL,
+    col_trans = "identity",
     facet_labels = NULL,
     facet_ncol = NULL,
     facet_nrow = NULL,
@@ -141,19 +139,16 @@ gg_point2 <- function(
   #quote
   x <- rlang::enquo(x)
   y <- rlang::enquo(y)
-  col <- rlang::enquo(col)
+  z <- rlang::enquo(z)
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
-  text <- rlang::enquo(text)
 
   #ungroup
   data <- data %>%
     dplyr::ungroup() %>%
     dplyr::mutate(dplyr::across(
-      c(!!x, !!y,
-        !!col
-      ),
+      c(!!x, !!y),
       na_if_inf))
 
   #get classes
@@ -171,13 +166,13 @@ gg_point2 <- function(
   y_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(y, data))
   y_time <- hms::is_hms(rlang::eval_tidy(y, data))
 
-  col_null <- rlang::quo_is_null(col)
-  col_factor <- is.factor(rlang::eval_tidy(col, data))
-  col_forcat <- is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data)) | is.logical(rlang::eval_tidy(col, data))
-  col_numeric <- is.numeric(rlang::eval_tidy(col, data))
-  col_date <- lubridate::is.Date(rlang::eval_tidy(col, data))
-  col_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(col, data))
-  col_time <- hms::is_hms(rlang::eval_tidy(col, data))
+  col_null <- TRUE
+  col_factor <- FALSE
+  col_forcat <- FALSE
+  col_numeric <- FALSE
+  col_date <- FALSE
+  col_datetime <- FALSE
+  col_time <- FALSE
 
   facet_null <- rlang::quo_is_null(facet)
   facet2_null <- rlang::quo_is_null(facet2)
@@ -227,86 +222,137 @@ gg_point2 <- function(
   ##############################################################################
 
   ###make plot
-  if (!x_null & !y_null) {
-    if (!col_null) {
+  if (stat %in% c("bin2d", "bin_2d", "binhex", "contour", "contour_filled", "density_2d", "density_2d_filled")) {
+    if (!x_null & !y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
-          col = !!col,
-          fill = !!col,
+          z = !!z,
           group = !!group
         ))
     }
-    else if (col_null) {
+    else if (!x_null & y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
+          z = !!z,
+          group = !!group
+        ))
+    }
+    else if (x_null & !y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
+          z = !!z,
+          group = !!group
+        ))
+    }
+    else if (x_null & y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          z = !!z,
           group = !!group
         ))
     }
   }
-  else if (!x_null & y_null) {
-    if (!col_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          col = !!col,
-          fill = !!col,
-          group = !!group
-        ))
+  else {
+    if (!x_null & !y_null) {
+      if (!col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            x = !!x,
+            y = !!y,
+            z = !!z,
+            col = !!col,
+            fill = !!col,
+            group = !!group
+          ))
+      }
+      else if (col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            x = !!x,
+            y = !!y,
+            z = !!z,
+            # col = "",
+            # fill = "",
+            group = !!group
+          ))
+      }
     }
-    else if (col_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          group = !!group
-        ))
+    else if (!x_null & y_null) {
+      if (!col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            x = !!x,
+            z = !!z,
+            col = !!col,
+            fill = !!col,
+            group = !!group
+          ))
+      }
+      else if (col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            x = !!x,
+            z = !!z,
+            # col = "",
+            # fill = "",
+            group = !!group
+          ))
+      }
     }
-  }
-  else if (x_null & !y_null) {
-    if (!col_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          y = !!y,
-          col = !!col,
-          fill = !!col,
-          group = !!group
-        ))
+    else if (x_null & !y_null) {
+      if (!col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            y = !!y,
+            z = !!z,
+            col = !!col,
+            fill = !!col,
+            group = !!group
+          ))
+      }
+      else if (col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            y = !!y,
+            z = !!z,
+            # col = "",
+            # fill = "",
+            group = !!group
+          ))
+      }
     }
-    else if (col_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          y = !!y,
-          group = !!group
-        ))
-    }
-  }
-  else if (x_null & y_null) {
-    if (!col_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          col = !!col,
-          fill = !!col,
-          group = !!group
-        ))
-    }
-    else if (col_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          group = !!group
-        ))
+    else if (x_null & y_null) {
+      if (!col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            z = !!z,
+            col = !!col,
+            fill = !!col,
+            group = !!group
+          ))
+      }
+      else if (col_null) {
+        plot <- data %>%
+          ggplot2::ggplot(mapping = ggplot2::aes(
+            z = !!z,
+            # col = "",
+            # fill = "",
+            group = !!group
+          ))
+      }
     }
   }
 
-  if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
+  if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density_2d_filled")) {
     if (rlang::is_null(pal)) pal <-  pal_blue
     else pal <- as.vector(pal[1])
 
     plot <- plot +
-      ggplot2::geom_point(
-        mapping = ggplot2::aes(text = !!text),
+      ggplot2::geom_density_2d(
         stat = stat,
         position = position,
         alpha = alpha,
@@ -319,8 +365,7 @@ gg_point2 <- function(
   }
   else {
     plot <- plot +
-      ggplot2::geom_point(
-        mapping = ggplot2::aes(text = !!text),
+      ggplot2::geom_density_2d(
         stat = stat,
         position = position,
         alpha = alpha,
@@ -943,21 +988,34 @@ gg_point2 <- function(
   }
 
   #make col scale
-  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex")) {
-    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
-      if (!rlang::is_null(plot_build$plot$labels$colour)) {
-        col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))
-      }
-      else if (!rlang::is_null(plot_build$plot$labels$fill)) {
+  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density_2d_filled")) {
+    if (stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density_2d_filled")) {
+      if (!rlang::is_null(plot_build$plot$labels$fill)) {
         col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))
       }
+      else if (!rlang::is_null(plot_build$plot$labels$colour)) {
+        col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))
+      }
+
     }
     else if (!col_null) {
       col_vctr <- data %>%
         dplyr::pull(!!col)
     }
 
-    if (col_forcat) {
+    if (rlang::is_null(col_legend_place)) {
+      if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
+      else if (stat %in% c("bin2d", "binhex", "density_2d_filled", "contour_filled")) col_legend_place <- "right"
+      else col_legend_place <- "bottom"
+    }
+
+    if (col_legend_place == "b") col_legend_place <- "bottom"
+    if (col_legend_place == "t") col_legend_place <- "top"
+    if (col_legend_place == "l") col_legend_place <- "left"
+    if (col_legend_place == "r") col_legend_place <- "right"
+    if (col_legend_place == "n") col_legend_place <- "none"
+
+    if (col_forcat | stat %in% c("contour_filled", "density_2d_filled")) {
       if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
       else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
       else {
@@ -967,7 +1025,10 @@ gg_point2 <- function(
           col_n <- length(col_unique[!is.na(col_unique)])
         }
       }
-      if (rlang::is_null(pal)) pal <- pal_hue[1:col_n]
+      if (rlang::is_null(pal)) {
+        if (stat %in% c("contour_filled", "density_2d_filled")) pal <- viridis::viridis(col_n)
+        else pal <- pal_hue[1:col_n]
+      }
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
 
       if (y_numeric | y_date | y_datetime | y_time) {
@@ -1128,12 +1189,13 @@ gg_point2 <- function(
     }
   }
   if (rlang::is_null(col_title)) {
-    if (!rlang::is_null(plot_build$plot$labels$colour)) {
-      col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), titles)
-    }
-    else if (!rlang::is_null(plot_build$plot$labels$fill)) {
+    if (!rlang::is_null(plot_build$plot$labels$fill)) {
       col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$fill[1]), titles)
     }
+    else if (!rlang::is_null(plot_build$plot$labels$colour)) {
+      col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), titles)
+    }
+
   }
 
   plot <- plot +
@@ -1142,7 +1204,7 @@ gg_point2 <- function(
       subtitle = subtitle,
       caption = caption)
 
-  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex")) {
+  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density_2d_filled")) {
     plot <- plot +
       ggplot2::labs(
         col = col_title,
@@ -1194,42 +1256,32 @@ gg_point2 <- function(
   }
 
   #Adjust legend
-  if (rlang::is_null(col_legend_place)) {
-    if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
-    else if (stat %in% c("bin2d", "binhex", "density_2d_filled", "contour_filled")) col_legend_place <- "right"
-    else col_legend_place <- "bottom"
-  }
-
-  if (col_legend_place == "b") col_legend_place <- "bottom"
-  if (col_legend_place == "t") col_legend_place <- "top"
-  if (col_legend_place == "l") col_legend_place <- "left"
-  if (col_legend_place == "r") col_legend_place <- "right"
-  if (col_legend_place == "n") col_legend_place <- "none"
-
-  if (col_legend_place %in% c("top", "bottom")) {
-    plot <- plot +
-      ggplot2::theme(legend.position = col_legend_place) +
-      ggplot2::theme(legend.direction = "horizontal") +
-      ggplot2::theme(legend.justification = "left") +
-      ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
-      ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5))) +
-      ggplot2::theme(legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 5)))
-
-    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
+  if (!rlang::is_null(col_legend_place)){
+    if (col_legend_place %in% c("top", "bottom")) {
       plot <- plot +
-        ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
-        ggplot2::theme(legend.text.align = 0.5)
+        ggplot2::theme(legend.position = col_legend_place) +
+        ggplot2::theme(legend.direction = "horizontal") +
+        ggplot2::theme(legend.justification = "left") +
+        ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
+        ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5))) +
+        ggplot2::theme(legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 5)))
+
+      if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
+        plot <- plot +
+          ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
+          ggplot2::theme(legend.text.align = 0.5)
+      }
     }
-  }
-  else if (col_legend_place %in% c("left", "right")) {
-    plot <- plot +
-      ggplot2::theme(legend.position = col_legend_place) +
-      ggplot2::theme(legend.direction = "vertical") +
-      ggplot2::theme(legend.justification = "left")
-  }
-  else if (col_legend_place == "none") {
-    plot <- plot +
-      ggplot2::guides(col = "none", fill = "none")
+    else if (col_legend_place %in% c("left", "right")) {
+      plot <- plot +
+        ggplot2::theme(legend.position = col_legend_place) +
+        ggplot2::theme(legend.direction = "vertical") +
+        ggplot2::theme(legend.justification = "left")
+    }
+    else if (col_legend_place == "none") {
+      plot <- plot +
+        ggplot2::guides(col = "none", fill = "none")
+    }
   }
 
   #remove gridlines as per x_gridlines and y_gridlines. Guess if NULL

@@ -119,34 +119,33 @@ p1 <- faithful |>
   gg_blank(x = eruptions, 
            y = waiting, 
            x_breaks = scales::breaks_pretty(3), 
+           col_legend_place = "n",
            title = "geom_density_2d") + 
-  geom_density2d(aes(col = after_stat(level)),
-                 show.legend = FALSE)
+  geom_density2d(aes(col = after_stat(level)))
 
 p2 <- faithful |>
   gg_blank(x = waiting, 
            y = eruptions, 
            x_breaks = scales::breaks_pretty(3), 
-           y_limits = c(NA, NA),
+           col_legend_place = "n",
            title = "geom_density_2d_filled") + 
-  geom_density_2d_filled(show.legend = FALSE)
+  geom_density_2d_filled()
 
 p3 <- faithfuld |> 
   gg_blank(x = waiting, 
            y = eruptions, 
            x_breaks = scales::breaks_pretty(3), 
+           col_legend_place = "n",
            title = "geom_contour") + 
-  geom_contour(aes(z = density, col = after_stat(level)),
-               show.legend = FALSE) 
+  geom_contour(aes(z = density, col = after_stat(level))) 
 
 p4 <- faithfuld |> 
   gg_blank(x = waiting, 
            y = eruptions, 
            x_breaks = scales::breaks_pretty(3),
-           y_limits = c(NA, NA),
+           col_legend_place = "n",
            title = "geom_contour_filled") + 
-  geom_contour_filled(aes(z = density), 
-                      show.legend = FALSE)
+  geom_contour_filled(aes(z = density))
 
 (p1 + p2) / (p3 + p4)
 ```

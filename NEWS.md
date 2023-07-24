@@ -1,8 +1,10 @@
 # ggblanket 3.0.9000
 
+* Updated scales to work better with transformations, limits, breaks etc.
 * Made default to not drop any unused factors across all scales and facets.
 * Made default continuous label function drop trailing zeros.
-* Updated scale work
+* Made default legend place simpler: bottom, unless continuous - then right.
+* Added text aesthetic for plotly::ggplotly support.
 
 # ggblanket 3.0.0
 
