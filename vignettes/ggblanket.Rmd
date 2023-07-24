@@ -190,7 +190,7 @@ penguins |>
   facet_grid(species ~ sex)
 ```
 
-```{r}
+```{r, fig.asp=0.75}
 # ggblanket
 penguins |>
   gg_histogram(
@@ -452,19 +452,3 @@ d_long |>
                col = "#dddddd", linewidth = 2) +
   geom_point(size = 2) 
 ```
-
-### 12. A framework able to be extended further
-
-To extend ggblanket further, users can:
-
--   Use the ggblank function
--   Use non-supported aesthetics
--   Use non-supported geoms
--   Modifying a part of the colouring
--   Create custom wrapper functions
--   Visualise spatial data
--   Use different fonts
--   Work with non-default stat's
--   Work with extension packages
-
-See the [Extending further](https://davidhodge931.github.io/ggblanket/articles/extending_further.html) article for further information.
