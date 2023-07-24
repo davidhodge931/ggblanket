@@ -42,7 +42,6 @@ gg_point2(
   y_sec_axis = ggplot2::waiver(),
   y_title = NULL,
   y_trans = "identity",
-  col_after_stat = FALSE,
   col_breaks = NULL,
   col_continuous = "gradient",
   col_include = NULL,
@@ -91,9 +90,9 @@ gg_point2(
 
 \item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian()).}
 
-\item{pal}{Colours to use. A character vector of point codes (or names).}
+\item{pal}{Colours to use. A character vector of blank codes (or names).}
 
-\item{pal_na}{Colour to use for NA values. A character vector of a point code (or name).}
+\item{pal_na}{Colour to use for NA values. A character vector of a blank code (or name).}
 
 \item{alpha}{Opacity. A number between 0 and 1.}
 
@@ -142,8 +141,6 @@ gg_point2(
 \item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
 \item{y_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
-
-\item{col_after_stat}{TRUE or FALSE whether to colour by a variable calculated by the stat.}
 
 \item{col_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -195,7 +192,7 @@ gg_point2(
 A ggplot object.
 }
 \description{
-Create a point ggplot with a wrapper around the ggplot2::geom_point function.
+Create a blank ggplot with a wrapper around the ggplot2::geom_point function.
 }
 \examples{
 ggplot2::diamonds |>

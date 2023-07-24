@@ -1,6 +1,6 @@
 #' @title Point ggplot
 #'
-#' @description Create a point ggplot with a wrapper around the ggplot2::geom_point function.
+#' @description Create a blank ggplot with a wrapper around the ggplot2::geom_point function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
@@ -12,8 +12,8 @@
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian()).
-#' @param pal Colours to use. A character vector of point codes (or names).
-#' @param pal_na Colour to use for NA values. A character vector of a point code (or name).
+#' @param pal Colours to use. A character vector of blank codes (or names).
+#' @param pal_na Colour to use for NA values. A character vector of a blank code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
 #' @param ... Other arguments passed to the ggplot2::geom_point function.
 #' @param title Title string.
@@ -38,7 +38,6 @@
 #' @param y_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
 #' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
 #' @param y_trans For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
-#' @param col_after_stat TRUE or FALSE whether to colour by a variable calculated by the stat.
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".
 #' @param col_include For a numeric or date variable, any values that the scale should include (e.g. 0).
@@ -111,7 +110,6 @@ gg_point2 <- function(
     y_sec_axis = ggplot2::waiver(),
     y_title = NULL,
     y_trans = "identity",
-    col_after_stat = FALSE,
     col_breaks = NULL,
     col_continuous = "gradient",
     col_include = NULL,
@@ -245,8 +243,6 @@ gg_point2 <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
-          # col = "",
-          # fill = "",
           group = !!group
         ))
     }
@@ -265,8 +261,6 @@ gg_point2 <- function(
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
-          # col = "",
-          # fill = "",
           group = !!group
         ))
     }
@@ -285,8 +279,6 @@ gg_point2 <- function(
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
-          # col = "",
-          # fill = "",
           group = !!group
         ))
     }
@@ -303,14 +295,12 @@ gg_point2 <- function(
     else if (col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          # col = "",
-          # fill = "",
           group = !!group
         ))
     }
   }
 
-  if (col_null & !col_after_stat) {
+  if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex")) {
     if (rlang::is_null(pal)) pal <-  pal_blue
     else pal <- as.vector(pal[1])
 
@@ -428,20 +418,40 @@ gg_point2 <- function(
       }
     }
     else if (x_date) {
-      plot <- plot +
-        ggplot2::scale_x_date(limits = x_limits, oob = x_oob)
+      if (any(x_trans %in% "reverse") & !rlang::is_null(x_limits)) {
+        plot <- plot +
+          ggplot2::scale_x_date(limits = x_limits[c(2, 1)], oob = x_oob)
+      } else {
+        plot <- plot +
+          ggplot2::scale_x_date(limits = x_limits, oob = x_oob)
+      }
     }
     else if (x_datetime) {
-      plot <- plot +
-        ggplot2::scale_x_datetime(limits = x_limits, oob = x_oob)
+      if (any(x_trans %in% "reverse") & !rlang::is_null(x_limits)) {
+        plot <- plot +
+          ggplot2::scale_x_datetime(limits = x_limits[c(2, 1)], oob = x_oob)
+      } else {
+        plot <- plot +
+          ggplot2::scale_x_datetime(limits = x_limits, oob = x_oob)
+      }
     }
     else if (x_time) {
-      plot <- plot +
-        ggplot2::scale_x_time(limits = x_limits, oob = x_oob)
+      if (any(x_trans %in% "reverse") & !rlang::is_null(x_limits)) {
+        plot <- plot +
+          ggplot2::scale_x_time(limits = x_limits[c(2, 1)], oob = x_oob)
+      } else {
+        plot <- plot +
+          ggplot2::scale_x_time(limits = x_limits, oob = x_oob)
+      }
     }
     else if (x_forcat) {
-      plot <- plot +
-        ggplot2::scale_x_discrete(drop = FALSE)
+      if (any(x_trans %in% "reverse") & !rlang::is_null(x_limits)) {
+        plot <- plot +
+          ggplot2::scale_x_discrete(limits = x_limits[c(2, 1)], oob = x_oob)
+      } else {
+        plot <- plot +
+          ggplot2::scale_x_discrete(limits = x_limits, oob = x_oob)
+      }
     }
 
     if (!rlang::is_null(x_include)) {
@@ -459,25 +469,44 @@ gg_point2 <- function(
       }
     }
     else if (y_date) {
-      plot <- plot +
-        ggplot2::scale_y_date(limits = y_limits, oob = y_oob)
+      if (any(y_trans %in% "reverse") & !rlang::is_null(y_limits)) {
+        plot <- plot +
+          ggplot2::scale_y_date(limits = y_limits[c(2, 1)], oob = y_oob)
+      } else {
+        plot <- plot +
+          ggplot2::scale_y_date(limits = y_limits, oob = y_oob)
+      }
     }
     else if (y_datetime) {
-      plot <- plot +
-        ggplot2::scale_y_datetime(limits = y_limits, oob = y_oob)
+      if (any(y_trans %in% "reverse") & !rlang::is_null(y_limits)) {
+        plot <- plot +
+          ggplot2::scale_y_datetime(limits = y_limits[c(2, 1)], oob = y_oob)
+      } else {
+        plot <- plot +
+          ggplot2::scale_y_datetime(limits = y_limits, oob = y_oob)
+      }
     }
     else if (y_time) {
-      plot <- plot +
-        ggplot2::scale_y_time(limits = y_limits, oob = y_oob)
+      if (any(y_trans %in% "reverse") & !rlang::is_null(y_limits)) {
+        plot <- plot +
+          ggplot2::scale_y_time(limits = y_limits[c(2, 1)], oob = y_oob)
+      } else {
+        plot <- plot +
+          ggplot2::scale_y_time(limits = y_limits, oob = y_oob)
+      }
     }
     else if (y_forcat) {
-      plot <- plot +
-        ggplot2::scale_y_discrete(drop = FALSE)
-    }
-
-    if (!rlang::is_null(y_include)) {
-      plot <- plot +
-        ggplot2::expand_limits(y = y_include)
+      if (any(y_trans %in% "reverse") & !rlang::is_null(y_limits)) {
+        plot <- plot +
+          ggplot2::scale_y_discrete(limits = y_limits[c(2, 1)], oob = y_oob)
+      } else {
+        plot <- plot +
+          ggplot2::scale_y_discrete(limits = y_limits, oob = y_oob)
+      }
+      if (!rlang::is_null(y_include)) {
+        plot <- plot +
+          ggplot2::expand_limits(y = y_include)
+      }
     }
   }
 
@@ -544,7 +573,14 @@ gg_point2 <- function(
               tidyr::pivot_longer(cols = tidyselect::everything()) %>%
               dplyr::pull(.data$value)
           }
-          if (rlang::is_null(x_include)) x_vctr <- c(x_vctr, x_include)
+          if (rlang::is_null(x_include)) {
+            if (any(x_trans %in% "reverse")) {
+              x_vctr <- c(x_vctr, x_include * -1)
+            }
+            else {
+              x_vctr <- c(x_vctr, x_include)
+            }
+          }
         } else {
           x_vctr <- NULL
         }
@@ -746,7 +782,14 @@ gg_point2 <- function(
               tidyr::pivot_longer(cols = tidyselect::everything()) %>%
               dplyr::pull(.data$value)
           }
-          if (rlang::is_null(y_include)) y_vctr <- c(y_vctr, y_include)
+          if (rlang::is_null(y_include)) {
+            if (any(y_trans %in% "reverse")) {
+              y_vctr <- c(y_vctr, y_include * -1)
+            }
+            else {
+              y_vctr <- c(y_vctr, y_include)
+            }
+          }
         } else {
           y_vctr <- NULL
         }
@@ -900,18 +943,16 @@ gg_point2 <- function(
   }
 
   #make col scale
-  if (!col_null | col_after_stat) {
-    if (col_after_stat) {
-      if (rlang::is_null(col_title)) {
-        if (!rlang::is_null(plot_build$plot$labels$colour)) {
-          col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))
-        }
-        else if (!rlang::is_null(plot_build$plot$labels$fill)) {
-          col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))
-        }
+  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex")) {
+    if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+      if (!rlang::is_null(plot_build$plot$labels$colour)) {
+        col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))
+      }
+      else if (!rlang::is_null(plot_build$plot$labels$fill)) {
+        col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))
       }
     }
-    else {
+    else if (!col_null) {
       col_vctr <- data %>%
         dplyr::pull(!!col)
     }
@@ -1101,7 +1142,7 @@ gg_point2 <- function(
       subtitle = subtitle,
       caption = caption)
 
-  if (!col_null | col_after_stat) {
+  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex")) {
     plot <- plot +
       ggplot2::labs(
         col = col_title,
@@ -1154,8 +1195,8 @@ gg_point2 <- function(
 
   #Adjust legend
   if (rlang::is_null(col_legend_place)) {
-    if (col_after_stat | col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
-    else if (!col_after_stat & col_null) col_legend_place <- "none"
+    if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
+    else if (stat %in% c("bin2d", "binhex", "density_2d_filled", "contour_filled")) col_legend_place <- "right"
     else col_legend_place <- "bottom"
   }
 
@@ -1174,7 +1215,7 @@ gg_point2 <- function(
       ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5))) +
       ggplot2::theme(legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 5)))
 
-    if (col_numeric | col_after_stat) {
+    if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
       plot <- plot +
         ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
         ggplot2::theme(legend.text.align = 0.5)
