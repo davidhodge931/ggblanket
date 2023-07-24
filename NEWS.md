@@ -2,6 +2,7 @@
 
 * Made default to not drop any unused factors across all scales and facets.
 * Made default continuous label function drop trailing zeros.
+* Updated scale work
 
 # ggblanket 3.0.0
 

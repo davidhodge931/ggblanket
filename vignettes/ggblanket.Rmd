@@ -36,7 +36,6 @@ To simplify ggplot2 visualisation, ggblanket provides:
 9.  Pretty defaults for symmetry
 10. Access to other geom\_\* arguments via ...
 11. Ability to add multiple geom\_\* layers
-12. A framework able to be extended further
 
 ```{r setup}
 library(dplyr)
