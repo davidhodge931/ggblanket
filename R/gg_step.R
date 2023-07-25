@@ -71,7 +71,8 @@
 #'     y = unemploy,
 #'     y_title = "Unemployment",
 #'     pal = "#1B9E77",
-#'     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_)
+#'     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
+#'     coord = ggplot2::coord_cartesian(clip = "on")
 #'   )
 #'
 gg_step <- function(
@@ -608,8 +609,8 @@ gg_step <- function(
         if (rlang::is_null(x_limits)) {
           if (rlang::is_null(x_breaks)) {
 
-            if (!facet_null & !facet2_null) x_breaks_n <- 4
-            else if (facet_null & !facet2_null) x_breaks_n <- 4
+            if (!facet_null & !facet2_null) x_breaks_n <- 3
+            else if (facet_null & !facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver()
@@ -652,8 +653,8 @@ gg_step <- function(
 
           if (rlang::is_null(x_breaks)) {
 
-            if (!facet_null & !facet2_null) x_breaks_n <- 4
-            else if (facet_null & !facet2_null) x_breaks_n <- 4
+            if (!facet_null & !facet2_null) x_breaks_n <- 3
+            else if (facet_null & !facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver

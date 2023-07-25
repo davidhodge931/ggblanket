@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_contour.R
 \name{gg_contour}
 \alias{gg_contour}
-\title{contour ggplot}
+\title{Contour ggplot}
 \usage{
 gg_contour(
   data = NULL,
@@ -41,19 +41,6 @@ gg_contour(
   y_sec_axis = ggplot2::waiver(),
   y_title = NULL,
   y_trans = "identity",
-  col_breaks = NULL,
-  col_continuous = "gradient",
-  col_include = NULL,
-  col_labels = NULL,
-  col_legend_place = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
-  col_legend_rev = FALSE,
-  col_limits = NULL,
-  col_oob = scales::oob_keep,
-  col_rescale = scales::rescale(),
-  col_title = NULL,
-  col_trans = "identity",
   facet_labels = NULL,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -139,32 +126,6 @@ gg_contour(
 
 \item{y_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
-\item{col_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
-
-\item{col_continuous}{Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".}
-
-\item{col_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
-
-\item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
-
-\item{col_legend_place}{The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).}
-
-\item{col_legend_ncol}{The number of columns for the legend elements.}
-
-\item{col_legend_nrow}{The number of rows for the legend elements.}
-
-\item{col_legend_rev}{Reverse the elements of the legend. Defaults to FALSE.}
-
-\item{col_limits}{A vector to determine the limits of the colour scale.}
-
-\item{col_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.}
-
-\item{col_rescale}{For a continuous col variable, a scales::rescale function.}
-
-\item{col_title}{Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
-
-\item{col_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
-
 \item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).}
 
 \item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of "wrap".}
@@ -189,7 +150,7 @@ gg_contour(
 A ggplot object.
 }
 \description{
-Create a bin2d ggplot with a wrapper around the ggplot2::geom_contour function.
+Create a contour ggplot with a wrapper around the ggplot2::geom_contour function.
 }
 \examples{
 ggplot2::faithfuld |>

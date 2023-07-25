@@ -37,7 +37,8 @@ economics |>
     y = unemploy,
     y_title = "Unemployment",
     pal = "#1B9E77",
-    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_))
+    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_), 
+    coord = ggplot2::coord_cartesian(clip = "on"))
 ```
 
 ### gg_bar
@@ -53,11 +54,11 @@ penguins |>
     pal = c("#2596be", "#fc7c24"))
 ```
 
-### gg_bin2d
+### gg_bin_2d
 
 ```{r}
 diamonds |>
-  gg_bin2d(
+  gg_bin_2d(
     x = carat,
     y = price,
     pal = viridis::cividis(9),
@@ -98,15 +99,37 @@ penguins |>
   group_by(sex, species) |>
   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
   tidyr::drop_na(sex) |>
+  mutate(species = stringr::str_to_sentence(species)) |> 
   gg_col(
     x = flipper_length_mm,
     y = species,
     col = sex,
     width = 0.75,
-    y_labels = \(x) stringr::str_to_sentence(x),
     position = "dodge",
-    pal = c("#2596be", "#fc7c24"),
-    col_labels = stringr::str_to_sentence)
+    pal = c("#2596be", "#fc7c24"))
+```
+
+### gg_contour
+
+```{r}
+ggplot2::faithfuld |>
+ gg_contour(
+   x = waiting,
+   y = eruptions,
+   z = density,
+   bins = 8)
+```
+
+### gg_contour_filled
+
+```{r}
+ggplot2::faithfuld |>
+ gg_contour_filled(
+   x = waiting,
+   y = eruptions,
+   z = density,
+   bins = 8,
+   y_limits = c(NA, NA))
 ```
 
 ### gg_crossbar
@@ -141,6 +164,27 @@ penguins |>
     facet = species,
     pal = c("#2596be", "#fc7c24"),
     col_labels = stringr::str_to_sentence)
+```
+
+### gg_density_2d
+
+```{r}
+faithful |>
+  gg_density_2d(
+    x = waiting,
+    y = eruptions,
+    bins = 8)
+```
+
+### gg_density_2d_filled
+
+```{r}
+faithful |>
+  gg_density_2d_filled(
+    x = waiting,
+    y = eruptions,
+    bins = 8,
+    y_limits = c(NA, NA))
 ```
 
 ### gg_errorbar
@@ -186,7 +230,7 @@ diamonds |>
     y = price,
     pal = viridis::cividis(9),
     y_limits = c(NA, 20000),
-    coord = coord_cartesian(clip = "on"))
+    coord = ggplot2::coord_cartesian(clip = "on"))
 ```
 
 ### gg_histogram
@@ -459,7 +503,8 @@ economics |>
     y = unemploy,
     y_title = "Unemployment",
     pal = "#1B9E77",
-    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_))
+    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_), 
+    coord = ggplot2::coord_cartesian(clip = "on"))
 ```
 
 ### gg_text

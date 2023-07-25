@@ -318,7 +318,7 @@ Where the orientation is normal (i.e. vertical):
 
 It does the opposite where the orientation is horizontal (and also keeps y categorical values in correct order).
 
-Note `gg_raster` deviates froms this approach, and instead places the limits as the min and max of the data by default.
+Note this symmetry approach does _not_ apply if a transformation other than identity or reverse is applied to x or y scales.
 
 ```{r}
 # ggplot2

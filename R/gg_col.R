@@ -73,15 +73,14 @@
 #'   group_by(sex, species) |>
 #'   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
 #'   tidyr::drop_na(sex) |>
+#'   mutate(species = stringr::str_to_sentence(species)) |>
 #'   gg_col(
 #'     x = flipper_length_mm,
 #'     y = species,
 #'     col = sex,
 #'     width = 0.75,
-#'     y_labels = stringr::str_to_sentence,
 #'     position = "dodge",
-#'     pal = c("#1B9E77", "#9E361B"),
-#'     col_labels = stringr::str_to_sentence
+#'     pal = c("#1B9E77", "#9E361B")
 #'   )
 #'
 gg_col <- function(
@@ -618,8 +617,8 @@ gg_col <- function(
         if (rlang::is_null(x_limits)) {
           if (rlang::is_null(x_breaks)) {
 
-            if (!facet_null & !facet2_null) x_breaks_n <- 4
-            else if (facet_null & !facet2_null) x_breaks_n <- 4
+            if (!facet_null & !facet2_null) x_breaks_n <- 3
+            else if (facet_null & !facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver()
@@ -662,8 +661,8 @@ gg_col <- function(
 
           if (rlang::is_null(x_breaks)) {
 
-            if (!facet_null & !facet2_null) x_breaks_n <- 4
-            else if (facet_null & !facet2_null) x_breaks_n <- 4
+            if (!facet_null & !facet2_null) x_breaks_n <- 3
+            else if (facet_null & !facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver

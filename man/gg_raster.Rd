@@ -26,7 +26,7 @@ gg_raster(
   x_gridlines = NULL,
   x_include = NULL,
   x_labels = NULL,
-  x_limits = c(NA, NA),
+  x_limits = NULL,
   x_oob = scales::oob_keep,
   x_sec_axis = ggplot2::waiver(),
   x_title = NULL,
@@ -36,7 +36,7 @@ gg_raster(
   y_gridlines = NULL,
   y_include = NULL,
   y_labels = NULL,
-  y_limits = c(NA, NA),
+  y_limits = NULL,
   y_oob = scales::oob_keep,
   y_sec_axis = ggplot2::waiver(),
   y_title = NULL,
@@ -197,7 +197,9 @@ ggplot2::faithfuld |>
     x = waiting,
     y = eruptions,
     col = density,
-    pal = viridis::cividis(9)
+    pal = viridis::cividis(9),
+    x_limits = c(NA, NA),
+    y_limits = c(NA, NA)
   )
 
 }

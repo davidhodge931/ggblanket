@@ -1,6 +1,6 @@
-#' @title Bin2d ggplot
+#' @title Bin_2d ggplot
 #'
-#' @description Create a bin2d ggplot with a wrapper around the ggplot2::geom_bin2d function.
+#' @description Create a bin2d ggplot with a wrapper around the ggplot2::geom_bin_2d function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
@@ -13,7 +13,7 @@
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
-#' @param ... Other arguments passed to the ggplot2::geom_bin2d function.
+#' @param ... Other arguments passed to the ggplot2::geom_bin_2d function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -64,14 +64,14 @@
 #' @export
 #' @examples
 #' ggplot2::diamonds |>
-#'   gg_bin2d(
+#'   gg_bin_2d(
 #'     x = carat,
 #'     y = price,
 #'     pal = viridis::cividis(9),
 #'     y_limits = c(NA, 20000)
 #'   )
 #'
-gg_bin2d <- function(
+gg_bin_2d <- function(
     data = NULL,
     x = NULL,
     y = NULL,
@@ -338,7 +338,7 @@ gg_bin2d <- function(
     else pal <- as.vector(pal[1])
 
     plot <- plot +
-      ggplot2::geom_bin2d(
+      ggplot2::geom_bin_2d(
         stat = stat,
         position = position,
         alpha = alpha,
@@ -351,7 +351,7 @@ gg_bin2d <- function(
   }
   else {
     plot <- plot +
-      ggplot2::geom_bin2d(
+      ggplot2::geom_bin_2d(
         stat = stat,
         position = position,
         alpha = alpha,
@@ -633,8 +633,8 @@ gg_bin2d <- function(
         if (rlang::is_null(x_limits)) {
           if (rlang::is_null(x_breaks)) {
 
-            if (!facet_null & !facet2_null) x_breaks_n <- 4
-            else if (facet_null & !facet2_null) x_breaks_n <- 4
+            if (!facet_null & !facet2_null) x_breaks_n <- 3
+            else if (facet_null & !facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver()
@@ -677,8 +677,8 @@ gg_bin2d <- function(
 
           if (rlang::is_null(x_breaks)) {
 
-            if (!facet_null & !facet2_null) x_breaks_n <- 4
-            else if (facet_null & !facet2_null) x_breaks_n <- 4
+            if (!facet_null & !facet2_null) x_breaks_n <- 3
+            else if (facet_null & !facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver
