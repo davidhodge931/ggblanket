@@ -3,6 +3,7 @@
 * Updated scales to work better with transformations, limits, breaks etc.
 * Added `gg_contour`, `gg_contour_filled`, `gg_density2d`, `gg_density2d_filled` functions.
 * Breaking: renamed `gg_bin2d` to `gg_bin_2d`.
+* Breaking: changed `*_oob` default to `scales::oob_keep`.
 * Made default to not drop any unused factors across all scales and facets.
 * Made default continuous label function drop trailing zeros.
 * Made default legend place simpler: bottom, unless continuous. Otherwise right.
@@ -29,8 +30,8 @@
 * Made the `pal` no longer inherit to layers where no `col` aesthetic.
 * Made x and y scales work better, including with NA in the limits.
 * Added 2 colours to `pal_hue`.
-* Breaking: changed default `*oob` agument to `scales::oob_censor`.
-* Breaking: changed default `coord` agument to include `clip = "off"` argument.
+* Breaking: changed default `*oob` argument to `scales::oob_censor`.
+* Breaking: changed default `coord` argument to include `clip = "off"` argument.
 * Breaking: removed `add_tooltip` function.
 * Breaking: changed pal functions to `pal_blue`, `pal_grey`, and `pal_hue`.
 

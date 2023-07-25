@@ -401,7 +401,8 @@ p1 <- d |>
     xmax = upper,
     x_include = 0, 
     x_labels = \(x) x / 1000, 
-    x_title = "Body mass kg") +
+    x_title = "Body mass kg",
+    col_legend_place = "r") +
   geom_col(alpha = 0.9, width = 0.75) +
   geom_errorbar(col = "black", width = 0.1)
 
@@ -414,7 +415,8 @@ p2 <- d |>
     col = species,
     x_include = 0, 
     x_labels = \(x) x / 1000, 
-    x_title = "Body mass kg") +
+    x_title = "Body mass kg", 
+    col_legend_place = "r") +
   geom_col(col = NA, fill = "#d3d3d3", width = 0.75) +
   geom_errorbar(width = 0.1)
 
@@ -461,7 +463,9 @@ ggblanket has a couple of key different defaults to ggplot2, which users should 
 
 By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
 
-ggplot2 by default drops values outside of the limits in calculating the geoms and scales to plot (`scales::oob_censor`). It also clips anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)).
+ggplot2 by default drops values outside of the limits in calculating the geoms and scales to plot (`scales::oob_censor`). It also clips anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "on"`)).
+
+These deviations from ggplot2 were considered to be safer defaults for ggblanket (i.e. fail by plotting data outside the panel rather than fail by dropping data).
 
 ```{r}
 p1 <- economics |>

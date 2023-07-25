@@ -23,6 +23,7 @@ ggblanket has over thirty `gg_*` wrapper functions. This article will demonstrat
 library(ggblanket)
 library(dplyr)
 library(ggplot2)
+library(stringr)
 library(palmerpenguins)
 
 theme_set(dark_mode())
@@ -50,7 +51,7 @@ penguins |>
     col = sex,
     facet = species,
     width = 0.75,
-    x_labels = \(x) stringr::str_to_sentence(x),
+    x_labels = \(x) str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"))
 ```
 
@@ -61,8 +62,7 @@ diamonds |>
   gg_bin_2d(
     x = carat,
     y = price,
-    pal = viridis::cividis(9),
-    y_limits = c(NA, 20000))
+    pal = viridis::cividis(9))
 ```
 
 ### gg_blank
@@ -74,7 +74,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    col_labels = \(x) stringr::str_to_sentence(x),
+    col_labels = \(x) str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"),
     y_include = 0)
 ```
@@ -99,7 +99,7 @@ penguins |>
   group_by(sex, species) |>
   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
   tidyr::drop_na(sex) |>
-  mutate(species = stringr::str_to_sentence(species)) |> 
+  mutate(species =str_to_sentence(species)) |> 
   gg_col(
     x = flipper_length_mm,
     y = species,
@@ -128,8 +128,7 @@ ggplot2::faithfuld |>
    x = waiting,
    y = eruptions,
    z = density,
-   bins = 8,
-   y_limits = c(NA, NA))
+   bins = 8)
 ```
 
 ### gg_crossbar
@@ -163,7 +162,7 @@ penguins |>
     col = sex,
     facet = species,
     pal = c("#2596be", "#fc7c24"),
-    col_labels = stringr::str_to_sentence)
+    col_labels = \(x) str_to_sentence(x))
 ```
 
 ### gg_density_2d
@@ -183,8 +182,7 @@ faithful |>
   gg_density_2d_filled(
     x = waiting,
     y = eruptions,
-    bins = 8,
-    y_limits = c(NA, NA))
+    bins = 8)
 ```
 
 ### gg_errorbar
@@ -218,7 +216,7 @@ penguins |>
     col = sex,
     facet = species,
     pal = c("#2596be", "#fc7c24"),
-    col_labels = stringr::str_to_sentence)
+    col_labels = \(x) str_to_sentence(x))
 ```
 
 ### gg_hex
@@ -229,7 +227,7 @@ diamonds |>
     x = carat,
     y = price,
     pal = viridis::cividis(9),
-    y_limits = c(NA, 20000),
+    y_limits = c(0, 20000),
     coord = ggplot2::coord_cartesian(clip = "on"))
 ```
 
@@ -244,7 +242,7 @@ penguins |>
     facet = species,
     bins = 50,
     pal = c("#2596be", "#fc7c24"),
-    col_labels = stringr::str_to_sentence)
+    col_labels = \(x) str_to_sentence(x))
 ```
 
 ### gg_freqpoly
@@ -257,7 +255,7 @@ penguins |>
     col = sex,
     facet = species,
     pal = c("#2596be", "#fc7c24"),
-    col_labels = stringr::str_to_sentence)
+    col_labels = \(x) str_to_sentence(x))
 ```
 
 ### gg_jitter
@@ -302,7 +300,7 @@ economics |>
     y_title = "Unemployment",
     pal = "#9E361B",
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
-    y_include = 0,
+    y_include = 0, 
     coord = ggplot2::coord_cartesian(clip = "on"))
 ```
 
@@ -346,7 +344,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    col_labels = \(x) stringr::str_to_sentence(x),
+    col_labels = \(x) str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"))
 ```
 
@@ -408,7 +406,8 @@ penguins |>
   gg_qq(
     sample = body_mass_g,
     facet = species,
-    pal = "#1B9E77") +
+    pal = "#1B9E77", 
+    coord = ggplot2::coord_cartesian(clip = "on")) +
   geom_qq_line(alpha = 0.5)
 ```
 
@@ -536,7 +535,7 @@ penguins |>
     y = species,
     col = flipper_length_mm,
     pal = RColorBrewer::brewer.pal(9, "Blues"),
-    col_labels = stringr::str_to_sentence)
+    col_labels = \(x) str_to_sentence(x))
 ```
 
 ### gg_violin
@@ -544,7 +543,7 @@ penguins |>
 ```{r}
 penguins |>
   tidyr::drop_na(sex) |>
-  mutate(sex = stringr::str_to_sentence(sex)) |>
+  mutate(sex = str_to_sentence(sex)) |>
   gg_violin(
     x = sex,
     y = body_mass_g,

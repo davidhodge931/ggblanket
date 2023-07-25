@@ -82,7 +82,7 @@ gg_hex(
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
-\item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian()).}
+\item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).}
 
 \item{pal}{Colours to use. A character vector of hex codes (or names).}
 
@@ -196,8 +196,8 @@ diamonds |>
     x = carat,
     y = price,
     pal = viridis::cividis(9),
-    y_limits = c(NA, 20000),
-    coord = coord_cartesian(clip = "on")
+    y_limits = c(0, 20000),
+    coord = ggplot2::coord_cartesian(clip = "on")
   )
 
 }
