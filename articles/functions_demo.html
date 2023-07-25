@@ -129,7 +129,7 @@ article will demonstrate each of these.</p>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="functions_demo_files/figure-html/unnamed-chunk-3-1.svg" width="70%"></p>
 </div>
@@ -141,9 +141,7 @@ article will demonstrate each of these.</p>
 <span>  <span class="fu"><a href="../reference/gg_bin_2d.html">gg_bin_2d</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">carat</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">price</span>,</span>
-<span>    pal <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">cividis</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span>,</span>
-<span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">20000</span><span class="op">)</span>, </span>
-<span>    coord <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    pal <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">cividis</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="functions_demo_files/figure-html/unnamed-chunk-4-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -156,7 +154,7 @@ article will demonstrate each of these.</p>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span>,</span>
 <span>    y_include <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
 <p><img src="functions_demo_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
@@ -183,7 +181,7 @@ article will demonstrate each of these.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>flipper_length_mm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">flipper_length_mm</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>species <span class="op">=</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">species</span>,</span>
@@ -250,7 +248,7 @@ article will demonstrate each of these.</p>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span>,</span>
-<span>    col_labels <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="va"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">)</span></span></code></pre></div>
+<span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="functions_demo_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -308,7 +306,7 @@ article will demonstrate each of these.</p>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span>,</span>
-<span>    col_labels <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="va"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">)</span></span></code></pre></div>
+<span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="functions_demo_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -320,7 +318,7 @@ article will demonstrate each of these.</p>
 <span>    x <span class="op">=</span> <span class="va">carat</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">price</span>,</span>
 <span>    pal <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">cividis</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span>,</span>
-<span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">20000</span><span class="op">)</span>,</span>
+<span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20000</span><span class="op">)</span>,</span>
 <span>    coord <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="functions_demo_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
 </div>
@@ -336,7 +334,7 @@ article will demonstrate each of these.</p>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    bins <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span>,</span>
-<span>    col_labels <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="va"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">)</span></span></code></pre></div>
+<span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="functions_demo_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -350,7 +348,7 @@ article will demonstrate each of these.</p>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span>,</span>
-<span>    col_labels <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="va"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">)</span></span></code></pre></div>
+<span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="functions_demo_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -445,7 +443,7 @@ article will demonstrate each of these.</p>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="functions_demo_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
 </div>
@@ -648,7 +646,7 @@ article will demonstrate each of these.</p>
 <span>    y <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    pal <span class="op">=</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">9</span>, <span class="st">"Blues"</span><span class="op">)</span>,</span>
-<span>    col_labels <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="va"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">)</span></span></code></pre></div>
+<span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="functions_demo_files/figure-html/unnamed-chunk-36-1.svg" width="70%"></p>
 </div>
 <div class="section level3">

@@ -60,6 +60,7 @@
 <ul><li>Updated scales to work better with transformations, limits, breaks etc.</li>
 <li>Added <code>gg_contour</code>, <code>gg_contour_filled</code>, <code>gg_density2d</code>, <code>gg_density2d_filled</code> functions.</li>
 <li>Breaking: renamed <code>gg_bin2d</code> to <code>gg_bin_2d</code>.</li>
+<li>Breaking: changed <code>*_oob</code> default to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>.</li>
 <li>Made default to not drop any unused factors across all scales and facets.</li>
 <li>Made default continuous label function drop trailing zeros.</li>
 <li>Made default legend place simpler: bottom, unless continuous. Otherwise right.</li>
@@ -86,8 +87,8 @@
 <li>Made the <code>pal</code> no longer inherit to layers where no <code>col</code> aesthetic.</li>
 <li>Made x and y scales work better, including with NA in the limits.</li>
 <li>Added 2 colours to <code>pal_hue</code>.</li>
-<li>Breaking: changed default <code>*oob</code> agument to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_censor</a></code>.</li>
-<li>Breaking: changed default <code>coord</code> agument to include <code>clip = "off"</code> argument.</li>
+<li>Breaking: changed default <code>*oob</code> argument to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_censor</a></code>.</li>
+<li>Breaking: changed default <code>coord</code> argument to include <code>clip = "off"</code> argument.</li>
 <li>Breaking: removed <code>add_tooltip</code> function.</li>
 <li>Breaking: changed pal functions to <code>pal_blue</code>, <code>pal_grey</code>, and <code>pal_hue</code>.</li>
 </ul></div>
