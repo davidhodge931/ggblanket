@@ -311,19 +311,15 @@ gg_freqpoly <- function(
     }
   }
 
-  plot <- plot +
-    ggplot2::geom_freqpoly(
-      stat = stat,
-      position = position,
-      alpha = alpha,
-      ...
-    )
-
   if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
     if (rlang::is_null(pal)) pal <-  pal_blue
     else pal <- as.vector(pal[1])
 
     plot <- plot +
+      ggplot2::geom_blank(
+        stat = stat,
+        position = position,
+      ) +
       ggplot2::geom_freqpoly(
         stat = stat,
         position = position,
@@ -331,12 +327,16 @@ gg_freqpoly <- function(
         col = pal,
         fill = pal,
         ...
-      ) +
+      )
       coord +
       theme
   }
   else {
     plot <- plot +
+      ggplot2::geom_blank(
+        stat = stat,
+        position = position
+      ) +
       ggplot2::geom_freqpoly(
         stat = stat,
         position = position,
@@ -620,8 +620,8 @@ gg_freqpoly <- function(
           if (rlang::is_null(x_breaks)) {
 
             if (!facet_null & !facet2_null) x_breaks_n <- 3
-            else if (facet_null & !facet2_null) x_breaks_n <- 3
-            else x_breaks_n <- 6
+            else if (!facet_null) x_breaks_n <- 3
+            else x_breaks_n <- 5
 
             if (x_time) x_breaks <- ggplot2::waiver()
             else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
@@ -664,8 +664,8 @@ gg_freqpoly <- function(
           if (rlang::is_null(x_breaks)) {
 
             if (!facet_null & !facet2_null) x_breaks_n <- 3
-            else if (facet_null & !facet2_null) x_breaks_n <- 3
-            else x_breaks_n <- 6
+            else if (!facet_null) x_breaks_n <- 3
+            else x_breaks_n <- 5
 
             if (x_time) x_breaks <- ggplot2::waiver
             else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)

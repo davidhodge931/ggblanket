@@ -85,7 +85,7 @@ gg_density_2d_filled <- function(
     x_gridlines = NULL,
     x_include = NULL,
     x_labels = NULL,
-    x_limits = NULL,
+    x_limits = c(NA, NA),
     x_oob = scales::oob_keep,
     x_sec_axis = ggplot2::waiver(),
     x_title = NULL,
@@ -95,7 +95,7 @@ gg_density_2d_filled <- function(
     y_gridlines = NULL,
     y_include = NULL,
     y_labels = NULL,
-    y_limits = NULL,
+    y_limits = c(NA, NA),
     y_oob = scales::oob_keep,
     y_sec_axis = ggplot2::waiver(),
     y_title = NULL,
@@ -630,7 +630,7 @@ gg_density_2d_filled <- function(
 
             if (!facet_null & !facet2_null) x_breaks_n <- 4
             else if (facet_null & !facet2_null) x_breaks_n <- 4
-            else x_breaks_n <- 6
+            else x_breaks_n <- 5
 
             if (x_time) x_breaks <- ggplot2::waiver()
             else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
@@ -674,7 +674,7 @@ gg_density_2d_filled <- function(
 
             if (!facet_null & !facet2_null) x_breaks_n <- 4
             else if (facet_null & !facet2_null) x_breaks_n <- 4
-            else x_breaks_n <- 6
+            else x_breaks_n <- 5
 
             if (x_time) x_breaks <- ggplot2::waiver
             else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)

@@ -302,7 +302,8 @@ economics |>
     y_title = "Unemployment",
     pal = "#9E361B",
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
-    y_include = 0)
+    y_include = 0,
+    coord = ggplot2::coord_cartesian(clip = "on"))
 ```
 
 ### gg_linerange

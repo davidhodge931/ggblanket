@@ -318,7 +318,9 @@ Where the orientation is normal (i.e. vertical):
 
 It does the opposite where the orientation is horizontal (and also keeps y categorical values in correct order).
 
-Note this symmetry approach does _not_ apply if a transformation other than identity or reverse is applied to x or y scales.
+Note this symmetry approach does _not_ apply:
+* if a transformation other than identity or reverse is applied to x or y scales.
+* for `gg_raster`, `gg_contour_filled` or `gg_density_2d_filled`
 
 ```{r}
 # ggplot2

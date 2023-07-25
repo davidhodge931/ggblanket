@@ -72,7 +72,8 @@
 #'   gg_qq(
 #'     sample = body_mass_g,
 #'     facet = species,
-#'     pal = "#1B9E77"
+#'     pal = "#1B9E77",
+#'     coord = ggplot2::coord_cartesian(clip = "on")
 #'   ) +
 #'   ggplot2::geom_qq_line(alpha = 0.5)
 #'
@@ -621,8 +622,8 @@ gg_qq <- function(
           if (rlang::is_null(x_breaks)) {
 
             if (!facet_null & !facet2_null) x_breaks_n <- 3
-            else if (facet_null & !facet2_null) x_breaks_n <- 3
-            else x_breaks_n <- 6
+            else if (!facet_null) x_breaks_n <- 3
+            else x_breaks_n <- 5
 
             if (x_time) x_breaks <- ggplot2::waiver()
             else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
@@ -665,8 +666,8 @@ gg_qq <- function(
           if (rlang::is_null(x_breaks)) {
 
             if (!facet_null & !facet2_null) x_breaks_n <- 3
-            else if (facet_null & !facet2_null) x_breaks_n <- 3
-            else x_breaks_n <- 6
+            else if (!facet_null) x_breaks_n <- 3
+            else x_breaks_n <- 5
 
             if (x_time) x_breaks <- ggplot2::waiver
             else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
