@@ -21,7 +21,7 @@ gg_density_2d_filled(
   title = NULL,
   subtitle = NULL,
   x_breaks = NULL,
-  x_expand = NULL,
+  x_expand = c(0, 0),
   x_gridlines = NULL,
   x_include = NULL,
   x_labels = NULL,
@@ -31,7 +31,7 @@ gg_density_2d_filled(
   x_title = NULL,
   x_trans = "identity",
   y_breaks = NULL,
-  y_expand = NULL,
+  y_expand = c(0, 0),
   y_gridlines = NULL,
   y_include = NULL,
   y_labels = NULL,
@@ -172,8 +172,7 @@ faithful |>
   gg_density_2d_filled(
     x = waiting,
     y = eruptions,
-    bins = 8,
-    y_limits = c(NA, NA)
+    bins = 8
   )
 
 }

@@ -69,9 +69,7 @@
 #'     x = waiting,
 #'     y = eruptions,
 #'     col = density,
-#'     pal = viridis::cividis(9),
-#'     x_limits = c(NA, NA),
-#'     y_limits = c(NA, NA)
+#'     pal = viridis::cividis(9)
 #'   )
 #'
 gg_raster <- function(
@@ -610,7 +608,7 @@ gg_raster <- function(
 
             if (!facet_null & !facet2_null) x_breaks_n <- 3
             else if (!facet_null) x_breaks_n <- 3
-            else x_breaks_n <- 5
+            else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver()
             else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
@@ -654,7 +652,7 @@ gg_raster <- function(
 
             if (!facet_null & !facet2_null) x_breaks_n <- 3
             else if (!facet_null) x_breaks_n <- 3
-            else x_breaks_n <- 5
+            else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver
             else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)

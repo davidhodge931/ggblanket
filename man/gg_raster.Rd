@@ -197,9 +197,7 @@ ggplot2::faithfuld |>
     x = waiting,
     y = eruptions,
     col = density,
-    pal = viridis::cividis(9),
-    x_limits = c(NA, NA),
-    y_limits = c(NA, NA)
+    pal = viridis::cividis(9)
   )
 
 }

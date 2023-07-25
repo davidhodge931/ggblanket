@@ -60,8 +60,7 @@
 #'   gg_density_2d_filled(
 #'     x = waiting,
 #'     y = eruptions,
-#'     bins = 8,
-#'     y_limits = c(NA, NA)
+#'     bins = 8
 #'   )
 #'
 gg_density_2d_filled <- function(
@@ -81,7 +80,7 @@ gg_density_2d_filled <- function(
     title = NULL,
     subtitle = NULL,
     x_breaks = NULL,
-    x_expand = NULL,
+    x_expand = c(0, 0),
     x_gridlines = NULL,
     x_include = NULL,
     x_labels = NULL,
@@ -91,7 +90,7 @@ gg_density_2d_filled <- function(
     x_title = NULL,
     x_trans = "identity",
     y_breaks = NULL,
-    y_expand = NULL,
+    y_expand = c(0, 0),
     y_gridlines = NULL,
     y_include = NULL,
     y_labels = NULL,
@@ -630,7 +629,7 @@ gg_density_2d_filled <- function(
 
             if (!facet_null & !facet2_null) x_breaks_n <- 4
             else if (facet_null & !facet2_null) x_breaks_n <- 4
-            else x_breaks_n <- 5
+            else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver()
             else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
@@ -674,7 +673,7 @@ gg_density_2d_filled <- function(
 
             if (!facet_null & !facet2_null) x_breaks_n <- 4
             else if (facet_null & !facet2_null) x_breaks_n <- 4
-            else x_breaks_n <- 5
+            else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver
             else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
