@@ -36,7 +36,7 @@ To simplify ggplot2 visualisation, ggblanket provides:
 9.  Pretty defaults for symmetry
 10. Access to other geom\_\* arguments via ...
 11. Ability to add multiple geom\_\* layers
-12. A couple of key different defaults to ggplot2
+12. Other differences: oobs, clipping, unused factor levels, ordering etc
 
 ```{r setup}
 library(dplyr)
@@ -457,9 +457,9 @@ d_long |>
   geom_point(size = 2) 
 ```
 
-### 12. A couple of key different defaults to ggplot2
+### 12. Other differences: oobs, clipping, unused factor levels, ordering etc
 
-ggblanket has a couple of key different defaults to ggplot2, which users should be aware of.
+ggblanket has some other key different defaults to ggplot2, which users should be aware of.
 
 By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
 
@@ -467,13 +467,15 @@ ggplot2 by default drops values outside of the limits in calculating the geoms a
 
 These deviations from ggplot2 were considered to be safer defaults for ggblanket (i.e. fail by plotting data outside the panel rather than fail by dropping data).
 
-```{r}
+```{r, fig.asp=0.75}
 p1 <- economics |>
   gg_line(
     x = date,
     y = unemploy,
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
-    x_labels = \(x) stringr::str_sub(x, 3, 4))
+    x_labels = \(x) stringr::str_sub(x, 3, 4),
+    title = "Limits set with default",
+    theme = light_mode(title_face = "plain"))
 
 p2 <- economics |>
   gg_line(
@@ -481,7 +483,9 @@ p2 <- economics |>
     y = unemploy,
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
     x_labels = \(x) stringr::str_sub(x, 3, 4),
-    coord = ggplot2::coord_cartesian(clip = "on"))
+    coord = ggplot2::coord_cartesian(clip = "on"),
+    title = "Limits set with clip = 'off'",
+    theme = light_mode(title_face = "plain"))
 
 p3 <- economics |>
   gg_line(
@@ -490,21 +494,25 @@ p3 <- economics |>
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     coord = ggplot2::coord_cartesian(clip = "on"),
-    x_oob = scales::oob_censor)
+    x_oob = scales::oob_censor,
+    title = "Limits set with oob_censor",
+    theme = light_mode(title_face = "plain"))
 
 p4 <- economics |>
   filter(date >= lubridate::ymd("2010-01-01")) |> 
   gg_line(
     x = date,
     y = unemploy,
-    x_labels = \(x) stringr::str_sub(x, 3, 4))
+    x_labels = \(x) stringr::str_sub(x, 3, 4), 
+    title = "Limits set by filtering data",
+    theme = light_mode(title_face = "plain"))
 
 (p1 + p2) / (p3 + p4)
 ```
 
 ggblanket does not drop unused any factor levels from the plot. If users wish to drop unused levels they should do by mutating the variable prior to plotting (i.e. `data |> mutate(var = forcats::fct_drop(var))`). Similarly, ggblanket requires unquoted variables for it's aesthetics. If you wish to reorder a variable or drop NAs, you should do it likewise prior to plotting. 
 
-```{r}
+```{r, fig.asp=0.5}
 p1 <- palmerpenguins::penguins |> 
   gg_jitter(x = sex, 
             y = body_mass_g,
