@@ -201,7 +201,8 @@ penguins |>
   gg_qq(
     sample = body_mass_g,
     facet = species,
-    pal = "#1B9E77"
+    pal = "#1B9E77",
+    coord = ggplot2::coord_cartesian(clip = "on")
   ) +
   ggplot2::geom_qq_line(alpha = 0.5)
 

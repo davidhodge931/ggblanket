@@ -16,7 +16,7 @@ gg_hex(
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
   pal_na = pal_grey,
-  alpha = 1,
+  alpha = 0.9,
   ...,
   title = NULL,
   subtitle = NULL,
