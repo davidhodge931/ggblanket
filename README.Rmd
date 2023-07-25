@@ -46,15 +46,13 @@ It is intended to be useful for all levels of experience from beginner to expert
 ``` r
 install.packages("ggblanket")
 ```
-## Examples
+## Example
 
-```{r, fig.asp = 0.7}
+```{r, fig.asp = 0.66}
 library(ggblanket)
 library(palmerpenguins)
 library(dplyr)
-```
 
-```{r}
 penguins |>
   tidyr::drop_na(sex) |> 
   mutate(sex = stringr::str_to_sentence(sex)) |>
@@ -65,26 +63,12 @@ penguins |>
     pal = c("#2596be", "#fc7c24"))
 ```
 <br>
-```{r, fig.asp = 0.7}
-penguins |>
-  tidyr::drop_na() |>
-  mutate(sex = stringr::str_to_sentence(sex)) |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    facet = species,
-    title = "Penguins body mass by flipper length",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020",
-    theme = dark_mode()
-  )
-```
-
 ## Get started
 
 Click [here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html) to get started learning how ggblanket works.
 
 ## Thanks!
 
-Thank you to all authors and contributors to ggplot2, tidyverse, and the wider R ecosystem. If you like ggblanket, please give the repository a star and help spread the word.
+Thank you to all authors and contributors to ggplot2, tidyverse, and the wider R ecosystem. 
+
+If you like ggblanket, please give the repository a star and help spread the word.

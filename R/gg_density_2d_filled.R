@@ -583,7 +583,7 @@ gg_density_2d_filled <- function(
         y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
 
         x_vctr_temp <- plot_data %>%
-          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !is.na(x))) %>%
+          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !rlang::is_na(x))) %>%
           dplyr::select(tidyselect::matches(stringr::regex(x_vars_str)))
 
         if (ncol(x_vctr_temp) != 0) {
@@ -792,7 +792,7 @@ gg_density_2d_filled <- function(
         y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
 
         y_vctr_temp <- plot_data %>%
-          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), \(x) !is.na(x))) %>%
+          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), \(x) !rlang::is_na(x))) %>%
           dplyr::select(tidyselect::matches(stringr::regex(y_vars_str)))
 
         if (ncol(y_vctr_temp) != 0) {
@@ -1002,7 +1002,7 @@ gg_density_2d_filled <- function(
         if (col_factor) col_n <- length(levels(col_vctr))
         else {
           col_unique <- unique(col_vctr)
-          col_n <- length(col_unique[!is.na(col_unique)])
+          col_n <- length(col_unique[!rlang::is_na(col_unique)])
         }
       }
       if (rlang::is_null(pal)) {
