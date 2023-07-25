@@ -36,6 +36,7 @@ To simplify ggplot2 visualisation, ggblanket provides:
 9.  Pretty defaults for symmetry
 10. Access to other geom\_\* arguments via ...
 11. Ability to add multiple geom\_\* layers
+12. A couple of key different defaults to ggplot2
 
 ```{r setup}
 library(dplyr)
@@ -453,3 +454,67 @@ d_long |>
                col = "#dddddd", linewidth = 2) +
   geom_point(size = 2) 
 ```
+
+### 12. A couple of key different defaults to ggplot2
+
+ggblanket has a couple of key different defaults to ggplot2, which users should be aware of.
+
+By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
+
+ggplot2 by default drops values outside of the limits in calculating the geoms and scales to plot (`scales::oob_censor`). It also clips anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)).
+
+```{r}
+p1 <- economics |>
+  gg_line(
+    x = date,
+    y = unemploy,
+    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
+    x_labels = \(x) stringr::str_sub(x, 3, 4))
+
+p2 <- economics |>
+  gg_line(
+    x = date,
+    y = unemploy,
+    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
+    x_labels = \(x) stringr::str_sub(x, 3, 4),
+    coord = ggplot2::coord_cartesian(clip = "on"))
+
+p3 <- economics |>
+  gg_line(
+    x = date,
+    y = unemploy,
+    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
+    x_labels = \(x) stringr::str_sub(x, 3, 4),
+    coord = ggplot2::coord_cartesian(clip = "on"),
+    x_oob = scales::oob_censor)
+
+p4 <- economics |>
+  filter(date >= lubridate::ymd("2010-01-01")) |> 
+  gg_line(
+    x = date,
+    y = unemploy,
+    x_labels = \(x) stringr::str_sub(x, 3, 4))
+
+(p1 + p2) / (p3 + p4)
+```
+
+ggblanket does not drop unused any factor levels from the plot. If users wish to drop unused levels they should do by mutating the variable prior to plotting (i.e. `data |> mutate(var = forcats::fct_drop(var))`). Similarly, ggblanket requires unquoted variables for it's aesthetics. If you wish to reorder a variable or drop NAs, you should do it likewise prior to plotting. 
+
+```{r}
+p1 <- palmerpenguins::penguins |> 
+  gg_jitter(x = sex, 
+            y = body_mass_g,
+            col = sex, 
+            col_legend_place = "n")
+
+p2 <- palmerpenguins::penguins |> 
+  mutate(sex = factor(sex, levels = c("male", "female"))) |> 
+  tidyr::drop_na(sex) |> 
+  gg_jitter(x = sex, 
+            y = body_mass_g, 
+            col = sex, 
+            col_legend_place = "n")
+
+p1 + p2
+```
+

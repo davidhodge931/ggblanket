@@ -47,8 +47,6 @@ library(palmerpenguins)
 library(dplyr)
 ```
 
-<br>
-
 ``` r
 penguins |>
   tidyr::drop_na(sex) |> 
@@ -60,7 +58,7 @@ penguins |>
     pal = c("#2596be", "#fc7c24"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" /> <br>
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="75%" />
 
 ``` r
 penguins |>
