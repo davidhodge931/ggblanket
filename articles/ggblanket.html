@@ -111,8 +111,8 @@ faceting</li>
 <li>Pretty defaults for symmetry</li>
 <li>Access to other geom_* arguments via …</li>
 <li>Ability to add multiple geom_* layers</li>
-<li>Other differences: oobs, clipping, unused factor levels, ordering
-etc</li>
+<li>Other differences: oobs, clipping, unused factor levels, ordering,
+alpha etc</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -592,8 +592,8 @@ adjusted to accommodate subsequent layers using the
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="other-differences-oobs-clipping-unused-factor-levels-ordering-etc">12. Other differences: oobs, clipping, unused factor levels,
-ordering etc<a class="anchor" aria-label="anchor" href="#other-differences-oobs-clipping-unused-factor-levels-ordering-etc"></a>
+<h3 id="other-differences-oobs-clipping-unused-factor-levels-ordering-alpha-etc">12. Other differences: oobs, clipping, unused factor levels,
+ordering, alpha etc<a class="anchor" aria-label="anchor" href="#other-differences-oobs-clipping-unused-factor-levels-ordering-alpha-etc"></a>
 </h3>
 <p>ggblanket has some other key different defaults to ggplot2, which
 users should be aware of.</p>
@@ -675,6 +675,21 @@ prior to plotting.</p>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-26-1.svg" width="70%"></p>
+<p>ggblanket uses different <code>alpha</code> defaults for the
+different <code>gg_*</code> functions. Polygons that generally have no
+gap or overlap default to 1: <code>gg_bin_2d</code>,
+<code>gg_contour_filled</code>, <code>gg_density_2d_filled</code>,
+<code>gg_hex</code> - as well as <code>gg_sf</code> for polygons with a
+<code>col</code> aesthetic. Polygons that generally overlap default to
+0.5: <code>gg_density</code>. Polygons that generally have key lines
+within them also default to 0.5: <code>gg_boxplot</code>,
+<code>gg_crossbar</code>, <code>gg_ribbon</code> and
+<code>gg_smooth</code>. <code>gg_label</code> defaults to 0.1.
+<code>gg_blank</code> has no alpha argument. Other polygons default to
+0.9: <code>gg_area</code>, <code>gg_bar</code>, <code>gg_col</code>,
+<code>gg_histogram</code>, <code>gg_polygon</code>,
+<code>gg_rect</code>, <code>gg_tile</code> and <code>gg_violin</code>.
+For all other contexts, alpha defaults to 1.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
