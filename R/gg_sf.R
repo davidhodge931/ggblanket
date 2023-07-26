@@ -145,6 +145,7 @@ gg_sf <- function(
   if (rlang::is_null(alpha)) {
     # geometry_type <- unique(sf::st_geometry_type(data))
     # if (length(geometry_type) > 1) geometry_type <- "GEOMETRY"
+
     geometry_type <-
       stringr::str_remove(attributes(sf::st_geometry(data))$class[1], "sfc_")
 
@@ -160,7 +161,7 @@ gg_sf <- function(
     }
     else {
       if (col_null) alpha <- 0
-      else alpha <- 0.9
+      else alpha <- 1
     }
   }
 

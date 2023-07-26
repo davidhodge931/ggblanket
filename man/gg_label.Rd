@@ -18,7 +18,7 @@ gg_label(
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
   pal_na = pal_grey,
-  alpha = 0,
+  alpha = 0.1,
   ...,
   title = NULL,
   subtitle = NULL,

@@ -17,7 +17,7 @@ gg_contour_filled(
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
   pal_na = pal_grey,
-  alpha = 0.9,
+  alpha = 1,
   ...,
   title = NULL,
   subtitle = NULL,

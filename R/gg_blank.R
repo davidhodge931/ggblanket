@@ -327,7 +327,7 @@ gg_blank <- function(
   #   }
   #   else {
   #     if (col_null) alpha <- 0
-  #     else alpha <- 0.9
+  #     else alpha <- 1
   #   }
   # }
 

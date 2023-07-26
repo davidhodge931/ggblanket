@@ -36,7 +36,7 @@ To simplify ggplot2 visualisation, ggblanket provides:
 9.  Pretty defaults for symmetry
 10. Access to other geom\_\* arguments via ...
 11. Ability to add multiple geom\_\* layers
-12. Other differences: oobs, clipping, unused factor levels, ordering etc
+12. Other differences: oobs, clipping, unused factor levels, ordering, alpha etc
 
 ```{r setup}
 library(dplyr)
@@ -457,7 +457,7 @@ d_long |>
   geom_point(size = 2) 
 ```
 
-### 12. Other differences: oobs, clipping, unused factor levels, ordering etc
+### 12. Other differences: oobs, clipping, unused factor levels, ordering, alpha etc
 
 ggblanket has some other key different defaults to ggplot2, which users should be aware of.
 
@@ -530,3 +530,4 @@ p2 <- palmerpenguins::penguins |>
 p1 + p2
 ```
 
+ggblanket uses different `alpha` defaults for the different `gg_*` functions. Polygons that generally have no gap or overlap default to 1: `gg_bin_2d`, `gg_contour_filled`, `gg_density_2d_filled`, `gg_hex` - as well as `gg_sf` for polygons with a `col` aesthetic. Polygons that generally overlap default to 0.5: `gg_density`. Polygons that generally have key lines within them also default to 0.5: `gg_boxplot`, `gg_crossbar`, `gg_ribbon` and `gg_smooth`. `gg_label` defaults to 0.1. `gg_blank` has no alpha argument. Other polygons default to 0.9: `gg_area`, `gg_bar`, `gg_col`, `gg_histogram`, `gg_polygon`, `gg_rect`, `gg_tile` and `gg_violin`. For all other contexts, alpha defaults to 1. 
