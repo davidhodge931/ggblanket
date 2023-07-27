@@ -73,7 +73,8 @@
 #'     x = unemploy_rate,
 #'     y = psavert,
 #'     x_title = "Unemployment rate",
-#'     y_title = "Personal savings rate"
+#'     y_title = "Personal savings rate",
+#'     y_include = 0
 #'   )
 #'
 gg_path <- function(

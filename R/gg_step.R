@@ -72,6 +72,7 @@
 #'     y_title = "Unemployment",
 #'     pal = "#1B9E77",
 #'     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
+#'     y_include = 0,
 #'     coord = ggplot2::coord_cartesian(clip = "on")
 #'   )
 #'

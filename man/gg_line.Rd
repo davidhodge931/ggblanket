@@ -196,8 +196,9 @@ ggplot2::economics |>
   gg_line(
     x = date,
     y = unemploy,
+    pal = "#9E361B",
     y_title = "Unemployment",
-    pal = "#9E361B"
+    y_include = 0
   )
 
 }

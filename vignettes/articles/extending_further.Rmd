@@ -370,18 +370,13 @@ penguins |>
 #### gghighlight
 
 The gghighlight package enables geoms or parts thereof to be highlighted. 
-
 It should be noted that the `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you may _need_ to add another ggplot scale to ensure the full height of the non-highlighted data is included. 
 
 ```{r}
-iris |>
-  gg_histogram(
-    x = Sepal.Length,
-    col = Species,
-    facet = Species,
-  ) +
-  gghighlight::gghighlight() +
-  scale_y_continuous(expand = c(0, 0))
+penguins |>
+  gg_point(x = flipper_length_mm,
+           y = body_mass_g) +
+  gghighlight::gghighlight(body_mass_g >= 5000)
 ```
 
 ```{r}
@@ -453,7 +448,9 @@ ggridges::Catalan_elections |>
     y_expand = c(0, 0), 
     col_title = "",
     col_legend_rev = TRUE, 
-    pal = pal_hue[c(3, 1)]) +
+    pal = pal_hue[c(3, 1)],
+    x_limits = c(0, 100),
+    coord = coord_cartesian(clip = "on")) +
   ggridges::geom_density_ridges(
     alpha = 0.8, 
     col = "white")

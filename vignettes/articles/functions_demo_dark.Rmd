@@ -37,9 +37,7 @@ economics |>
     x = date,
     y = unemploy,
     y_title = "Unemployment",
-    pal = "#1B9E77",
-    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_), 
-    coord = ggplot2::coord_cartesian(clip = "on"))
+    pal = "#1B9E77")
 ```
 
 ### gg_bar
@@ -299,9 +297,7 @@ economics |>
     y = unemploy,
     y_title = "Unemployment",
     pal = "#9E361B",
-    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
-    y_include = 0, 
-    coord = ggplot2::coord_cartesian(clip = "on"))
+    y_include = 0)
 ```
 
 ### gg_linerange
@@ -332,7 +328,8 @@ economics |>
     x = unemploy_rate,
     y = psavert,
     x_title = "Unemployment rate",
-    y_title = "Personal savings rate")
+    y_title = "Personal savings rate",
+    y_include = 0)
 ```
 
 ### gg_point
@@ -504,6 +501,7 @@ economics |>
     y_title = "Unemployment",
     pal = "#1B9E77",
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_), 
+    y_include = 0,
     coord = ggplot2::coord_cartesian(clip = "on"))
 ```
 
@@ -551,3 +549,4 @@ penguins |>
     facet = species,
     pal = c("#2596be", "#fc7c24"))
 ```
+

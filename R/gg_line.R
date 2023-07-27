@@ -68,8 +68,9 @@
 #'   gg_line(
 #'     x = date,
 #'     y = unemploy,
+#'     pal = "#9E361B",
 #'     y_title = "Unemployment",
-#'     pal = "#9E361B"
+#'     y_include = 0
 #'   )
 #'
 gg_line <- function(
