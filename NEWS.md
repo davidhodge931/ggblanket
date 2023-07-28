@@ -8,7 +8,7 @@
 * Made default continuous label function drop trailing zeros.
 * Made default legend place simpler: bottom, unless continuous. Otherwise right.
 * Made default `gg_raster` `*_limits` the same as other functions.
-* Added text aesthetic in for `plotly::ggplotly`.
+* Added `text` aesthetic in for `plotly::ggplotly`.
 
 # ggblanket 3.0.0
 

@@ -571,7 +571,7 @@ gapminder::gapminder |>
     x_title = "GDP per capita", 
     y_title = "Life expectancy", 
     y_include = 0) +
-  geom_point(aes(size = pop), alpha = 0.7) +
+  geom_point(aes(size = pop), alpha = 0.7, show.legend = FALSE) +
   scale_size(range = c(2, 12)) +
   gganimate::transition_time(year) +
   gganimate::ease_aes("linear")
