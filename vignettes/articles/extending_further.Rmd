@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 To extend ggblanket further, users can:
 
-1. Use the ggblank function
+1. Use the gg_blank function
 2. Use non-supported aesthetics
 3. Modifying a part of the colouring 
 4. Create custom wrapper functions
@@ -42,15 +42,15 @@ penguins <- penguins |>
   tidyr::drop_na(sex)
 ```
 
-### 1. Use the ggblank function
+### 1. Use the gg_blank function
 
-The `ggblank` function is the most flexible function in ggblanket.
+The `gg_blank` function is the most flexible function in ggblanket.
 
 It provides access to the most aesthetics. It provides lots of flexibility to use ggblanket with ggplot2 layers and other extension packages. 
 
-Remember the `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function - but these can be adjusted using the `facet_scales`, `*_include` and `*_limits` arguments. The plot scales are constructed without knowledge of subsequent layers. 
+The plot scales are constructed without knowledge of any layers subsequent to the `gg_*` function. The `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function - and these can be adjusted using the `stat`, `*_include`, `*_limits` and `facet_scales` arguments.  
 
-So with `ggblank`, you _must_ include the ggplot2 stat in the `gg_blank` function where it deviates from `"identity"`. The stat must be a character, as stat functions are not supported.      
+So with `gg_blank`, you will need to include the ggplot2 stat for plots that  require different x and y scales to those created by `identity`. The stat must be a character, as stat functions are not supported.      
 
 ```{r}
 penguins |>
@@ -506,7 +506,7 @@ d |>
 
 #### plotly::ggplotly
 
-The `plotly::ggplotly` function enables interactive plots. The `text` aesthetic can be used to customise tooltips where the stat is "identity". Alternatively, use `plotly::ggplotly(p, tooltip = c("x", "y", "fill"))` or `plotly::ggplotly(p)`.
+The `plotly::ggplotly` function enables interactive plots. The `text` aesthetic can be used to customise tooltips. Alternatively, use `plotly::ggplotly(p, tooltip = c("x", "y", "fill"))` or `plotly::ggplotly(p)`.
 
 ```{r, out.width=500, out.height=300}
 p <- diamonds |>

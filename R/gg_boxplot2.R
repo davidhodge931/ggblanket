@@ -1,6 +1,6 @@
-#' @title Blank ggplot
+#' @title Boxplot ggplot
 #'
-#' @description Create a blank ggplot with a wrapper around the ggplot2::geom_blank function.
+#' @description Create a boxplot ggplot with a wrapper around the ggplot2::geom_boxplot function.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
@@ -8,29 +8,14 @@
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
-#' @param xmin Unquoted xmin aesthetic variable.
-#' @param xmax Unquoted xmax aesthetic variable.
-#' @param xend Unquoted xend aesthetic variable.
-#' @param xlower Unquoted xlower aesthetic variable.
-#' @param xupper Unquoted xupper aesthetic variable.
-#' @param xmiddle Unquoted xmiddle aesthetic variable.
-#' @param ymin Unquoted ymin aesthetic variable.
-#' @param ymax Unquoted ymax aesthetic variable.
-#' @param yend Unquoted yend aesthetic variable.
-#' @param z Unquoted z aesthetic variable.
-#' @param ylower Unquoted ylower aesthetic variable.
-#' @param yupper Unquoted yupper aesthetic variable.
-#' @param ymiddle Unquoted ymiddle aesthetic variable.
-#' @param sample Unquoted sample aesthetic variable.
-#' @param label Unquoted label aesthetic variable.
-#' @param subgroup Unquoted subgroup aesthetic variable.
 #' @param text Unquoted text aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
-#' @param ... Other arguments passed to the ggplot2::geom_blank function.
+#' @param alpha Opacity. A number between 0 and 1.
+#' @param ... Other arguments passed to the ggplot2::geom_boxplot function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -84,16 +69,16 @@
 #' library(palmerpenguins)
 #'
 #' penguins |>
-#'   gg_blank(
-#'     x = flipper_length_mm,
+#'   gg_boxplot2(
+#'     x = sex,
 #'     y = body_mass_g,
 #'     col = sex,
 #'     facet = species,
-#'     col_labels = stringr::str_to_sentence,
+#'     x_labels = snakecase::to_sentence_case,
 #'     pal = c("#1B9E77", "#9E361B")
 #'   )
 #'
-gg_blank <- function(
+gg_boxplot2 <- function(
     data = NULL,
     x = NULL,
     y = NULL,
@@ -101,28 +86,13 @@ gg_blank <- function(
     facet = NULL,
     facet2 = NULL,
     group = NULL,
-    xmin = NULL,
-    xmax = NULL,
-    xend = NULL,
-    xlower = NULL,
-    xupper = NULL,
-    xmiddle = NULL,
-    ymin = NULL,
-    ymax = NULL,
-    yend = NULL,
-    z = NULL,
-    ylower = NULL,
-    yupper = NULL,
-    ymiddle = NULL,
-    sample = NULL,
-    label = NULL,
-    subgroup = NULL,
     text = NULL,
-    stat = "identity",
-    position = "identity",
+    stat = "boxplot",
+    position = "dodge2",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
     pal_na = pal_grey,
+    alpha = 0.5,
     ...,
     title = NULL,
     subtitle = NULL,
@@ -181,157 +151,42 @@ gg_blank <- function(
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
-
-  xmin <- rlang::enquo(xmin)
-  xmax <- rlang::enquo(xmax)
-  xend <- rlang::enquo(xend)
-  xlower <- rlang::enquo(xlower)
-  xupper <- rlang::enquo(xupper)
-  xmiddle <- rlang::enquo(xmiddle)
-
-  ymin <- rlang::enquo(ymin)
-  ymax <- rlang::enquo(ymax)
-  yend <- rlang::enquo(yend)
-  ylower <- rlang::enquo(ylower)
-  yupper <- rlang::enquo(yupper)
-  ymiddle <- rlang::enquo(ymiddle)
-
-  z <- rlang::enquo(z)
-
-  sample <- rlang::enquo(sample)
-  label <- rlang::enquo(label)
-  subgroup <- rlang::enquo(subgroup)
+  text <- rlang::enquo(text)
 
   #ungroup
   data <- data %>%
     dplyr::ungroup() %>%
     dplyr::mutate(dplyr::across(
       c(!!x, !!y,
-        !!xmin, !!ymin,
-        !!xmax, !!ymax,
-        !!xend, !!yend,
-        !!xlower, !!xmiddle, !!xupper, !!ylower, !!ymiddle, !!yupper,
         !!col
       ),
       na_if_inf))
 
   #get classes
-  if (stat == "sf") {
-    x_null <- TRUE
-    x_factor <- FALSE
-    x_forcat <- FALSE
-    x_numeric <- FALSE
-    x_date <- FALSE
-    x_datetime <- FALSE
-    x_time <- FALSE
+  x_null <- rlang::quo_is_null(x)
+  x_forcat <- is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data)) | is.logical(rlang::eval_tidy(x, data))
+  x_numeric <- is.numeric(rlang::eval_tidy(x, data))
+  x_date <- lubridate::is.Date(rlang::eval_tidy(x, data))
+  x_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(x, data))
+  x_time <- hms::is_hms(rlang::eval_tidy(x, data))
 
-    y_null <- TRUE
-    y_factor <- FALSE
-    y_forcat <- FALSE
-    y_numeric <- FALSE
-    y_date <- FALSE
-    y_datetime <- FALSE
-    y_time <- FALSE
-  }
-  else {
-    x_null <- rlang::quo_is_null(x) & rlang::quo_is_null(xmin) & rlang::quo_is_null(xmax) & rlang::quo_is_null(xend)
-    x_forcat <- is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data)) | is.logical(rlang::eval_tidy(x, data))
-    x_numeric <- {
-      is.numeric(rlang::eval_tidy(x, data)) |
-        is.numeric(rlang::eval_tidy(xmin, data)) |
-        is.numeric(rlang::eval_tidy(xmax, data)) |
-        is.numeric(rlang::eval_tidy(xend, data))
-    }
-    x_date <- {
-      lubridate::is.Date(rlang::eval_tidy(x, data)) |
-        lubridate::is.Date(rlang::eval_tidy(xmin, data)) |
-        lubridate::is.Date(rlang::eval_tidy(xmax, data)) |
-        lubridate::is.Date(rlang::eval_tidy(xend, data))
-    }
-    x_datetime <- {
-      lubridate::is.POSIXct(rlang::eval_tidy(x, data)) |
-        lubridate::is.POSIXct(rlang::eval_tidy(xmin, data)) |
-        lubridate::is.POSIXct(rlang::eval_tidy(xmax, data)) |
-        lubridate::is.POSIXct(rlang::eval_tidy(xend, data))
-    }
-    x_time <- {
-      hms::is_hms(rlang::eval_tidy(x, data)) |
-        hms::is_hms(rlang::eval_tidy(xmin, data)) |
-        hms::is_hms(rlang::eval_tidy(xmax, data)) |
-        hms::is_hms(rlang::eval_tidy(xend, data))
-    }
+  y_null <- rlang::quo_is_null(y)
+  y_forcat <- is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data)) | is.logical(rlang::eval_tidy(y, data))
+  y_numeric <- is.numeric(rlang::eval_tidy(y, data))
+  y_date <- lubridate::is.Date(rlang::eval_tidy(y, data))
+  y_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(y, data))
+  y_time <- hms::is_hms(rlang::eval_tidy(y, data))
 
-    y_null <- rlang::quo_is_null(y) & rlang::quo_is_null(ymin) & rlang::quo_is_null(ymax) & rlang::quo_is_null(yend)
-    y_forcat <- is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data)) | is.logical(rlang::eval_tidy(y, data))
-    y_numeric <- {
-      is.numeric(rlang::eval_tidy(y, data)) |
-        is.numeric(rlang::eval_tidy(ymin, data)) |
-        is.numeric(rlang::eval_tidy(ymax, data)) |
-        is.numeric(rlang::eval_tidy(yend, data))
-    }
-    y_date <- {
-      lubridate::is.Date(rlang::eval_tidy(y, data)) |
-        lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
-        lubridate::is.Date(rlang::eval_tidy(ymax, data)) |
-        lubridate::is.Date(rlang::eval_tidy(yend, data))
-    }
-    y_datetime <- {
-      lubridate::is.POSIXct(rlang::eval_tidy(y, data)) |
-        lubridate::is.POSIXct(rlang::eval_tidy(ymin, data)) |
-        lubridate::is.POSIXct(rlang::eval_tidy(ymax, data)) |
-        lubridate::is.POSIXct(rlang::eval_tidy(yend, data))
-    }
-    y_time <- {
-      hms::is_hms(rlang::eval_tidy(y, data)) |
-        hms::is_hms(rlang::eval_tidy(ymin, data)) |
-        hms::is_hms(rlang::eval_tidy(ymax, data)) |
-        hms::is_hms(rlang::eval_tidy(yend, data))
-    }
-  }
-
-  if (stat %in% c("bin2d", "bin_2d", "binhex")) {
-    col_null <- TRUE
-    col_factor <- FALSE
-    col_forcat <- FALSE
-    col_numeric <- FALSE
-    col_date <- FALSE
-    col_datetime <- FALSE
-    col_time <- FALSE
-  }
-  else {
-    col_null <- rlang::quo_is_null(col)
-    col_factor <- is.factor(rlang::eval_tidy(col, data))
-    col_forcat <- is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data)) | is.logical(rlang::eval_tidy(col, data))
-    col_numeric <- is.numeric(rlang::eval_tidy(col, data))
-    col_date <- lubridate::is.Date(rlang::eval_tidy(col, data))
-    col_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(col, data))
-    col_time <- hms::is_hms(rlang::eval_tidy(col, data))
-  }
+  col_null <- rlang::quo_is_null(col)
+  col_factor <- is.factor(rlang::eval_tidy(col, data))
+  col_forcat <- is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data)) | is.logical(rlang::eval_tidy(col, data))
+  col_numeric <- is.numeric(rlang::eval_tidy(col, data))
+  col_date <- lubridate::is.Date(rlang::eval_tidy(col, data))
+  col_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(col, data))
+  col_time <- hms::is_hms(rlang::eval_tidy(col, data))
 
   facet_null <- rlang::quo_is_null(facet)
   facet2_null <- rlang::quo_is_null(facet2)
-
-  # if (rlang::is_null(alpha)) {
-  #   # geometry_type <- unique(sf::st_geometry_type(data))
-  #   # if (length(geometry_type) > 1) geometry_type <- "GEOMETRY"
-  #   geometry_type <-
-  #     stringr::str_remove(attributes(sf::st_geometry(data))$class[1], "sfc_")
-  #
-  #   if (geometry_type %in% c("POINT",
-  #                            "MULTIPOINT",
-  #                            "LINESTRING",
-  #                            "MULTILINESTRING",
-  #                            "CIRCULARSTRING",
-  #                            "COMPOUNDCURVE",
-  #                            "MULTICURVE",
-  #                            "CURVE")) {
-  #     alpha <- 1
-  #   }
-  #   else {
-  #     if (col_null) alpha <- 0
-  #     else alpha <- 1
-  #   }
-  # }
 
   ##############################################################################
   #Generic code: part 1 (adjust for gg_sf)
@@ -378,11 +233,12 @@ gg_blank <- function(
   ##############################################################################
 
   ###make plot
-  if (stat == "sf") {
+  if (!x_null & !y_null) {
     if (!col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          geometry = sf::st_geometry(data),
+          x = !!x,
+          y = !!y,
           col = !!col,
           fill = !!col,
           group = !!group
@@ -391,397 +247,70 @@ gg_blank <- function(
     else if (col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          geometry = sf::st_geometry(data),
+          x = !!x,
+          y = !!y,
           # col = "",
           # fill = "",
           group = !!group
         ))
     }
   }
-  else if (stat %in% c("bin2d", "bin_2d", "binhex", "density2d", "density_2d", "density2d_filled", "density_2d_filled")) {
-    if (!x_null & !y_null) {
+  else if (!x_null & y_null) {
+    if (!col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
-          y = !!y,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
-          sample = !!sample,
-          label = !!label,
-          subgroup = !!subgroup
+          col = !!col,
+          fill = !!col,
+          group = !!group
         ))
     }
-    else if (!x_null & y_null) {
+    else if (col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
-          sample = !!sample,
-          label = !!label,
-          subgroup = !!subgroup
-        ))
-    }
-    else if (x_null & !y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          y = !!y,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
-          sample = !!sample,
-          label = !!label,
-          subgroup = !!subgroup
-        ))
-    }
-    else if (x_null & y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
-          sample = !!sample,
-          label = !!label,
-          subgroup = !!subgroup
+          # col = "",
+          # fill = "",
+          group = !!group
         ))
     }
   }
-  else if (stat %in% c("contour", "contour_filled")) {
-    if (!x_null & !y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          y = !!y,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
-          sample = !!sample,
-          label = !!label,
-          subgroup = !!subgroup
-        ))
-    }
-    else if (!x_null & y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
-          sample = !!sample,
-          label = !!label,
-          subgroup = !!subgroup
-        ))
-    }
-    else if (x_null & !y_null) {
+  else if (x_null & !y_null) {
+    if (!col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
-          sample = !!sample,
-          label = !!label,
-          subgroup = !!subgroup
+          col = !!col,
+          fill = !!col,
+          group = !!group
         ))
     }
-    else if (x_null & y_null) {
+    else if (col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
-          sample = !!sample,
-          label = !!label,
-          subgroup = !!subgroup
+          y = !!y,
+          # col = "",
+          # fill = "",
+          group = !!group
         ))
     }
   }
-  else {
-    if (!x_null & !y_null) {
-      if (!col_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            x = !!x,
-            y = !!y,
-            col = !!col,
-            fill = !!col,
-            group = !!group,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
-            sample = !!sample,
-            label = !!label,
-            subgroup = !!subgroup
-          ))
-      }
-      else if (col_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            x = !!x,
-            y = !!y,
-            # col = "",
-            # fill = "",
-            group = !!group,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
-            sample = !!sample,
-            label = !!label,
-            subgroup = !!subgroup
-          ))
-      }
+  else if (x_null & y_null) {
+    if (!col_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          col = !!col,
+          fill = !!col,
+          group = !!group
+        ))
     }
-    else if (!x_null & y_null) {
-      if (!col_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            x = !!x,
-            col = !!col,
-            fill = !!col,
-            group = !!group,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
-            sample = !!sample,
-            label = !!label,
-            subgroup = !!subgroup
-          ))
-      }
-      else if (col_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            x = !!x,
-            # col = "",
-            # fill = "",
-            group = !!group,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
-            sample = !!sample,
-            label = !!label,
-            subgroup = !!subgroup
-          ))
-      }
-    }
-    else if (x_null & !y_null) {
-      if (!col_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            y = !!y,
-            col = !!col,
-            fill = !!col,
-            group = !!group,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
-            sample = !!sample,
-            label = !!label,
-            subgroup = !!subgroup
-          ))
-      }
-      else if (col_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            y = !!y,
-            # col = "",
-            # fill = "",
-            group = !!group,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
-            sample = !!sample,
-            label = !!label,
-            subgroup = !!subgroup
-          ))
-      }
-    }
-    else if (x_null & y_null) {
-      if (!col_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            col = !!col,
-            fill = !!col,
-            group = !!group,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
-            sample = !!sample,
-            label = !!label,
-            subgroup = !!subgroup
-          ))
-      }
-      else if (col_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            # col = "",
-            # fill = "",
-            group = !!group,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
-            sample = !!sample,
-            label = !!label,
-            subgroup = !!subgroup
-          ))
-      }
+    else if (col_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          # col = "",
+          # fill = "",
+          group = !!group
+        ))
     }
   }
 
@@ -790,9 +319,10 @@ gg_blank <- function(
     else pal <- as.vector(pal[1])
 
     plot <- plot +
-      ggplot2::geom_blank(
+      ggplot2::geom_boxplot(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,
+        alpha = alpha,
         col = pal,
         fill = pal,
         ...
@@ -802,9 +332,10 @@ gg_blank <- function(
   }
   else {
     plot <- plot +
-      ggplot2::geom_blank(
+      ggplot2::geom_boxplot(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,
+        alpha = alpha,
         ...
       ) +
       coord +
@@ -1758,4 +1289,3 @@ gg_blank <- function(
   #return beautiful plot
   return(plot)
 }
-
