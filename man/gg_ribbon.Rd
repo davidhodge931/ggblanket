@@ -12,6 +12,7 @@ gg_ribbon(
   facet = NULL,
   facet2 = NULL,
   group = NULL,
+  text = NULL,
   xmin = NULL,
   xmax = NULL,
   ymin = NULL,
@@ -84,6 +85,8 @@ gg_ribbon(
 \item{facet2}{Unquoted second facet variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
+
+\item{text}{Unquoted text aesthetic variable.}
 
 \item{xmin}{Unquoted xmin aesthetic variable.}
 

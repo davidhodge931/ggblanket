@@ -13,6 +13,7 @@ gg_polygon(
   facet2 = NULL,
   group = NULL,
   subgroup = NULL,
+  text = NULL,
   stat = "identity",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
@@ -83,6 +84,8 @@ gg_polygon(
 \item{group}{Unquoted group aesthetic variable.}
 
 \item{subgroup}{Unquoted subgroup aesthetic variable.}
+
+\item{text}{Unquoted text aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 

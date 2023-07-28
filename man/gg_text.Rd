@@ -13,6 +13,7 @@ gg_text(
   facet2 = NULL,
   group = NULL,
   label = NULL,
+  text = NULL,
   stat = "identity",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
@@ -83,6 +84,8 @@ gg_text(
 \item{group}{Unquoted group aesthetic variable.}
 
 \item{label}{Unquoted label aesthetic variable.}
+
+\item{text}{Unquoted text aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 

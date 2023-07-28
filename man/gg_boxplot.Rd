@@ -12,6 +12,7 @@ gg_boxplot(
   facet = NULL,
   facet2 = NULL,
   group = NULL,
+  text = NULL,
   xmin = NULL,
   xlower = NULL,
   xmiddle = NULL,
@@ -90,6 +91,8 @@ gg_boxplot(
 \item{facet2}{Unquoted second facet variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
+
+\item{text}{Unquoted text aesthetic variable.}
 
 \item{xmin}{Unquoted xmin aesthetic variable.}
 

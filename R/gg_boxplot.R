@@ -8,6 +8,7 @@
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
+#' @param text Unquoted text aesthetic variable.
 #' @param xmin Unquoted xmin aesthetic variable.
 #' @param xlower Unquoted xlower aesthetic variable.
 #' @param xmiddle Unquoted xmiddle aesthetic variable.
@@ -95,6 +96,7 @@ gg_boxplot <- function(
     facet = NULL,
     facet2 = NULL,
     group = NULL,
+    text = NULL,
     xmin = NULL,
     xlower = NULL,
     xmiddle = NULL,
@@ -169,6 +171,7 @@ gg_boxplot <- function(
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
+  text <- rlang::enquo(text)
 
   xmin <- rlang::enquo(xmin)
   xmax <- rlang::enquo(xmax)
@@ -472,7 +475,7 @@ gg_boxplot <- function(
 
     plot <- plot +
       ggplot2::geom_boxplot(
-        stat = stat,
+        ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,
         col = pal,
@@ -485,7 +488,7 @@ gg_boxplot <- function(
   else {
     plot <- plot +
       ggplot2::geom_boxplot(
-        stat = stat,
+        ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,
         ...

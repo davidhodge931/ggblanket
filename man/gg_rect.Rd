@@ -14,6 +14,7 @@ gg_rect(
   facet = NULL,
   facet2 = NULL,
   group = NULL,
+  text = NULL,
   x = NULL,
   y = NULL,
   stat = "identity",
@@ -88,6 +89,8 @@ gg_rect(
 \item{facet2}{Unquoted second facet variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
+
+\item{text}{Unquoted text aesthetic variable.}
 
 \item{x}{Unquoted x aesthetic variable.}
 

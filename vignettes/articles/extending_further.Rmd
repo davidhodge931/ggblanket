@@ -506,20 +506,23 @@ d |>
 
 #### plotly::ggplotly
 
-The plotly::ggplotly function enables interactive plots.
+The `plotly::ggplotly` function enables interactive plots. The `text` aesthetic can be used to customise tooltips where the stat is "identity". Alternatively, use `plotly::ggplotly(p, tooltip = c("x", "y", "fill"))` or `plotly::ggplotly(p)`.
 
 ```{r, out.width=500, out.height=300}
 p <- diamonds |>
-  gg_bar(
+  group_by(color) |>
+  count(name = "count") |>
+  mutate(text = glue::glue("Colour: {color}
+                            Count: {count}")) |>
+  gg_col(
     x = color,
+    y = count,
     col = color,
+    text = text,
     width = 0.75,
-    theme = light_mode(base_family = "helvetica")) 
+    theme = light_mode(base_family = "arial"))
 
-plotly::ggplotly(p, 
-  tooltip = c("x", "y"), 
-  width = 500, 
-  height = 300)
+plotly::ggplotly(p, tooltip = "text")
 ```
 
 #### ggiraph
@@ -533,8 +536,9 @@ p <- diamonds |>
     col = color,
     width = 0.75,
     y_include = 0,
+    col_legend_nrow = 1,
     stat = "count", 
-    theme = light_mode(base_family = "helvetica", base_size = 9)) +
+    theme = light_mode(base_family = "arial", base_size = 9)) +
   ggiraph::geom_bar_interactive(
     aes(tooltip = after_stat(count), 
         data_id = color), width = 0.75)

@@ -12,6 +12,7 @@
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
+#' @param text Unquoted text aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
@@ -100,6 +101,7 @@ gg_pointrange <- function(
     facet = NULL,
     facet2 = NULL,
     group = NULL,
+    text = NULL,
     stat = "identity",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
@@ -164,6 +166,7 @@ gg_pointrange <- function(
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
+  text <- rlang::enquo(text)
 
   xmin <- rlang::enquo(xmin)
   xmax <- rlang::enquo(xmax)
@@ -404,7 +407,7 @@ gg_pointrange <- function(
 
     plot <- plot +
       ggplot2::geom_pointrange(
-        stat = stat,
+        ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,
         col = pal,
@@ -417,7 +420,7 @@ gg_pointrange <- function(
   else {
     plot <- plot +
       ggplot2::geom_pointrange(
-        stat = stat,
+        ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,
         ...

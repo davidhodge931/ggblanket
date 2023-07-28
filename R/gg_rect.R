@@ -10,6 +10,7 @@
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
+#' @param text Unquoted text aesthetic variable.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
 #' @param stat Statistical transformation. A character string (e.g. "identity").
@@ -99,6 +100,7 @@ gg_rect <- function(
     facet = NULL,
     facet2 = NULL,
     group = NULL,
+    text = NULL,
     x = NULL,
     y = NULL,
     stat = "identity",
@@ -165,6 +167,7 @@ gg_rect <- function(
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
+  text <- rlang::enquo(text)
 
   xmin <- rlang::enquo(xmin)
   xmax <- rlang::enquo(xmax)
@@ -405,7 +408,7 @@ gg_rect <- function(
 
     plot <- plot +
       ggplot2::geom_rect(
-        stat = stat,
+        ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,
         col = pal,
@@ -418,7 +421,7 @@ gg_rect <- function(
   else {
     plot <- plot +
       ggplot2::geom_rect(
-        stat = stat,
+        ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,
         ...

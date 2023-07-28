@@ -11,6 +11,7 @@ gg_density_2d_filled(
   facet = NULL,
   facet2 = NULL,
   group = NULL,
+  text = NULL,
   stat = "density_2d_filled",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
@@ -70,6 +71,8 @@ gg_density_2d_filled(
 \item{facet2}{Unquoted second facet variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
+
+\item{text}{Unquoted text aesthetic variable.}
 
 \item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
