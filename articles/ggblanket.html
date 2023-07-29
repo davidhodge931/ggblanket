@@ -277,15 +277,15 @@ can change this with a <code>facet_layout = "wrap"</code> argument.</p>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_length_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">species</span> <span class="op">~</span> <span class="va">sex</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">~</span> <span class="va">species</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    facet <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    facet2 <span class="op">=</span> <span class="va">species</span><span class="op">)</span></span></code></pre></div>
+<span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    facet2 <span class="op">=</span> <span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
