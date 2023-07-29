@@ -482,6 +482,30 @@ d |>
   labs(fill = "Level")
 ```
 
+#### ggpattern
+
+The ggpattern package can be used to add patterns to geoms.
+
+```{r}
+library(ggpattern)
+
+penguins |> 
+  group_by(species, sex) |> 
+  summarise(across(body_mass_g, \(x) mean(x))) |> 
+  gg_blank(x = body_mass_g, 
+           y = species,
+           col = sex,
+           position = "dodge",
+           pal = c("#2596be", "#fc7c24"),
+           x_include = 0) +
+  geom_col_pattern(aes(pattern = sex), 
+                   position = "dodge",
+                   alpha = 0.9,
+                   width = 0.75) +
+  guides(pattern = guide_legend(reverse = TRUE)) + 
+  labs(pattern = "Sex") 
+```
+
 #### plotly::ggplotly
 
 The `plotly::ggplotly` function enables interactive plots. The `text` aesthetic can be used to customise tooltips. Alternatively, use `plotly::ggplotly(p, tooltip = c("x", "y", "fill"))` or `plotly::ggplotly(p)`. 
