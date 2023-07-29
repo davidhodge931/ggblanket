@@ -111,8 +111,8 @@ faceting</li>
 <li>Pretty defaults for symmetry</li>
 <li>Access to other geom_* arguments via …</li>
 <li>Ability to add multiple geom_* layers</li>
-<li>Other differences: oobs, clipping, unused factor levels, ordering,
-alpha etc</li>
+<li>Other differences: stats, oobs, clipping, unused factor levels,
+ordering, alpha etc</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -130,8 +130,9 @@ alpha etc</li>
 <code>ggplot(aes(...))</code> function with the applicable ggplot2
 <code>geom_*()</code> function. All aesthetics are placed directly in
 the <code>gg_*</code> function: they are not within a
-<code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes</a></code> function. This also provides access to the
-arguments of the relevant stat function.</p>
+<code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes</a></code> function. For all functions except
+<code>gg_blank</code>, the stat is locked to that which is default to
+the applicable <code>geom_*</code> function.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggplot2</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -513,12 +514,13 @@ require it in subsequent layers - then you should use the
 where the col aesthetic is not required can have <code>col = NA</code>
 and/or <code>fill = NA</code> arguments - or use the
 <code>inherit.aes = FALSE</code> argument.</p>
-<p>Note the plot scales are constructed without knowledge of subsequent
+<p>The plot scales are constructed without knowledge of subsequent
 layers. The <code>gg_*</code> function builds the x and y scales based
-on the <code>data</code>, <code>stat</code>, <code>x</code>, and
-<code>y</code> in the <code>gg_*</code> function. These scales can be
-adjusted to accommodate subsequent layers using the
-<code>*_include</code> or <code>*_limits</code> arguments.</p>
+on the <code>data</code>, <code>x</code>, and <code>y</code> in the
+<code>gg_*</code> function. These scales can be adjusted to accommodate
+subsequent layers using the <code>*_include</code> or
+<code>*_limits</code> arguments. Note for <code>gg_blank</code>, the
+scale is also built based on the <code>stat</code>.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket + ggplot2</span></span>
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -592,11 +594,28 @@ adjusted to accommodate subsequent layers using the
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="other-differences-oobs-clipping-unused-factor-levels-ordering-alpha-etc">12. Other differences: oobs, clipping, unused factor levels,
-ordering, alpha etc<a class="anchor" aria-label="anchor" href="#other-differences-oobs-clipping-unused-factor-levels-ordering-alpha-etc"></a>
+<h3 id="other-differences-stats-oobs-clipping-unused-factor-levels-ordering-alpha-etc">12. Other differences: stats, oobs, clipping, unused factor levels,
+ordering, alpha etc<a class="anchor" aria-label="anchor" href="#other-differences-stats-oobs-clipping-unused-factor-levels-ordering-alpha-etc"></a>
 </h3>
 <p>ggblanket has some other key different defaults to ggplot2, which
 users should be aware of.</p>
+<p>For all <code>gg_*</code> functions other than <code>gg_blank</code>,
+the stat is locked to the default as per the relevant
+<code>ggplot2::geom_*</code> function. This means if you would like to
+use a stat different to the default, you should use
+<code>gg_blank</code>. You can also set the <code>stat</code> to that of
+the layer to follow if necessary to help the scales etc be created
+appropriately. Note <code>gg_blank</code> only accepts stats that are
+characters.</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_blank.html">gg_blank</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    stat <span class="op">=</span> <span class="st">"summary"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_pointrange</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"summary"</span>, col <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-25-1.svg" width="70%"></p>
 <p>By default, ggblanket keeps values outside of the limits
 (<code>*_oob = scales::oob_keep</code>) in calculating the geoms and
 scales to plot. It also does <em>not</em> clip anything outside the
@@ -609,7 +628,7 @@ clips anything outside the cartesian coordinate space by default
 <p>These deviations from ggplot2 were considered to be safer defaults
 for ggblanket (i.e. fail by plotting data outside the panel rather than
 fail by dropping data).</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">date</span>,</span>
@@ -650,7 +669,7 @@ fail by dropping data).</p>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-25-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-26-1.svg" width="70%"></p>
 <p>ggblanket does not drop unused any factor levels from the plot. If
 users wish to drop unused levels they should do by mutating the variable
 prior to plotting
@@ -658,7 +677,7 @@ prior to plotting
 Similarly, ggblanket requires unquoted variables for it’s aesthetics. If
 you wish to reorder a variable or drop NAs, you should do it likewise
 prior to plotting.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">penguins</a></span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sex</span>, </span>
 <span>            y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
@@ -674,7 +693,7 @@ prior to plotting.</p>
 <span>            col_legend_place <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-26-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-27-1.svg" width="70%"></p>
 <p>ggblanket uses different <code>alpha</code> defaults for the
 different <code>gg_*</code> functions. Polygons that generally have no
 gap or overlap default to 1: <code>gg_bin_2d</code>,

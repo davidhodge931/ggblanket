@@ -180,12 +180,12 @@
 <clipPath id="clip1">
   <path d="M 472.585938 115.625 L 489.867188 115.625 L 489.867188 202.023438 L 472.585938 202.023438 Z M 472.585938 115.625 "/>
 </clipPath>
-<image id="image106" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAA3ElEQVQ4jZWQUXLEMAxCgT1JL9fT9Yox/ZDsyEqy2354LB4Izxhf3z8iKRKS4g5d5o0/M9zti8InptwvvgiJ1IuURL2mFiWmr/RzDk5JdReFn70qPWydvWfukSU3dzH19O+8/F+WHjxwQsIDJ0Xg0kkg/i33Tv2O82+5/2S3nAVbtAUPIXWwqkdkikZqznn5pyaKZwubHut99PfHCJ2317x7Lplg3tnKeGW8eTd9rcct6+HoGJYds0fx3DI5931Pb75X2ez0lV263e5PbM24dvSzOE52tMyR/uF5fgF4h21bjFJgrQAAAABJRU5ErkJggg=="/>
+<image id="image101" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAA3ElEQVQ4jZWQUXLEMAxCgT1JL9fT9Yox/ZDsyEqy2354LB4Izxhf3z8iKRKS4g5d5o0/M9zti8InptwvvgiJ1IuURL2mFiWmr/RzDk5JdReFn70qPWydvWfukSU3dzH19O+8/F+WHjxwQsIDJ0Xg0kkg/i33Tv2O82+5/2S3nAVbtAUPIXWwqkdkikZqznn5pyaKZwubHut99PfHCJ2317x7Lplg3tnKeGW8eTd9rcct6+HoGJYds0fx3DI5931Pb75X2ez0lV263e5PbM24dvSzOE52tMyR/uF5fgF4h21bjFJgrQAAAABJRU5ErkJggg=="/>
 <pattern id="pattern0" patternUnits="userSpaceOnUse" width="1" height="300"  patternTransform="matrix(17.28,0,0,0.288,472.58531,115.624616)">
-  <use xlink:href="#image106"/>
+  <use xlink:href="#image101"/>
 </pattern>
 </defs>
-<g id="surface102">
+<g id="surface97">
 <rect x="0" y="0" width="525" height="324" style="fill:rgb(90.196078%,92.54902%,94.901961%);fill-opacity:1;stroke:none;"/>
 <path style="fill:none;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(90.196078%,92.54902%,94.901961%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 324 L 525 324 L 525 0 L 0 0 Z M 0 324 "/>
 <path style="fill-rule:nonzero;fill:rgb(98.823529%,99.215686%,99.607843%);fill-opacity:1;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(98.823529%,99.215686%,99.607843%);stroke-opacity:1;stroke-miterlimit:10;" d="M 46.410156 283.742188 L 461.9375 283.742188 L 461.9375 14.945312 L 46.410156 14.945312 Z M 46.410156 283.742188 "/>
