@@ -351,7 +351,7 @@ penguins |>
 
 ### 10. Access to other geom\_\* arguments via `...`
 
-The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users (except the mapping argument). Common arguments from `...` to add are `size`, `linewidth` and `width`.
+The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users (except the mapping and stat argument). Common arguments from `...` to add are `size`, `linewidth` and `width`.
 
 ```{r}
 # ggblanket
