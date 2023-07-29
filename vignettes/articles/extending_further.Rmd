@@ -21,11 +21,11 @@ knitr::opts_chunk$set(
 To extend ggblanket further, users can:
 
 1. Use the gg_blank function
-2. Use non-supported aesthetics
-3. Modifying a part of the colouring 
-4. Create custom wrapper functions
-5. Visualise spatial data
-6. Use different fonts
+2. Modifying a part of the colouring 
+3. Use non-supported aesthetics
+4. Visualise spatial data
+5. Use different fonts
+6. Create custom wrapper functions
 7. Work with extension packages 
 
 ```{r setup}
@@ -56,63 +56,12 @@ penguins |>
   gg_blank(
     x = body_mass_g, 
     stat = "bin") +
-  geom_histogram(col = pal_blue, fill = pal_blue, alpha = 0.9)
+  geom_histogram(colour = pal_blue, fill = pal_blue, alpha = 0.9)
 ```
 
-### 2. Use non-supported ggplot2 aesthetics
+### 2. Modifying a part of the colouring 
 
-While aesthetics other than colouring are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
-
-```{r}
-# Discrete other aesthetic
-p1 <- penguins |>
-  gg_blank(
-    x = bill_length_mm,
-    y = body_mass_g, 
-    col = sex, #hack for legend placement
-    x_breaks = scales::breaks_pretty(n = 3)) + 
-  geom_point(aes(shape = sex), col = "#2B6999") + 
-  labs(shape = "Sex") #name same as the col_title  
-
-p2 <- penguins |>
-  gg_blank(
-    x = bill_length_mm,
-    y = body_mass_g, 
-    col = sex,
-    x_breaks = scales::breaks_pretty(n = 3)) + 
-  geom_point(aes(shape = sex)) +  
-  labs(shape = "Sex") #name same as the col_title 
-
-p1 + p2
-```
-
-```{r, fig.asp=1}
-# Continuous other aesthetic
-p1 <- penguins |>
-  gg_blank(
-    x = bill_length_mm,
-    y = body_mass_g) +  
-  geom_point(aes(alpha = bill_depth_mm), col = "#2B6999") +
-  labs(alpha = "Bill depth mm")
-
-p2 <- penguins |>
-  gg_blank(
-    x = bill_length_mm,
-    y = body_mass_g, 
-    col = species,
-    col_legend_place = "r", #two legends works better on right
-    col_title = "\nSpecies") + #add space between legends
-  geom_point(aes(alpha = bill_depth_mm)) +
-  labs(alpha = "Bill depth mm") 
-
-p1 / p2
-```
-
-### 3. Modifying a part of the colouring 
-
-Where a `gg_*` function contains a geom that can colour both outlines and fill, users can turn off a part of this using the `alpha = 0` or `pal = scales::alpha("red", 0)`. 
-
-If a `col` variable is specified, then you can use `col = NA`, `fill = NA`, `col = "red"` or `fill = "red"` to modify a part of the colouring. But you cannot do this, if `col = NULL`. In this case, you _must_ use `gg_blank`.
+Where a `gg_*` function contains a geom that can colour both outlines and fill, users can turn off a part of this using `alpha = 0` or `pal = scales::alpha("red", 0)`. 
 
 ```{r, fig.asp=1}
 p1 <- iris |>
@@ -143,8 +92,141 @@ p4 <- iris |>
 
 (p1 + p2) / (p3 + p4) 
 ```
+If a `col` variable is specified, then you can _also_ use `colour = "black"` or `fill = "lightgrey"` to fix a part of the colouring to a single fixed colour (or `colour = NA` or `fill = NA`). If you need to do this where a col variable is not specified, you can use `gg_bblank`.  
 
-### 4. Create custom wrapper functions
+```{r, fig.asp=1}
+p1 <- iris |>
+  gg_blank(
+    x = Sepal.Length,
+    stat = "density") +
+  geom_density(colour = "black", fill = pal_blue, alpha = 0.5)
+
+p2 <- iris |>
+  gg_blank(
+    x = Sepal.Length,
+    stat = "density") +
+  geom_density(colour = pal_blue, fill = "lightgrey", alpha = 0.5)
+
+p3 <- iris |>
+  gg_density(
+    x = Sepal.Length,
+    col = Species, 
+    fill = "lightgrey",
+    col_legend_nrow = 2, 
+    col_labels = str_to_sentence)
+
+p4 <- iris |>
+  gg_density(
+    x = Sepal.Length,
+    col = Species, 
+    colour = "black",
+    col_legend_nrow = 2, 
+    col_labels = str_to_sentence)
+
+(p1 + p2) / (p3 + p4) 
+```
+
+### 3. Use non-supported ggplot2 aesthetics
+
+While aesthetics other than colouring are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
+
+```{r}
+# Discrete other aesthetic
+p1 <- penguins |>
+  gg_blank(
+    x = bill_length_mm,
+    y = body_mass_g, 
+    col = sex, #hack for legend placement
+    x_breaks = scales::breaks_pretty(n = 3)) + 
+  geom_point(aes(shape = sex), colour = "#2B6999") + 
+  labs(shape = "Sex") #name same as the col_title  
+
+p2 <- penguins |>
+  gg_blank(
+    x = bill_length_mm,
+    y = body_mass_g, 
+    col = sex,
+    x_breaks = scales::breaks_pretty(n = 3)) + 
+  geom_point(aes(shape = sex)) +  
+  labs(shape = "Sex") #name same as the col_title 
+
+p1 + p2
+```
+
+```{r, fig.asp=1}
+# Continuous other aesthetic
+p1 <- penguins |>
+  gg_blank(
+    x = bill_length_mm,
+    y = body_mass_g) +  
+  geom_point(aes(alpha = bill_depth_mm), colour = "#2B6999") +
+  labs(alpha = "Bill depth mm")
+
+p2 <- penguins |>
+  gg_blank(
+    x = bill_length_mm,
+    y = body_mass_g, 
+    col = species,
+    col_legend_place = "r", #two legends works better on right
+    col_title = "\nSpecies") + #add space between legends
+  geom_point(aes(alpha = bill_depth_mm)) +
+  labs(alpha = "Bill depth mm") 
+
+p1 / p2
+```
+
+### 4. Visualise spatial data
+
+As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, spatial vector and array data can be visualised. 
+
+```{r, fig.asp=0.33}
+sf::st_read(system.file("shape/nc.shp", package = "sf"), 
+                  quiet = TRUE) |>
+  gg_sf(col = AREA,
+        pal = RColorBrewer::brewer.pal(9, "Blues")) +
+  ggeasy::easy_remove_axes()
+```
+
+```{r}
+stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
+ tibble::as_tibble() |>
+ gg_raster(x = x,
+           y = y,
+           col = L7_ETMs.tif,
+           facet = band,
+           col_title = "") +
+  ggeasy::easy_remove_axes()
+```
+
+### 5. Use different fonts
+
+The showtext and sysfonts packages support the use of different fonts from Google. The `theme_*_mode` functions provide `base_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
+
+```{r, fig.asp = 0.75, fig.showtext = TRUE}
+sysfonts::font_add_google("Covered By Your Grace", "grace")
+sysfonts::font_add_google('Anton', 'anton')
+sysfonts::font_add_google('Syne Mono', 'syne')
+
+showtext::showtext_auto(enable = TRUE)
+
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020",
+    pal = c("#2596be", "#fc7c24"),
+    theme = light_mode(
+      base_family = "grace", 
+      title_family = "anton",
+      subtitle_family = "syne"))
+showtext::showtext_auto(enable = FALSE)
+```
+
+### 6. Create custom wrapper functions
 
 You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
@@ -172,57 +254,6 @@ iris |>
     x = Sepal.Width,
     y = Sepal.Length,
     col = Species)
-```
-
-### 5. Visualise spatial data
-
-As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, spatial vector and array data can be visualised. 
-
-```{r, fig.asp=0.33}
-sf::st_read(system.file("shape/nc.shp", package = "sf"), 
-                  quiet = TRUE) |>
-  gg_sf(col = AREA,
-        pal = RColorBrewer::brewer.pal(9, "Blues")) +
-  ggeasy::easy_remove_axes()
-```
-
-```{r}
-stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
- tibble::as_tibble() |>
- gg_raster(x = x,
-           y = y,
-           col = L7_ETMs.tif,
-           facet = band,
-           col_title = "") +
-  ggeasy::easy_remove_axes()
-```
-
-### 6. Use different fonts
-
-The showtext and sysfonts packages support the use of different fonts from Google. The `theme_*_mode` functions provide `base_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
-
-```{r, fig.asp = 0.75, fig.showtext = TRUE}
-sysfonts::font_add_google("Covered By Your Grace", "grace")
-sysfonts::font_add_google('Anton', 'anton')
-sysfonts::font_add_google('Syne Mono', 'syne')
-
-showtext::showtext_auto(enable = TRUE)
-
-penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    facet = species,
-    title = "Penguins body mass by flipper length",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020",
-    pal = c("#2596be", "#fc7c24"),
-    theme = light_mode(
-      base_family = "grace", 
-      title_family = "anton",
-      subtitle_family = "syne"))
-showtext::showtext_auto(enable = FALSE)
 ```
 
 ### 7. Work with extension packages
@@ -475,7 +506,7 @@ d |>
     y_title = "") +
   ggdist::stat_slabinterval(
     aes(dist = dist),
-    col = pal_blue,
+    colour = pal_blue,
     fill = scales::alpha(pal_blue, 0.5))
 ```
 
@@ -503,7 +534,7 @@ The ggbeeswarm package can be used to create scatter plots that avoid overlappin
 penguins |> 
   gg_blank(x = species, 
            y = body_mass_g) + 
-  ggbeeswarm::geom_quasirandom(col = pal_blue)
+  ggbeeswarm::geom_quasirandom(colour = pal_blue)
 ```
 
 #### plotly::ggplotly

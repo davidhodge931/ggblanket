@@ -87,7 +87,7 @@ p1 <- penguins |>
 
 p2 <- penguins |>
   ggplot() +
-  geom_density(aes(x = body_mass_g, 
+  geom_density(aes(x = flipper_length_mm, 
                    fill = species)) +
   theme(legend.position = "bottom") +
   guides(fill = guide_legend(title.position = "top")) +
@@ -108,7 +108,7 @@ p1 <- penguins |>
 
 p2 <- penguins |>
   gg_density(
-    x = body_mass_g, 
+    x = flipper_length_mm, 
     col = species,
     x_breaks = scales::breaks_pretty(n = 3), 
     col_legend_ncol = 2)
@@ -120,7 +120,7 @@ p1 + p2
 
 The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. A named palette can be used to make individual colours stick to particular values.
 
-```{r}
+```{r, fig.asp=0.5}
 # ggplot2
 p1 <- penguins |>
   ggplot() +
@@ -132,8 +132,8 @@ p2 <- penguins |>
   ggplot() +
   geom_jitter(aes(x = species, 
                   y = body_mass_g, 
-                  col = sex)) +
-  scale_color_manual(values = c("#2596be", "#fc7c24"))
+                  colour = sex)) +
+  scale_colour_manual(values = c("#2596be", "#fc7c24"))
 
 p1 + p2
 ```
@@ -246,7 +246,7 @@ penguins |>
 
 Unspecified x/y/col titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is.
 
-```{r}
+```{r, fig.asp=0.5}
 # ggplot2
 penguins |>
   ggplot() +
@@ -375,12 +375,14 @@ penguins |>
              y = body_mass_g,
              width = 0.5,
              outlier.colour = NA) +
-  geom_jitter(col = pal_blue)
+  geom_jitter(colour = pal_blue)
 ```
 
-If some geoms have a `col` aesthetic and some do not, then it is recommended to have the `col` aesthetic in the `gg_*` function. This enables ggblanket legend placement, as well as the ability to adjust the col scale via the `gg_*` function.
+If some geoms have a `col` aesthetic and some do not, then it is recommended to have the `col` variable in the `gg_*` function. This enables ggblanket legend placement, as well as the ability to adjust the col scale via the `gg_*` function.
 
-If you do not want a col aesthetic in your bottom plot layer, but require it in subsequent layers - then you should use the `gg_blank` function. Subsequent `geom_*` layers where the col aesthetic is not required can have `col = NA` and/or `fill = NA` arguments - or use the `inherit.aes = FALSE` argument.
+If you do not want a `col` aesthetic in your bottom plot layer, but require it in subsequent layers - then you should use the `gg_blank` function. _Subsequent_ `geom_*` layers where the col aesthetic is not required can have `colour = NA` and/or `fill = NA` arguments - or use the `inherit.aes = FALSE` argument. 
+
+Note it is a useful to convention to refer to the 2 dimensional `col`/`colour` aesthetic in subsequent ggplot2 layers as `colour` to help avoid confusion with the merged ggblanket `col` aesthetic.
 
 The plot scales are constructed without knowledge of subsequent layers. The `gg_*` function builds the x and y scales based on the `data`, `x`, and `y` in the `gg_*` function. These scales can be adjusted to accommodate subsequent layers using the `*_include` or `*_limits` arguments. Note for `gg_blank`, the scale is also built based on the `stat`. 
 
@@ -404,7 +406,7 @@ p1 <- d |>
     x_title = "Body mass kg",
     col_legend_place = "r") +
   geom_col(alpha = 0.9, width = 0.75) +
-  geom_errorbar(col = "black", width = 0.1)
+  geom_errorbar(colour = "black", width = 0.1)
 
 p2 <- d |>
   gg_blank(
@@ -417,7 +419,7 @@ p2 <- d |>
     x_labels = \(x) x / 1000, 
     x_title = "Body mass kg", 
     col_legend_place = "r") +
-  geom_col(col = NA, fill = "#d3d3d3", width = 0.75) +
+  geom_col(colour = NA, fill = "#d3d3d3", width = 0.75) +
   geom_errorbar(width = 0.1)
 
 p1 / p2
@@ -453,7 +455,7 @@ d_long |>
   geom_segment(aes(x = `1967`, xend = `2007`, 
                    y = country, yend = country), 
                data = d_wide, inherit.aes = FALSE, 
-               col = "#dddddd", linewidth = 2) +
+               colour = "#dddddd", linewidth = 2) +
   geom_point(size = 2) 
 ```
 
@@ -461,7 +463,7 @@ d_long |>
 
 ggblanket has some other key different defaults to ggplot2, which users should be aware of.
 
-For all `gg_*` functions other than `gg_blank`, the stat is locked to the default as per the relevant `ggplot2::geom_*` function. This means if you would like to use a stat different to the default, you should use `gg_blank`. You can also set the `stat` to that of the layer to follow if necessary to help the scales etc be created appropriately. Note `gg_blank` only accepts stats that are characters.
+For all `gg_*` functions other than `gg_blank`, the stat is locked to the relevant `geom_*` default. This means if you would like to use a stat different to the default, you should use `gg_blank`. You can also set the `stat` to that of the layer to follow if necessary to help the scales etc be created appropriately. Note `gg_blank` only accepts stats that are characters.
 
 ```{r, fig.asp=0.4}
 penguins |>
@@ -470,7 +472,7 @@ penguins |>
     y = species,
     stat = "summary"
   ) +
-  geom_pointrange(stat = "summary", col = pal_blue)
+  geom_pointrange(stat = "summary", colour = pal_blue)
 ```
 
 By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
@@ -543,3 +545,7 @@ p1 + p2
 ```
 
 ggblanket uses different `alpha` defaults for the different `gg_*` functions. Polygons that generally have no gap or overlap default to 1: `gg_bin_2d`, `gg_contour_filled`, `gg_density_2d_filled`, `gg_hex` - as well as `gg_sf` for polygons with a `col` aesthetic. Polygons that generally overlap default to 0.5: `gg_density`. Polygons that generally have key lines within them also default to 0.5: `gg_boxplot`, `gg_crossbar`, `gg_ribbon` and `gg_smooth`. `gg_label` defaults to 0.05. `gg_blank` has no alpha argument. Other polygons default to 0.9: `gg_area`, `gg_bar`, `gg_col`, `gg_histogram`, `gg_polygon`, `gg_rect`, `gg_tile` and `gg_violin`. For all other contexts, alpha defaults to 1. 
+
+## More information 
+
+See the other [articles](https://davidhodge931.github.io/ggblanket/articles/) and [reference](https://davidhodge931.github.io/ggblanket/reference/index.html) information on the ggblanket website for further information.
