@@ -1,5 +1,6 @@
 # ggblanket 3.0.9000
 
+* Breaking: removed the `stat` argument for all `gg_*` functions except `gg_blank`.
 * Updated scales to work better with transformations, limits, breaks etc.
 * Added `gg_contour`, `gg_contour_filled`, `gg_density2d`, `gg_density2d_filled` functions.
 * Breaking: renamed `gg_bin2d` to `gg_bin_2d`.

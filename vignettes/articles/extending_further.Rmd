@@ -26,8 +26,7 @@ To extend ggblanket further, users can:
 4. Create custom wrapper functions
 5. Visualise spatial data
 6. Use different fonts
-7. Work with non-default stat's
-8. Work with extension packages 
+7. Work with extension packages 
 
 ```{r setup}
 library(dplyr)
@@ -46,9 +45,9 @@ penguins <- penguins |>
 
 The `gg_blank` function is the most flexible function in ggblanket.
 
-It provides access to the most aesthetics. It provides lots of flexibility to use ggblanket with ggplot2 layers and other extension packages. 
+It provides access to the most aesthetics. It provides lots of flexibility to use ggblanket with other ggplot2 stats, layers and geoms. 
 
-The plot scales are constructed without knowledge of any layers subsequent to the `gg_*` function. The `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function - and these can be adjusted using the `stat`, `*_include`, `*_limits` and `facet_scales` arguments.  
+The plot scales are constructed without knowledge of any layers subsequent to the `gg_*` function. The `gg_blank` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function - and these can be adjusted using the `stat`, `*_include`, `*_limits` and `facet_scales` arguments.  
 
 So with `gg_blank`, you will need to include the ggplot2 stat for plots that  require different x and y scales to those created by `identity`. The stat must be a character, as stat functions are not supported.      
 
@@ -226,21 +225,7 @@ penguins |>
 showtext::showtext_auto(enable = FALSE)
 ```
 
-### 7. Work with non-default stats
-
-The `stat` of the `gg_*` functions except `gg_blank` are locked to their   default in their equivalent `geom_*` function. Therefore if you want to use a different stat. Then you can use `gg_blank` with a character stat (e.g. "summary").  
-
-```{r, fig.asp=0.4}
-penguins |>
-  gg_blank(
-    x = body_mass_g,
-    y = species,
-    stat = "summary"
-  ) +
-  geom_pointrange(stat = "summary", col = pal_blue)
-```
-
-### 8. Work with extension packages
+### 7. Work with extension packages
 
 ggblanket can work with a lot of extension packages. 
 

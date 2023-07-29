@@ -36,7 +36,7 @@ To simplify ggplot2 visualisation, ggblanket provides:
 9.  Pretty defaults for symmetry
 10. Access to other geom\_\* arguments via ...
 11. Ability to add multiple geom\_\* layers
-12. Other differences: oobs, clipping, unused factor levels, ordering, alpha etc
+12. Other differences: stats, oobs, clipping, unused factor levels, ordering, alpha etc
 
 ```{r setup}
 library(dplyr)
@@ -51,7 +51,7 @@ penguins <- palmerpenguins::penguins |>
 
 ### 1. Over thirty gg\_\* wrapper functions
 
-Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. This also provides access to the arguments of the relevant stat function.
+Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. For all functions except `gg_blank`, the stat is locked to that which is default to the applicable `geom_*` function. 
 
 ```{r}
 # ggplot2
@@ -382,7 +382,7 @@ If some geoms have a `col` aesthetic and some do not, then it is recommended to 
 
 If you do not want a col aesthetic in your bottom plot layer, but require it in subsequent layers - then you should use the `gg_blank` function. Subsequent `geom_*` layers where the col aesthetic is not required can have `col = NA` and/or `fill = NA` arguments - or use the `inherit.aes = FALSE` argument.
 
-Note the plot scales are constructed without knowledge of subsequent layers. The `gg_*` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function. These scales can be adjusted to accommodate subsequent layers using the `*_include` or `*_limits` arguments.
+The plot scales are constructed without knowledge of subsequent layers. The `gg_*` function builds the x and y scales based on the `data`, `x`, and `y` in the `gg_*` function. These scales can be adjusted to accommodate subsequent layers using the `*_include` or `*_limits` arguments. Note for `gg_blank`, the scale is also built based on the `stat`. 
 
 ```{r, fig.asp=0.75}
 # ggblanket + ggplot2
@@ -457,9 +457,21 @@ d_long |>
   geom_point(size = 2) 
 ```
 
-### 12. Other differences: oobs, clipping, unused factor levels, ordering, alpha etc
+### 12. Other differences: stats, oobs, clipping, unused factor levels, ordering, alpha etc
 
 ggblanket has some other key different defaults to ggplot2, which users should be aware of.
+
+For all `gg_*` functions other than `gg_blank`, the stat is locked to the default as per the relevant `ggplot2::geom_*` function. This means if you would like to use a stat different to the default, you should use `gg_blank`. You can also set the `stat` to that of the layer to follow if necessary to help the scales etc be created appropriately. Note `gg_blank` only accepts stats that are characters.
+
+```{r, fig.asp=0.4}
+penguins |>
+  gg_blank(
+    x = body_mass_g,
+    y = species,
+    stat = "summary"
+  ) +
+  geom_pointrange(stat = "summary", col = pal_blue)
+```
 
 By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
 
