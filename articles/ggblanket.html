@@ -169,7 +169,7 @@ points, lines and polygon interiors.</p>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html" class="external-link">geom_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html" class="external-link">geom_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
 <span>                   fill <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>title.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -189,7 +189,7 @@ points, lines and polygon interiors.</p>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, </span>
 <span>    col_legend_ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
@@ -217,8 +217,8 @@ to make individual colours stick to particular values.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, </span>
 <span>                  y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
-<span>                  col <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span><span class="op">)</span></span>
+<span>                  colour <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
@@ -501,19 +501,23 @@ on top of it.</p>
 <span>             y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>             width <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>             outlier.colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-22-1.svg" width="70%"></p>
 <p>If some geoms have a <code>col</code> aesthetic and some do not, then
-it is recommended to have the <code>col</code> aesthetic in the
+it is recommended to have the <code>col</code> variable in the
 <code>gg_*</code> function. This enables ggblanket legend placement, as
 well as the ability to adjust the col scale via the <code>gg_*</code>
 function.</p>
-<p>If you do not want a col aesthetic in your bottom plot layer, but
-require it in subsequent layers - then you should use the
-<code>gg_blank</code> function. Subsequent <code>geom_*</code> layers
-where the col aesthetic is not required can have <code>col = NA</code>
-and/or <code>fill = NA</code> arguments - or use the
-<code>inherit.aes = FALSE</code> argument.</p>
+<p>If you do not want a <code>col</code> aesthetic in your bottom plot
+layer, but require it in subsequent layers - then you should use the
+<code>gg_blank</code> function. <em>Subsequent</em> <code>geom_*</code>
+layers where the col aesthetic is not required can have
+<code>colour = NA</code> and/or <code>fill = NA</code> arguments - or
+use the <code>inherit.aes = FALSE</code> argument.</p>
+<p>Note it is a useful to convention to refer to the 2 dimensional
+<code>col</code>/<code>colour</code> aesthetic in subsequent ggplot2
+layers as <code>colour</code> to help avoid confusion with the merged
+ggblanket <code>col</code> aesthetic.</p>
 <p>The plot scales are constructed without knowledge of subsequent
 layers. The <code>gg_*</code> function builds the x and y scales based
 on the <code>data</code>, <code>x</code>, and <code>y</code> in the
@@ -541,7 +545,7 @@ scale is also built based on the <code>stat</code>.</p>
 <span>    x_title <span class="op">=</span> <span class="st">"Body mass kg"</span>,</span>
 <span>    col_legend_place <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.9</span>, width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span>, width <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span>, width <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_blank.html">gg_blank</a></span><span class="op">(</span></span>
@@ -554,7 +558,7 @@ scale is also built based on the <code>stat</code>.</p>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>, </span>
 <span>    x_title <span class="op">=</span> <span class="st">"Body mass kg"</span>, </span>
 <span>    col_legend_place <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span>col <span class="op">=</span> <span class="cn">NA</span>, fill <span class="op">=</span> <span class="st">"#d3d3d3"</span>, width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="cn">NA</span>, fill <span class="op">=</span> <span class="st">"#d3d3d3"</span>, width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">/</span> <span class="va">p2</span></span></code></pre></div>
@@ -589,7 +593,7 @@ scale is also built based on the <code>stat</code>.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">`1967`</span>, xend <span class="op">=</span> <span class="va">`2007`</span>, </span>
 <span>                   y <span class="op">=</span> <span class="va">country</span>, yend <span class="op">=</span> <span class="va">country</span><span class="op">)</span>, </span>
 <span>               data <span class="op">=</span> <span class="va">d_wide</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>, </span>
-<span>               col <span class="op">=</span> <span class="st">"#dddddd"</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>               colour <span class="op">=</span> <span class="st">"#dddddd"</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
 </div>
@@ -600,13 +604,12 @@ ordering, alpha etc<a class="anchor" aria-label="anchor" href="#other-difference
 <p>ggblanket has some other key different defaults to ggplot2, which
 users should be aware of.</p>
 <p>For all <code>gg_*</code> functions other than <code>gg_blank</code>,
-the stat is locked to the default as per the relevant
-<code>ggplot2::geom_*</code> function. This means if you would like to
-use a stat different to the default, you should use
-<code>gg_blank</code>. You can also set the <code>stat</code> to that of
-the layer to follow if necessary to help the scales etc be created
-appropriately. Note <code>gg_blank</code> only accepts stats that are
-characters.</p>
+the stat is locked to the relevant <code>geom_*</code> default. This
+means if you would like to use a stat different to the default, you
+should use <code>gg_blank</code>. You can also set the <code>stat</code>
+to that of the layer to follow if necessary to help the scales etc be
+created appropriately. Note <code>gg_blank</code> only accepts stats
+that are characters.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_blank.html">gg_blank</a></span><span class="op">(</span></span>
@@ -614,7 +617,7 @@ characters.</p>
 <span>    y <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    stat <span class="op">=</span> <span class="st">"summary"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_pointrange</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"summary"</span>, col <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_pointrange</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"summary"</span>, colour <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-25-1.svg" width="70%"></p>
 <p>By default, ggblanket keeps values outside of the limits
 (<code>*_oob = scales::oob_keep</code>) in calculating the geoms and
@@ -710,6 +713,13 @@ within them also default to 0.5: <code>gg_boxplot</code>,
 <code>gg_rect</code>, <code>gg_tile</code> and <code>gg_violin</code>.
 For all other contexts, alpha defaults to 1.</p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="more-information">More information<a class="anchor" aria-label="anchor" href="#more-information"></a>
+</h2>
+<p>See the other <a href="https://davidhodge931.github.io/ggblanket/articles/">articles</a>
+and <a href="https://davidhodge931.github.io/ggblanket/reference/index.html">reference</a>
+information on the ggblanket website for further information.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
