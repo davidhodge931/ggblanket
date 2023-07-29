@@ -704,7 +704,7 @@ gg_crossbar <- function(
           if (rlang::is_null(x_breaks)) {
 
             if (!facet_null & !facet2_null) x_breaks_n <- 3
-            else if (!facet_null) x_breaks_n <- 3
+            else if (!facet_null & facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver()
@@ -748,7 +748,7 @@ gg_crossbar <- function(
           if (rlang::is_null(x_breaks)) {
 
             if (!facet_null & !facet2_null) x_breaks_n <- 3
-            else if (!facet_null) x_breaks_n <- 3
+            else if (!facet_null & facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver

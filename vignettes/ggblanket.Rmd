@@ -187,7 +187,7 @@ A `facet2` argument is also provided for extra functionality and flexibility. If
 penguins |>
   ggplot() +
   geom_histogram(aes(x = flipper_length_mm)) +
-  facet_grid(species ~ sex)
+  facet_grid(sex ~ species)
 ```
 
 ```{r, fig.asp=0.75}
@@ -195,8 +195,8 @@ penguins |>
 penguins |>
   gg_histogram(
     x = flipper_length_mm,
-    facet = sex,
-    facet2 = species)
+    facet = species,
+    facet2 = sex)
 ```
 
 ### 6. Prefixed arguments to customise titles, scales, guides, and faceting

@@ -348,7 +348,7 @@ penguins |>
 #### gghighlight
 
 The gghighlight package enables geoms or parts thereof to be highlighted. 
-It should be noted that the `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you may _need_ to add another ggplot scale to ensure the full height of the non-highlighted data is included. 
+It should be noted that the `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you may need to add _another_ ggplot scale to ensure the full height of the non-highlighted data is included. 
 
 ```{r}
 penguins |>
@@ -484,7 +484,7 @@ d |>
 
 #### plotly::ggplotly
 
-The `plotly::ggplotly` function enables interactive plots. The `text` aesthetic can be used to customise tooltips. Alternatively, use `plotly::ggplotly(p, tooltip = c("x", "y", "fill"))` or `plotly::ggplotly(p)`.
+The `plotly::ggplotly` function enables interactive plots. The `text` aesthetic can be used to customise tooltips. Alternatively, use `plotly::ggplotly(p, tooltip = c("x", "y", "fill"))` or `plotly::ggplotly(p)`. 
 
 ```{r, out.width=500, out.height=300}
 p <- diamonds |>
