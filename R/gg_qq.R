@@ -1,6 +1,6 @@
 #' @title Qq ggplot
 #'
-#' @description Create a qq ggplot with a wrapper around the ggplot2::geom_qq function.
+#' @description Create a qq ggplot with a wrapper around ggplot2::geom_qq(stat = "qq", ...).
 #' @param data A data frame or tibble.
 #' @param sample Unquoted sample aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
@@ -10,7 +10,6 @@
 #' @param text Unquoted text aesthetic variable.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
-#' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
@@ -88,7 +87,6 @@ gg_qq <- function(
     text = NULL,
     x = NULL,
     y = NULL,
-    stat = "qq",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
@@ -144,6 +142,8 @@ gg_qq <- function(
   ##############################################################################
   #Unique code: part 1
   ##############################################################################
+
+  stat <- "qq"
 
   #quote
   x <- rlang::enquo(x)

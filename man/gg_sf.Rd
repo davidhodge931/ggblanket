@@ -12,7 +12,6 @@ gg_sf(
   group = NULL,
   text = NULL,
   position = "identity",
-  stat = "sf",
   coord = ggplot2::coord_sf(clip = "off"),
   pal = NULL,
   pal_na = pal_grey,
@@ -63,8 +62,6 @@ gg_sf(
 \item{text}{Unquoted text aesthetic variable.}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
-
-\item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_sf(clip = "off")).}
 
@@ -138,7 +135,7 @@ gg_sf(
 A ggplot object.
 }
 \description{
-Create a blank ggplot with a wrapper around the ggplot2::geom_sf function.
+Create a blank ggplot with a wrapper around ggplot2::geom_sf(stat = "sf", ...).
 }
 \examples{
 if (requireNamespace("sf", quietly = TRUE)) {

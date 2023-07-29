@@ -17,7 +17,6 @@ gg_linerange(
   facet2 = NULL,
   group = NULL,
   text = NULL,
-  stat = "identity",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
@@ -95,8 +94,6 @@ gg_linerange(
 \item{group}{Unquoted group aesthetic variable.}
 
 \item{text}{Unquoted text aesthetic variable.}
-
-\item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
@@ -204,7 +201,7 @@ gg_linerange(
 A ggplot object.
 }
 \description{
-Create a linerange ggplot with a wrapper around the ggplot2::geom_linerange function.
+Create a linerange ggplot with a wrapper around ggplot2::geom_linerange(stat = "identity", ...).
 }
 \examples{
 data.frame(

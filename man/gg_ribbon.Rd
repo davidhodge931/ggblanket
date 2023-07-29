@@ -17,7 +17,6 @@ gg_ribbon(
   xmax = NULL,
   ymin = NULL,
   ymax = NULL,
-  stat = "identity",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
@@ -95,8 +94,6 @@ gg_ribbon(
 \item{ymin}{Unquoted ymin aesthetic variable.}
 
 \item{ymax}{Unquoted ymax aesthetic variable.}
-
-\item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
@@ -204,7 +201,7 @@ gg_ribbon(
 A ggplot object.
 }
 \description{
-Create a ribbon ggplot with a wrapper around the ggplot2::geom_ribbon function.
+Create a ribbon ggplot with a wrapper around ggplot2::geom_ribbon(stat = "identity", ...).
 }
 \examples{
 library(dplyr)

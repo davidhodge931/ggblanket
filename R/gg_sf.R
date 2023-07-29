@@ -1,13 +1,12 @@
 #' @title Sf ggplot
 #'
-#' @description Create a blank ggplot with a wrapper around the ggplot2::geom_sf function.
+#' @description Create a blank ggplot with a wrapper around ggplot2::geom_sf(stat = "sf", ...).
 #' @param data A data frame or tibble.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param text Unquoted text aesthetic variable.
-#' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_sf(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
@@ -63,7 +62,6 @@ gg_sf <- function(
     group = NULL,
     text = NULL,
     position = "identity",
-    stat = "sf",
     coord = ggplot2::coord_sf(clip = "off"),
     pal = NULL,
     pal_na = pal_grey,
@@ -102,6 +100,8 @@ gg_sf <- function(
   ##############################################################################
   #Unique code: part 1
   ##############################################################################
+
+  stat <- "sf"
 
   #quote
   col <- rlang::enquo(col)

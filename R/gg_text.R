@@ -1,6 +1,6 @@
 #' @title Text ggplot
 #'
-#' @description Create a text plot with a wrapper around the ggplot2::geom_text function.
+#' @description Create a text plot with a wrapper around ggplot2::geom_text(stat = "identity", ...).
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
@@ -10,7 +10,6 @@
 #' @param label Unquoted label aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param text Unquoted text aesthetic variable.
-#' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
@@ -94,7 +93,6 @@ gg_text <- function(
     group = NULL,
     label = NULL,
     text = NULL,
-    stat = "identity",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
@@ -150,6 +148,8 @@ gg_text <- function(
   ##############################################################################
   #Unique code: part 1
   ##############################################################################
+
+  stat <- "identity"
 
   #quote
   x <- rlang::enquo(x)
@@ -1305,4 +1305,3 @@ gg_text <- function(
   #return beautiful plot
   return(plot)
 }
-

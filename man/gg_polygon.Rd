@@ -14,7 +14,6 @@ gg_polygon(
   group = NULL,
   subgroup = NULL,
   text = NULL,
-  stat = "identity",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
@@ -86,8 +85,6 @@ gg_polygon(
 \item{subgroup}{Unquoted subgroup aesthetic variable.}
 
 \item{text}{Unquoted text aesthetic variable.}
-
-\item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
@@ -195,7 +192,7 @@ gg_polygon(
 A ggplot object.
 }
 \description{
-Create a polygon ggplot with a wrapper around the ggplot2::geom_polygon function.
+Create a polygon ggplot with a wrapper around ggplot2::geom_polygon(stat = "identity", ...).
 }
 \examples{
 ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))

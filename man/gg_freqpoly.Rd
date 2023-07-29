@@ -13,7 +13,6 @@ gg_freqpoly(
   facet2 = NULL,
   group = NULL,
   text = NULL,
-  stat = "bin",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
@@ -83,8 +82,6 @@ gg_freqpoly(
 \item{group}{Unquoted group aesthetic variable.}
 
 \item{text}{Unquoted text aesthetic variable.}
-
-\item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
@@ -192,7 +189,7 @@ gg_freqpoly(
 A ggplot object.
 }
 \description{
-Create a freqpoly ggplot with a wrapper around the ggplot2::geom_freqpoly function.
+Create a freqpoly ggplot with a wrapper around ggplot2::geom_freqpoly(stat = "bin", ...).
 }
 \examples{
 library(dplyr)

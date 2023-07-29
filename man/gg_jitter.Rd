@@ -13,7 +13,6 @@ gg_jitter(
   facet2 = NULL,
   group = NULL,
   text = NULL,
-  stat = "identity",
   position = "jitter",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
@@ -83,8 +82,6 @@ gg_jitter(
 \item{group}{Unquoted group aesthetic variable.}
 
 \item{text}{Unquoted text aesthetic variable.}
-
-\item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
@@ -192,7 +189,7 @@ gg_jitter(
 A ggplot object.
 }
 \description{
-Create a jitter ggplot with a wrapper around the ggplot2::geom_jitter function.
+Create a jitter ggplot with a wrapper around ggplot2::geom_jitter(stat = "identity", ...).
 }
 \examples{
 library(palmerpenguins)

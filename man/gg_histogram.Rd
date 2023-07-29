@@ -13,7 +13,6 @@ gg_histogram(
   facet2 = NULL,
   group = NULL,
   text = NULL,
-  stat = "bin",
   position = "stack",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
@@ -83,8 +82,6 @@ gg_histogram(
 \item{group}{Unquoted group aesthetic variable.}
 
 \item{text}{Unquoted text aesthetic variable.}
-
-\item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
@@ -192,7 +189,7 @@ gg_histogram(
 A ggplot object.
 }
 \description{
-Create a histogram ggplot with a wrapper around the ggplot2::geom_histogram function.
+Create a histogram ggplot with a wrapper around ggplot2::geom_histogram(stat = "bin", ...).
 }
 \examples{
 library(dplyr)

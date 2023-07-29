@@ -1,6 +1,6 @@
 #' @title Rect ggplot
 #'
-#' @description Create a rect ggplot with a wrapper around the ggplot2::geom_rect function.
+#' @description Create a rect ggplot with a wrapper around ggplot2::geom_rect(stat = "identity", ...).
 #' @param data A data frame or tibble.
 #' @param xmin Unquoted xmin aesthetic variable.
 #' @param xmax Unquoted xmax aesthetic variable.
@@ -13,7 +13,6 @@
 #' @param text Unquoted text aesthetic variable.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
-#' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
@@ -103,7 +102,6 @@ gg_rect <- function(
     text = NULL,
     x = NULL,
     y = NULL,
-    stat = "identity",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
@@ -159,6 +157,8 @@ gg_rect <- function(
   ##############################################################################
   #Unique code: part 1
   ##############################################################################
+
+  stat <- "identity"
 
   #quote
   x <- rlang::enquo(x)

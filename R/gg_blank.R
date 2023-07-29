@@ -1,6 +1,6 @@
 #' @title Blank ggplot
 #'
-#' @description Create a blank ggplot with a wrapper around the ggplot2::geom_blank function.
+#' @description Create a blank ggplot with a wrapper around ggplot2::geom_blank().
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

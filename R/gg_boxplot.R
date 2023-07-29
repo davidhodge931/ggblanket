@@ -1,6 +1,6 @@
 #' @title Boxplot ggplot
 #'
-#' @description Create a boxplot ggplot with a wrapper around the ggplot2::geom_boxplot function.
+#' @description Create a boxplot ggplot with a wrapper around ggplot2::geom_boxplot(stat = "boxplot", ...).
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
@@ -9,17 +9,6 @@
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param text Unquoted text aesthetic variable.
-#' @param xmin Unquoted xmin aesthetic variable.
-#' @param xlower Unquoted xlower aesthetic variable.
-#' @param xmiddle Unquoted xmiddle aesthetic variable.
-#' @param xupper Unquoted xupper aesthetic variable.
-#' @param xmax Unquoted xmax aesthetic variable.
-#' @param ymin Unquoted ymin aesthetic variable.
-#' @param ylower Unquoted ylower aesthetic variable.
-#' @param ymiddle Unquoted ymiddle aesthetic variable.
-#' @param yupper Unquoted yupper aesthetic variable.
-#' @param ymax Unquoted ymax aesthetic variable.
-#' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
@@ -97,17 +86,6 @@ gg_boxplot <- function(
     facet2 = NULL,
     group = NULL,
     text = NULL,
-    xmin = NULL,
-    xlower = NULL,
-    xmiddle = NULL,
-    xupper = NULL,
-    xmax = NULL,
-    ymin = NULL,
-    ylower = NULL,
-    ymiddle = NULL,
-    yupper = NULL,
-    ymax = NULL,
-    stat = "boxplot",
     position = "dodge2",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
@@ -164,6 +142,8 @@ gg_boxplot <- function(
   #Unique code: part 1
   ##############################################################################
 
+  stat <- "boxplot"
+
   #quote
   x <- rlang::enquo(x)
   y <- rlang::enquo(y)
@@ -173,84 +153,29 @@ gg_boxplot <- function(
   group <- rlang::enquo(group)
   text <- rlang::enquo(text)
 
-  xmin <- rlang::enquo(xmin)
-  xmax <- rlang::enquo(xmax)
-  xlower <- rlang::enquo(xlower)
-  xupper <- rlang::enquo(xupper)
-  xmiddle <- rlang::enquo(xmiddle)
-
-  ymin <- rlang::enquo(ymin)
-  ymax <- rlang::enquo(ymax)
-  ylower <- rlang::enquo(ylower)
-  yupper <- rlang::enquo(yupper)
-  ymiddle <- rlang::enquo(ymiddle)
-
   #ungroup
   data <- data %>%
     dplyr::ungroup() %>%
     dplyr::mutate(dplyr::across(
       c(!!x, !!y,
-        !!xlower, !!xmiddle, !!xupper, !!ylower, !!ymiddle, !!yupper,
         !!col
       ),
       na_if_inf))
 
   #get classes
-  # x_null <- rlang::quo_is_null(x)
-  x_null <- rlang::quo_is_null(x) & rlang::quo_is_null(xmin) & rlang::quo_is_null(xmax)
+  x_null <- rlang::quo_is_null(x)
   x_forcat <- is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data)) | is.logical(rlang::eval_tidy(x, data))
-  # x_numeric <- is.numeric(rlang::eval_tidy(x, data))
-  # x_date <- lubridate::is.Date(rlang::eval_tidy(x, data))
-  # x_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(x, data))
-  # x_time <- hms::is_hms(rlang::eval_tidy(x, data))
-  x_numeric <- {
-    is.numeric(rlang::eval_tidy(x, data)) |
-      is.numeric(rlang::eval_tidy(xmin, data)) |
-      is.numeric(rlang::eval_tidy(xmax, data))
-  }
-  x_date <- {
-    lubridate::is.Date(rlang::eval_tidy(x, data)) |
-      lubridate::is.Date(rlang::eval_tidy(xmin, data)) |
-      lubridate::is.Date(rlang::eval_tidy(xmax, data))
-  }
-  x_datetime <- {
-    lubridate::is.POSIXct(rlang::eval_tidy(x, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(xmin, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(xmax, data))
-  }
-  x_time <- {
-    hms::is_hms(rlang::eval_tidy(x, data)) |
-      hms::is_hms(rlang::eval_tidy(xmin, data)) |
-      hms::is_hms(rlang::eval_tidy(xmax, data))
-  }
+  x_numeric <- is.numeric(rlang::eval_tidy(x, data))
+  x_date <- lubridate::is.Date(rlang::eval_tidy(x, data))
+  x_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(x, data))
+  x_time <- hms::is_hms(rlang::eval_tidy(x, data))
 
-  # y_null <- rlang::quo_is_null(y)
-  y_null <- rlang::quo_is_null(y) & rlang::quo_is_null(ymin) & rlang::quo_is_null(ymax)
+  y_null <- rlang::quo_is_null(y)
   y_forcat <- is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data)) | is.logical(rlang::eval_tidy(y, data))
-  # y_numeric <- is.numeric(rlang::eval_tidy(y, data))
-  # y_date <- lubridate::is.Date(rlang::eval_tidy(y, data))
-  # y_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(y, data))
-  # y_time <- hms::is_hms(rlang::eval_tidy(y, data))
-  y_numeric <- {
-    is.numeric(rlang::eval_tidy(y, data)) |
-      is.numeric(rlang::eval_tidy(ymin, data)) |
-      is.numeric(rlang::eval_tidy(ymax, data))
-  }
-  y_date <- {
-    lubridate::is.Date(rlang::eval_tidy(y, data)) |
-      lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
-      lubridate::is.Date(rlang::eval_tidy(ymax, data))
-  }
-  y_datetime <- {
-    lubridate::is.POSIXct(rlang::eval_tidy(y, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(ymin, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(ymax, data))
-  }
-  y_time <- {
-    hms::is_hms(rlang::eval_tidy(y, data)) |
-      hms::is_hms(rlang::eval_tidy(ymin, data)) |
-      hms::is_hms(rlang::eval_tidy(ymax, data))
-  }
+  y_numeric <- is.numeric(rlang::eval_tidy(y, data))
+  y_date <- lubridate::is.Date(rlang::eval_tidy(y, data))
+  y_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(y, data))
+  y_time <- hms::is_hms(rlang::eval_tidy(y, data))
 
   col_null <- rlang::quo_is_null(col)
   col_factor <- is.factor(rlang::eval_tidy(col, data))
@@ -316,17 +241,7 @@ gg_boxplot <- function(
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle
+          group = !!group
         ))
     }
     else if (col_null) {
@@ -336,17 +251,7 @@ gg_boxplot <- function(
           y = !!y,
           # col = "",
           # fill = "",
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle
+          group = !!group
         ))
     }
   }
@@ -357,17 +262,7 @@ gg_boxplot <- function(
           x = !!x,
           col = !!col,
           fill = !!col,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle
+          group = !!group
         ))
     }
     else if (col_null) {
@@ -376,17 +271,7 @@ gg_boxplot <- function(
           x = !!x,
           # col = "",
           # fill = "",
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle
+          group = !!group
         ))
     }
   }
@@ -397,17 +282,7 @@ gg_boxplot <- function(
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle
+          group = !!group
         ))
     }
     else if (col_null) {
@@ -416,17 +291,7 @@ gg_boxplot <- function(
           y = !!y,
           # col = "",
           # fill = "",
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle
+          group = !!group
         ))
     }
   }
@@ -436,17 +301,7 @@ gg_boxplot <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = !!col,
           fill = !!col,
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle
+          group = !!group
         ))
     }
     else if (col_null) {
@@ -454,17 +309,7 @@ gg_boxplot <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           # col = "",
           # fill = "",
-          group = !!group,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle
+          group = !!group
         ))
     }
   }

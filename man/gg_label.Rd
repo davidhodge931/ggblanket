@@ -14,7 +14,6 @@ gg_label(
   group = NULL,
   label = NULL,
   text = NULL,
-  stat = "identity",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
@@ -86,8 +85,6 @@ gg_label(
 \item{label}{Unquoted label aesthetic variable.}
 
 \item{text}{Unquoted text aesthetic variable.}
-
-\item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
@@ -195,7 +192,7 @@ gg_label(
 A ggplot object.
 }
 \description{
-Create a label ggplot with a wrapper around the ggplot2::geom_label function.
+Create a label ggplot with a wrapper around ggplot2::geom_label(stat = "identity", ...).
 }
 \examples{
 library(dplyr)

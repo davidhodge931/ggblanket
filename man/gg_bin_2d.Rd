@@ -12,7 +12,6 @@ gg_bin_2d(
   facet2 = NULL,
   group = NULL,
   text = NULL,
-  stat = "bin2d",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
@@ -80,8 +79,6 @@ gg_bin_2d(
 \item{group}{Unquoted group aesthetic variable.}
 
 \item{text}{Unquoted text aesthetic variable.}
-
-\item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
@@ -189,7 +186,7 @@ gg_bin_2d(
 A ggplot object.
 }
 \description{
-Create a bin2d ggplot with a wrapper around the ggplot2::geom_bin_2d function.
+Create a bin2d ggplot with a wrapper around ggplot2::geom_bin_2d(stat = "bin2d", ...).
 }
 \examples{
 ggplot2::diamonds |>

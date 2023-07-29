@@ -1,6 +1,6 @@
 #' @title Area ggplot
 #'
-#' @description Create a area ggplot with a wrapper around the ggplot2::geom_area function.
+#' @description Create a area ggplot with a wrapper around ggplot2::geom_area(stat = "align", ...).
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
@@ -9,7 +9,6 @@
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param text Unquoted text aesthetic variable.
-#' @param stat Statistical transformation. A character string (e.g. "identity").
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
@@ -82,7 +81,6 @@ gg_area <- function(
     facet2 = NULL,
     group = NULL,
     text = NULL,
-    stat = "align",
     position = "stack",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
@@ -138,6 +136,8 @@ gg_area <- function(
   ##############################################################################
   #Unique code: part 1
   ##############################################################################
+
+  stat <- "align"
 
   #quote
   x <- rlang::enquo(x)

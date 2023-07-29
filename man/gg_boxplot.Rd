@@ -13,17 +13,6 @@ gg_boxplot(
   facet2 = NULL,
   group = NULL,
   text = NULL,
-  xmin = NULL,
-  xlower = NULL,
-  xmiddle = NULL,
-  xupper = NULL,
-  xmax = NULL,
-  ymin = NULL,
-  ylower = NULL,
-  ymiddle = NULL,
-  yupper = NULL,
-  ymax = NULL,
-  stat = "boxplot",
   position = "dodge2",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
@@ -93,28 +82,6 @@ gg_boxplot(
 \item{group}{Unquoted group aesthetic variable.}
 
 \item{text}{Unquoted text aesthetic variable.}
-
-\item{xmin}{Unquoted xmin aesthetic variable.}
-
-\item{xlower}{Unquoted xlower aesthetic variable.}
-
-\item{xmiddle}{Unquoted xmiddle aesthetic variable.}
-
-\item{xupper}{Unquoted xupper aesthetic variable.}
-
-\item{xmax}{Unquoted xmax aesthetic variable.}
-
-\item{ymin}{Unquoted ymin aesthetic variable.}
-
-\item{ylower}{Unquoted ylower aesthetic variable.}
-
-\item{ymiddle}{Unquoted ymiddle aesthetic variable.}
-
-\item{yupper}{Unquoted yupper aesthetic variable.}
-
-\item{ymax}{Unquoted ymax aesthetic variable.}
-
-\item{stat}{Statistical transformation. A character string (e.g. "identity").}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
@@ -222,7 +189,7 @@ gg_boxplot(
 A ggplot object.
 }
 \description{
-Create a boxplot ggplot with a wrapper around the ggplot2::geom_boxplot function.
+Create a boxplot ggplot with a wrapper around ggplot2::geom_boxplot(stat = "boxplot", ...).
 }
 \examples{
 library(dplyr)

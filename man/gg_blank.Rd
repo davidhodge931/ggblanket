@@ -237,7 +237,7 @@ gg_blank(
 A ggplot object.
 }
 \description{
-Create a blank ggplot with a wrapper around the ggplot2::geom_blank function.
+Create a blank ggplot with a wrapper around ggplot2::geom_blank().
 }
 \examples{
 library(dplyr)
