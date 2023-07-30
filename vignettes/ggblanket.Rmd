@@ -368,6 +368,8 @@ penguins |>
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geoms added. Geoms will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it.
 
+Users need to ensure that the scales built by their `gg_*` function are appropriate for subsequent layers. This is because the plot scales are constructed without knowledge of subsequent layers. They are built based on the `data`, `x`, `y`, `*_limits`, `*_include`, `facet_scales` and the underlying `stat` and `position` in the `gg_*`  function. The `stat` and `position` is unique to each `geom_*` layer - it does not inherit. 
+
 Note that it is recommended that ggblanket users use the term `colour` within `geom_*` functions to help keep the distinction that the ggblanket `col` is the merged colour and fill. 
 
 ```{r, fig.asp=0.6}
@@ -385,8 +387,6 @@ If some geoms have a `col` aesthetic and some do not, then it is recommended to 
 If you do not want a `col` aesthetic in your bottom plot layer, but require it in subsequent layers - then you should use the `gg_blank` function. _Subsequent_ `geom_*` layers where the col aesthetic is not required can have `colour = NA` and/or `fill = NA` arguments - or use the `inherit.aes = FALSE` argument. 
 
 Note it is a useful to convention to refer to the 2 dimensional `col`/`colour` aesthetic in subsequent ggplot2 layers as `colour` to help avoid confusion with the merged ggblanket `col` aesthetic.
-
-The plot scales are constructed without knowledge of subsequent layers. The `gg_*` function builds the x and y scales based on the `data`, `x`, and `y` in the `gg_*` function. These scales can be adjusted to accommodate subsequent layers using the `*_include` or `*_limits` arguments. Note for `gg_blank`, the scale is also built based on the `stat`. 
 
 ```{r, fig.asp=0.75}
 # ggblanket + ggplot2
