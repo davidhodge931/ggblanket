@@ -58,16 +58,15 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="3.0.9000" id="ggblanket-309000">ggblanket 3.0.9000<a class="anchor" aria-label="anchor" href="#ggblanket-309000"></a></h2>
 <ul><li>Breaking: removed the <code>stat</code> argument for all <code>gg_*</code> functions except <code>gg_blank</code>.</li>
-<li>Updated scales to work better with transformations, limits, breaks etc.</li>
-<li>Added <code>gg_contour</code>, <code>gg_contour_filled</code>, <code>gg_density2d</code>, <code>gg_density2d_filled</code> functions.</li>
+<li>Breaking: renamed <code>pal_hue</code> to <code>pal_discrete</code>.</li>
 <li>Breaking: renamed <code>gg_bin2d</code> to <code>gg_bin_2d</code>.</li>
 <li>Breaking: changed <code>*_oob</code> default to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>.</li>
+<li>Improved scales to work better with transformations, limits, breaks etc.</li>
+<li>Added <code>gg_contour</code>, <code>gg_contour_filled</code>, <code>gg_density2d</code>, <code>gg_density2d_filled</code> functions.</li>
 <li>Made default to not drop any unused factors across all scales and facets.</li>
-<li>Made default continuous label function drop trailing zeros.</li>
+<li>Made default continuous label function to drop trailing zeros.</li>
 <li>Made default legend place simpler: bottom, unless continuous. Otherwise right.</li>
-<li>Made default <code>gg_raster</code> <code>*_limits</code> the same as other functions.</li>
 <li>Added <code>text</code> aesthetic in for <code><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">plotly::ggplotly</a></code>.</li>
-<li>Breaking: renamed <code>pal_hue</code> to <code>pal_cat</code> to avoid confusion with the scales function.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="3.0.0" id="ggblanket-300">ggblanket 3.0.0<a class="anchor" aria-label="anchor" href="#ggblanket-300"></a></h2><p class="text-muted">CRAN release: 2023-06-30</p>
