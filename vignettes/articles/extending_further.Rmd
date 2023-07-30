@@ -49,7 +49,7 @@ It provides access to the most aesthetics. It provides lots of flexibility to us
 
 The plot scales are constructed without knowledge of any layers subsequent to the `gg_*` function. The `gg_blank` function builds the x and y scales based on the `data`, `stat`, `x`, and `y` in the `gg_*` function - and these can be adjusted using the `stat`, `*_include`, `*_limits` and `facet_scales` arguments.  
 
-So with `gg_blank`, you will need to include the ggplot2 stat for plots that  require different x and y scales to those created by `identity`. The stat must be a character, as stat functions are not supported.      
+So with `gg_blank`, you will need to include the ggplot2 stat for plots that require different x and y scales to those created by `identity`. The `stat` must be a character, as stat functions are not supported. 
 
 ```{r}
 penguins |>

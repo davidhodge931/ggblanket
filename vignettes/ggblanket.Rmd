@@ -53,7 +53,7 @@ penguins <- palmerpenguins::penguins |>
 
 Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. For all functions except `gg_blank`, the stat is locked to that which is default to the applicable `geom_*` function. 
 
-```{r}
+```{r, fig.asp=0.6}
 # ggplot2
 penguins |> 
   ggplot() + 
@@ -61,7 +61,7 @@ penguins |>
                  y = body_mass_g))
 ```
 
-```{r}
+```{r, fig.asp=0.6}
 # ggblanket
 penguins |>
   gg_point(
@@ -71,7 +71,7 @@ penguins |>
 
 ### 2. A single col argument to colour and fill by a variable
 
-The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. This argument means that everything should be coloured according to it, i.e. all points, lines and polygon interiors.
+The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. This argument means that everything should be coloured according to it, i.e. all points, lines and polygon interiors. 
 
 ```{r}
 # ggplot2
@@ -79,10 +79,10 @@ p1 <- penguins |>
   ggplot() + 
   geom_point(aes(x = flipper_length_mm, 
                  y = body_mass_g,
-                 col = species)) + 
+                 colour = species)) + 
   theme(legend.position = "bottom") +
-  guides(col = guide_legend(title.position = "top")) +
-  labs(col = "Species") +
+  guides(colour = guide_legend(title.position = "top")) +
+  labs(colour = "Species") +
   scale_x_continuous(breaks = scales::breaks_pretty(n = 3))
 
 p2 <- penguins |>
@@ -213,7 +213,7 @@ penguins |>
   ggplot() +
   geom_jitter(aes(x = species, 
                   y = body_mass_g, 
-                  col = sex)) +
+                  colour = sex)) +
   expand_limits(y = 0) +
   scale_x_discrete(labels = \(x) stringr::str_sub(x, 1, 1)) +
   scale_y_continuous(breaks = scales::breaks_width(1500),
@@ -252,7 +252,7 @@ penguins |>
   ggplot() +
   geom_point(aes(x = flipper_length_mm, 
                  y = body_mass_g, 
-                 col = sex)) +
+                 colour = sex)) +
   facet_wrap(~species) +
   scale_x_continuous(breaks = scales::breaks_pretty(n = 3)) 
 ```
@@ -292,7 +292,7 @@ penguins |>
     pal = c("#2596be", "#fc7c24"))
 ```
 
-```{r, fig.asp=0.75}
+```{r, fig.asp=0.8}
 # ggblanket
 theme_set(light_mode(base_size = 12))
 
@@ -323,7 +323,7 @@ Note this symmetry approach does _not_ apply:
 * if a transformation other than identity or reverse is applied to x or y scales.
 * for `gg_raster`, `gg_contour_filled` or `gg_density_2d_filled`
 
-```{r}
+```{r, fig.asp=0.6}
 # ggplot2
 penguins |>
   group_by(species, sex) |> 
@@ -368,7 +368,9 @@ penguins |>
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. The `gg_*` function puts the aesthetics within the wrapped `ggplot` function. Therefore, the aesthetics will inherit to any subsequent geoms added. Geoms will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it.
 
-```{r}
+Note that it is recommended that ggblanket users use the term `colour` within `geom_*` functions to help keep the distinction that the ggblanket `col` is the merged colour and fill. 
+
+```{r, fig.asp=0.6}
 # ggblanket + ggplot2
 penguins |>
   gg_boxplot(x = species,
@@ -463,7 +465,7 @@ d_long |>
 
 ggblanket has some other key different defaults to ggplot2, which users should be aware of.
 
-For all `gg_*` functions other than `gg_blank`, the stat is locked to the relevant `geom_*` default. This means if you would like to use a stat different to the default, you should use `gg_blank`. You can also set the `stat` to that of the layer to follow if necessary to help the scales etc be created appropriately. Note `gg_blank` only accepts stats that are characters.
+For all `gg_*` functions other than `gg_blank`, the stat is locked to the relevant `geom_*` default. This means if you would like to use a stat different to the default, you should use `gg_blank`. By setting the `stat` to that of the layer to follow if necessary to help the scales etc be created appropriately. Note `gg_blank` only accepts stats that are characters.
 
 ```{r, fig.asp=0.4}
 penguins |>
