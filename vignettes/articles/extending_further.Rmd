@@ -92,6 +92,7 @@ p4 <- iris |>
 
 (p1 + p2) / (p3 + p4) 
 ```
+
 If a `col` variable is specified, then you can _also_ use `colour = "black"` or `fill = "lightgrey"` to fix a part of the colouring to a single fixed colour (or `colour = NA` or `fill = NA`). If you need to do this where a col variable is not specified, you can use `gg_bblank`.  
 
 ```{r, fig.asp=1}
