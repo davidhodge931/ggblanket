@@ -447,7 +447,7 @@ d_long |>
   gg_blank(x = life_expectancy,
            y = country,
            col = year,
-           pal = pal_hue[c(2, 1)],
+           pal = pal_cat[c(2, 1)],
            x_include = 0,
            col_legend_place = "r",
            title = "We're living longer",

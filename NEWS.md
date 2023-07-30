@@ -10,6 +10,7 @@
 * Made default legend place simpler: bottom, unless continuous. Otherwise right.
 * Made default `gg_raster` `*_limits` the same as other functions.
 * Added `text` aesthetic in for `plotly::ggplotly`.
+* Breaking: renamed `pal_hue` to `pal_cat` to avoid confusion with the scales function.
 
 # ggblanket 3.0.0
 
