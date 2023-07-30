@@ -42,9 +42,9 @@ install.packages("ggblanket")
 ## Example
 
 ``` r
+library(dplyr)
 library(ggblanket)
 library(palmerpenguins)
-library(dplyr)
 
 penguins |>
   tidyr::drop_na(sex) |> 
@@ -56,12 +56,13 @@ penguins |>
     pal = c("#2596be", "#fc7c24"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" /> <br>
-\## Get started
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" />
+
+## Get started
 
 Click
 [here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html)
-to get started learning how ggblanket works.
+to start learning how ggblanket works.
 
 ## Thanks!
 

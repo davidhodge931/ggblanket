@@ -48,10 +48,10 @@ install.packages("ggblanket")
 ```
 ## Example
 
-```{r, fig.asp = 0.6}
+```{r, fig.asp = 0.66}
+library(dplyr)
 library(ggblanket)
 library(palmerpenguins)
-library(dplyr)
 
 penguins |>
   tidyr::drop_na(sex) |> 
@@ -63,9 +63,10 @@ penguins |>
     pal = c("#2596be", "#fc7c24"))
 ```
 
+
 ## Get started
 
-Click [here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html) to get started learning how ggblanket works.
+Click [here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html) to start learning how ggblanket works.
 
 ## Thanks!
 

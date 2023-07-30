@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Overview
+## How ggblanket works
 
 To simplify ggplot2 visualisation, ggblanket provides:
 
@@ -548,6 +548,6 @@ p1 + p2
 
 ggblanket uses different `alpha` defaults for the different `gg_*` functions. Polygons that generally have no gap or overlap default to 1: `gg_bin_2d`, `gg_contour_filled`, `gg_density_2d_filled`, `gg_hex` - as well as `gg_sf` for polygons with a `col` aesthetic. Polygons that generally overlap default to 0.5: `gg_density`. Polygons that generally have key lines within them also default to 0.5: `gg_boxplot`, `gg_crossbar`, `gg_ribbon` and `gg_smooth`. `gg_label` defaults to 0.05. `gg_blank` has no alpha argument. Other polygons default to 0.9: `gg_area`, `gg_bar`, `gg_col`, `gg_histogram`, `gg_polygon`, `gg_rect`, `gg_tile` and `gg_violin`. For all other contexts, alpha defaults to 1. 
 
-## More information 
+## Further information 
 
 See the other [articles](https://davidhodge931.github.io/ggblanket/articles/) and [reference](https://davidhodge931.github.io/ggblanket/reference/index.html) information on the ggblanket website for further information.
