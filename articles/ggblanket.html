@@ -494,6 +494,15 @@ Therefore, the aesthetics will inherit to any subsequent geoms added.
 Geoms will plot in order. The <code>gg_*</code> function will plot the
 associated geom as the first layer, and then other geoms will be plotted
 on top of it.</p>
+<p>Users need to ensure that the scales built by their <code>gg_*</code>
+function are appropriate for subsequent layers. This is because the plot
+scales are constructed without knowledge of subsequent layers. They are
+built based on the <code>data</code>, <code>x</code>, <code>y</code>,
+<code>*_limits</code>, <code>*_include</code>, <code>facet_scales</code>
+and the underlying <code>stat</code> and <code>position</code> in the
+<code>gg_*</code> function. The <code>stat</code> and
+<code>position</code> is unique to each <code>geom_*</code> layer - it
+does not inherit.</p>
 <p>Note that it is recommended that ggblanket users use the term
 <code>colour</code> within <code>geom_*</code> functions to help keep
 the distinction that the ggblanket <code>col</code> is the merged colour
@@ -522,13 +531,6 @@ use the <code>inherit.aes = FALSE</code> argument.</p>
 <code>col</code>/<code>colour</code> aesthetic in subsequent ggplot2
 layers as <code>colour</code> to help avoid confusion with the merged
 ggblanket <code>col</code> aesthetic.</p>
-<p>The plot scales are constructed without knowledge of subsequent
-layers. The <code>gg_*</code> function builds the x and y scales based
-on the <code>data</code>, <code>x</code>, and <code>y</code> in the
-<code>gg_*</code> function. These scales can be adjusted to accommodate
-subsequent layers using the <code>*_include</code> or
-<code>*_limits</code> arguments. Note for <code>gg_blank</code>, the
-scale is also built based on the <code>stat</code>.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket + ggplot2</span></span>
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
