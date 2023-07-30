@@ -679,9 +679,9 @@ fail by dropping data).</p>
 <span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-26-1.svg" width="70%"></p>
-<p>ggblanket does not drop unused any factor levels from the plot. If
-users wish to drop unused levels they should do by mutating the variable
-prior to plotting
+<p>ggblanket keeps unused factor levels in the plot. If users wish to
+drop unused levels they should do by mutating the variable prior to
+plotting
 (i.e. <code>data |&gt; mutate(var = forcats::fct_drop(var))</code>).
 Similarly, ggblanket requires unquoted variables for it’s aesthetics. If
 you wish to reorder a variable or drop NAs, you should do it likewise
