@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_blue}
 \alias{pal_blue}
-\title{ggblanket default blue colour.}
+\title{Default blue colour.}
 \format{
 An object of class \code{character} of length 1.
 }
@@ -16,7 +16,11 @@ A character vector.
 \description{
 A default blue colour used to colour when there is no col variable.
 }
+\examples{
+scales::show_col(pal_blue)
+
+}
 \references{
-https://blog.datawrapper.de/colors-for-data-vis-style-guides/
+Derived from a Datawrapper blog post by Lisa Charlotte Muth dated 31/03/2022
 }
 \keyword{datasets}

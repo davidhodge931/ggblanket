@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_grey}
 \alias{pal_grey}
-\title{ggblanket default grey colour.}
+\title{Default grey colour.}
 \format{
 An object of class \code{character} of length 1.
 }
@@ -16,7 +16,11 @@ A character vector.
 \description{
 A default grey colour used to colour NA values.
 }
+\examples{
+scales::show_col(pal_grey)
+
+}
 \references{
-https://blog.datawrapper.de/colors-for-data-vis-style-guides/
+Derived from a Datawrapper blog post by Lisa Charlotte Muth dated 31/03/2022
 }
 \keyword{datasets}

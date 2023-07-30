@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_discrete}
 \alias{pal_discrete}
-\title{ggblanket default categorical palette.}
+\title{Default categorical palette.}
 \format{
 An object of class \code{character} of length 7.
 }
@@ -16,7 +16,11 @@ A character vector of hex codes.
 \description{
 A default colour palette used to colour a categorical col variable.
 }
+\examples{
+scales::show_col(pal_discrete)
+
+}
 \references{
-https://blog.datawrapper.de/colors-for-data-vis-style-guides/
+Derived from a Datawrapper blog post by Lisa Charlotte Muth dated 31/03/2022
 }
 \keyword{datasets}
