@@ -7,9 +7,9 @@
 #'
 #' @references
 #' https://blog.datawrapper.de/colors-for-data-vis-style-guides/
-pal_cat <- c("#53B0AE", "#A31414", "#B2C615", "#E37000", "#2B6999", "#ff4676", "#14a35c")
+pal_discrete <- c("#53B0AE", "#A31414", "#B2C615", "#E37000", "#2B6999", "#ff4676", "#14a35c")
 
-#' ggblanket default grey used for NA.
+#' ggblanket default grey colour.
 #'
 #' @description A default grey colour used to colour NA values.
 #'
@@ -20,9 +20,9 @@ pal_cat <- c("#53B0AE", "#A31414", "#B2C615", "#E37000", "#2B6999", "#ff4676", "
 #' https://blog.datawrapper.de/colors-for-data-vis-style-guides/
 pal_grey <- "#88837D"
 
-#' ggblanket default blue used for no colour aesthetic.
+#' ggblanket default blue colour.
 #'
-#' @description A default blue colour used to colour where there is no col variable.
+#' @description A default blue colour used to colour when there is no col variable.
 #'
 #' @return A character vector.
 #' @export

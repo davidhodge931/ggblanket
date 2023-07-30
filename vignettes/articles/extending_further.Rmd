@@ -81,7 +81,7 @@ p3 <- iris |>
   gg_density(
     x = Sepal.Length, 
     col = Species,
-    pal = scales::alpha(pal_cat, 0), 
+    pal = scales::alpha(pal_discrete, 0), 
     col_legend_nrow = 2, 
     col_labels = str_to_sentence)
 
@@ -355,8 +355,8 @@ penguins |>
                    position = "dodge",
                    alpha = 0.9,
                    width = 0.75) +
-  guides(pattern = guide_legend(reverse = TRUE)) + 
-  labs(pattern = "Sex") 
+  guides(pattern = guide_legend(reverse = TRUE)) + #same direction the col scale 
+  labs(pattern = "Sex") #name same as the col_title 
 ```
 
 #### ggrepel
@@ -454,7 +454,7 @@ iris |>
     col_legend_place = "r", 
     col_title = "\nSpecies") + #add space between legends
   ggdensity::geom_hdr(col = NA) +
-  labs(alpha = "Probs")
+  labs(alpha = "Probs")  
 ```
 
 #### ggridges
@@ -471,7 +471,7 @@ ggridges::Catalan_elections |>
     y_expand = c(0, 0), 
     col_title = "",
     col_legend_rev = TRUE, 
-    pal = pal_cat[c(3, 1)],
+    pal = pal_discrete[c(3, 1)],
     x_limits = c(0, 100),
     coord = coord_cartesian(clip = "on")) +
   ggridges::geom_density_ridges(
@@ -524,7 +524,7 @@ d |>
     ymin = dist_min, ymax = dist_max) + #to get scales functionally
   ggdist::stat_lineribbon(aes(ydist = dist)) +
   scale_fill_brewer() +
-  labs(fill = "Level")
+  labs(fill = "Level")  
 ```
 
 #### ggbeeswarm

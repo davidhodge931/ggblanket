@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_grey}
 \alias{pal_grey}
-\title{ggblanket default grey used for NA.}
+\title{ggblanket default grey colour.}
 \format{
 An object of class \code{character} of length 1.
 }

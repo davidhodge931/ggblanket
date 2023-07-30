@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_blue}
 \alias{pal_blue}
-\title{ggblanket default blue used for no colour aesthetic.}
+\title{ggblanket default blue colour.}
 \format{
 An object of class \code{character} of length 1.
 }
@@ -14,7 +14,7 @@ pal_blue
 A character vector.
 }
 \description{
-A default blue colour used to colour where there is no col variable.
+A default blue colour used to colour when there is no col variable.
 }
 \references{
 https://blog.datawrapper.de/colors-for-data-vis-style-guides/
