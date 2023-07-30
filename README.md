@@ -56,9 +56,8 @@ penguins |>
     pal = c("#2596be", "#fc7c24"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" />
-
-## Get started
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" /> <br>
+\## Get started
 
 Click
 [here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html)
@@ -67,5 +66,7 @@ to get started learning how ggblanket works.
 ## Thanks!
 
 Thank you to all authors and contributors to ggplot2, tidyverse, and the
-wider R ecosystem. If you like ggblanket, please give the repository a
-star and help spread the word.
+wider R ecosystem.
+
+If you like ggblanket, please give the repository a star and help spread
+the word.

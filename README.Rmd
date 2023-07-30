@@ -48,7 +48,7 @@ install.packages("ggblanket")
 ```
 ## Example
 
-```{r, fig.asp = 0.66}
+```{r, fig.asp = 0.6}
 library(ggblanket)
 library(palmerpenguins)
 library(dplyr)
@@ -62,7 +62,7 @@ penguins |>
     facet = species,
     pal = c("#2596be", "#fc7c24"))
 ```
-<br>
+
 ## Get started
 
 Click [here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html) to get started learning how ggblanket works.

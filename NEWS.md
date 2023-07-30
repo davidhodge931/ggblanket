@@ -3,10 +3,10 @@
 * Breaking: removed the `stat` argument for all `gg_*` functions except `gg_blank`.
 * Breaking: renamed `pal_hue` to `pal_discrete`.
 * Breaking: renamed `gg_bin2d` to `gg_bin_2d`.
-* Breaking: changed `*_oob` default to `scales::oob_keep`.
+* Breaking: changed `*_oob` default back to `scales::oob_keep`.
 * Improved scales to work better with transformations, limits, breaks etc.
 * Added `gg_contour`, `gg_contour_filled`, `gg_density2d`, `gg_density2d_filled` functions.
-* Made default to not drop any unused factors across all scales and facets.
+* Made default to keep unused factors across all scales and facets.
 * Made default continuous label function to drop trailing zeros.
 * Made default legend place simpler: bottom, unless continuous. Otherwise right.
 * Added `text` aesthetic in for `plotly::ggplotly`.

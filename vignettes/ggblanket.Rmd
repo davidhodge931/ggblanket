@@ -526,7 +526,7 @@ p4 <- economics |>
 (p1 + p2) / (p3 + p4)
 ```
 
-ggblanket does not drop unused any factor levels from the plot. If users wish to drop unused levels they should do by mutating the variable prior to plotting (i.e. `data |> mutate(var = forcats::fct_drop(var))`). Similarly, ggblanket requires unquoted variables for it's aesthetics. If you wish to reorder a variable or drop NAs, you should do it likewise prior to plotting. 
+ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should do by mutating the variable prior to plotting (i.e. `data |> mutate(var = forcats::fct_drop(var))`). Similarly, ggblanket requires unquoted variables for it's aesthetics. If you wish to reorder a variable or drop NAs, you should do it likewise prior to plotting. 
 
 ```{r, fig.asp=0.5}
 p1 <- palmerpenguins::penguins |> 
