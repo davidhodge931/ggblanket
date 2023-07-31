@@ -10,7 +10,6 @@
 * Made default continuous label function to drop trailing zeros.
 * Made default legend place simpler: bottom, unless continuous. Otherwise right.
 * Added `text` aesthetic in for `plotly::ggplotly`.
-* Updated the logo using the hexSticker package, and a method described by Dan Oehm (https://github.com/doehm) to make a scribble with `ggforce::geom_bspline`.
 
 # ggblanket 3.0.0
 
