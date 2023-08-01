@@ -604,8 +604,8 @@ ggblanket <code>col</code> aesthetic.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="other-differences-stats-oobs-clipping-unused-factor-levels-ordering-alpha-etc">12. Other differences: stats, oobs, clipping, unused factor levels,
-ordering, alpha etc<a class="anchor" aria-label="anchor" href="#other-differences-stats-oobs-clipping-unused-factor-levels-ordering-alpha-etc"></a>
+<h3 id="other-differences-stats-oobs-clipping-unused-factor-levels-ordering-etc">12. Other differences: stats, oobs, clipping, unused factor levels,
+ordering etc<a class="anchor" aria-label="anchor" href="#other-differences-stats-oobs-clipping-unused-factor-levels-ordering-etc"></a>
 </h3>
 <p>ggblanket has some other key different defaults to ggplot2, which
 users should be aware of.</p>
@@ -703,6 +703,15 @@ prior to plotting.</p>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-27-1.svg" width="70%"></p>
+<p>ggblanket uses different defaults for colouring. The default
+<code>pal</code> is: * <code><a href="../reference/pal_blue.html">ggblanket::pal_blue</a></code> for where there
+is no <code>col</code> variable * <code><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis::viridis</a></code> for a
+continuous <code>col</code> variable *
+<code><a href="../reference/pal_discrete.html">ggblanket::pal_discrete</a></code> for a discrete <code>col</code>
+variable with 6 or less levels or unique values. Testing suggests this
+is red/green colourblind-safe. * <code><a href="https://scales.r-lib.org/reference/hue_pal.html" class="external-link">scales::hue_pal</a></code> for a
+discrete <code>col</code> variable with more than 6 levels or unique
+values.</p>
 <p>ggblanket uses different <code>alpha</code> defaults for the
 different <code>gg_*</code> functions. Polygons that generally have no
 gap or overlap default to 1: <code>gg_bin_2d</code>,
