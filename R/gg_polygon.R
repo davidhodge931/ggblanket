@@ -1019,6 +1019,7 @@ gg_polygon <- function(
       }
       if (rlang::is_null(pal)) {
         if (stat %in% c("contour_filled", "density2d_filled", "density_2d_filled")) pal <- viridis::viridis(col_n)
+        else if (col_n > length(pal_discrete)) pal <- scales::hue_pal()(col_n)
         else pal <- pal_discrete[1:col_n]
       }
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]

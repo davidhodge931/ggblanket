@@ -118,7 +118,7 @@ p1 + p2
 
 ### 3. A pal argument to customise colours
 
-The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. A named palette can be used to make individual colours stick to particular values.
+The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. A named palette can be used to make individual colours stick to particular values. 
 
 ```{r, fig.asp=0.5}
 # ggplot2
@@ -461,7 +461,7 @@ d_long |>
   geom_point(size = 2) 
 ```
 
-### 12. Other differences: stats, oobs, clipping, unused factor levels, ordering, alpha etc
+### 12. Other differences: stats, oobs, clipping, unused factor levels, ordering etc
 
 ggblanket has some other key different defaults to ggplot2, which users should be aware of.
 
@@ -545,6 +545,12 @@ p2 <- palmerpenguins::penguins |>
 
 p1 + p2
 ```
+
+ggblanket uses different defaults for colouring. The default `pal` is:
+* `ggblanket::pal_blue` for where there is no `col` variable
+* `viridis::viridis` for a continuous `col` variable
+* `ggblanket::pal_discrete` for a discrete `col` variable with 6 or less levels or unique values. Testing suggests this is red/green colourblind-safe.
+* `scales::hue_pal` for a discrete `col` variable with more than 6 levels or unique values.
 
 ggblanket uses different `alpha` defaults for the different `gg_*` functions. Polygons that generally have no gap or overlap default to 1: `gg_bin_2d`, `gg_contour_filled`, `gg_density_2d_filled`, `gg_hex` - as well as `gg_sf` for polygons with a `col` aesthetic. Polygons that generally overlap default to 0.5: `gg_density`. Polygons that generally have key lines within them also default to 0.5: `gg_boxplot`, `gg_crossbar`, `gg_ribbon` and `gg_smooth`. `gg_label` defaults to 0.05. `gg_blank` has no alpha argument. Other polygons default to 0.9: `gg_area`, `gg_bar`, `gg_col`, `gg_histogram`, `gg_polygon`, `gg_rect`, `gg_tile` and `gg_violin`. For all other contexts, alpha defaults to 1. 
 

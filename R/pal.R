@@ -10,7 +10,7 @@ pal_blue <- "#2B6999"
 
 #' Default categorical palette.
 #'
-#' @description A default 6 colour palette used to colour a categorical col variable. Safe for red-green colourblindness.
+#' @description A default 6 colour palette used to colour a categorical col variable. Relatively safe for red-green colourblindness.
 #'
 #' @return A character vector of hex codes.
 #' @export

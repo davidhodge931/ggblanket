@@ -14,7 +14,7 @@ pal_discrete
 A character vector of hex codes.
 }
 \description{
-A default 6 colour palette used to colour a categorical col variable. Safe for red-green colourblindness.
+A default 6 colour palette used to colour a categorical col variable. Relatively safe for red-green colourblindness.
 }
 \examples{
 scales::show_col(pal_discrete)

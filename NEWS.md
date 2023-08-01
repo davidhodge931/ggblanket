@@ -1,7 +1,7 @@
 # ggblanket 3.0.9000
 
 * Breaking: removed the `stat` argument for all `gg_*` functions except `gg_blank`.
-* Breaking: renamed `pal_hue` to `pal_discrete`.
+* Breaking: renamed `pal_hue` to `pal_discrete` and made colours relatively red/green colour-blind safe.
 * Breaking: renamed `gg_bin2d` to `gg_bin_2d`.
 * Breaking: changed `*_oob` default back to `scales::oob_keep`.
 * Improved scales to work better with transformations, limits, breaks etc.
