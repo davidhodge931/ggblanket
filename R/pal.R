@@ -6,23 +6,17 @@
 #' @export
 #' @examples
 #' scales::show_col(pal_blue)
-#'
-#' @references
-#' Derived from a Datawrapper blog post by Lisa Charlotte Muth dated 31/03/2022
 pal_blue <- "#2B6999"
 
 #' Default categorical palette.
 #'
-#' @description A default colour palette used to colour a categorical col variable.
+#' @description A default 6 colour palette used to colour a categorical col variable. Safe for red-green colourblindness.
 #'
 #' @return A character vector of hex codes.
 #' @export
 #' @examples
 #' scales::show_col(pal_discrete)
-#'
-#' @references
-#' Derived from a Datawrapper blog post by Lisa Charlotte Muth dated 31/03/2022
-pal_discrete <- c("#53B0AE", "#A31414", "#B2C615", "#E37000", "#2B6999", "#ff4676", "#14a35c")
+pal_discrete <- c("#69C2C0", "#941111", "#B2C615", "#2B6999", "#D57236", "#F0D9C8")
 
 #' Default grey colour.
 #'
@@ -32,7 +26,4 @@ pal_discrete <- c("#53B0AE", "#A31414", "#B2C615", "#E37000", "#2B6999", "#ff467
 #' @export
 #' @examples
 #' scales::show_col(pal_grey)
-#'
-#' @references
-#' Derived from a Datawrapper blog post by Lisa Charlotte Muth dated 31/03/2022
-pal_grey <- "#88837D"
+pal_grey <- "#7f7f7f"

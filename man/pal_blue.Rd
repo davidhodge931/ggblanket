@@ -18,9 +18,5 @@ A default blue colour used to colour when there is no col variable.
 }
 \examples{
 scales::show_col(pal_blue)
-
-}
-\references{
-Derived from a Datawrapper blog post by Lisa Charlotte Muth dated 31/03/2022
 }
 \keyword{datasets}

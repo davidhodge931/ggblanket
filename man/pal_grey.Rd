@@ -18,9 +18,5 @@ A default grey colour used to colour NA values.
 }
 \examples{
 scales::show_col(pal_grey)
-
-}
-\references{
-Derived from a Datawrapper blog post by Lisa Charlotte Muth dated 31/03/2022
 }
 \keyword{datasets}

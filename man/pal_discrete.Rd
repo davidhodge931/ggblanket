@@ -5,7 +5,7 @@
 \alias{pal_discrete}
 \title{Default categorical palette.}
 \format{
-An object of class \code{character} of length 7.
+An object of class \code{character} of length 6.
 }
 \usage{
 pal_discrete
@@ -14,13 +14,9 @@ pal_discrete
 A character vector of hex codes.
 }
 \description{
-A default colour palette used to colour a categorical col variable.
+A default 6 colour palette used to colour a categorical col variable. Safe for red-green colourblindness.
 }
 \examples{
 scales::show_col(pal_discrete)
-
-}
-\references{
-Derived from a Datawrapper blog post by Lisa Charlotte Muth dated 31/03/2022
 }
 \keyword{datasets}
