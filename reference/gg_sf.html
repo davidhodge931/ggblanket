@@ -186,11 +186,11 @@
 
 
 <dt>col_continuous</dt>
-<dd><p>Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".</p></dd>
+<dd><p>For a continuous col variable, the type of colouring. Either "gradient" or "steps". Defaults to "gradient".</p></dd>
 
 
 <dt>col_include</dt>
-<dd><p>For a numeric or date variable, any values that the scale should include (e.g. 0).</p></dd>
+<dd><p>For a continuous col variable, any values that the limits should encompass (e.g. 0).</p></dd>
 
 
 <dt>col_labels</dt>
@@ -198,7 +198,7 @@
 
 
 <dt>col_legend_place</dt>
-<dd><p>The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).</p></dd>
+<dd><p>The place for the legend. Either "bottom", "right", "top" or "left". Or just the first letter of each.</p></dd>
 
 
 <dt>col_legend_ncol</dt>
@@ -218,7 +218,7 @@
 
 
 <dt>col_oob</dt>
-<dd><p>A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.</p></dd>
+<dd><p>For a continuous col variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.</p></dd>
 
 
 <dt>col_rescale</dt>
@@ -230,7 +230,7 @@
 
 
 <dt>col_trans</dt>
-<dd><p>For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").</p></dd>
+<dd><p>For a numeric col variable, a transformation object (e.g. "log10", "sqrt" or "reverse").</p></dd>
 
 
 <dt>facet_labels</dt>

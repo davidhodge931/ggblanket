@@ -489,11 +489,11 @@ arguments from <code>...</code> to add are <code>size</code>,
 </h3>
 <p>Users can make plots with multiple layers with ggblanket by adding on
 <code>ggplot2::geom_*</code> layers. The <code>gg_*</code> function puts
-the aesthetics within the wrapped <code>ggplot</code> function.
-Therefore, the aesthetics will inherit to any subsequent geoms added.
-Geoms will plot in order. The <code>gg_*</code> function will plot the
-associated geom as the first layer, and then other geoms will be plotted
-on top of it.</p>
+the aesthetic variables (i.e. x, y, col) within the wrapped
+<code>ggplot</code> function. Therefore, these aesthetics will inherit
+to any subsequent layers added. Geoms will plot in order. The
+<code>gg_*</code> function will plot the associated geom as the first
+layer, and then other geoms will be plotted on top of it.</p>
 <p>Users need to ensure that the scales built by their <code>gg_*</code>
 function are appropriate for subsequent layers. This is because the plot
 scales are constructed without knowledge of subsequent layers. They are
@@ -708,10 +708,10 @@ prior to plotting.</p>
 is no <code>col</code> variable * <code><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis::viridis</a></code> for a
 continuous <code>col</code> variable *
 <code><a href="../reference/pal_discrete.html">ggblanket::pal_discrete</a></code> for a discrete <code>col</code>
-variable with 6 or less levels or unique values. Testing suggests this
-is red/green colourblind-safe. * <code><a href="https://scales.r-lib.org/reference/hue_pal.html" class="external-link">scales::hue_pal</a></code> for a
-discrete <code>col</code> variable with more than 6 levels or unique
-values.</p>
+variable with 5 or less levels (or unique values if not ordered).
+Testing suggests this is red/green colourblind-safe. *
+<code><a href="https://scales.r-lib.org/reference/hue_pal.html" class="external-link">scales::hue_pal</a></code> for a discrete <code>col</code> variable
+with more than 5 levels (or unique values if not ordered).</p>
 <p>ggblanket uses different <code>alpha</code> defaults for the
 different <code>gg_*</code> functions. Polygons that generally have no
 gap or overlap default to 1: <code>gg_bin_2d</code>,
@@ -727,6 +727,15 @@ within them also default to 0.5: <code>gg_boxplot</code>,
 <code>gg_histogram</code>, <code>gg_polygon</code>,
 <code>gg_rect</code>, <code>gg_tile</code> and <code>gg_violin</code>.
 For all other contexts, alpha defaults to 1.</p>
+<p>Other deviations:</p>
+<ul>
+<li>
+<code>*_title</code> is essentially to <code>labs(* = ...)</code> or
+<code>scale_*(name = ...)</code>.</li>
+<li>
+<code>*_include</code> is essentially equivalent to
+<code>*_expand_limits</code>.</li>
+</ul>
 </div>
 </div>
 <div class="section level2">

@@ -197,7 +197,7 @@
 
 
 <dt>x_include</dt>
-<dd><p>For a numeric or date variable, any values that the scale should include (e.g. 0).</p></dd>
+<dd><p>For a continuous x variable, any values that the limits should encompass (e.g. 0).</p></dd>
 
 
 <dt>x_labels</dt>
@@ -209,7 +209,7 @@
 
 
 <dt>x_oob</dt>
-<dd><p>A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.</p></dd>
+<dd><p>For a continuous x variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.</p></dd>
 
 
 <dt>x_sec_axis</dt>
@@ -221,7 +221,7 @@
 
 
 <dt>x_trans</dt>
-<dd><p>For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").</p></dd>
+<dd><p>For a numeric x variable, a transformation object (e.g. "log10", "sqrt" or "reverse").</p></dd>
 
 
 <dt>y_breaks</dt>
@@ -237,7 +237,7 @@
 
 
 <dt>y_include</dt>
-<dd><p>For a numeric or date variable, any values that the scale should include (e.g. 0).</p></dd>
+<dd><p>For a continuous y variable, any values that the limits should encompass (e.g. 0).</p></dd>
 
 
 <dt>y_labels</dt>
@@ -249,7 +249,7 @@
 
 
 <dt>y_oob</dt>
-<dd><p>A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.</p></dd>
+<dd><p>For a continuous y variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.</p></dd>
 
 
 <dt>y_sec_axis</dt>
@@ -261,7 +261,7 @@
 
 
 <dt>y_trans</dt>
-<dd><p>For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").</p></dd>
+<dd><p>For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").</p></dd>
 
 
 <dt>col_labels</dt>
@@ -269,7 +269,7 @@
 
 
 <dt>col_legend_place</dt>
-<dd><p>The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).</p></dd>
+<dd><p>The place for the legend. Either "bottom", "right", "top" or "left". Or just the first letter of each.</p></dd>
 
 
 <dt>col_legend_ncol</dt>
