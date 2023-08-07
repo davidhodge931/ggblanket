@@ -727,14 +727,15 @@ within them also default to 0.5: <code>gg_boxplot</code>,
 <code>gg_histogram</code>, <code>gg_polygon</code>,
 <code>gg_rect</code>, <code>gg_tile</code> and <code>gg_violin</code>.
 For all other contexts, alpha defaults to 1.</p>
-<p>Other deviations:</p>
+<p>Other differences:</p>
 <ul>
 <li>
-<code>*_title</code> is essentially to <code>labs(* = ...)</code> or
-<code>scale_*(name = ...)</code>.</li>
+<code>*_title</code> is equivalent to
+<code>ggplot2::labs(* = ...)</code> or
+<code>ggplot2::scale_*(name = ...)</code>.</li>
 <li>
-<code>*_include</code> is essentially equivalent to
-<code>*_expand_limits</code>.</li>
+<code>*_include</code> works in a similar way to
+<code>ggplot2::expand_limits(* = ...)</code>.</li>
 </ul>
 </div>
 </div>
