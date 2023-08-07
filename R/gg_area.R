@@ -1,6 +1,6 @@
 #' @title Area ggplot
 #'
-#' @description Create a area ggplot with a wrapper around ggplot2::geom_area(stat = "align", ...).
+#' @description Create an area ggplot with a wrapper around ggplot2::geom_area(stat = "align", ...).
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.

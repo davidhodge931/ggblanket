@@ -189,7 +189,7 @@ gg_area(
 A ggplot object.
 }
 \description{
-Create a area ggplot with a wrapper around ggplot2::geom_area(stat = "align", ...).
+Create an area ggplot with a wrapper around ggplot2::geom_area(stat = "align", ...).
 }
 \examples{
 ggplot2::economics |>
