@@ -10,13 +10,13 @@ pal_blue <- "#2B6999"
 
 #' Default categorical palette.
 #'
-#' @description A default 6 colour palette used to colour a categorical col variable. Relatively safe for red-green colourblindness.
+#' @description A default colour blind safe 5 colour palette used to colour a categorical col variable.
 #'
 #' @return A character vector of hex codes.
 #' @export
 #' @examples
 #' scales::show_col(pal_discrete)
-pal_discrete <- c("#69C2C0", "#941111", "#B2C615", "#2B6999", "#D57236", "#F0D9C8")
+pal_discrete <- c("#69C2C0", "#941111", "#B2C615", "#2B6999", "#D57236")
 
 #' Default grey colour.
 #'

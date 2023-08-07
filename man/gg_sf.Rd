@@ -87,13 +87,13 @@ gg_sf(
 
 \item{col_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
-\item{col_continuous}{Type of colouring for a continuous variable. Either "gradient" or "steps". Defaults to "steps" - or just the first letter of these e.g. "g".}
+\item{col_continuous}{For a continuous col variable, the type of colouring. Either "gradient" or "steps". Defaults to "gradient".}
 
-\item{col_include}{For a numeric or date variable, any values that the scale should include (e.g. 0).}
+\item{col_include}{For a continuous col variable, any values that the limits should encompass (e.g. 0).}
 
 \item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
-\item{col_legend_place}{The place for the legend. Either "b" (bottom), "r" (right), "t" (top) or "l" (left).}
+\item{col_legend_place}{The place for the legend. Either "bottom", "right", "top" or "left". Or just the first letter of each.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
@@ -103,13 +103,13 @@ gg_sf(
 
 \item{col_limits}{A vector to determine the limits of the colour scale.}
 
-\item{col_oob}{A scales::oob_* function that handles values outside of limits for continuous scales. Defaults to scales::oob_keep.}
+\item{col_oob}{For a continuous col variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.}
 
 \item{col_rescale}{For a continuous col variable, a scales::rescale function.}
 
 \item{col_title}{Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
 
-\item{col_trans}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
+\item{col_trans}{For a numeric col variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
 \item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).}
 
