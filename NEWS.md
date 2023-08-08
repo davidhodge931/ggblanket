@@ -1,4 +1,4 @@
-# ggblanket 3.0.9000
+# ggblanket 4.0.0
 
 * Breaking: removed the `stat` argument for all `gg_*` functions except `gg_blank`.
 * Breaking: renamed `pal_hue` to `pal_discrete` and made colours relatively red/green colour-blind safe.
