@@ -16,6 +16,8 @@ pal_blue <- "#2B6999"
 #' @export
 #' @examples
 #' scales::show_col(pal_discrete)
+#'
+#' @references Derived from a Datawrapper blog dated 30/03/2022 by Lisa Charlotte Muth.
 pal_discrete <- c("#69C2C0", "#941111", "#B2C615", "#2B6999", "#D57236")
 
 #' Default grey colour.

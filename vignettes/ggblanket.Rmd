@@ -151,7 +151,8 @@ p2 <- penguins |>
     x = species, 
     y = body_mass_g, 
     col = sex, 
-    pal = c("#2596be", "#fc7c24"))
+    pal = c("#2596be", "#fc7c24")
+    )
 
 p1 + p2
 ```
@@ -289,7 +290,8 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    pal = c("#2596be", "#fc7c24"))
+    pal = c("#2596be", "#fc7c24")
+    )
 ```
 
 ```{r, fig.asp=0.8}
@@ -304,7 +306,8 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    pal = c("#2596be", "#fc7c24"))
+    pal = c("#2596be", "#fc7c24")
+    )
 theme_set(theme_grey()) #unset the theme
 ```
 

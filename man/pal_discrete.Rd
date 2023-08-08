@@ -18,5 +18,9 @@ A default colour blind safe 5 colour palette used to colour a categorical col va
 }
 \examples{
 scales::show_col(pal_discrete)
+
+}
+\references{
+Derived from a Datawrapper blog dated 30/03/2022 by Lisa Charlotte Muth.
 }
 \keyword{datasets}
