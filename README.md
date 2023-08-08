@@ -52,7 +52,7 @@ penguins |>
   gg_histogram(
     x = flipper_length_mm,
     col = sex,
-    facet = species,
+    facet = species, 
     pal = c("#2596be", "#fc7c24"))
 ```
 
