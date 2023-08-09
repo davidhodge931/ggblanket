@@ -9,7 +9,7 @@
 * Made default to keep unused factors across all scales and facets.
 * Made default continuous label function to drop trailing zeros.
 * Made default legend place simpler: bottom, unless continuous. Otherwise right.
-* Added `text` aesthetic in for `plotly::ggplotly`.
+* Added `text` aesthetic in for `plotly::ggplotly`. 
 
 # ggblanket 3.0.0
 
