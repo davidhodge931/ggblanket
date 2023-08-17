@@ -45,6 +45,7 @@ Config/Needs/website:
     distributional,
     glue,
     pkgdown,
+    farver,
     ggblend,
     ggbeeswarm,
     ggdensity,

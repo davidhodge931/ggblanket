@@ -233,10 +233,11 @@ showtext::showtext_auto(enable = FALSE)
 A method described by @teunbrand [here](https://github.com/teunbrand/ggplot_tricks) can be used to add text to polygons that is either black or white dependent on the colour of the polygon. 
 
 ```{r}
+#choose any dark and light colours that go with your theme
 contrast <- function(colour) {
-  out   <- rep("black", length(colour))
+  out   <- rep("#121B24", length(colour)) 
   light <- farver::get_channel(colour, "l", space = "hcl")
-  out[light < 50] <- "white"
+  out[light < 50] <- "#E6ECF2" #use "#BBCCDD" for dark_mode 
   out
 }
 
@@ -252,8 +253,7 @@ penguins |>
     y = species,
     col = sex,
     position = "dodge",
-    width = 0.75
-  ) +
+    width = 0.75) +
   geom_text(
     aes(label = round(flipper_length_mm, 0),
       x = flipper_length_mm - (max(flipper_length_mm) * 0.05),!!!autocontrast),
