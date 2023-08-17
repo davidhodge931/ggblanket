@@ -25,8 +25,9 @@ To extend ggblanket further, users can:
 3. Use non-supported aesthetics
 4. Visualise spatial data
 5. Use different fonts
-6. Create custom wrapper functions
-7. Work with extension packages 
+6. Add auto-contrast text to polygons
+7. Create custom wrapper functions
+8. Work with extension packages 
 
 ```{r setup}
 library(dplyr)
@@ -227,7 +228,43 @@ penguins |>
 showtext::showtext_auto(enable = FALSE)
 ```
 
-### 6. Create custom wrapper functions
+### 6. Add auto-contrast text to polygons 
+
+A method described by @teunbrand [here](https://github.com/teunbrand/ggplot_tricks) can be used to add text to polygons that is either black or white dependent on the colour of the polygon. 
+
+```{r}
+contrast <- function(colour) {
+  out   <- rep("black", length(colour))
+  light <- farver::get_channel(colour, "l", space = "hcl")
+  out[light < 50] <- "white"
+  out
+}
+
+autocontrast <- aes(colour = after_scale(contrast(fill)))
+
+penguins |>
+  group_by(sex, species) |>
+  summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
+  tidyr::drop_na(sex) |>
+  mutate(species = stringr::str_to_sentence(species)) |>
+  gg_col(
+    x = flipper_length_mm,
+    y = species,
+    col = sex,
+    position = "dodge",
+    width = 0.75
+  ) +
+  geom_text(
+    aes(
+      label = round(flipper_length_mm, 0),
+      x = flipper_length_mm - (max(flipper_length_mm) * 0.05),!!!autocontrast
+    ),
+    size = 3.66,
+    position = position_dodge(width = 0.75)
+  )
+```
+
+### 7. Create custom wrapper functions
 
 You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
@@ -257,7 +294,7 @@ iris |>
     col = Species)
 ```
 
-### 7. Work with extension packages
+### 8. Work with extension packages
 
 ggblanket can work with a lot of extension packages. 
 
