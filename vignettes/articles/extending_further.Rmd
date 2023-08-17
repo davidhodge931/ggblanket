@@ -235,9 +235,9 @@ A method developed by @teunbrand [here](https://github.com/teunbrand/ggplot_tric
 ```{r}
 #choose any dark and light colours that go with your theme
 contrast <- function(colour) {
-  out   <- rep("#121B24", length(colour)) #use "#1f2f3e" for dark_mode
+  out   <- rep("#121B24", length(colour)) #use "#1F2F3E" for dark_mode
   light <- farver::get_channel(colour, "l", space = "hcl")
-  out[light < 50] <- "#fcfdfe" #use "#bbccdd" for dark_mode 
+  out[light < 50] <- "#FCFDFE" #use "#BBCCDD" for dark_mode 
   out
 }
 
