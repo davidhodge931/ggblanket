@@ -230,7 +230,7 @@ showtext::showtext_auto(enable = FALSE)
 
 ### 6. Add auto-contrast text to polygons 
 
-A method described by @teunbrand [here](https://github.com/teunbrand/ggplot_tricks) can be used to add text to polygons that is either black or white dependent on the colour of the polygon. 
+A method developed by @teunbrand [here](https://github.com/teunbrand/ggplot_tricks) can be used to colour text based on the lightness of underlying polygons.  
 
 ```{r}
 #choose any dark and light colours that go with your theme
