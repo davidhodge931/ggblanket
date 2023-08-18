@@ -162,7 +162,8 @@ gg_bar2 <- function(
       ),
       na_if_inf))
 
-  #get classes
+  #get classes & process for ordering categories
+
   x_null <- rlang::quo_is_null(x)
   x_character <- is.character(rlang::eval_tidy(x, data))
   x_logical <- is.logical(rlang::eval_tidy(x, data))
@@ -183,28 +184,31 @@ gg_bar2 <- function(
   y_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(y, data))
   y_time <- hms::is_hms(rlang::eval_tidy(y, data))
 
-  if (y_forcat & (x_null | x_numeric | x_date | x_datetime | x_time)) {
-    flipped <- TRUE
-  }
-  else flipped <- FALSE
+  if (stat != "sf") {
 
-  if (x_character | x_logical) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!x, function(x) factor(x)))
-
-    if (!flipped & x_logical) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!x, function(x) forcats::fct_rev(x)))
+    if (y_forcat & (x_null | x_numeric | x_date | x_datetime | x_time)) {
+      flipped <- TRUE
     }
-  }
+    else flipped <- FALSE
 
-  if (y_character | y_logical) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!y, function(x) factor(x)))
-
-    if (flipped & !y_logical) {
+    if (x_character | x_logical) {
       data <- data %>%
-        dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
+        dplyr::mutate(dplyr::across(!!x, function(x) factor(x)))
+
+      if (!flipped & x_logical) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!x, function(x) forcats::fct_rev(x)))
+      }
+    }
+
+    if (y_character | y_logical) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!y, function(x) factor(x)))
+
+      if (flipped & !y_logical) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
+      }
     }
   }
 
@@ -222,9 +226,22 @@ gg_bar2 <- function(
     data <- data %>%
       dplyr::mutate(dplyr::across(!!col, function(x) factor(x)))
   }
-  if ((flipped & !col_logical) | (!flipped & col_logical)) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
+
+  if (stat != "sf") {
+    if (!(!col_null &
+          (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))))) {
+
+      if ((flipped & !col_logical) | (!flipped & col_logical)) {
+        data <- data %>%
+          dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
+      }
+    }
+  }
+  else if (stat == "sf") {
+    if ((flipped & !col_logical) | (!flipped & col_logical)) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
+    }
   }
 
   facet_null <- rlang::quo_is_null(facet)
@@ -239,25 +256,6 @@ gg_bar2 <- function(
     if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
       theme <- light_mode()
     }
-  }
-
-  #process for horizontal
-  if (stat != "sf") {
-    # if (y_character) {
-    #   data <- data %>%
-    #     dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(factor(x))))
-    # }
-
-    # if (col_forcat) {
-    #   if (y_forcat & !x_forcat) {
-    #     if (!(!col_null &
-    #           (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))))) {
-    #
-    #       data <- data %>%
-    #         dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
-    #     }
-    #   }
-    # }
   }
 
   ##############################################################################
