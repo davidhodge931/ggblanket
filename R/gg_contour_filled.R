@@ -138,7 +138,7 @@ gg_contour_filled <- function(
   data <- data %>%
     dplyr::ungroup() %>%
     dplyr::mutate(dplyr::across(
-      c(!!x, !!y),
+      c(!!x, !!y, !!z),
       na_if_inf))
 
   #get classes

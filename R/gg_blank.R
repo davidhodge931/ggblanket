@@ -211,6 +211,7 @@ gg_blank <- function(
         !!xmax, !!ymax,
         !!xend, !!yend,
         !!xlower, !!xmiddle, !!xupper, !!ylower, !!ymiddle, !!yupper,
+        !!z,
         !!col
       ),
       na_if_inf))

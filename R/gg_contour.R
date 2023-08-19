@@ -126,7 +126,7 @@ gg_contour <- function(
   data <- data %>%
     dplyr::ungroup() %>%
     dplyr::mutate(dplyr::across(
-      c(!!x, !!y),
+      c(!!x, !!y, !!z),
       na_if_inf))
 
   #get classes
