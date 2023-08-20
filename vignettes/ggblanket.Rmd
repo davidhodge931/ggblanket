@@ -534,17 +534,13 @@ ggblanket keeps unused factor levels in the plot. If users wish to drop unused l
 ```{r, fig.asp=0.5}
 p1 <- palmerpenguins::penguins |> 
   gg_jitter(x = sex, 
-            y = body_mass_g,
-            col = sex, 
-            col_legend_place = "n")
+            y = body_mass_g)
 
 p2 <- palmerpenguins::penguins |> 
   mutate(sex = factor(sex, levels = c("male", "female"))) |> 
   tidyr::drop_na(sex) |> 
   gg_jitter(x = sex, 
-            y = body_mass_g, 
-            col = sex, 
-            col_legend_place = "n")
+            y = body_mass_g)
 
 p1 + p2
 ```

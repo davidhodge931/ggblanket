@@ -247,7 +247,6 @@ gg_bar2 <- function(
       dplyr::mutate(dplyr::across(!!col, function(x) factor(x, levels = c(FALSE, TRUE))))
   }
 
-
   if (col_character) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!col, function(x) factor(x)))

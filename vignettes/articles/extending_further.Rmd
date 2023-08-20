@@ -513,6 +513,17 @@ ggridges::Catalan_elections |>
     col = "white")
 ```
 
+#### ggbeeswarm
+
+The ggbeeswarm package can be used to create scatter plots that avoid overlapping points.
+
+```{r}
+penguins |> 
+  gg_blank(x = species, 
+           y = body_mass_g) + 
+  ggbeeswarm::geom_quasirandom(colour = pal_blue)
+```
+
 #### ggdist
 
 The ggdist package enables the visualisation of uncertainty. The key to making this work with ggblanket is ensuring that `gg_blank` builds the distribution scale correctly. You can hack this by adding `*min` and `*max` aesthetics of a very low and very high quantile of the distributions. However, it might be easier to just use ggplot2 here. 
@@ -551,25 +562,14 @@ d <- tibble(x = 1:10,
   mutate(dist = distributional::dist_normal(x, sd)) 
 
 d |>
-  mutate(dist_min = quantile(dist, 0.001), 
-         dist_max = quantile(dist, 0.999)) |> #to get scales functionally
+  mutate(dist_min = quantile(dist, 0.05), 
+         dist_max = quantile(dist, 0.95)) |> #to get scales functionally
   gg_blank(
     x = x,
     ymin = dist_min, ymax = dist_max) + #to get scales functionally
   ggdist::stat_lineribbon(aes(ydist = dist)) +
   scale_fill_brewer() +
   labs(fill = "Level")  
-```
-
-#### ggbeeswarm
-
-The ggbeeswarm package can be used to create scatter plots that avoid overlapping points.
-
-```{r}
-penguins |> 
-  gg_blank(x = species, 
-           y = body_mass_g) + 
-  ggbeeswarm::geom_quasirandom(colour = pal_blue)
 ```
 
 #### plotly::ggplotly
@@ -585,7 +585,6 @@ p <- diamonds |>
   gg_col(
     x = color,
     y = count,
-    col = color,
     text = text,
     width = 0.75,
     theme = light_mode(base_family = "arial"))
@@ -601,15 +600,16 @@ The ggiraph package enables interactive plots.
 p <- diamonds |>
   gg_blank(
     x = color,
-    col = color,
-    width = 0.75,
     y_include = 0,
-    col_legend_nrow = 1,
     stat = "count", 
     theme = light_mode(base_family = "arial", base_size = 9)) +
   ggiraph::geom_bar_interactive(
     aes(tooltip = after_stat(count), 
-        data_id = color), width = 0.75)
+        data_id = color), 
+    width = 0.75, 
+    col = pal_blue, 
+    fill = pal_blue, 
+    alpha = 0.9)
 
 ggiraph::girafe(
   ggobj = p, 
