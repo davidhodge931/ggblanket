@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_discrete}
 \alias{pal_discrete}
-\title{Default categorical palette.}
+\title{Default colour-blind safe categorical palette with 5 colours.}
 \format{
 An object of class \code{character} of length 5.
 }
@@ -14,7 +14,7 @@ pal_discrete
 A character vector of hex codes.
 }
 \description{
-A default colour blind safe 5 colour palette used to colour a categorical col variable.
+The default colour blind safe 5 colour palette used to colour a categorical col variable.
 }
 \examples{
 scales::show_col(pal_discrete)

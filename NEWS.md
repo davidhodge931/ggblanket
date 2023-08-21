@@ -2,6 +2,7 @@
 
 * Breaking: made horizontal y characters and factors plot values from low at bottom to high at top.  
 * Made plot order logical variables with `TRUE` first.  
+* Added `pal_discrete2` with 6 colours for a light background theme.
 
 # ggblanket 4.0.0
 

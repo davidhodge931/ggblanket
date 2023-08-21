@@ -14,7 +14,7 @@ pal_grey
 A character vector.
 }
 \description{
-A default grey colour used to colour NA values.
+The default grey colour used to colour NA values.
 }
 \examples{
 scales::show_col(pal_grey)
