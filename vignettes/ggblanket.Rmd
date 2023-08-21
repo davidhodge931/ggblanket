@@ -320,7 +320,7 @@ Where the orientation is normal (i.e. vertical):
 -   Default categorical (or numeric transformed) y scale limits and expanding are as per ggplot2 defaults
 -   Default removal of vertical gridlines
 
-It does the opposite where the orientation is horizontal (and also keeps y categorical values in correct order).
+It does the opposite where the orientation is horizontal. 
 
 Note this symmetry approach does _not_ apply:
 * if a transformation other than identity or reverse is applied to x or y scales.
@@ -529,21 +529,27 @@ p4 <- economics |>
 (p1 + p2) / (p3 + p4)
 ```
 
-ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should do by mutating the variable prior to plotting (i.e. `data |> mutate(var = forcats::fct_drop(var))`). Similarly, ggblanket requires unquoted variables for it's aesthetics. If you wish to reorder a variable or drop NAs, you should do it likewise prior to plotting. 
+ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should do by mutating the variable prior to plotting (i.e. `data |> mutate(var = forcats::fct_drop(var))`). Similarly, ggblanket requires unquoted variables for it's aesthetics. If you wish to reorder or reverse a categorical variable or drop NAs, you should do it likewise prior to plotting. 
 
 ```{r, fig.asp=0.5}
 p1 <- palmerpenguins::penguins |> 
   gg_jitter(x = sex, 
-            y = body_mass_g)
+            y = body_mass_g, 
+            col = sex, 
+            col_legend_place = "n")
 
 p2 <- palmerpenguins::penguins |> 
   mutate(sex = factor(sex, levels = c("male", "female"))) |> 
   tidyr::drop_na(sex) |> 
   gg_jitter(x = sex, 
-            y = body_mass_g)
+            y = body_mass_g,
+            col = sex, 
+            col_legend_place = "n")
 
 p1 + p2
 ```
+
+ggblanket also aligns y character and factor y values from top to bottom, where ggplot2 does the opposite. This is with the intention that alphabetical order is maintained for characters (and factors with  default alphabetical levels). Where this is not what you want, reorder or reverse the variable prior to plotting. 
 
 ggblanket uses different defaults for colouring. The default `pal` is:
 * `ggblanket::pal_blue` for where there is no `col` variable

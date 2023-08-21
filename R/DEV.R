@@ -252,9 +252,11 @@ gg_bar2 <- function(
       dplyr::mutate(dplyr::across(!!col, function(x) factor(x)))
   }
 
-  if ((flipped & !col_logical)) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
+  if (!(identical(col, y))) {
+    if ((flipped & !col_logical)) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
+    }
   }
 
   if (facet_logical) {
