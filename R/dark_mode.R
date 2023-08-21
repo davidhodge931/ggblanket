@@ -33,7 +33,7 @@
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' theme_set(light_mode())
+#' theme_set(dark_mode())
 #'
 #' penguins |>
 #'   gg_point(
