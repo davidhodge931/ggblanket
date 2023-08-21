@@ -11,8 +11,6 @@
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param text Unquoted text aesthetic variable.
-#' @param x Unquoted x aesthetic variable.
-#' @param y Unquoted y aesthetic variable.
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
@@ -100,8 +98,6 @@ gg_rect <- function(
     facet2 = NULL,
     group = NULL,
     text = NULL,
-    x = NULL,
-    y = NULL,
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
@@ -161,8 +157,6 @@ gg_rect <- function(
   stat <- "identity"
 
   #quote
-  x <- rlang::enquo(x)
-  y <- rlang::enquo(y)
   col <- rlang::enquo(col)
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
@@ -171,7 +165,6 @@ gg_rect <- function(
 
   xmin <- rlang::enquo(xmin)
   xmax <- rlang::enquo(xmax)
-
   ymin <- rlang::enquo(ymin)
   ymax <- rlang::enquo(ymax)
 
@@ -179,64 +172,56 @@ gg_rect <- function(
   data <- data %>%
     dplyr::ungroup() %>%
     dplyr::mutate(dplyr::across(
-      c(!!x, !!y,
-        !!xmin, !!ymin,
+      c(!!xmin, !!ymin,
         !!xmax, !!ymax,
         !!col
       ),
       na_if_inf))
 
   #get classes
-  x_null <- rlang::quo_is_null(x) & rlang::quo_is_null(xmin) & rlang::quo_is_null(xmax)
-  x_character <- is.character(rlang::eval_tidy(x, data))
-  x_logical <- is.logical(rlang::eval_tidy(x, data))
-  x_factor <- is.factor(rlang::eval_tidy(x, data))
-  x_forcat <- x_character | x_factor | x_logical
+  x_null <- FALSE
+  x_character <- FALSE
+  x_logical <- FALSE
+  x_factor <- FALSE
+  x_forcat <- FALSE
   x_numeric <- {
-    is.numeric(rlang::eval_tidy(x, data)) |
-      is.numeric(rlang::eval_tidy(xmin, data)) |
-      is.numeric(rlang::eval_tidy(xmax, data))
+    is.numeric(rlang::eval_tidy(xmin, data)) |
+    is.numeric(rlang::eval_tidy(xmax, data))
   }
   x_date <- {
-    lubridate::is.Date(rlang::eval_tidy(x, data)) |
-      lubridate::is.Date(rlang::eval_tidy(xmin, data)) |
-      lubridate::is.Date(rlang::eval_tidy(xmax, data))
+    lubridate::is.Date(rlang::eval_tidy(xmin, data)) |
+    lubridate::is.Date(rlang::eval_tidy(xmax, data))
   }
   x_datetime <- {
-    lubridate::is.POSIXct(rlang::eval_tidy(x, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(xmin, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(xmax, data))
+    lubridate::is.POSIXct(rlang::eval_tidy(xmin, data)) |
+    lubridate::is.POSIXct(rlang::eval_tidy(xmax, data))
   }
   x_time <- {
-    hms::is_hms(rlang::eval_tidy(x, data)) |
-      hms::is_hms(rlang::eval_tidy(xmin, data)) |
-      hms::is_hms(rlang::eval_tidy(xmax, data))
+    hms::is_hms(rlang::eval_tidy(xmin, data)) |
+    hms::is_hms(rlang::eval_tidy(xmax, data))
   }
 
   # y_null <- rlang::quo_is_null(y)
-  y_null <- rlang::quo_is_null(y) & rlang::quo_is_null(ymin) & rlang::quo_is_null(ymax)
-  y_character <- is.character(rlang::eval_tidy(y, data))
-  y_logical <- is.logical(rlang::eval_tidy(y, data))
-  y_factor <- is.factor(rlang::eval_tidy(y, data))
-  y_forcat <- y_character | y_factor | y_logical
+  y_null <- FALSE
+  y_character <- FALSE
+  y_logical <- FALSE
+  y_factor <- FALSE
+  y_forcat <- FALSE
   y_numeric <- {
-    is.numeric(rlang::eval_tidy(y, data)) |
-      is.numeric(rlang::eval_tidy(ymin, data)) |
-      is.numeric(rlang::eval_tidy(ymax, data))
+    is.numeric(rlang::eval_tidy(ymin, data)) |
+    is.numeric(rlang::eval_tidy(ymax, data))
   }
   y_date <- {
-    lubridate::is.Date(rlang::eval_tidy(y, data)) |
-      lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
-      lubridate::is.Date(rlang::eval_tidy(ymax, data))
+    lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
+    lubridate::is.Date(rlang::eval_tidy(ymax, data))
   }
   y_datetime <- {
-    lubridate::is.POSIXct(rlang::eval_tidy(y, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(ymin, data))
+    lubridate::is.POSIXct(rlang::eval_tidy(ymin, data)) |
+    lubridate::is.POSIXct(rlang::eval_tidy(ymax, data))
   }
   y_time <- {
-    hms::is_hms(rlang::eval_tidy(y, data)) |
-      hms::is_hms(rlang::eval_tidy(ymin, data)) |
-      hms::is_hms(rlang::eval_tidy(ymax, data))
+    hms::is_hms(rlang::eval_tidy(ymin, data)) |
+    hms::is_hms(rlang::eval_tidy(ymax, data))
   }
 
   col_null <- rlang::quo_is_null(col)
@@ -255,7 +240,7 @@ gg_rect <- function(
   facet2_logical <- is.logical(rlang::eval_tidy(facet2, data))
 
   ##############################################################################
-  #Generic code: part 1 (adjust for gg_sf)
+  #Generic code: part 1 (adjust for gg_sf & gg_rect)
   ##############################################################################
 
   #get default theme if global theme not set
@@ -271,19 +256,19 @@ gg_rect <- function(
   }
   else flipped <- FALSE
 
-  if (x_logical) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!x, function(x) factor(x, levels = c(TRUE, FALSE))))
-  }
-
-  if (y_logical & !flipped) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!y, function(x) factor(x, levels = c(TRUE, FALSE))))
-  }
-  else if (y_logical & flipped) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!y, function(x) factor(x, levels = c(FALSE, TRUE))))
-  }
+  # if (x_logical) {
+  #   data <- data %>%
+  #     dplyr::mutate(dplyr::across(!!x, function(x) factor(x, levels = c(TRUE, FALSE))))
+  # }
+  #
+  # if (y_logical & !flipped) {
+  #   data <- data %>%
+  #     dplyr::mutate(dplyr::across(!!y, function(x) factor(x, levels = c(TRUE, FALSE))))
+  # }
+  # else if (y_logical & flipped) {
+  #   data <- data %>%
+  #     dplyr::mutate(dplyr::across(!!y, function(x) factor(x, levels = c(FALSE, TRUE))))
+  # }
 
   if (col_logical & !flipped) {
     data <- data %>%
@@ -322,8 +307,8 @@ gg_rect <- function(
     if (!col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          y = !!y,
+          # x = !!x,
+          # y = !!y,
           col = !!col,
           fill = !!col,
           group = !!group,
@@ -336,8 +321,8 @@ gg_rect <- function(
     else if (col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          y = !!y,
+          # x = !!x,
+          # y = !!y,
           # col = "",
           # fill = "",
           group = !!group,
@@ -352,7 +337,7 @@ gg_rect <- function(
     if (!col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
+          # x = !!x,
           col = !!col,
           fill = !!col,
           group = !!group,
@@ -365,7 +350,7 @@ gg_rect <- function(
     else if (col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
+          # x = !!x,
           # col = "",
           # fill = "",
           group = !!group,
@@ -380,7 +365,7 @@ gg_rect <- function(
     if (!col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          y = !!y,
+          # y = !!y,
           col = !!col,
           fill = !!col,
           group = !!group,
@@ -393,7 +378,7 @@ gg_rect <- function(
     else if (col_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          y = !!y,
+          # y = !!y,
           # col = "",
           # fill = "",
           group = !!group,

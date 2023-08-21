@@ -182,7 +182,7 @@ gg_density_2d <- function(
 
 
   ##############################################################################
-  #Generic code: part 1 (adjust for gg_sf)
+  #Generic code: part 1 (adjust for gg_sf & gg_rect)
   ##############################################################################
 
   #get default theme if global theme not set

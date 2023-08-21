@@ -216,7 +216,7 @@ gg_polygon <- function(
   facet2_logical <- is.logical(rlang::eval_tidy(facet2, data))
 
   ##############################################################################
-  #Generic code: part 1 (adjust for gg_sf)
+  #Generic code: part 1 (adjust for gg_sf & gg_rect)
   ##############################################################################
 
   #get default theme if global theme not set
