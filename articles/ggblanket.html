@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">4.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">4.0.0900</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -436,8 +436,7 @@ end on a break with zero expanding</li>
 expanding are as per ggplot2 defaults</li>
 <li>Default removal of vertical gridlines</li>
 </ul>
-<p>It does the opposite where the orientation is horizontal (and also
-keeps y categorical values in correct order).</p>
+<p>It does the opposite where the orientation is horizontal.</p>
 <p>Note this symmetry approach does <em>not</em> apply: * if a
 transformation other than identity or reverse is applied to x or y
 scales. * for <code>gg_raster</code>, <code>gg_contour_filled</code> or
@@ -687,12 +686,12 @@ drop unused levels they should do by mutating the variable prior to
 plotting
 (i.e. <code>data |&gt; mutate(var = forcats::fct_drop(var))</code>).
 Similarly, ggblanket requires unquoted variables for it’s aesthetics. If
-you wish to reorder a variable or drop NAs, you should do it likewise
-prior to plotting.</p>
+you wish to reorder or reverse a categorical variable or drop NAs, you
+should do it likewise prior to plotting.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">penguins</a></span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sex</span>, </span>
-<span>            y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>            y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
 <span>            col <span class="op">=</span> <span class="va">sex</span>, </span>
 <span>            col_legend_place <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
 <span></span>
@@ -700,12 +699,17 @@ prior to plotting.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">sex</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"male"</span>, <span class="st">"female"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sex</span>, </span>
-<span>            y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
+<span>            y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>            col <span class="op">=</span> <span class="va">sex</span>, </span>
 <span>            col_legend_place <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-27-1.svg" width="70%"></p>
+<p>ggblanket also aligns y character and factor y values from top to
+bottom, where ggplot2 does the opposite. This is with the intention that
+alphabetical order is maintained for characters (and factors with
+default alphabetical levels). Where this is not what you want, reorder
+or reverse the variable prior to plotting.</p>
 <p>ggblanket uses different defaults for colouring. The default
 <code>pal</code> is: * <code><a href="../reference/pal_blue.html">ggblanket::pal_blue</a></code> for where there
 is no <code>col</code> variable * <code><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis::viridis</a></code> for a
