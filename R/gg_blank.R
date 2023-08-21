@@ -219,6 +219,8 @@ gg_blank <- function(
   #get classes
   if (stat == "sf") {
     x_null <- TRUE
+    x_character <- FALSE
+    x_logical <- FALSE
     x_factor <- FALSE
     x_forcat <- FALSE
     x_numeric <- FALSE
@@ -227,6 +229,8 @@ gg_blank <- function(
     x_time <- FALSE
 
     y_null <- TRUE
+    y_character <- FALSE
+    y_logical <- FALSE
     y_factor <- FALSE
     y_forcat <- FALSE
     y_numeric <- FALSE
@@ -236,7 +240,10 @@ gg_blank <- function(
   }
   else {
     x_null <- rlang::quo_is_null(x) & rlang::quo_is_null(xmin) & rlang::quo_is_null(xmax) & rlang::quo_is_null(xend)
-    x_forcat <- is.character(rlang::eval_tidy(x, data)) | is.factor(rlang::eval_tidy(x, data)) | is.logical(rlang::eval_tidy(x, data))
+    x_character <- is.character(rlang::eval_tidy(x, data))
+    x_logical <- is.logical(rlang::eval_tidy(x, data))
+    x_factor <- is.factor(rlang::eval_tidy(x, data))
+    x_forcat <- x_character | x_factor | x_logical
     x_numeric <- {
       is.numeric(rlang::eval_tidy(x, data)) |
         is.numeric(rlang::eval_tidy(xmin, data)) |
@@ -263,7 +270,10 @@ gg_blank <- function(
     }
 
     y_null <- rlang::quo_is_null(y) & rlang::quo_is_null(ymin) & rlang::quo_is_null(ymax) & rlang::quo_is_null(yend)
-    y_forcat <- is.character(rlang::eval_tidy(y, data)) | is.factor(rlang::eval_tidy(y, data)) | is.logical(rlang::eval_tidy(y, data))
+    y_character <- is.character(rlang::eval_tidy(y, data))
+    y_logical <- is.logical(rlang::eval_tidy(y, data))
+    y_factor <- is.factor(rlang::eval_tidy(y, data))
+    y_forcat <- y_character | y_factor | y_logical
     y_numeric <- {
       is.numeric(rlang::eval_tidy(y, data)) |
         is.numeric(rlang::eval_tidy(ymin, data)) |
@@ -290,8 +300,10 @@ gg_blank <- function(
     }
   }
 
-  if (stat %in% c("bin2d", "bin_2d", "binhex")) {
+  if (stat %in% c("bin2d", "bin_2d", "binhex", "contour", "contour_filled", "density_2d", "density_2d_filled")) {
     col_null <- TRUE
+    col_character <- FALSE
+    col_logical <- FALSE
     col_factor <- FALSE
     col_forcat <- FALSE
     col_numeric <- FALSE
@@ -301,8 +313,10 @@ gg_blank <- function(
   }
   else {
     col_null <- rlang::quo_is_null(col)
+    col_character <- is.character(rlang::eval_tidy(col, data))
+    col_logical <- is.logical(rlang::eval_tidy(col, data))
     col_factor <- is.factor(rlang::eval_tidy(col, data))
-    col_forcat <- is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data)) | is.logical(rlang::eval_tidy(col, data))
+    col_forcat <- col_character | col_factor | col_logical
     col_numeric <- is.numeric(rlang::eval_tidy(col, data))
     col_date <- lubridate::is.Date(rlang::eval_tidy(col, data))
     col_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(col, data))
@@ -310,7 +324,9 @@ gg_blank <- function(
   }
 
   facet_null <- rlang::quo_is_null(facet)
+  facet_logical <- is.logical(rlang::eval_tidy(facet, data))
   facet2_null <- rlang::quo_is_null(facet2)
+  facet2_logical <- is.logical(rlang::eval_tidy(facet2, data))
 
   # if (rlang::is_null(alpha)) {
   #   # geometry_type <- unique(sf::st_geometry_type(data))
@@ -345,32 +361,83 @@ gg_blank <- function(
     }
   }
 
-  #process for horizontal
+  #order for horizontal & logical
   if (stat != "sf") {
-    if (y_forcat) {
-      if (!(!col_null &
-            (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))))) {
+    if (y_forcat & (x_null | x_numeric | x_date | x_datetime | x_time)) {
+      flipped <- TRUE
+    }
+    else flipped <- FALSE
 
-        if (is.logical(rlang::eval_tidy(y, data))) {
-          data <- data %>%
-            dplyr::mutate(dplyr::across(!!y, function(x) as.character(x)))
-        }
-
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
-      }
+    if (x_logical) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!x, function(x) factor(x, levels = c(TRUE, FALSE))))
+    }
+    if (y_logical & !flipped) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!y, function(x) factor(x, levels = c(TRUE, FALSE))))
+    }
+    if (y_logical & flipped) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!y, function(x) factor(x, levels = c(FALSE, TRUE))))
     }
 
-    if (col_forcat) {
-      if (y_forcat) {
-        if (is.logical(rlang::eval_tidy(col, data))) {
-          data <- data %>%
-            dplyr::mutate(dplyr::across(!!col, function(x) as.character(x)))
-        }
+    if (y_character) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!y, function(x) factor(x)))
+    }
+    if (y_character | y_factor) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
+    }
 
+    if (col_logical & !flipped) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col, function(x) factor(x, levels = c(TRUE, FALSE))))
+    }
+    else if (col_logical & flipped) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col, function(x) factor(x, levels = c(FALSE, TRUE))))
+    }
+
+    if (col_character) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col, function(x) factor(x)))
+    }
+
+    if (!(identical(col, y))) {
+      if ((flipped & !col_logical)) {
         data <- data %>%
           dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
       }
+    }
+
+    if (facet_logical) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!facet, function(x) factor(x, levels = c(TRUE, FALSE))))
+    }
+    if (facet2_logical) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!facet2, function(x) factor(x, levels = c(TRUE, FALSE))))
+    }
+  }
+  else if (stat == "sf") {
+    if (col_logical) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col, function(x) factor(x, levels = c(TRUE, FALSE))))
+    }
+
+    if (col_character) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col, function(x) factor(x)))
+    }
+
+    if (facet_logical) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!facet, function(x) factor(x, levels = c(TRUE, FALSE))))
+    }
+    if (facet2_logical) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!facet2, function(x) factor(x, levels = c(TRUE, FALSE))))
     }
   }
 

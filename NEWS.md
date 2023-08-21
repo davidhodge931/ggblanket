@@ -1,3 +1,7 @@
+# ggblanket (development version)
+
+* Made plot order logical variables with `TRUE` first.  
+
 # ggblanket 4.0.0
 
 * Breaking: removed the `stat` argument for all `gg_*` functions except `gg_blank`.

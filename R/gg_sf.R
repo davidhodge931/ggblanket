@@ -119,6 +119,8 @@ gg_sf <- function(
 
   #get classes
   x_null <- TRUE
+  x_character <- FALSE
+  x_logical <- FALSE
   x_factor <- FALSE
   x_forcat <- FALSE
   x_numeric <- FALSE
@@ -127,6 +129,8 @@ gg_sf <- function(
   x_time <- FALSE
 
   y_null <- TRUE
+  y_character <- FALSE
+  y_logical <- FALSE
   y_factor <- FALSE
   y_forcat <- FALSE
   y_numeric <- FALSE
@@ -135,15 +139,19 @@ gg_sf <- function(
   y_time <- FALSE
 
   col_null <- rlang::quo_is_null(col)
+  col_character <- is.character(rlang::eval_tidy(col, data))
+  col_logical <- is.logical(rlang::eval_tidy(col, data))
   col_factor <- is.factor(rlang::eval_tidy(col, data))
-  col_forcat <- is.character(rlang::eval_tidy(col, data)) | is.factor(rlang::eval_tidy(col, data)) | is.logical(rlang::eval_tidy(col, data))
+  col_forcat <- col_character | col_factor | col_logical
   col_numeric <- is.numeric(rlang::eval_tidy(col, data))
   col_date <- lubridate::is.Date(rlang::eval_tidy(col, data))
   col_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(col, data))
   col_time <- hms::is_hms(rlang::eval_tidy(col, data))
 
   facet_null <- rlang::quo_is_null(facet)
+  facet_logical <- is.logical(rlang::eval_tidy(facet, data))
   facet2_null <- rlang::quo_is_null(facet2)
+  facet2_logical <- is.logical(rlang::eval_tidy(facet2, data))
 
   if (rlang::is_null(alpha)) {
     # geometry_type <- unique(sf::st_geometry_type(data))
@@ -179,34 +187,25 @@ gg_sf <- function(
     }
   }
 
-  #process for horizontal
-  # if (stat != "sf") {
-  #   if (y_forcat) {
-  #     if (!(!col_null &
-  #           (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))))) {
-  #
-  #       if (is.logical(rlang::eval_tidy(y, data))) {
-  #         data <- data %>%
-  #           dplyr::mutate(dplyr::across(!!y, function(x) as.character(x)))
-  #       }
-  #
-  #       data <- data %>%
-  #         dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
-  #     }
-  #   }
-  #
-  #   if (col_forcat) {
-  #     if (y_forcat) {
-  #       if (is.logical(rlang::eval_tidy(col, data))) {
-  #         data <- data %>%
-  #           dplyr::mutate(dplyr::across(!!col, function(x) as.character(x)))
-  #       }
-  #
-  #       data <- data %>%
-  #         dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
-  #     }
-  #   }
-  # }
+  #order for horizontal & logical
+  if (col_logical) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!col, function(x) factor(x, levels = c(TRUE, FALSE))))
+  }
+
+  if (col_character) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!col, function(x) factor(x)))
+  }
+
+  if (facet_logical) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!facet, function(x) factor(x, levels = c(TRUE, FALSE))))
+  }
+  if (facet2_logical) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!facet2, function(x) factor(x, levels = c(TRUE, FALSE))))
+  }
 
   ##############################################################################
   #Unique code: part 2
