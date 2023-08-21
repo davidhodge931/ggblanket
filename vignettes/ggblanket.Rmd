@@ -539,7 +539,7 @@ p1 <- palmerpenguins::penguins |>
             col_legend_place = "n")
 
 p2 <- palmerpenguins::penguins |> 
-  mutate(sex = factor(sex, levels = c("male", "female"))) |> 
+  mutate(sex = factor(sex, levels = c("female", "male"))) |> 
   tidyr::drop_na(sex) |> 
   gg_jitter(x = sex, 
             y = body_mass_g,
@@ -548,8 +548,6 @@ p2 <- palmerpenguins::penguins |>
 
 p1 + p2
 ```
-
-ggblanket also aligns y character and factor y values from top to bottom, where ggplot2 does the opposite. This is with the intention that alphabetical order is maintained for characters (and factors with  default alphabetical levels). Where this is not what you want, reorder or reverse the variable prior to plotting. 
 
 ggblanket uses different defaults for colouring. The default `pal` is:
 * `ggblanket::pal_blue` for where there is no `col` variable

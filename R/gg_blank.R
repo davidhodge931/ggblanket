@@ -363,6 +363,7 @@ gg_blank <- function(
 
   #order for horizontal & logical
   if (stat != "sf") {
+    #order for horizontal & logical
     if (y_forcat & (x_null | x_numeric | x_date | x_datetime | x_time)) {
       flipped <- TRUE
     }
@@ -372,22 +373,14 @@ gg_blank <- function(
       data <- data %>%
         dplyr::mutate(dplyr::across(!!x, function(x) factor(x, levels = c(TRUE, FALSE))))
     }
+
     if (y_logical & !flipped) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!y, function(x) factor(x, levels = c(TRUE, FALSE))))
     }
-    if (y_logical & flipped) {
+    else if (y_logical & flipped) {
       data <- data %>%
         dplyr::mutate(dplyr::across(!!y, function(x) factor(x, levels = c(FALSE, TRUE))))
-    }
-
-    if (y_character) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!y, function(x) factor(x)))
-    }
-    if (y_character | y_factor) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
     }
 
     if (col_logical & !flipped) {
@@ -404,11 +397,9 @@ gg_blank <- function(
         dplyr::mutate(dplyr::across(!!col, function(x) factor(x)))
     }
 
-    if (!(identical(col, y))) {
-      if ((flipped & !col_logical)) {
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
-      }
+    if ((flipped & !col_logical)) {
+      data <- data %>%
+        dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
     }
 
     if (facet_logical) {

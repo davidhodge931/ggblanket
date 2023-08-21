@@ -213,22 +213,14 @@ gg_hex <- function(
     data <- data %>%
       dplyr::mutate(dplyr::across(!!x, function(x) factor(x, levels = c(TRUE, FALSE))))
   }
+
   if (y_logical & !flipped) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!y, function(x) factor(x, levels = c(TRUE, FALSE))))
   }
-  if (y_logical & flipped) {
+  else if (y_logical & flipped) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!y, function(x) factor(x, levels = c(FALSE, TRUE))))
-  }
-
-  if (y_character) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!y, function(x) factor(x)))
-  }
-  if (y_character | y_factor) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
   }
 
   if (col_logical & !flipped) {
@@ -245,11 +237,9 @@ gg_hex <- function(
       dplyr::mutate(dplyr::across(!!col, function(x) factor(x)))
   }
 
-  if (!(identical(col, y))) {
-    if ((flipped & !col_logical)) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
-    }
+  if ((flipped & !col_logical)) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
   }
 
   if (facet_logical) {

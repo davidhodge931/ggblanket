@@ -1,5 +1,6 @@
 # ggblanket (development version)
 
+* Made horizontal y characters and factors plot values from low at the bottom to high at the top, as per ggplot2.  
 * Made plot order logical variables with `TRUE` first.  
 
 # ggblanket 4.0.0
