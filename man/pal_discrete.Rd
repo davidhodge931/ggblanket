@@ -19,6 +19,27 @@ The default colour blind safe 5 colour palette used to colour a categorical col 
 \examples{
 scales::show_col(pal_discrete)
 
+ggplot2::diamonds |>
+  gg_bar(x = color,
+         col = color,
+         pal = pal_discrete,
+         width = 0.75)
+
+ggplot2::diamonds |>
+  gg_blank(x = color,
+           col = color,
+           stat = "count",
+           pal = pal_discrete) +
+  ggplot2::geom_point(stat = "count")
+
+ggplot2::diamonds |>
+  gg_blank(x = color,
+           col = color,
+           stat = "count",
+           pal = pal_discrete,
+           theme = dark_mode()) +
+  ggplot2::geom_point(stat = "count")
+
 }
 \references{
 Derived from a Datawrapper blog dated 30/03/2022 by Lisa Charlotte Muth.

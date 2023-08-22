@@ -19,6 +19,19 @@ A colour blind safe 6 colour palette used to colour a categorical col variable t
 \examples{
 scales::show_col(pal_discrete2)
 
+ggplot2::diamonds |>
+  gg_bar(x = color,
+         col = color,
+         pal = pal_discrete2,
+         width = 0.75)
+
+ggplot2::diamonds |>
+  gg_blank(x = color,
+           col = color,
+           stat = "count",
+           pal = pal_discrete2) +
+  ggplot2::geom_point(stat = "count")
+
 }
 \references{
 Derived from a Datawrapper blog dated 30/03/2022 by Lisa Charlotte Muth.
