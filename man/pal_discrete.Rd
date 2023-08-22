@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_discrete}
 \alias{pal_discrete}
-\title{Default colour-blind safe categorical palette with 5 colours.}
+\title{Default colour blind safe categorical palette with 5 colours.}
 \format{
 An object of class \code{character} of length 5.
 }

@@ -2,12 +2,12 @@
 
 * Breaking: made horizontal y characters and factors plot values from low at bottom to high at top.  
 * Made plot order logical variables with `TRUE` first.  
-* Added `pal_discrete2` with 6 colours for a light background theme.
+* Added `pal_discrete2` with 6 colour blind safe colours for a light background theme.
 
 # ggblanket 4.0.0
 
 * Breaking: removed the `stat` argument for all `gg_*` functions except `gg_blank`.
-* Breaking: renamed `pal_hue` to `pal_discrete` and made colours relatively red/green colour-blind safe.
+* Breaking: renamed `pal_hue` to `pal_discrete` and made colours relatively red/green colour blind safe.
 * Breaking: renamed `gg_bin2d` to `gg_bin_2d`.
 * Breaking: changed `*_oob` default back to `scales::oob_keep`.
 * Improved scales to work better with transformations, limits, breaks etc.
