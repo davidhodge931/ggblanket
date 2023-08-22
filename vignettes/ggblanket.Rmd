@@ -486,47 +486,53 @@ ggplot2 by default drops values outside of the limits in calculating the geoms a
 
 These deviations from ggplot2 were considered to be safer defaults for ggblanket (i.e. fail by plotting data outside the panel rather than fail by dropping data).
 
-```{r, fig.asp=0.75}
-p1 <- economics |>
-  gg_line(
-    x = date,
-    y = unemploy,
-    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
-    x_labels = \(x) stringr::str_sub(x, 3, 4),
-    title = "Limits set with default",
+```{r, fig.asp=1}
+p1 <- economics |> 
+  gg_smooth(
+    x = date, 
+    y = unemploy, 
+    title = "x_limits set", 
+    theme = light_mode(title_face = "plain")) +
+  geom_vline(xintercept = c(lubridate::ymd("1985-01-01", "1995-01-01")),
+             col = pal_blue, 
+             linetype = 3) +
+    geom_point(col = pal_blue, alpha = 0.05)
+
+p2 <- economics |> 
+  gg_smooth(
+    x = date, 
+    y = unemploy, 
+    x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
+    title = "x_limits set", 
     theme = light_mode(title_face = "plain"))
 
-p2 <- economics |>
-  gg_line(
-    x = date,
-    y = unemploy,
-    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
-    x_labels = \(x) stringr::str_sub(x, 3, 4),
-    coord = ggplot2::coord_cartesian(clip = "on"),
-    title = "Limits set with clip = 'off'",
+p3 <- economics |> 
+  gg_smooth(
+    x = date, 
+    y = unemploy, 
+    x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
+    coord = coord_cartesian(clip = "on"), 
+    title = "x_limits set & cartesian space clipped", 
     theme = light_mode(title_face = "plain"))
 
-p3 <- economics |>
-  gg_line(
-    x = date,
-    y = unemploy,
-    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
-    x_labels = \(x) stringr::str_sub(x, 3, 4),
-    coord = ggplot2::coord_cartesian(clip = "on"),
+p4 <- economics |> 
+  gg_smooth(
+    x = date, 
+    y = unemploy, 
+    x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
     x_oob = scales::oob_censor,
-    title = "Limits set with oob_censor",
+    title = "x_limits set & x_oob censored", 
     theme = light_mode(title_face = "plain"))
 
-p4 <- economics |>
-  filter(date >= lubridate::ymd("2010-01-01")) |> 
-  gg_line(
-    x = date,
-    y = unemploy,
-    x_labels = \(x) stringr::str_sub(x, 3, 4), 
-    title = "Limits set by filtering data",
+p5 <- economics |> 
+  filter(between(date, lubridate::ymd("1985-01-01"), lubridate::ymd("1995-01-01"))) |> 
+  gg_smooth(
+    x = date, 
+    y = unemploy, 
+    title = "Data filtered", 
     theme = light_mode(title_face = "plain"))
 
-(p1 + p2) / (p3 + p4)
+p1 / (p2 + p3) / (p4 + p5)
 ```
 
 ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should do by mutating the variable prior to plotting (i.e. `data |> mutate(var = forcats::fct_drop(var))`). Similarly, ggblanket requires unquoted variables for it's aesthetics. If you wish to reorder or reverse a categorical variable or drop NAs, you should do it likewise prior to plotting. 
