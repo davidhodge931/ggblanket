@@ -484,7 +484,7 @@ By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_k
 
 ggplot2 by default drops values outside of the limits in calculating the geoms and scales to plot (`scales::oob_censor`). It also clips anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "on"`)).
 
-These deviations from ggplot2 were considered to be safer defaults for ggblanket (i.e. fail by plotting data outside the panel rather than fail by dropping data).
+Users should be particularly careful when setting limits for stats other than identity. This is because the default ggblanket oob of oob_keep will result in a very different plot than if the default ggplot2 oob of oob_censor is used.
 
 ```{r, fig.asp=1}
 p1 <- economics |> 
