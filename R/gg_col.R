@@ -494,10 +494,10 @@ gg_col <- function(
     else if (x_forcat) {
       if (any(x_trans %in% "reverse") & !rlang::is_null(x_limits)) {
         plot <- plot +
-          ggplot2::scale_x_discrete(limits = x_limits[c(2, 1)])
+          ggplot2::scale_x_discrete(limits = x_limits[c(2, 1)], drop = FALSE)
       } else {
         plot <- plot +
-          ggplot2::scale_x_discrete(limits = x_limits)
+          ggplot2::scale_x_discrete(limits = x_limits, drop = FALSE)
       }
     }
 
@@ -545,10 +545,10 @@ gg_col <- function(
     else if (y_forcat) {
       if (any(y_trans %in% "reverse") & !rlang::is_null(y_limits)) {
         plot <- plot +
-          ggplot2::scale_y_discrete(limits = y_limits[c(2, 1)])
+          ggplot2::scale_y_discrete(limits = y_limits[c(2, 1)], drop = FALSE)
       } else {
         plot <- plot +
-          ggplot2::scale_y_discrete(limits = y_limits)
+          ggplot2::scale_y_discrete(limits = y_limits, drop = FALSE)
       }
       if (!rlang::is_null(y_include)) {
         plot <- plot +

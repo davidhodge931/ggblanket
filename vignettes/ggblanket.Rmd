@@ -598,31 +598,7 @@ p4 <- diamonds |>
 ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should do by mutating the variable prior to plotting. 
 
 ```{r, fig.asp=0.5}
-p1 <- diamonds |> 
-  count(color) |> 
-  filter(color %in% c("D", "H")) |> 
-  gg_col(
-    x = n,
-    y = color,
-    x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)",
-    title = "A factor filtered"
-  )
 
-p2 <- diamonds |> 
-  count(color) |>
-  filter(color %in% c("D", "H")) |> 
-  mutate(color = forcats::fct_drop(color)) |> 
-  gg_col(
-    x = n,
-    y = color,
-    width = 0.75,
-    x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)",
-    title = "A factor filtered & unused levels dropped"
-  )
-
-p1 + p2
 ```
 
 ggblanket uses different defaults for colouring. The default `pal` is:
