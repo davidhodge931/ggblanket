@@ -553,7 +553,7 @@ p1 <- palmerpenguins::penguins |>
             col_legend_place = "n")
 
 p2 <- palmerpenguins::penguins |> 
-  mutate(sex = factor(sex, levels = c("female", "male"))) |> 
+  mutate(sex = forcats::fct_rev(sex)) |> 
   tidyr::drop_na(sex) |> 
   gg_jitter(x = sex, 
             y = body_mass_g,
