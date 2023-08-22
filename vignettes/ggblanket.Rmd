@@ -536,29 +536,91 @@ p5 <- economics |>
     x = date, 
     y = unemploy,
     x_labels = \(x) stringr::str_sub(x, 3, 4),
-    title = "Data filtered", 
+    title = "x data filtered", 
     theme = light_mode(title_face = "plain")) +
   geom_point(col = pal_blue, alpha = 0.1)
 
 p1 / (p2 + p3) / (p4 + p5) 
 ```
 
-ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should do by mutating the variable prior to plotting (i.e. `data |> mutate(var = forcats::fct_drop(var))`). Similarly, ggblanket requires unquoted variables for it's aesthetics. If you wish to reorder or reverse a categorical variable or drop NAs, you should do it likewise prior to plotting. 
+ggblanket requires unquoted variables for it's aesthetics. If you wish to reorder or reverse a categorical variable or drop NAs, you should do it likewise prior to plotting. 
+
+```{r}
+p1 <- diamonds |>
+  count(color) |>
+  gg_col(
+    x = n,
+    y = color,
+    width = 0.75,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)"
+  )
+
+
+p2 <- diamonds |>
+  count(color) |>
+  mutate(color = forcats::fct_rev(color)) |>
+  gg_col(
+    x = n,
+    y = color,
+    width = 0.75,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)"
+  )
+
+p3 <- diamonds |>
+  count(color) |>
+  mutate(color = forcats::fct_reorder(color, n)) |>
+  gg_col(
+    x = n,
+    y = color,
+    width = 0.75,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)"
+  )
+
+p4 <- diamonds |>
+  count(color) |>
+  mutate(color = color |>
+           forcats::fct_reorder(n) |>
+           forcats::fct_rev()) |>
+  gg_col(
+    x = n,
+    y = color,
+    width = 0.75,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)"
+  )
+
+(p1 + p2) / (p3 + p4)
+```
+
+ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should do by mutating the variable prior to plotting. 
 
 ```{r, fig.asp=0.5}
-p1 <- palmerpenguins::penguins |> 
-  gg_jitter(x = sex, 
-            y = body_mass_g, 
-            col = sex, 
-            col_legend_place = "n")
+p1 <- diamonds |> 
+  count(color) |> 
+  filter(color %in% c("D", "H")) |> 
+  gg_col(
+    x = n,
+    y = color,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)",
+    title = "A factor filtered"
+  )
 
-p2 <- palmerpenguins::penguins |> 
-  mutate(sex = forcats::fct_rev(sex)) |> 
-  tidyr::drop_na(sex) |> 
-  gg_jitter(x = sex, 
-            y = body_mass_g,
-            col = sex, 
-            col_legend_place = "n")
+p2 <- diamonds |> 
+  count(color) |>
+  filter(color %in% c("D", "H")) |> 
+  mutate(color = forcats::fct_drop(color)) |> 
+  gg_col(
+    x = n,
+    y = color,
+    width = 0.75,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)",
+    title = "A factor filtered & unused levels dropped"
+  )
 
 p1 + p2
 ```
