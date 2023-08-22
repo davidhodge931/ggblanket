@@ -491,7 +491,7 @@ p1 <- economics |>
   gg_smooth(
     x = date, 
     y = unemploy, 
-    title = "x_limits set", 
+    title = "No x_limits set", 
     theme = light_mode(title_face = "plain")) +
   geom_vline(xintercept = c(lubridate::ymd("1985-01-01", "1995-01-01")),
              col = pal_blue, 
