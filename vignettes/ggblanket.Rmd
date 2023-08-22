@@ -505,7 +505,8 @@ p2 <- economics |>
     x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     title = "x_limits set", 
-    theme = light_mode(title_face = "plain"))
+    theme = light_mode(title_face = "plain")) +
+  geom_point(col = pal_blue, alpha = 0.1)
 
 p3 <- economics |> 
   gg_smooth(
@@ -515,7 +516,8 @@ p3 <- economics |>
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     coord = coord_cartesian(clip = "on"), 
     title = "x_limits set & cartesian space clipped", 
-    theme = light_mode(title_face = "plain"))
+    theme = light_mode(title_face = "plain")) +
+  geom_point(col = pal_blue, alpha = 0.1)
 
 p4 <- economics |> 
   gg_smooth(
@@ -525,7 +527,8 @@ p4 <- economics |>
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     x_oob = scales::oob_censor,
     title = "x_limits set & x_oob censored", 
-    theme = light_mode(title_face = "plain"))
+    theme = light_mode(title_face = "plain")) +
+  geom_point(col = pal_blue, alpha = 0.1)
 
 p5 <- economics |> 
   filter(between(date, lubridate::ymd("1985-01-01"), lubridate::ymd("1995-01-01"))) |> 
@@ -534,9 +537,10 @@ p5 <- economics |>
     y = unemploy,
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     title = "Data filtered", 
-    theme = light_mode(title_face = "plain"))
+    theme = light_mode(title_face = "plain")) +
+  geom_point(col = pal_blue, alpha = 0.1)
 
-p1 / (p2 + p3) / (p4 + p5)
+p1 / (p2 + p3) / (p4 + p5) 
 ```
 
 ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should do by mutating the variable prior to plotting (i.e. `data |> mutate(var = forcats::fct_drop(var))`). Similarly, ggblanket requires unquoted variables for it's aesthetics. If you wish to reorder or reverse a categorical variable or drop NAs, you should do it likewise prior to plotting. 
