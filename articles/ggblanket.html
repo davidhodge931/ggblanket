@@ -636,50 +636,57 @@ cartesian coordinate space by default
 the geoms and scales to plot (<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_censor</a></code>). It also
 clips anything outside the cartesian coordinate space by default
 (<code>coord = ggplot2::coord_cartesian(clip = "on"</code>)).</p>
-<p>These deviations from ggplot2 were considered to be safer defaults
-for ggblanket (i.e. fail by plotting data outside the panel rather than
-fail by dropping data).</p>
+<p>Users should be particularly careful when setting limits for stats
+other than identity. This is because the default ggblanket oob of
+oob_keep will result in a very different plot than if the default
+ggplot2 oob of oob_censor is used.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">date</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
-<span>    x_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"2010-01-01"</span><span class="op">)</span>, <span class="fu">lubridate</span><span class="fu">::</span><span class="va"><a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">NA_Date_</a></span><span class="op">)</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Limits set with default"</span>,</span>
+<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">date</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">unemploy</span>, </span>
+<span>    title <span class="op">=</span> <span class="st">"x_limits set"</span>, </span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"1985-01-01"</span>, <span class="st">"1995-01-01"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>             col <span class="op">=</span> <span class="va">pal_blue</span>, </span>
+<span>             linetype <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">date</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">unemploy</span>, </span>
+<span>    x_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"1985-01-01"</span>, <span class="st">"1995-01-01"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"x_limits set"</span>, </span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">date</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
-<span>    x_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"2010-01-01"</span><span class="op">)</span>, <span class="fu">lubridate</span><span class="fu">::</span><span class="va"><a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">NA_Date_</a></span><span class="op">)</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>,</span>
-<span>    coord <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Limits set with clip = 'off'"</span>,</span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">date</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">unemploy</span>, </span>
+<span>    x_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"1985-01-01"</span>, <span class="st">"1995-01-01"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    coord <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span>, </span>
+<span>    title <span class="op">=</span> <span class="st">"x_limits set &amp; cartesian space clipped"</span>, </span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">date</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
-<span>    x_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"2010-01-01"</span><span class="op">)</span>, <span class="fu">lubridate</span><span class="fu">::</span><span class="va"><a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">NA_Date_</a></span><span class="op">)</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>,</span>
-<span>    coord <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span>,</span>
+<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">date</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">unemploy</span>, </span>
+<span>    x_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"1985-01-01"</span>, <span class="st">"1995-01-01"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    x_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_censor</a></span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Limits set with oob_censor"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"x_limits set &amp; x_oob censored"</span>, </span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&gt;=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"2010-01-01"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">date</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, </span>
-<span>    title <span class="op">=</span> <span class="st">"Limits set by filtering data"</span>,</span>
+<span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html" class="external-link">between</a></span><span class="op">(</span><span class="va">date</span>, <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"1985-01-01"</span><span class="op">)</span>, <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"1995-01-01"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">date</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">unemploy</span>, </span>
+<span>    title <span class="op">=</span> <span class="st">"Data filtered"</span>, </span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">p1</span> <span class="op">/</span> <span class="op">(</span><span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p4</span> <span class="op">+</span> <span class="va">p5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-26-1.svg" width="70%"></p>
 <p>ggblanket keeps unused factor levels in the plot. If users wish to
 drop unused levels they should do by mutating the variable prior to
