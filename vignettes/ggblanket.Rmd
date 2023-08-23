@@ -530,7 +530,37 @@ p4 <- diamonds |>
 
 ##### Unused factor levels kept
 
-ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting. E.g. `data |> mutate(var = forcats::fct_drop(var)) |> gg_*()`. 
+ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting. 
+
+```{r, fig.asp=0.4}
+p1 <- diamonds |> 
+  count(clarity) |> 
+  filter(clarity %in% c("SI2", "VS2", "VVS2")) |>
+  gg_col(
+    x = n,
+    y = clarity,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)",
+    title = "A factor filtered",
+    theme = light_mode(title_face = "plain")
+  )
+
+p2 <- diamonds |> 
+  count(clarity) |>
+  filter(clarity %in% c("SI2", "VS2", "VVS2")) |>
+  mutate(clarity = forcats::fct_drop(clarity)) |> 
+  gg_col(
+    x = n,
+    y = clarity,
+    width = 0.75,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)",
+    title = "A factor filtered & unused levels dropped",
+    theme = light_mode(title_face = "plain")
+  )
+
+p1 + p2
+```
 
 ##### Stats locked except in gg_blank
 
