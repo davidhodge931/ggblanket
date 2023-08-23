@@ -530,7 +530,7 @@ p4 <- diamonds |>
 
 ##### Unused factor levels kept
 
-ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting. E.g. `data |> mutate(var = forcats::fct_drop(var))`. 
+ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting. E.g. `data |> mutate(var = forcats::fct_drop(var)) |> gg_*()`. 
 
 ##### Stats locked except in gg_blank
 
