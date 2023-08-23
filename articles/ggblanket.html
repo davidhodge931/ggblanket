@@ -680,7 +680,7 @@ NAs.</p>
 <p>ggblanket keeps unused factor levels in the plot. If users wish to
 drop unused levels they should likewise do it in the data prior to
 plotting. E.g.
-<code>data |&gt; mutate(var = forcats::fct_drop(var))</code>.</p>
+<code>data |&gt; mutate(var = forcats::fct_drop(var)) |&gt; gg_*()</code>.</p>
 </div>
 <div class="section level5">
 <h5 id="stats-locked-except-in-gg_blank">Stats locked except in gg_blank<a class="anchor" aria-label="anchor" href="#stats-locked-except-in-gg_blank"></a>
