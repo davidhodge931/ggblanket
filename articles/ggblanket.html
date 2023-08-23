@@ -111,8 +111,7 @@ faceting</li>
 <li>Pretty defaults for symmetry</li>
 <li>Access to other geom_* arguments via …</li>
 <li>Ability to add multiple geom_* layers</li>
-<li>Other differences: stats, oobs, clipping, unused factor levels,
-ordering, alpha etc</li>
+<li>Some other key differences</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -606,19 +605,123 @@ ggblanket <code>col</code> aesthetic.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="other-differences-stats-oobs-clipping-unused-factor-levels-ordering-etc">12. Other differences: stats, oobs, clipping, unused factor levels,
-ordering etc<a class="anchor" aria-label="anchor" href="#other-differences-stats-oobs-clipping-unused-factor-levels-ordering-etc"></a>
+<h3 id="some-other-key-differences">12. Some other key differences<a class="anchor" aria-label="anchor" href="#some-other-key-differences"></a>
 </h3>
-<p>ggblanket has some other key different defaults to ggplot2, which
-users should be aware of.</p>
-<p>For all <code>gg_*</code> functions other than <code>gg_blank</code>,
-the stat is locked to the relevant <code>geom_*</code> default. This
-means if you would like to use a stat different to the default, you
-should use <code>gg_blank</code>. By setting the <code>stat</code> to
-that of the layer to follow if necessary to help the scales etc be
-created appropriately. Note <code>gg_blank</code> only accepts stats
-that are characters.</p>
+<div class="section level5">
+<h5 id="unquoted-variables-only">Unquoted variables only<a class="anchor" aria-label="anchor" href="#unquoted-variables-only"></a>
+</h5>
+<p>ggblanket requires unquoted variables only for <code>x</code>,
+<code>y</code>, <code>col</code>, <code>facet</code> and
+<code>facet2</code>. You cannot wrap these in a function. Instead you
+need to apply the function to the relevant variable in the data prior to
+plotting. For example, reordering or reversing a factor or dropping
+NAs.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">n</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">color</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
+<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
+<span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Default y"</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">fct_rev</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">n</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">color</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
+<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
+<span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Reverse y"</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">fct_reorder</a></span><span class="op">(</span><span class="va">color</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">n</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">color</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
+<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
+<span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Reordered y ascending by x"</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">color</span> <span class="op">|&gt;</span></span>
+<span>           <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">fct_reorder</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>           <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">fct_rev</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">n</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">color</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
+<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
+<span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Reordered y decending by x"</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-25-1.svg" width="70%"></p>
+</div>
+<div class="section level5">
+<h5 id="unused-factor-levels-kept">Unused factor levels kept<a class="anchor" aria-label="anchor" href="#unused-factor-levels-kept"></a>
+</h5>
+<p>ggblanket keeps unused factor levels in the plot. If users wish to
+drop unused levels they should do it in the data prior to plotting.</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">color</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"E"</span>, <span class="st">"G"</span>, <span class="st">"I"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">n</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">color</span>,</span>
+<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
+<span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"A factor filtered"</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">color</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"E"</span>, <span class="st">"G"</span>, <span class="st">"I"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_drop.html" class="external-link">fct_drop</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">n</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">color</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
+<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
+<span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"A factor filtered &amp; unused levels dropped"</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-26-1.svg" width="70%"></p>
+</div>
+<div class="section level5">
+<h5 id="stats-locked-except-in-gg_blank">Stats locked except in gg_blank<a class="anchor" aria-label="anchor" href="#stats-locked-except-in-gg_blank"></a>
+</h5>
+<p>ggblanket locks the <code>stat</code> of each <code>gg_*</code>
+function to the default of the respective geom, with the exception of
+<code>gg_blank</code>. The <code>gg_blank</code> function has a
+<code>stat</code> argument that users can change. This means if you
+would like to use a stat different to the default for a
+<code>gg_*</code> function, you need to use <code>gg_blank</code>.
+Setting the <code>stat</code> to that of the layer to follow can help
+ensure scales are created correctly. Note <code>gg_blank</code> only
+accepts stats that are characters.</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_blank.html">gg_blank</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
@@ -626,21 +729,23 @@ that are characters.</p>
 <span>    stat <span class="op">=</span> <span class="st">"summary"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_pointrange</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"summary"</span>, colour <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-25-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-27-1.svg" width="70%"></p>
+</div>
+<div class="section level5">
+<h5 id="different-oob-clip-defaults">Different oob &amp; clip defaults<a class="anchor" aria-label="anchor" href="#different-oob-clip-defaults"></a>
+</h5>
 <p>By default, ggblanket keeps values outside of the limits
 (<code>*_oob = scales::oob_keep</code>) in calculating the geoms and
 scales to plot. It also does <em>not</em> clip anything outside the
 cartesian coordinate space by default
-(<code>coord = ggplot2::coord_cartesian(clip = "off"</code>)).</p>
-<p>ggplot2 by default drops values outside of the limits in calculating
-the geoms and scales to plot (<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_censor</a></code>). It also
-clips anything outside the cartesian coordinate space by default
+(<code>coord = ggplot2::coord_cartesian(clip = "off"</code>)). ggplot2
+by default drops values outside of the limits in calculating the geoms
+and scales to plot (<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_censor</a></code>). It also clips
+anything outside the cartesian coordinate space by default
 (<code>coord = ggplot2::coord_cartesian(clip = "on"</code>)).</p>
 <p>Users should be particularly careful when setting limits for stats
-other than identity. This is because the default ggblanket oob of
-oob_keep will result in a very different plot than if the default
-ggplot2 oob of oob_censor is used.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+other than <code>identity</code>.</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">date</span>, </span>
@@ -695,71 +800,28 @@ ggplot2 oob of oob_censor is used.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">/</span> <span class="op">(</span><span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p4</span> <span class="op">+</span> <span class="va">p5</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-26-1.svg" width="70%"></p>
-<p>ggblanket requires unquoted variables for it’s aesthetics. If you
-wish to reorder or reverse a categorical variable or drop NAs, you
-should do it likewise prior to plotting.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">n</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">color</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
-<span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">fct_rev</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">n</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">color</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
-<span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">fct_reorder</a></span><span class="op">(</span><span class="va">color</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">n</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">color</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
-<span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">color</span> <span class="op">|&gt;</span></span>
-<span>           <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">fct_reorder</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>           <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">fct_rev</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">n</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">color</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
-<span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-27-1.svg" width="70%"></p>
-<p>ggblanket keeps unused factor levels in the plot. If users wish to
-drop unused levels they should do by mutating the variable prior to
-plotting.</p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-28-1.svg" width="70%"></p>
+</div>
+<div class="section level5">
+<h5 id="different-pal-and-alpha-defaults">Different pal and alpha defaults<a class="anchor" aria-label="anchor" href="#different-pal-and-alpha-defaults"></a>
+</h5>
 <p>ggblanket uses different defaults for colouring. The default
-<code>pal</code> is: * <code><a href="../reference/pal_blue.html">ggblanket::pal_blue</a></code> for where there
-is no <code>col</code> variable * <code><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis::viridis</a></code> for a
-continuous <code>col</code> variable *
+<code>pal</code> is:</p>
+<ul>
+<li>
+<code><a href="../reference/pal_blue.html">ggblanket::pal_blue</a></code> for where there is no
+<code>col</code> variable</li>
+<li>
+<code><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis::viridis</a></code> for a continuous <code>col</code>
+variable</li>
+<li>
 <code><a href="../reference/pal_discrete.html">ggblanket::pal_discrete</a></code> for a discrete <code>col</code>
-variable with 5 or less levels (or unique values if not ordered).
-Testing suggests this is safe for colour blindness. *
-<code><a href="https://scales.r-lib.org/reference/hue_pal.html" class="external-link">scales::hue_pal</a></code> for a discrete <code>col</code> variable
-with more than 5 levels (or unique values if not ordered).</p>
+variable with 5 or less levels (or unique values if a character).
+Testing suggests this is safe for colour blindness.</li>
+<li>
+<code><a href="https://scales.r-lib.org/reference/hue_pal.html" class="external-link">scales::hue_pal</a></code> for a discrete <code>col</code>
+variable with more than 5 levels (or unique values if not ordered).</li>
+</ul>
 <p>ggblanket uses different <code>alpha</code> defaults for the
 different <code>gg_*</code> functions. Polygons that generally have no
 gap or overlap default to 1: <code>gg_bin_2d</code>,
@@ -775,7 +837,10 @@ within them also default to 0.5: <code>gg_boxplot</code>,
 <code>gg_histogram</code>, <code>gg_polygon</code>,
 <code>gg_rect</code>, <code>gg_tile</code> and <code>gg_violin</code>.
 For all other contexts, alpha defaults to 1.</p>
-<p>Other differences:</p>
+</div>
+<div class="section level5">
+<h5 id="other-minor-differences">Other minor differences<a class="anchor" aria-label="anchor" href="#other-minor-differences"></a>
+</h5>
 <ul>
 <li>
 <code>*_title</code> is equivalent to
@@ -785,6 +850,7 @@ For all other contexts, alpha defaults to 1.</p>
 <code>*_include</code> works in a similar way to
 <code>ggplot2::expand_limits(* = ...)</code>.</li>
 </ul>
+</div>
 </div>
 </div>
 <div class="section level2">
