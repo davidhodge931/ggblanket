@@ -534,11 +534,11 @@ ggblanket keeps unused factor levels in the plot. If users wish to drop unused l
 
 ```{r, fig.asp=0.4}
 p1 <- diamonds |> 
-  count(clarity) |> 
-  filter(clarity %in% c("SI2", "VS2", "VVS2")) |>
+  count(color) |> 
+  filter(color %in% c("E", "G", "I")) |>
   gg_col(
     x = n,
-    y = clarity,
+    y = color,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
     title = "A factor filtered",
@@ -546,12 +546,12 @@ p1 <- diamonds |>
   )
 
 p2 <- diamonds |> 
-  count(clarity) |>
-  filter(clarity %in% c("SI2", "VS2", "VVS2")) |>
-  mutate(clarity = forcats::fct_drop(clarity)) |> 
+  count(color) |>
+  filter(color %in% c("E", "G", "I")) |>
+  mutate(color = forcats::fct_drop(color)) |> 
   gg_col(
     x = n,
-    y = clarity,
+    y = color,
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
