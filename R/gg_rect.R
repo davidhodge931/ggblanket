@@ -11,6 +11,8 @@
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param text Unquoted text aesthetic variable.
+#' @param mapping Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.
+#' @param stat A ggplot2 character string stat.
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
@@ -59,8 +61,11 @@
 #' @param facet_space Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed". Only applies where the facet layout is "grid" and facet scales are not "fixed".
 #' @param facet_layout Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".
 #' @param facet_switch Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".
-#' @param titles A function to format unspecified titles. Defaults to snakecase::to_sentence_case.
+#' @param linetype_title Legend title string. Use "" for no title.
+#' @param shape_title Legend title string. Use "" for no title.
+#' @param size_title Legend title string. Use "" for no title.
 #' @param caption Caption title string.
+#' @param titles A function to format unspecified titles. Defaults to snakecase::to_sentence_case.
 #' @param theme A ggplot2 theme.
 #'
 #' @return A ggplot object.
@@ -98,6 +103,8 @@ gg_rect <- function(
     facet2 = NULL,
     group = NULL,
     text = NULL,
+    mapping = NULL,
+    stat = "identity",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
@@ -146,6 +153,9 @@ gg_rect <- function(
     facet_space = "fixed",
     facet_layout = NULL,
     facet_switch = NULL,
+    linetype_title = NULL,
+    shape_title = NULL,
+    size_title = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case,
     theme = NULL) {
@@ -154,7 +164,7 @@ gg_rect <- function(
   #Unique code: part 1
   ##############################################################################
 
-  stat <- "identity"
+  #stat <- "identity"
 
   #quote
   col <- rlang::enquo(col)
@@ -186,19 +196,19 @@ gg_rect <- function(
   x_forcat <- FALSE
   x_numeric <- {
     is.numeric(rlang::eval_tidy(xmin, data)) |
-    is.numeric(rlang::eval_tidy(xmax, data))
+      is.numeric(rlang::eval_tidy(xmax, data))
   }
   x_date <- {
     lubridate::is.Date(rlang::eval_tidy(xmin, data)) |
-    lubridate::is.Date(rlang::eval_tidy(xmax, data))
+      lubridate::is.Date(rlang::eval_tidy(xmax, data))
   }
   x_datetime <- {
     lubridate::is.POSIXct(rlang::eval_tidy(xmin, data)) |
-    lubridate::is.POSIXct(rlang::eval_tidy(xmax, data))
+      lubridate::is.POSIXct(rlang::eval_tidy(xmax, data))
   }
   x_time <- {
     hms::is_hms(rlang::eval_tidy(xmin, data)) |
-    hms::is_hms(rlang::eval_tidy(xmax, data))
+      hms::is_hms(rlang::eval_tidy(xmax, data))
   }
 
   # y_null <- rlang::quo_is_null(y)
@@ -209,19 +219,19 @@ gg_rect <- function(
   y_forcat <- FALSE
   y_numeric <- {
     is.numeric(rlang::eval_tidy(ymin, data)) |
-    is.numeric(rlang::eval_tidy(ymax, data))
+      is.numeric(rlang::eval_tidy(ymax, data))
   }
   y_date <- {
     lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
-    lubridate::is.Date(rlang::eval_tidy(ymax, data))
+      lubridate::is.Date(rlang::eval_tidy(ymax, data))
   }
   y_datetime <- {
     lubridate::is.POSIXct(rlang::eval_tidy(ymin, data)) |
-    lubridate::is.POSIXct(rlang::eval_tidy(ymax, data))
+      lubridate::is.POSIXct(rlang::eval_tidy(ymax, data))
   }
   y_time <- {
     hms::is_hms(rlang::eval_tidy(ymin, data)) |
-    hms::is_hms(rlang::eval_tidy(ymax, data))
+      hms::is_hms(rlang::eval_tidy(ymax, data))
   }
 
   col_null <- rlang::quo_is_null(col)
@@ -242,6 +252,16 @@ gg_rect <- function(
   ##############################################################################
   #Generic code: part 1 (adjust for gg_sf & gg_rect)
   ##############################################################################
+
+  #abort if unsupported aesthetic in mapping
+  if (!rlang::is_null(mapping)) {
+    if (any(names(unlist(mapping)) %in% c("colour", "fill", "alpha"))) {
+      rlang::abort("mapping argument does not support colour, fill or alpha aesthetics")
+    }
+    if (any(names(unlist(mapping)) %in% c("facet", "facet2"))) {
+      rlang::abort("mapping argument does not support facet or facet2")
+    }
+  }
 
   #get default theme if global theme not set
   if (rlang::is_null(theme)) {
@@ -311,11 +331,11 @@ gg_rect <- function(
           # y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
           ymin = !!ymin,
-          ymax = !!ymax
+          ymax = !!ymax,
+          group = !!group, !!!mapping
         ))
     }
     else if (col_null) {
@@ -325,11 +345,11 @@ gg_rect <- function(
           # y = !!y,
           # col = "",
           # fill = "",
-          group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
           ymin = !!ymin,
-          ymax = !!ymax
+          ymax = !!ymax,
+          group = !!group, !!!mapping
         ))
     }
   }
@@ -340,11 +360,11 @@ gg_rect <- function(
           # x = !!x,
           col = !!col,
           fill = !!col,
-          group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
           ymin = !!ymin,
-          ymax = !!ymax
+          ymax = !!ymax,
+          group = !!group, !!!mapping
         ))
     }
     else if (col_null) {
@@ -353,11 +373,12 @@ gg_rect <- function(
           # x = !!x,
           # col = "",
           # fill = "",
-          group = !!group,
+          group = !!group, !!!mapping,
           xmin = !!xmin,
           xmax = !!xmax,
           ymin = !!ymin,
-          ymax = !!ymax
+          ymax = !!ymax,
+          group = !!group, !!!mapping
         ))
     }
   }
@@ -368,11 +389,11 @@ gg_rect <- function(
           # y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
           ymin = !!ymin,
-          ymax = !!ymax
+          ymax = !!ymax,
+          group = !!group, !!!mapping
         ))
     }
     else if (col_null) {
@@ -381,11 +402,12 @@ gg_rect <- function(
           # y = !!y,
           # col = "",
           # fill = "",
-          group = !!group,
+          group = !!group, !!!mapping,
           xmin = !!xmin,
           xmax = !!xmax,
           ymin = !!ymin,
-          ymax = !!ymax
+          ymax = !!ymax,
+          group = !!group, !!!mapping
         ))
     }
   }
@@ -395,11 +417,11 @@ gg_rect <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = !!col,
           fill = !!col,
-          group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
           ymin = !!ymin,
-          ymax = !!ymax
+          ymax = !!ymax,
+          group = !!group, !!!mapping
         ))
     }
     else if (col_null) {
@@ -407,11 +429,11 @@ gg_rect <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           # col = "",
           # fill = "",
-          group = !!group,
           xmin = !!xmin,
           xmax = !!xmax,
           ymin = !!ymin,
-          ymax = !!ymax
+          ymax = !!ymax,
+          group = !!group, !!!mapping
         ))
     }
   }
@@ -1265,21 +1287,34 @@ gg_rect <- function(
     else if (!rlang::is_null(plot_build$plot$labels$colour)) {
       col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), titles)
     }
+  }
 
+  if (rlang::is_null(linetype_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$linetype)) {
+      linetype_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), titles)
+    }
+  }
+  if (rlang::is_null(shape_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$shape)) {
+      shape_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), titles)
+    }
+  }
+  if (rlang::is_null(size_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$size)) {
+      size_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), titles)
+    }
   }
 
   plot <- plot +
     ggplot2::labs(
       title = title,
       subtitle = subtitle,
-      caption = caption)
-
-  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
-    plot <- plot +
-      ggplot2::labs(
-        col = col_title,
-        fill = col_title)
-  }
+      caption = caption,
+      linetype = linetype_title,
+      shape = shape_title,
+      size = size_title,
+      col = col_title,
+      fill = col_title)
 
   if (stat != "sf") {
     plot <- plot +

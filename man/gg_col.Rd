@@ -13,6 +13,8 @@ gg_col(
   facet2 = NULL,
   group = NULL,
   text = NULL,
+  mapping = NULL,
+  stat = "identity",
   position = "stack",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
@@ -61,6 +63,9 @@ gg_col(
   facet_space = "fixed",
   facet_layout = NULL,
   facet_switch = NULL,
+  linetype_title = NULL,
+  shape_title = NULL,
+  size_title = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
   theme = NULL
@@ -83,6 +88,10 @@ gg_col(
 
 \item{text}{Unquoted text aesthetic variable.}
 
+\item{mapping}{Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.}
+
+\item{stat}{A ggplot2 character string stat.}
+
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
 \item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).}
@@ -93,7 +102,7 @@ gg_col(
 
 \item{alpha}{Opacity. A number between 0 and 1.}
 
-\item{...}{Other arguments passed to the ggplot2::geom_col function.}
+\item{...}{Other arguments passed to the ggplot2::geom_bar function.}
 
 \item{title}{Title string.}
 
@@ -179,6 +188,12 @@ gg_col(
 
 \item{facet_switch}{Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".}
 
+\item{linetype_title}{Legend title string. Use "" for no title.}
+
+\item{shape_title}{Legend title string. Use "" for no title.}
+
+\item{size_title}{Legend title string. Use "" for no title.}
+
 \item{caption}{Caption title string.}
 
 \item{titles}{A function to format unspecified titles. Defaults to snakecase::to_sentence_case.}
@@ -189,7 +204,7 @@ gg_col(
 A ggplot object.
 }
 \description{
-Create a col ggplot with a wrapper around ggplot2::geom_col(stat = "identity", ...).
+Create a col ggplot with a wrapper around ggplot2::geom_bar(stat = "identity", ...).
 }
 \examples{
 library(dplyr)

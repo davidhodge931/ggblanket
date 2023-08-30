@@ -17,6 +17,8 @@ gg_pointrange(
   facet2 = NULL,
   group = NULL,
   text = NULL,
+  mapping = NULL,
+  stat = "identity",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
@@ -65,6 +67,9 @@ gg_pointrange(
   facet_space = "fixed",
   facet_layout = NULL,
   facet_switch = NULL,
+  linetype_title = NULL,
+  shape_title = NULL,
+  size_title = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
   theme = NULL
@@ -94,6 +99,10 @@ gg_pointrange(
 \item{group}{Unquoted group aesthetic variable.}
 
 \item{text}{Unquoted text aesthetic variable.}
+
+\item{mapping}{Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.}
+
+\item{stat}{A ggplot2 character string stat.}
 
 \item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
 
@@ -190,6 +199,12 @@ gg_pointrange(
 \item{facet_layout}{Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".}
 
 \item{facet_switch}{Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".}
+
+\item{linetype_title}{Legend title string. Use "" for no title.}
+
+\item{shape_title}{Legend title string. Use "" for no title.}
+
+\item{size_title}{Legend title string. Use "" for no title.}
 
 \item{caption}{Caption title string.}
 
