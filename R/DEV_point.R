@@ -59,11 +59,11 @@
 #' @param facet_space Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed". Only applies where the facet layout is "grid" and facet scales are not "fixed".
 #' @param facet_layout Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".
 #' @param facet_switch Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".
-#' @param titles A function to format unspecified titles. Defaults to snakecase::to_sentence_case.
+#' @param linetype_title Legend title string. Use "" for no title.
+#' @param shape_title Legend title string. Use "" for no title.
+#' @param size_title Legend title string. Use "" for no title.
 #' @param caption Caption title string.
-#' @param linetype_title description
-#' @param shape_title description
-#' @param size_title description
+#' @param titles A function to format unspecified titles. Defaults to snakecase::to_sentence_case.
 #' @param theme A ggplot2 theme.
 #'
 #' @return A ggplot object.
@@ -141,10 +141,10 @@ gg_point2 <- function(
     facet_space = "fixed",
     facet_layout = NULL,
     facet_switch = NULL,
-    caption = NULL,
     linetype_title = NULL,
     shape_title = NULL,
     size_title = NULL,
+    caption = NULL,
     titles = snakecase::to_sentence_case,
     theme = NULL) {
 
