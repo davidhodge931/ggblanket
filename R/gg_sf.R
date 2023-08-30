@@ -16,9 +16,9 @@
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_gridlines TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
-#' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param x_title Axis title string. Use "" for no title.
 #' @param y_gridlines TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
-#' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param y_title Axis title string. Use "" for no title.
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous For a continuous col variable, the type of colouring. Either "gradient" or "steps". Defaults to "gradient".
 #' @param col_include For a continuous col variable, any values that the limits should encompass (e.g. 0).
@@ -30,7 +30,7 @@
 #' @param col_limits A vector to determine the limits of the colour scale.
 #' @param col_oob For a continuous col variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
 #' @param col_rescale For a continuous col variable, a scales::rescale function.
-#' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param col_title Legend title string. Use "" for no title.
 #' @param col_trans For a numeric col variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
 #' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".

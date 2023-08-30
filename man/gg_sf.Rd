@@ -79,11 +79,11 @@ gg_sf(
 
 \item{x_gridlines}{TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.}
 
-\item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
+\item{x_title}{Axis title string. Use "" for no title.}
 
 \item{y_gridlines}{TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.}
 
-\item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
+\item{y_title}{Axis title string. Use "" for no title.}
 
 \item{col_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -107,7 +107,7 @@ gg_sf(
 
 \item{col_rescale}{For a continuous col variable, a scales::rescale function.}
 
-\item{col_title}{Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
+\item{col_title}{Legend title string. Use "" for no title.}
 
 \item{col_trans}{For a numeric col variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 

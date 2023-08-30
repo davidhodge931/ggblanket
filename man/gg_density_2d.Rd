@@ -102,7 +102,7 @@ gg_density_2d(
 
 \item{x_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
-\item{x_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
+\item{x_title}{Axis title string. Use "" for no title.}
 
 \item{x_trans}{For a numeric x variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
@@ -122,7 +122,7 @@ gg_density_2d(
 
 \item{y_sec_axis}{A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.}
 
-\item{y_title}{Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.}
+\item{y_title}{Axis title string. Use "" for no title.}
 
 \item{y_trans}{For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 

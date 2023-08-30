@@ -25,7 +25,7 @@
 #' @param x_limits A vector of length 2 to determine the limits of the axis.
 #' @param x_oob For a continuous x variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
 #' @param x_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
-#' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param x_title Axis title string. Use "" for no title.
 #' @param x_trans For a numeric x variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param y_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
@@ -35,14 +35,14 @@
 #' @param y_limits A vector of length 2 to determine the limits of the axis.
 #' @param y_oob For a continuous y variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
 #' @param y_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
-#' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param y_title Axis title string. Use "" for no title.
 #' @param y_trans For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. Either "bottom", "right", "top" or "left". Or just the first letter of each.
 #' @param col_legend_rev Reverse the elements of the legend. Defaults to FALSE.
-#' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param col_title Legend title string. Use "" for no title.
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
 #' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
 #' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".

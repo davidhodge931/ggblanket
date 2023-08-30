@@ -41,7 +41,7 @@
 #' @param x_limits A vector of length 2 to determine the limits of the axis.
 #' @param x_oob For a continuous x variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
 #' @param x_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
-#' @param x_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param x_title Axis title string. Use "" for no title.
 #' @param x_trans For a numeric x variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param y_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
@@ -51,7 +51,7 @@
 #' @param y_limits A vector of length 2 to determine the limits of the axis.
 #' @param y_oob For a continuous y variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
 #' @param y_sec_axis A secondary axis using the ggplot2::sec_axis or ggplot2::dup_axis function.
-#' @param y_title Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param y_title Axis title string. Use "" for no title.
 #' @param y_trans For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous For a continuous col variable, the type of colouring. Either "gradient" or "steps". Defaults to "gradient".
@@ -64,7 +64,7 @@
 #' @param col_limits A vector to determine the limits of the colour scale.
 #' @param col_oob For a continuous col variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
 #' @param col_rescale For a continuous col variable, a scales::rescale function.
-#' @param col_title Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.
+#' @param col_title Legend title string. Use "" for no title.
 #' @param col_trans For a numeric col variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
 #' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".

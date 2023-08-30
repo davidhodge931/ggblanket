@@ -1,6 +1,6 @@
-#' @title Boxplot ggplot
+#' @title Point ggplot
 #'
-#' @description Create a boxplot ggplot with a wrapper around ggplot2::geom_boxplot(stat = "boxplot", ...).
+#' @description Create a point ggplot with a wrapper around ggplot2::geom_point.
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
@@ -9,12 +9,14 @@
 #' @param facet2 Unquoted second facet variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param text Unquoted text aesthetic variable.
+#' @param mapping Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.
+#' @param stat A ggplot2 character string stat.
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
-#' @param ... Other arguments passed to the ggplot2::geom_boxplot function.
+#' @param ... Other arguments passed to the ggplot2::geom_point function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -59,25 +61,28 @@
 #' @param facet_switch Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".
 #' @param titles A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.
 #' @param caption Caption title string.
+#' @param linetype_title description
+#' @param shape_title description
+#' @param size_title description
 #' @param theme A ggplot2 theme.
 #'
 #' @return A ggplot object.
 #' @export
+#'
 #' @examples
-#' library(dplyr)
 #' library(palmerpenguins)
 #'
 #' penguins |>
-#'   gg_boxplot(
-#'     x = sex,
+#'   gg_point2(
+#'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = sex,
 #'     facet = species,
-#'     x_labels = snakecase::to_sentence_case,
+#'     col_labels = stringr::str_to_sentence,
 #'     pal = c("#1B9E77", "#9E361B")
 #'   )
 #'
-gg_boxplot <- function(
+gg_point2 <- function(
     data = NULL,
     x = NULL,
     y = NULL,
@@ -86,11 +91,13 @@ gg_boxplot <- function(
     facet2 = NULL,
     group = NULL,
     text = NULL,
-    position = "dodge2",
+    mapping = NULL,
+    stat = "identity",
+    position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
     pal_na = pal_grey,
-    alpha = 0.5,
+    alpha = 1,
     ...,
     title = NULL,
     subtitle = NULL,
@@ -135,6 +142,9 @@ gg_boxplot <- function(
     facet_layout = NULL,
     facet_switch = NULL,
     caption = NULL,
+    linetype_title = NULL,
+    shape_title = NULL,
+    size_title = NULL,
     titles = snakecase::to_sentence_case,
     theme = NULL) {
 
@@ -142,7 +152,7 @@ gg_boxplot <- function(
   #Unique code: part 1
   ##############################################################################
 
-  stat <- "boxplot"
+  # stat <- "identity"
 
   #quote
   x <- rlang::enquo(x)
@@ -201,6 +211,16 @@ gg_boxplot <- function(
   ##############################################################################
   #Generic code: part 1 (adjust for gg_sf & gg_rect)
   ##############################################################################
+
+  #abort if unsupported aesthetic in mapping
+  if (!rlang::is_null(mapping)) {
+    if (any(names(unlist(mapping)) %in% c("colour", "fill", "alpha"))) {
+      rlang::abort("mapping argument does not support colour, fill or alpha aesthetics")
+    }
+    if (any(names(unlist(mapping)) %in% c("facet", "facet2"))) {
+      rlang::abort("mapping argument does not support facet or facet2")
+    }
+  }
 
   #get default theme if global theme not set
   if (rlang::is_null(theme)) {
@@ -270,7 +290,8 @@ gg_boxplot <- function(
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group
+          group = !!group,
+          !!!(mapping)
         ))
     }
     else if (col_null) {
@@ -280,7 +301,8 @@ gg_boxplot <- function(
           y = !!y,
           # col = "",
           # fill = "",
-          group = !!group
+          group = !!group,
+          !!!(mapping)
         ))
     }
   }
@@ -291,7 +313,9 @@ gg_boxplot <- function(
           x = !!x,
           col = !!col,
           fill = !!col,
-          group = !!group
+          group = !!group,
+          !!!(mapping)
+
         ))
     }
     else if (col_null) {
@@ -300,7 +324,8 @@ gg_boxplot <- function(
           x = !!x,
           # col = "",
           # fill = "",
-          group = !!group
+          group = !!group,
+          !!!(mapping)
         ))
     }
   }
@@ -311,7 +336,8 @@ gg_boxplot <- function(
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group
+          group = !!group,
+          !!!(mapping)
         ))
     }
     else if (col_null) {
@@ -320,7 +346,8 @@ gg_boxplot <- function(
           y = !!y,
           # col = "",
           # fill = "",
-          group = !!group
+          group = !!group,
+          !!!(mapping)
         ))
     }
   }
@@ -330,7 +357,8 @@ gg_boxplot <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = !!col,
           fill = !!col,
-          group = !!group
+          group = !!group,
+          !!!(mapping)
         ))
     }
     else if (col_null) {
@@ -338,7 +366,8 @@ gg_boxplot <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           # col = "",
           # fill = "",
-          group = !!group
+          group = !!group,
+          !!!(mapping)
         ))
     }
   }
@@ -348,7 +377,7 @@ gg_boxplot <- function(
     else pal <- as.vector(pal[1])
 
     plot <- plot +
-      ggplot2::geom_boxplot(
+      ggplot2::geom_point(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,
@@ -361,7 +390,7 @@ gg_boxplot <- function(
   }
   else {
     plot <- plot +
-      ggplot2::geom_boxplot(
+      ggplot2::geom_point(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,
@@ -1192,21 +1221,34 @@ gg_boxplot <- function(
     else if (!rlang::is_null(plot_build$plot$labels$colour)) {
       col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), titles)
     }
+  }
 
+  if (rlang::is_null(size_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$size)) {
+      size_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), titles)
+    }
+  }
+  if (rlang::is_null(shape_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$shape)) {
+      shape_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), titles)
+    }
+  }
+  if (rlang::is_null(shape_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$shape)) {
+      linetype_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), titles)
+    }
   }
 
   plot <- plot +
     ggplot2::labs(
       title = title,
       subtitle = subtitle,
-      caption = caption)
-
-  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
-    plot <- plot +
-      ggplot2::labs(
-        col = col_title,
-        fill = col_title)
-  }
+      caption = caption,
+      size = size_title,
+      shape = shape_title,
+      linetype = linetype_title,
+      col = col_title,
+      fill = col_title)
 
   if (stat != "sf") {
     plot <- plot +
