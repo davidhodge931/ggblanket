@@ -1223,9 +1223,9 @@ gg_point2 <- function(
     }
   }
 
-  if (rlang::is_null(size_title)) {
-    if (!rlang::is_null(plot_build$plot$labels$size)) {
-      size_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), titles)
+  if (rlang::is_null(linetype_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$linetype)) {
+      linetype_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), titles)
     }
   }
   if (rlang::is_null(shape_title)) {
@@ -1233,9 +1233,9 @@ gg_point2 <- function(
       shape_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), titles)
     }
   }
-  if (rlang::is_null(shape_title)) {
-    if (!rlang::is_null(plot_build$plot$labels$shape)) {
-      linetype_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), titles)
+  if (rlang::is_null(size_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$size)) {
+      size_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), titles)
     }
   }
 
@@ -1244,9 +1244,9 @@ gg_point2 <- function(
       title = title,
       subtitle = subtitle,
       caption = caption,
-      size = size_title,
-      shape = shape_title,
       linetype = linetype_title,
+      shape = shape_title,
+      size = size_title,
       col = col_title,
       fill = col_title)
 
