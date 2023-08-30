@@ -51,7 +51,7 @@ penguins <- palmerpenguins::penguins |>
 
 ### 1. Over thirty gg\_\* wrapper functions
 
-Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function. For all functions except `gg_blank`, the stat is locked to that which is default to the applicable `geom_*` function. 
+Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function.  
 
 ```{r, fig.asp=0.6}
 # ggplot2
@@ -354,7 +354,7 @@ penguins |>
 
 ### 10. Access to other geom\_\* arguments via `...`
 
-The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users (except the mapping and stat argument). Common arguments from `...` to add are `size`, `linewidth` and `width`.
+The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users. Common arguments from `...` to add are `size`, `linewidth` and `width`.
 
 ```{r}
 # ggblanket
@@ -560,20 +560,6 @@ p2 <- diamonds |>
   )
 
 p1 + p2
-```
-
-##### Stats locked except in gg_blank
-
-ggblanket locks the `stat` of each `gg_*` function to the default of the respective geom, with the exception of `gg_blank`. The `gg_blank` function has a `stat` argument that users can change. This means if you would like to use a stat different to the default for a `gg_*` function, you need to use `gg_blank`. Setting the `stat` to that of the layer to follow can help ensure scales are created correctly. Note `gg_blank` only accepts stats that are characters.
-
-```{r, fig.asp=0.4}
-penguins |>
-  gg_blank(
-    x = body_mass_g,
-    y = species,
-    stat = "summary"
-  ) +
-  geom_pointrange(stat = "summary", colour = pal_blue)
 ```
 
 ##### Different oob & clip defaults

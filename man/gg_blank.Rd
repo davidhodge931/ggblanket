@@ -15,16 +15,10 @@ gg_blank(
   xmin = NULL,
   xmax = NULL,
   xend = NULL,
-  xlower = NULL,
-  xupper = NULL,
-  xmiddle = NULL,
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
   z = NULL,
-  ylower = NULL,
-  yupper = NULL,
-  ymiddle = NULL,
   sample = NULL,
   label = NULL,
   subgroup = NULL,
@@ -107,12 +101,6 @@ gg_blank(
 
 \item{xend}{Unquoted xend aesthetic variable.}
 
-\item{xlower}{Unquoted xlower aesthetic variable.}
-
-\item{xupper}{Unquoted xupper aesthetic variable.}
-
-\item{xmiddle}{Unquoted xmiddle aesthetic variable.}
-
 \item{ymin}{Unquoted ymin aesthetic variable.}
 
 \item{ymax}{Unquoted ymax aesthetic variable.}
@@ -120,12 +108,6 @@ gg_blank(
 \item{yend}{Unquoted yend aesthetic variable.}
 
 \item{z}{Unquoted z aesthetic variable.}
-
-\item{ylower}{Unquoted ylower aesthetic variable.}
-
-\item{yupper}{Unquoted yupper aesthetic variable.}
-
-\item{ymiddle}{Unquoted ymiddle aesthetic variable.}
 
 \item{sample}{Unquoted sample aesthetic variable.}
 

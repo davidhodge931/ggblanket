@@ -11,16 +11,10 @@
 #' @param xmin Unquoted xmin aesthetic variable.
 #' @param xmax Unquoted xmax aesthetic variable.
 #' @param xend Unquoted xend aesthetic variable.
-#' @param xlower Unquoted xlower aesthetic variable.
-#' @param xupper Unquoted xupper aesthetic variable.
-#' @param xmiddle Unquoted xmiddle aesthetic variable.
 #' @param ymin Unquoted ymin aesthetic variable.
 #' @param ymax Unquoted ymax aesthetic variable.
 #' @param yend Unquoted yend aesthetic variable.
 #' @param z Unquoted z aesthetic variable.
-#' @param ylower Unquoted ylower aesthetic variable.
-#' @param yupper Unquoted yupper aesthetic variable.
-#' @param ymiddle Unquoted ymiddle aesthetic variable.
 #' @param sample Unquoted sample aesthetic variable.
 #' @param label Unquoted label aesthetic variable.
 #' @param subgroup Unquoted subgroup aesthetic variable.
@@ -108,16 +102,10 @@ gg_blank <- function(
     xmin = NULL,
     xmax = NULL,
     xend = NULL,
-    xlower = NULL,
-    xupper = NULL,
-    xmiddle = NULL,
     ymin = NULL,
     ymax = NULL,
     yend = NULL,
     z = NULL,
-    ylower = NULL,
-    yupper = NULL,
-    ymiddle = NULL,
     sample = NULL,
     label = NULL,
     subgroup = NULL,
@@ -193,16 +181,10 @@ gg_blank <- function(
   xmin <- rlang::enquo(xmin)
   xmax <- rlang::enquo(xmax)
   xend <- rlang::enquo(xend)
-  xlower <- rlang::enquo(xlower)
-  xupper <- rlang::enquo(xupper)
-  xmiddle <- rlang::enquo(xmiddle)
 
   ymin <- rlang::enquo(ymin)
   ymax <- rlang::enquo(ymax)
   yend <- rlang::enquo(yend)
-  ylower <- rlang::enquo(ylower)
-  yupper <- rlang::enquo(yupper)
-  ymiddle <- rlang::enquo(ymiddle)
 
   z <- rlang::enquo(z)
 
@@ -218,7 +200,6 @@ gg_blank <- function(
         !!xmin, !!ymin,
         !!xmax, !!ymax,
         !!xend, !!yend,
-        !!xlower, !!xmiddle, !!xupper, !!ylower, !!ymiddle, !!yupper,
         !!z,
         !!col
       ),
@@ -485,15 +466,9 @@ gg_blank <- function(
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
           sample = !!sample,
           label = !!label,
           subgroup = !!subgroup
@@ -507,15 +482,9 @@ gg_blank <- function(
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
           sample = !!sample,
           label = !!label,
           subgroup = !!subgroup
@@ -529,15 +498,9 @@ gg_blank <- function(
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
           sample = !!sample,
           label = !!label,
           subgroup = !!subgroup
@@ -550,15 +513,9 @@ gg_blank <- function(
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
           sample = !!sample,
           label = !!label,
           subgroup = !!subgroup
@@ -575,16 +532,10 @@ gg_blank <- function(
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
           z = !!z,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
           sample = !!sample,
           label = !!label,
           subgroup = !!subgroup
@@ -598,16 +549,10 @@ gg_blank <- function(
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
           z = !!z,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
           sample = !!sample,
           label = !!label,
           subgroup = !!subgroup
@@ -621,16 +566,10 @@ gg_blank <- function(
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
           z = !!z,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
           sample = !!sample,
           label = !!label,
           subgroup = !!subgroup
@@ -643,16 +582,10 @@ gg_blank <- function(
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
-          xlower = !!xlower,
-          xupper = !!xupper,
-          xmiddle = !!xmiddle,
           ymin = !!ymin,
           ymax = !!ymax,
           yend = !!yend,
           z = !!z,
-          lower = !!ylower,
-          upper = !!yupper,
-          middle = !!ymiddle,
           sample = !!sample,
           label = !!label,
           subgroup = !!subgroup
@@ -672,15 +605,9 @@ gg_blank <- function(
             xmin = !!xmin,
             xmax = !!xmax,
             xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
             ymin = !!ymin,
             ymax = !!ymax,
             yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
             sample = !!sample,
             label = !!label,
             subgroup = !!subgroup
@@ -697,15 +624,9 @@ gg_blank <- function(
             xmin = !!xmin,
             xmax = !!xmax,
             xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
             ymin = !!ymin,
             ymax = !!ymax,
             yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
             sample = !!sample,
             label = !!label,
             subgroup = !!subgroup
@@ -723,15 +644,9 @@ gg_blank <- function(
             xmin = !!xmin,
             xmax = !!xmax,
             xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
             ymin = !!ymin,
             ymax = !!ymax,
             yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
             sample = !!sample,
             label = !!label,
             subgroup = !!subgroup
@@ -747,15 +662,9 @@ gg_blank <- function(
             xmin = !!xmin,
             xmax = !!xmax,
             xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
             ymin = !!ymin,
             ymax = !!ymax,
             yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
             sample = !!sample,
             label = !!label,
             subgroup = !!subgroup
@@ -773,15 +682,9 @@ gg_blank <- function(
             xmin = !!xmin,
             xmax = !!xmax,
             xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
             ymin = !!ymin,
             ymax = !!ymax,
             yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
             sample = !!sample,
             label = !!label,
             subgroup = !!subgroup
@@ -797,15 +700,9 @@ gg_blank <- function(
             xmin = !!xmin,
             xmax = !!xmax,
             xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
             ymin = !!ymin,
             ymax = !!ymax,
             yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
             sample = !!sample,
             label = !!label,
             subgroup = !!subgroup
@@ -822,15 +719,9 @@ gg_blank <- function(
             xmin = !!xmin,
             xmax = !!xmax,
             xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
             ymin = !!ymin,
             ymax = !!ymax,
             yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
             sample = !!sample,
             label = !!label,
             subgroup = !!subgroup
@@ -845,15 +736,9 @@ gg_blank <- function(
             xmin = !!xmin,
             xmax = !!xmax,
             xend = !!xend,
-            xlower = !!xlower,
-            xupper = !!xupper,
-            xmiddle = !!xmiddle,
             ymin = !!ymin,
             ymax = !!ymax,
             yend = !!yend,
-            lower = !!ylower,
-            upper = !!yupper,
-            middle = !!ymiddle,
             sample = !!sample,
             label = !!label,
             subgroup = !!subgroup

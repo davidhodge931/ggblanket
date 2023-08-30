@@ -1,5 +1,9 @@
 # ggblanket (development version)
 
+* Added `mapping` argument to allow additional aesthetics to be included (e.g. shape)
+* Added `stat` argument for flexibility.
+* Added `linetype_title`, `shape_title`, and `size_title` arguments.
+* Breaking: removed `lower`, `middle`, `upper`, `xlower`, `xmiddle`, and `xupper` arguments from `gg_blank`.
 * Breaking: made horizontal y characters and factors plot values from low at bottom to high at top.  
 * Made plot order logical variables with `TRUE` first.  
 * Added `pal_discrete2` with 6 colour blind safe colours for a light background theme.
