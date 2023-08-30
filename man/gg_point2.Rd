@@ -196,7 +196,7 @@ gg_point2(
 
 \item{size_title}{description}
 
-\item{titles}{A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.}
+\item{titles}{A function to format unspecified titles. Defaults to snakecase::to_sentence_case.}
 
 \item{theme}{A ggplot2 theme.}
 }
