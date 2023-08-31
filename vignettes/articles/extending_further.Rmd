@@ -20,13 +20,14 @@ knitr::opts_chunk$set(
 
 To extend ggblanket further, users can:
 
-1. Use the gg_blank function
-2. Modifying a part of the colouring 
-3. Use non-supported aesthetics
-4. Visualise spatial data
-5. Use different fonts
+1. Use different fonts
+2. Visualise spatial data
+3. Modify a part of the colouring 
+4. Use the mapping argument 
+5. Change the default stat
 6. Create custom wrapper functions
 7. Work with extension packages 
+
 
 ```{r setup}
 library(dplyr)
@@ -41,25 +42,58 @@ penguins <- penguins |>
   tidyr::drop_na(sex)
 ```
 
-### 1. Use the gg_blank function
+### 1. Use different fonts
 
-The `gg_blank` function is the most flexible function in ggblanket.
+The showtext and sysfonts packages support the use of different fonts from Google. The `theme_*_mode` functions provide `base_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
 
-It provides access to the most aesthetics. It provides lots of flexibility to use ggblanket with other ggplot2 stats, layers and geoms. 
+```{r, fig.asp = 0.75, fig.showtext = TRUE}
+sysfonts::font_add_google("Covered By Your Grace", "grace")
+sysfonts::font_add_google('Anton', 'anton')
+sysfonts::font_add_google('Syne Mono', 'syne')
 
-Users need to ensure that the scales built by their `gg_*` function are appropriate for subsequent layers. This is because the plot scales are constructed without knowledge of subsequent layers. They are built based on the `data`, `x`, `y`, `*_limits`, `*_include`, `facet_scales` and the underlying `stat` and `position` in the `gg_*`  function. The `stat` and `position` is unique to each `geom_*` layer - it does not inherit. 
+showtext::showtext_auto(enable = TRUE)
 
-So with `gg_blank`, you may need to include the ggplot2 `stat` and `position` for plots that require different x and y scales to those created by a stat and position of `identity`. The `stat` must be a character, as stat functions are not supported. The `position` can be character or function.
-
-```{r}
 penguins |>
-  gg_blank(
-    x = body_mass_g, 
-    stat = "bin") +
-  geom_histogram(colour = pal_blue, fill = pal_blue, alpha = 0.9)
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020",
+    pal = c("#2596be", "#fc7c24"),
+    theme = light_mode(
+      base_family = "grace", 
+      title_family = "anton",
+      subtitle_family = "syne"))
+showtext::showtext_auto(enable = FALSE)
 ```
 
-### 2. Modifying a part of the colouring 
+### 2. Visualise spatial data
+
+As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, spatial vector and array data can be visualised. 
+
+```{r, fig.asp=0.33}
+sf::st_read(system.file("shape/nc.shp", package = "sf"), 
+                  quiet = TRUE) |>
+  gg_sf(col = AREA,
+        pal = RColorBrewer::brewer.pal(9, "Blues")) +
+  ggeasy::easy_remove_axes()
+```
+
+```{r}
+stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
+ tibble::as_tibble() |>
+ gg_raster(x = x,
+           y = y,
+           col = L7_ETMs.tif,
+           facet = band,
+           col_title = "") +
+  ggeasy::easy_remove_axes()
+```
+
+### 3. Modify a part of the colouring 
 
 Where a `gg_*` function contains a geom that can colour both outlines and fill, users can turn off a part of this using `alpha = 0` or `pal = scales::alpha("red", 0)`. 
 
@@ -127,104 +161,35 @@ p4 <- iris |>
 (p1 + p2) / (p3 + p4) 
 ```
 
-### 3. Use non-supported ggplot2 aesthetics
+### 4. Use the mapping argument
 
-While aesthetics other than colouring are not supported by ggblanket, it is possible to access these in plots made with a combination of `gg_blank` and other ggplot2 code.
+The `mapping` argument provides additional flexibility to access the `linetype`, `shape` and `size` aesthetics. It also allows for positional `x` and `y` variables to be provided within a function, such as within `after_stat`. Note the `colour`, `fill` and `alpha` aesthetics cannot be added within the `mapping` argument. These plots could potentially be made using the `gg_blank` function and relevamt `geom_*` layer.
 
 ```{r}
-# Discrete other aesthetic
-p1 <- penguins |>
-  gg_blank(
-    x = bill_length_mm,
-    y = body_mass_g, 
-    col = sex, #hack for legend placement
-    x_breaks = scales::breaks_pretty(n = 3)) + 
-  geom_point(aes(shape = sex), colour = "#2B6999") + 
-  labs(shape = "Sex") #name same as the col_title  
-
-p2 <- penguins |>
-  gg_blank(
-    x = bill_length_mm,
-    y = body_mass_g, 
-    col = sex,
-    x_breaks = scales::breaks_pretty(n = 3)) + 
-  geom_point(aes(shape = sex)) +  
-  labs(shape = "Sex") #name same as the col_title 
-
-p1 + p2
-```
-
-```{r, fig.asp=1}
-# Continuous other aesthetic
-p1 <- penguins |>
-  gg_blank(
-    x = bill_length_mm,
-    y = body_mass_g) +  
-  geom_point(aes(alpha = bill_depth_mm), colour = "#2B6999") +
-  labs(alpha = "Bill depth mm")
-
-p2 <- penguins |>
-  gg_blank(
-    x = bill_length_mm,
-    y = body_mass_g, 
-    col = species,
-    col_legend_place = "r", #two legends works better on right
-    col_title = "\nSpecies") + #add space between legends
-  geom_point(aes(alpha = bill_depth_mm)) +
-  labs(alpha = "Bill depth mm") 
-
-p1 / p2
-```
-
-### 4. Visualise spatial data
-
-As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, spatial vector and array data can be visualised. 
-
-```{r, fig.asp=0.33}
-sf::st_read(system.file("shape/nc.shp", package = "sf"), 
-                  quiet = TRUE) |>
-  gg_sf(col = AREA,
-        pal = RColorBrewer::brewer.pal(9, "Blues")) +
-  ggeasy::easy_remove_axes()
+penguins |> 
+  gg_point(x = flipper_length_mm, 
+           y = body_mass_g, 
+           col = species,
+           mapping = aes(shape = species))
 ```
 
 ```{r}
-stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
- tibble::as_tibble() |>
- gg_raster(x = x,
-           y = y,
-           col = L7_ETMs.tif,
-           facet = band,
-           col_title = "") +
-  ggeasy::easy_remove_axes()
+penguins |>
+  gg_histogram(x = flipper_length_mm,
+               mapping = aes(y = after_stat(density)),
+               facet = species)
 ```
 
-### 5. Use different fonts
+### 5. Change the default stat
 
-The showtext and sysfonts packages support the use of different fonts from Google. The `theme_*_mode` functions provide `base_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
+The default stat of each `gg_*` function can be changed for additional flexibility.
 
-```{r, fig.asp = 0.75, fig.showtext = TRUE}
-sysfonts::font_add_google("Covered By Your Grace", "grace")
-sysfonts::font_add_google('Anton', 'anton')
-sysfonts::font_add_google('Syne Mono', 'syne')
-
-showtext::showtext_auto(enable = TRUE)
-
+```{r}
 penguins |>
   gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    facet = species,
-    title = "Penguins body mass by flipper length",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020",
-    pal = c("#2596be", "#fc7c24"),
-    theme = light_mode(
-      base_family = "grace", 
-      title_family = "anton",
-      subtitle_family = "syne"))
-showtext::showtext_auto(enable = FALSE)
+    x = species,
+    y = flipper_length_mm, 
+    stat = "summary")
 ```
 
 ### 6. Create custom wrapper functions
