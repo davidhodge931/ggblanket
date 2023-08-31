@@ -129,9 +129,7 @@ faceting</li>
 <code>ggplot(aes(...))</code> function with the applicable ggplot2
 <code>geom_*()</code> function. All aesthetics are placed directly in
 the <code>gg_*</code> function: they are not within a
-<code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes</a></code> function. For all functions except
-<code>gg_blank</code>, the stat is locked to that which is default to
-the applicable <code>geom_*</code> function.</p>
+<code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes</a></code> function.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggplot2</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -471,9 +469,8 @@ scales. * for <code>gg_raster</code>, <code>gg_contour_filled</code> or
 <p>The <code>...</code> argument is placed in the <code>gg_*</code>
 function within the wrapped <code>ggplot2::geom_*</code> function. This
 means all other arguments in the <code>geom_*</code> function are
-available to users (except the mapping and stat argument). Common
-arguments from <code>...</code> to add are <code>size</code>,
-<code>linewidth</code> and <code>width</code>.</p>
+available to users. Common arguments from <code>...</code> to add are
+<code>size</code>, <code>linewidth</code> and <code>width</code>.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -711,28 +708,6 @@ plotting.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-26-1.svg" width="70%"></p>
 </div>
 <div class="section level5">
-<h5 id="stats-locked-except-in-gg_blank">Stats locked except in gg_blank<a class="anchor" aria-label="anchor" href="#stats-locked-except-in-gg_blank"></a>
-</h5>
-<p>ggblanket locks the <code>stat</code> of each <code>gg_*</code>
-function to the default of the respective geom, with the exception of
-<code>gg_blank</code>. The <code>gg_blank</code> function has a
-<code>stat</code> argument that users can change. This means if you
-would like to use a stat different to the default for a
-<code>gg_*</code> function, you need to use <code>gg_blank</code>.
-Setting the <code>stat</code> to that of the layer to follow can help
-ensure scales are created correctly. Note <code>gg_blank</code> only
-accepts stats that are characters.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_blank.html">gg_blank</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    stat <span class="op">=</span> <span class="st">"summary"</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_pointrange</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"summary"</span>, colour <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-27-1.svg" width="70%"></p>
-</div>
-<div class="section level5">
 <h5 id="different-oob-clip-defaults">Different oob &amp; clip defaults<a class="anchor" aria-label="anchor" href="#different-oob-clip-defaults"></a>
 </h5>
 <p>By default, ggblanket keeps values outside of the limits
@@ -746,7 +721,7 @@ anything outside the cartesian coordinate space by default
 (<code>coord = ggplot2::coord_cartesian(clip = "on"</code>)).</p>
 <p>Users should be particularly careful when setting limits for stats
 other than <code>identity</code>.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">date</span>, </span>
@@ -801,7 +776,7 @@ other than <code>identity</code>.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">/</span> <span class="op">(</span><span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p4</span> <span class="op">+</span> <span class="va">p5</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-28-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-27-1.svg" width="70%"></p>
 </div>
 <div class="section level5">
 <h5 id="different-pal-and-alpha-defaults">Different pal and alpha defaults<a class="anchor" aria-label="anchor" href="#different-pal-and-alpha-defaults"></a>

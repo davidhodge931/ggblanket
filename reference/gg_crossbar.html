@@ -75,6 +75,8 @@
 <span>  facet2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  coord <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span>,</span>
 <span>  pal <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -123,6 +125,9 @@
 <span>  facet_space <span class="op">=</span> <span class="st">"fixed"</span>,</span>
 <span>  facet_layout <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_switch <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  linetype_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  shape_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  caption <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  titles <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span>,</span>
 <span>  theme <span class="op">=</span> <span class="cn">NULL</span></span>
@@ -177,6 +182,14 @@
 
 <dt>text</dt>
 <dd><p>Unquoted text aesthetic variable.</p></dd>
+
+
+<dt>mapping</dt>
+<dd><p>Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.</p></dd>
+
+
+<dt>stat</dt>
+<dd><p>A ggplot2 character string stat.</p></dd>
 
 
 <dt>position</dt>
@@ -244,7 +257,7 @@
 
 
 <dt>x_title</dt>
-<dd><p>Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.</p></dd>
+<dd><p>Axis title string. Use "" for no title.</p></dd>
 
 
 <dt>x_trans</dt>
@@ -284,7 +297,7 @@
 
 
 <dt>y_title</dt>
-<dd><p>Axis title string. Defaults to converting to sentence case with spaces. Use "" for no title.</p></dd>
+<dd><p>Axis title string. Use "" for no title.</p></dd>
 
 
 <dt>y_trans</dt>
@@ -336,7 +349,7 @@
 
 
 <dt>col_title</dt>
-<dd><p>Legend title string. Defaults to converting to sentence case with spaces. Use "" for no title.</p></dd>
+<dd><p>Legend title string. Use "" for no title.</p></dd>
 
 
 <dt>col_trans</dt>
@@ -371,12 +384,24 @@
 <dd><p>Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".</p></dd>
 
 
+<dt>linetype_title</dt>
+<dd><p>Legend title string. Use "" for no title.</p></dd>
+
+
+<dt>shape_title</dt>
+<dd><p>Legend title string. Use "" for no title.</p></dd>
+
+
+<dt>size_title</dt>
+<dd><p>Legend title string. Use "" for no title.</p></dd>
+
+
 <dt>caption</dt>
 <dd><p>Caption title string.</p></dd>
 
 
 <dt>titles</dt>
-<dd><p>A function to format the x, y and col titles. Defaults to snakecase::to_sentence_case.</p></dd>
+<dd><p>A function to format unspecified titles. Defaults to snakecase::to_sentence_case.</p></dd>
 
 
 <dt>theme</dt>
