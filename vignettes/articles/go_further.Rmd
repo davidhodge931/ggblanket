@@ -1,5 +1,5 @@
 ---
-title: "Extending further"
+title: "Go further"
 author: "David Hodge"
 ---
 
@@ -24,7 +24,7 @@ To extend ggblanket further, users can:
 2. Visualise spatial data
 3. Modify a part of the colouring 
 4. Use the mapping argument 
-5. Change the default stat
+5. Change the stat
 6. Create custom wrapper functions
 7. Work with extension packages 
 
@@ -180,7 +180,7 @@ penguins |>
                facet = species)
 ```
 
-### 5. Change the default stat
+### 5. Change the stat
 
 The default stat of each `gg_*` function can be changed for additional flexibility.
 
@@ -433,6 +433,7 @@ ggridges::Catalan_elections |>
   gg_blank(
     x = percent, 
     y = year, 
+    col = option,
     y_expand = c(0, 0), 
     col_title = "",
     col_legend_rev = TRUE, 
