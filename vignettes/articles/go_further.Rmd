@@ -182,14 +182,15 @@ penguins |>
 
 ### 5. Change the stat
 
-The default stat of each `gg_*` function can be changed for additional flexibility.
+The default `stat` of each `gg_*` function can be changed for additional flexibility. Note that you can only use `stat` character strings and not functions.
 
 ```{r}
 penguins |>
-  gg_point(
+  gg_pointrange(
     x = species,
     y = flipper_length_mm, 
-    stat = "summary")
+    stat = "summary", 
+    size = 0.1)
 ```
 
 ### 6. Create custom wrapper functions
