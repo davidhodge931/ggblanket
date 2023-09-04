@@ -368,7 +368,7 @@ gg_freqpoly <- function(
     else pal <- as.vector(pal[1])
 
     plot <- plot +
-      ggplot2::geom_blank(stat = stat, position = position) +
+      ggplot2::geom_blank(stat = stat, position = position, ...) +
       ggplot2::geom_freqpoly(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,
@@ -382,7 +382,7 @@ gg_freqpoly <- function(
   }
   else {
     plot <- plot +
-      ggplot2::geom_blank(stat = stat, position = position) +
+      ggplot2::geom_blank(stat = stat, position = position, ...) +
       ggplot2::geom_freqpoly(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,

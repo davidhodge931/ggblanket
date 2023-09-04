@@ -18,7 +18,6 @@
 #' @param sample Unquoted sample aesthetic variable.
 #' @param label Unquoted label aesthetic variable.
 #' @param subgroup Unquoted subgroup aesthetic variable.
-#' @param text Unquoted text aesthetic variable.
 #' @param mapping Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.
 #' @param stat A ggplot2 character string stat.
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
@@ -109,7 +108,6 @@ gg_blank <- function(
     sample = NULL,
     label = NULL,
     subgroup = NULL,
-    text = NULL,
     mapping = NULL,
     stat = "identity",
     position = "identity",
@@ -752,23 +750,13 @@ gg_blank <- function(
     else pal <- as.vector(pal[1])
 
     plot <- plot +
-      ggplot2::geom_blank(
-        ggplot2::aes(text = !!text), stat = stat,
-        position = position,
-        col = pal,
-        fill = pal,
-        ...
-      ) +
+      ggplot2::geom_blank(stat = stat, position = position, ...) +
       coord +
       theme
   }
   else {
     plot <- plot +
-      ggplot2::geom_blank(
-        ggplot2::aes(text = !!text), stat = stat,
-        position = position,
-        ...
-      ) +
+      ggplot2::geom_blank(stat = stat, position = position, ...) +
       coord +
       theme
   }

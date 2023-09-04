@@ -368,6 +368,7 @@ gg_path <- function(
     else pal <- as.vector(pal[1])
 
     plot <- plot +
+      # ggplot2::geom_blank(stat = stat, position = position, ...) +
       ggplot2::geom_path(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,
@@ -381,6 +382,7 @@ gg_path <- function(
   }
   else {
     plot <- plot +
+      # ggplot2::geom_blank(stat = stat, position = position, ...) +
       ggplot2::geom_path(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,

@@ -394,6 +394,7 @@ gg_hex <- function(
     else pal <- as.vector(pal[1])
 
     plot <- plot +
+      # ggplot2::geom_blank(stat = stat, position = position, ...) +
       ggplot2::geom_hex(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,
@@ -407,6 +408,7 @@ gg_hex <- function(
   }
   else {
     plot <- plot +
+      # ggplot2::geom_blank(stat = stat, position = position, ...) +
       ggplot2::geom_hex(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,

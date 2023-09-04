@@ -22,7 +22,6 @@ gg_blank(
   sample = NULL,
   label = NULL,
   subgroup = NULL,
-  text = NULL,
   mapping = NULL,
   stat = "identity",
   position = "identity",
@@ -114,8 +113,6 @@ gg_blank(
 \item{label}{Unquoted label aesthetic variable.}
 
 \item{subgroup}{Unquoted subgroup aesthetic variable.}
-
-\item{text}{Unquoted text aesthetic variable.}
 
 \item{mapping}{Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.}
 
