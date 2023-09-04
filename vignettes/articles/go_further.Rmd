@@ -218,7 +218,12 @@ p1 + p2
 You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
 ```{r}
-gg_point_custom <- function(data, x, y, col, 
+gg_point_custom <- function(data, 
+                            x, 
+                            y, 
+                            col = NULL, 
+                            facet = NULL, 
+                            facet2 = NULL,
                             size = 3, 
                             shape = 17,
                             pal = RColorBrewer::brewer.pal(8, "Dark2"), 
@@ -226,21 +231,36 @@ gg_point_custom <- function(data, x, y, col,
                             col_legend_place = "t",
                             ...) {
   data |> 
-    gg_point(x = {{ x }}, y = {{ y }}, col = {{col}}, 
+    gg_point(x = {{ x }}, 
+             y = {{ y }}, 
+             col = {{ col }}, 
+             facet = {{ facet }},
+             facet2 = {{ facet2 }},
              size = size, 
              shape = shape,
              pal = pal, 
              col_title = col_title, 
              col_legend_place = col_legend_place, 
              col_labels = str_to_sentence,
-             ...)
+             ...) +
+    ggeasy::easy_remove_axes("y", c("line", "ticks"))
 }
 
-iris |>
+p1 <- penguins |>
   gg_point_custom(
-    x = Sepal.Width,
-    y = Sepal.Length,
-    col = Species)
+    x = flipper_length_mm,
+    y = body_mass_g, 
+    col = species,
+    x_breaks = scales::breaks_pretty(3))
+
+p2 <- penguins |>
+  gg_point_custom(
+    x = flipper_length_mm,
+    y = body_mass_g, 
+    col = sex, 
+    x_breaks = scales::breaks_pretty(3))
+
+p1 + p2
 ```
 
 ### 8. Work with extension packages
@@ -404,11 +424,15 @@ The ggeasy package provides a lot of support for easily modifying themes. Removi
 
 ```{r}
 penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex) +
-  ggeasy::easy_remove_axes() 
+  gg_jitter(
+    x = species, 
+    y = body_mass_g, 
+    col = sex, 
+    pal = c("#2596be", "#fc7c24"),
+    col_legend_place = "t",
+    col_title = "") +
+  ggeasy::easy_remove_axes(which = "y", 
+                           what = c("line", "ticks"))
 ```
 
 #### ggblend
