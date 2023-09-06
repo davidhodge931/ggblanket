@@ -681,7 +681,7 @@ gg_density_2d <- function(
           if (rlang::is_null(x_breaks)) {
 
             if (!facet_null & !facet2_null) x_breaks_n <- 3
-            else if (!facet_null & facet2_null) x_breaks_n <- 3
+            else if (!facet_null | !facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver()
@@ -725,7 +725,7 @@ gg_density_2d <- function(
           if (rlang::is_null(x_breaks)) {
 
             if (!facet_null & !facet2_null) x_breaks_n <- 3
-            else if (!facet_null & facet2_null) x_breaks_n <- 3
+            else if (!facet_null | !facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
 
             if (x_time) x_breaks <- ggplot2::waiver
@@ -889,8 +889,8 @@ gg_density_2d <- function(
         if (rlang::is_null(y_limits)) {
           if (rlang::is_null(y_breaks)) {
 
-            if (!facet_null & !facet2_null) y_breaks_n <- 6
-            else if (facet_null & !facet2_null) y_breaks_n <- 6
+            if (!facet_null & !facet2_null) y_breaks_n <- 5
+            else if (!facet_null | !facet2_null) y_breaks_n <- 6
             else y_breaks_n <- 8
 
             if (y_time) y_breaks <- ggplot2::waiver
@@ -929,8 +929,8 @@ gg_density_2d <- function(
 
           if (rlang::is_null(y_breaks)) {
 
-            if (!facet_null & !facet2_null) y_breaks_n <- 6
-            else if (facet_null & !facet2_null) y_breaks_n <- 6
+            if (!facet_null & !facet2_null) y_breaks_n <- 5
+            else if (!facet_null | !facet2_null) y_breaks_n <- 6
             else y_breaks_n <- 8
 
             if (y_time) y_breaks <- ggplot2::waiver
@@ -1327,7 +1327,7 @@ gg_density_2d <- function(
     }
     else if (col_legend_place == "none") {
       plot <- plot +
-        ggplot2::guides(col = "none", fill = "none")
+        ggplot2::guides(colour = "none", fill = "none")
     }
   }
 
