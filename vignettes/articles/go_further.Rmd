@@ -315,7 +315,11 @@ penguins |>
 The ggbump package can be used to create bump plots.
 
 ```{r}
-df <- tibble(country = c("India", "India", "India", "Sweden", "Sweden", "Sweden", "Germany", "Germany", "Germany", "Finland", "Finland", "Finland"), year = c(2011, 2012, 2013, 2011, 2012, 2013, 2011, 2012, 2013, 2011, 2012, 2013), value = c(492, 246, 246, 369, 123, 492, 246, 369, 123, 123, 492, 369)) |> 
+df <- tibble(
+  country = c("India", "India", "India", "Sweden", "Sweden", "Sweden", "Germany",
+              "Germany", "Germany", "Finland", "Finland", "Finland"), 
+  year = c(2011, 2012, 2013, 2011, 2012, 2013, 2011, 2012, 2013, 2011, 2012, 2013),
+  value = c(492, 246, 246, 369, 123, 492, 246, 369, 123, 123, 492, 369)) |> 
   group_by(year) |>  
   mutate(rank = rank(value, ties.method = "random")) |> 
   ungroup()
