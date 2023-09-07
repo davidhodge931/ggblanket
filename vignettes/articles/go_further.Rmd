@@ -282,41 +282,6 @@ p3 <- mtcars |>
 (p1 | p2) / p3
 ```
 
-#### geomtextpath
-
-The geomtextpath package enables curved text.
-
-```{r, fig.asp=0.8}
-library(geomtextpath)
-p1 <- iris |>
-  gg_blank(
-    x = Sepal.Length, 
-    col = Species, 
-    label = Species, 
-    stat = "density", 
-    col_legend_place = "n", 
-    x_breaks = scales::breaks_pretty(3)) +
-  geom_textdensity(size = 4, fontface = 2, hjust = 0.2, vjust = 0.3)
-
-p2 <- expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |> 
-  mutate(z = c(volcano)) |> 
-  gg_blank(x = x, 
-           y = y, 
-           z = z, 
-           stat = "contour_filled",
-           binwidth = 20, 
-           x_limits = c(NA, NA),
-           x_expand = c(0, 0),
-           y_limits = c(NA, NA)) +
-  geom_contour_filled(binwidth = 20, show.legend = FALSE) +
-  geom_textcontour(aes(label = after_stat(level)), 
-                   size = 2.5, padding = unit(0.05, "in")) +
-  ggeasy::easy_remove_axes() +
-  scale_fill_brewer()
-
-p1 / p2
-```
-
 #### ggbeeswarm
 
 The ggbeeswarm package can be used to create scatter plots that avoid overlapping points.
@@ -620,6 +585,42 @@ penguins |>
     legend.text = ggtext::element_markdown(), 
     strip.text.x = ggtext::element_markdown(),
     strip.text.y = ggtext::element_markdown())
+```
+
+
+#### geomtextpath
+
+The geomtextpath package enables curved text.
+
+```{r, fig.asp=0.8}
+library(geomtextpath)
+p1 <- iris |>
+  gg_blank(
+    x = Sepal.Length, 
+    col = Species, 
+    label = Species, 
+    stat = "density", 
+    col_legend_place = "n", 
+    x_breaks = scales::breaks_pretty(3)) +
+  geom_textdensity(size = 4, fontface = 2, hjust = 0.2, vjust = 0.3)
+
+p2 <- expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |> 
+  mutate(z = c(volcano)) |> 
+  gg_blank(x = x, 
+           y = y, 
+           z = z, 
+           stat = "contour_filled",
+           binwidth = 20, 
+           x_limits = c(NA, NA),
+           x_expand = c(0, 0),
+           y_limits = c(NA, NA)) +
+  geom_contour_filled(binwidth = 20, show.legend = FALSE) +
+  geom_textcontour(aes(label = after_stat(level)), 
+                   size = 2.5, padding = unit(0.05, "in")) +
+  ggeasy::easy_remove_axes() +
+  scale_fill_brewer()
+
+p1 / p2
 ```
 
 
