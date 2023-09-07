@@ -168,6 +168,8 @@ A ggplot object.
 Create a density_2d ggplot with a wrapper around ggplot2::geom_density_2d(stat = "density_2d", ...).
 }
 \examples{
+library(ggplot2)
+
 faithful |>
  gg_density_2d(
    x = waiting,

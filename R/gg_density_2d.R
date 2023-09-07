@@ -56,6 +56,8 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
+#' library(ggplot2)
+#'
 #' faithful |>
 #'  gg_density_2d(
 #'    x = waiting,
