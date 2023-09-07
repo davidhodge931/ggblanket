@@ -184,8 +184,9 @@ faithfuld |>
      x = waiting,
      y = eruptions,
      z = density,
-     stat = "contour") +
-   geom_contour(aes(colour = after_stat(level))) +
+     stat = "contour",
+     bins = 8) +
+   geom_contour(aes(colour = after_stat(level)), bins = 8) +
    labs(colour = "Level")
 
 }

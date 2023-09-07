@@ -46,6 +46,7 @@ Config/Needs/website:
     glue,
     pkgdown,
     farver,
+    geomtextpath,
     ggbeeswarm,
     ggblend,
     ggbump,
