@@ -168,12 +168,24 @@ A ggplot object.
 Create a contour ggplot with a wrapper around ggplot2::geom_contour(stat = "contour", ...).
 }
 \examples{
-ggplot2::faithfuld |>
+library(ggplot2)
+
+faithfuld |>
  gg_contour(
    x = waiting,
    y = eruptions,
    z = density,
    bins = 8
  )
+
+ # add a colour aesthetic with gg_blank
+ faithfuld |>
+   gg_blank(
+     x = waiting,
+     y = eruptions,
+     z = density,
+     stat = "contour") +
+   geom_contour(aes(colour = after_stat(level))) +
+   labs(colour = "Level")
 
 }

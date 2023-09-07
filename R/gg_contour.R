@@ -56,13 +56,26 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#' ggplot2::faithfuld |>
+#' library(ggplot2)
+#'
+#' faithfuld |>
 #'  gg_contour(
 #'    x = waiting,
 #'    y = eruptions,
 #'    z = density,
 #'    bins = 8
 #'  )
+#'
+#'  # add a colour aesthetic with gg_blank
+#'  faithfuld |>
+#'    gg_blank(
+#'      x = waiting,
+#'      y = eruptions,
+#'      z = density,
+#'      stat = "contour",
+#'      bins = 8) +
+#'    geom_contour(aes(colour = after_stat(level)), bins = 8) +
+#'    labs(colour = "Level")
 #'
 gg_contour <- function(
     data = NULL,

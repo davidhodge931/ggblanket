@@ -63,6 +63,16 @@
 #'    bins = 8,
 #'  )
 #'
+#'  # add a colour aesthetic with gg_blank
+#'  faithful |>
+#'    gg_blank(
+#'      x = waiting,
+#'      y = eruptions,
+#'      stat = "density_2d",
+#'      bins = 8) +
+#'    geom_density_2d(aes(colour = after_stat(level)), bins = 8) +
+#'    labs(colour = "Level")
+#'
 gg_density_2d <- function(
     data = NULL,
     x = NULL,

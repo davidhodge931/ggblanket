@@ -175,4 +175,13 @@ faithful |>
    bins = 8,
  )
 
+ # add a colour aesthetic with gg_blank
+ faithful |>
+   gg_blank(
+     x = waiting,
+     y = eruptions,
+     stat = "density_2d") +
+   geom_density_2d(aes(colour = after_stat(level))) +
+   labs(colour = "Level")
+
 }
