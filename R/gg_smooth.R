@@ -1068,26 +1068,30 @@ gg_smooth <- function(
 
       plot <- plot +
         ggplot2::scale_colour_manual(
-          values = pal, drop = FALSE,
+          values = pal,
+          drop = FALSE,
           breaks = col_breaks,
           limits = col_limits,
           labels = col_labels,
-          na.value = as.vector(pal_na),
-          guide = ggplot2::guide_legend(
+          na.value = as.vector(pal_na)
+        ) +
+        ggplot2::scale_fill_manual(
+          values = pal,
+          drop = FALSE,
+          breaks = col_breaks,
+          limits = col_limits,
+          labels = col_labels,
+          na.value = as.vector(pal_na)
+        ) +
+        ggplot2::guides(
+          colour = ggplot2::guide_legend(
             reverse = col_legend_rev_auto,
             title.position = "top",
             ncol = col_legend_ncol,
             nrow = col_legend_nrow,
             byrow = TRUE
-          )
-        ) +
-        ggplot2::scale_fill_manual(
-          values = pal, drop = FALSE,
-          breaks = col_breaks,
-          limits = col_limits,
-          labels = col_labels,
-          na.value = as.vector(pal_na),
-          guide = ggplot2::guide_legend(
+          ),
+          fill = ggplot2::guide_legend(
             reverse = col_legend_rev_auto,
             title.position = "top",
             ncol = col_legend_ncol,
@@ -1136,14 +1140,7 @@ gg_smooth <- function(
             breaks = col_breaks,
             limits = col_limits,
             trans = col_trans,
-            na.value = as.vector(pal_na),
-            guide = ggplot2::guide_colourbar(
-              title.position = "top",
-              draw.ulim = TRUE,
-              draw.llim = TRUE,
-              ticks.colour = "#F1F3F5",
-              reverse = col_legend_rev
-            )
+            na.value = as.vector(pal_na)
           ) +
           ggplot2::scale_fill_gradientn(
             colours = pal,
@@ -1152,8 +1149,17 @@ gg_smooth <- function(
             breaks = col_breaks,
             limits = col_limits,
             trans = col_trans,
-            na.value = as.vector(pal_na),
-            guide = ggplot2::guide_colourbar(
+            na.value = as.vector(pal_na)
+          ) +
+          ggplot2::guides(
+            colour = ggplot2::guide_colourbar(
+              title.position = "top",
+              draw.ulim = TRUE,
+              draw.llim = TRUE,
+              ticks.colour = "#F1F3F5",
+              reverse = col_legend_rev
+            ),
+            fill = ggplot2::guide_colourbar(
               title.position = "top",
               draw.ulim = TRUE,
               draw.llim = TRUE,
@@ -1172,10 +1178,7 @@ gg_smooth <- function(
             limits = col_limits,
             trans = col_trans,
             oob = col_oob,
-            na.value = as.vector(pal_na),
-            guide = ggplot2::guide_coloursteps(
-              title.position = "top",
-              reverse = col_legend_rev)
+            na.value = as.vector(pal_na)
           ) +
           ggplot2::scale_fill_stepsn(
             colours = pal,
@@ -1185,8 +1188,13 @@ gg_smooth <- function(
             limits = col_limits,
             trans = col_trans,
             oob = col_oob,
-            na.value = as.vector(pal_na),
-            guide = ggplot2::guide_coloursteps(
+            na.value = as.vector(pal_na)
+          ) +
+          ggplot2::guides(
+            colour = ggplot2::guide_coloursteps(
+              title.position = "top",
+              reverse = col_legend_rev),
+            fill = ggplot2::guide_coloursteps(
               title.position = "top",
               reverse = col_legend_rev)
           )
