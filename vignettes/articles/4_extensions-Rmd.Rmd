@@ -249,6 +249,26 @@ iris |>
 ```
 
 
+#### ggnewscale
+
+The ggnewscale package enables multiple colour scales.
+
+```{r}
+penguins |> 
+  gg_blank(x = flipper_length_mm, 
+           y = body_mass_g) + 
+  geom_point(aes(x = flipper_length_mm, y = body_mass_g, colour = bill_length_mm), 
+             data = penguins |> filter(species == "Gentoo")) +
+  scale_color_viridis_c(option = "A") +
+  labs(colour = "Gentoo\nBill length (mm)") +
+  ggnewscale::new_scale_colour() +
+  geom_point(aes(x = flipper_length_mm, y = body_mass_g, colour = species), 
+             data = penguins |> filter(species != "Gentoo")) +
+  scale_color_manual(values = pal_discrete[c(1, 3)]) +
+  labs(colour = "Species") 
+```
+
+
 #### ggpattern
 
 The ggpattern package can be used to add patterns to geoms.
