@@ -260,8 +260,7 @@ penguins |>
            y = body_mass_g) + 
   geom_point(aes(x = flipper_length_mm, y = body_mass_g, colour = bill_length_mm), 
              data = penguins |> filter(species == "Gentoo")) +
-  scale_color_viridis_c(option = "A") +
-  labs(colour = "Gentoo\nBill length (mm)") +
+  scale_color_viridis_c(option = "A", direction = -1) +  labs(colour = "Gentoo\nBill length (mm)") +
   ggnewscale::new_scale_colour() +
   geom_point(aes(x = flipper_length_mm, y = body_mass_g, colour = species), 
              data = penguins |> filter(species != "Gentoo")) +
