@@ -639,10 +639,10 @@ ggblanket uses different `alpha` defaults for the different `gg_*` functions. Po
 
 ##### Other minor stuff
 
-* Logical variables are reversed, so that `TRUE` always comes before `FALSE`.
 * `*_title` is equivalent to `ggplot2::labs(* = ...)` or `ggplot2::scale_*(name = ...)`.
+* Logical variables are reversed, so that `TRUE` always comes before `FALSE`.
 * `*_include` works in a similar way to `ggplot2::expand_limits(* = ...)`.
 
 ## Further information 
 
-See the ggblanket [website](https://davidhodge931.github.io/ggblanket/index.html) for further information, including an article on how to [Go further](https://davidhodge931.github.io/ggblanket/articles/go_further.html) with ggblanket.
+See the ggblanket [website](https://davidhodge931.github.io/ggblanket/index.html) for further information, including [articles](https://davidhodge931.github.io/ggblanket/articles/) and [function reference](https://davidhodge931.github.io/ggblanket/reference/index.html).

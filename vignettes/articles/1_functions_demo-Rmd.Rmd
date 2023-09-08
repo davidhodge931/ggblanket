@@ -1,5 +1,5 @@
 ---
-title: "Functions demo (dark mode)"
+title: "Functions demo"
 author: "David Hodge"
 ---
 
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-ggblanket has over thirty `gg_*` wrapper functions. This article will demonstrate each of these. 
+This article will demonstrate each wrapper function. 
 
 ```{r setup}
 library(ggblanket)
@@ -25,8 +25,6 @@ library(dplyr)
 library(ggplot2)
 library(stringr)
 library(palmerpenguins)
-
-theme_set(dark_mode())
 ```
 
 ### gg_area
@@ -549,4 +547,3 @@ penguins |>
     facet = species,
     pal = c("#2596be", "#fc7c24"))
 ```
-
