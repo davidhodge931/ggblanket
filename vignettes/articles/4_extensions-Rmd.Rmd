@@ -226,7 +226,6 @@ iris |>
 #### gghighlight
 
 The gghighlight package enables geoms or parts thereof to be highlighted. 
-It should be noted that the `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you may need to add _another_ ggplot scale to ensure the full height of the non-highlighted data is included. 
 
 ```{r}
 penguins |>
@@ -234,6 +233,8 @@ penguins |>
            y = body_mass_g) +
   gghighlight::gghighlight(body_mass_g >= 5000)
 ```
+
+The `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you may need to make adjustments, so that the scale builds correctly. An alternative approach is use `ggblank` to build the scale for the non-faceted data, and then add in `geom_histogram`, `facet_wrap` and `gghighlight` layers.  
 
 ```{r}
 iris |>
