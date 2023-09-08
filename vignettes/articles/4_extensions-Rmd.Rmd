@@ -367,7 +367,7 @@ penguins |>
 
 The geomtextpath package enables curved text.
 
-```{r, fig.asp=0.8}
+```{r, fig.asp=0.9}
 library(geomtextpath)
 p1 <- pressure |>
   gg_blank(x = temperature, y = pressure) +
@@ -379,17 +379,15 @@ p1 <- pressure |>
 
 p2 <- expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |> 
   mutate(z = c(volcano)) |> 
-  gg_blank(x = x, 
+  gg_contour_filled(x = x, 
            y = y, 
            z = z, 
-           stat = "contour_filled",
            binwidth = 20, 
            x_limits = c(NA, NA),
            x_expand = c(0, 0),
-           y_limits = c(NA, NA)) +
-  geom_contour_filled(binwidth = 20, show.legend = FALSE) +
-  geom_textcontour(aes(label = after_stat(level)), 
-                   size = 2.5, padding = unit(0.05, "in")) +
+           y_limits = c(NA, NA), 
+           col_legend_place = "n") +
+  geom_textcontour(aes(label = after_stat(level)), size = 2.5, straight = TRUE) +
   ggeasy::easy_remove_axes() 
 
 p1 / p2
