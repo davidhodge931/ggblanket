@@ -33,17 +33,26 @@
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' theme_set(dark_mode())
-#'
+#' #set for a plot
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     title = "Penguins body mass by flipper length",
-#'     subtitle = "Palmer Archipelago, Antarctica",
-#'     caption = "Source: Gorman, 2020"
+#'     theme = dark_mode()
 #'   )
+#'
+#' #set globally
+#' \dontrun{
+#'   theme_set(dark_mode())
+#'
+#'   penguins |>
+#'     gg_point(
+#'       x = flipper_length_mm,
+#'       y = body_mass_g,
+#'       col = species
+#'     )
+#' }
 #'
 dark_mode <- function (
     base_size = 10,
@@ -120,6 +129,7 @@ dark_mode <- function (
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
     panel.grid.major = ggplot2::element_line(colour = "#2C3A48", linewidth = ggplot2::rel(0.5)),
+    # panel.grid.major = ggplot2::element_line(colour = "#2c4359", linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(1.25, "lines"),
     panel.spacing.x = NULL,
