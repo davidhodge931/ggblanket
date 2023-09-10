@@ -1,4 +1,4 @@
-# ggblanket (development version)
+# ggblanket 5.0.0
 
 * Added `mapping` argument to allow additional aesthetics to be included (e.g. shape)
 * Added `stat` argument for flexibility.

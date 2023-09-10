@@ -550,3 +550,6 @@ penguins |>
     pal = c("#2596be", "#fc7c24"))
 ```
 
+```{r, echo=FALSE}
+theme_set(light_mode())
+```

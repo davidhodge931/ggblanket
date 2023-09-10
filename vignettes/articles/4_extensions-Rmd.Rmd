@@ -133,7 +133,7 @@ iris |>
     col = Species,
     facet = Species,
     col_legend_place = "r", 
-    col_title = "\nSpecies") + #add space between legends
+    col_title = "Species") + 
   ggdensity::geom_hdr(col = NA) +
   labs(alpha = "Probs")  
 ```
