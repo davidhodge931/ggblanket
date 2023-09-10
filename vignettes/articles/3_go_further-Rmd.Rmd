@@ -235,24 +235,18 @@ p1 + p2
 
 You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
-```{r}
-gg_point_custom <- function(data, x, y, 
-                            col = NULL, facet = NULL, facet2 = NULL,
-                            pal = RColorBrewer::brewer.pal(8, "Dark2"), 
-                            size = 3, 
-                            shape = 17,
-                            alpha = 0.8,
+```{r, fig.asp=1}
+gg_point_custom <- function(data, x, y, col = NULL, facet = NULL, facet2 = NULL,
+                            pal = RColorBrewer::brewer.pal(8, "Dark2"),
+                            col_labels = stringr::str_to_sentence,
                             col_title = "", 
                             col_legend_place = "t",
-                            col_labels = stringr::str_to_sentence,
                             ...) {
   data |> 
     gg_point(x = {{ x }}, y = {{ y }}, 
              col = {{ col }}, facet = {{ facet }}, facet2 = {{ facet2 }},
-             size = size, shape = shape, pal = pal, alpha = alpha,
-             col_title = col_title, col_legend_place = col_legend_place, 
-             col_labels = col_labels,
-             ...) +
+             pal = pal, col_labels = col_labels, col_title = col_title, 
+             col_legend_place = col_legend_place, ...) +
     ggeasy::easy_remove_axes(which = "y", what = c("line", "ticks"))
 }
 
