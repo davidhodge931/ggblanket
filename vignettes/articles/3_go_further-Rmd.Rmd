@@ -260,15 +260,13 @@ p1 <- penguins |>
   gg_point_custom(
     x = flipper_length_mm,
     y = body_mass_g, 
-    col = species,
-    x_breaks = scales::breaks_pretty(3))
+    col = species)
 
 p2 <- penguins |>
   gg_point_custom(
     x = flipper_length_mm,
     y = body_mass_g, 
-    col = sex, 
-    x_breaks = scales::breaks_pretty(3))
+    col = sex)
 
-p1 + p2
+p1 / p2
 ```
