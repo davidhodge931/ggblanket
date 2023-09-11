@@ -1,8 +1,9 @@
-# ggblanket 5.0.0
+# ggblanket 4.0.9000
 
 * Added `mapping` argument to allow additional aesthetics to be included (e.g. shape)
 * Added `stat` argument for flexibility.
 * Added `linetype_title`, `shape_title`, and `size_title` arguments.
+* Added `str_keep_seq` helper function.
 * Breaking: removed `lower`, `middle`, `upper`, `xlower`, `xmiddle`, and `xupper` arguments from `gg_blank`.
 * Breaking: made horizontal y characters and factors plot values from low at bottom to high at top.  
 * Updated x and y breaks defaults.
