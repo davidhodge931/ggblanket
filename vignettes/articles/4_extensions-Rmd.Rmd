@@ -36,7 +36,7 @@ penguins <- penguins |>
 
 #### patchwork
 
-The patchwork package enables plots to be patched together. A convenient hack you can do with ggblanket is add a string to the facet variable to add a title. 
+The patchwork package enables plots to be patched together. A convenient hack you can do with ggblanket is add a string to the facet variable to add a title. Note that this will reduce the default `*_breaks`.
 
 ```{r, fig.asp=0.9}
 p1 <- mtcars |> 
@@ -59,7 +59,7 @@ p3 <- mtcars |>
             x_breaks = scales::breaks_pretty(4), 
             facet = "Plot 3")
 
-(p1 | p2) / p3 +
+(p1 + p2) / p3 +
   plot_annotation(title = "A collection of plots patched together", 
                   subtitle = "Works so nice!", 
                   theme = light_mode() + 
