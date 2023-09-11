@@ -36,25 +36,36 @@ penguins <- penguins |>
 
 #### patchwork
 
-The patchwork package enables plots to be patched together.
+The patchwork package enables plots to be patched together. A convenient hack you can do with ggblanket is add a string to the facet variable to add a title. 
 
-```{r, fig.asp=0.75}
+```{r, fig.asp=0.9}
 p1 <- mtcars |> 
   gg_point(x = mpg, 
-           y = disp)
+           y = disp,
+           facet = "Plot 1")
 
 p2 <- mtcars |> 
   gg_boxplot(x = gear, 
              y = disp, 
              group = gear, 
-             width = 0.5)
+             width = 0.5,
+             facet = "Plot 2")
 
 p3 <- mtcars |> 
   gg_smooth(x = disp, 
             y = qsec, 
-            x_breaks = scales::breaks_pretty(4))
+            x_breaks = scales::breaks_pretty(4), 
+            facet = "Plot 3")
 
-(p1 | p2) / p3
+(p1 | p2) / p3 +
+  plot_annotation(title = "A collection of plots patched together", 
+                  subtitle = "Works so nice!", 
+                  theme = light_mode() + 
+                    theme(
+                      plot.title = element_text(margin = margin(b = 10 * 0.75)),
+                      plot.subtitle = element_text(margin = margin(b = 0)))
+                    )
+
 ```
 
 #### ggbeeswarm
