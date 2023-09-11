@@ -42,6 +42,7 @@ The patchwork package enables plots to be patched together. A convenient hack yo
 p1 <- mtcars |> 
   gg_point(x = mpg, 
            y = disp,
+           y_labels = str_keep_seq,
            facet = "Plot 1")
 
 p2 <- mtcars |> 
@@ -49,6 +50,7 @@ p2 <- mtcars |>
              y = disp, 
              group = gear, 
              width = 0.5,
+             y_labels = str_keep_seq,
              facet = "Plot 2")
 
 p3 <- mtcars |> 
@@ -64,8 +66,7 @@ p3 <- mtcars |>
                     theme(
                       plot.title = element_text(margin = margin(b = 10 * 0.75)),
                       plot.subtitle = element_text(margin = margin(b = 0)))
-                    )
-
+                  )
 ```
 
 #### ggbeeswarm
