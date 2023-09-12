@@ -190,7 +190,7 @@ or fill of a geom that contains both. A method is to use
 <span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">Species</span>, </span>
 <span>    alpha <span class="op">=</span> <span class="fl">0</span>, </span>
-<span>    y_labels <span class="op">=</span> <span class="va">str_keep_seq</span>,</span>
+<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    col_legend_nrow <span class="op">=</span> <span class="fl">2</span>, </span>
 <span>    col_labels <span class="op">=</span> <span class="va">str_to_sentence</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"Turn off either colour or fill"</span>,</span>
@@ -200,14 +200,14 @@ or fill of a geom that contains both. A method is to use
 <span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
 <span>    alpha <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>    y_labels <span class="op">=</span> <span class="va">str_keep_seq</span><span class="op">)</span></span>
+<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>, </span>
 <span>    col <span class="op">=</span> <span class="va">Species</span>,</span>
 <span>    pal <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="va">pal_discrete</span>, <span class="fl">0</span><span class="op">)</span>, </span>
-<span>    y_labels <span class="op">=</span> <span class="va">str_keep_seq</span>,</span>
+<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    col_legend_nrow <span class="op">=</span> <span class="fl">2</span>, </span>
 <span>    col_labels <span class="op">=</span> <span class="va">str_to_sentence</span><span class="op">)</span></span>
 <span></span>
@@ -215,7 +215,7 @@ or fill of a geom that contains both. A method is to use
 <span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
 <span>    pal <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="va">pal_blue</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span>    y_labels <span class="op">=</span> <span class="va">str_keep_seq</span><span class="op">)</span></span>
+<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
@@ -237,7 +237,7 @@ and <code>col_legend_place = "n"</code>.</p>
 <span>    stat <span class="op">=</span> <span class="st">"density"</span>, </span>
 <span>    pal <span class="op">=</span> <span class="va">pal_blue</span>,</span>
 <span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
-<span>    y_labels <span class="op">=</span> <span class="va">str_keep_seq</span>,</span>
+<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    col_legend_place <span class="op">=</span> <span class="st">"n"</span>, </span>
 <span>    title <span class="op">=</span> <span class="st">"Fix a different colour or fill"</span>,</span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span> </span>
@@ -249,7 +249,7 @@ and <code>col_legend_place = "n"</code>.</p>
 <span>    stat <span class="op">=</span> <span class="st">"density"</span>, </span>
 <span>    pal <span class="op">=</span> <span class="va">pal_blue</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">"lightgrey"</span>,</span>
-<span>    y_labels <span class="op">=</span> <span class="va">str_keep_seq</span>,</span>
+<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    col_legend_place <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
@@ -257,7 +257,7 @@ and <code>col_legend_place = "n"</code>.</p>
 <span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">Species</span>, </span>
 <span>    fill <span class="op">=</span> <span class="st">"lightgrey"</span>,</span>
-<span>    y_labels <span class="op">=</span> <span class="va">str_keep_seq</span>,</span>
+<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    col_legend_nrow <span class="op">=</span> <span class="fl">2</span>, </span>
 <span>    col_labels <span class="op">=</span> <span class="va">str_to_sentence</span><span class="op">)</span></span>
 <span></span>
@@ -266,7 +266,7 @@ and <code>col_legend_place = "n"</code>.</p>
 <span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">Species</span>, </span>
 <span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
-<span>    y_labels <span class="op">=</span> <span class="va">str_keep_seq</span>,</span>
+<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    col_legend_nrow <span class="op">=</span> <span class="fl">2</span>, </span>
 <span>    col_labels <span class="op">=</span> <span class="va">str_to_sentence</span><span class="op">)</span></span>
 <span></span>
