@@ -23,11 +23,16 @@ Keep elements of a vector in a sequence, and replace the rest with ""
 }
 \examples{
 x <- LETTERS[1:12]
-str_keep_seq(x, by = 2, offset = 0)
-str_keep_seq(x, by = 2, offset = -1)
-str_keep_seq(x, by = 3, offset = 0)
+str_keep_seq(x)
+str_keep_seq(x, offset = -1)
+str_keep_seq(x, by = 3)
 str_keep_seq(x, by = 3, offset = -1)
 str_keep_seq(x, by = 3, offset = 1)
+
+y <- c(1000, 2000, 3000)
+str_keep_seq(y)
+str_keep_seq(y, big.mark = " ")
+
 library(palmerpenguins)
 penguins |>
  gg_jitter(x = species,
