@@ -129,7 +129,6 @@ dark_mode <- function (
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
     panel.grid.major = ggplot2::element_line(colour = "#2C3A48", linewidth = ggplot2::rel(0.5)),
-    # panel.grid.major = ggplot2::element_line(colour = "#2c4359", linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(1.25, "lines"),
     panel.spacing.x = NULL,

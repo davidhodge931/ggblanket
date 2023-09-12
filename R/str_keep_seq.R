@@ -1,4 +1,4 @@
-#' Keep elements of a vector in a sequence, and replace the rest with ""
+#' Keep elements in a vector sequence, and replace the rest with ""
 #'
 #' @param x A vector.
 #' @param by The increment of elements to keep. Defaults to 2.

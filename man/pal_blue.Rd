@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_blue}
 \alias{pal_blue}
-\title{Default blue colour.}
+\title{Default blue colour}
 \format{
 An object of class \code{character} of length 1.
 }

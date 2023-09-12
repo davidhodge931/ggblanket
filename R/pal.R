@@ -1,4 +1,4 @@
-#' Default blue colour.
+#' Default blue colour
 #'
 #' @description A default blue colour used to colour when there is no col variable.
 #'
@@ -8,7 +8,7 @@
 #' scales::show_col(pal_blue)
 pal_blue <- "#2B6999"
 
-#' Default colour blind safe categorical palette with 5 colours.
+#' Default colour blind safe categorical palette with 5 colours
 #'
 #' @description The default colour blind safe 5 colour palette used to colour a categorical col variable.
 #'
@@ -42,7 +42,7 @@ pal_blue <- "#2B6999"
 #' @references Derived from a Datawrapper blog dated 30/03/2022 by Lisa Charlotte Muth.
 pal_discrete <- c("#69C2C0", "#941111", "#B2C615", "#2B6999", "#D57236")
 
-#' A colour blind safe categorical palette with 6 colours.
+#' A colour blind safe categorical palette with 6 colours
 #'
 #' @description A colour blind safe 6 colour palette used to colour a categorical col variable that works only on a light background.
 #'
@@ -67,7 +67,7 @@ pal_discrete <- c("#69C2C0", "#941111", "#B2C615", "#2B6999", "#D57236")
 #' @references Derived from a Datawrapper blog dated 30/03/2022 by Lisa Charlotte Muth.
 pal_discrete2 <- c("#69C2C0", "#941111", "#B2C615", "#2B6999", "#D57236", "#0C2052")
 
-#' Default grey colour.
+#' Default grey colour
 #'
 #' @description The default grey colour used to colour NA values.
 #'
