@@ -8,7 +8,7 @@
 * Breaking: removed `lower`, `middle`, `upper`, `xlower`, `xmiddle`, and `xupper` arguments from `gg_blank`.
 * Updated `*_breaks` defaults.
 * Made plot order logical variables with `TRUE` first.  
-* Added `pal_discrete2` with 6 colour blind safe colours for a light background theme.
+* Added `pal_discrete2` with 6 colour blind safe colours for a light background theme. 
 
 # ggblanket 4.0.0
 
