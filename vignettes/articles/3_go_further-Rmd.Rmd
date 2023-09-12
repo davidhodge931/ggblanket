@@ -103,6 +103,7 @@ p1 <- iris |>
     x = Sepal.Length,
     col = Species, 
     alpha = 0, 
+    y_labels = str_keep_seq,
     col_legend_nrow = 2, 
     col_labels = str_to_sentence,
     title = "Turn off either colour or fill",
@@ -111,20 +112,23 @@ p1 <- iris |>
 p2 <- iris |>
   gg_density(
     x = Sepal.Length,
-    alpha = 0)
+    alpha = 0,
+    y_labels = str_keep_seq)
 
 p3 <- iris |>
   gg_density(
     x = Sepal.Length, 
     col = Species,
     pal = scales::alpha(pal_discrete, 0), 
+    y_labels = str_keep_seq,
     col_legend_nrow = 2, 
     col_labels = str_to_sentence)
 
 p4 <- iris |>
   gg_density(
     x = Sepal.Length,
-    pal = scales::alpha(pal_blue, 0))
+    pal = scales::alpha(pal_blue, 0),
+    y_labels = str_keep_seq)
 
 (p1 + p2) / (p3 + p4) 
 ```
@@ -141,6 +145,7 @@ p1 <- iris |>
     stat = "density", 
     pal = pal_blue,
     colour = "black",
+    y_labels = str_keep_seq,
     col_legend_place = "n", 
     title = "Fix a different colour or fill",
     theme = light_mode(title_face = "plain")) 
@@ -152,6 +157,7 @@ p2 <- iris |>
     stat = "density", 
     pal = pal_blue,
     fill = "lightgrey",
+    y_labels = str_keep_seq,
     col_legend_place = "n") 
 
 p3 <- iris |>
@@ -159,6 +165,7 @@ p3 <- iris |>
     x = Sepal.Length,
     col = Species, 
     fill = "lightgrey",
+    y_labels = str_keep_seq,
     col_legend_nrow = 2, 
     col_labels = str_to_sentence)
 
@@ -167,6 +174,7 @@ p4 <- iris |>
     x = Sepal.Length,
     col = Species, 
     colour = "black",
+    y_labels = str_keep_seq,
     col_legend_nrow = 2, 
     col_labels = str_to_sentence)
 
