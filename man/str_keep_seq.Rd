@@ -2,7 +2,7 @@
 % Please edit documentation in R/str_keep_seq.R
 \name{str_keep_seq}
 \alias{str_keep_seq}
-\title{Keep elements of a vector in a sequence, and replace the rest with ""}
+\title{Keep elements in a vector sequence, and replace the rest with ""}
 \usage{
 str_keep_seq(x, by = 2, offset = 0, ...)
 }
@@ -19,7 +19,7 @@ str_keep_seq(x, by = 2, offset = 0, ...)
 A vector.
 }
 \description{
-Keep elements of a vector in a sequence, and replace the rest with ""
+Keep elements in a vector sequence, and replace the rest with ""
 }
 \examples{
 x <- LETTERS[1:12]

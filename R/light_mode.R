@@ -129,7 +129,6 @@ light_mode <- function (
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
     panel.grid.major = ggplot2::element_line(colour = "#dbe1e7", linewidth = ggplot2::rel(0.5)),
-    # panel.grid.major = ggplot2::element_line(colour = "#c7d5e3", linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(1.25, "lines"),
     panel.spacing.x = NULL,
