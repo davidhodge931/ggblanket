@@ -1,4 +1,4 @@
-# ggblanket 4.0.9000
+# ggblanket 5.0.0
 
 * Added `mapping` argument to allow extra aesthetics to be included, such as shape (or use delayed evaluation for aesthetics other than `col`, `colour`, `fill` or `alpha`).
 * Added `stat` argument back for flexibility.
@@ -6,7 +6,7 @@
 * Added `str_keep_seq` helper function to support keeping labels in a sequence.
 * Breaking: made horizontal y characters and factors plot values from low at bottom to high at top.  
 * Breaking: removed `lower`, `middle`, `upper`, `xlower`, `xmiddle`, and `xupper` arguments from `gg_blank`.
-* Updated x and y breaks defaults.
+* Updated `*_breaks` defaults.
 * Made plot order logical variables with `TRUE` first.  
 * Added `pal_discrete2` with 6 colour blind safe colours for a light background theme.
 
