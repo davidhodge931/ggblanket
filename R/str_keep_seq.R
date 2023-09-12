@@ -3,8 +3,7 @@
 #' @param x A vector.
 #' @param by The increment of elements to keep. Defaults to 2.
 #' @param offset An offset to start at the intended offset. Defaults to 0. Possible values are -1 to (`by` - 2)
-#' @param big.mark If numeric, the character used between every 3 digits to seperate thousands. Defaults to ",".
-#' @param ... If numeric, other arguments passed to the scales::number function.
+#' @param ... If numeric, other arguments passed to the scales::comma function.
 #'
 #' @return A vector.
 #' @export
@@ -30,12 +29,11 @@
 #'
 str_keep_seq <- function(x,
                          by = 2,
-                         offset = 0, #possible numbers -1 to (by - 2)
-                         big.mark = ",",
+                         offset = 0,
                          ...) {
   if (is.numeric(x)) {
-    replace(scales::number(x, big.mark = ",", ...),
-            seq_along(scales::number(x, big.mark = big.mark, ...))
+    replace(scales::comma(x, ...),
+            seq_along(scales::comma(x, ...))
             %% by != (offset + 1), "")
   }
   else {

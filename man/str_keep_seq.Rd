@@ -4,7 +4,7 @@
 \alias{str_keep_seq}
 \title{Keep elements of a vector in a sequence, and replace the rest with ""}
 \usage{
-str_keep_seq(x, by = 2, offset = 0, big.mark = ",", ...)
+str_keep_seq(x, by = 2, offset = 0, ...)
 }
 \arguments{
 \item{x}{A vector.}
@@ -13,9 +13,7 @@ str_keep_seq(x, by = 2, offset = 0, big.mark = ",", ...)
 
 \item{offset}{An offset to start at the intended offset. Defaults to 0. Possible values are -1 to (\code{by} - 2)}
 
-\item{big.mark}{If numeric, the character used between every 3 digits to seperate thousands. Defaults to ",".}
-
-\item{...}{If numeric, other arguments passed to the scales::number function.}
+\item{...}{If numeric, other arguments passed to the scales::comma function.}
 }
 \value{
 A vector.
