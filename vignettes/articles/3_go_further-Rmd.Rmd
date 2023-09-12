@@ -179,7 +179,7 @@ Most functions have the commonly needed aesthetics directly available as an argu
 
 For those that are not available (or where you wish to use delayed evaluation), you can either use `mapping` argument (for aesthetics other than colour, fill or alpha) or `gg_blank`.
 
-The `mapping` argument provides access to the `linetype`, `shape` and `size` aesthetics within the `gg_*` function. Note the `colour`, `fill` and `alpha` aesthetics cannot be added within the ggblanket `mapping` argument. 
+The `mapping` argument provides access to the `linetype`, `shape` and `size` aesthetics within the `gg_*` function. Note the `col`, `colour`, `fill` and `alpha` aesthetics cannot be added within the ggblanket `mapping` argument. 
 
 An alternative approach is to use `gg_blank`. If you use this approach, make sure you change the `stat`, `position`, and `coord` etc as needed in `gg_blank`, so that the positional scales are constructed correctly. Note the `stat` must be a character string.
 
