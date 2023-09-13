@@ -58,6 +58,7 @@ Config/Needs/website:
     ggiraph,
     ggnewscale,
     ggpattern,
+    ggpointdensity,
     ggrepel,
     ggridges,
     ggtext,
