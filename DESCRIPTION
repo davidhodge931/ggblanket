@@ -57,6 +57,7 @@ Config/Needs/website:
     gghighlight,
     ggiraph,
     ggpattern,
+    ggpointdensity,
     ggrepel,
     ggridges,
     ggtext,
