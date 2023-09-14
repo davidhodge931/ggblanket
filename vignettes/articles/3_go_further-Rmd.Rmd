@@ -26,7 +26,8 @@ This article will demonstrate more advanced content, including how to:
 4. Fix either colour or fill to something different 
 5. Work with other aesthetics (or delayed evaluation)
 6. Change the stat
-7. Create custom wrapper functions
+7. Add auto-contrast text on polygons
+8. Create custom wrapper functions
 
 
 ```{r setup}
@@ -239,7 +240,40 @@ p2 <- penguins |>
 p1 + p2
 ```
 
-### 7. Create custom wrapper functions
+
+### 7. Add auto-contrast text on polygons
+
+Text labels can be coloured based on the lightness/darkness of underlying polygons using a method developed by @teunbrand [here](https://github.com/teunbrand/ggplot_tricks).  
+
+```{r}
+contrast <- function(colour) {
+  out   <- rep("#121B24", length(colour)) #use "#1F2F3E" for dark_mode
+  light <- farver::get_channel(colour, "l", space = "hcl")
+  out[light < 50] <- "#FCFDFE" #use "#BBCCDD" for dark_mode 
+  out
+}
+
+p <- penguins |>
+  group_by(sex, species) |>
+  summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
+  gg_col(
+    x = flipper_length_mm,
+    y = species,
+    col = sex,
+    position = "dodge",
+    width = 0.75) 
+
+p +
+  geom_text(
+    aes(x = flipper_length_mm - (max(flipper_length_mm) * 0.05),
+        label = round(flipper_length_mm, 0),
+        !!!aes(colour = after_scale(contrast(fill)))), 
+    size = 3.66, 
+    show.legend = FALSE,
+    position = position_dodge(width = 0.75))
+```
+
+### 8. Create custom wrapper functions
 
 You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
