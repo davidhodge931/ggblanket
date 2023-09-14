@@ -276,7 +276,7 @@ p1 / p2
 
 ### 8. Add auto-contrast text on polygons
 
-Text labels can be coloured based on the lightness/darkness of underlying polygons using a method developed by @teunbrand [here](https://github.com/teunbrand/ggplot_tricks).  
+Text labels can be coloured based on the lightness/darkness of underlying polygons using a method developed by @teunbrand [here](https://github.com/teunbrand/ggplot_tricks). It requires the  `show.legend = FALSE` argument in `geom_text` to work.   
 
 ```{r}
 contrast <- function(colour) {
@@ -319,16 +319,15 @@ d |>
     x = rowname, 
     y = colname,
     col = value,
-    x_title = "", 
-    y_title = "", 
-    col_title = "", 
     # pal = RColorBrewer::brewer.pal(9, "RdBu"),
     col_limits = c(-1, 1),
-    col_rescale = scales::rescale(c(-1, 0 , 1))) +
+    col_rescale = scales::rescale(c(-1, 0, 1)),
+    x_title = "", 
+    y_title = "", 
+    col_title = "") +
   geom_text(
     aes(label = round(value, 1),
         !!!aes(colour = after_scale(contrast(fill)))), 
     show.legend = FALSE,
-    size = 3.66, 
-    hjust = 0.5)
+    size = 3.66)
 ```
