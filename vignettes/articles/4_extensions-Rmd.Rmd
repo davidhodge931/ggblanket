@@ -218,6 +218,21 @@ penguins |>
 ```
 
 
+#### geofacet
+
+```{r, fig.asp=1}
+library(geofacet)
+state_ranks |> 
+  gg_col(x = rank, 
+         y = variable, 
+         col = variable, 
+         facet = state, 
+         pal = pal_discrete2, 
+         col_legend_nrow = 1) +
+  facet_geo(~state, grid = "us_state_grid1") +
+  theme(panel.spacing.y = grid::unit(0.25, "cm"))
+```
+
 #### ggh4x
 
 The ggh4x package includes enhanced facet functionality.
