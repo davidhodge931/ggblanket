@@ -27,7 +27,7 @@ This article will demonstrate more advanced content, including how to:
 5. Work with other aesthetics (or delayed evaluation)
 6. Change the stat
 7. Create custom wrapper functions
-8. Add auto-contrast text 
+8. Add auto-contrast text on polygons 
 
 
 ```{r setup}
@@ -274,7 +274,7 @@ p2 <- penguins |>
 p1 / p2
 ```
 
-### 8. Add auto-contrast text
+### 8. Add auto-contrast text on polygons
 
 Text labels can be coloured based on the lightness/darkness of underlying polygons using a trick documented by [@teunbrand](https://github.com/teunbrand/ggplot_tricks). It requires `geom_text` to include the `show.legend = FALSE` argument.   
 
@@ -307,26 +307,24 @@ p +
 ```
 
 ```{r}
-d <- cor(mtcars) |>
-  as.data.frame() |> 
-  tibble::rownames_to_column() |> 
-  tibble::tibble() |> 
-  tidyr::pivot_longer(mpg:carb, names_to = "colname") |>
-  mutate(across(c(rowname, colname), str_to_sentence)) 
+d <- mtcars |> 
+  corrr::correlate() |> 
+  corrr::stretch() |> 
+  mutate(across(c(x, y), str_to_sentence))
 
 d |> 
   gg_tile(
-    x = rowname, 
-    y = colname,
-    col = value,
+    x = x, 
+    y = y,
+    col = r,
     # pal = RColorBrewer::brewer.pal(9, "RdBu"),
     col_limits = c(-1, 1),
     col_rescale = scales::rescale(c(-1, 0, 1)),
-    x_title = "", 
-    y_title = "", 
-    col_title = "") +
+    x_title = "",
+    y_title = "",
+    col_title = "r") +
   geom_text(
-    aes(label = round(value, 1),
+    aes(label = round(r, 1),
         !!!aes(colour = after_scale(contrast(fill)))), 
     show.legend = FALSE,
     size = 3.66)
