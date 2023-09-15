@@ -321,8 +321,10 @@ d |>
     pal_na = "#e6ecf2",
     col_limits = c(-1, 1),
     col_rescale = scales::rescale(c(-1, 0, 1)),
-    x_title = "",
-    y_title = "",
+    x_title = "", 
+    y_title = "", 
+    x_expand = c(0, 0), 
+    y_expand = c(0, 0),
     col_title = "r") +
   geom_text(
     aes(label = round(r, 1),
