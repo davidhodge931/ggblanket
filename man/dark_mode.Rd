@@ -8,7 +8,7 @@ dark_mode(
   base_size = 10,
   base_family = "",
   base_face = "plain",
-  base_pal = "#bbccdd",
+  base_pal = pal_dark_mode,
   title_family = NULL,
   title_face = "bold",
   title_pal = NULL,
@@ -24,7 +24,7 @@ dark_mode(
   caption_family = NULL,
   caption_face = NULL,
   caption_alpha = 0.33,
-  caption_pal = base_pal,
+  caption_pal = NULL,
   caption_size = ggplot2::rel(0.9),
   caption_hjust = 0,
   caption_vjust = 1,
@@ -38,13 +38,13 @@ dark_mode(
 
 \item{base_face}{The base face of the text. Defaults to "plain".}
 
-\item{base_pal}{The base colour of the text. Defaults to "#bbccdd".}
+\item{base_pal}{A four colour vector of colours for the text/axis/ticks, plot, panel and gridlines. Defaults to pal_dark_mode.}
 
 \item{title_family}{The font family of the title. Defaults to the base_family.}
 
 \item{title_face}{The font face of the title. Defaults to "bold".}
 
-\item{title_pal}{The colour of the title. Defaults to the base_pal.}
+\item{title_pal}{The colour of the title. Defaults to the base_pal first element.}
 
 \item{title_size}{The size of the title. Defaults to the base_size * 1.1.}
 
@@ -56,7 +56,7 @@ dark_mode(
 
 \item{subtitle_face}{The font face of the subtitle. Defaults to the base_face.}
 
-\item{subtitle_pal}{The colour of the subtitle. Defaults to the base_pal.}
+\item{subtitle_pal}{The colour of the subtitle. Defaults to the base_pal first element.}
 
 \item{subtitle_size}{The size of the subtitle. Defaults to the base_size.}
 
@@ -70,7 +70,7 @@ dark_mode(
 
 \item{caption_alpha}{The alpha of the caption pal. Defaults to 0.33. Use 1 for no alpha.}
 
-\item{caption_pal}{The colour of the caption (before caption_alpha is applied). Defaults to the base_pal.}
+\item{caption_pal}{The colour of the caption (before caption_alpha is applied). Defaults to the base_pal first element.}
 
 \item{caption_size}{The size of the caption. Defaults to the base_size * 0.9.}
 
