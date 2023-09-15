@@ -108,7 +108,7 @@ to:</p>
 <li>Work with other aesthetics (or delayed evaluation)</li>
 <li>Change the stat</li>
 <li>Create custom wrapper functions</li>
-<li>Add auto-contrast text</li>
+<li>Add auto-contrast text on polygons</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -379,7 +379,7 @@ within the ggblanket <code>gg_*</code> function (and applicable
 <p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="add-auto-contrast-text">8. Add auto-contrast text<a class="anchor" aria-label="anchor" href="#add-auto-contrast-text"></a>
+<h3 id="add-auto-contrast-text-on-polygons">8. Add auto-contrast text on polygons<a class="anchor" aria-label="anchor" href="#add-auto-contrast-text-on-polygons"></a>
 </h3>
 <p>Text labels can be coloured based on the lightness/darkness of
 underlying polygons using a trick documented by <a href="https://github.com/teunbrand/ggplot_tricks" class="external-link"><span class="citation">@teunbrand</span></a>. It requires
@@ -413,26 +413,24 @@ argument.</p>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">:</span><span class="va">carb</span>, names_to <span class="op">=</span> <span class="st">"colname"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">rowname</span>, <span class="va">colname</span><span class="op">)</span>, <span class="va">str_to_sentence</span><span class="op">)</span><span class="op">)</span> </span>
+<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">corrr</span><span class="fu">::</span><span class="fu"><a href="https://corrr.tidymodels.org/reference/correlate.html" class="external-link">correlate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">corrr</span><span class="fu">::</span><span class="fu"><a href="https://corrr.tidymodels.org/reference/stretch.html" class="external-link">stretch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, <span class="va">str_to_sentence</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">d</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_tile.html">gg_tile</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">rowname</span>, </span>
-<span>    y <span class="op">=</span> <span class="va">colname</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">value</span>,</span>
+<span>    x <span class="op">=</span> <span class="va">x</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">y</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">r</span>,</span>
 <span>    <span class="co"># pal = RColorBrewer::brewer.pal(9, "RdBu"),</span></span>
 <span>    col_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    col_rescale <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    x_title <span class="op">=</span> <span class="st">""</span>, </span>
-<span>    y_title <span class="op">=</span> <span class="st">""</span>, </span>
-<span>    col_title <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    x_title <span class="op">=</span> <span class="st">""</span>,</span>
+<span>    y_title <span class="op">=</span> <span class="st">""</span>,</span>
+<span>    col_title <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">value</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">r</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>        <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_scale</a></span><span class="op">(</span><span class="fu">contrast</span><span class="op">(</span><span class="va">fill</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">3.66</span><span class="op">)</span></span></code></pre></div>
