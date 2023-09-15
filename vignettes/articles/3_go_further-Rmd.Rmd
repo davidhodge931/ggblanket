@@ -27,7 +27,7 @@ This article will demonstrate more advanced content, including how to:
 5. Work with other aesthetics (or delayed evaluation)
 6. Change the stat
 7. Create custom wrapper functions
-8. Add auto-contrast text on polygons
+8. Add auto-contrast text 
 
 
 ```{r setup}
@@ -274,9 +274,9 @@ p2 <- penguins |>
 p1 / p2
 ```
 
-### 8. Add auto-contrast text on polygons
+### 8. Add auto-contrast text
 
-Text labels can be coloured based on the lightness/darkness of underlying polygons using a method developed by @teunbrand [here](https://github.com/teunbrand/ggplot_tricks). It requires the  `show.legend = FALSE` argument in `geom_text` to work.   
+Text labels can be coloured based on the lightness/darkness of underlying polygons using a trick documented by [@teunbrand](https://github.com/teunbrand/ggplot_tricks). It requires `geom_text` to include the `show.legend = FALSE` argument.   
 
 ```{r}
 contrast <- function(colour) {
