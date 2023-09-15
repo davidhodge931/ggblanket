@@ -280,9 +280,9 @@ Text labels can be coloured based on the lightness/darkness of underlying polygo
 
 ```{r}
 contrast <- function(colour) {
-  out   <- rep("#121B24", length(colour)) #use "#1F2F3E" for dark_mode
+  out   <- rep("#121b24", length(colour)) #use "#1f2f3e" for dark_mode
   light <- farver::get_channel(colour, "l", space = "hcl")
-  out[light < 50] <- "#FCFDFE" #use "#BBCCDD" for dark_mode 
+  out[light < 50] <- "#fcfdfe" #use "#bbccdd" for dark_mode 
   out
 }
 
@@ -318,6 +318,7 @@ d |>
     y = y,
     col = r,
     # pal = RColorBrewer::brewer.pal(9, "RdBu"),
+    pal_na = "#e6ecf2",
     col_limits = c(-1, 1),
     col_rescale = scales::rescale(c(-1, 0, 1)),
     x_title = "",
