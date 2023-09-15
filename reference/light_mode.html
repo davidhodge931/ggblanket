@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">5.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">5.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@
 <span>  base_size <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  base_face <span class="op">=</span> <span class="st">"plain"</span>,</span>
-<span>  base_pal <span class="op">=</span> <span class="st">"#121b24"</span>,</span>
+<span>  base_pal <span class="op">=</span> <span class="va">pal_light_mode</span>,</span>
 <span>  title_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  title_face <span class="op">=</span> <span class="st">"bold"</span>,</span>
 <span>  title_pal <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -83,7 +83,7 @@
 <span>  caption_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  caption_face <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  caption_alpha <span class="op">=</span> <span class="fl">0.33</span>,</span>
-<span>  caption_pal <span class="op">=</span> <span class="va">base_pal</span>,</span>
+<span>  caption_pal <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  caption_size <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">rel</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>,</span>
 <span>  caption_hjust <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  caption_vjust <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -106,7 +106,7 @@
 
 
 <dt>base_pal</dt>
-<dd><p>The base colour of the text. Defaults to "#121b24".</p></dd>
+<dd><p>A four colour vector of colours for the text/axis/ticks, plot, panel and gridlines. Defaults to pal.</p></dd>
 
 
 <dt>title_family</dt>
@@ -118,7 +118,7 @@
 
 
 <dt>title_pal</dt>
-<dd><p>The colour of the title. Defaults to the base_pal.</p></dd>
+<dd><p>The colour of the title. Defaults to the base_pal first element.</p></dd>
 
 
 <dt>title_size</dt>
@@ -142,7 +142,7 @@
 
 
 <dt>subtitle_pal</dt>
-<dd><p>The colour of the subtitle. Defaults to the base_pal.</p></dd>
+<dd><p>The colour of the subtitle. Defaults to the base_pal first element.</p></dd>
 
 
 <dt>subtitle_size</dt>
@@ -170,7 +170,7 @@
 
 
 <dt>caption_pal</dt>
-<dd><p>The colour of the caption (before caption_alpha is applied). Defaults to the base_pal.</p></dd>
+<dd><p>The colour of the caption (before caption_alpha is applied). Defaults to the base_pal first element.</p></dd>
 
 
 <dt>caption_size</dt>
