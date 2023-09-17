@@ -472,7 +472,7 @@ ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet` and `fac
 ```{r, fig.asp=0.75}
 p1 <- diamonds |>
   count(color) |>
-  gg_col(
+  gg_point(
     x = n,
     y = color,
     width = 0.75,
@@ -535,28 +535,25 @@ ggblanket keeps unused factor levels in the plot. If users wish to drop unused l
 p1 <- diamonds |> 
   count(color) |> 
   filter(color %in% c("E", "G", "I")) |>
-  gg_col(
+  gg_point(
     x = n,
     y = color,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
     title = "A factor filtered",
-    theme = light_mode(title_face = "plain")
-  )
+    theme = light_mode(title_face = "plain"))
 
 p2 <- diamonds |> 
   count(color) |>
   filter(color %in% c("E", "G", "I")) |>
   mutate(color = forcats::fct_drop(color)) |> 
-  gg_col(
+  gg_point(
     x = n,
     y = color,
-    width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
     title = "A factor filtered & unused levels dropped",
-    theme = light_mode(title_face = "plain")
-  )
+    theme = light_mode(title_face = "plain"))
 
 p1 + p2
 ```
