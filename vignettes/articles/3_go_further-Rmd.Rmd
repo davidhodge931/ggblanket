@@ -45,7 +45,7 @@ penguins <- penguins |>
 
 ### 1. Use different fonts
 
-The showtext and sysfonts packages support the use of different fonts from Google. The `theme_*_mode` functions provide `base_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
+The showtext and sysfonts packages support the use of different fonts from Google. The `*_mode` theme functions provide `base_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
 
 ```{r, fig.asp = 0.75, fig.showtext = TRUE}
 sysfonts::font_add_google("Covered By Your Grace", "grace")
