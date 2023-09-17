@@ -24,7 +24,10 @@ library(ggblanket)
 library(dplyr)
 library(ggplot2)
 library(stringr)
-library(palmerpenguins)
+
+penguins2 <- palmerpenguins::penguins |>
+  mutate(sex = stringr::str_to_sentence(sex)) |>
+  tidyr::drop_na(sex)
 ```
 
 ### gg_area
@@ -41,13 +44,12 @@ economics |>
 ### gg_bar
 
 ```{r }
-penguins |>
+penguins2 |>
   gg_bar(
     x = sex,
     col = sex,
     facet = species,
     width = 0.75,
-    x_labels = \(x) str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"))
 ```
 
@@ -64,13 +66,12 @@ diamonds |>
 ### gg_blank
 
 ```{r}
-penguins |>
+penguins2 |>
   gg_blank(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
     facet = species,
-    col_labels = \(x) str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"),
     y_include = 0)
 ```
@@ -78,7 +79,7 @@ penguins |>
 ### gg_boxplot
 
 ```{r}
-penguins |>
+penguins2 |>
   gg_boxplot(
     x = sex,
     y = body_mass_g,
@@ -91,11 +92,9 @@ penguins |>
 ### gg_col
 
 ```{r}
-penguins |>
+penguins2 |>
   group_by(sex, species) |>
   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
-  tidyr::drop_na(sex) |>
-  mutate(species =str_to_sentence(species)) |> 
   gg_col(
     x = flipper_length_mm,
     y = species,
@@ -151,14 +150,12 @@ data.frame(
 ### gg_density
 
 ```{r}
-penguins |>
-  tidyr::drop_na(sex) |>
+penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    pal = c("#2596be", "#fc7c24"),
-    col_labels = \(x) str_to_sentence(x))
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### gg_density_2d
@@ -205,14 +202,12 @@ data.frame(
 ### gg_freqpoly
 
 ```{r}
-penguins |>
-  tidyr::drop_na(sex) |>
+penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    pal = c("#2596be", "#fc7c24"),
-    col_labels = \(x) str_to_sentence(x))
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### gg_hex
@@ -230,28 +225,24 @@ diamonds |>
 ### gg_histogram
 
 ```{r}
-penguins |>
-  tidyr::drop_na(sex) |>
+penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
     col = sex,
     facet = species,
     bins = 50,
-    pal = c("#2596be", "#fc7c24"),
-    col_labels = \(x) str_to_sentence(x))
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### gg_freqpoly
 
 ```{r}
-penguins |>
-  tidyr::drop_na(sex) |>
+penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    pal = c("#2596be", "#fc7c24"),
-    col_labels = \(x) str_to_sentence(x))
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### gg_jitter
@@ -259,7 +250,7 @@ penguins |>
 ```{r}
 set.seed(123)
 
-penguins |>
+penguins2 |>
   gg_jitter(
     x = species,
     y = body_mass_g,
@@ -333,13 +324,12 @@ economics |>
 ### gg_point
 
 ```{r}
-penguins |>
+penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
     facet = species,
-    col_labels = \(x) str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"))
 ```
 
@@ -397,7 +387,7 @@ datapoly |>
 ### gg_qq
 
 ```{r}
-penguins |>
+penguins2 |>
   gg_qq(
     sample = body_mass_g,
     facet = species,
@@ -481,8 +471,7 @@ if (requireNamespace("sf", quietly = TRUE)) {
 ### gg_smooth
 
 ```{r}
-penguins |>
-  tidyr::drop_na(sex) |>
+penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -523,23 +512,20 @@ bind_rows(
 ### gg_tile
 
 ```{r}
-penguins |>
+penguins2 |>
   group_by(species, sex) |>
   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
   gg_tile(
     x = sex,
     y = species,
     col = flipper_length_mm,
-    pal = RColorBrewer::brewer.pal(9, "Blues"),
-    col_labels = \(x) str_to_sentence(x))
+    pal = RColorBrewer::brewer.pal(9, "Blues"))
 ```
 
 ### gg_violin
 
 ```{r}
-penguins |>
-  tidyr::drop_na(sex) |>
-  mutate(sex = str_to_sentence(sex)) |>
+penguins2 |>
   gg_violin(
     x = sex,
     y = body_mass_g,

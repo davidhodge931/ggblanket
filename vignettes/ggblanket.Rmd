@@ -44,7 +44,7 @@ library(ggplot2)
 library(ggblanket)
 library(patchwork)
 
-penguins <- palmerpenguins::penguins |>
+penguins2 <- palmerpenguins::penguins |>
   mutate(sex = stringr::str_to_sentence(sex)) |>
   tidyr::drop_na(sex)
 ```
@@ -55,7 +55,7 @@ Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applic
 
 ```{r, fig.asp=0.6}
 # ggplot2
-penguins |> 
+penguins2 |> 
   ggplot() + 
   geom_point(aes(x = flipper_length_mm, 
                  y = body_mass_g))
@@ -63,7 +63,7 @@ penguins |>
 
 ```{r, fig.asp=0.6}
 # ggblanket
-penguins |>
+penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g)
@@ -75,7 +75,7 @@ The colour and fill aesthetics of ggplot2 are merged into a single concept repre
 
 ```{r}
 # ggplot2
-p1 <- penguins |> 
+p1 <- penguins2 |> 
   ggplot() + 
   geom_point(aes(x = flipper_length_mm, 
                  y = body_mass_g,
@@ -85,7 +85,7 @@ p1 <- penguins |>
   labs(colour = "Species") +
   scale_x_continuous(breaks = scales::breaks_pretty(n = 3))
 
-p2 <- penguins |>
+p2 <- penguins2 |>
   ggplot() +
   geom_density(aes(x = flipper_length_mm, 
                    fill = species)) +
@@ -98,7 +98,7 @@ p1 + p2
 
 ```{r}
 # ggblanket
-p1 <- penguins |>
+p1 <- penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g, 
@@ -106,7 +106,7 @@ p1 <- penguins |>
     x_breaks = scales::breaks_pretty(n = 3), 
     col_legend_ncol = 2)
 
-p2 <- penguins |>
+p2 <- penguins2 |>
   gg_density(
     x = flipper_length_mm, 
     col = species,
@@ -122,13 +122,13 @@ The `pal` argument is used to customise the colours of the geom. A user can prov
 
 ```{r, fig.asp=0.5}
 # ggplot2
-p1 <- penguins |>
+p1 <- penguins2 |>
   ggplot() +
   geom_histogram(aes(x = body_mass_g),
                  fill = "#1B9E77") +
   scale_x_continuous(breaks = scales::breaks_pretty(n = 3)) 
 
-p2 <- penguins |>
+p2 <- penguins2 |>
   ggplot() +
   geom_jitter(aes(x = species, 
                   y = body_mass_g, 
@@ -140,13 +140,13 @@ p1 + p2
 
 ```{r}
 # ggblanket
-p1 <- penguins |>
+p1 <- penguins2 |>
   gg_histogram(
     x = body_mass_g, 
     pal = "#1b9e77",
     x_breaks = scales::breaks_pretty(n = 3))
 
-p2 <- penguins |>
+p2 <- penguins2 |>
   gg_jitter(
     x = species, 
     y = body_mass_g, 
@@ -163,7 +163,7 @@ Faceting is treated as if it were an aesthetic. Users just provide an unquoted v
 
 ```{r}
 # ggplot2
-penguins |>
+penguins2 |>
   ggplot() +
   geom_violin(aes(x = sex, 
                   y = body_mass_g)) +
@@ -172,7 +172,7 @@ penguins |>
 
 ```{r}
 # ggblanket
-penguins |>
+penguins2 |>
   gg_violin(
     x = sex,
     y = body_mass_g,
@@ -185,7 +185,7 @@ A `facet2` argument is also provided for extra functionality and flexibility. If
 
 ```{r, fig.asp=0.75}
 # ggplot2
-penguins |>
+penguins2 |>
   ggplot() +
   geom_histogram(aes(x = flipper_length_mm)) +
   facet_grid(sex ~ species)
@@ -193,7 +193,7 @@ penguins |>
 
 ```{r, fig.asp=0.75}
 # ggblanket
-penguins |>
+penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
     facet = species,
@@ -210,7 +210,7 @@ knitr::include_graphics("screenshot_autotab_y.png", dpi = 300)
 
 ```{r}
 # ggplot2
-penguins |>
+penguins2 |>
   ggplot() +
   geom_jitter(aes(x = species, 
                   y = body_mass_g, 
@@ -229,7 +229,7 @@ penguins |>
 
 ```{r}
 # ggblanket
-penguins |>
+penguins2 |>
   gg_jitter(
     x = species,
     y = body_mass_g,
@@ -249,7 +249,7 @@ Unspecified x/y/col titles are converted to sentence case with snakecase::to_sen
 
 ```{r, fig.asp=0.5}
 # ggplot2
-penguins |>
+penguins2 |>
   ggplot() +
   geom_point(aes(x = flipper_length_mm, 
                  y = body_mass_g, 
@@ -260,7 +260,7 @@ penguins |>
 
 ```{r}
 # ggblanket
-penguins |>
+penguins2 |>
   gg_point(
       x = flipper_length_mm,
       y = body_mass_g, 
@@ -282,12 +282,12 @@ Note that `theme_set(theme_grey())` resets the set theme for ggplot2 code to the
 # ggblanket
 theme_set(dark_mode())
 
-penguins |>
+penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    title = "Penguins body mass by flipper length",
+    title = "penguins2 body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
     pal = c("#2596be", "#fc7c24"))
@@ -297,12 +297,12 @@ penguins |>
 # ggblanket
 theme_set(light_mode(base_size = 12))
 
-penguins |>
+penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    title = "Penguins body mass by flipper length",
+    title = "penguins2 body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
     pal = c("#2596be", "#fc7c24"))
@@ -327,7 +327,7 @@ Note this symmetry approach does _not_ apply:
 
 ```{r, fig.asp=0.6}
 # ggplot2
-penguins |>
+penguins2 |>
   group_by(species, sex) |> 
   summarise(body_mass_g = mean(body_mass_g)) |> 
   ggplot() +
@@ -340,7 +340,7 @@ penguins |>
 
 ```{r}
 # ggblanket
-penguins |>
+penguins2 |>
   group_by(species, sex) |> 
   summarise(body_mass_g = mean(body_mass_g)) |> 
   gg_col(
@@ -357,7 +357,7 @@ The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2:
 
 ```{r}
 # ggblanket
-penguins |>
+penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -376,7 +376,7 @@ Note that it is recommended that ggblanket users use the term `colour` within `g
 
 ```{r, fig.asp=0.6}
 # ggblanket + ggplot2
-penguins |>
+penguins2 |>
   gg_boxplot(x = species,
              y = body_mass_g,
              width = 0.5,
@@ -392,7 +392,7 @@ Note it is a useful to convention to refer to the 2 dimensional `col`/`colour` a
 
 ```{r, fig.asp=0.75}
 # ggblanket + ggplot2
-d <- penguins |>
+d <- penguins2 |>
   group_by(species) |>
   summarise(body_mass_g = mean(body_mass_g)) |>
   mutate(lower = body_mass_g * 0.95) |> 

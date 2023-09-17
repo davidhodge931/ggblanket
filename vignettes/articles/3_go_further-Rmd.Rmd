@@ -35,11 +35,10 @@ library(dplyr)
 library(stringr)
 library(ggplot2)
 library(ggblanket)
-library(palmerpenguins)
 library(patchwork)
 
-penguins <- penguins |>
-  mutate(sex = str_to_sentence(sex)) |>
+penguins2 <- palmerpenguins::penguins |>
+  mutate(sex = stringr::str_to_sentence(sex)) |>
   tidyr::drop_na(sex)
 ```
 
@@ -54,13 +53,13 @@ sysfonts::font_add_google('Syne Mono', 'syne')
 
 showtext::showtext_auto(enable = TRUE)
 
-penguins |>
+penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
     facet = species,
-    title = "Penguins body mass by flipper length",
+    title = "penguins2 body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
     pal = c("#2596be", "#fc7c24"),
@@ -193,7 +192,7 @@ The `mapping` argument provides access to the `linetype`, `shape` and `size` aes
 An alternative approach is to use `gg_blank`. If you use this approach, make sure you change the `stat`, `position`, and `coord` etc as needed in `gg_blank`, so that the positional scales are constructed correctly. Note the `stat` must be a character string.
 
 ```{r}
-penguins |> 
+penguins2 |> 
   gg_point(x = flipper_length_mm, 
            y = body_mass_g, 
            col = species,
@@ -201,7 +200,7 @@ penguins |>
 ```
 
 ```{r}
-penguins |>
+penguins2 |>
   gg_histogram(x = flipper_length_mm,
                mapping = aes(y = after_stat(density)),
                facet = species)
@@ -225,7 +224,7 @@ faithfuld |>
 The default `stat` of each `gg_*` function can be changed for additional flexibility. Note that you can only use `stat` character strings and not functions.
 
 ```{r}
-p1 <- penguins |>
+p1 <- penguins2 |>
   gg_pointrange(
     x = species,
     y = flipper_length_mm, 
@@ -233,7 +232,7 @@ p1 <- penguins |>
     size = 0.1,
     x_labels = \(x) str_sub(x, 1, 1))
 
-p2 <- penguins |>
+p2 <- penguins2 |>
   gg_bar(x = flipper_length_mm,
          stat = "bin")
 
@@ -259,13 +258,13 @@ gg_point_custom <- function(data, x, y, col = NULL, facet = NULL, facet2 = NULL,
     ggeasy::easy_remove_axes(which = "y", what = c("line", "ticks"))
 }
 
-p1 <- penguins |>
+p1 <- penguins2 |>
   gg_point_custom(
     x = flipper_length_mm,
     y = body_mass_g, 
     col = species)
 
-p2 <- penguins |>
+p2 <- penguins2 |>
   gg_point_custom(
     x = flipper_length_mm,
     y = body_mass_g, 
@@ -286,7 +285,7 @@ contrast <- function(colour) {
   out
 }
 
-p <- penguins |>
+p <- penguins2 |>
   group_by(sex, species) |>
   summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
   gg_col(
