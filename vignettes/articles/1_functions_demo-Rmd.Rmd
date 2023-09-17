@@ -35,7 +35,7 @@ economics |>
     x = date,
     y = unemploy,
     y_title = "Unemployment",
-    pal = "#1B9E77")
+    pal = "#1b9e77")
 ```
 
 ### gg_bar
@@ -401,7 +401,7 @@ penguins |>
   gg_qq(
     sample = body_mass_g,
     facet = species,
-    pal = "#1B9E77", 
+    pal = "#1b9e77", 
     coord = ggplot2::coord_cartesian(clip = "on")) +
   geom_qq_line(alpha = 0.5)
 ```
@@ -448,9 +448,9 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     x = year,
     ymin = level_min,
     ymax = level_max,
-    pal = scales::alpha("#1B9E77", 0),
+    pal = scales::alpha("#1b9e77", 0),
     y_title = "Level") +
-  geom_line(aes(x = year, y = level), col = "#1B9E77")
+  geom_line(aes(x = year, y = level), col = "#1b9e77")
 ```
 
 ### gg_segment
@@ -462,7 +462,7 @@ data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
     xend = x2,
     y = y1,
     yend = y2,
-    pal = "#1B9E77")
+    pal = "#1b9e77")
 ```
 
 ### gg_sf
@@ -497,7 +497,7 @@ economics |>
     x = date,
     y = unemploy,
     y_title = "Unemployment",
-    pal = "#1B9E77",
+    pal = "#1b9e77",
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_), 
     y_include = 0,
     coord = ggplot2::coord_cartesian(clip = "on"))

@@ -30,7 +30,7 @@
 
 #'
 #' @references Derived from a Datawrapper blog dated 30/03/2022 by Lisa Charlotte Muth.
-pal_discrete <- c("#69C2C0", "#941111", "#B2C615", "#2B6999", "#D57236")
+pal_discrete <- c("#69c2c0", "#941111", "#b2c615", "#2b6999", "#d57236")
 
 #' A colour blind safe categorical palette with 6 colours
 #'
@@ -55,7 +55,7 @@ pal_discrete <- c("#69C2C0", "#941111", "#B2C615", "#2B6999", "#D57236")
 #'   ggplot2::geom_point(stat = "count")
 #'
 #' @references Derived from a Datawrapper blog dated 30/03/2022 by Lisa Charlotte Muth.
-pal_discrete2 <- c("#69C2C0", "#941111", "#B2C615", "#2B6999", "#D57236", "#0C2052")
+pal_discrete2 <- c("#69c2c0", "#941111", "#b2c615", "#2b6999", "#d57236", "#0c2052")
 
 #' Default blue colour
 #'
@@ -65,7 +65,7 @@ pal_discrete2 <- c("#69C2C0", "#941111", "#B2C615", "#2B6999", "#D57236", "#0C20
 #' @export
 #' @examples
 #' scales::show_col(pal_blue)
-pal_blue <- "#2B6999"
+pal_blue <- "#2b6999"
 
 #' Default grey colour
 #'
@@ -75,7 +75,7 @@ pal_blue <- "#2B6999"
 #' @export
 #' @examples
 #' scales::show_col(pal_grey)
-pal_grey <- "#7F7F7F"
+pal_grey <- "#7f7f7f"
 
 #' Default colours used in the light_mode theme.
 #'
