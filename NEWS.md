@@ -1,7 +1,6 @@
 # ggblanket 5.0.9000
 
 * Added `pal_light_mode` and `pal_dark_mode`.
-* Updated `light_mode` and `dark_mode` `base_pal` argument to require a 4 colours.
 
 # ggblanket 5.0.0
 

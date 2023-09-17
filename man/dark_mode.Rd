@@ -8,7 +8,7 @@ dark_mode(
   base_size = 10,
   base_family = "",
   base_face = "plain",
-  base_pal = pal_dark_mode,
+  base_pal = "#bbccdd",
   title_family = NULL,
   title_face = "bold",
   title_pal = NULL,
@@ -24,7 +24,7 @@ dark_mode(
   caption_family = NULL,
   caption_face = NULL,
   caption_alpha = 0.33,
-  caption_pal = NULL,
+  caption_pal = base_pal,
   caption_size = ggplot2::rel(0.9),
   caption_hjust = 0,
   caption_vjust = 1,
@@ -38,7 +38,7 @@ dark_mode(
 
 \item{base_face}{The base face of the text. Defaults to "plain".}
 
-\item{base_pal}{A four colour vector of colours for the text/axis/ticks, plot, panel and gridlines. Defaults to pal_dark_mode.}
+\item{base_pal}{The base colour of the text. Defaults to "#bbccdd".}
 
 \item{title_family}{The font family of the title. Defaults to the base_family.}
 

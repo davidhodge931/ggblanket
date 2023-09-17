@@ -4,7 +4,7 @@
 #' @param base_size The base size of the text. Defaults to 10.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal A four colour vector of colours for the text/axis/ticks, plot, panel and gridlines. Defaults to pal.
+#' @param base_pal The base colour of the text. Defaults to "#121b24".
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "bold".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
@@ -58,7 +58,7 @@ light_mode <- function (
     base_size = 10,
     base_family = "",
     base_face = "plain",
-    base_pal = pal_light_mode,
+    base_pal = "#121b24",
     title_family = NULL,
     title_face = "bold",
     title_pal = NULL,
@@ -74,19 +74,17 @@ light_mode <- function (
     caption_family = NULL,
     caption_face = NULL,
     caption_alpha = 0.33,
-    caption_pal = NULL,
+    caption_pal = base_pal,
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
     caption_vjust = 1,
     caption_margin = ggplot2::margin(t = base_size)
 ) {
 
-  if (rlang::is_null(caption_pal)) caption_pal <- base_pal[1]
-
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal[1], linewidth = 10/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = base_pal[2], colour = base_pal[2], linewidth = base_size/33, linetype = 1),
-    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal[1], size = base_size,
+    line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = pal_light_mode[2], colour = pal_light_mode[2], linewidth = base_size/33, linetype = 1),
+    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal, size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -127,10 +125,10 @@ light_mode <- function (
     legend.box.margin = ggplot2::margin(l = base_size * 0.5),
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = base_pal[3], colour = base_pal[3]),
+    panel.background = ggplot2::element_rect(fill = pal_light_mode[3], colour = pal_light_mode[3]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = base_pal[4], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = pal_light_mode[4], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(1.25, "lines"),
     panel.spacing.x = NULL,
