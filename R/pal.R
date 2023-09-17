@@ -79,20 +79,20 @@ pal_grey <- "#7F7F7F"
 
 #' Default colours used in the light_mode theme.
 #'
-#' @description Default colours used in the light_mode theme for the text/axis/ticks (i.e. base), plot, panel and gridlines.
+#' @description Default colours used in the light_mode theme for the (1) base text and axis, (2) plot background, (3) panel background and (4) gridlines.
 #'
 #' @return A character vector.
 #' @export
 #' @examples
 #' scales::show_col(pal_light_mode)
-pal_light_mode <- c("base" = "#121b24", "plot" = "#e6ecf2", "panel" = "#fcfdfe", "gridlines" = "#dbe1e7")
+pal_light_mode <- c("#121b24", "#e6ecf2", "#fcfdfe", "#dbe1e7")
 
 #' Default colours used in the dark_mode theme.
 #'
-#' @description Default colours used in the dark_mode theme for the text/axis/ticks (i.e. base), plot, panel and gridlines.
+#' @description Default colours used in the dark_mode theme for the (1) base text and axis, (2) plot background, (3) panel background and (4) gridlines.
 #'
 #' @return A character vector.
 #' @export
 #' @examples
 #' scales::show_col(pal_dark_mode)
-pal_dark_mode <- c("base" = "#bbccdd", "plot" = "#121b24", "panel" = "#1f2f3e", "gridlines" = "#2c3a48")
+pal_dark_mode <- c("#bbccdd", "#121b24", "#1f2f3e", "#2c3a48")
