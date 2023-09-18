@@ -52,7 +52,6 @@ penguins2 |>
     col = sex,
     facet = species,
     width = 0.75,
-    x_labels = \(x) str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"))
 ```
 
@@ -75,7 +74,6 @@ penguins2 |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    col_labels = \(x) str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"),
     y_include = 0)
 ```
@@ -99,8 +97,6 @@ penguins2 |>
 penguins2 |>
   group_by(sex, species) |>
   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
-  tidyr::drop_na(sex) |>
-  mutate(species =str_to_sentence(species)) |> 
   gg_col(
     x = flipper_length_mm,
     y = species,
@@ -157,13 +153,11 @@ data.frame(
 
 ```{r}
 penguins2 |>
-  tidyr::drop_na(sex) |>
   gg_density(
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    pal = c("#2596be", "#fc7c24"),
-    col_labels = \(x) str_to_sentence(x))
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### gg_density_2d
@@ -211,13 +205,11 @@ data.frame(
 
 ```{r}
 penguins2 |>
-  tidyr::drop_na(sex) |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    pal = c("#2596be", "#fc7c24"),
-    col_labels = \(x) str_to_sentence(x))
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### gg_hex
@@ -236,27 +228,23 @@ diamonds |>
 
 ```{r}
 penguins2 |>
-  tidyr::drop_na(sex) |>
   gg_histogram(
     x = flipper_length_mm,
     col = sex,
     facet = species,
     bins = 50,
-    pal = c("#2596be", "#fc7c24"),
-    col_labels = \(x) str_to_sentence(x))
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### gg_freqpoly
 
 ```{r}
 penguins2 |>
-  tidyr::drop_na(sex) |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    pal = c("#2596be", "#fc7c24"),
-    col_labels = \(x) str_to_sentence(x))
+    pal = c("#2596be", "#fc7c24"))
 ```
 
 ### gg_jitter
@@ -286,6 +274,7 @@ bind_rows(
     y = mpg,
     col = mpg,
     label = model,
+    size = 3.53,
     y_include = 0,
     pal = RColorBrewer::brewer.pal(9, "RdBu"),
     y_title = "Miles per gallon")
@@ -344,7 +333,6 @@ penguins2 |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    col_labels = \(x) str_to_sentence(x),
     pal = c("#2596be", "#fc7c24"))
 ```
 
@@ -487,7 +475,6 @@ if (requireNamespace("sf", quietly = TRUE)) {
 
 ```{r}
 penguins2 |>
-  tidyr::drop_na(sex) |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -520,6 +507,7 @@ bind_rows(
     y = mpg,
     col = mpg,
     label = model,
+    size = 3.53,
     y_include = 0,
     pal = RColorBrewer::brewer.pal(9, "RdBu"),
     y_title = "Miles per gallon")
@@ -535,16 +523,13 @@ penguins2 |>
     x = sex,
     y = species,
     col = flipper_length_mm,
-    pal = RColorBrewer::brewer.pal(9, "Blues"),
-    col_labels = \(x) str_to_sentence(x))
+    pal = RColorBrewer::brewer.pal(9, "Blues"))
 ```
 
 ### gg_violin
 
 ```{r}
 penguins2 |>
-  tidyr::drop_na(sex) |>
-  mutate(sex = str_to_sentence(sex)) |>
   gg_violin(
     x = sex,
     y = body_mass_g,

@@ -301,7 +301,7 @@ p +
         label = round(flipper_length_mm, 0),
         !!!aes(colour = after_scale(contrast(fill)))), 
     show.legend = FALSE,
-    size = 3.66, 
+    size = 3.53, 
     position = position_dodge(width = 0.75))
 ```
 
@@ -329,5 +329,5 @@ d |>
     aes(label = round(r, 1),
         !!!aes(colour = after_scale(contrast(fill)))), 
     show.legend = FALSE,
-    size = 3.66)
+    size = 3.53)
 ```

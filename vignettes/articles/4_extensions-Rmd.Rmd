@@ -124,9 +124,9 @@ df |>
   ggbump::geom_bump(linewidth = 2, smooth = 8) +
   geom_point(size = 4) +
   geom_text(data = df |> filter(year == min(year)),
-            aes(x = year - 0.1), size = 3.5, hjust = 1) +
+            aes(x = year - 0.1), size = 3.53, hjust = 1) +
   geom_text(data = df |> filter(year == max(year)),
-            aes(x = year + 0.1), size = 3.5, hjust = 0) +
+            aes(x = year + 0.1), size = 3.53, hjust = 0) +
   ggeasy::easy_remove_axes(which = "y", what = c("ticks", "line"))
 ```
 
@@ -330,7 +330,7 @@ mtcars |>
   tibble::rownames_to_column("car") |>
   filter(wt > 2.75, wt < 3.45) |> 
   gg_point(x = wt, y = mpg) +
-  ggrepel::geom_text_repel(aes(label = car), col = "#2B6999") 
+  ggrepel::geom_text_repel(aes(label = car), colour = "#2B6999", size = 3.53) 
 ```
 
 
@@ -420,9 +420,7 @@ p1 <- pressure |>
   gg_blank(x = temperature, y = pressure) +
   geom_textline(
     label = "Mercury vapor pressure increases with temperature",
-    size = 3, vjust = -0.5, hjust = 0.9, color = pal_blue,
-    linecolor = pal_blue)
-
+    size = 3.53, vjust = -0.5, hjust = 0.9, color = pal_blue, linecolor = pal_blue)
 
 p2 <- expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |> 
   mutate(z = c(volcano)) |> 
