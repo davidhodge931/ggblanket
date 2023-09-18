@@ -59,7 +59,7 @@ penguins2 |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    title = "penguins2 body mass by flipper length",
+    title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
     pal = c("#2596be", "#fc7c24"),
