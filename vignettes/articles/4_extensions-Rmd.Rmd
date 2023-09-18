@@ -217,6 +217,21 @@ penguins2 |>
 ```
 
 
+#### ggforce
+
+The ggforce package has functions for annotating areas of points, among numerous other features.
+
+```{r}
+penguins2 |> 
+  gg_point(x = flipper_length_mm, 
+           y = body_mass_g, 
+           col = species,
+           coord = coord_cartesian(clip = "on")
+  ) +
+  ggforce::geom_mark_hull(alpha = 0.1, concavity = 5) 
+```
+
+
 #### ggh4x
 
 The ggh4x package includes enhanced facet functionality.
