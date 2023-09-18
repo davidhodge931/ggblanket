@@ -318,7 +318,7 @@ gg_pointrange <- function(
       dplyr::mutate(dplyr::across(!!col, function(x) factor(x)))
   }
 
-  if (flipped & col_character | col_factor) {
+  if (flipped & (col_character | col_factor)) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
   }
