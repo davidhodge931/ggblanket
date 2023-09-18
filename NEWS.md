@@ -1,5 +1,6 @@
 # ggblanket 5.0.9000
 
+* Fixed bug where `col` variable was reversing for non-flipped.
 * Added `pal_light_mode` and `pal_dark_mode`.
 
 # ggblanket 5.0.0
