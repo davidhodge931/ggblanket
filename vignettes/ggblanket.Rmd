@@ -167,7 +167,7 @@ penguins2 |>
   ggplot() +
   geom_violin(aes(x = sex, 
                   y = body_mass_g)) +
-  facet_wrap(~species) 
+  facet_wrap(vars(species)) 
 ```
 
 ```{r}
@@ -188,7 +188,7 @@ A `facet2` argument is also provided for extra functionality and flexibility. If
 penguins2 |>
   ggplot() +
   geom_histogram(aes(x = flipper_length_mm)) +
-  facet_grid(sex ~ species)
+  facet_grid(rows = vars(sex), cols = vars(species))
 ```
 
 ```{r, fig.asp=0.75}
@@ -219,8 +219,9 @@ penguins2 |>
   scale_x_discrete(labels = \(x) stringr::str_sub(x, 1, 1)) +
   scale_y_continuous(breaks = scales::breaks_width(1500),
                      labels = scales::label_number(big.mark = " "),
+                     expand = expansion(mult = c(0, 0.05)),
                      trans = "sqrt") +
-  labs(x = "Species", y = "Body mass (g)", col = "Sex") +
+  labs(x = "Species", y = "Body mass (g)", col = NULL) +
   theme(legend.position = "top") +
   theme(legend.justification = "left") +
   scale_colour_manual(values = scales::hue_pal()(2), 
@@ -238,9 +239,11 @@ penguins2 |>
     y_include = 0,
     y_breaks = scales::breaks_width(1500), 
     y_labels = scales::label_number(big.mark = " "), 
+    y_expand = expansion(mult = c(0, 0.05)),
     y_trans = "sqrt",
     y_title = "Body mass (g)", 
-    col_legend_place = "t")
+    col_legend_place = "t", 
+    col_title = "")
 ```
 
 ### 7. Unspecified x/y/col titles converted to sentence case
@@ -254,7 +257,7 @@ penguins2 |>
   geom_point(aes(x = flipper_length_mm, 
                  y = body_mass_g, 
                  colour = sex)) +
-  facet_wrap(~species) +
+  facet_wrap(vars(species)) +
   scale_x_continuous(breaks = scales::breaks_pretty(n = 3)) 
 ```
 
