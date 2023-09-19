@@ -200,14 +200,14 @@ penguins2 |>
            mapping = aes(shape = species))
 ```
 
-```{r}
+```{r, fig.asp=0.55}
 penguins2 |>
   gg_histogram(x = flipper_length_mm,
                mapping = aes(y = after_stat(density)),
                facet = species)
 ```
 
-```{r}
+```{r, fig.asp=0.55}
 faithfuld |>
    gg_blank(
      x = waiting,
@@ -224,7 +224,7 @@ faithfuld |>
 
 The default `stat` of each `gg_*` function can be changed for additional flexibility. Note that you can only use `stat` character strings and not functions.
 
-```{r}
+```{r, fig.asp=0.55}
 p1 <- penguins2 |>
   gg_pointrange(
     x = species,
