@@ -42,6 +42,7 @@ Suggests:
     stars,
     tibble
 Config/Needs/website: 
+    concaveman,
     corrr,
     distributional,
     glue,
