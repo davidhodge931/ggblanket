@@ -90,7 +90,7 @@ p2 <- penguins2 |>
 p1 / p2
 ```
 
-```{r, fig.asp=1}
+```{r, fig.asp=1.05}
 # ggblanket
 p1 <- penguins2 |>
   gg_point(
@@ -110,7 +110,7 @@ p1 / p2
 
 The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. A named palette can be used to make individual colours stick to particular values. 
 
-```{r, fig.asp=0.8}
+```{r, fig.asp=0.85}
 # ggplot2
 p1 <- penguins2 |>
   ggplot() +
@@ -127,7 +127,7 @@ p2 <- penguins2 |>
 p1 / p2
 ```
 
-```{r, fig.asp=0.9}
+```{r, fig.asp=0.95}
 # ggblanket
 p1 <- penguins2 |>
   gg_histogram(
@@ -196,7 +196,7 @@ Prefixed arguments are available to customise titles, scales, guides, and faceti
 knitr::include_graphics("screenshot_autotab_y.png", dpi = 300)
 ```
 
-```{r, fig.asp=0.55}
+```{r, fig.asp=0.6}
 # ggplot2
 penguins2 |>
   ggplot() +
@@ -238,7 +238,7 @@ penguins2 |>
 
 Unspecified x/y/col titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is.
 
-```{r, fig.asp=0.5}
+```{r, fig.asp=0.525}
 # ggplot2
 penguins2 |>
   ggplot() +
@@ -269,7 +269,7 @@ Note that the `gg_*` function will control what gridlines are present and the pl
 
 Note that `theme_set(theme_grey())` resets the set theme for ggplot2 code to theme_grey and for ggblanket `gg_*` functions to `light_mode()`. If you want ggblanket `gg_*` functions to default to using `theme_grey()`, then you must modify the base_size slightly (e.g. `theme_set(theme_grey(11.01))`).
 
-```{r, fig.asp=0.7}
+```{r, fig.asp=0.66}
 # ggblanket
 theme_set(dark_mode())
 
@@ -286,7 +286,7 @@ penguins2 |>
 
 ```{r, fig.asp=0.8}
 # ggblanket
-theme_set(light_mode(base_size = 12))
+theme_set(light_mode(base_size = 14))
 
 penguins2 |>
   gg_point(
@@ -316,7 +316,7 @@ Note this symmetry approach does _not_ apply:
 * if a transformation other than identity or reverse is applied to x or y scales.
 * for `gg_raster`, `gg_contour_filled` or `gg_density_2d_filled`
 
-```{r, fig.asp=0.6}
+```{r, fig.asp=0.55}
 # ggplot2
 penguins2 |>
   group_by(species, sex) |> 

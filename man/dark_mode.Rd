@@ -20,7 +20,7 @@ dark_mode(
   subtitle_pal = NULL,
   subtitle_size = NULL,
   subtitle_vjust = 1,
-  subtitle_margin = ggplot2::margin(t = base_size * -1, b = base_size * 2),
+  subtitle_margin = ggplot2::margin(t = base_size * -1, b = base_size + 10),
   caption_family = NULL,
   caption_face = NULL,
   caption_alpha = 0.33,
