@@ -320,7 +320,7 @@ Where the orientation is normal (i.e. vertical):
 -   Default x scale limits and expanding are as per ggplot2 defaults
 -   Default numeric y scale limits (that are non-transformed) start and end on a break with zero expanding
 -   Default categorical (or numeric transformed) y scale limits and expanding are as per ggplot2 defaults
--   Default removal of vertical gridlines
+-   Default removal of vertical gridlines 
 
 It does the opposite where the orientation is horizontal. 
 

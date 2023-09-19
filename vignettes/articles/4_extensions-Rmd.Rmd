@@ -454,27 +454,6 @@ p1 / p2
 ```
 
 
-#### plotly::ggplotly
-
-The `plotly::ggplotly` function enables interactive plots. The `text` aesthetic can be used to customise tooltips. Alternatively, use `plotly::ggplotly(p, tooltip = c("x", "y", "fill"))` or `plotly::ggplotly(p)`. 
-
-```{r, out.width=500, out.height=300}
-p <- diamonds |>
-  group_by(color) |>
-  count(name = "count") |>
-  mutate(text = glue::glue("Colour: {color}
-                            Count: {count}")) |>
-  gg_col(
-    x = color,
-    y = count,
-    text = text,
-    width = 0.75,
-    theme = light_mode(base_family = "arial"))
-
-plotly::ggplotly(p, tooltip = "text")
-```
-
-
 #### ggiraph
 
 The ggiraph package enables interactive plots.
@@ -505,30 +484,22 @@ ggiraph::girafe(
 ```
 
 
-#### gganimate
+#### plotly::ggplotly
 
-The gganimate package enables animated plots.
+The `plotly::ggplotly` function enables interactive plots. The `text` aesthetic can be used to customise tooltips. Alternatively, use `plotly::ggplotly(p, tooltip = c("x", "y", "fill"))` or `plotly::ggplotly(p)`. 
 
-```{r, eval=FALSE}
-gapminder::gapminder |> 
-  gg_blank(
-    x = gdpPercap, 
-    y = lifeExp, 
-    col = country, 
-    facet = continent, 
-    x_trans = "log10", 
-    pal = gapminder::country_colors,
-    col_legend_place = "n", 
-    title = "Year: {frame_time}", 
-    x_title = "GDP per capita", 
-    y_title = "Life expectancy", 
-    y_include = 0) +
-  geom_point(aes(size = pop), alpha = 0.7, show.legend = FALSE) +
-  scale_size(range = c(2, 12)) +
-  gganimate::transition_time(year) +
-  gganimate::ease_aes("linear")
+```{r, out.width=500, out.height=300}
+p <- diamonds |>
+  group_by(color) |>
+  count(name = "count") |>
+  mutate(text = glue::glue("Colour: {color}
+                            Count: {count}")) |>
+  gg_col(
+    x = color,
+    y = count,
+    text = text,
+    width = 0.75,
+    theme = light_mode(base_family = "arial"))
+
+plotly::ggplotly(p, tooltip = "text")
 ```
-```{r, echo=FALSE}
-knitr::include_graphics("gganimate.gif")
-```
-
