@@ -48,7 +48,7 @@ The showtext and sysfonts packages support the use of different fonts from Googl
 
 ```{r, fig.asp = 0.75, fig.showtext = TRUE}
 sysfonts::font_add_google("Covered By Your Grace", "grace")
-sysfonts::font_add_google('Anton', 'anton')
+sysfonts::font_add_google('Roboto Slab', 'roboto_slab')
 sysfonts::font_add_google('Syne Mono', 'syne')
 
 showtext::showtext_auto(enable = TRUE)
@@ -64,8 +64,9 @@ penguins2 |>
     caption = "Source: Gorman, 2020",
     pal = c("#2596be", "#fc7c24"),
     theme = light_mode(
+      base_size = 11,
       base_family = "grace", 
-      title_family = "anton",
+      title_family = "roboto_slab", 
       subtitle_family = "syne"))
 showtext::showtext_auto(enable = FALSE)
 ```
