@@ -36,7 +36,7 @@ To simplify ggplot2 visualisation, ggblanket provides:
 9.  Pretty defaults for symmetry
 10. Access to other geom\_\* arguments via ...
 11. Ability to add multiple geom\_\* layers
-12. Other key differences
+12. Other key differences to ggplot2
 
 ```{r setup}
 library(dplyr)
@@ -53,7 +53,7 @@ penguins2 <- palmerpenguins::penguins |>
 
 Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function.  
 
-```{r, fig.asp=0.6}
+```{r, fig.asp=0.55}
 # ggplot2
 penguins2 |> 
   ggplot() + 
@@ -61,7 +61,7 @@ penguins2 |>
                  y = body_mass_g))
 ```
 
-```{r, fig.asp=0.6}
+```{r, fig.asp=0.55}
 # ggblanket
 penguins2 |>
   gg_point(
@@ -73,60 +73,49 @@ penguins2 |>
 
 The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. This argument means that everything should be coloured according to it, i.e. all points, lines and polygon interiors. 
 
-```{r}
+```{r, fig.asp=0.85}
 # ggplot2
 p1 <- penguins2 |> 
   ggplot() + 
   geom_point(aes(x = flipper_length_mm, 
                  y = body_mass_g,
-                 colour = species)) + 
-  theme(legend.position = "bottom") +
-  guides(colour = guide_legend(title.position = "top")) +
-  labs(colour = "Species") +
-  scale_x_continuous(breaks = scales::breaks_pretty(n = 3))
+                 colour = species)) 
 
 p2 <- penguins2 |>
   ggplot() +
   geom_density(aes(x = flipper_length_mm, 
                    fill = species)) +
-  theme(legend.position = "bottom") +
-  guides(fill = guide_legend(title.position = "top")) +
   labs(fill = "Species")
 
-p1 + p2
+p1 / p2
 ```
 
-```{r}
+```{r, fig.asp=1}
 # ggblanket
 p1 <- penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g, 
-    col = species, 
-    x_breaks = scales::breaks_pretty(n = 3), 
-    col_legend_ncol = 2)
+    col = species)
 
 p2 <- penguins2 |>
   gg_density(
     x = flipper_length_mm, 
-    col = species,
-    x_breaks = scales::breaks_pretty(n = 3), 
-    col_legend_ncol = 2)
+    col = species)
 
-p1 + p2
+p1 / p2
 ```
 
 ### 3. A pal argument to customise colours
 
 The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. A named palette can be used to make individual colours stick to particular values. 
 
-```{r, fig.asp=0.5}
+```{r, fig.asp=0.8}
 # ggplot2
 p1 <- penguins2 |>
   ggplot() +
   geom_histogram(aes(x = body_mass_g),
-                 fill = "#1B9E77") +
-  scale_x_continuous(breaks = scales::breaks_pretty(n = 3)) 
+                 fill = "#1B9E77")
 
 p2 <- penguins2 |>
   ggplot() +
@@ -135,16 +124,15 @@ p2 <- penguins2 |>
                   colour = sex)) +
   scale_colour_manual(values = c("#2596be", "#fc7c24"))
 
-p1 + p2
+p1 / p2
 ```
 
-```{r}
+```{r, fig.asp=0.9}
 # ggblanket
 p1 <- penguins2 |>
   gg_histogram(
     x = body_mass_g, 
-    pal = "#1b9e77",
-    x_breaks = scales::breaks_pretty(n = 3))
+    pal = "#1b9e77")
 
 p2 <- penguins2 |>
   gg_jitter(
@@ -152,16 +140,16 @@ p2 <- penguins2 |>
     y = body_mass_g, 
     col = sex, 
     pal = c("#2596be", "#fc7c24")
-    )
+  )
 
-p1 + p2
+p1 / p2
 ```
 
 ### 4. A facet argument to facet by a variable
 
 Faceting is treated as if it were an aesthetic. Users just provide an unquoted variable to facet by. If a single facet (or facet2) variable is provided, it'll default to a "wrap" layout. But users can change this with a `facet_layout = "grid"` argument.
 
-```{r}
+```{r, fig.asp=0.55}
 # ggplot2
 penguins2 |>
   ggplot() +
@@ -170,7 +158,7 @@ penguins2 |>
   facet_wrap(vars(species)) 
 ```
 
-```{r}
+```{r, fig.asp=0.55}
 # ggblanket
 penguins2 |>
   gg_violin(
@@ -208,7 +196,7 @@ Prefixed arguments are available to customise titles, scales, guides, and faceti
 knitr::include_graphics("screenshot_autotab_y.png", dpi = 300)
 ```
 
-```{r}
+```{r, fig.asp=0.55}
 # ggplot2
 penguins2 |>
   ggplot() +
@@ -228,7 +216,7 @@ penguins2 |>
                       guide = ggplot2::guide_legend(title.position = "top"))
 ```
 
-```{r}
+```{r, fig.asp=0.55}
 # ggblanket
 penguins2 |>
   gg_jitter(
@@ -466,7 +454,7 @@ d_long |>
   geom_point(size = 2) 
 ```
 
-### 12. Other key differences
+### 12. Other key differences to ggplot2
 
 ##### Unquoted variables only
 
