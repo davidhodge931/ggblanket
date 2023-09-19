@@ -115,7 +115,7 @@ The `pal` argument is used to customise the colours of the geom. A user can prov
 p1 <- penguins2 |>
   ggplot() +
   geom_histogram(aes(x = body_mass_g),
-                 fill = "#1B9E77")
+                 fill = "#1b9e77")
 
 p2 <- penguins2 |>
   ggplot() +
@@ -390,18 +390,16 @@ d <- penguins2 |>
   mutate(upper = body_mass_g * 1.2)
 
 p1 <- d |>
-  gg_blank(    
+  gg_col(    
     y = species,
     x = body_mass_g,
     col = species,
-    xmin = lower,
-    xmax = upper,
-    x_include = 0, 
     x_labels = \(x) x / 1000, 
     x_title = "Body mass kg",
-    col_legend_place = "r") +
-  geom_col(alpha = 0.9, width = 0.75) +
-  geom_errorbar(colour = "black", width = 0.1)
+    x_include = max(d$upper),
+    width = 0.75,
+    col_legend_place = "n") +
+  geom_errorbar(aes(xmin = lower, xmax = upper), colour = "black", width = 0.1)
 
 p2 <- d |>
   gg_blank(
@@ -413,7 +411,7 @@ p2 <- d |>
     x_include = 0, 
     x_labels = \(x) x / 1000, 
     x_title = "Body mass kg", 
-    col_legend_place = "r") +
+    col_legend_place = "n") +
   geom_col(colour = NA, fill = "#d3d3d3", width = 0.75) +
   geom_errorbar(width = 0.1)
 
