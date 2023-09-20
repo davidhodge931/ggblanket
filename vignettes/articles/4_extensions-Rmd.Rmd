@@ -232,11 +232,12 @@ penguins2 |>
 ```
 
 ```{r}
-economics |>
-  slice_head(n = 50) |> 
-  gg_blank(
+ggplot2::economics |>
+  slice_head(n = 35) |> 
+  gg_point( #or use gg_blank
     x = date,
     y = unemploy,
+    alpha = 0.33,
     y_title = "Unemployment") +
   ggforce::geom_bspline(n = 1000, colour = pal_blue)
 ```
