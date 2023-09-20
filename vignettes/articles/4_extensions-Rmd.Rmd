@@ -219,7 +219,7 @@ penguins2 |>
 
 #### ggforce
 
-The ggforce package has functions for annotating areas of points, among numerous other features.
+The ggforce package includes functions for annotating areas of points, and a geom for making a smoothed line graph using a b-spline.
 
 ```{r}
 penguins2 |> 
@@ -229,6 +229,16 @@ penguins2 |>
            coord = coord_cartesian(clip = "on")
   ) +
   ggforce::geom_mark_hull(alpha = 0.1, concavity = 5) 
+```
+
+```{r}
+economics |>
+  slice_head(n = 50) |> 
+  gg_blank(
+    x = date,
+    y = unemploy,
+    y_title = "Unemployment") +
+  ggforce::geom_bspline(n = 1000, colour = pal_blue)
 ```
 
 
