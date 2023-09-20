@@ -237,7 +237,7 @@ ggplot2::economics |>
   gg_point( #or use gg_blank
     x = date,
     y = unemploy,
-    alpha = 0.33,
+    alpha = 0.25,
     y_title = "Unemployment") +
   ggforce::geom_bspline(n = 1000, colour = pal_blue)
 ```
