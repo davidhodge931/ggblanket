@@ -105,9 +105,8 @@ Hodge</h4>
 <li>A pal argument to customise colours</li>
 <li>A facet argument to facet by a variable</li>
 <li>An additional facet2 argument to facet by a 2nd variable</li>
-<li>Prefixed arguments to customise titles, scales, guides, and
-faceting</li>
-<li>Unspecified x/y/col titles converted to sentence case</li>
+<li>Prefixed arguments for titles, scales, guides, and faceting</li>
+<li>Unspecified x, y, and col titles converted to sentence case</li>
 <li>Ability to set the theme, including to provided themes</li>
 <li>Pretty defaults for symmetry</li>
 <li>Access to other geom_* arguments via …</li>
@@ -276,18 +275,21 @@ can change this with a <code>facet_layout = "wrap"</code> argument.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="prefixed-arguments-to-customise-titles-scales-guides-and-faceting">6. Prefixed arguments to customise titles, scales, guides, and
-faceting<a class="anchor" aria-label="anchor" href="#prefixed-arguments-to-customise-titles-scales-guides-and-faceting"></a>
+<h3 id="prefixed-arguments-for-titles-scales-guides-and-faceting">6. Prefixed arguments for titles, scales, guides, and faceting<a class="anchor" aria-label="anchor" href="#prefixed-arguments-for-titles-scales-guides-and-faceting"></a>
 </h3>
 <p>Prefixed arguments are available to customise titles, scales, guides,
-and faceting. These are designed to work with the Rstudio auto-complete
-to help users remember and find the adjustment they need. Users should
-first determine whether they want to change something that relates to x,
-y, col or facet. Then they should type this prefix and press the tab key
-to access the list of options from the Rstudio auto-complete. Then they
-can use the arrow keys, and press tab again to select what they
-want.</p>
-<p><img src="screenshot_autotab_y.png" width="70%"></p>
+and faceting. These prefixes organise the adjustments by whether they
+relate to <code>x</code>, <code>y</code>, <code>col</code> or
+<code>facet</code>.</p>
+<p>These prefixes are designed to work nicely with the Rstudio
+autocomplete. It is recommended that users they have their Rstudio
+settings to support this, by ensuring that their settings support the
+use of tab for autocompletions and multi-line autocompletions
+(i.e. Tools - Global Options - Code - Completion). With these options
+selected, users can type the prefix, and then use the tab and arrow keys
+to assist in finding and selecting the arguments they need to
+adjust.</p>
+<p><img src="autocomplete_y.png" width="70%"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggplot2</span></span>
 <span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
@@ -326,12 +328,13 @@ want.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="unspecified-xycol-titles-converted-to-sentence-case">7. Unspecified x/y/col titles converted to sentence case<a class="anchor" aria-label="anchor" href="#unspecified-xycol-titles-converted-to-sentence-case"></a>
+<h3 id="unspecified-x-y-and-col-titles-converted-to-sentence-case">7. Unspecified x, y, and col titles converted to sentence case<a class="anchor" aria-label="anchor" href="#unspecified-x-y-and-col-titles-converted-to-sentence-case"></a>
 </h3>
-<p>Unspecified x/y/col titles are converted to sentence case with
-snakecase::to_sentence. All titles can be manually changed using the
-<code>*_title</code> arguments. The default conversion is intended to
-make titles sometimes able to be left as is.</p>
+<p>Unspecified <code>x</code>, <code>y</code>, and <code>col</code>
+titles are converted to sentence case with snakecase::to_sentence. All
+titles can be manually changed using the <code>*_title</code> arguments.
+The default conversion is intended to make titles sometimes able to be
+left as is.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggplot2</span></span>
 <span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
@@ -479,11 +482,12 @@ available to users. Common arguments from <code>...</code> to add are
 </h3>
 <p>Users can make plots with multiple layers with ggblanket by adding on
 <code>ggplot2::geom_*</code> layers. The <code>gg_*</code> function puts
-the aesthetic variables (i.e. x, y, col) within the wrapped
-<code>ggplot</code> function. Therefore, these aesthetics will inherit
-to any subsequent layers added. Geoms will plot in order. The
-<code>gg_*</code> function will plot the associated geom as the first
-layer, and then other geoms will be plotted on top of it.</p>
+the aesthetic variables (i.e. <code>x</code>, <code>y</code>,
+<code>col</code>) within the wrapped <code>ggplot</code> function.
+Therefore, these aesthetics will inherit to any subsequent layers added.
+Geoms will plot in order. The <code>gg_*</code> function will plot the
+associated geom as the first layer, and then other geoms will be plotted
+on top of it.</p>
 <p>Users need to ensure that the scales built by their <code>gg_*</code>
 function are appropriate for subsequent layers. This is because the plot
 scales are constructed without knowledge of subsequent layers. They are
