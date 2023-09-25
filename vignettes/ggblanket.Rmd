@@ -30,8 +30,8 @@ To simplify ggplot2 visualisation, ggblanket provides:
 3.  A pal argument to customise colours
 4.  A facet argument to facet by a variable
 5.  An additional facet2 argument to facet by a 2nd variable
-6.  Prefixed arguments to customise titles, scales, guides, and faceting
-7.  Unspecified x/y/col titles converted to sentence case
+6.  Prefixed arguments for titles, scales, guides, and faceting
+7.  Unspecified x, y, and col titles converted to sentence case
 8.  Ability to set the theme, including to provided themes
 9.  Pretty defaults for symmetry
 10. Access to other geom\_\* arguments via ...
@@ -188,12 +188,14 @@ penguins2 |>
     facet2 = sex)
 ```
 
-### 6. Prefixed arguments to customise titles, scales, guides, and faceting
+### 6. Prefixed arguments for titles, scales, guides, and faceting
 
-Prefixed arguments are available to customise titles, scales, guides, and faceting. These are designed to work with the Rstudio auto-complete to help users remember and find the adjustment they need. Users should first determine whether they want to change something that relates to x, y, col or facet. Then they should type this prefix and press the tab key to access the list of options from the Rstudio auto-complete. Then they can use the arrow keys, and press tab again to select what they want.
+Prefixed arguments are available to customise titles, scales, guides, and faceting. These prefixes organise the adjustments by whether they relate to `x`, `y`, `col` or `facet`. 
+
+These prefixes are designed to work nicely with the Rstudio autocomplete. It is recommended that users they have their Rstudio settings to support this, by ensuring that their settings support the use of tab for autocompletions and multi-line autocompletions (i.e. Tools - Global Options - Code - Completion). With these options selected, users can type the prefix, and then use the tab and arrow keys to assist in finding and selecting the arguments they need to adjust.
 
 ```{r, echo = FALSE,   fig.width = 3, fig.asp = 2}
-knitr::include_graphics("screenshot_autotab_y.png", dpi = 300)
+knitr::include_graphics("autocomplete_y.png", dpi = 300)
 ```
 
 ```{r, fig.asp=0.6}
@@ -234,9 +236,9 @@ penguins2 |>
     col_title = "")
 ```
 
-### 7. Unspecified x/y/col titles converted to sentence case
+### 7. Unspecified x, y, and col titles converted to sentence case
 
-Unspecified x/y/col titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is.
+Unspecified `x`, `y`, and `col` titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is.
 
 ```{r, fig.asp=0.525}
 # ggplot2
@@ -359,7 +361,7 @@ penguins2 |>
 
 ### 11. Ability to add multiple geom\_\* layers
 
-Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. The `gg_*` function puts the aesthetic variables (i.e. x, y, col) within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added. Geoms will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it.
+Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added. Geoms will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it.
 
 Users need to ensure that the scales built by their `gg_*` function are appropriate for subsequent layers. This is because the plot scales are constructed without knowledge of subsequent layers. They are built based on the `data`, `x`, `y`, `*_limits`, `*_include`, `facet_scales` and the underlying `stat` and `position` in the `gg_*`  function. The `stat` and `position` is unique to each `geom_*` layer - it does not inherit. 
 
