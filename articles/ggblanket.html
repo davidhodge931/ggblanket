@@ -484,22 +484,30 @@ available to users. Common arguments from <code>...</code> to add are
 <h3 id="ability-to-add-multiple-geom_-layers">11. Ability to add multiple geom_* layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
 </h3>
 <p>Users can make plots with multiple layers with ggblanket by adding on
-<code>ggplot2::geom_*</code> layers. The <code>gg_*</code> function puts
-the aesthetic variables (i.e. <code>x</code>, <code>y</code>,
-<code>col</code>) within the wrapped <code>ggplot</code> function.
-Therefore, these aesthetics will inherit to any subsequent layers added.
-Geoms will plot in order. The <code>gg_*</code> function will plot the
-associated geom as the first layer, and then other geoms will be plotted
-on top of it.</p>
+<code>ggplot2::geom_*</code> layers.</p>
+<p>The <code>gg_*</code> function puts the aesthetic variables
+(i.e. <code>x</code>, <code>y</code>, <code>col</code>) within the
+wrapped <code>ggplot</code> function. Therefore, these aesthetics will
+inherit to any subsequent layers added.</p>
+<p>Where there are multiple geom layers in a desired plot, users should
+determine the <code>gg_*</code> function to use based on the
+following:</p>
+<ol style="list-style-type: decimal">
+<li><p>Geoms will plot in order. The <code>gg_*</code> function will
+plot the associated geom as the first layer, and then other geoms will
+be plotted on top of it.</p></li>
+<li><p>If some geom layers have a <code>col</code> aesthetic and some do
+not, then a <code>gg_*</code> function should be chosen that has a
+<code>col</code> argument in it. This will enable access to
+<code>col_*</code> arguments etc. It may be that <code>gg_blank</code>
+is required to make this work.</p></li>
+</ol>
 <p>Users need to ensure that the scales built by their <code>gg_*</code>
-function are appropriate for subsequent layers. This is because the plot
-scales are constructed without knowledge of subsequent layers. They are
-built based on the <code>data</code>, <code>x</code>, <code>y</code>,
-<code>*_limits</code>, <code>*_include</code>, <code>facet_scales</code>
-and the underlying <code>stat</code> and <code>position</code> in the
-<code>gg_*</code> function. The <code>stat</code> and
-<code>position</code> is unique to each <code>geom_*</code> layer - it
-does not inherit.</p>
+function are appropriate for subsequent layers. Plot scales are built by
+the <code>gg_*</code> function based on the <code>data</code>,
+<code>x</code>, <code>y</code>, <code>*_limits</code>,
+<code>*_include</code>, <code>stat</code>, <code>position</code> and
+<code>coord</code> arguments in the <code>gg_*</code> function.</p>
 <p>Note that it is recommended that ggblanket users use the term
 <code>colour</code> within <code>geom_*</code> functions to help keep
 the distinction that the ggblanket <code>col</code> is the merged colour
@@ -513,21 +521,6 @@ and fill.</p>
 <span>             outlier.colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">pal_blue</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-22-1.svg" width="70%"></p>
-<p>If some geoms have a <code>col</code> aesthetic and some do not, then
-it is recommended to have the <code>col</code> variable in the
-<code>gg_*</code> function. This enables ggblanket legend placement, as
-well as the ability to adjust the col scale via the <code>gg_*</code>
-function.</p>
-<p>If you do not want a <code>col</code> aesthetic in your bottom plot
-layer, but require it in subsequent layers - then you should use the
-<code>gg_blank</code> function. <em>Subsequent</em> <code>geom_*</code>
-layers where the col aesthetic is not required can have
-<code>colour = NA</code> and/or <code>fill = NA</code> arguments - or
-use the <code>inherit.aes = FALSE</code> argument.</p>
-<p>Note it is a useful to convention to refer to the 2 dimensional
-<code>col</code>/<code>colour</code> aesthetic in subsequent ggplot2
-layers as <code>colour</code> to help avoid confusion with the merged
-ggblanket <code>col</code> aesthetic.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket + ggplot2</span></span>
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
@@ -702,6 +695,42 @@ plotting.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-26-1.svg" width="70%"></p>
 </div>
 <div class="section level5">
+<h5 id="different-pal-and-alpha-defaults">Different pal and alpha defaults<a class="anchor" aria-label="anchor" href="#different-pal-and-alpha-defaults"></a>
+</h5>
+<p>ggblanket uses different defaults for colouring. The default
+<code>pal</code> is:</p>
+<ul>
+<li>
+<code><a href="../reference/pal_blue.html">ggblanket::pal_blue</a></code> for where there is no
+<code>col</code> variable</li>
+<li>
+<code><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis::viridis</a></code> for a continuous <code>col</code>
+variable</li>
+<li>
+<code><a href="../reference/pal_discrete.html">ggblanket::pal_discrete</a></code> for a discrete <code>col</code>
+variable with 5 or less levels (or unique values if a character).
+Testing suggests this is safe for colour blindness.</li>
+<li>
+<code><a href="https://scales.r-lib.org/reference/hue_pal.html" class="external-link">scales::hue_pal</a></code> for a discrete <code>col</code>
+variable with more than 5 levels (or unique values if not ordered).</li>
+</ul>
+<p>ggblanket uses different <code>alpha</code> defaults for the
+different <code>gg_*</code> functions. Polygons that generally have no
+gap or overlap default to 1: <code>gg_bin_2d</code>,
+<code>gg_contour_filled</code>, <code>gg_density_2d_filled</code>,
+<code>gg_hex</code> - as well as <code>gg_sf</code> for polygons with a
+<code>col</code> aesthetic. Polygons that generally overlap default to
+0.5: <code>gg_density</code>. Polygons that generally have key lines
+within them also default to 0.5: <code>gg_boxplot</code>,
+<code>gg_crossbar</code>, <code>gg_ribbon</code> and
+<code>gg_smooth</code>. <code>gg_label</code> defaults to 0.05.
+<code>gg_blank</code> has no alpha argument. Other polygons default to
+0.9: <code>gg_area</code>, <code>gg_bar</code>, <code>gg_col</code>,
+<code>gg_histogram</code>, <code>gg_polygon</code>,
+<code>gg_rect</code>, <code>gg_tile</code> and <code>gg_violin</code>.
+For all other contexts, alpha defaults to 1.</p>
+</div>
+<div class="section level5">
 <h5 id="different-oob-clip-defaults">Different oob &amp; clip defaults<a class="anchor" aria-label="anchor" href="#different-oob-clip-defaults"></a>
 </h5>
 <p>By default, ggblanket keeps values outside of the limits
@@ -776,42 +805,6 @@ other than <code>identity</code>.</p>
 <span></span>
 <span><span class="va">p1</span> <span class="op">/</span> <span class="op">(</span><span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p4</span> <span class="op">+</span> <span class="va">p5</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-27-1.svg" width="70%"></p>
-</div>
-<div class="section level5">
-<h5 id="different-pal-and-alpha-defaults">Different pal and alpha defaults<a class="anchor" aria-label="anchor" href="#different-pal-and-alpha-defaults"></a>
-</h5>
-<p>ggblanket uses different defaults for colouring. The default
-<code>pal</code> is:</p>
-<ul>
-<li>
-<code><a href="../reference/pal_blue.html">ggblanket::pal_blue</a></code> for where there is no
-<code>col</code> variable</li>
-<li>
-<code><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis::viridis</a></code> for a continuous <code>col</code>
-variable</li>
-<li>
-<code><a href="../reference/pal_discrete.html">ggblanket::pal_discrete</a></code> for a discrete <code>col</code>
-variable with 5 or less levels (or unique values if a character).
-Testing suggests this is safe for colour blindness.</li>
-<li>
-<code><a href="https://scales.r-lib.org/reference/hue_pal.html" class="external-link">scales::hue_pal</a></code> for a discrete <code>col</code>
-variable with more than 5 levels (or unique values if not ordered).</li>
-</ul>
-<p>ggblanket uses different <code>alpha</code> defaults for the
-different <code>gg_*</code> functions. Polygons that generally have no
-gap or overlap default to 1: <code>gg_bin_2d</code>,
-<code>gg_contour_filled</code>, <code>gg_density_2d_filled</code>,
-<code>gg_hex</code> - as well as <code>gg_sf</code> for polygons with a
-<code>col</code> aesthetic. Polygons that generally overlap default to
-0.5: <code>gg_density</code>. Polygons that generally have key lines
-within them also default to 0.5: <code>gg_boxplot</code>,
-<code>gg_crossbar</code>, <code>gg_ribbon</code> and
-<code>gg_smooth</code>. <code>gg_label</code> defaults to 0.05.
-<code>gg_blank</code> has no alpha argument. Other polygons default to
-0.9: <code>gg_area</code>, <code>gg_bar</code>, <code>gg_col</code>,
-<code>gg_histogram</code>, <code>gg_polygon</code>,
-<code>gg_rect</code>, <code>gg_tile</code> and <code>gg_violin</code>.
-For all other contexts, alpha defaults to 1.</p>
 </div>
 <div class="section level5">
 <h5 id="other-minor-stuff">Other minor stuff<a class="anchor" aria-label="anchor" href="#other-minor-stuff"></a>
