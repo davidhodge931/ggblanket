@@ -192,7 +192,12 @@ penguins2 |>
 
 Prefixed arguments are available to customise titles, scales, guides, and faceting. These prefixes organise the adjustments by whether they relate to `x`, `y`, `col` or `facet`. 
 
-These prefixes are designed to work nicely with the Rstudio autocomplete. It is recommended that users they have their Rstudio settings to support this, by ensuring that their settings support the use of tab for autocompletions and multi-line autocompletions (i.e. Tools - Global Options - Code - Completion). With these options selected, users can type the prefix, and then use the tab and arrow keys to assist in finding and selecting the arguments they need to adjust.
+These prefixed arguments work nicely with the Rstudio autocomplete, if users:
+
+* ensure their settings support the use of tab for autocompletions and multi-line autocompletions (i.e. Tools - Global Options - Code - Completion)
+* pipe data into the `gg_*` functions.
+
+With these settings and use of the pipe, users can type the prefix, and then use the tab and arrow keys to assist in finding and selecting the arguments they need to adjust.
 
 ```{r, echo = FALSE,   fig.width = 3, fig.asp = 2}
 knitr::include_graphics("autocomplete_y.png", dpi = 300)
