@@ -281,14 +281,17 @@ can change this with a <code>facet_layout = "wrap"</code> argument.</p>
 and faceting. These prefixes organise the adjustments by whether they
 relate to <code>x</code>, <code>y</code>, <code>col</code> or
 <code>facet</code>.</p>
-<p>These prefixes are designed to work nicely with the Rstudio
-autocomplete. It is recommended that users they have their Rstudio
-settings to support this, by ensuring that their settings support the
-use of tab for autocompletions and multi-line autocompletions
-(i.e. Tools - Global Options - Code - Completion). With these options
-selected, users can type the prefix, and then use the tab and arrow keys
-to assist in finding and selecting the arguments they need to
-adjust.</p>
+<p>These prefixed arguments work nicely with the Rstudio autocomplete,
+if users:</p>
+<ul>
+<li>ensure their settings support the use of tab for autocompletions and
+multi-line autocompletions (i.e. Tools - Global Options - Code -
+Completion)</li>
+<li>pipe data into the <code>gg_*</code> functions.</li>
+</ul>
+<p>With these settings and use of the pipe, users can type the prefix,
+and then use the tab and arrow keys to assist in finding and selecting
+the arguments they need to adjust.</p>
 <p><img src="autocomplete_y.png" width="70%"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggplot2</span></span>
