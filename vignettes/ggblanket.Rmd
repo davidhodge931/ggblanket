@@ -370,26 +370,49 @@ Users can make plots with multiple layers with ggblanket by adding on `ggplot2::
 
 The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added. 
 
-Where there are multiple geom layers in a desired plot, users should determine the `gg_*` function to use based on the following: 
+Where there are multiple geom layers in a desired plot, users should determine the `gg_*` function with care: 
 
-1. Geoms will plot in order. The `gg_*` function will plot the associated geom as the first layer, and then other geoms will be plotted on top of it.
+1. The `gg_*` function _should_ be appropriate to be the bottom layer of the plot. This is because the geoms will plot in order. 
 
-2. If some geom layers have a `col` aesthetic and some do not, then a `gg_*` function should be chosen that has a `col` argument in it. This will enable access to `col_*` arguments etc. It may be that `gg_blank` is required to make this work.
-
-Users need to ensure that the scales built by their `gg_*` function are appropriate for subsequent layers. Plot scales are built by the `gg_*` function based on the `data`, `x`, `y`, `*_limits`, `*_include`, `stat`, `position` and `coord` arguments in the `gg_*`  function. 
-
-Note that it is recommended that ggblanket users use the term `colour` within `geom_*` functions to help keep the distinction that the ggblanket `col` is the merged colour and fill. 
-
-```{r, fig.asp=0.6}
+```{r}
 # ggblanket + ggplot2
-penguins2 |>
-  gg_boxplot(x = species,
-             y = body_mass_g,
-             width = 0.5,
-             outlier.colour = NA) +
-  geom_jitter(colour = pal_blue)
+p1 <- ggplot2::economics |>
+  slice_min(order_by = date, n = 10) |> 
+  gg_line(
+    x = date,
+    y = unemploy,
+    pal = pal_discrete[1],
+    x_title = "",
+    y_title = "Unemployment",
+    y_include = 0,
+    linewidth = 1, 
+    x_breaks = scales::breaks_width("3 months"),
+    title = "gg_line + geom_point", 
+    theme = light_mode(title_face = "plain")) +
+  geom_point(colour = pal_discrete[2])
+
+p2 <- ggplot2::economics |>
+  slice_min(order_by = date, n = 10) |> 
+  gg_point(
+    x = date,
+    y = unemploy,
+    pal = pal_discrete[2],
+    x_title = "",
+    y_title = "Unemployment",
+    y_include = 0,
+    x_breaks = scales::breaks_width("3 months"),
+    title = "gg_point + geom_line", 
+    theme = light_mode(title_face = "plain")) +
+  geom_line(colour = pal_discrete[1], linewidth = 1)
+
+p1 + p2
 ```
 
+2. If some geom layers have a `col` aesthetic and some do not, then a `gg_*` function _should_ be chosen that has a `col` argument in it. This will enable ggblanket legend placement and access to `col_*` arguments. 
+
+3. In some situations, `gg_blank` may be required.
+
+Users need to ensure that the scales built by their `gg_*` function are appropriate for subsequent layers. Plot scales are built by the `gg_*` function based on the `data`, `x`, `y`, `*_limits`, `*_include`, `stat`, `position` and `coord` arguments in the `gg_*`  function. 
 
 ```{r, fig.asp=0.75}
 # ggblanket + ggplot2
@@ -428,39 +451,6 @@ p2 <- d |>
 p1 / p2
 ```
 
-```{r}
-# ggblanket + ggplot2
-d_wide <- gapminder::gapminder |>
-  filter(year %in% c(1967, 2007)) |>
-  select(country, year, lifeExp) |>
-  tidyr::pivot_wider(names_from = year, values_from = lifeExp) |>
-  mutate(gap = `2007` - `1967`) |>
-  slice_max(gap, n = 10) |>
-  mutate(country = forcats::fct_inorder(forcats::fct_drop(country))) 
-
-d_long <- d_wide |>
-  select(-gap) |> 
-  tidyr::pivot_longer(-country, 
-                      names_to = "year", 
-                      values_to = "life_expectancy")
-
-d_long |> 
-  gg_blank(x = life_expectancy,
-           y = country,
-           col = year,
-           pal = pal_discrete[c(2, 1)],
-           x_include = 0,
-           col_legend_place = "r",
-           title = "We're living longer",
-           subtitle = "Biggest life expectancy rise, 1967\u20132007",
-           x_title = "Life expectancy", 
-           y_title = "") +
-  geom_segment(aes(x = `1967`, xend = `2007`, 
-                   y = country, yend = country), 
-               data = d_wide, inherit.aes = FALSE, 
-               colour = "#dddddd", linewidth = 2) +
-  geom_point(size = 2) 
-```
 
 ### 12. Other key differences to ggplot2
 
