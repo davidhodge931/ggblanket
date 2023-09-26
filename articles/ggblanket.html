@@ -281,18 +281,6 @@ can change this with a <code>facet_layout = "wrap"</code> argument.</p>
 and faceting. These prefixes organise the adjustments by whether they
 relate to <code>x</code>, <code>y</code>, <code>col</code> or
 <code>facet</code>.</p>
-<p>These prefixed arguments work nicely with the Rstudio autocomplete,
-if users:</p>
-<ul>
-<li>ensure their settings support the use of tab for autocompletions and
-multi-line autocompletions (i.e. Tools - Global Options - Code -
-Completion)</li>
-<li>pipe data into the <code>gg_*</code> functions.</li>
-</ul>
-<p>With these settings and use of the pipe, users can type the prefix,
-and then use the tab and arrow keys to assist in finding and selecting
-the arguments they need to adjust.</p>
-<p><img src="autocomplete_y.png" width="70%"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggplot2</span></span>
 <span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
@@ -311,7 +299,7 @@ the arguments they need to adjust.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.justification <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/hue_pal.html" class="external-link">hue_pal</a></span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, </span>
 <span>                      guide <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>title.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket</span></span>
 <span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
@@ -328,7 +316,19 @@ the arguments they need to adjust.</p>
 <span>    y_title <span class="op">=</span> <span class="st">"Body mass (g)"</span>, </span>
 <span>    col_legend_place <span class="op">=</span> <span class="st">"t"</span>, </span>
 <span>    col_title <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
+<p>These prefixed arguments work nicely with the Rstudio autocomplete,
+if users:</p>
+<ul>
+<li>ensure their settings support the use of tab for autocompletions and
+multi-line autocompletions (i.e. Tools - Global Options - Code -
+Completion)</li>
+<li>pipe data into the <code>gg_*</code> functions.</li>
+</ul>
+<p>With these settings and use of the pipe, users can type the prefix,
+and then use the tab and arrow keys to assist in finding and selecting
+the arguments they need to adjust.</p>
+<p><img src="autocomplete_y.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="unspecified-x-y-and-col-titles-converted-to-sentence-case">7. Unspecified x, y, and col titles converted to sentence case<a class="anchor" aria-label="anchor" href="#unspecified-x-y-and-col-titles-converted-to-sentence-case"></a>
