@@ -408,7 +408,7 @@ p2 <- ggplot2::economics |>
 p1 + p2
 ```
 
-2. If some geom layers have a `col` aesthetic and some do not, then a `gg_*` function _should_ be chosen that has a `col` argument in it. This will enable ggblanket legend placement and access to `col_*` arguments. 
+2. If some geom layers have a `col` aesthetic and some do not, then a `gg_*` function _should_ be chosen that has a `col` argument in it. This will enable ggblanket legend placement and access to `col_*` arguments. It is also generally just a more reliable method of making everything work. 
 
 3. In some situations, `gg_blank` may be required.
 
