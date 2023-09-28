@@ -33,9 +33,9 @@ To **simplify ggplot2 visualisation**, ggblanket provides:
 6.  Conversion of unspecified titles to sentence case
 7.  Ability to customise by prefixed arguments 
 8.  Ability to customise the theme
-9.  Pretty numeric positional scales
-10. Access to other geom\_\* arguments via ...
-11. Ability to add multiple geom\_\* layers
+9. Access to other geom\_\* arguments via ...
+10. Ability to add multiple geom\_\* layers
+11.  Pretty numeric positional scales
 12. Other key differences to ggplot2
 
 ```{r setup}
@@ -318,50 +318,7 @@ p2 <- penguins2 |>
 p1 + p2
 ```
 
-### 9. Pretty numeric positional scales
-
-Where the orientation is normal (i.e. vertical):
-
--   Default x scale limits and expanding are as per ggplot2 defaults
--   Default numeric y scale limits (that are non-transformed) start and end on a break with zero expanding
--   Default categorical (or numeric transformed) y scale limits and expanding are as per ggplot2 defaults
--   Default removal of vertical gridlines 
-
-It does the opposite where the orientation is horizontal. 
-
-Note this symmetry approach does _not_ apply:
-* if a transformation other than identity or reverse is applied to x or y scales.
-* for `gg_raster`, `gg_contour_filled` or `gg_density_2d_filled`
-
-In some circumstances the ggplot2 approach to default scales may be preferable. In these cases, users can revert to the ggplot2 approach by using `*_limits = c(NA, NA)` and `*_expand = c(0.05, 0.05)` (or add `scale_*_continuous()`).
-
-```{r, fig.asp=0.55}
-# ggplot2
-penguins2 |>
-  group_by(species, sex) |> 
-  summarise(body_mass_g = mean(body_mass_g)) |> 
-  ggplot() +
-  geom_col(aes(x = body_mass_g, 
-               y = species, 
-               fill = sex),
-           position = "dodge",
-           width = 0.75)
-```
-
-```{r}
-# ggblanket
-penguins2 |>
-  group_by(species, sex) |> 
-  summarise(body_mass_g = mean(body_mass_g)) |> 
-  gg_col(
-    x = body_mass_g,
-    y = species,
-    col = sex,
-    position = "dodge",
-    width = 0.75)
-```
-
-### 10. Access to other geom\_\* arguments via `...`
+### 9. Access to other geom\_\* arguments via `...`
 
 The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users. Common arguments from `...` to add are `size`, `linewidth` and `width`.
 
@@ -376,7 +333,7 @@ penguins2 |>
     level = 0.99) #accessed via geom_smooth
 ```
 
-### 11. Ability to add multiple geom\_\* layers
+### 10. Ability to add multiple geom\_\* layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
 
@@ -463,6 +420,48 @@ p2 <- d |>
 p1 / p2
 ```
 
+### 11. Pretty numeric positional scales
+
+Where the orientation is normal (i.e. vertical):
+
+-   Default x scale limits and expanding are as per ggplot2 defaults
+-   Default numeric y scale limits (that are non-transformed) start and end on a break with zero expanding
+-   Default categorical (or numeric transformed) y scale limits and expanding are as per ggplot2 defaults
+-   Default removal of vertical gridlines 
+
+It does the opposite where the orientation is horizontal. 
+
+Note this symmetry approach does _not_ apply:
+* if a transformation other than identity or reverse is applied to x or y scales.
+* for `gg_raster`, `gg_contour_filled` or `gg_density_2d_filled`
+
+In some circumstances the ggplot2 approach to default scales may be preferable. In these cases, users can revert to the ggplot2 approach by using `*_limits = c(NA, NA)` and `*_expand = c(0.05, 0.05)` (or add `scale_*_continuous()`).
+
+```{r, fig.asp=0.55}
+# ggplot2
+penguins2 |>
+  group_by(species, sex) |> 
+  summarise(body_mass_g = mean(body_mass_g)) |> 
+  ggplot() +
+  geom_col(aes(x = body_mass_g, 
+               y = species, 
+               fill = sex),
+           position = "dodge",
+           width = 0.75)
+```
+
+```{r}
+# ggblanket
+penguins2 |>
+  group_by(species, sex) |> 
+  summarise(body_mass_g = mean(body_mass_g)) |> 
+  gg_col(
+    x = body_mass_g,
+    y = species,
+    col = sex,
+    position = "dodge",
+    width = 0.75)
+```
 
 ### 12. Other key differences to ggplot2
 

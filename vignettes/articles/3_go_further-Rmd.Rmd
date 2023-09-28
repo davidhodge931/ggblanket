@@ -219,7 +219,6 @@ faithfuld |>
    labs(colour = "Level")
 ```
 
-
 ### 6. Change the stat
 
 The default `stat` of each `gg_*` function can be changed for additional flexibility. Note that you can only use `stat` character strings and not functions.
