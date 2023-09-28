@@ -26,8 +26,8 @@ The primary objective is to **simplify ggplot2 visualisation**.
 
 Secondary objectives relate to:
 
-- Scope: cover the most useful 80% of what ggplot2 does
 - Design: produce well-designed visualisation by default
+- Scope: cover the most useful 80% of what ggplot2 does
 - Alignment: use conventions generally aligned with ggplot2.
 
 It is intended to be useful for all levels of experience from beginner

@@ -22,18 +22,18 @@ knitr::opts_chunk$set(
 ```
 
 ## How ggblanket works
-
-To simplify ggplot2 visualisation, ggblanket provides:
+ 
+To **simplify ggplot2 visualisation**, ggblanket provides:
 
 1.  Over thirty gg\_\* wrapper functions
 2.  A single col argument to colour and fill by a variable
 3.  A pal argument to customise colours
 4.  A facet argument to facet by a variable
 5.  An additional facet2 argument to facet by a 2nd variable
-6.  Prefixed arguments for titles, scales, guides, and faceting
-7.  Unspecified x, y, and col titles converted to sentence case
-8.  Ability to set the theme, including to provided themes
-9.  Pretty defaults for symmetry
+6.  Conversion of unspecified titles to sentence case
+7.  Ability to customise by prefixed arguments 
+8.  Ability to customise the theme
+9.  Pretty numeric positional scales
 10. Access to other geom\_\* arguments via ...
 11. Ability to add multiple geom\_\* layers
 12. Other key differences to ggplot2
@@ -188,7 +188,32 @@ penguins2 |>
     facet2 = sex)
 ```
 
-### 6. Prefixed arguments for titles, scales, guides, and faceting
+### 6.  Conversion of unspecified titles to sentence case
+
+Unspecified `x`, `y`, and `col` titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is.
+
+```{r, fig.asp=0.525}
+# ggplot2
+penguins2 |>
+  ggplot() +
+  geom_point(aes(x = flipper_length_mm, 
+                 y = body_mass_g, 
+                 colour = sex)) +
+  facet_wrap(vars(species)) +
+  scale_x_continuous(breaks = scales::breaks_pretty(n = 3)) 
+```
+
+```{r}
+# ggblanket
+penguins2 |>
+  gg_point(
+      x = flipper_length_mm,
+      y = body_mass_g, 
+      col = sex,
+      facet = species)
+```
+
+### 7.  Ability to customise by prefixed arguments 
 
 Prefixed arguments are available to customise titles, scales, guides, and faceting. These prefixes organise the adjustments by whether they relate to `x`, `y`, `col` or `facet`. 
 
@@ -241,59 +266,17 @@ With these settings and use of the pipe, users can type the prefix, and then use
 knitr::include_graphics("autocomplete_y.png", dpi = 300)
 ```
 
-### 7. Unspecified x, y, and col titles converted to sentence case
-
-Unspecified `x`, `y`, and `col` titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is.
-
-```{r, fig.asp=0.525}
-# ggplot2
-penguins2 |>
-  ggplot() +
-  geom_point(aes(x = flipper_length_mm, 
-                 y = body_mass_g, 
-                 colour = sex)) +
-  facet_wrap(vars(species)) +
-  scale_x_continuous(breaks = scales::breaks_pretty(n = 3)) 
-```
-
-```{r}
-# ggblanket
-penguins2 |>
-  gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g, 
-      col = sex,
-      facet = species)
-```
-
-### 8. Ability to set the theme, including to provided themes
+### 8.  Ability to customise the theme
 
 The `ggplot2::theme_set` function can be used to set the theme globally, such that all subsequent plots will use this where the `theme` argument of a plot is left as NULL. Alternatively, users can use the `theme` argument in a `gg_*` function.
 
 ggblanket provides two complete ggplot2 theme functions called `light_mode` (the default) and `dark_mode`. The first argument is the `base_size`. This changes the size of all the text to this, except the title is 10% higher and the caption is 10% lower. In quarto, it is likely that users will want to set the `*_mode` theme to have a larger `base_size` (e.g. `ggplot2::theme_set(light_mode(11))`). 
 
-Note that the `gg_*` function will control what gridlines are present and the placement of the legend - despite the theme provided. Therefore, if you are providing a theme other than `light_mode` or `dark_mode`, ggblanket works well  if this theme has both vertical and horizontal gridlines. If users want everything adjusted as per the theme, then they can `+` their theme onto the plot instead.
-
 Note that `theme_set(theme_grey())` resets the set theme for ggplot2 code to theme_grey and for ggblanket `gg_*` functions to `light_mode()`. If you want ggblanket `gg_*` functions to default to using `theme_grey()`, then you must modify the base_size slightly (e.g. `theme_set(theme_grey(11.01))`).
 
-```{r, fig.asp=0.66}
+```{r, fig.asp=0.75}
 # ggblanket
-theme_set(dark_mode())
-
-penguins2 |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    title = "Penguins body mass by flipper length",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020",
-    pal = c("#2596be", "#fc7c24"))
-```
-
-```{r, fig.asp=0.8}
-# ggblanket
-theme_set(light_mode(base_size = 12))
+theme_set(dark_mode(10))
 
 penguins2 |>
   gg_point(
@@ -305,10 +288,37 @@ penguins2 |>
     caption = "Source: Gorman, 2020",
     pal = c("#2596be", "#fc7c24"))
 
-theme_set(theme_grey()) #unset the theme
+theme_set(theme_grey()) #reset the ggplot2 and ggblanket theme back
 ```
 
-### 9. Pretty defaults for symmetry
+Note that the `gg_*` function will by default adjust what gridlines are present and the placement of the legend. Therefore, if you are providing a theme other than `light_mode` or `dark_mode`, ggblanket works well if this theme has both vertical and horizontal gridlines. If users want everything adjusted as per the theme, then they can `+` their theme onto the plot instead.
+
+```{r}
+# ggblanket
+p1 <- penguins2 |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    pal = c("#2596be", "#fc7c24"),
+    x_breaks = scales::breaks_pretty(n = 3),
+    theme = theme_grey(),
+    title = "theme= theme_grey()")
+
+p2 <- penguins2 |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    pal = c("#2596be", "#fc7c24"), 
+    x_breaks = scales::breaks_pretty(n = 3),
+    title = "+ theme_grey()") +
+  theme_grey()
+
+p1 + p2
+```
+
+### 9. Pretty numeric positional scales
 
 Where the orientation is normal (i.e. vertical):
 
@@ -322,6 +332,8 @@ It does the opposite where the orientation is horizontal.
 Note this symmetry approach does _not_ apply:
 * if a transformation other than identity or reverse is applied to x or y scales.
 * for `gg_raster`, `gg_contour_filled` or `gg_density_2d_filled`
+
+In some circumstances the ggplot2 approach to default scales may be preferable. In these cases, users can revert to the ggplot2 approach by using `*_limits = c(NA, NA)` and `*_expand = c(0.05, 0.05)` (or add `scale_*_continuous()`).
 
 ```{r, fig.asp=0.55}
 # ggplot2
@@ -408,7 +420,7 @@ p2 <- ggplot2::economics |>
 p1 + p2
 ```
 
-2. If some geom layers have a `col` aesthetic and some do not, then a `gg_*` function _should_ be chosen that has a `col` argument in it. This will enable ggblanket legend placement and access to `col_*` arguments. It is also generally just a more reliable method of making everything work. 
+2. If some geom layers have a `col` aesthetic and some do not, then a `gg_*` function _should_ be chosen that has a `col` argument in it. This will enable ggblanket legend placement and access to `col_*` arguments. It is also a more reliable approach. 
 
 3. In some situations, `gg_blank` may be required.
 
@@ -461,7 +473,7 @@ ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet` and `fac
 ```{r, fig.asp=0.75}
 p1 <- diamonds |>
   count(color) |>
-  gg_point(
+  gg_col(
     x = n,
     y = color,
     width = 0.75,
