@@ -224,7 +224,7 @@ faithfuld |>
 
 The default `stat` of each `gg_*` function can be changed for additional flexibility. Note that you can only use `stat` character strings and not functions.
 
-```{r, fig.asp=0.55}
+```{r, fig.asp=0.7}
 p1 <- penguins2 |>
   gg_pointrange(
     x = species,
@@ -235,9 +235,21 @@ p1 <- penguins2 |>
 
 p2 <- penguins2 |>
   gg_bar(x = flipper_length_mm,
-         stat = "bin")
+         stat = "bin", 
+         x_labels = \(x) str_keep_seq(x))
 
-p1 + p2
+p3 <- penguins2 |>
+  gg_bar(
+    x = flipper_length_mm,
+    y = species,
+    col = sex,
+    stat = "summary", 
+    position = "dodge",
+    pal = c("#2596be", "#fc7c24"), 
+    width = 0.75,
+    col_legend_place = "r")
+
+(p1 + p2) / p3
 ```
 
 ### 7. Create custom wrapper functions
