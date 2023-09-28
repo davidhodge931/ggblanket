@@ -51,7 +51,7 @@ penguins2 <- palmerpenguins::penguins |>
  
 ### 1. Over thirty gg\_\* wrapper functions
 
-Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. All aesthetics are placed directly in the `gg_*` function: they are not within a `ggplot2::aes` function.  
+Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. Each `gg_*` function is named after the `geom_*` function they wrap. 
 
 ```{r, fig.asp=0.55}
 # ggplot2
