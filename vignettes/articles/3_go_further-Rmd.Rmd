@@ -106,7 +106,7 @@ p1 <- iris |>
     alpha = 0, 
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
     col_legend_nrow = 2, 
-    col_labels = str_to_sentence,
+    col_labels = \(x) str_to_sentence(x),
     title = "Turn off either colour or fill",
     theme = light_mode(title_face = "plain"))
 
@@ -123,7 +123,7 @@ p3 <- iris |>
     pal = scales::alpha(pal_discrete, 0), 
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
     col_legend_nrow = 2, 
-    col_labels = str_to_sentence)
+    col_labels = \(x) str_to_sentence(x))
 
 p4 <- iris |>
   gg_density(
@@ -168,7 +168,7 @@ p3 <- iris |>
     fill = "lightgrey",
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
     col_legend_nrow = 2, 
-    col_labels = str_to_sentence)
+    col_labels = \(x) str_to_sentence(x))
 
 p4 <- iris |>
   gg_density(
@@ -177,7 +177,7 @@ p4 <- iris |>
     colour = "black",
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
     col_legend_nrow = 2, 
-    col_labels = str_to_sentence)
+    col_labels = \(x) str_to_sentence(x))
 
 (p1 + p2) / (p3 + p4) 
 ```
@@ -259,7 +259,7 @@ You can create powerful custom functions. This is because the `...` argument can
 ```{r, fig.asp=1}
 gg_point_custom <- function(data, x, y, col = NULL, facet = NULL, facet2 = NULL,
                             pal = RColorBrewer::brewer.pal(8, "Dark2"),
-                            col_labels = stringr::str_to_sentence,
+                            col_labels = \(x) stringr::str_to_sentence(x),
                             col_title = "", 
                             col_legend_place = "t",
                             ...) {

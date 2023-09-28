@@ -190,7 +190,7 @@ penguins2 |>
 
 ### 6.  Conversion of unspecified titles to sentence case
 
-Unspecified `x`, `y`, and `col` titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is.
+Unspecified `x`, `y`, and `col` titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is. Use `*_title = ""` to remove a title. 
 
 ```{r, fig.asp=0.525}
 # ggplot2
@@ -582,7 +582,7 @@ p1 <- economics |>
   gg_smooth(
     x = date, 
     y = unemploy, 
-    y_labels = str_keep_seq,
+    y_labels = \(x) str_keep_seq(x),
     title = "No x_limits set", 
     theme = light_mode(title_face = "plain")) +
   geom_vline(xintercept = c(lubridate::ymd("1985-01-01", "1995-01-01")),
@@ -596,7 +596,7 @@ p2 <- economics |>
     y = unemploy, 
     x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
     x_labels = \(x) stringr::str_sub(x, 3, 4),
-    y_labels = str_keep_seq,
+    y_labels = \(x) str_keep_seq(x),
     title = "x_limits set", 
     theme = light_mode(title_face = "plain")) +
   geom_point(col = pal_blue, alpha = 0.1)
@@ -607,7 +607,7 @@ p3 <- economics |>
     y = unemploy, 
     x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
     x_labels = \(x) stringr::str_sub(x, 3, 4),
-    y_labels = str_keep_seq,
+    y_labels = \(x) str_keep_seq(x),
     coord = coord_cartesian(clip = "on"), 
     title = "x_limits set & cartesian space clipped", 
     theme = light_mode(title_face = "plain")) +
@@ -620,7 +620,7 @@ p4 <- economics |>
     x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     x_oob = scales::oob_censor,
-    y_labels = str_keep_seq,
+    y_labels = \(x) str_keep_seq(x),
     title = "x_limits set & x_oob censored", 
     theme = light_mode(title_face = "plain")) +
   geom_point(col = pal_blue, alpha = 0.1)
@@ -631,7 +631,7 @@ p5 <- economics |>
     x = date, 
     y = unemploy,
     x_labels = \(x) stringr::str_sub(x, 3, 4),
-    y_labels = str_keep_seq,
+    y_labels = \(x) str_keep_seq(x),
     title = "x data filtered", 
     theme = light_mode(title_face = "plain")) +
   geom_point(col = pal_blue, alpha = 0.1)

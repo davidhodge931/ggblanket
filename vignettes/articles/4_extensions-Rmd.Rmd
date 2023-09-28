@@ -35,13 +35,13 @@ penguins2 <- palmerpenguins::penguins |>
 
 #### patchwork
 
-The patchwork package enables plots to be patched together. A convenient hack you can do with ggblanket is add a string to the facet variable to add a title. Note that this will reduce the default `*_breaks`.
+The patchwork package enables plots to be patched together. A convenient hack you can do with ggblanket is add a string to the facet variable to add a title for a non-faceted plot. Note that this will reduce the default `*_breaks`.
 
 ```{r, fig.asp=0.9}
 p1 <- mtcars |> 
   gg_point(x = mpg, 
            y = disp,
-           y_labels = str_keep_seq,
+           y_labels = \(x) str_keep_seq(x),
            facet = "Plot 1")
 
 p2 <- mtcars |> 
@@ -49,7 +49,7 @@ p2 <- mtcars |>
              y = disp, 
              group = gear, 
              width = 0.5,
-             y_labels = str_keep_seq,
+             y_labels = \(x) str_keep_seq(x),
              facet = "Plot 2")
 
 p3 <- mtcars |> 
@@ -279,7 +279,7 @@ iris |>
     x = Sepal.Length,
     col = Species,
     facet = Species,
-    facet_labels = str_to_sentence,
+    facet_labels = \(x) str_to_sentence(x),
     pal = rep(pal_blue, 3)
   ) +
   gghighlight::gghighlight() +
