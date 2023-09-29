@@ -1,6 +1,6 @@
 # ggblanket 5.1.0900
 
-* Fixed bug where col_breaks was not working.
+* Fixed bug where `col_breaks` was not working.
 
 # ggblanket 5.1.0
 
