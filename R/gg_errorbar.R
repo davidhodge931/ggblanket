@@ -1196,11 +1196,13 @@ gg_errorbar <- function(
         else col_trans <- "identity"
       }
 
-      if (col_time) col_breaks <- ggplot2::waiver()
-      else if (any(col_trans == "log10")) col_breaks <- scales::breaks_log(n = 5, base = 10)
-      else if (any(col_trans == "log2")) col_breaks <- scales::breaks_log(n = 5, base = 2)
-      else if (any(col_trans == "log")) col_breaks <- scales::breaks_log(n = 5, base = exp(1))
-      else col_breaks <- scales::breaks_pretty(n = 5)
+      if (rlang::is_null(col_breaks)) {
+        if (col_time) col_breaks <- ggplot2::waiver()
+        else if (any(col_trans == "log10")) col_breaks <- scales::breaks_log(n = 5, base = 10)
+        else if (any(col_trans == "log2")) col_breaks <- scales::breaks_log(n = 5, base = 2)
+        else if (any(col_trans == "log")) col_breaks <- scales::breaks_log(n = 5, base = exp(1))
+        else col_breaks <- scales::breaks_pretty(n = 5)
+      }
 
       if (rlang::is_null(pal)) pal <- viridis::viridis(10)
 

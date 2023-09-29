@@ -1,3 +1,7 @@
+# ggblanket (development)
+
+* Fixed bug where col_breaks was not working.
+
 # ggblanket 5.1.0
 
 * Fixed bug where `col` variable was reversing for non-flipped.
