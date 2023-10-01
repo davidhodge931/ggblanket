@@ -1,6 +1,7 @@
 # ggblanket 5.1.0900
 
-* Fixed bug where `col_breaks` was not working.
+* Fixed bug where `col_breaks` was not working for a numeric `col`.
+* Fixed bug where `str_keep_seq` was not working for date, datetime or time class.
 
 # ggblanket 5.1.0
 

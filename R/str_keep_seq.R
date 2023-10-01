@@ -24,6 +24,8 @@
 #' str_keep_seq(z)
 #' str_keep_seq(z, drop0trailing = TRUE)
 #'
+#' str_keep_seq(format(ggplot2::economics$date[1:6], "%Y-%m"))
+#'
 #' library(palmerpenguins)
 #' penguins |>
 #'  gg_jitter(x = species,
@@ -45,14 +47,10 @@ str_keep_seq <- function(x,
             seq_along(scales::comma(x, ...))
             %% by != (offset + 1), "")
   }
+  else if (lubridate::is.Date(x) | lubridate::is.POSIXct(x) | hms::is_hms(x)) {
+    replace(as.character(x), seq_along(as.character(x)) %% by != (offset + 1), "")
+  }
   else {
     replace(x, seq_along(x) %% by != (offset + 1), "")
   }
 }
-
-x <- LETTERS[1:12]
-str_keep_seq(x, by = 2, offset = 0)
-str_keep_seq(x, by = 2, offset = -1)
-str_keep_seq(x, by = 3, offset = 0)
-str_keep_seq(x, by = 3, offset = -1)
-str_keep_seq(x, by = 3, offset = 1)

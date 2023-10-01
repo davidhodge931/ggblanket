@@ -37,6 +37,8 @@ z <- c(0.0, 0.25, 0.5, 0.75, 1)
 str_keep_seq(z)
 str_keep_seq(z, drop0trailing = TRUE)
 
+str_keep_seq(format(ggplot2::economics$date[1:6], "\%Y-\%m"))
+
 library(palmerpenguins)
 penguins |>
  gg_jitter(x = species,
