@@ -723,7 +723,7 @@ gg_qq <- function(
             else if (!facet_null | !facet2_null) x_breaks_n <- 3
             else x_breaks_n <- 6
 
-            if (x_time) x_breaks <- ggplot2::waiver
+            if (x_time) x_breaks <- ggplot2::waiver()
             else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
             else if (any(x_trans == "log2")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 2)(x_limits)
             else if (any(x_trans == "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = exp(1))(x_limits)
@@ -888,7 +888,7 @@ gg_qq <- function(
             else if (!facet_null | !facet2_null) y_breaks_n <- 6
             else y_breaks_n <- 8
 
-            if (y_time) y_breaks <- ggplot2::waiver
+            if (y_time) y_breaks <- ggplot2::waiver()
             else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
             else if (any(y_trans == "log2")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 2)(y_range)
             else if (any(y_trans == "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = exp(1))(y_range)
@@ -928,7 +928,7 @@ gg_qq <- function(
             else if (!facet_null | !facet2_null) y_breaks_n <- 6
             else y_breaks_n <- 8
 
-            if (y_time) y_breaks <- ggplot2::waiver
+            if (y_time) y_breaks <- ggplot2::waiver()
             else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
             else if (any(y_trans == "log2")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 2)(y_limits)
             else if (any(y_trans == "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = exp(1))(y_limits)
