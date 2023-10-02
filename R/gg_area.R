@@ -496,10 +496,10 @@ gg_area <- function(
     else if (x_time) {
       if (any(x_trans %in% "reverse") & !rlang::is_null(x_limits)) {
         plot <- plot +
-          ggplot2::scale_x_time(limits = x_limits[c(2, 1)], oob = x_oob)
+          ggplot2::scale_x_continuous(limits = x_limits[c(2, 1)], oob = x_oob, trans = "hms")
       } else {
         plot <- plot +
-          ggplot2::scale_x_time(limits = x_limits, oob = x_oob)
+          ggplot2::scale_x_continuous(limits = x_limits, oob = x_oob, trans = "hms")
       }
     }
     else if (x_forcat) {
@@ -547,10 +547,10 @@ gg_area <- function(
     else if (y_time) {
       if (any(y_trans %in% "reverse") & !rlang::is_null(y_limits)) {
         plot <- plot +
-          ggplot2::scale_y_time(limits = y_limits[c(2, 1)], oob = y_oob)
+          ggplot2::scale_y_continuous(limits = y_limits[c(2, 1)], oob = y_oob, trans = "hms")
       } else {
         plot <- plot +
-          ggplot2::scale_y_time(limits = y_limits, oob = y_oob)
+          ggplot2::scale_y_continuous(limits = y_limits, oob = y_oob, trans = "hms")
       }
     }
     else if (y_forcat) {
@@ -654,6 +654,7 @@ gg_area <- function(
         }
 
         x_range <- range(x_vctr, na.rm = TRUE)
+        if (x_time) x_range <- hms::as_hms(x_range)
         if (!rlang::is_null(x_include)) x_range <- range(c(x_range, x_include))
         if (any(x_trans %in% "reverse")) x_range <- sort(x_range, decreasing = TRUE)
 
@@ -743,7 +744,7 @@ gg_area <- function(
           x_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
         }
         else if (x_time) {
-          x_labels <- scales::label_time()
+          x_labels <- scales::label_time(format = "%H:%M")
         }
       }
 
@@ -783,13 +784,14 @@ gg_area <- function(
       }
       else if (x_time) {
         plot <- plot +
-          ggplot2::scale_x_time(
+          ggplot2::scale_x_continuous(
             breaks = x_breaks,
             limits = x_limits,
             expand = x_expand,
             labels = x_labels,
             oob = x_oob,
-            sec.axis = x_sec_axis
+            sec.axis = x_sec_axis,
+            trans = "hms"
           )
       }
     }
@@ -863,6 +865,7 @@ gg_area <- function(
         }
 
         y_range <- range(y_vctr, na.rm = TRUE)
+        if (y_time) y_range <- hms::as_hms(y_range)
         if (!rlang::is_null(y_include)) y_range <- range(c(y_range, y_include))
         if (any(y_trans %in% "reverse")) y_range <- sort(y_range, decreasing = TRUE)
 
@@ -948,7 +951,7 @@ gg_area <- function(
           y_labels <- scales::label_date_short(format = c("%Y", "%b", "%e", "%H:%M"))
         }
         else if (y_time) {
-          y_labels <- scales::label_time()
+          y_labels <- scales::label_time(format = "%H:%M")
         }
       }
 
@@ -988,13 +991,14 @@ gg_area <- function(
       }
       else if (y_time) {
         plot <- plot +
-          ggplot2::scale_y_time(
+          ggplot2::scale_y_continuous(
             breaks = y_breaks,
             limits = y_limits,
             expand = y_expand,
             labels = y_labels,
             oob = y_oob,
-            sec.axis = y_sec_axis
+            sec.axis = y_sec_axis,
+            trans = "hms"
           )
       }
     }
@@ -1126,7 +1130,7 @@ gg_area <- function(
           col_labels <- scales::label_date(format = c("%Y", "%b", "%e"))
         }
         else if (col_time) {
-          col_labels <- scales::label_time()
+          col_labels <- scales::label_time(format = "%H:%M")
         }
       }
 
