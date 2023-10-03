@@ -2,7 +2,7 @@
 
 * Fixed bug where `col_breaks` was not working for a numeric `col`.
 * Fixed bug where `str_keep_seq` was not working for date, datetime or time class.
-* Fixed bug so that time class `x` variables work.
+* Fixed bug so that time class variables work.
 
 # ggblanket 5.1.0
 
