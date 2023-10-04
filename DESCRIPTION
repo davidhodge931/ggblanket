@@ -17,9 +17,7 @@ RoxygenNote: 7.2.3
 Imports: 
     dplyr,
     forcats,
-    ggplot2 (>= 3.4.0),
-    grid,
-    hms,
+    ggplot2,
     lubridate,
     magrittr,
     purrr,
@@ -31,8 +29,8 @@ Imports:
     tidyselect,
     viridis
 Suggests: 
-    gapminder,
     hexbin,
+    hms,
     knitr,
     palmerpenguins,
     patchwork,
