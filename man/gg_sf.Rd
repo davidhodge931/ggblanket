@@ -154,7 +154,7 @@ Create a blank ggplot with a wrapper around ggplot2::geom_sf(stat = "sf", ...).
 }
 \examples{
 if (requireNamespace("sf", quietly = TRUE)) {
-  sf::st_read(system.file("shape/nc.shp", package = "sf")) \%>\%
+  sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
     gg_sf(
       col = AREA,
       pal = viridis::cividis(9))

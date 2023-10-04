@@ -78,8 +78,8 @@
 #'   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
 #' )
 #'
-#' df %>%
-#' gg_tile(x = x, y = y, col = z,
+#' df  |>
+#'   gg_tile(x = x, y = y, col = z,
 #'         height = 0.9, width = 0.9)
 #'
 gg_tile <- function(
