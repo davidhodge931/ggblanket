@@ -112,10 +112,10 @@
   <path d="M 43.410156 14.945312 L 507.566406 14.945312 L 507.566406 16 L 43.410156 16 Z M 43.410156 14.945312 "/>
 </clipPath>
 <clipPath id="clip12">
-  <path d="M 63 14.945312 L 488 14.945312 L 488 283.742188 L 63 283.742188 Z M 63 14.945312 "/>
+  <path d="M 64 14.945312 L 487 14.945312 L 487 283.742188 L 64 283.742188 Z M 64 14.945312 "/>
 </clipPath>
 </defs>
-<g id="surface159">
+<g id="surface164">
 <rect x="0" y="0" width="525" height="324" style="fill:rgb(90.196078%,92.54902%,94.901961%);fill-opacity:1;stroke:none;"/>
 <path style="fill:none;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(90.196078%,92.54902%,94.901961%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 324 L 525 324 L 525 0 L 0 0 Z M 0 324 "/>
 <g clip-path="url(#clip1)" clip-rule="nonzero">
@@ -352,7 +352,7 @@
 <path style="fill-rule:nonzero;fill:rgb(16.862745%,41.176471%,60%);fill-opacity:1;stroke-width:0.708661;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(16.862745%,41.176471%,60%);stroke-opacity:1;stroke-miterlimit:10;" d="M 434.960938 27.535156 C 434.960938 30.140625 431.050781 30.140625 431.050781 27.535156 C 431.050781 24.929688 434.960938 24.929688 434.960938 27.535156 "/>
 <path style="fill-rule:nonzero;fill:rgb(16.862745%,41.176471%,60%);fill-opacity:1;stroke-width:0.708661;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(16.862745%,41.176471%,60%);stroke-opacity:1;stroke-miterlimit:10;" d="M 488.421875 26.425781 C 488.421875 29.035156 484.511719 29.035156 484.511719 26.425781 C 484.511719 23.820312 488.421875 23.820312 488.421875 26.425781 "/>
 <g clip-path="url(#clip12)" clip-rule="nonzero">
-<path style="fill:none;stroke-width:1.066978;stroke-linecap:butt;stroke-linejoin:round;stroke:rgb(16.862745%,41.176471%,60%);stroke-opacity:1;stroke-miterlimit:10;" d="M 64.507812 298.765625 L 486.46875 -37.476562 "/>
+<path style="fill:none;stroke-width:0.0075;stroke-linecap:butt;stroke-linejoin:round;stroke:rgb(16.862745%,41.176471%,60%);stroke-opacity:1;stroke-miterlimit:10;" d="M 64.507812 298.765625 L 486.46875 -37.476562 "/>
 </g>
 <path style="fill:none;stroke-width:0.646654;stroke-linecap:square;stroke-linejoin:round;stroke:rgb(7.058824%,10.588235%,14.117647%);stroke-opacity:1;stroke-miterlimit:10;" d="M 43.410156 283.742188 L 43.410156 14.945312 "/>
 <g style="fill:rgb(7.058824%,10.588235%,14.117647%);fill-opacity:1;">
