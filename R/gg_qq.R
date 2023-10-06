@@ -71,20 +71,19 @@
 #' @export
 #'
 #' @examples
-#' library(palmerpenguins)
+#' d <- tibble::tibble(y = rt(200, df = 5))
 #'
-#' penguins |>
-#'   gg_qq(
-#'     sample = body_mass_g,
-#'     facet = species,
-#'   )
+#' d |>
+#'   gg_qq(sample = y)
 #'
-#'  penguins |>
-#'    gg_qq(
-#'     sample = body_mass_g,
-#'     facet = species,
-#'     linewidth = 0
-#'   )
+#' d |>
+#'   gg_qq(sample = y,
+#'         distribution = \(p) qt(p, df = 4.465806))
+#'
+#' d |>
+#'   gg_qq(sample = y,
+#'         distribution = \(p) qt(p, df = 4.465806),
+#'         linewidth = 0)
 #'
 gg_qq <- function(
     data = NULL,
