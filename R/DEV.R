@@ -913,7 +913,7 @@ gg_sf2 <- function(
   #   }
   # }
 
-  if (stat == "sf") {
+  # else if (stat == "sf") {
     if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
     if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
     if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
@@ -935,7 +935,7 @@ gg_sf2 <- function(
         expand = y_expand,
         labels = y_labels
       )
-  }
+  # }
 
   #make col scale
   if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
@@ -1207,16 +1207,16 @@ gg_sf2 <- function(
     }
 
   #expand limits if necessary
-  if (stat != "sf") {
-    if (!rlang::is_null(x_include)) {
-      plot <- plot +
-        ggplot2::expand_limits(x = x_include)
-    }
-    if (!rlang::is_null(y_include)) {
-      plot <- plot +
-        ggplot2::expand_limits(y = y_include)
-    }
-  }
+  # if (stat != "sf") {
+  #   if (!rlang::is_null(x_include)) {
+  #     plot <- plot +
+  #       ggplot2::expand_limits(x = x_include)
+  #   }
+  #   if (!rlang::is_null(y_include)) {
+  #     plot <- plot +
+  #       ggplot2::expand_limits(y = y_include)
+  #   }
+  # }
 
   if (!rlang::is_null(col_include)) {
     plot <- plot +
