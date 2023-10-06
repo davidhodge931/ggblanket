@@ -17,7 +17,7 @@ gg_qq(
   mapping = NULL,
   stat = "qq",
   position = "identity",
-  coord = ggplot2::coord_cartesian(clip = "off"),
+  coord = ggplot2::coord_cartesian(clip = "on"),
   pal = NULL,
   pal_na = pal_grey,
   alpha = 1,
@@ -32,7 +32,7 @@ gg_qq(
   x_limits = NULL,
   x_oob = scales::oob_keep,
   x_sec_axis = ggplot2::waiver(),
-  x_title = NULL,
+  x_title = "Theoretical",
   x_trans = "identity",
   y_breaks = NULL,
   y_expand = NULL,
@@ -42,7 +42,7 @@ gg_qq(
   y_limits = NULL,
   y_oob = scales::oob_keep,
   y_sec_axis = ggplot2::waiver(),
-  y_title = NULL,
+  y_title = "Sample",
   y_trans = "identity",
   col_breaks = NULL,
   col_continuous = "gradient",
@@ -207,7 +207,7 @@ gg_qq(
 A ggplot object.
 }
 \description{
-Create a qq ggplot with a wrapper around ggplot2::geom_qq(stat = "qq", ...).
+Create a qq ggplot with a wrapper around ggplot2::geom_qq(stat = "qq", ...) + ggplot2::geom_qq_line(...).
 }
 \examples{
 library(palmerpenguins)
@@ -216,9 +216,13 @@ penguins |>
   gg_qq(
     sample = body_mass_g,
     facet = species,
-    pal = "#1B9E77",
-    coord = ggplot2::coord_cartesian(clip = "on")
-  ) +
-  ggplot2::geom_qq_line(alpha = 0.5)
+  )
+
+ penguins |>
+   gg_qq(
+    sample = body_mass_g,
+    facet = species,
+    linewidth = 0
+  )
 
 }

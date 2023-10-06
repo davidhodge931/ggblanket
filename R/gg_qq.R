@@ -1,6 +1,6 @@
 #' @title Qq ggplot
 #'
-#' @description Create a qq ggplot with a wrapper around ggplot2::geom_qq(stat = "qq", ...).
+#' @description Create a qq ggplot with a wrapper around ggplot2::geom_qq(stat = "qq", ...) + ggplot2::geom_qq_line(...).
 #' @param data A data frame or tibble.
 #' @param sample Unquoted sample aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
@@ -77,10 +77,14 @@
 #'   gg_qq(
 #'     sample = body_mass_g,
 #'     facet = species,
-#'     pal = "#1B9E77",
-#'     coord = ggplot2::coord_cartesian(clip = "on")
-#'   ) +
-#'   ggplot2::geom_qq_line(alpha = 0.5)
+#'   )
+#'
+#'  penguins |>
+#'    gg_qq(
+#'     sample = body_mass_g,
+#'     facet = species,
+#'     linewidth = 0
+#'   )
 #'
 gg_qq <- function(
     data = NULL,
@@ -95,7 +99,7 @@ gg_qq <- function(
     mapping = NULL,
     stat = "qq",
     position = "identity",
-    coord = ggplot2::coord_cartesian(clip = "off"),
+    coord = ggplot2::coord_cartesian(clip = "on"),
     pal = NULL,
     pal_na = pal_grey,
     alpha = 1,
@@ -110,7 +114,7 @@ gg_qq <- function(
     x_limits = NULL,
     x_oob = scales::oob_keep,
     x_sec_axis = ggplot2::waiver(),
-    x_title = NULL,
+    x_title = "Theoretical",
     x_trans = "identity",
     y_breaks = NULL,
     y_expand = NULL,
@@ -120,7 +124,7 @@ gg_qq <- function(
     y_limits = NULL,
     y_oob = scales::oob_keep,
     y_sec_axis = ggplot2::waiver(),
-    y_title = NULL,
+    y_title = "Sample",
     y_trans = "identity",
     col_breaks = NULL,
     col_continuous = "gradient",
@@ -387,6 +391,12 @@ gg_qq <- function(
         fill = pal,
         ...
       ) +
+      ggplot2::geom_qq_line(stat = "qq_line",
+                   position = position,
+                   alpha = alpha,
+                   col = pal,
+                   fill = pal,
+                   ...) +
       coord +
       theme
   }
@@ -395,6 +405,12 @@ gg_qq <- function(
       # ggplot2::geom_blank(stat = stat, position = position, ...) +
       ggplot2::geom_qq(
         ggplot2::aes(text = !!text), stat = stat,
+        position = position,
+        alpha = alpha,
+        ...
+      ) +
+      ggplot2::geom_qq_line(
+        stat = stat,
         position = position,
         alpha = alpha,
         ...

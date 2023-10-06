@@ -3,6 +3,7 @@
 * Fixed bug where `col_breaks` was not working for a numeric `col`.
 * Fixed bug where `str_keep_seq` was not working for date, datetime or time class.
 * Fixed bug so that time class variables work.
+* Updated `gg_qq`, so it includes a `geom_qq_line` layer, has nicer titles and clip defaults. 
 
 # ggblanket 5.1.0
 
