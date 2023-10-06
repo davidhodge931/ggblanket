@@ -21,10 +21,18 @@ gg_sf(
   ...,
   title = NULL,
   subtitle = NULL,
+  x_breaks = NULL,
+  x_expand = NULL,
   x_gridlines = FALSE,
-  x_title = NULL,
+  x_labels = NULL,
+  x_limits = NULL,
+  x_title = "",
+  y_breaks = NULL,
+  y_expand = NULL,
   y_gridlines = FALSE,
-  y_title = NULL,
+  y_labels = NULL,
+  y_limits = c(NA, NA),
+  y_title = "",
   col_breaks = NULL,
   col_continuous = "gradient",
   col_include = NULL,
@@ -86,11 +94,27 @@ gg_sf(
 
 \item{subtitle}{Subtitle string.}
 
+\item{x_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
+
+\item{x_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
+
 \item{x_gridlines}{TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.}
+
+\item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
+
+\item{x_limits}{A vector of length 2 to determine the limits of the axis.}
 
 \item{x_title}{Axis title string. Use "" for no title.}
 
+\item{y_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
+
+\item{y_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
+
 \item{y_gridlines}{TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.}
+
+\item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
+
+\item{y_limits}{A vector of length 2 to determine the limits of the axis.}
 
 \item{y_title}{Axis title string. Use "" for no title.}
 

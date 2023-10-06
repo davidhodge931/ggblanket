@@ -17,9 +17,17 @@
 #' @param ... Other arguments passed to the ggplot2::geom_sf function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
+#' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
+#' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param x_gridlines TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
+#' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
+#' @param x_limits A vector of length 2 to determine the limits of the axis.
 #' @param x_title Axis title string. Use "" for no title.
+#' @param y_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
+#' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param y_gridlines TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
+#' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
+#' @param y_limits A vector of length 2 to determine the limits of the axis.
 #' @param y_title Axis title string. Use "" for no title.
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous For a continuous col variable, the type of colouring. Either "gradient" or "steps". Defaults to "gradient".
@@ -76,10 +84,18 @@ gg_sf <- function(
     ...,
     title = NULL,
     subtitle = NULL,
+    x_breaks = NULL,
+    x_expand = NULL,
     x_gridlines = FALSE,
-    x_title = NULL,
+    x_labels = NULL,
+    x_limits = NULL,
+    x_title = "",
+    y_breaks = NULL,
+    y_expand = NULL,
     y_gridlines = FALSE,
-    y_title = NULL,
+    y_labels = NULL,
+    y_limits = c(NA, NA),
+    y_title = "",
     col_breaks = NULL,
     col_continuous = "gradient",
     col_include = NULL,
@@ -358,7 +374,7 @@ gg_sf <- function(
   }
 
   #Get the positional scales right first
-  # if (stat != "sf") {
+  # if (stat != "sf"){
   #   if (x_numeric) {
   #     if (any(x_trans %in% "reverse") & !rlang::is_null(x_limits)) {
   #       plot <- plot +
@@ -558,7 +574,6 @@ gg_sf <- function(
   #           else if (!facet_null | !facet2_null) x_breaks_n <- 3
   #           else x_breaks_n <- 6
   #
-  #           # if (x_time) x_breaks <- ggplot2::waiver()
   #           if (x_time) x_breaks <- scales::hms_trans()$breaks(x_range)
   #           else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
   #           else if (any(x_trans == "log2")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 2)(x_range)
@@ -603,7 +618,6 @@ gg_sf <- function(
   #           else if (!facet_null | !facet2_null) x_breaks_n <- 3
   #           else x_breaks_n <- 6
   #
-  #           # if (x_time) x_breaks <- ggplot2::waiver()
   #           if (x_time) x_breaks <- scales::hms_trans()$breaks(x_limits)
   #           else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
   #           else if (any(x_trans == "log2")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 2)(x_limits)
@@ -771,7 +785,6 @@ gg_sf <- function(
   #           else if (!facet_null | !facet2_null) y_breaks_n <- 6
   #           else y_breaks_n <- 8
   #
-  #           # if (y_time) y_breaks <- ggplot2::waiver()
   #           if (y_time) y_breaks <- scales::hms_trans()$breaks(y_range)
   #           else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
   #           else if (any(y_trans == "log2")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 2)(y_range)
@@ -812,7 +825,6 @@ gg_sf <- function(
   #           else if (!facet_null | !facet2_null) y_breaks_n <- 6
   #           else y_breaks_n <- 8
   #
-  #           # if (y_time) y_breaks <- ggplot2::waiver()
   #           if (y_time) y_breaks <- scales::hms_trans()$breaks(y_limits)
   #           else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
   #           else if (any(y_trans == "log2")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 2)(y_limits)
@@ -899,6 +911,30 @@ gg_sf <- function(
   #         )
   #     }
   #   }
+  # }
+
+  # else if (stat == "sf") {
+  if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
+  if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
+  if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
+
+  if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
+  if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
+  if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
+
+  plot <- plot +
+    ggplot2::scale_x_continuous(
+      limits = x_limits,
+      breaks = x_breaks,
+      expand = x_expand,
+      labels = x_labels
+    ) +
+    ggplot2::scale_y_continuous(
+      limits = y_limits,
+      breaks = y_breaks,
+      expand = y_expand,
+      labels = y_labels
+    )
   # }
 
   #make col scale
@@ -1103,16 +1139,16 @@ gg_sf <- function(
   }
 
   #Add titles
-  # if (rlang::is_null(x_title)) {
-  #   if (!rlang::is_null(plot_build$plot$labels$x)) {
-  #     x_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), titles)
-  #   }
-  # }
-  # if (rlang::is_null(y_title)) {
-  #   if (!rlang::is_null(plot_build$plot$labels$y)) {
-  #     y_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$y[1]), titles)
-  #   }
-  # }
+  if (rlang::is_null(x_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$x)) {
+      x_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), titles)
+    }
+  }
+  if (rlang::is_null(y_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$y)) {
+      y_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$y[1]), titles)
+    }
+  }
   if (rlang::is_null(col_title)) {
     if (!rlang::is_null(plot_build$plot$labels$fill)) {
       col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$fill[1]), titles)
@@ -1143,33 +1179,26 @@ gg_sf <- function(
       title = title,
       subtitle = subtitle,
       caption = caption,
+      x = x_title,
+      y = y_title,
+      col = col_title,
+      fill = col_title,
       linetype = linetype_title,
       shape = shape_title,
-      size = size_title,
-      col = col_title,
-      fill = col_title)
+      size = size_title)
 
-  # if (stat != "sf") {
-  #   plot <- plot +
-  #     ggplot2::labs(
-  #       x = x_title,
-  #       y = y_title)
-  #
-  #   if (!rlang::is_null(x_title)) {
-  #     if (x_title == "") {
-  #       plot <- plot +
-  #         ggplot2::labs(x = NULL)
-  #     }
-  #   }
-  #
-  #   if (!rlang::is_null(y_title)) {
-  #     if (y_title == "") {
-  #       plot <- plot +
-  #         ggplot2::labs(y = NULL)
-  #     }
-  #   }
-  # }
-
+  if (!rlang::is_null(x_title)) {
+    if (x_title == "") {
+      plot <- plot +
+        ggplot2::labs(x = NULL)
+    }
+  }
+  if (!rlang::is_null(y_title)) {
+    if (y_title == "") {
+      plot <- plot +
+        ggplot2::labs(y = NULL)
+    }
+  }
   if (!rlang::is_null(col_title)) {
     if (col_title == "") {
       plot <- plot +
@@ -1188,6 +1217,7 @@ gg_sf <- function(
   #       ggplot2::expand_limits(y = y_include)
   #   }
   # }
+
   if (!rlang::is_null(col_include)) {
     plot <- plot +
       ggplot2::expand_limits(colour = col_include, fill = col_include)
@@ -1224,18 +1254,16 @@ gg_sf <- function(
 
   #remove gridlines as per x_gridlines and y_gridlines. Guess if NULL
   if (rlang::is_null(x_gridlines)) {
-    if (stat == "sf") x_gridlines <- FALSE
-    # else if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) x_gridlines <- TRUE
-    # else if ((y_forcat) & (x_numeric | x_null)) x_gridlines <- TRUE
-    # else if ((y_forcat) & (x_forcat)) x_gridlines <- FALSE
+    if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) x_gridlines <- TRUE
+    else if ((y_forcat) & (x_numeric | x_null)) x_gridlines <- TRUE
+    else if ((y_forcat) & (x_forcat)) x_gridlines <- FALSE
     else x_gridlines <- FALSE
   }
 
   if (rlang::is_null(y_gridlines)) {
-    if (stat == "sf") y_gridlines <- FALSE
-    # else if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) y_gridlines <- FALSE
-    # else if ((y_forcat) & (x_numeric | x_null)) y_gridlines <- FALSE
-    # else if ((y_forcat) & (x_forcat)) y_gridlines <- FALSE
+    if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) y_gridlines <- FALSE
+    else if ((y_forcat) & (x_numeric | x_null)) y_gridlines <- FALSE
+    else if ((y_forcat) & (x_forcat)) y_gridlines <- FALSE
     else y_gridlines <- TRUE
   }
 
