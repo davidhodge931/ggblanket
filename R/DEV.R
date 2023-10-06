@@ -1,8 +1,9 @@
-#' @title Qq ggplot
+#' @title Point ggplot
 #'
-#' @description Create a qq ggplot with a wrapper around ggplot2::geom_qq(...) + ggplot2::geom_qq_line(...).
+#' @description Create a point ggplot with a wrapper around ggplot2::geom_point(stat = "identity", ...).
 #' @param data A data frame or tibble.
-#' @param sample Unquoted sample aesthetic variable.
+#' @param x Unquoted x aesthetic variable.
+#' @param y Unquoted y aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
@@ -10,14 +11,12 @@
 #' @param text Unquoted text aesthetic variable.
 #' @param mapping Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.
 #' @param stat A ggplot2 character string stat.
-#' @param x Unquoted x aesthetic variable.
-#' @param y Unquoted y aesthetic variable.
 #' @param position Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
-#' @param ... Other arguments passed to the ggplot2::geom_qq function.
+#' @param ... Other arguments passed to the ggplot2::geom_point function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -71,34 +70,31 @@
 #' @export
 #'
 #' @examples
-#' d <- tibble::tibble(y = rt(200, df = 5))
+#' library(palmerpenguins)
 #'
-#' d |>
-#'   gg_qq(sample = y)
+#' penguins |>
+#'   gg_point2(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = sex,
+#'     facet = species,
+#'     col_labels = stringr::str_to_sentence,
+#'     pal = c("#1B9E77", "#9E361B")
+#'   )
 #'
-#' d |>
-#'   gg_qq(sample = y,
-#'         distribution = \(p) qt(p, df = 4.465806))
-#'
-#' d |>
-#'   gg_qq(sample = y,
-#'         distribution = \(p) qt(p, df = 4.465806),
-#'         linewidth = 0)
-#'
-gg_qq <- function(
+gg_point2 <- function(
     data = NULL,
-    sample = NULL,
+    x = NULL,
+    y = NULL,
     col = NULL,
     facet = NULL,
     facet2 = NULL,
     group = NULL,
     text = NULL,
-    x = NULL,
-    y = NULL,
     mapping = NULL,
-    stat = "qq",
+    stat = "identity",
     position = "identity",
-    coord = ggplot2::coord_cartesian(clip = "on"),
+    coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
     pal_na = pal_grey,
     alpha = 1,
@@ -113,7 +109,7 @@ gg_qq <- function(
     x_limits = NULL,
     x_oob = scales::oob_keep,
     x_sec_axis = ggplot2::waiver(),
-    x_title = "Theoretical",
+    x_title = NULL,
     x_trans = "identity",
     y_breaks = NULL,
     y_expand = NULL,
@@ -123,7 +119,7 @@ gg_qq <- function(
     y_limits = NULL,
     y_oob = scales::oob_keep,
     y_sec_axis = ggplot2::waiver(),
-    y_title = "Sample",
+    y_title = NULL,
     y_trans = "identity",
     col_breaks = NULL,
     col_continuous = "gradient",
@@ -156,7 +152,7 @@ gg_qq <- function(
   #Unique code: part 1
   ##############################################################################
 
-  #stat <- "qq"
+  #stat <- "identity"
 
   #quote
   x <- rlang::enquo(x)
@@ -166,13 +162,12 @@ gg_qq <- function(
   facet2 <- rlang::enquo(facet2)
   group <- rlang::enquo(group)
   text <- rlang::enquo(text)
-  sample <- rlang::enquo(sample)
 
   #ungroup
   data <- data %>%
     dplyr::ungroup() %>%
     dplyr::mutate(dplyr::across(
-      c(!!x, !!y, !!sample,
+      c(!!x, !!y,
         !!col
       ),
       na_if_inf))
@@ -295,8 +290,7 @@ gg_qq <- function(
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group, !!!mapping,
-          sample = !!sample
+          group = !!group, !!!mapping
         ))
     }
     else if (col_null) {
@@ -306,8 +300,7 @@ gg_qq <- function(
           y = !!y,
           # col = "",
           # fill = "",
-          group = !!group, !!!mapping,
-          sample = !!sample
+          group = !!group, !!!mapping
         ))
     }
   }
@@ -318,8 +311,7 @@ gg_qq <- function(
           x = !!x,
           col = !!col,
           fill = !!col,
-          group = !!group, !!!mapping,
-          sample = !!sample
+          group = !!group, !!!mapping
         ))
     }
     else if (col_null) {
@@ -328,8 +320,7 @@ gg_qq <- function(
           x = !!x,
           # col = "",
           # fill = "",
-          group = !!group, !!!mapping,
-          sample = !!sample
+          group = !!group, !!!mapping
         ))
     }
   }
@@ -340,8 +331,7 @@ gg_qq <- function(
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group, !!!mapping,
-          sample = !!sample
+          group = !!group, !!!mapping
         ))
     }
     else if (col_null) {
@@ -350,8 +340,7 @@ gg_qq <- function(
           y = !!y,
           # col = "",
           # fill = "",
-          group = !!group, !!!mapping,
-          sample = !!sample
+          group = !!group, !!!mapping
         ))
     }
   }
@@ -361,8 +350,7 @@ gg_qq <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = !!col,
           fill = !!col,
-          group = !!group, !!!mapping,
-          sample = !!sample
+          group = !!group, !!!mapping
         ))
     }
     else if (col_null) {
@@ -370,8 +358,7 @@ gg_qq <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           # col = "",
           # fill = "",
-          group = !!group, !!!mapping,
-          sample = !!sample
+          group = !!group, !!!mapping
         ))
     }
   }
@@ -382,15 +369,8 @@ gg_qq <- function(
 
     plot <- plot +
       # ggplot2::geom_blank(stat = stat, position = position, ...) +
-      ggplot2::geom_qq(
-        ggplot2::aes(text = !!text), #stat = stat,
-        position = position,
-        alpha = alpha,
-        col = pal,
-        fill = pal,
-        ...
-      ) +
-      ggplot2::geom_qq_line(
+      ggplot2::geom_point(
+        ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,
         col = pal,
@@ -403,14 +383,8 @@ gg_qq <- function(
   else {
     plot <- plot +
       # ggplot2::geom_blank(stat = stat, position = position, ...) +
-      ggplot2::geom_qq(
-        ggplot2::aes(text = !!text), #stat = stat,
-        position = position,
-        alpha = alpha,
-        ...
-      ) +
-      ggplot2::geom_qq_line(
-        # stat = stat,
+      ggplot2::geom_point(
+        ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,
         ...
@@ -621,14 +595,16 @@ gg_qq <- function(
       if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
       if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
 
-      plot <- plot +
-        ggplot2::scale_x_discrete(
-          expand = x_expand,
-          labels = x_labels,
-          breaks = x_breaks,
-          limits = x_limits,
-          drop = FALSE
-        )
+      suppressMessages({
+        plot <- plot +
+          ggplot2::scale_x_discrete(
+            expand = x_expand,
+            labels = x_labels,
+            breaks = x_breaks,
+            limits = x_limits,
+            drop = FALSE
+          )
+      })
     }
     else if (x_numeric | x_date | x_datetime | x_time | x_null) {
 
@@ -780,50 +756,58 @@ gg_qq <- function(
       }
 
       if (x_numeric | x_null) {
-        plot <- plot +
-          ggplot2::scale_x_continuous(
-            breaks = x_breaks,
-            limits = x_limits,
-            expand = x_expand,
-            labels = x_labels,
-            oob = x_oob,
-            sec.axis = x_sec_axis,
-            trans = x_trans
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_x_continuous(
+              breaks = x_breaks,
+              limits = x_limits,
+              expand = x_expand,
+              labels = x_labels,
+              oob = x_oob,
+              sec.axis = x_sec_axis,
+              trans = x_trans
+            )
+        })
       }
       else if (x_date) {
-        plot <- plot +
-          ggplot2::scale_x_date(
-            breaks = x_breaks,
-            limits = x_limits,
-            expand = x_expand,
-            labels = x_labels,
-            oob = x_oob,
-            sec.axis = x_sec_axis
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_x_date(
+              breaks = x_breaks,
+              limits = x_limits,
+              expand = x_expand,
+              labels = x_labels,
+              oob = x_oob,
+              sec.axis = x_sec_axis
+            )
+        })
       }
       else if (x_datetime) {
-        plot <- plot +
-          ggplot2::scale_x_datetime(
-            breaks = x_breaks,
-            limits = x_limits,
-            expand = x_expand,
-            labels = x_labels,
-            oob = x_oob,
-            sec.axis = x_sec_axis
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_x_datetime(
+              breaks = x_breaks,
+              limits = x_limits,
+              expand = x_expand,
+              labels = x_labels,
+              oob = x_oob,
+              sec.axis = x_sec_axis
+            )
+        })
       }
       else if (x_time) {
-        plot <- plot +
-          ggplot2::scale_x_continuous(
-            breaks = x_breaks,
-            limits = x_limits,
-            expand = x_expand,
-            labels = x_labels,
-            oob = x_oob,
-            sec.axis = x_sec_axis,
-            trans = "hms"
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_x_continuous(
+              breaks = x_breaks,
+              limits = x_limits,
+              expand = x_expand,
+              labels = x_labels,
+              oob = x_oob,
+              sec.axis = x_sec_axis,
+              trans = "hms"
+            )
+        })
       }
     }
 
@@ -833,13 +817,15 @@ gg_qq <- function(
       if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
       if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
 
-      plot <- plot +
-        ggplot2::scale_y_discrete(
-          expand = y_expand,
-          labels = y_labels,
-          breaks = y_breaks,
-          drop = FALSE
-        )
+      suppressMessages({
+        plot <- plot +
+          ggplot2::scale_y_discrete(
+            expand = y_expand,
+            labels = y_labels,
+            breaks = y_breaks,
+            drop = FALSE
+          )
+      })
     }
     else if (y_numeric | y_date | y_datetime | y_time | y_null) {
 
@@ -987,50 +973,58 @@ gg_qq <- function(
       }
 
       if (y_numeric | y_null) {
-        plot <- plot +
-          ggplot2::scale_y_continuous(
-            breaks = y_breaks,
-            limits = y_limits,
-            expand = y_expand,
-            labels = y_labels,
-            oob = y_oob,
-            sec.axis = y_sec_axis,
-            trans = y_trans
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_y_continuous(
+              breaks = y_breaks,
+              limits = y_limits,
+              expand = y_expand,
+              labels = y_labels,
+              oob = y_oob,
+              sec.axis = y_sec_axis,
+              trans = y_trans
+            )
+        })
       }
       else if (y_date) {
-        plot <- plot +
-          ggplot2::scale_y_date(
-            breaks = y_breaks,
-            limits = y_limits,
-            expand = y_expand,
-            labels = y_labels,
-            oob = y_oob,
-            sec.axis = y_sec_axis
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_y_date(
+              breaks = y_breaks,
+              limits = y_limits,
+              expand = y_expand,
+              labels = y_labels,
+              oob = y_oob,
+              sec.axis = y_sec_axis
+            )
+        })
       }
       else if (y_datetime) {
-        plot <- plot +
-          ggplot2::scale_y_datetime(
-            breaks = y_breaks,
-            limits = y_limits,
-            expand = y_expand,
-            labels = y_labels,
-            oob = y_oob,
-            sec.axis = y_sec_axis
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_y_datetime(
+              breaks = y_breaks,
+              limits = y_limits,
+              expand = y_expand,
+              labels = y_labels,
+              oob = y_oob,
+              sec.axis = y_sec_axis
+            )
+        })
       }
       else if (y_time) {
-        plot <- plot +
-          ggplot2::scale_y_continuous(
-            breaks = y_breaks,
-            limits = y_limits,
-            expand = y_expand,
-            labels = y_labels,
-            oob = y_oob,
-            sec.axis = y_sec_axis,
-            trans = "hms"
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_y_continuous(
+              breaks = y_breaks,
+              limits = y_limits,
+              expand = y_expand,
+              labels = y_labels,
+              oob = y_oob,
+              sec.axis = y_sec_axis,
+              trans = "hms"
+            )
+        })
       }
     }
   }
