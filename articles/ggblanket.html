@@ -742,10 +742,10 @@ For all other contexts, alpha defaults to 1.</p>
 (<code>*_oob = scales::oob_keep</code>) in calculating the geoms and
 scales to plot. It also does <em>not</em> clip anything outside the
 cartesian coordinate space by default
-(<code>coord = ggplot2::coord_cartesian(clip = "off"</code>)). ggplot2
-by default drops values outside of the limits in calculating the geoms
-and scales to plot (<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_censor</a></code>). It also clips
-anything outside the cartesian coordinate space by default
+(<code>coord = ggplot2::coord_cartesian(clip = "off"</code>)).</p>
+<p>ggplot2 by default drops values outside of the limits in calculating
+the geoms and scales to plot (<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_censor</a></code>), and
+clips anything outside the cartesian coordinate space
 (<code>coord = ggplot2::coord_cartesian(clip = "on"</code>)).</p>
 <p>Users should be particularly careful when setting limits for stats
 other than <code>identity</code>.</p>
