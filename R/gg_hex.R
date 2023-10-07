@@ -621,14 +621,16 @@ gg_hex <- function(
       if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
       if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
 
-      plot <- plot +
-        ggplot2::scale_x_discrete(
-          expand = x_expand,
-          labels = x_labels,
-          breaks = x_breaks,
-          limits = x_limits,
-          drop = FALSE
-        )
+      suppressMessages({
+        plot <- plot +
+          ggplot2::scale_x_discrete(
+            expand = x_expand,
+            labels = x_labels,
+            breaks = x_breaks,
+            limits = x_limits,
+            drop = FALSE
+          )
+      })
     }
     else if (x_numeric | x_date | x_datetime | x_time | x_null) {
 
@@ -780,50 +782,58 @@ gg_hex <- function(
       }
 
       if (x_numeric | x_null) {
-        plot <- plot +
-          ggplot2::scale_x_continuous(
-            breaks = x_breaks,
-            limits = x_limits,
-            expand = x_expand,
-            labels = x_labels,
-            oob = x_oob,
-            sec.axis = x_sec_axis,
-            trans = x_trans
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_x_continuous(
+              breaks = x_breaks,
+              limits = x_limits,
+              expand = x_expand,
+              labels = x_labels,
+              oob = x_oob,
+              sec.axis = x_sec_axis,
+              trans = x_trans
+            )
+        })
       }
       else if (x_date) {
-        plot <- plot +
-          ggplot2::scale_x_date(
-            breaks = x_breaks,
-            limits = x_limits,
-            expand = x_expand,
-            labels = x_labels,
-            oob = x_oob,
-            sec.axis = x_sec_axis
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_x_date(
+              breaks = x_breaks,
+              limits = x_limits,
+              expand = x_expand,
+              labels = x_labels,
+              oob = x_oob,
+              sec.axis = x_sec_axis
+            )
+        })
       }
       else if (x_datetime) {
-        plot <- plot +
-          ggplot2::scale_x_datetime(
-            breaks = x_breaks,
-            limits = x_limits,
-            expand = x_expand,
-            labels = x_labels,
-            oob = x_oob,
-            sec.axis = x_sec_axis
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_x_datetime(
+              breaks = x_breaks,
+              limits = x_limits,
+              expand = x_expand,
+              labels = x_labels,
+              oob = x_oob,
+              sec.axis = x_sec_axis
+            )
+        })
       }
       else if (x_time) {
-        plot <- plot +
-          ggplot2::scale_x_continuous(
-            breaks = x_breaks,
-            limits = x_limits,
-            expand = x_expand,
-            labels = x_labels,
-            oob = x_oob,
-            sec.axis = x_sec_axis,
-            trans = "hms"
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_x_continuous(
+              breaks = x_breaks,
+              limits = x_limits,
+              expand = x_expand,
+              labels = x_labels,
+              oob = x_oob,
+              sec.axis = x_sec_axis,
+              trans = "hms"
+            )
+        })
       }
     }
 
@@ -833,13 +843,15 @@ gg_hex <- function(
       if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
       if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
 
-      plot <- plot +
-        ggplot2::scale_y_discrete(
-          expand = y_expand,
-          labels = y_labels,
-          breaks = y_breaks,
-          drop = FALSE
-        )
+      suppressMessages({
+        plot <- plot +
+          ggplot2::scale_y_discrete(
+            expand = y_expand,
+            labels = y_labels,
+            breaks = y_breaks,
+            drop = FALSE
+          )
+      })
     }
     else if (y_numeric | y_date | y_datetime | y_time | y_null) {
 
@@ -987,50 +999,58 @@ gg_hex <- function(
       }
 
       if (y_numeric | y_null) {
-        plot <- plot +
-          ggplot2::scale_y_continuous(
-            breaks = y_breaks,
-            limits = y_limits,
-            expand = y_expand,
-            labels = y_labels,
-            oob = y_oob,
-            sec.axis = y_sec_axis,
-            trans = y_trans
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_y_continuous(
+              breaks = y_breaks,
+              limits = y_limits,
+              expand = y_expand,
+              labels = y_labels,
+              oob = y_oob,
+              sec.axis = y_sec_axis,
+              trans = y_trans
+            )
+        })
       }
       else if (y_date) {
-        plot <- plot +
-          ggplot2::scale_y_date(
-            breaks = y_breaks,
-            limits = y_limits,
-            expand = y_expand,
-            labels = y_labels,
-            oob = y_oob,
-            sec.axis = y_sec_axis
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_y_date(
+              breaks = y_breaks,
+              limits = y_limits,
+              expand = y_expand,
+              labels = y_labels,
+              oob = y_oob,
+              sec.axis = y_sec_axis
+            )
+        })
       }
       else if (y_datetime) {
-        plot <- plot +
-          ggplot2::scale_y_datetime(
-            breaks = y_breaks,
-            limits = y_limits,
-            expand = y_expand,
-            labels = y_labels,
-            oob = y_oob,
-            sec.axis = y_sec_axis
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_y_datetime(
+              breaks = y_breaks,
+              limits = y_limits,
+              expand = y_expand,
+              labels = y_labels,
+              oob = y_oob,
+              sec.axis = y_sec_axis
+            )
+        })
       }
       else if (y_time) {
-        plot <- plot +
-          ggplot2::scale_y_continuous(
-            breaks = y_breaks,
-            limits = y_limits,
-            expand = y_expand,
-            labels = y_labels,
-            oob = y_oob,
-            sec.axis = y_sec_axis,
-            trans = "hms"
-          )
+        suppressMessages({
+          plot <- plot +
+            ggplot2::scale_y_continuous(
+              breaks = y_breaks,
+              limits = y_limits,
+              expand = y_expand,
+              labels = y_labels,
+              oob = y_oob,
+              sec.axis = y_sec_axis,
+              trans = "hms"
+            )
+        })
       }
     }
   }
@@ -1329,16 +1349,16 @@ gg_hex <- function(
   }
 
   #expand limits if necessary
-  # if (stat != "sf") {
-  #   if (!rlang::is_null(x_include)) {
-  #     plot <- plot +
-  #       ggplot2::expand_limits(x = x_include)
-  #   }
-  #   if (!rlang::is_null(y_include)) {
-  #     plot <- plot +
-  #       ggplot2::expand_limits(y = y_include)
-  #   }
-  # }
+  if (stat != "sf") {
+    if (!rlang::is_null(x_include)) {
+      plot <- plot +
+        ggplot2::expand_limits(x = x_include)
+    }
+    if (!rlang::is_null(y_include)) {
+      plot <- plot +
+        ggplot2::expand_limits(y = y_include)
+    }
+  }
 
   if (!rlang::is_null(col_include)) {
     plot <- plot +
