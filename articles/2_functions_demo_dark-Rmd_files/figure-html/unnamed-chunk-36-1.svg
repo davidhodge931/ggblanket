@@ -117,8 +117,8 @@
 </pattern>
 </defs>
 <g id="surface406">
-<rect x="0" y="0" width="432" height="266" style="fill:rgb(7.058824%,10.588235%,14.117647%);fill-opacity:1;stroke:none;"/>
-<path style="fill:none;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(7.058824%,10.588235%,14.117647%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 266 L 432 266 L 432 0 L 0 0 Z M 0 266 "/>
+<rect x="0" y="0" width="432" height="266" style="fill:rgb(8.235294%,12.54902%,16.862745%);fill-opacity:1;stroke:none;"/>
+<path style="fill:none;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(8.235294%,12.54902%,16.862745%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 266 L 432 266 L 432 0 L 0 0 Z M 0 266 "/>
 <path style="fill-rule:nonzero;fill:rgb(12.156863%,18.431373%,24.313725%);fill-opacity:1;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(12.156863%,18.431373%,24.313725%);stroke-opacity:1;stroke-miterlimit:10;" d="M 79.410156 223.742188 L 321.917969 223.742188 L 321.917969 14.945312 L 79.410156 14.945312 Z M 79.410156 223.742188 "/>
 <path style="fill-rule:nonzero;fill:rgb(96.862745%,98.431373%,100%);fill-opacity:0.901961;stroke-width:0.213396;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(96.862745%,98.431373%,100%);stroke-opacity:1;stroke-miterlimit:10;" d="M 90.429688 217.21875 L 200.660156 217.21875 L 200.660156 151.96875 L 90.429688 151.96875 Z M 90.429688 217.21875 "/>
 <path style="fill-rule:nonzero;fill:rgb(86.27451%,91.372549%,96.470588%);fill-opacity:0.901961;stroke-width:0.213396;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(86.27451%,91.372549%,96.470588%);stroke-opacity:1;stroke-miterlimit:10;" d="M 200.660156 217.21875 L 310.890625 217.21875 L 310.890625 151.96875 L 200.660156 151.96875 Z M 200.660156 217.21875 "/>
@@ -188,7 +188,7 @@
   <use xlink:href="#glyph1-3" x="18.750977" y="111.84375"/>
   <use xlink:href="#glyph1-6" x="18.750977" y="105.84375"/>
 </g>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(7.058824%,10.588235%,14.117647%);fill-opacity:1;" d="M 332.566406 173.023438 L 414.566406 173.023438 L 414.566406 65.660156 L 332.566406 65.660156 Z M 332.566406 173.023438 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(8.235294%,12.54902%,16.862745%);fill-opacity:1;" d="M 332.566406 173.023438 L 414.566406 173.023438 L 414.566406 65.660156 L 332.566406 65.660156 Z M 332.566406 173.023438 "/>
 <g clip-path="url(#clip1)" clip-rule="nonzero">
 <rect x="0" y="0" width="432" height="266" style="fill:url(#pattern0);stroke:none;"/>
 </g>

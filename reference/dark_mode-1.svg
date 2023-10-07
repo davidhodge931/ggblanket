@@ -134,8 +134,8 @@
 </g>
 </defs>
 <g id="surface1">
-<rect x="0" y="0" width="525" height="324" style="fill:rgb(7.058824%,10.588235%,14.117647%);fill-opacity:1;stroke:none;"/>
-<path style="fill:none;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(7.058824%,10.588235%,14.117647%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 324 L 525 324 L 525 0 L 0 0 Z M 0 324 "/>
+<rect x="0" y="0" width="525" height="324" style="fill:rgb(8.235294%,12.54902%,16.862745%);fill-opacity:1;stroke:none;"/>
+<path style="fill:none;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(8.235294%,12.54902%,16.862745%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 324 L 525 324 L 525 0 L 0 0 Z M 0 324 "/>
 <path style="fill-rule:nonzero;fill:rgb(12.156863%,18.431373%,24.313725%);fill-opacity:1;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(12.156863%,18.431373%,24.313725%);stroke-opacity:1;stroke-miterlimit:10;" d="M 61.410156 244.320312 L 507.566406 244.320312 L 507.566406 14.941406 L 61.410156 14.941406 Z M 61.410156 244.320312 "/>
 <path style="fill:none;stroke-width:0.323327;stroke-linecap:square;stroke-linejoin:round;stroke:rgb(17.254902%,22.745098%,28.235294%);stroke-opacity:1;stroke-miterlimit:10;" d="M 61.410156 244.320312 L 507.566406 244.320312 "/>
 <path style="fill:none;stroke-width:0.323327;stroke-linecap:square;stroke-linejoin:round;stroke:rgb(17.254902%,22.745098%,28.235294%);stroke-opacity:1;stroke-miterlimit:10;" d="M 61.410156 215.648438 L 507.566406 215.648438 "/>
@@ -636,7 +636,7 @@
   <use xlink:href="#glyph1-5" x="18.250977" y="108.632812"/>
   <use xlink:href="#glyph1-9" x="18.250977" y="105.632812"/>
 </g>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(7.058824%,10.588235%,14.117647%);fill-opacity:1;" d="M 61.410156 316.527344 L 276.027344 316.527344 L 276.027344 280.285156 L 61.410156 280.285156 Z M 61.410156 316.527344 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(8.235294%,12.54902%,16.862745%);fill-opacity:1;" d="M 61.410156 316.527344 L 276.027344 316.527344 L 276.027344 280.285156 L 61.410156 280.285156 Z M 61.410156 316.527344 "/>
 <g style="fill:rgb(73.333333%,80%,86.666667%);fill-opacity:1;">
   <use xlink:href="#glyph0-24" x="61.410156" y="293.055664"/>
   <use xlink:href="#glyph0-15" x="68.410156" y="293.055664"/>
