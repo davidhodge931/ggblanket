@@ -95,4 +95,4 @@ pal_light_mode <- c("#121b24", "#e6ecf2", "#fcfdfe", "#dbe1e7")
 #' @export
 #' @examples
 #' scales::show_col(pal_dark_mode)
-pal_dark_mode <- c("#bbccdd", "#121b24", "#1f2f3e", "#2c3a48")
+pal_dark_mode <- c("#bbccdd", "#15202b", "#1f2f3e", "#2c3a48")
