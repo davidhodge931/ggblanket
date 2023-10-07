@@ -18,6 +18,8 @@ Imports:
     dplyr,
     forcats,
     ggplot2,
+    grid,
+    hms,
     lubridate,
     magrittr,
     purrr,
@@ -30,7 +32,6 @@ Imports:
     viridis
 Suggests: 
     hexbin,
-    hms,
     knitr,
     palmerpenguins,
     patchwork,
@@ -38,6 +39,7 @@ Suggests:
     rmarkdown,
     sf,
     stars,
+    stats,
     tibble
 Config/Needs/website: 
     concaveman,
@@ -65,6 +67,5 @@ Config/Needs/website:
     ggtext,
     plotly,
     showtext,
-    sf,
     sysfonts
 VignetteBuilder: knitr

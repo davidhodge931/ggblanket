@@ -78,11 +78,11 @@
 #'
 #' d |>
 #'   gg_qq(sample = y,
-#'         distribution = \(p) qt(p, df = 4.465806))
+#'         distribution = \(p) stats::qt(p, df = 4.465806))
 #'
 #' d |>
 #'   gg_qq(sample = y,
-#'         distribution = \(p) qt(p, df = 4.465806),
+#'         distribution = \(p) stats::qt(p, df = 4.465806),
 #'         linewidth = 0)
 #'
 gg_qq <- function(
