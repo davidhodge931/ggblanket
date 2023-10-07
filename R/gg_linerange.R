@@ -458,7 +458,7 @@ gg_linerange <- function(
         position = position,
         alpha = alpha,
         col = pal,
-        fill = pal,
+        # fill = pal,
         ...
       ) +
       coord +

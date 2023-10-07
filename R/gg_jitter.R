@@ -374,7 +374,7 @@ gg_jitter <- function(
         position = position,
         alpha = alpha,
         col = pal,
-        fill = pal,
+        # fill = pal,
         ...
       ) +
       coord +

@@ -401,7 +401,7 @@ gg_density_2d <- function(
         position = position,
         alpha = alpha,
         col = pal,
-        fill = pal,
+        # fill = pal,
         ...
       ) +
       coord +

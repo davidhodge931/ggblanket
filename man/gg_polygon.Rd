@@ -227,7 +227,7 @@ positions <- data.frame(
 
 datapoly <- merge(values, positions, by = c("id"))
 
-datapoly \%>\%
+datapoly |>
   gg_polygon(
     x = x,
     y = y,

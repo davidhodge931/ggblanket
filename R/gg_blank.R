@@ -746,8 +746,8 @@ gg_blank <- function(
   }
 
   if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
-    if (rlang::is_null(pal)) pal <-  pal_blue
-    else pal <- as.vector(pal[1])
+    # if (rlang::is_null(pal)) pal <-  pal_blue
+    # else pal <- as.vector(pal[1])
 
     plot <- plot +
       ggplot2::geom_blank(stat = stat, position = position, ...) +

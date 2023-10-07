@@ -387,14 +387,14 @@ gg_qq <- function(
         position = position,
         alpha = alpha,
         col = pal,
-        fill = pal,
+        # fill = pal,
         ...
       ) +
       ggplot2::geom_qq_line(
         position = position,
         alpha = alpha,
         col = pal,
-        fill = pal,
+        # fill = pal,
         ...
       ) +
       coord +
