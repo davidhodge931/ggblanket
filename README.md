@@ -17,10 +17,9 @@ downloads](https://cranlogs.r-pkg.org/badges/last-week/ggblanket?color=lightgrey
 downloads](https://cranlogs.r-pkg.org/badges/last-day/ggblanket?color=lightgrey)](https://r-pkg.org/pkg/ggblanket)
 <!-- badges: end -->
 
-## Purpose
+## Overview
 
-ggblanket is a package of wrapper functions around the fantastic ggplot2
-package.
+ggblanket is a package of ggplot2 wrapper functions.
 
 The primary objective is to **simplify ggplot2 visualisation**.
 
@@ -29,9 +28,6 @@ Secondary objectives relate to:
 - Design: produce well-designed visualisation by default
 - Scope: cover the most useful 80% of what ggplot2 does
 - Alignment: use conventions generally aligned with ggplot2.
-
-It is intended to be useful for all levels of experience from beginner
-to expert.
 
 ## Installation
 
@@ -66,8 +62,7 @@ to start learning how ggblanket works.
 
 ## Thanks!
 
-Thank you to all authors and contributors to ggplot2, tidyverse, and the
-wider R ecosystem.
+Thank you to all authors of ggplot2, tidyverse, and the wider R
+ecosystem.
 
-If you like ggblanket, please give the repository a star and help spread
-the word.
+If you like ggblanket, please give the repository a star.
