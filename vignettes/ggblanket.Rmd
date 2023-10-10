@@ -649,9 +649,26 @@ p5 <- economics |>
 p1 / (p2 + p3) / (p4 + p5) 
 ```
 
-##### Computational speed is sacrificed.
+##### Computational speed is sacrificed
 
-ggblanket is much slower than ggplot2 in computational speed through the hack that underlies it to make pretty continuous scales.
+ggblanket is _much_ slower than ggplot2 in computational speed, due to the hack that underlies ggblanket to make its pretty continuous scales. The premise is that it's still fast enough most of the time. Sometimes it might not be, such as if you are trying to plot big data. In these cases, just use ggplot2. 
+
+```{r}
+bench::mark({
+  penguins2 |> 
+    gg_point(x = flipper_length_mm, 
+             y = body_mass_g, 
+             col = species)
+}, iterations = 10)
+```
+
+```{r}
+bench::mark({
+  penguins2 |>
+    ggplot() +
+    geom_point(aes(x = flipper_length_mm, y = body_mass_g, colour = species)) 
+}, iterations = 10)
+```
 
 ##### Other minor stuff
 

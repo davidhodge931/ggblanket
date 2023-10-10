@@ -31,6 +31,7 @@ Imports:
     tidyselect,
     viridis
 Suggests: 
+    bench, 
     hexbin,
     knitr,
     palmerpenguins,
