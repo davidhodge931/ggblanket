@@ -96,10 +96,21 @@ Hodge</h4>
     
     
 <div class="section level2">
-<h2 id="how-ggblanket-works">How ggblanket works<a class="anchor" aria-label="anchor" href="#how-ggblanket-works"></a>
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>To <strong>simplify ggplot2 visualisation</strong>, ggblanket
-provides:</p>
+<p>ggblanket is a package of ggplot2 wrapper functions.</p>
+<p>The primary objective is to <strong>simplify ggplot2
+visualisation</strong>.</p>
+<p>Secondary objectives relate to:</p>
+<ul>
+<li>Design: produce well-designed visualisation by default</li>
+<li>Scope: cover the most useful 80% of what ggplot2 does</li>
+<li>Alignment: use conventions generally aligned with ggplot2.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="how-it-works">How it works<a class="anchor" aria-label="anchor" href="#how-it-works"></a>
+</h2>
 <ol style="list-style-type: decimal">
 <li>Over thirty gg_* wrapper functions</li>
 <li>A single col argument to colour and fill by a variable</li>
@@ -111,7 +122,7 @@ provides:</p>
 <li>Ability to customise the theme</li>
 <li>Access to other geom_* arguments via …</li>
 <li>Ability to add multiple geom_* layers</li>
-<li>Pretty numeric positional scales</li>
+<li>Pretty continuous positional scales</li>
 <li>Other key differences to ggplot2</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -549,7 +560,7 @@ the <code>gg_*</code> function based on the <code>data</code>,
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="pretty-numeric-positional-scales">11. Pretty numeric positional scales<a class="anchor" aria-label="anchor" href="#pretty-numeric-positional-scales"></a>
+<h3 id="pretty-continuous-positional-scales">11. Pretty continuous positional scales<a class="anchor" aria-label="anchor" href="#pretty-continuous-positional-scales"></a>
 </h3>
 <p>Where the orientation is normal (i.e. vertical):</p>
 <ul>
@@ -810,6 +821,12 @@ other than <code>identity</code>.</p>
 <span></span>
 <span><span class="va">p1</span> <span class="op">/</span> <span class="op">(</span><span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p4</span> <span class="op">+</span> <span class="va">p5</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-26-1.svg" width="70%"></p>
+</div>
+<div class="section level5">
+<h5 id="computational-speed-is-sacrificed-">Computational speed is sacrificed.<a class="anchor" aria-label="anchor" href="#computational-speed-is-sacrificed-"></a>
+</h5>
+<p>ggblanket is much slower than ggplot2 in computational speed through
+the hack that underlies it to make pretty continuous scales.</p>
 </div>
 <div class="section level5">
 <h5 id="other-minor-stuff">Other minor stuff<a class="anchor" aria-label="anchor" href="#other-minor-stuff"></a>
