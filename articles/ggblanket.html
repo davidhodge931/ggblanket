@@ -827,9 +827,7 @@ other than <code>identity</code>.</p>
 </h5>
 <p>ggblanket is <em>much</em> slower than ggplot2 in computational
 speed, due to the hack that underlies ggblanket to make its pretty
-continuous scales. The premise is that it’s still fast enough most of
-the time. Sometimes it might not be, such as if you are trying to plot
-big data. In these cases, just use ggplot2.</p>
+continuous scales.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
@@ -840,7 +838,7 @@ big data. In these cases, just use ggplot2.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 6</span></span></span>
 <span><span class="co">#&gt;   expression                             min median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;bch&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> { gg_point(penguins2, x = flipper_l… 132ms  134ms      7.47     773KB     4.98</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> { gg_point(penguins2, x = flipper_l… 134ms  136ms      7.38     773KB     4.92</span></span></code></pre></div>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
@@ -850,7 +848,7 @@ big data. In these cases, just use ggplot2.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 6</span></span></span>
 <span><span class="co">#&gt;   expression                             min median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;bch:&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> { ggplot(penguins2) + geom_point(a… 2.48ms 2.51ms      393.    15.6KB        0</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> { ggplot(penguins2) + geom_point(a… 2.51ms 2.55ms      389.    15.6KB        0</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="other-minor-stuff">Other minor stuff<a class="anchor" aria-label="anchor" href="#other-minor-stuff"></a>
