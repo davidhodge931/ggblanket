@@ -651,7 +651,7 @@ p1 / (p2 + p3) / (p4 + p5)
 
 ##### Computational speed is sacrificed
 
-ggblanket is _much_ slower than ggplot2 in computational speed, due to the hack that underlies ggblanket to make its pretty continuous scales. The premise is that it's still fast enough most of the time. Sometimes it might not be, such as if you are trying to plot big data. In these cases, just use ggplot2. 
+ggblanket is _much_ slower than ggplot2 in computational speed, due to the hack that underlies ggblanket to make its pretty continuous scales.  
 
 ```{r}
 bench::mark({
