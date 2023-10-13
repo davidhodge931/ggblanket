@@ -916,7 +916,7 @@ gg_polygon <- function(
 
             if (!facet_null & !facet2_null) y_breaks_n <- 5
             else if (!facet_null | !facet2_null) y_breaks_n <- 6
-            else y_breaks_n <- 8
+            else y_breaks_n <- 7
 
             if (y_time) y_breaks <- scales::hms_trans()$breaks(y_range)
             else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
@@ -956,7 +956,7 @@ gg_polygon <- function(
 
             if (!facet_null & !facet2_null) y_breaks_n <- 5
             else if (!facet_null | !facet2_null) y_breaks_n <- 6
-            else y_breaks_n <- 8
+            else y_breaks_n <- 7
 
             if (y_time) y_breaks <- scales::hms_trans()$breaks(y_limits)
             else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)

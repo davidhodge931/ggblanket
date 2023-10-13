@@ -435,7 +435,7 @@ p1 / p2
 Where the orientation is normal (i.e. vertical):
 
 -   Default x scale limits and expanding are as per ggplot2 defaults
--   Default numeric y scale limits (that are non-transformed) start and end on a break with zero expanding
+-   Default continuous y scale limits (that are non-transformed) start and end on a break with zero expanding
 -   Default categorical (or numeric transformed) y scale limits and expanding are as per ggplot2 defaults
 -   Default removal of vertical gridlines 
 
@@ -457,7 +457,7 @@ penguins2 |>
                y = species, 
                fill = sex),
            position = "dodge",
-           width = 0.75)
+           width = 0.5)
 ```
 
 ```{r}
@@ -470,7 +470,27 @@ penguins2 |>
     y = species,
     col = sex,
     position = "dodge",
-    width = 0.75)
+    width = 0.5)
+```
+
+Sometimes with small plots or faceted plots etc, the labels can be too squashed. Making the breaks width bigger can waste space, due to the afore-mentioned approach of ggblanket to making pretty scales. In the situation, the recommended approach is to use the `str_keep_seq` function with the `*_labels` arguments to only keep every 2nd (or nth) label. 
+
+```{r}
+# ggblanket
+penguins2 |>
+  group_by(species, sex) |> 
+  summarise(body_mass_g = mean(body_mass_g)) |> 
+  ungroup() |> 
+  gg_col(
+    y = body_mass_g,
+    x = species,
+    col = sex,
+    position = "dodge",
+    width = 0.5,
+    x_labels = \(x) stringr::str_sub(x, 1, 1),
+    y_labels = \(x) str_keep_seq(x),
+    title = "Keep every 2nd label", 
+    theme = light_mode(title_face = "plain"))
 ```
 
 ### 12. Other key differences to ggplot2
