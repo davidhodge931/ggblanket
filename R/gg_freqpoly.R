@@ -367,14 +367,11 @@ gg_freqpoly <- function(
     if (rlang::is_null(pal)) pal <-  pal_blue
     else pal <- as.vector(pal[1])
 
-    suppressMessages({
-      plot <- plot +
-        ggplot2::geom_blank(stat = stat, position = position, ...)
-    })
-
     plot <- plot +
+      ggplot2::geom_blank(stat = stat, position = position, ...) +
       ggplot2::geom_freqpoly(
-        ggplot2::aes(text = !!text), stat = stat,
+        ggplot2::aes(text = !!text),
+        stat = stat,
         position = position,
         alpha = alpha,
         col = pal,
@@ -385,14 +382,11 @@ gg_freqpoly <- function(
       theme
   }
   else {
-    suppressMessages({
-      plot <- plot +
-        ggplot2::geom_blank(stat = stat, position = position, ...)
-    })
-
     plot <- plot +
+      ggplot2::geom_blank(stat = stat, position = position, ...) +
       ggplot2::geom_freqpoly(
-        ggplot2::aes(text = !!text), stat = stat,
+        ggplot2::aes(text = !!text),
+        stat = stat,
         position = position,
         alpha = alpha,
         ...
