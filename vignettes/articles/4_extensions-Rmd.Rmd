@@ -37,37 +37,28 @@ penguins2 <- palmerpenguins::penguins |>
 
 The patchwork package enables plots to be patched together. 
 
-A convenient hack to add a centred title in a non-faceted plot is to add a title string to the `facet` argument. Note this will reduce the default `*_breaks`.
+A convenient hack to add a centred non-bold title in a non-faceted plot is to add a `facet_wrap` layer with a character string for the `facets` argument. 
 
 ```{r, fig.asp=0.9}
 p1 <- mtcars |> 
   gg_point(x = mpg, 
            y = disp,
-           y_labels = \(x) str_keep_seq(x),
-           facet = "Plot 1")
+           y_labels = \(x) str_keep_seq(x)) +
+  facet_wrap(~"Plot 1")
 
 p2 <- mtcars |> 
   gg_boxplot(x = gear, 
              y = disp, 
              group = gear, 
              width = 0.5,
-             y_labels = \(x) str_keep_seq(x),
-             facet = "Plot 2")
+             y_labels = \(x) str_keep_seq(x)) +
+  facet_wrap(~"Plot 2")
 
 p3 <- mtcars |> 
   gg_smooth(x = disp, 
             y = qsec, 
-            x_breaks = scales::breaks_pretty(4), 
-            facet = "Plot 3")
-
-(p1 + p2) / p3 +
-  plot_annotation(title = "A collection of plots patched together", 
-                  subtitle = "Works so nice!", 
-                  theme = light_mode() + 
-                    theme(
-                      plot.title = element_text(margin = margin(b = 10 * 0.75)),
-                      plot.subtitle = element_text(margin = margin(b = 0)))
-                  )
+            x_breaks = scales::breaks_pretty(4)) +
+  facet_wrap(~"Plot 3")
 ```
 
 #### ggbeeswarm
