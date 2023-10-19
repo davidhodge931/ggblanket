@@ -694,20 +694,41 @@ gg_point2 <- function(
         if (!rlang::is_null(x_include)) x_range <- range(c(x_range, x_include))
         if (any(x_trans %in% "reverse")) x_range <- sort(x_range, decreasing = TRUE)
 
-        if (facet_layout == "grid") {
-          if (facet_n <= 1) x_breaks_n <- 7
-          else if (facet_n <= 2) x_breaks_n <- 5
-          else if (facet_n > 2) x_breaks_n <- 3
-        }
-        else if (facet_layout == "wrap" & !facet_null) {
-          if (facet_n <= 1) x_breaks_n <- 7
-          else if (facet_n <= 2) x_breaks_n <- 5
-          else if (facet_n > 2) x_breaks_n <- 3
-        }
-        if (facet_layout == "wrap" & !facet2_null) {
-          if (facet2_n <= 1) x_breaks_n <- 7
-          else if (facet2_n <= 2) x_breaks_n <- 5
-          else x_breaks_n <- 3
+        if (rlang::is_null(x_breaks)) {
+          if (facet_null & facet2_null) {
+            x_breaks_n <- 7
+          }
+          else if (facet_layout == "wrap") {
+            if (!facet_null & !facet2_null) {
+              if (facet_n + facet2_n <= 1) x_breaks_n <- 7
+              else if (facet_n + facet2_n == 2) x_breaks_n <- 5
+              else if (facet_n + facet2_n == 3) x_breaks_n <- 4
+              else x_breaks_n <- 3
+            }
+            else if (!facet_null) {
+              if (facet_n <= 1) x_breaks_n <- 7
+              else if (facet_n == 2) x_breaks_n <- 5
+              else if (facet_n == 3) x_breaks_n <- 4
+              else x_breaks_n <- 3
+            }
+            else if (!facet2_null) {
+              if (facet2_n <= 1) x_breaks_n <- 7
+              else if (facet2_n == 2) x_breaks_n <- 5
+              else if (facet2_n == 3) x_breaks_n <- 4
+              else x_breaks_n <- 3
+            }
+          }
+          else if (facet_layout == "grid") {
+            if (facet_null) {
+              x_breaks_n <- 7
+            }
+            else if (!facet_null) {
+              if (facet_n <= 1) x_breaks_n <- 7
+              else if (facet_n == 2) x_breaks_n <- 5
+              else if (facet_n == 3) x_breaks_n <- 4
+              else x_breaks_n <- 3
+            }
+          }
         }
 
         if (rlang::is_null(x_limits)) {
@@ -923,18 +944,37 @@ gg_point2 <- function(
         if (!rlang::is_null(y_include)) y_range <- range(c(y_range, y_include))
         if (any(y_trans %in% "reverse")) y_range <- sort(y_range, decreasing = TRUE)
 
-        if (facet_layout == "grid" & !facet2_null) {
-          if (facet2_n <= 1) y_breaks_n <- 7
-          else if (facet2_n <= 2) y_breaks_n <- 5
-          else if (facet2_n > 2) y_breaks_n <- 3
-        }
-        else if (facet_layout == "wrap" & !facet2_null) {
-          if (facet2_n <= 2) y_breaks_n <- 7
-          else y_breaks_n <- 5
-        }
-        else {
-          if (facet_n <= 2) y_breaks_n <- 7
-          else y_breaks_n <- 5
+        if (rlang::is_null(y_breaks)) {
+          if (facet_null & facet2_null) {
+            y_breaks_n <- 7
+          }
+          else if (facet_layout == "wrap") {
+            if (!facet_null & !facet2_null) {
+              if (facet_n + facet2_n <= 3) y_breaks_n <- 7
+              else if (facet_n + facet2_n == 4) y_breaks_n <- 5
+              else y_breaks_n <- 4
+            }
+            else if (!facet_null) {
+              if (facet_n <= 3) y_breaks_n <- 7
+              else if (facet_n == 4) y_breaks_n <- 5
+              else y_breaks_n <- 4
+            }
+            else if (!facet2_null) {
+              if (facet2_n <= 3) y_breaks_n <- 7
+              else if (facet2_n == 4) y_breaks_n <- 5
+              else y_breaks_n <- 4
+            }
+          }
+          else if (facet_layout == "grid") {
+            if (facet2_null) {
+              y_breaks_n <- 7
+            }
+            else if (!facet2_null) {
+              if (facet2_n <= 1) y_breaks_n <- 7
+              else if (facet2_n == 2) y_breaks_n <- 5
+              else y_breaks_n <- 4
+            }
+          }
         }
 
         if (rlang::is_null(y_limits)) {
