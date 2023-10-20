@@ -144,12 +144,12 @@
 <clipPath id="clip1">
   <path d="M 344.566406 59.28125 L 361.847656 59.28125 L 361.847656 145.679688 L 344.566406 145.679688 Z M 344.566406 59.28125 "/>
 </clipPath>
-<image id="image170" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAAw0lEQVQ4jZWTQRLDIAwDtWr//2V6sBNsCp30kJGQJWEOkfS2edl6JdomPpIDtgK5EBsF6tZtaZkpuTyzuvQ+u714+kXx9swjfbj0x9xSvkmNg4xkC8Myy1LqrPnifPGrY83V/m3ngzvqbrNjPVffKHuNcvfIfUbzthkH7c6cs/Xeyc8dza/RPV+d3/tB9jg6ZBljpabUsabG4lnzDennnXfXe5r/1Hnox8Hi35KxcGqFE57GH/v/ye28Bw08Ws9GSxyBHwvPIg+KiItYAAAAAElFTkSuQmCC"/>
+<image id="image165" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAAw0lEQVQ4jZWTQRLDIAwDtWr//2V6sBNsCp30kJGQJWEOkfS2edl6JdomPpIDtgK5EBsF6tZtaZkpuTyzuvQ+u714+kXx9swjfbj0x9xSvkmNg4xkC8Myy1LqrPnifPGrY83V/m3ngzvqbrNjPVffKHuNcvfIfUbzthkH7c6cs/Xeyc8dza/RPV+d3/tB9jg6ZBljpabUsabG4lnzDennnXfXe5r/1Hnox8Hi35KxcGqFE57GH/v/ye28Bw08Ws9GSxyBHwvPIg+KiItYAAAAAElFTkSuQmCC"/>
 <pattern id="pattern0" patternUnits="userSpaceOnUse" width="1" height="300"  patternTransform="matrix(17.28,0,0,0.288,344.56538,59.281976)">
-  <use xlink:href="#image170"/>
+  <use xlink:href="#image165"/>
 </pattern>
 </defs>
-<g id="surface166">
+<g id="surface161">
 <rect x="0" y="0" width="432" height="266" style="fill:rgb(90.196078%,92.54902%,94.901961%);fill-opacity:1;stroke:none;"/>
 <path style="fill:none;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(90.196078%,92.54902%,94.901961%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 266 L 432 266 L 432 0 L 0 0 Z M 0 266 "/>
 <path style="fill-rule:nonzero;fill:rgb(98.823529%,99.215686%,99.607843%);fill-opacity:1;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(98.823529%,99.215686%,99.607843%);stroke-opacity:1;stroke-miterlimit:10;" d="M 62.410156 223.742188 L 333.917969 223.742188 L 333.917969 14.945312 L 62.410156 14.945312 Z M 62.410156 223.742188 "/>
