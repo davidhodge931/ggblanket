@@ -176,8 +176,10 @@ gg_sf <- function(
 
   facet_null <- rlang::quo_is_null(facet)
   facet_logical <- is.logical(rlang::eval_tidy(facet, data))
+  facet_character <- is.character(rlang::eval_tidy(facet, data))
   facet2_null <- rlang::quo_is_null(facet2)
   facet2_logical <- is.logical(rlang::eval_tidy(facet2, data))
+  facet2_character <- is.character(rlang::eval_tidy(facet2, data))
 
   if (rlang::is_null(alpha)) {
     # geometry_type <- unique(sf::st_geometry_type(data))
@@ -243,6 +245,33 @@ gg_sf <- function(
       dplyr::mutate(dplyr::across(!!facet2, function(x) factor(x, levels = c(TRUE, FALSE))))
   }
 
+  if (facet_character) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!facet, \(x) factor(x)))
+  }
+  if (facet2_character) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!facet2, \(x) factor(x)))
+  }
+
+  if (!facet_null) {
+    facet_n <- data %>%
+      dplyr::pull(!!facet) %>%
+      levels() %>%
+      length()
+  } else {
+    facet_n <- 0
+  }
+
+  if (!facet2_null) {
+    facet2_n <- data %>%
+      dplyr::pull(!!facet2) %>%
+      levels() %>%
+      length()
+  } else {
+    facet2_n <- 0
+  }
+
   ##############################################################################
   #Unique code: part 2
   ##############################################################################
@@ -298,7 +327,7 @@ gg_sf <- function(
   }
 
   ##############################################################################
-  #Generic code: part 2 (adjust for gg_sf2)
+  #Generic code: part 2 (adjust for gg_sf)
   ##############################################################################
 
   #Add faceting
@@ -569,12 +598,45 @@ gg_sf <- function(
   #       if (!rlang::is_null(x_include)) x_range <- range(c(x_range, x_include))
   #       if (any(x_trans %in% "reverse")) x_range <- sort(x_range, decreasing = TRUE)
   #
+  #       if (rlang::is_null(x_breaks)) {
+  #         if (facet_null & facet2_null) {
+  #           x_breaks_n <- 7
+  #         }
+  #         else if (facet_layout == "wrap") {
+  #           if (!facet_null & !facet2_null) {
+  #             if (facet_n * facet2_n <= 1) x_breaks_n <- 7
+  #             else if (facet_n * facet2_n == 2) x_breaks_n <- 5
+  #             else if (facet_n * facet2_n <= 6) x_breaks_n <- 4
+  #             else x_breaks_n <- 3
+  #           }
+  #           else if (!facet_null) {
+  #             if (facet_n <= 1) x_breaks_n <- 7
+  #             else if (facet_n == 2) x_breaks_n <- 5
+  #             else if (facet_n <= 6) x_breaks_n <- 4
+  #             else x_breaks_n <- 3
+  #           }
+  #           else if (!facet2_null) {
+  #             if (facet2_n <= 1) x_breaks_n <- 7
+  #             else if (facet2_n == 2) x_breaks_n <- 5
+  #             else if (facet2_n <= 6) x_breaks_n <- 4
+  #             else x_breaks_n <- 3
+  #           }
+  #         }
+  #         else if (facet_layout == "grid") {
+  #           if (facet_null) {
+  #             x_breaks_n <- 7
+  #           }
+  #           else if (!facet_null) {
+  #             if (facet_n <= 1) x_breaks_n <- 7
+  #             else if (facet_n == 2) x_breaks_n <- 5
+  #             else if (facet_n <= 3) x_breaks_n <- 4
+  #             else x_breaks_n <- 3
+  #           }
+  #         }
+  #       }
+  #
   #       if (rlang::is_null(x_limits)) {
   #         if (rlang::is_null(x_breaks)) {
-  #
-  #           if (!facet_null & !facet2_null) x_breaks_n <- 3
-  #           else if (!facet_null | !facet2_null) x_breaks_n <- 3
-  #           else x_breaks_n <- 6
   #
   #           if (x_time) x_breaks <- scales::hms_trans()$breaks(x_range)
   #           else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
@@ -615,10 +677,6 @@ gg_sf <- function(
   #         if (any(x_trans %in% "reverse")) x_limits <- sort(x_limits, decreasing = TRUE)
   #
   #         if (rlang::is_null(x_breaks)) {
-  #
-  #           if (!facet_null & !facet2_null) x_breaks_n <- 3
-  #           else if (!facet_null | !facet2_null) x_breaks_n <- 3
-  #           else x_breaks_n <- 6
   #
   #           if (x_time) x_breaks <- scales::hms_trans()$breaks(x_limits)
   #           else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
@@ -790,12 +848,41 @@ gg_sf <- function(
   #       if (!rlang::is_null(y_include)) y_range <- range(c(y_range, y_include))
   #       if (any(y_trans %in% "reverse")) y_range <- sort(y_range, decreasing = TRUE)
   #
+  #       if (rlang::is_null(y_breaks)) {
+  #         if (facet_null & facet2_null) {
+  #           y_breaks_n <- 7
+  #         }
+  #         else if (facet_layout == "wrap") {
+  #           if (!facet_null & !facet2_null) {
+  #             if (facet_n * facet2_n <= 3) y_breaks_n <- 7
+  #             else if (facet_n * facet2_n <= 6) y_breaks_n <- 5
+  #             else y_breaks_n <- 4
+  #           }
+  #           else if (!facet_null) {
+  #             if (facet_n <= 3) y_breaks_n <- 7
+  #             else if (facet_n == 4) y_breaks_n <- 5
+  #             else y_breaks_n <- 4
+  #           }
+  #           else if (!facet2_null) {
+  #             if (facet2_n <= 3) y_breaks_n <- 7
+  #             else if (facet2_n == 4) y_breaks_n <- 5
+  #             else y_breaks_n <- 4
+  #           }
+  #         }
+  #         else if (facet_layout == "grid") {
+  #           if (facet2_null) {
+  #             y_breaks_n <- 7
+  #           }
+  #           else if (!facet2_null) {
+  #             if (facet2_n <= 1) y_breaks_n <- 7
+  #             else if (facet2_n == 2) y_breaks_n <- 5
+  #             else y_breaks_n <- 4
+  #           }
+  #         }
+  #       }
+  #
   #       if (rlang::is_null(y_limits)) {
   #         if (rlang::is_null(y_breaks)) {
-  #
-  #           if (!facet_null & !facet2_null) y_breaks_n <- 5
-  #           else if (!facet_null | !facet2_null) y_breaks_n <- 6
-  #           else y_breaks_n <- 7
   #
   #           if (y_time) y_breaks <- scales::hms_trans()$breaks(y_range)
   #           else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
@@ -832,10 +919,6 @@ gg_sf <- function(
   #         if (any(y_trans %in% "reverse")) y_limits <- sort(y_limits, decreasing = TRUE)
   #
   #         if (rlang::is_null(y_breaks)) {
-  #
-  #           if (!facet_null & !facet2_null) y_breaks_n <- 5
-  #           else if (!facet_null | !facet2_null) y_breaks_n <- 6
-  #           else y_breaks_n <- 7
   #
   #           if (y_time) y_breaks <- scales::hms_trans()$breaks(y_limits)
   #           else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
@@ -934,27 +1017,27 @@ gg_sf <- function(
   # }
   #
   # else if (stat == "sf") {
-    if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
-    if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
-    if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
+  if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
+  if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
+  if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
 
-    if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
-    if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
-    if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
+  if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
+  if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
+  if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
 
-    plot <- plot +
-      ggplot2::scale_x_continuous(
-        limits = x_limits,
-        breaks = x_breaks,
-        expand = x_expand,
-        labels = x_labels
-      ) +
-      ggplot2::scale_y_continuous(
-        limits = y_limits,
-        breaks = y_breaks,
-        expand = y_expand,
-        labels = y_labels
-      )
+  plot <- plot +
+    ggplot2::scale_x_continuous(
+      limits = x_limits,
+      breaks = x_breaks,
+      expand = x_expand,
+      labels = x_labels
+    ) +
+    ggplot2::scale_y_continuous(
+      limits = y_limits,
+      breaks = y_breaks,
+      expand = y_expand,
+      labels = y_labels
+    )
   # }
 
   #make col scale
@@ -1308,3 +1391,4 @@ gg_sf <- function(
   #return beautiful plot
   return(plot)
 }
+

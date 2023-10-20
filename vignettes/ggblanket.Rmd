@@ -473,7 +473,7 @@ penguins2 |>
     width = 0.5)
 ```
 
-Sometimes with small plots or faceted plots etc, the labels can be too squashed. Making the breaks width bigger can waste space, due to the afore-mentioned approach of ggblanket to making pretty scales. In the situation, the recommended approach is to use the `str_keep_seq` function with the `*_labels` arguments to only keep every 2nd (or nth) label. 
+Sometimes with small plots or faceted plots etc, the labels can be too squashed. Making the breaks width bigger can waste space, due to the afore-mentioned approach of ggblanket to making pretty scales. An alternative approach is to use the `str_keep_seq` function with the `*_labels` arguments to only keep every 2nd (or nth) label. 
 
 ```{r}
 # ggblanket
