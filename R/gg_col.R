@@ -295,19 +295,25 @@ gg_col <- function(
   }
 
   if (!facet_null) {
-    facet_n <- data %>%
-      dplyr::pull(!!facet) %>%
-      levels() %>%
-      length()
+    facet_vctr <- data %>%
+      dplyr::pull(!!facet)
+
+    facet_n <- facet_vctr %>% levels() %>% length()
+
+    if (any(is.na(facet_vctr))) facet_n <- facet_n + 1
+
   } else {
     facet_n <- 0
   }
 
   if (!facet2_null) {
-    facet2_n <- data %>%
-      dplyr::pull(!!facet2) %>%
-      levels() %>%
-      length()
+    facet2_vctr <- data %>%
+      dplyr::pull(!!facet2)
+
+    facet2_n <- facet2_vctr %>% levels() %>% length()
+
+    if (any(is.na(facet2_vctr))) facet2_n <- facet2_n + 1
+
   } else {
     facet2_n <- 0
   }
