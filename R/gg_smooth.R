@@ -700,23 +700,23 @@ gg_smooth <- function(
 
         if (rlang::is_null(x_breaks)) {
           if (facet_null & facet2_null) {
-            x_breaks_n <- 7
+            x_breaks_n <- 6 #7
           }
           else if (facet_layout == "wrap") {
             if (!facet_null & !facet2_null) {
-              if (facet_n * facet2_n <= 1) x_breaks_n <- 7
+              if (facet_n * facet2_n <= 1) x_breaks_n <- 6
               else if (facet_n * facet2_n == 2) x_breaks_n <- 5
               else if (facet_n * facet2_n <= 6) x_breaks_n <- 4
               else x_breaks_n <- 3
             }
             else if (!facet_null) {
-              if (facet_n <= 1) x_breaks_n <- 7
+              if (facet_n <= 1) x_breaks_n <- 6
               else if (facet_n == 2) x_breaks_n <- 5
               else if (facet_n <= 6) x_breaks_n <- 4
               else x_breaks_n <- 3
             }
             else if (!facet2_null) {
-              if (facet2_n <= 1) x_breaks_n <- 7
+              if (facet2_n <= 1) x_breaks_n <- 6
               else if (facet2_n == 2) x_breaks_n <- 5
               else if (facet2_n <= 6) x_breaks_n <- 4
               else x_breaks_n <- 3
@@ -724,10 +724,10 @@ gg_smooth <- function(
           }
           else if (facet_layout == "grid") {
             if (facet_null) {
-              x_breaks_n <- 7
+              x_breaks_n <- 6
             }
             else if (!facet_null) {
-              if (facet_n <= 1) x_breaks_n <- 7
+              if (facet_n <= 1) x_breaks_n <- 6
               else if (facet_n == 2) x_breaks_n <- 5
               else if (facet_n <= 3) x_breaks_n <- 4
               else x_breaks_n <- 3
@@ -737,15 +737,24 @@ gg_smooth <- function(
 
         if (rlang::is_null(x_limits)) {
           if (rlang::is_null(x_breaks)) {
-
-            if (x_time) x_breaks <- scales::hms_trans()$breaks(x_range)
-            else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
-            else if (any(x_trans == "log2")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 2)(x_range)
-            else if (any(x_trans == "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = exp(1))(x_range)
-            else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+            if (!flipped | !rlang::is_null(x_expand)) {
+              if (x_time) x_breaks <- scales::hms_trans()
+              else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)
+              else if (any(x_trans == "log2")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 2)
+              else if (any(x_trans == "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = exp(1))
+              else x_breaks <- scales::breaks_pretty(n = x_breaks_n)
+            }
+            else if (flipped) {
+              if (x_time) x_breaks <- scales::hms_trans()$breaks(x_range)
+              else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_range)
+              else if (any(x_trans == "log2")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 2)(x_range)
+              else if (any(x_trans == "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = exp(1))(x_range)
+              else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+            }
 
             if (!flipped) x_limits <- x_range
             else if (any(!x_trans %in% c("identity", "reverse"))) x_limits <- x_range
+            else if (!rlang::is_null(x_expand)) x_limits <- x_breaks(x_range)[c(1, length(x_breaks(x_range)))]
             else x_limits <- x_breaks[c(1, length(x_breaks))]
           }
           else if (!(rlang::is_null(x_breaks))) {
@@ -777,12 +786,20 @@ gg_smooth <- function(
           if (any(x_trans %in% "reverse")) x_limits <- sort(x_limits, decreasing = TRUE)
 
           if (rlang::is_null(x_breaks)) {
-
-            if (x_time) x_breaks <- scales::hms_trans()$breaks(x_limits)
-            else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
-            else if (any(x_trans == "log2")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 2)(x_limits)
-            else if (any(x_trans == "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = exp(1))(x_limits)
-            else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+            if (!flipped | !rlang::is_null(x_expand)) {
+              if (x_time) x_breaks <- scales::hms_trans()
+              else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)
+              else if (any(x_trans == "log2")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 2)
+              else if (any(x_trans == "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = exp(1))
+              else x_breaks <- scales::breaks_pretty(n = x_breaks_n)
+            }
+            else if (flipped) {
+              if (x_time) x_breaks <- scales::hms_trans()$breaks(x_limits)
+              else if (any(x_trans == "log10")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 10)(x_limits)
+              else if (any(x_trans == "log2")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = 2)(x_limits)
+              else if (any(x_trans == "log")) x_breaks <- scales::breaks_log(n = x_breaks_n, base = exp(1))(x_limits)
+              else x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_limits)
+            }
           }
         }
       }
@@ -950,31 +967,31 @@ gg_smooth <- function(
 
         if (rlang::is_null(y_breaks)) {
           if (facet_null & facet2_null) {
-            y_breaks_n <- 7
+            y_breaks_n <- 6 #7
           }
           else if (facet_layout == "wrap") {
             if (!facet_null & !facet2_null) {
-              if (facet_n * facet2_n <= 3) y_breaks_n <- 7
+              if (facet_n * facet2_n <= 3) y_breaks_n <- 6
               else if (facet_n * facet2_n <= 6) y_breaks_n <- 5
               else y_breaks_n <- 4
             }
             else if (!facet_null) {
-              if (facet_n <= 3) y_breaks_n <- 7
+              if (facet_n <= 3) y_breaks_n <- 6
               else if (facet_n == 4) y_breaks_n <- 5
               else y_breaks_n <- 4
             }
             else if (!facet2_null) {
-              if (facet2_n <= 3) y_breaks_n <- 7
+              if (facet2_n <= 3) y_breaks_n <- 6
               else if (facet2_n == 4) y_breaks_n <- 5
               else y_breaks_n <- 4
             }
           }
           else if (facet_layout == "grid") {
             if (facet2_null) {
-              y_breaks_n <- 7
+              y_breaks_n <- 6
             }
             else if (!facet2_null) {
-              if (facet2_n <= 1) y_breaks_n <- 7
+              if (facet2_n <= 1) y_breaks_n <- 6
               else if (facet2_n == 2) y_breaks_n <- 5
               else y_breaks_n <- 4
             }
@@ -983,15 +1000,24 @@ gg_smooth <- function(
 
         if (rlang::is_null(y_limits)) {
           if (rlang::is_null(y_breaks)) {
-
-            if (y_time) y_breaks <- scales::hms_trans()$breaks(y_range)
-            else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
-            else if (any(y_trans == "log2")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 2)(y_range)
-            else if (any(y_trans == "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = exp(1))(y_range)
-            else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+            if (flipped | !rlang::is_null(y_expand)) {
+              if (y_time) y_breaks <- scales::hms_trans()
+              else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)
+              else if (any(y_trans == "log2")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 2)
+              else if (any(y_trans == "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = exp(1))
+              else y_breaks <- scales::breaks_pretty(n = y_breaks_n)
+            }
+            else if (!flipped) {
+              if (y_time) y_breaks <- scales::hms_trans()$breaks(y_range)
+              else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_range)
+              else if (any(y_trans == "log2")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 2)(y_range)
+              else if (any(y_trans == "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = exp(1))(y_range)
+              else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+            }
 
             if (flipped) y_limits <- y_range
             else if (any(!y_trans %in% c("identity", "reverse"))) y_limits <- y_range
+            else if (!rlang::is_null(y_expand)) y_limits <- y_breaks(y_range)[c(1, length(y_breaks(y_range)))]
             else y_limits <- y_breaks[c(1, length(y_breaks))]
           }
           else if (!(rlang::is_null(y_breaks))) {
@@ -1019,12 +1045,20 @@ gg_smooth <- function(
           if (any(y_trans %in% "reverse")) y_limits <- sort(y_limits, decreasing = TRUE)
 
           if (rlang::is_null(y_breaks)) {
-
-            if (y_time) y_breaks <- scales::hms_trans()$breaks(y_limits)
-            else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
-            else if (any(y_trans == "log2")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 2)(y_limits)
-            else if (any(y_trans == "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = exp(1))(y_limits)
-            else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+            if (flipped | !rlang::is_null(y_expand)) {
+              if (y_time) y_breaks <- scales::hms_trans()
+              else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)
+              else if (any(y_trans == "log2")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 2)
+              else if (any(y_trans == "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = exp(1))
+              else y_breaks <- scales::breaks_pretty(n = y_breaks_n)
+            }
+            else if (!flipped) {
+              if (y_time) y_breaks <- scales::hms_trans()$breaks(y_limits)
+              else if (any(y_trans == "log10")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 10)(y_limits)
+              else if (any(y_trans == "log2")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = 2)(y_limits)
+              else if (any(y_trans == "log")) y_breaks <- scales::breaks_log(n = y_breaks_n, base = exp(1))(y_limits)
+              else y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_limits)
+            }
           }
         }
       }
@@ -1491,4 +1525,3 @@ gg_smooth <- function(
   #return beautiful plot
   return(plot)
 }
-

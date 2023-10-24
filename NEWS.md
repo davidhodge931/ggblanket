@@ -5,6 +5,7 @@
 * Fixed bug where `str_keep_seq` was not working for date, datetime or time class.
 * Fixed bug so that time class variables work.
 * Improved default positional breaks.
+* Ensured positional breaks take expand into account.
 * Updated `gg_qq`, so it includes a `geom_qq_line` layer, has nicer `x_title`, `y_title` and `coord` defaults. 
 * Added more positional scale arguments to `gg_sf` (i.e. `*_limits`, `*_expand`, `*_breaks`, and `*_labels`).
 
