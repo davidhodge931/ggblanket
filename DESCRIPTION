@@ -29,7 +29,7 @@ Imports:
     stringr,
     tidyr,
     tidyselect,
-    viridis
+    viridisLite
 Suggests: 
     bench, 
     hexbin,
@@ -41,7 +41,8 @@ Suggests:
     sf,
     stars,
     stats,
-    tibble
+    tibble,
+    viridis 
 Config/Needs/website: 
     concaveman,
     corrr,

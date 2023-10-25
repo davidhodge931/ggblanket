@@ -702,7 +702,7 @@ gg_bar <- function(
 
         if (rlang::is_null(x_breaks)) {
           if (facet_null & facet2_null) {
-            x_breaks_n <- 6 #7
+            x_breaks_n <- 7
           }
           else if (facet_layout == "wrap") {
             if (!facet_null & !facet2_null) {
@@ -969,7 +969,7 @@ gg_bar <- function(
 
         if (rlang::is_null(y_breaks)) {
           if (facet_null & facet2_null) {
-            y_breaks_n <- 6 #7
+            y_breaks_n <- 7
           }
           else if (facet_layout == "wrap") {
             if (!facet_null & !facet2_null) {
@@ -1215,7 +1215,7 @@ gg_bar <- function(
         }
       }
       if (rlang::is_null(pal)) {
-        if (stat %in% c("contour_filled", "density2d_filled", "density_2d_filled")) pal <- viridis::viridis(col_n)
+        if (stat %in% c("contour_filled", "density2d_filled", "density_2d_filled")) pal <- viridisLite::mako(n = col_n, direction = -1)
         else if (col_n > length(pal_discrete)) pal <- scales::hue_pal()(col_n)
         else pal <- pal_discrete[1:col_n]
       }
@@ -1289,7 +1289,7 @@ gg_bar <- function(
         else col_breaks <- scales::breaks_pretty(n = 5)
       }
 
-      if (rlang::is_null(pal)) pal <- viridis::viridis(10)
+      if (rlang::is_null(pal)) pal <- viridisLite::mako(n = 10, direction = -1)
 
       if (rlang::is_null(col_labels)) {
         if (col_numeric | col_null) {
