@@ -324,6 +324,9 @@ gg_point <- function(
     else if (!col_null) col_scale <- TRUE
   }
 
+  x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
+  y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
+
   ##############################################################################
   #Unique code: part 2
   ##############################################################################
@@ -458,7 +461,8 @@ gg_point <- function(
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet),
-          scales = facet_scales, drop = FALSE,
+          scales = facet_scales,
+          drop = FALSE,
           nrow = facet_nrow,
           ncol = facet_ncol,
           labeller = ggplot2::as_labeller(facet_labels)
@@ -468,7 +472,8 @@ gg_point <- function(
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet2),
-          scales = facet_scales, drop = FALSE,
+          scales = facet_scales,
+          drop = FALSE,
           nrow = facet_nrow,
           ncol = facet_ncol,
           labeller = ggplot2::as_labeller(facet_labels)
@@ -478,7 +483,8 @@ gg_point <- function(
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet, !!facet2),
-          scales = facet_scales, drop = FALSE,
+          scales = facet_scales,
+          drop = FALSE,
           nrow = facet_nrow,
           ncol = facet_ncol,
           labeller = ggplot2::as_labeller(facet_labels)
@@ -491,8 +497,9 @@ gg_point <- function(
         ggplot2::facet_grid(switch = facet_switch,
                             rows = ggplot2::vars(!!facet2),
                             cols = ggplot2::vars(!!facet),
-                            scales = facet_scales, drop = FALSE,
+                            scales = facet_scales,
                             space = facet_space,
+                            drop = FALSE,
                             labeller = ggplot2::as_labeller(facet_labels)
         )
     }
@@ -500,8 +507,9 @@ gg_point <- function(
       plot <- plot +
         ggplot2::facet_grid(switch = facet_switch,
                             cols = ggplot2::vars(!!facet),
-                            scales = facet_scales, drop = FALSE,
+                            scales = facet_scales,
                             space = facet_space,
+                            drop = FALSE,
                             labeller = ggplot2::as_labeller(facet_labels)
         )
     }
@@ -509,8 +517,9 @@ gg_point <- function(
       plot <- plot +
         ggplot2::facet_grid(switch = facet_switch,
                             rows = ggplot2::vars(!!facet2),
-                            scales = facet_scales, drop = FALSE,
+                            scales = facet_scales,
                             space = facet_space,
+                            drop = FALSE,
                             labeller = ggplot2::as_labeller(facet_labels)
         )
     }
@@ -557,10 +566,10 @@ gg_point <- function(
     else if (x_forcat) {
       if (any(x_trans %in% "reverse") & !rlang::is_null(x_limits)) {
         plot <- plot +
-          ggplot2::scale_x_discrete(limits = x_limits[c(2, 1)], drop = FALSE)
+          ggplot2::scale_x_discrete(limits = x_limits[c(2, 1)], drop = x_drop)
       } else {
         plot <- plot +
-          ggplot2::scale_x_discrete(limits = x_limits, drop = FALSE)
+          ggplot2::scale_x_discrete(limits = x_limits, drop = x_drop)
       }
     }
 
@@ -608,10 +617,10 @@ gg_point <- function(
     else if (y_forcat) {
       if (any(y_trans %in% "reverse") & !rlang::is_null(y_limits)) {
         plot <- plot +
-          ggplot2::scale_y_discrete(limits = y_limits[c(2, 1)], drop = FALSE)
+          ggplot2::scale_y_discrete(limits = y_limits[c(2, 1)], drop = y_drop)
       } else {
         plot <- plot +
-          ggplot2::scale_y_discrete(limits = y_limits, drop = FALSE)
+          ggplot2::scale_y_discrete(limits = y_limits, drop = y_drop)
       }
       if (!rlang::is_null(y_include)) {
         plot <- plot +
@@ -649,7 +658,7 @@ gg_point <- function(
             labels = x_labels,
             breaks = x_breaks,
             limits = x_limits,
-            drop = FALSE
+            drop = x_drop
           )
       })
     }
@@ -916,7 +925,7 @@ gg_point <- function(
             expand = y_expand,
             labels = y_labels,
             breaks = y_breaks,
-            drop = FALSE
+            drop = y_drop
           )
       })
     }
@@ -1190,8 +1199,8 @@ gg_point <- function(
 
   #make col scale
   if (col_scale) {
-    if (any(dplyr::pull(plot_data, group) < 0)) col_discrete <- FALSE
-    else if (is.factor(dplyr::pull(plot_data, group))) col_discrete <- TRUE
+    if (is.factor(dplyr::pull(plot_data, group))) col_discrete <- TRUE
+    else if (any(dplyr::pull(plot_data, group) < 0)) col_discrete <- FALSE
     else if (any(dplyr::pull(plot_data, group) > 0)) col_discrete <- TRUE
 
     if (!col_null) {
@@ -1208,8 +1217,13 @@ gg_point <- function(
     }
 
     if (rlang::is_null(col_legend_place)) {
-      if (col_discrete) col_legend_place <- "bottom"
-      else col_legend_place <- "right"
+      if (is.factor(dplyr::pull(plot_data, group))) col_legend_place <- "right"
+      else if (any(dplyr::pull(plot_data, group) < 0)) col_legend_place <- "right"
+      else if (any(dplyr::pull(plot_data, group) > 0)) col_legend_place <- "bottom"
+
+      # if (stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density_2d_filled")) col_legend_place <- "right"
+      # else if (col_discrete) col_legend_place <- "bottom"
+      # else col_legend_place <- "right"
     }
 
     if (col_legend_place == "b") col_legend_place <- "bottom"
@@ -1226,8 +1240,8 @@ gg_point <- function(
       }
 
       if (rlang::is_null(pal)) {
-        if (col_null) pal <- viridisLite::mako(n = col_n, direction = -1)
-        else if (col_n > length(pal_discrete)) pal <- scales::hue_pal()(col_n)
+        if (col_null) pal <- viridisLite::mako(n = col_n)
+        else if (col_n > 5) pal <- scales::hue_pal()(col_n)
         else pal <- pal_discrete[1:col_n]
       }
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
@@ -1301,7 +1315,7 @@ gg_point <- function(
         else col_breaks <- scales::breaks_pretty(n = 5)
       }
 
-      if (rlang::is_null(pal)) pal <- viridisLite::mako(n = 10, direction = -1)
+      if (rlang::is_null(pal)) pal <- viridisLite::mako(n = 10)
 
       if (rlang::is_null(col_labels)) {
         if (col_numeric | col_null) {
