@@ -73,7 +73,7 @@
 #'   gg_bin_2d(
 #'     x = carat,
 #'     y = price,
-#'     pal = viridisLite::cviridis(9)
+#'     pal = viridis::viridis(9)
 #'   )
 #'
 gg_bin_2d <- function(
@@ -1251,7 +1251,7 @@ gg_bin_2d <- function(
         col_n <- length(col_unique[!rlang::is_na(col_unique)])
       }
       else if (stat %in% c("contour_filled", "density_2d_filled")) {
-        col_n <- length(unique(dplyr::pull(plot_data, "fill")))
+        col_n <- length(levels(dplyr::pull(plot_data, "level")))
       }
 
       if (rlang::is_null(pal)) {

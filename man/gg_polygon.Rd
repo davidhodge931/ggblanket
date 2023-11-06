@@ -236,7 +236,7 @@ datapoly |>
     y = y,
     col = value,
     group = id,
-    pal = viridisLite::cviridis(9)
+    pal = viridis::magma(9, direction = -1)
   )
 
 }

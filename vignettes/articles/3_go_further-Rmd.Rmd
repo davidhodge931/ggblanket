@@ -62,7 +62,6 @@ penguins2 |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    pal = c("#2596be", "#fc7c24"),
     theme = light_mode(
       base_size = 11,
       base_family = "grace", 
@@ -79,7 +78,7 @@ As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, 
 sf::st_read(system.file("shape/nc.shp", package = "sf"), 
                   quiet = TRUE) |>
   gg_sf(col = AREA,
-        pal = RColorBrewer::brewer.pal(9, "Blues")) +
+        pal = viridis::viridis(9)) +
   ggeasy::easy_remove_axes()
 ```
 
@@ -244,7 +243,6 @@ p3 <- penguins2 |>
     col = sex,
     stat = "summary", 
     position = "dodge",
-    pal = c("#2596be", "#fc7c24"), 
     width = 0.75,
     col_legend_place = "r")
 
@@ -328,7 +326,6 @@ d |>
     x = x, 
     y = y,
     col = r,
-    # pal = RColorBrewer::brewer.pal(9, "RdBu"),
     pal_na = "#e6ecf2",
     col_limits = c(-1, 1),
     col_rescale = scales::rescale(c(-1, 0, 1)),

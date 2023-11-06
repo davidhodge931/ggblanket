@@ -1319,7 +1319,7 @@ gg_crossbar <- function(
         col_n <- length(col_unique[!rlang::is_na(col_unique)])
       }
       else if (stat %in% c("contour_filled", "density_2d_filled")) {
-        col_n <- length(unique(dplyr::pull(plot_data, "fill")))
+        col_n <- length(levels(dplyr::pull(plot_data, "level")))
       }
 
       if (rlang::is_null(pal)) {

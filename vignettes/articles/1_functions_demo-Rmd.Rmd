@@ -261,7 +261,7 @@ bind_rows(
     label = model,
     size = 3.53,
     y_include = 0,
-    pal = RColorBrewer::brewer.pal(9, "RdBu"),
+    pal = c("firebrick", "white", "steelblue"),
     y_title = "Miles per gallon")
 ```
 
@@ -484,7 +484,7 @@ bind_rows(
     label = model,
     size = 3.53,
     y_include = 0,
-    pal = RColorBrewer::brewer.pal(9, "RdBu"),
+    pal = c("firebrick", "white", "steelblue"),
     y_title = "Miles per gallon")
 ```
 

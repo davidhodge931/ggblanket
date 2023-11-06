@@ -214,8 +214,7 @@ ggplot2::faithfuld |>
   gg_raster(
     x = waiting,
     y = eruptions,
-    col = density,
-    pal = viridisLite::cviridis(9)
+    col = density
   )
 
 }

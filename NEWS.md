@@ -1,10 +1,12 @@
 # ggblanket 5.1.0900
 
+* Updated colours: `"steelblue"` where no col aesthetic, `jumble` where discrete and less than 5 colours, scales:hue_pal otherwise, `viridis::mako` reversed for continuous, and `"grey"` for NA.  
+* Breaking: removed all `pal_*` functions.
 * Removed some unnecessary messages.
-* Changed default continuous `pal` to `viridisLite::mako`.
 * Fixed bug where `col_breaks` was not working for a numeric `col`.
 * Fixed bug where `str_keep_seq` was not working for date, datetime or time class.
 * Fixed bug so that time class variables work.
+* Fixed bug for `gg_contour_filled` and `gg_density_filled` with default number of colours.
 * Improved default positional breaks.
 * Ensured positional breaks take expand into account.
 * Updated `gg_qq`, so it includes a `geom_qq_line` layer, has nicer `x_title`, `y_title` and `coord` defaults. 

@@ -65,7 +65,7 @@
 #'   sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
 #'     gg_sf(
 #'       col = AREA,
-#'       pal = viridisLite::cviridis(9))
+#'       pal = viridis::rocket(9, direction = -1))
 #' }
 #'
 gg_sf <- function(
@@ -1134,7 +1134,7 @@ gg_sf <- function(
         col_n <- length(col_unique[!rlang::is_na(col_unique)])
       }
       else if (stat %in% c("contour_filled", "density_2d_filled")) {
-        col_n <- length(unique(dplyr::pull(plot_data, "fill")))
+        col_n <- length(levels(dplyr::pull(plot_data, "level")))
       }
 
       if (rlang::is_null(pal)) {

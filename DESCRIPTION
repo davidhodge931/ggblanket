@@ -31,7 +31,7 @@ Imports:
     tidyselect,
     viridisLite
 Suggests: 
-    bench, 
+    bench,
     hexbin,
     knitr,
     palmerpenguins,
@@ -40,7 +40,8 @@ Suggests:
     sf,
     stars,
     stats,
-    tibble
+    tibble,
+    viridis
 Config/Needs/website: 
     concaveman,
     corrr,

@@ -59,7 +59,8 @@ penguins2 |>
 diamonds |>
   gg_bin_2d(
     x = carat,
-    y = price)
+    y = price, 
+    pal = viridis::mako(9))
 ```
 
 ### gg_blank
@@ -119,7 +120,8 @@ ggplot2::faithfuld |>
    x = waiting,
    y = eruptions,
    z = density,
-   bins = 8)
+   bins = 8,
+   pal = viridis::mako(9))
 ```
 
 ### gg_crossbar
@@ -169,7 +171,8 @@ faithful |>
   gg_density_2d_filled(
     x = waiting,
     y = eruptions,
-    bins = 8)
+    bins = 8,
+    pal = viridis::mako(9))
 ```
 
 ### gg_errorbar
@@ -210,7 +213,8 @@ diamonds |>
     x = carat,
     y = price,
     y_limits = c(0, 20000),
-    coord = ggplot2::coord_cartesian(clip = "on"))
+    coord = ggplot2::coord_cartesian(clip = "on"),
+    pal = viridis::mako(9))
 ```
 
 ### gg_histogram
@@ -263,7 +267,7 @@ bind_rows(
     label = model,
     size = 3.53,
     y_include = 0,
-    pal = RColorBrewer::brewer.pal(9, "RdBu"),
+    pal = c("firebrick", "white", "steelblue"),
     y_title = "Miles per gallon")
 ```
 
@@ -387,7 +391,8 @@ faithfuld |>
   gg_raster(
     x = waiting,
     y = eruptions,
-    col = density)
+    col = density,
+    pal = viridis::mako(9))
 ```
 
 ### gg_rect
@@ -486,7 +491,7 @@ bind_rows(
     label = model,
     size = 3.53,
     y_include = 0,
-    pal = RColorBrewer::brewer.pal(9, "RdBu"),
+    pal = c("firebrick", "white", "steelblue"),
     y_title = "Miles per gallon")
 ```
 

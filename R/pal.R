@@ -1,18 +1,16 @@
 #' Colour blind safe categorical palette with 5 colours
 #'
-#' @description A default colour blind safe 5 colour palette used to colour a categorical col variable.
+#' @description A default colour blind safe 5 colour palette used to colour a categorical variable.
 #'
 #' @param n The number of colours to return. Defaults to the maximum of 5.
 #'
 #' @return A character vector of hex codes.
 #'
 #' @export
-#'
-#' @references Derived from a Datawrapper blog dated 30/03/2022 by Lisa Charlotte Muth.
 jumble <- function(n = 5) {
-  if (n > 6) rlang::abort("jumble provides a maximum of 6 colours")
+  if (n > 5) rlang::abort("jumble provides a maximum of 5 colours")
   else {
-    c("#2596be", "#fc7c24", "#125162", "#b82e2e", "#009e73")[1:n]
+    c("#2596be", "#fc7c24", "#125162", "#b82e2e", "#ecdd13")[1:n]
   }
 }
 

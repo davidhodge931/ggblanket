@@ -76,14 +76,28 @@ penguins2 |>
  
 The ggblend package provides blending of colours. Note you must use a graphics device that supports blending.
  
-```{r}
-penguins2 |>
+```{r, fig.asp=0.6}
+p1 <- penguins2 |>
+  gg_density(
+    x = flipper_length_mm,
+    col = species,
+    pal = RColorBrewer::brewer.pal(9, "Set1"),
+    col_legend_nrow = 2,
+    title = "Normal",
+    theme = light_mode(title_face = "plain")) 
+
+p2 <- penguins2 |>
   gg_blank(
     x = flipper_length_mm,
     col = species,
     pal = RColorBrewer::brewer.pal(9, "Set1"),
-    stat = "density") +
+    col_legend_nrow = 2,
+    stat = "density",
+    title = "Blend", 
+    theme = light_mode(title_face = "plain")) +
   geom_density(alpha = 0.5) |> ggblend::blend("multiply")
+
+p1 + p2
 ```
 
 #### ggbump
@@ -197,7 +211,6 @@ penguins2 |>
     x = species, 
     y = body_mass_g, 
     col = sex, 
-    pal = c("#2596be", "#fc7c24"),
     col_legend_place = "t",
     col_title = "") +
   ggeasy::easy_remove_axes(which = "y", 
@@ -279,15 +292,14 @@ The ggnewscale package enables multiple colour scales.
 penguins2 |> 
   gg_blank(x = flipper_length_mm, 
            y = body_mass_g) + 
-  geom_point(aes(x = flipper_length_mm, y = body_mass_g, colour = bill_length_mm), 
-             data = penguins2 |> filter(species == "Gentoo")) +
-  scale_color_viridis_c(option = "A", direction = -1) +  
+  geom_point(aes(colour = bill_length_mm), data = penguins2 |> filter(species == "Gentoo")) +
+  scale_color_viridis_c(option = "G", direction = -1) +
   labs(colour = "Gentoo\nBill length (mm)") +
   ggnewscale::new_scale_colour() +
   geom_point(aes(x = flipper_length_mm, y = body_mass_g, colour = species), 
              data = penguins2 |> filter(species != "Gentoo")) +
-  scale_color_manual(values = jumble()[c(1, 3)]) +
-  labs(colour = "Species") 
+  scale_color_manual(values = jumble()[c(2,4)]) +
+  labs(colour = "Species")
 ```
 
 #### ggpattern
@@ -304,7 +316,6 @@ penguins2 |>
            y = species,
            col = sex,
            position = "dodge",
-           pal = c("#2596be", "#fc7c24"),
            x_include = 0) +
   geom_col_pattern(aes(pattern = sex), 
                    position = "dodge",
@@ -392,9 +403,9 @@ penguins2 |>
     y_title = "**Bill depth** (mm)",
     col_title = "**Species**",
     title = "***Pygoscelis*** **penguin** bill lengths and depths",
-    subtitle = "<span style = 'color: #53B0AE ;'>**Adelie**</span>, 
-       <span style = 'color:#A31414;'>**Chinstrap**</span>, 
-       *and* <span style = 'color:#B2C615;'>**Gentoo**</span>", 
+    subtitle = "<span style = 'color: #2596be ;'>**Adelie**</span>, 
+       <span style = 'color:#fc7c24;'>**Chinstrap**</span>, 
+       *and* <span style = 'color:#125162;'>**Gentoo**</span>", 
     x_labels = \(x) glue::glue("_{x}_"),
     y_labels = \(x) glue::glue("_{x}_"),
     col_labels = \(x) glue::glue("_{x}_"),

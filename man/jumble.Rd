@@ -13,8 +13,5 @@ jumble(n = 5)
 A character vector of hex codes.
 }
 \description{
-A default colour blind safe 5 colour palette used to colour a categorical col variable.
-}
-\references{
-Derived from a Datawrapper blog dated 30/03/2022 by Lisa Charlotte Muth.
+A default colour blind safe 5 colour palette used to colour a categorical variable.
 }
