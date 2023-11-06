@@ -37,8 +37,7 @@ economics |>
   gg_area(
     x = date,
     y = unemploy,
-    y_title = "Unemployment",
-    pal = "#1b9e77")
+    y_title = "Unemployment")
 ```
 
 ### gg_bar
@@ -49,8 +48,7 @@ penguins2 |>
     x = sex,
     col = sex,
     facet = species,
-    width = 0.75,
-    pal = c("#2596be", "#fc7c24"))
+    width = 0.75)
 ```
 
 ### gg_bin_2d
@@ -59,8 +57,7 @@ penguins2 |>
 diamonds |>
   gg_bin_2d(
     x = carat,
-    y = price,
-    pal = viridis::cividis(9))
+    y = price)
 ```
 
 ### gg_blank
@@ -72,7 +69,6 @@ penguins2 |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    pal = c("#2596be", "#fc7c24"),
     y_include = 0)
 ```
 
@@ -85,8 +81,7 @@ penguins2 |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    x_labels = snakecase::to_sentence_case,
-    pal = c("#2596be", "#fc7c24"))
+    x_labels = snakecase::to_sentence_case)
 ```
 
 ### gg_col
@@ -100,8 +95,7 @@ penguins2 |>
     y = species,
     col = sex,
     width = 0.75,
-    position = "dodge",
-    pal = c("#2596be", "#fc7c24"))
+    position = "dodge")
 ```
 
 ### gg_contour
@@ -143,8 +137,7 @@ data.frame(
     col = group,
     width = 0.5,
     x_title = "Treatment",
-    y_title = "Response",
-    pal = c("#2596be", "#fc7c24"))
+    y_title = "Response")
 ```
 
 ### gg_density
@@ -154,8 +147,7 @@ penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = sex,
-    facet = species,
-    pal = c("#2596be", "#fc7c24"))
+    facet = species)
 ```
 
 ### gg_density_2d
@@ -194,7 +186,6 @@ data.frame(
     ymax = upper,
     col = group,
     width = 0.1,
-    pal = c("#2596be", "#fc7c24"),
     x_title = "Treatment",
     y_title = "Response")
 ```
@@ -206,8 +197,7 @@ penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
-    facet = species,
-    pal = c("#2596be", "#fc7c24"))
+    facet = species)
 ```
 
 ### gg_hex
@@ -217,7 +207,6 @@ diamonds |>
   gg_hex(
     x = carat,
     y = price,
-    pal = viridis::cividis(9),
     y_limits = c(0, 20000),
     coord = ggplot2::coord_cartesian(clip = "on"))
 ```
@@ -230,8 +219,7 @@ penguins2 |>
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    bins = 50,
-    pal = c("#2596be", "#fc7c24"))
+    bins = 50)
 ```
 
 ### gg_freqpoly
@@ -241,8 +229,7 @@ penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
-    facet = species,
-    pal = c("#2596be", "#fc7c24"))
+    facet = species)
 ```
 
 ### gg_jitter
@@ -286,7 +273,6 @@ economics |>
     x = date,
     y = unemploy,
     y_title = "Unemployment",
-    pal = "#9E361B",
     y_include = 0)
 ```
 
@@ -330,8 +316,7 @@ penguins2 |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    facet = species,
-    pal = c("#2596be", "#fc7c24"))
+    facet = species)
 ```
 
 ### gg_pointrange
@@ -351,7 +336,6 @@ data.frame(
     ymax = upper,
     position = position_dodge(width = 0.2),
     size = 0.2,
-    pal = c("#2596be", "#fc7c24"),
     x_title = "Treatment",
     y_title = "Response")
 ```
@@ -381,8 +365,7 @@ datapoly |>
     x = x,
     y = y,
     col = value,
-    group = id,
-    pal = viridis::cividis(9))
+    group = id)
 ```
 
 ### gg_qq
@@ -392,9 +375,7 @@ penguins2 |>
   gg_qq(
     sample = body_mass_g,
     facet = species,
-    pal = "#1b9e77", 
-    coord = ggplot2::coord_cartesian(clip = "on")) +
-  geom_qq_line(alpha = 0.5)
+    coord = ggplot2::coord_cartesian(clip = "on"))
 ```
 
 ### gg_raster
@@ -404,8 +385,7 @@ faithfuld |>
   gg_raster(
     x = waiting,
     y = eruptions,
-    col = density,
-    pal = viridis::cividis(9))
+    col = density)
 ```
 
 ### gg_rect
@@ -439,9 +419,9 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     x = year,
     ymin = level_min,
     ymax = level_max,
-    pal = scales::alpha("#1b9e77", 0),
+    pal = scales::alpha("steelblue", 0),
     y_title = "Level") +
-  geom_line(aes(x = year, y = level), col = "#1b9e77")
+  geom_line(aes(x = year, y = level), col = "steelblue")
 ```
 
 ### gg_segment
@@ -452,8 +432,7 @@ data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
     x = x1,
     xend = x2,
     y = y1,
-    yend = y2,
-    pal = "#1b9e77")
+    yend = y2)
 ```
 
 ### gg_sf
@@ -464,8 +443,7 @@ if (requireNamespace("sf", quietly = TRUE)) {
   
   nc |>
     gg_sf(
-      col = AREA,
-      pal = viridis::cividis(9))
+      col = AREA)
 }
 ```
 
@@ -487,7 +465,6 @@ economics |>
     x = date,
     y = unemploy,
     y_title = "Unemployment",
-    pal = "#1b9e77",
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_), 
     y_include = 0,
     coord = ggplot2::coord_cartesian(clip = "on"))
@@ -520,8 +497,7 @@ penguins2 |>
   gg_tile(
     x = sex,
     y = species,
-    col = flipper_length_mm,
-    pal = RColorBrewer::brewer.pal(9, "Blues"))
+    col = flipper_length_mm)
 ```
 
 ### gg_violin
@@ -532,6 +508,5 @@ penguins2 |>
     x = sex,
     y = body_mass_g,
     col = sex,
-    facet = species,
-    pal = c("#2596be", "#fc7c24"))
+    facet = species)
 ```

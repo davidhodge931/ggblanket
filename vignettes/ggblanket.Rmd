@@ -118,21 +118,22 @@ p1 / p2
 
 ### 3. A pal argument to customise colours
 
-The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. A named palette can be used to make individual colours stick to particular values. 
+The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. A named palette can be used to make individual colours stick to particular values. ggblanket uses alpha defaults to make outputs look pretty.
 
 ```{r, fig.asp=0.85}
 # ggplot2
 p1 <- penguins2 |>
   ggplot() +
   geom_histogram(aes(x = body_mass_g),
-                 fill = "#1b9e77")
+                 fill = scales::alpha("#0c2052", 0.9), 
+                 colour = "#0c2052")
 
 p2 <- penguins2 |>
   ggplot() +
   geom_jitter(aes(x = species, 
                   y = body_mass_g, 
                   colour = sex)) +
-  scale_colour_manual(values = c("#2596be", "#fc7c24"))
+  scale_colour_manual(values = c("#69c2c0", "#941111"))
 
 p1 / p2
 ```
@@ -142,15 +143,14 @@ p1 / p2
 p1 <- penguins2 |>
   gg_histogram(
     x = body_mass_g, 
-    pal = "#1b9e77")
+    pal = "#0c2052")
 
 p2 <- penguins2 |>
   gg_jitter(
     x = species, 
     y = body_mass_g, 
     col = sex, 
-    pal = c("#2596be", "#fc7c24")
-  )
+    pal = c("#69c2c0", "#941111"))
 
 p1 / p2
 ```
@@ -278,7 +278,9 @@ knitr::include_graphics("autocomplete_y.png", dpi = 300)
 
 ### 8.  Ability to customise the theme
 
-The `ggplot2::theme_set` function can be used to set the theme globally, such that all subsequent plots will use this where the `theme` argument of a plot is left as NULL. Alternatively, users can use the `theme` argument in a `gg_*` function.
+Users can use the `theme` argument in a `gg_*` function for the theme of a plot.
+
+Alternatively, users can set the theme globally using the `ggplot2::theme_set` function, such that all subsequent plots will use this by default. 
 
 ggblanket provides two complete ggplot2 theme functions called `light_mode` (the default) and `dark_mode`. The first argument is the `base_size`. This changes the size of all the text to this, except the title is 10% higher and the caption is 10% lower. In quarto, it is likely that users will want to set the `*_mode` theme to have a larger `base_size` (e.g. `ggplot2::theme_set(light_mode(11))`). 
 
@@ -286,7 +288,8 @@ Note that `theme_set(theme_grey())` resets the set theme for ggplot2 code to the
 
 ```{r, fig.asp=0.75}
 # ggblanket
-theme_set(dark_mode(10))
+
+# theme_set(dark_mode(10))
 
 penguins2 |>
   gg_point(
@@ -295,10 +298,8 @@ penguins2 |>
     col = sex,
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020",
-    pal = c("#2596be", "#fc7c24"))
-
-theme_set(theme_grey()) #reset the ggplot2 and ggblanket theme back
+    caption = "Source: Gorman, 2020", 
+    theme = dark_mode(10))
 ```
 
 Note that the `gg_*` function will by default adjust what gridlines are present and the placement of the legend. Therefore, if you are providing a theme other than `light_mode` or `dark_mode`, ggblanket works well if this theme has both vertical and horizontal gridlines. If users want everything adjusted as per the theme, then they can `+` their theme onto the plot instead.
@@ -310,7 +311,6 @@ p1 <- penguins2 |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    pal = c("#2596be", "#fc7c24"),
     x_breaks = scales::breaks_pretty(n = 3),
     theme = theme_grey(),
     title = "theme= theme_grey()")
@@ -320,7 +320,6 @@ p2 <- penguins2 |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    pal = c("#2596be", "#fc7c24"), 
     x_breaks = scales::breaks_pretty(n = 3),
     title = "+ theme_grey()") +
   theme_grey()
@@ -360,7 +359,7 @@ p1 <- ggplot2::economics |>
   gg_line(
     x = date,
     y = unemploy,
-    pal = pal_discrete[1],
+    pal = jumble()[1],
     x_title = "",
     y_title = "Unemployment",
     y_include = 0,
@@ -368,21 +367,21 @@ p1 <- ggplot2::economics |>
     x_breaks = scales::breaks_width("3 months"),
     title = "gg_line + geom_point", 
     theme = light_mode(title_face = "plain")) +
-  geom_point(colour = pal_discrete[2])
+  geom_point(colour = jumble()[2])
 
 p2 <- ggplot2::economics |>
   slice_min(order_by = date, n = 10) |> 
   gg_point(
     x = date,
     y = unemploy,
-    pal = pal_discrete[2],
+    pal = jumble()[2],
     x_title = "",
     y_title = "Unemployment",
     y_include = 0,
     x_breaks = scales::breaks_width("3 months"),
     title = "gg_point + geom_line", 
     theme = light_mode(title_face = "plain")) +
-  geom_line(colour = pal_discrete[1], linewidth = 1)
+  geom_line(colour = jumble()[1], linewidth = 1)
 
 p1 + p2
 ```
@@ -592,9 +591,9 @@ p1 + p2
 
 ggblanket uses different defaults for colouring. The default `pal` is:
 
-* `ggblanket::pal_blue` for where there is no `col` variable
-* `viridis::viridis` for a continuous `col` variable
-* `ggblanket::pal_discrete` for a discrete `col` variable with 5 or less levels (or unique values if a character). Testing suggests this is safe for colour blindness. 
+* `steelblue` for where there is no `col` variable
+* `viridisLite::mako` for a continuous `col` variable
+* `ggblanket::jumble` for a discrete `col` variable with 5 or less levels (or unique values if a character). Testing suggests this is safe for colour blindness. 
 * `scales::hue_pal` for a discrete `col` variable with more than 5 levels (or unique values if not ordered).
 
 ggblanket uses different `alpha` defaults for the different `gg_*` functions. Polygons that generally have no gap or overlap default to 1: `gg_bin_2d`, `gg_contour_filled`, `gg_density_2d_filled`, `gg_hex` - as well as `gg_sf` for polygons with a `col` aesthetic. Polygons that generally overlap default to 0.5: `gg_density`. Polygons that generally have key lines within them also default to 0.5: `gg_boxplot`, `gg_crossbar`, `gg_ribbon` and `gg_smooth`. `gg_label` defaults to 0.05. `gg_blank` has no alpha argument. Other polygons default to 0.9: `gg_area`, `gg_bar`, `gg_col`, `gg_histogram`, `gg_polygon`, `gg_rect`, `gg_tile` and `gg_violin`. For all other contexts, alpha defaults to 1. 
@@ -616,9 +615,9 @@ p1 <- economics |>
     title = "No x_limits set", 
     theme = light_mode(title_face = "plain")) +
   geom_vline(xintercept = c(lubridate::ymd("1985-01-01", "1995-01-01")),
-             col = pal_blue, 
+             col = "steelblue", 
              linetype = 3) +
-  geom_point(col = pal_blue, alpha = 0.05)
+  geom_point(col = "steelblue", alpha = 0.05)
 
 p2 <- economics |> 
   gg_smooth(
@@ -629,7 +628,7 @@ p2 <- economics |>
     y_labels = \(x) str_keep_seq(x),
     title = "x_limits set", 
     theme = light_mode(title_face = "plain")) +
-  geom_point(col = pal_blue, alpha = 0.1)
+  geom_point(col = "steelblue", alpha = 0.1)
 
 p3 <- economics |> 
   gg_smooth(
@@ -641,7 +640,7 @@ p3 <- economics |>
     coord = coord_cartesian(clip = "on"), 
     title = "x_limits set & cartesian space clipped", 
     theme = light_mode(title_face = "plain")) +
-  geom_point(col = pal_blue, alpha = 0.1)
+  geom_point(col = "steelblue", alpha = 0.1)
 
 p4 <- economics |> 
   gg_smooth(
@@ -653,7 +652,7 @@ p4 <- economics |>
     y_labels = \(x) str_keep_seq(x),
     title = "x_limits set & x_oob censored", 
     theme = light_mode(title_face = "plain")) +
-  geom_point(col = pal_blue, alpha = 0.1)
+  geom_point(col = "steelblue", alpha = 0.1)
 
 p5 <- economics |> 
   filter(between(date, lubridate::ymd("1985-01-01"), lubridate::ymd("1995-01-01"))) |> 
@@ -664,7 +663,7 @@ p5 <- economics |>
     y_labels = \(x) str_keep_seq(x),
     title = "x data filtered", 
     theme = light_mode(title_face = "plain")) +
-  geom_point(col = pal_blue, alpha = 0.1)
+  geom_point(col = "steelblue", alpha = 0.1)
 
 p1 / (p2 + p3) / (p4 + p5) 
 ```

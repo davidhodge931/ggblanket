@@ -18,7 +18,7 @@ gg_density_2d(
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
-  pal_na = pal_grey,
+  pal_na = "#bebebe",
   alpha = 1,
   ...,
   title = NULL,

@@ -48,8 +48,7 @@ penguins |>
   gg_histogram(
     x = flipper_length_mm,
     col = sex,
-    facet = species, 
-    pal = c("#2596be", "#fc7c24"))
+    facet = species)
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" />

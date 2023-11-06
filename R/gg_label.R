@@ -51,6 +51,7 @@
 #' @param col_limits A vector to determine the limits of the colour scale.
 #' @param col_oob For a continuous col variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
 #' @param col_rescale For a continuous col variable, a scales::rescale function.
+#' @param col_scale TRUE or FALSE of whether to add a col scale or not.
 #' @param col_title Legend title string. Use "" for no title.
 #' @param col_trans For a numeric col variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
@@ -103,7 +104,7 @@ gg_label <- function(
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
-    pal_na = pal_grey,
+    pal_na = "#bebebe",
     alpha = 0.05,
     ...,
     title = NULL,
@@ -139,6 +140,7 @@ gg_label <- function(
     col_limits = NULL,
     col_oob = scales::oob_keep,
     col_rescale = scales::rescale(),
+    col_scale = NULL,
     col_title = NULL,
     col_trans = "identity",
     facet_labels = NULL,
@@ -320,6 +322,19 @@ gg_label <- function(
     facet2_n <- 0
   }
 
+  if (rlang::is_null(col_scale)) {
+    if (stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density_2d_filled")) {
+      col_scale <- TRUE
+    }
+    else if (col_null) {
+      col_scale <- FALSE
+    }
+    else if (!col_null) col_scale <- TRUE
+  }
+
+  x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
+  y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
+
   ##############################################################################
   #Unique code: part 2
   ##############################################################################
@@ -414,8 +429,8 @@ gg_label <- function(
     }
   }
 
-  if (col_null & !stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
-    if (rlang::is_null(pal)) pal <-  pal_blue
+  if (!col_scale) {
+    if (rlang::is_null(pal)) pal <- "#4682b4"
     else pal <- as.vector(pal[1])
 
     plot <- plot +
@@ -462,7 +477,8 @@ gg_label <- function(
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet),
-          scales = facet_scales, drop = FALSE,
+          scales = facet_scales,
+          drop = FALSE,
           nrow = facet_nrow,
           ncol = facet_ncol,
           labeller = ggplot2::as_labeller(facet_labels)
@@ -472,7 +488,8 @@ gg_label <- function(
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet2),
-          scales = facet_scales, drop = FALSE,
+          scales = facet_scales,
+          drop = FALSE,
           nrow = facet_nrow,
           ncol = facet_ncol,
           labeller = ggplot2::as_labeller(facet_labels)
@@ -482,7 +499,8 @@ gg_label <- function(
       plot <- plot +
         ggplot2::facet_wrap(
           facets = ggplot2::vars(!!facet, !!facet2),
-          scales = facet_scales, drop = FALSE,
+          scales = facet_scales,
+          drop = FALSE,
           nrow = facet_nrow,
           ncol = facet_ncol,
           labeller = ggplot2::as_labeller(facet_labels)
@@ -495,8 +513,9 @@ gg_label <- function(
         ggplot2::facet_grid(switch = facet_switch,
                             rows = ggplot2::vars(!!facet2),
                             cols = ggplot2::vars(!!facet),
-                            scales = facet_scales, drop = FALSE,
+                            scales = facet_scales,
                             space = facet_space,
+                            drop = FALSE,
                             labeller = ggplot2::as_labeller(facet_labels)
         )
     }
@@ -504,8 +523,9 @@ gg_label <- function(
       plot <- plot +
         ggplot2::facet_grid(switch = facet_switch,
                             cols = ggplot2::vars(!!facet),
-                            scales = facet_scales, drop = FALSE,
+                            scales = facet_scales,
                             space = facet_space,
+                            drop = FALSE,
                             labeller = ggplot2::as_labeller(facet_labels)
         )
     }
@@ -513,8 +533,9 @@ gg_label <- function(
       plot <- plot +
         ggplot2::facet_grid(switch = facet_switch,
                             rows = ggplot2::vars(!!facet2),
-                            scales = facet_scales, drop = FALSE,
+                            scales = facet_scales,
                             space = facet_space,
+                            drop = FALSE,
                             labeller = ggplot2::as_labeller(facet_labels)
         )
     }
@@ -561,10 +582,10 @@ gg_label <- function(
     else if (x_forcat) {
       if (any(x_trans %in% "reverse") & !rlang::is_null(x_limits)) {
         plot <- plot +
-          ggplot2::scale_x_discrete(limits = x_limits[c(2, 1)], drop = FALSE)
+          ggplot2::scale_x_discrete(limits = x_limits[c(2, 1)], drop = x_drop)
       } else {
         plot <- plot +
-          ggplot2::scale_x_discrete(limits = x_limits, drop = FALSE)
+          ggplot2::scale_x_discrete(limits = x_limits, drop = x_drop)
       }
     }
 
@@ -612,10 +633,10 @@ gg_label <- function(
     else if (y_forcat) {
       if (any(y_trans %in% "reverse") & !rlang::is_null(y_limits)) {
         plot <- plot +
-          ggplot2::scale_y_discrete(limits = y_limits[c(2, 1)], drop = FALSE)
+          ggplot2::scale_y_discrete(limits = y_limits[c(2, 1)], drop = y_drop)
       } else {
         plot <- plot +
-          ggplot2::scale_y_discrete(limits = y_limits, drop = FALSE)
+          ggplot2::scale_y_discrete(limits = y_limits, drop = y_drop)
       }
       if (!rlang::is_null(y_include)) {
         plot <- plot +
@@ -653,7 +674,7 @@ gg_label <- function(
             labels = x_labels,
             breaks = x_breaks,
             limits = x_limits,
-            drop = FALSE
+            drop = x_drop
           )
       })
     }
@@ -920,7 +941,7 @@ gg_label <- function(
             expand = y_expand,
             labels = y_labels,
             breaks = y_breaks,
-            drop = FALSE
+            drop = y_drop
           )
       })
     }
@@ -1193,25 +1214,23 @@ gg_label <- function(
   }
 
   #make col scale
-  if (!col_null | stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
-    if (stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density2d_filled", "density_2d_filled")) {
+  if (col_scale) {
+    if (!col_null) {
+      col_vctr <- data %>%
+        dplyr::pull(!!col)
+    }
+    else if (col_null) {
       if (!rlang::is_null(plot_build$plot$labels$fill)) {
         col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))
       }
       else if (!rlang::is_null(plot_build$plot$labels$colour)) {
         col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))
       }
-
-    }
-    else if (!col_null) {
-      col_vctr <- data %>%
-        dplyr::pull(!!col)
     }
 
     if (rlang::is_null(col_legend_place)) {
-      if (col_numeric | col_date | col_datetime | col_time) col_legend_place <- "right"
-      else if (stat %in% c("bin2d", "binhex", "density2d_filled", "density_2d_filled", "contour_filled")) col_legend_place <- "right"
-      else col_legend_place <- "bottom"
+      if (col_forcat) col_legend_place <- "bottom"
+      else col_legend_place <- "right"
     }
 
     if (col_legend_place == "b") col_legend_place <- "bottom"
@@ -1220,24 +1239,25 @@ gg_label <- function(
     if (col_legend_place == "r") col_legend_place <- "right"
     if (col_legend_place == "n") col_legend_place <- "none"
 
-    if (col_forcat | stat %in% c("contour_filled", "density2d_filled", "density_2d_filled")) {
-      if (!rlang::is_null(col_limits)) col_n <- length(col_limits)
-      else if (!rlang::is_null(col_breaks)) col_n <- length(col_breaks)
-      else {
-        if (col_factor) col_n <- length(levels(col_vctr))
-        else {
-          col_unique <- unique(col_vctr)
-          col_n <- length(col_unique[!rlang::is_na(col_unique)])
-        }
+    if (col_forcat | stat %in% c("contour_filled", "density_2d_filled")) { #discrete
+      if (col_factor) col_n <- length(levels(col_vctr))
+      else if (col_character) {
+        col_unique <- unique(col_vctr)
+        col_n <- length(col_unique[!rlang::is_na(col_unique)])
       }
+      else if (stat %in% c("contour_filled", "density_2d_filled")) {
+        col_n <- length(unique(dplyr::pull(plot_data, "fill")))
+      }
+
       if (rlang::is_null(pal)) {
-        if (stat %in% c("contour_filled", "density2d_filled", "density_2d_filled")) pal <- viridisLite::mako(n = col_n, direction = -1)
-        else if (col_n > length(pal_discrete)) pal <- scales::hue_pal()(col_n)
-        else pal <- pal_discrete[1:col_n]
+        if (stat %in% c("contour_filled", "density_2d_filled")) pal <- viridisLite::viridis(n = col_n)
+        else if (col_n > 5) pal <- scales::hue_pal()(col_n)
+        else pal <- jumble(n = col_n)
       }
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
 
-      if (y_numeric | y_date | y_datetime | y_time) {
+      if (col_null & col_scale) col_legend_rev_auto <- TRUE
+      else if (y_numeric | y_date | y_datetime | y_time) {
         if (col_forcat) col_legend_rev_auto <- FALSE
         else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- FALSE
         else col_legend_rev_auto <- TRUE
@@ -1288,7 +1308,7 @@ gg_label <- function(
             byrow = TRUE
           )
         )
-    }
+    } #discrete
     else {
       if (rlang::is_null(col_trans)) {
         if (col_date) col_trans <- "date"
@@ -1305,7 +1325,7 @@ gg_label <- function(
         else col_breaks <- scales::breaks_pretty(n = 5)
       }
 
-      if (rlang::is_null(pal)) pal <- viridisLite::mako(n = 10, direction = -1)
+      if (rlang::is_null(pal)) pal <- viridisLite::viridis(n = 10)
 
       if (rlang::is_null(col_labels)) {
         if (col_numeric | col_null) {
@@ -1347,14 +1367,14 @@ gg_label <- function(
               title.position = "top",
               draw.ulim = TRUE,
               draw.llim = TRUE,
-              ticks.colour = "#F1F3F5",
+              ticks.colour = "#fcfdfe",
               reverse = col_legend_rev
             ),
             fill = ggplot2::guide_colourbar(
               title.position = "top",
               draw.ulim = TRUE,
               draw.llim = TRUE,
-              ticks.colour = "#F1F3F5",
+              ticks.colour = "#fcfdfe",
               reverse = col_legend_rev
             )
           )
@@ -1489,7 +1509,7 @@ gg_label <- function(
         ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5))) +
         ggplot2::theme(legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 5)))
 
-      if (col_numeric | stat %in% c("bin2d", "bin_2d", "binhex")) {
+      if (col_numeric) {
         plot <- plot +
           ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
           ggplot2::theme(legend.text.align = 0.5)
@@ -1543,3 +1563,4 @@ gg_label <- function(
   #return beautiful plot
   return(plot)
 }
+

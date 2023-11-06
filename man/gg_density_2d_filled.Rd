@@ -17,7 +17,7 @@ gg_density_2d_filled(
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
-  pal_na = pal_grey,
+  pal_na = "#bebebe",
   alpha = 1,
   ...,
   title = NULL,
@@ -47,6 +47,7 @@ gg_density_2d_filled(
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
+  col_scale = NULL,
   col_title = NULL,
   facet_labels = NULL,
   facet_ncol = NULL,
@@ -147,6 +148,8 @@ gg_density_2d_filled(
 \item{col_legend_nrow}{The number of rows for the legend elements.}
 
 \item{col_legend_rev}{Reverse the elements of the legend. Defaults to FALSE.}
+
+\item{col_scale}{TRUE or FALSE of whether to add a col scale or not.}
 
 \item{col_title}{Legend title string. Use "" for no title.}
 

@@ -20,7 +20,7 @@ gg_segment(
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
-  pal_na = pal_grey,
+  pal_na = "#bebebe",
   alpha = 1,
   ...,
   title = NULL,
@@ -56,6 +56,7 @@ gg_segment(
   col_limits = NULL,
   col_oob = scales::oob_keep,
   col_rescale = scales::rescale(),
+  col_scale = NULL,
   col_title = NULL,
   col_trans = "identity",
   facet_labels = NULL,
@@ -175,6 +176,8 @@ gg_segment(
 \item{col_oob}{For a continuous col variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.}
 
 \item{col_rescale}{For a continuous col variable, a scales::rescale function.}
+
+\item{col_scale}{TRUE or FALSE of whether to add a col scale or not.}
 
 \item{col_title}{Legend title string. Use "" for no title.}
 
