@@ -202,20 +202,22 @@ points, lines and polygon interiors.</p>
 geom. A user can provide a vector of colours to this argument. It can be
 named or not. It works in a consistent way - regardless of whether a
 <code>col</code> argument is added or not. A named palette can be used
-to make individual colours stick to particular values.</p>
+to make individual colours stick to particular values. ggblanket uses
+alpha defaults to make outputs look pretty.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggplot2</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">)</span>,</span>
-<span>                 fill <span class="op">=</span> <span class="st">"#1b9e77"</span><span class="op">)</span></span>
+<span>                 fill <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"#0c2052"</span>, <span class="fl">0.9</span><span class="op">)</span>, </span>
+<span>                 colour <span class="op">=</span> <span class="st">"#0c2052"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, </span>
 <span>                  y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
 <span>                  colour <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#69c2c0"</span>, <span class="st">"#941111"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">/</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
@@ -224,15 +226,14 @@ to make individual colours stick to particular values.</p>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
-<span>    pal <span class="op">=</span> <span class="st">"#1b9e77"</span><span class="op">)</span></span>
+<span>    pal <span class="op">=</span> <span class="st">"#0c2052"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">species</span>, </span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>, </span>
-<span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#69c2c0"</span>, <span class="st">"#941111"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">/</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
@@ -372,11 +373,11 @@ the arguments they need to adjust.</p>
 <div class="section level3">
 <h3 id="ability-to-customise-the-theme">8. Ability to customise the theme<a class="anchor" aria-label="anchor" href="#ability-to-customise-the-theme"></a>
 </h3>
-<p>The <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set</a></code> function can be used to set the
-theme globally, such that all subsequent plots will use this where the
-<code>theme</code> argument of a plot is left as NULL. Alternatively,
-users can use the <code>theme</code> argument in a <code>gg_*</code>
-function.</p>
+<p>Users can use the <code>theme</code> argument in a <code>gg_*</code>
+function for the theme of a plot.</p>
+<p>Alternatively, users can set the theme globally using the
+<code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set</a></code> function, such that all subsequent plots
+will use this by default.</p>
 <p>ggblanket provides two complete ggplot2 theme functions called
 <code>light_mode</code> (the default) and <code>dark_mode</code>. The
 first argument is the <code>base_size</code>. This changes the size of
@@ -392,7 +393,8 @@ functions to <code><a href="../reference/light_mode.html">light_mode()</a></code
 (e.g. <code>theme_set(theme_grey(11.01))</code>).</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">theme_set</a></span><span class="op">(</span><span class="fu"><a href="../reference/dark_mode.html">dark_mode</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># theme_set(dark_mode(10))</span></span>
 <span></span>
 <span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
@@ -401,12 +403,9 @@ functions to <code><a href="../reference/light_mode.html">light_mode()</a></code
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"Penguins body mass by flipper length"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
-<span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>,</span>
-<span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode.html">dark_mode</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_grey</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co">#reset the ggplot2 and ggblanket theme back</span></span></code></pre></div>
 <p>Note that the <code>gg_*</code> function will by default adjust what
 gridlines are present and the placement of the legend. Therefore, if you
 are providing a theme other than <code>light_mode</code> or
@@ -414,14 +413,13 @@ are providing a theme other than <code>light_mode</code> or
 vertical and horizontal gridlines. If users want everything adjusted as
 per the theme, then they can <code>+</code> their theme onto the plot
 instead.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span>,</span>
 <span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_grey</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"theme= theme_grey()"</span><span class="op">)</span></span>
@@ -431,7 +429,6 @@ instead.</p>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span>, </span>
 <span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"+ theme_grey()"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_grey</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -447,7 +444,7 @@ function within the wrapped <code>ggplot2::geom_*</code> function. This
 means all other arguments in the <code>geom_*</code> function are
 available to users. Common arguments from <code>...</code> to add are
 <code>size</code>, <code>linewidth</code> and <code>width</code>.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket</span></span>
 <span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
@@ -474,14 +471,14 @@ determine the <code>gg_*</code> function with care:</p>
 the bottom layer of the plot. This is because the geoms will plot in
 order.</li>
 </ol>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket + ggplot2</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/economics.html" class="external-link">economics</a></span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">date</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">date</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
-<span>    pal <span class="op">=</span> <span class="va">pal_discrete</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    pal <span class="op">=</span> <span class="fu"><a href="../reference/jumble.html">jumble</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">""</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
 <span>    y_include <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -489,21 +486,21 @@ order.</li>
 <span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_width.html" class="external-link">breaks_width</a></span><span class="op">(</span><span class="st">"3 months"</span><span class="op">)</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"gg_line + geom_point"</span>, </span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">pal_discrete</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="../reference/jumble.html">jumble</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/economics.html" class="external-link">economics</a></span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">date</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">date</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
-<span>    pal <span class="op">=</span> <span class="va">pal_discrete</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>    pal <span class="op">=</span> <span class="fu"><a href="../reference/jumble.html">jumble</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">""</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
 <span>    y_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_width.html" class="external-link">breaks_width</a></span><span class="op">(</span><span class="st">"3 months"</span><span class="op">)</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"gg_point + geom_line"</span>, </span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">pal_discrete</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="../reference/jumble.html">jumble</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-20-1.svg" width="70%"></p>
@@ -522,7 +519,7 @@ the <code>gg_*</code> function based on the <code>data</code>,
 <code>x</code>, <code>y</code>, <code>*_limits</code>,
 <code>*_include</code>, <code>stat</code>, <code>position</code> and
 <code>coord</code> arguments in the <code>gg_*</code> function.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket + ggplot2</span></span>
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -582,7 +579,7 @@ preferable. In these cases, users can revert to the ggplot2 approach by
 using <code>*_limits = c(NA, NA)</code> and
 <code>*_expand = c(0.05, 0.05)</code> (or add
 <code>scale_*_continuous()</code>).</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggplot2</span></span>
 <span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -594,7 +591,7 @@ using <code>*_limits = c(NA, NA)</code> and
 <span>           position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
 <span>           width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-22-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket</span></span>
 <span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -612,7 +609,7 @@ afore-mentioned approach of ggblanket to making pretty scales. An
 alternative approach is to use the <code>str_keep_seq</code> function
 with the <code>*_labels</code> arguments to only keep every 2nd (or nth)
 label.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggblanket</span></span>
 <span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -642,7 +639,7 @@ label.</p>
 need to apply the function to the relevant variable in the data prior to
 plotting. For example, reordering or reversing a factor or dropping
 NAs.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
@@ -706,7 +703,7 @@ NAs.</p>
 <p>ggblanket keeps unused factor levels in the plot. If users wish to
 drop unused levels they should likewise do it in the data prior to
 plotting.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">color</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"E"</span>, <span class="st">"G"</span>, <span class="st">"I"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -740,18 +737,18 @@ plotting.</p>
 <code>pal</code> is:</p>
 <ul>
 <li>
-<code><a href="../reference/pal_blue.html">ggblanket::pal_blue</a></code> for where there is no
-<code>col</code> variable</li>
-<li>
-<code><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis::viridis</a></code> for a continuous <code>col</code>
+<code>steelblue</code> for where there is no <code>col</code>
 variable</li>
 <li>
-<code><a href="../reference/pal_discrete.html">ggblanket::pal_discrete</a></code> for a discrete <code>col</code>
+<code><a href="../reference/jumble.html">ggblanket::jumble</a></code> for a discrete <code>col</code>
 variable with 5 or less levels (or unique values if a character).
 Testing suggests this is safe for colour blindness.</li>
 <li>
 <code><a href="https://scales.r-lib.org/reference/hue_pal.html" class="external-link">scales::hue_pal</a></code> for a discrete <code>col</code>
 variable with more than 5 levels (or unique values if not ordered).</li>
+<li>
+<code><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis::mako</a></code> reversed for a continuous
+<code>col</code> variable</li>
 </ul>
 <p>ggblanket uses different <code>alpha</code> defaults for the
 different <code>gg_*</code> functions. Polygons that generally have no
@@ -783,7 +780,7 @@ clips anything outside the cartesian coordinate space
 (<code>coord = ggplot2::coord_cartesian(clip = "on"</code>)).</p>
 <p>Users should be particularly careful when setting limits for stats
 other than <code>identity</code>.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">date</span>, </span>
@@ -792,9 +789,9 @@ other than <code>identity</code>.</p>
 <span>    title <span class="op">=</span> <span class="st">"No x_limits set"</span>, </span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"1985-01-01"</span>, <span class="st">"1995-01-01"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>             col <span class="op">=</span> <span class="va">pal_blue</span>, </span>
+<span>             col <span class="op">=</span> <span class="st">"steelblue"</span>, </span>
 <span>             linetype <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"steelblue"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
@@ -805,7 +802,7 @@ other than <code>identity</code>.</p>
 <span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"x_limits set"</span>, </span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"steelblue"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
@@ -817,7 +814,7 @@ other than <code>identity</code>.</p>
 <span>    coord <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span>, </span>
 <span>    title <span class="op">=</span> <span class="st">"x_limits set &amp; cartesian space clipped"</span>, </span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"steelblue"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
@@ -829,7 +826,7 @@ other than <code>identity</code>.</p>
 <span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"x_limits set &amp; x_oob censored"</span>, </span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"steelblue"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html" class="external-link">between</a></span><span class="op">(</span><span class="va">date</span>, <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"1985-01-01"</span><span class="op">)</span>, <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"1995-01-01"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -840,7 +837,7 @@ other than <code>identity</code>.</p>
 <span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"x data filtered"</span>, </span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">pal_blue</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"steelblue"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">/</span> <span class="op">(</span><span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p4</span> <span class="op">+</span> <span class="va">p5</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-27-1.svg" width="70%"></p>
@@ -851,7 +848,7 @@ other than <code>identity</code>.</p>
 <p>ggblanket is <em>much</em> slower than ggplot2 in computational
 speed, due to the hack that underlies ggblanket to make its pretty
 continuous scales.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
@@ -861,8 +858,8 @@ continuous scales.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 6</span></span></span>
 <span><span class="co">#&gt;   expression                             min median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;bch&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> { gg_point(penguins2, x = flipper_l… 132ms  134ms      7.46     774KB     7.46</span></span></code></pre></div>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> { gg_point(penguins2, x = flipper_l… 179ms  185ms      5.36     775KB     3.57</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -871,7 +868,7 @@ continuous scales.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 6</span></span></span>
 <span><span class="co">#&gt;   expression                             min median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;bch:&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> { ggplot(penguins2) + geom_point(a… 2.53ms 2.57ms      373.    15.6KB     41.5</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> { ggplot(penguins2) + geom_point(a… 3.62ms 3.82ms      262.    16.3KB        0</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="other-minor-stuff">Other minor stuff<a class="anchor" aria-label="anchor" href="#other-minor-stuff"></a>

@@ -144,7 +144,6 @@ Fonts can be identified on the Google fonts <a href="https://fonts.google.com/" 
 <span>    title <span class="op">=</span> <span class="st">"Penguins body mass by flipper length"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>,</span>
-<span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span>,</span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span></span>
 <span>      base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>      base_family <span class="op">=</span> <span class="st">"grace"</span>, </span>
@@ -164,7 +163,7 @@ data can be visualised.</p>
 <code class="sourceCode R"><span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span>, </span>
 <span>                  quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_sf.html">gg_sf</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">AREA</span>,</span>
-<span>        pal <span class="op">=</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">9</span>, <span class="st">"Blues"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        pal <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggeasy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_axes</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-3-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -207,7 +206,7 @@ or fill of a geom that contains both. A method is to use
 <span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>, </span>
 <span>    col <span class="op">=</span> <span class="va">Species</span>,</span>
-<span>    pal <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="va">pal_discrete</span>, <span class="fl">0</span><span class="op">)</span>, </span>
+<span>    pal <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="fu"><a href="../reference/jumble.html">jumble</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span>, </span>
 <span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    col_legend_nrow <span class="op">=</span> <span class="fl">2</span>, </span>
 <span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
@@ -215,7 +214,7 @@ or fill of a geom that contains both. A method is to use
 <span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
-<span>    pal <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="va">pal_blue</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    pal <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"steelblue"</span>, <span class="fl">0</span><span class="op">)</span>,</span>
 <span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span> </span></code></pre></div>
@@ -236,7 +235,7 @@ and <code>col_legend_place = "n"</code>.</p>
 <span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
 <span>    col <span class="op">=</span> <span class="fl">1</span>, </span>
 <span>    stat <span class="op">=</span> <span class="st">"density"</span>, </span>
-<span>    pal <span class="op">=</span> <span class="va">pal_blue</span>,</span>
+<span>    pal <span class="op">=</span> <span class="st">"steelblue"</span>,</span>
 <span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    col_legend_place <span class="op">=</span> <span class="st">"n"</span>, </span>
@@ -248,7 +247,7 @@ and <code>col_legend_place = "n"</code>.</p>
 <span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
 <span>    col <span class="op">=</span> <span class="fl">1</span>, </span>
 <span>    stat <span class="op">=</span> <span class="st">"density"</span>, </span>
-<span>    pal <span class="op">=</span> <span class="va">pal_blue</span>,</span>
+<span>    pal <span class="op">=</span> <span class="st">"steelblue"</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">"lightgrey"</span>,</span>
 <span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    col_legend_place <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span> </span>
@@ -346,7 +345,6 @@ be changed for additional flexibility. Note that you can only use
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    stat <span class="op">=</span> <span class="st">"summary"</span>, </span>
 <span>    position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
-<span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#2596be"</span>, <span class="st">"#fc7c24"</span><span class="op">)</span>, </span>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>    col_legend_place <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span></span>
 <span></span>
@@ -435,7 +433,6 @@ argument.</p>
 <span>    x <span class="op">=</span> <span class="va">x</span>, </span>
 <span>    y <span class="op">=</span> <span class="va">y</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">r</span>,</span>
-<span>    <span class="co"># pal = RColorBrewer::brewer.pal(9, "RdBu"),</span></span>
 <span>    pal_na <span class="op">=</span> <span class="st">"#e6ecf2"</span>,</span>
 <span>    col_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    col_rescale <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
