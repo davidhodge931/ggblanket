@@ -215,7 +215,7 @@ ggplot2::faithfuld |>
     x = waiting,
     y = eruptions,
     col = density,
-    pal = viridis::cividis(9)
+    pal = viridisLite::cviridis(9)
   )
 
 }

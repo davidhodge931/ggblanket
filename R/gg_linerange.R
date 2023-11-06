@@ -1318,7 +1318,7 @@ gg_linerange <- function(
       }
 
       if (rlang::is_null(pal)) {
-        if (stat %in% c("contour_filled", "density_2d_filled")) pal <- viridisLite::viridis(n = col_n)
+        if (stat %in% c("contour_filled", "density_2d_filled")) pal <- viridisLite::mako(n = col_n, direction = -1)
         else if (col_n > 5) pal <- scales::hue_pal()(col_n)
         else pal <- jumble(n = col_n)
       }
@@ -1393,7 +1393,7 @@ gg_linerange <- function(
         else col_breaks <- scales::breaks_pretty(n = 5)
       }
 
-      if (rlang::is_null(pal)) pal <- viridisLite::viridis(n = 10)
+      if (rlang::is_null(pal)) pal <- viridisLite::mako(n = 20, direction = -1)
 
       if (rlang::is_null(col_labels)) {
         if (col_numeric | col_null) {

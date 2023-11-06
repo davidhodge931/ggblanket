@@ -36,13 +36,11 @@ Suggests:
     knitr,
     palmerpenguins,
     patchwork,
-    RColorBrewer,
     rmarkdown,
     sf,
     stars,
     stats,
-    tibble,
-    viridis 
+    tibble
 Config/Needs/website: 
     concaveman,
     corrr,
@@ -68,6 +66,7 @@ Config/Needs/website:
     ggridges,
     ggtext,
     plotly,
+    RColorBrewer,
     showtext,
     sysfonts
 VignetteBuilder: knitr

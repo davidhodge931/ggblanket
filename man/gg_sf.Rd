@@ -184,7 +184,7 @@ if (requireNamespace("sf", quietly = TRUE)) {
   sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
     gg_sf(
       col = AREA,
-      pal = viridis::cividis(9))
+      pal = viridisLite::cviridis(9))
 }
 
 }

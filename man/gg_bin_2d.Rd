@@ -211,7 +211,7 @@ ggplot2::diamonds |>
   gg_bin_2d(
     x = carat,
     y = price,
-    pal = viridis::cividis(9)
+    pal = viridisLite::cviridis(9)
   )
 
 }

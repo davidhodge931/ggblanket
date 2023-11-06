@@ -65,7 +65,7 @@
 #'   sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
 #'     gg_sf(
 #'       col = AREA,
-#'       pal = viridis::cividis(9))
+#'       pal = viridisLite::cviridis(9))
 #' }
 #'
 gg_sf <- function(
@@ -1102,204 +1102,204 @@ gg_sf <- function(
   # }
 
   #make col scale
-    if (col_scale) {
-      if (!col_null) {
-        col_vctr <- data %>%
-          dplyr::pull(!!col)
+  if (col_scale) {
+    if (!col_null) {
+      col_vctr <- data %>%
+        dplyr::pull(!!col)
+    }
+    else if (col_null) {
+      if (!rlang::is_null(plot_build$plot$labels$fill)) {
+        col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))
       }
-      else if (col_null) {
-        if (!rlang::is_null(plot_build$plot$labels$fill)) {
-          col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))
-        }
-        else if (!rlang::is_null(plot_build$plot$labels$colour)) {
-          col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))
-        }
+      else if (!rlang::is_null(plot_build$plot$labels$colour)) {
+        col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))
+      }
+    }
+
+    if (rlang::is_null(col_legend_place)) {
+      if (col_forcat) col_legend_place <- "bottom"
+      else col_legend_place <- "right"
+    }
+
+    if (col_legend_place == "b") col_legend_place <- "bottom"
+    if (col_legend_place == "t") col_legend_place <- "top"
+    if (col_legend_place == "l") col_legend_place <- "left"
+    if (col_legend_place == "r") col_legend_place <- "right"
+    if (col_legend_place == "n") col_legend_place <- "none"
+
+    if (col_forcat | stat %in% c("contour_filled", "density_2d_filled")) { #discrete
+      if (col_factor) col_n <- length(levels(col_vctr))
+      else if (col_character) {
+        col_unique <- unique(col_vctr)
+        col_n <- length(col_unique[!rlang::is_na(col_unique)])
+      }
+      else if (stat %in% c("contour_filled", "density_2d_filled")) {
+        col_n <- length(unique(dplyr::pull(plot_data, "fill")))
       }
 
-      if (rlang::is_null(col_legend_place)) {
-        if (col_forcat) col_legend_place <- "bottom"
-        else col_legend_place <- "right"
+      if (rlang::is_null(pal)) {
+        if (stat %in% c("contour_filled", "density_2d_filled")) pal <- viridisLite::mako(n = col_n, direction = -1)
+        else if (col_n > 5) pal <- scales::hue_pal()(col_n)
+        else pal <- jumble(n = col_n)
       }
+      else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
 
-      if (col_legend_place == "b") col_legend_place <- "bottom"
-      if (col_legend_place == "t") col_legend_place <- "top"
-      if (col_legend_place == "l") col_legend_place <- "left"
-      if (col_legend_place == "r") col_legend_place <- "right"
-      if (col_legend_place == "n") col_legend_place <- "none"
-
-      if (col_forcat | stat %in% c("contour_filled", "density_2d_filled")) { #discrete
-        if (col_factor) col_n <- length(levels(col_vctr))
-        else if (col_character) {
-          col_unique <- unique(col_vctr)
-          col_n <- length(col_unique[!rlang::is_na(col_unique)])
-        }
-        else if (stat %in% c("contour_filled", "density_2d_filled")) {
-          col_n <- length(unique(dplyr::pull(plot_data, "fill")))
-        }
-
-        if (rlang::is_null(pal)) {
-          if (stat %in% c("contour_filled", "density_2d_filled")) pal <- viridisLite::viridis(n = col_n)
-          else if (col_n > 5) pal <- scales::hue_pal()(col_n)
-          else pal <- jumble(n = col_n)
-        }
-        else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
-
-        if (col_null & col_scale) col_legend_rev_auto <- TRUE
-        else if (y_numeric | y_date | y_datetime | y_time) {
-          if (col_forcat) col_legend_rev_auto <- FALSE
-          else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- FALSE
-          else col_legend_rev_auto <- TRUE
-        }
-        else if (y_forcat) {
-          if (col_forcat) col_legend_rev_auto <- TRUE
-          else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- TRUE
-          else col_legend_rev_auto <- FALSE
-          pal <- rev(pal)
-        }
+      if (col_null & col_scale) col_legend_rev_auto <- TRUE
+      else if (y_numeric | y_date | y_datetime | y_time) {
+        if (col_forcat) col_legend_rev_auto <- FALSE
+        else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- FALSE
+        else col_legend_rev_auto <- TRUE
+      }
+      else if (y_forcat) {
+        if (col_forcat) col_legend_rev_auto <- TRUE
+        else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- TRUE
         else col_legend_rev_auto <- FALSE
+        pal <- rev(pal)
+      }
+      else col_legend_rev_auto <- FALSE
 
-        if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
-        if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
+      if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
+      if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
 
-        if (col_legend_rev) col_legend_rev_auto <- !col_legend_rev_auto
+      if (col_legend_rev) col_legend_rev_auto <- !col_legend_rev_auto
 
+      plot <- plot +
+        ggplot2::scale_colour_manual(
+          values = pal,
+          drop = FALSE,
+          breaks = col_breaks,
+          limits = col_limits,
+          labels = col_labels,
+          na.value = as.vector(pal_na)
+        ) +
+        ggplot2::scale_fill_manual(
+          values = pal,
+          drop = FALSE,
+          breaks = col_breaks,
+          limits = col_limits,
+          labels = col_labels,
+          na.value = as.vector(pal_na)
+        ) +
+        ggplot2::guides(
+          colour = ggplot2::guide_legend(
+            reverse = col_legend_rev_auto,
+            title.position = "top",
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow,
+            byrow = TRUE
+          ),
+          fill = ggplot2::guide_legend(
+            reverse = col_legend_rev_auto,
+            title.position = "top",
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow,
+            byrow = TRUE
+          )
+        )
+    } #discrete
+    else {
+      if (rlang::is_null(col_trans)) {
+        if (col_date) col_trans <- "date"
+        else if (col_datetime) col_trans <- "time"
+        else if (col_time) col_trans <- "hms"
+        else col_trans <- "identity"
+      }
+
+      if (rlang::is_null(col_breaks)) {
+        if (col_time) col_breaks <- ggplot2::waiver()
+        else if (any(col_trans == "log10")) col_breaks <- scales::breaks_log(n = 5, base = 10)
+        else if (any(col_trans == "log2")) col_breaks <- scales::breaks_log(n = 5, base = 2)
+        else if (any(col_trans == "log")) col_breaks <- scales::breaks_log(n = 5, base = exp(1))
+        else col_breaks <- scales::breaks_pretty(n = 5)
+      }
+
+      if (rlang::is_null(pal)) pal <- viridisLite::mako(n = 20, direction = -1)
+
+      if (rlang::is_null(col_labels)) {
+        if (col_numeric | col_null) {
+          if (any(col_trans == "log10")) col_labels <- scales::label_log(base = 10)
+          else if (any(col_trans == "log2")) col_labels <- scales::label_log(base = 2)
+          else if (any(col_trans == "log")) col_labels <- scales::label_math("e"^.x, format = log)
+          else col_labels <- scales::label_comma(drop0trailing = TRUE)
+        }
+        else if (col_date | col_datetime) {
+          col_labels <- scales::label_date(format = c("%Y", "%b", "%e"))
+        }
+        else if (col_time) {
+          col_labels <- scales::label_time(format = "%H:%M")
+        }
+      }
+
+      if (col_continuous == "gradient") {
         plot <- plot +
-          ggplot2::scale_colour_manual(
-            values = pal,
-            drop = FALSE,
+          ggplot2::scale_colour_gradientn(
+            colours = pal,
+            values = col_rescale,
+            labels = col_labels,
             breaks = col_breaks,
             limits = col_limits,
-            labels = col_labels,
+            trans = col_trans,
             na.value = as.vector(pal_na)
           ) +
-          ggplot2::scale_fill_manual(
-            values = pal,
-            drop = FALSE,
+          ggplot2::scale_fill_gradientn(
+            colours = pal,
+            values = col_rescale,
+            labels = col_labels,
             breaks = col_breaks,
             limits = col_limits,
-            labels = col_labels,
+            trans = col_trans,
             na.value = as.vector(pal_na)
           ) +
           ggplot2::guides(
-            colour = ggplot2::guide_legend(
-              reverse = col_legend_rev_auto,
+            colour = ggplot2::guide_colourbar(
               title.position = "top",
-              ncol = col_legend_ncol,
-              nrow = col_legend_nrow,
-              byrow = TRUE
+              draw.ulim = TRUE,
+              draw.llim = TRUE,
+              ticks.colour = "#fcfdfe",
+              reverse = col_legend_rev
             ),
-            fill = ggplot2::guide_legend(
-              reverse = col_legend_rev_auto,
+            fill = ggplot2::guide_colourbar(
               title.position = "top",
-              ncol = col_legend_ncol,
-              nrow = col_legend_nrow,
-              byrow = TRUE
+              draw.ulim = TRUE,
+              draw.llim = TRUE,
+              ticks.colour = "#fcfdfe",
+              reverse = col_legend_rev
             )
           )
-      } #discrete
-      else {
-        if (rlang::is_null(col_trans)) {
-          if (col_date) col_trans <- "date"
-          else if (col_datetime) col_trans <- "time"
-          else if (col_time) col_trans <- "hms"
-          else col_trans <- "identity"
-        }
-
-        if (rlang::is_null(col_breaks)) {
-          if (col_time) col_breaks <- ggplot2::waiver()
-          else if (any(col_trans == "log10")) col_breaks <- scales::breaks_log(n = 5, base = 10)
-          else if (any(col_trans == "log2")) col_breaks <- scales::breaks_log(n = 5, base = 2)
-          else if (any(col_trans == "log")) col_breaks <- scales::breaks_log(n = 5, base = exp(1))
-          else col_breaks <- scales::breaks_pretty(n = 5)
-        }
-
-        if (rlang::is_null(pal)) pal <- viridisLite::viridis(n = 10)
-
-        if (rlang::is_null(col_labels)) {
-          if (col_numeric | col_null) {
-            if (any(col_trans == "log10")) col_labels <- scales::label_log(base = 10)
-            else if (any(col_trans == "log2")) col_labels <- scales::label_log(base = 2)
-            else if (any(col_trans == "log")) col_labels <- scales::label_math("e"^.x, format = log)
-            else col_labels <- scales::label_comma(drop0trailing = TRUE)
-          }
-          else if (col_date | col_datetime) {
-            col_labels <- scales::label_date(format = c("%Y", "%b", "%e"))
-          }
-          else if (col_time) {
-            col_labels <- scales::label_time(format = "%H:%M")
-          }
-        }
-
-        if (col_continuous == "gradient") {
-          plot <- plot +
-            ggplot2::scale_colour_gradientn(
-              colours = pal,
-              values = col_rescale,
-              labels = col_labels,
-              breaks = col_breaks,
-              limits = col_limits,
-              trans = col_trans,
-              na.value = as.vector(pal_na)
-            ) +
-            ggplot2::scale_fill_gradientn(
-              colours = pal,
-              values = col_rescale,
-              labels = col_labels,
-              breaks = col_breaks,
-              limits = col_limits,
-              trans = col_trans,
-              na.value = as.vector(pal_na)
-            ) +
-            ggplot2::guides(
-              colour = ggplot2::guide_colourbar(
-                title.position = "top",
-                draw.ulim = TRUE,
-                draw.llim = TRUE,
-                ticks.colour = "#fcfdfe",
-                reverse = col_legend_rev
-              ),
-              fill = ggplot2::guide_colourbar(
-                title.position = "top",
-                draw.ulim = TRUE,
-                draw.llim = TRUE,
-                ticks.colour = "#fcfdfe",
-                reverse = col_legend_rev
-              )
-            )
-        }
-        else if (col_continuous == "steps") {
-          plot <- plot +
-            ggplot2::scale_colour_stepsn(
-              colours = pal,
-              values = col_rescale,
-              labels = col_labels,
-              breaks = col_breaks,
-              limits = col_limits,
-              trans = col_trans,
-              oob = col_oob,
-              na.value = as.vector(pal_na)
-            ) +
-            ggplot2::scale_fill_stepsn(
-              colours = pal,
-              values = col_rescale,
-              labels = col_labels,
-              breaks = col_breaks,
-              limits = col_limits,
-              trans = col_trans,
-              oob = col_oob,
-              na.value = as.vector(pal_na)
-            ) +
-            ggplot2::guides(
-              colour = ggplot2::guide_coloursteps(
-                title.position = "top",
-                reverse = col_legend_rev),
-              fill = ggplot2::guide_coloursteps(
-                title.position = "top",
-                reverse = col_legend_rev)
-            )
-        }
+      }
+      else if (col_continuous == "steps") {
+        plot <- plot +
+          ggplot2::scale_colour_stepsn(
+            colours = pal,
+            values = col_rescale,
+            labels = col_labels,
+            breaks = col_breaks,
+            limits = col_limits,
+            trans = col_trans,
+            oob = col_oob,
+            na.value = as.vector(pal_na)
+          ) +
+          ggplot2::scale_fill_stepsn(
+            colours = pal,
+            values = col_rescale,
+            labels = col_labels,
+            breaks = col_breaks,
+            limits = col_limits,
+            trans = col_trans,
+            oob = col_oob,
+            na.value = as.vector(pal_na)
+          ) +
+          ggplot2::guides(
+            colour = ggplot2::guide_coloursteps(
+              title.position = "top",
+              reverse = col_legend_rev),
+            fill = ggplot2::guide_coloursteps(
+              title.position = "top",
+              reverse = col_legend_rev)
+          )
       }
     }
+  }
 
   #Add titles
   if (rlang::is_null(x_title)) {

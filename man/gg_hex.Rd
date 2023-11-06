@@ -213,7 +213,7 @@ diamonds |>
   gg_hex(
     x = carat,
     y = price,
-    pal = viridis::cividis(9),
+    pal = viridisLite::cviridis(9),
     y_limits = c(0, 20000),
     coord = ggplot2::coord_cartesian(clip = "on")
   )
