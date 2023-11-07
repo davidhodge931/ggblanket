@@ -1,6 +1,6 @@
 # ggblanket 5.1.0900
 
-* Updated colours: `"steelblue"` where no col aesthetic, `jumble` where discrete and less than 5 colours, scales:hue_pal otherwise, `viridis::mako` reversed for continuous, and `"grey"` for NA.  
+* Updated colours: `"steelblue"` where no col aesthetic, `guardian` where discrete and less than 5 colours, scales:hue_pal otherwise, `viridis::mako` reversed for continuous, and `"grey"` for NA.  
 * Breaking: removed all `pal_*` functions.
 * Removed some unnecessary messages.
 * Fixed bug where `col_breaks` was not working for a numeric `col`.

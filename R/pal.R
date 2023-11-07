@@ -1,17 +1,15 @@
-#' Colour blind safe categorical palette with 5 colours
+#' Colour blind safe categorical palette with 4 colours
 #'
-#' @description A default colour blind safe 5 colour palette used to colour a categorical variable.
+#' @description A colour blind safe categorical palette inspired by the Guardian newspaper.
 #'
-#' @param n The number of colours to return. Defaults to the maximum of 5.
+#' @param n The number of colours to return. Defaults to the maximum of 4.
 #'
 #' @return A character vector of hex codes.
 #'
 #' @export
-jumble <- function(n = 5) {
-  if (n > 5) rlang::abort("jumble provides a maximum of 5 colours")
-  else {
-    c("#2596be", "#fc7c24", "#125162", "#b82e2e", "#ecdd13")[1:n]
-  }
+guardian <- function(n = 4) {
+  if (n <= 4) c("#2596be", "#fc7c24", "#6b5840", "#9c1e74")[1:n]
+  else rlang::abort("guardian provides a maximum of 4 colours")
 }
 
 #' Default colours used in the light_mode theme.

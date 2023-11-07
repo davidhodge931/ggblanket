@@ -119,7 +119,7 @@ p3 <- iris |>
   gg_density(
     x = Sepal.Length, 
     col = Species,
-    pal = scales::alpha(jumble(), 0), 
+    pal = scales::alpha(guardian(), 0), 
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
     col_legend_nrow = 2, 
     col_labels = \(x) str_to_sentence(x))
@@ -295,27 +295,6 @@ contrast <- function(colour) {
   out
 }
 
-p <- penguins2 |>
-  group_by(sex, species) |>
-  summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
-  gg_col(
-    x = flipper_length_mm,
-    y = species,
-    col = sex,
-    position = "dodge",
-    width = 0.75) 
-
-p +
-  geom_text(
-    aes(x = flipper_length_mm - (max(flipper_length_mm) * 0.05),
-        label = round(flipper_length_mm, 0),
-        !!!aes(colour = after_scale(contrast(fill)))), 
-    show.legend = FALSE,
-    size = 3.53, 
-    position = position_dodge(width = 0.75))
-```
-
-```{r}
 d <- mtcars |> 
   corrr::correlate() |> 
   corrr::stretch() |> 
@@ -340,3 +319,26 @@ d |>
     show.legend = FALSE,
     size = 3.53)
 ```
+
+```{r}
+p <- penguins2 |>
+  group_by(sex, species) |>
+  summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
+  gg_col(
+    x = flipper_length_mm,
+    y = species,
+    col = sex,
+    position = "dodge",
+    width = 0.75, 
+    colour = NA) 
+
+p +
+  geom_text(
+    aes(x = flipper_length_mm - (max(flipper_length_mm) * 0.05),
+        label = round(flipper_length_mm, 0),
+        !!!aes(colour = after_scale(contrast(fill)))), 
+    show.legend = FALSE,
+    size = 3.53, 
+    position = position_dodge(width = 0.75))
+```
+

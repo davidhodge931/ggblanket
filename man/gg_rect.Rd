@@ -219,7 +219,7 @@ Create a rect ggplot with a wrapper around ggplot2::geom_rect(stat = "identity",
 data.frame(
   x = rep(c(2, 5, 7, 9, 12), 2),
   y = rep(c(1, 2), each = 5),
-  z = factor(rep(1:5, each = 2)),
+  z = factor(c(rep(1:3, each = 3), 4)),
   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
 ) \%>\%
   dplyr::mutate(

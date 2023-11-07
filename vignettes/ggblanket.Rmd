@@ -359,7 +359,7 @@ p1 <- ggplot2::economics |>
   gg_line(
     x = date,
     y = unemploy,
-    pal = jumble()[1],
+    pal = guardian()[1],
     x_title = "",
     y_title = "Unemployment",
     y_include = 0,
@@ -367,26 +367,26 @@ p1 <- ggplot2::economics |>
     x_breaks = scales::breaks_width("3 months"),
     title = "gg_line + geom_point", 
     theme = light_mode(title_face = "plain")) +
-  geom_point(colour = jumble()[2])
+  geom_point(colour = guardian()[2])
 
 p2 <- ggplot2::economics |>
   slice_min(order_by = date, n = 10) |> 
   gg_point(
     x = date,
     y = unemploy,
-    pal = jumble()[2],
+    pal = guardian()[2],
     x_title = "",
     y_title = "Unemployment",
     y_include = 0,
     x_breaks = scales::breaks_width("3 months"),
     title = "gg_point + geom_line", 
     theme = light_mode(title_face = "plain")) +
-  geom_line(colour = jumble()[1], linewidth = 1)
+  geom_line(colour = guardian()[1], linewidth = 1)
 
 p1 + p2
 ```
 
-2. If some geom layers have a `col` aesthetic and some do not, then a `gg_*` function _should_ be chosen that has a `col` argument in it. This will enable ggblanket legend placement and access to `col_*` arguments. It is also a more reliable approach. 
+2. If some geom layers have a `col` aesthetic and some do not, then a `gg_*` function _should_ be chosen that has a `col` argument in it. This will enable ggblanket legend placement and access to `col_*` arguments. It is also a more reliable approach. If later layers do not require the `col` aesthetic, then the `inheit.aes = FALSE` argument should be used. 
 
 3. In some situations, `gg_blank` may be required.
 
@@ -410,7 +410,10 @@ p1 <- d |>
     x_include = max(d$upper),
     width = 0.75,
     col_legend_place = "n") +
-  geom_errorbar(aes(xmin = lower, xmax = upper), colour = "black", width = 0.1)
+    geom_errorbar(aes(xmin = lower, xmax = upper, y = species),
+                inherit.aes = FALSE,
+                colour = "black", 
+                width = 0.1)
 
 p2 <- d |>
   gg_blank(
@@ -592,7 +595,7 @@ p1 + p2
 ggblanket uses different defaults for colouring. The default `pal` is:
 
 * `steelblue` for where there is no `col` variable
-* `ggblanket::jumble` for a discrete `col` variable with 5 or less levels (or unique values if a character). Testing suggests this is safe for colour blindness. 
+* `ggblanket::guardian` for a discrete `col` variable with 3 or less levels (or unique values if a character). Testing suggests this is safe for colour blindness. 
 * `scales::hue_pal` for a discrete `col` variable with more than 5 levels (or unique values if not ordered).
 * `viridis::mako` reversed for a continuous `col` variable
 

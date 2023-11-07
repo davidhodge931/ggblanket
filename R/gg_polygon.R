@@ -1252,7 +1252,7 @@ gg_polygon <- function(
       if (col_factor) col_n <- length(levels(col_vctr))
       else if (col_character) {
         col_unique <- unique(col_vctr)
-        col_n <- length(col_unique[!rlang::is_na(col_unique)])
+        col_n <- length(col_unique[!is.na(col_unique)])
       }
       else if (stat %in% c("contour_filled", "density_2d_filled")) {
         col_n <- length(levels(dplyr::pull(plot_data, "level")))
@@ -1260,8 +1260,8 @@ gg_polygon <- function(
 
       if (rlang::is_null(pal)) {
         if (stat %in% c("contour_filled", "density_2d_filled")) pal <- viridisLite::mako(n = col_n, direction = -1)
-        else if (col_n > 5) pal <- scales::hue_pal()(col_n)
-        else pal <- jumble(n = col_n)
+        else if (col_n > 4) pal <- scales::hue_pal()(col_n)
+        else pal <- guardian(n = col_n)
       }
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
 

@@ -292,13 +292,14 @@ The ggnewscale package enables multiple colour scales.
 penguins2 |> 
   gg_blank(x = flipper_length_mm, 
            y = body_mass_g) + 
-  geom_point(aes(colour = bill_length_mm), data = penguins2 |> filter(species == "Gentoo")) +
+  geom_point(aes(colour = bill_length_mm), 
+             data = penguins2 |> filter(species == "Gentoo")) +
   scale_color_viridis_c(option = "G", direction = -1) +
   labs(colour = "Gentoo\nBill length (mm)") +
   ggnewscale::new_scale_colour() +
   geom_point(aes(x = flipper_length_mm, y = body_mass_g, colour = species), 
              data = penguins2 |> filter(species != "Gentoo")) +
-  scale_color_manual(values = jumble()[c(2,4)]) +
+  scale_color_manual(values = guardian()[c(4,2)]) +
   labs(colour = "Species")
 ```
 
@@ -405,7 +406,7 @@ penguins2 |>
     title = "***Pygoscelis*** **penguin** bill lengths and depths",
     subtitle = "<span style = 'color: #2596be ;'>**Adelie**</span>, 
        <span style = 'color:#fc7c24;'>**Chinstrap**</span>, 
-       *and* <span style = 'color:#125162;'>**Gentoo**</span>", 
+       *and* <span style = 'color:#6b5840;'>**Gentoo**</span>", 
     x_labels = \(x) glue::glue("_{x}_"),
     y_labels = \(x) glue::glue("_{x}_"),
     col_labels = \(x) glue::glue("_{x}_"),
