@@ -7,6 +7,10 @@
 #' @return A character vector of hex codes.
 #'
 #' @export
+#'
+#' @examples
+#' scales::show_col(guardian)
+#'
 guardian <- function(n = 4) {
   if (n <= 4) c("#2596be", "#fc7c24", "#6b5840", "#9c1e74")[1:n]
   else rlang::abort("guardian provides a maximum of 4 colours")

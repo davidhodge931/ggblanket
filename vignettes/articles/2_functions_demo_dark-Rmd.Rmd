@@ -50,7 +50,7 @@ penguins2 |>
     x = sex,
     col = sex,
     facet = species,
-    width = 0.75)
+    width = 0.66)
 ```
 
 ### gg_bin_2d
@@ -97,7 +97,7 @@ penguins2 |>
     x = flipper_length_mm,
     y = species,
     col = sex,
-    width = 0.75,
+    width = 0.66,
     position = "dodge")
 ```
 

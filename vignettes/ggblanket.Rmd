@@ -133,7 +133,7 @@ p2 <- penguins2 |>
   geom_jitter(aes(x = species, 
                   y = body_mass_g, 
                   colour = sex)) +
-  scale_colour_manual(values = c("#69c2c0", "#941111"))
+  scale_colour_manual(values = c("#1B9E77", "#9E361B"))
 
 p1 / p2
 ```
@@ -150,7 +150,7 @@ p2 <- penguins2 |>
     x = species, 
     y = body_mass_g, 
     col = sex, 
-    pal = c("#69c2c0", "#941111"))
+    pal = c("#1B9E77", "#9E361B"))
 
 p1 / p2
 ```
@@ -459,7 +459,7 @@ penguins2 |>
                y = species, 
                fill = sex),
            position = "dodge",
-           width = 0.5)
+           width = 0.66)
 ```
 
 ```{r}
@@ -472,7 +472,7 @@ penguins2 |>
     y = species,
     col = sex,
     position = "dodge",
-    width = 0.5)
+    width = 0.66)
 ```
 
 Sometimes with small plots or faceted plots etc, the labels can be too squashed. Making the breaks width bigger can waste space, due to the afore-mentioned approach of ggblanket to making pretty scales. An alternative approach is to use the `str_keep_seq` function with the `*_labels` arguments to only keep every 2nd (or nth) label. 

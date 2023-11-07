@@ -695,7 +695,7 @@ gg_label <- function(
         y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
 
         x_vctr_temp <- plot_data %>%
-          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !rlang::is_na(x))) %>%
+          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !is.na(x))) %>%
           dplyr::select(tidyselect::matches(stringr::regex(x_vars_str)))
 
         if (ncol(x_vctr_temp) != 0) {
@@ -813,10 +813,10 @@ gg_label <- function(
           if (any(x_trans %in% "reverse")) x_limits <- sort(x_limits, decreasing = TRUE)
         }
         else if (!rlang::is_null(x_limits)) {
-          if (rlang::is_na(x_limits[1])) {
+          if (is.na(x_limits[1])) {
             x_limits[1] <- x_range[1]
           }
-          if (rlang::is_na(x_limits[2])) {
+          if (is.na(x_limits[2])) {
             x_limits[2] <- x_range[2]
           }
 
@@ -962,7 +962,7 @@ gg_label <- function(
         y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
 
         y_vctr_temp <- plot_data %>%
-          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), \(x) !rlang::is_na(x))) %>%
+          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), \(x) !is.na(x))) %>%
           dplyr::select(tidyselect::matches(stringr::regex(y_vars_str)))
 
         if (ncol(y_vctr_temp) != 0) {
@@ -1076,8 +1076,8 @@ gg_label <- function(
           if (any(y_trans %in% "reverse")) y_limits <- sort(y_limits, decreasing = TRUE)
         }
         else if (!rlang::is_null(y_limits)) {
-          if (rlang::is_na(y_limits[1])) y_limits[1] <- y_range[1]
-          if (rlang::is_na(y_limits[2])) y_limits[2] <- y_range[2]
+          if (is.na(y_limits[1])) y_limits[1] <- y_range[1]
+          if (is.na(y_limits[2])) y_limits[2] <- y_range[2]
 
           if (!rlang::is_null(y_include)) y_limits <- range(c(y_limits, y_include))
 

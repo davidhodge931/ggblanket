@@ -285,7 +285,7 @@ p1 / p2
 
 ### 8. Add auto-contrast text on polygons
 
-Text labels can be coloured based on the lightness/darkness of underlying polygons using a trick documented by [@teunbrand](https://github.com/teunbrand/ggplot_tricks). It requires `geom_text` to include the `show.legend = FALSE` argument.   
+Text labels can be coloured based on the lightness/darkness of underlying polygons using a trick documented by [@teunbrand](https://github.com/teunbrand/ggplot_tricks). It requires `geom_text` to include the `show.legend = FALSE` argument. When using this method to make a flipped plot, use `coord_flip`.  
 
 ```{r}
 contrast <- function(colour) {
@@ -295,12 +295,36 @@ contrast <- function(colour) {
   out
 }
 
-d <- mtcars |> 
+penguins2 |>
+  group_by(sex, species) |>
+  summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
+  ungroup() |>
+  gg_col(
+    x = sex,
+    y = flipper_length_mm,
+    col = species,
+    position = "dodge",
+    width = 0.5,
+    # coord = coord_flip() 
+  ) +
+  geom_text(
+    aes(
+      y = flipper_length_mm - (max(flipper_length_mm) * 0.05),
+      label = round(flipper_length_mm, 0),!!!aes(colour = after_scale(contrast((
+        fill
+      ))))
+    ),
+    show.legend = FALSE,
+    size = 3.53,
+    position = position_dodge(width = 0.5)
+  )
+```
+
+```{r}
+mtcars |> 
   corrr::correlate() |> 
   corrr::stretch() |> 
-  mutate(across(c(x, y), str_to_sentence))
-
-d |> 
+  mutate(across(c(x, y), str_to_sentence)) |> 
   gg_tile(
     x = x, 
     y = y,
@@ -318,27 +342,5 @@ d |>
         !!!aes(colour = after_scale(contrast(fill)))), 
     show.legend = FALSE,
     size = 3.53)
-```
-
-```{r}
-p <- penguins2 |>
-  group_by(sex, species) |>
-  summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
-  gg_col(
-    x = flipper_length_mm,
-    y = species,
-    col = sex,
-    position = "dodge",
-    width = 0.75, 
-    colour = NA) 
-
-p +
-  geom_text(
-    aes(x = flipper_length_mm - (max(flipper_length_mm) * 0.05),
-        label = round(flipper_length_mm, 0),
-        !!!aes(colour = after_scale(contrast(fill)))), 
-    show.legend = FALSE,
-    size = 3.53, 
-    position = position_dodge(width = 0.75))
 ```
 
