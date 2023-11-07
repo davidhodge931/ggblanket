@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#' scales::show_col(guardian)
+#' scales::show_col(guardian())
 #'
 guardian <- function(n = 4) {
   if (n <= 4) c("#2596be", "#fc7c24", "#6b5840", "#9c1e74")[1:n]

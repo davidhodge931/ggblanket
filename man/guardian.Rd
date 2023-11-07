@@ -16,6 +16,6 @@ A character vector of hex codes.
 A colour blind safe categorical palette inspired by the Guardian newspaper.
 }
 \examples{
-scales::show_col(guardian)
+scales::show_col(guardian())
 
 }
