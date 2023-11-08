@@ -59,6 +59,16 @@ p3 <- mtcars |>
             y = qsec, 
             x_breaks = scales::breaks_pretty(4)) +
   facet_wrap(~"Plot 3")
+
+(p1 + p2) / p3 +
+  plot_annotation(title = "A collection of plots patched together", 
+                  subtitle = "Works so nice!", 
+                  theme = light_mode() +
+                    theme(
+                      plot.title = element_text(margin = margin(t = 10 * -0.5, b = 10 * 0.75)),
+                      plot.subtitle = element_text(margin = margin())
+                    )
+                  )
 ```
 
 #### ggbeeswarm

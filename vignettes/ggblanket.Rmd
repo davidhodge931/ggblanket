@@ -44,8 +44,8 @@ Secondary objectives relate to:
 7.  Ability to customise by prefixed arguments 
 8.  Ability to customise the theme
 9.  Access to other geom\_\* arguments via ...
-10. Ability to add multiple geom\_\* layers
-11. Pretty continuous positional scales
+10. Pretty continuous positional scales
+11. Ability to add multiple geom\_\* layers
 12. Other key differences to ggplot2
 
 ```{r setup}
@@ -342,97 +342,7 @@ penguins2 |>
     level = 0.99) #accessed via geom_smooth
 ```
 
-### 10. Ability to add multiple geom\_\* layers
-
-Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
-
-The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added. 
-
-Where there are multiple geom layers in a desired plot, users should determine the `gg_*` function with care: 
-
-1. The `gg_*` function _should_ be appropriate to be the bottom layer of the plot. This is because the geoms will plot in order. 
-
-```{r}
-# ggblanket + ggplot2
-p1 <- ggplot2::economics |>
-  slice_min(order_by = date, n = 10) |> 
-  gg_line(
-    x = date,
-    y = unemploy,
-    pal = guardian()[1],
-    x_title = "",
-    y_title = "Unemployment",
-    y_include = 0,
-    linewidth = 1, 
-    x_breaks = scales::breaks_width("3 months"),
-    title = "gg_line + geom_point", 
-    theme = light_mode(title_face = "plain")) +
-  geom_point(colour = guardian()[2])
-
-p2 <- ggplot2::economics |>
-  slice_min(order_by = date, n = 10) |> 
-  gg_point(
-    x = date,
-    y = unemploy,
-    pal = guardian()[2],
-    x_title = "",
-    y_title = "Unemployment",
-    y_include = 0,
-    x_breaks = scales::breaks_width("3 months"),
-    title = "gg_point + geom_line", 
-    theme = light_mode(title_face = "plain")) +
-  geom_line(colour = guardian()[1], linewidth = 1)
-
-p1 + p2
-```
-
-2. If some geom layers have a `col` aesthetic and some do not, then a `gg_*` function _should_ be chosen that has a `col` argument in it. This will enable ggblanket legend placement and access to `col_*` arguments. It is also a more reliable approach. If later layers do not require the `col` aesthetic, then the `inheit.aes = FALSE` argument should be used. 
-
-3. In some situations, `gg_blank` may be required.
-
-Users need to ensure that the scales built by their `gg_*` function are appropriate for subsequent layers. Plot scales are built by the `gg_*` function based on the `data`, `x`, `y`, `*_limits`, `*_include`, `stat`, `position` and `coord` arguments in the `gg_*`  function. 
-
-```{r, fig.asp=0.75}
-# ggblanket + ggplot2
-d <- penguins2 |>
-  group_by(species) |>
-  summarise(body_mass_g = mean(body_mass_g)) |>
-  mutate(lower = body_mass_g * 0.95) |> 
-  mutate(upper = body_mass_g * 1.2)
-
-p1 <- d |>
-  gg_col(    
-    y = species,
-    x = body_mass_g,
-    col = species,
-    x_labels = \(x) x / 1000, 
-    x_title = "Body mass kg",
-    x_include = max(d$upper),
-    width = 0.75,
-    col_legend_place = "n") +
-    geom_errorbar(aes(xmin = lower, xmax = upper, y = species),
-                inherit.aes = FALSE,
-                colour = "black", 
-                width = 0.1)
-
-p2 <- d |>
-  gg_blank(
-    y = species,
-    x = body_mass_g,
-    xmin = lower, 
-    xmax = upper, 
-    col = species,
-    x_include = 0, 
-    x_labels = \(x) x / 1000, 
-    x_title = "Body mass kg", 
-    col_legend_place = "n") +
-  geom_col(colour = NA, fill = "#d3d3d3", width = 0.75) +
-  geom_errorbar(width = 0.1)
-
-p1 / p2
-```
-
-### 11. Pretty continuous positional scales
+### 10. Pretty continuous positional scales
 
 Where the orientation is normal (i.e. vertical):
 
@@ -493,6 +403,104 @@ penguins2 |>
     y_labels = \(x) str_keep_seq(x),
     title = "Keep every 2nd label", 
     theme = light_mode(title_face = "plain"))
+```
+
+### 11. Ability to add multiple geom\_\* layers
+
+Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
+
+The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added. 
+
+Where there are multiple geom layers in a desired plot, users should determine the `gg_*` function with care: 
+
+1. The `gg_*` function _should_ be appropriate to be the bottom layer of the plot. This is because the geoms will plot in order. 
+
+```{r}
+# ggblanket + ggplot2
+p1 <- ggplot2::economics |>
+  slice_min(order_by = date, n = 10) |> 
+  gg_line(
+    x = date,
+    y = unemploy,
+    pal = guardian()[1],
+    x_title = "",
+    y_title = "Unemployment",
+    y_include = 0,
+    linewidth = 1, 
+    x_breaks = scales::breaks_width("3 months"),
+    title = "gg_line + geom_point", 
+    theme = light_mode(title_face = "plain")) +
+  geom_point(colour = guardian()[2])
+
+p2 <- ggplot2::economics |>
+  slice_min(order_by = date, n = 10) |> 
+  gg_point(
+    x = date,
+    y = unemploy,
+    pal = guardian()[2],
+    x_title = "",
+    y_title = "Unemployment",
+    y_include = 0,
+    x_breaks = scales::breaks_width("3 months"),
+    title = "gg_point + geom_line", 
+    theme = light_mode(title_face = "plain")) +
+  geom_line(colour = guardian()[1], linewidth = 1)
+
+p1 + p2
+```
+
+2. If some geom layers have a `col` aesthetic and some do not, then a `gg_*` function _should_ be chosen that has a `col` argument in it. This will enable ggblanket legend placement and access to `col_*` arguments. It is also a more reliable approach. If later layers do not require the `col` aesthetic, then the `inheit.aes = FALSE` argument should be used. 
+
+3. In some situations, `gg_blank` may be required.
+
+4. If users are building a horizontal plot that includes multiple geoms, it is recommended that users build the plot vertically with ggblanket - and then  use `ggplot2::coord_flip` to make it horizontally.  
+
+Users need to ensure that the scales built by their `gg_*` function are appropriate for subsequent layers. Plot scales are built by the `gg_*` function based on the `data`, `x`, `y`, `*_limits`, `*_include`, `stat`, `position` and `coord` arguments in the `gg_*`  function. 
+
+```{r, fig.asp=0.75}
+# ggblanket + ggplot2
+d <- penguins2 |>
+  group_by(species) |>
+  summarise(body_mass_g = mean(body_mass_g)) |>
+  mutate(lower = body_mass_g * 0.95) |> 
+  mutate(upper = body_mass_g * 1.2)
+
+p1 <- d |>
+  gg_col(
+    x = species,
+    y = body_mass_g,
+    col = species,
+    width = 0.75,
+    y_include = c(0, max(d$upper)), 
+    y_labels = \(x) x / 1000, 
+    y_title = "Body mass kg", 
+    col_legend_place = "b") +
+  geom_errorbar(aes(ymin = lower, ymax = upper), 
+                colour = "black",
+                width = 0.1) +
+  coord_flip()
+
+p1
+
+p2 <- d |>
+  gg_col(
+    x = species,
+    y = body_mass_g,
+    col = species,
+    colour = "#d3d3d3",
+    fill = "#d3d3d3",
+    width = 0.75,
+    y_include = c(0, max(d$upper)), 
+    y_labels = \(x) x / 1000, 
+    y_title = "Body mass kg", 
+    col_legend_place = "b") +
+  geom_errorbar(aes(ymin = lower, ymax = upper), 
+                width = 0.1) +
+  coord_flip()
+
+p1 / p2
+
+
 ```
 
 ### 12. Other key differences to ggplot2

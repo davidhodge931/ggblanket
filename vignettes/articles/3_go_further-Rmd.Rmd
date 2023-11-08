@@ -304,8 +304,7 @@ penguins2 |>
     y = flipper_length_mm,
     col = species,
     position = "dodge",
-    width = 0.5,
-    # coord = coord_flip() 
+    width = 0.75
   ) +
   geom_text(
     aes(
@@ -316,8 +315,9 @@ penguins2 |>
     ),
     show.legend = FALSE,
     size = 3.53,
-    position = position_dodge(width = 0.5)
-  )
+    position = position_dodge(width = 0.75)
+  ) +
+  coord_flip()
 ```
 
 ```{r}
