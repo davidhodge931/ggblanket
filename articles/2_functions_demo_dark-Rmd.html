@@ -128,10 +128,10 @@ Hodge</h4>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_bar.html">gg_bar</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    x <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.66</span><span class="op">)</span></span></code></pre></div>
+<span>    width <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>    position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_functions_demo_dark-Rmd_files/figure-html/unnamed-chunk-3-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -345,6 +345,7 @@ Hodge</h4>
 <span>    x <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    pal <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span>,</span>
 <span>    col_continuous <span class="op">=</span> <span class="st">"steps"</span>,</span>
 <span>    y_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html" class="external-link">position_jitter</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -475,7 +476,8 @@ Hodge</h4>
 <span>    x <span class="op">=</span> <span class="va">x</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">y</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">value</span>,</span>
-<span>    group <span class="op">=</span> <span class="va">id</span><span class="op">)</span></span></code></pre></div>
+<span>    group <span class="op">=</span> <span class="va">id</span>, </span>
+<span>    pal <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_functions_demo_dark-Rmd_files/figure-html/unnamed-chunk-26-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -618,7 +620,8 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_tile.html">gg_tile</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">flipper_length_mm</span><span class="op">)</span></span></code></pre></div>
+<span>    col <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    pal <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_functions_demo_dark-Rmd_files/figure-html/unnamed-chunk-36-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
