@@ -125,8 +125,7 @@ The `pal` argument is used to customise the colours of the geom. A user can prov
 p1 <- penguins2 |>
   ggplot() +
   geom_histogram(aes(x = body_mass_g),
-                 fill = scales::alpha("#0c2052", 0.9), 
-                 colour = "#0c2052")
+                 fill = "#414D6B")
 
 p2 <- penguins2 |>
   ggplot() +
@@ -143,7 +142,7 @@ p1 / p2
 p1 <- penguins2 |>
   gg_histogram(
     x = body_mass_g, 
-    pal = "#0c2052")
+    pal = "#414D6B")
 
 p2 <- penguins2 |>
   gg_jitter(
@@ -474,7 +473,7 @@ p1 <- d |>
     y_include = c(0, max(d$upper)), 
     y_labels = \(x) x / 1000, 
     y_title = "Body mass kg", 
-    col_legend_place = "b") +
+    col_legend_place = "n") +
   geom_errorbar(aes(ymin = lower, ymax = upper), 
                 colour = "black",
                 width = 0.1) +
@@ -491,7 +490,7 @@ p2 <- d |>
     y_include = c(0, max(d$upper)), 
     y_labels = \(x) x / 1000, 
     y_title = "Body mass kg", 
-    col_legend_place = "b") +
+    col_legend_place = "n") +
   geom_errorbar(aes(ymin = lower, ymax = upper), 
                 width = 0.1) +
   coord_flip()

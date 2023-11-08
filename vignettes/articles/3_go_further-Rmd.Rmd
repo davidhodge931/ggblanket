@@ -76,9 +76,8 @@ As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, 
 
 ```{r, fig.asp=0.33}
 sf::st_read(system.file("shape/nc.shp", package = "sf"), 
-                  quiet = TRUE) |>
-  gg_sf(col = AREA,
-        pal = viridis::viridis(9)) +
+            quiet = TRUE) |>
+  gg_sf(col = AREA) +
   ggeasy::easy_remove_axes()
 ```
 

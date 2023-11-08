@@ -249,7 +249,9 @@ ggplot2::economics |>
     y = unemploy,
     alpha = 0.25,
     y_title = "Unemployment") +
-  ggforce::geom_bspline(n = 1000, colour = "steelblue4")
+  ggforce::geom_bspline(n = 1000,
+                        linewidth = 0.75,
+                        colour = "steelblue4")
 ```
 
 #### ggh4x

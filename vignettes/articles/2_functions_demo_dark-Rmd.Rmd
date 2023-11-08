@@ -47,10 +47,10 @@ economics |>
 ```{r }
 penguins2 |>
   gg_bar(
-    x = sex,
+    x = species,
     col = sex,
-    facet = species,
-    width = 0.66)
+    width = 0.6,
+    position = "dodge")
 ```
 
 ### gg_bin_2d
@@ -248,6 +248,7 @@ penguins2 |>
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
+    pal = viridis::mako(9),
     col_continuous = "steps",
     y_include = 0,
     position = position_jitter(height = 0))
@@ -371,7 +372,8 @@ datapoly |>
     x = x,
     y = y,
     col = value,
-    group = id)
+    group = id, 
+    pal = viridis::mako(9))
 ```
 
 ### gg_qq
@@ -504,7 +506,8 @@ penguins2 |>
   gg_tile(
     x = sex,
     y = species,
-    col = flipper_length_mm)
+    col = flipper_length_mm,
+    pal = viridis::mako(9))
 ```
 
 ### gg_violin

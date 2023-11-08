@@ -45,10 +45,10 @@ economics |>
 ```{r }
 penguins2 |>
   gg_bar(
-    x = sex,
+    x = species,
     col = sex,
-    facet = species,
-    width = 0.66)
+    width = 0.6,
+    position = "dodge")
 ```
 
 ### gg_bin_2d
