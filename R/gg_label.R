@@ -85,7 +85,7 @@
 #'     label = model,
 #'     size = 3.53,
 #'     y_include = c(min(.$mpg) * 0.95, max(.$mpg) * 1.05),
-#'     pal = c("firebrick", "white", "steelblue"),
+#'     pal = c(guardian()[2], "white", "#36648b"),
 #'     y_title = "Miles per gallon"
 #'   )
 #'
@@ -430,7 +430,7 @@ gg_label <- function(
   }
 
   if (!col_scale) {
-    if (rlang::is_null(pal)) pal <- "#4682b4"
+    if (rlang::is_null(pal)) pal <- "#36648b"
     else pal <- as.vector(pal[1])
 
     plot <- plot +

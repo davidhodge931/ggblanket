@@ -267,7 +267,7 @@ bind_rows(
     label = model,
     size = 3.53,
     y_include = 0,
-    pal = c("firebrick", "white", "steelblue"),
+    pal = c(guardian(n = 2)[2], "white", guardian(n = 1)),
     y_title = "Miles per gallon")
 ```
 
@@ -426,9 +426,9 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     x = year,
     ymin = level_min,
     ymax = level_max,
-    pal = scales::alpha("steelblue", 0),
+    pal = scales::alpha("steelblue4", 0),
     y_title = "Level") +
-  geom_line(aes(x = year, y = level), col = "steelblue")
+  geom_line(aes(x = year, y = level), col = "steelblue4")
 ```
 
 ### gg_segment
@@ -449,8 +449,8 @@ if (requireNamespace("sf", quietly = TRUE)) {
   nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
   
   nc |>
-    gg_sf(
-      col = AREA)
+    gg_sf(col = AREA, 
+          pal = viridis::mako(9))
 }
 ```
 
@@ -491,7 +491,7 @@ bind_rows(
     label = model,
     size = 3.53,
     y_include = 0,
-    pal = c("firebrick", "white", "steelblue"),
+    pal = c(guardian(n = 2)[2], "white", guardian(n = 1)),
     y_title = "Miles per gallon")
 ```
 

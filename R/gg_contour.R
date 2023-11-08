@@ -482,7 +482,7 @@ gg_contour <- function(
   }
 
   if (!col_scale) {
-    if (rlang::is_null(pal)) pal <- "#4682b4"
+    if (rlang::is_null(pal)) pal <- "#36648b"
     else pal <- as.vector(pal[1])
 
     plot <- plot +

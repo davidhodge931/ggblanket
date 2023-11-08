@@ -227,7 +227,7 @@ bind_rows(
     label = model,
     size = 3.53,
     y_include = c(min(.$mpg) * 0.95, max(.$mpg) * 1.05),
-    pal = c("firebrick", "white", "steelblue"),
+    pal = c(guardian()[2], "white", "#36648b"),
     y_title = "Miles per gallon"
   )
 

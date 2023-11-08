@@ -84,10 +84,10 @@
 #'     x = year,
 #'     ymin = level_min,
 #'     ymax = level_max,
-#'     pal = scales::alpha("#1B9E77", 0),
+#'     pal = scales::alpha("steelblue4", 0),
 #'     y_title = "Level"
 #'   ) +
-#'   geom_line(aes(x = year, y = level), col = "#1B9E77")
+#'   geom_line(aes(x = year, y = level), col = "steelblue4")
 #'
 gg_ribbon <- function(
     data = NULL,
@@ -496,7 +496,7 @@ gg_ribbon <- function(
   }
 
   if (!col_scale) {
-    if (rlang::is_null(pal)) pal <- "#4682b4"
+    if (rlang::is_null(pal)) pal <- "#36648b"
     else pal <- as.vector(pal[1])
 
     plot <- plot +

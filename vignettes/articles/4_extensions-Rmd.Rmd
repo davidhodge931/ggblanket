@@ -79,7 +79,7 @@ The ggbeeswarm package can be used to create scatter plots that avoid overlappin
 penguins2 |> 
   gg_blank(x = species, 
            y = body_mass_g) + 
-  ggbeeswarm::geom_quasirandom(colour = "steelblue")
+  ggbeeswarm::geom_quasirandom(colour = "steelblue4")
 ```
 
 #### ggblend
@@ -191,8 +191,8 @@ d |>
     y_title = "") +
   ggdist::stat_slabinterval(
     aes(dist = dist),
-    colour = "steelblue",
-    fill = scales::alpha("steelblue", 0.5))
+    colour = "steelblue4",
+    fill = scales::alpha("steelblue4", 0.5))
 ```
 
 ```{r}
@@ -249,7 +249,7 @@ ggplot2::economics |>
     y = unemploy,
     alpha = 0.25,
     y_title = "Unemployment") +
-  ggforce::geom_bspline(n = 1000, colour = "steelblue")
+  ggforce::geom_bspline(n = 1000, colour = "steelblue4")
 ```
 
 #### ggh4x
@@ -288,7 +288,7 @@ iris |>
     col = Species,
     facet = Species,
     facet_labels = \(x) str_to_sentence(x),
-    pal = rep("steelblue", 3)
+    pal = rep("steelblue4", 3)
   ) +
   gghighlight::gghighlight() +
   scale_y_continuous(expand = c(0, 0))
@@ -323,17 +323,16 @@ library(ggpattern)
 penguins2 |> 
   group_by(species, sex) |> 
   summarise(across(body_mass_g, \(x) mean(x))) |> 
-  gg_blank(x = body_mass_g, 
-           y = species,
+  gg_blank(y = body_mass_g, 
+           x = species,
            col = sex,
-           position = "dodge",
-           x_include = 0) +
+           y_include = 0) +
   geom_col_pattern(aes(pattern = sex), 
                    position = "dodge",
                    alpha = 0.9,
                    width = 0.75) +
-  guides(pattern = guide_legend(reverse = TRUE)) + #same direction the col scale 
-  labs(pattern = "Sex") #name same as the col_title 
+  labs(pattern = "Sex") +
+  coord_flip() 
 ```
 
 #### ggpointdensity
@@ -446,7 +445,7 @@ p1 <- pressure |>
   gg_blank(x = temperature, y = pressure) +
   geom_textline(
     label = "Mercury vapor pressure increases with temperature",
-    size = 3.53, vjust = -0.5, hjust = 0.9, color = "steelblue", linecolor = "steelblue")
+    size = 3.53, vjust = -0.5, hjust = 0.9, color = "steelblue4", linecolor = "steelblue4")
 
 p2 <- expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |> 
   mutate(z = c(volcano)) |> 
@@ -479,8 +478,8 @@ p <- diamonds |>
     aes(tooltip = after_stat(count), 
         data_id = color), 
     width = 0.75, 
-    col = "steelblue", 
-    fill = "steelblue", 
+    col = "steelblue4", 
+    fill = "steelblue4", 
     alpha = 0.9)
 
 ggiraph::girafe(

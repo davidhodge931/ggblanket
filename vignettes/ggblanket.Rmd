@@ -480,8 +480,6 @@ p1 <- d |>
                 width = 0.1) +
   coord_flip()
 
-p1
-
 p2 <- d |>
   gg_col(
     x = species,
@@ -499,8 +497,6 @@ p2 <- d |>
   coord_flip()
 
 p1 / p2
-
-
 ```
 
 ### 12. Other key differences to ggplot2
@@ -602,9 +598,9 @@ p1 + p2
 
 ggblanket uses different defaults for colouring. The default `pal` is:
 
-* `steelblue` for where there is no `col` variable
-* `ggblanket::guardian` for a discrete `col` variable with 3 or less levels (or unique values if a character). Testing suggests this is safe for colour blindness. 
-* `scales::hue_pal` for a discrete `col` variable with more than 5 levels (or unique values if not ordered).
+* `"steelblue4"` for where there is no `col` variable
+* `ggblanket::guardian` for a discrete `col` variable with 4 or less levels (or unique values if a character). This palette is colourblind safe. 
+* `scales::hue_pal` for a discrete `col` variable with 5 or more levels (or unique values if not ordered).
 * `viridis::mako` reversed for a continuous `col` variable
 
 ggblanket uses different `alpha` defaults for the different `gg_*` functions. Polygons that generally have no gap or overlap default to 1: `gg_bin_2d`, `gg_contour_filled`, `gg_density_2d_filled`, `gg_hex` - as well as `gg_sf` for polygons with a `col` aesthetic. Polygons that generally overlap default to 0.5: `gg_density`. Polygons that generally have key lines within them also default to 0.5: `gg_boxplot`, `gg_crossbar`, `gg_ribbon` and `gg_smooth`. `gg_label` defaults to 0.05. `gg_blank` has no alpha argument. Other polygons default to 0.9: `gg_area`, `gg_bar`, `gg_col`, `gg_histogram`, `gg_polygon`, `gg_rect`, `gg_tile` and `gg_violin`. For all other contexts, alpha defaults to 1. 
@@ -626,9 +622,9 @@ p1 <- economics |>
     title = "No x_limits set", 
     theme = light_mode(title_face = "plain")) +
   geom_vline(xintercept = c(lubridate::ymd("1985-01-01", "1995-01-01")),
-             col = "steelblue", 
+             col = guardian(n = 1), 
              linetype = 3) +
-  geom_point(col = "steelblue", alpha = 0.05)
+  geom_point(col = guardian(n = 1), alpha = 0.05)
 
 p2 <- economics |> 
   gg_smooth(
@@ -639,7 +635,7 @@ p2 <- economics |>
     y_labels = \(x) str_keep_seq(x),
     title = "x_limits set", 
     theme = light_mode(title_face = "plain")) +
-  geom_point(col = "steelblue", alpha = 0.1)
+  geom_point(col = guardian(n = 1), alpha = 0.1)
 
 p3 <- economics |> 
   gg_smooth(
@@ -651,7 +647,7 @@ p3 <- economics |>
     coord = coord_cartesian(clip = "on"), 
     title = "x_limits set & cartesian space clipped", 
     theme = light_mode(title_face = "plain")) +
-  geom_point(col = "steelblue", alpha = 0.1)
+  geom_point(col = guardian(n = 1), alpha = 0.1)
 
 p4 <- economics |> 
   gg_smooth(
@@ -663,7 +659,7 @@ p4 <- economics |>
     y_labels = \(x) str_keep_seq(x),
     title = "x_limits set & x_oob censored", 
     theme = light_mode(title_face = "plain")) +
-  geom_point(col = "steelblue", alpha = 0.1)
+  geom_point(col = guardian(n = 1), alpha = 0.1)
 
 p5 <- economics |> 
   filter(between(date, lubridate::ymd("1985-01-01"), lubridate::ymd("1995-01-01"))) |> 
@@ -674,7 +670,7 @@ p5 <- economics |>
     y_labels = \(x) str_keep_seq(x),
     title = "x data filtered", 
     theme = light_mode(title_face = "plain")) +
-  geom_point(col = "steelblue", alpha = 0.1)
+  geom_point(col = guardian(n = 1), alpha = 0.1)
 
 p1 / (p2 + p3) / (p4 + p5) 
 ```
