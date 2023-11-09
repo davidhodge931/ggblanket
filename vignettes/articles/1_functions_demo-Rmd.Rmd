@@ -46,7 +46,7 @@ economics |>
 penguins2 |>
   gg_bar(
     x = species,
-    col = sex,
+    col = species,
     width = 0.6,
     position = "dodge")
 ```
@@ -67,8 +67,8 @@ penguins2 |>
   gg_blank(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex,
-    facet = species,
+    col = species,
+    facet = sex,
     y_include = 0)
 ```
 
@@ -79,8 +79,8 @@ penguins2 |>
   gg_boxplot(
     x = sex,
     y = body_mass_g,
-    col = sex,
-    facet = species,
+    col = species,
+    facet = sex,
     x_labels = snakecase::to_sentence_case)
 ```
 
@@ -93,7 +93,7 @@ penguins2 |>
   gg_col(
     x = flipper_length_mm,
     y = species,
-    col = sex,
+    col = species,
     width = 0.66,
     position = "dodge")
 ```
@@ -146,8 +146,8 @@ data.frame(
 penguins2 |>
   gg_density(
     x = flipper_length_mm,
-    col = sex,
-    facet = species)
+    col = species,
+    facet = sex)
 ```
 
 ### gg_density_2d
@@ -196,8 +196,8 @@ data.frame(
 penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
-    col = sex,
-    facet = species)
+    col = species,
+    facet = sex)
 ```
 
 ### gg_hex
@@ -217,8 +217,8 @@ diamonds |>
 penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
-    col = sex,
-    facet = species,
+    col = species,
+    facet = sex,
     bins = 50)
 ```
 
@@ -228,8 +228,8 @@ penguins2 |>
 penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
-    col = sex,
-    facet = species)
+    col = species,
+    facet = sex)
 ```
 
 ### gg_jitter
@@ -314,9 +314,7 @@ economics |>
 penguins2 |>
   gg_point(
     x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    facet = species)
+    y = body_mass_g)
 ```
 
 ### gg_pointrange
@@ -374,7 +372,7 @@ datapoly |>
 penguins2 |>
   gg_qq(
     sample = body_mass_g,
-    facet = species,
+    facet = sex,
     coord = ggplot2::coord_cartesian(clip = "on"))
 ```
 
@@ -419,9 +417,9 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     x = year,
     ymin = level_min,
     ymax = level_max,
-    pal = scales::alpha("steelblue4", 0),
+    pal = scales::alpha(mako(9)[5], 0),
     y_title = "Level") +
-  geom_line(aes(x = year, y = level), col = "steelblue4")
+  geom_line(aes(x = year, y = level), col = mako(9)[5])
 ```
 
 ### gg_segment
@@ -453,7 +451,7 @@ penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    facet = species)
+    facet = sex)
 ```
 
 ### gg_step
@@ -506,6 +504,6 @@ penguins2 |>
   gg_violin(
     x = sex,
     y = body_mass_g,
-    col = sex,
-    facet = species)
+    col = species,
+    facet = sex)
 ```

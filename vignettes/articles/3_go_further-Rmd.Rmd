@@ -126,7 +126,7 @@ p3 <- iris |>
 p4 <- iris |>
   gg_density(
     x = Sepal.Length,
-    pal = scales::alpha("steelblue4", 0),
+    pal = scales::alpha(mako(9)[5], 0),
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE))
 
 (p1 + p2) / (p3 + p4) 
@@ -142,7 +142,7 @@ p1 <- iris |>
     x = Sepal.Length,
     col = 1, 
     stat = "density", 
-    pal = "steelblue4",
+    pal = mako(9)[5],
     colour = "black",
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
     col_legend_place = "n", 
@@ -154,7 +154,7 @@ p2 <- iris |>
     x = Sepal.Length,
     col = 1, 
     stat = "density", 
-    pal = "steelblue4",
+    pal = mako(9)[5],
     fill = "lightgrey",
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
     col_legend_place = "n") 

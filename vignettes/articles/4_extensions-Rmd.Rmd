@@ -79,7 +79,7 @@ The ggbeeswarm package can be used to create scatter plots that avoid overlappin
 penguins2 |> 
   gg_blank(x = species, 
            y = body_mass_g) + 
-  ggbeeswarm::geom_quasirandom(colour = "steelblue4")
+  ggbeeswarm::geom_quasirandom(colour = mako(9)[5])
 ```
 
 #### ggblend
@@ -191,8 +191,8 @@ d |>
     y_title = "") +
   ggdist::stat_slabinterval(
     aes(dist = dist),
-    colour = "steelblue4",
-    fill = scales::alpha("steelblue4", 0.5))
+    colour = mako(9)[5],
+    fill = scales::alpha(mako(9)[5], 0.5))
 ```
 
 ```{r}
@@ -251,7 +251,7 @@ ggplot2::economics |>
     y_title = "Unemployment") +
   ggforce::geom_bspline(n = 1000,
                         linewidth = 0.75,
-                        colour = "steelblue4")
+                        colour = mako(9)[5])
 ```
 
 #### ggh4x
@@ -290,7 +290,7 @@ iris |>
     col = Species,
     facet = Species,
     facet_labels = \(x) str_to_sentence(x),
-    pal = rep("steelblue4", 3)
+    pal = rep(mako(9)[5], 3)
   ) +
   gghighlight::gghighlight() +
   scale_y_continuous(expand = c(0, 0))
@@ -447,7 +447,7 @@ p1 <- pressure |>
   gg_blank(x = temperature, y = pressure) +
   geom_textline(
     label = "Mercury vapor pressure increases with temperature",
-    size = 3.53, vjust = -0.5, hjust = 0.9, color = "steelblue4", linecolor = "steelblue4")
+    size = 3.53, vjust = -0.5, hjust = 0.9, color = mako(9)[5], linecolor = mako(9)[5])
 
 p2 <- expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |> 
   mutate(z = c(volcano)) |> 
@@ -480,8 +480,8 @@ p <- diamonds |>
     aes(tooltip = after_stat(count), 
         data_id = color), 
     width = 0.75, 
-    col = "steelblue4", 
-    fill = "steelblue4", 
+    col = mako(9)[5], 
+    fill = mako(9)[5], 
     alpha = 0.9)
 
 ggiraph::girafe(

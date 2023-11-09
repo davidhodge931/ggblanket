@@ -85,7 +85,7 @@
 #'     label = model,
 #'     size = 3.53,
 #'     y_include = c(min(.$mpg) * 0.95, max(.$mpg) * 1.05),
-#'     pal = c(guardian()[2], "white", "#36648b"),
+#'     pal = c(guardian()[2], "white", "#357BA2"),
 #'     y_title = "Miles per gallon"
 #'   )
 #'
@@ -430,7 +430,7 @@ gg_label <- function(
   }
 
   if (!col_scale) {
-    if (rlang::is_null(pal)) pal <- "#36648b"
+    if (rlang::is_null(pal)) pal <- "#357BA2"
     else pal <- as.vector(pal[1])
 
     plot <- plot +
@@ -1325,7 +1325,7 @@ gg_label <- function(
         else col_breaks <- scales::breaks_pretty(n = 5)
       }
 
-      if (rlang::is_null(pal)) pal <- viridisLite::mako(n = 20, direction = -1)
+      if (rlang::is_null(pal)) pal <- viridisLite::mako(n = 18, direction = -1)
 
       if (rlang::is_null(col_labels)) {
         if (col_numeric | col_null) {

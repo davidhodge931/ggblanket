@@ -1,13 +1,9 @@
-#' @title Pointrange ggplot
+#' @title Point ggplot
 #'
-#' @description Create a pointrange ggplot with a wrapper around ggplot2::geom_pointrange(stat = "identity", ...).
+#' @description Create a point ggplot with a wrapper around ggplot2::geom_point(stat = "identity", ...).
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
-#' @param xmin Unquoted xmin aesthetic variable.
-#' @param xmax Unquoted xmax aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
-#' @param ymin Unquoted ymin aesthetic variable.
-#' @param ymax Unquoted ymax aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
@@ -20,7 +16,7 @@
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
-#' @param ... Other arguments passed to the ggplot2::geom_pointrange function.
+#' @param ... Other arguments passed to the ggplot2::geom_point function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -73,35 +69,24 @@
 #'
 #' @return A ggplot object.
 #' @export
+#'
 #' @examples
-#' data.frame(
-#'   trt = factor(c(1, 1, 2, 2)),
-#'   resp = c(1, 5, 3, 4),
-#'   group = factor(c(1, 2, 1, 2)),
-#'   upper = c(1.1, 5.3, 3.3, 4.2),
-#'   lower = c(0.8, 4.6, 2.4, 3.6)
-#' ) |>
-#'   gg_pointrange(
-#'     x = trt,
-#'     y = resp,
-#'     col = group,
-#'     ymin = lower,
-#'     ymax = upper,
-#'     position = ggplot2::position_dodge(width = 0.2),
-#'     size = 0.2,
-#'     pal = c("#1B9E77", "#9E361B"),
-#'     x_title = "Treatment",
-#'     y_title = "Response"
+#' library(palmerpenguins)
+#'
+#' penguins |>
+#'   gg_point2(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = sex,
+#'     facet = species,
+#'     col_labels = stringr::str_to_sentence,
+#'     pal = c("#1B9E77", "#9E361B")
 #'   )
 #'
-gg_pointrange <- function(
+gg_point2 <- function(
     data = NULL,
     x = NULL,
-    xmin = NULL,
-    xmax = NULL,
     y = NULL,
-    ymin = NULL,
-    ymax = NULL,
     col = NULL,
     facet = NULL,
     facet2 = NULL,
@@ -180,75 +165,35 @@ gg_pointrange <- function(
   group <- rlang::enquo(group)
   text <- rlang::enquo(text)
 
-  xmin <- rlang::enquo(xmin)
-  xmax <- rlang::enquo(xmax)
-
-  ymin <- rlang::enquo(ymin)
-  ymax <- rlang::enquo(ymax)
-
   #ungroup
   data <- data %>%
     dplyr::ungroup() %>%
     dplyr::mutate(dplyr::across(
       c(!!x, !!y,
-        !!xmin, !!ymin,
-        !!xmax, !!ymax,
         !!col
       ),
       na_if_inf))
 
   #get classes
-  x_null <- rlang::quo_is_null(x) & rlang::quo_is_null(xmin) & rlang::quo_is_null(xmax)
+  x_null <- rlang::quo_is_null(x)
   x_character <- is.character(rlang::eval_tidy(x, data))
   x_logical <- is.logical(rlang::eval_tidy(x, data))
   x_factor <- is.factor(rlang::eval_tidy(x, data))
   x_forcat <- x_character | x_factor | x_logical
-  x_numeric <- {
-    is.numeric(rlang::eval_tidy(x, data)) |
-      is.numeric(rlang::eval_tidy(xmin, data)) |
-      is.numeric(rlang::eval_tidy(xmax, data))
-  }
-  x_date <- {
-    lubridate::is.Date(rlang::eval_tidy(x, data)) |
-      lubridate::is.Date(rlang::eval_tidy(xmin, data)) |
-      lubridate::is.Date(rlang::eval_tidy(xmax, data))
-  }
-  x_datetime <- {
-    lubridate::is.POSIXct(rlang::eval_tidy(x, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(xmin, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(xmax, data))
-  }
-  x_time <- {
-    hms::is_hms(rlang::eval_tidy(x, data)) |
-      hms::is_hms(rlang::eval_tidy(xmin, data)) |
-      hms::is_hms(rlang::eval_tidy(xmax, data))
-  }
+  x_numeric <- is.numeric(rlang::eval_tidy(x, data))
+  x_date <- lubridate::is.Date(rlang::eval_tidy(x, data))
+  x_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(x, data))
+  x_time <- hms::is_hms(rlang::eval_tidy(x, data))
 
-  # y_null <- rlang::quo_is_null(y)
-  y_null <- rlang::quo_is_null(y) & rlang::quo_is_null(ymin) & rlang::quo_is_null(ymax)
+  y_null <- rlang::quo_is_null(y)
   y_character <- is.character(rlang::eval_tidy(y, data))
   y_logical <- is.logical(rlang::eval_tidy(y, data))
   y_factor <- is.factor(rlang::eval_tidy(y, data))
   y_forcat <- y_character | y_factor | y_logical
-  y_numeric <- {
-    is.numeric(rlang::eval_tidy(y, data)) |
-      is.numeric(rlang::eval_tidy(ymin, data)) |
-      is.numeric(rlang::eval_tidy(ymax, data))
-  }
-  y_date <- {
-    lubridate::is.Date(rlang::eval_tidy(y, data)) |
-      lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
-      lubridate::is.Date(rlang::eval_tidy(ymax, data))
-  }
-  y_datetime <- {
-    lubridate::is.POSIXct(rlang::eval_tidy(y, data)) |
-      lubridate::is.POSIXct(rlang::eval_tidy(ymin, data))
-  }
-  y_time <- {
-    hms::is_hms(rlang::eval_tidy(y, data)) |
-      hms::is_hms(rlang::eval_tidy(ymin, data)) |
-      hms::is_hms(rlang::eval_tidy(ymax, data))
-  }
+  y_numeric <- is.numeric(rlang::eval_tidy(y, data))
+  y_date <- lubridate::is.Date(rlang::eval_tidy(y, data))
+  y_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(y, data))
+  y_time <- hms::is_hms(rlang::eval_tidy(y, data))
 
   col_null <- rlang::quo_is_null(col)
   col_character <- is.character(rlang::eval_tidy(col, data))
@@ -395,11 +340,7 @@ gg_pointrange <- function(
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group, !!!mapping,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group, !!!mapping
         ))
     }
     else if (col_null) {
@@ -409,11 +350,7 @@ gg_pointrange <- function(
           y = !!y,
           # col = "",
           # fill = "",
-          group = !!group, !!!mapping,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group, !!!mapping
         ))
     }
   }
@@ -424,11 +361,7 @@ gg_pointrange <- function(
           x = !!x,
           col = !!col,
           fill = !!col,
-          group = !!group, !!!mapping,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group, !!!mapping
         ))
     }
     else if (col_null) {
@@ -437,11 +370,7 @@ gg_pointrange <- function(
           x = !!x,
           # col = "",
           # fill = "",
-          group = !!group, !!!mapping,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group, !!!mapping
         ))
     }
   }
@@ -452,11 +381,7 @@ gg_pointrange <- function(
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group, !!!mapping,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group, !!!mapping
         ))
     }
     else if (col_null) {
@@ -465,11 +390,7 @@ gg_pointrange <- function(
           y = !!y,
           # col = "",
           # fill = "",
-          group = !!group, !!!mapping,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group, !!!mapping
         ))
     }
   }
@@ -479,11 +400,7 @@ gg_pointrange <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = !!col,
           fill = !!col,
-          group = !!group, !!!mapping,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group, !!!mapping
         ))
     }
     else if (col_null) {
@@ -491,11 +408,7 @@ gg_pointrange <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           # col = "",
           # fill = "",
-          group = !!group, !!!mapping,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          ymin = !!ymin,
-          ymax = !!ymax
+          group = !!group, !!!mapping
         ))
     }
   }
@@ -506,7 +419,7 @@ gg_pointrange <- function(
 
     plot <- plot +
       # ggplot2::geom_blank(stat = stat, position = position, ...) +
-      ggplot2::geom_pointrange(
+      ggplot2::geom_point(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,
@@ -520,7 +433,7 @@ gg_pointrange <- function(
   else {
     plot <- plot +
       # ggplot2::geom_blank(stat = stat, position = position, ...) +
-      ggplot2::geom_pointrange(
+      ggplot2::geom_point(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,
@@ -1576,9 +1489,17 @@ gg_pointrange <- function(
         ggplot2::theme(legend.position = col_legend_place) +
         ggplot2::theme(legend.direction = "horizontal") +
         ggplot2::theme(legend.justification = "left") +
-        ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
+        # ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
         ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5))) +
         ggplot2::theme(legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 5)))
+
+      if (col_legend_place == "bottom") {
+
+      }
+      else if (col_legend_place == "top") {
+
+      }
+
 
       if (col_numeric) {
         plot <- plot +

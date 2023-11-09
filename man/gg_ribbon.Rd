@@ -231,9 +231,9 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     x = year,
     ymin = level_min,
     ymax = level_max,
-    pal = scales::alpha("steelblue4", 0),
+    pal = scales::alpha("steelblue", 0),
     y_title = "Level"
   ) +
-  geom_line(aes(x = year, y = level), col = "steelblue4")
+  geom_line(aes(x = year, y = level), col = "steelblue")
 
 }
