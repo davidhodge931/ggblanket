@@ -430,7 +430,7 @@ gg_sf <- function(
   }
 
   #Get the positional scales right first
-  # if (stat != "sf"){
+  # if (stat != "sf") {
   #   if (x_numeric) {
   #     if (any(x_trans %in% "reverse") & !rlang::is_null(x_limits)) {
   #       plot <- plot +
@@ -1387,7 +1387,7 @@ gg_sf <- function(
   }
 
   #Adjust legend
-  if (!rlang::is_null(col_legend_place)){
+  if (!rlang::is_null(col_legend_place)) {
     if (col_legend_place %in% c("top", "bottom")) {
       plot <- plot +
         ggplot2::theme(legend.position = col_legend_place) +
@@ -1396,6 +1396,23 @@ gg_sf <- function(
         ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
         ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5))) +
         ggplot2::theme(legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 5)))
+
+      if (col_legend_place %in% c("bottom", "top")) {
+        plot <- plot +
+          ggplot2::theme(legend.position = col_legend_place) +
+          ggplot2::theme(legend.direction = "horizontal") +
+          ggplot2::theme(legend.justification = "left") +
+          ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5)))
+      }
+
+      if (col_legend_place == "bottom") {
+        plot <- plot +
+          ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5))
+      }
+      else if (col_legend_place == "top") {
+        plot <- plot +
+          ggplot2::theme(legend.box.margin = ggplot2::margin(t = -10))
+      }
 
       if (col_numeric) {
         plot <- plot +

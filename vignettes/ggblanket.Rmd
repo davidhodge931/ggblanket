@@ -336,7 +336,7 @@ penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex,
+    col = sex, 
     linewidth = 0.5, #accessed via geom_smooth
     level = 0.99) #accessed via geom_smooth
 ```
