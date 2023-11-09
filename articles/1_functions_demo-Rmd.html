@@ -126,7 +126,7 @@ Hodge</h4>
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_bar.html">gg_bar</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.6</span>,</span>
 <span>    position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_functions_demo-Rmd_files/figure-html/unnamed-chunk-3-1.svg" width="70%"></p>
@@ -149,8 +149,8 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_blank.html">gg_blank</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    facet <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    y_include <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_functions_demo-Rmd_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
 </div>
@@ -162,8 +162,8 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_boxplot.html">gg_boxplot</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    facet <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    x_labels <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_functions_demo-Rmd_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
 </div>
@@ -177,7 +177,7 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.66</span>,</span>
 <span>    position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_functions_demo-Rmd_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
@@ -234,8 +234,8 @@ Hodge</h4>
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    facet <span class="op">=</span> <span class="va">species</span><span class="op">)</span></span></code></pre></div>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    facet <span class="op">=</span> <span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_functions_demo-Rmd_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -288,8 +288,8 @@ Hodge</h4>
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_freqpoly.html">gg_freqpoly</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    facet <span class="op">=</span> <span class="va">species</span><span class="op">)</span></span></code></pre></div>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    facet <span class="op">=</span> <span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_functions_demo-Rmd_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -311,8 +311,8 @@ Hodge</h4>
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    facet <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    bins <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_functions_demo-Rmd_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
 </div>
@@ -323,8 +323,8 @@ Hodge</h4>
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_freqpoly.html">gg_freqpoly</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    facet <span class="op">=</span> <span class="va">species</span><span class="op">)</span></span></code></pre></div>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    facet <span class="op">=</span> <span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_functions_demo-Rmd_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -415,9 +415,7 @@ Hodge</h4>
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    facet <span class="op">=</span> <span class="va">species</span><span class="op">)</span></span></code></pre></div>
+<span>    y <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_functions_demo-Rmd_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -478,7 +476,7 @@ Hodge</h4>
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_qq.html">gg_qq</a></span><span class="op">(</span></span>
 <span>    sample <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    facet <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    coord <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_functions_demo-Rmd_files/figure-html/unnamed-chunk-27-1.svg" width="70%"></p>
 </div>
@@ -526,9 +524,9 @@ Hodge</h4>
 <span>    x <span class="op">=</span> <span class="va">year</span>,</span>
 <span>    ymin <span class="op">=</span> <span class="va">level_min</span>,</span>
 <span>    ymax <span class="op">=</span> <span class="va">level_max</span>,</span>
-<span>    pal <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"steelblue4"</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    pal <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Level"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">level</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"steelblue4"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">level</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_functions_demo-Rmd_files/figure-html/unnamed-chunk-30-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -563,7 +561,7 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    facet <span class="op">=</span> <span class="va">species</span><span class="op">)</span></span></code></pre></div>
+<span>    facet <span class="op">=</span> <span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_functions_demo-Rmd_files/figure-html/unnamed-chunk-33-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -620,8 +618,8 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_violin.html">gg_violin</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    facet <span class="op">=</span> <span class="va">species</span><span class="op">)</span></span></code></pre></div>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    facet <span class="op">=</span> <span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_functions_demo-Rmd_files/figure-html/unnamed-chunk-37-1.svg" width="70%"></p>
 </div>
 </div>
