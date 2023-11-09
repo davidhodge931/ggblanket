@@ -11,6 +11,7 @@
 * Ensured positional breaks take expand into account.
 * Updated `gg_qq`, so it includes a `geom_qq_line` layer, has nicer `x_title`, `y_title` and `coord` defaults. 
 * Added more positional scale arguments to `gg_sf` (i.e. `*_limits`, `*_expand`, `*_breaks`, and `*_labels`).
+* Improved margins where `col_legend_place` is top.
 
 # ggblanket 5.1.0
 
