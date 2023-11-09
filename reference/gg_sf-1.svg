@@ -66,12 +66,12 @@
 <clipPath id="clip2">
   <path d="M 463.054688 123.859375 L 480.335938 123.859375 L 480.335938 210.257812 L 463.054688 210.257812 Z M 463.054688 123.859375 "/>
 </clipPath>
-<image id="image204" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAAvElEQVQ4jYWOWxJDIQhDc9LpJrr/fdoP8QoWpx8OeRHR6/2xYT7JBhMcYSMTGlqz0xZWwhTsLnPNKfGdd9nVcyfS3CNh7Vtzp9MNRefItLtK/Qufnpr8oY3fva6ry819Sq81jn/Gxau4z1+8sbv+9YKM18x4a+LQCh41Q+pKmqj87k9NxsRFcnAWJ7g2J/I0eXJGjZa5Htzty547OLQ0wyflntnk7v69u8/Gn4GXTpN79NM7/fzX0Vtx2/EFNhgmGW9LgcoAAAAASUVORK5CYII="/>
+<image id="image199" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAAvElEQVQ4jYWOWxJDIQhDc9LpJrr/fdoP8QoWpx8OeRHR6/2xYT7JBhMcYSMTGlqz0xZWwhTsLnPNKfGdd9nVcyfS3CNh7Vtzp9MNRefItLtK/Qufnpr8oY3fva6ry819Sq81jn/Gxau4z1+8sbv+9YKM18x4a+LQCh41Q+pKmqj87k9NxsRFcnAWJ7g2J/I0eXJGjZa5Htzty547OLQ0wyflntnk7v69u8/Gn4GXTpN79NM7/fzX0Vtx2/EFNhgmGW9LgcoAAAAASUVORK5CYII="/>
 <pattern id="pattern0" patternUnits="userSpaceOnUse" width="1" height="300"  patternTransform="matrix(17.28,0,0,0.288,463.05406,123.860606)">
-  <use xlink:href="#image204"/>
+  <use xlink:href="#image199"/>
 </pattern>
 </defs>
-<g id="surface200">
+<g id="surface195">
 <g clip-path="url(#clip1)" clip-rule="nonzero">
 <path style="fill-rule:nonzero;fill:rgb(90.196078%,92.54902%,94.901961%);fill-opacity:1;stroke-width:0.646654;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(90.196078%,92.54902%,94.901961%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 257.066406 L 525 257.066406 L 525 66.9375 L 0 66.9375 Z M 0 257.066406 "/>
 </g>
@@ -319,7 +319,7 @@
 <g style="fill:rgb(7.058824%,10.588235%,14.117647%);fill-opacity:1;">
   <use xlink:href="#glyph0-9" x="415.433594" y="245.883789"/>
 </g>
-<path style=" stroke:none;fill-rule:evenodd;fill:rgb(90.196078%,92.54902%,94.901961%);fill-opacity:1;" d="M 463.054688 210.261719 L 507.566406 210.261719 L 507.566406 109.878906 L 463.054688 109.878906 Z M 463.054688 210.261719 "/>
+<path style=" stroke:none;fill-rule:evenodd;fill:rgb(90.196078%,92.54902%,94.901961%);fill-opacity:1;" d="M 463.054688 210.261719 L 507.566406 210.261719 L 507.566406 104.898438 L 463.054688 104.898438 Z M 463.054688 210.261719 "/>
 <g clip-path="url(#clip2)" clip-rule="nonzero">
 <rect x="0" y="0" width="525" height="324" style="fill:url(#pattern0);stroke:none;"/>
 </g>
