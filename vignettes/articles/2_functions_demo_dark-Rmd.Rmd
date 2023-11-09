@@ -48,7 +48,7 @@ economics |>
 penguins2 |>
   gg_bar(
     x = species,
-    col = species,
+    col = sex,
     width = 0.6,
     position = "dodge")
 ```
@@ -70,8 +70,8 @@ penguins2 |>
   gg_blank(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = species,
-    facet = sex,
+    col = sex,
+    facet = species,
     y_include = 0)
 ```
 
@@ -82,8 +82,8 @@ penguins2 |>
   gg_boxplot(
     x = sex,
     y = body_mass_g,
-    col = species,
-    facet = sex,
+    col = sex,
+    facet = species,
     x_labels = snakecase::to_sentence_case)
 ```
 
@@ -96,7 +96,7 @@ penguins2 |>
   gg_col(
     x = flipper_length_mm,
     y = species,
-    col = species,
+    col = sex,
     width = 0.66,
     position = "dodge")
 ```
@@ -150,8 +150,8 @@ data.frame(
 penguins2 |>
   gg_density(
     x = flipper_length_mm,
-    col = species,
-    facet = sex)
+    col = sex,
+    facet = species)
 ```
 
 ### gg_density_2d
@@ -201,8 +201,8 @@ data.frame(
 penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
-    col = species,
-    facet = sex)
+    col = sex,
+    facet = species)
 ```
 
 ### gg_hex
@@ -223,8 +223,8 @@ diamonds |>
 penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
-    col = species,
-    facet = sex,
+    col = sex,
+    facet = species,
     bins = 50)
 ```
 
@@ -234,8 +234,8 @@ penguins2 |>
 penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
-    col = species,
-    facet = sex)
+    col = sex,
+    facet = species)
 ```
 
 ### gg_jitter
@@ -380,7 +380,7 @@ datapoly |>
 penguins2 |>
   gg_qq(
     sample = body_mass_g,
-    facet = sex,
+    facet = species,
     coord = ggplot2::coord_cartesian(clip = "on"))
 ```
 
@@ -461,7 +461,7 @@ penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    facet = sex)
+    facet = species)
 ```
 
 ### gg_step
@@ -515,6 +515,6 @@ penguins2 |>
   gg_violin(
     x = sex,
     y = body_mass_g,
-    col = species,
-    facet = sex)
+    col = sex,
+    facet = species)
 ```
