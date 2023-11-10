@@ -452,8 +452,6 @@ p1 + p2
 
 3. In some situations, `gg_blank` may be required.
 
-4. If users are building a horizontal plot that includes multiple geoms, it is recommended that users build the plot vertically with ggblanket - and then  use `ggplot2::coord_flip` to make it horizontally.  
-
 Users need to ensure that the scales built by their `gg_*` function are appropriate for subsequent layers. Plot scales are built by the `gg_*` function based on the `data`, `x`, `y`, `*_limits`, `*_include`, `stat`, `position` and `coord` arguments in the `gg_*`  function. 
 
 ```{r, fig.asp=0.75}
@@ -466,34 +464,32 @@ d <- penguins2 |>
 
 p1 <- d |>
   gg_col(
-    x = species,
-    y = body_mass_g,
+    x = body_mass_g,
+    y = species,
     col = species,
     width = 0.75,
-    y_include = c(0, max(d$upper)), 
-    y_labels = \(x) x / 1000, 
-    y_title = "Body mass kg", 
+    x_include = c(0, max(d$upper)), 
+    x_labels = \(x) x / 1000, 
+    x_title = "Body mass kg",
     col_legend_place = "n") +
-  geom_errorbar(aes(ymin = lower, ymax = upper), 
+  geom_errorbar(aes(xmin = lower, xmax = upper), 
                 colour = "black",
-                width = 0.1) +
-  coord_flip()
+                width = 0.1) 
 
 p2 <- d |>
   gg_col(
-    x = species,
-    y = body_mass_g,
+    x = body_mass_g,
+    y = species,
     col = species,
     colour = "#d3d3d3",
     fill = "#d3d3d3",
     width = 0.75,
-    y_include = c(0, max(d$upper)), 
-    y_labels = \(x) x / 1000, 
-    y_title = "Body mass kg", 
+    x_include = c(0, max(d$upper)), 
+    x_labels = \(x) x / 1000, 
+    x_title = "Body mass kg",
     col_legend_place = "n") +
-  geom_errorbar(aes(ymin = lower, ymax = upper), 
-                width = 0.1) +
-  coord_flip()
+  geom_errorbar(aes(xmin = lower, xmax = upper), 
+                width = 0.1) 
 
 p1 / p2
 ```

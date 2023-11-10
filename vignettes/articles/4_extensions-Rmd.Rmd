@@ -417,7 +417,7 @@ penguins2 |>
     title = "***Pygoscelis*** **penguin** bill lengths and depths",
     subtitle = "<span style = 'color: #2596be ;'>**Adelie**</span>, 
        <span style = 'color:#fc7c24;'>**Chinstrap**</span>, 
-       *and* <span style = 'color:#6b5840;'>**Gentoo**</span>", 
+       *and* <span style = 'color:#9c1e74;'>**Gentoo**</span>", 
     x_labels = \(x) glue::glue("_{x}_"),
     y_labels = \(x) glue::glue("_{x}_"),
     col_labels = \(x) glue::glue("_{x}_"),

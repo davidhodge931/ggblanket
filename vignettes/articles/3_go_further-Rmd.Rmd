@@ -284,7 +284,7 @@ p1 / p2
 
 ### 8. Add auto-contrast text on polygons
 
-Text labels can be coloured based on the lightness/darkness of underlying polygons using a trick documented by [@teunbrand](https://github.com/teunbrand/ggplot_tricks). It requires `geom_text` to include the `show.legend = FALSE` argument. When using this method to make a flipped plot, use `coord_flip`.  
+Text labels can be coloured based on the lightness/darkness of underlying polygons using a trick documented by [@teunbrand](https://github.com/teunbrand/ggplot_tricks). It requires `geom_text` to include the `show.legend = FALSE` argument. 
 
 ```{r}
 contrast <- function(colour) {
@@ -299,24 +299,20 @@ penguins2 |>
   summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
   ungroup() |>
   gg_col(
-    x = sex,
-    y = flipper_length_mm,
+    x = flipper_length_mm,
+    y = sex,
     col = species,
     position = "dodge",
-    width = 0.75
-  ) +
+    width = 0.75) +
   geom_text(
     aes(
-      y = flipper_length_mm - (max(flipper_length_mm) * 0.05),
-      label = round(flipper_length_mm, 0),!!!aes(colour = after_scale(contrast((
-        fill
-      ))))
+      x = flipper_length_mm - (max(flipper_length_mm) * 0.05),
+      label = round(flipper_length_mm, 0), 
+      !!!aes(colour = after_scale(contrast((fill))))
     ),
     show.legend = FALSE,
     size = 3.53,
-    position = position_dodge(width = 0.75)
-  ) +
-  coord_flip()
+    position = position_dodge(width = 0.75)) 
 ```
 
 ```{r}
