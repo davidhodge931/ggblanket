@@ -150,17 +150,23 @@ df |>
 The ggdensity package provides visualizations of density estimates.  
 
 ```{r}
-iris |>
-  mutate(Species = str_to_sentence(Species)) |> 
-  gg_blank(
-    x = Sepal.Width,
-    y = Sepal.Length,
-    col = Species,
-    facet = Species,
-    col_legend_place = "r", 
-    col_title = "Species") + 
-  ggdensity::geom_hdr(col = NA) +
-  labs(alpha = "Probs")  
+penguins2 |>
+  gg_blank(x = flipper_length_mm,
+           y = body_mass_g,
+           facet = species) +
+  ggdensity::geom_hdr(colour = NA, fill = mako(9)[5]) +
+  labs(alpha = "Probs")
+```
+
+```{r}
+penguins2 |>
+  gg_blank(x = flipper_length_mm,
+           y = body_mass_g,
+           col = species,
+           facet = species,
+           col_legend_place = "r") +
+  ggdensity::geom_hdr(colour = NA) +
+  labs(alpha = "Probs")
 ```
 
 #### ggdist
@@ -266,7 +272,9 @@ iris |>
   gg_point(x = sepal_width, 
            y = sepal_length, 
            x_breaks = scales::breaks_pretty(n = 3)) +
-  ggh4x::facet_nested(cols = vars(size, species), nest_line = TRUE, solo_line = TRUE) +
+  ggh4x::facet_nested(cols = vars(size, species), 
+                      nest_line = TRUE, 
+                      solo_line = TRUE) +
   theme(strip.text.x = element_text(margin = margin(t = 2.5, b = 5)))
 ```
 

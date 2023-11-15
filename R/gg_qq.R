@@ -1266,7 +1266,7 @@ gg_qq <- function(
       }
       else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
 
-      if (col_null & col_scale) col_legend_rev_auto <- TRUE
+      if (col_null) col_legend_rev_auto <- TRUE
       else if (y_numeric | y_date | y_datetime | y_time) {
         if (col_forcat) col_legend_rev_auto <- FALSE
         else if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- FALSE
@@ -1375,15 +1375,15 @@ gg_qq <- function(
           ggplot2::guides(
             colour = ggplot2::guide_colourbar(
               title.position = "top",
-              draw.ulim = TRUE,
-              draw.llim = TRUE,
+              
+              
               ticks.colour = "#fcfdfe",
               reverse = col_legend_rev
             ),
             fill = ggplot2::guide_colourbar(
               title.position = "top",
-              draw.ulim = TRUE,
-              draw.llim = TRUE,
+              
+              
               ticks.colour = "#fcfdfe",
               reverse = col_legend_rev
             )
