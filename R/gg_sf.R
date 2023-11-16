@@ -231,11 +231,8 @@ gg_sf <- function(
   if (col_logical) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!col, function(x) factor(x, levels = c(TRUE, FALSE))))
-  }
 
-  if (col_character) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!col, function(x) factor(x)))
+    col_factor <- TRUE
   }
 
   if (facet_logical) {
@@ -1253,15 +1250,15 @@ gg_sf <- function(
           ggplot2::guides(
             colour = ggplot2::guide_colourbar(
               title.position = "top",
-              
-              
+
+
               ticks.colour = "#fcfdfe",
               reverse = col_legend_rev
             ),
             fill = ggplot2::guide_colourbar(
               title.position = "top",
-              
-              
+
+
               ticks.colour = "#fcfdfe",
               reverse = col_legend_rev
             )

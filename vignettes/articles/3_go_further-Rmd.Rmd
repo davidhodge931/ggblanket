@@ -134,7 +134,7 @@ p4 <- iris |>
 
 ### 4. Fix either colour or fill to something different 
 
-Users can also fix _either_ the colour (i.e. of the outlines) or fill of a geom to something different than the `pal`. A method for where there is a `col` variable is to add a `colour = "black"` or `fill = "lightgrey"` argument. If no col variable is desired, just use `col = 1` and `col_legend_place = "n"`.
+Users can also fix _either_ the colour (i.e. of the outlines) or fill of a geom to something different than the `pal`. A method for where there is a `col` variable is to add a `colour = "black"` or `fill = "lightgrey"` argument. If no col variable is desired, just use `col = 1` and `col_legend_place = "none"`.
 
 ```{r, fig.asp=1}
 p1 <- iris |>
@@ -145,7 +145,7 @@ p1 <- iris |>
     pal = mako(9)[5],
     colour = "black",
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
-    col_legend_place = "n", 
+    col_legend_place = "none", 
     title = "Fix a different colour or fill",
     theme = light_mode(title_face = "plain")) 
 
@@ -157,7 +157,7 @@ p2 <- iris |>
     pal = mako(9)[5],
     fill = "lightgrey",
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
-    col_legend_place = "n") 
+    col_legend_place = "none") 
 
 p3 <- iris |>
   gg_density(
@@ -243,7 +243,7 @@ p3 <- penguins2 |>
     stat = "summary", 
     position = "dodge",
     width = 0.75,
-    col_legend_place = "r")
+    col_legend_place = "right")
 
 (p1 + p2) / p3
 ```
@@ -257,7 +257,7 @@ gg_point_custom <- function(data, x, y, col = NULL, facet = NULL, facet2 = NULL,
                             pal = RColorBrewer::brewer.pal(8, "Dark2"),
                             col_labels = \(x) stringr::str_to_sentence(x),
                             col_title = "", 
-                            col_legend_place = "t",
+                            col_legend_place = "top",
                             ...) {
   data |> 
     gg_point(x = {{ x }}, y = {{ y }}, 

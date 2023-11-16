@@ -260,7 +260,7 @@ penguins2 |>
     y_expand = expansion(mult = c(0, 0.05)),
     y_trans = "sqrt",
     y_title = "Body mass (g)", 
-    col_legend_place = "t", 
+    col_legend_place = "top", 
     col_title = "")
 ```
 
@@ -471,7 +471,7 @@ p1 <- d |>
     x_include = c(0, max(d$upper)), 
     x_labels = \(x) x / 1000, 
     x_title = "Body mass kg",
-    col_legend_place = "n") +
+    col_legend_place = "none") +
   geom_errorbar(aes(xmin = lower, xmax = upper), 
                 colour = "black",
                 width = 0.1) 
@@ -487,7 +487,7 @@ p2 <- d |>
     x_include = c(0, max(d$upper)), 
     x_labels = \(x) x / 1000, 
     x_title = "Body mass kg",
-    col_legend_place = "n") +
+    col_legend_place = "none") +
   geom_errorbar(aes(xmin = lower, xmax = upper), 
                 width = 0.1) 
 

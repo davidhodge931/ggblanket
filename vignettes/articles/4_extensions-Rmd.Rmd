@@ -164,7 +164,7 @@ penguins2 |>
            y = body_mass_g,
            col = species,
            facet = species,
-           col_legend_place = "r") +
+           col_legend_place = "right") +
   ggdensity::geom_hdr(colour = NA) +
   labs(alpha = "Probs")
 ```
@@ -227,7 +227,7 @@ penguins2 |>
     x = species, 
     y = body_mass_g, 
     col = sex, 
-    col_legend_place = "t",
+    col_legend_place = "top",
     col_title = "") +
   ggeasy::easy_remove_axes(which = "y", 
                            what = c("line", "ticks"))
@@ -351,13 +351,13 @@ The ggpointdensity package can be used to create a cross between a scatter plot 
  
 ```{r}
 tibble(x = rnorm(7000, sd = 1),
-       y = rnorm(7000, sd = 10)) |> 
+       y = rnorm(7000, sd = 10)) |>
   gg_blank(
-    x = x,
-    y = y, 
-    col_title = "N neighbours") +
+    x = x, 
+    y = y
+  ) +
   ggpointdensity::geom_pointdensity() +
-  scale_colour_viridis_c()
+  scale_colour_viridis_c(option = "G", direction = -1)
 ```
 
 #### ggrepel
@@ -384,7 +384,7 @@ ggridges::Catalan_elections |>
     x = percent, 
     y = year, 
     col = option,
-    y_expand = c(0, 0), 
+    y_expand = expansion(c(0, 0.01)), 
     col_title = "",
     col_legend_rev = TRUE, 
     x_limits = c(0, 100),
@@ -466,7 +466,7 @@ p2 <- expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |>
            x_limits = c(NA, NA),
            x_expand = c(0, 0),
            y_limits = c(NA, NA), 
-           col_legend_place = "n") +
+           col_legend_place = "none") +
   geom_textcontour(aes(label = after_stat(level)), size = 2.5, straight = TRUE) +
   ggeasy::easy_remove_axes() 
 

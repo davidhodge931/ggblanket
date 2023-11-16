@@ -291,13 +291,11 @@ gg_segment <- function(
       dplyr::mutate(dplyr::across(!!y, function(x) factor(x, levels = c(FALSE, TRUE))))
   }
 
-  if (col_logical & !flipped) {
+  if (col_logical) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!col, function(x) factor(x, levels = c(TRUE, FALSE))))
-  }
-  else if (col_logical & flipped) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!col, function(x) factor(x, levels = c(FALSE, TRUE))))
+
+    col_factor <- TRUE
   }
 
   if (col_character) {
@@ -1403,15 +1401,15 @@ gg_segment <- function(
           ggplot2::guides(
             colour = ggplot2::guide_colourbar(
               title.position = "top",
-              
-              
+
+
               ticks.colour = "#fcfdfe",
               reverse = col_legend_rev
             ),
             fill = ggplot2::guide_colourbar(
               title.position = "top",
-              
-              
+
+
               ticks.colour = "#fcfdfe",
               reverse = col_legend_rev
             )
