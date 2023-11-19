@@ -266,7 +266,7 @@ gg_col2 <- function(
 
   if (y_factor) {
     data <- data %>%
-      dplyr::mutate(dplyr::across(!!y, function(x) fct_rev(x)))
+      dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
   }
 
   if (col_logical) {
