@@ -287,20 +287,14 @@ p1 / p2
 A method was developed by [@teunbrand](https://github.com/teunbrand/ggplot_tricks) to colour text on polygons using a dark or light colour, which is determined  based on the underlying polygon colour.
 
 ```{r}
-contrast <-
-  function(pal,
-           pal_dark = "#121b24",
-           pal_light = "#fcfdfe") {
-    
-    out   <- rep(pal_dark, length(pal))
+contrast <- function(pal, pal_dark = "#121b24", pal_light = "#fcfdfe") {
+    out <- rep(pal_dark, length(pal))
     light <- farver::get_channel(pal, "l", space = "hcl")
     out[light < 50] <- pal_light
     out
   }
 
-aes_contrast <- {
-  aes(colour = after_scale(contrast(fill)))
-}
+aes_contrast <- aes(colour = after_scale(contrast(fill)))
 
 palmerpenguins::penguins |>
   count(species, sex) |> 
@@ -312,14 +306,12 @@ palmerpenguins::penguins |>
     width = 0.75, 
     position = position_dodge2(preserve = "single"),
     x_labels = \(x) str_to_sentence(x), 
-    col_legend_place = "right",
   ) +
   geom_text(
     aes(
       y = n - (max(n * 0.04)),
       label = n, 
       !!!aes_contrast, 
-      # !!!aes(colour = after_scale(contrast(fill))),
     ),
     position = position_dodge2(width = 0.75, preserve = "single"),
     size = 3.53,
@@ -347,7 +339,6 @@ mtcars |>
   geom_text(
     aes(label = round(r, 1),
       !!!aes_contrast, 
-      # !!!aes(colour = after_scale(contrast(fill))),
     ),
     size = 3.53,
     show.legend = FALSE,
