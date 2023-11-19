@@ -108,7 +108,7 @@ to:</p>
 <li>Work with other aesthetics (or delayed evaluation)</li>
 <li>Change the stat</li>
 <li>Create custom wrapper functions</li>
-<li>Add auto-contrast text on polygons</li>
+<li>Add contrasting dark or light text on polygons</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -388,12 +388,11 @@ within the ggblanket <code>gg_*</code> function (and applicable
 <p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="add-auto-contrast-text-on-polygons">8. Add auto-contrast text on polygons<a class="anchor" aria-label="anchor" href="#add-auto-contrast-text-on-polygons"></a>
+<h3 id="add-contrasting-dark-or-light-text-on-polygons">8. Add contrasting dark or light text on polygons<a class="anchor" aria-label="anchor" href="#add-contrasting-dark-or-light-text-on-polygons"></a>
 </h3>
-<p>Text labels can be coloured based on the lightness/darkness of
-underlying polygons using code developed by <a href="https://github.com/teunbrand/ggplot_tricks" class="external-link"><span class="citation">@teunbrand</span></a>. It requires
-<code>geom_text</code> to include the <code>show.legend = FALSE</code>
-argument.</p>
+<p>A method was developed by <a href="https://github.com/teunbrand/ggplot_tricks" class="external-link"><span class="citation">@teunbrand</span></a> to colour text on polygons using
+a dark or light colour, which is determined based on the underlying
+polygon colour.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">contrast</span> <span class="op">&lt;-</span></span>
 <span>  <span class="kw">function</span><span class="op">(</span><span class="va">pal</span>,</span>
