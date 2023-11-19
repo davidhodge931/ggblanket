@@ -394,20 +394,14 @@ within the ggblanket <code>gg_*</code> function (and applicable
 a dark or light colour, which is determined based on the underlying
 polygon colour.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">contrast</span> <span class="op">&lt;-</span></span>
-<span>  <span class="kw">function</span><span class="op">(</span><span class="va">pal</span>,</span>
-<span>           <span class="va">pal_dark</span> <span class="op">=</span> <span class="st">"#121b24"</span>,</span>
-<span>           <span class="va">pal_light</span> <span class="op">=</span> <span class="st">"#fcfdfe"</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    </span>
-<span>    <span class="va">out</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">pal_dark</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">pal</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">contrast</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">pal</span>, <span class="va">pal_dark</span> <span class="op">=</span> <span class="st">"#121b24"</span>, <span class="va">pal_light</span> <span class="op">=</span> <span class="st">"#fcfdfe"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">pal_dark</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">pal</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="va">light</span> <span class="op">&lt;-</span> <span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/manip_channel.html" class="external-link">get_channel</a></span><span class="op">(</span><span class="va">pal</span>, <span class="st">"l"</span>, space <span class="op">=</span> <span class="st">"hcl"</span><span class="op">)</span></span>
 <span>    <span class="va">out</span><span class="op">[</span><span class="va">light</span> <span class="op">&lt;</span> <span class="fl">50</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">pal_light</span></span>
 <span>    <span class="va">out</span></span>
 <span>  <span class="op">}</span></span>
 <span></span>
-<span><span class="va">aes_contrast</span> <span class="op">&lt;-</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_scale</a></span><span class="op">(</span><span class="fu">contrast</span><span class="op">(</span><span class="va">fill</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
+<span><span class="va">aes_contrast</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_scale</a></span><span class="op">(</span><span class="fu">contrast</span><span class="op">(</span><span class="va">fill</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">penguins</a></span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -419,14 +413,12 @@ polygon colour.</p>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>, </span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, </span>
-<span>    col_legend_place <span class="op">=</span> <span class="st">"right"</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span></span>
 <span>      y <span class="op">=</span> <span class="va">n</span> <span class="op">-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">n</span> <span class="op">*</span> <span class="fl">0.04</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>      label <span class="op">=</span> <span class="va">n</span>, </span>
 <span>      <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="va">aes_contrast</span>, </span>
-<span>      <span class="co"># !!!aes(colour = after_scale(contrast(fill))),</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span>, preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">3.53</span>,</span>
@@ -453,7 +445,6 @@ polygon colour.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">r</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>      <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="va">aes_contrast</span>, </span>
-<span>      <span class="co"># !!!aes(colour = after_scale(contrast(fill))),</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">3.53</span>,</span>
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
