@@ -1,6 +1,6 @@
 #' @title Col ggplot
 #'
-#' @description Create a col ggplot with a wrapper around ggplot2::geom_bar(stat = "identity", ...).
+#' @description Create a col ggplot with a wrapper around ggplot2::geom_point(stat = "identity", ...).
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
@@ -16,7 +16,7 @@
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
-#' @param ... Other arguments passed to the ggplot2::geom_bar function.
+#' @param ... Other arguments passed to the ggplot2::geom_point function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -80,7 +80,7 @@
 #'   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
 #'   tidyr::drop_na(sex) |>
 #'   mutate(species = stringr::str_to_sentence(species)) |>
-#'   gg_col2(
+#'   gg_point2(
 #'     x = flipper_length_mm,
 #'     y = species,
 #'     col = sex,
@@ -89,7 +89,7 @@
 #'     pal = c("#1B9E77", "#9E361B")
 #'   )
 #'
-gg_col2 <- function(
+gg_point2 <- function(
     data = NULL,
     x = NULL,
     y = NULL,
@@ -253,8 +253,8 @@ gg_col2 <- function(
   if (y_logical) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!y, function(x) factor(x, levels = c(FALSE, TRUE))))
-#
-#     y_factor <- TRUE
+    #
+    #     y_factor <- TRUE
   }
 
   if (y_character) {
@@ -275,7 +275,7 @@ gg_col2 <- function(
       (!identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) &
       (!identical(rlang::eval_tidy(facet, data), rlang::eval_tidy(col, data))) &
       (!identical(rlang::eval_tidy(facet2, data), rlang::eval_tidy(col, data)))
-        ) {
+    ) {
 
       if (y_forcat) {
         data <- data %>%
@@ -285,7 +285,7 @@ gg_col2 <- function(
         data <- data %>%
           dplyr::mutate(dplyr::across(!!col, function(x) factor(x, levels = c(TRUE, FALSE))))
       }
-     }
+    }
   }
 
   if (col_character) {
@@ -302,10 +302,10 @@ gg_col2 <- function(
 
   if (rlang::is_null(col_legend_place)) {
     if (col_forcat &
-      (identical(rlang::eval_tidy(x, data), rlang::eval_tidy(col, data))) |
-      (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) |
-      (identical(rlang::eval_tidy(facet, data), rlang::eval_tidy(col, data))) |
-      (identical(rlang::eval_tidy(facet2, data), rlang::eval_tidy(col, data)))
+        (identical(rlang::eval_tidy(x, data), rlang::eval_tidy(col, data))) |
+        (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) |
+        (identical(rlang::eval_tidy(facet, data), rlang::eval_tidy(col, data))) |
+        (identical(rlang::eval_tidy(facet2, data), rlang::eval_tidy(col, data)))
     ) {
       col_legend_place <- "none"
     }
@@ -459,7 +459,7 @@ gg_col2 <- function(
 
     plot <- plot +
       # ggplot2::geom_blank(stat = stat, position = position, ...) +
-      ggplot2::geom_bar(
+      ggplot2::geom_point(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,
@@ -473,7 +473,7 @@ gg_col2 <- function(
   else {
     plot <- plot +
       # ggplot2::geom_blank(stat = stat, position = position, ...) +
-      ggplot2::geom_bar(
+      ggplot2::geom_point(
         ggplot2::aes(text = !!text), stat = stat,
         position = position,
         alpha = alpha,

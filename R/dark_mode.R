@@ -9,13 +9,13 @@
 #' @param title_face The font face of the title. Defaults to "bold".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
 #' @param title_size The size of the title. Defaults to the base_size * 1.1.
-#' @param title_vjust The vertical adjustment of the title. Defaults to 0.
+#' @param title_vjust The vertical adjustment of the title. Defaults to 0.5.
 #' @param title_margin The margin of the title. A ggplot2::margin function.
 #' @param subtitle_family The font family of the subtitle. Defaults to the base_family.
 #' @param subtitle_face The font face of the subtitle. Defaults to the base_face.
 #' @param subtitle_pal The colour of the subtitle. Defaults to the base_pal first element.
 #' @param subtitle_size The size of the subtitle. Defaults to the base_size.
-#' @param subtitle_vjust The vertical adjustment of the subtitle. Defaults to 1.
+#' @param subtitle_vjust The vertical adjustment of the subtitle. Defaults to 0.5.
 #' @param subtitle_margin The margin of the subtitle. A ggplot2::margin function.
 #' @param caption_family The font family of the caption. Defaults to the base_family.
 #' @param caption_face The font face of the caption. Defaults to the base_face.
@@ -23,7 +23,7 @@
 #' @param caption_alpha The alpha of the caption pal. Defaults to 0.33. Use 1 for no alpha.
 #' @param caption_pal The colour of the caption (before caption_alpha is applied). Defaults to the base_pal first element.
 #' @param caption_hjust The horizontal adjustment of the caption. Defaults to 0.
-#' @param caption_vjust The vertical adjustment of the caption. Defaults to 1.
+#' @param caption_vjust The vertical adjustment of the caption. Defaults to 0.5.
 #' @param caption_margin The margin of the caption. A ggplot2::margin function.
 #'
 #' @return A ggplot theme.
@@ -63,22 +63,22 @@ dark_mode <- function (
     title_face = "bold",
     title_pal = NULL,
     title_size = ggplot2::rel(1.1),
-    title_vjust = 0,
-    title_margin = ggplot2::margin(t = base_size * -0.75, b = base_size * 2),
+    title_vjust = 0.5,
+    title_margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 2.5, l = 0),
     subtitle_family = NULL,
     subtitle_face = NULL,
     subtitle_pal = NULL,
     subtitle_size = NULL,
-    subtitle_vjust = 1,
-    subtitle_margin = ggplot2::margin(t = base_size * -1, b = base_size + 10),
+    subtitle_vjust = 0.5,
+    subtitle_margin = ggplot2::margin(t = base_size * -2, r = 0, b = base_size * 2, l = 0),
     caption_family = NULL,
     caption_face = NULL,
     caption_alpha = 0.33,
     caption_pal = base_pal,
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
-    caption_vjust = 1,
-    caption_margin = ggplot2::margin(t = base_size)
+    caption_vjust = 0.5,
+    caption_margin = ggplot2::margin(t = base_size * 1, r = 0, b = 0, l = 0)
 ) {
 
   ggplot2::theme(
@@ -102,16 +102,17 @@ dark_mode <- function (
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
     axis.title = NULL,
-    axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.75)),
-    axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(b = base_size * 0.75)),
-    axis.title.y = ggplot2::element_text(margin = ggplot2::margin(r = base_size * 1), angle = 90),
-    axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(l = base_size * 1), angle = -90),
+    axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.25, l = 0)),
+    axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
+    axis.title.y = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 1, b = 0, l = 0), angle = 90),
+    axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 0, l = base_size * 1), angle = -90),
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
     legend.margin = ggplot2::margin(),
     legend.key = ggplot2::element_rect(fill = pal_dark_mode[3], colour = pal_dark_mode[3]),
-    legend.key.size = grid::unit(1.2, "lines"),
+    # legend.key.size = grid::unit(1.2, "lines"),
+    legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
     legend.text = ggplot2::element_text(),
@@ -122,7 +123,7 @@ dark_mode <- function (
     legend.direction = "vertical",
     legend.justification = "left",
     legend.box = NULL,
-    legend.box.margin = ggplot2::margin(l = base_size * 0.5),
+    legend.box.margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0),
     legend.box.background = NULL,
     legend.box.spacing = NULL,
     panel.background = ggplot2::element_rect(fill = pal_dark_mode[3], colour = pal_dark_mode[3]),
@@ -130,17 +131,19 @@ dark_mode <- function (
     panel.grid = NULL,
     panel.grid.major = ggplot2::element_line(colour = pal_dark_mode[4], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
-    panel.spacing = grid::unit(1.25, "lines"),
+    panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
     panel.spacing.y = NULL,
     panel.ontop = FALSE,
     strip.background = ggplot2::element_rect(fill = NA, colour = NA),
     strip.clip = "inherit",
-    strip.text = NULL,
-    strip.text.x = ggplot2::element_text(margin = ggplot2::margin(b = base_size * 0.5)),
-    strip.text.x.bottom = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.5)),
-    strip.text.y = ggplot2::element_text(margin = ggplot2::margin(l = base_size * 2/3), angle = -90),
-    strip.text.y.left = ggplot2::element_text(margin = ggplot2::margin(r = base_size * 2/3), angle = 90),
+    # strip.text = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.5, l = 0)),
+    strip.text = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.25, r = 0, b = base_size * 0.5, l = 0)),
+    strip.text.x = NULL,
+    # strip.text.x.bottom = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = 0, l = 0)),
+    strip.text.x.bottom = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.25, r = 0, b = 0, l = 0)),
+    strip.text.y = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 0, l = base_size * 2/3), angle = -90),
+    strip.text.y.left = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 2/3, b = 0, l = 0), angle = 90),
     strip.placement = "outside",
     strip.placement.x = NULL,
     strip.placement.y = NULL,
@@ -154,7 +157,8 @@ dark_mode <- function (
     plot.caption.position = "plot",
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",
-    plot.margin = ggplot2::margin(t = base_size * 1.5, r = base_size * 1.75, b = base_size * 0.75, l = base_size),
+    # plot.margin = ggplot2::margin(t = base_size * 1.75, r = base_size * 1.5, b = base_size * 0.75, l = base_size * 0.75),
+    plot.margin = ggplot2::margin(t = base_size * 2, r = base_size * 1.5, b = base_size * 0.75, l = base_size * 0.75),
 
     complete = TRUE
   )

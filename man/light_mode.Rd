@@ -13,22 +13,22 @@ light_mode(
   title_face = "bold",
   title_pal = NULL,
   title_size = ggplot2::rel(1.1),
-  title_vjust = 0,
-  title_margin = ggplot2::margin(t = base_size * -0.75, b = base_size * 2),
+  title_vjust = 0.5,
+  title_margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 2.5, l = 0),
   subtitle_family = NULL,
   subtitle_face = NULL,
   subtitle_pal = NULL,
   subtitle_size = NULL,
-  subtitle_vjust = 1,
-  subtitle_margin = ggplot2::margin(t = base_size * -1, b = base_size + 10),
+  subtitle_vjust = 0.5,
+  subtitle_margin = ggplot2::margin(t = base_size * -2, r = 0, b = base_size * 2, l = 0),
   caption_family = NULL,
   caption_face = NULL,
   caption_alpha = 0.33,
   caption_pal = base_pal,
   caption_size = ggplot2::rel(0.9),
   caption_hjust = 0,
-  caption_vjust = 1,
-  caption_margin = ggplot2::margin(t = base_size)
+  caption_vjust = 0.5,
+  caption_margin = ggplot2::margin(t = base_size * 1, r = 0, b = 0, l = 0)
 )
 }
 \arguments{
@@ -48,7 +48,7 @@ light_mode(
 
 \item{title_size}{The size of the title. Defaults to the base_size * 1.1.}
 
-\item{title_vjust}{The vertical adjustment of the title. Defaults to 0.}
+\item{title_vjust}{The vertical adjustment of the title. Defaults to 0.5.}
 
 \item{title_margin}{The margin of the title. A ggplot2::margin function.}
 
@@ -60,7 +60,7 @@ light_mode(
 
 \item{subtitle_size}{The size of the subtitle. Defaults to the base_size.}
 
-\item{subtitle_vjust}{The vertical adjustment of the subtitle. Defaults to 1.}
+\item{subtitle_vjust}{The vertical adjustment of the subtitle. Defaults to 0.5.}
 
 \item{subtitle_margin}{The margin of the subtitle. A ggplot2::margin function.}
 
@@ -76,7 +76,7 @@ light_mode(
 
 \item{caption_hjust}{The horizontal adjustment of the caption. Defaults to 0.}
 
-\item{caption_vjust}{The vertical adjustment of the caption. Defaults to 1.}
+\item{caption_vjust}{The vertical adjustment of the caption. Defaults to 0.5.}
 
 \item{caption_margin}{The margin of the caption. A ggplot2::margin function.}
 }
