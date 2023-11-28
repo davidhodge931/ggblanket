@@ -240,10 +240,7 @@ gg_point2 <- function(
   }
 
   #order for horizontal & logical
-  if (y_forcat & (x_null | x_numeric | x_date | x_datetime | x_time)) {
-    flipped <- TRUE
-  }
-  else flipped <- FALSE
+  flipped <- ifelse((!x_forcat) & (y_forcat), TRUE, FALSE)
 
   if (x_logical) {
     data <- data %>%
@@ -1330,6 +1327,7 @@ gg_point2 <- function(
             ncol = col_legend_ncol,
             nrow = col_legend_nrow,
             byrow = TRUE,
+            key.spacing = grid::unit(11 * 0.33, "pt"),
             order = 1
           ),
           fill = ggplot2::guide_legend(
@@ -1338,6 +1336,7 @@ gg_point2 <- function(
             ncol = col_legend_ncol,
             nrow = col_legend_nrow,
             byrow = TRUE,
+            key.spacing = grid::unit(11 * 0.33, "pt"),
             order = 1
           )
         )
@@ -1587,16 +1586,12 @@ gg_point2 <- function(
 
   #remove gridlines as per x_gridlines and y_gridlines. Guess if NULL
   if (rlang::is_null(x_gridlines)) {
-    if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) x_gridlines <- TRUE
-    else if ((y_forcat) & (x_numeric | x_null)) x_gridlines <- TRUE
-    else if ((y_forcat) & (x_forcat)) x_gridlines <- FALSE
+    if (flipped) x_gridlines <- TRUE
     else x_gridlines <- FALSE
   }
 
   if (rlang::is_null(y_gridlines)) {
-    if ((y_numeric | y_date | y_datetime | y_time) & (x_null)) y_gridlines <- FALSE
-    else if ((y_forcat) & (x_numeric | x_null)) y_gridlines <- FALSE
-    else if ((y_forcat) & (x_forcat)) y_gridlines <- FALSE
+    if (flipped) y_gridlines <- FALSE
     else y_gridlines <- TRUE
   }
 
