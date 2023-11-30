@@ -78,8 +78,9 @@ dark_mode <- function (
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
     caption_vjust = 0.5,
-    caption_margin = ggplot2::margin(t = base_size * 1, r = 0, b = 0, l = 0)
-) {
+    # caption_margin = ggplot2::margin(t = base_size * 1, r = 0, b = 0, l = 0),
+    caption_margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = 0, l = 0)
+  ) {
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
@@ -110,7 +111,7 @@ dark_mode <- function (
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
     legend.margin = ggplot2::margin(),
-    legend.key = ggplot2::element_rect(fill = pal_dark_mode[3], colour = pal_dark_mode[3]),
+    legend.key = ggplot2::element_rect(fill = pal_dark_mode[2], colour = pal_dark_mode[2]),
     # legend.key.size = grid::unit(1.2, "lines"),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,

@@ -28,7 +28,7 @@ dark_mode(
   caption_size = ggplot2::rel(0.9),
   caption_hjust = 0,
   caption_vjust = 0.5,
-  caption_margin = ggplot2::margin(t = base_size * 1, r = 0, b = 0, l = 0)
+  caption_margin = ggplot2::margin(t = base_size, r = 0, b = 0, l = 0)
 )
 }
 \arguments{

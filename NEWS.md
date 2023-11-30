@@ -1,5 +1,10 @@
 # ggblanket 5.2.0900
 
+* Breaking: removed `col_legend_place` argument.
+* Breaking: removed `light_mode` and `dark_mode` functions.
+* Added `light_mode_*` and `dark_mode_*` family of functions.
+* Increased `light_mode_*` and `dark_mode_*` default base_size.
+* Improved default gridlines.
 * Fixed bug when col is logical class.
 
 # ggblanket 5.2.0
