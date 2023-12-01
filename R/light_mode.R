@@ -78,7 +78,6 @@ light_mode <- function (
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
     caption_vjust = 0.5,
-    # caption_margin = ggplot2::margin(t = base_size * 1, r = 0, b = 0, l = 0),
     caption_margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)
     ) {
 
@@ -112,10 +111,18 @@ light_mode <- function (
     legend.spacing.y = NULL,
     legend.margin = ggplot2::margin(),
     legend.key = element_rect(colour = pal_light_mode[2], fill = pal_light_mode[2]),
-    # legend.key.size = grid::unit(1.2, "lines"),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
+    # legend.key.spacing = grid::unit(base_size * 0.33, "pt"),
+    # legend.key.spacing.x = NULL,
+    # legend.key.spacing.y = NULL,
+    # legend.frame = NULL,
+    # legend.axis.line = NULL,
+    # legend.ticks = NULL,
+    # legend.ticks.length = NULL,
+    # legend.text.position = "left",
+    # legend.title.position = "top",
     legend.text = ggplot2::element_text(),
     legend.text.align = NULL,
     legend.title = ggplot2::element_text(hjust = 0, margin = ggplot2::margin(t = 5)),
@@ -138,11 +145,8 @@ light_mode <- function (
     panel.ontop = FALSE,
     strip.background = ggplot2::element_rect(fill = NA, colour = NA),
     strip.clip = "inherit",
-    # strip.text = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.5, l = 0)),
-    # strip.text = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.25, r = 0, b = base_size * 0.5, l = 0)),
     strip.text = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
     strip.text.x = NULL,
-    # strip.text.x.bottom = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = 0, l = 0)),
     strip.text.x.bottom = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.25, r = 0, b = 0, l = 0)),
     strip.text.y = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 0, l = base_size * 2/3), angle = -90),
     strip.text.y.left = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 2/3, b = 0, l = 0), angle = 90),
@@ -159,7 +163,6 @@ light_mode <- function (
     plot.caption.position = "plot",
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",
-    # plot.margin = ggplot2::margin(t = base_size * 1.75, r = base_size * 1.5, b = base_size * 0.75, l = base_size * 0.75),
     plot.margin = ggplot2::margin(t = base_size * 2, r = base_size * 2, b = base_size * 0.25, l = base_size * 0.75),
 
     complete = TRUE
