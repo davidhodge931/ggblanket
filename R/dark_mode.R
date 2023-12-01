@@ -79,8 +79,8 @@ dark_mode <- function (
     caption_hjust = 0,
     caption_vjust = 0.5,
     # caption_margin = ggplot2::margin(t = base_size * 1, r = 0, b = 0, l = 0),
-    caption_margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = 0, l = 0)
-  ) {
+    caption_margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)
+) {
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
@@ -139,7 +139,8 @@ dark_mode <- function (
     strip.background = ggplot2::element_rect(fill = NA, colour = NA),
     strip.clip = "inherit",
     # strip.text = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.5, l = 0)),
-    strip.text = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.25, r = 0, b = base_size * 0.5, l = 0)),
+    # strip.text = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.25, r = 0, b = base_size * 0.5, l = 0)),
+    strip.text = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
     strip.text.x = NULL,
     # strip.text.x.bottom = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = 0, l = 0)),
     strip.text.x.bottom = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.25, r = 0, b = 0, l = 0)),
@@ -159,7 +160,7 @@ dark_mode <- function (
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",
     # plot.margin = ggplot2::margin(t = base_size * 1.75, r = base_size * 1.5, b = base_size * 0.75, l = base_size * 0.75),
-    plot.margin = ggplot2::margin(t = base_size * 2, r = base_size * 1.5, b = base_size * 0.75, l = base_size * 0.75),
+    plot.margin = ggplot2::margin(t = base_size * 2, r = base_size * 2, b = base_size * 0.25, l = base_size * 0.75),
 
     complete = TRUE
   )
