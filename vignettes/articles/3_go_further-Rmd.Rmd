@@ -241,7 +241,7 @@ p3 <- penguins2 |>
     y = species,
     col = sex,
     stat = "summary", 
-    position = "dodge",
+    position = ggplot2::position_dodge(),
     width = 0.75,
     col_legend_place = "right")
 

@@ -338,7 +338,7 @@ penguins2 |>
            col = sex,
            y_include = 0) +
   geom_col_pattern(aes(pattern = sex), 
-                   position = "dodge",
+                   position = ggplot2::position_dodge(),
                    alpha = 0.9,
                    width = 0.75) +
   labs(pattern = "Sex") +

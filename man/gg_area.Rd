@@ -15,7 +15,7 @@ gg_area(
   text = NULL,
   mapping = NULL,
   stat = "align",
-  position = "stack",
+  position = ggplot2::position_stack(),
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
   pal_na = "#bebebe",
@@ -93,7 +93,7 @@ gg_area(
 
 \item{stat}{A ggplot2 character string stat.}
 
-\item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
+\item{position}{Position adjustment function (e.g. ggplot2::position_identity()).}
 
 \item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).}
 

@@ -5,7 +5,7 @@
 \title{Light theme for a ggplot}
 \usage{
 light_mode(
-  base_size = 10,
+  base_size = 11,
   base_family = "",
   base_face = "plain",
   base_pal = "#121b24",
@@ -28,11 +28,12 @@ light_mode(
   caption_size = ggplot2::rel(0.9),
   caption_hjust = 0,
   caption_vjust = 0.5,
-  caption_margin = ggplot2::margin(t = base_size, r = 0, b = 0, l = 0)
+  caption_margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l =
+    0)
 )
 }
 \arguments{
-\item{base_size}{The base size of the text. Defaults to 10.}
+\item{base_size}{The base size of the text. Defaults to 11.}
 
 \item{base_family}{The base family of the text. Defaults to "".}
 

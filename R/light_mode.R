@@ -1,7 +1,7 @@
 #' @title Light theme for a ggplot
 #'
 #' @description Light theme for a ggplot visualisation.
-#' @param base_size The base size of the text. Defaults to 10.
+#' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
 #' @param base_pal The base colour of the text. Defaults to "#121b24".
@@ -55,7 +55,7 @@
 #' }
 #'
 light_mode <- function (
-    base_size = 10,
+    base_size = 11,
     base_family = "",
     base_face = "plain",
     base_pal = "#121b24",
@@ -110,16 +110,17 @@ light_mode <- function (
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
     legend.margin = ggplot2::margin(),
-    legend.key = element_rect(colour = pal_light_mode[2], fill = pal_light_mode[2]),
+    legend.key = ggplot2::element_rect(colour = pal_light_mode[2], fill = pal_light_mode[2]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
     # legend.key.spacing = grid::unit(base_size * 0.33, "pt"),
     # legend.key.spacing.x = NULL,
     # legend.key.spacing.y = NULL,
+    # legend.byrow = TRUE,
     # legend.frame = NULL,
     # legend.axis.line = NULL,
-    # legend.ticks = NULL,
+    # legend.ticks = NULL, #make colour = panel colour
     # legend.ticks.length = NULL,
     # legend.text.position = "left",
     # legend.title.position = "top",

@@ -1,7 +1,7 @@
 #' @title Dark theme for a ggplot
 #'
 #' @description Dark theme for a ggplot visualisation.
-#' @param base_size The base size of the text. Defaults to 10.
+#' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
 #' @param base_pal The base colour of the text. Defaults to "#bbccdd".
@@ -55,7 +55,7 @@
 #' }
 #'
 dark_mode <- function (
-    base_size = 10,
+    base_size = 11,
     base_family = "",
     base_face = "plain",
     base_pal = "#bbccdd",
@@ -117,9 +117,10 @@ dark_mode <- function (
     # legend.key.spacing = grid::unit(base_size * 0.33, "pt"),
     # legend.key.spacing.x = NULL,
     # legend.key.spacing.y = NULL,
+    # legend.byrow = TRUE,
     # legend.frame = NULL,
     # legend.axis.line = NULL,
-    # legend.ticks = NULL,
+    # legend.ticks = NULL, #make colour = panel colour
     # legend.ticks.length = NULL,
     # legend.text.position = "left",
     # legend.title.position = "top",

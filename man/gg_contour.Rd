@@ -13,7 +13,7 @@ gg_contour(
   facet2 = NULL,
   group = NULL,
   text = NULL,
-  position = "identity",
+  position = ggplot2::position_identity(),
   mapping = NULL,
   stat = "contour",
   coord = ggplot2::coord_cartesian(clip = "off"),
@@ -75,7 +75,7 @@ gg_contour(
 
 \item{text}{Unquoted text aesthetic variable.}
 
-\item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
+\item{position}{Position adjustment function (e.g. ggplot2::position_identity()).}
 
 \item{mapping}{Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.}
 

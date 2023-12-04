@@ -50,7 +50,7 @@ penguins2 |>
     x = species,
     col = sex,
     width = 0.6,
-    position = "dodge")
+    position = ggplot2::position_dodge(),)
 ```
 
 ### gg_bin_2d
@@ -98,7 +98,7 @@ penguins2 |>
     y = species,
     col = sex,
     width = 0.66,
-    position = "dodge")
+    position = ggplot2::position_dodge(),)
 ```
 
 ### gg_contour

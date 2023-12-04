@@ -367,7 +367,7 @@ penguins2 |>
   geom_col(aes(x = body_mass_g, 
                y = species, 
                fill = sex),
-           position = "dodge",
+           position = ggplot2::position_dodge(),
            width = 0.66)
 ```
 
@@ -380,7 +380,7 @@ penguins2 |>
     x = body_mass_g,
     y = species,
     col = sex,
-    position = "dodge",
+    position = ggplot2::position_dodge(),
     width = 0.66)
 ```
 
@@ -396,7 +396,7 @@ penguins2 |>
     y = body_mass_g,
     x = species,
     col = sex,
-    position = "dodge",
+    position = ggplot2::position_dodge(),
     width = 0.5,
     x_labels = \(x) stringr::str_sub(x, 1, 1),
     y_labels = \(x) str_keep_seq(x),

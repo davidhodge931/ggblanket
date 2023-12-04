@@ -14,7 +14,7 @@ gg_hex(
   text = NULL,
   mapping = NULL,
   stat = "binhex",
-  position = "identity",
+  position = ggplot2::position_identity(),
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
   pal_na = "#bebebe",
@@ -90,7 +90,7 @@ gg_hex(
 
 \item{stat}{A ggplot2 character string stat.}
 
-\item{position}{Position adjustment. Either a character string (e.g."identity"), or a function (e.g. ggplot2::position_identity()).}
+\item{position}{Position adjustment function (e.g. ggplot2::position_identity()).}
 
 \item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).}
 
