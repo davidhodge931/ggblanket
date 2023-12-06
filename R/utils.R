@@ -19,3 +19,4 @@ na_if_inf <- function(x) {
 
   x
 }
+
