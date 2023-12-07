@@ -65,7 +65,6 @@ gg_wrap(
   col_limits = NULL,
   col_oob = scales::oob_keep,
   col_rescale = scales::rescale(),
-  col_scale = NULL,
   col_title = NULL,
   col_trans = NULL,
   facet_labels = NULL,
@@ -200,8 +199,6 @@ gg_wrap(
 
 \item{col_rescale}{For a continuous col variable, a scales::rescale function.}
 
-\item{col_scale}{TRUE or FALSE of whether to add a col scale or not.}
-
 \item{col_title}{Legend title string. Use "" for no title.}
 
 \item{col_trans}{For a numeric col variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
@@ -231,6 +228,8 @@ gg_wrap(
 \item{titles}{A function to format unspecified titles. Defaults to snakecase::to_sentence_case.}
 
 \item{theme}{A ggplot2 theme.}
+
+\item{col_scale}{TRUE or FALSE of whether to add a col scale or not.}
 }
 \value{
 A ggplot object.

@@ -61,7 +61,6 @@
 #' @param col_limits A vector to determine the limits of the colour scale.
 #' @param col_oob For a continuous col variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
 #' @param col_rescale For a continuous col variable, a scales::rescale function.
-#' @param col_scale TRUE or FALSE of whether to add a col scale or not.
 #' @param col_title Legend title string. Use "" for no title.
 #' @param col_trans For a numeric col variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
@@ -152,7 +151,6 @@ gg_layer <- function(
     col_limits = NULL,
     col_oob = scales::oob_keep,
     col_rescale = scales::rescale(),
-    col_scale = NULL,
     col_title = NULL,
     col_trans = NULL,
     facet_labels = NULL,
@@ -356,12 +354,18 @@ gg_layer <- function(
   }
 
   #determine if flipped
-  flipped <- all(
-    class(rlang::eval_tidy(y, data)) %in%
-      c("character", "logical", "factor"),
-    class(rlang::eval_tidy(x, data)) %in%
-      c("numeric", "double", "integer", "date", "datetime", "hms", "NULL")
-    )
+  flipped <- any(
+      all(
+      class(rlang::eval_tidy(y, data)) %in%
+        c("character", "logical", "factor"),
+      class(rlang::eval_tidy(x, data)) %in%
+        c("numeric", "double", "integer", "date", "datetime", "hms", "NULL")
+      ),
+      all(
+        class(rlang::eval_tidy(x, data)) == "NULL",
+        class(rlang::eval_tidy(y, data)) != "NULL"
+        )
+  )
 
   data <- data %>%
     #ungroup the data
@@ -424,16 +428,6 @@ gg_layer <- function(
   }
 
   ################################################################
-  if (rlang::is_null(col_scale)) {
-    if (stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density_2d_filled")) {
-      col_scale <- TRUE
-    }
-    else if (col_null) {
-      col_scale <- FALSE
-    }
-    else if (!col_null) col_scale <- TRUE
-  }
-
   x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
   y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
 
@@ -800,15 +794,15 @@ gg_layer <- function(
 
   #Add colour scale
   if (rlang::quo_is_null(col)) {
-    if (rlang::is_null(pal)) pal <- "#357BA2"
-    else pal <- as.vector(pal[1])
+    if (rlang::is_null(pal)) pal1 <- "#357BA2"
+    else pal1 <- pal[1]
 
     plot2 <- plot +
       ggplot2::layer(
         geom = geom,
         stat = stat,
         position = position,
-        params = list(colour = pal, fill = pal, alpha = alpha, ...)
+        params = list(colour = pal1, fill = pal1, alpha = alpha, ...)
       ) +
       coord +
       theme
@@ -830,20 +824,19 @@ gg_layer <- function(
   plot_data <- plot_build$data[[1]]
 
   #correct for plots where col is null, but there is a colour scale
-  col_scales_detailed <- purrr::map_chr(plot_build$plot$scales$scales, \(x) rlang::call_name((x[["call"]])))
+  col_scales <- purrr::map_chr(plot_build$plot$scales$scales, \(x) rlang::call_name((x[["call"]])))
 
-  if (any(col_scales_detailed %in%
+  if (any(col_scales %in%
           c("scale_colour_continuous", "scale_colour_gradientn", "scale_colour_stepsn",
             "scale_fill_continuous", "scale_fill_gradientn", "scale_fill_stepsn"))) {
-    col_scales_simple <- "continuous"
-  } else if (any(col_scales_detailed %in%
-                 c("scale_colour_discrete", "scale_colour_manual",
-                   "scale_fill_discrete", "scale_fill_manual"))) {
-    col_scales_simple <- "discrete"
-  } else col_scales_simple <- "none"
-
-  if (rlang::quo_is_null(col) & col_scales_simple %in% c("continuous", "discrete")) {
-    print("it should work")
+    col_scales <- "continuous"
+  } else if (any(col_scales %in%
+                 c("scale_colour_discrete", "scale_colour_manual", "scale_colour_ordinal",
+                   "scale_fill_discrete", "scale_fill_manual", "scale_fill_ordinal"))) {
+    col_scales <- "discrete"
+  } else col_scales <- "none"
+print(col_scales)
+  if (rlang::quo_is_null(col) & col_scales %in% c("continuous", "discrete")) {
     plot <- plot +
       ggplot2::layer(
         geom = geom,
@@ -897,7 +890,7 @@ gg_layer <- function(
           dplyr::select(tidyselect::matches(stringr::regex(x_vars_str)))
 
         if (ncol(x_vctr_temp) != 0) {
-          if (stringr::str_detect(stat, "bin")) {
+          if (!flipped & stringr::str_detect(stat, "bin")) {
             x_vctr <- x_vctr_temp %>%
               dplyr::select(tidyselect::matches(stringr::regex("^x$"))) %>%
               tidyr::pivot_longer(cols = tidyselect::everything()) %>%
@@ -1164,7 +1157,7 @@ gg_layer <- function(
           dplyr::select(tidyselect::matches(stringr::regex(y_vars_str)))
 
         if (ncol(y_vctr_temp) != 0) {
-          if (stringr::str_detect(stat, "bin")) {
+          if (flipped & stringr::str_detect(stat, "bin")) {
             y_vctr <- y_vctr_temp %>%
               dplyr::select(tidyselect::matches(stringr::regex("^y$"))) %>%
               tidyr::pivot_longer(cols = tidyselect::everything()) %>%
@@ -1411,16 +1404,14 @@ gg_layer <- function(
       )
   }
 
-  #make col scale
-  # plot <- plot +
-  #   expand_limits(
-  #     colour = col_include,
-  #     fill = col_include
-  #   )
+  ##############################################################################
+  # col scale
+  ##############################################################################
 
-  if (col_scales_simple == "continuous") {
-    if (rlang::is_null(pal)) pal <- viridisLite::mako(18, direction = -1)
-    if (rlang::is_null(col_labels)) col_labels <- scales::label_comma()
+  if (col_scales == "continuous") {
+    if (rlang::is_null(pal)) {
+      pal <- viridisLite::mako(18, direction = -1)
+    }
 
     if (rlang::is_null(col_trans)) {
       if (class(rlang::eval_tidy(col, data)) == "hms") col_trans <- "hms"
@@ -1516,19 +1507,26 @@ gg_layer <- function(
             order = 1
           )
         )
-
     }
   }
-  else if (col_scales_simple == "discrete") {
+  else if (col_scales == "discrete") {
     if (!rlang::quo_is_null(col)) {
       col_n <- data %>%
         dplyr::pull(!!col) %>%
         levels() %>%
         length()
-    }
+      if (rlang::is_null(pal)) pal <- guardian()
+      pal <- pal[1:col_n]
+    } else {
+      if (!rlang::is_null(plot_build$plot$labels$fill)) {
+        col_n <- length(levels(dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))))
+      }
+      else if (!rlang::is_null(plot_build$plot$labels$colour)) {
+        col_n <- length(levels(dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))))
+      }
 
-    if (rlang::is_null(pal)) pal <- guardian()
-    pal <- pal[1:col_n]
+      if (rlang::is_null(pal)) pal <- viridisLite::mako(col_n, direction = -1)
+    }
 
     if (flipped) {
       col_legend_rev <- !col_legend_rev
@@ -1547,7 +1545,7 @@ gg_layer <- function(
         breaks = col_breaks,
         labels = col_labels,
         na.value = pal_na,
-        drop = FALSE, #consider col_drop argument
+        drop = FALSE, #consider add argument
       ) +
       scale_colour_manual(
         values = pal,
@@ -1556,7 +1554,7 @@ gg_layer <- function(
         breaks = col_breaks,
         labels = col_labels,
         na.value = pal_na,
-        drop = FALSE, #consider col_drop argument
+        drop = FALSE, #consider add argument
       ) +
       ggplot2::guides(
         colour = ggplot2::guide_legend(
@@ -1580,226 +1578,16 @@ gg_layer <- function(
       )
   }
 
-  ######################################################## ADD GUIDES
+  plot <- plot +
+    expand_limits(
+      colour = col_include,
+      fill = col_include
+    ) +
+    theme
 
-
-  #make col scale
-  # c{
-  #   if (!col_null) {
-  #     col_vctr <- data %>%
-  #       dplyr::pull(!!col)
-  #   }
-  #   else if (col_null) {
-  #     if (!rlang::is_null(plot_build$plot$labels$fill)) {
-  #       col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))
-  #     }
-  #     else if (!rlang::is_null(plot_build$plot$labels$colour)) {
-  #       col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))
-  #     }
-  #   }
-  #
-  #   if (rlang::is_null(col_legend_place)) col_legend_place <- "right"
-  #
-  #   # if (rlang::is_null(col_legend_place)) {
-  #   #   if (col_forcat) col_legend_place <- "bottom"
-  #   #   else col_legend_place <- "right"
-  #   # }
-  #   #
-  #   # if (length(col_legend_place) == 1) {
-  #   #   if (col_legend_place == "b") col_legend_place <- "bottom"
-  #   #   if (col_legend_place == "t") col_legend_place <- "top"
-  #   #   if (col_legend_place == "l") col_legend_place <- "left"
-  #   #   if (col_legend_place == "r") col_legend_place <- "right"
-  #   #   if (col_legend_place == "n") col_legend_place <- "none"
-  #   # }
-  #
-  #   if (col_scales_simple == "discrete") { #discrete
-  #   # if (col_forcat | stat %in% c("contour_filled", "density_2d_filled")) { #discrete
-  #     if (col_factor) col_n <- length(levels(col_vctr))
-  #     else if (col_character | col_logical) {
-  #       col_unique <- unique(col_vctr)
-  #       col_n <- length(col_unique[!is.na(col_unique)])
-  #     }
-  #     else if (stat %in% c("contour_filled", "density_2d_filled")) {
-  #       col_n <- length(levels(dplyr::pull(plot_data, "level")))
-  #     }
-  #
-  #     if (rlang::is_null(pal)) {
-  #       if (stat %in% c("contour_filled", "density_2d_filled")) pal <- viridisLite::mako(n = col_n, direction = -1)
-  #       else if (col_n > 4) pal <- scales::hue_pal()(col_n)
-  #       else pal <- guardian(n = col_n)
-  #     }
-  #     else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
-  #
-  #     if (col_null) col_legend_rev_auto <- TRUE
-  #     else if (y_numeric | y_date | y_datetime | y_time) {
-  #       if (col_forcat) col_legend_rev_auto <- FALSE
-  #       else if (length(col_legend_place) == 1) {
-  #         if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- FALSE
-  #       }
-  #       else col_legend_rev_auto <- TRUE
-  #     }
-  #     else if (y_forcat) {
-  #       # if (col_logical) col_legend_rev_auto <- TRUE
-  #       if (col_forcat) col_legend_rev_auto <- TRUE
-  #       else if (length(col_legend_place) == 1) {
-  #         if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- TRUE
-  #       }
-  #       else col_legend_rev_auto <- FALSE
-  #       pal <- rev(pal)
-  #     }
-  #     else col_legend_rev_auto <- FALSE
-  #
-  #     if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
-  #     if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
-  #
-  #     if (col_legend_rev) col_legend_rev_auto <- !col_legend_rev_auto
-  #
-  #     plot <- plot +
-  #       ggplot2::scale_colour_manual(
-  #         values = pal,
-  #         drop = FALSE,
-  #         breaks = col_breaks,
-  #         limits = col_limits,
-  #         labels = col_labels,
-  #         na.value = as.vector(pal_na)
-  #       ) +
-  #       ggplot2::scale_fill_manual(
-  #         values = pal,
-  #         drop = FALSE,
-  #         breaks = col_breaks,
-  #         limits = col_limits,
-  #         labels = col_labels,
-  #         na.value = as.vector(pal_na)
-  #       ) +
-  #       ggplot2::guides(
-  #         colour = ggplot2::guide_legend(
-  #           reverse = col_legend_rev_auto,
-  #           title.position = "top",
-  #           ncol = col_legend_ncol,
-  #           nrow = col_legend_nrow,
-  #           byrow = TRUE,
-  #           key.spacing = grid::unit(11 * 0.33, "pt"),
-  #           order = 1
-  #         ),
-  #         fill = ggplot2::guide_legend(
-  #           reverse = col_legend_rev_auto,
-  #           title.position = "top",
-  #           ncol = col_legend_ncol,
-  #           nrow = col_legend_nrow,
-  #           byrow = TRUE,
-  #           key.spacing = grid::unit(11 * 0.33, "pt"),
-  #           order = 1
-  #         )
-  #       )
-  #   } #discrete
-  #   else if (col_scales_simple == "continuous") {
-  #     if (rlang::is_null(col_trans)) {
-  #       if (col_date) col_trans <- "date"
-  #       else if (col_datetime) col_trans <- "time"
-  #       else if (col_time) col_trans <- "hms"
-  #       else col_trans <- "identity"
-  #     }
-  #
-  #     if (rlang::is_null(col_breaks)) {
-  #       if (col_time) col_breaks <- ggplot2::waiver()
-  #       else if (any(col_trans == "log10")) col_breaks <- scales::breaks_log(n = 5, base = 10)
-  #       else if (any(col_trans == "log2")) col_breaks <- scales::breaks_log(n = 5, base = 2)
-  #       else if (any(col_trans == "log")) col_breaks <- scales::breaks_log(n = 5, base = exp(1))
-  #       else col_breaks <- scales::breaks_pretty(n = 5)
-  #     }
-  #
-  #     if (rlang::is_null(pal)) pal <- viridisLite::mako(n = 18, direction = -1)
-  #
-  #     if (rlang::is_null(col_labels)) {
-  #       if (col_numeric | col_null) {
-  #         if (any(col_trans == "log10")) col_labels <- scales::label_log(base = 10)
-  #         else if (any(col_trans == "log2")) col_labels <- scales::label_log(base = 2)
-  #         else if (any(col_trans == "log")) col_labels <- scales::label_math("e"^.x, format = log)
-  #         else col_labels <- scales::label_comma(drop0trailing = TRUE)
-  #       }
-  #       else if (col_date | col_datetime) {
-  #         col_labels <- scales::label_date(format = c("%Y", "%b", "%e"))
-  #       }
-  #       else if (col_time) {
-  #         col_labels <- scales::label_time(format = "%H:%M")
-  #       }
-  #     }
-  #
-  #     if (col_continuous == "gradient") {
-  #       plot <- plot +
-  #         ggplot2::scale_colour_gradientn(
-  #           colours = pal,
-  #           # values = col_rescale,
-  #           # labels = col_labels,
-  #           # breaks = col_breaks,
-  #           # limits = col_limits,
-  #           # trans = col_trans,
-  #           # na.value = as.vector(pal_na)
-  #         ) +
-  #         ggplot2::scale_fill_gradientn(
-  #           colours = pal,
-  #           # values = col_rescale,
-  #           # labels = col_labels,
-  #           # breaks = col_breaks,
-  #           # limits = col_limits,
-  #           # trans = col_trans,
-  #           # na.value = as.vector(pal_na)
-  #         ) #+
-  #         # ggplot2::guides(
-  #         #   colour = ggplot2::guide_colourbar(
-  #         #     title.position = "top",
-  #         #     ticks.colour = "#fcfdfe",
-  #         #     reverse = col_legend_rev,
-  #         #     order = 1
-  #         #   ),
-  #         #   fill = ggplot2::guide_colourbar(
-  #         #     title.position = "top",
-  #         #     ticks.colour = "#fcfdfe",
-  #         #     reverse = col_legend_rev,
-  #         #     order = 1
-  #         #   )
-  #         # )
-  #     }
-  #     else if (col_continuous == "steps") {
-  #       plot <- plot +
-  #         ggplot2::scale_colour_stepsn(
-  #           colours = pal,
-  #           values = col_rescale,
-  #           labels = col_labels,
-  #           breaks = col_breaks,
-  #           limits = col_limits,
-  #           trans = col_trans,
-  #           oob = col_oob,
-  #           na.value = as.vector(pal_na)
-  #         ) +
-  #         ggplot2::scale_fill_stepsn(
-  #           colours = pal,
-  #           values = col_rescale,
-  #           labels = col_labels,
-  #           breaks = col_breaks,
-  #           limits = col_limits,
-  #           trans = col_trans,
-  #           oob = col_oob,
-  #           na.value = as.vector(pal_na)
-  #         ) +
-  #         ggplot2::guides(
-  #           colour = ggplot2::guide_coloursteps(
-  #             title.position = "top",
-  #             reverse = col_legend_rev,
-  #             order = 1
-  #           ),
-  #           fill = ggplot2::guide_coloursteps(
-  #             title.position = "top",
-  #             reverse = col_legend_rev,
-  #             order = 1
-  #           )
-  #         )
-  #     }
-  #   } #continuous
-  # }
-
-  #Add titles
+  ##############################################################################
+  # titles
+  ##############################################################################
   if (rlang::is_null(x_title)) {
     if (!rlang::is_null(plot_build$plot$labels$x)) {
       x_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), titles)
@@ -1867,6 +1655,9 @@ gg_layer <- function(
     }
   }
 
+
+
+
   #expand limits if necessary
   if (stat != "sf") {
     if (!rlang::is_null(x_include)) {
@@ -1884,61 +1675,10 @@ gg_layer <- function(
       ggplot2::expand_limits(colour = col_include, fill = col_include)
   }
 
-  #Adjust legend
-  # if (rlang::is_null(col_legend_place)) col_legend_place <- "right"
+  ##############################################################################
+  # gridlines
+  ##############################################################################
 
-  # if (!rlang::is_null(col_legend_place)) {
-  # if (length(col_legend_place) == 1) {
-  #   if (col_legend_place %in% c("top", "bottom")) {
-  #     plot <- plot +
-  #       ggplot2::theme(legend.position = col_legend_place) +
-  #       ggplot2::theme(legend.direction = "horizontal") +
-  #       ggplot2::theme(legend.justification = "left") +
-  #       ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
-  #       ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5))) +
-  #       ggplot2::theme(legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 5)))
-  #
-  #     if (col_legend_place %in% c("bottom", "top")) {
-  #       plot <- plot +
-  #         ggplot2::theme(legend.position = col_legend_place) +
-  #         ggplot2::theme(legend.direction = "horizontal") +
-  #         ggplot2::theme(legend.justification = "left") +
-  #         ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5)))
-  #     }
-  #
-  #     if (col_legend_place == "bottom") {
-  #       plot <- plot +
-  #         ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5))
-  #     }
-  #     else if (col_legend_place == "top") {
-  #       plot <- plot +
-  #         ggplot2::theme(legend.box.margin = ggplot2::margin(t = -10))
-  #     }
-  #
-  #     if (col_numeric) {
-  #       plot <- plot +
-  #         ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
-  #         ggplot2::theme(legend.text.align = 0.5)
-  #     }
-  #   }
-  #   else if (col_legend_place %in% c("left", "right")) {
-  #     plot <- plot +
-  #       ggplot2::theme(legend.position = col_legend_place) +
-  #       ggplot2::theme(legend.direction = "vertical") +
-  #       ggplot2::theme(legend.justification = "left")
-  #   }
-  #   else if (col_legend_place == "none") {
-  #     plot <- plot +
-  #       ggplot2::guides(colour = "none", fill = "none")
-  #   }
-  # }
-  # else if (length(col_legend_place) == 2) {
-  #   plot <- plot +
-  #     ggplot2::theme(legend.position = col_legend_place)
-  # }
-  # }
-
-  #remove gridlines as per x_gridlines and y_gridlines. Guess if NULL
   if (rlang::is_null(x_gridlines)) {
     if (flipped) x_gridlines <- TRUE
     else x_gridlines <- FALSE
@@ -1967,7 +1707,9 @@ gg_layer <- function(
     }
   }
 
-  #return beautiful plot
+  ##############################################################################
+  # plot
+  ##############################################################################
   return(plot)
 }
 

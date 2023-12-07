@@ -6,6 +6,7 @@
 * Increased `light_mode_*` and `dark_mode_*` default base_size.
 * Improved default gridlines.
 * Fixed bug when col is logical class.
+* Breaking: remove `col_scale` argument.
 
 # ggblanket 5.2.0
 

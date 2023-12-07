@@ -62,7 +62,6 @@ gg_layer(
   col_limits = NULL,
   col_oob = scales::oob_keep,
   col_rescale = scales::rescale(),
-  col_scale = NULL,
   col_title = NULL,
   col_trans = NULL,
   facet_labels = NULL,
@@ -198,8 +197,6 @@ gg_layer(
 \item{col_oob}{For a continuous col variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.}
 
 \item{col_rescale}{For a continuous col variable, a scales::rescale function.}
-
-\item{col_scale}{TRUE or FALSE of whether to add a col scale or not.}
 
 \item{col_title}{Legend title string. Use "" for no title.}
 
