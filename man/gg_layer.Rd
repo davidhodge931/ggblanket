@@ -53,8 +53,9 @@ gg_layer(
   col_breaks = NULL,
   col_continuous = "gradient",
   col_include = NULL,
+  col_expand = ggplot2::waiver(),
   col_labels = NULL,
-  col_legend_place = NULL,
+  col_legend_place = "right",
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
@@ -63,7 +64,7 @@ gg_layer(
   col_rescale = scales::rescale(),
   col_scale = NULL,
   col_title = NULL,
-  col_trans = "identity",
+  col_trans = NULL,
   facet_labels = NULL,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -179,6 +180,8 @@ gg_layer(
 \item{col_continuous}{For a continuous col variable, the type of colouring. Either "gradient" or "steps". Defaults to "gradient".}
 
 \item{col_include}{For a continuous col variable, any values that the limits should encompass (e.g. 0).}
+
+\item{col_expand}{description}
 
 \item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
