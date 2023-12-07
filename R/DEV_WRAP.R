@@ -24,7 +24,8 @@
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
-#' @param ... Other arguments passed to the ggplot2::geom_blank function.
+#' @param alpha Opacity. A number between 0 and 1.
+#' @param ... Other arguments passed to within a params list in the layer function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -93,6 +94,7 @@
 #'
 gg_wrap <- function(
     data = NULL,
+    geom = "point",
     x = NULL,
     y = NULL,
     col = NULL,
@@ -116,6 +118,7 @@ gg_wrap <- function(
     coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
     pal_na = "#bebebe",
+    alpha = 1,
     ...,
     title = NULL,
     subtitle = NULL,
@@ -169,6 +172,7 @@ gg_wrap <- function(
 
   gg_layer(
   data = data,
+  geom = geom,
   x = {{ x }},
   y = {{ y }},
   col = {{ col }},
@@ -190,6 +194,7 @@ gg_wrap <- function(
   coord = coord,
   pal = pal,
   pal_na = pal_na,
+  alpha = alpha,
   ...,
   title = title,
   subtitle = subtitle,

@@ -6,6 +6,7 @@
 \usage{
 gg_wrap(
   data = NULL,
+  geom = "point",
   x = NULL,
   y = NULL,
   col = NULL,
@@ -28,6 +29,7 @@ gg_wrap(
   coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
   pal_na = "#bebebe",
+  alpha = 1,
   ...,
   title = NULL,
   subtitle = NULL,
@@ -127,7 +129,9 @@ gg_wrap(
 
 \item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
 
-\item{...}{Other arguments passed to the ggplot2::geom_blank function.}
+\item{alpha}{Opacity. A number between 0 and 1.}
+
+\item{...}{Other arguments passed to within a params list in the layer function.}
 
 \item{title}{Title string.}
 

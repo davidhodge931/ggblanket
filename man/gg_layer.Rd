@@ -24,11 +24,9 @@ gg_layer(
   text = NULL,
   sample = NULL,
   mapping = NULL,
-  stat = "identity",
-  position = ggplot2::position_identity(),
-  coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
   pal_na = "#bebebe",
+  alpha = 1,
   ...,
   title = NULL,
   subtitle = NULL,
@@ -78,6 +76,10 @@ gg_layer(
   size_title = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
+  geom = "blank",
+  stat = "identity",
+  position = ggplot2::position_identity(),
+  coord = ggplot2::coord_cartesian(clip = "off"),
   theme = NULL
 )
 }
@@ -120,17 +122,13 @@ gg_layer(
 
 \item{mapping}{Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.}
 
-\item{stat}{A ggplot2 character string stat.}
-
-\item{position}{Position adjustment function (e.g. ggplot2::position_identity()).}
-
-\item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).}
-
 \item{pal}{Colours to use. A character vector of hex codes (or names).}
 
 \item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
 
-\item{...}{Other arguments passed to the ggplot2::geom_blank function.}
+\item{alpha}{Opacity. A number between 0 and 1.}
+
+\item{...}{Other arguments passed to within a params list in the layer function.}
 
 \item{title}{Title string.}
 
@@ -227,6 +225,12 @@ gg_layer(
 \item{caption}{Caption title string.}
 
 \item{titles}{A function to format unspecified titles. Defaults to snakecase::to_sentence_case.}
+
+\item{stat}{A ggplot2 character string stat.}
+
+\item{position}{Position adjustment function (e.g. ggplot2::position_identity()).}
+
+\item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).}
 
 \item{theme}{A ggplot2 theme.}
 }

@@ -25,7 +25,8 @@
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
-#' @param ... Other arguments passed to the ggplot2::geom_blank function.
+#' @param alpha Opacity. A number between 0 and 1.
+#' @param ... Other arguments passed to within a params list in the layer function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -112,12 +113,9 @@ gg_layer <- function(
     text = NULL,
     sample = NULL,
     mapping = NULL,
-    # stat = ggplot2::StatIdentity,
-    stat = "identity",
-    position = ggplot2::position_identity(),
-    coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
     pal_na = "#bebebe",
+    alpha = 1,
     ...,
     title = NULL,
     subtitle = NULL,
@@ -167,7 +165,12 @@ gg_layer <- function(
     size_title = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case,
-    theme = NULL) {
+    geom = "blank",
+    stat = "identity",
+    position = ggplot2::position_identity(),
+    coord = ggplot2::coord_cartesian(clip = "off"),
+    theme = NULL
+    ) {
 
   ##############################################################################
   #Unique code: part 1
@@ -288,7 +291,7 @@ gg_layer <- function(
     col_datetime <- FALSE
     col_time <- FALSE
   }
-  else {d
+  else {
     col_null <- rlang::quo_is_null(col)
     col_character <- is.character(rlang::eval_tidy(col, data))
     col_logical <- is.logical(rlang::eval_tidy(col, data))
@@ -392,7 +395,7 @@ gg_layer <- function(
                                   tidyselect::where(is.factor),
                                 function(x) forcats::fct_rev(x)))
 
-  #if flipped, order col var correctly
+  #if flipped, order col correctly
     if (!identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) {
       if (flipped) {
         data <- data |>
@@ -401,8 +404,6 @@ gg_layer <- function(
       }
     }
 
-
-  ################################################################
   ################################################################
   if (!facet_null) {
     facet_vctr <- data %>%
@@ -427,6 +428,7 @@ gg_layer <- function(
   } else {
     facet2_n <- 0
   }
+  ################################################################
 
   if (rlang::is_null(col_scale)) {
     if (stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density_2d_filled")) {
@@ -455,26 +457,26 @@ gg_layer <- function(
 
   ###make plot
   if (!x_null & !y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          y = !!y,
-          col = !!col,
-          fill = !!col,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          geometry = geometry,
-          !!!mapping
-        ))
+    plot <- data %>%
+      ggplot2::ggplot(mapping = ggplot2::aes(
+        x = !!x,
+        y = !!y,
+        col = !!col,
+        fill = !!col,
+        xmin = !!xmin,
+        xmax = !!xmax,
+        xend = !!xend,
+        ymin = !!ymin,
+        ymax = !!ymax,
+        yend = !!yend,
+        z = !!z,
+        group = !!group,
+        subgroup = !!subgroup,
+        sample = !!sample,
+        label = !!label,
+        geometry = geometry,
+        !!!mapping
+      ))
   }
   else if (!x_null & y_null) {
     plot <- data %>%
@@ -544,23 +546,23 @@ gg_layer <- function(
     else pal <- as.vector(pal[1])
 
     plot <- plot +
-      ggplot2::geom_blank(
+      ggplot2::layer(
+        geom = geom,
         stat = stat,
         position = position,
-        colour = pal,
-        fill = pal,
-        # alpha = alpha,
-        ...) +
+        params = list(colour = pal, fill = pal, alpha = alpha, ...)
+      ) +
       coord +
       theme
   }
   else {
     plot <- plot +
-      ggplot2::geom_blank(
+      ggplot2::layer(
+        geom = geom,
         stat = stat,
         position = position,
-        # alpha = alpha,
-        ...) +
+        params = list(alpha = alpha, ...)
+      ) +
       coord +
       theme
   }
