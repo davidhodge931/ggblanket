@@ -1,22 +1,29 @@
-#' @title Col ggplot
+#' @title Blank ggplot
 #'
-#' @description Create a col ggplot with a wrapper around ggplot2::geom_bar(stat = "identity", ...).
+#' @description Create a blank ggplot with a wrapper around ggplot2::geom_blank().
 #' @param data A data frame or tibble.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
+#' @param xmin Unquoted xmin aesthetic variable.
+#' @param xmax Unquoted xmax aesthetic variable.
+#' @param xend Unquoted xend aesthetic variable.
+#' @param ymin Unquoted ymin aesthetic variable.
+#' @param ymax Unquoted ymax aesthetic variable.
+#' @param yend Unquoted yend aesthetic variable.
+#' @param z Unquoted z aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
+#' @param subgroup Unquoted subgroup aesthetic variable.
+#' @param label Unquoted label aesthetic variable.
 #' @param text Unquoted text aesthetic variable.
+#' @param sample Unquoted sample aesthetic variable.
 #' @param mapping Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.
-#' @param stat A ggplot2 character string stat.
-#' @param position Position adjustment function (e.g. ggplot2::position_identity()).
-#' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
-#' @param ... Other arguments passed to the ggplot2::geom_bar function.
+#' @param ... Other arguments passed to within a params list in the layer function.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -41,9 +48,9 @@
 #' @param y_trans For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous For a continuous col variable, the type of colouring. Either "gradient" or "steps". Defaults to "gradient".
+#' @param col_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param col_include For a continuous col variable, any values that the limits should encompass (e.g. 0).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
-#' @param col_limits A vector to determine the limits of the colour scale.
 #' @param col_legend_ncol The number of columns for the legend elements.
 #' @param col_legend_nrow The number of rows for the legend elements.
 #' @param col_legend_place The place for the legend. Either "bottom", "right", "top" or "left". Or just the first letter of each.
@@ -51,7 +58,6 @@
 #' @param col_limits A vector to determine the limits of the colour scale.
 #' @param col_oob For a continuous col variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
 #' @param col_rescale For a continuous col variable, a scales::rescale function.
-#' @param col_scale TRUE or FALSE of whether to add a col scale or not.
 #' @param col_title Legend title string. Use "" for no title.
 #' @param col_trans For a numeric col variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
@@ -66,45 +72,40 @@
 #' @param size_title Legend title string. Use "" for no title.
 #' @param caption Caption title string.
 #' @param titles A function to format unspecified titles. Defaults to snakecase::to_sentence_case.
+#' @param geom The geometric object to use to display the data as a ggproto Geom subclass.
+#' @param stat A ggplot2 character string stat.
+#' @param position Position adjustment function (e.g. ggplot2::position_identity()).
+#' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param theme A ggplot2 theme.
 #'
 #' @return A ggplot object.
 #' @export
-#'
 #' @examples
-#' library(dplyr)
-#' library(palmerpenguins)
 #'
-#' penguins |>
-#'   group_by(sex, species) |>
-#'   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
-#'   tidyr::drop_na(sex) |>
-#'   mutate(species = stringr::str_to_sentence(species)) |>
-#'   gg_col2(
-#'     x = flipper_length_mm,
-#'     y = species,
-#'     col = sex,
-#'     width = 0.75,
-#'     position = ggplot2::position_dodge(),
-#'     pal = c("#1B9E77", "#9E361B")
-#'   )
 #'
-gg_col2 <- function(
+gg_blanket <- function(
     data = NULL,
     x = NULL,
     y = NULL,
     col = NULL,
     facet = NULL,
     facet2 = NULL,
+    xmin = NULL,
+    xmax = NULL,
+    xend = NULL,
+    ymin = NULL,
+    ymax = NULL,
+    yend = NULL,
+    z = NULL,
     group = NULL,
+    subgroup = NULL,
+    label = NULL,
     text = NULL,
+    sample = NULL,
     mapping = NULL,
-    stat = "identity",
-    position = ggplot2::position_stack(),
-    coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
     pal_na = "#bebebe",
-    alpha = 0.9,
+    alpha = 1,
     ...,
     title = NULL,
     subtitle = NULL,
@@ -131,17 +132,17 @@ gg_col2 <- function(
     col_breaks = NULL,
     col_continuous = "gradient",
     col_include = NULL,
+    col_expand = ggplot2::waiver(),
     col_labels = NULL,
-    col_legend_place = NULL,
+    col_legend_place = "right",
     col_legend_ncol = NULL,
     col_legend_nrow = NULL,
     col_legend_rev = FALSE,
     col_limits = NULL,
     col_oob = scales::oob_keep,
     col_rescale = scales::rescale(),
-    col_scale = NULL,
     col_title = NULL,
-    col_trans = "identity",
+    col_trans = NULL,
     facet_labels = NULL,
     facet_ncol = NULL,
     facet_nrow = NULL,
@@ -154,13 +155,16 @@ gg_col2 <- function(
     size_title = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case,
-    theme = NULL) {
+    geom = ggplot2::GeomBlank,
+    stat = "identity",
+    position = ggplot2::position_identity(),
+    coord = ggplot2::coord_cartesian(clip = "off"), #MAKE NULL, & SF
+    theme = NULL
+    ) {
 
   ##############################################################################
   #Unique code: part 1
   ##############################################################################
-
-  #stat <- "identity"
 
   #quote
   x <- rlang::enquo(x)
@@ -168,48 +172,126 @@ gg_col2 <- function(
   col <- rlang::enquo(col)
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
+  xmin <- rlang::enquo(xmin)
+  xmax <- rlang::enquo(xmax)
+  xend <- rlang::enquo(xend)
+  ymin <- rlang::enquo(ymin)
+  ymax <- rlang::enquo(ymax)
+  yend <- rlang::enquo(yend)
+  z <- rlang::enquo(z)
   group <- rlang::enquo(group)
+  subgroup <- rlang::enquo(subgroup)
+  label <- rlang::enquo(label)
   text <- rlang::enquo(text)
+  sample <- rlang::enquo(sample)
 
-  #ungroup
-  data <- data %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(dplyr::across(
-      c(!!x, !!y,
-        !!col
-      ),
-      na_if_inf))
 
   #get classes
-  x_null <- rlang::quo_is_null(x)
-  x_character <- is.character(rlang::eval_tidy(x, data))
-  x_logical <- is.logical(rlang::eval_tidy(x, data))
-  x_factor <- is.factor(rlang::eval_tidy(x, data))
-  x_forcat <- x_character | x_factor | x_logical
-  x_numeric <- is.numeric(rlang::eval_tidy(x, data))
-  x_date <- lubridate::is.Date(rlang::eval_tidy(x, data))
-  x_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(x, data))
-  x_time <- hms::is_hms(rlang::eval_tidy(x, data))
+  if (stat == "sf") {
+    x_null <- TRUE
+    x_character <- FALSE
+    x_logical <- FALSE
+    x_factor <- FALSE
+    x_forcat <- FALSE
+    x_numeric <- FALSE
+    x_date <- FALSE
+    x_datetime <- FALSE
+    x_time <- FALSE
 
-  y_null <- rlang::quo_is_null(y)
-  y_character <- is.character(rlang::eval_tidy(y, data))
-  y_logical <- is.logical(rlang::eval_tidy(y, data))
-  y_factor <- is.factor(rlang::eval_tidy(y, data))
-  y_forcat <- y_character | y_factor | y_logical
-  y_numeric <- is.numeric(rlang::eval_tidy(y, data))
-  y_date <- lubridate::is.Date(rlang::eval_tidy(y, data))
-  y_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(y, data))
-  y_time <- hms::is_hms(rlang::eval_tidy(y, data))
+    y_null <- TRUE
+    y_character <- FALSE
+    y_logical <- FALSE
+    y_factor <- FALSE
+    y_forcat <- FALSE
+    y_numeric <- FALSE
+    y_date <- FALSE
+    y_datetime <- FALSE
+    y_time <- FALSE
+  }
+  else {
+    x_null <- rlang::quo_is_null(x) & rlang::quo_is_null(xmin) & rlang::quo_is_null(xmax) & rlang::quo_is_null(xend)
+    x_character <- is.character(rlang::eval_tidy(x, data))
+    x_logical <- is.logical(rlang::eval_tidy(x, data))
+    x_factor <- is.factor(rlang::eval_tidy(x, data))
+    x_forcat <- x_character | x_factor | x_logical
+    x_numeric <- {
+      is.numeric(rlang::eval_tidy(x, data)) |
+        is.numeric(rlang::eval_tidy(xmin, data)) |
+        is.numeric(rlang::eval_tidy(xmax, data)) |
+        is.numeric(rlang::eval_tidy(xend, data))
+    }
+    x_date <- {
+      lubridate::is.Date(rlang::eval_tidy(x, data)) |
+        lubridate::is.Date(rlang::eval_tidy(xmin, data)) |
+        lubridate::is.Date(rlang::eval_tidy(xmax, data)) |
+        lubridate::is.Date(rlang::eval_tidy(xend, data))
+    }
+    x_datetime <- {
+      lubridate::is.POSIXct(rlang::eval_tidy(x, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(xmin, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(xmax, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(xend, data))
+    }
+    x_time <- {
+      hms::is_hms(rlang::eval_tidy(x, data)) |
+        hms::is_hms(rlang::eval_tidy(xmin, data)) |
+        hms::is_hms(rlang::eval_tidy(xmax, data)) |
+        hms::is_hms(rlang::eval_tidy(xend, data))
+    }
 
-  col_null <- rlang::quo_is_null(col)
-  col_character <- is.character(rlang::eval_tidy(col, data))
-  col_logical <- is.logical(rlang::eval_tidy(col, data))
-  col_factor <- is.factor(rlang::eval_tidy(col, data))
-  col_forcat <- col_character | col_factor | col_logical
-  col_numeric <- is.numeric(rlang::eval_tidy(col, data))
-  col_date <- lubridate::is.Date(rlang::eval_tidy(col, data))
-  col_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(col, data))
-  col_time <- hms::is_hms(rlang::eval_tidy(col, data))
+    y_null <- rlang::quo_is_null(y) & rlang::quo_is_null(ymin) & rlang::quo_is_null(ymax) & rlang::quo_is_null(yend)
+    y_character <- is.character(rlang::eval_tidy(y, data))
+    y_logical <- is.logical(rlang::eval_tidy(y, data))
+    y_factor <- is.factor(rlang::eval_tidy(y, data))
+    y_forcat <- y_character | y_factor | y_logical
+    y_numeric <- {
+      is.numeric(rlang::eval_tidy(y, data)) |
+        is.numeric(rlang::eval_tidy(ymin, data)) |
+        is.numeric(rlang::eval_tidy(ymax, data)) |
+        is.numeric(rlang::eval_tidy(yend, data))
+    }
+    y_date <- {
+      lubridate::is.Date(rlang::eval_tidy(y, data)) |
+        lubridate::is.Date(rlang::eval_tidy(ymin, data)) |
+        lubridate::is.Date(rlang::eval_tidy(ymax, data)) |
+        lubridate::is.Date(rlang::eval_tidy(yend, data))
+    }
+    y_datetime <- {
+      lubridate::is.POSIXct(rlang::eval_tidy(y, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(ymin, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(ymax, data)) |
+        lubridate::is.POSIXct(rlang::eval_tidy(yend, data))
+    }
+    y_time <- {
+      hms::is_hms(rlang::eval_tidy(y, data)) |
+        hms::is_hms(rlang::eval_tidy(ymin, data)) |
+        hms::is_hms(rlang::eval_tidy(ymax, data)) |
+        hms::is_hms(rlang::eval_tidy(yend, data))
+    }
+  }
+
+  if (stat %in% c("bin2d", "bin_2d", "binhex", "contour", "contour_filled", "density_2d", "density_2d_filled")) {
+    col_null <- TRUE
+    col_character <- FALSE
+    col_logical <- FALSE
+    col_factor <- FALSE
+    col_forcat <- FALSE
+    col_numeric <- FALSE
+    col_date <- FALSE
+    col_datetime <- FALSE
+    col_time <- FALSE
+  }
+  else {
+    col_null <- rlang::quo_is_null(col)
+    col_character <- is.character(rlang::eval_tidy(col, data))
+    col_logical <- is.logical(rlang::eval_tidy(col, data))
+    col_factor <- is.factor(rlang::eval_tidy(col, data))
+    col_forcat <- col_character | col_factor | col_logical
+    col_numeric <- is.numeric(rlang::eval_tidy(col, data))
+    col_date <- lubridate::is.Date(rlang::eval_tidy(col, data))
+    col_datetime <- lubridate::is.POSIXct(rlang::eval_tidy(col, data))
+    col_time <- hms::is_hms(rlang::eval_tidy(col, data))
+  }
 
   facet_null <- rlang::quo_is_null(facet)
   facet_logical <- is.logical(rlang::eval_tidy(facet, data))
@@ -217,6 +299,28 @@ gg_col2 <- function(
   facet2_null <- rlang::quo_is_null(facet2)
   facet2_logical <- is.logical(rlang::eval_tidy(facet2, data))
   facet2_character <- is.character(rlang::eval_tidy(facet2, data))
+
+  # if (rlang::is_null(alpha)) {
+  #   # geometry_type <- unique(sf::st_geometry_type(data))
+  #   # if (length(geometry_type) > 1) geometry_type <- "GEOMETRY"
+  #   geometry_type <-
+  #     stringr::str_remove(attributes(sf::st_geometry(data))$class[1], "sfc_")
+  #
+  #   if (geometry_type %in% c("POINT",
+  #                            "MULTIPOINT",
+  #                            "LINESTRING",
+  #                            "MULTILINESTRING",
+  #                            "CIRCULARSTRING",
+  #                            "COMPOUNDCURVE",
+  #                            "MULTICURVE",
+  #                            "CURVE")) {
+  #     alpha <- 1
+  #   }
+  #   else {
+  #     if (col_null) alpha <- 0
+  #     else alpha <- 1
+  #   }
+  # }
 
   ##############################################################################
   #Generic code: part 1 (adjust for gg_sf & gg_rect)
@@ -239,128 +343,74 @@ gg_col2 <- function(
     }
   }
 
-  #order for horizontal & logical
-  flipped <- ifelse((!x_forcat) & (y_forcat), TRUE, FALSE)
+  #determine if flipped
+  if (rlang::quo_is_null(x) & !rlang::quo_is_null(y)) flipped <- TRUE
+  else if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) flipped <- FALSE
+  else if (!rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
+    flipped <- all(
+      inherits(rlang::eval_tidy(y, data),
+               what = c("logical", "factor", "character")),
+      inherits(rlang::eval_tidy(x, data),
+               what = c("numeric", "double", "integer", "date", "datetime", "hms", "NULL"))
+    )
+  } else flipped <- FALSE
 
-  if (x_logical) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!x, function(x) factor(x, levels = c(TRUE, FALSE))))
-  }
+  data <- data %>%
+    #ungroup the data
+    dplyr::ungroup() %>%
+    #make infinite values NA
+    dplyr::mutate(dplyr::across(
+      c(!!x, !!xmin, !!xmax, !!xend,
+        !!y, !!ymin, !!ymax, !!yend,
+        !!col, !!facet, !!facet2,
+        !!group, !!subgroup, !!label, !!sample),
+      na_if_inf)) |>
+    #convert logicals to factors
+    dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
+                                  !!y, !!ymin, !!ymax, !!yend,
+                                  !!col, !!facet, !!facet2) &
+                                  tidyselect::where(is.logical), function(x)
+                                    factor(x, levels = c(TRUE, FALSE)))) |>
+    #convert characters to factors
+    dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
+                                  !!y, !!ymin, !!ymax, !!yend,
+                                  !!col, !!facet, !!facet2) &
+                                  tidyselect::where(is.character), function(x)
+                                    factor(x))) |>
+    #reverse y*, so that reads top low-levels to bottom high-levels
+    dplyr::mutate(dplyr::across(c(!!y, !!ymin, !!ymax, !!yend) &
+                                  tidyselect::where(is.factor),
+                                function(x) forcats::fct_rev(x)))
 
-  if (y_logical) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!y, function(x) factor(x, levels = c(FALSE, TRUE))))
-#
-#     y_factor <- TRUE
-  }
-
-  if (y_character) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!y, function(x) factor(x)))
-
-    y_factor <- TRUE
-  }
-
-  if (y_factor) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!y, function(x) forcats::fct_rev(x)))
-  }
-
-  if (col_logical) {
-    if (
-      (!identical(rlang::eval_tidy(x, data), rlang::eval_tidy(col, data))) &
-      (!identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) &
-      (!identical(rlang::eval_tidy(facet, data), rlang::eval_tidy(col, data))) &
-      (!identical(rlang::eval_tidy(facet2, data), rlang::eval_tidy(col, data)))
-        ) {
-
-      if (y_forcat) {
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!col, function(x) factor(x, levels = c(FALSE, TRUE))))
+  #if flipped, order col correctly
+    if (!identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) {
+      if (flipped) {
+        data <- data |>
+          dplyr::mutate(dplyr::across(!!col & tidyselect::where(is.factor),
+                                      function(x) forcats::fct_rev(x)))
       }
-      else {
-        data <- data %>%
-          dplyr::mutate(dplyr::across(!!col, function(x) factor(x, levels = c(TRUE, FALSE))))
-      }
-     }
-  }
-
-  if (col_character) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!col, function(x) factor(x)))
-  }
-
-  if (!identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) {
-    if (flipped & (col_character | col_factor)) {
-      data <- data %>%
-        dplyr::mutate(dplyr::across(!!col, function(x) forcats::fct_rev(x)))
     }
+
+  ################################################################
+  if (!rlang::quo_is_null(facet)) {
+    facet_n <- data %>%
+      dplyr::pull(!!facet) %>%
+      levels() %>%
+      length()
+
+    if (any(is.na(data %>% dplyr::pull(!!facet)))) facet_n <- facet_n + 1
   }
 
-  if (rlang::is_null(col_legend_place)) {
-    if (col_forcat &
-      (identical(rlang::eval_tidy(x, data), rlang::eval_tidy(col, data))) |
-      (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) |
-      (identical(rlang::eval_tidy(facet, data), rlang::eval_tidy(col, data))) |
-      (identical(rlang::eval_tidy(facet2, data), rlang::eval_tidy(col, data)))
-    ) {
-      col_legend_place <- "none"
-    }
+  if (!rlang::quo_is_null(facet2)) {
+    facet2_n <- data %>%
+      dplyr::pull(!!facet2) %>%
+      levels() %>%
+      length()
+
+    if (any(is.na(data %>% dplyr::pull(!!facet2)))) facet2_n <- facet2_n + 1
   }
 
-  if (facet_logical) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!facet, function(x) factor(x, levels = c(TRUE, FALSE))))
-  }
-
-  if (facet2_logical) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!facet2, function(x) factor(x, levels = c(TRUE, FALSE))))
-  }
-
-  if (facet_character) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!facet, \(x) factor(x)))
-  }
-  if (facet2_character) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!facet2, \(x) factor(x)))
-  }
-
-  if (!facet_null) {
-    facet_vctr <- data %>%
-      dplyr::pull(!!facet)
-
-    facet_n <- facet_vctr %>% levels() %>% length()
-
-    if (any(is.na(facet_vctr))) facet_n <- facet_n + 1
-
-  } else {
-    facet_n <- 0
-  }
-
-  if (!facet2_null) {
-    facet2_vctr <- data %>%
-      dplyr::pull(!!facet2)
-
-    facet2_n <- facet2_vctr %>% levels() %>% length()
-
-    if (any(is.na(facet2_vctr))) facet2_n <- facet2_n + 1
-
-  } else {
-    facet2_n <- 0
-  }
-
-  if (rlang::is_null(col_scale)) {
-    if (stat %in% c("bin2d", "bin_2d", "binhex", "contour_filled", "density_2d_filled")) {
-      col_scale <- TRUE
-    }
-    else if (col_null) {
-      col_scale <- FALSE
-    }
-    else if (!col_null) col_scale <- TRUE
-  }
-
+  ################################################################
   x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
   y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
 
@@ -368,121 +418,180 @@ gg_col2 <- function(
   #Unique code: part 2
   ##############################################################################
 
-  ###make plot
-  if (!x_null & !y_null) {
-    if (!col_null) {
+  if (stat == "sf") {
+    sf <- TRUE
+    geometry <- sf::st_geometry(data)
+  } else {
+    sf <- FALSE
+    geometry <- NULL
+  }
+
+  #make plot base with aesthetics
+  if (!col_null) {
+    if (!x_null & !y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
           col = !!col,
           fill = !!col,
-          group = !!group, !!!mapping
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          geometry = geometry,
+          !!!mapping
         ))
     }
-    else if (col_null) {
+    else if (!x_null & y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
+          col = !!col,
+          fill = !!col,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          geometry = geometry,
+          !!!mapping
+        ))
+    }
+    else if (x_null & !y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
-          # col = "",
-          # fill = "",
-          group = !!group, !!!mapping
+          col = !!col,
+          fill = !!col,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          geometry = geometry,
+          !!!mapping
+        ))
+    }
+    else if (sf | (x_null & y_null)) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          col = !!col,
+          fill = !!col,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          geometry = geometry,
+          !!!mapping
         ))
     }
   }
-  else if (!x_null & y_null) {
-    if (!col_null) {
+  else if (col_null) {
+    if (!x_null & !y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
-          col = !!col,
-          fill = !!col,
-          group = !!group, !!!mapping
+          y = !!y,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          geometry = geometry,
+          !!!mapping
         ))
     }
-    else if (col_null) {
+    else if (!x_null & y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
-          # col = "",
-          # fill = "",
-          group = !!group, !!!mapping
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          geometry = geometry,
+          !!!mapping
         ))
     }
-  }
-  else if (x_null & !y_null) {
-    if (!col_null) {
+    else if (x_null & !y_null) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
-          col = !!col,
-          fill = !!col,
-          group = !!group, !!!mapping
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          geometry = geometry,
+          !!!mapping
         ))
     }
-    else if (col_null) {
+    else if (sf | (x_null & y_null)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          y = !!y,
-          # col = "",
-          # fill = "",
-          group = !!group, !!!mapping
-        ))
-    }
-  }
-  else if (x_null & y_null) {
-    if (!col_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          col = !!col,
-          fill = !!col,
-          group = !!group, !!!mapping
-        ))
-    }
-    else if (col_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          # col = "",
-          # fill = "",
-          group = !!group, !!!mapping
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          geometry = geometry,
+          !!!mapping
         ))
     }
   }
 
-  if (!col_scale) {
-    if (rlang::is_null(pal)) pal <- "#357BA2"
-    else pal <- as.vector(pal[1])
-
-    plot <- plot +
-      # ggplot2::geom_blank(stat = stat, position = position, ...) +
-      ggplot2::geom_bar(
-        ggplot2::aes(text = !!text), stat = stat,
-        position = position,
-        alpha = alpha,
-        col = pal,
-        fill = pal,
-        ...
-      ) +
-      coord +
-      theme
-  }
-  else {
-    plot <- plot +
-      # ggplot2::geom_blank(stat = stat, position = position, ...) +
-      ggplot2::geom_bar(
-        ggplot2::aes(text = !!text), stat = stat,
-        position = position,
-        alpha = alpha,
-        ...
-      ) +
-      coord +
-      theme
-  }
-
-  ##############################################################################
-  #Generic code: part 2 (adjust for gg_sf)
-  ##############################################################################
 
   #Add faceting
   if (rlang::is_null(facet_layout)) {
@@ -666,19 +775,262 @@ gg_col2 <- function(
     }
   }
 
+  #Add colour scale
+  if (rlang::quo_is_null(col)) {
+    if (rlang::is_null(pal)) pal1 <- "#357BA2"
+    else pal1 <- pal[1]
+
+    plot2 <- plot +
+      ggplot2::layer(
+        geom = geom,
+        stat = stat,
+        position = position,
+        params = list(colour = pal1, fill = pal1, alpha = alpha, ...)
+      ) +
+      coord +
+      theme
+  }
+  else {
+    plot2 <- plot +
+      ggplot2::layer(
+        geom = geom,
+        stat = stat,
+        position = position,
+        params = list(alpha = alpha, ...)
+      ) +
+      coord +
+      theme
+  }
+
   #Get plot data and flipped status
-  plot_build <- ggplot2::ggplot_build(plot)
+  plot_build <- ggplot2::ggplot_build(plot2)
   plot_data <- plot_build$data[[1]]
 
-  flippable <- any(stringr::str_detect(colnames(plot_data), "flipped_aes"))
+  ##############################################################################
+  # col scale
+  ##############################################################################
 
-  if (flippable) {
-    flipped <- all(plot_data["flipped_aes"])
+  if (stat == "sf") {
+    if (rlang::quo_is_null(col)) col_scale <- "none"
+    else if (class(rlang::eval_tidy(col, data)) %in%
+             c("character", "logical", "factor")) {
+      col_scale <- "discrete"
+    }
+    else if (class(rlang::eval_tidy(col, data)) %in%
+             c("numeric", "double", "integer", "date", "datetime", "hms", "NULL")) {
+      col_scale <- "continuous"
+    }
+
+    plot <- plot2
   }
-  else if (y_forcat & (x_null | x_numeric | x_date | x_datetime | x_time)) {
-    flipped <- TRUE
+  else if (stat != "sf") {   #correct for plots where col is null, but there is a colour scale
+    col_scale <- purrr::map_chr(plot_build$plot$scales$scales, \(x) rlang::call_name((x[["call"]])))
+
+    if (any(col_scale %in%
+            c("scale_colour_continuous", "scale_colour_gradientn", "scale_colour_stepsn",
+              "scale_fill_continuous", "scale_fill_gradientn", "scale_fill_stepsn"))) {
+      col_scale <- "continuous"
+    } else if (any(col_scale %in%
+                   c("scale_colour_discrete", "scale_colour_manual", "scale_colour_ordinal",
+                     "scale_fill_discrete", "scale_fill_manual", "scale_fill_ordinal"))) {
+      col_scale <- "discrete"
+    } else col_scale <- "none"
+
+    if (rlang::quo_is_null(col) & col_scale %in% c("continuous", "discrete")) {
+      plot <- plot +
+        ggplot2::layer(
+          geom = geom,
+          stat = stat,
+          position = position,
+          params = list(alpha = alpha, ...)
+        ) +
+        coord +
+        theme
+    } else {
+      plot <- plot2
+    }
   }
-  else flipped <- FALSE
+
+  if (col_scale == "continuous") {
+    if (rlang::is_null(pal)) {
+      pal <- viridisLite::mako(18, direction = -1)
+    }
+
+    if (rlang::is_null(col_trans)) {
+
+      if (inherits(rlang::eval_tidy(col, data), what = "hms")) col_trans <- "hms"
+      else if (inherits(rlang::eval_tidy(col, data), what = "date")) col_trans <- "date"
+      else col_trans <- "identity"
+    }
+
+    if (rlang::is_null(col_breaks)) {
+      if (!any(col_trans %in% c("identity", "reverse"))) col_breaks <- ggplot2::waiver()
+      else col_breaks <- scales::breaks_pretty(n = 5)
+    }
+
+    if (rlang::is_null(col_labels)) {
+      if (col_trans == "date") col_labels <- scales::label_date(format = c("%Y", "%b", "%e"))
+      else if (col_trans == "hms") col_labels <- scales::label_time(format = "%H:%M")
+      else if (!any(col_trans %in% c("identity", "reverse"))) col_labels <- ggplot2::waiver()
+      else col_labels <- scales::label_comma(drop0trailing = TRUE)
+    }
+
+    if (col_continuous == "gradient") {
+      plot <- plot +
+        ggplot2::scale_fill_gradientn(
+          colours = pal,
+          values = col_rescale,
+          limits = col_limits,
+          expand = col_expand,
+          breaks = col_breaks,
+          labels = col_labels,
+          trans = col_trans,
+          oob = col_oob,
+          na.value = pal_na,
+        ) +
+        ggplot2::scale_colour_gradientn(
+          colours = pal,
+          values = col_rescale,
+          limits = col_limits,
+          expand = col_expand,
+          breaks = col_breaks,
+          labels = col_labels,
+          trans = col_trans,
+          oob = col_oob,
+          na.value = pal_na,
+        ) +
+        ggplot2::guides(
+          colour = ggplot2::guide_colourbar(
+            title.position = "top", #keep for now
+            ticks.colour = "#fcfdfe", #keep for now
+            reverse = col_legend_rev,
+            order = 1
+          ),
+          fill = ggplot2::guide_colourbar(
+            title.position = "top", #keep for now
+            ticks.colour = "#fcfdfe", #keep for now
+            reverse = col_legend_rev,
+            order = 1
+          )
+        )
+
+    }
+    else if (col_continuous == "steps") {
+      plot <- plot +
+        ggplot2::scale_fill_stepsn(
+          colours = pal,
+          values = col_rescale,
+          limits = col_limits,
+          expand = col_expand,
+          breaks = col_breaks,
+          labels = col_labels,
+          trans = col_trans,
+          oob = col_oob,
+          na.value = pal_na,
+        ) +
+        ggplot2::scale_colour_stepsn(
+          colours = pal,
+          values = col_rescale,
+          limits = col_limits,
+          expand = col_expand,
+          breaks = col_breaks,
+          labels = col_labels,
+          trans = col_trans,
+          oob = col_oob,
+          na.value = pal_na,
+        ) +
+        ggplot2::guides(
+          colour = ggplot2::guide_coloursteps(
+            title.position = "top",
+            reverse = col_legend_rev,
+            order = 1
+          ),
+          fill = ggplot2::guide_coloursteps(
+            title.position = "top",
+            reverse = col_legend_rev,
+            order = 1
+          )
+        )
+    }
+  }
+  else if (col_scale == "discrete") {
+    if (!rlang::quo_is_null(col)) {
+      col_n <- data %>%
+        dplyr::pull(!!col) %>%
+        levels() %>%
+        length()
+      if (rlang::is_null(pal)) pal <- guardian()
+      pal <- pal[1:col_n]
+    } else {
+      if (!rlang::is_null(plot_build$plot$labels$fill)) {
+        col_n <- length(levels(dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))))
+      }
+      else if (!rlang::is_null(plot_build$plot$labels$colour)) {
+        col_n <- length(levels(dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))))
+      }
+
+      if (rlang::is_null(pal)) pal <- viridisLite::mako(col_n, direction = -1)
+    }
+
+    if (flipped) {
+      col_legend_rev <- !col_legend_rev
+      pal <- rev(pal)
+    }
+
+    if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
+
+    if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
+
+    plot <- plot +
+      ggplot2::scale_fill_manual(
+        values = pal,
+        limits = col_limits,
+        expand = col_expand,
+        breaks = col_breaks,
+        labels = col_labels,
+        na.value = pal_na,
+        drop = FALSE, #consider add argument
+      ) +
+      ggplot2::scale_colour_manual(
+        values = pal,
+        limits = col_limits,
+        expand = col_expand,
+        breaks = col_breaks,
+        labels = col_labels,
+        na.value = pal_na,
+        drop = FALSE, #consider add argument
+      ) +
+      ggplot2::guides(
+        colour = ggplot2::guide_legend(
+          reverse = col_legend_rev,
+          title.position = "top", #keep for now
+          ncol = col_legend_ncol,
+          nrow = col_legend_nrow,
+          byrow = TRUE, #keep for now
+          key.spacing = grid::unit(11 * 0.33, "pt"), #keep for now
+          order = 1
+        ),
+        fill = ggplot2::guide_legend(
+          reverse = col_legend_rev,
+          title.position = "top", #keep for now
+          ncol = col_legend_ncol,
+          nrow = col_legend_nrow,
+          byrow = TRUE, #keep for now
+          key.spacing = grid::unit(11 * 0.33, "pt"), #keep for now
+          order = 1
+        )
+      )
+  }
+
+  plot <- plot +
+    ggplot2::expand_limits(
+      colour = col_include,
+      fill = col_include
+    ) #not sure if this goes here
+
+  ##############################################################################
+  # Positional scales
+  ##############################################################################
 
   #Make x, y scales
   if (stat != "sf") {
@@ -720,7 +1072,7 @@ gg_col2 <- function(
           dplyr::select(tidyselect::matches(stringr::regex(x_vars_str)))
 
         if (ncol(x_vctr_temp) != 0) {
-          if (stringr::str_detect(stat, "bin")) {
+          if (!flipped & stringr::str_detect(stat, "bin")) {
             x_vctr <- x_vctr_temp %>%
               dplyr::select(tidyselect::matches(stringr::regex("^x$"))) %>%
               tidyr::pivot_longer(cols = tidyselect::everything()) %>%
@@ -764,19 +1116,19 @@ gg_col2 <- function(
           }
           else if (facet_layout == "wrap") {
             if (!facet_null & !facet2_null) {
-              if (facet_n * facet2_n <= 1) x_breaks_n <- 6
+              if (facet_n * facet2_n <= 1) x_breaks_n <- 7
               else if (facet_n * facet2_n == 2) x_breaks_n <- 5
               else if (facet_n * facet2_n <= 6) x_breaks_n <- 4
-              else x_breaks_n <- 3
+              else x_breaks_n <- 4
             }
             else if (!facet_null) {
-              if (facet_n <= 1) x_breaks_n <- 6
+              if (facet_n <= 1) x_breaks_n <- 7
               else if (facet_n == 2) x_breaks_n <- 5
               else if (facet_n <= 6) x_breaks_n <- 4
               else x_breaks_n <- 3
             }
             else if (!facet2_null) {
-              if (facet2_n <= 1) x_breaks_n <- 6
+              if (facet2_n <= 1) x_breaks_n <- 7
               else if (facet2_n == 2) x_breaks_n <- 5
               else if (facet2_n <= 6) x_breaks_n <- 4
               else x_breaks_n <- 3
@@ -784,15 +1136,17 @@ gg_col2 <- function(
           }
           else if (facet_layout == "grid") {
             if (facet_null) {
-              x_breaks_n <- 6
+              x_breaks_n <- 7
             }
             else if (!facet_null) {
-              if (facet_n <= 1) x_breaks_n <- 6
+              if (facet_n <= 1) x_breaks_n <- 7
               else if (facet_n == 2) x_breaks_n <- 5
               else if (facet_n <= 3) x_breaks_n <- 4
               else x_breaks_n <- 3
             }
           }
+
+          if (flipped) x_breaks_n <- x_breaks_n - 1
         }
 
         if (rlang::is_null(x_limits)) {
@@ -987,7 +1341,7 @@ gg_col2 <- function(
           dplyr::select(tidyselect::matches(stringr::regex(y_vars_str)))
 
         if (ncol(y_vctr_temp) != 0) {
-          if (stringr::str_detect(stat, "bin")) {
+          if (flipped & stringr::str_detect(stat, "bin")) {
             y_vctr <- y_vctr_temp %>%
               dplyr::select(tidyselect::matches(stringr::regex("^y$"))) %>%
               tidyr::pivot_longer(cols = tidyselect::everything()) %>%
@@ -1234,220 +1588,9 @@ gg_col2 <- function(
       )
   }
 
-  #make col scale
-  if (col_scale) {
-    if (!col_null) {
-      col_vctr <- data %>%
-        dplyr::pull(!!col)
-    }
-    else if (col_null) {
-      if (!rlang::is_null(plot_build$plot$labels$fill)) {
-        col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))
-      }
-      else if (!rlang::is_null(plot_build$plot$labels$colour)) {
-        col_vctr <- dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))
-      }
-    }
-
-    if (rlang::is_null(col_legend_place)) {
-      if (col_forcat) col_legend_place <- "bottom"
-      else col_legend_place <- "right"
-    }
-
-    if (length(col_legend_place) == 1) {
-      if (col_legend_place == "b") col_legend_place <- "bottom"
-      if (col_legend_place == "t") col_legend_place <- "top"
-      if (col_legend_place == "l") col_legend_place <- "left"
-      if (col_legend_place == "r") col_legend_place <- "right"
-      if (col_legend_place == "n") col_legend_place <- "none"
-    }
-
-    if (col_forcat | stat %in% c("contour_filled", "density_2d_filled")) { #discrete
-      if (col_factor) col_n <- length(levels(col_vctr))
-      else if (col_character | col_logical) {
-        col_unique <- unique(col_vctr)
-        col_n <- length(col_unique[!is.na(col_unique)])
-      }
-      else if (stat %in% c("contour_filled", "density_2d_filled")) {
-        col_n <- length(levels(dplyr::pull(plot_data, "level")))
-      }
-
-      if (rlang::is_null(pal)) {
-        if (stat %in% c("contour_filled", "density_2d_filled")) pal <- viridisLite::mako(n = col_n, direction = -1)
-        else if (col_n > 4) pal <- scales::hue_pal()(col_n)
-        else pal <- guardian(n = col_n)
-      }
-      else if (rlang::is_null(names(pal))) pal <- pal[1:col_n]
-
-      if (col_null) col_legend_rev_auto <- TRUE
-      else if (y_numeric | y_date | y_datetime | y_time) {
-        if (col_forcat) col_legend_rev_auto <- FALSE
-        else if (length(col_legend_place) == 1) {
-          if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- FALSE
-        }
-        else col_legend_rev_auto <- TRUE
-      }
-      else if (y_forcat) {
-        # if (col_logical) col_legend_rev_auto <- TRUE
-        if (col_forcat) col_legend_rev_auto <- TRUE
-        else if (length(col_legend_place) == 1) {
-          if (col_legend_place %in% c("top", "bottom")) col_legend_rev_auto <- TRUE
-        }
-        else col_legend_rev_auto <- FALSE
-        pal <- rev(pal)
-      }
-      else col_legend_rev_auto <- FALSE
-
-      if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
-      if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
-
-      if (col_legend_rev) col_legend_rev_auto <- !col_legend_rev_auto
-
-      plot <- plot +
-        ggplot2::scale_colour_manual(
-          values = pal,
-          drop = FALSE,
-          breaks = col_breaks,
-          limits = col_limits,
-          labels = col_labels,
-          na.value = as.vector(pal_na)
-        ) +
-        ggplot2::scale_fill_manual(
-          values = pal,
-          drop = FALSE,
-          breaks = col_breaks,
-          limits = col_limits,
-          labels = col_labels,
-          na.value = as.vector(pal_na)
-        ) +
-        ggplot2::guides(
-          colour = ggplot2::guide_legend(
-            reverse = col_legend_rev_auto,
-            title.position = "top",
-            ncol = col_legend_ncol,
-            nrow = col_legend_nrow,
-            byrow = TRUE,
-            key.spacing = grid::unit(11 * 0.33, "pt"),
-            order = 1
-          ),
-          fill = ggplot2::guide_legend(
-            reverse = col_legend_rev_auto,
-            title.position = "top",
-            ncol = col_legend_ncol,
-            nrow = col_legend_nrow,
-            byrow = TRUE,
-            key.spacing = grid::unit(11 * 0.33, "pt"),
-            order = 1
-          )
-        )
-    } #discrete
-    else {
-      if (rlang::is_null(col_trans)) {
-        if (col_date) col_trans <- "date"
-        else if (col_datetime) col_trans <- "time"
-        else if (col_time) col_trans <- "hms"
-        else col_trans <- "identity"
-      }
-
-      if (rlang::is_null(col_breaks)) {
-        if (col_time) col_breaks <- ggplot2::waiver()
-        else if (any(col_trans == "log10")) col_breaks <- scales::breaks_log(n = 5, base = 10)
-        else if (any(col_trans == "log2")) col_breaks <- scales::breaks_log(n = 5, base = 2)
-        else if (any(col_trans == "log")) col_breaks <- scales::breaks_log(n = 5, base = exp(1))
-        else col_breaks <- scales::breaks_pretty(n = 5)
-      }
-
-      if (rlang::is_null(pal)) pal <- viridisLite::mako(n = 18, direction = -1)
-
-      if (rlang::is_null(col_labels)) {
-        if (col_numeric | col_null) {
-          if (any(col_trans == "log10")) col_labels <- scales::label_log(base = 10)
-          else if (any(col_trans == "log2")) col_labels <- scales::label_log(base = 2)
-          else if (any(col_trans == "log")) col_labels <- scales::label_math("e"^.x, format = log)
-          else col_labels <- scales::label_comma(drop0trailing = TRUE)
-        }
-        else if (col_date | col_datetime) {
-          col_labels <- scales::label_date(format = c("%Y", "%b", "%e"))
-        }
-        else if (col_time) {
-          col_labels <- scales::label_time(format = "%H:%M")
-        }
-      }
-
-      if (col_continuous == "gradient") {
-        plot <- plot +
-          ggplot2::scale_colour_gradientn(
-            colours = pal,
-            values = col_rescale,
-            labels = col_labels,
-            breaks = col_breaks,
-            limits = col_limits,
-            trans = col_trans,
-            na.value = as.vector(pal_na)
-          ) +
-          ggplot2::scale_fill_gradientn(
-            colours = pal,
-            values = col_rescale,
-            labels = col_labels,
-            breaks = col_breaks,
-            limits = col_limits,
-            trans = col_trans,
-            na.value = as.vector(pal_na)
-          ) +
-          ggplot2::guides(
-            colour = ggplot2::guide_colourbar(
-              title.position = "top",
-              ticks.colour = "#fcfdfe",
-              reverse = col_legend_rev,
-              order = 1
-            ),
-            fill = ggplot2::guide_colourbar(
-              title.position = "top",
-              ticks.colour = "#fcfdfe",
-              reverse = col_legend_rev,
-              order = 1
-            )
-          )
-      }
-      else if (col_continuous == "steps") {
-        plot <- plot +
-          ggplot2::scale_colour_stepsn(
-            colours = pal,
-            values = col_rescale,
-            labels = col_labels,
-            breaks = col_breaks,
-            limits = col_limits,
-            trans = col_trans,
-            oob = col_oob,
-            na.value = as.vector(pal_na)
-          ) +
-          ggplot2::scale_fill_stepsn(
-            colours = pal,
-            values = col_rescale,
-            labels = col_labels,
-            breaks = col_breaks,
-            limits = col_limits,
-            trans = col_trans,
-            oob = col_oob,
-            na.value = as.vector(pal_na)
-          ) +
-          ggplot2::guides(
-            colour = ggplot2::guide_coloursteps(
-              title.position = "top",
-              reverse = col_legend_rev,
-              order = 1
-            ),
-            fill = ggplot2::guide_coloursteps(
-              title.position = "top",
-              reverse = col_legend_rev,
-              order = 1
-            )
-          )
-      }
-    }
-  }
-
-  #Add titles
+  ##############################################################################
+  # titles
+  ##############################################################################
   if (rlang::is_null(x_title)) {
     if (!rlang::is_null(plot_build$plot$labels$x)) {
       x_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), titles)
@@ -1515,6 +1658,9 @@ gg_col2 <- function(
     }
   }
 
+
+
+
   #expand limits if necessary
   if (stat != "sf") {
     if (!rlang::is_null(x_include)) {
@@ -1532,68 +1678,17 @@ gg_col2 <- function(
       ggplot2::expand_limits(colour = col_include, fill = col_include)
   }
 
-  #Adjust legend
-  # if (!rlang::is_null(col_legend_place)) {
-  if (length(col_legend_place) == 1) {
-    if (col_legend_place %in% c("top", "bottom")) {
-      plot <- plot +
-        ggplot2::theme(legend.position = col_legend_place) +
-        ggplot2::theme(legend.direction = "horizontal") +
-        ggplot2::theme(legend.justification = "left") +
-        ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5)) +
-        ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5))) +
-        ggplot2::theme(legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 5)))
+  ##############################################################################
+  # gridlines
+  ##############################################################################
 
-      if (col_legend_place %in% c("bottom", "top")) {
-        plot <- plot +
-          ggplot2::theme(legend.position = col_legend_place) +
-          ggplot2::theme(legend.direction = "horizontal") +
-          ggplot2::theme(legend.justification = "left") +
-          ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(r = 7.5)))
-      }
-
-      if (col_legend_place == "bottom") {
-        plot <- plot +
-          ggplot2::theme(legend.box.margin = ggplot2::margin(t = -2.5))
-      }
-      else if (col_legend_place == "top") {
-        plot <- plot +
-          ggplot2::theme(legend.box.margin = ggplot2::margin(t = -10))
-      }
-
-      if (col_numeric) {
-        plot <- plot +
-          ggplot2::theme(legend.key.width = grid::unit(0.66, "cm")) +
-          ggplot2::theme(legend.text.align = 0.5)
-      }
-    }
-    else if (col_legend_place %in% c("left", "right")) {
-      plot <- plot +
-        ggplot2::theme(legend.position = col_legend_place) +
-        ggplot2::theme(legend.direction = "vertical") +
-        ggplot2::theme(legend.justification = "left")
-    }
-    else if (col_legend_place == "none") {
-      plot <- plot +
-        ggplot2::guides(colour = "none", fill = "none")
-    }
-  }
-  else if (length(col_legend_place) == 2) {
-    plot <- plot +
-      ggplot2::theme(legend.position = col_legend_place)
-  }
-  # }
-
-  #remove gridlines as per x_gridlines and y_gridlines. Guess if NULL
   if (rlang::is_null(x_gridlines)) {
     if (flipped) x_gridlines <- TRUE
-    else if (x_forcat & y_forcat) x_gridlines <- FALSE
     else x_gridlines <- FALSE
   }
 
   if (rlang::is_null(y_gridlines)) {
     if (flipped) y_gridlines <- FALSE
-    else if (x_forcat & y_forcat) y_gridlines <- FALSE
     else y_gridlines <- TRUE
   }
 
@@ -1615,7 +1710,10 @@ gg_col2 <- function(
     }
   }
 
-  #return beautiful plot
+  ##############################################################################
+  # plot
+  ##############################################################################
   return(plot)
 }
+
 

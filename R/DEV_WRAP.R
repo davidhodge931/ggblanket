@@ -19,9 +19,6 @@
 #' @param label Unquoted label aesthetic variable.
 #' @param subgroup Unquoted subgroup aesthetic variable.
 #' @param mapping Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.
-#' @param stat A ggplot2 character string stat.
-#' @param position Position adjustment function (e.g. ggplot2::position_identity()).
-#' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param pal Colours to use. A character vector of hex codes (or names).
 #' @param pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param alpha Opacity. A number between 0 and 1.
@@ -50,6 +47,7 @@
 #' @param y_trans For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous For a continuous col variable, the type of colouring. Either "gradient" or "steps". Defaults to "gradient".
+#' @param col_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param col_include For a continuous col variable, any values that the limits should encompass (e.g. 0).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param col_legend_ncol The number of columns for the legend elements.
@@ -59,7 +57,6 @@
 #' @param col_limits A vector to determine the limits of the colour scale.
 #' @param col_oob For a continuous col variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
 #' @param col_rescale For a continuous col variable, a scales::rescale function.
-#' @param col_scale TRUE or FALSE of whether to add a col scale or not.
 #' @param col_title Legend title string. Use "" for no title.
 #' @param col_trans For a numeric col variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
@@ -74,6 +71,9 @@
 #' @param size_title Legend title string. Use "" for no title.
 #' @param caption Caption title string.
 #' @param titles A function to format unspecified titles. Defaults to snakecase::to_sentence_case.
+#' @param stat A ggplot2 character string stat.
+#' @param position Position adjustment function (e.g. ggplot2::position_identity()).
+#' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param theme A ggplot2 theme.
 #'
 #' @return A ggplot object.
@@ -82,19 +82,9 @@
 #' library(dplyr)
 #' library(palmerpenguins)
 #'
-#' penguins |>
-#'   gg_blank2(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = sex,
-#'     facet = species,
-#'     col_labels = stringr::str_to_sentence,
-#'     pal = c("#1B9E77", "#9E361B")
-#'   )
 #'
-gg_wrap <- function(
+gg_point_DEV <- function(
     data = NULL,
-    geom = "point",
     x = NULL,
     y = NULL,
     col = NULL,
@@ -112,10 +102,6 @@ gg_wrap <- function(
     label = NULL,
     subgroup = NULL,
     mapping = NULL,
-    # stat = ggplot2::StatIdentity,
-    stat = "identity",
-    position = ggplot2::position_identity(),
-    coord = ggplot2::coord_cartesian(clip = "off"),
     pal = NULL,
     pal_na = "#bebebe",
     alpha = 1,
@@ -168,82 +154,86 @@ gg_wrap <- function(
     size_title = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case,
-    theme = NULL) {
+    stat = "identity",
+    position = ggplot2::position_identity(),
+    coord = ggplot2::coord_cartesian(clip = "off"),
+    theme = NULL
+    ) {
 
-  gg_layer(
-  data = data,
-  geom = geom,
-  x = {{ x }},
-  y = {{ y }},
-  col = {{ col }},
-  facet = {{ facet }},
-  facet2 = {{ facet2 }},
-  xmin = {{ xmin }},
-  xmax = {{ xmax }},
-  xend = {{ xend }},
-  ymin = {{ ymin }},
-  ymax = {{ ymax }},
-  yend = {{ yend }},
-  group = {{ group }},
-  subgroup = {{ subgroup }},
-  label = {{ label }},
-  sample = {{ sample }},
-  mapping = mapping,
-  stat = stat,
-  position = position,
-  coord = coord,
-  pal = pal,
-  pal_na = pal_na,
-  alpha = alpha,
-  ...,
-  title = title,
-  subtitle = subtitle,
-  x_breaks = x_breaks,
-  x_expand = x_expand,
-  x_gridlines = x_gridlines,
-  x_include = x_include,
-  x_labels = x_labels,
-  x_limits = x_limits,
-  x_oob = x_oob,
-  x_sec_axis = x_sec_axis,
-  x_title = x_title,
-  x_trans = x_trans,
-  y_breaks = y_breaks,
-  y_expand = y_expand,
-  y_gridlines = y_gridlines,
-  y_include = y_include,
-  y_labels = y_labels,
-  y_limits = y_limits,
-  y_oob = y_oob,
-  y_sec_axis = y_sec_axis,
-  y_title = y_title,
-  y_trans = y_trans,
-  col_breaks = col_breaks,
-  col_continuous = col_continuous,
-  col_include = col_include,
-  col_labels = col_labels,
-  col_legend_place = col_legend_place,
-  col_legend_ncol = col_legend_ncol,
-  col_legend_nrow = col_legend_nrow,
-  col_legend_rev = col_legend_rev,
-  col_limits = col_limits,
-  col_oob = col_oob,
-  col_rescale = col_rescale,
-  col_title = col_title,
-  col_trans = col_trans,
-  facet_labels = facet_labels,
-  facet_ncol = facet_ncol,
-  facet_nrow = facet_nrow,
-  facet_scales = facet_scales,
-  facet_space = facet_space,
-  facet_layout = facet_layout,
-  facet_switch = facet_switch,
-  linetype_title = linetype_title,
-  shape_title = shape_title,
-  size_title = size_title,
-  caption = caption,
-  titles = titles,
-  theme = theme
+  gg_blanket(
+    data = data,
+    x = {{ x }},
+    y = {{ y }},
+    col = {{ col }},
+    facet = {{ facet }},
+    facet2 = {{ facet2 }},
+    xmin = {{ xmin }},
+    xmax = {{ xmax }},
+    xend = {{ xend }},
+    ymin = {{ ymin }},
+    ymax = {{ ymax }},
+    yend = {{ yend }},
+    group = {{ group }},
+    subgroup = {{ subgroup }},
+    label = {{ label }},
+    sample = {{ sample }},
+    mapping = mapping,
+    pal = pal,
+    pal_na = pal_na,
+    alpha = alpha,
+    ...,
+    title = title,
+    subtitle = subtitle,
+    x_breaks = x_breaks,
+    x_expand = x_expand,
+    x_gridlines = x_gridlines,
+    x_include = x_include,
+    x_labels = x_labels,
+    x_limits = x_limits,
+    x_oob = x_oob,
+    x_sec_axis = x_sec_axis,
+    x_title = x_title,
+    x_trans = x_trans,
+    y_breaks = y_breaks,
+    y_expand = y_expand,
+    y_gridlines = y_gridlines,
+    y_include = y_include,
+    y_labels = y_labels,
+    y_limits = y_limits,
+    y_oob = y_oob,
+    y_sec_axis = y_sec_axis,
+    y_title = y_title,
+    y_trans = y_trans,
+    col_breaks = col_breaks,
+    col_continuous = col_continuous,
+    col_include = col_include,
+    col_labels = col_labels,
+    col_legend_place = col_legend_place,
+    col_legend_ncol = col_legend_ncol,
+    col_legend_nrow = col_legend_nrow,
+    col_legend_rev = col_legend_rev,
+    col_limits = col_limits,
+    col_oob = col_oob,
+    col_rescale = col_rescale,
+    col_title = col_title,
+    col_trans = col_trans,
+    facet_labels = facet_labels,
+    facet_ncol = facet_ncol,
+    facet_nrow = facet_nrow,
+    facet_scales = facet_scales,
+    facet_space = facet_space,
+    facet_layout = facet_layout,
+    facet_switch = facet_switch,
+    linetype_title = linetype_title,
+    shape_title = shape_title,
+    size_title = size_title,
+    caption = caption,
+    titles = titles,
+    geom = "point",
+    stat = stat,
+    position = position,
+    coord = coord,
+    theme = theme
   )
 }
 

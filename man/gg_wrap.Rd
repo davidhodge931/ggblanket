@@ -6,7 +6,6 @@
 \usage{
 gg_wrap(
   data = NULL,
-  geom = "point",
   x = NULL,
   y = NULL,
   col = NULL,
@@ -24,9 +23,6 @@ gg_wrap(
   label = NULL,
   subgroup = NULL,
   mapping = NULL,
-  stat = "identity",
-  position = ggplot2::position_identity(),
-  coord = ggplot2::coord_cartesian(clip = "off"),
   pal = NULL,
   pal_na = "#bebebe",
   alpha = 1,
@@ -79,6 +75,9 @@ gg_wrap(
   size_title = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
+  stat = "identity",
+  position = ggplot2::position_identity(),
+  coord = ggplot2::coord_cartesian(clip = "off"),
   theme = NULL
 )
 }
@@ -118,12 +117,6 @@ gg_wrap(
 \item{subgroup}{Unquoted subgroup aesthetic variable.}
 
 \item{mapping}{Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.}
-
-\item{stat}{A ggplot2 character string stat.}
-
-\item{position}{Position adjustment function (e.g. ggplot2::position_identity()).}
-
-\item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).}
 
 \item{pal}{Colours to use. A character vector of hex codes (or names).}
 
@@ -183,6 +176,8 @@ gg_wrap(
 
 \item{col_include}{For a continuous col variable, any values that the limits should encompass (e.g. 0).}
 
+\item{col_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
+
 \item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
 \item{col_legend_place}{The place for the legend. Either "bottom", "right", "top" or "left". Or just the first letter of each.}
@@ -227,9 +222,13 @@ gg_wrap(
 
 \item{titles}{A function to format unspecified titles. Defaults to snakecase::to_sentence_case.}
 
-\item{theme}{A ggplot2 theme.}
+\item{stat}{A ggplot2 character string stat.}
 
-\item{col_scale}{TRUE or FALSE of whether to add a col scale or not.}
+\item{position}{Position adjustment function (e.g. ggplot2::position_identity()).}
+
+\item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).}
+
+\item{theme}{A ggplot2 theme.}
 }
 \value{
 A ggplot object.
@@ -241,14 +240,5 @@ Create a blank ggplot with a wrapper around ggplot2::geom_blank().
 library(dplyr)
 library(palmerpenguins)
 
-penguins |>
-  gg_blank2(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    facet = species,
-    col_labels = stringr::str_to_sentence,
-    pal = c("#1B9E77", "#9E361B")
-  )
 
 }

@@ -228,16 +228,6 @@ penguins2 |>
     bins = 50)
 ```
 
-### gg_freqpoly
-
-```{r}
-penguins2 |>
-  gg_freqpoly(
-    x = flipper_length_mm,
-    col = sex,
-    facet = species)
-```
-
 ### gg_jitter
 
 ```{r}
