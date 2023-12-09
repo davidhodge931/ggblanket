@@ -391,6 +391,13 @@ gg_blanket <- function(
 
   flipped <- ifelse(x_continuous & !y_continuous, TRUE, FALSE)
 
+  if (x_null & !y_null) flipped <- TRUE
+  else if ((x_numeric | x_date | x_posixct | x_hms) &
+           !(y_null | y_numeric | y_date | y_posixct | y_hms)) {
+    flipped <- TRUE
+  }
+  else flipped <- FALSE
+
   ##############################################################################
   #process the data
   ##############################################################################
@@ -1759,12 +1766,14 @@ gg_blanket <- function(
   ##############################################################################
 
   if (rlang::is_null(x_gridlines)) {
-    if (flipped) x_gridlines <- TRUE
+    if (stringr::str_detect(class(stat)[1], "Sf")) x_gridlines <- FALSE
+    else if (flipped) x_gridlines <- TRUE
     else x_gridlines <- FALSE
   }
 
   if (rlang::is_null(y_gridlines)) {
-    if (flipped) y_gridlines <- FALSE
+    if (stringr::str_detect(class(stat)[1], "Sf")) y_gridlines <- FALSE
+    else if (flipped) y_gridlines <- FALSE
     else y_gridlines <- TRUE
   }
 
