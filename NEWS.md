@@ -1,5 +1,10 @@
 # ggblanket 5.2.0900
 
+* Breaking: renamed `pal` to `col_pal`.
+* Breaking: renamed `pal_na` to `col_pal_na`.
+* Breaking: renamed `alpha` to `alpha_pal`.
+
+* Breaking: renamed `*_trans` to `*_transform`.
 * Breaking: removed `col_legend_place` argument.
 * Breaking: removed `light_mode` and `dark_mode` functions.
 * Added `light_mode_*` and `dark_mode_*` family of functions.
@@ -7,6 +12,7 @@
 * Improved default gridlines.
 * Fixed bug when col is logical class.
 * Breaking: remove `col_scale` argument.
+* Breaking: shift `...` to the front to require users to name arguments.
 
 # ggblanket 5.2.0
 
