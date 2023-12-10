@@ -1054,7 +1054,7 @@ gg_blanket <- function(
         c("NULL", "numeric", "double", "integer","Date", "POSIXct","hms")) {
       col_continuous <- TRUE
     }
-    if (class(rlang::eval_tidy(col, data)) %in%
+    else if (class(rlang::eval_tidy(col, data)) %in%
         c("character", "logical", "factor")) {
       col_continuous <- FALSE
     }
@@ -1336,7 +1336,26 @@ gg_blanket <- function(
   ##############################################################################
 
   #Make x scale based on plot_data
-  if (!stringr::str_detect(class(stat)[1], "Sf") & !x_continuous) {
+  if (stringr::str_detect(class(stat)[1], "Sf")) {
+    if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
+    if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
+    if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
+    if (rlang::is_null(x_transform)) x_transform <- scales::transform_identity()
+
+    suppressMessages({
+      plot <- plot +
+        ggplot2::scale_x_continuous(
+          limits = x_limits,
+          expand = x_expand,
+          breaks = x_breaks,
+          labels = x_labels,
+          oob = x_oob,
+          sec.axis = x_sec_axis,
+          trans = x_transform
+        )
+    })
+  }
+  else if (!x_continuous) {
       if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
       if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
       if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
@@ -1344,10 +1363,10 @@ gg_blanket <- function(
       suppressMessages({
         plot <- plot +
           ggplot2::scale_x_discrete(
-            expand = x_expand,
-            labels = x_labels,
-            breaks = x_breaks,
             limits = x_limits,
+            expand = x_expand,
+            breaks = x_breaks,
+            labels = x_labels,
             drop = x_drop
           )
       })
@@ -1515,7 +1534,26 @@ gg_blanket <- function(
   }
 
   #Make y scale based on plot_data
-  if (!stringr::str_detect(class(stat)[1], "Sf") & !y_continuous) {
+  if (stringr::str_detect(class(stat)[1], "Sf")) {
+    if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
+    if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
+    if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
+    if (rlang::is_null(y_transform)) y_transform <- scales::transform_identity()
+
+    suppressMessages({
+      plot <- plot +
+        ggplot2::scale_y_continuous(
+          limits = y_limits,
+          expand = y_expand,
+          labels = y_labels,
+          breaks = y_breaks,
+          oob = y_oob,
+          sec.axis = y_sec_axis,
+          trans = y_transform
+        )
+    })
+  }
+  else if (!y_continuous) {
     if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
     if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
     if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
@@ -1523,9 +1561,10 @@ gg_blanket <- function(
     suppressMessages({
       plot <- plot +
         ggplot2::scale_y_discrete(
+          limits = y_limits,
           expand = y_expand,
-          labels = y_labels,
           breaks = y_breaks,
+          labels = y_labels,
           drop = y_drop
         )
     })
