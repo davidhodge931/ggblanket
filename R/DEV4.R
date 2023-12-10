@@ -1159,8 +1159,9 @@ gg_blanket <- function(
         col_pal <- viridisLite::mako(18, direction = -1)
       }
 
-      if (rlang::is_null(col_transform)) { #NEED TO RESOLVE HOW DATETIME LABELS WORK
+      if (rlang::is_null(col_transform)) { #NEED TO RESOLVE HOW DATETIME LABELS WORK. Or maybe it can just be NULL
         if (inherits(rlang::eval_tidy(col, data), what = "hms")) col_transform <- scales::transform_hms()
+        else if (inherits(rlang::eval_tidy(col, data), what = "POSIXct")) col_transform <- scales::transform_time()
         else if (inherits(rlang::eval_tidy(col, data), what = "Date")) col_transform <- scales::transform_date()
         else col_transform <- scales::transform_identity()
       }
@@ -1171,10 +1172,8 @@ gg_blanket <- function(
       }
 
       if (rlang::is_null(col_labels)) {
-        if (col_transform$name == "Date") col_labels <- scales::label_date(format = c("%Y", "%b", "%e"))
-        else if (col_transform$name == "hms") col_labels <- scales::label_hms(format = "%H:%M")
-        # else if (col_transform$name == "hms") col_labels <- scales::label_hms(format = "%H:%M")
-
+        if (any(col_transform$name %in% c("hms"))) col_labels <- scales::label_time()
+        else if (any(col_transform$name %in% c("date", "time"))) col_labels <- scales::label_date_short()
         else if (!any(col_transform$name %in% c("identity", "reverse"))) col_labels <- ggplot2::waiver()
         else col_labels <- scales::label_comma(drop0trailing = TRUE)
       }
