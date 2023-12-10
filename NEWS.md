@@ -7,6 +7,7 @@
 * Breaking: renamed `*_trans` to `*_transform`.
 * Breaking: removed `col_legend_place` argument.
 * Breaking: removed `light_mode` and `dark_mode` functions.
+
 * Added `light_mode_*` and `dark_mode_*` family of functions.
 * Increased `light_mode_*` and `dark_mode_*` default base_size.
 * Improved default gridlines.
