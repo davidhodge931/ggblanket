@@ -3,6 +3,7 @@
 * Breaking: renamed `pal` to `col_pal`.
 * Breaking: renamed `pal_na` to `col_pal_na`.
 * Breaking: renamed `alpha` to `alpha_pal`.
+* Breaking: renamed `*_include` to `*_expand_limits`.
 
 * Breaking: renamed `*_trans` to `*_transform`.
 * Breaking: removed `col_legend_place` argument.
