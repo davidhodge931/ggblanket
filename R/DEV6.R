@@ -1009,7 +1009,7 @@ gg_blanket <- function(
   ##############################################################################
 
   # if (rlang::quo_is_null(col)) {
-  #   if (rlang::is_null(col_pal)) col_pal1 <- "#357BA2"
+  #   if (rlang::is_null(col_pal)) col_pal1 <- pal_one()
   #   else col_pal1 <- col_pal[1]
   #
   #   plot2 <- plot +
@@ -1085,22 +1085,28 @@ gg_blanket <- function(
     else alpha_continuous <- NA
 
     if ((is.na(col_continuous)) & (is.na(alpha_continuous))) {
-      if (rlang::is_null(col_pal)) col_pal1 <- "#357BA2"
+      if (rlang::is_null(col_pal)) col_pal1 <- pal_one()
       else col_pal1 <- col_pal[1]
 
-      if (rlang::is_null(alpha_pal)) alpha_pal1 <- 0.9
+      if (rlang::is_null(alpha_pal)) {
+        if (identical(geom, ggplot2::GeomLabel)) alpha_pal1 <- 0.1
+        else alpha_pal1 <- 0.9
+      }
       else alpha_pal1 <- alpha_pal[1]
 
       params_list <- list(colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
     }
     else if (is.na(col_continuous)) {
-      if (rlang::is_null(col_pal)) col_pal1 <- "#357BA2"
+      if (rlang::is_null(col_pal)) col_pal1 <- pal_one()
       else col_pal1 <- col_pal[1]
 
       params_list <- list(colour = col_pal1, fill = col_pal1, ...)
     }
     else if (is.na(alpha_continuous)) {
-      if (rlang::is_null(alpha_pal)) alpha_pal1 <- 0.9
+      if (rlang::is_null(alpha_pal)) {
+        if (identical(geom, ggplot2::GeomLabel)) alpha_pal1 <- 0.1
+        else alpha_pal1 <- 0.9
+      }
       else alpha_pal1 <- alpha_pal[1]
 
       params_list <- list(alpha = alpha_pal1, ...)
@@ -1126,7 +1132,7 @@ gg_blanket <- function(
   if (!is.na(col_continuous)) {
     if (col_continuous) {
       if (rlang::is_null(col_pal)) {
-        col_pal <- viridisLite::mako(18, direction = -1)
+        col_pal <- pal_continuous()
       }
 
       if (rlang::is_null(col_transform)) {
@@ -1240,7 +1246,7 @@ gg_blanket <- function(
           dplyr::pull(!!col) %>%
           levels() %>%
           length()
-        if (rlang::is_null(col_pal)) col_pal <- guardian()
+        if (rlang::is_null(col_pal)) col_pal <- pal_discrete(col_n)
         col_pal <- col_pal[1:col_n]
       }
       else {
@@ -1251,7 +1257,7 @@ gg_blanket <- function(
           col_n <- length(levels(dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))))
         }
 
-        if (rlang::is_null(col_pal)) col_pal <- viridisLite::mako(col_n, direction = -1)
+        if (rlang::is_null(col_pal)) col_pal <- pal_continuous(n = col_n)
       }
 
       if (flipped) {

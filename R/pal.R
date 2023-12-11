@@ -33,3 +33,37 @@ pal_light_mode <- c("#121b24", "#e6ecf2", "#fcfdfe", "#dbe1e7")
 #'
 #' @keywords internal
 pal_dark_mode <- c("#bbccdd", "#15202b", "#1f2f3e", "#2c3a48")
+
+#' Default colours used to colour a discrete variable.
+#'
+#' @description Default colours used to colour a discrete variable.
+#'
+#' @return A character vector.
+#'
+#' @keywords internal
+pal_discrete <- function(n = 4) {
+  if (n <= 4) c("#2596be", "#fc7c24", "#9c1e74", "#6b5840")[1:n]
+  else scales::pal_hue()(n)
+}
+
+#' Default colours used to colour a continuous variable.
+#'
+#' @description Default colours used to colour a continuous variable.
+#'
+#' @return A character vector.
+#'
+#' @keywords internal
+pal_continuous <- function(n = 20) {
+  viridisLite::mako(n = n, direction = -1)
+}
+
+#' Default colour for no col aesthetic
+#'
+#' @description Default colour for no col aesthetic.
+#'
+#' @return A character vector.
+#'
+#' @keywords internal
+pal_one <- function() {
+  "#357BA2"
+}
