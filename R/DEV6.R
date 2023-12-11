@@ -1008,40 +1008,22 @@ gg_blanket <- function(
   # Add layer
   ##############################################################################
 
-  # if (rlang::quo_is_null(col)) {
-  #   if (rlang::is_null(col_pal)) col_pal1 <- pal_one()
-  #   else col_pal1 <- col_pal[1]
-  #
-  #   plot2 <- plot +
-  #     ggplot2::layer(
-  #       geom = geom,
-  #       stat = stat,
-  #       position = position,
-  #       params = list(colour = col_pal1, fill = col_pal1, ...)
-  #       # params = list(colour = col_pal1, fill = col_pal1, alpha = alpha_pal, ...)
-  #     ) +
-  #     coord +
-  #     theme
-  # }
-  # else {
-    plot2 <- plot +
+    plot1 <- plot +
       ggplot2::layer(
         geom = geom,
         stat = stat,
         position = position,
         params = list(...)
-        # params = list(alpha = alpha_pal, ...)
       ) +
       coord +
       theme
-  # }
 
   ##############################################################################
   # Get plot build and data
   ##############################################################################
 
   #Get plot data and flipped status
-  plot_build <- ggplot2::ggplot_build(plot2)
+  plot_build <- ggplot2::ggplot_build(plot1)
   plot_data <- plot_build$data[[1]]
 
   ##############################################################################
@@ -1070,7 +1052,7 @@ gg_blanket <- function(
     }
     else alpha_continuous <- NA
 
-    plot <- plot2
+    plot <- plot1
   }
   #correct for plots where col is null, but there should be a colour scale
   else {
@@ -1124,7 +1106,7 @@ gg_blanket <- function(
         theme
     }
     else {
-      plot <- plot2
+      plot <- plot1
     }
   }
 
