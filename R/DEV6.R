@@ -1084,27 +1084,27 @@ gg_blanket <- function(
     else if (any(scales %in% discrete_scales_alpha)) alpha_continuous <- FALSE
     else alpha_continuous <- NA
 
-  if (is.na(col_continuous) & is.na(alpha_continuous)) {
-    if (rlang::is_null(col_pal)) col_pal1 <- "#357BA2"
-    else col_pal1 <- col_pal[1]
+    if ((is.na(col_continuous)) & (is.na(alpha_continuous))) {
+      if (rlang::is_null(col_pal)) col_pal1 <- "#357BA2"
+      else col_pal1 <- col_pal[1]
 
-    if (rlang::is_null(alpha_pal)) alpha_pal1 <- 0.8
-    else alpha_pal1 <- alpha_pal[1]
+      if (rlang::is_null(alpha_pal)) alpha_pal1 <- 0.9
+      else alpha_pal1 <- alpha_pal[1]
 
-    params_list <- list(colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
-  }
-  else if (is.na(col_continuous) & !is.na(alpha_continuous)) {
-    if (rlang::is_null(col_pal)) col_pal1 <- "#357BA2"
-    else col_pal1 <- col_pal[1]
+      params_list <- list(colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
+    }
+    else if (is.na(col_continuous)) {
+      if (rlang::is_null(col_pal)) col_pal1 <- "#357BA2"
+      else col_pal1 <- col_pal[1]
 
-    params_list <- list(colour = col_pal1, fill = col_pal1, ...)
-  }
-  else if (!is.na(col_continuous) & is.na(alpha_continuous)) {
-    if (rlang::is_null(alpha_pal)) alpha_pal1 <- 0.8
-    else alpha_pal1 <- alpha_pal[1]
+      params_list <- list(colour = col_pal1, fill = col_pal1, ...)
+    }
+    else if (is.na(alpha_continuous)) {
+      if (rlang::is_null(alpha_pal)) alpha_pal1 <- 0.9
+      else alpha_pal1 <- alpha_pal[1]
 
-    params_list <- list(alpha = alpha_pal1, ...)
-  }
+      params_list <- list(alpha = alpha_pal1, ...)
+    }
 
     if (is.na(col_continuous) | is.na(alpha_continuous)) {
       plot <- plot +
