@@ -8,9 +8,9 @@
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
-#' @param alpha Unquoted alpha aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
+#' @param alpha Unquoted alpha aesthetic variable.
 #' @param xmin Unquoted xmin aesthetic variable.
 #' @param xmax Unquoted xmax aesthetic variable.
 #' @param xend Unquoted xend aesthetic variable.
@@ -24,10 +24,6 @@
 #' @param text Unquoted text aesthetic variable.
 #' @param sample Unquoted sample aesthetic variable.
 #' @param mapping Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha_pal.
-#' @param col_pal Colours to use. A character vector of hex codes (or names).
-#' @param col_pal_na Colour to use for NA values. A character vector of a hex code (or name).
-#' @param alpha_pal Opacity. A number between 0 and 1.
-#' @param alpha_pal_na Opacity. A number between 0 and 1.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
@@ -60,9 +56,11 @@
 #' @param col_legend_rev Reverse the elements of the legend. Defaults to FALSE.
 #' @param col_limits A vector to determine the limits of the colour scale.
 #' @param col_oob For a continuous col variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
+#' @param col_pal Colours to use. A character vector of hex codes (or names).
+#' @param col_pal_na Colour to use for NA values. A character vector of a hex code (or name).
 #' @param col_rescale For a continuous col variable, a scales::rescale function.
 #' @param col_steps For a continuous col variable, whether to colour in steps. Defaults to FALSE (i.e. a gradient).
-#' @param col_title Legend title string. Use "" for no title.
+#' @param col_title Legend col title string. Use "" for no title.
 #' @param col_transform For a numeric col variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
 #' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
@@ -71,6 +69,9 @@
 #' @param facet_space Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed". Only applies where the facet layout is "grid" and facet scales are not "fixed".
 #' @param facet_layout Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".
 #' @param facet_switch Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".
+#' @param alpha_pal Opacity. A number between 0 and 1.
+#' @param alpha_pal_na Opacity. A number between 0 and 1.
+#' @param alpha_title Legend alpha title string. Use "" for no title.
 #' @param linetype_title Legend title string. Use "" for no title.
 #' @param shape_title Legend title string. Use "" for no title.
 #' @param size_title Legend title string. Use "" for no title.
@@ -95,6 +96,7 @@ gg_blanket <- function(
     col = NULL,
     facet = NULL,
     facet2 = NULL,
+    alpha = NULL,
     xmin = NULL,
     xmax = NULL,
     xend = NULL,
@@ -107,12 +109,7 @@ gg_blanket <- function(
     label = NULL,
     text = NULL,
     sample = NULL,
-    alpha = NULL,
     mapping = NULL,
-    col_pal = NULL,
-    col_pal_na = "#bebebe",
-    alpha_pal = NULL,
-    alpha_pal_na = NULL,
     title = NULL,
     subtitle = NULL,
     x_breaks = NULL,
@@ -145,6 +142,8 @@ gg_blanket <- function(
     col_legend_rev = FALSE,
     col_limits = NULL,
     col_oob = scales::oob_keep,
+    col_pal = NULL,
+    col_pal_na = "#bebebe",
     col_rescale = scales::rescale(),
     col_steps = FALSE,
     col_title = NULL,
@@ -156,7 +155,11 @@ gg_blanket <- function(
     facet_space = "fixed",
     facet_layout = NULL,
     facet_switch = NULL,
+    alpha_pal = NULL,
+    alpha_pal_na = NULL,
+    alpha_title = NULL,
     linetype_title = NULL,
+    linewidth_title = NULL,
     shape_title = NULL,
     size_title = NULL,
     caption = NULL,
@@ -1747,10 +1750,19 @@ gg_blanket <- function(
       col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), titles)
     }
   }
-
+  if (rlang::is_null(alpha_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$alpha)) {
+      alpha_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), titles)
+    }
+  }
   if (rlang::is_null(linetype_title)) {
     if (!rlang::is_null(plot_build$plot$labels$linetype)) {
       linetype_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), titles)
+    }
+  }
+  if (rlang::is_null(linewidth_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$linewidth)) {
+      linewidth_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), titles)
     }
   }
   if (rlang::is_null(shape_title)) {
@@ -1773,7 +1785,9 @@ gg_blanket <- function(
       y = y_title,
       col = col_title,
       fill = col_title,
+      alpha = alpha_title,
       linetype = linetype_title,
+      linewidth = linewidth_title,
       shape = shape_title,
       size = size_title)
 
@@ -1795,9 +1809,38 @@ gg_blanket <- function(
         ggplot2::labs(colour = NULL, fill = NULL)
     }
   }
+  if (!rlang::is_null(alpha_title)) {
+    if (alpha_title == "") {
+      plot <- plot +
+        ggplot2::labs(alpha = NULL)
+    }
+  }
+  if (!rlang::is_null(linetype_title)) {
+    if (linetype_title == "") {
+      plot <- plot +
+        ggplot2::labs(linetype = NULL)
+    }
+  }
+  if (!rlang::is_null(linewidth_title)) {
+    if (linewidth_title == "") {
+      plot <- plot +
+        ggplot2::labs(linewidth = NULL)
+    }
+  }
+  if (!rlang::is_null(shape_title)) {
+    if (shape_title == "") {
+      plot <- plot +
+        ggplot2::labs(shape = NULL)
+    }
+  }
+  if (!rlang::is_null(size_title)) {
+    if (size_title == "") {
+      plot <- plot +
+        ggplot2::labs(size = NULL)
+    }
+  }
 
   #expand limits if necessary
-  # if (!stringr::str_detect(stat_name, "sf")) {
   if (!rlang::is_null(x_expand_limits)) {
     plot <- plot +
       ggplot2::expand_limits(x = x_expand_limits)
@@ -1806,7 +1849,6 @@ gg_blanket <- function(
     plot <- plot +
       ggplot2::expand_limits(y = y_expand_limits)
   }
-  # }
 
   if (!rlang::is_null(col_expand_limits)) {
     plot <- plot +
