@@ -1150,9 +1150,6 @@ gg_blanket <- function(
       }
       else alpha_pal1 <- alpha_pal[1]
 
-      # if (rlang::is_null(alpha_pal)) alpha_pal1 <- 0.9
-      # else alpha_pal1 <- alpha_pal[1]
-
       params_list <- list(alpha = alpha_pal1, ...)
     }
 
