@@ -1080,7 +1080,6 @@ gg_blanket <- function(
   # Get plot build and data
   ##############################################################################
 
-  #Get plot data and flipped status
   plot_build <- ggplot2::ggplot_build(plot1)
   plot_data <- plot_build$data[[1]]
 
@@ -1114,8 +1113,10 @@ gg_blanket <- function(
   }
   #correct for plots where col is null, but there should be a colour scale
   else {
-    if (!rlang::is_null(plot_build$plot$scales$scales$call)) {
-      scales <- purrr::map_chr(plot_build$plot$scales$scales, \(x) rlang::call_name((x[["call"]])))
+      scales <- purrr::map_lgl(plot_build$plot$scales$scales, \(x) {
+        ifelse(rlang::is_null(rlang::call_name(x[["call"]])), NA,
+               rlang::is_null(rlang::call_name(x[["call"]])))
+      })
 
       if (any(scales %in% continuous_scales_col)) col_continuous <- TRUE
       else if (any(scales %in% discrete_scales_col)) col_continuous <- FALSE
@@ -1124,12 +1125,6 @@ gg_blanket <- function(
       if (any(scales %in% continuous_scales_alpha)) alpha_continuous <- TRUE
       else if (any(scales %in% discrete_scales_alpha)) alpha_continuous <- FALSE
       else alpha_continuous <- NA
-    }
-    else {
-      col_continuous <- NA
-      alpha_continuous <- NA
-    }
-
 
     if ((is.na(col_continuous)) & (is.na(alpha_continuous))) {
       if (rlang::is_null(col_pal)) col_pal1 <- pal_one()
