@@ -546,7 +546,7 @@
 #'   }
 #'   else {
 #'     geometry <- NULL
-#'     if (rlang::is_null(coord)) ggplot2::coord_cartesian(clip = "off")
+#'     if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
 #'   }
 #'
 #'   ##############################################################################
@@ -1099,10 +1099,10 @@
 #'   plot_data <- plot_build$data[[1]]
 #'
 #'   ##############################################################################
-#'   # Add col scale
+#'   # Detect whether the plot has a col or alpha scale
 #'   ##############################################################################
 #'
-#'   #sf documents scales differently, and this fixes
+#'   #sf seems to document scales differently, and this fixes
 #'   if (stringr::str_detect(stat_name, "sf")) {
 #'     if (class(rlang::eval_tidy(col, data)) %in%
 #'         c("numeric", "double", "integer","Date", "POSIXct","hms")) {
@@ -1123,10 +1123,8 @@
 #'       alpha_continuous <- FALSE
 #'     }
 #'     else alpha_continuous <- NA
-#'
-#'     plot <- plot1
 #'   }
-#'   #correct for plots where col is null, but there should be a colour scale
+#'   #support where col is null, but there is a colour scale
 #'   else {
 #'     scales <- purrr::map_chr(plot_build$plot$scales$scales, \(x) {
 #'       ifelse(rlang::is_null(rlang::call_name(x[["call"]])), NA,
@@ -1140,52 +1138,62 @@
 #'     if (any(scales %in% continuous_scales_alpha)) alpha_continuous <- TRUE
 #'     else if (any(scales %in% discrete_scales_alpha)) alpha_continuous <- FALSE
 #'     else alpha_continuous <- NA
-#'
-#'     if ((is.na(col_continuous)) & (is.na(alpha_continuous))) {
-#'       if (rlang::is_null(col_pal)) col_pal1 <- pal_one()
-#'       else col_pal1 <- col_pal[1]
-#'
-#'       if (rlang::is_null(alpha_pal)) {
-#'         if (geom_name == "label") alpha_pal1 <- 0.1
-#'         else alpha_pal1 <- 0.9
-#'       }
-#'       else alpha_pal1 <- alpha_pal[1]
-#'
-#'       params_list <- list(colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
-#'     }
-#'     else if (is.na(col_continuous)) {
-#'       if (rlang::is_null(col_pal)) col_pal1 <- pal_one()
-#'       else col_pal1 <- col_pal[1]
-#'
-#'       params_list <- list(colour = col_pal1, fill = col_pal1, ...)
-#'     }
-#'     else if (is.na(alpha_continuous)) {
-#'       if (rlang::is_null(alpha_pal)) {
-#'         if (geom_name == "label") alpha_pal1 <- 0.1
-#'         else alpha_pal1 <- 0.9
-#'       }
-#'       else alpha_pal1 <- alpha_pal[1]
-#'
-#'       params_list <- list(alpha = alpha_pal1, ...)
-#'     }
-#'
-#'     if (is.na(col_continuous) | is.na(alpha_continuous)) {
-#'       plot <- plot +
-#'         ggplot2::layer(
-#'           geom = geom,
-#'           stat = stat,
-#'           position = position,
-#'           params = params_list
-#'         ) +
-#'         coord +
-#'         theme
-#'     }
-#'     else {
-#'       plot <- plot1
-#'     }
 #'   }
 #'
-#'   #make col scale
+#'   ##############################################################################
+#'   # Remake the plot where there is either no col or no alpha scale identified
+#'   ##############################################################################
+#'
+#'   #get params for when no col or alpha aesthetic
+#'   if ((is.na(col_continuous)) & (is.na(alpha_continuous))) {
+#'     if (rlang::is_null(col_pal)) col_pal1 <- pal_one()
+#'     else col_pal1 <- col_pal[1]
+#'
+#'     if (rlang::is_null(alpha_pal)) {
+#'       if (geom_name == "label") alpha_pal1 <- 0.1
+#'       else alpha_pal1 <- 0.9
+#'     }
+#'     else alpha_pal1 <- alpha_pal[1]
+#'
+#'     params_list <- list(colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
+#'   }
+#'   else if (is.na(col_continuous)) {
+#'     if (rlang::is_null(col_pal)) col_pal1 <- pal_one()
+#'     else col_pal1 <- col_pal[1]
+#'
+#'     params_list <- list(colour = col_pal1, fill = col_pal1, ...)
+#'   }
+#'   else if (is.na(alpha_continuous)) {
+#'     if (rlang::is_null(alpha_pal)) {
+#'       if (geom_name == "label") alpha_pal1 <- 0.1
+#'       else alpha_pal1 <- 0.9
+#'     }
+#'     else alpha_pal1 <- alpha_pal[1]
+#'
+#'     params_list <- list(alpha = alpha_pal1, ...)
+#'   }
+#'
+#'   #remake plot where either no col or alpha aesthetic
+#'   if (is.na(col_continuous) | is.na(alpha_continuous)) {
+#'     plot <- plot +
+#'       ggplot2::layer(
+#'         geom = geom,
+#'         stat = stat,
+#'         position = position,
+#'         params = params_list
+#'       ) +
+#'       coord +
+#'       theme
+#'   }
+#'   #revert back to the original plot where there is a col or alpha aesthetic
+#'   else {
+#'     plot <- plot1
+#'   }
+#'
+#'   ##############################################################################
+#'   # Make colour scale where there is a colour scale identified
+#'   ##############################################################################
+#'
 #'   if (!is.na(col_continuous)) {
 #'     if (col_continuous) {
 #'       if (rlang::is_null(col_pal)) {
@@ -1365,10 +1373,9 @@
 #'   }
 #'
 #'   ##############################################################################
-#'   # Alpha scales
+#'   # Make alpha scale where there is a alpha scale identified
 #'   ##############################################################################
 #'
-#'   #make alpha scale
 #'   if (!is.na(alpha_continuous)) {
 #'     if (alpha_continuous) {
 #'       if (rlang::is_null(alpha_pal)) {
@@ -1526,7 +1533,6 @@
 #'       else if (!any(x_transform_name %in% c("identity", "reverse"))) x_labels <- ggplot2::waiver()
 #'       else x_labels <- scales::label_comma(drop0trailing = TRUE)
 #'     }
-#'
 #'     #get x_breaks_n if x_breaks is NULL
 #'     if (rlang::is_null(x_breaks)) {
 #'       if (rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) x_breaks_n <- 7
@@ -1562,7 +1568,6 @@
 #'
 #'       if (flipped) x_breaks_n <- x_breaks_n - 1
 #'     }
-#'
 #'     #get x_expand and x_breaks for simple scales situation
 #'     if (!flipped |
 #'         facet_scales %in% c("free", "free_x") |
@@ -1708,7 +1713,6 @@
 #'       else if (!any(y_transform_name %in% c("identity", "reverse"))) y_labels <- ggplot2::waiver()
 #'       else y_labels <- scales::label_comma(drop0trailing = TRUE)
 #'     }
-#'
 #'     #get y_breaks_n if y_breaks is NULL
 #'     if (rlang::is_null(y_breaks)) {
 #'       if (rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
