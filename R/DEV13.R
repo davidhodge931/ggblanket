@@ -1301,16 +1301,13 @@ gg_blanket <- function(
           dplyr::pull(!!col) %>%
           levels() %>%
           length()
+
         if (rlang::is_null(col_pal)) col_pal <- pal_discrete(col_n)
+
         col_pal <- col_pal[1:col_n]
       }
-      else {
-        if (!rlang::is_null(plot_build$plot$labels$fill)) {
-          col_n <- length(levels(dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$fill[1]))))
-        }
-        else if (!rlang::is_null(plot_build$plot$labels$colour)) {
-          col_n <- length(levels(dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$colour[1]))))
-        }
+      else if (!rlang::is_null(plot_data$order)) {
+        col_n <- length(levels(dplyr::pull(plot_data, order)))
 
         if (rlang::is_null(col_pal)) col_pal <- pal_continuous(n = col_n)
       }
@@ -1433,17 +1430,15 @@ gg_blanket <- function(
           dplyr::pull(!!alpha) %>%
           levels() %>%
           length()
-        if (rlang::is_null(alpha_pal)) alpha_pal <- {
-          alpha_pal <- seq(from = 0.1, to = 1, by = (1 - 0.1) / (alpha_n - 1)) #############
-        }
-
       }
-      else {
-        if (!rlang::is_null(plot_build$plot$labels$alpha)) {
-          alpha_n <- length(levels(dplyr::pull(plot_data, rlang::as_name(plot_build$plot$labels$alpha[1]))))
+      else if (!rlang::is_null(plot_data$order)) {
+        if (!rlang::is_null(plot_data$order)) {
+          alpha_n <- length(levels(dplyr::pull(plot_data, order)))
         }
+      }
 
-        if (rlang::is_null(alpha_pal)) alpha_pal <- seq(from = 0.1, to = 1, by = alpha_n - 1)
+      if (rlang::is_null(alpha_pal)) {
+        alpha_pal <- seq(from = 0.1, to = 1, by = (1 - 0.1) / (alpha_n - 1))
       }
 
       if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(alpha, data))) &
