@@ -165,7 +165,7 @@ gg_blanket <- function(
     alpha_limits = NULL,
     alpha_oob = scales::oob_keep,
     alpha_pal = NULL,
-    alpha_pal_na = "#bebebe",
+    alpha_pal_na = 1,
     alpha_title = NULL,
     alpha_transform = NULL,
     # linetype_title = NULL,
@@ -1446,10 +1446,11 @@ gg_blanket <- function(
         if (rlang::is_null(alpha_pal)) alpha_pal <- seq(from = 0.1, to = 1, by = alpha_n - 1)
       }
 
-      # if ((!identical(rlang::eval_tidy(col, data), rlang::eval_tidy(alpha, data))) &
-      #     flipped) {
-      #   alpha_legend_rev <- !(alpha_legend_rev)
-      # }
+      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(alpha, data))) &
+          flipped) {
+        alpha_legend_rev <- !(alpha_legend_rev)
+        alpha_pal <- rev(alpha_pal)
+      }
 
       if (rlang::is_null(alpha_labels)) alpha_labels <- ggplot2::waiver()
 
@@ -1467,7 +1468,7 @@ gg_blanket <- function(
         ) +
         ggplot2::guides(
           alpha = ggplot2::guide_legend(
-            reverse = FALSE,
+            reverse = alpha_legend_rev,
             ncol = alpha_legend_ncol,
             nrow = alpha_legend_nrow,
             order = 1
