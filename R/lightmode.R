@@ -39,12 +39,12 @@
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = lightmode_right2()
+#'     theme = light_mode_rt()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(lightmode_right2())
+#'   theme_set(light_mode_rt())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -54,7 +54,7 @@
 #'     )
 #' }
 #'
-lightmode_right2 <- function (
+light_mode_rt <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
@@ -83,7 +83,7 @@ lightmode_right2 <- function (
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = pal_lightmode[2], colour = pal_lightmode[2], linewidth = base_size/33, linetype = 1),
+    rect = ggplot2::element_rect(fill = pal_light_mode[2], colour = pal_light_mode[2], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal, size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
@@ -104,7 +104,7 @@ lightmode_right2 <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = pal_lightmode[2], fill = pal_lightmode[2]),
+    legend.key = ggplot2::element_rect(colour = pal_light_mode[2], fill = pal_light_mode[2]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -114,16 +114,16 @@ lightmode_right2 <- function (
     legend.byrow = TRUE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = pal_lightmode[2]),
+    legend.ticks = ggplot2::element_line(colour = pal_light_mode[2]),
     legend.ticks.length = NULL,
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = pal_lightmode[3], colour = pal_lightmode[3]),
+    panel.background = ggplot2::element_rect(fill = pal_light_mode[3], colour = pal_light_mode[3]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = pal_lightmode[4], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = pal_light_mode[4], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -160,8 +160,8 @@ lightmode_right2 <- function (
     legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 0, l = base_size * 0.5)),
     axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.33, r = 0, b = base_size * 0.75, l = 0)),
     axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 1, l = 0)),
-    axis.text.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.2, r = 0, b = base_size * 1, l = 0)),
-    axis.text.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.2, l = 0)),
+    axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.2, r = 0, b = base_size * 1, l = 0)),
+    axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.2, l = 0)),
     axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 1, b = 0, l = base_size * 1), angle = -90),
 
     complete = TRUE
@@ -209,12 +209,12 @@ lightmode_right2 <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = lightmode_right()
+#'     theme = light_mode_r()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(lightmode_right())
+#'   theme_set(light_mode_r())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -224,7 +224,7 @@ lightmode_right2 <- function (
 #'     )
 #' }
 #'
-lightmode_right <- function (
+light_mode_r <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
@@ -253,7 +253,7 @@ lightmode_right <- function (
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = pal_lightmode[2], colour = pal_lightmode[2], linewidth = base_size/33, linetype = 1),
+    rect = ggplot2::element_rect(fill = pal_light_mode[2], colour = pal_light_mode[2], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal, size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
@@ -274,7 +274,7 @@ lightmode_right <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = pal_lightmode[2], fill = pal_lightmode[2]),
+    legend.key = ggplot2::element_rect(colour = pal_light_mode[2], fill = pal_light_mode[2]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -284,16 +284,16 @@ lightmode_right <- function (
     legend.byrow = TRUE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = pal_lightmode[2]),
+    legend.ticks = ggplot2::element_line(colour = pal_light_mode[2]),
     legend.ticks.length = NULL,
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = pal_lightmode[3], colour = pal_lightmode[3]),
+    panel.background = ggplot2::element_rect(fill = pal_light_mode[3], colour = pal_light_mode[3]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = pal_lightmode[4], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = pal_light_mode[4], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -328,8 +328,8 @@ lightmode_right <- function (
     legend.margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.75, l = base_size * 0.75),
     legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
     legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 0, l = base_size * 0.5)),
-    axis.text.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.2, r = 0, b = base_size * 1, l = 0)),
-    axis.text.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.2, l = 0)),
+    axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.2, r = 0, b = base_size * 1, l = 0)),
+    axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.2, l = 0)),
     axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.33, r = 0, b = base_size * 0.75, l = 0)),
     axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 1, l = 0)),
     axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 1, b = 0, l = base_size * 1), angle = -90),
@@ -379,12 +379,12 @@ lightmode_right <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = lightmode_bottom()
+#'     theme = light_mode_b()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(lightmode_bottom())
+#'   theme_set(light_mode_b())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -394,7 +394,7 @@ lightmode_right <- function (
 #'     )
 #' }
 #'
-lightmode_bottom <- function (
+light_mode_b <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
@@ -423,7 +423,7 @@ lightmode_bottom <- function (
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = pal_lightmode[2], colour = pal_lightmode[2], linewidth = base_size/33, linetype = 1),
+    rect = ggplot2::element_rect(fill = pal_light_mode[2], colour = pal_light_mode[2], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal, size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
@@ -444,7 +444,7 @@ lightmode_bottom <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = pal_lightmode[2], fill = pal_lightmode[2]),
+    legend.key = ggplot2::element_rect(colour = pal_light_mode[2], fill = pal_light_mode[2]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -454,16 +454,16 @@ lightmode_bottom <- function (
     legend.byrow = TRUE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = pal_lightmode[2]),
+    legend.ticks = ggplot2::element_line(colour = pal_light_mode[2]),
     legend.ticks.length = NULL,
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = pal_lightmode[3], colour = pal_lightmode[3]),
+    panel.background = ggplot2::element_rect(fill = pal_light_mode[3], colour = pal_light_mode[3]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = pal_lightmode[4], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = pal_light_mode[4], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -498,10 +498,10 @@ lightmode_bottom <- function (
     legend.margin = ggplot2::margin(r = base_size * 2, b = base_size * 0.5),
     legend.title = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.25, r = 0, b = base_size * 0.5, l = 0)),
     legend.text = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.5, r = base_size * 1.25, b = base_size * 0.5, l = base_size * 0.5)),
-    axis.text.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.2, r = 0, b = base_size * 1, l = 0)),
+    axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.2, r = 0, b = base_size * 1, l = 0)),
     axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.33, r = 0, b = base_size * 0.75, l = 0)),
     axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 1, l = 0)),
-    axis.text.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.2, l = 0)),
+    axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.2, l = 0)),
     axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * -0.5, b = 0, l = base_size * 1), angle = -90),
 
     complete = TRUE
@@ -549,12 +549,12 @@ lightmode_bottom <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = lightmode_top()
+#'     theme = light_mode_t()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(lightmode_top())
+#'   theme_set(light_mode_t())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -564,7 +564,7 @@ lightmode_bottom <- function (
 #'     )
 #' }
 #'
-lightmode_top <- function (
+light_mode_t <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
@@ -593,7 +593,7 @@ lightmode_top <- function (
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = pal_lightmode[2], colour = pal_lightmode[2], linewidth = base_size/33, linetype = 1),
+    rect = ggplot2::element_rect(fill = pal_light_mode[2], colour = pal_light_mode[2], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal, size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
@@ -614,7 +614,7 @@ lightmode_top <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = pal_lightmode[2], fill = pal_lightmode[2]),
+    legend.key = ggplot2::element_rect(colour = pal_light_mode[2], fill = pal_light_mode[2]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -624,16 +624,16 @@ lightmode_top <- function (
     legend.byrow = TRUE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = pal_lightmode[2]),
+    legend.ticks = ggplot2::element_line(colour = pal_light_mode[2]),
     legend.ticks.length = NULL,
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = pal_lightmode[3], colour = pal_lightmode[3]),
+    panel.background = ggplot2::element_rect(fill = pal_light_mode[3], colour = pal_light_mode[3]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = pal_lightmode[4], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = pal_light_mode[4], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -668,10 +668,10 @@ lightmode_top <- function (
     legend.margin = ggplot2::margin(t = base_size * -1.5, r = base_size * 2, b = base_size * 0.5, l = 0),
     legend.title = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.25, r = 0, b = base_size * 0.5, l = 0)),
     legend.text = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.5, r = base_size * 1.25, b = base_size * 0.5, l = base_size * 0.5)),
-    axis.text.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.2, r = 0, b = base_size * 1, l = 0)),
+    axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.2, r = 0, b = base_size * 1, l = 0)),
     axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.33, r = 0, b = base_size * 0.75, l = 0)),
     axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
-    axis.text.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0, r = 0, b = base_size * 0.2, l = 0)),
+    axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * 0, r = 0, b = base_size * 0.2, l = 0)),
     axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * -0.5, b = 0, l = base_size * 1), angle = -90),
 
     complete = TRUE
@@ -720,12 +720,12 @@ lightmode_top <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = lightmode_inside(legend_position_inside = c(0.15, 0.7))
+#'     theme = light_mode_i(legend_position_inside = c(0.15, 0.7))
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(lightmode_inside())
+#'   theme_set(light_mode_i())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -735,7 +735,7 @@ lightmode_top <- function (
 #'     )
 #' }
 #'
-lightmode_inside <- function (
+light_mode_i <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
@@ -765,7 +765,7 @@ lightmode_inside <- function (
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = pal_lightmode[2], colour = pal_lightmode[2], linewidth = base_size/33, linetype = 1),
+    rect = ggplot2::element_rect(fill = pal_light_mode[2], colour = pal_light_mode[2], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal, size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
@@ -786,7 +786,7 @@ lightmode_inside <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = pal_lightmode[2], fill = pal_lightmode[2]),
+    legend.key = ggplot2::element_rect(colour = pal_light_mode[2], fill = pal_light_mode[2]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -796,16 +796,16 @@ lightmode_inside <- function (
     legend.byrow = TRUE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = pal_lightmode[2]),
+    legend.ticks = ggplot2::element_line(colour = pal_light_mode[2]),
     legend.ticks.length = NULL,
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = pal_lightmode[3], colour = pal_lightmode[3]),
+    panel.background = ggplot2::element_rect(fill = pal_light_mode[3], colour = pal_light_mode[3]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = pal_lightmode[4], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = pal_light_mode[4], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -840,11 +840,11 @@ lightmode_inside <- function (
     legend.margin = ggplot2::margin(t = base_size * 0.66, r = base_size * 0.33, b = base_size * 0.66, l = base_size * 0.66),
     legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
     legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 1, b = 0, l = base_size * 0.5)),
-    legend.background = ggplot2::element_rect(colour = pal_lightmode[4], fill = pal_lightmode[2]),
-    axis.text.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.2, r = 0, b = base_size * 1, l = 0)),
+    legend.background = ggplot2::element_rect(colour = pal_light_mode[4], fill = pal_light_mode[2]),
+    axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.2, r = 0, b = base_size * 1, l = 0)),
     axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.33, r = 0, b = base_size * 0.75, l = 0)),
     axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 1, l = 0)),
-    axis.text.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.2, l = 0)),
+    axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.2, l = 0)),
     axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * -0.5, b = 0, l = base_size * 1), angle = -90),
 
     complete = TRUE

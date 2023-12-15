@@ -96,7 +96,7 @@ gg_point(
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{stat}{A statistcal transformation to use on the data. A ggproto Stat subclass object or character string.}
+\item{stat}{A statistical transformation to use on the data. A ggproto Stat subclass object or character string.}
 
 \item{position}{A position adjustment. A ggproto Position subclass object, or character string.}
 
@@ -270,7 +270,7 @@ gg_point(
 A ggplot object.
 }
 \description{
-Create a point ggplot with a wrapper around ggplot2::geom_point(stat = "identity", ...).
+Create a point ggplot with a wrapper around ggplot2::geom_point.
 }
 \examples{
 library(palmerpenguins)
