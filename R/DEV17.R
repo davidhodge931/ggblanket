@@ -1310,14 +1310,7 @@ gg_blanket <- function(
           levels() %>%
           length()
 
-        if (is.factor(data %>% dplyr::pull(!!col))) {
-
-        }
-
-        if (rlang::is_null(col_pal)) {
-          if (is.factor(data %>% dplyr::pull(!!col))) col_pal <- pal_blanket_c(col_n)
-          else col_pal <- pal_blanket_d(col_n)
-        }
+        if (rlang::is_null(col_pal)) col_pal <- pal_blanket_d(col_n)
 
         col_pal <- col_pal[1:col_n]
 
@@ -1326,11 +1319,10 @@ gg_blanket <- function(
           col_pal <- rev(col_pal)
         }
       }
-      else { #guess anything ordered represents col, as there is a discrete col scale
-             #and no col variable supplied
-
+      else { #guess anything that's a factor represents col,
+        #as there is a discrete col scale and no col variable supplied
         plot_data_ordered <- plot_data |>
-          dplyr::summarise(dplyr::across(where(is.ordered), \(x) length(levels(x))))
+          dplyr::summarise(dplyr::across(where(is.factor), \(x) length(levels(x))))
 
         if (nrow(plot_data_ordered) != 0) {
           col_n <- plot_data_ordered |>
@@ -1456,10 +1448,10 @@ gg_blanket <- function(
           levels() %>%
           length()
       }
-      else { #guess anything ordered represents alpha, as there is a discrete alpha scale
-             #and no alpha variable supplied
+      else { #guess anything that's a factor represents alpha,
+        #as there is a discrete alpha scale and no alpha variable supplied
         plot_data_ordered <- plot_data |>
-          dplyr::summarise(dplyr::across(where(is.ordered), \(x) length(levels(x))))
+          dplyr::summarise(dplyr::across(where(is.factor), \(x) length(levels(x))))
 
         if (nrow(plot_data_ordered) != 0) {
           alpha_n <- plot_data_ordered |>
