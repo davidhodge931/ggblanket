@@ -6,57 +6,68 @@
 \usage{
 gg_point(
   data = NULL,
+  stat = "identity",
+  position = "identity",
+  coord = NULL,
+  theme = NULL,
   x = NULL,
   y = NULL,
   col = NULL,
   facet = NULL,
   facet2 = NULL,
+  alpha = NULL,
+  xmin = NULL,
+  xmax = NULL,
+  xend = NULL,
+  ymin = NULL,
+  ymax = NULL,
+  yend = NULL,
+  z = NULL,
   group = NULL,
+  subgroup = NULL,
+  label = NULL,
   text = NULL,
+  sample = NULL,
   mapping = NULL,
-  stat = "identity",
-  position = ggplot2::position_identity(),
-  coord = ggplot2::coord_cartesian(clip = "off"),
-  pal = NULL,
-  pal_na = "#bebebe",
-  alpha = 1,
-  ...,
   title = NULL,
   subtitle = NULL,
   x_breaks = NULL,
   x_expand = NULL,
   x_gridlines = NULL,
-  x_include = NULL,
+  x_expand_limits = NULL,
   x_labels = NULL,
   x_limits = NULL,
   x_oob = scales::oob_keep,
   x_sec_axis = ggplot2::waiver(),
   x_title = NULL,
-  x_trans = "identity",
+  x_transform = NULL,
   y_breaks = NULL,
   y_expand = NULL,
   y_gridlines = NULL,
-  y_include = NULL,
+  y_expand_limits = NULL,
   y_labels = NULL,
   y_limits = NULL,
   y_oob = scales::oob_keep,
   y_sec_axis = ggplot2::waiver(),
   y_title = NULL,
-  y_trans = "identity",
+  y_transform = NULL,
   col_breaks = NULL,
-  col_continuous = "gradient",
-  col_include = NULL,
+  col_expand_limits = NULL,
+  col_expand = ggplot2::waiver(),
   col_labels = NULL,
-  col_legend_place = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
   col_limits = NULL,
   col_oob = scales::oob_keep,
+  col_pal = NULL,
+  col_pal_na = "#bebebe",
   col_rescale = scales::rescale(),
-  col_scale = NULL,
+  col_steps = FALSE,
   col_title = NULL,
-  col_trans = "identity",
+  col_transform = NULL,
+  facet_axes = "margins",
+  facet_axis_labels = "all",
   facet_labels = NULL,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -64,16 +75,34 @@ gg_point(
   facet_space = "fixed",
   facet_layout = NULL,
   facet_switch = NULL,
-  linetype_title = NULL,
-  shape_title = NULL,
-  size_title = NULL,
+  alpha_breaks = NULL,
+  alpha_expand_limits = NULL,
+  alpha_expand = ggplot2::waiver(),
+  alpha_labels = NULL,
+  alpha_legend_ncol = NULL,
+  alpha_legend_nrow = NULL,
+  alpha_legend_rev = FALSE,
+  alpha_limits = NULL,
+  alpha_oob = scales::oob_keep,
+  alpha_pal = NULL,
+  alpha_pal_na = 1,
+  alpha_title = NULL,
+  alpha_transform = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case,
-  theme = NULL
+  ...
 )
 }
 \arguments{
 \item{data}{A data frame or tibble.}
+
+\item{stat}{A statistcal transformation to use on the data. A ggproto Stat subclass object or character string.}
+
+\item{position}{A position adjustment. A ggproto Position subclass object, or character string.}
+
+\item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).}
+
+\item{theme}{A ggplot2 theme.}
 
 \item{x}{Unquoted x aesthetic variable.}
 
@@ -85,25 +114,33 @@ gg_point(
 
 \item{facet2}{Unquoted second facet variable.}
 
+\item{alpha}{Unquoted alpha aesthetic variable.}
+
+\item{xmin}{Unquoted xmin aesthetic variable.}
+
+\item{xmax}{Unquoted xmax aesthetic variable.}
+
+\item{xend}{Unquoted xend aesthetic variable.}
+
+\item{ymin}{Unquoted ymin aesthetic variable.}
+
+\item{ymax}{Unquoted ymax aesthetic variable.}
+
+\item{yend}{Unquoted yend aesthetic variable.}
+
+\item{z}{Unquoted z aesthetic variable.}
+
 \item{group}{Unquoted group aesthetic variable.}
+
+\item{subgroup}{Unquoted subgroup aesthetic variable.}
+
+\item{label}{Unquoted label aesthetic variable.}
 
 \item{text}{Unquoted text aesthetic variable.}
 
-\item{mapping}{Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha.}
+\item{sample}{Unquoted sample aesthetic variable.}
 
-\item{stat}{A ggplot2 character string stat.}
-
-\item{position}{Position adjustment function (e.g. ggplot2::position_identity()).}
-
-\item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).}
-
-\item{pal}{Colours to use. A character vector of hex codes (or names).}
-
-\item{pal_na}{Colour to use for NA values. A character vector of a hex code (or name).}
-
-\item{alpha}{Opacity. A number between 0 and 1.}
-
-\item{...}{Other arguments passed to the ggplot2::geom_point function.}
+\item{mapping}{Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha_pal.}
 
 \item{title}{Title string.}
 
@@ -115,7 +152,7 @@ gg_point(
 
 \item{x_gridlines}{TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.}
 
-\item{x_include}{For a continuous x variable, any values that the limits should encompass (e.g. 0).}
+\item{x_expand_limits}{For a continuous x variable, any values that the limits should encompass (e.g. 0).}
 
 \item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
@@ -127,7 +164,7 @@ gg_point(
 
 \item{x_title}{Axis title string. Use "" for no title.}
 
-\item{x_trans}{For a numeric x variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
+\item{x_transform}{For a numeric x variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
 \item{y_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -135,7 +172,7 @@ gg_point(
 
 \item{y_gridlines}{TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.}
 
-\item{y_include}{For a continuous y variable, any values that the limits should encompass (e.g. 0).}
+\item{y_expand_limits}{For a continuous y variable, any values that the limits should encompass (e.g. 0).}
 
 \item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
@@ -147,17 +184,15 @@ gg_point(
 
 \item{y_title}{Axis title string. Use "" for no title.}
 
-\item{y_trans}{For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
+\item{y_transform}{For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
 \item{col_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
-\item{col_continuous}{For a continuous col variable, the type of colouring. Either "gradient" or "steps". Defaults to "gradient".}
+\item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. 0).}
 
-\item{col_include}{For a continuous col variable, any values that the limits should encompass (e.g. 0).}
+\item{col_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
 \item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
-
-\item{col_legend_place}{The place for the legend. Either "bottom", "right", "top" or "left". Or just the first letter of each.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
@@ -165,17 +200,25 @@ gg_point(
 
 \item{col_legend_rev}{Reverse the elements of the legend. Defaults to FALSE.}
 
-\item{col_limits}{A vector to determine the limits of the colour scale.}
+\item{col_limits}{A vector to determine the limits of the scale.}
 
-\item{col_oob}{For a continuous col variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.}
+\item{col_oob}{For a continuous variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.}
 
-\item{col_rescale}{For a continuous col variable, a scales::rescale function.}
+\item{col_pal}{colours to use. A character vector of hex codes (or names).}
 
-\item{col_scale}{TRUE or FALSE of whether to add a col scale or not.}
+\item{col_pal_na}{colour to use for NA values. A character vector of a hex code (or name).}
+
+\item{col_rescale}{For a continuous variable, a scales::rescale function.}
+
+\item{col_steps}{For a continuous variable, whether to colour in steps. Defaults to FALSE (i.e. a gradient).}
 
 \item{col_title}{Legend title string. Use "" for no title.}
 
-\item{col_trans}{For a numeric col variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
+\item{col_transform}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
+
+\item{facet_axes}{Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".}
+
+\item{facet_axis_labels}{Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".}
 
 \item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).}
 
@@ -191,17 +234,37 @@ gg_point(
 
 \item{facet_switch}{Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".}
 
-\item{linetype_title}{Legend title string. Use "" for no title.}
+\item{alpha_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
-\item{shape_title}{Legend title string. Use "" for no title.}
+\item{alpha_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. 0).}
 
-\item{size_title}{Legend title string. Use "" for no title.}
+\item{alpha_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
+
+\item{alpha_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
+
+\item{alpha_legend_ncol}{The number of columns for the legend elements.}
+
+\item{alpha_legend_nrow}{The number of rows for the legend elements.}
+
+\item{alpha_legend_rev}{Reverse the elements of the legend. Defaults to FALSE.}
+
+\item{alpha_limits}{A vector to determine the limits of the scale.}
+
+\item{alpha_oob}{For a continuous variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.}
+
+\item{alpha_pal}{alphaours to use. A character vector of hex codes (or names).}
+
+\item{alpha_pal_na}{alphaour to use for NA values. A character vector of a hex code (or name).}
+
+\item{alpha_title}{Legend title string. Use "" for no title.}
+
+\item{alpha_transform}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
 \item{caption}{Caption title string.}
 
 \item{titles}{A function to format unspecified titles. Defaults to snakecase::to_sentence_case.}
 
-\item{theme}{A ggplot2 theme.}
+\item{...}{Other arguments passed to within a params list in the layer function.}
 }
 \value{
 A ggplot object.
@@ -217,9 +280,6 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    facet = species,
-    col_labels = stringr::str_to_sentence,
-    pal = c("#1B9E77", "#9E361B")
   )
 
 }

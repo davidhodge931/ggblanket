@@ -10,6 +10,6 @@ pal_none()
 A character vector.
 }
 \description{
-Default colour for no col aesthetic i.e. viridisLite::mako(9)\link{5}
+Default colour for no col aesthetic i.e. \code{viridisLite::mako(9)[5]}
 }
 \keyword{internal}

@@ -46,7 +46,7 @@ install.packages("ggblanket")
 ```
 ## Example
 
-```{r, fig.asp = 0.66}
+```{r, fig.asp = 0.66, eval = FALSE}
 library(dplyr)
 library(ggblanket)
 library(palmerpenguins)

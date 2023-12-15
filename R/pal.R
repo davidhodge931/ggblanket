@@ -53,7 +53,7 @@ pal_continuous <- function(n = 20) {
 
 #' Default colour for no col aesthetic
 #'
-#' @description Default colour for no col aesthetic i.e. viridisLite::mako(9)[5]
+#' @description Default colour for no col aesthetic i.e. `viridisLite::mako(9)[5]`
 #'
 #' @return A character vector.
 #'
