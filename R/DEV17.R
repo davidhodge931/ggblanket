@@ -1086,7 +1086,8 @@ gg_blanket <- function(
       geom = geom,
       stat = stat,
       position = position,
-      params = list(...)
+      params = list(...),
+      show.legend = TRUE
     ) +
     coord +
     theme
@@ -1146,7 +1147,7 @@ gg_blanket <- function(
 
   #get params for when no col or alpha aesthetic
   if ((is.na(col_continuous)) & (is.na(alpha_continuous))) {
-    if (rlang::is_null(col_pal)) col_pal1 <- pal_blanket_n()
+    if (rlang::is_null(col_pal)) col_pal1 <- pal_none()
     else col_pal1 <- col_pal[1]
 
     if (rlang::is_null(alpha_pal)) {
@@ -1158,7 +1159,7 @@ gg_blanket <- function(
     params_list <- list(colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
   }
   else if (is.na(col_continuous)) {
-    if (rlang::is_null(col_pal)) col_pal1 <- pal_blanket_n()
+    if (rlang::is_null(col_pal)) col_pal1 <- pal_none()
     else col_pal1 <- col_pal[1]
 
     params_list <- list(colour = col_pal1, fill = col_pal1, ...)
@@ -1180,7 +1181,8 @@ gg_blanket <- function(
         geom = geom,
         stat = stat,
         position = position,
-        params = params_list
+        params = params_list,
+        show.legend = TRUE
       ) +
       coord +
       theme
@@ -1197,7 +1199,7 @@ gg_blanket <- function(
   if (!is.na(col_continuous)) {
     if (col_continuous) {
       if (rlang::is_null(col_pal)) {
-        col_pal <- pal_blanket_c()
+        col_pal <- pal_continuous()
       }
 
       #get col_transform if NULL
@@ -1310,14 +1312,9 @@ gg_blanket <- function(
           levels() %>%
           length()
 
-        if (rlang::is_null(col_pal)) col_pal <- pal_blanket_d(col_n)
+        if (rlang::is_null(col_pal)) col_pal <- pal_discrete(col_n)
 
         col_pal <- col_pal[1:col_n]
-
-        if (flipped) {
-          col_legend_rev <- !col_legend_rev
-          col_pal <- rev(col_pal)
-        }
       }
       else { #guess anything that's a factor represents col,
         #as there is a discrete col scale and no col variable supplied
@@ -1330,9 +1327,13 @@ gg_blanket <- function(
             dplyr::summarise(max(.data$value)) |>
             dplyr::pull()
 
-          if (rlang::is_null(col_pal)) col_pal <- pal_blanket_c(n = col_n)
-          col_legend_rev <- !col_legend_rev
+          if (rlang::is_null(col_pal)) col_pal <- pal_continuous(n = col_n)
         }
+      }
+
+      if (flipped) {
+        col_legend_rev <- !col_legend_rev
+        col_pal <- rev(col_pal)
       }
 
       if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
@@ -2030,6 +2031,7 @@ gg_blanket <- function(
   ##############################################################################
   # plot
   ##############################################################################
+
   return(plot)
 }
 

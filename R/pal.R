@@ -1,3 +1,13 @@
+#' A discrete palette inspired by the Guardian newspaper.
+#'
+#' @description A discrete palette of four colour-blind safe colours inspired by the Guardian website.
+#'
+#' @return A character vector.
+#'
+#' @export
+#' @references Colours inspired by the Guardian website. scales::pal_hue otherwise.
+pal_guardian <-c("#2596be", "#fc7c24", "#9c1e74", "#6b5840")
+
 #' Default colours used in the light_mode theme.
 #'
 #' @description Default colours used in the light_mode theme for the (1) base text and axis, (2) plot background, (3) panel background and (4) gridlines.
@@ -24,7 +34,7 @@ pal_dark_mode <- c("#bbccdd", "#15202b", "#1f2f3e", "#2c3a48")
 #'
 #' @keywords internal
 #' @references Colours inspired by the Guardian website. scales::pal_hue otherwise.
-pal_blanket_d <- function(n = 4) {
+pal_discrete <- function(n = 4) {
   if (n <= 4) c("#2596be", "#fc7c24", "#9c1e74", "#6b5840")[1:n]
   else scales::pal_hue()(n)
 }
@@ -37,17 +47,17 @@ pal_blanket_d <- function(n = 4) {
 #'
 #' @keywords internal
 #' @references The mako colour palette from viridisLite reversed
-pal_blanket_c <- function(n = 20) {
+pal_continuous <- function(n = 20) {
   viridisLite::mako(n = n, direction = -1, end = )
 }
 
 #' Default colour for no col aesthetic
 #'
-#' @description Default colour for no col aesthetic.
+#' @description Default colour for no col aesthetic i.e. viridisLite::mako(9)[5]
 #'
 #' @return A character vector.
 #'
 #' @keywords internal
-pal_blanket_n <- function() {
+pal_none <- function() {
   "#357BA2"
 }

@@ -1,5 +1,8 @@
 # ggblanket 5.2.0900
 
+* Support for alpha aesthetic.
+* Support for using ggplot2 aesthetics of colour or fill - i.e. not both. 
+
 * Breaking: renamed `pal` to `col_pal`.
 * Breaking: renamed `pal_na` to `col_pal_na`.
 * Breaking: renamed `alpha` to `alpha_pal`.
