@@ -1081,13 +1081,19 @@ gg_blanket <- function(
   # Add layer
   ##############################################################################
 
+  if (geom_name == "blank") show_legend <- FALSE
+  else show_legend <- TRUE
+
+  if (stat_name %in% c("density_2d", "density_2d_filled")) contour <- TRUE
+  else contour <- TRUE
+
   plot1 <- plot +
     ggplot2::layer(
       geom = geom,
       stat = stat,
       position = position,
-      params = list(...),
-      show.legend = TRUE
+      params = list(contour = contour, ...),
+      show.legend = show_legend,
     ) +
     coord +
     theme
@@ -1156,13 +1162,13 @@ gg_blanket <- function(
     }
     else alpha_pal1 <- alpha_pal[1]
 
-    params_list <- list(colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
+    params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
   }
   else if (is.na(col_continuous)) {
     if (rlang::is_null(col_pal)) col_pal1 <- pal_none()
     else col_pal1 <- col_pal[1]
 
-    params_list <- list(colour = col_pal1, fill = col_pal1, ...)
+    params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, ...)
   }
   else if (is.na(alpha_continuous)) {
     if (rlang::is_null(alpha_pal)) {
@@ -1171,7 +1177,7 @@ gg_blanket <- function(
     }
     else alpha_pal1 <- alpha_pal[1]
 
-    params_list <- list(alpha = alpha_pal1, ...)
+    params_list <- list(contour = contour, alpha = alpha_pal1, ...)
   }
 
   #remake plot where either no col or alpha aesthetic
@@ -1182,7 +1188,7 @@ gg_blanket <- function(
         stat = stat,
         position = position,
         params = params_list,
-        show.legend = TRUE
+        show.legend = show_legend,
       ) +
       coord +
       theme
@@ -1306,28 +1312,32 @@ gg_blanket <- function(
       }
     }
     else if (!col_continuous) {
+      if (rlang::is_null(col_pal)) {
+
+      }
       if (!rlang::quo_is_null(col)) {
         col_n <- data %>%
           dplyr::pull(!!col) %>%
           levels() %>%
           length()
 
-        if (rlang::is_null(col_pal)) col_pal <- pal_discrete(col_n)
-
-        col_pal <- col_pal[1:col_n]
+        col_pal <- pal_discrete(col_n)
       }
-      else { #guess anything that's a factor represents col,
+      else { #guess anything that's ordered represents col,
         #as there is a discrete col scale and no col variable supplied
         plot_data_ordered <- plot_data |>
-          dplyr::summarise(dplyr::across(where(is.factor), \(x) length(levels(x))))
+          dplyr::summarise(dplyr::across(where(is.ordered), \(x) length(levels(x))))
 
-        if (nrow(plot_data_ordered) != 0) {
+        if (ncol(plot_data_ordered) == 0) {
+          col_pal <- pal_discrete(n = 4)
+        }
+        else {
           col_n <- plot_data_ordered |>
             tidyr::pivot_longer(everything()) |>
             dplyr::summarise(max(.data$value)) |>
             dplyr::pull()
 
-          if (rlang::is_null(col_pal)) col_pal <- pal_continuous(n = col_n)
+          col_pal <- pal_continuous(n = col_n)
         }
       }
 
@@ -1443,27 +1453,32 @@ gg_blanket <- function(
         )
     }
     else if (!alpha_continuous) {
-      if (!rlang::quo_is_null(alpha)) {
-        alpha_n <- data %>%
-          dplyr::pull(!!alpha) %>%
-          levels() %>%
-          length()
-      }
-      else { #guess anything that's a factor represents alpha,
-        #as there is a discrete alpha scale and no alpha variable supplied
-        plot_data_ordered <- plot_data |>
-          dplyr::summarise(dplyr::across(where(is.factor), \(x) length(levels(x))))
-
-        if (nrow(plot_data_ordered) != 0) {
-          alpha_n <- plot_data_ordered |>
-            tidyr::pivot_longer(everything()) |>
-            dplyr::summarise(max(.data$value)) |>
-            dplyr::pull()
-        }
-      }
-
       if (rlang::is_null(alpha_pal)) {
-        alpha_pal <- seq(from = 0.1, to = 1, by = (1 - 0.1) / (alpha_n - 1))
+        if (!rlang::quo_is_null(alpha)) {
+          alpha_n <- data %>%
+            dplyr::pull(!!alpha) %>%
+            levels() %>%
+            length()
+
+          alpha_pal <- seq(from = 0.1, to = 1, by = (1 - 0.1) / (alpha_n - 1))
+        }
+        else { #guess anything that's ordered represents alpha,
+          #as there is a discrete alpha scale and no alpha variable supplied
+          plot_data_ordered <- plot_data |>
+            dplyr::summarise(dplyr::across(where(is.ordered), \(x) length(levels(x))))
+
+          if (ncol(plot_data_ordered) == 0) {
+            alpha_pal <- rep(1, times = 10)
+          }
+          else {
+            alpha_n <- plot_data_ordered |>
+              tidyr::pivot_longer(everything()) |>
+              dplyr::summarise(max(.data$value)) |>
+              dplyr::pull()
+
+            alpha_pal <- seq(from = 0.1, to = 1, by = (1 - 0.1) / (alpha_n - 1))
+          }
+        }
       }
 
       if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(alpha, data))) &
