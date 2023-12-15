@@ -1,9 +1,9 @@
 #' @title Point ggplot
 #'
-#' @description Create a point ggplot with a wrapper around ggplot2::geom_point(stat = "identity", ...).
+#' @description Create a point ggplot with a wrapper around ggplot2::geom_point.
 #'
 #' @param data A data frame or tibble.
-#' @param stat A statistcal transformation to use on the data. A ggproto Stat subclass object or character string.
+#' @param stat A statistical transformation to use on the data. A ggproto Stat subclass object or character string.
 #' @param position A position adjustment. A ggproto Position subclass object, or character string.
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param theme A ggplot2 theme.

@@ -1,6 +1,6 @@
 #' #' @title Violin ggplot
 #' #'
-#' #' @description Create a violin plot with a wrapper around ggplot2::geom_violin(stat = "ydensity", ...).
+#' #' @description Create a violin plot with a wrapper around ggplot2::geom_violin.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param y Unquoted y aesthetic variable.

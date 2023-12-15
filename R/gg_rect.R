@@ -1,6 +1,6 @@
 #' #' @title Rect ggplot
 #' #'
-#' #' @description Create a rect ggplot with a wrapper around ggplot2::geom_rect(stat = "identity", ...).
+#' #' @description Create a rect ggplot with a wrapper around ggplot2::geom_rect.
 #' #' @param data A data frame or tibble.
 #' #' @param xmin Unquoted xmin aesthetic variable.
 #' #' @param xmax Unquoted xmax aesthetic variable.

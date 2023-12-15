@@ -1,6 +1,6 @@
 #' #' @title Linerange ggplot
 #' #'
-#' #' @description Create a linerange ggplot with a wrapper around ggplot2::geom_linerange(stat = "identity", ...).
+#' #' @description Create a linerange ggplot with a wrapper around ggplot2::geom_linerange.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param xmin Unquoted xmin aesthetic variable.

@@ -1,6 +1,6 @@
 #' #' @title Ribbon ggplot
 #' #'
-#' #' @description Create a ribbon ggplot with a wrapper around ggplot2::geom_ribbon(stat = "identity", ...).
+#' #' @description Create a ribbon ggplot with a wrapper around ggplot2::geom_ribbon.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param y Unquoted y aesthetic variable.

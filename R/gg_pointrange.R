@@ -1,6 +1,6 @@
 #' #' @title Pointrange ggplot
 #' #'
-#' #' @description Create a pointrange ggplot with a wrapper around ggplot2::geom_pointrange(stat = "identity", ...).
+#' #' @description Create a pointrange ggplot with a wrapper around ggplot2::geom_pointrange.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param xmin Unquoted xmin aesthetic variable.

@@ -1,6 +1,6 @@
 #' #' @title Bar ggplot
 #' #'
-#' #' @description Create a bar ggplot with a wrapper around ggplot2::geom_bar(stat = "count", ...).
+#' #' @description Create a bar ggplot with a wrapper around ggplot2::geom_bar.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param y Unquoted y aesthetic variable.

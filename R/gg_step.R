@@ -1,6 +1,6 @@
 #' #' @title Step ggplot
 #' #'
-#' #' @description Create a step plot with a wrapper around ggplot2::geom_step(stat = "identity", ...).
+#' #' @description Create a step plot with a wrapper around ggplot2::geom_step.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param y Unquoted y aesthetic variable.

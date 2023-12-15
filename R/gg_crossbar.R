@@ -1,6 +1,6 @@
 #' #' @title Crossbar ggplot
 #' #'
-#' #' @description Create a crossbar ggplot with a wrapper around ggplot2::geom_crossbar(stat = "identity", ...).
+#' #' @description Create a crossbar ggplot with a wrapper around ggplot2::geom_crossbar.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param xmin Unquoted xmin aesthetic variable.

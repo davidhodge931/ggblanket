@@ -1,6 +1,6 @@
 #' #' @title Density_2d_filled ggplot
 #' #'
-#' #' @description Create a density_2d_filled ggplot with a wrapper around ggplot2::geom_density_2d_filled(stat = "density_2d_filled", ...).
+#' #' @description Create a density_2d_filled ggplot with a wrapper around ggplot2::geom_density_2d_filled.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param y Unquoted y aesthetic variable.

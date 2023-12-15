@@ -1,6 +1,6 @@
 #' #' @title Contour ggplot
 #' #'
-#' #' @description Create a contour ggplot with a wrapper around ggplot2::geom_contour(stat = "contour", ...).
+#' #' @description Create a contour ggplot with a wrapper around ggplot2::geom_contour.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param y Unquoted y aesthetic variable.

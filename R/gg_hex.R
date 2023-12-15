@@ -1,6 +1,6 @@
 #' #' @title Hex ggplot
 #' #'
-#' #' @description Create a hex ggplot with a wrapper around ggplot2::geom_hex(stat = "binhex", ...).
+#' #' @description Create a hex ggplot with a wrapper around ggplot2::geom_hex.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param y Unquoted y aesthetic variable.

@@ -1,6 +1,6 @@
 #' #' @title Raster ggplot
 #' #'
-#' #' @description Create a raster ggplot with a wrapper around ggplot2::geom_raster(stat = "identity", ...).
+#' #' @description Create a raster ggplot with a wrapper around ggplot2::geom_raster.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param y Unquoted y aesthetic variable.

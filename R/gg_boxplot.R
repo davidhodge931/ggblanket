@@ -1,6 +1,6 @@
 #' #' @title Boxplot ggplot
 #' #'
-#' #' @description Create a boxplot ggplot with a wrapper around ggplot2::geom_boxplot(stat = "boxplot", ...).
+#' #' @description Create a boxplot ggplot with a wrapper around ggplot2::geom_boxplot.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param y Unquoted y aesthetic variable.

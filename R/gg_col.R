@@ -1,6 +1,6 @@
 #' #' @title Col ggplot
 #' #'
-#' #' @description Create a col ggplot with a wrapper around ggplot2::geom_bar(stat = "identity", ...).
+#' #' @description Create a col ggplot with a wrapper around ggplot2::geom_bar.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param y Unquoted y aesthetic variable.

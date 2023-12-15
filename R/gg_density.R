@@ -1,6 +1,6 @@
 #' #' @title Density ggplot
 #' #'
-#' #' @description Create a density ggplot with a wrapper around ggplot2::geom_density(stat = "density", ...).
+#' #' @description Create a density ggplot with a wrapper around ggplot2::geom_density.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param y Unquoted y aesthetic variable.

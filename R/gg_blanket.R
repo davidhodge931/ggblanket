@@ -4,7 +4,7 @@
 #'
 #' @param data A data frame or tibble.
 #' @param geom A geometric object to display the data. A ggproto Geom subclass object or character string.
-#' @param stat A statistcal transformation to use on the data. A ggproto Stat subclass object or character string.
+#' @param stat A statistical transformation to use on the data. A ggproto Stat subclass object or character string.
 #' @param position A position adjustment. A ggproto Position subclass object, or character string.
 #' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
 #' @param theme A ggplot2 theme.
@@ -452,11 +452,11 @@ gg_blanket <- function(
   #make a tidy name to deal with composed transforms
   if (is.character(x_transform)) x_transform_name <- x_transform
   else if (inherits(x_transform, what = "transform")) {
-    x_transform_name <- x_transform$name |>
-      stringr::str_remove("composition") |>
-      stringr::str_remove("\\(") |>
-      stringr::str_remove("\\)") |>
-      stringr::str_split(",") |>
+    x_transform_name <- x_transform$name %>%
+      stringr::str_remove("composition") %>%
+      stringr::str_remove("\\(") %>%
+      stringr::str_remove("\\)") %>%
+      stringr::str_split(",") %>%
       unlist()
   }
 
@@ -471,11 +471,11 @@ gg_blanket <- function(
   #make a tidy name to deal with composed transforms
   if (is.character(y_transform)) y_transform_name <- y_transform
   else if (inherits(y_transform, what = "transform")) {
-    y_transform_name <- y_transform$name |>
-      stringr::str_remove("composition") |>
-      stringr::str_remove("\\(") |>
-      stringr::str_remove("\\)") |>
-      stringr::str_split(",") |>
+    y_transform_name <- y_transform$name %>%
+      stringr::str_remove("composition") %>%
+      stringr::str_remove("\\(") %>%
+      stringr::str_remove("\\)") %>%
+      stringr::str_split(",") %>%
       unlist()
   }
 
@@ -492,19 +492,19 @@ gg_blanket <- function(
         !!y, !!ymin, !!ymax, !!yend,
         !!col, !!alpha, !!facet, !!facet2,
         !!group, !!subgroup, !!label, !!sample),
-      na_if_inf)) |>
+      na_if_inf)) %>%
     #convert logicals to factors
     dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
                                   !!y, !!ymin, !!ymax, !!yend,
                                   !!col, !!alpha, !!facet, !!facet2) &
                                   tidyselect::where(is.logical), function(x)
-                                    factor(x, levels = c(TRUE, FALSE)))) |>
+                                    factor(x, levels = c(TRUE, FALSE)))) %>%
     #convert characters to factors
     dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
                                   !!y, !!ymin, !!ymax, !!yend,
                                   !!col, !!alpha, !!facet, !!facet2) &
                                   tidyselect::where(is.character), function(x)
-                                    factor(x))) |>
+                                    factor(x))) %>%
     #reverse y*, so that reads top low-levels to bottom high-levels
     dplyr::mutate(dplyr::across(c(!!y, !!ymin, !!ymax, !!yend) &
                                   tidyselect::where(is.factor),
@@ -513,7 +513,7 @@ gg_blanket <- function(
   #if flipped, order col correctly
   if ((!identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) &
       flipped) {
-    data <- data |>
+    data <- data %>%
       dplyr::mutate(dplyr::across(!!col & tidyselect::where(is.factor),
                                   function(x) forcats::fct_rev(x)))
   }
@@ -1258,11 +1258,11 @@ gg_blanket <- function(
       #make a tidy name to deal with composed transforms
       if (is.character(col_transform)) col_transform_name <- col_transform
       else if (inherits(col_transform, what = "transform")) {
-        col_transform_name <- col_transform$name |>
-          stringr::str_remove("composition") |>
-          stringr::str_remove("\\(") |>
-          stringr::str_remove("\\)") |>
-          stringr::str_split(",") |>
+        col_transform_name <- col_transform$name %>%
+          stringr::str_remove("composition") %>%
+          stringr::str_remove("\\(") %>%
+          stringr::str_remove("\\)") %>%
+          stringr::str_split(",") %>%
           unlist()
       }
 
@@ -1364,16 +1364,16 @@ gg_blanket <- function(
       }
       else { #guess anything that's ordered represents col,
         #as there is a discrete col scale and no col variable supplied
-        plot_data_ordered <- plot_data |>
+        plot_data_ordered <- plot_data %>%
           dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), \(x) length(levels(x))))
 
         if (ncol(plot_data_ordered) == 0) {
           col_pal <- pal_discrete(n = 4)
         }
         else {
-          col_n <- plot_data_ordered |>
-            tidyr::pivot_longer(tidyselect::everything()) |>
-            dplyr::summarise(max(.data$value)) |>
+          col_n <- plot_data_ordered %>%
+            tidyr::pivot_longer(tidyselect::everything()) %>%
+            dplyr::summarise(max(.data$value)) %>%
             dplyr::pull()
 
           col_pal <- pal_continuous(n = col_n)
@@ -1451,11 +1451,11 @@ gg_blanket <- function(
       #make a tidy name to deal with composed transforms
       if (is.character(alpha_transform)) alpha_transform_name <- alpha_transform
       else if (inherits(alpha_transform, what = "transform")) {
-        alpha_transform_name <- alpha_transform$name |>
-          stringr::str_remove("composition") |>
-          stringr::str_remove("\\(") |>
-          stringr::str_remove("\\)") |>
-          stringr::str_split(",") |>
+        alpha_transform_name <- alpha_transform$name %>%
+          stringr::str_remove("composition") %>%
+          stringr::str_remove("\\(") %>%
+          stringr::str_remove("\\)") %>%
+          stringr::str_split(",") %>%
           unlist()
       }
 
@@ -1500,16 +1500,16 @@ gg_blanket <- function(
         }
         else { #guess anything that's ordered represents alpha,
           #as there is a discrete alpha scale and no alpha variable supplied
-          plot_data_ordered <- plot_data |>
+          plot_data_ordered <- plot_data %>%
             dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), \(x) length(levels(x))))
 
           if (ncol(plot_data_ordered) == 0) {
             alpha_pal <- rep(1, times = 10)
           }
           else {
-            alpha_n <- plot_data_ordered |>
-              tidyr::pivot_longer(tidyselect::everything()) |>
-              dplyr::summarise(max(.data$value)) |>
+            alpha_n <- plot_data_ordered %>%
+              tidyr::pivot_longer(tidyselect::everything()) %>%
+              dplyr::summarise(max(.data$value)) %>%
               dplyr::pull()
 
             alpha_pal <- seq(from = 0.1, to = 1, by = (1 - 0.1) / (alpha_n - 1))

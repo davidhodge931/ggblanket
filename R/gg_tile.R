@@ -1,6 +1,6 @@
 #' #' @title Tile ggplot
 #' #'
-#' #' @description Create a tile plot with a wrapper around ggplot2::geom_tile(stat = "identity", ...).
+#' #' @description Create a tile plot with a wrapper around ggplot2::geom_tile.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param y Unquoted y aesthetic variable.

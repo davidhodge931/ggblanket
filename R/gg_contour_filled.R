@@ -1,6 +1,6 @@
 #' #' @title Contour_filled ggplot
 #' #'
-#' #' @description Create a contour_filled ggplot with a wrapper around ggplot2::geom_contour_filled(stat = "contour_filled", ...).
+#' #' @description Create a contour_filled ggplot with a wrapper around ggplot2::geom_contour_filled.
 #' #' @param data A data frame or tibble.
 #' #' @param x Unquoted x aesthetic variable.
 #' #' @param y Unquoted y aesthetic variable.

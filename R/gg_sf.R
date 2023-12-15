@@ -1,6 +1,6 @@
 #' #' @title Sf ggplot
 #' #'
-#' #' @description Create a blank ggplot with a wrapper around ggplot2::geom_sf(stat = "sf", ...).
+#' #' @description Create a blank ggplot with a wrapper around ggplot2::geom_sf.
 #' #' @param data A data frame or tibble.
 #' #' @param col Unquoted col and fill aesthetic variable.
 #' #' @param facet Unquoted facet aesthetic variable.
