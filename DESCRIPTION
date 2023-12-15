@@ -3,9 +3,7 @@ Title: Simplify 'ggplot2' Visualisation
 Version: 5.2.0900
 Authors@R: c(
     person("David", "Hodge", email = "davidhodge931@gmail.com", 
-           role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-3868-7501")), 
-    person("Nik", "Mitchell", role = "ctb", comment = c(ORCID = "0009-0002-8126-7745"))
-    )
+           role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-3868-7501"))
 Description: Simplify 'ggplot2' visualisation with 'ggblanket' wrapper functions. 
 License: MIT + file LICENSE
 URL: https://davidhodge931.github.io/ggblanket/,
