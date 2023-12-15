@@ -1265,12 +1265,12 @@
 #'           ) +
 #'           ggplot2::guides(
 #'             colour = ggplot2::guide_colourbar(
-#'               reverse = col_legend_rev
-#'               # order = 1
+#'               reverse = col_legend_rev,
+#'               alpha = alpha_pal1
 #'             ),
 #'             fill = ggplot2::guide_colourbar(
-#'               reverse = col_legend_rev
-#'               # order = 1
+#'               reverse = col_legend_rev,
+#'               alpha = alpha_pal1
 #'             )
 #'           )
 #'
@@ -1301,12 +1301,12 @@
 #'           ) +
 #'           ggplot2::guides(
 #'             colour = ggplot2::guide_coloursteps(
-#'               reverse = col_legend_rev
-#'               # order = 1
+#'               reverse = col_legend_rev,
+#'               alpha = alpha_pal1
 #'             ),
 #'             fill = ggplot2::guide_coloursteps(
-#'               reverse = col_legend_rev
-#'               # order = 1
+#'               reverse = col_legend_rev,
+#'               alpha = alpha_pal1
 #'             )
 #'           )
 #'       }
@@ -1374,13 +1374,11 @@
 #'             reverse = col_legend_rev,
 #'             ncol = col_legend_ncol,
 #'             nrow = col_legend_nrow
-#'             # order = 1
 #'           ),
 #'           fill = ggplot2::guide_legend(
 #'             reverse = col_legend_rev,
 #'             ncol = col_legend_ncol,
 #'             nrow = col_legend_nrow
-#'             # order = 1
 #'           )
 #'         )
 #'     }
@@ -1448,7 +1446,6 @@
 #'         ggplot2::guides(
 #'           alpha = ggplot2::guide_legend(
 #'             reverse = TRUE
-#'             # order = 1
 #'           )
 #'         )
 #'     }
@@ -1506,7 +1503,6 @@
 #'             reverse = alpha_legend_rev,
 #'             ncol = alpha_legend_ncol,
 #'             nrow = alpha_legend_nrow
-#'             # order = 1
 #'           )
 #'         )
 #'     }
