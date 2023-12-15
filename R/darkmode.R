@@ -82,7 +82,7 @@ dark_mode_rt <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
+    line = ggplot2::element_line(colour = base_pal, linewidth = base_size/33, linetype = 1, lineend = "square"),
     rect = ggplot2::element_rect(fill = pal_dark_mode[2], colour = pal_dark_mode[2], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal, size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
@@ -93,10 +93,10 @@ dark_mode_rt <- function (
     axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = base_size * 0.2), hjust = 1),
     axis.text.y.right = ggplot2::element_text(margin = ggplot2::margin(l = base_size * 0.2), hjust = 0),
     axis.ticks = NULL,
-    axis.ticks.length.x = grid::unit(10/3, "pt"),
+    axis.ticks.length.x = grid::unit(base_size/3, "pt"),
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
-    axis.ticks.length.y = grid::unit(10/4, "pt"),
+    axis.ticks.length.y = grid::unit(base_size/4, "pt"),
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
     axis.title = NULL,
@@ -252,7 +252,7 @@ dark_mode_r <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
+    line = ggplot2::element_line(colour = base_pal, linewidth = base_size/33, linetype = 1, lineend = "square"),
     rect = ggplot2::element_rect(fill = pal_dark_mode[2], colour = pal_dark_mode[2], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal, size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
@@ -263,10 +263,10 @@ dark_mode_r <- function (
     axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = base_size * 0.2), hjust = 1),
     axis.text.y.right = ggplot2::element_text(margin = ggplot2::margin(l = base_size * 0.2), hjust = 0),
     axis.ticks = NULL,
-    axis.ticks.length.x = grid::unit(10/3, "pt"),
+    axis.ticks.length.x = grid::unit(base_size/3, "pt"),
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
-    axis.ticks.length.y = grid::unit(10/4, "pt"),
+    axis.ticks.length.y = grid::unit(base_size/4, "pt"),
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
     axis.title = NULL,
@@ -422,7 +422,7 @@ dark_mode_b <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
+    line = ggplot2::element_line(colour = base_pal, linewidth = base_size/33, linetype = 1, lineend = "square"),
     rect = ggplot2::element_rect(fill = pal_dark_mode[2], colour = pal_dark_mode[2], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal, size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
@@ -433,10 +433,10 @@ dark_mode_b <- function (
     axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = base_size * 0.2), hjust = 1),
     axis.text.y.right = ggplot2::element_text(margin = ggplot2::margin(l = base_size * 0.2), hjust = 0),
     axis.ticks = NULL,
-    axis.ticks.length.x = grid::unit(10/3, "pt"),
+    axis.ticks.length.x = grid::unit(base_size/3, "pt"),
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
-    axis.ticks.length.y = grid::unit(10/4, "pt"),
+    axis.ticks.length.y = grid::unit(base_size/4, "pt"),
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
     axis.title = NULL,
@@ -592,7 +592,7 @@ dark_mode_t <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
+    line = ggplot2::element_line(colour = base_pal, linewidth = base_size/33, linetype = 1, lineend = "square"),
     rect = ggplot2::element_rect(fill = pal_dark_mode[2], colour = pal_dark_mode[2], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal, size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
@@ -603,10 +603,10 @@ dark_mode_t <- function (
     axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = base_size * 0.2), hjust = 1),
     axis.text.y.right = ggplot2::element_text(margin = ggplot2::margin(l = base_size * 0.2), hjust = 0),
     axis.ticks = NULL,
-    axis.ticks.length.x = grid::unit(10/3, "pt"),
+    axis.ticks.length.x = grid::unit(base_size/3, "pt"),
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
-    axis.ticks.length.y = grid::unit(10/4, "pt"),
+    axis.ticks.length.y = grid::unit(base_size/4, "pt"),
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
     axis.title = NULL,
@@ -764,7 +764,7 @@ dark_mode_i <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal, linewidth = 10/33, linetype = 1, lineend = "square"),
+    line = ggplot2::element_line(colour = base_pal, linewidth = base_size/33, linetype = 1, lineend = "square"),
     rect = ggplot2::element_rect(fill = pal_dark_mode[2], colour = pal_dark_mode[2], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal, size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
@@ -775,10 +775,10 @@ dark_mode_i <- function (
     axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = base_size * 0.2), hjust = 1),
     axis.text.y.right = ggplot2::element_text(margin = ggplot2::margin(l = base_size * 0.2), hjust = 0),
     axis.ticks = NULL,
-    axis.ticks.length.x = grid::unit(10/3, "pt"),
+    axis.ticks.length.x = grid::unit(base_size/3, "pt"),
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
-    axis.ticks.length.y = grid::unit(10/4, "pt"),
+    axis.ticks.length.y = grid::unit(base_size/4, "pt"),
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
     axis.title = NULL,
