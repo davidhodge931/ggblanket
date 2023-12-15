@@ -1,10 +1,10 @@
-#' @title Blank ggplot
+#' @title Blanket ggplot
 #'
-#' @description Create a blank ggplot with a wrapper around ggplot2::geom_blank().
+#' @description Create a blanket ggplot with a wrapper around ggplot2::layer().
 #' @param data A data frame or tibble.
-#' @param geom The geometric object to use to display the data as a ggproto Geom subclass.
-#' @param stat A ggplot2 character string stat.
-#' @param position Position adjustment function (e.g. ggplot2::position_identity()).
+#' @param geom A geometric object to display the data. A ggproto Geom subclass object or character string.
+#' @param stat A statistcal transformation to use on the data. A ggproto Stat subclass object or character string.
+#' @param position A position adjustment. A ggproto Position subclass object, or character string.
 #' @param x Unquoted x aesthetic variable.
 #' @param y Unquoted y aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
@@ -210,14 +210,11 @@ gg_blanket <- function(
   #stop, warn and inform
   ##############################################################################
 
-  # if (!rlang::is_null(mapping)) {
-  #   if (any(names(unlist(mapping)) %in% c("colour", "fill", "alpha_pal"))) {
-  #     rlang::abort("mapping argument does not support colour, fill or alpha_pal aesthetics")
-  #   }
-  #   if (any(names(unlist(mapping)) %in% c("facet", "facet2"))) {
-  #     rlang::abort("mapping argument does not support facet or facet2")
-  #   }
-  # }
+  if (!rlang::is_null(mapping)) {
+    if (any(names(unlist(mapping)) %in% c("facet", "facet2"))) {
+      rlang::abort("mapping argument does not support facet or facet2")
+    }
+  }
 
   ##############################################################################
   #get default theme, if global theme not set
@@ -543,15 +540,6 @@ gg_blanket <- function(
 
   x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
   y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
-
-  # if (stringr::str_detect(stat_name, "sf")) {
-  #   # geometry <- sf::st_geometry(data)
-  #   if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
-  # }
-  # else {
-  #   # geometry <- NULL
-  #   if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
-  # }
 
   ##############################################################################
   # add ggplot() with aesthetics
@@ -1960,26 +1948,6 @@ gg_blanket <- function(
       alpha_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), titles)
     }
   }
-  # if (rlang::is_null(linetype_title)) {
-  #   if (!rlang::is_null(plot_build$plot$labels$linetype)) {
-  #     linetype_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), titles)
-  #   }
-  # }
-  # if (rlang::is_null(linewidth_title)) {
-  #   if (!rlang::is_null(plot_build$plot$labels$linewidth)) {
-  #     linewidth_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), titles)
-  #   }
-  # }
-  # if (rlang::is_null(shape_title)) {
-  #   if (!rlang::is_null(plot_build$plot$labels$shape)) {
-  #     shape_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), titles)
-  #   }
-  # }
-  # if (rlang::is_null(size_title)) {
-  #   if (!rlang::is_null(plot_build$plot$labels$size)) {
-  #     size_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), titles)
-  #   }
-  # }
 
   plot <- plot +
     ggplot2::labs(
@@ -1988,11 +1956,7 @@ gg_blanket <- function(
       caption = caption,
       x = x_title,
       y = y_title,
-      alpha = alpha_title,
-      # linetype = linetype_title,
-      # linewidth = linewidth_title,
-      # shape = shape_title,
-      # size = size_title
+      alpha = alpha_title
     )
 
   if (!rlang::is_null(col_title)) {
@@ -2029,30 +1993,6 @@ gg_blanket <- function(
         ggplot2::labs(alpha = NULL)
     }
   }
-  # if (!rlang::is_null(linetype_title)) {
-  #   if (linetype_title == "") {
-  #     plot <- plot +
-  #       ggplot2::labs(linetype = NULL)
-  #   }
-  # }
-  # if (!rlang::is_null(linewidth_title)) {
-  #   if (linewidth_title == "") {
-  #     plot <- plot +
-  #       ggplot2::labs(linewidth = NULL)
-  #   }
-  # }
-  # if (!rlang::is_null(shape_title)) {
-  #   if (shape_title == "") {
-  #     plot <- plot +
-  #       ggplot2::labs(shape = NULL)
-  #   }
-  # }
-  # if (!rlang::is_null(size_title)) {
-  #   if (size_title == "") {
-  #     plot <- plot +
-  #       ggplot2::labs(size = NULL)
-  #   }
-  # }
 
   ##############################################################################
   # gridlines
