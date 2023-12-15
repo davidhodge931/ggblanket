@@ -15,7 +15,7 @@ pal_guardian <-c("#2596be", "#fc7c24", "#9c1e74", "#6b5840")
 #' @return A character vector.
 #'
 #' @keywords internal
-pal_light_mode <- c("#121b24", "#e6ecf2", "#fcfdfe", "#dbe1e7")
+pal_lightmode <- c("#121b24", "#e6ecf2", "#fcfdfe", "#dbe1e7")
 
 #' Default colours used in the dark_mode theme.
 #'
@@ -24,7 +24,7 @@ pal_light_mode <- c("#121b24", "#e6ecf2", "#fcfdfe", "#dbe1e7")
 #' @return A character vector.
 #'
 #' @keywords internal
-pal_dark_mode <- c("#bbccdd", "#15202b", "#1f2f3e", "#2c3a48")
+pal_darkmode <- c("#bbccdd", "#15202b", "#1f2f3e", "#2c3a48")
 
 #' Default colours used to colour a discrete variable.
 #'

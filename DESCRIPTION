@@ -14,8 +14,6 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-Depends: 
-    viridisLite
 Imports: 
     dplyr,
     forcats,
@@ -25,12 +23,13 @@ Imports:
     lubridate,
     magrittr,
     purrr,
-    rlang,
-    scales,
+    rlang (>= 1.1.0),
+    scales (>= 1.3.0),
     snakecase,
-    stringr,
-    tidyr,
-    tidyselect
+    stringr (>= 1.3.0),
+    tidyr (>= 1.0.0),
+    tidyselect (>= 1.2.0),
+    viridisLite (>= 0.4.0),
 Suggests: 
     bench,
     hexbin,

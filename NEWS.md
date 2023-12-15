@@ -2,6 +2,7 @@
 
 * Support for alpha aesthetic.
 * Support for using ggplot2 aesthetics of colour or fill - i.e. not both. 
+* Added `facet_axes` and `facet_axis_labels` arguments.
 
 * Breaking: renamed `pal` to `col_pal`.
 * Breaking: renamed `pal_na` to `col_pal_na`.

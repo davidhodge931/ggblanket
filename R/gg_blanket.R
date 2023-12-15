@@ -62,6 +62,8 @@
 #' @param col_steps For a continuous col variable, whether to colour in steps. Defaults to FALSE (i.e. a gradient).
 #' @param col_title Legend col title string. Use "" for no title.
 #' @param col_transform For a numeric col variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
+#' @param facet_axes Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".
+#' @param facet_axis_labels Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".
 #' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
 #' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
 #' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
@@ -148,6 +150,8 @@ gg_blanket <- function(
     col_steps = FALSE,
     col_title = NULL,
     col_transform = NULL,
+    facet_axes = "margins",
+    facet_axis_labels = "all",
     facet_labels = NULL,
     facet_ncol = NULL,
     facet_nrow = NULL,
@@ -221,7 +225,7 @@ gg_blanket <- function(
 
   if (rlang::is_null(theme)) {
     if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
-      theme <- light_mode()
+      theme <- lightmode_right2()
     }
   }
 
@@ -540,14 +544,14 @@ gg_blanket <- function(
   x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
   y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
 
-  if (stringr::str_detect(stat_name, "sf")) {
-    geometry <- sf::st_geometry(data)
-    if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
-  }
-  else {
-    geometry <- NULL
-    if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
-  }
+  # if (stringr::str_detect(stat_name, "sf")) {
+  #   # geometry <- sf::st_geometry(data)
+  #   if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
+  # }
+  # else {
+  #   # geometry <- NULL
+  #   if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
+  # }
 
   ##############################################################################
   # add ggplot() with aesthetics
@@ -571,7 +575,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             !!!mapping
           ))
       }
@@ -590,7 +594,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             !!!mapping
           ))
       }
@@ -609,7 +613,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             !!!mapping
           ))
       }
@@ -627,7 +631,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             !!!mapping
           ))
       }
@@ -651,7 +655,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             !!!mapping
           ))
       }
@@ -672,7 +676,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             !!!mapping
           ))
       }
@@ -693,7 +697,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             !!!mapping
           ))
       }
@@ -713,7 +717,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             !!!mapping
           ))
       }
@@ -737,7 +741,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -756,7 +760,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -775,7 +779,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -793,7 +797,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -817,7 +821,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -838,7 +842,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -859,7 +863,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -879,7 +883,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            geometry = geometry,
+            # geometry = geometry,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -905,6 +909,8 @@ gg_blanket <- function(
           facets = ggplot2::vars(!!facet),
           scales = facet_scales,
           drop = FALSE,
+          axes = facet_axes,
+          axis.labels = facet_axis_labels,
           nrow = facet_nrow,
           ncol = facet_ncol,
           labeller = ggplot2::as_labeller(facet_labels)
@@ -916,6 +922,8 @@ gg_blanket <- function(
           facets = ggplot2::vars(!!facet2),
           scales = facet_scales,
           drop = FALSE,
+          axes = facet_axes,
+          axis.labels = facet_axis_labels,
           nrow = facet_nrow,
           ncol = facet_ncol,
           labeller = ggplot2::as_labeller(facet_labels)
@@ -927,6 +935,8 @@ gg_blanket <- function(
           facets = ggplot2::vars(!!facet, !!facet2),
           scales = facet_scales,
           drop = FALSE,
+          axes = facet_axes,
+          axis.labels = facet_axis_labels,
           nrow = facet_nrow,
           ncol = facet_ncol,
           labeller = ggplot2::as_labeller(facet_labels)
@@ -942,6 +952,8 @@ gg_blanket <- function(
                             scales = facet_scales,
                             space = facet_space,
                             drop = FALSE,
+                            axes = facet_axes,
+                            axis.labels = facet_axis_labels,
                             labeller = ggplot2::as_labeller(facet_labels)
         )
     }
@@ -952,6 +964,8 @@ gg_blanket <- function(
                             scales = facet_scales,
                             space = facet_space,
                             drop = FALSE,
+                            axes = facet_axes,
+                            axis.labels = facet_axis_labels,
                             labeller = ggplot2::as_labeller(facet_labels)
         )
     }
@@ -962,6 +976,8 @@ gg_blanket <- function(
                             scales = facet_scales,
                             space = facet_space,
                             drop = FALSE,
+                            axes = facet_axes,
+                            axis.labels = facet_axis_labels,
                             labeller = ggplot2::as_labeller(facet_labels)
         )
     }
@@ -1081,15 +1097,41 @@ gg_blanket <- function(
   # Add layer
   ##############################################################################
 
-  plot1 <- plot +
-    ggplot2::layer(
-      geom = geom,
-      stat = stat,
-      position = position,
-      params = list(...)
-    ) +
-    coord +
-    theme
+  if (geom_name == "blank") show_legend <- FALSE
+  else show_legend <- TRUE
+
+  if (stat_name %in% c("density_2d", "density_2d_filled")) contour <- TRUE
+  else contour <- TRUE
+
+  if (stringr::str_detect(stat_name, "sf")) {
+    if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
+
+    plot1 <- plot +
+      ggplot2::layer_sf(
+        geom = geom,
+        stat = stat,
+        position = position,
+        params = list(contour = contour, ...),
+        show.legend = show_legend,
+      ) +
+      coord +
+      theme
+  }
+  else {
+    if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
+
+    plot1 <- plot +
+      ggplot2::layer(
+        geom = geom,
+        stat = stat,
+        position = position,
+        params = list(contour = contour, ...),
+        show.legend = show_legend,
+      ) +
+      coord +
+      theme
+  }
+
 
   ##############################################################################
   # Get plot build and data
@@ -1146,7 +1188,7 @@ gg_blanket <- function(
 
   #get params for when no col or alpha aesthetic
   if ((is.na(col_continuous)) & (is.na(alpha_continuous))) {
-    if (rlang::is_null(col_pal)) col_pal1 <- pal_blanket_n()
+    if (rlang::is_null(col_pal)) col_pal1 <- pal_none()
     else col_pal1 <- col_pal[1]
 
     if (rlang::is_null(alpha_pal)) {
@@ -1155,13 +1197,13 @@ gg_blanket <- function(
     }
     else alpha_pal1 <- alpha_pal[1]
 
-    params_list <- list(colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
+    params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
   }
   else if (is.na(col_continuous)) {
-    if (rlang::is_null(col_pal)) col_pal1 <- pal_blanket_n()
+    if (rlang::is_null(col_pal)) col_pal1 <- pal_none()
     else col_pal1 <- col_pal[1]
 
-    params_list <- list(colour = col_pal1, fill = col_pal1, ...)
+    params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, ...)
   }
   else if (is.na(alpha_continuous)) {
     if (rlang::is_null(alpha_pal)) {
@@ -1170,20 +1212,35 @@ gg_blanket <- function(
     }
     else alpha_pal1 <- alpha_pal[1]
 
-    params_list <- list(alpha = alpha_pal1, ...)
+    params_list <- list(contour = contour, alpha = alpha_pal1, ...)
   }
 
   #remake plot where either no col or alpha aesthetic
   if (is.na(col_continuous) | is.na(alpha_continuous)) {
-    plot <- plot +
-      ggplot2::layer(
-        geom = geom,
-        stat = stat,
-        position = position,
-        params = params_list
-      ) +
-      coord +
-      theme
+    if (stringr::str_detect(stat_name, "sf")) {
+      plot <- plot +
+        ggplot2::layer_sf(
+          geom = geom,
+          stat = stat,
+          position = position,
+          params = params_list,
+          show.legend = show_legend,
+        ) +
+        coord +
+        theme
+    }
+    else {
+      plot <- plot +
+        ggplot2::layer(
+          geom = geom,
+          stat = stat,
+          position = position,
+          params = params_list,
+          show.legend = show_legend,
+        ) +
+        coord +
+        theme
+    }
   }
   #revert back to the original plot where there is a col or alpha aesthetic
   else {
@@ -1197,7 +1254,7 @@ gg_blanket <- function(
   if (!is.na(col_continuous)) {
     if (col_continuous) {
       if (rlang::is_null(col_pal)) {
-        col_pal <- pal_blanket_c()
+        col_pal <- pal_continuous()
       }
 
       #get col_transform if NULL
@@ -1258,11 +1315,11 @@ gg_blanket <- function(
           ggplot2::guides(
             colour = ggplot2::guide_colourbar(
               reverse = col_legend_rev
-              # order = 1
+              # alpha = alpha_pal1
             ),
             fill = ggplot2::guide_colourbar(
               reverse = col_legend_rev
-              # order = 1
+              # alpha = alpha_pal1
             )
           )
 
@@ -1294,53 +1351,48 @@ gg_blanket <- function(
           ggplot2::guides(
             colour = ggplot2::guide_coloursteps(
               reverse = col_legend_rev
-              # order = 1
+              # alpha = alpha_pal1
             ),
             fill = ggplot2::guide_coloursteps(
               reverse = col_legend_rev
-              # order = 1
+              # alpha = alpha_pal1
             )
           )
       }
     }
     else if (!col_continuous) {
+      if (rlang::is_null(col_pal)) {
+
+      }
       if (!rlang::quo_is_null(col)) {
         col_n <- data %>%
           dplyr::pull(!!col) %>%
           levels() %>%
           length()
 
-        if (is.factor(data %>% dplyr::pull(!!col))) {
-
-        }
-
-        if (rlang::is_null(col_pal)) {
-          if (is.factor(data %>% dplyr::pull(!!col))) col_pal <- pal_blanket_c(col_n)
-          else col_pal <- pal_blanket_d(col_n)
-        }
-
-        col_pal <- col_pal[1:col_n]
-
-        if (flipped) {
-          col_legend_rev <- !col_legend_rev
-          col_pal <- rev(col_pal)
-        }
+        col_pal <- pal_discrete(col_n)
       }
-      else { #guess anything ordered represents col, as there is a discrete col scale
-             #and no col variable supplied
-
+      else { #guess anything that's ordered represents col,
+        #as there is a discrete col scale and no col variable supplied
         plot_data_ordered <- plot_data |>
           dplyr::summarise(dplyr::across(where(is.ordered), \(x) length(levels(x))))
 
-        if (nrow(plot_data_ordered) != 0) {
+        if (ncol(plot_data_ordered) == 0) {
+          col_pal <- pal_discrete(n = 4)
+        }
+        else {
           col_n <- plot_data_ordered |>
             tidyr::pivot_longer(everything()) |>
             dplyr::summarise(max(.data$value)) |>
             dplyr::pull()
 
-          if (rlang::is_null(col_pal)) col_pal <- pal_blanket_c(n = col_n)
-          col_legend_rev <- !col_legend_rev
+          col_pal <- pal_continuous(n = col_n)
         }
+      }
+
+      if (flipped) {
+        col_legend_rev <- !col_legend_rev
+        col_pal <- rev(col_pal)
       }
 
       if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
@@ -1371,13 +1423,11 @@ gg_blanket <- function(
             reverse = col_legend_rev,
             ncol = col_legend_ncol,
             nrow = col_legend_nrow
-            # order = 1
           ),
           fill = ggplot2::guide_legend(
             reverse = col_legend_rev,
             ncol = col_legend_ncol,
             nrow = col_legend_nrow
-            # order = 1
           )
         )
     }
@@ -1445,32 +1495,36 @@ gg_blanket <- function(
         ggplot2::guides(
           alpha = ggplot2::guide_legend(
             reverse = TRUE
-            # order = 1
           )
         )
     }
     else if (!alpha_continuous) {
-      if (!rlang::quo_is_null(alpha)) {
-        alpha_n <- data %>%
-          dplyr::pull(!!alpha) %>%
-          levels() %>%
-          length()
-      }
-      else { #guess anything ordered represents alpha, as there is a discrete alpha scale
-             #and no alpha variable supplied
-        plot_data_ordered <- plot_data |>
-          dplyr::summarise(dplyr::across(where(is.ordered), \(x) length(levels(x))))
-
-        if (nrow(plot_data_ordered) != 0) {
-          alpha_n <- plot_data_ordered |>
-            tidyr::pivot_longer(everything()) |>
-            dplyr::summarise(max(.data$value)) |>
-            dplyr::pull()
-        }
-      }
-
       if (rlang::is_null(alpha_pal)) {
-        alpha_pal <- seq(from = 0.1, to = 1, by = (1 - 0.1) / (alpha_n - 1))
+        if (!rlang::quo_is_null(alpha)) {
+          alpha_n <- data %>%
+            dplyr::pull(!!alpha) %>%
+            levels() %>%
+            length()
+
+          alpha_pal <- seq(from = 0.1, to = 1, by = (1 - 0.1) / (alpha_n - 1))
+        }
+        else { #guess anything that's ordered represents alpha,
+          #as there is a discrete alpha scale and no alpha variable supplied
+          plot_data_ordered <- plot_data |>
+            dplyr::summarise(dplyr::across(where(is.ordered), \(x) length(levels(x))))
+
+          if (ncol(plot_data_ordered) == 0) {
+            alpha_pal <- rep(1, times = 10)
+          }
+          else {
+            alpha_n <- plot_data_ordered |>
+              tidyr::pivot_longer(everything()) |>
+              dplyr::summarise(max(.data$value)) |>
+              dplyr::pull()
+
+            alpha_pal <- seq(from = 0.1, to = 1, by = (1 - 0.1) / (alpha_n - 1))
+          }
+        }
       }
 
       if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(alpha, data))) &
@@ -1498,7 +1552,6 @@ gg_blanket <- function(
             reverse = alpha_legend_rev,
             ncol = alpha_legend_ncol,
             nrow = alpha_legend_nrow
-            # order = 1
           )
         )
     }
@@ -2038,6 +2091,7 @@ gg_blanket <- function(
   ##############################################################################
   # plot
   ##############################################################################
+
   return(plot)
 }
 
