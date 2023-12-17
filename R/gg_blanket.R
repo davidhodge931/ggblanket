@@ -884,6 +884,7 @@ gg_blanket <- function(
   # add faceting
   ##############################################################################
 
+  #get layout if NULL
   if (rlang::is_null(facet_layout)) {
     if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) facet_layout <- "wrap"
     else if (!rlang::quo_is_null(facet2) & rlang::quo_is_null(facet)) facet_layout <- "wrap"
@@ -892,84 +893,169 @@ gg_blanket <- function(
     else facet_layout <- "null"
   }
 
-  if (facet_layout == "wrap") {
-    if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
-      plot <- plot +
-        ggplot2::facet_wrap(
-          facets = ggplot2::vars(!!facet),
-          scales = facet_scales,
-          drop = FALSE,
-          axes = facet_axes,
-          axis.labels = facet_axis_labels,
-          nrow = facet_nrow,
-          ncol = facet_ncol,
-          labeller = ggplot2::as_labeller(facet_labels)
-        )
+  #add facet layer. Reverse facet if y is already reversed to keep order correct
+  if (!y_continuous & (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(facet, data)))) {
+    if (facet_layout == "wrap") {
+      if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
+        plot <- plot +
+          ggplot2::facet_wrap(
+            facets = ggplot2::vars(forcats::fct_rev(!!facet)),
+            scales = facet_scales,
+            drop = FALSE,
+            axes = facet_axes,
+            axis.labels = facet_axis_labels,
+            nrow = facet_nrow,
+            ncol = facet_ncol,
+            labeller = ggplot2::as_labeller(facet_labels)
+          )
+      }
+      else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+        plot <- plot +
+          ggplot2::facet_wrap(
+            facets = ggplot2::vars(!!facet2),
+            scales = facet_scales,
+            drop = FALSE,
+            axes = facet_axes,
+            axis.labels = facet_axis_labels,
+            nrow = facet_nrow,
+            ncol = facet_ncol,
+            labeller = ggplot2::as_labeller(facet_labels)
+          )
+      }
+      else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+        plot <- plot +
+          ggplot2::facet_wrap(
+            facets = ggplot2::vars(!!facet, !!facet2),
+            scales = facet_scales,
+            drop = FALSE,
+            axes = facet_axes,
+            axis.labels = facet_axis_labels,
+            nrow = facet_nrow,
+            ncol = facet_ncol,
+            labeller = ggplot2::as_labeller(facet_labels)
+          )
+      }
     }
-    else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
-      plot <- plot +
-        ggplot2::facet_wrap(
-          facets = ggplot2::vars(!!facet2),
-          scales = facet_scales,
-          drop = FALSE,
-          axes = facet_axes,
-          axis.labels = facet_axis_labels,
-          nrow = facet_nrow,
-          ncol = facet_ncol,
-          labeller = ggplot2::as_labeller(facet_labels)
-        )
-    }
-    else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
-      plot <- plot +
-        ggplot2::facet_wrap(
-          facets = ggplot2::vars(!!facet, !!facet2),
-          scales = facet_scales,
-          drop = FALSE,
-          axes = facet_axes,
-          axis.labels = facet_axis_labels,
-          nrow = facet_nrow,
-          ncol = facet_ncol,
-          labeller = ggplot2::as_labeller(facet_labels)
-        )
+    else if (facet_layout == "grid") {
+      if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+        plot <- plot +
+          ggplot2::facet_grid(switch = facet_switch,
+                              rows = ggplot2::vars(!!facet2),
+                              cols = ggplot2::vars(forcats::fct_rev(!!facet)),
+                              scales = facet_scales,
+                              space = facet_space,
+                              drop = FALSE,
+                              axes = facet_axes,
+                              axis.labels = facet_axis_labels,
+                              labeller = ggplot2::as_labeller(facet_labels)
+          )
+      }
+      else if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
+        plot <- plot +
+          ggplot2::facet_grid(switch = facet_switch,
+                              cols = ggplot2::vars(forcats::fct_rev(!!facet)),
+                              scales = facet_scales,
+                              space = facet_space,
+                              drop = FALSE,
+                              axes = facet_axes,
+                              axis.labels = facet_axis_labels,
+                              labeller = ggplot2::as_labeller(facet_labels)
+          )
+      }
+      else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+        plot <- plot +
+          ggplot2::facet_grid(switch = facet_switch,
+                              rows = ggplot2::vars(!!facet2),
+                              scales = facet_scales,
+                              space = facet_space,
+                              drop = FALSE,
+                              axes = facet_axes,
+                              axis.labels = facet_axis_labels,
+                              labeller = ggplot2::as_labeller(facet_labels)
+          )
+      }
     }
   }
-  else if (facet_layout == "grid") {
-    if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
-      plot <- plot +
-        ggplot2::facet_grid(switch = facet_switch,
-                            rows = ggplot2::vars(!!facet2),
-                            cols = ggplot2::vars(!!facet),
-                            scales = facet_scales,
-                            space = facet_space,
-                            drop = FALSE,
-                            axes = facet_axes,
-                            axis.labels = facet_axis_labels,
-                            labeller = ggplot2::as_labeller(facet_labels)
-        )
+  else {
+    if (facet_layout == "wrap") {
+      if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
+        plot <- plot +
+          ggplot2::facet_wrap(
+            facets = ggplot2::vars(!!facet),
+            scales = facet_scales,
+            drop = FALSE,
+            axes = facet_axes,
+            axis.labels = facet_axis_labels,
+            nrow = facet_nrow,
+            ncol = facet_ncol,
+            labeller = ggplot2::as_labeller(facet_labels)
+          )
+      }
+      else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+        plot <- plot +
+          ggplot2::facet_wrap(
+            facets = ggplot2::vars(!!facet2),
+            scales = facet_scales,
+            drop = FALSE,
+            axes = facet_axes,
+            axis.labels = facet_axis_labels,
+            nrow = facet_nrow,
+            ncol = facet_ncol,
+            labeller = ggplot2::as_labeller(facet_labels)
+          )
+      }
+      else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+        plot <- plot +
+          ggplot2::facet_wrap(
+            facets = ggplot2::vars(!!facet, !!facet2),
+            scales = facet_scales,
+            drop = FALSE,
+            axes = facet_axes,
+            axis.labels = facet_axis_labels,
+            nrow = facet_nrow,
+            ncol = facet_ncol,
+            labeller = ggplot2::as_labeller(facet_labels)
+          )
+      }
     }
-    else if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
-      plot <- plot +
-        ggplot2::facet_grid(switch = facet_switch,
-                            cols = ggplot2::vars(!!facet),
-                            scales = facet_scales,
-                            space = facet_space,
-                            drop = FALSE,
-                            axes = facet_axes,
-                            axis.labels = facet_axis_labels,
-                            labeller = ggplot2::as_labeller(facet_labels)
-        )
-    }
-    else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
-      plot <- plot +
-        ggplot2::facet_grid(switch = facet_switch,
-                            rows = ggplot2::vars(!!facet2),
-                            scales = facet_scales,
-                            space = facet_space,
-                            drop = FALSE,
-                            axes = facet_axes,
-                            axis.labels = facet_axis_labels,
-                            labeller = ggplot2::as_labeller(facet_labels)
-        )
+    else if (facet_layout == "grid") {
+      if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+        plot <- plot +
+          ggplot2::facet_grid(switch = facet_switch,
+                              rows = ggplot2::vars(!!facet2),
+                              cols = ggplot2::vars(!!facet),
+                              scales = facet_scales,
+                              space = facet_space,
+                              drop = FALSE,
+                              axes = facet_axes,
+                              axis.labels = facet_axis_labels,
+                              labeller = ggplot2::as_labeller(facet_labels)
+          )
+      }
+      else if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
+        plot <- plot +
+          ggplot2::facet_grid(switch = facet_switch,
+                              cols = ggplot2::vars(!!facet),
+                              scales = facet_scales,
+                              space = facet_space,
+                              drop = FALSE,
+                              axes = facet_axes,
+                              axis.labels = facet_axis_labels,
+                              labeller = ggplot2::as_labeller(facet_labels)
+          )
+      }
+      else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
+        plot <- plot +
+          ggplot2::facet_grid(switch = facet_switch,
+                              rows = ggplot2::vars(!!facet2),
+                              scales = facet_scales,
+                              space = facet_space,
+                              drop = FALSE,
+                              axes = facet_axes,
+                              axis.labels = facet_axis_labels,
+                              labeller = ggplot2::as_labeller(facet_labels)
+          )
+      }
     }
   }
 
