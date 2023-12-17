@@ -8,7 +8,7 @@ light_mode_rt(
   base_size = 11,
   base_family = "",
   base_face = "plain",
-  base_pal = "#121b24",
+  base_pal = pal_light_mode,
   title_family = NULL,
   title_face = "plain",
   title_pal = NULL,
@@ -24,7 +24,7 @@ light_mode_rt(
   caption_family = NULL,
   caption_face = NULL,
   caption_alpha = 0.33,
-  caption_pal = base_pal,
+  caption_pal = base_pal[1],
   caption_size = ggplot2::rel(0.9),
   caption_hjust = 0,
   caption_vjust = 0.5,
@@ -39,7 +39,7 @@ light_mode_rt(
 
 \item{base_face}{The base face of the text. Defaults to "plain".}
 
-\item{base_pal}{The base colour of the text. Defaults to "#121b24".}
+\item{base_pal}{A 4 colour vector of hex codes to colour the (1) base text and axis, (2) plot background, (3) panel background and (4) gridlines. Defaults to pal_light_mode.}
 
 \item{title_family}{The font family of the title. Defaults to the base_family.}
 
@@ -97,12 +97,12 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
-    theme = light_mode_rt()
+    theme = light_mode_b()
   )
 
 #set globally
 \dontrun{
-  theme_set(light_mode_rt())
+  theme_set(light_mode_b())
 
   penguins |>
     gg_point(

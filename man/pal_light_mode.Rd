@@ -16,4 +16,4 @@ A character vector.
 \description{
 Default colours used in the light_mode theme for the (1) base text and axis, (2) plot background, (3) panel background and (4) gridlines.
 }
-\keyword{internal}
+\keyword{datasets}

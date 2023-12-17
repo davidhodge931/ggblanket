@@ -8,7 +8,7 @@ dark_mode_t(
   base_size = 11,
   base_family = "",
   base_face = "plain",
-  base_pal = "#bbccdd",
+  base_pal = pal_dark_mode,
   title_family = NULL,
   title_face = "plain",
   title_pal = NULL,
@@ -24,7 +24,7 @@ dark_mode_t(
   caption_family = NULL,
   caption_face = NULL,
   caption_alpha = 0.33,
-  caption_pal = base_pal,
+  caption_pal = base_pal[1],
   caption_size = ggplot2::rel(0.9),
   caption_hjust = 0,
   caption_vjust = 0.5,
@@ -39,7 +39,7 @@ dark_mode_t(
 
 \item{base_face}{The base face of the text. Defaults to "plain".}
 
-\item{base_pal}{The base colour of the text. Defaults to "#bbccdd".}
+\item{base_pal}{The base colour of the text. Defaults to "#121b24".}
 
 \item{title_family}{The font family of the title. Defaults to the base_family.}
 
