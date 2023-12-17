@@ -12,13 +12,12 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = 0.618,
   out.width = "70%",
-  dpi = 300,
-  eval = FALSE)
+  dpi = 300)
 ```
 
 ## Overview
 
-This article will demonstrate each wrapper function in `dark_mode`. 
+This article will demonstrate each wrapper function. 
 
 ```{r setup}
 library(ggblanket)
@@ -26,7 +25,7 @@ library(dplyr)
 library(ggplot2)
 library(stringr)
 
-theme_set(dark_mode())
+theme_set(dark_mode_rt())
 
 penguins2 <- palmerpenguins::penguins |>
   mutate(sex = stringr::str_to_sentence(sex)) |>
@@ -60,8 +59,7 @@ penguins2 |>
 diamonds |>
   gg_bin_2d(
     x = carat,
-    y = price, 
-    pal = viridis::mako(9))
+    y = price)
 ```
 
 ### gg_blank
@@ -73,7 +71,7 @@ penguins2 |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    y_include = 0)
+    y_expand_limits = 0)
 ```
 
 ### gg_boxplot
@@ -109,8 +107,7 @@ ggplot2::faithfuld |>
  gg_contour(
    x = waiting,
    y = eruptions,
-   z = density,
-   bins = 8)
+   z = density)
 ```
 
 ### gg_contour_filled
@@ -121,8 +118,7 @@ ggplot2::faithfuld |>
    x = waiting,
    y = eruptions,
    z = density,
-   bins = 8,
-   pal = viridis::mako(9))
+   bins = 8)
 ```
 
 ### gg_crossbar
@@ -172,8 +168,7 @@ faithful |>
   gg_density_2d_filled(
     x = waiting,
     y = eruptions,
-    bins = 8,
-    pal = viridis::mako(9))
+    bins = 8)
 ```
 
 ### gg_errorbar
@@ -214,8 +209,7 @@ diamonds |>
     x = carat,
     y = price,
     y_limits = c(0, 20000),
-    coord = ggplot2::coord_cartesian(clip = "on"),
-    pal = viridis::mako(9))
+    coord = ggplot2::coord_cartesian(clip = "on"))
 ```
 
 ### gg_histogram
@@ -239,9 +233,8 @@ penguins2 |>
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
-    pal = viridis::mako(9),
     col_continuous = "steps",
-    y_include = 0,
+    y_expand_limits = 0,
     position = position_jitter(height = 0))
 ```
 
@@ -258,8 +251,8 @@ bind_rows(
     col = mpg,
     label = model,
     size = 3.53,
-    y_include = 0,
-    pal = c(guardian(n = 2)[2], "white", guardian(n = 1)),
+    y_expand_limits = 0,
+    col_pal = c(pal_guardian[2], "white", pal_guardian[1]),
     y_title = "Miles per gallon")
 ```
 
@@ -271,7 +264,7 @@ economics |>
     x = date,
     y = unemploy,
     y_title = "Unemployment",
-    y_include = 0)
+    y_expand_limits = 0)
 ```
 
 ### gg_linerange
@@ -303,7 +296,7 @@ economics |>
     y = psavert,
     x_title = "Unemployment rate",
     y_title = "Personal savings rate",
-    y_include = 0)
+    y_expand_limits = 0)
 ```
 
 ### gg_point
@@ -361,8 +354,7 @@ datapoly |>
     x = x,
     y = y,
     col = value,
-    group = id, 
-    pal = viridis::mako(9))
+    group = id)
 ```
 
 ### gg_qq
@@ -382,8 +374,7 @@ faithfuld |>
   gg_raster(
     x = waiting,
     y = eruptions,
-    col = density,
-    pal = viridis::mako(9))
+    col = density)
 ```
 
 ### gg_rect
@@ -417,9 +408,9 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     x = year,
     ymin = level_min,
     ymax = level_max,
-    pal = scales::alpha(mako(9)[5], 0),
+    col_pal = scales::alpha(viridis::mako(9)[5], 0),
     y_title = "Level") +
-  geom_line(aes(x = year, y = level), col = mako(9)[5])
+  geom_line(aes(x = year, y = level), col = viridis::mako(9)[5])
 ```
 
 ### gg_segment
@@ -440,8 +431,7 @@ if (requireNamespace("sf", quietly = TRUE)) {
   nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
   
   nc |>
-    gg_sf(col = AREA, 
-          pal = viridis::mako(9))
+    gg_sf(col = AREA)
 }
 ```
 
@@ -452,7 +442,9 @@ penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    facet = species)
+    facet = species,
+    se = TRUE,
+    )
 ```
 
 ### gg_step
@@ -464,7 +456,7 @@ economics |>
     y = unemploy,
     y_title = "Unemployment",
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_), 
-    y_include = 0,
+    y_expand_limits = 0,
     coord = ggplot2::coord_cartesian(clip = "on"))
 ```
 
@@ -481,8 +473,8 @@ bind_rows(
     col = mpg,
     label = model,
     size = 3.53,
-    y_include = 0,
-    pal = c(guardian(n = 2)[2], "white", guardian(n = 1)),
+    y_expand_limits = 0,
+    col_pal = c(pal_guardian[2], "white", pal_guardian[1]),
     y_title = "Miles per gallon")
 ```
 
@@ -495,8 +487,7 @@ penguins2 |>
   gg_tile(
     x = sex,
     y = species,
-    col = flipper_length_mm,
-    pal = viridis::mako(9))
+    col = flipper_length_mm)
 ```
 
 ### gg_violin

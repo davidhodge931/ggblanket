@@ -12,8 +12,7 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = 0.618,
   out.width = "70%",
-  dpi = 300,
-  eval = FALSE)
+  dpi = 300)
 ```
 
 ## Overview
@@ -25,6 +24,8 @@ library(ggblanket)
 library(dplyr)
 library(ggplot2)
 library(stringr)
+
+theme_set(light_mode_rt())
 
 penguins2 <- palmerpenguins::penguins |>
   mutate(sex = stringr::str_to_sentence(sex)) |>
@@ -70,7 +71,7 @@ penguins2 |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    y_include = 0)
+    y_expand_limits = 0)
 ```
 
 ### gg_boxplot
@@ -106,8 +107,7 @@ ggplot2::faithfuld |>
  gg_contour(
    x = waiting,
    y = eruptions,
-   z = density,
-   bins = 8)
+   z = density)
 ```
 
 ### gg_contour_filled
@@ -234,7 +234,7 @@ penguins2 |>
     y = body_mass_g,
     col = flipper_length_mm,
     col_continuous = "steps",
-    y_include = 0,
+    y_expand_limits = 0,
     position = position_jitter(height = 0))
 ```
 
@@ -251,8 +251,8 @@ bind_rows(
     col = mpg,
     label = model,
     size = 3.53,
-    y_include = 0,
-    pal = c(guardian(n = 2)[2], "white", guardian(n = 1)),
+    y_expand_limits = 0,
+    col_pal = c(pal_guardian[2], "white", pal_guardian[1]),
     y_title = "Miles per gallon")
 ```
 
@@ -264,7 +264,7 @@ economics |>
     x = date,
     y = unemploy,
     y_title = "Unemployment",
-    y_include = 0)
+    y_expand_limits = 0)
 ```
 
 ### gg_linerange
@@ -296,7 +296,7 @@ economics |>
     y = psavert,
     x_title = "Unemployment rate",
     y_title = "Personal savings rate",
-    y_include = 0)
+    y_expand_limits = 0)
 ```
 
 ### gg_point
@@ -408,9 +408,9 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     x = year,
     ymin = level_min,
     ymax = level_max,
-    pal = scales::alpha(mako(9)[5], 0),
+    col_pal = scales::alpha(viridis::mako(9)[5], 0),
     y_title = "Level") +
-  geom_line(aes(x = year, y = level), col = mako(9)[5])
+  geom_line(aes(x = year, y = level), col = viridis::mako(9)[5])
 ```
 
 ### gg_segment
@@ -442,7 +442,9 @@ penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    facet = species)
+    facet = species,
+    se = TRUE,
+    )
 ```
 
 ### gg_step
@@ -454,7 +456,7 @@ economics |>
     y = unemploy,
     y_title = "Unemployment",
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_), 
-    y_include = 0,
+    y_expand_limits = 0,
     coord = ggplot2::coord_cartesian(clip = "on"))
 ```
 
@@ -471,8 +473,8 @@ bind_rows(
     col = mpg,
     label = model,
     size = 3.53,
-    y_include = 0,
-    pal = c(guardian(n = 2)[2], "white", guardian(n = 1)),
+    y_expand_limits = 0,
+    col_pal = c(pal_guardian[2], "white", pal_guardian[1]),
     y_title = "Miles per gallon")
 ```
 

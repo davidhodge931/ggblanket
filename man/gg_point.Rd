@@ -85,7 +85,7 @@ gg_point(
   alpha_limits = NULL,
   alpha_oob = scales::oob_keep,
   alpha_pal = NULL,
-  alpha_pal_na = 1,
+  alpha_pal_na = NA,
   alpha_title = NULL,
   alpha_transform = NULL,
   caption = NULL,

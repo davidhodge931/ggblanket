@@ -17,9 +17,7 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = 0.618,
   out.width = "70%",
-  dpi = 300, 
-  eval = FALSE
-)
+  dpi = 300)
 ```
 
 ## Overview
@@ -38,7 +36,7 @@ Secondary objectives relate to:
  
 1.  Over thirty gg\_\* wrapper functions
 2.  A single col argument to colour and fill by a variable
-3.  A pal argument to customise colours
+3.  A col_pal argument to customise colours
 4.  A facet argument to facet by a variable
 5.  An additional facet2 argument to facet by a 2nd variable
 6.  Conversion of unspecified titles to sentence case
@@ -98,10 +96,12 @@ p2 <- penguins2 |>
                    fill = species)) +
   labs(fill = "Species")
 
-p1 / p2
+#p1 / p2
+p1
+p2
 ```
 
-```{r, fig.asp=1.05}
+```{r, fig.asp=0.85}
 # ggblanket
 p1 <- penguins2 |>
   gg_point(
@@ -114,10 +114,10 @@ p2 <- penguins2 |>
     x = flipper_length_mm, 
     col = species)
 
-p1 / p2
+#p1 / p2
 ```
 
-### 3. A pal argument to customise colours
+### 3. A col_pal argument to customise colours
 
 The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. A named palette can be used to make individual colours stick to particular values. ggblanket uses alpha defaults to make outputs look pretty.
 
@@ -135,24 +135,28 @@ p2 <- penguins2 |>
                   colour = sex)) +
   scale_colour_manual(values = c("#1B9E77", "#9E361B"))
 
-p1 / p2
+#p1 / p2
+p1
+p2
 ```
 
-```{r, fig.asp=0.95}
+```{r, fig.asp=0.85}
 # ggblanket
 p1 <- penguins2 |>
   gg_histogram(
     x = body_mass_g, 
-    pal = "#414D6B")
+    col_pal = "#414D6B")
 
 p2 <- penguins2 |>
   gg_jitter(
     x = species, 
     y = body_mass_g, 
     col = sex, 
-    pal = c("#1B9E77", "#9E361B"))
+    col_pal = c("#1B9E77", "#9E361B"))
 
-p1 / p2
+# p1 / p2
+p1
+p2
 ```
 
 ### 4. A facet argument to facet by a variable
@@ -213,7 +217,7 @@ penguins2 |>
   scale_x_continuous(breaks = scales::breaks_pretty(n = 3)) 
 ```
 
-```{r}
+```{r, fig.asp=0.525}
 # ggblanket
 penguins2 |>
   gg_point(
@@ -239,15 +243,14 @@ penguins2 |>
   scale_y_continuous(breaks = scales::breaks_width(1500),
                      labels = scales::label_number(big.mark = " "),
                      expand = expansion(mult = c(0, 0.05)),
-                     trans = "sqrt") +
+                     transform = "sqrt") +
   labs(x = "Species", y = "Body mass (g)", col = NULL) +
   theme(legend.position = "top") +
   theme(legend.justification = "left") +
-  scale_colour_manual(values = scales::hue_pal()(2), 
-                      guide = ggplot2::guide_legend(title.position = "top"))
+  scale_colour_manual(values = scales::pal_hue()(2))
 ```
 
-```{r, fig.asp=0.55}
+```{r, fig.asp=0.6}
 # ggblanket
 penguins2 |>
   gg_jitter(
@@ -255,13 +258,12 @@ penguins2 |>
     y = body_mass_g,
     col = sex,
     x_labels = \(x) stringr::str_sub(x, 1, 1),
-    y_include = 0,
+    y_expand_limits = 0,
     y_breaks = scales::breaks_width(1500), 
     y_labels = scales::label_number(big.mark = " "), 
     y_expand = expansion(mult = c(0, 0.05)),
-    y_trans = "sqrt",
-    y_title = "Body mass (g)", 
-    col_legend_place = "top", 
+    y_transform = "sqrt",
+    y_title = "Body mass (g)",
     col_title = "")
 ```
 
@@ -282,14 +284,14 @@ Users can use the `theme` argument in a `gg_*` function for the theme of a plot.
 
 Alternatively, users can set the theme globally using the `ggplot2::theme_set` function, such that all subsequent plots will use this by default. 
 
-ggblanket provides two complete ggplot2 theme functions called `light_mode` (the default) and `dark_mode`. The first argument is the `base_size`. This changes the size of all the text to this, except the title is 10% higher and the caption is 10% lower. In quarto, it is likely that users will want to set the `*_mode` theme to have a larger `base_size` (e.g. `ggplot2::theme_set(light_mode(11))`). 
+ggblanket provides two complete ggplot2 theme functions called `light_mode` (the default) and `dark_mode`. The first argument is the `base_size`. This changes the size of all the text to this, except the title is 10% higher and the caption is 10% lower. In quarto, it is likely that users will want to set the `*_mode` theme to have a larger `base_size` (e.g. `ggplot2::theme_set(light_mode_rt(11))`). 
 
-Note that `theme_set(theme_grey())` resets the set theme for ggplot2 code to theme_grey and for ggblanket `gg_*` functions to `light_mode()`. If you want ggblanket `gg_*` functions to default to using `theme_grey()`, then you must modify the base_size slightly (e.g. `theme_set(theme_grey(11.01))`).
+Note that `theme_set(theme_grey())` resets the set theme for ggplot2 code to theme_grey and for ggblanket `gg_*` functions to `light_mode_rt()`. If you want ggblanket `gg_*` functions to default to using `theme_grey()`, then you must modify the base_size slightly (e.g. `theme_set(theme_grey(11.01))`).
 
 ```{r, fig.asp=0.75}
 # ggblanket
 
-# theme_set(dark_mode(10))
+# theme_set(dark_mode_rt(10))
 
 penguins2 |>
   gg_point(
@@ -299,7 +301,7 @@ penguins2 |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    theme = dark_mode(10))
+    theme = dark_mode_b(10))
 ```
 
 Note that the `gg_*` function will by default adjust what gridlines are present and the placement of the legend. Therefore, if you are providing a theme other than `light_mode` or `dark_mode`, ggblanket works well if this theme has both vertical and horizontal gridlines. If users want everything adjusted as per the theme, then they can `+` their theme onto the plot instead.
@@ -324,7 +326,9 @@ p2 <- penguins2 |>
     title = "+ theme_grey()") +
   theme_grey()
 
-p1 + p2
+# p1 + p2
+p1
+p2
 ```
 
 ### 9. Access to other geom\_\* arguments via `...`
@@ -402,7 +406,7 @@ penguins2 |>
     x_labels = \(x) stringr::str_sub(x, 1, 1),
     y_labels = \(x) str_keep_seq(x),
     title = "Keep every 2nd label", 
-    theme = light_mode(title_face = "plain"))
+    theme = light_mode_rt(title_face = "plain"))
 ```
 
 ### 11. Ability to add multiple geom\_\* layers
@@ -422,38 +426,40 @@ p1 <- ggplot2::economics |>
   gg_line(
     x = date,
     y = unemploy,
-    pal = guardian()[1],
+    col_pal = pal_guardian[1],
     x_title = "",
     y_title = "Unemployment",
-    y_include = 0,
+    y_expand_limits = 0,
     linewidth = 1, 
     x_breaks = scales::breaks_width("3 months"),
     title = "gg_line + geom_point", 
-    theme = light_mode(title_face = "plain")) +
-  geom_point(colour = guardian()[2])
+    theme = light_mode_rt(title_face = "plain")) +
+  geom_point(colour = pal_guardian[2])
 
 p2 <- ggplot2::economics |>
   slice_min(order_by = date, n = 10) |> 
   gg_point(
     x = date,
     y = unemploy,
-    pal = guardian()[2],
+    col_pal = pal_guardian[2],
     x_title = "",
     y_title = "Unemployment",
-    y_include = 0,
+    y_expand_limits = 0,
     x_breaks = scales::breaks_width("3 months"),
     title = "gg_point + geom_line", 
-    theme = light_mode(title_face = "plain")) +
-  geom_line(colour = guardian()[1], linewidth = 1)
+    theme = light_mode_rt(title_face = "plain")) +
+  geom_line(colour = pal_guardian[1], linewidth = 1)
 
-p1 + p2
+# p1 + p2
+p1
+p2
 ```
 
 2. If some geom layers have a `col` aesthetic and some do not, then a `gg_*` function _should_ be chosen that has a `col` argument in it. This will enable ggblanket legend placement and access to `col_*` arguments. It is also a more reliable approach. If later layers do not require the `col` aesthetic, then the `inheit.aes = FALSE` argument should be used. 
 
 3. In some situations, `gg_blank` may be required.
 
-Users need to ensure that the scales built by their `gg_*` function are appropriate for subsequent layers. Plot scales are built by the `gg_*` function based on the `data`, `x`, `y`, `*_limits`, `*_include`, `stat`, `position` and `coord` arguments in the `gg_*`  function. 
+Users need to ensure that the scales built by their `gg_*` function are appropriate for subsequent layers. Plot scales are built by the `gg_*` function based on the `data`, `x`, `y`, `*_limits`, `*_expand_limits`, `stat`, `position` and `coord` arguments in the `gg_*`  function. 
 
 ```{r, fig.asp=0.75}
 # ggblanket + ggplot2
@@ -469,10 +475,9 @@ p1 <- d |>
     y = species,
     col = species,
     width = 0.75,
-    x_include = c(0, max(d$upper)), 
+    x_expand_limits = c(0, max(d$upper)), 
     x_labels = \(x) x / 1000, 
-    x_title = "Body mass kg",
-    col_legend_place = "none") +
+    x_title = "Body mass kg") +
   geom_errorbar(aes(xmin = lower, xmax = upper), 
                 colour = "black",
                 width = 0.1) 
@@ -485,14 +490,15 @@ p2 <- d |>
     colour = "#d3d3d3",
     fill = "#d3d3d3",
     width = 0.75,
-    x_include = c(0, max(d$upper)), 
+    x_expand_limits = c(0, max(d$upper)), 
     x_labels = \(x) x / 1000, 
-    x_title = "Body mass kg",
-    col_legend_place = "none") +
+    x_title = "Body mass kg") +
   geom_errorbar(aes(xmin = lower, xmax = upper), 
                 width = 0.1) 
 
-p1 / p2
+#p1 / p2
+p1
+p2
 ```
 
 ### 12. Other key differences to ggplot2
@@ -511,7 +517,7 @@ p1 <- diamonds |>
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
     title = "Default y",
-    theme = light_mode(title_face = "plain")
+    theme = light_mode_rt(title_face = "plain")
   )
 
 
@@ -525,7 +531,7 @@ p2 <- diamonds |>
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
     title = "Reverse y",
-    theme = light_mode(title_face = "plain")
+    theme = light_mode_rt(title_face = "plain")
   )
 
 p3 <- diamonds |>
@@ -538,7 +544,7 @@ p3 <- diamonds |>
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
     title = "Reordered y ascending by x",
-    theme = light_mode(title_face = "plain")
+    theme = light_mode_rt(title_face = "plain")
   )
 
 p4 <- diamonds |>
@@ -553,10 +559,14 @@ p4 <- diamonds |>
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
     title = "Reordered y decending by x",
-    theme = light_mode(title_face = "plain")
+    theme = light_mode_rt(title_face = "plain")
   )
 
-(p1 + p2) / (p3 + p4)
+# (p1 + p2) / (p3 + p4)
+p1
+p2
+p3
+p4
 ```
 
 ##### Unused factor levels kept
@@ -573,7 +583,7 @@ p1 <- diamonds |>
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
     title = "A factor filtered",
-    theme = light_mode(title_face = "plain"))
+    theme = light_mode_rt(title_face = "plain"))
 
 p2 <- diamonds |> 
   count(color) |>
@@ -585,18 +595,20 @@ p2 <- diamonds |>
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
     title = "A factor filtered & unused levels dropped",
-    theme = light_mode(title_face = "plain"))
+    theme = light_mode_rt(title_face = "plain"))
 
-p1 + p2
+# p1 + p2
+p1
+p2
 ```
 
-##### Different pal and alpha defaults
+##### Different col_pal and alpha defaults
 
 ggblanket uses different defaults for colouring. The default `pal` is:
 
 * `#357BA2` or `mako(9)[5]` for no `col` variable
 * `ggblanket::guardian` for a discrete `col` variable with 4 or less levels (or unique values if a character). This palette is colourblind safe. 
-* `scales::hue_pal` for a discrete `col` variable with 5 or more levels (or unique values if not ordered).
+* `scales::pal_hue` for a discrete `col` variable with 5 or more levels (or unique values if not ordered).
 * `viridis::mako` reversed for a continuous `col` variable
 * `"#bebebe"` or `grey` for NA
 
@@ -617,11 +629,11 @@ p1 <- economics |>
     y = unemploy, 
     y_labels = \(x) str_keep_seq(x),
     title = "No x_limits set", 
-    theme = light_mode(title_face = "plain")) +
+    theme = light_mode_rt(title_face = "plain")) +
   geom_vline(xintercept = c(lubridate::ymd("1985-01-01", "1995-01-01")),
-             col = guardian(n = 1), 
+             col = pal_guardian[1], 
              linetype = 3) +
-  geom_point(col = guardian(n = 1), alpha = 0.05)
+  geom_point(col = pal_guardian[1], alpha = 0.05)
 
 p2 <- economics |> 
   gg_smooth(
@@ -631,8 +643,8 @@ p2 <- economics |>
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     y_labels = \(x) str_keep_seq(x),
     title = "x_limits set", 
-    theme = light_mode(title_face = "plain")) +
-  geom_point(col = guardian(n = 1), alpha = 0.1)
+    theme = light_mode_rt(title_face = "plain")) +
+  geom_point(col = pal_guardian[1], alpha = 0.1)
 
 p3 <- economics |> 
   gg_smooth(
@@ -643,8 +655,8 @@ p3 <- economics |>
     y_labels = \(x) str_keep_seq(x),
     coord = coord_cartesian(clip = "on"), 
     title = "x_limits set & cartesian space clipped", 
-    theme = light_mode(title_face = "plain")) +
-  geom_point(col = guardian(n = 1), alpha = 0.1)
+    theme = light_mode_rt(title_face = "plain")) +
+  geom_point(col = pal_guardian[1], alpha = 0.1)
 
 p4 <- economics |> 
   gg_smooth(
@@ -655,8 +667,8 @@ p4 <- economics |>
     x_oob = scales::oob_censor,
     y_labels = \(x) str_keep_seq(x),
     title = "x_limits set & x_oob censored", 
-    theme = light_mode(title_face = "plain")) +
-  geom_point(col = guardian(n = 1), alpha = 0.1)
+    theme = light_mode_rt(title_face = "plain")) +
+  geom_point(col = pal_guardian[1], alpha = 0.1)
 
 p5 <- economics |> 
   filter(between(date, lubridate::ymd("1985-01-01"), lubridate::ymd("1995-01-01"))) |> 
@@ -666,10 +678,15 @@ p5 <- economics |>
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     y_labels = \(x) str_keep_seq(x),
     title = "x data filtered", 
-    theme = light_mode(title_face = "plain")) +
-  geom_point(col = guardian(n = 1), alpha = 0.1)
+    theme = light_mode_rt(title_face = "plain")) +
+  geom_point(col = pal_guardian[1], alpha = 0.1)
 
-p1 / (p2 + p3) / (p4 + p5) 
+# p1 / (p2 + p3) / (p4 + p5) 
+p1 
+p2 
+p3
+p4
+p5 
 ```
 
 ##### Computational speed is sacrificed
@@ -697,7 +714,7 @@ bench::mark({
 
 * `*_title` is equivalent to `ggplot2::labs(* = ...)` or `ggplot2::scale_*(name = ...)`.
 * Logical variables are reversed, so that `TRUE` always comes before `FALSE`.
-* `*_include` works in a similar way to `ggplot2::expand_limits(* = ...)`.
+* `*_expand_limits` works in a similar way to `ggplot2::expand_limits(* = ...)`.
 
 ## Further information 
 
