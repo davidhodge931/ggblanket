@@ -8,23 +8,35 @@
 #' @references Colours inspired by the Guardian website. scales::pal_hue otherwise.
 pal_guardian <-c("#2596be", "#fc7c24", "#9c1e74", "#6b5840")
 
-#' Default colours used in the light_mode theme.
+#' A 5 colour vector for use with the light_mode_* themes to colour the (1) plot background (2) panel background, (3) axis lines (and ticks) (4) panel grid and (5) text.
 #'
-#' @description Default colours used in the light_mode theme for the (1) base text and axis, (2) plot background, (3) panel background and (4) gridlines.
+#' @description A 5 colour vector for use with the light_mode_* themes.
 #'
 #' @return A character vector.
 #'
 #' @export
-pal_light_mode <- c("#121b24", "#e6ecf2", "#fcfdfe", "#dbe1e7")
+pal_light_mode <- c(
+  "plot_background" = "#e6ecf2",
+  "panel_background" = "#fcfdfe",
+  "axis_line" = "#121b24",
+  "panel_grid" = "#dbe1e7",
+  "text" = "#121b24"
+)
 
-#' Default colours used in the dark_mode theme.
+#' A 5 colour vector for use with the dark_mode_* themes to colour the (1) plot background (2) panel background, (3) axis lines (and ticks) (4) panel grid and (5) text.
 #'
-#' @description Default colours used in the dark_mode theme for the (1) base text and axis, (2) plot background, (3) panel background and (4) gridlines.
+#' @description A 5 colour vector for use with the dark_mode_* themes.
 #'
 #' @return A character vector.
 #'
 #' @export
-pal_dark_mode <- c("#bbccdd", "#15202b", "#1f2f3e", "#2c3a48")
+pal_dark_mode <- c(
+  "plot_background" = "#15202b",
+  "panel_background" = "#1f2f3e",
+  "axis_line" = "#bbccdd",
+  "panel_grid" = "#2c3a48",
+  "text" = "#bbccdd"
+)
 
 #' Default colours used to colour a discrete variable.
 #'

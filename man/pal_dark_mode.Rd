@@ -3,9 +3,9 @@
 \docType{data}
 \name{pal_dark_mode}
 \alias{pal_dark_mode}
-\title{Default colours used in the dark_mode theme.}
+\title{A 5 colour vector for use with the dark_mode_* themes to colour the (1) plot background (2) panel background, (3) axis lines (and ticks) (4) panel grid and (5) text.}
 \format{
-An object of class \code{character} of length 4.
+An object of class \code{character} of length 5.
 }
 \usage{
 pal_dark_mode
@@ -14,6 +14,6 @@ pal_dark_mode
 A character vector.
 }
 \description{
-Default colours used in the dark_mode theme for the (1) base text and axis, (2) plot background, (3) panel background and (4) gridlines.
+A 5 colour vector for use with the dark_mode_* themes.
 }
 \keyword{datasets}
