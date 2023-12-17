@@ -257,6 +257,8 @@ gg_blanket(
 
 \item{alpha_pal}{Alpha values to use as a numeric vector. For a continuous variable, a range is only needed.}
 
+\item{alpha_pal_na}{Alpha value to use for the NA value.}
+
 \item{alpha_title}{Legend title string. Use "" for no title.}
 
 \item{alpha_transform}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
@@ -266,8 +268,6 @@ gg_blanket(
 \item{titles}{A function to format unspecified titles. Defaults to snakecase::to_sentence_case.}
 
 \item{...}{Other arguments passed to within a params list in the layer function.}
-
-\item{lpha_pal_na}{Alpha value to use for the NA value.}
 }
 \value{
 A ggplot object.

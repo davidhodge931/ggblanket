@@ -15,6 +15,8 @@
 
 * Added `light_mode_*` and `dark_mode_*` family of functions.
 * Increased `light_mode_*` and `dark_mode_*` default base_size.
+* Changed `*_mode_*` default face to plain.
+
 * Improved default gridlines.
 * Fixed bug when col is logical class.
 * Breaking: remove `col_scale` argument.

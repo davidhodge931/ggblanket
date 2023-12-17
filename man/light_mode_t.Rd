@@ -10,7 +10,7 @@ light_mode_t(
   base_face = "plain",
   base_pal = "#121b24",
   title_family = NULL,
-  title_face = "bold",
+  title_face = "plain",
   title_pal = NULL,
   title_size = ggplot2::rel(1.1),
   title_vjust = 0.5,
@@ -43,7 +43,7 @@ light_mode_t(
 
 \item{title_family}{The font family of the title. Defaults to the base_family.}
 
-\item{title_face}{The font face of the title. Defaults to "bold".}
+\item{title_face}{The font face of the title. Defaults to "plain".}
 
 \item{title_pal}{The colour of the title. Defaults to the base_pal first element.}
 

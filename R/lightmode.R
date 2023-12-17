@@ -6,7 +6,7 @@
 #' @param base_face The base face of the text. Defaults to "plain".
 #' @param base_pal The base colour of the text. Defaults to "#121b24".
 #' @param title_family The font family of the title. Defaults to the base_family.
-#' @param title_face The font face of the title. Defaults to "bold".
+#' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
 #' @param title_size The size of the title. Defaults to the base_size * 1.1.
 #' @param title_vjust The vertical adjustment of the title. Defaults to 0.5.
@@ -60,7 +60,7 @@ light_mode_rt <- function (
     base_face = "plain",
     base_pal = "#121b24",
     title_family = NULL,
-    title_face = "bold",
+    title_face = "plain",
     title_pal = NULL,
     title_size = ggplot2::rel(1.1),
     title_vjust = 0.5,
@@ -176,7 +176,7 @@ light_mode_rt <- function (
 #' @param base_face The base face of the text. Defaults to "plain".
 #' @param base_pal The base colour of the text. Defaults to "#121b24".
 #' @param title_family The font family of the title. Defaults to the base_family.
-#' @param title_face The font face of the title. Defaults to "bold".
+#' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
 #' @param title_size The size of the title. Defaults to the base_size * 1.1.
 #' @param title_vjust The vertical adjustment of the title. Defaults to 0.5.
@@ -230,7 +230,7 @@ light_mode_r <- function (
     base_face = "plain",
     base_pal = "#121b24",
     title_family = NULL,
-    title_face = "bold",
+    title_face = "plain",
     title_pal = NULL,
     title_size = ggplot2::rel(1.1),
     title_vjust = 0.5,
@@ -346,7 +346,7 @@ light_mode_r <- function (
 #' @param base_face The base face of the text. Defaults to "plain".
 #' @param base_pal The base colour of the text. Defaults to "#121b24".
 #' @param title_family The font family of the title. Defaults to the base_family.
-#' @param title_face The font face of the title. Defaults to "bold".
+#' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
 #' @param title_size The size of the title. Defaults to the base_size * 1.1.
 #' @param title_vjust The vertical adjustment of the title. Defaults to 0.5.
@@ -400,7 +400,7 @@ light_mode_b <- function (
     base_face = "plain",
     base_pal = "#121b24",
     title_family = NULL,
-    title_face = "bold",
+    title_face = "plain",
     title_pal = NULL,
     title_size = ggplot2::rel(1.1),
     title_vjust = 0.5,
@@ -516,7 +516,7 @@ light_mode_b <- function (
 #' @param base_face The base face of the text. Defaults to "plain".
 #' @param base_pal The base colour of the text. Defaults to "#121b24".
 #' @param title_family The font family of the title. Defaults to the base_family.
-#' @param title_face The font face of the title. Defaults to "bold".
+#' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
 #' @param title_size The size of the title. Defaults to the base_size * 1.1.
 #' @param title_vjust The vertical adjustment of the title. Defaults to 0.5.
@@ -570,7 +570,7 @@ light_mode_t <- function (
     base_face = "plain",
     base_pal = "#121b24",
     title_family = NULL,
-    title_face = "bold",
+    title_face = "plain",
     title_pal = NULL,
     title_size = ggplot2::rel(1.1),
     title_vjust = 0.5,
@@ -686,7 +686,7 @@ light_mode_t <- function (
 #' @param base_face The base face of the text. Defaults to "plain".
 #' @param base_pal The base colour of the text. Defaults to "#121b24".
 #' @param title_family The font family of the title. Defaults to the base_family.
-#' @param title_face The font face of the title. Defaults to "bold".
+#' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
 #' @param title_size The size of the title. Defaults to the base_size * 1.1.
 #' @param title_vjust The vertical adjustment of the title. Defaults to 0.5.
@@ -741,7 +741,7 @@ light_mode_i <- function (
     base_face = "plain",
     base_pal = "#121b24",
     title_family = NULL,
-    title_face = "bold",
+    title_face = "plain",
     title_pal = NULL,
     title_size = ggplot2::rel(1.1),
     title_vjust = 0.5,
