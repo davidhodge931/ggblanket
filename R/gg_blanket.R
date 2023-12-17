@@ -1214,34 +1214,6 @@ gg_blanket <- function(
     params_list <- list(contour = contour, alpha = alpha_pal1, ...)
   }
 
-  # if ((is.na(col_continuous)) & (is.na(alpha_continuous))) {
-  #   if (rlang::is_null(col_pal)) col_pal1 <- pal_none()
-  #   else col_pal1 <- col_pal[1]
-  #
-  #   if (rlang::is_null(alpha_pal)) {
-  #     if (geom_name == "label") alpha_pal1 <- 0.1
-  #     else alpha_pal1 <- 0.9
-  #   }
-  #   else alpha_pal1 <- alpha_pal[1]
-  #
-  #   params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
-  # }
-  # else if (is.na(col_continuous)) {
-  #   if (rlang::is_null(col_pal)) col_pal1 <- pal_none()
-  #   else col_pal1 <- col_pal[1]
-  #
-  #   params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, ...)
-  # }
-  # else if (is.na(alpha_continuous)) {
-  #   if (rlang::is_null(alpha_pal)) {
-  #     if (geom_name == "label") alpha_pal1 <- 0.1
-  #     else alpha_pal1 <- 0.9
-  #   }
-  #   else alpha_pal1 <- alpha_pal[1]
-  #
-  #   params_list <- list(contour = contour, alpha = alpha_pal1, ...)
-  # }
-
   #remake plot where either no col or alpha aesthetic
   if (is.na(col_continuous) | is.na(alpha_continuous)) {
     if (stringr::str_detect(stat_name, "sf")) {
@@ -1394,31 +1366,31 @@ gg_blanket <- function(
     }
     else if (!col_continuous) {
       if (rlang::is_null(col_pal)) {
+        if (!rlang::quo_is_null(col)) {
+          col_n <- data %>%
+            dplyr::pull(!!col) %>%
+            levels() %>%
+            length()
 
-      }
-      if (!rlang::quo_is_null(col)) {
-        col_n <- data %>%
-          dplyr::pull(!!col) %>%
-          levels() %>%
-          length()
-
-        col_pal <- pal_discrete(col_n)
-      }
-      else { #guess anything that's ordered represents col,
-        #as there is a discrete col scale and no col variable supplied
-        plot_data_ordered <- plot_data %>%
-          dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), \(x) length(levels(x))))
-
-        if (ncol(plot_data_ordered) == 0) {
-          col_pal <- pal_discrete(n = 4)
+          col_pal <- pal_discrete(col_n)
         }
-        else {
-          col_n <- plot_data_ordered %>%
-            tidyr::pivot_longer(tidyselect::everything()) %>%
-            dplyr::summarise(max(.data$value)) %>%
-            dplyr::pull()
+        else { #guess anything that's ordered represents col,
+          #as there is a discrete col scale and no col variable supplied
+          plot_data_ordered <- plot_data %>%
+            dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), \(x) length(levels(x))))
 
-          col_pal <- pal_continuous(n = col_n)
+          if (ncol(plot_data_ordered) == 0) {
+            col_pal <- pal_discrete(n = 4)
+          }
+          else {
+            col_n <- plot_data_ordered %>%
+              tidyr::pivot_longer(tidyselect::everything()) %>%
+              dplyr::summarise(max(.data$value)) %>%
+              dplyr::pull()
+
+            col_pal <- pal_continuous(n = col_n)
+            col_legend_rev <- !col_legend_rev
+          }
         }
       }
 
@@ -1555,6 +1527,7 @@ gg_blanket <- function(
               dplyr::pull()
 
             alpha_pal <- seq(from = 0.1, to = 1, by = (1 - 0.1) / (alpha_n - 1))
+            alpha_legend_rev <- !alpha_legend_rev
           }
         }
       }
