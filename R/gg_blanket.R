@@ -1177,33 +1177,70 @@ gg_blanket <- function(
   ##############################################################################
 
   #get params for when no col or alpha aesthetic
-  if ((is.na(col_continuous)) & (is.na(alpha_continuous))) {
+  if (is.na(col_continuous)) {
     if (rlang::is_null(col_pal)) col_pal1 <- pal_none()
     else col_pal1 <- col_pal[1]
+  }
 
+  if (is.na(alpha_continuous)) {
     if (rlang::is_null(alpha_pal)) {
-      if (geom_name == "label") alpha_pal1 <- 0.1
+      #points or lines.
+      if (geom_name %in% c("contour", "density_2d", "density2d", "errorbar", "line", "linerange", "point", "pointrange", "segment", "step", "text")) alpha_pal1 <- 1
+      #Polygons that generally have no gap or overlap
+      else if (geom_name %in% c("bin_2d", "bin2d", "contour_filled", "density_2d_filled", "density2d_filled", "hex", "raster")) alpha_pal1 <- 1
+      #Polygons that generally have key lines within them also default to 0.5
+      else if (geom_name %in% c("boxplot", "crossbar", "density", "ribbon", "smooth")) alpha_pal1 <- 0.5
+      #Other polygons
+      else if (geom_name %in% c("area", "bar", "col", "histogram", "polygon", "rect", "tile", "violin")) alpha_pal1 <- 0.9
+      #labels
+      else if (geom_name == "label") alpha_pal1 <- 0.1
+      #sf
+      else if (geom_name %in% c("sf")) alpha_pal1 <- 0.9
+      #Blank
+      else if (geom_name %in% c("blank")) alpha_pal1 <- NA
+      #Everything else
       else alpha_pal1 <- 0.9
     }
     else alpha_pal1 <- alpha_pal[1]
+  }
 
+  if ((is.na(col_continuous)) & (is.na(alpha_continuous))) {
     params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
   }
   else if (is.na(col_continuous)) {
-    if (rlang::is_null(col_pal)) col_pal1 <- pal_none()
-    else col_pal1 <- col_pal[1]
-
     params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, ...)
   }
   else if (is.na(alpha_continuous)) {
-    if (rlang::is_null(alpha_pal)) {
-      if (geom_name == "label") alpha_pal1 <- 0.1
-      else alpha_pal1 <- 0.9
-    }
-    else alpha_pal1 <- alpha_pal[1]
-
     params_list <- list(contour = contour, alpha = alpha_pal1, ...)
   }
+
+  # if ((is.na(col_continuous)) & (is.na(alpha_continuous))) {
+  #   if (rlang::is_null(col_pal)) col_pal1 <- pal_none()
+  #   else col_pal1 <- col_pal[1]
+  #
+  #   if (rlang::is_null(alpha_pal)) {
+  #     if (geom_name == "label") alpha_pal1 <- 0.1
+  #     else alpha_pal1 <- 0.9
+  #   }
+  #   else alpha_pal1 <- alpha_pal[1]
+  #
+  #   params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
+  # }
+  # else if (is.na(col_continuous)) {
+  #   if (rlang::is_null(col_pal)) col_pal1 <- pal_none()
+  #   else col_pal1 <- col_pal[1]
+  #
+  #   params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, ...)
+  # }
+  # else if (is.na(alpha_continuous)) {
+  #   if (rlang::is_null(alpha_pal)) {
+  #     if (geom_name == "label") alpha_pal1 <- 0.1
+  #     else alpha_pal1 <- 0.9
+  #   }
+  #   else alpha_pal1 <- alpha_pal[1]
+  #
+  #   params_list <- list(contour = contour, alpha = alpha_pal1, ...)
+  # }
 
   #remake plot where either no col or alpha aesthetic
   if (is.na(col_continuous) | is.na(alpha_continuous)) {
