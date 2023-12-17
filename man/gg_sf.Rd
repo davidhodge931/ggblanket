@@ -8,7 +8,7 @@ gg_sf(
   data = NULL,
   stat = "sf",
   position = "identity",
-  coord = NULL,
+  coord = ggplot2::coord_sf(clip = "off"),
   theme = NULL,
   x = NULL,
   y = NULL,

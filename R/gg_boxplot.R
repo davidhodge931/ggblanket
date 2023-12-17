@@ -98,7 +98,7 @@ gg_boxplot <- function(
     data = NULL,
     stat = "boxplot",
     position = "dodge2",
-    coord = NULL,
+    coord = ggplot2::coord_cartesian(clip = "off"),
     theme = NULL,
     x = NULL,
     y = NULL,

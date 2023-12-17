@@ -8,7 +8,7 @@ gg_col(
   data = NULL,
   stat = "identity",
   position = "stack",
-  coord = NULL,
+  coord = ggplot2::coord_cartesian(clip = "off"),
   theme = NULL,
   x = NULL,
   y = NULL,

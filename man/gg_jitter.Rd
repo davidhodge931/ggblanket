@@ -8,7 +8,7 @@ gg_jitter(
   data = NULL,
   stat = "identity",
   position = "jitter",
-  coord = NULL,
+  coord = ggplot2::coord_cartesian(clip = "off"),
   theme = NULL,
   x = NULL,
   y = NULL,

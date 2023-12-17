@@ -6,9 +6,9 @@
 \usage{
 gg_density_2d_filled(
   data = NULL,
-  stat = "density_2d",
+  stat = "density_2d_filled",
   position = "identity",
-  coord = NULL,
+  coord = ggplot2::coord_cartesian(clip = "off"),
   theme = NULL,
   x = NULL,
   y = NULL,

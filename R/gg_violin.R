@@ -98,7 +98,7 @@ gg_violin <- function(
     data = NULL,
     stat = "ydensity",
     position = "dodge",
-    coord = NULL,
+    coord = ggplot2::coord_cartesian(clip = "off"),
     theme = NULL,
     x = NULL,
     y = NULL,

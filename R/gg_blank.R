@@ -98,7 +98,7 @@ gg_blank <- function(
     data = NULL,
     stat = "identity",
     position = "identity",
-    coord = NULL,
+    coord = ggplot2::coord_cartesian(clip = "off"),
     theme = NULL,
     x = NULL,
     y = NULL,

@@ -8,7 +8,7 @@ gg_bin_2d(
   data = NULL,
   stat = "bin2d",
   position = "identity",
-  coord = NULL,
+  coord = ggplot2::coord_cartesian(clip = "off"),
   theme = NULL,
   x = NULL,
   y = NULL,
