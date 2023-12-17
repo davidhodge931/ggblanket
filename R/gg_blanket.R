@@ -1527,7 +1527,7 @@ gg_blanket <- function(
               dplyr::pull()
 
             alpha_pal <- seq(from = 0.1, to = 1, by = (1 - 0.1) / (alpha_n - 1))
-            alpha_legend_rev <- !alpha_legend_rev
+            # alpha_legend_rev <- !alpha_legend_rev
           }
         }
       }
