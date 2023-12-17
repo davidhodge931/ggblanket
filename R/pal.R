@@ -19,11 +19,11 @@ pal_light_mode <- c(
   "plot_background" = "#e6ecf2",
   "panel_background" = "#fcfdfe",
   "axis_line" = "#121b24",
-  "panel_grid" = "#dbe1e7",
+  "gridlines" = "#dbe1e7",
   "text" = "#121b24"
 )
 
-#' A 5 colour vector for use with the dark_mode_* themes to colour the (1) plot background (2) panel background, (3) axis lines (and ticks) (4) panel grid and (5) text.
+#' A 5 colour vector for use with the dark_mode_* themes to colour the (1) plot background (2) panel background, (3) axis lines (and ticks) (4) panel grid (and legend key background) and (5) text.
 #'
 #' @description A 5 colour vector for use with the dark_mode_* themes.
 #'
@@ -34,7 +34,7 @@ pal_dark_mode <- c(
   "plot_background" = "#15202b",
   "panel_background" = "#1f2f3e",
   "axis_line" = "#bbccdd",
-  "panel_grid" = "#2c3a48",
+  "gridlines" = "#2c3a48",
   "text" = "#bbccdd"
 )
 

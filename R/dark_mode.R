@@ -1,10 +1,10 @@
-#' @title Light theme for a ggplot with legend at right top.
+#' @title Dark theme for a ggplot with legend at right top.
 #'
-#' @description Light theme for a ggplot visualisation.
+#' @description Dark theme for a ggplot visualisation.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal A 4 colour vector of hex codes to colour the (1) base text and axis, (2) plot background, (3) panel background and (4) gridlines. Defaults to pal_light_mode.
+#' @param base_pal A 5 element vector of hex codes for the (1) plot background etc (2) panel background (3) axis line and ticks (4) gridlines and (5) text.  Defaults to pal_dark_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
@@ -39,12 +39,12 @@
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = light_mode_b()
+#'     theme = dark_mode_b()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(light_mode_b())
+#'   theme_set(dark_mode_b())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -54,11 +54,11 @@
 #'     )
 #' }
 #'
-light_mode_rt <- function (
+dark_mode_rt <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    base_pal = pal_light_mode,
+    base_pal = pal_dark_mode,
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -74,7 +74,7 @@ light_mode_rt <- function (
     caption_family = NULL,
     caption_face = NULL,
     caption_alpha = 0.33,
-    caption_pal = base_pal["text"],
+    caption_pal = base_pal[5],
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
     caption_vjust = 0.5,
@@ -82,9 +82,9 @@ light_mode_rt <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal["axis_line"], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = base_pal["plot_background"], colour = base_pal["plot_background"], linewidth = base_size/33, linetype = 1),
-    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal["text"], size = base_size,
+    line = ggplot2::element_line(colour = base_pal[3], linewidth = base_size/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = base_pal[1], colour = base_pal[1], linewidth = base_size/33, linetype = 1),
+    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal[5], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -104,7 +104,7 @@ light_mode_rt <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal["plot_background"], fill = base_pal["plot_background"]),
+    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -114,16 +114,16 @@ light_mode_rt <- function (
     legend.byrow = TRUE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = base_pal["plot_background"]),
+    legend.ticks = ggplot2::element_line(colour = base_pal[1]),
     legend.ticks.length = NULL,
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = base_pal["panel_background"], colour = base_pal["panel_background"]),
+    panel.background = ggplot2::element_rect(fill = base_pal[2], colour = base_pal[2]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = base_pal["panel_grid"], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = base_pal[4], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -168,9 +168,9 @@ light_mode_rt <- function (
   )
 }
 
-#' @title Light theme for a ggplot with legend at right centre.
+#' @title Dark theme for a ggplot with legend at right centre.
 #'
-#' @description Light theme for a ggplot visualisation.
+#' @description Dark theme for a ggplot visualisation.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
@@ -209,12 +209,12 @@ light_mode_rt <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = light_mode_r()
+#'     theme = dark_mode_r()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(light_mode_r())
+#'   theme_set(dark_mode_r())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -224,11 +224,11 @@ light_mode_rt <- function (
 #'     )
 #' }
 #'
-light_mode_r <- function (
+dark_mode_r <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    base_pal = pal_light_mode,
+    base_pal = pal_dark_mode,
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -244,7 +244,7 @@ light_mode_r <- function (
     caption_family = NULL,
     caption_face = NULL,
     caption_alpha = 0.33,
-    caption_pal = base_pal["text"],
+    caption_pal = base_pal[5],
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
     caption_vjust = 0.5,
@@ -252,9 +252,9 @@ light_mode_r <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal["axis_line"], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = base_pal["plot_background"], colour = base_pal["plot_background"], linewidth = base_size/33, linetype = 1),
-    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal["text"], size = base_size,
+    line = ggplot2::element_line(colour = base_pal[3], linewidth = base_size/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = base_pal[1], colour = base_pal[1], linewidth = base_size/33, linetype = 1),
+    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal[5], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -274,7 +274,7 @@ light_mode_r <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal["plot_background"], fill = base_pal["plot_background"]),
+    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -284,16 +284,16 @@ light_mode_r <- function (
     legend.byrow = TRUE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = base_pal["plot_background"]),
+    legend.ticks = ggplot2::element_line(colour = base_pal[1]),
     legend.ticks.length = NULL,
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = base_pal["panel_background"], colour = base_pal["panel_background"]),
+    panel.background = ggplot2::element_rect(fill = base_pal[2], colour = base_pal[2]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = base_pal["panel_grid"], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = base_pal[4], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -338,9 +338,9 @@ light_mode_r <- function (
   )
 }
 
-#' @title Light theme for a ggplot with legend at bottom.
+#' @title Dark theme for a ggplot with legend at bottom.
 #'
-#' @description Light theme for a ggplot visualisation.
+#' @description Dark theme for a ggplot visualisation.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
@@ -379,12 +379,12 @@ light_mode_r <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = light_mode_b()
+#'     theme = dark_mode_b()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(light_mode_b())
+#'   theme_set(dark_mode_b())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -394,11 +394,11 @@ light_mode_r <- function (
 #'     )
 #' }
 #'
-light_mode_b <- function (
+dark_mode_b <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    base_pal = pal_light_mode,
+    base_pal = pal_dark_mode,
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -414,7 +414,7 @@ light_mode_b <- function (
     caption_family = NULL,
     caption_face = NULL,
     caption_alpha = 0.33,
-    caption_pal = base_pal["text"],
+    caption_pal = base_pal[5],
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
     caption_vjust = 0.5,
@@ -422,9 +422,9 @@ light_mode_b <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal["axis_line"], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = base_pal["plot_background"], colour = base_pal["plot_background"], linewidth = base_size/33, linetype = 1),
-    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal["text"], size = base_size,
+    line = ggplot2::element_line(colour = base_pal[3], linewidth = base_size/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = base_pal[1], colour = base_pal[1], linewidth = base_size/33, linetype = 1),
+    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal[5], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -444,7 +444,7 @@ light_mode_b <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal["plot_background"], fill = base_pal["plot_background"]),
+    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -454,16 +454,16 @@ light_mode_b <- function (
     legend.byrow = TRUE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = base_pal["plot_background"]),
+    legend.ticks = ggplot2::element_line(colour = base_pal[1]),
     legend.ticks.length = NULL,
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = base_pal["panel_background"], colour = base_pal["panel_background"]),
+    panel.background = ggplot2::element_rect(fill = base_pal[2], colour = base_pal[2]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = base_pal["panel_grid"], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = base_pal[4], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -508,9 +508,9 @@ light_mode_b <- function (
   )
 }
 
-#' @title Light theme for a ggplot with legend at top.
+#' @title Dark theme for a ggplot with legend at top.
 #'
-#' @description Light theme for a ggplot visualisation.
+#' @description Dark theme for a ggplot visualisation.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
@@ -549,12 +549,12 @@ light_mode_b <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = light_mode_t()
+#'     theme = dark_mode_t()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(light_mode_t())
+#'   theme_set(dark_mode_t())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -564,11 +564,11 @@ light_mode_b <- function (
 #'     )
 #' }
 #'
-light_mode_t <- function (
+dark_mode_t <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    base_pal = pal_light_mode,
+    base_pal = pal_dark_mode,
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -584,7 +584,7 @@ light_mode_t <- function (
     caption_family = NULL,
     caption_face = NULL,
     caption_alpha = 0.33,
-    caption_pal = base_pal["text"],
+    caption_pal = base_pal[5],
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
     caption_vjust = 0.5,
@@ -592,9 +592,9 @@ light_mode_t <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal["axis_line"], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = base_pal["plot_background"], colour = base_pal["plot_background"], linewidth = base_size/33, linetype = 1),
-    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal["text"], size = base_size,
+    line = ggplot2::element_line(colour = base_pal[3], linewidth = base_size/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = base_pal[1], colour = base_pal[1], linewidth = base_size/33, linetype = 1),
+    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal[5], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -614,7 +614,7 @@ light_mode_t <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal["plot_background"], fill = base_pal["plot_background"]),
+    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -624,16 +624,16 @@ light_mode_t <- function (
     legend.byrow = TRUE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = base_pal["plot_background"]),
+    legend.ticks = ggplot2::element_line(colour = base_pal[1]),
     legend.ticks.length = NULL,
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = base_pal["panel_background"], colour = base_pal["panel_background"]),
+    panel.background = ggplot2::element_rect(fill = base_pal[2], colour = base_pal[2]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = base_pal["panel_grid"], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = base_pal[4], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -678,9 +678,9 @@ light_mode_t <- function (
   )
 }
 
-#' @title Light theme for a ggplot with legend inside the panel.
+#' @title Dark theme for a ggplot with legend inside the panel.
 #'
-#' @description Light theme for a ggplot visualisation.
+#' @description Dark theme for a ggplot visualisation.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
@@ -720,12 +720,12 @@ light_mode_t <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = light_mode_i(legend_position_inside = c(0.15, 0.7))
+#'     theme = dark_mode_i(legend_position_inside = c(0.15, 0.7))
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(light_mode_i())
+#'   theme_set(dark_mode_i())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -735,11 +735,11 @@ light_mode_t <- function (
 #'     )
 #' }
 #'
-light_mode_i <- function (
+dark_mode_i <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    base_pal = pal_light_mode,
+    base_pal = pal_dark_mode,
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -755,7 +755,7 @@ light_mode_i <- function (
     caption_family = NULL,
     caption_face = NULL,
     caption_alpha = 0.33,
-    caption_pal = base_pal["text"],
+    caption_pal = base_pal[5],
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
     caption_vjust = 0.5,
@@ -764,9 +764,9 @@ light_mode_i <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal["axis_line"], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = base_pal["plot_background"], colour = base_pal["plot_background"], linewidth = base_size/33, linetype = 1),
-    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal["text"], size = base_size,
+    line = ggplot2::element_line(colour = base_pal[3], linewidth = base_size/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = base_pal[1], colour = base_pal[1], linewidth = base_size/33, linetype = 1),
+    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal[5], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -786,7 +786,7 @@ light_mode_i <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal["plot_background"], fill = base_pal["plot_background"]),
+    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -796,16 +796,16 @@ light_mode_i <- function (
     legend.byrow = TRUE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = base_pal["plot_background"]),
+    legend.ticks = ggplot2::element_line(colour = base_pal[1]),
     legend.ticks.length = NULL,
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = base_pal["panel_background"], colour = base_pal["panel_background"]),
+    panel.background = ggplot2::element_rect(fill = base_pal[2], colour = base_pal[2]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = base_pal["panel_grid"], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = base_pal[4], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -840,7 +840,7 @@ light_mode_i <- function (
     legend.margin = ggplot2::margin(t = base_size * 0.66, r = base_size * 0.33, b = base_size * 0.66, l = base_size * 0.66),
     legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
     legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 1, b = 0, l = base_size * 0.5)),
-    legend.background = ggplot2::element_rect(colour = base_pal["panel_grid"], fill = base_pal["plot_background"]),
+    legend.background = ggplot2::element_rect(colour = base_pal[4], fill = base_pal[1]),
     axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.2, r = 0, b = base_size * 1, l = 0)),
     axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.33, r = 0, b = base_size * 0.75, l = 0)),
     axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 1, l = 0)),
