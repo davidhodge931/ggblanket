@@ -252,9 +252,7 @@ gg_bin_2d(
 
 \item{alpha_oob}{For a continuous variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.}
 
-\item{alpha_pal}{alphaours to use. A character vector of hex codes (or names).}
-
-\item{alpha_pal_na}{alphaour to use for NA values. A character vector of a hex code (or name).}
+\item{alpha_pal}{Alpha values to use as a numeric vector. For a continuous variable, a range is only needed.}
 
 \item{alpha_title}{Legend title string. Use "" for no title.}
 
@@ -265,6 +263,8 @@ gg_bin_2d(
 \item{titles}{A function to format unspecified titles. Defaults to snakecase::to_sentence_case.}
 
 \item{...}{Other arguments passed to within a params list in the layer function.}
+
+\item{lpha_pal_na}{Alpha value to use for the NA value.}
 }
 \value{
 A ggplot object.

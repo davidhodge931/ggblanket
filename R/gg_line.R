@@ -81,8 +81,8 @@
 #' @param alpha_legend_rev Reverse the elements of the legend. Defaults to FALSE.
 #' @param alpha_limits A vector to determine the limits of the scale.
 #' @param alpha_oob For a continuous variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
-#' @param alpha_pal alphaours to use. A character vector of hex codes (or names).
-#' @param alpha_pal_na alphaour to use for NA values. A character vector of a hex code (or name).
+#' @param alpha_pal Alpha values to use as a numeric vector. For a continuous variable, a range is only needed. 
+#' @param lpha_pal_na Alpha value to use for the NA value. 
 #' @param alpha_title Legend title string. Use "" for no title.
 #' @param alpha_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param caption Caption title string.
