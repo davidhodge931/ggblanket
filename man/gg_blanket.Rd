@@ -53,6 +53,7 @@ gg_blanket(
   y_title = NULL,
   y_transform = NULL,
   col_breaks = NULL,
+  col_continuous = "gradient",
   col_expand_limits = NULL,
   col_expand = ggplot2::waiver(),
   col_labels = NULL,
@@ -64,7 +65,6 @@ gg_blanket(
   col_pal = NULL,
   col_pal_na = "#bebebe",
   col_rescale = scales::rescale(),
-  col_steps = FALSE,
   col_title = NULL,
   col_transform = NULL,
   facet_axes = "margins",
@@ -191,6 +191,8 @@ gg_blanket(
 
 \item{col_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
+\item{col_continuous}{For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".}
+
 \item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. 0).}
 
 \item{col_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
@@ -212,8 +214,6 @@ gg_blanket(
 \item{col_pal_na}{colour to use for NA values. A character vector of a hex code (or name).}
 
 \item{col_rescale}{For a continuous variable, a scales::rescale function.}
-
-\item{col_steps}{For a continuous variable, whether to colour in steps. Defaults to FALSE (i.e. a gradient).}
 
 \item{col_title}{Legend title string. Use "" for no title.}
 

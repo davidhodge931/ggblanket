@@ -60,7 +60,7 @@
 #' @param col_pal colours to use. A character vector of hex codes (or names).
 #' @param col_pal_na colour to use for NA values. A character vector of a hex code (or name).
 #' @param col_rescale For a continuous variable, a scales::rescale function.
-#' @param col_steps For a continuous variable, whether to colour in steps. Defaults to FALSE (i.e. a gradient).
+#' @param col_continuous For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".
 #' @param col_title Legend title string. Use "" for no title.
 #' @param col_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_axes Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".
@@ -81,8 +81,8 @@
 #' @param alpha_legend_rev Reverse the elements of the legend. Defaults to FALSE.
 #' @param alpha_limits A vector to determine the limits of the scale.
 #' @param alpha_oob For a continuous variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
-#' @param alpha_pal Alpha values to use as a numeric vector. For a continuous variable, a range is only needed. 
-#' @param alpha_pal_na Alpha value to use for the NA value. 
+#' @param alpha_pal Alpha values to use as a numeric vector. For a continuous variable, a range is only needed.
+#' @param alpha_pal_na Alpha value to use for the NA value.
 #' @param alpha_title Legend title string. Use "" for no title.
 #' @param alpha_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param caption Caption title string.
@@ -103,7 +103,7 @@
 #'   )
 #'
 gg_point <- function(
-    data = NULL,
+    data = NULL, 
     stat = "identity",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
@@ -161,7 +161,7 @@ gg_point <- function(
     col_pal = NULL,
     col_pal_na = "#bebebe",
     col_rescale = scales::rescale(),
-    col_steps = FALSE,
+    col_continuous = "gradient",
     col_title = NULL,
     col_transform = NULL,
     facet_axes = "margins",
@@ -250,7 +250,7 @@ gg_point <- function(
     col_pal = col_pal,
     col_pal_na = col_pal_na,
     col_rescale = col_rescale,
-    col_steps = col_steps,
+    col_continuous = col_continuous,
     col_title = col_title,
     col_transform = col_transform,
     facet_axes = facet_axes,
@@ -280,4 +280,3 @@ gg_point <- function(
     ...
   )
 }
-

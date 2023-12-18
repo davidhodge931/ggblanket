@@ -63,7 +63,7 @@ gg_density(
   col_pal = NULL,
   col_pal_na = "#bebebe",
   col_rescale = scales::rescale(),
-  col_steps = FALSE,
+  col_continuous = "gradient",
   col_title = NULL,
   col_transform = NULL,
   facet_axes = "margins",
@@ -210,7 +210,7 @@ gg_density(
 
 \item{col_rescale}{For a continuous variable, a scales::rescale function.}
 
-\item{col_steps}{For a continuous variable, whether to colour in steps. Defaults to FALSE (i.e. a gradient).}
+\item{col_continuous}{For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".}
 
 \item{col_title}{Legend title string. Use "" for no title.}
 

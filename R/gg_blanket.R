@@ -3,6 +3,7 @@
 #' @description Create a blanket ggplot with a wrapper around ggplot2::layer().
 #'
 #' @param data A data frame or tibble.
+#' @param ... Other arguments passed to within a params list in the layer function.
 #' @param geom A geometric object to display the data. A ggproto Geom subclass object or character string.
 #' @param stat A statistical transformation to use on the data. A ggproto Stat subclass object or character string.
 #' @param position A position adjustment. A ggproto Position subclass object, or character string.
@@ -27,8 +28,6 @@
 #' @param text Unquoted text aesthetic variable.
 #' @param sample Unquoted sample aesthetic variable.
 #' @param mapping Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha_pal.
-#' @param title Title string.
-#' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param x_gridlines TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
@@ -50,6 +49,7 @@
 #' @param y_title Axis title string. Use "" for no title.
 #' @param y_transform For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
+#' @param col_continuous For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".
 #' @param col_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param col_expand_limits For a continuous variable, any values that the limits should encompass (e.g. 0).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
@@ -61,7 +61,6 @@
 #' @param col_pal colours to use. A character vector of hex codes (or names).
 #' @param col_pal_na colour to use for NA values. A character vector of a hex code (or name).
 #' @param col_rescale For a continuous variable, a scales::rescale function.
-#' @param col_steps For a continuous variable, whether to colour in steps. Defaults to FALSE (i.e. a gradient).
 #' @param col_title Legend title string. Use "" for no title.
 #' @param col_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_axes Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".
@@ -86,9 +85,10 @@
 #' @param alpha_pal_na Alpha value to use for the NA value.
 #' @param alpha_title Legend title string. Use "" for no title.
 #' @param alpha_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
+#' @param title Title string.
+#' @param subtitle Subtitle string.
 #' @param caption Caption title string.
 #' @param titles A function to format unspecified titles. Defaults to snakecase::to_sentence_case.
-#' @param ... Other arguments passed to within a params list in the layer function.
 #'
 #' @return A ggplot object.
 #' @export
@@ -97,32 +97,31 @@
 #'
 gg_blanket <- function(
     data = NULL,
+    ...,
     geom = "blank",
     stat = "identity",
     position = "identity",
     coord = NULL,
     theme = NULL,
     x = NULL,
-    y = NULL,
-    col = NULL,
-    facet = NULL,
-    facet2 = NULL,
-    alpha = NULL,
     xmin = NULL,
     xmax = NULL,
     xend = NULL,
+    y = NULL,
     ymin = NULL,
     ymax = NULL,
     yend = NULL,
     z = NULL,
+    col = NULL,
+    alpha = NULL,
+    facet = NULL,
+    facet2 = NULL,
     group = NULL,
     subgroup = NULL,
     label = NULL,
     text = NULL,
     sample = NULL,
     mapping = NULL,
-    title = NULL,
-    subtitle = NULL,
     x_breaks = NULL,
     x_expand = NULL,
     x_gridlines = NULL,
@@ -144,6 +143,7 @@ gg_blanket <- function(
     y_title = NULL,
     y_transform = NULL,
     col_breaks = NULL,
+    col_continuous = "gradient",
     col_expand_limits = NULL,
     col_expand = ggplot2::waiver(),
     col_labels = NULL,
@@ -155,7 +155,6 @@ gg_blanket <- function(
     col_pal = NULL,
     col_pal_na = "#bebebe",
     col_rescale = scales::rescale(),
-    col_steps = FALSE,
     col_title = NULL,
     col_transform = NULL,
     facet_axes = "margins",
@@ -180,9 +179,10 @@ gg_blanket <- function(
     alpha_pal_na = NA,
     alpha_title = NULL,
     alpha_transform = NULL,
+    title = NULL,
+    subtitle = NULL,
     caption = NULL,
-    titles = snakecase::to_sentence_case,
-    ...
+    titles = snakecase::to_sentence_case
 ) {
 
   ##############################################################################
@@ -565,7 +565,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             !!!mapping
           ))
       }
@@ -584,7 +584,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             !!!mapping
           ))
       }
@@ -603,7 +603,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             !!!mapping
           ))
       }
@@ -621,7 +621,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             !!!mapping
           ))
       }
@@ -645,7 +645,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             !!!mapping
           ))
       }
@@ -666,7 +666,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             !!!mapping
           ))
       }
@@ -687,7 +687,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             !!!mapping
           ))
       }
@@ -707,7 +707,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             !!!mapping
           ))
       }
@@ -731,7 +731,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -750,7 +750,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -769,7 +769,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -787,7 +787,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -811,7 +811,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -832,7 +832,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -853,7 +853,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -873,7 +873,7 @@ gg_blanket <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            # geometry = geometry,
+            text = !!text,
             alpha = !!alpha, !!!mapping
           ))
       }
@@ -1224,23 +1224,23 @@ gg_blanket <- function(
   if (stringr::str_detect(stat_name, "sf")) {
     if (class(rlang::eval_tidy(col, data)) %in%
         c("numeric", "double", "integer","Date", "POSIXct","hms")) {
-      col_continuous <- TRUE
+      is_col_continuous <- TRUE
     }
     else if (class(rlang::eval_tidy(col, data)) %in%
              c("character", "logical", "factor")) {
-      col_continuous <- FALSE
+      is_col_continuous <- FALSE
     }
-    else col_continuous <- NA
+    else is_col_continuous <- NA
 
     if (class(rlang::eval_tidy(alpha, data)) %in%
         c("numeric", "double", "integer","Date", "POSIXct","hms")) {
-      alpha_continuous <- TRUE
+      is_alpha_continuous <- TRUE
     }
     else if (class(rlang::eval_tidy(alpha, data)) %in%
              c("character", "logical", "factor")) {
-      alpha_continuous <- FALSE
+      is_alpha_continuous <- FALSE
     }
-    else alpha_continuous <- NA
+    else is_alpha_continuous <- NA
   }
   #support where col is null, but there is a colour scale
   else {
@@ -1249,13 +1249,13 @@ gg_blanket <- function(
              rlang::call_name(x[["call"]]))
     })
 
-    if (any(scales %in% continuous_scales_col)) col_continuous <- TRUE
-    else if (any(scales %in% discrete_scales_col)) col_continuous <- FALSE
-    else col_continuous <- NA
+    if (any(scales %in% continuous_scales_col)) is_col_continuous <- TRUE
+    else if (any(scales %in% discrete_scales_col)) is_col_continuous <- FALSE
+    else is_col_continuous <- NA
 
-    if (any(scales %in% continuous_scales_alpha)) alpha_continuous <- TRUE
-    else if (any(scales %in% discrete_scales_alpha)) alpha_continuous <- FALSE
-    else alpha_continuous <- NA
+    if (any(scales %in% continuous_scales_alpha)) is_alpha_continuous <- TRUE
+    else if (any(scales %in% discrete_scales_alpha)) is_alpha_continuous <- FALSE
+    else is_alpha_continuous <- NA
   }
 
   ##############################################################################
@@ -1263,12 +1263,12 @@ gg_blanket <- function(
   ##############################################################################
 
   #get params for when no col or alpha aesthetic
-  if (is.na(col_continuous)) {
+  if (is.na(is_col_continuous)) {
     if (rlang::is_null(col_pal)) col_pal1 <- pal_none()
     else col_pal1 <- col_pal[1]
   }
 
-  if (is.na(alpha_continuous)) {
+  if (is.na(is_alpha_continuous)) {
     if (rlang::is_null(alpha_pal)) {
       #points or lines.
       if (geom_name %in% c("contour", "density_2d", "density2d", "errorbar", "line", "linerange", "point", "pointrange", "segment", "step", "text")) alpha_pal1 <- 1
@@ -1290,18 +1290,18 @@ gg_blanket <- function(
     else alpha_pal1 <- alpha_pal[1]
   }
 
-  if ((is.na(col_continuous)) & (is.na(alpha_continuous))) {
+  if ((is.na(is_col_continuous)) & (is.na(is_alpha_continuous))) {
     params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
   }
-  else if (is.na(col_continuous)) {
+  else if (is.na(is_col_continuous)) {
     params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, ...)
   }
-  else if (is.na(alpha_continuous)) {
+  else if (is.na(is_alpha_continuous)) {
     params_list <- list(contour = contour, alpha = alpha_pal1, ...)
   }
 
   #remake plot where either no col or alpha aesthetic
-  if (is.na(col_continuous) | is.na(alpha_continuous)) {
+  if (is.na(is_col_continuous) | is.na(is_alpha_continuous)) {
     if (stringr::str_detect(stat_name, "sf")) {
       plot <- plot +
         ggplot2::layer_sf(
@@ -1336,8 +1336,8 @@ gg_blanket <- function(
   # Make colour scale where there is a colour scale identified
   ##############################################################################
 
-  if (!is.na(col_continuous)) {
-    if (col_continuous) {
+  if (!is.na(is_col_continuous)) {
+    if (is_col_continuous) {
       if (rlang::is_null(col_pal)) {
         col_pal <- pal_continuous()
       }
@@ -1373,7 +1373,7 @@ gg_blanket <- function(
         else col_labels <- scales::label_comma(drop0trailing = TRUE)
       }
 
-      if (!col_steps) {
+      if (col_continuous == "gradient") {
         plot <- plot +
           ggplot2::scale_fill_gradientn(
             colours = col_pal,
@@ -1413,7 +1413,7 @@ gg_blanket <- function(
           )
 
       }
-      else if (col_steps) {
+      else if (col_continuous == "steps") {
         plot <- plot +
           ggplot2::scale_fill_stepsn(
             colours = col_pal,
@@ -1450,7 +1450,7 @@ gg_blanket <- function(
           ggplot2::theme(legend.ticks = ggplot2::element_blank())
       }
     }
-    else if (!col_continuous) {
+    else if (!is_col_continuous) {
       if (rlang::is_null(col_pal)) {
         if (!rlang::quo_is_null(col)) {
           col_n <- data %>%
@@ -1534,8 +1534,8 @@ gg_blanket <- function(
   # Make alpha scale where there is a alpha scale identified
   ##############################################################################
 
-  if (!is.na(alpha_continuous)) {
-    if (alpha_continuous) {
+  if (!is.na(is_alpha_continuous)) {
+    if (is_alpha_continuous) {
       if (rlang::is_null(alpha_pal)) {
         alpha_pal <- c(0.1, 1)
       }
@@ -1572,7 +1572,7 @@ gg_blanket <- function(
       }
 
       plot <- plot +
-        ggplot2::scale_alpha_continuous(
+        ggplot2::scale_is_alpha_continuous(
           range = alpha_pal,
           limits = alpha_limits,
           expand = alpha_expand,
@@ -1588,7 +1588,7 @@ gg_blanket <- function(
           )
         )
     }
-    else if (!alpha_continuous) {
+    else if (!is_alpha_continuous) {
       if (rlang::is_null(alpha_pal)) {
         if (!rlang::quo_is_null(alpha)) {
           alpha_n <- data %>%
