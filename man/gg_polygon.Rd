@@ -6,6 +6,7 @@
 \usage{
 gg_polygon(
   data = NULL,
+  ...,
   stat = "identity",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
@@ -89,12 +90,13 @@ gg_polygon(
   alpha_title = NULL,
   alpha_transform = NULL,
   caption = NULL,
-  titles = snakecase::to_sentence_case,
-  ...
+  titles = snakecase::to_sentence_case
 )
 }
 \arguments{
 \item{data}{A data frame or tibble.}
+
+\item{...}{Other arguments passed to within a params list in the layer function.}
 
 \item{stat}{A statistical transformation to use on the data. A ggproto Stat subclass object or character string.}
 
@@ -220,7 +222,7 @@ gg_polygon(
 
 \item{facet_axis_labels}{Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".}
 
-\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).}
+\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).}
 
 \item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of "wrap".}
 
@@ -263,8 +265,6 @@ gg_polygon(
 \item{caption}{Caption title string.}
 
 \item{titles}{A function to format unspecified titles. Defaults to snakecase::to_sentence_case.}
-
-\item{...}{Other arguments passed to within a params list in the layer function.}
 }
 \value{
 A ggplot object.

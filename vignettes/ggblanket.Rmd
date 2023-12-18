@@ -405,8 +405,7 @@ penguins2 |>
     width = 0.5,
     x_labels = \(x) stringr::str_sub(x, 1, 1),
     y_labels = \(x) str_keep_seq(x),
-    title = "Keep every 2nd label", 
-    theme = light_mode_rt(title_face = "plain"))
+    title = "Keep every 2nd label")
 ```
 
 ### 11. Ability to add multiple geom\_\* layers
@@ -432,8 +431,7 @@ p1 <- ggplot2::economics |>
     y_expand_limits = 0,
     linewidth = 1, 
     x_breaks = scales::breaks_width("3 months"),
-    title = "gg_line + geom_point", 
-    theme = light_mode_rt(title_face = "plain")) +
+    title = "gg_line + geom_point") +
   geom_point(colour = pal_guardian[2])
 
 p2 <- ggplot2::economics |>
@@ -446,8 +444,7 @@ p2 <- ggplot2::economics |>
     y_title = "Unemployment",
     y_expand_limits = 0,
     x_breaks = scales::breaks_width("3 months"),
-    title = "gg_point + geom_line", 
-    theme = light_mode_rt(title_face = "plain")) +
+    title = "gg_point + geom_line") +
   geom_line(colour = pal_guardian[1], linewidth = 1)
 
 # p1 + p2
@@ -519,9 +516,7 @@ p1 <- diamonds |>
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
-    title = "Default y",
-    theme = light_mode_rt(title_face = "plain")
-  )
+    title = "Default y")
 
 
 p2 <- diamonds |>
@@ -533,9 +528,7 @@ p2 <- diamonds |>
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
-    title = "Reverse y",
-    theme = light_mode_rt(title_face = "plain")
-  )
+    title = "Reverse y")
 
 p3 <- diamonds |>
   count(color) |>
@@ -546,8 +539,7 @@ p3 <- diamonds |>
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
-    title = "Reordered y ascending by x",
-  )
+    title = "Reordered y ascending by x")
 
 p4 <- diamonds |>
   count(color) |>
@@ -560,8 +552,7 @@ p4 <- diamonds |>
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
-    title = "Reordered y decending by x",
-  )
+    title = "Reordered y decending by x")
 
 # (p1 + p2) / (p3 + p4)
 p1
@@ -583,8 +574,7 @@ p1 <- diamonds |>
     y = color,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
-    title = "A factor filtered",
-    )
+    title = "A factor filtered")
 
 p2 <- diamonds |> 
   count(color) |>
@@ -595,8 +585,7 @@ p2 <- diamonds |>
     y = color,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)",
-    title = "A factor filtered & unused levels dropped",
-    )
+    title = "A factor filtered & unused levels dropped")
 
 # p1 + p2
 p1
@@ -629,8 +618,7 @@ p1 <- economics |>
     x = date, 
     y = unemploy, 
     y_labels = \(x) str_keep_seq(x),
-    title = "No x_limits set", 
-    theme = light_mode_rt(title_face = "plain")) +
+    title = "No x_limits set") +
   geom_vline(xintercept = c(lubridate::ymd("1985-01-01", "1995-01-01")),
              col = pal_guardian[1], 
              linetype = 3) +
@@ -643,8 +631,7 @@ p2 <- economics |>
     x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     y_labels = \(x) str_keep_seq(x),
-    title = "x_limits set", 
-    theme = light_mode_rt(title_face = "plain")) +
+    title = "x_limits set") +
   geom_point(col = pal_guardian[1], alpha = 0.1)
 
 p3 <- economics |> 
@@ -655,8 +642,7 @@ p3 <- economics |>
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     y_labels = \(x) str_keep_seq(x),
     coord = coord_cartesian(clip = "on"), 
-    title = "x_limits set & cartesian space clipped", 
-    theme = light_mode_rt(title_face = "plain")) +
+    title = "x_limits set & cartesian space clipped") +
   geom_point(col = pal_guardian[1], alpha = 0.1)
 
 p4 <- economics |> 
@@ -667,8 +653,7 @@ p4 <- economics |>
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     x_oob = scales::oob_censor,
     y_labels = \(x) str_keep_seq(x),
-    title = "x_limits set & x_oob censored", 
-    theme = light_mode_rt(title_face = "plain")) +
+    title = "x_limits set & x_oob censored") +
   geom_point(col = pal_guardian[1], alpha = 0.1)
 
 p5 <- economics |> 
@@ -678,8 +663,7 @@ p5 <- economics |>
     y = unemploy,
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     y_labels = \(x) str_keep_seq(x),
-    title = "x data filtered", 
-    theme = light_mode_rt(title_face = "plain")) +
+    title = "x data filtered") +
   geom_point(col = pal_guardian[1], alpha = 0.1)
 
 # p1 / (p2 + p3) / (p4 + p5) 

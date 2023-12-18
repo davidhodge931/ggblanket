@@ -6,32 +6,31 @@
 \usage{
 gg_blanket(
   data = NULL,
+  ...,
   geom = "blank",
   stat = "identity",
   position = "identity",
   coord = NULL,
   theme = NULL,
   x = NULL,
-  y = NULL,
-  col = NULL,
-  facet = NULL,
-  facet2 = NULL,
-  alpha = NULL,
   xmin = NULL,
   xmax = NULL,
   xend = NULL,
+  y = NULL,
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
   z = NULL,
+  col = NULL,
+  alpha = NULL,
+  facet = NULL,
+  facet2 = NULL,
   group = NULL,
   subgroup = NULL,
   label = NULL,
   text = NULL,
   sample = NULL,
   mapping = NULL,
-  title = NULL,
-  subtitle = NULL,
   x_breaks = NULL,
   x_expand = NULL,
   x_gridlines = NULL,
@@ -89,13 +88,16 @@ gg_blanket(
   alpha_pal_na = NA,
   alpha_title = NULL,
   alpha_transform = NULL,
+  title = NULL,
+  subtitle = NULL,
   caption = NULL,
-  titles = snakecase::to_sentence_case,
-  ...
+  titles = snakecase::to_sentence_case
 )
 }
 \arguments{
 \item{data}{A data frame or tibble.}
+
+\item{...}{Other arguments passed to within a params list in the layer function.}
 
 \item{geom}{A geometric object to display the data. A ggproto Geom subclass object or character string.}
 
@@ -109,21 +111,13 @@ gg_blanket(
 
 \item{x}{Unquoted x aesthetic variable.}
 
-\item{y}{Unquoted y aesthetic variable.}
-
-\item{col}{Unquoted col and fill aesthetic variable.}
-
-\item{facet}{Unquoted facet aesthetic variable.}
-
-\item{facet2}{Unquoted second facet variable.}
-
-\item{alpha}{Unquoted alpha aesthetic variable.}
-
 \item{xmin}{Unquoted xmin aesthetic variable.}
 
 \item{xmax}{Unquoted xmax aesthetic variable.}
 
 \item{xend}{Unquoted xend aesthetic variable.}
+
+\item{y}{Unquoted y aesthetic variable.}
 
 \item{ymin}{Unquoted ymin aesthetic variable.}
 
@@ -132,6 +126,14 @@ gg_blanket(
 \item{yend}{Unquoted yend aesthetic variable.}
 
 \item{z}{Unquoted z aesthetic variable.}
+
+\item{col}{Unquoted col and fill aesthetic variable.}
+
+\item{alpha}{Unquoted alpha aesthetic variable.}
+
+\item{facet}{Unquoted facet aesthetic variable.}
+
+\item{facet2}{Unquoted second facet variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
 
@@ -144,10 +146,6 @@ gg_blanket(
 \item{sample}{Unquoted sample aesthetic variable.}
 
 \item{mapping}{Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha_pal.}
-
-\item{title}{Title string.}
-
-\item{subtitle}{Subtitle string.}
 
 \item{x_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -263,11 +261,13 @@ gg_blanket(
 
 \item{alpha_transform}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
+\item{title}{Title string.}
+
+\item{subtitle}{Subtitle string.}
+
 \item{caption}{Caption title string.}
 
 \item{titles}{A function to format unspecified titles. Defaults to snakecase::to_sentence_case.}
-
-\item{...}{Other arguments passed to within a params list in the layer function.}
 }
 \value{
 A ggplot object.

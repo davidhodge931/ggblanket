@@ -27,6 +27,7 @@ library(stringr)
 library(ggplot2)
 library(ggblanket)
 library(patchwork)
+library(palmerpenguins)
 
 penguins2 <- palmerpenguins::penguins |>
   mutate(sex = str_to_sentence(sex)) |>
@@ -92,19 +93,15 @@ p1 <- penguins2 |>
     x = flipper_length_mm,
     col = species,
     col_pal = RColorBrewer::brewer.pal(9, "Set1"),
-    col_legend_nrow = 2,
-    title = "Normal",
-    theme = light_mode_rt(title_face = "plain")) 
+    title = "Normal") 
 
 p2 <- penguins2 |>
   gg_blank(
     x = flipper_length_mm,
     col = species,
     col_pal = RColorBrewer::brewer.pal(9, "Set1"),
-    col_legend_nrow = 2,
     stat = "density",
-    title = "Blend", 
-    theme = light_mode_rt(title_face = "plain")) +
+    title = "Blend") +
   geom_density(alpha = 0.5) |> ggblend::blend("multiply")
 
 p1
@@ -164,8 +161,7 @@ data.frame(x = rnorm(1000),
     y = y, 
     col = z,
     facet = z,
-    colour = NA, 
-  )
+    colour = NA)
 ```
 
 ```{r}
@@ -179,9 +175,7 @@ data.frame(x = rnorm(1000),
     x = x, 
     y = y, 
     #this method of removing colour is better for the lenend
-    col_pal = scales::alpha(viridis::mako(9)[5], 0),   
-    title = "ggdensity::geom_hdr"
-  ) 
+    col_pal = scales::alpha(viridis::mako(9)[5], 0)) 
 ```
 
 #### ggdist
@@ -189,8 +183,6 @@ data.frame(x = rnorm(1000),
 The ggdist package enables the visualisation of uncertainty. The key to making this work with ggblanket is ensuring that `gg_blank` builds the distribution scale correctly. You can hack this by adding `*min` and `*max` aesthetics of a very low and very high quantile of the distributions. However, it might be easier to just use ggplot2 here. 
 
 ```{r}
-library(distributional)
-
 library(ggdist)
 library(distributional)
 
@@ -210,8 +202,7 @@ data.frame(
     y = distribution,
     mapping = aes(dist = values),
     y_expand = c(0.05, 0.05),
-    alpha_pal = 0.5
-  ) +
+    alpha_pal = 0.5) +
   labs(size = "Width")
 ```
 
@@ -231,8 +222,7 @@ tibble(x = 1:10) %>%
     col = .width,
     colour = "black",
     col_pal = rev(RColorBrewer::brewer.pal(n = 3, "Blues")),
-    col_legend_rev = TRUE,
-  )
+    col_legend_rev = TRUE)
 ```
 
 #### ggeasy
@@ -260,15 +250,14 @@ penguins2 |>
   gg_point(x = flipper_length_mm, 
            y = body_mass_g, 
            col = species,
-           coord = coord_cartesian(clip = "on")
-  ) +
+           coord = coord_cartesian(clip = "on")) +
   ggforce::geom_mark_hull(alpha = 0.1, concavity = 5) 
 ```
 
 ```{r}
 ggplot2::economics |>
   slice_head(n = 35) |> 
-  gg_point( #or use gg_blank
+  gg_point( 
     x = date,
     y = unemploy,
     alpha_pal = 0.25,
@@ -317,8 +306,7 @@ iris |>
     col = Species,
     facet = Species,
     facet_labels = \(x) str_to_sentence(x),
-    col_pal = rep(mako(9)[5], 3)
-  ) +
+    col_pal = rep(viridis::mako(9)[5], 3)) +
   gghighlight::gghighlight() +
   scale_y_continuous(expand = c(0, 0))
 ```
@@ -371,8 +359,7 @@ tibble(x = rnorm(7000, sd = 1),
        y = rnorm(7000, sd = 10)) |>
   gg_blank(
     x = x, 
-    y = y, 
-  ) +
+    y = y) +
   ggpointdensity::geom_pointdensity() +
   scale_colour_viridis_c(option = "G", direction = -1) +
   labs(colour = "N neighbours")
@@ -387,7 +374,7 @@ mtcars |>
   tibble::rownames_to_column("car") |>
   filter(wt > 2.75, wt < 3.45) |>
   gg_point(x = wt, y = mpg, label = car) +
-  ggrepel::geom_text_repel(colour = "#2B6999", size = 3.53) 
+  ggrepel::geom_text_repel(colour = viridis::mako(9)[5], size = 3.53) 
 ```
 
 #### ggridges
@@ -421,25 +408,30 @@ The ggtext package enables plot text to use markdown syntax. The applicable mark
 Note if you want to have some or all of a title not bold, then it's important to change the default theme have a plain title - as otherwise the `gg_theme` defaults to bold. 
 
 ```{r}
-penguins2 |>
-  gg_blank(
-    x = flipper_length_mm, 
-    y = body_mass_g,
-    title = "**Bold** or _italics_ or <span style = 'color:red;'>red</span>"
-    ) +
-  theme(plot.title = ggtext::element_markdown())
+penguins |>
+  gg_point(
+    x = bill_depth_mm,
+    y = bill_length_mm,
+    col = species,
+    title = "***Pygoscelis*** **penguin** bill lengths and depths",
+    subtitle = "<span style = 'color: #2596be ;'>**Adelie**</span>, 
+       <span style = 'color:#fc7c24;'>**Chinstrap**</span>, 
+       *and* <span style = 'color:#9c1e74;'>**Gentoo**</span>") +
+  theme(plot.title = ggtext::element_markdown()) +
+  theme(plot.subtitle = ggtext::element_markdown()) +
+  guides(colour = "none", fill = "none")
 ```
 
 ```{r, fig.asp=0.75}
-penguins2 |>
+penguins |>
   gg_point(
-    x = bill_length_mm,
-    y = bill_depth_mm,
+    x = bill_depth_mm,
+    y = bill_length_mm,
     col = species,
     facet = island,
     facet2 = sex,
-    x_title = "**Bill length** (mm)", 
-    y_title = "**Bill depth** (mm)",
+    x_title = "**Bill depth** (mm)", 
+    y_title = "**Bill length** (mm)",
     col_title = "**Species**",
     title = "***Pygoscelis*** **penguin** bill lengths and depths",
     subtitle = "<span style = 'color: #2596be ;'>**Adelie**</span>, 
@@ -448,8 +440,7 @@ penguins2 |>
     x_labels = \(x) glue::glue("_{x}_"),
     y_labels = \(x) glue::glue("_{x}_"),
     col_labels = \(x) glue::glue("_{x}_"),
-    facet_labels = \(x) glue::glue("_{x}_"),
-  ) +
+    facet_labels = \(x) glue::glue("_{x}_")) +
   theme(  
     plot.title = ggtext::element_markdown(),
     plot.subtitle = ggtext::element_markdown(),
@@ -460,7 +451,8 @@ penguins2 |>
     legend.title = ggtext::element_markdown(),
     legend.text = ggtext::element_markdown(), 
     strip.text.x = ggtext::element_markdown(),
-    strip.text.y = ggtext::element_markdown())
+    strip.text.y = ggtext::element_markdown()) +
+    guides(colour = "none", fill = "none")
 ```
 
 #### geomtextpath
@@ -479,8 +471,7 @@ p1 <- pressure |>
     label = label,
     size = 3.53,
     vjust = -0.5,
-    hjust = 0.9,
-)
+    hjust = 0.9)
 
 p2 <- expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |> 
   mutate(z = c(volcano)) |> 
@@ -494,7 +485,9 @@ p2 <- expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |>
   geom_textcontour(aes(label = after_stat(level)), size = 2.5, straight = TRUE) +
   ggeasy::easy_remove_axes() 
 
-p1 / p2
+p1
+p2
+# p1 / p2
 ```
 
 #### ggiraph
@@ -530,7 +523,7 @@ ggiraph::girafe(
 
 The `plotly::ggplotly` function enables interactive plots. 
 
-Using `gg_blank` with the `text` aesthetic provides most flexibility over  tooltips. Alternatively, you can use any `gg_*` function with  `plotly::ggplotly(p, tooltip = c("x", "y", "fill"))` or `plotly::ggplotly(p)`. 
+Using the `text` aesthetic provides most flexibility over  tooltips. Alternatively, you can use `plotly::ggplotly(p, tooltip = c("x", "y", "fill"))` or `plotly::ggplotly(p)` for quick tooltips. 
 
 ```{r, out.width=500, out.height=300}
 p <- diamonds |>
@@ -538,18 +531,13 @@ p <- diamonds |>
   count(name = "count") |>
   mutate(text = glue::glue("Colour: {color}
                             Count: {count}")) |>
-  gg_blank(
+  gg_col(
     x = color,
     y = count,
     y_expand_limits = 0,
     text = text,
     width = 0.75,
-    theme = light_mode_rt(base_family = "arial")) +
-  geom_col(aes(text = text), 
-           colour = viridisLite::mako(9)[5], 
-           fill = pal_none(9)[5])
-
-p
+    theme = light_mode_rt(base_family = "arial"))
 
 plotly::ggplotly(p, tooltip = "text")
 ```

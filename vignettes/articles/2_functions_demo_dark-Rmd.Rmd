@@ -50,7 +50,7 @@ penguins2 |>
     x = species,
     col = sex,
     width = 0.6,
-    position = ggplot2::position_dodge(),)
+    position = ggplot2::position_dodge())
 ```
 
 ### gg_bin_2d
@@ -97,7 +97,7 @@ penguins2 |>
     y = species,
     col = sex,
     width = 0.66,
-    position = ggplot2::position_dodge(),)
+    position = ggplot2::position_dodge())
 ```
 
 ### gg_contour
@@ -364,7 +364,8 @@ penguins2 |>
   gg_qq(
     sample = body_mass_g,
     facet = species,
-    coord = ggplot2::coord_cartesian(clip = "on"))
+    coord = ggplot2::coord_cartesian(clip = "on")) +
+  geom_qq_line(colour = viridis::mako(9)[5])
 ```
 
 ### gg_raster
@@ -443,8 +444,7 @@ penguins2 |>
     x = flipper_length_mm,
     y = body_mass_g,
     facet = species,
-    se = TRUE,
-    )
+    se = TRUE)
 ```
 
 ### gg_step
@@ -500,3 +500,4 @@ penguins2 |>
     col = sex,
     facet = species)
 ```
+    

@@ -85,12 +85,12 @@ sf::st_read(system.file("shape/nc.shp", package = "sf"),
 ```{r}
 stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
  tibble::as_tibble() |>
- gg_raster(x = x,
-           y = y,
-           col = L7_ETMs.tif,
-           facet = band,
-           col_title = "L7 ETMs"
-           ) +
+ gg_raster(
+   x = x,
+   y = y,
+   col = L7_ETMs.tif,
+   facet = band,
+   col_title = "L7 ETMs") +
   ggeasy::easy_remove_axes()
 ```
 
@@ -108,8 +108,7 @@ p1 <- iris |>
     fill = NA, 
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
     col_labels = \(x) str_to_sentence(x),
-    title = "Turn off either colour or fill"
-  )
+    title = "Turn off either colour or fill")
 
 p2 <- iris |>
   gg_density(
@@ -158,8 +157,7 @@ p1 <- iris |>
     fill = "orange", 
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
     col_labels = \(x) str_to_sentence(x),
-    title = "Fix a different colour or fill"
-  )
+    title = "Fix a different colour or fill")
 
 p2 <- iris |>
   gg_density(
@@ -320,7 +318,7 @@ palmerpenguins::penguins |>
     col_pal = c("#0095A8", "#112E51", "#FF7043"),
     width = 0.75, 
     position = position_dodge2(preserve = "single"),
-    x_labels = \(x) str_to_sentence(x), 
+    x_labels = \(x) str_to_sentence(x)
   ) +
   geom_text(
     aes(
@@ -330,8 +328,7 @@ palmerpenguins::penguins |>
     ),
     position = position_dodge2(width = 0.75, preserve = "single"),
     size = 3.53,
-    show.legend = FALSE,
-  ) 
+    show.legend = FALSE) 
 ```
 
 ```{r}
@@ -356,8 +353,7 @@ mtcars |>
       !!!aes_contrast, 
     ),
     size = 3.53,
-    show.legend = FALSE,
-  )
+    show.legend = FALSE)
 ```
 
 ### 9. Use the gg_blanket function for other geoms

@@ -1572,7 +1572,7 @@ gg_blanket <- function(
       }
 
       plot <- plot +
-        ggplot2::scale_is_alpha_continuous(
+        ggplot2::scale_alpha_continuous(
           range = alpha_pal,
           limits = alpha_limits,
           expand = alpha_expand,

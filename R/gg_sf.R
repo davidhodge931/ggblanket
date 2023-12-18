@@ -65,7 +65,7 @@
 #' @param col_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_axes Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".
 #' @param facet_axis_labels Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".
-#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
+#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).
 #' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
 #' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
 #' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -81,8 +81,8 @@
 #' @param alpha_legend_rev Reverse the elements of the legend. Defaults to FALSE.
 #' @param alpha_limits A vector to determine the limits of the scale.
 #' @param alpha_oob For a continuous variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
-#' @param alpha_pal Alpha values to use as a numeric vector. For a continuous variable, a range is only needed. 
-#' @param alpha_pal_na Alpha value to use for the NA value. 
+#' @param alpha_pal Alpha values to use as a numeric vector. For a continuous variable, a range is only needed.
+#' @param alpha_pal_na Alpha value to use for the NA value.
 #' @param alpha_title Legend title string. Use "" for no title.
 #' @param alpha_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param caption Caption title string.
@@ -95,7 +95,7 @@
 #' @examples
 #'
 gg_sf <- function(
-    data = NULL, 
+    data = NULL, ...,
     stat = "sf",
     position = "identity",
     coord = ggplot2::coord_sf(clip = "off"),
@@ -179,8 +179,8 @@ gg_sf <- function(
     alpha_title = NULL,
     alpha_transform = NULL,
     caption = NULL,
-    titles = snakecase::to_sentence_case,
-    ...
+    titles = snakecase::to_sentence_case
+
 ) {
 
   gg_blanket(
@@ -268,8 +268,8 @@ gg_sf <- function(
     alpha_title = alpha_title,
     alpha_transform = alpha_transform,
     caption = caption,
-    titles = titles,
-    ...
+    titles = titles, ...
+
   )
 }
 

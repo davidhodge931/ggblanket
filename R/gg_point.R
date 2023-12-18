@@ -65,7 +65,7 @@
 #' @param col_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_axes Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".
 #' @param facet_axis_labels Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".
-#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
+#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).
 #' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
 #' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
 #' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -99,11 +99,10 @@
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
-#'     col = sex,
-#'   )
+#'     col = sex)
 #'
 gg_point <- function(
-    data = NULL, 
+    data = NULL, ...,
     stat = "identity",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
@@ -187,8 +186,8 @@ gg_point <- function(
     alpha_title = NULL,
     alpha_transform = NULL,
     caption = NULL,
-    titles = snakecase::to_sentence_case,
-    ...
+    titles = snakecase::to_sentence_case
+
 ) {
 
   gg_blanket(
@@ -276,7 +275,7 @@ gg_point <- function(
     alpha_title = alpha_title,
     alpha_transform = alpha_transform,
     caption = caption,
-    titles = titles,
-    ...
+    titles = titles, ...
+
   )
 }
