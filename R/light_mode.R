@@ -4,7 +4,7 @@
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal A 5 element vector of hex codes for the (1) plot background etc (2) panel background (3) axis line and ticks (4) gridlines and (5) text.  Defaults to pal_light_mode.
+#' @param base_pal A 5 element vector of hex codes for the (1) plot background etc (2) panel background etc (3) axis line and ticks (4) gridlines and (5) text.  Defaults to pal_light_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
@@ -104,7 +104,7 @@ light_mode_rt <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
+    legend.key = NULL, #legend.key = NULL,
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -174,7 +174,7 @@ light_mode_rt <- function (
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal The base colour of the text. Defaults to "#121b24".
+#' @param base_pal A 5 element vector of hex codes for the (1) plot background etc (2) panel background etc (3) axis line and ticks (4) gridlines and (5) text.  Defaults to pal_light_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
@@ -274,7 +274,7 @@ light_mode_r <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
+    legend.key = NULL,
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -344,7 +344,7 @@ light_mode_r <- function (
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal The base colour of the text. Defaults to "#121b24".
+#' @param base_pal A 5 element vector of hex codes for the (1) plot background etc (2) panel background etc (3) axis line and ticks (4) gridlines and (5) text.  Defaults to pal_light_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
@@ -444,7 +444,7 @@ light_mode_b <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
+    legend.key = NULL,
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -514,7 +514,7 @@ light_mode_b <- function (
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal The base colour of the text. Defaults to "#121b24".
+#' @param base_pal A 5 element vector of hex codes for the (1) plot background etc (2) panel background etc (3) axis line and ticks (4) gridlines and (5) text.  Defaults to pal_light_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
@@ -614,7 +614,7 @@ light_mode_t <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
+    legend.key = NULL,
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -684,7 +684,7 @@ light_mode_t <- function (
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal The base colour of the text. Defaults to "#121b24".
+#' @param base_pal A 5 element vector of hex codes for the (1) plot background etc (2) panel background etc (3) axis line and ticks (4) gridlines and (5) text.  Defaults to pal_light_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
@@ -786,7 +786,7 @@ light_mode_i <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
+    legend.key = NULL,
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,

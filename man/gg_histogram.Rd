@@ -8,7 +8,7 @@ gg_histogram(
   data = NULL,
   ...,
   stat = "bin",
-  position = "identity",
+  position = "stack",
   coord = ggplot2::coord_cartesian(clip = "off"),
   theme = NULL,
   x = NULL,

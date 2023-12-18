@@ -46,7 +46,7 @@ install.packages("ggblanket")
 ```
 ## Example
 
-```{r, fig.asp = 0.66, eval = FALSE}
+```{r, fig.asp = 0.66}
 library(dplyr)
 library(ggblanket)
 library(palmerpenguins)
@@ -57,7 +57,8 @@ penguins |>
   gg_histogram(
     x = flipper_length_mm,
     col = sex,
-    facet = species)
+    facet = species,
+    theme = light_mode_b())
 ```
 
 

@@ -1402,13 +1402,13 @@ gg_blanket <- function(
               reverse = col_legend_rev,
               draw.ulim = FALSE,
               draw.llim = FALSE,
-              alpha = alpha_pal1
+              # alpha = alpha_pal1
             ),
             fill = ggplot2::guide_colourbar(
               reverse = col_legend_rev,
               draw.ulim = FALSE,
               draw.llim = FALSE,
-              alpha = alpha_pal1
+              # alpha = alpha_pal1
             )
           )
 
@@ -1440,11 +1440,11 @@ gg_blanket <- function(
           ggplot2::guides(
             colour = ggplot2::guide_coloursteps(
               reverse = col_legend_rev,
-              alpha = alpha_pal1
+              # alpha = alpha_pal1
             ),
             fill = ggplot2::guide_coloursteps(
               reverse = col_legend_rev,
-              alpha = alpha_pal1
+              # alpha = alpha_pal1
             )
           ) +
           ggplot2::theme(legend.ticks = ggplot2::element_blank())

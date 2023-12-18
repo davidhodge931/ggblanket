@@ -39,7 +39,7 @@ dark_mode_b(
 
 \item{base_face}{The base face of the text. Defaults to "plain".}
 
-\item{base_pal}{The base colour of the text. Defaults to "#121b24".}
+\item{base_pal}{A 5 element vector of hex codes for the (1) plot background etc (2) panel background etc (3) axis line and ticks (4) gridlines and (5) text.  Defaults to pal_dark_mode.}
 
 \item{title_family}{The font family of the title. Defaults to the base_family.}
 

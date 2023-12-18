@@ -81,8 +81,8 @@
 #' @param alpha_legend_rev Reverse the elements of the legend. Defaults to FALSE.
 #' @param alpha_limits A vector to determine the limits of the scale.
 #' @param alpha_oob For a continuous variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
-#' @param alpha_pal Alpha values to use as a numeric vector. For a continuous variable, a range is only needed. 
-#' @param alpha_pal_na Alpha value to use for the NA value. 
+#' @param alpha_pal Alpha values to use as a numeric vector. For a continuous variable, a range is only needed.
+#' @param alpha_pal_na Alpha value to use for the NA value.
 #' @param alpha_title Legend title string. Use "" for no title.
 #' @param alpha_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param caption Caption title string.
@@ -95,7 +95,8 @@
 #' @examples
 #'
 gg_col <- function(
-    data = NULL, ...,  
+    data = NULL,
+    ...,
     stat = "identity",
     position = "stack",
     coord = ggplot2::coord_cartesian(clip = "off"),
@@ -180,7 +181,7 @@ gg_col <- function(
     alpha_transform = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case
-    
+
 ) {
 
   gg_blanket(
@@ -269,7 +270,7 @@ gg_col <- function(
     alpha_transform = alpha_transform,
     caption = caption,
     titles = titles, ...
-    
+
   )
 }
 

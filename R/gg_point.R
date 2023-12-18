@@ -102,7 +102,8 @@
 #'     col = sex)
 #'
 gg_point <- function(
-    data = NULL, ...,
+    data = NULL,
+    ...,
     stat = "identity",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),

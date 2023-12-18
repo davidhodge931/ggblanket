@@ -95,7 +95,8 @@
 #' @examples
 #'
 gg_sf <- function(
-    data = NULL, ...,
+    data = NULL,
+    ...,
     stat = "sf",
     position = "identity",
     coord = ggplot2::coord_sf(clip = "off"),
