@@ -22,9 +22,9 @@ gg_blanket(
   yend = NULL,
   z = NULL,
   col = NULL,
-  alpha = NULL,
   facet = NULL,
   facet2 = NULL,
+  alpha = NULL,
   group = NULL,
   subgroup = NULL,
   label = NULL,
@@ -105,7 +105,7 @@ gg_blanket(
 
 \item{position}{A position adjustment. A ggproto Position subclass object, or character string.}
 
-\item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).}
+\item{coord}{A cooridinate system. A ggproto Coord subclass object.}
 
 \item{theme}{A ggplot2 theme.}
 
@@ -129,11 +129,11 @@ gg_blanket(
 
 \item{col}{Unquoted col and fill aesthetic variable.}
 
-\item{alpha}{Unquoted alpha aesthetic variable.}
-
 \item{facet}{Unquoted facet aesthetic variable.}
 
 \item{facet2}{Unquoted second facet variable.}
+
+\item{alpha}{Unquoted alpha aesthetic variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
 
@@ -221,7 +221,7 @@ gg_blanket(
 
 \item{facet_axis_labels}{Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".}
 
-\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).}
+\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).}
 
 \item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of "wrap".}
 
@@ -273,5 +273,5 @@ gg_blanket(
 A ggplot object.
 }
 \description{
-Create a blanket ggplot with a wrapper around ggplot2::layer().
+Create a blanket ggplot with a wrapper around ggplot() + layer().
 }

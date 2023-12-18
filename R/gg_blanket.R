@@ -1,27 +1,27 @@
 #' @title Blanket ggplot
 #'
-#' @description Create a blanket ggplot with a wrapper around ggplot2::layer().
+#' @description Create a blanket ggplot with a wrapper around ggplot() + layer().
 #'
 #' @param data A data frame or tibble.
 #' @param ... Other arguments passed to within a params list in the layer function.
 #' @param geom A geometric object to display the data. A ggproto Geom subclass object or character string.
 #' @param stat A statistical transformation to use on the data. A ggproto Stat subclass object or character string.
 #' @param position A position adjustment. A ggproto Position subclass object, or character string.
-#' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
+#' @param coord A cooridinate system. A ggproto Coord subclass object.
 #' @param theme A ggplot2 theme.
 #' @param x Unquoted x aesthetic variable.
-#' @param y Unquoted y aesthetic variable.
-#' @param col Unquoted col and fill aesthetic variable.
-#' @param facet Unquoted facet aesthetic variable.
-#' @param facet2 Unquoted second facet variable.
-#' @param alpha Unquoted alpha aesthetic variable.
 #' @param xmin Unquoted xmin aesthetic variable.
 #' @param xmax Unquoted xmax aesthetic variable.
 #' @param xend Unquoted xend aesthetic variable.
+#' @param y Unquoted y aesthetic variable.
 #' @param ymin Unquoted ymin aesthetic variable.
 #' @param ymax Unquoted ymax aesthetic variable.
 #' @param yend Unquoted yend aesthetic variable.
 #' @param z Unquoted z aesthetic variable.
+#' @param col Unquoted col and fill aesthetic variable.
+#' @param facet Unquoted facet aesthetic variable.
+#' @param facet2 Unquoted second facet variable.
+#' @param alpha Unquoted alpha aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param subgroup Unquoted subgroup aesthetic variable.
 #' @param label Unquoted label aesthetic variable.
@@ -65,7 +65,7 @@
 #' @param col_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_axes Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".
 #' @param facet_axis_labels Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".
-#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", ...)).
+#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).
 #' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
 #' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
 #' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
@@ -113,9 +113,9 @@ gg_blanket <- function(
     yend = NULL,
     z = NULL,
     col = NULL,
-    alpha = NULL,
     facet = NULL,
     facet2 = NULL,
+    alpha = NULL,
     group = NULL,
     subgroup = NULL,
     label = NULL,

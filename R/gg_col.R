@@ -1,33 +1,32 @@
 #' @title Col ggplot
 #'
-#' @description Create a col ggplot with a wrapper around ggplot2::geom_col.
+#' @description Create a col ggplot with a wrapper around ggplot() + geom_col.
 #'
 #' @param data A data frame or tibble.
+#' @param ... Other arguments passed to within a params list in the layer function.
 #' @param stat A statistical transformation to use on the data. A ggproto Stat subclass object or character string.
 #' @param position A position adjustment. A ggproto Position subclass object, or character string.
-#' @param coord A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).
+#' @param coord A cooridinate system. A ggproto Coord subclass object.
 #' @param theme A ggplot2 theme.
 #' @param x Unquoted x aesthetic variable.
-#' @param y Unquoted y aesthetic variable.
-#' @param col Unquoted col and fill aesthetic variable.
-#' @param facet Unquoted facet aesthetic variable.
-#' @param facet2 Unquoted second facet variable.
-#' @param alpha Unquoted alpha aesthetic variable.
 #' @param xmin Unquoted xmin aesthetic variable.
 #' @param xmax Unquoted xmax aesthetic variable.
 #' @param xend Unquoted xend aesthetic variable.
+#' @param y Unquoted y aesthetic variable.
 #' @param ymin Unquoted ymin aesthetic variable.
 #' @param ymax Unquoted ymax aesthetic variable.
 #' @param yend Unquoted yend aesthetic variable.
 #' @param z Unquoted z aesthetic variable.
+#' @param col Unquoted col and fill aesthetic variable.
+#' @param facet Unquoted facet aesthetic variable.
+#' @param facet2 Unquoted second facet variable.
+#' @param alpha Unquoted alpha aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param subgroup Unquoted subgroup aesthetic variable.
 #' @param label Unquoted label aesthetic variable.
 #' @param text Unquoted text aesthetic variable.
 #' @param sample Unquoted sample aesthetic variable.
 #' @param mapping Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha_pal.
-#' @param title Title string.
-#' @param subtitle Subtitle string.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param x_gridlines TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
@@ -49,6 +48,7 @@
 #' @param y_title Axis title string. Use "" for no title.
 #' @param y_transform For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
+#' @param col_continuous For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".
 #' @param col_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param col_expand_limits For a continuous variable, any values that the limits should encompass (e.g. 0).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
@@ -60,7 +60,6 @@
 #' @param col_pal colours to use. A character vector of hex codes (or names).
 #' @param col_pal_na colour to use for NA values. A character vector of a hex code (or name).
 #' @param col_rescale For a continuous variable, a scales::rescale function.
-#' @param col_continuous For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".
 #' @param col_title Legend title string. Use "" for no title.
 #' @param col_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param facet_axes Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".
@@ -85,9 +84,10 @@
 #' @param alpha_pal_na Alpha value to use for the NA value.
 #' @param alpha_title Legend title string. Use "" for no title.
 #' @param alpha_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
+#' @param title Title string.
+#' @param subtitle Subtitle string.
 #' @param caption Caption title string.
 #' @param titles A function to format unspecified titles. Defaults to snakecase::to_sentence_case.
-#' @param ... Other arguments passed to within a params list in the layer function.
 #'
 #' @return A ggplot object.
 #' @export
@@ -102,26 +102,24 @@ gg_col <- function(
     coord = ggplot2::coord_cartesian(clip = "off"),
     theme = NULL,
     x = NULL,
-    y = NULL,
-    col = NULL,
-    facet = NULL,
-    facet2 = NULL,
-    alpha = NULL,
     xmin = NULL,
     xmax = NULL,
     xend = NULL,
+    y = NULL,
     ymin = NULL,
     ymax = NULL,
     yend = NULL,
     z = NULL,
+    col = NULL,
+    facet = NULL,
+    facet2 = NULL,
+    alpha = NULL,
     group = NULL,
     subgroup = NULL,
     label = NULL,
     text = NULL,
     sample = NULL,
     mapping = NULL,
-    title = NULL,
-    subtitle = NULL,
     x_breaks = NULL,
     x_expand = NULL,
     x_gridlines = NULL,
@@ -143,6 +141,7 @@ gg_col <- function(
     y_title = NULL,
     y_transform = NULL,
     col_breaks = NULL,
+    col_continuous = "gradient",
     col_expand_limits = NULL,
     col_expand = ggplot2::waiver(),
     col_labels = NULL,
@@ -154,7 +153,6 @@ gg_col <- function(
     col_pal = NULL,
     col_pal_na = "#bebebe",
     col_rescale = scales::rescale(),
-    col_continuous = "gradient",
     col_title = NULL,
     col_transform = NULL,
     facet_axes = "margins",
@@ -179,9 +177,10 @@ gg_col <- function(
     alpha_pal_na = NA,
     alpha_title = NULL,
     alpha_transform = NULL,
+    title = NULL,
+    subtitle = NULL,
     caption = NULL,
     titles = snakecase::to_sentence_case
-
 ) {
 
   gg_blanket(

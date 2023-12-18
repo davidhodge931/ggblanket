@@ -12,26 +12,24 @@ gg_text(
   coord = ggplot2::coord_cartesian(clip = "off"),
   theme = NULL,
   x = NULL,
-  y = NULL,
-  col = NULL,
-  facet = NULL,
-  facet2 = NULL,
-  alpha = NULL,
   xmin = NULL,
   xmax = NULL,
   xend = NULL,
+  y = NULL,
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
   z = NULL,
+  col = NULL,
+  facet = NULL,
+  facet2 = NULL,
+  alpha = NULL,
   group = NULL,
   subgroup = NULL,
   label = NULL,
   text = NULL,
   sample = NULL,
   mapping = NULL,
-  title = NULL,
-  subtitle = NULL,
   x_breaks = NULL,
   x_expand = NULL,
   x_gridlines = NULL,
@@ -53,6 +51,7 @@ gg_text(
   y_title = NULL,
   y_transform = NULL,
   col_breaks = NULL,
+  col_continuous = "gradient",
   col_expand_limits = NULL,
   col_expand = ggplot2::waiver(),
   col_labels = NULL,
@@ -64,7 +63,6 @@ gg_text(
   col_pal = NULL,
   col_pal_na = "#bebebe",
   col_rescale = scales::rescale(),
-  col_continuous = "gradient",
   col_title = NULL,
   col_transform = NULL,
   facet_axes = "margins",
@@ -89,6 +87,8 @@ gg_text(
   alpha_pal_na = NA,
   alpha_title = NULL,
   alpha_transform = NULL,
+  title = NULL,
+  subtitle = NULL,
   caption = NULL,
   titles = snakecase::to_sentence_case
 )
@@ -102,27 +102,19 @@ gg_text(
 
 \item{position}{A position adjustment. A ggproto Position subclass object, or character string.}
 
-\item{coord}{A coordinate function from ggplot2 (e.g. ggplot2::coord_cartesian(clip = "off")).}
+\item{coord}{A cooridinate system. A ggproto Coord subclass object.}
 
 \item{theme}{A ggplot2 theme.}
 
 \item{x}{Unquoted x aesthetic variable.}
-
-\item{y}{Unquoted y aesthetic variable.}
-
-\item{col}{Unquoted col and fill aesthetic variable.}
-
-\item{facet}{Unquoted facet aesthetic variable.}
-
-\item{facet2}{Unquoted second facet variable.}
-
-\item{alpha}{Unquoted alpha aesthetic variable.}
 
 \item{xmin}{Unquoted xmin aesthetic variable.}
 
 \item{xmax}{Unquoted xmax aesthetic variable.}
 
 \item{xend}{Unquoted xend aesthetic variable.}
+
+\item{y}{Unquoted y aesthetic variable.}
 
 \item{ymin}{Unquoted ymin aesthetic variable.}
 
@@ -131,6 +123,14 @@ gg_text(
 \item{yend}{Unquoted yend aesthetic variable.}
 
 \item{z}{Unquoted z aesthetic variable.}
+
+\item{col}{Unquoted col and fill aesthetic variable.}
+
+\item{facet}{Unquoted facet aesthetic variable.}
+
+\item{facet2}{Unquoted second facet variable.}
+
+\item{alpha}{Unquoted alpha aesthetic variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
 
@@ -143,10 +143,6 @@ gg_text(
 \item{sample}{Unquoted sample aesthetic variable.}
 
 \item{mapping}{Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha_pal.}
-
-\item{title}{Title string.}
-
-\item{subtitle}{Subtitle string.}
 
 \item{x_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -190,6 +186,8 @@ gg_text(
 
 \item{col_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
+\item{col_continuous}{For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".}
+
 \item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. 0).}
 
 \item{col_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
@@ -211,8 +209,6 @@ gg_text(
 \item{col_pal_na}{colour to use for NA values. A character vector of a hex code (or name).}
 
 \item{col_rescale}{For a continuous variable, a scales::rescale function.}
-
-\item{col_continuous}{For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".}
 
 \item{col_title}{Legend title string. Use "" for no title.}
 
@@ -262,6 +258,10 @@ gg_text(
 
 \item{alpha_transform}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
+\item{title}{Title string.}
+
+\item{subtitle}{Subtitle string.}
+
 \item{caption}{Caption title string.}
 
 \item{titles}{A function to format unspecified titles. Defaults to snakecase::to_sentence_case.}
@@ -270,5 +270,5 @@ gg_text(
 A ggplot object.
 }
 \description{
-Create a text plot with a wrapper around ggplot2::geom_text.
+Create a text plot with a wrapper around ggplot() + geom_text.
 }

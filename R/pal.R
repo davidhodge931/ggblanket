@@ -23,7 +23,7 @@ pal_light_mode <- c(
   "text" = "#121b24"
 )
 
-#' A 5 colour vector for use with the dark_mode_* themes to colour the (1) plot background (2) panel background, (3) axis lines (and ticks) (4) panel grid (and legend key background) and (5) text.
+#' A 5 colour vector for use with the dark_mode_* themes to colour the (1) plot background (2) panel background, (3) axis lines (and ticks) (4) panel grid and (5) text.
 #'
 #' @description A 5 colour vector for use with the dark_mode_* themes.
 #'
