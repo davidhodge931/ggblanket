@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   fig.width = 6,
-  fig.asp = 0.618,
+  fig.asp = 0.5,
   out.width = "70%",
   dpi = 300)
 ```
@@ -58,122 +58,63 @@ penguins2 <- palmerpenguins::penguins |>
   tidyr::drop_na(sex)
 ```
  
-### 1. Over thirty gg\_\* wrapper functions
+### 1. Over thirty `gg\_\*` wrapper functions
 
 Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. Each `gg_*` function is named after the `geom_*` function they wrap. 
 
-```{r, fig.asp=0.55}
-# ggplot2
-penguins2 |> 
-  ggplot() + 
-  geom_point(aes(x = flipper_length_mm, 
-                 y = body_mass_g))
-```
-
-```{r, fig.asp=0.55}
-# ggblanket
+```{r}
 penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g)
 ```
 
-### 2. A single col argument to colour and fill by a variable
+### 2. A single `col` argument to colour and fill by a variable
 
 The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. This argument means that everything should be coloured according to it, i.e. all points, lines and polygon interiors. 
 
-```{r, fig.asp=0.85}
-# ggplot2
-p1 <- penguins2 |> 
-  ggplot() + 
-  geom_point(aes(x = flipper_length_mm, 
-                 y = body_mass_g,
-                 colour = species)) 
-
-p2 <- penguins2 |>
-  ggplot() +
-  geom_density(aes(x = flipper_length_mm, 
-                   fill = species)) +
-  labs(fill = "Species")
-
-#p1 / p2
-p1
-p2
-```
-
-```{r, fig.asp=0.85}
-# ggblanket
-p1 <- penguins2 |>
+```{r}
+penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g, 
     col = species)
+```
 
-p2 <- penguins2 |>
+
+```{r}
+penguins2 |>
   gg_density(
     x = flipper_length_mm, 
     col = species)
-
-#p1 / p2
 ```
 
-### 3. A col_pal argument to customise colours
 
-The `pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` argument is added or not. A named palette can be used to make individual colours stick to particular values. ggblanket uses alpha defaults to make outputs look pretty.
+### 3. A `col_pal` argument to customise colours
 
-```{r, fig.asp=0.85}
-# ggplot2
-p1 <- penguins2 |>
-  ggplot() +
-  geom_histogram(aes(x = body_mass_g),
-                 fill = "#414D6B")
+The `col_pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` aesthetic is added or not. A named palette can be used to make individual colours stick to particular values. 
 
-p2 <- penguins2 |>
-  ggplot() +
-  geom_jitter(aes(x = species, 
-                  y = body_mass_g, 
-                  colour = sex)) +
-  scale_colour_manual(values = c("#1B9E77", "#9E361B"))
-
-#p1 / p2
-p1
-p2
-```
-
-```{r, fig.asp=0.85}
-# ggblanket
-p1 <- penguins2 |>
+```{r}
+penguins2 |>
   gg_histogram(
     x = body_mass_g, 
     col_pal = "#414D6B")
+```
 
-p2 <- penguins2 |>
+```{r}
+penguins2 |>
   gg_jitter(
     x = species, 
     y = body_mass_g, 
     col = sex, 
     col_pal = c("#1B9E77", "#9E361B"))
-
-# p1 / p2
-p1
-p2
 ```
 
-### 4. A facet argument to facet by a variable
+### 4. A `facet` argument to facet by a variable
 
 Faceting is treated as if it were an aesthetic. Users just provide an unquoted variable to facet by. If a single facet (or facet2) variable is provided, it'll default to a "wrap" layout. But users can change this with a `facet_layout = "grid"` argument.
 
-```{r, fig.asp=0.55}
-# ggplot2
-penguins2 |>
-  ggplot() +
-  geom_violin(aes(x = sex, 
-                  y = body_mass_g)) +
-  facet_wrap(vars(species)) 
-```
-
-```{r, fig.asp=0.55}
-# ggblanket
+```{r}
 penguins2 |>
   gg_violin(
     x = sex,
@@ -181,20 +122,11 @@ penguins2 |>
     facet = species)
 ```
 
-### 5. An additional facet2 argument to facet by a 2nd variable
+### 5. An additional `facet2` argument to facet by a 2nd variable
 
 A `facet2` argument is also provided for extra functionality and flexibility. If both `facet`and `facet2` variables are provided, then it'll default to a "grid" layout of `facet` by `facet2`. But users can change this with a `facet_layout = "wrap"` argument.
 
 ```{r, fig.asp=0.75}
-# ggplot2
-penguins2 |>
-  ggplot() +
-  geom_histogram(aes(x = flipper_length_mm)) +
-  facet_grid(rows = vars(sex), cols = vars(species))
-```
-
-```{r, fig.asp=0.75}
-# ggblanket
 penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
@@ -206,52 +138,21 @@ penguins2 |>
 
 Unspecified `x`, `y`, and `col` titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is. Use `*_title = ""` to remove a title. 
 
-```{r, fig.asp=0.525}
-# ggplot2
-penguins2 |>
-  ggplot() +
-  geom_point(aes(x = flipper_length_mm, 
-                 y = body_mass_g, 
-                 colour = sex)) +
-  facet_wrap(vars(species)) +
-  scale_x_continuous(breaks = scales::breaks_pretty(n = 3)) 
-```
-
-```{r, fig.asp=0.525}
-# ggblanket
+```{r}
 penguins2 |>
   gg_point(
       x = flipper_length_mm,
       y = body_mass_g, 
       col = sex,
-      facet = species)
+      facet = species, 
+      theme = light_mode_b())
 ```
 
 ### 7.  Ability to customise by prefixed arguments 
 
 Prefixed arguments are available to customise titles, scales, guides, and faceting. These prefixes organise the adjustments by whether they relate to `x`, `y`, `col` or `facet`. 
 
-```{r, fig.asp=0.6}
-# ggplot2
-penguins2 |>
-  ggplot() +
-  geom_jitter(aes(x = species, 
-                  y = body_mass_g, 
-                  colour = sex)) +
-  expand_limits(y = 0) +
-  scale_x_discrete(labels = \(x) stringr::str_sub(x, 1, 1)) +
-  scale_y_continuous(breaks = scales::breaks_width(1500),
-                     labels = scales::label_number(big.mark = " "),
-                     expand = expansion(mult = c(0, 0.05)),
-                     transform = "sqrt") +
-  labs(x = "Species", y = "Body mass (g)", col = NULL) +
-  theme(legend.position = "top") +
-  theme(legend.justification = "left") +
-  scale_colour_manual(values = scales::pal_hue()(2))
-```
-
-```{r, fig.asp=0.6}
-# ggblanket
+```{r}
 penguins2 |>
   gg_jitter(
     x = species,
@@ -278,72 +179,61 @@ With these settings and use of the pipe, users can type the prefix, and then use
 knitr::include_graphics("autocomplete_y.png", dpi = 300)
 ```
 
-### 8.  Ability to customise the theme
+### 8.  Ability to customise the `theme`
 
 Users can use the `theme` argument in a `gg_*` function for the theme of a plot.
 
 Alternatively, users can set the theme globally using the `ggplot2::theme_set` function, such that all subsequent plots will use this by default. 
 
-ggblanket provides two complete ggplot2 theme functions called `light_mode` (the default) and `dark_mode`. The first argument is the `base_size`. This changes the size of all the text to this, except the title is 10% higher and the caption is 10% lower. In quarto, it is likely that users will want to set the `*_mode` theme to have a larger `base_size` (e.g. `ggplot2::theme_set(light_mode_rt(11))`). 
+ggblanket provides two complete families of ggplot2 theme functions called `light_mode_*` (the default) and `dark_mode_*`. 
+
+The suffix refers to the placement of the legend with `rt` referring to right top, `r` right centre, `b` being bottom and `t` being top.  
+
+The default is `light_mode_rt()`.
+
+The first argument is the `base_size`. It defaults to 11. This changes the size of the text to this with the title is 10% higher and the caption is 10% lower. 
 
 Note that `theme_set(theme_grey())` resets the set theme for ggplot2 code to theme_grey and for ggblanket `gg_*` functions to `light_mode_rt()`. If you want ggblanket `gg_*` functions to default to using `theme_grey()`, then you must modify the base_size slightly (e.g. `theme_set(theme_grey(11.01))`).
 
-```{r, fig.asp=0.75}
-# ggblanket
-
-# theme_set(dark_mode_rt(10))
+```{r, fig.asp=0.66}
+# theme_set(dark_mode_rt())
 
 penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
+    col_title = "",
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    theme = dark_mode_b(10))
+    theme = dark_mode_t())
 ```
 
-Note that the `gg_*` function will by default adjust what gridlines are present and the placement of the legend. Therefore, if you are providing a theme other than `light_mode` or `dark_mode`, ggblanket works well if this theme has both vertical and horizontal gridlines. If users want everything adjusted as per the theme, then they can `+` their theme onto the plot instead.
+The `gg_*` function will by default adjust what gridlines are present - and remove the ones that it guesses are not required. You can adjust this using the *_gridlines arguments. Subsequently, it is recommended that themes with gridlines in both x and y directions are used with ggblanket.
 
 ```{r}
-# ggblanket
-p1 <- penguins2 |>
-  gg_point(
+penguins2 |>
+  gg_jitter(
     x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    x_breaks = scales::breaks_pretty(n = 3),
-    theme = theme_grey(),
-    title = "theme= theme_grey()")
-
-p2 <- penguins2 |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    x_breaks = scales::breaks_pretty(n = 3),
-    title = "+ theme_grey()") +
-  theme_grey()
-
-# p1 + p2
-p1
-p2
+    y = sex,
+    col = sex, 
+    theme = theme_grey())
 ```
 
-### 9. Access to other geom\_\* arguments via `...`
+### 9. Access to other `geom\_\*` arguments via `...`
 
-The `...` argument is placed in the `gg_*` function within the wrapped `ggplot2::geom_*` function. This means all other arguments in the `geom_*` function are available to users. Common arguments from `...` to add are `size`, `linewidth` and `width`.
+The `...` argument provides accesss to all other arguments in the `geom_*` function. Common arguments from `...` to add are `size`, `linewidth` and `width`.
 
 ```{r}
-# ggblanket
 penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex, 
-    linewidth = 0.5, #accessed via geom_smooth
-    level = 0.99) #accessed via geom_smooth
+    se = TRUE,
+    linewidth = 0.5,
+    level = 0.99) 
 ```
 
 ### 10. Pretty continuous positional scales
@@ -357,27 +247,9 @@ Where the orientation is normal (i.e. vertical):
 
 It does the opposite where the orientation is horizontal. 
 
-Note this symmetry approach does _not_ apply:
-* if a transformation other than identity or reverse is applied to x or y scales.
-* for `gg_raster`, `gg_contour_filled` or `gg_density_2d_filled`
-
 In some circumstances the ggplot2 approach to default scales may be preferable. In these cases, users can revert to the ggplot2 approach by using `*_limits = c(NA, NA)` and `*_expand = c(0.05, 0.05)` (or add `scale_*_continuous()`).
 
-```{r, fig.asp=0.55}
-# ggplot2
-penguins2 |>
-  group_by(species, sex) |> 
-  summarise(body_mass_g = mean(body_mass_g)) |> 
-  ggplot() +
-  geom_col(aes(x = body_mass_g, 
-               y = species, 
-               fill = sex),
-           position = ggplot2::position_dodge(),
-           width = 0.66)
-```
-
 ```{r}
-# ggblanket
 penguins2 |>
   group_by(species, sex) |> 
   summarise(body_mass_g = mean(body_mass_g)) |> 
@@ -392,7 +264,6 @@ penguins2 |>
 Sometimes with small plots or faceted plots etc, the labels can be too squashed. Making the breaks width bigger can waste space, due to the afore-mentioned approach of ggblanket to making pretty scales. An alternative approach is to use the `str_keep_seq` function with the `*_labels` arguments to only keep every 2nd (or nth) label. 
 
 ```{r}
-# ggblanket
 penguins2 |>
   group_by(species, sex) |> 
   summarise(body_mass_g = mean(body_mass_g)) |> 
@@ -408,7 +279,7 @@ penguins2 |>
     title = "Keep every 2nd label")
 ```
 
-### 11. Ability to add multiple geom\_\* layers
+### 11. Ability to add multiple `geom\_\*` layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
 
@@ -419,8 +290,7 @@ Where there are multiple geom layers in a desired plot, users should determine t
 1. The `gg_*` function _should_ be appropriate to be the bottom layer of the plot. This is because the geoms will plot in order. 
 
 ```{r}
-# ggblanket + ggplot2
-p1 <- ggplot2::economics |>
+ggplot2::economics |>
   slice_min(order_by = date, n = 10) |> 
   gg_line(
     x = date,
@@ -434,7 +304,11 @@ p1 <- ggplot2::economics |>
     title = "gg_line + geom_point") +
   geom_point(colour = pal_guardian[2])
 
-p2 <- ggplot2::economics |>
+```
+
+
+```{r}
+ggplot2::economics |>
   slice_min(order_by = date, n = 10) |> 
   gg_point(
     x = date,
@@ -446,102 +320,66 @@ p2 <- ggplot2::economics |>
     x_breaks = scales::breaks_width("3 months"),
     title = "gg_point + geom_line") +
   geom_line(colour = pal_guardian[1], linewidth = 1)
-
-# p1 + p2
-p1
-p2
 ```
 
-2. If some geom layers have a `col` aesthetic and some do not, then a `gg_*` function _should_ be chosen that has a `col` argument in it. This will enable ggblanket legend placement and access to `col_*` arguments. It is also a more reliable approach. If later layers do not require the `col` aesthetic, then the `inheit.aes = FALSE` argument should be used. 
+2. Add all of the aesthetics required into the `gg_*` function, including the `col` argument if this aesthetic is required in any of the later layers. If you do not want the first layer to have a colour or fill aesthetic, but you wish later layers to access this, use `gg_blank`.
 
-3. In some situations, `gg_blank` may be required.
+3. Users need to ensure that the scales built by their `gg_*` function are appropriate for subsequent layers. Plot scales are built by the `gg_*` function based on the `data`, `x`, `y`, `*_limits`, `*_expand_limits`, `stat`, `position` and `coord` arguments in the `gg_*`  function. 
 
-Users need to ensure that the scales built by their `gg_*` function are appropriate for subsequent layers. Plot scales are built by the `gg_*` function based on the `data`, `x`, `y`, `*_limits`, `*_expand_limits`, `stat`, `position` and `coord` arguments in the `gg_*`  function. 
-
-```{r, fig.asp=0.75}
-# ggblanket + ggplot2
-d <- penguins2 |>
+```{r}
+penguins2 |>
   group_by(species) |>
   summarise(body_mass_g = mean(body_mass_g)) |>
   mutate(lower = body_mass_g * 0.95) |> 
-  mutate(upper = body_mass_g * 1.2)
-
-p1 <- d |>
+  mutate(upper = body_mass_g * 1.2) %>%
   gg_col(
     x = body_mass_g,
+    xmin = lower, 
+    xmax = upper,
     y = species,
     col = species,
     width = 0.75,
-    x_expand_limits = c(0, max(d$upper)), 
+    x_expand_limits = c(0, max(.$upper)),
     x_labels = \(x) x / 1000, 
     x_title = "Body mass kg") +
-  geom_errorbar(aes(xmin = lower, xmax = upper), 
-                colour = "black",
-                width = 0.1) 
+  geom_errorbar(
+    colour = "black",
+    width = 0.1) 
+```
 
-p2 <- d |>
+```{r}
+penguins2 |>
+  group_by(species) |>
+  summarise(body_mass_g = mean(body_mass_g)) |>
+  mutate(lower = body_mass_g * 0.95) |> 
+  mutate(upper = body_mass_g * 1.2) |> 
   gg_blank( #blank works better here, so that you can keep the col scale
     x = body_mass_g,
     y = species,
     col = species,
-    xmin = lower, xmax = upper,
+    xmin = lower, 
+    xmax = upper,
     width = 0.75,
     x_expand_limits = 0,
     x_labels = \(x) x / 1000, 
     x_title = "Body mass kg") +
-  geom_col( 
-    width = 0.75, 
+  geom_col(
+    width = 0.75,
     colour = "#d3d3d3",#and turn it off here for this layer
     fill = "#d3d3d3",
-    alpha = 0.9) + 
+    alpha = 0.9) +
   geom_errorbar(width = 0.1) 
 
-#p1 / p2
-p1
-p2
 ```
 
 ### 12. Other key differences to ggplot2
 
 ##### Unquoted variables only
 
-ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet` and `facet2`. You cannot wrap these in a function. Instead you need to apply the function to the relevant variable in the data prior to plotting. For example, reordering or reversing a factor or dropping NAs. 
+ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet`, `facet2` and  `alpha`. You cannot wrap these in a function. Instead you need to apply the function to the relevant variable in the data prior to plotting. For example, reordering or reversing a factor or dropping NAs. If you wish to use delayed evaluation or other aesthetics, you can do so via the `mapping` argument. 
 
-```{r, fig.asp=0.75}
-p1 <- diamonds |>
-  count(color) |>
-  gg_col(
-    x = n,
-    y = color,
-    width = 0.75,
-    x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)",
-    title = "Default y")
-
-
-p2 <- diamonds |>
-  count(color) |>
-  mutate(color = forcats::fct_rev(color)) |>
-  gg_col(
-    x = n,
-    y = color,
-    width = 0.75,
-    x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)",
-    title = "Reverse y")
-
-p3 <- diamonds |>
-  count(color) |>
-  mutate(color = forcats::fct_reorder(color, n)) |>
-  gg_col(
-    x = n,
-    y = color,
-    width = 0.75,
-    x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)",
-    title = "Reordered y ascending by x")
-
-p4 <- diamonds |>
+```{r}
+diamonds |>
   count(color) |>
   mutate(color = color |>
            forcats::fct_reorder(n) |>
@@ -551,32 +389,15 @@ p4 <- diamonds |>
     y = color,
     width = 0.75,
     x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)",
-    title = "Reordered y decending by x")
-
-# (p1 + p2) / (p3 + p4)
-p1
-p2
-p3
-p4
+    x_title = "Count (thousands)")
 ```
 
 ##### Unused factor levels kept
 
-ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting. 
+ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting using `forcats::fct_drop`. 
 
 ```{r, fig.asp=0.4}
-p1 <- diamonds |> 
-  count(color) |> 
-  filter(color %in% c("E", "G", "I")) |>
-  gg_point(
-    x = n,
-    y = color,
-    x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)",
-    title = "A factor filtered")
-
-p2 <- diamonds |> 
+diamonds |> 
   count(color) |>
   filter(color %in% c("E", "G", "I")) |>
   mutate(color = forcats::fct_drop(color)) |> 
@@ -584,33 +405,28 @@ p2 <- diamonds |>
     x = n,
     y = color,
     x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)",
-    title = "A factor filtered & unused levels dropped")
-
-# p1 + p2
-p1
-p2
+    x_title = "Count (thousands)")
 ```
 
-##### Different col_pal and alpha defaults
+##### Different `col_pal` and `alpha_pal` defaults
 
 ggblanket uses different defaults for colouring. The default `pal` is:
 
 * `#357BA2` or `viridis::mako(9)[5]` for no `col` variable
 * `ggblanket::pal_guardian` for a discrete `col` variable with 4 or less levels (or unique values if a character). This palette is colourblind safe. 
 * `scales::pal_hue` for a discrete `col` variable with 5 or more levels (or unique values if not ordered).
-* `viridis::mako` reversed for a continuous `col` variable
+* `viridis::mako(20)` reversed for a continuous `col` variable
 * `"#bebebe"` or `grey` for NA
 
-ggblanket uses different `alpha_pal` defaults for the different `gg_*` functions. Polygons that generally have no gap or overlap default to 1: `gg_bin_2d`, `gg_contour_filled`, `gg_density_2d_filled`, `gg_hex` - as well as `gg_sf` for polygons with a `col` aesthetic. Polygons that generally overlap default to 0.5: `gg_density`. Polygons that generally have key lines within them also default to 0.5: `gg_boxplot`, `gg_crossbar`, `gg_ribbon` and `gg_smooth`. `gg_label` defaults to 0.05. `gg_blank` has no alpha argument. Other polygons default to 0.9: `gg_area`, `gg_bar`, `gg_col`, `gg_histogram`, `gg_polygon`, `gg_rect`, `gg_tile` and `gg_violin`. For all other contexts, alpha defaults to 1. 
+ggblanket uses different `alpha_pal` defaults for the different `gg_*` functions. 
 
-##### Different oob & clip defaults
+Polygons that generally overlap, or have key lines within them default to 0.5: `gg_density`, `gg_boxplot`, `gg_crossbar`, `gg_ribbon` and `gg_smooth`. Point or line based geoms use 1: `contour`, `density_2d`, `density2d`, `errorbar`, `line`, `linerange`, `point`, `pointrange`, `segment`, `step`, and `text`. Polygons that generally have no gap or overlap default to 1: `gg_bin_2d`, `gg_contour_filled`, `gg_density_2d_filled`, and `gg_hex`. `gg_label` defaults to 0.1. Other polygons default to 0.9: `gg_area`, `gg_bar`, `gg_col`, `gg_histogram`, `gg_polygon`, `gg_rect`, `gg_tile`, `gg_violin` and `gg_sf`. For all other contexts, alpha defaults to 0.9. 
+
+##### Different `oob` & `clip` defaults
 
 By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
 
 ggplot2 by default drops values outside of the limits in calculating the geoms and scales to plot (`scales::oob_censor`), and clips anything outside the cartesian coordinate space (`coord = ggplot2::coord_cartesian(clip = "on"`)).
-
-Users should be particularly careful when setting limits for stats other than `identity`. 
 
 ```{r, fig.asp=1}
 p1 <- economics |> 
@@ -667,11 +483,6 @@ p5 <- economics |>
   geom_point(col = pal_guardian[1], alpha = 0.1)
 
 # p1 / (p2 + p3) / (p4 + p5) 
-p1 
-p2 
-p3
-p4
-p5 
 ```
 
 ##### Computational speed is sacrificed
