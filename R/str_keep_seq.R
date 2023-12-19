@@ -42,7 +42,7 @@ str_keep_seq <- function(x,
                          by = 2,
                          offset = 0,
                          ...
-                         ) {
+) {
   if (is.numeric(x)) {
     replace(scales::comma(x, ...),
             seq_along(scales::comma(x, ...))
