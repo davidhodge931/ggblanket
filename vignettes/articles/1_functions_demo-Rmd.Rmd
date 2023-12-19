@@ -21,15 +21,13 @@ This article will demonstrate each wrapper function.
 
 ```{r setup}
 library(ggblanket)
-library(dplyr)
 library(ggplot2)
+library(dplyr)
+library(tidyr)
 library(stringr)
+library(palmerpenguins)
 
 theme_set(light_mode_rt())
-
-penguins2 <- palmerpenguins::penguins |>
-  mutate(sex = stringr::str_to_sentence(sex)) |>
-  tidyr::drop_na(sex)
 ```
 
 ### gg_area
@@ -39,18 +37,21 @@ economics |>
   gg_area(
     x = date,
     y = unemploy,
-    y_title = "Unemployment")
+    y_title = "Unemployment", 
+  )
 ```
 
 ### gg_bar
 
 ```{r }
-penguins2 |>
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_bar(
-    x = species,
+    y = species,
     col = sex,
-    width = 0.6,
-    position = ggplot2::position_dodge())
+    width = 0.75,
+    position = ggplot2::position_dodge(preserve = "single"),
+  )
 ```
 
 ### gg_bin_2d
@@ -59,45 +60,52 @@ penguins2 |>
 diamonds |>
   gg_bin_2d(
     x = carat,
-    y = price)
+    y = price,
+  )
 ```
 
 ### gg_blank
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
   gg_blank(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
     facet = species,
-    y_expand_limits = 0)
+    y_expand_limits = 0,
+  )
 ```
 
 ### gg_boxplot
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_boxplot(
     x = sex,
     y = body_mass_g,
     col = sex,
     facet = species,
-    x_labels = snakecase::to_sentence_case)
+    x_labels = \(x) str_sub(x, 1, 1), 
+    theme = light_mode_b(),
+  )
 ```
 
 ### gg_col
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   group_by(sex, species) |>
-  summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
+  summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
   gg_col(
     x = flipper_length_mm,
     y = species,
     col = sex,
-    width = 0.66,
-    position = ggplot2::position_dodge())
+    width = 0.75,
+    position = ggplot2::position_dodge(preserve = "single"),
+  )
 ```
 
 ### gg_contour
@@ -107,7 +115,8 @@ ggplot2::faithfuld |>
  gg_contour(
    x = waiting,
    y = eruptions,
-   z = density)
+   z = density,
+   )
 ```
 
 ### gg_contour_filled
@@ -118,7 +127,8 @@ ggplot2::faithfuld |>
    x = waiting,
    y = eruptions,
    z = density,
-   bins = 8)
+   bins = 8,
+   )
 ```
 
 ### gg_crossbar
@@ -138,17 +148,21 @@ data.frame(
     col = group,
     width = 0.5,
     x_title = "Treatment",
-    y_title = "Response")
+    y_title = "Response",
+  )
 ```
 
 ### gg_density
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  drop_na(sex) |> 
   gg_density(
     x = flipper_length_mm,
-    col = sex,
-    facet = species)
+    col = species,
+    theme = light_mode_t(),
+  )
 ```
 
 ### gg_density_2d
@@ -158,7 +172,8 @@ faithful |>
   gg_density_2d(
     x = waiting,
     y = eruptions,
-    bins = 8)
+    bins = 8,
+  )
 ```
 
 ### gg_density_2d_filled
@@ -168,7 +183,8 @@ faithful |>
   gg_density_2d_filled(
     x = waiting,
     y = eruptions,
-    bins = 8)
+    bins = 8,
+  )
 ```
 
 ### gg_errorbar
@@ -188,17 +204,21 @@ data.frame(
     col = group,
     width = 0.1,
     x_title = "Treatment",
-    y_title = "Response")
+    y_title = "Response",
+  )
 ```
 
 ### gg_freqpoly
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
-    facet = species)
+    theme = light_mode_t(),
+    col_title = "",
+  )
 ```
 
 ### gg_hex
@@ -209,18 +229,22 @@ diamonds |>
     x = carat,
     y = price,
     y_limits = c(0, 20000),
-    coord = ggplot2::coord_cartesian(clip = "on"))
+    coord = ggplot2::coord_cartesian(clip = "on"), 
+  )
 ```
 
 ### gg_histogram
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_histogram(
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    bins = 50)
+    bins = 50,
+    theme = light_mode_b(),
+  )
 ```
 
 ### gg_jitter
@@ -228,14 +252,16 @@ penguins2 |>
 ```{r}
 set.seed(123)
 
-penguins2 |>
+palmerpenguins::penguins |>
   gg_jitter(
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
     col_continuous = "steps",
     y_expand_limits = 0,
-    position = position_jitter(height = 0))
+    position = position_jitter(height = 0), 
+    col_labels = \(x) str_keep_seq(x, by = 2),
+  )
 ```
 
 ### gg_label
@@ -253,7 +279,8 @@ bind_rows(
     size = 3.53,
     y_expand_limits = 0,
     col_pal = c(pal_guardian[2], "white", pal_guardian[1]),
-    y_title = "Miles per gallon")
+    y_title = "Miles per gallon", 
+  )
 ```
 
 ### gg_line
@@ -264,7 +291,8 @@ economics |>
     x = date,
     y = unemploy,
     y_title = "Unemployment",
-    y_expand_limits = 0)
+    y_expand_limits = 0, 
+  )
 ```
 
 ### gg_linerange
@@ -283,7 +311,8 @@ data.frame(
     col = group,
     position = position_dodge(width = 0.2),
     x_title = "Treatment",
-    y_title = "Response")
+    y_title = "Response",
+  )
 ```
 
 ### gg_path
@@ -296,16 +325,22 @@ economics |>
     y = psavert,
     x_title = "Unemployment rate",
     y_title = "Personal savings rate",
-    y_expand_limits = 0)
+    y_expand_limits = 0,
+  )
 ```
 
 ### gg_point
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_point(
     x = flipper_length_mm,
-    y = body_mass_g)
+    y = body_mass_g, 
+    col = sex,
+    facet = species, 
+    theme = light_mode_b(),
+  )
 ```
 
 ### gg_pointrange
@@ -326,7 +361,8 @@ data.frame(
     position = position_dodge(width = 0.2),
     size = 0.2,
     x_title = "Treatment",
-    y_title = "Response")
+    y_title = "Response",
+  )
 ```
 
 ### gg_polygon
@@ -354,17 +390,19 @@ datapoly |>
     x = x,
     y = y,
     col = value,
-    group = id)
+    group = id, 
+  )
 ```
 
 ### gg_qq
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
   gg_qq(
     sample = body_mass_g,
     facet = species,
-    coord = ggplot2::coord_cartesian(clip = "on")) +
+    coord = ggplot2::coord_cartesian(clip = "on"), 
+  ) +
   geom_qq_line(colour = viridis::mako(9)[5])
 ```
 
@@ -375,7 +413,8 @@ faithfuld |>
   gg_raster(
     x = waiting,
     y = eruptions,
-    col = density)
+    col = density,
+  )
 ```
 
 ### gg_rect
@@ -397,7 +436,8 @@ data.frame(
     xmax = xmax,
     ymin = ymin,
     ymax = ymax,
-    col = z)
+    col = z,
+  )
 ```
 
 ### gg_ribbon
@@ -410,7 +450,8 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     ymin = level_min,
     ymax = level_max,
     col_pal = scales::alpha(viridis::mako(9)[5], 0),
-    y_title = "Level") +
+    y_title = "Level",
+  ) +
   geom_line(aes(x = year, y = level), col = viridis::mako(9)[5])
 ```
 
@@ -422,29 +463,31 @@ data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
     x = x1,
     xend = x2,
     y = y1,
-    yend = y2)
+    yend = y2,
+  )
 ```
 
 ### gg_sf
 
 ```{r}
-if (requireNamespace("sf", quietly = TRUE)) {
-  nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
-  
-  nc |>
-    gg_sf(col = AREA)
-}
+sf::st_read(system.file("shape/nc.shp", package = "sf")) |> 
+  gg_sf(
+    col = AREA, 
+  )
 ```
 
 ### gg_smooth
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  drop_na(sex) |> 
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    facet = species,
-    se = TRUE)
+    col = sex,
+    se = TRUE,
+  )
 ```
 
 ### gg_step
@@ -457,7 +500,8 @@ economics |>
     y_title = "Unemployment",
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_), 
     y_expand_limits = 0,
-    coord = ggplot2::coord_cartesian(clip = "on"))
+    coord = ggplot2::coord_cartesian(clip = "on"),
+  )
 ```
 
 ### gg_text
@@ -475,28 +519,35 @@ bind_rows(
     size = 3.53,
     y_expand_limits = 0,
     col_pal = c(pal_guardian[2], "white", pal_guardian[1]),
-    y_title = "Miles per gallon")
+    y_title = "Miles per gallon",
+  )
 ```
 
 ### gg_tile
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   group_by(species, sex) |>
   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
+  ungroup() |>
+  tidyr::complete(species, sex) |> 
   gg_tile(
     x = sex,
     y = species,
-    col = flipper_length_mm)
+    col = flipper_length_mm,
+  )
 ```
 
 ### gg_violin
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_violin(
     x = sex,
     y = body_mass_g,
     col = sex,
-    facet = species)
+    facet = species, 
+  )
 ```

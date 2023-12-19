@@ -1187,7 +1187,7 @@ gg_blanket <- function(
         geom = geom,
         stat = stat,
         position = position,
-        params = list(contour = contour, ...),
+        params = rlang::list2(contour = contour, ...),
         show.legend = show_legend,
       ) +
       coord +
@@ -1201,7 +1201,7 @@ gg_blanket <- function(
         geom = geom,
         stat = stat,
         position = position,
-        params = list(contour = contour, ...),
+        params = rlang::list2(contour = contour, ...),
         show.legend = show_legend,
       ) +
       coord +
@@ -1291,13 +1291,13 @@ gg_blanket <- function(
   }
 
   if ((is.na(is_col_continuous)) & (is.na(is_alpha_continuous))) {
-    params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
+    params_list <- rlang::list2(contour = contour, colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
   }
   else if (is.na(is_col_continuous)) {
-    params_list <- list(contour = contour, colour = col_pal1, fill = col_pal1, ...)
+    params_list <- rlang::list2(contour = contour, colour = col_pal1, fill = col_pal1, ...)
   }
   else if (is.na(is_alpha_continuous)) {
-    params_list <- list(contour = contour, alpha = alpha_pal1, ...)
+    params_list <- rlang::list2(contour = contour, alpha = alpha_pal1, ...)
   }
 
   #remake plot where either no col or alpha aesthetic
@@ -1918,7 +1918,7 @@ gg_blanket <- function(
 
     #get y_expand and y_breaks for simple scales situation
     if (flipped |
-        facet_scales %in% c("free", "free_x") |
+        facet_scales %in% c("free", "free_y") |
         !any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
         stringr::str_detect(stat_name, "sf")) {
 

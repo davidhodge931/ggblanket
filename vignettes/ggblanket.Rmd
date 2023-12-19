@@ -138,14 +138,14 @@ penguins2 |>
 
 Unspecified `x`, `y`, and `col` titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is. Use `*_title = ""` to remove a title. 
 
-```{r}
+```{r, fig.asp=0.6}
 penguins2 |>
   gg_point(
       x = flipper_length_mm,
       y = body_mass_g, 
       col = sex,
       facet = species, 
-      theme = light_mode_b())
+      theme = dark_mode_b())
 ```
 
 ### 7.  Ability to customise by prefixed arguments 
@@ -181,19 +181,13 @@ knitr::include_graphics("autocomplete_y.png", dpi = 300)
 
 ### 8.  Ability to customise the `theme`
 
-Users can use the `theme` argument in a `gg_*` function for the theme of a plot.
+Users can use the `theme` argument in a `gg_*` function for the theme of a plot. Alternatively, users can set the theme globally using the `ggplot2::theme_set` function, such that all subsequent plots will use this by default. 
 
-Alternatively, users can set the theme globally using the `ggplot2::theme_set` function, such that all subsequent plots will use this by default. 
-
-ggblanket provides two complete families of ggplot2 theme functions called `light_mode_*` (the default) and `dark_mode_*`. 
-
-The suffix refers to the placement of the legend with `rt` referring to right top, `r` right centre, `b` being bottom and `t` being top.  
-
-The default is `light_mode_rt()`.
+ggblanket provides two complete families of ggplot2 theme functions called `dark_mode_*` (the default) and `dark_mode_*`. The suffix refers to the placement of the legend with `rt` referring to right top, `r` right centre, `b` being bottom and `t` being top. The default is `dark_mode_rt()`.
 
 The first argument is the `base_size`. It defaults to 11. This changes the size of the text to this with the title is 10% higher and the caption is 10% lower. 
 
-Note that `theme_set(theme_grey())` resets the set theme for ggplot2 code to theme_grey and for ggblanket `gg_*` functions to `light_mode_rt()`. If you want ggblanket `gg_*` functions to default to using `theme_grey()`, then you must modify the base_size slightly (e.g. `theme_set(theme_grey(11.01))`).
+Note that `theme_set(theme_grey())` resets the set theme for ggplot2 code to theme_grey and for ggblanket `gg_*` functions to `dark_mode_rt()`. If you want ggblanket `gg_*` functions to default to using `theme_grey()`, then you must modify the base_size slightly (e.g. `theme_set(theme_grey(11.01))`).
 
 ```{r, fig.asp=0.66}
 # theme_set(dark_mode_rt())

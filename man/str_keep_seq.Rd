@@ -4,16 +4,16 @@
 \alias{str_keep_seq}
 \title{Keep elements in a vector sequence, and replace the rest with ""}
 \usage{
-str_keep_seq(x, by = 2, offset = 0, ...)
+str_keep_seq(x, ..., by = 2, offset = 0)
 }
 \arguments{
 \item{x}{A vector.}
 
+\item{...}{If numeric, other arguments passed to the scales::comma function.}
+
 \item{by}{The increment of elements to keep. Defaults to 2.}
 
 \item{offset}{An offset to start at the intended offset. Defaults to 0. Possible values are -1 to (\code{by} - 2)}
-
-\item{...}{If numeric, other arguments passed to the scales::comma function.}
 }
 \value{
 A vector.
