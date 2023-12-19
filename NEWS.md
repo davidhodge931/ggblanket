@@ -1,27 +1,30 @@
 # ggblanket 5.2.0900
 
-* Support for alpha aesthetic.
-* Support for using ggplot2 aesthetics of colour or fill - i.e. not both. 
+* Rewrite internal code so that everything draws off one function: gg_blanket.
+* Exported gg_blanket function, which allows for a ggproto geom to be added.
+* Added stat support for a ggproto object (or character string).
+* Added position support for a ggproto object (or character string).
+* Added transform support for a transform class object (or character string).
+* Added Alpha aesthetic support with new `alpha`, `alpha_pal` and `alpha_*` arguments.
 * Added `facet_axes` and `facet_axis_labels` arguments.
-* Breaking: `...` moved to the front after `data`, so no positional matching or trailing commas. 
+* Added `light_mode_*` and `dark_mode_*` family of functions.
+* Increased `light_mode_*` and `dark_mode_*` default base_size.
+* Changed `*_mode_*` default base_size to 11.
+* Changed `*_mode_*` default face to plain.
+* Changed `*_mode_*` `base_pal` to be a 5 colour vector to colour the whole plot.
+* Changed default theme to place the legend on the top right.
+* Improved default gridlines.
+* Fixed bug when `col` is logical class.
+* Breaking: shift `...` to the front to require users to name arguments.
 * Breaking: renamed `pal` to `col_pal`.
 * Breaking: renamed `pal_na` to `col_pal_na`.
 * Breaking: renamed `alpha` to `alpha_pal`.
+* Breaking: `alpha` now refers to the aesthetic only.
 * Breaking: renamed `*_include` to `*_expand_limits`.
-
 * Breaking: renamed `*_trans` to `*_transform`.
 * Breaking: removed `col_legend_place` argument.
 * Breaking: removed `light_mode` and `dark_mode` functions.
-
-* Added `light_mode_*` and `dark_mode_*` family of functions.
-* Increased `light_mode_*` and `dark_mode_*` default base_size.
-* Changed `*_mode_*` default face to plain.
-* Changed `*_mode_*` `base_pal` to be a 4 colour vector to colour the whole plot.
-
-* Improved default gridlines.
-* Fixed bug when col is logical class.
-* Breaking: remove `col_scale` argument.
-* Breaking: shift `...` to the front to require users to name arguments.
+* Breaking: removed `col_scale` argument.
 
 # ggblanket 5.2.0
 
