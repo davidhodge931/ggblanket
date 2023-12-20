@@ -253,19 +253,14 @@ penguins |>
 
 ### 10. Pretty continuous positional scales
 
-Where the orientation is normal (i.e. vertical):
+ggblanket creates a special continuous y scale for non-horizontal  plots that has: 
 
--   Default x scale limits and expanding are as per ggplot2 defaults
--   Default continuous y scale limits (that are non-transformed) start and end on a break with zero expanding
--   Default categorical (or numeric transformed) y scale limits and expanding are as per ggplot2 defaults
--   Default removal of vertical gridlines 
+* `y_limits` that are the range of the `y_breaks` 
+* `y_expand` of c(0, 0)
 
-It does the opposite where the orientation is horizontal. 
+This special case can be turned off using `y_limits = c(NA, NA)`.
 
-
-Sometimes with small plots or faceted plots etc, the default approach is not optimal as it can waste space. In these cases, users can: 
-* set limits to the range of the data using `*_limits = c(NA, NA)`
-* and add more frequent breaks (e.g. `*_breaks = scales::breaks_pretty(10)`), and use the `str_keep_seq` helper function to only keep every 2nd (or nth) label. 
+The opposite occurs for horizontal plots on the x scale. 
 
 ```{r}
 penguins |>

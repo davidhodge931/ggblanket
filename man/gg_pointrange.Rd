@@ -32,8 +32,8 @@ gg_pointrange(
   mapping = NULL,
   x_breaks = NULL,
   x_expand = NULL,
-  x_gridlines = NULL,
   x_expand_limits = NULL,
+  x_gridlines = NULL,
   x_labels = NULL,
   x_limits = NULL,
   x_oob = scales::oob_keep,
@@ -42,8 +42,8 @@ gg_pointrange(
   x_transform = NULL,
   y_breaks = NULL,
   y_expand = NULL,
-  y_gridlines = NULL,
   y_expand_limits = NULL,
+  y_gridlines = NULL,
   y_labels = NULL,
   y_limits = NULL,
   y_oob = scales::oob_keep,
@@ -148,9 +148,9 @@ gg_pointrange(
 
 \item{x_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
-\item{x_gridlines}{TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.}
-
 \item{x_expand_limits}{For a continuous x variable, any values that the limits should encompass (e.g. 0).}
+
+\item{x_gridlines}{TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.}
 
 \item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
@@ -168,9 +168,9 @@ gg_pointrange(
 
 \item{y_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
-\item{y_gridlines}{TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.}
-
 \item{y_expand_limits}{For a continuous y variable, any values that the limits should encompass (e.g. 0).}
+
+\item{y_gridlines}{TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.}
 
 \item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
