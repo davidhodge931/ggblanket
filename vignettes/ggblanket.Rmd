@@ -264,19 +264,18 @@ It does the opposite where the orientation is horizontal.
 
 
 Sometimes with small plots or faceted plots etc, the default approach is not optimal as it can waste space. In these cases, users can: 
-* set limits to the range of the data using `*_limits = c(NA, NA)` (and `*_expand = c(0.05, 0.05)` if desired)
-* use the `str_keep_seq` helper function to only keep every 2nd (or nth) label, and add more frequent breaks (e.g. `*_breaks = scales::breaks_pretty(10)`)
+* set limits to the range of the data using `*_limits = c(NA, NA)`
+* and add more frequent breaks (e.g. `*_breaks = scales::breaks_pretty(10)`), and use the `str_keep_seq` helper function to only keep every 2nd (or nth) label. 
 
 ```{r}
 penguins |>
-  group_by(species, sex) |> 
-  summarise(body_mass_g = mean(body_mass_g)) |> 
-  gg_col(
-    x = body_mass_g,
-    y = species,
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
     col = sex,
-    position = position_dodge(preserve = "single"), 
+    x_breaks = scales::breaks_pretty(10),
     x_labels = \(x) str_keep_seq(x),
+    y_limits = c(NA, NA),
   )
 ```
 

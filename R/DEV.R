@@ -29,7 +29,6 @@
 #' @param sample Unquoted sample aesthetic variable.
 #' @param mapping Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha_pal.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
-#' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param x_gridlines TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
 #' @param x_expand_limits For a continuous x variable, any values that the limits should encompass (e.g. 0).
 #' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
@@ -39,7 +38,6 @@
 #' @param x_title Axis title string. Use "" for no title.
 #' @param x_transform For a numeric x variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param y_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
-#' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param y_gridlines TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
 #' @param y_expand_limits For a continuous y variable, any values that the limits should encompass (e.g. 0).
 #' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
@@ -50,7 +48,6 @@
 #' @param y_transform For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param col_continuous For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".
-#' @param col_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param col_expand_limits For a continuous variable, any values that the limits should encompass (e.g. 0).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param col_legend_ncol The number of columns for the legend elements.
@@ -73,7 +70,6 @@
 #' @param facet_layout Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".
 #' @param facet_switch Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".
 #' @param alpha_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
-#' @param alpha_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param alpha_expand_limits For a continuous variable, any values that the limits should encompass (e.g. 0).
 #' @param alpha_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param alpha_legend_ncol The number of columns for the legend elements.
@@ -123,7 +119,6 @@ gg_blanket <- function(
     sample = NULL,
     mapping = NULL,
     x_breaks = NULL,
-    x_expand = NULL,
     x_gridlines = NULL,
     x_expand_limits = NULL,
     x_labels = NULL,
@@ -133,7 +128,6 @@ gg_blanket <- function(
     x_title = NULL,
     x_transform = NULL,
     y_breaks = NULL,
-    y_expand = NULL,
     y_gridlines = NULL,
     y_expand_limits = NULL,
     y_labels = NULL,
@@ -145,7 +139,6 @@ gg_blanket <- function(
     col_breaks = NULL,
     col_continuous = "gradient",
     col_expand_limits = NULL,
-    col_expand = ggplot2::waiver(),
     col_labels = NULL,
     col_legend_ncol = NULL,
     col_legend_nrow = NULL,
@@ -168,7 +161,6 @@ gg_blanket <- function(
     facet_switch = NULL,
     alpha_breaks = NULL,
     alpha_expand_limits = NULL,
-    alpha_expand = ggplot2::waiver(),
     alpha_labels = NULL,
     alpha_legend_ncol = NULL,
     alpha_legend_nrow = NULL,
@@ -522,6 +514,7 @@ gg_blanket <- function(
   #yet more defaults
   ##############################################################################
 
+  #guess facet ncol and nrow
   if (!rlang::quo_is_null(facet)) {
     facet_n <- data %>%
       dplyr::pull(!!facet) %>%
@@ -540,8 +533,13 @@ gg_blanket <- function(
     if (any(is.na(data %>% dplyr::pull(!!facet2)))) facet2_n <- facet2_n + 1
   }
 
+  #make drop appropriate to facet scales
   x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
   y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
+
+  #add fixed expand defaults
+  x_expand <- NULL
+  y_expand <- NULL
 
   ##############################################################################
   # add ggplot() with aesthetics
@@ -1379,7 +1377,7 @@ gg_blanket <- function(
             colours = col_pal,
             values = col_rescale,
             limits = col_limits,
-            expand = col_expand,
+            expand = ggplot2::waiver(),
             breaks = col_breaks,
             labels = col_labels,
             transform = col_transform,
@@ -1390,7 +1388,7 @@ gg_blanket <- function(
             colours = col_pal,
             values = col_rescale,
             limits = col_limits,
-            expand = col_expand,
+            expand = ggplot2::waiver(),
             breaks = col_breaks,
             labels = col_labels,
             transform = col_transform,
@@ -1419,7 +1417,7 @@ gg_blanket <- function(
             colours = col_pal,
             values = col_rescale,
             limits = col_limits,
-            expand = col_expand,
+            expand = ggplot2::waiver(),
             breaks = col_breaks,
             labels = col_labels,
             transform = col_transform,
@@ -1430,7 +1428,7 @@ gg_blanket <- function(
             colours = col_pal,
             values = col_rescale,
             limits = col_limits,
-            expand = col_expand,
+            expand = ggplot2::waiver(),
             breaks = col_breaks,
             labels = col_labels,
             transform = col_transform,
@@ -1493,7 +1491,7 @@ gg_blanket <- function(
         ggplot2::scale_fill_manual(
           values = col_pal,
           limits = col_limits,
-          expand = col_expand,
+          expand = ggplot2::waiver(),
           breaks = col_breaks,
           labels = col_labels,
           na.value = col_pal_na,
@@ -1502,7 +1500,7 @@ gg_blanket <- function(
         ggplot2::scale_colour_manual(
           values = col_pal,
           limits = col_limits,
-          expand = col_expand,
+          expand = ggplot2::waiver(),
           breaks = col_breaks,
           labels = col_labels,
           na.value = col_pal_na,
@@ -1575,7 +1573,7 @@ gg_blanket <- function(
         ggplot2::scale_alpha_continuous(
           range = alpha_pal,
           limits = alpha_limits,
-          expand = alpha_expand,
+          expand = ggplot2::waiver(),
           breaks = alpha_breaks,
           labels = alpha_labels,
           transform = alpha_transform,
@@ -1632,7 +1630,7 @@ gg_blanket <- function(
         ggplot2::scale_alpha_manual(
           values = alpha_pal,
           limits = alpha_limits,
-          expand = alpha_expand,
+          expand = ggplot2::waiver(),
           breaks = alpha_breaks,
           labels = alpha_labels,
           na.value = alpha_pal_na,
@@ -1660,7 +1658,7 @@ gg_blanket <- function(
 
   #Make x scale based on plot_data
   if (stringr::str_detect(stat_name, "sf")) {
-    if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
+    x_expand <- ggplot2::waiver()
     if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
     if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
     if (rlang::is_null(x_transform)) x_transform <- scales::transform_identity()
@@ -1679,7 +1677,7 @@ gg_blanket <- function(
     })
   }
   else if (!x_continuous) {
-    if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
+    x_expand <- ggplot2::waiver()
     if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
     if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
 
@@ -1743,7 +1741,7 @@ gg_blanket <- function(
         !any(x_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
         stringr::str_detect(stat_name, "sf")) {
 
-      if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
+      x_expand <- ggplot2::waiver()
 
       if (rlang::is_null(x_breaks)) {
         x_breaks <- scales::breaks_pretty(n = x_breaks_n)
@@ -1800,23 +1798,16 @@ gg_blanket <- function(
           x_breaks <- seq(0, 1, 0.25)
         }
         else if (rlang::is_null(x_breaks)) {
-          if (rlang::is_null(x_expand)) {
-            x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
-            if (rlang::is_null(x_limits)) x_limits <- sort(range(x_breaks))
-          }
-          else {
-            x_breaks <- scales::breaks_pretty(n = x_breaks_n)
-          }
+          x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+          if (rlang::is_null(x_limits)) x_limits <- sort(range(x_breaks))
         }
         else if (!rlang::is_null(x_breaks)) {
           if (rlang::is_null(x_limits)) {
-            if (rlang::is_null(x_expand)) {
-              if (is.function(x_breaks)) {
-                x_breaks <- x_breaks(x_range)
-                x_limits <- range(x_breaks)
-              }
-              else if (is.vector(x_breaks)) x_limits <- sort(range(x_breaks))
+            if (is.function(x_breaks)) {
+              x_breaks <- x_breaks(x_range)
+              x_limits <- range(x_breaks)
             }
+            else if (is.vector(x_breaks)) x_limits <- sort(range(x_breaks))
           }
         }
 
@@ -1826,7 +1817,7 @@ gg_blanket <- function(
           }
         }
       }
-      if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
+      x_expand <- c(0, 0)
     }
 
     #make the x_scale
@@ -1846,7 +1837,7 @@ gg_blanket <- function(
 
   #Make y scale based on plot_data
   if (stringr::str_detect(stat_name, "sf")) {
-    if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
+    y_expand <- ggplot2::waiver()
     if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
     if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
     if (rlang::is_null(y_transform)) y_transform <- scales::transform_identity()
@@ -1865,7 +1856,7 @@ gg_blanket <- function(
     })
   }
   else if (!y_continuous) {
-    if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
+    y_expand <- ggplot2::waiver()
     if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
     if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
 
@@ -1928,7 +1919,7 @@ gg_blanket <- function(
         !any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
         stringr::str_detect(stat_name, "sf")) {
 
-      if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
+      y_expand <- ggplot2::waiver()
 
       if (rlang::is_null(y_breaks)) {
         y_breaks <- scales::breaks_pretty(n = y_breaks_n)
@@ -1983,23 +1974,16 @@ gg_blanket <- function(
           y_breaks <- seq(0, 1, 0.25)
         }
         else if (rlang::is_null(y_breaks)) {
-          if (rlang::is_null(y_expand)) {
-            y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
-            if (rlang::is_null(y_limits)) y_limits <- sort(range(y_breaks))
-          }
-          else {
-            y_breaks <- scales::breaks_pretty(n = y_breaks_n)
-          }
+          y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+          if (rlang::is_null(y_limits)) y_limits <- sort(range(y_breaks))
         }
         else if (!rlang::is_null(y_breaks)) {
           if (rlang::is_null(y_limits)) {
-            if (rlang::is_null(y_expand)) {
-              if (is.function(y_breaks)) {
-                y_breaks <- y_breaks(y_range)
-                y_limits <- range(y_breaks)
-              }
-              else if (is.vector(y_breaks)) y_limits <- sort(range(y_breaks))
+            if (is.function(y_breaks)) {
+              y_breaks <- y_breaks(y_range)
+              y_limits <- range(y_breaks)
             }
+            else if (is.vector(y_breaks)) y_limits <- sort(range(y_breaks))
           }
         }
 
@@ -2009,7 +1993,7 @@ gg_blanket <- function(
           }
         }
       }
-      if (rlang::is_null(y_expand)) y_expand <- c(0, 0)
+      y_expand <- c(0, 0)
     }
 
     #make the y_scale

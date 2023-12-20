@@ -32,7 +32,6 @@ gg_blanket(
   sample = NULL,
   mapping = NULL,
   x_breaks = NULL,
-  x_expand = NULL,
   x_gridlines = NULL,
   x_expand_limits = NULL,
   x_labels = NULL,
@@ -42,7 +41,6 @@ gg_blanket(
   x_title = NULL,
   x_transform = NULL,
   y_breaks = NULL,
-  y_expand = NULL,
   y_gridlines = NULL,
   y_expand_limits = NULL,
   y_labels = NULL,
@@ -54,7 +52,6 @@ gg_blanket(
   col_breaks = NULL,
   col_continuous = "gradient",
   col_expand_limits = NULL,
-  col_expand = ggplot2::waiver(),
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
@@ -77,7 +74,6 @@ gg_blanket(
   facet_switch = NULL,
   alpha_breaks = NULL,
   alpha_expand_limits = NULL,
-  alpha_expand = ggplot2::waiver(),
   alpha_labels = NULL,
   alpha_legend_ncol = NULL,
   alpha_legend_nrow = NULL,
@@ -149,8 +145,6 @@ gg_blanket(
 
 \item{x_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
-\item{x_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
-
 \item{x_gridlines}{TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.}
 
 \item{x_expand_limits}{For a continuous x variable, any values that the limits should encompass (e.g. 0).}
@@ -168,8 +162,6 @@ gg_blanket(
 \item{x_transform}{For a numeric x variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
 
 \item{y_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
-
-\item{y_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
 \item{y_gridlines}{TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.}
 
@@ -192,8 +184,6 @@ gg_blanket(
 \item{col_continuous}{For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".}
 
 \item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. 0).}
-
-\item{col_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
 \item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 
@@ -238,8 +228,6 @@ gg_blanket(
 \item{alpha_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
 \item{alpha_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. 0).}
-
-\item{alpha_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
 \item{alpha_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
 

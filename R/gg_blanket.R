@@ -123,7 +123,7 @@
 #'     sample = NULL,
 #'     mapping = NULL,
 #'     x_breaks = NULL,
-#'     x_expand = NULL,
+#'     # x_expand = NULL,
 #'     x_gridlines = NULL,
 #'     x_expand_limits = NULL,
 #'     x_labels = NULL,
@@ -133,7 +133,7 @@
 #'     x_title = NULL,
 #'     x_transform = NULL,
 #'     y_breaks = NULL,
-#'     y_expand = NULL,
+#'     # y_expand = NULL,
 #'     y_gridlines = NULL,
 #'     y_expand_limits = NULL,
 #'     y_labels = NULL,
@@ -145,7 +145,7 @@
 #'     col_breaks = NULL,
 #'     col_continuous = "gradient",
 #'     col_expand_limits = NULL,
-#'     col_expand = ggplot2::waiver(),
+#'     # col_expand = ggplot2::waiver(),
 #'     col_labels = NULL,
 #'     col_legend_ncol = NULL,
 #'     col_legend_nrow = NULL,
@@ -168,7 +168,7 @@
 #'     facet_switch = NULL,
 #'     alpha_breaks = NULL,
 #'     alpha_expand_limits = NULL,
-#'     alpha_expand = ggplot2::waiver(),
+#'     # alpha_expand = ggplot2::waiver(),
 #'     alpha_labels = NULL,
 #'     alpha_legend_ncol = NULL,
 #'     alpha_legend_nrow = NULL,
@@ -1802,16 +1802,22 @@
 #'         else if (rlang::is_null(x_breaks)) {
 #'           if (rlang::is_null(x_expand)) {
 #'             x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
-#'             x_limits <- sort(range(x_breaks))
+#'             if (rlang::is_null(x_limits)) x_limits <- sort(range(x_breaks))
 #'           }
-#'           else x_breaks <- scales::breaks_pretty(n = x_breaks_n)
+#'           else {
+#'             x_breaks <- scales::breaks_pretty(n = x_breaks_n)
+#'           }
 #'         }
-#'         else {
-#'           if (rlang::is_null(x_expand)) {
-#'             if (is.function(x_breaks)) x_breaks <- x_breaks(x_range)
-#'             else if (is.vector(x_breaks)) x_limits <- sort(range(x_breaks))
+#'         else if (!rlang::is_null(x_breaks)) {
+#'           if (rlang::is_null(x_limits)) {
+#'             if (rlang::is_null(x_expand)) {
+#'               if (is.function(x_breaks)) {
+#'                 x_breaks <- x_breaks(x_range)
+#'                 x_limits <- range(x_breaks)
+#'               }
+#'               else if (is.vector(x_breaks)) x_limits <- sort(range(x_breaks))
+#'             }
 #'           }
-#'           else x_breaks <- x_breaks
 #'         }
 #'
 #'         if (any(x_transform_name %in% "reverse")) {
@@ -1979,16 +1985,22 @@
 #'         else if (rlang::is_null(y_breaks)) {
 #'           if (rlang::is_null(y_expand)) {
 #'             y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
-#'             y_limits <- sort(range(y_breaks))
+#'             if (rlang::is_null(y_limits)) y_limits <- sort(range(y_breaks))
 #'           }
-#'           else y_breaks <- scales::breaks_pretty(n = y_breaks_n)
+#'           else {
+#'             y_breaks <- scales::breaks_pretty(n = y_breaks_n)
+#'           }
 #'         }
-#'         else {
-#'           if (rlang::is_null(y_expand)) {
-#'             if (is.function(y_breaks)) y_breaks <- y_breaks(y_range)
-#'             else if (is.vector(y_breaks)) y_limits <- sort(range(y_breaks))
+#'         else if (!rlang::is_null(y_breaks)) {
+#'           if (rlang::is_null(y_limits)) {
+#'             if (rlang::is_null(y_expand)) {
+#'               if (is.function(y_breaks)) {
+#'                 y_breaks <- y_breaks(y_range)
+#'                 y_limits <- range(y_breaks)
+#'               }
+#'               else if (is.vector(y_breaks)) y_limits <- sort(range(y_breaks))
+#'             }
 #'           }
-#'           else y_breaks <- y_breaks
 #'         }
 #'
 #'         if (any(y_transform_name %in% "reverse")) {
