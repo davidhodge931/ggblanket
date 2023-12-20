@@ -128,7 +128,7 @@ ggplot2::faithfuld |>
    y = eruptions,
    z = density,
    bins = 8,
-   )
+  )
 ```
 
 ### gg_crossbar
