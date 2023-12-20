@@ -549,5 +549,6 @@ palmerpenguins::penguins |>
     y = body_mass_g,
     col = sex,
     facet = species, 
+    theme = dark_mode_b(),
   )
 ```

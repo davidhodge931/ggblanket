@@ -25,7 +25,6 @@
 * Breaking: removed `col_legend_place` argument.
 * Breaking: removed `light_mode` and `dark_mode` functions.
 * Breaking: removed `col_scale` argument.
-* Breaking: removed `_expand` arguments.
 
 # ggblanket 5.2.0
 
