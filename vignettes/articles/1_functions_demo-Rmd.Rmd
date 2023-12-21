@@ -26,8 +26,6 @@ library(dplyr)
 library(tidyr)
 library(stringr)
 library(palmerpenguins)
-
-theme_set(light_mode_rt())
 ```
 
 ### gg_area

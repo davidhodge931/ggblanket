@@ -292,7 +292,7 @@ penguins |>
   ) 
 ```
 
-### 12. Ability to add multiple `geom\_\*` layers
+### 12. Ability to add multiple `geom_*` layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
 
@@ -448,8 +448,8 @@ iris |>
     col = Species,
     group = 1,
     colour = pal_light_mode[2],
+    col_pal = c("#0095A8", "#112E51", "#FF7043"),
   )
-
 ```
 
 ## Further information 

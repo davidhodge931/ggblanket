@@ -32,6 +32,7 @@ Suggests:
     bench,
     deldir,
     ggforce,
+    ggridges,
     hexbin,
     knitr,
     palmerpenguins,
