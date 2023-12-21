@@ -26,6 +26,7 @@
 * Breaking: removed `col_legend_place` argument.
 * Breaking: removed `light_mode` and `dark_mode` functions.
 * Breaking: removed `col_scale` argument.
+* Added new `pal_census`, and helper `pal_blue`, `pal_teal`, `pal_orange`, `pal_navy`, `pal_plum` and `pal_grey` - updated the default discrete palette.
 
 # ggblanket 5.2.0
 

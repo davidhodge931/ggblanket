@@ -87,7 +87,7 @@ palmerpenguins::penguins |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    x_labels = \(x) str_sub(x, 1, 1),
+    x_labels = \(x) str_sub(x, 1, 1), 
     theme = light_mode_b(),
   )
 ```
@@ -128,7 +128,7 @@ ggplot2::faithfuld |>
    y = eruptions,
    z = density,
    bins = 8,
-   )
+  )
 ```
 
 ### gg_crossbar
@@ -161,7 +161,7 @@ palmerpenguins::penguins |>
   gg_density(
     x = flipper_length_mm,
     col = species,
-    theme = dark_mode_t(),
+    theme = light_mode_t(),
   )
 ```
 
@@ -216,7 +216,7 @@ palmerpenguins::penguins |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
-    theme = dark_mode_t(),
+    theme = light_mode_t(),
     col_title = "",
   )
 ```
@@ -243,7 +243,7 @@ palmerpenguins::penguins |>
     col = sex,
     facet = species,
     bins = 50,
-    theme = dark_mode_b(),
+    theme = light_mode_b(),
   )
 ```
 
@@ -278,7 +278,7 @@ bind_rows(
     label = model,
     size = 3.53,
     y_expand_limits = 0,
-    col_pal = c(pal_guardian[2], "white", pal_guardian[1]),
+    col_pal = c(pal_orange, "white", pal_teal),
     y_title = "Miles per gallon", 
   )
 ```
@@ -339,7 +339,7 @@ palmerpenguins::penguins |>
     y = body_mass_g, 
     col = sex,
     facet = species, 
-    theme = dark_mode_b(),
+    theme = light_mode_b(),
   )
 ```
 
@@ -518,7 +518,7 @@ bind_rows(
     label = model,
     size = 3.53,
     y_expand_limits = 0,
-    col_pal = c(pal_guardian[2], "white", pal_guardian[1]),
+    col_pal = c(pal_orange, "white", pal_teal),
     y_title = "Miles per gallon",
   )
 ```
@@ -549,6 +549,6 @@ palmerpenguins::penguins |>
     y = body_mass_g,
     col = sex,
     facet = species, 
-    theme = dark_mode_b(),
+    theme = light_mode_b(),
   )
 ```

@@ -276,7 +276,7 @@ bind_rows(
     label = model,
     size = 3.53,
     y_expand_limits = 0,
-    col_pal = c(pal_guardian[2], "white", pal_guardian[1]),
+    col_pal = c(pal_orange, "white", pal_teal),
     y_title = "Miles per gallon", 
   )
 ```
@@ -516,7 +516,7 @@ bind_rows(
     label = model,
     size = 3.53,
     y_expand_limits = 0,
-    col_pal = c(pal_guardian[2], "white", pal_guardian[1]),
+    col_pal = c(pal_orange, "white", pal_teal),
     y_title = "Miles per gallon",
   )
 ```

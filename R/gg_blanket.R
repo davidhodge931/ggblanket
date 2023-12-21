@@ -153,7 +153,7 @@ gg_blanket <- function(
     col_limits = NULL,
     col_oob = scales::oob_keep,
     col_pal = NULL,
-    col_pal_na = "#bebebe",
+    col_pal_na = pal_grey,
     col_rescale = scales::rescale(),
     col_title = NULL,
     col_transform = NULL,
@@ -1249,7 +1249,7 @@ gg_blanket <- function(
 
   #get params for when no col or alpha aesthetic
   if (is.na(is_col_continuous)) {
-    if (rlang::is_null(col_pal)) col_pal1 <- pal_none()
+    if (rlang::is_null(col_pal)) col_pal1 <- pal_blue
     else col_pal1 <- col_pal[1]
   }
 

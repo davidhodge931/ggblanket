@@ -448,7 +448,7 @@ iris |>
     col = Species,
     group = 1,
     colour = pal_light_mode[2],
-    col_pal = c("#0095A8", "#112E51", "#FF7043"),
+    col_pal = c(pal_teal, pal_orange, pal_navy),
   )
 ```
 

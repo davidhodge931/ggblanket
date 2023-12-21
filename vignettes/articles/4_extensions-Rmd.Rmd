@@ -77,7 +77,7 @@ p3 <- mtcars |>
 The ggblend package provides blending of colours. Note you must use a graphics device that supports blending.
  
 ```{r, fig.asp=0.6}
-penguins2 |>
+penguins |>
   gg_blank(
     x = flipper_length_mm,
     col = species,
@@ -273,7 +273,7 @@ penguins2 |>
   ggnewscale::new_scale_colour() +
   geom_point(aes(x = flipper_length_mm, y = body_mass_g, colour = species), 
              data = penguins2 |> filter(species != "Gentoo")) +
-  scale_color_manual(values = pal_guardian[c(3,2)]) +
+  scale_color_manual(values = c(pal_plum, pal_orange)) +
   labs(colour = "Species")
 ```
 

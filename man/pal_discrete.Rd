@@ -4,13 +4,13 @@
 \alias{pal_discrete}
 \title{Default colours used to colour a discrete variable.}
 \usage{
-pal_discrete(n = 4)
+pal_discrete(n = 3)
 }
 \value{
 A character vector.
 }
 \description{
-Default colours used to colour a discrete variable. Uses a colour blind safe palette inspired by the Guardian newspaper for 4 or less colours. For 5 or more colours, uses scales::pal_hue.
+Default colours used to colour a discrete variable. Uses a colour blind safe palette derived from the US Census Bureau's Data Visualisation Standards for 3 or less colours. For 4 or more colours, uses scales::pal_hue.
 }
 \references{
 Colours inspired by the Guardian website. scales::pal_hue otherwise.

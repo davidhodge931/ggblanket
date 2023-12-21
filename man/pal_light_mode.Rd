@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_light_mode}
 \alias{pal_light_mode}
-\title{A 5 colour vector for use with the light_mode_* themes to colour the (1) plot background (2) panel background, (3) axis lines (and ticks) (4) panel grid and (5) text.}
+\title{A 5 colour vector for use with the light_mode_* themes to colour the (1) plot background (2) panel background, (3) axis lines (and ticks) (4) panel gridlines and (5) text.}
 \format{
 An object of class \code{character} of length 5.
 }
