@@ -13,6 +13,7 @@
 * Changed `*_mode_*` default face to plain.
 * Changed `*_mode_*` `base_pal` to be a 5 colour vector to colour the whole plot.
 * Changed default theme to place the legend on the top right.
+* Changed NULL effect of pretty axis `*_limits = c(NA, NA)` on `y_expand` NULL.
 * Improved default gridlines.
 * Fixed bug when `col` is logical class.
 * Breaking: shift `...` to the front to require users to name arguments.

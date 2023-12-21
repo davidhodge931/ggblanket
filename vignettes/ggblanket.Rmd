@@ -47,6 +47,7 @@ Secondary objectives relate to:
 11. Access to other `geom_*` arguments via ...
 12. Ability to add multiple `geom_*` layers
 13. Other key differences to ggplot2
+14. A `gg_blanket` function for any exported `geom`
 
 ```{r setup}
 library(ggblanket)
@@ -427,32 +428,28 @@ bench::mark({
 * `*_title` is equivalent to `ggplot2::labs(* = ...)`
 * Logical variables are reversed, so that `TRUE` always comes before `FALSE`
 
-### 14. A powerful gg_blanket function
+### 14. A `gg_blanket` function for any exported `geom`
 
-The ggblanket package contains a powerful `gg_blanket` function that enables the user to specify a geom. This provides additional support for other geoms in extension packages etc.
+The ggblanket package contains a powerful `gg_blanket` function that enables the user to specify any exported geom. 
+
+This enables the use of ggblanket with other extension packages etc.
 
 ```{r}
-library(ggridges)
+library(ggforce)
 
-penguins |>
+iris |> 
   gg_blanket(
-    geom = "density_ridges",
-    stat = "density_ridges",
-    x = bill_length_mm,
-    y = species,
-    col = species,
-    y_expand = c(0.05, 0.05),
-    title = "***Pygoscelis*** **penguin** bill lengths and depths",
-    subtitle = "<span style = 'color: #2596be ;'>**Adelie**</span>,
-       <span style = 'color:#fc7c24;'>**Chinstrap**</span>,
-       *and* <span style = 'color:#9c1e74;'>**Gentoo**</span>",
-    ) +
-  theme(plot.title = ggtext::element_markdown()) +
-  theme(plot.subtitle = ggtext::element_markdown()) +
-  guides(colour = "none", fill = "none")
+    geom = ggforce::GeomShape,
+    stat = "voronoi_tile",
+    position = "identity",
+    x = Sepal.Length, 
+    y = Sepal.Width, 
+    col = Species,
+    group = 1,
+    colour = pal_light_mode[2],
+  )
 
 ```
-
 
 ## Further information 
 

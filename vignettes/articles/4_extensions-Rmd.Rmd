@@ -72,76 +72,18 @@ p3 <- mtcars |>
 #                   )
 ```
 
-#### ggbeeswarm
-
-The ggbeeswarm package can be used to create scatter plots that avoid overlapping points.
-
-```{r}
-penguins2 |> 
-  gg_blank(x = species, 
-           y = body_mass_g) + 
-  ggbeeswarm::geom_quasirandom(colour = viridis::mako(9)[5])
-```
-
 #### ggblend
  
 The ggblend package provides blending of colours. Note you must use a graphics device that supports blending.
  
 ```{r, fig.asp=0.6}
-p1 <- penguins2 |>
-  gg_density(
-    x = flipper_length_mm,
-    col = species,
-    col_pal = RColorBrewer::brewer.pal(9, "Set1"),
-    title = "Normal") 
-
-p2 <- penguins2 |>
+penguins2 |>
   gg_blank(
     x = flipper_length_mm,
     col = species,
     col_pal = RColorBrewer::brewer.pal(9, "Set1"),
-    stat = "density",
-    title = "Blend") +
+    stat = "density") +
   geom_density(alpha = 0.5) |> ggblend::blend("multiply")
-
-p1
-p2
-# p1 + p2
-```
-
-#### ggbump
-
-The ggbump package can be used to create bump plots.
-
-```{r}
-df <- tibble(
-  country = c("India", "India", "India", "Sweden", "Sweden", "Sweden", "Germany",
-              "Germany", "Germany", "Finland", "Finland", "Finland"), 
-  year = c(2011, 2012, 2013, 2011, 2012, 2013, 2011, 2012, 2013, 2011, 2012, 2013),
-  value = c(492, 246, 246, 369, 123, 492, 246, 369, 123, 123, 492, 369)) |> 
-  group_by(year) |>  
-  mutate(rank = rank(value, ties.method = "random")) |> 
-  ungroup()
-
-df |> 
-  gg_blank(x = year, 
-           y = rank, 
-           col = country, 
-           label = country,
-           x_expand = c(0.2, 0.2),
-           x_breaks = scales::breaks_width(1),
-           x_labels = \(x) x,
-           y_transform = "reverse",
-           y_expand = c(0.05, 0.05),
-           y_breaks = scales::breaks_width(-1),
-           y_gridlines = FALSE) +
-  ggbump::geom_bump(linewidth = 2, smooth = 8) +
-  geom_point(size = 4) +
-  geom_text(data = df |> filter(year == min(year)),
-            aes(x = year - 0.1), size = 3.53, hjust = 1) +
-  geom_text(data = df |> filter(year == max(year)),
-            aes(x = year + 0.1), size = 3.53, hjust = 0) +
-  ggeasy::easy_remove_axes(which = "y", what = c("ticks", "line"))
 ```
 
 #### ggdensity
@@ -248,26 +190,29 @@ penguins2 |>
 The ggforce package includes functions for annotating areas of points, and a geom for making a smoothed line graph using a b-spline.
 
 ```{r}
-penguins2 |> 
-  gg_point(x = flipper_length_mm, 
-           y = body_mass_g, 
-           col = species,
-           coord = coord_cartesian(clip = "on")) +
-  ggforce::geom_mark_hull(alpha = 0.1, concavity = 5) 
+library(ggforce)
+
+penguins |>
+  gg_blanket(
+    geom = "mark_hull",
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+    coord = coord_cartesian(),
+    alpha_pal = 0.5,
+  ) +
+  geom_point()
 ```
 
 ```{r}
 ggplot2::economics |>
   slice_head(n = 35) |> 
-  gg_point( 
-    x = date,
+  gg_path(
+    stat = "bspline",
+    x = date, 
     y = unemploy,
-    alpha_pal = 0.25,
-    y_title = "Unemployment") +
-  ggforce::geom_bspline(
-    n = 1000,
-    linewidth = 0.75,
-    colour = viridis::mako(9)[5])
+    n = 100, 
+  ) 
 ```
 
 #### ggh4x
@@ -337,11 +282,12 @@ penguins2 |>
 The ggpattern package can be used to add patterns to geoms.
 
 ```{r}
+library(ggpattern)
 penguins2 |>
   group_by(species, sex) |>
   summarise(across(body_mass_g, \(x) mean(x))) |>
   gg_blanket(
-    ggpattern::GeomColPattern,
+    geom = "col_pattern",
     position = "dodge",
     y = species,
     x = body_mass_g,
@@ -350,21 +296,6 @@ penguins2 |>
     width = 0.75) +
   labs(pattern = "Sex") +
   guides(pattern = guide_legend(reverse = TRUE))
-```
-
-#### ggpointdensity
-
-The ggpointdensity package can be used to create a cross between a scatter plot and a 2D density plot.
- 
-```{r}
-tibble(x = rnorm(7000, sd = 1),
-       y = rnorm(7000, sd = 10)) |>
-  gg_blank(
-    x = x, 
-    y = y) +
-  ggpointdensity::geom_pointdensity() +
-  scale_colour_viridis_c(option = "G", direction = -1) +
-  labs(colour = "N neighbours")
 ```
 
 #### ggrepel
