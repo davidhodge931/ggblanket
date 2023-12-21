@@ -47,7 +47,7 @@ Secondary objectives relate to:
 11. Access to other `geom_*` arguments via ...
 12. Ability to add multiple `geom_*` layers
 13. Other key differences to ggplot2
-14. A `gg_blanket` function for any exported `geom`
+14. A `gg_blanket` function for extra `geom` flexibility
 
 ```{r setup}
 library(ggblanket)
@@ -198,11 +198,10 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    col_title = "",
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    theme = dark_mode_t(),
+    theme = dark_mode_b(title_face = "bold"),
   )
 ```
 
@@ -400,46 +399,48 @@ ggplot2 by default drops values outside of the limits in calculating the geoms a
 
 This needs to be considered when you are using `x_limits` or `y_limits`, and your stat is _not_ `"identity"`.  
 
-##### Computational speed is sacrificed
+##### Alpha
 
-ggblanket is _much_ slower than ggplot2 in computational speed.  
+`alpha` is fully supported in ggblanket in a similar way to `col`. So the `alpha` argument represents an aesthetic, whereas `alpha_pal` represents a value (or values or range) of alpha for alpha. So if you want to make all of the geom at 50% opacity, use `alpha_pal = 0.5` in a `gg_*` function.  
 
-```{r}
-bench::mark({
-  penguins |> 
-    gg_point(
-      x = flipper_length_mm, 
-      y = body_mass_g, 
-      col = species,
-    )
-}, iterations = 10)
-```
-
-```{r}
-bench::mark({
-  penguins |>
-    ggplot() +
-    geom_point(aes(x = flipper_length_mm, y = body_mass_g, colour = species)) 
-}, iterations = 10)
-```
-
-##### Other minor stuff
+##### Other
 
 * `*_title` is equivalent to `ggplot2::labs(* = ...)`
+* y categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) 
 * Logical variables are reversed, so that `TRUE` always comes before `FALSE`
+ 
+### 14. A `gg_blanket` function for extra `geom` flexibility
 
-### 14. A `gg_blanket` function for any exported `geom`
+All `gg_*` wrapper functions allow modification of the `stat`, `position`, and `coord` arguments etc.
 
-The ggblanket package contains a powerful `gg_blanket` function that enables the user to specify any exported geom. 
+The `gg_blanket` function goes one step further: it contains a `geom` argument that allows the user to add any geom. 
 
 This enables the use of ggblanket with other extension packages etc.
+
+```{r}
+library(ggridges)
+
+penguins |> 
+  tidyr::drop_na(sex) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  gg_blanket(
+    geom = "density_ridges",
+    stat = "density_ridges", 
+    position = "points_sina",
+    x = flipper_length_mm,
+    y = species,
+    col = sex,
+    y_expand = c(0.05, 0.05),
+    alpha_pal = 0.5,
+  )
+```
 
 ```{r}
 library(ggforce)
 
 iris |> 
   gg_blanket(
-    geom = ggforce::GeomShape,
+    geom = "shape",
     stat = "voronoi_tile",
     position = "identity",
     x = Sepal.Length, 

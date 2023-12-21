@@ -37,9 +37,10 @@ library(stringr)
 library(ggplot2)
 library(ggblanket)
 library(patchwork)
+library(palmerpenguins)
 
-penguins2 <- palmerpenguins::penguins |>
-  mutate(sex = stringr::str_to_sentence(sex)) |>
+penguins <- penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
   tidyr::drop_na(sex)
 ```
 
@@ -54,7 +55,8 @@ sysfonts::font_add_google('Syne Mono', 'syne')
 
 showtext::showtext_auto(enable = TRUE)
 
-penguins2 |>
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -80,6 +82,7 @@ sf::st_read(system.file("shape/nc.shp", package = "sf"),
             quiet = TRUE) |>
   gg_sf(col = AREA) +
   ggeasy::easy_remove_axes()
+
 ```
 
 ```{r}
@@ -90,8 +93,9 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
    y = y,
    col = L7_ETMs.tif,
    facet = band,
-   col_title = "L7 ETMs") +
-  ggeasy::easy_remove_axes()
+   col_title = "L7 ETMs",
+  ) +
+  ggeasy::easy_remove_axes() 
 ```
 
 ### 3. Turn off either colour or fill 
@@ -108,7 +112,8 @@ p1 <- iris |>
     fill = NA, 
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
     col_labels = \(x) str_to_sentence(x),
-    title = "Turn off either colour or fill")
+    title = "Turn off either colour or fill", 
+  )
 
 p2 <- iris |>
   gg_density(
@@ -116,7 +121,8 @@ p2 <- iris |>
     col = Species,
     colour = NA, 
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
-    col_labels = \(x) str_to_sentence(x))
+    col_labels = \(x) str_to_sentence(x), 
+  )
 
 p3 <- iris |>
   mutate(hack = "") |> 
@@ -136,10 +142,6 @@ p4 <- iris |>
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE)) +
   guides(colour = "none", fill = "none")
 
-p1 
-p2
-p3
-p4
 # (p1 + p2) / (p3 + p4) 
 ```
 
@@ -157,7 +159,8 @@ p1 <- iris |>
     fill = "orange", 
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
     col_labels = \(x) str_to_sentence(x),
-    title = "Fix a different colour or fill")
+    title = "Fix a different colour or fill",
+  )
 
 p2 <- iris |>
   gg_density(
@@ -165,7 +168,8 @@ p2 <- iris |>
     col = Species,
     colour = "orange", 
     y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
-    col_labels = \(x) str_to_sentence(x))
+    col_labels = \(x) str_to_sentence(x),
+  )
 
 p3 <- iris |>
   mutate(hack = "") |> 
@@ -173,7 +177,8 @@ p3 <- iris |>
     x = Sepal.Length,
     col = hack, 
     fill = "orange", 
-    y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE)) +
+    y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE), 
+  ) +
   guides(colour = "none", fill = "none")
 
 p4 <- iris |>
@@ -182,13 +187,9 @@ p4 <- iris |>
     x = Sepal.Length,
     col = hack, 
     colour = "orange", 
-    y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE)) +
+    y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
+  ) +
   guides(colour = "none", fill = "none")
-
-p1 
-p2
-p3
-p4
 
 # (p1 + p2) / (p3 + p4) 
 ```
@@ -202,18 +203,22 @@ For those that are not available - or where you wish to use delayed evaluation -
 The `mapping` argument provides access to the `linetype`, `shape` and `size` aesthetics within the `gg_*` function. Note the `col`, `colour`, `fill` and `alpha` aesthetics cannot be added within the ggblanket `mapping` argument. 
 
 ```{r}
-penguins2 |> 
-  gg_point(x = flipper_length_mm, 
-           y = body_mass_g, 
-           col = species,
-           mapping = aes(shape = species))
+penguins |> 
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    col = species,
+    mapping = aes(shape = species),
+  )
 ```
 
 ```{r, fig.asp=0.55}
-penguins2 |>
-  gg_histogram(x = flipper_length_mm,
-               mapping = aes(y = after_stat(density)),
-               facet = species)
+penguins |>
+  gg_histogram(
+    x = flipper_length_mm,
+    mapping = aes(y = after_stat(density)),
+    facet = species
+  )
 ```
 
 ```{r, fig.asp=0.55}
@@ -223,7 +228,8 @@ faithfuld |>
     y = eruptions,
     z = density,
     mapping = aes(colour = after_stat(level)),
-    bins = 8)
+    bins = 8
+  )
 ```
 
 ### 6. Change the stat
@@ -231,20 +237,21 @@ faithfuld |>
 The default `stat` of each `gg_*` function can be changed for additional flexibility. 
 
 ```{r, fig.asp=0.7}
-p1 <- penguins2 |>
+p1 <- penguins |>
   gg_pointrange(
     x = species,
     y = flipper_length_mm, 
     stat = "summary", 
+    na.rm = TRUE,
     size = 0.1,
     x_labels = \(x) str_sub(x, 1, 1))
 
-p2 <- penguins2 |>
+p2 <- penguins |>
   gg_bar(x = flipper_length_mm,
          stat = "bin", 
          x_labels = \(x) str_keep_seq(x))
 
-p3 <- penguins2 |>
+p3 <- penguins |>
   gg_bar(
     x = flipper_length_mm,
     y = species,
@@ -264,13 +271,19 @@ p3
 You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
 
 ```{r, fig.asp=1}
-gg_point_custom <- function(data, x, y, col = NULL, facet = NULL, facet2 = NULL,
-                            col_pal = RColorBrewer::brewer.pal(8, "Dark2"),
-                            col_labels = \(x) stringr::str_to_sentence(x),
-                            col_title = "", 
-                            theme = light_mode_t(),
-                            ...) {
-  data |> 
+gg_point_custom <-
+  function(data,
+           x,
+           y,
+           col = NULL,
+           facet = NULL,
+           facet2 = NULL,
+           col_pal = RColorBrewer::brewer.pal(8, "Dark2"),
+           col_labels = \(x) stringr::str_to_sentence(x),
+           col_title = "",
+           theme = dark_mode_t(),
+           ...) {
+    data |> 
     gg_point(x = {{ x }}, y = {{ y }}, 
              col = {{ col }}, facet = {{ facet }}, facet2 = {{ facet2 }},
              col_pal = col_pal, col_labels = col_labels, col_title = col_title, 
@@ -278,13 +291,13 @@ gg_point_custom <- function(data, x, y, col = NULL, facet = NULL, facet2 = NULL,
     ggeasy::easy_remove_axes(which = "y", what = c("line", "ticks"))
 }
 
-p1 <- penguins2 |>
+p1 <- penguins |>
   gg_point_custom(
     x = flipper_length_mm,
     y = body_mass_g, 
     col = sex)
 
-p2 <- penguins2 |>
+p2 <- penguins |>
   gg_point_custom(
     x = flipper_length_mm,
     y = body_mass_g, 
