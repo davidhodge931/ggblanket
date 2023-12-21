@@ -30,6 +30,8 @@ Imports:
     viridisLite (>= 0.4.0),
 Suggests: 
     bench,
+    ggridges, 
+    ggtext, 
     hexbin,
     knitr,
     palmerpenguins,
@@ -62,8 +64,6 @@ Config/Needs/website:
     ggpattern,
     ggpointdensity,
     ggrepel,
-    ggridges,
-    ggtext,
     plotly,
     RColorBrewer,
     showtext,

@@ -165,6 +165,8 @@ data.frame(x = rnorm(1000),
 ```
 
 ```{r}
+library(ggdensity)
+
 data.frame(x = rnorm(1000),
            y = rnorm(1000),
            z = c(rep("A", times = 500),
