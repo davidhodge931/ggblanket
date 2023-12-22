@@ -1,6 +1,6 @@
 #' @title Smooth ggplot
 #'
-#' @description Create a smooth ggplot with a wrapper around ggplot() + geom_smooth. Use se = TRUE to display confidence interval.
+#' @description Create a smooth ggplot with a wrapper around ggplot() + geom_smooth.
 #'
 #' @param data A data frame or tibble.
 #' @param ... Other arguments passed to within a params list in the layer function.
