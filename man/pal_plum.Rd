@@ -19,4 +19,4 @@ A plum-ish colour.
 \examples{
 scales::show_col(pal_plum)
 }
-\keyword{internal}
+\keyword{datasets}

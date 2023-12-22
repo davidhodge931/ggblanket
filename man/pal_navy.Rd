@@ -19,4 +19,4 @@ A navy colour derived from the US Census Bureau's Data Visualisation Standards.
 \examples{
 scales::show_col(pal_navy)
 }
-\keyword{internal}
+\keyword{datasets}

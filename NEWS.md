@@ -1,11 +1,11 @@
 # ggblanket 5.2.0900
 
 * Rewrite internal code so that everything draws off one function: gg_blanket.
-* Exported gg_blanket function, which allows for a ggproto geom to be added.
-* Added stat support for a ggproto object (or character string).
-* Added position support for a ggproto object (or character string).
-* Added transform support for a transform class object (or character string).
-* Added Alpha aesthetic support with new `alpha`, `alpha_pal` and `alpha_*` arguments.
+* Exported `gg_blanket` function, which allows for a ggproto geom to be added.
+* Added `stat` support for a ggproto object (or character string).
+* Added `position` support for a ggproto object (or character string).
+* Added `transform` support for a transform class object (or character string).
+* Added `alpha` aesthetic support with new `alpha`, `alpha_pal` and `alpha_*` arguments.
 * Added `facet_axes` and `facet_axis_labels` arguments.
 * Added `light_mode_*` and `dark_mode_*` family of functions.
 * Increased `light_mode_*` and `dark_mode_*` default base_size.

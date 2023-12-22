@@ -85,7 +85,7 @@ penguins |>
 ```
 
 
-```{r}
+```{r, fig.asp=0.4}
 penguins |>
   drop_na(sex) |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
@@ -117,7 +117,7 @@ penguins |>
   gg_density(
     x = flipper_length_mm, 
     col = species, 
-    col_pal = c("#0095A8", "#112E51", "#FF7043"),
+    col_pal = c("#112E51", "#78909C", "#ff4374"),
   )
 ```
 
@@ -212,7 +212,7 @@ ggblanket creates pretty continuous y scale for non-horizontal  plots that has:
 * `y_limits` that are the range of the `y_breaks` 
 * `y_expand` of `c(0, 0)`
 
-This pretty scale can be turned off easily using `y_limits = c(NA, NA)`, which also reverts the default `y_expand` to `ggplot::waiver()`.
+This pretty scale can be turned off easily using `y_limits = c(NA, NA)` (or by providing a `y_expand` value).
 
 The opposite occurs for horizontal plots with the x scale. 
 

@@ -1,3 +1,69 @@
+#' A blue colour
+#'
+#' @description A blue colour derived from `viridisLite::mako(9)[5]`
+#'
+#' @return A character vector.
+#'
+#' @export
+#' @examples
+#' scales::show_col(pal_blue)
+pal_blue <- "#357BA2"
+
+#' A teal colour
+#'
+#' @description A teal colour derived from the US Census Bureau's Data Visualisation Standards.
+#'
+#' @return A character vector.
+#'
+#' @export
+#' @examples
+#' scales::show_col(pal_teal)
+pal_teal <- "#0095A8"
+
+#' A orange colour
+#'
+#' @description A orange colour derived from the US Census Bureau's Data Visualisation Standards.
+#'
+#' @return A character vector.
+#'
+#' @export
+#' @examples
+#' scales::show_col(pal_orange)
+pal_orange <- "#FF7043"
+
+#' A navy colour
+#'
+#' @description A navy colour derived from the US Census Bureau's Data Visualisation Standards.
+#'
+#' @return A character vector.
+#'
+#' @export
+#' @examples
+#' scales::show_col(pal_navy)
+pal_navy <- "#112E51"
+
+#' A plum-ish colour inspired by the NZ tree fuchsia (kōtukutuku)
+#'
+#' @description A plum-ish colour.
+#'
+#' @return A character vector.
+#'
+#' @export
+#' @examples
+#' scales::show_col(pal_plum)
+pal_plum <- "#901752"
+
+#' A grey colour
+#'
+#' @description A grey colour derived from the US Census Bureau's Data Visualisation Standards.
+#'
+#' @return A character vector.
+#'
+#' @export
+#' @examples
+#' scales::show_col(pal_grey)
+pal_grey <- "#78909C"
+
 #' A 5 colour vector for use with the light_mode_* themes to colour the (1) plot background (2) panel background, (3) axis lines (and ticks) (4) panel gridlines and (5) text.
 #'
 #' @description A 5 colour vector for use with the light_mode_* themes.
@@ -54,69 +120,3 @@ pal_continuous <- function(n = 20) {
   viridisLite::mako(n = n, direction = -1, end = )
 }
 
-#' A blue colour
-#'
-#' @description A blue colour derived from `viridisLite::mako(9)[5]`
-#'
-#' @return A character vector.
-#'
-#' @keywords internal
-#'
-#' @examples
-#' scales::show_col(pal_blue)
-pal_blue <- "#357BA2"
-
-#' A teal colour
-#'
-#' @description A teal colour derived from the US Census Bureau's Data Visualisation Standards.
-#'
-#' @return A character vector.
-#'
-#' @keywords internal
-#' @examples
-#' scales::show_col(pal_teal)
-pal_teal <- "#0095A8"
-
-#' A orange colour
-#'
-#' @description A orange colour derived from the US Census Bureau's Data Visualisation Standards.
-#'
-#' @return A character vector.
-#'
-#' @keywords internal
-#' @examples
-#' scales::show_col(pal_orange)
-pal_orange <- "#FF7043"
-
-#' A navy colour
-#'
-#' @description A navy colour derived from the US Census Bureau's Data Visualisation Standards.
-#'
-#' @return A character vector.
-#'
-#' @keywords internal
-#' @examples
-#' scales::show_col(pal_navy)
-pal_navy <- "#112E51"
-
-#' A plum-ish colour inspired by the NZ tree fuchsia (kōtukutuku)
-#'
-#' @description A plum-ish colour.
-#'
-#' @return A character vector.
-#'
-#' @keywords internal
-#' @examples
-#' scales::show_col(pal_plum)
-pal_plum <- "#901752"
-
-#' A grey colour
-#'
-#' @description A grey colour derived from the US Census Bureau's Data Visualisation Standards.
-#'
-#' @return A character vector.
-#'
-#' @keywords internal
-#' @examples
-#' scales::show_col(pal_grey)
-pal_grey <- "#78909C"

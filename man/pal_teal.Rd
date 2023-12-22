@@ -19,4 +19,4 @@ A teal colour derived from the US Census Bureau's Data Visualisation Standards.
 \examples{
 scales::show_col(pal_teal)
 }
-\keyword{internal}
+\keyword{datasets}

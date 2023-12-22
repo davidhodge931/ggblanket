@@ -1703,11 +1703,11 @@ gg_blanket <- function(
       else x_breaks_n <- 2
     }
 
-    #get x_expand and x_breaks for simple scales situation
+    #get x_expand and x_breaks for non-pretty scales situation
     if (!flipped |
         facet_scales %in% c("free", "free_x") |
         !any(x_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
-        stringr::str_detect(stat_name, "sf")) {
+        !rlang::is_null(x_expand)) {
 
       if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
 
@@ -1869,11 +1869,11 @@ gg_blanket <- function(
       else y_breaks_n <- 3
     }
 
-    #get y_expand and y_breaks for simple scales situation
+    #get y_expand and y_breaks for non-pretty scales situation
     if (flipped |
         facet_scales %in% c("free", "free_y") |
         !any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
-        stringr::str_detect(stat_name, "sf")) {
+        !rlang::is_null(y_expand)) {
 
       if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
 
