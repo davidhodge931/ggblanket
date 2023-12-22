@@ -46,8 +46,9 @@ Secondary objectives relate to:
 10. Conversion of unspecified `titles` to sentence case
 11. Access to other `geom_*` arguments via ...
 12. Ability to add multiple `geom_*` layers
-13. Other key differences to ggplot2
-14. A `gg_blanket` function for extra `geom` flexibility
+13. Flexibility to turn-off/fix either colour or fill
+14. Other key differences to ggplot2
+15. A `gg_blanket` function for extra `geom` flexibility
 
 ```{r setup}
 library(ggblanket)
@@ -217,25 +218,22 @@ This pretty scale can be turned off easily using `y_limits = c(NA, NA)` (or by p
 The opposite occurs for horizontal plots with the x scale. 
 
 ```{r}
-penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  gg_boxplot(
-    x = species,
-    y = flipper_length_mm,
-    col = sex,
-    position = position_dodge2(preserve = "single"),
+economics |>
+  gg_line(
+    x = date,
+    y = unemploy,
+    y_title = "Unemployment",
+    y_expand_limits = 0,
   )
 ```
 
 ```{r}
-penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  gg_boxplot(
-    x = species,
-    y = flipper_length_mm,
-    col = sex,
-    position = position_dodge2(preserve = "single"),
-    y_limits = c(NA, NA),
+economics |>
+  gg_line(
+    x = date,
+    y = unemploy,
+    y_title = "Unemployment",
+    y_limits = c(NA, NA), 
   )
 ```
 
@@ -286,7 +284,7 @@ penguins |>
     y = body_mass_g,
     col = sex, 
     se = TRUE,
-    linewidth = 0.5,
+    linewidth = 1,
     level = 0.99,
   ) 
 ```
@@ -299,7 +297,7 @@ The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within t
 
 The `gg_*` function _should_ be appropriate to be the bottom layer of the plot. This is because the geoms will plot in order. 
 
-All of the aesthetics required for the plot as a whole should generally be added into the `gg_*` function, including the `col` argument. If you do not want the first layer to have a colour and fill aesthetic, but you wish later layers to access this - use `gg_blank`. 
+All of the aesthetics required for the plot as a whole should generally be added into the `gg_*` function, including the `col` argument. If you do not want the first layer to have a colour and fill aesthetic, but you wish later layers to access this - use `gg_blanket` (as it defaults to a `blank` geom). 
 
 Use `*_expand_limits` or  `*_limits` to ensure the `gg_* function builds the limits appropriately for the plot as a whole.
 
@@ -331,7 +329,7 @@ penguins |>
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) |>
   mutate(lower = body_mass_g * 0.95) |> 
   mutate(upper = body_mass_g * 1.2) |> 
-  gg_blank( 
+  gg_blanket( 
     x = body_mass_g,
     y = species,
     col = species,
@@ -351,8 +349,43 @@ penguins |>
 
 ```
 
+### 13. Flexibility to turn-off/fix either colour or fill
 
-### 13. Other ggplot2 key differences 
+For a geom with both outlines and fill, the default is to have both of these to the same colour with a default value of `alpha_pal`.
+
+However, with these geoms, you can turn off _either_ the colour (i.e. of the outlines) or fill, or fix one of these to a constant colour. 
+
+The recommended approach is to use `colour = NA`/`colour = black`, `fill = NA`/`fill = "lightgrey"`, and add in a `col` aesthetic if you don't already have one (as well as removing the legend). 
+
+An alternative approach to set `alpha_pal = 0` and `col_pal = scales::alpha(..., alpha = 0)` can be used. However, this approach is not as flexible.
+
+```{r}
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_boxplot(
+    x = species,
+    y = flipper_length_mm,
+    col = sex,
+    colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
+    position = position_dodge2(preserve = "single"),
+  )
+```
+
+```{r}
+penguins |>
+  mutate(hack = "") |> 
+  gg_boxplot(
+    x = species,
+    y = flipper_length_mm,
+    col = hack,
+    colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
+    col_pal = pal_blue,
+    width = 0.5,
+  ) +
+  guides(colour = "none", fill = "none")
+```
+
+### 15. Other ggplot2 key differences 
 
 ##### Unquoted variables only
 
@@ -400,7 +433,7 @@ This needs to be considered when you are using `x_limits` or `y_limits`, and you
 
 ##### Alpha
 
-`alpha` is fully supported in ggblanket in a similar way to `col`. So the `alpha` argument represents an aesthetic, whereas `alpha_pal` represents a value (or values or range) of alpha for alpha. So if you want to make all of the geom at 50% opacity, use `alpha_pal = 0.5` in a `gg_*` function.  
+`alpha` is fully supported in ggblanket in a similar way to `col`. So the `alpha` argument represents an aesthetic, whereas `alpha_pal` represents a value (or values or range) of alpha for alpha. 
 
 ##### Other
 
@@ -408,32 +441,28 @@ This needs to be considered when you are using `x_limits` or `y_limits`, and you
 * y categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) 
 * Logical variables are reversed, so that `TRUE` always comes before `FALSE`
  
-### 14. A `gg_blanket` function for extra `geom` flexibility
+### 15. A `gg_blanket` function for extra `geom` flexibility
 
-All `gg_*` wrapper functions allow modification of the `stat`, `position`, and `coord` arguments etc.
+ggblanket is driven by `gg_blanket` function, which has a `geom` argument.
 
-The `gg_blanket` function goes one step further: it contains a `geom` argument that allows the user to add any geom. 
+All other functions wrap this function with a locked-in geom, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
-This enables the use of ggblanket with other extension packages etc.
+Because gg_blanket has a `geom` argument, it can be used with other geoms provided by other packages.
 
 ```{r}
-library(ggridges)
-
-penguins |> 
-  drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+palmerpenguins::penguins |>
+  drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_blanket(
-    geom = "density_ridges2",
-    stat = "density_ridges", 
-    position = "points_sina",
-    x = flipper_length_mm,
-    y = species,
+    geom = "violin",
+    stat = "ydensity",
+    position = "dodge",
+    x = species,
+    y = body_mass_g,
     col = sex,
-    y_expand = c(0.05, 0),
-    alpha_pal = 0.33,
-    col_pal = c(pal_navy, pal_orange),
   )
 ```
+
 
 ```{r}
 library(ggforce)

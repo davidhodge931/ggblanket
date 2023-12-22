@@ -1,14 +1,13 @@
 # ggblanket 5.2.0900
 
-* Rewrite internal code so that everything draws off one function: gg_blanket.
-* Exported `gg_blanket` function, which allows for a ggproto geom to be added.
+* Rewrite internal code so that everything draws off one function: `gg_blanket`.
+* Exported `gg_blanket` function, which allows for a ggproto geom (or character string) to be added.
 * Added `stat` support for a ggproto object (or character string).
 * Added `position` support for a ggproto object (or character string).
 * Added `transform` support for a transform class object (or character string).
 * Added `alpha` aesthetic support with new `alpha`, `alpha_pal` and `alpha_*` arguments.
 * Added `facet_axes` and `facet_axis_labels` arguments.
 * Added `light_mode_*` and `dark_mode_*` family of functions.
-* Increased `light_mode_*` and `dark_mode_*` default base_size.
 * Changed `*_mode_*` default base_size to 11.
 * Changed `*_mode_*` default face to plain.
 * Changed `*_mode_*` `base_pal` to be a 5 colour vector to colour the whole plot.
@@ -16,6 +15,7 @@
 * Changed NULL effect of pretty axis `*_limits = c(NA, NA)` on `y_expand` NULL.
 * Improved default gridlines.
 * Fixed bug when `col` is logical class.
+* Added new `pal_census`, and helper `pal_blue`, `pal_teal`, `pal_orange`, `pal_navy`, `pal_plum` and `pal_grey` - updated the default discrete palette.
 * Breaking: shift `...` to the front to require users to name arguments.
 * Breaking: renamed `pal` to `col_pal`.
 * Breaking: renamed `pal_na` to `col_pal_na`.
@@ -26,7 +26,8 @@
 * Breaking: removed `col_legend_place` argument.
 * Breaking: removed `light_mode` and `dark_mode` functions.
 * Breaking: removed `col_scale` argument.
-* Added new `pal_census`, and helper `pal_blue`, `pal_teal`, `pal_orange`, `pal_navy`, `pal_plum` and `pal_grey` - updated the default discrete palette.
+* Breaking: removed `gg_blank` function.
+* Breaking: removed `guardian` function.
 
 # ggblanket 5.2.0
 

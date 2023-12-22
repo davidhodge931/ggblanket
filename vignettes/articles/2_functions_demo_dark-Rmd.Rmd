@@ -64,19 +64,6 @@ diamonds |>
   )
 ```
 
-### gg_blank
-
-```{r}
-palmerpenguins::penguins |>
-  gg_blank(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    facet = species,
-    y_expand_limits = 0,
-  )
-```
-
 ### gg_boxplot
 
 ```{r}
@@ -84,10 +71,9 @@ palmerpenguins::penguins |>
   drop_na(sex) |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_boxplot(
-    x = body_mass_g,
+    x = flipper_length_mm,
     y = sex,
-    col = sex,
-    facet = species,
+    col = species,
     theme = dark_mode_b(),
   )
 ```

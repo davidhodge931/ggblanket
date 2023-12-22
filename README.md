@@ -38,11 +38,11 @@ install.packages("ggblanket")
 ## Example
 
 ``` r
-library(dplyr)
 library(ggblanket)
-library(palmerpenguins)
+library(ggplot2)
+library(dplyr)
 
-penguins |>
+palmerpenguins::penguins |>
   tidyr::drop_na(sex) |> 
   mutate(sex = stringr::str_to_sentence(sex)) |>
   gg_histogram(

@@ -1,4 +1,4 @@
-#' @title Blanket ggplot
+#' @title Blanket ggplot with geom flexibility
 #'
 #' @description Create a blanket ggplot with a wrapper around ggplot() + layer().
 #'

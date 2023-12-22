@@ -22,14 +22,10 @@ This article will demonstrate more advanced content, including how to:
 
 1. Use different fonts
 2. Visualise spatial data
-3. Turn off either colour or fill
-4. Fix either colour or fill to something different 
-5. Work with other aesthetics (or delayed evaluation)
-6. Change the stat
-7. Create custom wrapper functions
-8. Add contrasting dark or light text on polygons
-9. Use the gg_blanket function for other geoms
-
+3. Change the stat
+4. Use non-supported aesthetics
+5. Use delayed evaluation
+6. Add contrasting dark or light text on polygons
 
 ```{r setup}
 library(ggblanket)
@@ -92,75 +88,7 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
   ggeasy::easy_remove_axes() 
 ```
 
-### 3. Turn off either colour or fill 
-
-Users can turn off _either_ the colour (i.e. of the outlines) or fill of a geom that contains both. 
-
-The recommended approach is to use `colour = NA` or `fill = NA`, and add in a col aesthetic if you don't already have one (as well as removing the legend). Likewise, you can use this approach to fix colour or fill to a constant colour using this approach.
-
-An alternative approach to turning off colour or fill is to set `alpha_pal = 0` and `col_pal = scales::alpha(..., alpha = 0)`.
-
-```{r}
-palmerpenguins::penguins |>
-  mutate(across(species, \(x) str_to_sentence(x))) |> 
-  gg_density(
-    x = flipper_length_mm,
-    col = species,
-    colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
-  )
-```
-
-```{r}
-palmerpenguins::penguins |>
-  mutate(hack = "") |> 
-  gg_density(
-    x = flipper_length_mm,
-    col = hack, 
-    fill = "lightgrey", #or colour = NA, or fill = NA or colour = "black" etc
-  ) +
-  guides(colour = "none", fill = "none")
-```
-
-### 5. Work with other aesthetics (or delayed evaluation)
-
-Most functions have the commonly needed aesthetics directly available as an argument.
-
-For those that are not available - or where you wish to use delayed evaluation -, you can either use `mapping` argument.
-
-The `mapping` argument provides access to the `linetype`, `shape` and `size` aesthetics within the `gg_*` function. Note the `col`, `colour`, `fill` and `alpha` aesthetics cannot be added within the ggblanket `mapping` argument. 
-
-```{r}
-palmerpenguins::penguins |> 
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g, 
-    col = species,
-    mapping = aes(shape = species),
-  ) +
-  labs(shape = "Species")
-```
-
-```{r, fig.asp=0.55}
-palmerpenguins::penguins |>
-  gg_histogram(
-    x = flipper_length_mm,
-    mapping = aes(y = after_stat(density)),
-    facet = species,
-  )
-```
-
-```{r, fig.asp=0.55}
-faithfuld |>
-  gg_contour(
-    x = waiting,
-    y = eruptions,
-    z = density,
-    mapping = aes(colour = after_stat(level)),
-    bins = 8,
-  )
-```
-
-### 6. Change the stat
+### 3. Change the stat
 
 The default `stat` of each `gg_*` function can be changed for additional flexibility. 
 
@@ -189,41 +117,46 @@ ggplot2::economics |>
   ) 
 ```
 
-### 7. Create custom wrapper functions
+### 4. Use non-supported aesthetics 
 
-You can create powerful custom functions. This is because the `...` argument can allow you to access _all_  arguments within the ggblanket `gg_*` function (and applicable `ggplot2::geom_*` function). 
+Most functions have the commonly needed aesthetics directly available as an argument. For those that are not available, you can either use `mapping` argument. The `mapping` argument provides access to the `linetype`, `shape` and `size` aesthetics within the `gg_*` function. 
 
-```{r, fig.asp=1}
-gg_point_custom <-
-  function(data,
-           ...,
-           x,
-           y,
-           col = NULL,
-           facet = NULL,
-           facet2 = NULL,
-           col_pal = RColorBrewer::brewer.pal(8, "Dark2"),
-           col_labels = \(x) str_to_sentence(x),
-           col_title = "",
-           theme = dark_mode_t()) {
-    
-    data |> 
-      gg_point(x = {{ x }}, y = {{ y }}, 
-               col = {{ col }}, facet = {{ facet }}, facet2 = {{ facet2 }},
-               col_pal = col_pal, col_labels = col_labels, col_title = col_title, 
-               theme = theme, ...) +
-      ggeasy::easy_remove_axes(which = "y", what = c("line", "ticks"))
-}
-
-palmerpenguins::penguins |>
-  gg_point_custom(
-    x = flipper_length_mm,
+```{r}
+palmerpenguins::penguins |> 
+  gg_point(
+    x = flipper_length_mm, 
     y = body_mass_g, 
     col = species,
+    mapping = aes(shape = species),
+  ) +
+  labs(shape = "Species")
+```
+
+### 5. Use delayed evaluation
+
+As the `x`, `y`, `col` and `alpha` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This is useful for delayed evaluation with the `after_stat` function.
+
+```{r, fig.asp=0.55}
+palmerpenguins::penguins |>
+  gg_histogram(
+    x = flipper_length_mm,
+    mapping = aes(y = after_stat(density)),
+    facet = species,
   )
 ```
 
-### 8. Add contrasting dark or light text on polygons
+```{r, fig.asp=0.55}
+faithfuld |>
+  gg_contour(
+    x = waiting,
+    y = eruptions,
+    z = density,
+    mapping = aes(colour = after_stat(level)),
+    bins = 8,
+  )
+```
+
+### 6. Add contrasting dark or light text on polygons
 
 A method was developed by [@teunbrand](https://github.com/teunbrand/ggplot_tricks) to colour text on polygons using a dark or light colour, which is determined  based on the underlying polygon colour.
 
@@ -285,49 +218,5 @@ mtcars |>
     ),
     size = 3.53,
     show.legend = FALSE)
-```
-
-### 9. Use the gg_blanket function for other geoms
-
-ggblanket is driven by `gg_blanket` function, which has a `geom` argument.
-
-All other functions wrap this function with a locked-in geom, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
-
-Because gg_blanket has a `geom` argument, it can be used with other geoms provided by other packages.
-
-```{r}
-palmerpenguins::penguins |>
-  drop_na(sex) |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
-  gg_blanket(
-    geom = "violin",
-    stat = "ydensity",
-    position = "dodge",
-    x = sex,
-    y = body_mass_g,
-    col = sex,
-    facet = species,
-    theme = light_mode_b(),
-  )
-```
-
-
-```{r}
-library(ggridges)
-
-ggridges::Catalan_elections |>
-  rename_with(snakecase::to_snake_case) |>
-  mutate(year = factor(year)) |>
-  gg_blanket(
-    geom = "density_ridges",
-    stat = "density_ridges",
-    coord = coord_cartesian(),
-    x = percent,
-    y = year,
-    col = option,
-    y_expand = expansion(c(0, 0.125)),
-    x_limits = c(0, 100),
-    alpha_pal = 0.7
-  )
 ```
 

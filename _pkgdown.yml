@@ -6,3 +6,33 @@ template:
 figures:
   dev: svg
   fig.ext: svg
+
+reference:
+- title: Plot
+- contents:
+  - gg_blanket
+  - starts_with("gg_")
+- title: Theme
+- contents:
+  - light_mode_rt
+  - light_mode_r
+  - light_mode_t
+  - light_mode_b
+  - light_mode_i
+  - dark_mode_rt
+  - dark_mode_r
+  - dark_mode_t
+  - dark_mode_b
+  - dark_mode_i
+- title: Other
+- contents:
+  - pal_blue
+  - pal_teal
+  - pal_orange
+  - pal_plum
+  - pal_navy
+  - pal_grey
+  - pal_light_mode
+  - pal_dark_mode
+  - starts_with("pal_")
+  - str_keep_seq

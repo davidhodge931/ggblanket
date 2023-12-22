@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_blanket.R
 \name{gg_blanket}
 \alias{gg_blanket}
-\title{Blanket ggplot}
+\title{Blanket ggplot with geom flexibility}
 \usage{
 gg_blanket(
   data = NULL,

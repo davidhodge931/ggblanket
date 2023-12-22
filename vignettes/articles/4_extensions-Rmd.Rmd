@@ -75,7 +75,7 @@ The ggblend package provides blending of colours. Note you must use a graphics d
  
 ```{r}
 penguins |>
-  gg_blank(
+  gg_blanket(
     x = flipper_length_mm,
     col = species,
     col_pal = RColorBrewer::brewer.pal(9, "Set1"),
@@ -125,7 +125,7 @@ data.frame(x = rnorm(1000),
 
 #### ggdist
 
-The ggdist package enables the visualisation of uncertainty. The key to making this work with ggblanket is ensuring that `gg_blank` builds the distribution scale correctly. You can hack this by adding `*min` and `*max` aesthetics of a very low and very high quantile of the distributions. However, it might be easier to just use ggplot2 here. 
+The ggdist package enables the visualisation of uncertainty. 
 
 ```{r}
 library(ggdist)
@@ -272,7 +272,7 @@ The ggnewscale package enables multiple colour scales.
 
 ```{r}
 penguins |> 
-  gg_blank(x = flipper_length_mm, 
+  gg_blanket(x = flipper_length_mm, 
            y = body_mass_g) + 
   geom_point(aes(colour = bill_length_mm), 
              data = penguins |> filter(species == "Gentoo")) +
@@ -431,7 +431,7 @@ The ggiraph package enables interactive plots.
 
 ```{r}
 p <- diamonds |>
-  gg_blank(
+  gg_blanket(
     x = color,
     y_expand_limits = 0,
     stat = "count", 

@@ -281,8 +281,8 @@ palmerpenguins::penguins |>
   tidyr::drop_na(sex) |>
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_boxplot(
+    x = flipper_length_mm,
     y = sex,
-    x = body_mass_g,
     col = species,
     theme = light_mode_b(),
   )
