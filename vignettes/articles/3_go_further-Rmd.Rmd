@@ -35,6 +35,8 @@ This article will demonstrate more advanced content, including how to:
 library(ggblanket)
 library(ggplot2)
 library(dplyr)
+library(stringr)
+library(tidyr)
 ```
 
 ### 1. Use different fonts
@@ -49,7 +51,7 @@ sysfonts::font_add_google('Syne Mono', 'syne')
 showtext::showtext_auto(enable = TRUE)
 
 palmerpenguins::penguins |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -100,7 +102,7 @@ An alternative approach to turning off colour or fill is to set `alpha_pal = 0` 
 
 ```{r}
 palmerpenguins::penguins |>
-  mutate(across(species, \(x) stringr::str_to_sentence(x))) |> 
+  mutate(across(species, \(x) str_to_sentence(x))) |> 
   gg_density(
     x = flipper_length_mm,
     col = species,
@@ -170,7 +172,7 @@ palmerpenguins::penguins |>
     stat = "summary", 
     na.rm = TRUE,
     size = 0.1,
-    x_labels = \(x) stringr::str_sub(x, 1, 1))
+    x_labels = \(x) str_sub(x, 1, 1))
 ```
 
 ```{r}
@@ -201,7 +203,7 @@ gg_point_custom <-
            facet = NULL,
            facet2 = NULL,
            col_pal = RColorBrewer::brewer.pal(8, "Dark2"),
-           col_labels = \(x) stringr::str_to_sentence(x),
+           col_labels = \(x) str_to_sentence(x),
            col_title = "",
            theme = dark_mode_t()) {
     
@@ -247,7 +249,7 @@ palmerpenguins::penguins |>
     col_pal = c("#0095A8", "#112E51", "#FF7043"),
     width = 0.75, 
     position = position_dodge2(preserve = "single"),
-    x_labels = \(x) stringr::str_to_sentence(x)
+    x_labels = \(x) str_to_sentence(x)
   ) +
   geom_text(
     aes(
@@ -264,7 +266,7 @@ palmerpenguins::penguins |>
 mtcars |> 
   corrr::correlate() |> 
   corrr::stretch() |> 
-  mutate(across(c(x, y), stringr::str_to_sentence)) |> 
+  mutate(across(c(x, y), str_to_sentence)) |> 
   gg_tile(
     x = x, 
     y = y,
@@ -295,8 +297,8 @@ Because gg_blanket has a `geom` argument, it can be used with other geoms provid
 
 ```{r}
 palmerpenguins::penguins |>
-  tidyr::drop_na(sex) |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_blanket(
     geom = "violin",
     stat = "ydensity",

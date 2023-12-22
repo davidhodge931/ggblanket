@@ -23,6 +23,8 @@ This article will demonstrate each wrapper function.
 library(ggblanket)
 library(ggplot2)
 library(dplyr)
+library(stringr)
+library(tidyr)
 
 theme_set(dark_mode_rt())
 ```
@@ -42,7 +44,7 @@ economics |>
 
 ```{r }
 palmerpenguins::penguins |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_bar(
     y = species,
     col = sex,
@@ -79,8 +81,8 @@ palmerpenguins::penguins |>
 
 ```{r}
 palmerpenguins::penguins |>
-  tidyr::drop_na(sex) |> 
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
+  drop_na(sex) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_boxplot(
     x = body_mass_g,
     y = sex,
@@ -94,8 +96,8 @@ palmerpenguins::penguins |>
 
 ```{r}
 palmerpenguins::penguins |>
-  tidyr::drop_na(sex) |> 
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
+  drop_na(sex) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   group_by(sex, species) |>
   summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
   gg_col(
@@ -155,8 +157,8 @@ data.frame(
 
 ```{r}
 palmerpenguins::penguins |>
-  tidyr::drop_na(sex) |> 
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
+  drop_na(sex) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_density(
     x = flipper_length_mm,
     col = species,
@@ -212,7 +214,7 @@ data.frame(
 
 ```{r}
 palmerpenguins::penguins |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
@@ -238,7 +240,7 @@ diamonds |>
 
 ```{r}
 palmerpenguins::penguins |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_histogram(
     x = flipper_length_mm,
     col = sex,
@@ -335,7 +337,7 @@ economics |>
 
 ```{r}
 palmerpenguins::penguins |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g, 
@@ -484,8 +486,8 @@ sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
 
 ```{r}
 palmerpenguins::penguins |>
-  tidyr::drop_na(sex) |> 
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
+  drop_na(sex) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -531,7 +533,7 @@ bind_rows(
 
 ```{r}
 palmerpenguins::penguins |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   group_by(species, sex) |>
   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
   gg_tile(
@@ -546,8 +548,8 @@ palmerpenguins::penguins |>
 
 ```{r}
 palmerpenguins::penguins |>
-  tidyr::drop_na(sex) |> 
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
+  drop_na(sex) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_violin(
     x = sex,
     y = body_mass_g,
@@ -561,8 +563,8 @@ palmerpenguins::penguins |>
 
 ```{r}
 palmerpenguins::penguins |>
-  tidyr::drop_na(sex) |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_blanket(
     geom = "violin",
     stat = "ydensity",

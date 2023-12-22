@@ -228,7 +228,7 @@ The ggh4x package includes enhanced facet functionality.
 ```{r}
 iris |> 
   rename_with(\(x) snakecase::to_snake_case(x)) |> 
-  mutate(across(species, \(x) stringr::str_to_sentence(x))) |> 
+  mutate(across(species, \(x) str_to_sentence(x))) |> 
   mutate(size = if_else(species == "Setosa", "Short Leaves", "Long Leaves")) |> 
   gg_point(x = sepal_width, 
            y = sepal_length, 
