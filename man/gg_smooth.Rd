@@ -270,7 +270,7 @@ gg_smooth(
 A ggplot object.
 }
 \description{
-Create a smooth ggplot with a wrapper around ggplot() + geom_smooth.
+Create a smooth ggplot with a wrapper around ggplot() + geom_smooth. Use se = TRUE to display confidence interval.
 }
 \examples{
 
