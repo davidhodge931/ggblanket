@@ -45,8 +45,8 @@ Secondary objectives relate to:
 9.  Pretty gridlines removal
 10. Conversion of unspecified `titles` to sentence case
 11. Access to other `geom_*` arguments via ...
-12. Ability to add multiple `geom_*` layers
-13. Flexibility to turn-off/fix either colour or fill
+12. Flexibility to turn-off/fix either colour or fill
+13. Ability to add multiple `geom_*` layers
 14. Other key differences to ggplot2
 15. A `gg_blanket` function for extra `geom` flexibility
 
@@ -289,7 +289,43 @@ penguins |>
   ) 
 ```
 
-### 12. Ability to add multiple `geom_*` layers
+### 12. Flexibility to turn-off/fix either colour or fill
+
+For a geom with both outlines and fill, the default is to have both of these to the same colour with a default value of `alpha_pal`.
+
+However, with these geoms, you can turn off _either_ the colour (i.e. of the outlines) or fill, or fix one of these to a constant colour. 
+
+The recommended approach is to use `colour = NA`/`colour = black`, `fill = NA`/`fill = "lightgrey"`, and add in a `col` aesthetic if you don't already have one (as well as removing the legend). 
+
+An alternative approach to set `alpha_pal = 0` and `col_pal = scales::alpha(..., alpha = 0)` can be used. However, this approach is not as flexible.
+
+```{r}
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_boxplot(
+    x = species,
+    y = flipper_length_mm,
+    col = sex,
+    colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
+    position = position_dodge2(preserve = "single"),
+  )
+```
+
+```{r}
+penguins |>
+  mutate(hack = "") |> 
+  gg_boxplot(
+    x = species,
+    y = flipper_length_mm,
+    col = hack,
+    colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
+    col_pal = pal_blue,
+    width = 0.5,
+  ) +
+  guides(colour = "none", fill = "none")
+```
+
+### 13. Ability to add multiple `geom_*` layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
 
@@ -347,42 +383,6 @@ penguins |>
     alpha = 0.9) +
   geom_errorbar(width = 0.1) 
 
-```
-
-### 13. Flexibility to turn-off/fix either colour or fill
-
-For a geom with both outlines and fill, the default is to have both of these to the same colour with a default value of `alpha_pal`.
-
-However, with these geoms, you can turn off _either_ the colour (i.e. of the outlines) or fill, or fix one of these to a constant colour. 
-
-The recommended approach is to use `colour = NA`/`colour = black`, `fill = NA`/`fill = "lightgrey"`, and add in a `col` aesthetic if you don't already have one (as well as removing the legend). 
-
-An alternative approach to set `alpha_pal = 0` and `col_pal = scales::alpha(..., alpha = 0)` can be used. However, this approach is not as flexible.
-
-```{r}
-penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
-  gg_boxplot(
-    x = species,
-    y = flipper_length_mm,
-    col = sex,
-    colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
-    position = position_dodge2(preserve = "single"),
-  )
-```
-
-```{r}
-penguins |>
-  mutate(hack = "") |> 
-  gg_boxplot(
-    x = species,
-    y = flipper_length_mm,
-    col = hack,
-    colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
-    col_pal = pal_blue,
-    width = 0.5,
-  ) +
-  guides(colour = "none", fill = "none")
 ```
 
 ### 15. Other ggplot2 key differences 
