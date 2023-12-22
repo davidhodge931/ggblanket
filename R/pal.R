@@ -42,9 +42,9 @@ pal_orange <- "#FF7043"
 #' scales::show_col(pal_navy)
 pal_navy <- "#112E51"
 
-#' A plum-ish colour inspired by the NZ tree fuchsia (kōtukutuku)
+#' A plum colour
 #'
-#' @description A plum-ish colour.
+#' @description A plum colour inspired by the NZ tree fuchsia (kōtukutuku)
 #'
 #' @return A character vector.
 #'
@@ -64,37 +64,37 @@ pal_plum <- "#901752"
 #' scales::show_col(pal_grey)
 pal_grey <- "#78909C"
 
-#' A 5 colour vector for use with the light_mode_* themes to colour the (1) plot background (2) panel background, (3) axis lines (and ticks) (4) panel gridlines and (5) text.
+#' The light_mode_* theme colours
 #'
-#' @description A 5 colour vector for use with the light_mode_* themes.
+#' @description A 5 colour vector for use with the light_mode_* themes to colour the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.
 #'
 #' @return A character vector.
 #'
 #' @export
 pal_light_mode <- c(
+  "text" = "#121b24",
   "plot" = "#e6ecf2",
   "panel" = "#fcfdfe",
   "axislines" = "#121b24",
-  "gridlines" = "#dbe1e7",
-  "text" = "#121b24"
+  "gridlines" = "#dbe1e7"
 )
 
-#' A 5 colour vector for use with the dark_mode_* themes to colour the (1) plot background (2) panel background, (3) axis lines (and ticks) (4) panel gridlines and (5) text.
+#' The dark_mode_* theme colours
 #'
-#' @description A 5 colour vector for use with the dark_mode_* themes.
+#' @description A 5 colour vector for use with the dark_mode_* themes to colour the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.
 #'
 #' @return A character vector.
 #'
 #' @export
 pal_dark_mode <- c(
+  "text" = "#bbccdd",
   "plot" = "#15202b",
   "panel" = "#1f2f3e",
   "axislines" = "#bbccdd",
-  "gridlines" = "#2c3a48",
-  "text" = "#bbccdd"
+  "gridlines" = "#2c3a48"
 )
 
-#' Default colours used to colour a discrete variable.
+#' Default colours used to colour a discrete variable
 #'
 #' @description Default colours used to colour a discrete variable. Uses a colour blind safe palette derived from the US Census Bureau's Data Visualisation Standards for 3 or less colours. For 4 or more colours, uses scales::pal_hue.
 #'
@@ -108,7 +108,7 @@ pal_discrete <- function(n = 3) {
   else scales::pal_hue()(n)
 }
 
-#' Default colours used to colour a continuous variable.
+#' Default colours used to colour a continuous variable
 #'
 #' @description Default colours used to colour a continuous variable.
 #'
@@ -116,7 +116,7 @@ pal_discrete <- function(n = 3) {
 #'
 #' @keywords internal
 #' @references The mako colour palette from viridisLite reversed
-pal_continuous <- function(n = 20) {
-  viridisLite::mako(n = n, direction = -1, end = )
+pal_continuous <- function(n = 18) {
+  viridisLite::mako(n = n, direction = -1)
 }
 

@@ -528,8 +528,6 @@ palmerpenguins::penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   group_by(species, sex) |>
   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
-  ungroup() |>
-  tidyr::complete(species, sex) |> 
   gg_tile(
     x = sex,
     y = species,
@@ -541,6 +539,7 @@ palmerpenguins::penguins |>
 
 ```{r}
 palmerpenguins::penguins |>
+  drop_na() |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_violin(
     x = sex,

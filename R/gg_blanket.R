@@ -153,7 +153,7 @@ gg_blanket <- function(
     col_limits = NULL,
     col_oob = scales::oob_keep,
     col_pal = NULL,
-    col_pal_na = pal_grey,
+    col_pal_na = "darkgrey",
     col_rescale = scales::rescale(),
     col_title = NULL,
     col_transform = NULL,
@@ -1762,7 +1762,6 @@ gg_blanket <- function(
         }
 
         if (position_name == "fill") {
-          x_limits <- c(NA, NA)
           x_breaks <- seq(0, 1, 0.25)
         }
         else if (rlang::is_null(x_breaks)) {
@@ -1926,7 +1925,6 @@ gg_blanket <- function(
         }
 
         if (position_name == "fill") {
-          y_limits <- c(NA, NA)
           y_breaks <- seq(0, 1, 0.25)
         }
         else if (rlang::is_null(y_breaks)) {

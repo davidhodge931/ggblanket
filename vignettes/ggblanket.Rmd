@@ -85,7 +85,7 @@ penguins |>
 ```
 
 
-```{r, fig.asp=0.4}
+```{r, fig.asp=0.45}
 penguins |>
   drop_na(sex) |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
@@ -99,25 +99,25 @@ penguins |>
 
 ### 3. A `col_pal` argument to customise colours
 
-The `col_pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` aesthetic is added or not. A named palette can be used to make individual colours stick to particular values. 
+The `col_pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` aesthetic is added or not. A named palette can be used to make individual colours stick to particular values. The ggblanket package also provides some helper colours that are prefixed `pal_*`. 
 
 ```{r}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_jitter(
     x = species, 
     y = body_mass_g, 
-    col_pal = "#FF7043",
+    col_pal = "#112E51",
   )
 ```
 
 ```{r}
-penguins |>
+penguins |> 
+  drop_na() |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_density(
-    x = flipper_length_mm, 
-    col = species, 
-    col_pal = c("#112E51", "#78909C", "#ff4374"),
+    x = flipper_length_mm,
+    col = sex,
+    col_pal = c("#112E51", "#78909C"),
   )
 ```
 
@@ -132,7 +132,7 @@ penguins |>
   gg_violin(
     x = sex,
     y = body_mass_g,
-    facet = species
+    facet = species,
   )
 ```
 
@@ -189,7 +189,7 @@ You can set the theme globally using `ggplot2::theme_set`.
 
 Note if you want to set the theme globally to `theme_grey()`, then you must modify the base_size slightly (e.g. `theme_set(theme_grey(11.01))`).
 
-```{r, fig.asp=0.66}
+```{r, fig.asp=0.7}
 # theme_set(dark_mode_rt())
 
 penguins |>
@@ -223,7 +223,7 @@ penguins |>
     x = species,
     y = flipper_length_mm,
     col = sex,
-    position = position_dodge(preserve = "single"),
+    position = position_dodge2(preserve = "single"),
   )
 ```
 
@@ -234,10 +234,9 @@ penguins |>
     x = species,
     y = flipper_length_mm,
     col = sex,
-    position = position_dodge(preserve = "single"),
+    position = position_dodge2(preserve = "single"),
     y_limits = c(NA, NA),
   )
-
 ```
 
 ### 9.  Pretty gridlines removal
@@ -424,14 +423,15 @@ penguins |>
   tidyr::drop_na(sex) |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_blanket(
-    geom = "density_ridges",
+    geom = "density_ridges2",
     stat = "density_ridges", 
     position = "points_sina",
     x = flipper_length_mm,
     y = species,
     col = sex,
-    y_expand = c(0.05, 0.05),
-    alpha_pal = 0.5,
+    y_expand = c(0.05, 0),
+    alpha_pal = 0.33,
+    col_pal = c(pal_navy, pal_orange),
   )
 ```
 
@@ -447,7 +447,7 @@ iris |>
     y = Sepal.Width, 
     col = Species,
     group = 1,
-    colour = pal_light_mode[2],
+    colour = pal_light_mode[3],
     col_pal = c(pal_teal, pal_orange, pal_navy),
   )
 ```

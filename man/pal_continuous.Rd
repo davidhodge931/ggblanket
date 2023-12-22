@@ -4,7 +4,7 @@
 \alias{pal_continuous}
 \title{Default colours used to colour a continuous variable.}
 \usage{
-pal_continuous(n = 20)
+pal_continuous(n = 18)
 }
 \value{
 A character vector.

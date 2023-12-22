@@ -24,7 +24,7 @@ dark_mode_b(
   caption_family = NULL,
   caption_face = NULL,
   caption_alpha = 0.33,
-  caption_pal = base_pal[5],
+  caption_pal = base_pal[1],
   caption_size = ggplot2::rel(0.9),
   caption_hjust = 0,
   caption_vjust = 0.5,
@@ -39,7 +39,7 @@ dark_mode_b(
 
 \item{base_face}{The base face of the text. Defaults to "plain".}
 
-\item{base_pal}{A 5 element vector of hex codes for the (1) plot background etc (2) panel background etc (3) axis line and ticks (4) gridlines and (5) text.  Defaults to pal_dark_mode.}
+\item{base_pal}{A 5 element vector of hex codes for the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.  Defaults to pal_dark_mode.}
 
 \item{title_family}{The font family of the title. Defaults to the base_family.}
 

@@ -61,6 +61,7 @@ diamonds |>
   gg_bin_2d(
     x = carat,
     y = price,
+    col_pal = viridis::mako(9),
   )
 ```
 
@@ -88,7 +89,7 @@ palmerpenguins::penguins |>
     col = sex,
     facet = species,
     x_labels = \(x) str_sub(x, 1, 1), 
-    theme = light_mode_b(),
+    theme = dark_mode_b(),
   )
 ```
 
@@ -161,7 +162,7 @@ palmerpenguins::penguins |>
   gg_density(
     x = flipper_length_mm,
     col = species,
-    theme = light_mode_t(),
+    theme = dark_mode_t(),
   )
 ```
 
@@ -184,6 +185,7 @@ faithful |>
     x = waiting,
     y = eruptions,
     bins = 8,
+    col_pal = viridis::mako(8),
   )
 ```
 
@@ -216,7 +218,7 @@ palmerpenguins::penguins |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
-    theme = light_mode_t(),
+    theme = dark_mode_t(),
     col_title = "",
   )
 ```
@@ -230,6 +232,7 @@ diamonds |>
     y = price,
     y_limits = c(0, 20000),
     coord = ggplot2::coord_cartesian(clip = "on"), 
+    col_pal = viridis::mako(9),
   )
 ```
 
@@ -243,7 +246,7 @@ palmerpenguins::penguins |>
     col = sex,
     facet = species,
     bins = 50,
-    theme = light_mode_b(),
+    theme = dark_mode_b(),
   )
 ```
 
@@ -261,6 +264,7 @@ palmerpenguins::penguins |>
     y_expand_limits = 0,
     position = position_jitter(height = 0), 
     col_labels = \(x) str_keep_seq(x, by = 2),
+    col_pal = viridis::mako(9),
   )
 ```
 
@@ -339,7 +343,7 @@ palmerpenguins::penguins |>
     y = body_mass_g, 
     col = sex,
     facet = species, 
-    theme = light_mode_b(),
+    theme = dark_mode_b(),
   )
 ```
 
@@ -414,6 +418,7 @@ faithfuld |>
     x = waiting,
     y = eruptions,
     col = density,
+    col_pal = viridis::mako(9),
   )
 ```
 
@@ -473,6 +478,7 @@ data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
 sf::st_read(system.file("shape/nc.shp", package = "sf")) |> 
   gg_sf(
     col = AREA, 
+    col_pal = viridis::mako(9),
   )
 ```
 
@@ -530,12 +536,11 @@ palmerpenguins::penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   group_by(species, sex) |>
   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
-  ungroup() |>
-  tidyr::complete(species, sex) |> 
   gg_tile(
     x = sex,
     y = species,
     col = flipper_length_mm,
+    col_pal = viridis::mako(9),
   )
 ```
 
@@ -543,12 +548,13 @@ palmerpenguins::penguins |>
 
 ```{r}
 palmerpenguins::penguins |>
+  drop_na() |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_violin(
     x = sex,
     y = body_mass_g,
     col = sex,
     facet = species, 
-    theme = light_mode_b(),
+    theme = dark_mode_b(),
   )
 ```

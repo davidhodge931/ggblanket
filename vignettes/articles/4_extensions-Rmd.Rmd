@@ -22,25 +22,21 @@ knitr::opts_chunk$set(
 This article will demonstrate some fantastic ggplot2 extension packages. 
 
 ```{r setup}
+library(ggblanket)
+library(ggplot2)
+library(patchwork)
 library(dplyr)
 library(stringr)
-library(ggplot2)
-library(ggblanket)
-library(patchwork)
 library(palmerpenguins)
-
-penguins2 <- palmerpenguins::penguins |>
-  mutate(sex = str_to_sentence(sex)) |>
-  tidyr::drop_na(sex)
 ```
 
 #### patchwork
 
 The patchwork package enables plots to be patched together. 
 
-A convenient hack to add a centred non-bold title in a non-faceted plot is to add a `facet_wrap` layer with a character string for the `facets` argument. 
+A convenient hack to add a centred title in a non-faceted plot is to add a `facet_wrap` layer with a character string for the `facets` argument. 
 
-```{r, fig.asp=0.9}
+```{r, fig.asp=0.9, eval = FALSE}
 p1 <- mtcars |> 
   gg_point(x = mpg, 
            y = disp,
@@ -61,28 +57,29 @@ p3 <- mtcars |>
             x_breaks = scales::breaks_pretty(4)) +
   facet_wrap(~"Plot 3")
 
-# (p1 + p2) / p3 +
-#   plot_annotation(title = "A collection of plots patched together", 
-#                   subtitle = "Works so nice!", 
-#                   theme = light_mode_rt() +
-#                     theme(
-#                       plot.title = element_text(margin = margin(t = 10 * -0.5, b = 10 * 0.75)),
-#                       plot.subtitle = element_text(margin = margin())
-#                     )
-#                   )
+ (p1 + p2) / p3 +
+   plot_annotation(title = "A collection of plots patched together", 
+                   subtitle = "Works so nice!", 
+                   theme = light_mode_rt() +
+                     theme(
+                       plot.title = element_text(margin = margin(t = 10 * -0.5, b = 10 * 0.75)),
+                       plot.subtitle = element_text(margin = margin())
+                     )
+                   )
 ```
 
 #### ggblend
  
 The ggblend package provides blending of colours. Note you must use a graphics device that supports blending.
  
-```{r, fig.asp=0.6}
+```{r}
 penguins |>
   gg_blank(
     x = flipper_length_mm,
     col = species,
     col_pal = RColorBrewer::brewer.pal(9, "Set1"),
-    stat = "density") +
+    stat = "density",
+  ) +
   geom_density(alpha = 0.5) |> ggblend::blend("multiply")
 ```
 
@@ -92,6 +89,7 @@ The ggdensity package provides visualizations of density estimates.
 
 ```{r}
 library(ggdensity)
+
 data.frame(x = rnorm(1000),
            y = rnorm(1000),
            z = c(rep("A", times = 500),
@@ -103,7 +101,8 @@ data.frame(x = rnorm(1000),
     y = y, 
     col = z,
     facet = z,
-    colour = NA)
+    colour = NA,
+  )
 ```
 
 ```{r}
@@ -118,8 +117,9 @@ data.frame(x = rnorm(1000),
     stat = "hdr",
     x = x, 
     y = y, 
-    #this method of removing colour is better for the lenend
-    col_pal = scales::alpha(viridis::mako(9)[5], 0)) 
+    #this method of removing colour is better for the legend
+    col_pal = scales::alpha(pal_blue, 0),
+  ) 
 ```
 
 #### ggdist
@@ -146,15 +146,17 @@ data.frame(
     y = distribution,
     mapping = aes(dist = values),
     y_expand = c(0.05, 0.05),
-    alpha_pal = 0.5) +
+    alpha_pal = 0.5,
+  ) +
   labs(size = "Width")
 ```
 
 ```{r}
 library(ggdist)
-tibble(x = 1:10) %>%
-  group_by(across(everything())) %>%
-  do(tibble(y = rnorm(100, .$x))) %>%
+
+tibble(x = 1:10) |> 
+  group_by(across(everything()))  |> 
+  do(tibble(y = rnorm(100, .$x))) |> 
   median_qi(.width = c(0.5, 0.8, 0.95)) |>
   mutate(.width = factor(.width)) |>
   gg_blanket(
@@ -166,7 +168,8 @@ tibble(x = 1:10) %>%
     col = .width,
     colour = "black",
     col_pal = rev(RColorBrewer::brewer.pal(n = 3, "Blues")),
-    col_legend_rev = TRUE)
+    col_legend_rev = TRUE,
+  )
 ```
 
 #### ggeasy
@@ -174,7 +177,8 @@ tibble(x = 1:10) %>%
 The ggeasy package provides a lot of support for easily modifying themes. Removing axes often is useful for maps. 
 
 ```{r}
-penguins2 |>
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_jitter(
     x = species, 
     y = body_mass_g, 
@@ -212,6 +216,7 @@ ggplot2::economics |>
     x = date, 
     y = unemploy,
     n = 100, 
+    linewidth = 1,
   ) 
 ```
 
@@ -238,24 +243,26 @@ iris |>
 The gghighlight package enables geoms or parts thereof to be highlighted. 
 
 ```{r}
-penguins2 |>
-  gg_point(x = flipper_length_mm,
-           y = body_mass_g) +
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+  ) +
   gghighlight::gghighlight(body_mass_g >= 5000)
 ```
 
-The `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you may need to make adjustments, so that the scale builds correctly. An alternative approach is use `ggblank` to build the scale for the non-faceted data, and then add in `geom_histogram`, `facet_wrap` and `gghighlight` layers.  
+The `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you may need to make adjustments, so that the scale builds correctly. 
 
 ```{r}
-iris |>
+penguins |>
   gg_histogram(
-    x = Sepal.Length,
-    col = Species,
-    facet = Species,
-    facet_labels = \(x) str_to_sentence(x),
-    col_pal = rep(viridis::mako(9)[5], 3)) +
-  gghighlight::gghighlight() +
-  scale_y_continuous(expand = c(0, 0))
+    x = flipper_length_mm,
+    col = species,
+    col_pal = rep(pal_blue, 3), 
+    x_breaks = scales::breaks_pretty(4),
+  ) + #build the scale for not faceted (i.e. all data)
+  facet_wrap(~species) + #then add facet layer
+  gghighlight::gghighlight() 
 ```
 
 #### ggnewscale
@@ -263,16 +270,16 @@ iris |>
 The ggnewscale package enables multiple colour scales.
 
 ```{r}
-penguins2 |> 
+penguins |> 
   gg_blank(x = flipper_length_mm, 
            y = body_mass_g) + 
   geom_point(aes(colour = bill_length_mm), 
-             data = penguins2 |> filter(species == "Gentoo")) +
+             data = penguins |> filter(species == "Gentoo")) +
   scale_color_viridis_c(option = "G", direction = -1) +
   labs(colour = "Gentoo\nBill length (mm)") +
   ggnewscale::new_scale_colour() +
   geom_point(aes(x = flipper_length_mm, y = body_mass_g, colour = species), 
-             data = penguins2 |> filter(species != "Gentoo")) +
+             data = penguins |> filter(species != "Gentoo")) +
   scale_color_manual(values = c(pal_plum, pal_orange)) +
   labs(colour = "Species")
 ```
@@ -281,9 +288,10 @@ penguins2 |>
 
 The ggpattern package can be used to add patterns to geoms.
 
-```{r}
+```{r, eval = FALSE}
 library(ggpattern)
-penguins2 |>
+
+penguins |>
   group_by(species, sex) |>
   summarise(across(body_mass_g, \(x) mean(x))) |>
   gg_blanket(
@@ -293,7 +301,8 @@ penguins2 |>
     x = body_mass_g,
     col = sex,
     mapping = aes(pattern = sex),
-    width = 0.75) +
+    width = 0.75,
+  ) +
   labs(pattern = "Sex") +
   guides(pattern = guide_legend(reverse = TRUE))
 ```
@@ -306,8 +315,12 @@ The ggrepel package can be used to neatly avoid overlapping labels.
 mtcars |>
   tibble::rownames_to_column("car") |>
   filter(wt > 2.75, wt < 3.45) |>
-  gg_point(x = wt, y = mpg, label = car) +
-  ggrepel::geom_text_repel(colour = viridis::mako(9)[5], size = 3.53) 
+  gg_point(
+    x = wt, 
+    y = mpg, 
+    label = car, 
+  ) +
+  ggrepel::geom_text_repel(colour = pal_blue, size = 3.53) 
 ```
 
 #### ggridges
@@ -330,8 +343,8 @@ ggridges::Catalan_elections |>
     y_expand = expansion(c(0, 0.125)),
     x_limits = c(0, 100),
     colour = "white",
-    alpha_pal = 0.7
-    )
+    alpha_pal = 0.7,
+  )
 ```
 
 #### ggtext
@@ -349,7 +362,8 @@ penguins |>
     title = "***Pygoscelis*** **penguin** bill lengths and depths",
     subtitle = "<span style = 'color: #2596be ;'>**Adelie**</span>, 
        <span style = 'color:#fc7c24;'>**Chinstrap**</span>, 
-       *and* <span style = 'color:#9c1e74;'>**Gentoo**</span>") +
+       *and* <span style = 'color:#9c1e74;'>**Gentoo**</span>",
+  ) +
   theme(plot.title = ggtext::element_markdown()) +
   theme(plot.subtitle = ggtext::element_markdown()) +
   guides(colour = "none", fill = "none")
@@ -371,9 +385,10 @@ penguins |>
        <span style = 'color:#fc7c24;'>**Chinstrap**</span>, 
        *and* <span style = 'color:#9c1e74;'>**Gentoo**</span>", 
     x_labels = \(x) glue::glue("_{x}_"),
-    y_labels = \(x) glue::glue("_{x}_"),
+    y_labels = \(x) str_keep_seq(glue::glue("_{x}_")),
     col_labels = \(x) glue::glue("_{x}_"),
-    facet_labels = \(x) glue::glue("_{x}_")) +
+    facet_labels = \(x) glue::glue("_{x}_"),
+  ) +
   theme(  
     plot.title = ggtext::element_markdown(),
     plot.subtitle = ggtext::element_markdown(),
@@ -392,35 +407,21 @@ penguins |>
 
 The geomtextpath package enables curved text.
 
-```{r, fig.asp=0.9}
+```{r}
 library(geomtextpath)
 
-p1 <- pressure |>
-  mutate(label = "Mercury vapor pressure increases with temperature") |>
-  gg_blanket(
-    GeomTextpath,
-    x = temperature,
-    y = pressure,
-    label = label,
-    size = 3.53,
-    vjust = -0.5,
-    hjust = 0.9)
-
-p2 <- expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |> 
+expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |> 
   mutate(z = c(volcano)) |> 
-  gg_contour_filled(x = x, 
-           y = y, 
-           z = z, 
-           binwidth = 20, 
-           x_limits = c(NA, NA),
-           x_expand = c(0, 0),
-           y_limits = c(NA, NA)) +
+  gg_contour_filled(
+    x = x, 
+    y = y,
+    z = z,
+    binwidth = 20,
+    x_limits = c(NA, NA),
+    x_expand = c(0, 0),
+    y_limits = c(NA, NA)) +
   geom_textcontour(aes(label = after_stat(level)), size = 2.5, straight = TRUE) +
   ggeasy::easy_remove_axes() 
-
-p1
-p2
-# p1 / p2
 ```
 
 #### ggiraph
@@ -438,8 +439,8 @@ p <- diamonds |>
     aes(tooltip = after_stat(count), 
         data_id = color), 
     width = 0.75, 
-    col = viridis::mako(9)[5], 
-    fill = viridis::mako(9)[5], 
+    col = pal_blue, 
+    fill = pal_blue, 
     alpha = 0.9)
 
 ggiraph::girafe(

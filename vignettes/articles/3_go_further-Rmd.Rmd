@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   fig.width = 6,
-  fig.asp = 0.618,
+  fig.asp = 0.5,
   out.width = "70%",
   dpi = 300
   )
@@ -38,17 +38,13 @@ library(ggplot2)
 library(ggblanket)
 library(patchwork)
 library(palmerpenguins)
-
-penguins <- penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
-  tidyr::drop_na(sex)
 ```
 
 ### 1. Use different fonts
 
 The showtext and sysfonts packages support the use of different fonts from Google. The `*_mode` theme functions provide `base_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
 
-```{r, fig.asp = 0.75, fig.showtext = TRUE}
+```{r, fig.asp = 0.7, fig.showtext = TRUE}
 sysfonts::font_add_google("Covered By Your Grace", "grace")
 sysfonts::font_add_google('Roboto Slab', 'roboto_slab')
 sysfonts::font_add_google('Syne Mono', 'syne')
@@ -77,12 +73,11 @@ showtext::showtext_auto(enable = FALSE)
 
 As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, spatial vector and array data can be visualised. 
 
-```{r, fig.asp=0.33}
+```{r, fig.asp=0.4}
 sf::st_read(system.file("shape/nc.shp", package = "sf"), 
             quiet = TRUE) |>
   gg_sf(col = AREA) +
   ggeasy::easy_remove_axes()
-
 ```
 
 ```{r}
@@ -102,96 +97,29 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
 
 Users can turn off _either_ the colour (i.e. of the outlines) or fill of a geom that contains both. 
 
-The recommended approach is to use `colour = NA` or `fill = NA`, and add in a col aesthetic if you don't already have one (as well as removing the legend).
+The recommended approach is to use `colour = NA` or `fill = NA`, and add in a col aesthetic if you don't already have one (as well as removing the legend). Likewise, you can use this approach to fix colour or fill to a constant colour using this approach.
 
-```{r, fig.asp=1}
-p1 <- iris |>
+An alternative approach to turning off colour or fill is to set `alpha_pal = 0` and `col_pal = scales::alpha(..., alpha = 0)`.
+
+```{r}
+penguins |>
+  mutate(across(species, \(x) str_to_sentence(x))) |> 
   gg_density(
-    x = Sepal.Length,
-    col = Species,
-    fill = NA, 
-    y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
-    col_labels = \(x) str_to_sentence(x),
-    title = "Turn off either colour or fill", 
+    x = flipper_length_mm,
+    col = species,
+    colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
   )
-
-p2 <- iris |>
-  gg_density(
-    x = Sepal.Length, 
-    col = Species,
-    colour = NA, 
-    y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
-    col_labels = \(x) str_to_sentence(x), 
-  )
-
-p3 <- iris |>
-  mutate(hack = "") |> 
-  gg_density(
-    x = Sepal.Length,
-    col = hack, 
-    fill = NA, 
-    y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE)) +
-  guides(colour = "none", fill = "none")
-
-p4 <- iris |>
-  mutate(hack = "") |> 
-  gg_density(
-    x = Sepal.Length,
-    col = hack, 
-    colour = NA, 
-    y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE)) +
-  guides(colour = "none", fill = "none")
-
-# (p1 + p2) / (p3 + p4) 
 ```
 
-### 4. Fix either colour or fill to something different 
-
-Users can also fix _either_ the colour (i.e. of the outlines) or fill of a geom to something different than the `col_pal`. 
-
-The recommended approach is to use `colour = "orange"` or `fill = "orange"`, and add in a `col` aesthetic if you don't already have one (as well as removing the legend).
-
-```{r, fig.asp=1}
-p1 <- iris |>
-  gg_density(
-    x = Sepal.Length,
-    col = Species,
-    fill = "orange", 
-    y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
-    col_labels = \(x) str_to_sentence(x),
-    title = "Fix a different colour or fill",
-  )
-
-p2 <- iris |>
-  gg_density(
-    x = Sepal.Length, 
-    col = Species,
-    colour = "orange", 
-    y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
-    col_labels = \(x) str_to_sentence(x),
-  )
-
-p3 <- iris |>
+```{r}
+penguins |>
   mutate(hack = "") |> 
   gg_density(
-    x = Sepal.Length,
+    x = flipper_length_mm,
     col = hack, 
-    fill = "orange", 
-    y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE), 
+    fill = "lightgrey", #or colour = NA, or fill = NA or colour = "black" etc
   ) +
   guides(colour = "none", fill = "none")
-
-p4 <- iris |>
-  mutate(hack = "") |> 
-  gg_density(
-    x = Sepal.Length,
-    col = hack, 
-    colour = "orange", 
-    y_labels = \(x) str_keep_seq(x, drop0trailing = TRUE),
-  ) +
-  guides(colour = "none", fill = "none")
-
-# (p1 + p2) / (p3 + p4) 
 ```
 
 ### 5. Work with other aesthetics (or delayed evaluation)
@@ -209,7 +137,8 @@ penguins |>
     y = body_mass_g, 
     col = species,
     mapping = aes(shape = species),
-  )
+  ) +
+  labs(shape = "Species")
 ```
 
 ```{r, fig.asp=0.55}
@@ -217,7 +146,7 @@ penguins |>
   gg_histogram(
     x = flipper_length_mm,
     mapping = aes(y = after_stat(density)),
-    facet = species
+    facet = species,
   )
 ```
 
@@ -228,7 +157,7 @@ faithfuld |>
     y = eruptions,
     z = density,
     mapping = aes(colour = after_stat(level)),
-    bins = 8
+    bins = 8,
   )
 ```
 
@@ -236,8 +165,8 @@ faithfuld |>
 
 The default `stat` of each `gg_*` function can be changed for additional flexibility. 
 
-```{r, fig.asp=0.7}
-p1 <- penguins |>
+```{r}
+penguins |>
   gg_pointrange(
     x = species,
     y = flipper_length_mm, 
@@ -245,25 +174,20 @@ p1 <- penguins |>
     na.rm = TRUE,
     size = 0.1,
     x_labels = \(x) str_sub(x, 1, 1))
+```
 
-p2 <- penguins |>
-  gg_bar(x = flipper_length_mm,
-         stat = "bin", 
-         x_labels = \(x) str_keep_seq(x))
+```{r}
+library(ggforce)
 
-p3 <- penguins |>
-  gg_bar(
-    x = flipper_length_mm,
-    y = species,
-    col = sex,
-    stat = "summary", 
-    position = ggplot2::position_dodge(),
-    width = 0.75)
-
-p1
-p2
-p3
-# (p1 + p2) / p3
+ggplot2::economics |>
+  slice_head(n = 35) |> 
+  gg_path(
+    stat = "bspline",
+    x = date, 
+    y = unemploy,
+    n = 100, 
+    linewidth = 1,
+  ) 
 ```
 
 ### 7. Create custom wrapper functions
@@ -291,21 +215,12 @@ gg_point_custom <-
     ggeasy::easy_remove_axes(which = "y", what = c("line", "ticks"))
 }
 
-p1 <- penguins |>
+penguins |>
   gg_point_custom(
     x = flipper_length_mm,
     y = body_mass_g, 
-    col = sex)
-
-p2 <- penguins |>
-  gg_point_custom(
-    x = flipper_length_mm,
-    y = body_mass_g, 
-    col = species)
-
-p1
-p2
-# p1 / p2
+    col = species,
+  )
 ```
 
 ### 8. Add contrasting dark or light text on polygons
@@ -313,7 +228,10 @@ p2
 A method was developed by [@teunbrand](https://github.com/teunbrand/ggplot_tricks) to colour text on polygons using a dark or light colour, which is determined  based on the underlying polygon colour.
 
 ```{r}
-contrast <- function(col_pal, col_pal_dark = "#121b24", col_pal_light = "#fcfdfe") {
+contrast <- function(col_pal, 
+                     col_pal_dark = pal_light_mode[1], 
+                     col_pal_light = pal_light_mode[3]) {
+  
     out <- rep(col_pal_dark, length(col_pal))
     light <- farver::get_channel(col_pal, "l", space = "hcl")
     out[light < 50] <- col_pal_light
@@ -353,7 +271,7 @@ mtcars |>
     x = x, 
     y = y,
     col = r,
-    col_pal_na = "#e6ecf2",
+    col_pal_na = pal_light_mode[2],
     col_limits = c(-1, 1),
     col_rescale = scales::rescale(c(-1, 0, 1)),
     x_title = "", 
@@ -378,9 +296,6 @@ All other functions wrap this function with a locked-in geom, and their own defa
 Because gg_blanket has a `geom` argument, it can be used with other geoms provided by other packages.
 
 ```{r}
-library(ggdensity)
-set.seed(123)
-
 library(ggridges)
 
 ggridges::Catalan_elections |>
@@ -395,8 +310,7 @@ ggridges::Catalan_elections |>
     col = option,
     y_expand = expansion(c(0, 0.125)),
     x_limits = c(0, 100),
-    colour = "white",
     alpha_pal = 0.7
-    )
+  )
 ```
 

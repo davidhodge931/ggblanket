@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_plum}
 \alias{pal_plum}
-\title{A plum-ish colour inspired by the NZ tree fuchsia (kōtukutuku)}
+\title{A plum colour}
 \format{
 An object of class \code{character} of length 1.
 }
@@ -14,7 +14,7 @@ pal_plum
 A character vector.
 }
 \description{
-A plum-ish colour.
+A plum colour inspired by the NZ tree fuchsia (kōtukutuku)
 }
 \examples{
 scales::show_col(pal_plum)
