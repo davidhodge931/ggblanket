@@ -272,3 +272,19 @@ A ggplot object.
 \description{
 Create a histogram ggplot with a wrapper around ggplot() + geom_histogram.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = sex,
+    facet = species,
+    bins = 50,
+    theme = light_mode_b(),
+  )
+
+}

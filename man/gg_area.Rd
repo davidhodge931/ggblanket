@@ -272,3 +272,16 @@ A ggplot object.
 \description{
 Create an area ggplot with a wrapper around ggplot() + geom_area.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+economics |>
+  gg_area(
+    x = date,
+    y = unemploy,
+    y_title = "Unemployment",
+  )
+
+}

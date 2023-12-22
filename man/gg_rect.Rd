@@ -272,3 +272,28 @@ A ggplot object.
 \description{
 Create a rect ggplot with a wrapper around ggplot() + geom_rect.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+data.frame(
+  x = rep(c(2, 5, 7, 9, 12), 2),
+  y = rep(c(1, 2), each = 5),
+  z = factor(c(rep(1:3, each = 3), 4)),
+  w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)) |>
+  mutate(
+    xmin = x - w / 2,
+    xmax = x + w / 2,
+    ymin = y,
+    ymax = y + 1
+  ) |>
+  gg_rect(
+    xmin = xmin,
+    xmax = xmax,
+    ymin = ymin,
+    ymax = ymax,
+    col = z,
+  )
+
+}

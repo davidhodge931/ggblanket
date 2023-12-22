@@ -272,3 +272,17 @@ A ggplot object.
 \description{
 Create a qq ggplot with a wrapper around ggplot() + geom_qq.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+palmerpenguins::penguins |>
+  gg_qq(
+    sample = body_mass_g,
+    facet = species,
+    coord = coord_cartesian(clip = "on"),
+  ) +
+  geom_qq_line(colour = pal_blue)
+
+}

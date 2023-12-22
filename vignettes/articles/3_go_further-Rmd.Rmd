@@ -32,12 +32,9 @@ This article will demonstrate more advanced content, including how to:
 
 
 ```{r setup}
-library(dplyr)
-library(stringr)
-library(ggplot2)
 library(ggblanket)
-library(patchwork)
-library(palmerpenguins)
+library(ggplot2)
+library(dplyr)
 ```
 
 ### 1. Use different fonts
@@ -51,14 +48,14 @@ sysfonts::font_add_google('Syne Mono', 'syne')
 
 showtext::showtext_auto(enable = TRUE)
 
-penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
     facet = species,
-    title = "Penguins body mass by flipper length",
+    title = "palmerpenguins::penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
     theme = light_mode_rt(
@@ -102,8 +99,8 @@ The recommended approach is to use `colour = NA` or `fill = NA`, and add in a co
 An alternative approach to turning off colour or fill is to set `alpha_pal = 0` and `col_pal = scales::alpha(..., alpha = 0)`.
 
 ```{r}
-penguins |>
-  mutate(across(species, \(x) str_to_sentence(x))) |> 
+palmerpenguins::penguins |>
+  mutate(across(species, \(x) stringr::str_to_sentence(x))) |> 
   gg_density(
     x = flipper_length_mm,
     col = species,
@@ -112,7 +109,7 @@ penguins |>
 ```
 
 ```{r}
-penguins |>
+palmerpenguins::penguins |>
   mutate(hack = "") |> 
   gg_density(
     x = flipper_length_mm,
@@ -131,7 +128,7 @@ For those that are not available - or where you wish to use delayed evaluation -
 The `mapping` argument provides access to the `linetype`, `shape` and `size` aesthetics within the `gg_*` function. Note the `col`, `colour`, `fill` and `alpha` aesthetics cannot be added within the ggblanket `mapping` argument. 
 
 ```{r}
-penguins |> 
+palmerpenguins::penguins |> 
   gg_point(
     x = flipper_length_mm, 
     y = body_mass_g, 
@@ -142,7 +139,7 @@ penguins |>
 ```
 
 ```{r, fig.asp=0.55}
-penguins |>
+palmerpenguins::penguins |>
   gg_histogram(
     x = flipper_length_mm,
     mapping = aes(y = after_stat(density)),
@@ -166,14 +163,14 @@ faithfuld |>
 The default `stat` of each `gg_*` function can be changed for additional flexibility. 
 
 ```{r}
-penguins |>
+palmerpenguins::penguins |>
   gg_pointrange(
     x = species,
     y = flipper_length_mm, 
     stat = "summary", 
     na.rm = TRUE,
     size = 0.1,
-    x_labels = \(x) str_sub(x, 1, 1))
+    x_labels = \(x) stringr::str_sub(x, 1, 1))
 ```
 
 ```{r}
@@ -197,6 +194,7 @@ You can create powerful custom functions. This is because the `...` argument can
 ```{r, fig.asp=1}
 gg_point_custom <-
   function(data,
+           ...,
            x,
            y,
            col = NULL,
@@ -205,17 +203,17 @@ gg_point_custom <-
            col_pal = RColorBrewer::brewer.pal(8, "Dark2"),
            col_labels = \(x) stringr::str_to_sentence(x),
            col_title = "",
-           theme = dark_mode_t(),
-           ...) {
+           theme = dark_mode_t()) {
+    
     data |> 
-    gg_point(x = {{ x }}, y = {{ y }}, 
-             col = {{ col }}, facet = {{ facet }}, facet2 = {{ facet2 }},
-             col_pal = col_pal, col_labels = col_labels, col_title = col_title, 
-             theme = theme, ...) +
-    ggeasy::easy_remove_axes(which = "y", what = c("line", "ticks"))
+      gg_point(x = {{ x }}, y = {{ y }}, 
+               col = {{ col }}, facet = {{ facet }}, facet2 = {{ facet2 }},
+               col_pal = col_pal, col_labels = col_labels, col_title = col_title, 
+               theme = theme, ...) +
+      ggeasy::easy_remove_axes(which = "y", what = c("line", "ticks"))
 }
 
-penguins |>
+palmerpenguins::penguins |>
   gg_point_custom(
     x = flipper_length_mm,
     y = body_mass_g, 
@@ -249,7 +247,7 @@ palmerpenguins::penguins |>
     col_pal = c("#0095A8", "#112E51", "#FF7043"),
     width = 0.75, 
     position = position_dodge2(preserve = "single"),
-    x_labels = \(x) str_to_sentence(x)
+    x_labels = \(x) stringr::str_to_sentence(x)
   ) +
   geom_text(
     aes(
@@ -266,7 +264,7 @@ palmerpenguins::penguins |>
 mtcars |> 
   corrr::correlate() |> 
   corrr::stretch() |> 
-  mutate(across(c(x, y), str_to_sentence)) |> 
+  mutate(across(c(x, y), stringr::str_to_sentence)) |> 
   gg_tile(
     x = x, 
     y = y,
@@ -294,6 +292,23 @@ ggblanket is driven by `gg_blanket` function, which has a `geom` argument.
 All other functions wrap this function with a locked-in geom, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
 Because gg_blanket has a `geom` argument, it can be used with other geoms provided by other packages.
+
+```{r}
+palmerpenguins::penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  gg_blanket(
+    geom = "violin",
+    stat = "ydensity",
+    position = "dodge",
+    x = sex,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    theme = light_mode_b(),
+  )
+```
+
 
 ```{r}
 library(ggridges)

@@ -272,3 +272,16 @@ A ggplot object.
 \description{
 Create a blank ggplot with a wrapper around ggplot() + geom_blank().
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+palmerpenguins::penguins |>
+  gg_blank(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+  )
+
+}

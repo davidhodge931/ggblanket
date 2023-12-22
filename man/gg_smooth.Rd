@@ -272,3 +272,19 @@ A ggplot object.
 \description{
 Create a smooth ggplot with a wrapper around ggplot() + geom_smooth.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  tidyr::drop_na(sex) |>
+  gg_smooth(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    se = TRUE,
+  )
+
+}

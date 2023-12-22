@@ -272,3 +272,15 @@ A ggplot object.
 \description{
 Create a bin2d ggplot with a wrapper around ggplot() + geom_bin_2d.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+diamonds |>
+  gg_bin_2d(
+    x = carat,
+    y = price,
+  )
+
+}

@@ -272,3 +272,20 @@ A ggplot object.
 \description{
 Create a violin plot with a wrapper around ggplot() + geom_violin.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+palmerpenguins::penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  gg_violin(
+    x = sex,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    theme = light_mode_b(),
+  )
+
+}

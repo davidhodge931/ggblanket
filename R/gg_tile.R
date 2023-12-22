@@ -94,6 +94,19 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' palmerpenguins::penguins |>
+#'   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+#'   group_by(species, sex) |>
+#'   summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
+#'   gg_tile(
+#'     x = sex,
+#'     y = species,
+#'     col = flipper_length_mm,
+#'   )
+#'
 gg_tile <- function(
     data = NULL,
     ...,
@@ -122,8 +135,8 @@ gg_tile <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -132,8 +145,8 @@ gg_tile <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

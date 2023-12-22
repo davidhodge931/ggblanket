@@ -272,3 +272,16 @@ A ggplot object.
 \description{
 Create a density_2d_filled ggplot with a wrapper around ggplot() + geom_density_2d_filled.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+faithful |>
+  gg_density_2d_filled(
+    x = waiting,
+    y = eruptions,
+    bins = 8,
+  )
+
+}

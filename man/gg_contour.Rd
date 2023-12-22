@@ -272,3 +272,16 @@ A ggplot object.
 \description{
 Create a contour ggplot with a wrapper around ggplot() + geom_contour.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+ggplot2::faithfuld |>
+  gg_contour(
+    x = waiting,
+    y = eruptions,
+    z = density,
+  )
+
+}

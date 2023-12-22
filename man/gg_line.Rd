@@ -272,3 +272,17 @@ A ggplot object.
 \description{
 Create a line ggplot with a wrapper around ggplot() + geom_line.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+economics |>
+  gg_line(
+    x = date,
+    y = unemploy,
+    y_title = "Unemployment",
+    y_expand_limits = 0,
+  )
+
+}

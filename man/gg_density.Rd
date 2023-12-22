@@ -272,3 +272,18 @@ A ggplot object.
 \description{
 Create a density ggplot with a wrapper around ggplot() + geom_density.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  tidyr::drop_na(sex) |>
+  gg_density(
+    x = flipper_length_mm,
+    col = species,
+    theme = light_mode_t(),
+  )
+
+}

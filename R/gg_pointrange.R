@@ -94,6 +94,27 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' data.frame(
+#'   trt = factor(c(1, 1, 2, 2)),
+#'   resp = c(1, 5, 3, 4),
+#'   group = factor(c(1, 2, 1, 2)),
+#'   upper = c(1.1, 5.3, 3.3, 4.2),
+#'   lower = c(0.8, 4.6, 2.4, 3.6)) |>
+#'   gg_pointrange(
+#'     x = trt,
+#'     y = resp,
+#'     col = group,
+#'     ymin = lower,
+#'     ymax = upper,
+#'     position = position_dodge(width = 0.2),
+#'     size = 0.2,
+#'     x_title = "Treatment",
+#'     y_title = "Response",
+#'   )
+#'
 gg_pointrange <- function(
     data = NULL,
     ...,
@@ -122,8 +143,8 @@ gg_pointrange <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -132,8 +153,8 @@ gg_pointrange <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

@@ -272,3 +272,16 @@ A ggplot object.
 \description{
 Create a raster ggplot with a wrapper around ggplot() + geom_raster.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+faithfuld |>
+  gg_raster(
+    x = waiting,
+    y = eruptions,
+    col = density,
+  )
+
+}

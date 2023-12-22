@@ -94,6 +94,18 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' palmerpenguins::penguins |>
+#'   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+#'   gg_bar(
+#'     y = species,
+#'     col = sex,
+#'     width = 0.75,
+#'     position = position_dodge(preserve = "single"),
+#'   )
+#'
 gg_bar <- function(
     data = NULL,
     ...,
@@ -122,8 +134,8 @@ gg_bar <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -132,8 +144,8 @@ gg_bar <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

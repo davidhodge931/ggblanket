@@ -273,12 +273,18 @@ A ggplot object.
 Create a point ggplot with a wrapper around ggplot() + geom_point.
 }
 \examples{
-library(palmerpenguins)
 
-penguins |>
+library(ggplot2)
+library(dplyr)
+
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex)
+    col = sex,
+    facet = species,
+    theme = light_mode_b(),
+  )
 
 }

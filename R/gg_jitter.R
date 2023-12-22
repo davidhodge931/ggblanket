@@ -1,7 +1,7 @@
 #' @title Jitter ggplot
 #'
 #' @description Create a jitter ggplot with a wrapper around ggplot() + geom_jitter.
-
+#'
 #' @param data A data frame or tibble.
 #' @param ... Other arguments passed to within a params list in the layer function.
 #' @param stat A statistical transformation to use on the data. A ggproto Stat subclass object or character string.
@@ -93,14 +93,22 @@
 #' @export
 #'
 #' @examples
-#' library(palmerpenguins)
 #'
-# penguins |>
-#   gg_jitter(
-#     x = species,
-#     y = body_mass_g,
-#     col = sex,
-#   )
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' set.seed(123)
+#'
+#' palmerpenguins::penguins |>
+#'   gg_jitter(
+#'     x = species,
+#'     y = body_mass_g,
+#'     col = flipper_length_mm,
+#'     col_continuous = "steps",
+#'     y_expand_limits = 0,
+#'     position = position_jitter(height = 0),
+#'     col_labels = \(x) str_keep_seq(x, by = 2),
+#'   )
 #'
 gg_jitter <- function(
     data = NULL,
@@ -130,8 +138,8 @@ gg_jitter <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -140,8 +148,8 @@ gg_jitter <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

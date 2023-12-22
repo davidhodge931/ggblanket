@@ -94,6 +94,19 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' economics |>
+#'   mutate(unemploy_rate = unemploy / pop) |>
+#'   gg_path(
+#'     x = unemploy_rate,
+#'     y = psavert,
+#'     x_title = "Unemployment rate",
+#'     y_title = "Personal savings rate",
+#'     y_expand_limits = 0,
+#'   )
+#'
 gg_path <- function(
     data = NULL,
     ...,
@@ -122,8 +135,8 @@ gg_path <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -132,8 +145,8 @@ gg_path <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

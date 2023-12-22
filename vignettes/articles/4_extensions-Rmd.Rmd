@@ -24,7 +24,6 @@ This article will demonstrate some fantastic ggplot2 extension packages.
 ```{r setup}
 library(ggblanket)
 library(ggplot2)
-library(patchwork)
 library(dplyr)
 library(stringr)
 library(palmerpenguins)
@@ -37,6 +36,8 @@ The patchwork package enables plots to be patched together.
 A convenient hack to add a centred title in a non-faceted plot is to add a `facet_wrap` layer with a character string for the `facets` argument. 
 
 ```{r, fig.asp=0.9, eval = FALSE}
+library(patchwork)
+
 p1 <- mtcars |> 
   gg_point(x = mpg, 
            y = disp,
@@ -209,7 +210,7 @@ penguins |>
 ```
 
 ```{r}
-ggplot2::economics |>
+economics |>
   slice_head(n = 35) |> 
   gg_path(
     stat = "bspline",

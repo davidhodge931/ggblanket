@@ -272,3 +272,19 @@ A ggplot object.
 \description{
 Create a tile plot with a wrapper around ggplot() + geom_tile.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  group_by(species, sex) |>
+  summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
+  gg_tile(
+    x = sex,
+    y = species,
+    col = flipper_length_mm,
+  )
+
+}

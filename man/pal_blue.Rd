@@ -16,7 +16,4 @@ A character vector.
 \description{
 A blue colour derived from \code{viridisLite::mako(9)[5]}
 }
-\examples{
-scales::show_col(pal_blue)
-}
 \keyword{datasets}

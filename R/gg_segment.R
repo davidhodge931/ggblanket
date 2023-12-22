@@ -94,6 +94,17 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
+#'   gg_segment(
+#'     x = x1,
+#'     xend = x2,
+#'     y = y1,
+#'     yend = y2,
+#'   )
+#'
 gg_segment <- function(
     data = NULL,
     ...,
@@ -122,8 +133,8 @@ gg_segment <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -132,8 +143,8 @@ gg_segment <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

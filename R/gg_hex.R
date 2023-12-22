@@ -94,6 +94,17 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' diamonds |>
+#'   gg_hex(
+#'     x = carat,
+#'     y = price,
+#'     y_limits = c(0, 20000),
+#'     coord = coord_cartesian(clip = "on"),
+#'   )
+#'
 gg_hex <- function(
     data = NULL,
     ...,
@@ -122,8 +133,8 @@ gg_hex <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -132,8 +143,8 @@ gg_hex <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

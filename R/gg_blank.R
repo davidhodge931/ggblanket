@@ -94,6 +94,16 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' palmerpenguins::penguins |>
+#'   gg_blank(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = sex,
+#'   )
+#'
 gg_blank <- function(
     data = NULL,
     ...,
@@ -122,8 +132,8 @@ gg_blank <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -132,8 +142,8 @@ gg_blank <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

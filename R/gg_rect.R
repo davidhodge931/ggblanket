@@ -94,6 +94,28 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' data.frame(
+#'   x = rep(c(2, 5, 7, 9, 12), 2),
+#'   y = rep(c(1, 2), each = 5),
+#'   z = factor(c(rep(1:3, each = 3), 4)),
+#'   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)) |>
+#'   mutate(
+#'     xmin = x - w / 2,
+#'     xmax = x + w / 2,
+#'     ymin = y,
+#'     ymax = y + 1
+#'   ) |>
+#'   gg_rect(
+#'     xmin = xmin,
+#'     xmax = xmax,
+#'     ymin = ymin,
+#'     ymax = ymax,
+#'     col = z,
+#'   )
+#'
 gg_rect <- function(
     data = NULL,
     ...,
@@ -122,8 +144,8 @@ gg_rect <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -132,8 +154,8 @@ gg_rect <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

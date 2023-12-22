@@ -272,3 +272,18 @@ A ggplot object.
 \description{
 Create a freqpoly ggplot with a wrapper around ggplot() + geom_freqpoly.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  gg_freqpoly(
+    x = flipper_length_mm,
+    col = sex,
+    theme = light_mode_t(),
+    col_title = "",
+  )
+
+}

@@ -272,3 +272,19 @@ A ggplot object.
 \description{
 Create a boxplot ggplot with a wrapper around ggplot() + geom_boxplot.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+palmerpenguins::penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  gg_boxplot(
+    y = sex,
+    x = body_mass_g,
+    col = species,
+    theme = light_mode_b(),
+  )
+
+}

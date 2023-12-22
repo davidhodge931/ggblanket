@@ -94,6 +94,20 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
+#'   mutate(level_min = level - 1, level_max = level + 1) |>
+#'   gg_ribbon(
+#'     x = year,
+#'     ymin = level_min,
+#'     ymax = level_max,
+#'     col_pal = scales::alpha(pal_blue, 0),
+#'     y_title = "Level",
+#'   ) +
+#'   geom_line(aes(x = year, y = level), col = pal_blue)
+#'
 gg_ribbon <- function(
     data = NULL,
     ...,
@@ -122,8 +136,8 @@ gg_ribbon <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -132,8 +146,8 @@ gg_ribbon <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

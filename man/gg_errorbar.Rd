@@ -272,3 +272,26 @@ A ggplot object.
 \description{
 Create a errorbar ggplot with a wrapper around ggplot() + geom_errorbar.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+data.frame(
+  trt = factor(c(1, 1, 2, 2)),
+  resp = c(1, 5, 3, 4),
+  group = factor(c(1, 2, 1, 2)),
+  upper = c(1.1, 5.3, 3.3, 4.2),
+  lower = c(0.8, 4.6, 2.4, 3.6)
+) |>
+  gg_errorbar(
+    x = trt,
+    ymin = lower,
+    ymax = upper,
+    col = group,
+    width = 0.1,
+    x_title = "Treatment",
+    y_title = "Response",
+  )
+
+}

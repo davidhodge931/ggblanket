@@ -94,6 +94,17 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' palmerpenguins::penguins |>
+#'   gg_qq(
+#'     sample = body_mass_g,
+#'     facet = species,
+#'     coord = coord_cartesian(clip = "on"),
+#'   ) +
+#'   geom_qq_line(colour = pal_blue)
+#'
 gg_qq <- function(
     data = NULL,
     ...,
@@ -122,8 +133,8 @@ gg_qq <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -132,8 +143,8 @@ gg_qq <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

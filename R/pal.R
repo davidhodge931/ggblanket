@@ -5,8 +5,6 @@
 #' @return A character vector.
 #'
 #' @export
-#' @examples
-#' scales::show_col(pal_blue)
 pal_blue <- "#357BA2"
 
 #' A teal colour
@@ -16,8 +14,6 @@ pal_blue <- "#357BA2"
 #' @return A character vector.
 #'
 #' @export
-#' @examples
-#' scales::show_col(pal_teal)
 pal_teal <- "#0095A8"
 
 #' A orange colour
@@ -27,8 +23,6 @@ pal_teal <- "#0095A8"
 #' @return A character vector.
 #'
 #' @export
-#' @examples
-#' scales::show_col(pal_orange)
 pal_orange <- "#FF7043"
 
 #' A navy colour
@@ -38,8 +32,6 @@ pal_orange <- "#FF7043"
 #' @return A character vector.
 #'
 #' @export
-#' @examples
-#' scales::show_col(pal_navy)
 pal_navy <- "#112E51"
 
 #' A plum colour
@@ -49,8 +41,6 @@ pal_navy <- "#112E51"
 #' @return A character vector.
 #'
 #' @export
-#' @examples
-#' scales::show_col(pal_plum)
 pal_plum <- "#901752"
 
 #' A grey colour
@@ -60,8 +50,6 @@ pal_plum <- "#901752"
 #' @return A character vector.
 #'
 #' @export
-#' @examples
-#' scales::show_col(pal_grey)
 pal_grey <- "#78909C"
 
 #' The light_mode_* theme colours
@@ -101,7 +89,6 @@ pal_dark_mode <- c(
 #' @return A character vector.
 #'
 #' @keywords internal
-#' @references Colours inspired by the Guardian website. scales::pal_hue otherwise.
 pal_discrete <- function(n = 3) {
   # if (n <= 4) c("#2596be", "#fc7c24", "#9c1e74", "#6b5840")[1:n]
   if (n <= 3) c(pal_teal, pal_orange, pal_plum)[1:n]
@@ -119,4 +106,3 @@ pal_discrete <- function(n = 3) {
 pal_continuous <- function(n = 18) {
   viridisLite::mako(n = n, direction = -1)
 }
-

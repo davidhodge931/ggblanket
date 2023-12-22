@@ -16,7 +16,4 @@ A character vector.
 \description{
 A teal colour derived from the US Census Bureau's Data Visualisation Standards.
 }
-\examples{
-scales::show_col(pal_teal)
-}
 \keyword{datasets}

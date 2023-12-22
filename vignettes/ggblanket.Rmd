@@ -52,11 +52,9 @@ Secondary objectives relate to:
 ```{r setup}
 library(ggblanket)
 library(ggplot2)
-library(patchwork)
 library(dplyr)
-library(stringr)
-library(tidyr)
 library(palmerpenguins)
+library(patchwork)
 ```
  
 ### 1. Over thirty `gg_*` wrapper functions
@@ -87,8 +85,8 @@ penguins |>
 
 ```{r, fig.asp=0.45}
 penguins |>
-  drop_na(sex) |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_bar(
     y = species, 
     col = sex,
@@ -112,8 +110,8 @@ penguins |>
 
 ```{r}
 penguins |> 
-  drop_na() |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  tidyr::drop_na(sex) |> 
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
   gg_density(
     x = flipper_length_mm,
     col = sex,
@@ -127,8 +125,8 @@ Faceting is treated as if it were an aesthetic. Users just provide an unquoted v
 
 ```{r}
 penguins |>
-  drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  tidyr::drop_na(sex) |> 
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
   gg_violin(
     x = sex,
     y = body_mass_g,
@@ -142,7 +140,7 @@ A `facet2` argument is also provided for extra functionality and flexibility. If
 
 ```{r, fig.asp=0.75}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
   gg_histogram(
     x = flipper_length_mm,
     facet = species,
@@ -160,7 +158,7 @@ penguins |>
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
-    x_labels = \(x) str_sub(x, 1, 1),
+    x_labels = \(x) stringr::str_sub(x, 1, 1),
     y_expand_limits = 0,
     y_breaks = scales::breaks_width(1500), 
     y_labels = scales::label_number(big.mark = " "), 
@@ -193,7 +191,7 @@ Note if you want to set the theme globally to `theme_grey()`, then you must modi
 # theme_set(dark_mode_rt())
 
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -218,7 +216,7 @@ The opposite occurs for horizontal plots with the x scale.
 
 ```{r}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
   gg_boxplot(
     x = species,
     y = flipper_length_mm,
@@ -229,7 +227,7 @@ penguins |>
 
 ```{r}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
   gg_boxplot(
     x = species,
     y = flipper_length_mm,
@@ -249,8 +247,8 @@ Subsequently, it is recommended that themes with gridlines in both x and y direc
 
 ```{r}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
-  drop_na(sex) |> 
+  tidyr::drop_na(sex) |> 
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_jitter(
     x = flipper_length_mm,
     y = sex,
@@ -269,7 +267,7 @@ diamonds |>
     x = carat,
     y = price,
     y_limits = c(0, 20000),
-    coord = ggplot2::coord_cartesian(clip = "on"), 
+    coord = coord_cartesian(clip = "on"), 
   )
 ```
 
@@ -279,8 +277,8 @@ The `...` argument provides accesss to all other arguments in the `geom_*` funct
 
 ```{r}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  drop_na(sex) |> 
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
+  tidyr::drop_na(sex) |> 
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -421,7 +419,7 @@ library(ggridges)
 
 penguins |> 
   tidyr::drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
   gg_blanket(
     geom = "density_ridges2",
     stat = "density_ridges", 

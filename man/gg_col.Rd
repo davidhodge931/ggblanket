@@ -272,3 +272,22 @@ A ggplot object.
 \description{
 Create a col ggplot with a wrapper around ggplot() + geom_col.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+palmerpenguins::penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  group_by(sex, species) |>
+  summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
+  gg_col(
+    x = flipper_length_mm,
+    y = species,
+    col = sex,
+    width = 0.75,
+    position = position_dodge(preserve = "single"),
+  )
+
+}

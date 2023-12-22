@@ -16,7 +16,4 @@ A character vector.
 \description{
 A plum colour inspired by the NZ tree fuchsia (kōtukutuku)
 }
-\examples{
-scales::show_col(pal_plum)
-}
 \keyword{datasets}

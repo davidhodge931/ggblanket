@@ -272,3 +272,17 @@ A ggplot object.
 \description{
 Create a segment ggplot with a wrapper around ggplot() + geom_segment.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
+  gg_segment(
+    x = x1,
+    xend = x2,
+    y = y1,
+    yend = y2,
+  )
+
+}

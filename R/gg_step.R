@@ -94,6 +94,19 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' economics |>
+#'   gg_step(
+#'     x = date,
+#'     y = unemploy,
+#'     y_title = "Unemployment",
+#'     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
+#'     y_expand_limits = 0,
+#'     coord = ggplot2::coord_cartesian(clip = "on"),
+#'   )
+#'
 gg_step <- function(
     data = NULL,
     ...,
@@ -122,8 +135,8 @@ gg_step <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -132,8 +145,8 @@ gg_step <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

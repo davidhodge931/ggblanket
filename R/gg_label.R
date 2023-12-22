@@ -94,6 +94,24 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' bind_rows(
+#'   mtcars |> slice_min(order_by = mpg),
+#'   mtcars |> slice_max(order_by = mpg)) |>
+#'   tibble::rownames_to_column("model") |>
+#'   gg_label(
+#'     x = model,
+#'     y = mpg,
+#'     col = mpg,
+#'     label = model,
+#'     size = 3.53,
+#'     y_expand_limits = 0,
+#'     col_pal = c(pal_orange, "white", pal_teal),
+#'     y_title = "Miles per gallon",
+#'   )
+#'
 gg_label <- function(
     data = NULL,
     ...,
@@ -122,8 +140,8 @@ gg_label <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -132,8 +150,8 @@ gg_label <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

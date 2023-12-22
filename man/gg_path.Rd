@@ -272,3 +272,19 @@ A ggplot object.
 \description{
 Create a path ggplot with a wrapper around ggplot() + geom_path.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+economics |>
+  mutate(unemploy_rate = unemploy / pop) |>
+  gg_path(
+    x = unemploy_rate,
+    y = psavert,
+    x_title = "Unemployment rate",
+    y_title = "Personal savings rate",
+    y_expand_limits = 0,
+  )
+
+}

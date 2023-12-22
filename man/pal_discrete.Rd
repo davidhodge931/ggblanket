@@ -2,7 +2,7 @@
 % Please edit documentation in R/pal.R
 \name{pal_discrete}
 \alias{pal_discrete}
-\title{Default colours used to colour a discrete variable.}
+\title{Default colours used to colour a discrete variable}
 \usage{
 pal_discrete(n = 3)
 }
@@ -11,8 +11,5 @@ A character vector.
 }
 \description{
 Default colours used to colour a discrete variable. Uses a colour blind safe palette derived from the US Census Bureau's Data Visualisation Standards for 3 or less colours. For 4 or more colours, uses scales::pal_hue.
-}
-\references{
-Colours inspired by the Guardian website. scales::pal_hue otherwise.
 }
 \keyword{internal}

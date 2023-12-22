@@ -275,3 +275,23 @@ A ggplot object.
 \description{
 Create a blanket ggplot with a wrapper around ggplot() + layer().
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+palmerpenguins::penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  gg_blanket(
+    geom = "violin",
+    stat = "ydensity",
+    position = "dodge",
+    x = sex,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    theme = light_mode_b(),
+  )
+
+}

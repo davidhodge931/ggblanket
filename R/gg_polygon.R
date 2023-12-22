@@ -94,6 +94,34 @@
 #'
 #' @examples
 #'
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
+#'
+#' values <- data.frame(
+#'   id = ids,
+#'   value = c(3, 3.1, 3.1, 3.2, 3.15, 3.5)
+#' )
+#'
+#' positions <- data.frame(
+#'   id = rep(ids, each = 4),
+#'   x = c(2, 1, 1.1, 2.2, 1, 0, 0.3, 1.1, 2.2, 1.1, 1.2, 2.5, 1.1, 0.3,
+#'         0.5, 1.2, 2.5, 1.2, 1.3, 2.7, 1.2, 0.5, 0.6, 1.3),
+#'   y = c(-0.5, 0, 1, 0.5, 0, 0.5, 1.5, 1, 0.5, 1, 2.1, 1.7, 1, 1.5,
+#'         2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2)
+#' )
+#'
+#' datapoly <- merge(values, positions, by = c("id"))
+#'
+#' datapoly |>
+#'   gg_polygon(
+#'     x = x,
+#'     y = y,
+#'     col = value,
+#'     group = id,
+#'   )
+#'
 gg_polygon <- function(
     data = NULL,
     ...,
@@ -122,8 +150,8 @@ gg_polygon <- function(
     mapping = NULL,
     x_breaks = NULL,
     x_expand = NULL,
-    x_expand_limits = NULL,  
-    x_gridlines = NULL,  
+    x_expand_limits = NULL,
+    x_gridlines = NULL,
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -132,8 +160,8 @@ gg_polygon <- function(
     x_transform = NULL,
     y_breaks = NULL,
     y_expand = NULL,
-    y_expand_limits = NULL, 
-    y_gridlines = NULL, 
+    y_expand_limits = NULL,
+    y_gridlines = NULL,
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,

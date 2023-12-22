@@ -273,7 +273,21 @@ A ggplot object.
 Create a jitter ggplot with a wrapper around ggplot() + geom_jitter.
 }
 \examples{
-library(palmerpenguins)
 
+library(ggplot2)
+library(dplyr)
+
+set.seed(123)
+
+palmerpenguins::penguins |>
+  gg_jitter(
+    x = species,
+    y = body_mass_g,
+    col = flipper_length_mm,
+    col_continuous = "steps",
+    y_expand_limits = 0,
+    position = position_jitter(height = 0),
+    col_labels = \(x) str_keep_seq(x, by = 2),
+  )
 
 }

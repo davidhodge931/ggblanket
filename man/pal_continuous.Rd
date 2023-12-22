@@ -2,7 +2,7 @@
 % Please edit documentation in R/pal.R
 \name{pal_continuous}
 \alias{pal_continuous}
-\title{Default colours used to colour a continuous variable.}
+\title{Default colours used to colour a continuous variable}
 \usage{
 pal_continuous(n = 18)
 }

@@ -272,3 +272,18 @@ A ggplot object.
 \description{
 Create a bar ggplot with a wrapper around ggplot() + geom_bar.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+palmerpenguins::penguins |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  gg_bar(
+    y = species,
+    col = sex,
+    width = 0.75,
+    position = position_dodge(preserve = "single"),
+  )
+
+}

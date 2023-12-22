@@ -272,3 +272,20 @@ A ggplot object.
 \description{
 Create a ribbon ggplot with a wrapper around ggplot() + geom_ribbon.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
+  mutate(level_min = level - 1, level_max = level + 1) |>
+  gg_ribbon(
+    x = year,
+    ymin = level_min,
+    ymax = level_max,
+    col_pal = scales::alpha(pal_blue, 0),
+    y_title = "Level",
+  ) +
+  geom_line(aes(x = year, y = level), col = pal_blue)
+
+}

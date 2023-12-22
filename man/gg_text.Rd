@@ -272,3 +272,24 @@ A ggplot object.
 \description{
 Create a text plot with a wrapper around ggplot() + geom_text.
 }
+\examples{
+
+library(ggplot2)
+library(dplyr)
+
+bind_rows(
+  mtcars |> slice_min(order_by = mpg),
+  mtcars |> slice_max(order_by = mpg)) |>
+  tibble::rownames_to_column("model") |>
+  gg_text(
+    x = model,
+    y = mpg,
+    col = mpg,
+    label = model,
+    size = 3.53,
+    y_expand_limits = 0,
+    col_pal = c(pal_orange, "white", pal_teal),
+    y_title = "Miles per gallon",
+  )
+
+}
