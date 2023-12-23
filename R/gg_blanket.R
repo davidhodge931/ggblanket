@@ -1659,7 +1659,7 @@ gg_blanket <- function(
       if (!rlang::is_null(x_limits)) {
         if (rlang::is_null(x_breaks)) x_breaks <- scales::breaks_pretty(n = x_breaks_n)
       }
-      else if (rlang::is_null(x_limits)) {
+      else {
         x_vars_str <- "^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$"
 
         x_vctr <- plot_data %>%
@@ -1688,13 +1688,13 @@ gg_blanket <- function(
         }
 
         if (position_name == "fill") {
-          x_breaks <- seq(0, 1, 0.25)
+          if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
         }
         else if (rlang::is_null(x_breaks)) {
           x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
           if (rlang::is_null(x_limits)) x_limits <- sort(range(x_breaks))
         }
-        else if (!rlang::is_null(x_breaks)) {
+        else {
           if (rlang::is_null(x_limits)) {
             if (is.function(x_breaks)) {
               x_breaks <- x_breaks(x_range)
@@ -1824,7 +1824,7 @@ gg_blanket <- function(
       if (!rlang::is_null(y_limits)) {
         if (rlang::is_null(y_breaks)) y_breaks <- scales::breaks_pretty(n = y_breaks_n)
       }
-      else if (rlang::is_null(y_limits)) {
+      else {
         y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
 
         y_vctr <- plot_data %>%
@@ -1853,13 +1853,13 @@ gg_blanket <- function(
         }
 
         if (position_name == "fill") {
-          y_breaks <- seq(0, 1, 0.25)
+          if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
         }
         else if (rlang::is_null(y_breaks)) {
           y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
           if (rlang::is_null(y_limits)) y_limits <- sort(range(y_breaks))
         }
-        else if (!rlang::is_null(y_breaks)) {
+        else {
           if (rlang::is_null(y_limits)) {
             if (is.function(y_breaks)) {
               y_breaks <- y_breaks(y_range)
