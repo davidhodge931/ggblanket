@@ -309,7 +309,7 @@ penguins |>
     y = flipper_length_mm,
     col = sex,
     colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
-    alpha_pal = 1,
+    alpha_pal = 0.9,
     position = position_dodge2(preserve = "single"),
   )
 ```
@@ -323,7 +323,7 @@ penguins |>
     col = hack,
     colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
     col_pal = pal_blue,
-    alpha_pal = 1,
+    alpha_pal = 0.9,
     width = 0.5,
   ) +
   guides(colour = "none", fill = "none")
