@@ -208,7 +208,7 @@ penguins |>
 
 ### 8. Pretty continuous x and y scales with easy opt-out
 
-ggblanket creates pretty continuous y scale for non-horizontal  plots that has: 
+ggblanket generally creates pretty continuous y scale for non-horizontal  plots that has: 
 
 * `y_limits` that are the range of the `y_breaks` 
 * `y_expand` of `c(0, 0)`
@@ -216,6 +216,8 @@ ggblanket creates pretty continuous y scale for non-horizontal  plots that has:
 This pretty scale can be turned off easily using `y_limits = c(NA, NA)` (or by providing a `y_expand` value).
 
 The opposite occurs for horizontal plots with the x scale. 
+
+(Note this pretty scale does not occur where the scale has a transformation that is not `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.) 
 
 ```{r}
 economics |>
