@@ -48,7 +48,7 @@
 #' @param y_title Axis title string. Use "" for no title.
 #' @param y_transform For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
-#' @param col_continuous For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".
+#' @param col_continuous_type For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".
 #' @param col_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param col_expand_limits For a continuous variable, any values that the limits should encompass (e.g. 0).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
@@ -154,7 +154,7 @@ gg_histogram <- function(
     y_title = NULL,
     y_transform = NULL,
     col_breaks = NULL,
-    col_continuous = "gradient",
+    col_continuous_type = "gradient",
     col_expand_limits = NULL,
     col_expand = ggplot2::waiver(),
     col_labels = NULL,
@@ -255,7 +255,7 @@ gg_histogram <- function(
     col_pal = col_pal,
     col_pal_na = col_pal_na,
     col_rescale = col_rescale,
-    col_continuous = col_continuous,
+    col_continuous_type = col_continuous_type,
     col_title = col_title,
     col_transform = col_transform,
     facet_axes = facet_axes,

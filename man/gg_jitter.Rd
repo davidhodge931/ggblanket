@@ -51,7 +51,7 @@ gg_jitter(
   y_title = NULL,
   y_transform = NULL,
   col_breaks = NULL,
-  col_continuous = "gradient",
+  col_continuous_type = "gradient",
   col_expand_limits = NULL,
   col_expand = ggplot2::waiver(),
   col_labels = NULL,
@@ -186,7 +186,7 @@ gg_jitter(
 
 \item{col_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
-\item{col_continuous}{For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".}
+\item{col_continuous_type}{For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".}
 
 \item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. 0).}
 
@@ -284,7 +284,7 @@ palmerpenguins::penguins |>
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
-    col_continuous = "steps",
+    col_continuous_type = "steps",
     y_expand_limits = 0,
     position = position_jitter(height = 0),
     col_labels = \(x) str_keep_seq(x, by = 2),

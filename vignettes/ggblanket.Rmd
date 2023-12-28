@@ -130,9 +130,8 @@ Faceting is treated as if it were an aesthetic. Users just provide an unquoted v
 penguins |>
   drop_na(sex) |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  gg_violin(
-    x = sex,
-    y = body_mass_g,
+  gg_histogram(
+    x = flipper_length_mm,
     facet = species,
   )
 ```
@@ -216,6 +215,8 @@ ggblanket generally creates pretty continuous y scale for non-horizontal  plots 
 This pretty scale can be turned off easily using `y_limits = c(NA, NA)` (or by providing a `y_expand` value).
 
 The opposite occurs for horizontal plots with the x scale. 
+
+Sometimes you may need to add `*_expand_limits = 0`, if the lower bound of the pretty scale falls on a close low number.
 
 (Note this pretty scale does not occur where the scale has a transformation that is not `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.) 
 

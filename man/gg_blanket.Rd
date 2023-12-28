@@ -52,7 +52,7 @@ gg_blanket(
   y_title = NULL,
   y_transform = NULL,
   col_breaks = NULL,
-  col_continuous = "gradient",
+  col_continuous_type = "gradient",
   col_expand = ggplot2::waiver(),
   col_expand_limits = NULL,
   col_labels = NULL,
@@ -189,7 +189,7 @@ gg_blanket(
 
 \item{col_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
-\item{col_continuous}{For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".}
+\item{col_continuous_type}{For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".}
 
 \item{col_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
@@ -273,7 +273,7 @@ gg_blanket(
 A ggplot object.
 }
 \description{
-Create a blanket ggplot with a wrapper around ggplot() + layer().
+Create a blanket ggplot with a wrapper around ggplot() + layer() with geom_blank defaults.
 }
 \examples{
 

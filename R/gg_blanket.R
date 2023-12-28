@@ -1,6 +1,6 @@
 #' @title Blanket ggplot with geom flexibility
 #'
-#' @description Create a blanket ggplot with a wrapper around ggplot() + layer().
+#' @description Create a blanket ggplot with a wrapper around ggplot() + layer() with geom_blank defaults.
 #'
 #' @param data A data frame or tibble.
 #' @param ... Other arguments passed to within a params list in the layer function.
@@ -49,7 +49,7 @@
 #' @param y_title Axis title string. Use "" for no title.
 #' @param y_transform For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param col_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
-#' @param col_continuous For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".
+#' @param col_continuous_type For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".
 #' @param col_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param col_expand_limits For a continuous variable, any values that the limits should encompass (e.g. 0).
 #' @param col_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
@@ -159,7 +159,7 @@ gg_blanket <- function(
     y_title = NULL,
     y_transform = NULL,
     col_breaks = NULL,
-    col_continuous = "gradient",
+    col_continuous_type = "gradient",
     col_expand = ggplot2::waiver(),
     col_expand_limits = NULL,
     col_labels = NULL,
@@ -1284,7 +1284,7 @@ gg_blanket <- function(
         else col_labels <- scales::label_comma(drop0trailing = TRUE)
       }
 
-      if (col_continuous == "gradient") {
+      if (col_continuous_type == "gradient") {
         plot <- plot +
           ggplot2::scale_fill_gradientn(
             colours = col_pal,
@@ -1324,7 +1324,7 @@ gg_blanket <- function(
           )
 
       }
-      else if (col_continuous == "steps") {
+      else if (col_continuous_type == "steps") {
         plot <- plot +
           ggplot2::scale_fill_stepsn(
             colours = col_pal,
@@ -1920,12 +1920,18 @@ gg_blanket <- function(
   # titles
   #############################################################################
   if (rlang::is_null(x_title)) {
-    if (!rlang::is_null(plot_build$plot$labels$x)) {
+    if (stringr::str_detect(stat_name, "sf")) {
+      x_title <- ""
+    }
+    else if (!rlang::is_null(plot_build$plot$labels$x)) {
       x_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), titles)
     }
   }
   if (rlang::is_null(y_title)) {
-    if (!rlang::is_null(plot_build$plot$labels$y)) {
+    if (stringr::str_detect(stat_name, "sf")) {
+      y_title <- ""
+    }
+    else if (!rlang::is_null(plot_build$plot$labels$y)) {
       y_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$y[1]), titles)
     }
   }

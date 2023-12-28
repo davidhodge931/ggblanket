@@ -1,6 +1,6 @@
 # ggblanket 5.2.0900
 
-* Rewrite internal code so that everything draws off one function: `gg_blanket`.
+* Rewrote code completely.
 * Exported `gg_blanket` function, which allows for a ggproto geom (or character string) to be added.
 * Added `stat` support for a ggproto object (or character string).
 * Added `position` support for a ggproto object (or character string).
@@ -8,6 +8,7 @@
 * Added `alpha` aesthetic support with new `alpha`, `alpha_pal` and `alpha_*` arguments.
 * Added `facet_axes` and `facet_axis_labels` arguments.
 * Added `light_mode_*` and `dark_mode_*` family of functions.
+* Added `col_continuous_type` argument to support colouring by "steps". 
 * Changed `*_mode_*` default base_size to 11.
 * Changed `*_mode_*` default face to plain.
 * Changed `*_mode_*` `base_pal` to be a 5 colour vector to colour the whole plot.
