@@ -162,8 +162,8 @@ A method was developed by [@teunbrand](https://github.com/teunbrand/ggplot_trick
 
 ```{r}
 contrast <- function(col_pal, 
-                     col_pal_dark = pal_light_mode[1], 
-                     col_pal_light = pal_light_mode[3]) {
+                     col_pal_dark = pal_light_mode["text"], 
+                     col_pal_light = pal_light_mode["panel"]) {
   
     out <- rep(col_pal_dark, length(col_pal))
     light <- farver::get_channel(col_pal, "l", space = "hcl")
@@ -204,7 +204,7 @@ mtcars |>
     x = x, 
     y = y,
     col = r,
-    col_pal_na = pal_light_mode[2],
+    col_pal_na = pal_light_mode["plot"],
     col_limits = c(-1, 1),
     col_rescale = scales::rescale(c(-1, 0, 1)),
     x_title = "", 

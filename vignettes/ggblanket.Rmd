@@ -29,23 +29,23 @@ The primary objective is to **simplify ggplot2 visualisation**.
 Secondary objectives relate to:
 
 * Design: produce well-designed visualisation by default
-* Scope: cover the most useful 80% of what ggplot2 does
-* Alignment: use conventions generally aligned with ggplot2. 
+* Alignment: use conventions generally aligned with ggplot2
+* Scope: cover the most useful 80% of what ggplot2 does.
 
 ## How it works
  
 1.  Over thirty `gg_*` wrapper functions
-2.  A single `col` argument to colour and fill by a variable
-3.  A `col_pal` argument to customise colours
-4.  A `facet` argument to facet by a variable
-5.  An additional `facet2` argument to facet by a 2nd variable
-6.  Conversion of unspecified `titles` to sentence case
-7.  Ability to customise by prefixed arguments 
-8.  Provision of families of themes
-9.  Pretty continuous x and y scales with easy opt-out
-10.  Pretty gridlines removal
+2.  A `col` argument to colour and fill by a variable
+3.  A `facet` argument to facet by a variable
+4.  A `facet2` argument to facet by a 2nd variable
+5.  A `col_pal` argument to customise colours
+6.  Numerous prefixed arguments to customise 
+7.  Default sentence case titles 
+8.  `light_mode_*` and `dark_mode_*` theme families
+9.  Pretty default continuous axis scales with opt-out
+10. Helpful default `*_gridlines` removal
 11. Access to other `geom_*` arguments via ...
-12. Flexibility to turn-off/fix either colour or fill
+12. Flexibility to turn-off or fix either colour or fill
 13. Ability to add multiple `geom_*` layers
 14. Other key differences to ggplot2
 15. A `gg_blanket` function for extra `geom` flexibility
@@ -74,7 +74,10 @@ penguins |>
 
 ### 2. A single `col` argument to colour and fill by a variable
 
-The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. This argument means that everything should be coloured according to it, i.e. all points, lines and polygon interiors. 
+The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. 
+This combined aesthetic means that everything should be coloured according to it, i.e. all points, lines and polygon interiors. 
+
+There is flexibility to undo this combined aesthetic if necessary, as is discussed later in this article.
 
 ```{r}
 penguins |>
@@ -85,7 +88,6 @@ penguins |>
   )
 ```
 
-
 ```{r, fig.asp=0.45}
 penguins |>
   drop_na(sex) |>
@@ -94,13 +96,47 @@ penguins |>
     y = species, 
     col = sex,
     width = 0.75,
-    position = position_dodge(preserve = "single"),
+    position = "dodge",
   )
 ```
 
-### 3. A `col_pal` argument to customise colours
+### 3. A `facet` argument to facet by a variable
 
-The `col_pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` aesthetic is added or not. A named palette can be used to make individual colours stick to particular values. The ggblanket package also provides some helper colours that are prefixed `pal_*`. 
+Faceting is treated as if it were an aesthetic. Users just provide an unquoted variable to facet by. 
+
+Whenever a `facet` variable is provided (and a `facet2` variable _not_ provided), the `facet_layout` will default to `"wrap"`. 
+
+```{r}
+penguins |>
+  drop_na(sex) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  gg_histogram(
+    x = flipper_length_mm,
+    facet = species,
+  )
+```
+
+### 4. A `facet2` argument to facet by a 2nd variable
+
+A `facet2` argument is also provided for extra functionality and flexibility. 
+
+This enables users to facet easily in a `"grid"` layout of the `facet` variable horizontally by the `facet2` variable vertically. 
+
+Whenever a `facet2` variable is provided, the `facet_layout` will default to `"grid"`. 
+
+```{r, fig.asp=0.75}
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  gg_histogram(
+    x = flipper_length_mm,
+    facet = species,
+    facet2 = sex,
+  )
+```
+
+### 5. A `col_pal` argument to customise colours
+
+The `col_pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` aesthetic is added or not. 
 
 ```{r}
 penguins |>
@@ -122,43 +158,43 @@ penguins |>
   )
 ```
 
-### 4. A `facet` argument to facet by a variable
+### 6.  Numerous prefixed arguments to customise 
 
-Faceting is treated as if it were an aesthetic. Users just provide an unquoted variable to facet by. 
+ggblanket offers numerous arguments to customise that are prefixed by whether they relate to `x`, `y`, `col`, `facet` or `alpha`. 
 
-Whenever a `facet` variable is provided (and a `facet2` variable _not_ provided), the `facet_layout` will default to `"wrap"` - but this can be changed to `grid`. 
+These prefixed arguments work nicely with the Rstudio autocomplete, if users ensure their settings support the use of tab for autocompletions and multi-line autocompletions (i.e. Tools - Global Options - Code - Completion)
 
 ```{r}
 penguins |>
-  drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  gg_histogram(
-    x = flipper_length_mm,
-    facet = species,
+  drop_na(sex) |>  
+  gg_jitter(
+    x = species,
+    y = body_mass_g,
+    col = flipper_length_mm,
+    facet = sex,
+    x_labels = \(x) str_sub(x, 1, 1),
+    y_expand_limits = 0,
+    y_breaks = scales::breaks_width(1500), 
+    y_labels = scales::label_number(big.mark = " "), 
+    y_expand = expansion(mult = c(0, 0.05)),
+    y_transform = "sqrt",
+    y_title = "Body mass (g)",
+    col_continuous_type = "steps",
+    facet_labels = \(x) str_to_sentence(x),
   )
 ```
 
-### 5. An additional `facet2` argument to facet by a 2nd variable
-
-A `facet2` argument is also provided for extra functionality and flexibility. 
-
-This enables users to facet easily in a `"grid"` layout of the `facet` variable horizontally by the `facet2` variable vertically. 
-
-Whenever a `facet2` variable is provided, the `facet_layout` will default to `"grid"`, but this can be changed to `wrap`. 
-
-```{r, fig.asp=0.75}
-penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  gg_histogram(
-    x = flipper_length_mm,
-    facet = species,
-    facet2 = sex,
-  )
+```{r, echo = FALSE,   fig.width = 3, fig.asp = 2}
+knitr::include_graphics("autocomplete_y.png", dpi = 300)
 ```
 
-### 6.  Conversion of unspecified `titles` to sentence case
+### 7.  Default sentence case titles
 
-Unspecified `x`, `y`, `col` and `alpha` titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is. Use `*_title = ""` to remove a title. 
+Default `x`, `y`, `col` and `alpha` titles are converted to sentence case with `snakecase::to_sentence`. 
+
+However, each title can be manually changed using the applicable `*_title` argument. Use `*_title = ""` to remove a title. 
+
+The default `snakecase::to_sentence` conversion can be turned off using `titles = \(x) x`. 
 
 ```{r, fig.asp=0.6}
 diamonds |>
@@ -170,40 +206,11 @@ diamonds |>
   )
 ```
 
-### 7.  Ability to customise by prefixed arguments 
-
-Prefixed arguments are available to customise titles, scales, guides, and faceting. These prefixes organise the adjustments by whether they relate to `x`, `y`, `col`, `facet` or `alpha`. 
-
-```{r}
-penguins |>
-  gg_jitter(
-    x = species,
-    y = body_mass_g,
-    col = flipper_length_mm,
-    x_labels = \(x) str_sub(x, 1, 1),
-    y_expand_limits = 0,
-    y_breaks = scales::breaks_width(1500), 
-    y_labels = scales::label_number(big.mark = " "), 
-    y_expand = expansion(mult = c(0, 0.05)),
-    y_transform = "sqrt",
-    y_title = "Body mass (g)",
-  )
-```
-
-These prefixed arguments work nicely with the Rstudio autocomplete, if users:
-
-* ensure their settings support the use of tab for autocompletions and multi-line autocompletions (i.e. Tools - Global Options - Code - Completion)
-* pipe data into the `gg_*` functions.
-
-```{r, echo = FALSE,   fig.width = 3, fig.asp = 2}
-knitr::include_graphics("autocomplete_y.png", dpi = 300)
-```
-
-### 8.  Provision of families of themes
+### 8.  `light_mode_*` and `dark_mode_*` theme families
 
 ggblanket provides two families of themes: `light_mode_*` and `dark_mode_*`. 
 
-Each theme family provides 4 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right centre), `b` (bottom), and `t` top. 
+Each theme family provides 4 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), and `t` top. 
 
 You can set the theme globally using `ggplot2::theme_set`. 
 
@@ -223,7 +230,7 @@ penguins |>
   )
 ```
 
-### 9. Pretty continuous x and y scales with easy opt-out
+### 9. Pretty default continuous axis scales with opt-out
 
 ggblanket provides a pretty continuous y scale for non-horizontal plots that has: 
 
@@ -258,7 +265,7 @@ economics |>
   )
 ```
 
-### 10.  Pretty gridlines removal
+### 10.  Helpful default gridlines removal
 
 The `gg_*` functions adjust what gridlines are present in the graph - by removing the ones that it guesses are not required. 
 
@@ -291,12 +298,12 @@ penguins |>
     y = body_mass_g,
     col = sex, 
     se = TRUE,
-    linewidth = 1,
+    linewidth = 2,
     level = 0.99,
   ) 
 ```
 
-### 12. Flexibility to turn-off/fix either colour or fill
+### 12. Flexibility to turn-off or fix either colour or fill
 
 For a geom with both outlines and fill, the default is to have both of these to the same colour with a default value of `alpha_pal`.
 
@@ -452,7 +459,7 @@ This needs to be considered when you are using `x_limits` or `y_limits`, and you
  
 ### 15. A `gg_blanket` function for extra `geom` flexibility
 
-ggblanket is driven by `gg_blanket` function, which has a `geom` argument.
+ggblanket is driven by `gg_blanket` function, which has a `geom` argument with `geom_blank` defaults.
 
 All other functions wrap this function with a locked-in geom, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
@@ -486,7 +493,7 @@ iris |>
     y = Sepal.Width, 
     col = Species,
     group = 1,
-    colour = pal_light_mode[3],
+    colour = pal_light_mode["panel"],
     col_pal = c(pal_teal, pal_orange, pal_navy),
   )
 ```
