@@ -39,11 +39,11 @@ Secondary objectives relate to:
 3.  A `col_pal` argument to customise colours
 4.  A `facet` argument to facet by a variable
 5.  An additional `facet2` argument to facet by a 2nd variable
-6.  Ability to customise by prefixed arguments 
-7.  Provision of families of themes
-8.  Pretty continuous x and y scales with easy opt-out
-9.  Pretty gridlines removal
-10. Conversion of unspecified `titles` to sentence case
+6.  Conversion of unspecified `titles` to sentence case
+7.  Ability to customise by prefixed arguments 
+8.  Provision of families of themes
+9.  Pretty continuous x and y scales with easy opt-out
+10.  Pretty gridlines removal
 11. Access to other `geom_*` arguments via ...
 12. Flexibility to turn-off/fix either colour or fill
 13. Ability to add multiple `geom_*` layers
@@ -124,7 +124,9 @@ penguins |>
 
 ### 4. A `facet` argument to facet by a variable
 
-Faceting is treated as if it were an aesthetic. Users just provide an unquoted variable to facet by. If a single facet (or facet2) variable is provided, it'll default to a "wrap" layout. But users can change this with a `facet_layout = "grid"` argument.
+Faceting is treated as if it were an aesthetic. Users just provide an unquoted variable to facet by. 
+
+Whenever a `facet` variable is provided (and a `facet2` variable _not_ provided), the `facet_layout` will default to `"wrap"` - but this can be changed to `grid`. 
 
 ```{r}
 penguins |>
@@ -138,7 +140,11 @@ penguins |>
 
 ### 5. An additional `facet2` argument to facet by a 2nd variable
 
-A `facet2` argument is also provided for extra functionality and flexibility. If both `facet`and `facet2` variables are provided, then it'll default to a "grid" layout of `facet` by `facet2`. But users can change this with a `facet_layout = "wrap"` argument.
+A `facet2` argument is also provided for extra functionality and flexibility. 
+
+This enables users to facet easily in a `"grid"` layout of the `facet` variable horizontally by the `facet2` variable vertically. 
+
+Whenever a `facet2` variable is provided, the `facet_layout` will default to `"grid"`, but this can be changed to `wrap`. 
 
 ```{r, fig.asp=0.75}
 penguins |>
@@ -150,7 +156,21 @@ penguins |>
   )
 ```
 
-### 6.  Ability to customise by prefixed arguments 
+### 6.  Conversion of unspecified `titles` to sentence case
+
+Unspecified `x`, `y`, `col` and `alpha` titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is. Use `*_title = ""` to remove a title. 
+
+```{r, fig.asp=0.6}
+diamonds |>
+  gg_hex(
+    x = carat,
+    y = price,
+    y_limits = c(0, 20000),
+    coord = coord_cartesian(clip = "on"), 
+  )
+```
+
+### 7.  Ability to customise by prefixed arguments 
 
 Prefixed arguments are available to customise titles, scales, guides, and faceting. These prefixes organise the adjustments by whether they relate to `x`, `y`, `col`, `facet` or `alpha`. 
 
@@ -179,15 +199,13 @@ These prefixed arguments work nicely with the Rstudio autocomplete, if users:
 knitr::include_graphics("autocomplete_y.png", dpi = 300)
 ```
 
-### 7.  Provision of families of themes
+### 8.  Provision of families of themes
 
 ggblanket provides two families of themes: `light_mode_*` and `dark_mode_*`. 
 
 Each theme family provides 4 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right centre), `b` (bottom), and `t` top. 
 
 You can set the theme globally using `ggplot2::theme_set`. 
-
-Note if you want to set the theme globally to `theme_grey()`, then you must modify the base_size slightly (e.g. `theme_set(theme_grey(11.01))`).
 
 ```{r, fig.asp=0.7}
 # theme_set(dark_mode_rt())
@@ -205,9 +223,9 @@ penguins |>
   )
 ```
 
-### 8. Pretty continuous x and y scales with easy opt-out
+### 9. Pretty continuous x and y scales with easy opt-out
 
-ggblanket generally creates pretty continuous y scale for non-horizontal  plots that has: 
+ggblanket provides a pretty continuous y scale for non-horizontal plots that has: 
 
 * `y_limits` that are the range of the `y_breaks` 
 * `y_expand` of `c(0, 0)`
@@ -218,7 +236,7 @@ The opposite occurs for horizontal plots with the x scale.
 
 Sometimes you may need to add `*_expand_limits = 0`, if the lower bound of the pretty scale falls on a close low number.
 
-(Note this pretty scale does not occur where the scale has a transformation that is not `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.) 
+(Note this pretty scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.) 
 
 ```{r}
 economics |>
@@ -240,7 +258,7 @@ economics |>
   )
 ```
 
-### 9.  Pretty gridlines removal
+### 10.  Pretty gridlines removal
 
 The `gg_*` functions adjust what gridlines are present in the graph - by removing the ones that it guesses are not required. 
 
@@ -257,20 +275,6 @@ penguins |>
     y = sex,
     col = sex, 
     theme = theme_grey(),
-  )
-```
-
-### 10.  Conversion of unspecified `titles` to sentence case
-
-Unspecified `x`, `y`, `col` and `alpha` titles are converted to sentence case with snakecase::to_sentence. All titles can be manually changed using the `*_title` arguments. The default conversion is intended to make titles sometimes able to be left as is. Use `*_title = ""` to remove a title. 
-
-```{r, fig.asp=0.6}
-diamonds |>
-  gg_hex(
-    x = carat,
-    y = price,
-    y_limits = c(0, 20000),
-    coord = coord_cartesian(clip = "on"), 
   )
 ```
 
@@ -390,7 +394,7 @@ penguins |>
 
 ```
 
-### 15. Other ggplot2 key differences 
+### 14. Other ggplot2 key differences 
 
 ##### Unquoted variables only
 
@@ -443,8 +447,8 @@ This needs to be considered when you are using `x_limits` or `y_limits`, and you
 ##### Other
 
 * `*_title` is equivalent to `ggplot2::labs(* = ...)`
-* y categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) 
-* Logical variables are reversed, so that `TRUE` always comes before `FALSE`
+* y categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) * Logical variables are reversed, so that `TRUE` always comes before `FALSE`
+* Infinite values are treated as NA
  
 ### 15. A `gg_blanket` function for extra `geom` flexibility
 

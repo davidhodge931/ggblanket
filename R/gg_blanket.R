@@ -886,9 +886,8 @@ gg_blanket <- function(
   #get layout if NULL
   if (rlang::is_null(facet_layout)) {
     if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) facet_layout <- "wrap"
-    else if (!rlang::quo_is_null(facet2) & rlang::quo_is_null(facet)) facet_layout <- "wrap"
+    else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) facet_layout <- "grid"
     else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) facet_layout <- "grid"
-    else if (rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) facet_layout <- "grid"
     else facet_layout <- "null"
   }
 
