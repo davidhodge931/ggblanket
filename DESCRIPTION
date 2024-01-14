@@ -11,7 +11,7 @@ URL: https://davidhodge931.github.io/ggblanket/,
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0
 Imports: 
     dplyr,
     forcats,
@@ -27,7 +27,7 @@ Imports:
     stringr (>= 1.3.0),
     tidyr (>= 1.0.0),
     tidyselect (>= 1.2.0),
-    viridisLite (>= 0.4.0),
+    viridisLite (>= 0.4.0)
 Suggests: 
     bench,
     deldir,

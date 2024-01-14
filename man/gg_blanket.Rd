@@ -22,9 +22,9 @@ gg_blanket(
   yend = NULL,
   z = NULL,
   col = NULL,
+  alpha = NULL,
   facet = NULL,
   facet2 = NULL,
-  alpha = NULL,
   group = NULL,
   subgroup = NULL,
   label = NULL,
@@ -69,12 +69,13 @@ gg_blanket(
   facet_axes = "margins",
   facet_axis_labels = "all",
   facet_labels = NULL,
+  facet_labels_position = "top",
+  facet_labels_switch = NULL,
+  facet_layout = NULL,
   facet_ncol = NULL,
   facet_nrow = NULL,
   facet_scales = "fixed",
   facet_space = "fixed",
-  facet_layout = NULL,
-  facet_switch = NULL,
   alpha_breaks = NULL,
   alpha_expand = ggplot2::waiver(),
   alpha_expand_limits = NULL,
@@ -129,11 +130,11 @@ gg_blanket(
 
 \item{col}{Unquoted col and fill aesthetic variable.}
 
+\item{alpha}{Unquoted alpha aesthetic variable.}
+
 \item{facet}{Unquoted facet aesthetic variable.}
 
 \item{facet2}{Unquoted second facet variable.}
-
-\item{alpha}{Unquoted alpha aesthetic variable.}
 
 \item{group}{Unquoted group aesthetic variable.}
 
@@ -145,7 +146,7 @@ gg_blanket(
 
 \item{sample}{Unquoted sample aesthetic variable.}
 
-\item{mapping}{Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha_pal.}
+\item{mapping}{Set of additional aesthetic mappings within the ggplot2::aes function for non-supported aesthetics (e.g. shape, linetype, linewidth, or size) or for delayed evaluation.}
 
 \item{x_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -223,17 +224,19 @@ gg_blanket(
 
 \item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).}
 
+\item{facet_labels_position}{When the facet layout is "wrap", the position of the facet labels. Either "top", "right", "bottom" or "left".}
+
+\item{facet_labels_switch}{When the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".}
+
+\item{facet_layout}{Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".}
+
 \item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of "wrap".}
 
 \item{facet_nrow}{The number of rows of facets. Only applies to a facet layout of "wrap".}
 
 \item{facet_scales}{Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
-\item{facet_space}{Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed". Only applies where the facet layout is "grid" and facet scales are not "fixed".}
-
-\item{facet_layout}{Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".}
-
-\item{facet_switch}{Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".}
+\item{facet_space}{When the facet layout is "grid" and facet scales are not "fixed", whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
 
 \item{alpha_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 

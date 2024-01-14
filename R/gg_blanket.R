@@ -19,15 +19,15 @@
 #' @param yend Unquoted yend aesthetic variable.
 #' @param z Unquoted z aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
+#' @param alpha Unquoted alpha aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
-#' @param alpha Unquoted alpha aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param subgroup Unquoted subgroup aesthetic variable.
 #' @param label Unquoted label aesthetic variable.
 #' @param text Unquoted text aesthetic variable.
 #' @param sample Unquoted sample aesthetic variable.
-#' @param mapping Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha_pal.
+#' @param mapping Set of additional aesthetic mappings within the ggplot2::aes function for non-supported aesthetics (e.g. shape, linetype, linewidth, or size) or for delayed evaluation.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param x_expand_limits For a continuous x variable, any values that the limits should encompass (e.g. 0).
@@ -63,15 +63,6 @@
 #' @param col_rescale For a continuous variable, a scales::rescale function.
 #' @param col_title Legend title string. Use "" for no title.
 #' @param col_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
-#' @param facet_axes Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".
-#' @param facet_axis_labels Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".
-#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).
-#' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
-#' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
-#' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param facet_space Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed". Only applies where the facet layout is "grid" and facet scales are not "fixed".
-#' @param facet_layout Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".
-#' @param facet_switch Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".
 #' @param alpha_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param alpha_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param alpha_expand_limits For a continuous variable, any values that the limits should encompass (e.g. 0).
@@ -85,6 +76,16 @@
 #' @param alpha_pal_na Alpha value to use for the NA value.
 #' @param alpha_title Legend title string. Use "" for no title.
 #' @param alpha_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
+#' @param facet_axes Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".
+#' @param facet_axis_labels Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".
+#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).
+#' @param facet_labels_position When the facet layout is "wrap", the position of the facet labels. Either "top", "right", "bottom" or "left".
+#' @param facet_labels_switch When the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".
+#' @param facet_layout Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".
+#' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
+#' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
+#' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
+#' @param facet_space When the facet layout is "grid" and facet scales are not "fixed", whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
@@ -129,9 +130,9 @@ gg_blanket <- function(
     yend = NULL,
     z = NULL,
     col = NULL,
+    alpha = NULL,
     facet = NULL,
     facet2 = NULL,
-    alpha = NULL,
     group = NULL,
     subgroup = NULL,
     label = NULL,
@@ -176,12 +177,13 @@ gg_blanket <- function(
     facet_axes = "margins",
     facet_axis_labels = "all",
     facet_labels = NULL,
+    facet_labels_position = "top",
+    facet_labels_switch = NULL,
+    facet_layout = NULL,
     facet_ncol = NULL,
     facet_nrow = NULL,
     facet_scales = "fixed",
     facet_space = "fixed",
-    facet_layout = NULL,
-    facet_switch = NULL,
     alpha_breaks = NULL,
     alpha_expand = ggplot2::waiver(),
     alpha_expand_limits = NULL,
@@ -904,7 +906,8 @@ gg_blanket <- function(
             axis.labels = facet_axis_labels,
             nrow = facet_nrow,
             ncol = facet_ncol,
-            labeller = ggplot2::as_labeller(facet_labels)
+            labeller = ggplot2::as_labeller(facet_labels),
+            strip.position = facet_labels_position
           )
       }
       else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
@@ -917,7 +920,8 @@ gg_blanket <- function(
             axis.labels = facet_axis_labels,
             nrow = facet_nrow,
             ncol = facet_ncol,
-            labeller = ggplot2::as_labeller(facet_labels)
+            labeller = ggplot2::as_labeller(facet_labels),
+            strip.position = facet_labels_position
           )
       }
       else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
@@ -930,14 +934,15 @@ gg_blanket <- function(
             axis.labels = facet_axis_labels,
             nrow = facet_nrow,
             ncol = facet_ncol,
-            labeller = ggplot2::as_labeller(facet_labels)
+            labeller = ggplot2::as_labeller(facet_labels),
+            strip.position = facet_labels_position
           )
       }
     }
     else if (facet_layout == "grid") {
       if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
         plot <- plot +
-          ggplot2::facet_grid(switch = facet_switch,
+          ggplot2::facet_grid(switch = facet_labels_switch,
                               rows = ggplot2::vars(!!facet2),
                               cols = ggplot2::vars(forcats::fct_rev(!!facet)),
                               scales = facet_scales,
@@ -950,7 +955,7 @@ gg_blanket <- function(
       }
       else if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
         plot <- plot +
-          ggplot2::facet_grid(switch = facet_switch,
+          ggplot2::facet_grid(switch = facet_labels_switch,
                               cols = ggplot2::vars(forcats::fct_rev(!!facet)),
                               scales = facet_scales,
                               space = facet_space,
@@ -962,7 +967,7 @@ gg_blanket <- function(
       }
       else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
         plot <- plot +
-          ggplot2::facet_grid(switch = facet_switch,
+          ggplot2::facet_grid(switch = facet_labels_switch,
                               rows = ggplot2::vars(!!facet2),
                               scales = facet_scales,
                               space = facet_space,
@@ -986,7 +991,8 @@ gg_blanket <- function(
             axis.labels = facet_axis_labels,
             nrow = facet_nrow,
             ncol = facet_ncol,
-            labeller = ggplot2::as_labeller(facet_labels)
+            labeller = ggplot2::as_labeller(facet_labels),
+            strip.position = facet_labels_position
           )
       }
       else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
@@ -999,7 +1005,8 @@ gg_blanket <- function(
             axis.labels = facet_axis_labels,
             nrow = facet_nrow,
             ncol = facet_ncol,
-            labeller = ggplot2::as_labeller(facet_labels)
+            labeller = ggplot2::as_labeller(facet_labels),
+            strip.position = facet_labels_position
           )
       }
       else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
@@ -1012,14 +1019,15 @@ gg_blanket <- function(
             axis.labels = facet_axis_labels,
             nrow = facet_nrow,
             ncol = facet_ncol,
-            labeller = ggplot2::as_labeller(facet_labels)
+            labeller = ggplot2::as_labeller(facet_labels),
+            strip.position = facet_labels_position
           )
       }
     }
     else if (facet_layout == "grid") {
       if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
         plot <- plot +
-          ggplot2::facet_grid(switch = facet_switch,
+          ggplot2::facet_grid(switch = facet_labels_switch,
                               rows = ggplot2::vars(!!facet2),
                               cols = ggplot2::vars(!!facet),
                               scales = facet_scales,
@@ -1032,7 +1040,7 @@ gg_blanket <- function(
       }
       else if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
         plot <- plot +
-          ggplot2::facet_grid(switch = facet_switch,
+          ggplot2::facet_grid(switch = facet_labels_switch,
                               cols = ggplot2::vars(!!facet),
                               scales = facet_scales,
                               space = facet_space,
@@ -1044,7 +1052,7 @@ gg_blanket <- function(
       }
       else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) {
         plot <- plot +
-          ggplot2::facet_grid(switch = facet_switch,
+          ggplot2::facet_grid(switch = facet_labels_switch,
                               rows = ggplot2::vars(!!facet2),
                               scales = facet_scales,
                               space = facet_space,

@@ -61,6 +61,8 @@
 * Updated `*_breaks` defaults.
 * Made plot order logical variables with `TRUE` first.  
 * Added `pal_discrete2` with 6 colour blind safe colours for a light background theme. 
+* Breaking: renamed `facet_switch` argument to `facet_labels_switch`.
+* Added `facet_labels_position` argument.
 
 # ggblanket 4.0.0
 

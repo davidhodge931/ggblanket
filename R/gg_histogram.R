@@ -18,19 +18,19 @@
 #' @param yend Unquoted yend aesthetic variable.
 #' @param z Unquoted z aesthetic variable.
 #' @param col Unquoted col and fill aesthetic variable.
+#' @param alpha Unquoted alpha aesthetic variable.
 #' @param facet Unquoted facet aesthetic variable.
 #' @param facet2 Unquoted second facet variable.
-#' @param alpha Unquoted alpha aesthetic variable.
 #' @param group Unquoted group aesthetic variable.
 #' @param subgroup Unquoted subgroup aesthetic variable.
 #' @param label Unquoted label aesthetic variable.
 #' @param text Unquoted text aesthetic variable.
 #' @param sample Unquoted sample aesthetic variable.
-#' @param mapping Map additional aesthetics using the ggplot2::aes function (e.g. shape). Excludes colour, fill or alpha_pal.
+#' @param mapping Set of additional aesthetic mappings within the ggplot2::aes function for non-supported aesthetics (e.g. shape, linetype, linewidth, or size) or for delayed evaluation.
 #' @param x_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param x_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
-#' @param x_gridlines TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
 #' @param x_expand_limits For a continuous x variable, any values that the limits should encompass (e.g. 0).
+#' @param x_gridlines TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.
 #' @param x_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param x_limits A vector of length 2 to determine the limits of the axis.
 #' @param x_oob For a continuous x variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
@@ -39,8 +39,8 @@
 #' @param x_transform For a numeric x variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
 #' @param y_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param y_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
-#' @param y_gridlines TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
 #' @param y_expand_limits For a continuous y variable, any values that the limits should encompass (e.g. 0).
+#' @param y_gridlines TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.
 #' @param y_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.
 #' @param y_limits A vector of length 2 to determine the limits of the axis.
 #' @param y_oob For a continuous y variable, a scales::oob_* function of how to handle values outside of limits (e.g. scales::oob_keep). Defaults to scales::oob_keep.
@@ -62,15 +62,6 @@
 #' @param col_rescale For a continuous variable, a scales::rescale function.
 #' @param col_title Legend title string. Use "" for no title.
 #' @param col_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
-#' @param facet_axes Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".
-#' @param facet_axis_labels Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".
-#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).
-#' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
-#' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
-#' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param facet_space Whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed". Only applies where the facet layout is "grid" and facet scales are not "fixed".
-#' @param facet_layout Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".
-#' @param facet_switch Whether the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".
 #' @param alpha_breaks A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.
 #' @param alpha_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).
 #' @param alpha_expand_limits For a continuous variable, any values that the limits should encompass (e.g. 0).
@@ -84,6 +75,16 @@
 #' @param alpha_pal_na Alpha value to use for the NA value.
 #' @param alpha_title Legend title string. Use "" for no title.
 #' @param alpha_transform For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").
+#' @param facet_axes Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".
+#' @param facet_axis_labels Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".
+#' @param facet_labels A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).
+#' @param facet_labels_position When the facet layout is "wrap", the position of the facet labels. Either "top", "right", "bottom" or "left".
+#' @param facet_labels_switch When the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".
+#' @param facet_layout Whether the layout is to be "wrap" or "grid". If NULL and a single facet (or facet2) argument is provided, then defaults to "wrap". If NULL and both facet and facet2 arguments are provided, defaults to "grid".
+#' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
+#' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
+#' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
+#' @param facet_space When the facet layout is "grid" and facet scales are not "fixed", whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
@@ -124,9 +125,9 @@ gg_histogram <- function(
     yend = NULL,
     z = NULL,
     col = NULL,
+    alpha = NULL,
     facet = NULL,
     facet2 = NULL,
-    alpha = NULL,
     group = NULL,
     subgroup = NULL,
     label = NULL,
@@ -168,15 +169,6 @@ gg_histogram <- function(
     col_rescale = scales::rescale(),
     col_title = NULL,
     col_transform = NULL,
-    facet_axes = "margins",
-    facet_axis_labels = "all",
-    facet_labels = NULL,
-    facet_ncol = NULL,
-    facet_nrow = NULL,
-    facet_scales = "fixed",
-    facet_space = "fixed",
-    facet_layout = NULL,
-    facet_switch = NULL,
     alpha_breaks = NULL,
     alpha_expand_limits = NULL,
     alpha_expand = ggplot2::waiver(),
@@ -190,6 +182,16 @@ gg_histogram <- function(
     alpha_pal_na = NA,
     alpha_title = NULL,
     alpha_transform = NULL,
+    facet_axes = "margins",
+    facet_axis_labels = "all",
+    facet_labels = NULL,
+    facet_labels_position = "top",
+    facet_labels_switch = NULL,
+    facet_layout = NULL,
+    facet_ncol = NULL,
+    facet_nrow = NULL,
+    facet_scales = "fixed",
+    facet_space = "fixed",
     title = NULL,
     subtitle = NULL,
     caption = NULL,
@@ -205,10 +207,6 @@ gg_histogram <- function(
     theme = theme,
     x = {{ x }},
     y = {{ y }},
-    col = {{ col }},
-    facet = {{ facet }},
-    facet2 = {{ facet2 }},
-    alpha = {{ alpha }},
     xmin = {{ xmin }},
     xmax = {{ xmax }},
     xend = {{ xend }},
@@ -216,14 +214,16 @@ gg_histogram <- function(
     ymax = {{ ymax }},
     yend = {{ yend }},
     z = {{ z }},
+    col = {{ col }},
+    alpha = {{ alpha }},
+    facet = {{ facet }},
+    facet2 = {{ facet2 }},
     group = {{ group }},
     subgroup = {{ subgroup }},
     label = {{ label }},
     text = {{ text }},
     sample = {{ sample }},
     mapping = mapping,
-    title = title,
-    subtitle = subtitle,
     x_breaks = x_breaks,
     x_expand = x_expand,
     x_gridlines = x_gridlines,
@@ -245,6 +245,7 @@ gg_histogram <- function(
     y_title = y_title,
     y_transform = y_transform,
     col_breaks = col_breaks,
+    col_continuous_type = col_continuous_type,
     col_expand_limits = col_expand_limits,
     col_labels = col_labels,
     col_legend_ncol = col_legend_ncol,
@@ -255,18 +256,8 @@ gg_histogram <- function(
     col_pal = col_pal,
     col_pal_na = col_pal_na,
     col_rescale = col_rescale,
-    col_continuous_type = col_continuous_type,
     col_title = col_title,
     col_transform = col_transform,
-    facet_axes = facet_axes,
-    facet_axis_labels = facet_axis_labels,
-    facet_labels = facet_labels,
-    facet_ncol = facet_ncol,
-    facet_nrow = facet_nrow,
-    facet_scales = facet_scales,
-    facet_space = facet_space,
-    facet_layout = facet_layout,
-    facet_switch = facet_switch,
     alpha_breaks = alpha_breaks,
     alpha_expand_limits = alpha_expand_limits,
     alpha_expand = alpha_expand,
@@ -280,9 +271,20 @@ gg_histogram <- function(
     alpha_pal_na = alpha_pal_na,
     alpha_title = alpha_title,
     alpha_transform = alpha_transform,
+    facet_axes = facet_axes,
+    facet_axis_labels = facet_axis_labels,
+    facet_labels = facet_labels,
+    facet_labels_position = facet_labels_position,
+    facet_labels_switch = facet_labels_switch,
+    facet_layout = facet_layout,
+    facet_ncol = facet_ncol,
+    facet_nrow = facet_nrow,
+    facet_scales = facet_scales,
+    facet_space = facet_space,
+    title = title,
+    subtitle = subtitle,
     caption = caption,
-    titles = titles, ...
-
+    titles = titles,
+    ...
   )
 }
-
