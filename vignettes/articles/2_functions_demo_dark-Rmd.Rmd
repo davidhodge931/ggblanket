@@ -60,7 +60,7 @@ diamonds |>
   gg_bin_2d(
     x = carat,
     y = price,
-    col_pal = viridis::mako(9),
+    col_pal = viridisLite::mako(9),
   )
 ```
 
@@ -171,7 +171,7 @@ faithful |>
     x = waiting,
     y = eruptions,
     bins = 8,
-    col_pal = viridis::mako(8),
+    col_pal = viridisLite::mako(8),
   )
 ```
 
@@ -218,7 +218,7 @@ diamonds |>
     y = price,
     y_limits = c(0, 20000),
     coord = coord_cartesian(clip = "on"), 
-    col_pal = viridis::mako(9),
+    col_pal = viridisLite::mako(9),
   )
 ```
 
@@ -250,7 +250,7 @@ palmerpenguins::penguins |>
     y_expand_limits = 0,
     position = position_jitter(height = 0), 
     col_labels = \(x) str_keep_seq(x, by = 2),
-    col_pal = viridis::mako(9),
+    col_pal = viridisLite::mako(9),
   )
 ```
 
@@ -404,7 +404,7 @@ faithfuld |>
     x = waiting,
     y = eruptions,
     col = density,
-    col_pal = viridis::mako(9),
+    col_pal = viridisLite::mako(9),
   )
 ```
 
@@ -464,7 +464,7 @@ data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
 sf::st_read(system.file("shape/nc.shp", package = "sf")) |> 
   gg_sf(
     col = AREA, 
-    col_pal = viridis::mako(9),
+    col_pal = viridisLite::mako(9),
   )
 ```
 
@@ -526,7 +526,7 @@ palmerpenguins::penguins |>
     x = sex,
     y = species,
     col = flipper_length_mm,
-    col_pal = viridis::mako(9),
+    col_pal = viridisLite::mako(9),
   )
 ```
 

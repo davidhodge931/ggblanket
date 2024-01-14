@@ -32,7 +32,7 @@
 
 # ggblanket 5.2.0
 
-* Updated colours: `#357BA2` or `mako[9](5)` where no col aesthetic, `guardian` where discrete and 4 or less colours, scales:hue_pal for 5 or more colours, `viridis::mako` reversed for continuous, and `"grey"` for NA. 
+* Updated colours: `#357BA2` or `mako[9](5)` where no col aesthetic, `guardian` where discrete and 4 or less colours, scales:hue_pal for 5 or more colours, `viridisLite::mako` reversed for continuous, and `"grey"` for NA. 
 * Breaking: removed all `pal_*` functions.
 * Removed some unnecessary messages.
 * Fixed bug where `col_breaks` was not working for a numeric `col`.
