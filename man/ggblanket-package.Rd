@@ -14,7 +14,8 @@ Simplify 'ggplot2' visualisation with 'ggblanket' wrapper functions.
 Useful links:
 \itemize{
   \item \url{https://davidhodge931.github.io/ggblanket/}
-  \item \url{https://github.com/davidhodge931/ggblanket/}
+  \item \url{https://github.com/davidhodge931/ggblanket}
+  \item Report bugs at \url{https://github.com/davidhodge931/ggblanket/issues}
 }
 
 }
