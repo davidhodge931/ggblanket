@@ -371,8 +371,9 @@ penguins |>
     x_title = "Body mass kg", 
   ) +
   geom_errorbar(
-    colour = "black",
-    width = 0.1) 
+    colour = "black", 
+    width = 0.1, 
+  ) 
 ```
 
 ```{r, fig.asp=0.4}
@@ -396,9 +397,11 @@ penguins |>
     width = 0.75,
     colour = "#d3d3d3",#fix to constant
     fill = "#d3d3d3",#fix to constant
-    alpha = 0.9) +
-  geom_errorbar(width = 0.1) 
-
+    alpha = 0.9,
+  ) +
+  geom_errorbar(
+    width = 0.1, 
+  ) 
 ```
 
 ### 14. Other ggplot2 key differences 

@@ -183,7 +183,7 @@ data.frame(
   group = factor(c(1, 2, 1, 2)),
   upper = c(1.1, 5.3, 3.3, 4.2),
   lower = c(0.8, 4.6, 2.4, 3.6)
-) |>
+  ) |>
   gg_errorbar(
     x = trt,
     ymin = lower,
@@ -390,7 +390,9 @@ penguins |>
     facet = species,
     coord = coord_cartesian(clip = "on"), 
   ) +
-  geom_qq_line(colour = pal_blue)
+  geom_qq_line(
+    colour = pal_blue, 
+  )
 ```
 
 ### gg_raster
@@ -439,7 +441,10 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     col_pal = scales::alpha(pal_blue, 0),
     y_title = "Level",
   ) +
-  geom_line(aes(x = year, y = level), col = pal_blue)
+  geom_line(
+    mapping = aes(x = year, y = level), 
+    colour = pal_blue
+  )
 ```
 
 ### gg_segment

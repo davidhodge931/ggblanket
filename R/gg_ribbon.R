@@ -21,7 +21,10 @@
 #'     col_pal = scales::alpha(pal_blue, 0),
 #'     y_title = "Level",
 #'   ) +
-#'   geom_line(aes(x = year, y = level), col = pal_blue)
+#'   geom_line(
+#'     mapping = aes(x = year, y = level),
+#'     colour = pal_blue,
+#'   )
 #'
 gg_ribbon <- function(
     data = NULL,
