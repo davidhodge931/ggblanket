@@ -250,7 +250,7 @@ gg_blanket <- function(
   #make gg_function work
   ##############################################################################
 
-  if (rlang::is_null(data)) data <- data.frame(x = 1)
+  if (rlang::is_null(data)) data <- data.frame(x = NA)
 
   ##############################################################################
   #determine classes
