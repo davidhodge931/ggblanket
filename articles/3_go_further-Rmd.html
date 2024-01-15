@@ -181,6 +181,15 @@ data can be visualised.</p>
 <p>The default <code>stat</code> of each <code>gg_*</code> function can
 be changed for additional flexibility.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    stat <span class="op">=</span> <span class="st">"sum"</span>,</span>
+<span>    x <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">island</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>size <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_pointrange.html">gg_pointrange</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">species</span>,</span>
@@ -190,8 +199,8 @@ be changed for additional flexibility.</p>
 <span>    size <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggforce.data-imaginist.com" class="external-link">ggforce</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/economics.html" class="external-link">economics</a></span> <span class="op">|&gt;</span></span>
@@ -203,7 +212,7 @@ be changed for additional flexibility.</p>
 <span>    n <span class="op">=</span> <span class="fl">100</span>, </span>
 <span>    linewidth <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="use-non-supported-aesthetics">4. Use non-supported aesthetics<a class="anchor" aria-label="anchor" href="#use-non-supported-aesthetics"></a>
@@ -213,7 +222,7 @@ as an argument. For those that are not available, you can either use
 <code>mapping</code> argument. The <code>mapping</code> argument
 provides access to the <code>linetype</code>, <code>shape</code> and
 <code>size</code> aesthetics within the <code>gg_*</code> function.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
@@ -222,7 +231,7 @@ provides access to the <code>linetype</code>, <code>shape</code> and
 <span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">species</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="use-delayed-evaluation">5. Use delayed evaluation<a class="anchor" aria-label="anchor" href="#use-delayed-evaluation"></a>
@@ -232,15 +241,15 @@ provides access to the <code>linetype</code>, <code>shape</code> and
 cannot apply a function to these. However, you can for aesthetics within
 the <code>mapping</code> argument. This is useful for delayed evaluation
 with the <code>after_stat</code> function.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">faithfuld</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_contour.html">gg_contour</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">waiting</span>,</span>
@@ -249,7 +258,7 @@ with the <code>after_stat</code> function.</p>
 <span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">level</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    bins <span class="op">=</span> <span class="fl">8</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="add-contrasting-dark-or-light-text-on-polygons">6. Add contrasting dark or light text on polygons<a class="anchor" aria-label="anchor" href="#add-contrasting-dark-or-light-text-on-polygons"></a>
@@ -257,7 +266,7 @@ with the <code>after_stat</code> function.</p>
 <p>A method was developed by <a href="https://github.com/teunbrand/ggplot_tricks" class="external-link"><span class="citation">@teunbrand</span></a> to colour text on polygons using
 a dark or light colour, which is determined based on the underlying
 polygon colour.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">contrast</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">col_pal</span>, </span>
 <span>                     <span class="va">col_pal_dark</span> <span class="op">=</span> <span class="va">pal_light_mode</span><span class="op">[</span><span class="st">"text"</span><span class="op">]</span>, </span>
 <span>                     <span class="va">col_pal_light</span> <span class="op">=</span> <span class="va">pal_light_mode</span><span class="op">[</span><span class="st">"panel"</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span></span>
@@ -287,8 +296,8 @@ polygon colour.</p>
 <span>    size <span class="op">=</span> <span class="fl">3.53</span>,</span>
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">corrr</span><span class="fu">::</span><span class="fu"><a href="https://corrr.tidymodels.org/reference/correlate.html" class="external-link">correlate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">corrr</span><span class="fu">::</span><span class="fu"><a href="https://corrr.tidymodels.org/reference/stretch.html" class="external-link">stretch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -311,7 +320,7 @@ polygon colour.</p>
 <span>    size <span class="op">=</span> <span class="fl">3.53</span>,</span>
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
