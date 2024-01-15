@@ -1390,7 +1390,7 @@ gg_blanket <- function(
         }
         else {
           col_n <- plot_data_ordered %>%
-            tidyr::pivot_longer(tidyselect::everything()) %>%
+            tidyr::pivot_longer(cols = tidyselect::everything()) %>%
             dplyr::summarise(max(.data$value)) %>%
             dplyr::pull()
 
@@ -1532,7 +1532,7 @@ gg_blanket <- function(
         }
         else {
           alpha_n <- plot_data_ordered %>%
-            tidyr::pivot_longer(tidyselect::everything()) %>%
+            tidyr::pivot_longer(cols = tidyselect::everything()) %>%
             dplyr::summarise(max(.data$value)) %>%
             dplyr::pull()
 

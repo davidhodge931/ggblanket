@@ -38,6 +38,7 @@ Suggests:
     knitr,
     palmerpenguins,
     patchwork,
+    quantreg,
     rmarkdown,
     sf,
     stars,
