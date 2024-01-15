@@ -13,10 +13,11 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.0
 Depends: R (>= 4.2.0)
+Remotes: tidyverse/ggplot2#5592
 Imports: 
     dplyr,
     forcats,
-    ggplot2,
+    ggplot2 (>= 3.5.0),
     grid,
     hms,
     lubridate,
