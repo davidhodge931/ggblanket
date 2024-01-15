@@ -60,12 +60,13 @@
 <h2 class="pkg-version" data-toc-text="5.2.0900" id="ggblanket-520900">ggblanket 5.2.0900<a class="anchor" aria-label="anchor" href="#ggblanket-520900"></a></h2>
 <ul><li>Rewrote code completely.</li>
 <li>Exported <code>gg_blanket</code> function, which allows for a ggproto geom (or character string) to be added.</li>
-<li>Help all draws off that of <code>gg_blanket</code> <a href="https://github.com/olivroy" class="external-link">@olivroy</a></li>
+<li>Each function’s <a href="https://github.com/param" class="external-link">@param</a> help now inherits from <code>gg_blanket</code> (<a href="https://github.com/olivroy" class="external-link">@olivroy</a>, <a href="https://github.com/davidhodge931/ggblanket/issues/625" class="external-link">#625</a>).</li>
 <li>Added <code>stat</code> support for a ggproto object (or character string).</li>
 <li>Added <code>position</code> support for a ggproto object (or character string).</li>
 <li>Added <code>transform</code> support for a transform class object (or character string).</li>
 <li>Added <code>alpha</code> aesthetic support with new <code>alpha</code>, <code>alpha_pal</code> and <code>alpha_*</code> arguments.</li>
 <li>Added <code>facet_axes</code> and <code>facet_axis_labels</code> arguments.</li>
+<li>Added <code>facet_labels_position</code> argument.</li>
 <li>Added <code>light_mode_*</code> and <code>dark_mode_*</code> family of functions.</li>
 <li>Added <code>col_continuous_type</code> argument to support colouring by “steps”.</li>
 <li>Changed <code>*_mode_*</code> default base_size to 11.</li>
@@ -75,7 +76,9 @@
 <li>Changed NULL effect of pretty axis <code>*_limits = c(NA, NA)</code> on <code>y_expand</code> NULL.</li>
 <li>Improved default gridlines.</li>
 <li>Fixed bug when <code>col</code> is logical class.</li>
-<li>Added new <code>pal_census</code>, and helper <code>pal_blue</code>, <code>pal_teal</code>, <code>pal_orange</code>, <code>pal_navy</code>, <code>pal_plum</code> and <code>pal_grey</code> - updated the default discrete palette.</li>
+<li>Added new helper hex codes <code>pal_blue</code>, <code>pal_teal</code>, <code>pal_orange</code>, <code>pal_navy</code>, <code>pal_plum</code> and <code>pal_grey</code>
+</li>
+<li>Updated the default discrete palette.</li>
 <li>Breaking: shift <code>...</code> to the front to require users to name arguments.</li>
 <li>Breaking: renamed <code>pal</code> to <code>col_pal</code>.</li>
 <li>Breaking: renamed <code>pal_na</code> to <code>col_pal_na</code>.</li>
@@ -87,6 +90,7 @@
 <li>Breaking: removed <code>light_mode</code> and <code>dark_mode</code> functions.</li>
 <li>Breaking: removed <code>col_scale</code> argument.</li>
 <li>Breaking: removed <code>gg_blank</code> function.</li>
+<li>Breaking: renamed <code>facet_switch</code> argument to <code>facet_labels_switch</code>.</li>
 <li>Breaking: removed <code>guardian</code> function.</li>
 </ul></div>
     <div class="section level2">
@@ -120,8 +124,6 @@
 <li>Updated <code>*_breaks</code> defaults.</li>
 <li>Made plot order logical variables with <code>TRUE</code> first.<br></li>
 <li>Added <code>pal_discrete2</code> with 6 colour blind safe colours for a light background theme.</li>
-<li>Breaking: renamed <code>facet_switch</code> argument to <code>facet_labels_switch</code>.</li>
-<li>Added <code>facet_labels_position</code> argument.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="4.0.0" id="ggblanket-400">ggblanket 4.0.0<a class="anchor" aria-label="anchor" href="#ggblanket-400"></a></h2><p class="text-muted">CRAN release: 2023-08-08</p>
