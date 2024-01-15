@@ -37,7 +37,19 @@
     <loc>https://davidhodge931.github.io/ggblanket/news/index.html</loc>
   </url>
   <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/dark_mode.html</loc>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/dark_mode_b.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/dark_mode_i.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/dark_mode_r.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/dark_mode_rt.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/dark_mode_t.html</loc>
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/gg_area.html</loc>
@@ -49,16 +61,13 @@
     <loc>https://davidhodge931.github.io/ggblanket/reference/gg_bin_2d.html</loc>
   </url>
   <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/gg_blank.html</loc>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/gg_blanket.html</loc>
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/gg_boxplot.html</loc>
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/gg_col.html</loc>
-  </url>
-  <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/gg_col2.html</loc>
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/gg_contour.html</loc>
@@ -151,22 +160,55 @@
     <loc>https://davidhodge931.github.io/ggblanket/reference/ggblanket-package.html</loc>
   </url>
   <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/guardian.html</loc>
-  </url>
-  <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/light_mode.html</loc>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/light_mode_b.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/light_mode_i.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/light_mode_r.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/light_mode_rt.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/light_mode_t.html</loc>
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/na_if_inf.html</loc>
   </url>
   <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/pal_blue.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/pal_continuous.html</loc>
+  </url>
+  <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/pal_dark_mode.html</loc>
   </url>
   <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/pal_discrete.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/pal_grey.html</loc>
+  </url>
+  <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/pal_light_mode.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/pal_navy.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/pal_orange.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/pal_plum.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/pal_teal.html</loc>
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/pipe.html</loc>

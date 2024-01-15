@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Go further">
 <meta property="og:description" content="ggblanket">
@@ -103,23 +103,17 @@ to:</p>
 <ol style="list-style-type: decimal">
 <li>Use different fonts</li>
 <li>Visualise spatial data</li>
-<li>Turn off either colour or fill</li>
-<li>Fix either colour or fill to something different</li>
-<li>Work with other aesthetics (or delayed evaluation)</li>
 <li>Change the stat</li>
-<li>Create custom wrapper functions</li>
+<li>Use non-supported aesthetics</li>
+<li>Use delayed evaluation</li>
 <li>Add contrasting dark or light text on polygons</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidhodge931.github.io/ggblanket/">ggblanket</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidhodge931.github.io/ggblanket/">ggblanket</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">penguins2</span> <span class="op">&lt;-</span> <span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">penguins</a></span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>sex <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="use-different-fonts">1. Use different fonts<a class="anchor" aria-label="anchor" href="#use-different-fonts"></a>
 </h3>
@@ -135,16 +129,17 @@ Fonts can be identified on the Google fonts <a href="https://fonts.google.com/" 
 <span></span>
 <span><span class="fu">showtext</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/showtext/man/showtext_auto.html" class="external-link">showtext_auto</a></span><span class="op">(</span>enable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
+<span><span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">penguins</a></span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Penguins body mass by flipper length"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"palmerpenguins::penguins body mass by flipper length"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>,</span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span></span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_rt.html">light_mode_rt</a></span><span class="op">(</span></span>
 <span>      base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>      base_family <span class="op">=</span> <span class="st">"grace"</span>, </span>
 <span>      title_family <span class="op">=</span> <span class="st">"roboto_slab"</span>, </span>
@@ -168,236 +163,105 @@ data can be visualised.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html" class="external-link">read_stars</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"tif/L7_ETMs.tif"</span>, package <span class="op">=</span> <span class="st">"stars"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span> <span class="fu"><a href="../reference/gg_raster.html">gg_raster</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>,</span>
-<span>           y <span class="op">=</span> <span class="va">y</span>,</span>
-<span>           col <span class="op">=</span> <span class="va">L7_ETMs.tif</span>,</span>
-<span>           facet <span class="op">=</span> <span class="va">band</span>,</span>
-<span>           col_title <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggeasy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_axes</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span> <span class="fu"><a href="../reference/gg_raster.html">gg_raster</a></span><span class="op">(</span></span>
+<span>   x <span class="op">=</span> <span class="va">x</span>,</span>
+<span>   y <span class="op">=</span> <span class="va">y</span>,</span>
+<span>   col <span class="op">=</span> <span class="va">L7_ETMs.tif</span>,</span>
+<span>   facet <span class="op">=</span> <span class="va">band</span>,</span>
+<span>   col_title <span class="op">=</span> <span class="st">"L7 ETMs"</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggeasy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_axes</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-4-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="turn-off-either-colour-or-fill">3. Turn off either colour or fill<a class="anchor" aria-label="anchor" href="#turn-off-either-colour-or-fill"></a>
-</h3>
-<p>Users can turn off <em>either</em> the colour (i.e. of the outlines)
-or fill of a geom that contains both. A method is to use
-<code>alpha = 0</code> for the fill or
-<code>pal = scales::alpha("red", 0)</code> for the colour.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">Species</span>, </span>
-<span>    alpha <span class="op">=</span> <span class="fl">0</span>, </span>
-<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    col_legend_nrow <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Turn off either colour or fill"</span>,</span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
-<span>    alpha <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>, </span>
-<span>    col <span class="op">=</span> <span class="va">Species</span>,</span>
-<span>    pal <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="fu"><a href="../reference/guardian.html">guardian</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span>, </span>
-<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    col_legend_nrow <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
-<span>    pal <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="fix-either-colour-or-fill-to-something-different">4. Fix either colour or fill to something different<a class="anchor" aria-label="anchor" href="#fix-either-colour-or-fill-to-something-different"></a>
-</h3>
-<p>Users can also fix <em>either</em> the colour (i.e. of the outlines)
-or fill of a geom to something different than the <code>pal</code>. A
-method for where there is a <code>col</code> variable is to add a
-<code>colour = "black"</code> or <code>fill = "lightgrey"</code>
-argument. If no col variable is desired, just use <code>col = 1</code>
-and <code>col_legend_place = "none"</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
-<span>    col <span class="op">=</span> <span class="fl">1</span>, </span>
-<span>    stat <span class="op">=</span> <span class="st">"density"</span>, </span>
-<span>    pal <span class="op">=</span> <span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
-<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    col_legend_place <span class="op">=</span> <span class="st">"none"</span>, </span>
-<span>    title <span class="op">=</span> <span class="st">"Fix a different colour or fill"</span>,</span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode.html">light_mode</a></span><span class="op">(</span>title_face <span class="op">=</span> <span class="st">"plain"</span><span class="op">)</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
-<span>    col <span class="op">=</span> <span class="fl">1</span>, </span>
-<span>    stat <span class="op">=</span> <span class="st">"density"</span>, </span>
-<span>    pal <span class="op">=</span> <span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>,</span>
-<span>    fill <span class="op">=</span> <span class="st">"lightgrey"</span>,</span>
-<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    col_legend_place <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">Species</span>, </span>
-<span>    fill <span class="op">=</span> <span class="st">"lightgrey"</span>,</span>
-<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    col_legend_nrow <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">Species</span>, </span>
-<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
-<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, drop0trailing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    col_legend_nrow <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="work-with-other-aesthetics-or-delayed-evaluation">5. Work with other aesthetics (or delayed evaluation)<a class="anchor" aria-label="anchor" href="#work-with-other-aesthetics-or-delayed-evaluation"></a>
-</h3>
-<p>Most functions have the commonly needed aesthetics directly available
-as an argument.</p>
-<p>For those that are not available (or where you wish to use delayed
-evaluation), you can either use <code>mapping</code> argument (for
-aesthetics other than colour, fill or alpha) or
-<code>gg_blank</code>.</p>
-<p>The <code>mapping</code> argument provides access to the
-<code>linetype</code>, <code>shape</code> and <code>size</code>
-aesthetics within the <code>gg_*</code> function. Note the
-<code>col</code>, <code>colour</code>, <code>fill</code> and
-<code>alpha</code> aesthetics cannot be added within the ggblanket
-<code>mapping</code> argument.</p>
-<p>An alternative approach is to use <code>gg_blank</code>. If you use
-this approach, make sure you change the <code>stat</code>,
-<code>position</code>, and <code>coord</code> etc as needed in
-<code>gg_blank</code>, so that the positional scales are constructed
-correctly. Note the <code>stat</code> must be a character string.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
-<span>           y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
-<span>           col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>           mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>               mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>               facet <span class="op">=</span> <span class="va">species</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">faithfuld</span> <span class="op">|&gt;</span></span>
-<span>   <span class="fu"><a href="../reference/gg_blank.html">gg_blank</a></span><span class="op">(</span></span>
-<span>     x <span class="op">=</span> <span class="va">waiting</span>,</span>
-<span>     y <span class="op">=</span> <span class="va">eruptions</span>,</span>
-<span>     z <span class="op">=</span> <span class="va">density</span>,</span>
-<span>     stat <span class="op">=</span> <span class="st">"contour"</span>,</span>
-<span>     bins <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span></span>
-<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_contour.html" class="external-link">geom_contour</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">level</span><span class="op">)</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span></span>
-<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"Level"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="change-the-stat">6. Change the stat<a class="anchor" aria-label="anchor" href="#change-the-stat"></a>
+<h3 id="change-the-stat">3. Change the stat<a class="anchor" aria-label="anchor" href="#change-the-stat"></a>
 </h3>
 <p>The default <code>stat</code> of each <code>gg_*</code> function can
-be changed for additional flexibility. Note that you can only use
-<code>stat</code> character strings and not functions.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
+be changed for additional flexibility.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">penguins</a></span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_pointrange.html">gg_pointrange</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
 <span>    stat <span class="op">=</span> <span class="st">"summary"</span>, </span>
+<span>    na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggforce.data-imaginist.com" class="external-link">ggforce</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_bar.html">gg_bar</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>         stat <span class="op">=</span> <span class="st">"bin"</span>, </span>
-<span>         x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_bar.html">gg_bar</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    stat <span class="op">=</span> <span class="st">"summary"</span>, </span>
-<span>    position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
-<span>    col_legend_place <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="va">p3</span></span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
+<span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/economics.html" class="external-link">economics</a></span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_path.html">gg_path</a></span><span class="op">(</span></span>
+<span>    stat <span class="op">=</span> <span class="st">"bspline"</span>,</span>
+<span>    x <span class="op">=</span> <span class="va">date</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
+<span>    n <span class="op">=</span> <span class="fl">100</span>, </span>
+<span>    linewidth <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  <span class="op">)</span> </span></code></pre></div>
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="create-custom-wrapper-functions">7. Create custom wrapper functions<a class="anchor" aria-label="anchor" href="#create-custom-wrapper-functions"></a>
+<h3 id="use-non-supported-aesthetics">4. Use non-supported aesthetics<a class="anchor" aria-label="anchor" href="#use-non-supported-aesthetics"></a>
 </h3>
-<p>You can create powerful custom functions. This is because the
-<code>...</code> argument can allow you to access <em>all</em> arguments
-within the ggblanket <code>gg_*</code> function (and applicable
-<code>ggplot2::geom_*</code> function).</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gg_point_custom</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">col</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">facet</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">facet2</span> <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                            <span class="va">pal</span> <span class="op">=</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">8</span>, <span class="st">"Dark2"</span><span class="op">)</span>,</span>
-<span>                            <span class="va">col_labels</span> <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span>                            <span class="va">col_title</span> <span class="op">=</span> <span class="st">""</span>, </span>
-<span>                            <span class="va">col_legend_place</span> <span class="op">=</span> <span class="st">"top"</span>,</span>
-<span>                            <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">data</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">x</span> <span class="op">}</span><span class="op">}</span>, y <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">y</span> <span class="op">}</span><span class="op">}</span>, </span>
-<span>             col <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">col</span> <span class="op">}</span><span class="op">}</span>, facet <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">facet</span> <span class="op">}</span><span class="op">}</span>, facet2 <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">facet2</span> <span class="op">}</span><span class="op">}</span>,</span>
-<span>             pal <span class="op">=</span> <span class="va">pal</span>, col_labels <span class="op">=</span> <span class="va">col_labels</span>, col_title <span class="op">=</span> <span class="va">col_title</span>, </span>
-<span>             col_legend_place <span class="op">=</span> <span class="va">col_legend_place</span>, <span class="va">...</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">ggeasy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_axes</a></span><span class="op">(</span>which <span class="op">=</span> <span class="st">"y"</span>, what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"line"</span>, <span class="st">"ticks"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">gg_point_custom</span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<p>Most functions have the commonly needed aesthetics directly available
+as an argument. For those that are not available, you can either use
+<code>mapping</code> argument. The <code>mapping</code> argument
+provides access to the <code>linetype</code>, <code>shape</code> and
+<code>size</code> aesthetics within the <code>gg_*</code> function.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">penguins</a></span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
-<span>    col <span class="op">=</span> <span class="va">sex</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">gg_point_custom</span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
-<span>    col <span class="op">=</span> <span class="va">species</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p1</span> <span class="op">/</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">species</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="add-contrasting-dark-or-light-text-on-polygons">8. Add contrasting dark or light text on polygons<a class="anchor" aria-label="anchor" href="#add-contrasting-dark-or-light-text-on-polygons"></a>
+<h3 id="use-delayed-evaluation">5. Use delayed evaluation<a class="anchor" aria-label="anchor" href="#use-delayed-evaluation"></a>
+</h3>
+<p>As the <code>x</code>, <code>y</code>, <code>col</code> and
+<code>alpha</code> aesthetic arguments require a unquoted variable, you
+cannot apply a function to these. However, you can for aesthetics within
+the <code>mapping</code> argument. This is useful for delayed evaluation
+with the <code>after_stat</code> function.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">penguins</a></span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">faithfuld</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_contour.html">gg_contour</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">waiting</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">eruptions</span>,</span>
+<span>    z <span class="op">=</span> <span class="va">density</span>,</span>
+<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">level</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    bins <span class="op">=</span> <span class="fl">8</span>,</span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="add-contrasting-dark-or-light-text-on-polygons">6. Add contrasting dark or light text on polygons<a class="anchor" aria-label="anchor" href="#add-contrasting-dark-or-light-text-on-polygons"></a>
 </h3>
 <p>A method was developed by <a href="https://github.com/teunbrand/ggplot_tricks" class="external-link"><span class="citation">@teunbrand</span></a> to colour text on polygons using
 a dark or light colour, which is determined based on the underlying
 polygon colour.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">contrast</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">pal</span>, <span class="va">pal_dark</span> <span class="op">=</span> <span class="st">"#121b24"</span>, <span class="va">pal_light</span> <span class="op">=</span> <span class="st">"#fcfdfe"</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">pal_dark</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">pal</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="va">light</span> <span class="op">&lt;-</span> <span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/manip_channel.html" class="external-link">get_channel</a></span><span class="op">(</span><span class="va">pal</span>, <span class="st">"l"</span>, space <span class="op">=</span> <span class="st">"hcl"</span><span class="op">)</span></span>
-<span>    <span class="va">out</span><span class="op">[</span><span class="va">light</span> <span class="op">&lt;</span> <span class="fl">50</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">pal_light</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">contrast</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">col_pal</span>, </span>
+<span>                     <span class="va">col_pal_dark</span> <span class="op">=</span> <span class="va">pal_light_mode</span><span class="op">[</span><span class="st">"text"</span><span class="op">]</span>, </span>
+<span>                     <span class="va">col_pal_light</span> <span class="op">=</span> <span class="va">pal_light_mode</span><span class="op">[</span><span class="st">"panel"</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">col_pal_dark</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">col_pal</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">light</span> <span class="op">&lt;-</span> <span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/manip_channel.html" class="external-link">get_channel</a></span><span class="op">(</span><span class="va">col_pal</span>, <span class="st">"l"</span>, space <span class="op">=</span> <span class="st">"hcl"</span><span class="op">)</span></span>
+<span>    <span class="va">out</span><span class="op">[</span><span class="va">light</span> <span class="op">&lt;</span> <span class="fl">50</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">col_pal_light</span></span>
 <span>    <span class="va">out</span></span>
 <span>  <span class="op">}</span></span>
 <span></span>
@@ -409,10 +273,10 @@ polygon colour.</p>
 <span>    x <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">n</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#0095A8"</span>, <span class="st">"#112E51"</span>, <span class="st">"#FF7043"</span><span class="op">)</span>,</span>
+<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#0095A8"</span>, <span class="st">"#112E51"</span>, <span class="st">"#FF7043"</span><span class="op">)</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>, </span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, </span>
+<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span></span>
@@ -422,10 +286,9 @@ polygon colour.</p>
 <span>    <span class="op">)</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span>, preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">3.53</span>,</span>
-<span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span></code></pre></div>
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">corrr</span><span class="fu">::</span><span class="fu"><a href="https://corrr.tidymodels.org/reference/correlate.html" class="external-link">correlate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">corrr</span><span class="fu">::</span><span class="fu"><a href="https://corrr.tidymodels.org/reference/stretch.html" class="external-link">stretch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -434,7 +297,7 @@ polygon colour.</p>
 <span>    x <span class="op">=</span> <span class="va">x</span>, </span>
 <span>    y <span class="op">=</span> <span class="va">y</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">r</span>,</span>
-<span>    pal_na <span class="op">=</span> <span class="st">"#e6ecf2"</span>,</span>
+<span>    col_pal_na <span class="op">=</span> <span class="va">pal_light_mode</span><span class="op">[</span><span class="st">"plot"</span><span class="op">]</span>,</span>
 <span>    col_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    col_rescale <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">""</span>, </span>
@@ -447,9 +310,8 @@ polygon colour.</p>
 <span>      <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="va">aes_contrast</span>, </span>
 <span>    <span class="op">)</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">3.53</span>,</span>
-<span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
+<span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
