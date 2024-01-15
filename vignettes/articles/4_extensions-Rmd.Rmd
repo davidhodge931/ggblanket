@@ -35,7 +35,7 @@ The patchwork package enables plots to be patched together.
 
 A convenient hack to add a centred title in a non-faceted plot is to add a `facet_wrap` layer with a character string for the `facets` argument. 
 
-```{r, fig.asp=0.9, eval = FALSE}
+```{r, fig.asp=0.9}
 library(patchwork)
 
 p1 <- mtcars |> 
@@ -59,14 +59,16 @@ p3 <- mtcars |>
   facet_wrap(~"Plot 3")
 
  (p1 + p2) / p3 +
-   plot_annotation(title = "A collection of plots patched together", 
-                   subtitle = "Works so nice!", 
-                   theme = light_mode_rt() +
-                     theme(
-                       plot.title = element_text(margin = margin(t = 10 * -0.5, b = 10 * 0.75)),
-                       plot.subtitle = element_text(margin = margin())
-                     )
-                   )
+  plot_annotation(
+    title = "A collection of plots patched together",
+    subtitle = "Works so nice!",
+    theme = light_mode_rt() +
+      theme(
+        plot.title = element_text(face = "bold",
+                                  margin = margin(t = 10 * -0.5, b = 10 * 0.75)),
+        plot.subtitle = element_text(margin = margin())
+      )
+  )
 ```
 
 #### ggblend
@@ -283,29 +285,6 @@ penguins |>
              data = penguins |> filter(species != "Gentoo")) +
   scale_color_manual(values = c(pal_plum, pal_orange)) +
   labs(colour = "Species")
-```
-
-#### ggpattern
-
-The ggpattern package can be used to add patterns to geoms.
-
-```{r, eval = FALSE}
-library(ggpattern)
-
-penguins |>
-  group_by(species, sex) |>
-  summarise(across(body_mass_g, \(x) mean(x))) |>
-  gg_blanket(
-    geom = "col_pattern",
-    position = "dodge",
-    y = species,
-    x = body_mass_g,
-    col = sex,
-    mapping = aes(pattern = sex),
-    width = 0.75,
-  ) +
-  labs(pattern = "Sex") +
-  guides(pattern = guide_legend(reverse = TRUE))
 ```
 
 #### ggrepel

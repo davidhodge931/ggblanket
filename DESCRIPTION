@@ -7,7 +7,7 @@ Authors@R: c(
 Description: Simplify 'ggplot2' visualisation with 'ggblanket' wrapper functions. 
 License: MIT + file LICENSE
 URL: https://davidhodge931.github.io/ggblanket/,
-    https://github.com/davidhodge931/ggblanket
+     https://github.com/davidhodge931/ggblanket
 BugReports: https://github.com/davidhodge931/ggblanket/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

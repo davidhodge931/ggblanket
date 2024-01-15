@@ -2,6 +2,7 @@
 
 * Rewrote code completely.
 * Exported `gg_blanket` function, which allows for a ggproto geom (or character string) to be added.
+* Help all draws off that of `gg_blanket` @olivroy
 * Added `stat` support for a ggproto object (or character string).
 * Added `position` support for a ggproto object (or character string).
 * Added `transform` support for a transform class object (or character string).
