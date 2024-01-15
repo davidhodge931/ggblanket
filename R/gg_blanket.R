@@ -1162,7 +1162,7 @@ gg_blanket <- function(
   }
   #support where col is null, but there is a colour scale
   else {
-    scales <- purrr::map_chr(plot_build$plot$scales$scales, \(x) {
+    scales <- purrr::map_chr(plot_build$plot$scales$scales, function(x) {
       ifelse(rlang::is_null(rlang::call_name(x[["call"]])), NA,
              rlang::call_name(x[["call"]]))
     })
@@ -1383,7 +1383,7 @@ gg_blanket <- function(
       else { #guess anything that's ordered represents col,
         #as there is a discrete col scale and no col variable supplied
         plot_data_ordered <- plot_data %>%
-          dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), \(x) length(levels(x))))
+          dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), function(x) length(levels(x))))
 
         if (ncol(plot_data_ordered) == 0) {
           if (rlang::is_null(col_pal)) col_pal <- pal_discrete(n = 4)
@@ -1525,7 +1525,7 @@ gg_blanket <- function(
       else { #guess anything that's ordered represents alpha,
         #as there is a discrete alpha scale and no alpha variable supplied
         plot_data_ordered <- plot_data %>%
-          dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), \(x) length(levels(x))))
+          dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), function(x) length(levels(x))))
 
         if (ncol(plot_data_ordered) == 0) {
           if (rlang::is_null(alpha_pal)) alpha_pal <- rep(1, times = 10)
@@ -1670,7 +1670,7 @@ gg_blanket <- function(
         x_vars_str <- "^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$"
 
         x_vctr <- plot_data %>%
-          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), \(x) !is.na(x))) %>%
+          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), function(x) !is.na(x))) %>%
           dplyr::select(tidyselect::matches(stringr::regex(x_vars_str))) %>%
           tidyr::pivot_longer(cols = tidyselect::everything()) %>%
           dplyr::pull(.data$value)
@@ -1835,7 +1835,7 @@ gg_blanket <- function(
         y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
 
         y_vctr <- plot_data %>%
-          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), \(x) !is.na(x))) %>%
+          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), function(x) !is.na(x))) %>%
           dplyr::select(tidyselect::matches(stringr::regex(y_vars_str))) %>%
           tidyr::pivot_longer(cols = tidyselect::everything()) %>%
           dplyr::pull(.data$value)

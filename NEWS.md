@@ -2,7 +2,7 @@
 
 * Rewrote code completely.
 * Exported `gg_blanket` function, which allows for a ggproto geom (or character string) to be added.
-* Each function's @param help now inherits from `gg_blanket` (@olivroy, #625).
+* Each function's help on inputs inherits from `gg_blanket` (@olivroy, #625).
 * Added `stat` support for a ggproto object (or character string).
 * Added `position` support for a ggproto object (or character string).
 * Added `transform` support for a transform class object (or character string).
@@ -127,6 +127,7 @@
 * Breaking: removed `void` argument from `gg_theme`.
 * Corrected bug with `gg_raster` legend not showing.
 * Updated `gg_raster` `*_limits` and `*_expand` defaults.
+* Internal function to make infinite values NA made compatible with dplyr 1.1.0 (#269, @DavisVaughan)
 
 # ggblanket 1.6.0
 
