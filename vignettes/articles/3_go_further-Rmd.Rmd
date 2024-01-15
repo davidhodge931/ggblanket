@@ -33,6 +33,7 @@ library(ggplot2)
 library(dplyr)
 library(stringr)
 library(tidyr)
+library(palmerpenguins)
 ```
 
 ### 1. Use different fonts
@@ -46,7 +47,7 @@ sysfonts::font_add_google('Syne Mono', 'syne')
 
 showtext::showtext_auto(enable = TRUE)
 
-palmerpenguins::penguins |>
+penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_point(
     x = flipper_length_mm,
@@ -93,7 +94,7 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
 The default `stat` of each `gg_*` function can be changed for additional flexibility. 
 
 ```{r}
-palmerpenguins::penguins |>
+penguins |>
   gg_pointrange(
     x = species,
     y = flipper_length_mm, 
@@ -122,7 +123,7 @@ ggplot2::economics |>
 Most functions have the commonly needed aesthetics directly available as an argument. For those that are not available, you can either use `mapping` argument. The `mapping` argument provides access to the `linetype`, `shape` and `size` aesthetics within the `gg_*` function. 
 
 ```{r}
-palmerpenguins::penguins |> 
+penguins |> 
   gg_point(
     x = flipper_length_mm, 
     y = body_mass_g, 
@@ -137,7 +138,7 @@ palmerpenguins::penguins |>
 As the `x`, `y`, `col` and `alpha` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This is useful for delayed evaluation with the `after_stat` function.
 
 ```{r, fig.asp=0.55}
-palmerpenguins::penguins |>
+penguins |>
   gg_histogram(
     x = flipper_length_mm,
     mapping = aes(y = after_stat(density)),
@@ -173,7 +174,7 @@ contrast <- function(col_pal,
 
 aes_contrast <- aes(colour = after_scale(contrast(fill)))
 
-palmerpenguins::penguins |>
+penguins |>
   count(species, sex) |> 
   gg_col(
     x = sex,

@@ -454,6 +454,7 @@ This needs to be considered when you are using `x_limits` or `y_limits`, and you
 ##### Other
 
 * `*_title` is equivalent to `ggplot2::labs(* = ...)`
+* Facet arguments `strip.position` and `switch` are renamed `facet_labels_position` and `facet_labels_switch`
 * y categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) * Logical variables are reversed, so that `TRUE` always comes before `FALSE`
 * Infinite values are treated as NA
  

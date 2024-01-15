@@ -2,12 +2,13 @@
 
 * Rewrote code completely.
 * Exported `gg_blanket` function, which allows for a ggproto geom (or character string) to be added.
-* Help all draws off that of `gg_blanket` @olivroy
+* Each function's @param help now inherits from `gg_blanket` (@olivroy, #625).
 * Added `stat` support for a ggproto object (or character string).
 * Added `position` support for a ggproto object (or character string).
 * Added `transform` support for a transform class object (or character string).
 * Added `alpha` aesthetic support with new `alpha`, `alpha_pal` and `alpha_*` arguments.
 * Added `facet_axes` and `facet_axis_labels` arguments.
+* Added `facet_labels_position` argument.
 * Added `light_mode_*` and `dark_mode_*` family of functions.
 * Added `col_continuous_type` argument to support colouring by "steps". 
 * Changed `*_mode_*` default base_size to 11.
@@ -17,7 +18,8 @@
 * Changed NULL effect of pretty axis `*_limits = c(NA, NA)` on `y_expand` NULL.
 * Improved default gridlines.
 * Fixed bug when `col` is logical class.
-* Added new `pal_census`, and helper `pal_blue`, `pal_teal`, `pal_orange`, `pal_navy`, `pal_plum` and `pal_grey` - updated the default discrete palette.
+* Added new helper hex codes `pal_blue`, `pal_teal`, `pal_orange`, `pal_navy`, `pal_plum` and `pal_grey`
+* Updated the default discrete palette.
 * Breaking: shift `...` to the front to require users to name arguments.
 * Breaking: renamed `pal` to `col_pal`.
 * Breaking: renamed `pal_na` to `col_pal_na`.
@@ -29,6 +31,7 @@
 * Breaking: removed `light_mode` and `dark_mode` functions.
 * Breaking: removed `col_scale` argument.
 * Breaking: removed `gg_blank` function.
+* Breaking: renamed `facet_switch` argument to `facet_labels_switch`.
 * Breaking: removed `guardian` function.
 
 # ggblanket 5.2.0
@@ -62,8 +65,6 @@
 * Updated `*_breaks` defaults.
 * Made plot order logical variables with `TRUE` first.  
 * Added `pal_discrete2` with 6 colour blind safe colours for a light background theme. 
-* Breaking: renamed `facet_switch` argument to `facet_labels_switch`.
-* Added `facet_labels_position` argument.
 
 # ggblanket 4.0.0
 

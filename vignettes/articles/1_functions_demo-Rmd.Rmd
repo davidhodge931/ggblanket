@@ -25,6 +25,7 @@ library(ggplot2)
 library(dplyr)
 library(stringr)
 library(tidyr)
+library(palmerpenguins)
 
 theme_set(light_mode_rt())
 ```
@@ -43,7 +44,7 @@ economics |>
 ### gg_bar
 
 ```{r }
-palmerpenguins::penguins |>
+penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_bar(
     y = species,
@@ -66,7 +67,7 @@ diamonds |>
 ### gg_boxplot
 
 ```{r}
-palmerpenguins::penguins |>
+penguins |>
   drop_na(sex) |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_boxplot(
@@ -80,7 +81,7 @@ palmerpenguins::penguins |>
 ### gg_col
 
 ```{r}
-palmerpenguins::penguins |>
+penguins |>
   drop_na(sex) |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   group_by(sex, species) |>
@@ -141,7 +142,7 @@ data.frame(
 ### gg_density
 
 ```{r}
-palmerpenguins::penguins |>
+penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   drop_na(sex) |> 
   gg_density(
@@ -197,7 +198,7 @@ data.frame(
 ### gg_freqpoly
 
 ```{r}
-palmerpenguins::penguins |>
+penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_freqpoly(
     x = flipper_length_mm,
@@ -222,7 +223,7 @@ diamonds |>
 ### gg_histogram
 
 ```{r}
-palmerpenguins::penguins |>
+penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_histogram(
     x = flipper_length_mm,
@@ -238,7 +239,7 @@ palmerpenguins::penguins |>
 ```{r}
 set.seed(123)
 
-palmerpenguins::penguins |>
+penguins |>
   gg_jitter(
     x = species,
     y = body_mass_g,
@@ -318,7 +319,7 @@ economics |>
 ### gg_point
 
 ```{r}
-palmerpenguins::penguins |>
+penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_point(
     x = flipper_length_mm,
@@ -383,7 +384,7 @@ datapoly |>
 ### gg_qq
 
 ```{r}
-palmerpenguins::penguins |>
+penguins |>
   gg_qq(
     sample = body_mass_g,
     facet = species,
@@ -465,7 +466,7 @@ sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
 ### gg_smooth
 
 ```{r}
-palmerpenguins::penguins |>
+penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   drop_na(sex) |> 
   gg_smooth(
@@ -512,7 +513,7 @@ bind_rows(
 ### gg_tile
 
 ```{r}
-palmerpenguins::penguins |>
+penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   group_by(species, sex) |>
   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
@@ -526,7 +527,7 @@ palmerpenguins::penguins |>
 ### gg_violin
 
 ```{r}
-palmerpenguins::penguins |>
+penguins |>
   drop_na(sex) |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_violin(
@@ -541,7 +542,7 @@ palmerpenguins::penguins |>
 ### ggblanket
 
 ```{r}
-palmerpenguins::penguins |>
+penguins |>
   drop_na(sex) |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_blanket(
