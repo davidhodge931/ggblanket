@@ -34,7 +34,7 @@ Secondary objectives relate to:
 
 ## How it works
  
-1.  Over thirty `gg_*` wrapper functions
+1.  Almost forty `gg_*` wrapper functions
 2.  A `col` argument to colour and fill by a variable
 3.  A `facet` argument to facet by a variable
 4.  A `facet2` argument to facet by a 2nd variable
@@ -60,7 +60,7 @@ library(palmerpenguins)
 library(patchwork)
 ```
  
-### 1. Over thirty `gg_*` wrapper functions
+### 1. Almost forty `gg_*` wrapper functions
 
 Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. Each `gg_*` function is named after the `geom_*` function they wrap. 
 

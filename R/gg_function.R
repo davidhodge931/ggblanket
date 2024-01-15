@@ -1,6 +1,6 @@
-#' @title Point ggplot
+#' @title Function ggplot
 #'
-#' @description Create a point ggplot with a wrapper around ggplot() + geom_point.
+#' @description Create a function ggplot with a wrapper around ggplot() + geom_function.
 #'
 #' @inheritParams gg_blanket
 #'
@@ -11,22 +11,17 @@
 #'
 #' library(ggplot2)
 #' library(dplyr)
-#' library(palmerpenguins)
 #'
-#' penguins |>
-#'   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = sex,
-#'     facet = species,
-#'     theme = light_mode_b(),
-#'   )
+#' gg_function(
+#'   fun = \(x) dnorm(x, mean = 0, sd = 5),
+#'   x_limits = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
+#'   y_expand_limits = 0,
+#' )
 #'
-gg_point <- function(
+gg_function <- function(
     data = NULL,
     ...,
-    stat = "identity",
+    stat = "function",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
     theme = NULL,
@@ -115,7 +110,7 @@ gg_point <- function(
 
   gg_blanket(
     data = data,
-    geom = "point",
+    geom = "function",
     stat = stat,
     position = position,
     coord = coord,

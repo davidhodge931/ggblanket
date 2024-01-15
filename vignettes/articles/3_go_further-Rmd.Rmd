@@ -95,6 +95,17 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
 The default `stat` of each `gg_*` function can be changed for additional flexibility. 
 
 ```{r}
+penguins |> 
+  gg_point(
+    stat = "sum",
+    x = species,
+    y = island,
+  ) +
+  labs(size = "Count")
+```
+
+
+```{r}
 penguins |>
   gg_pointrange(
     x = species,
