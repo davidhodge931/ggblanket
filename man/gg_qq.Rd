@@ -279,8 +279,9 @@ Create a qq ggplot with a wrapper around ggplot() + geom_qq.
 
 library(ggplot2)
 library(dplyr)
+library(palmerpenguins)
 
-palmerpenguins::penguins |>
+penguins |>
   gg_qq(
     sample = body_mass_g,
     facet = species,

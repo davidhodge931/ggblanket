@@ -279,8 +279,9 @@ Create a smooth ggplot with a wrapper around ggplot() + geom_smooth.
 
 library(ggplot2)
 library(dplyr)
+library(palmerpenguins)
 
-palmerpenguins::penguins |>
+penguins |>
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   tidyr::drop_na(sex) |>
   gg_smooth(

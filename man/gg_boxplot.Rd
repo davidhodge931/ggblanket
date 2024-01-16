@@ -279,8 +279,9 @@ Create a boxplot ggplot with a wrapper around ggplot() + geom_boxplot.
 
 library(ggplot2)
 library(dplyr)
+library(palmerpenguins)
 
-palmerpenguins::penguins |>
+penguins |>
   tidyr::drop_na(sex) |>
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_boxplot(

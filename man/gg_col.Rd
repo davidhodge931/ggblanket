@@ -279,8 +279,9 @@ Create a col ggplot with a wrapper around ggplot() + geom_col.
 
 library(ggplot2)
 library(dplyr)
+library(palmerpenguins)
 
-palmerpenguins::penguins |>
+penguins |>
   tidyr::drop_na(sex) |>
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   group_by(sex, species) |>

@@ -11,10 +11,11 @@
 #'
 #' library(ggplot2)
 #' library(dplyr)
+#' library(palmerpenguins)
 #'
 #' set.seed(123)
 #'
-#' palmerpenguins::penguins |>
+#' penguins |>
 #'   gg_jitter(
 #'     x = species,
 #'     y = body_mass_g,

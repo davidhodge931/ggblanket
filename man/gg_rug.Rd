@@ -279,8 +279,9 @@ Create a rug ggplot with a wrapper around ggplot() + geom_rug.
 
 library(ggplot2)
 library(dplyr)
+library(palmerpenguins)
 
-palmerpenguins::penguins |>
+penguins |>
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_rug(
     x = flipper_length_mm,

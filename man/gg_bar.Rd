@@ -279,8 +279,9 @@ Create a bar ggplot with a wrapper around ggplot() + geom_bar.
 
 library(ggplot2)
 library(dplyr)
+library(palmerpenguins)
 
-palmerpenguins::penguins |>
+penguins |>
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_bar(
     y = species,

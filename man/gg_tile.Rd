@@ -279,8 +279,9 @@ Create a tile plot with a wrapper around ggplot() + geom_tile.
 
 library(ggplot2)
 library(dplyr)
+library(palmerpenguins)
 
-palmerpenguins::penguins |>
+penguins |>
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   group_by(species, sex) |>
   summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>

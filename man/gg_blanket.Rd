@@ -282,8 +282,9 @@ Create a blanket ggplot with a wrapper around ggplot() + layer() with geom_blank
 
 library(ggplot2)
 library(dplyr)
+library(palmerpenguins)
 
-palmerpenguins::penguins |>
+penguins |>
   tidyr::drop_na(sex) |>
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_blanket(

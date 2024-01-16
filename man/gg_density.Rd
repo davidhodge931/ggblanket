@@ -279,8 +279,9 @@ Create a density ggplot with a wrapper around ggplot() + geom_density.
 
 library(ggplot2)
 library(dplyr)
+library(palmerpenguins)
 
-palmerpenguins::penguins |>
+penguins |>
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   tidyr::drop_na(sex) |>
   gg_density(
