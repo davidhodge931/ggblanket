@@ -50,15 +50,17 @@ install.packages("ggblanket")
 library(ggblanket)
 library(ggplot2)
 library(dplyr)
+library(palmerpenguins)
 
-palmerpenguins::penguins |>
+penguins |>
   tidyr::drop_na(sex) |> 
   mutate(sex = stringr::str_to_sentence(sex)) |>
   gg_histogram(
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    theme = light_mode_b())
+    theme = light_mode_b(),
+  )
 ```
 
 
@@ -66,8 +68,8 @@ palmerpenguins::penguins |>
 
 Click [here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html) to start learning how ggblanket works.
 
-## Thanks!
+## Thank you
 
-Thank you to all authors of ggplot2, tidyverse, and the wider R ecosystem. 
+Thanks to all authors of ggplot2, tidyverse, and the wider R ecosystem. 
 
-If you like ggblanket, please give the repository a star.
+This R package is dedicated in loving memory to my Dad (Peter Hodge, 1953-2023).
