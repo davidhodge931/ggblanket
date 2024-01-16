@@ -111,7 +111,8 @@ gg_violin <- function(
     title = NULL,
     subtitle = NULL,
     caption = NULL,
-    titles = snakecase::to_sentence_case
+    titles = snakecase::to_sentence_case,
+    flipped = NULL
 ) {
 
   gg_blanket(
@@ -201,6 +202,7 @@ gg_violin <- function(
     subtitle = subtitle,
     caption = caption,
     titles = titles,
+    flipped = flipped,
     ...
   )
 }

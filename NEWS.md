@@ -12,6 +12,7 @@
 * Added `light_mode_*` and `dark_mode_*` family of functions.
 * Added `col_continuous_type` argument to support colouring by "steps". 
 * Added `gg_quantile`, `gg_rug`, and `gg_function` functions.
+* Added `flipped` argument.
 * Changed `*_mode_*` default base_size to 11.
 * Changed `*_mode_*` default face to plain.
 * Changed `*_mode_*` `base_pal` to be a 5 colour vector to colour the whole plot.

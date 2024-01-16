@@ -90,6 +90,7 @@
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
 #' @param titles A function to format unspecified titles. Defaults to snakecase::to_sentence_case.
+#' @param flipped TRUE or FALSE or whether the plot is flipped. Guesses if NULL. This affects the defaults of positional scale and gridlines.
 #'
 #' @return A ggplot object.
 #' @export
@@ -201,7 +202,8 @@ gg_blanket <- function(
     title = NULL,
     subtitle = NULL,
     caption = NULL,
-    titles = snakecase::to_sentence_case
+    titles = snakecase::to_sentence_case,
+    flipped = NULL
 ) {
 
   ##############################################################################
@@ -435,13 +437,15 @@ gg_blanket <- function(
   #determine if flipped
   ##############################################################################
 
-  if (x_null & !y_null) flipped <- TRUE
-  else if ((x_numeric | x_date | x_posixct | x_hms) &
-           !(y_null | y_numeric | y_date | y_posixct | y_hms)) {
-    flipped <- TRUE
+  if (rlang::is_null(flipped)) {
+    if (x_null & !y_null) flipped <- TRUE
+    else if ((x_numeric | x_date | x_posixct | x_hms) &
+             !(y_null | y_numeric | y_date | y_posixct | y_hms)) {
+      flipped <- TRUE
+    }
+    else if (x_numeric & (y_date | y_posixct | y_hms)) flipped <- TRUE
+    else flipped <- FALSE
   }
-  else if (x_numeric & (y_date | y_posixct | y_hms)) flipped <- TRUE
-  else flipped <- FALSE
 
   ##############################################################################
   #get geom, stat, transform & position strings

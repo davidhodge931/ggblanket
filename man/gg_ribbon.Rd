@@ -91,7 +91,8 @@ gg_ribbon(
   title = NULL,
   subtitle = NULL,
   caption = NULL,
-  titles = snakecase::to_sentence_case
+  titles = snakecase::to_sentence_case,
+  flipped = NULL
 )
 }
 \arguments{
@@ -268,6 +269,8 @@ gg_ribbon(
 \item{caption}{Caption title string.}
 
 \item{titles}{A function to format unspecified titles. Defaults to snakecase::to_sentence_case.}
+
+\item{flipped}{TRUE or FALSE or whether the plot is flipped. Guesses if NULL. This affects the defaults of positional scale and gridlines.}
 }
 \value{
 A ggplot object.

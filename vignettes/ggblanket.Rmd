@@ -42,13 +42,12 @@ Secondary objectives relate to:
 6.  Numerous prefixed arguments to customise 
 7.  Default sentence case titles 
 8.  `light_mode_*` and `dark_mode_*` theme families
-9.  Pretty default continuous axis scales with opt-out
-10. Helpful default `*_gridlines` removal
-11. Access to other `geom_*` arguments via ...
-12. Flexibility to turn-off or fix either colour or fill
-13. Ability to add multiple `geom_*` layers
-14. Other key differences to ggplot2
-15. A `gg_blanket` function for extra `geom` flexibility
+9.  Symmetric continuous axis scales and helpful gridlines removal
+10. Access to other `geom_*` arguments via ...
+11. Flexibility to turn-off or fix either colour or fill
+12. Ability to add multiple `geom_*` layers
+13. Other key differences to ggplot2
+14. A `gg_blanket` function for extra `geom` flexibility
 
 ```{r setup}
 library(ggblanket)
@@ -230,62 +229,55 @@ penguins |>
   )
 ```
 
-### 9. Pretty default continuous axis scales with opt-out
+### 9. Symmetric continuous axis scales and helpful gridlines removal
 
-ggblanket provides a pretty continuous y scale for non-horizontal plots that has: 
+ggblanket guesses whether the plot is flipped or not in order to determine:
+
+* which scale to make symmetric by default
+* which `*_gridlines` to remove by default
+
+This `flipped` argument can be specified where it does not get it right.
+
+The symmetric continuous y scale for non-flipped plots defaults to: 
 
 * `y_limits` that are the range of the `y_breaks` 
 * `y_expand` of `c(0, 0)`
 
-This pretty scale can be turned off easily using `y_limits = c(NA, NA)` (or by providing a `y_expand` value).
+This symmetric scale can be turned off easily using `y_limits = c(NA, NA)` (or by providing a `y_expand` value).
 
-The opposite occurs for horizontal plots with the x scale. 
+The opposite occurs for flipped plots with the x scale. 
 
-Sometimes you may need to add `*_expand_limits = 0`, if the lower bound of the pretty scale falls on a close low number.
+Sometimes you may need to add `*_expand_limits = 0`, if the lower bound of the symmetric scale falls on a close low number.
 
-(Note this pretty scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.) 
+Note this symmetric scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.
 
-```{r}
-economics |>
-  gg_line(
-    x = date,
-    y = unemploy,
-    y_title = "Unemployment",
-    y_expand_limits = 0,
-  )
-```
+For non-flipped plots, `x_gridlines` will be removed by default - and `y_gridlines` removed by default for flipped plots. You can adjust this if needed using the `*_gridlines` arguments. Subsequently, it is recommended that themes with gridlines in both x and y directions are used with ggblanket.
 
 ```{r}
-economics |>
-  gg_line(
-    x = date,
-    y = unemploy,
-    y_title = "Unemployment",
-    y_limits = c(NA, NA), 
-  )
-```
-
-### 10.  Helpful default gridlines removal
-
-The `gg_*` functions adjust what gridlines are present in the graph - by removing the ones that it guesses are not required. 
-
-You can adjust this if needed using the `*_gridlines` arguments. 
-
-Subsequently, it is recommended that themes with gridlines in both x and y directions are used with ggblanket.
-
-```{r}
-penguins |>
-  drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
-  gg_jitter(
+p1 <- penguins |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  gg_point(
     x = flipper_length_mm,
-    y = sex,
-    col = sex, 
-    theme = theme_grey(),
+    y = body_mass_g,
+    col = sex,
+    flipped = FALSE,
+    theme = light_mode_b(),
   )
+
+p2 <- penguins |>
+  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    flipped = TRUE,
+  ) +
+  guides(colour = "none", fill = "none")
+
+p1 + p2
 ```
 
-### 11. Access to other `geom_*` arguments via `...`
+### 10. Access to other `geom_*` arguments via `...`
 
 The `...` argument provides accesss to all other arguments in the `geom_*` function. Common arguments from `...` to add are `size`, `linewidth` and `width`.
 
@@ -303,7 +295,7 @@ penguins |>
   ) 
 ```
 
-### 12. Flexibility to turn-off or fix either colour or fill
+### 11. Flexibility to turn-off or fix either colour or fill
 
 For a geom with both outlines and fill, the default is to have both of these to the same colour with a default value of `alpha_pal`.
 
@@ -341,7 +333,7 @@ penguins |>
   guides(colour = "none", fill = "none")
 ```
 
-### 13. Ability to add multiple `geom_*` layers
+### 12. Ability to add multiple `geom_*` layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
 
@@ -404,7 +396,7 @@ penguins |>
   ) 
 ```
 
-### 14. Other ggplot2 key differences 
+### 13. Other ggplot2 key differences 
 
 ##### Unquoted variables only
 
@@ -461,13 +453,11 @@ This needs to be considered when you are using `x_limits` or `y_limits`, and you
 * y categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) * Logical variables are reversed, so that `TRUE` always comes before `FALSE`
 * Infinite values are treated as NA
  
-### 15. A `gg_blanket` function for extra `geom` flexibility
+### 14. A `gg_blanket` function for extra `geom` flexibility
 
 ggblanket is driven by `gg_blanket` function, which has a `geom` argument with `geom_blank` defaults.
 
 All other functions wrap this function with a locked-in geom, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
-
-Because gg_blanket has a `geom` argument, it can be used with other geoms provided by other packages.
 
 ```{r}
 palmerpenguins::penguins |>
@@ -482,7 +472,6 @@ palmerpenguins::penguins |>
     col = sex,
   )
 ```
-
 
 ```{r}
 library(ggforce)
