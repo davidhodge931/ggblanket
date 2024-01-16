@@ -66,5 +66,4 @@ to start learning how ggblanket works.
 
 Thanks to all authors of ggplot2, tidyverse, and the wider R ecosystem.
 
-This R package is dedicated in loving memory to my Dad (Peter Hodge,
-1953-2023).
+This R package is dedicated to my Dad (Peter Hodge, 1953-2023).
