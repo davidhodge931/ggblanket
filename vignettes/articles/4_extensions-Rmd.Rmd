@@ -79,6 +79,39 @@ p3 <- mtcars |>
   )
 ```
 
+#### ggalluvial
+ 
+The ggalluvial package supports sankey charts. 
+
+```{r}
+library(ggalluvial)
+
+titanic_wide <- data.frame(Titanic)
+  
+titanic_wide |> 
+  gg_blanket(
+    geom = "alluvium",
+    stat = "alluvium",
+    y = Freq, 
+    col = Survived,
+    mapping = aes(axis1 = Class, axis2 = Sex, axis3 = Age),
+    flipped = FALSE,
+    x_breaks = c(1, 2, 3),
+    x_labels = c("Class", "Sex", "Age"),
+    y_limits = c(NA, NA),
+    col_pal = c(pal_orange, pal_teal),
+  ) +
+  geom_stratum(colour = "black",
+               fill = "white",
+               show.legend = FALSE) +
+  geom_text(stat = "stratum",
+            aes(label = after_stat(stratum)),
+            colour = "black",
+            show.legend = FALSE) +
+  guides(colour = "none") +
+  ggeasy::easy_remove_y_axis()
+```
+
 #### ggblend
  
 The ggblend package provides blending of colours. Note you must use a graphics device that supports blending.
