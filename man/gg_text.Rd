@@ -294,8 +294,8 @@ bind_rows(
     label = model,
     size = 3.53,
     y_expand_limits = 0,
-    col_pal = c(pal_orange, "white", pal_teal),
     y_title = "Miles per gallon",
+    col_pal = c(pal_orange, "white", pal_teal),
   )
 
 }

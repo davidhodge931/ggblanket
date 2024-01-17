@@ -289,8 +289,8 @@ economics |>
     x = unemploy_rate,
     y = psavert,
     x_title = "Unemployment rate",
-    y_title = "Personal savings rate",
     y_expand_limits = 0,
+    y_title = "Personal savings rate",
   )
 
 }

@@ -22,8 +22,8 @@
 #'     x = flipper_length_mm,
 #'     y = species,
 #'     col = sex,
-#'     width = 0.75,
 #'     position = position_dodge(preserve = "single"),
+#'     width = 0.75,
 #'   )
 #'
 gg_col <- function(

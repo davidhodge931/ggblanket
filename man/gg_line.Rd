@@ -287,8 +287,8 @@ economics |>
   gg_line(
     x = date,
     y = unemploy,
-    y_title = "Unemployment",
     y_expand_limits = 0,
+    y_title = "Unemployment",
   )
 
 }

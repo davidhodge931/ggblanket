@@ -200,8 +200,8 @@ diamonds |>
   gg_hex(
     x = carat,
     y = price,
-    y_limits = c(0, 20000),
     coord = coord_cartesian(clip = "on"), 
+    y_limits = c(0, 20000),
   )
 ```
 
@@ -313,8 +313,8 @@ penguins |>
     y = flipper_length_mm,
     col = sex,
     colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
-    alpha_pal = 0.9,
     position = position_dodge2(preserve = "single"),
+    alpha_pal = 0.9,
   )
 ```
 
@@ -326,9 +326,9 @@ penguins |>
     y = flipper_length_mm,
     col = hack,
     colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
+    width = 0.5,
     col_pal = pal_blue,
     alpha_pal = 0.9,
-    width = 0.5,
   ) +
   guides(colour = "none", fill = "none")
 ```
@@ -490,6 +490,25 @@ iris |>
     col_pal = c(pal_teal, pal_orange, pal_navy),
   )
 ```
+
+## Code style
+
+The following code style is recommended:
+
+a). Put each argument on a different line to the opening and closing bracket
+
+b). Use trailing comma's
+
+c). Order arguments as follows:
+
+- `data`
+- aesthetics: `x*`/`y*`/`col`/`alpha`/`facet`/`facet2` etc (in this order)
+- `stat`/`position`/`coord`  (in this order)
+- ... (i.e. any other arguments from the applicable `geom_*` function)
+- `x_*`/`y_*`/`col_*`/`alpha_*`/`facet_*` (in this order)
+- `theme`
+
+For `gg_blanket`, put `geom`, `stat`, `position` and `coord` (in this order) upfront straight after `data`. 
 
 ## Further information 
 

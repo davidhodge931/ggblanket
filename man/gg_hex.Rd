@@ -287,8 +287,8 @@ diamonds |>
   gg_hex(
     x = carat,
     y = price,
-    y_limits = c(0, 20000),
     coord = coord_cartesian(clip = "on"),
+    y_limits = c(0, 20000),
   )
 
 }

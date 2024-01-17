@@ -291,9 +291,9 @@ penguins |>
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
-    col_continuous_type = "steps",
-    y_expand_limits = 0,
     position = position_jitter(height = 0),
+    y_expand_limits = 0,
+    col_continuous_type = "steps",
     col_labels = \(x) str_keep_seq(x, by = 2),
   )
 

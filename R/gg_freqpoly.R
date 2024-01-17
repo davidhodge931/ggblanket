@@ -18,8 +18,8 @@
 #'   gg_freqpoly(
 #'     x = flipper_length_mm,
 #'     col = sex,
-#'     theme = light_mode_t(),
 #'     col_title = "",
+#'     theme = light_mode_t(),
 #'   )
 #'
 gg_freqpoly <- function(

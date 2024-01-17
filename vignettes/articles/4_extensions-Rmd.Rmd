@@ -121,8 +121,8 @@ penguins |>
   gg_blanket(
     x = flipper_length_mm,
     col = species,
-    col_pal = RColorBrewer::brewer.pal(9, "Set1"),
     stat = "density",
+    col_pal = RColorBrewer::brewer.pal(9, "Set1"),
   ) +
   geom_density(
     alpha = 0.5, 
@@ -216,8 +216,8 @@ tibble(x = 1:10) |>
     ymax = .upper,
     col = .width,
     colour = "black",
-    col_pal = rev(RColorBrewer::brewer.pal(n = 3, "Blues")),
     col_legend_rev = TRUE,
+    col_pal = rev(RColorBrewer::brewer.pal(n = 3, "Blues")),
   )
 ```
 
@@ -232,8 +232,8 @@ penguins |>
     x = species, 
     y = body_mass_g, 
     col = sex, 
-    theme = light_mode_t(),
     col_title = "",
+    theme = light_mode_t(),
   ) +
   ggeasy::easy_remove_y_axis(what = c("line", "ticks"))
 ```
@@ -311,8 +311,8 @@ penguins |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
-    col_pal = rep(pal_blue, 3), 
     x_breaks = scales::breaks_pretty(4),
+    col_pal = rep(pal_blue, 3), 
   ) + #build the scale for not faceted (i.e. all data)
   facet_wrap(~species) + #then add facet layer
   gghighlight::gghighlight() 
@@ -379,9 +379,9 @@ ggridges::Catalan_elections |>
     x = percent,
     y = year,
     col = option,
-    y_expand = expansion(c(0, 0.125)),
-    x_limits = c(0, 100),
     colour = "white",
+    x_limits = c(0, 100),
+    y_expand = expansion(c(0, 0.125)),
     alpha_pal = 0.7,
   )
 ```
@@ -416,17 +416,17 @@ penguins |>
     col = species,
     facet = island,
     facet2 = sex,
+    x_labels = \(x) glue::glue("_{x}_"),
     x_title = "**Bill depth** (mm)", 
+    y_labels = \(x) str_keep_seq(glue::glue("_{x}_")),
     y_title = "**Bill length** (mm)",
+    col_labels = \(x) glue::glue("_{x}_"),
     col_title = "**Species**",
+    facet_labels = \(x) glue::glue("_{x}_"),
     title = "***Pygoscelis*** **penguin** bill lengths and depths",
     subtitle = "<span style = 'color: #2596be ;'>**Adelie**</span>, 
        <span style = 'color:#fc7c24;'>**Chinstrap**</span>, 
        *and* <span style = 'color:#9c1e74;'>**Gentoo**</span>", 
-    x_labels = \(x) glue::glue("_{x}_"),
-    y_labels = \(x) str_keep_seq(glue::glue("_{x}_")),
-    col_labels = \(x) glue::glue("_{x}_"),
-    facet_labels = \(x) glue::glue("_{x}_"),
   ) +
   theme(  
     plot.title = ggtext::element_markdown(),
@@ -456,8 +456,8 @@ expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |>
     y = y,
     z = z,
     binwidth = 20,
-    x_limits = c(NA, NA),
     x_expand = c(0, 0),
+    x_limits = c(NA, NA),
     y_limits = c(NA, NA)) +
   geom_textcontour(
     aes(label = after_stat(level)), 
@@ -516,9 +516,9 @@ p <- diamonds |>
   gg_col(
     x = color,
     y = count,
-    y_expand_limits = 0,
     text = text,
     width = 0.75,
+    y_expand_limits = 0,
     theme = light_mode_rt(
       base_family = "arial"
     ),

@@ -287,10 +287,10 @@ economics |>
   gg_step(
     x = date,
     y = unemploy,
-    y_title = "Unemployment",
+    coord = ggplot2::coord_cartesian(clip = "on"),
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
     y_expand_limits = 0,
-    coord = ggplot2::coord_cartesian(clip = "on"),
+    y_title = "Unemployment",
   )
 
 }

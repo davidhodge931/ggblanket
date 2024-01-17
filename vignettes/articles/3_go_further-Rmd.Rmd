@@ -123,9 +123,9 @@ library(ggforce)
 ggplot2::economics |>
   slice_head(n = 35) |> 
   gg_path(
-    stat = "bspline",
     x = date, 
     y = unemploy,
+    stat = "bspline",
     n = 100, 
     linewidth = 1,
   ) 
@@ -194,8 +194,8 @@ penguins |>
     y = n,
     col = species,
     col_pal = c("#0095A8", "#112E51", "#FF7043"),
-    width = 0.75, 
     position = position_dodge2(preserve = "single"),
+    width = 0.75, 
     x_labels = \(x) str_to_sentence(x),
   ) +
   geom_text(
@@ -215,13 +215,13 @@ mtcars |>
     x = x, 
     y = y,
     col = r,
-    col_pal_na = pal_light_mode["plot"],
-    col_limits = c(-1, 1),
-    col_rescale = scales::rescale(c(-1, 0, 1)),
     x_title = "", 
     y_title = "", 
     x_expand = c(0, 0), 
     y_expand = c(0, 0),
+    col_pal_na = pal_light_mode["plot"],
+    col_limits = c(-1, 1),
+    col_rescale = scales::rescale(c(-1, 0, 1)),
     col_title = "r",
   ) +
   geom_text(

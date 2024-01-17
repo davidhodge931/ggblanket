@@ -49,8 +49,8 @@ penguins |>
   gg_bar(
     y = species,
     col = sex,
-    width = 0.75,
     position = position_dodge(preserve = "single"),
+    width = 0.75,
   )
 ```
 
@@ -91,8 +91,8 @@ penguins |>
     x = flipper_length_mm,
     y = species,
     col = sex,
-    width = 0.75,
     position = position_dodge(preserve = "single"),
+    width = 0.75,
   )
 ```
 
@@ -205,8 +205,8 @@ penguins |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
-    theme = dark_mode_t(),
     col_title = "",
+    theme = dark_mode_t(),
   )
 ```
 
@@ -247,9 +247,9 @@ penguins |>
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
-    col_continuous = "steps",
-    y_expand_limits = 0,
     position = position_jitter(height = 0), 
+    y_expand_limits = 0,
+    col_continuous = "steps",
     col_labels = \(x) str_keep_seq(x, by = 2),
     col_pal = viridisLite::mako(9),
   )
@@ -269,8 +269,8 @@ bind_rows(
     label = model,
     size = 3.53,
     y_expand_limits = 0,
-    col_pal = c(pal_orange, "white", pal_teal),
     y_title = "Miles per gallon", 
+    col_pal = c(pal_orange, "white", pal_teal),
   )
 ```
 
@@ -281,8 +281,8 @@ economics |>
   gg_line(
     x = date,
     y = unemploy,
-    y_title = "Unemployment",
     y_expand_limits = 0, 
+    y_title = "Unemployment",
   )
 ```
 
@@ -315,8 +315,8 @@ economics |>
     x = unemploy_rate,
     y = psavert,
     x_title = "Unemployment rate",
-    y_title = "Personal savings rate",
     y_expand_limits = 0,
+    y_title = "Personal savings rate",
   )
 ```
 
@@ -443,8 +443,8 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     x = year,
     ymin = level_min,
     ymax = level_max,
-    col_pal = scales::alpha(pal_blue, 0),
     y_title = "Level",
+    col_pal = scales::alpha(pal_blue, 0),
   ) +
   geom_line(
     mapping = aes(x = year, y = level), 
@@ -495,10 +495,10 @@ economics |>
   gg_step(
     x = date,
     y = unemploy,
-    y_title = "Unemployment",
+    coord = coord_cartesian(clip = "on"),
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_), 
     y_expand_limits = 0,
-    coord = coord_cartesian(clip = "on"),
+    y_title = "Unemployment",
   )
 ```
 
@@ -516,8 +516,8 @@ bind_rows(
     label = model,
     size = 3.53,
     y_expand_limits = 0,
-    col_pal = c(pal_orange, "white", pal_teal),
     y_title = "Miles per gallon",
+    col_pal = c(pal_orange, "white", pal_teal),
   )
 ```
 
