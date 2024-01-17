@@ -294,8 +294,8 @@ turned off using <code>titles = \(x) x</code>.</p>
 <span>  <span class="fu"><a href="../reference/gg_hex.html">gg_hex</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">carat</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">price</span>,</span>
-<span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20000</span><span class="op">)</span>,</span>
 <span>    coord <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span>, </span>
+<span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20000</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
@@ -436,8 +436,8 @@ However, this approach is not as flexible.</p>
 <span>    y <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    colour <span class="op">=</span> <span class="st">"black"</span>, <span class="co">#or colour = NA, or fill = NA or fill = "lightgrey" etc</span></span>
-<span>    alpha_pal <span class="op">=</span> <span class="fl">0.9</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
+<span>    alpha_pal <span class="op">=</span> <span class="fl">0.9</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -448,9 +448,9 @@ However, this approach is not as flexible.</p>
 <span>    y <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">hack</span>,</span>
 <span>    colour <span class="op">=</span> <span class="st">"black"</span>, <span class="co">#or colour = NA, or fill = NA or fill = "lightgrey" etc</span></span>
+<span>    width <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>    col_pal <span class="op">=</span> <span class="va">pal_blue</span>,</span>
 <span>    alpha_pal <span class="op">=</span> <span class="fl">0.9</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"none"</span>, fill <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
@@ -658,6 +658,33 @@ as per the applicable <code>geom_*</code> function.</p>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-22-1.svg" width="70%"></p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="code-style">Code style<a class="anchor" aria-label="anchor" href="#code-style"></a>
+</h2>
+<p>The following code style is recommended:</p>
+<p>a). Put each argument on a different line to the opening and closing
+bracket</p>
+<p>b). Use trailing comma’s</p>
+<p>c). Order arguments as follows:</p>
+<ul>
+<li><code>data</code></li>
+<li>aesthetics:
+<code>x*</code>/<code>y*</code>/<code>col</code>/<code>alpha</code>/<code>facet</code>/<code>facet2</code>
+etc (in this order)</li>
+<li>
+<code>stat</code>/<code>position</code>/<code>coord</code> (in this
+order)</li>
+<li>… (i.e. any other arguments from the applicable <code>geom_*</code>
+function)</li>
+<li>
+<code>x_*</code>/<code>y_*</code>/<code>col_*</code>/<code>alpha_*</code>/<code>facet_*</code>
+(in this order)</li>
+<li><code>theme</code></li>
+</ul>
+<p>For <code>gg_blanket</code>, put <code>geom</code>,
+<code>stat</code>, <code>position</code> and <code>coord</code> (in this
+order) upfront straight after <code>data</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="further-information">Further information<a class="anchor" aria-label="anchor" href="#further-information"></a>

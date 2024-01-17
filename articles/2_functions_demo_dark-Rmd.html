@@ -129,8 +129,8 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_bar.html">gg_bar</a></span><span class="op">(</span></span>
 <span>    y <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_functions_demo_dark-Rmd_files/figure-html/unnamed-chunk-3-1.svg" width="70%"></p>
 </div>
@@ -174,8 +174,8 @@ Hodge</h4>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_functions_demo_dark-Rmd_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
 </div>
@@ -296,8 +296,8 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_freqpoly.html">gg_freqpoly</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_t.html">dark_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    col_title <span class="op">=</span> <span class="st">""</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_t.html">dark_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_functions_demo_dark-Rmd_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
 </div>
@@ -341,9 +341,9 @@ Hodge</h4>
 <span>    x <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    col_continuous <span class="op">=</span> <span class="st">"steps"</span>,</span>
-<span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html" class="external-link">position_jitter</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, </span>
+<span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    col_continuous <span class="op">=</span> <span class="st">"steps"</span>,</span>
 <span>    col_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/str_keep_seq.html">str_keep_seq</a></span><span class="op">(</span><span class="va">x</span>, by <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
 <span>    col_pal <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
@@ -364,8 +364,8 @@ Hodge</h4>
 <span>    label <span class="op">=</span> <span class="va">model</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">3.53</span>,</span>
 <span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">pal_orange</span>, <span class="st">"white"</span>, <span class="va">pal_teal</span><span class="op">)</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Miles per gallon"</span>, </span>
+<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">pal_orange</span>, <span class="st">"white"</span>, <span class="va">pal_teal</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_functions_demo_dark-Rmd_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
 </div>
@@ -377,8 +377,8 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">date</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
-<span>    y_title <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
 <span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>    y_title <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_functions_demo_dark-Rmd_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
 </div>
@@ -413,8 +413,8 @@ Hodge</h4>
 <span>    x <span class="op">=</span> <span class="va">unemploy_rate</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">psavert</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">"Unemployment rate"</span>,</span>
-<span>    y_title <span class="op">=</span> <span class="st">"Personal savings rate"</span>,</span>
 <span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    y_title <span class="op">=</span> <span class="st">"Personal savings rate"</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_functions_demo_dark-Rmd_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
 </div>
@@ -548,8 +548,8 @@ Hodge</h4>
 <span>    x <span class="op">=</span> <span class="va">year</span>,</span>
 <span>    ymin <span class="op">=</span> <span class="va">level_min</span>,</span>
 <span>    ymax <span class="op">=</span> <span class="va">level_max</span>,</span>
-<span>    col_pal <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="va">pal_blue</span>, <span class="fl">0</span><span class="op">)</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Level"</span>,</span>
+<span>    col_pal <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="va">pal_blue</span>, <span class="fl">0</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span></span>
 <span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">level</span><span class="op">)</span>, </span>
@@ -611,10 +611,10 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_step.html">gg_step</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">date</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
-<span>    y_title <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
+<span>    coord <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span>,</span>
 <span>    x_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="st">"2010-01-01"</span><span class="op">)</span>, <span class="fu">lubridate</span><span class="fu">::</span><span class="va"><a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">NA_Date_</a></span><span class="op">)</span>, </span>
 <span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>    coord <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span>,</span>
+<span>    y_title <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_functions_demo_dark-Rmd_files/figure-html/unnamed-chunk-32-1.svg" width="70%"></p>
 </div>
@@ -633,8 +633,8 @@ Hodge</h4>
 <span>    label <span class="op">=</span> <span class="va">model</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">3.53</span>,</span>
 <span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">pal_orange</span>, <span class="st">"white"</span>, <span class="va">pal_teal</span><span class="op">)</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Miles per gallon"</span>,</span>
+<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">pal_orange</span>, <span class="st">"white"</span>, <span class="va">pal_teal</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_functions_demo_dark-Rmd_files/figure-html/unnamed-chunk-33-1.svg" width="70%"></p>
 </div>
