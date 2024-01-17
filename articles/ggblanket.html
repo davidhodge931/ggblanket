@@ -122,8 +122,7 @@ visualisation</strong>.</p>
 <li>
 <code>light_mode_*</code> and <code>dark_mode_*</code> theme
 families</li>
-<li>Pretty default continuous axis scales with opt-out</li>
-<li>Helpful default <code>*_gridlines</code> removal</li>
+<li>Symmetric continuous axis scales and helpful gridlines removal</li>
 <li>Access to other <code>geom_*</code> arguments via …</li>
 <li>Flexibility to turn-off or fix either colour or fill</li>
 <li>Ability to add multiple <code>geom_*</code> layers</li>
@@ -329,10 +328,19 @@ placement, which is represented by the suffix of the theme name of
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="pretty-default-continuous-axis-scales-with-opt-out">9. Pretty default continuous axis scales with opt-out<a class="anchor" aria-label="anchor" href="#pretty-default-continuous-axis-scales-with-opt-out"></a>
+<h3 id="symmetric-continuous-axis-scales-and-helpful-gridlines-removal">9. Symmetric continuous axis scales and helpful gridlines
+removal<a class="anchor" aria-label="anchor" href="#symmetric-continuous-axis-scales-and-helpful-gridlines-removal"></a>
 </h3>
-<p>ggblanket provides a pretty continuous y scale for non-horizontal
-plots that has:</p>
+<p>ggblanket guesses whether the plot is flipped or not in order to
+determine:</p>
+<ul>
+<li>which scale to make symmetric by default</li>
+<li>which <code>*_gridlines</code> to remove by default</li>
+</ul>
+<p>This <code>flipped</code> argument can be specified where it does not
+get it right.</p>
+<p>The symmetric continuous y scale for non-flipped plots defaults
+to:</p>
 <ul>
 <li>
 <code>y_limits</code> that are the range of the
@@ -342,65 +350,54 @@ plots that has:</p>
 <code>y_expand</code> of <code>c(0, 0)</code>
 </li>
 </ul>
-<p>This pretty scale can be turned off easily using
+<p>This symmetric scale can be turned off easily using
 <code>y_limits = c(NA, NA)</code> (or by providing a
 <code>y_expand</code> value).</p>
-<p>The opposite occurs for horizontal plots with the x scale.</p>
+<p>The opposite occurs for flipped plots with the x scale.</p>
 <p>Sometimes you may need to add <code>*_expand_limits = 0</code>, if
-the lower bound of the pretty scale falls on a close low number.</p>
-<p>(Note this pretty scale does not occur where the scale has a
+the lower bound of the symmetric scale falls on a close low number.</p>
+<p>Note this symmetric scale does not occur where the scale has a
 transformation that is <em>not</em> <code>"identity"</code>,
 <code>"reverse"</code>, <code>"date"</code>, <code>"time"</code> or
-<code>"hms"</code> - or where the other positional scale is binned.)</p>
+<code>"hms"</code> - or where the other positional scale is binned.</p>
+<p>For non-flipped plots, <code>x_gridlines</code> will be removed by
+default - and <code>y_gridlines</code> removed by default for flipped
+plots. You can adjust this if needed using the <code>*_gridlines</code>
+arguments. Subsequently, it is recommended that themes with gridlines in
+both x and y directions are used with ggblanket.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">economics</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">date</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
-<span>    y_title <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
-<span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">economics</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">date</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
-<span>    y_title <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
-<span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>, </span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="helpful-default-gridlines-removal">10. Helpful default gridlines removal<a class="anchor" aria-label="anchor" href="#helpful-default-gridlines-removal"></a>
-</h3>
-<p>The <code>gg_*</code> functions adjust what gridlines are present in
-the graph - by removing the ones that it guesses are not required.</p>
-<p>You can adjust this if needed using the <code>*_gridlines</code>
-arguments.</p>
-<p>Subsequently, it is recommended that themes with gridlines in both x
-and y directions are used with ggblanket.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>, </span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_grey</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
+<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    flipped <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_b.html">light_mode_b</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    flipped <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"none"</span>, fill <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="access-to-other-geom_-arguments-via----">11. Access to other <code>geom_*</code> arguments via
+<h3 id="access-to-other-geom_-arguments-via----">10. Access to other <code>geom_*</code> arguments via
 <code>...</code><a class="anchor" aria-label="anchor" href="#access-to-other-geom_-arguments-via----"></a>
 </h3>
 <p>The <code>...</code> argument provides accesss to all other arguments
 in the <code>geom_*</code> function. Common arguments from
 <code>...</code> to add are <code>size</code>, <code>linewidth</code>
 and <code>width</code>.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -412,10 +409,10 @@ and <code>width</code>.</p>
 <span>    linewidth <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>    level <span class="op">=</span> <span class="fl">0.99</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="flexibility-to-turn-off-or-fix-either-colour-or-fill">12. Flexibility to turn-off or fix either colour or fill<a class="anchor" aria-label="anchor" href="#flexibility-to-turn-off-or-fix-either-colour-or-fill"></a>
+<h3 id="flexibility-to-turn-off-or-fix-either-colour-or-fill">11. Flexibility to turn-off or fix either colour or fill<a class="anchor" aria-label="anchor" href="#flexibility-to-turn-off-or-fix-either-colour-or-fill"></a>
 </h3>
 <p>For a geom with both outlines and fill, the default is to have both
 of these to the same colour with a default value of
@@ -431,7 +428,7 @@ removing the legend).</p>
 <p>An alternative approach to set <code>alpha_pal = 0</code> and
 <code>col_pal = scales::alpha(..., alpha = 0)</code> can be used.
 However, this approach is not as flexible.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_boxplot.html">gg_boxplot</a></span><span class="op">(</span></span>
@@ -442,8 +439,8 @@ However, this approach is not as flexible.</p>
 <span>    alpha_pal <span class="op">=</span> <span class="fl">0.9</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>hack <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_boxplot.html">gg_boxplot</a></span><span class="op">(</span></span>
@@ -456,10 +453,10 @@ However, this approach is not as flexible.</p>
 <span>    width <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"none"</span>, fill <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="ability-to-add-multiple-geom_-layers">13. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
+<h3 id="ability-to-add-multiple-geom_-layers">12. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
 </h3>
 <p>Users can make plots with multiple layers with ggblanket by adding on
 <code>ggplot2::geom_*</code> layers.</p>
@@ -481,7 +478,7 @@ geom).</p>
 <p>Use <code>*_expand_limits</code> or <code>*_limits</code> to ensure
 the `gg_* function builds the limits appropriately for the plot as a
 whole.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>body_mass_g <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -502,8 +499,8 @@ whole.</p>
 <span>    colour <span class="op">=</span> <span class="st">"black"</span>, </span>
 <span>    width <span class="op">=</span> <span class="fl">0.1</span>, </span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>body_mass_g <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -529,10 +526,10 @@ whole.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span></span>
 <span>    width <span class="op">=</span> <span class="fl">0.1</span>, </span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-20-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="other-ggplot2-key-differences">14. Other ggplot2 key differences<a class="anchor" aria-label="anchor" href="#other-ggplot2-key-differences"></a>
+<h3 id="other-ggplot2-key-differences">13. Other ggplot2 key differences<a class="anchor" aria-label="anchor" href="#other-ggplot2-key-differences"></a>
 </h3>
 <div class="section level5">
 <h5 id="unquoted-variables-only">Unquoted variables only<a class="anchor" aria-label="anchor" href="#unquoted-variables-only"></a>
@@ -543,7 +540,7 @@ whole.</p>
 function. Instead you may need to manipulate the data prior to plotting,
 or use the <code>mapping</code> argument for delayed evaluation or other
 non-supported aesthetics.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">color</span> <span class="op">|&gt;</span></span>
@@ -556,7 +553,7 @@ non-supported aesthetics.</p>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span>, </span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
 </div>
 <div class="section level5">
 <h5 id="unused-factor-levels-kept">Unused factor levels kept<a class="anchor" aria-label="anchor" href="#unused-factor-levels-kept"></a>
@@ -564,7 +561,7 @@ non-supported aesthetics.</p>
 <p>ggblanket keeps unused factor levels in the plot. If users wish to
 drop unused levels they should likewise do it in the data prior to
 plotting using <code><a href="https://forcats.tidyverse.org/reference/fct_drop.html" class="external-link">forcats::fct_drop</a></code>.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">color</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"E"</span>, <span class="st">"G"</span>, <span class="st">"I"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -575,7 +572,7 @@ plotting using <code><a href="https://forcats.tidyverse.org/reference/fct_drop.h
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span>, </span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-22-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-20-1.svg" width="70%"></p>
 </div>
 <div class="section level5">
 <h5 id="different-oob-clip-defaults">Different <code>oob</code> &amp; <code>clip</code> defaults<a class="anchor" aria-label="anchor" href="#different-oob-clip-defaults"></a>
@@ -622,7 +619,7 @@ so that <code>TRUE</code> always comes before <code>FALSE</code>
 </div>
 </div>
 <div class="section level3">
-<h3 id="a-gg_blanket-function-for-extra-geom-flexibility">15. A <code>gg_blanket</code> function for extra <code>geom</code>
+<h3 id="a-gg_blanket-function-for-extra-geom-flexibility">14. A <code>gg_blanket</code> function for extra <code>geom</code>
 flexibility<a class="anchor" aria-label="anchor" href="#a-gg_blanket-function-for-extra-geom-flexibility"></a>
 </h3>
 <p>ggblanket is driven by <code>gg_blanket</code> function, which has a
@@ -630,9 +627,7 @@ flexibility<a class="anchor" aria-label="anchor" href="#a-gg_blanket-function-fo
 <p>All other functions wrap this function with a locked-in geom, and
 their own default <code>stat</code> and <code>position</code> arguments
 as per the applicable <code>geom_*</code> function.</p>
-<p>Because gg_blanket has a <code>geom</code> argument, it can be used
-with other geoms provided by other packages.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">penguins</a></span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -644,8 +639,8 @@ with other geoms provided by other packages.</p>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-23-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggforce.data-imaginist.com" class="external-link">ggforce</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">iris</span> <span class="op">|&gt;</span> </span>
@@ -661,7 +656,7 @@ with other geoms provided by other packages.</p>
 <span>    colour <span class="op">=</span> <span class="va">pal_light_mode</span><span class="op">[</span><span class="st">"panel"</span><span class="op">]</span>,</span>
 <span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">pal_teal</span>, <span class="va">pal_orange</span>, <span class="va">pal_navy</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-22-1.svg" width="70%"></p>
 </div>
 </div>
 <div class="section level2">

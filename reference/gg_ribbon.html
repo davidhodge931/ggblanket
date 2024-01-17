@@ -150,7 +150,8 @@
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  caption <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  titles <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span></span>
+<span>  titles <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span>,</span>
+<span>  flipped <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -502,6 +503,10 @@
 
 <dt>titles</dt>
 <dd><p>A function to format unspecified titles. Defaults to snakecase::to_sentence_case.</p></dd>
+
+
+<dt>flipped</dt>
+<dd><p>TRUE or FALSE or whether the plot is flipped. Guesses if NULL. This affects the defaults of positional scale and gridlines.</p></dd>
 
 </dl></div>
     <div class="section level2">
