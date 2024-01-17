@@ -42,7 +42,7 @@ Secondary objectives relate to:
 6.  Numerous prefixed arguments to customise 
 7.  Default sentence case titles 
 8.  `light_mode_*` and `dark_mode_*` theme families
-9.  Symmetric continuous axis scales and helpful gridlines removal
+9.  Symmetric continuous axis scales and gridlines removal
 10. Access to other `geom_*` arguments via ...
 11. Flexibility to turn-off or fix either colour or fill
 12. Ability to add multiple `geom_*` layers
@@ -56,7 +56,6 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(palmerpenguins)
-library(patchwork)
 ```
  
 ### 1. Almost forty `gg_*` wrapper functions
@@ -229,7 +228,7 @@ penguins |>
   )
 ```
 
-### 9. Symmetric continuous axis scales and helpful gridlines removal
+### 9. Symmetric continuous axis scales and gridlines removal
 
 ggblanket guesses whether the plot is flipped or not in order to determine:
 
@@ -253,28 +252,27 @@ Note this symmetric scale does not occur where the scale has a transformation th
 
 For non-flipped plots, `x_gridlines` will be removed by default - and `y_gridlines` removed by default for flipped plots. You can adjust this if needed using the `*_gridlines` arguments. Subsequently, it is recommended that themes with gridlines in both x and y directions are used with ggblanket.
 
-```{r}
-p1 <- penguins |>
+```{r, fig.asp = 0.4}
+penguins |>
+  drop_na(sex) |> 
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    flipped = FALSE,
-    theme = light_mode_b(),
   )
+```
 
-p2 <- penguins |>
+```{r, fig.asp = 0.4}
+penguins |>
+  drop_na(sex) |> 
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-    flipped = TRUE,
-  ) +
-  guides(colour = "none", fill = "none")
-
-p1 + p2
+    y_limits = c(NA, NA),
+  )
 ```
 
 ### 10. Access to other `geom_*` arguments via `...`
@@ -460,7 +458,7 @@ ggblanket is driven by `gg_blanket` function, which has a `geom` argument with `
 All other functions wrap this function with a locked-in geom, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
 ```{r}
-palmerpenguins::penguins |>
+penguins |>
   drop_na(sex) |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_blanket(
