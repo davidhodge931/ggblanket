@@ -481,7 +481,6 @@ iris |>
   gg_blanket(
     geom = "shape",
     stat = "voronoi_tile",
-    position = "identity",
     x = Sepal.Length, 
     y = Sepal.Width, 
     col = Species,
