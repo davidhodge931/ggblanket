@@ -491,25 +491,6 @@ iris |>
   )
 ```
 
-## Code style
-
-The following code style is recommended:
-
-a). Put each argument on a different line to the opening and closing bracket
-
-b). Use trailing comma's
-
-c). Order arguments as follows:
-
-- `data`
-- aesthetics: `x*`/`y*`/`col`/`alpha`/`facet`/`facet2` etc (in this order)
-- `stat`/`position`/`coord`  (in this order)
-- ... (i.e. any other arguments from the applicable `geom_*` function)
-- `x_*`/`y_*`/`col_*`/`alpha_*`/`facet_*` (in this order)
-- `theme`
-
-For `gg_blanket`, put `geom`, `stat`, `position` and `coord` (in this order) upfront straight after `data`. 
-
 ## Further information 
 
 See the ggblanket [website](https://davidhodge931.github.io/ggblanket/index.html) for further information, including [articles](https://davidhodge931.github.io/ggblanket/articles/) and [function reference](https://davidhodge931.github.io/ggblanket/reference/index.html).
