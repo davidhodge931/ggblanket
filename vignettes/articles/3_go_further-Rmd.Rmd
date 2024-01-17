@@ -225,7 +225,7 @@ mtcars |>
     col_title = "r",
   ) +
   geom_text(
-    aes(label = round(r, 1), !!!aes_contrast),
+    mapping = aes(label = round(r, 1), !!!aes_contrast),
     size = 3.53,
     show.legend = FALSE,
   )

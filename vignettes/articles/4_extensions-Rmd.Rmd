@@ -101,13 +101,17 @@ titanic_wide |>
     y_limits = c(NA, NA),
     col_pal = c(pal_orange, pal_teal),
   ) +
-  geom_stratum(colour = "black",
-               fill = "white",
-               show.legend = FALSE) +
-  geom_text(stat = "stratum",
-            aes(label = after_stat(stratum)),
-            colour = "black",
-            show.legend = FALSE) +
+  geom_stratum(
+    colour = "black",
+    fill = "white",
+    show.legend = FALSE,
+  ) +
+  geom_text(
+    mapping = aes(label = after_stat(stratum)),
+    stat = "stratum",
+    colour = "black",
+    show.legend = FALSE, 
+  ) +
   guides(colour = "none") +
   ggeasy::easy_remove_y_axis()
 ```

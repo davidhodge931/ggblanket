@@ -386,10 +386,10 @@ penguins |>
     x_title = "Body mass kg",
   ) +
   geom_col(
-    width = 0.75,
     colour = "#d3d3d3",#fix to constant
     fill = "#d3d3d3",#fix to constant
     alpha = 0.9,
+    width = 0.75,
   ) +
   geom_errorbar(
     width = 0.1, 
