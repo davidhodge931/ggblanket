@@ -51,6 +51,7 @@ Config/Needs/website:
     glue,
     farver,
     geomtextpath,
+    ggalluvial,
     ggbeeswarm,
     ggblend,
     ggbump,
