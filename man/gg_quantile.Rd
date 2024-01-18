@@ -100,13 +100,13 @@ gg_quantile(
 
 \item{...}{Other arguments passed to within a params list in the layer function.}
 
-\item{stat}{A statistical transformation to use on the data. A ggproto Stat subclass object or character string.}
+\item{stat}{A statistical transformation to use on the data. A ggproto Stat subclass object (e.g. ggplot2::StatIdentity) or a snakecase character string of this (e.g. "identity").}
 
-\item{position}{A position adjustment. A ggproto Position subclass object, or character string.}
+\item{position}{A position adjustment. A ggproto Position subclass object (e.g. ggplot2::PositionIdentity), a function that generates this (e.g. ggplot2::position_identity()), or a snakecase character string of this (e.g. "identity").}
 
-\item{coord}{A cooridinate system. A ggproto Coord subclass object.}
+\item{coord}{A coordinate system. A function that generates a ggproto Coord subclass object (e.g. ggplot2::coord_cartesian()).}
 
-\item{theme}{A ggplot2 theme.}
+\item{theme}{A ggplot2 theme (e.g. light_mode_rt(), dark_mode_rt() or ggplot2::theme_grey()).}
 
 \item{x}{Unquoted x aesthetic variable.}
 
@@ -154,7 +154,7 @@ gg_quantile(
 
 \item{x_gridlines}{TRUE or FALSE for vertical x gridlines. NULL guesses based on the classes of the x and y.}
 
-\item{x_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
+\item{x_labels}{A function that takes the breaks as inputs (e.g. \(x) stingr::str_to_sentence(x) or scales::label_comma()), or a vector of labels.}
 
 \item{x_limits}{A vector of length 2 to determine the limits of the axis.}
 
@@ -164,7 +164,7 @@ gg_quantile(
 
 \item{x_title}{Axis title string. Use "" for no title.}
 
-\item{x_transform}{For a numeric x variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
+\item{x_transform}{For a numeric x variable, a transformation object (e.g. scales::transform_log10()) or character string of this (e.g. "log10").}
 
 \item{y_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -174,7 +174,7 @@ gg_quantile(
 
 \item{y_gridlines}{TRUE or FALSE of horizontal y gridlines. NULL guesses based on the classes of the x and y.}
 
-\item{y_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
+\item{y_labels}{A function that takes the breaks as inputs (e.g. \(x) stingr::str_to_sentence(x) or scales::label_comma()), or a vector of labels.}
 
 \item{y_limits}{A vector of length 2 to determine the limits of the axis.}
 
@@ -184,7 +184,7 @@ gg_quantile(
 
 \item{y_title}{Axis title string. Use "" for no title.}
 
-\item{y_transform}{For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
+\item{y_transform}{For a numeric y variable, a transformation object (e.g. scales::transform_log10()) or character string of this (e.g. "log10").}
 
 \item{col_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -194,7 +194,7 @@ gg_quantile(
 
 \item{col_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
-\item{col_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
+\item{col_labels}{A function that takes the breaks as inputs (e.g. \(x) stingr::str_to_sentence(x) or scales::label_comma()), or a vector of labels.}
 
 \item{col_legend_ncol}{The number of columns for the legend elements.}
 
@@ -214,7 +214,7 @@ gg_quantile(
 
 \item{col_title}{Legend title string. Use "" for no title.}
 
-\item{col_transform}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
+\item{col_transform}{For a numeric variable, a transformation object (e.g. scales::transform_log10()) or character string of this (e.g. "log10").}
 
 \item{alpha_breaks}{A scales::breaks_* function (e.g. scales::breaks_pretty()), or a vector of breaks.}
 
@@ -222,7 +222,7 @@ gg_quantile(
 
 \item{alpha_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. c(0, 0)).}
 
-\item{alpha_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.}
+\item{alpha_labels}{A function that takes the breaks as inputs (e.g. \(x) stingr::str_to_sentence(x) or scales::label_comma()), or a vector of labels.}
 
 \item{alpha_legend_ncol}{The number of columns for the legend elements.}
 
@@ -240,13 +240,13 @@ gg_quantile(
 
 \item{alpha_title}{Legend title string. Use "" for no title.}
 
-\item{alpha_transform}{For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").}
+\item{alpha_transform}{For a numeric variable, a transformation object (e.g. scales::transform_log10()) or character string of this (e.g. "log10").}
 
 \item{facet_axes}{Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".}
 
 \item{facet_axis_labels}{Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".}
 
-\item{facet_labels}{A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).}
+\item{facet_labels}{A function that takes the breaks as inputs (e.g. \(x) stingr::str_to_sentence(x) or scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).}
 
 \item{facet_labels_position}{When the facet layout is "wrap", the position of the facet labels. Either "top", "right", "bottom" or "left".}
 
