@@ -167,23 +167,23 @@
 
 
 <dt>geom</dt>
-<dd><p>A geometric object to display the data. A ggproto Geom subclass object or character string.</p></dd>
+<dd><p>A geometric object to display the data. A ggproto Geom subclass object (e.g. ggplot2::GeomPoint), or a snakecase character string of this (e.g. "point").</p></dd>
 
 
 <dt>stat</dt>
-<dd><p>A statistical transformation to use on the data. A ggproto Stat subclass object or character string.</p></dd>
+<dd><p>A statistical transformation to use on the data. A ggproto Stat subclass object (e.g. ggplot2::StatIdentity) or a snakecase character string of this (e.g. "identity").</p></dd>
 
 
 <dt>position</dt>
-<dd><p>A position adjustment. A ggproto Position subclass object, or character string.</p></dd>
+<dd><p>A position adjustment. A ggproto Position subclass object (e.g. ggplot2::PositionIdentity), a function that generates this (e.g. ggplot2::position_identity()), or a snakecase character string of this (e.g. "identity").</p></dd>
 
 
 <dt>coord</dt>
-<dd><p>A cooridinate system. A ggproto Coord subclass object.</p></dd>
+<dd><p>A coordinate system. A function that generates a ggproto Coord subclass object (e.g. ggplot2::coord_cartesian()).</p></dd>
 
 
 <dt>theme</dt>
-<dd><p>A ggplot2 theme.</p></dd>
+<dd><p>A ggplot2 theme (e.g. light_mode_rt(), dark_mode_rt() or ggplot2::theme_grey()).</p></dd>
 
 
 <dt>x</dt>
@@ -279,7 +279,7 @@
 
 
 <dt>x_labels</dt>
-<dd><p>A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.</p></dd>
+<dd><p>A function that takes the breaks as inputs (e.g. \(x) stingr::str_to_sentence(x) or scales::label_comma()), or a vector of labels.</p></dd>
 
 
 <dt>x_limits</dt>
@@ -299,7 +299,7 @@
 
 
 <dt>x_transform</dt>
-<dd><p>For a numeric x variable, a transformation object (e.g. "log10", "sqrt" or "reverse").</p></dd>
+<dd><p>For a numeric x variable, a transformation object (e.g. scales::transform_log10()) or character string of this (e.g. "log10").</p></dd>
 
 
 <dt>y_breaks</dt>
@@ -319,7 +319,7 @@
 
 
 <dt>y_labels</dt>
-<dd><p>A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.</p></dd>
+<dd><p>A function that takes the breaks as inputs (e.g. \(x) stingr::str_to_sentence(x) or scales::label_comma()), or a vector of labels.</p></dd>
 
 
 <dt>y_limits</dt>
@@ -339,7 +339,7 @@
 
 
 <dt>y_transform</dt>
-<dd><p>For a numeric y variable, a transformation object (e.g. "log10", "sqrt" or "reverse").</p></dd>
+<dd><p>For a numeric y variable, a transformation object (e.g. scales::transform_log10()) or character string of this (e.g. "log10").</p></dd>
 
 
 <dt>col_breaks</dt>
@@ -359,7 +359,7 @@
 
 
 <dt>col_labels</dt>
-<dd><p>A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.</p></dd>
+<dd><p>A function that takes the breaks as inputs (e.g. \(x) stingr::str_to_sentence(x) or scales::label_comma()), or a vector of labels.</p></dd>
 
 
 <dt>col_legend_ncol</dt>
@@ -399,7 +399,7 @@
 
 
 <dt>col_transform</dt>
-<dd><p>For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").</p></dd>
+<dd><p>For a numeric variable, a transformation object (e.g. scales::transform_log10()) or character string of this (e.g. "log10").</p></dd>
 
 
 <dt>facet_axes</dt>
@@ -411,7 +411,7 @@
 
 
 <dt>facet_labels</dt>
-<dd><p>A function that takes the breaks as inputs (e.g. scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).</p></dd>
+<dd><p>A function that takes the breaks as inputs (e.g. \(x) stingr::str_to_sentence(x) or scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).</p></dd>
 
 
 <dt>facet_labels_position</dt>
@@ -455,7 +455,7 @@
 
 
 <dt>alpha_labels</dt>
-<dd><p>A function that takes the breaks as inputs (e.g. scales::label_comma()), or a vector of labels.</p></dd>
+<dd><p>A function that takes the breaks as inputs (e.g. \(x) stingr::str_to_sentence(x) or scales::label_comma()), or a vector of labels.</p></dd>
 
 
 <dt>alpha_legend_ncol</dt>
@@ -491,7 +491,7 @@
 
 
 <dt>alpha_transform</dt>
-<dd><p>For a numeric variable, a transformation object (e.g. "log10", "sqrt" or "reverse").</p></dd>
+<dd><p>For a numeric variable, a transformation object (e.g. scales::transform_log10()) or character string of this (e.g. "log10").</p></dd>
 
 
 <dt>title</dt>
