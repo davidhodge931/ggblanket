@@ -166,19 +166,19 @@
 
 
 <dt>stat</dt>
-<dd><p>A statistical transformation to use on the data. A ggproto Stat subclass object (e.g. ggplot2::StatIdentity) or a snakecase character string of this (e.g. "identity").</p></dd>
+<dd><p>A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object (e.g. ggplot2::StatIdentity) minus the Stat prefix (e.g. "identity").</p></dd>
 
 
 <dt>position</dt>
-<dd><p>A position adjustment. A ggproto Position subclass object (e.g. ggplot2::PositionIdentity), a function that generates this (e.g. ggplot2::position_identity()), or a snakecase character string of this (e.g. "identity").</p></dd>
+<dd><p>A position adjustment. A snakecase character string of a ggproto Position subclass object (e.g. ggplot2::PositionIdentity) minus the Position prefix (e.g. "identity"), or a position_* function that outputs a ggproto Position subclass object (e.g. ggplot2::position_identity()).</p></dd>
 
 
 <dt>coord</dt>
-<dd><p>A coordinate system. A function that generates a ggproto Coord subclass object (e.g. ggplot2::coord_cartesian()).</p></dd>
+<dd><p>A coordinate system. A coord_* function that outputs a ggproto Coord subclass object (e.g. ggplot2::coord_cartesian()).</p></dd>
 
 
 <dt>theme</dt>
-<dd><p>A ggplot2 theme (e.g. light_mode_rt(), dark_mode_rt() or ggplot2::theme_grey()).</p></dd>
+<dd><p>A ggplot2 theme (e.g. light_mode_b(), dark_mode_rt() or ggplot2::theme_grey()).</p></dd>
 
 
 <dt>x</dt>
@@ -294,7 +294,7 @@
 
 
 <dt>x_transform</dt>
-<dd><p>For a numeric x variable, a transformation object (e.g. scales::transform_log10()) or character string of this (e.g. "log10").</p></dd>
+<dd><p>For a numeric x variable, a transformation object (e.g. scales::transform_log10()) or character string of this minus the transform_ prefix (e.g. "log10").</p></dd>
 
 
 <dt>y_breaks</dt>
@@ -334,7 +334,7 @@
 
 
 <dt>y_transform</dt>
-<dd><p>For a numeric y variable, a transformation object (e.g. scales::transform_log10()) or character string of this (e.g. "log10").</p></dd>
+<dd><p>For a numeric y variable, a transformation object (e.g. scales::transform_log10()) or character string of this minus the transform_ prefix (e.g. "log10").</p></dd>
 
 
 <dt>col_breaks</dt>
@@ -394,7 +394,7 @@
 
 
 <dt>col_transform</dt>
-<dd><p>For a numeric variable, a transformation object (e.g. scales::transform_log10()) or character string of this (e.g. "log10").</p></dd>
+<dd><p>For a numeric variable, a transformation object (e.g. scales::transform_log10()) or character string of this minus the transform_ prefix (e.g. "log10").</p></dd>
 
 
 <dt>facet_axes</dt>
@@ -406,7 +406,7 @@
 
 
 <dt>facet_labels</dt>
-<dd><p>A function that takes the breaks as inputs (e.g. \(x) stingr::str_to_sentence(x) or scales::label_comma()), or a named vector of labels (e.g. c("value" = "label", )).</p></dd>
+<dd><p>A function that takes the breaks as inputs (e.g. \(x) stingr::str_to_sentence(x) or scales::label_comma()), or a named vector of labels (e.g. c("value1" = "label1", ...)).</p></dd>
 
 
 <dt>facet_labels_position</dt>
@@ -486,7 +486,7 @@
 
 
 <dt>alpha_transform</dt>
-<dd><p>For a numeric variable, a transformation object (e.g. scales::transform_log10()) or character string of this (e.g. "log10").</p></dd>
+<dd><p>For a numeric variable, a transformation object (e.g. scales::transform_log10()) or character string of this minus the transform_ prefix (e.g. "log10").</p></dd>
 
 
 <dt>title</dt>
@@ -506,7 +506,7 @@
 
 
 <dt>flipped</dt>
-<dd><p>TRUE or FALSE or whether the plot is flipped. Guesses if NULL. This affects the defaults of positional scale and gridlines.</p></dd>
+<dd><p>TRUE or FALSE or whether the plot is flipped. This affects the defaults of positional scale and gridlines.</p></dd>
 
 </dl></div>
     <div class="section level2">
