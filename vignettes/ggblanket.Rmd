@@ -42,8 +42,8 @@ Secondary objectives relate to:
 6.  Numerous prefixed arguments to customise 
 7.  Default sentence case titles 
 8.  `light_mode_*` and `dark_mode_*` theme families
-9.  Symmetric continuous axis scales and gridlines removal
-10. Access to other `geom_*` arguments via ...
+9.  Access to other `geom_*` arguments via ...
+10. Symmetric continuous axis scales and gridlines removal
 11. Flexibility to turn-off or fix either colour or fill
 12. Ability to add multiple `geom_*` layers
 13. Other key differences to ggplot2
@@ -228,7 +228,24 @@ penguins |>
   )
 ```
 
-### 9. Symmetric continuous axis scales and gridlines removal
+### 9. Access to other `geom_*` arguments via `...`
+
+The `...` argument provides accesss to all other arguments in the `geom_*` function. 
+
+```{r}
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  drop_na(sex) |> 
+  gg_smooth(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex, 
+    se = TRUE, # via ... from geom_smooth
+    level = 0.99, # via ... from geom_smooth
+  ) 
+```
+
+### 10. Symmetric continuous axis scales and gridlines removal
 
 ggblanket guesses whether the plot is flipped or not in order to determine:
 
@@ -252,7 +269,7 @@ Note this symmetric scale does not occur where the scale has a transformation th
 
 For non-flipped plots, `x_gridlines` will be removed by default - and `y_gridlines` removed by default for flipped plots. You can adjust this if needed using the `*_gridlines` arguments. Subsequently, it is recommended that themes with gridlines in both x and y directions are used with ggblanket.
 
-```{r, fig.asp = 0.4}
+```{r}
 penguins |>
   drop_na(sex) |> 
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
@@ -263,7 +280,7 @@ penguins |>
   )
 ```
 
-```{r, fig.asp = 0.4}
+```{r}
 penguins |>
   drop_na(sex) |> 
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
@@ -273,24 +290,6 @@ penguins |>
     col = sex,
     y_limits = c(NA, NA),
   )
-```
-
-### 10. Access to other `geom_*` arguments via `...`
-
-The `...` argument provides accesss to all other arguments in the `geom_*` function. Common arguments from `...` to add are `size`, `linewidth` and `width`.
-
-```{r}
-penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  drop_na(sex) |> 
-  gg_smooth(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex, 
-    se = TRUE,
-    linewidth = 2,
-    level = 0.99,
-  ) 
 ```
 
 ### 11. Flexibility to turn-off or fix either colour or fill
