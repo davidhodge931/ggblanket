@@ -104,7 +104,7 @@ gg_ribbon(
 
 \item{position}{A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. "identity"), or a position_* function that outputs a ggproto Position subclass object (e.g. ggplot2::position_identity()).}
 
-\item{coord}{A coordinate system. A coord_* function that outputs a ggproto Coord subclass object (e.g. ggplot2::coord_cartesian()).}
+\item{coord}{A coordinate system. A coord_* function that outputs a constructed ggproto Coord subclass object (e.g. ggplot2::coord_cartesian()).}
 
 \item{theme}{A ggplot2 theme (e.g. light_mode_b(), dark_mode_rt() or ggplot2::theme_grey()).}
 
