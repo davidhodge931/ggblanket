@@ -4,9 +4,9 @@
 #'
 #' @param data A data frame or tibble.
 #' @param ... Other arguments passed to within a params list in the layer function.
-#' @param geom A geometric object to display the data. A snakecase character string of a ggproto Geom subclass object (e.g. ggplot2::GeomPoint) minus the Geom prefix (e.g. "point").
-#' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object (e.g. ggplot2::StatIdentity) minus the Stat prefix (e.g. "identity").
-#' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object (e.g. ggplot2::PositionIdentity) minus the Position prefix (e.g. "identity"), or a position_* function that outputs a ggproto Position subclass object (e.g. ggplot2::position_identity()).
+#' @param geom A geometric object to display the data. A snakecase character string of a ggproto Geom subclass object minus the Geom prefix (e.g. "point").
+#' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. "identity").
+#' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. "identity"), or a position_* function that outputs a ggproto Position subclass object (e.g. ggplot2::position_identity()).
 #' @param coord A coordinate system. A coord_* function that outputs a ggproto Coord subclass object (e.g. ggplot2::coord_cartesian()).
 #' @param theme A ggplot2 theme (e.g. light_mode_b(), dark_mode_rt() or ggplot2::theme_grey()).
 #' @param x Unquoted x aesthetic variable.

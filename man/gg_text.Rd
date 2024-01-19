@@ -100,9 +100,9 @@ gg_text(
 
 \item{...}{Other arguments passed to within a params list in the layer function.}
 
-\item{stat}{A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object (e.g. ggplot2::StatIdentity) minus the Stat prefix (e.g. "identity").}
+\item{stat}{A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. "identity").}
 
-\item{position}{A position adjustment. A snakecase character string of a ggproto Position subclass object (e.g. ggplot2::PositionIdentity) minus the Position prefix (e.g. "identity"), or a position_* function that outputs a ggproto Position subclass object (e.g. ggplot2::position_identity()).}
+\item{position}{A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. "identity"), or a position_* function that outputs a ggproto Position subclass object (e.g. ggplot2::position_identity()).}
 
 \item{coord}{A coordinate system. A coord_* function that outputs a ggproto Coord subclass object (e.g. ggplot2::coord_cartesian()).}
 

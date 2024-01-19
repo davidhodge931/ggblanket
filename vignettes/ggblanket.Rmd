@@ -462,6 +462,19 @@ penguins |>
   drop_na(sex) |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_blanket(
+    geom = "bar",
+    stat = "bin",
+    position = "stack",
+    x = flipper_length_mm, 
+    col = sex,
+  ) 
+```
+
+```{r}
+penguins |>
+  drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_blanket(
     geom = "violin",
     stat = "ydensity",
     position = "dodge",
