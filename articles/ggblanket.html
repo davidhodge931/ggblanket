@@ -122,8 +122,8 @@ visualisation</strong>.</p>
 <li>
 <code>light_mode_*</code> and <code>dark_mode_*</code> theme
 families</li>
-<li>Symmetric continuous axis scales and gridlines removal</li>
 <li>Access to other <code>geom_*</code> arguments via …</li>
+<li>Symmetric continuous axis scales and gridlines removal</li>
 <li>Flexibility to turn-off or fix either colour or fill</li>
 <li>Ability to add multiple <code>geom_*</code> layers</li>
 <li>Other key differences to ggplot2</li>
@@ -327,7 +327,26 @@ placement, which is represented by the suffix of the theme name of
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="symmetric-continuous-axis-scales-and-gridlines-removal">9. Symmetric continuous axis scales and gridlines removal<a class="anchor" aria-label="anchor" href="#symmetric-continuous-axis-scales-and-gridlines-removal"></a>
+<h3 id="access-to-other-geom_-arguments-via----">9. Access to other <code>geom_*</code> arguments via
+<code>...</code><a class="anchor" aria-label="anchor" href="#access-to-other-geom_-arguments-via----"></a>
+</h3>
+<p>The <code>...</code> argument provides accesss to all other arguments
+in the <code>geom_*</code> function.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">sex</span>, </span>
+<span>    se <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># via ... from geom_smooth</span></span>
+<span>    level <span class="op">=</span> <span class="fl">0.99</span>, <span class="co"># via ... from geom_smooth</span></span>
+<span>  <span class="op">)</span> </span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="symmetric-continuous-axis-scales-and-gridlines-removal">10. Symmetric continuous axis scales and gridlines removal<a class="anchor" aria-label="anchor" href="#symmetric-continuous-axis-scales-and-gridlines-removal"></a>
 </h3>
 <p>ggblanket guesses whether the plot is flipped or not in order to
 determine:</p>
@@ -363,7 +382,7 @@ default - and <code>y_gridlines</code> removed by default for flipped
 plots. You can adjust this if needed using the <code>*_gridlines</code>
 arguments. Subsequently, it is recommended that themes with gridlines in
 both x and y directions are used with ggblanket.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -372,8 +391,8 @@ both x and y directions are used with ggblanket.</p>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -383,28 +402,6 @@ both x and y directions are used with ggblanket.</p>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="access-to-other-geom_-arguments-via----">10. Access to other <code>geom_*</code> arguments via
-<code>...</code><a class="anchor" aria-label="anchor" href="#access-to-other-geom_-arguments-via----"></a>
-</h3>
-<p>The <code>...</code> argument provides accesss to all other arguments
-in the <code>geom_*</code> function. Common arguments from
-<code>...</code> to add are <code>size</code>, <code>linewidth</code>
-and <code>width</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>, </span>
-<span>    se <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    linewidth <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>    level <span class="op">=</span> <span class="fl">0.99</span>,</span>
-<span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
