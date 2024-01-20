@@ -31,13 +31,13 @@ Imports:
     viridisLite (>= 0.4.0)
 Suggests: 
     hexbin,
+    isoband,
     knitr,
     palmerpenguins,
     patchwork,
     quantreg,
     rmarkdown,
     sf,
-    stars,
     stats,
     tibble
 Config/Needs/website: 
@@ -68,5 +68,6 @@ Config/Needs/website:
     plotly,
     RColorBrewer,
     showtext,
+    stars,
     sysfonts
 VignetteBuilder: knitr
