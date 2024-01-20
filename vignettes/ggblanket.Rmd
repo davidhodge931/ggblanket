@@ -483,23 +483,6 @@ penguins |>
   )
 ```
 
-```{r}
-library(ggforce)
-
-iris |> 
-  mutate(across(Species, \(x) str_to_sentence(x))) |> 
-  gg_blanket(
-    geom = "shape",
-    stat = "voronoi_tile",
-    x = Sepal.Length, 
-    y = Sepal.Width, 
-    col = Species,
-    group = 1,
-    colour = pal_light_mode["panel"],
-    col_pal = c(pal_teal, pal_orange, pal_navy),
-  )
-```
-
 ## Further information 
 
 See the ggblanket [website](https://davidhodge931.github.io/ggblanket/index.html) for further information, including [articles](https://davidhodge931.github.io/ggblanket/articles/) and [function reference](https://davidhodge931.github.io/ggblanket/reference/index.html).

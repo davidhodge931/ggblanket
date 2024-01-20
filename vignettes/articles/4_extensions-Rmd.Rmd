@@ -273,6 +273,21 @@ economics |>
   ) 
 ```
 
+```{r}
+iris |> 
+  mutate(across(Species, \(x) str_to_sentence(x))) |> 
+  gg_blanket(
+    geom = "shape",
+    stat = "voronoi_tile",
+    x = Sepal.Length, 
+    y = Sepal.Width, 
+    col = Species,
+    group = 1,
+    colour = pal_light_mode["panel"],
+    col_pal = c(pal_teal, pal_orange, pal_navy),
+  )
+```
+
 #### ggh4x
 
 The ggh4x package includes enhanced facet functionality.

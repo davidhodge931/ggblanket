@@ -30,10 +30,6 @@ Imports:
     tidyselect (>= 1.2.0),
     viridisLite (>= 0.4.0)
 Suggests: 
-    bench,
-    deldir,
-    ggforce,
-    ggridges,
     hexbin,
     knitr,
     palmerpenguins,
@@ -47,8 +43,8 @@ Suggests:
 Config/Needs/website: 
     concaveman,
     corrr,
+    deldir,
     distributional,
-    glue,
     farver,
     geomtextpath,
     ggalluvial,
@@ -58,6 +54,7 @@ Config/Needs/website:
     ggdensity,
     ggdist,
     ggeasy,
+    ggforce,
     ggh4x,
     gghighlight,
     ggiraph,
@@ -65,7 +62,9 @@ Config/Needs/website:
     ggpattern,
     ggpointdensity,
     ggrepel,
+    ggridges,
     ggtext, 
+    glue,
     plotly,
     RColorBrewer,
     showtext,
