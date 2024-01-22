@@ -4,10 +4,10 @@
 #'
 #' @param data A data frame or tibble.
 #' @param ... Other arguments passed to within a `params` list in `layer()`.
-#' @param geom A geometric object to display the data. A snakecase character string of a ggproto Geom subclass object minus the Geom prefix (e.g. "point").
-#' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. "identity").
-#' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. "identity"), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
-#' @param coord A coordinate system. A coord_* function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
+#' @param geom A geometric object to display the data. A snakecase character string of a ggproto Geom subclass object minus the Geom prefix (e.g. `"point"`).
+#' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
+#' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
+#' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
 #' @param theme A ggplot2 theme (e.g. [light_mode_b()], [dark_mode_rt()] or [ggplot2::theme_grey()]).
 #' @param x Unquoted `x` aesthetic variable.
 #' @param xmin Unquoted `xmin` aesthetic variable.
@@ -18,68 +18,67 @@
 #' @param ymax Unquoted `ymax` aesthetic variable.
 #' @param yend Unquoted `yend` aesthetic variable.
 #' @param z Unquoted `z` aesthetic variable.
-#' @param col Unquoted `col` and `fill` aesthetic variable.
+#' @param col Unquoted `col` aesthetic variable.
 #' @param alpha Unquoted `alpha` aesthetic variable.
 #' @param facet Unquoted `facet` aesthetic variable.
-#' @param facet2 Unquoted second facet variable.
+#' @param facet2 Unquoted `facet2` aesthetic variable.
 #' @param group Unquoted `group` aesthetic variable.
 #' @param subgroup Unquoted `subgroup` aesthetic variable.
 #' @param label Unquoted `label` aesthetic variable.
 #' @param text Unquoted `text` aesthetic variable.
 #' @param sample Unquoted `sample` aesthetic variable.
-#' @param mapping Set of additional aesthetic mappings within `ggplot2::aes()` for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`) or for delayed evaluation.
+#' @param mapping Set of additional aesthetic mappings within [ggplot2::aes()] for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`) or for delayed evaluation.
 #' @param x_breaks,y_breaks A `scales::breaks_*` function (e.g. [scales::breaks_pretty()]), or a vector of breaks.
-#' @param x_expand,y_expand Padding to the limits with the `ggplot2::expansion()` function, or a vector of length 2 (e.g. `c(0, 0)`).
-#' @param x_expand_limits,y_expand_limits For a continuous variable, any values that the limits should encompass (e.g. 0).
-#' @param x_gridlines `TRUE` or `FALSE` for vertical `x` gridlines. `NULL` guesses based on the classes of the x and y.
+#' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
+#' @param x_expand_limits,y_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`).
+#' @param x_gridlines,y_gridlines `TRUE` or `FALSE` for gridlines. `NULL` guesses based on the classes of the x and y scales.
 #' @param x_labels,y_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or [scales::label_comma()]), or a vector of labels.
 #' @param x_limits,y_limits A vector of length 2 to determine the limits of the axis.
-#' @param x_oob,y_oob For a continuous `x` variable, a `scales::oob_*` function of how to handle values outside of limits (e.g. `scales::oob_keep`). Defaults to `scales::oob_keep`.
-#' @param x_sec_axis,y_sec_axis A secondary axis using `ggplot2::sec_axis()` or `ggplot2::dup_axis()`.
+#' @param x_oob,y_oob For a continuous scale variable, a `scales::oob_*` function of how to handle values outside of limits (e.g. `scales::oob_keep`). Defaults to `scales::oob_keep`.
+#' @param x_sec_axis,y_sec_axis A secondary axis using [ggplot2::sec_axis()] or [ggplot2::dup_axis()].
 #' @param x_title,y_title Axis title string. Use `""` for no title.
-#' @param x_transform,y_transform For a numeric variable, a transformation object (e.g. `scales::transform_log10()`) or character string of this minus the `transform_` prefix (e.g. "log10").
-#' @param y_gridlines `TRUE` or `FALSE` of horizontal `y` gridlines. `NULL` guesses based on the classes of the `x` and `y`.
-#' @param col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_pretty()`), or a vector of breaks.
-#' @param col_continuous_type For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".
-#' @param col_expand Padding to the limits with `ggplot2::expansion()`, or a vector of length 2 (e.g. `c(0, 0)`).
-#' @param col_expand_limits For a continuous variable, any values that the limits should encompass (e.g. 0).
-#' @param col_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_comma()`), or a vector of labels.
-#' @param col_legend_ncol,col_legend_nrow The number of columns and rows for the legend elements.
-#' @param col_legend_rev Reverse the elements of the legend. Defaults to `FALSE`.
-#' @param col_limits A vector to determine the limits of the scale.
-#' @param col_oob For a continuous variable, a `scales::oob_*` function of how to handle values outside of limits (e.g. `scales::oob_keep`). Defaults to `scales::oob_keep`.
-#' @param col_pal colours to use. A character vector of hex codes (or names).
-#' @param col_pal_na colour to use for `NA` values. A character vector of a hex code (or name).
-#' @param col_rescale For a continuous variable, a `scales::rescale` function.
-#' @param col_title Legend title string. Use "" for no title.
-#' @param col_transform For a numeric variable, a transformation object (e.g. scales::transform_log10()) or character string of this minus the `transform_` prefix (e.g. "log10").
-#' @param alpha_breaks A `scales::breaks_*` function (e.g. `scales::breaks_pretty()`), or a vector of breaks.
-#' @param alpha_expand Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. `c(0, 0)`).
-#' @param alpha_expand_limits For a continuous variable, any values that the limits should encompass (e.g. 0).
-#' @param alpha_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_comma()`), or a vector of labels.
-#' @param alpha_legend_ncol,alpha_legend_nrow The number of columns and rows for the legend elements.
-#' @param alpha_legend_rev Reverse the elements of the legend. Defaults to `FALSE`.
-#' @param alpha_limits A vector to determine the limits of the scale.
-#' @param alpha_oob For a continuous variable, a `scales::oob_*` function of how to handle values outside of limits (e.g. `scales::oob_keep`). Defaults to `scales::oob_keep`.
-#' @param alpha_pal Alpha values to use as a numeric vector. For a continuous variable, a range is only needed.
-#' @param alpha_pal_na Alpha value to use for the `NA` value.
-#' @param alpha_title Legend title string. Use `""` for no title.
-#' @param alpha_transform For a numeric variable, a transformation object (e.g. `scales::transform_log10()`) or character string of this minus the transform_ prefix (e.g. "log10").
-#' @param facet_axes Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".
-#' @param facet_axis_labels Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".
-#' @param facet_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_comma()`), or a named vector of labels (e.g. c("value1" = "label1", ...)).
-#' @param facet_labels_position When the facet layout is "wrap", the position of the facet labels. Either "top", "right", "bottom" or "left".
-#' @param facet_labels_switch When the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".
-#' @param facet_layout Whether the layout is to be "wrap" or "grid". If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to "wrap". If `NULL` and both facet and facet2 arguments are provided, defaults to "grid".
-#' @param facet_ncol The number of columns of facets. Only applies to a facet layout of "wrap".
-#' @param facet_nrow The number of rows of facets. Only applies to a facet layout of "wrap".
-#' @param facet_scales Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
-#' @param facet_space When the facet layout is "grid" and facet scales are not "fixed", whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".
+#' @param x_transform,y_transform For a numeric scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
+#' @param col_breaks A `scales::breaks_*` function (e.g. [scales::breaks_pretty()]), or a vector of breaks.
+#' @param col_continuous_type For a continuous variable, whether to colour as a `"gradient"` or in `"steps"`. Defaults to `"gradient"`.
+#' @param col_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
+#' @param col_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`).
+#' @param col_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or [scales::label_comma()]), or a vector of labels.
+#' @param col_legend_ncol,col_legend_nrow The number of columns and rows for the legend guide.
+#' @param col_legend_rev Reverse the elements of the legend guide. Defaults to `FALSE`.
+#' @param col_limits A vector of length 2 to determine the limits of the axis.
+#' @param col_oob For a continuous scale variable, a `scales::oob_*` function of how to handle values outside of limits (e.g. `scales::oob_keep`). Defaults to `scales::oob_keep`.
+#' @param col_pal Colours to use. A character vector of hex codes (or names).
+#' @param col_pal_na Colour to use for `NA` values. A character vector of a hex code (or name).
+#' @param col_rescale For a continuous variable, a `scales::rescale()` function.
+#' @param col_title Axis title string. Use `""` for no title.
+#' @param col_transform For a numeric scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
+#' @param alpha_breaks A `scales::breaks_*` function (e.g. [scales::breaks_pretty()]), or a vector of breaks.
+#' @param alpha_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
+#' @param alpha_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`).
+#' @param alpha_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or [scales::label_comma()]), or a vector of labels.
+#' @param alpha_legend_ncol,alpha_legend_nrow The number of columns and rows for the legend guide.
+#' @param alpha_legend_rev Reverse the elements of the legend guide. Defaults to `FALSE`.
+#' @param alpha_limits A vector of length 2 to determine the limits of the axis.
+#' @param alpha_oob For a continuous scale variable, a `scales::oob_*` function of how to handle values outside of limits (e.g. `scales::oob_keep`). Defaults to `scales::oob_keep`.
+#' @param alpha_pal Alpha values to use. For a continuous variable, a vector of length 2 between 0 and 1. For a discrete variable, a vector of integers between 0 and 1.
+#' @param alpha_pal_na Alpha value to use for the `NA` value. A integer between 0 and 1.
+#' @param alpha_title Axis title string. Use `""` for no title.
+#' @param alpha_transform For a numeric scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
+#' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
+#' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
+#' @param facet_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)`), or a named vector of labels (e.g. c("value1" = "label1", ...)).
+#' @param facet_labels_position When the facet layout is `"wrap"`, the position of the facet labels. Either `"top"`, `"right"`, `"bottom"` or `"left"`.
+#' @param facet_labels_switch When the facet layout is `"grid"`, whether to switch the facet labels to the opposite side of the plot. Either `"x"`, `"y"` or `"both"`.
+#' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
+#' @param facet_ncol The number of columns of facets. Only applies to a facet layout of `"wrap"`.
+#' @param facet_nrow The number of rows of facets. Only applies to a facet layout of `"wrap"`.
+#' @param facet_scales Whether facet scales should be `"fixed"` across facets, `"free"` in both directions, or free in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
+#' @param facet_space When the facet layout is `"grid"` and facet scales are not `"fixed"`, whether facet space should be `"fixed"` across facets, `"free"` to be proportional in both directions, or free to be proportional in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
 #' @param titles A function to format unspecified titles. Defaults to `snakecase::to_sentence_case`.
-#' @param flipped `TRUE` or `FALSE` or whether the plot is flipped. This affects the defaults of positional scale and gridlines.
+#' @param flipped `TRUE` or `FALSE` or whether the plot is flipped (i.e. horizontal). This affects the positional scale and gridlines defaults.
 #'
 #' @return A ggplot object.
 #' @export

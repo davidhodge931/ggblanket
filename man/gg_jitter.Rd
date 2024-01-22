@@ -100,11 +100,11 @@ gg_jitter(
 
 \item{...}{Other arguments passed to within a \code{params} list in \code{layer()}.}
 
-\item{stat}{A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. "identity").}
+\item{stat}{A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. \code{"identity"}).}
 
-\item{position}{A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. "identity"), or a \verb{position_*()} function that outputs a ggproto Position subclass object (e.g. \code{ggplot2::position_identity()}).}
+\item{position}{A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. \code{"identity"}), or a \verb{position_*()} function that outputs a ggproto Position subclass object (e.g. \code{ggplot2::position_identity()}).}
 
-\item{coord}{A coordinate system. A coord_* function that outputs a constructed ggproto Coord subclass object (e.g. \code{\link[ggplot2:coord_cartesian]{ggplot2::coord_cartesian()}}).}
+\item{coord}{A coordinate system. A \verb{coord_*()} function that outputs a constructed ggproto Coord subclass object (e.g. \code{\link[ggplot2:coord_cartesian]{ggplot2::coord_cartesian()}}).}
 
 \item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_b]{light_mode_b()}}, \code{\link[=dark_mode_rt]{dark_mode_rt()}} or \code{\link[ggplot2:ggtheme]{ggplot2::theme_grey()}}).}
 
@@ -126,13 +126,13 @@ gg_jitter(
 
 \item{z}{Unquoted \code{z} aesthetic variable.}
 
-\item{col}{Unquoted \code{col} and \code{fill} aesthetic variable.}
+\item{col}{Unquoted \code{col} aesthetic variable.}
 
 \item{alpha}{Unquoted \code{alpha} aesthetic variable.}
 
 \item{facet}{Unquoted \code{facet} aesthetic variable.}
 
-\item{facet2}{Unquoted second facet variable.}
+\item{facet2}{Unquoted \code{facet2} aesthetic variable.}
 
 \item{group}{Unquoted \code{group} aesthetic variable.}
 
@@ -144,101 +144,99 @@ gg_jitter(
 
 \item{sample}{Unquoted \code{sample} aesthetic variable.}
 
-\item{mapping}{Set of additional aesthetic mappings within \code{ggplot2::aes()} for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}) or for delayed evaluation.}
+\item{mapping}{Set of additional aesthetic mappings within \code{\link[ggplot2:aes]{ggplot2::aes()}} for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}) or for delayed evaluation.}
 
 \item{x_breaks, y_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
 
-\item{x_expand, y_expand}{Padding to the limits with the \code{ggplot2::expansion()} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
+\item{x_expand, y_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 
-\item{x_expand_limits, y_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. 0).}
+\item{x_expand_limits, y_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
 
-\item{x_gridlines}{\code{TRUE} or \code{FALSE} for vertical \code{x} gridlines. \code{NULL} guesses based on the classes of the x and y.}
+\item{x_gridlines, y_gridlines}{\code{TRUE} or \code{FALSE} for gridlines. \code{NULL} guesses based on the classes of the x and y scales.}
 
 \item{x_labels, y_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
 
 \item{x_limits, y_limits}{A vector of length 2 to determine the limits of the axis.}
 
-\item{x_oob, y_oob}{For a continuous \code{x} variable, a \verb{scales::oob_*} function of how to handle values outside of limits (e.g. \code{scales::oob_keep}). Defaults to \code{scales::oob_keep}.}
+\item{x_oob, y_oob}{For a continuous scale variable, a \verb{scales::oob_*} function of how to handle values outside of limits (e.g. \code{scales::oob_keep}). Defaults to \code{scales::oob_keep}.}
 
-\item{x_sec_axis, y_sec_axis}{A secondary axis using \code{ggplot2::sec_axis()} or \code{ggplot2::dup_axis()}.}
+\item{x_sec_axis, y_sec_axis}{A secondary axis using \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}} or \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}}.}
 
 \item{x_title, y_title}{Axis title string. Use \code{""} for no title.}
 
-\item{x_transform, y_transform}{For a numeric variable, a transformation object (e.g. \code{scales::transform_log10()}) or character string of this minus the \code{transform_} prefix (e.g. "log10").}
+\item{x_transform, y_transform}{For a numeric scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
 
-\item{y_gridlines}{\code{TRUE} or \code{FALSE} of horizontal \code{y} gridlines. \code{NULL} guesses based on the classes of the \code{x} and \code{y}.}
+\item{col_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
 
-\item{col_breaks}{A \verb{scales::breaks_*} function (e.g. \code{scales::breaks_pretty()}), or a vector of breaks.}
+\item{col_continuous_type}{For a continuous variable, whether to colour as a \code{"gradient"} or in \code{"steps"}. Defaults to \code{"gradient"}.}
 
-\item{col_continuous_type}{For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".}
+\item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
 
-\item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. 0).}
+\item{col_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 
-\item{col_expand}{Padding to the limits with \code{ggplot2::expansion()}, or a vector of length 2 (e.g. \code{c(0, 0)}).}
+\item{col_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
 
-\item{col_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{scales::label_comma()}), or a vector of labels.}
+\item{col_legend_ncol, col_legend_nrow}{The number of columns and rows for the legend guide.}
 
-\item{col_legend_ncol, col_legend_nrow}{The number of columns and rows for the legend elements.}
+\item{col_legend_rev}{Reverse the elements of the legend guide. Defaults to \code{FALSE}.}
 
-\item{col_legend_rev}{Reverse the elements of the legend. Defaults to \code{FALSE}.}
+\item{col_limits}{A vector of length 2 to determine the limits of the axis.}
 
-\item{col_limits}{A vector to determine the limits of the scale.}
+\item{col_oob}{For a continuous scale variable, a \verb{scales::oob_*} function of how to handle values outside of limits (e.g. \code{scales::oob_keep}). Defaults to \code{scales::oob_keep}.}
 
-\item{col_oob}{For a continuous variable, a \verb{scales::oob_*} function of how to handle values outside of limits (e.g. \code{scales::oob_keep}). Defaults to \code{scales::oob_keep}.}
+\item{col_pal}{Colours to use. A character vector of hex codes (or names).}
 
-\item{col_pal}{colours to use. A character vector of hex codes (or names).}
+\item{col_pal_na}{Colour to use for \code{NA} values. A character vector of a hex code (or name).}
 
-\item{col_pal_na}{colour to use for \code{NA} values. A character vector of a hex code (or name).}
+\item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
-\item{col_rescale}{For a continuous variable, a \code{scales::rescale} function.}
+\item{col_title}{Axis title string. Use \code{""} for no title.}
 
-\item{col_title}{Legend title string. Use "" for no title.}
+\item{col_transform}{For a numeric scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
 
-\item{col_transform}{For a numeric variable, a transformation object (e.g. scales::transform_log10()) or character string of this minus the \code{transform_} prefix (e.g. "log10").}
+\item{alpha_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
 
-\item{alpha_breaks}{A \verb{scales::breaks_*} function (e.g. \code{scales::breaks_pretty()}), or a vector of breaks.}
+\item{alpha_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
 
-\item{alpha_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. 0).}
+\item{alpha_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 
-\item{alpha_expand}{Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
+\item{alpha_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
 
-\item{alpha_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{scales::label_comma()}), or a vector of labels.}
+\item{alpha_legend_ncol, alpha_legend_nrow}{The number of columns and rows for the legend guide.}
 
-\item{alpha_legend_ncol, alpha_legend_nrow}{The number of columns and rows for the legend elements.}
+\item{alpha_legend_rev}{Reverse the elements of the legend guide. Defaults to \code{FALSE}.}
 
-\item{alpha_legend_rev}{Reverse the elements of the legend. Defaults to \code{FALSE}.}
+\item{alpha_limits}{A vector of length 2 to determine the limits of the axis.}
 
-\item{alpha_limits}{A vector to determine the limits of the scale.}
+\item{alpha_oob}{For a continuous scale variable, a \verb{scales::oob_*} function of how to handle values outside of limits (e.g. \code{scales::oob_keep}). Defaults to \code{scales::oob_keep}.}
 
-\item{alpha_oob}{For a continuous variable, a \verb{scales::oob_*} function of how to handle values outside of limits (e.g. \code{scales::oob_keep}). Defaults to \code{scales::oob_keep}.}
+\item{alpha_pal}{Alpha values to use. For a continuous variable, a vector of length 2 between 0 and 1. For a discrete variable, a vector of integers between 0 and 1.}
 
-\item{alpha_pal}{Alpha values to use as a numeric vector. For a continuous variable, a range is only needed.}
+\item{alpha_pal_na}{Alpha value to use for the \code{NA} value. A integer between 0 and 1.}
 
-\item{alpha_pal_na}{Alpha value to use for the \code{NA} value.}
+\item{alpha_title}{Axis title string. Use \code{""} for no title.}
 
-\item{alpha_title}{Legend title string. Use \code{""} for no title.}
+\item{alpha_transform}{For a numeric scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
 
-\item{alpha_transform}{For a numeric variable, a transformation object (e.g. \code{scales::transform_log10()}) or character string of this minus the transform_ prefix (e.g. "log10").}
+\item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
 
-\item{facet_axes}{Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".}
+\item{facet_axis_labels}{Whether to add interior axis labels with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
 
-\item{facet_axis_labels}{Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".}
+\item{facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)}), or a named vector of labels (e.g. c("value1" = "label1", ...)).}
 
-\item{facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{scales::label_comma()}), or a named vector of labels (e.g. c("value1" = "label1", ...)).}
+\item{facet_labels_position}{When the facet layout is \code{"wrap"}, the position of the facet labels. Either \code{"top"}, \code{"right"}, \code{"bottom"} or \code{"left"}.}
 
-\item{facet_labels_position}{When the facet layout is "wrap", the position of the facet labels. Either "top", "right", "bottom" or "left".}
+\item{facet_labels_switch}{When the facet layout is \code{"grid"}, whether to switch the facet labels to the opposite side of the plot. Either \code{"x"}, \code{"y"} or \code{"both"}.}
 
-\item{facet_labels_switch}{When the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".}
+\item{facet_layout}{Whether the layout is to be \code{"wrap"} or \code{"grid"}. If \code{NULL} and a single \code{facet} (or \code{facet2}) argument is provided, then defaults to \code{"wrap"}. If \code{NULL} and both facet and facet2 arguments are provided, defaults to \code{"grid"}.}
 
-\item{facet_layout}{Whether the layout is to be "wrap" or "grid". If \code{NULL} and a single \code{facet} (or \code{facet2}) argument is provided, then defaults to "wrap". If \code{NULL} and both facet and facet2 arguments are provided, defaults to "grid".}
+\item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of \code{"wrap"}.}
 
-\item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of "wrap".}
+\item{facet_nrow}{The number of rows of facets. Only applies to a facet layout of \code{"wrap"}.}
 
-\item{facet_nrow}{The number of rows of facets. Only applies to a facet layout of "wrap".}
+\item{facet_scales}{Whether facet scales should be \code{"fixed"} across facets, \code{"free"} in both directions, or free in just one direction (i.e. \code{"free_x"} or \code{"free_y"}). Defaults to \code{"fixed"}.}
 
-\item{facet_scales}{Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
-
-\item{facet_space}{When the facet layout is "grid" and facet scales are not "fixed", whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".}
+\item{facet_space}{When the facet layout is \code{"grid"} and facet scales are not \code{"fixed"}, whether facet space should be \code{"fixed"} across facets, \code{"free"} to be proportional in both directions, or free to be proportional in just one direction (i.e. \code{"free_x"} or \code{"free_y"}). Defaults to \code{"fixed"}.}
 
 \item{title}{Title string.}
 
@@ -248,7 +246,7 @@ gg_jitter(
 
 \item{titles}{A function to format unspecified titles. Defaults to \code{snakecase::to_sentence_case}.}
 
-\item{flipped}{\code{TRUE} or \code{FALSE} or whether the plot is flipped. This affects the defaults of positional scale and gridlines.}
+\item{flipped}{\code{TRUE} or \code{FALSE} or whether the plot is flipped (i.e. horizontal). This affects the positional scale and gridlines defaults.}
 }
 \value{
 A ggplot object.

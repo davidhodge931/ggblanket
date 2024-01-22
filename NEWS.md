@@ -35,6 +35,7 @@
 * Breaking: removed `gg_blank` function.
 * Breaking: renamed `facet_switch` argument to `facet_labels_switch`.
 * Breaking: removed `guardian` function.
+* Improved documentation of help (@olivroy, #643).
 
 # ggblanket 5.2.0
 
