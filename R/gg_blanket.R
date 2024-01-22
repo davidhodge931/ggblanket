@@ -1657,7 +1657,11 @@ gg_blanket <- function(
       if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
 
       if (rlang::is_null(x_breaks)) {
-        x_breaks <- scales::breaks_pretty(n = x_breaks_n)
+        if (any(x_transform_name %in% c("log", "log2", "log10"))) {
+          x_breaks <- scales::breaks_log(n = x_breaks_n)
+        } else {
+          x_breaks <- scales::breaks_pretty(n = x_breaks_n)
+        }
       }
     }
     #make binned scales correct when a non-identity transform selected
@@ -1823,7 +1827,11 @@ gg_blanket <- function(
       if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
 
       if (rlang::is_null(y_breaks)) {
-        y_breaks <- scales::breaks_pretty(n = y_breaks_n)
+        if (any(y_transform_name %in% c("log", "log2", "log10"))) {
+          y_breaks <- scales::breaks_log(n = y_breaks_n)
+        } else {
+          y_breaks <- scales::breaks_pretty(n = y_breaks_n)
+        }
       }
     }
     #make binned scales correct when a non-identity transform selected
