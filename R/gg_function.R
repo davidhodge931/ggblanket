@@ -1,6 +1,6 @@
 #' @title Function ggplot
 #'
-#' @description Create a function ggplot with a wrapper around ggplot() + geom_function.
+#' @description Create a function ggplot with a wrapper around `ggplot()` + [geom_function()][ggplot2::geom_function()].
 #'
 #' @inheritParams gg_blanket
 #'

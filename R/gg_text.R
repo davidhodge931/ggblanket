@@ -1,6 +1,6 @@
 #' @title Text ggplot
 #'
-#' @description Create a text plot with a wrapper around ggplot() + geom_text.
+#' @description Create a text plot with a wrapper around `ggplot()` + [geom_text()][ggplot2::geom_text()].
 #'
 #' @inheritParams gg_blanket
 #'

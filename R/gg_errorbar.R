@@ -1,6 +1,6 @@
 #' @title Errorbar ggplot
 #'
-#' @description Create a errorbar ggplot with a wrapper around ggplot() + geom_errorbar.
+#' @description Create a errorbar ggplot with a wrapper around `ggplot()` + [geom_errorbar()][ggplot2::geom_errorbar()].
 #'
 #' @inheritParams gg_blanket
 #'
