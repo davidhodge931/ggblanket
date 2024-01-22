@@ -47,7 +47,7 @@ Secondary objectives relate to:
 11. Flexibility to turn-off or fix either colour or fill
 12. Ability to add multiple `geom_*` layers
 13. Other key differences to ggplot2
-14. A `gg_blanket` function for extra `geom` flexibility
+14. A `gg_blanket()` function for extra `geom` flexibility
 
 ```{r setup}
 library(ggblanket)
@@ -210,7 +210,7 @@ ggblanket provides two families of themes: `light_mode_*` and `dark_mode_*`.
 
 Each theme family provides 4 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), and `t` top. 
 
-You can set the theme globally using `ggplot2::theme_set`. 
+You can set the theme globally using `ggplot2::theme_set()`. 
 
 ```{r, fig.asp=0.7}
 # theme_set(dark_mode_rt())
@@ -230,7 +230,7 @@ penguins |>
 
 ### 9. Access to other `geom_*` arguments via `...`
 
-The `...` argument provides accesss to all other arguments in the `geom_*` function. 
+The `...` argument provides access to all other arguments in the `geom_*()` function. 
 
 ```{r}
 penguins |>
@@ -336,9 +336,9 @@ Users can make plots with multiple layers with ggblanket by adding on `ggplot2::
 
 The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added. `facet` and `facet2` will likewise inherit - as will `data`, `coord` and `theme`.
 
-The `gg_*` function _should_ be appropriate to be the bottom layer of the plot. This is because the geoms will plot in order. 
+The `gg_*()` function _should_ be appropriate to be the bottom layer of the plot. This is because the geoms will plot in order. 
 
-All of the aesthetics required for the plot as a whole should generally be added into the `gg_*` function, including the `col` argument. If you do not want the first layer to have a colour and fill aesthetic, but you wish later layers to access this - use `gg_blanket` (as it defaults to a `blank` geom). 
+All of the aesthetics required for the plot as a whole should generally be added into the `gg_*` function, including the `col` argument. If you do not want the first layer to have a colour and fill aesthetic, but you wish later layers to access this - use `gg_blanket()` (as it defaults to a `blank` geom). 
 
 Use `*_expand_limits` or  `*_limits` to ensure the `gg_* function builds the limits appropriately for the plot as a whole.
 
@@ -448,7 +448,7 @@ This needs to be considered when you are using `x_limits` or `y_limits`, and you
 * `*_title` is equivalent to `ggplot2::labs(* = ...)`
 * Facet arguments `strip.position` and `switch` are renamed `facet_labels_position` and `facet_labels_switch`
 * y categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) * Logical variables are reversed, so that `TRUE` always comes before `FALSE`
-* Infinite values are treated as NA
+* Infinite values are treated as `NA`
  
 ### 14. A `gg_blanket` function for extra `geom` flexibility
 
