@@ -1650,6 +1650,7 @@ gg_blanket <- function(
     #get x_expand and x_breaks for non-pretty scales situation
     if (!flipped |
         facet_scales %in% c("free", "free_x") |
+        length(x_transform_name) > 1 |
         !any(x_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
         !rlang::is_null(x_expand)) {
 
@@ -1815,6 +1816,7 @@ gg_blanket <- function(
     #get y_expand and y_breaks for non-pretty scales situation
     if (flipped |
         facet_scales %in% c("free", "free_y") |
+        length(y_transform_name) > 1 |
         !any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
         !rlang::is_null(y_expand)) {
 
