@@ -127,7 +127,7 @@ families</li>
 <li>Flexibility to turn-off or fix either colour or fill</li>
 <li>Ability to add multiple <code>geom_*</code> layers</li>
 <li>Other key differences to ggplot2</li>
-<li>A <code>gg_blanket</code> function for extra <code>geom</code>
+<li>A <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function for extra <code>geom</code>
 flexibility</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -309,7 +309,7 @@ placement, which is represented by the suffix of the theme name of
 <code>rt</code> (right-top), <code>r</code> (right-centre),
 <code>b</code> (bottom), and <code>t</code> top.</p>
 <p>You can set the theme globally using
-<code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set</a></code>.</p>
+<code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set()</a></code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># theme_set(dark_mode_rt())</span></span>
 <span></span>
@@ -330,8 +330,8 @@ placement, which is represented by the suffix of the theme name of
 <h3 id="access-to-other-geom_-arguments-via----">9. Access to other <code>geom_*</code> arguments via
 <code>...</code><a class="anchor" aria-label="anchor" href="#access-to-other-geom_-arguments-via----"></a>
 </h3>
-<p>The <code>...</code> argument provides accesss to all other arguments
-in the <code>geom_*</code> function.</p>
+<p>The <code>...</code> argument provides access to all other arguments
+in the <code>geom_*()</code> function.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -459,14 +459,14 @@ wrapped <code>ggplot</code> function. Therefore, these aesthetics will
 inherit to any subsequent layers added. <code>facet</code> and
 <code>facet2</code> will likewise inherit - as will <code>data</code>,
 <code>coord</code> and <code>theme</code>.</p>
-<p>The <code>gg_*</code> function <em>should</em> be appropriate to be
+<p>The <code>gg_*()</code> function <em>should</em> be appropriate to be
 the bottom layer of the plot. This is because the geoms will plot in
 order.</p>
 <p>All of the aesthetics required for the plot as a whole should
 generally be added into the <code>gg_*</code> function, including the
 <code>col</code> argument. If you do not want the first layer to have a
 colour and fill aesthetic, but you wish later layers to access this -
-use <code>gg_blanket</code> (as it defaults to a <code>blank</code>
+use <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> (as it defaults to a <code>blank</code>
 geom).</p>
 <p>Use <code>*_expand_limits</code> or <code>*_limits</code> to ensure
 the `gg_* function builds the limits appropriately for the plot as a
@@ -607,7 +607,8 @@ are renamed <code>facet_labels_position</code> and
 levels (top) to high levels (bottom) * Logical variables are reversed,
 so that <code>TRUE</code> always comes before <code>FALSE</code>
 </li>
-<li>Infinite values are treated as NA</li>
+<li>Infinite values are treated as <code>NA</code>
+</li>
 </ul>
 </div>
 </div>
