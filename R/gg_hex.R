@@ -1,6 +1,6 @@
 #' @title Hex ggplot
 #'
-#' @description Create a hex ggplot with a wrapper around ggplot() + geom_hex.
+#' @description Create a hex ggplot with a wrapper around `ggplot()` + [geom_hex()][ggplot2::geom_hex()].
 #'
 #' @inheritParams gg_blanket
 #'

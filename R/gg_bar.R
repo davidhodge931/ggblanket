@@ -1,6 +1,6 @@
 #' @title Bar ggplot
 #'
-#' @description Create a bar ggplot with a wrapper around ggplot() + geom_bar.
+#' @description Create a bar ggplot with a wrapper around `ggplot()` + [geom_bar()][ggplot2::geom_bar()].
 #'
 #' @inheritParams gg_blanket
 #'

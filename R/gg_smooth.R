@@ -1,6 +1,6 @@
 #' @title Smooth ggplot
 #'
-#' @description Create a smooth ggplot with a wrapper around ggplot() + geom_smooth.
+#' @description Create a smooth ggplot with a wrapper around `ggplot()` + [geom_smooth()][ggplot2::geom_smooth()].
 #'
 #' @inheritParams gg_blanket
 #'

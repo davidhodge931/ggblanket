@@ -1,6 +1,6 @@
 #' @title Segment ggplot
 #'
-#' @description Create a segment ggplot with a wrapper around ggplot() + geom_segment.
+#' @description Create a segment ggplot with a wrapper around `ggplot()` + [geom_segment()][ggplot2::geom_segment()].
 #'
 #' @inheritParams gg_blanket
 #'

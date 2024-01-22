@@ -1,6 +1,6 @@
 #' @title Bin_2d ggplot
 #'
-#' @description Create a bin2d ggplot with a wrapper around ggplot() + geom_bin_2d.
+#' @description Create a bin2d ggplot with a wrapper around `ggplot()` + [geom_bin_2d()][ggplot2::geom_bin_2d()].
 #'
 #' @inheritParams gg_blanket
 #'

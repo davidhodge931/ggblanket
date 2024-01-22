@@ -1,6 +1,6 @@
 #' @title Label ggplot
 #'
-#' @description Create a label ggplot with a wrapper around ggplot() + geom_label.
+#' @description Create a label ggplot with a wrapper around `ggplot()` + [geom_label()][ggplot2::geom_label()].
 #'
 #' @inheritParams gg_blanket
 #'

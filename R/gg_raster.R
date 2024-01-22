@@ -1,6 +1,6 @@
 #' @title Raster ggplot
 #'
-#' @description Create a raster ggplot with a wrapper around ggplot() + geom_raster.
+#' @description Create a raster ggplot with a wrapper around `ggplot()` + [geom_raster()][ggplot2::geom_raster()].
 #'
 #' @inheritParams gg_blanket
 #'
