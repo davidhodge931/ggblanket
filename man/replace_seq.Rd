@@ -2,26 +2,26 @@
 % Please edit documentation in R/replace_seq.R
 \name{replace_seq}
 \alias{replace_seq}
-\title{Replace elements of a vector}
+\title{Replace a sequence of elements in a vector}
 \usage{
-replace_seq(x, ..., keep_nth = 2, offset = 0, value = "")
+replace_seq(x, ..., keep_nth = 2, offset = 0, replacement = "")
 }
 \arguments{
 \item{x}{A vector.}
 
 \item{...}{If numeric, other arguments passed to the \code{scales::comma} function.}
 
-\item{keep_nth}{The increment of elements to keep. Defaults to \code{2}.}
+\item{keep_nth}{The increment of elements to keep as is. Defaults to \code{2}.}
 
 \item{offset}{An offset to start at the intended offset. Defaults to \code{0}. Possible replaces are \code{-1} to (\code{keep_nth - 2})}
 
-\item{value}{The value to replace non-kept elements with. Defaults to \code{""}.}
+\item{replacement}{The replacement value to replace non-kept elements with. Defaults to \code{""}.}
 }
 \value{
 A vector.
 }
 \description{
-Replace elements in a vector sequence.
+Keep every nth element in a vector, and replace the rest with a value such as \code{""}.
 }
 \examples{
 x <- LETTERS[1:12]
