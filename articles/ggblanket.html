@@ -118,7 +118,7 @@ visualisation</strong>.</p>
 <li>A <code>facet2</code> argument to facet by a 2nd variable</li>
 <li>A <code>col_pal</code> argument to customise colours</li>
 <li>Prefixed arguments to customise</li>
-<li>Unspecified titles to <code>sentence_case</code>
+<li>Unspecified titles to <code>snakecase::sentence_case</code>
 </li>
 <li>
 <code>light_mode_*</code> and <code>dark_mode_*</code> theme
@@ -281,9 +281,9 @@ Options - Code - Completion)</p>
 <p><img src="autocomplete_y.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="unspecified-titles-to-sentence_case">7. Unspecified titles to <code>sentence_case</code><a class="anchor" aria-label="anchor" href="#unspecified-titles-to-sentence_case"></a>
+<h3 id="unspecified-titles-to-snakecasesentence_case">7. Unspecified titles to <code>snakecase::sentence_case</code><a class="anchor" aria-label="anchor" href="#unspecified-titles-to-snakecasesentence_case"></a>
 </h3>
-<p>Default <code>x</code>, <code>y</code>, <code>col</code> and
+<p>Unspecified <code>x</code>, <code>y</code>, <code>col</code> and
 <code>alpha</code> titles are converted to sentence case with
 <code>snakecase::to_sentence</code>.</p>
 <p>However, each title can be manually changed using the applicable
@@ -307,10 +307,11 @@ families<a class="anchor" aria-label="anchor" href="#light_mode_-and-dark_mode_-
 </h3>
 <p>ggblanket provides two families of themes: <code>light_mode_*</code>
 and <code>dark_mode_*</code>.</p>
-<p>Each theme family provides 4 variants that differ based on legend
+<p>Each theme family provides 5 variants that differ based on legend
 placement, which is represented by the suffix of the theme name of
 <code>rt</code> (right-top), <code>r</code> (right-centre),
-<code>b</code> (bottom), and <code>t</code> top.</p>
+<code>b</code> (bottom), <code>t</code> (top) and <code>i</code> (inside
+the panel).</p>
 <p>You can set the theme globally using
 <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set()</a></code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
