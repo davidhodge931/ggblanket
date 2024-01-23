@@ -126,7 +126,7 @@ penguins |>
     x = flipper_length_mm,
     col = species,
     stat = "density",
-    col_pal = RColorBrewer::brewer.pal(9, "Set1"),
+    col_pal = RColorBrewer::brewer.pal(3, "Set1"),
   ) +
   geom_density(
     alpha = 0.5, 
