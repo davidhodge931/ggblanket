@@ -21,7 +21,7 @@ replace_seq(x, ..., keep_nth = 2, offset = 0, value = "")
 A vector.
 }
 \description{
-Replace elements in a vector sequence
+Replace elements in a vector sequence.
 }
 \examples{
 x <- LETTERS[1:12]

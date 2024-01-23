@@ -40,7 +40,7 @@ Secondary objectives relate to:
 4.  A `facet2` argument to facet by a 2nd variable
 5.  A `col_pal` argument to customise colours
 6.  Prefixed arguments to customise 
-7.  Unspecified titles to `sentence_case` 
+7.  Unspecified titles to `snakecase::sentence_case` 
 8.  `light_mode_*` and `dark_mode_*` theme families
 9.  Access to other `geom_*` arguments via `...`
 10. Symmetric continuous positional scales and gridlines removal
@@ -186,9 +186,9 @@ penguins |>
 knitr::include_graphics("autocomplete_y.png", dpi = 300)
 ```
 
-### 7.  Unspecified titles to `sentence_case`
+### 7.  Unspecified titles to `snakecase::sentence_case`
 
-Default `x`, `y`, `col` and `alpha` titles are converted to sentence case with `snakecase::to_sentence`. 
+Unspecified `x`, `y`, `col` and `alpha` titles are converted to sentence case with `snakecase::to_sentence`. 
 
 However, each title can be manually changed using the applicable `*_title` argument. Use `*_title = ""` to remove a title. 
 
@@ -208,7 +208,7 @@ diamonds |>
 
 ggblanket provides two families of themes: `light_mode_*` and `dark_mode_*`. 
 
-Each theme family provides 4 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), and `t` top. 
+Each theme family provides 5 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), `t` (top) and `i` (inside the panel). 
 
 You can set the theme globally using `ggplot2::theme_set()`. 
 
