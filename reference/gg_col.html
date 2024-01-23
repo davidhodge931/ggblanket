@@ -166,15 +166,15 @@
 
 
 <dt>stat</dt>
-<dd><p>A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. "identity").</p></dd>
+<dd><p>A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. <code>"identity"</code>).</p></dd>
 
 
 <dt>position</dt>
-<dd><p>A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. "identity"), or a <code>position_*()</code> function that outputs a ggproto Position subclass object (e.g. <code><a href="https://ggplot2.tidyverse.org/reference/position_identity.html" class="external-link">ggplot2::position_identity()</a></code>).</p></dd>
+<dd><p>A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. <code>"identity"</code>), or a <code>position_*()</code> function that outputs a ggproto Position subclass object (e.g. <code><a href="https://ggplot2.tidyverse.org/reference/position_identity.html" class="external-link">ggplot2::position_identity()</a></code>).</p></dd>
 
 
 <dt>coord</dt>
-<dd><p>A coordinate system. A coord_* function that outputs a constructed ggproto Coord subclass object (e.g. <code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">ggplot2::coord_cartesian()</a></code>).</p></dd>
+<dd><p>A coordinate system. A <code>coord_*()</code> function that outputs a constructed ggproto Coord subclass object (e.g. <code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">ggplot2::coord_cartesian()</a></code>).</p></dd>
 
 
 <dt>theme</dt>
@@ -218,7 +218,7 @@
 
 
 <dt>col</dt>
-<dd><p>Unquoted <code>col</code> and <code>fill</code> aesthetic variable.</p></dd>
+<dd><p>Unquoted <code>col</code> aesthetic variable.</p></dd>
 
 
 <dt>alpha</dt>
@@ -230,7 +230,7 @@
 
 
 <dt>facet2</dt>
-<dd><p>Unquoted second facet variable.</p></dd>
+<dd><p>Unquoted <code>facet2</code> aesthetic variable.</p></dd>
 
 
 <dt>group</dt>
@@ -266,11 +266,11 @@
 
 
 <dt>x_expand_limits, y_expand_limits</dt>
-<dd><p>For a continuous variable, any values that the limits should encompass (e.g. 0).</p></dd>
+<dd><p>For a continuous variable, any values that the limits should encompass (e.g. <code>0</code>).</p></dd>
 
 
-<dt>x_gridlines</dt>
-<dd><p><code>TRUE</code> or <code>FALSE</code> for vertical <code>x</code> gridlines. <code>NULL</code> guesses based on the classes of the x and y.</p></dd>
+<dt>x_gridlines, y_gridlines</dt>
+<dd><p><code>TRUE</code> or <code>FALSE</code> for gridlines. <code>NULL</code> guesses based on the classes of the x and y scales.</p></dd>
 
 
 <dt>x_labels, y_labels</dt>
@@ -282,7 +282,7 @@
 
 
 <dt>x_oob, y_oob</dt>
-<dd><p>For a continuous <code>x</code> variable, a <code>scales::oob_*</code> function of how to handle values outside of limits (e.g. <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>). Defaults to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>.</p></dd>
+<dd><p>For a continuous scale variable, a <code>scales::oob_*</code> function of how to handle values outside of limits (e.g. <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>). Defaults to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>.</p></dd>
 
 
 <dt>x_sec_axis, y_sec_axis</dt>
@@ -294,11 +294,7 @@
 
 
 <dt>x_transform, y_transform</dt>
-<dd><p>For a numeric variable, a transformation object (e.g. <code><a href="https://scales.r-lib.org/reference/transform_log.html" class="external-link">scales::transform_log10()</a></code>) or character string of this minus the <code>transform_</code> prefix (e.g. "log10").</p></dd>
-
-
-<dt>y_gridlines</dt>
-<dd><p><code>TRUE</code> or <code>FALSE</code> of horizontal <code>y</code> gridlines. <code>NULL</code> guesses based on the classes of the <code>x</code> and <code>y</code>.</p></dd>
+<dd><p>For a numeric scale, a transformation object (e.g. <code><a href="https://scales.r-lib.org/reference/transform_log.html" class="external-link">scales::transform_log10()</a></code>) or character string of this minus the <code>transform_</code> prefix (e.g. <code>"log10"</code>).</p></dd>
 
 
 <dt>col_breaks</dt>
@@ -306,15 +302,15 @@
 
 
 <dt>col_continuous_type</dt>
-<dd><p>For a continuous variable, whether to colour as a "gradient" or in "steps". Defaults to "gradient".</p></dd>
+<dd><p>For a continuous variable, whether to colour as a <code>"gradient"</code> or in <code>"steps"</code>. Defaults to <code>"gradient"</code>.</p></dd>
 
 
 <dt>col_expand_limits</dt>
-<dd><p>For a continuous variable, any values that the limits should encompass (e.g. 0).</p></dd>
+<dd><p>For a continuous variable, any values that the limits should encompass (e.g. <code>0</code>).</p></dd>
 
 
 <dt>col_expand</dt>
-<dd><p>Padding to the limits with <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">ggplot2::expansion()</a></code>, or a vector of length 2 (e.g. <code>c(0, 0)</code>).</p></dd>
+<dd><p>Padding to the limits with the <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">ggplot2::expansion()</a></code> function, or a vector of length 2 (e.g. <code>c(0, 0)</code>).</p></dd>
 
 
 <dt>col_labels</dt>
@@ -322,79 +318,79 @@
 
 
 <dt>col_legend_ncol, col_legend_nrow</dt>
-<dd><p>The number of columns and rows for the legend elements.</p></dd>
+<dd><p>The number of columns and rows for the legend guide.</p></dd>
 
 
 <dt>col_legend_rev</dt>
-<dd><p>Reverse the elements of the legend. Defaults to <code>FALSE</code>.</p></dd>
+<dd><p>Reverse the elements of the legend guide. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt>col_limits</dt>
-<dd><p>A vector to determine the limits of the scale.</p></dd>
+<dd><p>A vector of length 2 to determine the limits of the axis.</p></dd>
 
 
 <dt>col_oob</dt>
-<dd><p>For a continuous variable, a <code>scales::oob_*</code> function of how to handle values outside of limits (e.g. <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>). Defaults to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>.</p></dd>
+<dd><p>For a continuous scale variable, a <code>scales::oob_*</code> function of how to handle values outside of limits (e.g. <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>). Defaults to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>.</p></dd>
 
 
 <dt>col_pal</dt>
-<dd><p>colours to use. A character vector of hex codes (or names).</p></dd>
+<dd><p>Colours to use. A character vector of hex codes (or names).</p></dd>
 
 
 <dt>col_pal_na</dt>
-<dd><p>colour to use for <code>NA</code> values. A character vector of a hex code (or name).</p></dd>
+<dd><p>Colour to use for <code>NA</code> values. A character vector of a hex code (or name).</p></dd>
 
 
 <dt>col_rescale</dt>
-<dd><p>For a continuous variable, a <code><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">scales::rescale</a></code> function.</p></dd>
+<dd><p>For a continuous variable, a <code><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">scales::rescale()</a></code> function.</p></dd>
 
 
 <dt>col_title</dt>
-<dd><p>Legend title string. Use "" for no title.</p></dd>
+<dd><p>Axis title string. Use <code>""</code> for no title.</p></dd>
 
 
 <dt>col_transform</dt>
-<dd><p>For a numeric variable, a transformation object (e.g. scales::transform_log10()) or character string of this minus the <code>transform_</code> prefix (e.g. "log10").</p></dd>
+<dd><p>For a numeric scale, a transformation object (e.g. <code><a href="https://scales.r-lib.org/reference/transform_log.html" class="external-link">scales::transform_log10()</a></code>) or character string of this minus the <code>transform_</code> prefix (e.g. <code>"log10"</code>).</p></dd>
 
 
 <dt>facet_axes</dt>
-<dd><p>Whether to add interior axes and ticks with "margins", "all", "all_x", or "all_y".</p></dd>
+<dd><p>Whether to add interior axes and ticks with <code>"margins"</code>, <code>"all"</code>, <code>"all_x"</code>, or <code>"all_y"</code>.</p></dd>
 
 
 <dt>facet_axis_labels</dt>
-<dd><p>Whether to add interior axis labels with "margins", "all", "all_x", or "all_y".</p></dd>
+<dd><p>Whether to add interior axis labels with <code>"margins"</code>, <code>"all"</code>, <code>"all_x"</code>, or <code>"all_y"</code>.</p></dd>
 
 
 <dt>facet_labels</dt>
-<dd><p>A function that takes the breaks as inputs (e.g. <code>\(x) stringr::str_to_sentence(x)</code> or <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code>), or a named vector of labels (e.g. c("value1" = "label1", ...)).</p></dd>
+<dd><p>A function that takes the breaks as inputs (e.g. <code>\(x) stringr::str_to_sentence(x)</code>), or a named vector of labels (e.g. c("value1" = "label1", ...)).</p></dd>
 
 
 <dt>facet_labels_position</dt>
-<dd><p>When the facet layout is "wrap", the position of the facet labels. Either "top", "right", "bottom" or "left".</p></dd>
+<dd><p>When the facet layout is <code>"wrap"</code>, the position of the facet labels. Either <code>"top"</code>, <code>"right"</code>, <code>"bottom"</code> or <code>"left"</code>.</p></dd>
 
 
 <dt>facet_labels_switch</dt>
-<dd><p>When the facet layout is "grid", whether to switch the facet labels to the opposite side of the plot. Either "x", "y" or "both".</p></dd>
+<dd><p>When the facet layout is <code>"grid"</code>, whether to switch the facet labels to the opposite side of the plot. Either <code>"x"</code>, <code>"y"</code> or <code>"both"</code>.</p></dd>
 
 
 <dt>facet_layout</dt>
-<dd><p>Whether the layout is to be "wrap" or "grid". If <code>NULL</code> and a single <code>facet</code> (or <code>facet2</code>) argument is provided, then defaults to "wrap". If <code>NULL</code> and both facet and facet2 arguments are provided, defaults to "grid".</p></dd>
+<dd><p>Whether the layout is to be <code>"wrap"</code> or <code>"grid"</code>. If <code>NULL</code> and a single <code>facet</code> (or <code>facet2</code>) argument is provided, then defaults to <code>"wrap"</code>. If <code>NULL</code> and both facet and facet2 arguments are provided, defaults to <code>"grid"</code>.</p></dd>
 
 
 <dt>facet_ncol</dt>
-<dd><p>The number of columns of facets. Only applies to a facet layout of "wrap".</p></dd>
+<dd><p>The number of columns of facets. Only applies to a facet layout of <code>"wrap"</code>.</p></dd>
 
 
 <dt>facet_nrow</dt>
-<dd><p>The number of rows of facets. Only applies to a facet layout of "wrap".</p></dd>
+<dd><p>The number of rows of facets. Only applies to a facet layout of <code>"wrap"</code>.</p></dd>
 
 
 <dt>facet_scales</dt>
-<dd><p>Whether facet scales should be "fixed" across facets, "free" in both directions, or free in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".</p></dd>
+<dd><p>Whether facet scales should be <code>"fixed"</code> across facets, <code>"free"</code> in both directions, or free in just one direction (i.e. <code>"free_x"</code> or <code>"free_y"</code>). Defaults to <code>"fixed"</code>.</p></dd>
 
 
 <dt>facet_space</dt>
-<dd><p>When the facet layout is "grid" and facet scales are not "fixed", whether facet space should be "fixed" across facets, "free" to be proportional in both directions, or free to be proportional in just one direction (i.e. "free_x" or "free_y"). Defaults to "fixed".</p></dd>
+<dd><p>When the facet layout is <code>"grid"</code> and facet scales are not <code>"fixed"</code>, whether facet space should be <code>"fixed"</code> across facets, <code>"free"</code> to be proportional in both directions, or free to be proportional in just one direction (i.e. <code>"free_x"</code> or <code>"free_y"</code>). Defaults to <code>"fixed"</code>.</p></dd>
 
 
 <dt>alpha_breaks</dt>
@@ -402,11 +398,11 @@
 
 
 <dt>alpha_expand_limits</dt>
-<dd><p>For a continuous variable, any values that the limits should encompass (e.g. 0).</p></dd>
+<dd><p>For a continuous variable, any values that the limits should encompass (e.g. <code>0</code>).</p></dd>
 
 
 <dt>alpha_expand</dt>
-<dd><p>Padding to the limits with the ggplot2::expansion function, or a vector of length 2 (e.g. <code>c(0, 0)</code>).</p></dd>
+<dd><p>Padding to the limits with the <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">ggplot2::expansion()</a></code> function, or a vector of length 2 (e.g. <code>c(0, 0)</code>).</p></dd>
 
 
 <dt>alpha_labels</dt>
@@ -414,35 +410,35 @@
 
 
 <dt>alpha_legend_ncol, alpha_legend_nrow</dt>
-<dd><p>The number of columns and rows for the legend elements.</p></dd>
+<dd><p>The number of columns and rows for the legend guide.</p></dd>
 
 
 <dt>alpha_legend_rev</dt>
-<dd><p>Reverse the elements of the legend. Defaults to <code>FALSE</code>.</p></dd>
+<dd><p>Reverse the elements of the legend guide. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt>alpha_limits</dt>
-<dd><p>A vector to determine the limits of the scale.</p></dd>
+<dd><p>A vector of length 2 to determine the limits of the axis.</p></dd>
 
 
 <dt>alpha_oob</dt>
-<dd><p>For a continuous variable, a <code>scales::oob_*</code> function of how to handle values outside of limits (e.g. <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>). Defaults to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>.</p></dd>
+<dd><p>For a continuous scale variable, a <code>scales::oob_*</code> function of how to handle values outside of limits (e.g. <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>). Defaults to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>.</p></dd>
 
 
 <dt>alpha_pal</dt>
-<dd><p>Alpha values to use as a numeric vector. For a continuous variable, a range is only needed.</p></dd>
+<dd><p>Alpha values to use. For a continuous variable, a vector of length 2 between 0 and 1. For a discrete variable, a vector of integers between 0 and 1.</p></dd>
 
 
 <dt>alpha_pal_na</dt>
-<dd><p>Alpha value to use for the <code>NA</code> value.</p></dd>
+<dd><p>Alpha value to use for the <code>NA</code> value. A integer between 0 and 1.</p></dd>
 
 
 <dt>alpha_title</dt>
-<dd><p>Legend title string. Use <code>""</code> for no title.</p></dd>
+<dd><p>Axis title string. Use <code>""</code> for no title.</p></dd>
 
 
 <dt>alpha_transform</dt>
-<dd><p>For a numeric variable, a transformation object (e.g. <code><a href="https://scales.r-lib.org/reference/transform_log.html" class="external-link">scales::transform_log10()</a></code>) or character string of this minus the transform_ prefix (e.g. "log10").</p></dd>
+<dd><p>For a numeric scale, a transformation object (e.g. <code><a href="https://scales.r-lib.org/reference/transform_log.html" class="external-link">scales::transform_log10()</a></code>) or character string of this minus the <code>transform_</code> prefix (e.g. <code>"log10"</code>).</p></dd>
 
 
 <dt>title</dt>
@@ -462,7 +458,7 @@
 
 
 <dt>flipped</dt>
-<dd><p><code>TRUE</code> or <code>FALSE</code> or whether the plot is flipped. This affects the defaults of positional scale and gridlines.</p></dd>
+<dd><p><code>TRUE</code> or <code>FALSE</code> or whether the plot is flipped (i.e. horizontal). This affects the positional scale and gridlines defaults.</p></dd>
 
 </dl></div>
     <div class="section level2">
