@@ -103,7 +103,8 @@ to:</p>
 <ol style="list-style-type: decimal">
 <li>Use different fonts</li>
 <li>Visualise spatial data</li>
-<li>Change the stat</li>
+<li>Change the <code>stat</code>
+</li>
 <li>Use non-supported aesthetics</li>
 <li>Use delayed evaluation</li>
 <li>Add contrasting dark or light text on polygons</li>
@@ -176,10 +177,10 @@ data can be visualised.</p>
 <p><img src="3_go_further-Rmd_files/figure-html/unnamed-chunk-4-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="change-the-stat">3. Change the stat<a class="anchor" aria-label="anchor" href="#change-the-stat"></a>
+<h3 id="change-the-stat">3. Change the <code>stat</code><a class="anchor" aria-label="anchor" href="#change-the-stat"></a>
 </h3>
 <p>The default <code>stat</code> of each <code>gg_*</code> function can
-be changed for additional flexibility.</p>
+be changed.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
@@ -220,8 +221,9 @@ be changed for additional flexibility.</p>
 <p>Most functions have the commonly needed aesthetics directly available
 as an argument. For those that are not available, you can either use
 <code>mapping</code> argument. The <code>mapping</code> argument
-provides access to the <code>linetype</code>, <code>shape</code> and
-<code>size</code> aesthetics within the <code>gg_*</code> function.</p>
+provides access to the <code>size</code>, <code>shape</code>,
+<code>linetype</code> and <code>linewidth</code> aesthetics within the
+<code>gg_*</code> function.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
