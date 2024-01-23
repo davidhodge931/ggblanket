@@ -157,11 +157,11 @@ gg_blanket(
 
 \item{x_expand_limits, y_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
 
-\item{x_labels, y_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
+\item{x_labels, y_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) \code{\link[stringr::str_to_sentence]}(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
 
 \item{x_limits, y_limits}{A vector of length 2 to determine the limits of the axis.}
 
-\item{x_oob, y_oob}{For a continuous scale variable, a \verb{scales::oob_*} function of how to handle values outside of limits (e.g. \code{scales::oob_keep}). Defaults to \code{scales::oob_keep}.}
+\item{x_oob, y_oob}{For a continuous scale variable, a \verb{scales::oob_*} function of how to handle values outside of limits. Defaults to \code{scales::oob_keep}.}
 
 \item{x_sec_axis, y_sec_axis}{A secondary axis using \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}} or \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}}.}
 
@@ -185,7 +185,7 @@ gg_blanket(
 
 \item{col_limits}{A vector of length 2 to determine the limits of the axis.}
 
-\item{col_oob}{For a continuous scale variable, a \verb{scales::oob_*} function of how to handle values outside of limits (e.g. \code{scales::oob_keep}). Defaults to \code{scales::oob_keep}.}
+\item{col_oob}{For a continuous scale variable, a \verb{scales::oob_*} function of how to handle values outside of limits. Defaults to \code{scales::oob_keep}.}
 
 \item{col_pal}{Colours to use. A character vector of hex codes (or names).}
 
@@ -231,7 +231,7 @@ gg_blanket(
 
 \item{alpha_limits}{A vector of length 2 to determine the limits of the axis.}
 
-\item{alpha_oob}{For a continuous scale variable, a \verb{scales::oob_*} function of how to handle values outside of limits (e.g. \code{scales::oob_keep}). Defaults to \code{scales::oob_keep}.}
+\item{alpha_oob}{For a continuous scale variable, a \verb{scales::oob_*} function of how to handle values outside of limits. Defaults to \code{scales::oob_keep}.}
 
 \item{alpha_pal}{Alpha values to use. For a continuous variable, a vector of length 2 between 0 and 1. For a discrete variable, a vector of integers between 0 and 1.}
 
