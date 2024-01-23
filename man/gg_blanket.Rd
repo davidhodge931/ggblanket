@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_blanket.R
 \name{gg_blanket}
 \alias{gg_blanket}
-\title{Blanket ggplot with geom flexibility}
+\title{Blanket ggplot}
 \usage{
 gg_blanket(
   data = NULL,
@@ -255,7 +255,7 @@ gg_blanket(
 A ggplot object.
 }
 \description{
-Create a blanket ggplot with a wrapper around \code{ggplot()} + \code{layer()} with \link[ggplot2:geom_blank]{geom_blank()} defaults.
+Create a blanket ggplot with a wrapper around \code{ggplot()} + \code{layer()} with \link[ggplot2:geom_blank]{geom_blank()} defaults. This function underlies all other \verb{gg_*} functions. It contains a \code{geom} argument for maximum flexibility.
 }
 \examples{
 
