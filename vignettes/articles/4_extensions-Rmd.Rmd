@@ -131,7 +131,7 @@ penguins |>
   geom_density(
     alpha = 0.5, 
   ) |> 
-  ggblend::blend("multiply")
+  ggblend::blend(blend = "multiply")
 ```
 
 #### ggdensity
