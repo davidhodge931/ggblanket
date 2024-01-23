@@ -37,6 +37,7 @@
 * Breaking: removed `guardian` function.
 * Breaking: renamed `str_keep_seq` to `replace_seq`.
 * Improved documentation of help (@olivroy, #643).
+* Improved log defaults.
 
 # ggblanket 5.2.0
 

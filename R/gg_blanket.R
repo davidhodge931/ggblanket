@@ -1279,13 +1279,22 @@ gg_blanket <- function(
       }
 
       if (rlang::is_null(col_breaks)) {
-        if (!any(col_transform_name %in% c("identity", "reverse"))) col_breaks <- ggplot2::waiver()
+        if (any(stringr::str_detect(col_transform_name, "log-")) |
+            any(col_transform_name %in% c("log", "log2", "log10"))
+        ) {
+          col_breaks <- scales::breaks_log(n = 5)
+        }
+        else if (!any(col_transform_name %in% c("identity", "reverse"))) col_breaks <- ggplot2::waiver()
         else col_breaks <- scales::breaks_pretty(n = 5)
       }
 
       if (rlang::is_null(col_labels)) {
         if (any(col_transform_name %in% c("hms"))) col_labels <- scales::label_time()
         else if (any(col_transform_name %in% c("date", "time"))) col_labels <- scales::label_date_short()
+        else if (any(stringr::str_detect(col_transform_name, "log-")) |
+                 any(col_transform_name %in% c("log", "log2", "log10"))) {
+          col_labels <- scales::label_log()
+        }
         else if (!any(col_transform_name %in% c("identity", "reverse"))) col_labels <- ggplot2::waiver()
         else col_labels <- scales::label_comma(drop0trailing = TRUE)
       }
@@ -1482,13 +1491,22 @@ gg_blanket <- function(
       }
 
       if (rlang::is_null(alpha_breaks)) {
-        if (!any(alpha_transform_name %in% c("identity", "reverse"))) alpha_breaks <- ggplot2::waiver()
+        if (any(stringr::str_detect(alpha_transform_name, "log-")) |
+            any(alpha_transform_name %in% c("log", "log2", "log10"))
+        ) {
+          alpha_breaks <- scales::breaks_log(n = 5)
+        }
+        else if (!any(alpha_transform_name %in% c("identity", "reverse"))) alpha_breaks <- ggplot2::waiver()
         else alpha_breaks <- scales::breaks_pretty(n = 5)
       }
 
       if (rlang::is_null(alpha_labels)) {
         if (any(alpha_transform_name %in% c("hms"))) alpha_labels <- scales::label_time()
         else if (any(alpha_transform_name %in% c("date", "time"))) alpha_labels <- scales::label_date_short()
+        else if (any(stringr::str_detect(alpha_transform_name, "log-")) |
+                 any(alpha_transform_name %in% c("log", "log2", "log10"))) {
+          alpha_labels <- scales::label_log()
+        }
         else if (!any(alpha_transform_name %in% c("identity", "reverse"))) alpha_labels <- ggplot2::waiver()
         else alpha_labels <- scales::label_comma(drop0trailing = TRUE)
       }
@@ -1623,6 +1641,10 @@ gg_blanket <- function(
     if (rlang::is_null(x_labels)) {
       if (any(x_transform_name %in% c("hms"))) x_labels <- scales::label_time()
       else if (any(x_transform_name %in% c("date", "time"))) x_labels <- scales::label_date_short()
+      else if (any(stringr::str_detect(x_transform_name, "log-")) |
+            any(x_transform_name %in% c("log", "log2", "log10"))) {
+          x_labels <- scales::label_log()
+        }
       else if (!any(x_transform_name %in% c("identity", "reverse"))) x_labels <- ggplot2::waiver()
       else x_labels <- scales::label_comma(drop0trailing = TRUE)
     }
@@ -1645,7 +1667,9 @@ gg_blanket <- function(
       if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
 
       if (rlang::is_null(x_breaks)) {
-        if (any(x_transform_name %in% c("log", "log2", "log10"))) {
+        if (any(stringr::str_detect(x_transform_name, "log-")) |
+            any(x_transform_name %in% c("log", "log2", "log10"))
+            ) {
           x_breaks <- scales::breaks_log(n = x_breaks_n)
         } else {
           x_breaks <- scales::breaks_pretty(n = x_breaks_n)
@@ -1793,6 +1817,10 @@ gg_blanket <- function(
     if (rlang::is_null(y_labels)) {
       if (any(y_transform_name %in% c("hms"))) y_labels <- scales::label_time()
       else if (any(y_transform_name %in% c("date", "time"))) y_labels <- scales::label_date_short()
+      else if (any(stringr::str_detect(y_transform_name, "log-")) |
+               any(y_transform_name %in% c("log", "log2", "log10"))) {
+        y_labels <- scales::label_log()
+      }
       else if (!any(y_transform_name %in% c("identity", "reverse"))) y_labels <- ggplot2::waiver()
       else y_labels <- scales::label_comma(drop0trailing = TRUE)
     }
@@ -1815,7 +1843,9 @@ gg_blanket <- function(
       if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
 
       if (rlang::is_null(y_breaks)) {
-        if (any(y_transform_name %in% c("log", "log2", "log10"))) {
+        if (any(stringr::str_detect(y_transform_name, "log-")) |
+            any(y_transform_name %in% c("log", "log2", "log10"))
+        ) {
           y_breaks <- scales::breaks_log(n = y_breaks_n)
         } else {
           y_breaks <- scales::breaks_pretty(n = y_breaks_n)
