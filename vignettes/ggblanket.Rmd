@@ -39,11 +39,11 @@ Secondary objectives relate to:
 3.  A `facet` argument to facet by a variable
 4.  A `facet2` argument to facet by a 2nd variable
 5.  A `col_pal` argument to customise colours
-6.  Numerous prefixed arguments to customise 
-7.  Default sentence case titles 
+6.  Prefixed arguments to customise 
+7.  Unspecified titles to `sentence_case` 
 8.  `light_mode_*` and `dark_mode_*` theme families
 9.  Access to other `geom_*` arguments via `...`
-10. Symmetric continuous axis scales and gridlines removal
+10. Symmetric continuous positional scales and gridlines removal
 11. Flexibility to turn-off or fix either colour or fill
 12. Ability to add multiple `geom_*` layers
 13. Other key differences to ggplot2
@@ -156,7 +156,7 @@ penguins |>
   )
 ```
 
-### 6.  Numerous prefixed arguments to customise 
+### 6.  Prefixed arguments to customise 
 
 ggblanket offers numerous arguments to customise that are prefixed by whether they relate to `x`, `y`, `col`, `facet` or `alpha`. 
 
@@ -186,7 +186,7 @@ penguins |>
 knitr::include_graphics("autocomplete_y.png", dpi = 300)
 ```
 
-### 7.  Default sentence case titles
+### 7.  Unspecified titles to `sentence_case`
 
 Default `x`, `y`, `col` and `alpha` titles are converted to sentence case with `snakecase::to_sentence`. 
 
@@ -245,7 +245,7 @@ penguins |>
   ) 
 ```
 
-### 10. Symmetric continuous axis scales and gridlines removal
+### 10. Symmetric continuous positional scales and gridlines removal
 
 ggblanket guesses whether the plot is flipped or not in order to determine:
 
