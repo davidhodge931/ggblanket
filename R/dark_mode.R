@@ -1,6 +1,6 @@
-#' @title Dark theme for a ggplot with legend at right top.
+#' @title Dark ggplot theme with right top legend
 #'
-#' @description Dark theme for a ggplot visualisation.
+#' @description Dark theme for a ggplot visualisation with legend at right top
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
@@ -168,9 +168,9 @@ dark_mode_rt <- function (
   )
 }
 
-#' @title Dark theme for a ggplot with legend at right centre.
+#' @title Dark ggplot theme with right legend
 #'
-#' @description Dark theme for a ggplot visualisation.
+#' @description Dark theme for a ggplot visualisation with right centre legend.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
@@ -338,9 +338,9 @@ dark_mode_r <- function (
   )
 }
 
-#' @title Dark theme for a ggplot with legend at bottom.
+#' @title Dark ggplot theme with bottom legend
 #'
-#' @description Dark theme for a ggplot visualisation.
+#' @description Dark theme for a ggplot visualisation with bottom legend.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
@@ -508,9 +508,9 @@ dark_mode_b <- function (
   )
 }
 
-#' @title Dark theme for a ggplot with legend at top.
+#' @title Dark ggplot theme with top legend
 #'
-#' @description Dark theme for a ggplot visualisation.
+#' @description Dark theme for a ggplot visualisation with top legend.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
@@ -678,9 +678,9 @@ dark_mode_t <- function (
   )
 }
 
-#' @title Dark theme for a ggplot with legend inside the panel.
+#' @title Dark ggplot theme with inside legend
 #'
-#' @description Dark theme for a ggplot visualisation.
+#' @description Dark theme for a ggplot visualisation with legend inside the panel.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".

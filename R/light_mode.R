@@ -1,6 +1,6 @@
-#' @title Light theme for a ggplot with legend at right top.
+#' @title Light ggplot theme with right top legend
 #'
-#' @description Light theme for a ggplot visualisation.
+#' @description Light theme for a ggplot visualisation with legend at right top.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
@@ -168,9 +168,9 @@ light_mode_rt <- function (
   )
 }
 
-#' @title Light theme for a ggplot with legend at right centre.
+#' @title Light ggplot theme with right legend
 #'
-#' @description Light theme for a ggplot visualisation.
+#' @description Light theme for a ggplot visualisation with right centre legend.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
@@ -338,9 +338,9 @@ light_mode_r <- function (
   )
 }
 
-#' @title Light theme for a ggplot with legend at bottom.
+#' @title Light ggplot theme with bottom legend
 #'
-#' @description Light theme for a ggplot visualisation.
+#' @description Light theme for a ggplot visualisation with bottom legend.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
@@ -508,9 +508,9 @@ light_mode_b <- function (
   )
 }
 
-#' @title Light theme for a ggplot with legend at top.
+#' @title Light ggplot theme with top legend
 #'
-#' @description Light theme for a ggplot visualisation.
+#' @description Light theme for a ggplot visualisation with top legend.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
@@ -678,9 +678,9 @@ light_mode_t <- function (
   )
 }
 
-#' @title Light theme for a ggplot with legend inside the panel.
+#' @title Light ggplot theme with inside legend
 #'
-#' @description Light theme for a ggplot visualisation.
+#' @description Light theme for a ggplot visualisation with legend inside the panel.
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".

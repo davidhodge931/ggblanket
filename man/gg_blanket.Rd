@@ -157,7 +157,7 @@ gg_blanket(
 
 \item{x_expand_limits, y_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
 
-\item{x_labels, y_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) \code{\link[stringr::str_to_sentence]}(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
+\item{x_labels, y_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
 
 \item{x_limits, y_limits}{A vector of length 2 to determine the limits of the axis.}
 

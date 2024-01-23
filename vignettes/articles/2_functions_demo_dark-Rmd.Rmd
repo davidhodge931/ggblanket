@@ -250,7 +250,7 @@ penguins |>
     position = position_jitter(height = 0), 
     y_expand_limits = 0,
     col_continuous = "steps",
-    col_labels = \(x) str_keep_seq(x, by = 2),
+    col_labels = \(x) replace_seq(x),
     col_pal = viridisLite::mako(9),
   )
 ```

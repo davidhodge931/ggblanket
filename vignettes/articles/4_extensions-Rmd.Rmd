@@ -42,7 +42,7 @@ p1 <- mtcars |>
   gg_point(
     x = mpg, 
     y = disp,
-    y_labels = \(x) str_keep_seq(x),
+    y_labels = \(x) replace_seq(x),
   ) +
   facet_wrap(~"Plot 1")
 
@@ -52,7 +52,7 @@ p2 <- mtcars |>
     y = disp, 
     group = gear, 
     width = 0.5,
-    y_labels = \(x) str_keep_seq(x),
+    y_labels = \(x) replace_seq(x),
   ) +
   facet_wrap(~"Plot 2")
 
@@ -437,7 +437,7 @@ penguins |>
     facet2 = sex,
     x_labels = \(x) glue::glue("_{x}_"),
     x_title = "**Bill depth** (mm)", 
-    y_labels = \(x) str_keep_seq(glue::glue("_{x}_")),
+    y_labels = \(x) replace_seq(glue::glue("_{x}_")),
     y_title = "**Bill length** (mm)",
     col_labels = \(x) glue::glue("_{x}_"),
     col_title = "**Species**",

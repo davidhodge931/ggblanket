@@ -34,5 +34,4 @@ reference:
   - pal_grey
   - pal_light_mode
   - pal_dark_mode
-  - starts_with("pal_")
-  - str_keep_seq
+  - replace_seq

@@ -2,7 +2,7 @@
 % Please edit documentation in R/dark_mode.R
 \name{dark_mode_r}
 \alias{dark_mode_r}
-\title{Dark theme for a ggplot with legend at right centre.}
+\title{Dark ggplot theme with right legend}
 \usage{
 dark_mode_r(
   base_size = 11,
@@ -85,7 +85,7 @@ dark_mode_r(
 A ggplot theme.
 }
 \description{
-Dark theme for a ggplot visualisation.
+Dark theme for a ggplot visualisation with right centre legend.
 }
 \examples{
 library(palmerpenguins)

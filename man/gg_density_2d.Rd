@@ -154,7 +154,7 @@ gg_density_2d(
 
 \item{x_gridlines, y_gridlines}{\code{TRUE} or \code{FALSE} for gridlines. \code{NULL} guesses based on the classes of the x and y scales.}
 
-\item{x_labels, y_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) \code{\link[stringr::str_to_sentence]}(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
+\item{x_labels, y_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
 
 \item{x_limits, y_limits}{A vector of length 2 to determine the limits of the axis.}
 

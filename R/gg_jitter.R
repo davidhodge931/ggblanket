@@ -23,7 +23,6 @@
 #'     position = position_jitter(height = 0),
 #'     y_expand_limits = 0,
 #'     col_continuous_type = "steps",
-#'     col_labels = \(x) str_keep_seq(x, by = 2),
 #'   )
 #'
 gg_jitter <- function(

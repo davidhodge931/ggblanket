@@ -32,7 +32,7 @@
 #' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
 #' @param x_expand_limits,y_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`).
 #' @param x_gridlines,y_gridlines `TRUE` or `FALSE` for gridlines. `NULL` guesses based on the classes of the x and y scales.
-#' @param x_labels,y_labels A function that takes the breaks as inputs (e.g. `\(x) \code{\link[stringr::str_to_sentence]}(x)` or [scales::label_comma()]), or a vector of labels.
+#' @param x_labels,y_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or [scales::label_comma()]), or a vector of labels.
 #' @param x_limits,y_limits A vector of length 2 to determine the limits of the axis.
 #' @param x_oob,y_oob For a continuous scale variable, a `scales::oob_*` function of how to handle values outside of limits. Defaults to `scales::oob_keep`.
 #' @param x_sec_axis,y_sec_axis A secondary axis using [ggplot2::sec_axis()] or [ggplot2::dup_axis()].

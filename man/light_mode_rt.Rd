@@ -2,7 +2,7 @@
 % Please edit documentation in R/light_mode.R
 \name{light_mode_rt}
 \alias{light_mode_rt}
-\title{Light theme for a ggplot with legend at right top.}
+\title{Light ggplot theme with right top legend}
 \usage{
 light_mode_rt(
   base_size = 11,
@@ -85,7 +85,7 @@ light_mode_rt(
 A ggplot theme.
 }
 \description{
-Light theme for a ggplot visualisation.
+Light theme for a ggplot visualisation with legend at right top.
 }
 \examples{
 library(palmerpenguins)
