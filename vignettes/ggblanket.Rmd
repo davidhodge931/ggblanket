@@ -42,12 +42,12 @@ Secondary objectives relate to:
 6.  Numerous prefixed arguments to customise 
 7.  Default sentence case titles 
 8.  `light_mode_*` and `dark_mode_*` theme families
-9.  Access to other `geom_*` arguments via ...
+9.  Access to other `geom_*` arguments via `...`
 10. Symmetric continuous axis scales and gridlines removal
 11. Flexibility to turn-off or fix either colour or fill
 12. Ability to add multiple `geom_*` layers
 13. Other key differences to ggplot2
-14. A `gg_blanket()` function for extra `geom` flexibility
+14. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
 library(ggblanket)
@@ -450,7 +450,7 @@ This needs to be considered when you are using `x_limits` or `y_limits`, and you
 * y categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) * Logical variables are reversed, so that `TRUE` always comes before `FALSE`
 * Infinite values are treated as `NA`
  
-### 14. A `gg_blanket` function for extra `geom` flexibility
+### 14. A `gg_blanket` function with `geom` flexibility
 
 ggblanket is driven by `gg_blanket` function, which has a `geom` argument with `geom_blank` defaults.
 

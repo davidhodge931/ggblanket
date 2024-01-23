@@ -22,7 +22,7 @@ This article will demonstrate more advanced content, including how to:
 
 1. Use different fonts
 2. Visualise spatial data
-3. Change the stat
+3. Change the `stat`
 4. Use non-supported aesthetics
 5. Use delayed evaluation
 6. Add contrasting dark or light text on polygons
@@ -90,9 +90,9 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
   ggeasy::easy_remove_axes() 
 ```
 
-### 3. Change the stat
+### 3. Change the `stat`
 
-The default `stat` of each `gg_*` function can be changed for additional flexibility. 
+The default `stat` of each `gg_*` function can be changed. 
 
 ```{r}
 penguins |> 
@@ -133,7 +133,7 @@ ggplot2::economics |>
 
 ### 4. Use non-supported aesthetics 
 
-Most functions have the commonly needed aesthetics directly available as an argument. For those that are not available, you can either use `mapping` argument. The `mapping` argument provides access to the `linetype`, `shape` and `size` aesthetics within the `gg_*` function. 
+Most functions have the commonly needed aesthetics directly available as an argument. For those that are not available, you can either use `mapping` argument. The `mapping` argument provides access to the `size`, `shape`, `linetype` and `linewidth` aesthetics within the `gg_*` function. 
 
 ```{r}
 penguins |> 
