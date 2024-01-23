@@ -103,7 +103,7 @@ titanic_wide |>
   ) +
   geom_stratum(
     colour = "black",
-    fill = "white",
+    fill = pal_light_mode["panel"],
     show.legend = FALSE,
   ) +
   geom_text(
