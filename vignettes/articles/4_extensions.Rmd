@@ -200,8 +200,11 @@ data.frame(
     mapping = aes(dist = values),
     y_expand = c(0.05, 0.05),
     alpha_pal = 0.5,
+    # show_slab = FALSE,
+    # show_interval = FALSE,
+    # side = "both",
   ) +
-  labs(size = "Width")
+  labs(width = "Width")
 ```
 
 ```{r}
