@@ -24,9 +24,9 @@ A vector.
 Keep every nth element in a vector, and replace the rest with a value such as \code{""}.
 }
 \examples{
-x <- LETTERS[1:12]
-replace_seq(x)
-replace_seq(x, offset = -1)
-replace_seq(x, keep_nth = 3)
+replace_seq(seq(1000, 7000, 1000))
+replace_seq(seq(1000, 7000, 1000), offset = -1)
+replace_seq(seq(1000, 7000, 1000), keep_nth = 3)
+replace_seq(LETTERS[1:12])
 
 }

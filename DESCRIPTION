@@ -37,6 +37,7 @@ Suggests:
     quantreg,
     rmarkdown,
     sf,
+    testthat (>= 3.0.0),
     tibble
 Config/Needs/website: 
     concaveman,
@@ -66,3 +67,4 @@ Config/Needs/website:
     stars,
     sysfonts
 VignetteBuilder: knitr
+Config/testthat/edition: 3
