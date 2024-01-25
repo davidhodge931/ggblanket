@@ -97,13 +97,14 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span></span></span>
-<span class="r-in"><span><span class="fu">replace_seq</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">replace_seq</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">7000</span>, <span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1,000" ""      "3,000" ""      "5,000" ""      "7,000"</span>
+<span class="r-in"><span><span class="fu">replace_seq</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">7000</span>, <span class="fl">1000</span><span class="op">)</span>, offset <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ""      "2,000" ""      "4,000" ""      "6,000" ""     </span>
+<span class="r-in"><span><span class="fu">replace_seq</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">7000</span>, <span class="fl">1000</span><span class="op">)</span>, keep_nth <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1,000" ""      ""      "4,000" ""      ""      "7,000"</span>
+<span class="r-in"><span><span class="fu">replace_seq</span><span class="op">(</span><span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "A" ""  "C" ""  "E" ""  "G" ""  "I" ""  "K" "" </span>
-<span class="r-in"><span><span class="fu">replace_seq</span><span class="op">(</span><span class="va">x</span>, offset <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] ""  "B" ""  "D" ""  "F" ""  "H" ""  "J" ""  "L"</span>
-<span class="r-in"><span><span class="fu">replace_seq</span><span class="op">(</span><span class="va">x</span>, keep_nth <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "A" ""  ""  "D" ""  ""  "G" ""  ""  "J" ""  "" </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
