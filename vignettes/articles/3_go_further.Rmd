@@ -25,7 +25,8 @@ This article will demonstrate more advanced content, including how to:
 3. Change the `stat`
 4. Use non-supported aesthetics
 5. Use delayed evaluation
-6. Add contrasting dark or light text on polygons
+6. Add a legend from layers each set to a single value 
+7. Add contrasting dark or light text on polygons
 
 ```{r setup}
 library(ggblanket)
@@ -148,7 +149,7 @@ penguins |>
 
 ### 5. Use delayed evaluation
 
-As the `x`, `y`, `col` and `alpha` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This is useful for delayed evaluation with the `after_stat` function.
+As the `x`, `y`, `col` and `alpha` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This is useful for delayed evaluation with the `ggplot2::after_stat` function.
 
 ```{r, fig.asp=0.55}
 penguins |>
@@ -170,7 +171,23 @@ faithfuld |>
   )
 ```
 
-### 6. Add contrasting dark or light text on polygons
+### 6. Add a legend from layers each set to a single value 
+
+To add a legend from layers each set to a single value, you can likewise use the `mapping` argument.
+
+```{r}
+mpg |> 
+  gg_point(
+    x = displ, 
+    y = hwy,
+    mapping = aes(colour = "Point"), 
+    col_pal = c(pal_teal, pal_orange),
+    col_title = "Legend",
+  ) +
+  geom_smooth(mapping = aes(colour = "Line"))
+```
+
+### 7. Add contrasting dark or light text on polygons
 
 A method was developed by [@teunbrand](https://github.com/teunbrand/ggplot_tricks) to colour text on polygons using a dark or light colour, which is determined  based on the underlying polygon colour.
 

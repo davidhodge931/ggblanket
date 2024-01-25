@@ -397,7 +397,7 @@ penguins |>
 
 ##### Unquoted variables only
 
-ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet`, `facet2` and  `alpha`. You cannot wrap these in a function. Instead you may need to manipulate the data prior to plotting, or use the `mapping` argument for delayed evaluation or other non-supported aesthetics. 
+ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet`, `facet2` and  `alpha`. You cannot wrap these in a function. Instead you may need to manipulate the data prior to plotting, or use the `mapping` argument for other non-supported aesthetics, delayed evaluation etc. 
 
 ```{r}
 diamonds |>
