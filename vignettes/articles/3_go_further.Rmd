@@ -155,7 +155,7 @@ As the `x`, `y`, `col` and `alpha` aesthetic arguments require a unquoted variab
 penguins |>
   gg_histogram(
     x = flipper_length_mm,
-    mapping = aes(y = after_stat(density)),
+    mappingRp = aes(y = after_stat(density)),
     facet = species,
   )
 ```
@@ -181,7 +181,7 @@ mpg |>
     x = displ, 
     y = hwy,
     mapping = aes(colour = "Point"), 
-    col_pal = c(pal_teal, pal_orange),
+    col_pal = c(pal_navy, pal_teal),
     col_title = "Legend",
   ) +
   geom_smooth(mapping = aes(colour = "Line"))
