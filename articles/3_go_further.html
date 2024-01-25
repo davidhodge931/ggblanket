@@ -107,6 +107,7 @@ to:</p>
 </li>
 <li>Use non-supported aesthetics</li>
 <li>Use delayed evaluation</li>
+<li>Add a legend from layers each set to a single value</li>
 <li>Add contrasting dark or light text on polygons</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -242,7 +243,7 @@ provides access to the <code>size</code>, <code>shape</code>,
 <code>alpha</code> aesthetic arguments require a unquoted variable, you
 cannot apply a function to these. However, you can for aesthetics within
 the <code>mapping</code> argument. This is useful for delayed evaluation
-with the <code>after_stat</code> function.</p>
+with the <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">ggplot2::after_stat</a></code> function.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
@@ -263,12 +264,29 @@ with the <code>after_stat</code> function.</p>
 <p><img src="3_go_further_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="add-contrasting-dark-or-light-text-on-polygons">6. Add contrasting dark or light text on polygons<a class="anchor" aria-label="anchor" href="#add-contrasting-dark-or-light-text-on-polygons"></a>
+<h3 id="add-a-legend-from-layers-each-set-to-a-single-value">6. Add a legend from layers each set to a single value<a class="anchor" aria-label="anchor" href="#add-a-legend-from-layers-each-set-to-a-single-value"></a>
+</h3>
+<p>To add a legend from layers each set to a single value, you can
+likewise use the <code>mapping</code> argument.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">displ</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">hwy</span>,</span>
+<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"Point"</span><span class="op">)</span>, </span>
+<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">pal_teal</span>, <span class="va">pal_orange</span><span class="op">)</span>,</span>
+<span>    col_title <span class="op">=</span> <span class="st">"Legend"</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"Line"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="add-contrasting-dark-or-light-text-on-polygons">7. Add contrasting dark or light text on polygons<a class="anchor" aria-label="anchor" href="#add-contrasting-dark-or-light-text-on-polygons"></a>
 </h3>
 <p>A method was developed by <a href="https://github.com/teunbrand/ggplot_tricks" class="external-link"><span class="citation">@teunbrand</span></a> to colour text on polygons using
 a dark or light colour, which is determined based on the underlying
 polygon colour.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">contrast</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">col_pal</span>, </span>
 <span>                     <span class="va">col_pal_dark</span> <span class="op">=</span> <span class="va">pal_light_mode</span><span class="op">[</span><span class="st">"text"</span><span class="op">]</span>, </span>
 <span>                     <span class="va">col_pal_light</span> <span class="op">=</span> <span class="va">pal_light_mode</span><span class="op">[</span><span class="st">"panel"</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span></span>
@@ -298,8 +316,8 @@ polygon colour.</p>
 <span>    size <span class="op">=</span> <span class="fl">3.53</span>,</span>
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">corrr</span><span class="fu">::</span><span class="fu"><a href="https://corrr.tidymodels.org/reference/correlate.html" class="external-link">correlate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">corrr</span><span class="fu">::</span><span class="fu"><a href="https://corrr.tidymodels.org/reference/stretch.html" class="external-link">stretch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -322,7 +340,7 @@ polygon colour.</p>
 <span>    size <span class="op">=</span> <span class="fl">3.53</span>,</span>
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
