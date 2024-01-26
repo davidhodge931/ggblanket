@@ -1324,18 +1324,8 @@ gg_blanket <- function(
             na.value = col_pal_na,
           ) +
           ggplot2::guides(
-            colour = ggplot2::guide_colourbar(
-              reverse = col_legend_rev,
-              draw.ulim = FALSE,
-              draw.llim = FALSE,
-              # alpha = alpha_pal1
-            ),
-            fill = ggplot2::guide_colourbar(
-              reverse = col_legend_rev,
-              draw.ulim = FALSE,
-              draw.llim = FALSE,
-              # alpha = alpha_pal1
-            )
+            colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
+            fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
           )
 
       }
@@ -1364,14 +1354,8 @@ gg_blanket <- function(
             na.value = col_pal_na,
           ) +
           ggplot2::guides(
-            colour = ggplot2::guide_coloursteps(
-              reverse = col_legend_rev,
-              # alpha = alpha_pal1
-            ),
-            fill = ggplot2::guide_coloursteps(
-              reverse = col_legend_rev,
-              # alpha = alpha_pal1
-            )
+            colour = ggplot2::guide_coloursteps(reverse = col_legend_rev),
+            fill = ggplot2::guide_coloursteps(reverse = col_legend_rev)
           ) +
           ggplot2::theme(legend.ticks = ggplot2::element_blank())
       }
