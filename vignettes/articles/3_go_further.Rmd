@@ -98,13 +98,11 @@ The default `stat` of each `gg_*` function can be changed.
 ```{r}
 penguins |> 
   gg_point(
-    stat = "sum",
+    stat = "summary",
     x = species,
     y = island,
-  ) +
-  labs(size = "Count")
+  ) 
 ```
-
 
 ```{r}
 penguins |>
