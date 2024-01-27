@@ -535,11 +535,9 @@ whole.</p>
 <p>ggblanket requires unquoted variables only for <code>x</code>,
 <code>y</code>, <code>col</code>, <code>facet</code>,
 <code>facet2</code> and <code>alpha</code>. You cannot wrap these in a
-function. Instead you may need to manipulate the data prior to plotting
-(e.g. via <code><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">dplyr::across</a></code> and <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev</a></code>,
-<code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">forcats::fct_reorder</a></code>, <code>is.na</code>, or
-<code>droplevels</code> etc), or use the <code>mapping</code> argument
-for other non-supported aesthetics, delayed evaluation etc.</p>
+function. Instead you may need to manipulate the data prior to plotting,
+or use the <code>mapping</code> argument for other non-supported
+aesthetics, delayed evaluation etc.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
