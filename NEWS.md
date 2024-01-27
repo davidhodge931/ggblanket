@@ -38,7 +38,7 @@
 * Improved documentation of help (@olivroy, #643).
 * Improved log transform defaults.
 * Each function's help on inputs inherits from `gg_blanket` (@olivroy, #625).
-* Added `aes_contrast` `aes_contrast_light_mode` and `aes_contrast_dark_mode` helpers for an automaticly contrasting text aesthetic using code developed by @Teunbrand (#649)
+* Added `aes_contrast` `aes_contrast_light_mode` and `aes_contrast_dark_mode` helpers for an automatically contrasting text aesthetic using code developed by Teun van den Brand (@teunbrand, #649)
 
 # ggblanket 5.2.0
 
