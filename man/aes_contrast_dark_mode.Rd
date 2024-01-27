@@ -14,7 +14,7 @@ aes_contrast_dark_mode
 An aesthetic.
 }
 \description{
-Contrast aesthetic to be sliced within ggplot2::aes with light/dark text colours consistent with dark_mode_* defaults.
+Contrast aesthetic to be spliced within ggplot2::aes with light/dark text colours consistent with dark_mode_* defaults.
 }
 \examples{
 library(palmerpenguins)

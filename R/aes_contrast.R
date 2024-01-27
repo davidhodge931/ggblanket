@@ -19,7 +19,7 @@ contrast <- function(col,
 
 #' Contrast aesthetic
 #'
-#' @description Contrast aesthetic to be sliced within ggplot2::aes
+#' @description Contrast aesthetic to be spliced within ggplot2::aes
 #'
 #' @param col_pal_dark A dark colour used for text on light polygons. Defaults to "white".
 #' @param col_pal_light A light colour used for text on dark polygons. Defaults to "black".
@@ -63,7 +63,7 @@ aes_contrast <- function(col_pal_dark = "black", col_pal_light = "white") {
 
 #' Contrast aesthetic for light_mode_* theme
 #'
-#' @description Contrast aesthetic to be sliced within ggplot2::aes with light/dark text colours consistent with light_mode_* defaults.
+#' @description Contrast aesthetic to be spliced within ggplot2::aes with light/dark text colours consistent with light_mode_* defaults.
 #'
 #' @return An aesthetic.
 #' @export
@@ -104,7 +104,7 @@ aes_contrast_light_mode <- {
 
 #' Contrast aesthetic for dark_mode_* theme
 #'
-#' @description Contrast aesthetic to be sliced within ggplot2::aes with light/dark text colours consistent with dark_mode_* defaults.
+#' @description Contrast aesthetic to be spliced within ggplot2::aes with light/dark text colours consistent with dark_mode_* defaults.
 #'
 #' @return An aesthetic.
 #' @export
