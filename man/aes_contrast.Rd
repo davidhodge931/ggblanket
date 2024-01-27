@@ -15,7 +15,7 @@ aes_contrast(col_pal_dark = "black", col_pal_light = "white")
 An aesthetic.
 }
 \description{
-Contrast aesthetic to be sliced within ggplot2::aes
+Contrast aesthetic to be spliced within ggplot2::aes
 }
 \examples{
 library(palmerpenguins)
