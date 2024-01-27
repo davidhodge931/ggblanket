@@ -2,7 +2,6 @@
 
 * Rewrote code completely.
 * Exported `gg_blanket` function, which allows for a ggproto geom (or character string) to be added.
-* Each function's help on inputs inherits from `gg_blanket` (@olivroy, #625).
 * Added `stat` support for a ggproto object (or character string).
 * Added `position` support for a ggproto object (or character string).
 * Added `transform` support for a transform class object (or character string).
@@ -37,7 +36,9 @@
 * Breaking: removed `guardian` function.
 * Breaking: renamed `str_keep_seq` to `replace_seq`.
 * Improved documentation of help (@olivroy, #643).
-* Improved log defaults.
+* Improved log transform defaults.
+* Each function's help on inputs inherits from `gg_blanket` (@olivroy, #625).
+* Added `aes_contrast` `aes_contrast_light_mode` and `aes_contrast_dark_mode` helpers for an automaticly contrasting text aesthetic using code developed by @Teunbrand (#649)
 
 # ggblanket 5.2.0
 

@@ -26,6 +26,9 @@ reference:
   - dark_mode_i
 - title: Helper
 - contents:
+  - aes_contrast
+  - aes_contrast_light_mode
+  - aes_contrast_dark_mode
   - pal_blue
   - pal_teal
   - pal_orange

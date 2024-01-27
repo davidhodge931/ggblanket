@@ -188,67 +188,41 @@ mpg |>
 
 ### 7. Add contrasting dark or light text on polygons
 
-A method was developed by [@teunbrand](https://github.com/teunbrand/ggplot_tricks) to colour text on polygons using a dark or light colour, which is determined  based on the underlying polygon colour.
+Text on polygons can be coloured using a dark or light colour that is determined based on the underlying polygon colour. This method was developed by Teun van den Brand (@teunbrand).
 
 ```{r}
-contrast <- function(col,
-                     col_pal_dark = "black",
-                     col_pal_light = "white") {
-
-  out <- rep(col_pal_dark, length(col))
-  light <- farver::get_channel(col, "l", space = "hcl")
-  out[light < 50] <- col_pal_light
-  out
-}
-
-aes_contrast <- function(col_pal_dark = "black", col_pal_light = "white") {
-  ggplot2::aes(
-    colour = ggplot2::after_scale(
-      contrast(.data$fill,
-               col_pal_dark = col_pal_dark,
-               col_pal_light = col_pal_light)
-    )
-  )
-}
-
 penguins |>
   count(species, sex) |>
   gg_col(
     x = sex,
     y = n,
     col = species,
-    col_pal = c("#0095A8", "#112E51", "#FF7043"),
     position = position_dodge2(preserve = "single"),
     width = 0.75,
     x_labels = \(x) stringr::str_to_sentence(x),
   ) +
   geom_text(
-    mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast()),
+    mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast_light_mode),
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
   )
 ```
 
 ```{r}
-mtcars |> 
-  corrr::correlate() |> 
-  corrr::stretch() |> 
-  mutate(across(c(x, y), str_to_sentence)) |> 
-  gg_tile(
-    x = x, 
-    y = y,
-    col = r,
-    x_title = "", 
-    y_title = "", 
-    x_expand = c(0, 0), 
-    y_expand = c(0, 0),
-    col_pal_na = pal_light_mode["plot"],
-    col_limits = c(-1, 1),
-    col_rescale = scales::rescale(c(-1, 0, 1)),
-    col_title = "r",
+penguins |>
+  count(species, sex) |>
+  gg_col(
+    x = sex,
+    y = n,
+    col = species,
+    position = position_dodge2(preserve = "single"),
+    width = 0.75,
+    x_labels = \(x) stringr::str_to_sentence(x),
+    theme = dark_mode_rt(),
   ) +
   geom_text(
-    mapping = aes(label = round(r, 1), !!!aes_contrast()),
+    mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast_dark_mode),
+    position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
   )
 ```
