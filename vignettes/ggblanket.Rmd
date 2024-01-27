@@ -44,7 +44,7 @@ Secondary objectives relate to:
 8.  `light_mode_*` and `dark_mode_*` theme families
 9.  Access to other `geom_*` arguments via `...`
 10. Symmetric continuous positional scales and gridlines removal
-11. Flexibility to turn-off or fix either colour or fill
+11. Turn-off or fix either colour or fill
 12. Ability to add multiple `geom_*` layers
 13. Other key differences to ggplot2
 14. A `gg_blanket()` function with `geom` flexibility
@@ -292,7 +292,7 @@ penguins |>
   )
 ```
 
-### 11. Flexibility to turn-off or fix either colour or fill
+### 11. Turn-off or fix either colour or fill
 
 For a geom with both outlines and fill, the default is to have both of these to the same colour with a default value of `alpha_pal`.
 
