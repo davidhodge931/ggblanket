@@ -54,32 +54,32 @@ pal_grey <- "#78909C"
 
 #' The `light_mode_*` theme colours
 #'
-#' @description A 5 colour vector for use with the `light_mode_*` themes to colour the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.
+#' @description A 5 colour vector for use with the `light_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axis line/ticks.(5) and text.
 #'
 #' @return A character vector.
 #'
 #' @export
 pal_light_mode <- c(
-  "text" = "#121b24",
   "plot" = "#e6ecf2",
   "panel" = "#fcfdfe",
-  "axis_line" = "#121b24",
-  "gridlines" = "#dbe1e7"
+  "gridlines" = "#dbe1e7",
+  "axisline" = "#121b24",
+  "text" = "#121b24"
 )
 
 #' The `dark_mode_*` theme colours
 #'
-#' @description A 5 colour vector for use with the `dark_mode_*` themes to colour the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.
+#' @description A 5 colour vector for use with the `dark_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axis line/ticks.(5) and text.
 #'
 #' @return A character vector.
 #'_
 #' @export
 pal_dark_mode <- c(
-  "text" = "#bbccdd",
   "plot" = "#15202b",
   "panel" = "#1f2f3e",
-  "axis_line" = "#bbccdd",
-  "gridlines" = "#2c3a48"
+  "gridlines" = "#2c3a48",
+  "axisline" = "#bbccdd",
+  "text" = "#bbccdd"
 )
 
 #' Default colours used to colour a discrete variable

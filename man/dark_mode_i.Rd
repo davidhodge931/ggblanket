@@ -24,7 +24,7 @@ dark_mode_i(
   caption_family = NULL,
   caption_face = NULL,
   caption_alpha = 0.33,
-  caption_pal = base_pal[1],
+  caption_pal = base_pal[5],
   caption_size = ggplot2::rel(0.9),
   caption_hjust = 0,
   caption_vjust = 0.5,
