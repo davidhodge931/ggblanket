@@ -202,7 +202,8 @@ penguins |>
     x_labels = \(x) stringr::str_to_sentence(x),
   ) +
   geom_text(
-    mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast()),
+    mapping = aes(y = n - (max(n * 0.04)), label = n, 
+                  !!!aes_contrast("light_mode")),
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
   )
@@ -222,7 +223,7 @@ penguins |>
   ) +
   geom_text(
     mapping = aes(y = n - (max(n * 0.04)), label = n, 
-                  !!!aes_contrast(pal_dark_mode["plot"], pal_dark_mode["text"])),
+                  !!!aes_contrast("dark_mode")),
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
   )

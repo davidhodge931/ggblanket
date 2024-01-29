@@ -14,6 +14,6 @@ pal_light_mode
 A character vector.
 }
 \description{
-A 5 colour vector for use with the \verb{light_mode_*} themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axis line/ticks.(5) and text.
+A 5 colour vector for use with the \verb{light_mode_*} themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.
 }
 \keyword{datasets}

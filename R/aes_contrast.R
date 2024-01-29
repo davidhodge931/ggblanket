@@ -17,17 +17,16 @@ contrast <- function(col,
   out
 }
 
-#' A colour aesthetic that automatically contrasts with fill
+#' An automatically contrasting colour aesthetic
 #'
-#' @description A colour aesthetic that automatically contrasts with fill, and can be spliced within ggplot2::aes.
+#' @description A colour aesthetic that automatically contrasts with fill.
 #'
-#' @param col_pal_dark A dark colour used for text on light polygons.
-#' @param col_pal_light A light colour used for text on dark polygons.
+#' @param theme_family The ggblanket theme family default colours. Either "light_mode" or "dark_mode".
+#' @param col_pal_dark A dark colour for use on light fill.
+#' @param col_pal_light A light colour for use on dark fill.
 #'
-#' @return An aesthetic.
+#' @return An aesthetic
 #' @export
-#'
-#' @references Based on code by Teun van den Brand
 #'
 #' @examples
 #' library(palmerpenguins)
@@ -40,37 +39,31 @@ contrast <- function(col,
 #'     x = sex,
 #'     y = n,
 #'     col = species,
-#'     col_pal = c("#0095A8", "#112E51", "#FF7043"),
 #'     position = position_dodge2(preserve = "single"),
 #'     width = 0.75,
 #'     x_labels = \(x) stringr::str_to_sentence(x),
 #'   ) +
 #'   geom_text(
-#'     mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast()),
+#'     mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast("light_mode")),
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     show.legend = FALSE,
 #'   )
-#'
-#' penguins |>
-#'   count(species, sex) |>
-#'   gg_col(
-#'    x = sex,
-#'    y = n,
-#'    col = species,
-#'    position = position_dodge2(preserve = "single"),
-#'    width = 0.75,
-#'    x_labels = \(x) stringr::str_to_sentence(x),
-#'    theme = dark_mode_rt(),
-#'  ) +
-#'  geom_text(
-#'    mapping = aes(y = n - (max(n * 0.04)), label = n,
-#'                  !!!aes_contrast(pal_dark_mode["plot"], pal_dark_mode["text"])),
-#'    position = position_dodge2(width = 0.75, preserve = "single"),
-#'    show.legend = FALSE,
-#'  )
-#'
-aes_contrast <- function(col_pal_dark = pal_light_mode["text"],
-                         col_pal_light = pal_light_mode["panel"]) {
+aes_contrast <- function(theme_family = NULL, col_pal_dark = NULL, col_pal_light = NULL) {
+
+  if (!rlang::is_null(theme_family)) {
+    if (theme_family == "light_mode") {
+      col_pal_dark <- pal_light_mode["text"]
+      col_pal_light <- pal_light_mode["panel"]
+    }
+    else if (theme_family == "dark_mode") {
+      col_pal_dark <- pal_dark_mode["plot"]
+      col_pal_light <- pal_dark_mode["text"]
+    }
+  }
+  else {
+    if (rlang::is_null(col_pal_dark)) col_pal_dark <- "black"
+    if (rlang::is_null(col_pal_light)) col_pal_light <- "white"
+  }
 
   ggplot2::aes(
     colour = ggplot2::after_scale(

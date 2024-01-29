@@ -39,7 +39,7 @@
 * Improved log transform defaults.
 * Changed `legend.byrow` to FALSE.
 * Each function's help on inputs inherits from `gg_blanket` (@olivroy, #625).
-* Added `aes_contrast_l`, `aes_contrast_d` and `aes_contrast` helpers for an automatically contrasting text aesthetic using code developed by Teun van den Brand (@teunbrand, #649)
+* Added `aes_contrast` for a colour aesthetic that automatically contrasts with the fill aesthetic using code developed by Teun van den Brand (@teunbrand, #649)
 
 # ggblanket 5.2.0
 

@@ -54,7 +54,7 @@ pal_grey <- "#78909C"
 
 #' The `light_mode_*` theme colours
 #'
-#' @description A 5 colour vector for use with the `light_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axis line/ticks.(5) and text.
+#' @description A 5 colour vector for use with the `light_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.
 #'
 #' @return A character vector.
 #'
@@ -69,7 +69,7 @@ pal_light_mode <- c(
 
 #' The `dark_mode_*` theme colours
 #'
-#' @description A 5 colour vector for use with the `dark_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axis line/ticks.(5) and text.
+#' @description A 5 colour vector for use with the `dark_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.
 #'
 #' @return A character vector.
 #'_
