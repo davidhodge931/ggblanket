@@ -2,8 +2,8 @@
 
 export("%>%")
 export(aes_contrast)
-export(aes_contrast_dark_mode)
-export(aes_contrast_light_mode)
+export(aes_contrast_d)
+export(aes_contrast_l)
 export(dark_mode_b)
 export(dark_mode_i)
 export(dark_mode_r)

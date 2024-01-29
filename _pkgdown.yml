@@ -27,8 +27,8 @@ reference:
 - title: Helper
 - contents:
   - aes_contrast
-  - aes_contrast_light_mode
-  - aes_contrast_dark_mode
+  - aes_contrast_l
+  - aes_contrast_d
   - pal_blue
   - pal_teal
   - pal_orange

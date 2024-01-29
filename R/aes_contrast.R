@@ -87,12 +87,12 @@ aes_contrast <- function(col_pal_dark = "black", col_pal_light = "white") {
 #'     x_labels = \(x) stringr::str_to_sentence(x),
 #'   ) +
 #'   geom_text(
-#'     mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast_light_mode),
+#'     mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast_l),
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     show.legend = FALSE,
 #'   )
 #'
-aes_contrast_light_mode <- {
+aes_contrast_l <- {
   ggplot2::aes(
     colour = ggplot2::after_scale(
       contrast(.data$fill,
@@ -129,12 +129,12 @@ aes_contrast_light_mode <- {
 #'     theme = dark_mode_rt(),
 #'   ) +
 #'   geom_text(
-#'     mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast_dark_mode),
+#'     mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast_d),
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     show.legend = FALSE,
 #'   )
 #'
-aes_contrast_dark_mode <- {
+aes_contrast_d <- {
   ggplot2::aes(
     colour = ggplot2::after_scale(
       contrast(.data$fill,

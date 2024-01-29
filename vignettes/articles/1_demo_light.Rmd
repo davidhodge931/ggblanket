@@ -1,5 +1,5 @@
 ---
-title: "Functions demo"
+title: "Demo (light mode)"
 author: "David Hodge"
 ---
 
@@ -27,7 +27,7 @@ library(stringr)
 library(tidyr)
 library(palmerpenguins)
 
-theme_set(light_mode_rt())
+# theme_set(light_mode_rt())
 ```
 
 ### gg_area
