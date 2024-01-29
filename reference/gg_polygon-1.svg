@@ -57,12 +57,12 @@
 <clipPath id="clip1">
   <path d="M 460.925781 37.398438 L 480.105469 37.398438 L 480.105469 133.289062 L 460.925781 133.289062 Z M 460.925781 37.398438 "/>
 </clipPath>
-<image id="image169" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAA0ElEQVQ4jY2USxLDIAxDJaVd9f7npYv4C26mCw/4SbaZTACf11ukJFCk7gBFsu1BJoflwSBAVuPezG9/6Vu9vo/5nYGKGhRfnYF2TqWneJ0jZvQ+YNagnCP4rj3k2ctnM84AUmtgHmtjy84KUhC1CNNgeuZr4LNeWc9rLHS2Ds9Zc7J9zuDBv72evLDvPnPf86E/kR6axq2urxx5C5xs9JX5+hXoOTeNg/8iddnPOK6krvvCxVo1hSbFAwF/KJT7iQVPxqbfd0fW+9C81u6oyC9fSRIPC8R8RgAAAABJRU5ErkJggg=="/>
+<image id="image164" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAA0ElEQVQ4jY2USxLDIAxDJaVd9f7npYv4C26mCw/4SbaZTACf11ukJFCk7gBFsu1BJoflwSBAVuPezG9/6Vu9vo/5nYGKGhRfnYF2TqWneJ0jZvQ+YNagnCP4rj3k2ctnM84AUmtgHmtjy84KUhC1CNNgeuZr4LNeWc9rLHS2Ds9Zc7J9zuDBv72evLDvPnPf86E/kR6axq2urxx5C5xs9JX5+hXoOTeNg/8iddnPOK6krvvCxVo1hSbFAwF/KJT7iQVPxqbfd0fW+9C81u6oyC9fSRIPC8R8RgAAAABJRU5ErkJggg=="/>
 <pattern id="pattern0" patternUnits="userSpaceOnUse" width="1" height="300"  patternTransform="matrix(19.178082,0,0,0.319635,460.924658,37.39726)">
-  <use xlink:href="#image169"/>
+  <use xlink:href="#image164"/>
 </pattern>
 </defs>
-<g id="surface165">
+<g id="surface160">
 <rect x="0" y="0" width="525" height="324" style="fill:rgb(90.196078%,92.54902%,94.901961%);fill-opacity:1;stroke:none;"/>
 <path style="fill:none;stroke-width:0.711319;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(90.196078%,92.54902%,94.901961%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 324 L 525 324 L 525 0 L 0 0 Z M 0 324 "/>
 <path style="fill-rule:nonzero;fill:rgb(98.823529%,99.215686%,99.607843%);fill-opacity:1;stroke-width:0.711319;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(98.823529%,99.215686%,99.607843%);stroke-opacity:1;stroke-miterlimit:10;" d="M 56.578125 278.855469 L 447.035156 278.855469 L 447.035156 21.917969 L 56.578125 21.917969 Z M 56.578125 278.855469 "/>
