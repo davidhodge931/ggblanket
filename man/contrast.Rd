@@ -9,9 +9,9 @@ contrast(col, col_pal_dark = "black", col_pal_light = "white")
 \arguments{
 \item{col}{The fill or colour aesthetic.}
 
-\item{col_pal_dark}{A dark colour used for text on light polygons. Defaults to "black".}
+\item{col_pal_dark}{A dark colour used for text on light polygons.}
 
-\item{col_pal_light}{A light colour used for text on dark polygons. Defaults to "white".}
+\item{col_pal_light}{A light colour used for text on dark polygons.}
 }
 \description{
 Contrast internal function

@@ -1,8 +1,8 @@
 #' Contrast internal function
 #'
 #' @param col The fill or colour aesthetic.
-#' @param col_pal_dark A dark colour used for text on light polygons. Defaults to "black".
-#' @param col_pal_light A light colour used for text on dark polygons. Defaults to "white".
+#' @param col_pal_dark A dark colour used for text on light polygons.
+#' @param col_pal_light A light colour used for text on dark polygons.
 #'
 #' @keywords internal
 #'
@@ -17,12 +17,12 @@ contrast <- function(col,
   out
 }
 
-#' Contrast aesthetic
+#' A colour aesthetic that automatically contrasts with fill
 #'
-#' @description Contrast aesthetic to be spliced within ggplot2::aes
+#' @description A colour aesthetic that automatically contrasts with fill, and can be spliced within ggplot2::aes.
 #'
-#' @param col_pal_dark A dark colour used for text on light polygons. Defaults to "white".
-#' @param col_pal_light A light colour used for text on dark polygons. Defaults to "black".
+#' @param col_pal_dark A dark colour used for text on light polygons.
+#' @param col_pal_light A light colour used for text on dark polygons.
 #'
 #' @return An aesthetic.
 #' @export
@@ -51,7 +51,27 @@ contrast <- function(col,
 #'     show.legend = FALSE,
 #'   )
 #'
-aes_contrast <- function(col_pal_dark = "black", col_pal_light = "white") {
+#' penguins |>
+#'   count(species, sex) |>
+#'   gg_col(
+#'    x = sex,
+#'    y = n,
+#'    col = species,
+#'    position = position_dodge2(preserve = "single"),
+#'    width = 0.75,
+#'    x_labels = \(x) stringr::str_to_sentence(x),
+#'    theme = dark_mode_rt(),
+#'  ) +
+#'  geom_text(
+#'    mapping = aes(y = n - (max(n * 0.04)), label = n,
+#'                  !!!aes_contrast(pal_dark_mode["plot"], pal_dark_mode["text"])),
+#'    position = position_dodge2(width = 0.75, preserve = "single"),
+#'    show.legend = FALSE,
+#'  )
+#'
+aes_contrast <- function(col_pal_dark = pal_light_mode["text"],
+                         col_pal_light = pal_light_mode["panel"]) {
+
   ggplot2::aes(
     colour = ggplot2::after_scale(
       contrast(.data$fill,
@@ -61,85 +81,3 @@ aes_contrast <- function(col_pal_dark = "black", col_pal_light = "white") {
   )
 }
 
-#' Contrast aesthetic for light_mode_* theme
-#'
-#' @description Contrast aesthetic to be spliced within ggplot2::aes with light/dark text colours consistent with light_mode_* defaults.
-#'
-#' @return An aesthetic.
-#' @export
-#'
-#' @references Based on code by Teun van den Brand
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(dplyr)
-#' library(ggplot2)
-#'
-#' penguins |>
-#'   count(species, sex) |>
-#'   gg_col(
-#'     x = sex,
-#'     y = n,
-#'     col = species,
-#'     col_pal = c("#0095A8", "#112E51", "#FF7043"),
-#'     position = position_dodge2(preserve = "single"),
-#'     width = 0.75,
-#'     x_labels = \(x) stringr::str_to_sentence(x),
-#'   ) +
-#'   geom_text(
-#'     mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast_l),
-#'     position = position_dodge2(width = 0.75, preserve = "single"),
-#'     show.legend = FALSE,
-#'   )
-#'
-aes_contrast_l <- {
-  ggplot2::aes(
-    colour = ggplot2::after_scale(
-      contrast(.data$fill,
-               col_pal_dark = pal_light_mode["text"],
-               col_pal_light = pal_light_mode["panel"])
-    )
-  )
-}
-
-#' Contrast aesthetic for dark_mode_* theme
-#'
-#' @description Contrast aesthetic to be spliced within ggplot2::aes with light/dark text colours consistent with dark_mode_* defaults.
-#'
-#' @return An aesthetic.
-#' @export
-#'
-#' @references Based on code by Teun van den Brand
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(dplyr)
-#' library(ggplot2)
-#'
-#' penguins |>
-#'   count(species, sex) |>
-#'   gg_col(
-#'     x = sex,
-#'     y = n,
-#'     col = species,
-#'     col_pal = c("#0095A8", "#112E51", "#FF7043"),
-#'     position = position_dodge2(preserve = "single"),
-#'     width = 0.75,
-#'     x_labels = \(x) stringr::str_to_sentence(x),
-#'     theme = dark_mode_rt(),
-#'   ) +
-#'   geom_text(
-#'     mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast_d),
-#'     position = position_dodge2(width = 0.75, preserve = "single"),
-#'     show.legend = FALSE,
-#'   )
-#'
-aes_contrast_d <- {
-  ggplot2::aes(
-    colour = ggplot2::after_scale(
-      contrast(.data$fill,
-               col_pal_dark = pal_dark_mode["plot"],
-               col_pal_light = pal_dark_mode["text"])
-    )
-  )
-}
