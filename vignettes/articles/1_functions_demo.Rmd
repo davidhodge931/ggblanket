@@ -208,6 +208,16 @@ penguins |>
   )
 ```
 
+### gg_function
+
+```{r}
+gg_function(
+  fun = \(x) dnorm(x, mean = 0, sd = 5),
+  x_limits = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
+  y_expand_limits = 0,
+)
+```
+
 ### gg_hex
 
 ```{r}
@@ -395,6 +405,16 @@ penguins |>
   )
 ```
 
+### gg_quantile
+
+```{r}
+penguins |>
+  gg_quantile(
+    x = flipper_length_mm,
+    y = body_mass_g,
+  )
+```
+
 ### gg_raster
 
 ```{r}
@@ -444,6 +464,18 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
   geom_line(
     mapping = aes(x = year, y = level), 
     colour = pal_blue
+  )
+```
+
+### gg_rug
+
+```{r}
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_rug(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
   )
 ```
 
