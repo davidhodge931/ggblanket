@@ -2,22 +2,22 @@
 % Please edit documentation in R/aes_contrast.R
 \name{aes_contrast}
 \alias{aes_contrast}
-\title{An automatically contrasting colour aesthetic}
+\title{A colour aesthetic that automatically contrasts with fill.}
 \usage{
 aes_contrast(theme_family = NULL, col_pal_dark = NULL, col_pal_light = NULL)
 }
 \arguments{
-\item{theme_family}{The ggblanket theme family default colours from which to choose colours. Either "light_mode" or "dark_mode".}
+\item{theme_family}{The ggblanket theme family default colours. Either "light_mode" or "dark_mode".}
 
-\item{col_pal_dark}{A dark colour for use on light fill.}
+\item{col_pal_dark}{A dark colour for use on light fill, which over-rides defaults selected based on the theme_family.}
 
-\item{col_pal_light}{A light colour for use on dark fill.}
+\item{col_pal_light}{A light colour for use on dark fill, which over-rides defaults selected based on the theme_family.}
 }
 \value{
 An aesthetic
 }
 \description{
-A colour aesthetic that automatically contrasts with fill.
+A colour aesthetic that automatically contrasts with fill. Can be spliced into ggplot2::aes.
 }
 \examples{
 library(palmerpenguins)
@@ -35,7 +35,8 @@ penguins |>
     x_labels = \(x) stringr::str_to_sentence(x),
   ) +
   geom_text(
-    mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast("light_mode")),
+    mapping = aes(y = n - (max(n * 0.04)), label = n,
+                  !!!aes_contrast("light_mode")),
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
   )

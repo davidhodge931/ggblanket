@@ -17,13 +17,13 @@ contrast <- function(col,
   out
 }
 
-#' An automatically contrasting colour aesthetic
+#' A colour aesthetic that automatically contrasts with fill.
 #'
-#' @description A colour aesthetic that automatically contrasts with fill.
+#' @description A colour aesthetic that automatically contrasts with fill. Can be spliced into ggplot2::aes.
 #'
 #' @param theme_family The ggblanket theme family default colours. Either "light_mode" or "dark_mode".
-#' @param col_pal_dark A dark colour for use on light fill.
-#' @param col_pal_light A light colour for use on dark fill.
+#' @param col_pal_dark A dark colour for use on light fill, which over-rides defaults selected based on the theme_family.
+#' @param col_pal_light A light colour for use on dark fill, which over-rides defaults selected based on the theme_family.
 #'
 #' @return An aesthetic
 #' @export
@@ -44,20 +44,23 @@ contrast <- function(col,
 #'     x_labels = \(x) stringr::str_to_sentence(x),
 #'   ) +
 #'   geom_text(
-#'     mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast("light_mode")),
+#'     mapping = aes(y = n - (max(n * 0.04)), label = n,
+#'                   !!!aes_contrast("light_mode")),
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     show.legend = FALSE,
 #'   )
-aes_contrast <- function(theme_family = NULL, col_pal_dark = NULL, col_pal_light = NULL) {
+aes_contrast <- function(theme_family = NULL,
+                         col_pal_dark = NULL,
+                         col_pal_light = NULL) {
 
   if (!rlang::is_null(theme_family)) {
     if (theme_family == "light_mode") {
-      col_pal_dark <- pal_light_mode["text"]
-      col_pal_light <- pal_light_mode["panel"]
+      if (rlang::is_null(col_pal_dark)) col_pal_dark <- pal_light_mode["text"]
+      if (rlang::is_null(col_pal_light)) col_pal_light <- pal_light_mode["panel"]
     }
     else if (theme_family == "dark_mode") {
-      col_pal_dark <- pal_dark_mode["plot"]
-      col_pal_light <- pal_dark_mode["text"]
+      if (rlang::is_null(col_pal_dark)) col_pal_dark <- pal_dark_mode["plot"]
+      if (rlang::is_null(col_pal_light)) col_pal_light <- pal_dark_mode["text"]
     }
   }
   else {
@@ -65,12 +68,12 @@ aes_contrast <- function(theme_family = NULL, col_pal_dark = NULL, col_pal_light
     if (rlang::is_null(col_pal_light)) col_pal_light <- "white"
   }
 
-  ggplot2::aes(
-    colour = ggplot2::after_scale(
-      contrast(.data$fill,
-               col_pal_dark = col_pal_dark,
-               col_pal_light = col_pal_light)
-    )
-  )
-}
 
+  ggplot2::aes(colour = ggplot2::after_scale(
+    contrast(
+      .data$fill,
+      col_pal_dark = col_pal_dark,
+      col_pal_light = col_pal_light
+    )
+  ))
+}
