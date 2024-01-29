@@ -241,7 +241,7 @@ penguins |>
     y = body_mass_g,
     col = sex, 
     se = TRUE, # via ... from geom_smooth
-    level = 0.99, # via ... from geom_smooth
+    level = 0.999, # via ... from geom_smooth
   ) 
 ```
 
