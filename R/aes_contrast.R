@@ -4,7 +4,7 @@
 #' @param col_pal_dark A dark colour used for text on light polygons.
 #' @param col_pal_light A light colour used for text on dark polygons.
 #'
-#' @keywords internal
+#' @noRd
 #'
 #' @references Based on code by Teun van den Brand
 contrast <- function(col,

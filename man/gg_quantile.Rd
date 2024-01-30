@@ -255,14 +255,15 @@ A ggplot object.
 Create an quantile ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_quantile]{geom_quantile()}.
 }
 \examples{
+if (requireNamespace("quantreg", quietly = TRUE)) {
+  library(ggplot2)
+  library(palmerpenguins)
 
-library(ggplot2)
-library(palmerpenguins)
-
-penguins |>
-  gg_quantile(
-    x = flipper_length_mm,
-    y = body_mass_g,
-  )
+  penguins |>
+    gg_quantile(
+       x = flipper_length_mm,
+       y = body_mass_g,
+     )
+}
 
 }

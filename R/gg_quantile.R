@@ -8,15 +8,16 @@
 #' @export
 #'
 #' @examples
+#' if (requireNamespace("quantreg", quietly = TRUE)) {
+#'   library(ggplot2)
+#'   library(palmerpenguins)
 #'
-#' library(ggplot2)
-#' library(palmerpenguins)
-#'
-#' penguins |>
-#'   gg_quantile(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'   )
+#'   penguins |>
+#'     gg_quantile(
+#'        x = flipper_length_mm,
+#'        y = body_mass_g,
+#'      )
+#' }
 #'
 gg_quantile <- function(
     data = NULL,

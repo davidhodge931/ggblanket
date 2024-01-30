@@ -2,8 +2,7 @@
 #'
 #' @param x A vector
 #'
-#' @return A vector
-#' @keywords internal
+#' @noRd
 na_if_inf <- function(x) {
   if (is.object(x)) {
     return(x)

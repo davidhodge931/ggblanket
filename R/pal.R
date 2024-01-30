@@ -88,7 +88,7 @@ pal_dark_mode <- c(
 #'
 #' @return A character vector.
 #'
-#' @keywords internal
+#' @noRd
 pal_discrete <- function(n = 3) {
   # if (n <= 4) c("#2596be", "#fc7c24", "#9c1e74", "#6b5840")[1:n]
   if (n <= 3) c(pal_teal, pal_orange, pal_plum)[1:n]
@@ -101,7 +101,7 @@ pal_discrete <- function(n = 3) {
 #'
 #' @return A character vector.
 #'
-#' @keywords internal
+#' @noRd
 #' @references The mako colour palette from viridisLite reversed
 pal_continuous <- function(n = 18) {
   viridisLite::mako(n = n, direction = -1)
