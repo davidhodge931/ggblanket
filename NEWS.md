@@ -14,7 +14,7 @@
 * Added `flipped` argument.
 * Changed `*_mode_*` default base_size to 11.
 * Changed `*_mode_*` default face to plain.
-* Changed `*_mode_*` `base_pal` to be a 5 colour vector to colour the whole plot.
+* Breaking: change `*_mode_*` `base_pal` argument to `col_pal`.
 * Changed default theme to place the legend on the top right.
 * Changed NULL effect of pretty axis `*_limits = c(NA, NA)` on `y_expand` NULL.
 * Improved default gridlines.

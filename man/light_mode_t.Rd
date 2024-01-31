@@ -39,7 +39,7 @@ light_mode_t(
 
 \item{base_face}{The base face of the text. Defaults to "plain".}
 
-\item{base_pal}{A 5 element vector of hex codes for the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.  Defaults to pal_light_mode.}
+\item{base_pal}{A 5 colour vector for use with the \verb{light_mode_*} themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.  Defaults to pal_light_mode.}
 
 \item{title_family}{The font family of the title. Defaults to the base_family.}
 
