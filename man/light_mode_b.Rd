@@ -8,7 +8,7 @@ light_mode_b(
   base_size = 11,
   base_family = "",
   base_face = "plain",
-  base_pal = pal_light_mode,
+  col_pal = pal_light_mode,
   title_family = NULL,
   title_face = "plain",
   title_pal = NULL,
@@ -24,7 +24,7 @@ light_mode_b(
   caption_family = NULL,
   caption_face = NULL,
   caption_alpha = 0.33,
-  caption_pal = base_pal[5],
+  caption_pal = col_pal[5],
   caption_size = ggplot2::rel(0.9),
   caption_hjust = 0,
   caption_vjust = 0.5,
@@ -39,13 +39,13 @@ light_mode_b(
 
 \item{base_face}{The base face of the text. Defaults to "plain".}
 
-\item{base_pal}{A 5 colour vector for use with the \verb{light_mode_*} themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.  Defaults to pal_light_mode.}
+\item{col_pal}{A 5 colour vector for use with the \verb{light_mode_*} themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.  Defaults to pal_light_mode.}
 
 \item{title_family}{The font family of the title. Defaults to the base_family.}
 
 \item{title_face}{The font face of the title. Defaults to "plain".}
 
-\item{title_pal}{The colour of the title. Defaults to the base_pal first element.}
+\item{title_pal}{The colour of the title. Defaults to the col_pal first element.}
 
 \item{title_size}{The size of the title. Defaults to the base_size * 1.1.}
 
@@ -57,7 +57,7 @@ light_mode_b(
 
 \item{subtitle_face}{The font face of the subtitle. Defaults to the base_face.}
 
-\item{subtitle_pal}{The colour of the subtitle. Defaults to the base_pal first element.}
+\item{subtitle_pal}{The colour of the subtitle. Defaults to the col_pal first element.}
 
 \item{subtitle_size}{The size of the subtitle. Defaults to the base_size.}
 
@@ -71,7 +71,7 @@ light_mode_b(
 
 \item{caption_alpha}{The alpha of the caption pal. Defaults to 0.33. Use 1 for no alpha.}
 
-\item{caption_pal}{The colour of the caption (before caption_alpha is applied). Defaults to the base_pal first element.}
+\item{caption_pal}{The colour of the caption (before caption_alpha is applied). Defaults to the col_pal first element.}
 
 \item{caption_size}{The size of the caption. Defaults to the base_size * 0.9.}
 
