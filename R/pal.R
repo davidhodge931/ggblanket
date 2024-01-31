@@ -82,6 +82,24 @@ pal_dark_mode <- c(
   "text" = "#bbccdd"
 )
 
+#' The `light_mode_*` theme colours
+#'
+#' @description A 3 colour vector used in the `light_mode_*` themes.
+#'
+#' @return A character vector.
+#'_
+#' @export
+lightness <- c("#121b24", "#fcfdfe", "#e6ecf2")
+
+#' The `dark_mode_*` theme colours
+#'
+#' @description A 3 colour vector used in the `dark_mode_*` themes.
+#'
+#' @return A character vector.
+#'_
+#' @export
+darkness <- c("#bbccdd", "#1f2f3e", "#15202b")
+
 #' Default colours used to colour a discrete variable
 #'
 #' @description Default colours used to colour a discrete variable. Uses a colour blind safe palette derived from the US Census Bureau's Data Visualisation Standards for 3 or less colours. For 4 or more colours, uses scales::pal_hue.
