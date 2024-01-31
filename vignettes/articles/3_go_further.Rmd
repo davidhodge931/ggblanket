@@ -179,7 +179,7 @@ mpg |>
     x = displ,
     y = hwy,
     mapping = aes(colour = "Observation"),
-    col_pal = c(pal_navy, pal_teal),
+    col_pal = c(navy, teal),
     col_title = "",
   ) +
   geom_smooth(mapping = aes(colour = "Model"), se = FALSE) +

@@ -99,7 +99,7 @@ titanic_wide |>
     x_breaks = c(1, 2, 3),
     x_labels = c("Class", "Sex", "Age"),
     y_limits = c(NA, NA),
-    col_pal = c(pal_orange, pal_teal),
+    col_pal = c(orange, teal),
   ) +
   geom_stratum(
     colour = "black",
@@ -171,7 +171,7 @@ data.frame(
     x = x, 
     y = y, 
     #this method of removing colour is better for the legend
-    col_pal = scales::alpha(pal_blue, 0),
+    col_pal = scales::alpha(blue, 0),
   ) 
 ```
 
@@ -287,7 +287,7 @@ iris |>
     col = Species,
     group = 1,
     colour = pal_light_mode["panel"],
-    col_pal = c(pal_teal, pal_orange, pal_navy),
+    col_pal = c(teal, orange, navy),
   )
 ```
 
@@ -334,7 +334,7 @@ penguins |>
     x = flipper_length_mm,
     col = species,
     x_breaks = scales::breaks_pretty(4),
-    col_pal = rep(pal_blue, 3), 
+    col_pal = rep(blue, 3), 
   ) + #build the scale for not faceted (i.e. all data)
   facet_wrap(~species) + #then add facet layer
   gghighlight::gghighlight() 
@@ -361,7 +361,7 @@ penguins |>
     mapping = aes(x = flipper_length_mm, y = body_mass_g, colour = species), 
     data = penguins |> filter(species != "Gentoo"),
   ) +
-  scale_color_manual(values = c(pal_plum, pal_orange)) +
+  scale_color_manual(values = c(plum, orange)) +
   labs(colour = "Species")
 ```
 
@@ -379,7 +379,7 @@ mtcars |>
     label = car, 
   ) +
   ggrepel::geom_text_repel(
-    colour = pal_blue, 
+    colour = blue, 
     size = 3.53,
   ) 
 ```
@@ -507,8 +507,8 @@ p <- diamonds |>
   ggiraph::geom_bar_interactive(
     mapping = aes(tooltip = after_stat(count), data_id = color), 
     width = 0.75, 
-    colour = pal_blue, 
-    fill = pal_blue, 
+    colour = blue, 
+    fill = blue, 
     alpha = 0.9
   )
 

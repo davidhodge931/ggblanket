@@ -271,7 +271,7 @@ bind_rows(
     size = 3.53,
     y_expand_limits = 0,
     y_title = "Miles per gallon",
-    col_pal = c(pal_orange, "white", pal_teal),
+    col_pal = c(orange, "white", teal),
   )
 
 }

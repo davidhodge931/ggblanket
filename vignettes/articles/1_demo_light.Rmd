@@ -276,7 +276,7 @@ bind_rows(
     size = 3.53,
     y_expand_limits = 0,
     y_title = "Miles per gallon", 
-    col_pal = c(pal_orange, "white", pal_teal),
+    col_pal = c(orange, "white", teal),
   )
 ```
 
@@ -401,7 +401,7 @@ penguins |>
     coord = coord_cartesian(clip = "on"), 
   ) +
   geom_qq_line(
-    colour = pal_blue, 
+    colour = blue, 
   )
 ```
 
@@ -459,11 +459,11 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     ymin = level_min,
     ymax = level_max,
     y_title = "Level",
-    col_pal = scales::alpha(pal_blue, 0),
+    col_pal = scales::alpha(blue, 0),
   ) +
   geom_line(
     mapping = aes(x = year, y = level), 
-    colour = pal_blue
+    colour = blue
   )
 ```
 
@@ -543,7 +543,7 @@ bind_rows(
     size = 3.53,
     y_expand_limits = 0,
     y_title = "Miles per gallon",
-    col_pal = c(pal_orange, "white", pal_teal),
+    col_pal = c(orange, "white", teal),
   )
 ```
 

@@ -1181,7 +1181,7 @@ gg_blanket <- function(
 
   #get params for when no col or alpha aesthetic
   if (is.na(is_col_continuous)) {
-    if (rlang::is_null(col_pal)) col_pal1 <- pal_blue
+    if (rlang::is_null(col_pal)) col_pal1 <- col_pal_discrete(n = 1)
     else col_pal1 <- col_pal[1]
   }
 
@@ -1256,7 +1256,7 @@ gg_blanket <- function(
   if (!is.na(is_col_continuous)) {
     if (is_col_continuous) {
       if (rlang::is_null(col_pal)) {
-        col_pal <- pal_continuous()
+        col_pal <- col_pal_continuous()
       }
 
       #get col_transform if NULL
@@ -1368,7 +1368,7 @@ gg_blanket <- function(
           length()
 
         if (rlang::is_null(col_pal)) {
-          col_pal <- pal_discrete(col_n)
+          col_pal <- col_pal_discrete(n = col_n)
         }
         else col_pal <- col_pal[1:col_n]
       }
@@ -1378,7 +1378,7 @@ gg_blanket <- function(
           dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), function(x) length(levels(x))))
 
         if (ncol(plot_data_ordered) == 0) {
-          if (rlang::is_null(col_pal)) col_pal <- pal_discrete(n = 4)
+          if (rlang::is_null(col_pal)) col_pal <- col_pal_discrete()
         }
         else {
           col_n <- plot_data_ordered %>%
@@ -1387,7 +1387,7 @@ gg_blanket <- function(
             dplyr::pull()
 
           if (rlang::is_null(col_pal)) {
-            col_pal <- pal_continuous(n = col_n)
+            col_pal <- col_pal_continuous(n = col_n)
           }
           else col_pal <- col_pal[1:col_n]
 

@@ -267,7 +267,7 @@ penguins |>
     coord = coord_cartesian(clip = "on"),
   ) +
   geom_qq_line(
-    colour = pal_blue,
+    colour = blue,
   )
 
 }

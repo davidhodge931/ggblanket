@@ -27,12 +27,12 @@ reference:
 - title: Helper
 - contents:
   - aes_contrast
-  - pal_blue
-  - pal_teal
-  - pal_orange
-  - pal_plum
-  - pal_navy
-  - pal_grey
+  - blue
+  - teal
+  - orange
+  - plum
+  - navy
+  - grey
   - pal_light_mode
   - pal_dark_mode
   - replace_seq

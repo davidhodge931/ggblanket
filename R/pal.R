@@ -5,7 +5,7 @@
 #' @return A character vector.
 #'
 #' @export
-pal_blue <- "#357BA2"
+blue <- "#357BA2"
 
 #' A teal colour
 #'
@@ -14,7 +14,7 @@ pal_blue <- "#357BA2"
 #' @return A character vector.
 #'
 #' @export
-pal_teal <- "#0095A8"
+teal <- "#0095A8"
 
 #' A orange colour
 #'
@@ -23,7 +23,7 @@ pal_teal <- "#0095A8"
 #' @return A character vector.
 #'
 #' @export
-pal_orange <- "#FF7043"
+orange <- "#FF7043"
 
 #' A navy colour
 #'
@@ -32,7 +32,7 @@ pal_orange <- "#FF7043"
 #' @return A character vector.
 #'
 #' @export
-pal_navy <- "#112E51"
+navy <- "#112E51"
 
 #' A plum colour
 #'
@@ -41,7 +41,7 @@ pal_navy <- "#112E51"
 #' @return A character vector.
 #'
 #' @export
-pal_plum <- "#901752"
+plum <- "#901752"
 
 #' A grey colour
 #'
@@ -50,7 +50,7 @@ pal_plum <- "#901752"
 #' @return A character vector.
 #'
 #' @export
-pal_grey <- "#78909C"
+grey <- "#78909C"
 
 #' The `light_mode_*` theme colours
 #'
@@ -89,9 +89,9 @@ pal_dark_mode <- c(
 #' @return A character vector.
 #'
 #' @noRd
-pal_discrete <- function(n = 3) {
-  # if (n <= 4) c("#2596be", "#fc7c24", "#9c1e74", "#6b5840")[1:n]
-  if (n <= 3) c(pal_teal, pal_orange, pal_plum)[1:n]
+col_pal_discrete <- function(n = 3) {
+  if (n == 1) blue
+  else if (n <= 3) c(teal, orange, plum)[1:n]
   else scales::pal_hue()(n)
 }
 
@@ -103,6 +103,6 @@ pal_discrete <- function(n = 3) {
 #'
 #' @noRd
 #' @references The mako colour palette from viridisLite reversed
-pal_continuous <- function(n = 18) {
+col_pal_continuous <- function(n = 18) {
   viridisLite::mako(n = n, direction = -1)
 }

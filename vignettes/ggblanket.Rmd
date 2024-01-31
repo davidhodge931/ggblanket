@@ -324,7 +324,6 @@ penguins |>
     col = hack,
     colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
     width = 0.5,
-    col_pal = pal_blue,
     alpha_pal = 0.9,
   ) +
   guides(colour = "none", fill = "none")

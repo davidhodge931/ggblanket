@@ -19,11 +19,11 @@
 #'     ymin = level_min,
 #'     ymax = level_max,
 #'     y_title = "Level",
-#'     col_pal = scales::alpha(pal_blue, 0),
+#'     col_pal = scales::alpha(blue, 0),
 #'   ) +
 #'   geom_line(
 #'     mapping = aes(x = year, y = level),
-#'     colour = pal_blue,
+#'     colour = blue,
 #'   )
 #'
 gg_ribbon <- function(

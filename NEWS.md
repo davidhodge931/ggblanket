@@ -17,9 +17,9 @@
 * Breaking: change `*_mode_*` `base_pal` argument to `col_pal`.
 * Changed default theme to place the legend on the top right.
 * Changed NULL effect of pretty axis `*_limits = c(NA, NA)` on `y_expand` NULL.
-* Improved default gridlines.
+* Improved default gridlines, and changed their default colour.
 * Fixed bug when `col` is logical class.
-* Added new helper hex codes `pal_blue`, `pal_teal`, `pal_orange`, `pal_navy`, `pal_plum` and `pal_grey`
+* Added new helper hex codes `blue`, `teal`, `orange`, `navy`, `plum` and `grey`
 * Updated the default discrete palette.
 * Breaking: shift `...` to the front to require users to name arguments.
 * Breaking: renamed `pal` to `col_pal`.
