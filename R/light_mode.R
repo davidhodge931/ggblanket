@@ -4,7 +4,7 @@
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal A 5 element vector of hex codes for the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.  Defaults to pal_light_mode.
+#' @param base_pal A 5 colour vector for use with the `light_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.  Defaults to pal_light_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
@@ -174,7 +174,7 @@ light_mode_rt <- function (
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal A 5 element vector of hex codes for the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.  Defaults to pal_light_mode.
+#' @param base_pal A 5 colour vector for use with the `light_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.  Defaults to pal_light_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
@@ -344,7 +344,7 @@ light_mode_r <- function (
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal A 5 element vector of hex codes for the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.  Defaults to pal_light_mode.
+#' @param base_pal A 5 colour vector for use with the `light_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.  Defaults to pal_light_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
@@ -514,7 +514,7 @@ light_mode_b <- function (
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal A 5 element vector of hex codes for the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.  Defaults to pal_light_mode.
+#' @param base_pal A 5 colour vector for use with the `light_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.  Defaults to pal_light_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.
@@ -684,7 +684,7 @@ light_mode_t <- function (
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal A 5 element vector of hex codes for the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.  Defaults to pal_light_mode.
+#' @param base_pal A 5 colour vector for use with the `light_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.  Defaults to pal_light_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
 #' @param title_pal The colour of the title. Defaults to the base_pal first element.

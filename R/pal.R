@@ -62,7 +62,7 @@ pal_grey <- "#78909C"
 pal_light_mode <- c(
   "plot" = "#e6ecf2",
   "panel" = "#fcfdfe",
-  "gridlines" = "#dbe1e7",
+  "gridlines" = "#e6ecf2",
   "axisline" = "#121b24",
   "text" = "#121b24"
 )
@@ -77,7 +77,7 @@ pal_light_mode <- c(
 pal_dark_mode <- c(
   "plot" = "#15202b",
   "panel" = "#1f2f3e",
-  "gridlines" = "#2c3a48",
+  "gridlines" = "#15202b",
   "axisline" = "#bbccdd",
   "text" = "#bbccdd"
 )

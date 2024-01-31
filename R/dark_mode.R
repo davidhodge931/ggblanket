@@ -4,16 +4,16 @@
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal A 5 element vector of hex codes for the (1) plot background etc (2) panel background (3) axis line and ticks (4) gridlines and (5) text.  Defaults to pal_dark_mode.
+#' @param col_pal A 5 element vector of hex codes for the (1) plot background etc (2) panel background (3) axis line and ticks (4) gridlines and (5) text.  Defaults to pal_dark_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
-#' @param title_pal The colour of the title. Defaults to the base_pal first element.
+#' @param title_pal The colour of the title. Defaults to the col_pal first element.
 #' @param title_size The size of the title. Defaults to the base_size * 1.1.
 #' @param title_vjust The vertical adjustment of the title. Defaults to 0.5.
 #' @param title_margin The margin of the title. A ggplot2::margin function.
 #' @param subtitle_family The font family of the subtitle. Defaults to the base_family.
 #' @param subtitle_face The font face of the subtitle. Defaults to the base_face.
-#' @param subtitle_pal The colour of the subtitle. Defaults to the base_pal first element.
+#' @param subtitle_pal The colour of the subtitle. Defaults to the col_pal first element.
 #' @param subtitle_size The size of the subtitle. Defaults to the base_size.
 #' @param subtitle_vjust The vertical adjustment of the subtitle. Defaults to 0.5.
 #' @param subtitle_margin The margin of the subtitle. A ggplot2::margin function.
@@ -21,7 +21,7 @@
 #' @param caption_face The font face of the caption. Defaults to the base_face.
 #' @param caption_size The size of the caption. Defaults to the base_size * 0.9.
 #' @param caption_alpha The alpha of the caption pal. Defaults to 0.33. Use 1 for no alpha.
-#' @param caption_pal The colour of the caption (before caption_alpha is applied). Defaults to the base_pal first element.
+#' @param caption_pal The colour of the caption (before caption_alpha is applied). Defaults to the col_pal first element.
 #' @param caption_hjust The horizontal adjustment of the caption. Defaults to 0.
 #' @param caption_vjust The vertical adjustment of the caption. Defaults to 0.5.
 #' @param caption_margin The margin of the caption. A ggplot2::margin function.
@@ -58,7 +58,7 @@ dark_mode_rt <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    base_pal = pal_dark_mode,
+    col_pal = pal_dark_mode,
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -74,7 +74,7 @@ dark_mode_rt <- function (
     caption_family = NULL,
     caption_face = NULL,
     caption_alpha = 0.33,
-    caption_pal = base_pal[5],
+    caption_pal = col_pal[5],
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
     caption_vjust = 0.5,
@@ -82,9 +82,9 @@ dark_mode_rt <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal[4], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = base_pal[1], colour = base_pal[1], linewidth = base_size/33, linetype = 1),
-    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal[5], size = base_size,
+    line = ggplot2::element_line(colour = col_pal[4], linewidth = base_size/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = col_pal[1], colour = col_pal[1], linewidth = base_size/33, linetype = 1),
+    text = ggplot2::element_text(family = base_family, face = base_face, colour = col_pal[5], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -104,7 +104,7 @@ dark_mode_rt <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
+    legend.key = ggplot2::element_rect(colour = col_pal[1], fill = col_pal[1]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -114,16 +114,16 @@ dark_mode_rt <- function (
     legend.byrow = FALSE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = base_pal[1]),
+    legend.ticks = ggplot2::element_line(colour = col_pal[1]),
     legend.ticks.length = grid::unit(base_size / 3.25, "pt"),
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = base_pal[2], colour = base_pal[2]),
+    panel.background = ggplot2::element_rect(fill = col_pal[2], colour = col_pal[2]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = base_pal[3], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = col_pal[3], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -174,16 +174,16 @@ dark_mode_rt <- function (
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal A 5 element vector of hex codes for the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.  Defaults to pal_dark_mode.
+#' @param col_pal A 5 colour vector for use with the `light_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.  Defaults to pal_dark_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
-#' @param title_pal The colour of the title. Defaults to the base_pal first element.
+#' @param title_pal The colour of the title. Defaults to the col_pal first element.
 #' @param title_size The size of the title. Defaults to the base_size * 1.1.
 #' @param title_vjust The vertical adjustment of the title. Defaults to 0.5.
 #' @param title_margin The margin of the title. A ggplot2::margin function.
 #' @param subtitle_family The font family of the subtitle. Defaults to the base_family.
 #' @param subtitle_face The font face of the subtitle. Defaults to the base_face.
-#' @param subtitle_pal The colour of the subtitle. Defaults to the base_pal first element.
+#' @param subtitle_pal The colour of the subtitle. Defaults to the col_pal first element.
 #' @param subtitle_size The size of the subtitle. Defaults to the base_size.
 #' @param subtitle_vjust The vertical adjustment of the subtitle. Defaults to 0.5.
 #' @param subtitle_margin The margin of the subtitle. A ggplot2::margin function.
@@ -191,7 +191,7 @@ dark_mode_rt <- function (
 #' @param caption_face The font face of the caption. Defaults to the base_face.
 #' @param caption_size The size of the caption. Defaults to the base_size * 0.9.
 #' @param caption_alpha The alpha of the caption pal. Defaults to 0.33. Use 1 for no alpha.
-#' @param caption_pal The colour of the caption (before caption_alpha is applied). Defaults to the base_pal first element.
+#' @param caption_pal The colour of the caption (before caption_alpha is applied). Defaults to the col_pal first element.
 #' @param caption_hjust The horizontal adjustment of the caption. Defaults to 0.
 #' @param caption_vjust The vertical adjustment of the caption. Defaults to 0.5.
 #' @param caption_margin The margin of the caption. A ggplot2::margin function.
@@ -228,7 +228,7 @@ dark_mode_r <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    base_pal = pal_dark_mode,
+    col_pal = pal_dark_mode,
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -244,7 +244,7 @@ dark_mode_r <- function (
     caption_family = NULL,
     caption_face = NULL,
     caption_alpha = 0.33,
-    caption_pal = base_pal[5],
+    caption_pal = col_pal[5],
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
     caption_vjust = 0.5,
@@ -252,9 +252,9 @@ dark_mode_r <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal[4], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = base_pal[1], colour = base_pal[1], linewidth = base_size/33, linetype = 1),
-    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal[5], size = base_size,
+    line = ggplot2::element_line(colour = col_pal[4], linewidth = base_size/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = col_pal[1], colour = col_pal[1], linewidth = base_size/33, linetype = 1),
+    text = ggplot2::element_text(family = base_family, face = base_face, colour = col_pal[5], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -274,7 +274,7 @@ dark_mode_r <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
+    legend.key = ggplot2::element_rect(colour = col_pal[1], fill = col_pal[1]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -284,16 +284,16 @@ dark_mode_r <- function (
     legend.byrow = FALSE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = base_pal[1]),
+    legend.ticks = ggplot2::element_line(colour = col_pal[1]),
     legend.ticks.length = grid::unit(base_size / 3.25, "pt"),
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = base_pal[2], colour = base_pal[2]),
+    panel.background = ggplot2::element_rect(fill = col_pal[2], colour = col_pal[2]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = base_pal[3], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = col_pal[3], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -344,16 +344,16 @@ dark_mode_r <- function (
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal A 5 element vector of hex codes for the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.  Defaults to pal_dark_mode.
+#' @param col_pal A 5 colour vector for use with the `light_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.  Defaults to pal_dark_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
-#' @param title_pal The colour of the title. Defaults to the base_pal first element.
+#' @param title_pal The colour of the title. Defaults to the col_pal first element.
 #' @param title_size The size of the title. Defaults to the base_size * 1.1.
 #' @param title_vjust The vertical adjustment of the title. Defaults to 0.5.
 #' @param title_margin The margin of the title. A ggplot2::margin function.
 #' @param subtitle_family The font family of the subtitle. Defaults to the base_family.
 #' @param subtitle_face The font face of the subtitle. Defaults to the base_face.
-#' @param subtitle_pal The colour of the subtitle. Defaults to the base_pal first element.
+#' @param subtitle_pal The colour of the subtitle. Defaults to the col_pal first element.
 #' @param subtitle_size The size of the subtitle. Defaults to the base_size.
 #' @param subtitle_vjust The vertical adjustment of the subtitle. Defaults to 0.5.
 #' @param subtitle_margin The margin of the subtitle. A ggplot2::margin function.
@@ -361,7 +361,7 @@ dark_mode_r <- function (
 #' @param caption_face The font face of the caption. Defaults to the base_face.
 #' @param caption_size The size of the caption. Defaults to the base_size * 0.9.
 #' @param caption_alpha The alpha of the caption pal. Defaults to 0.33. Use 1 for no alpha.
-#' @param caption_pal The colour of the caption (before caption_alpha is applied). Defaults to the base_pal first element.
+#' @param caption_pal The colour of the caption (before caption_alpha is applied). Defaults to the col_pal first element.
 #' @param caption_hjust The horizontal adjustment of the caption. Defaults to 0.
 #' @param caption_vjust The vertical adjustment of the caption. Defaults to 0.5.
 #' @param caption_margin The margin of the caption. A ggplot2::margin function.
@@ -398,7 +398,7 @@ dark_mode_b <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    base_pal = pal_dark_mode,
+    col_pal = pal_dark_mode,
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -414,7 +414,7 @@ dark_mode_b <- function (
     caption_family = NULL,
     caption_face = NULL,
     caption_alpha = 0.33,
-    caption_pal = base_pal[5],
+    caption_pal = col_pal[5],
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
     caption_vjust = 0.5,
@@ -422,9 +422,9 @@ dark_mode_b <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal[4], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = base_pal[1], colour = base_pal[1], linewidth = base_size/33, linetype = 1),
-    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal[5], size = base_size,
+    line = ggplot2::element_line(colour = col_pal[4], linewidth = base_size/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = col_pal[1], colour = col_pal[1], linewidth = base_size/33, linetype = 1),
+    text = ggplot2::element_text(family = base_family, face = base_face, colour = col_pal[5], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -444,7 +444,7 @@ dark_mode_b <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
+    legend.key = ggplot2::element_rect(colour = col_pal[1], fill = col_pal[1]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -454,16 +454,16 @@ dark_mode_b <- function (
     legend.byrow = FALSE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = base_pal[1]),
+    legend.ticks = ggplot2::element_line(colour = col_pal[1]),
     legend.ticks.length = grid::unit(base_size / 3.25, "pt"),
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = base_pal[2], colour = base_pal[2]),
+    panel.background = ggplot2::element_rect(fill = col_pal[2], colour = col_pal[2]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = base_pal[3], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = col_pal[3], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -514,16 +514,16 @@ dark_mode_b <- function (
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal A 5 element vector of hex codes for the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.  Defaults to pal_dark_mode.
+#' @param col_pal A 5 colour vector for use with the `light_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.  Defaults to pal_dark_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
-#' @param title_pal The colour of the title. Defaults to the base_pal first element.
+#' @param title_pal The colour of the title. Defaults to the col_pal first element.
 #' @param title_size The size of the title. Defaults to the base_size * 1.1.
 #' @param title_vjust The vertical adjustment of the title. Defaults to 0.5.
 #' @param title_margin The margin of the title. A ggplot2::margin function.
 #' @param subtitle_family The font family of the subtitle. Defaults to the base_family.
 #' @param subtitle_face The font face of the subtitle. Defaults to the base_face.
-#' @param subtitle_pal The colour of the subtitle. Defaults to the base_pal first element.
+#' @param subtitle_pal The colour of the subtitle. Defaults to the col_pal first element.
 #' @param subtitle_size The size of the subtitle. Defaults to the base_size.
 #' @param subtitle_vjust The vertical adjustment of the subtitle. Defaults to 0.5.
 #' @param subtitle_margin The margin of the subtitle. A ggplot2::margin function.
@@ -531,7 +531,7 @@ dark_mode_b <- function (
 #' @param caption_face The font face of the caption. Defaults to the base_face.
 #' @param caption_size The size of the caption. Defaults to the base_size * 0.9.
 #' @param caption_alpha The alpha of the caption pal. Defaults to 0.33. Use 1 for no alpha.
-#' @param caption_pal The colour of the caption (before caption_alpha is applied). Defaults to the base_pal first element.
+#' @param caption_pal The colour of the caption (before caption_alpha is applied). Defaults to the col_pal first element.
 #' @param caption_hjust The horizontal adjustment of the caption. Defaults to 0.
 #' @param caption_vjust The vertical adjustment of the caption. Defaults to 0.5.
 #' @param caption_margin The margin of the caption. A ggplot2::margin function.
@@ -568,7 +568,7 @@ dark_mode_t <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    base_pal = pal_dark_mode,
+    col_pal = pal_dark_mode,
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -584,7 +584,7 @@ dark_mode_t <- function (
     caption_family = NULL,
     caption_face = NULL,
     caption_alpha = 0.33,
-    caption_pal = base_pal[5],
+    caption_pal = col_pal[5],
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
     caption_vjust = 0.5,
@@ -592,9 +592,9 @@ dark_mode_t <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal[4], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = base_pal[1], colour = base_pal[1], linewidth = base_size/33, linetype = 1),
-    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal[5], size = base_size,
+    line = ggplot2::element_line(colour = col_pal[4], linewidth = base_size/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = col_pal[1], colour = col_pal[1], linewidth = base_size/33, linetype = 1),
+    text = ggplot2::element_text(family = base_family, face = base_face, colour = col_pal[5], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -614,7 +614,7 @@ dark_mode_t <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
+    legend.key = ggplot2::element_rect(colour = col_pal[1], fill = col_pal[1]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -624,16 +624,16 @@ dark_mode_t <- function (
     legend.byrow = FALSE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = base_pal[1]),
+    legend.ticks = ggplot2::element_line(colour = col_pal[1]),
     legend.ticks.length = grid::unit(base_size / 3.25, "pt"),
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = base_pal[2], colour = base_pal[2]),
+    panel.background = ggplot2::element_rect(fill = col_pal[2], colour = col_pal[2]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = base_pal[3], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = col_pal[3], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -684,16 +684,16 @@ dark_mode_t <- function (
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
 #' @param base_face The base face of the text. Defaults to "plain".
-#' @param base_pal A 5 element vector of hex codes for the (1) text (2) plot background etc (3) panel background etc (4) axis line/ticks (5) and gridlines.  Defaults to pal_dark_mode.
+#' @param col_pal A 5 colour vector for use with the `light_mode_*` themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.  Defaults to pal_dark_mode.
 #' @param title_family The font family of the title. Defaults to the base_family.
 #' @param title_face The font face of the title. Defaults to "plain".
-#' @param title_pal The colour of the title. Defaults to the base_pal first element.
+#' @param title_pal The colour of the title. Defaults to the col_pal first element.
 #' @param title_size The size of the title. Defaults to the base_size * 1.1.
 #' @param title_vjust The vertical adjustment of the title. Defaults to 0.5.
 #' @param title_margin The margin of the title. A ggplot2::margin function.
 #' @param subtitle_family The font family of the subtitle. Defaults to the base_family.
 #' @param subtitle_face The font face of the subtitle. Defaults to the base_face.
-#' @param subtitle_pal The colour of the subtitle. Defaults to the base_pal first element.
+#' @param subtitle_pal The colour of the subtitle. Defaults to the col_pal first element.
 #' @param subtitle_size The size of the subtitle. Defaults to the base_size.
 #' @param subtitle_vjust The vertical adjustment of the subtitle. Defaults to 0.5.
 #' @param subtitle_margin The margin of the subtitle. A ggplot2::margin function.
@@ -701,7 +701,7 @@ dark_mode_t <- function (
 #' @param caption_face The font face of the caption. Defaults to the base_face.
 #' @param caption_size The size of the caption. Defaults to the base_size * 0.9.
 #' @param caption_alpha The alpha of the caption pal. Defaults to 0.33. Use 1 for no alpha.
-#' @param caption_pal The colour of the caption (before caption_alpha is applied). Defaults to the base_pal first element.
+#' @param caption_pal The colour of the caption (before caption_alpha is applied). Defaults to the col_pal first element.
 #' @param caption_hjust The horizontal adjustment of the caption. Defaults to 0.
 #' @param caption_vjust The vertical adjustment of the caption. Defaults to 0.5.
 #' @param caption_margin The margin of the caption. A ggplot2::margin function.
@@ -739,7 +739,7 @@ dark_mode_i <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    base_pal = pal_dark_mode,
+    col_pal = pal_dark_mode,
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -755,7 +755,7 @@ dark_mode_i <- function (
     caption_family = NULL,
     caption_face = NULL,
     caption_alpha = 0.33,
-    caption_pal = base_pal[5],
+    caption_pal = col_pal[5],
     caption_size = ggplot2::rel(0.9),
     caption_hjust = 0,
     caption_vjust = 0.5,
@@ -764,9 +764,9 @@ dark_mode_i <- function (
 ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal[4], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = base_pal[1], colour = base_pal[1], linewidth = base_size/33, linetype = 1),
-    text = ggplot2::element_text(family = base_family, face = base_face, colour = base_pal[5], size = base_size,
+    line = ggplot2::element_line(colour = col_pal[4], linewidth = base_size/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = col_pal[1], colour = col_pal[1], linewidth = base_size/33, linetype = 1),
+    text = ggplot2::element_text(family = base_family, face = base_face, colour = col_pal[5], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -786,7 +786,7 @@ dark_mode_i <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal[1], fill = base_pal[1]),
+    legend.key = ggplot2::element_rect(colour = col_pal[1], fill = col_pal[1]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -796,16 +796,16 @@ dark_mode_i <- function (
     legend.byrow = FALSE,
     legend.frame = NULL,
     legend.axis.line = NULL,
-    legend.ticks = ggplot2::element_line(colour = base_pal[1]),
+    legend.ticks = ggplot2::element_line(colour = col_pal[1]),
     legend.ticks.length = grid::unit(base_size / 3.25, "pt"),
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = base_pal[2], colour = base_pal[2]),
+    panel.background = ggplot2::element_rect(fill = col_pal[2], colour = col_pal[2]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = base_pal[3], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = col_pal[3], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -840,7 +840,7 @@ dark_mode_i <- function (
     legend.margin = ggplot2::margin(t = base_size * 0.66, r = base_size * 0.33, b = base_size * 0.66, l = base_size * 0.66),
     legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
     legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 1, b = 0, l = base_size * 0.5)),
-    legend.background = ggplot2::element_rect(colour = base_pal[3], fill = base_pal[1]),
+    legend.background = ggplot2::element_rect(colour = col_pal[3], fill = col_pal[1]),
     axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.2, r = 0, b = base_size * 1, l = 0)),
     axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.33, r = 0, b = base_size * 0.75, l = 0)),
     axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 1, l = 0)),
