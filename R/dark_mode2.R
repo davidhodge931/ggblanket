@@ -1,34 +1,8 @@
-#' @title Light ggplot theme with right top legend
+#' @title Dark ggplot theme with right top legend
 #'
-#' @description Light theme for a ggplot visualisation with legend at right top.
-#' @param base_size The base size of the text. Defaults to 11.
-#' @param base_family The base family of the text. Defaults to "".
-#' @param base_face The base face of the text. Defaults to "plain".
-#' @param col_pal_text The colour of the text.
-#' @param col_pal_axis_line The colour of the axis line (and ticks).
-#' @param col_pal_background_i The background colour inside the panel.
-#' @param col_pal_background_o The background colour outside the panel.
-#' @param col_pal_gridlines The colour of the panel gridlines.
-#' @param title_family The font family of the title. Defaults to the base_family.
-#' @param title_face The font face of the title. Defaults to "plain".
-#' @param title_pal The colour of the title. Defaults to the col_pal first element.
-#' @param title_size The size of the title. Defaults to the base_size * 1.1.
-#' @param title_vjust The vertical adjustment of the title. Defaults to 0.5.
-#' @param title_margin The margin of the title. A ggplot2::margin function.
-#' @param subtitle_family The font family of the subtitle. Defaults to the base_family.
-#' @param subtitle_face The font face of the subtitle. Defaults to the base_face.
-#' @param subtitle_pal The colour of the subtitle. Defaults to the col_pal first element.
-#' @param subtitle_size The size of the subtitle. Defaults to the base_size.
-#' @param subtitle_vjust The vertical adjustment of the subtitle. Defaults to 0.5.
-#' @param subtitle_margin The margin of the subtitle. A ggplot2::margin function.
-#' @param caption_family The font family of the caption. Defaults to the base_family.
-#' @param caption_face The font face of the caption. Defaults to the base_face.
-#' @param caption_size The size of the caption. Defaults to the base_size * 0.9.
-#' @param caption_alpha The alpha of the caption pal. Defaults to 0.33. Use 1 for no alpha.
-#' @param caption_pal The colour of the caption (before caption_alpha is applied). Defaults to the col_pal first element.
-#' @param caption_hjust The horizontal adjustment of the caption. Defaults to 0.
-#' @param caption_vjust The vertical adjustment of the caption. Defaults to 0.5.
-#' @param caption_margin The margin of the caption. A ggplot2::margin function.
+#' @description Dark theme for a ggplot visualisation with legend at right top.
+#'
+#' @inheritParams light_mode_rt
 #'
 #' @return A ggplot theme.
 #' @export
@@ -43,12 +17,12 @@
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = light_mode_b()
+#'     theme = dark_mode_b()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(light_mode_b())
+#'   theme_set(dark_mode_b())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -58,15 +32,15 @@
 #'     )
 #' }
 #'
-light_mode_rt <- function (
+dark_mode_rt <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    col_pal_text = lightness[1],
-    col_pal_axis_line = lightness[1],
-    col_pal_background_i = lightness[2],
-    col_pal_background_o = lightness[3],
-    col_pal_gridlines = lightness[3],
+    col_pal_text = darkness[1],
+    col_pal_axis_line = darkness[1],
+    col_pal_background_i = darkness[2],
+    col_pal_background_o = darkness[3],
+    col_pal_gridlines = darkness[3],
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -176,9 +150,9 @@ light_mode_rt <- function (
   )
 }
 
-#' @title Light ggplot theme with right legend
+#' @title Dark ggplot theme with right legend
 #'
-#' @description Light theme for a ggplot visualisation with right centre legend.
+#' @description Dark theme for a ggplot visualisation with right centre legend.
 #'
 #' @inheritParams light_mode_rt
 #'
@@ -195,12 +169,12 @@ light_mode_rt <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = light_mode_r()
+#'     theme = dark_mode_r()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(light_mode_r())
+#'   theme_set(dark_mode_r())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -210,15 +184,15 @@ light_mode_rt <- function (
 #'     )
 #' }
 #'
-light_mode_r <- function (
+dark_mode_r <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    col_pal_text = lightness[1],
-    col_pal_axis_line = lightness[1],
-    col_pal_background_i = lightness[2],
-    col_pal_background_o = lightness[3],
-    col_pal_gridlines = lightness[3],
+    col_pal_text = darkness[1],
+    col_pal_axis_line = darkness[1],
+    col_pal_background_i = darkness[2],
+    col_pal_background_o = darkness[3],
+    col_pal_gridlines = darkness[3],
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -328,9 +302,9 @@ light_mode_r <- function (
   )
 }
 
-#' @title Light ggplot theme with bottom legend
+#' @title Dark ggplot theme with bottom legend
 #'
-#' @description Light theme for a ggplot visualisation with bottom legend.
+#' @description Dark theme for a ggplot visualisation with bottom legend.
 #'
 #' @inheritParams light_mode_rt
 #'
@@ -347,12 +321,12 @@ light_mode_r <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = light_mode_b()
+#'     theme = dark_mode_b()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(light_mode_b())
+#'   theme_set(dark_mode_b())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -362,15 +336,15 @@ light_mode_r <- function (
 #'     )
 #' }
 #'
-light_mode_b <- function (
+dark_mode_b <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    col_pal_text = lightness[1],
-    col_pal_axis_line = lightness[1],
-    col_pal_background_i = lightness[2],
-    col_pal_background_o = lightness[3],
-    col_pal_gridlines = lightness[3],
+    col_pal_text = darkness[1],
+    col_pal_axis_line = darkness[1],
+    col_pal_background_i = darkness[2],
+    col_pal_background_o = darkness[3],
+    col_pal_gridlines = darkness[3],
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -480,9 +454,9 @@ light_mode_b <- function (
   )
 }
 
-#' @title Light ggplot theme with top legend
+#' @title Dark ggplot theme with top legend
 #'
-#' @description Light theme for a ggplot visualisation with top legend.
+#' @description Dark theme for a ggplot visualisation with top legend.
 #'
 #' @inheritParams light_mode_rt
 #'
@@ -499,12 +473,12 @@ light_mode_b <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = light_mode_t()
+#'     theme = dark_mode_t()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(light_mode_t())
+#'   theme_set(dark_mode_t())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -514,15 +488,15 @@ light_mode_b <- function (
 #'     )
 #' }
 #'
-light_mode_t <- function (
+dark_mode_t <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    col_pal_text = lightness[1],
-    col_pal_axis_line = lightness[1],
-    col_pal_background_i = lightness[2],
-    col_pal_background_o = lightness[3],
-    col_pal_gridlines = lightness[3],
+    col_pal_text = darkness[1],
+    col_pal_axis_line = darkness[1],
+    col_pal_background_i = darkness[2],
+    col_pal_background_o = darkness[3],
+    col_pal_gridlines = darkness[3],
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
@@ -632,9 +606,9 @@ light_mode_t <- function (
   )
 }
 
-#' @title Light ggplot theme with inside legend
+#' @title Dark ggplot theme with inside legend
 #'
-#' @description Light theme for a ggplot visualisation with legend inside the panel.
+#' @description Dark theme for a ggplot visualisation with legend inside the panel.
 #'
 #' @inheritParams light_mode_rt
 #' @param legend_position_inside The placement of legends inside panels. A numeric vector of length two.
@@ -652,12 +626,12 @@ light_mode_t <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = light_mode_i(legend_position_inside = c(0.15, 0.7))
+#'     theme = dark_mode_i(legend_position_inside = c(0.15, 0.7))
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(light_mode_i())
+#'   theme_set(dark_mode_i())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -667,15 +641,15 @@ light_mode_t <- function (
 #'     )
 #' }
 #'
-light_mode_i <- function (
+dark_mode_i <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
-    col_pal_text = lightness[1],
-    col_pal_axis_line = lightness[1],
-    col_pal_background_i = lightness[2],
-    col_pal_background_o = lightness[3],
-    col_pal_gridlines = lightness[3],
+    col_pal_text = darkness[1],
+    col_pal_axis_line = darkness[1],
+    col_pal_background_i = darkness[2],
+    col_pal_background_o = darkness[3],
+    col_pal_gridlines = darkness[3],
     title_family = NULL,
     title_face = "plain",
     title_pal = NULL,
