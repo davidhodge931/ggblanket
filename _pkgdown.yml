@@ -12,7 +12,7 @@ reference:
 - contents:
   - gg_blanket
   - starts_with("gg_")
-- title: Themes
+- title: Theme
 - contents:
   - light_mode_rt
   - light_mode_r
@@ -24,7 +24,7 @@ reference:
   - dark_mode_t
   - dark_mode_b
   - dark_mode_i
-- title: Helpers
+- title: Helper
 - contents:
   - aes_contrast
   - replace_seq

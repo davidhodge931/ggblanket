@@ -70,10 +70,7 @@ p3 <- mtcars |>
     subtitle = "Works so nice!",
     theme = light_mode_rt() +
       theme(
-        plot.title = element_text(
-          face = "bold",
-          margin = margin(t = 10 * -0.5, b = 10 * 0.75)
-        ),
+        plot.title = element_text(margin = margin(t = 10 * -0.5, b = 10 * 0.75)),
         plot.subtitle = element_text(margin = margin()),
       )
   )
@@ -408,7 +405,7 @@ ggridges::Catalan_elections |>
   )
 ```
 
-#### ggtext and mdthemes
+#### ggtext & mdthemes
 
 The ggtext and mdthemes package support using markdown in text. 
 
