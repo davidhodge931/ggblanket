@@ -53,7 +53,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Light ggplot theme with inside legend</h1>
-      <small class="dont-index">Source: <a href="https://github.com/davidhodge931/ggblanket/blob/HEAD/R/light_mode.R" class="external-link"><code>R/light_mode.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/davidhodge931/ggblanket/blob/HEAD/R/light_mode2.R" class="external-link"><code>R/light_mode2.R</code></a></small>
       <div class="d-none name"><code>light_mode_i.Rd</code></div>
     </div>
 
@@ -66,29 +66,6 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">light_mode_i</span><span class="op">(</span></span>
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  base_face <span class="op">=</span> <span class="st">"plain"</span>,</span>
-<span>  col_pal <span class="op">=</span> <span class="va">pal_light_mode</span>,</span>
-<span>  title_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  title_face <span class="op">=</span> <span class="st">"plain"</span>,</span>
-<span>  title_pal <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  title_size <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">rel</a></span><span class="op">(</span><span class="fl">1.1</span><span class="op">)</span>,</span>
-<span>  title_vjust <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span>  title_margin <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="va">base_size</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1</span>, r <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="va">base_size</span> <span class="op">*</span> <span class="fl">2.5</span>, l <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
-<span>  subtitle_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  subtitle_face <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  subtitle_pal <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  subtitle_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  subtitle_vjust <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span>  subtitle_margin <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="va">base_size</span> <span class="op">*</span> <span class="op">-</span><span class="fl">2</span>, r <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="va">base_size</span> <span class="op">*</span> <span class="fl">2</span>, l <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
-<span>  caption_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  caption_face <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  caption_alpha <span class="op">=</span> <span class="fl">0.33</span>,</span>
-<span>  caption_pal <span class="op">=</span> <span class="va">col_pal</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>,</span>
-<span>  caption_size <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">rel</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>,</span>
-<span>  caption_hjust <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  caption_vjust <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span>  caption_margin <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="va">base_size</span> <span class="op">*</span> <span class="fl">0.5</span>, r <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="va">base_size</span> <span class="op">*</span> <span class="fl">0.5</span>, l <span class="op">=</span></span>
-<span>    <span class="fl">0</span><span class="op">)</span>,</span>
 <span>  legend_position_inside <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -101,94 +78,6 @@
 
 <dt>base_family</dt>
 <dd><p>The base family of the text. Defaults to "".</p></dd>
-
-
-<dt>base_face</dt>
-<dd><p>The base face of the text. Defaults to "plain".</p></dd>
-
-
-<dt>col_pal</dt>
-<dd><p>A 5 colour vector for use with the <code>light_mode_*</code> themes to colour the (1) plot background etc (2) panel background etc, (3) gridlines, (4) axisline/ticks.(5) and text.  Defaults to pal_light_mode.</p></dd>
-
-
-<dt>title_family</dt>
-<dd><p>The font family of the title. Defaults to the base_family.</p></dd>
-
-
-<dt>title_face</dt>
-<dd><p>The font face of the title. Defaults to "plain".</p></dd>
-
-
-<dt>title_pal</dt>
-<dd><p>The colour of the title. Defaults to the col_pal first element.</p></dd>
-
-
-<dt>title_size</dt>
-<dd><p>The size of the title. Defaults to the base_size * 1.1.</p></dd>
-
-
-<dt>title_vjust</dt>
-<dd><p>The vertical adjustment of the title. Defaults to 0.5.</p></dd>
-
-
-<dt>title_margin</dt>
-<dd><p>The margin of the title. A ggplot2::margin function.</p></dd>
-
-
-<dt>subtitle_family</dt>
-<dd><p>The font family of the subtitle. Defaults to the base_family.</p></dd>
-
-
-<dt>subtitle_face</dt>
-<dd><p>The font face of the subtitle. Defaults to the base_face.</p></dd>
-
-
-<dt>subtitle_pal</dt>
-<dd><p>The colour of the subtitle. Defaults to the col_pal first element.</p></dd>
-
-
-<dt>subtitle_size</dt>
-<dd><p>The size of the subtitle. Defaults to the base_size.</p></dd>
-
-
-<dt>subtitle_vjust</dt>
-<dd><p>The vertical adjustment of the subtitle. Defaults to 0.5.</p></dd>
-
-
-<dt>subtitle_margin</dt>
-<dd><p>The margin of the subtitle. A ggplot2::margin function.</p></dd>
-
-
-<dt>caption_family</dt>
-<dd><p>The font family of the caption. Defaults to the base_family.</p></dd>
-
-
-<dt>caption_face</dt>
-<dd><p>The font face of the caption. Defaults to the base_face.</p></dd>
-
-
-<dt>caption_alpha</dt>
-<dd><p>The alpha of the caption pal. Defaults to 0.33. Use 1 for no alpha.</p></dd>
-
-
-<dt>caption_pal</dt>
-<dd><p>The colour of the caption (before caption_alpha is applied). Defaults to the col_pal first element.</p></dd>
-
-
-<dt>caption_size</dt>
-<dd><p>The size of the caption. Defaults to the base_size * 0.9.</p></dd>
-
-
-<dt>caption_hjust</dt>
-<dd><p>The horizontal adjustment of the caption. Defaults to 0.</p></dd>
-
-
-<dt>caption_vjust</dt>
-<dd><p>The vertical adjustment of the caption. Defaults to 0.5.</p></dd>
-
-
-<dt>caption_margin</dt>
-<dd><p>The margin of the caption. A ggplot2::margin function.</p></dd>
 
 
 <dt>legend_position_inside</dt>
