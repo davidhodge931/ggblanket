@@ -1,6 +1,6 @@
 #' @title Light ggplot theme with right top legend
 #'
-#' @description Light theme for a ggplot visualisation with legend at right top.
+#' @description Light theme for a ggplot visualisation with legend at right top. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
 #'
 #' @inheritParams mode_rt
 #'
@@ -45,7 +45,7 @@ light_mode_rt <- function (
 
 #' @title Light ggplot theme with right legend
 #'
-#' @description Light theme for a ggplot visualisation with right legend.
+#' @description Light theme for a ggplot visualisation with right legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
 #'
 #' @inheritParams mode_r
 #'
@@ -90,7 +90,7 @@ light_mode_r <- function (
 
 #' @title Light ggplot theme with bottom legend
 #'
-#' @description Light theme for a ggplot visualisation with bottom legend.
+#' @description Light theme for a ggplot visualisation with bottom legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
 #'
 #' @inheritParams mode_b
 #'
@@ -135,7 +135,7 @@ light_mode_b <- function (
 
 #' @title Light ggplot theme with top legend
 #'
-#' @description Light theme for a ggplot visualisation with top legend.
+#' @description Light theme for a ggplot visualisation with top legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
 #'
 #' @inheritParams mode_t
 #'
@@ -180,7 +180,7 @@ light_mode_t <- function (
 
 #' @title Light ggplot theme with inside legend
 #'
-#' @description Light theme for a ggplot visualisation with legend inside the panel.
+#' @description Light theme for a ggplot visualisation with legend inside the panel. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
 #'
 #' @inheritParams mode_i
 #'

@@ -100,7 +100,7 @@ titanic_wide |>
   ) +
   geom_stratum(
     colour = "black",
-    fill = lightness[4],
+    fill = "#fcfdfe",
     show.legend = FALSE,
   ) +
   geom_text(
@@ -283,7 +283,7 @@ iris |>
     y = Sepal.Width, 
     col = Species,
     group = 1,
-    colour = lightness[4],
+    colour = "#fcfdfe",
     col_pal = c(teal, orange, navy),
   )
 ```

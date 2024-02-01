@@ -21,7 +21,7 @@ white_mode_i(
 A ggplot theme.
 }
 \description{
-White theme for a ggplot visualisation with legend inside the panel.
+White theme for a ggplot visualisation with legend inside the panel. It uses the colours \code{"#121b24"}, \code{"#fcfdfe"}, and \code{"#ffffff"}.
 }
 \examples{
 library(palmerpenguins)

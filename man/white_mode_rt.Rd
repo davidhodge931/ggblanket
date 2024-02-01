@@ -15,7 +15,7 @@ white_mode_rt(base_size = 11, base_family = "")
 A ggplot theme.
 }
 \description{
-White theme for a ggplot visualisation with legend at right top.
+White theme for a ggplot visualisation with legend at right top. It uses the colours \code{"#121b24"}, \code{"#fcfdfe"}, and \code{"#ffffff"}.
 }
 \examples{
 library(palmerpenguins)

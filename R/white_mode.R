@@ -1,6 +1,6 @@
 #' @title White ggplot theme with right top legend
 #'
-#' @description White theme for a ggplot visualisation with legend at right top.
+#' @description White theme for a ggplot visualisation with legend at right top. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
 #'
 #' @inheritParams mode_rt
 #'
@@ -45,7 +45,7 @@ white_mode_rt <- function (
 
 #' @title White ggplot theme with right legend
 #'
-#' @description White theme for a ggplot visualisation with right legend.
+#' @description White theme for a ggplot visualisation with right legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
 #'
 #' @inheritParams mode_r
 #'
@@ -90,7 +90,7 @@ white_mode_r <- function (
 
 #' @title White ggplot theme with bottom legend
 #'
-#' @description White theme for a ggplot visualisation with bottom legend.
+#' @description White theme for a ggplot visualisation with bottom legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
 #'
 #' @inheritParams mode_b
 #'
@@ -135,7 +135,7 @@ white_mode_b <- function (
 
 #' @title White ggplot theme with top legend
 #'
-#' @description White theme for a ggplot visualisation with top legend.
+#' @description White theme for a ggplot visualisation with top legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
 #'
 #' @inheritParams mode_t
 #'
@@ -180,7 +180,7 @@ white_mode_t <- function (
 
 #' @title White ggplot theme with inside legend
 #'
-#' @description White theme for a ggplot visualisation with legend inside the panel.
+#' @description White theme for a ggplot visualisation with legend inside the panel. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
 #'
 #' @inheritParams mode_i
 #'

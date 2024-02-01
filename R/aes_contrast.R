@@ -52,12 +52,12 @@ aes_contrast <- function(theme_family = "light_mode",
                          col_pal_light = NULL) {
 
   if (theme_family == "light_mode") {
-    if (rlang::is_null(col_pal_dark)) col_pal_dark <- lightness[1]
-    if (rlang::is_null(col_pal_light)) col_pal_light <- lightness[4]
+    if (rlang::is_null(col_pal_dark)) col_pal_dark <- lightness["text"]
+    if (rlang::is_null(col_pal_light)) col_pal_light <- lightness["background_inside"]
   }
   else if (theme_family == "dark_mode") {
-    if (rlang::is_null(col_pal_dark)) col_pal_dark <- darkness[4]
-    if (rlang::is_null(col_pal_light)) col_pal_light <- darkness[1]
+    if (rlang::is_null(col_pal_dark)) col_pal_dark <- darkness["background_outside"]
+    if (rlang::is_null(col_pal_light)) col_pal_light <- darkness["text"]
   }
 
   ggplot2::aes(colour = ggplot2::after_scale(

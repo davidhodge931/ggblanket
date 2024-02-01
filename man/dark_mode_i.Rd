@@ -21,7 +21,7 @@ dark_mode_i(
 A ggplot theme.
 }
 \description{
-Dark theme for a ggplot visualisation with legend inside the panel.
+Dark theme for a ggplot visualisation with legend inside the panel. It uses the colours \code{"#bbccdd"}, \code{"#1f2f3e"}, and \code{"#15202b"}.
 }
 \examples{
 library(palmerpenguins)
