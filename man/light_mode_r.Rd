@@ -15,7 +15,7 @@ light_mode_r(base_size = 11, base_family = "")
 A ggplot theme.
 }
 \description{
-Light theme for a ggplot visualisation with right centre legend.
+Light theme for a ggplot visualisation with right legend.
 }
 \examples{
 library(palmerpenguins)

@@ -5,7 +5,7 @@
 \alias{lightness}
 \title{The \verb{light_mode_*} theme colours}
 \format{
-An object of class \code{character} of length 4.
+An object of class \code{character} of length 6.
 }
 \usage{
 lightness
@@ -15,6 +15,6 @@ A character vector.
 _
 }
 \description{
-A 3 colour vector used in the \verb{light_mode_*} themes.
+A vector of colours used in the \verb{light_mode_*} themes.
 }
 \keyword{datasets}

@@ -9,10 +9,11 @@
 * Added `facet_axes` and `facet_axis_labels` arguments.
 * Added `facet_labels_position` argument.
 * Added `light_mode_*` and `dark_mode_*` family of functions - with numerous other changes.
+* Added `white_mode_*` family of functions. 
 * Added `gg_quantile`, `gg_rug`, and `gg_function` functions.
 * Added `col_continuous_type` argument to support colouring by "steps". 
 * Added `flipped` argument.
-* Breaking: change `*_mode_*` `base_pal` argument to `col_pal`.
+* Breaking: 
 * Changed default theme to place the legend on the top right.
 * Changed NULL effect of pretty axis `*_limits = c(NA, NA)` on `y_expand` NULL.
 * Improved default gridlines, and changed their default colour.

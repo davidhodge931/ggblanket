@@ -15,7 +15,7 @@ dark_mode_r(base_size = 11, base_family = "")
 A ggplot theme.
 }
 \description{
-Dark theme for a ggplot visualisation with right centre legend.
+Dark theme for a ggplot visualisation with right legend.
 }
 \examples{
 library(palmerpenguins)

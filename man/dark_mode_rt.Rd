@@ -27,12 +27,12 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
-    theme = dark_mode_b()
+    theme = dark_mode_rt()
   )
 
 #set globally
 \dontrun{
-  theme_set(dark_mode_b())
+  theme_set(dark_mode_rt())
 
   penguins |>
     gg_point(

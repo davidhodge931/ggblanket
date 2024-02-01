@@ -1,5 +1,5 @@
 ---
-title: "Demo (dark mode)"
+title: "Demo: white mode"
 author: "David Hodge"
 ---
 
@@ -27,7 +27,7 @@ library(stringr)
 library(tidyr)
 library(palmerpenguins)
 
-theme_set(dark_mode_rt())
+theme_set(white_mode_rt())
 ```
 
 ### gg_area
@@ -61,7 +61,6 @@ diamonds |>
   gg_bin_2d(
     x = carat,
     y = price,
-    col_pal = viridisLite::mako(9),
   )
 ```
 
@@ -75,7 +74,7 @@ penguins |>
     x = flipper_length_mm,
     y = sex,
     col = species,
-    theme = dark_mode_b(),
+    theme = white_mode_b(),
   )
 ```
 
@@ -104,7 +103,7 @@ faithfuld |>
    x = waiting,
    y = eruptions,
    z = density,
- )
+   )
 ```
 
 ### gg_contour_filled
@@ -116,7 +115,7 @@ faithfuld |>
    y = eruptions,
    z = density,
    bins = 8,
- )
+  )
 ```
 
 ### gg_crossbar
@@ -144,12 +143,12 @@ data.frame(
 
 ```{r}
 penguins |>
-  drop_na(sex) |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  drop_na(sex) |> 
   gg_density(
     x = flipper_length_mm,
     col = species,
-    theme = dark_mode_t(),
+    theme = white_mode_t(),
   )
 ```
 
@@ -172,7 +171,6 @@ faithful |>
     x = waiting,
     y = eruptions,
     bins = 8,
-    col_pal = viridisLite::mako(8),
   )
 ```
 
@@ -206,7 +204,7 @@ penguins |>
     x = flipper_length_mm,
     col = sex,
     col_title = "",
-    theme = dark_mode_t(),
+    theme = white_mode_t(),
   )
 ```
 
@@ -227,9 +225,8 @@ diamonds |>
   gg_hex(
     x = carat,
     y = price,
-    y_limits = c(0, 20000),
     coord = coord_cartesian(clip = "on"), 
-    col_pal = viridisLite::mako(9),
+    y_limits = c(0, 20000),
   )
 ```
 
@@ -243,7 +240,7 @@ penguins |>
     col = sex,
     facet = species,
     bins = 50,
-    theme = dark_mode_b(),
+    theme = white_mode_b(),
   )
 ```
 
@@ -261,7 +258,6 @@ penguins |>
     y_expand_limits = 0,
     col_continuous = "steps",
     col_labels = \(x) replace_seq(x),
-    col_pal = viridisLite::mako(9),
   )
 ```
 
@@ -340,7 +336,7 @@ penguins |>
     y = body_mass_g, 
     col = sex,
     facet = species, 
-    theme = dark_mode_b(),
+    theme = white_mode_b(),
   )
 ```
 
@@ -405,7 +401,7 @@ penguins |>
     coord = coord_cartesian(clip = "on"), 
   ) +
   geom_qq_line(
-    colour = blue,
+    colour = blue, 
   )
 ```
 
@@ -427,7 +423,6 @@ faithfuld |>
     x = waiting,
     y = eruptions,
     col = density,
-    col_pal = viridisLite::mako(9),
   )
 ```
 
@@ -468,7 +463,7 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
   ) +
   geom_line(
     mapping = aes(x = year, y = level), 
-    colour = blue, 
+    colour = blue
   )
 ```
 
@@ -502,7 +497,6 @@ data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
 sf::st_read(system.file("shape/nc.shp", package = "sf")) |> 
   gg_sf(
     col = AREA, 
-    col_pal = viridisLite::mako(9),
   )
 ```
 
@@ -510,8 +504,8 @@ sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
 
 ```{r}
 penguins |>
-  drop_na(sex) |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  drop_na(sex) |> 
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -564,7 +558,6 @@ penguins |>
     x = sex,
     y = species,
     col = flipper_length_mm,
-    col_pal = viridisLite::mako(9),
   )
 ```
 
@@ -579,7 +572,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species, 
-    theme = dark_mode_b(),
+    theme = white_mode_b(),
   )
 ```
 
@@ -597,6 +590,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    theme = dark_mode_b(),
+    theme = white_mode_b(),
   )
 ```
+

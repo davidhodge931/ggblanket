@@ -38,7 +38,7 @@ penguins |>
 
 #set globally
 \dontrun{
-  theme_set(light_mode_i())
+  theme_set(light_mode_i(legend_position_inside = c(0.15, 0.7)))
 
   penguins |>
     gg_point(

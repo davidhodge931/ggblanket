@@ -45,18 +45,49 @@ plum <- "#901752"
 
 #' The `light_mode_*` theme colours
 #'
-#' @description A 3 colour vector used in the `light_mode_*` themes.
+#' @description A vector of colours used in the `light_mode_*` themes.
 #'
 #' @return A character vector.
 #'_
 #' @export
-lightness <- c("#121b24", "#fcfdfe", "#e6ecf2", scales::alpha("#121b24", 0.33))
+lightness <- c(
+  "text" = "#121b24",
+  "caption" = scales::alpha("#121b24", 0.5),
+  "axis_line" = "#121b24",
+  "panel" = "#fcfdfe",
+  "plot" = "#e6ecf2",
+  "gridlines" = "#e6ecf2"
+)
 
 #' The `dark_mode_*` theme colours
 #'
-#' @description A 3 colour vector used in the `dark_mode_*` themes.
+#' @description A vector of colours used in the `dark_mode_*` themes.
 #'
 #' @return A character vector.
 #'_
 #' @export
-darkness <- c("#bbccdd", "#1f2f3e", "#15202b", scales::alpha("#bbccdd", 0.33))
+darkness <- c(
+  "text" = "#bbccdd",
+  "caption" = scales::alpha("#bbccdd", 0.5),
+  "axis_line" = "#bbccdd",
+  "panel" = "#1f2f3e",
+  "plot" = "#15202b",
+  "gridlines" = "#15202b"
+)
+
+#' The `white_mode_*` theme colours
+#'
+#' @description A vector of colours used in the `white_mode_*` themes.
+#'
+#' @return A character vector.
+#'_
+#' @export
+whiteness <- c(
+  "text" = "#121b24",
+  "caption" = scales::alpha("#121b24", 0.5),
+  "axis_line" = "#121b24",
+  "panel" = "#fcfdfe",
+  "plot" = "#ffffff",
+  "gridlines" = "#e6ecf2"
+)
+

@@ -53,10 +53,10 @@ aes_contrast <- function(theme_family = "light_mode",
 
   if (theme_family == "light_mode") {
     if (rlang::is_null(col_pal_dark)) col_pal_dark <- lightness[1]
-    if (rlang::is_null(col_pal_light)) col_pal_light <- lightness[3]
+    if (rlang::is_null(col_pal_light)) col_pal_light <- lightness[4]
   }
   else if (theme_family == "dark_mode") {
-    if (rlang::is_null(col_pal_dark)) col_pal_dark <- darkness[3]
+    if (rlang::is_null(col_pal_dark)) col_pal_dark <- darkness[4]
     if (rlang::is_null(col_pal_light)) col_pal_light <- darkness[1]
   }
 
