@@ -10,16 +10,19 @@
     <loc>https://davidhodge931.github.io/ggblanket/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://davidhodge931.github.io/ggblanket/articles/1_demo_light.html</loc>
+    <loc>https://davidhodge931.github.io/ggblanket/articles/1_go_further.html</loc>
   </url>
   <url>
-    <loc>https://davidhodge931.github.io/ggblanket/articles/2_demo_dark.html</loc>
+    <loc>https://davidhodge931.github.io/ggblanket/articles/2_extensions.html</loc>
   </url>
   <url>
-    <loc>https://davidhodge931.github.io/ggblanket/articles/3_go_further.html</loc>
+    <loc>https://davidhodge931.github.io/ggblanket/articles/3_demo_light.html</loc>
   </url>
   <url>
-    <loc>https://davidhodge931.github.io/ggblanket/articles/4_extensions.html</loc>
+    <loc>https://davidhodge931.github.io/ggblanket/articles/4_demo_dark.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/articles/5_demo_white.html</loc>
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/articles/ggblanket.html</loc>
@@ -199,6 +202,21 @@
     <loc>https://davidhodge931.github.io/ggblanket/reference/lightness.html</loc>
   </url>
   <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/mode_b.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/mode_i.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/mode_r.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/mode_rt.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/mode_t.html</loc>
+  </url>
+  <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/navy.html</loc>
   </url>
   <url>
@@ -215,5 +233,23 @@
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/teal.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/white_mode_b.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/white_mode_i.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/white_mode_r.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/white_mode_rt.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/white_mode_t.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/whiteness.html</loc>
   </url>
 </urlset>

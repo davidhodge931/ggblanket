@@ -51,10 +51,11 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/1_demo_light.html">Demo (light mode)</a>
-    <a class="dropdown-item" href="../articles/2_demo_dark.html">Demo (dark mode)</a>
-    <a class="dropdown-item" href="../articles/3_go_further.html">Go further</a>
-    <a class="dropdown-item" href="../articles/4_extensions.html">Extensions</a>
+    <a class="dropdown-item" href="../articles/1_go_further.html">Go further</a>
+    <a class="dropdown-item" href="../articles/2_extensions.html">Extensions</a>
+    <a class="dropdown-item" href="../articles/3_demo_light.html">Demo: light mode</a>
+    <a class="dropdown-item" href="../articles/4_demo_dark.html">Demo: dark mode</a>
+    <a class="dropdown-item" href="../articles/5_demo_white.html">Demo: white mode</a>
   </div>
 </li>
 <li class="nav-item">
@@ -121,8 +122,8 @@ visualisation</strong>.</p>
 <li>Unspecified titles to <code>snakecase::sentence_case</code>
 </li>
 <li>
-<code>light_mode_*</code> and <code>dark_mode_*</code> theme
-families</li>
+<code>light_mode_*</code>, <code>dark_mode_*</code> and
+<code>white_mode_*</code> theme families</li>
 <li>Access to other <code>geom_*</code> arguments via
 <code>...</code>
 </li>
@@ -302,11 +303,12 @@ turned off using <code>titles = \(x) x</code>.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="light_mode_-and-dark_mode_-theme-families">8. <code>light_mode_*</code> and <code>dark_mode_*</code> theme
-families<a class="anchor" aria-label="anchor" href="#light_mode_-and-dark_mode_-theme-families"></a>
+<h3 id="light_mode_-dark_mode_-and-white_mode_-theme-families">8. <code>light_mode_*</code>, <code>dark_mode_*</code> and
+<code>white_mode_*</code> theme families<a class="anchor" aria-label="anchor" href="#light_mode_-dark_mode_-and-white_mode_-theme-families"></a>
 </h3>
-<p>ggblanket provides two families of themes: <code>light_mode_*</code>
-and <code>dark_mode_*</code>.</p>
+<p>ggblanket provides three families of themes:
+<code>light_mode_*</code>, <code>dark_mode_*</code> and
+<code>white_mode_*</code>.</p>
 <p>Each theme family provides 5 variants that differ based on legend
 placement, which is represented by the suffix of the theme name of
 <code>rt</code> (right-top), <code>r</code> (right-centre),

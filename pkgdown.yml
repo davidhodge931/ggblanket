@@ -2,12 +2,13 @@ pandoc: 2.19.2
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
-  1_demo_light: 1_demo_light.html
-  2_demo_dark: 2_demo_dark.html
-  3_go_further: 3_go_further.html
-  4_extensions: 4_extensions.html
+  1_go_further: 1_go_further.html
+  2_extensions: 2_extensions.html
+  3_demo_light: 3_demo_light.html
+  4_demo_dark: 4_demo_dark.html
+  5_demo_white: 5_demo_white.html
   ggblanket: ggblanket.html
-last_built: 2024-02-01T19:49Z
+last_built: 2024-02-01T22:53Z
 urls:
   reference: https://davidhodge931.github.io/ggblanket/reference
   article: https://davidhodge931.github.io/ggblanket/articles
