@@ -224,7 +224,7 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    theme = dark_mode_b(title_face = "bold"),
+    theme = dark_mode_b(),
   )
 ```
 
