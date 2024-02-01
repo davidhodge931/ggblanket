@@ -5,7 +5,7 @@
 \alias{lightness}
 \title{The \verb{light_mode_*} theme colours}
 \format{
-An object of class \code{character} of length 3.
+An object of class \code{character} of length 4.
 }
 \usage{
 lightness

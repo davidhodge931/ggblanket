@@ -50,7 +50,7 @@ plum <- "#901752"
 #' @return A character vector.
 #'_
 #' @export
-lightness <- c("#121b24", "#fcfdfe", "#e6ecf2")
+lightness <- c("#121b24", "#fcfdfe", "#e6ecf2", scales::alpha("#121b24", 0.33))
 
 #' The `dark_mode_*` theme colours
 #'
@@ -59,4 +59,4 @@ lightness <- c("#121b24", "#fcfdfe", "#e6ecf2")
 #' @return A character vector.
 #'_
 #' @export
-darkness <- c("#bbccdd", "#1f2f3e", "#15202b")
+darkness <- c("#bbccdd", "#1f2f3e", "#15202b", scales::alpha("#bbccdd", 0.33))
