@@ -408,27 +408,9 @@ ggridges::Catalan_elections |>
   )
 ```
 
-#### ggtext
+#### ggtext and mdthemes
 
-The ggtext package enables plot text to use markdown syntax. The applicable markdown theme elements need to be added to the plot.
-
-Note if you want to have some or all of a title not bold, then it's important to change the default theme have a plain title - as otherwise the `gg_theme` defaults to bold. 
-
-```{r}
-penguins |>
-  gg_point(
-    x = bill_depth_mm,
-    y = bill_length_mm,
-    col = species,
-    title = "***Pygoscelis*** **penguin** bill lengths and depths",
-    subtitle = "<span style = 'color: #2596be ;'>**Adelie**</span>, 
-       <span style = 'color:#fc7c24;'>**Chinstrap**</span>, 
-       *and* <span style = 'color:#9c1e74;'>**Gentoo**</span>",
-  ) +
-  theme(plot.title = ggtext::element_markdown()) +
-  theme(plot.subtitle = ggtext::element_markdown()) +
-  guides(colour = "none", fill = "none")
-```
+The ggtext and mdthemes package support using markdown in text. 
 
 ```{r, fig.asp=0.75}
 penguins |>
@@ -442,26 +424,14 @@ penguins |>
     x_title = "**Bill depth** (mm)", 
     y_labels = \(x) replace_seq(glue::glue("_{x}_")),
     y_title = "**Bill length** (mm)",
-    col_labels = \(x) glue::glue("_{x}_"),
-    col_title = "**Species**",
     facet_labels = \(x) glue::glue("_{x}_"),
-    title = "***Pygoscelis*** **penguin** bill lengths and depths",
+    title = "***Pygoscelis*** *penguin* bill **lengths** and depths",
     subtitle = "<span style = 'color: #2596be ;'>**Adelie**</span>, 
        <span style = 'color:#fc7c24;'>**Chinstrap**</span>, 
        *and* <span style = 'color:#9c1e74;'>**Gentoo**</span>", 
+    theme = mdthemes::as_md_theme(light_mode_rt())
   ) +
-  theme(  
-    plot.title = ggtext::element_markdown(),
-    plot.subtitle = ggtext::element_markdown(),
-    axis.title.x = ggtext::element_markdown(), 
-    axis.title.y = ggtext::element_markdown(), 
-    axis.text.x = ggtext::element_markdown(), 
-    axis.text.y = ggtext::element_markdown(),
-    legend.title = ggtext::element_markdown(),
-    legend.text = ggtext::element_markdown(), 
-    strip.text.x = ggtext::element_markdown(),
-    strip.text.y = ggtext::element_markdown()) +
-    guides(colour = "none", fill = "none")
+  guides(colour = "none", fill = "none")
 ```
 
 #### geomtextpath

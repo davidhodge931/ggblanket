@@ -8,18 +8,16 @@
 * Added `alpha` aesthetic support with new `alpha`, `alpha_pal` and `alpha_*` arguments.
 * Added `facet_axes` and `facet_axis_labels` arguments.
 * Added `facet_labels_position` argument.
-* Added `light_mode_*` and `dark_mode_*` family of functions.
-* Added `col_continuous_type` argument to support colouring by "steps". 
+* Added `light_mode_*` and `dark_mode_*` family of functions - with numerous other changes.
 * Added `gg_quantile`, `gg_rug`, and `gg_function` functions.
+* Added `col_continuous_type` argument to support colouring by "steps". 
 * Added `flipped` argument.
-* Changed `*_mode_*` default base_size to 11.
-* Changed `*_mode_*` default face to plain.
 * Breaking: change `*_mode_*` `base_pal` argument to `col_pal`.
 * Changed default theme to place the legend on the top right.
 * Changed NULL effect of pretty axis `*_limits = c(NA, NA)` on `y_expand` NULL.
 * Improved default gridlines, and changed their default colour.
 * Fixed bug when `col` is logical class.
-* Added new helper hex codes `blue`, `teal`, `orange`, `navy`, `plum` and `grey`
+* Added new helper hex codes `blue`, `teal`, `orange`, `navy`, and `plum` 
 * Updated the default discrete palette.
 * Breaking: shift `...` to the front to require users to name arguments.
 * Breaking: renamed `pal` to `col_pal`.

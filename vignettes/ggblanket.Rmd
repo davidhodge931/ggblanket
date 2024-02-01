@@ -225,7 +225,7 @@ penguins |>
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
     theme = dark_mode_b(),
-  )
+  ) 
 ```
 
 ### 9. Access to other `geom_*` arguments via `...`

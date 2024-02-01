@@ -61,7 +61,7 @@ penguins |>
     theme = light_mode_rt(base_size = 11, base_family = "grace")
   ) +
   theme(
-    plot.title = element_text(family = "roboto_slab", face = "bold"),
+    plot.title = element_text(family = "roboto_slab"),
     plot.subtitle = element_text(family = "syne")
   )
 
