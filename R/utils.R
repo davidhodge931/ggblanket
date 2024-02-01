@@ -19,6 +19,35 @@ na_if_inf <- function(x) {
   x
 }
 
+#' Default colours used to colour a discrete variable
+#'
+#' @description Default colours used to colour a discrete variable. Uses a colour blind safe palette derived from the US Census Bureau's Data Visualisation Standards for 3 or less colours. For 4 or more colours, uses scales::pal_hue.
+#'
+#' @return A character vector.
+#'
+#' @noRd
+col_pal_discrete <- function(n = 3) {
+  if (n == 1) blue
+  else if (n <= 3) c(teal, orange, plum)[1:n]
+  else scales::pal_hue()(n)
+}
+
+#' Default colours used to colour a continuous variable
+#'
+#' @description Default colours used to colour a continuous variable.
+#'
+#' @noRd
+#'
+#' @references The mako colour palette from viridisLite reversed
+col_pal_continuous <- function(n = 18) {
+  viridisLite::mako(n = n, direction = -1)
+}
+
+#' Continuous colour and fill scales
+#'
+#' @description A vector of continuous colour and fill scales.
+#'
+#' @noRd
 continuous_scales_col <- c(
   "scale_colour_continuous",
   "scale_colour_binned",
@@ -55,6 +84,11 @@ continuous_scales_col <- c(
   "scale_fill_viridis_c"
 )
 
+#' Discrete colour and fill scales
+#'
+#' @description A vector of discrete colour and fill scales.
+#'
+#' @noRd
 discrete_scales_col <- c(
   "scale_colour_discrete",
   "scale_colour_manual",
@@ -67,6 +101,11 @@ discrete_scales_col <- c(
   "scale_fill_viridis_d"
 )
 
+#' Continuous alpha scales
+#'
+#' @description A vector of continuous alpha scales.
+#'
+#' @noRd
 continuous_scales_alpha <- c(
   "scale_alpha_continuous",
   "scale_alpha",
@@ -75,6 +114,11 @@ continuous_scales_alpha <- c(
   "scale_alpha_datetime"
 )
 
+#' Discrete colour and fill scales
+#'
+#' @description A vector of discrete colour and fill scales.
+#'
+#' @noRd
 discrete_scales_alpha <- c(
   "scale_alpha_discrete",
   "scale_alpha_manual",

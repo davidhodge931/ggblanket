@@ -45,29 +45,22 @@ contrast <- function(col,
 #'   ) +
 #'   geom_text(
 #'     mapping = aes(y = n - (max(n * 0.04)), label = n,
-#'                   !!!aes_contrast("light_mode")),
+#'                   !!!aes_contrast()),
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     show.legend = FALSE,
 #'   )
-aes_contrast <- function(theme_family = NULL,
+aes_contrast <- function(theme_family = "light_mode",
                          col_pal_dark = NULL,
                          col_pal_light = NULL) {
 
-  if (!rlang::is_null(theme_family)) {
-    if (theme_family == "light_mode") {
-      if (rlang::is_null(col_pal_dark)) col_pal_dark <- pal_light_mode["text"]
-      if (rlang::is_null(col_pal_light)) col_pal_light <- pal_light_mode["panel"]
-    }
-    else if (theme_family == "dark_mode") {
-      if (rlang::is_null(col_pal_dark)) col_pal_dark <- pal_dark_mode["plot"]
-      if (rlang::is_null(col_pal_light)) col_pal_light <- pal_dark_mode["text"]
-    }
+  if (theme_family == "light_mode") {
+    if (rlang::is_null(col_pal_dark)) col_pal_dark <- lightness[1]
+    if (rlang::is_null(col_pal_light)) col_pal_light <- lightness[3]
   }
-  else {
-    if (rlang::is_null(col_pal_dark)) col_pal_dark <- "black"
-    if (rlang::is_null(col_pal_light)) col_pal_light <- "white"
+  else if (theme_family == "dark_mode") {
+    if (rlang::is_null(col_pal_dark)) col_pal_dark <- darkness[3]
+    if (rlang::is_null(col_pal_light)) col_pal_light <- darkness[1]
   }
-
 
   ggplot2::aes(colour = ggplot2::after_scale(
     contrast(

@@ -4,7 +4,11 @@
 \alias{aes_contrast}
 \title{A colour aesthetic that automatically contrasts with fill.}
 \usage{
-aes_contrast(theme_family = NULL, col_pal_dark = NULL, col_pal_light = NULL)
+aes_contrast(
+  theme_family = "light_mode",
+  col_pal_dark = NULL,
+  col_pal_light = NULL
+)
 }
 \arguments{
 \item{theme_family}{The ggblanket theme family default colours. Either "light_mode" or "dark_mode".}
@@ -36,7 +40,7 @@ penguins |>
   ) +
   geom_text(
     mapping = aes(y = n - (max(n * 0.04)), label = n,
-                  !!!aes_contrast("light_mode")),
+                  !!!aes_contrast()),
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
   )
