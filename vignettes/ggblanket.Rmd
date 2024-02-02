@@ -41,7 +41,7 @@ Secondary objectives relate to:
 5.  A `col_pal` argument to customise colours
 6.  Prefixed arguments to customise 
 7.  Unspecified titles to `snakecase::sentence_case` 
-8.  `light_mode_*`, `dark_mode_*` and `white_mode_*` theme families
+8.  `light_mode_*`, `dark_mode_*` and `grey_mode_*` theme families
 9.  Access to other `geom_*` arguments via `...`
 10. Symmetric continuous positional scales and gridlines removal
 11. Turn-off or fix either colour or fill
@@ -204,9 +204,9 @@ diamonds |>
   )
 ```
 
-### 8.  `light_mode_*`, `dark_mode_*` and `white_mode_*` theme families
+### 8.  `light_mode_*`, `dark_mode_*` and `grey_mode_*` theme families
 
-ggblanket provides three families of themes: `light_mode_*`, `dark_mode_*` and `white_mode_*`. 
+ggblanket provides three families of themes: `light_mode_*`, `dark_mode_*` and `grey_mode_*`. 
 
 Each theme family provides 5 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), `t` (top) and `i` (inside the panel). 
 

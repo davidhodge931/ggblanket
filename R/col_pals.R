@@ -43,10 +43,10 @@ navy <- "#112E51"
 #' @export
 plum <- "#901752"
 
-#' The `light_mode_*` theme colours
+#' The `grey_mode_*` theme colours
 #'
 #' @noRd
-lightness <- c(
+greyness <- c(
   "text" = "#121b24",
   "caption" = scales::alpha("#121b24", 0.5),
   "axis_line" = "#121b24",
@@ -69,12 +69,12 @@ darkness <- c(
   "gridlines" = "#15202b"
 )
 
-#' The `white_mode_*` theme colours
+#' The `light_mode_*` theme colours
 #'
-#' @description A vector of colours used in the `white_mode_*` themes.
+#' @description A vector of colours used in the `light_mode_*` themes.
 #'
 #' @noRd
-whiteness <- c(
+lightness <- c(
   "text" = "#121b24",
   "caption" = scales::alpha("#121b24", 0.5),
   "axis_line" = "#121b24",

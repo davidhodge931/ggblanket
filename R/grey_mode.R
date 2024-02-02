@@ -1,6 +1,6 @@
-#' @title White ggplot theme with right top legend
+#' @title Grey ggplot theme with right top legend
 #'
-#' @description White theme for a ggplot visualisation with legend at right top. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
+#' @description Grey theme for a ggplot visualisation with legend at right top. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
 #'
 #' @inheritParams mode_rt
 #'
@@ -17,12 +17,12 @@
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = white_mode_rt()
+#'     theme = grey_mode_rt()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(white_mode_rt())
+#'   theme_set(grey_mode_rt())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -32,20 +32,20 @@
 #'     )
 #' }
 #'
-white_mode_rt <- function (
+grey_mode_rt <- function (
     base_size = 11,
     base_family = "") {
 
   mode_rt(
     base_size = base_size,
     base_family = base_family,
-    col_pal = whiteness
+    col_pal = greyness
   )
 }
 
-#' @title White ggplot theme with right legend
+#' @title Grey ggplot theme with right legend
 #'
-#' @description White theme for a ggplot visualisation with right legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
+#' @description Grey theme for a ggplot visualisation with right legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
 #'
 #' @inheritParams mode_r
 #'
@@ -62,12 +62,12 @@ white_mode_rt <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = white_mode_r()
+#'     theme = grey_mode_r()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(white_mode_r())
+#'   theme_set(grey_mode_r())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -77,20 +77,20 @@ white_mode_rt <- function (
 #'     )
 #' }
 #'
-white_mode_r <- function (
+grey_mode_r <- function (
     base_size = 11,
     base_family = "") {
 
   mode_r(
     base_size = base_size,
     base_family = base_family,
-    col_pal = whiteness
+    col_pal = greyness
   )
 }
 
-#' @title White ggplot theme with bottom legend
+#' @title Grey ggplot theme with bottom legend
 #'
-#' @description White theme for a ggplot visualisation with bottom legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
+#' @description Grey theme for a ggplot visualisation with bottom legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
 #'
 #' @inheritParams mode_b
 #'
@@ -107,12 +107,12 @@ white_mode_r <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = white_mode_b()
+#'     theme = grey_mode_b()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(white_mode_b())
+#'   theme_set(grey_mode_b())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -122,20 +122,20 @@ white_mode_r <- function (
 #'     )
 #' }
 #'
-white_mode_b <- function (
+grey_mode_b <- function (
     base_size = 11,
     base_family = "") {
 
   mode_b(
     base_size = base_size,
     base_family = base_family,
-    col_pal = whiteness
+    col_pal = greyness
   )
 }
 
-#' @title White ggplot theme with top legend
+#' @title Grey ggplot theme with top legend
 #'
-#' @description White theme for a ggplot visualisation with top legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
+#' @description Grey theme for a ggplot visualisation with top legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
 #'
 #' @inheritParams mode_t
 #'
@@ -152,12 +152,12 @@ white_mode_b <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = white_mode_t()
+#'     theme = grey_mode_t()
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(white_mode_t())
+#'   theme_set(grey_mode_t())
 #'
 #'   penguins |>
 #'     gg_point(
@@ -167,20 +167,20 @@ white_mode_b <- function (
 #'     )
 #' }
 #'
-white_mode_t <- function (
+grey_mode_t <- function (
     base_size = 11,
     base_family = "") {
 
   mode_t(
     base_size = base_size,
     base_family = base_family,
-    col_pal = whiteness
+    col_pal = greyness
   )
 }
 
-#' @title White ggplot theme with inside legend
+#' @title Grey ggplot theme with inside legend
 #'
-#' @description White theme for a ggplot visualisation with legend inside the panel. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
+#' @description Grey theme for a ggplot visualisation with legend inside the panel. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
 #'
 #' @inheritParams mode_i
 #'
@@ -197,12 +197,12 @@ white_mode_t <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = white_mode_i(legend_position_inside = c(0.15, 0.7))
+#'     theme = grey_mode_i(legend_position_inside = c(0.15, 0.7))
 #'   )
 #'
 #' #set globally
 #' \dontrun{
-#'   theme_set(white_mode_i(legend_position_inside = c(0.15, 0.7)))
+#'   theme_set(grey_mode_i(legend_position_inside = c(0.15, 0.7)))
 #'
 #'   penguins |>
 #'     gg_point(
@@ -212,7 +212,7 @@ white_mode_t <- function (
 #'     )
 #' }
 #'
-white_mode_i <- function (
+grey_mode_i <- function (
     base_size = 11,
     base_family = "",
     legend_position_inside = c(0.5, 0.5)) {
@@ -221,6 +221,6 @@ white_mode_i <- function (
     base_size = base_size,
     base_family = base_family,
     legend_position_inside = legend_position_inside,
-    col_pal = whiteness
+    col_pal = greyness
   )
 }

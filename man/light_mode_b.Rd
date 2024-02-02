@@ -15,7 +15,7 @@ light_mode_b(base_size = 11, base_family = "")
 A ggplot theme.
 }
 \description{
-Light theme for a ggplot visualisation with bottom legend. It uses the colours \code{"#121b24"}, \code{"#fcfdfe"}, and \code{"#e6ecf2"}.
+Light theme for a ggplot visualisation with bottom legend. It uses the colours \code{"#121b24"}, \code{"#fcfdfe"}, and \code{"#ffffff"}.
 }
 \examples{
 library(palmerpenguins)

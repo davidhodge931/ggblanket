@@ -24,11 +24,11 @@ reference:
   - dark_mode_t
   - dark_mode_b
   - dark_mode_i
-  - white_mode_rt
-  - white_mode_r
-  - white_mode_t
-  - white_mode_b
-  - white_mode_i
+  - grey_mode_rt
+  - grey_mode_r
+  - grey_mode_t
+  - grey_mode_b
+  - grey_mode_i
 - title: Helper
 - contents:
   - aes_contrast

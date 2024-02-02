@@ -21,7 +21,7 @@ light_mode_i(
 A ggplot theme.
 }
 \description{
-Light theme for a ggplot visualisation with legend inside the panel. It uses the colours \code{"#121b24"}, \code{"#fcfdfe"}, and \code{"#e6ecf2"}.
+Light theme for a ggplot visualisation with legend inside the panel. It uses the colours \code{"#121b24"}, \code{"#fcfdfe"}, and \code{"#ffffff"}.
 }
 \examples{
 library(palmerpenguins)
