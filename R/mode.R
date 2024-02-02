@@ -4,7 +4,7 @@
 #'
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
-#' @param col_pal A 6 colour vector with elements named "text", "caption", "axis_line", "background_inside", "background_outside" and "gridlines".
+#' @param col_pal A 5 colour vector with elements named "text", "axis_line", "background_inside", "background_outside" and "gridlines".
 #'
 #' @keywords internal
 mode_rt <- function (
@@ -12,7 +12,6 @@ mode_rt <- function (
     base_family = "",
     col_pal = c(
       "text" = "white",
-      "caption" = "white",
       "axis_line" = "white",
       "background_inside" = "white",
       "background_outside" = "white",
@@ -82,7 +81,7 @@ mode_rt <- function (
     plot.title = ggplot2::element_text(face = "bold", size = ggplot2::rel(1.1), hjust = 0, margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 2.5, l = 0)),
     plot.title.position = "plot",
     plot.subtitle = ggplot2::element_text(hjust = 0, margin = ggplot2::margin(t = base_size * -2, r = 0, b = base_size * 2, l = 0)),
-    plot.caption = ggplot2::element_text(colour = col_pal["caption"], size = ggplot2::rel(0.9), hjust = 0, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
+    plot.caption = ggplot2::element_text(size = ggplot2::rel(0.9), hjust = 1, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
     plot.caption.position = "plot",
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",
@@ -117,7 +116,6 @@ mode_r <- function (
     base_family = "",
     col_pal = c(
       "text" = "white",
-      "caption" = "white",
       "axis_line" = "white",
       "background_inside" = "white",
       "background_outside" = "white",
@@ -187,7 +185,7 @@ mode_r <- function (
     plot.title = ggplot2::element_text(face = "bold", size = ggplot2::rel(1.1), hjust = 0, margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 2.5, l = 0)),
     plot.title.position = "plot",
     plot.subtitle = ggplot2::element_text(hjust = 0, margin = ggplot2::margin(t = base_size * -2, r = 0, b = base_size * 2, l = 0)),
-    plot.caption = ggplot2::element_text(colour = col_pal["caption"], size = ggplot2::rel(0.9), hjust = 0, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
+    plot.caption = ggplot2::element_text(size = ggplot2::rel(0.9), hjust = 1, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
     plot.caption.position = "plot",
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",
@@ -222,7 +220,6 @@ mode_b <- function (
     base_family = "",
     col_pal = c(
       "text" = "white",
-      "caption" = "white",
       "axis_line" = "white",
       "background_inside" = "white",
       "background_outside" = "white",
@@ -292,7 +289,7 @@ mode_b <- function (
     plot.title = ggplot2::element_text(face = "bold", size = ggplot2::rel(1.1), hjust = 0, margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 2.5, l = 0)),
     plot.title.position = "plot",
     plot.subtitle = ggplot2::element_text(hjust = 0, margin = ggplot2::margin(t = base_size * -2, r = 0, b = base_size * 2, l = 0)),
-    plot.caption = ggplot2::element_text(colour = col_pal["caption"], size = ggplot2::rel(0.9), hjust = 0, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
+    plot.caption = ggplot2::element_text(size = ggplot2::rel(0.9), hjust = 1, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
     plot.caption.position = "plot",
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",
@@ -327,7 +324,6 @@ mode_t <- function (
     base_family = "",
     col_pal = c(
       "text" = "white",
-      "caption" = "white",
       "axis_line" = "white",
       "background_inside" = "white",
       "background_outside" = "white",
@@ -397,7 +393,7 @@ mode_t <- function (
     plot.title = ggplot2::element_text(face = "bold", size = ggplot2::rel(1.1), hjust = 0, margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 2.5, l = 0)),
     plot.title.position = "plot",
     plot.subtitle = ggplot2::element_text(hjust = 0, margin = ggplot2::margin(t = base_size * -2, r = 0, b = base_size * 2, l = 0)),
-    plot.caption = ggplot2::element_text(colour = col_pal["caption"], size = ggplot2::rel(0.9), hjust = 0, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
+    plot.caption = ggplot2::element_text(size = ggplot2::rel(0.9), hjust = 1, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
     plot.caption.position = "plot",
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",
@@ -434,7 +430,6 @@ mode_i <- function (
     legend_position_inside = c(0.5, 0.5),
     col_pal = c(
       "text" = "white",
-      "caption" = "white",
       "axis_line" = "white",
       "background_inside" = "white",
       "background_outside" = "white",
@@ -504,7 +499,7 @@ mode_i <- function (
     plot.title = ggplot2::element_text(face = "bold", size = ggplot2::rel(1.1), hjust = 0, margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 2.5, l = 0)),
     plot.title.position = "plot",
     plot.subtitle = ggplot2::element_text(hjust = 0, margin = ggplot2::margin(t = base_size * -2, r = 0, b = base_size * 2, l = 0)),
-    plot.caption = ggplot2::element_text(colour = col_pal["caption"], size = ggplot2::rel(0.9), hjust = 0, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
+    plot.caption = ggplot2::element_text(size = ggplot2::rel(0.9), hjust = 1, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
     plot.caption.position = "plot",
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",

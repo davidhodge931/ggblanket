@@ -50,7 +50,6 @@ plum <- "#901752"
 #' @noRd
 lightness <- c(
   "text" = "#121b24",
-  "caption" = scales::alpha("#121b24", 0.5),
   "axis_line" = "#121b24",
   "background_inside" = "#ffffff",
   "background_outside" = "#ffffff",
@@ -64,7 +63,6 @@ lightness <- c(
 #' @noRd
 darkness <- c(
   "text" = "#bbccdd",
-  "caption" = scales::alpha("#bbccdd", 0.5),
   "axis_line" = "#bbccdd",
   "background_inside" = "#1f2f3e",
   "background_outside" = "#15202b",
@@ -76,7 +74,6 @@ darkness <- c(
 #' @noRd
 greyness <- c(
   "text" = "#121b24",
-  "caption" = scales::alpha("#121b24", 0.5),
   "axis_line" = "#121b24",
   "background_inside" = "#fcfdfe",
   "background_outside" = "#e6ecf2",

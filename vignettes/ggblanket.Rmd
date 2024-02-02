@@ -213,7 +213,24 @@ Each theme family provides 5 variants that differ based on legend placement, whi
 You can set the theme globally using `ggplot2::theme_set()`. 
 
 ```{r, fig.asp=0.7}
-# theme_set(dark_mode_rt())
+# theme_set(light_mode_b())
+
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020", 
+    theme = light_mode_b(),
+  ) 
+```
+
+
+```{r, fig.asp=0.7}
+# theme_set(dark_mode_b())
 
 penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
@@ -225,6 +242,22 @@ penguins |>
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
     theme = dark_mode_b(),
+  ) 
+```
+
+```{r, fig.asp=0.7}
+# theme_set(grey_mode_b())
+
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020", 
+    theme = grey_mode_b(),
   ) 
 ```
 

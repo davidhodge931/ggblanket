@@ -8,8 +8,8 @@ mode_i(
   base_size = 11,
   base_family = "",
   legend_position_inside = c(0.5, 0.5),
-  col_pal = c(text = "white", caption = "white", axis_line = "white", background_inside =
-    "white", background_outside = "white", gridlines = "white")
+  col_pal = c(text = "white", axis_line = "white", background_inside = "white",
+    background_outside = "white", gridlines = "white")
 )
 }
 \arguments{
@@ -19,7 +19,7 @@ mode_i(
 
 \item{legend_position_inside}{The placement of legends inside panels. A numeric vector of length two.}
 
-\item{col_pal}{A 6 colour vector with elements named "text", "caption", "axis_line", "background_inside", "background_outside" and "gridlines".}
+\item{col_pal}{A 6 colour vector with elements named "text", "axis_line", "background_inside", "background_outside" and "gridlines".}
 }
 \description{
 Theme for a ggplot visualisation with legend inside the panel.
