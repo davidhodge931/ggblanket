@@ -80,8 +80,5 @@ whiteness <- c(
   "axis_line" = "#121b24",
   "background_inside" = "#ffffff",
   "background_outside" = "#ffffff",
-  # "background_inside" = "#fcfdfe",
-  # "background_outside" = "#fcfdfe",
   "gridlines" = "#e6ecf2"
 )
-
