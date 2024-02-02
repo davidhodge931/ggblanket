@@ -78,8 +78,10 @@ whiteness <- c(
   "text" = "#121b24",
   "caption" = scales::alpha("#121b24", 0.5),
   "axis_line" = "#121b24",
-  "background_inside" = "#fcfdfe",
-  "background_outside" = "#fcfdfe",
+  "background_inside" = "#ffffff",
+  "background_outside" = "#ffffff",
+  # "background_inside" = "#fcfdfe",
+  # "background_outside" = "#fcfdfe",
   "gridlines" = "#e6ecf2"
 )
 
