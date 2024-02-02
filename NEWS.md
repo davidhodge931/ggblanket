@@ -8,12 +8,11 @@
 * Added `alpha` aesthetic support with new `alpha`, `alpha_pal` and `alpha_*` arguments.
 * Added `facet_axes` and `facet_axis_labels` arguments.
 * Added `facet_labels_position` argument.
-* Added `light_mode_*` and `dark_mode_*` family of functions - with numerous other changes.
-* Added `white_mode_*` family of functions. 
+* Added  family of functions. 
 * Added `gg_quantile`, `gg_rug`, and `gg_function` functions.
 * Added `col_continuous_type` argument to support colouring by "steps". 
 * Added `flipped` argument.
-* Breaking: 
+* Breaking: Added `light_mode_*`, `dark_mode_*` and `grey_mode_*` family of functions.
 * Changed default theme to place the legend on the top right.
 * Changed NULL effect of pretty axis `*_limits = c(NA, NA)` on `y_expand` NULL.
 * Improved default gridlines, and changed their default colour.
