@@ -22,7 +22,7 @@
     <loc>https://davidhodge931.github.io/ggblanket/articles/4_demo_dark.html</loc>
   </url>
   <url>
-    <loc>https://davidhodge931.github.io/ggblanket/articles/5_demo_white.html</loc>
+    <loc>https://davidhodge931.github.io/ggblanket/articles/5_demo_grey.html</loc>
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/articles/ggblanket.html</loc>
@@ -178,6 +178,21 @@
     <loc>https://davidhodge931.github.io/ggblanket/reference/ggblanket-package.html</loc>
   </url>
   <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/grey_mode_b.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/grey_mode_i.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/grey_mode_r.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/grey_mode_rt.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/grey_mode_t.html</loc>
+  </url>
+  <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/index.html</loc>
   </url>
   <url>
@@ -227,20 +242,5 @@
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/teal.html</loc>
-  </url>
-  <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/white_mode_b.html</loc>
-  </url>
-  <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/white_mode_i.html</loc>
-  </url>
-  <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/white_mode_r.html</loc>
-  </url>
-  <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/white_mode_rt.html</loc>
-  </url>
-  <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/white_mode_t.html</loc>
   </url>
 </urlset>
