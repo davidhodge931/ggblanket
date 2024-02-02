@@ -252,7 +252,7 @@ gg_step(
 A ggplot object.
 }
 \description{
-Create a step plot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_path]{geom_step()}.
+Create a step plot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_path]{geom_step()}.
 }
 \examples{
 

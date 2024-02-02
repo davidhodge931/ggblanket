@@ -252,7 +252,7 @@ gg_label(
 A ggplot object.
 }
 \description{
-Create a label ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_text]{geom_label()}.
+Create a label ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_text]{geom_label()}.
 }
 \examples{
 

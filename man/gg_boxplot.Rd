@@ -252,7 +252,7 @@ gg_boxplot(
 A ggplot object.
 }
 \description{
-Create a boxplot ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_boxplot]{geom_boxplot()}.
+Create a boxplot ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_boxplot]{geom_boxplot()}.
 }
 \examples{
 

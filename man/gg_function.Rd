@@ -252,7 +252,7 @@ gg_function(
 A ggplot object.
 }
 \description{
-Create a function ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_function]{geom_function()}.
+Create a function ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_function]{geom_function()}.
 }
 \examples{
 

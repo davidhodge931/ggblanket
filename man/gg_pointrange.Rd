@@ -252,7 +252,7 @@ gg_pointrange(
 A ggplot object.
 }
 \description{
-Create a pointrange ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_linerange]{geom_pointrange()}.
+Create a pointrange ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_linerange]{geom_pointrange()}.
 }
 \examples{
 

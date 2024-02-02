@@ -252,7 +252,7 @@ gg_sf(
 A ggplot object.
 }
 \description{
-Create a blank ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:ggsf]{geom_sf()}.
+Create a blank ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:ggsf]{geom_sf()}.
 }
 \examples{
 

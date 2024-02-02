@@ -55,30 +55,6 @@ lightness <- c(
   "gridlines" = "#e6ecf2"
 )
 
-#' The `light_mode_*` theme colours
-#'
-#' @noRd
-lightness2 <- c(
-  "text" = "#121b24",
-  "caption" = scales::alpha("#121b24", 0.5),
-  "axis_line" = "#121b24",
-  "background_inside" = "#fcfdfe",
-  "background_outside" = "#C8D7DF",
-  "gridlines" = "#C8D7DF"
-)
-
-#' The `light_mode_*` theme colours
-#'
-#' @noRd
-lightness3 <- c(
-  "text" = "#121b24",
-  "caption" = scales::alpha("#121b24", 0.5),
-  "axis_line" = "#121b24",
-  "background_inside" = "#fcfdfe",
-  "background_outside" = "#A7C0CD",
-  "gridlines" = "#A7C0CD"
-)
-
 #' The `dark_mode_*` theme colours
 #'
 #' @description A vector of colours used in the `dark_mode_*` themes.
@@ -102,7 +78,7 @@ whiteness <- c(
   "text" = "#121b24",
   "caption" = scales::alpha("#121b24", 0.5),
   "axis_line" = "#121b24",
-  "background_inside" = "#ffffff",
+  "background_inside" = "#fcfdfe",
   "background_outside" = "#ffffff",
   "gridlines" = "#e6ecf2"
 )

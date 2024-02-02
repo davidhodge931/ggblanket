@@ -17,9 +17,9 @@ contrast <- function(col,
 
 #' A colour aesthetic that automatically contrasts with fill.
 #'
-#' @description A colour aesthetic that automatically contrasts with fill. Can be spliced into ggplot2::aes.
+#' @description A colour aesthetic that automatically contrasts with fill. Can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
-#' @param theme_family The ggblanket theme family default colours. Either "light_mode" or "dark_mode".
+#' @param theme_family The ggblanket theme family default colours. Either "light_mode", "dark_mode" or "white_mode". Defaults to "light_mode".
 #' @param col_pal_dark A dark colour for use on light fill, which over-rides defaults selected based on the theme_family.
 #' @param col_pal_light A light colour for use on dark fill, which over-rides defaults selected based on the theme_family.
 #'
@@ -58,6 +58,10 @@ aes_contrast <- function(theme_family = "light_mode",
   else if (theme_family == "dark_mode") {
     if (rlang::is_null(col_pal_dark)) col_pal_dark <- darkness["background_outside"]
     if (rlang::is_null(col_pal_light)) col_pal_light <- darkness["text"]
+  }
+  else if (theme_family == "white_mode") {
+    if (rlang::is_null(col_pal_dark)) col_pal_dark <- whiteness["text"]
+    if (rlang::is_null(col_pal_light)) col_pal_light <- whiteness["background_inside"]
   }
 
   ggplot2::aes(colour = ggplot2::after_scale(

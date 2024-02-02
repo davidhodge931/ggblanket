@@ -252,7 +252,7 @@ gg_path(
 A ggplot object.
 }
 \description{
-Create a path ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_path]{geom_path()}.
+Create a path ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_path]{geom_path()}.
 }
 \examples{
 

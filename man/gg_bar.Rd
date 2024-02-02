@@ -252,7 +252,7 @@ gg_bar(
 A ggplot object.
 }
 \description{
-Create a bar ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_bar]{geom_bar()}.
+Create a bar ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_bar]{geom_bar()}.
 }
 \examples{
 

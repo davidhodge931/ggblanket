@@ -1,6 +1,6 @@
 #' @title Step ggplot
 #'
-#' @description Create a step plot with a wrapper around `ggplot()` + [geom_step()][ggplot2::geom_step()].
+#' @description Create a step plot with a wrapper around [ggplot2::ggplot()] + [geom_step()][ggplot2::geom_step()].
 #'
 #' @inheritParams gg_blanket
 #'

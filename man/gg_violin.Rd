@@ -252,7 +252,7 @@ gg_violin(
 A ggplot object.
 }
 \description{
-Create a violin plot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_violin]{geom_violin()}.
+Create a violin plot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_violin]{geom_violin()}.
 }
 \examples{
 

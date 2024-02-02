@@ -252,7 +252,7 @@ gg_col(
 A ggplot object.
 }
 \description{
-Create a col ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_bar]{geom_col()}.
+Create a col ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_bar]{geom_col()}.
 }
 \examples{
 

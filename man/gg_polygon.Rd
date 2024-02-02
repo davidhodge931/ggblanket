@@ -252,7 +252,7 @@ gg_polygon(
 A ggplot object.
 }
 \description{
-Create a polygon ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_polygon]{geom_polygon()}.
+Create a polygon ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_polygon]{geom_polygon()}.
 }
 \examples{
 

@@ -252,7 +252,7 @@ gg_text(
 A ggplot object.
 }
 \description{
-Create a text plot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_text]{geom_text()}.
+Create a text plot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_text]{geom_text()}.
 }
 \examples{
 

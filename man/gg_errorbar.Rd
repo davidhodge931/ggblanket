@@ -252,7 +252,7 @@ gg_errorbar(
 A ggplot object.
 }
 \description{
-Create a errorbar ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_linerange]{geom_errorbar()}.
+Create a errorbar ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_linerange]{geom_errorbar()}.
 }
 \examples{
 

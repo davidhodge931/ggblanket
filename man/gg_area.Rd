@@ -252,7 +252,7 @@ gg_area(
 A ggplot object.
 }
 \description{
-Create an area ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_ribbon]{geom_area()}.
+Create an area ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_ribbon]{geom_area()}.
 }
 \examples{
 

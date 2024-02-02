@@ -252,7 +252,7 @@ gg_quantile(
 A ggplot object.
 }
 \description{
-Create an quantile ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_quantile]{geom_quantile()}.
+Create an quantile ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_quantile]{geom_quantile()}.
 }
 \examples{
 if (requireNamespace("quantreg", quietly = TRUE)) {

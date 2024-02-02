@@ -252,7 +252,7 @@ gg_point(
 A ggplot object.
 }
 \description{
-Create a point ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_point]{geom_point()}.
+Create a point ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_point]{geom_point()}.
 }
 \examples{
 

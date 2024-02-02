@@ -1,6 +1,6 @@
 #' @title Density_2d_filled ggplot
 #'
-#' @description Create a density_2d_filled ggplot with a wrapper around `ggplot()` + [geom_density_2d_filled()][ggplot2::geom_density_2d_filled()].
+#' @description Create a density_2d_filled ggplot with a wrapper around [ggplot2::ggplot()] + [geom_density_2d_filled()][ggplot2::geom_density_2d_filled()].
 #'
 #' @inheritParams gg_blanket
 #'

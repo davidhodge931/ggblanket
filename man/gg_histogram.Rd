@@ -252,7 +252,7 @@ gg_histogram(
 A ggplot object.
 }
 \description{
-Create a histogram ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_histogram]{geom_histogram()}.
+Create a histogram ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_histogram]{geom_histogram()}.
 }
 \examples{
 

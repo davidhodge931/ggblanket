@@ -252,7 +252,7 @@ gg_rect(
 A ggplot object.
 }
 \description{
-Create a rect ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_tile]{geom_rect()}.
+Create a rect ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_tile]{geom_rect()}.
 }
 \examples{
 

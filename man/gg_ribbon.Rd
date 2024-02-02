@@ -252,7 +252,7 @@ gg_ribbon(
 A ggplot object.
 }
 \description{
-Create a ribbon ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_ribbon]{geom_ribbon()}
+Create a ribbon ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_ribbon]{geom_ribbon()}
 }
 \examples{
 

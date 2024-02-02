@@ -252,7 +252,7 @@ gg_tile(
 A ggplot object.
 }
 \description{
-Create a tile plot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_tile]{geom_tile()}.
+Create a tile plot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_tile]{geom_tile()}.
 }
 \examples{
 

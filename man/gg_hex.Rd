@@ -252,7 +252,7 @@ gg_hex(
 A ggplot object.
 }
 \description{
-Create a hex ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_hex]{geom_hex()}.
+Create a hex ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_hex]{geom_hex()}.
 }
 \examples{
 

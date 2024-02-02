@@ -60,7 +60,7 @@ library(palmerpenguins)
  
 ### 1. Almost forty `gg_*` wrapper functions
 
-Each `gg_*` function wraps a ggplot2 `ggplot(aes(...))` function with the applicable ggplot2 `geom_*()` function. Each `gg_*` function is named after the `geom_*` function they wrap. 
+Each `gg_*` function wraps a ggplot2 `ggplot2::ggplot()` function with the applicable ggplot2 `geom_*()` function. Each `gg_*` function is named after the `geom_*` function they wrap. 
 
 ```{r}
 penguins |>

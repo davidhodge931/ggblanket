@@ -252,7 +252,7 @@ gg_freqpoly(
 A ggplot object.
 }
 \description{
-Create a freqpoly ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_histogram]{geom_freqpoly()}.
+Create a freqpoly ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_histogram]{geom_freqpoly()}.
 }
 \examples{
 

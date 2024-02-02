@@ -1,6 +1,6 @@
 #' @title Pointrange ggplot
 #'
-#' @description Create a pointrange ggplot with a wrapper around `ggplot()` + [geom_pointrange()][ggplot2::geom_pointrange()].
+#' @description Create a pointrange ggplot with a wrapper around [ggplot2::ggplot()] + [geom_pointrange()][ggplot2::geom_pointrange()].
 #'
 #' @inheritParams gg_blanket
 #'

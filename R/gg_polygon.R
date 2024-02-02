@@ -1,6 +1,6 @@
 #' @title Polygon ggplot
 #'
-#' @description Create a polygon ggplot with a wrapper around `ggplot()` + [geom_polygon()][ggplot2::geom_polygon()].
+#' @description Create a polygon ggplot with a wrapper around [ggplot2::ggplot()] + [geom_polygon()][ggplot2::geom_polygon()].
 #'
 #' @inheritParams gg_blanket
 #'

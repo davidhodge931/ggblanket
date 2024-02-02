@@ -252,7 +252,7 @@ gg_density_2d(
 A ggplot object.
 }
 \description{
-Create a density_2d ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_density_2d]{geom_density_2d()}.
+Create a density_2d ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_density_2d]{geom_density_2d()}.
 }
 \examples{
 

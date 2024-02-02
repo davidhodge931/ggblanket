@@ -252,7 +252,7 @@ gg_segment(
 A ggplot object.
 }
 \description{
-Create a segment ggplot with a wrapper around \code{ggplot()} + \link[ggplot2:geom_segment]{geom_segment()}.
+Create a segment ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_segment]{geom_segment()}.
 }
 \examples{
 

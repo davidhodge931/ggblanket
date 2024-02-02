@@ -11,7 +11,7 @@ aes_contrast(
 )
 }
 \arguments{
-\item{theme_family}{The ggblanket theme family default colours. Either "light_mode" or "dark_mode".}
+\item{theme_family}{The ggblanket theme family default colours. Either "light_mode", "dark_mode" or "white_mode". Defaults to "light_mode".}
 
 \item{col_pal_dark}{A dark colour for use on light fill, which over-rides defaults selected based on the theme_family.}
 
@@ -21,7 +21,7 @@ aes_contrast(
 An aesthetic
 }
 \description{
-A colour aesthetic that automatically contrasts with fill. Can be spliced into ggplot2::aes.
+A colour aesthetic that automatically contrasts with fill. Can be spliced into \link[ggplot2:aes]{ggplot2::aes} with \link[rlang:splice-operator]{rlang::!!!}.
 }
 \examples{
 library(palmerpenguins)
