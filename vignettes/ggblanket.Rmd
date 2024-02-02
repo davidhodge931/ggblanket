@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   fig.width = 6,
-  fig.asp = 0.5,
+  fig.asp = 0.618,
   out.width = "70%",
   dpi = 300)
 ```
@@ -213,7 +213,7 @@ Each theme family provides 5 variants that differ based on legend placement, whi
 You can set the theme globally using `ggplot2::theme_set()`. 
 
 ```{r, fig.asp=0.7}
-# theme_set(light_mode_b())
+# theme_set(light_mode_t())
 
 penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
@@ -224,13 +224,14 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    theme = light_mode_b(),
+    col_title = "",
+    theme = light_mode_t(),
   ) 
 ```
 
 
 ```{r, fig.asp=0.7}
-# theme_set(dark_mode_b())
+# theme_set(dark_mode_t())
 
 penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
@@ -241,12 +242,13 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    theme = dark_mode_b(),
+    col_title = "",
+    theme = dark_mode_t(),
   ) 
 ```
 
 ```{r, fig.asp=0.7}
-# theme_set(grey_mode_b())
+# theme_set(grey_mode_t())
 
 penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
@@ -257,7 +259,8 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    theme = grey_mode_b(),
+    col_title = "",
+    theme = grey_mode_t(),
   ) 
 ```
 

@@ -402,6 +402,7 @@ mode_t <- function (
     legend.position = "top",
     legend.direction = "horizontal",
     legend.justification = "left",
+    legend.location = "plot",
     legend.box.margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0),
     legend.margin = ggplot2::margin(t = base_size * -1.5, r = base_size * 2, b = base_size * 0.5, l = 0),
     legend.title = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.25, r = 0, b = base_size * 0.5, l = 0)),

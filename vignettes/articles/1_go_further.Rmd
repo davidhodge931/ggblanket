@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   fig.width = 6,
-  fig.asp = 0.5,
+  fig.asp = 0.618,
   out.width = "70%",
   dpi = 300
   )

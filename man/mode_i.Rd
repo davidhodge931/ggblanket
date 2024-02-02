@@ -19,7 +19,7 @@ mode_i(
 
 \item{legend_position_inside}{The placement of legends inside panels. A numeric vector of length two.}
 
-\item{col_pal}{A 6 colour vector with elements named "text", "axis_line", "background_inside", "background_outside" and "gridlines".}
+\item{col_pal}{A 5 colour vector with elements named "text", "axis_line", "background_inside", "background_outside" and "gridlines".}
 }
 \description{
 Theme for a ggplot visualisation with legend inside the panel.

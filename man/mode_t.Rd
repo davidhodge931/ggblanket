@@ -16,7 +16,7 @@ mode_t(
 
 \item{base_family}{The base family of the text. Defaults to "".}
 
-\item{col_pal}{A 6 colour vector with elements named "text", "axis_line", "background_inside", "background_outside" and "gridlines".}
+\item{col_pal}{A 5 colour vector with elements named "text", "axis_line", "background_inside", "background_outside" and "gridlines".}
 }
 \description{
 Theme for a ggplot visualisation with top legend.
