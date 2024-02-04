@@ -208,7 +208,7 @@ diamonds |>
 
 ggblanket provides three families of themes: `light_mode_*`, `dark_mode_*` and `grey_mode_*`. 
 
-Each theme family provides 5 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), `t` (top) and `i` (inside the panel). 
+Each theme family provides 4 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), and `t` (top). 
 
 You can set the theme globally using `ggplot2::theme_set()`. 
 

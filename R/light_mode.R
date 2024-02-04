@@ -178,49 +178,4 @@ light_mode_t <- function (
   )
 }
 
-#' @title Light ggplot theme with inside legend
-#'
-#' @description Light theme for a ggplot visualisation with legend inside the panel. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
-#'
-#' @inheritParams mode_i
-#'
-#' @return A ggplot theme.
-#' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' #set for a plot
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     theme = light_mode_i(legend_position_inside = c(0.15, 0.7))
-#'   )
-#'
-#' #set globally
-#' \dontrun{
-#'   theme_set(light_mode_i(legend_position_inside = c(0.15, 0.7)))
-#'
-#'   penguins |>
-#'     gg_point(
-#'       x = flipper_length_mm,
-#'       y = body_mass_g,
-#'       col = species
-#'     )
-#' }
-#'
-light_mode_i <- function (
-    base_size = 11,
-    base_family = "",
-    legend_position_inside = c(0.5, 0.5)) {
 
-  mode_i(
-    base_size = base_size,
-    base_family = base_family,
-    legend_position_inside = legend_position_inside,
-    col_pal = lightness
-  )
-}
