@@ -233,7 +233,7 @@ gg_blanket <- function(
 
   if (rlang::is_null(theme)) {
     if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
-      theme <- light_mode_rt()
+      theme <- grey_mode_rt()
     }
   }
 

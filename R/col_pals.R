@@ -76,7 +76,7 @@ greyness <- c(
   "text" = "#121b24",
   "axis_line" = "#121b24",
   "panel_background" = "#fcfdfe",
-  "plot_background" = "#e6ecf2",
+  "plot_background" = "#f6f8fa",
   "panel_grid" = "#e6ecf2"
 )
 
