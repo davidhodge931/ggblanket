@@ -51,7 +51,7 @@ plum <- "#901752"
 lightness <- c(
   "text" = "#121b24",
   "axis_line" = "#121b24",
-  "background_inside" = "#ffffff",
+  "background_inside" = "#fcfdfe",
   "background_outside" = "#ffffff",
   "gridlines" = "#e6ecf2"
 )
