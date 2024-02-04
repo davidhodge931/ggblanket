@@ -51,9 +51,9 @@ plum <- "#901752"
 lightness <- c(
   "text" = "#121b24",
   "axis_line" = "#121b24",
-  "background_inside" = "#ffffff",
-  "background_outside" = "#ffffff",
-  "gridlines" = "#e6ecf2"
+  "panel_background" = "#ffffff",
+  "plot_background" = "#ffffff",
+  "panel_grid" = "#e6ecf2"
 )
 
 #' The `dark_mode_*` theme colours
@@ -64,9 +64,9 @@ lightness <- c(
 darkness <- c(
   "text" = "#bbccdd",
   "axis_line" = "#bbccdd",
-  "background_inside" = "#1f2f3e",
-  "background_outside" = "#15202b",
-  "gridlines" = "#15202b"
+  "panel_background" = "#1f2f3e",
+  "plot_background" = "#15202b",
+  "panel_grid" = "#15202b"
 )
 
 #' The `grey_mode_*` theme colours
@@ -75,8 +75,8 @@ darkness <- c(
 greyness <- c(
   "text" = "#121b24",
   "axis_line" = "#121b24",
-  "background_inside" = "#fcfdfe",
-  "background_outside" = "#e6ecf2",
-  "gridlines" = "#e6ecf2"
+  "panel_background" = "#fcfdfe",
+  "plot_background" = "#e6ecf2",
+  "panel_grid" = "#e6ecf2"
 )
 

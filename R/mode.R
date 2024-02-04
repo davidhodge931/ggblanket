@@ -4,7 +4,7 @@
 #'
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
-#' @param col_pal A 5 colour vector with elements named "text", "axis_line", "background_inside", "background_outside" and "gridlines".
+#' @param col_pal A 5 colour vector with elements named "text", "axis_line", "panel_background", "plot_background" and "panel_grid".
 #'
 #' @keywords internal
 mode_rt <- function (
@@ -13,13 +13,13 @@ mode_rt <- function (
     col_pal = c(
       "text" = "white",
       "axis_line" = "white",
-      "background_inside" = "white",
-      "background_outside" = "white",
-      "gridlines" = "white")) {
+      "panel_background" = "white",
+      "plot_background" = "white",
+      "panel_grid" = "white")) {
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = col_pal["axis_line"], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = col_pal["background_outside"], colour = col_pal["background_outside"], linewidth = base_size/33, linetype = 1),
+    rect = ggplot2::element_rect(fill = col_pal["plot_background"], colour = col_pal["plot_background"], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = "plain", colour = col_pal["text"], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
@@ -40,7 +40,7 @@ mode_rt <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = col_pal["background_outside"], fill = col_pal["background_outside"]),
+    legend.key = ggplot2::element_rect(colour = col_pal["plot_background"], fill = col_pal["plot_background"]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -56,10 +56,10 @@ mode_rt <- function (
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = col_pal["background_inside"], colour = col_pal["background_inside"]),
+    panel.background = ggplot2::element_rect(fill = col_pal["panel_background"], colour = col_pal["panel_background"]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = col_pal["gridlines"], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = col_pal["panel_grid"], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -117,13 +117,13 @@ mode_r <- function (
     col_pal = c(
       "text" = "white",
       "axis_line" = "white",
-      "background_inside" = "white",
-      "background_outside" = "white",
-      "gridlines" = "white")) {
+      "panel_background" = "white",
+      "plot_background" = "white",
+      "panel_grid" = "white")) {
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = col_pal["axis_line"], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = col_pal["background_outside"], colour = col_pal["background_outside"], linewidth = base_size/33, linetype = 1),
+    rect = ggplot2::element_rect(fill = col_pal["plot_background"], colour = col_pal["plot_background"], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = "plain", colour = col_pal["text"], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
@@ -144,7 +144,7 @@ mode_r <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = col_pal["background_outside"], fill = col_pal["background_outside"]),
+    legend.key = ggplot2::element_rect(colour = col_pal["plot_background"], fill = col_pal["plot_background"]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -160,10 +160,10 @@ mode_r <- function (
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = col_pal["background_inside"], colour = col_pal["background_inside"]),
+    panel.background = ggplot2::element_rect(fill = col_pal["panel_background"], colour = col_pal["panel_background"]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = col_pal["gridlines"], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = col_pal["panel_grid"], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -221,13 +221,13 @@ mode_b <- function (
     col_pal = c(
       "text" = "white",
       "axis_line" = "white",
-      "background_inside" = "white",
-      "background_outside" = "white",
-      "gridlines" = "white")) {
+      "panel_background" = "white",
+      "plot_background" = "white",
+      "panel_grid" = "white")) {
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = col_pal["axis_line"], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = col_pal["background_outside"], colour = col_pal["background_outside"], linewidth = base_size/33, linetype = 1),
+    rect = ggplot2::element_rect(fill = col_pal["plot_background"], colour = col_pal["plot_background"], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = "plain", colour = col_pal["text"], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
@@ -248,7 +248,7 @@ mode_b <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = col_pal["background_outside"], fill = col_pal["background_outside"]),
+    legend.key = ggplot2::element_rect(colour = col_pal["plot_background"], fill = col_pal["plot_background"]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -264,10 +264,10 @@ mode_b <- function (
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = col_pal["background_inside"], colour = col_pal["background_inside"]),
+    panel.background = ggplot2::element_rect(fill = col_pal["panel_background"], colour = col_pal["panel_background"]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = col_pal["gridlines"], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = col_pal["panel_grid"], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,
@@ -325,13 +325,13 @@ mode_t <- function (
     col_pal = c(
       "text" = "white",
       "axis_line" = "white",
-      "background_inside" = "white",
-      "background_outside" = "white",
-      "gridlines" = "white")) {
+      "panel_background" = "white",
+      "plot_background" = "white",
+      "panel_grid" = "white")) {
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = col_pal["axis_line"], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = col_pal["background_outside"], colour = col_pal["background_outside"], linewidth = base_size/33, linetype = 1),
+    rect = ggplot2::element_rect(fill = col_pal["plot_background"], colour = col_pal["plot_background"], linewidth = base_size/33, linetype = 1),
     text = ggplot2::element_text(family = base_family, face = "plain", colour = col_pal["text"], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
@@ -352,7 +352,7 @@ mode_t <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = col_pal["background_outside"], fill = col_pal["background_outside"]),
+    legend.key = ggplot2::element_rect(colour = col_pal["plot_background"], fill = col_pal["plot_background"]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -368,10 +368,10 @@ mode_t <- function (
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = col_pal["background_inside"], colour = col_pal["background_inside"]),
+    panel.background = ggplot2::element_rect(fill = col_pal["panel_background"], colour = col_pal["panel_background"]),
     panel.border = ggplot2::element_blank(),
     panel.grid = NULL,
-    panel.grid.major = ggplot2::element_line(colour = col_pal["gridlines"], linewidth = ggplot2::rel(0.5)),
+    panel.grid.major = ggplot2::element_line(colour = col_pal["panel_grid"], linewidth = ggplot2::rel(0.5)),
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
     panel.spacing.x = NULL,

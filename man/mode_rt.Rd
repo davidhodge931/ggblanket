@@ -7,8 +7,8 @@
 mode_rt(
   base_size = 11,
   base_family = "",
-  col_pal = c(text = "white", axis_line = "white", background_inside = "white",
-    background_outside = "white", gridlines = "white")
+  col_pal = c(text = "white", axis_line = "white", panel_background = "white",
+    plot_background = "white", panel_grid = "white")
 )
 }
 \arguments{
@@ -16,7 +16,7 @@ mode_rt(
 
 \item{base_family}{The base family of the text. Defaults to "".}
 
-\item{col_pal}{A 5 colour vector with elements named "text", "axis_line", "background_inside", "background_outside" and "gridlines".}
+\item{col_pal}{A 5 colour vector with elements named "text", "axis_line", "panel_background", "plot_background" and "panel_grid".}
 }
 \description{
 Theme for a ggplot visualisation with legend at right top.
