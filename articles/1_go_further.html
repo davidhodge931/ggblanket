@@ -122,12 +122,14 @@ to:</p>
 <h3 id="use-different-fonts">1. Use different fonts<a class="anchor" aria-label="anchor" href="#use-different-fonts"></a>
 </h3>
 <p>The showtext and sysfonts packages support the use of different fonts
-from Google. The <code>*_mode</code> theme functions provide
-<code>base_family</code>, <code>title_family</code>,
-<code>subtitle_family</code> and <code>caption_family</code> arguments.
-Fonts can be identified on the Google fonts <a href="https://fonts.google.com/" class="external-link">website</a>.</p>
+from Google. The <code>*_mode</code> theme functions provide a
+<code>base_family</code> argument.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add_google.html" class="external-link">font_add_google</a></span><span class="op">(</span><span class="st">"Covered By Your Grace"</span>, <span class="st">"grace"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_families_google.html" class="external-link">font_families_google</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "ABeeZee"       "Abel"          "Abhaya Libre"  "Abril Fatface"</span></span>
+<span><span class="co">#&gt; [5] "Aclonica"      "Acme"</span></span>
+<span></span>
+<span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add_google.html" class="external-link">font_add_google</a></span><span class="op">(</span><span class="st">"Covered By Your Grace"</span>, <span class="st">"grace"</span><span class="op">)</span></span>
 <span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add_google.html" class="external-link">font_add_google</a></span><span class="op">(</span><span class="st">'Roboto Slab'</span>, <span class="st">'roboto_slab'</span><span class="op">)</span></span>
 <span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add_google.html" class="external-link">font_add_google</a></span><span class="op">(</span><span class="st">'Syne Mono'</span>, <span class="st">'syne'</span><span class="op">)</span></span>
 <span></span>
