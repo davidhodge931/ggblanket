@@ -39,9 +39,11 @@ library(palmerpenguins)
 
 ### 1. Use different fonts
 
-The showtext and sysfonts packages support the use of different fonts from Google. The `*_mode` theme functions provide `base_family`, `title_family`, `subtitle_family` and `caption_family` arguments. Fonts can be identified on the Google fonts [website](https://fonts.google.com/).
+The showtext and sysfonts packages support the use of different fonts from Google. The `*_mode` theme functions provide a `base_family` argument.
 
 ```{r, fig.asp = 0.7, fig.showtext = TRUE}
+head(sysfonts::font_families_google())
+
 sysfonts::font_add_google("Covered By Your Grace", "grace")
 sysfonts::font_add_google('Roboto Slab', 'roboto_slab')
 sysfonts::font_add_google('Syne Mono', 'syne')
