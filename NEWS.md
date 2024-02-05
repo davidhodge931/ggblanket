@@ -2,10 +2,12 @@
 
 * Rewrote code completely.
 * Exported `gg_blanket` function, which allows for a ggproto geom (or character string) to be added.
+* Added `aes_contrast` for a colour aesthetic that automatically contrasts with the fill aesthetic using code developed by Teun van den Brand (@teunbrand, #649)
+* Added `alpha` aesthetic support with new `alpha`, `alpha_pal` and `alpha_*` arguments.
+* Each function's help on inputs inherits from `gg_blanket` (@olivroy, #625).
 * Added `stat` support for a ggproto object (or character string).
 * Added `position` support for a ggproto object (or character string).
 * Added `transform` support for a transform class object (or character string).
-* Added `alpha` aesthetic support with new `alpha`, `alpha_pal` and `alpha_*` arguments.
 * Added `facet_axes` and `facet_axis_labels` arguments.
 * Added `facet_labels_position` argument.
 * Added  family of functions. 
@@ -36,8 +38,6 @@
 * Improved documentation of help (@olivroy, #643).
 * Improved log transform defaults.
 * Changed `legend.byrow` to FALSE.
-* Each function's help on inputs inherits from `gg_blanket` (@olivroy, #625).
-* Added `aes_contrast` for a colour aesthetic that automatically contrasts with the fill aesthetic using code developed by Teun van den Brand (@teunbrand, #649)
 
 # ggblanket 5.2.0
 
