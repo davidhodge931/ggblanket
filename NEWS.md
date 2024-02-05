@@ -2,7 +2,7 @@
 
 * Rewrote code completely.
 * Exported `gg_blanket` function, which allows for a ggproto geom (or character string) to be added.
-* Added `aes_contrast` for a colour aesthetic that automatically contrasts with the fill aesthetic using code developed by Teun van den Brand (@teunbrand, #649)
+* Added `aes_contrast` for a colour aesthetic that automatically contrasts with the fill aesthetic based on a `contrast` function by Teun van den Brand (@teunbrand, #649)
 * Added `alpha` aesthetic support with new `alpha`, `alpha_pal` and `alpha_*` arguments.
 * Each function's help on inputs inherits from `gg_blanket` (@olivroy, #625).
 * Added `stat` support for a ggproto object (or character string).
