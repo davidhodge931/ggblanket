@@ -19,7 +19,7 @@ contrast <- function(col,
 #'
 #' @description A colour aesthetic that automatically contrasts with fill. Can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
-#' @param theme_family The ggblanket theme family default colours. Either "light_mode", "dark_mode" or "grey_mode". Defaults to "light_mode".
+#' @param theme_family The ggblanket theme family default colours. Either "grey_mode", "light_mode", or "dark_mode". Defaults to "grey_mode".
 #' @param col_pal_dark A dark colour for use on light fill, which over-rides defaults selected based on the theme_family.
 #' @param col_pal_light A light colour for use on dark fill, which over-rides defaults selected based on the theme_family.
 #'
@@ -47,21 +47,21 @@ contrast <- function(col,
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     show.legend = FALSE,
 #'   )
-aes_contrast <- function(theme_family = "light_mode",
+aes_contrast <- function(theme_family = "grey_mode",
                          col_pal_dark = NULL,
                          col_pal_light = NULL) {
 
-  if (theme_family == "light_mode") {
+  if (theme_family == "grey_mode") {
+    if (rlang::is_null(col_pal_dark)) col_pal_dark <- greyness["text"]
+    if (rlang::is_null(col_pal_light)) col_pal_light <- greyness["panel_background"]
+  }
+  else if (theme_family == "light_mode") {
     if (rlang::is_null(col_pal_dark)) col_pal_dark <- lightness["text"]
-    if (rlang::is_null(col_pal_light)) col_pal_light <- lightness["background_inside"]
+    if (rlang::is_null(col_pal_light)) col_pal_light <- lightness["panel_background"]
   }
   else if (theme_family == "dark_mode") {
-    if (rlang::is_null(col_pal_dark)) col_pal_dark <- darkness["background_outside"]
+    if (rlang::is_null(col_pal_dark)) col_pal_dark <- darkness["plot_background"]
     if (rlang::is_null(col_pal_light)) col_pal_light <- darkness["text"]
-  }
-  else if (theme_family == "grey_mode") {
-    if (rlang::is_null(col_pal_dark)) col_pal_dark <- greyness["text"]
-    if (rlang::is_null(col_pal_light)) col_pal_light <- greyness["background_inside"]
   }
 
   ggplot2::aes(colour = ggplot2::after_scale(

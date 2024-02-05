@@ -27,7 +27,7 @@ library(stringr)
 library(tidyr)
 library(palmerpenguins)
 
-# theme_set(light_mode_rt())
+theme_set(light_mode_rt())
 ```
 
 ### gg_area
@@ -74,7 +74,7 @@ penguins |>
     x = flipper_length_mm,
     y = sex,
     col = species,
-    theme = light_mode_b(),
+    theme = grey_mode_b(),
   )
 ```
 
@@ -148,7 +148,7 @@ penguins |>
   gg_density(
     x = flipper_length_mm,
     col = species,
-    theme = light_mode_t(),
+    theme = grey_mode_t(),
   )
 ```
 
@@ -204,7 +204,7 @@ penguins |>
     x = flipper_length_mm,
     col = sex,
     col_title = "",
-    theme = light_mode_t(),
+    theme = grey_mode_t(),
   )
 ```
 
@@ -240,7 +240,7 @@ penguins |>
     col = sex,
     facet = species,
     bins = 50,
-    theme = light_mode_b(),
+    theme = grey_mode_b(),
   )
 ```
 
@@ -336,7 +336,7 @@ penguins |>
     y = body_mass_g, 
     col = sex,
     facet = species, 
-    theme = light_mode_b(),
+    theme = grey_mode_b(),
   )
 ```
 
@@ -572,7 +572,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species, 
-    theme = light_mode_b(),
+    theme = grey_mode_b(),
   )
 ```
 
@@ -590,7 +590,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     facet = species,
-    theme = light_mode_b(),
+    theme = grey_mode_b(),
   )
 ```
 

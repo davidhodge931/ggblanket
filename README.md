@@ -50,7 +50,7 @@ penguins |>
     x = flipper_length_mm,
     col = sex,
     facet = species,
-    theme = light_mode_b(),
+    theme = grey_mode_b(),
   )
 ```
 

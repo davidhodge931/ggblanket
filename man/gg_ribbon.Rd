@@ -106,7 +106,7 @@ gg_ribbon(
 
 \item{coord}{A coordinate system. A \verb{coord_*()} function that outputs a constructed ggproto Coord subclass object (e.g. \code{\link[ggplot2:coord_cartesian]{ggplot2::coord_cartesian()}}).}
 
-\item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_b]{light_mode_b()}}, \code{\link[=dark_mode_rt]{dark_mode_rt()}} or \code{\link[ggplot2:ggtheme]{ggplot2::theme_grey()}}).}
+\item{theme}{A ggplot2 theme (e.g. \code{\link[=grey_mode_b]{grey_mode_b()}}, \code{\link[=light_mode_rt]{light_mode_rt()}}, or \code{\link[=dark_mode_rt]{dark_mode_rt()}}).}
 
 \item{x}{Unquoted \code{x} aesthetic variable.}
 

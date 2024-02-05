@@ -204,13 +204,30 @@ diamonds |>
   )
 ```
 
-### 8.  `light_mode_*`, `dark_mode_*` and `grey_mode_*` theme families
+### 8.  `grey_mode_*`, `light_mode_*` and `dark_mode_*` and theme families
 
-ggblanket provides three families of themes: `light_mode_*`, `dark_mode_*` and `grey_mode_*`. 
+ggblanket provides three families of themes: `grey_mode_*`, `light_mode_*`, and `dark_mode_*`. 
 
 Each theme family provides 4 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), and `t` (top). 
 
 You can set the theme globally using `ggplot2::theme_set()`. 
+
+```{r, fig.asp=0.7}
+# theme_set(grey_mode_t())
+
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020", 
+    col_title = "",
+    theme = grey_mode_t(),
+  ) 
+```
 
 ```{r, fig.asp=0.7}
 # theme_set(light_mode_t())
@@ -229,7 +246,6 @@ penguins |>
   ) 
 ```
 
-
 ```{r, fig.asp=0.7}
 # theme_set(dark_mode_t())
 
@@ -244,23 +260,6 @@ penguins |>
     caption = "Source: Gorman, 2020", 
     col_title = "",
     theme = dark_mode_t(),
-  ) 
-```
-
-```{r, fig.asp=0.7}
-# theme_set(grey_mode_t())
-
-penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    title = "Penguins body mass by flipper length",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020", 
-    col_title = "",
-    theme = grey_mode_t(),
   ) 
 ```
 
