@@ -218,6 +218,25 @@ penguins |>
     position = position_dodge2(preserve = "single"),
     width = 0.75,
     x_labels = \(x) str_to_sentence(x),
+    theme = light_mode_rt(),
+  ) +
+  geom_text(
+    mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast("light_mode")),
+    position = position_dodge2(width = 0.75, preserve = "single"),
+    show.legend = FALSE,
+  )
+```
+
+```{r}
+penguins |>
+  count(species, sex) |>
+  gg_col(
+    x = sex,
+    y = n,
+    col = species,
+    position = position_dodge2(preserve = "single"),
+    width = 0.75,
+    x_labels = \(x) str_to_sentence(x),
     theme = dark_mode_rt(),
   ) +
   geom_text(
