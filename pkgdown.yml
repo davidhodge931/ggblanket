@@ -4,11 +4,11 @@ pkgdown_sha: ~
 articles:
   1_go_further: 1_go_further.html
   2_extensions: 2_extensions.html
-  3_demo_light: 3_demo_light.html
-  4_demo_dark: 4_demo_dark.html
-  5_demo_grey: 5_demo_grey.html
+  3_demo_grey: 3_demo_grey.html
+  4_demo_light: 4_demo_light.html
+  5_demo_dark: 5_demo_dark.html
   ggblanket: ggblanket.html
-last_built: 2024-02-04T23:27Z
+last_built: 2024-02-05T01:37Z
 urls:
   reference: https://davidhodge931.github.io/ggblanket/reference
   article: https://davidhodge931.github.io/ggblanket/articles

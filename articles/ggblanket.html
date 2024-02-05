@@ -53,9 +53,9 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/1_go_further.html">Go further</a>
     <a class="dropdown-item" href="../articles/2_extensions.html">Extensions</a>
-    <a class="dropdown-item" href="../articles/3_demo_light.html">Demo: light mode</a>
-    <a class="dropdown-item" href="../articles/4_demo_dark.html">Demo: dark mode</a>
-    <a class="dropdown-item" href="../articles/5_demo_grey.html">Demo: grey mode</a>
+    <a class="dropdown-item" href="../articles/3_demo_grey.html">Demo: grey mode</a>
+    <a class="dropdown-item" href="../articles/4_demo_light.html">Demo: light mode</a>
+    <a class="dropdown-item" href="../articles/5_demo_dark.html">Demo: dark mode</a>
   </div>
 </li>
 <li class="nav-item">
@@ -303,12 +303,12 @@ turned off using <code>titles = \(x) x</code>.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="light_mode_-dark_mode_-and-grey_mode_-theme-families">8. <code>light_mode_*</code>, <code>dark_mode_*</code> and
-<code>grey_mode_*</code> theme families<a class="anchor" aria-label="anchor" href="#light_mode_-dark_mode_-and-grey_mode_-theme-families"></a>
+<h3 id="grey_mode_-light_mode_-and-dark_mode_-and-theme-families">8. <code>grey_mode_*</code>, <code>light_mode_*</code> and
+<code>dark_mode_*</code> and theme families<a class="anchor" aria-label="anchor" href="#grey_mode_-light_mode_-and-dark_mode_-and-theme-families"></a>
 </h3>
 <p>ggblanket provides three families of themes:
-<code>light_mode_*</code>, <code>dark_mode_*</code> and
-<code>grey_mode_*</code>.</p>
+<code>grey_mode_*</code>, <code>light_mode_*</code>, and
+<code>dark_mode_*</code>.</p>
 <p>Each theme family provides 4 variants that differ based on legend
 placement, which is represented by the suffix of the theme name of
 <code>rt</code> (right-top), <code>r</code> (right-centre),
@@ -316,6 +316,22 @@ placement, which is represented by the suffix of the theme name of
 <p>You can set the theme globally using
 <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set()</a></code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># theme_set(grey_mode_t())</span></span>
+<span></span>
+<span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Penguins body mass by flipper length"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
+<span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
+<span>    col_title <span class="op">=</span> <span class="st">""</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_t.html">grey_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> </span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># theme_set(light_mode_t())</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -330,8 +346,8 @@ placement, which is represented by the suffix of the theme name of
 <span>    col_title <span class="op">=</span> <span class="st">""</span>,</span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_t.html">light_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># theme_set(dark_mode_t())</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -345,22 +361,6 @@ placement, which is represented by the suffix of the theme name of
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
 <span>    col_title <span class="op">=</span> <span class="st">""</span>,</span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_t.html">dark_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># theme_set(grey_mode_t())</span></span>
-<span></span>
-<span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Penguins body mass by flipper length"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
-<span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
-<span>    col_title <span class="op">=</span> <span class="st">""</span>,</span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_t.html">grey_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
 </div>
