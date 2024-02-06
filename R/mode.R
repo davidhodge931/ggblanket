@@ -298,6 +298,7 @@ mode_b <- function (
     legend.position = "bottom",
     legend.direction = "horizontal",
     legend.justification = "left",
+    legend.location = "plot",
     legend.box.margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = 0, l = 0),
     legend.margin = ggplot2::margin(r = base_size * 2, b = base_size * 0.5),
     legend.title = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.25, r = 0, b = base_size * 0.5, l = 0)),
