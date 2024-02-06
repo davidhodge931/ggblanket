@@ -41,7 +41,7 @@ Secondary objectives relate to:
 5.  A `col_pal` argument to customise colours
 6.  Prefixed arguments to customise 
 7.  Unspecified titles to `snakecase::sentence_case` 
-8.  `light_mode_*`, `dark_mode_*` and `grey_mode_*` theme families
+8.  `grey_mode_*`, `light_mode_*` and `dark_mode_*` and theme families
 9.  Access to other `geom_*` arguments via `...`
 10. Symmetric continuous positional scales and gridlines removal
 11. Turn-off or fix either colour or fill
