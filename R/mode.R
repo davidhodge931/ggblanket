@@ -89,7 +89,8 @@ mode_rt <- function (
 
     legend.position = "right",
     legend.direction = "vertical",
-    legend.justification = "top",
+    legend.justification = c(0, 1),
+    legend.location = "panel",
     legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
     legend.margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.75, l = base_size * 0.75),
     legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
@@ -193,7 +194,8 @@ mode_r <- function (
 
     legend.position = "right",
     legend.direction = "vertical",
-    legend.justification = "left",
+    legend.justification = c(0, 0.5),
+    legend.location = "panel",
     legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
     legend.margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.75, l = base_size * 0.75),
     legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
@@ -297,7 +299,7 @@ mode_b <- function (
 
     legend.position = "bottom",
     legend.direction = "horizontal",
-    legend.justification = "left",
+    legend.justification = c(0, 0.5),
     legend.location = "plot",
     legend.box.margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = 0, l = 0),
     legend.margin = ggplot2::margin(r = base_size * 2, b = base_size * 0.5),
@@ -402,7 +404,7 @@ mode_t <- function (
 
     legend.position = "top",
     legend.direction = "horizontal",
-    legend.justification = "left",
+    legend.justification = c(0, 0.5),
     legend.location = "plot",
     legend.box.margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0),
     legend.margin = ggplot2::margin(t = base_size * -1.5, r = base_size * 2, b = base_size * 0.5, l = 0),
