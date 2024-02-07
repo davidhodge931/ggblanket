@@ -329,13 +329,33 @@ penguins |>
 
 ### 11. Turn-off or fix either colour or fill
 
-For a geom with both outlines and fill, the default is to have both of these to the same colour with a default value of `alpha_pal`.
+For geom's that have interior and outline colour, you can turn off one of these as follows:
 
-However, with these geoms, you can turn off _either_ the colour (i.e. of the outlines) or fill, or fix one of these to a constant colour. 
+a). For plots with _no_ `col` aesthetic, use `alpha_pal = 0` or `col_pal = scales::alpha(..., alpha = 0)`
+b). For plots with a `col` aesthetic, either use the above approach with `col_pal_na = scales::alpha(..., alpha = 0)`too - or just use `fill = NA`/`colour = NA`.
 
-The recommended approach is to use `colour = NA`/`colour = black`, `fill = NA`/`fill = "lightgrey"`, and add in a `col` aesthetic if you don't already have one (as well as removing the legend). 
+```{r}
+penguins |>
+  gg_boxplot(
+    x = species,
+    y = flipper_length_mm,
+    position = position_dodge2(preserve = "single"),
+    alpha_pal = 0, #or col_pal = scales::alpha(blue, 0),
+  )
+```
 
-An alternative approach to set `alpha_pal = 0` and `col_pal = scales::alpha(..., alpha = 0)` can be used. However, this approach is not as flexible.
+```{r}
+penguins |>
+  gg_boxplot(
+    x = species,
+    y = flipper_length_mm,
+    col = sex,
+    position = position_dodge2(preserve = "single"),
+    fill = NA, #or colour = NA,
+  )
+```
+
+To fix the interior or outline colour to a different colour, use `colour = "black"` or `fill = "#d3d3d3"`. This requires a `col` aesthetic to work, so you have to do this in a hacky way where you do not want a `col` aesthetic.
 
 ```{r}
 penguins |>
@@ -344,7 +364,7 @@ penguins |>
     x = species,
     y = flipper_length_mm,
     col = sex,
-    colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
+    colour = "black", #or fill = "lightgrey" 
     position = position_dodge2(preserve = "single"),
     alpha_pal = 0.9,
   )
@@ -357,7 +377,7 @@ penguins |>
     x = species,
     y = flipper_length_mm,
     col = hack,
-    colour = "black", #or colour = NA, or fill = NA or fill = "lightgrey" etc
+    colour = "black", #or fill = "lightgrey" 
     width = 0.5,
     alpha_pal = 0.9,
   ) +
