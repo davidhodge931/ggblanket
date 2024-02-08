@@ -648,14 +648,12 @@ their own default <code>stat</code> and <code>position</code> arguments
 as per the applicable <code>geom_*</code> function.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_blanket.html">gg_blanket</a></span><span class="op">(</span></span>
 <span>    geom <span class="op">=</span> <span class="st">"bar"</span>,</span>
 <span>    stat <span class="op">=</span> <span class="st">"bin"</span>,</span>
 <span>    position <span class="op">=</span> <span class="st">"stack"</span>,</span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
@@ -666,9 +664,9 @@ as per the applicable <code>geom_*</code> function.</p>
 <span>    geom <span class="op">=</span> <span class="st">"violin"</span>,</span>
 <span>    stat <span class="op">=</span> <span class="st">"ydensity"</span>,</span>
 <span>    position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
-<span>    x <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    x <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-25-1.svg" width="70%"></p>
 </div>
