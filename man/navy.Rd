@@ -14,6 +14,6 @@ navy
 A character vector.
 }
 \description{
-A navy colour derived from the US Census Bureau's Data Visualisation Standards.
+A navy colour derived from the US Census Bureau's Data Visualisation Standards. Note this colour is not accessible with dark themes.
 }
 \keyword{datasets}

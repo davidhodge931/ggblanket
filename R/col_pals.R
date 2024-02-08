@@ -27,7 +27,7 @@ orange <- "#FF7043"
 
 #' A navy colour
 #'
-#' @description A navy colour derived from the US Census Bureau's Data Visualisation Standards.
+#' @description A navy colour derived from the US Census Bureau's Data Visualisation Standards. Note this colour is not accessible with dark themes.
 #'
 #' @return A character vector.
 #'
@@ -42,6 +42,15 @@ navy <- "#112E51"
 #'
 #' @export
 plum <- "#901752"
+
+#' Grey colours
+#'
+#' @description A vector of grey colours derived from the US Census Bureau's Data Visualisation Standards.
+#'
+#' @return A character vector.
+#'
+#' @export
+greys <- c("#E8EFF2", "#C8D7DF", "#A7C0CD", "#78909C", "#4B636E", "#364850", "#222C31")
 
 #' The `grey_mode_*` theme colours
 #'
