@@ -85,6 +85,10 @@ darkness <- c(
   "text" = "#C8D7DF",
   "axis_line" = "#C8D7DF",
   "panel_background" = "#010A1A",
-  "plot_background" = "#00050f",
-  "panel_grid" = "#00050f"
+
+  "plot_background" = "#000103",
+  "panel_grid" = "#000103"
+
+  # "plot_background" = "#00050f",
+  # "panel_grid" = "#00050f"
 )
