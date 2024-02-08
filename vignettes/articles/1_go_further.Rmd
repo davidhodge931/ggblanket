@@ -23,10 +23,11 @@ This article will demonstrate more advanced content, including how to:
 1. Use different fonts
 2. Visualise spatial data
 3. Change the `stat`
-4. Use non-supported aesthetics
-5. Use delayed evaluation
-6. Add a legend from layers each set to a single value 
-7. Add contrasting dark or light text on polygons
+4. Fix either colour or fill to a constant colour
+5. Use non-supported aesthetics
+6. Use delayed evaluation
+7. Add a legend from layers each set to a single value 
+8. Add contrasting dark or light text on polygons
 
 ```{r setup}
 library(ggblanket)
@@ -132,7 +133,41 @@ ggplot2::economics |>
   ) 
 ```
 
-### 4. Use non-supported aesthetics 
+
+### 4. Fix either colour or fill to a constant colour
+
+For geom's that have both interior and outline colour, you can fix one of these to a constant colour.
+
+To fix the interior or outline colour to a different colour, use `colour = "black"` or `fill = "#d3d3d3"`. This requires a `col` aesthetic to work, so you have to do this in a hacky way where you do not want a `col` aesthetic.
+
+```{r}
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_boxplot(
+    x = species,
+    y = flipper_length_mm,
+    col = sex,
+    colour = "black", #or fill = "lightgrey" 
+    position = position_dodge2(preserve = "single"),
+    alpha_pal = 0.9,
+  )
+```
+
+```{r}
+penguins |>
+  mutate(hack = "") |> 
+  gg_boxplot(
+    x = species,
+    y = flipper_length_mm,
+    col = hack,
+    colour = "black", #or fill = "lightgrey" 
+    width = 0.5,
+    alpha_pal = 0.9,
+  ) +
+  guides(colour = "none", fill = "none")
+```
+
+### 5. Use non-supported aesthetics 
 
 Most functions have the commonly needed aesthetics directly available as an argument. For those that are not available, you can either use `mapping` argument. The `mapping` argument provides access to the `size`, `shape`, `linetype` and `linewidth` aesthetics within the `gg_*` function. 
 
@@ -147,7 +182,7 @@ penguins |>
   labs(shape = "Species")
 ```
 
-### 5. Use delayed evaluation
+### 6. Use delayed evaluation
 
 As the `x`, `y`, `col` and `alpha` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This is useful for delayed evaluation with the `ggplot2::after_stat` function.
 
@@ -171,7 +206,7 @@ faithfuld |>
   )
 ```
 
-### 6. Add a legend from layers each set to a single value 
+### 7. Add a legend from layers each set to a single value 
 
 To add a legend from layers each set to a single value, you can likewise use the `mapping` argument.
 
@@ -188,7 +223,7 @@ mpg |>
   guides(colour = guide_legend(reverse = TRUE))
 ```
 
-### 7. Add contrasting dark or light text on polygons
+### 8. Add contrasting dark or light text on polygons
 
 Text on polygons can be coloured using a dark or light colour that is determined based on the underlying polygon colour. This method was developed by Teun van den Brand (@teunbrand).
 

@@ -44,7 +44,7 @@ Secondary objectives relate to:
 8.  `grey_mode_*`, `light_mode_*` and `dark_mode_*` and theme families
 9.  Access to other `geom_*` arguments via `...`
 10. Symmetric continuous positional scales and gridlines removal
-11. Turn-off or fix either colour or fill
+11. Turn-off either colour or fill
 12. Ability to add multiple `geom_*` layers
 13. Other key differences to ggplot2
 14. A `gg_blanket()` function with `geom` flexibility
@@ -327,12 +327,13 @@ penguins |>
   )
 ```
 
-### 11. Turn-off or fix either colour or fill
+### 11. Turn-off either colour or fill
 
-For geom's that have interior and outline colour, you can turn off one of these as follows:
+For geom's that have both interior and outline colour, you can turn off one of these.
 
-a). For plots with _no_ `col` aesthetic, use `alpha_pal = 0` or `col_pal = scales::alpha(..., alpha = 0)`
-b). For plots with a `col` aesthetic, either use the above approach with `col_pal_na = scales::alpha(..., alpha = 0)`too - or just use `fill = NA`/`colour = NA`.
+For plots with _no_ `col` aesthetic, use `alpha_pal = 0` or `col_pal = scales::alpha(..., alpha = 0)`.
+
+For plots with a `col` aesthetic, either use the above approach with `col_pal_na = scales::alpha("darkgrey", alpha = 0)` too (or use `fill = NA`/`colour = NA` as a shortcut).
 
 ```{r}
 penguins |>
@@ -355,34 +356,6 @@ penguins |>
   )
 ```
 
-To fix the interior or outline colour to a different colour, use `colour = "black"` or `fill = "#d3d3d3"`. This requires a `col` aesthetic to work, so you have to do this in a hacky way where you do not want a `col` aesthetic.
-
-```{r}
-penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
-  gg_boxplot(
-    x = species,
-    y = flipper_length_mm,
-    col = sex,
-    colour = "black", #or fill = "lightgrey" 
-    position = position_dodge2(preserve = "single"),
-    alpha_pal = 0.9,
-  )
-```
-
-```{r}
-penguins |>
-  mutate(hack = "") |> 
-  gg_boxplot(
-    x = species,
-    y = flipper_length_mm,
-    col = hack,
-    colour = "black", #or fill = "lightgrey" 
-    width = 0.5,
-    alpha_pal = 0.9,
-  ) +
-  guides(colour = "none", fill = "none")
-```
 
 ### 12. Ability to add multiple `geom_*` layers
 
@@ -393,8 +366,6 @@ The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within t
 The `gg_*()` function _should_ be appropriate to be the bottom layer of the plot. This is because the geoms will plot in order. 
 
 All of the aesthetics required for the plot as a whole should generally be added into the `gg_*` function, including the `col` argument. If you do not want the first layer to have a colour and fill aesthetic, but you wish later layers to access this - use `gg_blanket()` (as it defaults to a `blank` geom). 
-
-Use `*_expand_limits` or  `*_limits` to ensure the `gg_* function builds the limits appropriately for the plot as a whole.
 
 ```{r, fig.asp = 0.4}
 penguins |>
@@ -501,7 +472,8 @@ This needs to be considered when you are using `x_limits` or `y_limits`, and you
 
 * `*_title` is equivalent to `ggplot2::labs(* = ...)`
 * Facet arguments `strip.position` and `switch` are renamed `facet_labels_position` and `facet_labels_switch`
-* y categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) * Logical variables are reversed, so that `TRUE` always comes before `FALSE`
+* y categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) 
+* Logical variables are reversed, so that `TRUE` always comes before `FALSE`
 * Infinite values are treated as `NA`
  
 ### 14. A `gg_blanket` function with `geom` flexibility
