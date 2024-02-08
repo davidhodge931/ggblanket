@@ -484,14 +484,12 @@ All other functions wrap this function with a locked-in geom, and their own defa
 
 ```{r}
 penguins |>
-  drop_na(sex) |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_blanket(
     geom = "bar",
     stat = "bin",
     position = "stack",
     x = flipper_length_mm, 
-    col = sex,
+    col = species,
   ) 
 ```
 
@@ -503,9 +501,9 @@ penguins |>
     geom = "violin",
     stat = "ydensity",
     position = "dodge",
-    x = species,
+    x = sex,
     y = body_mass_g,
-    col = sex,
+    col = species,
   )
 ```
 

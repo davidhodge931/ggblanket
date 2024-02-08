@@ -330,13 +330,10 @@ economics |>
 
 ```{r}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g, 
-    col = sex,
-    facet = species, 
-    theme = grey_mode_b(),
+    col = species,
   )
 ```
 
@@ -570,9 +567,7 @@ penguins |>
   gg_violin(
     x = sex,
     y = body_mass_g,
-    col = sex,
-    facet = species, 
-    theme = grey_mode_b(),
+    col = species,
   )
 ```
 
@@ -588,9 +583,7 @@ penguins |>
     position = "dodge",
     x = sex,
     y = body_mass_g,
-    col = sex,
-    facet = species,
-    theme = grey_mode_b(),
+    col = species,
   )
 ```
 
