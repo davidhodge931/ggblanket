@@ -62,7 +62,7 @@ gg_blanket(
   col_limits = NULL,
   col_oob = scales::oob_keep,
   col_pal = NULL,
-  col_pal_na = "#A7C0CD",
+  col_pal_na = "darkgrey",
   col_rescale = scales::rescale(),
   col_title = NULL,
   col_transform = NULL,

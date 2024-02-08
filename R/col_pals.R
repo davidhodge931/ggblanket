@@ -82,9 +82,28 @@ lightness <- c(
 #'
 #' @noRd
 darkness <- c(
-  "text" = "#bbccdd",
-  "axis_line" = "#bbccdd",
-  "panel_background" = "#1A2835",
-  "plot_background" = "#15202b",
-  "panel_grid" = "#15202b"
+  # "text" = "#e6e5df",
+  # "axis_line" = "#e6e5df",
+  "text" = "#C8D7DF",
+  "axis_line" = "#C8D7DF",
+  "panel_background" = "#010A1A",
+  "plot_background" = "#00050f",
+  "panel_grid" = "#00050f"
 )
+
+# "panel_background" = "#0C1016",
+# "plot_background" = "#010409",
+# "panel_grid" = "#010409"
+
+# darkness <- c(
+#   "text" = "#bbccdd",
+#   "axis_line" = "#bbccdd",
+#   "panel_background" = "#1A2835",
+#   "plot_background" = "#15202b",
+#   "panel_grid" = "#15202b"
+# )
+
+# "panel_background" = "#010A1A",
+# "plot_background" = "#010712",
+# "panel_grid" = "#010712")
+

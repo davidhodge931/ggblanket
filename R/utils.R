@@ -26,9 +26,9 @@ na_if_inf <- function(x) {
 #' @return A character vector.
 #'
 #' @noRd
-col_pal_discrete <- function(n = 3) {
+col_pal_discrete <- function(n = 4) {
   if (n == 1) blue
-  else if (n <= 3) c(teal, orange, plum)[1:n]
+  else if (n <= 4) c(teal, orange, navy, plum)[1:n]
   else scales::pal_hue()(n)
 }
 
