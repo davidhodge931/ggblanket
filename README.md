@@ -43,18 +43,18 @@ library(ggplot2)
 library(dplyr)
 library(palmerpenguins)
 
+# theme_set(light_mode_t())
+
 penguins |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |> 
   gg_histogram(
     x = flipper_length_mm,
     col = species,
-    facet = island,
-    title = "Penguin flipper length",
-    subtitle = " By species and island",
+    title = "Penguin flipper length by species",
+    subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
     col_title = "",
-    theme = grey_mode_t(),
-  )
+    theme = light_mode_t(),
+  ) 
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" />
