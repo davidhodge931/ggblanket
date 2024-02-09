@@ -442,13 +442,14 @@ both x and y directions are used with ggblanket.</p>
 </h3>
 <p>For geom’s that have both interior and outline colour, you can turn
 off one of these.</p>
-<p>For plots with <em>no</em> <code>col</code> aesthetic, use
-<code>alpha_pal = 0</code> or
-<code>col_pal = scales::alpha(..., alpha = 0)</code>.</p>
-<p>For plots with a <code>col</code> aesthetic, either use the above
-approach with
-<code>col_pal_na = scales::alpha("darkgrey", alpha = 0)</code> too (or
-use <code>fill = NA</code>/<code>colour = NA</code> as a shortcut).</p>
+<p>Use <code>alpha_pal = 0</code> for the interior fill, or
+<code>col_pal = scales::alpha(..., alpha = 0)</code> for the outline
+colour.</p>
+<p>For the outlines with a <code>col</code> aesthetic, you might need to
+modify the <code>col_pal_na</code> value using
+<code>col_pal_na = scales::alpha("darkgrey", alpha = 0)</code>.</p>
+<p>[Note where there is a <code>col</code> aesthetic, another way is to
+use <code>fill = NA</code>/<code>colour = NA</code>.]</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_boxplot.html">gg_boxplot</a></span><span class="op">(</span></span>
@@ -465,7 +466,7 @@ use <code>fill = NA</code>/<code>colour = NA</code> as a shortcut).</p>
 <span>    y <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
-<span>    fill <span class="op">=</span> <span class="cn">NA</span>, <span class="co">#or colour = NA,</span></span>
+<span>    alpha_pal <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
 </div>
