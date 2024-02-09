@@ -325,9 +325,11 @@ penguins |>
 
 For geom's that have both interior and outline colour, you can turn off one of these.
 
-For plots with _no_ `col` aesthetic, use `alpha_pal = 0` or `col_pal = scales::alpha(..., alpha = 0)`.
+Use `alpha_pal = 0` for the interior fill, or `col_pal = scales::alpha(..., alpha = 0)` for the outline colour.
 
-For plots with a `col` aesthetic, either use the above approach with `col_pal_na = scales::alpha("darkgrey", alpha = 0)` too (or use `fill = NA`/`colour = NA` as a shortcut).
+For the outlines with a `col` aesthetic, you might need to modify the `col_pal_na` value using `col_pal_na = scales::alpha("darkgrey", alpha = 0)`. 
+
+[Note where there is a `col` aesthetic, another way is to use `fill = NA`/`colour = NA`.]
 
 ```{r}
 penguins |>
@@ -346,7 +348,7 @@ penguins |>
     y = flipper_length_mm,
     col = sex,
     position = position_dodge2(preserve = "single"),
-    fill = NA, #or colour = NA,
+    alpha_pal = 0,
   )
 ```
 
