@@ -578,7 +578,7 @@ penguins |>
   )
 ```
 
-### ggblanket
+### gg_blanket
 
 ```{r}
 penguins |>
