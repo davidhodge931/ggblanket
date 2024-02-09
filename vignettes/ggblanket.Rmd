@@ -334,8 +334,8 @@ For the outlines with a `col` aesthetic, you might need to modify the `col_pal_n
 ```{r}
 penguins |>
   gg_boxplot(
-    x = species,
-    y = flipper_length_mm,
+    x = flipper_length_mm,
+    y = species,
     position = position_dodge2(preserve = "single"),
     alpha_pal = 0, #or col_pal = scales::alpha(blue, 0),
   )

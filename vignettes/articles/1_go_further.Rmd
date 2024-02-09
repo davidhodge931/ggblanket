@@ -225,7 +225,7 @@ mpg |>
 
 ### 8. Add contrasting dark or light text on polygons
 
-Text on polygons can be coloured using a dark or light colour that is determined based on the underlying polygon colour. This method was developed by Teun van den Brand (@teunbrand).
+Text on polygons can be coloured with a dark or light colour that is determined based on the underlying polygon colour using `!!!aes_contrast()`. This method was developed by Teun van den Brand (@teunbrand).
 
 ```{r}
 penguins |>
@@ -237,12 +237,15 @@ penguins |>
     position = position_dodge2(preserve = "single"),
     width = 0.75,
     x_labels = \(x) str_to_sentence(x),
+    title = "Penguin observations",
+    subtitle = "By species and sex",
   ) +
   geom_text(
     mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast()),
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
-  )
+  ) +
+  ggeasy::easy_remove_y_axis()
 ```
 
 ```{r}
@@ -255,13 +258,16 @@ penguins |>
     position = position_dodge2(preserve = "single"),
     width = 0.75,
     x_labels = \(x) str_to_sentence(x),
+    title = "Penguin observations",
+    subtitle = "By species and sex",
     theme = light_mode_rt(),
   ) +
   geom_text(
     mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast("light_mode")),
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
-  )
+  ) + 
+  ggeasy::easy_remove_y_axis()
 ```
 
 ```{r}
@@ -274,6 +280,8 @@ penguins |>
     position = position_dodge2(preserve = "single"),
     width = 0.75,
     x_labels = \(x) str_to_sentence(x),
+    title = "Penguin observations",
+    subtitle = "By species and sex",
     theme = dark_mode_rt(),
   ) +
   geom_text(
@@ -281,6 +289,7 @@ penguins |>
                   !!!aes_contrast("dark_mode")),
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
-  )
+  ) +
+  ggeasy::easy_remove_y_axis()
 ```
 
