@@ -1811,7 +1811,7 @@ gg_blanket <- function(
 
     #get y_breaks_n if y_breaks is NULL
     if (rlang::is_null(y_breaks)) {
-      if (facet_nrows == 1) y_breaks_n <- 7
+      if (facet_nrows == 1) y_breaks_n <- 6
       else if (facet_nrows == 2) y_breaks_n <- 5
       else if (facet_nrows == 3) y_breaks_n <- 4
       else y_breaks_n <- 3

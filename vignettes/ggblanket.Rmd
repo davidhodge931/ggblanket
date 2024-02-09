@@ -212,7 +212,7 @@ Each theme family provides 4 variants that differ based on legend placement, whi
 
 You can set the theme globally using `ggplot2::theme_set()`. 
 
-```{r, fig.asp=0.7}
+```{r, fig.asp=0.75}
 # theme_set(grey_mode_t())
 
 penguins |>
@@ -229,7 +229,7 @@ penguins |>
   ) 
 ```
 
-```{r, fig.asp=0.7}
+```{r, fig.asp=0.75}
 # theme_set(light_mode_t())
 
 penguins |>
@@ -246,7 +246,7 @@ penguins |>
   ) 
 ```
 
-```{r, fig.asp=0.7}
+```{r, fig.asp=0.75}
 # theme_set(dark_mode_t())
 
 penguins |>
