@@ -216,12 +216,10 @@ You can set the theme globally using `ggplot2::theme_set()`.
 # theme_set(grey_mode_t())
 
 penguins |>
-  drop_na() |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_histogram(
     x = flipper_length_mm,
-    col = sex,
-    title = "Penguin flipper length by sex",
+    col = species,
+    title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
     col_title = "",
@@ -233,12 +231,10 @@ penguins |>
 # theme_set(light_mode_t())
 
 penguins |>
-  drop_na() |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_histogram(
     x = flipper_length_mm,
-    col = sex,
-    title = "Penguin flipper length by sex",
+    col = species,
+    title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
     col_title = "",
@@ -250,12 +246,10 @@ penguins |>
 # theme_set(dark_mode_t())
 
 penguins |>
-  drop_na() |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_histogram(
     x = flipper_length_mm,
-    col = sex,
-    title = "Penguin flipper length by sex",
+    col = species,
+    title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
     col_title = "",
