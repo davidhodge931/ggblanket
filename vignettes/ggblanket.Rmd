@@ -216,12 +216,12 @@ You can set the theme globally using `ggplot2::theme_set()`.
 # theme_set(grey_mode_t())
 
 penguins |>
+  drop_na() |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  gg_point(
+  gg_density(
     x = flipper_length_mm,
-    y = body_mass_g,
     col = sex,
-    title = "Penguins body mass by flipper length",
+    title = "Penguin flipper length by sex",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
     col_title = "",
@@ -233,12 +233,12 @@ penguins |>
 # theme_set(light_mode_t())
 
 penguins |>
+  drop_na() |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  gg_point(
+  gg_density(
     x = flipper_length_mm,
-    y = body_mass_g,
     col = sex,
-    title = "Penguins body mass by flipper length",
+    title = "Penguin flipper length by sex",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
     col_title = "",
@@ -250,12 +250,12 @@ penguins |>
 # theme_set(dark_mode_t())
 
 penguins |>
+  drop_na() |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  gg_point(
+  gg_density(
     x = flipper_length_mm,
-    y = body_mass_g,
     col = sex,
-    title = "Penguins body mass by flipper length",
+    title = "Penguin flipper length by sex",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
     col_title = "",
