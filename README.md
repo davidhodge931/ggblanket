@@ -44,13 +44,14 @@ library(dplyr)
 library(palmerpenguins)
 
 penguins |>
-  tidyr::drop_na(sex) |> 
-  mutate(sex = stringr::str_to_sentence(sex)) |>
   gg_histogram(
     x = flipper_length_mm,
-    col = sex,
-    facet = species,
-    theme = grey_mode_b(),
+    col = species,
+    title = "Penguin flipper length by species",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020", 
+    col_title = "",
+    theme = grey_mode_t(),
   )
 ```
 
