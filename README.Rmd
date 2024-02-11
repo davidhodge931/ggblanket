@@ -46,7 +46,7 @@ install.packages("ggblanket")
 ```
 ## Example
 
-```{r, fig.asp = 0.7}
+```{r, fig.asp = 0.75}
 library(ggblanket)
 library(ggplot2)
 library(dplyr)
