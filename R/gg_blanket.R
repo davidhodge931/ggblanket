@@ -129,7 +129,7 @@ gg_blanket <- function(
     sample = NULL,
     mapping = NULL,
     x_breaks = NULL,
-    
+
     x_expand = NULL,
     x_expand_limits = NULL,
     x_labels = NULL,
@@ -139,7 +139,7 @@ gg_blanket <- function(
     x_title = NULL,
     x_transform = NULL,
     y_breaks = NULL,
-    
+
     y_expand = NULL,
     y_expand_limits = NULL,
     y_labels = NULL,

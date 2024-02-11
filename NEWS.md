@@ -14,6 +14,7 @@
 * Added `col_continuous_type` argument to support colouring by "steps". 
 * Added `flipped` argument.
 * Breaking: Added `light_mode_*`, `dark_mode_*` and `grey_mode_*` family of functions.
+* Updated `gg_*` functions to pretty removal of a axis line and ticks.
 * Changed default theme to place the legend on the top right.
 * Changed NULL effect of pretty axis `*_limits = c(NA, NA)` on `y_expand` NULL.
 * Improved default gridlines, and changed their default colour.

@@ -278,8 +278,9 @@ penguins |>
 
 ggblanket guesses whether the plot is flipped or not in order to determine:
 
-* which scale to make symmetric by default
-* which `*_gridlines` to remove by default
+* which scale to make symmetric 
+* which gridlines to remove 
+* which axis line and ticks to remove
 
 This `flipped` argument can be specified where it does not get it right.
 
@@ -288,7 +289,7 @@ The symmetric continuous y scale for non-flipped plots defaults to:
 * `y_limits` that are the range of the `y_breaks` 
 * `y_expand` of `c(0, 0)`
 
-This symmetric scale can be turned off easily using `y_limits = c(NA, NA)` (or by providing a `y_expand` value).
+This symmetric scale can be turned off easily using `y_limits = c(NA, NA)` (or `y_limits = c(0, NA)` for bars etc).
 
 The opposite occurs for flipped plots with the x scale. 
 
@@ -296,7 +297,7 @@ Sometimes you may need to add `*_expand_limits = 0`, if the lower bound of the s
 
 Note this symmetric scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.
 
-For non-flipped plots, `x_gridlines` will be removed by default - and `y_gridlines` removed by default for flipped plots. You can adjust this if needed using the `*_gridlines` arguments. Subsequently, it is recommended that themes with gridlines in both x and y directions are used with ggblanket.
+If you want different gridlines or axis lines/ticks to that which is defaulted, you should `+ *_mode_*` instead. 
 
 ```{r}
 penguins |>
