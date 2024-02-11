@@ -164,8 +164,8 @@ gg_blanket <- function(
     col_rescale = scales::rescale(),
     col_title = NULL,
     col_transform = NULL,
-    facet_axes = "margins",
-    facet_axis_labels = "all",
+    facet_axes = NULL,
+    facet_axis_labels = "margins",
     facet_labels = NULL,
     facet_labels_position = "top",
     facet_labels_switch = NULL,
@@ -890,6 +890,11 @@ gg_blanket <- function(
     else if (rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) facet_layout <- "grid"
     else if (!rlang::quo_is_null(facet) & !rlang::quo_is_null(facet2)) facet_layout <- "grid"
     else facet_layout <- "null"
+  }
+
+  if (rlang::is_null(facet_axes)) {
+    if (flipped) facet_axes <- "all_y"
+    else facet_axes <- "all_x"
   }
 
   #add facet layer. Reverse facet if y is already reversed to keep order correct
@@ -2024,37 +2029,28 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # gridlines
+  # mode gridlines and axis modification
   ##############################################################################
 
-  if (rlang::is_null(x_gridlines)) {
-    if (stringr::str_detect(stat_name, "sf")) x_gridlines <- FALSE
-    else if (flipped) x_gridlines <- TRUE
-    else x_gridlines <- FALSE
+  if (stringr::str_detect(stat_name, "sf")) {
+    plot <- plot +
+      ggplot2::theme(panel.grid = ggplot2::element_blank()) +
+      ggplot2::theme(axis.line = ggplot2::element_blank()) +
+      ggplot2::theme(axis.ticks = ggplot2::element_blank())
   }
-
-  if (rlang::is_null(y_gridlines)) {
-    if (stringr::str_detect(stat_name, "sf")) y_gridlines <- FALSE
-    else if (flipped) y_gridlines <- FALSE
-    else y_gridlines <- TRUE
-  }
-
-  if (!x_gridlines & !y_gridlines) {
-    plot <- plot + #resolve ggplot2 issue #4730
-      ggplot2::theme(panel.grid.major = ggplot2::element_blank()) +
-      ggplot2::theme(panel.grid.minor = ggplot2::element_blank())
+  else if (flipped) {
+    plot <- plot +
+      ggplot2::theme(panel.grid.major.y = ggplot2::element_blank()) +
+      ggplot2::theme(panel.grid.minor.y = ggplot2::element_blank()) +
+      ggplot2::theme(axis.line.x = ggplot2::element_blank()) +
+      ggplot2::theme(axis.ticks.x = ggplot2::element_blank())
   }
   else {
-    if (!x_gridlines) {
-      plot <- plot +
-        ggplot2::theme(panel.grid.major.x = ggplot2::element_blank()) +
-        ggplot2::theme(panel.grid.minor.x = ggplot2::element_blank())
-    }
-    if (!y_gridlines) {
-      plot <- plot +
-        ggplot2::theme(panel.grid.major.y = ggplot2::element_blank()) +
-        ggplot2::theme(panel.grid.minor.y = ggplot2::element_blank())
-    }
+    plot <- plot +
+      ggplot2::theme(panel.grid.major.x = ggplot2::element_blank()) +
+      ggplot2::theme(panel.grid.minor.x = ggplot2::element_blank()) +
+      ggplot2::theme(axis.line.y = ggplot2::element_blank()) +
+      ggplot2::theme(axis.ticks.y = ggplot2::element_blank())
   }
 
   ##############################################################################
