@@ -93,7 +93,6 @@
 <span>  x_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  x_gridlines <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
@@ -103,7 +102,6 @@
 <span>  y_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  y_gridlines <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
@@ -179,7 +177,7 @@
 
 
 <dt>theme</dt>
-<dd><p>A ggplot2 theme (e.g. <code><a href="grey_mode_b.html">grey_mode_b()</a></code>, <code><a href="light_mode_rt.html">light_mode_rt()</a></code>, or <code><a href="dark_mode_rt.html">dark_mode_rt()</a></code>).</p></dd>
+<dd><p>A <code>*_mode_*</code> theme (e.g. <code><a href="grey_mode_b.html">grey_mode_b()</a></code>, <code><a href="light_mode_rt.html">light_mode_rt()</a></code>, or <code><a href="dark_mode_rt.html">dark_mode_rt()</a></code>).</p></dd>
 
 
 <dt>x</dt>
@@ -268,10 +266,6 @@
 
 <dt>x_expand_limits, y_expand_limits</dt>
 <dd><p>For a continuous variable, any values that the limits should encompass (e.g. <code>0</code>).</p></dd>
-
-
-<dt>x_gridlines, y_gridlines</dt>
-<dd><p><code>TRUE</code> or <code>FALSE</code> for gridlines. <code>NULL</code> guesses based on the classes of the x and y scales.</p></dd>
 
 
 <dt>x_labels, y_labels</dt>

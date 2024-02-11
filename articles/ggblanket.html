@@ -313,8 +313,13 @@ turned off using <code>titles = \(x) x</code>.</p>
 placement, which is represented by the suffix of the theme name of
 <code>rt</code> (right-top), <code>r</code> (right-centre),
 <code>b</code> (bottom), and <code>t</code> (top).</p>
-<p>You can set the theme globally using
-<code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set()</a></code>.</p>
+<p>It is intended that this <code>theme</code> argument is used in
+combination with the <code>*_mode_*</code> themes. You can also set
+these globally using <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set()</a></code>.</p>
+<p>If you would like to provide your own theme, you should
+<code>+</code> the <code>theme</code> on as a layer, as the
+<code>gg_*</code> function removes selected gridlines, axis lines and
+ticks.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># theme_set(grey_mode_t())</span></span>
 <span></span>
@@ -384,8 +389,9 @@ removal<a class="anchor" aria-label="anchor" href="#symmetric-continuous-positio
 <p>ggblanket guesses whether the plot is flipped or not in order to
 determine:</p>
 <ul>
-<li>which scale to make symmetric by default</li>
-<li>which <code>*_gridlines</code> to remove by default</li>
+<li>which scale to make symmetric</li>
+<li>which gridlines to remove</li>
+<li>which axis line and ticks to remove</li>
 </ul>
 <p>This <code>flipped</code> argument can be specified where it does not
 get it right.</p>
@@ -401,8 +407,8 @@ to:</p>
 </li>
 </ul>
 <p>This symmetric scale can be turned off easily using
-<code>y_limits = c(NA, NA)</code> (or by providing a
-<code>y_expand</code> value).</p>
+<code>y_limits = c(NA, NA)</code> (or <code>y_limits = c(0, NA)</code>
+for bars etc).</p>
 <p>The opposite occurs for flipped plots with the x scale.</p>
 <p>Sometimes you may need to add <code>*_expand_limits = 0</code>, if
 the lower bound of the symmetric scale falls on a close low number.</p>
@@ -410,11 +416,8 @@ the lower bound of the symmetric scale falls on a close low number.</p>
 transformation that is <em>not</em> <code>"identity"</code>,
 <code>"reverse"</code>, <code>"date"</code>, <code>"time"</code> or
 <code>"hms"</code> - or where the other positional scale is binned.</p>
-<p>For non-flipped plots, <code>x_gridlines</code> will be removed by
-default - and <code>y_gridlines</code> removed by default for flipped
-plots. You can adjust this if needed using the <code>*_gridlines</code>
-arguments. Subsequently, it is recommended that themes with gridlines in
-both x and y directions are used with ggblanket.</p>
+<p>If you want different gridlines or axis lines/ticks to that which is
+defaulted, you should <code>+ *_mode_*</code> instead.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>

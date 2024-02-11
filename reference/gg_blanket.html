@@ -92,7 +92,6 @@
 <span>  sample <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  x_gridlines <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -102,7 +101,6 @@
 <span>  x_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  y_gridlines <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -184,7 +182,7 @@
 
 
 <dt>theme</dt>
-<dd><p>A ggplot2 theme (e.g. <code><a href="grey_mode_b.html">grey_mode_b()</a></code>, <code><a href="light_mode_rt.html">light_mode_rt()</a></code>, or <code><a href="dark_mode_rt.html">dark_mode_rt()</a></code>).</p></dd>
+<dd><p>A <code>*_mode_*</code> theme (e.g. <code><a href="grey_mode_b.html">grey_mode_b()</a></code>, <code><a href="light_mode_rt.html">light_mode_rt()</a></code>, or <code><a href="dark_mode_rt.html">dark_mode_rt()</a></code>).</p></dd>
 
 
 <dt>x</dt>
@@ -265,10 +263,6 @@
 
 <dt>x_breaks, y_breaks</dt>
 <dd><p>A <code>scales::breaks_*</code> function (e.g. <code><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">scales::breaks_pretty()</a></code>), or a vector of breaks.</p></dd>
-
-
-<dt>x_gridlines, y_gridlines</dt>
-<dd><p><code>TRUE</code> or <code>FALSE</code> for gridlines. <code>NULL</code> guesses based on the classes of the x and y scales.</p></dd>
 
 
 <dt>x_expand, y_expand</dt>
