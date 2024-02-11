@@ -8,7 +8,7 @@
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
-#' @param theme A ggplot2 theme (e.g. [grey_mode_b()], [light_mode_rt()], or [dark_mode_rt()]).
+#' @param theme A `*_mode_*` theme (e.g. [grey_mode_b()], [light_mode_rt()], or [dark_mode_rt()]).
 #' @param x Unquoted `x` aesthetic variable.
 #' @param xmin Unquoted `xmin` aesthetic variable.
 #' @param xmax Unquoted `xmax` aesthetic variable.
@@ -31,7 +31,6 @@
 #' @param x_breaks,y_breaks A `scales::breaks_*` function (e.g. [scales::breaks_pretty()]), or a vector of breaks.
 #' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
 #' @param x_expand_limits,y_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`).
-#' @param x_gridlines,y_gridlines `TRUE` or `FALSE` for gridlines. `NULL` guesses based on the classes of the x and y scales.
 #' @param x_labels,y_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or [scales::label_comma()]), or a vector of labels.
 #' @param x_limits,y_limits A vector of length 2 to determine the limits of the axis.
 #' @param x_oob,y_oob For a continuous scale variable, a `scales::oob_*` function of how to handle values outside of limits. Defaults to `scales::oob_keep`.
@@ -130,7 +129,7 @@ gg_blanket <- function(
     sample = NULL,
     mapping = NULL,
     x_breaks = NULL,
-    x_gridlines = NULL,
+    
     x_expand = NULL,
     x_expand_limits = NULL,
     x_labels = NULL,
@@ -140,7 +139,7 @@ gg_blanket <- function(
     x_title = NULL,
     x_transform = NULL,
     y_breaks = NULL,
-    y_gridlines = NULL,
+    
     y_expand = NULL,
     y_expand_limits = NULL,
     y_labels = NULL,
@@ -1741,6 +1740,12 @@ gg_blanket <- function(
           if (identical(x_limits, c(NA, NA))) {
             x_expand <- ggplot2::waiver()
           }
+          else if (identical(x_limits, c(0, NA))) {
+            x_expand <- ggplot2::expansion(mult = c(0, 0.05))
+          }
+          else if (identical(x_limits, c(NA, 0))) {
+            x_expand <- ggplot2::expansion(mult = c(0.05, 0))
+          }
           else if (identical(x_limits, c(lubridate::NA_Date_, lubridate::NA_Date_))) {
             x_expand <- ggplot2::waiver()
           }
@@ -1917,6 +1922,12 @@ gg_blanket <- function(
           if (identical(y_limits, c(NA, NA))) {
             y_expand <- ggplot2::waiver()
           }
+          else if (identical(y_limits, c(0, NA))) {
+            y_expand <- ggplot2::expansion(mult = c(0, 0.05))
+          }
+          else if (identical(y_limits, c(NA, 0))) {
+            y_expand <- ggplot2::expansion(mult = c(0.05, 0))
+          }
           else if (identical(y_limits, c(lubridate::NA_Date_, lubridate::NA_Date_))) {
             y_expand <- ggplot2::waiver()
           }
@@ -2036,7 +2047,8 @@ gg_blanket <- function(
     plot <- plot +
       ggplot2::theme(panel.grid = ggplot2::element_blank()) +
       ggplot2::theme(axis.line = ggplot2::element_blank()) +
-      ggplot2::theme(axis.ticks = ggplot2::element_blank())
+      ggplot2::theme(axis.ticks = ggplot2::element_blank()) +
+      ggplot2::theme(axis.text = ggplot2::element_blank())
   }
   else if (flipped) {
     plot <- plot +

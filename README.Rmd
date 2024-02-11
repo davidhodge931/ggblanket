@@ -62,7 +62,7 @@ penguins |>
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
     col_title = "",
-    theme = light_mode_t(),
+    theme = grey_mode_t(),
   ) 
 ```
 

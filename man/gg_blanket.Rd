@@ -32,7 +32,6 @@ gg_blanket(
   sample = NULL,
   mapping = NULL,
   x_breaks = NULL,
-  x_gridlines = NULL,
   x_expand = NULL,
   x_expand_limits = NULL,
   x_labels = NULL,
@@ -42,7 +41,6 @@ gg_blanket(
   x_title = NULL,
   x_transform = NULL,
   y_breaks = NULL,
-  y_gridlines = NULL,
   y_expand = NULL,
   y_expand_limits = NULL,
   y_labels = NULL,
@@ -109,7 +107,7 @@ gg_blanket(
 
 \item{coord}{A coordinate system. A \verb{coord_*()} function that outputs a constructed ggproto Coord subclass object (e.g. \code{\link[ggplot2:coord_cartesian]{ggplot2::coord_cartesian()}}).}
 
-\item{theme}{A ggplot2 theme (e.g. \code{\link[=grey_mode_b]{grey_mode_b()}}, \code{\link[=light_mode_rt]{light_mode_rt()}}, or \code{\link[=dark_mode_rt]{dark_mode_rt()}}).}
+\item{theme}{A \verb{*_mode_*} theme (e.g. \code{\link[=grey_mode_b]{grey_mode_b()}}, \code{\link[=light_mode_rt]{light_mode_rt()}}, or \code{\link[=dark_mode_rt]{dark_mode_rt()}}).}
 
 \item{x}{Unquoted \code{x} aesthetic variable.}
 
@@ -150,8 +148,6 @@ gg_blanket(
 \item{mapping}{Set of additional aesthetic mappings within \code{\link[ggplot2:aes]{ggplot2::aes()}} for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}) or for delayed evaluation.}
 
 \item{x_breaks, y_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
-
-\item{x_gridlines, y_gridlines}{\code{TRUE} or \code{FALSE} for gridlines. \code{NULL} guesses based on the classes of the x and y scales.}
 
 \item{x_expand, y_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 

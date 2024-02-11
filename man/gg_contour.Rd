@@ -33,7 +33,6 @@ gg_contour(
   x_breaks = NULL,
   x_expand = NULL,
   x_expand_limits = NULL,
-  x_gridlines = NULL,
   x_labels = NULL,
   x_limits = NULL,
   x_oob = scales::oob_keep,
@@ -43,7 +42,6 @@ gg_contour(
   y_breaks = NULL,
   y_expand = NULL,
   y_expand_limits = NULL,
-  y_gridlines = NULL,
   y_labels = NULL,
   y_limits = NULL,
   y_oob = scales::oob_keep,
@@ -106,7 +104,7 @@ gg_contour(
 
 \item{coord}{A coordinate system. A \verb{coord_*()} function that outputs a constructed ggproto Coord subclass object (e.g. \code{\link[ggplot2:coord_cartesian]{ggplot2::coord_cartesian()}}).}
 
-\item{theme}{A ggplot2 theme (e.g. \code{\link[=grey_mode_b]{grey_mode_b()}}, \code{\link[=light_mode_rt]{light_mode_rt()}}, or \code{\link[=dark_mode_rt]{dark_mode_rt()}}).}
+\item{theme}{A \verb{*_mode_*} theme (e.g. \code{\link[=grey_mode_b]{grey_mode_b()}}, \code{\link[=light_mode_rt]{light_mode_rt()}}, or \code{\link[=dark_mode_rt]{dark_mode_rt()}}).}
 
 \item{x}{Unquoted \code{x} aesthetic variable.}
 
@@ -151,8 +149,6 @@ gg_contour(
 \item{x_expand, y_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 
 \item{x_expand_limits, y_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
-
-\item{x_gridlines, y_gridlines}{\code{TRUE} or \code{FALSE} for gridlines. \code{NULL} guesses based on the classes of the x and y scales.}
 
 \item{x_labels, y_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
 
