@@ -210,7 +210,9 @@ ggblanket provides three families of themes: `grey_mode_*`, `light_mode_*`, and 
 
 Each theme family provides 4 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), and `t` (top). 
 
-You can set the theme globally using `ggplot2::theme_set()`. 
+It is intended that this `theme` argument is used in combination with the `*_mode_*` themes. You can also set these globally using `ggplot2::theme_set()`. 
+
+If you would like to provide your own theme, you should `+` the `theme` on as a layer, as the `gg_*` function removes selected gridlines, axis lines and ticks.
 
 ```{r, fig.asp=0.75}
 # theme_set(grey_mode_t())
