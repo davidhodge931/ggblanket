@@ -127,7 +127,8 @@ visualisation</strong>.</p>
 <li>Access to other <code>geom_*</code> arguments via
 <code>...</code>
 </li>
-<li>Symmetric continuous positional scales and gridlines removal</li>
+<li>Pretty scales, and automatic gridline and axis line/ticks
+removal</li>
 <li>Turn-off either colour or fill</li>
 <li>Ability to add multiple <code>geom_*</code> layers</li>
 <li>Other key differences to ggplot2</li>
@@ -383,8 +384,8 @@ in the <code>geom_*()</code> function.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="symmetric-continuous-positional-scales-and-gridlines-removal">10. Symmetric continuous positional scales and gridlines
-removal<a class="anchor" aria-label="anchor" href="#symmetric-continuous-positional-scales-and-gridlines-removal"></a>
+<h3 id="pretty-scales-and-automatic-gridline-and-axis-lineticks-removal">10. Pretty scales, and automatic gridline and axis line/ticks
+removal<a class="anchor" aria-label="anchor" href="#pretty-scales-and-automatic-gridline-and-axis-lineticks-removal"></a>
 </h3>
 <p>ggblanket guesses whether the plot is flipped or not in order to
 determine:</p>
@@ -481,9 +482,10 @@ use <code>fill = NA</code>/<code>colour = NA</code>.]</p>
 <p>The <code>gg_*</code> function puts the aesthetic variables
 (i.e. <code>x</code>, <code>y</code>, <code>col</code>) within the
 wrapped <code>ggplot</code> function. Therefore, these aesthetics will
-inherit to any subsequent layers added. <code>facet</code> and
-<code>facet2</code> will likewise inherit - as will <code>data</code>,
-<code>coord</code> and <code>theme</code>.</p>
+inherit to any subsequent layers added - unless a
+<code>inherit.aes = FALSE</code> argument is added. <code>facet</code>
+and <code>facet2</code> will likewise inherit - as will
+<code>data</code>, <code>coord</code> and <code>theme</code>.</p>
 <p>The <code>gg_*()</code> function <em>should</em> be appropriate to be
 the bottom layer of the plot. This is because the geoms will plot in
 order.</p>
