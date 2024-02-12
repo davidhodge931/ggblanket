@@ -493,23 +493,23 @@ ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet`, `facet2
 
 ```{r}
 p1 <- diamonds |>
-  count(clarity) |>
+  count(color) |>
   gg_col(
     x = n,
-    y = clarity,
+    y = color,
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)", 
   )
 
 p2 <- diamonds |>
-  count(clarity) |>
-  mutate(across(clarity, \(x) x |>
-                  forcats::fct_reorder(n) |>
-                  forcats::fct_rev())) |>
+  count(color) |>
+  mutate(across(color, \(x) x |>
+           forcats::fct_reorder(n) |>
+           forcats::fct_rev())) |>
   gg_col(
     x = n,
-    y = clarity,
+    y = color,
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)", 
