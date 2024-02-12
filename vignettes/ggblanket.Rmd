@@ -40,10 +40,10 @@ Secondary objectives relate to:
 4.  A `facet2` argument to facet by a 2nd variable
 5.  A `col_pal` argument to customise colours
 6.  Numerous other prefixed arguments to customise 
-7.  Unspecified titles converted to `snakecase::sentence_case` 
-8.  A `theme` argument for auto grid/line/ticks removal
-9.  Provided theme families for legend placement
-10. A symmetrical continuous scale with easy opt-out
+7.  Unspecified titles converted to `snakecase::sentence_case`
+8.  A `theme` argument designed for provided `*_mode_*` themes
+9.  Families of `*_mode_*` themes that differ by legend placement 
+10.  A symmetrical continuous scale with easy opt-out
 11. Access to other `geom_*` arguments via `...`
 12. Turn-off either coloured outlines or interiors
 13. Ability to add multiple `geom_*` layers
@@ -207,17 +207,21 @@ diamonds |>
   )
 ```
 
-### 8.  A `theme` argument for auto gridline, axis-line and axis-ticks removal
+### 8.  A `theme` argument designed for provided `*_mode_*` themes
 
-ggblanket has a `theme` argument that users can add a `*_mode_*` theme to.
+A `theme` argument has been designed for use with the `*_mode_*` themes. 
 
-The `gg_*` function will guess whether the plot is `flipped` or not. This `flipped` argument can be specified where it does not guess correctly.
+When a theme is provided it, the `gg_*` function will:
 
-For `flipped = FALSE` graphs, the `gg_*` function will remove generally vertical gridlines, and the y axis-line and axis-ticks. For `flipped = TRUE` graphs, the vice versa will occur. 
+* determine whether the plot is `flipped` or not
+* for `flipped = FALSE` graphs, remove vertical grid-lines, and the y axis-line/ticks 
+* for `flipped = TRUE` graphs, remove horizontal grid-lines, and the x axis-line/ticks 
 
-If you do not want this auto gridline/axis-line and axis-ticks removal to apply, then you should use instead `+` the theme on to the plot as a layer. 
+If you do _not_ want the `gg_*` function to make any changes to your provided theme, you should instead `+` your theme on as a layer  (e.g. `+ grey_mode_rt()`).
 
-You can access the `theme` argument globally using `ggplot2::theme_set()`. 
+The `theme` argument can also be accessed globally using using  `ggplot2::theme_set()`.  
+
+Note, if you would like to use a plain title, a convenient hack is to use the `subtitle` argument with a `"\n"` at the start of the character string. 
 
 ```{r}
 d <- data.frame(
@@ -238,6 +242,7 @@ p1 <- d |>
     x_title = "Treatment",
     y_title = "Response",
     theme = grey_mode_n(),
+    subtitle = "\ntheme = grey_mode_n(),"
   ) 
 
 p2 <- d |>
@@ -249,32 +254,22 @@ p2 <- d |>
     width = 0.1,
     x_title = "Treatment",
     y_title = "Response",
+    subtitle = "\n+ grey_mode_n()"
   ) +
-  grey_mode_n()
+  grey_mode_n() 
 
-p3 <- d |>
-  gg_errorbar(
-    x = trt,
-    ymin = lower,
-    ymax = upper,
-    col = group,
-    width = 0.1,
-    x_title = "Treatment",
-    y_title = "Response",
-  ) +
-  grey_mode_n() +
-  theme(panel.grid.major.x = element_blank()) 
-
-p1 + p2 + p3
+p1 + p2 
 ```
 
-### 9.  Provided theme families for legend placement
+### 9.  Families of `*_mode_*` themes that differ by legend placement 
 
-ggblanket provides three families of themes: `grey_mode_*`, `light_mode_*`, and `dark_mode_*`. 
+Three theme families are provided: `grey_mode_*`, `light_mode_*` and `dark_mode_*`.
 
 Each theme family provides 5 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), `t` (top) and `n` (none). 
 
 The default is `grey_mode_rt`.
+
+These are designed for use with the `theme` argument.
 
 ```{r, fig.asp=0.7}
 # theme_set(grey_mode_t())
@@ -319,7 +314,7 @@ penguins |>
   ) 
 ```
 
-### 10. A symmetrical continuous scale with easy opt-out
+### 9. A symmetrical continuous scale with easy opt-out
 
 For `flipped = FALSE` graphs, the `gg_*` function will create a symmetric continuous y scale by default with: 
 
@@ -335,6 +330,14 @@ This symmetric scale can be turned off easily using `*_limits = c(NA, NA)` (or `
 Note this symmetric scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.
 
 ```{r}
+d <- data.frame(
+  trt = factor(c(1, 1, 2, 2)),
+  resp = c(1, 5, 3, 4),
+  group = factor(c(1, 2, 1, 2)),
+  upper = c(1.1, 5.3, 3.3, 4.2),
+  lower = c(0.8, 4.6, 2.4, 3.6)
+)
+
 p1 <- d |>
   gg_errorbar(
     x = trt,
@@ -345,6 +348,7 @@ p1 <- d |>
     x_title = "Treatment",
     y_title = "Response",
     theme = grey_mode_n(),
+    subtitle = "\nDefault y scale"
   ) 
 
 p2 <- d |>
@@ -358,6 +362,7 @@ p2 <- d |>
     y_title = "Response",
     y_limits = c(NA, NA),
     theme = grey_mode_n(),
+    subtitle = "\ny_limits = c(NA, NA),"
   ) 
 
 p3 <- d |>
@@ -371,12 +376,13 @@ p3 <- d |>
     y_title = "Response",
     y_limits = c(0, NA),
     theme = grey_mode_n(),
+    subtitle = "\ny_limits = c(0, NA),"
   ) 
 
 p1 + p2 + p3
 ```
 
-### 11. Access to other `geom_*` arguments via `...`
+### 10. Access to other `geom_*` arguments via `...`
 
 The `...` argument provides access to all other arguments in the `geom_*()` function. 
 
@@ -393,7 +399,7 @@ penguins |>
   ) 
 ```
 
-### 12. Turn-off either coloured outlines or filled interiors
+### 11. Turn-off either coloured outlines or filled interiors
 
 For geom's that have both coloured outlines and interiors, these are both coloured by default.
 
@@ -424,7 +430,7 @@ penguins |>
   )
 ```
 
-### 13. Ability to add multiple `geom_*` layers
+### 12. Ability to add multiple `geom_*` layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
 
@@ -485,7 +491,7 @@ penguins |>
   ) 
 ```
 
-### 14. Other ggplot2 key differences 
+### 13. Other ggplot2 key differences 
 
 ##### Unquoted variables only
 
@@ -500,19 +506,21 @@ p1 <- diamonds |>
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)", 
+    subtitle = "\nDefault order"
   )
 
 p2 <- diamonds |>
   count(color) |>
   mutate(across(color, \(x) x |>
-           forcats::fct_reorder(n) |>
-           forcats::fct_rev())) |>
+                  forcats::fct_reorder(n) |>
+                  forcats::fct_rev())) |>
   gg_col(
     x = n,
     y = color,
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)", 
+    subtitle = "\nRe-orderered"
   )
 
 p1 + p2
@@ -532,6 +540,7 @@ p1 <- diamonds |>
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)", 
+    subtitle = "\nUnused levels kept",
   )
 
 p2 <- diamonds |> 
@@ -544,6 +553,7 @@ p2 <- diamonds |>
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)", 
+    subtitle = "\nUnused levels dropped",
   )
 
 p1 + p2
@@ -570,7 +580,7 @@ This needs to be considered particularly when you are using `x_limits` or `y_lim
 * Infinite values are treated as `NA`
 * `facet_axes` and `facet_axis_labels` have different defaults.
 
-### 15. A `gg_blanket` function with `geom` flexibility
+### 14. A `gg_blanket` function with `geom` flexibility
 
 ggblanket is driven by the `gg_blanket` function, which has a `geom` argument with `geom_blank` defaults.
 

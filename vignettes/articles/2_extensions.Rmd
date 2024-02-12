@@ -33,7 +33,9 @@ library(palmerpenguins)
 
 The patchwork package enables plots to be patched together. 
 
-A convenient hack to add a centred title in a non-faceted plot is to add a `facet_wrap` layer with a character string for the `facets` argument. 
+A convenient hack to add a panel centred title can be to add a `facet_wrap` layer with a character title string for the `facets` argument. 
+
+Otherwise you will need to modify margins
 
 ```{r, fig.asp=0.9}
 library(patchwork)
