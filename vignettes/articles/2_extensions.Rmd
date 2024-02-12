@@ -426,9 +426,8 @@ penguins |>
     subtitle = "<span style = 'color: #2596be ;'>**Adelie**</span>, 
        <span style = 'color:#fc7c24;'>**Chinstrap**</span>, 
        *and* <span style = 'color:#9c1e74;'>**Gentoo**</span>", 
-    theme = mdthemes::as_md_theme(grey_mode_rt())
-  ) +
-  guides(colour = "none", fill = "none")
+    theme = mdthemes::as_md_theme(grey_mode_n())
+  ) 
 ```
 
 #### geomtextpath

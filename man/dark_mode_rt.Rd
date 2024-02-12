@@ -15,13 +15,13 @@ dark_mode_rt(base_size = 11, base_family = "")
 A ggplot theme.
 }
 \description{
-Dark theme for a ggplot visualisation with legend at right top. It uses the colours \code{"#bbccdd"}, \code{"#1f2f3e"}, and \code{"#15202b"}.
+Dark theme for a ggplot visualisation with legend at right top. It uses the colours \code{"#c8d7df"}, \code{"#010a1a"}, and \code{"#00040a"}.
 }
 \examples{
 library(palmerpenguins)
 library(ggplot2)
 
-#set for a plot
+#for a plot
 penguins |>
   gg_point(
     x = flipper_length_mm,

@@ -237,9 +237,8 @@ p1 <- d |>
     width = 0.1,
     x_title = "Treatment",
     y_title = "Response",
-    theme = grey_mode_rt(),
-  ) +
-  theme(legend.position = "none")
+    theme = grey_mode_n(),
+  ) 
 
 p2 <- d |>
   gg_errorbar(
@@ -251,8 +250,7 @@ p2 <- d |>
     x_title = "Treatment",
     y_title = "Response",
   ) +
-  grey_mode_rt() +
-  theme(legend.position = "none")
+  grey_mode_n()
 
 p3 <- d |>
   gg_errorbar(
@@ -264,8 +262,7 @@ p3 <- d |>
     x_title = "Treatment",
     y_title = "Response",
   ) +
-  grey_mode_rt() +
-  theme(legend.position = "none") +
+  grey_mode_n() +
   theme(panel.grid.major.x = element_blank()) 
 
 p1 + p2 + p3
@@ -275,7 +272,7 @@ p1 + p2 + p3
 
 ggblanket provides three families of themes: `grey_mode_*`, `light_mode_*`, and `dark_mode_*`. 
 
-Each theme family provides 4 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), and `t` (top). 
+Each theme family provides 5 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), `t` (top) and `n` (none). 
 
 The default is `grey_mode_rt`.
 
@@ -347,8 +344,8 @@ p1 <- d |>
     width = 0.1,
     x_title = "Treatment",
     y_title = "Response",
-  ) +
-  theme(legend.position = "none")
+    theme = grey_mode_n(),
+  ) 
 
 p2 <- d |>
   gg_errorbar(
@@ -360,8 +357,8 @@ p2 <- d |>
     x_title = "Treatment",
     y_title = "Response",
     y_limits = c(NA, NA),
-  ) +
-  theme(legend.position = "none")
+    theme = grey_mode_n(),
+  ) 
 
 p3 <- d |>
   gg_col(
@@ -373,8 +370,8 @@ p3 <- d |>
     x_title = "Treatment upper",
     y_title = "Response",
     y_limits = c(0, NA),
-  ) +
-  theme(legend.position = "none")
+    theme = grey_mode_n(),
+  ) 
 
 p1 + p2 + p3
 ```

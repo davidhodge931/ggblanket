@@ -1,6 +1,6 @@
 #' @title Light ggplot theme with right top legend
 #'
-#' @description Light theme for a ggplot visualisation with legend at right top. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
+#' @description Light theme for a ggplot visualisation with legend at right top. It uses the colours `"#121b24"`, `"#ffffff"`, and `"#f6f8fa"`.
 #'
 #' @inheritParams mode_rt
 #'
@@ -11,7 +11,7 @@
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' #set for a plot
+#' #for a plot
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
@@ -45,7 +45,7 @@ light_mode_rt <- function (
 
 #' @title Light ggplot theme with right legend
 #'
-#' @description Light theme for a ggplot visualisation with right legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
+#' @description Light theme for a ggplot visualisation with right legend. It uses the colours `"#121b24"`, `"#ffffff"`, and `"#f6f8fa"`.
 #'
 #' @inheritParams mode_r
 #'
@@ -56,7 +56,7 @@ light_mode_rt <- function (
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' #set for a plot
+#' #for a plot
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
@@ -90,7 +90,7 @@ light_mode_r <- function (
 
 #' @title Light ggplot theme with bottom legend
 #'
-#' @description Light theme for a ggplot visualisation with bottom legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
+#' @description Light theme for a ggplot visualisation with bottom legend. It uses the colours `"#121b24"`, `"#ffffff"`, and `"#f6f8fa"`.
 #'
 #' @inheritParams mode_b
 #'
@@ -101,7 +101,7 @@ light_mode_r <- function (
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' #set for a plot
+#' #for a plot
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
@@ -135,7 +135,7 @@ light_mode_b <- function (
 
 #' @title Light ggplot theme with top legend
 #'
-#' @description Light theme for a ggplot visualisation with top legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#ffffff"`.
+#' @description Light theme for a ggplot visualisation with top legend. It uses the colours `"#121b24"`, `"#ffffff"`, and `"#f6f8fa"`.
 #'
 #' @inheritParams mode_t
 #'
@@ -146,7 +146,7 @@ light_mode_b <- function (
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' #set for a plot
+#' #for a plot
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
@@ -168,6 +168,39 @@ light_mode_b <- function (
 #' }
 #'
 light_mode_t <- function (
+    base_size = 11,
+    base_family = "") {
+
+  mode_t(
+    base_size = base_size,
+    base_family = base_family,
+    col_pal = lightness
+  )
+}
+
+#' @title Light ggplot theme with no legend
+#'
+#' @description Light theme for a ggplot visualisation with no legend. It uses the colours `"#121b24"`, `"#ffffff"`, and `"#f6f8fa"`.
+#'
+#' @inheritParams mode_n
+#'
+#' @return A ggplot theme.
+#' @export
+#'
+#' @examples
+#' library(palmerpenguins)
+#' library(ggplot2)
+#'
+#' #for a plot
+#' penguins |>
+#'   gg_jitter(
+#'     x = species,
+#'     y = body_mass_g,
+#'     col = species,
+#'     theme = light_mode_n()
+#'   )
+#'
+light_mode_n <- function (
     base_size = 11,
     base_family = "") {
 

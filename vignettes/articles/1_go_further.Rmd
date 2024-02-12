@@ -163,8 +163,8 @@ penguins |>
     colour = "black", #or fill = "lightgrey" 
     width = 0.5,
     alpha_pal = 0.9,
-  ) +
-  guides(colour = "none", fill = "none")
+    theme = grey_mode_n(),
+  ) 
 ```
 
 ### 5. Use non-supported aesthetics 

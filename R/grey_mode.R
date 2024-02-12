@@ -1,6 +1,6 @@
 #' @title Grey ggplot theme with right top legend
 #'
-#' @description Grey theme for a ggplot visualisation with legend at right top. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
+#' @description Grey theme for a ggplot visualisation with legend at right top. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
 #'
 #' @inheritParams mode_rt
 #'
@@ -11,7 +11,7 @@
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' #set for a plot
+#' #for a plot
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
@@ -45,7 +45,7 @@ grey_mode_rt <- function (
 
 #' @title Grey ggplot theme with right legend
 #'
-#' @description Grey theme for a ggplot visualisation with right legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
+#' @description Grey theme for a ggplot visualisation with right legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
 #'
 #' @inheritParams mode_r
 #'
@@ -56,7 +56,7 @@ grey_mode_rt <- function (
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' #set for a plot
+#' #for a plot
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
@@ -90,7 +90,7 @@ grey_mode_r <- function (
 
 #' @title Grey ggplot theme with bottom legend
 #'
-#' @description Grey theme for a ggplot visualisation with bottom legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
+#' @description Grey theme for a ggplot visualisation with bottom legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
 #'
 #' @inheritParams mode_b
 #'
@@ -101,7 +101,7 @@ grey_mode_r <- function (
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' #set for a plot
+#' #for a plot
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
@@ -135,7 +135,7 @@ grey_mode_b <- function (
 
 #' @title Grey ggplot theme with top legend
 #'
-#' @description Grey theme for a ggplot visualisation with top legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#e6ecf2"`.
+#' @description Grey theme for a ggplot visualisation with top legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
 #'
 #' @inheritParams mode_t
 #'
@@ -146,7 +146,7 @@ grey_mode_b <- function (
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' #set for a plot
+#' #for a plot
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
@@ -172,6 +172,38 @@ grey_mode_t <- function (
     base_family = "") {
 
   mode_t(
+    base_size = base_size,
+    base_family = base_family,
+    col_pal = greyness
+  )
+}
+
+#' @title Grey ggplot theme with no legend
+#'
+#' @description Grey theme for a ggplot visualisation with no legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
+#'
+#' @inheritParams mode_n
+#'
+#' @return A ggplot theme.
+#' @export
+#'
+#' @examples
+#' library(palmerpenguins)
+#' library(ggplot2)
+#'
+#' penguins |>
+#'   gg_jitter(
+#'     x = species,
+#'     y = body_mass_g,
+#'     col = species,
+#'     theme = grey_mode_n()
+#'   )
+#'
+grey_mode_n <- function (
+    base_size = 11,
+    base_family = "") {
+
+  mode_n(
     base_size = base_size,
     base_family = base_family,
     col_pal = greyness

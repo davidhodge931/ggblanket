@@ -15,13 +15,13 @@ grey_mode_b(base_size = 11, base_family = "")
 A ggplot theme.
 }
 \description{
-Grey theme for a ggplot visualisation with bottom legend. It uses the colours \code{"#121b24"}, \code{"#fcfdfe"}, and \code{"#e6ecf2"}.
+Grey theme for a ggplot visualisation with bottom legend. It uses the colours \code{"#121b24"}, \code{"#fcfdfe"}, and \code{"#f6f8fa"}.
 }
 \examples{
 library(palmerpenguins)
 library(ggplot2)
 
-#set for a plot
+#for a plot
 penguins |>
   gg_point(
     x = flipper_length_mm,
