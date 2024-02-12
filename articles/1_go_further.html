@@ -106,7 +106,8 @@ to:</p>
 <li>Visualise spatial data</li>
 <li>Change the <code>stat</code>
 </li>
-<li>Fix either colour or fill to a constant colour</li>
+<li>Fix either the colour outline or interior fill to a constant
+colour</li>
 <li>Use non-supported aesthetics</li>
 <li>Use delayed evaluation</li>
 <li>Add a legend from layers each set to a single value</li>
@@ -123,7 +124,7 @@ to:</p>
 <h3 id="use-different-fonts">1. Use different fonts<a class="anchor" aria-label="anchor" href="#use-different-fonts"></a>
 </h3>
 <p>The showtext and sysfonts packages support the use of different fonts
-from Google. The <code>*_mode</code> theme functions provide a
+from Google. The <code>*_mode_*</code> theme functions provide a
 <code>base_family</code> argument.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_families_google.html" class="external-link">font_families_google</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -220,14 +221,15 @@ be changed.</p>
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="fix-either-colour-or-fill-to-a-constant-colour">4. Fix either colour or fill to a constant colour<a class="anchor" aria-label="anchor" href="#fix-either-colour-or-fill-to-a-constant-colour"></a>
+<h3 id="fix-either-the-colour-outline-or-interior-fill-to-a-constant-colour">4. Fix either the colour outline or interior fill to a constant
+colour<a class="anchor" aria-label="anchor" href="#fix-either-the-colour-outline-or-interior-fill-to-a-constant-colour"></a>
 </h3>
-<p>For geom’s that have both interior and outline colour, you can fix
-one of these to a constant colour.</p>
-<p>To fix the interior or outline colour to a different colour, use
-<code>colour = "black"</code> or <code>fill = "#d3d3d3"</code>. This
-requires a <code>col</code> aesthetic to work, so you have to do this in
-a hacky way where you do not want a <code>col</code> aesthetic.</p>
+<p>For geom’s that have both outline colour and interior fill, it is
+possible to fix one of these to a constant colour.</p>
+<p>To do this, use <code>colour = "black"</code> or
+<code>fill = "#d3d3d3"</code>. Note this requires a <code>col</code>
+aesthetic to work. So you must do this in a hacky way, where you do not
+want a <code>col</code> aesthetic.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
