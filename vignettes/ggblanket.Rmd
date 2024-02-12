@@ -39,15 +39,16 @@ Secondary objectives relate to:
 3.  A `facet` argument to facet by a variable
 4.  A `facet2` argument to facet by a 2nd variable
 5.  A `col_pal` argument to customise colours
-6.  Prefixed arguments to customise 
-7.  Unspecified titles to `snakecase::sentence_case` 
-8.  `grey_mode_*`, `light_mode_*` and `dark_mode_*` and theme families
-9.  Access to other `geom_*` arguments via `...`
-10. Pretty scales, and automatic gridline and axis line/ticks removal
-11. Turn-off either colour or fill
-12. Ability to add multiple `geom_*` layers
-13. Other key differences to ggplot2
-14. A `gg_blanket()` function with `geom` flexibility
+6.  Numerous other prefixed arguments to customise 
+7.  Unspecified titles converted to `snakecase::sentence_case` 
+8.  A `theme` argument for auto grid/line/ticks removal
+9.  Provided theme families for legend placement
+10. A symmetrical continuous scale with easy opt-out
+11. Access to other `geom_*` arguments via `...`
+12. Turn-off either coloured outlines or interiors
+13. Ability to add multiple `geom_*` layers
+14. Other key differences to ggplot2
+15. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
 library(ggblanket)
@@ -56,11 +57,14 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(palmerpenguins)
+library(patchwork)
 ```
  
 ### 1. Almost forty `gg_*` wrapper functions
 
-Each `gg_*` function wraps a ggplot2 `ggplot2::ggplot()` function with the applicable ggplot2 `geom_*()` function. Each `gg_*` function is named after the `geom_*` function they wrap. 
+Each `gg_*` function wraps a ggplot2 `ggplot2::ggplot()` function with the applicable ggplot2 `geom_*()` function. 
+
+Each `gg_*` function is named after the `geom_*` function they wrap. 
 
 ```{r}
 penguins |>
@@ -73,9 +77,8 @@ penguins |>
 ### 2. A single `col` argument to colour and fill by a variable
 
 The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. 
-This combined aesthetic means that everything should be coloured according to it, i.e. all points, lines and polygon interiors. 
 
-There is flexibility to undo this combined aesthetic if necessary, as is discussed later in this article.
+This combined aesthetic means that everything should be coloured according to it, i.e. all coloured outlines and filled interiors. 
 
 ```{r}
 penguins |>
@@ -152,15 +155,15 @@ penguins |>
   gg_density(
     x = flipper_length_mm,
     col = sex,
-    col_pal = c("#112E51", "#78909C"),
+    col_pal = c(navy, greys[2]),
   )
 ```
 
-### 6.  Prefixed arguments to customise 
+### 6.  Numerous other prefixed arguments to customise 
 
 ggblanket offers numerous arguments to customise that are prefixed by whether they relate to `x`, `y`, `col`, `facet` or `alpha`. 
 
-These prefixed arguments work nicely with the Rstudio autocomplete, if users ensure their settings support the use of tab for autocompletions and multi-line autocompletions (i.e. Tools - Global Options - Code - Completion)
+These prefixed arguments work nicely with the Rstudio autocomplete, if users ensure their settings support the use of tab for autocompletions and multi-line autocompletions (i.e. Tools - Global Options - Code - Completion).
 
 ```{r}
 penguins |>
@@ -186,7 +189,7 @@ penguins |>
 knitr::include_graphics("autocomplete_y.png", dpi = 300)
 ```
 
-### 7.  Unspecified titles to `snakecase::sentence_case`
+### 7.  Unspecified titles converted to `snakecase::sentence_case`
 
 Unspecified `x`, `y`, `col` and `alpha` titles are converted to sentence case with `snakecase::to_sentence`. 
 
@@ -204,15 +207,61 @@ diamonds |>
   )
 ```
 
-### 8.  `grey_mode_*`, `light_mode_*` and `dark_mode_*` and theme families
+### 8.  A `theme` argument for auto gridline, axis-line and axis-ticks removal
+
+ggblanket has a `theme` argument that users can add a `*_mode_*` theme to.
+
+The `gg_*` function will guess whether the plot is `flipped` or not. This `flipped` argument can be specified where it does not guess correctly.
+
+For `flipped = FALSE` graphs, the `gg_*` function will remove generally vertical gridlines, and the y axis-line and axis-ticks. For `flipped = TRUE` graphs, the vice versa will occur. 
+
+If you do not want this auto gridline/axis-line and axis-ticks removal to apply, then you should use instead `+` the theme on to the plot as a layer. 
+
+You can access the `theme` argument globally using `ggplot2::theme_set()`. 
+
+```{r}
+d <- data.frame(
+  trt = factor(c(1, 1, 2, 2)),
+  resp = c(1, 5, 3, 4),
+  group = factor(c(1, 2, 1, 2)),
+  upper = c(1.1, 5.3, 3.3, 4.2),
+  lower = c(0.8, 4.6, 2.4, 3.6)
+)
+
+p1 <- d |>
+  gg_errorbar(
+    x = trt,
+    ymin = lower,
+    ymax = upper,
+    col = group,
+    width = 0.1,
+    x_title = "Treatment",
+    y_title = "Response",
+    theme = grey_mode_rt(),
+  )
+
+p2 <- d |>
+  gg_errorbar(
+    x = trt,
+    ymin = lower,
+    ymax = upper,
+    col = group,
+    width = 0.1,
+    x_title = "Treatment",
+    y_title = "Response",
+  ) +
+  grey_mode_rt()
+
+p1 + p2
+```
+
+### 9.  Provided theme families for legend placement
 
 ggblanket provides three families of themes: `grey_mode_*`, `light_mode_*`, and `dark_mode_*`. 
 
 Each theme family provides 4 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), and `t` (top). 
 
-It is intended that this `theme` argument is used in combination with the `*_mode_*` themes. You can also set these globally using `ggplot2::theme_set()`. 
-
-If you would like to provide your own theme, you should `+` the `theme` on as a layer, as the `gg_*` function removes selected gridlines, axis lines and ticks.
+The default is `grey_mode_rt`.
 
 ```{r, fig.asp=0.75}
 # theme_set(grey_mode_t())
@@ -239,8 +288,7 @@ penguins |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    col_title = "",
-    theme = light_mode_t(),
+    theme = light_mode_b(),
   ) 
 ```
 
@@ -254,12 +302,61 @@ penguins |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    col_title = "",
-    theme = dark_mode_t(),
+    theme = dark_mode_r(),
   ) 
 ```
 
-### 9. Access to other `geom_*` arguments via `...`
+### 10. A symmetrical continuous scale with easy opt-out
+
+For `flipped = FALSE` graphs, the `gg_*` function will create a symmetric continuous y scale by default with: 
+
+* `y_limits` that are the range of the `y_breaks` 
+* `y_expand` of `c(0, 0)`
+
+For `flipped = TRUE`, the vice-versa occurs.
+
+Sometimes you may need to add `*_expand_limits = 0`, if the lower bound of the symmetric scale falls on a number close to 0.
+
+This symmetric scale can be turned off easily using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc).
+
+Note this symmetric scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.
+
+```{r}
+d <- data.frame(
+  trt = factor(c(1, 1, 2, 2)),
+  resp = c(1, 5, 3, 4),
+  group = factor(c(1, 2, 1, 2)),
+  upper = c(1.1, 5.3, 3.3, 4.2),
+  lower = c(0.8, 4.6, 2.4, 3.6)
+)
+
+p1 <- d |>
+  gg_errorbar(
+    x = trt,
+    ymin = lower,
+    ymax = upper,
+    col = group,
+    width = 0.1,
+    x_title = "Treatment",
+    y_title = "Response",
+  )
+
+p2 <- d |>
+  gg_errorbar(
+    x = trt,
+    ymin = lower,
+    ymax = upper,
+    col = group,
+    width = 0.1,
+    x_title = "Treatment",
+    y_title = "Response",
+    y_limits = c(NA, NA),
+  ) 
+
+p1 + p2
+```
+
+### 11. Access to other `geom_*` arguments via `...`
 
 The `...` argument provides access to all other arguments in the `geom_*()` function. 
 
@@ -276,65 +373,17 @@ penguins |>
   ) 
 ```
 
-### 10. Pretty scales, and automatic gridline and axis line/ticks removal
+### 12. Turn-off either coloured outlines or filled interiors
 
-ggblanket guesses whether the plot is flipped or not in order to determine:
+For geom's that have both coloured outlines and interiors, these are both coloured by default.
 
-* which scale to make symmetric 
-* which gridlines to remove 
-* which axis line and ticks to remove
+you can turn off one of these by `alpha_pal = 0` for the filled interior, or `col_pal = scales::alpha(..., alpha = 0)` for the coloured outlines.
 
-This `flipped` argument can be specified where it does not get it right.
+For coloured outlines where a `col` argument is specified, you might need to also  modify the `col_pal_na` value using `col_pal_na = scales::alpha("darkgrey", alpha = 0)`. 
 
-The symmetric continuous y scale for non-flipped plots defaults to: 
+[Note where a `col` argument is specified, another method is to use `fill = NA`/`colour = NA`.]
 
-* `y_limits` that are the range of the `y_breaks` 
-* `y_expand` of `c(0, 0)`
-
-This symmetric scale can be turned off easily using `y_limits = c(NA, NA)` (or `y_limits = c(0, NA)` for bars etc).
-
-The opposite occurs for flipped plots with the x scale. 
-
-Sometimes you may need to add `*_expand_limits = 0`, if the lower bound of the symmetric scale falls on a close low number.
-
-Note this symmetric scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.
-
-If you want different gridlines or axis lines/ticks to that which is defaulted, you should `+ *_mode_*` instead.  
-
-```{r}
-penguins |>
-  drop_na(sex) |> 
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-  )
-```
-
-```{r}
-penguins |>
-  drop_na(sex) |> 
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    y_limits = c(NA, NA),
-  )
-```
-
-### 11. Turn-off either colour or fill
-
-For geom's that have both interior and outline colour, you can turn off one of these.
-
-Use `alpha_pal = 0` for the interior fill, or `col_pal = scales::alpha(..., alpha = 0)` for the outline colour.
-
-For the outlines with a `col` aesthetic, you might need to modify the `col_pal_na` value using `col_pal_na = scales::alpha("darkgrey", alpha = 0)`. 
-
-[Note where there is a `col` aesthetic, another way is to use `fill = NA`/`colour = NA`.]
-
-```{r}
+```{r, fig.asp=0.4}
 penguins |>
   gg_boxplot(
     x = flipper_length_mm,
@@ -355,13 +404,13 @@ penguins |>
   )
 ```
 
-### 12. Ability to add multiple `geom_*` layers
+### 13. Ability to add multiple `geom_*` layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
 
-The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added - unless a `inherit.aes = FALSE` argument is added. `facet` and `facet2` will likewise inherit - as will `data`, `coord` and `theme`.
+The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added - unless a `inherit.aes = FALSE` argument is added. 
 
-The `gg_*()` function _should_ be appropriate to be the bottom layer of the plot. This is because the geoms will plot in order. 
+The `gg_*()` function _should_ be appropriate to be the bottom layer of the plot, as geoms are drawn in order. 
 
 All of the aesthetics required for the plot as a whole should generally be added into the `gg_*` function, including the `col` argument. If you do not want the first layer to have a colour and fill aesthetic, but you wish later layers to access this - use `gg_blanket()` (as it defaults to a `blank` geom). 
 
@@ -416,7 +465,7 @@ penguins |>
   ) 
 ```
 
-### 13. Other ggplot2 key differences 
+### 14. Other ggplot2 key differences 
 
 ##### Unquoted variables only
 
@@ -460,23 +509,24 @@ By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_k
 
 ggplot2 by default drops values outside of the limits in calculating the geoms and scales to plot (`scales::oob_censor`), and clips anything outside the cartesian coordinate space (`coord = ggplot2::coord_cartesian(clip = "on"`)).
 
-This needs to be considered when you are using `x_limits` or `y_limits`, and your stat is _not_ `"identity"`.  
+This needs to be considered particularly when you are using `x_limits` or `y_limits`, and your stat is _not_ `"identity"`.  
 
 ##### Alpha
 
-`alpha` is fully supported in ggblanket in a similar way to `col`. So the `alpha` argument represents an aesthetic, whereas `alpha_pal` represents a value (or values or range) of alpha for alpha. 
+`alpha` is fully supported in ggblanket in a similar way to `col`. So the `alpha` argument represents an aesthetic, whereas `alpha_pal` represents a value (or values or range). 
 
 ##### Other
 
 * `*_title` is equivalent to `ggplot2::labs(* = ...)`
 * Facet arguments `strip.position` and `switch` are renamed `facet_labels_position` and `facet_labels_switch`
-* y categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) 
+* `y` categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) 
 * Logical variables are reversed, so that `TRUE` always comes before `FALSE`
 * Infinite values are treated as `NA`
- 
-### 14. A `gg_blanket` function with `geom` flexibility
+* `facet_axes` and `facet_axis_labels` have different defaults.
 
-ggblanket is driven by `gg_blanket` function, which has a `geom` argument with `geom_blank` defaults.
+### 15. A `gg_blanket` function with `geom` flexibility
+
+ggblanket is driven by the `gg_blanket` function, which has a `geom` argument with `geom_blank` defaults.
 
 All other functions wrap this function with a locked-in geom, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
