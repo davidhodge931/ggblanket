@@ -236,9 +236,10 @@ penguins |>
     y = body_mass_g, 
     col = sex, 
     col_title = "",
-    theme = grey_mode_t(),
   ) +
-  ggeasy::easy_remove_y_axis(what = c("line", "ticks"))
+  grey_mode_t() +
+  ggeasy::easy_remove_y_gridlines() +
+  ggeasy::easy_remove_x_axis(what = c("line", "ticks"))
 ```
 
 #### ggforce
@@ -283,7 +284,6 @@ iris |>
     col = Species,
     group = 1,
     colour = "#fcfdfe",
-    col_pal = c(teal, orange, navy),
   )
 ```
 
