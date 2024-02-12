@@ -122,8 +122,10 @@ visualisation</strong>.</p>
 <li>Unspecified titles converted to
 <code>snakecase::sentence_case</code>
 </li>
-<li>A <code>theme</code> argument for auto grid/line/ticks removal</li>
-<li>Provided theme families for legend placement</li>
+<li>A <code>theme</code> argument designed for provided
+<code>*_mode_*</code> themes</li>
+<li>Families of <code>*_mode_*</code> themes that differ by legend
+placement</li>
 <li>A symmetrical continuous scale with easy opt-out</li>
 <li>Access to other <code>geom_*</code> arguments via
 <code>...</code>
@@ -304,23 +306,27 @@ turned off using <code>titles = \(x) x</code>.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="a-theme-argument-for-auto-gridline-axis-line-and-axis-ticks-removal">8. A <code>theme</code> argument for auto gridline, axis-line and
-axis-ticks removal<a class="anchor" aria-label="anchor" href="#a-theme-argument-for-auto-gridline-axis-line-and-axis-ticks-removal"></a>
+<h3 id="a-theme-argument-designed-for-provided-_mode_-themes">8. A <code>theme</code> argument designed for provided
+<code>*_mode_*</code> themes<a class="anchor" aria-label="anchor" href="#a-theme-argument-designed-for-provided-_mode_-themes"></a>
 </h3>
-<p>ggblanket has a <code>theme</code> argument that users can add a
-<code>*_mode_*</code> theme to.</p>
-<p>The <code>gg_*</code> function will guess whether the plot is
-<code>flipped</code> or not. This <code>flipped</code> argument can be
-specified where it does not guess correctly.</p>
-<p>For <code>flipped = FALSE</code> graphs, the <code>gg_*</code>
-function will remove generally vertical gridlines, and the y axis-line
-and axis-ticks. For <code>flipped = TRUE</code> graphs, the vice versa
-will occur.</p>
-<p>If you do not want this auto gridline/axis-line and axis-ticks
-removal to apply, then you should use instead <code>+</code> the theme
-on to the plot as a layer.</p>
-<p>You can access the <code>theme</code> argument globally using
-<code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set()</a></code>.</p>
+<p>A <code>theme</code> argument has been designed for use with the
+<code>*_mode_*</code> themes.</p>
+<p>When a theme is provided it, the <code>gg_*</code> function will:</p>
+<ul>
+<li>determine whether the plot is <code>flipped</code> or not</li>
+<li>for <code>flipped = FALSE</code> graphs, remove vertical grid-lines,
+and the y axis-line/ticks</li>
+<li>for <code>flipped = TRUE</code> graphs, remove horizontal
+grid-lines, and the x axis-line/ticks</li>
+</ul>
+<p>If you do <em>not</em> want the <code>gg_*</code> function to make
+any changes to your provided theme, you should instead <code>+</code>
+your theme on as a layer (e.g. <code>+ grey_mode_rt()</code>).</p>
+<p>The <code>theme</code> argument can also be accessed globally using
+using <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set()</a></code>.</p>
+<p>Note, if you would like to use a plain title, a convenient hack is to
+use the <code>subtitle</code> argument with a <code>"\n"</code> at the
+start of the character string.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  trt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -340,6 +346,7 @@ on to the plot as a layer.</p>
 <span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\ntheme = grey_mode_n(),"</span></span>
 <span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
@@ -351,37 +358,26 @@ on to the plot as a layer.</p>
 <span>    width <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\n+ grey_mode_n()"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_errorbar.html">gg_errorbar</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">trt</span>,</span>
-<span>    ymin <span class="op">=</span> <span class="va">lower</span>,</span>
-<span>    ymax <span class="op">=</span> <span class="va">upper</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">group</span>,</span>
-<span>    width <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
-<span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>panel.grid.major.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span></span></code></pre></div>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="provided-theme-families-for-legend-placement">9. Provided theme families for legend placement<a class="anchor" aria-label="anchor" href="#provided-theme-families-for-legend-placement"></a>
+<h3 id="families-of-_mode_-themes-that-differ-by-legend-placement">9. Families of <code>*_mode_*</code> themes that differ by legend
+placement<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-that-differ-by-legend-placement"></a>
 </h3>
-<p>ggblanket provides three families of themes:
-<code>grey_mode_*</code>, <code>light_mode_*</code>, and
-<code>dark_mode_*</code>.</p>
+<p>Three theme families are provided: <code>grey_mode_*</code>,
+<code>light_mode_*</code> and <code>dark_mode_*</code>.</p>
 <p>Each theme family provides 5 variants that differ based on legend
 placement, which is represented by the suffix of the theme name of
 <code>rt</code> (right-top), <code>r</code> (right-centre),
 <code>b</code> (bottom), <code>t</code> (top) and <code>n</code>
 (none).</p>
 <p>The default is <code>grey_mode_rt</code>.</p>
+<p>These are designed for use with the <code>theme</code> argument.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># theme_set(grey_mode_t())</span></span>
 <span></span>
@@ -424,7 +420,7 @@ placement, which is represented by the suffix of the theme name of
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="a-symmetrical-continuous-scale-with-easy-opt-out">10. A symmetrical continuous scale with easy opt-out<a class="anchor" aria-label="anchor" href="#a-symmetrical-continuous-scale-with-easy-opt-out"></a>
+<h3 id="a-symmetrical-continuous-scale-with-easy-opt-out">9. A symmetrical continuous scale with easy opt-out<a class="anchor" aria-label="anchor" href="#a-symmetrical-continuous-scale-with-easy-opt-out"></a>
 </h3>
 <p>For <code>flipped = FALSE</code> graphs, the <code>gg_*</code>
 function will create a symmetric continuous y scale by default with:</p>
@@ -448,7 +444,15 @@ transformation that is <em>not</em> <code>"identity"</code>,
 <code>"reverse"</code>, <code>"date"</code>, <code>"time"</code> or
 <code>"hms"</code> - or where the other positional scale is binned.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  trt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  resp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.1</span>, <span class="fl">5.3</span>, <span class="fl">3.3</span>, <span class="fl">4.2</span><span class="op">)</span>,</span>
+<span>  lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">4.6</span>, <span class="fl">2.4</span>, <span class="fl">3.6</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_errorbar.html">gg_errorbar</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">trt</span>,</span>
 <span>    ymin <span class="op">=</span> <span class="va">lower</span>,</span>
@@ -458,6 +462,7 @@ transformation that is <em>not</em> <code>"identity"</code>,
 <span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\nDefault y scale"</span></span>
 <span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
@@ -471,6 +476,7 @@ transformation that is <em>not</em> <code>"identity"</code>,
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
 <span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\ny_limits = c(NA, NA),"</span></span>
 <span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
@@ -484,13 +490,14 @@ transformation that is <em>not</em> <code>"identity"</code>,
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
 <span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\ny_limits = c(0, NA),"</span></span>
 <span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="access-to-other-geom_-arguments-via----">11. Access to other <code>geom_*</code> arguments via
+<h3 id="access-to-other-geom_-arguments-via----">10. Access to other <code>geom_*</code> arguments via
 <code>...</code><a class="anchor" aria-label="anchor" href="#access-to-other-geom_-arguments-via----"></a>
 </h3>
 <p>The <code>...</code> argument provides access to all other arguments
@@ -509,7 +516,7 @@ in the <code>geom_*()</code> function.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="turn-off-either-coloured-outlines-or-filled-interiors">12. Turn-off either coloured outlines or filled interiors<a class="anchor" aria-label="anchor" href="#turn-off-either-coloured-outlines-or-filled-interiors"></a>
+<h3 id="turn-off-either-coloured-outlines-or-filled-interiors">11. Turn-off either coloured outlines or filled interiors<a class="anchor" aria-label="anchor" href="#turn-off-either-coloured-outlines-or-filled-interiors"></a>
 </h3>
 <p>For geom’s that have both coloured outlines and interiors, these are
 both coloured by default.</p>
@@ -542,7 +549,7 @@ is to use <code>fill = NA</code>/<code>colour = NA</code>.]</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="ability-to-add-multiple-geom_-layers">13. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
+<h3 id="ability-to-add-multiple-geom_-layers">12. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
 </h3>
 <p>Users can make plots with multiple layers with ggblanket by adding on
 <code>ggplot2::geom_*</code> layers.</p>
@@ -610,7 +617,7 @@ geom).</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="other-ggplot2-key-differences">14. Other ggplot2 key differences<a class="anchor" aria-label="anchor" href="#other-ggplot2-key-differences"></a>
+<h3 id="other-ggplot2-key-differences">13. Other ggplot2 key differences<a class="anchor" aria-label="anchor" href="#other-ggplot2-key-differences"></a>
 </h3>
 <div class="section level5">
 <h5 id="unquoted-variables-only">Unquoted variables only<a class="anchor" aria-label="anchor" href="#unquoted-variables-only"></a>
@@ -630,19 +637,21 @@ aesthetics, delayed evaluation etc.</p>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span>, </span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\nDefault order"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">color</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">|&gt;</span></span>
-<span>           <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">fct_reorder</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>           <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">fct_rev</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                  <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">fct_reorder</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                  <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">fct_rev</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">n</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">color</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span>, </span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\nRe-orderered"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
@@ -664,6 +673,7 @@ plotting using <code><a href="https://forcats.tidyverse.org/reference/fct_drop.h
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span>, </span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\nUnused levels kept"</span>,</span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span> </span>
@@ -676,6 +686,7 @@ plotting using <code><a href="https://forcats.tidyverse.org/reference/fct_drop.h
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">"Count (thousands)"</span>, </span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\nUnused levels dropped"</span>,</span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
@@ -732,7 +743,7 @@ different defaults.</li>
 </div>
 </div>
 <div class="section level3">
-<h3 id="a-gg_blanket-function-with-geom-flexibility">15. A <code>gg_blanket</code> function with <code>geom</code>
+<h3 id="a-gg_blanket-function-with-geom-flexibility">14. A <code>gg_blanket</code> function with <code>geom</code>
 flexibility<a class="anchor" aria-label="anchor" href="#a-gg_blanket-function-with-geom-flexibility"></a>
 </h3>
 <p>ggblanket is driven by the <code>gg_blanket</code> function, which
