@@ -32,6 +32,7 @@ Suggests:
     isoband,
     knitr,
     palmerpenguins,
+    patchwork, 
     quantreg,
     rmarkdown,
     sf,
@@ -44,7 +45,7 @@ Remotes:
 Config/Needs/website: concaveman, corrr, deldir, distributional, farver,
     geomtextpath, ggalluvial, ggblend, ggdensity, ggdist, ggeasy, ggforce,
     ggh4x, gghighlight, ggiraph, ggnewscale, ggrepel, ggridges, glue, 
-    mdthemes, patchwork, plotly, RColorBrewer, showtext, stars, sysfonts
+    mdthemes, plotly, RColorBrewer, showtext, stars, sysfonts
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB
