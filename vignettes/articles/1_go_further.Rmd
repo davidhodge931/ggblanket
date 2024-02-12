@@ -23,7 +23,7 @@ This article will demonstrate more advanced content, including how to:
 1. Use different fonts
 2. Visualise spatial data
 3. Change the `stat`
-4. Fix either colour or fill to a constant colour
+4. Fix either the colour outline or interior fill to a constant colour
 5. Use non-supported aesthetics
 6. Use delayed evaluation
 7. Add a legend from layers each set to a single value 
@@ -40,7 +40,7 @@ library(palmerpenguins)
 
 ### 1. Use different fonts
 
-The showtext and sysfonts packages support the use of different fonts from Google. The `*_mode` theme functions provide a `base_family` argument.
+The showtext and sysfonts packages support the use of different fonts from Google. The `*_mode_*` theme functions provide a `base_family` argument.
 
 ```{r, fig.asp = 0.7, fig.showtext = TRUE}
 head(sysfonts::font_families_google())
@@ -133,12 +133,11 @@ ggplot2::economics |>
   ) 
 ```
 
+### 4. Fix either the colour outline or interior fill to a constant colour
 
-### 4. Fix either colour or fill to a constant colour
+For geom's that have both outline colour and interior fill, it is possible to fix one of these to a constant colour.
 
-For geom's that have both interior and outline colour, you can fix one of these to a constant colour.
-
-To fix the interior or outline colour to a different colour, use `colour = "black"` or `fill = "#d3d3d3"`. This requires a `col` aesthetic to work, so you have to do this in a hacky way where you do not want a `col` aesthetic.
+To do this, use `colour = "black"` or `fill = "#d3d3d3"`. Note this requires a `col` aesthetic to work. So you must do this in a hacky way, where you do not want a `col` aesthetic.
 
 ```{r}
 penguins |>
