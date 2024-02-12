@@ -118,18 +118,17 @@ visualisation</strong>.</p>
 <li>A <code>facet</code> argument to facet by a variable</li>
 <li>A <code>facet2</code> argument to facet by a 2nd variable</li>
 <li>A <code>col_pal</code> argument to customise colours</li>
-<li>Prefixed arguments to customise</li>
-<li>Unspecified titles to <code>snakecase::sentence_case</code>
+<li>Numerous other prefixed arguments to customise</li>
+<li>Unspecified titles converted to
+<code>snakecase::sentence_case</code>
 </li>
-<li>
-<code>grey_mode_*</code>, <code>light_mode_*</code> and
-<code>dark_mode_*</code> and theme families</li>
+<li>A <code>theme</code> argument for auto grid/line/ticks removal</li>
+<li>Provided theme families for legend placement</li>
+<li>A symmetrical continuous scale with easy opt-out</li>
 <li>Access to other <code>geom_*</code> arguments via
 <code>...</code>
 </li>
-<li>Pretty scales, and automatic gridline and axis line/ticks
-removal</li>
-<li>Turn-off either colour or fill</li>
+<li>Turn-off either coloured outlines or interiors</li>
 <li>Ability to add multiple <code>geom_*</code> layers</li>
 <li>Other key differences to ggplot2</li>
 <li>A <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with <code>geom</code>
@@ -141,14 +140,16 @@ flexibility</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">palmerpenguins</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">palmerpenguins</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="almost-forty-gg_-wrapper-functions">1. Almost forty <code>gg_*</code> wrapper functions<a class="anchor" aria-label="anchor" href="#almost-forty-gg_-wrapper-functions"></a>
 </h3>
 <p>Each <code>gg_*</code> function wraps a ggplot2
 <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code> function with the applicable ggplot2
-<code>geom_*()</code> function. Each <code>gg_*</code> function is named
-after the <code>geom_*</code> function they wrap.</p>
+<code>geom_*()</code> function.</p>
+<p>Each <code>gg_*</code> function is named after the
+<code>geom_*</code> function they wrap.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
@@ -162,11 +163,9 @@ after the <code>geom_*</code> function they wrap.</p>
 variable<a class="anchor" aria-label="anchor" href="#a-single-col-argument-to-colour-and-fill-by-a-variable"></a>
 </h3>
 <p>The colour and fill aesthetics of ggplot2 are merged into a single
-concept represented by the <code>col</code> argument. This combined
-aesthetic means that everything should be coloured according to it,
-i.e. all points, lines and polygon interiors.</p>
-<p>There is flexibility to undo this combined aesthetic if necessary, as
-is discussed later in this article.</p>
+concept represented by the <code>col</code> argument.</p>
+<p>This combined aesthetic means that everything should be coloured
+according to it, i.e. all coloured outlines and filled interiors.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
@@ -247,12 +246,12 @@ whether a <code>col</code> aesthetic is added or not.</p>
 <span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#112E51"</span>, <span class="st">"#78909C"</span><span class="op">)</span>,</span>
+<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">navy</span>, <span class="va">greys</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="prefixed-arguments-to-customise">6. Prefixed arguments to customise<a class="anchor" aria-label="anchor" href="#prefixed-arguments-to-customise"></a>
+<h3 id="numerous-other-prefixed-arguments-to-customise">6. Numerous other prefixed arguments to customise<a class="anchor" aria-label="anchor" href="#numerous-other-prefixed-arguments-to-customise"></a>
 </h3>
 <p>ggblanket offers numerous arguments to customise that are prefixed by
 whether they relate to <code>x</code>, <code>y</code>, <code>col</code>,
@@ -260,7 +259,7 @@ whether they relate to <code>x</code>, <code>y</code>, <code>col</code>,
 <p>These prefixed arguments work nicely with the Rstudio autocomplete,
 if users ensure their settings support the use of tab for
 autocompletions and multi-line autocompletions (i.e. Tools - Global
-Options - Code - Completion)</p>
+Options - Code - Completion).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span>  </span>
@@ -283,7 +282,8 @@ Options - Code - Completion)</p>
 <p><img src="autocomplete_y.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="unspecified-titles-to-snakecasesentence_case">7. Unspecified titles to <code>snakecase::sentence_case</code><a class="anchor" aria-label="anchor" href="#unspecified-titles-to-snakecasesentence_case"></a>
+<h3 id="unspecified-titles-converted-to-snakecasesentence_case">7. Unspecified titles converted to
+<code>snakecase::sentence_case</code><a class="anchor" aria-label="anchor" href="#unspecified-titles-converted-to-snakecasesentence_case"></a>
 </h3>
 <p>Unspecified <code>x</code>, <code>y</code>, <code>col</code> and
 <code>alpha</code> titles are converted to sentence case with
@@ -304,8 +304,61 @@ turned off using <code>titles = \(x) x</code>.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="grey_mode_-light_mode_-and-dark_mode_-and-theme-families">8. <code>grey_mode_*</code>, <code>light_mode_*</code> and
-<code>dark_mode_*</code> and theme families<a class="anchor" aria-label="anchor" href="#grey_mode_-light_mode_-and-dark_mode_-and-theme-families"></a>
+<h3 id="a-theme-argument-for-auto-gridline-axis-line-and-axis-ticks-removal">8. A <code>theme</code> argument for auto gridline, axis-line and
+axis-ticks removal<a class="anchor" aria-label="anchor" href="#a-theme-argument-for-auto-gridline-axis-line-and-axis-ticks-removal"></a>
+</h3>
+<p>ggblanket has a <code>theme</code> argument that users can add a
+<code>*_mode_*</code> theme to.</p>
+<p>The <code>gg_*</code> function will guess whether the plot is
+<code>flipped</code> or not. This <code>flipped</code> argument can be
+specified where it does not guess correctly.</p>
+<p>For <code>flipped = FALSE</code> graphs, the <code>gg_*</code>
+function will remove generally vertical gridlines, and the y axis-line
+and axis-ticks. For <code>flipped = TRUE</code> graphs, the vice versa
+will occur.</p>
+<p>If you do not want this auto gridline/axis-line and axis-ticks
+removal to apply, then you should use instead <code>+</code> the theme
+on to the plot as a layer.</p>
+<p>You can access the <code>theme</code> argument globally using
+<code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set()</a></code>.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  trt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  resp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.1</span>, <span class="fl">5.3</span>, <span class="fl">3.3</span>, <span class="fl">4.2</span><span class="op">)</span>,</span>
+<span>  lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">4.6</span>, <span class="fl">2.4</span>, <span class="fl">3.6</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_errorbar.html">gg_errorbar</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">trt</span>,</span>
+<span>    ymin <span class="op">=</span> <span class="va">lower</span>,</span>
+<span>    ymax <span class="op">=</span> <span class="va">upper</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">group</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
+<span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_rt.html">grey_mode_rt</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_errorbar.html">gg_errorbar</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">trt</span>,</span>
+<span>    ymin <span class="op">=</span> <span class="va">lower</span>,</span>
+<span>    ymax <span class="op">=</span> <span class="va">upper</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">group</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
+<span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/grey_mode_rt.html">grey_mode_rt</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="provided-theme-families-for-legend-placement">9. Provided theme families for legend placement<a class="anchor" aria-label="anchor" href="#provided-theme-families-for-legend-placement"></a>
 </h3>
 <p>ggblanket provides three families of themes:
 <code>grey_mode_*</code>, <code>light_mode_*</code>, and
@@ -314,14 +367,8 @@ turned off using <code>titles = \(x) x</code>.</p>
 placement, which is represented by the suffix of the theme name of
 <code>rt</code> (right-top), <code>r</code> (right-centre),
 <code>b</code> (bottom), and <code>t</code> (top).</p>
-<p>It is intended that this <code>theme</code> argument is used in
-combination with the <code>*_mode_*</code> themes. You can also set
-these globally using <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set()</a></code>.</p>
-<p>If you would like to provide your own theme, you should
-<code>+</code> the <code>theme</code> on as a layer, as the
-<code>gg_*</code> function removes selected gridlines, axis lines and
-ticks.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<p>The default is <code>grey_mode_rt</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># theme_set(grey_mode_t())</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -334,8 +381,8 @@ ticks.</p>
 <span>    col_title <span class="op">=</span> <span class="st">""</span>,</span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_t.html">grey_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># theme_set(light_mode_t())</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -345,11 +392,10 @@ ticks.</p>
 <span>    title <span class="op">=</span> <span class="st">"Penguin flipper length by species"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
-<span>    col_title <span class="op">=</span> <span class="st">""</span>,</span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_t.html">light_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_b.html">light_mode_b</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># theme_set(dark_mode_t())</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -359,18 +405,76 @@ ticks.</p>
 <span>    title <span class="op">=</span> <span class="st">"Penguin flipper length by species"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
-<span>    col_title <span class="op">=</span> <span class="st">""</span>,</span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_t.html">dark_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="access-to-other-geom_-arguments-via----">9. Access to other <code>geom_*</code> arguments via
+<h3 id="a-symmetrical-continuous-scale-with-easy-opt-out">10. A symmetrical continuous scale with easy opt-out<a class="anchor" aria-label="anchor" href="#a-symmetrical-continuous-scale-with-easy-opt-out"></a>
+</h3>
+<p>For <code>flipped = FALSE</code> graphs, the <code>gg_*</code>
+function will create a symmetric continuous y scale by default with:</p>
+<ul>
+<li>
+<code>y_limits</code> that are the range of the
+<code>y_breaks</code>
+</li>
+<li>
+<code>y_expand</code> of <code>c(0, 0)</code>
+</li>
+</ul>
+<p>For <code>flipped = TRUE</code>, the vice-versa occurs.</p>
+<p>Sometimes you may need to add <code>*_expand_limits = 0</code>, if
+the lower bound of the symmetric scale falls on a number close to 0.</p>
+<p>This symmetric scale can be turned off easily using
+<code>*_limits = c(NA, NA)</code> (or <code>*_limits = c(0, NA)</code>
+for bars etc).</p>
+<p>Note this symmetric scale does not occur where the scale has a
+transformation that is <em>not</em> <code>"identity"</code>,
+<code>"reverse"</code>, <code>"date"</code>, <code>"time"</code> or
+<code>"hms"</code> - or where the other positional scale is binned.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  trt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  resp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.1</span>, <span class="fl">5.3</span>, <span class="fl">3.3</span>, <span class="fl">4.2</span><span class="op">)</span>,</span>
+<span>  lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">4.6</span>, <span class="fl">2.4</span>, <span class="fl">3.6</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_errorbar.html">gg_errorbar</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">trt</span>,</span>
+<span>    ymin <span class="op">=</span> <span class="va">lower</span>,</span>
+<span>    ymax <span class="op">=</span> <span class="va">upper</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">group</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
+<span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_errorbar.html">gg_errorbar</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">trt</span>,</span>
+<span>    ymin <span class="op">=</span> <span class="va">lower</span>,</span>
+<span>    ymax <span class="op">=</span> <span class="va">upper</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">group</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
+<span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
+<span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> </span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="access-to-other-geom_-arguments-via----">11. Access to other <code>geom_*</code> arguments via
 <code>...</code><a class="anchor" aria-label="anchor" href="#access-to-other-geom_-arguments-via----"></a>
 </h3>
 <p>The <code>...</code> argument provides access to all other arguments
 in the <code>geom_*()</code> function.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -381,79 +485,21 @@ in the <code>geom_*()</code> function.</p>
 <span>    se <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># via ... from geom_smooth</span></span>
 <span>    level <span class="op">=</span> <span class="fl">0.999</span>, <span class="co"># via ... from geom_smooth</span></span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="pretty-scales-and-automatic-gridline-and-axis-lineticks-removal">10. Pretty scales, and automatic gridline and axis line/ticks
-removal<a class="anchor" aria-label="anchor" href="#pretty-scales-and-automatic-gridline-and-axis-lineticks-removal"></a>
-</h3>
-<p>ggblanket guesses whether the plot is flipped or not in order to
-determine:</p>
-<ul>
-<li>which scale to make symmetric</li>
-<li>which gridlines to remove</li>
-<li>which axis line and ticks to remove</li>
-</ul>
-<p>This <code>flipped</code> argument can be specified where it does not
-get it right.</p>
-<p>The symmetric continuous y scale for non-flipped plots defaults
-to:</p>
-<ul>
-<li>
-<code>y_limits</code> that are the range of the
-<code>y_breaks</code>
-</li>
-<li>
-<code>y_expand</code> of <code>c(0, 0)</code>
-</li>
-</ul>
-<p>This symmetric scale can be turned off easily using
-<code>y_limits = c(NA, NA)</code> (or <code>y_limits = c(0, NA)</code>
-for bars etc).</p>
-<p>The opposite occurs for flipped plots with the x scale.</p>
-<p>Sometimes you may need to add <code>*_expand_limits = 0</code>, if
-the lower bound of the symmetric scale falls on a close low number.</p>
-<p>Note this symmetric scale does not occur where the scale has a
-transformation that is <em>not</em> <code>"identity"</code>,
-<code>"reverse"</code>, <code>"date"</code>, <code>"time"</code> or
-<code>"hms"</code> - or where the other positional scale is binned.</p>
-<p>If you want different gridlines or axis lines/ticks to that which is
-defaulted, you should <code>+ *_mode_*</code> instead.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="turn-off-either-colour-or-fill">11. Turn-off either colour or fill<a class="anchor" aria-label="anchor" href="#turn-off-either-colour-or-fill"></a>
+<h3 id="turn-off-either-coloured-outlines-or-filled-interiors">12. Turn-off either coloured outlines or filled interiors<a class="anchor" aria-label="anchor" href="#turn-off-either-coloured-outlines-or-filled-interiors"></a>
 </h3>
-<p>For geom’s that have both interior and outline colour, you can turn
-off one of these.</p>
-<p>Use <code>alpha_pal = 0</code> for the interior fill, or
-<code>col_pal = scales::alpha(..., alpha = 0)</code> for the outline
-colour.</p>
-<p>For the outlines with a <code>col</code> aesthetic, you might need to
-modify the <code>col_pal_na</code> value using
+<p>For geom’s that have both coloured outlines and interiors, these are
+both coloured by default.</p>
+<p>you can turn off one of these by <code>alpha_pal = 0</code> for the
+filled interior, or <code>col_pal = scales::alpha(..., alpha = 0)</code>
+for the coloured outlines.</p>
+<p>For coloured outlines where a <code>col</code> argument is specified,
+you might need to also modify the <code>col_pal_na</code> value using
 <code>col_pal_na = scales::alpha("darkgrey", alpha = 0)</code>.</p>
-<p>[Note where there is a <code>col</code> aesthetic, another way is to
-use <code>fill = NA</code>/<code>colour = NA</code>.]</p>
+<p>[Note where a <code>col</code> argument is specified, another method
+is to use <code>fill = NA</code>/<code>colour = NA</code>.]</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_boxplot.html">gg_boxplot</a></span><span class="op">(</span></span>
@@ -475,7 +521,7 @@ use <code>fill = NA</code>/<code>colour = NA</code>.]</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="ability-to-add-multiple-geom_-layers">12. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
+<h3 id="ability-to-add-multiple-geom_-layers">13. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
 </h3>
 <p>Users can make plots with multiple layers with ggblanket by adding on
 <code>ggplot2::geom_*</code> layers.</p>
@@ -483,12 +529,9 @@ use <code>fill = NA</code>/<code>colour = NA</code>.]</p>
 (i.e. <code>x</code>, <code>y</code>, <code>col</code>) within the
 wrapped <code>ggplot</code> function. Therefore, these aesthetics will
 inherit to any subsequent layers added - unless a
-<code>inherit.aes = FALSE</code> argument is added. <code>facet</code>
-and <code>facet2</code> will likewise inherit - as will
-<code>data</code>, <code>coord</code> and <code>theme</code>.</p>
+<code>inherit.aes = FALSE</code> argument is added.</p>
 <p>The <code>gg_*()</code> function <em>should</em> be appropriate to be
-the bottom layer of the plot. This is because the geoms will plot in
-order.</p>
+the bottom layer of the plot, as geoms are drawn in order.</p>
 <p>All of the aesthetics required for the plot as a whole should
 generally be added into the <code>gg_*</code> function, including the
 <code>col</code> argument. If you do not want the first layer to have a
@@ -546,7 +589,7 @@ geom).</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="other-ggplot2-key-differences">13. Other ggplot2 key differences<a class="anchor" aria-label="anchor" href="#other-ggplot2-key-differences"></a>
+<h3 id="other-ggplot2-key-differences">14. Other ggplot2 key differences<a class="anchor" aria-label="anchor" href="#other-ggplot2-key-differences"></a>
 </h3>
 <div class="section level5">
 <h5 id="unquoted-variables-only">Unquoted variables only<a class="anchor" aria-label="anchor" href="#unquoted-variables-only"></a>
@@ -603,9 +646,9 @@ cartesian coordinate space by default
 the geoms and scales to plot (<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_censor</a></code>), and
 clips anything outside the cartesian coordinate space
 (<code>coord = ggplot2::coord_cartesian(clip = "on"</code>)).</p>
-<p>This needs to be considered when you are using <code>x_limits</code>
-or <code>y_limits</code>, and your stat is <em>not</em>
-<code>"identity"</code>.</p>
+<p>This needs to be considered particularly when you are using
+<code>x_limits</code> or <code>y_limits</code>, and your stat is
+<em>not</em> <code>"identity"</code>.</p>
 </div>
 <div class="section level5">
 <h5 id="alpha">Alpha<a class="anchor" aria-label="anchor" href="#alpha"></a>
@@ -613,7 +656,7 @@ or <code>y_limits</code>, and your stat is <em>not</em>
 <p><code>alpha</code> is fully supported in ggblanket in a similar way
 to <code>col</code>. So the <code>alpha</code> argument represents an
 aesthetic, whereas <code>alpha_pal</code> represents a value (or values
-or range) of alpha for alpha.</p>
+or range).</p>
 </div>
 <div class="section level5">
 <h5 id="other">Other<a class="anchor" aria-label="anchor" href="#other"></a>
@@ -627,22 +670,27 @@ or range) of alpha for alpha.</p>
 are renamed <code>facet_labels_position</code> and
 <code>facet_labels_switch</code>
 </li>
-<li>y categorical variables are reversed, so that they are read from low
-levels (top) to high levels (bottom)</li>
+<li>
+<code>y</code> categorical variables are reversed, so that they are
+read from low levels (top) to high levels (bottom)</li>
 <li>Logical variables are reversed, so that <code>TRUE</code> always
 comes before <code>FALSE</code>
 </li>
 <li>Infinite values are treated as <code>NA</code>
 </li>
+<li>
+<code>facet_axes</code> and <code>facet_axis_labels</code> have
+different defaults.</li>
 </ul>
 </div>
 </div>
 <div class="section level3">
-<h3 id="a-gg_blanket-function-with-geom-flexibility">14. A <code>gg_blanket</code> function with <code>geom</code>
+<h3 id="a-gg_blanket-function-with-geom-flexibility">15. A <code>gg_blanket</code> function with <code>geom</code>
 flexibility<a class="anchor" aria-label="anchor" href="#a-gg_blanket-function-with-geom-flexibility"></a>
 </h3>
-<p>ggblanket is driven by <code>gg_blanket</code> function, which has a
-<code>geom</code> argument with <code>geom_blank</code> defaults.</p>
+<p>ggblanket is driven by the <code>gg_blanket</code> function, which
+has a <code>geom</code> argument with <code>geom_blank</code>
+defaults.</p>
 <p>All other functions wrap this function with a locked-in geom, and
 their own default <code>stat</code> and <code>position</code> arguments
 as per the applicable <code>geom_*</code> function.</p>
