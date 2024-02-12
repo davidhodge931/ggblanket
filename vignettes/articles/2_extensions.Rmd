@@ -167,7 +167,6 @@ data.frame(
     stat = "hdr",
     x = x, 
     y = y, 
-    #this method of removing colour is better for the legend
     col_pal = scales::alpha(blue, 0),
   ) 
 ```
@@ -197,11 +196,11 @@ data.frame(
     mapping = aes(dist = values),
     y_expand = c(0.05, 0.05),
     alpha_pal = 0.5,
+    theme = grey_mode_n(),
     # show_slab = FALSE,
     # show_interval = FALSE,
     # side = "both",
-  ) +
-  labs(width = "Width")
+  )
 ```
 
 ```{r}
