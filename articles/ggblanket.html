@@ -339,9 +339,8 @@ on to the plot as a layer.</p>
 <span>    width <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_rt.html">grey_mode_rt</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_errorbar.html">gg_errorbar</a></span><span class="op">(</span></span>
@@ -353,8 +352,7 @@ on to the plot as a layer.</p>
 <span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/grey_mode_rt.html">grey_mode_rt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_errorbar.html">gg_errorbar</a></span><span class="op">(</span></span>
@@ -366,8 +364,7 @@ on to the plot as a layer.</p>
 <span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/grey_mode_rt.html">grey_mode_rt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>panel.grid.major.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span></span></code></pre></div>
@@ -379,10 +376,11 @@ on to the plot as a layer.</p>
 <p>ggblanket provides three families of themes:
 <code>grey_mode_*</code>, <code>light_mode_*</code>, and
 <code>dark_mode_*</code>.</p>
-<p>Each theme family provides 4 variants that differ based on legend
+<p>Each theme family provides 5 variants that differ based on legend
 placement, which is represented by the suffix of the theme name of
 <code>rt</code> (right-top), <code>r</code> (right-centre),
-<code>b</code> (bottom), and <code>t</code> (top).</p>
+<code>b</code> (bottom), <code>t</code> (top) and <code>n</code>
+(none).</p>
 <p>The default is <code>grey_mode_rt</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># theme_set(grey_mode_t())</span></span>
@@ -459,8 +457,8 @@ transformation that is <em>not</em> <code>"identity"</code>,
 <span>    width <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_errorbar.html">gg_errorbar</a></span><span class="op">(</span></span>
@@ -472,8 +470,8 @@ transformation that is <em>not</em> <code>"identity"</code>,
 <span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
 <span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
@@ -485,8 +483,8 @@ transformation that is <em>not</em> <code>"identity"</code>,
 <span>    x_title <span class="op">=</span> <span class="st">"Treatment upper"</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
 <span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
