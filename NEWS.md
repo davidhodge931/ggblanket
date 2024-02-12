@@ -32,6 +32,7 @@
 * Breaking: removed `light_mode` and `dark_mode` functions.
 * Breaking: removed `col_scale` argument.
 * Breaking: removed `gg_blank` function.
+* Breaking: removed `*_gridlines` arguments.
 * Breaking: renamed `facet_switch` argument to `facet_labels_switch`.
 * Breaking: removed `guardian` function.
 * Breaking: renamed `str_keep_seq` to `replace_seq`.

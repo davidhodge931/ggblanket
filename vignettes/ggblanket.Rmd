@@ -43,7 +43,7 @@ Secondary objectives relate to:
 7.  Unspecified titles to `snakecase::sentence_case` 
 8.  `grey_mode_*`, `light_mode_*` and `dark_mode_*` and theme families
 9.  Access to other `geom_*` arguments via `...`
-10. Symmetric continuous positional scales and gridlines removal
+10. Pretty scales, and automatic gridline and axis line/ticks removal
 11. Turn-off either colour or fill
 12. Ability to add multiple `geom_*` layers
 13. Other key differences to ggplot2
@@ -276,7 +276,7 @@ penguins |>
   ) 
 ```
 
-### 10. Symmetric continuous positional scales and gridlines removal
+### 10. Pretty scales, and automatic gridline and axis line/ticks removal
 
 ggblanket guesses whether the plot is flipped or not in order to determine:
 
@@ -299,7 +299,7 @@ Sometimes you may need to add `*_expand_limits = 0`, if the lower bound of the s
 
 Note this symmetric scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.
 
-If you want different gridlines or axis lines/ticks to that which is defaulted, you should `+ *_mode_*` instead. 
+If you want different gridlines or axis lines/ticks to that which is defaulted, you should `+ *_mode_*` instead.  
 
 ```{r}
 penguins |>
@@ -355,12 +355,11 @@ penguins |>
   )
 ```
 
-
 ### 12. Ability to add multiple `geom_*` layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
 
-The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added. `facet` and `facet2` will likewise inherit - as will `data`, `coord` and `theme`.
+The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added - unless a `inherit.aes = FALSE` argument is added. `facet` and `facet2` will likewise inherit - as will `data`, `coord` and `theme`.
 
 The `gg_*()` function _should_ be appropriate to be the bottom layer of the plot. This is because the geoms will plot in order. 
 

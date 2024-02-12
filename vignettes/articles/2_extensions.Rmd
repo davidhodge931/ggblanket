@@ -68,7 +68,7 @@ p3 <- mtcars |>
   plot_annotation(
     title = "A collection of plots patched together",
     subtitle = "Works so nice!",
-    theme = light_mode_rt() +
+    theme = grey_mode_rt() +
       theme(
         plot.title = element_text(margin = margin(t = 10 * -0.5, b = 10 * 0.75)),
         plot.subtitle = element_text(margin = margin()),
@@ -237,7 +237,7 @@ penguins |>
     y = body_mass_g, 
     col = sex, 
     col_title = "",
-    theme = light_mode_t(),
+    theme = grey_mode_t(),
   ) +
   ggeasy::easy_remove_y_axis(what = c("line", "ticks"))
 ```
@@ -426,7 +426,7 @@ penguins |>
     subtitle = "<span style = 'color: #2596be ;'>**Adelie**</span>, 
        <span style = 'color:#fc7c24;'>**Chinstrap**</span>, 
        *and* <span style = 'color:#9c1e74;'>**Gentoo**</span>", 
-    theme = mdthemes::as_md_theme(light_mode_rt())
+    theme = mdthemes::as_md_theme(grey_mode_rt())
   ) +
   guides(colour = "none", fill = "none")
 ```
@@ -466,7 +466,7 @@ p <- diamonds |>
     x = color,
     y_expand_limits = 0,
     stat = "count", 
-    theme = light_mode_rt(base_size = 9, base_family = "arial"),
+    theme = grey_mode_rt(base_size = 9, base_family = "arial"),
   ) +
   ggiraph::geom_bar_interactive(
     mapping = aes(tooltip = after_stat(count), data_id = color), 
@@ -505,7 +505,7 @@ p <- diamonds |>
     text = text,
     width = 0.75,
     y_expand_limits = 0,
-    theme = light_mode_rt(base_family = "arial"),
+    theme = grey_mode_rt(base_family = "arial"),
   )
 
 plotly::ggplotly(p, tooltip = "text")
