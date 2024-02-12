@@ -30,7 +30,7 @@ Secondary objectives relate to:
 
 * Design: produce well-designed visualisation
 * Alignment: use conventions aligned with ggplot2
-* Scope: cover the majority of what ggplot2 does.
+* Scope: cover much of what ggplot2 does.
 
 ## How it works
  
@@ -238,7 +238,8 @@ p1 <- d |>
     x_title = "Treatment",
     y_title = "Response",
     theme = grey_mode_rt(),
-  )
+  ) +
+  theme(legend.position = "none")
 
 p2 <- d |>
   gg_errorbar(
@@ -250,9 +251,24 @@ p2 <- d |>
     x_title = "Treatment",
     y_title = "Response",
   ) +
-  grey_mode_rt()
+  grey_mode_rt() +
+  theme(legend.position = "none")
 
-p1 + p2
+p3 <- d |>
+  gg_errorbar(
+    x = trt,
+    ymin = lower,
+    ymax = upper,
+    col = group,
+    width = 0.1,
+    x_title = "Treatment",
+    y_title = "Response",
+  ) +
+  grey_mode_rt() +
+  theme(legend.position = "none") +
+  theme(panel.grid.major.x = element_blank()) 
+
+p1 + p2 + p3
 ```
 
 ### 9.  Provided theme families for legend placement
@@ -263,7 +279,7 @@ Each theme family provides 4 variants that differ based on legend placement, whi
 
 The default is `grey_mode_rt`.
 
-```{r, fig.asp=0.75}
+```{r, fig.asp=0.7}
 # theme_set(grey_mode_t())
 
 penguins |>
@@ -292,7 +308,7 @@ penguins |>
   ) 
 ```
 
-```{r, fig.asp=0.75}
+```{r, fig.asp=0.65}
 # theme_set(dark_mode_t())
 
 penguins |>
@@ -322,14 +338,6 @@ This symmetric scale can be turned off easily using `*_limits = c(NA, NA)` (or `
 Note this symmetric scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.
 
 ```{r}
-d <- data.frame(
-  trt = factor(c(1, 1, 2, 2)),
-  resp = c(1, 5, 3, 4),
-  group = factor(c(1, 2, 1, 2)),
-  upper = c(1.1, 5.3, 3.3, 4.2),
-  lower = c(0.8, 4.6, 2.4, 3.6)
-)
-
 p1 <- d |>
   gg_errorbar(
     x = trt,
@@ -339,7 +347,8 @@ p1 <- d |>
     width = 0.1,
     x_title = "Treatment",
     y_title = "Response",
-  )
+  ) +
+  theme(legend.position = "none")
 
 p2 <- d |>
   gg_errorbar(
@@ -351,9 +360,23 @@ p2 <- d |>
     x_title = "Treatment",
     y_title = "Response",
     y_limits = c(NA, NA),
-  ) 
+  ) +
+  theme(legend.position = "none")
 
-p1 + p2
+p3 <- d |>
+  gg_col(
+    x = trt,
+    y = upper,
+    col = group,
+    position = "dodge",
+    width = 0.5,
+    x_title = "Treatment upper",
+    y_title = "Response",
+    y_limits = c(0, NA),
+  ) +
+  theme(legend.position = "none")
+
+p1 + p2 + p3
 ```
 
 ### 11. Access to other `geom_*` arguments via `...`

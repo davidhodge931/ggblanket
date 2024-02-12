@@ -1628,9 +1628,9 @@ gg_blanket <- function(
       if (any(x_transform_name %in% c("hms"))) x_labels <- scales::label_time()
       else if (any(x_transform_name %in% c("date", "time"))) x_labels <- scales::label_date_short()
       else if (any(stringr::str_detect(x_transform_name, "log-")) |
-            any(x_transform_name %in% c("log", "log2", "log10"))) {
-          x_labels <- scales::label_log()
-        }
+               any(x_transform_name %in% c("log", "log2", "log10"))) {
+        x_labels <- scales::label_log()
+      }
       else if (!any(x_transform_name %in% c("identity", "reverse"))) x_labels <- ggplot2::waiver()
       else x_labels <- scales::label_comma(drop0trailing = TRUE)
     }
@@ -1655,7 +1655,7 @@ gg_blanket <- function(
       if (rlang::is_null(x_breaks)) {
         if (any(stringr::str_detect(x_transform_name, "log-")) |
             any(x_transform_name %in% c("log", "log2", "log10"))
-            ) {
+        ) {
           x_breaks <- scales::breaks_log(n = x_breaks_n)
         } else {
           x_breaks <- scales::breaks_pretty(n = x_breaks_n)

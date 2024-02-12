@@ -27,7 +27,7 @@ Secondary objectives relate to:
 
 - Design: produce well-designed visualisation
 - Alignment: use conventions aligned with ggplot2
-- Scope: cover the majority of what ggplot2 does.
+- Scope: cover much of what ggplot2 does.
 
 ## Installation
 
