@@ -49,6 +49,7 @@ penguins |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
+    facet = island,
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
