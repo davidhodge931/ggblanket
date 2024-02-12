@@ -492,18 +492,30 @@ penguins |>
 ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet`, `facet2` and  `alpha`. You cannot wrap these in a function. Instead you may need to manipulate the data prior to plotting, or use the `mapping` argument for other non-supported aesthetics, delayed evaluation etc. 
 
 ```{r}
-diamonds |>
-  count(color) |>
-  mutate(color = color |>
-           forcats::fct_reorder(n) |>
-           forcats::fct_rev()) |>
+p1 <- diamonds |>
+  count(clarity) |>
   gg_col(
     x = n,
-    y = color,
+    y = clarity,
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)", 
   )
+
+p2 <- diamonds |>
+  count(clarity) |>
+  mutate(across(clarity, \(x) x |>
+                  forcats::fct_reorder(n) |>
+                  forcats::fct_rev())) |>
+  gg_col(
+    x = n,
+    y = clarity,
+    width = 0.75,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)", 
+  )
+
+p1 + p2
 ```
 
 ##### Unused factor levels kept
@@ -511,16 +523,30 @@ diamonds |>
 ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting using `forcats::fct_drop`. 
 
 ```{r, fig.asp=0.4}
-diamonds |> 
+p1 <- diamonds |> 
   count(color) |>
   filter(color %in% c("E", "G", "I")) |>
-  mutate(color = forcats::fct_drop(color)) |> 
-  gg_point(
+  gg_col(
     x = n,
     y = color,
+    width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)", 
   )
+
+p2 <- diamonds |> 
+  count(color) |>
+  filter(color %in% c("E", "G", "I")) |>
+  mutate(color = forcats::fct_drop(color)) |> 
+  gg_col(
+    x = n,
+    y = color,
+    width = 0.75,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)", 
+  )
+
+p1 + p2
 ```
 
 ##### Different `oob` & `clip` defaults
