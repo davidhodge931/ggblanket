@@ -11,7 +11,7 @@ gg_blanket(
   stat = "identity",
   position = "identity",
   coord = NULL,
-  mode = grey_mode_rt(),
+  mode = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,

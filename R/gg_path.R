@@ -28,7 +28,7 @@ gg_path <- function(
     stat = "identity",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
-    mode = light_mode_rt(),
+    mode = NULL,
     x = NULL,
     xmin = NULL,
     xmax = NULL,

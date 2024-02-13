@@ -10,7 +10,7 @@ gg_density_2d_filled(
   stat = "density_2d_filled",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
-  mode = light_mode_rt(),
+  mode = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,

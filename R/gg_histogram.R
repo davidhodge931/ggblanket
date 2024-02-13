@@ -29,7 +29,7 @@ gg_histogram <- function(
     stat = "bin",
     position = "stack",
     coord = ggplot2::coord_cartesian(clip = "off"),
-    mode = light_mode_rt(),
+    mode = NULL,
     x = NULL,
     xmin = NULL,
     xmax = NULL,

@@ -108,7 +108,7 @@ gg_blanket <- function(
     stat = "identity",
     position = "identity",
     coord = NULL,
-    mode = grey_mode_rt(),
+    mode = NULL,
     x = NULL,
     xmin = NULL,
     xmax = NULL,
@@ -228,10 +228,17 @@ gg_blanket <- function(
   #identify if theme set
   ##############################################################################
 
-  if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
+  if (!rlang::is_null(mode)) {
     theme_set <- FALSE
-  } else {
-    theme_set <- TRUE
+  }
+  else {
+    if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
+      theme_set <- FALSE
+    }
+    else {
+      theme_set <- TRUE
+    }
+    mode <- grey_mode_rt()
   }
 
   ##############################################################################
