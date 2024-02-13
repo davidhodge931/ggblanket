@@ -122,7 +122,7 @@ visualisation</strong>.</p>
 <li>Unspecified titles converted to
 <code>snakecase::sentence_case</code>
 </li>
-<li>A <code>theme</code> argument designed for provided
+<li>A <code>mode</code> argument designed for provided
 <code>*_mode_*</code> themes</li>
 <li>Families of <code>*_mode_*</code> themes that differ by legend
 placement</li>
@@ -238,7 +238,7 @@ whether a <code>col</code> aesthetic is added or not.</p>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">species</span>, </span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
-<span>    col_pal <span class="op">=</span> <span class="st">"#112E51"</span>,</span>
+<span>    col_pal <span class="op">=</span> <span class="st">"#ff483a"</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -247,8 +247,8 @@ whether a <code>col</code> aesthetic is added or not.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">navy</span>, <span class="va">greys</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#ff483a"</span>, <span class="st">"#16607a"</span>, <span class="st">"#6d4420"</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
 </div>
@@ -306,12 +306,12 @@ turned off using <code>titles = \(x) x</code>.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="a-theme-argument-designed-for-provided-_mode_-themes">8. A <code>theme</code> argument designed for provided
-<code>*_mode_*</code> themes<a class="anchor" aria-label="anchor" href="#a-theme-argument-designed-for-provided-_mode_-themes"></a>
+<h3 id="a-mode-argument-designed-for-provided-_mode_-themes">8. A <code>mode</code> argument designed for provided
+<code>*_mode_*</code> themes<a class="anchor" aria-label="anchor" href="#a-mode-argument-designed-for-provided-_mode_-themes"></a>
 </h3>
-<p>A <code>theme</code> argument has been designed for use with the
+<p>A <code>mode</code> argument has been designed for use with the
 <code>*_mode_*</code> themes.</p>
-<p>When a theme is provided it, the <code>gg_*</code> function will:</p>
+<p>When a mode is provided it, the <code>gg_*</code> function will:</p>
 <ul>
 <li>determine whether the plot is <code>flipped</code> or not</li>
 <li>for <code>flipped = FALSE</code> graphs, remove vertical grid-lines,
@@ -320,13 +320,10 @@ and the y axis-line/ticks</li>
 grid-lines, and the x axis-line/ticks</li>
 </ul>
 <p>If you do <em>not</em> want the <code>gg_*</code> function to make
-any changes to your provided theme, you should instead <code>+</code>
-your theme on as a layer (e.g. <code>+ grey_mode_rt()</code>).</p>
-<p>The <code>theme</code> argument can also be accessed globally using
-using <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set()</a></code>.</p>
-<p>Note, if you would like to use a plain title, a convenient hack is to
-use the <code>subtitle</code> argument with a <code>"\n"</code> at the
-start of the character string.</p>
+any changes to your provided mode, you should instead <code>+</code> the
+mode on (e.g. <code>+ grey_mode_rt()</code>).</p>
+<p>So, other themes generally should be <code>+</code>-ed onto the
+plot.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  trt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -345,8 +342,8 @@ start of the character string.</p>
 <span>    width <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"\ntheme = grey_mode_n(),"</span></span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\nmode = grey_mode_n(),"</span></span>
 <span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
@@ -369,17 +366,19 @@ start of the character string.</p>
 <h3 id="families-of-_mode_-themes-that-differ-by-legend-placement">9. Families of <code>*_mode_*</code> themes that differ by legend
 placement<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-that-differ-by-legend-placement"></a>
 </h3>
-<p>Three theme families are provided: <code>grey_mode_*</code>,
+<p>Three mode families are provided: <code>grey_mode_*</code>,
 <code>light_mode_*</code> and <code>dark_mode_*</code>.</p>
-<p>Each theme family provides 5 variants that differ based on legend
-placement, which is represented by the suffix of the theme name of
+<p>Each mode family provides 5 variants that differ based on legend
+placement, which is represented by the suffix of the mode name of
 <code>rt</code> (right-top), <code>r</code> (right-centre),
 <code>b</code> (bottom), <code>t</code> (top) and <code>n</code>
 (none).</p>
 <p>The default is <code>grey_mode_rt</code>.</p>
-<p>These are designed for use with the <code>theme</code> argument.</p>
+<p>These are designed for use with the <code>mode</code> argument, and
+the automatic gridline/axis-line/ticks removal that comes with that
+argument.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># theme_set(grey_mode_t())</span></span>
+<code class="sourceCode R"><span><span class="co"># mode_set(grey_mode_t())</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
@@ -389,11 +388,11 @@ placement, which is represented by the suffix of the theme name of
 <span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
 <span>    col_title <span class="op">=</span> <span class="st">""</span>,</span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_t.html">grey_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_t.html">grey_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># theme_set(light_mode_t())</span></span>
+<code class="sourceCode R"><span><span class="co"># mode_set(light_mode_t())</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
@@ -402,11 +401,11 @@ placement, which is represented by the suffix of the theme name of
 <span>    title <span class="op">=</span> <span class="st">"Penguin flipper length by species"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_b.html">light_mode_b</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_b.html">light_mode_b</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># theme_set(dark_mode_t())</span></span>
+<code class="sourceCode R"><span><span class="co"># mode_set(dark_mode_t())</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
@@ -415,7 +414,7 @@ placement, which is represented by the suffix of the theme name of
 <span>    title <span class="op">=</span> <span class="st">"Penguin flipper length by species"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 </div>
@@ -461,7 +460,7 @@ transformation that is <em>not</em> <code>"identity"</code>,
 <span>    width <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"\nDefault y scale"</span></span>
 <span>  <span class="op">)</span> </span>
 <span></span>
@@ -475,7 +474,7 @@ transformation that is <em>not</em> <code>"identity"</code>,
 <span>    x_title <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
 <span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"\ny_limits = c(NA, NA),"</span></span>
 <span>  <span class="op">)</span> </span>
 <span></span>
@@ -489,7 +488,7 @@ transformation that is <em>not</em> <code>"identity"</code>,
 <span>    x_title <span class="op">=</span> <span class="st">"Treatment upper"</span>,</span>
 <span>    y_title <span class="op">=</span> <span class="st">"Response"</span>,</span>
 <span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"\ny_limits = c(0, NA),"</span></span>
 <span>  <span class="op">)</span> </span>
 <span></span>
