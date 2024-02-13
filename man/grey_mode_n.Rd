@@ -15,7 +15,7 @@ grey_mode_n(base_size = 11, base_family = "")
 A ggplot mode.
 }
 \description{
-Grey mode theme for a ggplot visualisation with no legend. It uses the colours \code{"#121b24"}, \code{"#fcfdfe"}, and \code{"#f6f8fa"}.
+Grey mode theme for a ggplot visualisation with no legend. It uses the colours \code{"#121B24"}, \code{"#FCFDFE"}, and \code{"#F6F8FA"}.
 }
 \examples{
 library(palmerpenguins)

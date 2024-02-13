@@ -1,6 +1,6 @@
 #' @title Grey mode theme with right top legend
 #'
-#' @description Grey mode theme for a ggplot visualisation with legend at right top. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
+#' @description Grey mode theme for a ggplot visualisation with legend at right top. It uses the colours `"#121B24"`, `"#FCFDFE"`, and `"#F6F8FA"`.
 #'
 #' @inheritParams mode_rt
 #'
@@ -32,7 +32,7 @@ grey_mode_rt <- function (
 
 #' @title Grey mode theme with right legend
 #'
-#' @description Grey mode theme for a ggplot visualisation with right legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
+#' @description Grey mode theme for a ggplot visualisation with right legend. It uses the colours `"#121B24"`, `"#FCFDFE"`, and `"#F6F8FA"`.
 #'
 #' @inheritParams mode_r
 #'
@@ -64,7 +64,7 @@ grey_mode_r <- function (
 
 #' @title Grey mode theme with bottom legend
 #'
-#' @description Grey mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
+#' @description Grey mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#121B24"`, `"#FCFDFE"`, and `"#F6F8FA"`.
 #'
 #' @inheritParams mode_b
 #'
@@ -96,7 +96,7 @@ grey_mode_b <- function (
 
 #' @title Grey mode theme with top legend
 #'
-#' @description Grey mode theme for a ggplot visualisation with top legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
+#' @description Grey mode theme for a ggplot visualisation with top legend. It uses the colours `"#121B24"`, `"#FCFDFE"`, and `"#F6F8FA"`.
 #'
 #' @inheritParams mode_t
 #'
@@ -128,7 +128,7 @@ grey_mode_t <- function (
 
 #' @title Grey mode theme with no legend
 #'
-#' @description Grey mode theme for a ggplot visualisation with no legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
+#' @description Grey mode theme for a ggplot visualisation with no legend. It uses the colours `"#121B24"`, `"#FCFDFE"`, and `"#F6F8FA"`.
 #'
 #' @inheritParams mode_n
 #'

@@ -1,6 +1,6 @@
 #' @title Light mode theme with right top legend
 #'
-#' @description Light mode theme for a ggplot visualisation with legend at right top. It uses the colours `"#121b24"`, `"#ffffff"`, and `"#f6f8fa"`.
+#' @description Light mode theme for a ggplot visualisation with legend at right top. It uses the colours `"#121B24"`, `"#FFFFFF"`, and `"#F6F8FA"`.
 #'
 #' @inheritParams mode_rt
 #'
@@ -32,7 +32,7 @@ light_mode_rt <- function (
 
 #' @title Light mode theme with right legend
 #'
-#' @description Light mode theme for a ggplot visualisation with right legend. It uses the colours `"#121b24"`, `"#ffffff"`, and `"#f6f8fa"`.
+#' @description Light mode theme for a ggplot visualisation with right legend. It uses the colours `"#121B24"`, `"#FFFFFF"`, and `"#F6F8FA"`.
 #'
 #' @inheritParams mode_r
 #'
@@ -64,7 +64,7 @@ light_mode_r <- function (
 
 #' @title Light mode theme with bottom legend
 #'
-#' @description Light mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#121b24"`, `"#ffffff"`, and `"#f6f8fa"`.
+#' @description Light mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#121B24"`, `"#FFFFFF"`, and `"#F6F8FA"`.
 #'
 #' @inheritParams mode_b
 #'
@@ -96,7 +96,7 @@ light_mode_b <- function (
 
 #' @title Light mode theme with top legend
 #'
-#' @description Light mode theme for a ggplot visualisation with top legend. It uses the colours `"#121b24"`, `"#ffffff"`, and `"#f6f8fa"`.
+#' @description Light mode theme for a ggplot visualisation with top legend. It uses the colours `"#121B24"`, `"#FFFFFF"`, and `"#F6F8FA"`.
 #'
 #' @inheritParams mode_t
 #'
@@ -128,7 +128,7 @@ light_mode_t <- function (
 
 #' @title Light mode theme with no legend
 #'
-#' @description Light mode theme for a ggplot visualisation with no legend. It uses the colours `"#121b24"`, `"#ffffff"`, and `"#f6f8fa"`.
+#' @description Light mode theme for a ggplot visualisation with no legend. It uses the colours `"#121B24"`, `"#FFFFFF"`, and `"#F6F8FA"`.
 #'
 #' @inheritParams mode_n
 #'

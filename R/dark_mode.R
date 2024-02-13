@@ -1,6 +1,6 @@
 #' @title Dark mode theme with right top legend
 #'
-#' @description Dark mode theme for a ggplot visualisation with legend at right top. It uses the colours `"#c8d7df"`, `"#010a1a"`, and `"#00040a"`.
+#' @description Dark mode theme for a ggplot visualisation with legend at right top. It uses the colours `"#C8D7DF"`, `"#050D1B"`, and `"#00040A"`.
 #'
 #' @inheritParams mode_rt
 #'
@@ -32,7 +32,7 @@ dark_mode_rt <- function (
 
 #' @title Dark mode theme with right legend
 #'
-#' @description Dark mode theme for a ggplot visualisation with right legend. It uses the colours `"#c8d7df"`, `"#010a1a"`, and `"#00040a"`.
+#' @description Dark mode theme for a ggplot visualisation with right legend. It uses the colours `"#C8D7DF"`, `"#050D1B"`, and `"#00040A"`.
 #'
 #' @inheritParams mode_r
 #'
@@ -64,7 +64,7 @@ dark_mode_r <- function (
 
 #' @title Dark mode theme with bottom legend
 #'
-#' @description Dark mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#c8d7df"`, `"#010a1a"`, and `"#00040a"`.
+#' @description Dark mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#C8D7DF"`, `"#050D1B"`, and `"#00040A"`.
 #'
 #' @inheritParams mode_b
 #'
@@ -96,7 +96,7 @@ dark_mode_b <- function (
 
 #' @title Dark mode theme with top legend
 #'
-#' @description Dark mode theme for a ggplot visualisation with top legend. It uses the colours `"#c8d7df"`, `"#010a1a"`, and `"#00040a"`.
+#' @description Dark mode theme for a ggplot visualisation with top legend. It uses the colours `"#C8D7DF"`, `"#050D1B"`, and `"#00040A"`.
 #'
 #' @inheritParams mode_t
 #'
@@ -128,7 +128,7 @@ dark_mode_t <- function (
 
 #' @title Dark mode theme with no legend
 #'
-#' @description Dark mode theme for a ggplot visualisation with no legend. It uses the colours `"#c8d7df"`, `"#010a1a"`, and `"#00040a"`.
+#' @description Dark mode theme for a ggplot visualisation with no legend. It uses the colours `"#C8D7DF"`, `"#050D1B"`, and `"#00040A"`.
 #'
 #' @inheritParams mode_n
 #'

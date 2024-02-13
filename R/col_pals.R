@@ -56,11 +56,11 @@ greys <- c("#E8EFF2", "#C8D7DF", "#A7C0CD", "#78909C", "#4B636E", "#364850", "#2
 #'
 #' @noRd
 greyness <- c(
-  "text" = "#121b24",
-  "axis_line" = "#121b24",
-  "panel_background" = "#fcfdfe",
-  "plot_background" = "#f6f8fa",
-  "panel_grid" = "#f6f8fa"
+  "text" = "#121B24",
+  "axis_line" = "#121B24",
+  "panel_background" = "#fCFDFE",
+  "plot_background" = "#F6F8FA",
+  "panel_grid" = "#F6F8FA"
 )
 
 #' The `light_mode_*` mode colours
@@ -69,11 +69,11 @@ greyness <- c(
 #'
 #' @noRd
 lightness <- c(
-  "text" = "#121b24",
-  "axis_line" = "#121b24",
-  "panel_background" = "#ffffff",
-  "plot_background" = "#ffffff",
-  "panel_grid" = "#f6f8fa"
+  "text" = "#121B24",
+  "axis_line" = "#121B24",
+  "panel_background" = "#FFFFFF",
+  "plot_background" = "#FFFFFF",
+  "panel_grid" = "#F6F8FA"
 )
 
 #' The `dark_mode_*` mode colours
@@ -84,11 +84,7 @@ lightness <- c(
 darkness <- c(
   "text" = "#C8D7DF",
   "axis_line" = "#C8D7DF",
-  "panel_background" = "#010A1A",
-
+  "panel_background" = "#050D1B",
   "plot_background" = "#00040a",
   "panel_grid" = "#00040a"
-
-  # "plot_background" = "#00050f",
-  # "panel_grid" = "#00050f"
 )
