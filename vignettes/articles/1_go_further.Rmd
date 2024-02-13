@@ -44,7 +44,7 @@ You can set the theme globally using `mode_set` or `ggplot2::theme_set`.
 
 Use `mode_set` (e.g. `mode_set(dark_mode_rt())`) to specify the default theme to occur in the `mode` argument when it is `NULL` using the set mode. The `mode` argument adds the theme, but removes selected gridline/axis-line/ticks. You can unset this using `mode_set(grey_mode_rt())`. 
 
-Alternatively, use `ggplot2::theme_set` to set a complete theme globally with no side-effects. This will result in the set theme `+`-ed on as the final layer to the `gg_*` output. You can unset this using `ggplot2::theme_set(theme_grey())`. 
+Alternatively, use `ggplot2::theme_set` to set a complete theme globally with no side-effects. This will result in the set theme `+`-ed on as the final layer to the `gg_*` output. You can unset this using `theme_set(theme_grey())`. 
 
 ### 2. Use different fonts
 

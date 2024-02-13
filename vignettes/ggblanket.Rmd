@@ -43,13 +43,12 @@ Secondary objectives relate to:
 7.  Unspecified titles converted to `snakecase::sentence_case`
 8.  A `mode` argument designed for provided `*_mode_*` themes
 9.  Families of `*_mode_*` themes that differ by legend placement 
-10. Ability to set the mode globally
-11.  A symmetrical continuous scale with easy opt-out
-12. Access to other `geom_*` arguments via `...`
-13. Turn-off either coloured outlines or interiors
-14. Ability to add multiple `geom_*` layers
-15. Other key differences to ggplot2
-16. A `gg_blanket()` function with `geom` flexibility
+10.  A symmetrical continuous scale with easy opt-out
+11. Access to other `geom_*` arguments via `...`
+12. Turn-off either coloured outlines or interiors
+13. Ability to add multiple `geom_*` layers
+14. Other key differences to ggplot2
+15. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
 library(ggblanket)
@@ -219,6 +218,8 @@ When a mode is provided it, the `gg_*` function will:
 * for `flipped = TRUE` graphs, remove horizontal grid-lines, and the x axis-line/ticks 
 
 To avoid these side-effects, `+` your theme on as a layer.
+
+`mode_set` sets the theme globally with these side-effects - and `ggplot2::theme_set` sets it globally without these side-effects. Use `mode_set(light_mode_rt())` or `theme_set(theme_grey())` to unset.
 
 ```{r}
 d <- data.frame(
