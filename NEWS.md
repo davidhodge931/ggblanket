@@ -22,6 +22,7 @@
 * Added new helper hex codes `blue`, `teal`, `orange`, `navy`, `plum`, and `greys` 
 * Updated the default discrete palette.
 * Breaking: shift `...` to the front to require users to name arguments.
+* Breaking: renamed `theme` argument to `mode`.
 * Breaking: renamed `pal` to `col_pal`.
 * Breaking: renamed `pal_na` to `col_pal_na`.
 * Breaking: renamed `alpha` to `alpha_pal`.
