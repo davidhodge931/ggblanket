@@ -228,17 +228,15 @@ gg_blanket <- function(
   #identify if theme set
   ##############################################################################
 
-  if (!rlang::is_null(mode)) {
+  if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
     theme_set <- FALSE
   }
   else {
-    if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
-      theme_set <- FALSE
-    }
-    else {
-      theme_set <- TRUE
-    }
-    mode <- grey_mode_rt()
+    theme_set <- TRUE
+  }
+
+  if (rlang::is_null(mode)) {
+    mode <- mode_get()
   }
 
   ##############################################################################
