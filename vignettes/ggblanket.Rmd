@@ -43,12 +43,13 @@ Secondary objectives relate to:
 7.  Unspecified titles converted to `snakecase::sentence_case`
 8.  A `mode` argument designed for provided `*_mode_*` themes
 9.  Families of `*_mode_*` themes that differ by legend placement 
-10.  A symmetrical continuous scale with easy opt-out
-11. Access to other `geom_*` arguments via `...`
-12. Turn-off either coloured outlines or interiors
-13. Ability to add multiple `geom_*` layers
-14. Other key differences to ggplot2
-15. A `gg_blanket()` function with `geom` flexibility
+10. Ability to set the mode globally
+11.  A symmetrical continuous scale with easy opt-out
+12. Access to other `geom_*` arguments via `...`
+13. Turn-off either coloured outlines or interiors
+14. Ability to add multiple `geom_*` layers
+15. Other key differences to ggplot2
+16. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
 library(ggblanket)
@@ -217,9 +218,7 @@ When a mode is provided it, the `gg_*` function will:
 * for `flipped = FALSE` graphs, remove vertical grid-lines, and the y axis-line/ticks 
 * for `flipped = TRUE` graphs, remove horizontal grid-lines, and the x axis-line/ticks 
 
-If you do _not_ want the `gg_*` function to make any changes to your provided mode, you should instead `+` the mode on  (e.g. `+ grey_mode_rt()`). 
-
-So, other themes generally should be `+`-ed onto the plot. 
+To avoid these side-effects, `+` your theme on as a layer.
 
 ```{r}
 d <- data.frame(
@@ -261,13 +260,13 @@ p1 + p2
 
 ### 9.  Families of `*_mode_*` themes that differ by legend placement 
 
-Three mode families are provided: `grey_mode_*`, `light_mode_*` and `dark_mode_*`.
+Three theme families are provided: `grey_mode_*`, `light_mode_*` and `dark_mode_*`.
 
-Each mode family provides 5 variants that differ based on legend placement, which is represented by the suffix of the mode name of `rt`  (right-top), `r` (right-centre), `b` (bottom), `t` (top) and `n` (none). 
+Each theme family provides 5 variants that differ based on legend placement, which is represented by the suffix of the mode name of `rt`  (right-top), `r` (right-centre), `b` (bottom), `t` (top) and `n` (none). 
 
 The default is `grey_mode_rt`.
 
-These are designed for use with the `mode` argument, and the automatic gridline/axis-line/ticks removal that comes with that argument.
+These are designed for use with the `mode` argument.
 
 ```{r, fig.asp=0.7}
 # mode_set(grey_mode_t())
@@ -312,7 +311,7 @@ penguins |>
   ) 
 ```
 
-### 9. A symmetrical continuous scale with easy opt-out
+### 10. A symmetrical continuous scale with easy opt-out
 
 For `flipped = FALSE` graphs, the `gg_*` function will create a symmetric continuous y scale by default with: 
 
@@ -380,7 +379,7 @@ p3 <- d |>
 p1 + p2 + p3
 ```
 
-### 10. Access to other `geom_*` arguments via `...`
+### 11. Access to other `geom_*` arguments via `...`
 
 The `...` argument provides access to all other arguments in the `geom_*()` function. 
 
@@ -397,7 +396,7 @@ penguins |>
   ) 
 ```
 
-### 11. Turn-off either coloured outlines or filled interiors
+### 12. Turn-off either coloured outlines or filled interiors
 
 For geom's that have both coloured outlines and interiors, these are both coloured by default.
 
@@ -428,7 +427,7 @@ penguins |>
   )
 ```
 
-### 12. Ability to add multiple `geom_*` layers
+### 13. Ability to add multiple `geom_*` layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
 
@@ -489,7 +488,7 @@ penguins |>
   ) 
 ```
 
-### 13. Other ggplot2 key differences 
+### 14. Other ggplot2 key differences 
 
 ##### Unquoted variables only
 
@@ -578,7 +577,7 @@ This needs to be considered particularly when you are using `x_limits` or `y_lim
 * Infinite values are treated as `NA`
 * `facet_axes` and `facet_axis_labels` have different defaults.
 
-### 14. A `gg_blanket` function with `geom` flexibility
+### 15. A `gg_blanket` function with `geom` flexibility
 
 ggblanket is driven by the `gg_blanket` function, which has a `geom` argument with `geom_blank` defaults.
 
