@@ -109,6 +109,7 @@ to:</p>
 <li>Fix either the colour outline or interior fill to a constant
 colour</li>
 <li>Use non-supported aesthetics</li>
+<li>Ability to set the mode globally</li>
 <li>Use delayed evaluation</li>
 <li>Add contrasting dark or light text on polygons</li>
 </ol>
@@ -274,7 +275,23 @@ provides access to the <code>size</code>, <code>shape</code>,
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="use-delayed-evaluation">6. Use delayed evaluation<a class="anchor" aria-label="anchor" href="#use-delayed-evaluation"></a>
+<h3 id="ability-to-set-the-mode-globally">6. Ability to set the mode globally<a class="anchor" aria-label="anchor" href="#ability-to-set-the-mode-globally"></a>
+</h3>
+<p>You can set the mode globally using <code>mode_set</code>
+(e.g. <code>mode_set(dark_mode_rt())</code>). This will result in plots
+where the <code>mode</code> argument is <code>NULL</code> using the set
+mode. You can unset it using <code>mode_set(grey_mode_rt())</code>.</p>
+<p>You can also set a <code>theme</code> globally that does not have
+side-effects within the <code>gg_*</code> function using
+<code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set()</a></code>. This will in effect result in the set
+theme <code>+</code>-ed on as a layer to every plot. You can unset this
+using <code>ggplot2::theme_set(theme_grey())</code>. Note if you want to
+set the theme to actually apply <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">ggplot2::theme_grey()</a></code>, then
+you need to modify the base_size slightly (e.g
+<code>ggplot2::theme_set(theme_grey(11.01))</code>).</p>
+</div>
+<div class="section level3">
+<h3 id="use-delayed-evaluation">7. Use delayed evaluation<a class="anchor" aria-label="anchor" href="#use-delayed-evaluation"></a>
 </h3>
 <p>As the <code>x</code>, <code>y</code>, <code>col</code> and
 <code>alpha</code> aesthetic arguments require a unquoted variable, you
@@ -301,7 +318,7 @@ with the <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" c
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="add-contrasting-dark-or-light-text-on-polygons">7. Add contrasting dark or light text on polygons<a class="anchor" aria-label="anchor" href="#add-contrasting-dark-or-light-text-on-polygons"></a>
+<h3 id="add-contrasting-dark-or-light-text-on-polygons">8. Add contrasting dark or light text on polygons<a class="anchor" aria-label="anchor" href="#add-contrasting-dark-or-light-text-on-polygons"></a>
 </h3>
 <p>Text on polygons can be coloured with a dark or light colour that is
 determined based on the underlying polygon colour using

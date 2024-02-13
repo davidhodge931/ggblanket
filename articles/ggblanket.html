@@ -126,6 +126,7 @@ visualisation</strong>.</p>
 <code>*_mode_*</code> themes</li>
 <li>Families of <code>*_mode_*</code> themes that differ by legend
 placement</li>
+<li>Ability to set the mode globally</li>
 <li>A symmetrical continuous scale with easy opt-out</li>
 <li>Access to other <code>geom_*</code> arguments via
 <code>...</code>
@@ -319,11 +320,8 @@ and the y axis-line/ticks</li>
 <li>for <code>flipped = TRUE</code> graphs, remove horizontal
 grid-lines, and the x axis-line/ticks</li>
 </ul>
-<p>If you do <em>not</em> want the <code>gg_*</code> function to make
-any changes to your provided mode, you should instead <code>+</code> the
-mode on (e.g. <code>+ grey_mode_rt()</code>).</p>
-<p>So, other themes generally should be <code>+</code>-ed onto the
-plot.</p>
+<p>To avoid these side-effects, <code>+</code> your theme on as a
+layer.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  trt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -366,17 +364,15 @@ plot.</p>
 <h3 id="families-of-_mode_-themes-that-differ-by-legend-placement">9. Families of <code>*_mode_*</code> themes that differ by legend
 placement<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-that-differ-by-legend-placement"></a>
 </h3>
-<p>Three mode families are provided: <code>grey_mode_*</code>,
+<p>Three theme families are provided: <code>grey_mode_*</code>,
 <code>light_mode_*</code> and <code>dark_mode_*</code>.</p>
-<p>Each mode family provides 5 variants that differ based on legend
+<p>Each theme family provides 5 variants that differ based on legend
 placement, which is represented by the suffix of the mode name of
 <code>rt</code> (right-top), <code>r</code> (right-centre),
 <code>b</code> (bottom), <code>t</code> (top) and <code>n</code>
 (none).</p>
 <p>The default is <code>grey_mode_rt</code>.</p>
-<p>These are designed for use with the <code>mode</code> argument, and
-the automatic gridline/axis-line/ticks removal that comes with that
-argument.</p>
+<p>These are designed for use with the <code>mode</code> argument.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># mode_set(grey_mode_t())</span></span>
 <span></span>
@@ -419,7 +415,7 @@ argument.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="a-symmetrical-continuous-scale-with-easy-opt-out">9. A symmetrical continuous scale with easy opt-out<a class="anchor" aria-label="anchor" href="#a-symmetrical-continuous-scale-with-easy-opt-out"></a>
+<h3 id="a-symmetrical-continuous-scale-with-easy-opt-out">10. A symmetrical continuous scale with easy opt-out<a class="anchor" aria-label="anchor" href="#a-symmetrical-continuous-scale-with-easy-opt-out"></a>
 </h3>
 <p>For <code>flipped = FALSE</code> graphs, the <code>gg_*</code>
 function will create a symmetric continuous y scale by default with:</p>
@@ -496,7 +492,7 @@ transformation that is <em>not</em> <code>"identity"</code>,
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="access-to-other-geom_-arguments-via----">10. Access to other <code>geom_*</code> arguments via
+<h3 id="access-to-other-geom_-arguments-via----">11. Access to other <code>geom_*</code> arguments via
 <code>...</code><a class="anchor" aria-label="anchor" href="#access-to-other-geom_-arguments-via----"></a>
 </h3>
 <p>The <code>...</code> argument provides access to all other arguments
@@ -515,7 +511,7 @@ in the <code>geom_*()</code> function.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="turn-off-either-coloured-outlines-or-filled-interiors">11. Turn-off either coloured outlines or filled interiors<a class="anchor" aria-label="anchor" href="#turn-off-either-coloured-outlines-or-filled-interiors"></a>
+<h3 id="turn-off-either-coloured-outlines-or-filled-interiors">12. Turn-off either coloured outlines or filled interiors<a class="anchor" aria-label="anchor" href="#turn-off-either-coloured-outlines-or-filled-interiors"></a>
 </h3>
 <p>For geom’s that have both coloured outlines and interiors, these are
 both coloured by default.</p>
@@ -548,7 +544,7 @@ is to use <code>fill = NA</code>/<code>colour = NA</code>.]</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="ability-to-add-multiple-geom_-layers">12. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
+<h3 id="ability-to-add-multiple-geom_-layers">13. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
 </h3>
 <p>Users can make plots with multiple layers with ggblanket by adding on
 <code>ggplot2::geom_*</code> layers.</p>
@@ -616,7 +612,7 @@ geom).</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="other-ggplot2-key-differences">13. Other ggplot2 key differences<a class="anchor" aria-label="anchor" href="#other-ggplot2-key-differences"></a>
+<h3 id="other-ggplot2-key-differences">14. Other ggplot2 key differences<a class="anchor" aria-label="anchor" href="#other-ggplot2-key-differences"></a>
 </h3>
 <div class="section level5">
 <h5 id="unquoted-variables-only">Unquoted variables only<a class="anchor" aria-label="anchor" href="#unquoted-variables-only"></a>
@@ -742,7 +738,7 @@ different defaults.</li>
 </div>
 </div>
 <div class="section level3">
-<h3 id="a-gg_blanket-function-with-geom-flexibility">14. A <code>gg_blanket</code> function with <code>geom</code>
+<h3 id="a-gg_blanket-function-with-geom-flexibility">15. A <code>gg_blanket</code> function with <code>geom</code>
 flexibility<a class="anchor" aria-label="anchor" href="#a-gg_blanket-function-with-geom-flexibility"></a>
 </h3>
 <p>ggblanket is driven by the <code>gg_blanket</code> function, which
