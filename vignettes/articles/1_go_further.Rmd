@@ -26,8 +26,7 @@ This article will demonstrate more advanced content, including how to:
 4. Fix either the colour outline or interior fill to a constant colour
 5. Use non-supported aesthetics
 6. Use delayed evaluation
-7. Add a legend from layers each set to a single value 
-8. Add contrasting dark or light text on polygons
+7. Add contrasting dark or light text on polygons
 
 ```{r setup}
 library(ggblanket)
@@ -203,24 +202,7 @@ faithfuld |>
   )
 ```
 
-### 7. Add a legend from layers each set to a single value 
-
-To add a legend from layers each set to a single value, you can likewise use the `mapping` argument.
-
-```{r}
-mpg |>
-  gg_point(
-    x = displ,
-    y = hwy,
-    mapping = aes(colour = "Observation"),
-    col_pal = c(navy, teal),
-    col_title = "",
-  ) +
-  geom_smooth(mapping = aes(colour = "Model"), se = FALSE) +
-  guides(colour = guide_legend(reverse = TRUE))
-```
-
-### 8. Add contrasting dark or light text on polygons
+### 7. Add contrasting dark or light text on polygons
 
 Text on polygons can be coloured with a dark or light colour that is determined based on the underlying polygon colour using `!!!aes_contrast()`. This method was developed by Teun van den Brand (@teunbrand).
 
