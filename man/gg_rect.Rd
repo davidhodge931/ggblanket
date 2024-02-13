@@ -104,7 +104,7 @@ gg_rect(
 
 \item{coord}{A coordinate system. A \verb{coord_*()} function that outputs a constructed ggproto Coord subclass object (e.g. \code{\link[ggplot2:coord_cartesian]{ggplot2::coord_cartesian()}}).}
 
-\item{mode}{A \verb{*_mode_*} theme (e.g. \code{\link[=grey_mode_b]{grey_mode_b()}}, \code{\link[=grey_mode_rt]{grey_mode_rt()}}, or \code{\link[=dark_mode_rt]{dark_mode_rt()}}). This argument automatically removes gridlines/axis-line/ticks. To avoid these side-effects, \code{+} your theme on as a layer.}
+\item{mode}{A \verb{*_mode_*} theme (e.g. \code{\link[=grey_mode_b]{grey_mode_b()}}, \code{\link[=grey_mode_rt]{grey_mode_rt()}}, or \code{\link[=dark_mode_rt]{dark_mode_rt()}}). This argument adds the theme, but removes selected gridline/axis-line/ticks. To avoid these side-effects, \code{+} your theme on as a layer.}
 
 \item{x}{Unquoted \code{x} aesthetic variable.}
 

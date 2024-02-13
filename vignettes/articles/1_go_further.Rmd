@@ -20,12 +20,12 @@ knitr::opts_chunk$set(
 
 This article will demonstrate more advanced content, including how to: 
 
-1. Use different fonts
-2. Visualise spatial data
-3. Change the `stat`
-4. Fix either the colour outline or interior fill to a constant colour
-5. Use non-supported aesthetics
-6. Ability to set the mode globally
+1. Set the theme globally
+2. Use different fonts
+3. Visualise spatial data
+4. Change the `stat`
+5. Fix either the colour outline or interior fill to a constant colour
+6. Use non-supported aesthetics
 7. Use delayed evaluation
 8. Add contrasting dark or light text on polygons
 
@@ -38,7 +38,15 @@ library(tidyr)
 library(palmerpenguins)
 ```
 
-### 1. Use different fonts
+### 1. Set the theme globally
+
+You can set the theme globally using `mode_set` or `ggplot2::theme_set`.
+
+Use `mode_set` (e.g. `mode_set(dark_mode_rt())`) to specify the default theme to occur in the `mode` argument when it is `NULL` using the set mode. The `mode` argument adds the theme, but removes selected gridline/axis-line/ticks. You can unset this using `mode_set(grey_mode_rt())`. 
+
+Alternatively, use `ggplot2::theme_set` to set a complete theme globally with no side-effects. This will result in the set theme `+`-ed on as the final layer to the `gg_*` output. You can unset this using `ggplot2::theme_set(theme_grey())`. 
+
+### 2. Use different fonts
 
 The showtext and sysfonts packages support the use of different fonts from Google. The `*_mode_*` theme functions provide a `base_family` argument.
 
@@ -71,7 +79,7 @@ penguins |>
 showtext::showtext_auto(enable = FALSE)
 ```
 
-### 2. Visualise spatial data
+### 3. Visualise spatial data
 
 As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, spatial vector and array data can be visualised. 
 
@@ -94,7 +102,7 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
   ggeasy::easy_remove_axes() 
 ```
 
-### 3. Change the `stat`
+### 4. Change the `stat`
 
 The default `stat` of each `gg_*` function can be changed. 
 
@@ -131,7 +139,7 @@ ggplot2::economics |>
   ) 
 ```
 
-### 4. Fix either the colour outline or interior fill to a constant colour
+### 5. Fix either the colour outline or interior fill to a constant colour
 
 For geom's that have both outline colour and interior fill, it is possible to fix one of these to a constant colour.
 
@@ -164,7 +172,7 @@ penguins |>
   ) 
 ```
 
-### 5. Use non-supported aesthetics 
+### 6. Use non-supported aesthetics 
 
 Most functions have the commonly needed aesthetics directly available as an argument. For those that are not available, you can either use `mapping` argument. The `mapping` argument provides access to the `size`, `shape`, `linetype` and `linewidth` aesthetics within the `gg_*` function. 
 
@@ -178,12 +186,6 @@ penguins |>
   ) +
   labs(shape = "Species")
 ```
-
-### 6. Ability to set the mode globally
-
-You can set the mode globally using `mode_set` (e.g. `mode_set(dark_mode_rt())`). This will result in plots where the `mode` argument is `NULL` using the set mode. You can unset it using `mode_set(grey_mode_rt())`.
-
-You can also set a `theme` globally that does not have side-effects within the `gg_*` function using `ggplot2::theme_set()`. This will in effect result in the set theme `+`-ed on as a layer to every plot. You can unset this using `ggplot2::theme_set(theme_grey())`. Note if you want to set the theme to actually apply `ggplot2::theme_grey()`, then you need to modify the base_size slightly (e.g `ggplot2::theme_set(theme_grey(11.01))`). 
 
 ### 7. Use delayed evaluation
 

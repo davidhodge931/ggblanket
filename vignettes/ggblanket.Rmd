@@ -266,7 +266,7 @@ Each theme family provides 5 variants that differ based on legend placement, whi
 
 The default is `grey_mode_rt`.
 
-These are designed for use with the `mode` argument.
+These are intended for use with the `mode` argument.
 
 ```{r, fig.asp=0.7}
 # mode_set(grey_mode_t())
