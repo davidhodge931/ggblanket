@@ -26,8 +26,6 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(palmerpenguins)
-
-theme_set(light_mode_rt())
 ```
 
 ### gg_area
@@ -37,7 +35,8 @@ economics |>
   gg_area(
     x = date,
     y = unemploy,
-    y_title = "Unemployment", 
+    y_title = "Unemployment",
+    mode = light_mode_rt(),
   )
 ```
 
@@ -51,6 +50,7 @@ penguins |>
     col = sex,
     position = position_dodge(preserve = "single"),
     width = 0.75,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -61,6 +61,7 @@ diamonds |>
   gg_bin_2d(
     x = carat,
     y = price,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -92,6 +93,7 @@ penguins |>
     col = sex,
     position = position_dodge(preserve = "single"),
     width = 0.75,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -103,6 +105,7 @@ faithfuld |>
    x = waiting,
    y = eruptions,
    z = density,
+   mode = light_mode_rt(),
    )
 ```
 
@@ -115,6 +118,7 @@ faithfuld |>
    y = eruptions,
    z = density,
    bins = 8,
+   mode = light_mode_rt(),
   )
 ```
 
@@ -136,6 +140,7 @@ data.frame(
     width = 0.5,
     x_title = "Treatment",
     y_title = "Response",
+    mode = light_mode_rt(),
   )
 ```
 
@@ -160,6 +165,7 @@ faithful |>
     x = waiting,
     y = eruptions,
     bins = 8,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -171,6 +177,7 @@ faithful |>
     x = waiting,
     y = eruptions,
     bins = 8,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -192,7 +199,8 @@ data.frame(
     width = 0.1,
     x_title = "Treatment",
     y_title = "Response",
-  )
+    mode = light_mode_rt(),
+ )
 ```
 
 ### gg_freqpoly
@@ -215,6 +223,7 @@ gg_function(
   fun = \(x) dnorm(x, mean = 0, sd = 5),
   x_limits = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
   y_expand_limits = 0,
+  mode = light_mode_rt(),
 )
 ```
 
@@ -227,6 +236,7 @@ diamonds |>
     y = price,
     coord = coord_cartesian(clip = "on"), 
     y_limits = c(0, 20000),
+    mode = light_mode_rt(),
   )
 ```
 
@@ -258,6 +268,7 @@ penguins |>
     y_expand_limits = 0,
     col_continuous = "steps",
     col_labels = \(x) replace_seq(x),
+    mode = light_mode_rt(),
   )
 ```
 
@@ -277,6 +288,7 @@ bind_rows(
     y_expand_limits = 0,
     y_title = "Miles per gallon", 
     col_pal = c(orange, "white", teal),
+    mode = light_mode_rt(),
   )
 ```
 
@@ -289,6 +301,7 @@ economics |>
     y = unemploy,
     y_expand_limits = 0, 
     y_title = "Unemployment",
+    mode = light_mode_rt(),
   )
 ```
 
@@ -309,6 +322,7 @@ data.frame(
     position = position_dodge(width = 0.2),
     x_title = "Treatment",
     y_title = "Response",
+    mode = light_mode_rt(),
   )
 ```
 
@@ -323,6 +337,7 @@ economics |>
     x_title = "Unemployment rate",
     y_expand_limits = 0,
     y_title = "Personal savings rate",
+    mode = light_mode_rt(),
   )
 ```
 
@@ -334,6 +349,7 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g, 
     col = species,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -356,6 +372,7 @@ data.frame(
     size = 0.2,
     x_title = "Treatment",
     y_title = "Response",
+    mode = light_mode_rt(),
   )
 ```
 
@@ -385,6 +402,7 @@ datapoly |>
     y = y,
     col = value,
     group = id, 
+    mode = light_mode_rt(),
   )
 ```
 
@@ -396,6 +414,7 @@ penguins |>
     sample = body_mass_g,
     facet = species,
     coord = coord_cartesian(clip = "on"), 
+    mode = light_mode_rt(),
   ) +
   geom_qq_line(
     colour = blue, 
@@ -409,6 +428,7 @@ penguins |>
   gg_quantile(
     x = flipper_length_mm,
     y = body_mass_g,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -420,6 +440,7 @@ faithfuld |>
     x = waiting,
     y = eruptions,
     col = density,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -443,6 +464,7 @@ data.frame(
     ymin = ymin,
     ymax = ymax,
     col = z,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -457,7 +479,8 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     ymax = level_max,
     y_title = "Level",
     col_pal = scales::alpha(blue, 0),
-  ) +
+    mode = light_mode_rt(),
+ ) +
   geom_line(
     mapping = aes(x = year, y = level), 
     colour = blue
@@ -473,6 +496,7 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -485,6 +509,7 @@ data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
     xend = x2,
     y = y1,
     yend = y2,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -494,6 +519,7 @@ data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
 sf::st_read(system.file("shape/nc.shp", package = "sf")) |> 
   gg_sf(
     col = AREA, 
+    mode = light_mode_rt(),
   )
 ```
 
@@ -508,6 +534,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
     se = TRUE,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -522,6 +549,7 @@ economics |>
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_), 
     y_expand_limits = 0,
     y_title = "Unemployment",
+    mode = light_mode_rt(),
   )
 ```
 
@@ -541,6 +569,7 @@ bind_rows(
     y_expand_limits = 0,
     y_title = "Miles per gallon",
     col_pal = c(orange, "white", teal),
+    mode = light_mode_rt(),
   )
 ```
 
@@ -555,6 +584,7 @@ penguins |>
     x = sex,
     y = species,
     col = flipper_length_mm,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -568,6 +598,7 @@ penguins |>
     x = sex,
     y = body_mass_g,
     col = species,
+    mode = light_mode_rt(),
   )
 ```
 
@@ -584,6 +615,7 @@ penguins |>
     x = sex,
     y = body_mass_g,
     col = species,
+    mode = light_mode_rt(),
   )
 ```
 
