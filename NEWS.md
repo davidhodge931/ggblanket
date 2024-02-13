@@ -9,10 +9,12 @@
 * Added `transform` support for a transform class object (or character string).
 * Added `facet_axes` and `facet_axis_labels` arguments.
 * Added `facet_labels_position` argument.
-* Added  family of functions. 
 * Added `gg_quantile`, `gg_rug`, and `gg_function` functions.
 * Added `col_continuous_type` argument to support colouring by "steps". 
 * Added `flipped` argument.
+* Added `flipped` argument.
+* Added `mode_set` argument.
+* Breaking: made `theme_set` set the theme globally with no side-effects.
 * Breaking: Added `light_mode_*`, `dark_mode_*` and `grey_mode_*` family of functions.
 * Updated `gg_*` functions to pretty removal of a axis line and ticks.
 * Changed default theme to place the legend on the top right.
