@@ -102,6 +102,7 @@ Hodge</h4>
 <p>This article will demonstrate more advanced content, including how
 to:</p>
 <ol style="list-style-type: decimal">
+<li>Set the theme globally</li>
 <li>Use different fonts</li>
 <li>Visualise spatial data</li>
 <li>Change the <code>stat</code>
@@ -109,7 +110,6 @@ to:</p>
 <li>Fix either the colour outline or interior fill to a constant
 colour</li>
 <li>Use non-supported aesthetics</li>
-<li>Ability to set the mode globally</li>
 <li>Use delayed evaluation</li>
 <li>Add contrasting dark or light text on polygons</li>
 </ol>
@@ -121,7 +121,24 @@ colour</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">palmerpenguins</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
-<h3 id="use-different-fonts">1. Use different fonts<a class="anchor" aria-label="anchor" href="#use-different-fonts"></a>
+<h3 id="set-the-theme-globally">1. Set the theme globally<a class="anchor" aria-label="anchor" href="#set-the-theme-globally"></a>
+</h3>
+<p>You can set the theme globally using <code>mode_set</code> or
+<code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set</a></code>.</p>
+<p>Use <code>mode_set</code>
+(e.g. <code>mode_set(dark_mode_rt())</code>) to specify the default
+theme to occur in the <code>mode</code> argument when it is
+<code>NULL</code> using the set mode. The <code>mode</code> argument
+adds the theme, but removes selected gridline/axis-line/ticks. You can
+unset this using <code>mode_set(grey_mode_rt())</code>.</p>
+<p>Alternatively, use <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set</a></code> to set a complete
+theme globally with no side-effects. This will result in the set theme
+<code>+</code>-ed on as the final layer to the <code>gg_*</code> output.
+You can unset this using
+<code>ggplot2::theme_set(theme_grey())</code>.</p>
+</div>
+<div class="section level3">
+<h3 id="use-different-fonts">2. Use different fonts<a class="anchor" aria-label="anchor" href="#use-different-fonts"></a>
 </h3>
 <p>The showtext and sysfonts packages support the use of different fonts
 from Google. The <code>*_mode_*</code> theme functions provide a
@@ -159,7 +176,7 @@ from Google. The <code>*_mode_*</code> theme functions provide a
 <span><span class="fu">showtext</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/showtext/man/showtext_auto.html" class="external-link">showtext_auto</a></span><span class="op">(</span>enable <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="visualise-spatial-data">2. Visualise spatial data<a class="anchor" aria-label="anchor" href="#visualise-spatial-data"></a>
+<h3 id="visualise-spatial-data">3. Visualise spatial data<a class="anchor" aria-label="anchor" href="#visualise-spatial-data"></a>
 </h3>
 <p>As ggblanket wraps the <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf</a></code> and
 <code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">ggplot2::geom_raster</a></code> functions, spatial vector and array
@@ -183,7 +200,7 @@ data can be visualised.</p>
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-4-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="change-the-stat">3. Change the <code>stat</code><a class="anchor" aria-label="anchor" href="#change-the-stat"></a>
+<h3 id="change-the-stat">4. Change the <code>stat</code><a class="anchor" aria-label="anchor" href="#change-the-stat"></a>
 </h3>
 <p>The default <code>stat</code> of each <code>gg_*</code> function can
 be changed.</p>
@@ -219,7 +236,7 @@ be changed.</p>
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="fix-either-the-colour-outline-or-interior-fill-to-a-constant-colour">4. Fix either the colour outline or interior fill to a constant
+<h3 id="fix-either-the-colour-outline-or-interior-fill-to-a-constant-colour">5. Fix either the colour outline or interior fill to a constant
 colour<a class="anchor" aria-label="anchor" href="#fix-either-the-colour-outline-or-interior-fill-to-a-constant-colour"></a>
 </h3>
 <p>For geom’s that have both outline colour and interior fill, it is
@@ -255,7 +272,7 @@ want a <code>col</code> aesthetic.</p>
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="use-non-supported-aesthetics">5. Use non-supported aesthetics<a class="anchor" aria-label="anchor" href="#use-non-supported-aesthetics"></a>
+<h3 id="use-non-supported-aesthetics">6. Use non-supported aesthetics<a class="anchor" aria-label="anchor" href="#use-non-supported-aesthetics"></a>
 </h3>
 <p>Most functions have the commonly needed aesthetics directly available
 as an argument. For those that are not available, you can either use
@@ -273,22 +290,6 @@ provides access to the <code>size</code>, <code>shape</code>,
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="ability-to-set-the-mode-globally">6. Ability to set the mode globally<a class="anchor" aria-label="anchor" href="#ability-to-set-the-mode-globally"></a>
-</h3>
-<p>You can set the mode globally using <code>mode_set</code>
-(e.g. <code>mode_set(dark_mode_rt())</code>). This will result in plots
-where the <code>mode</code> argument is <code>NULL</code> using the set
-mode. You can unset it using <code>mode_set(grey_mode_rt())</code>.</p>
-<p>You can also set a <code>theme</code> globally that does not have
-side-effects within the <code>gg_*</code> function using
-<code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set()</a></code>. This will in effect result in the set
-theme <code>+</code>-ed on as a layer to every plot. You can unset this
-using <code>ggplot2::theme_set(theme_grey())</code>. Note if you want to
-set the theme to actually apply <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">ggplot2::theme_grey()</a></code>, then
-you need to modify the base_size slightly (e.g
-<code>ggplot2::theme_set(theme_grey(11.01))</code>).</p>
 </div>
 <div class="section level3">
 <h3 id="use-delayed-evaluation">7. Use delayed evaluation<a class="anchor" aria-label="anchor" href="#use-delayed-evaluation"></a>
