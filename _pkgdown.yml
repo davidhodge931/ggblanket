@@ -33,6 +33,7 @@ reference:
 - contents:
   - aes_contrast
   - replace_seq
+  - mode_set
   - blue
   - teal
   - orange
