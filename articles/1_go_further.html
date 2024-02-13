@@ -110,7 +110,6 @@ to:</p>
 colour</li>
 <li>Use non-supported aesthetics</li>
 <li>Use delayed evaluation</li>
-<li>Add a legend from layers each set to a single value</li>
 <li>Add contrasting dark or light text on polygons</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -302,31 +301,13 @@ with the <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" c
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="add-a-legend-from-layers-each-set-to-a-single-value">7. Add a legend from layers each set to a single value<a class="anchor" aria-label="anchor" href="#add-a-legend-from-layers-each-set-to-a-single-value"></a>
-</h3>
-<p>To add a legend from layers each set to a single value, you can
-likewise use the <code>mapping</code> argument.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">displ</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">hwy</span>,</span>
-<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"Observation"</span><span class="op">)</span>,</span>
-<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">navy</span>, <span class="va">teal</span><span class="op">)</span>,</span>
-<span>    col_title <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"Model"</span><span class="op">)</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="add-contrasting-dark-or-light-text-on-polygons">8. Add contrasting dark or light text on polygons<a class="anchor" aria-label="anchor" href="#add-contrasting-dark-or-light-text-on-polygons"></a>
+<h3 id="add-contrasting-dark-or-light-text-on-polygons">7. Add contrasting dark or light text on polygons<a class="anchor" aria-label="anchor" href="#add-contrasting-dark-or-light-text-on-polygons"></a>
 </h3>
 <p>Text on polygons can be coloured with a dark or light colour that is
 determined based on the underlying polygon colour using
 <code>!!!aes_contrast()</code>. This method was developed by Teun van
 den Brand (<span class="citation">@teunbrand</span>).</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
@@ -342,8 +323,8 @@ den Brand (<span class="citation">@teunbrand</span>).</p>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span>, preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
@@ -360,8 +341,8 @@ den Brand (<span class="citation">@teunbrand</span>).</p>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span>, preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
@@ -379,7 +360,7 @@ den Brand (<span class="citation">@teunbrand</span>).</p>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span>, preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
