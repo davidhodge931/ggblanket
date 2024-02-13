@@ -5,17 +5,17 @@
 \title{A colour aesthetic that automatically contrasts with fill.}
 \usage{
 aes_contrast(
-  theme_family = "grey_mode",
+  mode_family = "grey_mode",
   col_pal_dark = NULL,
   col_pal_light = NULL
 )
 }
 \arguments{
-\item{theme_family}{The ggblanket theme family default colours. Either "grey_mode", "light_mode", or "dark_mode". Defaults to "grey_mode".}
+\item{mode_family}{The ggblanket mode family colours. Either "grey_mode", "light_mode", or "dark_mode". Defaults to "grey_mode".}
 
-\item{col_pal_dark}{A dark colour for use on light fill, which over-rides defaults selected based on the theme_family.}
+\item{col_pal_dark}{A dark colour for use on light fill, which over-rides defaults selected based on the mode_family.}
 
-\item{col_pal_light}{A light colour for use on dark fill, which over-rides defaults selected based on the theme_family.}
+\item{col_pal_light}{A light colour for use on dark fill, which over-rides defaults selected based on the mode_family.}
 }
 \value{
 An aesthetic

@@ -2,7 +2,7 @@
 % Please edit documentation in R/grey_mode.R
 \name{grey_mode_n}
 \alias{grey_mode_n}
-\title{Grey ggplot theme with no legend}
+\title{Grey mode theme with no legend}
 \usage{
 grey_mode_n(base_size = 11, base_family = "")
 }
@@ -12,10 +12,10 @@ grey_mode_n(base_size = 11, base_family = "")
 \item{base_family}{The base family of the text. Defaults to "".}
 }
 \value{
-A ggplot theme.
+A ggplot mode.
 }
 \description{
-Grey theme for a ggplot visualisation with no legend. It uses the colours \code{"#121b24"}, \code{"#fcfdfe"}, and \code{"#f6f8fa"}.
+Grey mode theme for a ggplot visualisation with no legend. It uses the colours \code{"#121b24"}, \code{"#fcfdfe"}, and \code{"#f6f8fa"}.
 }
 \examples{
 library(palmerpenguins)
@@ -26,7 +26,7 @@ penguins |>
     x = species,
     y = body_mass_g,
     col = species,
-    theme = grey_mode_n()
+    mode = grey_mode_n()
   )
 
 }

@@ -1,36 +1,23 @@
-#' @title Grey ggplot theme with right top legend
+#' @title Grey mode theme with right top legend
 #'
-#' @description Grey theme for a ggplot visualisation with legend at right top. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
+#' @description Grey mode theme for a ggplot visualisation with legend at right top. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
 #'
 #' @inheritParams mode_rt
 #'
-#' @return A ggplot theme.
+#' @return A ggplot mode.
 #' @export
 #'
 #' @examples
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' #for a plot
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = grey_mode_rt()
+#'     mode = grey_mode_rt()
 #'   )
-#'
-#' #set globally
-#' \dontrun{
-#'   theme_set(grey_mode_rt())
-#'
-#'   penguins |>
-#'     gg_point(
-#'       x = flipper_length_mm,
-#'       y = body_mass_g,
-#'       col = species
-#'     )
-#' }
 #'
 grey_mode_rt <- function (
     base_size = 11,
@@ -43,39 +30,26 @@ grey_mode_rt <- function (
   )
 }
 
-#' @title Grey ggplot theme with right legend
+#' @title Grey mode theme with right legend
 #'
-#' @description Grey theme for a ggplot visualisation with right legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
+#' @description Grey mode theme for a ggplot visualisation with right legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
 #'
 #' @inheritParams mode_r
 #'
-#' @return A ggplot theme.
+#' @return A ggplot mode.
 #' @export
 #'
 #' @examples
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' #for a plot
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = grey_mode_r()
+#'     mode = grey_mode_r()
 #'   )
-#'
-#' #set globally
-#' \dontrun{
-#'   theme_set(grey_mode_r())
-#'
-#'   penguins |>
-#'     gg_point(
-#'       x = flipper_length_mm,
-#'       y = body_mass_g,
-#'       col = species
-#'     )
-#' }
 #'
 grey_mode_r <- function (
     base_size = 11,
@@ -88,39 +62,26 @@ grey_mode_r <- function (
   )
 }
 
-#' @title Grey ggplot theme with bottom legend
+#' @title Grey mode theme with bottom legend
 #'
-#' @description Grey theme for a ggplot visualisation with bottom legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
+#' @description Grey mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
 #'
 #' @inheritParams mode_b
 #'
-#' @return A ggplot theme.
+#' @return A ggplot mode.
 #' @export
 #'
 #' @examples
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' #for a plot
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = grey_mode_b()
+#'     mode = grey_mode_b()
 #'   )
-#'
-#' #set globally
-#' \dontrun{
-#'   theme_set(grey_mode_b())
-#'
-#'   penguins |>
-#'     gg_point(
-#'       x = flipper_length_mm,
-#'       y = body_mass_g,
-#'       col = species
-#'     )
-#' }
 #'
 grey_mode_b <- function (
     base_size = 11,
@@ -133,39 +94,26 @@ grey_mode_b <- function (
   )
 }
 
-#' @title Grey ggplot theme with top legend
+#' @title Grey mode theme with top legend
 #'
-#' @description Grey theme for a ggplot visualisation with top legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
+#' @description Grey mode theme for a ggplot visualisation with top legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
 #'
 #' @inheritParams mode_t
 #'
-#' @return A ggplot theme.
+#' @return A ggplot mode.
 #' @export
 #'
 #' @examples
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
-#' #for a plot
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = grey_mode_t()
+#'     mode = grey_mode_t()
 #'   )
-#'
-#' #set globally
-#' \dontrun{
-#'   theme_set(grey_mode_t())
-#'
-#'   penguins |>
-#'     gg_point(
-#'       x = flipper_length_mm,
-#'       y = body_mass_g,
-#'       col = species
-#'     )
-#' }
 #'
 grey_mode_t <- function (
     base_size = 11,
@@ -178,13 +126,13 @@ grey_mode_t <- function (
   )
 }
 
-#' @title Grey ggplot theme with no legend
+#' @title Grey mode theme with no legend
 #'
-#' @description Grey theme for a ggplot visualisation with no legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
+#' @description Grey mode theme for a ggplot visualisation with no legend. It uses the colours `"#121b24"`, `"#fcfdfe"`, and `"#f6f8fa"`.
 #'
 #' @inheritParams mode_n
 #'
-#' @return A ggplot theme.
+#' @return A ggplot mode.
 #' @export
 #'
 #' @examples
@@ -196,7 +144,7 @@ grey_mode_t <- function (
 #'     x = species,
 #'     y = body_mass_g,
 #'     col = species,
-#'     theme = grey_mode_n()
+#'     mode = grey_mode_n()
 #'   )
 #'
 grey_mode_n <- function (

@@ -8,7 +8,7 @@
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
-#' @param theme A `*_mode_*` theme (e.g. [grey_mode_b()], [light_mode_rt()], or [dark_mode_rt()]).
+#' @param mode A `*_mode_*` theme (e.g. [grey_mode_b()], [grey_mode_rt()], or [dark_mode_rt()]).
 #' @param x Unquoted `x` aesthetic variable.
 #' @param xmin Unquoted `xmin` aesthetic variable.
 #' @param xmax Unquoted `xmax` aesthetic variable.
@@ -98,7 +98,7 @@
 #'     y = body_mass_g,
 #'     col = sex,
 #'     facet = species,
-#'     theme = light_mode_b(),
+#'     mode = grey_mode_b(),
 #'   )
 #'
 gg_blanket <- function(
@@ -108,7 +108,7 @@ gg_blanket <- function(
     stat = "identity",
     position = "identity",
     coord = NULL,
-    theme = NULL,
+    mode = grey_mode_rt(),
     x = NULL,
     xmin = NULL,
     xmax = NULL,
@@ -225,13 +225,13 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  #get default theme, if global theme not set
+  #identify if theme set
   ##############################################################################
 
-  if (rlang::is_null(theme)) {
-    if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
-      theme <- grey_mode_rt()
-    }
+  if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
+    theme_set <- FALSE
+  } else {
+    theme_set <- TRUE
   }
 
   ##############################################################################
@@ -1108,7 +1108,7 @@ gg_blanket <- function(
         show.legend = show_legend,
       ) +
       coord +
-      theme
+      mode
   }
   else {
     if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
@@ -1122,7 +1122,7 @@ gg_blanket <- function(
         show.legend = show_legend,
       ) +
       coord +
-      theme
+      mode
   }
 
   ##############################################################################
@@ -1231,7 +1231,7 @@ gg_blanket <- function(
           show.legend = show_legend,
         ) +
         coord +
-        theme
+        mode
     }
     else {
       plot <- plot +
@@ -1243,7 +1243,7 @@ gg_blanket <- function(
           show.legend = show_legend,
         ) +
         coord +
-        theme
+        mode
     }
   }
   #revert back to the original plot where there is a col or alpha aesthetic
@@ -2038,7 +2038,7 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # mode gridlines and axis modification
+  # mode auto gridlines, axis-line/ticks removal
   ##############################################################################
 
   if (stringr::str_detect(stat_name, "sf")) {
@@ -2066,6 +2066,11 @@ gg_blanket <- function(
   ##############################################################################
   # plot
   ##############################################################################
+
+  if (theme_set) {
+    plot <- plot +
+      ggplot2::theme_get()
+  }
 
   return(plot)
 }

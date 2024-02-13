@@ -2,7 +2,7 @@
 % Please edit documentation in R/mode.R
 \name{mode_b}
 \alias{mode_b}
-\title{ggplot theme with bottom legend}
+\title{ggplot mode with bottom legend}
 \usage{
 mode_b(
   base_size = 11,
@@ -19,6 +19,6 @@ mode_b(
 \item{col_pal}{A 5 colour vector with elements named "text", "axis_line", "panel_background", "plot_background" and "panel_grid".}
 }
 \description{
-Theme for a ggplot visualisation with bottom legend.
+mode for a ggplot visualisation with bottom legend.
 }
 \keyword{internal}

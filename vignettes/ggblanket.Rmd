@@ -41,7 +41,7 @@ Secondary objectives relate to:
 5.  A `col_pal` argument to customise colours
 6.  Numerous other prefixed arguments to customise 
 7.  Unspecified titles converted to `snakecase::sentence_case`
-8.  A `theme` argument designed for provided `*_mode_*` themes
+8.  A `mode` argument designed for provided `*_mode_*` themes
 9.  Families of `*_mode_*` themes that differ by legend placement 
 10.  A symmetrical continuous scale with easy opt-out
 11. Access to other `geom_*` arguments via `...`
@@ -144,7 +144,7 @@ penguins |>
   gg_jitter(
     x = species, 
     y = body_mass_g, 
-    col_pal = "#112E51",
+    col_pal = "#ff483a",
   )
 ```
 
@@ -154,8 +154,8 @@ penguins |>
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
   gg_density(
     x = flipper_length_mm,
-    col = sex,
-    col_pal = c(navy, greys[2]),
+    col = species,
+    col_pal = c("#ff483a", "#16607a", "#6d4420"),
   )
 ```
 
@@ -207,21 +207,19 @@ diamonds |>
   )
 ```
 
-### 8.  A `theme` argument designed for provided `*_mode_*` themes
+### 8.  A `mode` argument designed for provided `*_mode_*` themes
 
-A `theme` argument has been designed for use with the `*_mode_*` themes. 
+A `mode` argument has been designed for use with the `*_mode_*` themes. 
 
-When a theme is provided it, the `gg_*` function will:
+When a mode is provided it, the `gg_*` function will:
 
 * determine whether the plot is `flipped` or not
 * for `flipped = FALSE` graphs, remove vertical grid-lines, and the y axis-line/ticks 
 * for `flipped = TRUE` graphs, remove horizontal grid-lines, and the x axis-line/ticks 
 
-If you do _not_ want the `gg_*` function to make any changes to your provided theme, you should instead `+` your theme on as a layer  (e.g. `+ grey_mode_rt()`).
+If you do _not_ want the `gg_*` function to make any changes to your provided mode, you should instead `+` the mode on  (e.g. `+ grey_mode_rt()`). 
 
-The `theme` argument can also be accessed globally using using  `ggplot2::theme_set()`.  
-
-Note, if you would like to use a plain title, a convenient hack is to use the `subtitle` argument with a `"\n"` at the start of the character string. 
+So, other themes generally should be `+`-ed onto the plot. 
 
 ```{r}
 d <- data.frame(
@@ -241,8 +239,8 @@ p1 <- d |>
     width = 0.1,
     x_title = "Treatment",
     y_title = "Response",
-    theme = grey_mode_n(),
-    subtitle = "\ntheme = grey_mode_n(),"
+    mode = grey_mode_n(),
+    subtitle = "\nmode = grey_mode_n(),"
   ) 
 
 p2 <- d |>
@@ -263,16 +261,16 @@ p1 + p2
 
 ### 9.  Families of `*_mode_*` themes that differ by legend placement 
 
-Three theme families are provided: `grey_mode_*`, `light_mode_*` and `dark_mode_*`.
+Three mode families are provided: `grey_mode_*`, `light_mode_*` and `dark_mode_*`.
 
-Each theme family provides 5 variants that differ based on legend placement, which is represented by the suffix of the theme name of `rt`  (right-top), `r` (right-centre), `b` (bottom), `t` (top) and `n` (none). 
+Each mode family provides 5 variants that differ based on legend placement, which is represented by the suffix of the mode name of `rt`  (right-top), `r` (right-centre), `b` (bottom), `t` (top) and `n` (none). 
 
 The default is `grey_mode_rt`.
 
-These are designed for use with the `theme` argument.
+These are designed for use with the `mode` argument, and the automatic gridline/axis-line/ticks removal that comes with that argument.
 
 ```{r, fig.asp=0.7}
-# theme_set(grey_mode_t())
+# mode_set(grey_mode_t())
 
 penguins |>
   gg_histogram(
@@ -282,12 +280,12 @@ penguins |>
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
     col_title = "",
-    theme = grey_mode_t(),
+    mode = grey_mode_t(),
   ) 
 ```
 
 ```{r, fig.asp=0.75}
-# theme_set(light_mode_t())
+# mode_set(light_mode_t())
 
 penguins |>
   gg_histogram(
@@ -296,12 +294,12 @@ penguins |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    theme = light_mode_b(),
+    mode = light_mode_b(),
   ) 
 ```
 
 ```{r, fig.asp=0.65}
-# theme_set(dark_mode_t())
+# mode_set(dark_mode_t())
 
 penguins |>
   gg_histogram(
@@ -310,7 +308,7 @@ penguins |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    theme = dark_mode_r(),
+    mode = dark_mode_r(),
   ) 
 ```
 
@@ -347,7 +345,7 @@ p1 <- d |>
     width = 0.1,
     x_title = "Treatment",
     y_title = "Response",
-    theme = grey_mode_n(),
+    mode = grey_mode_n(),
     subtitle = "\nDefault y scale"
   ) 
 
@@ -361,7 +359,7 @@ p2 <- d |>
     x_title = "Treatment",
     y_title = "Response",
     y_limits = c(NA, NA),
-    theme = grey_mode_n(),
+    mode = grey_mode_n(),
     subtitle = "\ny_limits = c(NA, NA),"
   ) 
 
@@ -375,7 +373,7 @@ p3 <- d |>
     x_title = "Treatment upper",
     y_title = "Response",
     y_limits = c(0, NA),
-    theme = grey_mode_n(),
+    mode = grey_mode_n(),
     subtitle = "\ny_limits = c(0, NA),"
   ) 
 

@@ -61,7 +61,7 @@ penguins |>
     title = "Penguins body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    theme = grey_mode_rt(base_size = 11, base_family = "grace")
+    mode = grey_mode_rt(base_size = 11, base_family = "grace")
   ) +
   theme(
     plot.title = element_text(family = "roboto_slab"),
@@ -110,12 +110,10 @@ penguins |>
 ```{r}
 penguins |>
   gg_pointrange(
+    stat = "summary", 
     x = species,
     y = flipper_length_mm, 
-    stat = "summary", 
-    na.rm = TRUE,
     size = 0.1,
-    grey_mode_x_labels = \(x) str_sub(x, 1, 1),
   )
 ```
 
@@ -125,9 +123,9 @@ library(ggforce)
 ggplot2::economics |>
   slice_head(n = 35) |> 
   gg_path(
+    stat = "bspline",
     x = date, 
     y = unemploy,
-    stat = "bspline",
     n = 100, 
     linewidth = 1,
   ) 
@@ -162,7 +160,7 @@ penguins |>
     colour = "black", #or fill = "lightgrey" 
     width = 0.5,
     alpha_pal = 0.9,
-    theme = grey_mode_n(),
+    mode = grey_mode_n(),
   ) 
 ```
 
@@ -254,7 +252,7 @@ penguins |>
     position = position_dodge2(preserve = "single"),
     width = 0.75,
     x_labels = \(x) str_to_sentence(x),
-    theme = grey_mode_rt(),
+    mode = grey_mode_rt(),
   ) +
   geom_text(
     mapping = aes(y = n - (max(n * 0.04)), label = n, !!!aes_contrast("grey_mode")),
@@ -273,7 +271,7 @@ penguins |>
     position = position_dodge2(preserve = "single"),
     width = 0.75,
     x_labels = \(x) str_to_sentence(x),
-    theme = dark_mode_rt(),
+    mode = dark_mode_rt(),
   ) +
   geom_text(
     mapping = aes(y = n - (max(n * 0.04)), label = n, 

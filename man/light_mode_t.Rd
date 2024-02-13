@@ -2,7 +2,7 @@
 % Please edit documentation in R/light_mode.R
 \name{light_mode_t}
 \alias{light_mode_t}
-\title{Light ggplot theme with top legend}
+\title{Light mode theme with top legend}
 \usage{
 light_mode_t(base_size = 11, base_family = "")
 }
@@ -12,34 +12,21 @@ light_mode_t(base_size = 11, base_family = "")
 \item{base_family}{The base family of the text. Defaults to "".}
 }
 \value{
-A ggplot theme.
+A ggplot mode.
 }
 \description{
-Light theme for a ggplot visualisation with top legend. It uses the colours \code{"#121b24"}, \code{"#ffffff"}, and \code{"#f6f8fa"}.
+Light mode theme for a ggplot visualisation with top legend. It uses the colours \code{"#121b24"}, \code{"#ffffff"}, and \code{"#f6f8fa"}.
 }
 \examples{
 library(palmerpenguins)
 library(ggplot2)
 
-#for a plot
 penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
-    theme = light_mode_t()
+    mode = light_mode_t()
   )
-
-#set globally
-\dontrun{
-  theme_set(light_mode_t())
-
-  penguins |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = species
-    )
-}
 
 }

@@ -1,6 +1,6 @@
-#' @title ggplot theme with right top legend
+#' @title ggplot mode with right top legend
 #'
-#' @description Theme for a ggplot visualisation with legend at right top.
+#' @description mode for a ggplot visualisation with legend at right top.
 #'
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
@@ -105,9 +105,9 @@ mode_rt <- function (
   )
 }
 
-#' @title ggplot theme with right legend
+#' @title ggplot mode with right legend
 #'
-#' @description Theme for a ggplot visualisation with right legend.
+#' @description mode for a ggplot visualisation with right legend.
 #'
 #' @inheritParams mode_rt
 #'
@@ -210,9 +210,9 @@ mode_r <- function (
   )
 }
 
-#' @title ggplot theme with bottom legend
+#' @title ggplot mode with bottom legend
 #'
-#' @description Theme for a ggplot visualisation with bottom legend.
+#' @description mode for a ggplot visualisation with bottom legend.
 #'
 #' @inheritParams mode_rt
 #'
@@ -315,9 +315,9 @@ mode_b <- function (
   )
 }
 
-#' @title ggplot theme with top legend
+#' @title ggplot mode with top legend
 #'
-#' @description Theme for a ggplot visualisation with top legend.
+#' @description mode for a ggplot visualisation with top legend.
 #'
 #' @inheritParams mode_rt
 #'
@@ -420,9 +420,9 @@ mode_t <- function (
   )
 }
 
-#' @title ggplot theme with no legend
+#' @title ggplot mode with no legend
 #'
-#' @description Theme for a ggplot visualisation with no legend.
+#' @description mode for a ggplot visualisation with no legend.
 #'
 #' @inheritParams mode_rt
 #'

@@ -20,7 +20,7 @@
 #'     x = flipper_length_mm,
 #'     y = sex,
 #'     col = species,
-#'     theme = light_mode_b(),
+#'     mode = light_mode_b(),
 #'   )
 #'
 gg_boxplot <- function(
@@ -29,7 +29,7 @@ gg_boxplot <- function(
     stat = "boxplot",
     position = "dodge2",
     coord = ggplot2::coord_cartesian(clip = "off"),
-    theme = NULL,
+    mode = light_mode_rt(),
     x = NULL,
     xmin = NULL,
     xmax = NULL,
@@ -120,7 +120,7 @@ gg_boxplot <- function(
     stat = stat,
     position = position,
     coord = coord,
-    theme = theme,
+    mode = mode,
     x = {{ x }},
     y = {{ y }},
     xmin = {{ xmin }},

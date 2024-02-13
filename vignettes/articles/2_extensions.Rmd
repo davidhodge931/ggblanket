@@ -72,8 +72,8 @@ p3 <- mtcars |>
     subtitle = "Works so nice!",
     theme = grey_mode_rt() +
       theme(
-        plot.title = element_text(margin = margin(t = 10 * -0.5, b = 10 * 0.75)),
-        plot.subtitle = element_text(margin = margin()),
+        plot.title = element_text(margin = margin(t = -11)),
+        plot.subtitle = element_text(margin = margin(t = 5.5)),
       )
   )
 ```

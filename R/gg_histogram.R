@@ -20,7 +20,7 @@
 #'     col = sex,
 #'     facet = species,
 #'     bins = 50,
-#'     theme = light_mode_b(),
+#'     mode = light_mode_b(),
 #'   )
 #'
 gg_histogram <- function(
@@ -29,7 +29,7 @@ gg_histogram <- function(
     stat = "bin",
     position = "stack",
     coord = ggplot2::coord_cartesian(clip = "off"),
-    theme = NULL,
+    mode = light_mode_rt(),
     x = NULL,
     xmin = NULL,
     xmax = NULL,
@@ -120,7 +120,7 @@ gg_histogram <- function(
     stat = stat,
     position = position,
     coord = coord,
-    theme = theme,
+    mode = mode,
     x = {{ x }},
     y = {{ y }},
     xmin = {{ xmin }},

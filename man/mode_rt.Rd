@@ -2,7 +2,7 @@
 % Please edit documentation in R/mode.R
 \name{mode_rt}
 \alias{mode_rt}
-\title{ggplot theme with right top legend}
+\title{ggplot mode with right top legend}
 \usage{
 mode_rt(
   base_size = 11,
@@ -19,6 +19,6 @@ mode_rt(
 \item{col_pal}{A 5 colour vector with elements named "text", "axis_line", "panel_background", "plot_background" and "panel_grid".}
 }
 \description{
-Theme for a ggplot visualisation with legend at right top.
+mode for a ggplot visualisation with legend at right top.
 }
 \keyword{internal}

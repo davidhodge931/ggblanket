@@ -2,7 +2,7 @@
 % Please edit documentation in R/dark_mode.R
 \name{dark_mode_rt}
 \alias{dark_mode_rt}
-\title{Dark ggplot theme with right top legend}
+\title{Dark mode theme with right top legend}
 \usage{
 dark_mode_rt(base_size = 11, base_family = "")
 }
@@ -12,34 +12,21 @@ dark_mode_rt(base_size = 11, base_family = "")
 \item{base_family}{The base family of the text. Defaults to "".}
 }
 \value{
-A ggplot theme.
+A ggplot mode.
 }
 \description{
-Dark theme for a ggplot visualisation with legend at right top. It uses the colours \code{"#c8d7df"}, \code{"#010a1a"}, and \code{"#00040a"}.
+Dark mode theme for a ggplot visualisation with legend at right top. It uses the colours \code{"#c8d7df"}, \code{"#010a1a"}, and \code{"#00040a"}.
 }
 \examples{
 library(palmerpenguins)
 library(ggplot2)
 
-#for a plot
 penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
-    theme = dark_mode_rt()
+    mode = dark_mode_rt()
   )
-
-#set globally
-\dontrun{
-  theme_set(dark_mode_rt())
-
-  penguins |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = species
-    )
-}
 
 }

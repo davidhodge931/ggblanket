@@ -2,7 +2,7 @@
 % Please edit documentation in R/mode.R
 \name{mode_t}
 \alias{mode_t}
-\title{ggplot theme with top legend}
+\title{ggplot mode with top legend}
 \usage{
 mode_t(
   base_size = 11,
@@ -19,6 +19,6 @@ mode_t(
 \item{col_pal}{A 5 colour vector with elements named "text", "axis_line", "panel_background", "plot_background" and "panel_grid".}
 }
 \description{
-Theme for a ggplot visualisation with top legend.
+mode for a ggplot visualisation with top legend.
 }
 \keyword{internal}

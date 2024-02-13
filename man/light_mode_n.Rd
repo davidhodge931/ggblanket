@@ -2,7 +2,7 @@
 % Please edit documentation in R/light_mode.R
 \name{light_mode_n}
 \alias{light_mode_n}
-\title{Light ggplot theme with no legend}
+\title{Light mode theme with no legend}
 \usage{
 light_mode_n(base_size = 11, base_family = "")
 }
@@ -12,22 +12,21 @@ light_mode_n(base_size = 11, base_family = "")
 \item{base_family}{The base family of the text. Defaults to "".}
 }
 \value{
-A ggplot theme.
+A ggplot mode.
 }
 \description{
-Light theme for a ggplot visualisation with no legend. It uses the colours \code{"#121b24"}, \code{"#ffffff"}, and \code{"#f6f8fa"}.
+Light mode theme for a ggplot visualisation with no legend. It uses the colours \code{"#121b24"}, \code{"#ffffff"}, and \code{"#f6f8fa"}.
 }
 \examples{
 library(palmerpenguins)
 library(ggplot2)
 
-#for a plot
 penguins |>
   gg_jitter(
     x = species,
     y = body_mass_g,
     col = species,
-    theme = light_mode_n()
+    mode = light_mode_n()
   )
 
 }

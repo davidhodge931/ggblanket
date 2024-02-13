@@ -27,7 +27,7 @@ orange <- "#FF7043"
 
 #' A navy colour
 #'
-#' @description A navy colour derived from the US Census Bureau's Data Visualisation Standards. Note this colour is not accessible with dark themes.
+#' @description A navy colour derived from the US Census Bureau's Data Visualisation Standards. Note this colour is not accessible with dark modes.
 #'
 #' @return A character vector.
 #'
@@ -52,7 +52,7 @@ plum <- "#901752"
 #' @export
 greys <- c("#E8EFF2", "#C8D7DF", "#A7C0CD", "#78909C", "#4B636E", "#364850", "#222C31")
 
-#' The `grey_mode_*` theme colours
+#' The `grey_mode_*` mode colours
 #'
 #' @noRd
 greyness <- c(
@@ -63,9 +63,9 @@ greyness <- c(
   "panel_grid" = "#f6f8fa"
 )
 
-#' The `light_mode_*` theme colours
+#' The `light_mode_*` mode colours
 #'
-#' @description A vector of colours used in the `light_mode_*` themes.
+#' @description A vector of colours used in the `light_mode_*` modes.
 #'
 #' @noRd
 lightness <- c(
@@ -76,9 +76,9 @@ lightness <- c(
   "panel_grid" = "#f6f8fa"
 )
 
-#' The `dark_mode_*` theme colours
+#' The `dark_mode_*` mode colours
 #'
-#' @description A vector of colours used in the `dark_mode_*` themes.
+#' @description A vector of colours used in the `dark_mode_*` modes.
 #'
 #' @noRd
 darkness <- c(

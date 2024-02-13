@@ -21,7 +21,7 @@
 #'     y = body_mass_g,
 #'     col = sex,
 #'     facet = species,
-#'     theme = light_mode_b(),
+#'     mode = light_mode_b(),
 #'   )
 #'
 gg_violin <- function(
@@ -30,7 +30,7 @@ gg_violin <- function(
     stat = "ydensity",
     position = "dodge",
     coord = ggplot2::coord_cartesian(clip = "off"),
-    theme = NULL,
+    mode = light_mode_rt(),
     x = NULL,
     xmin = NULL,
     xmax = NULL,
@@ -121,7 +121,7 @@ gg_violin <- function(
     stat = stat,
     position = position,
     coord = coord,
-    theme = theme,
+    mode = mode,
     x = {{ x }},
     y = {{ y }},
     xmin = {{ xmin }},

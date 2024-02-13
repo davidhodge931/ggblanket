@@ -19,7 +19,7 @@
 #'     x = flipper_length_mm,
 #'     col = sex,
 #'     col_title = "",
-#'     theme = light_mode_t(),
+#'     mode = light_mode_t(),
 #'   )
 #'
 gg_freqpoly <- function(
@@ -28,7 +28,7 @@ gg_freqpoly <- function(
     stat = "bin",
     position = "identity",
     coord = ggplot2::coord_cartesian(clip = "off"),
-    theme = NULL,
+    mode = light_mode_rt(),
     x = NULL,
     xmin = NULL,
     xmax = NULL,
@@ -119,7 +119,7 @@ gg_freqpoly <- function(
     stat = stat,
     position = position,
     coord = coord,
-    theme = theme,
+    mode = mode,
     x = {{ x }},
     y = {{ y }},
     xmin = {{ xmin }},

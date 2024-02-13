@@ -2,7 +2,7 @@
 % Please edit documentation in R/mode.R
 \name{mode_n}
 \alias{mode_n}
-\title{ggplot theme with no legend}
+\title{ggplot mode with no legend}
 \usage{
 mode_n(
   base_size = 11,
@@ -19,6 +19,6 @@ mode_n(
 \item{col_pal}{A 5 colour vector with elements named "text", "axis_line", "panel_background", "plot_background" and "panel_grid".}
 }
 \description{
-Theme for a ggplot visualisation with no legend.
+mode for a ggplot visualisation with no legend.
 }
 \keyword{internal}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/dark_mode.R
 \name{dark_mode_n}
 \alias{dark_mode_n}
-\title{Dark ggplot theme with no legend}
+\title{Dark mode theme with no legend}
 \usage{
 dark_mode_n(base_size = 11, base_family = "")
 }
@@ -12,22 +12,21 @@ dark_mode_n(base_size = 11, base_family = "")
 \item{base_family}{The base family of the text. Defaults to "".}
 }
 \value{
-A ggplot theme.
+A ggplot mode.
 }
 \description{
-Dark theme for a ggplot visualisation with no legend. It uses the colours \code{"#c8d7df"}, \code{"#010a1a"}, and \code{"#00040a"}.
+Dark mode theme for a ggplot visualisation with no legend. It uses the colours \code{"#c8d7df"}, \code{"#010a1a"}, and \code{"#00040a"}.
 }
 \examples{
 library(palmerpenguins)
 library(ggplot2)
 
-#for a plot
 penguins |>
   gg_jitter(
     x = species,
     y = body_mass_g,
     col = species,
-    theme = dark_mode_n()
+    mode = dark_mode_n()
   )
 
 }
