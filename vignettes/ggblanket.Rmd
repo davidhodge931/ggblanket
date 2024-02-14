@@ -241,8 +241,8 @@ p1 <- d |>
     width = 0.1,
     x_title = "Treatment",
     y_title = "Response",
-    mode = grey_mode_n(),
-    subtitle = "\nmode = grey_mode_n(),"
+    mode = light_mode_n(),
+    subtitle = "\nmode = light_mode_n(),"
   ) 
 
 p2 <- d |>
@@ -254,20 +254,20 @@ p2 <- d |>
     width = 0.1,
     x_title = "Treatment",
     y_title = "Response",
-    subtitle = "\n+ grey_mode_n()"
+    subtitle = "\n+ light_mode_n()"
   ) +
-  grey_mode_n() 
+  light_mode_n() 
 
 p1 + p2 
 ```
 
 ### 9.  Families of `*_mode_*` themes that differ by legend placement 
 
-Three theme families are provided: `grey_mode_*`, `light_mode_*` and `dark_mode_*`.
+Three theme families are provided: `light_mode_*`, `grey_mode_*` and `dark_mode_*`.
 
 Each theme family provides 5 variants that differ based on legend placement, which is represented by the suffix of the mode name of `rt`  (right-top), `r` (right-centre), `b` (bottom), `t` (top) and `n` (none). 
 
-The default is `grey_mode_rt`.
+The default is `light_mode_rt`.
 
 These are intended for use with the `mode` argument.
 
@@ -280,7 +280,7 @@ penguins |>
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
     col_title = "",
-    mode = grey_mode_t(),
+    mode = light_mode_t(),
   ) 
 ```
 
@@ -292,7 +292,7 @@ penguins |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    mode = light_mode_b(),
+    mode = grey_mode_b(),
   ) 
 ```
 
@@ -342,7 +342,7 @@ p1 <- d |>
     width = 0.1,
     x_title = "Treatment",
     y_title = "Response",
-    mode = grey_mode_n(),
+    mode = light_mode_n(),
     subtitle = "\nDefault y scale"
   ) 
 
@@ -356,7 +356,7 @@ p2 <- d |>
     x_title = "Treatment",
     y_title = "Response",
     y_limits = c(NA, NA),
-    mode = grey_mode_n(),
+    mode = light_mode_n(),
     subtitle = "\ny_limits = c(NA, NA),"
   ) 
 
@@ -370,7 +370,7 @@ p3 <- d |>
     x_title = "Treatment upper",
     y_title = "Response",
     y_limits = c(0, NA),
-    mode = grey_mode_n(),
+    mode = light_mode_n(),
     subtitle = "\ny_limits = c(0, NA),"
   ) 
 

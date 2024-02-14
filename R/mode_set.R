@@ -38,5 +38,5 @@ mode_set <- function(new = grey_mode_rt()) {
 # internal ----------------------------------------------------------------
 
 theme_env <- new.env(parent = emptyenv())
-theme_env$mode_current <- grey_mode_rt()
+theme_env$mode_current <- light_mode_rt()
 theme_env$theme_current <- ggplot2::theme_grey()

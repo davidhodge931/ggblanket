@@ -19,7 +19,7 @@ contrast <- function(col,
 #'
 #' @description A colour aesthetic that automatically contrasts with fill. Can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
-#' @param mode_family The ggblanket mode family colours. Either "grey_mode", "light_mode", or "dark_mode". Defaults to "grey_mode".
+#' @param mode_family The ggblanket mode family colours. Either "grey_mode", "light_mode", or "dark_mode". Defaults to "light_mode".
 #' @param col_pal_dark A dark colour for use on light fill, which over-rides defaults selected based on the mode_family.
 #' @param col_pal_light A light colour for use on dark fill, which over-rides defaults selected based on the mode_family.
 #'
@@ -47,17 +47,17 @@ contrast <- function(col,
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     show.legend = FALSE,
 #'   )
-aes_contrast <- function(mode_family = "grey_mode",
+aes_contrast <- function(mode_family = "light_mode",
                          col_pal_dark = NULL,
                          col_pal_light = NULL) {
 
-  if (mode_family == "grey_mode") {
-    if (rlang::is_null(col_pal_dark)) col_pal_dark <- greyness["text"]
-    if (rlang::is_null(col_pal_light)) col_pal_light <- greyness["panel_background"]
-  }
-  else if (mode_family == "light_mode") {
+  if (mode_family == "light_mode") {
     if (rlang::is_null(col_pal_dark)) col_pal_dark <- lightness["text"]
     if (rlang::is_null(col_pal_light)) col_pal_light <- lightness["panel_background"]
+  }
+  else if (mode_family == "grey_mode") {
+    if (rlang::is_null(col_pal_dark)) col_pal_dark <- greyness["text"]
+    if (rlang::is_null(col_pal_light)) col_pal_light <- greyness["panel_background"]
   }
   else if (mode_family == "dark_mode") {
     if (rlang::is_null(col_pal_dark)) col_pal_dark <- darkness["plot_background"]

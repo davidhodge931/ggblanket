@@ -151,7 +151,7 @@ dark_mode_n <- function (
     base_size = 11,
     base_family = "") {
 
-  base_mode_t(
+  base_mode_n(
     base_size = base_size,
     base_family = base_family,
     col_pal = darkness
