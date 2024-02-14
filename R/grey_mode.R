@@ -2,7 +2,7 @@
 #'
 #' @description Grey mode theme for a ggplot visualisation with legend at right top. It uses the colours `"#121B24"`, `"#FCFDFE"`, and `"#F6F8FA"`.
 #'
-#' @inheritParams mode_rt
+#' @inheritParams base_mode
 #'
 #' @return A ggplot mode.
 #' @export
@@ -23,7 +23,7 @@ grey_mode_rt <- function (
     base_size = 11,
     base_family = "") {
 
-  mode_rt(
+  base_mode_rt(
     base_size = base_size,
     base_family = base_family,
     col_pal = greyness
@@ -34,7 +34,7 @@ grey_mode_rt <- function (
 #'
 #' @description Grey mode theme for a ggplot visualisation with right legend. It uses the colours `"#121B24"`, `"#FCFDFE"`, and `"#F6F8FA"`.
 #'
-#' @inheritParams mode_r
+#' @inheritParams base_mode
 #'
 #' @return A ggplot mode.
 #' @export
@@ -55,7 +55,7 @@ grey_mode_r <- function (
     base_size = 11,
     base_family = "") {
 
-  mode_r(
+  base_mode_r(
     base_size = base_size,
     base_family = base_family,
     col_pal = greyness
@@ -66,7 +66,7 @@ grey_mode_r <- function (
 #'
 #' @description Grey mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#121B24"`, `"#FCFDFE"`, and `"#F6F8FA"`.
 #'
-#' @inheritParams mode_b
+#' @inheritParams base_mode
 #'
 #' @return A ggplot mode.
 #' @export
@@ -87,7 +87,7 @@ grey_mode_b <- function (
     base_size = 11,
     base_family = "") {
 
-  mode_b(
+  base_mode_b(
     base_size = base_size,
     base_family = base_family,
     col_pal = greyness
@@ -98,7 +98,7 @@ grey_mode_b <- function (
 #'
 #' @description Grey mode theme for a ggplot visualisation with top legend. It uses the colours `"#121B24"`, `"#FCFDFE"`, and `"#F6F8FA"`.
 #'
-#' @inheritParams mode_t
+#' @inheritParams base_mode
 #'
 #' @return A ggplot mode.
 #' @export
@@ -119,7 +119,7 @@ grey_mode_t <- function (
     base_size = 11,
     base_family = "") {
 
-  mode_t(
+  base_mode_t(
     base_size = base_size,
     base_family = base_family,
     col_pal = greyness
@@ -130,7 +130,7 @@ grey_mode_t <- function (
 #'
 #' @description Grey mode theme for a ggplot visualisation with no legend. It uses the colours `"#121B24"`, `"#FCFDFE"`, and `"#F6F8FA"`.
 #'
-#' @inheritParams mode_n
+#' @inheritParams base_mode
 #'
 #' @return A ggplot mode.
 #' @export
@@ -151,7 +151,7 @@ grey_mode_n <- function (
     base_size = 11,
     base_family = "") {
 
-  mode_n(
+  base_mode_n(
     base_size = base_size,
     base_family = base_family,
     col_pal = greyness
