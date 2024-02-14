@@ -90,7 +90,8 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
    facet = band,
    col_title = "L7 ETMs",
   ) +
-  ggeasy::easy_remove_axes() 
+  ggeasy::easy_remove_x_axis() +
+  ggeasy::easy_remove_y_axis() 
 ```
 
 ### 3. Change the `stat`
