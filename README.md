@@ -43,8 +43,6 @@ library(ggplot2)
 library(dplyr)
 library(palmerpenguins)
 
-# theme_set(light_mode_t())
-
 penguins |>
   gg_histogram(
     x = flipper_length_mm,
