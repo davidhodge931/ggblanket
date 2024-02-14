@@ -523,7 +523,7 @@ p1 + p2
 
 ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting using `forcats::fct_drop`. 
 
-```{r, fig.asp=0.4}
+```{r, fig.asp=0.5}
 p1 <- diamonds |> 
   count(color) |>
   filter(color %in% c("E", "G", "I")) |>
