@@ -219,7 +219,9 @@ When a mode is provided it, the `gg_*` function will:
 
 To avoid these side-effects, `+` your theme on as a layer.
 
-`mode_set` sets the theme globally with these side-effects - and `ggplot2::theme_set` sets it globally without these side-effects. Use `mode_set(light_mode_rt())` or `theme_set(theme_grey())` to unset.
+`mode_set` sets the theme globally with these side-effects - and `ggplot2::theme_set` sets it globally without these side-effects. 
+
+Use `mode_set(light_mode_rt())` or `theme_set(theme_grey())` to unset. Note you cannot actually set the theme globally to `theme_grey(11)` for this reason - instead use `theme_grey(11.01)`.
 
 ```{r}
 d <- data.frame(
