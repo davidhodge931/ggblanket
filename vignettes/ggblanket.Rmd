@@ -270,8 +270,6 @@ The default is `grey_mode_rt`.
 These are intended for use with the `mode` argument.
 
 ```{r, fig.asp=0.7}
-# mode_set(grey_mode_t())
-
 penguins |>
   gg_histogram(
     x = flipper_length_mm,
@@ -285,8 +283,6 @@ penguins |>
 ```
 
 ```{r, fig.asp=0.75}
-# mode_set(light_mode_t())
-
 penguins |>
   gg_histogram(
     x = flipper_length_mm,
@@ -299,12 +295,11 @@ penguins |>
 ```
 
 ```{r, fig.asp=0.65}
-# mode_set(dark_mode_t())
-
 penguins |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
+    col_pal = c(teal, orange, plum),
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
