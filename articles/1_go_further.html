@@ -261,7 +261,9 @@ as an argument. For those that are not available, you can either use
 <code>mapping</code> argument. The <code>mapping</code> argument
 provides access to the <code>size</code>, <code>shape</code>,
 <code>linetype</code> and <code>linewidth</code> aesthetics within the
-<code>gg_*</code> function.</p>
+<code>gg_*</code> function. Note you may have to change the title using
+<code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs</a></code> (and reverse the legend elements depending on
+the plot orientation).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
