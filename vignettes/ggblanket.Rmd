@@ -144,7 +144,7 @@ penguins |>
   gg_jitter(
     x = species, 
     y = body_mass_g, 
-    col_pal = "#FF7043",
+    col_pal = "#7fcdbb",
   )
 ```
 
@@ -155,7 +155,7 @@ penguins |>
   gg_density(
     x = flipper_length_mm,
     col = species,
-    col_pal = c("#ff483a", "#16607a", "#6d4420"),
+    col_pal = c("#FF7043", "#357BA2", "#6b5840"),
   )
 ```
 
