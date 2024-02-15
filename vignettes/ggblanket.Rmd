@@ -47,8 +47,9 @@ Secondary objectives relate to:
 11. Access to other `geom_*` arguments via `...`
 12. Turn-off either coloured outlines or interiors
 13. Ability to add multiple `geom_*` layers
-14. Other key differences to ggplot2
+14. Use alpha and other aesthetics
 15. A `gg_blanket()` function with `geom` flexibility
+16. Other key differences
 
 ```{r setup}
 library(ggblanket)
@@ -148,14 +149,13 @@ penguins |>
   )
 ```
 
-```{r}
-penguins |> 
-  drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  gg_freqpoly(
-    x = flipper_length_mm,
-    col = species,
-    col_pal = c("#ff6361", "#ffa600", "#003f5c"),
+```{r, fig.asp=0.33}
+viridisLite::rocket(n = 9)
+
+sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE) |> 
+  gg_sf(
+    col = AREA,
+    col_pal = viridisLite::rocket(n = 9)
   )
 ```
 
@@ -223,7 +223,7 @@ To avoid these side-effects, `+` your theme on as a layer.
 
 Use `mode_set(light_mode_rt())` or `theme_set(theme_grey())` to unset. Note you cannot actually set the theme globally to `theme_grey(11)` for this reason - instead use `theme_grey(11.01)`.
 
-```{r}
+```{r, echo=FALSE}
 d <- data.frame(
   trt = factor(c(1, 1, 2, 2)),
   resp = c(1, 5, 3, 4),
@@ -324,7 +324,7 @@ This symmetric scale can be turned off easily using `*_limits = c(NA, NA)` (or `
 
 Note this symmetric scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.
 
-```{r}
+```{r, echo=FALSE}
 d <- data.frame(
   trt = factor(c(1, 1, 2, 2)),
   resp = c(1, 5, 3, 4),
@@ -486,94 +486,25 @@ penguins |>
   ) 
 ```
 
-### 14. Other ggplot2 key differences 
+### 14. Use alpha and other aesthetics
 
-##### Unquoted variables only
+The `alpha` is fully supported in ggblanket in a similar way to `col`. So the `alpha` argument represents an aesthetic, whereas `alpha_pal` represents a value (or values or range). 
 
-ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet`, `facet2` and  `alpha`. You cannot wrap these in a function. Instead you may need to manipulate the data prior to plotting, or use the `mapping` argument for other non-supported aesthetics, delayed evaluation etc. 
+The `mapping` argument provides access to the `size`, `shape`, `linetype` and `linewidth` aesthetics within the `gg_*` function. 
+
+Where legends do not align or merge nicely, you may need to reverse a variable, change a title with a `ggplot2::labs` layer, or change legend values by adding a  `ggplot2::scale_*_manual` layer etc.
 
 ```{r}
-p1 <- diamonds |>
-  count(color) |>
-  gg_col(
-    x = n,
-    y = color,
-    width = 0.75,
-    x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)", 
-    subtitle = "\nDefault order"
-  )
-
-p2 <- diamonds |>
-  count(color) |>
-  mutate(across(color, \(x) x |>
-                  forcats::fct_reorder(n) |>
-                  forcats::fct_rev())) |>
-  gg_col(
-    x = n,
-    y = color,
-    width = 0.75,
-    x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)", 
-    subtitle = "\nRe-orderered"
-  )
-
-p1 + p2
+penguins |> 
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    col = species,
+    alpha = species,
+    alpha_pal = c(1, 1, 0.33),
+    mapping = aes(shape = species),
+  ) 
 ```
-
-##### Unused factor levels kept
-
-ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting using `forcats::fct_drop`. 
-
-```{r, fig.asp=0.5}
-p1 <- diamonds |> 
-  count(color) |>
-  filter(color %in% c("E", "G", "I")) |>
-  gg_col(
-    x = n,
-    y = color,
-    width = 0.75,
-    x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)", 
-    subtitle = "\nUnused levels kept",
-  )
-
-p2 <- diamonds |> 
-  count(color) |>
-  filter(color %in% c("E", "G", "I")) |>
-  mutate(color = forcats::fct_drop(color)) |> 
-  gg_col(
-    x = n,
-    y = color,
-    width = 0.75,
-    x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)", 
-    subtitle = "\nUnused levels dropped",
-  )
-
-p1 + p2
-```
-
-##### Different `oob` & `clip` defaults
-
-By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
-
-ggplot2 by default drops values outside of the limits in calculating the geoms and scales to plot (`scales::oob_censor`), and clips anything outside the cartesian coordinate space (`coord = ggplot2::coord_cartesian(clip = "on"`)).
-
-This needs to be considered particularly when you are using `x_limits` or `y_limits`, and your stat is _not_ `"identity"`.  
-
-##### Alpha
-
-`alpha` is fully supported in ggblanket in a similar way to `col`. So the `alpha` argument represents an aesthetic, whereas `alpha_pal` represents a value (or values or range). 
-
-##### Other
-
-* `*_title` is equivalent to `ggplot2::labs(* = ...)`
-* Facet arguments `strip.position` and `switch` are renamed `facet_labels_position` and `facet_labels_switch`
-* `y` categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) 
-* Logical variables are reversed, so that `TRUE` always comes before `FALSE`
-* Infinite values are treated as `NA`
-* `facet_axes` and `facet_axis_labels` have different defaults.
 
 ### 15. A `gg_blanket` function with `geom` flexibility
 
@@ -605,6 +536,33 @@ penguins |>
     col = species,
   )
 ```
+
+### 16. Other key differences
+
+##### Unquoted variables only
+
+ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet`, `facet2` and  `alpha`. You cannot wrap these in a function. Instead you may need to manipulate the data prior to plotting (e.g. using `forcats::fct_rev` and/or `forcats::fct_reorder`).
+
+##### Unused factor levels kept
+
+ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting using `forcats::fct_drop`. 
+
+##### Different `oob` & `clip` defaults
+
+By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
+
+ggplot2 by default drops values outside of the limits in calculating the geoms and scales to plot (`scales::oob_censor`), and clips anything outside the cartesian coordinate space (`coord = ggplot2::coord_cartesian(clip = "on"`)).
+
+This needs to be considered particularly when you are using `x_limits` or `y_limits`, and your `stat` is _not_ `"identity"`.  
+
+##### Other
+
+* `*_title` is equivalent to `ggplot2::labs(* = ...)`
+* Facet arguments `strip.position` and `switch` are renamed `facet_labels_position` and `facet_labels_switch`
+* `y` categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) 
+* Logical variables are reversed, so that `TRUE` always comes before `FALSE`
+* Infinite values are treated as `NA`
+* `facet_axes` and `facet_axis_labels` have different defaults.
 
 ## Further information 
 
