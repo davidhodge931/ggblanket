@@ -492,7 +492,9 @@ The `alpha` is fully supported in ggblanket in a similar way to `col`. So the `a
 
 The `mapping` argument provides access to the `size`, `shape`, `linetype` and `linewidth` aesthetics within the `gg_*` function. 
 
-Where legends do not align or merge nicely, you may need to reverse a variable, change a title with a `ggplot2::labs` layer, or change legend values by adding a  `ggplot2::scale_*_manual` layer etc.
+Legend titles and element order must be aligned, if legends are to merge. Subsequently, you may need to change a shape or linetype title using `+ ggplot2::labs` to align it with the `col_title`. 
+
+In general, users should use `ggplot2::labs` and `ggplot2::scale_*` layers to manipulate `size`, `shape`, `linetype` and `linewidth` aesthetics.
 
 ```{r}
 penguins |> 
