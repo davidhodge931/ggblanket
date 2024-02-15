@@ -1,6 +1,6 @@
 #' @title Dark mode theme with right top legend
 #'
-#' @description Dark mode theme for a ggplot visualisation with legend at right top. It uses the colours `"#C8D7DF"`, `"#050D1B"`, and `"#00040A"`.
+#' @description Dark mode theme for a ggplot visualisation with legend at right top. It uses the colours from `darkness`.
 #'
 #' @inheritParams base_mode
 #'
@@ -26,13 +26,18 @@ dark_mode_rt <- function (
   base_mode_rt(
     base_size = base_size,
     base_family = base_family,
-    col_pal = darkness
+    col_pal = c(
+      "text" = darkness[1],
+      "axis_line" = darkness[1],
+      "panel_background" = darkness[2],
+      "plot_background" = darkness[3],
+      "panel_grid" = darkness[3])
   )
 }
 
 #' @title Dark mode theme with right legend
 #'
-#' @description Dark mode theme for a ggplot visualisation with right legend. It uses the colours `"#C8D7DF"`, `"#050D1B"`, and `"#00040A"`.
+#' @description Dark mode theme for a ggplot visualisation with right legend. It uses the colours from `darkness`.
 #'
 #' @inheritParams base_mode
 #'
@@ -58,13 +63,18 @@ dark_mode_r <- function (
   base_mode_r(
     base_size = base_size,
     base_family = base_family,
-    col_pal = darkness
+    col_pal = c(
+      "text" = darkness[1],
+      "axis_line" = darkness[1],
+      "panel_background" = darkness[2],
+      "plot_background" = darkness[3],
+      "panel_grid" = darkness[3])
   )
 }
 
 #' @title Dark mode theme with top legend
 #'
-#' @description Dark mode theme for a ggplot visualisation with top legend. It uses the colours `"#C8D7DF"`, `"#050D1B"`, and `"#00040A"`.
+#' @description Dark mode theme for a ggplot visualisation with top legend. It uses the colours from `darkness`.
 #'
 #' @inheritParams base_mode
 #'
@@ -90,13 +100,18 @@ dark_mode_t <- function (
   base_mode_t(
     base_size = base_size,
     base_family = base_family,
-    col_pal = darkness
+    col_pal = c(
+      "text" = darkness[1],
+      "axis_line" = darkness[1],
+      "panel_background" = darkness[2],
+      "plot_background" = darkness[3],
+      "panel_grid" = darkness[3])
   )
 }
 
 #' @title Dark mode theme with bottom legend
 #'
-#' @description Dark mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#C8D7DF"`, `"#050D1B"`, and `"#00040A"`.
+#' @description Dark mode theme for a ggplot visualisation with bottom legend. It uses the colours from `darkness`.
 #'
 #' @inheritParams base_mode
 #'
@@ -122,13 +137,18 @@ dark_mode_b <- function (
   base_mode_b(
     base_size = base_size,
     base_family = base_family,
-    col_pal = darkness
+    col_pal = c(
+      "text" = darkness[1],
+      "axis_line" = darkness[1],
+      "panel_background" = darkness[2],
+      "plot_background" = darkness[3],
+      "panel_grid" = darkness[3])
   )
 }
 
 #' @title Dark mode theme with no legend
 #'
-#' @description Dark mode theme for a ggplot visualisation with no legend. It uses the colours `"#C8D7DF"`, `"#050D1B"`, and `"#00040A"`.
+#' @description Dark mode theme for a ggplot visualisation with no legend. It uses the colours from `darkness`.
 #'
 #' @inheritParams base_mode
 #'
@@ -154,6 +174,13 @@ dark_mode_n <- function (
   base_mode_n(
     base_size = base_size,
     base_family = base_family,
-    col_pal = darkness
+    col_pal = c(
+      "text" = darkness[1],
+      "axis_line" = darkness[1],
+      "panel_background" = darkness[2],
+      "plot_background" = darkness[3],
+      "panel_grid" = darkness[3])
   )
 }
+
+

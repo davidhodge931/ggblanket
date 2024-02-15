@@ -19,9 +19,8 @@ contrast <- function(col,
 #'
 #' @description A colour aesthetic that automatically contrasts with fill. Can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
-#' @param mode_family The ggblanket mode family colours. Either "grey_mode", "light_mode", or "dark_mode". Defaults to "light_mode".
-#' @param col_pal_dark A dark colour for use on light fill, which over-rides defaults selected based on the mode_family.
-#' @param col_pal_light A light colour for use on dark fill, which over-rides defaults selected based on the mode_family.
+#' @param col_pal A 2 element vector of colours ordered dark colour and then light colour. Defaults to `c("black", "white")`.
+#' Use `lightness[1:2]`, `greyness[1:2]` or `darkness[c(3, 1)]` with the applicable `*_mode_*` theme.
 #'
 #' @return An aesthetic
 #' @export
@@ -43,32 +42,17 @@ contrast <- function(col,
 #'   ) +
 #'   geom_text(
 #'     mapping = aes(y = n - (max(n * 0.04)), label = n,
-#'                   !!!aes_contrast()),
+#'                   !!!aes_contrast(lightness[1:2])),
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     show.legend = FALSE,
 #'   )
-aes_contrast <- function(mode_family = "light_mode",
-                         col_pal_dark = NULL,
-                         col_pal_light = NULL) {
-
-  if (mode_family == "light_mode") {
-    if (rlang::is_null(col_pal_dark)) col_pal_dark <- lightness["text"]
-    if (rlang::is_null(col_pal_light)) col_pal_light <- lightness["panel_background"]
-  }
-  else if (mode_family == "grey_mode") {
-    if (rlang::is_null(col_pal_dark)) col_pal_dark <- greyness["text"]
-    if (rlang::is_null(col_pal_light)) col_pal_light <- greyness["panel_background"]
-  }
-  else if (mode_family == "dark_mode") {
-    if (rlang::is_null(col_pal_dark)) col_pal_dark <- darkness["plot_background"]
-    if (rlang::is_null(col_pal_light)) col_pal_light <- darkness["text"]
-  }
+aes_contrast <- function(col_pal = c("black", "white")) {
 
   ggplot2::aes(colour = ggplot2::after_scale(
     contrast(
       .data$fill,
-      col_pal_dark = col_pal_dark,
-      col_pal_light = col_pal_light
+      col_pal_dark = col_pal[1],
+      col_pal_light = col_pal[2]
     )
   ))
 }

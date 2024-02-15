@@ -4,18 +4,11 @@
 \alias{aes_contrast}
 \title{A colour aesthetic that automatically contrasts with fill.}
 \usage{
-aes_contrast(
-  mode_family = "light_mode",
-  col_pal_dark = NULL,
-  col_pal_light = NULL
-)
+aes_contrast(col_pal = c("black", "white"))
 }
 \arguments{
-\item{mode_family}{The ggblanket mode family colours. Either "grey_mode", "light_mode", or "dark_mode". Defaults to "light_mode".}
-
-\item{col_pal_dark}{A dark colour for use on light fill, which over-rides defaults selected based on the mode_family.}
-
-\item{col_pal_light}{A light colour for use on dark fill, which over-rides defaults selected based on the mode_family.}
+\item{col_pal}{A 2 element vector of colours ordered dark colour and then light colour. Defaults to \code{c("black", "white")}.
+Use \code{lightness[1:2]}, \code{greyness[1:2]} or \code{darkness[c(3, 1)]} with the applicable \verb{*_mode_*} theme.}
 }
 \value{
 An aesthetic
@@ -40,7 +33,7 @@ penguins |>
   ) +
   geom_text(
     mapping = aes(y = n - (max(n * 0.04)), label = n,
-                  !!!aes_contrast()),
+                  !!!aes_contrast(lightness[1:2])),
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
   )

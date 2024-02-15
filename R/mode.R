@@ -15,7 +15,8 @@ base_mode <- function (
       "axis_line" = "white",
       "panel_background" = "white",
       "plot_background" = "white",
-      "panel_grid" = "white")) {
+      "panel_grid" = "white")
+    ) {
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = col_pal["axis_line"], linewidth = base_size/33, linetype = 1, lineend = "square"),
@@ -106,7 +107,8 @@ base_mode_rt <- function (
       "axis_line" = "white",
       "panel_background" = "white",
       "plot_background" = "white",
-      "panel_grid" = "white")) {
+      "panel_grid" = "white")
+    ) {
 
   base_mode(
     base_size = base_size,
@@ -145,7 +147,8 @@ base_mode_r <- function (
       "axis_line" = "white",
       "panel_background" = "white",
       "plot_background" = "white",
-      "panel_grid" = "white")) {
+      "panel_grid" = "white")
+    ) {
 
   base_mode(
     base_size = base_size,
@@ -184,7 +187,8 @@ base_mode_t <- function (
       "axis_line" = "white",
       "panel_background" = "white",
       "plot_background" = "white",
-      "panel_grid" = "white")) {
+      "panel_grid" = "white")
+    ) {
 
   base_mode(
     base_size = base_size,
@@ -223,7 +227,8 @@ base_mode_b <- function (
       "axis_line" = "white",
       "panel_background" = "white",
       "plot_background" = "white",
-      "panel_grid" = "white")) {
+      "panel_grid" = "white")
+    ) {
 
   base_mode(
     base_size = base_size,
@@ -262,7 +267,8 @@ base_mode_n <- function (
       "axis_line" = "white",
       "panel_background" = "white",
       "plot_background" = "white",
-      "panel_grid" = "white")) {
+      "panel_grid" = "white")
+    ) {
 
   base_mode(
     base_size = base_size,

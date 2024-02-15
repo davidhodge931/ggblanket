@@ -1,6 +1,6 @@
 #' @title Light mode theme with right top legend
 #'
-#' @description Light mode theme for a ggplot visualisation with legend at right top. It uses the colours `"#121B24"`, `"#FFFFFF"`, and `"#F6F8FA"`.
+#' @description Light mode theme for a ggplot visualisation with legend at right top. It uses the colours from `lightness`.
 #'
 #' @inheritParams base_mode
 #'
@@ -26,13 +26,18 @@ light_mode_rt <- function (
   base_mode_rt(
     base_size = base_size,
     base_family = base_family,
-    col_pal = lightness
+    col_pal = c(
+      "text" = lightness[1],
+      "axis_line" = lightness[1],
+      "panel_background" = lightness[2],
+      "plot_background" = lightness[2],
+      "panel_grid" = lightness[3])
   )
 }
 
 #' @title Light mode theme with right legend
 #'
-#' @description Light mode theme for a ggplot visualisation with right legend. It uses the colours `"#121B24"`, `"#FFFFFF"`, and `"#F6F8FA"`.
+#' @description Light mode theme for a ggplot visualisation with right legend. It uses the colours from `lightness`.
 #'
 #' @inheritParams base_mode
 #'
@@ -58,13 +63,18 @@ light_mode_r <- function (
   base_mode_r(
     base_size = base_size,
     base_family = base_family,
-    col_pal = lightness
+    col_pal = c(
+      "text" = lightness[1],
+      "axis_line" = lightness[1],
+      "panel_background" = lightness[2],
+      "plot_background" = lightness[2],
+      "panel_grid" = lightness[3])
   )
 }
 
 #' @title Light mode theme with top legend
 #'
-#' @description Light mode theme for a ggplot visualisation with top legend. It uses the colours `"#121B24"`, `"#FFFFFF"`, and `"#F6F8FA"`.
+#' @description Light mode theme for a ggplot visualisation with top legend. It uses the colours from `lightness`.
 #'
 #' @inheritParams base_mode
 #'
@@ -90,13 +100,18 @@ light_mode_t <- function (
   base_mode_t(
     base_size = base_size,
     base_family = base_family,
-    col_pal = lightness
+    col_pal = c(
+      "text" = lightness[1],
+      "axis_line" = lightness[1],
+      "panel_background" = lightness[2],
+      "plot_background" = lightness[2],
+      "panel_grid" = lightness[3])
   )
 }
 
 #' @title Light mode theme with bottom legend
 #'
-#' @description Light mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#121B24"`, `"#FFFFFF"`, and `"#F6F8FA"`.
+#' @description Light mode theme for a ggplot visualisation with bottom legend. It uses the colours from `lightness`.
 #'
 #' @inheritParams base_mode
 #'
@@ -122,13 +137,18 @@ light_mode_b <- function (
   base_mode_b(
     base_size = base_size,
     base_family = base_family,
-    col_pal = lightness
+    col_pal = c(
+      "text" = lightness[1],
+      "axis_line" = lightness[1],
+      "panel_background" = lightness[2],
+      "plot_background" = lightness[2],
+      "panel_grid" = lightness[3])
   )
 }
 
 #' @title Light mode theme with no legend
 #'
-#' @description Light mode theme for a ggplot visualisation with no legend. It uses the colours `"#121B24"`, `"#FFFFFF"`, and `"#F6F8FA"`.
+#' @description Light mode theme for a ggplot visualisation with no legend. It uses the colours from `lightness`.
 #'
 #' @inheritParams base_mode
 #'
@@ -154,7 +174,12 @@ light_mode_n <- function (
   base_mode_n(
     base_size = base_size,
     base_family = base_family,
-    col_pal = lightness
+    col_pal = c(
+      "text" = lightness[1],
+      "axis_line" = lightness[1],
+      "panel_background" = lightness[2],
+      "plot_background" = lightness[2],
+      "panel_grid" = lightness[3])
   )
 }
 

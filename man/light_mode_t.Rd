@@ -15,7 +15,7 @@ light_mode_t(base_size = 11, base_family = "")
 A ggplot mode.
 }
 \description{
-Light mode theme for a ggplot visualisation with top legend. It uses the colours \code{"#121B24"}, \code{"#FFFFFF"}, and \code{"#F6F8FA"}.
+Light mode theme for a ggplot visualisation with top legend. It uses the colours from \code{lightness}.
 }
 \examples{
 library(palmerpenguins)

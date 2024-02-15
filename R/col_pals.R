@@ -52,39 +52,29 @@ plum <- "#901752"
 #' @export
 greys <- c("#E8EFF2", "#C8D7DF", "#A7C0CD", "#78909C", "#4B636E", "#364850", "#222C31")
 
-#' The `grey_mode_*` mode colours
+#' The `light_mode_*` theme colours
 #'
-#' @noRd
-greyness <- c(
-  "text" = "#121B24",
-  "axis_line" = "#121B24",
-  "panel_background" = "#fCFDFE",
-  "plot_background" = "#F6F8FA",
-  "panel_grid" = "#F6F8FA"
-)
+#' @description A vector of colours used in the `light_mode_*` themes.
+#'
+#' @return A character vector.
+#'
+#' @export
+lightness <- c("#121B24", "#FFFFFF", "#F6F8FA")
 
-#' The `light_mode_*` mode colours
+#' The `grey_mode_*` theme colours
 #'
-#' @description A vector of colours used in the `light_mode_*` modes.
+#' @description A vector of colours used in the `grey_mode_*` themes.
 #'
-#' @noRd
-lightness <- c(
-  "text" = "#121B24",
-  "axis_line" = "#121B24",
-  "panel_background" = "#FFFFFF",
-  "plot_background" = "#FFFFFF",
-  "panel_grid" = "#F6F8FA"
-)
+#' @return A character vector.
+#'
+#' @export
+greyness <- c("#121B24", "#fCFDFE", "#F6F8FA")
 
-#' The `dark_mode_*` mode colours
+#' The `dark_mode_*` theme colours
 #'
-#' @description A vector of colours used in the `dark_mode_*` modes.
+#' @description A vector of colours used in the `dark_mode_*` themes.
 #'
-#' @noRd
-darkness <- c(
-  "text" = "#C8D7DF",
-  "axis_line" = "#C8D7DF",
-  "panel_background" = "#050D1B",
-  "plot_background" = "#00040a",
-  "panel_grid" = "#00040a"
-)
+#' @return A character vector.
+#'
+#' @export
+darkness <- c("#C8D7DF", "#050D1B", "#00040a")

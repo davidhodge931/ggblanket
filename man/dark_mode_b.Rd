@@ -15,7 +15,7 @@ dark_mode_b(base_size = 11, base_family = "")
 A ggplot mode.
 }
 \description{
-Dark mode theme for a ggplot visualisation with bottom legend. It uses the colours \code{"#C8D7DF"}, \code{"#050D1B"}, and \code{"#00040A"}.
+Dark mode theme for a ggplot visualisation with bottom legend. It uses the colours from \code{darkness}.
 }
 \examples{
 library(palmerpenguins)
