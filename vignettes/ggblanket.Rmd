@@ -144,7 +144,7 @@ penguins |>
   gg_jitter(
     x = species, 
     y = body_mass_g, 
-    col_pal = "#ff483a",
+    col_pal = "#FF7043",
   )
 ```
 
