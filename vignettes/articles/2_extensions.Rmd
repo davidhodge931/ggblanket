@@ -453,7 +453,8 @@ expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |>
     size = 2.5, 
     straight = TRUE,
   ) +
-  ggeasy::easy_remove_axes() 
+  ggeasy::easy_remove_x_axis() + 
+  ggeasy::easy_remove_y_axis()
 ```
 
 #### ggiraph
