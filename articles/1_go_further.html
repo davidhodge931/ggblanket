@@ -102,13 +102,14 @@ Hodge</h4>
 <p>This article will demonstrate more advanced content, including how
 to:</p>
 <ol style="list-style-type: decimal">
+<li>Use <code>shape</code>, <code>linetype</code>,
+<code>linewidth</code> or <code>size</code> aesthetics</li>
 <li>Use different fonts</li>
 <li>Visualise spatial data</li>
 <li>Change the <code>stat</code>
 </li>
 <li>Fix either the colour outline or interior fill to a constant
 colour</li>
-<li>Use non-supported aesthetics</li>
 <li>Use delayed evaluation</li>
 <li>Add contrasting dark or light text on polygons</li>
 </ol>
@@ -120,12 +121,34 @@ colour</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">palmerpenguins</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
-<h3 id="use-different-fonts">1. Use different fonts<a class="anchor" aria-label="anchor" href="#use-different-fonts"></a>
+<h3 id="use-shape-linetype-linewidth-or-size-aesthetics">1. Use <code>shape</code>, <code>linetype</code>,
+<code>linewidth</code> or <code>size</code> aesthetics<a class="anchor" aria-label="anchor" href="#use-shape-linetype-linewidth-or-size-aesthetics"></a>
+</h3>
+<p>Most functions have the commonly needed aesthetics directly available
+as an argument. For those that are <em>not</em> available, you can
+either use <code>mapping</code> argument. The <code>mapping</code>
+argument provides access to the <code>size</code>, <code>shape</code>,
+<code>linetype</code> and <code>linewidth</code> aesthetics within the
+<code>gg_*</code> function. Note you may have to change the title by
+adding a <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs</a></code> layer, or change the legend values
+by adding a <code>ggplot2::scale_*_manual</code> layer etc.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">species</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> </span></code></pre></div>
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-2-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="use-different-fonts">2. Use different fonts<a class="anchor" aria-label="anchor" href="#use-different-fonts"></a>
 </h3>
 <p>The showtext and sysfonts packages support the use of different fonts
 from Google. The <code>*_mode_*</code> theme functions provide a
 <code>base_family</code> argument.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_families_google.html" class="external-link">font_families_google</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "ABeeZee"       "Abel"          "Abhaya Libre"  "Abril Fatface"</span></span>
 <span><span class="co">#&gt; [5] "Aclonica"      "Acme"</span></span>
@@ -152,22 +175,22 @@ from Google. The <code>*_mode_*</code> theme functions provide a
 <span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"roboto_slab"</span><span class="op">)</span>,</span>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"syne"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-2-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-3-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu">showtext</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/showtext/man/showtext_auto.html" class="external-link">showtext_auto</a></span><span class="op">(</span>enable <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="visualise-spatial-data">2. Visualise spatial data<a class="anchor" aria-label="anchor" href="#visualise-spatial-data"></a>
+<h3 id="visualise-spatial-data">3. Visualise spatial data<a class="anchor" aria-label="anchor" href="#visualise-spatial-data"></a>
 </h3>
 <p>As ggblanket wraps the <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf</a></code> and
 <code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">ggplot2::geom_raster</a></code> functions, spatial vector and array
 data can be visualised.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_sf.html">gg_sf</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">AREA</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-3-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-4-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html" class="external-link">read_stars</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"tif/L7_ETMs.tif"</span>, package <span class="op">=</span> <span class="st">"stars"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="../reference/gg_raster.html">gg_raster</a></span><span class="op">(</span></span>
@@ -179,21 +202,13 @@ data can be visualised.</p>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggeasy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_x_axis</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggeasy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_y_axis</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-4-1.svg" width="70%"></p>
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="change-the-stat">3. Change the <code>stat</code><a class="anchor" aria-label="anchor" href="#change-the-stat"></a>
+<h3 id="change-the-stat">4. Change the <code>stat</code><a class="anchor" aria-label="anchor" href="#change-the-stat"></a>
 </h3>
 <p>The default <code>stat</code> of each <code>gg_*</code> function can
 be changed.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
-<span>    stat <span class="op">=</span> <span class="st">"summary"</span>,</span>
-<span>    x <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">island</span>,</span>
-<span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_pointrange.html">gg_pointrange</a></span><span class="op">(</span></span>
@@ -218,13 +233,13 @@ be changed.</p>
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="fix-either-the-colour-outline-or-interior-fill-to-a-constant-colour">4. Fix either the colour outline or interior fill to a constant
+<h3 id="fix-either-the-colour-outline-or-interior-fill-to-a-constant-colour">5. Fix either the colour outline or interior fill to a constant
 colour<a class="anchor" aria-label="anchor" href="#fix-either-the-colour-outline-or-interior-fill-to-a-constant-colour"></a>
 </h3>
 <p>For geom’s that have both outline colour and interior fill, it is
 possible to fix one of these to a constant colour.</p>
 <p>To do this, use <code>colour = "black"</code> or
-<code>fill = "#d3d3d3"</code>. Note this requires a <code>col</code>
+<code>fill = "#D3D3D3"</code>. Note this requires a <code>col</code>
 aesthetic to work. So you must do this in a hacky way, where you do not
 want a <code>col</code> aesthetic.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -234,7 +249,7 @@ want a <code>col</code> aesthetic.</p>
 <span>    x <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"black"</span>, <span class="co">#or fill = "lightgrey" </span></span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>, <span class="co">#or fill = #D3D3D3",</span></span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
 <span>    alpha_pal <span class="op">=</span> <span class="fl">0.9</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
@@ -246,7 +261,7 @@ want a <code>col</code> aesthetic.</p>
 <span>    x <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">hack</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"black"</span>, <span class="co">#or fill = "lightgrey" </span></span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>, <span class="co">#or fill = #D3D3D3", </span></span>
 <span>    width <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>    alpha_pal <span class="op">=</span> <span class="fl">0.9</span>,</span>
 <span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_n.html">grey_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -254,44 +269,22 @@ want a <code>col</code> aesthetic.</p>
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="use-non-supported-aesthetics">5. Use non-supported aesthetics<a class="anchor" aria-label="anchor" href="#use-non-supported-aesthetics"></a>
-</h3>
-<p>Most functions have the commonly needed aesthetics directly available
-as an argument. For those that are not available, you can either use
-<code>mapping</code> argument. The <code>mapping</code> argument
-provides access to the <code>size</code>, <code>shape</code>,
-<code>linetype</code> and <code>linewidth</code> aesthetics within the
-<code>gg_*</code> function. Note you may have to change the title using
-<code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs</a></code> (and reverse the legend elements depending on
-the plot orientation).</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>, </span>
-<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">species</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
 <h3 id="use-delayed-evaluation">6. Use delayed evaluation<a class="anchor" aria-label="anchor" href="#use-delayed-evaluation"></a>
 </h3>
 <p>As the <code>x</code>, <code>y</code>, <code>col</code> and
 <code>alpha</code> aesthetic arguments require a unquoted variable, you
 cannot apply a function to these. However, you can for aesthetics within
-the <code>mapping</code> argument. This is useful for delayed evaluation
-with the <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">ggplot2::after_stat</a></code> function.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+the <code>mapping</code> argument. This can be used for delayed
+evaluation with the <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">ggplot2::after_stat</a></code> function.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    mappingRp <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">faithfuld</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_contour.html">gg_contour</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">waiting</span>,</span>
@@ -300,7 +293,7 @@ with the <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" c
 <span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">level</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    bins <span class="op">=</span> <span class="fl">8</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="add-contrasting-dark-or-light-text-on-polygons">7. Add contrasting dark or light text on polygons<a class="anchor" aria-label="anchor" href="#add-contrasting-dark-or-light-text-on-polygons"></a>
@@ -309,7 +302,7 @@ with the <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" c
 determined based on the underlying polygon colour using
 <code>!!!aes_contrast()</code>. This method was developed by Teun van
 den Brand (<span class="citation">@teunbrand</span>).</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
@@ -326,8 +319,8 @@ den Brand (<span class="citation">@teunbrand</span>).</p>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span>, preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
@@ -345,8 +338,8 @@ den Brand (<span class="citation">@teunbrand</span>).</p>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span>, preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
@@ -364,7 +357,7 @@ den Brand (<span class="citation">@teunbrand</span>).</p>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span>, preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
