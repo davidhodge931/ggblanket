@@ -165,7 +165,7 @@ penguins |>
 
 ### 5. Use non-supported aesthetics 
 
-Most functions have the commonly needed aesthetics directly available as an argument. For those that are not available, you can either use `mapping` argument. The `mapping` argument provides access to the `size`, `shape`, `linetype` and `linewidth` aesthetics within the `gg_*` function. 
+Most functions have the commonly needed aesthetics directly available as an argument. For those that are not available, you can either use `mapping` argument. The `mapping` argument provides access to the `size`, `shape`, `linetype` and `linewidth` aesthetics within the `gg_*` function. Note you may have to change the title using `ggplot2::labs` (and reverse the legend elements depending on the plot orientation).
 
 ```{r}
 penguins |> 
