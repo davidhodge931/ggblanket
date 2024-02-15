@@ -70,8 +70,8 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>col_pal</dt>
-<dd><p>A 2 element vector of colours ordered dark colour and then light colour. Defaults to <code>c("black", "white")</code>.
-Use <code>lightness[1:2]</code>, <code>greyness[1:2]</code> or <code>darkness[c(3, 1)]</code> with the applicable <code>*_mode_*</code> theme.</p></dd>
+<dd><p>A vector of a dark colour and then a light colour. Defaults to <code>c("black", "white")</code>.
+Use <code>lightness</code>, <code>greyness</code> or <code>darkness</code> with the applicable <code>*_mode_*</code> theme.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -107,7 +107,7 @@ Use <code>lightness[1:2]</code>, <code>greyness[1:2]</code> or <code>darkness[c(
 <span class="r-in"><span>  <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">n</span> <span class="op">-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">n</span> <span class="op">*</span> <span class="fl">0.04</span><span class="op">)</span><span class="op">)</span>, label <span class="op">=</span> <span class="va">n</span>,</span></span>
-<span class="r-in"><span>                  <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="fu">aes_contrast</span><span class="op">(</span><span class="va">lightness</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                  <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="fu">aes_contrast</span><span class="op">(</span><span class="va">lightness</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span>, preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
