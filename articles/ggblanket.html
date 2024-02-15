@@ -132,10 +132,9 @@ placement</li>
 </li>
 <li>Turn-off either coloured outlines or interiors</li>
 <li>Ability to add multiple <code>geom_*</code> layers</li>
-<li>Use alpha and other aesthetics</li>
+<li>Use <code>alpha</code> and other aesthetics</li>
 <li>A <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with <code>geom</code>
 flexibility</li>
-<li>Other key differences</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidhodge931.github.io/ggblanket/">ggblanket</a></span><span class="op">)</span></span>
@@ -528,7 +527,7 @@ geom).</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="use-alpha-and-other-aesthetics">14. Use alpha and other aesthetics<a class="anchor" aria-label="anchor" href="#use-alpha-and-other-aesthetics"></a>
+<h3 id="use-alpha-and-other-aesthetics">14. Use <code>alpha</code> and other aesthetics<a class="anchor" aria-label="anchor" href="#use-alpha-and-other-aesthetics"></a>
 </h3>
 <p>The <code>alpha</code> is fully supported in ggblanket in a similar
 way to <code>col</code>. So the <code>alpha</code> argument represents
@@ -591,68 +590,6 @@ as per the applicable <code>geom_*</code> function.</p>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="other-key-differences">16. Other key differences<a class="anchor" aria-label="anchor" href="#other-key-differences"></a>
-</h3>
-<div class="section level5">
-<h5 id="unquoted-variables-only">Unquoted variables only<a class="anchor" aria-label="anchor" href="#unquoted-variables-only"></a>
-</h5>
-<p>ggblanket requires unquoted variables only for <code>x</code>,
-<code>y</code>, <code>col</code>, <code>facet</code>,
-<code>facet2</code> and <code>alpha</code>. You cannot wrap these in a
-function. Instead you may need to manipulate the data prior to plotting
-(e.g. using <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev</a></code> and/or
-<code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">forcats::fct_reorder</a></code>).</p>
-</div>
-<div class="section level5">
-<h5 id="unused-factor-levels-kept">Unused factor levels kept<a class="anchor" aria-label="anchor" href="#unused-factor-levels-kept"></a>
-</h5>
-<p>ggblanket keeps unused factor levels in the plot. If users wish to
-drop unused levels they should likewise do it in the data prior to
-plotting using <code><a href="https://forcats.tidyverse.org/reference/fct_drop.html" class="external-link">forcats::fct_drop</a></code>.</p>
-</div>
-<div class="section level5">
-<h5 id="different-oob-clip-defaults">Different <code>oob</code> &amp; <code>clip</code> defaults<a class="anchor" aria-label="anchor" href="#different-oob-clip-defaults"></a>
-</h5>
-<p>By default, ggblanket keeps values outside of the limits
-(<code>*_oob = scales::oob_keep</code>) in calculating the geoms and
-scales to plot. It also does <em>not</em> clip anything outside the
-cartesian coordinate space by default
-(<code>coord = ggplot2::coord_cartesian(clip = "off"</code>)).</p>
-<p>ggplot2 by default drops values outside of the limits in calculating
-the geoms and scales to plot (<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_censor</a></code>), and
-clips anything outside the cartesian coordinate space
-(<code>coord = ggplot2::coord_cartesian(clip = "on"</code>)).</p>
-<p>This needs to be considered particularly when you are using
-<code>x_limits</code> or <code>y_limits</code>, and your
-<code>stat</code> is <em>not</em> <code>"identity"</code>.</p>
-</div>
-<div class="section level5">
-<h5 id="other">Other<a class="anchor" aria-label="anchor" href="#other"></a>
-</h5>
-<ul>
-<li>
-<code>*_title</code> is equivalent to
-<code>ggplot2::labs(* = ...)</code>
-</li>
-<li>Facet arguments <code>strip.position</code> and <code>switch</code>
-are renamed <code>facet_labels_position</code> and
-<code>facet_labels_switch</code>
-</li>
-<li>
-<code>y</code> categorical variables are reversed, so that they are
-read from low levels (top) to high levels (bottom)</li>
-<li>Logical variables are reversed, so that <code>TRUE</code> always
-comes before <code>FALSE</code>
-</li>
-<li>Infinite values are treated as <code>NA</code>
-</li>
-<li>
-<code>facet_axes</code> and <code>facet_axis_labels</code> have
-different defaults.</li>
-</ul>
-</div>
 </div>
 </div>
 <div class="section level2">
