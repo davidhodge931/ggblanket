@@ -20,12 +20,15 @@ knitr::opts_chunk$set(
 
 This article will demonstrate more advanced content, including how to: 
 
-1. Use different fonts
-2. Visualise spatial data
-3. Change the `stat`
-4. Fix either the colour outline or interior fill to a constant colour
-5. Use delayed evaluation
-6. Add contrasting dark or light text on polygons
+1. Reorder and/or reverse categorical variables
+2. Drop unused categorical variable values
+3. Use different fonts
+4. Visualise spatial data
+5. Change the `stat`
+6. Fix either the colour outline or interior fill to a constant colour
+7. Use delayed evaluation
+8. Add contrasting dark or light text on polygons
+9. Understand `oob` & `clip
 
 ```{r setup}
 library(ggblanket)
@@ -34,9 +37,76 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(palmerpenguins)
+library(patchwork)
 ```
 
-### 1. Use different fonts
+### 1. Reorder and/or reverse categorical variables
+
+ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet`, `facet2` and  `alpha`. You can often manipulate the data prior to plotting to acheive what you want (e.g. using `tidyr::drop_na`, `forcats::fct_rev` and/or `forcats::fct_reorder`).
+
+```{r}
+p1 <- diamonds |>
+  count(color) |>
+  gg_col(
+    x = n,
+    y = color,
+    width = 0.75,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)", 
+    subtitle = "\nDefault order"
+  )
+
+p2 <- diamonds |>
+  count(color) |>
+  mutate(across(color, \(x) x |>
+                  forcats::fct_reorder(n) |>
+                  forcats::fct_rev())) |>
+  gg_col(
+    x = n,
+    y = color,
+    width = 0.75,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)", 
+    subtitle = "\nRe-orderered"
+  )
+
+p1 + p2
+```
+
+### 2. Drop unused categorical variable values
+
+ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting using `forcats::fct_drop`. 
+
+```{r}
+p1 <- diamonds |> 
+  count(color) |>
+  filter(color %in% c("E", "G", "I")) |>
+  gg_col(
+    x = n,
+    y = color,
+    width = 0.75,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)", 
+    subtitle = "\nUnused levels kept",
+  )
+
+p2 <- diamonds |> 
+  count(color) |>
+  filter(color %in% c("E", "G", "I")) |>
+  mutate(color = forcats::fct_drop(color)) |> 
+  gg_col(
+    x = n,
+    y = color,
+    width = 0.75,
+    x_labels = \(x) x / 1000,
+    x_title = "Count (thousands)", 
+    subtitle = "\nUnused levels dropped",
+  )
+
+p1 + p2
+```
+
+### 3. Use different fonts
 
 The showtext and sysfonts packages support the use of different fonts from Google. The `*_mode_*` theme functions provide a `base_family` argument.
 
@@ -69,7 +139,7 @@ penguins |>
 showtext::showtext_auto(enable = FALSE)
 ```
 
-### 2. Visualise spatial data
+### 4. Visualise spatial data
 
 As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, spatial vector and array data can be visualised. 
 
@@ -92,7 +162,7 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
   ggeasy::easy_remove_y_axis() 
 ```
 
-### 3. Change the `stat`
+### 5. Change the `stat`
 
 The default `stat` of each `gg_*` function can be changed. 
 
@@ -120,7 +190,7 @@ ggplot2::economics |>
   ) 
 ```
 
-### 4. Fix either the colour outline or interior fill to a constant colour
+### 6. Fix either the colour outline or interior fill to a constant colour
 
 For geom's that have both outline colour and interior fill, it is possible to fix one of these to a constant colour.
 
@@ -153,7 +223,7 @@ penguins |>
   ) 
 ```
 
-### 5. Use delayed evaluation
+### 7. Use delayed evaluation
 
 As the `x`, `y`, `col` and `alpha` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This can be used for delayed evaluation with the `ggplot2::after_stat` function.
 
@@ -177,7 +247,7 @@ faithfuld |>
   )
 ```
 
-### 6. Add contrasting dark or light text on polygons
+### 8. Add contrasting dark or light text on polygons
 
 Text on polygons can be coloured with a dark or light colour that is determined based on the underlying polygon colour using `!!!aes_contrast()`. This method was developed by Teun van den Brand (@teunbrand).
 
@@ -238,5 +308,94 @@ penguins |>
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
   ) 
+```
+
+### 9. Understand `oob` & `clip`
+
+By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
+
+ggplot2 by default drops values outside of the limits in calculating the geoms and scales to plot (`scales::oob_censor`), and clips anything outside the cartesian coordinate space (`coord = ggplot2::coord_cartesian(clip = "on"`)).
+
+This needs to be considered particularly when you are using `x_limits` or `y_limits`, and your `stat` is _not_ `"identity"`.  
+
+```{r}
+p1 <- economics |> 
+  gg_smooth(
+    x = date, 
+    y = unemploy, 
+    subtitle = "\nNo x_limits set", 
+    se = TRUE) +
+  geom_vline(xintercept = c(lubridate::ymd("1985-01-01", "1995-01-01")),
+             col = blue, 
+             linetype = 3) +
+  geom_point(col = blue, alpha = 0.3)
+
+p2 <- economics |> 
+  filter(between(date, lubridate::ymd("1985-01-01"), lubridate::ymd("1995-01-01"))) |> 
+  gg_smooth(
+    x = date, 
+    y = unemploy,
+    se = TRUE,
+    x_labels = \(x) stringr::str_sub(x, 3, 4),
+    subtitle = "\nx data filtered") +
+  geom_point(col = blue, alpha = 0.3)
+
+p1 + p2
+```
+
+```{r}
+economics |> 
+  gg_smooth(
+    x = date, 
+    y = unemploy, 
+    se = TRUE,
+    x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
+    x_labels = \(x) stringr::str_sub(x, 3, 4),
+    subtitle = "\nx_limits set", 
+  ) +
+  geom_point(col = blue, alpha = 0.3) 
+```
+
+```{r}
+p4 <- economics |> 
+  gg_smooth(
+    x = date, 
+    y = unemploy, 
+    se = TRUE,
+    x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
+    x_labels = \(x) stringr::str_sub(x, 3, 4),
+    coord = coord_cartesian(clip = "on"), 
+    subtitle = "\nx_limits set & cartesian space clipped") +
+  geom_point(col = blue, alpha = 0.3)
+
+p5 <- economics |> 
+  gg_smooth(
+    x = date, 
+    y = unemploy, 
+    se = TRUE,
+    x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
+    x_labels = \(x) stringr::str_sub(x, 3, 4),
+    x_oob = scales::oob_censor,
+    subtitle = "\nx_limits set & x_oob censored") +
+  geom_point(col = blue, alpha = 0.3)
+
+
+p4 + p5
+```
+
+### 10. Use `replace_seq` to label only every nth break
+
+A `replace_seq` helper function is provided to replace a sequence of labels with `""`. 
+
+```{r}
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  gg_histogram(
+    x = flipper_length_mm,
+    facet = species,
+    facet2 = sex,
+    y_breaks = scales::breaks_pretty(7),
+    y_labels = \(x) replace_seq(x), 
+  )
 ```
 

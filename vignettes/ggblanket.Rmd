@@ -47,9 +47,8 @@ Secondary objectives relate to:
 11. Access to other `geom_*` arguments via `...`
 12. Turn-off either coloured outlines or interiors
 13. Ability to add multiple `geom_*` layers
-14. Use alpha and other aesthetics
+14. Use `alpha` and other aesthetics
 15. A `gg_blanket()` function with `geom` flexibility
-16. Other key differences
 
 ```{r setup}
 library(ggblanket)
@@ -486,7 +485,7 @@ penguins |>
   ) 
 ```
 
-### 14. Use alpha and other aesthetics
+### 14. Use `alpha` and other aesthetics
 
 The `alpha` is fully supported in ggblanket in a similar way to `col`. So the `alpha` argument represents an aesthetic, whereas `alpha_pal` represents a value (or values or range). 
 
@@ -538,33 +537,6 @@ penguins |>
     col = species,
   )
 ```
-
-### 16. Other key differences
-
-##### Unquoted variables only
-
-ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet`, `facet2` and  `alpha`. You cannot wrap these in a function. Instead you may need to manipulate the data prior to plotting (e.g. using `forcats::fct_rev` and/or `forcats::fct_reorder`).
-
-##### Unused factor levels kept
-
-ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting using `forcats::fct_drop`. 
-
-##### Different `oob` & `clip` defaults
-
-By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
-
-ggplot2 by default drops values outside of the limits in calculating the geoms and scales to plot (`scales::oob_censor`), and clips anything outside the cartesian coordinate space (`coord = ggplot2::coord_cartesian(clip = "on"`)).
-
-This needs to be considered particularly when you are using `x_limits` or `y_limits`, and your `stat` is _not_ `"identity"`.  
-
-##### Other
-
-* `*_title` is equivalent to `ggplot2::labs(* = ...)`
-* Facet arguments `strip.position` and `switch` are renamed `facet_labels_position` and `facet_labels_switch`
-* `y` categorical variables are reversed, so that they are read from low levels (top) to high levels (bottom) 
-* Logical variables are reversed, so that `TRUE` always comes before `FALSE`
-* Infinite values are treated as `NA`
-* `facet_axes` and `facet_axis_labels` have different defaults.
 
 ## Further information 
 
