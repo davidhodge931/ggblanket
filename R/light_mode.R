@@ -62,38 +62,6 @@ light_mode_r <- function (
   )
 }
 
-#' @title Light mode theme with bottom legend
-#'
-#' @description Light mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#121B24"`, `"#FFFFFF"`, and `"#F6F8FA"`.
-#'
-#' @inheritParams base_mode
-#'
-#' @return A ggplot mode.
-#' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = light_mode_b()
-#'   )
-#'
-light_mode_b <- function (
-    base_size = 11,
-    base_family = "") {
-
-  base_mode_b(
-    base_size = base_size,
-    base_family = base_family,
-    col_pal = lightness
-  )
-}
-
 #' @title Light mode theme with top legend
 #'
 #' @description Light mode theme for a ggplot visualisation with top legend. It uses the colours `"#121B24"`, `"#FFFFFF"`, and `"#F6F8FA"`.
@@ -120,6 +88,38 @@ light_mode_t <- function (
     base_family = "") {
 
   base_mode_t(
+    base_size = base_size,
+    base_family = base_family,
+    col_pal = lightness
+  )
+}
+
+#' @title Light mode theme with bottom legend
+#'
+#' @description Light mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#121B24"`, `"#FFFFFF"`, and `"#F6F8FA"`.
+#'
+#' @inheritParams base_mode
+#'
+#' @return A ggplot mode.
+#' @export
+#'
+#' @examples
+#' library(palmerpenguins)
+#' library(ggplot2)
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     mode = light_mode_b()
+#'   )
+#'
+light_mode_b <- function (
+    base_size = 11,
+    base_family = "") {
+
+  base_mode_b(
     base_size = base_size,
     base_family = base_family,
     col_pal = lightness

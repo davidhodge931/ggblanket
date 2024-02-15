@@ -14,16 +14,16 @@ reference:
   - starts_with("gg_")
 - title: Theme
 - contents:
-  - grey_mode_rt
-  - grey_mode_r
-  - grey_mode_t
-  - grey_mode_b
-  - grey_mode_n
   - light_mode_rt
   - light_mode_r
   - light_mode_t
   - light_mode_b
   - light_mode_n
+  - grey_mode_rt
+  - grey_mode_r
+  - grey_mode_t
+  - grey_mode_b
+  - grey_mode_n
   - dark_mode_rt
   - dark_mode_r
   - dark_mode_t

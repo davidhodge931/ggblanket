@@ -62,38 +62,6 @@ grey_mode_r <- function (
   )
 }
 
-#' @title Grey mode theme with bottom legend
-#'
-#' @description Grey mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#121B24"`, `"#FCFDFE"`, and `"#F6F8FA"`.
-#'
-#' @inheritParams base_mode
-#'
-#' @return A ggplot mode.
-#' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = grey_mode_b()
-#'   )
-#'
-grey_mode_b <- function (
-    base_size = 11,
-    base_family = "") {
-
-  base_mode_b(
-    base_size = base_size,
-    base_family = base_family,
-    col_pal = greyness
-  )
-}
-
 #' @title Grey mode theme with top legend
 #'
 #' @description Grey mode theme for a ggplot visualisation with top legend. It uses the colours `"#121B24"`, `"#FCFDFE"`, and `"#F6F8FA"`.
@@ -120,6 +88,38 @@ grey_mode_t <- function (
     base_family = "") {
 
   base_mode_t(
+    base_size = base_size,
+    base_family = base_family,
+    col_pal = greyness
+  )
+}
+
+#' @title Grey mode theme with bottom legend
+#'
+#' @description Grey mode theme for a ggplot visualisation with bottom legend. It uses the colours `"#121B24"`, `"#FCFDFE"`, and `"#F6F8FA"`.
+#'
+#' @inheritParams base_mode
+#'
+#' @return A ggplot mode.
+#' @export
+#'
+#' @examples
+#' library(palmerpenguins)
+#' library(ggplot2)
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     mode = grey_mode_b()
+#'   )
+#'
+grey_mode_b <- function (
+    base_size = 11,
+    base_family = "") {
+
+  base_mode_b(
     base_size = base_size,
     base_family = base_family,
     col_pal = greyness
