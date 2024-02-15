@@ -16,4 +16,7 @@ A character vector.
 \description{
 A vector of colours used in the \verb{dark_mode_*} themes.
 }
+\examples{
+scales::show_col(darkness)
+}
 \keyword{datasets}

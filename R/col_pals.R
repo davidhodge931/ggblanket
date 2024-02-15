@@ -57,8 +57,10 @@ greys <- c("#E8EFF2", "#C8D7DF", "#A7C0CD", "#78909C", "#4B636E", "#364850", "#2
 #' @description A vector of colours used in the `light_mode_*` themes.
 #'
 #' @return A character vector.
-#'
 #' @export
+#'
+#' @examples
+#' scales::show_col(lightness)
 lightness <- c("#121B24", "#FFFFFF", "#F6F8FA")
 
 #' The `grey_mode_*` theme colours
@@ -66,8 +68,10 @@ lightness <- c("#121B24", "#FFFFFF", "#F6F8FA")
 #' @description A vector of colours used in the `grey_mode_*` themes.
 #'
 #' @return A character vector.
-#'
 #' @export
+#'
+#' @examples
+#' scales::show_col(greyness)
 greyness <- c("#121B24", "#fCFDFE", "#F6F8FA")
 
 #' The `dark_mode_*` theme colours
@@ -75,6 +79,8 @@ greyness <- c("#121B24", "#fCFDFE", "#F6F8FA")
 #' @description A vector of colours used in the `dark_mode_*` themes.
 #'
 #' @return A character vector.
-#'
 #' @export
-darkness <- c("#C8D7DF", "#050D1B", "#00040a")
+#'
+#' @examples
+#' scales::show_col(darkness)
+darkness <- c("#00040a", "#C8D7DF", "#050D1B")

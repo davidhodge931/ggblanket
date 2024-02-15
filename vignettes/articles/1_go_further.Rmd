@@ -219,7 +219,7 @@ penguins |>
   ) +
   geom_text(
     mapping = aes(y = n - (max(n * 0.04)), label = n, 
-                  !!!aes_contrast(lightness[1:2])),
+                  !!!aes_contrast(lightness)),
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
   ) 
@@ -239,7 +239,7 @@ penguins |>
   ) +
   geom_text(
     mapping = aes(y = n - (max(n * 0.04)), label = n, 
-                  !!!aes_contrast(greyness[1:2])),
+                  !!!aes_contrast(greyness)),
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
   ) 
@@ -259,7 +259,7 @@ penguins |>
   ) +
   geom_text(
     mapping = aes(y = n - (max(n * 0.04)), label = n, 
-                  !!!aes_contrast(darkness[c(3, 1)])),
+                  !!!aes_contrast(darkness)),
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
   ) 

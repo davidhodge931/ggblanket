@@ -7,8 +7,8 @@
 aes_contrast(col_pal = c("black", "white"))
 }
 \arguments{
-\item{col_pal}{A 2 element vector of colours ordered dark colour and then light colour. Defaults to \code{c("black", "white")}.
-Use \code{lightness[1:2]}, \code{greyness[1:2]} or \code{darkness[c(3, 1)]} with the applicable \verb{*_mode_*} theme.}
+\item{col_pal}{A vector of a dark colour and then a light colour. Defaults to \code{c("black", "white")}.
+Use \code{lightness}, \code{greyness} or \code{darkness} with the applicable \verb{*_mode_*} theme.}
 }
 \value{
 An aesthetic
@@ -33,7 +33,7 @@ penguins |>
   ) +
   geom_text(
     mapping = aes(y = n - (max(n * 0.04)), label = n,
-                  !!!aes_contrast(lightness[1:2])),
+                  !!!aes_contrast(lightness)),
     position = position_dodge2(width = 0.75, preserve = "single"),
     show.legend = FALSE,
   )

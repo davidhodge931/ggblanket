@@ -27,11 +27,11 @@ dark_mode_rt <- function (
     base_size = base_size,
     base_family = base_family,
     col_pal = c(
-      "text" = darkness[1],
-      "axis_line" = darkness[1],
-      "panel_background" = darkness[2],
-      "plot_background" = darkness[3],
-      "panel_grid" = darkness[3])
+      "text" = darkness[2],
+      "axis_line" = darkness[2],
+      "panel_background" = darkness[3],
+      "plot_background" = darkness[1],
+      "panel_grid" = darkness[1])
   )
 }
 
@@ -64,11 +64,11 @@ dark_mode_r <- function (
     base_size = base_size,
     base_family = base_family,
     col_pal = c(
-      "text" = darkness[1],
-      "axis_line" = darkness[1],
-      "panel_background" = darkness[2],
-      "plot_background" = darkness[3],
-      "panel_grid" = darkness[3])
+      "text" = darkness[2],
+      "axis_line" = darkness[2],
+      "panel_background" = darkness[3],
+      "plot_background" = darkness[1],
+      "panel_grid" = darkness[1])
   )
 }
 
@@ -101,11 +101,11 @@ dark_mode_t <- function (
     base_size = base_size,
     base_family = base_family,
     col_pal = c(
-      "text" = darkness[1],
-      "axis_line" = darkness[1],
-      "panel_background" = darkness[2],
-      "plot_background" = darkness[3],
-      "panel_grid" = darkness[3])
+      "text" = darkness[2],
+      "axis_line" = darkness[2],
+      "panel_background" = darkness[3],
+      "plot_background" = darkness[1],
+      "panel_grid" = darkness[1])
   )
 }
 
@@ -138,11 +138,11 @@ dark_mode_b <- function (
     base_size = base_size,
     base_family = base_family,
     col_pal = c(
-      "text" = darkness[1],
-      "axis_line" = darkness[1],
-      "panel_background" = darkness[2],
-      "plot_background" = darkness[3],
-      "panel_grid" = darkness[3])
+      "text" = darkness[2],
+      "axis_line" = darkness[2],
+      "panel_background" = darkness[3],
+      "plot_background" = darkness[1],
+      "panel_grid" = darkness[1])
   )
 }
 
@@ -175,11 +175,11 @@ dark_mode_n <- function (
     base_size = base_size,
     base_family = base_family,
     col_pal = c(
-      "text" = darkness[1],
-      "axis_line" = darkness[1],
-      "panel_background" = darkness[2],
-      "plot_background" = darkness[3],
-      "panel_grid" = darkness[3])
+      "text" = darkness[2],
+      "axis_line" = darkness[2],
+      "panel_background" = darkness[3],
+      "plot_background" = darkness[1],
+      "panel_grid" = darkness[1])
   )
 }
 
