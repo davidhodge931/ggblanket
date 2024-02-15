@@ -20,11 +20,11 @@ knitr::opts_chunk$set(
 
 This article will demonstrate more advanced content, including how to: 
 
-1. Use different fonts
-2. Visualise spatial data
-3. Change the `stat`
-4. Fix either the colour outline or interior fill to a constant colour
-5. Use non-supported aesthetics
+1. Use `shape`, `linetype`, `linewidth` or `size` aesthetics
+2. Use different fonts
+3. Visualise spatial data
+4. Change the `stat`
+5. Fix either the colour outline or interior fill to a constant colour
 6. Use delayed evaluation
 7. Add contrasting dark or light text on polygons
 
@@ -37,7 +37,21 @@ library(tidyr)
 library(palmerpenguins)
 ```
 
-### 1. Use different fonts
+### 1. Use `shape`, `linetype`, `linewidth` or `size` aesthetics
+
+Most functions have the commonly needed aesthetics directly available as an argument. For those that are _not_ available, you can either use `mapping` argument. The `mapping` argument provides access to the `size`, `shape`, `linetype` and `linewidth` aesthetics within the `gg_*` function. Note you may have to change the title by adding a `ggplot2::labs` layer, or change the legend values by adding a  `ggplot2::scale_*_manual` layer etc.
+
+```{r}
+penguins |> 
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g, 
+    col = species,
+    mapping = aes(shape = species),
+  ) 
+```
+
+### 2. Use different fonts
 
 The showtext and sysfonts packages support the use of different fonts from Google. The `*_mode_*` theme functions provide a `base_family` argument.
 
@@ -70,7 +84,7 @@ penguins |>
 showtext::showtext_auto(enable = FALSE)
 ```
 
-### 2. Visualise spatial data
+### 3. Visualise spatial data
 
 As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, spatial vector and array data can be visualised. 
 
@@ -93,18 +107,9 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
   ggeasy::easy_remove_y_axis() 
 ```
 
-### 3. Change the `stat`
+### 4. Change the `stat`
 
 The default `stat` of each `gg_*` function can be changed. 
-
-```{r}
-penguins |> 
-  gg_point(
-    stat = "summary",
-    x = species,
-    y = island,
-  ) 
-```
 
 ```{r}
 penguins |>
@@ -130,11 +135,11 @@ ggplot2::economics |>
   ) 
 ```
 
-### 4. Fix either the colour outline or interior fill to a constant colour
+### 5. Fix either the colour outline or interior fill to a constant colour
 
 For geom's that have both outline colour and interior fill, it is possible to fix one of these to a constant colour.
 
-To do this, use `colour = "black"` or `fill = "#d3d3d3"`. Note this requires a `col` aesthetic to work. So you must do this in a hacky way, where you do not want a `col` aesthetic.
+To do this, use `colour = "black"` or `fill = "#D3D3D3"`. Note this requires a `col` aesthetic to work. So you must do this in a hacky way, where you do not want a `col` aesthetic.
 
 ```{r}
 penguins |>
@@ -143,7 +148,7 @@ penguins |>
     x = species,
     y = flipper_length_mm,
     col = sex,
-    colour = "black", #or fill = "lightgrey" 
+    colour = "black", #or fill = #D3D3D3",
     position = position_dodge2(preserve = "single"),
     alpha_pal = 0.9,
   )
@@ -156,37 +161,22 @@ penguins |>
     x = species,
     y = flipper_length_mm,
     col = hack,
-    colour = "black", #or fill = "lightgrey" 
+    colour = "black", #or fill = #D3D3D3", 
     width = 0.5,
     alpha_pal = 0.9,
     mode = grey_mode_n(),
   ) 
 ```
 
-### 5. Use non-supported aesthetics 
-
-Most functions have the commonly needed aesthetics directly available as an argument. For those that are not available, you can either use `mapping` argument. The `mapping` argument provides access to the `size`, `shape`, `linetype` and `linewidth` aesthetics within the `gg_*` function. Note you may have to change the title using `ggplot2::labs` (and reverse the legend elements depending on the plot orientation).
-
-```{r}
-penguins |> 
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g, 
-    col = species,
-    mapping = aes(shape = species),
-  ) +
-  labs(shape = "Species")
-```
-
 ### 6. Use delayed evaluation
 
-As the `x`, `y`, `col` and `alpha` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This is useful for delayed evaluation with the `ggplot2::after_stat` function.
+As the `x`, `y`, `col` and `alpha` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This can be used for delayed evaluation with the `ggplot2::after_stat` function.
 
 ```{r, fig.asp=0.55}
 penguins |>
   gg_histogram(
     x = flipper_length_mm,
-    mappingRp = aes(y = after_stat(density)),
+    mapping = aes(y = after_stat(density)),
     facet = species,
   )
 ```

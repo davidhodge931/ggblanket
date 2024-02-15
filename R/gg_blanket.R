@@ -1440,6 +1440,17 @@ gg_blanket <- function(
             reverse = col_legend_rev,
             ncol = col_legend_ncol,
             nrow = col_legend_nrow
+          ),
+
+          shape = ggplot2::guide_legend(
+            reverse = col_legend_rev,
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow
+          ),
+          linetype = ggplot2::guide_legend(
+            reverse = col_legend_rev,
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow
           )
         )
     }
@@ -1984,6 +1995,7 @@ gg_blanket <- function(
       y_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$y[1]), titles)
     }
   }
+
   if (rlang::is_null(col_title)) {
     if (!rlang::is_null(plot_build$plot$labels$fill)) {
       col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$fill[1]), titles)
@@ -1998,6 +2010,22 @@ gg_blanket <- function(
     }
   }
 
+  if (!rlang::is_null(plot_build$plot$labels$shape)) {
+    shape_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), titles)
+  } else shape_title <- NULL
+
+  if (!rlang::is_null(plot_build$plot$labels$linetype)) {
+    linetype_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), titles)
+  } else linetype_title <- NULL
+
+  if (!rlang::is_null(plot_build$plot$labels$size)) {
+    size_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), titles)
+  } else size_title <- NULL
+
+  if (!rlang::is_null(plot_build$plot$labels$linewidth)) {
+    linewidth_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), titles)
+  } else linewidth_title <- NULL
+
   plot <- plot +
     ggplot2::labs(
       title = title,
@@ -2005,17 +2033,14 @@ gg_blanket <- function(
       caption = caption,
       x = x_title,
       y = y_title,
-      alpha = alpha_title
+      col = col_title,
+      fill = col_title,
+      alpha = alpha_title,
+      shape = shape_title,
+      linetype = linetype_title,
+      size = size_title,
+      linewidth = linewidth_title
     )
-
-  if (!rlang::is_null(col_title)) {
-    plot <- plot +
-      ggplot2::labs(col = col_title, fill = col_title)
-  }
-  if (!rlang::is_null(alpha_title)) {
-    plot <- plot +
-      ggplot2::labs(alpha = alpha_title)
-  }
 
   if (!rlang::is_null(x_title)) {
     if (x_title == "") {
