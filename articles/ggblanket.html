@@ -538,10 +538,14 @@ values or range).</p>
 <code>size</code>, <code>shape</code>, <code>linetype</code> and
 <code>linewidth</code> aesthetics within the <code>gg_*</code>
 function.</p>
-<p>Where legends do not align or merge nicely, you may need to reverse a
-variable, change a title with a <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs</a></code> layer, or
-change legend values by adding a <code>ggplot2::scale_*_manual</code>
-layer etc.</p>
+<p>Legend titles and element order must be aligned, if legends are to
+merge. Subsequently, you may need to change a shape or linetype title
+using <code>+ ggplot2::labs</code> to align it with the
+<code>col_title</code>.</p>
+<p>In general, users should use <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs</a></code> and
+<code>ggplot2::scale_*</code> layers to manipulate <code>size</code>,
+<code>shape</code>, <code>linetype</code> and <code>linewidth</code>
+aesthetics.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
