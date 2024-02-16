@@ -497,7 +497,8 @@ mpg |>
     col_breaks = scales::breaks_width(5)
   )
 ```
-###13. Transform scales
+
+### 13. Transform scales
 
 Transform objects (e.g. `scales::transform_log()` or character strings of these can be used to transform scales - inncluding combining these.
 

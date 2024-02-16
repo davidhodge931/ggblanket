@@ -155,6 +155,8 @@ test_that(test_name, {
 test_name <- "gg_density_2d"
 
 test_that(test_name, {
+  set.seed(123)
+
   p <- faithful |>
     gg_density_2d(
       x = waiting,
@@ -169,6 +171,8 @@ test_that(test_name, {
 test_name <- "gg_density_2d_filled"
 
 test_that(test_name, {
+  set.seed(123)
+
   p <- faithful |>
     gg_density_2d_filled(
       x = waiting,
