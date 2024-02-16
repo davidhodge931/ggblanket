@@ -1,10 +1,6 @@
 library(ggblanket)
 library(ggplot2)
 library(dplyr)
-library(stringr)
-library(tidyr)
-library(palmerpenguins)
-
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "gg_area"
@@ -23,8 +19,8 @@ test_that(test_name, {
 test_name <- "gg_bar"
 
 test_that(test_name, {
-  p <- penguins |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- palmerpenguins::penguins |>
+    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_bar(
       y = species,
       col = sex,
@@ -38,7 +34,7 @@ test_that(test_name, {
 test_name <- "gg_bin_2d"
 
 test_that(test_name, {
-  p <- diamonds |>
+  p <- ggplot2::diamonds |>
     gg_bin_2d(
       x = carat,
       y = price,
@@ -50,9 +46,9 @@ test_that(test_name, {
 test_name <- "gg_boxplot"
 
 test_that(test_name, {
-  p <- penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_boxplot(
       x = flipper_length_mm,
       y = sex,
@@ -66,11 +62,11 @@ test_that(test_name, {
 test_name <- "gg_col"
 
 test_that(test_name, {
-  p <- penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
     group_by(sex, species) |>
-    summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
+    summarise(dplyr::across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
     gg_col(
       x = flipper_length_mm,
       y = species,
@@ -86,7 +82,7 @@ test_that(test_name, {
 test_name <- "gg_contour"
 
 test_that(test_name, {
-  p <- faithfuld |>
+  p <- ggplot2::faithfuld |>
     gg_contour(
       x = waiting,
       y = eruptions,
@@ -100,7 +96,7 @@ test_that(test_name, {
 test_name <- "gg_contour_filled"
 
 test_that(test_name, {
-  p <- faithfuld |>
+  p <- ggplot2::faithfuld |>
     gg_contour_filled(
       x = waiting,
       y = eruptions,
@@ -139,9 +135,9 @@ test_that(test_name, {
 test_name <- "gg_density"
 
 test_that(test_name, {
-  p <- penguins |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
-    drop_na(sex) |>
+  p <- palmerpenguins::penguins |>
+    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
+    tidyr::drop_na(sex) |>
     gg_density(
       x = flipper_length_mm,
       col = species,
@@ -211,8 +207,8 @@ test_that(test_name, {
 test_name <- "gg_freqpoly"
 
 test_that(test_name, {
-  p <- penguins |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- palmerpenguins::penguins |>
+    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_freqpoly(
       x = flipper_length_mm,
       col = sex,
@@ -240,7 +236,7 @@ test_that(test_name, {
 test_name <- "gg_hex"
 
 test_that(test_name, {
-  p <- diamonds |>
+  p <- ggplot2::diamonds |>
     gg_hex(
       x = carat,
       y = price,
@@ -255,8 +251,8 @@ test_that(test_name, {
 test_name <- "gg_histogram"
 
 test_that(test_name, {
-  p <- penguins |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- palmerpenguins::penguins |>
+    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_histogram(
       x = flipper_length_mm,
       col = sex,
@@ -274,7 +270,7 @@ test_name <- "gg_jitter"
 test_that(test_name, {
   set.seed(123)
 
-  p <- penguins |>
+  p <- palmerpenguins::penguins |>
     gg_jitter(
       x = species,
       y = body_mass_g,
@@ -353,7 +349,7 @@ test_name <- "gg_path"
 
 test_that(test_name, {
   p <- economics |>
-    mutate(unemploy_rate = unemploy / pop) |>
+    dplyr::mutate(unemploy_rate = unemploy / pop) |>
     gg_path(
       x = unemploy_rate,
       y = psavert,
@@ -369,7 +365,7 @@ test_that(test_name, {
 test_name <- "gg_point"
 
 test_that(test_name, {
-  p <- penguins |>
+  p <- palmerpenguins::penguins |>
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
@@ -440,7 +436,7 @@ test_that(test_name, {
 test_name <- "gg_qq"
 
 test_that(test_name, {
-  p <- penguins |>
+  p <- palmerpenguins::penguins |>
     gg_qq(
       sample = body_mass_g,
       facet = species,
@@ -457,7 +453,7 @@ test_that(test_name, {
 test_name <- "gg_quantile"
 
 test_that(test_name, {
-  p <- penguins |>
+  p <- palmerpenguins::penguins |>
     gg_quantile(
       x = flipper_length_mm,
       y = body_mass_g,
@@ -470,7 +466,7 @@ test_that(test_name, {
 test_name <- "gg_raster"
 
 test_that(test_name, {
-  p <- faithfuld |>
+  p <- ggplot2::faithfuld |>
     gg_raster(
       x = waiting,
       y = eruptions,
@@ -489,7 +485,7 @@ test_that(test_name, {
     y = rep(c(1, 2), each = 5),
     z = factor(c(rep(1:3, each = 3), 4)),
     w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)) |>
-    mutate(
+    dplyr::mutate(
       xmin = x - w / 2,
       xmax = x + w / 2,
       ymin = y,
@@ -511,7 +507,7 @@ test_name <- "gg_ribbon"
 
 test_that(test_name, {
   p <- data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
-    mutate(level_min = level - 1, level_max = level + 1) |>
+    dplyr::mutate(level_min = level - 1, level_max = level + 1) |>
     gg_ribbon(
       x = year,
       ymin = level_min,
@@ -531,8 +527,8 @@ test_that(test_name, {
 test_name <- "gg_rug"
 
 test_that(test_name, {
-  p <- penguins |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- palmerpenguins::penguins |>
+    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_rug(
       x = flipper_length_mm,
       y = body_mass_g,
@@ -573,9 +569,9 @@ test_that(test_name, {
 test_name <- "gg_smooth"
 
 test_that(test_name, {
-  p <- penguins |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
-    drop_na(sex) |>
+  p <- palmerpenguins::penguins |>
+    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
+    tidyr::drop_na(sex) |>
     gg_smooth(
       x = flipper_length_mm,
       y = body_mass_g,
@@ -629,8 +625,8 @@ test_that(test_name, {
 test_name <- "gg_tile"
 
 test_that(test_name, {
-  p <- penguins |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- palmerpenguins::penguins |>
+    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
     group_by(species, sex) |>
     summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
     gg_tile(
@@ -648,9 +644,9 @@ test_that(test_name, {
 test_name <- "gg_violin"
 
 test_that(test_name, {
-  p <- penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_violin(
       x = sex,
       y = body_mass_g,
@@ -664,9 +660,9 @@ test_that(test_name, {
 test_name <- "gg_blanket"
 
 test_that(test_name, {
-  p <- p <- penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- p <- palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_blanket(
       geom = "violin",
       stat = "ydensity",
