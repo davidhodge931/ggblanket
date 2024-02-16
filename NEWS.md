@@ -39,6 +39,7 @@
 * Breaking: renamed `facet_switch` argument to `facet_labels_switch`.
 * Breaking: removed `guardian` function.
 * Breaking: renamed `str_keep_seq` to `replace_seq`.
+* Breaking: removed magic where `*_title = ""` removed the title.
 * Improved log transform defaults.
 * Changed `legend.byrow` to FALSE.
 * Each `gg_*` function's help now inherits parameters from `gg_blanket` (@olivroy, #625).

@@ -192,9 +192,13 @@ knitr::include_graphics("autocomplete_y.png", dpi = 300)
 
 Unspecified `x`, `y`, `col` and `alpha` titles are converted to sentence case with `snakecase::to_sentence`. 
 
-However, each title can be manually changed using the applicable `*_title` argument. Use `*_title = ""` to remove a title. 
+However, each title can be manually changed using the applicable `*_title` argument. 
 
 The default `snakecase::to_sentence` conversion can be turned off using `titles = \(x) x`. 
+
+Use ggplot2 to remove a title nicely. E.g. `+ ggplot2::theme(legend.title = ggplot2::element_blank())` or `+ ggplot2::labs(... = NULL)`.
+
+Remember the `col` aesthetic contains a title for colour and fill in ggplot2.
 
 ```{r, fig.asp=0.6}
 diamonds |>
@@ -280,9 +284,9 @@ penguins |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    col_title = "",
     mode = light_mode_t(),
-  ) 
+  ) +
+  theme(legend.title = element_blank())
 ```
 
 ```{r, fig.asp=0.75}
@@ -477,8 +481,8 @@ penguins |>
     x_title = "Body mass kg",
   ) +
   geom_col(
-    colour = "#d3d3d3",#fix to constant
-    fill = "#d3d3d3",#fix to constant
+    colour = "#d3d3d3",
+    fill = "#d3d3d3",
     alpha = 0.9,
     width = 0.75,
   ) +

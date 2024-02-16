@@ -2026,45 +2026,69 @@ gg_blanket <- function(
     linewidth_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), titles)
   } else linewidth_title <- NULL
 
+  # if (!rlang::is_null(x_title)) {
+  #   if (x_title == "") x_title <- NULL
+  # }
+  # if (!rlang::is_null(y_title)) {
+  #   if (y_title == "") y_title <- NULL
+  # }
+  # if (!rlang::is_null(col_title)) {
+  #   if (col_title == "") {
+  #     col_title <- NULL
+  #   }
+  # }
+  # if (!rlang::is_null(alpha_title)) {
+  #   if (alpha_title == "") {
+  #     alpha_title <- NULL
+  #   }
+  # }
+
+
   plot <- plot +
     ggplot2::labs(
       title = title,
       subtitle = subtitle,
       caption = caption,
       x = x_title,
-      y = y_title,
-      col = col_title,
-      fill = col_title,
-      alpha = alpha_title,
-      shape = shape_title,
-      linetype = linetype_title,
-      size = size_title,
-      linewidth = linewidth_title
+      y = y_title
     )
 
-  if (!rlang::is_null(x_title)) {
-    if (x_title == "") {
-      plot <- plot +
-        ggplot2::labs(x = NULL)
-    }
-  }
-  if (!rlang::is_null(y_title)) {
-    if (y_title == "") {
-      plot <- plot +
-        ggplot2::labs(y = NULL)
-    }
-  }
   if (!rlang::is_null(col_title)) {
-    if (col_title == "") {
-      plot <- plot +
-        ggplot2::labs(colour = NULL, fill = NULL)
-    }
+    plot <- plot +
+      ggplot2::labs(
+        colour = col_title,
+        fill = col_title
+      )
   }
   if (!rlang::is_null(alpha_title)) {
-    if (alpha_title == "") {
-      plot <- plot +
-        ggplot2::labs(alpha = NULL)
-    }
+    plot <- plot +
+      ggplot2::labs(
+        alpha = alpha_title
+      )
+  }
+  if (!rlang::is_null(shape_title)) {
+    plot <- plot +
+      ggplot2::labs(
+        shape = shape_title
+      )
+  }
+  if (!rlang::is_null(linetype_title)) {
+    plot <- plot +
+      ggplot2::labs(
+        linetype = linetype_title
+      )
+  }
+  if (!rlang::is_null(size_title)) {
+    plot <- plot +
+      ggplot2::labs(
+        size = size_title
+      )
+  }
+  if (!rlang::is_null(linewidth_title)) {
+    plot <- plot +
+      ggplot2::labs(
+        linewidth = linewidth_title
+      )
   }
 
   ##############################################################################

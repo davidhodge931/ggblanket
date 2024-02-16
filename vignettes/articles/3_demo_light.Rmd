@@ -201,9 +201,9 @@ penguins |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
-    col_title = "",
     mode = light_mode_t(),
-  )
+  ) +
+  theme(legend.title = element_blank())
 ```
 
 ### gg_function
