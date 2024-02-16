@@ -324,8 +324,8 @@ and the y axis-line/ticks</li>
 <li>for <code>flipped = TRUE</code> graphs, remove horizontal
 grid-lines, and the x axis-line/ticks</li>
 </ul>
-<p>To avoid these side-effects, <code>+</code> your theme on as a
-layer.</p>
+<p>To avoid these side-effects, <code>+</code> the theme on to the
+output of <code>gg_*</code>.</p>
 <p><code>mode_set</code> sets the theme globally with these side-effects
 - and <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set</a></code> sets it globally without these
 side-effects.</p>
@@ -548,7 +548,7 @@ merge. Subsequently, you may need to change a shape or linetype title
 using <code>+ ggplot2::labs</code> to align it with the
 <code>col_title</code>.</p>
 <p>In general, users should use <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs</a></code> and
-<code>ggplot2::scale_*</code> layers to manipulate <code>size</code>,
+<code>ggplot2::scale_*</code> to manipulate <code>size</code>,
 <code>shape</code>, <code>linetype</code> and <code>linewidth</code>
 aesthetics.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
