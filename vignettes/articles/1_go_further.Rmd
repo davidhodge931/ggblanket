@@ -31,6 +31,7 @@ This article will demonstrate more advanced content, including how to:
 9. Use the `flipped` argument
 10. Use delayed evaluation
 11. Understand `oob` & `clip`
+12. Centreing a diverging colour scale 
 
 ```{r setup}
 library(ggblanket)
@@ -462,5 +463,37 @@ p5 <- economics |>
 
 
 p4 + p5
+```
+
+### 12. Centreing a diverging colour scale 
+
+Sometimes you need to centre a diverging colour scale.
+
+```{r}
+mpg |>
+  mutate(centred = cty - mean(cty)) |>
+  select(displ, hwy, centred) %>%
+  gg_point(
+    x = displ,
+    y = hwy,
+    col = centred,
+    col_pal = rev(RColorBrewer::brewer.pal(9, "RdBu")),
+    col_breaks = scales::breaks_width(5),
+    col_rescale = scales::rescale(c(min(.$centred), 0, max(.$centred)))
+  )
+```
+
+```{r}
+mpg |>
+  mutate(centred = cty - mean(cty)) |>
+  select(displ, hwy, centred) %>%
+  gg_point(
+    x = displ,
+    y = hwy,
+    col = centred,
+    col_pal = rev(RColorBrewer::brewer.pal(9, "RdBu")),
+    col_limits = max(abs(.$centred)) * c(-1, 1),
+    col_breaks = scales::breaks_width(5)
+  )
 ```
 
