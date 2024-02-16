@@ -46,7 +46,7 @@ install.packages("ggblanket")
 ```
 ## Example
 
-```{r, fig.asp = 0.75}
+```{r}
 library(ggblanket)
 library(ggplot2)
 library(dplyr)
@@ -56,11 +56,6 @@ penguins |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
-    title = "Penguin flipper length by species",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020", 
-    col_title = "",
-    mode = light_mode_t(),
   ) 
 ```
 

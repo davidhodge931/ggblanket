@@ -36,10 +36,12 @@ col_pal_discrete <- function(n = 4) {
 #'
 #' @description Default colours used to colour a continuous variable.
 #'
+#' @param n The number of colours.
+#'
 #' @noRd
 #'
 #' @references The mako colour palette from viridisLite reversed
-col_pal_continuous <- function(n = 18) {
+col_pal_continuous <- function(n = 20) {
   viridisLite::mako(n = n, direction = -1)
 }
 

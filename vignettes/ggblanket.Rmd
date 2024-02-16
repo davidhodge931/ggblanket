@@ -220,7 +220,7 @@ When a mode is provided it, the `gg_*` function will:
 * for `flipped = FALSE` graphs, remove vertical grid-lines, and the y axis-line/ticks 
 * for `flipped = TRUE` graphs, remove horizontal grid-lines, and the x axis-line/ticks 
 
-To avoid these side-effects, `+` your theme on as a layer.
+To avoid these side-effects, `+` the theme on to the output of `gg_*`.
 
 `mode_set` sets the theme globally with these side-effects - and `ggplot2::theme_set` sets it globally without these side-effects. 
 
@@ -499,7 +499,7 @@ The `mapping` argument provides access to the `size`, `shape`, `linetype` and `l
 
 Legend titles and element order must be aligned, if legends are to merge. Subsequently, you may need to change a shape or linetype title using `+ ggplot2::labs` to align it with the `col_title`. 
 
-In general, users should use `ggplot2::labs` and `ggplot2::scale_*` layers to manipulate `size`, `shape`, `linetype` and `linewidth` aesthetics.
+In general, users should use `ggplot2::labs` and `ggplot2::scale_*` to manipulate `size`, `shape`, `linetype` and `linewidth` aesthetics.
 
 ```{r}
 penguins |> 

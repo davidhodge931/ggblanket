@@ -339,7 +339,6 @@ data.frame(
   )
 ```
 
-
 ```{r}
 data.frame(
   age = c(0:9, 0:9),
@@ -367,7 +366,6 @@ data.frame(
   ggeasy::easy_remove_y_axis()
 
 ```
-
 
 ### 10. Use delayed evaluation
 
