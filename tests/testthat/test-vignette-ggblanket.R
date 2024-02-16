@@ -88,6 +88,8 @@ test_that(test_name, {
 test_name <- "6"
 
 test_that(test_name, {
+  set.seed(123)
+
   p <- penguins |>
     gg_jitter(
       x = species,
@@ -117,6 +119,8 @@ test_that(test_name, {
 test_name <- "8"
 
 test_that(test_name, {
+  set.seed(123)
+
   p <- penguins |>
     drop_na(sex) |>
     gg_jitter(

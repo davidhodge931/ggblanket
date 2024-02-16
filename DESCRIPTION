@@ -32,12 +32,13 @@ Suggests:
     isoband,
     knitr,
     palmerpenguins,
-    patchwork, 
+    patchwork,
     quantreg,
     rmarkdown,
     sf,
-    testthat (>= 3.0.0),
-    tibble
+    testthat,
+    tibble,
+    vdiffr
 VignetteBuilder: 
     knitr
 Remotes: 
