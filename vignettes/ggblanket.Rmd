@@ -212,7 +212,7 @@ A `mode` argument has been designed for use with the `*_mode_*` themes.
 
 When a mode is provided it, the `gg_*` function will:
 
-* determine whether the plot is `flipped` or not
+* guess whether the plot is `flipped` or not
 * for `flipped = FALSE` graphs, remove vertical grid-lines, and the y axis-line/ticks 
 * for `flipped = TRUE` graphs, remove horizontal grid-lines, and the x axis-line/ticks 
 
@@ -221,6 +221,8 @@ To avoid these side-effects, `+` your theme on as a layer.
 `mode_set` sets the theme globally with these side-effects - and `ggplot2::theme_set` sets it globally without these side-effects. 
 
 Use `mode_set(light_mode_rt())` or `theme_set(theme_grey())` to unset. Note you cannot actually set the theme globally to `theme_grey(11)` for this reason - instead use `theme_grey(11.01)`.
+
+Note you can specify whether `flipped = TRUE` or `flipped = FALSE`, if it guesses incorrectly.
 
 ```{r, echo=FALSE}
 d <- data.frame(
