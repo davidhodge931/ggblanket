@@ -39,15 +39,14 @@ install.packages("ggblanket")
 
 ``` r
 library(ggblanket)
-library(ggplot2)
-library(dplyr)
 library(palmerpenguins)
+library(tidyverse)
 
 penguins |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
-  ) 
+  )
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="75%" />
