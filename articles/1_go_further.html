@@ -116,7 +116,8 @@ colour</li>
 <li>Use delayed evaluation</li>
 <li>Understand <code>oob</code> &amp; <code>clip</code>
 </li>
-<li>Centreing a diverging colour scale</li>
+<li>Centre a diverging colour scale</li>
+<li>Transform scales</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidhodge931.github.io/ggblanket/">ggblanket</a></span><span class="op">)</span></span>
@@ -580,7 +581,7 @@ clips anything outside the cartesian coordinate space
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="centreing-a-diverging-colour-scale">12. Centreing a diverging colour scale<a class="anchor" aria-label="anchor" href="#centreing-a-diverging-colour-scale"></a>
+<h3 id="centre-a-diverging-colour-scale">12. Centre a diverging colour scale<a class="anchor" aria-label="anchor" href="#centre-a-diverging-colour-scale"></a>
 </h3>
 <p>Sometimes you need to centre a diverging colour scale.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
@@ -591,7 +592,7 @@ clips anything outside the cartesian coordinate space
 <span>    x <span class="op">=</span> <span class="va">displ</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">hwy</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">centred</span>,</span>
-<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">9</span>, <span class="st">"RdBu"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">blue</span>, <span class="va">greys</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">plum</span><span class="op">)</span>,</span>
 <span>    col_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_width.html" class="external-link">breaks_width</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>,</span>
 <span>    col_rescale <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">centred</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">centred</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
@@ -604,11 +605,55 @@ clips anything outside the cartesian coordinate space
 <span>    x <span class="op">=</span> <span class="va">displ</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">hwy</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">centred</span>,</span>
-<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">9</span>, <span class="st">"RdBu"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">blue</span>, <span class="va">greys</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">plum</span><span class="op">)</span>,</span>
 <span>    col_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">centred</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    col_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_width.html" class="external-link">breaks_width</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-23-1.svg" width="70%"></p>
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-23-1.svg" width="70%">
+###13. Transform scales</p>
+<p>Transform objects (e.g. <code><a href="https://scales.r-lib.org/reference/transform_log.html" class="external-link">scales::transform_log()</a></code> or
+character strings of these can be used to transform scales - inncluding
+combining these.</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pressure</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">temperature</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">pressure</span>, </span>
+<span>    x_labels <span class="op">=</span> <span class="va">replace_seq</span>,</span>
+<span>    y_labels <span class="op">=</span> <span class="va">replace_seq</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\nDefault"</span>,</span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">pressure</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">temperature</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">pressure</span>, </span>
+<span>    x_labels <span class="op">=</span> <span class="va">replace_seq</span>,</span>
+<span>    y_transform <span class="op">=</span> <span class="st">"reverse"</span>, </span>
+<span>    y_labels <span class="op">=</span> <span class="va">replace_seq</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\nReverse"</span>,</span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">pressure</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">temperature</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">pressure</span>,</span>
+<span>    x_labels <span class="op">=</span> <span class="va">replace_seq</span>,</span>
+<span>    y_transform <span class="op">=</span> <span class="st">"log10"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\nLog10"</span>, </span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">pressure</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">temperature</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">pressure</span>, </span>
+<span>    x_labels <span class="op">=</span> <span class="va">replace_seq</span>,</span>
+<span>    y_transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log10"</span>, <span class="st">"reverse"</span><span class="op">)</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\nLog10 &amp; Reverse"</span>,</span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span></span></code></pre></div>
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
