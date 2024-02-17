@@ -16,4 +16,7 @@ A character vector.
 \description{
 A orange colour derived from the US Census Bureau's Data Visualisation Standards.
 }
+\examples{
+scales::show_col(orange)
+}
 \keyword{datasets}

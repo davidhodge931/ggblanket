@@ -4,7 +4,8 @@
 #'
 #' @return A character vector.
 #'
-#' @export
+#' @examples
+#' scales::show_col(blue)
 blue <- "#357BA2"
 
 #' A teal colour
@@ -13,7 +14,8 @@ blue <- "#357BA2"
 #'
 #' @return A character vector.
 #'
-#' @export
+#' @examples
+#' scales::show_col(teal)
 teal <- "#0095A8"
 
 #' A orange colour
@@ -22,7 +24,8 @@ teal <- "#0095A8"
 #'
 #' @return A character vector.
 #'
-#' @export
+#' @examples
+#' scales::show_col(orange)
 orange <- "#FF7043"
 
 #' A navy colour
@@ -31,7 +34,8 @@ orange <- "#FF7043"
 #'
 #' @return A character vector.
 #'
-#' @export
+#' @examples
+#' scales::show_col(navy)
 navy <- "#112E51"
 
 #' A plum colour
@@ -40,7 +44,8 @@ navy <- "#112E51"
 #'
 #' @return A character vector.
 #'
-#' @export
+#' @examples
+#' scales::show_col(plum)
 plum <- "#901752"
 
 #' Grey colours
@@ -49,7 +54,8 @@ plum <- "#901752"
 #'
 #' @return A character vector.
 #'
-#' @export
+#' @examples
+#' scales::show_col(greys)
 greys <- c("#E8EFF2", "#C8D7DF", "#A7C0CD", "#78909C", "#4B636E", "#364850", "#222C31")
 
 #' The `light_mode_*` theme colours

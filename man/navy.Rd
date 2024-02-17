@@ -16,4 +16,7 @@ A character vector.
 \description{
 A navy colour derived from the US Census Bureau's Data Visualisation Standards. Note this colour is not accessible with dark modes.
 }
+\examples{
+scales::show_col(navy)
+}
 \keyword{datasets}

@@ -16,4 +16,7 @@ A character vector.
 \description{
 A vector of grey colours derived from the US Census Bureau's Data Visualisation Standards.
 }
+\examples{
+scales::show_col(greys)
+}
 \keyword{datasets}
