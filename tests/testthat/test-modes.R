@@ -1,7 +1,6 @@
 testthat::skip_if(getRversion() <= package_version("4.1.0"))
 skip_if_not_installed("vdiffr")
 
-library(ggblanket)
 library(palmerpenguins)
 
 test_name <- "light_mode_rt"
