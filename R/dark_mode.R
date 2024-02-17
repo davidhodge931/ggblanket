@@ -1,43 +1,6 @@
-#' @title Dark mode theme with right top legend
-#'
-#' @description Dark mode theme for a ggplot visualisation with legend at right top. It uses the colours from `darkness`.
-#'
-#' @inheritParams base_mode
-#'
-#' @return A ggplot mode.
-#' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = dark_mode_rt()
-#'   )
-#'
-dark_mode_rt <- function (
-    base_size = 11,
-    base_family = "") {
-
-  base_mode_rt(
-    base_size = base_size,
-    base_family = base_family,
-    col_pal = c(
-      "text" = darkness[2],
-      "axis_line" = darkness[2],
-      "panel_background" = darkness[3],
-      "plot_background" = darkness[1],
-      "panel_grid" = darkness[1])
-  )
-}
-
 #' @title Dark mode theme with right legend
 #'
-#' @description Dark mode theme for a ggplot visualisation with right legend. It uses the colours from `darkness`.
+#' @description Dark mode theme for a ggplot visualisation with legend at right. It uses the colours from `darkness`.
 #'
 #' @inheritParams base_mode
 #'

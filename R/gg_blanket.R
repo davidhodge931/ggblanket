@@ -8,7 +8,7 @@
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
-#' @param mode A `*_mode_*` theme (e.g. [grey_mode_b()], [grey_mode_rt()], or [dark_mode_rt()]). This argument adds the theme, but then removes selected gridlines/axis-line/ticks. To avoid these side-effects, `+` the theme on to the output of `gg_*`.
+#' @param mode A `*_mode_*` theme (e.g. [grey_mode_b()], [grey_mode_r()], or [dark_mode_r()]). This argument adds the theme with side-effects, as the `gg_*` function will removes selected gridlines/axis-line/ticks. To avoid these side-effects, `+` the theme on to the output of `gg_*`.
 #' @param x Unquoted `x` aesthetic variable.
 #' @param xmin Unquoted `xmin` aesthetic variable.
 #' @param xmax Unquoted `xmax` aesthetic variable.

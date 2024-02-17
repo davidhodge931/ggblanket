@@ -4,17 +4,17 @@
 \alias{mode_set}
 \title{Set the mode}
 \usage{
-mode_set(new = grey_mode_rt())
+mode_set(new = grey_mode_r())
 }
 \arguments{
-\item{new}{A new theme to add to the mode argument where NULL (e.g. \code{\link[=dark_mode_rt]{dark_mode_rt()}}.}
+\item{new}{A new theme to add to the mode argument where NULL (e.g. \code{\link[=dark_mode_r]{dark_mode_r()}}.}
 }
 \value{
 A set mode
 }
 \description{
 Set a new theme globally to be added to the \code{mode} argument where NULL in the \verb{gg_*} functions.
-Use \code{mode_set(light_mode_rt())} to unset a set mode.
+Use \code{mode_set(light_mode_r())} to unset a set mode.
 Note \code{\link[ggplot2:theme_get]{ggplot2::theme_set()}} sets globally a new theme that is \code{+}-ed on as a layer to the \verb{gg_*} functions.
 Use \code{ggplot2::theme_set(theme_grey())} to unset a set theme.
 }

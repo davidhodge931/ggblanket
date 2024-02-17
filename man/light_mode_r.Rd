@@ -15,7 +15,7 @@ light_mode_r(base_size = 11, base_family = "")
 A ggplot mode.
 }
 \description{
-Light mode theme for a ggplot visualisation with right legend. It uses the colours from \code{lightness}.
+Light mode theme for a ggplot visualisation with legend at right. It uses the colours from \code{lightness}.
 }
 \examples{
 library(palmerpenguins)

@@ -19,6 +19,6 @@ base_mode_r(
 \item{col_pal}{A 5 colour vector with elements named "text", "axis_line", "panel_background", "plot_background" and "panel_grid".}
 }
 \description{
-Theme base for \verb{*_mode_rt} functions with right legend.
+Theme base for \verb{*_mode_r} functions with right legend.
 }
 \keyword{internal}

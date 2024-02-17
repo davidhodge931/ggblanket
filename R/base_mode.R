@@ -92,14 +92,14 @@ base_mode <- function (
   )
 }
 
-#' @title Theme base for `*_mode_rt`
+#' @title Theme base for `*_mode_r`
 #'
-#' @description Theme base for `*_mode_rt` functions with right-top legend.
+#' @description Theme base for `*_mode_r` functions with right legend.
 #'
 #' @inheritParams base_mode
 #'
 #' @keywords internal
-base_mode_rt <- function (
+base_mode_r <- function (
     base_size = 11,
     base_family = "",
     col_pal = c(
@@ -128,46 +128,6 @@ base_mode_rt <- function (
       axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 1, l = 0)),
       axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.3, r = 0, b = base_size * 1, l = 0)),
       axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.3, l = 0)),
-      axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 1, b = 0, l = base_size * 1), angle = -90)
-    )
-}
-
-#' @title Theme base for `*_mode_r`
-#'
-#' @description Theme base for `*_mode_rt` functions with right legend.
-#'
-#' @inheritParams base_mode
-#'
-#' @keywords internal
-base_mode_r <- function (
-    base_size = 11,
-    base_family = "",
-    col_pal = c(
-      "text" = "white",
-      "axis_line" = "white",
-      "panel_background" = "white",
-      "plot_background" = "white",
-      "panel_grid" = "white")
-    ) {
-
-  base_mode(
-    base_size = base_size,
-    base_family = base_family,
-    col_pal = col_pal
-  ) +
-    ggplot2::theme(
-      legend.position = "right",
-      legend.direction = "vertical",
-      legend.justification = c(0, 0.5),
-      legend.location = "panel",
-      legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
-      legend.margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.75, l = base_size * 0.75),
-      legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
-      legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 0, l = base_size * 0.5)),
-      axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.3, r = 0, b = base_size * 1, l = 0)),
-      axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.3, l = 0)),
-      axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.33, r = 0, b = base_size * 0.75, l = 0)),
-      axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 1, l = 0)),
       axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 1, b = 0, l = base_size * 1), angle = -90)
     )
 }

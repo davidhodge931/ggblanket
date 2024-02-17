@@ -1,43 +1,6 @@
-#' @title Light mode theme with right top legend
-#'
-#' @description Light mode theme for a ggplot visualisation with legend at right top. It uses the colours from `lightness`.
-#'
-#' @inheritParams base_mode
-#'
-#' @return A ggplot mode.
-#' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = light_mode_rt()
-#'   )
-#'
-light_mode_rt <- function (
-    base_size = 11,
-    base_family = "") {
-
-  base_mode_rt(
-    base_size = base_size,
-    base_family = base_family,
-    col_pal = c(
-      "text" = lightness[1],
-      "axis_line" = lightness[1],
-      "panel_background" = lightness[2],
-      "plot_background" = lightness[2],
-      "panel_grid" = lightness[3])
-  )
-}
-
 #' @title Light mode theme with right legend
 #'
-#' @description Light mode theme for a ggplot visualisation with right legend. It uses the colours from `lightness`.
+#' @description Light mode theme for a ggplot visualisation with legend at right. It uses the colours from `lightness`.
 #'
 #' @inheritParams base_mode
 #'
