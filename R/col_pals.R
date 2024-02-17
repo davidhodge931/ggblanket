@@ -3,6 +3,7 @@
 #' @description A blue colour derived from `viridisLite::mako(9)[5]`
 #'
 #' @return A character vector.
+#' @export
 #'
 #' @examples
 #' scales::show_col(blue)
@@ -13,6 +14,7 @@ blue <- "#357BA2"
 #' @description A teal colour derived from the US Census Bureau's Data Visualisation Standards.
 #'
 #' @return A character vector.
+#' @export
 #'
 #' @examples
 #' scales::show_col(teal)
@@ -23,6 +25,7 @@ teal <- "#0095A8"
 #' @description A orange colour derived from the US Census Bureau's Data Visualisation Standards.
 #'
 #' @return A character vector.
+#' @export
 #'
 #' @examples
 #' scales::show_col(orange)
@@ -33,6 +36,7 @@ orange <- "#FF7043"
 #' @description A navy colour derived from the US Census Bureau's Data Visualisation Standards. Note this colour is not accessible with dark modes.
 #'
 #' @return A character vector.
+#' @export
 #'
 #' @examples
 #' scales::show_col(navy)
@@ -43,6 +47,7 @@ navy <- "#112E51"
 #' @description A plum colour inspired by the NZ tree fuchsia (kōtukutuku)
 #'
 #' @return A character vector.
+#' @export
 #'
 #' @examples
 #' scales::show_col(plum)
@@ -53,6 +58,7 @@ plum <- "#901752"
 #' @description A vector of grey colours derived from the US Census Bureau's Data Visualisation Standards.
 #'
 #' @return A character vector.
+#' @export
 #'
 #' @examples
 #' scales::show_col(greys)
