@@ -1,9 +1,11 @@
 testthat::skip_if(getRversion() >= package_version("4.1.0"))
 
+library(ggblanket)
+library(palmerpenguins)
+
 test_name <- "light_mode_rt"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -25,7 +27,6 @@ test_that(test_name, {
 test_name <- "light_mode_r"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -47,7 +48,6 @@ test_that(test_name, {
 test_name <- "light_mode_t"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -69,7 +69,6 @@ test_that(test_name, {
 test_name <- "light_mode_b"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -91,7 +90,6 @@ test_that(test_name, {
 test_name <- "light_mode_n"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -115,7 +113,6 @@ test_that(test_name, {
 test_name <- "grey_mode_rt"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -137,7 +134,6 @@ test_that(test_name, {
 test_name <- "grey_mode_r"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -159,7 +155,6 @@ test_that(test_name, {
 test_name <- "grey_mode_t"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -181,7 +176,6 @@ test_that(test_name, {
 test_name <- "grey_mode_b"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -203,7 +197,6 @@ test_that(test_name, {
 test_name <- "grey_mode_n"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -227,7 +220,6 @@ test_that(test_name, {
 test_name <- "dark_mode_rt"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -249,7 +241,6 @@ test_that(test_name, {
 test_name <- "dark_mode_r"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -271,7 +262,6 @@ test_that(test_name, {
 test_name <- "dark_mode_t"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -293,7 +283,6 @@ test_that(test_name, {
 test_name <- "dark_mode_b"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
@@ -315,7 +304,6 @@ test_that(test_name, {
 test_name <- "dark_mode_n"
 
 test_that(test_name, {
-  library(palmerpenguins)
 
   p <- penguins |>
     gg_point(
