@@ -330,7 +330,7 @@ output of <code>gg_*</code>.</p>
 <p><code>mode_set</code> sets the theme globally with these side-effects
 - and <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">ggplot2::theme_set</a></code> sets it globally without these
 side-effects.</p>
-<p>Use <code>mode_set(light_mode_rt())</code> or
+<p>Use <code>mode_set(light_mode_r())</code> or
 <code>theme_set(theme_grey())</code> to unset. Note you cannot actually
 set the theme globally to <code>theme_grey(11)</code> for this reason -
 instead use <code>theme_grey(11.01)</code>.</p>
@@ -344,13 +344,14 @@ placement<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-
 </h3>
 <p>Three theme families are provided: <code>light_mode_*</code>,
 <code>grey_mode_*</code> and <code>dark_mode_*</code>.</p>
-<p>Each theme family provides 5 variants that differ based on legend
+<p>Each theme family provides 4 variants that differ based on legend
 placement, which is represented by the suffix of the mode name of
-<code>rt</code> (right-top), <code>r</code> (right-centre),
-<code>b</code> (bottom), <code>t</code> (top) and <code>n</code>
-(none).</p>
-<p>The default is <code>light_mode_rt</code>.</p>
+<code>r</code> (right), <code>b</code> (bottom), <code>t</code> (top)
+and <code>n</code> (none).</p>
+<p>The default is <code>light_mode_r</code>.</p>
 <p>These are intended for use with the <code>mode</code> argument.</p>
+<p>Note you can <code>+ theme(legend.position = "right")</code> on to
+<code>*_mode_r</code> to move the legend to the centre of the right.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
