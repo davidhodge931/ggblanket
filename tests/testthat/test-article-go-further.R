@@ -1,4 +1,5 @@
 testthat::skip_if(getRversion() <= package_version("4.1.0"))
+skip_if_not_installed("vdiffr")
 
 ## ----setup------------------------------------------------------------------------------------------
 library(ggblanket)
@@ -309,8 +310,8 @@ test_that(test_name, {
       linewidth = 10 / 33
     ) +
     light_mode_rt()
-    # ggeasy::easy_remove_y_gridlines() +
-    # ggeasy::easy_remove_y_axis()
+  # ggeasy::easy_remove_y_gridlines() +
+  # ggeasy::easy_remove_y_axis()
 
   vdiffr::expect_doppelganger(test_name, p)
 })
