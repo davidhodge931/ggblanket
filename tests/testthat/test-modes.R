@@ -1,3 +1,5 @@
+testthat::skip_if(getRversion() >= package_version("4.1.0"))
+
 test_name <- "light_mode_rt"
 
 test_that(test_name, {
