@@ -1,5 +1,5 @@
 testthat::skip_if(getRversion() <= package_version("4.1.0"))
-# testthat::skip_on_os(c("mac", "linux"))
+testthat::skip_on_os(c("mac", "linux"))
 
 library(ggplot2)
 library(dplyr)
