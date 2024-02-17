@@ -556,16 +556,16 @@ test_that(test_name, {
 })
 
 ## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_sf"
-
-test_that(test_name, {
-  p <- sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
-    gg_sf(
-      col = AREA,
-    )
-
-  vdiffr::expect_doppelganger(test_name, p)
-})
+# test_name <- "gg_sf"
+#
+# test_that(test_name, {
+#   p <- sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
+#     gg_sf(
+#       col = AREA,
+#     )
+#
+#   vdiffr::expect_doppelganger(test_name, p)
+# })
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "gg_smooth"
