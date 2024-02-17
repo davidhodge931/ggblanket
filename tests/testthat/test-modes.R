@@ -1,5 +1,5 @@
 testthat::skip_if(getRversion() <= package_version("4.1.0"))
-testthat::skip_on_os(c("mac", "linux", "solaris"))
+# testthat::skip_on_os(c("mac", "linux", "solaris"))
 
 library(palmerpenguins)
 library(ggplot2)
