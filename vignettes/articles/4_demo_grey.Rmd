@@ -27,7 +27,7 @@ library(stringr)
 library(tidyr)
 library(palmerpenguins)
 
-mode_set(grey_mode_rt())
+mode_set(grey_mode_r())
 ```
 
 ### gg_area

@@ -186,7 +186,7 @@ test_that(test_name, {
       position = position_dodge2(preserve = "single"),
       width = 0.75,
       x_labels = \(x) str_to_sentence(x),
-      mode = dark_mode_rt(),
+      mode = dark_mode_r(),
     ) +
     geom_text(
       mapping = aes(y = n - (max(n * 0.04)), label = n,
@@ -308,7 +308,7 @@ test_that(test_name, {
       colour = "#121b24",
       linewidth = 10 / 33
     ) +
-    light_mode_rt()
+    light_mode_r()
   # ggeasy::easy_remove_y_gridlines() +
   # ggeasy::easy_remove_y_axis()
 
