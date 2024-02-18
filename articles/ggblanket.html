@@ -295,12 +295,9 @@ Options - Code - Completion).</p>
 <code>*_title</code> argument.</p>
 <p>The default <code>snakecase::to_sentence</code> conversion can be
 turned off using <code>titles = \(x) x</code>.</p>
-<p>Use ggplot2 to remove a title nicely. E.g.
-<code>+ ggplot2::theme(legend.title = ggplot2::element_blank())</code>
-or <code>+ ggplot2::labs(... = NULL)</code>. Or
-<code><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_legend_title.html" class="external-link">ggeasy::easy_remove_legend_title()</a></code>.</p>
-<p>Remember the <code>col</code> aesthetic contains a title for colour
-and fill in ggplot2.</p>
+<p>Note the <code>*_mode_*</code> functions have arguments to remove a
+<code>x_title</code>, <code>y_title</code> or
+<code>legend_title</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_hex.html">gg_hex</a></span><span class="op">(</span></span>
@@ -360,9 +357,8 @@ and <code>n</code> (none).</p>
 <span>    title <span class="op">=</span> <span class="st">"Penguin flipper length by species"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_t.html">light_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_t.html">light_mode_t</a></span><span class="op">(</span>legend_title <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
