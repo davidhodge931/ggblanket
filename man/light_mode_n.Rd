@@ -4,12 +4,16 @@
 \alias{light_mode_n}
 \title{Light mode theme with no legend}
 \usage{
-light_mode_n(base_size = 11, base_family = "")
+light_mode_n(base_size = 11, base_family = "", x_title = TRUE, y_title = TRUE)
 }
 \arguments{
 \item{base_size}{The base size of the text. Defaults to 11.}
 
 \item{base_family}{The base family of the text. Defaults to "".}
+
+\item{x_title}{TRUE or FALSE whether to have a x axis title. Defaults to TRUE.}
+
+\item{y_title}{TRUE or FALSE whether to have a y axis title. Defaults to TRUE.}
 }
 \value{
 A ggplot mode.

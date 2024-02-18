@@ -2,7 +2,7 @@
 #'
 #' @description Dark mode theme for a ggplot visualisation with legend at right. It uses the colours from `darkness`.
 #'
-#' @inheritParams base_mode
+#' @inheritParams base_mode_r
 #'
 #' @return A ggplot mode.
 #' @export
@@ -21,11 +21,17 @@
 #'
 dark_mode_r <- function (
     base_size = 11,
-    base_family = "") {
+    base_family = "",
+    x_title = TRUE,
+    y_title = TRUE,
+    legend_title = TRUE) {
 
   base_mode_r(
     base_size = base_size,
     base_family = base_family,
+    x_title = x_title,
+    y_title = y_title,
+    legend_title = legend_title,
     col_pal = c(
       "text" = darkness[2],
       "axis_line" = darkness[2],
@@ -39,7 +45,7 @@ dark_mode_r <- function (
 #'
 #' @description Dark mode theme for a ggplot visualisation with top legend. It uses the colours from `darkness`.
 #'
-#' @inheritParams base_mode
+#' @inheritParams base_mode_t
 #'
 #' @return A ggplot mode.
 #' @export
@@ -58,11 +64,17 @@ dark_mode_r <- function (
 #'
 dark_mode_t <- function (
     base_size = 11,
-    base_family = "") {
+    base_family = "",
+    x_title = TRUE,
+    y_title = TRUE,
+    legend_title = TRUE) {
 
   base_mode_t(
     base_size = base_size,
     base_family = base_family,
+    x_title = x_title,
+    y_title = y_title,
+    legend_title = legend_title,
     col_pal = c(
       "text" = darkness[2],
       "axis_line" = darkness[2],
@@ -76,7 +88,7 @@ dark_mode_t <- function (
 #'
 #' @description Dark mode theme for a ggplot visualisation with bottom legend. It uses the colours from `darkness`.
 #'
-#' @inheritParams base_mode
+#' @inheritParams base_mode_b
 #'
 #' @return A ggplot mode.
 #' @export
@@ -95,11 +107,17 @@ dark_mode_t <- function (
 #'
 dark_mode_b <- function (
     base_size = 11,
-    base_family = "") {
+    base_family = "",
+    x_title = TRUE,
+    y_title = TRUE,
+    legend_title = TRUE) {
 
   base_mode_b(
     base_size = base_size,
     base_family = base_family,
+    x_title = x_title,
+    y_title = y_title,
+    legend_title = legend_title,
     col_pal = c(
       "text" = darkness[2],
       "axis_line" = darkness[2],
@@ -113,7 +131,7 @@ dark_mode_b <- function (
 #'
 #' @description Dark mode theme for a ggplot visualisation with no legend. It uses the colours from `darkness`.
 #'
-#' @inheritParams base_mode
+#' @inheritParams base_mode_n
 #'
 #' @return A ggplot mode.
 #' @export
@@ -132,11 +150,15 @@ dark_mode_b <- function (
 #'
 dark_mode_n <- function (
     base_size = 11,
-    base_family = "") {
+    base_family = "",
+    x_title = TRUE,
+    y_title = TRUE) {
 
   base_mode_n(
     base_size = base_size,
     base_family = base_family,
+    x_title = x_title,
+    y_title = y_title,
     col_pal = c(
       "text" = darkness[2],
       "axis_line" = darkness[2],
@@ -145,5 +167,3 @@ dark_mode_n <- function (
       "panel_grid" = darkness[1])
   )
 }
-
-

@@ -196,9 +196,7 @@ However, each title can be manually changed using the applicable `*_title` argum
 
 The default `snakecase::to_sentence` conversion can be turned off using `titles = \(x) x`. 
 
-Use ggplot2 to remove a title nicely. E.g. `+ ggplot2::theme(legend.title = ggplot2::element_blank())` or `+ ggplot2::labs(... = NULL)`. Or `ggeasy::easy_remove_legend_title()`.
-
-Remember the `col` aesthetic contains a title for colour and fill in ggplot2.
+Note the `*_mode_*` functions have arguments to remove a `x_title`, `y_title` or `legend_title`.
 
 ```{r, fig.asp=0.6}
 diamonds |>
@@ -286,9 +284,8 @@ penguins |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    mode = light_mode_t(),
-  ) +
-  theme(legend.title = element_blank())
+    mode = light_mode_t(legend_title = FALSE),
+  ) 
 ```
 
 ```{r, fig.asp=0.75}

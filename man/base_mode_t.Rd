@@ -7,6 +7,9 @@
 base_mode_t(
   base_size = 11,
   base_family = "",
+  x_title = TRUE,
+  y_title = TRUE,
+  legend_title = TRUE,
   col_pal = c(text = "white", axis_line = "white", panel_background = "white",
     plot_background = "white", panel_grid = "white")
 )
@@ -15,6 +18,12 @@ base_mode_t(
 \item{base_size}{The base size of the text. Defaults to 11.}
 
 \item{base_family}{The base family of the text. Defaults to "".}
+
+\item{x_title}{TRUE or FALSE whether to have a x axis title. Defaults to TRUE.}
+
+\item{y_title}{TRUE or FALSE whether to have a y axis title. Defaults to TRUE.}
+
+\item{legend_title}{TRUE or FALSE whether to have a legend title. Defaults to TRUE.}
 
 \item{col_pal}{A 5 colour vector with elements named "text", "axis_line", "panel_background", "plot_background" and "panel_grid".}
 }
