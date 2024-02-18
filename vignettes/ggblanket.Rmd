@@ -274,7 +274,7 @@ The default is `light_mode_r`.
 
 These are intended for use with the `mode` argument.
 
-Note you can `+ theme(legend.position = "right")` on to `*_mode_r` to move the legend to the centre of the right.
+If you want to use a quick non-bold title, use `subtitle = "\n..."`.
 
 ```{r, fig.asp=0.7}
 penguins |>
