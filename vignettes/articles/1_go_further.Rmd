@@ -441,14 +441,19 @@ penguins |>
 
 ### 12. Make custom `gg_*` wrapper functions
 
-You may wish to make your own wrapper functions if you are continually adding the same defaults to your `gg_*` functions. Remember `mode_set` and `ggplot2::theme_set` are available to set the theme. 
+You may wish to make your own wrapper functions if you are continually adding the same defaults to your `gg_*` functions. 
+
+This essentially allows you to choose your own defaults in the functions.
+
+Use the `...` argument to access all other arguments in the `gg_*` function.
 
 ```{r}
 gg_point_custom <- function(data, 
                             x = NULL, 
                             y = NULL, 
-                            col = NULL, 
-                            facet = NULL,
+                            col = NULL,
+                            shape = 17,
+                            size = 3,
                             ...) {
   
   data |> 
@@ -456,32 +461,26 @@ gg_point_custom <- function(data,
       x = {{ x }},
       y = {{ y }},
       col = {{ col }},
-      facet = {{ facet }},
-      col_pal = RColorBrewer::brewer.pal(8, "Dark2"),
-      y_breaks = scales::breaks_pretty(10),
-      y_labels = replace_seq,
-      shape = 17,
-      size = 2, 
-      mode = grey_mode_t(),
+      shape = shape,
+      size = size, 
       ...,
-    ) +
-    theme(legend.title = element_blank())
+    ) 
 }
 
-p1 <- penguins |> 
+penguins |> 
   gg_point_custom(
     x = flipper_length_mm,
     y = body_mass_g,
   )
+```
 
-p2 <- penguins |> 
+```{r}
+penguins |> 
   gg_point_custom(
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
   )
-
-p1 + p2
 ```
 
 ### 13. Use delayed evaluation
