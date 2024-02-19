@@ -112,8 +112,7 @@ gg_jitter <- function(
     title = NULL,
     subtitle = NULL,
     caption = NULL,
-    titles = snakecase::to_sentence_case,
-    flipped = NULL
+    titles = snakecase::to_sentence_case
 ) {
 
   gg_blanket(
@@ -201,7 +200,6 @@ gg_jitter <- function(
     subtitle = subtitle,
     caption = caption,
     titles = titles,
-    flipped = flipped,
     ...
   )
 }

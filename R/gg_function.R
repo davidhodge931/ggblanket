@@ -105,8 +105,7 @@ gg_function <- function(
     title = NULL,
     subtitle = NULL,
     caption = NULL,
-    titles = snakecase::to_sentence_case,
-    flipped = NULL
+    titles = snakecase::to_sentence_case
 ) {
 
   gg_blanket(
@@ -194,7 +193,6 @@ gg_function <- function(
     subtitle = subtitle,
     caption = caption,
     titles = titles,
-    flipped = flipped,
     ...
   )
 }

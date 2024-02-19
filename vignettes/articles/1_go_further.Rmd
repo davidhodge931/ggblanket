@@ -28,7 +28,7 @@ This article will demonstrate more advanced content, including how to:
 6. Fix either the colour outline or interior fill to a constant colour
 7. Add contrasting dark or light text on polygons
 8. Use `replace_seq` to keep every nth label 
-9. Use the `flipped` argument
+9. Use `+ *_mode_*` where we axis-lines and gridlines are not correct
 10. Use delayed evaluation
 11. Understand `oob` & `clip`
 12. Centre a diverging colour scale 
@@ -286,11 +286,9 @@ penguins |>
   )
 ```
 
-### 9. Use the `flipped` argument
+### 9. Use `+ *_mode_*` where we axis-lines and gridlines are not correct
 
-Sometimes the plot might guess the `flipped`-ness of the plot incorrectly - which affects the axis-line/ticks and gridlines removal. In these situations, you can specify whether `flipped = TRUE` or `flipped = FALSE`.
-
-If it's still not right in terms of axis-lines and gridlines, you can `+ *_mode_*` on, and then remove any unwanted gridlines and axis-line/ticks.
+Sometimes the plot might guess the orientation of the plot incorrectly - which affects the axis-line/ticks and gridlines removal. In these situations, you can `+ *_mode_*` on to the plot, and then remove any unwanted gridlines and axis-line/ticks.
 
 ```{r}
 data.frame(
@@ -311,35 +309,11 @@ data.frame(
   ) +
   geom_vline(
     xintercept = 0,
-    colour = "#121b24",
+    colour = lightness[1],
     linewidth = 10 / 33
   )
 ```
 
-```{r}
-data.frame(
-  age = c(0:9, 0:9),
-  sex = c(rep("Male", 10), rep("Female", 10)),
-  population = c(200, 250, 300, 350, 440, 450, 500, 550, 600, 650,
-                 190, 240, 290, 330, 420, 430, 480, 530, 580, 630)) |> 
-  mutate(population = ifelse(sex == "Female", -population, population)) %>%
-  gg_col(
-    y = age,
-    x = population,
-    col = sex,
-    width = 1,
-    orientation = "y",
-    x_labels = \(x) abs(x),
-    x_include = max(abs(.$population)) * c(-1, 1),
-    y_limits = c(NA, NA),
-    flipped = TRUE
-  ) +
-  geom_vline(
-    xintercept = 0,
-    colour = "#121b24",
-    linewidth = 10 / 33
-  )
-```
 
 ```{r}
 data.frame(
@@ -360,7 +334,7 @@ data.frame(
   ) +
   geom_vline(
     xintercept = 0,
-    colour = "#121b24",
+    colour = lightness[1],
     linewidth = 10 / 33
   ) +
   light_mode_r() +

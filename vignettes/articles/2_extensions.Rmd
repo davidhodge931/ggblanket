@@ -93,7 +93,6 @@ data.frame(Titanic) |>
     y = Freq, 
     col = Survived,
     mapping = aes(axis1 = Class, axis2 = Sex, axis3 = Age),
-    flipped = FALSE,
     x_breaks = c(1, 2, 3),
     x_labels = c("Class", "Sex", "Age"),
     y_limits = c(NA, NA),

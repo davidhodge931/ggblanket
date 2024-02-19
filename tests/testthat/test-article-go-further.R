@@ -248,43 +248,8 @@ test_that(test_name, {
   vdiffr::expect_doppelganger(test_name, p)
 })
 
-
-
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "11"
-
-test_that(test_name, {
-
-  p <- data.frame(
-    age = c(0:9, 0:9),
-    sex = c(rep("Male", 10), rep("Female", 10)),
-    population = c(200, 250, 300, 350, 440, 450, 500, 550, 600, 650,
-                   190, 240, 290, 330, 420, 430, 480, 530, 580, 630)) |>
-    mutate(population = ifelse(sex == "Female", -population, population)) %>%
-    gg_col(
-      y = age,
-      x = population,
-      col = sex,
-      width = 1,
-      orientation = "y",
-      x_labels = \(x) abs(x),
-      x_include = max(abs(.$population)) * c(-1, 1),
-      y_limits = c(NA, NA),
-      flipped = TRUE
-    ) +
-    geom_vline(
-      xintercept = 0,
-      colour = "#121b24",
-      linewidth = 10 / 33
-    )
-
-  vdiffr::expect_doppelganger(test_name, p)
-})
-
-
-
-## ---------------------------------------------------------------------------------------------------
-test_name <- "12"
 
 test_that(test_name, {
   p <- data.frame(
@@ -319,7 +284,7 @@ test_that(test_name, {
 
 
 ## ----fig.asp=0.55-----------------------------------------------------------------------------------
-test_name <- "13"
+test_name <- "12"
 
 test_that(test_name, {
   p <- penguins |>
@@ -335,7 +300,7 @@ test_that(test_name, {
 
 
 ## ----fig.asp=0.55-----------------------------------------------------------------------------------
-test_name <- "14"
+test_name <- "13"
 
 test_that(test_name, {
 
@@ -354,7 +319,7 @@ test_that(test_name, {
 
 
 ## ---------------------------------------------------------------------------------------------------
-test_name <- "15"
+test_name <- "14"
 
 test_that(test_name, {
   p1 <- economics |>
@@ -386,7 +351,7 @@ test_that(test_name, {
 
 
 ## ---------------------------------------------------------------------------------------------------
-test_name <- "16"
+test_name <- "15"
 
 test_that(test_name, {
   p <- economics |>
@@ -406,7 +371,7 @@ test_that(test_name, {
 
 
 ## ---------------------------------------------------------------------------------------------------
-test_name <- "17"
+test_name <- "16"
 
 test_that(test_name, {
   p4 <- economics |>
@@ -440,7 +405,7 @@ test_that(test_name, {
 
 
 ## ---------------------------------------------------------------------------------------------------
-test_name <- "18"
+test_name <- "17"
 
 test_that(test_name, {
   p <- mpg |>
@@ -461,7 +426,7 @@ test_that(test_name, {
 
 
 ## ---------------------------------------------------------------------------------------------------
-test_name <- "19"
+test_name <- "18"
 
 test_that(test_name, {
   p <- mpg |>
@@ -480,7 +445,7 @@ test_that(test_name, {
 })
 
 ## ---------------------------------------------------------------------------------------------------
-test_name <- "20"
+test_name <- "19"
 
 test_that(test_name, {
   p1 <- pressure |>

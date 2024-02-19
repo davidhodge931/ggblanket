@@ -89,8 +89,7 @@ gg_crossbar(
   title = NULL,
   subtitle = NULL,
   caption = NULL,
-  titles = snakecase::to_sentence_case,
-  flipped = NULL
+  titles = snakecase::to_sentence_case
 )
 }
 \arguments{
@@ -241,8 +240,6 @@ gg_crossbar(
 \item{caption}{Caption title string.}
 
 \item{titles}{A function to format unspecified titles. Defaults to \code{snakecase::to_sentence_case}.}
-
-\item{flipped}{\code{TRUE} or \code{FALSE} or whether the plot is flipped (i.e. horizontal). This affects the positional scale and gridlines defaults.}
 }
 \value{
 A ggplot object.
