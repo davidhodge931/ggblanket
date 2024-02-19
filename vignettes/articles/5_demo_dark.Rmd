@@ -117,6 +117,7 @@ faithfuld |>
    y = eruptions,
    z = density,
    bins = 8,
+   col_pal = viridisLite::mako(9),
  )
 ```
 
@@ -391,7 +392,8 @@ datapoly |>
     x = x,
     y = y,
     col = value,
-    group = id, 
+    group = id,
+    col_pal = viridisLite::mako(9),
   )
 ```
 
