@@ -126,7 +126,9 @@ p1 <- penguins |>
     y_limits = c(0, NA),
     mode = light_mode_n(),
   ) +
-  facet_wrap(~"Normal")
+  facet_wrap(~"Normal") +
+  ggeasy::easy_remove_x_axis() +
+  ggeasy::easy_remove_y_axis()
 
 p2 <- penguins |>
   gg_blanket(
@@ -137,7 +139,9 @@ p2 <- penguins |>
     mode = light_mode_n(),
   ) +
   facet_wrap(~"Blended") +
-  geom_density(alpha = 0.5) |> ggblend::blend(blend = "multiply") 
+  geom_density(alpha = 0.5) |> ggblend::blend(blend = "multiply") +
+  ggeasy::easy_remove_x_axis() +
+  ggeasy::easy_remove_y_axis()
 
 p1 + p2
 ```
