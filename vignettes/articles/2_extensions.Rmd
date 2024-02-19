@@ -468,9 +468,9 @@ penguins |>
     y_title = "**Bill length** (mm)",
     facet_labels = \(x) glue::glue("_{x}_"),
     title = "***Pygoscelis*** *penguin* bill **lengths** and depths",
-    subtitle = "<span style = 'color: #2596be ;'>**Adelie**</span>, 
-       <span style = 'color:#fc7c24;'>**Chinstrap**</span>, 
-       *and* <span style = 'color:#9c1e74;'>**Gentoo**</span>", 
+    subtitle = "<span style = 'color: #0095A8 ;'>**Adelie**</span>, 
+       <span style = 'color:#FF7043;'>**Chinstrap**</span>, 
+       *and* <span style = 'color:#112E51;'>**Gentoo**</span>", 
     mode = mdthemes::as_md_theme(light_mode_n())
   ) 
 ```
