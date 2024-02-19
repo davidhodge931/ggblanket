@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-This article will demonstrate some fantastic ggplot2 extension packages. 
+This article will demonstrate some fantastic ggplot2 extension packages. It may be easier to just use ggplot2 instead of ggblanket in some cases. 
 
 ```{r setup}
 library(ggblanket)
@@ -101,7 +101,7 @@ data.frame(Titanic) |>
   ) +
   geom_stratum(
     colour = lightness[1],
-    fill = lightness[2],
+    fill = "white",
     show.legend = FALSE,
   ) +
   geom_text(
@@ -152,12 +152,32 @@ The ggdensity package provides visualizations of density estimates.
 
 ```{r}
 library(ggdensity)
+set.seed(123)
 
 data.frame(
   x = rnorm(1000),
   y = rnorm(1000),
   z = c(rep("A", times = 500), rep("B", times = 500))
-  ) |>
+) |>
+  gg_blanket(
+    geom = "hdr", 
+    stat = "hdr",
+    x = x, 
+    y = y, 
+    colour = NA,
+    y_limits = c(NA, NA),
+    col_pal = alpha(blue, 0),
+  )
+```
+
+```{r}
+set.seed(123)
+
+data.frame(
+  x = rnorm(1000),
+  y = rnorm(1000),
+  z = c(rep("A", times = 500), rep("B", times = 500))
+) |>
   gg_blanket(
     geom = "hdr", 
     stat = "hdr",
@@ -165,24 +185,8 @@ data.frame(
     y = y, 
     col = z,
     facet = z,
+    y_limits = c(NA, NA),
     colour = NA,
-  )
-```
-
-```{r}
-library(ggdensity)
-
-data.frame(
-  x = rnorm(1000),
-  y = rnorm(1000),
-  z = c(rep("A", times = 500), rep("B", times = 500))
-  ) |>
-  gg_blanket(
-    geom = "hdr", 
-    stat = "hdr",
-    x = x, 
-    y = y, 
-    col_pal = scales::alpha(blue, 0),
   ) 
 ```
 
@@ -414,7 +418,7 @@ economics |>
     x_expand = c(0, 0),
     col_pal = navy,
     pattern = "gradient", 
-    pattern_fill = lightness[2],
+    pattern_fill = "white",
     pattern_fill2 = navy,
   )
 ```
