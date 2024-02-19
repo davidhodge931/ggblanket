@@ -229,7 +229,7 @@ tibble(x = 1:10) |>
     ymin = .lower,
     ymax = .upper,
     col = .width,
-    colour = "black",
+    colour = lightness[1],
     col_legend_rev = TRUE,
     col_pal = rev(RColorBrewer::brewer.pal(n = 3, "Blues")),
   )
@@ -410,7 +410,7 @@ economics |>
     x_expand = c(0, 0),
     col_pal = navy,
     pattern = "gradient", 
-    pattern_fill = "white",
+    pattern_fill = lightness[2],
     pattern_fill2 = navy,
   )
 ```
@@ -537,7 +537,7 @@ ggiraph::girafe(
   options = list(
     ggiraph::opts_sizing(rescale = TRUE, width = 0.7),
     ggiraph::opts_tooltip(use_fill = TRUE), 
-    ggiraph::opts_hover(css = "stroke:black;stroke-width:1px;"))
+    ggiraph::opts_hover(css = "stroke:#121B24;stroke-width:1px;"))
   )
 ```
 
