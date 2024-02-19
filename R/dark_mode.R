@@ -23,15 +23,13 @@ dark_mode_r <- function (
     base_size = 11,
     base_family = "",
     x_title = TRUE,
-    y_title = TRUE,
-    legend_title = TRUE) {
+    y_title = TRUE) {
 
   base_mode_r(
     base_size = base_size,
     base_family = base_family,
     x_title = x_title,
     y_title = y_title,
-    legend_title = legend_title,
     col_pal = c(
       "text" = darkness[2],
       "axis_line" = darkness[2],
@@ -66,15 +64,13 @@ dark_mode_t <- function (
     base_size = 11,
     base_family = "",
     x_title = TRUE,
-    y_title = TRUE,
-    legend_title = TRUE) {
+    y_title = TRUE) {
 
   base_mode_t(
     base_size = base_size,
     base_family = base_family,
     x_title = x_title,
     y_title = y_title,
-    legend_title = legend_title,
     col_pal = c(
       "text" = darkness[2],
       "axis_line" = darkness[2],
@@ -109,15 +105,13 @@ dark_mode_b <- function (
     base_size = 11,
     base_family = "",
     x_title = TRUE,
-    y_title = TRUE,
-    legend_title = TRUE) {
+    y_title = TRUE) {
 
   base_mode_b(
     base_size = base_size,
     base_family = base_family,
     x_title = x_title,
     y_title = y_title,
-    legend_title = legend_title,
     col_pal = c(
       "text" = darkness[2],
       "axis_line" = darkness[2],

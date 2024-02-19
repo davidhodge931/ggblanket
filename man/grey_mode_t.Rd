@@ -4,13 +4,7 @@
 \alias{grey_mode_t}
 \title{Grey mode theme with top legend}
 \usage{
-grey_mode_t(
-  base_size = 11,
-  base_family = "",
-  x_title = TRUE,
-  y_title = TRUE,
-  legend_title = TRUE
-)
+grey_mode_t(base_size = 11, base_family = "", x_title = TRUE, y_title = TRUE)
 }
 \arguments{
 \item{base_size}{The base size of the text. Defaults to 11.}
@@ -20,8 +14,6 @@ grey_mode_t(
 \item{x_title}{TRUE or FALSE whether to have a x axis title. Defaults to TRUE.}
 
 \item{y_title}{TRUE or FALSE whether to have a y axis title. Defaults to TRUE.}
-
-\item{legend_title}{TRUE or FALSE whether to have a legend title. Defaults to TRUE.}
 }
 \value{
 A ggplot mode.

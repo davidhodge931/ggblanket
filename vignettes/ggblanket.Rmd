@@ -196,8 +196,6 @@ However, each title can be manually changed using the applicable `*_title` argum
 
 The default `snakecase::to_sentence` conversion can be turned off using `titles = \(x) x`. 
 
-Note the `*_mode_*` functions have arguments to remove a `x_title`, `y_title` or `legend_title`.
-
 ```{r, fig.asp=0.6}
 diamonds |>
   gg_hex(
@@ -276,6 +274,8 @@ These are intended for use with the `mode` argument.
 
 If you want to use a quick non-bold title, use `subtitle = "\n..."`.
 
+A title can be removed using `+ labs(... = NULL)`. For removing the the legend associated with `col`, you should add both `colour = NULL` and `fill = NULL`. An alternative approach is to add `+ theme(legend.title = element_blank())` to the plot.
+
 ```{r, fig.asp=0.7}
 penguins |>
   gg_histogram(
@@ -284,8 +284,9 @@ penguins |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    mode = light_mode_t(legend_title = FALSE),
-  ) 
+    mode = light_mode_t(),
+  ) +
+  labs(colour = NULL, fill = NULL)
 ```
 
 ```{r, fig.asp=0.75}

@@ -99,7 +99,6 @@ base_mode <- function (
 #' @inheritParams base_mode
 #' @param x_title TRUE or FALSE whether to have a x axis title. Defaults to TRUE.
 #' @param y_title TRUE or FALSE whether to have a y axis title. Defaults to TRUE.
-#' @param legend_title TRUE or FALSE whether to have a legend title. Defaults to TRUE.
 #'
 #' @keywords internal
 base_mode_r <- function (
@@ -107,7 +106,6 @@ base_mode_r <- function (
     base_family = "",
     x_title = TRUE,
     y_title = TRUE,
-    legend_title = TRUE,
     col_pal = c(
       "text" = "white",
       "axis_line" = "white",
@@ -116,7 +114,7 @@ base_mode_r <- function (
       "panel_grid" = "white")
     ) {
 
-  mode <- base_mode(
+  base_mode(
     base_size = base_size,
     base_family = base_family,
     col_pal = col_pal
@@ -136,25 +134,6 @@ base_mode_r <- function (
       axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.3, l = 0)),
       axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 1, b = 0, l = base_size * 1), angle = -90)
     )
-
-  if (!x_title) {
-    mode <- mode +
-      ggplot2::theme(axis.title.x.bottom = ggplot2::element_blank()) +
-      ggplot2::theme(axis.title.x.top = ggplot2::element_blank())
-  }
-
-  if (!y_title) {
-    mode <- mode +
-      ggplot2::theme(axis.title.y.left = ggplot2::element_blank()) +
-      ggplot2::theme(axis.title.y.right = ggplot2::element_blank())
-  }
-
-  if (!legend_title) {
-    mode <- mode +
-      ggplot2::theme(legend.title = ggplot2::element_blank())
-  }
-
-  return(mode)
 }
 
 #' @title Theme base for `*_mode_t`
@@ -169,7 +148,6 @@ base_mode_t <- function (
     base_family = "",
     x_title = TRUE,
     y_title = TRUE,
-    legend_title = TRUE,
     col_pal = c(
       "text" = "white",
       "axis_line" = "white",
@@ -178,7 +156,7 @@ base_mode_t <- function (
       "panel_grid" = "white")
     ) {
 
-  mode <- base_mode(
+  base_mode(
     base_size = base_size,
     base_family = base_family,
     col_pal = col_pal
@@ -198,25 +176,6 @@ base_mode_t <- function (
     axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * 0, r = 0, b = base_size * 0.3, l = 0)),
     axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * -0.5, b = 0, l = base_size * 1), angle = -90)
   )
-
-  if (!x_title) {
-    mode <- mode +
-      ggplot2::theme(axis.title.x.bottom = ggplot2::element_blank()) +
-      ggplot2::theme(axis.title.x.top = ggplot2::element_blank())
-  }
-
-  if (!y_title) {
-    mode <- mode +
-      ggplot2::theme(axis.title.y.left = ggplot2::element_blank()) +
-      ggplot2::theme(axis.title.y.right = ggplot2::element_blank())
-  }
-
-  if (!legend_title) {
-    mode <- mode +
-      ggplot2::theme(legend.title = ggplot2::element_blank())
-  }
-
-  return(mode)
 }
 
 #' @title Theme base for `*_mode_b`
@@ -231,7 +190,6 @@ base_mode_b <- function (
     base_family = "",
     x_title = TRUE,
     y_title = TRUE,
-    legend_title = TRUE,
     col_pal = c(
       "text" = "white",
       "axis_line" = "white",
@@ -240,7 +198,7 @@ base_mode_b <- function (
       "panel_grid" = "white")
     ) {
 
-  mode <- base_mode(
+  base_mode(
     base_size = base_size,
     base_family = base_family,
     col_pal = col_pal
@@ -260,25 +218,6 @@ base_mode_b <- function (
       axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.3, l = 0)),
       axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * -0.5, b = 0, l = base_size * 1), angle = -90)
     )
-
-  if (!x_title) {
-    mode <- mode +
-      ggplot2::theme(axis.title.x.bottom = ggplot2::element_blank()) +
-      ggplot2::theme(axis.title.x.top = ggplot2::element_blank())
-  }
-
-  if (!y_title) {
-    mode <- mode +
-      ggplot2::theme(axis.title.y.left = ggplot2::element_blank()) +
-      ggplot2::theme(axis.title.y.right = ggplot2::element_blank())
-  }
-
-  if (!legend_title) {
-    mode <- mode +
-      ggplot2::theme(legend.title = ggplot2::element_blank())
-  }
-
-  return(mode)
 }
 
 #' @title Theme base for `*_mode_n`
