@@ -447,20 +447,33 @@ This essentially allows you to choose your own defaults in the functions.
 
 Use the `...` argument to access all other arguments in the `gg_*` function.
 
+An alternative method to `enquo` and `!!` is to use `{{ }}`.
+
 ```{r}
 gg_point_custom <- function(data, 
                             x = NULL, 
                             y = NULL, 
                             col = NULL,
+                            col_pal = NULL,
                             shape = 17,
                             size = 3,
                             ...) {
   
+  x <- enquo(x)
+  y <- enquo(y)
+  col <- enquo(col)
+  
+  if (rlang::is_null(col_pal)) {
+    if (rlang::quo_is_null(col)) col_pal <- plum
+    else col_pal <- RColorBrewer::brewer.pal(n = 8, "Dark2")
+  }
+  
   data |> 
     gg_point(
-      x = {{ x }},
-      y = {{ y }},
-      col = {{ col }},
+      x = !!x,
+      y = !!y,
+      col = !!col,
+      col_pal = col_pal,
       shape = shape,
       size = size, 
       ...,
