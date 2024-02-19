@@ -406,23 +406,6 @@ penguins |>
   guides(pattern = guide_legend(reverse = TRUE))
 ```
 
-```{r}
-library(magick) 
-
-economics |> 
-  gg_blanket(
-    geom = "area_pattern",
-    x = date, 
-    y = unemploy,
-    x_expand = c(0, 0),
-    col_pal = navy,
-    pattern = "gradient", 
-    pattern_fill = "white",
-    pattern_fill2 = navy,
-  )
-```
-
-
 #### ggrepel
 
 The ggrepel package can be used to neatly avoid overlapping labels. 
