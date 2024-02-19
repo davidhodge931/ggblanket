@@ -30,7 +30,7 @@ This article will demonstrate a random assortment of content, including some of 
 8. Centre a diverging colour scale 
 9. Change the `stat`
 10. Use opacity with to emphasise/demphasise. 
-11. Use character inputs of variables 
+11. Use character inputs of variables in shiny apps
 12. Make custom `gg_*` wrapper functions
 13. Use delayed evaluation
 14. Understand `oob` & `clip`
@@ -374,9 +374,10 @@ p1 <- penguins |>
   gg_density(
     x = flipper_length_mm,
     x_breaks = scales::breaks_pretty(n = 3),
+    y_labels = replace_seq,
     col_pal = scales::alpha(orange, 0.33),
     alpha_pal = 0.1,
-    subtitle = "\ninteriour fill with opacity 0.1 & outline 0.33"
+    subtitle = "\nOpacity fill 0.1 & outline 0.33"
   )
 
 p2 <- penguins |> 
@@ -386,6 +387,7 @@ p2 <- penguins |>
     x = flipper_length_mm,
     col = sex,
     x_breaks = scales::breaks_pretty(n = 3),
+    y_labels = replace_seq,
     col_pal = c(orange, "#78909C"),
     subtitle = "\ncol variable"
   )
@@ -398,6 +400,7 @@ p3 <- penguins |>
     col = sex, 
     alpha = sex,
     x_breaks = scales::breaks_pretty(n = 3),
+    y_labels = replace_seq,
     col_pal = c(orange, "#78909C"),
     alpha_pal = c(0.5, 0.1),
     subtitle = "\ncol and alpha variable",
@@ -412,6 +415,7 @@ p4 <- penguins |>
     col = sex, 
     alpha = sex,
     x_breaks = scales::breaks_pretty(n = 3),
+    y_labels = replace_seq,
     col_pal = c(orange, scales::alpha("#78909C", 0.25)),
     alpha_pal = c(0.5, 0.1),
     subtitle = "\ncol and alpha variable & outline opacity",
@@ -420,7 +424,7 @@ p4 <- penguins |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 11. Use character inputs of variables
+### 11. Use character inputs of variables in shiny apps
 
 It can be useful in shiny apps to use character inputs of variables. This can be done using `.data`.
 
