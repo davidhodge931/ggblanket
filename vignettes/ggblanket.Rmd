@@ -194,7 +194,7 @@ Unspecified `x`, `y`, `col` and `alpha` titles are converted to sentence case wi
 
 However, each title can be manually changed using the applicable `*_title` argument. 
 
-The default `snakecase::to_sentence` conversion can be turned off using `titles = \(x) x`. 
+The default `snakecase::to_sentence` conversion can be turned off using `titles_to_case = \(x) x` or changed (e.g. `snakecase::to_title_case`). 
 
 ```{r, fig.asp=0.6}
 diamonds |>

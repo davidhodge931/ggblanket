@@ -76,7 +76,7 @@
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
-#' @param titles A function to format unspecified titles. Defaults to `snakecase::to_sentence_case`.
+#' @param titles_to_case A function to format unspecified titles_to_case. Defaults to `snakecase::to_sentence_case`.
 #'
 #' @return A ggplot object.
 #' @export
@@ -186,7 +186,7 @@ gg_blanket <- function(
     title = NULL,
     subtitle = NULL,
     caption = NULL,
-    titles = snakecase::to_sentence_case
+    titles_to_case = snakecase::to_sentence_case
 ) {
 
   ##############################################################################
@@ -1973,14 +1973,14 @@ gg_blanket <- function(
   }
 
   #############################################################################
-  # titles
+  # titles_to_case
   #############################################################################
   if (rlang::is_null(x_title)) {
     if (stringr::str_detect(stat_name, "sf")) {
       x_title <- ""
     }
     else if (!rlang::is_null(plot_build$plot$labels$x)) {
-      x_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), titles)
+      x_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), titles_to_case)
     }
   }
   if (rlang::is_null(y_title)) {
@@ -1988,38 +1988,38 @@ gg_blanket <- function(
       y_title <- ""
     }
     else if (!rlang::is_null(plot_build$plot$labels$y)) {
-      y_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$y[1]), titles)
+      y_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$y[1]), titles_to_case)
     }
   }
 
   if (rlang::is_null(col_title)) {
     if (!rlang::is_null(plot_build$plot$labels$fill)) {
-      col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$fill[1]), titles)
+      col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$fill[1]), titles_to_case)
     }
     else if (!rlang::is_null(plot_build$plot$labels$colour)) {
-      col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), titles)
+      col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), titles_to_case)
     }
   }
   if (rlang::is_null(alpha_title)) {
     if (!rlang::is_null(plot_build$plot$labels$alpha)) {
-      alpha_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), titles)
+      alpha_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), titles_to_case)
     }
   }
 
   if (!rlang::is_null(plot_build$plot$labels$shape)) {
-    shape_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), titles)
+    shape_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), titles_to_case)
   } else shape_title <- NULL
 
   if (!rlang::is_null(plot_build$plot$labels$linetype)) {
-    linetype_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), titles)
+    linetype_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), titles_to_case)
   } else linetype_title <- NULL
 
   if (!rlang::is_null(plot_build$plot$labels$size)) {
-    size_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), titles)
+    size_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), titles_to_case)
   } else size_title <- NULL
 
   if (!rlang::is_null(plot_build$plot$labels$linewidth)) {
-    linewidth_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), titles)
+    linewidth_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), titles_to_case)
   } else linewidth_title <- NULL
 
   # if (!rlang::is_null(x_title)) {

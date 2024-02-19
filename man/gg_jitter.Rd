@@ -89,7 +89,7 @@ gg_jitter(
   title = NULL,
   subtitle = NULL,
   caption = NULL,
-  titles = snakecase::to_sentence_case
+  titles_to_case = snakecase::to_sentence_case
 )
 }
 \arguments{
@@ -239,7 +239,7 @@ gg_jitter(
 
 \item{caption}{Caption title string.}
 
-\item{titles}{A function to format unspecified titles. Defaults to \code{snakecase::to_sentence_case}.}
+\item{titles_to_case}{A function to format unspecified titles_to_case. Defaults to \code{snakecase::to_sentence_case}.}
 }
 \value{
 A ggplot object.

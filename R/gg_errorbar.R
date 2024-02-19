@@ -116,7 +116,7 @@ gg_errorbar <- function(
     title = NULL,
     subtitle = NULL,
     caption = NULL,
-    titles = snakecase::to_sentence_case
+    titles_to_case = snakecase::to_sentence_case
 ) {
 
   gg_blanket(
@@ -203,7 +203,7 @@ gg_errorbar <- function(
     title = title,
     subtitle = subtitle,
     caption = caption,
-    titles = titles,
+    titles_to_case = titles_to_case,
     ...
   )
 }
