@@ -22,17 +22,18 @@ This article will demonstrate more advanced content, including how to:
 
 1. Reorder and/or reverse categorical variables
 2. Drop unused categorical variable values
-3. Use different fonts
-4. Visualise spatial data
-5. Change the `stat`
-6. Fix either the colour outline or interior fill to a constant colour
+3. Fix either the colour outline or interior fill to a constant colour
+4. Use `+ *_mode_*` where we axis-lines and gridlines are not correct
+5. Use `replace_seq` to keep every nth label 
+6. Transform scales
 7. Add contrasting dark or light text on polygons
-8. Use `replace_seq` to keep every nth label 
-9. Use `+ *_mode_*` where we axis-lines and gridlines are not correct
-10. Use delayed evaluation
-11. Understand `oob` & `clip`
-12. Centre a diverging colour scale 
-13. Transform scales
+8. Centre a diverging colour scale 
+9. Change the `stat`
+10. Use opacity with to emphasise/demphasise. 
+11. Use character inputs of variables 
+12. Make custom wrapper functions of `gg_*` wrapper functions
+13. Use delayed evaluation
+14. Understand `oob` & `clip`
 
 ```{r setup}
 library(ggblanket)
@@ -110,91 +111,7 @@ p2 <- diamonds |>
 p1 + p2
 ```
 
-### 3. Use different fonts
-
-The showtext and sysfonts packages support the use of different fonts from Google. The `*_mode_*` theme functions provide a `base_family` argument.
-
-```{r, fig.asp = 0.7, fig.showtext = TRUE}
-head(sysfonts::font_families_google())
-
-sysfonts::font_add_google("Covered By Your Grace", "grace")
-sysfonts::font_add_google('Roboto Slab', 'roboto_slab')
-sysfonts::font_add_google('Syne Mono', 'syne')
-
-showtext::showtext_auto(enable = TRUE)
-
-penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    facet = species,
-    title = "Penguins body mass by flipper length",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020",
-    mode = light_mode_r(base_family = "grace")
-  ) +
-  theme(
-    plot.title = element_text(family = "roboto_slab"),
-    plot.subtitle = element_text(family = "syne")
-  )
-
-showtext::showtext_auto(enable = FALSE)
-```
-
-### 4. Visualise spatial data
-
-As ggblanket wraps the `ggplot2::geom_sf` and `ggplot2::geom_raster` functions, spatial vector and array data can be visualised. 
-
-```{r, fig.asp=0.4}
-sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE) |>
-  gg_sf(col = AREA) 
-```
-
-```{r}
-stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
- tibble::as_tibble() |>
- gg_raster(
-   x = x,
-   y = y,
-   col = L7_ETMs.tif,
-   facet = band,
-   col_title = "L7 ETMs",
-  ) +
-  ggeasy::easy_remove_x_axis() +
-  ggeasy::easy_remove_y_axis() 
-```
-
-### 5. Change the `stat`
-
-The default `stat` of each `gg_*` function can be changed. 
-
-```{r}
-penguins |>
-  gg_pointrange(
-    stat = "summary", 
-    x = species,
-    y = flipper_length_mm, 
-    size = 0.1,
-  )
-```
-
-```{r}
-library(ggforce)
-
-ggplot2::economics |>
-  slice_head(n = 35) |> 
-  gg_path(
-    stat = "bspline",
-    x = date, 
-    y = unemploy,
-    n = 100, 
-    linewidth = 1,
-  ) 
-```
-
-### 6. Fix either the colour outline or interior fill to a constant colour
+### 3. Fix either the colour outline or interior fill to a constant colour
 
 For geom's that have both outline colour and interior fill, it is possible to fix one of these to a constant colour.
 
@@ -225,6 +142,122 @@ penguins |>
     alpha_pal = 0.9,
     mode = light_mode_n(),
   ) 
+```
+
+### 4. Use `+ *_mode_*` where we axis-lines and gridlines are not correct
+
+Sometimes the plot might guess the removal of gridlines and axis-line/ticks incorrectly. In these situations, you can `+ *_mode_*` on to the plot, and then remove whatever you want. 
+
+```{r}
+data.frame(
+  age = c(0:9, 0:9),
+  sex = c(rep("Male", 10), rep("Female", 10)),
+  population = c(200, 250, 300, 350, 440, 450, 500, 550, 600, 650,
+                 190, 240, 290, 330, 420, 430, 480, 530, 580, 630)) |> 
+  mutate(population = ifelse(sex == "Female", -population, population)) %>%
+  gg_col(
+    y = age,
+    x = population,
+    col = sex,
+    width = 1,
+    orientation = "y",
+    x_labels = \(x) abs(x),
+    x_include = max(abs(.$population)) * c(-1, 1),
+    y_limits = c(NA, NA),
+  ) +
+  geom_vline(
+    xintercept = 0,
+    colour = lightness[1],
+    linewidth = 10 / 33
+  )
+```
+
+```{r}
+data.frame(
+  age = c(0:9, 0:9),
+  sex = c(rep("Male", 10), rep("Female", 10)),
+  population = c(200, 250, 300, 350, 440, 450, 500, 550, 600, 650,
+                 190, 240, 290, 330, 420, 430, 480, 530, 580, 630)) |> 
+  mutate(population = ifelse(sex == "Female", -population, population)) %>%
+  gg_col(
+    y = age,
+    x = population,
+    col = sex,
+    width = 1,
+    orientation = "y",
+    x_labels = \(x) abs(x),
+    x_include = max(abs(.$population)) * c(-1, 1),
+    y_limits = c(NA, NA),
+  ) +
+  geom_vline(
+    xintercept = 0,
+    colour = lightness[1],
+    linewidth = 10 / 33
+  ) +
+  light_mode_r() +
+  ggeasy::easy_remove_y_gridlines() +
+  ggeasy::easy_remove_y_axis()
+
+```
+
+### 5. Use `replace_seq` to keep every nth label 
+
+A `replace_seq` helper function is provided to replace a sequence of labels with `""`. This can be particularly useful when faceting.
+
+```{r}
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  gg_freqpoly(
+    x = flipper_length_mm,
+    col = species,
+    y_breaks = scales::breaks_pretty(7),
+    y_labels = \(x) replace_seq(x), 
+  )
+```
+
+### 6. Transform scales
+
+Transform objects (e.g. `scales::transform_log()` or character strings of these can be used to transform scales - including combining these.
+
+```{r, fig.asp=0.75}
+p1 <- pressure |>
+  gg_point(
+    x = temperature, 
+    y = pressure, 
+    x_labels = replace_seq,
+    y_labels = replace_seq,
+    subtitle = "\nDefault",
+  )
+
+p2 <- pressure |>
+  gg_point(
+    x = temperature, 
+    y = pressure, 
+    x_labels = replace_seq,
+    y_transform = "reverse", 
+    y_labels = replace_seq,
+    subtitle = "\nReverse",
+  )
+
+p3 <- pressure |>
+  gg_point(
+    x = temperature, 
+    y = pressure,
+    x_labels = replace_seq,
+    y_transform = "log10",
+    subtitle = "\nLog10", 
+  )
+
+p4 <- pressure |>
+  gg_point(
+    x = temperature, 
+    y = pressure, 
+    x_labels = replace_seq,
+    y_transform = c("log10", "reverse"),
+    subtitle = "\nLog10 & Reverse",
+  )
+
+(p1 + p2) / (p3 + p4)
 ```
 
 ### 7. Add contrasting dark or light text on polygons
@@ -270,80 +303,184 @@ penguins |>
   ) 
 ```
 
-### 8. Use `replace_seq` to keep every nth label 
+### 8. Centre a diverging colour scale 
 
-A `replace_seq` helper function is provided to replace a sequence of labels with `""`. 
+Sometimes you need to centre a diverging colour scale.
+
+```{r}
+mpg |>
+  mutate(centred = cty - mean(cty)) |>
+  select(displ, hwy, centred) %>%
+  gg_point(
+    x = displ,
+    y = hwy,
+    col = centred,
+    col_pal = c(teal, greys[1], orange),
+    col_breaks = scales::breaks_width(5),
+    col_rescale = scales::rescale(c(min(.$centred), 0, max(.$centred)))
+  )
+```
+
+```{r}
+mpg |>
+  mutate(centred = cty - mean(cty)) |>
+  select(displ, hwy, centred) %>%
+  gg_point(
+    x = displ,
+    y = hwy,
+    col = centred,
+    col_pal = c(teal, greys[1], orange),
+    col_limits = max(abs(.$centred)) * c(-1, 1),
+    col_breaks = scales::breaks_width(5)
+  )
+```
+
+### 9. Change the `stat`
+
+The default `stat` of each `gg_*` function can be changed. 
 
 ```{r}
 penguins |>
+  gg_pointrange(
+    stat = "summary", 
+    x = species,
+    y = flipper_length_mm, 
+    size = 0.1,
+  )
+```
+
+```{r}
+library(ggforce)
+
+ggplot2::economics |>
+  slice_head(n = 35) |> 
+  gg_path(
+    stat = "bspline",
+    x = date, 
+    y = unemploy,
+    n = 100, 
+    linewidth = 1,
+  ) 
+```
+
+### 10. Use opacity to emphasise/demphasise 
+
+Use opacity with `alpha`, `col`, and `alpha_pal/col_pal` to emphasise/demphasise parts of the visualisation. 
+
+```{r}
+p1 <- penguins |> 
+  drop_na(sex) |> 
   mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  gg_histogram(
+  gg_density(
     x = flipper_length_mm,
-    facet = species,
-    facet2 = sex,
-    y_breaks = scales::breaks_pretty(7),
-    y_labels = \(x) replace_seq(x), 
+    x_breaks = scales::breaks_pretty(n = 3),
+    col_pal = scales::alpha(orange, 0.33),
+    alpha_pal = 0.1,
+    subtitle = "\ninteriour fill with opacity 0.1 & outline 0.33"
+  )
+
+p2 <- penguins |> 
+  drop_na(sex) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  gg_density(
+    x = flipper_length_mm,
+    col = sex,
+    x_breaks = scales::breaks_pretty(n = 3),
+    col_pal = c(orange, "#78909C"),
+    subtitle = "\ncol variable"
+  )
+
+p3 <- penguins |> 
+  drop_na(sex) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  gg_density(
+    x = flipper_length_mm,
+    col = sex, 
+    alpha = sex,
+    x_breaks = scales::breaks_pretty(n = 3),
+    col_pal = c(orange, "#78909C"),
+    alpha_pal = c(0.5, 0.1),
+    subtitle = "\ncol and alpha variable",
+  ) +
+  guides(colour = "none", fill = "none", alpha = "none")
+
+p4 <- penguins |> 
+  drop_na(sex) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  gg_density(
+    x = flipper_length_mm,
+    col = sex, 
+    alpha = sex,
+    x_breaks = scales::breaks_pretty(n = 3),
+    col_pal = c(orange, scales::alpha("#78909C", 0.25)),
+    alpha_pal = c(0.5, 0.1),
+    subtitle = "\ncol and alpha variable & outline opacity",
+  )
+
+(p1 + p2) / (p3 + p4)
+```
+
+### 11. Use character inputs of variables
+
+It can be useful in shiny apps to use character inputs of variables. This can be done using `.data`.
+
+```{r}
+x <- "flipper_length_mm"
+y <- "body_mass_g"
+
+penguins |> 
+  gg_point(
+    x = .data[[x]],
+    y = .data[[y]],
   )
 ```
 
-### 9. Use `+ *_mode_*` where we axis-lines and gridlines are not correct
+### 12. Make custom wrapper functions of `gg_*` wrapper functions
 
-Sometimes the plot might guess the orientation of the plot incorrectly - which affects the axis-line/ticks and gridlines removal. In these situations, you can `+ *_mode_*` on to the plot, and then remove any unwanted gridlines and axis-line/ticks.
+You may wish to make your own wrapper functions if you are continually adding the same defaults to your `gg_*` functions. But remember `mode_set` and `ggplot2::theme_set` are available. 
 
 ```{r}
-data.frame(
-  age = c(0:9, 0:9),
-  sex = c(rep("Male", 10), rep("Female", 10)),
-  population = c(200, 250, 300, 350, 440, 450, 500, 550, 600, 650,
-                 190, 240, 290, 330, 420, 430, 480, 530, 580, 630)) |> 
-  mutate(population = ifelse(sex == "Female", -population, population)) %>%
-  gg_col(
-    y = age,
-    x = population,
-    col = sex,
-    width = 1,
-    orientation = "y",
-    x_labels = \(x) abs(x),
-    x_include = max(abs(.$population)) * c(-1, 1),
-    y_limits = c(NA, NA),
-  ) +
-  geom_vline(
-    xintercept = 0,
-    colour = lightness[1],
-    linewidth = 10 / 33
+gg_point_custom <- function(data, 
+                            x = NULL, 
+                            y = NULL, 
+                            col = NULL, 
+                            facet = NULL,
+                            ...) {
+  
+  data |> 
+    gg_point(
+      x = {{ x }},
+      y = {{ y }},
+      col = {{ col }},
+      facet = {{ facet }},
+      col_pal = RColorBrewer::brewer.pal(8, "Dark2"),
+      y_breaks = scales::breaks_pretty(10),
+      y_labels = replace_seq,
+      shape = 17,
+      size = 2, 
+      mode = grey_mode_t(),
+      ...,
+    ) +
+    theme(legend.title = element_blank())
+}
+
+p1 <- penguins |> 
+  gg_point_custom(
+    x = flipper_length_mm,
+    y = body_mass_g,
   )
+
+p2 <- penguins |> 
+  gg_point_custom(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+  )
+
+p1 + p2
 ```
 
-
-```{r}
-data.frame(
-  age = c(0:9, 0:9),
-  sex = c(rep("Male", 10), rep("Female", 10)),
-  population = c(200, 250, 300, 350, 440, 450, 500, 550, 600, 650,
-                 190, 240, 290, 330, 420, 430, 480, 530, 580, 630)) |> 
-  mutate(population = ifelse(sex == "Female", -population, population)) %>%
-  gg_col(
-    y = age,
-    x = population,
-    col = sex,
-    width = 1,
-    orientation = "y",
-    x_labels = \(x) abs(x),
-    x_include = max(abs(.$population)) * c(-1, 1),
-    y_limits = c(NA, NA),
-  ) +
-  geom_vline(
-    xintercept = 0,
-    colour = lightness[1],
-    linewidth = 10 / 33
-  ) +
-  light_mode_r() +
-  ggeasy::easy_remove_y_gridlines() +
-  ggeasy::easy_remove_y_axis()
-
-```
-
-### 10. Use delayed evaluation
+### 13. Use delayed evaluation
 
 As the `x`, `y`, `col` and `alpha` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This can be used for delayed evaluation with the `ggplot2::after_stat` function.
 
@@ -367,7 +504,7 @@ faithfuld |>
   )
 ```
 
-### 11. Understand `oob` & `clip`
+### 14. Understand `oob` & `clip`
 
 By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
 
@@ -440,80 +577,5 @@ p5 <- economics |>
 p4 + p5
 ```
 
-### 12. Centre a diverging colour scale 
 
-Sometimes you need to centre a diverging colour scale.
-
-```{r}
-mpg |>
-  mutate(centred = cty - mean(cty)) |>
-  select(displ, hwy, centred) %>%
-  gg_point(
-    x = displ,
-    y = hwy,
-    col = centred,
-    col_pal = c(blue, greys[1], plum),
-    col_breaks = scales::breaks_width(5),
-    col_rescale = scales::rescale(c(min(.$centred), 0, max(.$centred)))
-  )
-```
-
-```{r}
-mpg |>
-  mutate(centred = cty - mean(cty)) |>
-  select(displ, hwy, centred) %>%
-  gg_point(
-    x = displ,
-    y = hwy,
-    col = centred,
-    col_pal = c(blue, greys[1], plum),
-    col_limits = max(abs(.$centred)) * c(-1, 1),
-    col_breaks = scales::breaks_width(5)
-  )
-```
-
-### 13. Transform scales
-
-Transform objects (e.g. `scales::transform_log()` or character strings of these can be used to transform scales - inncluding combining these.
-
-```{r, fig.asp=0.75}
-p1 <- pressure |>
-  gg_point(
-    x = temperature, 
-    y = pressure, 
-    x_labels = replace_seq,
-    y_labels = replace_seq,
-    subtitle = "\nDefault",
-  )
-
-p2 <- pressure |>
-  gg_point(
-    x = temperature, 
-    y = pressure, 
-    x_labels = replace_seq,
-    y_transform = "reverse", 
-    y_labels = replace_seq,
-    subtitle = "\nReverse",
-  )
-
-p3 <- pressure |>
-  gg_point(
-    x = temperature, 
-    y = pressure,
-    x_labels = replace_seq,
-    y_transform = "log10",
-    subtitle = "\nLog10", 
-  )
-
-p4 <- pressure |>
-  gg_point(
-    x = temperature, 
-    y = pressure, 
-    x_labels = replace_seq,
-    y_transform = c("log10", "reverse"),
-    subtitle = "\nLog10 & Reverse",
-  )
-
-(p1 + p2) / (p3 + p4)
-```
 
