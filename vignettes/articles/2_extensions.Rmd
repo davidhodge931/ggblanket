@@ -124,19 +124,19 @@ p1 <- penguins |>
     x = flipper_length_mm,
     col = species,
     y_limits = c(0, NA),
-    subtitle = "\nNormal",
     mode = light_mode_n(),
-  ) 
+  ) +
+  facet_wrap(~"Normal")
 
 p2 <- penguins |>
   gg_blanket(
+    stat = "density",
     x = flipper_length_mm,
     col = species,
     y_limits = c(0, NA),
-    stat = "density",
-    subtitle = "\nBlended",
     mode = light_mode_n(),
   ) +
+  facet_wrap(~"Blended") +
   geom_density(alpha = 0.5) |> ggblend::blend(blend = "multiply") 
 
 p1 + p2
