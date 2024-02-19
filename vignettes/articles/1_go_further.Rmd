@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-This article will demonstrate more advanced content, including how to: 
+This article will demonstrate a random assortment of content, including some of which is quite advanced. 
 
 1. Reorder and/or reverse categorical variables
 2. Drop unused categorical variable values
@@ -31,7 +31,7 @@ This article will demonstrate more advanced content, including how to:
 9. Change the `stat`
 10. Use opacity with to emphasise/demphasise. 
 11. Use character inputs of variables 
-12. Make custom wrapper functions of `gg_*` wrapper functions
+12. Make custom `gg_*` wrapper functions
 13. Use delayed evaluation
 14. Understand `oob` & `clip`
 
@@ -435,9 +435,9 @@ penguins |>
   )
 ```
 
-### 12. Make custom wrapper functions of `gg_*` wrapper functions
+### 12. Make custom `gg_*` wrapper functions
 
-You may wish to make your own wrapper functions if you are continually adding the same defaults to your `gg_*` functions. But remember `mode_set` and `ggplot2::theme_set` are available. 
+You may wish to make your own wrapper functions if you are continually adding the same defaults to your `gg_*` functions. Remember `mode_set` and `ggplot2::theme_set` are available to set the theme. 
 
 ```{r}
 gg_point_custom <- function(data, 
