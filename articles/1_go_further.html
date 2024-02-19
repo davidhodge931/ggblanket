@@ -556,20 +556,33 @@ functions.</p>
 functions.</p>
 <p>Use the <code>...</code> argument to access all other arguments in
 the <code>gg_*</code> function.</p>
+<p>An alternative method to <code>enquo</code> and <code>!!</code> is to
+use <code>{{ }}</code>.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gg_point_custom</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, </span>
 <span>                            <span class="va">x</span> <span class="op">=</span> <span class="cn">NULL</span>, </span>
 <span>                            <span class="va">y</span> <span class="op">=</span> <span class="cn">NULL</span>, </span>
 <span>                            <span class="va">col</span> <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                            <span class="va">col_pal</span> <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                            <span class="va">shape</span> <span class="op">=</span> <span class="fl">17</span>,</span>
 <span>                            <span class="va">size</span> <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>                            <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html" class="external-link">enquo</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html" class="external-link">enquo</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span>  <span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html" class="external-link">enquo</a></span><span class="op">(</span><span class="va">col</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/type-predicates.html" class="external-link">is_null</a></span><span class="op">(</span><span class="va">col_pal</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/quosure-tools.html" class="external-link">quo_is_null</a></span><span class="op">(</span><span class="va">col</span><span class="op">)</span><span class="op">)</span> <span class="va">col_pal</span> <span class="op">&lt;-</span> <span class="va">plum</span></span>
+<span>    <span class="kw">else</span> <span class="va">col_pal</span> <span class="op">&lt;-</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">8</span>, <span class="st">"Dark2"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
 <span>  <span class="va">data</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
-<span>      x <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">x</span> <span class="op">}</span><span class="op">}</span>,</span>
-<span>      y <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">y</span> <span class="op">}</span><span class="op">}</span>,</span>
-<span>      col <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">col</span> <span class="op">}</span><span class="op">}</span>,</span>
+<span>      x <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="va">x</span>,</span>
+<span>      y <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="va">y</span>,</span>
+<span>      col <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="va">col</span>,</span>
+<span>      col_pal <span class="op">=</span> <span class="va">col_pal</span>,</span>
 <span>      shape <span class="op">=</span> <span class="va">shape</span>,</span>
 <span>      size <span class="op">=</span> <span class="va">size</span>, </span>
 <span>      <span class="va">...</span>,</span>
