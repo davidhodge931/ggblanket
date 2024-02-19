@@ -294,7 +294,8 @@ Options - Code - Completion).</p>
 <p>However, each title can be manually changed using the applicable
 <code>*_title</code> argument.</p>
 <p>The default <code>snakecase::to_sentence</code> conversion can be
-turned off using <code>titles = \(x) x</code>.</p>
+turned off using <code>titles_to_case = \(x) x</code> or changed
+(e.g. <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_title_case</a></code>).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_hex.html">gg_hex</a></span><span class="op">(</span></span>
@@ -313,11 +314,11 @@ turned off using <code>titles = \(x) x</code>.</p>
 <code>*_mode_*</code> themes.</p>
 <p>When a mode is provided it, the <code>gg_*</code> function will:</p>
 <ul>
-<li>guess whether the plot is <code>flipped</code> or not</li>
-<li>for <code>flipped = FALSE</code> graphs, remove vertical grid-lines,
-and the y axis-line/ticks</li>
-<li>for <code>flipped = TRUE</code> graphs, remove horizontal
-grid-lines, and the x axis-line/ticks</li>
+<li>guess whether the orientation of the plot</li>
+<li>for vertical graphs, remove x grid-lines, and the x
+axis-line/ticks</li>
+<li>for horizontal graphs, remove y grid-lines, and the y
+axis-line/ticks</li>
 </ul>
 <p>To avoid these side-effects, <code>+</code> the theme on to the
 output of <code>gg_*</code>.</p>
@@ -328,8 +329,6 @@ side-effects.</p>
 <code>theme_set(theme_grey())</code> to unset. Note you cannot actually
 set the theme globally to <code>theme_grey(11)</code> for this reason -
 instead use <code>theme_grey(11.01)</code>.</p>
-<p>Note you can specify whether <code>flipped = TRUE</code> or
-<code>flipped = FALSE</code>, if it guesses incorrectly.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
