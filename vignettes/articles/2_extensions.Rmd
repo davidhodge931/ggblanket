@@ -120,14 +120,27 @@ titanic_wide |>
 The ggblend package provides blending of colours. Note you must use a graphics device that supports blending.
  
 ```{r}
-penguins |>
+p1 <- penguins |>
+  gg_density(
+    x = flipper_length_mm,
+    col = species,
+    y_limits = c(0, NA),
+    subtitle = "\nNormal",
+    mode = light_mode_n(),
+  ) 
+
+p2 <- penguins |>
   gg_blanket(
     x = flipper_length_mm,
     col = species,
+    y_limits = c(0, NA),
     stat = "density",
+    subtitle = "\nBlended",
+    mode = light_mode_n(),
   ) +
-  geom_density(alpha = 0.5) |> 
-  ggblend::blend(blend = "multiply")
+  geom_density(alpha = 0.5) |> ggblend::blend(blend = "multiply") 
+
+p1 + p2
 ```
 
 #### ggdensity
