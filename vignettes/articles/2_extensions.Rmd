@@ -381,30 +381,6 @@ penguins |>
   labs(colour = "Species")
 ```
 
-#### ggpattern
-
-The ggpattern package supports patterns on polygons. Note legends must be aligned across aesthetics, if they are to merge.
-
-```{r}
-library(ggpattern)
-
-penguins |>
-  group_by(species, sex) |>
-  summarise(across(body_mass_g, \(x) mean(x))) |>
-  tidyr::drop_na(sex) |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  gg_blanket(
-    geom = "col_pattern",
-    position = "dodge",
-    x = body_mass_g,
-    y = species,
-    col = sex,
-    mapping = aes(pattern = sex),
-    width = 0.75,
-  ) +
-  labs(pattern = "Sex") +
-  guides(pattern = guide_legend(reverse = TRUE))
-```
 
 #### ggrepel
 
