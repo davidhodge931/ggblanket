@@ -85,9 +85,8 @@ The ggalluvial package supports sankey charts.
 ```{r}
 library(ggalluvial)
 
-titanic_wide <- data.frame(Titanic)
-  
-titanic_wide |> 
+data.frame(Titanic) |> 
+  tibble() |> 
   gg_blanket(
     geom = "alluvium",
     stat = "alluvium",
@@ -101,14 +100,14 @@ titanic_wide |>
     col_pal = c(orange, teal),
   ) +
   geom_stratum(
-    colour = "black",
-    fill = "#fcfdfe",
+    colour = lightness[1],
+    fill = lightness[2],
     show.legend = FALSE,
   ) +
   geom_text(
     mapping = aes(label = after_stat(stratum)),
     stat = "stratum",
-    colour = "black",
+    colour = lightness[1],
     show.legend = FALSE, 
   ) +
   guides(colour = "none") +
