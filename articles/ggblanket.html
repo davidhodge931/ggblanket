@@ -539,18 +539,12 @@ geom).</p>
 way to <code>col</code>. So the <code>alpha</code> argument represents
 an aesthetic, whereas <code>alpha_pal</code> represents a value (or
 values or range).</p>
-<p>The <code>mapping</code> argument provides access to the
-<code>size</code>, <code>shape</code>, <code>linetype</code> and
-<code>linewidth</code> aesthetics within the <code>gg_*</code>
-function.</p>
+<p>The <code>mapping</code> argument provides access to other
+aesthetics, such as <code>size</code>, <code>shape</code>,
+<code>linetype</code> and <code>linewidth</code> etc.</p>
 <p>Legend titles and element order must be aligned, if legends are to
-merge. Subsequently, you may need to change a shape or linetype title
-using <code>+ ggplot2::labs</code> to align it with the
-<code>col_title</code>.</p>
-<p>In general, users should use <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs</a></code> and
-<code>ggplot2::scale_*</code> to manipulate <code>size</code>,
-<code>shape</code>, <code>linetype</code> and <code>linewidth</code>
-aesthetics.</p>
+merge. Subsequently, you may need to change a title using
+<code>+ ggplot2::labs</code> - or even reverse a guide.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
