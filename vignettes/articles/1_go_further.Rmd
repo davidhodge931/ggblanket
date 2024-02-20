@@ -194,10 +194,7 @@ data.frame(
     colour = lightness[1],
     linewidth = 10 / 33
   ) +
-  light_mode_r() +
-  ggeasy::easy_remove_y_gridlines() +
-  ggeasy::easy_remove_y_axis()
-
+  light_mode_r() 
 ```
 
 ### 5. Use `replace_seq` to keep every nth label 
