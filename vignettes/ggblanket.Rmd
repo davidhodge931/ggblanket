@@ -493,11 +493,9 @@ penguins |>
 
 The `alpha` is fully supported in ggblanket in a similar way to `col`. So the `alpha` argument represents an aesthetic, whereas `alpha_pal` represents a value (or values or range). 
 
-The `mapping` argument provides access to the `size`, `shape`, `linetype` and `linewidth` aesthetics within the `gg_*` function. 
+The `mapping` argument provides access to other aesthetics, such as `size`, `shape`, `linetype` and `linewidth` etc. 
 
-Legend titles and element order must be aligned, if legends are to merge. Subsequently, you may need to change a shape or linetype title using `+ ggplot2::labs` to align it with the `col_title`. 
-
-In general, users should use `ggplot2::labs` and `ggplot2::scale_*` to manipulate `size`, `shape`, `linetype` and `linewidth` aesthetics.
+Legend titles and element order must be aligned, if legends are to merge. Subsequently, you may need to change a title using `+ ggplot2::labs` - or even reverse a guide. 
 
 ```{r}
 penguins |> 
