@@ -19,7 +19,9 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-This article will demonstrate some fantastic ggplot2 extension packages. It may be easier to just use ggplot2 instead of ggblanket in some cases. 
+This article will demonstrate some fantastic ggplot2 extension packages. 
+
+Note, extension package ggproto `geom` or `stat` objects must be exported to supported use directly within a `gg_*` function. 
 
 ```{r setup}
 library(ggblanket)
@@ -422,10 +424,7 @@ mtcars |>
     y = mpg, 
     label = car, 
   ) +
-  ggrepel::geom_text_repel(
-    colour = blue, 
-    size = 3.53,
-  ) 
+  ggrepel::geom_text_repel(colour = blue) 
 ```
 
 #### ggridges

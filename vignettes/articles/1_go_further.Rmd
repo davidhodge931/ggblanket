@@ -352,10 +352,9 @@ library(ggforce)
 ggplot2::economics |>
   slice_head(n = 35) |> 
   gg_path(
-    stat = "bspline",
+    stat = "bspline", n = 100,
     x = date, 
     y = unemploy,
-    n = 100, 
     linewidth = 1,
   ) 
 ```
