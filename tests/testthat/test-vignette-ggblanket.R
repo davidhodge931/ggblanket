@@ -136,7 +136,7 @@ test_that(test_name, {
       y_expand = expansion(mult = c(0, 0.05)),
       y_transform = "sqrt",
       y_title = "Body mass (g)",
-      col_continuous_type = "steps",
+      col_continuous_steps = TRUE,
       facet_labels = \(x) str_to_sentence(x),
     )
 

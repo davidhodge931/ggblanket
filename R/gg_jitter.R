@@ -22,7 +22,7 @@
 #'     col = flipper_length_mm,
 #'     position = position_jitter(height = 0),
 #'     y_expand_limits = 0,
-#'     col_continuous_type = "steps",
+#'     col_continuous_steps = "steps",
 #'   )
 #'
 gg_jitter <- function(
@@ -72,7 +72,7 @@ gg_jitter <- function(
     y_title = NULL,
     y_transform = NULL,
     col_breaks = NULL,
-    col_continuous_type = "gradient",
+    col_continuous_steps = FALSE,
     col_expand_limits = NULL,
     col_expand = ggplot2::waiver(),
     col_labels = NULL,
@@ -160,7 +160,7 @@ gg_jitter <- function(
     y_title = y_title,
     y_transform = y_transform,
     col_breaks = col_breaks,
-    col_continuous_type = col_continuous_type,
+    col_continuous_steps = col_continuous_steps,
     col_expand_limits = col_expand_limits,
     col_labels = col_labels,
     col_legend_ncol = col_legend_ncol,

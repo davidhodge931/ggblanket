@@ -49,7 +49,7 @@ gg_segment(
   y_title = NULL,
   y_transform = NULL,
   col_breaks = NULL,
-  col_continuous_type = "gradient",
+  col_continuous_steps = FALSE,
   col_expand_limits = NULL,
   col_expand = ggplot2::waiver(),
   col_labels = NULL,
@@ -163,7 +163,7 @@ gg_segment(
 
 \item{col_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
 
-\item{col_continuous_type}{For a continuous variable, whether to colour as a \code{"gradient"} or in \code{"steps"}. Defaults to \code{"gradient"}.}
+\item{col_continuous_steps}{For a continuous variable, TRUE or FALSE of whether to colour in steps. Defaults to FALSE, which colours in a gradient.}
 
 \item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
 

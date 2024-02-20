@@ -38,7 +38,7 @@
 #' @param x_title,y_title Axis title string. Use `""` for no title.
 #' @param x_transform,y_transform For a numeric scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param col_breaks A `scales::breaks_*` function (e.g. [scales::breaks_pretty()]), or a vector of breaks.
-#' @param col_continuous_type For a continuous variable, whether to colour as a `"gradient"` or in `"steps"`. Defaults to `"gradient"`.
+#' @param col_continuous_steps For a continuous variable, TRUE or FALSE of whether to colour in steps. Defaults to FALSE, which colours in a gradient.
 #' @param col_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
 #' @param col_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`).
 #' @param col_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or [scales::label_comma()]), or a vector of labels.
@@ -146,7 +146,7 @@ gg_blanket <- function(
     y_title = NULL,
     y_transform = NULL,
     col_breaks = NULL,
-    col_continuous_type = "gradient",
+    col_continuous_steps = FALSE,
     col_expand = ggplot2::waiver(),
     col_expand_limits = NULL,
     col_labels = NULL,
@@ -1302,7 +1302,7 @@ gg_blanket <- function(
         else col_labels <- scales::label_comma(drop0trailing = TRUE)
       }
 
-      if (col_continuous_type == "gradient") {
+      if (!col_continuous_steps) {
         plot <- plot +
           ggplot2::scale_fill_gradientn(
             colours = col_pal,
@@ -1332,7 +1332,7 @@ gg_blanket <- function(
           )
 
       }
-      else if (col_continuous_type == "steps") {
+      else if (col_continuous_steps) {
         plot <- plot +
           ggplot2::scale_fill_stepsn(
             colours = col_pal,
