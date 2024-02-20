@@ -199,16 +199,19 @@ data.frame(
 
 ### 5. Use `replace_seq` to keep every nth label 
 
-A `replace_seq` helper function is provided to replace a sequence of labels with `""`. This can be particularly useful when faceting.
+A `replace_seq` helper function is provided to replace a sequence of labels with `""`.
 
 ```{r}
-penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
-  gg_freqpoly(
+penguins |> 
+  gg_point(
     x = flipper_length_mm,
-    col = species,
-    y_breaks = scales::breaks_pretty(7),
-    y_labels = \(x) replace_seq(x), 
+    y = body_mass_g,
+    col = bill_length_mm,
+    x_labels = replace_seq,
+    y_labels = replace_seq,
+    col_continuous_steps = TRUE,
+    col_breaks = scales::breaks_pretty(5),
+    col_labels = replace_seq,
   )
 ```
 
