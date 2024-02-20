@@ -50,7 +50,7 @@ gg_blanket(
   y_title = NULL,
   y_transform = NULL,
   col_breaks = NULL,
-  col_continuous_steps = FALSE,
+  col_steps = FALSE,
   col_expand = ggplot2::waiver(),
   col_expand_limits = NULL,
   col_labels = NULL,
@@ -166,7 +166,7 @@ gg_blanket(
 
 \item{col_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
 
-\item{col_continuous_steps}{For a continuous variable, TRUE or FALSE of whether to colour in steps. Defaults to FALSE, which colours in a gradient.}
+\item{col_steps}{For a continuous variable, TRUE or FALSE of whether to colour in steps. Defaults to FALSE, which colours in a gradient.}
 
 \item{col_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 

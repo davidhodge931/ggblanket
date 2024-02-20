@@ -279,7 +279,7 @@ test_that(test_name, {
       col = flipper_length_mm,
       position = position_jitter(height = 0),
       y_expand_limits = 0,
-      col_continuous = "steps",
+      col_steps = TRUE,
       col_labels = \(x) replace_seq(x),
     )
 

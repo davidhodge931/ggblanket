@@ -209,7 +209,7 @@ penguins |>
     col = bill_length_mm,
     x_labels = replace_seq,
     y_labels = replace_seq,
-    col_continuous_steps = TRUE,
+    col_steps = TRUE,
     col_breaks = scales::breaks_pretty(5),
     col_labels = replace_seq,
   )

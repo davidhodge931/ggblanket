@@ -178,7 +178,7 @@ penguins |>
     y_labels = scales::label_number(big.mark = " "), 
     y_transform = "log10",
     y_title = "Body mass (g)",
-    col_continuous_steps = TRUE,
+    col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
     facet_labels = str_to_sentence,
   )
