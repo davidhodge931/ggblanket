@@ -262,7 +262,7 @@ penguins |>
     col = flipper_length_mm,
     position = position_jitter(height = 0),
     y_expand_limits = 0,
-    col_continuous_steps = "steps",
+    col_continuous_steps = TRUE,
   )
 
 }

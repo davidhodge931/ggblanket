@@ -43,7 +43,7 @@ economics |>
 
 ```{r }
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   gg_bar(
     y = species,
     col = sex,
@@ -67,7 +67,7 @@ diamonds |>
 ```{r}
 penguins |>
   drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   gg_boxplot(
     x = flipper_length_mm,
     y = sex,
@@ -81,7 +81,7 @@ penguins |>
 ```{r}
 penguins |>
   drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   group_by(sex, species) |>
   summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
   gg_col(
@@ -141,7 +141,7 @@ data.frame(
 
 ```{r}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   drop_na(sex) |> 
   gg_density(
     x = flipper_length_mm,
@@ -197,7 +197,7 @@ data.frame(
 
 ```{r}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
@@ -232,7 +232,7 @@ diamonds |>
 
 ```{r}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   gg_histogram(
     x = flipper_length_mm,
     col = sex,
@@ -499,7 +499,7 @@ sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
 
 ```{r}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   drop_na(sex) |> 
   gg_smooth(
     x = flipper_length_mm,
@@ -546,7 +546,7 @@ bind_rows(
 
 ```{r}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   group_by(species, sex) |>
   summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
   gg_tile(
@@ -561,7 +561,7 @@ penguins |>
 ```{r}
 penguins |>
   drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   gg_violin(
     x = sex,
     y = body_mass_g,

@@ -10,7 +10,7 @@
 * Added `facet_axes` and `facet_axis_labels` arguments.
 * Added `facet_labels_position` argument.
 * Added `gg_quantile`, `gg_rug`, and `gg_function` functions.
-* Added `col_continuous_type` argument to support colouring by "steps". 
+* Added `col_continuous_steps` argument to support colouring by steps. 
 * Added `mode_set` argument.
 * Breaking: made `theme_set` set the theme globally with no side-effects.
 * Breaking: Added `light_mode_*`, `dark_mode_*` and `grey_mode_*` family of functions.

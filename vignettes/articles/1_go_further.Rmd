@@ -369,7 +369,7 @@ Use opacity with `alpha`, `col`, and `alpha_pal/col_pal` to emphasise/demphasise
 ```{r, fig.asp=0.75}
 p1 <- penguins |> 
   drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   gg_density(
     x = flipper_length_mm,
     x_breaks = scales::breaks_pretty(n = 3),
@@ -381,7 +381,7 @@ p1 <- penguins |>
 
 p2 <- penguins |> 
   drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   gg_density(
     x = flipper_length_mm,
     col = sex,
@@ -393,7 +393,7 @@ p2 <- penguins |>
 
 p3 <- penguins |> 
   drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   gg_density(
     x = flipper_length_mm,
     col = sex, 
@@ -408,7 +408,7 @@ p3 <- penguins |>
 
 p4 <- penguins |> 
   drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   gg_density(
     x = flipper_length_mm,
     col = sex, 
@@ -456,6 +456,7 @@ gg_point_custom <- function(data,
                             col_pal = NULL,
                             shape = 17,
                             size = 3,
+                            titles_to_case = snakecase::to_title_case,
                             ...) {
   
   x <- enquo(x)
@@ -475,6 +476,7 @@ gg_point_custom <- function(data,
       col_pal = col_pal,
       shape = shape,
       size = size, 
+      titles_to_case = titles_to_case,
       ...,
     ) 
 }

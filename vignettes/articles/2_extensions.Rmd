@@ -243,7 +243,7 @@ The ggeasy package provides a lot of support for easily modifying themes. Removi
 library(ggeasy)
 
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   gg_jitter(
     x = species, 
     y = body_mass_g, 

@@ -92,7 +92,7 @@ penguins |>
 ```{r, fig.asp=0.45}
 penguins |>
   drop_na(sex) |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  mutate(across(sex, str_to_sentence)) |>
   gg_bar(
     y = species, 
     col = sex,
@@ -110,7 +110,7 @@ Whenever a `facet` variable is provided (and a `facet2` variable _not_ provided)
 ```{r}
 penguins |>
   drop_na(sex) |> 
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   gg_histogram(
     x = flipper_length_mm,
     facet = species,
@@ -127,7 +127,7 @@ Whenever a `facet2` variable is provided, the `facet_layout` will default to `"g
 
 ```{r, fig.asp=0.75}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   gg_histogram(
     x = flipper_length_mm,
     facet = species,
@@ -173,14 +173,14 @@ penguins |>
     col = flipper_length_mm,
     facet = sex,
     x_labels = \(x) str_sub(x, 1, 1),
-    y_expand_limits = 0,
-    y_breaks = scales::breaks_width(1500), 
+    y_breaks = scales::breaks_width(1000),
+    y_expand_limits = 2000,
     y_labels = scales::label_number(big.mark = " "), 
-    y_expand = expansion(mult = c(0, 0.05)),
-    y_transform = "sqrt",
+    y_transform = "log10",
     y_title = "Body mass (g)",
     col_continuous_steps = TRUE,
-    facet_labels = \(x) str_to_sentence(x),
+    col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
+    facet_labels = str_to_sentence,
   )
 ```
 
@@ -386,7 +386,7 @@ The `...` argument provides access to all other arguments in the `geom_*()` func
 
 ```{r}
 penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  mutate(across(sex, str_to_sentence)) |> 
   drop_na(sex) |> 
   gg_smooth(
     x = flipper_length_mm,
@@ -529,7 +529,7 @@ penguins |>
 ```{r}
 penguins |>
   drop_na(sex) |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  mutate(across(sex, str_to_sentence)) |>
   gg_blanket(
     geom = "violin",
     stat = "ydensity",
