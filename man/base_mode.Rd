@@ -2,7 +2,7 @@
 % Please edit documentation in R/base_mode.R
 \name{base_mode}
 \alias{base_mode}
-\title{Theme base for\verb{base_mode_*} functions}
+\title{Theme base for \verb{base_mode_*} functions}
 \usage{
 base_mode(
   base_size = 11,
@@ -19,6 +19,6 @@ base_mode(
 \item{col_pal}{A 5 colour vector with elements named "text", "axis_line", "panel_background", "plot_background" and "panel_grid".}
 }
 \description{
-Theme base for\verb{base_mode_*} functions.
+Theme base for \verb{base_mode_*} functions.
 }
 \keyword{internal}

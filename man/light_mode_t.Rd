@@ -16,7 +16,7 @@ light_mode_t(base_size = 11, base_family = "", x_title = TRUE, y_title = TRUE)
 \item{y_title}{TRUE or FALSE whether to have a y axis title. Defaults to TRUE.}
 }
 \value{
-A ggplot mode.
+A ggplot theme.
 }
 \description{
 Light mode theme for a ggplot visualisation with top legend. It uses the colours from \code{lightness}.

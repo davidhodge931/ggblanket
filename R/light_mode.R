@@ -4,7 +4,7 @@
 #'
 #' @inheritParams base_mode_r
 #'
-#' @return A ggplot mode.
+#' @return A ggplot theme.
 #' @export
 #'
 #' @examples
@@ -45,7 +45,7 @@ light_mode_r <- function (
 #'
 #' @inheritParams base_mode_t
 #'
-#' @return A ggplot mode.
+#' @return A ggplot theme.
 #' @export
 #'
 #' @examples
@@ -86,7 +86,7 @@ light_mode_t <- function (
 #'
 #' @inheritParams base_mode_b
 #'
-#' @return A ggplot mode.
+#' @return A ggplot theme.
 #' @export
 #'
 #' @examples
@@ -127,7 +127,7 @@ light_mode_b <- function (
 #'
 #' @inheritParams base_mode_n
 #'
-#' @return A ggplot mode.
+#' @return A ggplot theme.
 #' @export
 #'
 #' @examples

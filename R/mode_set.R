@@ -17,16 +17,16 @@ mode_get <- function() {
 
 #' Set the mode
 #'
-#' @description Set a new theme globally to be added to the `mode` argument where NULL in the `gg_*` functions.
+#' @description Set a theme for when the `mode` argument in a `gg_*` function in NULL.
 #' Use `mode_set(light_mode_r())` to unset a set mode.
-#' Note [ggplot2::theme_set()] sets globally a new theme that is `+`-ed on as a layer to the `gg_*` functions.
-#' Use `ggplot2::theme_set(theme_grey())` to unset a set theme.
+#' Note [ggplot2::theme_set()] sets globally a new theme that is added to the `gg_*` function output with no side-effects.
+#' Use `ggplot2::theme_set(theme_grey())` to unset the set theme.
 #'
 #' @export
 #'
 #' @param new A new theme to add to the mode argument where NULL (e.g. [dark_mode_r()].
 #'
-#' @return A set mode
+#' @return A set theme.
 #' @export
 mode_set <- function(new = grey_mode_r()) {
   mode_old <- theme_env$mode_current

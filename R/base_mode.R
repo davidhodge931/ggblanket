@@ -1,6 +1,6 @@
-#' @title Theme base for`base_mode_*` functions
+#' @title Theme base for `base_mode_*` functions
 #'
-#' @description Theme base for`base_mode_*` functions.
+#' @description Theme base for `base_mode_*` functions.
 #'
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
