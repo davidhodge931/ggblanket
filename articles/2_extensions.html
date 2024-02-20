@@ -105,7 +105,10 @@ Hodge</h4>
 packages.</p>
 <p>Note, extension package ggproto <code>geom</code> or
 <code>stat</code> objects must be exported to supported use directly
-within a <code>gg_*</code> function.</p>
+within a <code>gg_*</code> function. Where this is the case, you can
+print the relevant <code>geom_*</code> function to identify the
+<code>geom</code>, <code>stat</code> and <code>position</code> to use in
+the <code>gg_blanket</code> function.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidhodge931.github.io/ggblanket/">ggblanket</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
@@ -188,46 +191,11 @@ within a <code>gg_*</code> function.</p>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-3-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
-<h4 id="ggalluvial">ggalluvial<a class="anchor" aria-label="anchor" href="#ggalluvial"></a>
-</h4>
-<p>The ggalluvial package supports sankey charts.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://corybrunson.github.io/ggalluvial/" class="external-link">ggalluvial</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">Titanic</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/gg_blanket.html">gg_blanket</a></span><span class="op">(</span></span>
-<span>    geom <span class="op">=</span> <span class="st">"alluvium"</span>,</span>
-<span>    stat <span class="op">=</span> <span class="st">"alluvium"</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">Freq</span>, </span>
-<span>    col <span class="op">=</span> <span class="va">Survived</span>,</span>
-<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>axis1 <span class="op">=</span> <span class="va">Class</span>, axis2 <span class="op">=</span> <span class="va">Sex</span>, axis3 <span class="op">=</span> <span class="va">Age</span><span class="op">)</span>,</span>
-<span>    x_breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
-<span>    x_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Class"</span>, <span class="st">"Sex"</span>, <span class="st">"Age"</span><span class="op">)</span>,</span>
-<span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">orange</span>, <span class="va">teal</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="http://corybrunson.github.io/ggalluvial/reference/geom_stratum.html" class="external-link">geom_stratum</a></span><span class="op">(</span></span>
-<span>    colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>    fill <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span></span>
-<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">stratum</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    stat <span class="op">=</span> <span class="st">"stratum"</span>,</span>
-<span>    colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>, </span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggeasy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_y_axis</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-4-1.svg" width="70%"></p>
-</div>
-<div class="section level4">
 <h4 id="ggblend">ggblend<a class="anchor" aria-label="anchor" href="#ggblend"></a>
 </h4>
 <p>The ggblend package provides blending of colours. Note you must use a
 graphics device that supports blending.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
@@ -253,14 +221,14 @@ graphics device that supports blending.</p>
 <span>  <span class="fu">ggeasy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_y_axis</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-4-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="ggdensity">ggdensity<a class="anchor" aria-label="anchor" href="#ggdensity"></a>
 </h4>
 <p>The ggdensity package provides visualizations of density
 estimates.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jamesotto852.github.io/ggdensity/" class="external-link">ggdensity</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
@@ -278,8 +246,8 @@ estimates.</p>
 <span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="va">blue</span>, <span class="fl">0</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -297,13 +265,13 @@ estimates.</p>
 <span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>    colour <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="ggdist">ggdist<a class="anchor" aria-label="anchor" href="#ggdist"></a>
 </h4>
 <p>The ggdist package enables the visualisation of uncertainty.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mjskay.github.io/ggdist/" class="external-link">ggdist</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkg.mitchelloharawild.com/distributional/" class="external-link">distributional</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
@@ -330,8 +298,8 @@ estimates.</p>
 <span>    <span class="co"># show_interval = FALSE,</span></span>
 <span>    <span class="co"># side = "both",</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -350,14 +318,14 @@ estimates.</p>
 <span>    col_legend_rev <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span>, <span class="st">"Blues"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="ggeasy">ggeasy<a class="anchor" aria-label="anchor" href="#ggeasy"></a>
 </h4>
 <p>The ggeasy package provides a lot of support for easily modifying
 themes. Removing axes and gridlines is often useful.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonocarroll/ggeasy" class="external-link">ggeasy</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -371,7 +339,7 @@ themes. Removing axes and gridlines is often useful.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_gridlines.html" class="external-link">easy_remove_y_gridlines</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_x_axis</a></span><span class="op">(</span>what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"line"</span>, <span class="st">"ticks"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_legend_title.html" class="external-link">easy_remove_legend_title</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="ggforce">ggforce<a class="anchor" aria-label="anchor" href="#ggforce"></a>
@@ -379,7 +347,7 @@ themes. Removing axes and gridlines is often useful.</p>
 <p>The ggforce package includes functions for annotating areas of
 points, and a geom for making a smoothed line graph using a
 b-spline.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggforce.data-imaginist.com" class="external-link">ggforce</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -392,8 +360,8 @@ b-spline.</p>
 <span>    alpha_pal <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">economics</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_path.html">gg_path</a></span><span class="op">(</span></span>
@@ -403,8 +371,8 @@ b-spline.</p>
 <span>    n <span class="op">=</span> <span class="fl">100</span>, </span>
 <span>    linewidth <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">Species</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_blanket.html">gg_blanket</a></span><span class="op">(</span></span>
@@ -416,13 +384,13 @@ b-spline.</p>
 <span>    group <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    colour <span class="op">=</span> <span class="st">"#fcfdfe"</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="ggh4x">ggh4x<a class="anchor" aria-label="anchor" href="#ggh4x"></a>
 </h4>
 <p>The ggh4x package includes enhanced facet functionality.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename_with</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_snake_case</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">species</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -438,25 +406,25 @@ b-spline.</p>
 <span>    solo_line <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>strip.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">2.5</span>, b <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="gghighlight">gghighlight<a class="anchor" aria-label="anchor" href="#gghighlight"></a>
 </h4>
 <p>The gghighlight package enables geoms or parts thereof to be
 highlighted.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">gghighlight</span><span class="fu">::</span><span class="fu"><a href="https://yutannihilation.github.io/gghighlight/reference/gghighlight.html" class="external-link">gghighlight</a></span><span class="op">(</span><span class="va">body_mass_g</span> <span class="op">&gt;=</span> <span class="fl">5000</span><span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
 <p>The <code>gg_*</code> function builds the scale for the data that it
 thinks will be within the panel. Therefore in some situations, you may
 need to make adjustments, so that the scale builds correctly.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
@@ -466,13 +434,13 @@ need to make adjustments, so that the scale builds correctly.</p>
 <span>  <span class="op">)</span> <span class="op">+</span> <span class="co">#build the scale for not faceted (i.e. all data)</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span> <span class="op">+</span> <span class="co">#then add facet layer</span></span>
 <span>  <span class="fu">gghighlight</span><span class="fu">::</span><span class="fu"><a href="https://yutannihilation.github.io/gghighlight/reference/gghighlight.html" class="external-link">gghighlight</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="ggnewscale">ggnewscale<a class="anchor" aria-label="anchor" href="#ggnewscale"></a>
 </h4>
 <p>The ggnewscale package enables multiple colour scales.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_blanket.html">gg_blanket</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
@@ -491,14 +459,14 @@ need to make adjustments, so that the scale builds correctly.</p>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">plum</span>, <span class="va">orange</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="ggrepel">ggrepel<a class="anchor" aria-label="anchor" href="#ggrepel"></a>
 </h4>
 <p>The ggrepel package can be used to neatly avoid overlapping
 labels.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"car"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">wt</span> <span class="op">&gt;</span> <span class="fl">2.75</span>, <span class="va">wt</span> <span class="op">&lt;</span> <span class="fl">3.45</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -508,13 +476,13 @@ labels.</p>
 <span>    label <span class="op">=</span> <span class="va">car</span>, </span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggrepel</span><span class="fu">::</span><span class="fu"><a href="https://ggrepel.slowkow.com/reference/geom_text_repel.html" class="external-link">geom_text_repel</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">blue</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="ggridges">ggridges<a class="anchor" aria-label="anchor" href="#ggridges"></a>
 </h4>
 <p>The ggridges package enables ridgeline plots.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggridges/" class="external-link">ggridges</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggridges</span><span class="fu">::</span><span class="va"><a href="https://wilkelab.org/ggridges/reference/Catalan_elections.html" class="external-link">Catalan_elections</a></span> <span class="op">|&gt;</span></span>
@@ -532,13 +500,13 @@ labels.</p>
 <span>    y_expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.125</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    alpha_pal <span class="op">=</span> <span class="fl">0.7</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="ggtext-mdthemes">ggtext &amp; mdthemes<a class="anchor" aria-label="anchor" href="#ggtext-mdthemes"></a>
 </h4>
 <p>The ggtext and mdthemes package support using markdown in text.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
@@ -557,7 +525,7 @@ labels.</p>
 <span><span class="st">       *and* &lt;span style = 'color:#112E51;'&gt;**Gentoo**&lt;/span&gt;"</span>, </span>
 <span>    mode <span class="op">=</span> <span class="fu">mdthemes</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mdthemes/man/as_md_theme.html" class="external-link">as_md_theme</a></span><span class="op">(</span><span class="fu"><a href="../reference/light_mode_n.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-20-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
 </div>
 <div class="section level4">
 <h4 id="showtext">showtext<a class="anchor" aria-label="anchor" href="#showtext"></a>
@@ -565,7 +533,7 @@ labels.</p>
 <p>The showtext package enables the use of different fonts in plots. The
 <code>*_mode_*</code> theme functions provide a <code>base_family</code>
 argument.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_families_google.html" class="external-link">font_families_google</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "ABeeZee"       "Abel"          "Abhaya Libre"  "Abril Fatface"</span></span>
 <span><span class="co">#&gt; [5] "Aclonica"      "Acme"</span></span>
@@ -592,8 +560,8 @@ argument.</p>
 <span>    plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"roboto_slab"</span><span class="op">)</span>,</span>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"syne"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-20-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu">showtext</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/showtext/man/showtext_auto.html" class="external-link">showtext_auto</a></span><span class="op">(</span>enable <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -602,7 +570,7 @@ argument.</p>
 </h3>
 <p>stars objects can be converted to tibbles, and visualised using
 <code>gg_raster</code>.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html" class="external-link">read_stars</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"tif/L7_ETMs.tif"</span>, package <span class="op">=</span> <span class="st">"stars"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="../reference/gg_raster.html">gg_raster</a></span><span class="op">(</span></span>
@@ -614,7 +582,7 @@ argument.</p>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggeasy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_x_axis</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggeasy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_y_axis</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-22-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
 <pre><code>
 
 #### ggiraph
@@ -648,7 +616,7 @@ ggiraph::girafe(
     ggiraph::opts_hover(css = "stroke:#121B24;stroke-width:1px;"))
   )</code></pre>
 <div class="girafe html-widget html-fill-item" id="htmlwidget-1ee54ca84ab82d323b3d" style="width:70%;height:1080px;"></div>
-<script type="application/json" data-for="htmlwidget-1ee54ca84ab82d323b3d">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='ggiraph-svg' role='img' id='svg_2054f216_6b85_42d2_8b7a_2db21890c020' viewBox='0 0 360 216'>\n <defs id='svg_2054f216_6b85_42d2_8b7a_2db21890c020_defs'>\n  <clipPath id='svg_2054f216_6b85_42d2_8b7a_2db21890c020_c1'>\n   <rect x='0' y='0' width='360' height='216'/>\n  <\/clipPath>\n <\/defs>\n <g id='svg_2054f216_6b85_42d2_8b7a_2db21890c020_rootg' class='ggiraph-svg-rootg'>\n  <g clip-path='url(#svg_2054f216_6b85_42d2_8b7a_2db21890c020_c1)'>\n   <rect x='0' y='0' width='360' height='216' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round' class='ggiraph-svg-bg'/>\n   <rect x='0' y='0' width='360' height='216' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='round'/>\n   <rect x='55.75' y='17.93' width='286.32' height='161.3' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='round'/>\n   <polyline points='55.75,179.23 342.07,179.23' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='55.75,152.35 342.07,152.35' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='55.75,125.47 342.07,125.47' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='55.75,98.58 342.07,98.58' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='55.75,71.70 342.07,71.70' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='55.75,44.82 342.07,44.82' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='55.75,17.93 342.07,17.93' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <rect id='svg_2054f216_6b85_42d2_8b7a_2db21890c020_e1' x='64.7' y='88.17' width='29.82' height='91.07' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='6775' data-id='D'/>\n   <rect id='svg_2054f216_6b85_42d2_8b7a_2db21890c020_e2' x='104.46' y='47.54' width='29.82' height='131.69' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='9797' data-id='E'/>\n   <rect id='svg_2054f216_6b85_42d2_8b7a_2db21890c020_e3' x='144.23' y='50.97' width='29.82' height='128.26' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='9542' data-id='F'/>\n   <rect id='svg_2054f216_6b85_42d2_8b7a_2db21890c020_e4' x='184' y='27.45' width='29.82' height='151.78' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='11292' data-id='G'/>\n   <rect id='svg_2054f216_6b85_42d2_8b7a_2db21890c020_e5' x='223.76' y='67.61' width='29.82' height='111.62' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='8304' data-id='H'/>\n   <rect id='svg_2054f216_6b85_42d2_8b7a_2db21890c020_e6' x='263.53' y='106.35' width='29.82' height='72.88' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='5422' data-id='I'/>\n   <rect id='svg_2054f216_6b85_42d2_8b7a_2db21890c020_e7' x='303.3' y='141.49' width='29.82' height='37.74' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='2808' data-id='J'/>\n   <text x='46.26' y='182.33' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>0<\/text>\n   <text x='28.75' y='155.45' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>2,000<\/text>\n   <text x='28.75' y='128.56' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>4,000<\/text>\n   <text x='28.75' y='101.68' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>6,000<\/text>\n   <text x='28.75' y='74.8' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>8,000<\/text>\n   <text x='23.75' y='47.91' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>10,000<\/text>\n   <text x='23.75' y='21.03' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>12,000<\/text>\n   <polyline points='55.75,179.23 342.07,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='79.61,182.22 79.61,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='119.38,182.22 119.38,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='159.14,182.22 159.14,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='198.91,182.22 198.91,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='238.67,182.22 238.67,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='278.44,182.22 278.44,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='318.21,182.22 318.21,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <text x='76.36' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>D<\/text>\n   <text x='116.37' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>E<\/text>\n   <text x='156.39' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>F<\/text>\n   <text x='195.41' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>G<\/text>\n   <text x='235.42' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>H<\/text>\n   <text x='277.19' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>I<\/text>\n   <text x='315.96' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>J<\/text>\n   <text x='188.16' y='206.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>Color<\/text>\n   <text transform='translate(13.85,110.59) rotate(-90.00)' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>Count<\/text>\n  <\/g>\n <\/g>\n<\/svg>","js":null,"uid":"svg_2054f216_6b85_42d2_8b7a_2db21890c020","ratio":1.666666666666667,"settings":{"tooltip":{"css":".tooltip_SVGID_ { padding:5px;background:black;color:white;border-radius:2px 2px 2px 2px;text-align:left; ; position:absolute;pointer-events:none;z-index:999;}","placement":"doc","opacity":0.9,"offx":10,"offy":0,"use_cursor_pos":true,"use_fill":true,"use_stroke":false,"delay_over":200,"delay_out":500},"hover":{"css":".hover_data_SVGID_ { stroke:#121B24;stroke-width:1px; }","reactive":false,"nearest_distance":null},"hover_inv":{"css":""},"hover_key":{"css":".hover_key_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_key_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_key_SVGID_ { fill:orange;stroke:black; }\nline.hover_key_SVGID_, polyline.hover_key_SVGID_ { fill:none;stroke:orange; }\nrect.hover_key_SVGID_, polygon.hover_key_SVGID_, path.hover_key_SVGID_ { fill:orange;stroke:none; }\nimage.hover_key_SVGID_ { stroke:orange; }","reactive":true},"hover_theme":{"css":".hover_theme_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_theme_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_theme_SVGID_ { fill:orange;stroke:black; }\nline.hover_theme_SVGID_, polyline.hover_theme_SVGID_ { fill:none;stroke:orange; }\nrect.hover_theme_SVGID_, polygon.hover_theme_SVGID_, path.hover_theme_SVGID_ { fill:orange;stroke:none; }\nimage.hover_theme_SVGID_ { stroke:orange; }","reactive":true},"select":{"css":".select_data_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_data_SVGID_ { stroke:none;fill:red; }\ncircle.select_data_SVGID_ { fill:red;stroke:black; }\nline.select_data_SVGID_, polyline.select_data_SVGID_ { fill:none;stroke:red; }\nrect.select_data_SVGID_, polygon.select_data_SVGID_, path.select_data_SVGID_ { fill:red;stroke:none; }\nimage.select_data_SVGID_ { stroke:red; }","type":"multiple","only_shiny":true,"selected":[]},"select_inv":{"css":""},"select_key":{"css":".select_key_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_key_SVGID_ { stroke:none;fill:red; }\ncircle.select_key_SVGID_ { fill:red;stroke:black; }\nline.select_key_SVGID_, polyline.select_key_SVGID_ { fill:none;stroke:red; }\nrect.select_key_SVGID_, polygon.select_key_SVGID_, path.select_key_SVGID_ { fill:red;stroke:none; }\nimage.select_key_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"select_theme":{"css":".select_theme_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_theme_SVGID_ { stroke:none;fill:red; }\ncircle.select_theme_SVGID_ { fill:red;stroke:black; }\nline.select_theme_SVGID_, polyline.select_theme_SVGID_ { fill:none;stroke:red; }\nrect.select_theme_SVGID_, polygon.select_theme_SVGID_, path.select_theme_SVGID_ { fill:red;stroke:none; }\nimage.select_theme_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"zoom":{"min":1,"max":1,"duration":300},"toolbar":{"position":"topright","pngname":"diagram","tooltips":null,"hidden":[],"delay_over":200,"delay_out":500},"sizing":{"rescale":true,"width":0.7}}},"evals":[],"jsHooks":[]}</script><div class="section level4">
+<script type="application/json" data-for="htmlwidget-1ee54ca84ab82d323b3d">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='ggiraph-svg' role='img' id='svg_732ead38_b477_4d1e_b664_28594a61e70b' viewBox='0 0 360 216'>\n <defs id='svg_732ead38_b477_4d1e_b664_28594a61e70b_defs'>\n  <clipPath id='svg_732ead38_b477_4d1e_b664_28594a61e70b_c1'>\n   <rect x='0' y='0' width='360' height='216'/>\n  <\/clipPath>\n <\/defs>\n <g id='svg_732ead38_b477_4d1e_b664_28594a61e70b_rootg' class='ggiraph-svg-rootg'>\n  <g clip-path='url(#svg_732ead38_b477_4d1e_b664_28594a61e70b_c1)'>\n   <rect x='0' y='0' width='360' height='216' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round' class='ggiraph-svg-bg'/>\n   <rect x='0' y='0' width='360' height='216' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='round'/>\n   <rect x='55.75' y='17.93' width='286.32' height='161.3' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='round'/>\n   <polyline points='55.75,179.23 342.07,179.23' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='55.75,152.35 342.07,152.35' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='55.75,125.47 342.07,125.47' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='55.75,98.58 342.07,98.58' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='55.75,71.70 342.07,71.70' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='55.75,44.82 342.07,44.82' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='55.75,17.93 342.07,17.93' fill='none' stroke='#F6F8FA' stroke-opacity='1' stroke-width='2.33' stroke-linejoin='round' stroke-linecap='square'/>\n   <rect id='svg_732ead38_b477_4d1e_b664_28594a61e70b_e1' x='64.7' y='88.17' width='29.82' height='91.07' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='6775' data-id='D'/>\n   <rect id='svg_732ead38_b477_4d1e_b664_28594a61e70b_e2' x='104.46' y='47.54' width='29.82' height='131.69' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='9797' data-id='E'/>\n   <rect id='svg_732ead38_b477_4d1e_b664_28594a61e70b_e3' x='144.23' y='50.97' width='29.82' height='128.26' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='9542' data-id='F'/>\n   <rect id='svg_732ead38_b477_4d1e_b664_28594a61e70b_e4' x='184' y='27.45' width='29.82' height='151.78' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='11292' data-id='G'/>\n   <rect id='svg_732ead38_b477_4d1e_b664_28594a61e70b_e5' x='223.76' y='67.61' width='29.82' height='111.62' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='8304' data-id='H'/>\n   <rect id='svg_732ead38_b477_4d1e_b664_28594a61e70b_e6' x='263.53' y='106.35' width='29.82' height='72.88' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='5422' data-id='I'/>\n   <rect id='svg_732ead38_b477_4d1e_b664_28594a61e70b_e7' x='303.3' y='141.49' width='29.82' height='37.74' fill='#357BA2' fill-opacity='0.9' stroke='#357BA2' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='miter' stroke-linecap='butt' title='2808' data-id='J'/>\n   <text x='46.26' y='182.33' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>0<\/text>\n   <text x='28.75' y='155.45' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>2,000<\/text>\n   <text x='28.75' y='128.56' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>4,000<\/text>\n   <text x='28.75' y='101.68' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>6,000<\/text>\n   <text x='28.75' y='74.8' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>8,000<\/text>\n   <text x='23.75' y='47.91' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>10,000<\/text>\n   <text x='23.75' y='21.03' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>12,000<\/text>\n   <polyline points='55.75,179.23 342.07,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='79.61,182.22 79.61,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='119.38,182.22 119.38,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='159.14,182.22 159.14,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='198.91,182.22 198.91,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='238.67,182.22 238.67,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='278.44,182.22 278.44,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <polyline points='318.21,182.22 318.21,179.23' fill='none' stroke='#121B24' stroke-opacity='1' stroke-width='0.58' stroke-linejoin='round' stroke-linecap='square'/>\n   <text x='76.36' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>D<\/text>\n   <text x='116.37' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>E<\/text>\n   <text x='156.39' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>F<\/text>\n   <text x='195.41' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>G<\/text>\n   <text x='235.42' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>H<\/text>\n   <text x='277.19' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>I<\/text>\n   <text x='315.96' y='191.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>J<\/text>\n   <text x='188.16' y='206.1' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>Color<\/text>\n   <text transform='translate(13.85,110.59) rotate(-90.00)' font-size='6.75pt' font-family='arial' fill='#121B24' fill-opacity='1'>Count<\/text>\n  <\/g>\n <\/g>\n<\/svg>","js":null,"uid":"svg_732ead38_b477_4d1e_b664_28594a61e70b","ratio":1.666666666666667,"settings":{"tooltip":{"css":".tooltip_SVGID_ { padding:5px;background:black;color:white;border-radius:2px 2px 2px 2px;text-align:left; ; position:absolute;pointer-events:none;z-index:999;}","placement":"doc","opacity":0.9,"offx":10,"offy":0,"use_cursor_pos":true,"use_fill":true,"use_stroke":false,"delay_over":200,"delay_out":500},"hover":{"css":".hover_data_SVGID_ { stroke:#121B24;stroke-width:1px; }","reactive":false,"nearest_distance":null},"hover_inv":{"css":""},"hover_key":{"css":".hover_key_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_key_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_key_SVGID_ { fill:orange;stroke:black; }\nline.hover_key_SVGID_, polyline.hover_key_SVGID_ { fill:none;stroke:orange; }\nrect.hover_key_SVGID_, polygon.hover_key_SVGID_, path.hover_key_SVGID_ { fill:orange;stroke:none; }\nimage.hover_key_SVGID_ { stroke:orange; }","reactive":true},"hover_theme":{"css":".hover_theme_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_theme_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_theme_SVGID_ { fill:orange;stroke:black; }\nline.hover_theme_SVGID_, polyline.hover_theme_SVGID_ { fill:none;stroke:orange; }\nrect.hover_theme_SVGID_, polygon.hover_theme_SVGID_, path.hover_theme_SVGID_ { fill:orange;stroke:none; }\nimage.hover_theme_SVGID_ { stroke:orange; }","reactive":true},"select":{"css":".select_data_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_data_SVGID_ { stroke:none;fill:red; }\ncircle.select_data_SVGID_ { fill:red;stroke:black; }\nline.select_data_SVGID_, polyline.select_data_SVGID_ { fill:none;stroke:red; }\nrect.select_data_SVGID_, polygon.select_data_SVGID_, path.select_data_SVGID_ { fill:red;stroke:none; }\nimage.select_data_SVGID_ { stroke:red; }","type":"multiple","only_shiny":true,"selected":[]},"select_inv":{"css":""},"select_key":{"css":".select_key_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_key_SVGID_ { stroke:none;fill:red; }\ncircle.select_key_SVGID_ { fill:red;stroke:black; }\nline.select_key_SVGID_, polyline.select_key_SVGID_ { fill:none;stroke:red; }\nrect.select_key_SVGID_, polygon.select_key_SVGID_, path.select_key_SVGID_ { fill:red;stroke:none; }\nimage.select_key_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"select_theme":{"css":".select_theme_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_theme_SVGID_ { stroke:none;fill:red; }\ncircle.select_theme_SVGID_ { fill:red;stroke:black; }\nline.select_theme_SVGID_, polyline.select_theme_SVGID_ { fill:none;stroke:red; }\nrect.select_theme_SVGID_, polygon.select_theme_SVGID_, path.select_theme_SVGID_ { fill:red;stroke:none; }\nimage.select_theme_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"zoom":{"min":1,"max":1,"duration":300},"toolbar":{"position":"topright","pngname":"diagram","tooltips":null,"hidden":[],"delay_over":200,"delay_out":500},"sizing":{"rescale":true,"width":0.7}}},"evals":[],"jsHooks":[]}</script><div class="section level4">
 <h4 id="plotlyggplotly">plotly::ggplotly<a class="anchor" aria-label="anchor" href="#plotlyggplotly"></a>
 </h4>
 <p>The <code><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">plotly::ggplotly</a></code> function enables interactive
@@ -657,7 +625,7 @@ plots.</p>
 tooltips. Alternatively, you can use
 <code>plotly::ggplotly(p, tooltip = c("x", "y", "fill"))</code> or
 <code>plotly::ggplotly(p)</code> for quick tooltips.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -674,7 +642,7 @@ tooltips. Alternatively, you can use
 <span></span>
 <span><span class="fu">plotly</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">ggplotly</a></span><span class="op">(</span><span class="va">p</span>, tooltip <span class="op">=</span> <span class="st">"text"</span><span class="op">)</span></span></code></pre></div>
 <div class="plotly html-widget html-fill-item" id="htmlwidget-7436711597f4ec0b722b" style="width:500px;height:300px;"></div>
-<script type="application/json" data-for="htmlwidget-7436711597f4ec0b722b">{"x":{"data":[{"orientation":"v","width":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],"base":[0,0,0,0,0,0,0],"x":[1,2,3,4,5,6,7],"y":[6775,9797,9542,11292,8304,5422,2808],"text":["Colour: D<br />Count: 6775","Colour: E<br />Count: 9797","Colour: F<br />Count: 9542","Colour: G<br />Count: 11292","Colour: H<br />Count: 8304","Colour: I<br />Count: 5422","Colour: J<br />Count: 2808"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(53,123,162,0.9)","line":{"width":1.8897637795275593,"color":"rgba(53,123,162,1)"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"visible":false,"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":64.743851483577515,"r":29.223744292237448,"b":38.96969376421432,"l":73.059360730593625},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(18,27,36,1)","family":"arial","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,7.5999999999999996],"tickmode":"array","ticktext":["D","E","F","G","H","I","J"],"tickvals":[1,2,3,4.0000000000000009,5,6,7],"categoryorder":"array","categoryarray":["D","E","F","G","H","I","J"],"nticks":null,"ticks":"outside","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(18,27,36,1)","family":"arial","size":14.611872146118724},"tickangle":-0,"showline":true,"linecolor":null,"linewidth":0,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Color","font":{"color":"rgba(18,27,36,1)","family":"arial","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0,12000],"tickmode":"array","ticktext":["0","2,000","4,000","6,000","8,000","10,000","12,000"],"tickvals":[0,2000,4000,6000,8000,10000,12000],"categoryorder":"array","categoryarray":["0","2,000","4,000","6,000","8,000","10,000","12,000"],"nticks":null,"ticks":"outside","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(18,27,36,1)","family":"arial","size":14.611872146118724},"tickangle":-0,"showline":true,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(246,248,250,1)","gridwidth":1.7711360177113604,"zeroline":false,"anchor":"x","title":{"text":"Count","font":{"color":"rgba(18,27,36,1)","family":"arial","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.2598425196850394,"font":{"color":"rgba(18,27,36,1)","family":"arial","size":14.611872146118724}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"20f03719c622":{"x":{},"y":{},"xmin":{},"xmax":{},"xend":{},"ymin":{},"ymax":{},"yend":{},"z":{},"subgroup":{},"sample":{},"label":{},"text":{},"type":"bar"},"20f0d123b7d":{"y":{}}},"cur_data":"20f03719c622","visdat":{"20f03719c622":["function (y) ","x"],"20f0d123b7d":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-7436711597f4ec0b722b">{"x":{"data":[{"orientation":"v","width":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],"base":[0,0,0,0,0,0,0],"x":[1,2,3,4,5,6,7],"y":[6775,9797,9542,11292,8304,5422,2808],"text":["Colour: D<br />Count: 6775","Colour: E<br />Count: 9797","Colour: F<br />Count: 9542","Colour: G<br />Count: 11292","Colour: H<br />Count: 8304","Colour: I<br />Count: 5422","Colour: J<br />Count: 2808"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(53,123,162,0.9)","line":{"width":1.8897637795275593,"color":"rgba(53,123,162,1)"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"visible":false,"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":64.743851483577515,"r":29.223744292237448,"b":38.96969376421432,"l":73.059360730593625},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(18,27,36,1)","family":"arial","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,7.5999999999999996],"tickmode":"array","ticktext":["D","E","F","G","H","I","J"],"tickvals":[1,2,3,4.0000000000000009,5,6,7],"categoryorder":"array","categoryarray":["D","E","F","G","H","I","J"],"nticks":null,"ticks":"outside","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(18,27,36,1)","family":"arial","size":14.611872146118724},"tickangle":-0,"showline":true,"linecolor":null,"linewidth":0,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Color","font":{"color":"rgba(18,27,36,1)","family":"arial","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0,12000],"tickmode":"array","ticktext":["0","2,000","4,000","6,000","8,000","10,000","12,000"],"tickvals":[0,2000,4000,6000,8000,10000,12000],"categoryorder":"array","categoryarray":["0","2,000","4,000","6,000","8,000","10,000","12,000"],"nticks":null,"ticks":"outside","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(18,27,36,1)","family":"arial","size":14.611872146118724},"tickangle":-0,"showline":true,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(246,248,250,1)","gridwidth":1.7711360177113604,"zeroline":false,"anchor":"x","title":{"text":"Count","font":{"color":"rgba(18,27,36,1)","family":"arial","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.2598425196850394,"font":{"color":"rgba(18,27,36,1)","family":"arial","size":14.611872146118724}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"20f241685996":{"x":{},"y":{},"xmin":{},"xmax":{},"xend":{},"ymin":{},"ymax":{},"yend":{},"z":{},"subgroup":{},"sample":{},"label":{},"text":{},"type":"bar"},"20f266aaba18":{"y":{}}},"cur_data":"20f241685996","visdat":{"20f241685996":["function (y) ","x"],"20f266aaba18":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
