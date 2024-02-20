@@ -298,16 +298,18 @@ want.</p>
 <h3 id="use-replace_seq-to-keep-every-nth-label">5. Use <code>replace_seq</code> to keep every nth label<a class="anchor" aria-label="anchor" href="#use-replace_seq-to-keep-every-nth-label"></a>
 </h3>
 <p>A <code>replace_seq</code> helper function is provided to replace a
-sequence of labels with <code>""</code>. This can be particularly useful
-when faceting.</p>
+sequence of labels with <code>""</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/gg_freqpoly.html">gg_freqpoly</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    y_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span>,</span>
-<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/replace_seq.html">replace_seq</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">bill_length_mm</span>,</span>
+<span>    x_labels <span class="op">=</span> <span class="va">replace_seq</span>,</span>
+<span>    y_labels <span class="op">=</span> <span class="va">replace_seq</span>,</span>
+<span>    col_continuous_steps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    col_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>,</span>
+<span>    col_labels <span class="op">=</span> <span class="va">replace_seq</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
 </div>
