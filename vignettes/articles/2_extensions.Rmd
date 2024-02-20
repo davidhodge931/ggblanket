@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 This article will demonstrate some fantastic ggplot2 extension packages. 
 
-Note, extension package ggproto `geom` or `stat` objects must be exported to supported use directly within a `gg_*` function. 
+Note, extension package ggproto `geom` or `stat` objects must be exported to supported use directly within a `gg_*` function. Where this is the case, you can print the relevant `geom_*` function to identify the `geom`, `stat` and `position` to use in the `gg_blanket` function.
 
 ```{r setup}
 library(ggblanket)
@@ -103,41 +103,6 @@ expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |>
     straight = TRUE,
   ) +
   ggeasy::easy_remove_x_axis() + 
-  ggeasy::easy_remove_y_axis()
-```
-
-#### ggalluvial
- 
-The ggalluvial package supports sankey charts. 
-
-```{r}
-library(ggalluvial)
-
-data.frame(Titanic) |> 
-  tibble() |> 
-  gg_blanket(
-    geom = "alluvium",
-    stat = "alluvium",
-    y = Freq, 
-    col = Survived,
-    mapping = aes(axis1 = Class, axis2 = Sex, axis3 = Age),
-    x_breaks = c(1, 2, 3),
-    x_labels = c("Class", "Sex", "Age"),
-    y_limits = c(NA, NA),
-    col_pal = c(orange, teal),
-  ) +
-  geom_stratum(
-    colour = lightness[1],
-    fill = "white",
-    show.legend = FALSE,
-  ) +
-  geom_text(
-    mapping = aes(label = after_stat(stratum)),
-    stat = "stratum",
-    colour = lightness[1],
-    show.legend = FALSE, 
-  ) +
-  guides(colour = "none") +
   ggeasy::easy_remove_y_axis()
 ```
 
