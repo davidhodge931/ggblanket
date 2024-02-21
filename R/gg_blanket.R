@@ -1327,10 +1327,15 @@ gg_blanket <- function(
             na.value = col_pal_na,
           ) +
           ggplot2::guides(
-            colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
-            fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
+            colour = ggplot2::guide_colourbar(
+              reverse = col_legend_rev,
+              theme = ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5)))
+            ), #theme args should be in *_mode_* themes when ggplot2 supports
+            fill = ggplot2::guide_colourbar(
+              reverse = col_legend_rev,
+              theme = ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5)))
+            ) #theme args should be in *_mode_* themes when ggplot2 supports
           )
-
       }
       else if (col_steps) {
         plot <- plot +
@@ -1357,8 +1362,14 @@ gg_blanket <- function(
             na.value = col_pal_na,
           ) +
           ggplot2::guides(
-            colour = ggplot2::guide_coloursteps(reverse = col_legend_rev),
-            fill = ggplot2::guide_coloursteps(reverse = col_legend_rev)
+            colour = ggplot2::guide_coloursteps(
+              reverse = col_legend_rev,
+              theme = ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5)))
+            ), #theme args should be in *_mode_* themes when ggplot2 supports
+            fill = ggplot2::guide_coloursteps(
+              reverse = col_legend_rev,
+              theme = ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5)))
+            ) #theme args should be in *_mode_* themes when ggplot2 supports
           ) +
           ggplot2::theme(legend.ticks = ggplot2::element_blank())
       }
@@ -2021,24 +2032,6 @@ gg_blanket <- function(
   if (!rlang::is_null(plot_build$plot$labels$linewidth)) {
     linewidth_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), titles_to_case)
   } else linewidth_title <- NULL
-
-  # if (!rlang::is_null(x_title)) {
-  #   if (x_title == "") x_title <- NULL
-  # }
-  # if (!rlang::is_null(y_title)) {
-  #   if (y_title == "") y_title <- NULL
-  # }
-  # if (!rlang::is_null(col_title)) {
-  #   if (col_title == "") {
-  #     col_title <- NULL
-  #   }
-  # }
-  # if (!rlang::is_null(alpha_title)) {
-  #   if (alpha_title == "") {
-  #     alpha_title <- NULL
-  #   }
-  # }
-
 
   plot <- plot +
     ggplot2::labs(
