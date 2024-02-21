@@ -23,7 +23,7 @@ This article will demonstrate a random assortment of content, including some of 
 1. Reorder and/or reverse categorical variables
 2. Drop unused categorical variable values
 3. Fix either the colour outline or interior fill to a constant colour
-4. Use `+ *_mode_*` where we axis-lines and gridlines are not correct
+4. Use `+ *_mode_*` where axis-lines and gridlines are not as wanted
 5. Use `replace_seq` to keep every nth label 
 6. Transform scales
 7. Add contrasting dark or light text on polygons
@@ -144,57 +144,25 @@ penguins |>
   ) 
 ```
 
-### 4. Use `+ *_mode_*` where we axis-lines and gridlines are not correct
+### 4. Use `+ *_mode_*` where axis-lines and gridlines are not as wanted
 
 Sometimes the plot might guess the removal of gridlines and axis-line/ticks incorrectly. In these situations, you can `+ *_mode_*` on to the plot, and then remove whatever you want. 
 
 ```{r}
-data.frame(
-  age = c(0:9, 0:9),
-  sex = c(rep("Male", 10), rep("Female", 10)),
-  population = c(200, 250, 300, 350, 440, 450, 500, 550, 600, 650,
-                 190, 240, 290, 330, 420, 430, 480, 530, 580, 630)) |> 
-  mutate(population = ifelse(sex == "Female", -population, population)) %>%
-  gg_col(
-    y = age,
-    x = population,
-    col = sex,
-    width = 1,
-    orientation = "y",
-    x_labels = \(x) abs(x),
-    x_include = max(abs(.$population)) * c(-1, 1),
-    y_limits = c(NA, NA),
+msleep |> 
+  gg_point(
+    x = bodywt, 
+    y = brainwt,
+    col = vore,
+    col_labels = str_to_sentence,
+    x_transform = "log10",
+    y_transform = "log10",
   ) +
-  geom_vline(
-    xintercept = 0,
-    colour = lightness[1],
-    linewidth = 10 / 33
-  )
-```
-
-```{r}
-data.frame(
-  age = c(0:9, 0:9),
-  sex = c(rep("Male", 10), rep("Female", 10)),
-  population = c(200, 250, 300, 350, 440, 450, 500, 550, 600, 650,
-                 190, 240, 290, 330, 420, 430, 480, 530, 580, 630)) |> 
-  mutate(population = ifelse(sex == "Female", -population, population)) %>%
-  gg_col(
-    y = age,
-    x = population,
-    col = sex,
-    width = 1,
-    orientation = "y",
-    x_labels = \(x) abs(x),
-    x_include = max(abs(.$population)) * c(-1, 1),
-    y_limits = c(NA, NA),
-  ) +
-  geom_vline(
-    xintercept = 0,
-    colour = lightness[1],
-    linewidth = 10 / 33
-  ) +
-  light_mode_r() 
+  light_mode_r() +
+  guides(
+    x = guide_axis_logticks(),
+    y = guide_axis_logticks(),
+  ) 
 ```
 
 ### 5. Use `replace_seq` to keep every nth label 
