@@ -45,7 +45,7 @@ p1 <- mtcars |>
   gg_point(
     x = mpg, 
     y = disp,
-    y_labels = \(x) replace_seq(x),
+    y_labels = replace_seq,
   ) +
   facet_wrap(~"Plot 1")
 
@@ -55,7 +55,7 @@ p2 <- mtcars |>
     y = disp, 
     group = gear, 
     width = 0.5,
-    y_labels = \(x) replace_seq(x),
+    y_labels = replace_seq,
   ) +
   facet_wrap(~"Plot 2")
 

@@ -255,7 +255,7 @@ penguins |>
     position = position_jitter(height = 0), 
     y_expand_limits = 0,
     col_steps = TRUE,
-    col_labels = \(x) replace_seq(x),
+    col_labels = replace_seq,
   )
 ```
 
