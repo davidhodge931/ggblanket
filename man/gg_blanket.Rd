@@ -51,7 +51,6 @@ gg_blanket(
   y_transform = NULL,
   col_breaks = NULL,
   col_steps = FALSE,
-  col_expand = ggplot2::waiver(),
   col_expand_limits = NULL,
   col_labels = NULL,
   col_legend_ncol = NULL,
@@ -75,7 +74,6 @@ gg_blanket(
   facet_scales = "fixed",
   facet_space = "fixed",
   alpha_breaks = NULL,
-  alpha_expand = ggplot2::waiver(),
   alpha_expand_limits = NULL,
   alpha_labels = NULL,
   alpha_legend_ncol = NULL,
@@ -168,8 +166,6 @@ gg_blanket(
 
 \item{col_steps}{For a continuous variable, TRUE or FALSE of whether to colour in steps. Defaults to FALSE, which colours in a gradient.}
 
-\item{col_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
-
 \item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
 
 \item{col_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
@@ -213,8 +209,6 @@ gg_blanket(
 \item{facet_space}{When the facet layout is \code{"grid"} and facet scales are not \code{"fixed"}, whether facet space should be \code{"fixed"} across facets, \code{"free"} to be proportional in both directions, or free to be proportional in just one direction (i.e. \code{"free_x"} or \code{"free_y"}). Defaults to \code{"fixed"}.}
 
 \item{alpha_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
-
-\item{alpha_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 
 \item{alpha_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
 

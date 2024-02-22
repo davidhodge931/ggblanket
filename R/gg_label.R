@@ -74,7 +74,7 @@ gg_label <- function(
     col_breaks = NULL,
     col_steps = FALSE,
     col_expand_limits = NULL,
-    col_expand = ggplot2::waiver(),
+    
     col_labels = NULL,
     col_legend_ncol = NULL,
     col_legend_nrow = NULL,
@@ -88,7 +88,7 @@ gg_label <- function(
     col_transform = NULL,
     alpha_breaks = NULL,
     alpha_expand_limits = NULL,
-    alpha_expand = ggplot2::waiver(),
+    
     alpha_labels = NULL,
     alpha_legend_ncol = NULL,
     alpha_legend_nrow = NULL,
@@ -160,7 +160,7 @@ gg_label <- function(
     y_title = y_title,
     y_transform = y_transform,
     col_breaks = col_breaks,
-    col_expand = col_expand,
+    
     col_expand_limits = col_expand_limits,
     col_labels = col_labels,
     col_legend_ncol = col_legend_ncol,
@@ -176,7 +176,7 @@ gg_label <- function(
     col_transform = col_transform,
     alpha_breaks = alpha_breaks,
     alpha_expand_limits = alpha_expand_limits,
-    alpha_expand = alpha_expand,
+    
     alpha_labels = alpha_labels,
     alpha_legend_ncol = alpha_legend_ncol,
     alpha_legend_nrow = alpha_legend_nrow,

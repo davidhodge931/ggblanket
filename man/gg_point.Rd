@@ -51,7 +51,6 @@ gg_point(
   col_breaks = NULL,
   col_steps = FALSE,
   col_expand_limits = NULL,
-  col_expand = ggplot2::waiver(),
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
@@ -65,7 +64,6 @@ gg_point(
   col_transform = NULL,
   alpha_breaks = NULL,
   alpha_expand_limits = NULL,
-  alpha_expand = ggplot2::waiver(),
   alpha_labels = NULL,
   alpha_legend_ncol = NULL,
   alpha_legend_nrow = NULL,
@@ -167,8 +165,6 @@ gg_point(
 
 \item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
 
-\item{col_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
-
 \item{col_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
 
 \item{col_legend_ncol, col_legend_nrow}{The number of columns and rows for the legend guide.}
@@ -192,8 +188,6 @@ gg_point(
 \item{alpha_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
 
 \item{alpha_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
-
-\item{alpha_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 
 \item{alpha_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
 
