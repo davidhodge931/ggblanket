@@ -180,6 +180,76 @@ iris |>
   )
 ```
 
+#### ggbeeswarm
+
+The ggbeeswarm package enables beeswarm plots.
+
+```{r}
+p1 <- penguins |> 
+  gg_point(
+    position = ggbeeswarm::position_beeswarm(),
+    x = sex, 
+    y = flipper_length_mm,
+    col = sex,
+    x_labels = \(x) str_to_upper(str_sub(x, 1, 1)),
+    subtitle = "\nBeeswarm",
+    mode = light_mode_n(),
+  ) 
+
+p2 <- penguins |> 
+  gg_point(
+    position = ggbeeswarm::position_quasirandom(),
+    x = sex, 
+    y = flipper_length_mm,
+    col = sex,
+    x_labels = \(x) str_to_upper(str_sub(x, 1, 1)),
+    subtitle = "\nQuasirandom",
+    mode = light_mode_n(),
+  ) 
+
+p1 + p2
+```
+
+#### ggrepel
+
+The ggrepel package can be used to neatly avoid overlapping labels. 
+
+```{r}
+mtcars |>
+  tibble::rownames_to_column("car") |>
+  filter(wt > 2.75, wt < 3.45) |>
+  gg_point(
+    x = wt, 
+    y = mpg, 
+    label = car, 
+  ) +
+  ggrepel::geom_text_repel(colour = blue) 
+```
+
+#### ggridges
+
+The ggridges package enables ridgeline plots. 
+
+```{r}
+library(ggridges)
+
+ggridges::Catalan_elections |>
+  rename_with(snakecase::to_snake_case) |>
+  mutate(year = factor(year)) |>
+  gg_blanket(
+    geom = "density_ridges",
+    stat = "density_ridges",
+    coord = coord_cartesian(),
+    x = percent,
+    y = year,
+    col = option,
+    colour = "white",
+    x_limits = c(0, 100),
+    y_expand = expansion(c(0, 0.125)),
+    alpha_pal = 0.7,
+  )
+```
+
 #### ggdist
 
 The ggdist package enables the visualisation of uncertainty. 
@@ -278,76 +348,6 @@ data.frame(
   ) 
 ```
 
-#### ggrepel
-
-The ggrepel package can be used to neatly avoid overlapping labels. 
-
-```{r}
-mtcars |>
-  tibble::rownames_to_column("car") |>
-  filter(wt > 2.75, wt < 3.45) |>
-  gg_point(
-    x = wt, 
-    y = mpg, 
-    label = car, 
-  ) +
-  ggrepel::geom_text_repel(colour = blue) 
-```
-
-#### ggridges
-
-The ggridges package enables ridgeline plots. 
-
-```{r}
-library(ggridges)
-
-ggridges::Catalan_elections |>
-  rename_with(snakecase::to_snake_case) |>
-  mutate(year = factor(year)) |>
-  gg_blanket(
-    geom = "density_ridges",
-    stat = "density_ridges",
-    coord = coord_cartesian(),
-    x = percent,
-    y = year,
-    col = option,
-    colour = "white",
-    x_limits = c(0, 100),
-    y_expand = expansion(c(0, 0.125)),
-    alpha_pal = 0.7,
-  )
-```
-
-#### ggbeeswarm
-
-The ggbeeswarm package enables beeswarm plots.
-
-```{r}
-p1 <- penguins |> 
-  gg_point(
-    position = ggbeeswarm::position_beeswarm(),
-    x = sex, 
-    y = flipper_length_mm,
-    col = sex,
-    x_labels = \(x) str_to_upper(str_sub(x, 1, 1)),
-    subtitle = "\nBeeswarm",
-    mode = light_mode_n(),
-  ) 
-
-p2 <- penguins |> 
-  gg_point(
-    position = ggbeeswarm::position_quasirandom(),
-    x = sex, 
-    y = flipper_length_mm,
-    col = sex,
-    x_labels = \(x) str_to_upper(str_sub(x, 1, 1)),
-    subtitle = "\nQuasirandom",
-    mode = light_mode_n(),
-  ) 
-
-p1 + p2
-```
-
 #### geomtextpath
 
 The geomtextpath package enables curved text.
@@ -406,26 +406,6 @@ p2 <- penguins |>
 p1 + p2
 ```
 
-#### ggeasy
-
-The ggeasy package provides a lot of support for easily modifying themes. Removing axes and gridlines is often useful. 
-
-```{r}
-library(ggeasy)
-
-penguins |>
-  mutate(across(sex, str_to_sentence)) |> 
-  gg_jitter(
-    x = species, 
-    y = body_mass_g, 
-    col = sex, 
-  ) +
-  light_mode_t() +
-  easy_remove_y_gridlines() +
-  easy_remove_x_axis(what = c("line", "ticks")) +
-  easy_remove_legend_title()
-```
-
 #### ggh4x
 
 The ggh4x package includes enhanced facet functionality.
@@ -473,6 +453,26 @@ penguins |>
   ) + #build the scale for not faceted (i.e. all data)
   facet_wrap(~species) + #then add facet layer
   gghighlight::gghighlight() 
+```
+
+#### ggeasy
+
+The ggeasy package provides a lot of support for easily modifying themes. Removing axes and gridlines is often useful. 
+
+```{r}
+library(ggeasy)
+
+penguins |>
+  mutate(across(sex, str_to_sentence)) |> 
+  gg_jitter(
+    x = species, 
+    y = body_mass_g, 
+    col = sex, 
+  ) +
+  light_mode_t() +
+  easy_remove_y_gridlines() +
+  easy_remove_x_axis(what = c("line", "ticks")) +
+  easy_remove_legend_title()
 ```
 
 #### ggnewscale
