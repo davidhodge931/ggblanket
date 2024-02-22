@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
   )
 ```
 
-### Overview
+## Overview
 
 This article will demonstrate some fantastic ggplot2 extension packages. 
 
@@ -28,7 +28,7 @@ library(stringr)
 library(palmerpenguins)
 ```
 
-#### patchwork
+### patchwork
 
 The patchwork package enables plots to be patched together. 
 
@@ -77,7 +77,7 @@ p3 <- mtcars |>
   )
 ```
 
-#### ggtext
+### ggtext
 
 The ggtext package support using markdown in text. The mdthemes package makes it easy to convert `ggplot2::element_text` to `ggtext::element_markdown` in themes.
 
@@ -102,7 +102,7 @@ penguins |>
   ) 
 ```
 
-#### showtext
+### showtext
 
 The showtext package enables the use of different fonts in plots. The `*_mode_*` theme functions provide a `base_family` argument.
 
@@ -135,7 +135,7 @@ penguins |>
 showtext::showtext_auto(enable = FALSE)
 ```
 
-#### ggforce
+### ggforce
 
 The ggforce package includes numerous extra geoms, stats etc.
 
@@ -180,7 +180,7 @@ iris |>
   )
 ```
 
-#### ggbeeswarm
+### ggbeeswarm
 
 The ggbeeswarm package enables beeswarm plots.
 
@@ -210,7 +210,7 @@ p2 <- penguins |>
 p1 + p2
 ```
 
-#### ggrepel
+### ggrepel
 
 The ggrepel package can be used to neatly avoid overlapping labels. 
 
@@ -226,7 +226,7 @@ mtcars |>
   ggrepel::geom_text_repel(colour = blue) 
 ```
 
-#### ggridges
+### ggridges
 
 The ggridges package enables ridgeline plots. 
 
@@ -250,7 +250,7 @@ ggridges::Catalan_elections |>
   )
 ```
 
-#### ggdist
+### ggdist
 
 The ggdist package enables the visualisation of uncertainty. 
 
@@ -304,7 +304,7 @@ tibble(x = 1:10) |>
   )
 ```
 
-#### ggdensity
+### ggdensity
 
 The ggdensity package provides visualizations of density estimates.  
 
@@ -348,7 +348,7 @@ data.frame(
   ) 
 ```
 
-#### geomtextpath
+### geomtextpath
 
 The geomtextpath package enables curved text.
 
@@ -374,7 +374,7 @@ expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |>
   ggeasy::easy_remove_y_axis()
 ```
 
-#### ggblend
+### ggblend
  
 The ggblend package provides blending of colours. Note you must use a graphics device that supports blending.
  
@@ -406,7 +406,7 @@ p2 <- penguins |>
 p1 + p2
 ```
 
-#### ggh4x
+### ggh4x
 
 The ggh4x package includes enhanced facet functionality.
 
@@ -428,7 +428,7 @@ iris |>
   theme(strip.text.x = element_text(margin = margin(t = 2.5, b = 5)))
 ```
 
-#### gghighlight
+### gghighlight
 
 The gghighlight package enables geoms or parts thereof to be highlighted. 
 
@@ -455,7 +455,7 @@ penguins |>
   gghighlight::gghighlight() 
 ```
 
-#### ggeasy
+### ggeasy
 
 The ggeasy package provides a lot of support for easily modifying themes. Removing axes and gridlines is often useful. 
 
@@ -475,7 +475,7 @@ penguins |>
   easy_remove_legend_title()
 ```
 
-#### ggnewscale
+### ggnewscale
 
 The ggnewscale package enables multiple colour scales.
 
@@ -500,7 +500,7 @@ penguins |>
   labs(colour = "Species")
 ```
 
-#### stars
+### stars
 
 stars objects can be converted to tibbles, and visualised using `gg_raster`.  
 
@@ -518,7 +518,7 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
   ggeasy::easy_remove_y_axis() 
 ```
 
-#### ggiraph
+### ggiraph
 
 The ggiraph package enables interactive plots.
 
@@ -549,7 +549,7 @@ ggiraph::girafe(
   )
 ```
 
-#### plotly::ggplotly
+### plotly::ggplotly
 
 The `plotly::ggplotly` function enables interactive plots. 
 
