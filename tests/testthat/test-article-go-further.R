@@ -162,16 +162,14 @@ test_that(test_name, {
       x_labels = \(x) str_to_sentence(x),
     ) +
     geom_text(
-      mapping = aes(y = n - (max(n * 0.04)), label = n,
-                    !!!aes_contrast(lightness)),
+      mapping = aes(label = n, !!!aes_contrast(lightness)),
       position = position_dodge2(width = 0.75, preserve = "single"),
+      vjust = 1.33,
       show.legend = FALSE,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
 })
-
-
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "8"
@@ -180,18 +178,17 @@ test_that(test_name, {
   p <- penguins |>
     count(species, sex) |>
     gg_col(
-      x = sex,
-      y = n,
+      x = n,
+      y = sex,
       col = species,
       position = position_dodge2(preserve = "single"),
       width = 0.75,
-      x_labels = \(x) str_to_sentence(x),
-      mode = dark_mode_r(),
+      y_labels = \(x) str_to_sentence(x),
     ) +
     geom_text(
-      mapping = aes(y = n - (max(n * 0.04)), label = n,
-                    !!!aes_contrast(darkness)),
+      mapping = aes(label = n, !!!aes_contrast(lightness)),
       position = position_dodge2(width = 0.75, preserve = "single"),
+      hjust = 1.33,
       show.legend = FALSE,
     )
 
