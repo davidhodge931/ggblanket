@@ -111,7 +111,6 @@
 <span>  col_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_steps <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  col_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  col_expand <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  col_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_legend_ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_legend_nrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -125,7 +124,6 @@
 <span>  col_transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  alpha_expand <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  alpha_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha_legend_ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha_legend_nrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -303,10 +301,6 @@
 <dd><p>For a continuous variable, any values that the limits should encompass (e.g. <code>0</code>).</p></dd>
 
 
-<dt>col_expand</dt>
-<dd><p>Padding to the limits with the <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">ggplot2::expansion()</a></code> function, or a vector of length 2 (e.g. <code>c(0, 0)</code>).</p></dd>
-
-
 <dt>col_labels</dt>
 <dd><p>A function that takes the breaks as inputs (e.g. <code>\(x) stringr::str_to_sentence(x)</code> or <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code>), or a vector of labels.</p></dd>
 
@@ -353,10 +347,6 @@
 
 <dt>alpha_expand_limits</dt>
 <dd><p>For a continuous variable, any values that the limits should encompass (e.g. <code>0</code>).</p></dd>
-
-
-<dt>alpha_expand</dt>
-<dd><p>Padding to the limits with the <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">ggplot2::expansion()</a></code> function, or a vector of length 2 (e.g. <code>c(0, 0)</code>).</p></dd>
 
 
 <dt>alpha_labels</dt>

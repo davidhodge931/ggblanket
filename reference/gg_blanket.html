@@ -111,7 +111,6 @@
 <span>  y_transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_steps <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  col_expand <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  col_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_legend_ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -135,7 +134,6 @@
 <span>  facet_scales <span class="op">=</span> <span class="st">"fixed"</span>,</span>
 <span>  facet_space <span class="op">=</span> <span class="st">"fixed"</span>,</span>
 <span>  alpha_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  alpha_expand <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  alpha_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha_legend_ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -304,10 +302,6 @@
 <dd><p>For a continuous variable, TRUE or FALSE of whether to colour in steps. Defaults to FALSE, which colours in a gradient.</p></dd>
 
 
-<dt>col_expand</dt>
-<dd><p>Padding to the limits with the <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">ggplot2::expansion()</a></code> function, or a vector of length 2 (e.g. <code>c(0, 0)</code>).</p></dd>
-
-
 <dt>col_expand_limits</dt>
 <dd><p>For a continuous variable, any values that the limits should encompass (e.g. <code>0</code>).</p></dd>
 
@@ -394,10 +388,6 @@
 
 <dt>alpha_breaks</dt>
 <dd><p>A <code>scales::breaks_*</code> function (e.g. <code><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">scales::breaks_pretty()</a></code>), or a vector of breaks.</p></dd>
-
-
-<dt>alpha_expand</dt>
-<dd><p>Padding to the limits with the <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">ggplot2::expansion()</a></code> function, or a vector of length 2 (e.g. <code>c(0, 0)</code>).</p></dd>
 
 
 <dt>alpha_expand_limits</dt>
