@@ -30,10 +30,10 @@ This article will demonstrate a random assortment of content, including some of 
 8. Centre a diverging colour scale 
 9. Change the `stat`
 10. Use opacity with to emphasise/demphasise. 
-11. Use character inputs of variables in shiny apps
-12. Make custom `gg_*` wrapper functions
-13. Use delayed evaluation
-14. Understand `oob` & `clip`
+11. Understand `oob` & `clip`
+12. Use delayed evaluation
+13. Make custom `gg_*` wrapper functions
+14. Use character inputs of variables in shiny apps
 
 ```{r setup}
 library(ggblanket)
@@ -391,105 +391,7 @@ p4 <- penguins |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 11. Use character inputs of variables in shiny apps
-
-It can be useful in shiny apps to use character inputs of variables. This can be done using `.data`.
-
-```{r}
-x <- "flipper_length_mm"
-y <- "body_mass_g"
-
-penguins |> 
-  gg_point(
-    x = .data[[x]],
-    y = .data[[y]],
-  )
-```
-
-### 12. Make custom `gg_*` wrapper functions
-
-You may wish to make your own wrapper functions if you are continually adding the same defaults to your `gg_*` functions. 
-
-This essentially allows you to choose your own defaults in the functions.
-
-Use the `...` argument to access all other arguments in the `gg_*` function.
-
-An alternative method to `enquo` and `!!` is to use `{{ }}`.
-
-```{r}
-gg_point_custom <- function(data, 
-                            x = NULL, 
-                            y = NULL, 
-                            col = NULL,
-                            col_pal = NULL,
-                            shape = 17,
-                            size = 3,
-                            titles_to_case = snakecase::to_title_case,
-                            ...) {
-  
-  x <- enquo(x)
-  y <- enquo(y)
-  col <- enquo(col)
-  
-  if (rlang::is_null(col_pal)) {
-    if (rlang::quo_is_null(col)) col_pal <- plum
-    else col_pal <- RColorBrewer::brewer.pal(n = 8, "Dark2")
-  }
-  
-  data |> 
-    gg_point(
-      x = !!x,
-      y = !!y,
-      col = !!col,
-      col_pal = col_pal,
-      shape = shape,
-      size = size, 
-      titles_to_case = titles_to_case,
-      ...,
-    ) 
-}
-
-penguins |> 
-  gg_point_custom(
-    x = flipper_length_mm,
-    y = body_mass_g,
-  )
-```
-
-```{r}
-penguins |> 
-  gg_point_custom(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = species,
-  )
-```
-
-### 13. Use delayed evaluation
-
-As the `x`, `y`, `col` and `alpha` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This can be used for delayed evaluation with the `ggplot2::after_stat` function.
-
-```{r, fig.asp=0.55}
-penguins |>
-  gg_histogram(
-    x = flipper_length_mm,
-    mapping = aes(y = after_stat(density)),
-    facet = species,
-  )
-```
-
-```{r, fig.asp=0.55}
-faithfuld |>
-  gg_contour(
-    x = waiting,
-    y = eruptions,
-    z = density,
-    mapping = aes(colour = after_stat(level)),
-    bins = 8,
-  )
-```
-
-### 14. Understand `oob` & `clip`
+### 11. Understand `oob` & `clip`
 
 By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
 
@@ -564,5 +466,100 @@ p5 <- economics |>
 p4 + p5
 ```
 
+### 12. Use delayed evaluation
 
+As the `x`, `y`, `col` and `alpha` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This can be used for delayed evaluation with the `ggplot2::after_stat` function.
 
+```{r, fig.asp=0.55}
+penguins |>
+  gg_histogram(
+    x = flipper_length_mm,
+    mapping = aes(y = after_stat(density)),
+    facet = species,
+  )
+```
+
+```{r, fig.asp=0.55}
+faithfuld |>
+  gg_contour(
+    x = waiting,
+    y = eruptions,
+    z = density,
+    mapping = aes(colour = after_stat(level)),
+    bins = 8,
+  )
+```
+
+### 13. Make custom `gg_*` wrapper functions
+
+You may wish to make your own wrapper functions if you are continually adding the same defaults to your `gg_*` functions. 
+
+This essentially allows you to choose your own defaults in the functions.
+
+Use the `...` argument to access all other arguments in the `gg_*` function.
+
+An alternative method to `enquo` and `!!` is to use `{{ }}`.
+
+```{r}
+gg_point_custom <- function(data, 
+                            x = NULL, 
+                            y = NULL, 
+                            col = NULL,
+                            col_pal = NULL,
+                            shape = 17,
+                            size = 3,
+                            titles_to_case = snakecase::to_title_case,
+                            ...) {
+  
+  x <- enquo(x)
+  y <- enquo(y)
+  col <- enquo(col)
+  
+  if (rlang::is_null(col_pal)) {
+    if (rlang::quo_is_null(col)) col_pal <- plum
+    else col_pal <- RColorBrewer::brewer.pal(n = 8, "Dark2")
+  }
+  
+  data |> 
+    gg_point(
+      x = !!x,
+      y = !!y,
+      col = !!col,
+      col_pal = col_pal,
+      shape = shape,
+      size = size, 
+      titles_to_case = titles_to_case,
+      ...,
+    ) 
+}
+
+penguins |> 
+  gg_point_custom(
+    x = flipper_length_mm,
+    y = body_mass_g,
+  )
+```
+
+```{r}
+penguins |> 
+  gg_point_custom(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+  )
+```
+
+### 14. Use character inputs of variables in shiny apps
+
+It can be useful in shiny apps to use character inputs of variables. This can be done using `.data`.
+
+```{r}
+x <- "flipper_length_mm"
+y <- "body_mass_g"
+
+penguins |> 
+  gg_point(
+    x = .data[[x]],
+    y = .data[[y]],
+  )
+```
