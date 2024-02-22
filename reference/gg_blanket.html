@@ -97,7 +97,7 @@
 <span>  x_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
-<span>  x_sec_axis <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  x_position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
 <span>  x_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -106,7 +106,7 @@
 <span>  y_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
-<span>  y_sec_axis <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  y_position <span class="op">=</span> <span class="st">"left"</span>,</span>
 <span>  y_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -282,8 +282,8 @@
 <dd><p>For a continuous scale variable, a <code>scales::oob_*</code> function of how to handle values outside of limits. Defaults to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>.</p></dd>
 
 
-<dt>x_sec_axis, y_sec_axis</dt>
-<dd><p>A secondary axis using <code><a href="https://ggplot2.tidyverse.org/reference/sec_axis.html" class="external-link">ggplot2::sec_axis()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/sec_axis.html" class="external-link">ggplot2::dup_axis()</a></code>.</p></dd>
+<dt>x_position, y_position</dt>
+<dd><p>The position of the axis (i.e. <code>"left"</code>, <code>"right"</code>, <code>"bottom"</code> or <code>"top"</code>).If using <code>y_position = "top"</code> with a <code>*_mode_*</code> theme, add <code>caption = ""</code> or <code>caption = "\n"</code>.</p></dd>
 
 
 <dt>x_title, y_title</dt>

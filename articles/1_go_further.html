@@ -120,6 +120,7 @@ as wanted</li>
 <li>Use delayed evaluation</li>
 <li>Make custom <code>gg_*</code> wrapper functions</li>
 <li>Use character inputs of variables in shiny apps</li>
+<li>Change the <code>*_position</code> of positional axes</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidhodge931.github.io/ggblanket/">ggblanket</a></span><span class="op">)</span></span>
@@ -680,6 +681,42 @@ This can be done using <code>.data</code>.</p>
 <span>    y <span class="op">=</span> <span class="va">.data</span><span class="op">[[</span><span class="va">y</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-23-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="change-the-_position-of-positional-axes">15. Change the <code>*_position</code> of positional axes<a class="anchor" aria-label="anchor" href="#change-the-_position-of-positional-axes"></a>
+</h3>
+<p>Positional axes can be changed using <code>*_position</code>.</p>
+<p>Note that for <code>x_position = "top"</code>, a caption must be
+added or modified to make this work nicely with a <code>*_mode_*</code>
+theme.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">economics</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">date</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">date</span>,</span>
+<span>    y_position <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>    x_position <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>    caption <span class="op">=</span> <span class="st">""</span>, </span>
+<span>    title <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"1967\u20132015"</span>,</span>
+<span>  <span class="op">)</span> </span></code></pre></div>
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    x_position <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>    y_position <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>    caption <span class="op">=</span> <span class="st">"\nSource: Gorman, 2020"</span>, </span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_n.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.line.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.ticks.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-25-1.svg" width="70%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
