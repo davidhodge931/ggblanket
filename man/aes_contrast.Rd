@@ -53,7 +53,7 @@ penguins |>
   geom_text(
     mapping = aes(label = n, !!!aes_contrast(darkness)),
     position = position_dodge2(width = 0.75, preserve = "single"),
-    hjust = 1.33,
+    hjust = 1.25,
     show.legend = FALSE,
   )
 }
