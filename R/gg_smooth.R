@@ -52,7 +52,6 @@ gg_smooth <- function(
     x_breaks = NULL,
     x_expand = NULL,
     x_expand_limits = NULL,
-
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
@@ -62,7 +61,6 @@ gg_smooth <- function(
     y_breaks = NULL,
     y_expand = NULL,
     y_expand_limits = NULL,
-
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,
