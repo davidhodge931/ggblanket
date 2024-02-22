@@ -323,12 +323,29 @@ ggridges::Catalan_elections |>
 The ggbeeswarm package enables beeswarm plots.
 
 ```{r}
-penguins |> 
+p1 <- penguins |> 
+  gg_point(
+    position = ggbeeswarm::position_beeswarm(),
+    x = sex, 
+    y = flipper_length_mm,
+    col = sex,
+    x_labels = \(x) str_to_upper(str_sub(x, 1, 1)),
+    subtitle = "\nBeeswarm",
+    mode = light_mode_n(),
+  ) 
+
+p2 <- penguins |> 
   gg_point(
     position = ggbeeswarm::position_quasirandom(),
-    x = species, 
+    x = sex, 
     y = flipper_length_mm,
+    col = sex,
+    x_labels = \(x) str_to_upper(str_sub(x, 1, 1)),
+    subtitle = "\nQuasirandom",
+    mode = light_mode_n(),
   ) 
+
+p1 + p2
 ```
 
 #### geomtextpath
