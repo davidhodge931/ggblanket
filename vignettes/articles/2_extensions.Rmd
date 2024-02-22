@@ -16,11 +16,9 @@ knitr::opts_chunk$set(
   )
 ```
 
-## Overview
+### Overview
 
 This article will demonstrate some fantastic ggplot2 extension packages. 
-
-Note, extension package ggproto `geom` or `stat` objects must be exported to supported use directly within a `gg_*` function. Where this is the case, you can print the relevant `geom_*` function to identify the `geom`, `stat` and `position` to use in the `gg_blanket` function.
 
 ```{r setup}
 library(ggblanket)
@@ -79,106 +77,107 @@ p3 <- mtcars |>
   )
 ```
 
-#### geomtextpath
+#### ggtext
 
-The geomtextpath package enables curved text.
+The ggtext package support using markdown in text. The mdthemes package makes it easy to convert `ggplot2::element_text` to `ggtext::element_markdown` in themes.
 
-```{r}
-library(geomtextpath)
-
-expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |> 
-  mutate(z = c(volcano)) |> 
-  gg_contour_filled(
-    x = x, 
-    y = y,
-    z = z,
-    binwidth = 20,
-    x_expand = c(0, 0),
-    x_limits = c(NA, NA),
-    y_limits = c(NA, NA)) +
-  geom_textcontour(
-    aes(label = after_stat(level)), 
-    size = 2.5, 
-    straight = TRUE,
-  ) +
-  ggeasy::easy_remove_x_axis() + 
-  ggeasy::easy_remove_y_axis()
-```
-
-#### ggblend
- 
-The ggblend package provides blending of colours. Note you must use a graphics device that supports blending.
- 
-```{r}
-p1 <- penguins |>
-  gg_density(
-    x = flipper_length_mm,
+```{r, fig.asp=0.75}
+penguins |>
+  gg_point(
+    x = bill_depth_mm,
+    y = bill_length_mm,
     col = species,
-    y_limits = c(0, NA),
-    mode = light_mode_n(),
-  ) +
-  facet_wrap(~"Normal") +
-  ggeasy::easy_remove_x_axis() +
-  ggeasy::easy_remove_y_axis()
-
-p2 <- penguins |>
-  gg_blanket(
-    stat = "density",
-    x = flipper_length_mm,
-    col = species,
-    y_limits = c(0, NA),
-    mode = light_mode_n(),
-  ) +
-  facet_wrap(~"Blended") +
-  geom_density(alpha = 0.5) |> ggblend::blend(blend = "multiply") +
-  ggeasy::easy_remove_x_axis() +
-  ggeasy::easy_remove_y_axis()
-
-p1 + p2
-```
-
-#### ggdensity
-
-The ggdensity package provides visualizations of density estimates.  
-
-```{r}
-library(ggdensity)
-set.seed(123)
-
-data.frame(
-  x = rnorm(1000),
-  y = rnorm(1000),
-  z = c(rep("A", times = 500), rep("B", times = 500))
-) |>
-  gg_blanket(
-    geom = "hdr", 
-    stat = "hdr",
-    x = x, 
-    y = y, 
-    colour = NA,
-    y_limits = c(NA, NA),
-    col_pal = alpha(blue, 0),
-  )
-```
-
-```{r}
-set.seed(123)
-
-data.frame(
-  x = rnorm(1000),
-  y = rnorm(1000),
-  z = c(rep("A", times = 500), rep("B", times = 500))
-) |>
-  gg_blanket(
-    geom = "hdr", 
-    stat = "hdr",
-    x = x, 
-    y = y, 
-    col = z,
-    facet = z,
-    y_limits = c(NA, NA),
-    colour = NA,
+    facet = island,
+    facet2 = sex,
+    x_labels = \(x) glue::glue("_{x}_"),
+    x_title = "**Bill depth** (mm)", 
+    y_labels = \(x) replace_seq(glue::glue("_{x}_")),
+    y_title = "**Bill length** (mm)",
+    facet_labels = \(x) glue::glue("_{x}_"),
+    title = "***Pygoscelis*** *penguin* bill **lengths** and depths",
+    subtitle = "<span style = 'color: #0095A8 ;'>**Adelie**</span>, 
+       <span style = 'color:#FF7043;'>**Chinstrap**</span>, 
+       *and* <span style = 'color:#112E51;'>**Gentoo**</span>", 
+    mode = mdthemes::as_md_theme(light_mode_n())
   ) 
+```
+
+#### showtext
+
+The showtext package enables the use of different fonts in plots. The `*_mode_*` theme functions provide a `base_family` argument.
+
+```{r, fig.asp = 0.7, fig.showtext = TRUE}
+head(sysfonts::font_families_google())
+
+sysfonts::font_add_google("Covered By Your Grace", "grace")
+sysfonts::font_add_google('Roboto Slab', 'roboto_slab')
+sysfonts::font_add_google('Syne Mono', 'syne')
+
+showtext::showtext_auto(enable = TRUE)
+
+penguins |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
+    facet = species,
+    title = "Penguins body mass by flipper length",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020",
+    mode = light_mode_r(base_family = "grace")
+  ) +
+  theme(
+    plot.title = element_text(family = "roboto_slab"),
+    plot.subtitle = element_text(family = "syne")
+  )
+
+showtext::showtext_auto(enable = FALSE)
+```
+
+#### ggforce
+
+The ggforce package includes numerous extra geoms, stats etc.
+
+```{r}
+library(ggforce)
+
+economics |>
+  slice_head(n = 35) |> 
+  gg_path(
+    stat = "bspline",
+    x = date, 
+    y = unemploy,
+    n = 100, 
+    linewidth = 1,
+  ) 
+```
+
+```{r}
+penguins |>
+  gg_blanket(
+    geom = "mark_hull",
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+    coord = coord_cartesian(),
+    alpha_pal = 0.5,
+  ) +
+  geom_point()
+```
+
+```{r}
+iris |> 
+  mutate(across(Species, \(x) str_to_sentence(x))) |> 
+  gg_blanket(
+    geom = "shape",
+    stat = "voronoi_tile",
+    x = Sepal.Length, 
+    y = Sepal.Width, 
+    col = Species,
+    group = 1,
+    colour = "#fcfdfe",
+  )
 ```
 
 #### ggdist
@@ -235,6 +234,161 @@ tibble(x = 1:10) |>
   )
 ```
 
+#### ggdensity
+
+The ggdensity package provides visualizations of density estimates.  
+
+```{r}
+library(ggdensity)
+set.seed(123)
+
+data.frame(
+  x = rnorm(1000),
+  y = rnorm(1000),
+  z = c(rep("A", times = 500), rep("B", times = 500))
+) |>
+  gg_blanket(
+    geom = "hdr", 
+    stat = "hdr",
+    x = x, 
+    y = y, 
+    colour = NA,
+    y_limits = c(NA, NA),
+    col_pal = alpha(blue, 0),
+  )
+```
+
+```{r}
+set.seed(123)
+
+data.frame(
+  x = rnorm(1000),
+  y = rnorm(1000),
+  z = c(rep("A", times = 500), rep("B", times = 500))
+) |>
+  gg_blanket(
+    geom = "hdr", 
+    stat = "hdr",
+    x = x, 
+    y = y, 
+    col = z,
+    facet = z,
+    y_limits = c(NA, NA),
+    colour = NA,
+  ) 
+```
+
+#### ggrepel
+
+The ggrepel package can be used to neatly avoid overlapping labels. 
+
+```{r}
+mtcars |>
+  tibble::rownames_to_column("car") |>
+  filter(wt > 2.75, wt < 3.45) |>
+  gg_point(
+    x = wt, 
+    y = mpg, 
+    label = car, 
+  ) +
+  ggrepel::geom_text_repel(colour = blue) 
+```
+
+#### ggridges
+
+The ggridges package enables ridgeline plots. 
+
+```{r}
+library(ggridges)
+
+ggridges::Catalan_elections |>
+  rename_with(snakecase::to_snake_case) |>
+  mutate(year = factor(year)) |>
+  gg_blanket(
+    geom = "density_ridges",
+    stat = "density_ridges",
+    coord = coord_cartesian(),
+    x = percent,
+    y = year,
+    col = option,
+    colour = "white",
+    x_limits = c(0, 100),
+    y_expand = expansion(c(0, 0.125)),
+    alpha_pal = 0.7,
+  )
+```
+
+#### ggbeeswarm
+
+The ggbeeswarm package enables beeswarm plots.
+
+```{r}
+penguins |> 
+  gg_point(
+    position = ggbeeswarm::position_quasirandom(),
+    x = species, 
+    y = flipper_length_mm,
+  ) 
+```
+
+#### geomtextpath
+
+The geomtextpath package enables curved text.
+
+```{r}
+library(geomtextpath)
+
+expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |> 
+  mutate(z = c(volcano)) |> 
+  gg_contour_filled(
+    x = x, 
+    y = y,
+    z = z,
+    binwidth = 20,
+    x_expand = c(0, 0),
+    x_limits = c(NA, NA),
+    y_limits = c(NA, NA)) +
+  geom_textcontour(
+    aes(label = after_stat(level)), 
+    size = 2.5, 
+    straight = TRUE,
+  ) +
+  ggeasy::easy_remove_x_axis() + 
+  ggeasy::easy_remove_y_axis()
+```
+
+#### ggblend
+ 
+The ggblend package provides blending of colours. Note you must use a graphics device that supports blending.
+ 
+```{r, fig.asp=0.5}
+p1 <- penguins |>
+  gg_density(
+    x = flipper_length_mm,
+    col = species,
+    y_limits = c(0, NA),
+    mode = light_mode_n(),
+  ) +
+  facet_wrap(~"Normal") +
+  ggeasy::easy_remove_x_axis() +
+  ggeasy::easy_remove_y_axis()
+
+p2 <- penguins |>
+  gg_blanket(
+    stat = "density",
+    x = flipper_length_mm,
+    col = species,
+    y_limits = c(0, NA),
+    mode = light_mode_n(),
+  ) +
+  facet_wrap(~"Blended") +
+  geom_density(alpha = 0.5) |> ggblend::blend(blend = "multiply") +
+  ggeasy::easy_remove_x_axis() +
+  ggeasy::easy_remove_y_axis()
+
+p1 + p2
+```
+
 #### ggeasy
 
 The ggeasy package provides a lot of support for easily modifying themes. Removing axes and gridlines is often useful. 
@@ -253,51 +407,6 @@ penguins |>
   easy_remove_y_gridlines() +
   easy_remove_x_axis(what = c("line", "ticks")) +
   easy_remove_legend_title()
-```
-
-#### ggforce
-
-The ggforce package includes functions for annotating areas of points, and a geom for making a smoothed line graph using a b-spline.
-
-```{r}
-library(ggforce)
-
-penguins |>
-  gg_blanket(
-    geom = "mark_hull",
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = species,
-    coord = coord_cartesian(),
-    alpha_pal = 0.5,
-  ) +
-  geom_point()
-```
-
-```{r}
-economics |>
-  slice_head(n = 35) |> 
-  gg_path(
-    stat = "bspline",
-    x = date, 
-    y = unemploy,
-    n = 100, 
-    linewidth = 1,
-  ) 
-```
-
-```{r}
-iris |> 
-  mutate(across(Species, \(x) str_to_sentence(x))) |> 
-  gg_blanket(
-    geom = "shape",
-    stat = "voronoi_tile",
-    x = Sepal.Length, 
-    y = Sepal.Width, 
-    col = Species,
-    group = 1,
-    colour = "#fcfdfe",
-  )
 ```
 
 #### ggh4x
@@ -374,107 +483,7 @@ penguins |>
   labs(colour = "Species")
 ```
 
-
-#### ggrepel
-
-The ggrepel package can be used to neatly avoid overlapping labels. 
-
-```{r}
-mtcars |>
-  tibble::rownames_to_column("car") |>
-  filter(wt > 2.75, wt < 3.45) |>
-  gg_point(
-    x = wt, 
-    y = mpg, 
-    label = car, 
-  ) +
-  ggrepel::geom_text_repel(colour = blue) 
-```
-
-#### ggridges
-
-The ggridges package enables ridgeline plots. 
-
-```{r}
-library(ggridges)
-
-ggridges::Catalan_elections |>
-  rename_with(snakecase::to_snake_case) |>
-  mutate(year = factor(year)) |>
-  gg_blanket(
-    geom = "density_ridges",
-    stat = "density_ridges",
-    coord = coord_cartesian(),
-    x = percent,
-    y = year,
-    col = option,
-    colour = "white",
-    x_limits = c(0, 100),
-    y_expand = expansion(c(0, 0.125)),
-    alpha_pal = 0.7,
-  )
-```
-
-#### ggtext & mdthemes
-
-The ggtext and mdthemes package support using markdown in text. 
-
-```{r, fig.asp=0.75}
-penguins |>
-  gg_point(
-    x = bill_depth_mm,
-    y = bill_length_mm,
-    col = species,
-    facet = island,
-    facet2 = sex,
-    x_labels = \(x) glue::glue("_{x}_"),
-    x_title = "**Bill depth** (mm)", 
-    y_labels = \(x) replace_seq(glue::glue("_{x}_")),
-    y_title = "**Bill length** (mm)",
-    facet_labels = \(x) glue::glue("_{x}_"),
-    title = "***Pygoscelis*** *penguin* bill **lengths** and depths",
-    subtitle = "<span style = 'color: #0095A8 ;'>**Adelie**</span>, 
-       <span style = 'color:#FF7043;'>**Chinstrap**</span>, 
-       *and* <span style = 'color:#112E51;'>**Gentoo**</span>", 
-    mode = mdthemes::as_md_theme(light_mode_n())
-  ) 
-```
-
-
-#### showtext
-
-The showtext package enables the use of different fonts in plots. The `*_mode_*` theme functions provide a `base_family` argument.
-
-```{r, fig.asp = 0.7, fig.showtext = TRUE}
-head(sysfonts::font_families_google())
-
-sysfonts::font_add_google("Covered By Your Grace", "grace")
-sysfonts::font_add_google('Roboto Slab', 'roboto_slab')
-sysfonts::font_add_google('Syne Mono', 'syne')
-
-showtext::showtext_auto(enable = TRUE)
-
-penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex,
-    facet = species,
-    title = "Penguins body mass by flipper length",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020",
-    mode = light_mode_r(base_family = "grace")
-  ) +
-  theme(
-    plot.title = element_text(family = "roboto_slab"),
-    plot.subtitle = element_text(family = "syne")
-  )
-
-showtext::showtext_auto(enable = FALSE)
-```
-
-### stars
+#### stars
 
 stars objects can be converted to tibbles, and visualised using `gg_raster`.  
 
@@ -491,9 +500,6 @@ stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
   ggeasy::easy_remove_x_axis() +
   ggeasy::easy_remove_y_axis() 
 ```
-
-```
-
 
 #### ggiraph
 

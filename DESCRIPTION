@@ -44,8 +44,8 @@ VignetteBuilder:
 Remotes: 
     tidyverse/ggplot2#5592
 Config/Needs/website: concaveman, corrr, deldir, distributional, farver,
-    geomtextpath, ggblend, ggdensity, ggdist, ggeasy, ggforce, ggh4x, 
-    gghighlight, ggiraph, ggnewscale, ggrepel, ggridges, glue, mdthemes, 
+    geomtextpath, ggblend, ggchicklet, ggdensity, ggdist, ggeasy, ggforce, 
+    ggh4x, gghighlight, ggiraph, ggnewscale, ggrepel, ggridges, glue, mdthemes, 
     plotly, RColorBrewer, showtext, stars, sysfonts
 Config/testthat/edition: 3
 Encoding: UTF-8
