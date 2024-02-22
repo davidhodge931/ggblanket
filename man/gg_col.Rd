@@ -49,7 +49,6 @@ gg_col(
   y_title = NULL,
   y_transform = NULL,
   col_breaks = NULL,
-  col_steps = FALSE,
   col_expand_limits = NULL,
   col_labels = NULL,
   col_legend_ncol = NULL,
@@ -60,18 +59,9 @@ gg_col(
   col_pal = NULL,
   col_pal_na = "darkgrey",
   col_rescale = scales::rescale(),
+  col_steps = FALSE,
   col_title = NULL,
   col_transform = NULL,
-  facet_axes = NULL,
-  facet_axis_labels = "margins",
-  facet_labels = NULL,
-  facet_labels_position = "top",
-  facet_labels_switch = NULL,
-  facet_layout = NULL,
-  facet_ncol = NULL,
-  facet_nrow = NULL,
-  facet_scales = "fixed",
-  facet_space = "fixed",
   alpha_breaks = NULL,
   alpha_expand_limits = NULL,
   alpha_labels = NULL,
@@ -84,6 +74,16 @@ gg_col(
   alpha_pal_na = NA,
   alpha_title = NULL,
   alpha_transform = NULL,
+  facet_axes = NULL,
+  facet_axis_labels = "margins",
+  facet_labels = NULL,
+  facet_labels_position = "top",
+  facet_labels_switch = NULL,
+  facet_layout = NULL,
+  facet_ncol = NULL,
+  facet_nrow = NULL,
+  facet_scales = "fixed",
+  facet_space = "fixed",
   title = NULL,
   subtitle = NULL,
   caption = NULL,
@@ -161,8 +161,6 @@ gg_col(
 
 \item{col_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
 
-\item{col_steps}{For a continuous variable, TRUE or FALSE of whether to colour in steps. Defaults to FALSE, which colours in a gradient.}
-
 \item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
 
 \item{col_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
@@ -181,29 +179,11 @@ gg_col(
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
+\item{col_steps}{For a continuous variable, TRUE or FALSE of whether to colour in steps. Defaults to FALSE, which colours in a gradient.}
+
 \item{col_title}{Axis title string. Use \code{""} for no title.}
 
 \item{col_transform}{For a numeric scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
-
-\item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
-
-\item{facet_axis_labels}{Whether to add interior axis labels with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
-
-\item{facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)}), or a named vector of labels (e.g. c("value1" = "label1", ...)).}
-
-\item{facet_labels_position}{When the facet layout is \code{"wrap"}, the position of the facet labels. Either \code{"top"}, \code{"right"}, \code{"bottom"} or \code{"left"}.}
-
-\item{facet_labels_switch}{When the facet layout is \code{"grid"}, whether to switch the facet labels to the opposite side of the plot. Either \code{"x"}, \code{"y"} or \code{"both"}.}
-
-\item{facet_layout}{Whether the layout is to be \code{"wrap"} or \code{"grid"}. If \code{NULL} and a single \code{facet} (or \code{facet2}) argument is provided, then defaults to \code{"wrap"}. If \code{NULL} and both facet and facet2 arguments are provided, defaults to \code{"grid"}.}
-
-\item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of \code{"wrap"}.}
-
-\item{facet_nrow}{The number of rows of facets. Only applies to a facet layout of \code{"wrap"}.}
-
-\item{facet_scales}{Whether facet scales should be \code{"fixed"} across facets, \code{"free"} in both directions, or free in just one direction (i.e. \code{"free_x"} or \code{"free_y"}). Defaults to \code{"fixed"}.}
-
-\item{facet_space}{When the facet layout is \code{"grid"} and facet scales are not \code{"fixed"}, whether facet space should be \code{"fixed"} across facets, \code{"free"} to be proportional in both directions, or free to be proportional in just one direction (i.e. \code{"free_x"} or \code{"free_y"}). Defaults to \code{"fixed"}.}
 
 \item{alpha_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
 
@@ -226,6 +206,26 @@ gg_col(
 \item{alpha_title}{Axis title string. Use \code{""} for no title.}
 
 \item{alpha_transform}{For a numeric scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
+
+\item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
+
+\item{facet_axis_labels}{Whether to add interior axis labels with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
+
+\item{facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)}), or a named vector of labels (e.g. c("value1" = "label1", ...)).}
+
+\item{facet_labels_position}{When the facet layout is \code{"wrap"}, the position of the facet labels. Either \code{"top"}, \code{"right"}, \code{"bottom"} or \code{"left"}.}
+
+\item{facet_labels_switch}{When the facet layout is \code{"grid"}, whether to switch the facet labels to the opposite side of the plot. Either \code{"x"}, \code{"y"} or \code{"both"}.}
+
+\item{facet_layout}{Whether the layout is to be \code{"wrap"} or \code{"grid"}. If \code{NULL} and a single \code{facet} (or \code{facet2}) argument is provided, then defaults to \code{"wrap"}. If \code{NULL} and both facet and facet2 arguments are provided, defaults to \code{"grid"}.}
+
+\item{facet_ncol}{The number of columns of facets. Only applies to a facet layout of \code{"wrap"}.}
+
+\item{facet_nrow}{The number of rows of facets. Only applies to a facet layout of \code{"wrap"}.}
+
+\item{facet_scales}{Whether facet scales should be \code{"fixed"} across facets, \code{"free"} in both directions, or free in just one direction (i.e. \code{"free_x"} or \code{"free_y"}). Defaults to \code{"fixed"}.}
+
+\item{facet_space}{When the facet layout is \code{"grid"} and facet scales are not \code{"fixed"}, whether facet space should be \code{"fixed"} across facets, \code{"free"} to be proportional in both directions, or free to be proportional in just one direction (i.e. \code{"free_x"} or \code{"free_y"}). Defaults to \code{"fixed"}.}
 
 \item{title}{Title string.}
 

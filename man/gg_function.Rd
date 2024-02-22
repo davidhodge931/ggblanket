@@ -49,7 +49,6 @@ gg_function(
   y_title = NULL,
   y_transform = NULL,
   col_breaks = NULL,
-  col_steps = FALSE,
   col_expand_limits = NULL,
   col_labels = NULL,
   col_legend_ncol = NULL,
@@ -60,6 +59,7 @@ gg_function(
   col_pal = NULL,
   col_pal_na = "darkgrey",
   col_rescale = scales::rescale(),
+  col_steps = FALSE,
   col_title = NULL,
   col_transform = NULL,
   alpha_breaks = NULL,
@@ -161,8 +161,6 @@ gg_function(
 
 \item{col_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
 
-\item{col_steps}{For a continuous variable, TRUE or FALSE of whether to colour in steps. Defaults to FALSE, which colours in a gradient.}
-
 \item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
 
 \item{col_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
@@ -180,6 +178,8 @@ gg_function(
 \item{col_pal_na}{Colour to use for \code{NA} values. A character vector of a hex code (or name).}
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
+
+\item{col_steps}{For a continuous variable, TRUE or FALSE of whether to colour in steps. Defaults to FALSE, which colours in a gradient.}
 
 \item{col_title}{Axis title string. Use \code{""} for no title.}
 

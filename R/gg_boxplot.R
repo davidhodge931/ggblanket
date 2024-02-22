@@ -68,9 +68,7 @@ gg_boxplot <- function(
     y_title = NULL,
     y_transform = NULL,
     col_breaks = NULL,
-    col_steps = FALSE,
     col_expand_limits = NULL,
-    
     col_labels = NULL,
     col_legend_ncol = NULL,
     col_legend_nrow = NULL,
@@ -80,11 +78,11 @@ gg_boxplot <- function(
     col_pal = NULL,
     col_pal_na = "darkgrey",
     col_rescale = scales::rescale(),
+    col_steps = FALSE,
     col_title = NULL,
     col_transform = NULL,
     alpha_breaks = NULL,
     alpha_expand_limits = NULL,
-    
     alpha_labels = NULL,
     alpha_legend_ncol = NULL,
     alpha_legend_nrow = NULL,
@@ -156,7 +154,6 @@ gg_boxplot <- function(
     y_title = y_title,
     y_transform = y_transform,
     col_breaks = col_breaks,
-    
     col_expand_limits = col_expand_limits,
     col_labels = col_labels,
     col_legend_ncol = col_legend_ncol,
@@ -172,7 +169,6 @@ gg_boxplot <- function(
     col_transform = col_transform,
     alpha_breaks = alpha_breaks,
     alpha_expand_limits = alpha_expand_limits,
-    
     alpha_labels = alpha_labels,
     alpha_legend_ncol = alpha_legend_ncol,
     alpha_legend_nrow = alpha_legend_nrow,
