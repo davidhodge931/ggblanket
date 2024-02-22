@@ -36,7 +36,7 @@ gg_errorbar(
   x_labels = NULL,
   x_limits = NULL,
   x_oob = scales::oob_keep,
-  x_sec_axis = ggplot2::waiver(),
+  x_position = "bottom",
   x_title = NULL,
   x_transform = NULL,
   y_breaks = NULL,
@@ -45,7 +45,7 @@ gg_errorbar(
   y_labels = NULL,
   y_limits = NULL,
   y_oob = scales::oob_keep,
-  y_sec_axis = ggplot2::waiver(),
+  y_position = "left",
   y_title = NULL,
   y_transform = NULL,
   col_breaks = NULL,
@@ -153,7 +153,7 @@ gg_errorbar(
 
 \item{x_oob, y_oob}{For a continuous scale variable, a \verb{scales::oob_*} function of how to handle values outside of limits. Defaults to \code{scales::oob_keep}.}
 
-\item{x_sec_axis, y_sec_axis}{A secondary axis using \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}} or \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}}.}
+\item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_mode_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 
 \item{x_title, y_title}{Axis title string. Use \code{""} for no title.}
 

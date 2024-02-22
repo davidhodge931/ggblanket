@@ -11,7 +11,8 @@
 * Added `facet_labels_position` argument.
 * Added `gg_quantile`, `gg_rug`, and `gg_function` functions.
 * Added `col_steps` argument to support colouring by steps. 
-* Added `mode_set` argument.
+* Added `*_position` argument to support changing axis positions.
+* Added `mode_set` function.
 * Breaking: made `theme_set` set the theme globally with no side-effects.
 * Breaking: Added `light_mode_*`, `dark_mode_*` and `grey_mode_*` family of functions.
 * Updated `gg_*` functions to pretty removal of a axis line and ticks.
@@ -30,6 +31,7 @@
 * Breaking: renamed `*_include` to `*_expand_limits`.
 * Breaking: renamed `*_trans` to `*_transform`.
 * Breaking: removed `col_legend_place` argument.
+* Breaking: removed `*_sec_axis` argument.
 * Breaking: removed `light_mode` and `dark_mode` functions.
 * Breaking: removed `col_scale` argument.
 * Breaking: removed `gg_blank` function.

@@ -34,7 +34,7 @@
 #' @param x_labels,y_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or [scales::label_comma()]), or a vector of labels.
 #' @param x_limits,y_limits A vector of length 2 to determine the limits of the axis.
 #' @param x_oob,y_oob For a continuous scale variable, a `scales::oob_*` function of how to handle values outside of limits. Defaults to `scales::oob_keep`.
-#' @param x_sec_axis,y_sec_axis A secondary axis using [ggplot2::sec_axis()] or [ggplot2::dup_axis()].
+#' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_mode_*` theme, add `caption = ""` or `caption = "\n"`.
 #' @param x_title,y_title Axis title string. Use `""` for no title.
 #' @param x_transform,y_transform For a numeric scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param col_breaks A `scales::breaks_*` function (e.g. [scales::breaks_pretty()]), or a vector of breaks.
@@ -131,7 +131,7 @@ gg_blanket <- function(
     x_labels = NULL,
     x_limits = NULL,
     x_oob = scales::oob_keep,
-    x_sec_axis = ggplot2::waiver(),
+    x_position = "bottom",
     x_title = NULL,
     x_transform = NULL,
     y_breaks = NULL,
@@ -140,7 +140,7 @@ gg_blanket <- function(
     y_labels = NULL,
     y_limits = NULL,
     y_oob = scales::oob_keep,
-    y_sec_axis = ggplot2::waiver(),
+    y_position = "left",
     y_title = NULL,
     y_transform = NULL,
     col_breaks = NULL,
@@ -1612,7 +1612,7 @@ gg_blanket <- function(
           breaks = x_breaks,
           labels = x_labels,
           oob = x_oob,
-          sec.axis = x_sec_axis,
+          position = x_position,
           transform = x_transform
         )
     })
@@ -1629,7 +1629,8 @@ gg_blanket <- function(
           expand = x_expand,
           breaks = x_breaks,
           labels = x_labels,
-          drop = x_drop
+          drop = x_drop,
+          position = x_position
         )
     })
   }
@@ -1773,7 +1774,7 @@ gg_blanket <- function(
           breaks = x_breaks,
           labels = x_labels,
           oob = x_oob,
-          sec.axis = x_sec_axis,
+          position = x_position,
           transform = x_transform
         )
     })
@@ -1794,7 +1795,7 @@ gg_blanket <- function(
           labels = y_labels,
           breaks = y_breaks,
           oob = y_oob,
-          sec.axis = y_sec_axis,
+          position = y_position,
           transform = y_transform
         )
     })
@@ -1811,7 +1812,8 @@ gg_blanket <- function(
           expand = y_expand,
           breaks = y_breaks,
           labels = y_labels,
-          drop = y_drop
+          drop = y_drop,
+          position = y_position
         )
     })
   }
@@ -1955,7 +1957,7 @@ gg_blanket <- function(
           breaks = y_breaks,
           labels = y_labels,
           oob = y_oob,
-          sec.axis = y_sec_axis,
+          position = y_position,
           transform = y_transform
         )
     })

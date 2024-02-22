@@ -34,6 +34,7 @@ This article will demonstrate a random assortment of content, including some of 
 12. Use delayed evaluation
 13. Make custom `gg_*` wrapper functions
 14. Use character inputs of variables in shiny apps
+15. Change the `*_position` of positional axes 
 
 ```{r setup}
 library(ggblanket)
@@ -563,3 +564,40 @@ penguins |>
     y = .data[[y]],
   )
 ```
+
+### 15. Change the `*_position` of positional axes 
+
+Positional axes can be changed using `*_position`.
+
+Note that for `x_position = "top"`, a caption must be added or modified to make this work nicely with a `*_mode_*` theme. 
+
+```{r}
+economics |>
+  gg_line(
+    x = date,
+    y = unemploy,
+    col = date,
+    y_position = "right",
+    x_position = "top",
+    caption = "", 
+    title = "Unemployment",
+    subtitle = "1967\u20132015",
+  ) 
+```
+
+```{r}
+penguins |>
+  gg_jitter(
+    x = species,
+    y = body_mass_g,
+    col = species,
+    x_position = "top",
+    y_position = "right",
+    caption = "\nSource: Gorman, 2020", 
+    mode = light_mode_n(),
+  ) +
+  labs(x = NULL) +
+  theme(axis.line.x = element_blank()) +
+  theme(axis.ticks.x = element_blank())
+```
+
