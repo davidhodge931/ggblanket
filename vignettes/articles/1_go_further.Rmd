@@ -282,10 +282,10 @@ Text on polygons can be coloured with a dark or light colour that is determined 
 penguins |>
   count(species, sex) |>
   gg_col(
+    position = position_dodge2(preserve = "single"),
     x = sex,
     y = n,
     col = species,
-    position = position_dodge2(preserve = "single"),
     width = 0.75,
     x_labels = \(x) str_to_sentence(x),
   ) +
@@ -302,10 +302,10 @@ penguins |>
 penguins |>
   count(species, sex) |>
   gg_col(
+    position = position_dodge2(preserve = "single"),
     x = n,
     y = sex,
     col = species,
-    position = position_dodge2(preserve = "single"),
     width = 0.75,
     y_labels = \(x) str_to_sentence(x),
     mode = dark_mode_r(),
@@ -433,10 +433,10 @@ penguins |>
 penguins |>
   count(species, sex) |>
   gg_col(
+    position = position_dodge2(preserve = "single"),
     x = n,
     y = sex,
     col = species,
-    position = position_dodge2(preserve = "single"),
     width = 0.75,
     y_labels = \(x) str_to_sentence(x),
     mode = dark_mode_r(),
@@ -501,12 +501,12 @@ p3 + plot_spacer()
 ```{r}
 p4 <- economics |> 
   gg_smooth(
+    coord = coord_cartesian(clip = "on"), 
     x = date, 
     y = unemploy, 
     se = TRUE,
     x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
     x_labels = \(x) stringr::str_sub(x, 3, 4),
-    coord = coord_cartesian(clip = "on"), 
     subtitle = "\nx_limits set  (with default oob_keep)\n& cartesian space clipped") +
   geom_point(col = blue, alpha = 0.3)
 

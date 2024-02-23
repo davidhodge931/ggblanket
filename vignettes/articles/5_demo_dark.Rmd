@@ -47,9 +47,9 @@ economics |>
 penguins |>
   mutate(across(sex, str_to_sentence)) |> 
   gg_bar(
+    position = position_dodge(preserve = "single"),
     y = species,
     col = sex,
-    position = position_dodge(preserve = "single"),
     width = 0.75,
   )
 ```
@@ -89,10 +89,10 @@ penguins |>
   group_by(sex, species) |>
   summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
   gg_col(
+    position = position_dodge(preserve = "single"),
     x = flipper_length_mm,
     y = species,
     col = sex,
-    position = position_dodge(preserve = "single"),
     width = 0.75,
   )
 ```
@@ -257,10 +257,10 @@ set.seed(123)
 
 penguins |>
   gg_jitter(
+    position = position_jitter(), 
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
-    position = position_jitter(height = 0), 
     y_expand_limits = 0,
     col_steps = TRUE,
     col_labels = replace_seq,
@@ -309,11 +309,11 @@ data.frame(
   upper = c(1.1, 5.3, 3.3, 4.2),
   lower = c(0.8, 4.6, 2.4, 3.6)) |>
   gg_linerange(
+    position = position_dodge(width = 0.2),
     x = trt,
     ymin = lower,
     ymax = upper,
     col = group,
-    position = position_dodge(width = 0.2),
     x_title = "Treatment",
     y_title = "Response",
   )
@@ -355,12 +355,12 @@ data.frame(
   upper = c(1.1, 5.3, 3.3, 4.2),
   lower = c(0.8, 4.6, 2.4, 3.6)) |>
   gg_pointrange(
+    position = position_dodge(width = 0.2),
     x = trt,
     y = resp,
     col = group,
     ymin = lower,
     ymax = upper,
-    position = position_dodge(width = 0.2),
     size = 0.2,
     x_title = "Treatment",
     y_title = "Response",
