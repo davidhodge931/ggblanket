@@ -94,10 +94,10 @@ penguins |>
   drop_na(sex) |>
   mutate(across(sex, str_to_sentence)) |>
   gg_bar(
+    position = "dodge",
     y = species, 
     col = sex,
     width = 0.75,
-    position = "dodge",
   )
 ```
 
@@ -199,9 +199,9 @@ The default `snakecase::to_sentence` conversion can be turned off using `titles_
 ```{r, fig.asp=0.6}
 diamonds |>
   gg_hex(
+    coord = coord_cartesian(clip = "on"), 
     x = carat,
     y = price,
-    coord = coord_cartesian(clip = "on"), 
     y_limits = c(0, 20000),
   )
 ```
@@ -240,8 +240,8 @@ p1 <- d |>
     width = 0.1,
     x_title = "Treatment",
     y_title = "Response",
+    subtitle = "\nmode = light_mode_n(),",
     mode = light_mode_n(),
-    subtitle = "\nmode = light_mode_n(),"
   ) 
 
 p2 <- d |>
@@ -345,8 +345,8 @@ p1 <- d |>
     width = 0.1,
     x_title = "Treatment",
     y_title = "Response",
+    subtitle = "\nDefault y scale",
     mode = light_mode_n(),
-    subtitle = "\nDefault y scale"
   ) 
 
 p2 <- d |>
@@ -359,22 +359,22 @@ p2 <- d |>
     x_title = "Treatment",
     y_title = "Response",
     y_limits = c(NA, NA),
+    subtitle = "\ny_limits = c(NA, NA),",
     mode = light_mode_n(),
-    subtitle = "\ny_limits = c(NA, NA),"
   ) 
 
 p3 <- d |>
   gg_col(
+    position = "dodge",
     x = trt,
     y = upper,
     col = group,
-    position = "dodge",
     width = 0.5,
     x_title = "Treatment upper",
     y_title = "Response",
     y_limits = c(0, NA),
+    subtitle = "\ny_limits = c(0, NA),",
     mode = light_mode_n(),
-    subtitle = "\ny_limits = c(0, NA),"
   ) 
 
 p1 + p2 + p3
@@ -410,9 +410,9 @@ For coloured outlines where a `col` argument is specified, you might need to als
 ```{r, fig.asp=0.4}
 penguins |>
   gg_boxplot(
+    position = position_dodge2(preserve = "single"),
     x = flipper_length_mm,
     y = species,
-    position = position_dodge2(preserve = "single"),
     alpha_pal = 0, #or col_pal = scales::alpha(blue, 0),
   )
 ```
@@ -420,10 +420,10 @@ penguins |>
 ```{r}
 penguins |>
   gg_boxplot(
+    position = position_dodge2(preserve = "single"),
     x = species,
     y = flipper_length_mm,
     col = sex,
-    position = position_dodge2(preserve = "single"),
     alpha_pal = 0,
   )
 ```
