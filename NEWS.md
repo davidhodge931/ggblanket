@@ -1,4 +1,4 @@
-# ggblanket 5.9.9000
+# ggblanket 6.0.0
 
 * Rewrote code completely.
 * Exported `gg_blanket` function, which allows for a ggproto geom (or character string) to be added.
