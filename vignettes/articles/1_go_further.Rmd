@@ -34,8 +34,7 @@ This article will demonstrate a random assortment of content, including some of 
 12. Use `replace_seq` to keep every nth label
 13. Understand `oob` & `clip`
 14. Use delayed evaluation
-15. Use character inputs of variables in shiny apps
-16. Make custom `gg_*` wrapper functions
+15. Make custom `gg_*` wrapper functions
 
 ```{r setup}
 library(ggblanket)
@@ -549,22 +548,7 @@ faithfuld |>
   )
 ```
 
-### 15. Use character inputs of variables in shiny apps
-
-It can be useful in shiny apps to use character inputs of variables. This can be done using `.data`.
-
-```{r}
-x <- "flipper_length_mm"
-y <- "body_mass_g"
-
-penguins |> 
-  gg_point(
-    x = .data[[x]],
-    y = .data[[y]],
-  )
-```
-
-### 16. Make custom `gg_*` wrapper functions
+### 15. Make custom `gg_*` wrapper functions
 
 You may wish to make your own wrapper functions if you are continually adding the same defaults to your `gg_*` functions. 
 
