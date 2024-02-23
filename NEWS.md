@@ -1,6 +1,6 @@
 # ggblanket 6.0.0
 
-* Rewrote code completely.
+* Rewrote code completely. 
 * Exported `gg_blanket` function, which allows for a ggproto geom (or character string) to be added.
 * Added `aes_contrast` for a colour aesthetic that automatically contrasts with the fill aesthetic based on work by (@teunbrand, #649)
 ** Added `alpha` aesthetic support with new `alpha`, `alpha_pal` and `alpha_*` arguments.
