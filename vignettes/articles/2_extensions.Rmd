@@ -500,24 +500,6 @@ penguins |>
   labs(colour = "Species")
 ```
 
-### stars
-
-stars objects can be converted to tibbles, and visualised using `gg_raster`.  
-
-```{r}
-stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars")) |>
- tibble::as_tibble() |>
- gg_raster(
-   x = x,
-   y = y,
-   col = L7_ETMs.tif,
-   facet = band,
-   col_title = "L7 ETMs",
-  ) +
-  ggeasy::easy_remove_x_axis() +
-  ggeasy::easy_remove_y_axis() 
-```
-
 ### ggiraph
 
 The ggiraph package enables interactive plots.
