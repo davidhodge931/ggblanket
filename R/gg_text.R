@@ -21,11 +21,11 @@
 #'     y = mpg,
 #'     col = mpg,
 #'     label = model,
+#'     size = 11,
+#'     size.unit = "pt",
 #'     y_expand_limits = 0,
 #'     y_title = "Miles per gallon",
 #'     col_pal = c(orange, "white", teal),
-#'     size = 11,
-#'     size.unit = "pt",
 #'   )
 #'
 gg_text <- function(
