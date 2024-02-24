@@ -19,8 +19,6 @@
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = sex,
-#'     facet = species,
-#'     mode = light_mode_b(),
 #'   )
 #'
 gg_point <- function(

@@ -294,8 +294,9 @@ penguins |>
     position = position_dodge2(width = 0.75, preserve = "single"),
     vjust = 1.33,
     show.legend = FALSE,
+    size = 11, 
+    size.unit = "pt",
   ) 
-
 ```
 
 ```{r}
@@ -315,6 +316,8 @@ penguins |>
     position = position_dodge2(width = 0.75, preserve = "single"),
     hjust = 1.25,
     show.legend = FALSE,
+    size = 11, 
+    size.unit = "pt",
   )
 ```
 

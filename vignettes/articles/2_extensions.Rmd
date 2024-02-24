@@ -493,7 +493,7 @@ penguins |>
   labs(colour = "Gentoo\nBill length (mm)") +
   ggnewscale::new_scale_colour() +
   geom_point(
-    mapping = aes(x = flipper_length_mm, y = body_mass_g, colour = species), 
+    mapping = aes(colour = species), 
     data = penguins |> filter(species != "Gentoo"),
   ) +
   scale_color_manual(values = c(plum, orange)) +
