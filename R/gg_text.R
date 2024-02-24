@@ -21,7 +21,6 @@
 #'     y = mpg,
 #'     col = mpg,
 #'     label = model,
-#'     size = 3.53,
 #'     y_expand_limits = 0,
 #'     y_title = "Miles per gallon",
 #'     col_pal = c(orange, "white", teal),
