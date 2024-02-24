@@ -36,8 +36,6 @@ penguins |>
     mapping = aes(label = n, !!!aes_contrast(lightness)),
     position = position_dodge2(width = 0.75, preserve = "single"),
     vjust = 1.33,
-    size = 11,
-    size.unit = "pt",
     show.legend = FALSE,
   )
 
@@ -56,8 +54,6 @@ penguins |>
     mapping = aes(label = n, !!!aes_contrast(darkness)),
     position = position_dodge2(width = 0.75, preserve = "single"),
     hjust = 1.25,
-    size = 11,
-    size.unit = "pt",
     show.legend = FALSE,
   )
 }
