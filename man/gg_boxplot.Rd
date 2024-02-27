@@ -103,41 +103,7 @@ gg_boxplot(
 
 \item{mode}{A \verb{*_mode_*} theme (e.g. \code{\link[=grey_mode_b]{grey_mode_b()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}). This argument adds the theme with side-effects, as the \verb{gg_*} function will removes selected gridlines/axis-line/ticks. To avoid these side-effects, \code{+} the theme on to the output of \verb{gg_*}.}
 
-\item{x}{Unquoted \code{x} aesthetic variable.}
-
-\item{xmin}{Unquoted \code{xmin} aesthetic variable.}
-
-\item{xmax}{Unquoted \code{xmax} aesthetic variable.}
-
-\item{xend}{Unquoted \code{xend} aesthetic variable.}
-
-\item{y}{Unquoted \code{y} aesthetic variable.}
-
-\item{ymin}{Unquoted \code{ymin} aesthetic variable.}
-
-\item{ymax}{Unquoted \code{ymax} aesthetic variable.}
-
-\item{yend}{Unquoted \code{yend} aesthetic variable.}
-
-\item{z}{Unquoted \code{z} aesthetic variable.}
-
-\item{col}{Unquoted \code{col} aesthetic variable.}
-
-\item{alpha}{Unquoted \code{alpha} aesthetic variable.}
-
-\item{facet}{Unquoted \code{facet} aesthetic variable.}
-
-\item{facet2}{Unquoted \code{facet2} aesthetic variable.}
-
-\item{group}{Unquoted \code{group} aesthetic variable.}
-
-\item{subgroup}{Unquoted \code{subgroup} aesthetic variable.}
-
-\item{label}{Unquoted \code{label} aesthetic variable.}
-
-\item{text}{Unquoted \code{text} aesthetic variable.}
-
-\item{sample}{Unquoted \code{sample} aesthetic variable.}
+\item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, alpha, facet, facet2, group, subgroup, label, text, sample}{Unquoted aesthetic variable.}
 
 \item{mapping}{Set of additional aesthetic mappings within \code{\link[ggplot2:aes]{ggplot2::aes()}} for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}) or for delayed evaluation.}
 

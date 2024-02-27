@@ -9,25 +9,8 @@
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
 #' @param mode A `*_mode_*` theme (e.g. [grey_mode_b()], [grey_mode_r()], or [dark_mode_r()]). This argument adds the theme with side-effects, as the `gg_*` function will removes selected gridlines/axis-line/ticks. To avoid these side-effects, `+` the theme on to the output of `gg_*`.
-#' @param x Unquoted `x` aesthetic variable.
-#' @param xmin Unquoted `xmin` aesthetic variable.
-#' @param xmax Unquoted `xmax` aesthetic variable.
-#' @param xend Unquoted `xend` aesthetic variable.
-#' @param y Unquoted `y` aesthetic variable.
-#' @param ymin Unquoted `ymin` aesthetic variable.
-#' @param ymax Unquoted `ymax` aesthetic variable.
-#' @param yend Unquoted `yend` aesthetic variable.
-#' @param z Unquoted `z` aesthetic variable.
-#' @param col Unquoted `col` aesthetic variable.
-#' @param alpha Unquoted `alpha` aesthetic variable.
-#' @param facet Unquoted `facet` aesthetic variable.
-#' @param facet2 Unquoted `facet2` aesthetic variable.
-#' @param group Unquoted `group` aesthetic variable.
-#' @param subgroup Unquoted `subgroup` aesthetic variable.
-#' @param label Unquoted `label` aesthetic variable.
-#' @param text Unquoted `text` aesthetic variable.
-#' @param sample Unquoted `sample` aesthetic variable.
-#' @param mapping Set of additional aesthetic mappings within [ggplot2::aes()] for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`) or for delayed evaluation.
+#' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,alpha,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
+#' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()]. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
 #' @param x_breaks,y_breaks A `scales::breaks_*` function (e.g. [scales::breaks_pretty()]), or a vector of breaks.
 #' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
 #' @param x_expand_limits,y_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
