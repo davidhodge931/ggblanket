@@ -510,7 +510,7 @@ p <- diamonds |>
     x = color,
     y_expand_limits = 0,
     stat = "count", 
-    mode = light_mode_r(base_size = 9, base_family = "arial"),
+    mode = light_mode_r(base_size = 9),
   ) +
   ggiraph::geom_bar_interactive(
     mapping = aes(tooltip = after_stat(count), data_id = color), 
@@ -549,7 +549,7 @@ p <- diamonds |>
     text = text,
     width = 0.75,
     y_expand_limits = 0,
-    mode = light_mode_r(base_family = "arial"),
+    mode = light_mode_r(),
   )
 
 plotly::ggplotly(p, tooltip = "text")

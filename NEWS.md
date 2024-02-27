@@ -1,5 +1,6 @@
 # ggblanket 6.0.0.9000
 
+* Consolidated argument help.
 * Updated help for `*_limits`, `*_expand_limits` and `*_title`. 
 
 # ggblanket 6.0.0
