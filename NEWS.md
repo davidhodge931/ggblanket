@@ -1,6 +1,6 @@
 # ggblanket 6.0.0.9000
 
-* Updated help for `*_limits` and `*_expand_limits`. 
+* Updated help for `*_limits`, `*_expand_limits` and `*_title`. 
 
 # ggblanket 6.0.0
 
