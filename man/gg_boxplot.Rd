@@ -145,11 +145,11 @@ gg_boxplot(
 
 \item{x_expand, y_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 
-\item{x_expand_limits, y_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
+\item{x_expand_limits, y_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
 
 \item{x_labels, y_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
 
-\item{x_limits, y_limits}{A vector of length 2 to determine the limits of the axis.}
+\item{x_limits, y_limits}{For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with \code{factor}, \code{forcats::fct_expand} or \code{forcats::fct_drop}.}
 
 \item{x_oob, y_oob}{For a continuous scale variable, a \verb{scales::oob_*} function of how to handle values outside of limits. Defaults to \code{scales::oob_keep}.}
 
@@ -157,11 +157,11 @@ gg_boxplot(
 
 \item{x_title, y_title}{Axis title string. Use \code{""} for no title.}
 
-\item{x_transform, y_transform}{For a numeric scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
+\item{x_transform, y_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
 
 \item{col_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
 
-\item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
+\item{col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
 
 \item{col_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
 
@@ -169,7 +169,7 @@ gg_boxplot(
 
 \item{col_legend_rev}{Reverse the elements of the legend guide. Defaults to \code{FALSE}.}
 
-\item{col_limits}{A vector of length 2 to determine the limits of the axis.}
+\item{col_limits}{For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with \code{factor}, \code{forcats::fct_expand} or \code{forcats::fct_drop}.}
 
 \item{col_oob}{For a continuous scale variable, a \verb{scales::oob_*} function of how to handle values outside of limits. Defaults to \code{scales::oob_keep}.}
 
@@ -187,7 +187,7 @@ gg_boxplot(
 
 \item{alpha_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
 
-\item{alpha_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}).}
+\item{alpha_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
 
 \item{alpha_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels.}
 
@@ -195,7 +195,7 @@ gg_boxplot(
 
 \item{alpha_legend_rev}{Reverse the elements of the legend guide. Defaults to \code{FALSE}.}
 
-\item{alpha_limits}{A vector of length 2 to determine the limits of the axis.}
+\item{alpha_limits}{For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with \code{factor}, \code{forcats::fct_expand} or \code{forcats::fct_drop}.}
 
 \item{alpha_oob}{For a continuous scale variable, a \verb{scales::oob_*} function of how to handle values outside of limits. Defaults to \code{scales::oob_keep}.}
 
