@@ -127,7 +127,7 @@ gg_sf(
 
 \item{col_legend_ncol, col_legend_nrow, alpha_legend_ncol, alpha_legend_nrow}{The number of columns and rows in a legend guide.}
 
-\item{col_legend_rev, alpha_legend_rev}{Reverse the elements of a legend guide. Defaults to \code{FALSE}.}
+\item{col_legend_rev, alpha_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
 
 \item{col_pal}{Colours to use. A character vector of hex codes (or names).}
 
@@ -135,7 +135,7 @@ gg_sf(
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
-\item{col_steps}{For a continuous variable, TRUE or FALSE of whether to colour in steps. Defaults to \code{FALSE}, which colours in a gradient.}
+\item{col_steps}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
 
 \item{alpha_pal}{Alpha values to use. For a continuous variable, a vector of length 2 between 0 and 1. For a discrete variable, a vector of integers between 0 and 1.}
 

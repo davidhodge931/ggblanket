@@ -21,11 +21,11 @@
 #' @param x_title,y_title,col_title,alpha_title Axis title string. Use `+ ggplot2::labs(... = NULL)` for no title.
 #' @param x_transform,y_transform,col_transform,alpha_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param col_legend_ncol,col_legend_nrow,alpha_legend_ncol,alpha_legend_nrow The number of columns and rows in a legend guide.
-#' @param col_legend_rev,alpha_legend_rev Reverse the elements of a legend guide. Defaults to `FALSE`.
+#' @param col_legend_rev,alpha_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
 #' @param col_pal Colours to use. A character vector of hex codes (or names).
 #' @param col_pal_na Colour to use for `NA` values. A character vector of a hex code (or name).
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
-#' @param col_steps For a continuous variable, TRUE or FALSE of whether to colour in steps. Defaults to `FALSE`, which colours in a gradient.
+#' @param col_steps For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
 #' @param alpha_pal Alpha values to use. For a continuous variable, a vector of length 2 between 0 and 1. For a discrete variable, a vector of integers between 0 and 1.
 #' @param alpha_pal_na Alpha value to use for the `NA` value. A integer between 0 and 1.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
@@ -36,7 +36,6 @@
 #' @param facet_ncol,facet_nrow The number of columns and rows of facet panels. Only applies to a facet layout of `"wrap"`.
 #' @param facet_scales Whether facet scales should be `"fixed"` across facets, `"free"` in both directions, or free in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
 #' @param facet_space When the facet layout is `"grid"` and facet scales are not `"fixed"`, whether facet space should be `"fixed"` across facets, `"free"` to be proportional in both directions, or free to be proportional in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
-
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
@@ -1342,7 +1341,7 @@ gg_blanket <- function(
         if (rlang::is_null(col_pal)) {
           col_pal <- col_pal_discrete(n = col_n)
         }
-        else col_pal <- col_pal[1:col_n]
+        else if (!rlang::is_named(col_pal)) col_pal <- col_pal[1:col_n]
       }
       else { #guess anything that's ordered represents col,
         #as there is a discrete col scale and no col variable supplied
@@ -1361,7 +1360,7 @@ gg_blanket <- function(
           if (rlang::is_null(col_pal)) {
             col_pal <- col_pal_continuous(n = col_n)
           }
-          else col_pal <- col_pal[1:col_n]
+          else if (!rlang::is_named(col_pal)) col_pal <- col_pal[1:col_n]
 
           col_legend_rev <- !col_legend_rev
         }
