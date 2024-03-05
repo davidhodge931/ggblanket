@@ -1,7 +1,7 @@
 # ggblanket 6.0.0.9000
 
 * Fixed bug to support use of a named `col_pal`.
-* Consolidated argument help.
+* Fixed bug when positional scale reversed with `*_expand_limits`. 
 * Updated help for `*_limits`, `*_expand_limits` and `*_title`. 
 
 # ggblanket 6.0.0
