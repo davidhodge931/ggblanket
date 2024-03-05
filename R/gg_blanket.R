@@ -8,7 +8,7 @@
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
-#' @param mode A `*_mode_*` theme (e.g. [grey_mode_b()], [grey_mode_r()], or [dark_mode_r()]). This argument adds the theme with side-effects, as the `gg_*` function will removes selected gridlines/axis-line/ticks. To avoid these side-effects, `+` the theme on to the output of `gg_*`.
+#' @param mode A `*_mode_*` theme (e.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()]). This argument adds the theme with side-effects, as the `gg_*` function will removes selected gridlines/axis-line/ticks. To avoid these side-effects, `+` the theme on to the output of `gg_*`.
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,alpha,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()]. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
 #' @param x_breaks,y_breaks,col_breaks,alpha_breaks A `scales::breaks_*` function (e.g. [scales::breaks_pretty()]), or a vector of breaks.
@@ -1667,10 +1667,7 @@ gg_blanket <- function(
           dplyr::pull(.data$value)
 
         if (!rlang::is_null(x_expand_limits)) {
-          if (any(x_transform_name %in% "reverse")) {
-            x_vctr <- c(x_vctr, x_expand_limits * -1)
-          }
-          else x_vctr <- c(x_vctr, x_expand_limits)
+          x_vctr <- c(x_vctr, x_expand_limits)
         }
 
         if (x_hms) x_vctr <- hms::as_hms(x_vctr)
@@ -1850,10 +1847,7 @@ gg_blanket <- function(
           dplyr::pull(.data$value)
 
         if (!rlang::is_null(y_expand_limits)) {
-          if (any(y_transform_name %in% "reverse")) {
-            y_vctr <- c(y_vctr, y_expand_limits * -1)
-          }
-          else y_vctr <- c(y_vctr, y_expand_limits)
+          y_vctr <- c(y_vctr, y_expand_limits)
         }
 
         if (y_hms) y_vctr <- hms::as_hms(y_vctr)
