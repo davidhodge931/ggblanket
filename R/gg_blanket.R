@@ -1648,9 +1648,9 @@ gg_blanket <- function(
         x_vars_str <- "^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$"
 
         x_vctr <- plot_data %>%
-          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(x_vars_str)), function(x) !is.na(x))) %>%
           dplyr::select(tidyselect::matches(stringr::regex(x_vars_str))) %>%
           tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+          dplyr::filter(!is.na(.data$value)) %>%
           dplyr::pull(.data$value)
 
         if (!rlang::is_null(x_expand_limits)) {
@@ -1815,9 +1815,9 @@ gg_blanket <- function(
         y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
 
         y_vctr <- plot_data %>%
-          dplyr::filter(dplyr::if_any(tidyselect::matches(stringr::regex(y_vars_str)), function(x) !is.na(x))) %>%
           dplyr::select(tidyselect::matches(stringr::regex(y_vars_str))) %>%
           tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+          dplyr::filter(!is.na(.data$value)) %>%
           dplyr::pull(.data$value)
 
         if (!rlang::is_null(y_expand_limits)) {
