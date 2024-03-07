@@ -1627,7 +1627,12 @@ gg_blanket <- function(
         !any(x_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
         !rlang::is_null(x_expand)) {
 
-      if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
+      if (rlang::is_null(x_expand)) {
+        if (any(colnames(plot_data) %in% "xmin")) {
+          if (all(plot_data["xmin"] == 0)) x_expand <- ggplot2::expansion(c(0, 0.05))
+          else x_expand <- ggplot2::waiver()
+        } else x_expand <- ggplot2::waiver()
+      }
 
       if (rlang::is_null(x_breaks)) {
         if (any(stringr::str_detect(x_transform_name, "log-")) |
@@ -1794,7 +1799,12 @@ gg_blanket <- function(
         !any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
         !rlang::is_null(y_expand)) {
 
-      if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
+      if (rlang::is_null(y_expand)) {
+        if (any(colnames(plot_data) %in% "ymin")) {
+          if (all(plot_data["ymin"] == 0)) y_expand <- ggplot2::expansion(c(0, 0.05))
+          else y_expand <- ggplot2::waiver()
+        } else y_expand <- ggplot2::waiver()
+      }
 
       if (rlang::is_null(y_breaks)) {
         if (any(stringr::str_detect(y_transform_name, "log-")) |
