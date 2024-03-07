@@ -16,7 +16,7 @@
 #' @param x_expand_limits,y_expand_limits,col_expand_limits,alpha_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
 #' @param x_labels,y_labels,col_labels,alpha_labels,facet_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or [scales::label_comma()]), or a vector of labels (Note this must be named for `facet_labels`).
 #' @param x_limits,y_limits,col_limits,alpha_limits For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with `factor`, `forcats::fct_expand` or `forcats::fct_drop`.
-#' @param x_oob,y_oob,col_oob,alpha_oob For a continuous scale variable, a `scales::oob_*` function of how to handle values outside of limits. Defaults to `scales::oob_keep`.
+#' @param x_oob,y_oob,col_oob,alpha_oob For a continuous scale, a `scales::oob_*` function of how to handle values outside of limits. Defaults to `scales::oob_keep`.
 #' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_mode_*` theme, add `caption = ""` or `caption = "\n"`.
 #' @param x_title,y_title,col_title,alpha_title Axis title string. Use `+ ggplot2::labs(... = NULL)` for no title.
 #' @param x_transform,y_transform,col_transform,alpha_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
