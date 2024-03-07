@@ -1630,6 +1630,7 @@ gg_blanket <- function(
       if (rlang::is_null(x_expand)) {
         if (any(colnames(plot_data) %in% "xmin")) {
           if (all(plot_data["xmin"] == 0)) x_expand <- ggplot2::expansion(c(0, 0.05))
+          else if (all(plot_data["xmax"] == 0)) x_expand <- ggplot2::expansion(c(0.05, 0))
           else x_expand <- ggplot2::waiver()
         } else x_expand <- ggplot2::waiver()
       }
@@ -1802,6 +1803,7 @@ gg_blanket <- function(
       if (rlang::is_null(y_expand)) {
         if (any(colnames(plot_data) %in% "ymin")) {
           if (all(plot_data["ymin"] == 0)) y_expand <- ggplot2::expansion(c(0, 0.05))
+          else if (all(plot_data["ymax"] == 0)) y_expand <- ggplot2::expansion(c(0.05, 0))
           else y_expand <- ggplot2::waiver()
         } else y_expand <- ggplot2::waiver()
       }
