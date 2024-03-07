@@ -1639,19 +1639,6 @@ gg_blanket <- function(
         }
       }
     }
-    #make binned scales correct when a non-identity transform selected
-    else if (flipped &
-             stringr::str_detect(stat_name, "bin") &
-             !identical(y_transform_name, "identity")) {
-
-      if (rlang::is_null(x_expand)) x_expand <- ggplot2::expansion(mult = c(0, 0.05))
-
-      if (rlang::is_null(x_breaks)) {
-        x_breaks <- scales::breaks_pretty(n = x_breaks_n)
-      }
-
-      if (rlang::is_null(x_limits)) x_limits <- c(0, NA)
-    }
     #get x_limits and x_breaks for complex situation
     else {
       if (!rlang::is_null(x_limits)) {
@@ -1818,19 +1805,6 @@ gg_blanket <- function(
           y_breaks <- scales::breaks_pretty(n = y_breaks_n)
         }
       }
-    }
-    #make binned scales correct when a non-identity transform selected
-    else if (!flipped &
-             stringr::str_detect(stat_name, "bin") &
-             !identical(x_transform_name, "identity")) {
-
-      if (rlang::is_null(y_expand)) y_expand <- ggplot2::expansion(mult = c(0, 0.05))
-
-      if (rlang::is_null(y_breaks)) {
-        y_breaks <- scales::breaks_pretty(n = y_breaks_n)
-      }
-
-      if (rlang::is_null(y_limits)) y_limits <- c(0, NA)
     }
     #get y_limits and y_breaks for complex situation
     else {
