@@ -3,7 +3,6 @@
 * Improved `*_expand` defaults for histograms and bar graphs etc.
 * Fixed bug to support use of a named `col_pal`.
 * Fixed bug when positional scale reversed with `*_expand_limits`. 
-* Updated help for `*_limits`, `*_expand_limits` and `*_title`. 
 
 # ggblanket 6.0.0
 
