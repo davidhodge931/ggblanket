@@ -1651,7 +1651,7 @@ gg_blanket <- function(
         if (rlang::is_null(x_breaks)) x_breaks <- scales::breaks_pretty(n = x_breaks_n)
       }
       else {
-        x_vars_str <- "^x$|^xmin$|^xmax$|^xend$|^xmin_final$|^xmax_final$"
+        x_vars_str <- "^x(?!id)" #starts with x & not xid (which is used in geom_boxplot etc)
 
         x_vctr <- plot_data %>%
           dplyr::select(tidyselect::matches(stringr::regex(x_vars_str))) %>%
@@ -1824,7 +1824,7 @@ gg_blanket <- function(
         if (rlang::is_null(y_breaks)) y_breaks <- scales::breaks_pretty(n = y_breaks_n)
       }
       else {
-        y_vars_str <- "^y$|^ymin$|^ymax$|^yend$|^ymin_final$|^ymax_final$"
+        y_vars_str <- "^y(?!id)" #starts with y & not yid (which is used in geom_boxplot etc)
 
         y_vctr <- plot_data %>%
           dplyr::select(tidyselect::matches(stringr::regex(y_vars_str))) %>%
