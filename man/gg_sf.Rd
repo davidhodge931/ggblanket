@@ -21,7 +21,6 @@ gg_sf(
   yend = NULL,
   z = NULL,
   col = NULL,
-  alpha = NULL,
   facet = NULL,
   facet2 = NULL,
   group = NULL,
@@ -62,18 +61,6 @@ gg_sf(
   col_steps = FALSE,
   col_title = NULL,
   col_transform = NULL,
-  alpha_breaks = NULL,
-  alpha_expand_limits = NULL,
-  alpha_labels = NULL,
-  alpha_legend_ncol = NULL,
-  alpha_legend_nrow = NULL,
-  alpha_legend_rev = FALSE,
-  alpha_limits = NULL,
-  alpha_oob = scales::oob_keep,
-  alpha_pal = NULL,
-  alpha_pal_na = NA,
-  alpha_title = NULL,
-  alpha_transform = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
   facet_labels = NULL,
@@ -103,31 +90,31 @@ gg_sf(
 
 \item{mode}{A \verb{*_mode_*} theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}). This argument adds the theme with side-effects, as the \verb{gg_*} function will removes selected gridlines/axis-line/ticks. To avoid these side-effects, \code{+} the theme on to the output of \verb{gg_*}.}
 
-\item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, alpha, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
+\item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}}. Intended primarily for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}), but can also be used for delayed evaluation etc.}
 
-\item{x_breaks, y_breaks, col_breaks, alpha_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
+\item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \code{\link[scales:breaks_pretty]{scales::breaks_pretty()}}), or a vector of breaks.}
 
 \item{x_expand, y_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 
-\item{x_expand_limits, y_expand_limits, col_expand_limits, alpha_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
+\item{x_expand_limits, y_expand_limits, col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
 
-\item{x_labels, y_labels, col_labels, alpha_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels (Note this must be named for \code{facet_labels}).}
+\item{x_labels, y_labels, col_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \code{\link[scales:label_number]{scales::label_comma()}}), or a vector of labels (Note this must be named for \code{facet_labels}).}
 
-\item{x_limits, y_limits, col_limits, alpha_limits}{For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with \code{factor}, \code{forcats::fct_expand} or \code{forcats::fct_drop}.}
+\item{x_limits, y_limits, col_limits}{For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with \code{factor}, \code{forcats::fct_expand} or \code{forcats::fct_drop}.}
 
-\item{x_oob, y_oob, col_oob, alpha_oob}{For a continuous scale, a \verb{scales::oob_*} function of how to handle values outside of limits. Defaults to \code{scales::oob_keep}.}
+\item{x_oob, y_oob, col_oob}{For a continuous scale, a \verb{scales::oob_*} function of how to handle values outside of limits. Defaults to \code{scales::oob_keep}.}
 
 \item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_mode_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 
-\item{x_title, y_title, col_title, alpha_title}{Axis title string. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
+\item{x_title, y_title, col_title}{Axis title string. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
 
-\item{x_transform, y_transform, col_transform, alpha_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
+\item{x_transform, y_transform, col_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
 
-\item{col_legend_ncol, col_legend_nrow, alpha_legend_ncol, alpha_legend_nrow}{The number of columns and rows in a legend guide.}
+\item{col_legend_ncol, col_legend_nrow}{The number of columns and rows in a legend guide.}
 
-\item{col_legend_rev, alpha_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
+\item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
 
 \item{col_pal}{Colours to use. A character vector of hex codes (or names).}
 
@@ -136,10 +123,6 @@ gg_sf(
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
 \item{col_steps}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
-
-\item{alpha_pal}{Alpha values to use. For a continuous variable, a vector of length 2 between 0 and 1. For a discrete variable, a vector of integers between 0 and 1.}
-
-\item{alpha_pal_na}{Alpha value to use for the \code{NA} value. A integer between 0 and 1.}
 
 \item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
 

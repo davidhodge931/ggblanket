@@ -509,17 +509,17 @@ test_name <- "gg_ribbon"
 
 test_that(test_name, {
   p <- data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
-    dplyr::mutate(level_min = level - 1, level_max = level + 1) |>
+    mutate(level_min = level - 1, level_max = level + 1) |>
     gg_ribbon(
       x = year,
       ymin = level_min,
       ymax = level_max,
+      colour = NA,
+      x_labels = \(x) x,
       y_title = "Level",
-      col_pal = scales::alpha(blue, 0),
     ) +
     geom_line(
-      mapping = aes(x = year, y = level),
-      colour = blue
+      mapping = aes(y = level),
     )
 
   vdiffr::expect_doppelganger(test_name, p)

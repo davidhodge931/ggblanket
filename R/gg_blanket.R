@@ -9,25 +9,23 @@
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
 #' @param mode A `*_mode_*` theme (e.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()]). This argument adds the theme with side-effects, as the `gg_*` function will removes selected gridlines/axis-line/ticks. To avoid these side-effects, `+` the theme on to the output of `gg_*`.
-#' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,alpha,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
+#' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()]. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
-#' @param x_breaks,y_breaks,col_breaks,alpha_breaks A `scales::breaks_*` function (e.g. [scales::breaks_pretty()]), or a vector of breaks.
+#' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. [scales::breaks_pretty()]), or a vector of breaks.
 #' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
-#' @param x_expand_limits,y_expand_limits,col_expand_limits,alpha_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
-#' @param x_labels,y_labels,col_labels,alpha_labels,facet_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or [scales::label_comma()]), or a vector of labels (Note this must be named for `facet_labels`).
-#' @param x_limits,y_limits,col_limits,alpha_limits For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with `factor`, `forcats::fct_expand` or `forcats::fct_drop`.
-#' @param x_oob,y_oob,col_oob,alpha_oob For a continuous scale, a `scales::oob_*` function of how to handle values outside of limits. Defaults to `scales::oob_keep`.
+#' @param x_expand_limits,y_expand_limits,col_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
+#' @param x_labels,y_labels,col_labels,facet_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or [scales::label_comma()]), or a vector of labels (Note this must be named for `facet_labels`).
+#' @param x_limits,y_limits,col_limits For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with `factor`, `forcats::fct_expand` or `forcats::fct_drop`.
+#' @param x_oob,y_oob,col_oob For a continuous scale, a `scales::oob_*` function of how to handle values outside of limits. Defaults to `scales::oob_keep`.
 #' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_mode_*` theme, add `caption = ""` or `caption = "\n"`.
-#' @param x_title,y_title,col_title,alpha_title Axis title string. Use `+ ggplot2::labs(... = NULL)` for no title.
-#' @param x_transform,y_transform,col_transform,alpha_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
-#' @param col_legend_ncol,col_legend_nrow,alpha_legend_ncol,alpha_legend_nrow The number of columns and rows in a legend guide.
-#' @param col_legend_rev,alpha_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
+#' @param x_title,y_title,col_title Axis title string. Use `+ ggplot2::labs(... = NULL)` for no title.
+#' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
+#' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
+#' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
 #' @param col_pal Colours to use. A character vector of hex codes (or names).
 #' @param col_pal_na Colour to use for `NA` values. A character vector of a hex code (or name).
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
 #' @param col_steps For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
-#' @param alpha_pal Alpha values to use. For a continuous variable, a vector of length 2 between 0 and 1. For a discrete variable, a vector of integers between 0 and 1.
-#' @param alpha_pal_na Alpha value to use for the `NA` value. A integer between 0 and 1.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' @param facet_labels_position When the facet layout is `"wrap"`, the position of the facet labels. Either `"top"`, `"right"`, `"bottom"` or `"left"`.
@@ -81,7 +79,6 @@ gg_blanket <- function(
     yend = NULL,
     z = NULL,
     col = NULL,
-    alpha = NULL,
     facet = NULL,
     facet2 = NULL,
     group = NULL,
@@ -132,23 +129,50 @@ gg_blanket <- function(
     facet_nrow = NULL,
     facet_scales = "fixed",
     facet_space = "fixed",
-    alpha_breaks = NULL,
-    alpha_expand_limits = NULL,
-    alpha_labels = NULL,
-    alpha_legend_ncol = NULL,
-    alpha_legend_nrow = NULL,
-    alpha_legend_rev = FALSE,
-    alpha_limits = NULL,
-    alpha_oob = scales::oob_keep,
-    alpha_pal = NULL,
-    alpha_pal_na = NA,
-    alpha_title = NULL,
-    alpha_transform = NULL,
     title = NULL,
     subtitle = NULL,
     caption = NULL,
     titles_to_case = snakecase::to_sentence_case
 ) {
+
+  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = "#121B24", alpha = 1, linewidth = 11/33))
+  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = "#121B24", alpha = 1, linewidth = 11/33))
+  ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = "#121B24", alpha = 1, linewidth = 11/33))
+
+  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("area", ggplot2::aes(colour = blue, fill = blue, alpha = 0.9))
+  ggplot2::update_geom_defaults("bar", ggplot2::aes(colour = blue, fill = blue, alpha = 0.9))
+  ggplot2::update_geom_defaults("boxplot", ggplot2::aes(colour = blue, fill = blue, alpha = 0.5))
+  ggplot2::update_geom_defaults("col", ggplot2::aes(colour = blue, fill = blue, alpha = 0.9))
+  ggplot2::update_geom_defaults("contour", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("contour_filled", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("crossbar", ggplot2::aes(colour = blue, fill = blue, alpha = 0.5))
+  ggplot2::update_geom_defaults("density", ggplot2::aes(colour = blue, fill = blue, alpha = 0.5))
+  ggplot2::update_geom_defaults("density2d", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("density_2d_filled", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("errorbar", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("function", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("hex", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = blue, fill = blue, alpha = 0.1))
+  ggplot2::update_geom_defaults("line", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("linerange", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("path", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("point", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("pointrange", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("polygon", ggplot2::aes(colour = blue, fill = blue, alpha = 0.9))
+  ggplot2::update_geom_defaults("quantile", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("raster", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("rect", ggplot2::aes(colour = blue, fill = blue, alpha = 0.9))
+  ggplot2::update_geom_defaults("ribbon", ggplot2::aes(colour = blue, fill = blue, alpha = 0.33))
+  ggplot2::update_geom_defaults("rug", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("segment", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("sf", ggplot2::aes(colour = blue, fill = blue, alpha = 0.9))
+  ggplot2::update_geom_defaults("smooth", ggplot2::aes(colour = blue, fill = blue, alpha = 0.33))
+  ggplot2::update_geom_defaults("spoke", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("step", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = blue, fill = blue, alpha = 1))
+  ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = blue, fill = blue, alpha = 0.9))
+  ggplot2::update_geom_defaults("violin", ggplot2::aes(colour = blue, fill = blue, alpha = 0.9))
 
   ##############################################################################
   #quote
@@ -171,7 +195,6 @@ gg_blanket <- function(
   label <- rlang::enquo(label)
   text <- rlang::enquo(text)
   sample <- rlang::enquo(sample)
-  alpha <- rlang::enquo(alpha)
 
   ##############################################################################
   #stop, warn and inform
@@ -466,19 +489,19 @@ gg_blanket <- function(
     dplyr::mutate(dplyr::across(
       c(!!x, !!xmin, !!xmax, !!xend,
         !!y, !!ymin, !!ymax, !!yend,
-        !!col, !!alpha, !!facet, !!facet2,
+        !!col, !!facet, !!facet2,
         !!group, !!subgroup, !!label, !!sample),
       na_if_inf)) %>%
     #convert logicals to factors
     dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
                                   !!y, !!ymin, !!ymax, !!yend,
-                                  !!col, !!alpha, !!facet, !!facet2) &
+                                  !!col, !!facet, !!facet2) &
                                   tidyselect::where(is.logical), function(x)
                                     factor(x, levels = c(TRUE, FALSE)))) %>%
     #convert characters to factors
     dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
                                   !!y, !!ymin, !!ymax, !!yend,
-                                  !!col, !!alpha, !!facet, !!facet2) &
+                                  !!col, !!facet, !!facet2) &
                                   tidyselect::where(is.character), function(x)
                                     factor(x))) %>%
     #reverse y*, so that reads top low-levels to bottom high-levels
@@ -506,336 +529,168 @@ gg_blanket <- function(
   # add ggplot() with aesthetics
   ##############################################################################
 
-  if (rlang::quo_is_null(alpha)) {
-    if (rlang::quo_is_null(col)) {
-      if (!x_null & !y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            x = !!x,
-            y = !!y,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            !!!mapping
-          ))
-      }
-      else if (!x_null & y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            x = !!x,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            !!!mapping
-          ))
-      }
-      else if (x_null & !y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            y = !!y,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            !!!mapping
-          ))
-      }
-      else if (x_null & y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            !!!mapping
-          ))
-      }
+  if (rlang::quo_is_null(col)) {
+    if (!x_null & !y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          x = !!x,
+          y = !!y,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          text = !!text,
+          !!!mapping
+        ))
     }
-    else {
-      if (!x_null & !y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            x = !!x,
-            y = !!y,
-            col = !!col,
-            fill = !!col,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            !!!mapping
-          ))
-      }
-      else if (!x_null & y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            x = !!x,
-            col = !!col,
-            fill = !!col,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            !!!mapping
-          ))
-      }
-      else if (x_null & !y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            y = !!y,
-            col = !!col,
-            fill = !!col,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            !!!mapping
-          ))
-      }
-      else if (x_null & y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            col = !!col,
-            fill = !!col,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            !!!mapping
-          ))
-      }
+    else if (!x_null & y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          x = !!x,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          text = !!text,
+          !!!mapping
+        ))
+    }
+    else if (x_null & !y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          y = !!y,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          text = !!text,
+          !!!mapping
+        ))
+    }
+    else if (x_null & y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          text = !!text,
+          !!!mapping
+        ))
     }
   }
   else {
-    if (rlang::quo_is_null(col)) {
-      if (!x_null & !y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            x = !!x,
-            y = !!y,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            alpha = !!alpha, !!!mapping
-          ))
-      }
-      else if (!x_null & y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            x = !!x,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            alpha = !!alpha, !!!mapping
-          ))
-      }
-      else if (x_null & !y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            y = !!y,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            alpha = !!alpha, !!!mapping
-          ))
-      }
-      else if (x_null & y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            alpha = !!alpha, !!!mapping
-          ))
-      }
+    if (!x_null & !y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          x = !!x,
+          y = !!y,
+          col = !!col,
+          fill = !!col,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          text = !!text,
+          !!!mapping
+        ))
     }
-    else {
-      if (!x_null & !y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            x = !!x,
-            y = !!y,
-            col = !!col,
-            fill = !!col,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            alpha = !!alpha, !!!mapping
-          ))
-      }
-      else if (!x_null & y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            x = !!x,
-            col = !!col,
-            fill = !!col,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            alpha = !!alpha, !!!mapping
-          ))
-      }
-      else if (x_null & !y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            y = !!y,
-            col = !!col,
-            fill = !!col,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            alpha = !!alpha, !!!mapping
-          ))
-      }
-      else if (x_null & y_null) {
-        plot <- data %>%
-          ggplot2::ggplot(mapping = ggplot2::aes(
-            col = !!col,
-            fill = !!col,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-            alpha = !!alpha, !!!mapping
-          ))
-      }
+    else if (!x_null & y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          x = !!x,
+          col = !!col,
+          fill = !!col,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          text = !!text,
+          !!!mapping
+        ))
+    }
+    else if (x_null & !y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          y = !!y,
+          col = !!col,
+          fill = !!col,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          text = !!text,
+          !!!mapping
+        ))
+    }
+    else if (x_null & y_null) {
+      plot <- data %>%
+        ggplot2::ggplot(mapping = ggplot2::aes(
+          col = !!col,
+          fill = !!col,
+          xmin = !!xmin,
+          xmax = !!xmax,
+          xend = !!xend,
+          ymin = !!ymin,
+          ymax = !!ymax,
+          yend = !!yend,
+          z = !!z,
+          group = !!group,
+          subgroup = !!subgroup,
+          sample = !!sample,
+          label = !!label,
+          text = !!text,
+          !!!mapping
+        ))
     }
   }
 
@@ -1061,7 +916,7 @@ gg_blanket <- function(
   if (stringr::str_detect(stat_name, "sf")) {
     if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
 
-    plot1 <- plot +
+    plot <- plot +
       ggplot2::layer_sf(
         geom = geom,
         stat = stat,
@@ -1075,7 +930,7 @@ gg_blanket <- function(
   else {
     if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
 
-    plot1 <- plot +
+    plot <- plot +
       ggplot2::layer(
         geom = geom,
         stat = stat,
@@ -1091,14 +946,14 @@ gg_blanket <- function(
   # Get plot build and data
   ##############################################################################
 
-  plot_build <- ggplot2::ggplot_build(plot1)
+  plot_build <- ggplot2::ggplot_build(plot)
   plot_data <- plot_build$data[[1]]
 
   facet_nrows <- length(unique(plot_build$layout$layout$ROW))
   facet_ncols <- length(unique(plot_build$layout$layout$COL))
 
   ##############################################################################
-  # Detect whether the plot has a col or alpha scale
+  # Detect whether the plot has a col scale
   ##############################################################################
 
   #sf seems to document scales differently, and this fixes
@@ -1112,16 +967,6 @@ gg_blanket <- function(
       is_col_continuous <- FALSE
     }
     else is_col_continuous <- NA
-
-    if (class(rlang::eval_tidy(alpha, data)) %in%
-        c("numeric", "double", "integer","Date", "POSIXct","hms")) {
-      is_alpha_continuous <- TRUE
-    }
-    else if (class(rlang::eval_tidy(alpha, data)) %in%
-             c("character", "logical", "factor")) {
-      is_alpha_continuous <- FALSE
-    }
-    else is_alpha_continuous <- NA
   }
   #support where col is null, but there is a colour scale
   else {
@@ -1133,84 +978,50 @@ gg_blanket <- function(
     if (any(scales %in% continuous_scales_col)) is_col_continuous <- TRUE
     else if (any(scales %in% discrete_scales_col)) is_col_continuous <- FALSE
     else is_col_continuous <- NA
-
-    if (any(scales %in% continuous_scales_alpha)) is_alpha_continuous <- TRUE
-    else if (any(scales %in% discrete_scales_alpha)) is_alpha_continuous <- FALSE
-    else is_alpha_continuous <- NA
   }
 
   ##############################################################################
-  # Remake the plot where there is either no col or no alpha scale identified
+  # Remake the plot where there is either no col scale identified
   ##############################################################################
 
-  #get params for when no col or alpha aesthetic
+  #get params for when no col aesthetic
   if (is.na(is_col_continuous)) {
     if (rlang::is_null(col_pal)) col_pal1 <- col_pal_discrete(n = 1)
     else col_pal1 <- col_pal[1]
-  }
 
-  if (is.na(is_alpha_continuous)) {
-    if (rlang::is_null(alpha_pal)) {
-      #points or lines.
-      if (geom_name %in% c("contour", "density_2d", "density2d", "errorbar", "line", "linerange", "point", "pointrange", "segment", "step", "text")) alpha_pal1 <- 1
-      #Polygons that generally have no gap or overlap
-      else if (geom_name %in% c("bin_2d", "bin2d", "contour_filled", "density_2d_filled", "density2d_filled", "hex", "raster")) alpha_pal1 <- 1
-      #Polygons that generally have key lines within them also default to 0.5
-      else if (geom_name %in% c("boxplot", "crossbar", "density", "ribbon", "smooth")) alpha_pal1 <- 0.5
-      #Other polygons
-      else if (geom_name %in% c("area", "bar", "col", "histogram", "polygon", "rect", "tile", "violin")) alpha_pal1 <- 0.9
-      #labels
-      else if (geom_name == "label") alpha_pal1 <- 0.1
-      #sf
-      else if (geom_name %in% c("sf")) alpha_pal1 <- 0.9
-      #Blank
-      else if (geom_name %in% c("blank")) alpha_pal1 <- NA
-      #Everything else
-      else alpha_pal1 <- 0.9
-    }
-    else alpha_pal1 <- alpha_pal[1]
-  }
-
-  if ((is.na(is_col_continuous)) & (is.na(is_alpha_continuous))) {
-    params_list <- rlang::list2(contour = contour, colour = col_pal1, fill = col_pal1, alpha = alpha_pal1, ...)
-  }
-  else if (is.na(is_col_continuous)) {
     params_list <- rlang::list2(contour = contour, colour = col_pal1, fill = col_pal1, ...)
-  }
-  else if (is.na(is_alpha_continuous)) {
-    params_list <- rlang::list2(contour = contour, alpha = alpha_pal1, ...)
-  }
 
-  #remake plot where either no col or alpha aesthetic
-  if (is.na(is_col_continuous) | is.na(is_alpha_continuous)) {
-    if (stringr::str_detect(stat_name, "sf")) {
-      plot <- plot +
-        ggplot2::layer_sf(
-          geom = geom,
-          stat = stat,
-          position = position,
-          params = params_list,
-          show.legend = show_legend,
-        ) +
-        coord +
-        mode
+    #remake plot where either no col aesthetic
+    if (is.na(is_col_continuous)) {
+      if (stringr::str_detect(stat_name, "sf")) {
+        plot <- plot +
+          ggplot2::layer_sf(
+            geom = geom,
+            stat = stat,
+            position = position,
+            params = params_list,
+            show.legend = show_legend,
+          ) +
+          coord +
+          mode
+      }
+      else {
+        plot <- plot +
+          ggplot2::layer(
+            geom = geom,
+            stat = stat,
+            position = position,
+            params = params_list,
+            show.legend = show_legend,
+          ) +
+          coord +
+          mode
+      }
     }
+    #revert back to the original plot where there is a col aesthetic
     else {
-      plot <- plot +
-        ggplot2::layer(
-          geom = geom,
-          stat = stat,
-          position = position,
-          params = params_list,
-          show.legend = show_legend,
-        ) +
-        coord +
-        mode
+      plot <- plot1
     }
-  }
-  #revert back to the original plot where there is a col or alpha aesthetic
-  else {
-    plot <- plot1
   }
 
   ##############################################################################
@@ -1422,139 +1233,6 @@ gg_blanket <- function(
       ggplot2::expand_limits(
         colour = col_expand_limits,
         fill = col_expand_limits
-      )
-  }
-
-  ##############################################################################
-  # Make alpha scale where there is a alpha scale identified
-  ##############################################################################
-
-  if (!is.na(is_alpha_continuous)) {
-    if (is_alpha_continuous) {
-      if (rlang::is_null(alpha_pal)) {
-        alpha_pal <- c(0.1, 1)
-      }
-
-      #get alpha_transform if NULL
-      if (rlang::is_null(alpha_transform)) {
-        if (inherits(rlang::eval_tidy(alpha, data), what = "hms")) alpha_transform <- scales::transform_hms()
-        else if (inherits(rlang::eval_tidy(alpha, data), what = "POSIXct")) alpha_transform <- scales::transform_time()
-        else if (inherits(rlang::eval_tidy(alpha, data), what = "Date")) alpha_transform <- scales::transform_date()
-        else alpha_transform <- scales::transform_identity()
-      }
-
-      #make a tidy name to deal with composed transforms
-      if (is.character(alpha_transform)) alpha_transform_name <- alpha_transform
-      else if (inherits(alpha_transform, what = "transform")) {
-        alpha_transform_name <- alpha_transform$name %>%
-          stringr::str_remove("composition") %>%
-          stringr::str_remove("\\(") %>%
-          stringr::str_remove("\\)") %>%
-          stringr::str_split(",") %>%
-          unlist()
-      }
-
-      if (rlang::is_null(alpha_breaks)) {
-        if (any(stringr::str_detect(alpha_transform_name, "log-")) |
-            any(alpha_transform_name %in% c("log", "log2", "log10"))
-        ) {
-          alpha_breaks <- scales::breaks_log(n = 5)
-        }
-        else if (!any(alpha_transform_name %in% c("identity", "reverse"))) alpha_breaks <- ggplot2::waiver()
-        else alpha_breaks <- scales::breaks_pretty(n = 5)
-      }
-
-      if (rlang::is_null(alpha_labels)) {
-        if (any(alpha_transform_name %in% c("hms"))) alpha_labels <- scales::label_time()
-        else if (any(alpha_transform_name %in% c("date", "time"))) alpha_labels <- scales::label_date_short()
-        else if (any(stringr::str_detect(alpha_transform_name, "log-")) |
-                 any(alpha_transform_name %in% c("log", "log2", "log10"))) {
-          alpha_labels <- scales::label_log()
-        }
-        else if (!any(alpha_transform_name %in% c("identity", "reverse"))) alpha_labels <- ggplot2::waiver()
-        else alpha_labels <- scales::label_comma(drop0trailing = TRUE)
-      }
-
-      plot <- plot +
-        ggplot2::scale_alpha_continuous(
-          range = alpha_pal,
-          limits = alpha_limits,
-          breaks = alpha_breaks,
-          labels = alpha_labels,
-          transform = alpha_transform,
-          oob = alpha_oob,
-          na.value = alpha_pal_na,
-        ) +
-        ggplot2::guides(
-          alpha = ggplot2::guide_legend(
-            reverse = TRUE
-          )
-        )
-    }
-    else if (!is_alpha_continuous) {
-      if (!rlang::quo_is_null(alpha)) {
-        alpha_n <- data %>%
-          dplyr::pull(!!alpha) %>%
-          levels() %>%
-          length()
-
-        if (rlang::is_null(alpha_pal)) {
-          alpha_pal <- seq(from = 0.1, to = 1, by = (1 - 0.1) / (alpha_n - 1))
-        }
-      }
-      else { #guess anything that's ordered represents alpha,
-        #as there is a discrete alpha scale and no alpha variable supplied
-        plot_data_ordered <- plot_data %>%
-          dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), function(x) length(levels(x))))
-
-        if (ncol(plot_data_ordered) == 0) {
-          if (rlang::is_null(alpha_pal)) alpha_pal <- rep(1, times = 10)
-        }
-        else {
-          alpha_n <- plot_data_ordered %>%
-            tidyr::pivot_longer(cols = tidyselect::everything()) %>%
-            dplyr::summarise(max(.data$value)) %>%
-            dplyr::pull()
-
-          if (rlang::is_null(alpha_pal)) {
-            alpha_pal <- seq(from = 0.1, to = 1, by = (1 - 0.1) / (alpha_n - 1))
-          }
-          # alpha_legend_rev <- !alpha_legend_rev
-        }
-      }
-
-      if ((identical(rlang::eval_tidy(col, data), rlang::eval_tidy(alpha, data))) &
-          flipped) {
-        alpha_legend_rev <- !(alpha_legend_rev)
-        alpha_pal <- rev(alpha_pal)
-      }
-
-      if (rlang::is_null(alpha_labels)) alpha_labels <- ggplot2::waiver()
-
-      if (rlang::is_null(alpha_breaks)) alpha_breaks <- ggplot2::waiver()
-
-      plot <- plot +
-        ggplot2::scale_alpha_manual(
-          values = alpha_pal,
-          limits = alpha_limits,
-          breaks = alpha_breaks,
-          labels = alpha_labels,
-          na.value = alpha_pal_na,
-          drop = FALSE, #consider add argument
-        ) +
-        ggplot2::guides(
-          alpha = ggplot2::guide_legend(
-            reverse = alpha_legend_rev,
-            ncol = alpha_legend_ncol,
-            nrow = alpha_legend_nrow
-          )
-        )
-    }
-
-    #expand limits if necessary
-    plot <- plot +
-      ggplot2::expand_limits(
-        alpha = alpha_expand_limits
       )
   }
 
@@ -1946,11 +1624,10 @@ gg_blanket <- function(
       col_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), titles_to_case)
     }
   }
-  if (rlang::is_null(alpha_title)) {
-    if (!rlang::is_null(plot_build$plot$labels$alpha)) {
-      alpha_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), titles_to_case)
-    }
-  }
+
+  if (!rlang::is_null(plot_build$plot$labels$alpha)) {
+    alpha_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), titles_to_case)
+  } else alpha_title <- NULL
 
   if (!rlang::is_null(plot_build$plot$labels$shape)) {
     shape_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), titles_to_case)

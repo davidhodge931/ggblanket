@@ -401,11 +401,9 @@ penguins |>
 
 For geom's that have both coloured outlines and interiors, these are both coloured by default.
 
-you can turn off one of these by `alpha_pal = 0` for the filled interior, or `col_pal = scales::alpha(..., alpha = 0)` for the coloured outlines.
+you can use `alpha = 0` for the filled interior.
 
-For coloured outlines where a `col` argument is specified, you might need to also  modify the `col_pal_na` value using `col_pal_na = scales::alpha("darkgrey", alpha = 0)`. 
-
-[Note where a `col` argument is specified, another method is to use `fill = NA`/`colour = NA`.]
+For turning off coloured outlines or changing the colour of the interior or outlines, you need a `col` aesthetic
 
 ```{r, fig.asp=0.4}
 penguins |>
@@ -413,18 +411,18 @@ penguins |>
     position = position_dodge2(preserve = "single"),
     x = flipper_length_mm,
     y = species,
-    alpha_pal = 0, #or col_pal = scales::alpha(blue, 0),
+    alpha = 0
   )
 ```
 
 ```{r}
 penguins |>
-  gg_boxplot(
-    position = position_dodge2(preserve = "single"),
-    x = species,
-    y = flipper_length_mm,
-    col = sex,
-    alpha_pal = 0,
+  mutate(h = "") |> 
+  gg_density(
+    x = flipper_length_mm,
+    col = h,
+    fill = NA,
+    mode = light_mode_n(),
   )
 ```
 
@@ -491,9 +489,7 @@ penguins |>
 
 ### 14. Use `alpha` and other aesthetics
 
-The `alpha` is fully supported in ggblanket in a similar way to `col`. So the `alpha` argument represents an aesthetic, whereas `alpha_pal` represents a value (or values or range). 
-
-The `mapping` argument provides access to other aesthetics, such as `size`, `shape`, `linetype` and `linewidth` etc. 
+The `mapping` argument provides access to other aesthetics, such as `alpha`, `size`, `shape`, `linetype` and `linewidth` etc. 
 
 Legend titles and element order must be aligned, if legends are to merge. Subsequently, you may need to change a title using `+ ggplot2::labs` - or even reverse a guide. 
 
@@ -503,10 +499,9 @@ penguins |>
     x = flipper_length_mm, 
     y = body_mass_g, 
     col = species,
-    alpha = species,
-    alpha_pal = c(1, 1, 0.33),
-    mapping = aes(shape = species),
-  ) 
+    mapping = aes(alpha = species, shape = species),
+  ) +
+  scale_alpha_manual(values = c(0.1, 1, 0.5))
 ```
 
 ### 15. A `gg_blanket` function with `geom` flexibility

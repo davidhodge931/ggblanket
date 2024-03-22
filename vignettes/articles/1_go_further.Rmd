@@ -191,20 +191,20 @@ penguins |>
     col = sex,
     colour = "black", #or fill = #D3D3D3",
     position = position_dodge2(preserve = "single"),
-    alpha_pal = 0.9,
+    alpha = 0.9,
   )
 ```
 
 ```{r}
 penguins |>
-  mutate(hack = "") |> 
+  mutate(h = "") |> 
   gg_boxplot(
     x = species,
     y = flipper_length_mm,
-    col = hack,
+    col = h,
     colour = "black", #or fill = #D3D3D3", 
     width = 0.5,
-    alpha_pal = 0.9,
+    alpha = 0.9,
     mode = light_mode_n(),
   ) 
 ```
@@ -319,7 +319,7 @@ penguins |>
 
 ### 10. Use opacity to emphasise/demphasise 
 
-Use opacity with `alpha`, `col`, and `alpha_pal/col_pal` to emphasise/demphasise parts of the visualisation. 
+Use opacity with `mapping = aes(alpha = ...)`, `col = ...`, and `col_pal` to emphasise/demphasise parts of the visualisation. 
 
 ```{r, fig.asp=0.75}
 p1 <- penguins |> 
@@ -330,7 +330,7 @@ p1 <- penguins |>
     x_breaks = scales::breaks_pretty(n = 3),
     y_labels = replace_seq,
     col_pal = scales::alpha(orange, 0.33),
-    alpha_pal = 0.1,
+    alpha = 0.1,
     subtitle = "\nOpacity fill 0.1 & outline 0.33"
   )
 
@@ -352,14 +352,14 @@ p3 <- penguins |>
   gg_density(
     x = flipper_length_mm,
     col = sex, 
-    alpha = sex,
+    mapping = aes(alpha = sex),
     x_breaks = scales::breaks_pretty(n = 3),
     y_labels = replace_seq,
     col_pal = c(orange, "#78909C"),
-    alpha_pal = c(0.5, 0.1),
     subtitle = "\ncol and alpha variable",
   ) +
-  guides(colour = "none", fill = "none", alpha = "none")
+  guides(colour = "none", fill = "none", alpha = "none") + 
+  scale_alpha_manual(values = c(0.5, 0.1))
 
 p4 <- penguins |> 
   drop_na(sex) |> 
@@ -367,13 +367,14 @@ p4 <- penguins |>
   gg_density(
     x = flipper_length_mm,
     col = sex, 
-    alpha = sex,
+    mapping = aes(alpha = sex),
     x_breaks = scales::breaks_pretty(n = 3),
     y_labels = replace_seq,
     col_pal = c(orange, scales::alpha("#78909C", 0.25)),
-    alpha_pal = c(0.5, 0.1),
     subtitle = "\ncol and alpha variable & outline opacity",
-  )
+  ) +
+  scale_alpha_manual(values = c(0.5, 0.1))
+
 
 (p1 + p2) / (p3 + p4)
 ```
