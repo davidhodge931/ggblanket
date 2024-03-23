@@ -45,7 +45,7 @@ Secondary objectives relate to:
 9.  Families of `*_mode_*` themes that differ by legend placement 
 10.  A symmetrical continuous scale with easy opt-out
 11. Access to other `geom_*` arguments via `...`
-12. Turn-off either coloured outlines or interiors
+12. Change colours of either coloured outlines or interiors
 13. Ability to add multiple `geom_*` layers
 14. Use `alpha` and other aesthetics
 15. A `gg_blanket()` function with `geom` flexibility
@@ -397,13 +397,11 @@ penguins |>
   ) 
 ```
 
-### 12. Turn-off either coloured outlines or filled interiors
+### 12. Change colours of either coloured outlines or interiors
 
 For geom's that have both coloured outlines and interiors, these are both coloured by default.
 
-you can use `alpha = 0` for the filled interior.
-
-For turning off coloured outlines or changing the colour of the interior or outlines, you need a `col` aesthetic
+You can turn either of these off using `colour = NA` or `fill = NA` or turn
 
 ```{r, fig.asp=0.4}
 penguins |>
@@ -411,16 +409,14 @@ penguins |>
     position = position_dodge2(preserve = "single"),
     x = flipper_length_mm,
     y = species,
-    alpha = 0
+    colour = "#121B24", 
   )
 ```
 
 ```{r}
 penguins |>
-  mutate(h = "") |> 
   gg_density(
     x = flipper_length_mm,
-    col = h,
     fill = NA,
     mode = light_mode_n(),
   )
@@ -487,7 +483,7 @@ penguins |>
   ) 
 ```
 
-### 14. Use `alpha` and other aesthetics
+### 14. Use other aesthetics
 
 The `mapping` argument provides access to other aesthetics, such as `alpha`, `size`, `shape`, `linetype` and `linewidth` etc. 
 
@@ -495,13 +491,14 @@ Legend titles and element order must be aligned, if legends are to merge. Subseq
 
 ```{r}
 penguins |> 
-  gg_point(
+  gg_jitter(
+    y = species, 
     x = flipper_length_mm, 
-    y = body_mass_g, 
     col = species,
     mapping = aes(alpha = species, shape = species),
   ) +
-  scale_alpha_manual(values = c(0.1, 1, 0.5))
+  scale_alpha_manual(values = c(0.33, 1, 0.33)) +
+  guides(alpha = guide_legend(reverse = TRUE))
 ```
 
 ### 15. A `gg_blanket` function with `geom` flexibility

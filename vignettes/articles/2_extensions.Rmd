@@ -273,6 +273,7 @@ data.frame(
     y = distribution,
     mapping = aes(dist = values),
     y_expand = c(0.05, 0.05),
+    fill = blue,
     alpha = 0.5,
     mode = light_mode_n(),
     # show_slab = FALSE,
@@ -319,13 +320,11 @@ data.frame(
   y = rnorm(1000),
   z = c(rep("A", times = 500), rep("B", times = 500))
 ) |>
-  mutate(h = "") |> 
   gg_blanket(
     geom = "hdr", 
     stat = "hdr",
     x = x, 
     y = y, 
-    col = h,
     colour = NA,
     y_limits = c(NA, NA),
   ) +
@@ -451,6 +450,34 @@ penguins |>
   easy_remove_y_gridlines() +
   easy_remove_x_axis(what = c("line", "ticks")) +
   easy_remove_legend_title()
+```
+
+### gghighlight
+
+The gghighlight package enables geoms or parts thereof to be highlighted. It _kind of_ works with ggblanket. There must be a `col` variable added unfortunately. It might be better to use ggplot2 instead here.
+
+```{r}
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = 1, mode = light_mode_n(),
+  ) +
+  gghighlight::gghighlight(body_mass_g >= 5000)
+```
+
+The `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you may need to make adjustments, so that the scale builds correctly. 
+
+```{r}
+penguins |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = species,
+    x_breaks = scales::breaks_pretty(4),
+    col_pal = rep(blue, 3), 
+  ) + #build the scale for not faceted (i.e. all data)
+  facet_wrap(~species) + #then add facet layer
+  gghighlight::gghighlight() 
 ```
 
 ### ggnewscale
