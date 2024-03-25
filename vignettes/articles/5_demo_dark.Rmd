@@ -26,7 +26,7 @@ library(palmerpenguins)
 
 set_style(
   mode = dark_mode_r(),
-  geom_defaults = geom_defaults_dark(),
+  geom_defaults = dark_geom_defaults(),
 ) 
 ```
 

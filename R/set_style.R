@@ -3,14 +3,14 @@
 #' @description A set-up function, which sets the mode and updates ggplot2 geom defaults.
 #'
 #' @param mode A `*_mode_*` theme set globally for when mode = NULL. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
-#' @param geom_defaults A list of ggplot2::update_geom_defaults. E.g. `geom_defaults_light` or `geom_defaults_dark`.
+#' @param geom_defaults A series of ggplot2::update_geom_defaults calls. E.g. `light_geom_defaults` or `dark_geom_defaults`.
 #' @param ... Provided only to support trailing commas.
 #'
 #' @return A globally set mode.
 #' @export
 set_style <- function(
     mode = light_mode_r(),
-    geom_defaults = geom_defaults_light(),
+    geom_defaults = light_geom_defaults(),
     ...
 ) {
 
@@ -25,7 +25,7 @@ set_style <- function(
 #'
 #' @return Updated geom defaults
 #' @export
-geom_defaults_light <- function(col_pal = blue) {
+light_geom_defaults <- function(col_pal = blue) {
 
   ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = "#121B24", linewidth = 0.33))
   ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = "#121B24", linewidth = 0.33))
@@ -74,7 +74,7 @@ geom_defaults_light <- function(col_pal = blue) {
 #'
 #' @return Updated geom defaults
 #' @export
-geom_defaults_dark <- function(col_pal = blue) {
+dark_geom_defaults <- function(col_pal = blue) {
 
   ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = "#C8D7DF", linewidth = 0.33))
   ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = "#C8D7DF", linewidth = 0.33))

@@ -4,7 +4,7 @@ testthat::skip_on_os(c("mac", "linux"))
 library(palmerpenguins)
 library(ggplot2)
 set_style(
-  geom_defaults = geom_defaults_light(col_pal = "black")
+  geom_defaults = light_geom_defaults(col_pal = "black")
 )
 
 test_name <- "light_mode_r"

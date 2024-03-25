@@ -4,12 +4,12 @@
 \alias{set_style}
 \title{Setup the ggblanket style}
 \usage{
-set_style(mode = light_mode_r(), geom_defaults = geom_defaults_light(), ...)
+set_style(mode = light_mode_r(), geom_defaults = light_geom_defaults(), ...)
 }
 \arguments{
 \item{mode}{A \verb{*_mode_*} theme set globally for when mode = NULL. E.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
 
-\item{geom_defaults}{A list of ggplot2::update_geom_defaults. E.g. \code{geom_defaults_light} or \code{geom_defaults_dark}.}
+\item{geom_defaults}{A series of ggplot2::update_geom_defaults calls. E.g. \code{light_geom_defaults} or \code{dark_geom_defaults}.}
 
 \item{...}{Provided only to support trailing commas.}
 }

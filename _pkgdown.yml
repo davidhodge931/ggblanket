@@ -39,7 +39,7 @@ reference:
   - lightness
   - greyness
   - darkness
-  - geom_defaults_light
-  - geom_defaults_dark
+  - light_geom_defaults
+  - dark_geom_defaults
 
 

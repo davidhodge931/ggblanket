@@ -3,8 +3,8 @@
 * Breaking: removed all `alpha` arguments.
 * Breaking: removed `mode_set` function.
 * Added `set_style` function to set the style for subsequent plots.
-* Added `geom_defaults_light` and `geom_defaults_dark` helper functions.
-* Internal change to set NULL defaults via `update_geom_defaults`.
+* Added `light_geom_defaults` and `dark_geom_defaults` helper functions.
+* Internal change to set selected NULL aesthetics via `update_geom_defaults`.
 * Improved `*_expand` defaults for histograms and bar graphs etc.
 * Fixed bug to support use of a named `col_pal`.
 * Fixed bug when positional scale reversed with `*_expand_limits`. 
