@@ -31,11 +31,11 @@ light_mode_r <- function (
     x_title = x_title,
     y_title = y_title,
     col_pal = c(
-      "text" = lightness[1],
-      "axis_line" = lightness[1],
-      "panel_background" = lightness[2],
-      "plot_background" = lightness[2],
-      "panel_grid" = lightness[3])
+      "text" = lightness[2],
+      "axis_line" = lightness[2],
+      "panel_background" = lightness[3],
+      "plot_background" = lightness[3],
+      "panel_grid" = lightness[1])
   )
 }
 
@@ -72,11 +72,11 @@ light_mode_t <- function (
     x_title = x_title,
     y_title = y_title,
     col_pal = c(
-      "text" = lightness[1],
-      "axis_line" = lightness[1],
-      "panel_background" = lightness[2],
-      "plot_background" = lightness[2],
-      "panel_grid" = lightness[3])
+      "text" = lightness[2],
+      "axis_line" = lightness[2],
+      "panel_background" = lightness[3],
+      "plot_background" = lightness[3],
+      "panel_grid" = lightness[1])
   )
 }
 
@@ -113,11 +113,11 @@ light_mode_b <- function (
     x_title = x_title,
     y_title = y_title,
     col_pal = c(
-      "text" = lightness[1],
-      "axis_line" = lightness[1],
-      "panel_background" = lightness[2],
-      "plot_background" = lightness[2],
-      "panel_grid" = lightness[3])
+      "text" = lightness[2],
+      "axis_line" = lightness[2],
+      "panel_background" = lightness[3],
+      "plot_background" = lightness[3],
+      "panel_grid" = lightness[1])
   )
 }
 
@@ -154,10 +154,10 @@ light_mode_n <- function (
     x_title = x_title,
     y_title = y_title,
     col_pal = c(
-      "text" = lightness[1],
-      "axis_line" = lightness[1],
-      "panel_background" = lightness[2],
-      "plot_background" = lightness[2],
-      "panel_grid" = lightness[3])
+      "text" = lightness[2],
+      "axis_line" = lightness[2],
+      "panel_background" = lightness[3],
+      "plot_background" = lightness[3],
+      "panel_grid" = lightness[1])
   )
 }

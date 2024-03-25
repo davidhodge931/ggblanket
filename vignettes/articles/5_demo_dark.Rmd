@@ -26,7 +26,9 @@ library(palmerpenguins)
 
 set_style(
   mode = dark_mode_r(),
-  geom_defaults = dark_geom_defaults(),
+  geom_defaults = weave_geom_defaults(
+    annotate_pal = darkness["text"]
+  ),
 ) 
 ```
 

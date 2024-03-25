@@ -31,11 +31,11 @@ grey_mode_r <- function (
     x_title = x_title,
     y_title = y_title,
     col_pal = c(
-      "text" = greyness[1],
-      "axis_line" = greyness[1],
-      "panel_background" = greyness[2],
-      "plot_background" = greyness[3],
-      "panel_grid" = greyness[3])
+      "text" = greyness[2],
+      "axis_line" = greyness[2],
+      "panel_background" = greyness[3],
+      "plot_background" = greyness[1],
+      "panel_grid" = greyness[1])
   )
 }
 
@@ -72,11 +72,11 @@ grey_mode_t <- function (
     x_title = x_title,
     y_title = y_title,
     col_pal = c(
-      "text" = greyness[1],
-      "axis_line" = greyness[1],
-      "panel_background" = greyness[2],
-      "plot_background" = greyness[3],
-      "panel_grid" = greyness[3])
+      "text" = greyness[2],
+      "axis_line" = greyness[2],
+      "panel_background" = greyness[3],
+      "plot_background" = greyness[1],
+      "panel_grid" = greyness[1])
   )
 }
 
@@ -113,11 +113,11 @@ grey_mode_b <- function (
     x_title = x_title,
     y_title = y_title,
     col_pal = c(
-      "text" = greyness[1],
-      "axis_line" = greyness[1],
-      "panel_background" = greyness[2],
-      "plot_background" = greyness[3],
-      "panel_grid" = greyness[3])
+      "text" = greyness[2],
+      "axis_line" = greyness[2],
+      "panel_background" = greyness[3],
+      "plot_background" = greyness[1],
+      "panel_grid" = greyness[1])
   )
 }
 
@@ -154,10 +154,10 @@ grey_mode_n <- function (
     x_title = x_title,
     y_title = y_title,
     col_pal = c(
-      "text" = greyness[1],
-      "axis_line" = greyness[1],
-      "panel_background" = greyness[2],
-      "plot_background" = greyness[3],
-      "panel_grid" = greyness[3])
+      "text" = greyness[2],
+      "axis_line" = greyness[2],
+      "panel_background" = greyness[3],
+      "plot_background" = greyness[1],
+      "panel_grid" = greyness[1])
   )
 }

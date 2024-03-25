@@ -41,7 +41,8 @@ install.packages("ggblanket")
 ``` r
 library(ggblanket)
 library(palmerpenguins)
-library(tidyverse)
+
+set_style()
 
 penguins |>
   gg_histogram(

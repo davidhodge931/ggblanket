@@ -24,7 +24,8 @@ get_mode <- function() {
 #'
 #' @param new A new theme to add to the mode argument where NULL (e.g. [dark_mode_r()].
 #'
-#' @noRd
+#' @return A globally set mode
+#' @export
 set_mode <- function(new = light_mode_r()) {
   mode_old <- theme_env$mode_current
   theme_env$mode_current <- new

@@ -50,7 +50,8 @@ install.packages("ggblanket")
 ```{r, fig.asp=0.6}
 library(ggblanket)
 library(palmerpenguins)
-library(tidyverse)
+
+set_style()
 
 penguins |>
   gg_histogram(

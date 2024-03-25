@@ -1,10 +1,10 @@
 # ggblanket 6.0.0.9000
 
 * Breaking: removed all `alpha` arguments.
-* Breaking: removed `mode_set` function.
-* Added `set_style` function to set the style for subsequent plots.
-* Added `light_geom_defaults` and `dark_geom_defaults` helper functions.
-* Internal change to set selected NULL aesthetics via `update_geom_defaults`.
+* Breaking: in `aes_contrast`, renamed col_pal to `annotate_pal`
+* Breaking: added `set_style` function, which is required to provide the ggblanket style.
+* Added `weave_geom_defaults` helper function.
+* Supported the use of `colour` and `fill` to set a fixed colour for either outlines or interior fill.
 * Improved `*_expand` defaults for histograms and bar graphs etc.
 * Fixed bug to support use of a named `col_pal`.
 * Fixed bug when positional scale reversed with `*_expand_limits`. 

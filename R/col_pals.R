@@ -73,7 +73,7 @@ greys <- c("#E8EFF2", "#C8D7DF", "#A7C0CD", "#78909C", "#4B636E", "#364850", "#2
 #'
 #' @examples
 #' scales::show_col(lightness)
-lightness <- c("#121B24", "#FFFFFF", "#F6F8FA")
+lightness <- c("#F6F8FA", "#121B24", "#FFFFFF")
 
 #' The `grey_mode_*` theme colours
 #'
@@ -84,7 +84,7 @@ lightness <- c("#121B24", "#FFFFFF", "#F6F8FA")
 #'
 #' @examples
 #' scales::show_col(greyness)
-greyness <- c("#121B24", "#fCFDFE", "#F6F8FA")
+greyness <- c("#F6F8FA", "#121B24", "#fCFDFE")
 
 #' The `dark_mode_*` theme colours
 #'
