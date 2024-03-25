@@ -22,8 +22,6 @@ get_mode <- function() {
 #' Note [ggplot2::theme_set()] sets globally a new theme that is added to the `gg_*` function output with no side-effects.
 #' Use `ggplot2::theme_set(theme_grey())` to unset the set theme.
 #'
-#' @export
-#'
 #' @param new A new theme to add to the mode argument where NULL (e.g. [dark_mode_r()].
 #'
 #' @noRd
