@@ -35,7 +35,7 @@ This article will demonstrate a random assortment of content, including some of 
 13. Use delayed evaluation
 14. Make custom `gg_*` wrapper functions
 
-```{r setup}
+```{r, eval=FALSE}
 library(tidyverse)
 library(ggblanket)
 library(palmerpenguins)
@@ -43,7 +43,18 @@ library(patchwork)
 
 set_style()
 ```
+```{r, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(forcats)
+library(stringr)
+library(ggblanket)
+library(palmerpenguins)
+library(patchwork)
 
+set_style()
+```
 
 ### 1. Change the `stat` of the layer
 

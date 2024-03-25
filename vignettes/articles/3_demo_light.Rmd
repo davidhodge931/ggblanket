@@ -19,8 +19,20 @@ knitr::opts_chunk$set(
 
 This article will demonstrate each wrapper function.
 
-```{r setup}
+```{r, eval=FALSE}
 library(tidyverse)
+library(ggblanket)
+library(palmerpenguins)
+
+set_style()
+```
+
+```{r, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(forcats)
+library(stringr)
 library(ggblanket)
 library(palmerpenguins)
 
