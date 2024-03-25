@@ -2,7 +2,7 @@
 
 * Breaking: removed all `alpha` arguments.
 * Breaking: removed `mode_set` function.
-* Added `blankify` function to set the style for subsequent plots.
+* Added `set_style` function to set the style for subsequent plots.
 * Added `geom_defaults_light` and `geom_defaults_dark` helper functions.
 * Internal change to set NULL defaults via `update_geom_defaults`.
 * Improved `*_expand` defaults for histograms and bar graphs etc.

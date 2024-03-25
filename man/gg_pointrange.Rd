@@ -172,7 +172,6 @@ data.frame(
     ymin = lower,
     ymax = upper,
     position = position_dodge(width = 0.2),
-    size = 0.2,
     x_title = "Treatment",
     y_title = "Response",
   )

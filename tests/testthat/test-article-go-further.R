@@ -8,7 +8,7 @@ library(stringr)
 library(tidyr)
 library(palmerpenguins)
 library(patchwork)
-blankify()
+set_style()
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "1"

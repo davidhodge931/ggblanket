@@ -20,17 +20,14 @@ knitr::opts_chunk$set(
 This article will demonstrate each wrapper function.
 
 ```{r setup}
+library(tidyverse)
 library(ggblanket)
-library(ggplot2)
-library(dplyr)
-library(stringr)
-library(tidyr)
 library(palmerpenguins)
 
-blankify(
+set_style(
   mode = dark_mode_r(),
   geom_defaults = geom_defaults_dark(),
-) #setup
+) 
 ```
 
 ### gg_area
@@ -363,7 +360,6 @@ data.frame(
     col = group,
     ymin = lower,
     ymax = upper,
-    size = 0.2,
     x_title = "Treatment",
     y_title = "Response",
   )

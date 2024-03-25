@@ -59,7 +59,7 @@ library(tidyr)
 library(palmerpenguins)
 library(patchwork)
 
-blankify() #setup
+set_style()
 ```
  
 ### 1. Almost forty `gg_*` wrapper functions

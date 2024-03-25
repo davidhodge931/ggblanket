@@ -3,7 +3,7 @@ testthat::skip_on_os(c("mac", "linux"))
 
 library(palmerpenguins)
 library(ggplot2)
-blankify()
+set_style()
 
 test_name <- "light_mode_r"
 

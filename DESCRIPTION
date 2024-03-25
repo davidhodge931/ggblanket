@@ -41,10 +41,10 @@ Suggests:
     vdiffr
 VignetteBuilder: 
     knitr
-Config/Needs/website: concaveman, corrr, deldir, distributional, farver,
-    geomtextpath, ggbeeswarm, ggblend, ggdensity, ggdist, ggeasy, ggforce,
-    ggh4x, gghighlight, ggiraph, ggnewscale, ggrepel, ggridges, glue,
-    mdthemes, plotly, RColorBrewer, showtext, sysfonts
+Config/Needs/website: concaveman, corrr, distributional, farver, geomtextpath, 
+    ggbeeswarm, ggblend, ggdensity, ggdist, ggeasy, ggforce, ggh4x, gghighlight,  
+    ggnewscale, ggrepel, ggridges, glue, mdthemes, RColorBrewer, showtext,  
+    sysfonts, tidyverse
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB

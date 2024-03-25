@@ -21,13 +21,11 @@ knitr::opts_chunk$set(
 This article will demonstrate some fantastic ggplot2 extension packages. 
 
 ```{r setup}
+library(tidyverse)
 library(ggblanket)
-library(ggplot2)
-library(dplyr)
-library(stringr)
 library(palmerpenguins)
 
-blankify() #setup
+set_style()
 ```
 
 ### patchwork

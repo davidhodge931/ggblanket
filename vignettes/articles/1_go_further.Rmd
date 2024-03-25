@@ -36,15 +36,12 @@ This article will demonstrate a random assortment of content, including some of 
 14. Make custom `gg_*` wrapper functions
 
 ```{r setup}
+library(tidyverse)
 library(ggblanket)
-library(ggplot2)
-library(dplyr)
-library(stringr)
-library(tidyr)
 library(palmerpenguins)
 library(patchwork)
 
-blankify() #setup
+set_style()
 ```
 
 
@@ -58,7 +55,6 @@ penguins |>
     stat = "summary", 
     x = species,
     y = flipper_length_mm, 
-    size = 0.1,
   )
 ```
 

@@ -3,7 +3,7 @@ testthat::skip_on_os(c("mac", "linux"))
 
 library(palmerpenguins)
 library(ggplot2)
-blankify(
+set_style(
   geom_defaults = geom_defaults_light(col_pal = "black")
 )
 

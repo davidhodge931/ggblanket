@@ -7,7 +7,7 @@ figures:
 reference:
 - title: Setup
 - contents:
-  - blankify
+  - set_style
 - title: Plot
 - contents:
   - gg_blanket
