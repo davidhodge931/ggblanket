@@ -82,7 +82,6 @@
 <span>  yend <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  z <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  alpha <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -133,18 +132,6 @@
 <span>  facet_nrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_scales <span class="op">=</span> <span class="st">"fixed"</span>,</span>
 <span>  facet_space <span class="op">=</span> <span class="st">"fixed"</span>,</span>
-<span>  alpha_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  alpha_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  alpha_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  alpha_legend_ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  alpha_legend_nrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  alpha_legend_rev <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  alpha_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  alpha_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
-<span>  alpha_pal <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  alpha_pal_na <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  alpha_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  alpha_transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  caption <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -182,7 +169,7 @@
 <dd><p>A <code>*_mode_*</code> theme (e.g. <code><a href="light_mode_t.html">light_mode_t()</a></code>, <code><a href="grey_mode_r.html">grey_mode_r()</a></code>, or <code><a href="dark_mode_r.html">dark_mode_r()</a></code>). This argument adds the theme with side-effects, as the <code>gg_*</code> function will removes selected gridlines/axis-line/ticks. To avoid these side-effects, <code>+</code> the theme on to the output of <code>gg_*</code>.</p></dd>
 
 
-<dt>x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, alpha, facet, facet2, group, subgroup, label, text, sample</dt>
+<dt>x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, facet, facet2, group, subgroup, label, text, sample</dt>
 <dd><p>An unquoted aesthetic variable.</p></dd>
 
 
@@ -190,7 +177,7 @@
 <dd><p>A set of additional aesthetic mappings in <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes()</a></code>. Intended primarily for non-supported aesthetics (e.g. <code>shape</code>, <code>linetype</code>, <code>linewidth</code>, or <code>size</code>), but can also be used for delayed evaluation etc.</p></dd>
 
 
-<dt>x_breaks, y_breaks, col_breaks, alpha_breaks</dt>
+<dt>x_breaks, y_breaks, col_breaks</dt>
 <dd><p>A <code>scales::breaks_*</code> function (e.g. <code><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">scales::breaks_pretty()</a></code>), or a vector of breaks.</p></dd>
 
 
@@ -198,19 +185,19 @@
 <dd><p>Padding to the limits with the <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">ggplot2::expansion()</a></code> function, or a vector of length 2 (e.g. <code>c(0, 0)</code>).</p></dd>
 
 
-<dt>x_expand_limits, y_expand_limits, col_expand_limits, alpha_expand_limits</dt>
+<dt>x_expand_limits, y_expand_limits, col_expand_limits</dt>
 <dd><p>For a continuous variable, any values that the limits should encompass (e.g. <code>0</code>). For a discrete scale, manipulate the data instead with <code><a href="https://forcats.tidyverse.org/reference/fct_expand.html" class="external-link">forcats::fct_expand</a></code>.</p></dd>
 
 
-<dt>x_labels, y_labels, col_labels, alpha_labels, facet_labels</dt>
+<dt>x_labels, y_labels, col_labels, facet_labels</dt>
 <dd><p>A function that takes the breaks as inputs (e.g. <code>\(x) stringr::str_to_sentence(x)</code> or <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code>), or a vector of labels (Note this must be named for <code>facet_labels</code>).</p></dd>
 
 
-<dt>x_limits, y_limits, col_limits, alpha_limits</dt>
+<dt>x_limits, y_limits, col_limits</dt>
 <dd><p>For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with <code>factor</code>, <code><a href="https://forcats.tidyverse.org/reference/fct_expand.html" class="external-link">forcats::fct_expand</a></code> or <code><a href="https://forcats.tidyverse.org/reference/fct_drop.html" class="external-link">forcats::fct_drop</a></code>.</p></dd>
 
 
-<dt>x_oob, y_oob, col_oob, alpha_oob</dt>
+<dt>x_oob, y_oob, col_oob</dt>
 <dd><p>For a continuous scale, a <code>scales::oob_*</code> function of how to handle values outside of limits. Defaults to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>.</p></dd>
 
 
@@ -218,19 +205,19 @@
 <dd><p>The position of the axis (i.e. <code>"left"</code>, <code>"right"</code>, <code>"bottom"</code> or <code>"top"</code>).If using <code>y_position = "top"</code> with a <code>*_mode_*</code> theme, add <code>caption = ""</code> or <code>caption = "\n"</code>.</p></dd>
 
 
-<dt>x_title, y_title, col_title, alpha_title</dt>
+<dt>x_title, y_title, col_title</dt>
 <dd><p>Axis title string. Use <code>+ ggplot2::labs(... = NULL)</code> for no title.</p></dd>
 
 
-<dt>x_transform, y_transform, col_transform, alpha_transform</dt>
+<dt>x_transform, y_transform, col_transform</dt>
 <dd><p>For a continuous scale, a transformation object (e.g. <code><a href="https://scales.r-lib.org/reference/transform_log.html" class="external-link">scales::transform_log10()</a></code>) or character string of this minus the <code>transform_</code> prefix (e.g. <code>"log10"</code>).</p></dd>
 
 
-<dt>col_legend_ncol, col_legend_nrow, alpha_legend_ncol, alpha_legend_nrow</dt>
+<dt>col_legend_ncol, col_legend_nrow</dt>
 <dd><p>The number of columns and rows in a legend guide.</p></dd>
 
 
-<dt>col_legend_rev, alpha_legend_rev</dt>
+<dt>col_legend_rev</dt>
 <dd><p><code>TRUE</code> or <code>FALSE</code> of whether to reverse the elements of a legend guide. Defaults to <code>FALSE</code>.</p></dd>
 
 
@@ -282,14 +269,6 @@
 <dd><p>When the facet layout is <code>"grid"</code> and facet scales are not <code>"fixed"</code>, whether facet space should be <code>"fixed"</code> across facets, <code>"free"</code> to be proportional in both directions, or free to be proportional in just one direction (i.e. <code>"free_x"</code> or <code>"free_y"</code>). Defaults to <code>"fixed"</code>.</p></dd>
 
 
-<dt>alpha_pal</dt>
-<dd><p>Alpha values to use. For a continuous variable, a vector of length 2 between 0 and 1. For a discrete variable, a vector of integers between 0 and 1.</p></dd>
-
-
-<dt>alpha_pal_na</dt>
-<dd><p>Alpha value to use for the <code>NA</code> value. A integer between 0 and 1.</p></dd>
-
-
 <dt>title</dt>
 <dd><p>Title string.</p></dd>
 
@@ -333,7 +312,6 @@
 <span class="r-in"><span>    facet <span class="op">=</span> <span class="va">species</span>,</span></span>
 <span class="r-in"><span>    mode <span class="op">=</span> <span class="fu"><a href="grey_mode_b.html">grey_mode_b</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `contour`</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `contour`</span>
 <span class="r-plt img"><img src="gg_blanket-1.svg" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>

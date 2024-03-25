@@ -59,7 +59,12 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="6.0.0.9000" id="ggblanket-6009000">ggblanket 6.0.0.9000<a class="anchor" aria-label="anchor" href="#ggblanket-6009000"></a></h2>
-<ul><li>Improved <code>*_expand</code> defaults for histograms and bar graphs etc.</li>
+<ul><li>Breaking: removed all <code>alpha</code> arguments.</li>
+<li>Breaking: removed <code>mode_set</code> function.</li>
+<li>Added <code>blankify</code> function to set the style for subsequent plots.</li>
+<li>Added <code>geom_defaults_light</code> and <code>geom_defaults_dark</code> helper functions.</li>
+<li>Internal change to set NULL defaults via <code>update_geom_defaults</code>.</li>
+<li>Improved <code>*_expand</code> defaults for histograms and bar graphs etc.</li>
 <li>Fixed bug to support use of a named <code>col_pal</code>.</li>
 <li>Fixed bug when positional scale reversed with <code>*_expand_limits</code>.</li>
 </ul></div>
