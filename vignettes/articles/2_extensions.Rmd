@@ -165,7 +165,7 @@ penguins |>
     y = body_mass_g,
     col = species,
     coord = coord_cartesian(),
-    alpha = 0.5,
+    alpha = 0.6,
   ) +
   geom_point()
 ```
@@ -244,7 +244,7 @@ ggridges::Catalan_elections |>
     colour = "white",
     x_limits = c(0, 100),
     y_expand = expansion(c(0, 0.125)),
-    alpha = 0.7,
+    alpha = 0.9,
   )
 ```
 
@@ -274,9 +274,10 @@ data.frame(
     stat = "slabinterval",
     y = distribution,
     mapping = aes(dist = values),
-    y_expand = c(0.05, 0.05),
+    colour = blue,
     fill = blue,
-    alpha = 0.5,
+    alpha = 0.6,
+    y_expand = c(0.05, 0.05),
     mode = light_mode_n(),
     # show_slab = FALSE,
     # show_interval = FALSE,
@@ -405,7 +406,7 @@ p2 <- penguins |>
     mode = light_mode_n(),
   ) +
   facet_wrap(~"Blended") +
-  geom_density(alpha = 0.5) |> ggblend::blend(blend = "multiply") +
+  geom_density(alpha = 0.6) |> ggblend::blend(blend = "multiply") +
   ggeasy::easy_remove_x_axis() +
   ggeasy::easy_remove_y_axis()
 
