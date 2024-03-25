@@ -58,6 +58,8 @@ library(stringr)
 library(tidyr)
 library(palmerpenguins)
 library(patchwork)
+
+blankify() #setup
 ```
  
 ### 1. Almost forty `gg_*` wrapper functions

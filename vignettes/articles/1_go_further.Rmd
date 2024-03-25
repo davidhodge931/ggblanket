@@ -43,6 +43,8 @@ library(stringr)
 library(tidyr)
 library(palmerpenguins)
 library(patchwork)
+
+blankify() #setup
 ```
 
 

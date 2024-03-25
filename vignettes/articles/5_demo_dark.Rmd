@@ -27,7 +27,10 @@ library(stringr)
 library(tidyr)
 library(palmerpenguins)
 
-mode_set(dark_mode_r())
+blankify(
+  mode = dark_mode_r(),
+  geom_defaults = geom_defaults_dark(),
+) #setup
 ```
 
 ### gg_area

@@ -26,6 +26,8 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(palmerpenguins)
+
+# blankify() #setup
 ```
 
 ### gg_area

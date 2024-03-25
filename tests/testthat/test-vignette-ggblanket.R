@@ -7,7 +7,7 @@ library(stringr)
 library(tidyr)
 library(palmerpenguins)
 library(patchwork)
-
+blankify()
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "1"
