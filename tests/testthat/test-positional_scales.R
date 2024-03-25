@@ -3,6 +3,7 @@ testthat::skip_on_os(c("mac", "linux"))
 
 library(ggplot2)
 library(dplyr)
+blankify()
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "1"

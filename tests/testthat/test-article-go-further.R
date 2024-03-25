@@ -8,7 +8,7 @@ library(stringr)
 library(tidyr)
 library(palmerpenguins)
 library(patchwork)
-
+blankify()
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "1"
@@ -118,7 +118,7 @@ test_that(test_name, {
       col = sex,
       colour = "black", #or fill = #D3D3D3",
       position = position_dodge2(preserve = "single"),
-      alpha_pal = 0.9,
+      alpha = 0.9,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -138,7 +138,7 @@ test_that(test_name, {
       col = hack,
       colour = "black", #or fill = #D3D3D3",
       width = 0.5,
-      alpha_pal = 0.9,
+      alpha = 0.9,
       mode = light_mode_n(),
     )
 

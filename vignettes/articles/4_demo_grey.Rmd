@@ -27,7 +27,9 @@ library(stringr)
 library(tidyr)
 library(palmerpenguins)
 
-mode_set(grey_mode_r())
+blankify(
+  mode = grey_mode_r(),
+) #setup
 ```
 
 ### gg_area
@@ -450,16 +452,19 @@ data.frame(
 ```{r}
 data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
   mutate(level_min = level - 1, level_max = level + 1) |>
+  mutate(h = "") |> 
   gg_ribbon(
     x = year,
     ymin = level_min,
     ymax = level_max,
+    col = h,
+    colour = NA,
+    x_labels = \(x) x,
     y_title = "Level",
-    col_pal = scales::alpha(blue, 0),
+    mode = light_mode_n(),
   ) +
   geom_line(
     mapping = aes(x = year, y = level), 
-    colour = blue
   )
 ```
 

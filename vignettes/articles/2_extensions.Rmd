@@ -26,6 +26,8 @@ library(ggplot2)
 library(dplyr)
 library(stringr)
 library(palmerpenguins)
+
+blankify() #setup
 ```
 
 ### patchwork
@@ -163,7 +165,7 @@ penguins |>
     y = body_mass_g,
     col = species,
     coord = coord_cartesian(),
-    alpha_pal = 0.5,
+    alpha = 0.6,
   ) +
   geom_point()
 ```
@@ -242,7 +244,7 @@ ggridges::Catalan_elections |>
     colour = "white",
     x_limits = c(0, 100),
     y_expand = expansion(c(0, 0.125)),
-    alpha_pal = 0.7,
+    alpha = 0.9,
   )
 ```
 
@@ -272,8 +274,10 @@ data.frame(
     stat = "slabinterval",
     y = distribution,
     mapping = aes(dist = values),
+    colour = blue,
+    fill = blue,
+    alpha = 0.6,
     y_expand = c(0.05, 0.05),
-    alpha_pal = 0.5,
     mode = light_mode_n(),
     # show_slab = FALSE,
     # show_interval = FALSE,
@@ -326,8 +330,8 @@ data.frame(
     y = y, 
     colour = NA,
     y_limits = c(NA, NA),
-    col_pal = alpha(blue, 0),
-  )
+  ) +
+  guides(colour = FALSE, fill = FALSE)
 ```
 
 ```{r}
@@ -345,8 +349,8 @@ data.frame(
     y = y, 
     col = z,
     facet = z,
-    y_limits = c(NA, NA),
     colour = NA,
+    y_limits = c(NA, NA),
   ) 
 ```
 
@@ -402,7 +406,7 @@ p2 <- penguins |>
     mode = light_mode_n(),
   ) +
   facet_wrap(~"Blended") +
-  geom_density(alpha = 0.5) |> ggblend::blend(blend = "multiply") +
+  geom_density(alpha = 0.6) |> ggblend::blend(blend = "multiply") +
   ggeasy::easy_remove_x_axis() +
   ggeasy::easy_remove_y_axis()
 
@@ -431,33 +435,6 @@ iris |>
   theme(strip.text.x = element_text(margin = margin(t = 2.5, b = 5)))
 ```
 
-### gghighlight
-
-The gghighlight package enables geoms or parts thereof to be highlighted. 
-
-```{r}
-penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-  ) +
-  gghighlight::gghighlight(body_mass_g >= 5000)
-```
-
-The `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you may need to make adjustments, so that the scale builds correctly. 
-
-```{r}
-penguins |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-    x_breaks = scales::breaks_pretty(4),
-    col_pal = rep(blue, 3), 
-  ) + #build the scale for not faceted (i.e. all data)
-  facet_wrap(~species) + #then add facet layer
-  gghighlight::gghighlight() 
-```
-
 ### ggeasy
 
 The ggeasy package provides a lot of support for easily modifying themes. Removing axes and gridlines is often useful. 
@@ -476,6 +453,34 @@ penguins |>
   easy_remove_y_gridlines() +
   easy_remove_x_axis(what = c("line", "ticks")) +
   easy_remove_legend_title()
+```
+
+### gghighlight
+
+The gghighlight package enables geoms or parts thereof to be highlighted. It _kind of_ works with ggblanket. There must be a `col` variable added unfortunately. It might be better to use ggplot2 instead here.
+
+```{r}
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = 1, mode = light_mode_n(),
+  ) +
+  gghighlight::gghighlight(body_mass_g >= 5000)
+```
+
+The `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you may need to make adjustments, so that the scale builds correctly. 
+
+```{r}
+penguins |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = species,
+    x_breaks = scales::breaks_pretty(4),
+    col_pal = rep(blue, 3), 
+  ) + #build the scale for not faceted (i.e. all data)
+  facet_wrap(~species) + #then add facet layer
+  gghighlight::gghighlight() 
 ```
 
 ### ggnewscale

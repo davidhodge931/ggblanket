@@ -102,27 +102,3 @@ discrete_scales_col <- c(
   "scale_fill_ordinal",
   "scale_fill_viridis_d"
 )
-
-#' Continuous alpha scales
-#'
-#' @description A vector of continuous alpha scales.
-#'
-#' @noRd
-continuous_scales_alpha <- c(
-  "scale_alpha_continuous",
-  "scale_alpha",
-  "scale_alpha_binned",
-  "scale_alpha_date",
-  "scale_alpha_datetime"
-)
-
-#' Discrete colour and fill scales
-#'
-#' @description A vector of discrete colour and fill scales.
-#'
-#' @noRd
-discrete_scales_alpha <- c(
-  "scale_alpha_discrete",
-  "scale_alpha_manual",
-  "scale_alpha_ordinal"
-)
