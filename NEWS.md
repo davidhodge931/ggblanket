@@ -1,4 +1,4 @@
-# ggblanket 6.9.9000
+# ggblanket 6.0.9000
 
 * Breaking: added `set_blanket` function, which is required to setup the style.
 * Added `weave_geom_defaults` helper function.
