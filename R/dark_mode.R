@@ -151,5 +151,5 @@ dark_mode_n <- function (
       "panel" = darkness[3],
       "plot" = darkness[1],
       "grid" = darkness[1])
-  )
+    )
 }
