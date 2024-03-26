@@ -48,7 +48,8 @@ Secondary objectives relate to:
 12. Change colours of either coloured outlines or interiors
 13. Ability to add multiple `geom_*` layers
 14. Use `alpha` and other aesthetics
-15. A `gg_blanket()` function with `geom` flexibility
+15. Use `set_blanket` to adjust the default style
+16. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
 library(ggblanket)
@@ -66,7 +67,9 @@ set_blanket()
 
 Each `gg_*` function wraps a ggplot2 `ggplot2::ggplot()` function with the applicable ggplot2 `geom_*()` function. 
 
-Each `gg_*` function is named after the `geom_*` function they wrap. 
+Each `gg_*` function is named after the `geom_*` function it wraps. 
+
+Note at the start of every script, the `set_blanket` function should be run to set the style for all subsequent plots. 
 
 ```{r}
 penguins |>
@@ -312,12 +315,12 @@ penguins |>
 
 ### 10. A symmetrical continuous scale with easy opt-out
 
-For `flipped = FALSE` graphs, the `gg_*` function will create a symmetric continuous y scale by default with: 
+For plots that that `gg_*` function guesses are not horizontal in orientation, the `gg_*` function will create a symmetric continuous y scale by default with: 
 
 * `y_limits` that are the range of the `y_breaks` 
 * `y_expand` of `c(0, 0)`
 
-For `flipped = TRUE`, the vice-versa occurs.
+For the opposite, the vice-versa occurs.
 
 Sometimes you may need to add `*_expand_limits = 0`, if the lower bound of the symmetric scale falls on a number close to 0.
 
@@ -499,13 +502,73 @@ penguins |>
   guides(alpha = guide_legend(reverse = TRUE))
 ```
 
-### 15. A `gg_blanket` function with `geom` flexibility
+### 15. Use `set_blanket` to adjust the default style
+
+The `set_blanket` function is used to set the default style of future plots.
+
+This includes setting the default mode and geom defaults. You can also use `ggplot2::update_geom_defaults` to further fine-tune your geom defaults.
+
+```{r}
+set_blanket(
+  mode = dark_mode_r(),
+  geom_defaults = weave_geom_defaults(col_pal = orange, annotate_pal = darkness[2]),
+)
+
+p1 <- penguins |>
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g,
+    x_breaks = scales::breaks_pretty(3),
+  ) +
+  geom_vline(xintercept = 200) +
+  geom_text(aes(x = I(0.25), y = I(0.75), label = "Here"))
+
+p2 <- penguins |> 
+  gg_histogram(
+    x = flipper_length_mm,
+    x_breaks = scales::breaks_pretty(3),
+  ) +
+  geom_vline(xintercept = 200) +
+  geom_text(aes(x = I(0.75), y = I(0.75), label = "Here"))
+
+p1 + p2
+```
+
+
+```{r}
+set_blanket(
+  mode = light_mode_r(),
+  geom_defaults = weave_geom_defaults(plum),
+)
+
+p1 <- penguins |>
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g,
+    x_breaks = scales::breaks_pretty(3),
+  ) +
+  geom_text(aes(x = I(0.25), y = I(0.75), label = "Here"))
+
+p2 <- penguins |> 
+  gg_histogram(
+    x = flipper_length_mm,
+    x_breaks = scales::breaks_pretty(3),
+  ) +
+  geom_vline(xintercept = 200) +
+  geom_text(aes(x = I(0.75), y = I(0.75), label = "Here"))
+
+p1 + p2
+```
+
+### 16. A `gg_blanket` function with `geom` flexibility
 
 ggblanket is driven by the `gg_blanket` function, which has a `geom` argument with `geom_blank` defaults.
 
 All other functions wrap this function with a locked-in geom, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
 ```{r}
+set_blanket()
+
 penguins |>
   gg_blanket(
     geom = "bar",
