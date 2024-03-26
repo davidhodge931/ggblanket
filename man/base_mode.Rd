@@ -7,8 +7,8 @@
 base_mode(
   base_size = 11,
   base_family = "",
-  col_pal = c(text = "white", axis_line = "white", panel_background = "white",
-    plot_background = "white", panel_grid = "white")
+  base_pal = c(text = "white", line = "white", panel = "white", plot = "white", grid =
+    "white")
 )
 }
 \arguments{
@@ -16,7 +16,7 @@ base_mode(
 
 \item{base_family}{The base family of the text. Defaults to "".}
 
-\item{col_pal}{A 5 colour vector with elements named "text", "axis_line", "panel_background", "plot_background" and "panel_grid".}
+\item{base_pal}{A 5 colour vector with elements named "text", "line", "panel", "plot" and "grid".}
 }
 \description{
 Theme base for \verb{base_mode_*} functions.

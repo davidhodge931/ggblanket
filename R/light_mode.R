@@ -23,21 +23,17 @@
 #'
 light_mode_r <- function (
     base_size = 11,
-    base_family = "",
-    x_title = TRUE,
-    y_title = TRUE) {
+    base_family = "") {
 
   base_mode_r(
     base_size = base_size,
     base_family = base_family,
-    x_title = x_title,
-    y_title = y_title,
-    col_pal = c(
+    base_pal = c(
       "text" = lightness[2],
-      "axis_line" = lightness[2],
-      "panel_background" = lightness[3],
-      "plot_background" = lightness[3],
-      "panel_grid" = lightness[1])
+      "line" = lightness[2],
+      "panel" = lightness[3],
+      "plot" = lightness[3],
+      "grid" = lightness[1])
   )
 }
 
@@ -66,21 +62,17 @@ light_mode_r <- function (
 #'
 light_mode_t <- function (
     base_size = 11,
-    base_family = "",
-    x_title = TRUE,
-    y_title = TRUE) {
+    base_family = "") {
 
   base_mode_t(
     base_size = base_size,
     base_family = base_family,
-    x_title = x_title,
-    y_title = y_title,
-    col_pal = c(
+    base_pal = c(
       "text" = lightness[2],
-      "axis_line" = lightness[2],
-      "panel_background" = lightness[3],
-      "plot_background" = lightness[3],
-      "panel_grid" = lightness[1])
+      "line" = lightness[2],
+      "panel" = lightness[3],
+      "plot" = lightness[3],
+      "grid" = lightness[1])
   )
 }
 
@@ -109,21 +101,17 @@ light_mode_t <- function (
 #'
 light_mode_b <- function (
     base_size = 11,
-    base_family = "",
-    x_title = TRUE,
-    y_title = TRUE) {
+    base_family = "") {
 
   base_mode_b(
     base_size = base_size,
     base_family = base_family,
-    x_title = x_title,
-    y_title = y_title,
-    col_pal = c(
+    base_pal = c(
       "text" = lightness[2],
-      "axis_line" = lightness[2],
-      "panel_background" = lightness[3],
-      "plot_background" = lightness[3],
-      "panel_grid" = lightness[1])
+      "line" = lightness[2],
+      "panel" = lightness[3],
+      "plot" = lightness[3],
+      "grid" = lightness[1])
   )
 }
 
@@ -152,20 +140,16 @@ light_mode_b <- function (
 #'
 light_mode_n <- function (
     base_size = 11,
-    base_family = "",
-    x_title = TRUE,
-    y_title = TRUE) {
+    base_family = "") {
 
   base_mode_n(
     base_size = base_size,
     base_family = base_family,
-    x_title = x_title,
-    y_title = y_title,
-    col_pal = c(
+    base_pal = c(
       "text" = lightness[2],
-      "axis_line" = lightness[2],
-      "panel_background" = lightness[3],
-      "plot_background" = lightness[3],
-      "panel_grid" = lightness[1])
+      "line" = lightness[2],
+      "panel" = lightness[3],
+      "plot" = lightness[3],
+      "grid" = lightness[1])
   )
 }

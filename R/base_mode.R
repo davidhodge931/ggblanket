@@ -4,24 +4,24 @@
 #'
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
-#' @param col_pal A 5 colour vector with elements named "text", "axis_line", "panel_background", "plot_background" and "panel_grid".
+#' @param base_pal A 5 colour vector with elements named "text", "line", "panel", "plot" and "grid".
 #'
 #' @keywords internal
-base_mode <- function (
+base_mode <- function(
     base_size = 11,
     base_family = "",
-    col_pal = c(
+    base_pal = c(
       "text" = "white",
-      "axis_line" = "white",
-      "panel_background" = "white",
-      "plot_background" = "white",
-      "panel_grid" = "white")
+      "line" = "white",
+      "panel" = "white",
+      "plot" = "white",
+      "grid" = "white")
     ) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = col_pal["axis_line"], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = col_pal["plot_background"], colour = col_pal["plot_background"], linewidth = base_size/33, linetype = 1),
-    text = ggplot2::element_text(family = base_family, face = "plain", colour = col_pal["text"], size = base_size,
+    line = ggplot2::element_line(colour = base_pal["line"], linewidth = base_size/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = base_pal["plot"], colour = base_pal["plot"], linewidth = base_size/33, linetype = 1),
+    text = ggplot2::element_text(family = base_family, face = "plain", colour = base_pal["text"], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -41,7 +41,7 @@ base_mode <- function (
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = col_pal["plot_background"], fill = col_pal["plot_background"]),
+    legend.key = ggplot2::element_rect(colour = base_pal["plot"], fill = base_pal["plot"]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -57,9 +57,9 @@ base_mode <- function (
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = col_pal["panel_background"], colour = col_pal["panel_background"]),
+    panel.background = ggplot2::element_rect(fill = base_pal["panel"], colour = base_pal["panel"]),
     panel.border = ggplot2::element_blank(),
-    panel.grid = ggplot2::element_line(colour = col_pal["panel_grid"], linewidth = ggplot2::rel(4)),
+    panel.grid = ggplot2::element_line(colour = base_pal["grid"], linewidth = ggplot2::rel(4)),
     panel.grid.major = NULL,
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
@@ -82,7 +82,7 @@ base_mode <- function (
     plot.title = ggplot2::element_text(face = "bold", size = ggplot2::rel(1.1), hjust = 0, margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 2.5, l = 0)),
     plot.title.position = "plot",
     plot.subtitle = ggplot2::element_text(hjust = 0, margin = ggplot2::margin(t = base_size * -2, r = 0, b = base_size * 2, l = 0)),
-    plot.caption = ggplot2::element_text(colour = scales::alpha(col_pal["text"], 0.75), size = ggplot2::rel(0.85), hjust = 0, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
+    plot.caption = ggplot2::element_text(colour = scales::alpha(base_pal["text"], 0.75), size = ggplot2::rel(0.85), hjust = 0, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
     plot.caption.position = "plot",
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",
@@ -97,27 +97,23 @@ base_mode <- function (
 #' @description Theme base for `*_mode_r` functions with right legend.
 #'
 #' @inheritParams base_mode
-#' @param x_title TRUE or FALSE whether to have a x axis title. Defaults to TRUE.
-#' @param y_title TRUE or FALSE whether to have a y axis title. Defaults to TRUE.
 #'
 #' @keywords internal
 base_mode_r <- function (
     base_size = 11,
     base_family = "",
-    x_title = TRUE,
-    y_title = TRUE,
-    col_pal = c(
+    base_pal = c(
       "text" = "white",
-      "axis_line" = "white",
-      "panel_background" = "white",
-      "plot_background" = "white",
-      "panel_grid" = "white")
+      "line" = "white",
+      "panel" = "white",
+      "plot" = "white",
+      "grid" = "white")
     ) {
 
   base_mode(
     base_size = base_size,
     base_family = base_family,
-    col_pal = col_pal
+    base_pal = base_pal
   ) +
     ggplot2::theme(
       legend.position = "right",
@@ -146,20 +142,18 @@ base_mode_r <- function (
 base_mode_t <- function (
     base_size = 11,
     base_family = "",
-    x_title = TRUE,
-    y_title = TRUE,
-    col_pal = c(
+    base_pal = c(
       "text" = "white",
-      "axis_line" = "white",
-      "panel_background" = "white",
-      "plot_background" = "white",
-      "panel_grid" = "white")
+      "line" = "white",
+      "panel" = "white",
+      "plot" = "white",
+      "grid" = "white")
     ) {
 
   base_mode(
     base_size = base_size,
     base_family = base_family,
-    col_pal = col_pal
+    base_pal = base_pal
   ) +
   ggplot2::theme(
     legend.position = "top",
@@ -188,20 +182,18 @@ base_mode_t <- function (
 base_mode_b <- function (
     base_size = 11,
     base_family = "",
-    x_title = TRUE,
-    y_title = TRUE,
-    col_pal = c(
+    base_pal = c(
       "text" = "white",
-      "axis_line" = "white",
-      "panel_background" = "white",
-      "plot_background" = "white",
-      "panel_grid" = "white")
+      "line" = "white",
+      "panel" = "white",
+      "plot" = "white",
+      "grid" = "white")
     ) {
 
   base_mode(
     base_size = base_size,
     base_family = base_family,
-    col_pal = col_pal
+    base_pal = base_pal
   ) +
     ggplot2::theme(
       legend.position = "bottom",
@@ -225,27 +217,23 @@ base_mode_b <- function (
 #' @description Theme base for `*_mode_n` functions with no legend.
 #'
 #' @inheritParams base_mode
-#' @param x_title TRUE or FALSE whether to have a x axis title. Defaults to TRUE.
-#' @param y_title TRUE or FALSE whether to have a y axis title. Defaults to TRUE.
 #'
 #' @keywords internal
 base_mode_n <- function (
     base_size = 11,
     base_family = "",
-    x_title = TRUE,
-    y_title = TRUE,
-    col_pal = c(
+    base_pal = c(
       "text" = "white",
-      "axis_line" = "white",
-      "panel_background" = "white",
-      "plot_background" = "white",
-      "panel_grid" = "white")
+      "line" = "white",
+      "panel" = "white",
+      "plot" = "white",
+      "grid" = "white")
     ) {
 
   mode <- base_mode(
     base_size = base_size,
     base_family = base_family,
-    col_pal = col_pal
+    base_pal = base_pal
   ) +
   ggplot2::theme(
     legend.position = "none",
@@ -262,18 +250,6 @@ base_mode_n <- function (
     axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.3, l = 0)),
     axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 1, b = 0, l = base_size * 1), angle = -90)
   )
-
-  if (!x_title) {
-    mode <- mode +
-      ggplot2::theme(axis.title.x.bottom = ggplot2::element_blank()) +
-      ggplot2::theme(axis.title.x.top = ggplot2::element_blank())
-  }
-
-  if (!y_title) {
-    mode <- mode +
-      ggplot2::theme(axis.title.y.left = ggplot2::element_blank()) +
-      ggplot2::theme(axis.title.y.right = ggplot2::element_blank())
-  }
 
   return(mode)
 }

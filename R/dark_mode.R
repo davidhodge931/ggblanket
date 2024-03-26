@@ -23,21 +23,17 @@
 #'
 dark_mode_r <- function (
     base_size = 11,
-    base_family = "",
-    x_title = TRUE,
-    y_title = TRUE) {
+    base_family = "") {
 
   base_mode_r(
     base_size = base_size,
     base_family = base_family,
-    x_title = x_title,
-    y_title = y_title,
-    col_pal = c(
+    base_pal = c(
       "text" = darkness[2],
-      "axis_line" = darkness[2],
-      "panel_background" = darkness[3],
-      "plot_background" = darkness[1],
-      "panel_grid" = darkness[1])
+      "line" = darkness[2],
+      "panel" = darkness[3],
+      "plot" = darkness[1],
+      "grid" = darkness[1])
   )
 }
 
@@ -66,21 +62,17 @@ dark_mode_r <- function (
 #'
 dark_mode_t <- function (
     base_size = 11,
-    base_family = "",
-    x_title = TRUE,
-    y_title = TRUE) {
+    base_family = "") {
 
   base_mode_t(
     base_size = base_size,
     base_family = base_family,
-    x_title = x_title,
-    y_title = y_title,
-    col_pal = c(
+    base_pal = c(
       "text" = darkness[2],
-      "axis_line" = darkness[2],
-      "panel_background" = darkness[3],
-      "plot_background" = darkness[1],
-      "panel_grid" = darkness[1])
+      "line" = darkness[2],
+      "panel" = darkness[3],
+      "plot" = darkness[1],
+      "grid" = darkness[1])
   )
 }
 
@@ -109,21 +101,17 @@ dark_mode_t <- function (
 #'
 dark_mode_b <- function (
     base_size = 11,
-    base_family = "",
-    x_title = TRUE,
-    y_title = TRUE) {
+    base_family = "") {
 
   base_mode_b(
     base_size = base_size,
     base_family = base_family,
-    x_title = x_title,
-    y_title = y_title,
-    col_pal = c(
+    base_pal = c(
       "text" = darkness[2],
-      "axis_line" = darkness[2],
-      "panel_background" = darkness[3],
-      "plot_background" = darkness[1],
-      "panel_grid" = darkness[1])
+      "line" = darkness[2],
+      "panel" = darkness[3],
+      "plot" = darkness[1],
+      "grid" = darkness[1])
   )
 }
 
@@ -152,20 +140,16 @@ dark_mode_b <- function (
 #'
 dark_mode_n <- function (
     base_size = 11,
-    base_family = "",
-    x_title = TRUE,
-    y_title = TRUE) {
+    base_family = "") {
 
   base_mode_n(
     base_size = base_size,
     base_family = base_family,
-    x_title = x_title,
-    y_title = y_title,
-    col_pal = c(
+    base_pal = c(
       "text" = darkness[2],
-      "axis_line" = darkness[2],
-      "panel_background" = darkness[3],
-      "plot_background" = darkness[1],
-      "panel_grid" = darkness[1])
+      "line" = darkness[2],
+      "panel" = darkness[3],
+      "plot" = darkness[1],
+      "grid" = darkness[1])
   )
 }

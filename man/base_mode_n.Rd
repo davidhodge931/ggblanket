@@ -7,10 +7,8 @@
 base_mode_n(
   base_size = 11,
   base_family = "",
-  x_title = TRUE,
-  y_title = TRUE,
-  col_pal = c(text = "white", axis_line = "white", panel_background = "white",
-    plot_background = "white", panel_grid = "white")
+  base_pal = c(text = "white", line = "white", panel = "white", plot = "white", grid =
+    "white")
 )
 }
 \arguments{
@@ -18,11 +16,7 @@ base_mode_n(
 
 \item{base_family}{The base family of the text. Defaults to "".}
 
-\item{x_title}{TRUE or FALSE whether to have a x axis title. Defaults to TRUE.}
-
-\item{y_title}{TRUE or FALSE whether to have a y axis title. Defaults to TRUE.}
-
-\item{col_pal}{A 5 colour vector with elements named "text", "axis_line", "panel_background", "plot_background" and "panel_grid".}
+\item{base_pal}{A 5 colour vector with elements named "text", "line", "panel", "plot" and "grid".}
 }
 \description{
 Theme base for \verb{*_mode_n} functions with no legend.
