@@ -32,7 +32,7 @@ Secondary objectives relate to:
 * Alignment: use conventions aligned with ggplot2
 * Scope: cover much of what ggplot2 does.
 
-Note computational speed has been sacrificed to achieve these objectives.
+Computational speed has been traded-off to achieve these objectives.
 
 ## How it works
  
@@ -45,13 +45,12 @@ Note computational speed has been sacrificed to achieve these objectives.
 7.  Unspecified titles converted to `snakecase::sentence_case`
 8.  A `mode` argument designed for provided `*_mode_*` themes
 9.  Families of `*_mode_*` themes that differ by legend placement 
-10.  A symmetrical continuous scale with easy opt-out
-11. Access to other `geom_*` arguments via `...`
-12. Change colours of either coloured outlines or interiors
-13. Ability to add multiple `geom_*` layers
-14. Use `alpha` and other aesthetics
-15. Use `set_blanket` to adjust the default style
-16. A `gg_blanket()` function with `geom` flexibility
+10. Access to other `geom_*` arguments via `...`
+11. A symmetrical continuous scale with easy opt-out
+12. Ability to add multiple `geom_*` layers
+13. Access other aesthetics via `mapping`
+14. Set the default style with `set_blanket`
+15. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
 library(ggblanket)
@@ -144,14 +143,14 @@ penguins |>
 
 ### 5. A `col_pal` argument to customise colours
 
-The `col_pal` argument is used to customise the colours of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` aesthetic is added or not. 
+The `col_pal` argument is used to customise the colour outlines and interior fill of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` aesthetic is added or not. 
 
 ```{r}
-penguins |>
-  gg_jitter(
-    x = species, 
-    y = body_mass_g, 
-    col_pal = "#7FCDBB",
+economics |>
+  gg_area(
+    x = date,
+    y = unemploy,
+    col_pal = "#901752"
   )
 ```
 
@@ -275,7 +274,7 @@ These are intended for use with the `mode` argument.
 
 If you want to use a quick non-bold title, use `subtitle = "\n..."`.
 
-A title can be removed using `+ labs(... = NULL)`. For removing the the legend associated with `col`, you should add both `colour = NULL` and `fill = NULL`. An alternative approach is to add `+ theme(legend.title = element_blank())` to the plot.
+A title can be removed using `+ labs(... = NULL)`. For removing the the legend associated with `col`, you should add both `colour = NULL` and `fill = NULL`. 
 
 ```{r, fig.asp=0.7}
 penguins |>
@@ -315,20 +314,66 @@ penguins |>
   ) 
 ```
 
-### 10. A symmetrical continuous scale with easy opt-out
+### 10. Access to other `geom_*` arguments via `...`
 
-For plots that that `gg_*` function guesses are not horizontal in orientation, the `gg_*` function will create a symmetric continuous y scale by default with: 
+The `...` argument provides access to all other arguments in the `geom_*()` function. Typical arguments to add include colour, fill, alpha, linewidth, size and  width.
+
+Subsequently, for geom's that have _both_ coloured outlines and interiors, you can turn off  _either_ of these using `colour = NA`/`fill = NA` - or fix one to a single colour with `colour = "black"`/`fill = "lightgrey"` etc.
+
+Use the `geom_*` help to see what arguments are available.
+
+```{r}
+penguins |>
+  mutate(across(sex, str_to_sentence)) |> 
+  drop_na(sex) |> 
+  gg_smooth(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex, 
+    colour = "white", # via ... from geom_smooth
+    linewidth = 1, # via ... from geom_smooth
+    alpha = 0.66, # via ... from geom_smooth
+    se = TRUE, # via ... from geom_smooth
+    level = 0.999, # via ... from geom_smooth
+  ) 
+```
+
+```{r, fig.asp=0.4}
+p1 <- penguins |>
+  gg_boxplot(
+    position = position_dodge2(preserve = "single"),
+    x = species,
+    y = flipper_length_mm,
+    colour = "#121B24", 
+  )
+
+p2 <- penguins |>
+  gg_density(
+    x = flipper_length_mm,
+    fill = NA,
+    x_breaks = scales::breaks_pretty(3),
+    mode = light_mode_n(),
+  )
+
+p1 + p2
+```
+
+### 11. A symmetric continuous scale with easy opt-out
+
+The `gg_*` function will generally create a symmetric continuous y scale by default with: 
 
 * `y_limits` that are the range of the `y_breaks` 
 * `y_expand` of `c(0, 0)`
 
-For the opposite, the vice-versa occurs.
+However, for the plots guessed to be horizontal, the vice-versa will occurs with a symmetric x scale by default.
 
 Sometimes you may need to add `*_expand_limits = 0`, if the lower bound of the symmetric scale falls on a number close to 0.
 
 This symmetric scale can be turned off easily using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc).
 
 Note this symmetric scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.
+
+It is referred to symmetric in that the axis appears symmetric.
 
 ```{r, echo=FALSE}
 d <- data.frame(
@@ -383,49 +428,7 @@ p3 <- d |>
 p1 + p2 + p3
 ```
 
-### 11. Access to other `geom_*` arguments via `...`
-
-The `...` argument provides access to all other arguments in the `geom_*()` function. 
-
-```{r}
-penguins |>
-  mutate(across(sex, str_to_sentence)) |> 
-  drop_na(sex) |> 
-  gg_smooth(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = sex, 
-    se = TRUE, # via ... from geom_smooth
-    level = 0.999, # via ... from geom_smooth
-  ) 
-```
-
-### 12. Change colours of either coloured outlines or interiors
-
-For geom's that have both coloured outlines and interiors, these are both coloured by default.
-
-You can turn either of these off using `colour = NA` or `fill = NA` or turn
-
-```{r, fig.asp=0.4}
-penguins |>
-  gg_boxplot(
-    position = position_dodge2(preserve = "single"),
-    x = flipper_length_mm,
-    y = species,
-    colour = "#121B24", 
-  )
-```
-
-```{r}
-penguins |>
-  gg_density(
-    x = flipper_length_mm,
-    fill = NA,
-    mode = light_mode_n(),
-  )
-```
-
-### 13. Ability to add multiple `geom_*` layers
+### 12. Ability to add multiple `geom_*` layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
 
@@ -433,7 +436,9 @@ The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within t
 
 The `gg_*()` function _should_ be appropriate to be the bottom layer of the plot, as geoms are drawn in order. 
 
-All of the aesthetics required for the plot as a whole should generally be added into the `gg_*` function, including the `col` argument. If you do not want the first layer to have a colour and fill aesthetic, but you wish later layers to access this - use `gg_blanket()` (as it defaults to a `blank` geom). 
+All of the aesthetics required for the plot as a whole should generally be added into the `gg_*` function, including the `col` argument. 
+
+If you do not want the first layer to have a colour and fill aesthetic, but you wish later layers to access this - use `gg_blanket()` (as it defaults to a `blank` geom). 
 
 ```{r, fig.asp = 0.4}
 penguins |>
@@ -486,7 +491,7 @@ penguins |>
   ) 
 ```
 
-### 14. Use other aesthetics
+### 13. Access other aesthetics via `mapping`
 
 The `mapping` argument provides access to other aesthetics, such as `alpha`, `size`, `shape`, `linetype` and `linewidth` etc. 
 
@@ -504,9 +509,13 @@ penguins |>
   guides(alpha = guide_legend(reverse = TRUE))
 ```
 
-### 15. Use `set_blanket` to adjust the default style
+### 14. Set the default style with `set_blanket`
 
-The `set_blanket` function is used to set the default style of subsequent  ggblanket plots. This includes setting the default mode and geom defaults. You can also use `ggplot2::update_geom_defaults` to further fine-tune your geom defaults.
+The `set_blanket` function is used to set the default style of subsequent  ggblanket plots at the start of each script. 
+
+The defaults work well. But you can also adjust these by specify the default mode and the default geom colour/fill - and annotation colour. 
+
+You can also use `ggplot2::update_geom_defaults()` to further fine-tune your geom defaults.
 
 ```{r}
 set_blanket(
@@ -561,7 +570,7 @@ p2 <- penguins |>
 p1 + p2
 ```
 
-### 16. A `gg_blanket` function with `geom` flexibility
+### 15. A `gg_blanket()` function with `geom` flexibility
 
 ggblanket is driven by the `gg_blanket` function, which has a `geom` argument with `geom_blank` defaults.
 
