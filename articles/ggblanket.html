@@ -133,6 +133,7 @@ placement</li>
 <li>Change colours of either coloured outlines or interiors</li>
 <li>Ability to add multiple <code>geom_*</code> layers</li>
 <li>Use <code>alpha</code> and other aesthetics</li>
+<li>Use <code>set_blanket</code> to adjust the default style</li>
 <li>A <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with <code>geom</code>
 flexibility</li>
 </ol>
@@ -153,7 +154,9 @@ flexibility</li>
 <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code> function with the applicable ggplot2
 <code>geom_*()</code> function.</p>
 <p>Each <code>gg_*</code> function is named after the
-<code>geom_*</code> function they wrap.</p>
+<code>geom_*</code> function it wraps.</p>
+<p>Note at the start of every script, the <code>set_blanket</code>
+function should be run to set the style for all subsequent plots.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
@@ -384,8 +387,9 @@ alternative approach is to add
 <div class="section level3">
 <h3 id="a-symmetrical-continuous-scale-with-easy-opt-out">10. A symmetrical continuous scale with easy opt-out<a class="anchor" aria-label="anchor" href="#a-symmetrical-continuous-scale-with-easy-opt-out"></a>
 </h3>
-<p>For <code>flipped = FALSE</code> graphs, the <code>gg_*</code>
-function will create a symmetric continuous y scale by default with:</p>
+<p>For plots that that <code>gg_*</code> function guesses are not
+horizontal in orientation, the <code>gg_*</code> function will create a
+symmetric continuous y scale by default with:</p>
 <ul>
 <li>
 <code>y_limits</code> that are the range of the
@@ -395,7 +399,7 @@ function will create a symmetric continuous y scale by default with:</p>
 <code>y_expand</code> of <code>c(0, 0)</code>
 </li>
 </ul>
-<p>For <code>flipped = TRUE</code>, the vice-versa occurs.</p>
+<p>For the opposite, the vice-versa occurs.</p>
 <p>Sometimes you may need to add <code>*_expand_limits = 0</code>, if
 the lower bound of the symmetric scale falls on a number close to 0.</p>
 <p>This symmetric scale can be turned off easily using
@@ -542,7 +546,65 @@ merge. Subsequently, you may need to change a title using
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-22-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="a-gg_blanket-function-with-geom-flexibility">15. A <code>gg_blanket</code> function with <code>geom</code>
+<h3 id="use-set_blanket-to-adjust-the-default-style">15. Use <code>set_blanket</code> to adjust the default style<a class="anchor" aria-label="anchor" href="#use-set_blanket-to-adjust-the-default-style"></a>
+</h3>
+<p>The <code>set_blanket</code> function is used to set the default
+style of future plots.</p>
+<p>This includes setting the default mode and geom defaults. You can
+also use <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults</a></code> to further fine-tune
+your geom defaults.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
+<span>  mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  geom_defaults <span class="op">=</span> <span class="fu"><a href="../reference/weave_geom_defaults.html">weave_geom_defaults</a></span><span class="op">(</span>col_pal <span class="op">=</span> <span class="va">orange</span>, annotate_pal <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">200</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.25</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Here"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">200</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Here"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-23-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
+<span>  mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  geom_defaults <span class="op">=</span> <span class="fu"><a href="../reference/weave_geom_defaults.html">weave_geom_defaults</a></span><span class="op">(</span><span class="va">plum</span><span class="op">)</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.25</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Here"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">200</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Here"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="a-gg_blanket-function-with-geom-flexibility">16. A <code>gg_blanket</code> function with <code>geom</code>
 flexibility<a class="anchor" aria-label="anchor" href="#a-gg_blanket-function-with-geom-flexibility"></a>
 </h3>
 <p>ggblanket is driven by the <code>gg_blanket</code> function, which
@@ -551,8 +613,10 @@ defaults.</p>
 <p>All other functions wrap this function with a locked-in geom, and
 their own default <code>stat</code> and <code>position</code> arguments
 as per the applicable <code>geom_*</code> function.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_blanket.html">gg_blanket</a></span><span class="op">(</span></span>
 <span>    geom <span class="op">=</span> <span class="st">"bar"</span>,</span>
 <span>    stat <span class="op">=</span> <span class="st">"bin"</span>,</span>
@@ -560,8 +624,8 @@ as per the applicable <code>geom_*</code> function.</p>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-23-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-25-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">str_to_sentence</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -573,7 +637,7 @@ as per the applicable <code>geom_*</code> function.</p>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-24-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-26-1.svg" width="70%"></p>
 </div>
 </div>
 <div class="section level2">

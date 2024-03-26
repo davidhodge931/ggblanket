@@ -117,7 +117,6 @@ as wanted</li>
 <li>Understand <code>oob</code> &amp; <code>clip</code>
 </li>
 <li>Use delayed evaluation</li>
-<li>Make custom <code>gg_*</code> wrapper functions</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
@@ -625,66 +624,6 @@ evaluation with the <code><a href="https://ggplot2.tidyverse.org/reference/aes_e
 <span>    bins <span class="op">=</span> <span class="fl">8</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="make-custom-gg_-wrapper-functions">14. Make custom <code>gg_*</code> wrapper functions<a class="anchor" aria-label="anchor" href="#make-custom-gg_-wrapper-functions"></a>
-</h3>
-<p>You may wish to make your own wrapper functions if you are
-continually adding the same defaults to your <code>gg_*</code>
-functions.</p>
-<p>This essentially allows you to choose your own defaults in the
-functions.</p>
-<p>Use the <code>...</code> argument to access all other arguments in
-the <code>gg_*</code> function.</p>
-<p>An alternative method to <code>enquo</code> and <code>!!</code> is to
-use <code>{{ }}</code>.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gg_point_custom</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, </span>
-<span>                            <span class="va">x</span> <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>                            <span class="va">y</span> <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>                            <span class="va">col</span> <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                            <span class="va">col_pal</span> <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                            <span class="va">shape</span> <span class="op">=</span> <span class="fl">17</span>,</span>
-<span>                            <span class="va">size</span> <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>                            <span class="va">titles_to_case</span> <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_title_case</a></span>,</span>
-<span>                            <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  </span>
-<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html" class="external-link">enquo</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html" class="external-link">enquo</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
-<span>  <span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html" class="external-link">enquo</a></span><span class="op">(</span><span class="va">col</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/type-predicates.html" class="external-link">is_null</a></span><span class="op">(</span><span class="va">col_pal</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/quosure-tools.html" class="external-link">quo_is_null</a></span><span class="op">(</span><span class="va">col</span><span class="op">)</span><span class="op">)</span> <span class="va">col_pal</span> <span class="op">&lt;-</span> <span class="va">plum</span></span>
-<span>    <span class="kw">else</span> <span class="va">col_pal</span> <span class="op">&lt;-</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">8</span>, <span class="st">"Dark2"</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span>  </span>
-<span>  <span class="va">data</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
-<span>      x <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="va">x</span>,</span>
-<span>      y <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="va">y</span>,</span>
-<span>      col <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="va">col</span>,</span>
-<span>      col_pal <span class="op">=</span> <span class="va">col_pal</span>,</span>
-<span>      shape <span class="op">=</span> <span class="va">shape</span>,</span>
-<span>      size <span class="op">=</span> <span class="va">size</span>, </span>
-<span>      titles_to_case <span class="op">=</span> <span class="va">titles_to_case</span>,</span>
-<span>      <span class="va">...</span>,</span>
-<span>    <span class="op">)</span> </span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">gg_point_custom</span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-22-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">gg_point_custom</span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-23-1.svg" width="70%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
