@@ -71,7 +71,7 @@ Each `gg_*` function wraps a ggplot2 `ggplot2::ggplot()` function with the appli
 
 Each `gg_*` function is named after the `geom_*` function it wraps. 
 
-Note at the start of every script, the `set_blanket` function should be run to set the style for all subsequent plots. 
+Note at the start of every script, the `set_blanket` function should be run to set the style for all subsequent ggblanket plots. 
 
 ```{r}
 penguins |>
@@ -506,7 +506,7 @@ penguins |>
 
 ### 15. Use `set_blanket` to adjust the default style
 
-The `set_blanket` function is used to set the default style of future plots.
+The `set_blanket` function is used to set the default style of subsequent  ggblanket plots.
 
 This includes setting the default mode and geom defaults. You can also use `ggplot2::update_geom_defaults` to further fine-tune your geom defaults.
 
