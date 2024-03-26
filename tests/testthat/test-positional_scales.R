@@ -3,7 +3,7 @@ testthat::skip_on_os(c("mac", "linux"))
 
 library(ggplot2)
 library(dplyr)
-set_style()
+set_blanket()
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "1"

@@ -7,7 +7,7 @@ library(stringr)
 library(tidyr)
 library(palmerpenguins)
 library(patchwork)
-set_style()
+set_blanket()
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "1"

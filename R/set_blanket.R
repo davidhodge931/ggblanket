@@ -8,7 +8,7 @@
 #'
 #' @return A globally set mode and updated geom defaults.
 #' @export
-set_style <- function(
+set_blanket <- function(
     mode = light_mode_r(),
     geom_defaults = weave_geom_defaults(),
     ...

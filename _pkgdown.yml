@@ -7,7 +7,7 @@ figures:
 reference:
 - title: Setup
 - contents:
-  - set_style
+  - set_blanket
   - set_mode
   - weave_geom_defaults
 - title: Plot

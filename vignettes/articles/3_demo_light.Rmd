@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 This article will demonstrate each wrapper function.
 
-```{r}
+```{r setup}
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -28,7 +28,7 @@ library(stringr)
 library(ggblanket)
 library(palmerpenguins)
 
-set_style()
+set_blanket()
 ```
 
 ### gg_area

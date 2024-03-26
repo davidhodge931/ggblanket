@@ -6,7 +6,7 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(palmerpenguins)
-set_style()
+set_blanket()
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "default"

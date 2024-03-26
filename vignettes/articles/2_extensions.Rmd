@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 This article will demonstrate some fantastic ggplot2 extension packages. 
 
-```{r}
+```{r setups}
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -29,7 +29,7 @@ library(stringr)
 library(ggblanket)
 library(palmerpenguins)
 
-set_style()
+set_blanket()
 ```
 
 ### patchwork

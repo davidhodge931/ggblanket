@@ -2,7 +2,7 @@
 
 * Breaking: removed all `alpha` arguments.
 * Breaking: in `aes_contrast`, renamed col_pal to `annotate_pal`
-* Breaking: added `set_style` function, which is required to provide the ggblanket style.
+* Breaking: added `set_blanket` function, which is required to setup.
 * Added `weave_geom_defaults` helper function.
 * Supported the use of `colour` and `fill` to set a fixed colour for either outlines or interior fill.
 * Improved `*_expand` defaults for histograms and bar graphs etc.

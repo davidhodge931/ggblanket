@@ -3,7 +3,7 @@ testthat::skip_on_os(c("mac", "linux"))
 
 library(palmerpenguins)
 library(ggplot2)
-set_style(
+set_blanket(
   geom_defaults = weave_geom_defaults(col_pal = lightness[2])
 )
 
