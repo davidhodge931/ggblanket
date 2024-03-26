@@ -579,7 +579,8 @@ ggplot2 instead here.</p>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="fl">1</span>, mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_n.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    col <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_n.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">gghighlight</span><span class="fu">::</span><span class="fu"><a href="https://yutannihilation.github.io/gghighlight/reference/gghighlight.html" class="external-link">gghighlight</a></span><span class="op">(</span><span class="va">body_mass_g</span> <span class="op">&gt;=</span> <span class="fl">5000</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
@@ -591,8 +592,7 @@ need to make adjustments, so that the scale builds correctly.</p>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>,</span>
-<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">blue</span>, <span class="fl">3</span><span class="op">)</span>, </span>
+<span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span> <span class="co">#build the scale for not faceted (i.e. all data)</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span> <span class="op">+</span> <span class="co">#then add facet layer</span></span>
 <span>  <span class="fu">gghighlight</span><span class="fu">::</span><span class="fu"><a href="https://yutannihilation.github.io/gghighlight/reference/gghighlight.html" class="external-link">gghighlight</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
