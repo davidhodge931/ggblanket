@@ -155,9 +155,11 @@ A ggplot object.
 Create a hex ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_hex]{geom_hex()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+library(palmerpenguins)
+
+set_blanket()
 
 diamonds |>
   gg_hex(

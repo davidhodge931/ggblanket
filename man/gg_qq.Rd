@@ -155,10 +155,11 @@ A ggplot object.
 Create a qq ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_qq]{geom_qq()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
 library(palmerpenguins)
+
+set_blanket()
 
 penguins |>
   gg_qq(

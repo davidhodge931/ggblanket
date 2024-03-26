@@ -158,10 +158,11 @@ A ggplot object.
 Create a blanket ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \code{layer()} with \link[ggplot2:geom_blank]{geom_blank()} defaults. This function underlies all other \verb{gg_*} functions. It contains a \code{geom} argument for maximum flexibility.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
 library(palmerpenguins)
+
+set_blanket()
 
 penguins |>
   tidyr::drop_na(sex) |>

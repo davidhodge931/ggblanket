@@ -155,9 +155,10 @@ A ggplot object.
 Create a linerange ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_linerange]{geom_linerange()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+
+set_blanket()
 
 data.frame(
   trt = factor(c(1, 1, 2, 2)),

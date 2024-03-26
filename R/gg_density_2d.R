@@ -8,9 +8,11 @@
 #' @export
 #'
 #' @examples
-#'
 #' library(ggplot2)
 #' library(dplyr)
+#' library(palmerpenguins)
+#'
+#' set_blanket()
 #'
 #' faithful |>
 #'   gg_density_2d(

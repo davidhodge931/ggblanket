@@ -8,9 +8,10 @@
 #' @export
 #'
 #' @examples
-#'
 #' library(ggplot2)
 #' library(dplyr)
+#'
+#' set_blanket()
 #'
 #' ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
 #'

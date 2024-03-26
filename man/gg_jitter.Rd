@@ -155,10 +155,11 @@ A ggplot object.
 Create a jitter ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_jitter]{geom_jitter()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
 library(palmerpenguins)
+
+set_blanket()
 
 set.seed(123)
 

@@ -155,9 +155,10 @@ A ggplot object.
 Create a polygon ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_polygon]{geom_polygon()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+
+set_blanket()
 
 ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
 

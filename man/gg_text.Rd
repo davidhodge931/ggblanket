@@ -155,9 +155,10 @@ A ggplot object.
 Create a text plot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_text]{geom_text()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+
+set_blanket()
 
 bind_rows(
   mtcars |> slice_min(order_by = mpg),

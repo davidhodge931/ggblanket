@@ -25,6 +25,8 @@ Grey mode theme for a ggplot visualisation with bottom legend. It uses the colou
 library(palmerpenguins)
 library(ggplot2)
 
+set_blanket()
+
 penguins |>
   gg_point(
     x = flipper_length_mm,

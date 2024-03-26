@@ -8,9 +8,10 @@
 #' @export
 #'
 #' @examples
-#'
 #' library(ggplot2)
 #' library(dplyr)
+#'
+#' set_blanket()
 #'
 #' diamonds |>
 #'   gg_bin_2d(

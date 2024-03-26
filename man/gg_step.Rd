@@ -155,9 +155,10 @@ A ggplot object.
 Create a step plot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_path]{geom_step()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+
+set_blanket()
 
 economics |>
   gg_step(

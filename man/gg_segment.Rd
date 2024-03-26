@@ -155,9 +155,11 @@ A ggplot object.
 Create a segment ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_segment]{geom_segment()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+library(palmerpenguins)
+
+set_blanket()
 
 data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
   gg_segment(

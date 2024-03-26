@@ -8,9 +8,10 @@
 #' @export
 #'
 #' @examples
-#'
 #' library(ggplot2)
 #' library(dplyr)
+#'
+#' set_blanket()
 #'
 #' gg_function(
 #'   fun = \(x) dnorm(x, mean = 0, sd = 5),

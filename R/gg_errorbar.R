@@ -8,9 +8,11 @@
 #' @export
 #'
 #' @examples
-#'
 #' library(ggplot2)
 #' library(dplyr)
+#' library(palmerpenguins)
+#'
+#' set_blanket()
 #'
 #' data.frame(
 #'   trt = factor(c(1, 1, 2, 2)),

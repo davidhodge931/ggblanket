@@ -155,10 +155,11 @@ A ggplot object.
 Create a smooth ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_smooth]{geom_smooth()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
 library(palmerpenguins)
+
+set_blanket()
 
 penguins |>
   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>

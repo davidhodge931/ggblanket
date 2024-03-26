@@ -155,9 +155,10 @@ A ggplot object.
 Create a blank ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:ggsf]{geom_sf()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+
+set_blanket()
 
 if (requireNamespace("sf", quietly = TRUE)) {
   sf::st_read(system.file("shape/nc.shp", package = "sf")) |>

@@ -155,9 +155,10 @@ A ggplot object.
 Create a rect ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_tile]{geom_rect()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+
+set_blanket()
 
 data.frame(
   x = rep(c(2, 5, 7, 9, 12), 2),

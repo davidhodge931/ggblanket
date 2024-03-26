@@ -25,6 +25,8 @@ Light mode theme for a ggplot visualisation with top legend. It uses the colours
 library(palmerpenguins)
 library(ggplot2)
 
+set_blanket()
+
 penguins |>
   gg_point(
     x = flipper_length_mm,

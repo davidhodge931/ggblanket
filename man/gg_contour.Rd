@@ -155,9 +155,10 @@ A ggplot object.
 Create a contour ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_contour]{geom_contour()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+
+set_blanket()
 
 ggplot2::faithfuld |>
   gg_contour(

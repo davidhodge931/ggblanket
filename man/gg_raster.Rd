@@ -155,9 +155,10 @@ A ggplot object.
 Create a raster ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_tile]{geom_raster()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+
+set_blanket()
 
 faithfuld |>
   gg_raster(

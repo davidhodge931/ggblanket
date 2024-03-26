@@ -155,10 +155,11 @@ A ggplot object.
 Create a violin plot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_violin]{geom_violin()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
 library(palmerpenguins)
+
+set_blanket()
 
 penguins |>
   tidyr::drop_na(sex) |>

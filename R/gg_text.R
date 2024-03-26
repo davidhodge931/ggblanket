@@ -8,9 +8,10 @@
 #' @export
 #'
 #' @examples
-#'
 #' library(ggplot2)
 #' library(dplyr)
+#'
+#' set_blanket()
 #'
 #' bind_rows(
 #'   mtcars |> slice_min(order_by = mpg),

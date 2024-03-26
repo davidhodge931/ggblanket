@@ -8,9 +8,11 @@
 #' @export
 #'
 #' @examples
-#'
 #' library(ggplot2)
 #' library(dplyr)
+#' library(palmerpenguins)
+#'
+#' set_blanket()
 #'
 #' diamonds |>
 #'   gg_hex(

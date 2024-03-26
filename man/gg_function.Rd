@@ -155,9 +155,10 @@ A ggplot object.
 Create a function ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_function]{geom_function()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+
+set_blanket()
 
 gg_function(
   fun = \(x) dnorm(x, mean = 0, sd = 5),

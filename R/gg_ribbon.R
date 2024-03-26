@@ -11,6 +11,8 @@
 #' library(ggplot2)
 #' library(dplyr)
 #'
+#' set_blanket()
+#'
 #' data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
 #'   mutate(level_min = level - 1, level_max = level + 1) |>
 #'   gg_ribbon(

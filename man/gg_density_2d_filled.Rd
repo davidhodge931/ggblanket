@@ -155,9 +155,11 @@ A ggplot object.
 Create a density_2d_filled ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_density_2d]{geom_density_2d_filled()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+library(palmerpenguins)
+
+set_blanket()
 
 faithful |>
   gg_density_2d_filled(

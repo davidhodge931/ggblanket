@@ -25,6 +25,8 @@ Light mode theme for a ggplot visualisation with no legend. It uses the colours 
 library(palmerpenguins)
 library(ggplot2)
 
+set_blanket()
+
 penguins |>
   gg_jitter(
     x = species,

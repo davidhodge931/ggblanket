@@ -155,9 +155,10 @@ A ggplot object.
 Create a bin2d ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_bin_2d]{geom_bin_2d()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+
+set_blanket()
 
 diamonds |>
   gg_bin_2d(

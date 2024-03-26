@@ -22,10 +22,12 @@ contrast <- function(col, annotate_pal = lightness[2:3]) {
 #' @export
 #'
 #' @examples
-#' library(palmerpenguins)
-#' library(dplyr)
 #' library(ggplot2)
+#' library(dplyr)
 #' library(stringr)
+#' library(palmerpenguins)
+#'
+#' set_blanket()
 #'
 #' penguins |>
 #'   count(species, sex) |>

@@ -8,9 +8,10 @@
 #' @export
 #'
 #' @examples
-#'
 #' library(ggplot2)
 #' library(dplyr)
+#'
+#' set_blanket()
 #'
 #' if (requireNamespace("sf", quietly = TRUE)) {
 #'   sf::st_read(system.file("shape/nc.shp", package = "sf")) |>

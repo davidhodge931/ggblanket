@@ -11,6 +11,8 @@
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
+#' set_blanket()
+#'
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
@@ -51,6 +53,8 @@ light_mode_r <- function (
 #' @examples
 #' library(palmerpenguins)
 #' library(ggplot2)
+#'
+#' set_blanket()
 #'
 #' penguins |>
 #'   gg_point(
@@ -93,6 +97,8 @@ light_mode_t <- function (
 #' library(palmerpenguins)
 #' library(ggplot2)
 #'
+#' set_blanket()
+#'
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
@@ -133,6 +139,8 @@ light_mode_b <- function (
 #' @examples
 #' library(palmerpenguins)
 #' library(ggplot2)
+#'
+#' set_blanket()
 #'
 #' penguins |>
 #'   gg_jitter(

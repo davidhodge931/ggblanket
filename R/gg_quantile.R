@@ -12,6 +12,8 @@
 #'   library(ggplot2)
 #'   library(palmerpenguins)
 #'
+#'   set_blanket()
+#'
 #'   penguins |>
 #'     gg_quantile(
 #'        x = flipper_length_mm,

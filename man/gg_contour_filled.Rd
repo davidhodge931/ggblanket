@@ -155,9 +155,10 @@ A ggplot object.
 Create a contour_filled ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_contour]{geom_contour_filled()}.
 }
 \examples{
-
 library(ggplot2)
 library(dplyr)
+
+set_blanket()
 
 faithfuld |>
   gg_contour_filled(

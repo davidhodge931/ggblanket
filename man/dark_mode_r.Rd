@@ -25,6 +25,8 @@ Dark mode theme for a ggplot visualisation with legend at right. It uses the col
 library(palmerpenguins)
 library(ggplot2)
 
+set_blanket()
+
 penguins |>
   gg_point(
     x = flipper_length_mm,

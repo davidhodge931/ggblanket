@@ -16,10 +16,12 @@ An aesthetic
 A colour aesthetic for annotation that automatically contrasts with fill. Can be spliced into \link[ggplot2:aes]{ggplot2::aes} with \link[rlang:splice-operator]{rlang::!!!}.
 }
 \examples{
-library(palmerpenguins)
-library(dplyr)
 library(ggplot2)
+library(dplyr)
 library(stringr)
+library(palmerpenguins)
+
+set_blanket()
 
 penguins |>
   count(species, sex) |>

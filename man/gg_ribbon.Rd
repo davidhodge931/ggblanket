@@ -158,6 +158,8 @@ Create a ribbon ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2
 library(ggplot2)
 library(dplyr)
 
+set_blanket()
+
 data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
   mutate(level_min = level - 1, level_max = level + 1) |>
   gg_ribbon(

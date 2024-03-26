@@ -42,10 +42,11 @@
 #' @return A ggplot object.
 #' @export
 #' @examples
-#'
 #' library(ggplot2)
 #' library(dplyr)
 #' library(palmerpenguins)
+#'
+#' set_blanket()
 #'
 #' penguins |>
 #'   tidyr::drop_na(sex) |>
