@@ -558,11 +558,8 @@ also use <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.
 your geom defaults.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
-<span>  mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  geom_defaults <span class="op">=</span> <span class="fu"><a href="../reference/weave_geom_defaults.html">weave_geom_defaults</a></span><span class="op">(</span></span>
-<span>    col_pal <span class="op">=</span> <span class="va">orange</span>, </span>
-<span>    annotate_pal <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/weave_geom_defaults.html">weave_geom_defaults</a></span><span class="op">(</span>col_pal <span class="op">=</span> <span class="va">orange</span>, annotate_pal <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -586,8 +583,8 @@ your geom defaults.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-23-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
-<span>  mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  geom_defaults <span class="op">=</span> <span class="fu"><a href="../reference/weave_geom_defaults.html">weave_geom_defaults</a></span><span class="op">(</span><span class="va">plum</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/light_mode_r.html">light_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/weave_geom_defaults.html">weave_geom_defaults</a></span><span class="op">(</span><span class="va">plum</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
