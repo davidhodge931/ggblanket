@@ -228,11 +228,12 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex, 
-    colour = "#112E51", # via ... from geom_smooth
-    linewidth = 1, # via ... from geom_smooth
-    alpha = 0.66, # via ... from geom_smooth
-    se = TRUE, # via ... from geom_smooth
-    level = 0.999, # via ... from geom_smooth
+    colour = "#112E51", 
+    linewidth = 1, 
+    linetype = "dashed",
+    alpha = 1, 
+    se = TRUE, 
+    level = 0.999, 
   ) 
 ```
 
