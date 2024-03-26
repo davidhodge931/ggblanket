@@ -42,7 +42,7 @@ install.packages("ggblanket")
 library(ggblanket)
 library(palmerpenguins)
 
-set_style()
+set_blanket()
 
 penguins |>
   gg_histogram(
