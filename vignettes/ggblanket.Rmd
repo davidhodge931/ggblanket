@@ -43,13 +43,13 @@ Computational speed has been traded-off to achieve these objectives.
 5.  A `col_pal` argument to customise colours
 6.  Numerous other prefixed arguments to customise 
 7.  Unspecified titles converted to `snakecase::sentence_case`
-8.  A `mode` argument designed for provided `*_mode_*` themes
-9.  Families of `*_mode_*` themes that differ by legend placement 
-10. Access to other `geom_*` arguments via `...`
-11. A symmetrical continuous scale with easy opt-out
-12. Ability to add multiple `geom_*` layers
-13. Access other aesthetics via `mapping`
-14. Set the default style with `set_blanket`
+8. Access to other `geom_*` arguments via `...`
+9. A symmetrical continuous scale with easy opt-out
+10. Ability to add multiple `geom_*` layers
+11. Access other aesthetics via `mapping`
+12.  A `mode` argument designed for provided `*_mode_*` themes
+13.  Families of `*_mode_*` themes that differ by legend placement 
+14. Set the mode and geom defaults with `set_blanket`
 15. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
@@ -168,7 +168,7 @@ sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE) |>
 
 ggblanket offers numerous arguments to customise that are prefixed by whether they relate to `x`, `y`, `col`, `facet` or `alpha`. 
 
-These prefixed arguments work nicely with the Rstudio autocomplete, if users ensure their settings support the use of tab for autocompletions and multi-line autocompletions (i.e. Tools - Global Options - Code - Completion).
+These prefixed arguments work nicely with the Rstudio auto-complete, if users ensure their settings support the use of tab for auto-completions and multi-line auto-completions (i.e. Tools - Global Options - Code - Completion).
 
 ```{r}
 penguins |>
@@ -212,113 +212,11 @@ diamonds |>
   )
 ```
 
-### 8.  A `mode` argument designed for provided `*_mode_*` themes
-
-A `mode` argument has been designed for use with the `*_mode_*` themes. 
-
-When a mode is provided it, the `gg_*` function will:
-
-* guess whether the orientation of the plot
-* for vertical graphs, remove x grid-lines, and the x axis-line/ticks 
-* for horizontal graphs, remove y grid-lines, and the y axis-line/ticks 
-
-To avoid these side-effects, `+` the theme on to the output of `gg_*`.
-
-```{r, echo=FALSE}
-d <- data.frame(
-  trt = factor(c(1, 1, 2, 2)),
-  resp = c(1, 5, 3, 4),
-  group = factor(c(1, 2, 1, 2)),
-  upper = c(1.1, 5.3, 3.3, 4.2),
-  lower = c(0.8, 4.6, 2.4, 3.6)
-)
-
-p1 <- d |>
-  gg_errorbar(
-    x = trt,
-    ymin = lower,
-    ymax = upper,
-    col = group,
-    width = 0.1,
-    x_title = "Treatment",
-    y_title = "Response",
-    subtitle = "\nmode = light_mode_n(),",
-    mode = light_mode_n(),
-  ) 
-
-p2 <- d |>
-  gg_errorbar(
-    x = trt,
-    ymin = lower,
-    ymax = upper,
-    col = group,
-    width = 0.1,
-    x_title = "Treatment",
-    y_title = "Response",
-    subtitle = "\n+ light_mode_n()"
-  ) +
-  light_mode_n() 
-
-p1 + p2 
-```
-
-### 9.  Families of `*_mode_*` themes that differ by legend placement 
-
-Three theme families are provided: `light_mode_*`, `grey_mode_*` and `dark_mode_*`.
-
-Each theme family provides 4 variants that differ based on legend placement, which is represented by the suffix of the mode name of `r` (right), `b` (bottom), `t` (top) and `n` (none). 
-
-The default is `light_mode_r`.
-
-These are intended for use with the `mode` argument.
-
-If you want to use a quick non-bold title, use `subtitle = "\n..."`.
-
-A title can be removed using `+ labs(... = NULL)`. For removing the the legend associated with `col`, you should add both `colour = NULL` and `fill = NULL`. 
-
-```{r, fig.asp=0.7}
-penguins |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-    title = "Penguin flipper length by species",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020", 
-    mode = light_mode_t(),
-  ) +
-  labs(colour = NULL, fill = NULL)
-```
-
-```{r, fig.asp=0.75}
-penguins |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-    title = "Penguin flipper length by species",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020", 
-    mode = grey_mode_b(),
-  ) 
-```
-
-```{r, fig.asp=0.65}
-penguins |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-    col_pal = c(teal, orange, plum),
-    title = "Penguin flipper length by species",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020", 
-    mode = dark_mode_r(),
-  ) 
-```
-
-### 10. Access to other `geom_*` arguments via `...`
+### 8. Access to other `geom_*` arguments via `...`
 
 The `...` argument provides access to all other arguments in the `geom_*()` function. Typical arguments to add include colour, fill, alpha, linewidth, size and  width.
 
-Subsequently, for geom's that have _both_ coloured outlines and interiors, you can turn off  _either_ of these using `colour = NA`/`fill = NA` - or fix one to a single colour with `colour = "black"`/`fill = "lightgrey"` etc.
+Subsequently, for geoms that have _both_ coloured outlines and interiors, you can turn off  _either_ of these using `colour = NA`/`fill = NA` - or fix one to a single colour with `colour = "black"`/`fill = "lightgrey"` etc.
 
 Use the `geom_*` help to see what arguments are available.
 
@@ -358,22 +256,20 @@ p2 <- penguins |>
 p1 + p2
 ```
 
-### 11. A symmetric continuous scale with easy opt-out
+### 9. A symmetric continuous scale with easy opt-out
 
 The `gg_*` function will generally create a symmetric continuous y scale by default with: 
 
 * `y_limits` that are the range of the `y_breaks` 
 * `y_expand` of `c(0, 0)`
 
-However, for the plots guessed to be horizontal, the vice-versa will occurs with a symmetric x scale by default.
+However, for the plots guessed to be horizontal, the vice-versa will occurs with a symmetric continuous x scale by default.
 
 Sometimes you may need to add `*_expand_limits = 0`, if the lower bound of the symmetric scale falls on a number close to 0.
 
-This symmetric scale can be turned off easily using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc).
+This symmetric continuous scale can be turned off easily using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc).
 
 Note this symmetric scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.
-
-It is referred to symmetric in that the axis appears symmetric.
 
 ```{r, echo=FALSE}
 d <- data.frame(
@@ -428,20 +324,20 @@ p3 <- d |>
 p1 + p2 + p3
 ```
 
-### 12. Ability to add multiple `geom_*` layers
+### 10. Ability to add multiple `geom_*` layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
 
-The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added - unless a `inherit.aes = FALSE` argument is added. 
+The `gg_*` function puts the aesthetic variables (i.e. `x`, `y`, `col`) within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added. 
+
+Generally, it works bets to add all aesthetics required for the plot to the `gg_*` function, including the `col` argument. 
 
 The `gg_*()` function _should_ be appropriate to be the bottom layer of the plot, as geoms are drawn in order. 
 
-All of the aesthetics required for the plot as a whole should generally be added into the `gg_*` function, including the `col` argument. 
+This may mean that you need to use `gg_blanket()` as your `gg_*` function, as it defaults to a `blank` geom.
 
-If you do not want the first layer to have a colour and fill aesthetic, but you wish later layers to access this - use `gg_blanket()` (as it defaults to a `blank` geom). 
-
-```{r, fig.asp = 0.4}
-penguins |>
+```{r, fig.asp = 0.75}
+p1 <- penguins |>
   group_by(species) |>
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) |>
   mutate(lower = body_mass_g * 0.95) |> 
@@ -461,10 +357,8 @@ penguins |>
     colour = "black", 
     width = 0.1, 
   ) 
-```
 
-```{r, fig.asp=0.4}
-penguins |>
+p2 <- penguins |>
   group_by(species) |>
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) |>
   mutate(lower = body_mass_g * 0.95) |> 
@@ -488,10 +382,10 @@ penguins |>
   ) +
   geom_errorbar(
     width = 0.1, 
-  ) 
+  )
 ```
 
-### 13. Access other aesthetics via `mapping`
+### 11. Access other aesthetics via `mapping`
 
 The `mapping` argument provides access to other aesthetics, such as `alpha`, `size`, `shape`, `linetype` and `linewidth` etc. 
 
@@ -509,18 +403,127 @@ penguins |>
   guides(alpha = guide_legend(reverse = TRUE))
 ```
 
-### 14. Set the default style with `set_blanket`
+### 12.  A `mode` argument designed for provided `*_mode_*` themes
+
+A `mode` argument has been designed for use with the `*_mode_*` themes. 
+
+With this function, the `gg_*` function will:
+
+* add the `*_mode_*` theme
+* guess the direction of the plot
+* for vertical plots, remove vertical gridlines, and the x axis-line/ticks 
+* for horizontal plots, remove horizontal gridlines, and the y axis-line/ticks 
+
+To avoid these side-effects, `+` the theme on to the output of `gg_*`.
+
+```{r, echo=FALSE}
+d <- data.frame(
+  trt = factor(c(1, 1, 2, 2)),
+  resp = c(1, 5, 3, 4),
+  group = factor(c(1, 2, 1, 2)),
+  upper = c(1.1, 5.3, 3.3, 4.2),
+  lower = c(0.8, 4.6, 2.4, 3.6)
+)
+
+p1 <- d |>
+  gg_errorbar(
+    x = trt,
+    ymin = lower,
+    ymax = upper,
+    col = group,
+    width = 0.1,
+    x_title = "Treatment",
+    y_title = "Response",
+    subtitle = "\nmode = light_mode_n(),",
+    mode = light_mode_n(),
+  ) 
+
+p2 <- d |>
+  gg_errorbar(
+    x = trt,
+    ymin = lower,
+    ymax = upper,
+    col = group,
+    width = 0.1,
+    x_title = "Treatment",
+    y_title = "Response",
+    subtitle = "\n+ light_mode_n()"
+  ) +
+  light_mode_n() 
+
+p1 + p2 
+```
+
+### 13.  Families of `*_mode_*` themes that differ by legend placement 
+
+Three mode families of themes are provided: `light_mode_*`, `grey_mode_*` and `dark_mode_*`.
+
+Each mode family provides 4 variants that differ based on legend placement, which is represented by the suffix of the mode name of `r` (right), `b` (bottom), `t` (top) and `n` (none). 
+
+The default is `light_mode_r`.
+
+These are intended for use with the `mode` argument.
+
+Note:
+* if you want to use a quick non-bold title, use `subtitle = "\n..."`
+* a title can be removed using `+ labs(... = NULL)` 
+* for removing the legend title, you will often need `+ labs(colour = NULL, fill = NULL)`. 
+
+```{r, fig.asp=0.7}
+penguins |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = species,
+    title = "Penguin flipper length by species",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020", 
+    mode = light_mode_t(),
+  ) +
+  labs(colour = NULL, fill = NULL)
+```
+
+```{r, fig.asp=0.75}
+penguins |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = species,
+    title = "Penguin flipper length by species",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020", 
+    mode = grey_mode_b(),
+  ) 
+```
+
+```{r, fig.asp=0.65}
+penguins |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = species,
+    col_pal = c(teal, orange, plum),
+    title = "Penguin flipper length by species",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020", 
+    mode = dark_mode_r(),
+  ) 
+```
+
+### 14. Set the mode and geom defaults with `set_blanket`
 
 The `set_blanket` function is used to set the default style of subsequent  ggblanket plots at the start of each script. 
 
-The defaults work well. But you can also adjust these by specify the default mode and the default geom colour/fill - and annotation colour. 
+The defaults `set_blanket()` work well. 
 
-You can also use `ggplot2::update_geom_defaults()` to further fine-tune your geom defaults.
+But you use this to set a different default theme to the `mode` argument, and a different default geom colour for outline/fill - or a different annotation colour (i.e. the colour used for `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`). You can use the `mode` and `geom_defaults` arguments in `set_blanket` to do this. 
+
+You can also use `ggplot2::update_geom_defaults` to further fine-tune your geom defaults. 
 
 ```{r}
 set_blanket(
   dark_mode_r(),
-  weave_geom_defaults(col_pal = orange, annotate_pal = darkness[2])
+  weave_geom_defaults(
+    col_pal = orange, 
+    annotate_pal = darkness[2]
+  )
 )
 
 p1 <- penguins |>
