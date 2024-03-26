@@ -17,7 +17,7 @@ get_mode <- function() {
 
 #' Set the mode
 #'
-#' @description Set a theme for when the `mode` argument in a `gg_*` function in NULL.
+#' @description Set the `mode` argument for when a `gg_*` function is NULL.
 #' Use `set_mode(light_mode_r())` to unset a set mode.
 #' Note [ggplot2::theme_set()] sets globally a new theme that is added to the `gg_*` function output with no side-effects.
 #' Use `ggplot2::theme_set(theme_grey())` to unset the set theme.

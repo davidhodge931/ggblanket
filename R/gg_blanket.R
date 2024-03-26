@@ -1071,7 +1071,7 @@ gg_blanket <- function(
         else col_labels <- scales::label_comma(drop0trailing = TRUE)
       }
 
-      if (!col_steps) {
+      if (isFALSE(col_steps)) {
         plot <- plot +
           ggplot2::scale_fill_gradientn(
             colours = col_pal,
@@ -1104,7 +1104,7 @@ gg_blanket <- function(
             ) #theme args should be in *_mode_* themes when ggplot2 supports
           )
       }
-      else if (col_steps) {
+      else if (isTRUE(col_steps)) {
         plot <- plot +
           ggplot2::scale_fill_stepsn(
             colours = col_pal,

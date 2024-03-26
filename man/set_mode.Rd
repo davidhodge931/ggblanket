@@ -13,7 +13,7 @@ set_mode(new = light_mode_r())
 A globally set mode
 }
 \description{
-Set a theme for when the \code{mode} argument in a \verb{gg_*} function in NULL.
+Set the \code{mode} argument for when a \verb{gg_*} function is NULL.
 Use \code{set_mode(light_mode_r())} to unset a set mode.
 Note \code{\link[ggplot2:theme_get]{ggplot2::theme_set()}} sets globally a new theme that is added to the \verb{gg_*} function output with no side-effects.
 Use \code{ggplot2::theme_set(theme_grey())} to unset the set theme.
