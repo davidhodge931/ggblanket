@@ -158,7 +158,8 @@ flexibility</li>
 <p>Each <code>gg_*</code> function is named after the
 <code>geom_*</code> function it wraps.</p>
 <p>Note at the start of every script, the <code>set_blanket</code>
-function should be run to set the style for all subsequent plots.</p>
+function should be run to set the style for all subsequent ggblanket
+plots.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
@@ -551,7 +552,7 @@ merge. Subsequently, you may need to change a title using
 <h3 id="use-set_blanket-to-adjust-the-default-style">15. Use <code>set_blanket</code> to adjust the default style<a class="anchor" aria-label="anchor" href="#use-set_blanket-to-adjust-the-default-style"></a>
 </h3>
 <p>The <code>set_blanket</code> function is used to set the default
-style of future plots.</p>
+style of subsequent ggblanket plots.</p>
 <p>This includes setting the default mode and geom defaults. You can
 also use <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults</a></code> to further fine-tune
 your geom defaults.</p>
