@@ -461,7 +461,8 @@ penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = 1, mode = light_mode_n(),
+    col = 1, 
+    mode = light_mode_n(),
   ) +
   gghighlight::gghighlight(body_mass_g >= 5000)
 ```
@@ -473,8 +474,7 @@ penguins |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
-    x_breaks = scales::breaks_pretty(4),
-    col_pal = rep(blue, 3), 
+    x_breaks = scales::breaks_pretty(3),
   ) + #build the scale for not faceted (i.e. all data)
   facet_wrap(~species) + #then add facet layer
   gghighlight::gghighlight() 

@@ -1,4 +1,4 @@
-#' Setup the ggblanket style
+#' Set the style
 #'
 #' @description A set-up function, which sets the mode and updates ggplot2 geom defaults.
 #'

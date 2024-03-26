@@ -2,7 +2,7 @@
 % Please edit documentation in R/set_blanket.R
 \name{set_blanket}
 \alias{set_blanket}
-\title{Setup the ggblanket style}
+\title{Set the style}
 \usage{
 set_blanket(mode = light_mode_r(), geom_defaults = weave_geom_defaults(), ...)
 }

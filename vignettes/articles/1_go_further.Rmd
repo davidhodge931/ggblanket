@@ -295,7 +295,8 @@ p1 <- penguins |>
     x = flipper_length_mm,
     x_breaks = scales::breaks_pretty(n = 3),
     y_labels = replace_seq,
-    col_pal = scales::alpha(orange, 0.33),
+    colour = scales::alpha(orange, 0.33),
+    fill = orange,
     alpha = 0.1,
     subtitle = "\nOpacity fill 0.1 & outline 0.33"
   )
@@ -340,7 +341,6 @@ p4 <- penguins |>
     subtitle = "\ncol and alpha variable & outline opacity",
   ) +
   scale_alpha_manual(values = c(0.5, 0.1))
-
 
 (p1 + p2) / (p3 + p4)
 ```
