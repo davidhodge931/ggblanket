@@ -40,17 +40,16 @@ Computational speed has been traded-off to achieve these objectives.
 2.  A `col` argument to colour and fill by a variable
 3.  A `facet` argument to facet by a variable
 4.  A `facet2` argument to facet by a 2nd variable
-5.  A `col_pal` argument to customise colours
-6.  Numerous other prefixed arguments to customise 
-7.  Unspecified titles converted to `snakecase::sentence_case`
-8. Access to other `geom_*` arguments via `...`
-9. A symmetrical continuous scale with easy opt-out
-10. Ability to add multiple `geom_*` layers
-11. Access other aesthetics via `mapping`
-12.  A `mode` argument designed for provided `*_mode_*` themes
-13.  Families of `*_mode_*` themes that differ by legend placement 
-14. Set the mode and geom defaults with `set_blanket`
-15. A `gg_blanket()` function with `geom` flexibility
+5.  Prefixed arguments to customise x, y, col and facet  
+6.  Unspecified titles converted to `snakecase::sentence_case`
+7. Access to other `geom_*` arguments via `...`
+8. A symmetrical continuous scale with easy opt-out
+9. Ability to add multiple `geom_*` layers
+10. Access other aesthetics via `mapping`
+11.  A `mode` argument designed for provided `*_mode_*` themes
+12.  Families of `*_mode_*` themes that differ by legend placement 
+13. Set the mode and geom defaults with `set_blanket`
+14. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
 library(ggblanket)
@@ -141,34 +140,13 @@ penguins |>
   )
 ```
 
-### 5. A `col_pal` argument to customise colours
-
-The `col_pal` argument is used to customise the colour outlines and interior fill of the geom. A user can provide a vector of colours to this argument. It can be named or not. It works in a consistent way - regardless of whether a `col` aesthetic is added or not. 
-
-```{r}
-economics |>
-  gg_area(
-    x = date,
-    y = unemploy,
-    col_pal = "#006C7A"
-  )
-```
-
-```{r, fig.asp=0.33}
-viridisLite::rocket(n = 9)
-
-sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE) |> 
-  gg_sf(
-    col = AREA,
-    col_pal = viridisLite::rocket(n = 9)
-  )
-```
-
-### 6.  Numerous other prefixed arguments to customise 
+### 5.  Prefixed arguments to customise x, y, col and facet 
 
 ggblanket offers numerous arguments to customise that are prefixed by whether they relate to `x`, `y`, `col`, `facet` or `alpha`. 
 
 These prefixed arguments work nicely with the Rstudio auto-complete, if users ensure their settings support the use of tab for auto-completions and multi-line auto-completions (i.e. Tools - Global Options - Code - Completion).
+
+Everything prefixed `col_` relates to _both_ the colour and fill scale as applicable. Everything prefixed `facet_` relates to both `facet` and `facet2` as applicable.
 
 ```{r}
 penguins |>
@@ -186,6 +164,7 @@ penguins |>
     y_title = "Body mass (g)",
     col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
+    col_pal = viridisLite::rocket(n = 9, direction = -1),
     facet_labels = str_to_sentence,
   )
 ```
@@ -194,12 +173,11 @@ penguins |>
 knitr::include_graphics("autocomplete_y.png", dpi = 300)
 ```
 
-### 7.  Unspecified titles converted to `snakecase::sentence_case`
+### 6.  Unspecified titles converted to `snakecase::sentence_case`
 
 Unspecified `x`, `y`, `col` and `alpha` titles are converted to sentence case with `snakecase::to_sentence`. 
 
 However, each title can be manually changed using the applicable `*_title` argument. 
-
 The default `snakecase::to_sentence` conversion can be turned off using `titles_to_case = \(x) x` or changed (e.g. `snakecase::to_title_case`). 
 
 ```{r, fig.asp=0.6}
@@ -212,11 +190,11 @@ diamonds |>
   )
 ```
 
-### 8. Access to other `geom_*` arguments via `...`
+### 7. Access to other `geom_*` arguments via `...`
 
 The `...` argument provides access to all other arguments in the `geom_*()` function. Typical arguments to add include colour, fill, alpha, linewidth, size and  width.
 
-Subsequently, for geoms that have _both_ coloured outlines and interiors, you can turn off  _either_ of these using `colour = NA`/`fill = NA` - or fix one to a single colour with `colour = "black"`/`fill = "lightgrey"` etc.
+Subsequently, for geoms that have _both_ coloured outlines and interiors, you can turn off  _either_ of these using `colour = NA`/`fill = NA` - and/ fix one to a single colour with `colour = "black"`/`fill = "lightgrey"` etc.
 
 Use the `geom_*` help to see what arguments are available.
 
@@ -248,7 +226,7 @@ penguins |>
   ) 
 ```
 
-### 9. A symmetric continuous scale with easy opt-out
+### 8. A symmetric continuous scale with easy opt-out
 
 The `gg_*` function will generally create a symmetric continuous y scale by default with: 
 
@@ -316,7 +294,7 @@ p3 <- d |>
 p1 + p2 + p3
 ```
 
-### 10. Ability to add multiple `geom_*` layers
+### 9. Ability to add multiple `geom_*` layers
 
 Users can make plots with multiple layers with ggblanket by adding on `ggplot2::geom_*` layers. 
 
@@ -377,7 +355,7 @@ p2 <- penguins |>
   )
 ```
 
-### 11. Access other aesthetics via `mapping`
+### 10. Access other aesthetics via `mapping`
 
 The `mapping` argument provides access to other aesthetics, such as `alpha`, `size`, `shape`, `linetype` and `linewidth` etc. 
 
@@ -395,7 +373,7 @@ penguins |>
   guides(alpha = guide_legend(reverse = TRUE))
 ```
 
-### 12.  A `mode` argument designed for provided `*_mode_*` themes
+### 11.  A `mode` argument designed for provided `*_mode_*` themes
 
 A `mode` argument has been designed for use with the `*_mode_*` themes. 
 
@@ -446,7 +424,7 @@ p2 <- d |>
 p1 + p2 
 ```
 
-### 13.  Families of `*_mode_*` themes that differ by legend placement 
+### 12.  Families of `*_mode_*` themes that differ by legend placement 
 
 Three mode families of themes are provided: `light_mode_*`, `grey_mode_*` and `dark_mode_*`.
 
@@ -499,7 +477,7 @@ penguins |>
   ) 
 ```
 
-### 14. Set the mode and geom defaults with `set_blanket`
+### 13. Set the mode and geom defaults with `set_blanket`
 
 The `set_blanket` function is used to set the default style of subsequent  ggblanket plots at the start of each script. 
 
@@ -565,7 +543,7 @@ p2 <- penguins |>
 p1 + p2
 ```
 
-### 15. A `gg_blanket()` function with `geom` flexibility
+### 14. A `gg_blanket()` function with `geom` flexibility
 
 ggblanket is driven by the `gg_blanket` function, which has a `geom` argument with `geom_blank` defaults.
 
