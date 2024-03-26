@@ -40,7 +40,7 @@ Computational speed has been traded-off to achieve these objectives.
 2.  A `col` argument to colour and fill by a variable
 3.  A `facet` argument to facet by a variable
 4.  A `facet2` argument to facet by a 2nd variable
-5.  Prefixed arguments to customise x, y, col and facet  
+5.  Prefixed arguments to customise x, y, col and facet properties 
 6.  Unspecified titles converted to `snakecase::sentence_case`
 7. Access to other `geom_*` arguments via `...`
 8. A symmetrical continuous scale with easy opt-out
@@ -140,7 +140,7 @@ penguins |>
   )
 ```
 
-### 5.  Prefixed arguments to customise x, y, col and facet 
+### 5.  Prefixed arguments to customise x, y, col and facet properties
 
 ggblanket offers numerous arguments to customise that are prefixed by whether they relate to `x`, `y`, `col`, `facet` or `alpha`. 
 
@@ -231,7 +231,7 @@ penguins |>
 The `gg_*` function will generally create a symmetric continuous y scale by default with: 
 
 * `y_limits` that are the range of the `y_breaks` 
-* `y_expand` of `c(0, 0)`
+* `y_expand` of `c(0, 0)`.
 
 However, for the plots guessed to be horizontal, the vice-versa will occurs with a symmetric continuous x scale by default.
 
@@ -382,7 +382,7 @@ With this function, the `gg_*` function will:
 * add the `*_mode_*` theme
 * guess the direction of the plot
 * for vertical plots, remove vertical gridlines, and the x axis-line/ticks 
-* for horizontal plots, remove horizontal gridlines, and the y axis-line/ticks 
+* for horizontal plots, remove horizontal gridlines, and the y axis-line/ticks. 
 
 To avoid these side-effects, `+` the theme on to the output of `gg_*`.
 
