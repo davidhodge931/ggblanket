@@ -30,6 +30,9 @@ Secondary objectives relate to:
 - Alignment: use conventions aligned with ggplot2
 - Scope: cover much of what ggplot2 does.
 
+Note computational speed has been sacrificed to achieve these
+objectives.
+
 ## Installation
 
 ``` r
