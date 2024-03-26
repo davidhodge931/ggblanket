@@ -1,4 +1,4 @@
-# ggblanket 6.0.0.9000
+# ggblanket 6.0.9000
 
 * Breaking: removed all `alpha` arguments.
 * Breaking: in `aes_contrast`, renamed col_pal to `annotate_pal`
