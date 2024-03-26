@@ -28,7 +28,7 @@ library(stringr)
 library(ggblanket)
 library(palmerpenguins)
 
-set_blanket(mode = grey_mode_r()) 
+set_blanket(grey_mode_r()) 
 ```
 
 ### gg_area

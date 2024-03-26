@@ -29,8 +29,8 @@ library(ggblanket)
 library(palmerpenguins)
 
 set_blanket(
-  mode = dark_mode_r(),
-  geom_defaults = weave_geom_defaults(annotate_pal = darkness[2])
+  dark_mode_r(),
+  weave_geom_defaults(annotate_pal = darkness[2])
 ) 
 ```
 

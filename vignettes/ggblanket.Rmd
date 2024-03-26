@@ -512,11 +512,8 @@ This includes setting the default mode and geom defaults. You can also use `ggpl
 
 ```{r}
 set_blanket(
-  mode = dark_mode_r(),
-  geom_defaults = weave_geom_defaults(
-    col_pal = orange, 
-    annotate_pal = darkness[2]
-  )
+  dark_mode_r(),
+  weave_geom_defaults(col_pal = orange, annotate_pal = darkness[2])
 )
 
 p1 <- penguins |>
@@ -542,8 +539,8 @@ p1 + p2
 
 ```{r}
 set_blanket(
-  mode = light_mode_r(),
-  geom_defaults = weave_geom_defaults(plum)
+  light_mode_r(),
+  weave_geom_defaults(plum)
 )
 
 p1 <- penguins |>
