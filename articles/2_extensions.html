@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">6.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">6.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,11 +102,15 @@ Hodge</h4>
 <p>This article will demonstrate some fantastic ggplot2 extension
 packages.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://forcats.tidyverse.org/" class="external-link">forcats</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidhodge931.github.io/ggblanket/">ggblanket</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">palmerpenguins</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/set_style.html">set_style</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="patchwork">patchwork<a class="anchor" aria-label="anchor" href="#patchwork"></a>
 </h3>
@@ -159,28 +163,21 @@ packages.</p>
 <div class="section level3">
 <h3 id="ggtext">ggtext<a class="anchor" aria-label="anchor" href="#ggtext"></a>
 </h3>
-<p>The ggtext package support using markdown in text. The mdthemes
-package makes it easy to convert <code><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">ggplot2::element_text</a></code> to
-<code><a href="https://wilkelab.org/ggtext/reference/element_markdown.html" class="external-link">ggtext::element_markdown</a></code> in themes.</p>
+<p>The ggtext package support using markdown in text.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">bill_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    facet <span class="op">=</span> <span class="va">island</span>,</span>
-<span>    facet2 <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"_{x}_"</span><span class="op">)</span>,</span>
-<span>    x_title <span class="op">=</span> <span class="st">"**Bill depth** (mm)"</span>, </span>
-<span>    y_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/replace_seq.html">replace_seq</a></span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"_{x}_"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    y_title <span class="op">=</span> <span class="st">"**Bill length** (mm)"</span>,</span>
-<span>    facet_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"_{x}_"</span><span class="op">)</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"***Pygoscelis*** *penguin* bill **lengths** and depths"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"&lt;span style = 'color: #0095A8 ;'&gt;**Adelie**&lt;/span&gt;, </span></span>
 <span><span class="st">       &lt;span style = 'color:#FF7043;'&gt;**Chinstrap**&lt;/span&gt;, </span></span>
 <span><span class="st">       *and* &lt;span style = 'color:#112E51;'&gt;**Gentoo**&lt;/span&gt;"</span>, </span>
-<span>    mode <span class="op">=</span> <span class="fu">mdthemes</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mdthemes/man/as_md_theme.html" class="external-link">as_md_theme</a></span><span class="op">(</span><span class="fu"><a href="../reference/light_mode_n.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> </span></code></pre></div>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_n.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu">ggtext</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html" class="external-link">element_markdown</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.subtitle <span class="op">=</span> <span class="fu">ggtext</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html" class="external-link">element_markdown</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-3-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
