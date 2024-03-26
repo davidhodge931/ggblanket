@@ -7,7 +7,7 @@
 * Supported the use of `colour` and `fill` to set a fixed colour for either outlines or interior fill.
 * Improved `*_expand` defaults for histograms and bar graphs etc.
 * Fixed bug to support use of a named `col_pal`.
-* Fixed bug when positional scale reversed with `*_expand_limits`. 
+* Fixed bug when positional scale reversed with `*_expand_limits`.
 
 # ggblanket 6.0.0
 
