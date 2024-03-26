@@ -150,7 +150,7 @@ economics |>
   gg_area(
     x = date,
     y = unemploy,
-    col_pal = "#901752"
+    col_pal = "#006C7A"
   )
 ```
 
