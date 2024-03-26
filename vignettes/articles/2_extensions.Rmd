@@ -20,15 +20,7 @@ knitr::opts_chunk$set(
 
 This article will demonstrate some fantastic ggplot2 extension packages. 
 
-```{r, eval=FALSE}
-library(tidyverse)
-library(ggblanket)
-library(palmerpenguins)
-
-set_style()
-```
-
-```{r, echo=FALSE}
+```{r}
 library(ggplot2)
 library(dplyr)
 library(tidyr)

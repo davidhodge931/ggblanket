@@ -35,15 +35,7 @@ This article will demonstrate a random assortment of content, including some of 
 13. Use delayed evaluation
 14. Make custom `gg_*` wrapper functions
 
-```{r, eval=FALSE}
-library(tidyverse)
-library(ggblanket)
-library(palmerpenguins)
-library(patchwork)
-
-set_style()
-```
-```{r, echo=FALSE}
+```{r}
 library(ggplot2)
 library(dplyr)
 library(tidyr)

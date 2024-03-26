@@ -19,17 +19,7 @@ knitr::opts_chunk$set(
 
 This article will demonstrate each wrapper function.
 
-```{r, eval=FALSE}
-library(tidyverse)
-library(ggblanket)
-library(palmerpenguins)
-
-set_style(
-  mode = grey_mode_r(),
-  ) 
-```
-
-```{r, echo=FALSE}
+```{r}
 library(ggplot2)
 library(dplyr)
 library(tidyr)

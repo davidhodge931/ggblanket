@@ -19,20 +19,7 @@ knitr::opts_chunk$set(
 
 This article will demonstrate each wrapper function.
 
-```{r eval=FALSE}
-library(tidyverse)
-library(ggblanket)
-library(palmerpenguins)
-
-set_style(
-  mode = dark_mode_r(),
-  geom_defaults = weave_geom_defaults(
-    annotate_pal = darkness[2]
-  ),
-) 
-```
-
-```{r, echo=FALSE}
+```{r}
 library(ggplot2)
 library(dplyr)
 library(tidyr)
