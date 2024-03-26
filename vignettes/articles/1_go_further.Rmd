@@ -358,7 +358,7 @@ mpg |>
     x = displ,
     y = hwy,
     col = centred,
-    col_pal = c(teal, greys[1], orange),
+    col_pal = c(teal, greys7[1], orange),
     col_breaks = scales::breaks_width(5),
     col_rescale = scales::rescale(c(min(.$centred), 0, max(.$centred)))
   )
@@ -372,7 +372,7 @@ mpg |>
     x = displ,
     y = hwy,
     col = centred,
-    col_pal = c(teal, greys[1], orange),
+    col_pal = c(teal, greys7[1], orange),
     col_limits = max(abs(.$centred)) * c(-1, 1),
     col_breaks = scales::breaks_width(5)
   )

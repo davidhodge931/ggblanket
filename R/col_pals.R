@@ -55,14 +55,14 @@ plum <- "#901752"
 
 #' Grey colours
 #'
-#' @description A vector of grey colours derived from the US Census Bureau's Data Visualisation Standards.
+#' @description A vector of 7 grey colours derived from the US Census Bureau's Data Visualisation Standards.
 #'
 #' @return A character vector.
 #' @export
 #'
 #' @examples
-#' scales::show_col(greys)
-greys <- c("#E8EFF2", "#C8D7DF", "#A7C0CD", "#78909C", "#4B636E", "#364850", "#222C31")
+#' scales::show_col(greys7)
+greys7 <- c("#E8EFF2", "#C8D7DF", "#A7C0CD", "#78909C", "#4B636E", "#364850", "#222C31")
 
 #' The `light_mode_*` theme colours
 #'
