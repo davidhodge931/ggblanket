@@ -119,8 +119,7 @@ objectives.</p>
 <li>A <code>col</code> argument to colour and fill by a variable</li>
 <li>A <code>facet</code> argument to facet by a variable</li>
 <li>A <code>facet2</code> argument to facet by a 2nd variable</li>
-<li>Prefixed arguments to customise x, y, col and facet<br>
-</li>
+<li>Prefixed arguments to customise x, y, col and facet properties</li>
 <li>Unspecified titles converted to
 <code>snakecase::sentence_case</code>
 </li>
@@ -236,7 +235,8 @@ variable vertically.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="prefixed-arguments-to-customise-x-y-col-and-facet">5. Prefixed arguments to customise x, y, col and facet<a class="anchor" aria-label="anchor" href="#prefixed-arguments-to-customise-x-y-col-and-facet"></a>
+<h3 id="prefixed-arguments-to-customise-x-y-col-and-facet-properties">5. Prefixed arguments to customise x, y, col and facet
+properties<a class="anchor" aria-label="anchor" href="#prefixed-arguments-to-customise-x-y-col-and-facet-properties"></a>
 </h3>
 <p>ggblanket offers numerous arguments to customise that are prefixed by
 whether they relate to <code>x</code>, <code>y</code>, <code>col</code>,
@@ -345,8 +345,7 @@ continuous y scale by default with:</p>
 <code>y_breaks</code>
 </li>
 <li>
-<code>y_expand</code> of <code>c(0, 0)</code>
-</li>
+<code>y_expand</code> of <code>c(0, 0)</code>.</li>
 </ul>
 <p>However, for the plots guessed to be horizontal, the vice-versa will
 occurs with a symmetric continuous x scale by default.</p>
@@ -461,7 +460,7 @@ merge. Subsequently, you may need to change a title using
 <li>for vertical plots, remove vertical gridlines, and the x
 axis-line/ticks</li>
 <li>for horizontal plots, remove horizontal gridlines, and the y
-axis-line/ticks</li>
+axis-line/ticks.</li>
 </ul>
 <p>To avoid these side-effects, <code>+</code> the theme on to the
 output of <code>gg_*</code>.</p>
