@@ -1,4 +1,4 @@
-#' @title Text ggplot
+#' Text ggplot
 #'
 #' @description Create a text plot with a wrapper around [ggplot2::ggplot()] + [geom_text()][ggplot2::geom_text()].
 #'

@@ -1,4 +1,4 @@
-#' @title Smooth ggplot
+#' Smooth ggplot
 #'
 #' @description Create a smooth ggplot with a wrapper around [ggplot2::ggplot()] + [geom_smooth()][ggplot2::geom_smooth()].
 #'

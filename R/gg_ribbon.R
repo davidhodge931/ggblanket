@@ -1,4 +1,4 @@
-#' @title Ribbon ggplot
+#' Ribbon ggplot
 #'
 #' @description Create a ribbon ggplot with a wrapper around [ggplot2::ggplot()] + [geom_ribbon()][ggplot2::geom_ribbon()]
 #'

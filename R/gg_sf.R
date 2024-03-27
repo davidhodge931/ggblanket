@@ -1,4 +1,4 @@
-#' @title Sf ggplot
+#' Sf ggplot
 #'
 #' @description Create a blank ggplot with a wrapper around [ggplot2::ggplot()] + [geom_sf()][ggplot2::geom_sf()].
 #'

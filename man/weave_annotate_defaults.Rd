@@ -2,7 +2,7 @@
 % Please edit documentation in R/weave.R
 \name{weave_annotate_defaults}
 \alias{weave_annotate_defaults}
-\title{Update a series of annotation defaults}
+\title{Update a series of annotation geom defaults}
 \usage{
 weave_annotate_defaults(colour = lightness[2])
 }
@@ -10,10 +10,10 @@ weave_annotate_defaults(colour = lightness[2])
 \item{colour}{A hex colour for annotation. Defaults to \code{lightness[2]}.}
 }
 \value{
-Globally updated annotation defaults
+Updated annotation geom defaults
 }
 \description{
-Update a series of geom defaults for annotation (i.e. \verb{*_hline}, \verb{*_vline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}).
+Update a series of geom defaults commonly used for annotation (i.e. \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}).
 }
 \examples{
 weave_annotate_defaults(darkness[2])

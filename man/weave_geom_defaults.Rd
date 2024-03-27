@@ -10,7 +10,7 @@ weave_geom_defaults(colour = blue)
 \item{colour}{A hex colour for geoms. Defaults to \code{blue}. Also used for fill.}
 }
 \value{
-Globally updated geom defaults
+Updated geom defaults
 }
 \description{
 Update a series of geom defaults.

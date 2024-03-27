@@ -1,4 +1,4 @@
-#' @title Segment ggplot
+#' Segment ggplot
 #'
 #' @description Create a segment ggplot with a wrapper around [ggplot2::ggplot()] + [geom_segment()][ggplot2::geom_segment()].
 #'

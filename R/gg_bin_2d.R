@@ -1,4 +1,4 @@
-#' @title Bin_2d ggplot
+#' Bin_2d ggplot
 #'
 #' @description Create a bin2d ggplot with a wrapper around [ggplot2::ggplot()] + [geom_bin_2d()][ggplot2::geom_bin_2d()].
 #'

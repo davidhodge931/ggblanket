@@ -1,4 +1,4 @@
-#' @title Bar ggplot
+#' Bar ggplot
 #'
 #' @description Create a bar ggplot with a wrapper around [ggplot2::ggplot()] + [geom_bar()][ggplot2::geom_bar()].
 #'

@@ -1,4 +1,4 @@
-#' @title Violin ggplot
+#' Violin ggplot
 #'
 #' @description Create a violin plot with a wrapper around [ggplot2::ggplot()] + [geom_violin()][ggplot2::geom_violin()].
 #'

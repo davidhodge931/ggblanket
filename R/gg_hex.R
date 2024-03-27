@@ -1,4 +1,4 @@
-#' @title Hex ggplot
+#' Hex ggplot
 #'
 #' @description Create a hex ggplot with a wrapper around [ggplot2::ggplot()] + [geom_hex()][ggplot2::geom_hex()].
 #'

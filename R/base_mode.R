@@ -1,4 +1,4 @@
-#' @title Theme base for `base_mode_*` functions
+#' Theme base for `base_mode_*` functions
 #'
 #' @description Theme base for `base_mode_*` functions.
 #'
@@ -92,7 +92,7 @@ base_mode <- function(
   )
 }
 
-#' @title Theme base for `*_mode_r`
+#' Theme base for `*_mode_r`
 #'
 #' @description Theme base for `*_mode_r` functions with right legend.
 #'
@@ -132,7 +132,7 @@ base_mode_r <- function (
     )
 }
 
-#' @title Theme base for `*_mode_t`
+#' Theme base for `*_mode_t`
 #'
 #' @description Theme base for `*_mode_t` functions with top legend.
 #'
@@ -172,7 +172,7 @@ base_mode_t <- function (
   )
 }
 
-#' @title Theme base for `*_mode_b`
+#' Theme base for `*_mode_b`
 #'
 #' @description Theme base for `*_mode_b` functions with bottom legend.
 #'
@@ -212,7 +212,7 @@ base_mode_b <- function (
     )
 }
 
-#' @title Theme base for `*_mode_n`
+#' Theme base for `*_mode_n`
 #'
 #' @description Theme base for `*_mode_n` functions with no legend.
 #'

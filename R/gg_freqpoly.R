@@ -1,4 +1,4 @@
-#' @title Freqpoly ggplot
+#' Freqpoly ggplot
 #'
 #' @description Create a freqpoly ggplot with a wrapper around [ggplot2::ggplot()] + [geom_freqpoly()][ggplot2::geom_freqpoly()].
 #'

@@ -1,4 +1,4 @@
-#' @title Quantile ggplot
+#' Quantile ggplot
 #'
 #' @description Create an quantile ggplot with a wrapper around [ggplot2::ggplot()] + [geom_quantile()][ggplot2::geom_quantile()].
 #'

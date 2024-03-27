@@ -1,4 +1,4 @@
-#' @title Dark mode theme with right legend
+#' Dark mode theme with right legend
 #'
 #' @description Dark mode theme for a ggplot visualisation with legend at right. It uses the colours from `darkness`.
 #'
@@ -37,7 +37,7 @@ dark_mode_r <- function (
   )
 }
 
-#' @title Dark mode theme with top legend
+#' Dark mode theme with top legend
 #'
 #' @description Dark mode theme for a ggplot visualisation with top legend. It uses the colours from `darkness`.
 #'
@@ -76,7 +76,7 @@ dark_mode_t <- function (
   )
 }
 
-#' @title Dark mode theme with bottom legend
+#' Dark mode theme with bottom legend
 #'
 #' @description Dark mode theme for a ggplot visualisation with bottom legend. It uses the colours from `darkness`.
 #'
@@ -115,7 +115,7 @@ dark_mode_b <- function (
   )
 }
 
-#' @title Dark mode theme with no legend
+#' Dark mode theme with no legend
 #'
 #' @description Dark mode theme for a ggplot visualisation with no legend. It uses the colours from `darkness`.
 #'

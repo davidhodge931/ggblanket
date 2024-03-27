@@ -1,4 +1,4 @@
-#' @title Raster ggplot
+#' Raster ggplot
 #'
 #' @description Create a raster ggplot with a wrapper around [ggplot2::ggplot()] + [geom_raster()][ggplot2::geom_raster()].
 #'

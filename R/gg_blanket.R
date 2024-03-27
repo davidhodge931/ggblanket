@@ -1,4 +1,4 @@
-#' @title Blanket ggplot
+#' Blanket ggplot
 #'
 #' @description Create a blanket ggplot with a wrapper around [ggplot2::ggplot()] + `layer()` with [geom_blank()][ggplot2::geom_blank()] defaults. This function underlies all other `gg_*` functions. It contains a `geom` argument for maximum flexibility.
 #'

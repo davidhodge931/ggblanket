@@ -1,4 +1,4 @@
-#' @title Qq ggplot
+#' Qq ggplot
 #'
 #' @description Create a qq ggplot with a wrapper around [ggplot2::ggplot()] + [geom_qq()][ggplot2::geom_qq()].
 #'

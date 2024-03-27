@@ -45,7 +45,7 @@ theme_env$theme_current <- ggplot2::theme_grey()
 #'
 #' @param colour A hex colour for geoms. Defaults to `blue`. Also used for fill.
 #'
-#' @return Globally updated geom defaults
+#' @return Updated geom defaults
 #' @export
 weave_geom_defaults <- function(colour = blue) {
 
@@ -83,13 +83,13 @@ weave_geom_defaults <- function(colour = blue) {
   ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = NA, fill = colour, alpha = 0.9, linewidth = 0.66))
 }
 
-#' Update a series of annotation defaults
+#'  Update a series of annotation geom defaults
 #'
-#' @description Update a series of geom defaults for annotation (i.e. `*_hline`, `*_vline`, `*_abline`, `*_curve`, `*_text` and `*_label`).
+#' @description Update a series of geom defaults commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`).
 #'
 #' @param colour A hex colour for annotation. Defaults to `lightness[2]`.
 #'
-#' @return Globally updated annotation defaults
+#' @return Updated annotation geom defaults
 #' @export
 #'
 #' @examples

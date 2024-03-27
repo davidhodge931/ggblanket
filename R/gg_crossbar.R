@@ -1,4 +1,4 @@
-#' @title Crossbar ggplot
+#' Crossbar ggplot
 #'
 #' @description Create a crossbar ggplot with a wrapper around [ggplot2::ggplot()] + [geom_crossbar()][ggplot2::geom_crossbar()].
 #'

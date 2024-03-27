@@ -1,4 +1,4 @@
-#' @title Jitter ggplot
+#' Jitter ggplot
 #'
 #' @description Create a jitter ggplot with a wrapper around [ggplot2::ggplot()] + [geom_jitter()][ggplot2::geom_jitter()].
 #'

@@ -1,4 +1,4 @@
-#' @title Density_2d ggplot
+#' Density_2d ggplot
 #'
 #' @description Create a density_2d ggplot with a wrapper around [ggplot2::ggplot()] + [geom_density_2d()][ggplot2::geom_density_2d()].
 #'

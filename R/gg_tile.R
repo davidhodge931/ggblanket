@@ -1,4 +1,4 @@
-#' @title Tile ggplot
+#' Tile ggplot
 #'
 #' @description Create a tile plot with a wrapper around [ggplot2::ggplot()] + [geom_tile()][ggplot2::geom_tile()].
 #'

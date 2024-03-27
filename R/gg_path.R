@@ -1,4 +1,4 @@
-#' @title Path ggplot
+#' Path ggplot
 #'
 #' @description Create a path ggplot with a wrapper around [ggplot2::ggplot()] + [geom_path()][ggplot2::geom_path()].
 #'

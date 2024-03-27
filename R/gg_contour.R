@@ -1,4 +1,4 @@
-#' @title Contour ggplot
+#' Contour ggplot
 #'
 #' @description Create a contour ggplot with a wrapper around [ggplot2::ggplot()] + [geom_contour()][ggplot2::geom_contour()].
 #'

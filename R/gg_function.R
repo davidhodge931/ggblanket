@@ -1,4 +1,4 @@
-#' @title Function ggplot
+#' Function ggplot
 #'
 #' @description Create a function ggplot with a wrapper around [ggplot2::ggplot()] + [geom_function()][ggplot2::geom_function()].
 #'

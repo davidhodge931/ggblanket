@@ -1,4 +1,4 @@
-#' @title Line ggplot
+#' Line ggplot
 #'
 #' @description Create a line ggplot with a wrapper around [ggplot2::ggplot()] + [geom_line()][ggplot2::geom_line()].
 #'

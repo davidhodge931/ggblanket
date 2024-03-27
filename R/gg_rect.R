@@ -1,4 +1,4 @@
-#' @title Rect ggplot
+#' Rect ggplot
 #'
 #' @description Create a rect ggplot with a wrapper around [ggplot2::ggplot()] + [geom_rect()][ggplot2::geom_rect()].
 #'

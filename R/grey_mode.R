@@ -1,4 +1,4 @@
-#' @title Grey mode theme with right legend
+#' Grey mode theme with right legend
 #'
 #' @description Grey mode theme for a ggplot visualisation with legend at right. It uses the colours from `greyness`.
 #'
@@ -37,7 +37,7 @@ grey_mode_r <- function (
   )
 }
 
-#' @title Grey mode theme with top legend
+#' Grey mode theme with top legend
 #'
 #' @description Grey mode theme for a ggplot visualisation with top legend. It uses the colours from `greyness`.
 #'
@@ -76,7 +76,7 @@ grey_mode_t <- function (
   )
 }
 
-#' @title Grey mode theme with bottom legend
+#' Grey mode theme with bottom legend
 #'
 #' @description Grey mode theme for a ggplot visualisation with bottom legend. It uses the colours from `greyness`.
 #'
@@ -115,7 +115,7 @@ grey_mode_b <- function (
   )
 }
 
-#' @title Grey mode theme with no legend
+#' Grey mode theme with no legend
 #'
 #' @description Grey mode theme for a ggplot visualisation with no legend. It uses the colours from `greyness`.
 #'

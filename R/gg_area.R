@@ -1,4 +1,4 @@
-#' @title Area ggplot
+#' Area ggplot
 #'
 #' @description Create an area ggplot with a wrapper around [ggplot2::ggplot()] + [geom_area()][ggplot2::geom_area()].
 #'

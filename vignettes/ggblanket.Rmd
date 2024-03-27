@@ -482,13 +482,14 @@ penguins |>
 
 The `set_blanket` function is used to set the default style for ggblanket plots. 
 
-This function sets the default mode by running `weave_mode()` and updates a series of geom and annotate defaults using `weave_geom_defaults()` and `weave_annotate_defaults`.
+This function sets the default mode by 
+* setting the default mode via `weave_mode()`
+* updating a series of geom defaults via `weave_geom_defaults()` 
+* updating a series of geom defaults commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`) via `weave_annotate_defaults`.
 
-The user can select the mode, and the colours of the updated geom and annotate defaults.  
+Within the `set_blanket` function, the user can select the mode, and the default geom and annotate colour.
 
-The annotate colour refers to the colour used for `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`. 
-
-You can also use `ggplot2::update_geom_defaults` to further fine-tune your geom defaults. 
+The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
 
 ```{r}
 set_blanket(dark_mode_r(), orange, darkness[2])

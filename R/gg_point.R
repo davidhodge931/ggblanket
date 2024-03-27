@@ -1,4 +1,4 @@
-#' @title Point ggplot
+#' Point ggplot
 #'
 #' @description Create a point ggplot with a wrapper around [ggplot2::ggplot()] + [geom_point()][ggplot2::geom_point()].
 #'

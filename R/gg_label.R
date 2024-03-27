@@ -1,4 +1,4 @@
-#' @title Label ggplot
+#' Label ggplot
 #'
 #' @description Create a label ggplot with a wrapper around [ggplot2::ggplot()] + [geom_label()][ggplot2::geom_label()].
 #'
