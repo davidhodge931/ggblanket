@@ -526,17 +526,17 @@ will often need <code>+ labs(colour = NULL, fill = NULL)</code>.</p>
 </h3>
 <p>The <code>set_blanket</code> function is used to set the default
 style for ggblanket plots.</p>
-<p>This function sets the default mode by running
-<code><a href="../reference/weave_mode.html">weave_mode()</a></code> and updates a series of geom and annotate
-defaults using <code><a href="../reference/weave_geom_defaults.html">weave_geom_defaults()</a></code> and
+<p>This function sets the default mode by * setting the default mode via
+<code><a href="../reference/weave_mode.html">weave_mode()</a></code> * updating a series of geom defaults via
+<code><a href="../reference/weave_geom_defaults.html">weave_geom_defaults()</a></code> * updating a series of geom defaults
+commonly used for annotation (i.e. <code>*_vline</code>,
+<code>*_hline</code>, <code>*_abline</code>, <code>*_curve</code>,
+<code>*_text</code> and <code>*_label</code>) via
 <code>weave_annotate_defaults</code>.</p>
-<p>The user can select the mode, and the colours of the updated geom and
-annotate defaults.</p>
-<p>The annotate colour refers to the colour used for
-<code>*_vline</code>, <code>*_hline</code>, <code>*_abline</code>,
-<code>*_curve</code>, <code>*_text</code> and <code>*_label</code>.</p>
-<p>You can also use <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults</a></code> to
-further fine-tune your geom defaults.</p>
+<p>Within the <code>set_blanket</code> function, the user can select the
+mode, and the default geom and annotate colour.</p>
+<p>The <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults()</a></code> function can be used
+to further fine-tune geom defaults.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">orange</span>, <span class="va">darkness</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
