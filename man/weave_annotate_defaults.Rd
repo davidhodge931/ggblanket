@@ -2,12 +2,12 @@
 % Please edit documentation in R/weave.R
 \name{weave_annotate_defaults}
 \alias{weave_annotate_defaults}
-\title{Update a series of annotation geom defaults}
+\title{Update a series of annotate defaults}
 \usage{
 weave_annotate_defaults(colour = lightness[2])
 }
 \arguments{
-\item{colour}{A hex colour for annotation. Defaults to \code{lightness[2]}.}
+\item{colour}{A hex colour. Defaults to \code{lightness[2]}.}
 }
 \value{
 Updated annotation geom defaults

@@ -4,10 +4,10 @@
 \alias{weave_mode}
 \title{Set the default mode}
 \usage{
-weave_mode(new = light_mode_r())
+weave_mode(mode = light_mode_r())
 }
 \arguments{
-\item{new}{A new \verb{*_mode_*} theme (e.g. \code{\link[=dark_mode_r]{dark_mode_r()}}).}
+\item{mode}{A new \verb{*_mode_*} theme (e.g. \code{\link[=dark_mode_r]{dark_mode_r()}}).}
 }
 \value{
 A globally set mode

@@ -19,7 +19,7 @@ get_mode <- function() {
 #'
 #' @description Set the default `mode` for `gg_*` functions.
 #'
-#' @param new A new `*_mode_*` theme (e.g. [dark_mode_r()]).
+#' @param mode A new `*_mode_*` theme (e.g. [dark_mode_r()]).
 #'
 #' @return A globally set mode
 #' @export
@@ -27,9 +27,9 @@ get_mode <- function() {
 #' @examples
 #' weave_mode(dark_mode_r())
 #'
-weave_mode <- function(new = light_mode_r()) {
+weave_mode <- function(mode = light_mode_r()) {
   mode_old <- theme_env$mode_current
-  theme_env$mode_current <- new
+  theme_env$mode_current <- mode
   theme_env$theme_current <- ggplot2::theme_get()
   invisible(mode_old)
 }
@@ -43,7 +43,7 @@ theme_env$theme_current <- ggplot2::theme_grey()
 #'
 #' @description Update a series of geom defaults.
 #'
-#' @param colour A hex colour for geoms. Defaults to `blue`. Also used for fill.
+#' @param colour A hex colour. Defaults to `blue`.
 #'
 #' @return Updated geom defaults
 #' @export
@@ -83,11 +83,11 @@ weave_geom_defaults <- function(colour = blue) {
   ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = NA, fill = colour, alpha = 0.9, linewidth = 0.66))
 }
 
-#'  Update a series of annotation geom defaults
+#'  Update a series of annotate defaults
 #'
 #' @description Update a series of geom defaults commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`).
 #'
-#' @param colour A hex colour for annotation. Defaults to `lightness[2]`.
+#' @param colour A hex colour. Defaults to `lightness[2]`.
 #'
 #' @return Updated annotation geom defaults
 #' @export

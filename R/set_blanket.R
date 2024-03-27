@@ -1,6 +1,6 @@
-#' Set the style
+#' Set the default style
 #'
-#' @description A set-up function, which sets the mode and updates ggplot2 geom defaults.
+#' @description Set the default style by setting the default mode and updating a series of geom and annotate defaults.
 #'
 #' @param mode A `*_mode_*` theme set globally for when mode = NULL. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
 #' @param geom_default_colour A default geom colour used within `weave_geom_defaults()`.
