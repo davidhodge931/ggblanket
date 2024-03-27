@@ -8,6 +8,9 @@ reference:
 - title: Setup
 - contents:
   - set_blanket
+  - weave_mode
+  - weave_geom_defaults
+  - weave_annotate_defaults
 - title: Plot
 - contents:
   - gg_blanket
@@ -28,8 +31,6 @@ reference:
   - dark_mode_n
 - title: Helper
 - contents:
-  - set_mode
-  - weave_geom_defaults
   - aes_contrast
   - replace_seq
   - blue

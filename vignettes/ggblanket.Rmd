@@ -479,22 +479,18 @@ penguins |>
 
 ### 13. Set the mode and geom defaults with `set_blanket`
 
-The `set_blanket` function is used to set the default style of subsequent  ggblanket plots at the start of each script. 
+The `set_blanket` function is used to set the default style for ggblanket plots. 
 
-The defaults `set_blanket()` work well. 
+This function sets the default mode by running `weave_mode()` and updates a series of geom and annotate defaults using `weave_geom_defaults()` and `weave_annotate_defaults`.
 
-But you use this to set a different default theme to the `mode` argument, and a different default geom colour for outline/fill - or a different annotation colour (i.e. the colour used for `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`). You can use the `mode` and `geom_defaults` arguments in `set_blanket` to do this. 
+The user can select the mode, and the colours of the updated geom and annotate defaults.  
+
+The annotate colour refers to the colour used for `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`. 
 
 You can also use `ggplot2::update_geom_defaults` to further fine-tune your geom defaults. 
 
 ```{r}
-set_blanket(
-  dark_mode_r(),
-  weave_geom_defaults(
-    col_pal = "#FF7043", 
-    annotate_pal = darkness[2]
-  )
-)
+set_blanket(dark_mode_r(), orange, darkness[2])
 
 p1 <- penguins |>
   gg_point(
@@ -514,33 +510,8 @@ p2 <- penguins |>
   annotate("text", x = I(0.75), y = I(0.75), label = "Here")
 
 p1 + p2
-```
 
-
-```{r}
-set_blanket(
-  light_mode_r(),
-  weave_geom_defaults("#901752")
-)
-
-p1 <- penguins |>
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g,
-    x_breaks = scales::breaks_pretty(3),
-  ) +
-  geom_vline(xintercept = 200) +
-  annotate("text", x = I(0.25), y = I(0.75), label = "Here")
-
-p2 <- penguins |> 
-  gg_histogram(
-    x = flipper_length_mm,
-    x_breaks = scales::breaks_pretty(3),
-  ) +
-  geom_vline(xintercept = 200) +
-  annotate("text", x = I(0.75), y = I(0.75), label = "Here")
-
-p1 + p2
+set_blanket()
 ```
 
 ### 14. A `gg_blanket()` function with `geom` flexibility
@@ -550,8 +521,6 @@ ggblanket is driven by the `gg_blanket` function, which has a `geom` argument wi
 All other functions wrap this function with a locked-in geom, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
 ```{r}
-set_blanket()
-
 penguins |>
   gg_blanket(
     geom = "bar",

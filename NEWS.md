@@ -1,12 +1,12 @@
 # ggblanket 6.0.9000
 
-* Breaking: added `set_blanket` function, which is required to setup the style.
-* Added `weave_geom_defaults` helper function.
+* Breaking: added `set_blanket` function, which is required to set the style.
+* Added `weave_geom_defaults` and `weave_annotate_defaults` helper functions.
 * Breaking: removed all `alpha` arguments.
-* Breaking: in `aes_contrast`, renamed col_pal to `annotate_pal`
-* Breaking: renamed `mode_set` to `set_mode`.
+* Breaking: renamed `mode_set` to `weave_mode`.
+* Breaking: in `aes_contrast`, renamed `col_pal` to `contrast_pal`.
 * Breaking: renamed `greys` to `greys7`.
-* Supported the use of `colour` and `fill` to set a fixed colour for either outlines or interior fill.
+* Supported the use of `colour` and `fill`.
 * Improved `*_expand` defaults for histograms and bar graphs etc.
 * Fixed bug to support use of a named `col_pal`.
 * Fixed bug when positional scale reversed with `*_expand_limits`.

@@ -4,10 +4,10 @@
 \alias{aes_contrast}
 \title{A colour aesthetic that automatically contrasts with fill.}
 \usage{
-aes_contrast(annotate_pal = lightness[2:3])
+aes_contrast(contrast_pal = lightness[2:3])
 }
 \arguments{
-\item{annotate_pal}{A vector of a dark colour and then a light colour (e.g. \code{greyness[2:3]} or \code{darkness[1:2]}). Defaults to \code{lightness[2:3]}.}
+\item{contrast_pal}{A vector of a dark colour and then a light colour (e.g. \code{greyness[2:3]} or \code{darkness[1:2]}). Defaults to \code{lightness[2:3]}.}
 }
 \value{
 An aesthetic

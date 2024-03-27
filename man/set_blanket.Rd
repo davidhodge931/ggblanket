@@ -4,12 +4,19 @@
 \alias{set_blanket}
 \title{Set the style}
 \usage{
-set_blanket(mode = light_mode_r(), geom_defaults = weave_geom_defaults(), ...)
+set_blanket(
+  mode = light_mode_r(),
+  geom_default_colour = blue,
+  annotate_default_colour = lightness[2],
+  ...
+)
 }
 \arguments{
 \item{mode}{A \verb{*_mode_*} theme set globally for when mode = NULL. E.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
 
-\item{geom_defaults}{A series of ggplot2::update_geom_defaults calls. Defaults to \code{weave_geom_defaults()}.}
+\item{geom_default_colour}{A default geom colour used within \code{weave_geom_defaults()}.}
+
+\item{annotate_default_colour}{A default annotate colour used within \code{weave_annotate_defaults()}.}
 
 \item{...}{Provided only to support trailing commas.}
 }
@@ -18,4 +25,55 @@ A globally set mode and updated geom defaults.
 }
 \description{
 A set-up function, which sets the mode and updates ggplot2 geom defaults.
+}
+\examples{
+library(ggplot2)
+library(ggblanket)
+library(patchwork)
+library(palmerpenguins)
+
+set_blanket(grey_mode_r(), plum)
+
+p1 <- penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    x_breaks = scales::breaks_pretty(3),
+  ) +
+  geom_vline(xintercept = 200) +
+  annotate("text", x = I(0.25), y = I(0.75), label = "Here")
+
+p2 <- penguins |>
+  gg_histogram(
+    x = flipper_length_mm,
+    x_breaks = scales::breaks_pretty(3),
+  ) +
+  geom_vline(xintercept = 200) +
+  annotate("text", x = I(0.75), y = I(0.75), label = "Here")
+
+p1 + p2
+
+set_blanket(dark_mode_r(), orange, darkness[2])
+
+p1 <- penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    x_breaks = scales::breaks_pretty(3),
+  ) +
+  geom_vline(xintercept = 200) +
+  annotate("text", x = I(0.25), y = I(0.75), label = "Here")
+
+p2 <- penguins |>
+  gg_histogram(
+    x = flipper_length_mm,
+    x_breaks = scales::breaks_pretty(3),
+  ) +
+  geom_vline(xintercept = 200) +
+  annotate("text", x = I(0.75), y = I(0.75), label = "Here")
+
+p1 + p2
+
+set_blanket()
+
 }
