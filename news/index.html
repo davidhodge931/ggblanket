@@ -59,14 +59,13 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="6.0.9000" id="ggblanket-609000">ggblanket 6.0.9000<a class="anchor" aria-label="anchor" href="#ggblanket-609000"></a></h2>
-<ul><li>Breaking: added <code>set_blanket</code> function, which is required to setup the style.</li>
-<li>Added <code>weave_geom_defaults</code> helper function.</li>
+<ul><li>Breaking: added <code>set_blanket</code> function, which is required to set the style.</li>
+<li>Added <code>weave_geom_defaults</code> and <code>weave_annotate_defaults</code> helper functions.</li>
 <li>Breaking: removed all <code>alpha</code> arguments.</li>
-<li>Breaking: in <code>aes_contrast</code>, renamed col_pal to <code>annotate_pal</code>
-</li>
-<li>Breaking: renamed <code>mode_set</code> to <code>set_mode</code>.</li>
+<li>Breaking: renamed <code>mode_set</code> to <code>weave_mode</code>.</li>
+<li>Breaking: in <code>aes_contrast</code>, renamed <code>col_pal</code> to <code>contrast_pal</code>.</li>
 <li>Breaking: renamed <code>greys</code> to <code>greys7</code>.</li>
-<li>Supported the use of <code>colour</code> and <code>fill</code> to set a fixed colour for either outlines or interior fill.</li>
+<li>Supported the use of <code>colour</code> and <code>fill</code>.</li>
 <li>Improved <code>*_expand</code> defaults for histograms and bar graphs etc.</li>
 <li>Fixed bug to support use of a named <code>col_pal</code>.</li>
 <li>Fixed bug when positional scale reversed with <code>*_expand_limits</code>.</li>
