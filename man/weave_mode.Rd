@@ -16,6 +16,20 @@ A globally set mode
 Set the default \code{mode} for \verb{gg_*} functions.
 }
 \examples{
+library(ggplot2)
+library(ggblanket)
+library(palmerpenguins)
+
+set_blanket()
+weave_mode(dark_mode_r())
+
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    x_breaks = scales::breaks_pretty(3),
+  )
+
 weave_mode(dark_mode_r())
 
 }

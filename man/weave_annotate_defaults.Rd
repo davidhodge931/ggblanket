@@ -16,6 +16,20 @@ Updated annotation geom defaults
 Update a series of geom defaults commonly used for annotation (i.e. \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}).
 }
 \examples{
-weave_annotate_defaults(darkness[2])
+library(ggplot2)
+library(ggblanket)
+library(palmerpenguins)
+
+set_blanket()
+weave_annotate_defaults("#bc5090")
+
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    x_breaks = scales::breaks_pretty(3),
+  ) +
+  geom_vline(xintercept = 200) +
+  annotate("text", x = I(0.25), y = I(0.75), label = "Here")
 
 }

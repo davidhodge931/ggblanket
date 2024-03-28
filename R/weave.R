@@ -25,6 +25,20 @@ get_mode <- function() {
 #' @export
 #'
 #' @examples
+#' library(ggplot2)
+#' library(ggblanket)
+#' library(palmerpenguins)
+#'
+#' set_blanket()
+#' weave_mode(dark_mode_r())
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     x_breaks = scales::breaks_pretty(3),
+#'   )
+#'
 #' weave_mode(dark_mode_r())
 #'
 weave_mode <- function(mode = light_mode_r()) {
@@ -47,6 +61,24 @@ theme_env$theme_current <- ggplot2::theme_grey()
 #'
 #' @return Updated geom defaults
 #' @export
+#'
+#' @examples
+#' library(ggplot2)
+#' library(ggblanket)
+#' library(palmerpenguins)
+#'
+#' set_blanket()
+#' weave_geom_defaults("#bc5090")
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     x_breaks = scales::breaks_pretty(3),
+#'   ) +
+#'   geom_vline(xintercept = 200) +
+#'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
+#'
 weave_geom_defaults <- function(colour = blue) {
 
   ggplot2::update_geom_defaults("area", ggplot2::aes(colour = colour, fill = colour, alpha = 0.9, linewidth = 0.66))
@@ -93,7 +125,21 @@ weave_geom_defaults <- function(colour = blue) {
 #' @export
 #'
 #' @examples
-#' weave_annotate_defaults(darkness[2])
+#' library(ggplot2)
+#' library(ggblanket)
+#' library(palmerpenguins)
+#'
+#' set_blanket()
+#' weave_annotate_defaults("#bc5090")
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     x_breaks = scales::breaks_pretty(3),
+#'   ) +
+#'   geom_vline(xintercept = 200) +
+#'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
 #'
 weave_annotate_defaults <- function(colour = lightness[2]) {
   ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = colour, linewidth = 0.33))
