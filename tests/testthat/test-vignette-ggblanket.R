@@ -250,7 +250,6 @@ test_that(test_name, {
     gg_histogram(
       x = flipper_length_mm,
       col = species,
-      col_pal = c(teal, orange, plum),
       title = "Penguin flipper length by species",
       subtitle = "Palmer Archipelago, Antarctica",
       caption = "Source: Gorman, 2020",

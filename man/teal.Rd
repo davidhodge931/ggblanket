@@ -14,7 +14,7 @@ teal
 A character vector.
 }
 \description{
-A teal colour derived from the US Census Bureau's Data Visualisation Standards.
+A teal colour.
 }
 \examples{
 scales::show_col(teal)

@@ -13,33 +13,11 @@
 #' @examples
 #' library(ggplot2)
 #' library(ggblanket)
-#' library(patchwork)
 #' library(palmerpenguins)
-#'
-#' set_blanket(grey_mode_r(), plum)
-#'
-#' p1 <- penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     x_breaks = scales::breaks_pretty(3),
-#'   ) +
-#'   geom_vline(xintercept = 200) +
-#'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
-#'
-#' p2 <- penguins |>
-#'   gg_histogram(
-#'     x = flipper_length_mm,
-#'     x_breaks = scales::breaks_pretty(3),
-#'   ) +
-#'   geom_vline(xintercept = 200) +
-#'   annotate("text", x = I(0.75), y = I(0.75), label = "Here")
-#'
-#' p1 + p2
 #'
 #' set_blanket(dark_mode_r(), orange, darkness[2])
 #'
-#' p1 <- penguins |>
+#' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
@@ -48,15 +26,13 @@
 #'   geom_vline(xintercept = 200) +
 #'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
 #'
-#' p2 <- penguins |>
+#' penguins |>
 #'   gg_histogram(
 #'     x = flipper_length_mm,
 #'     x_breaks = scales::breaks_pretty(3),
 #'   ) +
 #'   geom_vline(xintercept = 200) +
 #'   annotate("text", x = I(0.75), y = I(0.75), label = "Here")
-#'
-#' p1 + p2
 #'
 #' set_blanket()
 #'

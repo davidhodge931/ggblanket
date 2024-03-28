@@ -11,7 +11,7 @@ blue <- "#357BA2"
 
 #' A teal colour
 #'
-#' @description A teal colour derived from the US Census Bureau's Data Visualisation Standards.
+#' @description A teal colour.
 #'
 #' @return A character vector.
 #' @export
@@ -22,47 +22,25 @@ teal <- "#0095A8"
 
 #' A orange colour
 #'
-#' @description A orange colour derived from the US Census Bureau's Data Visualisation Standards.
+#' @description A orange colour.
 #'
 #' @return A character vector.
 #' @export
 #'
 #' @examples
 #' scales::show_col(orange)
-orange <- "#FF7043"
+orange <- "#ffa600"
 
 #' A navy colour
 #'
-#' @description A navy colour derived from the US Census Bureau's Data Visualisation Standards. Note this colour is not accessible with dark modes.
+#' @description A navy colour.
 #'
 #' @return A character vector.
 #' @export
 #'
 #' @examples
 #' scales::show_col(navy)
-navy <- "#112E51"
-
-#' A plum colour
-#'
-#' @description A plum colour inspired by the NZ tree fuchsia (kōtukutuku)
-#'
-#' @return A character vector.
-#' @export
-#'
-#' @examples
-#' scales::show_col(plum)
-plum <- "#901752"
-
-#' Grey colours
-#'
-#' @description A vector of 7 grey colours derived from the US Census Bureau's Data Visualisation Standards.
-#'
-#' @return A character vector.
-#' @export
-#'
-#' @examples
-#' scales::show_col(greys7)
-greys7 <- c("#E8EFF2", "#C8D7DF", "#A7C0CD", "#78909C", "#4B636E", "#364850", "#222C31")
+navy <- "#003f5c"
 
 #' The `light_mode_*` theme colours
 #'

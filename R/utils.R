@@ -21,14 +21,15 @@ na_if_inf <- function(x) {
 
 #' Default colours used to colour a discrete variable
 #'
-#' @description Default colours used to colour a discrete variable. Uses a colour blind safe palette derived from the US Census Bureau's Data Visualisation Standards for 3 or less colours. For 4 or more colours, uses scales::pal_hue.
+#' @description Default colours used to colour a discrete variable. Uses a colour blind safe palette for 3 or less colours. For 4 or more colours, uses scales::pal_hue.
 #'
 #' @return A character vector.
 #'
 #' @noRd
-col_pal_discrete <- function(n = 4) {
+col_pal_discrete <- function(n = 3) {
   if (n == 1) blue
-  else if (n <= 4) c(teal, orange, navy, plum)[1:n]
+  else if (n == 2) c(teal, orange)[1:n]
+  else if (n == 3) c(teal, orange, navy)[1:n]
   else scales::pal_hue()(n)
 }
 

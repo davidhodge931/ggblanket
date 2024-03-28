@@ -992,7 +992,7 @@ gg_blanket <- function(
       params_list <- rlang::list2(contour = contour, ...)
     }
     else {
-      params_list <- rlang::list2(contour = contour, colour = col_pal, fill = col_pal, ...)
+      params_list <- rlang::list2(contour = contour, colour = col_pal[1], fill = col_pal[1], ...)
     }
 
     if (stringr::str_detect(stat_name, "sf")) {

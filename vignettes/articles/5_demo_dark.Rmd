@@ -76,7 +76,6 @@ penguins |>
     x = flipper_length_mm,
     y = sex,
     col = species,
-    col_pal = c(teal, orange, plum),
     mode = dark_mode_b(),
   )
 ```
@@ -152,7 +151,6 @@ penguins |>
   gg_density(
     x = flipper_length_mm,
     col = species,
-    col_pal = c(teal, orange, plum),
     mode = dark_mode_t(),
   )
 ```
@@ -341,7 +339,6 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g, 
     col = species,
-    col_pal = c(teal, orange, plum),
   )
 ```
 
@@ -581,7 +578,6 @@ penguins |>
     x = sex,
     y = body_mass_g,
     col = species,
-    col_pal = c(teal, orange, plum),
   )
 ```
 
@@ -598,7 +594,6 @@ penguins |>
     x = sex,
     y = body_mass_g,
     col = species,
-    col_pal = c(teal, orange, plum),
   )
 ```
 

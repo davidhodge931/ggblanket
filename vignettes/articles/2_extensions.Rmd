@@ -501,7 +501,7 @@ penguins |>
     mapping = aes(colour = species), 
     data = penguins |> filter(species != "Gentoo"),
   ) +
-  scale_color_manual(values = c(plum, orange)) +
+  scale_color_manual(values = c("#901752", orange)) +
   labs(colour = "Species")
 ```
 
