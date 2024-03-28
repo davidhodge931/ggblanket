@@ -307,8 +307,8 @@ The `gg_*()` function _should_ be appropriate to be the bottom layer of the plot
 
 This may mean that you need to use `gg_blanket()` as your `gg_*` function, as it defaults to a `blank` geom.
 
-```{r, fig.asp = 0.75}
-p1 <- penguins |>
+```{r, fig.asp = 0.4}
+penguins |>
   group_by(species) |>
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) |>
   mutate(lower = body_mass_g * 0.95) |> 
@@ -328,8 +328,10 @@ p1 <- penguins |>
     colour = "black", 
     width = 0.1, 
   ) 
+```
 
-p2 <- penguins |>
+```{r, fig.asp = 0.4}
+penguins |>
   group_by(species) |>
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) |>
   mutate(lower = body_mass_g * 0.95) |> 
@@ -522,18 +524,11 @@ ggblanket is driven by the `gg_blanket` function, which has a `geom` argument wi
 
 All other functions wrap this function with a locked-in geom, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
-```{r}
-penguins |>
-  gg_blanket(
-    geom = "bar",
-    stat = "bin",
-    position = "stack",
-    x = flipper_length_mm, 
-    col = species,
-  ) 
-```
+You can print a `geom_*` function to identify the applicable `stat` and `position` arguments etc. 
 
 ```{r}
+geom_violin()
+
 penguins |>
   drop_na(sex) |>
   mutate(across(sex, str_to_sentence)) |>
@@ -545,6 +540,35 @@ penguins |>
     y = body_mass_g,
     col = species,
   )
+```
+```{r}
+geom_histogram()
+
+penguins |>
+  gg_blanket(
+    geom = "bar",
+    stat = "bin",
+    position = "stack",
+    x = flipper_length_mm, 
+    col = species,
+  ) 
+```
+
+```{r}
+geom_spoke()
+
+expand.grid(x = 1:10, y = 1:10) |>
+  tibble() |>
+  mutate(angle = runif(100, 0, 2*pi)) |>
+  mutate(speed = runif(100, 0, sqrt(0.1 * x))) |>
+  gg_blanket(
+    geom = "spoke",
+    x = x, 
+    y = y,
+    col = speed,
+    mapping = aes(angle = angle, radius = speed),
+  ) +
+  geom_point()
 ```
 
 ## Further information 
