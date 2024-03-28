@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-This article will demonstrate a random assortment of content, including some of which is quite advanced. 
+This article will demonstrate a random assortment of content, including some of which is quite advanced.  
 
 1. Change the `stat` of the layer
 2. Change the `position` of the layer
