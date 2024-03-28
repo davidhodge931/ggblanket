@@ -395,26 +395,6 @@ penguins |>
   )
 ```
 
-```{r}
-penguins |>
-  count(species, sex) |>
-  gg_col(
-    position = position_dodge2(preserve = "single"),
-    x = n,
-    y = sex,
-    col = species,
-    width = 0.75,
-    y_labels = \(x) str_to_sentence(x),
-    mode = dark_mode_r(),
-  ) +
-  geom_text(
-    mapping = aes(label = n, !!!aes_contrast(darkness)),
-    position = position_dodge2(width = 0.75, preserve = "single"),
-    hjust = 1.25,
-    show.legend = FALSE,
-  ) 
-```
-
 ### 12. Understand `oob` & `clip`
 
 By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
