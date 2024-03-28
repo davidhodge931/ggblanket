@@ -75,9 +75,7 @@ theme_env$theme_current <- ggplot2::theme_grey()
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     x_breaks = scales::breaks_pretty(3),
-#'   ) +
-#'   geom_vline(xintercept = 200) +
-#'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
+#'   )
 #'
 weave_geom_defaults <- function(colour = blue) {
 
