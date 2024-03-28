@@ -472,7 +472,7 @@ p4 + p5
 
 ### 13. Use delayed evaluation
 
-As the `x`, `y`, `col` and `alpha` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This can be used for delayed evaluation with the `ggplot2::after_stat` function.
+As the `x`, `y`, and `col` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This can be used for delayed evaluation with the `ggplot2::after_stat` function.
 
 ```{r, fig.asp=0.55}
 penguins |>

@@ -1,4 +1,4 @@
-# ggblanket 6.0.9000
+# ggblanket 7.0.0
 
 * Added `set_blanket` function, which is now required to set the style.
 * Added `weave_geom_defaults` and `weave_annotate_defaults` helper functions.

@@ -493,7 +493,7 @@ Within the `set_blanket` function, the user can select the mode, and the default
 The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
 
 ```{r}
-set_blanket(dark_mode_r(), "#ffa600", darkness[2])
+set_blanket(grey_mode_r(), "#ffa600")
 
 p1 <- penguins |>
   gg_point(

@@ -15,7 +15,7 @@ reference:
 - contents:
   - gg_blanket
   - starts_with("gg_")
-- title: Theme
+- title: Mode
 - contents:
   - light_mode_r
   - light_mode_t
