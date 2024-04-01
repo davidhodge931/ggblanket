@@ -50,6 +50,4 @@ penguins |>
   geom_vline(xintercept = 200) +
   annotate("text", x = I(0.75), y = I(0.75), label = "Here")
 
-set_blanket()
-
 }

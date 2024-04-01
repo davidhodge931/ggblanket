@@ -34,8 +34,6 @@
 #'   geom_vline(xintercept = 200) +
 #'   annotate("text", x = I(0.75), y = I(0.75), label = "Here")
 #'
-#' set_blanket()
-#'
 set_blanket <- function(
     mode = light_mode_r(),
     geom_default_colour = blue,

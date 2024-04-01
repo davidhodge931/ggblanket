@@ -95,7 +95,7 @@ test_that(test_name, {
     gg_jitter(
       x = species,
       y = body_mass_g,
-      col_pal = "#7FCDBB",
+      colour = "#7FCDBB",
     )
 
   vdiffr::expect_doppelganger(test_name, p)

@@ -1,3 +1,7 @@
+# ggblanket 7.0.0.9000
+
+* Removed ability to use `col_pal` when `col = NULL`.
+
 # ggblanket 7.0.0
 
 * Added `set_blanket` function, which is now required to set the style.

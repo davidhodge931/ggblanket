@@ -162,7 +162,6 @@ penguins |>
     y = body_mass_g,
     col = species,
     coord = coord_cartesian(),
-    alpha = 0.6,
   ) +
   geom_point()
 ```
