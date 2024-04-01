@@ -48,9 +48,9 @@
 #'
 #' set_blanket()
 #'
-#' penguins |>
-#'   tidyr::drop_na(sex) |>
-#'   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+#' penguins %>%
+#'   tidyr::drop_na(sex) %>%
+#'   mutate(across(sex, \(x) stringr::str_to_sentence(x))) %>%
 #'   gg_blanket(
 #'     geom = "violin",
 #'     stat = "ydensity",
@@ -1250,10 +1250,16 @@ gg_blanket <- function(
         x_vars_str <- "^x(?!id)" #starts with x & not xid (which is used in geom_boxplot etc)
 
         x_vctr <- plot_data %>%
-          dplyr::select(tidyselect::matches(stringr::regex(x_vars_str))) %>%
-          tidyr::pivot_longer(cols = tidyselect::everything()) %>%
-          dplyr::filter(!is.na(.data$value)) %>%
-          dplyr::pull(.data$value)
+          dplyr::select(tidyselect::matches(stringr::regex(x_vars_str)))
+
+        if (ncol(x_vctr) != 0) {
+          x_vctr <- x_vctr %>%
+            tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+            dplyr::filter(!is.na(.data$value)) %>%
+            dplyr::pull(.data$value)
+        } else {
+          x_vctr <- c(-Inf, Inf)
+        }
 
         if (!rlang::is_null(x_expand_limits)) {
           x_vctr <- c(x_vctr, x_expand_limits)
@@ -1423,10 +1429,16 @@ gg_blanket <- function(
         y_vars_str <- "^y(?!id)" #starts with y & not yid (which is used in geom_boxplot etc)
 
         y_vctr <- plot_data %>%
-          dplyr::select(tidyselect::matches(stringr::regex(y_vars_str))) %>%
-          tidyr::pivot_longer(cols = tidyselect::everything()) %>%
-          dplyr::filter(!is.na(.data$value)) %>%
-          dplyr::pull(.data$value)
+          dplyr::select(tidyselect::matches(stringr::regex(y_vars_str)))
+
+        if (ncol(y_vctr) != 0) {
+          y_vctr <- y_vctr %>%
+            tidyr::pivot_longer(cols = tidyselect::everything()) %>%
+            dplyr::filter(!is.na(.data$value)) %>%
+            dplyr::pull(.data$value)
+        } else {
+          y_vctr <- c(-Inf, Inf)
+        }
 
         if (!rlang::is_null(y_expand_limits)) {
           y_vctr <- c(y_vctr, y_expand_limits)

@@ -663,7 +663,7 @@ test_that(test_name, {
 test_name <- "gg_blanket"
 
 test_that(test_name, {
-  p <- p <- palmerpenguins::penguins |>
+  p <- palmerpenguins::penguins |>
     tidyr::drop_na(sex) |>
     dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_blanket(

@@ -1,6 +1,7 @@
 # ggblanket 7.0.0.9000
 
 * Removed ability to use `col_pal` when `col = NULL`.
+* Made compatible with extension geoms with no x or y variables in `layer_data`.
 
 # ggblanket 7.0.0
 
