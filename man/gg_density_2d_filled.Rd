@@ -166,6 +166,7 @@ faithful |>
     x = waiting,
     y = eruptions,
     bins = 8,
+    contour = TRUE,
   )
 
 }

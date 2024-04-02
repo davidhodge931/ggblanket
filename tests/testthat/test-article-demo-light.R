@@ -161,6 +161,7 @@ test_that(test_name, {
       x = waiting,
       y = eruptions,
       bins = 8,
+      contour = TRUE,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -177,6 +178,7 @@ test_that(test_name, {
       x = waiting,
       y = eruptions,
       bins = 8,
+      contour = TRUE,
     )
 
   vdiffr::expect_doppelganger(test_name, p)

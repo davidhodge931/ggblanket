@@ -163,6 +163,7 @@ faithful |>
     x = waiting,
     y = eruptions,
     bins = 8,
+    contour = TRUE,
   )
 ```
 
@@ -175,6 +176,7 @@ faithful |>
     y = eruptions,
     bins = 8,
     col_pal = viridisLite::mako(8),
+    contour = TRUE,
   )
 ```
 

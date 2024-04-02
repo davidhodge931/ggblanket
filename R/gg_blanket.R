@@ -872,9 +872,6 @@ gg_blanket <- function(
   if (geom_name == "blank") show_legend <- FALSE
   else show_legend <- TRUE
 
-  if (stat_name %in% c("density_2d", "density_2d_filled")) contour <- TRUE
-  else contour <- TRUE
-
   if (stringr::str_detect(stat_name, "sf")) {
     if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
 
@@ -883,7 +880,7 @@ gg_blanket <- function(
         geom = geom,
         stat = stat,
         position = position,
-        params = rlang::list2(contour = contour, ...),
+        params = rlang::list2(...),
         show.legend = show_legend,
       ) +
       coord +
@@ -897,7 +894,7 @@ gg_blanket <- function(
         geom = geom,
         stat = stat,
         position = position,
-        params = rlang::list2(contour = contour, ...),
+        params = rlang::list2(...),
         show.legend = show_legend,
       ) +
       coord +
