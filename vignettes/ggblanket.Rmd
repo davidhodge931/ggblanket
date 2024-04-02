@@ -164,7 +164,7 @@ penguins |>
     y_title = "Body mass (g)",
     col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
-    col_pal = viridisLite::rocket(n = 9, direction = -1),
+    col_pal = blues9,
     facet_labels = str_to_sentence,
   )
 ```
