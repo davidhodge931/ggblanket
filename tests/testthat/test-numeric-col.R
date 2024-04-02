@@ -3,7 +3,7 @@ testthat::skip_on_os(c("mac", "linux"))
 
 library(palmerpenguins)
 library(ggplot2)
-set_blanket(geom_default_colour = lightness[2])
+set_blanket(geom_colour = lightness[2])
 
 test_name <- "light_mode_r"
 

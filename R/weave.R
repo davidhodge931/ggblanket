@@ -21,26 +21,7 @@ get_mode <- function() {
 #'
 #' @param mode A new `*_mode_*` theme (e.g. [dark_mode_r()]).
 #'
-#' @return A globally set mode
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#' library(ggblanket)
-#' library(palmerpenguins)
-#'
-#' set_blanket()
-#' weave_mode(dark_mode_r())
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     x_breaks = scales::breaks_pretty(3),
-#'   )
-#'
-#' weave_mode(dark_mode_r())
-#'
+#' @noRd
 weave_mode <- function(mode = light_mode_r()) {
   mode_old <- theme_env$mode_current
   theme_env$mode_current <- mode
@@ -57,26 +38,9 @@ theme_env$theme_current <- ggplot2::theme_grey()
 #'
 #' @description Update a series of geom defaults.
 #'
-#' @param colour A hex colour. Defaults to `blue`.
+#' @param colour A hex colour. Defaults to `blue`. The default geom fill inherits from colour.
 #'
-#' @return Updated geom defaults
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#' library(ggblanket)
-#' library(palmerpenguins)
-#'
-#' set_blanket()
-#' weave_geom_defaults("#bc5090")
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     x_breaks = scales::breaks_pretty(3),
-#'   )
-#'
+#' @noRd
 weave_geom_defaults <- function(colour = blue) {
 
   ggplot2::update_geom_defaults("area", ggplot2::aes(colour = colour, fill = colour, alpha = 0.9, linewidth = 0.66))
@@ -117,28 +81,9 @@ weave_geom_defaults <- function(colour = blue) {
 #'
 #' @description Update a series of geom defaults commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`).
 #'
-#' @param colour A hex colour. Defaults to `lightness[2]`.
+#' @param colour A hex colour. Defaults to `lightness[2]`. The default annotate fill inherits from annotate_colour.
 #'
-#' @return Updated annotation geom defaults
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#' library(ggblanket)
-#' library(palmerpenguins)
-#'
-#' set_blanket()
-#' weave_annotate_defaults("#bc5090")
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     x_breaks = scales::breaks_pretty(3),
-#'   ) +
-#'   geom_vline(xintercept = 200) +
-#'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
-#'
+#' @noRd
 weave_annotate_defaults <- function(colour = lightness[2]) {
   ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = colour, linewidth = 0.33))
   ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = colour, linewidth = 0.33))
