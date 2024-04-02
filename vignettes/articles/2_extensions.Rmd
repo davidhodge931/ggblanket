@@ -300,7 +300,7 @@ tibble(x = 1:10) |>
     col = .width,
     colour = lightness[1],
     col_legend_rev = TRUE,
-    col_pal = rev(RColorBrewer::brewer.pal(n = 3, "Blues")),
+    col_pal = blues9[c(3,5,7)],
   )
 ```
 
