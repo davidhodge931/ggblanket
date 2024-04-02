@@ -6,17 +6,17 @@
 \usage{
 set_blanket(
   mode = light_mode_r(),
-  geom_default_colour = blue,
-  annotate_default_colour = lightness[2],
+  geom_colour = blue,
+  annotate_colour = lightness[2],
   ...
 )
 }
 \arguments{
-\item{mode}{A \verb{*_mode_*} theme set globally for when mode = NULL. E.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
+\item{mode}{A \verb{*_mode_*} set globally for when mode = NULL. E.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}. Use NULL to leave the mode as is.}
 
-\item{geom_default_colour}{A default geom colour used within \code{weave_geom_defaults()}.}
+\item{geom_colour}{A default geom colour. The default geom fill inherits from this. Use NULL to leave geom defaults as is.}
 
-\item{annotate_default_colour}{A default annotate colour used within \code{weave_annotate_defaults()}.}
+\item{annotate_colour}{A default annotate colour used for \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}. The default annotate fill inherits from this. Use NULL to leave annotate defaults as is.}
 
 \item{...}{Provided only to support trailing commas.}
 }

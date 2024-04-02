@@ -1,6 +1,8 @@
 # ggblanket 7.0.0.9000
 
-* Removed ability to use `col_pal` when `col = NULL`.
+* Breaking: made `weave_*` functions internal. 
+* Breaking: removed ability to use `col_pal` when `col = NULL`.
+* Breaking: in `set_blanket`, renamed arguments to remove `_default`.
 * Made compatible with extension geoms with no x or y variables in `layer_data`.
 
 # ggblanket 7.0.0

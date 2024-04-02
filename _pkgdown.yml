@@ -8,9 +8,6 @@ reference:
 - title: Setup
 - contents:
   - set_blanket
-  - weave_mode
-  - weave_geom_defaults
-  - weave_annotate_defaults
 - title: Plot
 - contents:
   - gg_blanket
