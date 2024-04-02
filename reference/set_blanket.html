@@ -66,8 +66,8 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">set_blanket</span><span class="op">(</span></span>
 <span>  mode <span class="op">=</span> <span class="fu"><a href="light_mode_r.html">light_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  geom_default_colour <span class="op">=</span> <span class="va">blue</span>,</span>
-<span>  annotate_default_colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>  geom_colour <span class="op">=</span> <span class="va">blue</span>,</span>
+<span>  annotate_colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -75,15 +75,15 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>mode</dt>
-<dd><p>A <code>*_mode_*</code> theme set globally for when mode = NULL. E.g. <code><a href="light_mode_t.html">light_mode_t()</a></code>, <code><a href="grey_mode_r.html">grey_mode_r()</a></code>, or <code><a href="dark_mode_r.html">dark_mode_r()</a></code>.</p></dd>
+<dd><p>A <code>*_mode_*</code> set globally for when mode = NULL. E.g. <code><a href="light_mode_t.html">light_mode_t()</a></code>, <code><a href="grey_mode_r.html">grey_mode_r()</a></code>, or <code><a href="dark_mode_r.html">dark_mode_r()</a></code>. Use NULL to leave the mode as is.</p></dd>
 
 
-<dt>geom_default_colour</dt>
-<dd><p>A default geom colour used within <code><a href="weave_geom_defaults.html">weave_geom_defaults()</a></code>.</p></dd>
+<dt>geom_colour</dt>
+<dd><p>A default geom colour. The default geom fill inherits from this. Use NULL to leave geom defaults as is.</p></dd>
 
 
-<dt>annotate_default_colour</dt>
-<dd><p>A default annotate colour used within <code><a href="weave_annotate_defaults.html">weave_annotate_defaults()</a></code>.</p></dd>
+<dt>annotate_colour</dt>
+<dd><p>A default annotate colour used for <code>*_vline</code>, <code>*_hline</code>, <code>*_abline</code>, <code>*_curve</code>, <code>*_text</code> and <code>*_label</code>. The default annotate fill inherits from this. Use NULL to leave annotate defaults as is.</p></dd>
 
 
 <dt>...</dt>

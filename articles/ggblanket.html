@@ -527,15 +527,14 @@ will often need <code>+ labs(colour = NULL, fill = NULL)</code>.</p>
 </h3>
 <p>The <code>set_blanket</code> function is used to set the default
 style for ggblanket plots.</p>
-<p>This function sets the default mode by * setting the default mode via
-<code><a href="../reference/weave_mode.html">weave_mode()</a></code> * updating a series of geom defaults via
-<code><a href="../reference/weave_geom_defaults.html">weave_geom_defaults()</a></code> * updating a series of geom defaults
-commonly used for annotation (i.e. <code>*_vline</code>,
-<code>*_hline</code>, <code>*_abline</code>, <code>*_curve</code>,
-<code>*_text</code> and <code>*_label</code>) via
-<code>weave_annotate_defaults</code>.</p>
+<p>This function sets the default mode by * setting the default mode *
+updating a series of geom defaults (not commononly used for annotation)
+* updating a series of geom defaults commonly used for annotation
+(i.e. <code>*_vline</code>, <code>*_hline</code>, <code>*_abline</code>,
+<code>*_curve</code>, <code>*_text</code> and <code>*_label</code>).</p>
 <p>Within the <code>set_blanket</code> function, the user can select the
-mode, and the default geom and annotate colour.</p>
+<code>mode</code>, and the <code>geom_colour</code> and
+<code>annotate_colour</code> with the fill inheriting from these.</p>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults()</a></code> function can be used
 to further fine-tune geom defaults.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
