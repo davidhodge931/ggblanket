@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' scales::show_col(blue)
-blue <- "#357BA2"
+blue <- "#357ba2"
 
 #' A teal colour
 #'
@@ -18,7 +18,7 @@ blue <- "#357BA2"
 #'
 #' @examples
 #' scales::show_col(teal)
-teal <- "#0095A8"
+teal <- "#0095a8"
 
 #' A orange colour
 #'
@@ -42,6 +42,17 @@ orange <- "#ffa600"
 #' scales::show_col(navy)
 navy <- "#003f5c"
 
+#' A pink colour
+#'
+#' @description A pink colour.
+#'
+#' @return A character vector.
+#' @export
+#'
+#' @examples
+#' scales::show_col(pink)
+pink <- "#bc5090"
+
 #' The `light_mode_*` theme colours
 #'
 #' @description A vector of colours used in the `light_mode_*` themes.
@@ -51,7 +62,7 @@ navy <- "#003f5c"
 #'
 #' @examples
 #' scales::show_col(lightness)
-lightness <- c("#F6F8FA", "#121B24", "#FFFFFF")
+lightness <- c("#f6f8fa", "#121b24", "#ffffff")
 
 #' The `grey_mode_*` theme colours
 #'
@@ -62,7 +73,7 @@ lightness <- c("#F6F8FA", "#121B24", "#FFFFFF")
 #'
 #' @examples
 #' scales::show_col(greyness)
-greyness <- c("#F6F8FA", "#121B24", "#fCFDFE")
+greyness <- c("#f6f8fa", "#121b24", "#fcfdfe")
 
 #' The `dark_mode_*` theme colours
 #'
@@ -73,4 +84,4 @@ greyness <- c("#F6F8FA", "#121B24", "#fCFDFE")
 #'
 #' @examples
 #' scales::show_col(darkness)
-darkness <- c("#00040a", "#C8D7DF", "#050D1B")
+darkness <- c("#00040a", "#c8d7df", "#050d1b")
