@@ -849,21 +849,25 @@ gg_blanket <- function(
   # Add positional scales pre getting plot data
   ##############################################################################
 
-  if (!rlang::is_null(x_limits)) {
-    if (any(x_transform_name %in% "reverse")) x_limits1 <- rev(x_limits)
-    else x_limits1 <- x_limits
+  suppressMessages({
 
-    plot <- plot +
-      ggplot2::scale_x_continuous(limits = x_limits1)
-  }
+    if (!rlang::is_null(x_limits)) {
+      if (any(x_transform_name %in% "reverse")) x_limits1 <- rev(x_limits)
+      else x_limits1 <- x_limits
 
-  if (!rlang::is_null(y_limits)) {
-    if (any(y_transform_name %in% "reverse")) y_limits1 <- rev(y_limits)
-    else y_limits1 <- y_limits
+      plot <- plot +
+        ggplot2::scale_x_continuous(limits = x_limits1)
+    }
 
-    plot <- plot +
-      ggplot2::scale_y_continuous(limits = y_limits1)
-  }
+    if (!rlang::is_null(y_limits)) {
+      if (any(y_transform_name %in% "reverse")) y_limits1 <- rev(y_limits)
+      else y_limits1 <- y_limits
+
+      plot <- plot +
+        ggplot2::scale_y_continuous(limits = y_limits1)
+    }
+
+  })
 
   ##############################################################################
   # Add layer
@@ -1162,35 +1166,31 @@ gg_blanket <- function(
     if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
     if (rlang::is_null(x_transform)) x_transform <- scales::transform_identity()
 
-    suppressMessages({
-      plot <- plot +
-        ggplot2::scale_x_continuous(
-          limits = x_limits,
-          expand = x_expand,
-          breaks = x_breaks,
-          labels = x_labels,
-          oob = x_oob,
-          position = x_position,
-          transform = x_transform
-        )
-    })
+    plot <- plot +
+      ggplot2::scale_x_continuous(
+        limits = x_limits,
+        expand = x_expand,
+        breaks = x_breaks,
+        labels = x_labels,
+        oob = x_oob,
+        position = x_position,
+        transform = x_transform
+      )
   }
   else if (!x_continuous) {
     if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
     if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
     if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
 
-    suppressMessages({
-      plot <- plot +
-        ggplot2::scale_x_discrete(
-          limits = x_limits,
-          expand = x_expand,
-          breaks = x_breaks,
-          labels = x_labels,
-          drop = x_drop,
-          position = x_position
-        )
-    })
+    plot <- plot +
+      ggplot2::scale_x_discrete(
+        limits = x_limits,
+        expand = x_expand,
+        breaks = x_breaks,
+        labels = x_labels,
+        drop = x_drop,
+        position = x_position
+      )
   }
   else {
     #get x_labels if NULL
@@ -1320,18 +1320,16 @@ gg_blanket <- function(
     }
 
     #make the x_scale
-    suppressMessages({
-      plot <- plot +
-        ggplot2::scale_x_continuous(
-          limits = x_limits,
-          expand = x_expand,
-          breaks = x_breaks,
-          labels = x_labels,
-          oob = x_oob,
-          position = x_position,
-          transform = x_transform
-        )
-    })
+    plot <- plot +
+      ggplot2::scale_x_continuous(
+        limits = x_limits,
+        expand = x_expand,
+        breaks = x_breaks,
+        labels = x_labels,
+        oob = x_oob,
+        position = x_position,
+        transform = x_transform
+      )
   }
 
   #Make y scale based on plot_data
@@ -1341,35 +1339,31 @@ gg_blanket <- function(
     if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
     if (rlang::is_null(y_transform)) y_transform <- scales::transform_identity()
 
-    suppressMessages({
-      plot <- plot +
-        ggplot2::scale_y_continuous(
-          limits = y_limits,
-          expand = y_expand,
-          labels = y_labels,
-          breaks = y_breaks,
-          oob = y_oob,
-          position = y_position,
-          transform = y_transform
-        )
-    })
+    plot <- plot +
+      ggplot2::scale_y_continuous(
+        limits = y_limits,
+        expand = y_expand,
+        labels = y_labels,
+        breaks = y_breaks,
+        oob = y_oob,
+        position = y_position,
+        transform = y_transform
+      )
   }
   else if (!y_continuous) {
     if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
     if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
     if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
 
-    suppressMessages({
-      plot <- plot +
-        ggplot2::scale_y_discrete(
-          limits = y_limits,
-          expand = y_expand,
-          breaks = y_breaks,
-          labels = y_labels,
-          drop = y_drop,
-          position = y_position
-        )
-    })
+    plot <- plot +
+      ggplot2::scale_y_discrete(
+        limits = y_limits,
+        expand = y_expand,
+        breaks = y_breaks,
+        labels = y_labels,
+        drop = y_drop,
+        position = y_position
+      )
   }
   else {
     #get y_labels if NULL
@@ -1499,18 +1493,16 @@ gg_blanket <- function(
     }
 
     #make the y_scale
-    suppressMessages({
-      plot <- plot +
-        ggplot2::scale_y_continuous(
-          limits = y_limits,
-          expand = y_expand,
-          breaks = y_breaks,
-          labels = y_labels,
-          oob = y_oob,
-          position = y_position,
-          transform = y_transform
-        )
-    })
+    plot <- plot +
+      ggplot2::scale_y_continuous(
+        limits = y_limits,
+        expand = y_expand,
+        breaks = y_breaks,
+        labels = y_labels,
+        oob = y_oob,
+        position = y_position,
+        transform = y_transform
+      )
   }
 
   #expand limits if necessary
