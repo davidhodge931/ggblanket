@@ -30,7 +30,7 @@ reference:
   - flexi_mode_t
   - flexi_mode_b
   - flexi_mode_n
-- title: Other
+- title: Helper
 - contents:
   - aes_contrast
   - replace_seq

@@ -850,23 +850,24 @@ gg_blanket <- function(
   ##############################################################################
 
   suppressMessages({
+      suppressWarnings({
 
-    if (!rlang::is_null(x_limits)) {
-      if (any(x_transform_name %in% "reverse")) x_limits1 <- rev(x_limits)
-      else x_limits1 <- x_limits
+      if (!rlang::is_null(x_limits)) {
+        if (any(x_transform_name %in% "reverse")) x_limits1 <- rev(x_limits)
+        else x_limits1 <- x_limits
 
-      plot <- plot +
-        ggplot2::scale_x_continuous(limits = x_limits1)
-    }
+        plot <- plot +
+          ggplot2::scale_x_continuous(limits = x_limits1)
+      }
 
-    if (!rlang::is_null(y_limits)) {
-      if (any(y_transform_name %in% "reverse")) y_limits1 <- rev(y_limits)
-      else y_limits1 <- y_limits
+      if (!rlang::is_null(y_limits)) {
+        if (any(y_transform_name %in% "reverse")) y_limits1 <- rev(y_limits)
+        else y_limits1 <- y_limits
 
-      plot <- plot +
-        ggplot2::scale_y_continuous(limits = y_limits1)
-    }
-
+        plot <- plot +
+          ggplot2::scale_y_continuous(limits = y_limits1)
+      }
+    })
   })
 
   ##############################################################################
@@ -909,11 +910,15 @@ gg_blanket <- function(
   # Get plot build and data
   ##############################################################################
 
-  plot_build <- ggplot2::ggplot_build(plot)
-  plot_data <- plot_build$data[[1]]
+  suppressMessages({
+    suppressWarnings({
+      plot_build <- ggplot2::ggplot_build(plot)
+      plot_data <- plot_build$data[[1]]
 
-  facet_nrows <- length(unique(plot_build$layout$layout$ROW))
-  facet_ncols <- length(unique(plot_build$layout$layout$COL))
+      facet_nrows <- length(unique(plot_build$layout$layout$ROW))
+      facet_ncols <- length(unique(plot_build$layout$layout$COL))
+    })
+  })
 
   ##############################################################################
   # Detect whether the plot has a col scale
