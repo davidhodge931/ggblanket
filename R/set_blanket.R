@@ -3,8 +3,8 @@
 #' @description Set the default style by setting the default mode and updating a series of geom and annotate defaults.
 #'
 #' @param mode A `*_mode_*` set globally for when mode = NULL. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
-#' @param geom_colour A default geom colour. The default geom fill inherits from this. Defaults to `blue`.
-#' @param annotate_colour A default annotate colour used for `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`. The default annotate fill inherits from this. Defaults to `lightness[1]`.
+#' @param geom_colour A default geom colour. Fill inherits from this colour. Defaults to `blue`.
+#' @param annotate_colour A default annotate colour used for `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`. Fill inherits from this colour. Defaults to `lightness[1]`.
 #' @param ... Provided only to support trailing commas.
 #'
 #' @return A globally set mode and updated geom defaults.

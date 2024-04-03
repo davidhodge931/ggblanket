@@ -26,6 +26,10 @@ reference:
   - dark_mode_t
   - dark_mode_b
   - dark_mode_n
+  - custom_mode_r
+  - custom_mode_t
+  - custom_mode_b
+  - custom_mode_n
 - title: Other
 - contents:
   - aes_contrast
@@ -38,3 +42,4 @@ reference:
   - lightness
   - greyness
   - darkness
+  - linewidthness

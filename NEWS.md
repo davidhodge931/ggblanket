@@ -6,6 +6,8 @@
 * Made compatible with extension geoms with no x or y variables in `layer_data`.
 * Added `pink` and used this in default colours for a discrete scale for 4 values.
 * Updated `*ness` helper pals.
+* Made `custom_mode_*` functions.
+* Breaking: in `aes_contrast`, changed `contrast_pal` argument name to `colours`.
 
 # ggblanket 7.0.0
 

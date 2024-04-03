@@ -4,18 +4,18 @@
 \alias{grey_mode_r}
 \title{Grey mode theme with right legend}
 \usage{
-grey_mode_r(base_size = 11, base_family = "")
+grey_mode_r(size = 11, family = "")
 }
 \arguments{
-\item{base_size}{The base size of the text. Defaults to 11.}
+\item{size}{The base size of the text. Defaults to 11. The title adds 10\%.}
 
-\item{base_family}{The base family of the text. Defaults to "".}
+\item{family}{The family of the text. Defaults to "".}
 }
 \value{
 A ggplot theme.
 }
 \description{
-Grey mode theme for a ggplot visualisation with legend at right. It uses the colours from \code{greyness}.
+Grey mode theme with legend at right using colours from \code{greyness}.
 }
 \examples{
 library(palmerpenguins)

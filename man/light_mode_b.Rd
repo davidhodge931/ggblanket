@@ -4,18 +4,18 @@
 \alias{light_mode_b}
 \title{Light mode theme with bottom legend}
 \usage{
-light_mode_b(base_size = 11, base_family = "")
+light_mode_b(size = 11, family = "")
 }
 \arguments{
-\item{base_size}{The base size of the text. Defaults to 11.}
+\item{size}{The base size of the text. Defaults to 11. The title adds 10\%.}
 
-\item{base_family}{The base family of the text. Defaults to "".}
+\item{family}{The family of the text. Defaults to "".}
 }
 \value{
 A ggplot theme.
 }
 \description{
-Light mode theme for a ggplot visualisation with bottom legend. It uses the colours from \code{lightness}.
+Light mode theme with bottom legend using colours from \code{lightness}.
 }
 \examples{
 library(palmerpenguins)

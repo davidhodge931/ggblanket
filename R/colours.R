@@ -103,3 +103,12 @@ darkness <- c(
   "#00040a", #plot.background
   "#00040a" #panel.grid
 )
+
+#' The `*_mode_*` linewidth values
+#'
+#' @description A vector of 2 integers used in the `*_mode_*` themes for the for the linewidth of the line/rect and panel.grid theme elements.
+#'
+#' @return A numeric vector.
+#' @export
+#'
+linewidthness <- c(0.33, 1.33)
