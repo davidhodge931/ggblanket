@@ -488,7 +488,7 @@ This function:
 
 Within the `set_blanket` function, the user can select the `mode`, and the `geom_colour` and `annotate_colour` with the fill inheriting from these.
 
-The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
+Elements can be `+`-ed on to modes just as normal themes. The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
 
 ```{r}
 set_blanket(grey_mode_r(), "#ffa600")
@@ -535,6 +535,29 @@ p2 <- penguins |>
 p1 + p2
 
 set_blanket()
+```
+
+```{r}
+set_blanket(
+  light_mode_t() + theme(legend.title = element_blank())
+)
+
+p1 <- penguins |>
+  gg_point(
+    x = flipper_length_mm, 
+    y = body_mass_g,
+    col = species,
+    x_breaks = scales::breaks_pretty(3),
+  ) 
+
+p2 <- penguins |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = species,
+    x_breaks = scales::breaks_pretty(3),
+  ) 
+
+p1 + p2
 ```
 
 
