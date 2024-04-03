@@ -4,10 +4,10 @@
 \alias{aes_contrast}
 \title{A colour aesthetic that automatically contrasts with fill.}
 \usage{
-aes_contrast(contrast_pal = lightness[2:3])
+aes_contrast(contrast_pal = lightness[c("text", "panel")])
 }
 \arguments{
-\item{contrast_pal}{A vector of a dark colour and then a light colour (e.g. \code{greyness[2:3]} or \code{darkness[1:2]}). Defaults to \code{lightness[2:3]}.}
+\item{contrast_pal}{A vector of a dark colour and then a light colour. Defaults to \code{lightness[c("text", "panel")]}.}
 }
 \value{
 An aesthetic
@@ -52,7 +52,7 @@ penguins |>
     mode = dark_mode_r(),
   ) +
   geom_text(
-    mapping = aes(label = n, !!!aes_contrast(darkness[1:2])),
+    mapping = aes(label = n, !!!aes_contrast(darkness[c("plot", "text")])),
     position = position_dodge2(width = 0.75, preserve = "single"),
     hjust = 1.25,
     show.legend = FALSE,

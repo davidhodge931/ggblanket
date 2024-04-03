@@ -242,7 +242,7 @@ economics |>
 
 ### 8. Add contrasting dark or light text on polygons
 
-Text on polygons can be coloured with a dark or light colour that is determined based on the underlying polygon colour using `!!!aes_contrast()`. This method was developed by Teun van den Brand (@teunbrand). The `lightness[2:3]`, `greyness[2:3]` and `darkness[1:2]` colour vectors work nicely with the applicable `*_mode_*` theme. 
+Text on polygons can be coloured with a dark or light colour that is determined based on the underlying polygon colour using `!!!aes_contrast()`. This method was developed by Teun van den Brand (@teunbrand).  
 
 ```{r}
 penguins |>
@@ -276,7 +276,7 @@ penguins |>
     mode = dark_mode_r(),
   ) +
   geom_text(
-    mapping = aes(label = n, !!!aes_contrast(darkness[1:2])),
+    mapping = aes(label = n, !!!aes_contrast(darkness[c("plot", "text")])),
     position = position_dodge2(width = 0.75, preserve = "single"),
     hjust = 1.25,
     show.legend = FALSE,

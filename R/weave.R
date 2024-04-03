@@ -81,10 +81,10 @@ weave_geom_defaults <- function(colour = blue) {
 #'
 #' @description Update a series of geom defaults commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`).
 #'
-#' @param colour A hex colour. Defaults to `lightness[2]`. The default annotate fill inherits from annotate_colour.
+#' @param colour A hex colour. Defaults to `lightness["text"]`. The default annotate fill inherits from annotate_colour.
 #'
 #' @noRd
-weave_annotate_defaults <- function(colour = lightness[2]) {
+weave_annotate_defaults <- function(colour = lightness["text"]) {
   ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = colour, linewidth = 0.33))
   ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = colour, linewidth = 0.33))
   ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = colour, linewidth = 0.33))

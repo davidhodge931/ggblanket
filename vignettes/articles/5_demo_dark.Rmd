@@ -28,7 +28,7 @@ library(stringr)
 library(ggblanket)
 library(palmerpenguins)
 
-set_blanket(dark_mode_r(), blue, darkness[2])
+set_blanket(dark_mode_r(), blue, darkness["text"])
 ```
 
 ### gg_area

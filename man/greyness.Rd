@@ -5,7 +5,7 @@
 \alias{greyness}
 \title{The \verb{grey_mode_*} theme colours}
 \format{
-An object of class \code{character} of length 3.
+An object of class \code{character} of length 5.
 }
 \usage{
 greyness

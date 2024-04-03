@@ -483,10 +483,10 @@ penguins |>
 
 The `set_blanket` function is used to set the default style for ggblanket plots. 
 
-This function sets the default mode by 
-* setting the default mode 
-* updating a series of geom defaults (not commononly used for annotation)
-* updating a series of geom defaults commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`).
+This function: 
+* sets the default mode 
+* updates a series of geom defaults often used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`)
+* updates all other geom defaults.
 
 Within the `set_blanket` function, the user can select the `mode`, and the `geom_colour` and `annotate_colour` with the fill inheriting from these.
 
@@ -515,7 +515,7 @@ p2 <- penguins |>
 p1 + p2
 ```
 ```{r}
-set_blanket(dark_mode_r(), "#bc5090", darkness[2])
+set_blanket(dark_mode_r(), "#bc5090", darkness["text"])
 
 p1 <- penguins |>
   gg_point(

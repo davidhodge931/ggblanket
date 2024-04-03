@@ -62,7 +62,13 @@ pink <- "#bc5090"
 #'
 #' @examples
 #' scales::show_col(lightness)
-lightness <- c("#f6f8fa", "#121b24", "#ffffff")
+lightness <- c(
+  "text" = "#121b24",
+  "line" = "#121b24",
+  "panel" = "#ffffff",
+  "plot" = "#ffffff",
+  "grid" = "#f6f8fa"
+)
 
 #' The `grey_mode_*` theme colours
 #'
@@ -73,7 +79,13 @@ lightness <- c("#f6f8fa", "#121b24", "#ffffff")
 #'
 #' @examples
 #' scales::show_col(greyness)
-greyness <- c("#f6f8fa", "#121b24", "#fcfdfe")
+greyness <- c(
+  "text" = "#121b24",
+  "line" = "#121b24",
+  "panel" = "#fcfdfe",
+  "plot" = "#f6f8fa",
+  "grid" = "#f6f8fa"
+)
 
 #' The `dark_mode_*` theme colours
 #'
@@ -84,4 +96,10 @@ greyness <- c("#f6f8fa", "#121b24", "#fcfdfe")
 #'
 #' @examples
 #' scales::show_col(darkness)
-darkness <- c("#00040a", "#c8d7df", "#050d1b")
+darkness <- c(
+  "text" = "#c8d7df",
+  "line" = "#c8d7df",
+  "panel" = "#050d1b",
+  "plot" = "#00040a",
+  "grid" = "#00040a"
+)

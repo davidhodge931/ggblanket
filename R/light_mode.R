@@ -29,11 +29,11 @@ light_mode_r <- function (
     base_size = base_size,
     base_family = base_family,
     base_pal = c(
-      "text" = lightness[2],
-      "line" = lightness[2],
-      "panel" = lightness[3],
-      "plot" = lightness[3],
-      "grid" = lightness[1])
+      "text" = as.vector(lightness["text"]),
+      "line" = as.vector(lightness["line"]),
+      "panel" = as.vector(lightness["panel"]),
+      "plot" = as.vector(lightness["plot"]),
+      "grid" = as.vector(lightness["grid"]))
   )
 }
 
@@ -68,11 +68,11 @@ light_mode_t <- function (
     base_size = base_size,
     base_family = base_family,
     base_pal = c(
-      "text" = lightness[2],
-      "line" = lightness[2],
-      "panel" = lightness[3],
-      "plot" = lightness[3],
-      "grid" = lightness[1])
+      "text" = as.vector(lightness["text"]),
+      "line" = as.vector(lightness["line"]),
+      "panel" = as.vector(lightness["panel"]),
+      "plot" = as.vector(lightness["plot"]),
+      "grid" = as.vector(lightness["grid"]))
   )
 }
 
@@ -107,11 +107,11 @@ light_mode_b <- function (
     base_size = base_size,
     base_family = base_family,
     base_pal = c(
-      "text" = lightness[2],
-      "line" = lightness[2],
-      "panel" = lightness[3],
-      "plot" = lightness[3],
-      "grid" = lightness[1])
+      "text" = as.vector(lightness["text"]),
+      "line" = as.vector(lightness["line"]),
+      "panel" = as.vector(lightness["panel"]),
+      "plot" = as.vector(lightness["plot"]),
+      "grid" = as.vector(lightness["grid"]))
   )
 }
 
@@ -146,10 +146,10 @@ light_mode_n <- function (
     base_size = base_size,
     base_family = base_family,
     base_pal = c(
-      "text" = lightness[2],
-      "line" = lightness[2],
-      "panel" = lightness[3],
-      "plot" = lightness[3],
-      "grid" = lightness[1])
+      "text" = as.vector(lightness["text"]),
+      "line" = as.vector(lightness["line"]),
+      "panel" = as.vector(lightness["panel"]),
+      "plot" = as.vector(lightness["plot"]),
+      "grid" = as.vector(lightness["grid"]))
   )
 }
