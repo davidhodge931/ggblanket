@@ -4,7 +4,7 @@
 #'
 #' @param size The base size of the text. Defaults to 11. The title adds 10%.
 #' @param family The family of the text. Defaults to "".
-#' @param col_pal A 5 colour vector ordered for text, line, panel.background, plot.background and panel.grid. Fill inherits from these col_pal.
+#' @param col_pal A 5 colour vector ordered for text, line, panel.background, plot.background and panel.grid. Fill inherits from these.
 #' @param linewidth_pal A 2 element numeric vector with values for the linewidth of line/rect and panel.grid elements.
 #'
 #' @keywords internal

@@ -11,7 +11,7 @@ flexi_mode_r(size = 11, family = "", col_pal = NULL, linewidth_pal = NULL)
 
 \item{family}{The family of the text. Defaults to "".}
 
-\item{col_pal}{A 5 colour vector ordered for text, line, panel.background, plot.background and panel.grid. Fill inherits from these col_pal.}
+\item{col_pal}{A 5 colour vector ordered for text, line, panel.background, plot.background and panel.grid. Fill inherits from these.}
 
 \item{linewidth_pal}{A 2 element numeric vector with values for the linewidth of line/rect and panel.grid elements.}
 }

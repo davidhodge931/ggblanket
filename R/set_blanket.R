@@ -3,7 +3,7 @@
 #' @description Set the default style by setting the default mode and updating a series of geom and annotate defaults.
 #'
 #' @param mode A `*_mode_*` set globally for when mode = NULL. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
-#' @param geom_colour A default geom colour. Fill inherits from this colour. Defaults to `blue`.
+#' @param geom_colour A default geom colour (for geoms other than those used by `annotate_colour`). Fill inherits from this colour. Defaults to `blue`.
 #' @param annotate_colour A default annotate colour used for `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`. Fill inherits from this colour. Defaults to `lightness[1]`.
 #' @param ... Provided only to support trailing commas.
 #'
@@ -41,7 +41,7 @@ set_blanket <- function(
     ...
 ) {
   weave_mode(mode)
-  weave_geom_defaults(geom_colour)
-  weave_annotate_defaults(annotate_colour)
+  weave_geom_defaults(geom_colour[1])
+  weave_annotate_defaults(annotate_colour[1])
 }
 
