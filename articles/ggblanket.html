@@ -130,8 +130,8 @@ objectives.</p>
 <li>Ability to add multiple <code>geom_*</code> layers</li>
 <li>Access other aesthetics via <code>mapping</code>
 </li>
-<li>A <code>mode</code> argument designed for provided
-<code>*_mode_*</code> themes</li>
+<li>A <code>mode</code> argument designed for <code>*_mode_*</code>
+themes</li>
 <li>Families of <code>*_mode_*</code> themes that differ by legend
 placement</li>
 <li>Set the mode and geom defaults with <code>set_blanket</code>
@@ -201,9 +201,9 @@ according to it, i.e. all coloured outlines and filled interiors.</p>
 </h3>
 <p>Faceting is treated as if it were an aesthetic. Users just provide an
 unquoted variable to facet by.</p>
-<p>Whenever a <code>facet</code> variable is provided (and a
-<code>facet2</code> variable <em>not</em> provided), the
-<code>facet_layout</code> will default to <code>"wrap"</code>.</p>
+<p>When <code>facet</code> variable is <em>not</em> NULL (and
+<code>facet2 = NULL</code>), the <code>facet_layout</code> will default
+to <code>"wrap"</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -222,7 +222,7 @@ functionality and flexibility.</p>
 <p>This enables users to facet easily in a <code>"grid"</code> layout of
 the <code>facet</code> variable horizontally by the <code>facet2</code>
 variable vertically.</p>
-<p>Whenever a <code>facet2</code> variable is provided, the
+<p>Whenever a <code>facet2</code> does <em>not</em> equal NULL, the
 <code>facet_layout</code> will default to <code>"grid"</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -239,15 +239,15 @@ variable vertically.</p>
 properties<a class="anchor" aria-label="anchor" href="#prefixed-arguments-to-customise-x-y-col-and-facet-properties"></a>
 </h3>
 <p>ggblanket offers numerous arguments to customise that are prefixed by
-whether they relate to <code>x</code>, <code>y</code>, <code>col</code>,
-<code>facet</code> or <code>alpha</code>.</p>
+whether they relate to <code>x</code>, <code>y</code>, <code>col</code>
+or <code>facet</code>.</p>
 <p>These prefixed arguments work nicely with the Rstudio auto-complete,
 if users ensure their settings support the use of tab for
 auto-completions and multi-line auto-completions (i.e. Tools - Global
 Options - Code - Completion).</p>
 <p>Everything prefixed <code>col_</code> relates to <em>both</em> the
-colour and fill scale as applicable. Everything prefixed
-<code>facet_</code> relates to both <code>facet</code> and
+colour and fill scale as applicable. Likewise, everything prefixed
+<code>facet_</code> relates to <em>both</em> <code>facet</code> and
 <code>facet2</code> as applicable.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -299,7 +299,9 @@ colour and fill scale as applicable. Everything prefixed
 </h3>
 <p>The <code>...</code> argument provides access to all other arguments
 in the <code>geom_*()</code> function. Typical arguments to add include
-colour, fill, alpha, linewidth, size and width.</p>
+<code>colour</code>, <code>fill</code>, <code>alpha</code>,
+<code>linewidth</code>, <code>linetype</code>, <code>size</code> and
+<code>width</code>.</p>
 <p>Subsequently, for geoms that have <em>both</em> coloured outlines and
 interiors, you can turn off <em>either</em> of these using
 <code>colour = NA</code>/<code>fill = NA</code> - and/ fix one to a
@@ -364,18 +366,16 @@ transformation that is <em>not</em> <code>"identity"</code>,
 <div class="section level3">
 <h3 id="ability-to-add-multiple-geom_-layers">9. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
 </h3>
-<p>Users can make plots with multiple layers with ggblanket by adding on
+<p>Users can make plots with multiple layers by <code>+</code>-ing on
 <code>ggplot2::geom_*</code> layers.</p>
-<p>The <code>gg_*</code> function puts the aesthetic variables
-(i.e. <code>x</code>, <code>y</code>, <code>col</code>) within the
-wrapped <code>ggplot</code> function. Therefore, these aesthetics will
-inherit to any subsequent layers added.</p>
-<p>Generally, it works bets to add all aesthetics required for the plot
-to the <code>gg_*</code> function, including the <code>col</code>
-argument.</p>
+<p>The <code>gg_*</code> function puts the aesthetic variables within
+the wrapped <code>ggplot</code> function. Therefore, these aesthetics
+will inherit to any subsequent layers added. Generally, it works well to
+add all aesthetics required for the plot to the <code>gg_*</code>
+function, including the <code>col</code> argument.</p>
 <p>The <code>gg_*()</code> function <em>should</em> be appropriate to be
-the bottom layer of the plot, as geoms are drawn in order.</p>
-<p>This may mean that you need to use <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> as your
+the bottom layer of the plot, as geoms are drawn in order. You may
+sometimes need to use <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> as your
 <code>gg_*</code> function, as it defaults to a <code>blank</code>
 geom.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -473,19 +473,21 @@ output of <code>gg_*</code>.</p>
 <h3 id="families-of-_mode_-themes-that-differ-by-legend-placement">12. Families of <code>*_mode_*</code> themes that differ by legend
 placement<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-that-differ-by-legend-placement"></a>
 </h3>
-<p>Three mode families of themes are provided:
+<p>Three mode families of complete themes are provided:
 <code>light_mode_*</code>, <code>grey_mode_*</code> and
 <code>dark_mode_*</code>.</p>
 <p>Each mode family provides 4 variants that differ based on legend
 placement, which is represented by the suffix of the mode name of
 <code>r</code> (right), <code>b</code> (bottom), <code>t</code> (top)
 and <code>n</code> (none).</p>
-<p>The default is <code>light_mode_r</code>.</p>
+<p>The default is <code><a href="../reference/light_mode_r.html">light_mode_r()</a></code>.</p>
 <p>These are intended for use with the <code>mode</code> argument.</p>
 <p>Note: * if you want to use a quick non-bold title, use
 <code>subtitle = "\n..."</code> * a title can be removed using
 <code>+ labs(... = NULL)</code> * for removing the legend title, you
 will often need <code>+ labs(colour = NULL, fill = NULL)</code>.</p>
+<p>A further <code>flexi_mode_*</code> family is provided where users
+can select the colours and linewidths.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
