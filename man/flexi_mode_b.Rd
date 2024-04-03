@@ -32,8 +32,8 @@ penguins |>
     y = body_mass_g,
     col = species,
     mode = flexi_mode_b(
-      col_pal = c(blues9[9], blues9[9], blues9[1], blues9[2], blues9[2]),
-      linewidth_pal = c(0.33, 1.33)
+      col_pal = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
+      linewidth_pal = c(2, 1)
     )
   )
 

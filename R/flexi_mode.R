@@ -112,8 +112,8 @@ flexi_mode <- function(
 #'     y = body_mass_g,
 #'     col = species,
 #'     mode = flexi_mode_r(
-#'       col_pal = c(blues9[9], blues9[9], blues9[1], blues9[2], blues9[2]),
-#'       linewidth_pal = c(0.33, 1.33)
+#'       col_pal = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
+#'       linewidth_pal = c(2, 1)
 #'     )
 #'   )
 flexi_mode_r <- function (
@@ -169,8 +169,8 @@ flexi_mode_r <- function (
 #'     y = body_mass_g,
 #'     col = species,
 #'     mode = flexi_mode_t(
-#'       col_pal = c(blues9[9], blues9[9], blues9[1], blues9[2], blues9[2]),
-#'       linewidth_pal = c(0.33, 1.33)
+#'       col_pal = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
+#'       linewidth_pal = c(2, 1)
 #'     )
 #'   )
 flexi_mode_t <- function (
@@ -226,8 +226,8 @@ flexi_mode_t <- function (
 #'     y = body_mass_g,
 #'     col = species,
 #'     mode = flexi_mode_b(
-#'       col_pal = c(blues9[9], blues9[9], blues9[1], blues9[2], blues9[2]),
-#'       linewidth_pal = c(0.33, 1.33)
+#'       col_pal = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
+#'       linewidth_pal = c(2, 1)
 #'     )
 #'   )
 #'
@@ -284,8 +284,8 @@ flexi_mode_b <- function (
 #'     y = body_mass_g,
 #'     col = species,
 #'     mode = flexi_mode_n(
-#'       col_pal = c(blues9[9], blues9[9], blues9[1], blues9[2], blues9[2]),
-#'       linewidth_pal = c(0.33, 1.33)
+#'       col_pal = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
+#'       linewidth_pal = c(2, 1)
 #'     )
 #'   )
 #'
