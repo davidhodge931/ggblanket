@@ -28,12 +28,7 @@ dark_mode_r <- function (
   base_mode_r(
     base_size = base_size,
     base_family = base_family,
-    base_pal = c(
-      "text" = as.vector(darkness["text"]),
-      "line" = as.vector(darkness["line"]),
-      "panel" = as.vector(darkness["panel"]),
-      "plot" = as.vector(darkness["plot"]),
-      "grid" = as.vector(darkness["grid"]))
+    base_pal = darkness
   )
 }
 
@@ -67,12 +62,7 @@ dark_mode_t <- function (
   base_mode_t(
     base_size = base_size,
     base_family = base_family,
-    base_pal = c(
-      "text" = as.vector(darkness["text"]),
-      "line" = as.vector(darkness["line"]),
-      "panel" = as.vector(darkness["panel"]),
-      "plot" = as.vector(darkness["plot"]),
-      "grid" = as.vector(darkness["grid"]))
+    base_pal = darkness
   )
 }
 
@@ -106,12 +96,7 @@ dark_mode_b <- function (
   base_mode_b(
     base_size = base_size,
     base_family = base_family,
-    base_pal = c(
-      "text" = as.vector(darkness["text"]),
-      "line" = as.vector(darkness["line"]),
-      "panel" = as.vector(darkness["panel"]),
-      "plot" = as.vector(darkness["plot"]),
-      "grid" = as.vector(darkness["grid"]))
+    base_pal = darkness
   )
 }
 
@@ -145,11 +130,6 @@ dark_mode_n <- function (
   base_mode_n(
     base_size = base_size,
     base_family = base_family,
-    base_pal = c(
-      "text" = as.vector(darkness["text"]),
-      "line" = as.vector(darkness["line"]),
-      "panel" = as.vector(darkness["panel"]),
-      "plot" = as.vector(darkness["plot"]),
-      "grid" = as.vector(darkness["grid"]))
-    )
+    base_pal = darkness
+  )
 }

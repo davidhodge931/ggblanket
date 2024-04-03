@@ -276,7 +276,7 @@ penguins |>
     mode = dark_mode_r(),
   ) +
   geom_text(
-    mapping = aes(label = n, !!!aes_contrast(darkness[c("plot", "text")])),
+    mapping = aes(label = n, !!!aes_contrast(darkness[c(4, 1)])),
     position = position_dodge2(width = 0.75, preserve = "single"),
     hjust = 1.25,
     show.legend = FALSE,

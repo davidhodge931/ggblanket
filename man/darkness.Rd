@@ -14,7 +14,7 @@ darkness
 A character vector.
 }
 \description{
-A vector of colours used in the \verb{dark_mode_*} themes.
+A vector of 5 colours used in the \verb{dark_mode_*} themes for the for the text, line, panel.background, plot.background and panel.grid.
 }
 \examples{
 scales::show_col(darkness)

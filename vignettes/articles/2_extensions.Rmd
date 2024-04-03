@@ -298,7 +298,7 @@ tibble(x = 1:10) |>
     ymin = .lower,
     ymax = .upper,
     col = .width,
-    colour = lightness["text"],
+    colour = lightness[1],
     col_legend_rev = TRUE,
     col_pal = blues9[c(7,5,3)],
   )

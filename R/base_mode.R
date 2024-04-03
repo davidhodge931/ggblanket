@@ -4,24 +4,18 @@
 #'
 #' @param base_size The base size of the text. Defaults to 11.
 #' @param base_family The base family of the text. Defaults to "".
-#' @param base_pal A 5 colour vector with elements named "text", "line", "panel", "plot" and "grid".
+#' @param base_pal A 5 colour vector with colours ordered for text, line, panel.background, plot.background and panel.grid.
 #'
 #' @keywords internal
 base_mode <- function(
     base_size = 11,
     base_family = "",
-    base_pal = c(
-      "text" = "white",
-      "line" = "white",
-      "panel" = "white",
-      "plot" = "white",
-      "grid" = "white")
-    ) {
+    base_pal = c("white", "white", "white", "white", "white")) {
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = base_pal["line"], linewidth = base_size/33, linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = base_pal["plot"], colour = base_pal["plot"], linewidth = base_size/33, linetype = 1),
-    text = ggplot2::element_text(family = base_family, face = "plain", colour = base_pal["text"], size = base_size,
+    line = ggplot2::element_line(colour = base_pal[2], linewidth = base_size/33, linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = base_pal[4], colour = base_pal[4], linewidth = base_size/33, linetype = 1),
+    text = ggplot2::element_text(family = base_family, face = "plain", colour = base_pal[1], size = base_size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -41,7 +35,7 @@ base_mode <- function(
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = base_pal["plot"], fill = base_pal["plot"]),
+    legend.key = ggplot2::element_rect(colour = base_pal[4], fill = base_pal[4]),
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -57,9 +51,9 @@ base_mode <- function(
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = base_pal["panel"], colour = base_pal["panel"]),
+    panel.background = ggplot2::element_rect(fill = base_pal[3], colour = base_pal[3]),
     panel.border = ggplot2::element_blank(),
-    panel.grid = ggplot2::element_line(colour = base_pal["grid"], linewidth = ggplot2::rel(4)),
+    panel.grid = ggplot2::element_line(colour = base_pal[5], linewidth = ggplot2::rel(4)),
     panel.grid.major = NULL,
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(base_size * 2, "pt"),
@@ -82,7 +76,7 @@ base_mode <- function(
     plot.title = ggplot2::element_text(face = "bold", size = ggplot2::rel(1.1), hjust = 0, margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 2.5, l = 0)),
     plot.title.position = "plot",
     plot.subtitle = ggplot2::element_text(hjust = 0, margin = ggplot2::margin(t = base_size * -2, r = 0, b = base_size * 2, l = 0)),
-    plot.caption = ggplot2::element_text(colour = scales::alpha(base_pal["text"], 0.75), size = ggplot2::rel(0.85), hjust = 0, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
+    plot.caption = ggplot2::element_text(colour = scales::alpha(base_pal[1], 0.75), size = ggplot2::rel(0.85), hjust = 0, margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0)),
     plot.caption.position = "plot",
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",
@@ -102,13 +96,7 @@ base_mode <- function(
 base_mode_r <- function (
     base_size = 11,
     base_family = "",
-    base_pal = c(
-      "text" = "white",
-      "line" = "white",
-      "panel" = "white",
-      "plot" = "white",
-      "grid" = "white")
-    ) {
+    base_pal = c("white", "white", "white", "white", "white")) {
 
   base_mode(
     base_size = base_size,
@@ -142,13 +130,7 @@ base_mode_r <- function (
 base_mode_t <- function (
     base_size = 11,
     base_family = "",
-    base_pal = c(
-      "text" = "white",
-      "line" = "white",
-      "panel" = "white",
-      "plot" = "white",
-      "grid" = "white")
-    ) {
+    base_pal = c("white", "white", "white", "white", "white")) {
 
   base_mode(
     base_size = base_size,
@@ -182,13 +164,7 @@ base_mode_t <- function (
 base_mode_b <- function (
     base_size = 11,
     base_family = "",
-    base_pal = c(
-      "text" = "white",
-      "line" = "white",
-      "panel" = "white",
-      "plot" = "white",
-      "grid" = "white")
-    ) {
+    base_pal = c("white", "white", "white", "white", "white")) {
 
   base_mode(
     base_size = base_size,
@@ -222,13 +198,7 @@ base_mode_b <- function (
 base_mode_n <- function (
     base_size = 11,
     base_family = "",
-    base_pal = c(
-      "text" = "white",
-      "line" = "white",
-      "panel" = "white",
-      "plot" = "white",
-      "grid" = "white")
-    ) {
+    base_pal = c("white", "white", "white", "white", "white")) {
 
   mode <- base_mode(
     base_size = base_size,

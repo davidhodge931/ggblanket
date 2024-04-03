@@ -5,7 +5,7 @@
 * Breaking: in `set_blanket`, renamed arguments to remove `_default`.
 * Made compatible with extension geoms with no x or y variables in `layer_data`.
 * Added `pink` and used this in default colours for a discrete scale for 4 values.
-* Make `*ness` helper colours named and with 5 values.
+* Updated `*ness` helper pals.
 
 # ggblanket 7.0.0
 

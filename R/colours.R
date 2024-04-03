@@ -55,7 +55,7 @@ pink <- "#bc5090"
 
 #' The `light_mode_*` theme colours
 #'
-#' @description A vector of colours used in the `light_mode_*` themes.
+#' @description A vector of 5 colours used in the `light_mode_*` themes for the for the text, line, panel.background, plot.background and panel.grid.
 #'
 #' @return A character vector.
 #' @export
@@ -63,16 +63,16 @@ pink <- "#bc5090"
 #' @examples
 #' scales::show_col(lightness)
 lightness <- c(
-  "text" = "#121b24",
-  "line" = "#121b24",
-  "panel" = "#ffffff",
-  "plot" = "#ffffff",
-  "grid" = "#f6f8fa"
+  "#121b24", #text
+  "#121b24", #line
+  "#ffffff", #panel.background
+  "#ffffff", #plot.background
+  "#f6f8fa" #panel.grid
 )
 
 #' The `grey_mode_*` theme colours
 #'
-#' @description A vector of colours used in the `grey_mode_*` themes.
+#' @description A vector of 5 colours used in the `grey_mode_*` themes for the for the text, line, panel.background, plot.background and panel.grid.
 #'
 #' @return A character vector.
 #' @export
@@ -80,16 +80,16 @@ lightness <- c(
 #' @examples
 #' scales::show_col(greyness)
 greyness <- c(
-  "text" = "#121b24",
-  "line" = "#121b24",
-  "panel" = "#fcfdfe",
-  "plot" = "#f6f8fa",
-  "grid" = "#f6f8fa"
+  "#121b24", #text
+  "#121b24", #line
+  "#fcfdfe", #panel.background
+  "#f6f8fa", #plot.background
+  "#f6f8fa" #panel.grid
 )
 
 #' The `dark_mode_*` theme colours
 #'
-#' @description A vector of colours used in the `dark_mode_*` themes.
+#' @description A vector of 5 colours used in the `dark_mode_*` themes for the for the text, line, panel.background, plot.background and panel.grid.
 #'
 #' @return A character vector.
 #' @export
@@ -97,9 +97,9 @@ greyness <- c(
 #' @examples
 #' scales::show_col(darkness)
 darkness <- c(
-  "text" = "#c8d7df",
-  "line" = "#c8d7df",
-  "panel" = "#050d1b",
-  "plot" = "#00040a",
-  "grid" = "#00040a"
+  "#c8d7df", #text
+  "#c8d7df", #line
+  "#050d1b", #panel.background
+  "#00040a", #plot.background
+  "#00040a" #panel.grid
 )

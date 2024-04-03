@@ -7,7 +7,7 @@
 set_blanket(
   mode = light_mode_r(),
   geom_colour = blue,
-  annotate_colour = lightness["text"],
+  annotate_colour = lightness[1],
   ...
 )
 }
@@ -16,7 +16,7 @@ set_blanket(
 
 \item{geom_colour}{A default geom colour. The default geom fill inherits from this. Defaults to \code{blue}.}
 
-\item{annotate_colour}{A default annotate colour used for \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}. The default annotate fill inherits from this. Defaults to \code{lightness["text"]}.}
+\item{annotate_colour}{A default annotate colour used for \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}. The default annotate fill inherits from this. Defaults to \code{lightness[1]}.}
 
 \item{...}{Provided only to support trailing commas.}
 }
@@ -31,7 +31,7 @@ library(ggplot2)
 library(ggblanket)
 library(palmerpenguins)
 
-set_blanket(dark_mode_r(), orange, darkness["text"])
+set_blanket(dark_mode_r(), orange, darkness[1])
 
 penguins |>
   gg_point(

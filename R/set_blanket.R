@@ -4,7 +4,7 @@
 #'
 #' @param mode A `*_mode_*` set globally for when mode = NULL. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
 #' @param geom_colour A default geom colour. The default geom fill inherits from this. Defaults to `blue`.
-#' @param annotate_colour A default annotate colour used for `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`. The default annotate fill inherits from this. Defaults to `lightness["text"]`.
+#' @param annotate_colour A default annotate colour used for `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`. The default annotate fill inherits from this. Defaults to `lightness[1]`.
 #' @param ... Provided only to support trailing commas.
 #'
 #' @return A globally set mode and updated geom defaults.
@@ -15,7 +15,7 @@
 #' library(ggblanket)
 #' library(palmerpenguins)
 #'
-#' set_blanket(dark_mode_r(), orange, darkness["text"])
+#' set_blanket(dark_mode_r(), orange, darkness[1])
 #'
 #' penguins |>
 #'   gg_point(
@@ -37,7 +37,7 @@
 set_blanket <- function(
     mode = light_mode_r(),
     geom_colour = blue,
-    annotate_colour = lightness["text"],
+    annotate_colour = lightness[1],
     ...
 ) {
   weave_mode(mode)

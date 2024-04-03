@@ -28,12 +28,7 @@ grey_mode_r <- function (
   base_mode_r(
     base_size = base_size,
     base_family = base_family,
-    base_pal = c(
-      "text" = as.vector(greyness["text"]),
-      "line" = as.vector(greyness["line"]),
-      "panel" = as.vector(greyness["panel"]),
-      "plot" = as.vector(greyness["plot"]),
-      "grid" = as.vector(greyness["grid"]))
+    base_pal = greyness
   )
 }
 
@@ -67,12 +62,7 @@ grey_mode_t <- function (
   base_mode_t(
     base_size = base_size,
     base_family = base_family,
-    base_pal = c(
-      "text" = as.vector(greyness["text"]),
-      "line" = as.vector(greyness["line"]),
-      "panel" = as.vector(greyness["panel"]),
-      "plot" = as.vector(greyness["plot"]),
-      "grid" = as.vector(greyness["grid"]))
+    base_pal = greyness
   )
 }
 
@@ -106,12 +96,7 @@ grey_mode_b <- function (
   base_mode_b(
     base_size = base_size,
     base_family = base_family,
-    base_pal = c(
-      "text" = as.vector(greyness["text"]),
-      "line" = as.vector(greyness["line"]),
-      "panel" = as.vector(greyness["panel"]),
-      "plot" = as.vector(greyness["plot"]),
-      "grid" = as.vector(greyness["grid"]))
+    base_pal = greyness
   )
 }
 
@@ -145,11 +130,6 @@ grey_mode_n <- function (
   base_mode_n(
     base_size = base_size,
     base_family = base_family,
-    base_pal = c(
-      "text" = as.vector(greyness["text"]),
-      "line" = as.vector(greyness["line"]),
-      "panel" = as.vector(greyness["panel"]),
-      "plot" = as.vector(greyness["plot"]),
-      "grid" = as.vector(greyness["grid"]))
+    base_pal = greyness
   )
 }
