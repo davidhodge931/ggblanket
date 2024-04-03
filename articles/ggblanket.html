@@ -527,11 +527,11 @@ will often need <code>+ labs(colour = NULL, fill = NULL)</code>.</p>
 </h3>
 <p>The <code>set_blanket</code> function is used to set the default
 style for ggblanket plots.</p>
-<p>This function sets the default mode by * setting the default mode *
-updating a series of geom defaults (not commononly used for annotation)
-* updating a series of geom defaults commonly used for annotation
-(i.e. <code>*_vline</code>, <code>*_hline</code>, <code>*_abline</code>,
-<code>*_curve</code>, <code>*_text</code> and <code>*_label</code>).</p>
+<p>This function: * sets the default mode * updates a series of geom
+defaults often used for annotation (i.e. <code>*_vline</code>,
+<code>*_hline</code>, <code>*_abline</code>, <code>*_curve</code>,
+<code>*_text</code> and <code>*_label</code>) * updates all other geom
+defaults.</p>
 <p>Within the <code>set_blanket</code> function, the user can select the
 <code>mode</code>, and the <code>geom_colour</code> and
 <code>annotate_colour</code> with the fill inheriting from these.</p>
@@ -560,7 +560,7 @@ to further fine-tune geom defaults.</p>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-20-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"#bc5090"</span>, <span class="va">darkness</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"#bc5090"</span>, <span class="va">darkness</span><span class="op">[</span><span class="st">"text"</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
