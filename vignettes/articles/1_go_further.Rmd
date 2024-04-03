@@ -29,10 +29,9 @@ This article will demonstrate a random assortment of content, including some of 
 7. Change the `*_position` of positional axes 
 8. Add contrasting dark or light text on polygons
 9. Use opacity with to emphasise/demphasise. 
-10. Centre a diverging colour scale
-11. Use `replace_seq` to keep every nth label
-12. Understand `oob` & `clip`
-13. Use delayed evaluation
+10. Use `replace_seq` to keep every nth label
+11. Understand `oob` & `clip`
+12. Use delayed evaluation
 
 ```{r setup}
 library(ggplot2)
@@ -345,39 +344,7 @@ p4 <- penguins |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 10. Centre a diverging colour scale 
-
-Sometimes you need to centre a diverging colour scale.
-
-```{r}
-mpg |>
-  mutate(centred = cty - mean(cty)) |>
-  select(displ, hwy, centred) %>%
-  gg_point(
-    x = displ,
-    y = hwy,
-    col = centred,
-    col_pal = c(teal, "#E8EFF2", orange),
-    col_breaks = scales::breaks_width(5),
-    col_rescale = scales::rescale(c(min(.$centred), 0, max(.$centred)))
-  )
-```
-
-```{r}
-mpg |>
-  mutate(centred = cty - mean(cty)) |>
-  select(displ, hwy, centred) %>%
-  gg_point(
-    x = displ,
-    y = hwy,
-    col = centred,
-    col_pal = c(teal, "#E8EFF2", orange),
-    col_limits = max(abs(.$centred)) * c(-1, 1),
-    col_breaks = scales::breaks_width(5)
-  )
-```
-
-### 11. Use `replace_seq` to keep every nth label 
+### 10. Use `replace_seq` to keep every nth label 
 
 A `replace_seq` helper function is provided to replace a sequence of labels with `""`.
 
@@ -395,7 +362,7 @@ penguins |>
   )
 ```
 
-### 12. Understand `oob` & `clip`
+### 11. Understand `oob` & `clip`
 
 By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
 
@@ -470,7 +437,7 @@ p5 <- economics |>
 p4 + p5
 ```
 
-### 13. Use delayed evaluation
+### 12. Use delayed evaluation
 
 As the `x`, `y`, and `col` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This can be used for delayed evaluation with the `ggplot2::after_stat` function.
 
