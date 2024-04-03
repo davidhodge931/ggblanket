@@ -1,6 +1,5 @@
 # ggblanket 7.0.9000
 
-* Breaking: made `weave_*` functions internal. 
 * Breaking: removed ability to use `col_pal` when `col = NULL`.
 * Breaking: in `set_blanket`, renamed arguments to remove `_default`.
 * Breaking: removed `weave_geom_defaults` and `weave_annotate_defaults`.
