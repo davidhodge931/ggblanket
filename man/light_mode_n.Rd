@@ -15,7 +15,7 @@ light_mode_n(size = 11, family = "")
 A ggplot theme.
 }
 \description{
-Light mode theme with no legend using colours from \code{lightness}.
+Light mode theme with no legend using \code{lightness} and \code{linewidthness}.
 }
 \examples{
 library(palmerpenguins)

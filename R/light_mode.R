@@ -1,8 +1,8 @@
 #' Light mode theme with right legend
 #'
-#' @description Light mode theme with legend at right using colours from `lightness`.
+#' @description Light mode theme with right legend using `lightness` and `linewidthness`.
 #'
-#' @inheritParams custom_mode_r
+#' @inheritParams flexi_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -25,19 +25,19 @@ light_mode_r <- function (
     size = 11,
     family = "") {
 
-  custom_mode_r(
+  flexi_mode_r(
     size = size,
     family = family,
-    colours = lightness,
-    linewidths = linewidthness
+    col_pal = lightness,
+    linewidth_pal = linewidthness
   )
 }
 
 #' Light mode theme with top legend
 #'
-#' @description Light mode theme with top legend using colours from `lightness`.
+#' @description Light mode theme with top legend using `lightness` and `linewidthness`.
 #'
-#' @inheritParams custom_mode_t
+#' @inheritParams flexi_mode_t
 #'
 #' @return A ggplot theme.
 #' @export
@@ -60,19 +60,19 @@ light_mode_t <- function (
     size = 11,
     family = "") {
 
-  custom_mode_t(
+  flexi_mode_t(
     size = size,
     family = family,
-    colours = lightness,
-    linewidths = linewidthness
+    col_pal = lightness,
+    linewidth_pal = linewidthness
   )
 }
 
 #' Light mode theme with bottom legend
 #'
-#' @description Light mode theme with bottom legend using colours from `lightness`.
+#' @description Light mode theme with bottom legend using `lightness` and `linewidthness`.
 #'
-#' @inheritParams custom_mode_b
+#' @inheritParams flexi_mode_b
 #'
 #' @return A ggplot theme.
 #' @export
@@ -95,19 +95,19 @@ light_mode_b <- function (
     size = 11,
     family = "") {
 
-  custom_mode_b(
+  flexi_mode_b(
     size = size,
     family = family,
-    colours = lightness,
-    linewidths = linewidthness
+    col_pal = lightness,
+    linewidth_pal = linewidthness
   )
 }
 
 #' Light mode theme with no legend
 #'
-#' @description Light mode theme with no legend using colours from `lightness`.
+#' @description Light mode theme with no legend using `lightness` and `linewidthness`.
 #'
-#' @inheritParams custom_mode_n
+#' @inheritParams flexi_mode_n
 #'
 #' @return A ggplot theme.
 #' @export
@@ -130,10 +130,10 @@ light_mode_n <- function (
     size = 11,
     family = "") {
 
-  custom_mode_n(
+  flexi_mode_n(
     size = size,
     family = family,
-    colours = lightness,
-    linewidths = linewidthness
+    col_pal = lightness,
+    linewidth_pal = linewidthness
   )
 }

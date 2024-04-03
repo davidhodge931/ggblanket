@@ -3,11 +3,11 @@
 * Breaking: made `weave_*` functions internal. 
 * Breaking: removed ability to use `col_pal` when `col = NULL`.
 * Breaking: in `set_blanket`, renamed arguments to remove `_default`.
-* Made compatible with extension geoms with no x or y variables in `layer_data`.
+* Breaking: removed `weave_geom_defaults` and `weave_annotate_defaults`.
 * Added `pink` and used this in default colours for a discrete scale for 4 values.
 * Updated `*ness` helper pals.
-* Made `custom_mode_*` functions.
-* Breaking: in `aes_contrast`, changed `contrast_pal` argument name to `colours`.
+* Added `flexi_mode_*` functions.
+* Made compatible with extension geoms with no x or y variables in `layer_data`.
 
 # ggblanket 7.0.0
 

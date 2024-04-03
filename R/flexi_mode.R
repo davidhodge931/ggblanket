@@ -1,27 +1,27 @@
-#' Theme base for `custom_mode_*` functions
+#' Mode theme foundation
 #'
-#' @description Theme base for `custom_mode_*` functions.
+#' @description Theme foundation for `*_mode_*` functions.
 #'
 #' @param size The base size of the text. Defaults to 11. The title adds 10%.
 #' @param family The family of the text. Defaults to "".
-#' @param colours A 5 colour vector with colours ordered for text, line, panel.background, plot.background and panel.grid. Fill inherits from these colours.
-#' @param linewidths A 2 element numeric vector with values with the linewidth of line/rect and panel.grid elements.
+#' @param col_pal A 5 colour vector ordered for text, line, panel.background, plot.background and panel.grid. Fill inherits from these col_pal.
+#' @param linewidth_pal A 2 element numeric vector with values for the linewidth of line/rect and panel.grid elements.
 #'
 #' @keywords internal
-custom_mode <- function(
+flexi_mode <- function(
     size = 11,
     family = "",
-    colours = NULL,
-    linewidths = NULL) {
+    col_pal = NULL,
+    linewidth_pal = NULL) {
 
-  if (rlang::is_null(colours) | rlang::is_null(linewidths)) {
-    rlang::abort("colours and linewidths vectors must not be NULL")
+  if (rlang::is_null(col_pal) | rlang::is_null(linewidth_pal)) {
+    rlang::abort("col_pal and linewidth_pal vectors must not be NULL")
   }
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = colours[2], linewidth = linewidths[1], linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = colours[4], colour = colours[4], linewidth = linewidths[1], linetype = 1),
-    text = ggplot2::element_text(family = family, face = "plain", colour = colours[1], size = size,
+    line = ggplot2::element_line(colour = col_pal[2], linewidth = linewidth_pal[1], linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = col_pal[4], colour = col_pal[4], linewidth = linewidth_pal[1], linetype = 1),
+    text = ggplot2::element_text(family = family, face = "plain", colour = col_pal[1], size = size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -41,7 +41,7 @@ custom_mode <- function(
     legend.spacing = grid::unit(size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = colours[4], fill = colours[4]),
+    legend.key = ggplot2::element_rect(colour = col_pal[4], fill = col_pal[4]),
     legend.key.size = grid::unit(size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -57,9 +57,9 @@ custom_mode <- function(
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = colours[3], colour = colours[3]),
+    panel.background = ggplot2::element_rect(fill = col_pal[3], colour = col_pal[3]),
     panel.border = ggplot2::element_blank(),
-    panel.grid = ggplot2::element_line(colour = colours[5], linewidth = linewidths[2]),
+    panel.grid = ggplot2::element_line(colour = col_pal[5], linewidth = linewidth_pal[2]),
     panel.grid.major = NULL,
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(size * 2, "pt"),
@@ -82,7 +82,7 @@ custom_mode <- function(
     plot.title = ggplot2::element_text(face = "bold", size = ggplot2::rel(1.1), hjust = 0, margin = ggplot2::margin(t = size * -1, r = 0, b = size * 2.5, l = 0)),
     plot.title.position = "plot",
     plot.subtitle = ggplot2::element_text(hjust = 0, margin = ggplot2::margin(t = size * -2, r = 0, b = size * 2, l = 0)),
-    plot.caption = ggplot2::element_text(colour = scales::alpha(colours[1], 0.75), size = ggplot2::rel(0.85), hjust = 0, margin = ggplot2::margin(t = size * 0.5, r = 0, b = size * 0.5, l = 0)),
+    plot.caption = ggplot2::element_text(colour = scales::alpha(col_pal[1], 0.75), size = ggplot2::rel(0.85), hjust = 0, margin = ggplot2::margin(t = size * 0.5, r = 0, b = size * 0.5, l = 0)),
     plot.caption.position = "plot",
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",
@@ -92,11 +92,11 @@ custom_mode <- function(
   )
 }
 
-#' Custom mode theme with right legend
+#' Flexible mode with right legend
 #'
-#' @description Custom mode theme with legend at right and customisable colours/linewidths.
+#' @description Flexible mode with right legend and customisable colour and linewidth.
 #'
-#' @inheritParams custom_mode
+#' @inheritParams flexi_mode
 #'
 #' @return A ggplot theme.
 #' @export
@@ -111,26 +111,26 @@ custom_mode <- function(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     mode = custom_mode_r(
-#'       colours = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
-#'       linewidths = c(2, 1)
-#'       )
+#'     mode = flexi_mode_r(
+#'       col_pal = c(blues9[9], blues9[9], blues9[1], blues9[2], blues9[2]),
+#'       linewidth_pal = c(0.33, 1.33)
+#'     )
 #'   )
-custom_mode_r <- function (
+flexi_mode_r <- function (
     size = 11,
     family = "",
-    colours = NULL,
-    linewidths = NULL) {
+    col_pal = NULL,
+    linewidth_pal = NULL) {
 
-  if (rlang::is_null(colours) | rlang::is_null(linewidths)) {
-    rlang::abort("colours and linewidths vectors must not be NULL")
+  if (rlang::is_null(col_pal) | rlang::is_null(linewidth_pal)) {
+    rlang::abort("col_pal and linewidth_pal vectors must not be NULL")
   }
 
-  custom_mode(
+  flexi_mode(
     size = size,
     family = family,
-    colours = colours,
-    linewidths = linewidths
+    col_pal = col_pal,
+    linewidth_pal = linewidth_pal
   ) +
     ggplot2::theme(
       legend.position = "right",
@@ -149,11 +149,11 @@ custom_mode_r <- function (
     )
 }
 
-#' Custom mode theme with top legend
+#' Flexible mode with top legend
 #'
-#' @description Custom mode theme with legend at top and customisable colours/linewidths.
+#' @description Flexible mode with legend at top and customisable colour and linewidth.
 #'
-#' @inheritParams custom_mode_r
+#' @inheritParams flexi_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -168,26 +168,26 @@ custom_mode_r <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     mode = custom_mode_t(
-#'       colours = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
-#'       linewidths = c(2, 1)
-#'       )
+#'     mode = flexi_mode_t(
+#'       col_pal = c(blues9[9], blues9[9], blues9[1], blues9[2], blues9[2]),
+#'       linewidth_pal = c(0.33, 1.33)
+#'     )
 #'   )
-custom_mode_t <- function (
+flexi_mode_t <- function (
     size = 11,
     family = "",
-    colours = NULL,
-    linewidths = NULL) {
+    col_pal = NULL,
+    linewidth_pal = NULL) {
 
-  if (rlang::is_null(colours) | rlang::is_null(linewidths)) {
-    rlang::abort("colours and linewidths vectors must not be NULL")
+  if (rlang::is_null(col_pal) | rlang::is_null(linewidth_pal)) {
+    rlang::abort("col_pal and linewidth_pal vectors must not be NULL")
   }
 
-  custom_mode(
+  flexi_mode(
     size = size,
     family = family,
-    colours = colours,
-    linewidths = linewidths
+    col_pal = col_pal,
+    linewidth_pal = linewidth_pal
   ) +
   ggplot2::theme(
     legend.position = "top",
@@ -206,11 +206,11 @@ custom_mode_t <- function (
   )
 }
 
-#' Custom mode theme with bottom legend
+#' Flexible mode with bottom legend
 #'
-#' @description Custom mode theme with legend at bottom and customisable colours/linewidths.
+#' @description Flexible mode with legend at bottom and customisable colour and linewidth.
 #'
-#' @inheritParams custom_mode_r
+#' @inheritParams flexi_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -225,27 +225,27 @@ custom_mode_t <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     mode = custom_mode_b(
-#'       colours = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
-#'       linewidths = c(2, 1)
-#'       )
+#'     mode = flexi_mode_b(
+#'       col_pal = c(blues9[9], blues9[9], blues9[1], blues9[2], blues9[2]),
+#'       linewidth_pal = c(0.33, 1.33)
+#'     )
 #'   )
 #'
-custom_mode_b <- function (
+flexi_mode_b <- function (
     size = 11,
     family = "",
-    colours = NULL,
-    linewidths = NULL) {
+    col_pal = NULL,
+    linewidth_pal = NULL) {
 
-  if (rlang::is_null(colours) | rlang::is_null(linewidths)) {
-    rlang::abort("colours and linewidths vectors must not be NULL")
+  if (rlang::is_null(col_pal) | rlang::is_null(linewidth_pal)) {
+    rlang::abort("col_pal and linewidth_pal vectors must not be NULL")
   }
 
-  custom_mode(
+  flexi_mode(
     size = size,
     family = family,
-    colours = colours,
-    linewidths = linewidths
+    col_pal = col_pal,
+    linewidth_pal = linewidth_pal
   ) +
     ggplot2::theme(
       legend.position = "bottom",
@@ -264,11 +264,11 @@ custom_mode_b <- function (
     )
 }
 
-#' Custom mode theme with no legend
+#' Flexible mode with no legend
 #'
-#' @description Custom mode theme with no legend and customisable colours/linewidths.
+#' @description Flexible mode with no legend and customisable colour and linewidth.
 #'
-#' @inheritParams custom_mode
+#' @inheritParams flexi_mode
 #'
 #' @return A ggplot theme.
 #' @export
@@ -283,27 +283,27 @@ custom_mode_b <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     mode = custom_mode_n(
-#'       colours = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
-#'       linewidths = c(2, 1)
-#'       )
+#'     mode = flexi_mode_n(
+#'       col_pal = c(blues9[9], blues9[9], blues9[1], blues9[2], blues9[2]),
+#'       linewidth_pal = c(0.33, 1.33)
+#'     )
 #'   )
 #'
-custom_mode_n <- function (
+flexi_mode_n <- function (
     size = 11,
     family = "",
-    colours = NULL,
-    linewidths = NULL) {
+    col_pal = NULL,
+    linewidth_pal = NULL) {
 
-  if (rlang::is_null(colours) | rlang::is_null(linewidths)) {
-    rlang::abort("colours and linewidths vectors must not be NULL")
+  if (rlang::is_null(col_pal) | rlang::is_null(linewidth_pal)) {
+    rlang::abort("col_pal and linewidth_pal vectors must not be NULL")
   }
 
-  mode <- custom_mode(
+  mode <- flexi_mode(
     size = size,
     family = family,
-    colours = colours,
-    linewidths = linewidths
+    col_pal = col_pal,
+    linewidth_pal = linewidth_pal
   ) +
   ggplot2::theme(
     legend.position = "none",

@@ -2,7 +2,7 @@
 % Please edit documentation in R/grey_mode.R
 \name{grey_mode_n}
 \alias{grey_mode_n}
-\title{Grey mode theme with no legend}
+\title{Grey mode with no legend}
 \usage{
 grey_mode_n(size = 11, family = "")
 }
@@ -15,7 +15,7 @@ grey_mode_n(size = 11, family = "")
 A ggplot theme.
 }
 \description{
-Grey mode theme with no legend using colours from \code{greyness}.
+Grey mode with no legend using \code{greyness} and \code{linewidthness}.
 }
 \examples{
 library(palmerpenguins)

@@ -15,7 +15,7 @@ light_mode_r(size = 11, family = "")
 A ggplot theme.
 }
 \description{
-Light mode theme with legend at right using colours from \code{lightness}.
+Light mode theme with right legend using \code{lightness} and \code{linewidthness}.
 }
 \examples{
 library(palmerpenguins)

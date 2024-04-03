@@ -2,7 +2,7 @@
 % Please edit documentation in R/grey_mode.R
 \name{grey_mode_r}
 \alias{grey_mode_r}
-\title{Grey mode theme with right legend}
+\title{Grey mode with right legend}
 \usage{
 grey_mode_r(size = 11, family = "")
 }
@@ -15,7 +15,7 @@ grey_mode_r(size = 11, family = "")
 A ggplot theme.
 }
 \description{
-Grey mode theme with legend at right using colours from \code{greyness}.
+Grey mode with right legend using \code{greyness} and \code{linewidthness}.
 }
 \examples{
 library(palmerpenguins)

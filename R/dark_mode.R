@@ -1,8 +1,8 @@
-#' Dark mode theme with right legend
+#' Dark mode with right legend
 #'
-#' @description Dark mode theme with legend at right using colours from `darkness`.
+#' @description Dark mode with right legend using `darkness`and `linewidthness`.
 #'
-#' @inheritParams custom_mode_r
+#' @inheritParams flexi_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -25,19 +25,19 @@ dark_mode_r <- function (
     size = 11,
     family = "") {
 
-  custom_mode_r(
+  flexi_mode_r(
     size = size,
     family = family,
-    colours = darkness,
-    linewidths = linewidthness
+    col_pal = darkness,
+    linewidth_pal = linewidthness
   )
 }
 
-#' Dark mode theme with top legend
+#' Dark mode with top legend
 #'
-#' @description Dark mode theme with top legend using colours from `darkness`.
+#' @description Dark mode with top legend using `darkness`and `linewidthness`.
 #'
-#' @inheritParams custom_mode_t
+#' @inheritParams flexi_mode_t
 #'
 #' @return A ggplot theme.
 #' @export
@@ -60,19 +60,19 @@ dark_mode_t <- function (
     size = 11,
     family = "") {
 
-  custom_mode_t(
+  flexi_mode_t(
     size = size,
     family = family,
-    colours = darkness,
-    linewidths = linewidthness
+    col_pal = darkness,
+    linewidth_pal = linewidthness
   )
 }
 
-#' Dark mode theme with bottom legend
+#' Dark mode with bottom legend
 #'
-#' @description Dark mode theme with bottom legend using colours from `darkness`.
+#' @description Dark mode with bottom legend using `darkness`and `linewidthness`.
 #'
-#' @inheritParams custom_mode_b
+#' @inheritParams flexi_mode_b
 #'
 #' @return A ggplot theme.
 #' @export
@@ -95,19 +95,19 @@ dark_mode_b <- function (
     size = 11,
     family = "") {
 
-  custom_mode_b(
+  flexi_mode_b(
     size = size,
     family = family,
-    colours = darkness,
-    linewidths = linewidthness
+    col_pal = darkness,
+    linewidth_pal = linewidthness
   )
 }
 
-#' Dark mode theme with no legend
+#' Dark mode with no legend
 #'
-#' @description Dark mode theme with no legend using colours from `darkness`.
+#' @description Dark mode with no legend using `darkness`and `linewidthness`.
 #'
-#' @inheritParams custom_mode_n
+#' @inheritParams flexi_mode_n
 #'
 #' @return A ggplot theme.
 #' @export
@@ -130,10 +130,10 @@ dark_mode_n <- function (
     size = 11,
     family = "") {
 
-  custom_mode_n(
+  flexi_mode_n(
     size = size,
     family = family,
-    colours = darkness,
-    linewidths = linewidthness
+    col_pal = darkness,
+    linewidth_pal = linewidthness
   )
 }

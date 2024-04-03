@@ -1,17 +1,17 @@
 #' Get contrast
 #'
 #' @param fill A fill aesthetic from which to determine the colour scale for contrast.
-#' @param colours A vector of a dark colour and then a light colour. Defaults to `lightness[c(1, 3)]`.
+#' @param contrast_pal A vector of a dark colour and then a light colour. Defaults to `lightness[c(1, 3)]`.
 #'
 #' @noRd
 #'
 #' @examples
-#' get_contrast(fill = c("navy", "yellow", "orange"), colours = c("black", "white"))
+#' get_contrast(fill = c("navy", "yellow", "orange"), contrast_pal = c("black", "white"))
 #'
-get_contrast <- function(fill, colours = lightness[c(1, 3)]) {
-  out <- rep(colours[1], length(fill))
+get_contrast <- function(fill, contrast_pal = lightness[c(1, 3)]) {
+  out <- rep(contrast_pal[1], length(fill))
   light <- farver::get_channel(fill, "l", space = "hcl")
-  out[light < 50] <- colours[2]
+  out[light < 50] <- contrast_pal[2]
   out
 }
 
@@ -19,7 +19,7 @@ get_contrast <- function(fill, colours = lightness[c(1, 3)]) {
 #'
 #' @description A colour aesthetic for annotation that automatically contrasts with fill. Can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
-#' @param colours A vector of a dark colour and then a light colour. Defaults to `lightness[c(1, 3)]`.
+#' @param contrast_pal A vector of a dark colour and then a light colour. Defaults to `lightness[c(1, 3)]`.
 #'
 #' @return An aesthetic
 #' @export
@@ -66,11 +66,11 @@ get_contrast <- function(fill, colours = lightness[c(1, 3)]) {
 #'     hjust = 1.25,
 #'     show.legend = FALSE,
 #'   )
-aes_contrast <- function(colours = lightness[c(1, 3)]) {
+aes_contrast <- function(contrast_pal = lightness[c(1, 3)]) {
 
   ggplot2::aes(
     colour = ggplot2::after_scale(
-      get_contrast(.data$fill, colours = colours[1:2])
+      get_contrast(.data$fill, contrast_pal = contrast_pal[1:2])
       )
     )
 }

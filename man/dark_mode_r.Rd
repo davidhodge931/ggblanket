@@ -2,7 +2,7 @@
 % Please edit documentation in R/dark_mode.R
 \name{dark_mode_r}
 \alias{dark_mode_r}
-\title{Dark mode theme with right legend}
+\title{Dark mode with right legend}
 \usage{
 dark_mode_r(size = 11, family = "")
 }
@@ -15,7 +15,7 @@ dark_mode_r(size = 11, family = "")
 A ggplot theme.
 }
 \description{
-Dark mode theme with legend at right using colours from \code{darkness}.
+Dark mode with right legend using \code{darkness}and \code{linewidthness}.
 }
 \examples{
 library(palmerpenguins)
