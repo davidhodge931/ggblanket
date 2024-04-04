@@ -219,10 +219,38 @@ argument.</p>
 <span><span class="fu">showtext</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/showtext/man/showtext_auto.html" class="external-link">showtext_auto</a></span><span class="op">(</span>enable <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
+<h3 id="gghighlight">gghighlight<a class="anchor" aria-label="anchor" href="#gghighlight"></a>
+</h3>
+<p>The gghighlight package enables geoms or parts thereof to be
+highlighted.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">gghighlight</span><span class="fu">::</span><span class="fu"><a href="https://yutannihilation.github.io/gghighlight/reference/gghighlight.html" class="external-link">gghighlight</a></span><span class="op">(</span><span class="va">body_mass_g</span> <span class="op">&gt;=</span> <span class="fl">5000</span><span class="op">)</span></span></code></pre></div>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
+<p>The <code>gg_*</code> function builds the scale for the data that it
+thinks will be within the panel. Therefore in some situations, this must
+be taken into account to ensure the scale builds correctly.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>,</span>
+<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">blue</span>, <span class="fl">3</span><span class="op">)</span>, </span>
+<span>  <span class="op">)</span> <span class="op">+</span> <span class="co">#build the scale for not faceted (i.e. all data)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span> <span class="op">+</span> <span class="co">#then add facet layer</span></span>
+<span>  <span class="fu">gghighlight</span><span class="fu">::</span><span class="fu"><a href="https://yutannihilation.github.io/gghighlight/reference/gghighlight.html" class="external-link">gghighlight</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
 <h3 id="ggforce">ggforce<a class="anchor" aria-label="anchor" href="#ggforce"></a>
 </h3>
 <p>The ggforce package includes numerous extra geoms, stats etc.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggforce.data-imaginist.com" class="external-link">ggforce</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_bspline.html" class="external-link">geom_bspline</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_path: arrow = NULL, lineend = butt, na.rm = FALSE</span></span>
@@ -237,8 +265,8 @@ argument.</p>
 <span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
 <span>    linewidth <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_mark_hull.html" class="external-link">geom_mark_hull</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_mark_hull: na.rm = FALSE, expand = 5, radius = 2.5, concavity = 2, label.margin = c(2, 2, 2, 2), label.width = NULL, label.minwidth = 50, label.fontsize = 12, label.family = , label.lineheight = 1, label.fontface = c("bold", "plain"), label.hjust = 0, label.fill = white, label.colour = black, label.buffer = 10, con.colour = black, con.size = 0.5, con.type = elbow, con.linetype = 1, con.border = one, con.cap = 3, con.arrow = NULL</span></span>
 <span><span class="co">#&gt; stat_identity: na.rm = FALSE</span></span>
@@ -253,13 +281,36 @@ argument.</p>
 <span>    coord <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="ggrepel">ggrepel<a class="anchor" aria-label="anchor" href="#ggrepel"></a>
+</h3>
+<p>The ggrepel package can be used to neatly avoid overlapping
+labels.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggrepel.slowkow.com/" class="external-link">ggrepel</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggrepel.slowkow.com/reference/geom_text_repel.html" class="external-link">geom_text_repel</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; geom_text_repel: parse = FALSE, na.rm = FALSE, box.padding = 0.25, point.padding = 1e-06, min.segment.length = 0.5, arrow = NULL, force = 1, force_pull = 1, max.time = 0.5, max.iter = 10000, max.overlaps = 10, nudge_x = 0, nudge_y = 0, xlim = c(NA, NA), ylim = c(NA, NA), direction = both, seed = NA, verbose = FALSE</span></span>
+<span><span class="co">#&gt; stat_identity: na.rm = FALSE</span></span>
+<span><span class="co">#&gt; position_identity</span></span>
+<span></span>
+<span><span class="va">mtcars</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"car"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">wt</span> <span class="op">&gt;</span> <span class="fl">2.75</span>, <span class="va">wt</span> <span class="op">&lt;</span> <span class="fl">3.45</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">wt</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">mpg</span>, </span>
+<span>    label <span class="op">=</span> <span class="va">car</span>, </span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggrepel.slowkow.com/reference/geom_text_repel.html" class="external-link">geom_text_repel</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">blue</span><span class="op">)</span> </span></code></pre></div>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="ggbeeswarm">ggbeeswarm<a class="anchor" aria-label="anchor" href="#ggbeeswarm"></a>
 </h3>
 <p>The ggbeeswarm package enables beeswarm plots.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/eclarke/ggbeeswarm" class="external-link">ggbeeswarm</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_beeswarm.html" class="external-link">geom_beeswarm</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_point: na.rm = FALSE</span></span>
@@ -293,57 +344,6 @@ argument.</p>
 <span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="gghighlight">gghighlight<a class="anchor" aria-label="anchor" href="#gghighlight"></a>
-</h3>
-<p>The gghighlight package enables geoms or parts thereof to be
-highlighted.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">gghighlight</span><span class="fu">::</span><span class="fu"><a href="https://yutannihilation.github.io/gghighlight/reference/gghighlight.html" class="external-link">gghighlight</a></span><span class="op">(</span><span class="va">body_mass_g</span> <span class="op">&gt;=</span> <span class="fl">5000</span><span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
-<p>The <code>gg_*</code> function builds the scale for the data that it
-thinks will be within the panel. Therefore in some situations, you may
-need to make adjustments, so that the scale builds correctly.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>,</span>
-<span>    col_pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">blue</span>, <span class="fl">3</span><span class="op">)</span>, </span>
-<span>  <span class="op">)</span> <span class="op">+</span> <span class="co">#build the scale for not faceted (i.e. all data)</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span> <span class="op">+</span> <span class="co">#then add facet layer</span></span>
-<span>  <span class="fu">gghighlight</span><span class="fu">::</span><span class="fu"><a href="https://yutannihilation.github.io/gghighlight/reference/gghighlight.html" class="external-link">gghighlight</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="ggrepel">ggrepel<a class="anchor" aria-label="anchor" href="#ggrepel"></a>
-</h3>
-<p>The ggrepel package can be used to neatly avoid overlapping
-labels.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggrepel.slowkow.com/" class="external-link">ggrepel</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggrepel.slowkow.com/reference/geom_text_repel.html" class="external-link">geom_text_repel</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; geom_text_repel: parse = FALSE, na.rm = FALSE, box.padding = 0.25, point.padding = 1e-06, min.segment.length = 0.5, arrow = NULL, force = 1, force_pull = 1, max.time = 0.5, max.iter = 10000, max.overlaps = 10, nudge_x = 0, nudge_y = 0, xlim = c(NA, NA), ylim = c(NA, NA), direction = both, seed = NA, verbose = FALSE</span></span>
-<span><span class="co">#&gt; stat_identity: na.rm = FALSE</span></span>
-<span><span class="co">#&gt; position_identity</span></span>
-<span></span>
-<span><span class="va">mtcars</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"car"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">wt</span> <span class="op">&gt;</span> <span class="fl">2.75</span>, <span class="va">wt</span> <span class="op">&lt;</span> <span class="fl">3.45</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">wt</span>, </span>
-<span>    y <span class="op">=</span> <span class="va">mpg</span>, </span>
-<span>    label <span class="op">=</span> <span class="va">car</span>, </span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggrepel.slowkow.com/reference/geom_text_repel.html" class="external-link">geom_text_repel</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">blue</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -595,41 +595,10 @@ themes. Removing axes and gridlines is often useful.</p>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="gghighlight-1">gghighlight<a class="anchor" aria-label="anchor" href="#gghighlight-1"></a>
-</h3>
-<p>The gghighlight package enables geoms or parts thereof to be
-highlighted. It <em>kind of</em> works with ggblanket. There must be a
-<code>col</code> variable added unfortunately. It might be better to use
-ggplot2 instead here.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="fl">1</span>, </span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_n.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">gghighlight</span><span class="fu">::</span><span class="fu"><a href="https://yutannihilation.github.io/gghighlight/reference/gghighlight.html" class="external-link">gghighlight</a></span><span class="op">(</span><span class="va">body_mass_g</span> <span class="op">&gt;=</span> <span class="fl">5000</span><span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-20-1.svg" width="70%"></p>
-<p>The <code>gg_*</code> function builds the scale for the data that it
-thinks will be within the panel. Therefore in some situations, you may
-need to make adjustments, so that the scale builds correctly.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    x_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">breaks_pretty</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span> <span class="co">#build the scale for not faceted (i.e. all data)</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">)</span> <span class="op">+</span> <span class="co">#then add facet layer</span></span>
-<span>  <span class="fu">gghighlight</span><span class="fu">::</span><span class="fu"><a href="https://yutannihilation.github.io/gghighlight/reference/gghighlight.html" class="external-link">gghighlight</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-21-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
 <h3 id="ggnewscale">ggnewscale<a class="anchor" aria-label="anchor" href="#ggnewscale"></a>
 </h3>
 <p>The ggnewscale package enables multiple colour scales.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_blanket.html">gg_blanket</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
@@ -648,7 +617,7 @@ need to make adjustments, so that the scale builds correctly.</p>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#901752"</span>, <span class="va">orange</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-22-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-20-1.svg" width="70%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
