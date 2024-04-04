@@ -146,7 +146,7 @@ gg_crossbar(
 
 \item{caption}{Caption title string.}
 
-\item{titles_to_case}{A function to format unspecified titles_to_case. Defaults to \code{snakecase::to_sentence_case}.}
+\item{titles_to_case}{A function to format unspecified titles. Defaults to \code{snakecase::to_sentence_case}.}
 }
 \value{
 A ggplot object.

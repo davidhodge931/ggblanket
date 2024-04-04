@@ -37,7 +37,7 @@
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
-#' @param titles_to_case A function to format unspecified titles_to_case. Defaults to `snakecase::to_sentence_case`.
+#' @param titles_to_case A function to format unspecified titles. Defaults to `snakecase::to_sentence_case`.
 #'
 #' @return A ggplot object.
 #' @export
