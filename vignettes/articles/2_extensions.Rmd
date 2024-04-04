@@ -200,6 +200,33 @@ p2 <- penguins |>
 p1 + p2
 ```
 
+### gghighlight
+
+The gghighlight package enables geoms or parts thereof to be highlighted. 
+
+```{r}
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+  ) +
+  gghighlight::gghighlight(body_mass_g >= 5000)
+```
+
+The `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you may need to make adjustments, so that the scale builds correctly. 
+
+```{r}
+penguins |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = species,
+    x_breaks = scales::breaks_pretty(4),
+    col_pal = rep(blue, 3), 
+  ) + #build the scale for not faceted (i.e. all data)
+  facet_wrap(~species) + #then add facet layer
+  gghighlight::gghighlight() 
+```
+
 ### ggrepel
 
 The ggrepel package can be used to neatly avoid overlapping labels. 

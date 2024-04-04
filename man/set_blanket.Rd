@@ -6,8 +6,8 @@
 \usage{
 set_blanket(
   mode = light_mode_r(),
-  geom_colour = blue,
-  annotate_colour = lightness[1],
+  geom_colour = "#357ba2",
+  annotate_colour = "#121b24",
   ...
 )
 }

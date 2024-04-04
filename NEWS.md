@@ -7,6 +7,7 @@
 * Updated `*ness` helper pals.
 * Added `flexi_mode_*` functions.
 * Made compatible with extension geoms with no x or y variables in `layer_data`.
+* Fixed bug with `set_blanket`, which was making gghighlight not work.
 
 # ggblanket 7.0.0
 

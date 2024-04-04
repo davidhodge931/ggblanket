@@ -36,12 +36,12 @@
 #'
 set_blanket <- function(
     mode = light_mode_r(),
-    geom_colour = blue,
-    annotate_colour = lightness[1],
+    geom_colour = "#357ba2",
+    annotate_colour = "#121b24",
     ...
 ) {
   weave_mode(mode)
-  weave_geom_defaults(geom_colour[1])
-  weave_annotate_defaults(annotate_colour[1])
+  weave_geom_defaults( {{ geom_colour }})
+  weave_annotate_defaults( {{ annotate_colour }})
 }
 
