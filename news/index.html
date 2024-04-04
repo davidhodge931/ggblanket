@@ -59,14 +59,15 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="7.0.9000" id="ggblanket-709000">ggblanket 7.0.9000<a class="anchor" aria-label="anchor" href="#ggblanket-709000"></a></h2>
-<ul><li>Breaking: removed ability to use <code>col_pal</code> when <code>col = NULL</code>.</li>
+<ul><li>Breaking: renamed <code>col_pal</code> to <code>col_palette</code>, and likewise <code>contrast_pal_na</code> and <code>contrast_pal</code>.</li>
+<li>Breaking: removed ability to use <code>col_palette</code> when <code>col = NULL</code>.</li>
 <li>Breaking: in <code>set_blanket</code>, renamed arguments to remove <code>_default</code>.</li>
 <li>Breaking: removed <code>weave_geom_defaults</code> and <code>weave_annotate_defaults</code>.</li>
 <li>Added <code>pink</code> and used this in default colours for a discrete scale for 4 values.</li>
 <li>Updated <code>*ness</code> helper pals.</li>
 <li>Added <code>flexi_mode_*</code> functions.</li>
 <li>Made compatible with extension geoms with no x or y variables in <code>layer_data</code>.</li>
-<li>Fixed bug with <code>set_blanket</code>, which was making gghighlight not work.</li>
+<li>Fixed bug with <code>set_blanket</code>, which made {gghighlight} not work.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="7.0.0" id="ggblanket-700">ggblanket 7.0.0<a class="anchor" aria-label="anchor" href="#ggblanket-700"></a></h2><p class="text-muted">CRAN release: 2024-03-28</p>
