@@ -1,6 +1,7 @@
 # ggblanket 7.0.9000
 
 * Breaking: renamed `col_pal` to `col_palette`, and likewise `contrast_pal_na` and `contrast_pal`.
+* Breaking: removed `facet_labels_position` and `facet_labels_switch`.
 * Breaking: removed ability to use `col_palette` when `col = NULL`.
 * Breaking: in `set_blanket`, renamed arguments to remove `_default`.
 * Breaking: removed `weave_geom_defaults` and `weave_annotate_defaults`.
