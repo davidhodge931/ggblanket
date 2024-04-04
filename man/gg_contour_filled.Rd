@@ -64,8 +64,6 @@ gg_contour_filled(
   facet_axes = NULL,
   facet_axis_labels = "margins",
   facet_labels = NULL,
-  facet_labels_position = "top",
-  facet_labels_switch = NULL,
   facet_layout = NULL,
   facet_ncol = NULL,
   facet_nrow = NULL,
@@ -127,10 +125,6 @@ gg_contour_filled(
 \item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_mode_*()} may be needed.}
 
 \item{facet_axis_labels}{Whether to add interior axis labels with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
-
-\item{facet_labels_position}{When the facet layout is \code{"wrap"}, the position of the facet labels. Either \code{"top"}, \code{"right"}, \code{"bottom"} or \code{"left"}.}
-
-\item{facet_labels_switch}{When the facet layout is \code{"grid"}, whether to switch the facet labels to the opposite side of the plot. Either \code{"x"}, \code{"y"} or \code{"both"}.}
 
 \item{facet_layout}{Whether the layout is to be \code{"wrap"} or \code{"grid"}. If \code{NULL} and a single \code{facet} (or \code{facet2}) argument is provided, then defaults to \code{"wrap"}. If \code{NULL} and both facet and facet2 arguments are provided, defaults to \code{"grid"}.}
 
