@@ -34,6 +34,8 @@ reference:
 - contents:
   - aes_contrast
   - replace_seq
+- title: Palette
+- contents:
   - blue
   - teal
   - orange

@@ -116,9 +116,9 @@ gg_contour_filled(
 
 \item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
 
-\item{col_pal}{Colours to use. A character vector of hex codes (or names).}
+\item{col_pal}{Colour palette to use. A character vector of hex codes (or names).}
 
-\item{col_pal_na}{Colour to use for \code{NA} values. A character vector of a hex code (or name).}
+\item{col_pal_na}{Colour palette to use for \code{NA} values. A character value of a hex code (or name).}
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 

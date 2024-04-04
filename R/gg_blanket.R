@@ -22,8 +22,8 @@
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
 #' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
-#' @param col_pal Colours to use. A character vector of hex codes (or names).
-#' @param col_pal_na Colour to use for `NA` values. A character vector of a hex code (or name).
+#' @param col_pal Colour palette to use. A character vector of hex codes (or names).
+#' @param col_pal_na Colour palette to use for `NA` values. A character value of a hex code (or name).
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
 #' @param col_steps For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
