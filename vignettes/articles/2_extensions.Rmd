@@ -134,6 +134,33 @@ penguins |>
 showtext::showtext_auto(enable = FALSE)
 ```
 
+### gghighlight
+
+The gghighlight package enables geoms or parts thereof to be highlighted. 
+
+```{r}
+penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+  ) +
+  gghighlight::gghighlight(body_mass_g >= 5000)
+```
+
+The `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, this must be taken into account to ensure the scale builds correctly. 
+
+```{r}
+penguins |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = species,
+    x_breaks = scales::breaks_pretty(4),
+    col_pal = rep(blue, 3), 
+  ) + #build the scale for not faceted (i.e. all data)
+  facet_wrap(~species) + #then add facet layer
+  gghighlight::gghighlight() 
+```
+
 ### ggforce
 
 The ggforce package includes numerous extra geoms, stats etc.
@@ -164,6 +191,25 @@ penguins |>
     coord = coord_cartesian(),
   ) +
   geom_point()
+```
+
+### ggrepel
+
+The ggrepel package can be used to neatly avoid overlapping labels. 
+
+```{r}
+library(ggrepel)
+geom_text_repel()
+
+mtcars |>
+  tibble::rownames_to_column("car") |>
+  filter(wt > 2.75, wt < 3.45) |>
+  gg_point(
+    x = wt, 
+    y = mpg, 
+    label = car, 
+  ) +
+  geom_text_repel(colour = blue) 
 ```
 
 ### ggbeeswarm
@@ -198,52 +244,6 @@ p2 <- penguins |>
   ) 
 
 p1 + p2
-```
-
-### gghighlight
-
-The gghighlight package enables geoms or parts thereof to be highlighted. 
-
-```{r}
-penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-  ) +
-  gghighlight::gghighlight(body_mass_g >= 5000)
-```
-
-The `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you may need to make adjustments, so that the scale builds correctly. 
-
-```{r}
-penguins |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-    x_breaks = scales::breaks_pretty(4),
-    col_pal = rep(blue, 3), 
-  ) + #build the scale for not faceted (i.e. all data)
-  facet_wrap(~species) + #then add facet layer
-  gghighlight::gghighlight() 
-```
-
-### ggrepel
-
-The ggrepel package can be used to neatly avoid overlapping labels. 
-
-```{r}
-library(ggrepel)
-geom_text_repel()
-
-mtcars |>
-  tibble::rownames_to_column("car") |>
-  filter(wt > 2.75, wt < 3.45) |>
-  gg_point(
-    x = wt, 
-    y = mpg, 
-    label = car, 
-  ) +
-  geom_text_repel(colour = blue) 
 ```
 
 ### ggridges
@@ -476,34 +476,6 @@ penguins |>
   easy_remove_y_gridlines() +
   easy_remove_x_axis(what = c("line", "ticks")) +
   easy_remove_legend_title()
-```
-
-### gghighlight
-
-The gghighlight package enables geoms or parts thereof to be highlighted. It _kind of_ works with ggblanket. There must be a `col` variable added unfortunately. It might be better to use ggplot2 instead here.
-
-```{r}
-penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = 1, 
-    mode = light_mode_n(),
-  ) +
-  gghighlight::gghighlight(body_mass_g >= 5000)
-```
-
-The `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, you may need to make adjustments, so that the scale builds correctly. 
-
-```{r}
-penguins |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-    x_breaks = scales::breaks_pretty(3),
-  ) + #build the scale for not faceted (i.e. all data)
-  facet_wrap(~species) + #then add facet layer
-  gghighlight::gghighlight() 
 ```
 
 ### ggnewscale
