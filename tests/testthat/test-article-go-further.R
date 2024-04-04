@@ -131,15 +131,12 @@ test_name <- "6"
 
 test_that(test_name, {
   p <- penguins |>
-    mutate(hack = "") |>
     gg_boxplot(
       x = species,
       y = flipper_length_mm,
-      col = hack,
       colour = "black", #or fill = #D3D3D3",
       width = 0.5,
       alpha = 0.9,
-      mode = light_mode_n(),
     )
 
   vdiffr::expect_doppelganger(test_name, p)

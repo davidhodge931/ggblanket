@@ -404,6 +404,35 @@ expand.grid(x = 1:nrow(volcano), y = 1:ncol(volcano)) |>
   ggeasy::easy_remove_y_axis()
 ```
 
+### paletteer
+
+The paletteer package provides access to most of the palettes within R. 
+
+```{r}
+library(paletteer)
+
+p1 <- penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+    col_palette = paletteer_d("RColorBrewer::Dark2"),
+    x_breaks = scales::breaks_pretty(3),
+  ) 
+
+p2 <- penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = bill_depth_mm,
+    col_palette = paletteer_c("viridis::rocket", 9),
+    x_breaks = scales::breaks_pretty(3),
+  ) 
+
+p1 + p2
+```
+
+
 ### ggblend
  
 The ggblend package provides blending of colours. Note you must use a graphics device that supports blending.

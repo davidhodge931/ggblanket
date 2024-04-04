@@ -124,7 +124,7 @@ gg_quantile(
 
 \item{col_steps}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
 
-\item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
+\item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_mode_*()} may be needed.}
 
 \item{facet_axis_labels}{Whether to add interior axis labels with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
 

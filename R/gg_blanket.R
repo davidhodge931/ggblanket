@@ -26,7 +26,7 @@
 #' @param col_palette_na Colour palette to use for `NA` values. A character value of a hex code (or name).
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
 #' @param col_steps For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
-#' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
+#' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_mode_*()` may be needed.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' @param facet_labels_position When the facet layout is `"wrap"`, the position of the facet labels. Either `"top"`, `"right"`, `"bottom"` or `"left"`.
 #' @param facet_labels_switch When the facet layout is `"grid"`, whether to switch the facet labels to the opposite side of the plot. Either `"x"`, `"y"` or `"both"`.
