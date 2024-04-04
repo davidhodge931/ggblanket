@@ -131,15 +131,12 @@ test_name <- "6"
 
 test_that(test_name, {
   p <- penguins |>
-    mutate(hack = "") |>
     gg_boxplot(
       x = species,
       y = flipper_length_mm,
-      col = hack,
       colour = "black", #or fill = #D3D3D3",
       width = 0.5,
       alpha = 0.9,
-      mode = light_mode_n(),
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -412,7 +409,7 @@ test_that(test_name, {
       x = displ,
       y = hwy,
       col = centred,
-      col_pal = c(teal, "#E8EFF2", orange),
+      col_palette = c(teal, "#E8EFF2", orange),
       col_breaks = scales::breaks_width(5),
       col_rescale = scales::rescale(c(min(.$centred), 0, max(.$centred)))
     )
@@ -433,7 +430,7 @@ test_that(test_name, {
       x = displ,
       y = hwy,
       col = centred,
-      col_pal = c(teal, "#E8EFF2", orange),
+      col_palette = c(teal, "#E8EFF2", orange),
       col_limits = max(abs(.$centred)) * c(-1, 1),
       col_breaks = scales::breaks_width(5)
     )

@@ -110,7 +110,7 @@ test_that(test_name, {
 #   p <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE) |>
 #     gg_sf(
 #       col = AREA,
-#       col_pal = viridisLite::rocket(n = 9)
+#       col_palette = viridisLite::rocket(n = 9)
 #     )
 #
 #   vdiffr::expect_doppelganger(test_name, p)

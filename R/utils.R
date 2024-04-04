@@ -21,16 +21,13 @@ na_if_inf <- function(x) {
 
 #' Default colours used to colour a discrete variable
 #'
-#' @description Default colours used to colour a discrete variable. Uses `blue` for 1 colour, and `teal`, `orange`, `navy` and `pink` for 2 to 4 colours. For 5 or more colours, uses `scales::pal_hue`.
+#' @description Default colours used to colour a discrete variable. Uses `teal`, `orange`, `navy` and `pink` for 1 to 4 colours. For 5 or more colours, uses `scales::pal_hue`.
 #'
 #' @return A character vector.
 #'
 #' @noRd
-col_pal_discrete <- function(n = 4) {
-  if (n == 1) blue
-  else if (n == 2) c(teal, orange)[1:n]
-  else if (n == 3) c(teal, orange, navy)[1:n]
-  else if (n == 4) c(teal, orange, navy, pink)[1:n]
+col_palette_discrete <- function(n = 4) {
+  if (n <= 4) c(teal, orange, navy, pink)[1:n]
   else scales::pal_hue()(n)
 }
 
@@ -43,7 +40,7 @@ col_pal_discrete <- function(n = 4) {
 #' @noRd
 #'
 #' @references The mako colour palette from viridisLite reversed
-col_pal_continuous <- function(n = 20) {
+col_palette_continuous <- function(n = 20) {
   viridisLite::mako(n = n, direction = -1)
 }
 

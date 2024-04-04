@@ -164,7 +164,7 @@ penguins |>
     y_title = "Body mass (g)",
     col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
-    col_pal = blues9,
+    col_palette = blues9,
     facet_labels = str_to_sentence,
   )
 ```
@@ -206,7 +206,7 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex, 
-    col_pal = c("#003f5c", "#ffa600"),
+    col_palette = c("#003f5c", "#ffa600"),
     colour = "#bc5090", 
     linewidth = 1, 
     linetype = "dashed",

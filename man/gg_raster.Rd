@@ -55,8 +55,8 @@ gg_raster(
   col_legend_rev = FALSE,
   col_limits = NULL,
   col_oob = scales::oob_keep,
-  col_pal = NULL,
-  col_pal_na = "darkgrey",
+  col_palette = NULL,
+  col_palette_na = "darkgrey",
   col_rescale = scales::rescale(),
   col_steps = FALSE,
   col_title = NULL,
@@ -116,15 +116,15 @@ gg_raster(
 
 \item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
 
-\item{col_pal}{Colour palette to use. A character vector of hex codes (or names).}
+\item{col_palette}{Colour palette to use. A character vector of hex codes (or names).}
 
-\item{col_pal_na}{Colour palette to use for \code{NA} values. A character value of a hex code (or name).}
+\item{col_palette_na}{Colour palette to use for \code{NA} values. A character value of a hex code (or name).}
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
 \item{col_steps}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
 
-\item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
+\item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_mode_*()} may be needed.}
 
 \item{facet_axis_labels}{Whether to add interior axis labels with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
 

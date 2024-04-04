@@ -4,24 +4,24 @@
 #'
 #' @param size The base size of the text. Defaults to 11. The title adds 10%.
 #' @param family The family of the text. Defaults to "".
-#' @param col_pal A 5 colour vector ordered for text, line, panel.background, plot.background and panel.grid. Fill inherits from these.
-#' @param linewidth_pal A 2 element numeric vector with values for the linewidth of line/rect and panel.grid elements.
+#' @param col_palette A 5 colour vector ordered for text, line, panel.background, plot.background and panel.grid. Fill inherits from these.
+#' @param linewidth_palette A 2 element numeric vector with values for the linewidth of line/rect and panel.grid elements.
 #'
 #' @keywords internal
 flexi_mode <- function(
     size = 11,
     family = "",
-    col_pal = NULL,
-    linewidth_pal = NULL) {
+    col_palette = NULL,
+    linewidth_palette = NULL) {
 
-  if (rlang::is_null(col_pal) | rlang::is_null(linewidth_pal)) {
-    rlang::abort("col_pal and linewidth_pal vectors must not be NULL")
+  if (rlang::is_null(col_palette) | rlang::is_null(linewidth_palette)) {
+    rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
   ggplot2::theme(
-    line = ggplot2::element_line(colour = col_pal[2], linewidth = linewidth_pal[1], linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = col_pal[4], colour = col_pal[4], linewidth = linewidth_pal[1], linetype = 1),
-    text = ggplot2::element_text(family = family, face = "plain", colour = col_pal[1], size = size,
+    line = ggplot2::element_line(colour = col_palette[2], linewidth = linewidth_palette[1], linetype = 1, lineend = "square"),
+    rect = ggplot2::element_rect(fill = col_palette[4], colour = col_palette[4], linewidth = linewidth_palette[1], linetype = 1),
+    text = ggplot2::element_text(family = family, face = "plain", colour = col_palette[1], size = size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
     axis.line.x = NULL,
@@ -41,7 +41,7 @@ flexi_mode <- function(
     legend.spacing = grid::unit(size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = col_pal[4], fill = col_pal[4]),
+    legend.key = ggplot2::element_rect(colour = col_palette[4], fill = col_palette[4]),
     legend.key.size = grid::unit(size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -57,9 +57,9 @@ flexi_mode <- function(
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = col_pal[3], colour = col_pal[3]),
+    panel.background = ggplot2::element_rect(fill = col_palette[3], colour = col_palette[3]),
     panel.border = ggplot2::element_blank(),
-    panel.grid = ggplot2::element_line(colour = col_pal[5], linewidth = linewidth_pal[2]),
+    panel.grid = ggplot2::element_line(colour = col_palette[5], linewidth = linewidth_palette[2]),
     panel.grid.major = NULL,
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(size * 2, "pt"),
@@ -82,7 +82,7 @@ flexi_mode <- function(
     plot.title = ggplot2::element_text(face = "bold", size = ggplot2::rel(1.1), hjust = 0, margin = ggplot2::margin(t = size * -1, r = 0, b = size * 2.5, l = 0)),
     plot.title.position = "plot",
     plot.subtitle = ggplot2::element_text(hjust = 0, margin = ggplot2::margin(t = size * -2, r = 0, b = size * 2, l = 0)),
-    plot.caption = ggplot2::element_text(colour = scales::alpha(col_pal[1], 0.75), size = ggplot2::rel(0.85), hjust = 0, margin = ggplot2::margin(t = size * 0.5, r = 0, b = size * 0.5, l = 0)),
+    plot.caption = ggplot2::element_text(colour = scales::alpha(col_palette[1], 0.75), size = ggplot2::rel(0.85), hjust = 0, margin = ggplot2::margin(t = size * 0.5, r = 0, b = size * 0.5, l = 0)),
     plot.caption.position = "plot",
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",
@@ -112,25 +112,25 @@ flexi_mode <- function(
 #'     y = body_mass_g,
 #'     col = species,
 #'     mode = flexi_mode_r(
-#'       col_pal = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
-#'       linewidth_pal = c(2, 1)
+#'       col_palette = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
+#'       linewidth_palette = c(2, 1)
 #'     )
 #'   )
 flexi_mode_r <- function (
     size = 11,
     family = "",
-    col_pal = NULL,
-    linewidth_pal = NULL) {
+    col_palette = NULL,
+    linewidth_palette = NULL) {
 
-  if (rlang::is_null(col_pal) | rlang::is_null(linewidth_pal)) {
-    rlang::abort("col_pal and linewidth_pal vectors must not be NULL")
+  if (rlang::is_null(col_palette) | rlang::is_null(linewidth_palette)) {
+    rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
   flexi_mode(
     size = size,
     family = family,
-    col_pal = col_pal,
-    linewidth_pal = linewidth_pal
+    col_palette = col_palette,
+    linewidth_palette = linewidth_palette
   ) +
     ggplot2::theme(
       legend.position = "right",
@@ -169,25 +169,25 @@ flexi_mode_r <- function (
 #'     y = body_mass_g,
 #'     col = species,
 #'     mode = flexi_mode_t(
-#'       col_pal = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
-#'       linewidth_pal = c(2, 1)
+#'       col_palette = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
+#'       linewidth_palette = c(2, 1)
 #'     )
 #'   )
 flexi_mode_t <- function (
     size = 11,
     family = "",
-    col_pal = NULL,
-    linewidth_pal = NULL) {
+    col_palette = NULL,
+    linewidth_palette = NULL) {
 
-  if (rlang::is_null(col_pal) | rlang::is_null(linewidth_pal)) {
-    rlang::abort("col_pal and linewidth_pal vectors must not be NULL")
+  if (rlang::is_null(col_palette) | rlang::is_null(linewidth_palette)) {
+    rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
   flexi_mode(
     size = size,
     family = family,
-    col_pal = col_pal,
-    linewidth_pal = linewidth_pal
+    col_palette = col_palette,
+    linewidth_palette = linewidth_palette
   ) +
   ggplot2::theme(
     legend.position = "top",
@@ -226,26 +226,26 @@ flexi_mode_t <- function (
 #'     y = body_mass_g,
 #'     col = species,
 #'     mode = flexi_mode_b(
-#'       col_pal = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
-#'       linewidth_pal = c(2, 1)
+#'       col_palette = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
+#'       linewidth_palette = c(2, 1)
 #'     )
 #'   )
 #'
 flexi_mode_b <- function (
     size = 11,
     family = "",
-    col_pal = NULL,
-    linewidth_pal = NULL) {
+    col_palette = NULL,
+    linewidth_palette = NULL) {
 
-  if (rlang::is_null(col_pal) | rlang::is_null(linewidth_pal)) {
-    rlang::abort("col_pal and linewidth_pal vectors must not be NULL")
+  if (rlang::is_null(col_palette) | rlang::is_null(linewidth_palette)) {
+    rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
   flexi_mode(
     size = size,
     family = family,
-    col_pal = col_pal,
-    linewidth_pal = linewidth_pal
+    col_palette = col_palette,
+    linewidth_palette = linewidth_palette
   ) +
     ggplot2::theme(
       legend.position = "bottom",
@@ -284,26 +284,26 @@ flexi_mode_b <- function (
 #'     y = body_mass_g,
 #'     col = species,
 #'     mode = flexi_mode_n(
-#'       col_pal = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
-#'       linewidth_pal = c(2, 1)
+#'       col_palette = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
+#'       linewidth_palette = c(2, 1)
 #'     )
 #'   )
 #'
 flexi_mode_n <- function (
     size = 11,
     family = "",
-    col_pal = NULL,
-    linewidth_pal = NULL) {
+    col_palette = NULL,
+    linewidth_palette = NULL) {
 
-  if (rlang::is_null(col_pal) | rlang::is_null(linewidth_pal)) {
-    rlang::abort("col_pal and linewidth_pal vectors must not be NULL")
+  if (rlang::is_null(col_palette) | rlang::is_null(linewidth_palette)) {
+    rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
   mode <- flexi_mode(
     size = size,
     family = family,
-    col_pal = col_pal,
-    linewidth_pal = linewidth_pal
+    col_palette = col_palette,
+    linewidth_palette = linewidth_palette
   ) +
   ggplot2::theme(
     legend.position = "none",
