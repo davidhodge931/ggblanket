@@ -1,17 +1,17 @@
 #' Get contrast
 #'
 #' @param fill A fill aesthetic from which to determine the colour scale for contrast.
-#' @param contrast_pal A vector of a dark colour and then a light colour. Defaults to `c("#121b24" ,"#ffffff")` (i.e. `lightness[c(1, 3)]`).
+#' @param contrast_palette A vector of a dark colour and then a light colour. Defaults to `c("#121b24" ,"#ffffff")` (i.e. `lightness[c(1, 3)]`).
 #'
 #' @noRd
 #'
 #' @examples
-#' get_contrast(fill = c("navy", "yellow", "orange"), contrast_pal = c("black", "white"))
+#' get_contrast(fill = c("navy", "yellow", "orange"), contrast_palette = c("black", "white"))
 #'
-get_contrast <- function(fill, contrast_pal = c("#121b24", "#ffffff")) {
-  out <- rep(contrast_pal[1], length(fill))
+get_contrast <- function(fill, contrast_palette = c("#121b24", "#ffffff")) {
+  out <- rep(contrast_palette[1], length(fill))
   light <- farver::get_channel(fill, "l", space = "hcl")
-  out[light < 50] <- contrast_pal[2]
+  out[light < 50] <- contrast_palette[2]
   out
 }
 
@@ -19,7 +19,7 @@ get_contrast <- function(fill, contrast_pal = c("#121b24", "#ffffff")) {
 #'
 #' @description A colour aesthetic for annotation that automatically contrasts with fill. Can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
-#' @param contrast_pal A vector of a dark colour and then a light colour. Defaults to `c("#121b24" ,"#ffffff")` (i.e. `lightness[c(1, 3)]`).
+#' @param contrast_palette A vector of a dark colour and then a light colour. Defaults to `c("#121b24" ,"#ffffff")` (i.e. `lightness[c(1, 3)]`).
 #'
 #' @return An aesthetic
 #' @export
@@ -66,11 +66,11 @@ get_contrast <- function(fill, contrast_pal = c("#121b24", "#ffffff")) {
 #'     hjust = 1.25,
 #'     show.legend = FALSE,
 #'   )
-aes_contrast <- function(contrast_pal = c("#121b24", "#ffffff")) {
+aes_contrast <- function(contrast_palette = c("#121b24", "#ffffff")) {
 
   ggplot2::aes(
     colour = ggplot2::after_scale(
-      get_contrast(.data$fill, contrast_pal = contrast_pal[1:2])
+      get_contrast(.data$fill, contrast_palette = contrast_palette[1:2])
       )
     )
 }

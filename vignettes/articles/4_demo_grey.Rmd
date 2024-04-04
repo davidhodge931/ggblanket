@@ -278,7 +278,7 @@ bind_rows(
     label = model,
     y_expand_limits = 0,
     y_title = "Miles per gallon", 
-    col_pal = c(orange, "white", teal),
+    col_palette = c(orange, "white", teal),
   )
 ```
 
@@ -543,7 +543,7 @@ bind_rows(
     label = model,
     y_expand_limits = 0,
     y_title = "Miles per gallon",
-    col_pal = c(orange, "white", teal),
+    col_palette = c(orange, "white", teal),
   )
 ```
 

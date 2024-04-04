@@ -22,8 +22,8 @@
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
 #' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
-#' @param col_pal Colour palette to use. A character vector of hex codes (or names).
-#' @param col_pal_na Colour palette to use for `NA` values. A character value of a hex code (or name).
+#' @param col_palette Colour palette to use. A character vector of hex codes (or names).
+#' @param col_palette_na Colour palette to use for `NA` values. A character value of a hex code (or name).
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
 #' @param col_steps For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
@@ -114,8 +114,8 @@ gg_blanket <- function(
     col_legend_rev = FALSE,
     col_limits = NULL,
     col_oob = scales::oob_keep,
-    col_pal = NULL,
-    col_pal_na = "darkgrey",
+    col_palette = NULL,
+    col_palette_na = "darkgrey",
     col_rescale = scales::rescale(),
     col_steps = FALSE,
     col_title = NULL,
@@ -954,8 +954,8 @@ gg_blanket <- function(
 
   if (!is.na(is_col_continuous)) {
     if (is_col_continuous) {
-      if (rlang::is_null(col_pal)) {
-        col_pal <- col_pal_continuous()
+      if (rlang::is_null(col_palette)) {
+        col_palette <- col_palette_continuous()
       }
 
       #get col_transform if NULL
@@ -1001,24 +1001,24 @@ gg_blanket <- function(
       if (isFALSE(col_steps)) {
         plot <- plot +
           ggplot2::scale_fill_gradientn(
-            colours = col_pal,
+            colours = col_palette,
             values = col_rescale,
             limits = col_limits,
             breaks = col_breaks,
             labels = col_labels,
             transform = col_transform,
             oob = col_oob,
-            na.value = col_pal_na,
+            na.value = col_palette_na,
           ) +
           ggplot2::scale_colour_gradientn(
-            colours = col_pal,
+            colours = col_palette,
             values = col_rescale,
             limits = col_limits,
             breaks = col_breaks,
             labels = col_labels,
             transform = col_transform,
             oob = col_oob,
-            na.value = col_pal_na,
+            na.value = col_palette_na,
           ) +
           ggplot2::guides(
             colour = ggplot2::guide_colourbar(
@@ -1034,24 +1034,24 @@ gg_blanket <- function(
       else if (isTRUE(col_steps)) {
         plot <- plot +
           ggplot2::scale_fill_stepsn(
-            colours = col_pal,
+            colours = col_palette,
             values = col_rescale,
             limits = col_limits,
             breaks = col_breaks,
             labels = col_labels,
             transform = col_transform,
             oob = col_oob,
-            na.value = col_pal_na,
+            na.value = col_palette_na,
           ) +
           ggplot2::scale_colour_stepsn(
-            colours = col_pal,
+            colours = col_palette,
             values = col_rescale,
             limits = col_limits,
             breaks = col_breaks,
             labels = col_labels,
             transform = col_transform,
             oob = col_oob,
-            na.value = col_pal_na,
+            na.value = col_palette_na,
           ) +
           ggplot2::guides(
             colour = ggplot2::guide_coloursteps(
@@ -1073,10 +1073,10 @@ gg_blanket <- function(
           levels() %>%
           length()
 
-        if (rlang::is_null(col_pal)) {
-          col_pal <- col_pal_discrete(n = col_n)
+        if (rlang::is_null(col_palette)) {
+          col_palette <- col_palette_discrete(n = col_n)
         }
-        else if (!rlang::is_named(col_pal)) col_pal <- col_pal[1:col_n]
+        else if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
       }
       else { #guess anything that's ordered represents col,
         #as there is a discrete col scale and no col variable supplied
@@ -1084,7 +1084,7 @@ gg_blanket <- function(
           dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), function(x) length(levels(x))))
 
         if (ncol(plot_data_ordered) == 0) {
-          if (rlang::is_null(col_pal)) col_pal <- col_pal_discrete()
+          if (rlang::is_null(col_palette)) col_palette <- col_palette_discrete()
         }
         else {
           col_n <- plot_data_ordered %>%
@@ -1092,10 +1092,10 @@ gg_blanket <- function(
             dplyr::summarise(max(.data$value)) %>%
             dplyr::pull()
 
-          if (rlang::is_null(col_pal)) {
-            col_pal <- col_pal_continuous(n = col_n)
+          if (rlang::is_null(col_palette)) {
+            col_palette <- col_palette_continuous(n = col_n)
           }
-          else if (!rlang::is_named(col_pal)) col_pal <- col_pal[1:col_n]
+          else if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
 
           col_legend_rev <- !col_legend_rev
         }
@@ -1103,7 +1103,7 @@ gg_blanket <- function(
 
       if (flipped) {
         col_legend_rev <- !col_legend_rev
-        col_pal <- rev(col_pal)
+        col_palette <- rev(col_palette)
       }
 
       if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
@@ -1112,19 +1112,19 @@ gg_blanket <- function(
 
       plot <- plot +
         ggplot2::scale_fill_manual(
-          values = col_pal,
+          values = col_palette,
           limits = col_limits,
           breaks = col_breaks,
           labels = col_labels,
-          na.value = col_pal_na,
+          na.value = col_palette_na,
           drop = FALSE, #consider add argument
         ) +
         ggplot2::scale_colour_manual(
-          values = col_pal,
+          values = col_palette,
           limits = col_limits,
           breaks = col_breaks,
           labels = col_labels,
-          na.value = col_pal_na,
+          na.value = col_palette_na,
           drop = FALSE, #consider add argument
         ) +
         ggplot2::guides(

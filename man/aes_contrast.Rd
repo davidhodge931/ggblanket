@@ -4,10 +4,10 @@
 \alias{aes_contrast}
 \title{A colour aesthetic that automatically contrasts with fill.}
 \usage{
-aes_contrast(contrast_pal = c("#121b24", "#ffffff"))
+aes_contrast(contrast_palette = c("#121b24", "#ffffff"))
 }
 \arguments{
-\item{contrast_pal}{A vector of a dark colour and then a light colour. Defaults to \code{c("#121b24" ,"#ffffff")} (i.e. \code{lightness[c(1, 3)]}).}
+\item{contrast_palette}{A vector of a dark colour and then a light colour. Defaults to \code{c("#121b24" ,"#ffffff")} (i.e. \code{lightness[c(1, 3)]}).}
 }
 \value{
 An aesthetic

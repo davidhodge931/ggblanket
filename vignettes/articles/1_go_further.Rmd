@@ -284,7 +284,7 @@ penguins |>
 
 ### 9. Use opacity to emphasise/demphasise 
 
-Use opacity with `mapping = aes(alpha = ...)`, `col = ...`, and `col_pal` to emphasise/demphasise parts of the visualisation. 
+Use opacity with `mapping = aes(alpha = ...)`, `col = ...`, and `col_palette` to emphasise/demphasise parts of the visualisation. 
 
 ```{r, fig.asp=0.75}
 p1 <- penguins |> 
@@ -308,7 +308,7 @@ p2 <- penguins |>
     col = sex,
     x_breaks = scales::breaks_pretty(n = 3),
     y_labels = replace_seq,
-    col_pal = c(orange, "#78909C"),
+    col_palette = c(orange, "#78909C"),
     subtitle = "\ncol variable"
   )
 
@@ -321,7 +321,7 @@ p3 <- penguins |>
     mapping = aes(alpha = sex),
     x_breaks = scales::breaks_pretty(n = 3),
     y_labels = replace_seq,
-    col_pal = c(orange, "#78909C"),
+    col_palette = c(orange, "#78909C"),
     subtitle = "\ncol and alpha variable",
   ) +
   guides(colour = "none", fill = "none", alpha = "none") + 
@@ -336,7 +336,7 @@ p4 <- penguins |>
     mapping = aes(alpha = sex),
     x_breaks = scales::breaks_pretty(n = 3),
     y_labels = replace_seq,
-    col_pal = c(orange, scales::alpha("#78909C", 0.25)),
+    col_palette = c(orange, scales::alpha("#78909C", 0.25)),
     subtitle = "\ncol and alpha variable & outline opacity",
   ) +
   scale_alpha_manual(values = c(0.5, 0.1))

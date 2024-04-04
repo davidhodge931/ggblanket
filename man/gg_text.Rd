@@ -55,8 +55,8 @@ gg_text(
   col_legend_rev = FALSE,
   col_limits = NULL,
   col_oob = scales::oob_keep,
-  col_pal = NULL,
-  col_pal_na = "darkgrey",
+  col_palette = NULL,
+  col_palette_na = "darkgrey",
   col_rescale = scales::rescale(),
   col_steps = FALSE,
   col_title = NULL,
@@ -116,9 +116,9 @@ gg_text(
 
 \item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
 
-\item{col_pal}{Colour palette to use. A character vector of hex codes (or names).}
+\item{col_palette}{Colour palette to use. A character vector of hex codes (or names).}
 
-\item{col_pal_na}{Colour palette to use for \code{NA} values. A character value of a hex code (or name).}
+\item{col_palette_na}{Colour palette to use for \code{NA} values. A character value of a hex code (or name).}
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
@@ -171,7 +171,7 @@ bind_rows(
     label = model,
     y_expand_limits = 0,
     y_title = "Miles per gallon",
-    col_pal = c(orange, "white", teal),
+    col_palette = c(orange, "white", teal),
   )
 
 }

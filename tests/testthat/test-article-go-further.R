@@ -412,7 +412,7 @@ test_that(test_name, {
       x = displ,
       y = hwy,
       col = centred,
-      col_pal = c(teal, "#E8EFF2", orange),
+      col_palette = c(teal, "#E8EFF2", orange),
       col_breaks = scales::breaks_width(5),
       col_rescale = scales::rescale(c(min(.$centred), 0, max(.$centred)))
     )
@@ -433,7 +433,7 @@ test_that(test_name, {
       x = displ,
       y = hwy,
       col = centred,
-      col_pal = c(teal, "#E8EFF2", orange),
+      col_palette = c(teal, "#E8EFF2", orange),
       col_limits = max(abs(.$centred)) * c(-1, 1),
       col_breaks = scales::breaks_width(5)
     )

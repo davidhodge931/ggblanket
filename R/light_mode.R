@@ -28,8 +28,8 @@ light_mode_r <- function (
   flexi_mode_r(
     size = size,
     family = family,
-    col_pal = lightness,
-    linewidth_pal = linewidthness
+    col_palette = lightness,
+    linewidth_palette = linewidthness
   )
 }
 
@@ -63,8 +63,8 @@ light_mode_t <- function (
   flexi_mode_t(
     size = size,
     family = family,
-    col_pal = lightness,
-    linewidth_pal = linewidthness
+    col_palette = lightness,
+    linewidth_palette = linewidthness
   )
 }
 
@@ -98,8 +98,8 @@ light_mode_b <- function (
   flexi_mode_b(
     size = size,
     family = family,
-    col_pal = lightness,
-    linewidth_pal = linewidthness
+    col_palette = lightness,
+    linewidth_palette = linewidthness
   )
 }
 
@@ -133,7 +133,7 @@ light_mode_n <- function (
   flexi_mode_n(
     size = size,
     family = family,
-    col_pal = lightness,
-    linewidth_pal = linewidthness
+    col_palette = lightness,
+    linewidth_palette = linewidthness
   )
 }

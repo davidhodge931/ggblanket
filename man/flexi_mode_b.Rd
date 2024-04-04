@@ -4,16 +4,21 @@
 \alias{flexi_mode_b}
 \title{Flexible mode with bottom legend}
 \usage{
-flexi_mode_b(size = 11, family = "", col_pal = NULL, linewidth_pal = NULL)
+flexi_mode_b(
+  size = 11,
+  family = "",
+  col_palette = NULL,
+  linewidth_palette = NULL
+)
 }
 \arguments{
 \item{size}{The base size of the text. Defaults to 11. The title adds 10\%.}
 
 \item{family}{The family of the text. Defaults to "".}
 
-\item{col_pal}{A 5 colour vector ordered for text, line, panel.background, plot.background and panel.grid. Fill inherits from these.}
+\item{col_palette}{A 5 colour vector ordered for text, line, panel.background, plot.background and panel.grid. Fill inherits from these.}
 
-\item{linewidth_pal}{A 2 element numeric vector with values for the linewidth of line/rect and panel.grid elements.}
+\item{linewidth_palette}{A 2 element numeric vector with values for the linewidth of line/rect and panel.grid elements.}
 }
 \value{
 A ggplot theme.
@@ -32,8 +37,8 @@ penguins |>
     y = body_mass_g,
     col = species,
     mode = flexi_mode_b(
-      col_pal = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
-      linewidth_pal = c(2, 1)
+      col_palette = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
+      linewidth_palette = c(2, 1)
     )
   )
 

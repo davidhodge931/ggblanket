@@ -155,7 +155,7 @@ penguins |>
     x = flipper_length_mm,
     col = species,
     x_breaks = scales::breaks_pretty(4),
-    col_pal = rep(blue, 3), 
+    col_palette = rep(blue, 3), 
   ) + #build the scale for not faceted (i.e. all data)
   facet_wrap(~species) + #then add facet layer
   gghighlight::gghighlight() 
@@ -327,7 +327,7 @@ tibble(x = 1:10) |>
     col = .width,
     colour = lightness[1],
     col_legend_rev = TRUE,
-    col_pal = blues9[c(7,5,3)],
+    col_palette = blues9[c(7,5,3)],
   )
 ```
 

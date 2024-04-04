@@ -26,7 +26,7 @@ na_if_inf <- function(x) {
 #' @return A character vector.
 #'
 #' @noRd
-col_pal_discrete <- function(n = 4) {
+col_palette_discrete <- function(n = 4) {
   if (n == 1) blue
   else if (n == 2) c(teal, orange)[1:n]
   else if (n == 3) c(teal, orange, navy)[1:n]
@@ -43,7 +43,7 @@ col_pal_discrete <- function(n = 4) {
 #' @noRd
 #'
 #' @references The mako colour palette from viridisLite reversed
-col_pal_continuous <- function(n = 20) {
+col_palette_continuous <- function(n = 20) {
   viridisLite::mako(n = n, direction = -1)
 }
 
