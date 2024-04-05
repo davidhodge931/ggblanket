@@ -8,7 +8,7 @@
 #' @param linewidth_palette A 2 element numeric vector with values for the linewidth of line/rect and panel.grid elements.
 #'
 #' @keywords internal
-palette_mode <- function(
+design_mode <- function(
     size = 11,
     family = "",
     col_palette = NULL,
@@ -96,7 +96,7 @@ palette_mode <- function(
 #'
 #' @description Flexible mode with right legend and customisable colour and linewidth.
 #'
-#' @inheritParams palette_mode
+#' @inheritParams design_mode
 #'
 #' @return A ggplot theme.
 #' @export
@@ -111,12 +111,12 @@ palette_mode <- function(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     mode = palette_mode_r(
+#'     mode = design_mode_r(
 #'       col_palette = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
 #'       linewidth_palette = c(2, 1)
 #'     )
 #'   )
-palette_mode_r <- function (
+design_mode_r <- function (
     size = 11,
     family = "",
     col_palette = NULL,
@@ -126,7 +126,7 @@ palette_mode_r <- function (
     rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
-  palette_mode(
+  design_mode(
     size = size,
     family = family,
     col_palette = col_palette,
@@ -153,7 +153,7 @@ palette_mode_r <- function (
 #'
 #' @description Flexible mode with legend at top and customisable colour and linewidth.
 #'
-#' @inheritParams palette_mode_r
+#' @inheritParams design_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -168,12 +168,12 @@ palette_mode_r <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     mode = palette_mode_t(
+#'     mode = design_mode_t(
 #'       col_palette = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
 #'       linewidth_palette = c(2, 1)
 #'     )
 #'   )
-palette_mode_t <- function (
+design_mode_t <- function (
     size = 11,
     family = "",
     col_palette = NULL,
@@ -183,7 +183,7 @@ palette_mode_t <- function (
     rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
-  palette_mode(
+  design_mode(
     size = size,
     family = family,
     col_palette = col_palette,
@@ -210,7 +210,7 @@ palette_mode_t <- function (
 #'
 #' @description Flexible mode with legend at bottom and customisable colour and linewidth.
 #'
-#' @inheritParams palette_mode_r
+#' @inheritParams design_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -225,13 +225,13 @@ palette_mode_t <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     mode = palette_mode_b(
+#'     mode = design_mode_b(
 #'       col_palette = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
 #'       linewidth_palette = c(2, 1)
 #'     )
 #'   )
 #'
-palette_mode_b <- function (
+design_mode_b <- function (
     size = 11,
     family = "",
     col_palette = NULL,
@@ -241,7 +241,7 @@ palette_mode_b <- function (
     rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
-  palette_mode(
+  design_mode(
     size = size,
     family = family,
     col_palette = col_palette,
@@ -268,7 +268,7 @@ palette_mode_b <- function (
 #'
 #' @description Flexible mode with no legend and customisable colour and linewidth.
 #'
-#' @inheritParams palette_mode
+#' @inheritParams design_mode
 #'
 #' @return A ggplot theme.
 #' @export
@@ -283,13 +283,13 @@ palette_mode_b <- function (
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     mode = palette_mode_n(
+#'     mode = design_mode_n(
 #'       col_palette = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
 #'       linewidth_palette = c(2, 1)
 #'     )
 #'   )
 #'
-palette_mode_n <- function (
+design_mode_n <- function (
     size = 11,
     family = "",
     col_palette = NULL,
@@ -299,7 +299,7 @@ palette_mode_n <- function (
     rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
-  mode <- palette_mode(
+  mode <- design_mode(
     size = size,
     family = family,
     col_palette = col_palette,

@@ -2,7 +2,7 @@
 #'
 #' @description Dark mode with right legend using `darkness`and `linewidthness`.
 #'
-#' @inheritParams palette_mode_r
+#' @inheritParams design_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -25,7 +25,7 @@ dark_mode_r <- function (
     size = 11,
     family = "") {
 
-  palette_mode_r(
+  design_mode_r(
     size = size,
     family = family,
     col_palette = darkness,
@@ -37,7 +37,7 @@ dark_mode_r <- function (
 #'
 #' @description Dark mode with top legend using `darkness`and `linewidthness`.
 #'
-#' @inheritParams palette_mode_t
+#' @inheritParams design_mode_t
 #'
 #' @return A ggplot theme.
 #' @export
@@ -60,7 +60,7 @@ dark_mode_t <- function (
     size = 11,
     family = "") {
 
-  palette_mode_t(
+  design_mode_t(
     size = size,
     family = family,
     col_palette = darkness,
@@ -72,7 +72,7 @@ dark_mode_t <- function (
 #'
 #' @description Dark mode with bottom legend using `darkness`and `linewidthness`.
 #'
-#' @inheritParams palette_mode_b
+#' @inheritParams design_mode_b
 #'
 #' @return A ggplot theme.
 #' @export
@@ -95,7 +95,7 @@ dark_mode_b <- function (
     size = 11,
     family = "") {
 
-  palette_mode_b(
+  design_mode_b(
     size = size,
     family = family,
     col_palette = darkness,
@@ -107,7 +107,7 @@ dark_mode_b <- function (
 #'
 #' @description Dark mode with no legend using `darkness`and `linewidthness`.
 #'
-#' @inheritParams palette_mode_n
+#' @inheritParams design_mode_n
 #'
 #' @return A ggplot theme.
 #' @export
@@ -130,7 +130,7 @@ dark_mode_n <- function (
     size = 11,
     family = "") {
 
-  palette_mode_n(
+  design_mode_n(
     size = size,
     family = family,
     col_palette = darkness,
