@@ -7,7 +7,7 @@
 aes_contrast(contrast_palette = c("#121b24", "#ffffff"))
 }
 \arguments{
-\item{contrast_palette}{A vector of a dark colour and then a light colour. Defaults to \code{c("#121b24" ,"#ffffff")} (i.e. \code{lightness[c(1, 3)]}).}
+\item{contrast_palette}{A vector of a dark colour and then a light colour. Defaults to \code{c("#121b24" ,"#ffffff")} (i.e. \code{lightness[c(1, 4)]}).}
 }
 \value{
 An aesthetic
@@ -52,7 +52,7 @@ penguins |>
     mode = dark_mode_r(),
   ) +
   geom_text(
-    mapping = aes(label = n, !!!aes_contrast(darkness[c(4, 1)])),
+    mapping = aes(label = n, !!!aes_contrast(darkness[c(5, 1)])),
     position = position_dodge2(width = 0.75, preserve = "single"),
     hjust = 1.25,
     show.legend = FALSE,
