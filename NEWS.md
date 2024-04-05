@@ -1,13 +1,13 @@
-# ggblanket 7.0.9000
+# ggblanket 7.9.9000
 
 * Breaking: renamed `col_pal` to `col_palette`, and likewise `contrast_pal_na` and `contrast_pal`.
-* Breaking: removed `facet_labels_position` and `facet_labels_switch`.
 * Breaking: removed ability to use `col_palette` when `col = NULL`.
 * Breaking: in `set_blanket`, renamed arguments to remove `_default`.
 * Breaking: removed `weave_geom_defaults` and `weave_annotate_defaults`.
+* Breaking: removed `facet_labels_position` and `facet_labels_switch`.
 * Added `pink` and used this in default colours for a discrete scale for 4 values.
 * Updated `*ness` helper pals.
-* Added `flexi_mode_*` functions.
+* Added `palette_mode_*` functions.
 * Made compatible with extension geoms with no x or y variables in `layer_data`.
 * Fixed bug with `set_blanket`, which made {gghighlight} not work.
 

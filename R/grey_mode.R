@@ -2,7 +2,7 @@
 #'
 #' @description Grey mode with right legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams flexi_mode_r
+#' @inheritParams palette_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -25,7 +25,7 @@ grey_mode_r <- function (
     size = 11,
     family = "") {
 
-  flexi_mode_r(
+  palette_mode_r(
     size = size,
     family = family,
     col_palette = greyness,
@@ -37,7 +37,7 @@ grey_mode_r <- function (
 #'
 #' @description Grey mode with top legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams flexi_mode_t
+#' @inheritParams palette_mode_t
 #'
 #' @return A ggplot theme.
 #' @export
@@ -60,7 +60,7 @@ grey_mode_t <- function (
     size = 11,
     family = "") {
 
-  flexi_mode_t(
+  palette_mode_t(
     size = size,
     family = family,
     col_palette = greyness,
@@ -72,7 +72,7 @@ grey_mode_t <- function (
 #'
 #' @description Grey mode with bottom legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams flexi_mode_b
+#' @inheritParams palette_mode_b
 #'
 #' @return A ggplot theme.
 #' @export
@@ -95,7 +95,7 @@ grey_mode_b <- function (
     size = 11,
     family = "") {
 
-  flexi_mode_b(
+  palette_mode_b(
     size = size,
     family = family,
     col_palette = greyness,
@@ -107,7 +107,7 @@ grey_mode_b <- function (
 #'
 #' @description Grey mode with no legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams flexi_mode_n
+#' @inheritParams palette_mode_n
 #'
 #' @return A ggplot theme.
 #' @export
@@ -130,7 +130,7 @@ grey_mode_n <- function (
     size = 11,
     family = "") {
 
-  flexi_mode_n(
+  palette_mode_n(
     size = size,
     family = family,
     col_palette = greyness,
