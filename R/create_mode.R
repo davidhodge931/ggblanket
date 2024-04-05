@@ -4,13 +4,13 @@
 #'
 #' @param size The base size of the text. Defaults to 11. The title adds 10%.
 #' @param family The family of the text. Defaults to "".
-#' @param col_palette A 5 colour vector ordered for text, line, panel.background, plot.background and panel.grid. Fill inherits from these.
+#' @param col_palette A 5 colour vector ordered for text, line, panel.grid, panel.background and plot.background. Fill inherits from these.
 #' @param linewidth_palette A 2 element numeric vector with values for the linewidth of line/rect and panel.grid elements.
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-get_mode_base <- function(
+create_mode_base <- function(
     size = 11,
     family = "",
     col_palette = NULL,
@@ -22,7 +22,7 @@ get_mode_base <- function(
 
   ggplot2::theme(
     line = ggplot2::element_line(colour = col_palette[2], linewidth = linewidth_palette[1], linetype = 1, lineend = "square"),
-    rect = ggplot2::element_rect(fill = col_palette[4], colour = col_palette[4], linewidth = linewidth_palette[1], linetype = 1),
+    rect = ggplot2::element_rect(fill = col_palette[5], colour = col_palette[5], linewidth = linewidth_palette[1], linetype = 1),
     text = ggplot2::element_text(family = family, face = "plain", colour = col_palette[1], size = size,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = NULL,
@@ -43,7 +43,7 @@ get_mode_base <- function(
     legend.spacing = grid::unit(size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
-    legend.key = ggplot2::element_rect(colour = col_palette[4], fill = col_palette[4]),
+    legend.key = ggplot2::element_rect(colour = col_palette[5], fill = col_palette[5]),
     legend.key.size = grid::unit(size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
@@ -59,9 +59,9 @@ get_mode_base <- function(
     legend.box = NULL,
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    panel.background = ggplot2::element_rect(fill = col_palette[3], colour = col_palette[3]),
+    panel.background = ggplot2::element_rect(fill = col_palette[4], colour = col_palette[4]),
     panel.border = ggplot2::element_blank(),
-    panel.grid = ggplot2::element_line(colour = col_palette[5], linewidth = linewidth_palette[2]),
+    panel.grid = ggplot2::element_line(colour = col_palette[3], linewidth = linewidth_palette[2]),
     panel.grid.major = NULL,
     panel.grid.minor = ggplot2::element_blank(),
     panel.spacing = grid::unit(size * 2, "pt"),
@@ -98,12 +98,12 @@ get_mode_base <- function(
 #'
 #' @description Flexible mode with right legend and customisable colour and linewidth.
 #'
-#' @inheritParams get_mode_base
+#' @inheritParams create_mode_base
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-get_mode_r <- function (
+create_mode_r <- function (
     size = 11,
     family = "",
     col_palette = NULL,
@@ -113,7 +113,7 @@ get_mode_r <- function (
     rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
-  get_mode_base(
+  create_mode_base(
     size = size,
     family = family,
     col_palette = col_palette,
@@ -140,12 +140,12 @@ get_mode_r <- function (
 #'
 #' @description Flexible mode with legend at top and customisable colour and linewidth.
 #'
-#' @inheritParams get_mode_base
+#' @inheritParams create_mode_base
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-get_mode_t <- function (
+create_mode_t <- function (
     size = 11,
     family = "",
     col_palette = NULL,
@@ -155,7 +155,7 @@ get_mode_t <- function (
     rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
-  get_mode_base(
+  create_mode_base(
     size = size,
     family = family,
     col_palette = col_palette,
@@ -182,12 +182,12 @@ get_mode_t <- function (
 #'
 #' @description Flexible mode with legend at bottom and customisable colour and linewidth.
 #'
-#' @inheritParams get_mode_base
+#' @inheritParams create_mode_base
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-get_mode_b <- function (
+create_mode_b <- function (
     size = 11,
     family = "",
     col_palette = NULL,
@@ -197,7 +197,7 @@ get_mode_b <- function (
     rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
-  get_mode_base(
+  create_mode_base(
     size = size,
     family = family,
     col_palette = col_palette,
@@ -224,12 +224,12 @@ get_mode_b <- function (
 #'
 #' @description Flexible mode with no legend and customisable colour and linewidth.
 #'
-#' @inheritParams get_mode_base
+#' @inheritParams create_mode_base
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-get_mode_n <- function (
+create_mode_n <- function (
     size = 11,
     family = "",
     col_palette = NULL,
@@ -239,7 +239,7 @@ get_mode_n <- function (
     rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
-  mode <- get_mode_base(
+  mode <- create_mode_base(
     size = size,
     family = family,
     col_palette = col_palette,

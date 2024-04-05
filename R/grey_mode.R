@@ -2,7 +2,7 @@
 #'
 #' @description Grey mode with right legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams get_mode_r
+#' @inheritParams create_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -25,7 +25,7 @@ grey_mode_r <- function (
     size = 11,
     family = "") {
 
-  get_mode_r(
+  create_mode_r(
     size = size,
     family = family,
     col_palette = greyness,
@@ -37,7 +37,7 @@ grey_mode_r <- function (
 #'
 #' @description Grey mode with top legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams get_mode_t
+#' @inheritParams create_mode_t
 #'
 #' @return A ggplot theme.
 #' @export
@@ -60,7 +60,7 @@ grey_mode_t <- function (
     size = 11,
     family = "") {
 
-  get_mode_t(
+  create_mode_t(
     size = size,
     family = family,
     col_palette = greyness,
@@ -72,7 +72,7 @@ grey_mode_t <- function (
 #'
 #' @description Grey mode with bottom legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams get_mode_b
+#' @inheritParams create_mode_b
 #'
 #' @return A ggplot theme.
 #' @export
@@ -95,7 +95,7 @@ grey_mode_b <- function (
     size = 11,
     family = "") {
 
-  get_mode_b(
+  create_mode_b(
     size = size,
     family = family,
     col_palette = greyness,
@@ -107,7 +107,7 @@ grey_mode_b <- function (
 #'
 #' @description Grey mode with no legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams get_mode_n
+#' @inheritParams create_mode_n
 #'
 #' @return A ggplot theme.
 #' @export
@@ -130,7 +130,7 @@ grey_mode_n <- function (
     size = 11,
     family = "") {
 
-  get_mode_n(
+  create_mode_n(
     size = size,
     family = family,
     col_palette = greyness,

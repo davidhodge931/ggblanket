@@ -1,7 +1,7 @@
 #' Get contrast
 #'
 #' @param fill A fill aesthetic from which to determine the colour scale for contrast.
-#' @param contrast_palette A vector of a dark colour and then a light colour. Defaults to `c("#121b24" ,"#ffffff")` (i.e. `lightness[c(1, 3)]`).
+#' @param contrast_palette A vector of a dark colour and then a light colour. Defaults to `c("#121b24" ,"#ffffff")` (i.e. `lightness[c(1, 4)]`).
 #'
 #' @noRd
 #'
@@ -19,7 +19,7 @@ get_contrast <- function(fill, contrast_palette = c("#121b24", "#ffffff")) {
 #'
 #' @description A colour aesthetic for annotation that automatically contrasts with fill. Can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
-#' @param contrast_palette A vector of a dark colour and then a light colour. Defaults to `c("#121b24" ,"#ffffff")` (i.e. `lightness[c(1, 3)]`).
+#' @param contrast_palette A vector of a dark colour and then a light colour. Defaults to `c("#121b24" ,"#ffffff")` (i.e. `lightness[c(1, 4)]`).
 #'
 #' @return An aesthetic
 #' @export
@@ -61,7 +61,7 @@ get_contrast <- function(fill, contrast_palette = c("#121b24", "#ffffff")) {
 #'     mode = dark_mode_r(),
 #'   ) +
 #'   geom_text(
-#'     mapping = aes(label = n, !!!aes_contrast(darkness[c(4, 1)])),
+#'     mapping = aes(label = n, !!!aes_contrast(darkness[c(5, 1)])),
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     hjust = 1.25,
 #'     show.legend = FALSE,
