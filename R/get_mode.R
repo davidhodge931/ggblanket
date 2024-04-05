@@ -10,7 +10,7 @@
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-design_mode <- function(
+get_mode_base <- function(
     size = 11,
     family = "",
     col_palette = NULL,
@@ -98,12 +98,12 @@ design_mode <- function(
 #'
 #' @description Flexible mode with right legend and customisable colour and linewidth.
 #'
-#' @inheritParams design_mode
+#' @inheritParams get_mode_base
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-design_mode_r <- function (
+get_mode_r <- function (
     size = 11,
     family = "",
     col_palette = NULL,
@@ -113,7 +113,7 @@ design_mode_r <- function (
     rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
-  design_mode(
+  get_mode_base(
     size = size,
     family = family,
     col_palette = col_palette,
@@ -140,12 +140,12 @@ design_mode_r <- function (
 #'
 #' @description Flexible mode with legend at top and customisable colour and linewidth.
 #'
-#' @inheritParams design_mode_r
+#' @inheritParams get_mode_base
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-design_mode_t <- function (
+get_mode_t <- function (
     size = 11,
     family = "",
     col_palette = NULL,
@@ -155,7 +155,7 @@ design_mode_t <- function (
     rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
-  design_mode(
+  get_mode_base(
     size = size,
     family = family,
     col_palette = col_palette,
@@ -182,12 +182,12 @@ design_mode_t <- function (
 #'
 #' @description Flexible mode with legend at bottom and customisable colour and linewidth.
 #'
-#' @inheritParams design_mode_r
+#' @inheritParams get_mode_base
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-design_mode_b <- function (
+get_mode_b <- function (
     size = 11,
     family = "",
     col_palette = NULL,
@@ -197,7 +197,7 @@ design_mode_b <- function (
     rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
-  design_mode(
+  get_mode_base(
     size = size,
     family = family,
     col_palette = col_palette,
@@ -224,12 +224,12 @@ design_mode_b <- function (
 #'
 #' @description Flexible mode with no legend and customisable colour and linewidth.
 #'
-#' @inheritParams design_mode
+#' @inheritParams get_mode_base
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-design_mode_n <- function (
+get_mode_n <- function (
     size = 11,
     family = "",
     col_palette = NULL,
@@ -239,7 +239,7 @@ design_mode_n <- function (
     rlang::abort("col_palette and linewidth_palette vectors must not be NULL")
   }
 
-  mode <- design_mode(
+  mode <- get_mode_base(
     size = size,
     family = family,
     col_palette = col_palette,
