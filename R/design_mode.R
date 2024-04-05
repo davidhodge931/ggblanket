@@ -7,7 +7,9 @@
 #' @param col_palette A 5 colour vector ordered for text, line, panel.background, plot.background and panel.grid. Fill inherits from these.
 #' @param linewidth_palette A 2 element numeric vector with values for the linewidth of line/rect and panel.grid elements.
 #'
+#' @return A ggplot theme.
 #' @keywords internal
+#'
 design_mode <- function(
     size = 11,
     family = "",
@@ -99,23 +101,8 @@ design_mode <- function(
 #' @inheritParams design_mode
 #'
 #' @return A ggplot theme.
-#' @export
+#' @keywords internal
 #'
-#' @examples
-#' library(palmerpenguins)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = design_mode_r(
-#'       col_palette = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
-#'       linewidth_palette = c(2, 1)
-#'     )
-#'   )
 design_mode_r <- function (
     size = 11,
     family = "",
@@ -156,23 +143,8 @@ design_mode_r <- function (
 #' @inheritParams design_mode_r
 #'
 #' @return A ggplot theme.
-#' @export
+#' @keywords internal
 #'
-#' @examples
-#' library(palmerpenguins)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = design_mode_t(
-#'       col_palette = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
-#'       linewidth_palette = c(2, 1)
-#'     )
-#'   )
 design_mode_t <- function (
     size = 11,
     family = "",
@@ -213,23 +185,7 @@ design_mode_t <- function (
 #' @inheritParams design_mode_r
 #'
 #' @return A ggplot theme.
-#' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = design_mode_b(
-#'       col_palette = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
-#'       linewidth_palette = c(2, 1)
-#'     )
-#'   )
+#' @keywords internal
 #'
 design_mode_b <- function (
     size = 11,
@@ -271,23 +227,7 @@ design_mode_b <- function (
 #' @inheritParams design_mode
 #'
 #' @return A ggplot theme.
-#' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = design_mode_n(
-#'       col_palette = c("firebrick", "forestgreen", "lightblue", "steelblue", "darkorange"),
-#'       linewidth_palette = c(2, 1)
-#'     )
-#'   )
+#' @keywords internal
 #'
 design_mode_n <- function (
     size = 11,
