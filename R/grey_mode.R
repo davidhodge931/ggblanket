@@ -2,8 +2,8 @@
 #'
 #' @description Grey mode theme with right legend using `greyness` and `linewidthness`.
 #'
-#' @param text_size The base size of the text. Defaults to 11. The title is 110% of this, caption 85% and tag 120%.
-#' @param text_family The family of the text. Defaults to "".
+#' @param base_size The base size of the text. Defaults to 11. The title is 110% of this, caption 85% and tag 120%.
+#' @param base_family The family of the text. Defaults to "".
 #' @param ... Provided to support trailing commas only.
 #'
 #' @return A ggplot theme.
@@ -24,14 +24,14 @@
 #'   )
 #'
 grey_mode_r <- function (
-    text_size = 11,
-    text_family = "",
+    base_size = 11,
+    base_family = "",
     ...
 ) {
 
   get_mode_r(
-    text_size = text_size,
-    text_family = text_family,
+    base_size = base_size,
+    base_family = base_family,
     text_colour = greyness[1],
     axis_line_colour = greyness[2],
     axis_line_linewidth = linewidthness[1],
@@ -67,14 +67,14 @@ grey_mode_r <- function (
 #'   )
 #'
 grey_mode_t <- function (
-    text_size = 11,
-    text_family = "",
+    base_size = 11,
+    base_family = "",
     ...
 ) {
 
   get_mode_t(
-    text_size = text_size,
-    text_family = text_family,
+    base_size = base_size,
+    base_family = base_family,
     text_colour = greyness[1],
     axis_line_colour = greyness[2],
     axis_line_linewidth = linewidthness[1],
@@ -110,14 +110,14 @@ grey_mode_t <- function (
 #'   )
 #'
 grey_mode_b <- function (
-    text_size = 11,
-    text_family = "",
+    base_size = 11,
+    base_family = "",
     ...
 ) {
 
   get_mode_b(
-    text_size = text_size,
-    text_family = text_family,
+    base_size = base_size,
+    base_family = base_family,
     text_colour = greyness[1],
     axis_line_colour = greyness[2],
     axis_line_linewidth = linewidthness[1],
@@ -153,14 +153,14 @@ grey_mode_b <- function (
 #'   )
 #'
 grey_mode_n <- function (
-    text_size = 11,
-    text_family = "",
+    base_size = 11,
+    base_family = "",
     ...
 ) {
 
   get_mode_n(
-    text_size = text_size,
-    text_family = text_family,
+    base_size = base_size,
+    base_family = base_family,
     text_colour = greyness[1],
     axis_line_colour = greyness[2],
     axis_line_linewidth = linewidthness[1],

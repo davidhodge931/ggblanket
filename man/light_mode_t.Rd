@@ -4,12 +4,12 @@
 \alias{light_mode_t}
 \title{Light mode theme with top legend}
 \usage{
-light_mode_t(text_size = 11, text_family = "", ...)
+light_mode_t(base_size = 11, base_family = "", ...)
 }
 \arguments{
-\item{text_size}{The base size of the text. Defaults to 11. The title is 110\% of this, caption 85\% and tag 120\%.}
+\item{base_size}{The base size of the text. Defaults to 11. The title is 110\% of this, caption 85\% and tag 120\%.}
 
-\item{text_family}{The family of the text. Defaults to "".}
+\item{base_family}{The family of the text. Defaults to "".}
 
 \item{...}{Provided to support trailing commas only.}
 }
