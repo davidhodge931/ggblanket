@@ -2,20 +2,22 @@
 % Please edit documentation in R/grey_mode.R
 \name{grey_mode_t}
 \alias{grey_mode_t}
-\title{Grey mode with top legend}
+\title{Grey mode theme with top legend}
 \usage{
-grey_mode_t(size = 11, family = "")
+grey_mode_t(text_size = 11, text_family = "", ...)
 }
 \arguments{
-\item{size}{The base size of the text. Defaults to 11. The title adds 10\%.}
+\item{text_size}{The base size of the text. Defaults to 11. The title is 110\% of this, caption 85\% and tag 120\%.}
 
-\item{family}{The family of the text. Defaults to "".}
+\item{text_family}{The family of the text. Defaults to "".}
+
+\item{...}{Provided to support trailing commas only.}
 }
 \value{
 A ggplot theme.
 }
 \description{
-Grey mode with top legend using \code{greyness} and \code{linewidthness}.
+Grey mode theme with top legend using \code{greyness} and \code{linewidthness}.
 }
 \examples{
 library(palmerpenguins)

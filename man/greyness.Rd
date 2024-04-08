@@ -14,7 +14,7 @@ greyness
 A character vector.
 }
 \description{
-A vector of 5 colours used in the \verb{grey_mode_*} themes for the for the text, line, panel.grid, panel.background and plot.background.
+A vector of 5 colours used in the \verb{grey_mode_*} themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
 }
 \examples{
 scales::show_col(greyness)

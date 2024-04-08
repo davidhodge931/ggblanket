@@ -2,20 +2,22 @@
 % Please edit documentation in R/dark_mode.R
 \name{dark_mode_n}
 \alias{dark_mode_n}
-\title{Dark mode with no legend}
+\title{Dark mode theme with no legend}
 \usage{
-dark_mode_n(size = 11, family = "")
+dark_mode_n(text_size = 11, text_family = "", ...)
 }
 \arguments{
-\item{size}{The base size of the text. Defaults to 11. The title adds 10\%.}
+\item{text_size}{The base size of the text. Defaults to 11. The title is 110\% of this, caption 85\% and tag 120\%.}
 
-\item{family}{The family of the text. Defaults to "".}
+\item{text_family}{The family of the text. Defaults to "".}
+
+\item{...}{Provided to support trailing commas only.}
 }
 \value{
 A ggplot theme.
 }
 \description{
-Dark mode with no legend using \code{darkness}and \code{linewidthness}.
+Dark mode theme with no legend using \code{darkness} and \code{linewidthness}.
 }
 \examples{
 library(palmerpenguins)

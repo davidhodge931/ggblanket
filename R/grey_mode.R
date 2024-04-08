@@ -1,8 +1,10 @@
-#' Grey mode with right legend
+#' Grey mode theme with right legend
 #'
-#' @description Grey mode with right legend using `greyness` and `linewidthness`.
+#' @description Grey mode theme with right legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams create_mode_r
+#' @param text_size The base size of the text. Defaults to 11. The title is 110% of this, caption 85% and tag 120%.
+#' @param text_family The family of the text. Defaults to "".
+#' @param ... Provided to support trailing commas only.
 #'
 #' @return A ggplot theme.
 #' @export
@@ -22,22 +24,30 @@
 #'   )
 #'
 grey_mode_r <- function (
-    size = 11,
-    family = "") {
+    text_size = 11,
+    text_family = "",
+    ...
+) {
 
-  create_mode_r(
-    size = size,
-    family = family,
-    col_palette = greyness,
-    linewidth_palette = linewidthness
+  get_mode_r(
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = greyness[1],
+    axis_line_colour = greyness[2],
+    axis_line_linewidth = linewidthness[1],
+    panel_line_colour = greyness[3],
+    panel_line_linewidth = linewidthness[2],
+    panel_background_colour = greyness[4],
+    plot_background_colour = greyness[5],
+    ...
   )
 }
 
-#' Grey mode with top legend
+#' Grey mode theme with top legend
 #'
-#' @description Grey mode with top legend using `greyness` and `linewidthness`.
+#' @description Grey mode theme with top legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams create_mode_t
+#' @inheritParams grey_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -57,22 +67,30 @@ grey_mode_r <- function (
 #'   )
 #'
 grey_mode_t <- function (
-    size = 11,
-    family = "") {
+    text_size = 11,
+    text_family = "",
+    ...
+) {
 
-  create_mode_t(
-    size = size,
-    family = family,
-    col_palette = greyness,
-    linewidth_palette = linewidthness
+  get_mode_t(
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = greyness[1],
+    axis_line_colour = greyness[2],
+    axis_line_linewidth = linewidthness[1],
+    panel_line_colour = greyness[3],
+    panel_line_linewidth = linewidthness[2],
+    panel_background_colour = greyness[4],
+    plot_background_colour = greyness[5],
+    ...
   )
 }
 
-#' Grey mode with bottom legend
+#' Grey mode theme with bottom legend
 #'
-#' @description Grey mode with bottom legend using `greyness` and `linewidthness`.
+#' @description Grey mode theme with bottom legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams create_mode_b
+#' @inheritParams grey_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -92,22 +110,30 @@ grey_mode_t <- function (
 #'   )
 #'
 grey_mode_b <- function (
-    size = 11,
-    family = "") {
+    text_size = 11,
+    text_family = "",
+    ...
+) {
 
-  create_mode_b(
-    size = size,
-    family = family,
-    col_palette = greyness,
-    linewidth_palette = linewidthness
+  get_mode_b(
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = greyness[1],
+    axis_line_colour = greyness[2],
+    axis_line_linewidth = linewidthness[1],
+    panel_line_colour = greyness[3],
+    panel_line_linewidth = linewidthness[2],
+    panel_background_colour = greyness[4],
+    plot_background_colour = greyness[5],
+    ...
   )
 }
 
-#' Grey mode with no legend
+#' Grey mode theme with no legend
 #'
-#' @description Grey mode with no legend using `greyness` and `linewidthness`.
+#' @description Grey mode theme with no legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams create_mode_n
+#' @inheritParams grey_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -127,13 +153,21 @@ grey_mode_b <- function (
 #'   )
 #'
 grey_mode_n <- function (
-    size = 11,
-    family = "") {
+    text_size = 11,
+    text_family = "",
+    ...
+) {
 
-  create_mode_n(
-    size = size,
-    family = family,
-    col_palette = greyness,
-    linewidth_palette = linewidthness
+  get_mode_n(
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = greyness[1],
+    axis_line_colour = greyness[2],
+    axis_line_linewidth = linewidthness[1],
+    panel_line_colour = greyness[3],
+    panel_line_linewidth = linewidthness[2],
+    panel_background_colour = greyness[4],
+    plot_background_colour = greyness[5],
+    ...
   )
 }

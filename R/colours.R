@@ -55,7 +55,7 @@ pink <- "#bc5090"
 
 #' The `light_mode_*` theme colours
 #'
-#' @description A vector of 5 colours used in the `light_mode_*` themes for the for the text, line, panel.grid, panel.background and plot.background.
+#' @description A vector of 5 colours used in the `light_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
 #'
 #' @return A character vector.
 #' @export
@@ -63,16 +63,16 @@ pink <- "#bc5090"
 #' @examples
 #' scales::show_col(lightness)
 lightness <- c(
-  "#121b24", #text
-  "#121b24", #line
-  "#f6f8fa", #panel.grid
-  "#ffffff", #panel.background
-  "#ffffff" #plot.background
+  "#121b24",
+  "#121b24",
+  "#f6f8fa",
+  "#ffffff",
+  "#ffffff"
 )
 
 #' The `grey_mode_*` theme colours
 #'
-#' @description A vector of 5 colours used in the `grey_mode_*` themes for the for the text, line, panel.grid, panel.background and plot.background.
+#' @description A vector of 5 colours used in the `grey_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
 #'
 #' @return A character vector.
 #' @export
@@ -80,16 +80,16 @@ lightness <- c(
 #' @examples
 #' scales::show_col(greyness)
 greyness <- c(
-  "#121b24", #text
-  "#121b24", #line
-  "#f6f8fa", #panel.grid
-  "#fcfdfe", #panel.background
-  "#f6f8fa" #plot.background
+  "#121b24",
+  "#121b24",
+  "#f6f8fa",
+  "#fcfdfe",
+  "#f6f8fa"
 )
 
 #' The `dark_mode_*` theme colours
 #'
-#' @description A vector of 5 colours used in the `dark_mode_*` themes for the for the text, line, panel.grid, panel.background and plot.background.
+#' @description A vector of 5 colours used in the `dark_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
 #'
 #' @return A character vector.
 #' @export
@@ -97,16 +97,16 @@ greyness <- c(
 #' @examples
 #' scales::show_col(darkness)
 darkness <- c(
-  "#c8d7df", #text
-  "#c8d7df", #line
-  "#00040a", #panel.grid
-  "#050d1b", #panel.background
-  "#00040a" #plot.background
+  "#c8d7df",
+  "#c8d7df",
+  "#00040a",
+  "#050d1b",
+  "#00040a"
 )
 
 #' The `*_mode_*` linewidth values
 #'
-#' @description A vector of 2 integers used in the `*_mode_*` themes for the for the linewidth of the line/rect and panel.grid theme elements.
+#' @description A vector of 2 integers used in the `*_mode_*` themes for the for the linewidth of the axis.line (and axis.ticks), axis.ticks and panel.grid theme elements.
 #'
 #' @return A numeric vector.
 #' @export

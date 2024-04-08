@@ -2,7 +2,9 @@
 #'
 #' @description Light mode theme with right legend using `lightness` and `linewidthness`.
 #'
-#' @inheritParams create_mode_r
+#' @param text_size The base size of the text. Defaults to 11. The title is 110% of this, caption 85% and tag 120%.
+#' @param text_family The family of the text. Defaults to "".
+#' @param ... Provided to support trailing commas only.
 #'
 #' @return A ggplot theme.
 #' @export
@@ -22,14 +24,22 @@
 #'   )
 #'
 light_mode_r <- function (
-    size = 11,
-    family = "") {
+    text_size = 11,
+    text_family = "",
+    ...
+  ) {
 
-  create_mode_r(
-    size = size,
-    family = family,
-    col_palette = lightness,
-    linewidth_palette = linewidthness
+  get_mode_r(
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = lightness[1],
+    axis_line_colour = lightness[2],
+    axis_line_linewidth = linewidthness[1],
+    panel_line_colour = lightness[3],
+    panel_line_linewidth = linewidthness[2],
+    panel_background_colour = lightness[4],
+    plot_background_colour = lightness[5],
+    ...
   )
 }
 
@@ -37,7 +47,7 @@ light_mode_r <- function (
 #'
 #' @description Light mode theme with top legend using `lightness` and `linewidthness`.
 #'
-#' @inheritParams create_mode_t
+#' @inheritParams light_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -57,14 +67,22 @@ light_mode_r <- function (
 #'   )
 #'
 light_mode_t <- function (
-    size = 11,
-    family = "") {
+    text_size = 11,
+    text_family = "",
+    ...
+) {
 
-  create_mode_t(
-    size = size,
-    family = family,
-    col_palette = lightness,
-    linewidth_palette = linewidthness
+  get_mode_t(
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = lightness[1],
+    axis_line_colour = lightness[2],
+    axis_line_linewidth = linewidthness[1],
+    panel_line_colour = lightness[3],
+    panel_line_linewidth = linewidthness[2],
+    panel_background_colour = lightness[4],
+    plot_background_colour = lightness[5],
+    ...
   )
 }
 
@@ -72,7 +90,7 @@ light_mode_t <- function (
 #'
 #' @description Light mode theme with bottom legend using `lightness` and `linewidthness`.
 #'
-#' @inheritParams create_mode_b
+#' @inheritParams light_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -92,14 +110,22 @@ light_mode_t <- function (
 #'   )
 #'
 light_mode_b <- function (
-    size = 11,
-    family = "") {
+    text_size = 11,
+    text_family = "",
+    ...
+) {
 
-  create_mode_b(
-    size = size,
-    family = family,
-    col_palette = lightness,
-    linewidth_palette = linewidthness
+  get_mode_b(
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = lightness[1],
+    axis_line_colour = lightness[2],
+    axis_line_linewidth = linewidthness[1],
+    panel_line_colour = lightness[3],
+    panel_line_linewidth = linewidthness[2],
+    panel_background_colour = lightness[4],
+    plot_background_colour = lightness[5],
+    ...
   )
 }
 
@@ -107,7 +133,7 @@ light_mode_b <- function (
 #'
 #' @description Light mode theme with no legend using `lightness` and `linewidthness`.
 #'
-#' @inheritParams create_mode_n
+#' @inheritParams light_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -127,13 +153,21 @@ light_mode_b <- function (
 #'   )
 #'
 light_mode_n <- function (
-    size = 11,
-    family = "") {
+    text_size = 11,
+    text_family = "",
+    ...
+) {
 
-  create_mode_n(
-    size = size,
-    family = family,
-    col_palette = lightness,
-    linewidth_palette = linewidthness
+  get_mode_n(
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = lightness[1],
+    axis_line_colour = lightness[2],
+    axis_line_linewidth = linewidthness[1],
+    panel_line_colour = lightness[3],
+    panel_line_linewidth = linewidthness[2],
+    panel_background_colour = lightness[4],
+    plot_background_colour = lightness[5],
+    ...
   )
 }

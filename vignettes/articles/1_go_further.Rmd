@@ -270,12 +270,13 @@ penguins |>
     x = n,
     y = sex,
     col = species,
+    label = n,
     width = 0.75,
     y_labels = \(x) str_to_sentence(x),
     mode = dark_mode_r(),
   ) +
   geom_text(
-    mapping = aes(label = n, !!!aes_contrast(darkness[c(5, 1)])),
+    mapping = aes_contrast(colour_dark = darkness[5], colour_light = darkness[1]),
     position = position_dodge2(width = 0.75, preserve = "single"),
     hjust = 1.25,
     show.legend = FALSE,

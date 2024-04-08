@@ -4,10 +4,12 @@
 \alias{aes_contrast}
 \title{A colour aesthetic that automatically contrasts with fill.}
 \usage{
-aes_contrast(contrast_palette = c("#121b24", "#ffffff"))
+aes_contrast(dark = "#121b24", light = "#ffffff")
 }
 \arguments{
-\item{contrast_palette}{A vector of a dark colour and then a light colour. Defaults to \code{c("#121b24" ,"#ffffff")} (i.e. \code{lightness[c(1, 4)]}).}
+\item{dark}{A dark colour. Defaults to \code{"#121b24"} (i.e. \code{lightness[1]}).}
+
+\item{light}{A light colour. Defaults to \code{"#ffffff"} (i.e. \code{lightness[4]}).}
 }
 \value{
 An aesthetic
@@ -40,21 +42,4 @@ penguins |>
     show.legend = FALSE,
   )
 
-penguins |>
-  count(species, sex) |>
-  gg_col(
-    x = n,
-    y = sex,
-    col = species,
-    position = position_dodge2(preserve = "single"),
-    width = 0.75,
-    y_labels = \(x) str_to_sentence(x),
-    mode = dark_mode_r(),
-  ) +
-  geom_text(
-    mapping = aes(label = n, !!!aes_contrast(darkness[c(5, 1)])),
-    position = position_dodge2(width = 0.75, preserve = "single"),
-    hjust = 1.25,
-    show.legend = FALSE,
-  )
 }

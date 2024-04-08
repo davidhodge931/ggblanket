@@ -18,7 +18,7 @@ set_blanket(
 
 \item{annotate_colour}{A default annotate colour used for \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}. Fill inherits from this colour. Defaults to \code{lightness[1]}.}
 
-\item{...}{Provided only to support trailing commas.}
+\item{...}{Provided to support trailing commas only.}
 }
 \value{
 A globally set mode and updated geom defaults.

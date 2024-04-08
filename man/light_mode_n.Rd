@@ -4,12 +4,14 @@
 \alias{light_mode_n}
 \title{Light mode theme with no legend}
 \usage{
-light_mode_n(size = 11, family = "")
+light_mode_n(text_size = 11, text_family = "", ...)
 }
 \arguments{
-\item{size}{The base size of the text. Defaults to 11. The title adds 10\%.}
+\item{text_size}{The base size of the text. Defaults to 11. The title is 110\% of this, caption 85\% and tag 120\%.}
 
-\item{family}{The family of the text. Defaults to "".}
+\item{text_family}{The family of the text. Defaults to "".}
+
+\item{...}{Provided to support trailing commas only.}
 }
 \value{
 A ggplot theme.
