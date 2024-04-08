@@ -5,7 +5,7 @@
 * Breaking: in `set_blanket`, renamed arguments to remove `_default`.
 * Breaking: removed `weave_geom_defaults` and `weave_annotate_defaults`.
 * Breaking: removed `facet_labels_position` and `facet_labels_switch`.
-* Breaking: in `aes_contrast`, changed `contrast_pal` to `colour_dark` and `colour_light`. 
+* Breaking: in `aes_contrast`, changed `contrast_pal` to `dark` and `light`. 
 * Breaking: in `*_mode_*`, changed `base_size` and `base_family` to `text_size` and `text_family`. 
 * Added `pink` and used this in default colours for a discrete scale for 4 values.
 * Updated `*ness` helper pals.
