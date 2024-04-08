@@ -40,12 +40,14 @@ get_contrast <- function(fill, dark = "#121b24", light = "#ffffff") {
 #'     x = sex,
 #'     y = n,
 #'     col = species,
+#'     label = n,
 #'     position = position_dodge2(preserve = "single"),
 #'     width = 0.75,
 #'     x_labels = \(x) str_to_sentence(x),
 #'   ) +
 #'   geom_text(
-#'     mapping = aes(label = n, !!!aes_contrast()),
+#'     mapping = aes_contrast(),
+#'     # mapping = aes(!!!aes_contrast()),
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     vjust = 1.33,
 #'     show.legend = FALSE,
