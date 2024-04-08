@@ -11,8 +11,8 @@
 #'
 get_contrast <- function(fill, dark = "#121b24", light = "#ffffff") {
   out <- rep(dark, length(fill))
-  .light <- farver::get_channel(fill, "l", space = "hcl")
-  out[.light < 50] <- light
+  channel <- farver::get_channel(fill, "l", space = "hcl")
+  out[channel < 50] <- light
   out
 }
 
