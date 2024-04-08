@@ -2,9 +2,7 @@
 #'
 #' @description Dark mode theme with right legend using `darkness` and `linewidthness`.
 #'
-#' @param base_size The base size of the text. Defaults to 11. The title is 110% of this, caption 85% and tag 120%.
-#' @param base_family The family of the text. Defaults to "".
-#' @param ... Provided to support trailing commas only.
+#' @inheritParams light_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -24,15 +22,16 @@
 #'   )
 #'
 dark_mode_r <- function (
-    base_size = 11,
-    base_family = "",
+    text_size = 11,
+    text_family = "",
+    text_colour = darkness[1],
     ...
 ) {
 
   get_mode_r(
-    base_size = base_size,
-    base_family = base_family,
-    text_colour = darkness[1],
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = text_colour,
     axis_line_colour = darkness[2],
     axis_line_linewidth = linewidthness[1],
     panel_line_colour = darkness[3],
@@ -47,7 +46,7 @@ dark_mode_r <- function (
 #'
 #' @description Dark mode theme with top legend using `darkness` and `linewidthness`.
 #'
-#' @inheritParams dark_mode_r
+#' @inheritParams light_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -67,15 +66,16 @@ dark_mode_r <- function (
 #'   )
 #'
 dark_mode_t <- function (
-    base_size = 11,
-    base_family = "",
+    text_size = 11,
+    text_family = "",
+    text_colour = darkness[1],
     ...
 ) {
 
   get_mode_t(
-    base_size = base_size,
-    base_family = base_family,
-    text_colour = darkness[1],
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = text_colour,
     axis_line_colour = darkness[2],
     axis_line_linewidth = linewidthness[1],
     panel_line_colour = darkness[3],
@@ -90,7 +90,7 @@ dark_mode_t <- function (
 #'
 #' @description Dark mode theme with bottom legend using `darkness` and `linewidthness`.
 #'
-#' @inheritParams dark_mode_r
+#' @inheritParams light_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -110,15 +110,16 @@ dark_mode_t <- function (
 #'   )
 #'
 dark_mode_b <- function (
-    base_size = 11,
-    base_family = "",
+    text_size = 11,
+    text_family = "",
+    text_colour = darkness[1],
     ...
 ) {
 
   get_mode_b(
-    base_size = base_size,
-    base_family = base_family,
-    text_colour = darkness[1],
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = text_colour,
     axis_line_colour = darkness[2],
     axis_line_linewidth = linewidthness[1],
     panel_line_colour = darkness[3],
@@ -133,7 +134,7 @@ dark_mode_b <- function (
 #'
 #' @description Dark mode theme with no legend using `darkness` and `linewidthness`.
 #'
-#' @inheritParams dark_mode_r
+#' @inheritParams light_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -153,15 +154,16 @@ dark_mode_b <- function (
 #'   )
 #'
 dark_mode_n <- function (
-    base_size = 11,
-    base_family = "",
+    text_size = 11,
+    text_family = "",
+    text_colour = darkness[1],
     ...
 ) {
 
   get_mode_n(
-    base_size = base_size,
-    base_family = base_family,
-    text_colour = darkness[1],
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = text_colour,
     axis_line_colour = darkness[2],
     axis_line_linewidth = linewidthness[1],
     panel_line_colour = darkness[3],

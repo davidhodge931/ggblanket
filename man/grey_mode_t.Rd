@@ -4,12 +4,14 @@
 \alias{grey_mode_t}
 \title{Grey mode theme with top legend}
 \usage{
-grey_mode_t(base_size = 11, base_family = "", ...)
+grey_mode_t(text_size = 11, text_family = "", text_colour = greyness[1], ...)
 }
 \arguments{
-\item{base_size}{The base size of the text. Defaults to 11. The title is 110\% of this, caption 85\% and tag 120\%.}
+\item{text_size}{The base size of the text. Defaults to 11. The title is 110\% of this, caption 85\% and tag 120\%.}
 
-\item{base_family}{The family of the text. Defaults to "".}
+\item{text_family}{The family of the text. Defaults to "".}
+
+\item{text_colour}{A colour of the text theme element. The caption colour is scales::alpha(text_colour, 0.75).}
 
 \item{...}{Provided to support trailing commas only.}
 }

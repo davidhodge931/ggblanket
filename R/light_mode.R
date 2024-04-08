@@ -2,8 +2,9 @@
 #'
 #' @description Light mode theme with right legend using `lightness` and `linewidthness`.
 #'
-#' @param base_size The base size of the text. Defaults to 11. The title is 110% of this, caption 85% and tag 120%.
-#' @param base_family The family of the text. Defaults to "".
+#' @param text_size The base size of the text. Defaults to 11. The title is 110% of this, caption 85% and tag 120%.
+#' @param text_family The family of the text. Defaults to "".
+#' @param text_colour A colour of the text theme element. The caption colour is scales::alpha(text_colour, 0.75).
 #' @param ... Provided to support trailing commas only.
 #'
 #' @return A ggplot theme.
@@ -24,15 +25,16 @@
 #'   )
 #'
 light_mode_r <- function (
-    base_size = 11,
-    base_family = "",
+    text_size = 11,
+    text_family = "",
+    text_colour = lightness[1],
     ...
   ) {
 
   get_mode_r(
-    base_size = base_size,
-    base_family = base_family,
-    text_colour = lightness[1],
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = text_colour,
     axis_line_colour = lightness[2],
     axis_line_linewidth = linewidthness[1],
     panel_line_colour = lightness[3],
@@ -67,15 +69,16 @@ light_mode_r <- function (
 #'   )
 #'
 light_mode_t <- function (
-    base_size = 11,
-    base_family = "",
+    text_size = 11,
+    text_family = "",
+    text_colour = lightness[1],
     ...
 ) {
 
   get_mode_t(
-    base_size = base_size,
-    base_family = base_family,
-    text_colour = lightness[1],
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = text_colour,
     axis_line_colour = lightness[2],
     axis_line_linewidth = linewidthness[1],
     panel_line_colour = lightness[3],
@@ -110,15 +113,16 @@ light_mode_t <- function (
 #'   )
 #'
 light_mode_b <- function (
-    base_size = 11,
-    base_family = "",
+    text_size = 11,
+    text_family = "",
+    text_colour = lightness[1],
     ...
 ) {
 
   get_mode_b(
-    base_size = base_size,
-    base_family = base_family,
-    text_colour = lightness[1],
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = text_colour,
     axis_line_colour = lightness[2],
     axis_line_linewidth = linewidthness[1],
     panel_line_colour = lightness[3],
@@ -153,15 +157,16 @@ light_mode_b <- function (
 #'   )
 #'
 light_mode_n <- function (
-    base_size = 11,
-    base_family = "",
+    text_size = 11,
+    text_family = "",
+    text_colour = lightness[1],
     ...
 ) {
 
   get_mode_n(
-    base_size = base_size,
-    base_family = base_family,
-    text_colour = lightness[1],
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = text_colour,
     axis_line_colour = lightness[2],
     axis_line_linewidth = linewidthness[1],
     panel_line_colour = lightness[3],

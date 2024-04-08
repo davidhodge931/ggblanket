@@ -6,6 +6,8 @@
 * Breaking: removed `weave_geom_defaults` and `weave_annotate_defaults`.
 * Breaking: removed `facet_labels_position` and `facet_labels_switch`.
 * Breaking: in `aes_contrast`, changed `contrast_pal` to `dark` and `light`. 
+* Breaking: renamed `*_mode_*` arguments to `text_size` and `text_family` . 
+* Added `text_colour` argument to `*_mode_*`. 
 * Added `pink` and used this in default colours for a discrete scale for 4 values.
 * Updated `*ness` helper pals.
 * Made compatible with extension geoms with no x or y variables in `layer_data`.

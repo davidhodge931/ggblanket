@@ -5,8 +5,8 @@
 \title{Flexible mode with no legend}
 \usage{
 get_mode_n(
-  base_size = 11,
-  base_family = "",
+  text_size = 11,
+  text_family = "",
   text_colour = lightness[1],
   axis_line_colour = lightness[2],
   panel_line_colour = lightness[3],
@@ -18,9 +18,9 @@ get_mode_n(
 )
 }
 \arguments{
-\item{base_size}{The base size of the text. Defaults to 11. The title is 110\% of this, caption 85\% and tag 120\%.}
+\item{text_size}{The base size of the text. Defaults to 11. The title is 110\% of this, caption 85\% and tag 120\%.}
 
-\item{base_family}{The family of the text. Defaults to "".}
+\item{text_family}{The family of the text. Defaults to "".}
 
 \item{text_colour}{A colour of the text theme element. The caption colour is scales::alpha(text_colour, 0.75).}
 
@@ -28,9 +28,9 @@ get_mode_n(
 
 \item{panel_line_colour}{The colour of the panel.line theme element.}
 
-\item{panel_background_colour}{The colour of the panel.background theme element. Fill inherits from this.}
+\item{panel_background_colour}{The colour (and fill) of the panel.background theme element.}
 
-\item{plot_background_colour}{The colour of the plot.background, legend.background, strip.background, and legend.key theme elements. Fill inherits from this.}
+\item{plot_background_colour}{The colour (and fill) of the plot.background, legend.background and legend.key theme elements.}
 
 \item{axis_line_linewidth}{The linewidth of the axis.line and axis.ticks theme element.}
 
