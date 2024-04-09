@@ -10,8 +10,8 @@ make_mode_n(
   text_face = "plain",
   text_colour = lightness[1],
   title_size = ggplot2::rel(1.1),
-  title_family = "bold",
-  title_face = text_face,
+  title_family = text_family,
+  title_face = "bold",
   title_colour = text_colour,
   subtitle_size = ggplot2::rel(1),
   subtitle_family = text_family,
@@ -21,59 +21,69 @@ make_mode_n(
   caption_family = text_family,
   caption_face = text_face,
   caption_colour = scales::alpha(text_colour, 0.75),
-  axis_colour = lightness[2],
-  axis_linewidth = linewidthness[1],
-  grid_colour = lightness[3],
-  grid_linewidth = linewidthness[2],
-  panel_fill = lightness[4],
-  plot_fill = lightness[5],
+  axis_line_colour = axis_line_colour,
+  axis_line_linewidth = axis_line_linewidth,
+  axis_ticks_colour = axis_ticks_colour,
+  axis_ticks_linewidth = axis_ticks_linewidth,
+  panel_grid_colour = panel_grid_colour,
+  panel_grid_linewidth = panel_grid_linewidth,
+  panel_background_fill = panel_background_fill,
+  plot_background_fill = plot_background_fill,
+  legend_background_fill = legend_background_fill,
+  legend_key_fill = legend_key_fill,
   ...
 )
 }
 \arguments{
-\item{text_size}{The size of the text theme element. Defaults to 11.}
+\item{text_size}{The size of the text theme element.}
 
-\item{text_family}{The family of the text theme element. Defaults to "".}
+\item{text_family}{The family of the text theme element.}
 
-\item{text_face}{The face of the text theme element. Defaults to "plain".}
+\item{text_face}{The face of the text theme element.}
 
 \item{text_colour}{The colour of the text theme element.}
 
-\item{title_size}{The size of the plot.title theme element. Defaults to 11.}
+\item{title_size}{The size of the plot.title theme element.}
 
-\item{title_family}{The family of the plot.title theme element. Defaults to "".}
+\item{title_family}{The family of the plot.title theme element.}
 
-\item{title_face}{The face of the plot.title theme element. Defaults to "plain".}
+\item{title_face}{The face of the plot.title theme element.}
 
 \item{title_colour}{The colour of the plot.title theme element.}
 
-\item{subtitle_size}{The size of the plot.subtitle theme element. Defaults to 11.}
+\item{subtitle_size}{The size of the plot.subtitle theme element.}
 
-\item{subtitle_family}{The family of the plot.subtitle theme element. Defaults to "".}
+\item{subtitle_family}{The family of the plot.subtitle theme element.}
 
-\item{subtitle_face}{The face of the plot.subtitle theme element. Defaults to "plain".}
+\item{subtitle_face}{The face of the plot.subtitle theme element.}
 
 \item{subtitle_colour}{The colour of the plot.subtitle theme element.}
 
-\item{caption_size}{The size of the plot.caption theme element. Defaults to 11.}
+\item{caption_size}{The size of the plot.caption theme element.}
 
-\item{caption_family}{The family of the plot.caption theme element. Defaults to "".}
+\item{caption_family}{The family of the plot.caption theme element.}
 
-\item{caption_face}{The face of the plot.caption theme element. Defaults to "plain".}
+\item{caption_face}{The face of the plot.caption theme element.}
 
 \item{caption_colour}{The colour of the plot.caption theme element.}
 
-\item{axis_colour}{The colour of the axis.line and axis.ticks theme elements.}
+\item{axis_line_colour}{The colour of the axis.line theme element.}
 
-\item{axis_linewidth}{The linewidth of the axis.line and axis.ticks theme element.}
+\item{axis_line_linewidth}{The linewidth of the axis.line theme element.}
 
-\item{grid_colour}{The colour of the panel.grid theme element.}
+\item{axis_ticks_linewidth}{The linewidth of the axis.ticks theme element.}
 
-\item{grid_linewidth}{The linewidth of the panel.grid theme element.}
+\item{panel_grid_colour}{The colour of the panel.grid theme element.}
 
-\item{panel_fill}{The fill (and colour) of the panel.background theme element.}
+\item{panel_grid_linewidth}{The linewidth of the panel.grid theme element.}
 
-\item{plot_fill}{The fill (and colour) of the plot.background, legend.background and legend.key theme elements.}
+\item{panel_background_fill}{The fill (and colour) of the panel.background theme element.}
+
+\item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
+
+\item{legend_background_fill}{The fill (and colour) of the legend.background theme element.}
+
+\item{legend_key_fill}{The fill (and colour) of the legend.key theme element.}
 
 \item{...}{Provided to support trailing commas only.}
 }
