@@ -65,28 +65,32 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_mode_b</span><span class="op">(</span></span>
-<span>  text_size <span class="op">=</span> <span class="va">text_size</span>,</span>
-<span>  text_family <span class="op">=</span> <span class="va">text_family</span>,</span>
-<span>  text_face <span class="op">=</span> <span class="va">text_face</span>,</span>
-<span>  text_colour <span class="op">=</span> <span class="va">text_colour</span>,</span>
-<span>  title_size <span class="op">=</span> <span class="va">title_size</span>,</span>
-<span>  title_family <span class="op">=</span> <span class="va">title_family</span>,</span>
-<span>  title_face <span class="op">=</span> <span class="va">title_face</span>,</span>
-<span>  title_colour <span class="op">=</span> <span class="va">title_colour</span>,</span>
-<span>  subtitle_size <span class="op">=</span> <span class="va">subtitle_size</span>,</span>
-<span>  subtitle_family <span class="op">=</span> <span class="va">subtitle_family</span>,</span>
-<span>  subtitle_face <span class="op">=</span> <span class="va">subtitle_face</span>,</span>
-<span>  subtitle_colour <span class="op">=</span> <span class="va">subtitle_colour</span>,</span>
-<span>  caption_size <span class="op">=</span> <span class="va">caption_size</span>,</span>
-<span>  caption_family <span class="op">=</span> <span class="va">caption_family</span>,</span>
-<span>  caption_face <span class="op">=</span> <span class="va">caption_face</span>,</span>
-<span>  caption_colour <span class="op">=</span> <span class="va">caption_colour</span>,</span>
-<span>  axis_colour <span class="op">=</span> <span class="va">axis_colour</span>,</span>
-<span>  axis_linewidth <span class="op">=</span> <span class="va">axis_linewidth</span>,</span>
-<span>  grid_colour <span class="op">=</span> <span class="va">grid_colour</span>,</span>
-<span>  grid_linewidth <span class="op">=</span> <span class="va">grid_linewidth</span>,</span>
-<span>  panel_fill <span class="op">=</span> <span class="va">panel_fill</span>,</span>
-<span>  plot_fill <span class="op">=</span> <span class="va">plot_fill</span>,</span>
+<span>  text_size <span class="op">=</span> <span class="fl">11</span>,</span>
+<span>  text_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  text_face <span class="op">=</span> <span class="st">"plain"</span>,</span>
+<span>  text_colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  title_size <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">rel</a></span><span class="op">(</span><span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>  title_family <span class="op">=</span> <span class="va">text_family</span>,</span>
+<span>  title_face <span class="op">=</span> <span class="st">"bold"</span>,</span>
+<span>  title_colour <span class="op">=</span> <span class="va">text_colour</span>,</span>
+<span>  subtitle_size <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">rel</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>  subtitle_family <span class="op">=</span> <span class="va">text_family</span>,</span>
+<span>  subtitle_face <span class="op">=</span> <span class="va">text_face</span>,</span>
+<span>  subtitle_colour <span class="op">=</span> <span class="va">text_colour</span>,</span>
+<span>  caption_size <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">rel</a></span><span class="op">(</span><span class="fl">0.85</span><span class="op">)</span>,</span>
+<span>  caption_family <span class="op">=</span> <span class="va">text_family</span>,</span>
+<span>  caption_face <span class="op">=</span> <span class="va">text_face</span>,</span>
+<span>  caption_colour <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="va">text_colour</span>, <span class="fl">0.75</span><span class="op">)</span>,</span>
+<span>  axis_line_colour <span class="op">=</span> <span class="va">axis_line_colour</span>,</span>
+<span>  axis_line_linewidth <span class="op">=</span> <span class="va">axis_line_linewidth</span>,</span>
+<span>  axis_ticks_colour <span class="op">=</span> <span class="va">axis_ticks_colour</span>,</span>
+<span>  axis_ticks_linewidth <span class="op">=</span> <span class="va">axis_ticks_linewidth</span>,</span>
+<span>  panel_grid_colour <span class="op">=</span> <span class="va">panel_grid_colour</span>,</span>
+<span>  panel_grid_linewidth <span class="op">=</span> <span class="va">panel_grid_linewidth</span>,</span>
+<span>  panel_background_fill <span class="op">=</span> <span class="va">panel_background_fill</span>,</span>
+<span>  plot_background_fill <span class="op">=</span> <span class="va">plot_background_fill</span>,</span>
+<span>  legend_background_fill <span class="op">=</span> <span class="va">legend_background_fill</span>,</span>
+<span>  legend_key_fill <span class="op">=</span> <span class="va">legend_key_fill</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -94,15 +98,15 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>text_size</dt>
-<dd><p>The size of the text theme element. Defaults to 11.</p></dd>
+<dd><p>The size of the text theme element.</p></dd>
 
 
 <dt>text_family</dt>
-<dd><p>The family of the text theme element. Defaults to "".</p></dd>
+<dd><p>The family of the text theme element.</p></dd>
 
 
 <dt>text_face</dt>
-<dd><p>The face of the text theme element. Defaults to "plain".</p></dd>
+<dd><p>The face of the text theme element.</p></dd>
 
 
 <dt>text_colour</dt>
@@ -110,15 +114,15 @@
 
 
 <dt>title_size</dt>
-<dd><p>The size of the plot.title theme element. Defaults to 11.</p></dd>
+<dd><p>The size of the plot.title theme element.</p></dd>
 
 
 <dt>title_family</dt>
-<dd><p>The family of the plot.title theme element. Defaults to "".</p></dd>
+<dd><p>The family of the plot.title theme element.</p></dd>
 
 
 <dt>title_face</dt>
-<dd><p>The face of the plot.title theme element. Defaults to "plain".</p></dd>
+<dd><p>The face of the plot.title theme element.</p></dd>
 
 
 <dt>title_colour</dt>
@@ -126,15 +130,15 @@
 
 
 <dt>subtitle_size</dt>
-<dd><p>The size of the plot.subtitle theme element. Defaults to 11.</p></dd>
+<dd><p>The size of the plot.subtitle theme element.</p></dd>
 
 
 <dt>subtitle_family</dt>
-<dd><p>The family of the plot.subtitle theme element. Defaults to "".</p></dd>
+<dd><p>The family of the plot.subtitle theme element.</p></dd>
 
 
 <dt>subtitle_face</dt>
-<dd><p>The face of the plot.subtitle theme element. Defaults to "plain".</p></dd>
+<dd><p>The face of the plot.subtitle theme element.</p></dd>
 
 
 <dt>subtitle_colour</dt>
@@ -142,43 +146,55 @@
 
 
 <dt>caption_size</dt>
-<dd><p>The size of the plot.caption theme element. Defaults to 11.</p></dd>
+<dd><p>The size of the plot.caption theme element.</p></dd>
 
 
 <dt>caption_family</dt>
-<dd><p>The family of the plot.caption theme element. Defaults to "".</p></dd>
+<dd><p>The family of the plot.caption theme element.</p></dd>
 
 
 <dt>caption_face</dt>
-<dd><p>The face of the plot.caption theme element. Defaults to "plain".</p></dd>
+<dd><p>The face of the plot.caption theme element.</p></dd>
 
 
 <dt>caption_colour</dt>
 <dd><p>The colour of the plot.caption theme element.</p></dd>
 
 
-<dt>axis_colour</dt>
-<dd><p>The colour of the axis.line and axis.ticks theme elements.</p></dd>
+<dt>axis_line_colour</dt>
+<dd><p>The colour of the axis.line theme element.</p></dd>
 
 
-<dt>axis_linewidth</dt>
-<dd><p>The linewidth of the axis.line and axis.ticks theme element.</p></dd>
+<dt>axis_line_linewidth</dt>
+<dd><p>The linewidth of the axis.line theme element.</p></dd>
 
 
-<dt>grid_colour</dt>
+<dt>axis_ticks_linewidth</dt>
+<dd><p>The linewidth of the axis.ticks theme element.</p></dd>
+
+
+<dt>panel_grid_colour</dt>
 <dd><p>The colour of the panel.grid theme element.</p></dd>
 
 
-<dt>grid_linewidth</dt>
+<dt>panel_grid_linewidth</dt>
 <dd><p>The linewidth of the panel.grid theme element.</p></dd>
 
 
-<dt>panel_fill</dt>
+<dt>panel_background_fill</dt>
 <dd><p>The fill (and colour) of the panel.background theme element.</p></dd>
 
 
-<dt>plot_fill</dt>
-<dd><p>The fill (and colour) of the plot.background, legend.background and legend.key theme elements.</p></dd>
+<dt>plot_background_fill</dt>
+<dd><p>The fill (and colour) of the plot.background theme element.</p></dd>
+
+
+<dt>legend_background_fill</dt>
+<dd><p>The fill (and colour) of the legend.background theme element.</p></dd>
+
+
+<dt>legend_key_fill</dt>
+<dd><p>The fill (and colour) of the legend.key theme element.</p></dd>
 
 
 <dt>...</dt>
