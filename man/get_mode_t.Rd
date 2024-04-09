@@ -5,9 +5,9 @@
 \title{Flexible mode with top legend}
 \usage{
 get_mode_t(
-  text_size = 11,
-  text_family = "",
-  text_colour = lightness[1],
+  base_size = 11,
+  base_family = "",
+  base_colour = lightness[1],
   axis_line_colour = lightness[2],
   panel_line_colour = lightness[3],
   panel_background_colour = lightness[4],
@@ -18,11 +18,11 @@ get_mode_t(
 )
 }
 \arguments{
-\item{text_size}{The base size of the text. Defaults to 11. The title is 110\% of this, caption 85\% and tag 120\%.}
+\item{base_size}{The base size of the text. Defaults to 11. The title is 110\% of this, caption 85\% and tag 120\%.}
 
-\item{text_family}{The family of the text. Defaults to "".}
+\item{base_family}{The family of the text. Defaults to "".}
 
-\item{text_colour}{A colour of the text theme element. The caption colour is scales::alpha(text_colour, 0.75).}
+\item{base_colour}{A colour of the text theme element. The caption colour is scales::alpha(base_colour, 0.75).}
 
 \item{axis_line_colour}{The colour of the axis.line and axis.ticks theme elements.}
 
