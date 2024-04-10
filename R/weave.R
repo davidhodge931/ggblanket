@@ -92,3 +92,21 @@ weave_annotate <- function(annotate = "#121b24") {
   ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!annotate))
   ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!annotate, fill = !!annotate, alpha = 0.05))
 }
+
+#' Set a default discrete colour palette
+#'
+#' @param col_palette_d Colour palette to use for discrete scale. A character vector of hex codes (or names).
+#'
+#' @noRd
+weave_col_palette_d <- function(col_palette_d = c(teal, orange, navy, pink)) {
+  options(ggblanket.col_palette_d = col_palette_d)
+}
+
+#' Set a default continuous colour palette
+#'
+#' @param col_palette_c Colour palette to use for continuous scale. A character vector of hex codes (or names).
+#'
+#' @noRd
+weave_col_palette_c <- function(col_palette_c = viridisLite::mako(9)) {
+  options(ggblanket.col_palette_c = col_palette_c)
+}
