@@ -486,7 +486,7 @@ This function:
 * updates a series of geom defaults often used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`)
 * updates all other geom defaults.
 
-Within the `set_blanket` function, the user can select the `mode`, and the `geom_colour` and `annotate_colour` with the fill inheriting from these.
+Within the `set_blanket` function, the user can select the `mode`, the `colour` and `annotate` colour with the fill inheriting from these.
 
 Elements can be `+`-ed on to modes just as normal themes. The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
 

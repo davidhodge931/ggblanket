@@ -38,7 +38,7 @@ theme_env$theme_current <- ggplot2::theme_grey()
 #'
 #' @description Update a series of geom defaults.
 #'
-#' @param colour A hex colour. Defaults to #357ba2 (i.e. `blue`). The default geom fill inherits from colour.
+#' @param colour A hex colour. Defaults to #357ba2 (i.e. `blue`). The fill inherits.
 #'
 #' @noRd
 weave_colour <- function(colour = "#357ba2") {
@@ -81,14 +81,14 @@ weave_colour <- function(colour = "#357ba2") {
 #'
 #' @description Update a series of geom defaults commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`).
 #'
-#' @param colour A hex colour. Defaults to "#121b24" (i.e. `lightness[1]`). The default annotate fill inherits from annotate_colour.
+#' @param colour A hex colour. Defaults to "#121b24" (i.e. `lightness[1]`). The default annotate fill inherits.
 #'
 #' @noRd
-weave_colour_annotate <- function(colour_annotate = "#121b24") {
-  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour_annotate, linewidth = 0.33))
-  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour_annotate, linewidth = 0.33))
-  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour_annotate, linewidth = 0.33))
-  ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!colour_annotate, linewidth = 0.33))
-  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour_annotate))
-  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour_annotate, fill = !!colour_annotate, alpha = 0.05))
+weave_annotate <- function(annotate = "#121b24") {
+  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!annotate, linewidth = 0.33))
+  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!annotate, linewidth = 0.33))
+  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!annotate, linewidth = 0.33))
+  ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!annotate, linewidth = 0.33))
+  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!annotate))
+  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!annotate, fill = !!annotate, alpha = 0.05))
 }
