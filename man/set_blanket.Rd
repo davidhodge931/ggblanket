@@ -6,17 +6,17 @@
 \usage{
 set_blanket(
   mode = light_mode_r(),
-  geom_colour = "#357ba2",
-  annotate_colour = "#121b24",
+  colour = "#357ba2",
+  colour_annotate = "#121b24",
   ...
 )
 }
 \arguments{
 \item{mode}{A \verb{*_mode_*} set globally for when mode = NULL. E.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
 
-\item{geom_colour}{A default geom colour (and fill) for geoms other than those used by \code{annotate_colour}. Fill inherits from this colour. Defaults to \code{blue}.}
+\item{colour}{A default geom colour (and fill) for geoms other than those used by \code{colour_annotate}. Fill inherits from this colour. Defaults to \code{blue}.}
 
-\item{annotate_colour}{A default annotate colour used for \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}. Fill inherits from this colour. Defaults to \code{lightness[1]}.}
+\item{colour_annotate}{A default annotate colour used for \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}. Fill inherits from this colour. Defaults to \code{lightness[1]}.}
 
 \item{...}{Provided to support trailing commas only.}
 }

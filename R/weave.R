@@ -41,7 +41,7 @@ theme_env$theme_current <- ggplot2::theme_grey()
 #' @param colour A hex colour. Defaults to #357ba2 (i.e. `blue`). The default geom fill inherits from colour.
 #'
 #' @noRd
-weave_geom_defaults <- function(colour = "#357ba2") {
+weave_colour <- function(colour = "#357ba2") {
 
   ggplot2::update_geom_defaults("area", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9, linewidth = 0.66))
   ggplot2::update_geom_defaults("bar", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9, linewidth = 0.66))
@@ -84,11 +84,11 @@ weave_geom_defaults <- function(colour = "#357ba2") {
 #' @param colour A hex colour. Defaults to "#121b24" (i.e. `lightness[1]`). The default annotate fill inherits from annotate_colour.
 #'
 #' @noRd
-weave_annotate_defaults <- function(colour = "#121b24") {
-  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour, linewidth = 0.33))
-  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour, linewidth = 0.33))
-  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour, linewidth = 0.33))
-  ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!colour, linewidth = 0.33))
-  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour))
-  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.05))
+weave_colour_annotate <- function(colour_annotate = "#121b24") {
+  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour_annotate, linewidth = 0.33))
+  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour_annotate, linewidth = 0.33))
+  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour_annotate, linewidth = 0.33))
+  ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!colour_annotate, linewidth = 0.33))
+  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour_annotate))
+  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour_annotate, fill = !!colour_annotate, alpha = 0.05))
 }

@@ -2,8 +2,8 @@
 
 * Breaking: renamed `col_pal` to `col_palette`.
 * Breaking: removed ability to use `col_palette` when `col = NULL`.
-* Breaking: in `set_blanket`, renamed arguments to remove `_default`.
-* Breaking: removed `weave_geom_defaults` and `weave_annotate_defaults`.
+* Breaking: in `set_blanket`, renamed arguments.
+* Breaking: removed `weave_*` arguments.
 * Breaking: removed `facet_labels_position` and `facet_labels_switch`.
 * Breaking: in `aes_contrast`, changed `contrast_pal` to `dark` and `light`. 
 * Added `pink` and used this in default discrete colours for for 4 values.
