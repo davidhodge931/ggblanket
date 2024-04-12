@@ -1,3 +1,9 @@
+# internal
+ggblanket_global <- new.env(parent = emptyenv())
+ggblanket_global$mode_current <- light_mode_r()
+ggblanket_global$palette_d_current <- c(teal, orange, navy, pink)
+ggblanket_global$palette_c_current <- viridisLite::mako(n = 9)
+
 #' Get the default mode
 #'
 #' @description Get the current globally set theme that is added to the `mode` argument where NULL in the the `gg_*` functions.
@@ -5,14 +11,7 @@
 #'
 #' @noRd
 get_mode <- function() {
-  if (!identical(theme_env$theme_current, ggplot2::theme_get())) {
-    theme_env$mode_current <- ggplot2::theme_get()
-    theme_env$theme_current <- ggplot2::theme_get()
-    theme <- theme_env$theme_current
-  } else {
-    theme <- theme_env$mode_current
-  }
-  theme
+  ggblanket_global$mode_current
 }
 
 #' Set the default mode
@@ -23,16 +22,10 @@ get_mode <- function() {
 #'
 #' @noRd
 weave_mode <- function(mode = light_mode_r()) {
-  mode_old <- theme_env$mode_current
-  theme_env$mode_current <- mode
-  theme_env$theme_current <- ggplot2::theme_get()
-  invisible(mode_old)
+  old <- ggblanket_global$mode_current
+  ggblanket_global$mode_current <- mode
+  invisible(old)
 }
-
-# internal
-theme_env <- new.env(parent = emptyenv())
-theme_env$mode_current <- ggplot2::theme_grey()
-theme_env$theme_current <- ggplot2::theme_grey()
 
 #' Update a series of geom defaults
 #'
@@ -99,7 +92,10 @@ weave_annotate <- function(annotate = "#121b24") {
 #'
 #' @noRd
 weave_col_palette_d <- function(col_palette_d = c(teal, orange, navy, pink)) {
-  options(ggblanket.col_palette_d = col_palette_d)
+  # options(ggblanket.col_palette_d = col_palette_d)
+  old <- ggblanket_global$palette_d_current
+  ggblanket_global$palette_d_current <- col_palette_d
+  invisible(old)
 }
 
 #' Set a default continuous colour palette
@@ -108,5 +104,20 @@ weave_col_palette_d <- function(col_palette_d = c(teal, orange, navy, pink)) {
 #'
 #' @noRd
 weave_col_palette_c <- function(col_palette_c = viridisLite::mako(9)) {
-  options(ggblanket.col_palette_c = col_palette_c)
+  # options(ggblanket.col_palette_c = col_palette_c)
+  old <- ggblanket_global$palette_c_current
+  ggblanket_global$palette_c_current <- col_palette_c
+  invisible(old) 
+}
+
+#' Set a default discrete and continuous colour palettes
+#'
+#' @param col_palette_d Colour palette to use for discrete scale. A character vector of hex codes (or names).
+#' @param col_palette_c Colour palette to use for continuous scale. A character vector of hex codes (or names).
+#'
+#' @noRd
+weave_col_palette <- function(col_palette_d = c(teal, orange, navy, pink),
+                              col_palette_c = viridisLite::mako(n = 9)) {
+  weave_col_palette_d(col_palette_d)
+  weave_col_palette_c(col_palette_c)
 }
