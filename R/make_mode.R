@@ -19,8 +19,8 @@
 #' @param caption_face The face of the plot.caption theme element.
 #' @param caption_colour The colour of the plot.caption theme element.
 #' @param axis_line_colour The colour of the axis.line theme element.
-#' @param axis_line_ticks The colour of the axis.ticks theme element.
 #' @param axis_line_linewidth The linewidth of the axis.line theme element.
+#' @param axis_ticks_colour The colour of the axis.ticks theme element.
 #' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
 #' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
