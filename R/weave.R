@@ -1,13 +1,12 @@
 # internal
 ggblanket_global <- new.env(parent = emptyenv())
-ggblanket_global$mode_current <- light_mode_r()
-ggblanket_global$palette_d_current <- c(teal, orange, navy, pink)
-ggblanket_global$palette_c_current <- viridisLite::mako(n = 9)
+ggblanket_global$mode_current <- NULL
+ggblanket_global$palette_d_current <- NULL
+ggblanket_global$palette_c_current <- NULL
 
 #' Get the default mode
 #'
-#' @description Get the current globally set theme that is added to the `mode` argument where NULL in the the `gg_*` functions.
-#' Note [ggplot2::theme_get()] sets globally a new theme that is `+`-ed on as a layer to the `gg_*` functions.
+#' @description Get the current globally set mode.
 #'
 #' @noRd
 get_mode <- function() {
@@ -107,7 +106,7 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(9)) {
   # options(ggblanket.col_palette_c = col_palette_c)
   old <- ggblanket_global$palette_c_current
   ggblanket_global$palette_c_current <- col_palette_c
-  invisible(old) 
+  invisible(old)
 }
 
 #' Set a default discrete and continuous colour palettes
