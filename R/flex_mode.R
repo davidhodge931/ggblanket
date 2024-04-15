@@ -18,10 +18,13 @@
 #' @param caption_family The family of the plot.caption theme element.
 #' @param caption_face The face of the plot.caption theme element.
 #' @param caption_colour The colour of the plot.caption theme element.
+#' @param caption_hjust The horizontal adjustment of the plot.caption theme element.
 #' @param axis_line_colour The colour of the axis.line theme element.
 #' @param axis_line_linewidth The linewidth of the axis.line theme element.
 #' @param axis_ticks_colour The colour of the axis.ticks theme element.
 #' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
+#' @param axis_ticks_length_x_pt The length of the axis.ticks.length.x theme element in points.
+#' @param axis_ticks_linewidth_y_pt The length of the axis.ticks.length.y theme element in points.
 #' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
 #' @param panel_background_fill The fill (and colour) of the panel.background theme element.
@@ -32,7 +35,7 @@
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-make_mode_base <- function(
+flex_mode_base <- function(
     text_size = 11,
     text_family = "",
     text_face = "plain",
@@ -49,10 +52,13 @@ make_mode_base <- function(
     caption_family = text_family,
     caption_face = text_face,
     caption_colour = scales::alpha(text_colour, 0.75),
+    caption_hjust = 0,
     axis_line_colour = lightness[2],
     axis_line_linewidth = linewidthness[1],
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length_x_pt = text_size / 3,
+    axis_ticks_length_y_pt = text_size / 4,
     panel_grid_colour = lightness[3],
     panel_grid_linewidth = linewidthness[2],
     panel_background_fill = lightness[4],
@@ -71,10 +77,10 @@ make_mode_base <- function(
     axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = text_size * 0.25), hjust = 1),
     axis.text.y.right = ggplot2::element_text(margin = ggplot2::margin(l = text_size * 0.25), hjust = 0),
     axis.ticks = ggplot2::element_line(colour = axis_ticks_colour, linewidth = axis_ticks_linewidth),
-    axis.ticks.length.x = grid::unit(text_size/3, "pt"),
+    axis.ticks.length.x = grid::unit(axis_ticks_length_x_pt, "pt"),
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
-    axis.ticks.length.y = grid::unit(text_size/4, "pt"),
+    axis.ticks.length.y = grid::unit(axis_ticks_length_y_pt, "pt"),
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
     axis.title = NULL,
@@ -87,11 +93,12 @@ make_mode_base <- function(
     legend.key.height = NULL,
     legend.key.width = NULL,
     legend.key.spacing = NULL,
-    legend.key.spacing.x = grid::unit(text_size * 0.33, "pt"),
+    legend.key.spacing.x = grid::unit(11, "pt"),
     legend.key.spacing.y = grid::unit(text_size * 0.33, "pt"),
     legend.byrow = FALSE,
     legend.frame = NULL,
     legend.axis.line = NULL,
+    legend.text = ggplot2::element_text(margin = ggplot2::margin(5.5, 5.5, 5.5, 5.5)),
     legend.ticks = NULL,
     legend.ticks.length = grid::unit(text_size / 3.25, "pt"),
     legend.title.position = "top",
@@ -120,18 +127,30 @@ make_mode_base <- function(
     strip.placement.y = NULL,
     strip.switch.pad.grid = grid::unit(0.15, "pt"),
     strip.switch.pad.wrap = grid::unit(0.15, "pt"),
-    plot.background = ggplot2::element_rect(colour = plot_background_fill, fill = plot_background_fill), #, linewidth = axis_line_linewidth
+    plot.background = ggplot2::element_rect(colour = plot_background_fill, fill = plot_background_fill),
     plot.title = ggplot2::element_text(size = title_size, family = title_family, face = title_face, colour = title_colour,
                                        hjust = 0, margin = ggplot2::margin(t = text_size * -1, r = 0, b = text_size * 2.5, l = 0)),
     plot.title.position = "plot",
     plot.subtitle = ggplot2::element_text(size = subtitle_size, family = subtitle_family, face = subtitle_face, colour = subtitle_colour,
                                           hjust = 0, margin = ggplot2::margin(t = text_size * -2, r = 0, b = text_size * 2, l = 0)),
-    plot.caption = ggplot2::element_text(size = caption_size, family = caption_family, face = caption_face, colour = caption_colour,
-                                         hjust = 0, margin = ggplot2::margin(t = text_size * 0.5, r = 0, b = text_size * 0.5, l = 0)),
+    plot.caption = ggplot2::element_text(size = caption_size, family = caption_family, face = caption_face, colour = caption_colour, hjust = caption_hjust,
+                                         margin = ggplot2::margin(t = text_size * 0.5, r = 0, b = text_size * 0.5, l = 0)),
     plot.caption.position = "plot",
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",
-    plot.margin = ggplot2::margin(t = text_size * 2, r = text_size * 2, b = text_size * 0.25, l = text_size * 0.75),
+    plot.margin = ggplot2::margin(t = text_size * 2, r = text_size * 2, b = text_size * 0.33, l = text_size * 1),
+    axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = text_size * -0.33, r = 0, b = text_size * 0.75, l = 0)),
+    axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = text_size * -1, r = 0, b = text_size * 1, l = 0)),
+    axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = text_size * -0.5, b = 0, l = text_size * 1), angle = -90),
+    legend.margin = ggplot2::margin(t = 0, r = text_size * -1, b = text_size * 0.75, l = text_size * 0.75),
+    legend.position = "right",
+    legend.direction = "vertical",
+    legend.justification = c(0, 1),
+    legend.location = "panel",
+    legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
+    legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = text_size * 0.5, l = 0)),
+    axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = text_size * 0.3, r = 0, b = text_size * 1, l = 0)),
+    axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = text_size * -0.5, r = 0, b = text_size * 0.3, l = 0)),
 
     complete = TRUE
   )
@@ -139,15 +158,15 @@ make_mode_base <- function(
 
 #' Flexible mode with right legend
 #'
-#' @description Flexible mode with right legend and customisable colour and linewidth.
+#' @description Flexible mode with right legend.
 #'
-#' @inheritParams make_mode_base
+#' @inheritParams flex_mode_base
 #' @param ... Provided to support trailing commas only.
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-make_mode_r <- function (
+flex_mode_r <- function (
     text_size = 11,
     text_family = "",
     text_face = "plain",
@@ -164,10 +183,13 @@ make_mode_r <- function (
     caption_family = text_family,
     caption_face = text_face,
     caption_colour = scales::alpha(text_colour, 0.75),
+    caption_hjust = 0,
     axis_line_colour = lightness[2],
     axis_line_linewidth = linewidthness[1],
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length_x_pt = text_size / 3,
+    axis_ticks_length_y_pt = text_size / 4,
     panel_grid_colour = lightness[3],
     panel_grid_linewidth = linewidthness[2],
     panel_background_fill = lightness[4],
@@ -176,7 +198,7 @@ make_mode_r <- function (
     legend_key_fill = plot_background_fill,
     ...) {
 
-  make_mode_base(
+  flex_mode_base(
     text_size = text_size,
     text_family = text_family,
     text_face = text_face,
@@ -193,44 +215,32 @@ make_mode_r <- function (
     caption_family = caption_family,
     caption_face = caption_face,
     caption_colour = caption_colour,
+    caption_hjust = caption_hjust,
     axis_line_colour = axis_line_colour,
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
+    axis_ticks_length_x_pt = axis_ticks_length_x_pt,
+    axis_ticks_length_y_pt = axis_ticks_length_y_pt,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
     plot_background_fill = plot_background_fill,
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill
-  ) +
-    ggplot2::theme(
-      legend.position = "right",
-      legend.direction = "vertical",
-      legend.justification = c(0, 1),
-      legend.location = "panel",
-      legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
-      legend.margin = ggplot2::margin(t = 0, r = 0, b = text_size * 0.75, l = text_size * 0.75),
-      legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = text_size * 0.5, l = 0)),
-      legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 0, l = text_size * 0.5)),
-      axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = text_size * -0.33, r = 0, b = text_size * 0.75, l = 0)),
-      axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = text_size * -1, r = 0, b = text_size * 1, l = 0)),
-      axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = text_size * 0.3, r = 0, b = text_size * 1, l = 0)),
-      axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = text_size * -0.5, r = 0, b = text_size * 0.3, l = 0)),
-      axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = text_size * 1, b = 0, l = text_size * 1), angle = -90)
-    )
+  )
 }
 
 #' Flexible mode with top legend
 #'
-#' @description Flexible mode with legend at top and customisable colour and linewidth.
+#' @description Flexible mode with legend at top.
 #'
-#' @inheritParams make_mode_r
+#' @inheritParams flex_mode_r
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-make_mode_t <- function (
+flex_mode_t <- function (
     text_size = 11,
     text_family = "",
     text_face = "plain",
@@ -247,10 +257,13 @@ make_mode_t <- function (
     caption_family = text_family,
     caption_face = text_face,
     caption_colour = scales::alpha(text_colour, 0.75),
+    caption_hjust = 0,
     axis_line_colour = lightness[2],
     axis_line_linewidth = linewidthness[1],
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length_x_pt = text_size / 3,
+    axis_ticks_length_y_pt = text_size / 4,
     panel_grid_colour = lightness[3],
     panel_grid_linewidth = linewidthness[2],
     panel_background_fill = lightness[4],
@@ -259,7 +272,7 @@ make_mode_t <- function (
     legend_key_fill = plot_background_fill,
     ...) {
 
-  make_mode_base(
+  flex_mode_base(
     text_size = text_size,
     text_family = text_family,
     text_face = text_face,
@@ -276,10 +289,13 @@ make_mode_t <- function (
     caption_family = caption_family,
     caption_face = caption_face,
     caption_colour = caption_colour,
+    caption_hjust = caption_hjust,
     axis_line_colour = axis_line_colour,
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
+    axis_ticks_length_x_pt = axis_ticks_length_x_pt,
+    axis_ticks_length_y_pt = axis_ticks_length_y_pt,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
@@ -292,11 +308,10 @@ make_mode_t <- function (
       legend.direction = "horizontal",
       legend.justification = c(0, 0.5),
       legend.location = "plot",
-      legend.box.margin = ggplot2::margin(t = text_size * 0.5, r = 0, b = text_size * 0.5, l = 0),
       legend.margin = ggplot2::margin(t = text_size * -1.5, r = text_size * 2, b = text_size * 0.5, l = 0),
+      legend.box.margin = ggplot2::margin(t = text_size * 0.5, r = 0, b = text_size * 0.5, l = 0),
       legend.title = ggplot2::element_text(margin = ggplot2::margin(t = text_size * 0.25, r = 0, b = text_size * 0.5, l = 0)),
-      legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = text_size * 1.25, b = 0, l = text_size * 0.5)),
-      axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = text_size * 0.3, r = 0, b = text_size * 1, l = 0)),
+
       axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = text_size * -0.33, r = 0, b = text_size * 0.75, l = 0)),
       axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = text_size * 0.5, l = 0)),
       axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = text_size * 0, r = 0, b = text_size * 0.3, l = 0)),
@@ -306,14 +321,14 @@ make_mode_t <- function (
 
 #' Flexible mode with bottom legend
 #'
-#' @description Flexible mode with legend at bottom and customisable colour and linewidth.
+#' @description Flexible mode with legend at bottom.
 #'
-#' @inheritParams make_mode_r
+#' @inheritParams flex_mode_r
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-make_mode_b <- function (
+flex_mode_b <- function (
     text_size = 11,
     text_family = "",
     text_face = "plain",
@@ -330,10 +345,13 @@ make_mode_b <- function (
     caption_family = text_family,
     caption_face = text_face,
     caption_colour = scales::alpha(text_colour, 0.75),
+    caption_hjust = 0,
     axis_line_colour = lightness[2],
     axis_line_linewidth = linewidthness[1],
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length_x_pt = text_size / 3,
+    axis_ticks_length_y_pt = text_size / 4,
     panel_grid_colour = lightness[3],
     panel_grid_linewidth = linewidthness[2],
     panel_background_fill = lightness[4],
@@ -342,7 +360,7 @@ make_mode_b <- function (
     legend_key_fill = plot_background_fill,
     ...) {
 
-  make_mode_base(
+  flex_mode_base(
     text_size = text_size,
     text_family = text_family,
     text_face = text_face,
@@ -359,10 +377,13 @@ make_mode_b <- function (
     caption_family = caption_family,
     caption_face = caption_face,
     caption_colour = caption_colour,
+    caption_hjust = caption_hjust,
     axis_line_colour = axis_line_colour,
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
+    axis_ticks_length_x_pt = axis_ticks_length_x_pt,
+    axis_ticks_length_y_pt = axis_ticks_length_y_pt,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
@@ -375,28 +396,24 @@ make_mode_b <- function (
       legend.direction = "horizontal",
       legend.justification = c(0, 0.5),
       legend.location = "plot",
+      legend.margin = ggplot2::margin(t = 0, r = text_size * 2, b = text_size * 0.75, l = 0),
       legend.box.margin = ggplot2::margin(t = text_size * -0.5, r = 0, b = 0, l = 0),
-      legend.margin = ggplot2::margin(r = text_size * 2, b = text_size * 0.5),
       legend.title = ggplot2::element_text(margin = ggplot2::margin(t = text_size * 0.25, r = 0, b = text_size * 0.5, l = 0)),
-      legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = text_size * 1.25, b = 0, l = text_size * 0.5)),
       axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = text_size * 0.3, r = 0, b = text_size * 1, l = 0)),
-      axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = text_size * -0.33, r = 0, b = text_size * 0.75, l = 0)),
-      axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = text_size * -1, r = 0, b = text_size * 1, l = 0)),
-      axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = text_size * -0.5, r = 0, b = text_size * 0.3, l = 0)),
-      axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = text_size * -0.5, b = 0, l = text_size * 1), angle = -90)
+      axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = text_size * -0.5, r = 0, b = text_size * 0.3, l = 0))
     )
 }
 
 #' Flexible mode with no legend
 #'
-#' @description Flexible mode with no legend and customisable colour and linewidth.
+#' @description Flexible mode with no legend.
 #'
-#' @inheritParams make_mode_r
+#' @inheritParams flex_mode_r
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-make_mode_n <- function (
+flex_mode_n <- function (
     text_size = 11,
     text_family = "",
     text_face = "plain",
@@ -413,10 +430,13 @@ make_mode_n <- function (
     caption_family = text_family,
     caption_face = text_face,
     caption_colour = scales::alpha(text_colour, 0.75),
+    caption_hjust = 0,
     axis_line_colour = lightness[2],
     axis_line_linewidth = linewidthness[1],
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length_x_pt = text_size / 3,
+    axis_ticks_length_y_pt = text_size / 4,
     panel_grid_colour = lightness[3],
     panel_grid_linewidth = linewidthness[2],
     panel_background_fill = lightness[4],
@@ -425,7 +445,7 @@ make_mode_n <- function (
     legend_key_fill = plot_background_fill,
     ...) {
 
-  make_mode_base(
+  flex_mode_base(
     text_size = text_size,
     text_family = text_family,
     text_face = text_face,
@@ -442,10 +462,13 @@ make_mode_n <- function (
     caption_family = caption_family,
     caption_face = caption_face,
     caption_colour = caption_colour,
+    caption_hjust = caption_hjust,
     axis_line_colour = axis_line_colour,
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
+    axis_ticks_length_x_pt = axis_ticks_length_x_pt,
+    axis_ticks_length_y_pt = axis_ticks_length_y_pt,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
@@ -453,19 +476,6 @@ make_mode_n <- function (
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill
   ) +
-    ggplot2::theme(
-      legend.position = "none",
-      legend.direction = "vertical",
-      legend.justification = c(0, 1),
-      legend.location = "panel",
-      legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
-      legend.margin = ggplot2::margin(t = 0, r = 0, b = text_size * 0.75, l = text_size * 0.75),
-      legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = text_size * 0.5, l = 0)),
-      legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 0, l = text_size * 0.5)),
-      axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = text_size * -0.33, r = 0, b = text_size * 0.75, l = 0)),
-      axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = text_size * -1, r = 0, b = text_size * 1, l = 0)),
-      axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = text_size * 0.3, r = 0, b = text_size * 1, l = 0)),
-      axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = text_size * -0.5, r = 0, b = text_size * 0.3, l = 0)),
-      axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = text_size * 1, b = 0, l = text_size * 1), angle = -90)
-    )
+    ggplot2::theme(legend.position = "none")
 }
+
