@@ -6,33 +6,13 @@ ggblanket_global$palette_d_current <- NULL
 ggblanket_global$palette_c_current <- NULL
 ggblanket_global$theme_current <- NULL
 
-#' Get the default mode
-#' @description Get the currently set default mode.
-#' @noRd
-get_mode <- function() ggblanket_global$mode_current
-
-#' Get the default theme
-#' @description Get the currently set default theme.
-#' @noRd
-get_theme <- function() ggblanket_global$theme_current
-
-#' Get the default discrete palette
-#' @description Get the currently set default discrete palette.
-#' @noRd
-get_col_palette_d <- function() ggblanket_global$col_palette_d_current
-
-#' Get the default continuous palette
-#' @description Get the currently set default continuous palette.
-#' @noRd
-get_col_palette_c <- function() ggblanket_global$col_palette_c_current
-
 #' Set a default mode
 #'
 #' @description Set a default mode for the mode argument in `gg_*` functions.
 #'
 #' @param mode A default `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
 #'
-#' @noRd
+#' @export
 weave_mode <- function(mode = light_mode_r()) {
   old <- ggblanket_global$mode_current
   ggblanket_global$mode_current <- mode
@@ -45,7 +25,7 @@ weave_mode <- function(mode = light_mode_r()) {
 #'
 #' @param theme A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions.
 #'
-#' @noRd
+#' @export
 weave_theme <- function(theme = light_mode_r() +
                           ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())) {
   old <- ggblanket_global$theme_current
@@ -53,7 +33,7 @@ weave_theme <- function(theme = light_mode_r() +
   invisible(old)
 }
 
-#' Update a series of geom defaults
+#' Set a series of geom defaults
 #'
 #' @description Update a series of geom defaults.
 #'
@@ -61,7 +41,7 @@ weave_theme <- function(theme = light_mode_r() +
 #' @param linewidth A default linewidth for geoms. Fill inherits from this colour. Defaults to 0.66. Use NULL to leave linewidth as is.
 #' @param size A default point size for `*_point`. `*_pointrange` multiplies this by 0.25. Defaults to 1.5. . Use NULL to leave size as is.
 #'
-#' @noRd
+#' @export
 weave_geom_aes <- function(colour = "#357ba2", linewidth = 0.66, size = 1.5) {
 
   if (!rlang::is_null(colour)) {
@@ -136,7 +116,7 @@ weave_geom_aes <- function(colour = "#357ba2", linewidth = 0.66, size = 1.5) {
   }
 }
 
-#'  Update a series of annotate defaults
+#'  Set a series of annotate defaults
 #'
 #' @description Update a series of geom defaults commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`).
 #'
@@ -145,7 +125,7 @@ weave_geom_aes <- function(colour = "#357ba2", linewidth = 0.66, size = 1.5) {
 #' @param size A default size for `*_text` and `*_label`. Defaults to 3.88.
 #' @param family A default family for `*_text` and `*_label`. Defaults to ""
 #'
-#' @noRd
+#' @export
 weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, size = 3.88, family = "") {
   ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
   ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
@@ -178,14 +158,36 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 20, direct
   invisible(old)
 }
 
-#' Set a default discrete and continuous colour palettes
+#' Set a default col_palette
 #'
-#' @param col_palette_d Colour palette to use for discrete scale. A character vector of hex codes (or names). Use NULL to leave as is.
-#' @param col_palette_c Colour palette to use for continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.
+#' @description Set a default discrete and continuous col_palette for the col_palette argument in `gg_*` functions.
 #'
-#' @noRd
+#' @param col_palette_d A default col_palette to use in the discrete scale. A character vector of hex codes (or names). Use NULL to leave as is.
+#' @param col_palette_c A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.
+#'
+#' @export
 weave_col_palette <- function(col_palette_d = c(teal, orange, navy, pink),
                               col_palette_c = viridisLite::mako(n = 9)) {
   if (!rlang::is_null(col_palette_d)) weave_col_palette_d(col_palette_d)
   if (!rlang::is_null(col_palette_c)) weave_col_palette_c(col_palette_c)
 }
+
+#' Get the default mode
+#' @description Get the currently set default mode.
+#' @noRd
+get_mode <- function() ggblanket_global$mode_current
+
+#' Get the default theme
+#' @description Get the currently set default theme.
+#' @noRd
+get_theme <- function() ggblanket_global$theme_current
+
+#' Get the default discrete palette
+#' @description Get the currently set default discrete palette.
+#' @noRd
+get_col_palette_d <- function() ggblanket_global$col_palette_d_current
+
+#' Get the default continuous palette
+#' @description Get the currently set default continuous palette.
+#' @noRd
+get_col_palette_c <- function() ggblanket_global$col_palette_c_current

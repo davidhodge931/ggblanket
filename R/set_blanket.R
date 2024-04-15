@@ -10,8 +10,8 @@
 #' @param annotate_linewidth A default linewidth for geoms commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`). Defaults to 0.33 (i.e. `linewidthness[1]`).
 #' @param annotate_size A default size for `*_text` and `*_label`. Defaults to 3.88.
 #' @param annotate_family A default family for `*_text` and `*_label`. Defaults to ""
-#' @param col_palette_d Colour palette to use for discrete scale. A character vector of hex codes (or names).
-#' @param col_palette_c Colour palette to use for continuous scale. A character vector of hex codes (or names).
+#' @param col_palette_d A default col_palette to use in the discrete scale. A character vector of hex codes (or names). Use NULL to leave as is.
+#' @param col_palette_c A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.
 #' @param theme A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions. Note any set or supplied mode takes precedence.
 #' @param ... Provided to support trailing commas only.
 #'

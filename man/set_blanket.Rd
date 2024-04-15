@@ -36,9 +36,9 @@ set_blanket(
 
 \item{annotate_family}{A default family for \verb{*_text} and \verb{*_label}. Defaults to ""}
 
-\item{col_palette_d}{Colour palette to use for discrete scale. A character vector of hex codes (or names).}
+\item{col_palette_d}{A default col_palette to use in the discrete scale. A character vector of hex codes (or names). Use NULL to leave as is.}
 
-\item{col_palette_c}{Colour palette to use for continuous scale. A character vector of hex codes (or names).}
+\item{col_palette_c}{A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.}
 
 \item{theme}{A default ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note any set or supplied mode takes precedence.}
 
