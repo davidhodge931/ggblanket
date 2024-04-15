@@ -6,17 +6,29 @@
 \usage{
 set_blanket(
   mode = light_mode_r(),
-  colour = "#357ba2",
-  annotate = "#121b24",
+  geom_colour = "#357ba2",
+  geom_linewidth = 0.66,
+  annotate_colour = "#121b24",
+  annotate_linewidth = 0.33,
+  annotate_size = 3.88,
+  annotate_family = "",
   ...
 )
 }
 \arguments{
-\item{mode}{A \verb{*_mode_*} set globally for when mode = NULL. E.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
+\item{mode}{A default \verb{*_mode_*}. E.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
 
-\item{colour}{A default geom colour (and fill) for geoms other than those used by \code{annotate}. Fill inherits from this colour. Defaults to \code{blue}.}
+\item{geom_colour}{A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to \code{blue}.}
 
-\item{annotate}{A default annotate colour used for \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}. Fill inherits from this colour. Defaults to \code{lightness[1]}.}
+\item{geom_linewidth}{A default linewidth for geoms. Fill inherits from this colour. Defaults to \code{blue}.}
+
+\item{annotate_colour}{A default hex colour (and fill) for geoms commonly used for annotation (i.e. \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}). Defaults to "#121b24" (i.e. \code{lightness[1]}).}
+
+\item{annotate_linewidth}{A default linewidth for geoms commonly used for annotation (i.e. \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}). Defaults to 0.33 (i.e. \code{linewidthness[1]}).}
+
+\item{annotate_size}{A default size for \verb{*_text} and \verb{*_label}. Defaults to 3.88.}
+
+\item{annotate_family}{A default family for \verb{*_text} and \verb{*_label}. Defaults to ""}
 
 \item{...}{Provided to support trailing commas only.}
 }
@@ -31,7 +43,11 @@ library(ggplot2)
 library(ggblanket)
 library(palmerpenguins)
 
-set_blanket(dark_mode_r(), orange, darkness[1])
+set_blanket(
+  mode = dark_mode_r(),
+  geom_colour = orange,
+  annotate_colour = darkness[1],
+)
 
 penguins |>
   gg_point(

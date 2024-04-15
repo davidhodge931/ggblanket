@@ -491,7 +491,10 @@ Within the `set_blanket` function, the user can select the `mode`, the `colour` 
 Elements can be `+`-ed on to modes just as normal themes. The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
 
 ```{r}
-set_blanket(grey_mode_r(), "#ffa600")
+set_blanket(
+  mode = grey_mode_r(), 
+  geom_colour = "#ffa600",
+)
 
 p1 <- penguins |>
   gg_point(
@@ -513,7 +516,11 @@ p2 <- penguins |>
 p1 + p2
 ```
 ```{r}
-set_blanket(dark_mode_r(), "#bc5090", darkness[1])
+set_blanket(
+  mode = dark_mode_r(), 
+  geom_colour = "#bc5090",
+  annotate_colour = darkness[1],
+)
 
 p1 <- penguins |>
   gg_point(

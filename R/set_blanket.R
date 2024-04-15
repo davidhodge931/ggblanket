@@ -2,9 +2,13 @@
 #'
 #' @description Set the default style by setting the default mode and updating a series of geom and annotate defaults.
 #'
-#' @param mode A `*_mode_*` set globally for when mode = NULL. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
-#' @param colour A default geom colour (and fill) for geoms other than those used by `annotate`. Fill inherits from this colour. Defaults to `blue`.
-#' @param annotate A default annotate colour used for `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`. Fill inherits from this colour. Defaults to `lightness[1]`.
+#' @param mode A default `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
+#' @param geom_colour A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to `blue`.
+#' @param geom_linewidth A default linewidth for geoms. Fill inherits from this colour. Defaults to `blue`.
+#' @param annotate_colour A default hex colour (and fill) for geoms commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`). Defaults to "#121b24" (i.e. `lightness[1]`).
+#' @param annotate_linewidth A default linewidth for geoms commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`). Defaults to 0.33 (i.e. `linewidthness[1]`).
+#' @param annotate_size A default size for `*_text` and `*_label`. Defaults to 3.88.
+#' @param annotate_family A default family for `*_text` and `*_label`. Defaults to ""
 #' @param ... Provided to support trailing commas only.
 #'
 #' @return A globally set mode and updated geom defaults.
@@ -15,7 +19,11 @@
 #' library(ggblanket)
 #' library(palmerpenguins)
 #'
-#' set_blanket(dark_mode_r(), orange, darkness[1])
+#' set_blanket(
+#'   mode = dark_mode_r(),
+#'   geom_colour = orange,
+#'   annotate_colour = darkness[1],
+#' )
 #'
 #' penguins |>
 #'   gg_point(
@@ -36,12 +44,26 @@
 #'
 set_blanket <- function(
     mode = light_mode_r(),
-    colour = "#357ba2",
-    annotate = "#121b24",
+    geom_colour = "#357ba2",
+    geom_linewidth = 0.66,
+    annotate_colour = "#121b24",
+    annotate_linewidth = 0.33,
+    annotate_size = 3.88,
+    annotate_family = "",
     ...
 ) {
-  weave_mode(mode)
-  weave_colour( {{ colour }})
-  weave_annotate( {{ annotate }})
+  weave_mode(mode = mode)
+
+  weave_geom_aes(
+    colour = geom_colour,
+    linewidth = geom_linewidth
+  )
+
+  weave_annotate_aes(
+    colour = annotate_colour,
+    linewidth = annotate_linewidth,
+    size = annotate_size,
+    family = annotate_family
+  )
 }
 

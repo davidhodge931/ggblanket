@@ -165,21 +165,6 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  #identify if theme set
-  ##############################################################################
-
-  if (identical(ggplot2::theme_get(), ggplot2::theme_grey())) {
-    theme_set <- FALSE
-  }
-  else {
-    theme_set <- TRUE
-  }
-
-  if (rlang::is_null(mode)) {
-    mode <- get_mode()
-  }
-
-  ##############################################################################
   #make gg_function work
   ##############################################################################
 
@@ -872,8 +857,7 @@ gg_blanket <- function(
         params = rlang::list2(...),
         show.legend = show_legend,
       ) +
-      coord +
-      mode
+      coord
   }
   else {
     if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
@@ -886,8 +870,7 @@ gg_blanket <- function(
         params = rlang::list2(...),
         show.legend = show_legend,
       ) +
-      coord +
-      mode
+      coord
   }
 
   ##############################################################################
@@ -1599,8 +1582,15 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # mode auto gridlines, axis-line/ticks removal
+  # add mode + auto panel.grid, line & ticks removal
   ##############################################################################
+
+  if (rlang::is_null(mode)) {
+    mode <- get_mode()
+  }
+
+  plot <- plot +
+    mode
 
   if (stringr::str_detect(stat_name, "sf")) {
     plot <- plot +
@@ -1656,10 +1646,10 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # plot
+  #identify if theme set
   ##############################################################################
 
-  if (theme_set) {
+  if (!identical(ggplot2::theme_get(), ggplot2::theme_grey())) { #use theme_grey(11.01), if you want theme_grey()
     plot <- plot +
       ggplot2::theme_get()
   }

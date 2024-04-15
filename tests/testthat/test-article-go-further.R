@@ -322,10 +322,8 @@ test_that(test_name, {
       y = unemploy,
       subtitle = "\nNo x_limits set",
       se = TRUE) +
-    geom_vline(xintercept = c(lubridate::ymd("1985-01-01", "1995-01-01")),
-               col = blue,
-               linetype = 3) +
-    geom_point(col = blue, alpha = 0.3)
+    geom_vline(xintercept = c(lubridate::ymd("1985-01-01", "1995-01-01"))) +
+    geom_point(alpha = 0.3)
 
   p2 <- economics |>
     filter(between(date, lubridate::ymd("1985-01-01"), lubridate::ymd("1995-01-01"))) |>
@@ -335,7 +333,7 @@ test_that(test_name, {
       se = TRUE,
       x_labels = \(x) stringr::str_sub(x, 3, 4),
       subtitle = "\nx data filtered") +
-    geom_point(col = blue, alpha = 0.3)
+    geom_point(alpha = 0.3)
 
   p <- p1 + p2
 
@@ -357,7 +355,7 @@ test_that(test_name, {
       x_labels = \(x) stringr::str_sub(x, 3, 4),
       subtitle = "\nx_limits set",
     ) +
-    geom_point(col = blue, alpha = 0.3)
+    geom_point(alpha = 0.3)
 
   vdiffr::expect_doppelganger(test_name, p)
 })
@@ -377,7 +375,7 @@ test_that(test_name, {
       x_labels = \(x) stringr::str_sub(x, 3, 4),
       coord = coord_cartesian(clip = "on"),
       subtitle = "\nx_limits set & cartesian space clipped") +
-    geom_point(col = blue, alpha = 0.3)
+    geom_point(alpha = 0.3)
 
   p5 <- economics |>
     gg_smooth(
@@ -388,7 +386,7 @@ test_that(test_name, {
       x_labels = \(x) stringr::str_sub(x, 3, 4),
       x_oob = scales::oob_censor,
       subtitle = "\nx_limits set & x_oob censored") +
-    geom_point(col = blue, alpha = 0.3)
+    geom_point(alpha = 0.3)
 
 
   p <- p4 + p5

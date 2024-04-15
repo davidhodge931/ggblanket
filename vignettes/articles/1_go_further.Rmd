@@ -382,10 +382,8 @@ p1 <- economics |>
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     subtitle = "\nNo x_limits set", 
     se = TRUE) +
-  geom_vline(xintercept = c(lubridate::ymd("1985-01-01", "1995-01-01")),
-             col = blue, 
-             linetype = 3) +
-  geom_point(col = blue, alpha = 0.3)
+  geom_vline(xintercept = c(lubridate::ymd("1985-01-01", "1995-01-01"))) +
+  geom_point(alpha = 0.3)
 
 p2 <- economics |> 
   filter(between(date, lubridate::ymd("1985-01-01"), lubridate::ymd("1995-01-01"))) |> 
@@ -395,7 +393,7 @@ p2 <- economics |>
     se = TRUE,
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     subtitle = "\nx data filtered") +
-  geom_point(col = blue, alpha = 0.3)
+  geom_point(alpha = 0.3)
 
 p1 + p2
 ```
@@ -410,7 +408,7 @@ p3 <- economics |>
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     subtitle = "\nx_limits set (with default oob_keep)", 
   ) +
-  geom_point(col = blue, alpha = 0.3)
+  geom_point(alpha = 0.3)
 
 p3 + plot_spacer()
 ```
@@ -425,7 +423,7 @@ p4 <- economics |>
     x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     subtitle = "\nx_limits set  (with default oob_keep)\n& cartesian space clipped") +
-  geom_point(col = blue, alpha = 0.3)
+  geom_point(alpha = 0.3)
 
 p5 <- economics |> 
   gg_smooth(
@@ -436,7 +434,7 @@ p5 <- economics |>
     x_labels = \(x) stringr::str_sub(x, 3, 4),
     x_oob = scales::oob_censor,
     subtitle = "\nx_limits set & oob_censor") +
-  geom_point(col = blue, alpha = 0.3)
+  geom_point(alpha = 0.3)
 
 p4 + p5
 ```
