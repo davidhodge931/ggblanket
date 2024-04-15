@@ -922,7 +922,8 @@ gg_blanket <- function(
   if (!is.na(is_col_continuous)) {
     if (is_col_continuous) {
       if (rlang::is_null(col_palette)) {
-        col_palette <- col_palette_continuous()
+        col_palette <- get_col_palette_c()
+        if (rlang::is_null(col_palette)) col_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")(seq(0, 1, length.out = 20))
       }
 
       #get col_transform if NULL
@@ -1039,7 +1040,13 @@ gg_blanket <- function(
           length()
 
         if (rlang::is_null(col_palette)) {
-          col_palette <- col_palette_discrete(n = col_n)
+          col_palette <- get_col_palette_d()
+          if (rlang::is_null(col_palette)) col_palette <- scales::pal_hue()(n = col_n)
+          else if (col_n > length(col_palette)) {
+            rlang::inform("Insufficient colours in default discrete col_palette")
+            col_palette <- scales::pal_hue()(n = col_n)
+          }
+          else col_palette <- col_palette[1:col_n]
         }
         else if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
       }
@@ -1049,7 +1056,7 @@ gg_blanket <- function(
           dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), function(x) length(levels(x))))
 
         if (ncol(plot_data_ordered) == 0) {
-          if (rlang::is_null(col_palette)) col_palette <- col_palette_discrete()
+          if (rlang::is_null(col_palette)) col_palette <- get_col_palette_d()
         }
         else {
           col_n <- plot_data_ordered %>%
@@ -1058,7 +1065,8 @@ gg_blanket <- function(
             dplyr::pull()
 
           if (rlang::is_null(col_palette)) {
-            col_palette <- col_palette_continuous(n = col_n)
+            col_palette <- get_col_palette_c()[1:col_n]
+            if (rlang::is_null(col_palette)) col_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")(seq(0, 1, length.out = 20))
           }
           else if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
 
