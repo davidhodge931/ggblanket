@@ -72,6 +72,8 @@
 <span>  annotate_linewidth <span class="op">=</span> <span class="fl">0.33</span>,</span>
 <span>  annotate_size <span class="op">=</span> <span class="fl">3.88</span>,</span>
 <span>  annotate_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  col_palette_d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">teal</span>, <span class="va">orange</span>, <span class="va">navy</span>, <span class="va">pink</span><span class="op">)</span>,</span>
+<span>  col_palette_c <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -104,6 +106,14 @@
 
 <dt>annotate_family</dt>
 <dd><p>A default family for <code>*_text</code> and <code>*_label</code>. Defaults to ""</p></dd>
+
+
+<dt>col_palette_d</dt>
+<dd><p>Colour palette to use for discrete scale. A character vector of hex codes (or names).</p></dd>
+
+
+<dt>col_palette_c</dt>
+<dd><p>Colour palette to use for continuous scale. A character vector of hex codes (or names).</p></dd>
 
 
 <dt>...</dt>
