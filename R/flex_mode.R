@@ -4,20 +4,20 @@
 #'
 #' @param text_size The size of the text theme element.
 #' @param text_family The family of the text theme element.
-#' @param text_face The face of the text theme element.
 #' @param text_colour The colour of the text theme element.
+#' @param text_face The face of the text theme element.
 #' @param title_size The size of the plot.title theme element.
 #' @param title_family The family of the plot.title theme element.
-#' @param title_face The face of the plot.title theme element.
 #' @param title_colour The colour of the plot.title theme element.
+#' @param title_face The face of the plot.title theme element.
 #' @param subtitle_size The size of the plot.subtitle theme element.
 #' @param subtitle_family The family of the plot.subtitle theme element.
-#' @param subtitle_face The face of the plot.subtitle theme element.
 #' @param subtitle_colour The colour of the plot.subtitle theme element.
+#' @param subtitle_face The face of the plot.subtitle theme element.
 #' @param caption_size The size of the plot.caption theme element.
 #' @param caption_family The family of the plot.caption theme element.
-#' @param caption_face The face of the plot.caption theme element.
 #' @param caption_colour The colour of the plot.caption theme element.
+#' @param caption_face The face of the plot.caption theme element.
 #' @param caption_hjust The horizontal adjustment of the plot.caption theme element.
 #' @param axis_line_colour The colour of the axis.line theme element.
 #' @param axis_line_linewidth The linewidth of the axis.line theme element.
@@ -38,20 +38,20 @@
 flex_mode_base <- function(
     text_size = 11,
     text_family = "",
-    text_face = "plain",
     text_colour = lightness[1],
+    text_face = "plain",
     title_size = ggplot2::rel(1.1),
     title_family = text_family,
-    title_face = "bold",
     title_colour = text_colour,
+    title_face = "bold",
     subtitle_size = ggplot2::rel(1),
     subtitle_family = text_family,
-    subtitle_face = text_face,
     subtitle_colour = text_colour,
+    subtitle_face = text_face,
     caption_size = ggplot2::rel(0.85),
     caption_family = text_family,
-    caption_face = text_face,
     caption_colour = scales::alpha(text_colour, 0.75),
+    caption_face = text_face,
     caption_hjust = 0,
     axis_line_colour = lightness[2],
     axis_line_linewidth = linewidthness[1],

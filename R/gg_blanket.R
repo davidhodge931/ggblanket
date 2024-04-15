@@ -989,12 +989,8 @@ gg_blanket <- function(
             na.value = col_palette_na,
           ) +
           ggplot2::guides(
-            colour = ggplot2::guide_colourbar(
-              reverse = col_legend_rev,
-            ),
-            fill = ggplot2::guide_colourbar(
-              reverse = col_legend_rev,
-            )
+            colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
+            fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
           )
       }
       else if (isTRUE(col_steps)) {
@@ -1020,14 +1016,8 @@ gg_blanket <- function(
             na.value = col_palette_na,
           ) +
           ggplot2::guides(
-            colour = ggplot2::guide_coloursteps(
-              reverse = col_legend_rev,
-              # theme = ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5)))
-            ), #theme args should be in *_mode_* themes when ggplot2 supports
-            fill = ggplot2::guide_coloursteps(
-              reverse = col_legend_rev,
-              # theme = ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5)))
-            ) #theme args should be in *_mode_* themes when ggplot2 supports
+            colour = ggplot2::guide_coloursteps(reverse = col_legend_rev),
+            fill = ggplot2::guide_coloursteps(reverse = col_legend_rev)
           ) +
           ggplot2::theme(legend.ticks = ggplot2::element_blank())
       }
@@ -1654,12 +1644,12 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  #identify if theme set
+  #add the theme if globally set
   ##############################################################################
 
-  if (!identical(ggplot2::theme_get(), ggplot2::theme_grey())) { #use theme_grey(11.01), if you want theme_grey()
+  if (rlang::is_null(mode) & rlang::is_null(get_mode())) {
     plot <- plot +
-      ggplot2::theme_get()
+      get_theme()
   }
 
   return(plot)
