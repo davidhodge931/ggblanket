@@ -6,6 +6,8 @@
 * Breaking: removed `weave_*` arguments.
 * Breaking: removed `facet_labels_position` and `facet_labels_switch`.
 * Breaking: in `aes_contrast`, changed `contrast_pal` to `dark` and `light`. 
+* Breaking: removed `base_*` arguments from `*_mode_*` functions.
+* Added arguments to `*_mode_*` to easily changing text size, colour etc.
 * Added `pink` and used this in default discrete colours for for 4 values.
 * Updated `*ness` helper pals.
 * Made compatible with extension geoms with no x or y variables in `layer_data`.
