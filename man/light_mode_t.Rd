@@ -5,60 +5,54 @@
 \title{Light mode theme with top legend}
 \usage{
 light_mode_t(
-  text_size = 11,
-  text_family = "",
-  text_face = "plain",
-  text_colour = lightness[1],
-  title_size = ggplot2::rel(1.1),
-  title_family = text_family,
-  title_face = "bold",
-  title_colour = text_colour,
-  subtitle_size = ggplot2::rel(1),
-  subtitle_family = text_family,
-  subtitle_face = text_face,
-  subtitle_colour = text_colour,
-  caption_size = ggplot2::rel(0.85),
-  caption_family = text_family,
-  caption_face = text_face,
-  caption_colour = scales::alpha(text_colour, 0.75),
-  caption_hjust = 0,
+  base_size = 11,
+  base_family = "",
+  base_colour = lightness[1],
+  axis_line_colour = lightness[2],
+  axis_line_linewidth = linewidthness[1],
+  axis_ticks_colour = axis_line_colour,
+  axis_ticks_linewidth = axis_line_linewidth,
+  axis_ticks_length_x_pt = base_size/3,
+  axis_ticks_length_y_pt = base_size/4,
+  panel_grid_colour = lightness[3],
+  panel_grid_linewidth = linewidthness[2],
+  panel_background_fill = lightness[4],
+  plot_background_fill = lightness[5],
+  legend_background_fill = plot_background_fill,
+  legend_key_fill = plot_background_fill,
   ...
 )
 }
 \arguments{
-\item{text_size}{The size of the text theme element.}
+\item{base_size}{The base size of the text theme element. Defaults to 11.}
 
-\item{text_family}{The family of the text theme element.}
+\item{base_family}{The base family of the text theme element. Defaults to "".}
 
-\item{text_face}{The face of the text theme element.}
+\item{base_colour}{The base colour of the text theme element.}
 
-\item{text_colour}{The colour of the text theme element.}
+\item{axis_line_colour}{The colour of the axis.line theme element.}
 
-\item{title_size}{The size of the plot.title theme element.}
+\item{axis_line_linewidth}{The linewidth of the axis.line theme element.}
 
-\item{title_family}{The family of the plot.title theme element.}
+\item{axis_ticks_colour}{The colour of the axis.ticks theme element.}
 
-\item{title_face}{The face of the plot.title theme element.}
+\item{axis_ticks_linewidth}{The linewidth of the axis.ticks theme element.}
 
-\item{title_colour}{The colour of the plot.title theme element.}
+\item{axis_ticks_length_x_pt}{The length of the axis.ticks.length.x theme element in points.}
 
-\item{subtitle_size}{The size of the plot.subtitle theme element.}
+\item{axis_ticks_length_y_pt}{The length of the axis.ticks.length.y theme element in points.}
 
-\item{subtitle_family}{The family of the plot.subtitle theme element.}
+\item{panel_grid_colour}{The colour of the panel.grid theme element.}
 
-\item{subtitle_face}{The face of the plot.subtitle theme element.}
+\item{panel_grid_linewidth}{The linewidth of the panel.grid theme element.}
 
-\item{subtitle_colour}{The colour of the plot.subtitle theme element.}
+\item{panel_background_fill}{The fill (and colour) of the panel.background theme element.}
 
-\item{caption_size}{The size of the plot.caption theme element.}
+\item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
 
-\item{caption_family}{The family of the plot.caption theme element.}
+\item{legend_background_fill}{The fill (and colour) of the legend.background theme element.}
 
-\item{caption_face}{The face of the plot.caption theme element.}
-
-\item{caption_colour}{The colour of the plot.caption theme element.}
-
-\item{caption_hjust}{The horizontal adjustment of the plot.caption theme element.}
+\item{legend_key_fill}{The fill (and colour) of the legend.key theme element.}
 
 \item{...}{Provided to support trailing commas only.}
 }

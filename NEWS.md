@@ -3,11 +3,10 @@
 * Breaking: renamed `col_pal` to `col_palette`.
 * Breaking: removed ability to use `col_palette` when `col = NULL`.
 * Breaking: in `set_blanket`, renamed arguments.
-* Breaking: removed `weave_*` arguments.
+* Breaking: updated `weave_*` functions and added new ones.
 * Breaking: removed `facet_labels_position` and `facet_labels_switch`.
 * Breaking: in `aes_contrast`, changed `contrast_pal` to `dark` and `light`. 
-* Breaking: removed `base_*` arguments from `*_mode_*` functions.
-* Added arguments to `*_mode_*` to easily changing text size, colour etc.
+* Added arguments to `*_mode_*` for more control with colours and linewidths.
 * Added `pink` and used this in default discrete colours for for 4 values.
 * Updated `*ness` helper pals.
 * Made compatible with extension geoms with no x or y variables in `layer_data`.
