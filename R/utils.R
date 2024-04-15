@@ -19,30 +19,30 @@ na_if_inf <- function(x) {
   x
 }
 
-#' Default colours used to colour a discrete variable
+#' #' Default colours used to colour a discrete variable
+#' #'
+#' #' @description Default colours used to colour a discrete variable. Uses `teal`, `orange`, `navy` and `pink` for 1 to 4 colours. For 5 or more colours, uses `scales::pal_hue`.
+#' #'
+#' #' @return A character vector.
+#' #'
+#' #' @noRd
+#' col_palette_discrete <- function(n = 4) {
+#'   if (n <= 4) c(teal, orange, navy, pink)[1:n]
+#'   else scales::pal_hue()(n)
+#' }
 #'
-#' @description Default colours used to colour a discrete variable. Uses `teal`, `orange`, `navy` and `pink` for 1 to 4 colours. For 5 or more colours, uses `scales::pal_hue`.
-#'
-#' @return A character vector.
-#'
-#' @noRd
-col_palette_discrete <- function(n = 4) {
-  if (n <= 4) c(teal, orange, navy, pink)[1:n]
-  else scales::pal_hue()(n)
-}
-
-#' Default colours used to colour a continuous variable
-#'
-#' @description Default colours used to colour a continuous variable.
-#'
-#' @param n The number of colours.
-#'
-#' @noRd
-#'
-#' @references The mako colour palette from viridisLite reversed
-col_palette_continuous <- function(n = 20) {
-  viridisLite::mako(n = n, direction = -1)
-}
+#' #' Default colours used to colour a continuous variable
+#' #'
+#' #' @description Default colours used to colour a continuous variable.
+#' #'
+#' #' @param n The number of colours.
+#' #'
+#' #' @noRd
+#' #'
+#' #' @references The mako colour palette from viridisLite reversed
+#' col_palette_continuous <- function(n = 20) {
+#'   viridisLite::mako(n = n, direction = -1)
+#' }
 
 #' Continuous colour and fill scales
 #'

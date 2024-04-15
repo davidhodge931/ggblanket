@@ -12,6 +12,8 @@ set_blanket(
   annotate_linewidth = 0.33,
   annotate_size = 3.88,
   annotate_family = "",
+  col_palette_d = c(teal, orange, navy, pink),
+  col_palette_c = viridisLite::mako(n = 20, direction = -1),
   ...
 )
 }
@@ -29,6 +31,10 @@ set_blanket(
 \item{annotate_size}{A default size for \verb{*_text} and \verb{*_label}. Defaults to 3.88.}
 
 \item{annotate_family}{A default family for \verb{*_text} and \verb{*_label}. Defaults to ""}
+
+\item{col_palette_d}{Colour palette to use for discrete scale. A character vector of hex codes (or names).}
+
+\item{col_palette_c}{Colour palette to use for continuous scale. A character vector of hex codes (or names).}
 
 \item{...}{Provided to support trailing commas only.}
 }
