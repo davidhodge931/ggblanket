@@ -366,10 +366,10 @@ penguins |>
     y = species, 
     x = flipper_length_mm, 
     col = species,
-    mapping = aes(alpha = species, shape = species),
+    mapping = aes(shape = species),
   ) +
-  scale_alpha_manual(values = c(0.33, 1, 0.33)) +
-  guides(alpha = guide_legend(reverse = TRUE))
+  guides(shape = guide_legend(reverse = TRUE)) +
+  scale_shape_manual(values = rev(scales::shape_pal()(3)))
 ```
 
 ### 11.  A `mode` argument designed for provided `*_mode_*` themes
