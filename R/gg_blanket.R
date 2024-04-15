@@ -1007,12 +1007,10 @@ gg_blanket <- function(
           ggplot2::guides(
             colour = ggplot2::guide_colourbar(
               reverse = col_legend_rev,
-              theme = ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5)))
-            ), #theme args should be in *_mode_* themes when ggplot2 supports
+            ),
             fill = ggplot2::guide_colourbar(
               reverse = col_legend_rev,
-              theme = ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5)))
-            ) #theme args should be in *_mode_* themes when ggplot2 supports
+            )
           )
       }
       else if (isTRUE(col_steps)) {
@@ -1040,11 +1038,11 @@ gg_blanket <- function(
           ggplot2::guides(
             colour = ggplot2::guide_coloursteps(
               reverse = col_legend_rev,
-              theme = ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5)))
+              # theme = ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5)))
             ), #theme args should be in *_mode_* themes when ggplot2 supports
             fill = ggplot2::guide_coloursteps(
               reverse = col_legend_rev,
-              theme = ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5)))
+              # theme = ggplot2::theme(legend.text = ggplot2::element_text(margin = ggplot2::margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5)))
             ) #theme args should be in *_mode_* themes when ggplot2 supports
           ) +
           ggplot2::theme(legend.ticks = ggplot2::element_blank())

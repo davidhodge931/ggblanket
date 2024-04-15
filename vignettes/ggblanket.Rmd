@@ -576,6 +576,8 @@ penguins |>
 ```
 
 ```{r}
+set_blanket()
+
 geom_spoke()
 
 expand.grid(x = 1:10, y = 1:10) |>
