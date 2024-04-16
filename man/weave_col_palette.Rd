@@ -5,14 +5,14 @@
 \title{Set a default col_palette}
 \usage{
 weave_col_palette(
-  col_palette_d = c(teal, orange, navy, pink),
-  col_palette_c = viridisLite::mako(n = 9)
+  discrete = c(teal, orange, navy, pink),
+  continuous = viridisLite::mako(n = 9)
 )
 }
 \arguments{
-\item{col_palette_d}{A default col_palette to use in the discrete scale. A character vector of hex codes (or names). Use NULL to leave as is.}
+\item{discrete}{A default col_palette to use in the discrete scale. A character vector of hex codes (or names). Use NULL to leave as is.}
 
-\item{col_palette_c}{A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.}
+\item{continuous}{A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.}
 }
 \description{
 Set a default discrete and continuous col_palette for the col_palette argument in \verb{gg_*} functions.

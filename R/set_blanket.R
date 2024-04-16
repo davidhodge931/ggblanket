@@ -10,8 +10,8 @@
 #' @param annotate_linewidth A default linewidth for geoms commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`). Defaults to 0.33 (i.e. `linewidthness[1]`).
 #' @param annotate_size A default size for `*_text` and `*_label`. Defaults to 3.88.
 #' @param annotate_family A default family for `*_text` and `*_label`. Defaults to ""
-#' @param col_palette_d A default col_palette to use in the discrete scale. A character vector of hex codes (or names). Use NULL to leave as is.
-#' @param col_palette_c A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.
+#' @param col_palette_discrete A default col_palette to use in the discrete scale. A character vector of hex codes (or names). Use NULL to leave as is.
+#' @param col_palette_continuous A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.
 #' @param theme A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions. Note any set or supplied mode takes precedence.
 #' @param ... Provided to support trailing commas only.
 #'
@@ -55,8 +55,8 @@ set_blanket <- function(
     annotate_linewidth = 0.33,
     annotate_size = 3.88,
     annotate_family = "",
-    col_palette_d = c(teal, orange, navy, pink),
-    col_palette_c = viridisLite::mako(n = 20, direction = -1),
+    col_palette_discrete = c(teal, orange, navy, pink),
+    col_palette_continuous = viridisLite::mako(n = 20, direction = -1),
     theme = NULL,
     ...
 ) {
@@ -75,8 +75,8 @@ set_blanket <- function(
   )
 
   weave_col_palette(
-    col_palette_d = col_palette_d,
-    col_palette_c = col_palette_c
+    discrete = col_palette_discrete,
+    continuous = col_palette_continuous
   )
 
   weave_theme(
