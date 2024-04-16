@@ -64,7 +64,8 @@ set_blanket <- function(
 
   weave_geom_aes(
     colour = geom_colour,
-    linewidth = geom_linewidth
+    linewidth = geom_linewidth,
+    size = geom_size
   )
 
   weave_annotate_aes(

@@ -20,6 +20,11 @@
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <rect x='0.000000000000064' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <rect x='87.39' y='39.00' width='160.41' height='491.17' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<polyline points='87.39,530.17 87.39,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='127.49,530.17 127.49,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='167.60,530.17 167.60,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='207.70,530.17 207.70,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='247.80,530.17 247.80,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <circle cx='138.87' cy='443.30' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #3577A2;' />
 <circle cx='157.43' cy='406.06' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #38629D;' />
 <circle cx='153.89' cy='415.88' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #3F376F;' />
@@ -186,6 +191,11 @@
 <polygon points='172.40,222.91 175.03,227.47 169.77,227.47 ' style='stroke-width: 0.71; stroke: none; fill: #3A5E9B;' />
 <polygon points='164.22,252.78 166.86,257.34 161.59,257.34 ' style='stroke-width: 0.71; stroke: none; fill: #40488D;' />
 <rect x='272.46' y='39.00' width='160.41' height='491.17' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<polyline points='272.46,530.17 272.46,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='312.56,530.17 312.56,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='352.66,530.17 352.66,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='392.76,530.17 392.76,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='432.87,530.17 432.87,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <circle cx='314.57' cy='405.04' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #40488D;' />
 <circle cx='332.23' cy='477.08' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #27182E;' />
 <circle cx='342.13' cy='402.85' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #3C2F60;' />
@@ -355,6 +365,11 @@
 <polygon points='338.13,333.16 340.77,337.72 335.50,337.72 ' style='stroke-width: 0.71; stroke: none; fill: #3A5A9A;' />
 <polygon points='372.48,322.46 375.11,327.02 369.85,327.02 ' style='stroke-width: 0.71; stroke: none; fill: #413F80;' />
 <rect x='457.52' y='39.00' width='160.41' height='491.17' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<polyline points='457.52,530.17 457.52,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='497.63,530.17 497.63,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='537.73,530.17 537.73,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='577.83,530.17 577.83,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='617.93,530.17 617.93,39.00 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <circle cx='523.47' cy='399.13' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #3A5E9B;' />
 <circle cx='517.08' cy='469.71' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #302041;' />
 <circle cx='509.24' cy='464.75' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #3481A4;' />
@@ -386,11 +401,20 @@
 <text x='577.83' y='544.68' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='18.35px' lengthAdjust='spacingAndGlyphs'>220</text>
 <text x='617.93' y='544.68' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='18.35px' lengthAdjust='spacingAndGlyphs'>240</text>
 <polyline points='457.52,530.17 457.52,39.00 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='454.78,438.08 457.52,438.08 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='454.78,284.59 457.52,284.59 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='454.78,131.10 457.52,131.10 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
 <polyline points='272.46,530.17 272.46,39.00 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='269.72,438.08 272.46,438.08 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='269.72,284.59 272.46,284.59 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='269.72,131.10 272.46,131.10 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
 <polyline points='87.39,530.17 87.39,39.00 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
 <text x='81.91' y='441.86' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='50.14px' lengthAdjust='spacingAndGlyphs'>Torgersen</text>
 <text x='81.91' y='288.37' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='33.01px' lengthAdjust='spacingAndGlyphs'>Dream</text>
 <text x='81.91' y='134.88' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='33.03px' lengthAdjust='spacingAndGlyphs'>Biscoe</text>
+<polyline points='84.65,438.08 87.39,438.08 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='84.65,284.59 87.39,284.59 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='84.65,131.10 87.39,131.10 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
 <text x='352.66' y='563.02' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='88.04px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
 <text transform='translate(19.67,284.59) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='29.36px' lengthAdjust='spacingAndGlyphs'>Island</text>
 <rect x='623.60' y='39.00' width='63.90' height='119.44' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />

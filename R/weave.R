@@ -116,8 +116,8 @@ weave_geom_aes <- function(colour = "#357ba2", linewidth = 0.66, size = 1.5) {
   }
 
   if (!rlang::is_null(size)) {
-    ggplot2::update_geom_defaults("point", ggplot2::aes(size = 1.5))
-    ggplot2::update_geom_defaults("pointrange", ggplot2::aes(linewidth = !!linewidth, size = 1.5 * 0.25))
+    ggplot2::update_geom_defaults("point", ggplot2::aes(size = !!size))
+    ggplot2::update_geom_defaults("pointrange", ggplot2::aes(linewidth = !!linewidth, size = !!size * 0.25))
   }
 }
 
