@@ -27,7 +27,12 @@ weave_mode <- function(mode = light_mode_r()) {
 #'
 #' @export
 weave_theme <- function(theme = light_mode_r() +
-                          ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())) {
+                          ggplot2::theme(
+                            panel.grid.major.x = ggplot2::element_blank(),
+                            axis.line.y = ggplot2::element_blank(),
+                            axis.ticks.y = ggplot2::element_blank()
+                            )
+                        ) {
   old <- ggblanket_global$theme_current
   ggblanket_global$theme_current <- theme
   invisible(old)

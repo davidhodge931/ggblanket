@@ -2,10 +2,11 @@
 % Please edit documentation in R/weave.R
 \name{weave_theme}
 \alias{weave_theme}
-\title{Set the default theme}
+\title{Set a default theme}
 \usage{
 weave_theme(
-  theme = light_mode_r() + ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())
+  theme = light_mode_r() + ggplot2::theme(panel.grid.major.x = ggplot2::element_blank(),
+    axis.line.y = ggplot2::element_blank(), axis.ticks.y = ggplot2::element_blank())
 )
 }
 \arguments{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/weave.R
 \name{weave_mode}
 \alias{weave_mode}
-\title{Set the default mode}
+\title{Set a default mode}
 \usage{
 weave_mode(mode = light_mode_r())
 }

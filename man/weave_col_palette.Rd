@@ -2,7 +2,7 @@
 % Please edit documentation in R/weave.R
 \name{weave_col_palette}
 \alias{weave_col_palette}
-\title{Set the default col_palette}
+\title{Set a default col_palette}
 \usage{
 weave_col_palette(
   col_palette_d = c(teal, orange, navy, pink),
