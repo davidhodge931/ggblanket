@@ -48,7 +48,7 @@ set_blanket(
 A globally set mode and updated geom defaults.
 }
 \description{
-Set a default style by setting a default mode, a series of geom and annotate aesthetic defaults, and a default col_palette for discrete and continuous.
+Set a default style by setting a default mode, a series of geom and annotate aesthetic defaults, and a default col_palette for discrete and continuous scales.
 }
 \examples{
 library(ggplot2)

@@ -164,7 +164,7 @@ weave_col_palette_continuous <- function(continuous = viridisLite::mako(n = 20, 
 
 #' Set a default col_palette
 #'
-#' @description Set a default discrete and continuous col_palette for the col_palette argument in `gg_*` functions.
+#' @description Set a default col_palette for discrete and continuous scales.
 #'
 #' @param discrete A default col_palette to use in the discrete scale. A character vector of hex codes (or names). Use NULL to leave as is.
 #' @param continuous A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.

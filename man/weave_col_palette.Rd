@@ -15,5 +15,5 @@ weave_col_palette(
 \item{continuous}{A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.}
 }
 \description{
-Set a default discrete and continuous col_palette for the col_palette argument in \verb{gg_*} functions.
+Set a default col_palette for discrete and continuous scales.
 }
