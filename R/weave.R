@@ -21,7 +21,7 @@ weave_mode <- function(mode = light_mode_r()) {
 
 #' Set a default theme
 #'
-#' @description Set a default theme to be `+`-ed on unmodified to `gg_*` functions. Note any set or supplied mode takes precedence.
+#' @description Set a default theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence unless NULL.
 #'
 #' @param theme A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions.
 #'

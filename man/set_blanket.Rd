@@ -40,7 +40,7 @@ set_blanket(
 
 \item{col_palette_continuous}{A default col_palette to use in the continuous scale. A character vector of hex codes (or names).}
 
-\item{theme}{A default ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note any set or supplied mode takes precedence.}
+\item{theme}{A default ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note, \code{mode} takes precedence unless NULL.}
 
 \item{...}{Provided to support trailing commas only.}
 }

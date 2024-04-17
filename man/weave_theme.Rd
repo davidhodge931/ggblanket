@@ -13,5 +13,5 @@ weave_theme(
 \item{theme}{A default ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions.}
 }
 \description{
-Set a default theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note any set or supplied mode takes precedence.
+Set a default theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note, \code{mode} takes precedence unless NULL.
 }
