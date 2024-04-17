@@ -461,12 +461,17 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  #yet more defaults
+  #get more defaults
   ##############################################################################
 
   #make drop appropriate to facet scales
   x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
   y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
+
+  #get mode
+  if (rlang::is_null(mode)) {
+    mode <- get_mode()
+  }
 
   ##############################################################################
   # add ggplot() with aesthetics
@@ -491,7 +496,8 @@ gg_blanket <- function(
           label = !!label,
           text = !!text,
           !!!mapping
-        ))
+        )) +
+        mode
     }
     else if (!x_null & y_null) {
       plot <- data %>%
@@ -510,7 +516,8 @@ gg_blanket <- function(
           label = !!label,
           text = !!text,
           !!!mapping
-        ))
+        )) +
+        mode
     }
     else if (x_null & !y_null) {
       plot <- data %>%
@@ -529,7 +536,8 @@ gg_blanket <- function(
           label = !!label,
           text = !!text,
           !!!mapping
-        ))
+        )) +
+        mode
     }
     else if (x_null & y_null) {
       plot <- data %>%
@@ -547,7 +555,8 @@ gg_blanket <- function(
           label = !!label,
           text = !!text,
           !!!mapping
-        ))
+        )) +
+        mode
     }
   }
   else {
@@ -571,7 +580,8 @@ gg_blanket <- function(
           label = !!label,
           text = !!text,
           !!!mapping
-        ))
+        )) +
+        mode
     }
     else if (!x_null & y_null) {
       plot <- data %>%
@@ -592,7 +602,8 @@ gg_blanket <- function(
           label = !!label,
           text = !!text,
           !!!mapping
-        ))
+        )) +
+        mode
     }
     else if (x_null & !y_null) {
       plot <- data %>%
@@ -613,7 +624,8 @@ gg_blanket <- function(
           label = !!label,
           text = !!text,
           !!!mapping
-        ))
+        )) +
+        mode
     }
     else if (x_null & y_null) {
       plot <- data %>%
@@ -633,7 +645,8 @@ gg_blanket <- function(
           label = !!label,
           text = !!text,
           !!!mapping
-        ))
+        )) +
+        mode
     }
   }
 
@@ -1580,15 +1593,8 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # add mode + auto panel.grid, line & ticks removal
+  # auto panel.grid, line & ticks removal
   ##############################################################################
-
-  if (rlang::is_null(mode)) {
-    mode <- get_mode()
-  }
-
-  plot <- plot +
-    mode
 
   if (stringr::str_detect(stat_name, "sf")) {
     plot <- plot +
