@@ -42,9 +42,9 @@ weave_theme <- function(theme = light_mode_r() +
 #'
 #' @description Update a series of geom defaults.
 #'
-#' @param colour A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to `blue`. Use NULL to leave colour, fill and alpha as is.
-#' @param linewidth A default linewidth for geoms. Fill inherits from this colour. Defaults to 0.66. Use NULL to leave linewidth as is.
-#' @param size A default point size for `*_point`. `*_pointrange` multiplies this by 0.25. Defaults to 1.5. . Use NULL to leave size as is.
+#' @param colour A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to `blue`.
+#' @param linewidth A default linewidth for geoms. Fill inherits from this colour. Defaults to 0.66.
+#' @param size A default point size for `*_point`. `*_pointrange` multiplies this by 0.25. Defaults to 1.5. .
 #'
 #' @export
 weave_geom_aes <- function(colour = "#357ba2", linewidth = 0.66, size = 1.5) {

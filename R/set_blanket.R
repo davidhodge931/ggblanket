@@ -3,15 +3,15 @@
 #' @description Set the default style by setting the default mode and updating a series of geom and annotate defaults.
 #'
 #' @param mode A default `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
-#' @param geom_colour A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to `blue`. Use NULL to leave colour, fill and alpha as is.
-#' @param geom_linewidth A default linewidth for geoms. Fill inherits from this colour. Defaults to 0.66. Use NULL to leave linewidth as is.
-#' @param geom_size A default point size for `*_point`. `*_pointrange` multiplies this by 0.25. Defaults to 1.5. . Use NULL to leave size as is.
+#' @param geom_colour A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to `blue`.
+#' @param geom_linewidth A default linewidth for geoms. Fill inherits from this colour. Defaults to 0.66.
+#' @param geom_size A default point size for `*_point`. `*_pointrange` multiplies this by 0.25. Defaults to 1.5. .
 #' @param annotate_colour A default hex colour (and fill) for geoms commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`). Defaults to "#121b24" (i.e. `lightness[1]`).
 #' @param annotate_linewidth A default linewidth for geoms commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`). Defaults to 0.33 (i.e. `linewidthness[1]`).
 #' @param annotate_size A default size for `*_text` and `*_label`. Defaults to 3.88.
 #' @param annotate_family A default family for `*_text` and `*_label`. Defaults to ""
-#' @param col_palette_discrete A default col_palette to use in the discrete scale. A character vector of hex codes (or names). Use NULL to leave as is.
-#' @param col_palette_continuous A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.
+#' @param col_palette_discrete A default col_palette to use in the discrete scale. A character vector of hex codes (or names).
+#' @param col_palette_continuous A default col_palette to use in the continuous scale. A character vector of hex codes (or names).
 #' @param theme A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions. Note any set or supplied mode takes precedence.
 #' @param ... Provided to support trailing commas only.
 #'
@@ -80,8 +80,6 @@ set_blanket <- function(
     continuous = col_palette_continuous
   )
 
-  weave_theme(
-    theme = theme
-  )
+  weave_theme(theme = theme)
 }
 

@@ -7,11 +7,11 @@
 weave_geom_aes(colour = "#357ba2", linewidth = 0.66, size = 1.5)
 }
 \arguments{
-\item{colour}{A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to \code{blue}. Use NULL to leave colour, fill and alpha as is.}
+\item{colour}{A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to \code{blue}.}
 
-\item{linewidth}{A default linewidth for geoms. Fill inherits from this colour. Defaults to 0.66. Use NULL to leave linewidth as is.}
+\item{linewidth}{A default linewidth for geoms. Fill inherits from this colour. Defaults to 0.66.}
 
-\item{size}{A default point size for \verb{*_point}. \verb{*_pointrange} multiplies this by 0.25. Defaults to 1.5. . Use NULL to leave size as is.}
+\item{size}{A default point size for \verb{*_point}. \verb{*_pointrange} multiplies this by 0.25. Defaults to 1.5. .}
 }
 \description{
 Update a series of geom defaults.

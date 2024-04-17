@@ -22,11 +22,11 @@ set_blanket(
 \arguments{
 \item{mode}{A default \verb{*_mode_*}. E.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
 
-\item{geom_colour}{A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to \code{blue}. Use NULL to leave colour, fill and alpha as is.}
+\item{geom_colour}{A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to \code{blue}.}
 
-\item{geom_linewidth}{A default linewidth for geoms. Fill inherits from this colour. Defaults to 0.66. Use NULL to leave linewidth as is.}
+\item{geom_linewidth}{A default linewidth for geoms. Fill inherits from this colour. Defaults to 0.66.}
 
-\item{geom_size}{A default point size for \verb{*_point}. \verb{*_pointrange} multiplies this by 0.25. Defaults to 1.5. . Use NULL to leave size as is.}
+\item{geom_size}{A default point size for \verb{*_point}. \verb{*_pointrange} multiplies this by 0.25. Defaults to 1.5. .}
 
 \item{annotate_colour}{A default hex colour (and fill) for geoms commonly used for annotation (i.e. \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}). Defaults to "#121b24" (i.e. \code{lightness[1]}).}
 
@@ -36,9 +36,9 @@ set_blanket(
 
 \item{annotate_family}{A default family for \verb{*_text} and \verb{*_label}. Defaults to ""}
 
-\item{col_palette_discrete}{A default col_palette to use in the discrete scale. A character vector of hex codes (or names). Use NULL to leave as is.}
+\item{col_palette_discrete}{A default col_palette to use in the discrete scale. A character vector of hex codes (or names).}
 
-\item{col_palette_continuous}{A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.}
+\item{col_palette_continuous}{A default col_palette to use in the continuous scale. A character vector of hex codes (or names).}
 
 \item{theme}{A default ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note any set or supplied mode takes precedence.}
 
