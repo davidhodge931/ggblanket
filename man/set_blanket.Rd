@@ -2,7 +2,7 @@
 % Please edit documentation in R/set_blanket.R
 \name{set_blanket}
 \alias{set_blanket}
-\title{Set the default style}
+\title{Set a default style}
 \usage{
 set_blanket(
   mode = light_mode_r(),
@@ -48,7 +48,12 @@ set_blanket(
 A globally set mode and updated geom defaults.
 }
 \description{
-Set the default style by setting the default mode and updating a series of geom and annotate defaults.
+Set a default style by setting
+\itemize{
+\item a default mode
+\item a series of geom and annotate aesthetic defaults
+\item a default col_palette for discrete and continuous.
+}
 }
 \examples{
 library(ggplot2)
