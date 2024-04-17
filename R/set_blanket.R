@@ -1,10 +1,6 @@
 #' Set a default style
 #'
-#' @description
-#' Set a default style by setting
-#' * a default mode
-#' * a series of geom and annotate aesthetic defaults
-#' * a default col_palette for discrete and continuous.
+#' @description Set a default style by setting a default mode, a series of geom and annotate aesthetic defaults, and a default col_palette for discrete and continuous.
 #'
 #' @param mode A default `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
 #' @param geom_colour A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to `blue`.
