@@ -209,7 +209,7 @@ mtcars |>
     y = mpg, 
     label = car, 
   ) +
-  geom_text_repel(colour = blue) 
+  geom_text_repel() 
 ```
 
 ### ggbeeswarm

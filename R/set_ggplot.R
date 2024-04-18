@@ -29,9 +29,9 @@ set_ggplot <- function(
 
   if (rlang::is_null(theme)) theme <- light_mode_r() +
       ggplot2::theme(
-        panel.grid.major.x = element_blank(),
-        axis.line.y = element_blank(),
-        axis.ticks.y = element_blank()
+        panel.grid.major.x = ggplot2::element_blank(),
+        axis.line.y = ggplot2::element_blank(),
+        axis.ticks.y = ggplot2::element_blank()
       )
 
   ggplot2::theme_set(new = theme)
@@ -51,22 +51,22 @@ set_ggplot <- function(
 
   options(
     ggplot2.discrete.colour = function()
-      scale_colour_manual(
+      ggplot2::scale_colour_manual(
         values = col_palette_discrete,
         na.value = "darkgrey"
       ),
     ggplot2.discrete.fill = function()
-      scale_fill_manual(
+      ggplot2::scale_fill_manual(
         values = col_palette_discrete,
         na.value = "darkgrey"
       ),
     ggplot2.continuous.colour = function()
-      scale_color_gradientn(
+      ggplot2::scale_color_gradientn(
         colours = col_palette_continuous,
         na.value = "darkgrey"
       ),
     ggplot2.continuous.fill = function()
-      scale_fill_gradientn(
+      ggplot2::scale_fill_gradientn(
         colours = col_palette_continuous,
         na.value = "darkgrey"
       )

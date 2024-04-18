@@ -1654,8 +1654,13 @@ gg_blanket <- function(
   ##############################################################################
 
   if (rlang::is_null(mode) & rlang::is_null(get_mode())) {
-    plot <- plot +
-      get_theme()
+    if (!rlang::is_null(get_theme())) {
+      plot <- plot +
+        get_theme()
+    } else {
+      plot <- plot +
+        ggplot2::theme_grey()
+    }
   }
 
   return(plot)
