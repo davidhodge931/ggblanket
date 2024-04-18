@@ -30,6 +30,8 @@ weave_theme <- function(theme = light_mode_r(orientation = "x")) {
   old <- ggblanket_global$theme
   ggblanket_global$theme <- theme
   invisible(old)
+
+  if (!rlang::is_null(theme)) ggplot2::theme_set(new = theme)
 }
 
 #' Set a series of geom defaults
@@ -143,6 +145,59 @@ weave_col_palette_discrete <- function(discrete = c(teal, orange, navy, pink)) {
   old <- ggblanket_global$col_palette_discrete
   ggblanket_global$col_palette_discrete <- discrete
   invisible(old)
+
+  options(
+    # ggplot2.discrete.colour = function()
+    #   ggplot2::scale_colour_manual(
+    #     values = discrete,
+    #     na.value = "darkgrey"
+    #   ),
+    # ggplot2.discrete.fill = function()
+    #   ggplot2::scale_fill_manual(
+    #     values = discrete,
+    #     na.value = "darkgrey"
+    #   ),
+    ggplot2.discrete.colour =
+      list(
+        discrete,
+        scales::pal_hue()(length(discrete) + 1),
+        scales::pal_hue()(length(discrete) + 2),
+        scales::pal_hue()(length(discrete) + 3),
+        scales::pal_hue()(length(discrete) + 4),
+        scales::pal_hue()(length(discrete) + 5),
+        scales::pal_hue()(length(discrete) + 6),
+        scales::pal_hue()(length(discrete) + 7),
+        scales::pal_hue()(length(discrete) + 8),
+        scales::pal_hue()(length(discrete) + 9),
+        scales::pal_hue()(length(discrete) + 10),
+        scales::pal_hue()(length(discrete) + 11),
+        scales::pal_hue()(length(discrete) + 12),
+        scales::pal_hue()(length(discrete) + 13),
+        scales::pal_hue()(length(discrete) + 14),
+        scales::pal_hue()(length(discrete) + 15),
+        scales::pal_hue()(length(discrete) + 16)
+      ),
+    ggplot2.discrete.fill =
+      list(
+        discrete,
+        scales::pal_hue()(length(discrete) + 1),
+        scales::pal_hue()(length(discrete) + 2),
+        scales::pal_hue()(length(discrete) + 3),
+        scales::pal_hue()(length(discrete) + 4),
+        scales::pal_hue()(length(discrete) + 5),
+        scales::pal_hue()(length(discrete) + 6),
+        scales::pal_hue()(length(discrete) + 7),
+        scales::pal_hue()(length(discrete) + 8),
+        scales::pal_hue()(length(discrete) + 9),
+        scales::pal_hue()(length(discrete) + 10),
+        scales::pal_hue()(length(discrete) + 11),
+        scales::pal_hue()(length(discrete) + 12),
+        scales::pal_hue()(length(discrete) + 13),
+        scales::pal_hue()(length(discrete) + 14),
+        scales::pal_hue()(length(discrete) + 15),
+        scales::pal_hue()(length(discrete) + 16)
+      )
+  )
 }
 
 #' Set a default continuous colour palette
@@ -154,6 +209,19 @@ weave_col_palette_continuous <- function(continuous = viridisLite::mako(n = 20, 
   old <- ggblanket_global$col_palette_continuous
   ggblanket_global$col_palette_continuous <- continuous
   invisible(old)
+
+  options(
+    ggplot2.continuous.colour = function()
+      ggplot2::scale_color_gradientn(
+        colours = continuous,
+        na.value = "darkgrey"
+      ),
+    ggplot2.continuous.fill = function()
+      ggplot2::scale_fill_gradientn(
+        colours = continuous,
+        na.value = "darkgrey"
+      )
+  )
 }
 
 #' Set a default col_palette

@@ -55,7 +55,7 @@ grey_mode_n(
 
 \item{legend_key_fill}{The fill (and colour) of the legend.key theme element.}
 
-\item{orientation}{The orientation of the plot. Either "x" or "y". Defaults to NULL.}
+\item{orientation}{The orientation of the plot. Either "x" or "y". Defaults to NULL. Not intended for use with the mode argument of gg_* functions.}
 
 \item{...}{Provided to support trailing commas only.}
 }

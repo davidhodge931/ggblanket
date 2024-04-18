@@ -12,7 +12,7 @@
 #' @param annotate_family A default family for `*_text` and `*_label`. Defaults to ""
 #' @param col_palette_discrete A default col_palette to use in the discrete scale. A character vector of hex codes (or names).
 #' @param col_palette_continuous A default col_palette to use in the continuous scale. A character vector of hex codes (or names).
-#' @param theme A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence unless NULL.
+#' @param theme A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence, unless `mode = NULL`.
 #' @param ... Provided to support trailing commas only.
 #'
 #' @return A globally set mode and updated geom defaults.
@@ -57,7 +57,7 @@ set_blanket <- function(
     annotate_family = "",
     col_palette_discrete = c(teal, orange, navy, pink),
     col_palette_continuous = viridisLite::mako(n = 20, direction = -1),
-    theme = NULL,
+    theme = light_mode_r(orientation = "x"),
     ...
 ) {
   weave_mode(mode = mode)

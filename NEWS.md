@@ -6,6 +6,7 @@
 * Breaking: updated `weave_*` functions and added new ones.
 * Breaking: removed `facet_labels_position` and `facet_labels_switch`.
 * Breaking: in `aes_contrast`, changed `contrast_pal` to `dark` and `light`. 
+* Added `orientation` argument to `*_mode_*` functions.
 * Added arguments to `*_mode_*` for more control with colours and linewidths.
 * Added `pink` and used this in default discrete colours for for 4 values.
 * Updated `*ness` helper pals.

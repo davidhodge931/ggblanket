@@ -15,7 +15,7 @@ set_blanket(
   annotate_family = "",
   col_palette_discrete = c(teal, orange, navy, pink),
   col_palette_continuous = viridisLite::mako(n = 20, direction = -1),
-  theme = NULL,
+  theme = light_mode_r(orientation = "x"),
   ...
 )
 }
@@ -40,7 +40,7 @@ set_blanket(
 
 \item{col_palette_continuous}{A default col_palette to use in the continuous scale. A character vector of hex codes (or names).}
 
-\item{theme}{A default ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note, \code{mode} takes precedence unless NULL.}
+\item{theme}{A default ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note, \code{mode} takes precedence, unless \code{mode = NULL}.}
 
 \item{...}{Provided to support trailing commas only.}
 }
