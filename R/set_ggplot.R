@@ -50,15 +50,55 @@ set_ggplot <- function(
   )
 
   options(
-    ggplot2.discrete.colour = function()
-      ggplot2::scale_colour_manual(
-        values = col_palette_discrete,
-        na.value = "darkgrey"
+    # ggplot2.discrete.colour = function()
+    #   ggplot2::scale_colour_manual(
+    #     values = col_palette_discrete,
+    #     na.value = "darkgrey"
+    #   ),
+    # ggplot2.discrete.fill = function()
+    #   ggplot2::scale_fill_manual(
+    #     values = col_palette_discrete,
+    #     na.value = "darkgrey"
+    #   ),
+    ggplot2.discrete.colour =
+      list(
+        c(teal, orange, navy, pink),
+        scales::pal_hue()(5),
+        scales::pal_hue()(6),
+        scales::pal_hue()(7),
+        scales::pal_hue()(8),
+        scales::pal_hue()(9),
+        scales::pal_hue()(10),
+        scales::pal_hue()(11),
+        scales::pal_hue()(12),
+        scales::pal_hue()(13),
+        scales::pal_hue()(14),
+        scales::pal_hue()(15),
+        scales::pal_hue()(16),
+        scales::pal_hue()(17),
+        scales::pal_hue()(18),
+        scales::pal_hue()(19),
+        scales::pal_hue()(20)
       ),
-    ggplot2.discrete.fill = function()
-      ggplot2::scale_fill_manual(
-        values = col_palette_discrete,
-        na.value = "darkgrey"
+    ggplot2.discrete.fill =
+      list(
+        c(teal, orange, navy, pink),
+        scales::pal_hue()(5),
+        scales::pal_hue()(6),
+        scales::pal_hue()(7),
+        scales::pal_hue()(8),
+        scales::pal_hue()(9),
+        scales::pal_hue()(10),
+        scales::pal_hue()(11),
+        scales::pal_hue()(12),
+        scales::pal_hue()(13),
+        scales::pal_hue()(14),
+        scales::pal_hue()(15),
+        scales::pal_hue()(16),
+        scales::pal_hue()(17),
+        scales::pal_hue()(18),
+        scales::pal_hue()(19),
+        scales::pal_hue()(20)
       ),
     ggplot2.continuous.colour = function()
       ggplot2::scale_color_gradientn(
