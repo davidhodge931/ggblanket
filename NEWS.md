@@ -6,10 +6,11 @@
 * Breaking: updated `weave_*` functions and added new ones.
 * Breaking: removed `facet_labels_position` and `facet_labels_switch`.
 * Breaking: in `aes_contrast`, changed `contrast_pal` to `dark` and `light`. 
-* Added `orientation` argument to `*_mode_*` functions.
+* Updated `set_blanket()` and `weave_*()` to setup ggplot2 as well as ggblanket.
+* Added `orientation` argument to `*_mode_*` functions for use with ggplot2.
 * Added arguments to `*_mode_*` for more control with colours and linewidths.
 * Added `pink` and used this in default discrete colours for for 4 values.
-* Updated `*ness` helper pals.
+* Updated `*ness` helper palettes.
 * Made compatible with extension geoms with no x or y variables in `layer_data`.
 * Fixed bug with `set_blanket`, which made {gghighlight} not work.
 
