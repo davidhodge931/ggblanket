@@ -10,12 +10,12 @@ ggblanket_global$theme <- NULL
 #'
 #' @description Set a default mode for the mode argument in `gg_*` functions.
 #'
-#' @param mode A default `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
+#' @param new A default `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
 #'
 #' @export
-weave_mode <- function(mode = light_mode_r()) {
+weave_mode <- function(new = light_mode_r()) {
   old <- ggblanket_global$mode
-  ggblanket_global$mode <- mode
+  ggblanket_global$mode <- new
   invisible(old)
 }
 
@@ -23,15 +23,15 @@ weave_mode <- function(mode = light_mode_r()) {
 #'
 #' @description Set a default theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence unless NULL.
 #'
-#' @param theme A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions.
+#' @param new A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions.
 #'
 #' @export
-weave_theme <- function(theme = light_mode_r(orientation = "x")) {
+weave_theme <- function(new = light_mode_r(orientation = "x")) {
   old <- ggblanket_global$theme
-  ggblanket_global$theme <- theme
+  ggblanket_global$theme <- new
   invisible(old)
 
-  if (!rlang::is_null(theme)) ggplot2::theme_set(new = theme)
+  if (!rlang::is_null(new)) ggplot2::theme_set(new = new)
 }
 
 #' Set a series of geom defaults

@@ -4,10 +4,10 @@
 \alias{weave_mode}
 \title{Set a default mode}
 \usage{
-weave_mode(mode = light_mode_r())
+weave_mode(new = light_mode_r())
 }
 \arguments{
-\item{mode}{A default \verb{*_mode_*}. E.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
+\item{new}{A default \verb{*_mode_*}. E.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
 }
 \description{
 Set a default mode for the mode argument in \verb{gg_*} functions.

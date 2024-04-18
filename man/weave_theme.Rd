@@ -4,10 +4,10 @@
 \alias{weave_theme}
 \title{Set a default theme}
 \usage{
-weave_theme(theme = light_mode_r(orientation = "x"))
+weave_theme(new = light_mode_r(orientation = "x"))
 }
 \arguments{
-\item{theme}{A default ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions.}
+\item{new}{A default ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions.}
 }
 \description{
 Set a default theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note, \code{mode} takes precedence unless NULL.

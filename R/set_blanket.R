@@ -60,7 +60,7 @@ set_blanket <- function(
     theme = light_mode_r(orientation = "x"),
     ...
 ) {
-  weave_mode(mode = mode)
+  weave_mode(new = mode)
 
   weave_geom_aes(
     colour = geom_colour,
@@ -80,6 +80,6 @@ set_blanket <- function(
     continuous = col_palette_continuous
   )
 
-  weave_theme(theme = theme)
+  weave_theme(new = theme)
 }
 
