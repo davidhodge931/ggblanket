@@ -31,6 +31,7 @@
 #' @param plot_background_fill The fill (and colour) of the plot.background theme element.
 #' @param legend_background_fill The fill (and colour) of the legend.background theme element.
 #' @param legend_key_fill The fill (and colour) of the legend.key theme element.
+#' @param orientation The orientation of the plot. Either "x" or "y". Defaults to NULL. Not intended for use with the mode argument of gg_* functions.
 #'
 #' @return A ggplot theme.
 #' @keywords internal
@@ -64,10 +65,11 @@ foundation_mode_base <- function(
     panel_background_fill = lightness[4],
     plot_background_fill = lightness[5],
     legend_background_fill = plot_background_fill,
-    legend_key_fill = plot_background_fill
+    legend_key_fill = plot_background_fill,
+    orientation = NULL
 ) {
 
-  ggplot2::theme(
+  theme <- ggplot2::theme(
     text = ggplot2::element_text(size = base_size, family = base_family, face = "plain", colour = base_colour,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
     axis.line = ggplot2::element_line(colour = axis_line_colour, linewidth = axis_line_linewidth),
@@ -168,6 +170,37 @@ foundation_mode_base <- function(
 
     complete = TRUE
   )
+
+  if (!rlang::is_null(orientation)) {
+    if (orientation == "x") {
+      theme <- theme +
+        ggplot2::theme(
+          panel.grid.major.x = ggplot2::element_blank(),
+          panel.grid.minor.x = ggplot2::element_blank(),
+          axis.line.y.left = ggplot2::element_blank(),
+          axis.line.y.right = ggplot2::element_blank(),
+          axis.ticks.y.left = ggplot2::element_blank(),
+          axis.ticks.y.right = ggplot2::element_blank(),
+          axis.minor.ticks.y.left = ggplot2::element_blank(),
+          axis.minor.ticks.y.right = ggplot2::element_blank()
+        )
+    }
+    if (orientation == "y") {
+      theme <- theme +
+        ggplot2::theme(
+          panel.grid.major.y = ggplot2::element_blank(),
+          panel.grid.minor.y = ggplot2::element_blank(),
+          axis.line.x.top = ggplot2::element_blank(),
+          axis.line.x.bottom = ggplot2::element_blank(),
+          axis.ticks.x.top = ggplot2::element_blank(),
+          axis.ticks.x.bottom = ggplot2::element_blank(),
+          axis.minor.ticks.x.top = ggplot2::element_blank(),
+          axis.minor.ticks.x.bottom = ggplot2::element_blank()
+        )
+    }
+  }
+
+  return(theme)
 }
 
 #' Flexible mode with right legend
@@ -210,6 +243,7 @@ foundation_mode_r <- function (
     plot_background_fill = lightness[5],
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    orientation = NULL,
     ...) {
 
   foundation_mode_base(
@@ -241,7 +275,8 @@ foundation_mode_r <- function (
     panel_background_fill = panel_background_fill,
     plot_background_fill = plot_background_fill,
     legend_background_fill = legend_background_fill,
-    legend_key_fill = legend_key_fill
+    legend_key_fill = legend_key_fill,
+    orientation = orientation
   )
 }
 
@@ -284,6 +319,7 @@ foundation_mode_t <- function (
     plot_background_fill = lightness[5],
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    orientation = NULL,
     ...) {
 
   foundation_mode_base(
@@ -315,7 +351,8 @@ foundation_mode_t <- function (
     panel_background_fill = panel_background_fill,
     plot_background_fill = plot_background_fill,
     legend_background_fill = legend_background_fill,
-    legend_key_fill = legend_key_fill
+    legend_key_fill = legend_key_fill,
+    orientation = orientation
   ) +
     ggplot2::theme(
       legend.position = "top",
@@ -372,6 +409,7 @@ foundation_mode_b <- function (
     plot_background_fill = lightness[5],
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    orientation = NULL,
     ...) {
 
   foundation_mode_base(
@@ -403,7 +441,8 @@ foundation_mode_b <- function (
     panel_background_fill = panel_background_fill,
     plot_background_fill = plot_background_fill,
     legend_background_fill = legend_background_fill,
-    legend_key_fill = legend_key_fill
+    legend_key_fill = legend_key_fill,
+    orientation = orientation
   ) +
     ggplot2::theme(
       legend.position = "bottom",
@@ -457,6 +496,7 @@ foundation_mode_n <- function (
     plot_background_fill = lightness[5],
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    orientation = NULL,
     ...) {
 
   foundation_mode_base(
@@ -488,7 +528,8 @@ foundation_mode_n <- function (
     panel_background_fill = panel_background_fill,
     plot_background_fill = plot_background_fill,
     legend_background_fill = legend_background_fill,
-    legend_key_fill = legend_key_fill
+    legend_key_fill = legend_key_fill,
+    orientation = orientation
   ) +
     ggplot2::theme(legend.position = "none")
 }

@@ -14,7 +14,7 @@
 #'
 #' @noRd
 set_ggplot <- function(
-    theme = NULL,
+    theme = light_mode_r(orientation = "x"),
     geom_colour = "#357ba2",
     geom_linewidth = 0.66,
     geom_size = 1.5,
@@ -26,13 +26,6 @@ set_ggplot <- function(
     col_palette_continuous = viridisLite::mako(n = 20, direction = -1),
     ...
 ) {
-
-  if (rlang::is_null(theme)) theme <- light_mode_r() +
-      ggplot2::theme(
-        panel.grid.major.x = ggplot2::element_blank(),
-        axis.line.y = ggplot2::element_blank(),
-        axis.ticks.y = ggplot2::element_blank()
-      )
 
   ggplot2::theme_set(new = theme)
 

@@ -17,6 +17,7 @@
 #' @param plot_background_fill The fill (and colour) of the plot.background theme element.
 #' @param legend_background_fill The fill (and colour) of the legend.background theme element.
 #' @param legend_key_fill The fill (and colour) of the legend.key theme element.
+#' @param orientation The orientation of the plot. Either "x" or "y". Defaults to NULL. Not intended for use with the mode argument of gg_* functions.
 #' @param ... Provided to support trailing commas only.
 #'
 #' @return A ggplot theme.
@@ -52,6 +53,7 @@ light_mode_r <- function (
     plot_background_fill = lightness[5],
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    orientation = NULL,
     ...
 ) {
 
@@ -87,6 +89,7 @@ light_mode_r <- function (
     plot_background_fill = plot_background_fill,
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill,
+    orientation = orientation,
     ...
   )
 }
@@ -130,6 +133,7 @@ light_mode_t <- function (
     plot_background_fill = lightness[5],
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    orientation = NULL,
     ...
 ) {
 
@@ -165,6 +169,7 @@ light_mode_t <- function (
     plot_background_fill = plot_background_fill,
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill,
+    orientation = orientation,
     ...
   )
 }
@@ -208,6 +213,7 @@ light_mode_b <- function (
     plot_background_fill = lightness[5],
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    orientation = NULL,
     ...
 ) {
 
@@ -243,6 +249,7 @@ light_mode_b <- function (
     plot_background_fill = plot_background_fill,
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill,
+    orientation = orientation,
     ...
   )
 }
@@ -286,6 +293,7 @@ light_mode_n <- function (
     plot_background_fill = lightness[5],
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    orientation = NULL,
     ...
 ) {
 
@@ -321,6 +329,7 @@ light_mode_n <- function (
     plot_background_fill = plot_background_fill,
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill,
+    orientation = orientation,
     ...
   )
 }

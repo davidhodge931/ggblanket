@@ -33,7 +33,8 @@ foundation_mode_base(
   panel_background_fill = lightness[4],
   plot_background_fill = lightness[5],
   legend_background_fill = plot_background_fill,
-  legend_key_fill = plot_background_fill
+  legend_key_fill = plot_background_fill,
+  orientation = NULL
 )
 }
 \arguments{
@@ -94,6 +95,8 @@ foundation_mode_base(
 \item{legend_background_fill}{The fill (and colour) of the legend.background theme element.}
 
 \item{legend_key_fill}{The fill (and colour) of the legend.key theme element.}
+
+\item{orientation}{The orientation of the plot. Either "x" or "y". Defaults to NULL.}
 }
 \value{
 A ggplot theme.

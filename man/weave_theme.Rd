@@ -4,10 +4,7 @@
 \alias{weave_theme}
 \title{Set a default theme}
 \usage{
-weave_theme(
-  theme = light_mode_r() + ggplot2::theme(panel.grid.major.x = ggplot2::element_blank(),
-    axis.line.y = ggplot2::element_blank(), axis.ticks.y = ggplot2::element_blank())
-)
+weave_theme(theme = light_mode_r(orientation = "x"))
 }
 \arguments{
 \item{theme}{A default ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions.}

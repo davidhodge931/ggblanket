@@ -37,6 +37,7 @@ dark_mode_r <- function (
     plot_background_fill = darkness[5],
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    orientation = NULL,
     ...
 ) {
 
@@ -72,6 +73,7 @@ dark_mode_r <- function (
     plot_background_fill = plot_background_fill,
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill,
+    orientation = orientation,
     ...
   )
 }
@@ -115,6 +117,7 @@ dark_mode_t <- function (
     plot_background_fill = darkness[5],
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    orientation = NULL,
     ...
 ) {
 
@@ -150,6 +153,7 @@ dark_mode_t <- function (
     plot_background_fill = plot_background_fill,
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill,
+    orientation = orientation,
     ...
   )
 }
@@ -193,6 +197,7 @@ dark_mode_b <- function (
     plot_background_fill = darkness[5],
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    orientation = NULL,
     ...
 ) {
 
@@ -228,6 +233,7 @@ dark_mode_b <- function (
     plot_background_fill = plot_background_fill,
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill,
+    orientation = orientation,
     ...
   )
 }
@@ -271,6 +277,7 @@ dark_mode_n <- function (
     plot_background_fill = darkness[5],
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    orientation = NULL,
     ...
 ) {
 
@@ -306,6 +313,7 @@ dark_mode_n <- function (
     plot_background_fill = plot_background_fill,
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill,
+    orientation = orientation,
     ...
   )
 }
