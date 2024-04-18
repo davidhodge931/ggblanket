@@ -31,10 +31,8 @@ reference:
   - dark_mode_t
   - dark_mode_b
   - dark_mode_n
-- title: Other
+- title: Colour
 - contents:
-  - aes_contrast
-  - replace_seq
   - blue
   - teal
   - orange
@@ -43,4 +41,8 @@ reference:
   - lightness
   - greyness
   - darkness
+- title: Other
+- contents:
+  - aes_contrast
+  - replace_seq
   - linewidthness
