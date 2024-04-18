@@ -6,7 +6,8 @@
 * Breaking: updated `weave_*` functions and added new ones.
 * Breaking: removed `facet_labels_position` and `facet_labels_switch`.
 * Breaking: in `aes_contrast`, changed `contrast_pal` to `dark` and `light`. 
-* Updated `set_blanket()` and `weave_*()` to setup ggplot2 as well as ggblanket.
+* Updated `set_blanket()` and `weave_*()` to set ggplot2 as well as ggblanket.
+* Updated `set_blanket()` and `weave_col_palette()` to set the default `col_palette`.
 * Added `orientation` argument to `*_mode_*` functions for use with ggplot2.
 * Added arguments to `*_mode_*` for more control with colours and linewidths.
 * Added `pink` and used this in default discrete colours for for 4 values.
