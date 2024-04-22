@@ -40,7 +40,8 @@ orange <- "#ffa600"
 #'
 #' @examples
 #' scales::show_col(navy)
-navy <- "#26506C"
+# navy <- "#26506C"
+navy <- "#003f5c"
 
 #' A red colour
 #'
@@ -51,18 +52,18 @@ navy <- "#26506C"
 #'
 #' @examples
 #' scales::show_col(red)
-red <- "#e64c4a"
+red <- "#da3c39"
 
-#' A yellow colour
+#' A pink colour
 #'
-#' @description A yellow colour.
+#' @description A pink colour.
 #'
 #' @return A character vector.
 #' @export
 #'
 #' @examples
-#' scales::show_col(yellow)
-yellow <- "#f3e200"
+#' scales::show_col(pink)
+pink <- "#e97fbb"
 
 #' The `light_mode_*` theme colours
 #'

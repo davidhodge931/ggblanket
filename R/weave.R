@@ -141,7 +141,7 @@ weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, size = 3.88
 #' @param discrete Colour palette to use for discrete scale. A character vector of hex codes (or names).
 #'
 #' @noRd
-weave_col_palette_discrete <- function(discrete = c(teal, orange, navy, red)) {
+weave_col_palette_discrete <- function(discrete = c(teal, orange, navy, red, pink)) {
   old <- ggblanket_global$col_palette_discrete
   ggblanket_global$col_palette_discrete <- discrete
   invisible(old)
@@ -232,7 +232,7 @@ weave_col_palette_continuous <- function(continuous = viridisLite::mako(n = 20, 
 #' @param continuous A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.
 #'
 #' @export
-weave_col_palette <- function(discrete = c(teal, orange, navy, red),
+weave_col_palette <- function(discrete = c(teal, orange, navy, red, pink),
                               continuous = viridisLite::mako(n = 9)) {
   if (!rlang::is_null(discrete)) weave_col_palette_discrete(discrete)
   if (!rlang::is_null(continuous)) weave_col_palette_continuous(continuous)

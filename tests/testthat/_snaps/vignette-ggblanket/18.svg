@@ -30,7 +30,7 @@
 <polyline points='617.93,530.17 617.93,21.92 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <rect x='84.34' y='57.65' width='282.09' height='119.12' style='stroke-width: 1.41; stroke: #0095A8; stroke-linecap: butt; stroke-linejoin: miter; fill: #0095A8; fill-opacity: 0.90;' />
 <rect x='84.34' y='216.48' width='284.57' height='119.12' style='stroke-width: 1.41; stroke: #FFA600; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFA600; fill-opacity: 0.90;' />
-<rect x='84.34' y='375.31' width='386.93' height='119.12' style='stroke-width: 1.41; stroke: #26506C; stroke-linecap: butt; stroke-linejoin: miter; fill: #26506C; fill-opacity: 0.90;' />
+<rect x='84.34' y='375.31' width='386.93' height='119.12' style='stroke-width: 1.41; stroke: #003F5C; stroke-linecap: butt; stroke-linejoin: miter; fill: #003F5C; fill-opacity: 0.90;' />
 <polyline points='422.85,125.16 422.85,109.27 ' style='stroke-width: 1.41; stroke-linecap: butt;' />
 <polyline points='422.85,117.22 352.32,117.22 ' style='stroke-width: 1.41; stroke-linecap: butt;' />
 <polyline points='352.32,125.16 352.32,109.27 ' style='stroke-width: 1.41; stroke-linecap: butt;' />
@@ -64,7 +64,7 @@
 <rect x='631.82' y='61.68' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <rect x='632.76' y='62.62' width='17.31' height='18.94' style='stroke-width: 1.41; stroke: #FFA600; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFA600; fill-opacity: 0.90;' />
 <rect x='631.82' y='86.11' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<rect x='632.76' y='87.04' width='17.31' height='18.94' style='stroke-width: 1.41; stroke: #26506C; stroke-linecap: butt; stroke-linejoin: miter; fill: #26506C; fill-opacity: 0.90;' />
+<rect x='632.76' y='87.04' width='17.31' height='18.94' style='stroke-width: 1.41; stroke: #003F5C; stroke-linecap: butt; stroke-linejoin: miter; fill: #003F5C; fill-opacity: 0.90;' />
 <text x='656.48' y='51.44' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='30.58px' lengthAdjust='spacingAndGlyphs'>Adelie</text>
 <text x='656.48' y='75.87' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='47.08px' lengthAdjust='spacingAndGlyphs'>Chinstrap</text>
 <text x='656.48' y='100.30' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='36.09px' lengthAdjust='spacingAndGlyphs'>Gentoo</text>
