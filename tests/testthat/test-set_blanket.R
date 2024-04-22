@@ -3,6 +3,7 @@ testthat::skip_on_os(c("mac", "linux"))
 
 library(palmerpenguins)
 library(ggplot2)
+library(dplyr)
 
 ###
 test_name <- "1"
@@ -33,7 +34,7 @@ test_that(test_name, {
 
   set_blanket(
     mode = light_mode_r(),
-    geom_colour = pink,
+    geom_colour = red,
     annotate_colour = teal,
   )
 
@@ -54,13 +55,13 @@ test_that(test_name, {
 set_blanket(
   mode = grey_mode_r(15),
   theme = NULL,
-  geom_colour = pink,
+  geom_colour = red,
   geom_linewidth = 3,
   geom_size = 3,
   annotate_colour = "red",
   annotate_linewidth = 5,
   annotate_size = 15 / 2.83505,
-  col_palette_discrete = c(navy, pink, "green"),
+  col_palette_discrete = c(navy, red, "green"),
   col_palette_continuous = viridisLite::rocket(20)
 )
 
