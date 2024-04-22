@@ -141,7 +141,7 @@ weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, size = 3.88
 #' @param discrete Colour palette to use for discrete scale. A character vector of hex codes (or names).
 #'
 #' @noRd
-weave_col_palette_discrete <- function(discrete = c(teal, orange, navy, pink)) {
+weave_col_palette_discrete <- function(discrete = c(teal, orange, navy, red)) {
   old <- ggblanket_global$col_palette_discrete
   ggblanket_global$col_palette_discrete <- discrete
   invisible(old)
@@ -150,12 +150,12 @@ weave_col_palette_discrete <- function(discrete = c(teal, orange, navy, pink)) {
     # ggplot2.discrete.colour = function()
     #   ggplot2::scale_colour_manual(
     #     values = discrete,
-    #     na.value = "grey50"
+    #     na.value = ""#c8d7df""
     #   ),
     # ggplot2.discrete.fill = function()
     #   ggplot2::scale_fill_manual(
     #     values = discrete,
-    #     na.value = "grey50"
+    #     na.value = ""#c8d7df""
     #   ),
     ggplot2.discrete.colour =
       list(
@@ -214,12 +214,12 @@ weave_col_palette_continuous <- function(continuous = viridisLite::mako(n = 20, 
     ggplot2.continuous.colour = function()
       ggplot2::scale_color_gradientn(
         colours = continuous,
-        na.value = "grey50"
+        na.value = ""#c8d7df""
       ),
     ggplot2.continuous.fill = function()
       ggplot2::scale_fill_gradientn(
         colours = continuous,
-        na.value = "grey50"
+        na.value = ""#c8d7df""
       )
   )
 }
@@ -232,7 +232,7 @@ weave_col_palette_continuous <- function(continuous = viridisLite::mako(n = 20, 
 #' @param continuous A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.
 #'
 #' @export
-weave_col_palette <- function(discrete = c(teal, orange, navy, pink),
+weave_col_palette <- function(discrete = c(teal, orange, navy, red),
                               continuous = viridisLite::mako(n = 9)) {
   if (!rlang::is_null(discrete)) weave_col_palette_discrete(discrete)
   if (!rlang::is_null(continuous)) weave_col_palette_continuous(continuous)

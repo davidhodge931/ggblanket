@@ -55,7 +55,7 @@ set_blanket <- function(
     annotate_linewidth = 0.33,
     annotate_size = 3.88,
     annotate_family = "",
-    col_palette_discrete = c(teal, orange, navy, pink),
+    col_palette_discrete = c(teal, orange, navy, red),
     col_palette_continuous = viridisLite::mako(n = 20, direction = -1),
     theme = light_mode_r(orientation = "x"),
     ...
