@@ -63,7 +63,7 @@ red <- "#da3c39"
 #'
 #' @examples
 #' scales::show_col(pink)
-pink <- "#e97fbb"
+pink <-"#FF98D1"
 
 #' The `light_mode_*` theme colours
 #'
