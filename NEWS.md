@@ -8,12 +8,13 @@
 * Breaking: in `aes_contrast`, changed `contrast_pal` to `dark` and `light`. 
 * Updated `set_blanket()` and `weave_*()` to set ggplot2 as well as ggblanket.
 * Updated `set_blanket()` and `weave_col_palette()` to set the default `col_palette`.
+* Breaking: removed `*ness` helper palettes.
 * Added `orientation` argument to `*_mode_*` functions for use with ggplot2.
 * Added arguments to `*_mode_*` for more control with colours and linewidths.
-* Added `red` and `pink` and used these in default discrete colours.
+* Added `red` and `pink`.
+* Added `vivid` discrete colour palette.
 * Changed the `col_palette_na` default to `"seashell3"` (i.e. `"#cdc5bf"`). 
 * Updated default style of colourbars.
-* Updated `*ness` helper palettes.
 * Made compatible with extension geoms with no x or y variables in `layer_data`.
 * Fixed bug with `set_blanket`, which made {gghighlight} not work.
 

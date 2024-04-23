@@ -325,7 +325,7 @@ tibble(x = 1:10) |>
     ymin = .lower,
     ymax = .upper,
     col = .width,
-    colour = lightness[1],
+    colour = "#121b24",
     col_legend_rev = TRUE,
     col_palette = blues9[c(7,5,3)],
   )

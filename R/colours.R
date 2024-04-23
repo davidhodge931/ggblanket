@@ -76,6 +76,8 @@ pink <- "#ec9ecb"
 #' scales::show_col(grey)
 grey <- "#8fa8b4"
 
+#' A categorical colour palette
+#'
 #' @description A categorical colour palette with 5 colours.
 #'
 #' @return A character vector.
@@ -87,60 +89,54 @@ vivid <- c(teal, orange, navy, red, pink)
 
 #' The `light_mode_*` theme colours
 #'
-#' @description A vector of 5 colours used in the `light_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
+#' @description A vector of 3 colours used in the `light_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
 #'
 #' @return A character vector.
-#' @export
+#' @noRd
 #'
 #' @examples
 #' scales::show_col(lightness)
 lightness <- c(
   "#121b24",
-  "#121b24",
   "#f6f8fa",
-  "#ffffff",
   "#ffffff"
 )
 
 #' The `grey_mode_*` theme colours
 #'
-#' @description A vector of 5 colours used in the `grey_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
+#' @description A vector of 3 colours used in the `grey_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
 #'
 #' @return A character vector.
-#' @export
+#' @noRd
 #'
 #' @examples
 #' scales::show_col(greyness)
 greyness <- c(
   "#121b24",
-  "#121b24",
   "#f6f8fa",
-  "#fcfdfe",
-  "#f6f8fa"
+  "#fcfdfe"
 )
 
 #' The `dark_mode_*` theme colours
 #'
-#' @description A vector of 5 colours used in the `dark_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
+#' @description A vector of 3 colours used in the `dark_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
 #'
 #' @return A character vector.
-#' @export
+#' @noRd
 #'
 #' @examples
 #' scales::show_col(darkness)
 darkness <- c(
   "#c8d7df",
-  "#c8d7df",
   "#00040a",
-  "#050d1b",
-  "#00040a"
+  "#050d1b"
 )
 
 #' The `*_mode_*` linewidth values
 #'
-#' @description A vector of 3 integers used in the `*_mode_*` themes for the for the linewidth of the axis.line (and axis.ticks), panel.grid and legend.ticks theme elements.
+#' @description A vector of 2 integers used in the `*_mode_*` themes for the for the linewidth of the axis.line (axis.ticks and legend.ticks) and panel.grid theme elements.
 #'
 #' @return A numeric vector.
-#' @export
+#' @noRd
 #'
-linewidthness <- c(0.33, 1.33, 0.33)
+linewidthness <- c(0.33, 1.33)

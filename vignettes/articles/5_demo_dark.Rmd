@@ -30,7 +30,7 @@ library(palmerpenguins)
 
 set_blanket(
   mode = dark_mode_r(), 
-  annotate_colour = darkness[1],
+  annotate_colour = "#c8d7df",
 )
 ```
 

@@ -28,9 +28,9 @@ set_blanket(
 
 \item{geom_size}{A default point size for \verb{*_point}. \verb{*_pointrange} multiplies this by 0.25. Defaults to 1.5. .}
 
-\item{annotate_colour}{A default hex colour (and fill) for geoms commonly used for annotation (i.e. \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}). Defaults to "#121b24" (i.e. \code{lightness[1]}).}
+\item{annotate_colour}{A default hex colour (and fill) for geoms commonly used for annotation (i.e. \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}). Defaults to "#121b24" (i.e. \code{"#121b24"}).}
 
-\item{annotate_linewidth}{A default linewidth for geoms commonly used for annotation (i.e. \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}). Defaults to 0.33 (i.e. \code{linewidthness[1]}).}
+\item{annotate_linewidth}{A default linewidth for geoms commonly used for annotation (i.e. \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}). Defaults to 0.33 (i.e. \code{0.33}).}
 
 \item{annotate_size}{A default size for \verb{*_text} and \verb{*_label}. Defaults to 3.88.}
 
@@ -58,7 +58,7 @@ library(palmerpenguins)
 set_blanket(
   mode = dark_mode_r(),
   geom_colour = orange,
-  annotate_colour = darkness[1],
+  annotate_colour = "#c8d7df",
 )
 
 penguins |>

@@ -7,9 +7,9 @@
 aes_contrast(dark = "#121b24", light = "#ffffff")
 }
 \arguments{
-\item{dark}{A dark colour. Defaults to \code{"#121b24"} (i.e. \code{lightness[1]}).}
+\item{dark}{A dark colour. Defaults to \code{"#121b24"}.}
 
-\item{light}{A light colour. Defaults to \code{"#ffffff"} (i.e. \code{lightness[4]}).}
+\item{light}{A light colour. Defaults to \code{"#ffffff"}.}
 }
 \value{
 An aesthetic

@@ -6,8 +6,8 @@
 #' @param geom_colour A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to `blue`.
 #' @param geom_linewidth A default linewidth for geoms. Fill inherits from this colour. Defaults to 0.66.
 #' @param geom_size A default point size for `*_point`. `*_pointrange` multiplies this by 0.25. Defaults to 1.5. .
-#' @param annotate_colour A default hex colour (and fill) for geoms commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`). Defaults to "#121b24" (i.e. `lightness[1]`).
-#' @param annotate_linewidth A default linewidth for geoms commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`). Defaults to 0.33 (i.e. `linewidthness[1]`).
+#' @param annotate_colour A default hex colour (and fill) for geoms commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`). Defaults to "#121b24" (i.e. `"#121b24"`).
+#' @param annotate_linewidth A default linewidth for geoms commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`). Defaults to 0.33 (i.e. `0.33`).
 #' @param annotate_size A default size for `*_text` and `*_label`. Defaults to 3.88.
 #' @param annotate_family A default family for `*_text` and `*_label`. Defaults to ""
 #' @param col_palette_discrete A default col_palette to use in the discrete scale. A character vector of hex codes (or names).
@@ -26,7 +26,7 @@
 #' set_blanket(
 #'   mode = dark_mode_r(),
 #'   geom_colour = orange,
-#'   annotate_colour = darkness[1],
+#'   annotate_colour = "#c8d7df",
 #' )
 #'
 #' penguins |>

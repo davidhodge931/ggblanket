@@ -278,8 +278,8 @@ penguins |>
     mode = dark_mode_r(),
   ) +
   geom_text(
-    mapping = aes_contrast(dark = darkness[5], light = darkness[1]),
-    # mapping = aes(!!!aes_contrast(dark = darkness[5], light = darkness[1])),
+    mapping = aes_contrast(dark = "#00040a", light = "#c8d7df"),
+    # mapping = aes(!!!aes_contrast(dark = "#00040a", light = "#c8d7df")),
     position = position_dodge2(width = 0.75, preserve = "single"),
     hjust = 1.25,
     show.legend = FALSE,
