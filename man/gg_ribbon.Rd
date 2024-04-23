@@ -164,8 +164,6 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     x_labels = \(x) x,
     y_title = "Level",
   ) +
-  geom_line(
-    mapping = aes(y = level),
-  )
+  geom_line(mapping = aes(y = level))
 
 }

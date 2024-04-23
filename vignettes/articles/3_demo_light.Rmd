@@ -452,20 +452,15 @@ data.frame(
 ```{r}
 data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
   mutate(level_min = level - 1, level_max = level + 1) |>
-  mutate(h = "") |> 
   gg_ribbon(
     x = year,
     ymin = level_min,
     ymax = level_max,
-    col = h,
     colour = NA,
     x_labels = \(x) x,
     y_title = "Level",
-    mode = light_mode_n(),
   ) +
-  geom_line(
-    mapping = aes(x = year, y = level), 
-  )
+  geom_line(mapping = aes(x = year, y = level))
 ```
 
 ### gg_rug

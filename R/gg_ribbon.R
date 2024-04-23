@@ -23,9 +23,7 @@
 #'     x_labels = \(x) x,
 #'     y_title = "Level",
 #'   ) +
-#'   geom_line(
-#'     mapping = aes(y = level),
-#'   )
+#'   geom_line(mapping = aes(y = level))
 #'
 gg_ribbon <- function(
     data = NULL,
