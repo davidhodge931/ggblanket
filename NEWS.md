@@ -11,7 +11,7 @@
 * Added `orientation` argument to `*_mode_*` functions for use with ggplot2.
 * Added arguments to `*_mode_*` for more control with colours and linewidths.
 * Added `red` and `pink` and used this in default discrete colours.
-* Changed the `col_palette_na` default to `"#c8d7df"`. 
+* Changed the `col_palette_na` default to `"#4b636e"`. 
 * Updated default style of colourbars.
 * Updated `*ness` helper palettes.
 * Made compatible with extension geoms with no x or y variables in `layer_data`.

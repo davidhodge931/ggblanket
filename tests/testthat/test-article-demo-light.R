@@ -488,7 +488,7 @@ test_that(test_name, {
   p <- data.frame(
     x = rep(c(2, 5, 7, 9, 12), 2),
     y = rep(c(1, 2), each = 5),
-    z = factor(c(rep(1:3, each = 3), 4)),
+    z = factor(c(rep(1:4, each = 2), 5, NA)),
     w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)) |>
     dplyr::mutate(
       xmin = x - w / 2,

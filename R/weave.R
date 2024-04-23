@@ -150,12 +150,12 @@ weave_col_palette_discrete <- function(discrete = c(teal, orange, navy, red, pin
     # ggplot2.discrete.colour = function()
     #   ggplot2::scale_colour_manual(
     #     values = discrete,
-    #     na.value = ""#c8d7df""
+    #     na.value = "#4b636e"
     #   ),
     # ggplot2.discrete.fill = function()
     #   ggplot2::scale_fill_manual(
     #     values = discrete,
-    #     na.value = ""#c8d7df""
+    #     na.value = "#4b636e"
     #   ),
     ggplot2.discrete.colour =
       list(
@@ -214,12 +214,12 @@ weave_col_palette_continuous <- function(continuous = viridisLite::mako(n = 20, 
     ggplot2.continuous.colour = function()
       ggplot2::scale_color_gradientn(
         colours = continuous,
-        na.value = ""#c8d7df""
+        na.value = "#4b636e"
       ),
     ggplot2.continuous.fill = function()
       ggplot2::scale_fill_gradientn(
         colours = continuous,
-        na.value = ""#c8d7df""
+        na.value = "#4b636e"
       )
   )
 }

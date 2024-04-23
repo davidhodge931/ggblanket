@@ -16,7 +16,7 @@
 #' data.frame(
 #'   x = rep(c(2, 5, 7, 9, 12), 2),
 #'   y = rep(c(1, 2), each = 5),
-#'   z = factor(c(rep(1:3, each = 3), 4)),
+#'   z = factor(c(rep(1:4, each = 2), 5, NA)),
 #'   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)) |>
 #'   mutate(
 #'     xmin = x - w / 2,
@@ -84,7 +84,7 @@ gg_rect <- function(
     col_limits = NULL,
     col_oob = scales::oob_keep,
     col_palette = NULL,
-    col_palette_na = "#c8d7df",
+    col_palette_na = "#4b636e",
     col_rescale = scales::rescale(),
     col_steps = FALSE,
     col_title = NULL,
