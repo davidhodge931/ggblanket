@@ -5,7 +5,7 @@
 \title{Set a default col_palette}
 \usage{
 weave_col_palette(
-  discrete = c(teal, orange, navy, red, pink),
+  discrete = c(teal, orange, navy, red),
   continuous = viridisLite::mako(n = 9)
 )
 }

@@ -54,28 +54,6 @@ navy <- "#003f5c"
 #' scales::show_col(red)
 red <- "#da3c39"
 
-#' A pink colour
-#'
-#' @description A pink colour.
-#'
-#' @return A character vector.
-#' @export
-#'
-#' @examples
-#' scales::show_col(pink)
-pink <-"#FF98D1"
-
-#' A grey colour
-#'
-#' @description A grey colour.
-#'
-#' @return A character vector.
-#' @export
-#'
-#' @examples
-#' scales::show_col(grey)
-grey <-"#4b636e"
-
 #' The `light_mode_*` theme colours
 #'
 #' @description A vector of 5 colours used in the `light_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.

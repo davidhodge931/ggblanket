@@ -79,7 +79,7 @@ gg_ribbon <- function(
     col_limits = NULL,
     col_oob = scales::oob_keep,
     col_palette = NULL,
-    col_palette_na = "#4b636e",
+    col_palette_na = "#cdc5bf",
     col_rescale = scales::rescale(),
     col_steps = FALSE,
     col_title = NULL,

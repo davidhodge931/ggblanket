@@ -113,7 +113,7 @@ gg_blanket <- function(
     col_limits = NULL,
     col_oob = scales::oob_keep,
     col_palette = NULL,
-    col_palette_na = "#4b636e",
+    col_palette_na = "#cdc5bf",
     col_rescale = scales::rescale(),
     col_steps = FALSE,
     col_title = NULL,
@@ -1046,7 +1046,7 @@ gg_blanket <- function(
           col_palette <- get_col_palette_discrete()
           if (rlang::is_null(col_palette)) col_palette <- scales::pal_hue()(n = col_n)
           else if (col_n > length(col_palette)) {
-            rlang::inform("Insufficient colours in default discrete col_palette")
+            rlang::inform("Insufficient colours in set col_palette")
             col_palette <- scales::pal_hue()(n = col_n)
           }
           else col_palette <- col_palette[1:col_n]
