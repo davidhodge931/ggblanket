@@ -14,6 +14,6 @@ linewidthness
 A numeric vector.
 }
 \description{
-A vector of 2 integers used in the \verb{*_mode_*} themes for the for the linewidth of the axis.line (and axis.ticks), axis.ticks and panel.grid theme elements.
+A vector of 2 integers used in the \verb{*_mode_*} themes for the for the linewidth of the axis.line (and axis.ticks/legend.ticks) and panel.grid theme elements.
 }
 \keyword{datasets}

@@ -2,7 +2,25 @@
 #'
 #' @description Grey mode theme with right legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams light_mode_r
+#' @param base_size The base size of the text theme element. Defaults to 11.
+#' @param base_family The base family of the text theme element. Defaults to "".
+#' @param base_colour The base colour of the text theme element.
+#' @param axis_line_colour The colour of the axis.line theme element.
+#' @param axis_line_linewidth The linewidth of the axis.line theme element.
+#' @param axis_ticks_colour The colour of the axis.ticks theme element.
+#' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
+#' @param axis_ticks_length_x_pt The length of the axis.ticks.length.x theme element in points.
+#' @param axis_ticks_length_y_pt The length of the axis.ticks.length.y theme element in points.
+#' @param legend_ticks_colour The colour of the legend.ticks theme element.
+#' @param legend_ticks_linewidth The linewidth of the legend.ticks theme element.
+#' @param panel_grid_colour The colour of the panel.grid theme element.
+#' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
+#' @param panel_background_fill The fill (and colour) of the panel.background theme element.
+#' @param plot_background_fill The fill (and colour) of the plot.background theme element.
+#' @param legend_background_fill The fill (and colour) of the legend.background theme element.
+#' @param legend_key_fill The fill (and colour) of the legend.key theme element.
+#' @param orientation The orientation of the plot. Either "x" or "y". Defaults to NULL. Not intended for use with the mode argument of gg_* functions.
+#' @param ... Provided to support trailing commas only.
 #'
 #' @return A ggplot theme.
 #' @export
@@ -31,6 +49,8 @@ grey_mode_r <- function (
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length_x_pt = base_size / 3,
     axis_ticks_length_y_pt = base_size / 4,
+    legend_ticks_colour = plot_background_fill,
+    legend_ticks_linewidth = linewidthness[1],
     panel_grid_colour = greyness[3],
     panel_grid_linewidth = linewidthness[2],
     panel_background_fill = greyness[4],
@@ -67,6 +87,8 @@ grey_mode_r <- function (
     axis_ticks_linewidth = axis_ticks_linewidth,
     axis_ticks_length_x_pt = axis_ticks_length_x_pt,
     axis_ticks_length_y_pt = axis_ticks_length_y_pt,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
@@ -82,7 +104,7 @@ grey_mode_r <- function (
 #'
 #' @description Grey mode theme with top legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams light_mode_r
+#' @inheritParams grey_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -111,6 +133,8 @@ grey_mode_t <- function (
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length_x_pt = base_size / 3,
     axis_ticks_length_y_pt = base_size / 4,
+    legend_ticks_colour = plot_background_fill,
+    legend_ticks_linewidth = linewidthness[1],
     panel_grid_colour = greyness[3],
     panel_grid_linewidth = linewidthness[2],
     panel_background_fill = greyness[4],
@@ -147,6 +171,8 @@ grey_mode_t <- function (
     axis_ticks_linewidth = axis_ticks_linewidth,
     axis_ticks_length_x_pt = axis_ticks_length_x_pt,
     axis_ticks_length_y_pt = axis_ticks_length_y_pt,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
@@ -162,7 +188,7 @@ grey_mode_t <- function (
 #'
 #' @description Grey mode theme with bottom legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams light_mode_r
+#' @inheritParams grey_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -191,6 +217,8 @@ grey_mode_b <- function (
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length_x_pt = base_size / 3,
     axis_ticks_length_y_pt = base_size / 4,
+    legend_ticks_colour = plot_background_fill,
+    legend_ticks_linewidth = linewidthness[1],
     panel_grid_colour = greyness[3],
     panel_grid_linewidth = linewidthness[2],
     panel_background_fill = greyness[4],
@@ -227,6 +255,8 @@ grey_mode_b <- function (
     axis_ticks_linewidth = axis_ticks_linewidth,
     axis_ticks_length_x_pt = axis_ticks_length_x_pt,
     axis_ticks_length_y_pt = axis_ticks_length_y_pt,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
@@ -242,7 +272,7 @@ grey_mode_b <- function (
 #'
 #' @description Grey mode theme with no legend using `greyness` and `linewidthness`.
 #'
-#' @inheritParams light_mode_r
+#' @inheritParams grey_mode_r
 #'
 #' @return A ggplot theme.
 #' @export
@@ -271,6 +301,8 @@ grey_mode_n <- function (
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length_x_pt = base_size / 3,
     axis_ticks_length_y_pt = base_size / 4,
+    legend_ticks_colour = plot_background_fill,
+    legend_ticks_linewidth = linewidthness[1],
     panel_grid_colour = greyness[3],
     panel_grid_linewidth = linewidthness[2],
     panel_background_fill = greyness[4],
@@ -307,6 +339,8 @@ grey_mode_n <- function (
     axis_ticks_linewidth = axis_ticks_linewidth,
     axis_ticks_length_x_pt = axis_ticks_length_x_pt,
     axis_ticks_length_y_pt = axis_ticks_length_y_pt,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,

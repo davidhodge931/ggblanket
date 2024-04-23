@@ -118,7 +118,7 @@ darkness <- c(
 
 #' The `*_mode_*` linewidth values
 #'
-#' @description A vector of 2 integers used in the `*_mode_*` themes for the for the linewidth of the axis.line (and axis.ticks), axis.ticks and panel.grid theme elements.
+#' @description A vector of 2 integers used in the `*_mode_*` themes for the for the linewidth of the axis.line (and axis.ticks/legend.ticks) and panel.grid theme elements.
 #'
 #' @return A numeric vector.
 #' @export

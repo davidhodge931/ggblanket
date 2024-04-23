@@ -28,6 +28,8 @@ foundation_mode_n(
   axis_ticks_linewidth = axis_line_linewidth,
   axis_ticks_length_x_pt = base_size/3,
   axis_ticks_length_y_pt = base_size/4,
+  legend_ticks_colour = plot_background_fill,
+  legend_ticks_linewidth = linewidthness[1],
   panel_grid_colour = lightness[3],
   panel_grid_linewidth = linewidthness[2],
   panel_background_fill = lightness[4],
@@ -84,6 +86,10 @@ foundation_mode_n(
 \item{axis_ticks_length_x_pt}{The length of the axis.ticks.length.x theme element in points.}
 
 \item{axis_ticks_length_y_pt}{The length of the axis.ticks.length.y theme element in points.}
+
+\item{legend_ticks_colour}{The colour of the legend.ticks theme element.}
+
+\item{legend_ticks_linewidth}{The linewidth of the legend.ticks theme element.}
 
 \item{panel_grid_colour}{The colour of the panel.grid theme element.}
 

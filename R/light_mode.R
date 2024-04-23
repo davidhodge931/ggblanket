@@ -11,6 +11,8 @@
 #' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
 #' @param axis_ticks_length_x_pt The length of the axis.ticks.length.x theme element in points.
 #' @param axis_ticks_length_y_pt The length of the axis.ticks.length.y theme element in points.
+#' @param legend_ticks_colour The colour of the legend.ticks theme element.
+#' @param legend_ticks_linewidth The linewidth of the legend.ticks theme element.
 #' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
 #' @param panel_background_fill The fill (and colour) of the panel.background theme element.
@@ -47,6 +49,8 @@ light_mode_r <- function (
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length_x_pt = base_size / 3,
     axis_ticks_length_y_pt = base_size / 4,
+    legend_ticks_colour = plot_background_fill,
+    legend_ticks_linewidth = linewidthness[1],
     panel_grid_colour = lightness[3],
     panel_grid_linewidth = linewidthness[2],
     panel_background_fill = lightness[4],
@@ -83,6 +87,8 @@ light_mode_r <- function (
     axis_ticks_linewidth = axis_ticks_linewidth,
     axis_ticks_length_x_pt = axis_ticks_length_x_pt,
     axis_ticks_length_y_pt = axis_ticks_length_y_pt,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
@@ -127,6 +133,8 @@ light_mode_t <- function (
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length_x_pt = base_size / 3,
     axis_ticks_length_y_pt = base_size / 4,
+    legend_ticks_colour = plot_background_fill,
+    legend_ticks_linewidth = linewidthness[1],
     panel_grid_colour = lightness[3],
     panel_grid_linewidth = linewidthness[2],
     panel_background_fill = lightness[4],
@@ -163,6 +171,8 @@ light_mode_t <- function (
     axis_ticks_linewidth = axis_ticks_linewidth,
     axis_ticks_length_x_pt = axis_ticks_length_x_pt,
     axis_ticks_length_y_pt = axis_ticks_length_y_pt,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
@@ -207,6 +217,8 @@ light_mode_b <- function (
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length_x_pt = base_size / 3,
     axis_ticks_length_y_pt = base_size / 4,
+    legend_ticks_colour = plot_background_fill,
+    legend_ticks_linewidth = linewidthness[1],
     panel_grid_colour = lightness[3],
     panel_grid_linewidth = linewidthness[2],
     panel_background_fill = lightness[4],
@@ -243,6 +255,8 @@ light_mode_b <- function (
     axis_ticks_linewidth = axis_ticks_linewidth,
     axis_ticks_length_x_pt = axis_ticks_length_x_pt,
     axis_ticks_length_y_pt = axis_ticks_length_y_pt,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
@@ -287,6 +301,8 @@ light_mode_n <- function (
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length_x_pt = base_size / 3,
     axis_ticks_length_y_pt = base_size / 4,
+    legend_ticks_colour = plot_background_fill,
+    legend_ticks_linewidth = linewidthness[1],
     panel_grid_colour = lightness[3],
     panel_grid_linewidth = linewidthness[2],
     panel_background_fill = lightness[4],
@@ -323,6 +339,8 @@ light_mode_n <- function (
     axis_ticks_linewidth = axis_ticks_linewidth,
     axis_ticks_length_x_pt = axis_ticks_length_x_pt,
     axis_ticks_length_y_pt = axis_ticks_length_y_pt,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
