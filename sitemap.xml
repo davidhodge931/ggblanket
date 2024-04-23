@@ -58,9 +58,6 @@
     <loc>https://davidhodge931.github.io/ggblanket/reference/dark_mode_t.html</loc>
   </url>
   <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/darkness.html</loc>
-  </url>
-  <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/foundation_mode_b.html</loc>
   </url>
   <url>
@@ -193,6 +190,9 @@
     <loc>https://davidhodge931.github.io/ggblanket/reference/ggblanket-package.html</loc>
   </url>
   <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/grey.html</loc>
+  </url>
+  <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/grey_mode_b.html</loc>
   </url>
   <url>
@@ -203,9 +203,6 @@
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/grey_mode_t.html</loc>
-  </url>
-  <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/greyness.html</loc>
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/index.html</loc>
@@ -223,16 +220,13 @@
     <loc>https://davidhodge931.github.io/ggblanket/reference/light_mode_t.html</loc>
   </url>
   <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/lightness.html</loc>
-  </url>
-  <url>
-    <loc>https://davidhodge931.github.io/ggblanket/reference/linewidthness.html</loc>
-  </url>
-  <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/navy.html</loc>
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/orange.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/pink.html</loc>
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/pipe.html</loc>
@@ -248,6 +242,9 @@
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/teal.html</loc>
+  </url>
+  <url>
+    <loc>https://davidhodge931.github.io/ggblanket/reference/vivid.html</loc>
   </url>
   <url>
     <loc>https://davidhodge931.github.io/ggblanket/reference/weave_annotate_aes.html</loc>

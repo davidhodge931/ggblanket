@@ -73,7 +73,7 @@
 <span>  annotate_linewidth <span class="op">=</span> <span class="fl">0.33</span>,</span>
 <span>  annotate_size <span class="op">=</span> <span class="fl">3.88</span>,</span>
 <span>  annotate_family <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  col_palette_discrete <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">teal</span>, <span class="va">orange</span>, <span class="va">navy</span>, <span class="va">red</span><span class="op">)</span>,</span>
+<span>  col_palette_discrete <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">teal</span>, <span class="va">orange</span>, <span class="va">navy</span>, <span class="va">red</span>, <span class="va">pink</span><span class="op">)</span>,</span>
 <span>  col_palette_continuous <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>  theme <span class="op">=</span> <span class="fu"><a href="light_mode_r.html">light_mode_r</a></span><span class="op">(</span>orientation <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -99,11 +99,11 @@
 
 
 <dt>annotate_colour</dt>
-<dd><p>A default hex colour (and fill) for geoms commonly used for annotation (i.e. <code>*_vline</code>, <code>*_hline</code>, <code>*_abline</code>, <code>*_curve</code>, <code>*_text</code> and <code>*_label</code>). Defaults to "#121b24" (i.e. <code>lightness[1]</code>).</p></dd>
+<dd><p>A default hex colour (and fill) for geoms commonly used for annotation (i.e. <code>*_vline</code>, <code>*_hline</code>, <code>*_abline</code>, <code>*_curve</code>, <code>*_text</code> and <code>*_label</code>). Defaults to "#121b24" (i.e. <code>"#121b24"</code>).</p></dd>
 
 
 <dt>annotate_linewidth</dt>
-<dd><p>A default linewidth for geoms commonly used for annotation (i.e. <code>*_vline</code>, <code>*_hline</code>, <code>*_abline</code>, <code>*_curve</code>, <code>*_text</code> and <code>*_label</code>). Defaults to 0.33 (i.e. <code>linewidthness[1]</code>).</p></dd>
+<dd><p>A default linewidth for geoms commonly used for annotation (i.e. <code>*_vline</code>, <code>*_hline</code>, <code>*_abline</code>, <code>*_curve</code>, <code>*_text</code> and <code>*_label</code>). Defaults to 0.33 (i.e. <code>0.33</code>).</p></dd>
 
 
 <dt>annotate_size</dt>
@@ -146,7 +146,7 @@
 <span class="r-in"><span><span class="fu">set_blanket</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  mode <span class="op">=</span> <span class="fu"><a href="dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  geom_colour <span class="op">=</span> <span class="va">orange</span>,</span></span>
-<span class="r-in"><span>  annotate_colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>  annotate_colour <span class="op">=</span> <span class="st">"#c8d7df"</span>,</span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span></span>
