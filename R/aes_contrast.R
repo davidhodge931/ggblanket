@@ -16,12 +16,12 @@ get_contrast <- function(fill, dark = "#121b24", light = "#ffffff") {
   out
 }
 
-#' A colour aesthetic that automatically contrasts with fill.
+#' A colour aesthetic that automatically contrasts with fill
 #'
 #' @description A colour aesthetic for annotation that automatically contrasts with fill. Can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
-#' @param dark A dark colour. Defaults to `"#121b24"`.
-#' @param light A light colour. Defaults to `"#ffffff"`.
+#' @param dark A dark colour. Defaults to `"#121b24"`. For `dark_mode_*` with defaults, try `"#050d1bff"`.
+#' @param light A light colour. Defaults to `"#ffffff"`. For `dark_mode_*` with defaults, try `"#c8d7dfff"` - and for  `grey_mode_*`, try `"#f6f8faff"`.
 #'
 #' @return An aesthetic
 #' @export
