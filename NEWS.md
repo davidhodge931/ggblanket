@@ -5,7 +5,7 @@
 * Breaking: in `set_blanket`, renamed arguments.
 * Breaking: updated `weave_*` functions and added new ones.
 * Breaking: removed `facet_labels_position` and `facet_labels_switch`.
-* Breaking: in `aes_contrast`, changed `contrast_pal` to `dark` and `light`. 
+* Breaking: in `aes_contrast`, changed arguments. 
 * Updated `set_blanket()` and `weave_*()` to set ggplot2 as well as ggblanket.
 * Updated `set_blanket()` and `weave_col_palette()` to set the default `col_palette`.
 * Breaking: removed `*ness` helper palettes.
@@ -13,7 +13,7 @@
 * Added arguments to `*_mode_*` for more control with colours and linewidths.
 * Added `red` and `pink`.
 * Added `jumble` discrete colour palette.
-* Changed the `col_palette_na` default to `"seashell3"` (i.e. `"#cdc5bf"`). 
+* Changed the `col_palette_na` default. 
 * Updated default style of colourbars.
 * Made compatible with extension geoms with no x or y variables in `layer_data`.
 * Fixed bug with `set_blanket`, which made {gghighlight} not work.

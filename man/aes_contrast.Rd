@@ -2,14 +2,16 @@
 % Please edit documentation in R/aes_contrast.R
 \name{aes_contrast}
 \alias{aes_contrast}
-\title{A colour aesthetic that automatically contrasts with fill.}
+\title{An auto-contrast colour aesthetic}
 \usage{
-aes_contrast(dark = "#121b24", light = "#ffffff")
+aes_contrast(mode_family = "light", dark = NULL, light = NULL)
 }
 \arguments{
-\item{dark}{A dark colour. Defaults to \code{"#121b24"}.}
+\item{mode_family}{The mode family to optimise light and dark colours for. Options are "light", "grey" or "dark".}
 
-\item{light}{A light colour. Defaults to \code{"#ffffff"}.}
+\item{dark}{A dark colour. If NULL, uses \code{mode_family} optimised colour.}
+
+\item{light}{A light colour. If NULL, uses \code{mode_family} optimised colour.}
 }
 \value{
 An aesthetic
