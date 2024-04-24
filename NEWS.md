@@ -12,7 +12,7 @@
 * Added `orientation` argument to `*_mode_*` functions for use with ggplot2.
 * Added arguments to `*_mode_*` for more control with colours and linewidths.
 * Added `red` and `pink`.
-* Added `vivid` discrete colour palette.
+* Added `jumble` discrete colour palette.
 * Changed the `col_palette_na` default to `"seashell3"` (i.e. `"#cdc5bf"`). 
 * Updated default style of colourbars.
 * Made compatible with extension geoms with no x or y variables in `layer_data`.

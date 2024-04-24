@@ -65,6 +65,17 @@ red <- "#da3c39"
 #' scales::show_col(pink)
 pink <- "#ec9ecb"
 
+#' A purple colour
+#'
+#' @description A purple colour.
+#'
+#' @return A character vector.
+#' @export
+#'
+#' @examples
+#' scales::show_col(purple)
+purple <- "#67609c"
+
 #' A grey colour
 #'
 #' @description A grey colour.
@@ -78,14 +89,14 @@ grey <- "#8fa8b4"
 
 #' A categorical colour palette
 #'
-#' @description A categorical colour palette with 5 colours.
+#' @description A categorical colour palette with 6 colours.
 #'
 #' @return A character vector.
 #' @export
 #'
 #' @examples
-#' scales::show_col(vivid)
-vivid <- c(teal, orange, navy, red, pink)
+#' scales::show_col(jumble)
+jumble <- c(teal, orange, navy, red, pink, purple)
 
 #' The `light_mode_*` theme colours
 #'
@@ -96,11 +107,7 @@ vivid <- c(teal, orange, navy, red, pink)
 #'
 #' @examples
 #' scales::show_col(lightness)
-lightness <- c(
-  "#121b24",
-  "#f6f8fa",
-  "#ffffff"
-)
+lightness <- c("#121b24", "#f6f8fa", "#ffffff")
 
 #' The `grey_mode_*` theme colours
 #'
@@ -111,11 +118,7 @@ lightness <- c(
 #'
 #' @examples
 #' scales::show_col(greyness)
-greyness <- c(
-  "#121b24",
-  "#f6f8fa",
-  "#fcfdfe"
-)
+greyness <- c("#121b24", "#f6f8fa", "#fcfdfe")
 
 #' The `dark_mode_*` theme colours
 #'
@@ -126,11 +129,7 @@ greyness <- c(
 #'
 #' @examples
 #' scales::show_col(darkness)
-darkness <- c(
-  "#c8d7df",
-  "#00040a",
-  "#050d1b"
-)
+darkness <- c("#c8d7df", "#00040a", "#050d1b")
 
 #' The `*_mode_*` linewidth values
 #'
