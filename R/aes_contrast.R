@@ -54,6 +54,25 @@ get_contrast <- function(fill, dark = "black", light = "white") {
 #'     show.legend = FALSE,
 #'   )
 #'
+#' penguins |>
+#'   count(species, sex) |>
+#'   gg_col(
+#'     x = sex,
+#'     y = n,
+#'     col = species,
+#'     label = n,
+#'     position = position_dodge2(preserve = "single"),
+#'     width = 0.75,
+#'     x_labels = \(x) str_to_sentence(x),
+#'     mode = dark_mode_r(),
+#'   ) +
+#'   geom_text(
+#'     mapping = aes_contrast("dark"),
+#'     #' mapping = aes(!!!aes_contrast("dark")),
+#'     position = position_dodge2(width = 0.75, preserve = "single"),
+#'     vjust = 1.33,
+#'     show.legend = FALSE,
+#'   )
 aes_contrast <- function(mode_family = "light", dark = NULL, light = NULL) {
 
   if (mode_family == "light") {
