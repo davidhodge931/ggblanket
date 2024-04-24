@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' scales::show_col(blue)
-blue <- "#357ba2"
+blue <- "#357ba2ff"
 
 #' A teal colour
 #'
@@ -18,7 +18,7 @@ blue <- "#357ba2"
 #'
 #' @examples
 #' scales::show_col(teal)
-teal <- "#0095a8"
+teal <- "#0095a8ff"
 
 #' A orange colour
 #'
@@ -29,7 +29,7 @@ teal <- "#0095a8"
 #'
 #' @examples
 #' scales::show_col(orange)
-orange <- "#ffa600"
+orange <- "#ffa600ff"
 
 #' A navy colour
 #'
@@ -41,7 +41,7 @@ orange <- "#ffa600"
 #' @examples
 #' scales::show_col(navy)
 # navy <- "#26506C"
-navy <- "#003f5c"
+navy <- "#003f5cff"
 
 #' A red colour
 #'
@@ -52,7 +52,7 @@ navy <- "#003f5c"
 #'
 #' @examples
 #' scales::show_col(red)
-red <- "#da3c39"
+red <- "#da3c39ff"
 
 #' A pink colour
 #'
@@ -63,7 +63,7 @@ red <- "#da3c39"
 #'
 #' @examples
 #' scales::show_col(pink)
-pink <- "#ec9ecb"
+pink <- "#ec9ecbff"
 
 #' A purple colour
 #'
@@ -74,7 +74,7 @@ pink <- "#ec9ecb"
 #'
 #' @examples
 #' scales::show_col(purple)
-purple <- "#67609c"
+purple <- "#67609cff"
 
 #' A grey colour
 #'
@@ -85,7 +85,7 @@ purple <- "#67609c"
 #'
 #' @examples
 #' scales::show_col(grey)
-grey <- "#8fa8b4"
+grey <- "#8fa8b4ff"
 
 #' A categorical colour palette
 #'
@@ -107,7 +107,7 @@ jumble <- c(teal, orange, navy, red, pink, purple)
 #'
 #' @examples
 #' scales::show_col(lightness)
-lightness <- c("#121b24", "#f6f8fa", "#ffffff")
+lightness <- c("#121b24ff", "#f6f8faff", "#ffffffff")
 
 #' The `grey_mode_*` theme colours
 #'
@@ -118,7 +118,7 @@ lightness <- c("#121b24", "#f6f8fa", "#ffffff")
 #'
 #' @examples
 #' scales::show_col(greyness)
-greyness <- c("#121b24", "#f6f8fa", "#fcfdfe")
+greyness <- c("#121b24ff", "#f6f8faff", "#fcfdfeff")
 
 #' The `dark_mode_*` theme colours
 #'
@@ -129,7 +129,7 @@ greyness <- c("#121b24", "#f6f8fa", "#fcfdfe")
 #'
 #' @examples
 #' scales::show_col(darkness)
-darkness <- c("#c8d7df", "#00040a", "#050d1b")
+darkness <- c("#c8d7dfff", "#00040aff", "#050d1bff")
 
 #' The `*_mode_*` linewidth values
 #'
