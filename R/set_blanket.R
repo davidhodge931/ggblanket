@@ -10,8 +10,10 @@
 #' @param annotate_linewidth A default linewidth for geoms commonly used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`). Defaults to 0.33 (i.e. `0.33`).
 #' @param annotate_size A default size for `*_text` and `*_label`. Defaults to 3.88.
 #' @param annotate_family A default family for `*_text` and `*_label`. Defaults to ""
-#' @param col_palette_discrete A default col_palette to use in the discrete scale. A character vector of hex codes (or names).
-#' @param col_palette_continuous A default col_palette to use in the continuous scale. A character vector of hex codes (or names).
+#' @param col_palette_d A default col_palette to use in the discrete scale. A character vector of hex codes (or names).
+#' @param col_palette_na_d A default colour for NA on a discrete scale. A hex code or name.
+#' @param col_palette_c A default col_palette to use in the continuous scale. A character vector of hex codes (or names).
+#' @param col_palette_na_c A default colour for NA on a continuous scale. A hex code or name.
 #' @param theme A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence, unless `mode = NULL`.
 #' @param ... Provided to support trailing commas only.
 #'
@@ -55,8 +57,10 @@ set_blanket <- function(
     annotate_linewidth = 0.33,
     annotate_size = 3.88,
     annotate_family = "",
-    col_palette_discrete = c(teal, orange, navy, red, pink),
-    col_palette_continuous = viridisLite::mako(n = 20, direction = -1),
+    col_palette_d = jumble,
+    col_palette_na_d = "seashell3",
+    col_palette_c = blues9,
+    col_palette_na_c = "seashell3",
     theme = light_mode_r(orientation = "x"),
     ...
 ) {
@@ -75,9 +79,14 @@ set_blanket <- function(
     family = annotate_family
   )
 
-  weave_col_palette(
-    discrete = col_palette_discrete,
-    continuous = col_palette_continuous
+  weave_col_palette_d(
+    new = col_palette_d,
+    na = col_palette_na_d
+  )
+
+  weave_col_palette_c(
+    new = col_palette_c,
+    na = col_palette_na_c
   )
 
   weave_theme(new = theme)

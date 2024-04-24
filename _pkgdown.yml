@@ -11,7 +11,8 @@ reference:
   - weave_mode
   - weave_geom_aes
   - weave_annotate_aes
-  - weave_col_palette
+  - weave_col_palette_d
+  - weave_col_palette_c
   - weave_theme
 - title: Plot
 - contents:
@@ -40,7 +41,6 @@ reference:
   - red
   - pink
   - purple
-  - grey
   - jumble
 - title: Other
 - contents:

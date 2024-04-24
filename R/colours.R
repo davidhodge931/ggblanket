@@ -76,17 +76,6 @@ pink <- "#ec9ecbff"
 #' scales::show_col(purple)
 purple <- "#67609cff"
 
-#' A grey colour
-#'
-#' @description A grey colour.
-#'
-#' @return A character vector.
-#' @export
-#'
-#' @examples
-#' scales::show_col(grey)
-grey <- "#8fa8b4ff"
-
 #' A categorical colour palette
 #'
 #' @description A categorical colour palette with 6 colours.

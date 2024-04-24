@@ -2,8 +2,10 @@
 ggblanket_global <- new.env(parent = emptyenv())
 
 ggblanket_global$mode <- NULL
-ggblanket_global$col_palette_discrete <- NULL
-ggblanket_global$col_palette_continuous <- NULL
+ggblanket_global$col_palette_d <- NULL
+ggblanket_global$col_palette_na_d <- NULL
+ggblanket_global$col_palette_c <- NULL
+ggblanket_global$col_palette_na_c <- NULL
 ggblanket_global$theme <- NULL
 
 #' Set a default mode
@@ -138,104 +140,62 @@ weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, size = 3.88
 
 #' Set a default discrete colour palette
 #'
-#' @param discrete Colour palette to use for discrete scale. A character vector of hex codes (or names).
+#' @param new Colour palette to use for discrete scale. A character vector of hex codes (or names).
+#' @param na A default colour for NA on a discrete scale. A hex code or name.
 #'
-#' @noRd
-weave_col_palette_discrete <- function(discrete = c(teal, orange, navy, red, pink, purple)) {
-  old <- ggblanket_global$col_palette_discrete
-  ggblanket_global$col_palette_discrete <- discrete
+#' @export
+weave_col_palette_d <- function(new = jumble, na = "seashell3") {
+
+  old <- ggblanket_global$col_palette_d
+  ggblanket_global$col_palette_d <- new
+  invisible(old)
+
+  old <- ggblanket_global$col_palette_na_d
+  ggblanket_global$col_palette_na_d <- na
   invisible(old)
 
   options(
-    # ggplot2.discrete.colour = function()
-    #   ggplot2::scale_colour_manual(
-    #     values = discrete,
-    #     na.value = grey
-    #   ),
-    # ggplot2.discrete.fill = function()
-    #   ggplot2::scale_fill_manual(
-    #     values = discrete,
-    #     na.value = grey
-    #   ),
-    ggplot2.discrete.colour =
-      list(
-        discrete,
-        scales::pal_hue()(length(discrete) + 1),
-        scales::pal_hue()(length(discrete) + 2),
-        scales::pal_hue()(length(discrete) + 3),
-        scales::pal_hue()(length(discrete) + 4),
-        scales::pal_hue()(length(discrete) + 5),
-        scales::pal_hue()(length(discrete) + 6),
-        scales::pal_hue()(length(discrete) + 7),
-        scales::pal_hue()(length(discrete) + 8),
-        scales::pal_hue()(length(discrete) + 9),
-        scales::pal_hue()(length(discrete) + 10),
-        scales::pal_hue()(length(discrete) + 11),
-        scales::pal_hue()(length(discrete) + 12),
-        scales::pal_hue()(length(discrete) + 13),
-        scales::pal_hue()(length(discrete) + 14),
-        scales::pal_hue()(length(discrete) + 15),
-        scales::pal_hue()(length(discrete) + 16)
+    ggplot2.discrete.colour = function()
+      ggplot2::scale_colour_manual(
+        values = new,
+        na.value = na
       ),
-    ggplot2.discrete.fill =
-      list(
-        discrete,
-        scales::pal_hue()(length(discrete) + 1),
-        scales::pal_hue()(length(discrete) + 2),
-        scales::pal_hue()(length(discrete) + 3),
-        scales::pal_hue()(length(discrete) + 4),
-        scales::pal_hue()(length(discrete) + 5),
-        scales::pal_hue()(length(discrete) + 6),
-        scales::pal_hue()(length(discrete) + 7),
-        scales::pal_hue()(length(discrete) + 8),
-        scales::pal_hue()(length(discrete) + 9),
-        scales::pal_hue()(length(discrete) + 10),
-        scales::pal_hue()(length(discrete) + 11),
-        scales::pal_hue()(length(discrete) + 12),
-        scales::pal_hue()(length(discrete) + 13),
-        scales::pal_hue()(length(discrete) + 14),
-        scales::pal_hue()(length(discrete) + 15),
-        scales::pal_hue()(length(discrete) + 16)
+    ggplot2.discrete.fill = function()
+      ggplot2::scale_fill_manual(
+        values = new,
+        na.value = na
       )
   )
 }
 
 #' Set a default continuous colour palette
 #'
-#' @param continuous Colour palette to use for continuous scale. A character vector of hex codes (or names).
+#' @param new Colour palette to use for continuous scale. A character vector of hex codes (or names).
+#' @param na A default colour for NA on a continuous scale. A hex code or name.
 #'
-#' @noRd
-weave_col_palette_continuous <- function(continuous = viridisLite::mako(n = 20, direction = -1)) {
-  old <- ggblanket_global$col_palette_continuous
-  ggblanket_global$col_palette_continuous <- continuous
+#' @export
+weave_col_palette_c <- function(new = blues9, na = "seashell3") {
+
+  old <- ggblanket_global$col_palette_c
+  ggblanket_global$col_palette_c <- new
+  invisible(old)
+
+  old <- ggblanket_global$col_palette_na_c
+  ggblanket_global$col_palette_na_c <- na
   invisible(old)
 
   options(
     ggplot2.continuous.colour = function()
       ggplot2::scale_color_gradientn(
-        colours = continuous,
-        na.value = grey
+        colours = new,
+        na.value = na
       ),
     ggplot2.continuous.fill = function()
       ggplot2::scale_fill_gradientn(
-        colours = continuous,
-        na.value = grey
+        colours = new,
+        na.value = na
       )
   )
-}
-
-#' Set a default col_palette
-#'
-#' @description Set a default col_palette for discrete and continuous scales.
-#'
-#' @param discrete A default col_palette to use in the discrete scale. A character vector of hex codes (or names). Use NULL to leave as is.
-#' @param continuous A default col_palette to use in the continuous scale. A character vector of hex codes (or names). Use NULL to leave as is.
-#'
-#' @export
-weave_col_palette <- function(discrete = c(teal, orange, navy, red, pink, purple),
-                              continuous = viridisLite::mako(n = 9)) {
-  if (!rlang::is_null(discrete)) weave_col_palette_discrete(discrete)
-  if (!rlang::is_null(continuous)) weave_col_palette_continuous(continuous)
 }
 
 #' Get the default mode
@@ -251,9 +211,19 @@ get_theme <- function() ggblanket_global$theme
 #' Get the default discrete palette
 #' @description Get the currently set default discrete palette.
 #' @noRd
-get_col_palette_discrete <- function() ggblanket_global$col_palette_discrete
+get_col_palette_d <- function() ggblanket_global$col_palette_d
 
 #' Get the default continuous palette
 #' @description Get the currently set default continuous palette.
 #' @noRd
-get_col_palette_continuous <- function() ggblanket_global$col_palette_continuous
+get_col_palette_c <- function() ggblanket_global$col_palette_c
+
+#' Get the default discrete NA colour
+#' @description Get the currently set default discrete NA colour.
+#' @noRd
+get_col_palette_na_d <- function() ggblanket_global$col_palette_na_d
+
+#' Get the default continuous NA colour
+#' @description Get the currently set default continuous NA colour.
+#' @noRd
+get_col_palette_na_c <- function() ggblanket_global$col_palette_na_c

@@ -31,6 +31,7 @@ library(palmerpenguins)
 set_blanket(
   mode = dark_mode_r(), 
   annotate_colour = "#c8d7df",
+  col_palette_c = rev(blues9),
 )
 ```
 
@@ -65,7 +66,6 @@ diamonds |>
   gg_bin_2d(
     x = carat,
     y = price,
-    col_palette = viridisLite::mako(9),
   )
 ```
 
@@ -120,7 +120,6 @@ faithfuld |>
    y = eruptions,
    z = density,
    bins = 8,
-   col_palette = viridisLite::mako(9),
  )
 ```
 
@@ -178,7 +177,6 @@ faithful |>
     x = waiting,
     y = eruptions,
     bins = 8,
-    col_palette = viridisLite::mako(8),
     contour = TRUE,
   )
 ```
@@ -236,7 +234,6 @@ diamonds |>
     y = price,
     y_limits = c(0, 20000),
     coord = coord_cartesian(clip = "on"), 
-    col_palette = viridisLite::mako(9),
   )
 ```
 
@@ -268,7 +265,6 @@ penguins |>
     y_expand_limits = 0,
     col_steps = TRUE,
     col_labels = replace_seq,
-    col_palette = viridisLite::mako(9),
   )
 ```
 
@@ -394,7 +390,6 @@ datapoly |>
     y = y,
     col = value,
     group = id,
-    col_palette = viridisLite::mako(9),
   )
 ```
 
@@ -430,7 +425,6 @@ faithfuld |>
     x = waiting,
     y = eruptions,
     col = density,
-    col_palette = viridisLite::mako(9),
   )
 ```
 
@@ -503,7 +497,6 @@ data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
 sf::st_read(system.file("shape/nc.shp", package = "sf")) |> 
   gg_sf(
     col = AREA, 
-    col_palette = viridisLite::mako(9),
   )
 ```
 
@@ -564,7 +557,6 @@ penguins |>
     x = sex,
     y = species,
     col = flipper_length_mm,
-    col_palette = viridisLite::mako(9),
   )
 ```
 

@@ -113,7 +113,7 @@ gg_blanket <- function(
     col_limits = NULL,
     col_oob = scales::oob_keep,
     col_palette = NULL,
-    col_palette_na = grey,
+    col_palette_na = NULL,
     col_rescale = scales::rescale(),
     col_steps = FALSE,
     col_title = NULL,
@@ -886,6 +886,16 @@ gg_blanket <- function(
       coord
   }
 
+  if (!rlang::is_null(x_expand_limits)) {
+    plot <- plot +
+      ggplot2::expand_limits(x = x_expand_limits)
+  }
+
+  if (!rlang::is_null(y_expand_limits)) {
+    plot <- plot +
+      ggplot2::expand_limits(y = y_expand_limits)
+  }
+
   ##############################################################################
   # Get plot build and data
   ##############################################################################
@@ -935,8 +945,15 @@ gg_blanket <- function(
   if (!is.na(is_col_continuous)) {
     if (is_col_continuous) {
       if (rlang::is_null(col_palette)) {
-        col_palette <- get_col_palette_continuous()
-        if (rlang::is_null(col_palette)) col_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")(seq(0, 1, length.out = 20))
+        col_palette <- get_col_palette_c()
+        if (rlang::is_null(col_palette)) {
+          col_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")(seq(0, 1, length.out = 20))
+        }
+      }
+
+      if (rlang::is_null(col_palette_na)) {
+        col_palette_na <- get_col_palette_na_c()
+        if (rlang::is_null(col_palette_na)) col_palette_na <- "grey50"
       }
 
       #get col_transform if NULL
@@ -1043,7 +1060,7 @@ gg_blanket <- function(
           length()
 
         if (rlang::is_null(col_palette)) {
-          col_palette <- get_col_palette_discrete()
+          col_palette <- get_col_palette_d()
           if (rlang::is_null(col_palette)) col_palette <- scales::pal_hue()(n = col_n)
           else if (col_n > length(col_palette)) {
             rlang::inform("Insufficient colours in set col_palette")
@@ -1052,6 +1069,11 @@ gg_blanket <- function(
           else col_palette <- col_palette[1:col_n]
         }
         else if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
+
+        if (rlang::is_null(col_palette_na)) {
+          col_palette_na <- get_col_palette_na_d()
+          if (rlang::is_null(col_palette_na)) col_palette_na <- "grey50"
+        }
       }
       else { #guess anything that's ordered represents col,
         #as there is a discrete col scale and no col variable supplied
@@ -1059,7 +1081,14 @@ gg_blanket <- function(
           dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), function(x) length(levels(x))))
 
         if (ncol(plot_data_ordered) == 0) {
-          if (rlang::is_null(col_palette)) col_palette <- get_col_palette_discrete()
+          if (rlang::is_null(col_palette)) {
+            col_palette <- get_col_palette_d()
+            if (rlang::is_null(col_palette_na)) col_palette_na <- jumble #should be ggplot2 default instead
+          }
+          if (rlang::is_null(col_palette_na)) {
+            col_palette_na <- get_col_palette_na_d()
+            if (rlang::is_null(col_palette_na)) col_palette_na <- "grey50"
+          }
         }
         else {
           col_n <- plot_data_ordered %>%
@@ -1068,10 +1097,15 @@ gg_blanket <- function(
             dplyr::pull()
 
           if (rlang::is_null(col_palette)) {
-            col_palette <- get_col_palette_continuous()[1:col_n]
+            col_palette <- get_col_palette_c()[1:col_n]
             if (rlang::is_null(col_palette)) col_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")(seq(0, 1, length.out = 20))
           }
           else if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
+
+          if (rlang::is_null(col_palette_na)) {
+            col_palette_na <- get_col_palette_na_c()
+            if (rlang::is_null(col_palette_na)) col_palette_na <- "grey50"
+          }
 
           col_legend_rev <- !col_legend_rev
         }

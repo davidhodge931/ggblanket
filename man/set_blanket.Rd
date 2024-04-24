@@ -13,8 +13,10 @@ set_blanket(
   annotate_linewidth = 0.33,
   annotate_size = 3.88,
   annotate_family = "",
-  col_palette_discrete = c(teal, orange, navy, red, pink),
-  col_palette_continuous = viridisLite::mako(n = 20, direction = -1),
+  col_palette_d = jumble,
+  col_palette_na_d = "seashell3",
+  col_palette_c = blues9,
+  col_palette_na_c = "seashell3",
   theme = light_mode_r(orientation = "x"),
   ...
 )
@@ -36,9 +38,13 @@ set_blanket(
 
 \item{annotate_family}{A default family for \verb{*_text} and \verb{*_label}. Defaults to ""}
 
-\item{col_palette_discrete}{A default col_palette to use in the discrete scale. A character vector of hex codes (or names).}
+\item{col_palette_d}{A default col_palette to use in the discrete scale. A character vector of hex codes (or names).}
 
-\item{col_palette_continuous}{A default col_palette to use in the continuous scale. A character vector of hex codes (or names).}
+\item{col_palette_na_d}{A default colour for NA on a discrete scale. A hex code or name.}
+
+\item{col_palette_c}{A default col_palette to use in the continuous scale. A character vector of hex codes (or names).}
+
+\item{col_palette_na_c}{A default colour for NA on a continuous scale. A hex code or name.}
 
 \item{theme}{A default ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note, \code{mode} takes precedence, unless \code{mode = NULL}.}
 

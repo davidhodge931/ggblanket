@@ -61,8 +61,8 @@ set_blanket(
   annotate_colour = "red",
   annotate_linewidth = 5,
   annotate_size = 15 / 2.83505,
-  col_palette_discrete = c(navy, red, "green"),
-  col_palette_continuous = viridisLite::rocket(20)
+  col_palette_d = c(navy, red, "green"),
+  col_palette_c = viridisLite::rocket(20)
 )
 
 ###
