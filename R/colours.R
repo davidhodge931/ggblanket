@@ -76,16 +76,27 @@ pink <- "#ec9ecbff"
 #' scales::show_col(purple)
 purple <- "#67609cff"
 
+#' A grey colour
+#'
+#' @description A grey colour.
+#'
+#' @return A character vector.
+#' @export
+#'
+#' @examples
+#' scales::show_col(grey)
+grey <- "#cdc5bfff"
+
 #' A categorical colour palette
 #'
-#' @description A categorical colour palette with 6 colours.
+#' @description A categorical colour palette with 7 colours.
 #'
 #' @return A character vector.
 #' @export
 #'
 #' @examples
 #' scales::show_col(jumble)
-jumble <- c(teal, orange, navy, red, pink, purple)
+jumble <- c(teal, orange, navy, red, pink, purple, grey)
 
 #' The `light_mode_*` theme colours
 #'
