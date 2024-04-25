@@ -447,6 +447,12 @@ gg_blanket <- function(
                                   !!col, !!facet, !!facet2) &
                                   tidyselect::where(is.character), function(x)
                                     factor(x))) %>%
+    #convert ordered to plain factors
+    dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
+                                  !!y, !!ymin, !!ymax, !!yend,
+                                  !!col, !!facet, !!facet2) &
+                                  tidyselect::where(is.factor), function(x)
+                                    factor(x, ordered = FALSE))) %>%
     #reverse y*, so that reads top low-levels to bottom high-levels
     dplyr::mutate(dplyr::across(c(!!y, !!ymin, !!ymax, !!yend) &
                                   tidyselect::where(is.factor),
