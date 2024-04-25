@@ -482,4 +482,4 @@ test_that(test_name, {
   vdiffr::expect_doppelganger(test_name, p)
 })
 
-
+set_blanket()
