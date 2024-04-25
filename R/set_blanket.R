@@ -17,7 +17,7 @@
 #' @param theme A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence, unless `mode = NULL`.
 #' @param ... Provided to support trailing commas only.
 #'
-#' @return A globally set mode and updated geom defaults.
+#' @return A globally set style.
 #' @export
 #'
 #' @examples
