@@ -58,9 +58,9 @@ set_blanket <- function(
     annotate_size = 3.88,
     annotate_family = "",
     col_palette_d = jumble,
-    col_palette_na_d = "seashell3",
+    col_palette_na_d = "#cdc5bfff",
     col_palette_c = blues9,
-    col_palette_na_c = "seashell3",
+    col_palette_na_c = "#cdc5bfff",
     theme = light_mode_r(orientation = "x"),
     ...
 ) {

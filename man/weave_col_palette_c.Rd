@@ -4,7 +4,7 @@
 \alias{weave_col_palette_c}
 \title{Set a default continuous colour palette}
 \usage{
-weave_col_palette_c(new = blues9, na = "seashell3")
+weave_col_palette_c(new = blues9, na = "#cdc5bfff")
 }
 \arguments{
 \item{new}{Colour palette to use for continuous scale. A character vector of hex codes (or names).}

@@ -4,7 +4,7 @@
 \alias{weave_col_palette_d}
 \title{Set a default discrete colour palette}
 \usage{
-weave_col_palette_d(new = jumble, na = "seashell3")
+weave_col_palette_d(new = jumble, na = "#cdc5bfff")
 }
 \arguments{
 \item{new}{Colour palette to use for discrete scale. A character vector of hex codes (or names).}

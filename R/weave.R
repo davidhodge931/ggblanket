@@ -144,10 +144,12 @@ weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, size = 3.88
 #' @param na A default colour for NA on a discrete scale. A hex code or name.
 #'
 #' @export
-weave_col_palette_d <- function(new = jumble, na = "seashell3") {
+weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
+
+  new2 <- c(new, rep(na, times = 13))
 
   old <- ggblanket_global$col_palette_d
-  ggblanket_global$col_palette_d <- new
+  ggblanket_global$col_palette_d <- new2
   invisible(old)
 
   old <- ggblanket_global$col_palette_na_d
@@ -157,12 +159,12 @@ weave_col_palette_d <- function(new = jumble, na = "seashell3") {
   options(
     ggplot2.discrete.colour = function()
       ggplot2::scale_colour_manual(
-        values = new,
+        values = new2,
         na.value = na
       ),
     ggplot2.discrete.fill = function()
       ggplot2::scale_fill_manual(
-        values = new,
+        values = new2,
         na.value = na
       )
   )
@@ -174,7 +176,7 @@ weave_col_palette_d <- function(new = jumble, na = "seashell3") {
 #' @param na A default colour for NA on a continuous scale. A hex code or name.
 #'
 #' @export
-weave_col_palette_c <- function(new = blues9, na = "seashell3") {
+weave_col_palette_c <- function(new = blues9, na = "#cdc5bfff") {
 
   old <- ggblanket_global$col_palette_c
   ggblanket_global$col_palette_c <- new
