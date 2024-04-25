@@ -35,7 +35,7 @@ Suggests:
     quantreg,
     rmarkdown,
     sf,
-    testthat,
+    testthat (>= 3.0.0),
     tibble,
     vdiffr
 VignetteBuilder: 
