@@ -6,7 +6,7 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(palmerpenguins)
-set_blanket()
+# set_blanket()
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "default"
@@ -137,4 +137,4 @@ test_that(test_name, {
     vdiffr::expect_doppelganger(test_name, p)
 })
 
-set_blanket()
+# set_blanket()
