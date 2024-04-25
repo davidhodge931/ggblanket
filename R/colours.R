@@ -1,6 +1,6 @@
 #' A blue colour
 #'
-#' @description A blue colour derived from `viridisLite::mako(9)[5]`
+#' @description A blue colour.
 #'
 #' @return A character vector.
 #' @export

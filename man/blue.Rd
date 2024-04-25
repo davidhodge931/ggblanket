@@ -14,7 +14,7 @@ blue
 A character vector.
 }
 \description{
-A blue colour derived from \code{viridisLite::mako(9)[5]}
+A blue colour.
 }
 \examples{
 scales::show_col(blue)
