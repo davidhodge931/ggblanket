@@ -198,6 +198,9 @@ weave_col_palette_c <- function(new = blues9, na = "#cdc5bfff") {
         na.value = na
       )
   )
+
+  # options(ggplot2.ordinal.colour = new)
+  # options(ggplot2.ordinal.fill = new)
 }
 
 #' Get the default mode
