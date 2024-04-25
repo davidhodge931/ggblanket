@@ -51,7 +51,7 @@ set_blanket(
 \item{...}{Provided to support trailing commas only.}
 }
 \value{
-A globally set mode and updated geom defaults.
+A globally set style.
 }
 \description{
 Set a default style by setting a default mode, a series of geom and annotate aesthetic defaults, and a default col_palette for discrete and continuous scales.
