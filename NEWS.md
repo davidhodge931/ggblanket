@@ -14,7 +14,7 @@
 * Added `red` and `pink`.
 * Added `jumble` discrete colour palette.
 * Changed the `col_palette_na` default. 
-* Updated default style of colourbars.
+* Updated default style of colourbars. 
 * Made compatible with extension geoms with no x or y variables in `layer_data`.
 * Fixed bug with `set_blanket`, which made {gghighlight} not work.
 
