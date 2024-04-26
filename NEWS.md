@@ -3,8 +3,8 @@
 * Breaking: renamed `col_pal` to `col_palette`.
 * Breaking: removed ability to use `col_palette` when `col = NULL`.
 * Breaking: in `set_blanket` and `weave_*`, renamed arguments.
-* Updated `set_blanket()` and `weave_*()` to set ggplot2 as well as ggblanket.
 * Updated `set_blanket()` and `weave_col_palette_*()` to set the default `col_palette`.
+* Updated `set_blanket()` and `weave_*()` to set ggplot2 as well as ggblanket.
 * Added `jumble` discrete colour palette.
 * Added `red`, `pink` and `purple`.
 * Changed the continuous colour/fill scale default to `blues9`.
