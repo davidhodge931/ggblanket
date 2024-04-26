@@ -279,9 +279,9 @@ colour and fill scale as applicable. Likewise, everything prefixed
 <code>alpha</code> titles are converted to sentence case with
 <code>snakecase::to_sentence</code>.</p>
 <p>However, each title can be manually changed using the applicable
-<code>*_title</code> argument. The default
-<code>snakecase::to_sentence</code> conversion can be turned off using
-<code>titles_to_case = \(x) x</code> or changed
+<code>*_title</code> argument.</p>
+<p>The default <code>snakecase::to_sentence</code> conversion can be
+turned off using <code>titles_to_case = \(x) x</code> or changed
 (e.g. <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_title_case</a></code>).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span></span>
@@ -290,6 +290,8 @@ colour and fill scale as applicable. Likewise, everything prefixed
 <span>    x <span class="op">=</span> <span class="va">carat</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">price</span>,</span>
 <span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20000</span><span class="op">)</span>,</span>
+<span>    col_palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">blues9</span><span class="op">)</span>,</span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
 </div>
