@@ -178,6 +178,7 @@ knitr::include_graphics("autocomplete_y.png", dpi = 300)
 Unspecified `x`, `y`, `col` and `alpha` titles are converted to sentence case with `snakecase::to_sentence`. 
 
 However, each title can be manually changed using the applicable `*_title` argument. 
+
 The default `snakecase::to_sentence` conversion can be turned off using `titles_to_case = \(x) x` or changed (e.g. `snakecase::to_title_case`). 
 
 ```{r, fig.asp=0.6}
@@ -187,6 +188,8 @@ diamonds |>
     x = carat,
     y = price,
     y_limits = c(0, 20000),
+    col_palette = rev(blues9),
+    mode = dark_mode_r(),
   )
 ```
 
