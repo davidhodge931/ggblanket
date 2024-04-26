@@ -136,7 +136,7 @@ foundation_mode_base <- function(
     panel.spacing.y = NULL,
     panel.ontop = FALSE,
     strip.background = ggplot2::element_rect(fill = NA, colour = NA),
-    strip.clip = "inherit",
+    strip.clip = "off",
     strip.text = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.66, l = 0)),
     strip.text.x = NULL,
     strip.text.x.bottom = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.25, r = 0, b = base_size * 1, l = 0)),
