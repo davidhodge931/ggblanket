@@ -46,6 +46,7 @@ economics |>
 
 ```{r }
 penguins |>
+  drop_na(sex) |> 
   mutate(across(sex, str_to_sentence)) |> 
   gg_bar(
     position = position_dodge(preserve = "single"),

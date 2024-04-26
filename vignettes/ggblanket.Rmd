@@ -283,7 +283,7 @@ p2 <- d |>
 
 p3 <- d |>
   gg_col(
-    position = "dodge",
+    position = "dodge2",
     x = trt,
     y = upper,
     col = group,
