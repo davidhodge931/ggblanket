@@ -110,7 +110,7 @@ msleep |>
 
 ### 4. Reorder and/or reverse categorical variables
 
-ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet`, `facet2` and  `alpha`. You can often manipulate the data prior to plotting to acheive what you want (e.g. using `tidyr::drop_na`, `forcats::fct_rev` and/or `forcats::fct_reorder`).
+ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet`, `facet2` and  `alpha`. You can often manipulate the data prior to plotting to achieve what you want (e.g. using `tidyr::drop_na`, `forcats::fct_rev` and/or `forcats::fct_reorder`).
 
 ```{r}
 p1 <- diamonds |>
