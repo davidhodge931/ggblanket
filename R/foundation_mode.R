@@ -108,7 +108,7 @@ foundation_mode_base <- function(
     legend.key.size = grid::unit(base_size * 1.75, "pt"),
     legend.key.height = NULL,
     legend.key.width = NULL,
-    # legend.key.spacing = NULL,
+    legend.key.spacing = NULL,
     legend.key.spacing.x = grid::unit(11, "pt"),
     legend.key.spacing.y = grid::unit(base_size * 0.33, "pt"),
     legend.byrow = FALSE,
