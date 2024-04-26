@@ -33,7 +33,7 @@ weave_theme <- function(new = light_mode_r(orientation = "x")) {
   ggblanket_global$theme <- new
   invisible(old)
 
-  if (!rlang::is_null(new)) ggplot2::theme_set(new = new)
+  ggplot2::theme_set(new = new)
 }
 
 #' Set a series of geom defaults
@@ -99,6 +99,7 @@ weave_geom_aes <- function(colour = "#357ba2", linewidth = 0.66, size = 1.5) {
     ggplot2::update_geom_defaults("linerange", ggplot2::aes(linewidth = !!linewidth))
     ggplot2::update_geom_defaults("path", ggplot2::aes(linewidth = !!linewidth))
     ggplot2::update_geom_defaults("polygon", ggplot2::aes(linewidth = !!linewidth))
+    ggplot2::update_geom_defaults("pointrange", ggplot2::aes(linewidth = !!linewidth))
     ggplot2::update_geom_defaults("quantile", ggplot2::aes(linewidth = !!linewidth))
     ggplot2::update_geom_defaults("rect", ggplot2::aes(linewidth = !!linewidth))
     ggplot2::update_geom_defaults("ribbon", ggplot2::aes(linewidth = !!linewidth))
@@ -115,7 +116,7 @@ weave_geom_aes <- function(colour = "#357ba2", linewidth = 0.66, size = 1.5) {
 
   if (!rlang::is_null(size)) {
     ggplot2::update_geom_defaults("point", ggplot2::aes(size = !!size))
-    ggplot2::update_geom_defaults("pointrange", ggplot2::aes(linewidth = !!linewidth, size = !!size * 0.25))
+    ggplot2::update_geom_defaults("pointrange", ggplot2::aes(size = !!size * 0.25))
   }
 }
 
@@ -130,12 +131,32 @@ weave_geom_aes <- function(colour = "#357ba2", linewidth = 0.66, size = 1.5) {
 #'
 #' @export
 weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, size = 3.88, family = "") {
-  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
-  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
-  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
-  ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
-  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour, size = !!size, family = !!family))
-  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.05, size = !!size, family = !!family))
+
+  if (!rlang::is_null(colour)) {
+    ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour))
+    ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour))
+    ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour))
+    ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!colour))
+    ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour))
+    ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.05))
+  }
+
+  if (!rlang::is_null(linewidth)) {
+    ggplot2::update_geom_defaults("hline", ggplot2::aes(linewidth = !!linewidth))
+    ggplot2::update_geom_defaults("vline", ggplot2::aes(linewidth = !!linewidth))
+    ggplot2::update_geom_defaults("abline", ggplot2::aes(linewidth = !!linewidth))
+    ggplot2::update_geom_defaults("curve", ggplot2::aes(linewidth = !!linewidth))
+  }
+
+  if (!rlang::is_null(size)) {
+    ggplot2::update_geom_defaults("text", ggplot2::aes(size = !!size))
+    ggplot2::update_geom_defaults("label", ggplot2::aes(size = !!size))
+  }
+
+  if (!rlang::is_null(family)) {
+    ggplot2::update_geom_defaults("text", ggplot2::aes(family = !!family))
+    ggplot2::update_geom_defaults("label", ggplot2::aes(family = !!family))
+  }
 }
 
 #' Set a default discrete colour palette
@@ -146,28 +167,28 @@ weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, size = 3.88
 #' @export
 weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
 
-  new2 <- c(new, rep(na, times = 13))
+    new2 <- c(new, rep(na, times = 13))
 
-  old <- ggblanket_global$col_palette_d
-  ggblanket_global$col_palette_d <- new2
-  invisible(old)
+    old <- ggblanket_global$col_palette_d
+    ggblanket_global$col_palette_d <- new2
+    invisible(old)
 
-  old <- ggblanket_global$col_palette_na_d
-  ggblanket_global$col_palette_na_d <- na
-  invisible(old)
+    old <- ggblanket_global$col_palette_na_d
+    ggblanket_global$col_palette_na_d <- na
+    invisible(old)
 
-  options(
-    ggplot2.discrete.colour = function()
-      ggplot2::scale_colour_manual(
-        values = new2,
-        na.value = na
-      ),
-    ggplot2.discrete.fill = function()
-      ggplot2::scale_fill_manual(
-        values = new2,
-        na.value = na
-      )
-  )
+    options(
+      ggplot2.discrete.colour = function()
+        ggplot2::scale_colour_manual(
+          values = new2,
+          na.value = na
+        ),
+      ggplot2.discrete.fill = function()
+        ggplot2::scale_fill_manual(
+          values = new2,
+          na.value = na
+        )
+    )
 }
 
 #' Set a default continuous colour palette
@@ -178,29 +199,26 @@ weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
 #' @export
 weave_col_palette_c <- function(new = blues9, na = "#cdc5bfff") {
 
-  old <- ggblanket_global$col_palette_c
-  ggblanket_global$col_palette_c <- new
-  invisible(old)
+    old <- ggblanket_global$col_palette_c
+    ggblanket_global$col_palette_c <- new
+    invisible(old)
 
-  old <- ggblanket_global$col_palette_na_c
-  ggblanket_global$col_palette_na_c <- na
-  invisible(old)
+    old <- ggblanket_global$col_palette_na_c
+    ggblanket_global$col_palette_na_c <- na
+    invisible(old)
 
-  options(
-    ggplot2.continuous.colour = function()
-      ggplot2::scale_color_gradientn(
-        colours = new,
-        na.value = na
-      ),
-    ggplot2.continuous.fill = function()
-      ggplot2::scale_fill_gradientn(
-        colours = new,
-        na.value = na
-      )
-  )
-
-  # options(ggplot2.ordinal.colour = new)
-  # options(ggplot2.ordinal.fill = new)
+    options(
+      ggplot2.continuous.colour = function()
+        ggplot2::scale_color_gradientn(
+          colours = new,
+          na.value = na
+        ),
+      ggplot2.continuous.fill = function()
+        ggplot2::scale_fill_gradientn(
+          colours = new,
+          na.value = na
+        )
+    )
 }
 
 #' Get the default mode

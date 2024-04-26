@@ -54,7 +54,6 @@ test_that(test_name, {
 
 set_blanket(
   mode = grey_mode_r(15),
-  theme = NULL,
   geom_colour = red,
   geom_linewidth = 3,
   geom_size = 3,

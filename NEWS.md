@@ -6,9 +6,10 @@
 * Breaking: updated `weave_*` functions and added new ones.
 * Breaking: removed `facet_labels_position` and `facet_labels_switch`.
 * Breaking: in `aes_contrast`, changed arguments. 
-* Updated `set_blanket()` and `weave_*()` to set ggplot2 as well as ggblanket.
-* Updated `set_blanket()` and `weave_col_palette()` to set the default `col_palette`.
 * Breaking: removed `*ness` helper palettes.
+* Updated `set_blanket()` and `weave_*()` to set ggplot2 as well as ggblanket.
+* Updated `set_blanket()` and `weave_col_palette_*()` to set the default `col_palette`.
+* Updated default continuous colours to `blues9`.
 * Added `orientation` argument to `*_mode_*` functions for use with ggplot2.
 * Added arguments to `*_mode_*` for more control with colours and linewidths.
 * Added `red` and `pink`.
