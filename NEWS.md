@@ -2,22 +2,20 @@
 
 * Breaking: renamed `col_pal` to `col_palette`.
 * Breaking: removed ability to use `col_palette` when `col = NULL`.
-* Breaking: in `set_blanket`, renamed arguments.
-* Breaking: updated `weave_*` functions and added new ones.
-* Breaking: removed `facet_labels_position` and `facet_labels_switch`.
-* Breaking: in `aes_contrast`, changed arguments. 
-* Breaking: removed `*ness` helper palettes.
+* Breaking: in `set_blanket` and `weave_*`, renamed arguments.
 * Updated `set_blanket()` and `weave_*()` to set ggplot2 as well as ggblanket.
 * Updated `set_blanket()` and `weave_col_palette_*()` to set the default `col_palette`.
-* Updated default continuous colours to `blues9`.
-* Added `orientation` argument to `*_mode_*` functions for use with ggplot2.
-* Added arguments to `*_mode_*` for more control with colours and linewidths.
-* Added `red` and `pink`.
 * Added `jumble` discrete colour palette.
-* Changed the `col_palette_na` default. 
-* Updated default style of colourbars. 
+* Added `red`, `pink` and `purple`.
+* Changed the continuous colour/fill scale default to `blues9`.
+* Changed the `col_palette_na` default to `"seashell3"`. 
+* Added `orientation` argument to `*_mode_*` functions for use with ggplot2.
+* Breaking: in `aes_contrast`, added arguments to optimise for modes, and renamed arguments.
+* Breaking: removed `facet_labels_position` and `facet_labels_switch`.
+* Breaking: removed `*ness` helper palettes.
+* Added arguments to `*_mode_*` for more control of colours/linewidths etc.
+* Updated default ticks style in colourbars. 
 * Made compatible with extension geoms with no x or y variables in `layer_data`.
-* Fixed bug with `set_blanket`, which made {gghighlight} not work.
 
 # ggblanket 7.0.0
 
