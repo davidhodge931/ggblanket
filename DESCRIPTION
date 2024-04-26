@@ -41,7 +41,7 @@ Suggests:
     viridisLite
 VignetteBuilder: 
     knitr
-Config/Needs/website: concaveman, corrr, distributional, farver, geomtextpath, 
+Config/Needs/website: corrr, farver, 
     ggbeeswarm, ggblend, ggdensity, ggdist, ggeasy, ggforce, ggh4x, gghighlight,  
     ggnewscale, ggrepel, ggridges, ggtext, glue, paletteer, showtext, sysfonts
 Config/testthat/edition: 3
