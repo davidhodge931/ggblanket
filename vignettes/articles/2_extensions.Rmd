@@ -20,7 +20,9 @@ knitr::opts_chunk$set(
 
 This article will demonstrate some fantastic ggplot2 extension packages. 
 
-```{r setups}
+Note, an alternative is to use ggplot2 code directly instead. This may be easier depending on your familiarity with ggblanket/ggplot2 and the relevant extension package. The `set_blanket()` function used to get a lot of the ggblanket style also works with ggplot2.
+
+```{r setup}
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -28,6 +30,7 @@ library(forcats)
 library(stringr)
 library(ggblanket)
 library(palmerpenguins)
+library(patchwork)
 
 set_blanket()
 ```
@@ -41,8 +44,6 @@ A convenient hack to add a panel centred title can be to add a `facet_wrap` laye
 Otherwise you will need to modify margins
 
 ```{r, fig.asp=0.9}
-library(patchwork)
-
 p1 <- mtcars |> 
   gg_point(
     x = mpg, 
@@ -155,8 +156,7 @@ penguins |>
     x = flipper_length_mm,
     col = species,
     x_breaks = scales::breaks_pretty(4),
-    col_palette = rep(blue, 3), 
-  ) + #build the scale for not faceted (i.e. all data)
+  ) + #build the scale for all data
   facet_wrap(~species) + #then add facet layer
   gghighlight::gghighlight() 
 ```
@@ -176,6 +176,7 @@ economics |>
     x = date, 
     y = unemploy,
     linewidth = 1,
+    y_title = "Unemployment",
   ) 
 ```
 
@@ -410,8 +411,8 @@ p1 + p2
 
 ### ggblend
  
-The ggblend package provides blending of colours. Note you must use a graphics device that supports blending.
- 
+The ggblend package provides blending of colours. You must use a graphics device that supports blending.
+
 ```{r, fig.asp=0.5}
 p1 <- penguins |>
   gg_density(

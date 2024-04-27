@@ -11,14 +11,14 @@
 #' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
 #' @param axis_ticks_length_x_pt The length of the axis.ticks.length.x theme element in points.
 #' @param axis_ticks_length_y_pt The length of the axis.ticks.length.y theme element in points.
-#' @param legend_ticks_colour The colour of the legend.ticks theme element.
-#' @param legend_ticks_linewidth The linewidth of the legend.ticks theme element.
 #' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
 #' @param panel_background_fill The fill (and colour) of the panel.background theme element.
 #' @param plot_background_fill The fill (and colour) of the plot.background theme element.
 #' @param legend_background_fill The fill (and colour) of the legend.background theme element.
 #' @param legend_key_fill The fill (and colour) of the legend.key theme element.
+#' @param legend_ticks_colour The colour of the legend.ticks theme element.
+#' @param legend_ticks_linewidth The linewidth of the legend.ticks theme element.
 #' @param orientation The orientation of the plot. Either "x" or "y". Defaults to NULL. Not intended for use with the mode argument of gg_* functions.
 #' @param ... Provided to support trailing commas only.
 #'
@@ -49,14 +49,14 @@ light_mode_r <- function (
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length_x_pt = base_size / 3,
     axis_ticks_length_y_pt = base_size / 4,
-    legend_ticks_colour = plot_background_fill,
-    legend_ticks_linewidth = 0.33,
     panel_grid_colour = "#f6f8faff",
     panel_grid_linewidth = 1.33,
     panel_background_fill ="#ffffffff",
     plot_background_fill = "#ffffffff",
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    legend_ticks_colour = plot_background_fill,
+    legend_ticks_linewidth = 0.33,
     orientation = NULL,
     ...
 ) {
@@ -133,14 +133,14 @@ light_mode_t <- function (
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length_x_pt = base_size / 3,
     axis_ticks_length_y_pt = base_size / 4,
-    legend_ticks_colour = plot_background_fill,
-    legend_ticks_linewidth = 0.33,
     panel_grid_colour = "#f6f8faff",
     panel_grid_linewidth = 1.33,
     panel_background_fill ="#ffffffff",
     plot_background_fill = "#ffffffff",
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    legend_ticks_colour = plot_background_fill,
+    legend_ticks_linewidth = 0.33,
     orientation = NULL,
     ...
 ) {
@@ -217,14 +217,14 @@ light_mode_b <- function (
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length_x_pt = base_size / 3,
     axis_ticks_length_y_pt = base_size / 4,
-    legend_ticks_colour = plot_background_fill,
-    legend_ticks_linewidth = 0.33,
     panel_grid_colour = "#f6f8faff",
     panel_grid_linewidth = 1.33,
     panel_background_fill ="#ffffffff",
     plot_background_fill = "#ffffffff",
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    legend_ticks_colour = plot_background_fill,
+    legend_ticks_linewidth = 0.33,
     orientation = NULL,
     ...
 ) {
@@ -301,14 +301,14 @@ light_mode_n <- function (
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length_x_pt = base_size / 3,
     axis_ticks_length_y_pt = base_size / 4,
-    legend_ticks_colour = plot_background_fill,
-    legend_ticks_linewidth = 0.33,
     panel_grid_colour = "#f6f8faff",
     panel_grid_linewidth = 1.33,
     panel_background_fill ="#ffffffff",
     plot_background_fill = "#ffffffff",
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
+    legend_ticks_colour = plot_background_fill,
+    legend_ticks_linewidth = 0.33,
     orientation = NULL,
     ...
 ) {
