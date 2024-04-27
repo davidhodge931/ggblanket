@@ -172,7 +172,7 @@ foundation_mode_base <- function(
     axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.3, r = 0, b = base_size * 1, l = 0)),
     axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.3, l = 0)),
 
-    complete = TRUE
+    complete = FALSE
   )
 
   if (!rlang::is_null(orientation)) {
