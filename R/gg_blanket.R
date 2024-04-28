@@ -1048,8 +1048,7 @@ gg_blanket <- function(
           ggplot2::guides(
             colour = ggplot2::guide_coloursteps(reverse = col_legend_rev),
             fill = ggplot2::guide_coloursteps(reverse = col_legend_rev)
-          ) +
-          ggplot2::theme(legend.ticks = ggplot2::element_blank())
+          )
       }
     }
     else if (!is_col_continuous) {
