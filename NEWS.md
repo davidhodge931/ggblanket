@@ -13,7 +13,7 @@
 * Breaking: removed `facet_labels_position` and `facet_labels_switch`.
 * Breaking: adjusted `*ness` helper palettes.
 * Added arguments to `*_mode_*` for more control of colours/linewidths etc.
-* Updated default ticks style in colourbars. 
+* Minor `*_mode_*` updates. 
 * Made compatible with extension geoms with no x or y variables in `layer_data`.
 
 # ggblanket 7.0.0
