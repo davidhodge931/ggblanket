@@ -5,7 +5,7 @@
 \title{Set a default continuous colour palette}
 \usage{
 weave_col_palette_c(
-  new = viridisLite::viridis(n = 9, direction = -1, option = "G"),
+  new = viridisLite::mako(n = 9, direction = -1),
   na = "#cdc5bfff"
 )
 }

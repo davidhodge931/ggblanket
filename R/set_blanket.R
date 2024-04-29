@@ -59,7 +59,7 @@ set_blanket <- function(
     annotate_family = "",
     col_palette_d = jumble,
     col_palette_na_d = "#cdc5bfff",
-    col_palette_c = viridisLite::viridis(n = 9, direction = -1, option = "G"),
+    col_palette_c = viridisLite::mako(n = 9, direction = -1),
     col_palette_na_c = "#cdc5bfff",
     theme = light_mode_r(orientation = "x"),
     ...
