@@ -466,7 +466,7 @@ faithfuld |>
 
 ### 13. Work with `coord_radial()`
 
-ggblanket modes are not really built for a `coord_radial` cartesian. However, with some tweaking to the `axis.text.x` and `axis.title.y`, you can get something that looks good.
+ggblanket modes are not really built with a `coord_radial` cartesian system in mind. However, with some tweaking to the `axis.text.x` and `axis.title.y`, you can get something that looks okay.
 
 ```{r}
 base_size <- 11
