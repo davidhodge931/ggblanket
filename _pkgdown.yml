@@ -43,6 +43,9 @@ reference:
   - purple
   - grey
   - jumble
+  - lightness
+  - greyness
+  - darkness
 - title: Other
 - contents:
   - aes_contrast
