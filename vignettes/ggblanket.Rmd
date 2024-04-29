@@ -166,7 +166,7 @@ penguins |>
     y_title = "Body mass (g)",
     col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
-    col_palette = blues9,
+    col_palette = viridis::magma(n = 9, direction = -1),
     facet_labels = str_to_sentence,
   )
 ```
