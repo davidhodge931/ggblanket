@@ -190,8 +190,6 @@ diamonds |>
     x = carat,
     y = price,
     y_limits = c(0, 20000),
-    col_palette = rev(blues9),
-    mode = dark_mode_r(),
   )
 ```
 
