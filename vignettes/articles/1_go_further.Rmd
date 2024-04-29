@@ -476,7 +476,6 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = body_mass_g, 
-    mode = light_mode_r(),
     coord = coord_radial(),
   ) +
   theme(axis.text.x = element_text(margin = margin(rep(base_size / 3, 4)))) +
