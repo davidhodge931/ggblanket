@@ -1,3 +1,7 @@
+# ggblanket 8.0.0.9000
+
+* Fixed bug where `grey_mode_*`/`dark_mode_*` were missing legend functionality.
+
 # ggblanket 8.0.0
 
 * Breaking: renamed `col_pal` to `col_palette`.
