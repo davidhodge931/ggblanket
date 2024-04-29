@@ -1,4 +1,4 @@
-# ggblanket 7.9.9000
+# ggblanket 8.0.0
 
 * Breaking: renamed `col_pal` to `col_palette`.
 * Breaking: removed ability to use `col_palette` when `col = NULL`.
