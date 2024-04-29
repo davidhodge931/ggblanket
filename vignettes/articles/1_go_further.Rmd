@@ -32,6 +32,7 @@ This article will demonstrate a random assortment of content, including some of 
 10. Use `replace_seq` to keep every nth label
 11. Understand `oob` & `clip`
 12. Use delayed evaluation
+13. Work with `coord_radial()`
 
 ```{r setup}
 library(ggplot2)
@@ -461,5 +462,24 @@ faithfuld |>
     mapping = aes(colour = after_stat(level)),
     bins = 8,
   )
+```
+
+### 13. Work with `coord_radial()`
+
+ggblanket modes are not really built for a `coord_radial` cartesian. However, with some tweaking to the `axis.text.x` and `axis.title.y`, you can get something that looks good.
+
+```{r}
+base_size <- 11
+
+penguins |> 
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = body_mass_g, 
+    mode = light_mode_r(),
+    coord = coord_radial(),
+  ) +
+  theme(axis.text.x = element_text(margin = margin(rep(base_size / 3, 4)))) +
+  theme(axis.title.y = element_text(hjust = 0.885))
 ```
 

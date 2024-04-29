@@ -85,6 +85,8 @@ The colour and fill aesthetics of ggplot2 are merged into a single concept repre
 
 This combined aesthetic means that everything should be coloured according to it, i.e. all coloured outlines and filled interiors. 
 
+Use `colour = NA` or `fill = NA` if you need to turn one of these off.
+
 ```{r}
 penguins |>
   gg_point(
