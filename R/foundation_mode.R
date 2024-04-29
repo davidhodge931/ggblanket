@@ -23,16 +23,19 @@
 #' @param axis_line_linewidth The linewidth of the axis.line theme element.
 #' @param axis_ticks_colour The colour of the axis.ticks theme element.
 #' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
-#' @param axis_ticks_length_x_pt The length of the axis.ticks.length.x theme element in points.
-#' @param axis_ticks_length_y_pt The length of the axis.ticks.length.y theme element in points.
+#' @param axis_ticks_length_x The length of the axis.ticks.length.x theme element.
+#' @param axis_ticks_length_y The length of the axis.ticks.length.y theme element.
 #' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
 #' @param panel_background_fill The fill (and colour) of the panel.background theme element.
 #' @param plot_background_fill The fill (and colour) of the plot.background theme element.
+#' @param legend_axis_line_colour The colour of the legend.axis.line theme element.
+#' @param legend_axis_line_linewidth The linewidth of the legend.axis.line theme element.
 #' @param legend_background_fill The fill (and colour) of the legend.background theme element.
 #' @param legend_key_fill The fill (and colour) of the legend.key theme element.
 #' @param legend_ticks_colour The colour of the legend.ticks theme element.
 #' @param legend_ticks_linewidth The linewidth of the legend.ticks theme element.
+#' @param legend_ticks_length The legend.ticks.length theme element.
 #' @param orientation The orientation of the plot. Either "x" or "y". Defaults to NULL. Not intended for use with the mode argument of gg_* functions.
 #'
 #' @return A ggplot theme.
@@ -60,16 +63,19 @@ foundation_mode_base <- function(
     axis_line_linewidth = 0.33,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length_x_pt = base_size / 3,
-    axis_ticks_length_y_pt = base_size / 4,
+    axis_ticks_length_x = grid::unit(base_size / 3, "pt"),
+    axis_ticks_length_y = grid::unit(base_size / 4, "pt"),
     panel_grid_colour = "#f6f8faff",
     panel_grid_linewidth = 1.33,
     panel_background_fill ="#ffffffff",
     plot_background_fill = "#ffffffff",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = 0.33,
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
-    legend_ticks_colour = plot_background_fill,
-    legend_ticks_linewidth = 0.33,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
     orientation = NULL
 ) {
 
@@ -93,10 +99,10 @@ foundation_mode_base <- function(
     axis.ticks.y = NULL,
     axis.ticks.y.left = NULL,
     axis.ticks.y.right = NULL,
-    axis.ticks.length.x = grid::unit(axis_ticks_length_x_pt, "pt"),
+    axis.ticks.length.x = grid::unit(axis_ticks_length_x, "pt"),
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
-    axis.ticks.length.y = grid::unit(axis_ticks_length_y_pt, "pt"),
+    axis.ticks.length.y = grid::unit(axis_ticks_length_y, "pt"),
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
     axis.title = NULL,
@@ -113,10 +119,10 @@ foundation_mode_base <- function(
     legend.key.spacing.y = grid::unit(base_size * 0.33, "pt"),
     legend.byrow = FALSE,
     legend.frame = NULL,
-    legend.axis.line = NULL,
     legend.text = ggplot2::element_text(margin = ggplot2::margin(5.5, 5.5, 5.5, 5.5)),
+    legend.axis.line = ggplot2::element_line(colour = legend_axis_line_colour, linewidth = legend_axis_line_linewidth),
     legend.ticks = ggplot2::element_line(colour = legend_ticks_colour, linewidth = legend_ticks_linewidth),
-    legend.ticks.length = ggplot2::rel(c(0.15, 0)),
+    legend.ticks.length = legend_ticks_length,
     legend.title.position = "top",
     legend.box = NULL,
     legend.box.background = NULL,
@@ -239,16 +245,19 @@ foundation_mode_r <- function (
     axis_line_linewidth = 0.33,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length_x_pt = base_size / 3,
-    axis_ticks_length_y_pt = base_size / 4,
+    axis_ticks_length_x = grid::unit(base_size / 3, "pt"),
+    axis_ticks_length_y = grid::unit(base_size / 4, "pt"),
     panel_grid_colour = "#f6f8faff",
     panel_grid_linewidth = 1.33,
     panel_background_fill ="#ffffffff",
     plot_background_fill = "#ffffffff",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = 0.33,
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
-    legend_ticks_colour = plot_background_fill,
-    legend_ticks_linewidth = 0.33,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
     orientation = NULL,
     ...) {
 
@@ -274,16 +283,19 @@ foundation_mode_r <- function (
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
-    axis_ticks_length_x_pt = axis_ticks_length_x_pt,
-    axis_ticks_length_y_pt = axis_ticks_length_y_pt,
-    legend_ticks_colour = legend_ticks_colour,
-    legend_ticks_linewidth = legend_ticks_linewidth,
+    axis_ticks_length_x = axis_ticks_length_x,
+    axis_ticks_length_y = axis_ticks_length_y,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
     plot_background_fill = plot_background_fill,
+    legend_axis_line_colour = legend_axis_line_colour,
+    legend_axis_line_linewidth = legend_axis_line_linewidth,
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
+    legend_ticks_length = legend_ticks_length,
     orientation = orientation
   )
 }
@@ -319,16 +331,19 @@ foundation_mode_t <- function (
     axis_line_linewidth = 0.33,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length_x_pt = base_size / 3,
-    axis_ticks_length_y_pt = base_size / 4,
+    axis_ticks_length_x = grid::unit(base_size / 3, "pt"),
+    axis_ticks_length_y = grid::unit(base_size / 4, "pt"),
     panel_grid_colour = "#f6f8faff",
     panel_grid_linewidth = 1.33,
     panel_background_fill ="#ffffffff",
     plot_background_fill = "#ffffffff",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = 0.33,
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
-    legend_ticks_colour = plot_background_fill,
-    legend_ticks_linewidth = 0.33,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
     orientation = NULL,
     ...) {
 
@@ -354,16 +369,19 @@ foundation_mode_t <- function (
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
-    axis_ticks_length_x_pt = axis_ticks_length_x_pt,
-    axis_ticks_length_y_pt = axis_ticks_length_y_pt,
-    legend_ticks_colour = legend_ticks_colour,
-    legend_ticks_linewidth = legend_ticks_linewidth,
+    axis_ticks_length_x = axis_ticks_length_x,
+    axis_ticks_length_y = axis_ticks_length_y,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
     plot_background_fill = plot_background_fill,
+    legend_axis_line_colour = legend_axis_line_colour,
+    legend_axis_line_linewidth = legend_axis_line_linewidth,
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
+    legend_ticks_length = legend_ticks_length,
     orientation = orientation
   ) +
     ggplot2::theme(
@@ -413,16 +431,19 @@ foundation_mode_b <- function (
     axis_line_linewidth = 0.33,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length_x_pt = base_size / 3,
-    axis_ticks_length_y_pt = base_size / 4,
+    axis_ticks_length_x = grid::unit(base_size / 3, "pt"),
+    axis_ticks_length_y = grid::unit(base_size / 4, "pt"),
     panel_grid_colour = "#f6f8faff",
     panel_grid_linewidth = 1.33,
     panel_background_fill ="#ffffffff",
     plot_background_fill = "#ffffffff",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = 0.33,
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
-    legend_ticks_colour = plot_background_fill,
-    legend_ticks_linewidth = 0.33,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
     orientation = NULL,
     ...) {
 
@@ -448,16 +469,19 @@ foundation_mode_b <- function (
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
-    axis_ticks_length_x_pt = axis_ticks_length_x_pt,
-    axis_ticks_length_y_pt = axis_ticks_length_y_pt,
-    legend_ticks_colour = legend_ticks_colour,
-    legend_ticks_linewidth = legend_ticks_linewidth,
+    axis_ticks_length_x = axis_ticks_length_x,
+    axis_ticks_length_y = axis_ticks_length_y,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
     plot_background_fill = plot_background_fill,
+    legend_axis_line_colour = legend_axis_line_colour,
+    legend_axis_line_linewidth = legend_axis_line_linewidth,
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
+    legend_ticks_length = legend_ticks_length,
     orientation = orientation
   ) +
     ggplot2::theme(
@@ -504,16 +528,19 @@ foundation_mode_n <- function (
     axis_line_linewidth = 0.33,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length_x_pt = base_size / 3,
-    axis_ticks_length_y_pt = base_size / 4,
+    axis_ticks_length_x = grid::unit(base_size / 3, "pt"),
+    axis_ticks_length_y = grid::unit(base_size / 4, "pt"),
     panel_grid_colour = "#f6f8faff",
     panel_grid_linewidth = 1.33,
     panel_background_fill ="#ffffffff",
     plot_background_fill = "#ffffffff",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = 0.33,
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
-    legend_ticks_colour = plot_background_fill,
-    legend_ticks_linewidth = 0.33,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
     orientation = NULL,
     ...) {
 
@@ -539,16 +566,19 @@ foundation_mode_n <- function (
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
-    axis_ticks_length_x_pt = axis_ticks_length_x_pt,
-    axis_ticks_length_y_pt = axis_ticks_length_y_pt,
-    legend_ticks_colour = legend_ticks_colour,
-    legend_ticks_linewidth = legend_ticks_linewidth,
+    axis_ticks_length_x = axis_ticks_length_x,
+    axis_ticks_length_y = axis_ticks_length_y,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
     plot_background_fill = plot_background_fill,
+    legend_axis_line_colour = legend_axis_line_colour,
+    legend_axis_line_linewidth = legend_axis_line_linewidth,
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
+    legend_ticks_length = legend_ticks_length,
     orientation = orientation
   ) +
     ggplot2::theme(legend.position = "none")

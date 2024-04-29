@@ -7,12 +7,11 @@
 * Updated `set_blanket()` and `weave_*()` to set ggplot2 as well as ggblanket.
 * Added `jumble` discrete colour palette.
 * Added `red`, `pink` and `purple`.
-* Changed the continuous colour/fill scale default to `blues9`.
 * Changed the `col_palette_na` default to `"seashell3"`. 
 * Added `orientation` argument to `*_mode_*` functions for use with ggplot2.
 * Breaking: in `aes_contrast`, added arguments to optimise for modes, and renamed arguments.
 * Breaking: removed `facet_labels_position` and `facet_labels_switch`.
-* Breaking: removed `*ness` helper palettes.
+* Breaking: adjusted `*ness` helper palettes.
 * Added arguments to `*_mode_*` for more control of colours/linewidths etc.
 * Updated default ticks style in colourbars. 
 * Made compatible with extension geoms with no x or y variables in `layer_data`.

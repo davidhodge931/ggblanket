@@ -197,7 +197,8 @@ weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
 #' @param na A default colour for NA on a continuous scale. A hex code or name.
 #'
 #' @export
-weave_col_palette_c <- function(new = blues9, na = "#cdc5bfff") {
+weave_col_palette_c <- function(new = viridisLite::viridis(n = 9, direction = -1, option = "G"),
+                                na = "#cdc5bfff") {
 
     old <- ggblanket_global$col_palette_c
     ggblanket_global$col_palette_c <- new

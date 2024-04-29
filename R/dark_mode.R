@@ -1,6 +1,6 @@
 #' Dark mode theme with right legend
 #'
-#' @description Dark mode theme with right legend using `darkness` and `linewidthness`.
+#' @description Dark mode theme with right legend using `darkness` colours.
 #'
 #' @param base_size The base size of the text theme element. Defaults to 11.
 #' @param base_family The base family of the text theme element. Defaults to "".
@@ -9,16 +9,19 @@
 #' @param axis_line_linewidth The linewidth of the axis.line theme element.
 #' @param axis_ticks_colour The colour of the axis.ticks theme element.
 #' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
-#' @param axis_ticks_length_x_pt The length of the axis.ticks.length.x theme element in points.
-#' @param axis_ticks_length_y_pt The length of the axis.ticks.length.y theme element in points.
-#' @param legend_ticks_colour The colour of the legend.ticks theme element.
-#' @param legend_ticks_linewidth The linewidth of the legend.ticks theme element.
+#' @param axis_ticks_length_x The length of the axis.ticks.length.x theme element.
+#' @param axis_ticks_length_y The length of the axis.ticks.length.y theme element.
 #' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
 #' @param panel_background_fill The fill (and colour) of the panel.background theme element.
 #' @param plot_background_fill The fill (and colour) of the plot.background theme element.
+#' @param legend_axis_line_colour The colour of the legend.axis.line theme element.
+#' @param legend_axis_line_linewidth The linewidth of the legend.axis.line theme element.
 #' @param legend_background_fill The fill (and colour) of the legend.background theme element.
 #' @param legend_key_fill The fill (and colour) of the legend.key theme element.
+#' @param legend_ticks_colour The colour of the legend.ticks theme element.
+#' @param legend_ticks_linewidth The linewidth of the legend.ticks theme element.
+#' @param legend_ticks_length The legend.ticks.length theme element.
 #' @param orientation The orientation of the plot. Either "x" or "y". Defaults to NULL. Not intended for use with the mode argument of gg_* functions.
 #' @param ... Provided to support trailing commas only.
 #'
@@ -43,20 +46,23 @@ dark_mode_r <- function (
     base_size = 11,
     base_family = "",
     base_colour = "#c8d7dfff",
-    axis_line_colour = "#c8d7dfff",
+    axis_line_colour = "#121b24ff",
     axis_line_linewidth = 0.33,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length_x_pt = base_size / 3,
-    axis_ticks_length_y_pt = base_size / 4,
+    axis_ticks_length_x = grid::unit(base_size / 3, "pt"),
+    axis_ticks_length_y = grid::unit(base_size / 4, "pt"),
     panel_grid_colour = "#00040aff",
     panel_grid_linewidth = 1.33,
-    panel_background_fill = "#050d1bff",
+    panel_background_fill ="#050d1bff",
     plot_background_fill = "#00040aff",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = 0.33,
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
-    legend_ticks_colour = plot_background_fill,
-    legend_ticks_linewidth = 0.33,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
     orientation = NULL,
     ...
 ) {
@@ -85,8 +91,8 @@ dark_mode_r <- function (
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
-    axis_ticks_length_x_pt = axis_ticks_length_x_pt,
-    axis_ticks_length_y_pt = axis_ticks_length_y_pt,
+    axis_ticks_length_x = axis_ticks_length_x,
+    axis_ticks_length_y = axis_ticks_length_y,
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
     panel_grid_colour = panel_grid_colour,
@@ -102,7 +108,7 @@ dark_mode_r <- function (
 
 #' Dark mode theme with top legend
 #'
-#' @description Dark mode theme with top legend using `darkness` and `linewidthness`.
+#' @description Dark mode theme with top legend using `darkness` colours.
 #'
 #' @inheritParams dark_mode_r
 #'
@@ -127,20 +133,23 @@ dark_mode_t <- function (
     base_size = 11,
     base_family = "",
     base_colour = "#c8d7dfff",
-    axis_line_colour = "#c8d7dfff",
+    axis_line_colour = "#121b24ff",
     axis_line_linewidth = 0.33,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length_x_pt = base_size / 3,
-    axis_ticks_length_y_pt = base_size / 4,
+    axis_ticks_length_x = grid::unit(base_size / 3, "pt"),
+    axis_ticks_length_y = grid::unit(base_size / 4, "pt"),
     panel_grid_colour = "#00040aff",
     panel_grid_linewidth = 1.33,
-    panel_background_fill = "#050d1bff",
+    panel_background_fill ="#050d1bff",
     plot_background_fill = "#00040aff",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = 0.33,
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
-    legend_ticks_colour = plot_background_fill,
-    legend_ticks_linewidth = 0.33,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
     orientation = NULL,
     ...
 ) {
@@ -169,8 +178,8 @@ dark_mode_t <- function (
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
-    axis_ticks_length_x_pt = axis_ticks_length_x_pt,
-    axis_ticks_length_y_pt = axis_ticks_length_y_pt,
+    axis_ticks_length_x = axis_ticks_length_x,
+    axis_ticks_length_y = axis_ticks_length_y,
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
     panel_grid_colour = panel_grid_colour,
@@ -186,7 +195,7 @@ dark_mode_t <- function (
 
 #' Dark mode theme with bottom legend
 #'
-#' @description Dark mode theme with bottom legend using `darkness` and `linewidthness`.
+#' @description Dark mode theme with bottom legend using `darkness` colours.
 #'
 #' @inheritParams dark_mode_r
 #'
@@ -211,20 +220,23 @@ dark_mode_b <- function (
     base_size = 11,
     base_family = "",
     base_colour = "#c8d7dfff",
-    axis_line_colour = "#c8d7dfff",
+    axis_line_colour = "#121b24ff",
     axis_line_linewidth = 0.33,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length_x_pt = base_size / 3,
-    axis_ticks_length_y_pt = base_size / 4,
+    axis_ticks_length_x = grid::unit(base_size / 3, "pt"),
+    axis_ticks_length_y = grid::unit(base_size / 4, "pt"),
     panel_grid_colour = "#00040aff",
     panel_grid_linewidth = 1.33,
-    panel_background_fill = "#050d1bff",
+    panel_background_fill ="#050d1bff",
     plot_background_fill = "#00040aff",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = 0.33,
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
-    legend_ticks_colour = plot_background_fill,
-    legend_ticks_linewidth = 0.33,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
     orientation = NULL,
     ...
 ) {
@@ -253,8 +265,8 @@ dark_mode_b <- function (
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
-    axis_ticks_length_x_pt = axis_ticks_length_x_pt,
-    axis_ticks_length_y_pt = axis_ticks_length_y_pt,
+    axis_ticks_length_x = axis_ticks_length_x,
+    axis_ticks_length_y = axis_ticks_length_y,
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
     panel_grid_colour = panel_grid_colour,
@@ -270,7 +282,7 @@ dark_mode_b <- function (
 
 #' Dark mode theme with no legend
 #'
-#' @description Dark mode theme with no legend using `darkness` and `linewidthness`.
+#' @description Dark mode theme with no legend using `darkness` colours.
 #'
 #' @inheritParams dark_mode_r
 #'
@@ -295,20 +307,23 @@ dark_mode_n <- function (
     base_size = 11,
     base_family = "",
     base_colour = "#c8d7dfff",
-    axis_line_colour = "#c8d7dfff",
+    axis_line_colour = "#121b24ff",
     axis_line_linewidth = 0.33,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length_x_pt = base_size / 3,
-    axis_ticks_length_y_pt = base_size / 4,
+    axis_ticks_length_x = grid::unit(base_size / 3, "pt"),
+    axis_ticks_length_y = grid::unit(base_size / 4, "pt"),
     panel_grid_colour = "#00040aff",
     panel_grid_linewidth = 1.33,
-    panel_background_fill = "#050d1bff",
+    panel_background_fill ="#050d1bff",
     plot_background_fill = "#00040aff",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = 0.33,
     legend_background_fill = plot_background_fill,
     legend_key_fill = plot_background_fill,
-    legend_ticks_colour = plot_background_fill,
-    legend_ticks_linewidth = 0.33,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
     orientation = NULL,
     ...
 ) {
@@ -337,8 +352,8 @@ dark_mode_n <- function (
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
-    axis_ticks_length_x_pt = axis_ticks_length_x_pt,
-    axis_ticks_length_y_pt = axis_ticks_length_y_pt,
+    axis_ticks_length_x = axis_ticks_length_x,
+    axis_ticks_length_y = axis_ticks_length_y,
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
     panel_grid_colour = panel_grid_colour,

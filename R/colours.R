@@ -103,7 +103,7 @@ jumble <- c(teal, orange, navy, red, pink, purple, grey)
 #' @description A vector of 3 colours used in the `light_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
 #'
 #' @return A character vector.
-#' @noRd
+#' @export
 #'
 #' @examples
 #' scales::show_col(lightness)
@@ -114,7 +114,7 @@ lightness <- c("#121b24ff", "#f6f8faff", "#ffffffff")
 #' @description A vector of 3 colours used in the `grey_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
 #'
 #' @return A character vector.
-#' @noRd
+#' @export
 #'
 #' @examples
 #' scales::show_col(greyness)
@@ -125,7 +125,7 @@ greyness <- c("#121b24ff", "#f6f8faff", "#fcfdfeff")
 #' @description A vector of 3 colours used in the `dark_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
 #'
 #' @return A character vector.
-#' @noRd
+#' @export
 #'
 #' @examples
 #' scales::show_col(darkness)

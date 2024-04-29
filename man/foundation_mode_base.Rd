@@ -26,16 +26,19 @@ foundation_mode_base(
   axis_line_linewidth = 0.33,
   axis_ticks_colour = axis_line_colour,
   axis_ticks_linewidth = axis_line_linewidth,
-  axis_ticks_length_x_pt = base_size/3,
-  axis_ticks_length_y_pt = base_size/4,
+  axis_ticks_length_x = grid::unit(base_size/3, "pt"),
+  axis_ticks_length_y = grid::unit(base_size/4, "pt"),
   panel_grid_colour = "#f6f8faff",
   panel_grid_linewidth = 1.33,
   panel_background_fill = "#ffffffff",
   plot_background_fill = "#ffffffff",
+  legend_axis_line_colour = plot_background_fill,
+  legend_axis_line_linewidth = 0.33,
   legend_background_fill = plot_background_fill,
   legend_key_fill = plot_background_fill,
-  legend_ticks_colour = plot_background_fill,
-  legend_ticks_linewidth = 0.33,
+  legend_ticks_colour = legend_axis_line_colour,
+  legend_ticks_linewidth = legend_axis_line_linewidth,
+  legend_ticks_length = ggplot2::rel(c(0.175, 0)),
   orientation = NULL
 )
 }
@@ -82,9 +85,9 @@ foundation_mode_base(
 
 \item{axis_ticks_linewidth}{The linewidth of the axis.ticks theme element.}
 
-\item{axis_ticks_length_x_pt}{The length of the axis.ticks.length.x theme element in points.}
+\item{axis_ticks_length_x}{The length of the axis.ticks.length.x theme element.}
 
-\item{axis_ticks_length_y_pt}{The length of the axis.ticks.length.y theme element in points.}
+\item{axis_ticks_length_y}{The length of the axis.ticks.length.y theme element.}
 
 \item{panel_grid_colour}{The colour of the panel.grid theme element.}
 
@@ -94,6 +97,10 @@ foundation_mode_base(
 
 \item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
 
+\item{legend_axis_line_colour}{The colour of the legend.axis.line theme element.}
+
+\item{legend_axis_line_linewidth}{The linewidth of the legend.axis.line theme element.}
+
 \item{legend_background_fill}{The fill (and colour) of the legend.background theme element.}
 
 \item{legend_key_fill}{The fill (and colour) of the legend.key theme element.}
@@ -101,6 +108,8 @@ foundation_mode_base(
 \item{legend_ticks_colour}{The colour of the legend.ticks theme element.}
 
 \item{legend_ticks_linewidth}{The linewidth of the legend.ticks theme element.}
+
+\item{legend_ticks_length}{The legend.ticks.length theme element.}
 
 \item{orientation}{The orientation of the plot. Either "x" or "y". Defaults to NULL. Not intended for use with the mode argument of gg_* functions.}
 }

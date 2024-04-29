@@ -31,7 +31,7 @@ library(palmerpenguins)
 set_blanket(
   mode = dark_mode_r(), 
   annotate_colour = "#c8d7df",
-  col_palette_c = rev(blues9),
+  col_palette_c = viridis::viridis(n = 9, option = "G"),
 )
 ```
 
