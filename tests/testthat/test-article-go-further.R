@@ -204,8 +204,6 @@ test_that(test_name, {
       x = flipper_length_mm,
       facet = species,
       facet2 = sex,
-      y_breaks = scales::breaks_pretty(7),
-      y_labels = \(x) replace_seq(x),
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -444,8 +442,6 @@ test_that(test_name, {
     gg_point(
       x = temperature,
       y = pressure,
-      x_labels = replace_seq,
-      y_labels = replace_seq,
       subtitle = "\nDefault",
     )
 
@@ -453,9 +449,7 @@ test_that(test_name, {
     gg_point(
       x = temperature,
       y = pressure,
-      x_labels = replace_seq,
       y_transform = "reverse",
-      y_labels = replace_seq,
       subtitle = "\nReverse",
     )
 
@@ -463,7 +457,6 @@ test_that(test_name, {
     gg_point(
       x = temperature,
       y = pressure,
-      x_labels = replace_seq,
       y_transform = "log10",
       subtitle = "\nLog10",
     )
@@ -472,7 +465,6 @@ test_that(test_name, {
     gg_point(
       x = temperature,
       y = pressure,
-      x_labels = replace_seq,
       y_transform = c("log10", "reverse"),
       subtitle = "\nLog10 & Reverse",
     )

@@ -9,7 +9,7 @@
 #' @param replacement The replacement value to replace non-kept elements with. Defaults to `""`.
 #'
 #' @return A vector.
-#' @export
+#' @noRd
 #'
 #' @examples
 #' replace_seq(seq(1000, 7000, 1000))

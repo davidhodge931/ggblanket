@@ -48,7 +48,7 @@ p1 <- mtcars |>
   gg_point(
     x = mpg, 
     y = disp,
-    y_labels = replace_seq,
+    y_breaks = scales::breaks_pretty(),
   ) +
   facet_wrap(~"Plot 1")
 
@@ -58,7 +58,7 @@ p2 <- mtcars |>
     y = disp, 
     group = gear, 
     width = 0.5,
-    y_labels = replace_seq,
+    y_breaks = scales::breaks_pretty(),
   ) +
   facet_wrap(~"Plot 2")
 
@@ -66,11 +66,12 @@ p3 <- mtcars |>
   gg_smooth(
     x = disp, 
     y = qsec, 
-    x_breaks = scales::breaks_pretty(4), 
+    x_breaks = scales::breaks_pretty(n = 4), 
+    y_breaks = scales::breaks_pretty(),
   ) +
   facet_wrap(~"Plot 3")
 
- (p1 + p2) / p3 +
+(p1 + p2) / p3 +
   plot_annotation(
     title = "A collection of plots patched together",
     subtitle = "Works so nice!",
