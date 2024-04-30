@@ -265,7 +265,6 @@ penguins |>
     col = flipper_length_mm,
     y_expand_limits = 0,
     col_steps = TRUE,
-    col_labels = replace_seq,
   )
 ```
 
