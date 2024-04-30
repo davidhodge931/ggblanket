@@ -31,7 +31,6 @@ This article will demonstrate a random assortment of content, including some of 
 9. Use opacity with to emphasise/demphasise. 
 10. Understand `oob` & `clip`
 11. Use delayed evaluation
-12. Work with `coord_radial()`
 
 ```{r setup}
 library(ggplot2)
@@ -443,23 +442,5 @@ faithfuld |>
     mapping = aes(colour = after_stat(level)),
     bins = 8,
   )
-```
-
-### 12. Work with `coord_radial()`
-
-ggblanket modes are not really built with a `coord_radial` cartesian system in mind. However, with some tweaking to the `axis.text.x` and `axis.title.y`, you can get something that looks okay.
-
-```{r}
-base_size <- 11
-
-penguins |> 
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = body_mass_g, 
-    coord = coord_radial(),
-  ) +
-  theme(axis.text.x = element_text(margin = margin(rep(base_size / 5, 4)))) +
-  theme(axis.title.y = element_text(hjust = 0.885))
 ```
 
