@@ -459,7 +459,7 @@ penguins |>
     col = body_mass_g, 
     coord = coord_radial(),
   ) +
-  theme(axis.text.x = element_text(margin = margin(rep(base_size / 3, 4)))) +
+  theme(axis.text.x = element_text(margin = margin(rep(base_size / 5, 4)))) +
   theme(axis.title.y = element_text(hjust = 0.885))
 ```
 
