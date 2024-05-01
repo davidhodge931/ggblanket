@@ -982,7 +982,7 @@ gg_blanket <- function(
           col_breaks <- scales::breaks_log(n = 5)
         }
         else if (!any(col_transform_name %in% c("identity", "reverse"))) col_breaks <- ggplot2::waiver()
-        else col_breaks <- scales::breaks_pretty(n = 5)
+        else col_breaks <- scales::breaks_extended(n = 5, only.loose = TRUE)
       }
 
       if (rlang::is_null(col_labels)) {
@@ -1223,13 +1223,11 @@ gg_blanket <- function(
       else x_labels <- scales::label_comma(drop0trailing = TRUE)
     }
 
-    #get x_breaks_n if x_breaks is NULL
-    if (rlang::is_null(x_breaks)) {
-      if (facet_ncols == 1) x_breaks_n <- 6
-      else if (facet_ncols == 2) x_breaks_n <- 4
-      else if (facet_ncols == 3) x_breaks_n <- 3
-      else x_breaks_n <- 2
-    }
+    #get x_breaks_n
+    if (facet_ncols == 1) x_breaks_n <- 6
+    else if (facet_ncols == 2) x_breaks_n <- 5
+    else if (facet_ncols == 3) x_breaks_n <- 4
+    else x_breaks_n <- 3
 
     #get x_expand and x_breaks for non-pretty scales situation
     if (!flipped |
@@ -1237,6 +1235,8 @@ gg_blanket <- function(
         length(x_transform_name) > 1 |
         !any(x_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
         !rlang::is_null(x_expand)) {
+
+      # x_breaks_n <- x_breaks_n + 1
 
       if (rlang::is_null(x_expand)) {
         if (any(colnames(plot_data) %in% "xmin")) {
@@ -1248,18 +1248,27 @@ gg_blanket <- function(
 
       if (rlang::is_null(x_breaks)) {
         if (any(stringr::str_detect(x_transform_name, "log-")) |
-            any(x_transform_name %in% c("log", "log2", "log10"))
-        ) {
+            any(x_transform_name %in% c("log", "log2", "log10"))) {
           x_breaks <- scales::breaks_log(n = x_breaks_n)
-        } else {
+        }
+        else if (any(x_transform_name %in% c("date", "time", "hms"))) {
           x_breaks <- scales::breaks_pretty(n = x_breaks_n)
         }
+        else {
+          # x_breaks <- scales::breaks_pretty(n = x_breaks_n)
+          x_breaks <- scales::breaks_extended(n = x_breaks_n, only.loose = FALSE)
+          }
       }
     }
     #get x_limits and x_breaks for complex situation
     else {
       if (!rlang::is_null(x_limits)) {
-        if (rlang::is_null(x_breaks)) x_breaks <- scales::breaks_pretty(n = x_breaks_n)
+        if (any(x_transform_name %in% c("date", "time", "hms"))) {
+          x_breaks <- scales::breaks_pretty(n = x_breaks_n)
+        }
+        else {
+          x_breaks <- scales::breaks_extended(n = x_breaks_n, only.loose = TRUE)
+        }
       }
       else {
         x_vars_str <- "^x(?!id)" #starts with x & not xid (which is used in geom_boxplot etc)
@@ -1296,7 +1305,13 @@ gg_blanket <- function(
           if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
         }
         else if (rlang::is_null(x_breaks)) {
-          x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+          if (any(x_transform_name %in% c("date", "time", "hms"))) {
+            x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+          }
+          else {
+            x_breaks <- scales::breaks_extended(n = x_breaks_n, only.loose = TRUE)(x_range)
+          }
+
           if (rlang::is_null(x_limits)) x_limits <- sort(range(x_breaks))
         }
         else {
@@ -1396,13 +1411,11 @@ gg_blanket <- function(
       else y_labels <- scales::label_comma(drop0trailing = TRUE)
     }
 
-    #get y_breaks_n if y_breaks is NULL
-    if (rlang::is_null(y_breaks)) {
-      if (facet_nrows == 1) y_breaks_n <- 6
-      else if (facet_nrows == 2) y_breaks_n <- 5
-      else if (facet_nrows == 3) y_breaks_n <- 4
-      else y_breaks_n <- 3
-    }
+    #get y_breaks_n
+    if (facet_nrows == 1) y_breaks_n <- 6
+    else if (facet_nrows == 2) y_breaks_n <- 5
+    else if (facet_nrows == 3) y_breaks_n <- 4
+    else y_breaks_n <- 3
 
     #get y_expand and y_breaks for non-pretty scales situation
     if (flipped |
@@ -1410,6 +1423,8 @@ gg_blanket <- function(
         length(y_transform_name) > 1 |
         !any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
         !rlang::is_null(y_expand)) {
+
+      # y_breaks_n <- y_breaks_n + 1
 
       if (rlang::is_null(y_expand)) {
         if (any(colnames(plot_data) %in% "ymin")) {
@@ -1421,18 +1436,27 @@ gg_blanket <- function(
 
       if (rlang::is_null(y_breaks)) {
         if (any(stringr::str_detect(y_transform_name, "log-")) |
-            any(y_transform_name %in% c("log", "log2", "log10"))
-        ) {
+            any(y_transform_name %in% c("log", "log2", "log10"))) {
           y_breaks <- scales::breaks_log(n = y_breaks_n)
-        } else {
+        }
+        else if (any(y_transform_name %in% c("date", "time", "hms"))) {
           y_breaks <- scales::breaks_pretty(n = y_breaks_n)
+        }
+        else {
+          # y_breaks <- scales::breaks_pretty(n = y_breaks_n)
+          y_breaks <- scales::breaks_extended(n = y_breaks_n, only.loose = FALSE)
         }
       }
     }
     #get y_limits and y_breaks for complex situation
     else {
       if (!rlang::is_null(y_limits)) {
-        if (rlang::is_null(y_breaks)) y_breaks <- scales::breaks_pretty(n = y_breaks_n)
+        if (any(y_transform_name %in% c("date", "time", "hms"))) {
+          y_breaks <- scales::breaks_pretty(n = y_breaks_n)
+        }
+        else {
+          y_breaks <- scales::breaks_extended(n = y_breaks_n, only.loose = TRUE)
+        }
       }
       else {
         y_vars_str <- "^y(?!id)" #starts with y & not yid (which is used in geom_boxplot etc)
@@ -1469,7 +1493,13 @@ gg_blanket <- function(
           if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
         }
         else if (rlang::is_null(y_breaks)) {
-          y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+          if (any(y_transform_name %in% c("date", "time", "hms"))) {
+            y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+          }
+          else {
+            y_breaks <- scales::breaks_extended(n = y_breaks_n, only.loose = TRUE)(y_range)
+          }
+
           if (rlang::is_null(y_limits)) y_limits <- sort(range(y_breaks))
         }
         else {
