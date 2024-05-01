@@ -8,7 +8,7 @@ dark_mode_t(
   base_size = 11,
   base_family = "",
   base_colour = "#c8d7dfff",
-  axis_line_colour = "#121b24ff",
+  axis_line_colour = "#c8d7dfff",
   axis_line_linewidth = 0.33,
   axis_ticks_colour = axis_line_colour,
   axis_ticks_linewidth = axis_line_linewidth,
