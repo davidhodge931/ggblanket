@@ -451,9 +451,8 @@ penguins |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    mode = light_mode_t(),
-  ) +
-  labs(colour = NULL, fill = NULL)
+    mode = light_mode_t() + theme(legend.title = element_blank()),
+  ) 
 ```
 
 ```{r, fig.asp=0.75}
@@ -464,7 +463,7 @@ penguins |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    mode = grey_mode_b(),
+    mode = grey_mode_t() + theme(legend.title = element_blank()),
   ) 
 ```
 
@@ -476,7 +475,7 @@ penguins |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    mode = dark_mode_r(),
+    mode = dark_mode_t() + theme(legend.title = element_blank()),
   ) 
 ```
 
