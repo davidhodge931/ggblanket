@@ -11,6 +11,7 @@ URL: https://davidhodge931.github.io/ggblanket/,
     https://github.com/davidhodge931/ggblanket
 BugReports: https://github.com/davidhodge931/ggblanket/issues
 Imports: 
+    colorspace,
     dplyr (>= 1.0.4),
     farver,
     forcats,

@@ -3,7 +3,8 @@
 * Fixed bug where `grey_mode_*`/`dark_mode_*` were missing legend functionality.
 * Breaking: removed `geom_linewidth` and `geom_size` from `weave_geom_aes` and `set_blanket`.
 * Improved scales by using `scales::breaks_extended()`.
-* Fixed incorrect dark mode `axis_line_colour`.
+* In `dark_mode_*`, fixed incorrect `axis_line_colour` default.
+* In `*_mode_*`, updated caption colour default.
 
 # ggblanket 8.0.0
 

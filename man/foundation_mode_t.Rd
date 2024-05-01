@@ -20,7 +20,7 @@ foundation_mode_t(
   plot_caption_size = ggplot2::rel(0.85),
   plot_caption_family = base_family,
   plot_caption_face = "plain",
-  plot_caption_colour = scales::alpha(base_colour, 0.75),
+  plot_caption_colour = colorspace::lighten(base_colour, 0.1),
   plot_caption_hjust = 0,
   axis_line_colour = "#121b24ff",
   axis_line_linewidth = 0.33,

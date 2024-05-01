@@ -84,7 +84,7 @@ dark_mode_r <- function (
     plot_caption_size = ggplot2::rel(0.85),
     plot_caption_family = base_family,
     plot_caption_face = "plain",
-    plot_caption_colour = scales::alpha(base_colour, 0.75),
+    plot_caption_colour = colorspace::darken(base_colour, 0.1),
     plot_caption_hjust = 0,
 
     axis_line_colour = axis_line_colour,
@@ -174,7 +174,7 @@ dark_mode_t <- function (
     plot_caption_size = ggplot2::rel(0.85),
     plot_caption_family = base_family,
     plot_caption_face = "plain",
-    plot_caption_colour = scales::alpha(base_colour, 0.75),
+    plot_caption_colour = colorspace::darken(base_colour, 0.1),
     plot_caption_hjust = 0,
 
     axis_line_colour = axis_line_colour,
@@ -264,7 +264,7 @@ dark_mode_b <- function (
     plot_caption_size = ggplot2::rel(0.85),
     plot_caption_family = base_family,
     plot_caption_face = "plain",
-    plot_caption_colour = scales::alpha(base_colour, 0.75),
+    plot_caption_colour = colorspace::darken(base_colour, 0.1),
     plot_caption_hjust = 0,
 
     axis_line_colour = axis_line_colour,
@@ -354,7 +354,7 @@ dark_mode_n <- function (
     plot_caption_size = ggplot2::rel(0.85),
     plot_caption_family = base_family,
     plot_caption_face = "plain",
-    plot_caption_colour = scales::alpha(base_colour, 0.75),
+    plot_caption_colour = colorspace::darken(base_colour, 0.1),
     plot_caption_hjust = 0,
 
     axis_line_colour = axis_line_colour,
