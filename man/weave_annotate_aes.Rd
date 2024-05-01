@@ -7,19 +7,19 @@
 weave_annotate_aes(
   colour = "#121b24",
   linewidth = 0.33,
-  size = 3.88,
-  family = ""
+  family = "",
+  size = 3.88
 )
 }
 \arguments{
-\item{colour}{A default hex colour (and fill) for geoms commonly used for annotation (i.e. \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}). Defaults to "#121b24" (i.e. \code{"#121b24"}).}
+\item{colour}{A default hex colour (and fill) for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to "#121b24" (i.e. \code{lightness[1]}).}
 
-\item{linewidth}{A default linewidth for geoms commonly used for annotation (i.e. \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}). Defaults to 0.33 (i.e. \code{0.33}).}
-
-\item{size}{A default size for \verb{*_text} and \verb{*_label}. Defaults to 3.88.}
+\item{linewidth}{A default linewidth for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to 0.33.}
 
 \item{family}{A default family for \verb{*_text} and \verb{*_label}. Defaults to ""}
+
+\item{size}{A default size for \verb{*_text} and \verb{*_label}. Defaults to 3.88.}
 }
 \description{
-Update a series of geom defaults commonly used for annotation (i.e. \verb{*_vline}, \verb{*_hline}, \verb{*_abline}, \verb{*_curve}, \verb{*_text} and \verb{*_label}).
+Update a series of geom defaults commonly used for annotation (i.e. \verb{*_vline}/\verb{*_hline}/\verb{*_abline}, \verb{*_curve}, and \verb{*_text}/\verb{*_label}).
 }
