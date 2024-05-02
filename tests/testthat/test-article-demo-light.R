@@ -283,7 +283,6 @@ test_that(test_name, {
       position = position_jitter(height = 0),
       y_expand_limits = 0,
       col_steps = TRUE,
-      col_labels = \(x) replace_seq(x),
     )
 
   vdiffr::expect_doppelganger(test_name, p)

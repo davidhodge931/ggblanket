@@ -521,7 +521,7 @@ p1 + p2
 set_blanket(
   mode = dark_mode_r(), 
   geom_colour = "#bc5090",
-  annotate_colour = "#c8d7df",
+  annotate_colour = darkness[1],
 )
 
 p1 <- penguins |>

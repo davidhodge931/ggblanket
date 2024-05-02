@@ -26,7 +26,7 @@
 #' set_blanket(
 #'   mode = dark_mode_r(),
 #'   geom_colour = orange,
-#'   annotate_colour = "#c8d7df",
+#'   annotate_colour = darkness[1],
 #' )
 #'
 #' penguins |>
