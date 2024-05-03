@@ -361,7 +361,7 @@ penguins |>
 
 The `mapping` argument provides access to other aesthetics, such as `alpha`, `size`, `shape`, `linetype` and `linewidth` etc. 
 
-Note `alpha`, `size`, `shape`, `linetype` and `linewidth` values will be backwards by default, and as such may need to be reversed.
+Note `alpha`, `size`, `shape`, `linetype` and `linewidth` values will be backwards by default, and as such may need to be reversed etc.
 
 ```{r}
 penguins |> 
