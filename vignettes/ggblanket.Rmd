@@ -361,7 +361,7 @@ penguins |>
 
 The `mapping` argument provides access to other aesthetics, such as `alpha`, `size`, `shape`, `linetype` and `linewidth` etc. 
 
-Legend titles and element order must be aligned, if legends are to merge. Subsequently, you may need to change a title using `+ ggplot2::labs` - or even reverse a guide. 
+Note `alpha`, `size`, `shape`, `linetype` and `linewidth` values will be backwards by default, and as such may need to be reversed.
 
 ```{r}
 penguins |> 
@@ -371,7 +371,6 @@ penguins |>
     col = species,
     mapping = aes(shape = species),
   ) +
-  guides(shape = guide_legend(reverse = TRUE)) +
   scale_shape_manual(values = rev(scales::shape_pal()(3)))
 ```
 

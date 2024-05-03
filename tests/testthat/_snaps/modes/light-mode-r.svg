@@ -580,26 +580,15 @@
 <text x='332.78' y='563.02' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='88.04px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
 <text transform='translate(19.67,284.59) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='63.60px' lengthAdjust='spacingAndGlyphs'>Body mass g</text>
 <rect x='623.60' y='39.00' width='74.48' height='93.22' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<text x='631.82' y='47.72' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='37.31px' lengthAdjust='spacingAndGlyphs'>species</text>
+<text x='631.82' y='47.72' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='39.14px' lengthAdjust='spacingAndGlyphs'>Species</text>
 <rect x='631.82' y='54.34' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='641.41' cy='64.74' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #357BA2;' />
+<circle cx='641.41' cy='64.74' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #0095A8;' />
 <rect x='631.82' y='78.77' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<polygon points='641.41,86.13 644.04,90.69 638.78,90.69 ' style='stroke-width: 0.71; stroke: none; fill: #357BA2;' />
+<polygon points='641.41,86.13 644.04,90.69 638.78,90.69 ' style='stroke-width: 0.71; stroke: none; fill: #FFA600;' />
 <rect x='631.82' y='103.20' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<polygon points='639.45,115.56 643.36,115.56 643.36,111.65 639.45,111.65 ' style='stroke-width: 0.71; stroke: none; fill: #357BA2;' />
+<polygon points='639.45,115.56 643.36,115.56 643.36,111.65 639.45,111.65 ' style='stroke-width: 0.71; stroke: none; fill: #003F5C; fill-opacity: 0.33;' />
 <text x='656.48' y='68.53' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='30.58px' lengthAdjust='spacingAndGlyphs'>Adelie</text>
 <text x='656.48' y='92.96' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='47.08px' lengthAdjust='spacingAndGlyphs'>Chinstrap</text>
 <text x='656.48' y='117.39' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='36.09px' lengthAdjust='spacingAndGlyphs'>Gentoo</text>
-<rect x='623.60' y='143.19' width='74.48' height='93.22' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<text x='631.82' y='151.90' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='39.14px' lengthAdjust='spacingAndGlyphs'>Species</text>
-<rect x='631.82' y='158.52' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='641.41' cy='168.93' r='1.95' style='stroke-width: 0.71; stroke: #0095A8; fill: #0095A8;' />
-<rect x='631.82' y='182.95' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='641.41' cy='193.36' r='1.95' style='stroke-width: 0.71; stroke: #FFA600; fill: #FFA600;' />
-<rect x='631.82' y='207.38' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='641.41' cy='217.78' r='1.95' style='stroke-width: 0.71; stroke: #003F5C; stroke-opacity: 0.33; fill: #003F5C; fill-opacity: 0.33;' />
-<text x='656.48' y='172.71' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='30.58px' lengthAdjust='spacingAndGlyphs'>Adelie</text>
-<text x='656.48' y='197.14' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='47.08px' lengthAdjust='spacingAndGlyphs'>Chinstrap</text>
-<text x='656.48' y='221.57' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='36.09px' lengthAdjust='spacingAndGlyphs'>Gentoo</text>
 </g>
 </svg>

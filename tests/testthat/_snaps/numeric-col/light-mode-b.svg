@@ -435,39 +435,28 @@
 <polyline points='84.65,118.64 87.39,118.64 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
 <text x='392.74' y='496.55' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='88.04px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
 <text transform='translate(19.67,251.35) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='29.36px' lengthAdjust='spacingAndGlyphs'>Island</text>
-<rect x='10.96' y='506.10' width='248.00' height='47.10' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<text x='10.96' y='517.55' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='37.31px' lengthAdjust='spacingAndGlyphs'>species</text>
-<rect x='10.96' y='524.17' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='20.55' cy='534.58' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #121B24;' />
-<rect x='82.63' y='524.17' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<polygon points='92.22,531.54 94.85,536.10 89.59,536.10 ' style='stroke-width: 0.71; stroke: none; fill: #121B24;' />
-<rect x='170.81' y='524.17' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<polygon points='178.45,536.53 182.36,536.53 182.36,532.63 178.45,532.63 ' style='stroke-width: 0.71; stroke: none; fill: #121B24;' />
-<text x='35.62' y='538.37' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='30.58px' lengthAdjust='spacingAndGlyphs'>Adelie</text>
-<text x='107.29' y='538.37' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='47.08px' lengthAdjust='spacingAndGlyphs'>Chinstrap</text>
-<text x='195.47' y='538.37' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='36.09px' lengthAdjust='spacingAndGlyphs'>Gentoo</text>
-<rect x='269.92' y='506.10' width='117.81' height='66.28' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<text x='269.92' y='517.55' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='66.64px' lengthAdjust='spacingAndGlyphs'>Bill depth mm</text>
-<image width='95.89' height='19.18' x='269.92' y='524.17' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAABCAYAAABkOJMpAAAAzklEQVQ4jY2TOxrDIAyDxf3v2K1H6Bj/HRDBEEgy8BnJknAelM/vS4BCoQAhFNR9iFqJYU/bX7RrH3PGizNCUqA6E0rY3IBlb90z4Tj9nTtSfusfCbd+4xoGSV4MlQmnqg0PF36V0f1sdfIMQiqZawMsdHucOD37VjNIbY55pjt8zS+rbK8y4KdnImVGf4kgKZyVV1jbNdpoxg+y0pnX3o/zsQ73XvG+tyLqPyJX39X7nO4bM6oG39+cc+KzF5Ome/p5pNwp03NlT+fqCtc/FWc2M8tF5ggAAAAASUVORK5CYII='/>
-<polyline points='291.69,540.00 291.69,543.35 ' style='stroke-width: 0.70; stroke: #FFFFFF; stroke-linecap: butt;' />
-<polyline points='320.14,540.00 320.14,543.35 ' style='stroke-width: 0.70; stroke: #FFFFFF; stroke-linecap: butt;' />
-<polyline points='348.58,540.00 348.58,543.35 ' style='stroke-width: 0.70; stroke: #FFFFFF; stroke-linecap: butt;' />
-<polyline points='291.69,524.17 291.69,524.17 ' style='stroke-width: 0.70; stroke: #FFFFFF; stroke-linecap: butt;' />
-<polyline points='320.14,524.17 320.14,524.17 ' style='stroke-width: 0.70; stroke: #FFFFFF; stroke-linecap: butt;' />
-<polyline points='348.58,524.17 348.58,524.17 ' style='stroke-width: 0.70; stroke: #FFFFFF; stroke-linecap: butt;' />
-<text x='291.69' y='556.40' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='12.24px' lengthAdjust='spacingAndGlyphs'>15</text>
-<text x='320.14' y='556.40' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='21.41px' lengthAdjust='spacingAndGlyphs'>17.5</text>
-<text x='348.58' y='556.40' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='12.24px' lengthAdjust='spacingAndGlyphs'>20</text>
-<rect x='398.68' y='506.10' width='248.00' height='47.10' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<text x='398.68' y='517.55' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='39.14px' lengthAdjust='spacingAndGlyphs'>Species</text>
-<rect x='398.68' y='524.17' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='408.27' cy='534.58' r='1.95' style='stroke-width: 0.71; stroke: #121B24; fill: #121B24;' />
-<rect x='470.36' y='524.17' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='479.95' cy='534.58' r='1.95' style='stroke-width: 0.71; stroke: #121B24; fill: #121B24;' />
-<rect x='558.54' y='524.17' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='568.13' cy='534.58' r='1.95' style='stroke-width: 0.71; stroke: #121B24; stroke-opacity: 0.33; fill: #121B24; fill-opacity: 0.33;' />
-<text x='423.34' y='538.37' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='30.58px' lengthAdjust='spacingAndGlyphs'>Adelie</text>
-<text x='495.01' y='538.37' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='47.08px' lengthAdjust='spacingAndGlyphs'>Chinstrap</text>
-<text x='583.19' y='538.37' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='36.09px' lengthAdjust='spacingAndGlyphs'>Gentoo</text>
+<rect x='10.96' y='506.10' width='117.81' height='66.28' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<text x='10.96' y='517.55' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='66.64px' lengthAdjust='spacingAndGlyphs'>Bill depth mm</text>
+<image width='95.89' height='19.18' x='10.96' y='524.17' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAABCAYAAABkOJMpAAAAzklEQVQ4jY2TOxrDIAyDxf3v2K1H6Bj/HRDBEEgy8BnJknAelM/vS4BCoQAhFNR9iFqJYU/bX7RrH3PGizNCUqA6E0rY3IBlb90z4Tj9nTtSfusfCbd+4xoGSV4MlQmnqg0PF36V0f1sdfIMQiqZawMsdHucOD37VjNIbY55pjt8zS+rbK8y4KdnImVGf4kgKZyVV1jbNdpoxg+y0pnX3o/zsQ73XvG+tyLqPyJX39X7nO4bM6oG39+cc+KzF5Ome/p5pNwp03NlT+fqCtc/FWc2M8tF5ggAAAAASUVORK5CYII='/>
+<polyline points='32.74,540.00 32.74,543.35 ' style='stroke-width: 0.70; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='61.18,540.00 61.18,543.35 ' style='stroke-width: 0.70; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='89.62,540.00 89.62,543.35 ' style='stroke-width: 0.70; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='32.74,524.17 32.74,524.17 ' style='stroke-width: 0.70; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='61.18,524.17 61.18,524.17 ' style='stroke-width: 0.70; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='89.62,524.17 89.62,524.17 ' style='stroke-width: 0.70; stroke: #FFFFFF; stroke-linecap: butt;' />
+<text x='32.74' y='556.40' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='12.24px' lengthAdjust='spacingAndGlyphs'>15</text>
+<text x='61.18' y='556.40' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='21.41px' lengthAdjust='spacingAndGlyphs'>17.5</text>
+<text x='89.62' y='556.40' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='12.24px' lengthAdjust='spacingAndGlyphs'>20</text>
+<rect x='139.73' y='506.10' width='248.00' height='47.10' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<text x='139.73' y='517.55' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='39.14px' lengthAdjust='spacingAndGlyphs'>Species</text>
+<rect x='139.73' y='524.17' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<circle cx='149.32' cy='534.58' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #121B24;' />
+<rect x='211.40' y='524.17' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<polygon points='220.99,531.54 223.62,536.10 218.36,536.10 ' style='stroke-width: 0.71; stroke: none; fill: #121B24;' />
+<rect x='299.58' y='524.17' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<polygon points='307.21,536.53 311.12,536.53 311.12,532.63 307.21,532.63 ' style='stroke-width: 0.71; stroke: none; fill: #121B24; fill-opacity: 0.33;' />
+<text x='164.38' y='538.37' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='30.58px' lengthAdjust='spacingAndGlyphs'>Adelie</text>
+<text x='236.06' y='538.37' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='47.08px' lengthAdjust='spacingAndGlyphs'>Chinstrap</text>
+<text x='324.24' y='538.37' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='36.09px' lengthAdjust='spacingAndGlyphs'>Gentoo</text>
 </g>
 </svg>
