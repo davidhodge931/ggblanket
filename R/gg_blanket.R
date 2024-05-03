@@ -1153,6 +1153,34 @@ gg_blanket <- function(
           )
         )
 
+    if (!rlang::is_null(plot_build$plot$labels$alpha)) {
+      if (!rlang::is_null(plot_build$plot$labels$colour[1])) {
+        if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$alpha[1])) {
+          plot <- plot +
+            ggplot2::guides(
+              alpha = ggplot2::guide_legend(
+                reverse = col_legend_rev,
+                ncol = col_legend_ncol,
+                nrow = col_legend_nrow
+              )
+            )
+        }
+      }
+      else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
+        if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$alpha[1])) {
+          plot <- plot +
+            ggplot2::guides(
+              alpha = ggplot2::guide_legend(
+                reverse = col_legend_rev,
+                ncol = col_legend_ncol,
+                nrow = col_legend_nrow
+              )
+            )
+        }
+      }
+    }
+
+
 #ONLY GUIDE LEGEND IF AES THE SAME AS COLOUR
         #   alpha = ggplot2::guide_legend(
         #     reverse = col_legend_rev,
