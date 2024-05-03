@@ -6,6 +6,7 @@
 * Improved scales by using `scales::breaks_extended()`.
 * In `dark_mode_*`, fixed incorrect `axis_line_colour` default.
 * In `*_mode_*`, updated caption colour default.
+* Support label attributes for `x`, `y` and `col`.
 
 # ggblanket 8.0.0
 
