@@ -7,6 +7,7 @@
 * In `dark_mode_*`, fixed incorrect `axis_line_colour` default.
 * In `*_mode_*`, updated caption colour default.
 * Made guides of alpha/shape/size/linewidth/linetype aesthetics equal to colour/fill align automatically.
+* Breaking: renamed `*_title` to `*_label` to support a label-based workflow.
 
 # ggblanket 8.0.0
 
