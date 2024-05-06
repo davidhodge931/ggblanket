@@ -33,6 +33,15 @@ library(palmerpenguins)
 library(patchwork)
 
 set_blanket()
+
+penguins2 <- penguins |> 
+  labelled::set_variable_labels(
+    bill_length_mm = "Bill length (mm)",
+    bill_depth_mm = "Bill depth (mm)",
+    flipper_length_mm = "Flipper length (mm)",
+    body_mass_g = "Body mass (g)",
+  ) |> 
+  mutate(sex = factor(sex, labels = c("Female", "Male")))
 ```
 
 ### patchwork
@@ -88,7 +97,7 @@ p3 <- mtcars |>
 The ggtext package support using markdown in text. 
 
 ```{r, fig.asp=0.75}
-penguins |>
+penguins2 |>
   gg_point(
     x = bill_depth_mm,
     y = bill_length_mm,
@@ -116,14 +125,13 @@ sysfonts::font_add_google('Syne Mono', 'syne')
 
 showtext::showtext_auto(enable = TRUE)
 
-penguins |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
+penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
     facet = species,
-    title = "Penguins body mass by flipper length",
+    title = "penguins2 body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
     mode = light_mode_r(family = "grace")
@@ -141,7 +149,7 @@ showtext::showtext_auto(enable = FALSE)
 The gghighlight package enables geoms or parts thereof to be highlighted. 
 
 ```{r}
-penguins |>
+penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -152,7 +160,7 @@ penguins |>
 The `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, this must be taken into account to ensure the scale builds correctly. 
 
 ```{r}
-penguins |>
+penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
@@ -184,7 +192,7 @@ economics |>
 ```{r}
 geom_mark_hull()
 
-penguins |>
+penguins2 |>
   gg_blanket(
     geom = "mark_hull",
     x = flipper_length_mm,
@@ -223,7 +231,7 @@ library(ggbeeswarm)
 geom_beeswarm()
 geom_quasirandom()
 
-p1 <- penguins |> 
+p1 <- penguins2 |> 
   gg_point(
     position = position_beeswarm(),
     x = sex, 
@@ -234,7 +242,7 @@ p1 <- penguins |>
     mode = light_mode_n(),
   ) 
 
-p2 <- penguins |> 
+p2 <- penguins2 |> 
   gg_point(
     position = ggbeeswarm::position_quasirandom(),
     x = sex, 
@@ -386,7 +394,7 @@ The paletteer package provides access to most of the palettes within R.
 ```{r}
 library(paletteer)
 
-p1 <- penguins |>
+p1 <- penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -396,7 +404,7 @@ p1 <- penguins |>
     mode = light_mode_n(),
   ) 
 
-p2 <- penguins |>
+p2 <- penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -415,7 +423,7 @@ p1 + p2
 The ggblend package provides blending of colours. You must use a graphics device that supports blending.
 
 ```{r, fig.asp=0.5}
-p1 <- penguins |>
+p1 <- penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = species,
@@ -426,7 +434,7 @@ p1 <- penguins |>
   ggeasy::easy_remove_x_axis() +
   ggeasy::easy_remove_y_axis()
 
-p2 <- penguins |>
+p2 <- penguins2 |>
   gg_blanket(
     stat = "density",
     x = flipper_length_mm,
@@ -471,8 +479,7 @@ The ggeasy package provides a lot of support for easily modifying themes. Removi
 ```{r}
 library(ggeasy)
 
-penguins |>
-  mutate(across(sex, str_to_sentence)) |> 
+penguins2 |>
   gg_jitter(
     x = species, 
     y = body_mass_g, 
@@ -481,7 +488,7 @@ penguins |>
   light_mode_t() +
   easy_remove_y_gridlines() +
   easy_remove_x_axis(what = c("line", "ticks")) +
-  easy_remove_legend_label()
+  easy_remove_legend_title()
 ```
 
 ### ggnewscale
@@ -489,21 +496,21 @@ penguins |>
 The ggnewscale package enables multiple colour scales.
 
 ```{r}
-penguins |> 
+penguins2 |> 
   gg_blanket(
     x = flipper_length_mm, 
     y = body_mass_g,
   ) + 
   geom_point(
     mapping = aes(colour = bill_length_mm), 
-    data = penguins |> filter(species == "Gentoo"),
+    data = penguins2 |> filter(species == "Gentoo"),
   ) +
   scale_color_viridis_c(option = "G", direction = -1) +
   labs(colour = "Gentoo\nBill length (mm)") +
   ggnewscale::new_scale_colour() +
   geom_point(
     mapping = aes(colour = species), 
-    data = penguins |> filter(species != "Gentoo"),
+    data = penguins2 |> filter(species != "Gentoo"),
   ) +
   scale_color_manual(values = c("#901752", orange)) +
   labs(colour = "Species")

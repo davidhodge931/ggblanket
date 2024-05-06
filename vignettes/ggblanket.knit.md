@@ -8,17 +8,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  message = FALSE,
-  warning = FALSE,
-  fig.width = 6,
-  fig.asp = 0.6,
-  out.width = "70%",
-  dpi = 300)
-```
+
 
 ## Overview
 
@@ -51,7 +41,8 @@ Computational speed has been traded-off to achieve these objectives.
 13. Set the mode and geom defaults with `set_blanket`
 14. A `gg_blanket()` function with `geom` flexibility
 
-```{r setup}
+
+```r
 library(ggblanket)
 library(ggplot2)
 library(dplyr)
@@ -59,15 +50,16 @@ library(stringr)
 library(tidyr)
 library(palmerpenguins)
 library(patchwork)
+library(labelled)
 
 set_blanket()
 
-penguins2 <- penguins |> 
-  labelled::set_variable_labels(
+penguins <- penguins |> 
+  set_variable_labels(
     bill_length_mm = "Bill length (mm)",
     bill_depth_mm = "Bill depth (mm)",
     flipper_length_mm = "Flipper length (mm)",
-    body_mass_g = "Body mass (g)",
+    body_mass_g = "Body mass (g)"
   ) |> 
   mutate(sex = factor(sex, labels = c("Female", "Male")))
 ```
@@ -80,13 +72,16 @@ Each `gg_*` function is named after the `geom_*` function it wraps.
 
 Note at the start of every script, the `set_blanket` function should be run to set the default style for subsequent ggblanket plots. 
 
-```{r}
-penguins2 |>
+
+```r
+penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
   )
 ```
+
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-2-1.png" width="70%" />
 
 ### 2. A single `col` argument to colour and fill by a variable
 
@@ -96,8 +91,9 @@ This combined aesthetic means that everything should be coloured according to it
 
 Use `colour = NA` or `fill = NA` if you need to turn one of these off.
 
-```{r}
-penguins2 |>
+
+```r
+penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g, 
@@ -105,8 +101,11 @@ penguins2 |>
   )
 ```
 
-```{r, fig.asp=0.45}
-penguins2 |>
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-3-1.png" width="70%" />
+
+
+```r
+penguins |>
   drop_na(sex) |>
   mutate(across(sex, str_to_sentence)) |>
   gg_bar(
@@ -117,14 +116,17 @@ penguins2 |>
   )
 ```
 
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-4-1.png" width="70%" />
+
 ### 3. A `facet` argument to facet by a variable
 
 Faceting is treated as if it were an aesthetic. Users just provide an unquoted variable to facet by. 
 
 When `facet` variable is _not_ NULL (and `facet2 = NULL`), the `facet_layout` will default to `"wrap"`. 
 
-```{r}
-penguins2 |>
+
+```r
+penguins |>
   drop_na(sex) |> 
   mutate(across(sex, str_to_sentence)) |> 
   gg_histogram(
@@ -132,6 +134,8 @@ penguins2 |>
     facet = species,
   )
 ```
+
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-5-1.png" width="70%" />
 
 ### 4. A `facet2` argument to facet by a 2nd variable
 
@@ -141,8 +145,9 @@ This enables users to facet easily in a `"grid"` layout of the `facet` variable 
 
 Whenever a `facet2` does _not_ equal NULL, the `facet_layout` will default to `"grid"`. 
 
-```{r, fig.asp=0.75}
-penguins2 |>
+
+```r
+penguins |>
   mutate(across(sex, str_to_sentence)) |> 
   gg_histogram(
     x = flipper_length_mm,
@@ -150,6 +155,8 @@ penguins2 |>
     facet2 = sex,
   )
 ```
+
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-6-1.png" width="70%" />
 
 ### 5.  Prefixed arguments to customise x, y, col and facet properties
 
@@ -159,8 +166,9 @@ These prefixed arguments work nicely with the Rstudio auto-complete, if users en
 
 Everything prefixed `col_` relates to _both_ the colour and fill scale as applicable. Likewise, everything prefixed `facet_` relates to _both_ `facet` and `facet2` as applicable.
 
-```{r}
-penguins2 |>
+
+```r
+penguins |>
   drop_na(sex) |>  
   gg_jitter(
     x = species,
@@ -172,6 +180,7 @@ penguins2 |>
     y_expand_limits = 2000,
     y_labels = scales::label_number(big.mark = " "), 
     y_transform = "log10",
+    y_label = "Body mass (g)",
     col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
     col_palette = viridis::magma(n = 9, direction = -1),
@@ -179,9 +188,9 @@ penguins2 |>
   )
 ```
 
-```{r, echo = FALSE,   fig.width = 3, fig.asp = 2}
-knitr::include_graphics("autocomplete_y.png", dpi = 300)
-```
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-7-1.png" width="70%" />
+
+<img src="autocomplete_y.png" width="70%" />
 
 ### 6.  Smart defaults for the  `x_label`, `y_label` and `col_label`
 
@@ -192,7 +201,8 @@ Unspecified `x_label`, `y_label`, `col_label` take:
 
 They can be manually specified with the `*_label` argument, or with a + `ggplot2::labs` argumennt.
 
-```{r, fig.asp=0.6}
+
+```r
 diamonds |>
   gg_hex(
     coord = coord_cartesian(clip = "on"), 
@@ -202,6 +212,8 @@ diamonds |>
   )
 ```
 
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-9-1.png" width="70%" />
+
 ### 7. Access to other `geom_*` arguments via `...`
 
 The `...` argument provides access to all other arguments in the `geom_*()` function. Typical arguments to add include `colour`, `fill`, `alpha`, `linewidth`, `linetype`,  `size` and  `width`.
@@ -210,8 +222,9 @@ Subsequently, for geoms that have _both_ coloured outlines and interiors, you ca
 
 Use the `geom_*` help to see what arguments are available.
 
-```{r}
-penguins2 |>
+
+```r
+penguins |>
   mutate(across(sex, str_to_sentence)) |> 
   drop_na(sex) |> 
   gg_smooth(
@@ -228,8 +241,11 @@ penguins2 |>
   ) 
 ```
 
-```{r, fig.asp=0.5}
-penguins2 |> 
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-10-1.png" width="70%" />
+
+
+```r
+penguins |> 
   gg_boxplot(
     y = island, 
     x = flipper_length_mm, 
@@ -238,6 +254,8 @@ penguins2 |>
     position = position_dodge2(preserve = "single")
   ) 
 ```
+
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-11-1.png" width="70%" />
 
 ### 8. A symmetric continuous scale with easy opt-out
 
@@ -254,57 +272,7 @@ This symmetric continuous scale can be turned off easily using `*_limits = c(NA,
 
 Note this symmetric scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.
 
-```{r, echo=FALSE}
-experiment <- data.frame(
-  trt = factor(c(1, 1, 2, 2)),
-  resp = c(1, 5, 3, 4),
-  group = factor(c(1, 2, 1, 2)),
-  upper = c(1.1, 5.3, 3.3, 4.2),
-  lower = c(0.8, 4.6, 2.4, 3.6)) |>
-  labelled::set_variable_labels(
-    trt = "Treatment", 
-    resp = "Response"
-  )
-
-p1 <- experiment |>
-  gg_pointrange(
-    x = trt,
-    ymin = lower,
-    y = resp,
-    ymax = upper,
-    col = group,
-    subtitle = "\nDefault y scale",
-    mode = light_mode_n(),
-  ) 
-
-p2 <- experiment |>
-  gg_pointrange(
-    x = trt,
-    ymin = lower,
-    y = resp,
-    ymax = upper,
-    col = group,
-    width = 0.1,
-    y_limits = c(NA, NA),
-    subtitle = "\ny_limits = c(NA, NA),",
-    mode = light_mode_n(),
-  ) 
-
-p3 <- experiment |>
-  gg_col(
-    position = "dodge2",
-    x = trt,
-    y = upper,
-    col = group,
-    width = 0.5,
-    y_label = "Response (upper)",
-    y_limits = c(0, NA),
-    subtitle = "\ny_limits = c(0, NA),",
-    mode = light_mode_n(),
-  ) 
-
-p1 + p2 + p3
-```
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-12-1.png" width="70%" />
 
 ### 9. Ability to add multiple `geom_*` layers
 
@@ -312,15 +280,15 @@ Users can make plots with multiple layers by `+`-ing on `ggplot2::geom_*` layers
 
 The `gg_*` function puts the aesthetic variables within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added. Generally, it works well to add all aesthetics required for the plot to the `gg_*` function, including the `col` argument. 
 
-The `gg_*()` function should be appropriate to be the bottom layer of the plot, as geoms are drawn in order. You may sometimes need to use `gg_blanket()` as your `gg_*` function, as it defaults to a `blank` geom.
+The `gg_*()` function _should_ be appropriate to be the bottom layer of the plot, as geoms are drawn in order. You may sometimes need to use `gg_blanket()` as your `gg_*` function, as it defaults to a `blank` geom.
 
-```{r, fig.asp = 0.4}
-penguins2 |>
+
+```r
+penguins |>
   group_by(species) |>
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) |>
   mutate(lower = body_mass_g * 0.95) |> 
-  mutate(upper = body_mass_g * 1.2) |> 
-  labelled::copy_labels_from(penguins2) %>%
+  mutate(upper = body_mass_g * 1.2) %>%
   gg_col(
     x = body_mass_g,
     xmin = lower, 
@@ -329,6 +297,8 @@ penguins2 |>
     col = species,
     width = 0.75,
     x_expand_limits = c(0, max(.$upper)),
+    x_labels = \(x) x / 1000, 
+    x_label = "Body mass (kg)", 
   ) +
   geom_errorbar(
     colour = "black", 
@@ -336,8 +306,11 @@ penguins2 |>
   ) 
 ```
 
-```{r, fig.asp = 0.4}
-penguins2 |>
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-13-1.png" width="70%" />
+
+
+```r
+penguins |>
   group_by(species) |>
   summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) |>
   mutate(lower = body_mass_g * 0.95) |> 
@@ -364,14 +337,17 @@ penguins2 |>
   )
 ```
 
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-14-1.png" width="70%" />
+
 ### 10. Access other aesthetics via `mapping`
 
 The `mapping` argument provides access to other aesthetics, such as `alpha`, `size`, `shape`, `linetype` and `linewidth` etc. 
 
 Note `alpha`, `size`, `shape`, `linetype` and `linewidth` values will be backwards by default, and as such may need to be reversed etc.
 
-```{r}
-penguins2 |> 
+
+```r
+penguins |> 
   gg_jitter(
     y = species, 
     x = flipper_length_mm, 
@@ -380,6 +356,8 @@ penguins2 |>
   ) +
   scale_shape_manual(values = rev(scales::shape_pal()(3)))
 ```
+
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-15-1.png" width="70%" />
 
 ### 11.  A `mode` argument designed for provided `*_mode_*` themes
 
@@ -394,55 +372,26 @@ With this function, the `gg_*` function will:
 
 To avoid these side-effects, `+` the theme on to the output of `gg_*`. Note there is an `orientation` argument within the `*_mode_*` functions that can be useful when used in this way.
 
-```{r}
-experiment |>
-  gg_pointrange(
+
+```r
+d |>
+  gg_errorbar(
     x = trt,
     ymin = lower,
-    y = resp,
     ymax = upper,
     col = group,
-    y_expand_limits = 0,
+    width = 0.1,
+    x_label = "Treatment",
+    y_label = "Response",
     title = "No side-effects",
     subtitle = "+ light_mode_n()",
   ) +
   light_mode_n()
 ```
 
-```{r, echo=FALSE}
-p1 <- experiment |>
-  gg_pointrange(
-    x = trt,
-    ymin = lower,
-    y = resp,
-    ymax = upper,
-    col = group,
-    y_expand_limits = 0,
-    mode = light_mode_n(),
-  ) 
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-16-1.png" width="70%" />
 
-p2 <- experiment |>
-  gg_pointrange(
-    y = trt,
-    xmin = lower,
-    x = resp,
-    xmax = upper,
-    col = group,
-    y_expand_limits = 0,
-    mode = light_mode_n(),
-  ) 
-
-p1 + p2 +
-  plot_annotation(
-    title = "Side effects with the mode argument",
-    subtitle = "mode = light_mode_n(),",
-    theme = light_mode_r() +
-      theme(
-        plot.title = element_text(margin = margin(t = -11)),
-        plot.subtitle = element_text(margin = margin(t = 5.5)),
-      )
-  )
-```
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-17-1.png" width="70%" />
 
 ### 12.  Families of `*_mode_*` themes that differ by legend placement 
 
@@ -461,8 +410,10 @@ Note:
 
 A further `flexi_mode_*` family is provided where users can select the colours and linewidths.
 
-```{r, fig.asp=0.7}
-penguins2 |>
+
+
+```r
+penguins |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
@@ -473,8 +424,11 @@ penguins2 |>
   ) 
 ```
 
-```{r, fig.asp=0.75}
-penguins2 |>
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-18-1.png" width="70%" />
+
+
+```r
+penguins |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
@@ -485,8 +439,11 @@ penguins2 |>
   ) 
 ```
 
-```{r, fig.asp=0.65}
-penguins2 |>
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-19-1.png" width="70%" />
+
+
+```r
+penguins |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
@@ -496,6 +453,8 @@ penguins2 |>
     mode = dark_mode_t() + theme(legend.title = element_blank()),
   ) 
 ```
+
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-20-1.png" width="70%" />
 
 ### 13. Set the mode and geom defaults with `set_blanket`
 
@@ -510,13 +469,14 @@ Within the `set_blanket` function, the user can select the `mode`, the `colour` 
 
 Elements can be `+`-ed on to modes just as normal themes. The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
 
-```{r}
+
+```r
 set_blanket(
   mode = grey_mode_r(), 
   geom_colour = "#ffa600",
 )
 
-p1 <- penguins2 |>
+p1 <- penguins |>
   gg_point(
     x = flipper_length_mm, 
     y = body_mass_g,
@@ -525,7 +485,7 @@ p1 <- penguins2 |>
   geom_vline(xintercept = 200) +
   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
 
-p2 <- penguins2 |> 
+p2 <- penguins |> 
   gg_histogram(
     x = flipper_length_mm,
     x_breaks = scales::breaks_pretty(3),
@@ -535,14 +495,17 @@ p2 <- penguins2 |>
 
 p1 + p2
 ```
-```{r}
+
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-21-1.png" width="70%" />
+
+```r
 set_blanket(
   mode = dark_mode_r(), 
   geom_colour = "#bc5090",
   annotate_colour = darkness[1],
 )
 
-p1 <- penguins2 |>
+p1 <- penguins |>
   gg_point(
     x = flipper_length_mm, 
     y = body_mass_g,
@@ -551,7 +514,7 @@ p1 <- penguins2 |>
   geom_vline(xintercept = 200) +
   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
 
-p2 <- penguins2 |> 
+p2 <- penguins |> 
   gg_histogram(
     x = flipper_length_mm,
     x_breaks = scales::breaks_pretty(3),
@@ -561,6 +524,8 @@ p2 <- penguins2 |>
 
 p1 + p2
 ```
+
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-22-1.png" width="70%" />
 
 ### 14. A `gg_blanket()` function with `geom` flexibility
 
@@ -570,14 +535,18 @@ All other functions wrap this function with a locked-in geom, and their own defa
 
 You can print a `geom_*` function to identify the applicable `stat` and `position` arguments etc. 
 
-```{r}
+
+```r
 set_blanket(
   light_mode_t() + theme(legend.title = element_blank())
 )
 
 geom_violin()
+#> geom_violin: draw_quantiles = NULL, na.rm = FALSE, orientation = NA
+#> stat_ydensity: trim = TRUE, scale = area, na.rm = FALSE, orientation = NA, bounds = c(-Inf, Inf)
+#> position_dodge
 
-penguins2 |>
+penguins |>
   drop_na(sex) |>
   mutate(across(sex, str_to_sentence)) |>
   gg_blanket(
@@ -589,10 +558,16 @@ penguins2 |>
     col = species,
   )
 ```
-```{r}
-geom_histogram()
 
-penguins2 |>
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-23-1.png" width="70%" />
+
+```r
+geom_histogram()
+#> geom_bar: na.rm = FALSE, orientation = NA
+#> stat_bin: binwidth = NULL, bins = NULL, na.rm = FALSE, orientation = NA, pad = FALSE
+#> position_stack
+
+penguins |>
   gg_blanket(
     geom = "bar",
     stat = "bin",
@@ -602,10 +577,16 @@ penguins2 |>
   ) 
 ```
 
-```{r}
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-24-1.png" width="70%" />
+
+
+```r
 set_blanket()
 
 geom_spoke()
+#> geom_spoke: na.rm = FALSE
+#> stat_identity: na.rm = FALSE
+#> position_identity
 
 expand.grid(x = 1:10, y = 1:10) |>
   tibble() |>
@@ -620,6 +601,8 @@ expand.grid(x = 1:10, y = 1:10) |>
   ) +
   geom_point()
 ```
+
+<img src="C:/Users/david/AppData/Local/Temp/Rtmpo1RVYa/preview-3ff824954b88.dir/ggblanket_files/figure-html/unnamed-chunk-25-1.png" width="70%" />
 
 ## Further information 
 
