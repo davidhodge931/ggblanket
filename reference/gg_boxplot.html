@@ -108,6 +108,7 @@
 <span>  y_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col_drop <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  col_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_legend_ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -123,6 +124,7 @@
 <span>  col_transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_axes <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_axis_labels <span class="op">=</span> <span class="st">"margins"</span>,</span>
+<span>  facet_drop <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  facet_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_layout <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -204,6 +206,10 @@
 
 <dt>x_transform, y_transform, col_transform</dt>
 <dd><p>For a continuous scale, a transformation object (e.g. <code><a href="https://scales.r-lib.org/reference/transform_log.html" class="external-link">scales::transform_log10()</a></code>) or character string of this minus the <code>transform_</code> prefix (e.g. <code>"log10"</code>).</p></dd>
+
+
+<dt>col_drop, facet_drop</dt>
+<dd><p>For a discrete variable, FALSE or TRUE of whether to drop unused levels.</p></dd>
 
 
 <dt>col_legend_ncol, col_legend_nrow</dt>
