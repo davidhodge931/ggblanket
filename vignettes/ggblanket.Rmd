@@ -387,15 +387,23 @@ With this function, the `gg_*` function will:
 
 To avoid these side-effects, `+` the theme on to the output of `gg_*`. Note there is an `orientation` argument within the `*_mode_*` functions that can be useful when used in this way.
 
-```{r, echo=FALSE}
-d <- data.frame(
-  trt = factor(c(1, 1, 2, 2)),
-  resp = c(1, 5, 3, 4),
-  group = factor(c(1, 2, 1, 2)),
-  upper = c(1.1, 5.3, 3.3, 4.2),
-  lower = c(0.8, 4.6, 2.4, 3.6)
-)
+```{r}
+d |>
+  gg_errorbar(
+    x = trt,
+    ymin = lower,
+    ymax = upper,
+    col = group,
+    width = 0.1,
+    x_title = "Treatment",
+    y_title = "Response",
+    title = "No side-effects",
+    subtitle = "+ light_mode_n()",
+  ) +
+  light_mode_n()
+```
 
+```{r, echo=FALSE}
 p1 <- d |>
   gg_errorbar(
     x = trt,
@@ -405,24 +413,24 @@ p1 <- d |>
     width = 0.1,
     x_title = "Treatment",
     y_title = "Response",
-    subtitle = "\nmode = light_mode_n(),",
+    title = "Side effects with the mode argument",
+    subtitle = "mode = light_mode_n(),",
     mode = light_mode_n(),
   ) 
 
 p2 <- d |>
   gg_errorbar(
-    x = trt,
-    ymin = lower,
-    ymax = upper,
+    y = trt,
+    xmin = lower,
+    xmax = upper,
     col = group,
     width = 0.1,
-    x_title = "Treatment",
-    y_title = "Response",
-    subtitle = "\n+ light_mode_n()"
-  ) +
-  light_mode_n() 
+    y_title = "Treatment",
+    x_title = "Response",
+    mode = light_mode_n(),
+  ) 
 
-p1 + p2 
+p1 + p2
 ```
 
 ### 12.  Families of `*_mode_*` themes that differ by legend placement 
@@ -441,6 +449,7 @@ Note:
 * for removing the legend title, you will often need `+ labs(colour = NULL, fill = NULL)`. 
 
 A further `flexi_mode_*` family is provided where users can select the colours and linewidths.
+
 
 ```{r, fig.asp=0.7}
 penguins |>
