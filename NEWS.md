@@ -10,6 +10,7 @@
 * In `*_mode_*`, updated caption colour default.
 * Made guides of alpha/shape/size/linewidth/linetype aesthetics equal to colour/fill align automatically.
 * Breaking: removed `replace_seq`.
+* Added `col_drop` and `facet_drop` arguments.
 
 # ggblanket 8.0.0
 

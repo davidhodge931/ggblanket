@@ -160,7 +160,8 @@ set_blanket()
 
 bind_rows(
   mtcars |> slice_min(order_by = mpg),
-  mtcars |> slice_max(order_by = mpg)) |>
+  mtcars |> slice_max(order_by = mpg)
+) |>
   tibble::rownames_to_column("model") |>
   gg_text(
     x = model,

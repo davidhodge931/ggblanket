@@ -161,9 +161,9 @@ if (requireNamespace("quantreg", quietly = TRUE)) {
 
   penguins |>
     gg_quantile(
-       x = flipper_length_mm,
-       y = body_mass_g,
-     )
+      x = flipper_length_mm,
+      y = body_mass_g,
+    )
 }
 
 }
