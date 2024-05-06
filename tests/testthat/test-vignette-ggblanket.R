@@ -135,7 +135,7 @@ test_that(test_name, {
       y_labels = scales::label_number(big.mark = " "),
       y_expand = expansion(mult = c(0, 0.05)),
       y_transform = "sqrt",
-      y_title = "Body mass (g)",
+      y_label = "Body mass (g)",
       col_steps = TRUE,
       facet_labels = \(x) str_to_sentence(x),
     )
@@ -177,8 +177,8 @@ test_that(test_name, {
       ymax = upper,
       col = group,
       width = 0.1,
-      x_title = "Treatment",
-      y_title = "Response",
+      x_label = "Treatment",
+      y_label = "Response",
       mode = light_mode_n(),
       subtitle = "\nmode = light_mode_n(),"
     )
@@ -190,8 +190,8 @@ test_that(test_name, {
       ymax = upper,
       col = group,
       width = 0.1,
-      x_title = "Treatment",
-      y_title = "Response",
+      x_label = "Treatment",
+      y_label = "Response",
       subtitle = "\n+ light_mode_n()"
     ) +
     light_mode_n()
@@ -280,8 +280,8 @@ test_that(test_name, {
       ymax = upper,
       col = group,
       width = 0.1,
-      x_title = "Treatment",
-      y_title = "Response",
+      x_label = "Treatment",
+      y_label = "Response",
       mode = light_mode_n(),
       subtitle = "\nDefault y scale"
     )
@@ -293,8 +293,8 @@ test_that(test_name, {
       ymax = upper,
       col = group,
       width = 0.1,
-      x_title = "Treatment",
-      y_title = "Response",
+      x_label = "Treatment",
+      y_label = "Response",
       y_limits = c(NA, NA),
       mode = light_mode_n(),
       subtitle = "\ny_limits = c(NA, NA),"
@@ -307,8 +307,8 @@ test_that(test_name, {
       col = group,
       position = "dodge",
       width = 0.5,
-      x_title = "Treatment upper",
-      y_title = "Response",
+      x_label = "Treatment upper",
+      y_label = "Response",
       y_limits = c(0, NA),
       mode = light_mode_n(),
       subtitle = "\ny_limits = c(0, NA),"
@@ -392,7 +392,7 @@ test_that(test_name, {
       width = 0.75,
       x_expand_limits = c(0, max(.$upper)),
       x_labels = \(x) x / 1000,
-      x_title = "Body mass kg",
+      x_label = "Body mass kg",
     ) +
     geom_errorbar(
       colour = "black",
@@ -422,7 +422,7 @@ test_that(test_name, {
       width = 0.75,
       x_expand_limits = 0,
       x_labels = \(x) x / 1000,
-      x_title = "Body mass kg",
+      x_label = "Body mass kg",
     ) +
     geom_col(
       colour = "#d3d3d3",

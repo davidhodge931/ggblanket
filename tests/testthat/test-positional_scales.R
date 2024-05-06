@@ -21,7 +21,7 @@ test_that(test_name, {
       x_oob = scales::oob_censor,
       x_expand = c(0.5, 0.5),
       x_position = "top",
-      x_title = "Blah",
+      x_label = "Blah",
       caption = ""
   )
 
@@ -44,7 +44,7 @@ test_that(test_name, {
       y_oob = scales::oob_censor,
       y_expand = c(0.1, 0.1),
       y_position = "right",
-      y_title = "Blah",
+      y_label = "Blah",
       caption = ""
     )
 
@@ -67,7 +67,7 @@ test_that(test_name, {
       x_oob = scales::oob_censor,
       x_expand = c(0.5, 0.5),
       x_position = "top",
-      x_title = "Blah",
+      x_label = "Blah",
       y_breaks = scales::breaks_width(-1000),
       y_expand_limits = 7000,
       y_labels = scales::label_currency(),
@@ -76,7 +76,7 @@ test_that(test_name, {
       y_oob = scales::oob_censor,
       y_expand = c(0.1, 0.1),
       y_position = "right",
-      y_title = "Blah",
+      y_label = "Blah",
       caption = ""
     )
 

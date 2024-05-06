@@ -31,6 +31,7 @@ This article will demonstrate a random assortment of content, including some of 
 9. Use opacity with to emphasise/demphasise. 
 10. Understand `oob` & `clip`
 11. Use delayed evaluation
+12. Use label attributes to set default `*_label` values.
 
 ```{r setup}
 library(ggplot2)
@@ -43,6 +44,15 @@ library(palmerpenguins)
 library(patchwork)
 
 set_blanket()
+
+penguins2 <- penguins |> 
+  labelled::set_variable_labels(
+    bill_length_mm = "Bill length (mm)",
+    bill_depth_mm = "Bill depth (mm)",
+    flipper_length_mm = "Flipper length (mm)",
+    body_mass_g = "Body mass (g)",
+  ) |> 
+  mutate(sex = factor(sex, labels = c("Female", "Male")))
 ```
 
 ### 1. Change the `stat` of the layer
@@ -50,7 +60,7 @@ set_blanket()
 The default `stat` of each `gg_*` function can be changed. 
 
 ```{r}
-penguins |>
+penguins2 |>
   gg_pointrange(
     stat = "summary", 
     x = species,
@@ -67,6 +77,7 @@ ggplot2::economics |>
     stat = "bspline", n = 100,
     x = date, 
     y = unemploy,
+    y_label = "Unemployment",
     linewidth = 1,
   ) 
 ```
@@ -76,7 +87,7 @@ ggplot2::economics |>
 The default `position` of each `gg_*` function can be changed. 
 
 ```{r}
-penguins |> 
+penguins2 |> 
   gg_point(
     position = ggbeeswarm::position_quasirandom(),
     x = sex, 
@@ -119,7 +130,7 @@ p1 <- diamonds |>
     y = color,
     width = 0.75,
     x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)", 
+    x_label = "Count (thousands)", 
     subtitle = "\nDefault order"
   )
 
@@ -133,7 +144,7 @@ p2 <- diamonds |>
     y = color,
     width = 0.75,
     x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)", 
+    x_label = "Count (thousands)", 
     subtitle = "\nRe-orderered"
   )
 
@@ -153,7 +164,7 @@ p1 <- diamonds |>
     y = color,
     width = 0.75,
     x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)", 
+    x_label = "Count (thousands)", 
     subtitle = "\nUnused levels kept",
   )
 
@@ -166,7 +177,7 @@ p2 <- diamonds |>
     y = color,
     width = 0.75,
     x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)", 
+    x_label = "Count (thousands)", 
     subtitle = "\nUnused levels dropped",
   )
 
@@ -243,7 +254,7 @@ economics |>
 Text on polygons can be coloured with a dark or light colour that is determined based on the underlying polygon colour using `!!!aes_contrast_mode()`. This method was developed by Teun van den Brand (@teunbrand).  
 
 ```{r}
-penguins |>
+penguins2 |>
   count(species, sex) |>
   gg_col(
     x = sex,
@@ -252,7 +263,6 @@ penguins |>
     label = n,
     position = position_dodge2(preserve = "single"),
     width = 0.75,
-    x_labels = \(x) str_to_sentence(x),
   ) +
   geom_text(
     mapping = aes_contrast(),
@@ -264,7 +274,7 @@ penguins |>
 ```
 
 ```{r}
-penguins |>
+penguins2 |>
   count(species, sex) |>
   gg_col(
     position = position_dodge2(preserve = "single"),
@@ -273,7 +283,6 @@ penguins |>
     col = species,
     label = n,
     width = 0.75,
-    y_labels = \(x) str_to_sentence(x),
     mode = dark_mode_r(),
   ) +
   geom_text(
@@ -290,9 +299,8 @@ penguins |>
 Use opacity with `mapping = aes(alpha = ...)`, `col = ...`, and `col_palette` to emphasise/demphasise parts of the visualisation. 
 
 ```{r, fig.asp=0.75}
-p1 <- penguins |> 
+p1 <- penguins2 |> 
   drop_na(sex) |> 
-  mutate(across(sex, str_to_sentence)) |> 
   gg_density(
     x = flipper_length_mm,
     x_breaks = scales::breaks_pretty(n = 3),
@@ -303,9 +311,8 @@ p1 <- penguins |>
     subtitle = "\nOpacity fill 0.1 & outline 0.33"
   )
 
-p2 <- penguins |> 
+p2 <- penguins2 |> 
   drop_na(sex) |> 
-  mutate(across(sex, str_to_sentence)) |> 
   gg_density(
     x = flipper_length_mm,
     col = sex,
@@ -315,9 +322,8 @@ p2 <- penguins |>
     subtitle = "\ncol variable"
   )
 
-p3 <- penguins |> 
+p3 <- penguins2 |> 
   drop_na(sex) |> 
-  mutate(across(sex, str_to_sentence)) |> 
   gg_density(
     x = flipper_length_mm,
     col = sex, 
@@ -330,9 +336,8 @@ p3 <- penguins |>
   guides(colour = "none", fill = "none", alpha = "none") + 
   scale_alpha_manual(values = c(0.5, 0.1))
 
-p4 <- penguins |> 
+p4 <- penguins2 |> 
   drop_na(sex) |> 
-  mutate(across(sex, str_to_sentence)) |> 
   gg_density(
     x = flipper_length_mm,
     col = sex, 
@@ -425,7 +430,7 @@ p4 + p5
 As the `x`, `y`, and `col` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This can be used for delayed evaluation with the `ggplot2::after_stat` function.
 
 ```{r, fig.asp=0.55}
-penguins |>
+penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
     mapping = aes(y = after_stat(density)),
