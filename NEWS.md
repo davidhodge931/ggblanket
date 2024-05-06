@@ -1,13 +1,14 @@
 # ggblanket 8.0.9000
 
+* Supported a label-based workflow.
+* Breaking: renamed `*_title` to `*_label`.
 * Fixed bug where `grey_mode_*`/`dark_mode_*` were missing legend functionality.
 * Breaking: removed `geom_linewidth` and `geom_size` from `weave_geom_aes` and `set_blanket`.
-* Breaking: removed `replace_seq`.
 * Improved scales by using `scales::breaks_extended()`.
 * In `dark_mode_*`, fixed incorrect `axis_line_colour` default.
 * In `*_mode_*`, updated caption colour default.
 * Made guides of alpha/shape/size/linewidth/linetype aesthetics equal to colour/fill align automatically.
-* Breaking: renamed `*_title` to `*_label` to support a label-based workflow.
+* Breaking: removed `replace_seq`.
 
 # ggblanket 8.0.0
 
