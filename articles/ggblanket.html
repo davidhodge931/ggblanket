@@ -120,9 +120,7 @@ objectives.</p>
 <li>A <code>facet</code> argument to facet by a variable</li>
 <li>A <code>facet2</code> argument to facet by a 2nd variable</li>
 <li>Prefixed arguments to customise x, y, col and facet properties</li>
-<li>Smart defaults for the <code>x_label</code>, <code>y_label</code>
-and <code>col_label</code>
-</li>
+<li>Smart <code>*_label</code> defaults for axis and legend titles</li>
 <li>Access to other <code>geom_*</code> arguments via
 <code>...</code>
 </li>
@@ -282,19 +280,18 @@ colour and fill scale as applicable. Likewise, everything prefixed
 <p><img src="autocomplete_y.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="smart-defaults-for-the-x_label-y_label-and-col_label">6. Smart defaults for the <code>x_label</code>, <code>y_label</code>
-and <code>col_label</code><a class="anchor" aria-label="anchor" href="#smart-defaults-for-the-x_label-y_label-and-col_label"></a>
+<h3 id="smart-_label-defaults-for-axis-and-legend-titles">6. Smart <code>*_label</code> defaults for axis and legend
+titles<a class="anchor" aria-label="anchor" href="#smart-_label-defaults-for-axis-and-legend-titles"></a>
 </h3>
-<p>Unspecified <code>x_label</code>, <code>y_label</code>,
-<code>col_label</code> take:</p>
-<ul>
-<li>a label attribute for the variable, if there is one</li>
-<li>otherwise, are converted to sentence case with
-<code>snakecase::to_sentence</code>
-</li>
-</ul>
-<p>They can be manually specified with the <code>*_label</code>
-argument, or with a + <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs</a></code> argumennt.</p>
+<p>The <code>x_label</code>, <code>y_label</code> and
+<code>col_label</code> for the axis and legend titles can be manually
+specified with the applicable <code>*_label</code> argument, or with
+<code>+ ggplot2::labs</code>.</p>
+<p>If not specified, they will first take any label attribute associated
+with the applicable variable.</p>
+<p>Otherwise, they will convert the variable name to a label name using
+the <code>label_to_case</code> function, which defaults to sentence case
+(i.e. <code>snakecase::to_sentence</code>).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_hex.html">gg_hex</a></span><span class="op">(</span></span>
