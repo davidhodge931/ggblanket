@@ -100,7 +100,9 @@ jumble <- c(teal, orange, navy, red, pink, purple, grey)
 
 #' The `light_mode_*` theme colours
 #'
-#' @description A vector of 3 colours used in the `light_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
+#' @description
+#' A vector of 3 colours used in the `light_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
+#' Note the plot.caption uses colorspace::lighten("#121b24ff", 0.1).
 #'
 #' @return A character vector.
 #' @export
@@ -111,7 +113,9 @@ lightness <- c("#121b24ff", "#f6f8faff", "#ffffffff")
 
 #' The `grey_mode_*` theme colours
 #'
-#' @description A vector of 3 colours used in the `grey_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
+#' @description
+#' A vector of 3 colours used in the `grey_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
+#' Note the plot.caption uses colorspace::lighten("#121b24ff", 0.1).
 #'
 #' @return A character vector.
 #' @export
@@ -122,7 +126,9 @@ greyness <- c("#121b24ff", "#f6f8faff", "#fcfdfeff")
 
 #' The `dark_mode_*` theme colours
 #'
-#' @description A vector of 3 colours used in the `dark_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
+#' @description
+#' A vector of 3 colours used in the `dark_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
+#' Note the plot.caption uses colorspace::darken("#c8d7dfff", 0.1).
 #'
 #' @return A character vector.
 #' @export

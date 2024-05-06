@@ -15,6 +15,7 @@ A character vector.
 }
 \description{
 A vector of 3 colours used in the \verb{grey_mode_*} themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
+Note the plot.caption uses colorspace::lighten("#121b24ff", 0.1).
 }
 \examples{
 scales::show_col(greyness)
