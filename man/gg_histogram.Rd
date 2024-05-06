@@ -36,7 +36,7 @@ gg_histogram(
   x_limits = NULL,
   x_oob = scales::oob_keep,
   x_position = "bottom",
-  x_title = NULL,
+  x_label = NULL,
   x_transform = NULL,
   y_breaks = NULL,
   y_expand = NULL,
@@ -45,7 +45,7 @@ gg_histogram(
   y_limits = NULL,
   y_oob = scales::oob_keep,
   y_position = "left",
-  y_title = NULL,
+  y_label = NULL,
   y_transform = NULL,
   col_breaks = NULL,
   col_expand_limits = NULL,
@@ -59,7 +59,7 @@ gg_histogram(
   col_palette_na = NULL,
   col_rescale = scales::rescale(),
   col_steps = FALSE,
-  col_title = NULL,
+  col_label = NULL,
   col_transform = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
@@ -106,7 +106,7 @@ gg_histogram(
 
 \item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_mode_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 
-\item{x_title, y_title, col_title}{Axis title string. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
+\item{x_label, y_label, col_label}{Axis title string. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
 
 \item{x_transform, y_transform, col_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
 

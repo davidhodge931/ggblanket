@@ -163,7 +163,7 @@ penguins |>
     y_expand_limits = 2000,
     y_labels = scales::label_number(big.mark = " "), 
     y_transform = "log10",
-    y_title = "Body mass (g)",
+    y_label = "Body mass (g)",
     col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
     col_palette = viridis::magma(n = 9, direction = -1),
@@ -179,9 +179,9 @@ knitr::include_graphics("autocomplete_y.png", dpi = 300)
 
 Unspecified `x`, `y`, `col` and `alpha` titles are converted to sentence case with `snakecase::to_sentence`. 
 
-However, each title can be manually changed using the applicable `*_title` argument. 
+However, each title can be manually changed using the applicable `*_label` argument. 
 
-The default `snakecase::to_sentence` conversion can be turned off using `titles_to_case = \(x) x` or changed (e.g. `snakecase::to_title_case`). 
+The default `snakecase::to_sentence` conversion can be turned off using `titles_to_case = \(x) x` or changed (e.g. `snakecase::to_label_case`). 
 
 ```{r, fig.asp=0.6}
 diamonds |>
@@ -261,8 +261,8 @@ p1 <- d |>
     ymax = upper,
     col = group,
     width = 0.1,
-    x_title = "Treatment",
-    y_title = "Response",
+    x_label = "Treatment",
+    y_label = "Response",
     subtitle = "\nDefault y scale",
     mode = light_mode_n(),
   ) 
@@ -274,8 +274,8 @@ p2 <- d |>
     ymax = upper,
     col = group,
     width = 0.1,
-    x_title = "Treatment",
-    y_title = "Response",
+    x_label = "Treatment",
+    y_label = "Response",
     y_limits = c(NA, NA),
     subtitle = "\ny_limits = c(NA, NA),",
     mode = light_mode_n(),
@@ -288,8 +288,8 @@ p3 <- d |>
     y = upper,
     col = group,
     width = 0.5,
-    x_title = "Treatment upper",
-    y_title = "Response",
+    x_label = "Treatment upper",
+    y_label = "Response",
     y_limits = c(0, NA),
     subtitle = "\ny_limits = c(0, NA),",
     mode = light_mode_n(),
@@ -321,7 +321,7 @@ penguins |>
     width = 0.75,
     x_expand_limits = c(0, max(.$upper)),
     x_labels = \(x) x / 1000, 
-    x_title = "Body mass kg", 
+    x_label = "Body mass kg", 
   ) +
   geom_errorbar(
     colour = "black", 
@@ -344,7 +344,7 @@ penguins |>
     width = 0.75,
     x_expand_limits = 0,
     x_labels = \(x) x / 1000, 
-    x_title = "Body mass kg",
+    x_label = "Body mass kg",
   ) +
   geom_col(
     colour = "#d3d3d3",
@@ -395,8 +395,8 @@ d |>
     ymax = upper,
     col = group,
     width = 0.1,
-    x_title = "Treatment",
-    y_title = "Response",
+    x_label = "Treatment",
+    y_label = "Response",
     title = "No side-effects",
     subtitle = "+ light_mode_n()",
   ) +
@@ -411,8 +411,8 @@ p1 <- d |>
     ymax = upper,
     col = group,
     width = 0.1,
-    x_title = "Treatment",
-    y_title = "Response",
+    x_label = "Treatment",
+    y_label = "Response",
     title = "Side effects with the mode argument",
     subtitle = "mode = light_mode_n(),",
     mode = light_mode_n(),
@@ -425,8 +425,8 @@ p2 <- d |>
     xmax = upper,
     col = group,
     width = 0.1,
-    y_title = "Treatment",
-    x_title = "Response",
+    y_label = "Treatment",
+    x_label = "Response",
     mode = light_mode_n(),
   ) 
 

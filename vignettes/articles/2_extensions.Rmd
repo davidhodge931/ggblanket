@@ -177,7 +177,7 @@ economics |>
     x = date, 
     y = unemploy,
     linewidth = 1,
-    y_title = "Unemployment",
+    y_label = "Unemployment",
   ) 
 ```
 
@@ -481,7 +481,7 @@ penguins |>
   light_mode_t() +
   easy_remove_y_gridlines() +
   easy_remove_x_axis(what = c("line", "ticks")) +
-  easy_remove_legend_title()
+  easy_remove_legend_label()
 ```
 
 ### ggnewscale

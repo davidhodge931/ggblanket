@@ -31,6 +31,7 @@ This article will demonstrate a random assortment of content, including some of 
 9. Use opacity with to emphasise/demphasise. 
 10. Understand `oob` & `clip`
 11. Use delayed evaluation
+12. Use label attributes to set default `*_label` values.
 
 ```{r setup}
 library(ggplot2)
@@ -41,6 +42,7 @@ library(stringr)
 library(ggblanket)
 library(palmerpenguins)
 library(patchwork)
+library(labelled)
 
 set_blanket()
 ```
@@ -119,7 +121,7 @@ p1 <- diamonds |>
     y = color,
     width = 0.75,
     x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)", 
+    x_label = "Count (thousands)", 
     subtitle = "\nDefault order"
   )
 
@@ -133,7 +135,7 @@ p2 <- diamonds |>
     y = color,
     width = 0.75,
     x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)", 
+    x_label = "Count (thousands)", 
     subtitle = "\nRe-orderered"
   )
 
@@ -153,7 +155,7 @@ p1 <- diamonds |>
     y = color,
     width = 0.75,
     x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)", 
+    x_label = "Count (thousands)", 
     subtitle = "\nUnused levels kept",
   )
 
@@ -166,7 +168,7 @@ p2 <- diamonds |>
     y = color,
     width = 0.75,
     x_labels = \(x) x / 1000,
-    x_title = "Count (thousands)", 
+    x_label = "Count (thousands)", 
     subtitle = "\nUnused levels dropped",
   )
 
@@ -441,6 +443,44 @@ faithfuld |>
     z = density,
     mapping = aes(colour = after_stat(level)),
     bins = 8,
+  )
+```
+
+### 12. Use label attributes to set default `*_label` values.
+
+The labelled package and others provide tools to set label attributes associated with variables.
+
+These then form the default `*_label` value in ggblanket.
+
+```{r}
+library(labelled)
+
+penguins_labelled <- penguins |> 
+  set_variable_labels(
+    bill_length_mm = "Bill length (mm)",
+    bill_depth_mm = "Bill depth (mm)",
+    flipper_length_mm = "Flipper length (mm)",
+    body_mass_g = "Body mass (g)"
+  )
+
+penguins_labelled |> 
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+  )
+
+penguins_labelled |>
+  drop_na(sex) |> 
+  mutate(across(sex, str_to_sentence)) |> 
+  group_by(sex, species) |>
+  summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |> 
+  copy_labels_from(penguins_labelled) |> 
+  gg_col(
+    x = flipper_length_mm,
+    y = species,
+    col = sex, 
+    position = position_dodge(preserve = "single"),
   )
 ```
 

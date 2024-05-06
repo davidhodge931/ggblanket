@@ -38,7 +38,7 @@ economics |>
   gg_area(
     x = date,
     y = unemploy,
-    y_title = "Unemployment", 
+    y_label = "Unemployment", 
   )
 ```
 
@@ -136,8 +136,8 @@ data.frame(
     ymax = upper,
     col = group,
     width = 0.5,
-    x_title = "Treatment",
-    y_title = "Response",
+    x_label = "Treatment",
+    y_label = "Response",
   )
 ```
 
@@ -194,8 +194,8 @@ data.frame(
     ymax = upper,
     col = group,
     width = 0.1,
-    x_title = "Treatment",
-    y_title = "Response",
+    x_label = "Treatment",
+    y_label = "Response",
   )
 ```
 
@@ -277,7 +277,7 @@ bind_rows(
     col = mpg,
     label = model,
     y_expand_limits = 0,
-    y_title = "Miles per gallon", 
+    y_label = "Miles per gallon", 
     col_palette = c(orange, "white", teal),
   )
 ```
@@ -290,7 +290,7 @@ economics |>
     x = date,
     y = unemploy,
     y_expand_limits = 0, 
-    y_title = "Unemployment",
+    y_label = "Unemployment",
   )
 ```
 
@@ -309,8 +309,8 @@ data.frame(
     ymin = lower,
     ymax = upper,
     col = group,
-    x_title = "Treatment",
-    y_title = "Response",
+    x_label = "Treatment",
+    y_label = "Response",
   )
 ```
 
@@ -322,9 +322,9 @@ economics |>
   gg_path(
     x = unemploy_rate,
     y = psavert,
-    x_title = "Unemployment rate",
+    x_label = "Unemployment rate",
     y_expand_limits = 0,
-    y_title = "Personal savings rate",
+    y_label = "Personal savings rate",
   )
 ```
 
@@ -355,8 +355,8 @@ data.frame(
     col = group,
     ymin = lower,
     ymax = upper,
-    x_title = "Treatment",
-    y_title = "Response",
+    x_label = "Treatment",
+    y_label = "Response",
   )
 ```
 
@@ -458,7 +458,7 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     ymax = level_max,
     colour = NA,
     x_labels = \(x) x,
-    y_title = "Level",
+    y_label = "Level",
   ) +
   geom_line(mapping = aes(x = year, y = level))
 ```
@@ -520,7 +520,7 @@ economics |>
     coord = coord_cartesian(clip = "on"),
     x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_), 
     y_expand_limits = 0,
-    y_title = "Unemployment",
+    y_label = "Unemployment",
   )
 ```
 
@@ -537,7 +537,7 @@ bind_rows(
     col = mpg,
     label = model,
     y_expand_limits = 0,
-    y_title = "Miles per gallon",
+    y_label = "Miles per gallon",
     col_palette = c(orange, "white", teal),
   )
 ```
