@@ -48,6 +48,7 @@ gg_raster(
   y_label = NULL,
   y_transform = NULL,
   col_breaks = NULL,
+  col_drop = FALSE,
   col_expand_limits = NULL,
   col_labels = NULL,
   col_legend_ncol = NULL,
@@ -63,6 +64,7 @@ gg_raster(
   col_transform = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
+  facet_drop = FALSE,
   facet_labels = NULL,
   facet_layout = NULL,
   facet_ncol = NULL,
@@ -109,6 +111,8 @@ gg_raster(
 \item{x_label, y_label, col_label}{Label for the axis or legend title. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
 
 \item{x_transform, y_transform, col_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
+
+\item{col_drop, facet_drop}{For a discrete variable, FALSE or TRUE of whether to drop unused levels.}
 
 \item{col_legend_ncol, col_legend_nrow}{The number of columns and rows in a legend guide.}
 

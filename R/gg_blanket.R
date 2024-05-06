@@ -20,6 +20,7 @@
 #' @param x_oob,y_oob,col_oob For a continuous scale, a `scales::oob_*` function of how to handle values outside of limits. Defaults to `scales::oob_keep`.
 #' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_mode_*` theme, add `caption = ""` or `caption = "\n"`.
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
+#' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
 #' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
 #' @param col_palette Colour palette to use. A character vector of hex codes (or names).
@@ -104,7 +105,7 @@ gg_blanket <- function(
     y_position = "left",
     y_label = NULL,
     y_transform = NULL,
-    col_breaks = NULL,
+    col_breaks = NULL, col_drop = FALSE,
     col_expand_limits = NULL,
     col_labels = NULL,
     col_legend_ncol = NULL,
@@ -119,7 +120,7 @@ gg_blanket <- function(
     col_label = NULL,
     col_transform = NULL,
     facet_axes = NULL,
-    facet_axis_labels = "margins",
+    facet_axis_labels = "margins", facet_drop = FALSE,
     facet_labels = NULL,
     facet_layout = NULL,
     facet_ncol = NULL,
@@ -669,7 +670,7 @@ gg_blanket <- function(
           ggplot2::facet_wrap(
             facets = ggplot2::vars(forcats::fct_rev(!!facet)),
             scales = facet_scales,
-            drop = FALSE,
+            drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
             nrow = facet_nrow,
@@ -682,7 +683,7 @@ gg_blanket <- function(
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet2),
             scales = facet_scales,
-            drop = FALSE,
+            drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
             nrow = facet_nrow,
@@ -695,7 +696,7 @@ gg_blanket <- function(
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet, !!facet2),
             scales = facet_scales,
-            drop = FALSE,
+            drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
             nrow = facet_nrow,
@@ -711,7 +712,7 @@ gg_blanket <- function(
                               cols = ggplot2::vars(forcats::fct_rev(!!facet)),
                               scales = facet_scales,
                               space = facet_space,
-                              drop = FALSE,
+                              drop = facet_drop,
                               axes = facet_axes,
                               axis.labels = facet_axis_labels,
                               labeller = ggplot2::as_labeller(facet_labels)
@@ -722,7 +723,7 @@ gg_blanket <- function(
           ggplot2::facet_grid(cols = ggplot2::vars(forcats::fct_rev(!!facet)),
                               scales = facet_scales,
                               space = facet_space,
-                              drop = FALSE,
+                              drop = facet_drop,
                               axes = facet_axes,
                               axis.labels = facet_axis_labels,
                               labeller = ggplot2::as_labeller(facet_labels)
@@ -733,7 +734,7 @@ gg_blanket <- function(
           ggplot2::facet_grid(rows = ggplot2::vars(!!facet2),
                               scales = facet_scales,
                               space = facet_space,
-                              drop = FALSE,
+                              drop = facet_drop,
                               axes = facet_axes,
                               axis.labels = facet_axis_labels,
                               labeller = ggplot2::as_labeller(facet_labels)
@@ -748,7 +749,7 @@ gg_blanket <- function(
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet),
             scales = facet_scales,
-            drop = FALSE,
+            drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
             nrow = facet_nrow,
@@ -761,7 +762,7 @@ gg_blanket <- function(
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet2),
             scales = facet_scales,
-            drop = FALSE,
+            drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
             nrow = facet_nrow,
@@ -774,7 +775,7 @@ gg_blanket <- function(
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet, !!facet2),
             scales = facet_scales,
-            drop = FALSE,
+            drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
             nrow = facet_nrow,
@@ -790,7 +791,7 @@ gg_blanket <- function(
                               cols = ggplot2::vars(!!facet),
                               scales = facet_scales,
                               space = facet_space,
-                              drop = FALSE,
+                              drop = facet_drop,
                               axes = facet_axes,
                               axis.labels = facet_axis_labels,
                               labeller = ggplot2::as_labeller(facet_labels)
@@ -801,7 +802,7 @@ gg_blanket <- function(
           ggplot2::facet_grid(cols = ggplot2::vars(!!facet),
                               scales = facet_scales,
                               space = facet_space,
-                              drop = FALSE,
+                              drop = facet_drop,
                               axes = facet_axes,
                               axis.labels = facet_axis_labels,
                               labeller = ggplot2::as_labeller(facet_labels)
@@ -812,7 +813,7 @@ gg_blanket <- function(
           ggplot2::facet_grid(rows = ggplot2::vars(!!facet2),
                               scales = facet_scales,
                               space = facet_space,
-                              drop = FALSE,
+                              drop = facet_drop,
                               axes = facet_axes,
                               axis.labels = facet_axis_labels,
                               labeller = ggplot2::as_labeller(facet_labels)
@@ -1124,7 +1125,7 @@ gg_blanket <- function(
           breaks = col_breaks,
           labels = col_labels,
           na.value = col_palette_na,
-          drop = FALSE, #consider add argument
+          drop = col_drop,
         ) +
         ggplot2::scale_colour_manual(
           values = col_palette,
@@ -1132,7 +1133,7 @@ gg_blanket <- function(
           breaks = col_breaks,
           labels = col_labels,
           na.value = col_palette_na,
-          drop = FALSE, #consider add argument
+          drop = col_drop,
         ) +
         ggplot2::guides(
           colour = ggplot2::guide_legend(
