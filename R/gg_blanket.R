@@ -428,25 +428,19 @@ gg_blanket <- function(
   data <- data %>%
     #ungroup the data
     dplyr::ungroup() %>%
-    #make infinite values NA
-    dplyr::mutate(dplyr::across(
-      c(!!x, !!xmin, !!xmax, !!xend,
-        !!y, !!ymin, !!ymax, !!yend,
-        !!col, !!facet, !!facet2,
-        !!group, !!subgroup, !!label, !!sample),
-      na_if_inf)) %>%
-    #convert logicals to factors
+    # #make infinite values NA
+    # dplyr::mutate(dplyr::across(
+    #   c(!!x, !!xmin, !!xmax, !!xend,
+    #     !!y, !!ymin, !!ymax, !!yend,
+    #     !!col, !!facet, !!facet2,
+    #     !!group, !!subgroup, !!label, !!sample),
+    #   na_if_inf)) %>%
+    #convert to factors class that can handle labels
     dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
                                   !!y, !!ymin, !!ymax, !!yend,
                                   !!col, !!facet, !!facet2) &
-                                  tidyselect::where(is.logical), function(x)
-                                    factor(x, levels = c(TRUE, FALSE)))) %>%
-    #convert characters to factors
-    dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
-                                  !!y, !!ymin, !!ymax, !!yend,
-                                  !!col, !!facet, !!facet2) &
-                                  tidyselect::where(is.character), function(x)
-                                    factor(x))) %>%
+                                  (tidyselect::where(is.character) | tidyselect::where(is.factor) | tidyselect::where(is.logical)),
+                                function(x) labelled::to_factor(x))) %>%
     #reverse y*, so that reads top low-levels to bottom high-levels
     dplyr::mutate(dplyr::across(c(!!y, !!ymin, !!ymax, !!yend) &
                                   tidyselect::where(is.factor),
@@ -1693,8 +1687,8 @@ gg_blanket <- function(
 
   if (rlang::is_null(x_title)) {
     if ((!rlang::quo_is_null(x))) {
-      if (!rlang::is_null(attr(dplyr::pull(data, {{ x }}), "label"))) {
-        x_title <- attr(dplyr::pull(data, {{ x }}), "label")
+      if (!rlang::is_null(attr(dplyr::pull(data, !!x), "label"))) {
+        x_title <- attr(dplyr::pull(data, !!x), "label")
       }
       else {
         if (stringr::str_detect(stat_name, "sf")) {
@@ -1717,8 +1711,8 @@ gg_blanket <- function(
 
   if (rlang::is_null(y_title)) {
     if ((!rlang::quo_is_null(y))) {
-      if (!rlang::is_null(attr(dplyr::pull(data, {{ y }}), "label"))) {
-        y_title <- attr(dplyr::pull(data, {{ y }}), "label")
+      if (!rlang::is_null(attr(dplyr::pull(data, !!y), "label"))) {
+        y_title <- attr(dplyr::pull(data, !!y), "label")
       }
       else {
         if (stringr::str_detect(stat_name, "sf")) {
@@ -1741,8 +1735,8 @@ gg_blanket <- function(
 
   if (rlang::is_null(col_title)) {
     if ((!rlang::quo_is_null(col))) {
-      if (!rlang::is_null(attr(dplyr::pull(data, {{ col }}), "label"))) {
-        col_title <- attr(dplyr::pull(data, {{ col }}), "label")
+      if (!rlang::is_null(attr(dplyr::pull(data, !!col), "label"))) {
+        col_title <- attr(dplyr::pull(data, !!col), "label")
       }
       else {
         if (!rlang::is_null(plot_build$plot$labels$fill)) {

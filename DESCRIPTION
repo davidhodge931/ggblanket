@@ -18,6 +18,7 @@ Imports:
     ggplot2 (>= 3.5.0),
     grid,
     hms (>= 0.5.0),
+    labelled,
     lubridate (>= 1.7.8),
     magrittr,
     purrr,
