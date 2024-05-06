@@ -2,6 +2,7 @@
 
 * Supported a label-based workflow.
 * Breaking: renamed `*_title` to `*_label`.
+* Breaking: renamed `titles_to_case` to `label_to_case`.
 * Fixed bug where `grey_mode_*`/`dark_mode_*` were missing legend functionality.
 * Breaking: removed `geom_linewidth` and `geom_size` from `weave_geom_aes` and `set_blanket`.
 * Improved scales by using `scales::breaks_extended()`.

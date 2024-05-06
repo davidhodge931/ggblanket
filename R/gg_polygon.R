@@ -106,7 +106,7 @@ gg_polygon <- function(
     title = NULL,
     subtitle = NULL,
     caption = NULL,
-    titles_to_case = snakecase::to_sentence_case
+    label_to_case = snakecase::to_sentence_case
 ) {
 
   gg_blanket(
@@ -177,7 +177,7 @@ gg_polygon <- function(
     title = title,
     subtitle = subtitle,
     caption = caption,
-    titles_to_case = titles_to_case,
+    label_to_case = label_to_case,
     ...
   )
 }
