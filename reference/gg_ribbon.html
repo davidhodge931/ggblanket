@@ -96,7 +96,7 @@
 <span>  x_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
 <span>  x_position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
-<span>  x_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  x_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -105,7 +105,7 @@
 <span>  y_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
 <span>  y_position <span class="op">=</span> <span class="st">"left"</span>,</span>
-<span>  y_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  y_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -119,7 +119,7 @@
 <span>  col_palette_na <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_rescale <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  col_steps <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  col_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_axes <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_axis_labels <span class="op">=</span> <span class="st">"margins"</span>,</span>
@@ -198,7 +198,7 @@
 <dd><p>The position of the axis (i.e. <code>"left"</code>, <code>"right"</code>, <code>"bottom"</code> or <code>"top"</code>).If using <code>y_position = "top"</code> with a <code>*_mode_*</code> theme, add <code>caption = ""</code> or <code>caption = "\n"</code>.</p></dd>
 
 
-<dt>x_title, y_title, col_title</dt>
+<dt>x_label, y_label, col_label</dt>
 <dd><p>Axis title string. Use <code>+ ggplot2::labs(... = NULL)</code> for no title.</p></dd>
 
 
@@ -292,7 +292,7 @@
 <span class="r-in"><span>    ymax <span class="op">=</span> <span class="va">level_max</span>,</span></span>
 <span class="r-in"><span>    colour <span class="op">=</span> <span class="cn">NA</span>,</span></span>
 <span class="r-in"><span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span>,</span></span>
-<span class="r-in"><span>    y_title <span class="op">=</span> <span class="st">"Level"</span>,</span></span>
+<span class="r-in"><span>    y_label <span class="op">=</span> <span class="st">"Level"</span>,</span></span>
 <span class="r-in"><span>  <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">level</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="gg_ribbon-1.svg" alt="" width="700" height="433"></span>
