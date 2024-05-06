@@ -41,7 +41,7 @@ Computational speed has been traded-off to achieve these objectives.
 3.  A `facet` argument to facet by a variable
 4.  A `facet2` argument to facet by a 2nd variable
 5.  Prefixed arguments to customise x, y, col and facet properties 
-6.  Smart defaults for the  `x_label`, `y_label` and `col_label`
+6.  Smart `*_label` defaults for axis and legend titles
 7.  Access to other `geom_*` arguments via `...`
 8.  A symmetrical continuous scale with easy opt-out
 9.  Ability to add multiple `geom_*` layers
@@ -183,14 +183,13 @@ penguins2 |>
 knitr::include_graphics("autocomplete_y.png", dpi = 300)
 ```
 
-### 6.  Smart defaults for the  `x_label`, `y_label` and `col_label`
+### 6.  Smart `*_label` defaults for axis and legend titles
 
-Unspecified `x_label`, `y_label`, `col_label` take:
+The `x_label`, `y_label` and `col_label` for the axis and legend titles can be manually specified with the applicable `*_label` argument, or with `+ ggplot2::labs`.
 
-* a label attribute for the variable, if there is one
-* otherwise, are converted to sentence case with `snakecase::to_sentence` 
+If not specified, they will first take any label attribute associated with the applicable variable. 
 
-They can be manually specified with the `*_label` argument, or with a + `ggplot2::labs` argumennt.
+Otherwise, they will convert the variable name to a label name using the `label_to_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence`). 
 
 ```{r, fig.asp=0.6}
 diamonds |>
