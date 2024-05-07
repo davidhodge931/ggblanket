@@ -369,16 +369,8 @@ The `mapping` argument provides access to other aesthetics, such as `alpha`, `si
 
 Note, in some situations, the `alpha`, `size`, `shape`, `linetype` and `linewidth` values may need to be reversed in the relevant scale.
 
-```{r, fig.asp=0.75}
-p1 <- penguins2 |> 
-  gg_jitter(
-    x = species, 
-    y = flipper_length_mm, 
-    col = species,
-    mapping = aes(shape = species),
-  ) 
-
-p2 <- penguins2 |> 
+```{r}
+penguins2 |> 
   gg_jitter(
     y = species, 
     x = flipper_length_mm, 
@@ -386,8 +378,6 @@ p2 <- penguins2 |>
     mapping = aes(shape = species),
   ) +
   scale_shape_manual(values = rev(scales::shape_pal()(3)))
-
-p1 / p2
 ```
 
 ### 11.  A `mode` argument designed for provided `*_mode_*` themes
