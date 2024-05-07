@@ -52,11 +52,9 @@ Computational speed has been traded-off to achieve these objectives.
 14. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
-library(ggblanket)
-library(ggplot2)
 library(dplyr)
-library(stringr)
-library(tidyr)
+library(ggplot2)
+library(ggblanket)
 library(palmerpenguins)
 library(patchwork)
 
@@ -69,7 +67,20 @@ penguins2 <- penguins |>
     flipper_length_mm = "Flipper length (mm)",
     body_mass_g = "Body mass (g)",
   ) |> 
-  mutate(sex = factor(sex, labels = c("Female", "Male")))
+  mutate(sex = factor(sex, labels = c("Female", "Male"))) |> 
+  tidyr::drop_na(sex) 
+
+experiment <- data.frame(
+    trt = factor(c(1, 1, 2, 2)),
+    resp = c(1, 5, 3, 4),
+    group = factor(c(1, 2, 1, 2)),
+    upper = c(1.1, 5.3, 3.3, 4.2),
+    lower = c(0.8, 4.6, 2.4, 3.6)
+  ) |>
+  labelled::set_variable_labels(
+    trt = "Treatment", 
+    resp = "Response",
+  )
 ```
  
 ### 1. Almost forty `gg_*` wrapper functions
@@ -98,16 +109,15 @@ Use `colour = NA` or `fill = NA` if you need to turn one of these off.
 
 ```{r}
 penguins2 |>
-  gg_point(
-    x = flipper_length_mm,
+  gg_boxplot(
+    x = species,
     y = body_mass_g, 
-    col = species,
+    col = sex,
   )
 ```
 
 ```{r, fig.asp=0.45}
 penguins2 |>
-  drop_na(sex) |>
   gg_bar(
     position = "dodge",
     y = species, 
@@ -124,7 +134,6 @@ When `facet` variable is _not_ NULL (and `facet2 = NULL`), the `facet_layout` wi
 
 ```{r}
 penguins2 |>
-  drop_na(sex) |> 
   gg_histogram(
     x = flipper_length_mm,
     facet = species,
@@ -158,13 +167,12 @@ Everything prefixed `col_` relates to _both_ the colour and fill scale as applic
 
 ```{r}
 penguins2 |>
-  drop_na(sex) |>  
   gg_jitter(
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
     facet = sex,
-    x_labels = \(x) str_sub(x, 1, 1),
+    x_labels = \(x) stringr::str_sub(x, 1, 1),
     y_breaks = scales::breaks_width(1000),
     y_expand_limits = 2000,
     y_labels = scales::label_number(big.mark = " "), 
@@ -188,12 +196,10 @@ If not specified, they will first take any label attribute associated with the a
 Otherwise, they will convert the variable name to a label name using the `label_to_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence`). 
 
 ```{r, fig.asp=0.6}
-diamonds |>
-  gg_hex(
-    coord = coord_cartesian(clip = "on"), 
-    x = carat,
-    y = price,
-    y_limits = c(0, 20000),
+penguins2 |>
+  gg_freqpoly(
+    x = flipper_length_mm,
+    col = species,
   )
 ```
 
@@ -207,8 +213,6 @@ Use the `geom_*` help to see what arguments are available.
 
 ```{r}
 penguins2 |>
-  mutate(across(sex, str_to_sentence)) |> 
-  drop_na(sex) |> 
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -220,17 +224,6 @@ penguins2 |>
     alpha = 1, 
     se = TRUE, 
     level = 0.999, 
-  ) 
-```
-
-```{r, fig.asp=0.5}
-penguins2 |> 
-  gg_boxplot(
-    y = island, 
-    x = flipper_length_mm, 
-    col = species,
-    fill = NA,
-    position = position_dodge2(preserve = "single")
   ) 
 ```
 
@@ -250,17 +243,6 @@ This symmetric continuous scale can be turned off easily using `*_limits = c(NA,
 Note this symmetric scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.
 
 ```{r, echo=FALSE}
-experiment <- data.frame(
-  trt = factor(c(1, 1, 2, 2)),
-  resp = c(1, 5, 3, 4),
-  group = factor(c(1, 2, 1, 2)),
-  upper = c(1.1, 5.3, 3.3, 4.2),
-  lower = c(0.8, 4.6, 2.4, 3.6)) |>
-  labelled::set_variable_labels(
-    trt = "Treatment", 
-    resp = "Response"
-  )
-
 p1 <- experiment |>
   gg_pointrange(
     x = trt,
@@ -312,10 +294,12 @@ The `gg_*()` function should be appropriate to be the bottom layer of the plot, 
 ```{r, fig.asp = 0.4}
 penguins2 |>
   group_by(species) |>
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) |>
-  mutate(lower = body_mass_g * 0.95) |> 
-  mutate(upper = body_mass_g * 1.2) |> 
-  labelled::copy_labels_from(penguins2) %>%
+  summarise(
+    lower = quantile(body_mass_g, probs = 0.05),
+    upper = quantile(body_mass_g, probs = 0.95),
+    body_mass_g = mean(body_mass_g, na.rm = TRUE),
+  ) |>
+  labelled::copy_labels_from(penguins2) |> 
   gg_col(
     x = body_mass_g,
     xmin = lower, 
@@ -323,10 +307,9 @@ penguins2 |>
     y = species,
     col = species,
     width = 0.75,
-    x_expand_limits = c(0, max(.$upper)),
   ) +
   geom_errorbar(
-    colour = "black", 
+    colour = lightness[1], 
     width = 0.1, 
   ) 
 ```
@@ -334,29 +317,28 @@ penguins2 |>
 ```{r, fig.asp = 0.4}
 penguins2 |>
   group_by(species) |>
-  summarise(body_mass_g = mean(body_mass_g, na.rm = TRUE)) |>
-  mutate(lower = body_mass_g * 0.95) |> 
-  mutate(upper = body_mass_g * 1.2) |> 
-  gg_blanket( 
+  summarise(
+    lower = quantile(body_mass_g, probs = 0.05),
+    upper = quantile(body_mass_g, probs = 0.95),
+    body_mass_g = mean(body_mass_g, na.rm = TRUE),
+  ) |>
+  labelled::copy_labels_from(penguins2) |> 
+  gg_blanket(
     x = body_mass_g,
-    y = species,
-    col = species,
     xmin = lower, 
     xmax = upper,
-    width = 0.75,
+    y = species,
+    col = species,
     x_expand_limits = 0,
-    x_labels = \(x) x / 1000, 
-    x_label = "Body mass (kg)",
   ) +
   geom_col(
     colour = "#d3d3d3",
     fill = "#d3d3d3",
-    alpha = 0.9,
     width = 0.75,
   ) +
   geom_errorbar(
     width = 0.1, 
-  )
+  ) 
 ```
 
 ### 10. Access other aesthetics via `mapping`
@@ -398,8 +380,7 @@ experiment |>
     ymax = upper,
     col = group,
     y_expand_limits = 0,
-    title = "Theme with no side-effects",
-    subtitle = "+ light_mode_n()",
+    subtitle = "\nNo theme side-effects with + theme",
   ) +
   light_mode_n()
 ```
@@ -414,6 +395,7 @@ p1 <- experiment |>
     col = group,
     y_expand_limits = 0,
     mode = light_mode_n(),
+    subtitle = "Theme side-effects with mode argument",
   ) 
 
 p2 <- experiment |>
@@ -427,16 +409,7 @@ p2 <- experiment |>
     mode = light_mode_n(),
   ) 
 
-p1 + p2 +
-  plot_annotation(
-    title = "Theme with side-effects",
-    subtitle = "mode = light_mode_n(),",
-    theme = light_mode_r() +
-      theme(
-        plot.title = element_text(margin = margin(t = -11)),
-        plot.subtitle = element_text(margin = margin(t = 5.5)),
-      )
-  )
+p1 + p2
 ```
 
 ### 12.  Families of `*_mode_*` themes that differ by legend placement 
@@ -462,7 +435,7 @@ penguins2 |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    mode = dark_mode_t() + theme(legend.title = element_blank()),
+    mode = grey_mode_t() + theme(legend.title = element_blank()),
   ) 
 ```
 
