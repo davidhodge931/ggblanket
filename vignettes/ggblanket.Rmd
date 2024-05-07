@@ -500,14 +500,19 @@ penguins2 |>
 
 The `set_blanket` function is used to set the default style for ggblanket plots. 
 
-This function: 
-* sets the default mode 
-* updates a series of geom defaults often used for annotation (i.e. `*_vline`, `*_hline`, `*_abline`, `*_curve`, `*_text` and `*_label`)
-* updates all other geom defaults.
+This function sets the mode and colours, among other things. 
 
-Within the `set_blanket` function, the user can select the `mode`, the `colour` and `annotate` colour with the fill inheriting from these.
+It is an uber function that runs a series of `weave_*` functions. 
 
-Elements can be `+`-ed on to modes just as normal themes. The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
+It sets defaults that the user can modify for the:
+* mode 
+* geom colour
+* annotation colour
+* discrete colour palette
+* continuous colour palette
+* theme
+
+The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
 
 ```{r}
 set_blanket(
@@ -588,6 +593,7 @@ penguins2 |>
     col = species,
   )
 ```
+
 ```{r}
 geom_histogram()
 

@@ -1,4 +1,4 @@
-# ggblanket 8.0.9000
+# ggblanket 8.9.9000
 
 * Supported a label-based workflow.
 * Breaking: renamed `*_title` to `*_label`.
