@@ -367,7 +367,7 @@ penguins2 |>
 
 The `mapping` argument provides access to other aesthetics, such as `alpha`, `size`, `shape`, `linetype` and `linewidth` etc. 
 
-Note, in some situations, the `alpha`, `size`, `shape`, `linetype` and `linewidth` values may need to be reversed.
+Note, in some situations, the `alpha`, `size`, `shape`, `linetype` and `linewidth` values may need to be reversed in the relevant scale.
 
 ```{r, fig.asp=0.75}
 p1 <- penguins2 |> 
@@ -376,8 +376,6 @@ p1 <- penguins2 |>
     y = flipper_length_mm, 
     col = species,
     mapping = aes(shape = species),
-    # x_labels = \(x) str_sub(x, 1, 1),
-
   ) 
 
 p2 <- penguins2 |> 
