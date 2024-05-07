@@ -502,16 +502,16 @@ The `set_blanket` function is used to set the default style for ggblanket plots.
 
 This function sets the mode and colours, among other things. 
 
-It is an uber function that runs a series of `weave_*` functions. 
+It is an uber-function that runs a series of `weave_*` functions. 
 
 It sets defaults that the user can modify for the:
 
-* mode 
+* mode (i.e. a theme added to mode with associated side-effects)
 * geom colour
 * annotation colour
 * discrete colour palette
 * continuous colour palette
-* theme
+* theme (i.e. a theme added with no side-effects)
 
 The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
 
