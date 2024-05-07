@@ -108,7 +108,6 @@ penguins2 |>
 ```{r, fig.asp=0.45}
 penguins2 |>
   drop_na(sex) |>
-  mutate(across(sex, str_to_sentence)) |>
   gg_bar(
     position = "dodge",
     y = species, 
@@ -126,7 +125,6 @@ When `facet` variable is _not_ NULL (and `facet2 = NULL`), the `facet_layout` wi
 ```{r}
 penguins2 |>
   drop_na(sex) |> 
-  mutate(across(sex, str_to_sentence)) |> 
   gg_histogram(
     x = flipper_length_mm,
     facet = species,
@@ -143,7 +141,6 @@ Whenever a `facet2` does _not_ equal NULL, the `facet_layout` will default to `"
 
 ```{r, fig.asp=0.75}
 penguins2 |>
-  mutate(across(sex, str_to_sentence)) |> 
   gg_histogram(
     x = flipper_length_mm,
     facet = species,
@@ -175,7 +172,6 @@ penguins2 |>
     col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
     col_palette = viridis::magma(n = 9, direction = -1),
-    facet_labels = str_to_sentence,
   )
 ```
 
@@ -458,30 +454,6 @@ Note:
 * to remove a `*_label`, use `+ labs(... = NULL)` 
 * for `col_label`, use `+ labs(colour = NULL, fill = NULL)` or `+ theme(legend.title = element_blank()`. 
 
-```{r, fig.asp=0.7}
-penguins2 |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-    title = "Penguin flipper length by species",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020", 
-    mode = light_mode_t() + theme(legend.title = element_blank()),
-  ) 
-```
-
-```{r, fig.asp=0.75}
-penguins2 |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-    title = "Penguin flipper length by species",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020", 
-    mode = grey_mode_t() + theme(legend.title = element_blank()),
-  ) 
-```
-
 ```{r, fig.asp=0.65}
 penguins2 |>
   gg_histogram(
@@ -518,6 +490,7 @@ set_blanket(
   mode = dark_mode_r(), 
   geom_colour = "#bc5090",
   annotate_colour = darkness[1],
+  col_palette_d = c(purple, pink, red, navy, orange, teal),
 )
 
 p1 <- penguins2 |>
@@ -532,6 +505,7 @@ p1 <- penguins2 |>
 p2 <- penguins2 |> 
   gg_histogram(
     x = flipper_length_mm,
+    col = species,
     x_breaks = scales::breaks_pretty(3),
   ) +
   geom_vline(xintercept = 200) +
@@ -556,14 +530,12 @@ set_blanket(
 geom_violin()
 
 penguins2 |>
-  drop_na(sex) |>
   gg_blanket(
     geom = "violin",
     stat = "ydensity",
     position = "dodge",
-    x = sex,
+    x = species,
     y = body_mass_g,
-    col = species,
   )
 ```
 

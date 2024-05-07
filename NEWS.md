@@ -11,6 +11,7 @@
 * Made guides of alpha/shape/size/linewidth/linetype aesthetics equal to colour/fill align automatically.
 * Breaking: removed `replace_seq`.
 * Added `col_drop` and `facet_drop` arguments.
+* Fixed bug relating to `gg_bin_2d` scales.
 
 # ggblanket 8.0.0
 

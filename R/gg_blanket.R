@@ -1390,7 +1390,7 @@ gg_blanket <- function(data = NULL,
         }
       }
       else {
-        x_vars_str <- "^x(?!id)" #starts with x & not xid (which is used in geom_boxplot etc)
+        x_vars_str <- "^(?!xid|xbin)x.*" #starts with x & not xid & not xbin
 
         x_vctr <- plot_data %>%
           dplyr::select(tidyselect::matches(stringr::regex(x_vars_str)))
@@ -1578,7 +1578,7 @@ gg_blanket <- function(data = NULL,
         }
       }
       else {
-        y_vars_str <- "^y(?!id)" #starts with y & not yid (which is used in geom_boxplot etc)
+        y_vars_str <- "^(?!yid|ybin)y.*" #starts with y & not yid & not ybin
 
         y_vctr <- plot_data %>%
           dplyr::select(tidyselect::matches(stringr::regex(y_vars_str)))
