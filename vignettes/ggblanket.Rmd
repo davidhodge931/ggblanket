@@ -580,25 +580,6 @@ penguins2 |>
   ) 
 ```
 
-```{r}
-set_blanket()
-
-geom_spoke()
-
-expand.grid(x = 1:10, y = 1:10) |>
-  tibble() |>
-  mutate(angle = runif(100, 0, 2*pi)) |>
-  mutate(speed = runif(100, 0, sqrt(0.1 * x))) |>
-  gg_blanket(
-    geom = "spoke",
-    x = x, 
-    y = y,
-    col = speed,
-    mapping = aes(angle = angle, radius = speed),
-  ) +
-  geom_point()
-```
-
 ## Further information 
 
 See the ggblanket [website](https://davidhodge931.github.io/ggblanket/index.html) for further information, including [articles](https://davidhodge931.github.io/ggblanket/articles/) and [function reference](https://davidhodge931.github.io/ggblanket/reference/index.html).
