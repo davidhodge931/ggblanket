@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.9.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -550,17 +550,14 @@ can select the colours and linewidths.</p>
 </h3>
 <p>The <code>set_blanket</code> function is used to set the default
 style for ggblanket plots.</p>
-<p>This function: * sets the default mode * updates a series of geom
-defaults often used for annotation (i.e. <code>*_vline</code>,
-<code>*_hline</code>, <code>*_abline</code>, <code>*_curve</code>,
-<code>*_text</code> and <code>*_label</code>) * updates all other geom
-defaults.</p>
-<p>Within the <code>set_blanket</code> function, the user can select the
-<code>mode</code>, the <code>colour</code> and <code>annotate</code>
-colour with the fill inheriting from these.</p>
-<p>Elements can be <code>+</code>-ed on to modes just as normal themes.
-The <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults()</a></code> function can be used to
-further fine-tune geom defaults.</p>
+<p>This function sets the mode and colours, among other things.</p>
+<p>It is an uber function that runs a series of <code>weave_*</code>
+functions.</p>
+<p>It sets defaults that the user can modify for the: * mode * geom
+colour * annotation colour * discrete colour palette * continuous colour
+palette * theme</p>
+<p>The <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults()</a></code> function can be used
+to further fine-tune geom defaults.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
 <span>  mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_r.html">grey_mode_r</a></span><span class="op">(</span><span class="op">)</span>, </span>
