@@ -402,7 +402,7 @@ experiment |>
     ymax = upper,
     col = group,
     y_expand_limits = 0,
-    title = "No side-effects",
+    title = "Theme with no side-effects",
     subtitle = "+ light_mode_n()",
   ) +
   light_mode_n()
@@ -433,7 +433,7 @@ p2 <- experiment |>
 
 p1 + p2 +
   plot_annotation(
-    title = "Side effects with the mode argument",
+    title = "Theme with side-effects",
     subtitle = "mode = light_mode_n(),",
     theme = light_mode_r() +
       theme(
@@ -455,10 +455,8 @@ These are intended for use with the `mode` argument.
 
 Note:
 * if you want to use a quick non-bold title, use `subtitle = "\n..."`
-* a title can be removed using `+ labs(... = NULL)` 
-* for removing the legend title, you will often need `+ labs(colour = NULL, fill = NULL)`. 
-
-A further `flexi_mode_*` family is provided where users can select the colours and linewidths.
+* to remove a `*_label`, use `+ labs(... = NULL)` 
+* for `col_label`, use `+ labs(colour = NULL, fill = NULL)` or `+ theme(legend.title = element_blank()`. 
 
 ```{r, fig.asp=0.7}
 penguins2 |>
@@ -498,7 +496,7 @@ penguins2 |>
 
 ### 13. Set the mode and geom defaults with `set_blanket`
 
-The `set_blanket` function is used to set the default style for ggblanket plots. 
+The `set_blanket` function is used to set the default style for ggblanket (and ggplot2) plots. 
 
 This function sets the mode and colours, among other things. 
 
@@ -506,7 +504,7 @@ It is an uber-function that runs a series of `weave_*` functions.
 
 It sets defaults that the user can modify for the:
 
-* mode (i.e. a theme added to mode with associated side-effects)
+* mode (i.e. a theme with side-effects)
 * geom colour
 * annotation colour
 * discrete colour palette
