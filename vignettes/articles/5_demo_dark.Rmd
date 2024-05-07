@@ -211,7 +211,7 @@ penguins2 |>
     col = sex,
     mode = light_mode_t(),
   ) +
-  labs(colour = NULL, fill = NULL)
+  theme(legend.title = element_blank())
 ```
 
 ### gg_function
@@ -246,8 +246,9 @@ penguins2 |>
     col = sex,
     facet = species,
     bins = 50,
-    mode = light_mode_b(),
-  )
+    mode = light_mode_t(),
+  ) +
+  theme(legend.title = element_blank())
 ```
 
 ### gg_jitter
@@ -389,9 +390,7 @@ penguins2 |>
     facet = species,
     coord = coord_cartesian(clip = "on"), 
   ) +
-  geom_qq_line(
-    colour = blue, 
-  )
+  geom_qq_line()
 ```
 
 ### gg_quantile
