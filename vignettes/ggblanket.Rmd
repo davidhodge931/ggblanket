@@ -515,31 +515,6 @@ The `ggplot2::update_geom_defaults()` function can be used to further fine-tune 
 
 ```{r}
 set_blanket(
-  mode = grey_mode_r(), 
-  geom_colour = "#ffa600",
-)
-
-p1 <- penguins2 |>
-  gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g,
-    x_breaks = scales::breaks_pretty(3),
-  ) +
-  geom_vline(xintercept = 200) +
-  annotate("text", x = I(0.25), y = I(0.75), label = "Here")
-
-p2 <- penguins2 |> 
-  gg_histogram(
-    x = flipper_length_mm,
-    x_breaks = scales::breaks_pretty(3),
-  ) +
-  geom_vline(xintercept = 200) +
-  annotate("text", x = I(0.75), y = I(0.75), label = "Here")
-
-p1 + p2
-```
-```{r}
-set_blanket(
   mode = dark_mode_r(), 
   geom_colour = "#bc5090",
   annotate_colour = darkness[1],
@@ -582,7 +557,6 @@ geom_violin()
 
 penguins2 |>
   drop_na(sex) |>
-  mutate(across(sex, str_to_sentence)) |>
   gg_blanket(
     geom = "violin",
     stat = "ydensity",
