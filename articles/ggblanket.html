@@ -484,7 +484,7 @@ when used in this way.</p>
 <span>    ymax <span class="op">=</span> <span class="va">upper</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">group</span>,</span>
 <span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"No side-effects"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Theme with no side-effects"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"+ light_mode_n()"</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/light_mode_n.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -505,11 +505,10 @@ and <code>n</code> (none).</p>
 <p>The default is <code><a href="../reference/light_mode_r.html">light_mode_r()</a></code>.</p>
 <p>These are intended for use with the <code>mode</code> argument.</p>
 <p>Note: * if you want to use a quick non-bold title, use
-<code>subtitle = "\n..."</code> * a title can be removed using
-<code>+ labs(... = NULL)</code> * for removing the legend title, you
-will often need <code>+ labs(colour = NULL, fill = NULL)</code>.</p>
-<p>A further <code>flexi_mode_*</code> family is provided where users
-can select the colours and linewidths.</p>
+<code>subtitle = "\n..."</code> * to remove a <code>*_label</code>, use
+<code>+ labs(... = NULL)</code> * for <code>col_label</code>, use
+<code>+ labs(colour = NULL, fill = NULL)</code> or
+<code>+ theme(legend.title = element_blank()</code>.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
@@ -549,13 +548,13 @@ can select the colours and linewidths.</p>
 <code>set_blanket</code><a class="anchor" aria-label="anchor" href="#set-the-mode-and-geom-defaults-with-set_blanket"></a>
 </h3>
 <p>The <code>set_blanket</code> function is used to set the default
-style for ggblanket plots.</p>
+style for ggblanket (and ggplot2) plots.</p>
 <p>This function sets the mode and colours, among other things.</p>
 <p>It is an uber-function that runs a series of <code>weave_*</code>
 functions.</p>
 <p>It sets defaults that the user can modify for the:</p>
 <ul>
-<li>mode (i.e. a theme added to mode with associated side-effects)</li>
+<li>mode (i.e. a theme with side-effects)</li>
 <li>geom colour</li>
 <li>annotation colour</li>
 <li>discrete colour palette</li>
