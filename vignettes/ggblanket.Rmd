@@ -505,6 +505,7 @@ This function sets the mode and colours, among other things.
 It is an uber function that runs a series of `weave_*` functions. 
 
 It sets defaults that the user can modify for the:
+
 * mode 
 * geom colour
 * annotation colour
