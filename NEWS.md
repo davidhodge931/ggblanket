@@ -10,7 +10,7 @@
 * In `dark_mode_*`, fixed incorrect `axis_line_colour` default.
 * In `*_mode_*`, updated caption colour default.
 * Made guides of alpha/shape/size/linewidth/linetype aesthetics equal to colour/fill align automatically.
-* Breaking: removed `replace_seq`.
+* Breaking: removed `replace_seq`, but added `hold_nth`.
 * Added `col_drop` and `facet_drop` arguments.
 * Fixed bug relating to `gg_bin_2d` scales.
 
