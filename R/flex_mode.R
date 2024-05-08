@@ -41,7 +41,7 @@
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-foundation_mode_base <- function(
+flex_mode_base <- function(
     base_size = 11,
     base_family = "",
     base_colour = "#121b24ff",
@@ -217,13 +217,13 @@ foundation_mode_base <- function(
 #'
 #' @description Flexible mode with right legend.
 #'
-#' @inheritParams foundation_mode_base
+#' @inheritParams flex_mode_base
 #' @param ... Provided to support trailing commas only.
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-foundation_mode_r <- function (
+flex_mode_r <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
@@ -261,7 +261,7 @@ foundation_mode_r <- function (
     orientation = NULL,
     ...) {
 
-  foundation_mode_base(
+  flex_mode_base(
     base_size = base_size,
     base_family = base_family,
     base_face = "plain",
@@ -304,12 +304,12 @@ foundation_mode_r <- function (
 #'
 #' @description Flexible mode with legend at top.
 #'
-#' @inheritParams foundation_mode_r
+#' @inheritParams flex_mode_r
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-foundation_mode_t <- function (
+flex_mode_t <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
@@ -347,7 +347,7 @@ foundation_mode_t <- function (
     orientation = NULL,
     ...) {
 
-  foundation_mode_base(
+  flex_mode_base(
     base_size = base_size,
     base_family = base_family,
     base_face = "plain",
@@ -404,12 +404,12 @@ foundation_mode_t <- function (
 #'
 #' @description Flexible mode with legend at bottom.
 #'
-#' @inheritParams foundation_mode_r
+#' @inheritParams flex_mode_r
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-foundation_mode_b <- function (
+flex_mode_b <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
@@ -447,7 +447,7 @@ foundation_mode_b <- function (
     orientation = NULL,
     ...) {
 
-  foundation_mode_base(
+  flex_mode_base(
     base_size = base_size,
     base_family = base_family,
     base_face = "plain",
@@ -501,12 +501,12 @@ foundation_mode_b <- function (
 #'
 #' @description Flexible mode with no legend.
 #'
-#' @inheritParams foundation_mode_r
+#' @inheritParams flex_mode_r
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-foundation_mode_n <- function (
+flex_mode_n <- function (
     base_size = 11,
     base_family = "",
     base_face = "plain",
@@ -544,7 +544,7 @@ foundation_mode_n <- function (
     orientation = NULL,
     ...) {
 
-  foundation_mode_base(
+  flex_mode_base(
     base_size = base_size,
     base_family = base_family,
     base_face = "plain",

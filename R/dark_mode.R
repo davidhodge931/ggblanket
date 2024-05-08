@@ -67,7 +67,7 @@ dark_mode_r <- function (
     ...
 ) {
 
-  foundation_mode_r(
+  flex_mode_r(
     base_size = base_size,
     base_family = base_family,
     base_colour = base_colour,
@@ -157,7 +157,7 @@ dark_mode_t <- function (
     ...
 ) {
 
-  foundation_mode_t(
+  flex_mode_t(
     base_size = base_size,
     base_family = base_family,
     base_colour = base_colour,
@@ -247,7 +247,7 @@ dark_mode_b <- function (
     ...
 ) {
 
-  foundation_mode_b(
+  flex_mode_b(
     base_size = base_size,
     base_family = base_family,
     base_colour = base_colour,
@@ -337,7 +337,7 @@ dark_mode_n <- function (
     ...
 ) {
 
-  foundation_mode_n(
+  flex_mode_n(
     base_size = base_size,
     base_family = base_family,
     base_colour = base_colour,

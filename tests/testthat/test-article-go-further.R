@@ -21,7 +21,7 @@ test_that(test_name, {
       y = color,
       width = 0.75,
       x_labels = \(x) x / 1000,
-      x_title = "Count (thousands)",
+      x_label = "Count (thousands)",
       subtitle = "\nDefault order"
     )
 
@@ -35,7 +35,7 @@ test_that(test_name, {
       y = color,
       width = 0.75,
       x_labels = \(x) x / 1000,
-      x_title = "Count (thousands)",
+      x_label = "Count (thousands)",
       subtitle = "\nRe-orderered"
     )
 
@@ -56,7 +56,7 @@ test_that(test_name, {
       y = color,
       width = 0.75,
       x_labels = \(x) x / 1000,
-      x_title = "Count (thousands)",
+      x_label = "Count (thousands)",
       subtitle = "\nUnused levels kept",
     )
 
@@ -69,7 +69,7 @@ test_that(test_name, {
       y = color,
       width = 0.75,
       x_labels = \(x) x / 1000,
-      x_title = "Count (thousands)",
+      x_label = "Count (thousands)",
       subtitle = "\nUnused levels dropped",
     )
 

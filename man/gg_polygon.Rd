@@ -36,7 +36,7 @@ gg_polygon(
   x_limits = NULL,
   x_oob = scales::oob_keep,
   x_position = "bottom",
-  x_title = NULL,
+  x_label = NULL,
   x_transform = NULL,
   y_breaks = NULL,
   y_expand = NULL,
@@ -45,9 +45,10 @@ gg_polygon(
   y_limits = NULL,
   y_oob = scales::oob_keep,
   y_position = "left",
-  y_title = NULL,
+  y_label = NULL,
   y_transform = NULL,
   col_breaks = NULL,
+  col_drop = FALSE,
   col_expand_limits = NULL,
   col_labels = NULL,
   col_legend_ncol = NULL,
@@ -59,10 +60,11 @@ gg_polygon(
   col_palette_na = NULL,
   col_rescale = scales::rescale(),
   col_steps = FALSE,
-  col_title = NULL,
+  col_label = NULL,
   col_transform = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
+  facet_drop = FALSE,
   facet_labels = NULL,
   facet_layout = NULL,
   facet_ncol = NULL,
@@ -72,7 +74,7 @@ gg_polygon(
   title = NULL,
   subtitle = NULL,
   caption = NULL,
-  titles_to_case = snakecase::to_sentence_case
+  label_to_case = snakecase::to_sentence_case
 )
 }
 \arguments{
@@ -106,9 +108,11 @@ gg_polygon(
 
 \item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_mode_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 
-\item{x_title, y_title, col_title}{Axis title string. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
+\item{x_label, y_label, col_label}{Label for the axis or legend title. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
 
 \item{x_transform, y_transform, col_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
+
+\item{col_drop, facet_drop}{For a discrete variable, FALSE or TRUE of whether to drop unused levels.}
 
 \item{col_legend_ncol, col_legend_nrow}{The number of columns and rows in a legend guide.}
 
@@ -140,7 +144,7 @@ gg_polygon(
 
 \item{caption}{Caption title string.}
 
-\item{titles_to_case}{A function to format unspecified titles. Defaults to \code{snakecase::to_sentence_case}.}
+\item{label_to_case}{A function to format the default \code{x_label}, \code{y_label} and \code{col_label} of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
 }
 \value{
 A ggplot object.
@@ -163,10 +167,14 @@ values <- data.frame(
 
 positions <- data.frame(
   id = rep(ids, each = 4),
-  x = c(2, 1, 1.1, 2.2, 1, 0, 0.3, 1.1, 2.2, 1.1, 1.2, 2.5, 1.1, 0.3,
-        0.5, 1.2, 2.5, 1.2, 1.3, 2.7, 1.2, 0.5, 0.6, 1.3),
-  y = c(-0.5, 0, 1, 0.5, 0, 0.5, 1.5, 1, 0.5, 1, 2.1, 1.7, 1, 1.5,
-        2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2)
+  x = c(
+    2, 1, 1.1, 2.2, 1, 0, 0.3, 1.1, 2.2, 1.1, 1.2, 2.5, 1.1, 0.3,
+    0.5, 1.2, 2.5, 1.2, 1.3, 2.7, 1.2, 0.5, 0.6, 1.3
+  ),
+  y = c(
+    -0.5, 0, 1, 0.5, 0, 0.5, 1.5, 1, 0.5, 1, 2.1, 1.7, 1, 1.5,
+    2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2
+  )
 )
 
 datapoly <- merge(values, positions, by = c("id"))

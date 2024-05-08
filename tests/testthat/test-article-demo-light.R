@@ -13,7 +13,7 @@ test_that(test_name, {
     gg_area(
       x = date,
       y = unemploy,
-      y_title = "Unemployment",
+      y_label = "Unemployment",
     )
   vdiffr::expect_doppelganger(test_name, p)
 })
@@ -127,8 +127,8 @@ test_that(test_name, {
       ymax = upper,
       col = group,
       width = 0.5,
-      x_title = "Treatment",
-      y_title = "Response",
+      x_label = "Treatment",
+      y_label = "Response",
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -201,8 +201,8 @@ test_that(test_name, {
       ymax = upper,
       col = group,
       width = 0.1,
-      x_title = "Treatment",
-      y_title = "Response",
+      x_label = "Treatment",
+      y_label = "Response",
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -303,7 +303,7 @@ test_that(test_name, {
       label = model,
       size = 3.53,
       y_expand_limits = 0,
-      y_title = "Miles per gallon",
+      y_label = "Miles per gallon",
       col_palette = c(orange, "white", teal),
     )
 
@@ -319,7 +319,7 @@ test_that(test_name, {
       x = date,
       y = unemploy,
       y_expand_limits = 0,
-      y_title = "Unemployment",
+      y_label = "Unemployment",
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -341,8 +341,8 @@ test_that(test_name, {
       ymax = upper,
       col = group,
       position = position_dodge(width = 0.2),
-      x_title = "Treatment",
-      y_title = "Response",
+      x_label = "Treatment",
+      y_label = "Response",
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -357,9 +357,9 @@ test_that(test_name, {
     gg_path(
       x = unemploy_rate,
       y = psavert,
-      x_title = "Unemployment rate",
+      x_label = "Unemployment rate",
       y_expand_limits = 0,
-      y_title = "Personal savings rate",
+      y_label = "Personal savings rate",
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -397,8 +397,8 @@ test_that(test_name, {
       ymax = upper,
       position = position_dodge(width = 0.2),
       size = 0.2,
-      x_title = "Treatment",
-      y_title = "Response",
+      x_label = "Treatment",
+      y_label = "Response",
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -518,7 +518,7 @@ test_that(test_name, {
       ymax = level_max,
       colour = NA,
       x_labels = \(x) x,
-      y_title = "Level",
+      y_label = "Level",
     ) +
     geom_line(
       mapping = aes(y = level),
@@ -597,7 +597,7 @@ test_that(test_name, {
       coord = coord_cartesian(clip = "on"),
       x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
       y_expand_limits = 0,
-      y_title = "Unemployment",
+      y_label = "Unemployment",
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -618,7 +618,7 @@ test_that(test_name, {
       label = model,
       size = 3.53,
       y_expand_limits = 0,
-      y_title = "Miles per gallon",
+      y_label = "Miles per gallon",
       col_palette = c(orange, "white", teal),
     )
 

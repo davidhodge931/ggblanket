@@ -13,10 +13,11 @@ Rstudio
 Stat
 Teun
 beeswarm
-colourbars
+colorspace
 coord
 datetime
 demphasise
+dfff
 dplyr
 ed
 errorbar
@@ -42,6 +43,7 @@ gridline
 gridlines
 ing
 linerange
+linetype
 linewidth
 linewidths
 magrittr
@@ -55,4 +57,5 @@ showtext
 snakecase
 tibble
 tidyverse
+uber
 vjust

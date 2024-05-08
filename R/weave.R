@@ -14,7 +14,7 @@ ggblanket_global$theme <- NULL
 #'
 #' @param new A default `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
 #'
-#' @export
+#' @noRd
 weave_mode <- function(new = light_mode_r()) {
   old <- ggblanket_global$mode
   ggblanket_global$mode <- new
@@ -27,7 +27,7 @@ weave_mode <- function(new = light_mode_r()) {
 #'
 #' @param new A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions.
 #'
-#' @export
+#' @noRd
 weave_theme <- function(new = light_mode_r(orientation = "x")) {
   old <- ggblanket_global$theme
   ggblanket_global$theme <- new
@@ -42,9 +42,10 @@ weave_theme <- function(new = light_mode_r(orientation = "x")) {
 #'
 #' @param colour A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to "#357ba2" (i.e. `blue`).
 #'
-#' @export
+#' @noRd
 weave_geom_aes <- function(colour = "#357ba2") {
 
+  if (!rlang::is_null(colour)) {
     ggplot2::update_geom_defaults("area", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9, linewidth = 0.66))
     ggplot2::update_geom_defaults("bar", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9, linewidth = 0.66))
     ggplot2::update_geom_defaults("boxplot", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9 * 0.67, linewidth = 0.66))
@@ -77,6 +78,41 @@ weave_geom_aes <- function(colour = "#357ba2") {
     ggplot2::update_geom_defaults("violin", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9, linewidth = 0.66))
     #to add and adjust once ggplot makes GeomBin2d
     ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = NA, fill = !!colour, alpha = 0.9, linewidth = 0.66))
+  }
+  else {
+    ggplot2::update_geom_defaults("area", NULL)
+    ggplot2::update_geom_defaults("bar", NULL)
+    ggplot2::update_geom_defaults("boxplot", NULL)
+    ggplot2::update_geom_defaults("col", NULL)
+    ggplot2::update_geom_defaults("contour", NULL)
+    ggplot2::update_geom_defaults("contour_filled", NULL)
+    ggplot2::update_geom_defaults("crossbar", NULL)
+    ggplot2::update_geom_defaults("density", NULL)
+    ggplot2::update_geom_defaults("density2d", NULL)
+    ggplot2::update_geom_defaults("density_2d_filled", NULL)
+    ggplot2::update_geom_defaults("errorbar", NULL)
+    ggplot2::update_geom_defaults("function", NULL)
+    ggplot2::update_geom_defaults("hex", NULL)
+    ggplot2::update_geom_defaults("line", NULL)
+    ggplot2::update_geom_defaults("linerange", NULL)
+    ggplot2::update_geom_defaults("path", NULL)
+    ggplot2::update_geom_defaults("point", NULL)
+    ggplot2::update_geom_defaults("pointrange", NULL)
+    ggplot2::update_geom_defaults("polygon", NULL)
+    ggplot2::update_geom_defaults("quantile", NULL)
+    ggplot2::update_geom_defaults("raster", NULL)
+    ggplot2::update_geom_defaults("rect", NULL)
+    ggplot2::update_geom_defaults("ribbon", NULL)
+    ggplot2::update_geom_defaults("rug", NULL)
+    ggplot2::update_geom_defaults("segment", NULL)
+    ggplot2::update_geom_defaults("sf", NULL)
+    ggplot2::update_geom_defaults("smooth", NULL)
+    ggplot2::update_geom_defaults("spoke", NULL)
+    ggplot2::update_geom_defaults("step", NULL)
+    ggplot2::update_geom_defaults("violin", NULL)
+    #to add and adjust once ggplot makes GeomBin2d
+    ggplot2::update_geom_defaults("tile", NULL)
+  }
 }
 
 #'  Set a series of annotate defaults
@@ -88,14 +124,24 @@ weave_geom_aes <- function(colour = "#357ba2") {
 #' @param family A default family for `*_text` and `*_label`. Defaults to ""
 #' @param size A default size for `*_text` and `*_label`. Defaults to 3.88.
 #'
-#' @export
+#' @noRd
 weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, family = "", size = 3.88) {
+  if (!rlang::is_null(colour)) {
     ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
     ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
     ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
     ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
     ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour, size = !!size, family = !!family))
     ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.05, size = !!size, family = !!family))
+  }
+  else {
+    ggplot2::update_geom_defaults("abline", NULL)
+    ggplot2::update_geom_defaults("hline", NULL)
+    ggplot2::update_geom_defaults("vline", NULL)
+    ggplot2::update_geom_defaults("curve", NULL)
+    ggplot2::update_geom_defaults("text", NULL)
+    ggplot2::update_geom_defaults("label", NULL)
+  }
 }
 
 #' Set a default discrete colour palette
@@ -103,19 +149,36 @@ weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, family = ""
 #' @param new Colour palette to use for discrete scale. A character vector of hex codes (or names).
 #' @param na A default colour for NA on a discrete scale. A hex code or name.
 #'
-#' @export
+#' @noRd
 weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
 
+  if (!rlang::is_null(new)) {
     new2 <- c(new, rep(na, times = 13))
+  } else {
+    new2 <- NULL
+  }
 
-    old <- ggblanket_global$col_palette_d
-    ggblanket_global$col_palette_d <- new2
-    invisible(old)
+  if (rlang::is_null(na)) {
+    na <- "grey50"
+  }
 
-    old <- ggblanket_global$col_palette_na_d
-    ggblanket_global$col_palette_na_d <- na
-    invisible(old)
+  old <- ggblanket_global$col_palette_d
+  ggblanket_global$col_palette_d <- new2
+  invisible(old)
 
+  old <- ggblanket_global$col_palette_na_d
+  ggblanket_global$col_palette_na_d <- na
+  invisible(old)
+
+  if (rlang::is_null(new)) {
+    options(
+      ggplot2.discrete.colour = function()
+        ggplot2::scale_colour_hue(),
+      ggplot2.discrete.fill = function()
+        ggplot2::scale_fill_hue()
+    )
+  }
+  else {
     options(
       ggplot2.discrete.colour = function()
         ggplot2::scale_colour_manual(
@@ -128,6 +191,7 @@ weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
           na.value = na
         )
     )
+  }
 }
 
 #' Set a default continuous colour palette
@@ -135,30 +199,38 @@ weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
 #' @param new Colour palette to use for continuous scale. A character vector of hex codes (or names).
 #' @param na A default colour for NA on a continuous scale. A hex code or name.
 #'
-#' @export
+#' @noRd
 weave_col_palette_c <- function(new = viridisLite::mako(n = 9, direction = -1),
                                 na = "#cdc5bfff") {
 
-    old <- ggblanket_global$col_palette_c
-    ggblanket_global$col_palette_c <- new
-    invisible(old)
+  if (rlang::is_null(new)) {
+    new <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")(seq(0, 1, length.out = 20))
+  }
 
-    old <- ggblanket_global$col_palette_na_c
-    ggblanket_global$col_palette_na_c <- na
-    invisible(old)
+  if (rlang::is_null(na)) {
+    na <- "grey50"
+  }
 
-    options(
-      ggplot2.continuous.colour = function()
-        ggplot2::scale_color_gradientn(
-          colours = new,
-          na.value = na
-        ),
-      ggplot2.continuous.fill = function()
-        ggplot2::scale_fill_gradientn(
-          colours = new,
-          na.value = na
-        )
-    )
+  old <- ggblanket_global$col_palette_c
+  ggblanket_global$col_palette_c <- new
+  invisible(old)
+
+  old <- ggblanket_global$col_palette_na_c
+  ggblanket_global$col_palette_na_c <- na
+  invisible(old)
+
+  options(
+    ggplot2.continuous.colour = function()
+      ggplot2::scale_color_gradientn(
+        colours = new,
+        na.value = na
+      ),
+    ggplot2.continuous.fill = function()
+      ggplot2::scale_fill_gradientn(
+        colours = new,
+        na.value = na
+      )
+  )
 }
 
 #' Get the default mode

@@ -1,6 +1,6 @@
 Package: ggblanket
 Title: Simplify 'ggplot2' Visualisation
-Version: 8.0.9000
+Version: 8.9.9000
 Authors@R: 
     person("David", "Hodge", , "davidhodge931@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-3868-7501"))
@@ -18,6 +18,7 @@ Imports:
     ggplot2 (>= 3.5.0),
     grid,
     hms (>= 0.5.0),
+    labelled,
     lubridate (>= 1.7.8),
     magrittr,
     purrr,
