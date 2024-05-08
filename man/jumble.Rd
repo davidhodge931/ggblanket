@@ -11,23 +11,6 @@
 \alias{purple}
 \alias{grey}
 \title{A jumble of colours}
-\format{
-An object of class \code{character} of length 7.
-
-An object of class \code{character} of length 1.
-
-An object of class \code{character} of length 1.
-
-An object of class \code{character} of length 1.
-
-An object of class \code{character} of length 1.
-
-An object of class \code{character} of length 1.
-
-An object of class \code{character} of length 1.
-
-An object of class \code{character} of length 1.
-}
 \usage{
 jumble
 

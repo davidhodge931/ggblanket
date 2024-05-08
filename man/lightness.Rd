@@ -7,15 +7,6 @@
 \alias{darkness}
 \alias{linewidthness}
 \title{Mode colours}
-\format{
-An object of class \code{character} of length 3.
-
-An object of class \code{character} of length 3.
-
-An object of class \code{character} of length 3.
-
-An object of class \code{numeric} of length 2.
-}
 \usage{
 lightness
 

@@ -4,9 +4,6 @@
 \name{blue}
 \alias{blue}
 \title{A blue colour}
-\format{
-An object of class \code{character} of length 1.
-}
 \usage{
 blue
 }

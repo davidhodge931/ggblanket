@@ -2,6 +2,7 @@
 #'
 #' @description A blue colour.
 #'
+#' @format NULL
 #' @return A character vector.
 #' @export
 #'
