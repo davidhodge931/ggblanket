@@ -8,7 +8,7 @@
 #' @param offset An offset for which element to first hold. Defaults to `0`. Possible values are `-1` to (`nth - 2`)
 #'
 #' @return A character vector
-#' @export
+#' @noRd
 #'
 #' @examples
 #' hold_nth(scales::comma(seq(1000, 5000, 1000)))
