@@ -14,7 +14,7 @@ ggblanket_global$theme <- NULL
 #'
 #' @param new A default `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
 #'
-#' @export
+#' @noRd
 weave_mode <- function(new = light_mode_r()) {
   old <- ggblanket_global$mode
   ggblanket_global$mode <- new
@@ -27,7 +27,7 @@ weave_mode <- function(new = light_mode_r()) {
 #'
 #' @param new A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions.
 #'
-#' @export
+#' @noRd
 weave_theme <- function(new = light_mode_r(orientation = "x")) {
   old <- ggblanket_global$theme
   ggblanket_global$theme <- new
@@ -42,7 +42,7 @@ weave_theme <- function(new = light_mode_r(orientation = "x")) {
 #'
 #' @param colour A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to "#357ba2" (i.e. `blue`).
 #'
-#' @export
+#' @noRd
 weave_geom_aes <- function(colour = "#357ba2") {
 
   if (!rlang::is_null(colour)) {
@@ -124,7 +124,7 @@ weave_geom_aes <- function(colour = "#357ba2") {
 #' @param family A default family for `*_text` and `*_label`. Defaults to ""
 #' @param size A default size for `*_text` and `*_label`. Defaults to 3.88.
 #'
-#' @export
+#' @noRd
 weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, family = "", size = 3.88) {
   if (!rlang::is_null(colour)) {
     ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
@@ -149,7 +149,7 @@ weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, family = ""
 #' @param new Colour palette to use for discrete scale. A character vector of hex codes (or names).
 #' @param na A default colour for NA on a discrete scale. A hex code or name.
 #'
-#' @export
+#' @noRd
 weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
 
   if (!rlang::is_null(new)) {
@@ -199,7 +199,7 @@ weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
 #' @param new Colour palette to use for continuous scale. A character vector of hex codes (or names).
 #' @param na A default colour for NA on a continuous scale. A hex code or name.
 #'
-#' @export
+#' @noRd
 weave_col_palette_c <- function(new = viridisLite::mako(n = 9, direction = -1),
                                 na = "#cdc5bfff") {
 
