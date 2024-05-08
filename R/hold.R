@@ -1,19 +1,19 @@
-#' Hold by every n element
+#' Hold every nth element
 #'
 #' @description
-#' Hold by every n element in a vector, and replace the rest with "".
+#' Hold every nth element in a vector, and replace the rest with "".
 #'
 #' @param n The increment of elements to hold as is. Defaults to `2`.
 #' @param offset An offset for which element to first hold. Defaults to `0`. Possible values are `-1` to (`n - 2`)
-#' @param ... If numeric, other arguments passed to the `scales::comma` function.
+#' @param ... If numeric, arguments passed to the `scales::comma` function. Otherwise, arguments passed to `format`.
 #'
-#' @return A character vector
+#' @return A labelling function
 #' @noRd
 #'
 #' @examples
-#' hold_every_nth()scales::comma(seq(1000, 5000, 1000))
-#' hold_every_nth()format(lubridate::ymd(c("2021-01-01", "2022-01-01", "2023-01-01", "2024-01-01")))
-#' hold_every_nth()LETTERS[1:12]
+#' label_every_nth()scales::comma(seq(1000, 5000, 1000))
+#' label_every_nth()format(lubridate::ymd(c("2021-01-01", "2022-01-01", "2023-01-01", "2024-01-01")))
+#' label_every_nth()LETTERS[1:12]
 #'
 #' library(dplyr)
 #' library(palmerpenguins)
@@ -26,17 +26,19 @@
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = sex,
-#'     y_labels = hold_every_nth(),
+#'     y_labels = label_every_nth(),
 #'   )
 #
-hold_every_nth <- function(n = 2, offset = 0, ...) {
+label_every_nth <- function(n = 2, offset = 0, ...) {
   force(n)
   force(offset)
   function(x) {
     i <- which(is.finite(x) | is.character(x) | is.factor(x) | is.logical(x))
     i <- i[seq_along(i) %% n == (offset + 1)]
+
     if (is.numeric(x)) x <- scales::comma(x, ...)
-    else x <- as.character(x)
+    else x <- format(x, ...)
+
     x[-i] <- ""
     x
   }
