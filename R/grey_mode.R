@@ -1,6 +1,11 @@
-#' Grey mode theme with right legend
+#' Grey mode theme family
 #'
-#' @description Grey mode theme with right legend using `greyness` colours.
+#' @description
+#' A grey mode family of functions:
+#' * `grey_mode_r()` with legend on right
+#' * `grey_mode_t()` with legend on top
+#' * `grey_mode_b()` with legend on bottom
+#' * `grey_mode_n()` with no legend
 #'
 #' @param base_size The base size of the text theme element. Defaults to 11.
 #' @param base_family The base family of the text theme element. Defaults to "".
@@ -40,6 +45,30 @@
 #'     y = body_mass_g,
 #'     col = species,
 #'     mode = grey_mode_r()
+#'   )
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     mode = grey_mode_t()
+#'   )
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     mode = grey_mode_b()
+#'   )
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     mode = grey_mode_n()
 #'   )
 #'
 grey_mode_r <- function (
@@ -109,29 +138,8 @@ grey_mode_r <- function (
   )
 }
 
-#' Grey mode theme with top legend
-#'
-#' @description Grey mode theme with top legend using `greyness` colours.
-#'
-#' @inheritParams grey_mode_r
-#'
-#' @return A ggplot theme.
+#' @rdname grey_mode_r
 #' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = grey_mode_t()
-#'   )
-#'
 grey_mode_t <- function (
     base_size = 11,
     base_family = "",
@@ -199,29 +207,8 @@ grey_mode_t <- function (
   )
 }
 
-#' Grey mode theme with bottom legend
-#'
-#' @description Grey mode theme with bottom legend using `greyness` colours.
-#'
-#' @inheritParams grey_mode_r
-#'
-#' @return A ggplot theme.
+#' @rdname grey_mode_r
 #' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = grey_mode_b()
-#'   )
-#'
 grey_mode_b <- function (
     base_size = 11,
     base_family = "",
@@ -289,29 +276,8 @@ grey_mode_b <- function (
   )
 }
 
-#' Grey mode theme with no legend
-#'
-#' @description Grey mode theme with no legend using `greyness` colours.
-#'
-#' @inheritParams grey_mode_r
-#'
-#' @return A ggplot theme.
+#' @rdname grey_mode_r
 #' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   gg_jitter(
-#'     x = species,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = grey_mode_n()
-#'   )
-#'
 grey_mode_n <- function (
     base_size = 11,
     base_family = "",

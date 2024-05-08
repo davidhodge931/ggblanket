@@ -1,6 +1,11 @@
-#' Light mode theme with right legend
+#' Light mode theme family
 #'
-#' @description Light mode theme with right legend using `lightness` colours.
+#' @description
+#' A dark mode family of functions:
+#' * `light_mode_r()` with legend on right
+#' * `light_mode_t()` with legend on top
+#' * `light_mode_b()` with legend on bottom
+#' * `light_mode_n()` with no legend
 #'
 #' @param base_size The base size of the text theme element. Defaults to 11.
 #' @param base_family The base family of the text theme element. Defaults to "".
@@ -40,6 +45,30 @@
 #'     y = body_mass_g,
 #'     col = species,
 #'     mode = light_mode_r()
+#'   )
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     mode = light_mode_t()
+#'   )
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     mode = light_mode_b()
+#'   )
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     mode = light_mode_n()
 #'   )
 #'
 light_mode_r <- function (
@@ -109,29 +138,8 @@ light_mode_r <- function (
   )
 }
 
-#' Light mode theme with top legend
-#'
-#' @description Light mode theme with top legend using `lightness` colours.
-#'
-#' @inheritParams light_mode_r
-#'
-#' @return A ggplot theme.
+#' @rdname light_mode_r
 #' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = light_mode_t()
-#'   )
-#'
 light_mode_t <- function (
     base_size = 11,
     base_family = "",
@@ -199,29 +207,8 @@ light_mode_t <- function (
   )
 }
 
-#' Light mode theme with bottom legend
-#'
-#' @description Light mode theme with bottom legend using `lightness` colours.
-#'
-#' @inheritParams light_mode_r
-#'
-#' @return A ggplot theme.
+#' @rdname light_mode_r
 #' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = light_mode_b()
-#'   )
-#'
 light_mode_b <- function (
     base_size = 11,
     base_family = "",
@@ -289,29 +276,8 @@ light_mode_b <- function (
   )
 }
 
-#' Light mode theme with no legend
-#'
-#' @description Light mode theme with no legend using `lightness` colours.
-#'
-#' @inheritParams light_mode_r
-#'
-#' @return A ggplot theme.
+#' @rdname light_mode_r
 #' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   gg_jitter(
-#'     x = species,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = light_mode_n()
-#'   )
-#'
 light_mode_n <- function (
     base_size = 11,
     base_family = "",

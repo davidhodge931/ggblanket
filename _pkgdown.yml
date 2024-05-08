@@ -29,6 +29,7 @@ reference:
 - title: Colour
 - contents:
   - blue
+  - jumble
   - teal
   - orange
   - navy
@@ -36,10 +37,10 @@ reference:
   - pink
   - purple
   - grey
-  - jumble
   - lightness
   - greyness
   - darkness
+  - linewidthness
 - title: Other
 - contents:
   - aes_contrast

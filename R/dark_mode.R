@@ -1,6 +1,11 @@
-#' Dark mode theme with right legend
+#' Dark mode theme family
 #'
-#' @description Dark mode theme with right legend using `darkness` colours.
+#' @description
+#' A dark mode family of functions:
+#' * `dark_mode_r()` with legend on right
+#' * `dark_mode_t()` with legend on top
+#' * `dark_mode_b()` with legend on bottom
+#' * `dark_mode_n()` with no legend
 #'
 #' @param base_size The base size of the text theme element. Defaults to 11.
 #' @param base_family The base family of the text theme element. Defaults to "".
@@ -40,6 +45,30 @@
 #'     y = body_mass_g,
 #'     col = species,
 #'     mode = dark_mode_r()
+#'   )
+#'
+#'  penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     mode = dark_mode_t()
+#'   )
+#'
+#'  penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     mode = dark_mode_b()
+#'   )
+#'
+#'  penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     mode = dark_mode_n()
 #'   )
 #'
 dark_mode_r <- function (
@@ -109,29 +138,8 @@ dark_mode_r <- function (
   )
 }
 
-#' Dark mode theme with top legend
-#'
-#' @description Dark mode theme with top legend using `darkness` colours.
-#'
-#' @inheritParams dark_mode_r
-#'
-#' @return A ggplot theme.
+#' @rdname dark_mode_r
 #' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = dark_mode_t()
-#'   )
-#'
 dark_mode_t <- function (
     base_size = 11,
     base_family = "",
@@ -199,29 +207,8 @@ dark_mode_t <- function (
   )
 }
 
-#' Dark mode theme with bottom legend
-#'
-#' @description Dark mode theme with bottom legend using `darkness` colours.
-#'
-#' @inheritParams dark_mode_r
-#'
-#' @return A ggplot theme.
+#' @rdname dark_mode_r
 #' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = dark_mode_b()
-#'   )
-#'
 dark_mode_b <- function (
     base_size = 11,
     base_family = "",
@@ -289,29 +276,8 @@ dark_mode_b <- function (
   )
 }
 
-#' Dark mode theme with no legend
-#'
-#' @description Dark mode theme with no legend using `darkness` colours.
-#'
-#' @inheritParams dark_mode_r
-#'
-#' @return A ggplot theme.
+#' @rdname dark_mode_r
 #' @export
-#'
-#' @examples
-#' library(palmerpenguins)
-#' library(ggplot2)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   gg_jitter(
-#'     x = species,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = dark_mode_n()
-#'   )
-#'
 dark_mode_n <- function (
     base_size = 11,
     base_family = "",

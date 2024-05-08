@@ -2,9 +2,87 @@
 % Please edit documentation in R/dark_mode.R
 \name{dark_mode_r}
 \alias{dark_mode_r}
-\title{Dark mode theme with right legend}
+\alias{dark_mode_t}
+\alias{dark_mode_b}
+\alias{dark_mode_n}
+\title{Dark mode theme family}
 \usage{
 dark_mode_r(
+  base_size = 11,
+  base_family = "",
+  base_colour = "#c8d7dfff",
+  axis_line_colour = "#c8d7dfff",
+  axis_line_linewidth = 0.33,
+  axis_ticks_colour = axis_line_colour,
+  axis_ticks_linewidth = axis_line_linewidth,
+  axis_ticks_length_x = grid::unit(base_size/3, "pt"),
+  axis_ticks_length_y = grid::unit(base_size/4, "pt"),
+  panel_grid_colour = "#00040aff",
+  panel_grid_linewidth = 1.33,
+  panel_background_fill = "#050d1bff",
+  plot_background_fill = "#00040aff",
+  legend_axis_line_colour = plot_background_fill,
+  legend_axis_line_linewidth = 0.33,
+  legend_background_fill = plot_background_fill,
+  legend_key_fill = plot_background_fill,
+  legend_ticks_colour = legend_axis_line_colour,
+  legend_ticks_linewidth = legend_axis_line_linewidth,
+  legend_ticks_length = ggplot2::rel(c(0.175, 0)),
+  orientation = NULL,
+  ...
+)
+
+dark_mode_t(
+  base_size = 11,
+  base_family = "",
+  base_colour = "#c8d7dfff",
+  axis_line_colour = "#c8d7dfff",
+  axis_line_linewidth = 0.33,
+  axis_ticks_colour = axis_line_colour,
+  axis_ticks_linewidth = axis_line_linewidth,
+  axis_ticks_length_x = grid::unit(base_size/3, "pt"),
+  axis_ticks_length_y = grid::unit(base_size/4, "pt"),
+  panel_grid_colour = "#00040aff",
+  panel_grid_linewidth = 1.33,
+  panel_background_fill = "#050d1bff",
+  plot_background_fill = "#00040aff",
+  legend_axis_line_colour = plot_background_fill,
+  legend_axis_line_linewidth = 0.33,
+  legend_background_fill = plot_background_fill,
+  legend_key_fill = plot_background_fill,
+  legend_ticks_colour = legend_axis_line_colour,
+  legend_ticks_linewidth = legend_axis_line_linewidth,
+  legend_ticks_length = ggplot2::rel(c(0.175, 0)),
+  orientation = NULL,
+  ...
+)
+
+dark_mode_b(
+  base_size = 11,
+  base_family = "",
+  base_colour = "#c8d7dfff",
+  axis_line_colour = "#c8d7dfff",
+  axis_line_linewidth = 0.33,
+  axis_ticks_colour = axis_line_colour,
+  axis_ticks_linewidth = axis_line_linewidth,
+  axis_ticks_length_x = grid::unit(base_size/3, "pt"),
+  axis_ticks_length_y = grid::unit(base_size/4, "pt"),
+  panel_grid_colour = "#00040aff",
+  panel_grid_linewidth = 1.33,
+  panel_background_fill = "#050d1bff",
+  plot_background_fill = "#00040aff",
+  legend_axis_line_colour = plot_background_fill,
+  legend_axis_line_linewidth = 0.33,
+  legend_background_fill = plot_background_fill,
+  legend_key_fill = plot_background_fill,
+  legend_ticks_colour = legend_axis_line_colour,
+  legend_ticks_linewidth = legend_axis_line_linewidth,
+  legend_ticks_length = ggplot2::rel(c(0.175, 0)),
+  orientation = NULL,
+  ...
+)
+
+dark_mode_n(
   base_size = 11,
   base_family = "",
   base_colour = "#c8d7dfff",
@@ -78,7 +156,13 @@ dark_mode_r(
 A ggplot theme.
 }
 \description{
-Dark mode theme with right legend using \code{darkness} colours.
+A dark mode family of functions:
+\itemize{
+\item \code{dark_mode_r()} with legend on right
+\item \code{dark_mode_t()} with legend on top
+\item \code{dark_mode_b()} with legend on bottom
+\item \code{dark_mode_n()} with no legend
+}
 }
 \examples{
 library(palmerpenguins)
@@ -92,6 +176,30 @@ penguins |>
     y = body_mass_g,
     col = species,
     mode = dark_mode_r()
+  )
+
+ penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+    mode = dark_mode_t()
+  )
+
+ penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+    mode = dark_mode_b()
+  )
+
+ penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+    mode = dark_mode_n()
   )
 
 }
