@@ -31,7 +31,6 @@ This article will demonstrate a random assortment of content, including some of 
 9. Use opacity with to emphasise/demphasise. 
 10. Understand `oob` & `clip`
 11. Use delayed evaluation
-12. Use label attributes to set default `*_label` values.
 
 ```{r setup}
 library(ggplot2)
