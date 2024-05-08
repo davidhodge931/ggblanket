@@ -25,8 +25,8 @@ A character vector.
 \code{linewidthness} is a vector of 2 integers used in the \verb{*_mode_*} themes for the linewidth of the axis.line (axis.ticks and legend.ticks) and panel.grid theme elements.
 }
 \examples{
-scales::show_col(lightness)
-scales::show_col(greyness)
-scales::show_col(darkness)
+scales::show_col(lightness, ncol = 3)
+scales::show_col(greyness, ncol = 3)
+scales::show_col(darkness, ncol = 3)
 }
 \keyword{datasets}
