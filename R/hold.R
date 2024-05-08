@@ -30,8 +30,7 @@
 #'   )
 #
 label_every_nth <- function(n = 2, offset = 0, ...) {
-  force(n)
-  force(offset)
+  force_all(n, offset, ...)
   function(x) {
     i <- which(is.finite(x) | is.character(x) | is.factor(x) | is.logical(x))
     i <- i[seq_along(i) %% n == (offset + 1)]
