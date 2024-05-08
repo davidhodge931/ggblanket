@@ -11,9 +11,9 @@
 #' @noRd
 #'
 #' @examples
-#' hold_every_n()scales::comma(seq(1000, 5000, 1000))
-#' hold_every_n()format(lubridate::ymd(c("2021-01-01", "2022-01-01", "2023-01-01", "2024-01-01")))
-#' hold_every_n()LETTERS[1:12]
+#' hold_every_nth()scales::comma(seq(1000, 5000, 1000))
+#' hold_every_nth()format(lubridate::ymd(c("2021-01-01", "2022-01-01", "2023-01-01", "2024-01-01")))
+#' hold_every_nth()LETTERS[1:12]
 #'
 #' library(dplyr)
 #' library(palmerpenguins)
@@ -26,10 +26,10 @@
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = sex,
-#'     y_labels = hold_every_n(),
+#'     y_labels = hold_every_nth(),
 #'   )
 #
-hold_every_n <- function(n = 2, offset = 0, ...) {
+hold_every_nth <- function(n = 2, offset = 0, ...) {
   force(n)
   force(offset)
   function(x) {
