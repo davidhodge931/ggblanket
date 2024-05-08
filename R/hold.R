@@ -8,37 +8,30 @@
 #' @param offset An offset for which element to first hold. Defaults to `0`. Possible values are `-1` to (`nth - 2`)
 #'
 #' @return A character vector
-#' @noRd
+#' @export
 #'
 #' @examples
 #' hold_nth(scales::comma(seq(1000, 5000, 1000)))
 #' hold_nth(format(lubridate::ymd(c("2021-01-01", "2022-01-01", "2023-01-01", "2024-01-01"))))
 #' hold_nth(LETTERS[1:12])
+#'
+#' library(dplyr)
+#' library(palmerpenguins)
+#'
+#' set_blanket()
+#'
+#' penguins |>
+#'   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = sex,
+#'     y_labels = \(x) hold_nth(scales::comma(x)),
+#'   )
+#'
 hold_nth <- function(x,
                      nth = 2,
                      offset = 0) {
 
   replace(x, seq_along(x) %% nth != (offset + 1), "")
-}
-
-#' Hold the range of elements
-#'
-#' @description
-#' Hold the range of elements in a vector, and replace the rest with "".
-#'
-#' @param x A vector.
-#'
-#' @return A character vector
-#' @noRd
-#'
-#' @examples
-#' hold_range(scales::comma(seq(1000, 5000, 1000)))
-#' hold_range(format(lubridate::ymd(c("2021-01-01", "2022-01-01", "2023-01-01"))))
-#' hold_range(LETTERS[1:12])
-hold_range <- function(x) {
-
-  c(as.character(x[1]),
-    rep("", times = length(x) - 2),
-    as.character(x[length(x)])
-  )
 }
