@@ -10,9 +10,7 @@
 #' @export
 #'
 #' @examples
-#' scales::show_col(lightness, ncol = 3)
-#' scales::show_col(greyness, ncol = 3)
-#' scales::show_col(darkness, ncol = 3)
+#' scales::show_col(c(lightness, greyness, darkness), ncol = 3)
 lightness <- c("#121b24ff", "#f6f8faff", "#ffffffff")
 
 #' @rdname lightness

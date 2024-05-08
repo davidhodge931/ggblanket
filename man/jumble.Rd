@@ -10,7 +10,7 @@
 \alias{pink}
 \alias{purple}
 \alias{grey}
-\title{A jumble of colours}
+\title{The jumble palette}
 \usage{
 jumble
 
@@ -35,6 +35,6 @@ A character vector.
 A discrete colour palette with 7 colours.
 }
 \examples{
-scales::show_col(jumble)
+scales::show_col(jumble, ncol = 4)
 }
 \keyword{datasets}

@@ -1,4 +1,4 @@
-#' A jumble of colours
+#' The jumble palette
 #'
 #' @description A discrete colour palette with 7 colours.
 #'
@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-#' scales::show_col(jumble)
+#' scales::show_col(jumble, ncol = 4)
 jumble <- c("#0095a8ff", "#ffa600ff", "#003f5cff", "#da3c39ff", "#ec9ecbff", "#67609cff", "#cdc5bfff")
 
 #' @rdname jumble
