@@ -501,19 +501,6 @@ set_blanket(
   light_mode_t() + theme(legend.title = element_blank()),
 )
 
-geom_violin()
-
-penguins2 |>
-  gg_blanket(
-    geom = "violin",
-    stat = "ydensity",
-    position = "dodge",
-    x = species,
-    y = body_mass_g,
-  )
-```
-
-```{r}
 geom_histogram()
 
 penguins2 |>
