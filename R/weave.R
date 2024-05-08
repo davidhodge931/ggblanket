@@ -158,6 +158,10 @@ weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
     new2 <- NULL
   }
 
+  if (rlang::is_null(na)) {
+    na <- "grey50"
+  }
+
   old <- ggblanket_global$col_palette_d
   ggblanket_global$col_palette_d <- new2
   invisible(old)
@@ -203,26 +207,30 @@ weave_col_palette_c <- function(new = viridisLite::mako(n = 9, direction = -1),
     new <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")(seq(0, 1, length.out = 20))
   }
 
+  if (rlang::is_null(na)) {
+    na <- "grey50"
+  }
+
   old <- ggblanket_global$col_palette_c
-    ggblanket_global$col_palette_c <- new
-    invisible(old)
+  ggblanket_global$col_palette_c <- new
+  invisible(old)
 
-    old <- ggblanket_global$col_palette_na_c
-    ggblanket_global$col_palette_na_c <- na
-    invisible(old)
+  old <- ggblanket_global$col_palette_na_c
+  ggblanket_global$col_palette_na_c <- na
+  invisible(old)
 
-    options(
-      ggplot2.continuous.colour = function()
-        ggplot2::scale_color_gradientn(
-          colours = new,
-          na.value = na
-        ),
-      ggplot2.continuous.fill = function()
-        ggplot2::scale_fill_gradientn(
-          colours = new,
-          na.value = na
-        )
-    )
+  options(
+    ggplot2.continuous.colour = function()
+      ggplot2::scale_color_gradientn(
+        colours = new,
+        na.value = na
+      ),
+    ggplot2.continuous.fill = function()
+      ggplot2::scale_fill_gradientn(
+        colours = new,
+        na.value = na
+      )
+  )
 }
 
 #' Get the default mode
