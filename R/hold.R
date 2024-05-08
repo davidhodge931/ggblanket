@@ -1,7 +1,7 @@
-#' Hold every nth element
+#' Hold by every nth element
 #'
 #' @description
-#' Hold every nth element in a vector, and replace the rest with "".
+#' Hold by every nth element in a vector, and replace the rest with "".
 #'
 #' @param nth The increment of elements to hold as is. Defaults to `2`.
 #' @param offset An offset for which element to first hold. Defaults to `0`. Possible values are `-1` to (`nth - 2`)
