@@ -395,7 +395,7 @@ p1 <- experiment |>
     col = group,
     y_expand_limits = 0,
     mode = light_mode_n(),
-    subtitle = "Theme side-effects with mode argument",
+    subtitle = "Theme side-effects with mode arg",
   ) 
 
 p2 <- experiment |>
