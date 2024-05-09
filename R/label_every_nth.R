@@ -11,26 +11,26 @@
 #' @noRd
 #'
 #' @examples
-#' label_every_nth()scales::comma(seq(1000, 5000, 1000))
-#' label_every_nth()format(lubridate::ymd(c("2021-01-01", "2022-01-01", "2023-01-01", "2024-01-01")))
-#' label_every_nth()LETTERS[1:12]
+#'  label_every_nth()(scales::comma(seq(1000, 5000, 1000)))
+#'  label_every_nth()(lubridate::ymd(c("2021-01-01", "2022-01-01", "2023-01-01", "2024-01-01")))
+#'  label_every_nth()(LETTERS[1:12])
 #'
-#' library(dplyr)
-#' library(palmerpenguins)
+#'  library(dplyr)
+#'  library(palmerpenguins)
 #'
-#' set_blanket()
+#'  set_blanket()
 #'
-#' penguins |>
-#'   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = sex,
-#'     y_labels = label_every_nth(),
-#'   )
+#'  penguins |>
+#'    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+#'    gg_point(
+#'      x = flipper_length_mm,
+#'      y = body_mass_g,
+#'      col = sex,
+#'      x_labels = label_every_nth(),
+#'      y_labels = label_every_nth(),
+#'    )
 #
 label_every_nth <- function(n = 2, offset = 0, ...) {
-  force_all(n, offset, ...)
   function(x) {
     i <- which(is.finite(x) | is.character(x) | is.factor(x) | is.logical(x))
     i <- i[seq_along(i) %% n == (offset + 1)]
