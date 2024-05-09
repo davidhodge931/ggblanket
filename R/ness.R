@@ -1,4 +1,4 @@
-#' Mode colours
+#' Mode colours and linewidths
 #'
 #' @description
 #' `lightness`, `greyness` and `darkness` are vectors of 3 colours used in the `*_mode_*` themes for the for the text, axis.line (and axis.ticks), panel.grid, panel.background and plot.background etc.
