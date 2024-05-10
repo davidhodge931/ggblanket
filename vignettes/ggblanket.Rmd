@@ -70,18 +70,6 @@ penguins2 <- penguins |>
   ) |> 
   mutate(sex = factor(sex, labels = c("Female", "Male"))) |> 
   tidyr::drop_na(sex) 
-
-experiment <- data.frame(
-    trt = factor(c(1, 1, 2, 2)),
-    resp = c(1, 5, 3, 4),
-    group = factor(c(1, 2, 1, 2)),
-    upper = c(1.1, 5.3, 3.3, 4.2),
-    lower = c(0.8, 4.6, 2.4, 3.6)
-  ) |>
-  labelled::set_variable_labels(
-    trt = "Treatment", 
-    resp = "Response",
-  )
 ```
  
 ### 1. Almost forty `gg_*` wrapper functions
@@ -244,38 +232,40 @@ This symmetric continuous scale can be turned off easily using `*_limits = c(NA,
 Note this symmetric scale does not occur where the scale has a transformation that is _not_ `"identity"`, `"reverse"`, `"date"`, `"time"` or `"hms"` - or where the other positional scale is binned.
 
 ```{r, echo=FALSE}
-p1 <- experiment |>
+p1 <- penguins2 |>
   gg_pointrange(
-    x = trt,
-    ymin = lower,
-    y = resp,
-    ymax = upper,
-    col = group,
-    subtitle = "\nDefault y scale",
-    mode = light_mode_n(),
-  ) 
+    x = species,
+    y = flipper_length_mm,
+    col = sex,
+    stat = "summary",
+    position = position_dodge(),
+    x_labels = \(x) str_sub(x, 1, 1),
+    subtitle = "\nNo theme side-effects with + theme",
+  ) +
+  light_mode_n()
 
-p2 <- experiment |>
+p2 <- penguins2 |>
   gg_pointrange(
-    x = trt,
-    ymin = lower,
-    y = resp,
-    ymax = upper,
-    col = group,
-    width = 0.1,
+    x = species,
+    y = flipper_length_mm,
+    col = sex,
+    stat = "summary",
+    position = position_dodge(),
+    x_labels = \(x) str_sub(x, 1, 1),
     y_limits = c(NA, NA),
     subtitle = "\ny_limits = c(NA, NA),",
     mode = light_mode_n(),
   ) 
 
-p3 <- experiment |>
+p3 <- penguins2 |>
   gg_col(
-    position = "dodge2",
-    x = trt,
-    y = upper,
-    col = group,
-    width = 0.5,
-    y_label = "Response (upper)",
+    x = species,
+    y = flipper_length_mm,
+    col = sex,
+    stat = "summary",
+    position = position_dodge(),
+    width = 0.75,
+    x_labels = \(x) str_sub(x, 1, 1),
     y_limits = c(0, NA),
     subtitle = "\ny_limits = c(0, NA),",
     mode = light_mode_n(),
@@ -373,40 +363,40 @@ With this function, the `gg_*` function will:
 To avoid these side-effects, `+` the theme on to the output of `gg_*`. Note there is an `orientation` argument within the `*_mode_*` functions that can be useful when used in this way.
 
 ```{r}
-experiment |>
+penguins2 |>
   gg_pointrange(
-    x = trt,
-    ymin = lower,
-    y = resp,
-    ymax = upper,
-    col = group,
-    y_expand_limits = 0,
+    x = species,
+    y = flipper_length_mm,
+    col = sex,
+    stat = "summary",
+    position = position_dodge(),
     subtitle = "\nNo theme side-effects with + theme",
   ) +
   light_mode_n()
 ```
 
 ```{r, echo=FALSE}
-p1 <- experiment |>
+p1 <- penguins2 |>
   gg_pointrange(
-    x = trt,
-    ymin = lower,
-    y = resp,
-    ymax = upper,
-    col = group,
-    y_expand_limits = 0,
+    x = species,
+    y = flipper_length_mm,
+    col = sex,
+    stat = "summary",
+    position = position_dodge(),
+    x_labels = \(x) str_sub(x, 1, 1),
     mode = light_mode_n(),
     subtitle = "Theme side-effects with mode arg",
   ) 
 
-p2 <- experiment |>
+p2 <- penguins2 |>
   gg_pointrange(
-    y = trt,
-    xmin = lower,
-    x = resp,
-    xmax = upper,
-    col = group,
-    y_expand_limits = 0,
+    y = species,
+    x = flipper_length_mm,
+    col = sex,
+    stat = "summary",
+    position = position_dodge(),
+    x_breaks = scales::breaks_extended(3, only.loose = TRUE),
+    y_labels = \(x) str_sub(x, 1, 1),
     mode = light_mode_n(),
   ) 
 
