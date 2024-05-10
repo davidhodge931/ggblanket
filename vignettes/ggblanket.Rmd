@@ -29,7 +29,7 @@ The primary objective is to **simplify ggplot2 visualisation**.
 Secondary objectives relate to:
 
 * Design: produce well-designed visualisation
-* Alignment: use conventions aligned with ggplot2
+* Alignment: align with ggplot2 and tidyverse
 * Scope: cover much of what ggplot2 does.
 
 Computational speed has been traded-off.
@@ -45,8 +45,8 @@ Computational speed has been traded-off.
 7.  Smart `*_label` defaults for axis and legend titles
 8.  Access to other `geom_*` arguments via `...`
 9.  Families of `*_mode_*` themes that differ by legend placement
-10. A symmetrical continuous scale with easy opt-out
-11. Access other aesthetics via `mapping`
+10. Access other aesthetics via `mapping`
+11. A symmetrical continuous scale with easy opt-out
 12. Ability to add multiple `geom_*` layers
 13. A `gg_blanket()` function with `geom` flexibility
 14. Customise the setup with `set_blanket()`
@@ -258,7 +258,26 @@ penguins2 |>
   theme(legend.title = element_blank())
 ```
 
-### 10. A 'symmetric' continuous scale with easy opt-out
+### 11. Access other aesthetics via `mapping`
+
+The `mapping` argument provides access to other aesthetics, such as `alpha`, `size`, `shape`, `linetype` and `linewidth` etc. 
+
+There is not prefixed arguments available for these aesthetics. Instead, you will need to + on any changes you need with ggplot2 layers.
+
+Note, in some situations, the `alpha`, `size`, `shape`, `linetype` and `linewidth` values may need to be reversed in the relevant scale.
+
+```{r}
+penguins2 |> 
+  gg_jitter(
+    y = species, 
+    x = flipper_length_mm, 
+    col = species,
+    mapping = aes(shape = species),
+  ) +
+  scale_shape_manual(values = rev(shape_pal()(3)))
+```
+
+### 11. A 'symmetric' continuous scale with easy opt-out
 
 The `gg_*` function will generally create a 'symmetric' continuous y scale by default with: 
 
@@ -309,25 +328,6 @@ p3 <- penguins2 |>
   ) 
 
 p1 + p2 + p3
-```
-
-### 11. Access other aesthetics via `mapping`
-
-The `mapping` argument provides access to other aesthetics, such as `alpha`, `size`, `shape`, `linetype` and `linewidth` etc. 
-
-There is not prefixed arguments available for these aesthetics. Instead, you will need to + on any changes you need with ggplot2 layers.
-
-Note, in some situations, the `alpha`, `size`, `shape`, `linetype` and `linewidth` values may need to be reversed in the relevant scale.
-
-```{r}
-penguins2 |> 
-  gg_jitter(
-    y = species, 
-    x = flipper_length_mm, 
-    col = species,
-    mapping = aes(shape = species),
-  ) +
-  scale_shape_manual(values = rev(shape_pal()(3)))
 ```
 
 ### 12. Ability to add multiple `geom_*` layers
