@@ -367,8 +367,8 @@ With this function, the `gg_*` function will:
 
 * add the `*_mode_*` theme
 * guess the orientation of the plot
-* for "x" orientation plots, remove vertical gridlines, and the x axis-line/ticks 
-* for "y" orientation plots, remove horizontal gridlines, and the y axis-line/ticks. 
+* for "x" orientation plots, remove vertical gridlines and the y axis line/ticks 
+* for "y" orientation plots, remove horizontal gridlines, and the x axis line/ticks. 
 
 To avoid these side-effects, `+` the theme on to the output of `gg_*`. Note there is an `orientation` argument within the `*_mode_*` functions that can be useful when used in this way.
 
@@ -446,8 +446,6 @@ penguins2 |>
 The `set_blanket` function is used to set the default style for ggblanket (and ggplot2) plots. 
 
 This function sets the mode and colours, among other things. 
-
-It is an uber-function that runs a series of `weave_*` functions. 
 
 It sets defaults that the user can modify for the:
 
