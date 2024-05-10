@@ -99,10 +99,10 @@ Use `colour = NA` or `fill = NA` if you need to turn one of these off.
 
 ```{r}
 penguins2 |>
-  gg_boxplot(
-    x = species,
-    y = body_mass_g, 
-    col = sex,
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
   )
 ```
 
