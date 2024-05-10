@@ -254,7 +254,7 @@ penguins2 |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    mode = grey_mode_t(),
+    mode = dark_mode_t(),
   ) +
   theme(legend.title = element_blank())
 ```
