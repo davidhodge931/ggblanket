@@ -477,20 +477,20 @@ etc.</p>
 <div class="section level3">
 <h3 id="customise-the-setup-with-set_blanket">14. Customise the setup with <code>set_blanket</code><a class="anchor" aria-label="anchor" href="#customise-the-setup-with-set_blanket"></a>
 </h3>
-<p>The <code>set_blanket</code> function is used to set the default
-style for ggblanket (and ggplot2) plots.</p>
-<p>This function sets the mode and colours, among other things.</p>
-<p>It sets defaults that the user can modify for the:</p>
+<p>The <code>set_blanket</code> function sets defaults that the user can
+modify for the:</p>
 <ul>
 <li>mode (i.e. a theme with side-effects)</li>
-<li>geom colour</li>
-<li>annotation colour</li>
-<li>discrete colour palette</li>
-<li>continuous colour palette</li>
+<li>geom colour (i.e. colour/fill where <code>col = NULL</code>)</li>
+<li>annotation colour (i.e. colour/fill where <code>col = NULL</code>
+for geoms often used for annotation)</li>
+<li>discrete colour palette (and NA colour)</li>
+<li>continuous colour palette (and NA colour)</li>
 <li>theme (i.e. a theme added with no side-effects)</li>
 </ul>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults()</a></code> function can be used
 to further fine-tune geom defaults.</p>
+<p>Note <code><a href="../reference/set_blanket.html">set_blanket()</a></code> also works on ggplot2 code.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
 <span>  mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>, </span>
