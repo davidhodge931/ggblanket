@@ -31,6 +31,7 @@ This article will demonstrate a random assortment of content, including some of 
 9. Use opacity with to emphasise/demphasise. 
 10. Understand `oob` & `clip`
 11. Use delayed evaluation
+12. Understand how the mode argument works
 
 ```{r setup}
 library(dplyr)
@@ -447,5 +448,56 @@ faithfuld |>
     mapping = aes(colour = after_stat(level)),
     bins = 8,
   )
+```
+
+### 12. Understand how the mode argument works
+
+When a theme is added to the mode argument, the `gg_*` function will:
+
+* add the theme
+* guess the orientation of the plot
+* for "x" orientation plots, remove vertical gridlines and the y axis line/ticks 
+* for "y" orientation plots, remove horizontal gridlines, and the x axis line/ticks. 
+
+To avoid these side-effects, `+` the theme on to the output of `gg_*`. 
+
+Note there is an `orientation` argument within the `*_mode_*` functions that can be useful when used in this way.
+
+```{r}
+penguins2 |>
+  gg_pointrange(
+    x = species,
+    y = flipper_length_mm,
+    col = sex,
+    stat = "summary",
+    subtitle = "\nNo theme side-effects with + theme",
+  ) +
+  light_mode_n()
+```
+
+```{r, echo=FALSE}
+p1 <- penguins2 |>
+  gg_pointrange(
+    x = species,
+    y = flipper_length_mm,
+    col = sex,
+    stat = "summary",
+    x_labels = \(x) str_sub(x, 1, 1),
+    mode = light_mode_n(),
+    subtitle = "Theme side-effects with mode arg",
+  ) 
+
+p2 <- penguins2 |>
+  gg_pointrange(
+    y = species,
+    x = flipper_length_mm,
+    col = sex,
+    stat = "summary",
+    x_breaks = breaks_extended(3, only.loose = TRUE),
+    y_labels = \(x) str_sub(x, 1, 1),
+    mode = light_mode_n(),
+  ) 
+
+p1 + p2
 ```
 
