@@ -457,10 +457,10 @@ values may need to be reversed in the relevant scale.</p>
 <ul>
 <li>add the <code>*_mode_*</code> theme</li>
 <li>guess the orientation of the plot</li>
-<li>for “x” orientation plots, remove vertical gridlines, and the x
-axis-line/ticks</li>
-<li>for “y” orientation plots, remove horizontal gridlines, and the y
-axis-line/ticks.</li>
+<li>for “x” orientation plots, remove vertical gridlines and the y axis
+line/ticks</li>
+<li>for “y” orientation plots, remove horizontal gridlines, and the x
+axis line/ticks.</li>
 </ul>
 <p>To avoid these side-effects, <code>+</code> the theme on to the
 output of <code>gg_*</code>. Note there is an <code>orientation</code>
@@ -519,8 +519,6 @@ and <code>n</code> (none).</p>
 <p>The <code>set_blanket</code> function is used to set the default
 style for ggblanket (and ggplot2) plots.</p>
 <p>This function sets the mode and colours, among other things.</p>
-<p>It is an uber-function that runs a series of <code>weave_*</code>
-functions.</p>
 <p>It sets defaults that the user can modify for the:</p>
 <ul>
 <li>mode (i.e. a theme with side-effects)</li>
