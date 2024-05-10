@@ -1348,7 +1348,7 @@ gg_blanket <- function(data = NULL,
     else if (facet_ncols == 3) x_breaks_n <- 4
     else x_breaks_n <- 3
 
-    #get x_expand and x_breaks for non-pretty scales situation
+    #get x_expand and x_breaks for non-'symmetric' scales situation
     if (!flipped |
         facet_scales %in% c("free", "free_x") |
         length(x_transform_name) > 1 |
@@ -1374,12 +1374,11 @@ gg_blanket <- function(data = NULL,
           x_breaks <- scales::breaks_pretty(n = x_breaks_n)
         }
         else {
-          # x_breaks <- scales::breaks_pretty(n = x_breaks_n)
           x_breaks <- scales::breaks_extended(n = x_breaks_n, only.loose = FALSE)
           }
       }
     }
-    #get x_limits and x_breaks for complex situation
+    #get x_limits and x_breaks for 'symmetric'
     else {
       if (!rlang::is_null(x_limits)) {
         if (any(x_transform_name %in% c("date", "time", "hms"))) {
@@ -1536,7 +1535,7 @@ gg_blanket <- function(data = NULL,
     else if (facet_nrows == 3) y_breaks_n <- 4
     else y_breaks_n <- 3
 
-    #get y_expand and y_breaks for non-pretty scales situation
+    #get y_expand and y_breaks for non-'symmetric' scales situation
     if (flipped |
         facet_scales %in% c("free", "free_y") |
         length(y_transform_name) > 1 |
@@ -1562,12 +1561,11 @@ gg_blanket <- function(data = NULL,
           y_breaks <- scales::breaks_pretty(n = y_breaks_n)
         }
         else {
-          # y_breaks <- scales::breaks_pretty(n = y_breaks_n)
           y_breaks <- scales::breaks_extended(n = y_breaks_n, only.loose = FALSE)
         }
       }
     }
-    #get y_limits and y_breaks for complex situation
+    #get y_limits and y_breaks for 'symmetric'
     else {
       if (!rlang::is_null(y_limits)) {
         if (any(y_transform_name %in% c("date", "time", "hms"))) {

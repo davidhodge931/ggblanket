@@ -36,20 +36,20 @@ Computational speed has been traded-off.
 
 ## How it works
 
-1.  First set things up with `set_blanket()`
+1.  First setup with `set_blanket()`
 2.  Each `gg_*` function wraps a geom
-3.  A merged `col` argument to colour and fill by a variable
+3.  A merged `col` argument to colour/fill by a variable
 4.  A `facet` argument to facet by a variable
 5.  A `facet2` argument to facet by a 2nd variable
-6.  Prefixed arguments to customise 
-7.  Smart `*_label` defaults for axis and legend titles
-8.  Access to other `geom_*` arguments via `...`
-9.  Families of `*_mode_*` themes that differ by legend placement
-10. Access other aesthetics via `mapping`
-11. A symmetrical continuous scale with easy opt-out
+6.  Smart `*_label` defaults for axis and legend titles
+7.  Prefixed arguments to customise 
+8.  Other `geom_*` arguments via `...`
+9.  Families of `*_mode_*` themes with legend variants
+10. Other aesthetics via `mapping`
+11. A 'symmetric' continuous scale with easy opt-out
 12. Ability to add multiple `geom_*` layers
 13. A `gg_blanket()` function with `geom` flexibility
-14. Customise the setup with `set_blanket()`
+14. Arguments to customise setup with `set_blanket()`
 
 
 ```{r setup}
@@ -72,7 +72,7 @@ penguins2 <- penguins |>
   tidyr::drop_na(sex) 
 ```
 
-### 1. First set things up with `set_blanket()`
+### 1. First setup with `set_blanket()`
 
 The `set_blanket()` function should be run first. 
 
@@ -159,7 +159,23 @@ penguins2 |>
   )
 ```
 
-### 6.  Prefixed arguments to customise
+### 6.  Smart `*_label` defaults for axis and legend titles
+
+The `x_label`, `y_label` and `col_label` for the axis and legend titles can be manually specified with the applicable `*_label` argument, or with `+ ggplot2::labs()`.
+
+If not specified, they will first take any label attribute associated with the applicable variable. 
+
+Otherwise, they will convert the variable name to a label name using the `label_to_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence`). 
+
+```{r, fig.asp=0.6}
+penguins2 |>
+  gg_freqpoly(
+    x = flipper_length_mm,
+    col = species,
+  )
+```
+
+### 7.  Prefixed arguments to customise
 
 ggblanket offers numerous arguments to customise that are prefixed by whether they relate to `x`, `y`, `col` or `facet`. 
 
@@ -189,23 +205,7 @@ penguins2 |>
 knitr::include_graphics("autocomplete_y.png", dpi = 300)
 ```
 
-### 7.  Smart `*_label` defaults for axis and legend titles
-
-The `x_label`, `y_label` and `col_label` for the axis and legend titles can be manually specified with the applicable `*_label` argument, or with `+ ggplot2::labs()`.
-
-If not specified, they will first take any label attribute associated with the applicable variable. 
-
-Otherwise, they will convert the variable name to a label name using the `label_to_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence`). 
-
-```{r, fig.asp=0.6}
-penguins2 |>
-  gg_freqpoly(
-    x = flipper_length_mm,
-    col = species,
-  )
-```
-
-### 8. Access to other `geom_*` arguments via `...`
+### 8. Other `geom_*` arguments via `...`
 
 The `...` argument provides access to all other arguments in the `geom_*()` function. Common arguments to add include `colour`, `fill`, `alpha`, `linewidth`, `linetype`,  `size` and  `width`.
 
@@ -229,7 +229,7 @@ penguins2 |>
   ) 
 ```
 
-### 9.  Families of `*_mode_*` themes that differ by legend placement 
+### 9.  Families of `*_mode_*` themes with legend variants 
 
 Three families of complete themes are provided: `light_mode_*`, `grey_mode_*` and `dark_mode_*`.
 
@@ -258,7 +258,7 @@ penguins2 |>
   theme(legend.title = element_blank())
 ```
 
-### 11. Access other aesthetics via `mapping`
+### 11. Other aesthetics via `mapping`
 
 The `mapping` argument provides access to other aesthetics, such as `alpha`, `size`, `shape`, `linetype` and `linewidth` etc. 
 
@@ -390,7 +390,7 @@ penguins2 |>
   ) 
 ```
 
-### 14. Customise the setup with `set_blanket()`
+### 14. Arguments to customise setup with `set_blanket()`
 
 The `set_blanket` function sets customisable defaults for the:
 
