@@ -277,6 +277,7 @@ ensure their settings support this.</p>
 <p>All arguments prefixed <code>col_</code> relate to the merged
 colour/fill scale, and all prefixed <code>facet_</code> relates to
 <em>both</em> <code>facet</code> and <code>facet2</code>.</p>
+<p><img src="autocomplete_y.png" width="70%"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
@@ -293,8 +294,7 @@ colour/fill scale, and all prefixed <code>facet_</code> relates to
 <span>    col_breaks <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    col_palette <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">magma</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
-<p><img src="autocomplete_y.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="other-geom_-arguments-via----">8. Other <code>geom_*</code> arguments via <code>...</code><a class="anchor" aria-label="anchor" href="#other-geom_-arguments-via----"></a>
