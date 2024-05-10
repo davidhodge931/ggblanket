@@ -298,7 +298,7 @@ p1 <- penguins2 |>
     stat = "summary",
     position = position_dodge(),
     x_labels = \(x) str_sub(x, 1, 1),
-    subtitle = "\nDefault y_limits",
+    subtitle = "\ny_limits = NULL",
     mode = light_mode_r(panel_grid_colour = "black")
   ) 
 
