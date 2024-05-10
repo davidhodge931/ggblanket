@@ -36,7 +36,6 @@ Computational speed has been traded-off to achieve these objectives.
 
 ## How it works
 
-The basics
 1.  First set things up with `set_blanket()`
 2.  Each `gg_*` function wraps a geom
 3.  A merged `col` argument to colour and fill by a variable
