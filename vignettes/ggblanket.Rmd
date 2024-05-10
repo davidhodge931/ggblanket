@@ -32,7 +32,7 @@ Secondary objectives relate to:
 * Alignment: use conventions aligned with ggplot2
 * Scope: cover much of what ggplot2 does.
 
-Computational speed has been traded-off to achieve these objectives.
+Computational speed has been traded-off.
 
 ## How it works
 
