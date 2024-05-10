@@ -114,27 +114,24 @@ visualisation</strong>.</p>
 <h2 id="how-it-works">How it works<a class="anchor" aria-label="anchor" href="#how-it-works"></a>
 </h2>
 <ol style="list-style-type: decimal">
-<li>First set things up with <code><a href="../reference/set_blanket.html">set_blanket()</a></code>
+<li>First setup with <code><a href="../reference/set_blanket.html">set_blanket()</a></code>
 </li>
 <li>Each <code>gg_*</code> function wraps a geom</li>
-<li>A merged <code>col</code> argument to colour and fill by a
-variable</li>
+<li>A merged <code>col</code> argument to colour/fill by a variable</li>
 <li>A <code>facet</code> argument to facet by a variable</li>
 <li>A <code>facet2</code> argument to facet by a 2nd variable</li>
-<li>Prefixed arguments to customise</li>
 <li>Smart <code>*_label</code> defaults for axis and legend titles</li>
-<li>Access to other <code>geom_*</code> arguments via
-<code>...</code>
+<li>Prefixed arguments to customise</li>
+<li>Other <code>geom_*</code> arguments via <code>...</code>
 </li>
-<li>Families of <code>*_mode_*</code> themes that differ by legend
-placement</li>
-<li>Access other aesthetics via <code>mapping</code>
+<li>Families of <code>*_mode_*</code> themes with legend variants</li>
+<li>Other aesthetics via <code>mapping</code>
 </li>
-<li>A symmetrical continuous scale with easy opt-out</li>
+<li>A ‘symmetric’ continuous scale with easy opt-out</li>
 <li>Ability to add multiple <code>geom_*</code> layers</li>
 <li>A <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with <code>geom</code>
 flexibility</li>
-<li>Customise the setup with <code><a href="../reference/set_blanket.html">set_blanket()</a></code>
+<li>Arguments to customise setup with <code><a href="../reference/set_blanket.html">set_blanket()</a></code>
 </li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -156,7 +153,7 @@ flexibility</li>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">sex</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Female"</span>, <span class="st">"Male"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> </span></code></pre></div>
 <div class="section level3">
-<h3 id="first-set-things-up-with-set_blanket">1. First set things up with <code>set_blanket()</code><a class="anchor" aria-label="anchor" href="#first-set-things-up-with-set_blanket"></a>
+<h3 id="first-setup-with-set_blanket">1. First setup with <code>set_blanket()</code><a class="anchor" aria-label="anchor" href="#first-setup-with-set_blanket"></a>
 </h3>
 <p>The <code><a href="../reference/set_blanket.html">set_blanket()</a></code> function should be run first.</p>
 <p>This sets the default style of plots with themes and colours etc. It
@@ -249,7 +246,28 @@ will use <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html"
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="prefixed-arguments-to-customise">6. Prefixed arguments to customise<a class="anchor" aria-label="anchor" href="#prefixed-arguments-to-customise"></a>
+<h3 id="smart-_label-defaults-for-axis-and-legend-titles">6. Smart <code>*_label</code> defaults for axis and legend
+titles<a class="anchor" aria-label="anchor" href="#smart-_label-defaults-for-axis-and-legend-titles"></a>
+</h3>
+<p>The <code>x_label</code>, <code>y_label</code> and
+<code>col_label</code> for the axis and legend titles can be manually
+specified with the applicable <code>*_label</code> argument, or with
+<code>+ ggplot2::labs()</code>.</p>
+<p>If not specified, they will first take any label attribute associated
+with the applicable variable.</p>
+<p>Otherwise, they will convert the variable name to a label name using
+the <code>label_to_case</code> function, which defaults to sentence case
+(i.e. <code>snakecase::to_sentence</code>).</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_freqpoly.html">gg_freqpoly</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="prefixed-arguments-to-customise">7. Prefixed arguments to customise<a class="anchor" aria-label="anchor" href="#prefixed-arguments-to-customise"></a>
 </h3>
 <p>ggblanket offers numerous arguments to customise that are prefixed by
 whether they relate to <code>x</code>, <code>y</code>, <code>col</code>
@@ -259,7 +277,7 @@ ensure their settings support this.</p>
 <p>All arguments prefixed <code>col_</code> relate to the merged
 colour/fill scale, and all prefixed <code>facet_</code> relates to
 <em>both</em> <code>facet</code> and <code>facet2</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">species</span>,</span>
@@ -275,33 +293,11 @@ colour/fill scale, and all prefixed <code>facet_</code> relates to
 <span>    col_breaks <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    col_palette <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">magma</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
 <p><img src="autocomplete_y.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="smart-_label-defaults-for-axis-and-legend-titles">7. Smart <code>*_label</code> defaults for axis and legend
-titles<a class="anchor" aria-label="anchor" href="#smart-_label-defaults-for-axis-and-legend-titles"></a>
-</h3>
-<p>The <code>x_label</code>, <code>y_label</code> and
-<code>col_label</code> for the axis and legend titles can be manually
-specified with the applicable <code>*_label</code> argument, or with
-<code>+ ggplot2::labs()</code>.</p>
-<p>If not specified, they will first take any label attribute associated
-with the applicable variable.</p>
-<p>Otherwise, they will convert the variable name to a label name using
-the <code>label_to_case</code> function, which defaults to sentence case
-(i.e. <code>snakecase::to_sentence</code>).</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_freqpoly.html">gg_freqpoly</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="access-to-other-geom_-arguments-via----">8. Access to other <code>geom_*</code> arguments via
-<code>...</code><a class="anchor" aria-label="anchor" href="#access-to-other-geom_-arguments-via----"></a>
+<h3 id="other-geom_-arguments-via----">8. Other <code>geom_*</code> arguments via <code>...</code><a class="anchor" aria-label="anchor" href="#other-geom_-arguments-via----"></a>
 </h3>
 <p>The <code>...</code> argument provides access to all other arguments
 in the <code>geom_*()</code> function. Common arguments to add include
@@ -331,8 +327,8 @@ available.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="families-of-_mode_-themes-that-differ-by-legend-placement">9. Families of <code>*_mode_*</code> themes that differ by legend
-placement<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-that-differ-by-legend-placement"></a>
+<h3 id="families-of-_mode_-themes-with-legend-variants">9. Families of <code>*_mode_*</code> themes with legend
+variants<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-with-legend-variants"></a>
 </h3>
 <p>Three families of complete themes are provided:
 <code>light_mode_*</code>, <code>grey_mode_*</code> and
@@ -371,7 +367,7 @@ theme on to the plot.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="access-other-aesthetics-via-mapping">11. Access other aesthetics via <code>mapping</code><a class="anchor" aria-label="anchor" href="#access-other-aesthetics-via-mapping"></a>
+<h3 id="other-aesthetics-via-mapping">11. Other aesthetics via <code>mapping</code><a class="anchor" aria-label="anchor" href="#other-aesthetics-via-mapping"></a>
 </h3>
 <p>The <code>mapping</code> argument provides access to other
 aesthetics, such as <code>alpha</code>, <code>size</code>,
@@ -492,7 +488,8 @@ etc.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="customise-the-setup-with-set_blanket">14. Customise the setup with <code>set_blanket()</code><a class="anchor" aria-label="anchor" href="#customise-the-setup-with-set_blanket"></a>
+<h3 id="arguments-to-customise-setup-with-set_blanket">14. Arguments to customise setup with
+<code>set_blanket()</code><a class="anchor" aria-label="anchor" href="#arguments-to-customise-setup-with-set_blanket"></a>
 </h3>
 <p>The <code>set_blanket</code> function sets customisable defaults for
 the:</p>
