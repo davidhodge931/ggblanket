@@ -33,14 +33,15 @@ This article will demonstrate a random assortment of content, including some of 
 11. Use delayed evaluation
 
 ```{r setup}
-library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(forcats)
 library(stringr)
+library(ggplot2)
+library(scales)
 library(ggblanket)
-library(palmerpenguins)
 library(patchwork)
+library(palmerpenguins)
 
 set_blanket()
 
@@ -185,15 +186,15 @@ p1 + p2
 
 ### 6. Transform scales to `"log"` etc
 
-Transform objects (e.g. `scales::transform_log()` or character strings of these can be used to transform scales - including combining these.
+Transform objects (e.g. `transform_log()` or character strings of these can be used to transform scales - including combining these.
 
 ```{r, fig.asp=0.75}
 p1 <- pressure |>
   gg_point(
     x = temperature, 
     y = pressure, 
-    x_breaks = scales::breaks_pretty(n = 3),
-    y_breaks = scales::breaks_pretty(),
+    x_breaks = breaks_pretty(n = 3),
+    y_breaks = breaks_pretty(n = 4),
     subtitle = "\nDefault",
   )
 
@@ -201,8 +202,8 @@ p2 <- pressure |>
   gg_point(
     x = temperature, 
     y = pressure, 
-    x_breaks = scales::breaks_pretty(n = 3),
-    y_breaks = scales::breaks_pretty(),
+    x_breaks = breaks_pretty(n = 3),
+    y_breaks = breaks_pretty(n = 4),
     y_transform = "reverse", 
     subtitle = "\nReverse",
   )
@@ -211,7 +212,7 @@ p3 <- pressure |>
   gg_point(
     x = temperature, 
     y = pressure,
-    x_breaks = scales::breaks_pretty(n = 3),
+    x_breaks = breaks_pretty(n = 3),
     y_transform = "log10",
     subtitle = "\nLog10", 
   )
@@ -220,7 +221,7 @@ p4 <- pressure |>
   gg_point(
     x = temperature, 
     y = pressure, 
-    x_breaks = scales::breaks_pretty(n = 3),
+    x_breaks = breaks_pretty(n = 3),
     y_transform = c("log10", "reverse"),
     subtitle = "\nLog10 & Reverse",
   )
@@ -302,9 +303,9 @@ p1 <- penguins2 |>
   drop_na(sex) |> 
   gg_density(
     x = flipper_length_mm,
-    x_breaks = scales::breaks_pretty(n = 3),
-    y_breaks = scales::breaks_pretty(n = 4),
-    colour = scales::alpha(orange, 0.33),
+    x_breaks = breaks_pretty(n = 3),
+    y_breaks = breaks_pretty(n = 4),
+    colour = alpha(orange, 0.33),
     fill = orange,
     alpha = 0.1,
     subtitle = "\nOpacity fill 0.1 & outline 0.33"
@@ -315,8 +316,8 @@ p2 <- penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = sex,
-    x_breaks = scales::breaks_pretty(n = 3),
-    y_breaks = scales::breaks_pretty(n = 4),
+    x_breaks = breaks_pretty(n = 3),
+    y_breaks = breaks_pretty(n = 4),
     col_palette = c(orange, "#78909C"),
     subtitle = "\ncol variable"
   )
@@ -327,8 +328,8 @@ p3 <- penguins2 |>
     x = flipper_length_mm,
     col = sex, 
     mapping = aes(alpha = sex),
-    x_breaks = scales::breaks_pretty(n = 3),
-    y_breaks = scales::breaks_pretty(n = 4),
+    x_breaks = breaks_pretty(n = 3),
+    y_breaks = breaks_pretty(n = 4),
     col_palette = c(orange, "#78909C"),
     subtitle = "\ncol and alpha variable",
   ) +
@@ -341,9 +342,9 @@ p4 <- penguins2 |>
     x = flipper_length_mm,
     col = sex, 
     mapping = aes(alpha = sex),
-    x_breaks = scales::breaks_pretty(n = 3),
-    y_breaks = scales::breaks_pretty(n = 4),
-    col_palette = c(orange, scales::alpha("#78909C", 0.25)),
+    x_breaks = breaks_pretty(n = 3),
+    y_breaks = breaks_pretty(n = 4),
+    col_palette = c(orange, alpha("#78909C", 0.25)),
     subtitle = "\ncol and alpha variable & outline opacity",
   ) +
   scale_alpha_manual(values = c(0.5, 0.1))
@@ -353,9 +354,9 @@ p4 <- penguins2 |>
 
 ### 10. Understand `oob` & `clip`
 
-By default, ggblanket keeps values outside of the limits (`*_oob = scales::oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
+By default, ggblanket keeps values outside of the limits (`*_oob = oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
 
-ggplot2 by default drops values outside of the limits in calculating the geoms and scales to plot (`scales::oob_censor`), and clips anything outside the cartesian coordinate space (`coord = ggplot2::coord_cartesian(clip = "on"`)).
+ggplot2 by default drops values outside of the limits in calculating the geoms and scales to plot (`oob_censor`), and clips anything outside the cartesian coordinate space (`coord = ggplot2::coord_cartesian(clip = "on"`)).
 
 This needs to be considered particularly when you are using `x_limits` or `y_limits`, and your `stat` is _not_ `"identity"`.  
 
@@ -417,7 +418,7 @@ p5 <- economics |>
     se = TRUE,
     x_limits = c(lubridate::ymd("1985-01-01", "1995-01-01")),
     x_labels = \(x) stringr::str_sub(x, 3, 4),
-    x_oob = scales::oob_censor,
+    x_oob = oob_censor,
     subtitle = "\nx_limits set & oob_censor") +
   geom_point(alpha = 0.3)
 

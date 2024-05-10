@@ -23,14 +23,13 @@ This article will demonstrate some fantastic ggplot2 extension packages.
 Note, an alternative is to use ggplot2 code directly instead. This may be easier depending on your familiarity with ggblanket/ggplot2 and the relevant extension package. The `set_blanket()` function used to get a lot of the ggblanket style also works with ggplot2.
 
 ```{r setup}
-library(ggplot2)
 library(dplyr)
-library(tidyr)
-library(forcats)
 library(stringr)
+library(ggplot2)
+library(scales)
 library(ggblanket)
-library(palmerpenguins)
 library(patchwork)
+library(palmerpenguins)
 
 set_blanket()
 
@@ -57,7 +56,7 @@ p1 <- mtcars |>
   gg_point(
     x = mpg, 
     y = disp,
-    y_breaks = scales::breaks_pretty(),
+    y_breaks = breaks_pretty(),
   ) +
   facet_wrap(~"Plot 1")
 
@@ -67,7 +66,7 @@ p2 <- mtcars |>
     y = disp, 
     group = gear, 
     width = 0.5,
-    y_breaks = scales::breaks_pretty(),
+    y_breaks = breaks_pretty(),
   ) +
   facet_wrap(~"Plot 2")
 
@@ -75,8 +74,8 @@ p3 <- mtcars |>
   gg_smooth(
     x = disp, 
     y = qsec, 
-    x_breaks = scales::breaks_pretty(n = 4), 
-    y_breaks = scales::breaks_pretty(),
+    x_breaks = breaks_pretty(n = 4), 
+    y_breaks = breaks_pretty(),
   ) +
   facet_wrap(~"Plot 3")
 
@@ -164,7 +163,7 @@ penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
-    x_breaks = scales::breaks_pretty(4),
+    x_breaks = breaks_pretty(4),
   ) + #build the scale for all data
   facet_wrap(~species) + #then add facet layer
   gghighlight::gghighlight() 
@@ -400,7 +399,7 @@ p1 <- penguins2 |>
     y = body_mass_g,
     col = species,
     col_palette = paletteer_d("RColorBrewer::Dark2"),
-    x_breaks = scales::breaks_pretty(3),
+    x_breaks = breaks_pretty(3),
     mode = light_mode_n(),
   ) 
 
@@ -410,7 +409,7 @@ p2 <- penguins2 |>
     y = body_mass_g,
     col = bill_depth_mm,
     col_palette = paletteer_c("viridis::rocket", 9),
-    x_breaks = scales::breaks_pretty(3),
+    x_breaks = breaks_pretty(3),
     mode = light_mode_n(),
   ) 
 
@@ -462,7 +461,7 @@ iris |>
   gg_point(
     x = sepal_width, 
     y = sepal_length, 
-    x_breaks = scales::breaks_pretty(n = 3),
+    x_breaks = breaks_pretty(n = 3),
   ) +
   ggh4x::facet_nested(
     cols = vars(size, species), 

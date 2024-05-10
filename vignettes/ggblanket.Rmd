@@ -54,6 +54,7 @@ Computational speed has been traded-off to achieve these objectives.
 ```{r setup}
 library(dplyr)
 library(ggplot2)
+library(scales)
 library(ggblanket)
 library(palmerpenguins)
 library(patchwork)
@@ -173,9 +174,9 @@ penguins2 |>
     col = flipper_length_mm,
     facet = sex,
     x_labels = \(x) stringr::str_sub(x, 1, 1),
-    y_breaks = scales::breaks_width(1000),
+    y_breaks = breaks_width(1000),
     y_expand_limits = 2000,
-    y_labels = scales::label_number(big.mark = " "), 
+    y_labels = label_number(big.mark = " "), 
     y_transform = "log10",
     col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
@@ -355,7 +356,7 @@ penguins2 |>
     col = species,
     mapping = aes(shape = species),
   ) +
-  scale_shape_manual(values = rev(scales::shape_pal()(3)))
+  scale_shape_manual(values = rev(shape_pal()(3)))
 ```
 
 ### 11.  A `mode` argument designed for provided `*_mode_*` themes
@@ -471,7 +472,7 @@ p1 <- penguins2 |>
   gg_point(
     x = flipper_length_mm, 
     y = body_mass_g,
-    x_breaks = scales::breaks_pretty(3),
+    x_breaks = breaks_pretty(n = 3),
   ) +
   geom_vline(xintercept = 200) +
   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
@@ -480,7 +481,7 @@ p2 <- penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
-    x_breaks = scales::breaks_pretty(3),
+    x_breaks = breaks_pretty(n = 3),
   ) +
   geom_vline(xintercept = 200) +
   annotate("text", x = I(0.75), y = I(0.75), label = "Here")

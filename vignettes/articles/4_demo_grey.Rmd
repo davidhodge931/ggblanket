@@ -20,8 +20,9 @@ knitr::opts_chunk$set(
 This article will demonstrate each wrapper function.
 
 ```{r setups}
-library(ggplot2)
 library(dplyr)
+library(ggplot2)
+library(scales)
 library(ggblanket)
 library(palmerpenguins)
 
