@@ -463,7 +463,7 @@ set_blanket(
   mode = dark_mode_r(), 
   geom_colour = "#bc5090",
   annotate_colour = darkness[1],
-  col_palette_d = c(purple, pink, red, navy, orange, teal),
+  col_palette_d = c(pink, red, purple, orange, teal, grey),
 )
 
 p1 <- penguins2 |>
