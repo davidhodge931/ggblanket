@@ -335,11 +335,18 @@ placement with suffix <code>r</code> (right), <code>b</code> (bottom),
 different orientations.</p>
 <p>If you want to use your own theme with no side-effects, just + the
 theme on to the plot.</p>
-<p>Note: * to remove a <code>*_label</code>, use
-<code>+ labs(... = NULL)</code> * for <code>col_label</code>, use
+<p>Note:</p>
+<ul>
+<li>to remove a <code>*_label</code>, use
+<code>+ labs(... = NULL)</code>
+</li>
+<li>for <code>col_label</code>, use
 <code>+ labs(colour = NULL, fill = NULL)</code> or
-<code>+ theme(legend.title = element_blank()</code> * if you want a
-quick non-bold title, use <code>subtitle = "\n..."</code>.</p>
+<code>+ theme(legend.title = element_blank()</code>
+</li>
+<li>if you want a quick non-bold title, use
+<code>subtitle = "\n..."</code>.</li>
+</ul>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
