@@ -260,7 +260,7 @@ p3 <- penguins2 |>
     y = flipper_length_mm,
     stat = "summary",
     position = position_dodge(),
-    width = 0.75,
+    width = 0.5,
     x_labels = \(x) str_sub(x, 1, 1),
     y_limits = c(0, NA),
     subtitle = "\ny_limits = c(0, NA),",
@@ -341,7 +341,6 @@ penguins2 |>
     y = flipper_length_mm,
     col = sex,
     stat = "summary",
-    position = position_dodge(),
     subtitle = "\nNo theme side-effects with + theme",
   ) +
   light_mode_n()
@@ -354,7 +353,6 @@ p1 <- penguins2 |>
     y = flipper_length_mm,
     col = sex,
     stat = "summary",
-    position = position_dodge(),
     x_labels = \(x) str_sub(x, 1, 1),
     mode = light_mode_n(),
     subtitle = "Theme side-effects with mode arg",
@@ -366,7 +364,6 @@ p2 <- penguins2 |>
     x = flipper_length_mm,
     col = sex,
     stat = "summary",
-    position = position_dodge(),
     x_breaks = breaks_extended(3, only.loose = TRUE),
     y_labels = \(x) str_sub(x, 1, 1),
     mode = light_mode_n(),
