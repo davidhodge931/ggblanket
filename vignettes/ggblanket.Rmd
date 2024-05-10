@@ -236,7 +236,7 @@ Three families of complete themes are provided: `light_mode_*`, `grey_mode_*` an
 
 Each mode family provides 4 variants that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none)). 
 
-These are built for use with the `mode` argument in the `gg_*` functions, which has helpful side-effects for different orientations.
+These are built for use with the `mode` argument in the `gg_*` functions, which has helpful side-effects for different orientations removing axis lines/ticks and gridlines.
 
 If you want to use your own theme with no side-effects, just + the theme on to the plot.
 
