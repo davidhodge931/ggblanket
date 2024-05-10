@@ -183,6 +183,10 @@ These prefixed arguments can work nicely with auto-complete, if users ensure the
 
 All arguments prefixed `col_` relate to the merged colour/fill scale, and all prefixed `facet_` relates to _both_ `facet` and `facet2`.
 
+```{r, echo = FALSE,   fig.width = 3, fig.asp = 2}
+knitr::include_graphics("autocomplete_y.png", dpi = 300)
+```
+
 ```{r}
 penguins2 |>
   gg_jitter(
@@ -199,10 +203,6 @@ penguins2 |>
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
     col_palette = viridis::magma(n = 9, direction = -1),
   )
-```
-
-```{r, echo = FALSE,   fig.width = 3, fig.asp = 2}
-knitr::include_graphics("autocomplete_y.png", dpi = 300)
 ```
 
 ### 8. Other `geom_*` arguments via `...`
