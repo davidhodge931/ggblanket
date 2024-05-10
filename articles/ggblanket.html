@@ -408,7 +408,9 @@ vice-versa will occurs with a ‘symmetric’ continuous x scale by
 default.</p>
 <p>The key thing to know is that you can easily turn this ‘symmetric’
 scale off using <code>*_limits = c(NA, NA)</code> (or
-<code>*_limits = c(0, NA)</code> for bars etc).</p>
+<code>*_limits = c(0, NA)</code> for bars etc). Use
+<code><a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">lubridate::NA_Date_</a></code> instead of <code>NA</code> for a date
+variable.</p>
 <p>Note this symmetric scale does not occur where the scale has an
 unsusual <code>*_transform</code> - or where the other positional scale
 is binned. Also, sometimes you may need to add
