@@ -240,6 +240,7 @@ These are built for use with the `mode` argument in the `gg_*` functions, which 
 If you want to use your own theme with no side-effects, just + the theme on to the plot.
 
 Note:
+
 * to remove a `*_label`, use `+ labs(... = NULL)` 
 * for `col_label`, use `+ labs(colour = NULL, fill = NULL)` or `+ theme(legend.title = element_blank()`
 * if you want a quick non-bold title, use `subtitle = "\n..."`.
