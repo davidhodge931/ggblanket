@@ -114,19 +114,30 @@ objectives.</p>
 <div class="section level2">
 <h2 id="how-it-works">How it works<a class="anchor" aria-label="anchor" href="#how-it-works"></a>
 </h2>
-<p>The basics 1. First set things up with <code><a href="../reference/set_blanket.html">set_blanket()</a></code> 2.
-Each <code>gg_*</code> function wraps a geom 3. A merged
-<code>col</code> argument to colour and fill by a variable 4. A
-<code>facet</code> argument to facet by a variable 5. A
-<code>facet2</code> argument to facet by a 2nd variable 6. Prefixed
-arguments to customise 7. Smart <code>*_label</code> defaults for axis
-and legend titles 8. Access to other <code>geom_*</code> arguments via
-<code>...</code> 9. Families of <code>*_mode_*</code> themes that differ
-by legend placement 10. A symmetrical continuous scale with easy opt-out
-11. Access other aesthetics via <code>mapping</code> 12. Ability to add
-multiple <code>geom_*</code> layers 13. A <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code>
-function with <code>geom</code> flexibility 14. Customise the setup with
-<code><a href="../reference/set_blanket.html">set_blanket()</a></code></p>
+<ol style="list-style-type: decimal">
+<li>First set things up with <code><a href="../reference/set_blanket.html">set_blanket()</a></code>
+</li>
+<li>Each <code>gg_*</code> function wraps a geom</li>
+<li>A merged <code>col</code> argument to colour and fill by a
+variable</li>
+<li>A <code>facet</code> argument to facet by a variable</li>
+<li>A <code>facet2</code> argument to facet by a 2nd variable</li>
+<li>Prefixed arguments to customise</li>
+<li>Smart <code>*_label</code> defaults for axis and legend titles</li>
+<li>Access to other <code>geom_*</code> arguments via
+<code>...</code>
+</li>
+<li>Families of <code>*_mode_*</code> themes that differ by legend
+placement</li>
+<li>A symmetrical continuous scale with easy opt-out</li>
+<li>Access other aesthetics via <code>mapping</code>
+</li>
+<li>Ability to add multiple <code>geom_*</code> layers</li>
+<li>A <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with <code>geom</code>
+flexibility</li>
+<li>Customise the setup with <code><a href="../reference/set_blanket.html">set_blanket()</a></code>
+</li>
+</ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span>
@@ -355,7 +366,7 @@ theme on to the plot.</p>
 <span>    title <span class="op">=</span> <span class="st">"Penguin flipper length by species"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_r.html">grey_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
