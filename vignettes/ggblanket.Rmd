@@ -286,7 +286,7 @@ The `gg_*` function will generally create a 'symmetric' continuous y scale by de
 
 However, for the plots guessed to be of horizontal orientation, the vice-versa will occurs with a 'symmetric' continuous x scale by default.
 
-The key thing to know is that you can easily turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc).
+The key thing to know is that you can easily turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc). Use `lubridate::NA_Date_` instead of `NA` for a date variable.
 
 Note this symmetric scale does not occur where the scale has an unsusual  `*_transform` - or where the other positional scale is binned. Also, sometimes you may need to add `*_expand_limits = 0`, if the lower bound is close to 0.
 
