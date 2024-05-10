@@ -391,20 +391,18 @@ penguins2 |>
 
 ### 14. Customise the setup with `set_blanket`
 
-The `set_blanket` function is used to set the default style for ggblanket (and ggplot2) plots. 
-
-This function sets the mode and colours, among other things. 
-
-It sets defaults that the user can modify for the:
+The `set_blanket` function sets defaults that the user can modify for the:
 
 * mode (i.e. a theme with side-effects)
-* geom colour
-* annotation colour
-* discrete colour palette
-* continuous colour palette
+* geom colour (i.e. colour/fill where `col = NULL`)
+* annotation colour  (i.e. colour/fill where `col = NULL` for geoms often used for annotation)
+* discrete colour palette (and NA colour)
+* continuous colour palette (and NA colour)
 * theme (i.e. a theme added with no side-effects)
 
 The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
+
+Note `set_blanket()` also works on ggplot2 code. 
 
 ```{r}
 set_blanket(
