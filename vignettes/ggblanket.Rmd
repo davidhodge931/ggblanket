@@ -50,7 +50,8 @@ The basics
 11. Access other aesthetics via `mapping`
 12. Ability to add multiple `geom_*` layers
 13. A `gg_blanket()` function with `geom` flexibility
-14. Set the mode and geom defaults with `set_blanket()`
+14. Customise the setup with `set_blanket()`
+
 
 ```{r setup}
 library(dplyr)
@@ -390,9 +391,9 @@ penguins2 |>
   ) 
 ```
 
-### 14. Customise the setup with `set_blanket`
+### 14. Customise the setup with `set_blanket()`
 
-The `set_blanket` function sets defaults that the user can modify for the:
+The `set_blanket` function sets customisable defaults for the:
 
 * mode (i.e. a theme with side-effects)
 * geom colour (i.e. colour/fill where `col = NULL`)
