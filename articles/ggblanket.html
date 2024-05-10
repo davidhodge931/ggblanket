@@ -125,8 +125,8 @@ and legend titles 8. Access to other <code>geom_*</code> arguments via
 by legend placement 10. A symmetrical continuous scale with easy opt-out
 11. Access other aesthetics via <code>mapping</code> 12. Ability to add
 multiple <code>geom_*</code> layers 13. A <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code>
-function with <code>geom</code> flexibility 14. Set the mode and geom
-defaults with <code><a href="../reference/set_blanket.html">set_blanket()</a></code></p>
+function with <code>geom</code> flexibility 14. Customise the setup with
+<code><a href="../reference/set_blanket.html">set_blanket()</a></code></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span>
@@ -332,7 +332,7 @@ placement with suffix <code>r</code> (right), <code>b</code> (bottom),
 <code>t</code> (top) and <code>n</code> (none)).</p>
 <p>These are built for use with the <code>mode</code> argument in the
 <code>gg_*</code> functions, which has helpful side-effects for
-different orientations.</p>
+different orientations removing axis lines/ticks and gridlines.</p>
 <p>If you want to use your own theme with no side-effects, just + the
 theme on to the plot.</p>
 <p>Note:</p>
@@ -482,10 +482,10 @@ etc.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="customise-the-setup-with-set_blanket">14. Customise the setup with <code>set_blanket</code><a class="anchor" aria-label="anchor" href="#customise-the-setup-with-set_blanket"></a>
+<h3 id="customise-the-setup-with-set_blanket">14. Customise the setup with <code>set_blanket()</code><a class="anchor" aria-label="anchor" href="#customise-the-setup-with-set_blanket"></a>
 </h3>
-<p>The <code>set_blanket</code> function sets defaults that the user can
-modify for the:</p>
+<p>The <code>set_blanket</code> function sets customisable defaults for
+the:</p>
 <ul>
 <li>mode (i.e. a theme with side-effects)</li>
 <li>geom colour (i.e. colour/fill where <code>col = NULL</code>)</li>
