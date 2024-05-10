@@ -105,7 +105,7 @@ visualisation</strong>.</p>
 <p>Secondary objectives relate to:</p>
 <ul>
 <li>Design: produce well-designed visualisation</li>
-<li>Alignment: use conventions aligned with ggplot2</li>
+<li>Alignment: align with ggplot2 and tidyverse</li>
 <li>Scope: cover much of what ggplot2 does.</li>
 </ul>
 <p>Computational speed has been traded-off.</p>
@@ -128,9 +128,9 @@ variable</li>
 </li>
 <li>Families of <code>*_mode_*</code> themes that differ by legend
 placement</li>
-<li>A symmetrical continuous scale with easy opt-out</li>
 <li>Access other aesthetics via <code>mapping</code>
 </li>
+<li>A symmetrical continuous scale with easy opt-out</li>
 <li>Ability to add multiple <code>geom_*</code> layers</li>
 <li>A <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with <code>geom</code>
 flexibility</li>
@@ -371,31 +371,6 @@ theme on to the plot.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="a-symmetric-continuous-scale-with-easy-opt-out">10. A ‘symmetric’ continuous scale with easy opt-out<a class="anchor" aria-label="anchor" href="#a-symmetric-continuous-scale-with-easy-opt-out"></a>
-</h3>
-<p>The <code>gg_*</code> function will generally create a ‘symmetric’
-continuous y scale by default with:</p>
-<ul>
-<li>
-<code>y_limits</code> that are the range of the
-<code>y_breaks</code>
-</li>
-<li>
-<code>y_expand</code> of <code>c(0, 0)</code>.</li>
-</ul>
-<p>However, for the plots guessed to be of horizontal orientation, the
-vice-versa will occurs with a ‘symmetric’ continuous x scale by
-default.</p>
-<p>The key thing to know is that you can easily turn this ‘symmetric’
-scale off using <code>*_limits = c(NA, NA)</code> (or
-<code>*_limits = c(0, NA)</code> for bars etc).</p>
-<p>Note this symmetric scale does not occur where the scale has an
-unsusual <code>*_transform</code> - or where the other positional scale
-is binned. Also, sometimes you may need to add
-<code>*_expand_limits = 0</code>, if the lower bound is close to 0.</p>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
 <h3 id="access-other-aesthetics-via-mapping">11. Access other aesthetics via <code>mapping</code><a class="anchor" aria-label="anchor" href="#access-other-aesthetics-via-mapping"></a>
 </h3>
 <p>The <code>mapping</code> argument provides access to other
@@ -417,6 +392,31 @@ values may need to be reversed in the relevant scale.</p>
 <span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">species</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_shape_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://scales.r-lib.org/reference/pal_shape.html" class="external-link">shape_pal</a></span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="a-symmetric-continuous-scale-with-easy-opt-out">11. A ‘symmetric’ continuous scale with easy opt-out<a class="anchor" aria-label="anchor" href="#a-symmetric-continuous-scale-with-easy-opt-out"></a>
+</h3>
+<p>The <code>gg_*</code> function will generally create a ‘symmetric’
+continuous y scale by default with:</p>
+<ul>
+<li>
+<code>y_limits</code> that are the range of the
+<code>y_breaks</code>
+</li>
+<li>
+<code>y_expand</code> of <code>c(0, 0)</code>.</li>
+</ul>
+<p>However, for the plots guessed to be of horizontal orientation, the
+vice-versa will occurs with a ‘symmetric’ continuous x scale by
+default.</p>
+<p>The key thing to know is that you can easily turn this ‘symmetric’
+scale off using <code>*_limits = c(NA, NA)</code> (or
+<code>*_limits = c(0, NA)</code> for bars etc).</p>
+<p>Note this symmetric scale does not occur where the scale has an
+unsusual <code>*_transform</code> - or where the other positional scale
+is binned. Also, sometimes you may need to add
+<code>*_expand_limits = 0</code>, if the lower bound is close to 0.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
