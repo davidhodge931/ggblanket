@@ -106,7 +106,7 @@ The colour and fill aesthetics of ggplot2 are merged into a single concept repre
 
 This combined aesthetic means that everything should be coloured according to it, i.e. all coloured outlines and filled interiors. 
 
-Use `colour = NA` or `fill = NA` if you need to turn one of these off.
+Use `colour = NA` or `fill = NA` to turn one of these off.
 
 ```{r}
 penguins2 |>
@@ -133,6 +133,7 @@ Faceting is treated as if it were an aesthetic. Users just provide an unquoted v
 
 When `facet` variable is _not_ NULL (and `facet2 = NULL`), the `facet_layout` will default to `"wrap"` (i.e. it will use `ggplot2::facet_wrap` under the hood).
 
+When `facet` is specified (and `facet2 = NULL`), the `facet_layout` will default to `"wrap"` (i.e. it will use `ggplot2::facet_wrap` under the hood).
 
 ```{r}
 penguins2 |>
@@ -148,7 +149,7 @@ A `facet2` argument is also provided for extra functionality and flexibility.
 
 This enables users to facet easily in a `"grid"` layout of the `facet` variable horizontally by the `facet2` variable vertically. 
 
-Whenever a `facet2` does _not_ equal NULL, the `facet_layout` will default to `"grid"` (i.e. it will use `ggplot2::facet_grid` under the hood).
+When `facet2` is specified, the `facet_layout` will default to `"grid"` (i.e. it will use `ggplot2::facet_grid` under the hood).
 
 ```{r, fig.asp=0.75}
 penguins2 |>
@@ -207,9 +208,11 @@ penguins2 |>
 
 ### 8. Other `geom_*` arguments via `...`
 
-The `...` argument provides access to all other arguments in the `geom_*()` function. Common arguments to add include `colour`, `fill`, `alpha`, `linewidth`, `linetype`,  `size` and  `width`.
+The `...` argument provides access to all other arguments in the `geom_*()` function. 
 
-This is how you can turn off  _either_ colour or fill using `colour = NA`/`fill = NA` - or fix one to a single colour with `colour = "black"`/`fill = "lightgrey"` etc.
+Common arguments to add include `colour`, `fill`, `alpha`, `linewidth`, `linetype`,  `size` and  `width`.
+
+This is why you can turn off  _either_ colour or fill using `colour = NA`/`fill = NA`, as previously mentioned.
 
 Use the `geom_*` help to see what arguments are available. 
 
@@ -231,11 +234,11 @@ penguins2 |>
 
 ### 9.  Families of `*_mode_*` themes with legend variants 
 
-Three families of complete themes are provided: `light_mode_*`, `grey_mode_*` and `dark_mode_*`.
+Three families of themes are provided: `light_mode_*`, `grey_mode_*` and `dark_mode_*`.
 
-Each mode family provides 4 variants that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none)). 
+Each theme family provides 4 variants that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none)). 
 
-These are built for use with the `mode` argument in the `gg_*` functions, which has helpful side-effects for different orientations removing axis lines/ticks and gridlines.
+These are built for use with the `mode` argument in the `gg_*` functions, which has helpful side-effects for the x and y orientations (i.e. removing particular axis lines/ticks and gridlines).
 
 If you want to use your own theme with no side-effects, just + the theme on to the plot.
 
@@ -336,11 +339,11 @@ Users can make plots with multiple layers by `+`-ing on `ggplot2::geom_*` layers
 
 The `gg_*` function puts the aesthetic variables within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added. 
 
-Generally, it works best to add all aesthetics required for the plot to the `gg_*` function, including the `col` argument. 
+Generally, it works best to add all aesthetics required for the plot to the `gg_*` function. 
 
 The `gg_*()` function should be appropriate to be the bottom layer of the plot, as geoms are drawn in order. 
 
-For these reasons, you may sometimes need to use `gg_blanket()` as your `gg_*` function, as it defaults to a `blank` geom.
+Subsequently, you may sometimes need to use `gg_blanket()` which defaults to a `blank` geom.
 
 ```{r, fig.asp = 0.4}
 penguins2 |>
@@ -373,9 +376,11 @@ penguins2 |>
 
 ggblanket is driven by the `gg_blanket` function, which has a `geom` argument with `geom_blank` defaults.
 
-All other functions wrap this function with a locked-in geom, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
+All other functions wrap this function with a fixed `geom`, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
 You can print a `geom_*` function to identify the applicable `stat` and `position` arguments etc. 
+
+Note this function can often be used with ggplot2 extension package geoms.
 
 ```{r}
 geom_histogram()
@@ -394,7 +399,7 @@ penguins2 |>
 
 The `set_blanket` function sets customisable defaults for the:
 
-* mode (i.e. a theme with side-effects)
+* mode (i.e. a theme added with side-effects)
 * geom colour (i.e. colour/fill where `col = NULL`)
 * annotation colour  (i.e. colour/fill where `col = NULL` for geoms often used for annotation)
 * discrete colour palette (and NA colour)
