@@ -1,6 +1,6 @@
 #' The jumble palette
 #'
-#' @description A discrete colour-blind safe palette with 7 colours.
+#' @description A discrete palette with 7 colours.
 #'
 #' @format NULL
 #' @return A character vector.
