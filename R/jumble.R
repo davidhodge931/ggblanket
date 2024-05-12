@@ -1,13 +1,14 @@
 #' The jumble palette
 #'
-#' @description A discrete colour palette with 7 colours.
+#' @description A discrete colour-blind safe palette with 7 colours.
 #'
 #' @format NULL
 #' @return A character vector.
 #' @export
 #'
 #' @examples
-#' scales::show_col(jumble, ncol = 4)
+#' colorspace::swatchplot(jumble, cvd = TRUE)
+#'
 jumble <- c("#0095a8ff", "#ffa600ff", "#003f5cff", "#da3c39ff", "#ec9ecbff", "#67609cff", "#cdc5bfff")
 
 #' @rdname jumble
