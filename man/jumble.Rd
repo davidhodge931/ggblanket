@@ -32,7 +32,7 @@ grey
 A character vector.
 }
 \description{
-A discrete colour-blind safe palette.
+A discrete palette with 7 colours.
 }
 \examples{
 colorspace::swatchplot(jumble, cvd = TRUE)

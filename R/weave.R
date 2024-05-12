@@ -201,7 +201,7 @@ weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
 #'
 #' @noRd
 weave_col_palette_c <- function(new = viridisLite::mako(n = 9, direction = -1),
-                                na = "#cdc5bfff") {
+                                na = "#988f88ff") { # i.e. colorspace::darken(grey, 0.25)
 
   if (rlang::is_null(new)) {
     new <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")(seq(0, 1, length.out = 20))
