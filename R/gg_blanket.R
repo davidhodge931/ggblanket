@@ -429,13 +429,6 @@ gg_blanket <- function(data = NULL,
   data <- data %>%
     #ungroup the data
     dplyr::ungroup() %>%
-    # #make infinite values NA
-    # dplyr::mutate(dplyr::across(
-    #   c(!!x, !!xmin, !!xmax, !!xend,
-    #     !!y, !!ymin, !!ymax, !!yend,
-    #     !!col, !!facet, !!facet2,
-    #     !!group, !!subgroup, !!label, !!sample),
-    #   na_if_inf)) %>%
     #convert to factors class that can handle labels
     dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
                                   !!y, !!ymin, !!ymax, !!yend,
@@ -910,35 +903,38 @@ gg_blanket <- function(data = NULL,
   ##############################################################################
 
   #sf seems to document scales differently, and this fixes
-  if (stringr::str_detect(stat_name, "sf")) {
-    if (class(rlang::eval_tidy(col, data)) %in%
-        c("numeric", "double", "integer","Date", "POSIXct","hms")) {
-      is_col_continuous <- TRUE
-    }
-    else if (class(rlang::eval_tidy(col, data)) %in%
-             c("character", "logical", "factor")) {
-      is_col_continuous <- FALSE
-    }
-    else is_col_continuous <- NA
-  }
-  #support where col is null, but there is a colour scale
-  else {
+  # if (stringr::str_detect(stat_name, "sf")) {
+  #   if (class(rlang::eval_tidy(col, data)) %in%
+  #       c("numeric", "double", "integer","Date", "POSIXct","hms")) {
+  #     is_col_continuous <- TRUE
+  #   }
+  #   else if (class(rlang::eval_tidy(col, data)) %in%
+  #            c("character", "logical", "factor")) {
+  #     is_col_continuous <- FALSE
+  #   }
+  #   else is_col_continuous <- NA
+  # }
+  # #support where col is null, but there is a colour scale
+  # else {
     scales <- purrr::map_chr(plot_build$plot$scales$scales, function(x) {
       ifelse(rlang::is_null(rlang::call_name(x[["call"]])), NA,
              rlang::call_name(x[["call"]]))
     })
 
-    if (any(scales %in% continuous_scales_col)) is_col_continuous <- TRUE
-    else if (any(scales %in% discrete_scales_col)) is_col_continuous <- FALSE
-    else is_col_continuous <- NA
-  }
+    if (any(scales %in% continuous_scales_col)) col_scale_type <- "continuous"
+    else if (any(scales %in% discrete_scales_col)) col_scale_type <- "discrete"
+    else if (any(scales %in% ordinal_scales_col)) col_scale_type <- "ordinal"
+    else col_scale_type <- NA
+  # }
+  # return(scales)
+  # return(col_scale_type)
 
   ##############################################################################
   # Make colour scale where there is a colour scale identified
   ##############################################################################
 
-  if (!is.na(is_col_continuous)) {
-    if (is_col_continuous) {
+  if (!is.na(col_scale_type)) {
+    if (col_scale_type == "continuous") {
       if (rlang::is_null(col_palette)) {
         col_palette <- get_col_palette_c()
         if (rlang::is_null(col_palette)) {
@@ -993,16 +989,6 @@ gg_blanket <- function(data = NULL,
 
       if (isFALSE(col_steps)) {
         plot <- plot +
-          ggplot2::scale_fill_gradientn(
-            colours = col_palette,
-            values = col_rescale,
-            limits = col_limits,
-            breaks = col_breaks,
-            labels = col_labels,
-            transform = col_transform,
-            oob = col_oob,
-            na.value = col_palette_na,
-          ) +
           ggplot2::scale_colour_gradientn(
             colours = col_palette,
             values = col_rescale,
@@ -1012,6 +998,7 @@ gg_blanket <- function(data = NULL,
             transform = col_transform,
             oob = col_oob,
             na.value = col_palette_na,
+            aesthetics = c("colour", "fill")
           ) +
           ggplot2::guides(
             colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
@@ -1020,16 +1007,6 @@ gg_blanket <- function(data = NULL,
       }
       else if (isTRUE(col_steps)) {
         plot <- plot +
-          ggplot2::scale_fill_stepsn(
-            colours = col_palette,
-            values = col_rescale,
-            limits = col_limits,
-            breaks = col_breaks,
-            labels = col_labels,
-            transform = col_transform,
-            oob = col_oob,
-            na.value = col_palette_na,
-          ) +
           ggplot2::scale_colour_stepsn(
             colours = col_palette,
             values = col_rescale,
@@ -1039,6 +1016,7 @@ gg_blanket <- function(data = NULL,
             transform = col_transform,
             oob = col_oob,
             na.value = col_palette_na,
+            aesthetics = c("colour", "fill")
           ) +
           ggplot2::guides(
             colour = ggplot2::guide_coloursteps(
@@ -1050,103 +1028,142 @@ gg_blanket <- function(data = NULL,
           )
       }
     }
-    else if (!is_col_continuous) {
-      if (!rlang::quo_is_null(col)) {
-        col_n <- data %>%
-          dplyr::pull(!!col) %>%
-          levels() %>%
-          length()
-
-        if (rlang::is_null(col_palette)) {
-          col_palette <- get_col_palette_d()
-          if (rlang::is_null(col_palette)) col_palette <- scales::pal_hue()(n = col_n)
-          else if (col_n > length(col_palette)) {
-            rlang::inform("Insufficient colours in set col_palette")
-            col_palette <- scales::pal_hue()(n = col_n)
-          }
-          else col_palette <- col_palette[1:col_n]
-        }
-        else if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
-
-        if (rlang::is_null(col_palette_na)) {
-          col_palette_na <- get_col_palette_na_d()
-          if (rlang::is_null(col_palette_na)) col_palette_na <- "grey50"
+    else if (col_scale_type %in% c("discrete", "ordinal")) {
+      if (col_scale_type == "discrete") {
+        if (!rlang::quo_is_null(col)) {
+          col_n <- data %>%
+            dplyr::pull(!!col) %>%
+            levels() %>%
+            length()
         }
       }
-      else { #guess anything that's ordered represents col,
-        #as there is a discrete col scale and no col variable supplied
-        plot_data_ordered <- plot_data %>%
-          dplyr::summarise(dplyr::across(tidyselect::where(is.ordered), function(x) length(levels(x))))
 
-        if (ncol(plot_data_ordered) == 0) {
-          if (rlang::is_null(col_palette)) {
-            col_palette <- get_col_palette_d()
-            if (rlang::is_null(col_palette_na)) col_palette_na <- jumble #should be ggplot2 default instead
-          }
-          if (rlang::is_null(col_palette_na)) {
-            col_palette_na <- get_col_palette_na_d()
-            if (rlang::is_null(col_palette_na)) col_palette_na <- "grey50"
-          }
+      if (rlang::is_null(col_palette)) {
+        if (col_scale_type == "discrete") {
+          col_palette <- get_col_palette_d()
+          if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
         }
-        else {
-          col_n <- plot_data_ordered %>%
-            tidyr::pivot_longer(cols = tidyselect::everything()) %>%
-            dplyr::summarise(max(.data$value)) %>%
-            dplyr::pull()
 
-          if (rlang::is_null(col_palette)) {
-            col_palette <- get_col_palette_c()[1:col_n]
-            if (rlang::is_null(col_palette)) col_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")(seq(0, 1, length.out = 20))
-          }
-          else if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
+        else if (col_scale_type == "ordinal") col_palette <- get_col_palette_o()
+      }
 
-          if (rlang::is_null(col_palette_na)) {
-            col_palette_na <- get_col_palette_na_c()
-            if (rlang::is_null(col_palette_na)) col_palette_na <- "grey50"
-          }
-
-          col_legend_rev <- !col_legend_rev
-        }
+      if (rlang::is_null(col_palette_na)) {
+        if (col_scale_type == "discrete") col_palette_na <- get_col_palette_na_d()
+        else if (col_scale_type == "ordinal") col_palette_na <- get_col_palette_na_o()
       }
 
       if (flipped) {
         col_legend_rev <- !col_legend_rev
         col_palette <- rev(col_palette)
       }
+      if (col_scale_type == "ordinal") col_legend_rev <- !col_legend_rev
 
       if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
 
       if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
 
-      plot <- plot +
-        ggplot2::scale_fill_manual(
-          values = col_palette,
-          limits = col_limits,
-          breaks = col_breaks,
-          labels = col_labels,
-          na.value = col_palette_na,
-          drop = col_drop,
-        ) +
-        ggplot2::scale_colour_manual(
-          values = col_palette,
-          limits = col_limits,
-          breaks = col_breaks,
-          labels = col_labels,
-          na.value = col_palette_na,
-          drop = col_drop,
-        ) +
-        ggplot2::guides(
-          colour = ggplot2::guide_legend(
-            reverse = col_legend_rev,
-            ncol = col_legend_ncol,
-            nrow = col_legend_nrow
-          ),
-          fill = ggplot2::guide_legend(
-            reverse = col_legend_rev,
-            ncol = col_legend_ncol,
-            nrow = col_legend_nrow
-          )
-        )
+      if (!rlang::is_null(col_palette)) {
+        if (col_scale_type == "discrete") {
+          if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
+
+          plot <- plot +
+            ggplot2::scale_colour_manual(
+              values = col_palette,
+              limits = col_limits,
+              breaks = col_breaks,
+              labels = col_labels,
+              na.value = col_palette_na,
+              drop = col_drop,
+              aesthetics = c("colour", "fill")
+            ) +
+            ggplot2::guides(
+              colour = ggplot2::guide_legend(
+                reverse = col_legend_rev,
+                ncol = col_legend_ncol,
+                nrow = col_legend_nrow
+              ),
+              fill = ggplot2::guide_legend(
+                reverse = col_legend_rev,
+                ncol = col_legend_ncol,
+                nrow = col_legend_nrow
+              )
+            )
+        }
+        else if (col_scale_type == "ordinal") {
+          plot <- plot +
+            ggplot2::discrete_scale(
+              palette = col_palette,
+              limits = col_limits,
+              breaks = col_breaks,
+              labels = col_labels,
+              na.value = col_palette_na,
+              drop = col_drop,
+              aesthetics = c("colour", "fill")
+            ) +
+            ggplot2::guides(
+              colour = ggplot2::guide_legend(
+                reverse = col_legend_rev,
+                ncol = col_legend_ncol,
+                nrow = col_legend_nrow
+              ),
+              fill = ggplot2::guide_legend(
+                reverse = col_legend_rev,
+                ncol = col_legend_ncol,
+                nrow = col_legend_nrow
+              )
+            )
+        }
+      }
+      else {
+        if (rlang::is_null(col_palette_na)) col_palette_na <- "grey50"
+
+        if (col_scale_type == "discrete") {
+          plot <- plot +
+            ggplot2::scale_colour_hue(
+              limits = col_limits,
+              breaks = col_breaks,
+              labels = col_labels,
+              na.value = col_palette_na,
+              drop = col_drop,
+              aesthetics = c("colour", "fill")
+            ) +
+            ggplot2::guides(
+              colour = ggplot2::guide_legend(
+                reverse = col_legend_rev,
+                ncol = col_legend_ncol,
+                nrow = col_legend_nrow
+              ),
+              fill = ggplot2::guide_legend(
+                reverse = col_legend_rev,
+                ncol = col_legend_ncol,
+                nrow = col_legend_nrow
+              )
+            )
+        }
+        else if (col_scale_type == "ordinal") {
+          plot <- plot +
+            ggplot2::scale_colour_viridis_d(
+              limits = col_limits,
+              breaks = col_breaks,
+              labels = col_labels,
+              na.value = col_palette_na,
+              drop = col_drop,
+              aesthetics = c("colour", "fill")
+            ) +
+            ggplot2::guides(
+              colour = ggplot2::guide_legend(
+                reverse = col_legend_rev,
+                ncol = col_legend_ncol,
+                nrow = col_legend_nrow
+              ),
+              fill = ggplot2::guide_legend(
+                reverse = col_legend_rev,
+                ncol = col_legend_ncol,
+                nrow = col_legend_nrow
+              )
+            )
+        }
+      }
 
       if (!rlang::is_null(plot_build$plot$labels$alpha)) {
         if (!rlang::is_null(plot_build$plot$labels$colour[1])) {

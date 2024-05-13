@@ -15,6 +15,8 @@ set_blanket(
   col_palette_na_d = "#cdc5bfff",
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
   col_palette_na_c = "#988f88ff",
+  col_palette_o = scales::pal_viridis(option = "G", direction = -1),
+  col_palette_na_o = "#988f88ff",
   theme = light_mode_r(orientation = "x"),
   ...
 )
@@ -39,6 +41,10 @@ set_blanket(
 \item{col_palette_c}{A default col_palette to use in the continuous scale. A character vector of hex codes (or names).}
 
 \item{col_palette_na_c}{A default colour for NA on a continuous scale. A hex code or name.}
+
+\item{col_palette_o}{Colour palette function to use for ordinal scale, e.g. \code{scales::pal_viridis()}).}
+
+\item{col_palette_na_o}{A default colour for NA on a continuous scale. A hex code or name.}
 
 \item{theme}{A default ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note, \code{mode} takes precedence, unless \code{mode = NULL}.}
 

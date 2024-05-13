@@ -23,10 +23,10 @@ This article will demonstrate each wrapper function.
 library(dplyr)
 library(ggplot2)
 library(scales)
-library(ggblanket)
+# library(ggblanket)
 library(palmerpenguins)
-
-set_blanket()
+devtools::load_all()
+# set_blanket()
 
 penguins2 <- penguins |> 
   labelled::set_variable_labels(

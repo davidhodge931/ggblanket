@@ -47,11 +47,20 @@ continuous_scales_col <- c(
 discrete_scales_col <- c(
   "scale_colour_discrete",
   "scale_colour_manual",
+
+  "scale_fill_discrete",
+  "scale_fill_manual"
+)
+
+#' Ordinal colour and fill scales
+#'
+#' @description A vector of ordinal colour and fill scales.
+#'
+#' @noRd
+ordinal_scales_col <- c(
   "scale_colour_ordinal",
   "scale_colour_viridis_d",
 
-  "scale_fill_discrete",
-  "scale_fill_manual",
   "scale_fill_ordinal",
   "scale_fill_viridis_d"
 )
