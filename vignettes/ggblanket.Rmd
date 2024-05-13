@@ -297,13 +297,14 @@ As geoms are drawn in order, the `gg_*()` function should be appropriate to be t
 penguins2 |>
   group_by(species, sex) |>
   summarise(
-    lower = quantile(body_mass_g, probs = 0.05),
-    upper = quantile(body_mass_g, probs = 0.95),
-    body_mass_g = mean(body_mass_g, na.rm = TRUE),
+    lower = quantile(flipper_length_mm, probs = 0.05),
+    upper = quantile(flipper_length_mm, probs = 0.95),
+    flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE),
   ) |>
-  labelled::copy_labels_from(penguins2) |> 
+  labelled::copy_labels_from(penguins2) |>
+  ungroup() |> 
   gg_col(
-    x = body_mass_g,
+    x = flipper_length_mm,
     xmin = lower, 
     xmax = upper,
     y = species,
