@@ -394,12 +394,12 @@ The default colour/fill scale palettes (i.e. `col_palette_d` and `col_palette_c`
 They are also relatively accessible for themes with light backgrounds.
 
 ```{r}
-#jumble default continuous colour scale palette (and default NA colour)
+#default discrete palette (and default NA colour)
 colorspace::swatchplot(c(jumble, grey), cvd = TRUE)
 ```
 
 ```{r}
-#viridisLite::mako default continuous colour scale palette (and default NA colour)
+#default continuous scale palette (and default NA colour)
 colorspace::swatchplot(c(viridisLite::mako(9), 
                          colorspace::darken(grey, 0.25)), cvd = TRUE)
 ```
