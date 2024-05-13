@@ -3,8 +3,8 @@
 #' @description Set a default style by setting a default mode, a series of geom and annotate aesthetic defaults, and a default col_palette for discrete and continuous scales.
 #'
 #' @param mode A default `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
-#' @param geom_colour A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to `blue`.
-#' @param annotate_colour A default hex colour (and fill) for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to "#121b24" (i.e. `lightness[1]`).
+#' @param geom_colour A default hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to `blue`.
+#' @param annotate_colour A default hex colour (and fill) for other geoms commonly used for annotation (i.e. `*_hline`/`*_vline`/`*_abline` and `*_curve`). Defaults to "#121b24" (i.e. `lightness[1]`).
 #' @param annotate_linewidth A default linewidth for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to 0.33.
 #' @param annotate_family A default family for `*_text` and `*_label`. Defaults to ""
 #' @param annotate_size A default size for `*_text` and `*_label`. Defaults to 3.88.

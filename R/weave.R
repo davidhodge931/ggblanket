@@ -38,7 +38,7 @@ weave_theme <- function(new = light_mode_r(orientation = "x")) {
 
 #' Set a series of geom defaults
 #'
-#' @description Update a series of geom defaults.
+#' @description Update most geom defaults.
 #'
 #' @param colour A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to "#357ba2" (i.e. `blue`).
 #'
@@ -115,9 +115,9 @@ weave_geom_aes <- function(colour = "#357ba2") {
   }
 }
 
-#'  Set a series of annotate defaults
+#'  Set a series of annotation defaults
 #'
-#' @description Update a series of geom defaults commonly used for annotation (i.e. `*_vline`/`*_hline`/`*_abline`, `*_curve`, and `*_text`/`*_label`).
+#' @description Update other geom defaults commonly used for annotation (i.e. `*_vline`/`*_hline`/`*_abline`, `*_curve`, and `*_text`/`*_label`).
 #'
 #' @param colour A default hex colour (and fill) for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to "#121b24" (i.e. `lightness[1]`).
 #' @param linewidth A default linewidth for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to 0.33.

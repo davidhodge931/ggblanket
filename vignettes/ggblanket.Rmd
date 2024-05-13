@@ -328,7 +328,6 @@ penguins2 |>
     xmax = upper,
     y = species,
     col = sex,
-    group = sex,
     position = position_dodge(),
     width = 0.75,
     x_expand_limits = 0,
@@ -366,8 +365,8 @@ penguins2 |>
 The `set_blanket` function sets customisable defaults for the:
 
 * mode (i.e. a theme added with side-effects)
-* geom colour (i.e. colour/fill where `col = NULL`)
-* annotation colour  (i.e. colour/fill where `col = NULL` for geoms often used for annotation)
+* geom colour (i.e. colour/fill where `col = NULL` for most geoms)
+* annotation colour  (i.e. colour/fill where `col = NULL` for other geoms often used for annotation)
 * discrete colour palette (and NA colour)
 * continuous colour palette (and NA colour)
 * theme (i.e. a theme added with no side-effects)

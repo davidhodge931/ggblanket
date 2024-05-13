@@ -22,9 +22,9 @@ set_blanket(
 \arguments{
 \item{mode}{A default \verb{*_mode_*}. E.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
 
-\item{geom_colour}{A default hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to \code{blue}.}
+\item{geom_colour}{A default hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to \code{blue}.}
 
-\item{annotate_colour}{A default hex colour (and fill) for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to "#121b24" (i.e. \code{lightness[1]}).}
+\item{annotate_colour}{A default hex colour (and fill) for other geoms commonly used for annotation (i.e. \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}). Defaults to "#121b24" (i.e. \code{lightness[1]}).}
 
 \item{annotate_linewidth}{A default linewidth for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to 0.33.}
 

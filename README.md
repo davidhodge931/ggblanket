@@ -65,4 +65,4 @@ to start learning how ggblanket works.
 
 Thanks to all authors of ggplot2, tidyverse, and the wider R ecosystem.
 
-In loving memory of my Dad (Peter Hodge, 1953–2023).
+For my Dad (Peter Hodge, 1953–2023).
