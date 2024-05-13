@@ -86,7 +86,11 @@ set_blanket()
 
 ### 2. Each `gg_*` function wraps a geom
 
-Each `gg_*` function wraps a `ggplot2::ggplot()` function with the associated `ggplot2::geom_*()` function. Almost every geom in ggplot2 is wrapped. Most aesthetics can be added as arguments. 
+Each `gg_*` function wraps a `ggplot2::ggplot()` function with the associated `ggplot2::geom_*()` function. 
+
+Almost every geom in ggplot2 is wrapped. 
+
+Most aesthetics can be added directly as arguments. 
 
 ```{r}
 penguins2 |>
@@ -100,7 +104,7 @@ penguins2 |>
 
 The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. 
 
-This combined aesthetic means that everything should be coloured according to it, i.e. all coloured outlines and filled interiors. 
+This combined aesthetic means that everything should be coloured according to it, i.e. all `colour` outlines and all `fill` interiors. 
 
 Use `colour = NA` or `fill = NA` to turn one of these off.
 
@@ -125,7 +129,7 @@ penguins2 |>
 
 ### 4. A `facet` argument to facet by a variable
 
-Faceting is treated as if it were an aesthetic - users just provide an unquoted variable to facet by. 
+Users provide an unquoted `facet` variable to facet by. 
 
 When `facet` is specified (and `facet2 = NULL`), the `facet_layout` will default to a `"wrap"` of the `facet` variable.
 
@@ -154,11 +158,11 @@ penguins2 |>
 
 ### 6.  Smart `*_label` defaults for axis and legend titles
 
-The `x_label`, `y_label` and `col_label` for the axis and legend titles can be manually specified with the applicable `*_label` argument, or with `+ ggplot2::labs()`.
+The `x_label`, `y_label` and `col_label` for the axis and legend titles can be manually specified with the applicable `*_label` argument.
 
 If not specified, they will first take any label attribute associated with the applicable variable. 
 
-Otherwise, they will convert the variable name to a label name using the `label_to_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence_case`). 
+If none, they will then convert the variable name to a label name using the `label_to_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence_case`). 
 
 ```{r, fig.asp=0.6}
 penguins2 |>
@@ -173,10 +177,6 @@ penguins2 |>
 ggblanket offers numerous arguments to customise that are prefixed by whether they relate to `x`, `y`, `col` or `facet`. 
 
 These prefixed arguments work nicely with auto-complete, if users ensure their settings support this.
-
-```{r, echo = FALSE,   fig.width = 3, fig.asp = 2}
-knitr::include_graphics("autocomplete_y.png", dpi = 300)
-```
 
 ```{r}
 penguins2 |>
@@ -202,8 +202,6 @@ The `...` argument provides access to all other arguments in the `geom_*()` func
 
 Common arguments to add include `colour`, `fill`, `alpha`, `linewidth`, `linetype`,  `size` and  `width`.
 
-This is why you can turn off  _either_ colour or fill using `colour = NA`/`fill = NA`, as previously mentioned.
-
 Use the `geom_*` help to see what arguments are available. 
 
 ```{r}
@@ -228,9 +226,9 @@ Three families of themes are provided: `light_mode_*`, `grey_mode_*` and `dark_m
 
 Each theme family provides 4 variants that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
 
-These are built for use with the `mode` argument in the `gg_*` functions, which has  side-effects for x and y orientations (i.e. removing particular axis lines/ticks and gridlines). If you want to use a theme with no side-effects, then `+` the theme to the plot.
+These are built for use with the `mode` argument in the `gg_*` functions, which has  side-effects for x and y orientations (i.e. removing particular axis lines/ticks and gridlines). 
 
-Note to remove a `*_label`, use `+ labs(... = NULL)` or `+ theme(legend.title = element_blank()`.
+If you want to use a theme with no side-effects, then `+` the theme to the plot.
 
 ```{r, fig.asp=0.65}
 penguins2 |>
@@ -266,16 +264,13 @@ penguins2 |>
 
 ### 11. A 'symmetric' continuous scale with easy opt-out
 
-The `gg_*` function will generally create a 'symmetric' continuous y scale with: 
-
-* `y_limits` that are the range of the `y_breaks` 
-* `y_expand` of `c(0, 0)`.
+The `gg_*` function will generally create a 'symmetric' continuous y scale with (1.) `y_limits` the range of `y_breaks` and `y_expand` of `c(0, 0)`.
 
 The vice-versa will occur where a y orientation is guessed.
 
 You can turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc). For a date variable, use `lubridate::NA_Date_` instead of `NA`.
 
-Note this 'symmetric' scale does not occur where the scale has a non-linear `*_transform` - or where the other positional scale is binned. 
+Note this 'symmetric' scale does not occur where the scale has a non-linear `*_transform` (or where the other positional scale is binned). 
 
 ```{r, echo=FALSE}
 p1 <- penguins2 |>
@@ -392,7 +387,7 @@ The `set_blanket` function sets customisable defaults for the:
 
 The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
 
-Note `set_blanket()` also works on ggplot2 code. 
+`set_blanket()` also works on ggplot2 code. 
 
 ```{r}
 set_blanket(
