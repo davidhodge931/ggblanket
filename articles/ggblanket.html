@@ -325,23 +325,22 @@ variants<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-w
 <code>grey_mode_*</code> and <code>dark_mode_*</code>.</p>
 <p>Each theme family provides 4 variants that differ based on legend
 placement with suffix <code>r</code> (right), <code>b</code> (bottom),
-<code>t</code> (top) and <code>n</code> (none)).</p>
+<code>t</code> (top) and <code>n</code> (none).</p>
 <p>These are built for use with the <code>mode</code> argument in the
-<code>gg_*</code> functions, which has helpful side-effects for the x
-and y orientations (i.e. removing particular axis lines/ticks and
-gridlines).</p>
-<p>If you want to use a theme with no side-effects, just + the theme on
-to the plot.</p>
+<code>gg_*</code> functions, which has helpful side-effects for x and y
+orientations (i.e. removing particular axis lines/ticks and gridlines).
+If you want to use a theme with no side-effects, + the theme to the
+plot.</p>
 <p>Note:</p>
 <ul>
-<li>to remove a <code>*_label</code>, use
+<li>to remove a <code>x_label</code> or <code>y_label</code>, use
 <code>+ labs(... = NULL)</code>
 </li>
-<li>for <code>col_label</code>, use
+<li>to remove a <code>col_label</code>, use
 <code>+ labs(colour = NULL, fill = NULL)</code> or
 <code>+ theme(legend.title = element_blank()</code>
 </li>
-<li>if you want a quick non-bold title, use
+<li>for a quick non-bold title, use
 <code>subtitle = "\n..."</code>.</li>
 </ul>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -399,9 +398,8 @@ vice-versa will occurs with a ‘symmetric’ continuous x scale by
 default.</p>
 <p>The key thing to know is that you can easily turn this ‘symmetric’
 scale off using <code>*_limits = c(NA, NA)</code> (or
-<code>*_limits = c(0, NA)</code> for bars etc). Use
-<code><a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">lubridate::NA_Date_</a></code> instead of <code>NA</code> for a date
-variable.</p>
+<code>*_limits = c(0, NA)</code> for bars etc). For a date variable, use
+<code><a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">lubridate::NA_Date_</a></code> instead of <code>NA</code>.</p>
 <p>Note this ‘symmetric’ scale does not occur where the scale has a
 non-linear <code>*_transform</code> - or where the other positional
 scale is binned. Also, sometimes you may need to add
@@ -416,10 +414,10 @@ scale is binned. Also, sometimes you may need to add
 <p>The <code>gg_*</code> function puts the aesthetic variables within
 the wrapped <code>ggplot</code> function. Therefore, these aesthetics
 will inherit to any subsequent layers added.</p>
-<p>Generally, it works best to add all aesthetics required for the plot
-to the <code>gg_*</code> function.</p>
-<p>The <code>gg_*()</code> function should be appropriate to be the
-bottom layer of the plot, as geoms are drawn in order.</p>
+<p>It generally works best to add all aesthetics required to the
+<code>gg_*</code> function.</p>
+<p>As geoms are drawn in order, the <code>gg_*()</code> function should
+be appropriate to be the bottom geom of the plot.</p>
 <p>Subsequently, you may sometimes need to use <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code>
 which defaults to a <code>blank</code> geom.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
