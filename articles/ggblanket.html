@@ -476,11 +476,11 @@ relatively colour-blind safe.</p>
 <p>They are also relatively accessible for themes with light
 backgrounds.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#jumble default continuous colour scale palette (and default NA colour)</span></span>
+<code class="sourceCode R"><span><span class="co">#default discrete palette (and default NA colour)</span></span>
 <span><span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/swatchplot.html" class="external-link">swatchplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">jumble</span>, <span class="va">grey</span><span class="op">)</span>, cvd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#viridisLite::mako default continuous colour scale palette (and default NA colour)</span></span>
+<code class="sourceCode R"><span><span class="co">#default continuous scale palette (and default NA colour)</span></span>
 <span><span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/swatchplot.html" class="external-link">swatchplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span>, </span>
 <span>                         <span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/lighten.html" class="external-link">darken</a></span><span class="op">(</span><span class="va">grey</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span>, cvd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
