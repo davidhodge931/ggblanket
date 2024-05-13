@@ -50,7 +50,7 @@ Computational speed has been traded-off.
 11. Ability to add multiple `geom_*` layers
 12. Families of `*_mode_*` themes with legend variants
 13. Arguments to customise setup with `set_blanket()`
-14. Colour-blind safe and accessible defaults
+14. Relatively colour-blind safe and accessible defaults
 15. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
@@ -387,20 +387,20 @@ p1 + p2
 set_blanket()
 ```
 
-### 14. Colour-blind safe and accessible defaults
+### 14. Relatively colour-blind safe and accessible defaults
 
-The default colour/fill scale palettes (i.e. `col_palette_d` and `col_palette_c`) are relatively colour-blind safe.
+The default colour/fill scale palettes (i.e. `col_palette_d` and `col_palette_c`) and NA colours are relatively colour-blind safe.
 
-Note the last colour of the jumble palette is the same as the default discrete NA colour. So it won't work if you wish to plot 7 values/levels _and_ NA values. 
+`jumble` is most accessible on a light background, as the `navy` colour works less well on a dark background. 
 
-`jumble` is most accessible on a light background.
+The 7th colour of the `jumble` palette is the same as the default discrete NA colour. So it won't work for plotting 7 values/levels _and_ NA values. 
 
-```{r}
+```{r, fig.asp = 0.3}
 #default discrete palette
 colorspace::swatchplot(jumble, cvd = TRUE)
 ```
 
-```{r}
+```{r, fig.asp = 0.3}
 #default continuous scale palette (and default NA colour)
 colorspace::swatchplot(c(viridisLite::mako(9), 
                          colorspace::darken(grey, 0.25)), cvd = TRUE)
@@ -408,7 +408,7 @@ colorspace::swatchplot(c(viridisLite::mako(9),
 
 ### 15. A `gg_blanket()` function with `geom` flexibility
 
-The package is driven by the `gg_blanket` function, which has a `geom` argument with `geom_blank` geom, stat and position defaults.
+The package is driven by the `gg_blanket` function, which has a `geom` argument with `ggplot2::geom_blank` defaults for `geom`, `stat` and `position`.
 
 All other functions wrap this function with a fixed `geom`, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
