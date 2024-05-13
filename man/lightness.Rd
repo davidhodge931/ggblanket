@@ -6,7 +6,7 @@
 \alias{greyness}
 \alias{darkness}
 \alias{linewidthness}
-\title{Mode colours and linewidths}
+\title{Mode colour and linewidth defaults}
 \usage{
 lightness
 
