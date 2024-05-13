@@ -473,11 +473,13 @@ to further fine-tune geom defaults.</p>
 <p>The default colour/fill scale palettes
 (i.e. <code>col_palette_d</code> and <code>col_palette_c</code>) are
 relatively colour-blind safe.</p>
-<p>They are also relatively accessible for themes with light
-backgrounds.</p>
+<p>Note the last colour of the jumble palette is the same as the default
+discrete NA colour. So it won’t work if you wish to plot 7 values/levels
+<em>and</em> NA values.</p>
+<p><code>jumble</code> is most accessible on a light background.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#default discrete palette (and default NA colour)</span></span>
-<span><span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/swatchplot.html" class="external-link">swatchplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">jumble</span>, <span class="va">grey</span><span class="op">)</span>, cvd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#default discrete palette</span></span>
+<span><span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/swatchplot.html" class="external-link">swatchplot</a></span><span class="op">(</span><span class="va">jumble</span>, cvd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#default continuous scale palette (and default NA colour)</span></span>
