@@ -42,10 +42,10 @@ Computational speed has been traded-off.
 4.  A `facet` argument to facet by a variable
 5.  A `facet2` argument to facet by a 2nd variable
 6.  Smart `*_label` defaults for axis and legend titles
-7.  Prefixed arguments to customise 
-8.  Other `geom_*` arguments via `...`
-9.  Families of `*_mode_*` themes with legend variants
-10. Other aesthetics via `mapping`
+7.  Prefixed arguments to customise x/y/col/facet
+8.  Other `ggplot2::geom_*` arguments via `...`
+9.  Other aesthetics via `mapping`
+10. Families of `*_mode_*` themes with legend variants
 11. A 'symmetric' continuous scale with easy opt-out
 12. Ability to add multiple `geom_*` layers
 13. A `gg_blanket()` function with `geom` flexibility
@@ -104,26 +104,16 @@ penguins2 |>
 
 The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. 
 
-This combined aesthetic means that everything should be coloured according to it, i.e. all `colour` outlines and all `fill` interiors. 
+This combined aesthetic means that all colour outlines and all fill interiors should be coloured with the `col_palette` by the `col` variable. 
 
 Use `colour = NA` or `fill = NA` to turn one of these off.
 
-```{r}
-penguins2 |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = species, 
-  )
-```
-
 ```{r, fig.asp=0.45}
 penguins2 |>
-  gg_bar(
-    position = "dodge",
-    y = species, 
+  gg_boxplot(
+    x = flipper_length_mm,
+    y = island,
     col = sex, 
-    width = 0.75,
   )
 ```
 
@@ -131,7 +121,7 @@ penguins2 |>
 
 Users provide an unquoted `facet` variable to facet by. 
 
-When `facet` is specified (and `facet2 = NULL`), the `facet_layout` will default to a `"wrap"` of the `facet` variable.
+When `facet` is specified, the `facet_layout` will default to a `"wrap"` of the `facet` variable (if `facet2 = NULL`).
 
 ```{r}
 penguins2 |>
@@ -143,7 +133,7 @@ penguins2 |>
 
 ### 5. A `facet2` argument to facet by a 2nd variable
 
-A `facet2` argument is also provided for extra functionality and flexibility. 
+Users can also provide an unquoted `facet2` variable to facet by.
 
 When `facet2` is specified, the `facet_layout` will default to a `"grid"` of the `facet` variable (horizontally) by the `facet2` variable (vertically).
 
@@ -158,7 +148,7 @@ penguins2 |>
 
 ### 6.  Smart `*_label` defaults for axis and legend titles
 
-The `x_label`, `y_label` and `col_label` for the axis and legend titles can be manually specified with the applicable `*_label` argument.
+The `x_label`, `y_label` and `col_label` for the axis and legend titles can be manually specified with the applicable `*_label` argument (or `+ ggplot2::labs(...)`).
 
 If not specified, they will first take any label attribute associated with the applicable variable. 
 
@@ -172,39 +162,39 @@ penguins2 |>
   )
 ```
 
-### 7.  Prefixed arguments to customise
+### 7.  Prefixed arguments to customise x/y/col/facet
 
-ggblanket offers numerous arguments to customise that are prefixed by whether they relate to `x`, `y`, `col` or `facet`. 
+There are numerous arguments to customise plots that are prefixed by whether they relate to `x`, `y`, `col` or `facet`. 
 
-For `x`, `y` and `col`, these mostly relate to associated arguments within ggplot2 scales and guides. For `facet`, they relate to associated arguments within `ggplot2::facet_wrap` and `ggplot2::facet_grid`. 
+For `x`, `y` and `col`, these relate to associated arguments within ggplot2 scales and guides. For `facet`, they relate to associated arguments within `ggplot2::facet_wrap` and `ggplot2::facet_grid`. 
 
 These prefixed arguments work nicely with auto-complete, if users ensure their settings support this.
 
 ```{r}
 penguins2 |>
   gg_jitter(
-    x = species,
+    x = flipper_length_mm,
     y = body_mass_g,
     col = flipper_length_mm,
-    facet = sex,
+    x_breaks = scales::breaks_extended(n = 4, only.loose = TRUE),
     x_labels = \(x) stringr::str_sub(x, 1, 1),
-    y_breaks = breaks_width(1000),
     y_expand_limits = 1000,
     y_labels = label_number(big.mark = " "), 
     y_transform = "log10",
+    col_label = "Flipper\nlength (mm)",
     col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
-    col_palette = viridis::magma(n = 9, direction = -1),
+    col_palette = viridis::rocket(n = 9, direction = -1),
   )
 ```
 
-### 8. Other `geom_*` arguments via `...`
+### 8. Other `ggplot2::geom_*` arguments via `...`
 
-The `...` argument provides access to all other arguments in the `geom_*()` function. 
+The `...` argument provides access to all other arguments in the `ggplot2::geom_*()` function. 
 
-Common arguments to add include `colour`, `fill`, `alpha`, `linewidth`, `linetype`,  `size` and  `width`.
+Common arguments to add include `colour`, `fill`, `alpha`, `linewidth`, `linetype`,  `size` and  `width`, which enables fixing of these to a particular value. 
 
-Use the `geom_*` help to see what arguments are available. 
+Use the `ggplot2::geom_*` help to see what arguments are available. 
 
 ```{r}
 penguins2 |>
@@ -222,34 +212,11 @@ penguins2 |>
   ) 
 ```
 
-### 9.  Families of `*_mode_*` themes with legend variants 
-
-Three families of themes are provided: `light_mode_*`, `grey_mode_*` and `dark_mode_*`.
-
-Each theme family provides 4 variants that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
-
-These are built for use with the `mode` argument in the `gg_*` functions, which has  side-effects for x and y orientations removing axis lines/ticks and gridlines). 
-
-If you want to use a theme with no side-effects, then `+` the theme to the plot.
-
-```{r, fig.asp=0.65}
-penguins2 |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-    title = "Penguin flipper length by species",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020", 
-    mode = grey_mode_t(),
-  ) +
-  theme(legend.title = element_blank())
-```
-
-### 10. Other aesthetics via `mapping`
+### 9. Other aesthetics via `mapping`
 
 Some aesthetics are not available via an argument (e.g. `alpha`, `size`, `shape`, `linetype` and `linewidth`).
 
-These can be accessed via the `mapping` argument with aesthetics placed within a `ggplot2::aes` function.
+These can be accessed via the `mapping` argument with aesthetics placed within `ggplot2::aes(...)`.
 
 To customise associated scales/guides, `+` on the applicable ggplot2 layer. 
 
@@ -264,11 +231,30 @@ penguins2 |>
   scale_shape_manual(values = rev(shape_pal()(3)))
 ```
 
+### 10.  Families of `*_mode_*` themes with legend variants 
+
+`light_mode_*`, `grey_mode_*` and `dark_mode_*` theme families are provided with themes that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
+
+These are built for use with the `mode` argument in the `gg_*` functions, which has  side-effects for x and y orientations removing axis lines/ticks and gridlines. 
+
+If you want to use a theme with no side-effects, then `+` on the theme instead.
+
+```{r, fig.asp=0.65}
+penguins2 |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = species,
+    title = "Penguin flipper length by species",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020", 
+    mode = grey_mode_t(),
+  ) +
+  theme(legend.title = element_blank())
+```
+
 ### 11. A 'symmetric' continuous scale with easy opt-out
 
-The `gg_*` function will generally create a 'symmetric' continuous y scale with (1.) `y_limits` the range of `y_breaks` and `y_expand` of `c(0, 0)`.
-
-The vice-versa will occur where a y orientation is guessed.
+The `gg_*` function will generally create a 'symmetric' continuous y scale with `y_limits` the range of `y_breaks` and `y_expand` of `c(0, 0)`. The vice-versa will occur where a y orientation is guessed.
 
 You can turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc). For a date variable, use `lubridate::NA_Date_` instead of `NA`.
 
@@ -283,8 +269,9 @@ p1 <- penguins2 |>
     position = position_dodge(),
     x_labels = \(x) str_sub(x, 1, 1),
     subtitle = "\ny_limits = NULL",
-    mode = light_mode_r(panel_grid_colour = "black")
-  ) 
+    mode = grey_mode_r()
+  ) +
+  labs(y = NULL)
 
 p2 <- penguins2 |>
   gg_pointrange(
@@ -295,8 +282,9 @@ p2 <- penguins2 |>
     x_labels = \(x) str_sub(x, 1, 1),
     y_limits = c(NA, NA),
     subtitle = "\ny_limits = c(NA, NA),",
-    mode = light_mode_r(panel_grid_colour = "black")
-  ) 
+    mode = grey_mode_r()
+  ) +
+  labs(y = NULL)
 
 p3 <- penguins2 |>
   gg_col(
@@ -308,60 +296,57 @@ p3 <- penguins2 |>
     x_labels = \(x) str_sub(x, 1, 1),
     y_limits = c(0, NA),
     subtitle = "\ny_limits = c(0, NA),",
-    mode = light_mode_r(panel_grid_colour = "black")
-  ) 
+    mode = grey_mode_r()
+  ) +
+  labs(y = NULL)
 
 p1 + p2 + p3
 ```
 
 ### 12. Ability to add multiple `geom_*` layers
 
-Users can make plots with multiple layers by `+`-ing on `ggplot2::geom_*` layers. 
+Users can make plots with multiple layers by adding on `ggplot2::geom_*` layers. 
 
 The `gg_*` function puts the aesthetic variables within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added. 
 
 It generally works best to add all aesthetics required to the `gg_*` function. 
 
-As geoms are drawn in order, the `gg_*()` function should be appropriate to be the bottom geom of the plot. 
+As geoms are drawn in order, the `gg_*()` function should be appropriate to be the bottom geom of the plot. Subsequently, you may sometimes need to use `gg_blanket()` which defaults to a `blank` geom.
 
-Subsequently, you may sometimes need to use `gg_blanket()` which defaults to a `blank` geom.
-
-```{r, fig.asp = 0.4}
+```{r, fig.asp = 0.5}
 penguins2 |>
-  group_by(species) |>
+  group_by(species, sex) |>
   summarise(
     lower = quantile(body_mass_g, probs = 0.05),
     upper = quantile(body_mass_g, probs = 0.95),
     body_mass_g = mean(body_mass_g, na.rm = TRUE),
   ) |>
   labelled::copy_labels_from(penguins2) |> 
-  gg_blanket(
+  gg_col(
     x = body_mass_g,
     xmin = lower, 
     xmax = upper,
     y = species,
-    col = species,
-    x_expand_limits = 0,
-  ) +
-  geom_col(
-    colour = "#d3d3d3",
-    fill = "#d3d3d3",
+    col = sex,
+    group = sex,
+    position = position_dodge(),
     width = 0.75,
+    x_expand_limits = 0,
   ) +
   geom_errorbar(
     width = 0.1, 
-  ) 
+    position = position_dodge(width = 0.75),
+    colour = lightness[1],
+  )  
 ```
 
 ### 13. A `gg_blanket()` function with `geom` flexibility
 
-ggblanket is driven by the `gg_blanket` function, which has a `geom` argument with `geom_blank` defaults.
+The package is driven by the `gg_blanket` function, which has a `geom` argument with `geom_blank` geom, stat and position defaults.
 
 All other functions wrap this function with a fixed `geom`, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
-You can print a `geom_*` function to identify the applicable `stat` and `position` arguments etc. 
-
-Note this function can often be used with ggplot2 extension package geoms.
+You can print a `geom_*` function to identify the default `stat` and `position` arguments etc. 
 
 ```{r}
 geom_histogram()
@@ -394,16 +379,17 @@ The `ggplot2::update_geom_defaults()` function can be used to further fine-tune 
 ```{r}
 set_blanket(
   mode = dark_mode_r(), 
-  geom_colour = "#bc5090",
+  geom_colour = "#E7298A",
   annotate_colour = darkness[1],
-  col_palette_d = c(purple, "tan", pink),
+  col_palette_d = c("#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", 
+                    "#E6AB02", "#A6761D", "#666666"), #RColorBrewer Dark2 
 )
 
 p1 <- penguins2 |>
   gg_point(
     x = flipper_length_mm, 
     y = body_mass_g,
-    x_breaks = breaks_extended(3, only.loose = TRUE),
+    x_breaks = breaks_extended(n = 4, only.loose = TRUE),
   ) +
   geom_vline(xintercept = 200) +
   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
@@ -412,7 +398,7 @@ p2 <- penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
-    x_breaks = breaks_extended(3, only.loose = TRUE),
+    x_breaks = breaks_extended(n = 4, only.loose = TRUE),
   ) +
   geom_vline(xintercept = 200) +
   annotate("text", x = I(0.75), y = I(0.75), label = "Here")
