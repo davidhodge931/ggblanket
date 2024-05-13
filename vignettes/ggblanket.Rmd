@@ -153,17 +153,16 @@ Some aesthetics are not available via an argument (e.g. `alpha`, `size`, `shape`
 
 These can be accessed via the `mapping` argument with aesthetics placed within `ggplot2::aes(...)`.
 
-To customise associated scales/guides, `+` on the applicable ggplot2 layer. 
+To customise associated scales/guides, `+` on the applicable ggplot2 layer. In some situations, you may have to reverse the values in the relevant scale etc.
 
 ```{r}
 penguins2 |> 
   gg_jitter(
-    y = species, 
-    x = flipper_length_mm, 
-    col = species,
-    mapping = aes(shape = species),
-  ) +
-  scale_shape_manual(values = rev(shape_pal()(3)))
+    x = species, 
+    y = flipper_length_mm, 
+    col = island,
+    mapping = aes(shape = island),
+  ) 
 ```
 
 ### 7.  Prefixed arguments to customise x/y/col/facet
@@ -238,7 +237,7 @@ The `gg_*` function will generally create a 'symmetric' continuous y scale with 
 
 You can turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc). For a date variable, use `lubridate::NA_Date_` instead of `NA`.
 
-Note this 'symmetric' scale does not occur where `*_limits` are specified or the `*_transform` is non-linear.
+Note this 'symmetric' scale does not occur where the associated `*_limits` are specified or the `*_transform` is non-linear.
 
 ```{r, echo=FALSE}
 p1 <- penguins2 |>
