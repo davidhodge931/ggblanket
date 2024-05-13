@@ -187,7 +187,7 @@ penguins2 |>
     facet = sex,
     x_labels = \(x) stringr::str_sub(x, 1, 1),
     y_breaks = breaks_width(1000),
-    y_expand_limits = 2000,
+    y_expand_limits = 1000,
     y_labels = label_number(big.mark = " "), 
     y_transform = "log10",
     col_steps = TRUE,
@@ -249,9 +249,9 @@ penguins2 |>
 
 Some aesthetics are not available via an argument (e.g. `alpha`, `size`, `shape`, `linetype` and `linewidth`).
 
-These can be accessed via the `mapping` argument with aesthetics placed within a `ggplot2::aes` function. 
+These can be accessed via the `mapping` argument with aesthetics placed within a `ggplot2::aes` function.
 
-Note, in some situations, the `alpha`, `size`, `shape`, `linetype` and `linewidth` values may need to be reversed in the relevant scale.
+To customise associated scales/guides, `+` on the applicable ggplot2 layer. 
 
 ```{r}
 penguins2 |> 
@@ -275,7 +275,7 @@ The vice-versa will occur where a y orientation is guessed.
 
 You can turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc). For a date variable, use `lubridate::NA_Date_` instead of `NA`.
 
-Note this 'symmetric' scale does not occur where the scale has a non-linear `*_transform` - or where the other positional scale is binned. Also, sometimes you may need to add `*_expand_limits = 0`, if the lower bound is close to 0.
+Note this 'symmetric' scale does not occur where the scale has a non-linear `*_transform` - or where the other positional scale is binned. 
 
 ```{r, echo=FALSE}
 p1 <- penguins2 |>
