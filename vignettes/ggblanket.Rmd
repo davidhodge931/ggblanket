@@ -230,17 +230,15 @@ penguins2 |>
 
 Three families of themes are provided: `light_mode_*`, `grey_mode_*` and `dark_mode_*`.
 
-Each theme family provides 4 variants that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none)). 
+Each theme family provides 4 variants that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
 
-These are built for use with the `mode` argument in the `gg_*` functions, which has helpful side-effects for the x and y orientations (i.e. removing particular axis lines/ticks and gridlines).
-
-If you want to use a theme with no side-effects, just + the theme on to the plot.
+These are built for use with the `mode` argument in the `gg_*` functions, which has helpful side-effects for x and y orientations (i.e. removing particular axis lines/ticks and gridlines). If you want to use a theme with no side-effects, + the theme to the plot.
 
 Note:
 
-* to remove a `*_label`, use `+ labs(... = NULL)` 
-* for `col_label`, use `+ labs(colour = NULL, fill = NULL)` or `+ theme(legend.title = element_blank()`
-* if you want a quick non-bold title, use `subtitle = "\n..."`.
+* to remove a `x_label` or `y_label`, use `+ labs(... = NULL)` 
+* to remove a `col_label`, use `+ labs(colour = NULL, fill = NULL)` or `+ theme(legend.title = element_blank()`
+* for a quick non-bold title, use `subtitle = "\n..."`.
 
 ```{r, fig.asp=0.65}
 penguins2 |>
@@ -283,7 +281,7 @@ The `gg_*` function will generally create a 'symmetric' continuous y scale by de
 
 However, for the plots guessed to be of horizontal orientation, the vice-versa will occurs with a 'symmetric' continuous x scale by default.
 
-The key thing to know is that you can easily turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc). Use `lubridate::NA_Date_` instead of `NA` for a date variable.
+The key thing to know is that you can easily turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc). For a date variable, use `lubridate::NA_Date_` instead of `NA`.
 
 Note this 'symmetric' scale does not occur where the scale has a non-linear `*_transform` - or where the other positional scale is binned. Also, sometimes you may need to add `*_expand_limits = 0`, if the lower bound is close to 0.
 
@@ -333,9 +331,9 @@ Users can make plots with multiple layers by `+`-ing on `ggplot2::geom_*` layers
 
 The `gg_*` function puts the aesthetic variables within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added. 
 
-Generally, it works best to add all aesthetics required for the plot to the `gg_*` function. 
+It generally works best to add all aesthetics required to the `gg_*` function. 
 
-The `gg_*()` function should be appropriate to be the bottom layer of the plot, as geoms are drawn in order. 
+As geoms are drawn in order, the `gg_*()` function should be appropriate to be the bottom geom of the plot. 
 
 Subsequently, you may sometimes need to use `gg_blanket()` which defaults to a `blank` geom.
 
