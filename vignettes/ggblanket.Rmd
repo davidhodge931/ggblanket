@@ -78,7 +78,7 @@ The `set_blanket()` function should be run first.
 
 This sets the default style of plots with themes and colours etc. It can be customised. 
 
-But for now, just know that you need to run it at the start of every script or quarto document. 
+It should be run at the start of every script or quarto document. 
 
 ```{r}
 set_blanket()
@@ -86,7 +86,7 @@ set_blanket()
 
 ### 2. Each `gg_*` function wraps a geom
 
-Each `gg_*` function wraps a ggplot2 `ggplot2::ggplot()` function with the `gg_*` associated ggplot2 `geom_*()` function. 
+Each `gg_*` function wraps a `ggplot2::ggplot()` function with the associated `ggplot2::geom_*()` function. 
 
 Almost every geom in ggplot2 is wrapped. So there is almost 40 of them!
 
@@ -129,11 +129,9 @@ penguins2 |>
 
 ### 4. A `facet` argument to facet by a variable
 
-Faceting is treated as if it were an aesthetic. Users just provide an unquoted variable to facet by. 
+Faceting is treated as if it were an aesthetic - users just provide an unquoted variable to facet by. 
 
-When `facet` variable is _not_ NULL (and `facet2 = NULL`), the `facet_layout` will default to `"wrap"` (i.e. it will use `ggplot2::facet_wrap` under the hood).
-
-When `facet` is specified (and `facet2 = NULL`), the `facet_layout` will default to `"wrap"` (i.e. it will use `ggplot2::facet_wrap` under the hood).
+When `facet` is specified (and `facet2 = NULL`), the `facet_layout` will default to a `"wrap"` of the `facet` variable.
 
 ```{r}
 penguins2 |>
@@ -147,9 +145,7 @@ penguins2 |>
 
 A `facet2` argument is also provided for extra functionality and flexibility. 
 
-This enables users to facet easily in a `"grid"` layout of the `facet` variable horizontally by the `facet2` variable vertically. 
-
-When `facet2` is specified, the `facet_layout` will default to `"grid"` (i.e. it will use `ggplot2::facet_grid` under the hood).
+When `facet2` is specified, the `facet_layout` will default to a `"grid"` of the `facet` variable (horizontally) by the `facet2` variable (vertically).
 
 ```{r, fig.asp=0.75}
 penguins2 |>
@@ -166,7 +162,7 @@ The `x_label`, `y_label` and `col_label` for the axis and legend titles can be m
 
 If not specified, they will first take any label attribute associated with the applicable variable. 
 
-Otherwise, they will convert the variable name to a label name using the `label_to_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence`). 
+Otherwise, they will convert the variable name to a label name using the `label_to_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence_case`). 
 
 ```{r, fig.asp=0.6}
 penguins2 |>
@@ -180,9 +176,7 @@ penguins2 |>
 
 ggblanket offers numerous arguments to customise that are prefixed by whether they relate to `x`, `y`, `col` or `facet`. 
 
-These prefixed arguments can work nicely with auto-complete, if users ensure their settings support this.
-
-All arguments prefixed `col_` relate to the merged colour/fill scale, and all prefixed `facet_` relates to _both_ `facet` and `facet2`.
+These prefixed arguments work nicely with auto-complete, if users ensure their settings support this.
 
 ```{r, echo = FALSE,   fig.width = 3, fig.asp = 2}
 knitr::include_graphics("autocomplete_y.png", dpi = 300)
@@ -240,7 +234,7 @@ Each theme family provides 4 variants that differ based on legend placement with
 
 These are built for use with the `mode` argument in the `gg_*` functions, which has helpful side-effects for the x and y orientations (i.e. removing particular axis lines/ticks and gridlines).
 
-If you want to use your own theme with no side-effects, just + the theme on to the plot.
+If you want to use a theme with no side-effects, just + the theme on to the plot.
 
 Note:
 
@@ -291,7 +285,7 @@ However, for the plots guessed to be of horizontal orientation, the vice-versa w
 
 The key thing to know is that you can easily turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc). Use `lubridate::NA_Date_` instead of `NA` for a date variable.
 
-Note this symmetric scale does not occur where the scale has an unsusual  `*_transform` - or where the other positional scale is binned. Also, sometimes you may need to add `*_expand_limits = 0`, if the lower bound is close to 0.
+Note this 'symmetric' scale does not occur where the scale has a non-linear `*_transform` - or where the other positional scale is binned. Also, sometimes you may need to add `*_expand_limits = 0`, if the lower bound is close to 0.
 
 ```{r, echo=FALSE}
 p1 <- penguins2 |>
