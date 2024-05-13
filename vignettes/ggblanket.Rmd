@@ -50,8 +50,7 @@ Computational speed has been traded-off.
 11. Ability to add multiple `geom_*` layers
 12. Families of `*_mode_*` themes with legend variants
 13. Arguments to customise setup with `set_blanket()`
-14. Relatively colour-blind safe and accessible defaults
-15. A `gg_blanket()` function with `geom` flexibility
+14. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
 library(dplyr)
@@ -288,9 +287,9 @@ Users can make plots with multiple layers by adding on `ggplot2::geom_*` layers.
 
 The `gg_*` function puts the aesthetic variables within the wrapped `ggplot` function. Therefore, these aesthetics will inherit to any subsequent layers added. 
 
-It generally works best to add all aesthetics required to the `gg_*` function. 
+It generally works best to add all aesthetics required to the `gg_*` function. The `gg_*()` function should also be appropriate to be the bottom geom of the plot, given that geoms are drawn in order. 
 
-As geoms are drawn in order, the `gg_*()` function should be appropriate to be the bottom geom of the plot. Subsequently, you may sometimes need to use `gg_blanket()` which defaults to a `blank` geom.
+Subsequently, you may sometimes need to use `gg_blanket()` which defaults to a `blank` geom.
 
 ```{r, fig.asp = 0.5}
 penguins2 |>
@@ -387,26 +386,7 @@ p1 + p2
 set_blanket()
 ```
 
-### 14. Relatively colour-blind safe and accessible defaults
-
-The default colour/fill scale palettes (i.e. `col_palette_d` and `col_palette_c`) and NA colours are relatively colour-blind safe.
-
-`jumble` is most accessible on a light background, as the `navy` colour works less well on a dark background. 
-
-The 7th colour of the `jumble` palette is the same as the default discrete NA colour. So it won't work for plotting 7 values/levels _and_ NA values. 
-
-```{r, fig.asp = 0.3}
-#default discrete palette
-colorspace::swatchplot(jumble, cvd = TRUE)
-```
-
-```{r, fig.asp = 0.3}
-#default continuous scale palette (and default NA colour)
-colorspace::swatchplot(c(viridisLite::mako(9), 
-                         colorspace::darken(grey, 0.25)), cvd = TRUE)
-```
-
-### 15. A `gg_blanket()` function with `geom` flexibility
+### 14. A `gg_blanket()` function with `geom` flexibility
 
 The package is driven by the `gg_blanket` function, which has a `geom` argument with `ggplot2::geom_blank` defaults for `geom`, `stat` and `position`.
 
