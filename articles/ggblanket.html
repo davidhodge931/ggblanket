@@ -266,6 +266,11 @@ sentence case (i.e. <code><a href="https://rdrr.io/pkg/snakecase/man/caseconver
 <p>ggblanket offers numerous arguments to customise that are prefixed by
 whether they relate to <code>x</code>, <code>y</code>, <code>col</code>
 or <code>facet</code>.</p>
+<p>For <code>x</code>, <code>y</code> and <code>col</code>, these mostly
+relate to associated arguments within ggplot2 scales and guides. For
+<code>facet</code>, they relate to associated arguments within
+<code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">ggplot2::facet_wrap</a></code> and
+<code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">ggplot2::facet_grid</a></code>.</p>
 <p>These prefixed arguments work nicely with auto-complete, if users
 ensure their settings support this.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -323,8 +328,7 @@ placement with suffix <code>r</code> (right), <code>b</code> (bottom),
 <code>t</code> (top) and <code>n</code> (none).</p>
 <p>These are built for use with the <code>mode</code> argument in the
 <code>gg_*</code> functions, which has side-effects for x and y
-orientations (i.e. removing particular axis lines/ticks and
-gridlines).</p>
+orientations removing axis lines/ticks and gridlines).</p>
 <p>If you want to use a theme with no side-effects, then <code>+</code>
 the theme to the plot.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
