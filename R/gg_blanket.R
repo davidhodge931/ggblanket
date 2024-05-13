@@ -23,7 +23,7 @@
 #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
 #' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
-#' @param col_palette Colour palette to use. A character vector of hex codes (or names).
+#' @param col_palette Colour palette to use. A character vector of hex codes (or names). Unless if ordinal, then a function (e.g. `scales::pal_viridis()`).
 #' @param col_palette_na Colour palette to use for `NA` values. A character value of a hex code (or name).
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
 #' @param col_steps For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
@@ -902,32 +902,15 @@ gg_blanket <- function(data = NULL,
   # Detect whether the plot has a col scale
   ##############################################################################
 
-  #sf seems to document scales differently, and this fixes
-  # if (stringr::str_detect(stat_name, "sf")) {
-  #   if (class(rlang::eval_tidy(col, data)) %in%
-  #       c("numeric", "double", "integer","Date", "POSIXct","hms")) {
-  #     is_col_continuous <- TRUE
-  #   }
-  #   else if (class(rlang::eval_tidy(col, data)) %in%
-  #            c("character", "logical", "factor")) {
-  #     is_col_continuous <- FALSE
-  #   }
-  #   else is_col_continuous <- NA
-  # }
-  # #support where col is null, but there is a colour scale
-  # else {
-    scales <- purrr::map_chr(plot_build$plot$scales$scales, function(x) {
-      ifelse(rlang::is_null(rlang::call_name(x[["call"]])), NA,
-             rlang::call_name(x[["call"]]))
-    })
+  scales <- purrr::map_chr(plot_build$plot$scales$scales, function(x) {
+    ifelse(rlang::is_null(rlang::call_name(x[["call"]])), NA,
+           rlang::call_name(x[["call"]]))
+  })
 
-    if (any(scales %in% continuous_scales_col)) col_scale_type <- "continuous"
-    else if (any(scales %in% discrete_scales_col)) col_scale_type <- "discrete"
-    else if (any(scales %in% ordinal_scales_col)) col_scale_type <- "ordinal"
-    else col_scale_type <- NA
-  # }
-  # return(scales)
-  # return(col_scale_type)
+  if (any(scales %in% continuous_scales_col)) col_scale_type <- "continuous"
+  else if (any(scales %in% discrete_scales_col)) col_scale_type <- "discrete"
+  else if (any(scales %in% ordinal_scales_col)) col_scale_type <- "ordinal"
+  else col_scale_type <- NA
 
   ##############################################################################
   # Make colour scale where there is a colour scale identified
@@ -943,7 +926,7 @@ gg_blanket <- function(data = NULL,
       }
 
       if (rlang::is_null(col_palette_na)) {
-        col_palette_na <- get_col_palette_na_c()
+        col_palette_na <- get_col_palette_c_na()
         if (rlang::is_null(col_palette_na)) col_palette_na <- "grey50"
       }
 
@@ -1048,8 +1031,8 @@ gg_blanket <- function(data = NULL,
       }
 
       if (rlang::is_null(col_palette_na)) {
-        if (col_scale_type == "discrete") col_palette_na <- get_col_palette_na_d()
-        else if (col_scale_type == "ordinal") col_palette_na <- get_col_palette_na_o()
+        if (col_scale_type == "discrete") col_palette_na <- get_col_palette_d_na()
+        else if (col_scale_type == "ordinal") col_palette_na <- get_col_palette_o_na()
       }
 
       if (flipped) {

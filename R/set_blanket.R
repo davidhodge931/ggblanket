@@ -9,11 +9,11 @@
 #' @param annotate_family A default family for `*_text` and `*_label`. Defaults to ""
 #' @param annotate_size A default size for `*_text` and `*_label`. Defaults to 3.88.
 #' @param col_palette_d A default col_palette to use in the discrete scale. A character vector of hex codes (or names).
-#' @param col_palette_na_d A default colour for NA on a discrete scale. A hex code or name.
+#' @param col_palette_d_na A default colour for NA on a discrete scale. A hex code or name.
 #' @param col_palette_c A default col_palette to use in the continuous scale. A character vector of hex codes (or names).
-#' @param col_palette_na_c A default colour for NA on a continuous scale. A hex code or name.
-#' @param col_palette_o Colour palette function to use for ordinal scale, e.g. `scales::pal_viridis()`).
-#' @param col_palette_na_o A default colour for NA on a continuous scale. A hex code or name.
+#' @param col_palette_c_na A default colour for NA on a continuous scale. A hex code or name.
+#' @param col_palette_o A colour palette function to use for ordinal scale, e.g. `scales::pal_viridis()`).
+#' @param col_palette_o_na A default colour for NA on a continuous scale. A hex code or name.
 #' @param theme A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence, unless `mode = NULL`.
 #' @param ... Provided to support trailing commas only.
 #'
@@ -56,11 +56,11 @@ set_blanket <- function(
     annotate_family = "",
     annotate_size = 3.88,
     col_palette_d = jumble,
-    col_palette_na_d = "#cdc5bfff",
+    col_palette_d_na = "#cdc5bfff",
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
-    col_palette_na_c = "#988f88ff",
+    col_palette_c_na = "#988f88ff",
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
-    col_palette_na_o = "#988f88ff",
+    col_palette_o_na = "#988f88ff",
     theme = light_mode_r(orientation = "x"),
     ...
 ) {
@@ -77,17 +77,17 @@ set_blanket <- function(
 
   weave_col_palette_d(
     new = col_palette_d,
-    na = col_palette_na_d
+    na = col_palette_d_na
   )
 
   weave_col_palette_o(
     new = col_palette_o,
-    na = col_palette_na_o
+    na = col_palette_o_na
   )
 
   weave_col_palette_c(
     new = col_palette_c,
-    na = col_palette_na_c
+    na = col_palette_c_na
   )
 
   weave_theme(new = theme)
