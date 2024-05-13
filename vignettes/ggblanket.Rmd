@@ -50,7 +50,8 @@ Computational speed has been traded-off.
 11. Ability to add multiple `geom_*` layers
 12. Families of `*_mode_*` themes with legend variants
 13. Arguments to customise setup with `set_blanket()`
-14. A `gg_blanket()` function with `geom` flexibility
+14. Colour-blind safe and accessible defaults
+15. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
 library(dplyr)
@@ -339,7 +340,6 @@ penguins2 |>
   theme(legend.title = element_blank())
 ```
 
-
 ### 13. Arguments to customise setup with `set_blanket()`
 
 The `set_blanket` function sets customisable defaults for the:
@@ -387,7 +387,24 @@ p1 + p2
 set_blanket()
 ```
 
-### 14. A `gg_blanket()` function with `geom` flexibility
+### 14. Colour-blind safe and accessible defaults
+
+The default colour/fill scale palettes (i.e. `col_palette_d` and `col_palette_c`) are relatively colour-blind safe.
+
+They are also relatively accessible for themes with light backgrounds.
+
+```{r}
+#jumble default continuous colour scale palette (and default NA colour)
+colorspace::swatchplot(c(jumble, grey), cvd = TRUE)
+```
+
+```{r}
+#viridisLite::mako default continuous colour scale palette (and default NA colour)
+colorspace::swatchplot(c(viridisLite::mako(9), 
+                         colorspace::darken(grey, 0.25)), cvd = TRUE)
+```
+
+### 15. A `gg_blanket()` function with `geom` flexibility
 
 The package is driven by the `gg_blanket` function, which has a `geom` argument with `geom_blank` geom, stat and position defaults.
 
