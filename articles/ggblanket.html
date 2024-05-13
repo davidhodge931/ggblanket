@@ -168,7 +168,7 @@ can be customised.</p>
 <p>Each <code>gg_*</code> function wraps a
 <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code> function with the associated
 <code>ggplot2::geom_*()</code> function.</p>
-<p>Almost every geom in ggplot2 is wrapped. So there is almost 40 of
+<p>Almost every geom in ggplot2 is wrapped. So there are almost 40 of
 them!</p>
 <p>These functions can take each aesthetic as an argument.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -331,18 +331,9 @@ placement with suffix <code>r</code> (right), <code>b</code> (bottom),
 orientations (i.e. removing particular axis lines/ticks and gridlines).
 If you want to use a theme with no side-effects, + the theme to the
 plot.</p>
-<p>Note:</p>
-<ul>
-<li>to remove a <code>x_label</code> or <code>y_label</code>, use
-<code>+ labs(... = NULL)</code>
-</li>
-<li>to remove a <code>col_label</code>, use
-<code>+ labs(colour = NULL, fill = NULL)</code> or
-<code>+ theme(legend.title = element_blank()</code>
-</li>
-<li>for a quick non-bold title, use
-<code>subtitle = "\n..."</code>.</li>
-</ul>
+<p>Note to remove a <code>*_label</code>, use
+<code>+ labs(... = NULL)</code> or
+<code>+ theme(legend.title = element_blank()</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
@@ -384,7 +375,7 @@ values may need to be reversed in the relevant scale.</p>
 <h3 id="a-symmetric-continuous-scale-with-easy-opt-out">11. A ‘symmetric’ continuous scale with easy opt-out<a class="anchor" aria-label="anchor" href="#a-symmetric-continuous-scale-with-easy-opt-out"></a>
 </h3>
 <p>The <code>gg_*</code> function will generally create a ‘symmetric’
-continuous y scale by default with:</p>
+continuous y scale with:</p>
 <ul>
 <li>
 <code>y_limits</code> that are the range of the
@@ -393,17 +384,17 @@ continuous y scale by default with:</p>
 <li>
 <code>y_expand</code> of <code>c(0, 0)</code>.</li>
 </ul>
-<p>However, for the plots guessed to be of horizontal orientation, the
-vice-versa will occurs with a ‘symmetric’ continuous x scale by
-default.</p>
-<p>The key thing to know is that you can easily turn this ‘symmetric’
-scale off using <code>*_limits = c(NA, NA)</code> (or
-<code>*_limits = c(0, NA)</code> for bars etc). For a date variable, use
-<code><a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">lubridate::NA_Date_</a></code> instead of <code>NA</code>.</p>
-<p>Note this ‘symmetric’ scale does not occur where the scale has a
+<p>However, the vice-versa will occur where a y orientation is guessed
+with a ‘symmetric’ continuous x scale.</p>
+<p>You can turn this ‘symmetric’ scale off using
+<code>*_limits = c(NA, NA)</code> (or <code>*_limits = c(0, NA)</code>
+for bars etc). For a date variable, use <code><a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">lubridate::NA_Date_</a></code>
+instead of <code>NA</code>.</p>
+<p>This ‘symmetric’ scale does not occur where the scale has a
 non-linear <code>*_transform</code> - or where the other positional
-scale is binned. Also, sometimes you may need to add
-<code>*_expand_limits = 0</code>, if the lower bound is close to 0.</p>
+scale is binned.</p>
+<p>Sometimes you may need to add <code>*_expand_limits = 0</code>, if
+the lower bound is close to 0.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
