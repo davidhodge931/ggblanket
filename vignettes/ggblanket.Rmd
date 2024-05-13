@@ -391,11 +391,13 @@ set_blanket()
 
 The default colour/fill scale palettes (i.e. `col_palette_d` and `col_palette_c`) are relatively colour-blind safe.
 
-They are also relatively accessible for themes with light backgrounds.
+Note the last colour of the jumble palette is the same as the default discrete NA colour. So it won't work if you wish to plot 7 values/levels _and_ NA values. 
+
+`jumble` is most accessible on a light background.
 
 ```{r}
-#default discrete palette (and default NA colour)
-colorspace::swatchplot(c(jumble, grey), cvd = TRUE)
+#default discrete palette
+colorspace::swatchplot(jumble, cvd = TRUE)
 ```
 
 ```{r}

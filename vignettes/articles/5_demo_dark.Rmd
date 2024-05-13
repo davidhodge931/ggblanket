@@ -29,6 +29,7 @@ library(palmerpenguins)
 set_blanket(
   mode = dark_mode_r(), 
   annotate_colour = darkness[1],
+  col_palette_d = jumble[-3],
   col_palette_c = viridis::mako(n = 9),
 )
 
@@ -95,7 +96,6 @@ penguins2 |>
     x = flipper_length_mm,
     y = sex,
     col = species,
-    mode = light_mode_b(),
   )
 ```
 
@@ -160,7 +160,7 @@ penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = species,
-    mode = light_mode_t(),
+    mode = dark_mode_t(),
   )
 ```
 
@@ -210,7 +210,7 @@ penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
-    mode = light_mode_t(),
+    mode = dark_mode_t(),
   ) +
   theme(legend.title = element_blank())
 ```
@@ -247,7 +247,7 @@ penguins2 |>
     col = sex,
     facet = species,
     bins = 50,
-    mode = light_mode_t(),
+    mode = dark_mode_t(),
   ) +
   theme(legend.title = element_blank())
 ```

@@ -91,7 +91,6 @@ penguins2 |>
     x = flipper_length_mm,
     y = sex,
     col = species,
-    mode = light_mode_b(),
   )
 ```
 

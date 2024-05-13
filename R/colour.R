@@ -10,21 +10,9 @@
 #' scales::show_col(blue)
 blue <- "#357ba2ff"
 
-#' A grey colour
-#'
-#' @description A grey colour.
-#'
-#' @format NULL
-#' @return A character vector.
-#' @export
-#'
-#' @examples
-#' scales::show_col(grey)
-grey <- "#cdc5bfff"
-
 #' The jumble palette
 #'
-#' @description A discrete palette with 6 colours that is relatively colour-blind safe. Add grey for an extra colour, and have no NA values.
+#' @description A discrete palette that is relatively colour-blind safe.
 #'
 #' @format NULL
 #' @return A character vector.
@@ -32,7 +20,7 @@ grey <- "#cdc5bfff"
 #'
 #' @examples
 #' colorspace::swatchplot(jumble, cvd = TRUE)
-jumble <- c("#0095a8ff", "#ffa600ff", "#003f5cff", "#da3c39ff", "#ec9ecbff", "#67609cff")
+jumble <- c("#0095a8ff", "#ffa600ff", "#003f5cff", "#da3c39ff", "#ec9ecbff", "#67609cff", "#cdc5bfff")
 
 #' @rdname jumble
 #' @format NULL
@@ -63,3 +51,8 @@ pink <- "#ec9ecbff"
 #' @format NULL
 #' @export
 purple <- "#67609cff"
+
+#' @rdname jumble
+#' @format NULL
+#' @export
+grey <- "#cdc5bfff"
