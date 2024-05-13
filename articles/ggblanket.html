@@ -158,17 +158,16 @@ flexibility</li>
 <p>The <code><a href="../reference/set_blanket.html">set_blanket()</a></code> function should be run first.</p>
 <p>This sets the default style of plots with themes and colours etc. It
 can be customised.</p>
-<p>But for now, just know that you need to run it at the start of every
-script or quarto document.</p>
+<p>It should be run at the start of every script or quarto document.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="each-gg_-function-wraps-a-geom">2. Each <code>gg_*</code> function wraps a geom<a class="anchor" aria-label="anchor" href="#each-gg_-function-wraps-a-geom"></a>
 </h3>
-<p>Each <code>gg_*</code> function wraps a ggplot2
-<code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code> function with the <code>gg_*</code>
-associated ggplot2 <code>geom_*()</code> function.</p>
+<p>Each <code>gg_*</code> function wraps a
+<code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code> function with the associated
+<code>ggplot2::geom_*()</code> function.</p>
 <p>Almost every geom in ggplot2 is wrapped. So there is almost 40 of
 them!</p>
 <p>These functions can take each aesthetic as an argument.</p>
@@ -211,16 +210,11 @@ these off.</p>
 <div class="section level3">
 <h3 id="a-facet-argument-to-facet-by-a-variable">4. A <code>facet</code> argument to facet by a variable<a class="anchor" aria-label="anchor" href="#a-facet-argument-to-facet-by-a-variable"></a>
 </h3>
-<p>Faceting is treated as if it were an aesthetic. Users just provide an
-unquoted variable to facet by.</p>
-<p>When <code>facet</code> variable is <em>not</em> NULL (and
-<code>facet2 = NULL</code>), the <code>facet_layout</code> will default
-to <code>"wrap"</code> (i.e. it will use
-<code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">ggplot2::facet_wrap</a></code> under the hood).</p>
+<p>Faceting is treated as if it were an aesthetic - users just provide
+an unquoted variable to facet by.</p>
 <p>When <code>facet</code> is specified (and
 <code>facet2 = NULL</code>), the <code>facet_layout</code> will default
-to <code>"wrap"</code> (i.e. it will use
-<code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">ggplot2::facet_wrap</a></code> under the hood).</p>
+to a <code>"wrap"</code> of the <code>facet</code> variable.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
@@ -234,12 +228,9 @@ to <code>"wrap"</code> (i.e. it will use
 </h3>
 <p>A <code>facet2</code> argument is also provided for extra
 functionality and flexibility.</p>
-<p>This enables users to facet easily in a <code>"grid"</code> layout of
-the <code>facet</code> variable horizontally by the <code>facet2</code>
-variable vertically.</p>
 <p>When <code>facet2</code> is specified, the <code>facet_layout</code>
-will default to <code>"grid"</code> (i.e. it will use
-<code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">ggplot2::facet_grid</a></code> under the hood).</p>
+will default to a <code>"grid"</code> of the <code>facet</code> variable
+(horizontally) by the <code>facet2</code> variable (vertically).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
@@ -261,7 +252,7 @@ specified with the applicable <code>*_label</code> argument, or with
 with the applicable variable.</p>
 <p>Otherwise, they will convert the variable name to a label name using
 the <code>label_to_case</code> function, which defaults to sentence case
-(i.e. <code>snakecase::to_sentence</code>).</p>
+(i.e. <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_sentence_case</a></code>).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_freqpoly.html">gg_freqpoly</a></span><span class="op">(</span></span>
@@ -276,11 +267,8 @@ the <code>label_to_case</code> function, which defaults to sentence case
 <p>ggblanket offers numerous arguments to customise that are prefixed by
 whether they relate to <code>x</code>, <code>y</code>, <code>col</code>
 or <code>facet</code>.</p>
-<p>These prefixed arguments can work nicely with auto-complete, if users
+<p>These prefixed arguments work nicely with auto-complete, if users
 ensure their settings support this.</p>
-<p>All arguments prefixed <code>col_</code> relate to the merged
-colour/fill scale, and all prefixed <code>facet_</code> relates to
-<em>both</em> <code>facet</code> and <code>facet2</code>.</p>
 <p><img src="autocomplete_y.png" width="70%"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
@@ -342,8 +330,8 @@ placement with suffix <code>r</code> (right), <code>b</code> (bottom),
 <code>gg_*</code> functions, which has helpful side-effects for the x
 and y orientations (i.e. removing particular axis lines/ticks and
 gridlines).</p>
-<p>If you want to use your own theme with no side-effects, just + the
-theme on to the plot.</p>
+<p>If you want to use a theme with no side-effects, just + the theme on
+to the plot.</p>
 <p>Note:</p>
 <ul>
 <li>to remove a <code>*_label</code>, use
@@ -414,9 +402,9 @@ scale off using <code>*_limits = c(NA, NA)</code> (or
 <code>*_limits = c(0, NA)</code> for bars etc). Use
 <code><a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">lubridate::NA_Date_</a></code> instead of <code>NA</code> for a date
 variable.</p>
-<p>Note this symmetric scale does not occur where the scale has an
-unsusual <code>*_transform</code> - or where the other positional scale
-is binned. Also, sometimes you may need to add
+<p>Note this ‘symmetric’ scale does not occur where the scale has a
+non-linear <code>*_transform</code> - or where the other positional
+scale is binned. Also, sometimes you may need to add
 <code>*_expand_limits = 0</code>, if the lower bound is close to 0.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
 </div>
