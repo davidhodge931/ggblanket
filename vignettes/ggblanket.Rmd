@@ -176,6 +176,8 @@ penguins2 |>
 
 ggblanket offers numerous arguments to customise that are prefixed by whether they relate to `x`, `y`, `col` or `facet`. 
 
+For `x`, `y` and `col`, these mostly relate to associated arguments within ggplot2 scales and guides. For `facet`, they relate to associated arguments within `ggplot2::facet_wrap` and `ggplot2::facet_grid`. 
+
 These prefixed arguments work nicely with auto-complete, if users ensure their settings support this.
 
 ```{r}
@@ -226,7 +228,7 @@ Three families of themes are provided: `light_mode_*`, `grey_mode_*` and `dark_m
 
 Each theme family provides 4 variants that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
 
-These are built for use with the `mode` argument in the `gg_*` functions, which has  side-effects for x and y orientations (i.e. removing particular axis lines/ticks and gridlines). 
+These are built for use with the `mode` argument in the `gg_*` functions, which has  side-effects for x and y orientations removing axis lines/ticks and gridlines). 
 
 If you want to use a theme with no side-effects, then `+` the theme to the plot.
 
