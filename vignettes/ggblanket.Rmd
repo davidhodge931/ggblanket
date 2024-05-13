@@ -379,10 +379,10 @@ The `ggplot2::update_geom_defaults()` function can be used to further fine-tune 
 ```{r}
 set_blanket(
   mode = dark_mode_r(), 
-  geom_colour = "#E7298A",
+  geom_colour = "#e7298a",
   annotate_colour = darkness[1],
-  col_palette_d = c("#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", 
-                    "#E6AB02", "#A6761D", "#666666"), #RColorBrewer Dark2 
+  col_palette_d = c("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", 
+                    "#e6ab02", "#a6761d", "#666666"), #RColorBrewer Dark2 
 )
 
 p1 <- penguins2 |>
