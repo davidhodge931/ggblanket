@@ -86,11 +86,7 @@ set_blanket()
 
 ### 2. Each `gg_*` function wraps a geom
 
-Each `gg_*` function wraps a `ggplot2::ggplot()` function with the associated `ggplot2::geom_*()` function. 
-
-Almost every geom in ggplot2 is wrapped. So there are almost 40 of them!
-
-These functions can take each aesthetic as an argument. 
+Each `gg_*` function wraps a `ggplot2::ggplot()` function with the associated `ggplot2::geom_*()` function. Almost every geom in ggplot2 is wrapped. Most aesthetics can be added as arguments. 
 
 ```{r}
 penguins2 |>
@@ -232,7 +228,7 @@ Three families of themes are provided: `light_mode_*`, `grey_mode_*` and `dark_m
 
 Each theme family provides 4 variants that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
 
-These are built for use with the `mode` argument in the `gg_*` functions, which has helpful side-effects for x and y orientations (i.e. removing particular axis lines/ticks and gridlines). If you want to use a theme with no side-effects, + the theme to the plot.
+These are built for use with the `mode` argument in the `gg_*` functions, which has  side-effects for x and y orientations (i.e. removing particular axis lines/ticks and gridlines). If you want to use a theme with no side-effects, then `+` the theme to the plot.
 
 Note to remove a `*_label`, use `+ labs(... = NULL)` or `+ theme(legend.title = element_blank()`.
 
@@ -249,11 +245,11 @@ penguins2 |>
   theme(legend.title = element_blank())
 ```
 
-### 11. Other aesthetics via `mapping`
+### 10. Other aesthetics via `mapping`
 
-The `mapping` argument provides access to other aesthetics, such as `alpha`, `size`, `shape`, `linetype` and `linewidth` etc. 
+Some aesthetics are not available via an argument (e.g. `alpha`, `size`, `shape`, `linetype` and `linewidth`).
 
-There is not prefixed arguments available for these aesthetics. Instead, you will need to + on any changes you need with ggplot2 layers.
+These can be accessed via the `mapping` argument with aesthetics placed within a `ggplot2::aes` function. 
 
 Note, in some situations, the `alpha`, `size`, `shape`, `linetype` and `linewidth` values may need to be reversed in the relevant scale.
 
@@ -275,13 +271,11 @@ The `gg_*` function will generally create a 'symmetric' continuous y scale with:
 * `y_limits` that are the range of the `y_breaks` 
 * `y_expand` of `c(0, 0)`.
 
-However, the vice-versa will occur where a y orientation is guessed with a 'symmetric' continuous x scale.
+The vice-versa will occur where a y orientation is guessed.
 
 You can turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc). For a date variable, use `lubridate::NA_Date_` instead of `NA`.
 
-This 'symmetric' scale does not occur where the scale has a non-linear `*_transform` - or where the other positional scale is binned. 
-
-Sometimes you may need to add `*_expand_limits = 0`, if the lower bound is close to 0.
+Note this 'symmetric' scale does not occur where the scale has a non-linear `*_transform` - or where the other positional scale is binned. Also, sometimes you may need to add `*_expand_limits = 0`, if the lower bound is close to 0.
 
 ```{r, echo=FALSE}
 p1 <- penguins2 |>
