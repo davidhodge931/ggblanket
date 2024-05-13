@@ -36,21 +36,21 @@ Computational speed has been traded-off.
 
 ## How it works
 
+
 1.  First setup with `set_blanket()`
 2.  Each `gg_*` function wraps a geom
 3.  A merged `col` argument to colour/fill by a variable
 4.  A `facet` argument to facet by a variable
 5.  A `facet2` argument to facet by a 2nd variable
-6.  Smart `*_label` defaults for axis and legend titles
+6.  Other aesthetics via `mapping` argument
 7.  Prefixed arguments to customise x/y/col/facet
-8.  Other `ggplot2::geom_*` arguments via `...`
-9.  Other aesthetics via `mapping`
-10. Families of `*_mode_*` themes with legend variants
-11. A 'symmetric' continuous scale with easy opt-out
-12. Ability to add multiple `geom_*` layers
-13. A `gg_blanket()` function with `geom` flexibility
-14. Arguments to customise setup with `set_blanket()`
-
+8.  Smart `*_label` defaults for axis and legend titles
+9.  Other `ggplot2::geom_*` arguments via `...`
+10. A 'symmetric' continuous scale with easy opt-out
+11. Ability to add multiple `geom_*` layers
+12. Families of `*_mode_*` themes with legend variants
+13. Arguments to customise setup with `set_blanket()`
+14. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
 library(dplyr)
@@ -146,20 +146,23 @@ penguins2 |>
   )
 ```
 
-### 6.  Smart `*_label` defaults for axis and legend titles
+### 6. Other aesthetics via `mapping` argument
 
-The `x_label`, `y_label` and `col_label` for the axis and legend titles can be manually specified with the applicable `*_label` argument (or `+ ggplot2::labs(...)`).
+Some aesthetics are not available via an argument (e.g. `alpha`, `size`, `shape`, `linetype` and `linewidth`).
 
-If not specified, they will first take any label attribute associated with the applicable variable. 
+These can be accessed via the `mapping` argument with aesthetics placed within `ggplot2::aes(...)`.
 
-If none, they will then convert the variable name to a label name using the `label_to_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence_case`). 
+To customise associated scales/guides, `+` on the applicable ggplot2 layer. 
 
-```{r, fig.asp=0.6}
-penguins2 |>
-  gg_freqpoly(
-    x = flipper_length_mm,
+```{r}
+penguins2 |> 
+  gg_jitter(
+    y = species, 
+    x = flipper_length_mm, 
     col = species,
-  )
+    mapping = aes(shape = species),
+  ) +
+  scale_shape_manual(values = rev(shape_pal()(3)))
 ```
 
 ### 7.  Prefixed arguments to customise x/y/col/facet
@@ -168,7 +171,7 @@ There are numerous arguments to customise plots that are prefixed by whether the
 
 For `x`, `y` and `col`, these relate to associated arguments within ggplot2 scales and guides. For `facet`, they relate to associated arguments within `ggplot2::facet_wrap` and `ggplot2::facet_grid`. 
 
-These prefixed arguments work nicely with auto-complete, if users ensure their settings support this.
+Scales and guides associated with other other aesthetics can be customised by adding the applicable ggplot2 layer. 
 
 ```{r}
 penguins2 |>
@@ -188,7 +191,23 @@ penguins2 |>
   )
 ```
 
-### 8. Other `ggplot2::geom_*` arguments via `...`
+### 8.  Smart `*_label` defaults for axis and legend titles
+
+The `x_label`, `y_label` and `col_label` for the axis and legend titles can be manually specified with the applicable `*_label` argument (or `+ ggplot2::labs(...)`).
+
+If not specified, they will first take any label attribute associated with the applicable variable. 
+
+If none, they will then convert the variable name to a label name using the `label_to_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence_case`). 
+
+```{r, fig.asp=0.6}
+penguins2 |>
+  gg_freqpoly(
+    x = flipper_length_mm,
+    col = species,
+  )
+```
+
+### 9. Other `ggplot2::geom_*` arguments via `...`
 
 The `...` argument provides access to all other arguments in the `ggplot2::geom_*()` function. 
 
@@ -212,47 +231,7 @@ penguins2 |>
   ) 
 ```
 
-### 9. Other aesthetics via `mapping`
-
-Some aesthetics are not available via an argument (e.g. `alpha`, `size`, `shape`, `linetype` and `linewidth`).
-
-These can be accessed via the `mapping` argument with aesthetics placed within `ggplot2::aes(...)`.
-
-To customise associated scales/guides, `+` on the applicable ggplot2 layer. 
-
-```{r}
-penguins2 |> 
-  gg_jitter(
-    y = species, 
-    x = flipper_length_mm, 
-    col = species,
-    mapping = aes(shape = species),
-  ) +
-  scale_shape_manual(values = rev(shape_pal()(3)))
-```
-
-### 10.  Families of `*_mode_*` themes with legend variants 
-
-`light_mode_*`, `grey_mode_*` and `dark_mode_*` theme families are provided with themes that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
-
-These are built for use with the `mode` argument in the `gg_*` functions, which has  side-effects for x and y orientations removing axis lines/ticks and gridlines. 
-
-If you want to use a theme with no side-effects, then `+` on the theme instead.
-
-```{r, fig.asp=0.65}
-penguins2 |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-    title = "Penguin flipper length by species",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020", 
-    mode = grey_mode_t(),
-  ) +
-  theme(legend.title = element_blank())
-```
-
-### 11. A 'symmetric' continuous scale with easy opt-out
+### 10. A 'symmetric' continuous scale with easy opt-out
 
 The `gg_*` function will generally create a 'symmetric' continuous y scale with `y_limits` the range of `y_breaks` and `y_expand` of `c(0, 0)`. The vice-versa will occur where a y orientation is guessed.
 
@@ -303,7 +282,7 @@ p3 <- penguins2 |>
 p1 + p2 + p3
 ```
 
-### 12. Ability to add multiple `geom_*` layers
+### 11. Ability to add multiple `geom_*` layers
 
 Users can make plots with multiple layers by adding on `ggplot2::geom_*` layers. 
 
@@ -339,28 +318,29 @@ penguins2 |>
   )  
 ```
 
-### 13. A `gg_blanket()` function with `geom` flexibility
+### 12.  Families of `*_mode_*` themes with legend variants 
 
-The package is driven by the `gg_blanket` function, which has a `geom` argument with `geom_blank` geom, stat and position defaults.
+`light_mode_*`, `grey_mode_*` and `dark_mode_*` theme families are provided with themes that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
 
-All other functions wrap this function with a fixed `geom`, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
+These are built for use with the `mode` argument in the `gg_*` functions, which has  side-effects for x and y orientations removing axis lines/ticks and gridlines. 
 
-You can print a `geom_*` function to identify the default `stat` and `position` arguments etc. 
+If you want to use a theme with no side-effects, then `+` on the theme instead.
 
-```{r}
-geom_histogram()
-
+```{r, fig.asp=0.65}
 penguins2 |>
-  gg_blanket(
-    geom = "bar",
-    stat = "bin",
-    position = "stack",
-    x = flipper_length_mm, 
+  gg_histogram(
+    x = flipper_length_mm,
     col = species,
-  ) 
+    title = "Penguin flipper length by species",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020", 
+    mode = grey_mode_t(),
+  ) +
+  theme(legend.title = element_blank())
 ```
 
-### 14. Arguments to customise setup with `set_blanket()`
+
+### 13. Arguments to customise setup with `set_blanket()`
 
 The `set_blanket` function sets customisable defaults for the:
 
@@ -403,8 +383,30 @@ p2 <- penguins2 |>
   annotate("text", x = I(0.75), y = I(0.75), label = "Here")
 
 p1 + p2
+
+set_blanket()
 ```
 
+### 14. A `gg_blanket()` function with `geom` flexibility
+
+The package is driven by the `gg_blanket` function, which has a `geom` argument with `geom_blank` geom, stat and position defaults.
+
+All other functions wrap this function with a fixed `geom`, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
+
+You can print a `geom_*` function to identify the default `stat` and `position` arguments etc. 
+
+```{r}
+geom_histogram()
+
+penguins2 |>
+  gg_blanket(
+    geom = "bar",
+    stat = "bin",
+    position = "stack",
+    x = flipper_length_mm, 
+    col = species,
+  ) 
+```
 ## Further information 
 
 See the ggblanket [website](https://davidhodge931.github.io/ggblanket/index.html) for further information, including [articles](https://davidhodge931.github.io/ggblanket/articles/) and [function reference](https://davidhodge931.github.io/ggblanket/reference/index.html).
