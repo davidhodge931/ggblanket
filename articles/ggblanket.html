@@ -277,7 +277,7 @@ ensure their settings support this.</p>
 <span>    facet <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    y_breaks <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/breaks_width.html" class="external-link">breaks_width</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span>,</span>
-<span>    y_expand_limits <span class="op">=</span> <span class="fl">2000</span>,</span>
+<span>    y_expand_limits <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>    y_labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_number</a></span><span class="op">(</span>big.mark <span class="op">=</span> <span class="st">" "</span><span class="op">)</span>, </span>
 <span>    y_transform <span class="op">=</span> <span class="st">"log10"</span>,</span>
 <span>    col_steps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -353,9 +353,8 @@ theme to the plot.</p>
 <code>linetype</code> and <code>linewidth</code>).</p>
 <p>These can be accessed via the <code>mapping</code> argument with
 aesthetics placed within a <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes</a></code> function.</p>
-<p>Note, in some situations, the <code>alpha</code>, <code>size</code>,
-<code>shape</code>, <code>linetype</code> and <code>linewidth</code>
-values may need to be reversed in the relevant scale.</p>
+<p>To customise associated scales/guides, <code>+</code> on the
+applicable ggplot2 layer.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
@@ -387,8 +386,7 @@ for bars etc). For a date variable, use <code><a href="https://lubridate.tidyver
 instead of <code>NA</code>.</p>
 <p>Note this ‘symmetric’ scale does not occur where the scale has a
 non-linear <code>*_transform</code> - or where the other positional
-scale is binned. Also, sometimes you may need to add
-<code>*_expand_limits = 0</code>, if the lower bound is close to 0.</p>
+scale is binned.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
