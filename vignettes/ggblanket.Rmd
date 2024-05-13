@@ -237,7 +237,7 @@ The `gg_*` function will generally create a 'symmetric' continuous y scale with 
 
 You can turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc). For a date variable, use `lubridate::NA_Date_` instead of `NA`.
 
-Note this 'symmetric' scale does not occur where `*_limits` are specified, the `*_transform` is non-linear, or the other positional scale is binned
+Note this 'symmetric' scale does not occur where `*_limits` are specified or the `*_transform` is non-linear.
 
 ```{r, echo=FALSE}
 p1 <- penguins2 |>
