@@ -405,7 +405,6 @@ sometimes need to use <code><a href="../reference/gg_blanket.html">gg_blanket()<
 <span>    xmax <span class="op">=</span> <span class="va">upper</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    group <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>    x_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -454,9 +453,10 @@ and position defaults.</p>
 the:</p>
 <ul>
 <li>mode (i.e. a theme added with side-effects)</li>
-<li>geom colour (i.e. colour/fill where <code>col = NULL</code>)</li>
+<li>geom colour (i.e. colour/fill where <code>col = NULL</code> for most
+geoms)</li>
 <li>annotation colour (i.e. colour/fill where <code>col = NULL</code>
-for geoms often used for annotation)</li>
+for other geoms often used for annotation)</li>
 <li>discrete colour palette (and NA colour)</li>
 <li>continuous colour palette (and NA colour)</li>
 <li>theme (i.e. a theme added with no side-effects)</li>
