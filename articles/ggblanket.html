@@ -130,7 +130,7 @@ visualisation</strong>.</p>
 <li>Families of <code>*_mode_*</code> themes with legend variants</li>
 <li>Arguments to customise setup with <code><a href="../reference/set_blanket.html">set_blanket()</a></code>
 </li>
-<li>Colour-blind safe and accessible defaults</li>
+<li>Relatively colour-blind safe and accessible defaults</li>
 <li>A <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with <code>geom</code>
 flexibility</li>
 </ol>
@@ -469,15 +469,16 @@ to further fine-tune geom defaults.</p>
 <span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="colour-blind-safe-and-accessible-defaults">14. Colour-blind safe and accessible defaults<a class="anchor" aria-label="anchor" href="#colour-blind-safe-and-accessible-defaults"></a>
+<h3 id="relatively-colour-blind-safe-and-accessible-defaults">14. Relatively colour-blind safe and accessible defaults<a class="anchor" aria-label="anchor" href="#relatively-colour-blind-safe-and-accessible-defaults"></a>
 </h3>
 <p>The default colour/fill scale palettes
-(i.e. <code>col_palette_d</code> and <code>col_palette_c</code>) are
-relatively colour-blind safe.</p>
-<p>Note the last colour of the jumble palette is the same as the default
-discrete NA colour. So it won’t work if you wish to plot 7 values/levels
-<em>and</em> NA values.</p>
-<p><code>jumble</code> is most accessible on a light background.</p>
+(i.e. <code>col_palette_d</code> and <code>col_palette_c</code>) and NA
+colours are relatively colour-blind safe.</p>
+<p><code>jumble</code> is most accessible on a light background, as the
+<code>navy</code> colour works less well on a dark background.</p>
+<p>The 7th colour of the <code>jumble</code> palette is the same as the
+default discrete NA colour. So it won’t work for plotting 7
+values/levels <em>and</em> NA values.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#default discrete palette</span></span>
 <span><span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/swatchplot.html" class="external-link">swatchplot</a></span><span class="op">(</span><span class="va">jumble</span>, cvd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -493,8 +494,9 @@ discrete NA colour. So it won’t work if you wish to plot 7 values/levels
 flexibility<a class="anchor" aria-label="anchor" href="#a-gg_blanket-function-with-geom-flexibility"></a>
 </h3>
 <p>The package is driven by the <code>gg_blanket</code> function, which
-has a <code>geom</code> argument with <code>geom_blank</code> geom, stat
-and position defaults.</p>
+has a <code>geom</code> argument with <code><a href="https://ggplot2.tidyverse.org/reference/geom_blank.html" class="external-link">ggplot2::geom_blank</a></code>
+defaults for <code>geom</code>, <code>stat</code> and
+<code>position</code>.</p>
 <p>All other functions wrap this function with a fixed
 <code>geom</code>, and their own default <code>stat</code> and
 <code>position</code> arguments as per the applicable
