@@ -120,20 +120,19 @@ visualisation</strong>.</p>
 <li>A merged <code>col</code> argument to colour/fill by a variable</li>
 <li>A <code>facet</code> argument to facet by a variable</li>
 <li>A <code>facet2</code> argument to facet by a 2nd variable</li>
-<li>Smart <code>*_label</code> defaults for axis and legend titles</li>
+<li>Other aesthetics via <code>mapping</code> argument</li>
 <li>Prefixed arguments to customise x/y/col/facet</li>
+<li>Smart <code>*_label</code> defaults for axis and legend titles</li>
 <li>Other <code>ggplot2::geom_*</code> arguments via
 <code>...</code>
 </li>
-<li>Other aesthetics via <code>mapping</code>
-</li>
-<li>Families of <code>*_mode_*</code> themes with legend variants</li>
 <li>A ‘symmetric’ continuous scale with easy opt-out</li>
 <li>Ability to add multiple <code>geom_*</code> layers</li>
-<li>A <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with <code>geom</code>
-flexibility</li>
+<li>Families of <code>*_mode_*</code> themes with legend variants</li>
 <li>Arguments to customise setup with <code><a href="../reference/set_blanket.html">set_blanket()</a></code>
 </li>
+<li>A <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with <code>geom</code>
+flexibility</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -233,24 +232,24 @@ will default to a <code>"grid"</code> of the <code>facet</code> variable
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="smart-_label-defaults-for-axis-and-legend-titles">6. Smart <code>*_label</code> defaults for axis and legend
-titles<a class="anchor" aria-label="anchor" href="#smart-_label-defaults-for-axis-and-legend-titles"></a>
+<h3 id="other-aesthetics-via-mapping-argument">6. Other aesthetics via <code>mapping</code> argument<a class="anchor" aria-label="anchor" href="#other-aesthetics-via-mapping-argument"></a>
 </h3>
-<p>The <code>x_label</code>, <code>y_label</code> and
-<code>col_label</code> for the axis and legend titles can be manually
-specified with the applicable <code>*_label</code> argument (or
-<code>+ ggplot2::labs(...)</code>).</p>
-<p>If not specified, they will first take any label attribute associated
-with the applicable variable.</p>
-<p>If none, they will then convert the variable name to a label name
-using the <code>label_to_case</code> function, which defaults to
-sentence case (i.e. <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_sentence_case</a></code>).</p>
+<p>Some aesthetics are not available via an argument
+(e.g. <code>alpha</code>, <code>size</code>, <code>shape</code>,
+<code>linetype</code> and <code>linewidth</code>).</p>
+<p>These can be accessed via the <code>mapping</code> argument with
+aesthetics placed within <code>ggplot2::aes(...)</code>.</p>
+<p>To customise associated scales/guides, <code>+</code> on the
+applicable ggplot2 layer.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_freqpoly.html">gg_freqpoly</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
+<span>    y <span class="op">=</span> <span class="va">species</span>, </span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">species</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_shape_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://scales.r-lib.org/reference/pal_shape.html" class="external-link">shape_pal</a></span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -264,8 +263,8 @@ to associated arguments within ggplot2 scales and guides. For
 <code>facet</code>, they relate to associated arguments within
 <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">ggplot2::facet_wrap</a></code> and
 <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">ggplot2::facet_grid</a></code>.</p>
-<p>These prefixed arguments work nicely with auto-complete, if users
-ensure their settings support this.</p>
+<p>Scales and guides associated with other other aesthetics can be
+customised by adding the applicable ggplot2 layer.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
@@ -285,7 +284,28 @@ ensure their settings support this.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="other-ggplot2geom_-arguments-via----">8. Other <code>ggplot2::geom_*</code> arguments via
+<h3 id="smart-_label-defaults-for-axis-and-legend-titles">8. Smart <code>*_label</code> defaults for axis and legend
+titles<a class="anchor" aria-label="anchor" href="#smart-_label-defaults-for-axis-and-legend-titles"></a>
+</h3>
+<p>The <code>x_label</code>, <code>y_label</code> and
+<code>col_label</code> for the axis and legend titles can be manually
+specified with the applicable <code>*_label</code> argument (or
+<code>+ ggplot2::labs(...)</code>).</p>
+<p>If not specified, they will first take any label attribute associated
+with the applicable variable.</p>
+<p>If none, they will then convert the variable name to a label name
+using the <code>label_to_case</code> function, which defaults to
+sentence case (i.e. <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_sentence_case</a></code>).</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_freqpoly.html">gg_freqpoly</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="other-ggplot2geom_-arguments-via----">9. Other <code>ggplot2::geom_*</code> arguments via
 <code>...</code><a class="anchor" aria-label="anchor" href="#other-ggplot2geom_-arguments-via----"></a>
 </h3>
 <p>The <code>...</code> argument provides access to all other arguments
@@ -296,7 +316,7 @@ in the <code>ggplot2::geom_*()</code> function.</p>
 enables fixing of these to a particular value.</p>
 <p>Use the <code>ggplot2::geom_*</code> help to see what arguments are
 available.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
@@ -310,58 +330,10 @@ available.</p>
 <span>    se <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>    level <span class="op">=</span> <span class="fl">0.999</span>, </span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="other-aesthetics-via-mapping">9. Other aesthetics via <code>mapping</code><a class="anchor" aria-label="anchor" href="#other-aesthetics-via-mapping"></a>
-</h3>
-<p>Some aesthetics are not available via an argument
-(e.g. <code>alpha</code>, <code>size</code>, <code>shape</code>,
-<code>linetype</code> and <code>linewidth</code>).</p>
-<p>These can be accessed via the <code>mapping</code> argument with
-aesthetics placed within <code>ggplot2::aes(...)</code>.</p>
-<p>To customise associated scales/guides, <code>+</code> on the
-applicable ggplot2 layer.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
-<span>    y <span class="op">=</span> <span class="va">species</span>, </span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
-<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">species</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_shape_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://scales.r-lib.org/reference/pal_shape.html" class="external-link">shape_pal</a></span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="families-of-_mode_-themes-with-legend-variants">10. Families of <code>*_mode_*</code> themes with legend
-variants<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-with-legend-variants"></a>
-</h3>
-<p><code>light_mode_*</code>, <code>grey_mode_*</code> and
-<code>dark_mode_*</code> theme families are provided with themes that
-differ based on legend placement with suffix <code>r</code> (right),
-<code>b</code> (bottom), <code>t</code> (top) and <code>n</code>
-(none).</p>
-<p>These are built for use with the <code>mode</code> argument in the
-<code>gg_*</code> functions, which has side-effects for x and y
-orientations removing axis lines/ticks and gridlines.</p>
-<p>If you want to use a theme with no side-effects, then <code>+</code>
-on the theme instead.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Penguin flipper length by species"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
-<span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_r.html">grey_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="a-symmetric-continuous-scale-with-easy-opt-out">11. A ‘symmetric’ continuous scale with easy opt-out<a class="anchor" aria-label="anchor" href="#a-symmetric-continuous-scale-with-easy-opt-out"></a>
+<h3 id="a-symmetric-continuous-scale-with-easy-opt-out">10. A ‘symmetric’ continuous scale with easy opt-out<a class="anchor" aria-label="anchor" href="#a-symmetric-continuous-scale-with-easy-opt-out"></a>
 </h3>
 <p>The <code>gg_*</code> function will generally create a ‘symmetric’
 continuous y scale with <code>y_limits</code> the range of
@@ -374,10 +346,10 @@ instead of <code>NA</code>.</p>
 <p>Note this ‘symmetric’ scale does not occur where the scale has a
 non-linear <code>*_transform</code> (or where the other positional scale
 is binned).</p>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="ability-to-add-multiple-geom_-layers">12. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
+<h3 id="ability-to-add-multiple-geom_-layers">11. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
 </h3>
 <p>Users can make plots with multiple layers by adding on
 <code>ggplot2::geom_*</code> layers.</p>
@@ -390,7 +362,7 @@ will inherit to any subsequent layers added.</p>
 be appropriate to be the bottom geom of the plot. Subsequently, you may
 sometimes need to use <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> which defaults to a
 <code>blank</code> geom.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
@@ -414,39 +386,37 @@ sometimes need to use <code><a href="../reference/gg_blanket.html">gg_blanket()<
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>    colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  <span class="op">)</span>  </span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="families-of-_mode_-themes-with-legend-variants">12. Families of <code>*_mode_*</code> themes with legend
+variants<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-with-legend-variants"></a>
+</h3>
+<p><code>light_mode_*</code>, <code>grey_mode_*</code> and
+<code>dark_mode_*</code> theme families are provided with themes that
+differ based on legend placement with suffix <code>r</code> (right),
+<code>b</code> (bottom), <code>t</code> (top) and <code>n</code>
+(none).</p>
+<p>These are built for use with the <code>mode</code> argument in the
+<code>gg_*</code> functions, which has side-effects for x and y
+orientations removing axis lines/ticks and gridlines.</p>
+<p>If you want to use a theme with no side-effects, then <code>+</code>
+on the theme instead.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Penguin flipper length by species"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
+<span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_r.html">grey_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="a-gg_blanket-function-with-geom-flexibility">13. A <code>gg_blanket()</code> function with <code>geom</code>
-flexibility<a class="anchor" aria-label="anchor" href="#a-gg_blanket-function-with-geom-flexibility"></a>
-</h3>
-<p>The package is driven by the <code>gg_blanket</code> function, which
-has a <code>geom</code> argument with <code>geom_blank</code> geom, stat
-and position defaults.</p>
-<p>All other functions wrap this function with a fixed
-<code>geom</code>, and their own default <code>stat</code> and
-<code>position</code> arguments as per the applicable
-<code>geom_*</code> function.</p>
-<p>You can print a <code>geom_*</code> function to identify the default
-<code>stat</code> and <code>position</code> arguments etc.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; geom_bar: na.rm = FALSE, orientation = NA</span></span>
-<span><span class="co">#&gt; stat_bin: binwidth = NULL, bins = NULL, na.rm = FALSE, orientation = NA, pad = FALSE</span></span>
-<span><span class="co">#&gt; position_stack</span></span>
-<span></span>
-<span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_blanket.html">gg_blanket</a></span><span class="op">(</span></span>
-<span>    geom <span class="op">=</span> <span class="st">"bar"</span>,</span>
-<span>    stat <span class="op">=</span> <span class="st">"bin"</span>,</span>
-<span>    position <span class="op">=</span> <span class="st">"stack"</span>,</span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
-<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="arguments-to-customise-setup-with-set_blanket">14. Arguments to customise setup with
+<h3 id="arguments-to-customise-setup-with-set_blanket">13. Arguments to customise setup with
 <code>set_blanket()</code><a class="anchor" aria-label="anchor" href="#arguments-to-customise-setup-with-set_blanket"></a>
 </h3>
 <p>The <code>set_blanket</code> function sets customisable defaults for
@@ -464,7 +434,7 @@ for other geoms often used for annotation)</li>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults()</a></code> function can be used
 to further fine-tune geom defaults.</p>
 <p><code><a href="../reference/set_blanket.html">set_blanket()</a></code> also works on ggplot2 code.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
 <span>  mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>, </span>
 <span>  geom_colour <span class="op">=</span> <span class="st">"#e7298a"</span>,</span>
@@ -492,16 +462,45 @@ to further fine-tune geom defaults.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Here"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-</div>
-<div class="section level2">
-<h2 id="further-information">Further information<a class="anchor" aria-label="anchor" href="#further-information"></a>
-</h2>
+<div class="section level3">
+<h3 id="a-gg_blanket-function-with-geom-flexibility">14. A <code>gg_blanket()</code> function with <code>geom</code>
+flexibility<a class="anchor" aria-label="anchor" href="#a-gg_blanket-function-with-geom-flexibility"></a>
+</h3>
+<p>The package is driven by the <code>gg_blanket</code> function, which
+has a <code>geom</code> argument with <code>geom_blank</code> geom, stat
+and position defaults.</p>
+<p>All other functions wrap this function with a fixed
+<code>geom</code>, and their own default <code>stat</code> and
+<code>position</code> arguments as per the applicable
+<code>geom_*</code> function.</p>
+<p>You can print a <code>geom_*</code> function to identify the default
+<code>stat</code> and <code>position</code> arguments etc.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; geom_bar: na.rm = FALSE, orientation = NA</span></span>
+<span><span class="co">#&gt; stat_bin: binwidth = NULL, bins = NULL, na.rm = FALSE, orientation = NA, pad = FALSE</span></span>
+<span><span class="co">#&gt; position_stack</span></span>
+<span></span>
+<span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_blanket.html">gg_blanket</a></span><span class="op">(</span></span>
+<span>    geom <span class="op">=</span> <span class="st">"bar"</span>,</span>
+<span>    stat <span class="op">=</span> <span class="st">"bin"</span>,</span>
+<span>    position <span class="op">=</span> <span class="st">"stack"</span>,</span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>  <span class="op">)</span> </span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%">
+## Further information</p>
 <p>See the ggblanket <a href="https://davidhodge931.github.io/ggblanket/index.html">website</a>
 for further information, including <a href="https://davidhodge931.github.io/ggblanket/articles/">articles</a>
 and <a href="https://davidhodge931.github.io/ggblanket/reference/index.html">function
 reference</a>.</p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
