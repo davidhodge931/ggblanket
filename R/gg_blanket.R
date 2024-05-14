@@ -1026,7 +1026,6 @@ gg_blanket <- function(data = NULL,
           col_palette <- get_col_palette_d()
           if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
         }
-
         else if (col_scale_type == "ordinal") col_palette <- get_col_palette_o()
       }
 
