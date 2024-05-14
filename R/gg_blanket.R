@@ -918,12 +918,13 @@ gg_blanket <- function(data = NULL,
 
   if (!is.na(col_scale_type)) {
     if (col_scale_type == "continuous") {
+
       if (rlang::is_null(col_palette)) {
         col_palette <- get_col_palette_c()
         if (rlang::is_null(col_palette)) {
           col_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")(seq(0, 1, length.out = 20))
         }
-      }
+      } else if (rlang::is_function(col_palette)) col_palette <- col_palette(20)
 
       if (rlang::is_null(col_palette_na)) {
         col_palette_na <- get_col_palette_na_c()
@@ -1018,27 +1019,30 @@ gg_blanket <- function(data = NULL,
             dplyr::pull(!!col) %>%
             levels() %>%
             length()
-        }
-      }
+        } else col_n <- NULL
+      } else col_n <- NULL
 
       if (rlang::is_null(col_palette)) {
-        if (col_scale_type == "discrete") {
-          col_palette <- get_col_palette_d()
-          if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
-        }
+        if (col_scale_type == "discrete") col_palette <- get_col_palette_d()
         else if (col_scale_type == "ordinal") col_palette <- get_col_palette_o()
       }
 
-      if (rlang::is_null(col_palette_na)) {
-        if (col_scale_type == "discrete") col_palette_na <- get_col_palette_na_d()
-        else if (col_scale_type == "ordinal") col_palette_na <- get_col_palette_na_o()
+      if (col_scale_type == "discrete" & !rlang::is_null(col_n))  {
+        if (rlang::is_function(col_palette)) col_palette <- col_palette(col_n)
+        else if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
       }
 
       if (flipped) {
         col_legend_rev <- !col_legend_rev
         col_palette <- rev(col_palette)
       }
+
       if (col_scale_type == "ordinal") col_legend_rev <- !col_legend_rev
+
+      if (rlang::is_null(col_palette_na)) {
+        if (col_scale_type == "discrete") col_palette_na <- get_col_palette_na_d()
+        else if (col_scale_type == "ordinal") col_palette_na <- get_col_palette_na_o()
+      }
 
       if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
 
@@ -1046,7 +1050,6 @@ gg_blanket <- function(data = NULL,
 
       if (!rlang::is_null(col_palette)) {
         if (col_scale_type == "discrete") {
-          if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
 
           plot <- plot +
             ggplot2::scale_colour_manual(
