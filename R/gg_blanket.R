@@ -926,7 +926,7 @@ gg_blanket <- function(data = NULL,
       }
 
       if (rlang::is_null(col_palette_na)) {
-        col_palette_na <- get_col_palette_c_na()
+        col_palette_na <- get_col_palette_na_c()
         if (rlang::is_null(col_palette_na)) col_palette_na <- "grey50"
       }
 
@@ -1031,8 +1031,8 @@ gg_blanket <- function(data = NULL,
       }
 
       if (rlang::is_null(col_palette_na)) {
-        if (col_scale_type == "discrete") col_palette_na <- get_col_palette_d_na()
-        else if (col_scale_type == "ordinal") col_palette_na <- get_col_palette_o_na()
+        if (col_scale_type == "discrete") col_palette_na <- get_col_palette_na_d()
+        else if (col_scale_type == "ordinal") col_palette_na <- get_col_palette_na_o()
       }
 
       if (flipped) {

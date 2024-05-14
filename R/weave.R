@@ -3,12 +3,12 @@ ggblanket_global <- new.env(parent = emptyenv())
 
 ggblanket_global$mode <- NULL
 ggblanket_global$col_palette_d <- NULL
-ggblanket_global$col_palette_d_na <- NULL
 ggblanket_global$col_palette_c <- NULL
-ggblanket_global$col_palette_c_na <- NULL
-ggblanket_global$theme <- NULL
 ggblanket_global$col_palette_o <- NULL
-ggblanket_global$col_palette_o_na <- NULL
+ggblanket_global$col_palette_na_d <- NULL
+ggblanket_global$col_palette_na_c <- NULL
+ggblanket_global$col_palette_na_o <- NULL
+ggblanket_global$theme <- NULL
 
 #' Set a default mode
 #'
@@ -168,8 +168,8 @@ weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
   ggblanket_global$col_palette_d <- new2
   invisible(old)
 
-  old <- ggblanket_global$col_palette_d_na
-  ggblanket_global$col_palette_d_na <- na
+  old <- ggblanket_global$col_palette_na_d
+  ggblanket_global$col_palette_na_d <- na
   invisible(old)
 
   if (rlang::is_null(new)) {
@@ -196,27 +196,6 @@ weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
   }
 }
 
-#' Set a default ordinal colour palette
-#'
-#' @param new A colour palette function to use for ordinal scale, e.g. `scales::pal_viridis()`).
-#' @param na A default colour for NA on a discrete scale. A hex code or name.
-#'
-#' @noRd
-weave_col_palette_o <- function(new = scales::pal_viridis(option = "G", direction = -1),
-                                na = "#cdc5bfff") {
-
-  if (rlang::is_null(new)) new <- scales::pal_viridis()
-  if (rlang::is_null(na)) na <- "grey50"
-
-  old <- ggblanket_global$col_palette_o
-  ggblanket_global$col_palette_o <- new
-  invisible(old)
-
-  old <- ggblanket_global$col_palette_o_na
-  ggblanket_global$col_palette_o_na <- na
-  invisible(old)
-}
-
 #' Set a default continuous colour palette
 #'
 #' @param new Colour palette to use for continuous scale. A character vector of hex codes (or names).
@@ -238,8 +217,8 @@ weave_col_palette_c <- function(new = viridisLite::mako(n = 9, direction = -1),
   ggblanket_global$col_palette_c <- new
   invisible(old)
 
-  old <- ggblanket_global$col_palette_c_na
-  ggblanket_global$col_palette_c_na <- na
+  old <- ggblanket_global$col_palette_na_c
+  ggblanket_global$col_palette_na_c <- na
   invisible(old)
 
   options(
@@ -256,6 +235,28 @@ weave_col_palette_c <- function(new = viridisLite::mako(n = 9, direction = -1),
   )
 }
 
+#' Set a default ordinal colour palette
+#'
+#' @param new A colour palette function to use for ordinal scale, e.g. `scales::pal_viridis()`).
+#' @param na A default colour for NA on a discrete scale. A hex code or name.
+#'
+#' @noRd
+weave_col_palette_o <- function(new = scales::pal_viridis(option = "G", direction = -1),
+                                na = "#cdc5bfff") {
+
+  if (rlang::is_null(new)) new <- scales::pal_viridis()
+  if (rlang::is_null(na)) na <- "grey50"
+
+  old <- ggblanket_global$col_palette_o
+  ggblanket_global$col_palette_o <- new
+  invisible(old)
+
+  old <- ggblanket_global$col_palette_na_o
+  ggblanket_global$col_palette_na_o <- na
+  invisible(old)
+}
+
+
 #' Get the default mode
 #' @description Get the currently set default mode.
 #' @noRd
@@ -271,27 +272,28 @@ get_theme <- function() ggblanket_global$theme
 #' @noRd
 get_col_palette_d <- function() ggblanket_global$col_palette_d
 
-#' Get the default ordinal palette
-#' @description Get the currently set default ordinal palette.
-#' @noRd
-get_col_palette_o <- function() ggblanket_global$col_palette_o
-
 #' Get the default continuous palette
 #' @description Get the currently set default continuous palette.
 #' @noRd
 get_col_palette_c <- function() ggblanket_global$col_palette_c
 
+#' Get the default ordinal palette
+#' @description Get the currently set default ordinal palette.
+#' @noRd
+get_col_palette_o <- function() ggblanket_global$col_palette_o
+
 #' Get the default discrete NA colour
 #' @description Get the currently set default discrete NA colour.
 #' @noRd
-get_col_palette_d_na <- function() ggblanket_global$col_palette_d_na
-
-#' Get the default ordinal NA colour
-#' @description Get the currently set default ordinal NA colour.
-#' @noRd
-get_col_palette_o_na <- function() ggblanket_global$col_palette_o_na
+get_col_palette_na_d <- function() ggblanket_global$col_palette_na_d
 
 #' Get the default continuous NA colour
 #' @description Get the currently set default continuous NA colour.
 #' @noRd
-get_col_palette_c_na <- function() ggblanket_global$col_palette_c_na
+get_col_palette_na_c <- function() ggblanket_global$col_palette_na_c
+
+#' Get the default ordinal NA colour
+#' @description Get the currently set default ordinal NA colour.
+#' @noRd
+get_col_palette_na_o <- function() ggblanket_global$col_palette_na_o
+
