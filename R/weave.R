@@ -154,18 +154,10 @@ weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, family = ""
 #' @noRd
 weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
 
-  if (!rlang::is_null(new)) {
-    new2 <- c(new, rep(na, times = 13))
-  } else {
-    new2 <- NULL
-  }
-
-  if (rlang::is_null(na)) {
-    na <- "grey50"
-  }
+  if (rlang::is_null(na)) na <- "grey50"
 
   old <- ggblanket_global$col_palette_d
-  ggblanket_global$col_palette_d <- new2
+  ggblanket_global$col_palette_d <- new
   invisible(old)
 
   old <- ggblanket_global$col_palette_na_d
@@ -184,12 +176,12 @@ weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
     options(
       ggplot2.discrete.colour = function()
         ggplot2::scale_colour_manual(
-          values = new2,
+          values = new,
           na.value = na
         ),
       ggplot2.discrete.fill = function()
         ggplot2::scale_fill_manual(
-          values = new2,
+          values = new,
           na.value = na
         )
     )
