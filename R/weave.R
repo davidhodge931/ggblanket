@@ -154,6 +154,7 @@ weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, family = ""
 #' @noRd
 weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
 
+  # if (rlang::is_null(new)) new <- scales::pal_hue()
   if (rlang::is_null(na)) na <- "grey50"
 
   old <- ggblanket_global$col_palette_d
