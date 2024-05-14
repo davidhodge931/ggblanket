@@ -80,6 +80,7 @@ diamonds |>
   gg_bin_2d(
     x = carat,
     y = price,
+    y_limits = c(0, 20000),
   )
 ```
 

@@ -9,7 +9,6 @@
 \alias{red}
 \alias{pink}
 \alias{purple}
-\alias{grey}
 \title{The jumble palette}
 \usage{
 jumble
@@ -25,8 +24,6 @@ red
 pink
 
 purple
-
-grey
 }
 \value{
 A character vector.
@@ -35,6 +32,6 @@ A character vector.
 A discrete palette that is relatively colour-blind safe.
 }
 \examples{
-colorspace::swatchplot(jumble, cvd = TRUE)
+colorspace::swatchplot(c(jumble, grey), cvd = TRUE)
 }
 \keyword{datasets}

@@ -29,8 +29,9 @@ library(palmerpenguins)
 set_blanket(
   mode = dark_mode_r(), 
   annotate_colour = darkness[1],
-  col_palette_d = jumble[-3],
+  col_palette_d = c(teal, orange, purple, red, pink),
   col_palette_c = viridis::mako(n = 9),
+  col_palette_o = scales::pal_viridis(option = "G"),
 )
 
 penguins2 <- penguins |> 
@@ -85,6 +86,7 @@ diamonds |>
   gg_bin_2d(
     x = carat,
     y = price,
+    y_limits = c(0, 20000),
   )
 ```
 
