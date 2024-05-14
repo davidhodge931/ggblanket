@@ -6,6 +6,8 @@
 \alias{ggblanket-package}
 \title{ggblanket: Simplify 'ggplot2' Visualisation}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Simplify 'ggplot2' visualisation with 'ggblanket' wrapper functions.
 }
 \seealso{
