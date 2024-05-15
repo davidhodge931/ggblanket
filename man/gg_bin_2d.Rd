@@ -118,7 +118,7 @@ gg_bin_2d(
 
 \item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
 
-\item{col_palette}{Colour palette to use. A character vector of hex codes (or names). Unless if ordinal, then a function (e.g. \code{scales::pal_viridis()}).}
+\item{col_palette}{Colour palette to use. A character vector of hex codes (or names) if not ordinal. Otherwise a \verb{scales::pal_*} function.}
 
 \item{col_palette_na}{Colour palette to use for \code{NA} values. A character value of a hex code (or name).}
 

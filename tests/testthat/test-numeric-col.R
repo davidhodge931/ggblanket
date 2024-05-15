@@ -8,6 +8,7 @@ set_blanket(geom_colour = "#121b24")
 test_name <- "light_mode_r"
 
 test_that(test_name, {
+  set.seed(123)
 
   p <- penguins |>
     gg_jitter(
@@ -26,6 +27,7 @@ test_that(test_name, {
 test_name <- "light_mode_t"
 
 test_that(test_name, {
+  set.seed(123)
 
   p <- penguins |>
     gg_jitter(
@@ -44,6 +46,7 @@ test_that(test_name, {
 test_name <- "light_mode_b"
 
 test_that(test_name, {
+  set.seed(123)
 
   p <- penguins |>
     gg_jitter(
@@ -62,6 +65,7 @@ test_that(test_name, {
 test_name <- "light_mode_n"
 
 test_that(test_name, {
+  set.seed(123)
 
   p <- penguins |>
     gg_jitter(

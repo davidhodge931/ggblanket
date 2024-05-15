@@ -1,20 +1,20 @@
-#' Set a default style
+#' Set a style
 #'
-#' @description Set a default style by setting a default mode, a series of geom and annotate aesthetic defaults, and a default col_palette for discrete and continuous scales.
+#' @description Set a style by setting a mode, a series of geom and annotate aesthetic defaults, and a col_palette for discrete and continuous scales.
 #'
-#' @param mode A default `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
-#' @param geom_colour A default hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to `blue`.
-#' @param annotate_colour A default hex colour (and fill) for other geoms commonly used for annotation (i.e. `*_hline`/`*_vline`/`*_abline` and `*_curve`). Defaults to "#121b24" (i.e. `lightness[1]`).
-#' @param annotate_linewidth A default linewidth for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to 0.33.
-#' @param annotate_family A default family for `*_text` and `*_label`. Defaults to ""
-#' @param annotate_size A default size for `*_text` and `*_label`. Defaults to 3.88.
-#' @param col_palette_d A default col_palette to use in the discrete scale. A character vector of hex codes (or names).
-#' @param col_palette_c A default col_palette to use in the continuous scale. A character vector of hex codes (or names).
-#' @param col_palette_o A colour palette function to use for ordinal scale, e.g. `scales::pal_viridis()`).
-#' @param col_palette_na_d A default colour for NA on a discrete scale. A hex code or name.
-#' @param col_palette_na_c A default colour for NA on a continuous scale. A hex code or name.
-#' @param col_palette_na_o A default colour for NA on a continuous scale. A hex code or name.
-#' @param theme A default ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence, unless `mode = NULL`.
+#' @param mode A `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
+#' @param geom_colour A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to `blue`.
+#' @param annotate_colour A hex colour (and fill) for other geoms commonly used for annotation (i.e. `*_hline`/`*_vline`/`*_abline` and `*_curve`). Defaults to "#121b24" (i.e. `lightness[1]`).
+#' @param annotate_linewidth A linewidth for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to 0.33.
+#' @param annotate_family A family for `*_text` and `*_label`. Defaults to ""
+#' @param annotate_size A size for `*_text` and `*_label`. Defaults to 3.88.
+#' @param col_palette_d For a discrete scale, a character vector of hex codes (or names) for the `col_palette`.
+#' @param col_palette_c For a continuous scale, a character vector of hex codes (or names) for the `col_palette`.
+#' @param col_palette_o For an ordinal scale, a `scales::pal_*` function for the `col_palette`.
+#' @param col_palette_na_d For a discrete scale, a hex code or name for the `col_palette_na`.
+#' @param col_palette_na_c For a continuous scale, a hex code or name for the `col_palette_na`.
+#' @param col_palette_na_o For an ordinal scale, a hex code or name for the `col_palette_na`.
+#' @param theme A ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence, unless `mode = NULL`.
 #' @param ... Provided to support trailing commas only.
 #'
 #' @return A globally set style.
