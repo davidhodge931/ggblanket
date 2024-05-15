@@ -118,9 +118,9 @@ gg_function(
 
 \item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
 
-\item{col_palette}{Colour palette to use. A character vector of hex codes (or names) if not ordinal. Otherwise a \verb{scales::pal_*} function.}
+\item{col_palette}{A character vector of hex codes (or names) if not ordinal. Or otherwise a \verb{scales::pal_*} function.}
 
-\item{col_palette_na}{Colour palette to use for \code{NA} values. A character value of a hex code (or name).}
+\item{col_palette_na}{A hex code (or name) for the colour of \code{NA} values.}
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 

@@ -149,7 +149,7 @@ weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, family = ""
 #' Set a discrete colour palette
 #'
 #' @param new For a discrete scale, a character vector of hex codes (or names) for the `col_palette`.
-#' @param na For a discrete scale, a hex code or name for the `col_palette_na`.
+#' @param na For a discrete scale, a hex code (or name) for the `col_palette_na`.
 #'
 #' @noRd
 weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
@@ -192,7 +192,7 @@ weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
 #' Set a continuous colour palette
 #'
 #' @param new For a continuous scale, a character vector of hex codes (or names) for the `col_palette`.
-#' @param na For a continuous scale, a hex code or name for the `col_palette_na`.
+#' @param na For a continuous scale, a hex code (or name) for the `col_palette_na`.
 #'
 #' @noRd
 weave_col_palette_c <- function(new = viridisLite::mako(n = 9, direction = -1),
@@ -231,7 +231,7 @@ weave_col_palette_c <- function(new = viridisLite::mako(n = 9, direction = -1),
 #' Set an ordinal colour palette
 #'
 #' @param new For an ordinal scale, a `scales::pal_*` function for the `col_palette`.
-#' @param na For an ordinal scale, a hex code or name for the `col_palette_na`.
+#' @param na For an ordinal scale, a hex code (or name) for the `col_palette_na`.
 #'
 #' @noRd
 weave_col_palette_o <- function(new = scales::pal_viridis(option = "G", direction = -1),
