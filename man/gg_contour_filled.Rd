@@ -100,7 +100,7 @@ gg_contour_filled(
 
 \item{x_expand_limits, y_expand_limits, col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
 
-\item{x_labels, y_labels, col_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \verb{scales::label_*()}), or a vector of labels (Note this must be named for \code{facet_labels}).}
+\item{x_labels, y_labels, col_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \verb{scales::label_*()}), or a vector of labels. (Note this must be named for \code{facet_labels}).}
 
 \item{x_limits, y_limits, col_limits}{For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with \code{factor}, \code{forcats::fct_expand} or \code{forcats::fct_drop}.}
 
