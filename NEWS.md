@@ -14,6 +14,7 @@
 * Added `col_drop` and `facet_drop` arguments.
 * Fixed bug relating to `gg_bin_2d` scales.
 * Updated the default NA colour used for continuous colour scales to `#988f88ff"` (i.e. `colorspace::darken(grey, 0.25)`).
+* Supported the use of `scales::pal_*()` functions within the `col_palette` argument.
 
 # ggblanket 8.0.0
 

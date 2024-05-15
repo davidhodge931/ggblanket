@@ -42,7 +42,7 @@ set_blanket(
 
 \item{col_palette_na_c}{For a continuous scale, a hex code or name for the \code{col_palette_na}.}
 
-\item{col_palette_o}{For an ordinal scale, a \verb{scales::pal_*} function for the \code{col_palette}.}
+\item{col_palette_o}{For an ordinal scale, a \verb{scales::pal_*()} function for the \code{col_palette}.}
 
 \item{col_palette_na_o}{For an ordinal scale, a hex code or name for the \code{col_palette_na}.}
 

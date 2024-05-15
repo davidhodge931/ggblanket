@@ -230,7 +230,7 @@ weave_col_palette_c <- function(new = viridisLite::mako(n = 9, direction = -1),
 
 #' Set an ordinal colour palette
 #'
-#' @param new For an ordinal scale, a `scales::pal_*` function for the `col_palette`.
+#' @param new For an ordinal scale, a `scales::pal_*()` function for the `col_palette`.
 #' @param na For an ordinal scale, a hex code (or name) for the `col_palette_na`.
 #'
 #' @noRd

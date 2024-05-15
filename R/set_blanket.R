@@ -10,7 +10,7 @@
 #' @param annotate_size A size for `*_text` and `*_label`. Defaults to 3.88.
 #' @param col_palette_d For a discrete scale, a character vector of hex codes (or names) for the `col_palette`.
 #' @param col_palette_c For a continuous scale, a character vector of hex codes (or names) for the `col_palette`.
-#' @param col_palette_o For an ordinal scale, a `scales::pal_*` function for the `col_palette`.
+#' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function for the `col_palette`.
 #' @param col_palette_na_d For a discrete scale, a hex code or name for the `col_palette_na`.
 #' @param col_palette_na_c For a continuous scale, a hex code or name for the `col_palette_na`.
 #' @param col_palette_na_o For an ordinal scale, a hex code or name for the `col_palette_na`.
