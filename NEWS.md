@@ -1,3 +1,7 @@
+# ggblanket 9.0.0.9000
+
+* Made pattern guide and label equal to colour/fill align automatically.
+
 # ggblanket 9.0.0
 
 * Supported a label-based workflow.

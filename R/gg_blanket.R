@@ -1284,6 +1284,34 @@ gg_blanket <- function(data = NULL,
           }
         }
       }
+
+      if (!rlang::is_null(plot_build$plot$labels$pattern)) {
+        if (!rlang::is_null(plot_build$plot$labels$colour[1])) {
+          if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$pattern[1])) {
+            plot <- plot +
+              ggplot2::guides(
+                pattern = ggplot2::guide_legend(
+                  reverse = col_legend_rev,
+                  ncol = col_legend_ncol,
+                  nrow = col_legend_nrow
+                )
+              )
+          }
+        }
+        else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
+          if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$pattern[1])) {
+            plot <- plot +
+              ggplot2::guides(
+                pattern = ggplot2::guide_legend(
+                  reverse = col_legend_rev,
+                  ncol = col_legend_ncol,
+                  nrow = col_legend_nrow
+                )
+              )
+          }
+        }
+      }
+
     }
 
     #expand limits if necessary
@@ -1848,6 +1876,24 @@ gg_blanket <- function(data = NULL,
     }
   } else linetype_title <- NULL
 
+  if (!rlang::is_null(plot_build$plot$labels$pattern)) {
+    if (!rlang::is_null(plot_build$plot$labels$colour[1])) {
+      if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$pattern[1])) {
+        pattern_title <- col_label
+      }
+      else pattern_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_to_case)
+    }
+    else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
+      if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$pattern[1])) {
+        pattern_title <- col_label
+      }
+      else pattern_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_to_case)
+    }
+    else {
+      pattern_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_to_case)
+    }
+  } else pattern_title <- NULL
+
   plot <- plot +
     ggplot2::labs(
       title = title,
@@ -1861,7 +1907,9 @@ gg_blanket <- function(data = NULL,
       shape = shape_title,
       size = size_title,
       linewidth = linewidth_title,
-      linetype = linetype_title
+      linetype = linetype_title,
+
+      pattern = pattern_title
     )
 
   ##############################################################################
