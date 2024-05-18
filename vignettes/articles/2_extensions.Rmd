@@ -334,9 +334,9 @@ tibble(x = 1:10) |>
     ymin = .lower,
     ymax = .upper,
     col = .width,
-    colour = "#121b24",
+    colour = viridis::mako(n = 9)[c(1)],
     col_legend_rev = TRUE,
-    col_palette = blues9[c(7,5,3)],
+    col_palette = viridis::mako(n = 9)[c(4,6,9)],
   )
 ```
 
