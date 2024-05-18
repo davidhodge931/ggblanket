@@ -1,6 +1,7 @@
 # ggblanket 9.0.0.9000
 
 * Made pattern guide and label equal to colour/fill align automatically.
+* Supported col_palette argument to accept a vector for ordinal variables.
 
 # ggblanket 9.0.0
 

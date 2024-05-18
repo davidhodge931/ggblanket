@@ -132,7 +132,6 @@ test_that(test_name, {
   vdiffr::expect_doppelganger(test_name, p)
 })
 
-
 test_name <- "9"
 
 test_that(test_name, {
@@ -149,3 +148,19 @@ test_that(test_name, {
   vdiffr::expect_doppelganger(test_name, p)
 })
 
+test_name <- "10"
+
+test_that(test_name, {
+  set.seed(123)
+
+  p <- faithfuld |>
+    gg_contour_filled(
+      x = waiting,
+      y = eruptions,
+      z = density,
+      bins = 8,
+      col_palette = viridisLite::magma(n = 8)
+    )
+
+  vdiffr::expect_doppelganger(test_name, p)
+})

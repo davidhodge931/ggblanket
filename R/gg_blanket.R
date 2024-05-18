@@ -23,7 +23,7 @@
 #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
 #' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
-#' @param col_palette A character vector of hex codes (or names) if not ordinal. Or otherwise a `scales::pal_*()` function.
+#' @param col_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' @param col_palette_na A hex code (or name) for the colour of `NA` values.
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
 #' @param col_steps For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
@@ -1027,7 +1027,8 @@ gg_blanket <- function(data = NULL,
         else if (col_scale_type == "ordinal") col_palette <- get_col_palette_o()
       }
 
-      if (col_scale_type == "discrete" & !rlang::is_null(col_n))  {
+      if (!rlang::is_null(col_n))  {
+      # if (col_scale_type == "discrete" & !rlang::is_null(col_n))  {
         if (rlang::is_function(col_palette)) col_palette <- col_palette(col_n)
         else if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
       }
@@ -1049,7 +1050,7 @@ gg_blanket <- function(data = NULL,
       if (rlang::is_null(col_breaks)) col_breaks <- ggplot2::waiver()
 
       if (!rlang::is_null(col_palette)) {
-        if (col_scale_type == "discrete") {
+        if (rlang::is_vector(col_palette)) {
 
           plot <- plot +
             ggplot2::scale_colour_manual(
@@ -1074,7 +1075,7 @@ gg_blanket <- function(data = NULL,
               )
             )
         }
-        else if (col_scale_type == "ordinal") {
+        else if (rlang::is_function(col_palette)) {
           plot <- plot +
             ggplot2::discrete_scale(
               palette = col_palette,
