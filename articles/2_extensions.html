@@ -201,8 +201,9 @@ argument.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_families_google.html" class="external-link">font_families_google</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "ABeeZee"       "Abel"          "Abhaya Libre"  "Abril Fatface"</span></span>
-<span><span class="co">#&gt; [5] "Aclonica"      "Acme"</span></span>
-<span></span>
+<span><span class="co">#&gt; [5] "Aclonica"      "Acme"</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add_google.html" class="external-link">font_add_google</a></span><span class="op">(</span><span class="st">"Covered By Your Grace"</span>, <span class="st">"grace"</span><span class="op">)</span></span>
 <span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add_google.html" class="external-link">font_add_google</a></span><span class="op">(</span><span class="st">'Roboto Slab'</span>, <span class="st">'roboto_slab'</span><span class="op">)</span></span>
 <span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add_google.html" class="external-link">font_add_google</a></span><span class="op">(</span><span class="st">'Syne Mono'</span>, <span class="st">'syne'</span><span class="op">)</span></span>
@@ -225,7 +226,7 @@ argument.</p>
 <span>    plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"syne"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-4-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu">showtext</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/showtext/man/showtext_auto.html" class="external-link">showtext_auto</a></span><span class="op">(</span>enable <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -234,7 +235,7 @@ argument.</p>
 </h3>
 <p>The gghighlight package enables geoms or parts thereof to be
 highlighted.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
@@ -245,7 +246,7 @@ highlighted.</p>
 <p>The <code>gg_*</code> function builds the scale for the data that it
 thinks will be within the panel. Therefore in some situations, this must
 be taken into account to ensure the scale builds correctly.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
@@ -260,13 +261,14 @@ be taken into account to ensure the scale builds correctly.</p>
 <h3 id="ggforce">ggforce<a class="anchor" aria-label="anchor" href="#ggforce"></a>
 </h3>
 <p>The ggforce package includes numerous extra geoms, stats etc.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggforce.data-imaginist.com" class="external-link">ggforce</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_bspline.html" class="external-link">geom_bspline</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_path: arrow = NULL, lineend = butt, na.rm = FALSE</span></span>
 <span><span class="co">#&gt; stat_bspline: na.rm = FALSE, n = 100, type = clamped</span></span>
-<span><span class="co">#&gt; position_identity</span></span>
-<span></span>
+<span><span class="co">#&gt; position_identity</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">economics</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">35</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_path.html">gg_path</a></span><span class="op">(</span></span>
@@ -277,12 +279,13 @@ be taken into account to ensure the scale builds correctly.</p>
 <span>    y_label <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_mark_hull.html" class="external-link">geom_mark_hull</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_mark_hull: na.rm = FALSE, expand = 5, radius = 2.5, concavity = 2, label.margin = c(2, 2, 2, 2), label.width = NULL, label.minwidth = 50, label.fontsize = 12, label.family = , label.lineheight = 1, label.fontface = c("bold", "plain"), label.hjust = 0, label.fill = white, label.colour = black, label.buffer = 10, con.colour = black, con.size = 0.5, con.type = elbow, con.linetype = 1, con.border = one, con.cap = 3, con.arrow = NULL</span></span>
 <span><span class="co">#&gt; stat_identity: na.rm = FALSE</span></span>
-<span><span class="co">#&gt; position_identity</span></span>
-<span></span>
+<span><span class="co">#&gt; position_identity</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_blanket.html">gg_blanket</a></span><span class="op">(</span></span>
 <span>    geom <span class="op">=</span> <span class="st">"mark_hull"</span>,</span>
@@ -299,13 +302,14 @@ be taken into account to ensure the scale builds correctly.</p>
 </h3>
 <p>The ggrepel package can be used to neatly avoid overlapping
 labels.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggrepel.slowkow.com/" class="external-link">ggrepel</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggrepel.slowkow.com/reference/geom_text_repel.html" class="external-link">geom_text_repel</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_text_repel: parse = FALSE, na.rm = FALSE, box.padding = 0.25, point.padding = 1e-06, min.segment.length = 0.5, arrow = NULL, force = 1, force_pull = 1, max.time = 0.5, max.iter = 10000, max.overlaps = 10, nudge_x = 0, nudge_y = 0, xlim = c(NA, NA), ylim = c(NA, NA), direction = both, seed = NA, verbose = FALSE</span></span>
 <span><span class="co">#&gt; stat_identity: na.rm = FALSE</span></span>
-<span><span class="co">#&gt; position_identity</span></span>
-<span></span>
+<span><span class="co">#&gt; position_identity</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">mtcars</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"car"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">wt</span> <span class="op">&gt;</span> <span class="fl">2.75</span>, <span class="va">wt</span> <span class="op">&lt;</span> <span class="fl">3.45</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -321,17 +325,19 @@ labels.</p>
 <h3 id="ggbeeswarm">ggbeeswarm<a class="anchor" aria-label="anchor" href="#ggbeeswarm"></a>
 </h3>
 <p>The ggbeeswarm package enables beeswarm plots.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/eclarke/ggbeeswarm" class="external-link">ggbeeswarm</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_beeswarm.html" class="external-link">geom_beeswarm</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_point: na.rm = FALSE</span></span>
 <span><span class="co">#&gt; stat_identity: na.rm = FALSE</span></span>
-<span><span class="co">#&gt; position_beeswarm</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_quasirandom.html" class="external-link">geom_quasirandom</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; position_beeswarm</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_quasirandom.html" class="external-link">geom_quasirandom</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_point: na.rm = FALSE</span></span>
 <span><span class="co">#&gt; stat_identity: na.rm = FALSE</span></span>
-<span><span class="co">#&gt; position_quasirandom</span></span>
-<span></span>
+<span><span class="co">#&gt; position_quasirandom</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/position_beeswarm.html" class="external-link">position_beeswarm</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -361,13 +367,14 @@ labels.</p>
 <h3 id="ggridges">ggridges<a class="anchor" aria-label="anchor" href="#ggridges"></a>
 </h3>
 <p>The ggridges package enables ridgeline plots.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggridges/" class="external-link">ggridges</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://wilkelab.org/ggridges/reference/geom_density_ridges.html" class="external-link">geom_density_ridges</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_density_ridges: na.rm = FALSE, panel_scaling = TRUE</span></span>
 <span><span class="co">#&gt; stat_density_ridges: na.rm = FALSE</span></span>
-<span><span class="co">#&gt; position_points_sina</span></span>
-<span></span>
+<span><span class="co">#&gt; position_points_sina</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu">ggridges</span><span class="fu">::</span><span class="va"><a href="https://wilkelab.org/ggridges/reference/Catalan_elections.html" class="external-link">Catalan_elections</a></span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename_with</a></span><span class="op">(</span><span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_snake_case</a></span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -389,14 +396,15 @@ labels.</p>
 <h3 id="ggdist">ggdist<a class="anchor" aria-label="anchor" href="#ggdist"></a>
 </h3>
 <p>The ggdist package enables the visualisation of uncertainty.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mjskay.github.io/ggdist/" class="external-link">ggdist</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkg.mitchelloharawild.com/distributional/" class="external-link">distributional</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="http://mjskay.github.io/ggdist/reference/geom_slabinterval.html" class="external-link">geom_slabinterval</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_slabinterval: orientation = NA, normalize = all, fill_type = segments, interval_size_domain = c(1, 6), interval_size_range = c(0.6, 1.4), fatten_point = 1.8, arrow = NULL, show_slab = TRUE, show_point = TRUE, show_interval = TRUE, subguide = none, na.rm = FALSE</span></span>
 <span><span class="co">#&gt; stat_identity: na.rm = FALSE</span></span>
-<span><span class="co">#&gt; position_identity</span></span>
-<span></span>
+<span><span class="co">#&gt; position_identity</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -424,12 +432,13 @@ labels.</p>
 <span>    <span class="co"># side = "both",</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="http://mjskay.github.io/ggdist/reference/geom_lineribbon.html" class="external-link">geom_lineribbon</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_lineribbon: step = FALSE, orientation = NA, na.rm = FALSE</span></span>
 <span><span class="co">#&gt; stat_identity: na.rm = FALSE</span></span>
-<span><span class="co">#&gt; position_identity</span></span>
-<span></span>
+<span><span class="co">#&gt; position_identity</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -444,9 +453,9 @@ labels.</p>
 <span>    ymin <span class="op">=</span> <span class="va">.lower</span>,</span>
 <span>    ymax <span class="op">=</span> <span class="va">.upper</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">.width</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"#121b24"</span>,</span>
+<span>    colour <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>    col_legend_rev <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    col_palette <span class="op">=</span> <span class="va">blues9</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>,<span class="fl">5</span>,<span class="fl">3</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>    col_palette <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">9</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
 </div>
@@ -455,13 +464,14 @@ labels.</p>
 </h3>
 <p>The ggdensity package provides visualizations of density
 estimates.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jamesotto852.github.io/ggdensity/" class="external-link">ggdensity</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://jamesotto852.github.io/ggdensity/reference/geom_hdr.html" class="external-link">geom_hdr</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_hdr: na.rm = FALSE</span></span>
 <span><span class="co">#&gt; stat_hdr: na.rm = FALSE</span></span>
-<span><span class="co">#&gt; position_identity</span></span>
-<span></span>
+<span><span class="co">#&gt; position_identity</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -479,7 +489,7 @@ estimates.</p>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="cn">FALSE</span>, fill <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -504,7 +514,7 @@ estimates.</p>
 </h3>
 <p>The paletteer package provides access to most of the palettes within
 R.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EmilHvitfeldt/paletteer" class="external-link">paletteer</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
@@ -535,7 +545,7 @@ R.</p>
 </h3>
 <p>The ggblend package provides blending of colours. You must use a
 graphics device that supports blending.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
@@ -567,7 +577,7 @@ graphics device that supports blending.</p>
 <h3 id="ggh4x">ggh4x<a class="anchor" aria-label="anchor" href="#ggh4x"></a>
 </h3>
 <p>The ggh4x package includes enhanced facet functionality.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename_with</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_snake_case</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">species</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -590,7 +600,7 @@ graphics device that supports blending.</p>
 </h3>
 <p>The ggeasy package provides a lot of support for easily modifying
 themes. Removing axes and gridlines is often useful.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonocarroll/ggeasy" class="external-link">ggeasy</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
@@ -609,7 +619,7 @@ themes. Removing axes and gridlines is often useful.</p>
 <h3 id="ggnewscale">ggnewscale<a class="anchor" aria-label="anchor" href="#ggnewscale"></a>
 </h3>
 <p>The ggnewscale package enables multiple colour scales.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_blanket.html">gg_blanket</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
