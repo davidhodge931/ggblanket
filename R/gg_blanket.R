@@ -483,7 +483,7 @@ gg_blanket <- function(data = NULL,
           sample = !!sample,
           label = !!label,
           text = !!text,
-          !!!mapping
+          # !!!mapping
         )) +
         mode
     }
@@ -503,7 +503,7 @@ gg_blanket <- function(data = NULL,
           sample = !!sample,
           label = !!label,
           text = !!text,
-          !!!mapping
+          # !!!mapping
         )) +
         mode
     }
@@ -523,7 +523,7 @@ gg_blanket <- function(data = NULL,
           sample = !!sample,
           label = !!label,
           text = !!text,
-          !!!mapping
+          # !!!mapping
         )) +
         mode
     }
@@ -542,7 +542,7 @@ gg_blanket <- function(data = NULL,
           sample = !!sample,
           label = !!label,
           text = !!text,
-          !!!mapping
+          # !!!mapping
         )) +
         mode
     }
@@ -567,7 +567,7 @@ gg_blanket <- function(data = NULL,
           sample = !!sample,
           label = !!label,
           text = !!text,
-          !!!mapping
+          # !!!mapping
         )) +
         mode
     }
@@ -589,7 +589,7 @@ gg_blanket <- function(data = NULL,
           sample = !!sample,
           label = !!label,
           text = !!text,
-          !!!mapping
+          # !!!mapping
         )) +
         mode
     }
@@ -611,7 +611,7 @@ gg_blanket <- function(data = NULL,
           sample = !!sample,
           label = !!label,
           text = !!text,
-          !!!mapping
+          # !!!mapping
         )) +
         mode
     }
@@ -632,7 +632,7 @@ gg_blanket <- function(data = NULL,
           sample = !!sample,
           label = !!label,
           text = !!text,
-          !!!mapping
+          # !!!mapping
         )) +
         mode
     }
@@ -855,6 +855,7 @@ gg_blanket <- function(data = NULL,
         geom = geom,
         stat = stat,
         position = position,
+        mapping = ggplot2::aes(!!!mapping),
         params = rlang::list2(...),
         show.legend = show_legend,
       ) +
@@ -868,6 +869,7 @@ gg_blanket <- function(data = NULL,
         geom = geom,
         stat = stat,
         position = position,
+        mapping = ggplot2::aes(!!!mapping),
         params = rlang::list2(...),
         show.legend = show_legend,
       ) +
@@ -899,7 +901,7 @@ gg_blanket <- function(data = NULL,
   })
 
   ##############################################################################
-  # Detect whether the plot has a col scale
+  # Detect scale types
   ##############################################################################
 
   scales <- purrr::map_chr(plot_build$plot$scales$scales, function(x) {
@@ -911,6 +913,14 @@ gg_blanket <- function(data = NULL,
   else if (any(scales %in% discrete_scales_col)) col_scale_type <- "discrete"
   else if (any(scales %in% ordinal_scales_col)) col_scale_type <- "ordinal"
   else col_scale_type <- NA
+
+  if (any(scales %in% "scale_x_continuous")) x_scale_type <- "continuous"
+  else if (any(scales %in% "scale_x_discrete")) x_scale_type <- "discrete"
+  else x_scale_type <- NA
+
+  if (any(scales %in% "scale_y_continuous")) y_scale_type <- "continuous"
+  else if (any(scales %in% "scale_y_discrete")) y_scale_type <- "discrete"
+  else y_scale_type <- NA
 
   ##############################################################################
   # Make colour scale where there is a colour scale identified
@@ -1345,7 +1355,7 @@ gg_blanket <- function(data = NULL,
         transform = x_transform
       )
   }
-  else if (!x_continuous) {
+  else if (x_scale_type  == "discrete") {
     if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
     if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
     if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
@@ -1360,7 +1370,7 @@ gg_blanket <- function(data = NULL,
         position = x_position
       )
   }
-  else {
+  else if (x_scale_type  == "continuous") {
     #get x_labels if NULL
     if (rlang::is_null(x_labels)) {
       if (any(x_transform_name %in% c("hms"))) x_labels <- scales::label_time()
@@ -1532,7 +1542,7 @@ gg_blanket <- function(data = NULL,
         transform = y_transform
       )
   }
-  else if (!y_continuous) {
+  else if (y_scale_type  == "discrete") {
     if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
     if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
     if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
@@ -1547,7 +1557,7 @@ gg_blanket <- function(data = NULL,
         position = y_position
       )
   }
-  else {
+  else if (y_scale_type  == "continuous") {
     #get y_labels if NULL
     if (rlang::is_null(y_labels)) {
       if (any(y_transform_name %in% c("hms"))) y_labels <- scales::label_time()
