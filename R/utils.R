@@ -64,3 +64,71 @@ ordinal_scales_col <- c(
   "scale_fill_ordinal",
   "scale_fill_viridis_d"
 )
+
+#' Continuous x scales
+#'
+#' @description A vector of continuous x scales.
+#'
+#' @noRd
+continuous_scales_x <- c(
+  "scale_x_continuous",
+  "scale_x_date",
+  "scale_x_datetime",
+  "scale_x_log10",
+  "scale_x_reverse",
+  "scale_x_sqrt",
+  "scale_x_time"
+)
+
+#' Discrete x scales
+#'
+#' @description A vector of discrete x scales.
+#'
+#' @noRd
+discrete_scales_x <- c(
+  "scale_x_discrete"
+)
+
+#' Ordinal x scales
+#'
+#' @description A vector of binned x scales.
+#'
+#' @noRd
+binned_scales_x <- c(
+  "scale_x_binned"
+)
+
+#' Continuous x scales
+#'
+#' @description A vector of continuous x scales.
+#'
+#' @noRd
+continuous_scales_y <- c(
+  "scale_y_continuous",
+  "scale_y_date",
+  "scale_y_datetime",
+  "scale_y_log10",
+  "scale_y_reverse",
+  "scale_y_sqrt",
+  "scale_y_time"
+)
+
+#' Discrete x scales
+#'
+#' @description A vector of discrete x scales.
+#'
+#' @noRd
+discrete_scales_y <- c(
+  "scale_y_discrete"
+)
+
+#' Ordinal x scales
+#'
+#' @description A vector of binned x scales.
+#'
+#' @noRd
+binned_scales_y <- c(
+  "scale_y_binned"
+)
+
+
