@@ -465,198 +465,198 @@ gg_blanket <- function(data = NULL,
   # add ggplot() with aesthetics
   ##############################################################################
 
-  if (rlang::quo_is_null(col)) {
-    if (!x_null & !y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          y = !!y,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) +
-        mode
-    }
-    else if (!x_null & y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) +
-        mode
-    }
-    else if (x_null & !y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          y = !!y,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) +
-        mode
-    }
-    else if (x_null & y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) +
-        mode
-    }
-  }
-  else {
-    if (!x_null & !y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          y = !!y,
-          col = !!col,
-          fill = !!col,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) +
-        mode
-    }
-    else if (!x_null & y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          col = !!col,
-          fill = !!col,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) +
-        mode
-    }
-    else if (x_null & !y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          y = !!y,
-          col = !!col,
-          fill = !!col,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) +
-        mode
-    }
-    else if (x_null & y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          col = !!col,
-          fill = !!col,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) +
-        mode
-    }
-  }
+  # if (rlang::quo_is_null(col)) {
+  #   if (!x_null & !y_null) {
+  #     plot <- data %>%
+  #       ggplot2::ggplot(mapping = ggplot2::aes(
+  #         x = !!x,
+  #         y = !!y,
+  #         xmin = !!xmin,
+  #         xmax = !!xmax,
+  #         xend = !!xend,
+  #         ymin = !!ymin,
+  #         ymax = !!ymax,
+  #         yend = !!yend,
+  #         z = !!z,
+  #         group = !!group,
+  #         subgroup = !!subgroup,
+  #         sample = !!sample,
+  #         label = !!label,
+  #         text = !!text,
+  #         # !!!mapping
+  #       )) +
+  #       mode
+  #   }
+  #   else if (!x_null & y_null) {
+  #     plot <- data %>%
+  #       ggplot2::ggplot(mapping = ggplot2::aes(
+  #         x = !!x,
+  #         xmin = !!xmin,
+  #         xmax = !!xmax,
+  #         xend = !!xend,
+  #         ymin = !!ymin,
+  #         ymax = !!ymax,
+  #         yend = !!yend,
+  #         z = !!z,
+  #         group = !!group,
+  #         subgroup = !!subgroup,
+  #         sample = !!sample,
+  #         label = !!label,
+  #         text = !!text,
+  #         # !!!mapping
+  #       )) +
+  #       mode
+  #   }
+  #   else if (x_null & !y_null) {
+  #     plot <- data %>%
+  #       ggplot2::ggplot(mapping = ggplot2::aes(
+  #         y = !!y,
+  #         xmin = !!xmin,
+  #         xmax = !!xmax,
+  #         xend = !!xend,
+  #         ymin = !!ymin,
+  #         ymax = !!ymax,
+  #         yend = !!yend,
+  #         z = !!z,
+  #         group = !!group,
+  #         subgroup = !!subgroup,
+  #         sample = !!sample,
+  #         label = !!label,
+  #         text = !!text,
+  #         # !!!mapping
+  #       )) +
+  #       mode
+  #   }
+  #   else if (x_null & y_null) {
+  #     plot <- data %>%
+  #       ggplot2::ggplot(mapping = ggplot2::aes(
+  #         xmin = !!xmin,
+  #         xmax = !!xmax,
+  #         xend = !!xend,
+  #         ymin = !!ymin,
+  #         ymax = !!ymax,
+  #         yend = !!yend,
+  #         z = !!z,
+  #         group = !!group,
+  #         subgroup = !!subgroup,
+  #         sample = !!sample,
+  #         label = !!label,
+  #         text = !!text,
+  #         # !!!mapping
+  #       )) +
+  #       mode
+  #   }
+  # }
+  # else {
+  #   if (!x_null & !y_null) {
+  #     plot <- data %>%
+  #       ggplot2::ggplot(mapping = ggplot2::aes(
+  #         x = !!x,
+  #         y = !!y,
+  #         col = !!col,
+  #         fill = !!col,
+  #         xmin = !!xmin,
+  #         xmax = !!xmax,
+  #         xend = !!xend,
+  #         ymin = !!ymin,
+  #         ymax = !!ymax,
+  #         yend = !!yend,
+  #         z = !!z,
+  #         group = !!group,
+  #         subgroup = !!subgroup,
+  #         sample = !!sample,
+  #         label = !!label,
+  #         text = !!text,
+  #         # !!!mapping
+  #       )) +
+  #       mode
+  #   }
+  #   else if (!x_null & y_null) {
+  #     plot <- data %>%
+  #       ggplot2::ggplot(mapping = ggplot2::aes(
+  #         x = !!x,
+  #         col = !!col,
+  #         fill = !!col,
+  #         xmin = !!xmin,
+  #         xmax = !!xmax,
+  #         xend = !!xend,
+  #         ymin = !!ymin,
+  #         ymax = !!ymax,
+  #         yend = !!yend,
+  #         z = !!z,
+  #         group = !!group,
+  #         subgroup = !!subgroup,
+  #         sample = !!sample,
+  #         label = !!label,
+  #         text = !!text,
+  #         # !!!mapping
+  #       )) +
+  #       mode
+  #   }
+  #   else if (x_null & !y_null) {
+  #     plot <- data %>%
+  #       ggplot2::ggplot(mapping = ggplot2::aes(
+  #         y = !!y,
+  #         col = !!col,
+  #         fill = !!col,
+  #         xmin = !!xmin,
+  #         xmax = !!xmax,
+  #         xend = !!xend,
+  #         ymin = !!ymin,
+  #         ymax = !!ymax,
+  #         yend = !!yend,
+  #         z = !!z,
+  #         group = !!group,
+  #         subgroup = !!subgroup,
+  #         sample = !!sample,
+  #         label = !!label,
+  #         text = !!text,
+  #         # !!!mapping
+  #       )) +
+  #       mode
+  #   }
+  #   else if (x_null & y_null) {
+  #     plot <- data %>%
+  #       ggplot2::ggplot(mapping = ggplot2::aes(
+  #         col = !!col,
+  #         fill = !!col,
+  #         xmin = !!xmin,
+  #         xmax = !!xmax,
+  #         xend = !!xend,
+  #         ymin = !!ymin,
+  #         ymax = !!ymax,
+  #         yend = !!yend,
+  #         z = !!z,
+  #         group = !!group,
+  #         subgroup = !!subgroup,
+  #         sample = !!sample,
+  #         label = !!label,
+  #         text = !!text,
+  #         # !!!mapping
+  #       )) +
+  #       mode
+  #   }
+  # }
 
-  # plot <- get_base(
-  #   data = data,
-  #   x = !!x,
-  #   y = !!y,
-  #   col = !!col,
-  #   xmin = !!xmin,
-  #   xmax = !!xmax,
-  #   xend = !!xend,
-  #   ymin = !!ymin,
-  #   ymax = !!ymax,
-  #   yend = !!yend,
-  #   z = !!z,
-  #   group = !!group,
-  #   subgroup = !!subgroup,
-  #   sample = !!sample,
-  #   label = !!label,
-  #   text = !!text,
-  # ) +
-  #   mode
+  plot <- get_base(
+    data = data,
+    x = !!x,
+    y = !!y,
+    col = !!col,
+    xmin = !!xmin,
+    xmax = !!xmax,
+    xend = !!xend,
+    ymin = !!ymin,
+    ymax = !!ymax,
+    yend = !!yend,
+    z = !!z,
+    group = !!group,
+    subgroup = !!subgroup,
+    sample = !!sample,
+    label = !!label,
+    text = !!text,
+  ) +
+  mode
 
   ##############################################################################
   # add faceting
@@ -1766,6 +1766,7 @@ gg_blanket <- function(data = NULL,
       else if (!rlang::is_null(plot_build$plot$labels$x)) {
         x_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), label_to_case)
       }
+      else x_label <- purrr::map_chr("x", label_to_case)
     }
   }
 
@@ -1790,6 +1791,7 @@ gg_blanket <- function(data = NULL,
       else if (!rlang::is_null(plot_build$plot$labels$y)) {
         y_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$y[1]), label_to_case)
       }
+      else y_label <- purrr::map_chr("y", label_to_case)
     }
   }
 
