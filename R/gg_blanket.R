@@ -924,28 +924,39 @@ gg_blanket <- function(data = NULL,
   # Detect scale types
   ##############################################################################
 
-  scales <- purrr::map_chr(plot_build$plot$scales$scales, function(x) {
+  plot_scales <- purrr::map_chr(plot_build$plot$scales$scales, function(x) {
     ifelse(rlang::is_null(rlang::call_name(x[["call"]])), NA,
            rlang::call_name(x[["call"]]))
   })
 
-  if (any(scales %in% discrete_scales_col)) col_scale_type <- "discrete"
-  else if (any(scales %in% continuous_scales_col)) col_scale_type <- "continuous"
-  else if (any(scales %in% ordinal_scales_col)) col_scale_type <- "ordinal"
-  else col_scale_type <- NA
+  if (any(plot_scales %in% c("scale_colour_discrete", "scale_fill_discrete"))) col_scale_type <- "discrete"
+  else if (any(plot_scales %in% c("scale_colour_ordinal", "scale_fill_ordinal"))) col_scale_type <- "ordinal"
+  else if (any(plot_scales %in% c("scale_colour_date", "scale_fill_date"))) col_scale_type <- "date"
+  else if (any(plot_scales %in% c("scale_colour_datetime", "scale_fill_datetime"))) col_scale_type <- "datetime"
+  else if (any(plot_scales %in% c("scale_colour_time", "scale_fill_time"))) col_scale_type <- "time"
+  else if (any(plot_scales %in% c("scale_colour_continuous", "scale_fill_continuous"))) col_scale_type <- "numeric"
+  else col_scale_type <- "numeric"
 
-  if (any(scales %in% discrete_scales_x)) x_scale_type <- "discrete"
-  else x_scale_type <- "continuous"
+  if (any(plot_scales %in% "scale_x_discrete")) x_scale_type <- "discrete"
+  else if (any(plot_scales %in% "scale_x_date")) x_scale_type <- "date"
+  else if (any(plot_scales %in% "scale_x_datetime")) x_scale_type <- "datetime"
+  else if (any(plot_scales %in% "scale_x_time")) x_scale_type <- "time"
+  else if (any(plot_scales %in% "scale_x_continuous")) x_scale_type <- "numeric"
+  else x_scale_type <- "numeric"
 
-  if (any(scales %in% discrete_scales_y)) y_scale_type <- "discrete"
-  else y_scale_type <- "continuous"
+  if (any(plot_scales %in% "scale_y_discrete")) y_scale_type <- "discrete"
+  else if (any(plot_scales %in% "scale_y_date")) y_scale_type <- "date"
+  else if (any(plot_scales %in% "scale_y_datetime")) y_scale_type <- "datetime"
+  else if (any(plot_scales %in% "scale_y_time")) y_scale_type <- "time"
+  else if (any(plot_scales %in% "scale_y_continuous")) y_scale_type <- "numeric"
+  else y_scale_type <- "numeric"
 
   ##############################################################################
   # Make colour scale where there is a colour scale identified
   ##############################################################################
 
   if (!is.na(col_scale_type)) {
-    if (col_scale_type == "continuous") {
+    if (col_scale_type %in% c("date", "datetime", "time", "numeric")) {
 
       if (rlang::is_null(col_palette)) {
         col_palette <- get_col_palette_c()
@@ -1056,7 +1067,6 @@ gg_blanket <- function(data = NULL,
       }
 
       if (!rlang::is_null(col_n))  {
-      # if (col_scale_type == "discrete" & !rlang::is_null(col_n))  {
         if (rlang::is_function(col_palette)) col_palette <- col_palette(col_n)
         else if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
       }
@@ -1388,7 +1398,7 @@ gg_blanket <- function(data = NULL,
         position = x_position
       )
   }
-  else if (x_scale_type  == "continuous") {
+  else {
     #get x_labels if NULL
     if (rlang::is_null(x_labels)) {
       if (any(x_transform_name %in% c("hms"))) x_labels <- scales::label_time()
@@ -1576,7 +1586,7 @@ gg_blanket <- function(data = NULL,
         position = y_position
       )
   }
-  else if (y_scale_type  == "continuous") {
+  else {
     #get y_labels if NULL
     if (rlang::is_null(y_labels)) {
       if (any(y_transform_name %in% c("hms"))) y_labels <- scales::label_time()
