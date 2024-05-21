@@ -638,13 +638,11 @@ gg_blanket <- function(data = NULL,
     }
   }
 
-  # get_base(
-  #   data,
-  #   x = !!x,
+  # plot <- get_base(
+  #   data = data,
   #   x = !!x,
   #   y = !!y,
   #   col = !!col,
-  #   fill = !!col,
   #   xmin = !!xmin,
   #   xmax = !!xmax,
   #   xend = !!xend,
@@ -655,7 +653,10 @@ gg_blanket <- function(data = NULL,
   #   group = !!group,
   #   subgroup = !!subgroup,
   #   sample = !!sample,
-  # )
+  #   label = !!label,
+  #   text = !!text,
+  # ) +
+  #   mode
 
   ##############################################################################
   # add faceting
