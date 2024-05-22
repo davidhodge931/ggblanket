@@ -89,9 +89,6 @@ flex_mode_base <- function(
     axis.line.y = NULL,
     axis.line.y.left = NULL,
     axis.line.y.right = NULL,
-    axis.text = NULL,
-    axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = base_size * 0.25), hjust = 1),
-    axis.text.y.right = ggplot2::element_text(margin = ggplot2::margin(l = base_size * 0.25), hjust = 0),
     axis.ticks = ggplot2::element_line(colour = axis_ticks_colour, linewidth = axis_ticks_linewidth),
     axis.ticks.x = NULL,
     axis.ticks.x.top = NULL,
@@ -106,7 +103,21 @@ flex_mode_base <- function(
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
     axis.title = NULL,
-    axis.title.y = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 1, b = 0, l = 0), angle = 90),
+    axis.title.x = NULL,
+    axis.title.x.bottom = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.33, r = 0, b = base_size * 0.75, l = 0)),
+    axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 1, l = 0)),
+    axis.title.y = NULL,
+    axis.title.y.left = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * 1, b = 0, l = 0), angle = 90),
+    axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * -0.5, b = 0, l = base_size * 1), angle = -90),
+    axis.text = NULL,
+    axis.text.y = NULL,
+    axis.text.y.left = ggplot2::element_text(margin = ggplot2::margin(r = base_size * 0.25), hjust = 1),
+    axis.text.y.right = ggplot2::element_text(margin = ggplot2::margin(l = base_size * 0.25), hjust = 0),
+    axis.text.x. = NULL,
+    axis.text.x.bottom = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.3, r = 0, b = base_size * 1, l = 0)),
+    axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.3, l = 0)),
+
+    legend.margin = ggplot2::margin(t = 0, r = base_size * -1, b = base_size * 0.75, l = base_size * 0.75),
     legend.spacing = grid::unit(base_size * 1, "pt"),
     legend.spacing.x = NULL,
     legend.spacing.y = NULL,
@@ -165,18 +176,12 @@ flex_mode_base <- function(
     plot.tag = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 0.5),
     plot.tag.position = "topleft",
     plot.margin = ggplot2::margin(t = base_size * 2, r = base_size * 2, b = base_size * 0.33, l = base_size * 1),
-    axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.33, r = 0, b = base_size * 0.75, l = 0)),
-    axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -1, r = 0, b = base_size * 1, l = 0)),
-    axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * -0.5, b = 0, l = base_size * 1), angle = -90),
-    legend.margin = ggplot2::margin(t = 0, r = base_size * -1, b = base_size * 0.75, l = base_size * 0.75),
     legend.position = "right",
     legend.direction = "vertical",
     legend.justification = c(0, 1),
     legend.location = "panel",
     legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
     legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
-    axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.3, r = 0, b = base_size * 1, l = 0)),
-    axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.3, l = 0)),
 
     complete = FALSE
   )
@@ -393,7 +398,7 @@ flex_mode_t <- function (
       legend.box.margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0),
       legend.title = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.25, r = 0, b = base_size * 0.5, l = 0)),
 
-      axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.33, r = 0, b = base_size * 0.75, l = 0)),
+      axis.title.x.bottom = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.33, r = 0, b = base_size * 0.75, l = 0)),
       axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
       axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * 0, r = 0, b = base_size * 0.3, l = 0)),
       axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = base_size * -0.5, b = 0, l = base_size * 1), angle = -90)
@@ -492,7 +497,7 @@ flex_mode_b <- function (
       legend.margin = ggplot2::margin(t = 0, r = base_size * 2, b = base_size * 0.75, l = 0),
       legend.box.margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = 0, l = 0),
       legend.title = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.25, r = 0, b = base_size * 0.5, l = 0)),
-      axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.3, r = 0, b = base_size * 1, l = 0)),
+      axis.text.x.bottom = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.3, r = 0, b = base_size * 1, l = 0)),
       axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.3, l = 0))
     )
 }
