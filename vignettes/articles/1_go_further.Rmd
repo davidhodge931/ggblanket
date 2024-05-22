@@ -137,9 +137,7 @@ p1 <- diamonds |>
 
 p2 <- diamonds |>
   count(color) |>
-  mutate(across(color, \(x) x |>
-                  forcats::fct_reorder(n) |>
-                  forcats::fct_rev())) |>
+  mutate(color = fct_rev(fct_reorder(color, n))) |>
   gg_col(
     x = n,
     y = color,
@@ -147,7 +145,7 @@ p2 <- diamonds |>
     x_labels = \(x) x / 1000,
     x_label = "Count (thousands)", 
     subtitle = "\nRe-orderered"
-  )
+  ) 
 
 p1 + p2
 ```
