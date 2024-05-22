@@ -896,7 +896,7 @@ gg_blanket <- function(data = NULL,
 
       if (flipped) {
         col_legend_rev <- !col_legend_rev
-        col_palette <- rev(col_palette)
+        if (col_scale_type == "discrete") col_palette <- rev(col_palette)
       }
 
       if (col_scale_type == "ordinal") col_legend_rev <- !col_legend_rev
