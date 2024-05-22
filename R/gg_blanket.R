@@ -172,8 +172,149 @@ gg_blanket <- function(data = NULL,
   if (rlang::is_null(data)) data <- data.frame(x = NA)
 
   ##############################################################################
-  #determine classes
+  #get geom, stat, transform & position strings
   ##############################################################################
+
+  if (ggplot2::is.ggproto(geom)) {
+    geom_name <- stringr::str_to_lower(stringr::str_remove(class(geom)[1], "Geom"))
+  }
+  else if (is.character(geom)) geom_name <- geom
+
+  if (ggplot2::is.ggproto(stat)) {
+    stat_name <- stringr::str_to_lower(stringr::str_remove(class(stat)[1], "Stat"))
+  }
+  else if (is.character(stat)) stat_name <- stat
+
+  if (ggplot2::is.ggproto(position)) {
+    position_name <- stringr::str_to_lower(stringr::str_remove(class(position)[1], "Position"))
+  }
+  else if (is.character(position)) position_name <- position
+
+  ##############################################################################
+  #build plot for classes
+  ##############################################################################
+
+  plot <- get_base(
+    data = data,
+    x = !!x,
+    y = !!y,
+    col = !!col,
+    xmin = !!xmin,
+    xmax = !!xmax,
+    xend = !!xend,
+    ymin = !!ymin,
+    ymax = !!ymax,
+    yend = !!yend,
+    z = !!z,
+    group = !!group,
+    subgroup = !!subgroup,
+    sample = !!sample,
+    label = !!label,
+    text = !!text,
+  ) +
+    mode
+
+
+  ##############################################################################
+  # Add layer
+  ##############################################################################
+
+  if (geom_name == "blank") show_legend <- FALSE
+  else show_legend <- TRUE
+
+  if (stringr::str_detect(stat_name, "sf")) {
+    if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
+
+    plot <- plot +
+      ggplot2::layer_sf(
+        geom = geom,
+        stat = stat,
+        position = position,
+        mapping = ggplot2::aes(!!!mapping),
+        params = rlang::list2(...),
+        show.legend = show_legend,
+      ) +
+      coord
+  }
+  else {
+    if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
+
+    plot <- plot +
+      ggplot2::layer(
+        geom = geom,
+        stat = stat,
+        position = position,
+        mapping = ggplot2::aes(!!!mapping),
+        params = rlang::list2(...),
+        show.legend = show_legend,
+      ) +
+      coord
+  }
+
+  if (!rlang::is_null(x_expand_limits)) {
+    plot <- plot +
+      ggplot2::expand_limits(x = x_expand_limits)
+  }
+
+  if (!rlang::is_null(y_expand_limits)) {
+    plot <- plot +
+      ggplot2::expand_limits(y = y_expand_limits)
+  }
+
+  ##############################################################################
+  # Get plot build and data
+  ##############################################################################
+
+  suppressMessages({
+    suppressWarnings({
+      plot_build <- ggplot2::ggplot_build(plot)
+      plot_data <- plot_build$data[[1]]
+
+      facet_nrows <- length(unique(plot_build$layout$layout$ROW))
+      facet_ncols <- length(unique(plot_build$layout$layout$COL))
+    })
+  })
+
+  ##############################################################################
+  # Detect scale types
+  ##############################################################################
+
+  plot_scales <- purrr::map_chr(plot_build$plot$scales$scales, function(x) {
+    ifelse(rlang::is_null(rlang::call_name(x[["call"]])), NA,
+           rlang::call_name(x[["call"]]))
+  })
+
+  if (any(plot_scales %in% "scale_x_discrete")) x_scale_type <- "discrete"
+  else if (any(plot_scales %in% "scale_x_date")) x_scale_type <- "date"
+  else if (any(plot_scales %in% "scale_x_datetime")) x_scale_type <- "datetime"
+  else if (any(plot_scales %in% "scale_x_time")) x_scale_type <- "time"
+  else if (any(plot_scales %in% "scale_x_continuous")) x_scale_type <- "numeric"
+  else x_scale_type <- "numeric"
+
+  if (any(plot_scales %in% "scale_y_discrete")) y_scale_type <- "discrete"
+  else if (any(plot_scales %in% "scale_y_date")) y_scale_type <- "date"
+  else if (any(plot_scales %in% "scale_y_datetime")) y_scale_type <- "datetime"
+  else if (any(plot_scales %in% "scale_y_time")) y_scale_type <- "time"
+  else if (any(plot_scales %in% "scale_y_continuous")) y_scale_type <- "numeric"
+  else y_scale_type <- "numeric"
+
+  if (any(plot_scales %in% c("scale_colour_discrete", "scale_fill_discrete"))) col_scale_type <- "discrete"
+  else if (any(plot_scales %in% c("scale_colour_ordinal", "scale_fill_ordinal"))) col_scale_type <- "ordinal"
+  else if (any(plot_scales %in% c("scale_colour_date", "scale_fill_date"))) col_scale_type <- "date"
+  else if (any(plot_scales %in% c("scale_colour_datetime", "scale_fill_datetime"))) col_scale_type <- "datetime"
+  else if (any(plot_scales %in% c("scale_colour_time", "scale_fill_time"))) col_scale_type <- "time"
+  else if (any(plot_scales %in% c("scale_colour_continuous", "scale_fill_continuous"))) col_scale_type <- "numeric"
+  else col_scale_type <- "numeric"
+
+  if (!rlang::quo_is_null(col)) {
+    if (inherits(rlang::eval_tidy(col, data), what = c("hms"))) {
+      col_scale_type <- "time"
+    }
+  }
+
+  #############################################################################
+  ### to delete
+  #############################################################################
 
   x_null <- inherits(
     rlang::eval_tidy(x, data),
@@ -353,32 +494,96 @@ gg_blanket <- function(data = NULL,
   #determine if flipped
   ##############################################################################
 
-  if (x_null & !y_null) flipped <- TRUE
-  else if ((x_numeric | x_date | x_posixct | x_hms) &
-           !(y_null | y_numeric | y_date | y_posixct | y_hms)) {
+  if (x_scale_type %in% c("numeric", "date", "datetime", "time") &
+      y_scale_type == "discrete") {
     flipped <- TRUE
   }
-  else if (x_numeric & (y_date | y_posixct | y_hms)) flipped <- TRUE
   else flipped <- FALSE
 
   ##############################################################################
-  #get geom, stat, transform & position strings
+  #build plot for classes
   ##############################################################################
 
-  if (ggplot2::is.ggproto(geom)) {
-    geom_name <- stringr::str_to_lower(stringr::str_remove(class(geom)[1], "Geom"))
-  }
-  else if (is.character(geom)) geom_name <- geom
+  plot <- get_base(
+    data = data,
+    x = !!x,
+    y = !!y,
+    col = !!col,
+    xmin = !!xmin,
+    xmax = !!xmax,
+    xend = !!xend,
+    ymin = !!ymin,
+    ymax = !!ymax,
+    yend = !!yend,
+    z = !!z,
+    group = !!group,
+    subgroup = !!subgroup,
+    sample = !!sample,
+    label = !!label,
+    text = !!text,
+  ) +
+    mode
 
-  if (ggplot2::is.ggproto(stat)) {
-    stat_name <- stringr::str_to_lower(stringr::str_remove(class(stat)[1], "Stat"))
-  }
-  else if (is.character(stat)) stat_name <- stat
 
-  if (ggplot2::is.ggproto(position)) {
-    position_name <- stringr::str_to_lower(stringr::str_remove(class(position)[1], "Position"))
+  ##############################################################################
+  # Add layer
+  ##############################################################################
+
+  if (geom_name == "blank") show_legend <- FALSE
+  else show_legend <- TRUE
+
+  if (stringr::str_detect(stat_name, "sf")) {
+    if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
+
+    plot <- plot +
+      ggplot2::layer_sf(
+        geom = geom,
+        stat = stat,
+        position = position,
+        mapping = ggplot2::aes(!!!mapping),
+        params = rlang::list2(...),
+        show.legend = show_legend,
+      ) +
+      coord
   }
-  else if (is.character(position)) position_name <- position
+  else {
+    if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
+
+    plot <- plot +
+      ggplot2::layer(
+        geom = geom,
+        stat = stat,
+        position = position,
+        mapping = ggplot2::aes(!!!mapping),
+        params = rlang::list2(...),
+        show.legend = show_legend,
+      ) +
+      coord
+  }
+
+  if (!rlang::is_null(x_expand_limits)) {
+    plot <- plot +
+      ggplot2::expand_limits(x = x_expand_limits)
+  }
+
+  if (!rlang::is_null(y_expand_limits)) {
+    plot <- plot +
+      ggplot2::expand_limits(y = y_expand_limits)
+  }
+
+  ##############################################################################
+  # Get plot build and data
+  ##############################################################################
+
+  suppressMessages({
+    suppressWarnings({
+      plot_build <- ggplot2::ggplot_build(plot)
+      plot_data <- plot_build$data[[1]]
+
+      facet_nrows <- length(unique(plot_build$layout$layout$ROW))
+      facet_ncols <- length(unique(plot_build$layout$layout$COL))
+    })
+  })
 
   ##############################################################################
   #get positional transform defaults - and strings
@@ -386,9 +591,9 @@ gg_blanket <- function(data = NULL,
 
   #get x_transform if NULL
   if (rlang::is_null(x_transform)) {
-    if (x_hms) x_transform <- scales::transform_hms()
-    else if (x_posixct) x_transform <- scales::transform_time()
-    else if (x_date) x_transform <- scales::transform_date()
+    if (x_scale_type == "time") x_transform <- scales::transform_hms()
+    else if (x_scale_type == "datetime") x_transform <- scales::transform_time()
+    else if (x_scale_type == "date") x_transform <- scales::transform_date()
     else x_transform <- scales::transform_identity()
   }
 
@@ -405,9 +610,9 @@ gg_blanket <- function(data = NULL,
 
   #get y_transform if NULL
   if (rlang::is_null(y_transform)) {
-    if (y_hms) y_transform <- scales::transform_hms()
-    else if (y_posixct) y_transform <- scales::transform_time()
-    else if (y_date) y_transform <- scales::transform_date()
+    if (y_scale_type == "time") y_transform <- scales::transform_hms()
+    else if (y_scale_type == "datetime")  y_transform <- scales::transform_time()
+    else if (y_scale_type == "date")  y_transform <- scales::transform_date()
     else y_transform <- scales::transform_identity()
   }
 
@@ -464,179 +669,6 @@ gg_blanket <- function(data = NULL,
   ##############################################################################
   # add ggplot() with aesthetics
   ##############################################################################
-
-  # if (rlang::quo_is_null(col)) {
-  #   if (!x_null & !y_null) {
-  #     plot <- data %>%
-  #       ggplot2::ggplot(mapping = ggplot2::aes(
-  #         x = !!x,
-  #         y = !!y,
-  #         xmin = !!xmin,
-  #         xmax = !!xmax,
-  #         xend = !!xend,
-  #         ymin = !!ymin,
-  #         ymax = !!ymax,
-  #         yend = !!yend,
-  #         z = !!z,
-  #         group = !!group,
-  #         subgroup = !!subgroup,
-  #         sample = !!sample,
-  #         label = !!label,
-  #         text = !!text,
-  #         # !!!mapping
-  #       )) +
-  #       mode
-  #   }
-  #   else if (!x_null & y_null) {
-  #     plot <- data %>%
-  #       ggplot2::ggplot(mapping = ggplot2::aes(
-  #         x = !!x,
-  #         xmin = !!xmin,
-  #         xmax = !!xmax,
-  #         xend = !!xend,
-  #         ymin = !!ymin,
-  #         ymax = !!ymax,
-  #         yend = !!yend,
-  #         z = !!z,
-  #         group = !!group,
-  #         subgroup = !!subgroup,
-  #         sample = !!sample,
-  #         label = !!label,
-  #         text = !!text,
-  #         # !!!mapping
-  #       )) +
-  #       mode
-  #   }
-  #   else if (x_null & !y_null) {
-  #     plot <- data %>%
-  #       ggplot2::ggplot(mapping = ggplot2::aes(
-  #         y = !!y,
-  #         xmin = !!xmin,
-  #         xmax = !!xmax,
-  #         xend = !!xend,
-  #         ymin = !!ymin,
-  #         ymax = !!ymax,
-  #         yend = !!yend,
-  #         z = !!z,
-  #         group = !!group,
-  #         subgroup = !!subgroup,
-  #         sample = !!sample,
-  #         label = !!label,
-  #         text = !!text,
-  #         # !!!mapping
-  #       )) +
-  #       mode
-  #   }
-  #   else if (x_null & y_null) {
-  #     plot <- data %>%
-  #       ggplot2::ggplot(mapping = ggplot2::aes(
-  #         xmin = !!xmin,
-  #         xmax = !!xmax,
-  #         xend = !!xend,
-  #         ymin = !!ymin,
-  #         ymax = !!ymax,
-  #         yend = !!yend,
-  #         z = !!z,
-  #         group = !!group,
-  #         subgroup = !!subgroup,
-  #         sample = !!sample,
-  #         label = !!label,
-  #         text = !!text,
-  #         # !!!mapping
-  #       )) +
-  #       mode
-  #   }
-  # }
-  # else {
-  #   if (!x_null & !y_null) {
-  #     plot <- data %>%
-  #       ggplot2::ggplot(mapping = ggplot2::aes(
-  #         x = !!x,
-  #         y = !!y,
-  #         col = !!col,
-  #         fill = !!col,
-  #         xmin = !!xmin,
-  #         xmax = !!xmax,
-  #         xend = !!xend,
-  #         ymin = !!ymin,
-  #         ymax = !!ymax,
-  #         yend = !!yend,
-  #         z = !!z,
-  #         group = !!group,
-  #         subgroup = !!subgroup,
-  #         sample = !!sample,
-  #         label = !!label,
-  #         text = !!text,
-  #         # !!!mapping
-  #       )) +
-  #       mode
-  #   }
-  #   else if (!x_null & y_null) {
-  #     plot <- data %>%
-  #       ggplot2::ggplot(mapping = ggplot2::aes(
-  #         x = !!x,
-  #         col = !!col,
-  #         fill = !!col,
-  #         xmin = !!xmin,
-  #         xmax = !!xmax,
-  #         xend = !!xend,
-  #         ymin = !!ymin,
-  #         ymax = !!ymax,
-  #         yend = !!yend,
-  #         z = !!z,
-  #         group = !!group,
-  #         subgroup = !!subgroup,
-  #         sample = !!sample,
-  #         label = !!label,
-  #         text = !!text,
-  #         # !!!mapping
-  #       )) +
-  #       mode
-  #   }
-  #   else if (x_null & !y_null) {
-  #     plot <- data %>%
-  #       ggplot2::ggplot(mapping = ggplot2::aes(
-  #         y = !!y,
-  #         col = !!col,
-  #         fill = !!col,
-  #         xmin = !!xmin,
-  #         xmax = !!xmax,
-  #         xend = !!xend,
-  #         ymin = !!ymin,
-  #         ymax = !!ymax,
-  #         yend = !!yend,
-  #         z = !!z,
-  #         group = !!group,
-  #         subgroup = !!subgroup,
-  #         sample = !!sample,
-  #         label = !!label,
-  #         text = !!text,
-  #         # !!!mapping
-  #       )) +
-  #       mode
-  #   }
-  #   else if (x_null & y_null) {
-  #     plot <- data %>%
-  #       ggplot2::ggplot(mapping = ggplot2::aes(
-  #         col = !!col,
-  #         fill = !!col,
-  #         xmin = !!xmin,
-  #         xmax = !!xmax,
-  #         xend = !!xend,
-  #         ymin = !!ymin,
-  #         ymax = !!ymax,
-  #         yend = !!yend,
-  #         z = !!z,
-  #         group = !!group,
-  #         subgroup = !!subgroup,
-  #         sample = !!sample,
-  #         label = !!label,
-  #         text = !!text,
-  #         # !!!mapping
-  #       )) +
-  #       mode
-  #   }
-  # }
 
   plot <- get_base(
     data = data,
@@ -1477,13 +1509,13 @@ gg_blanket <- function(data = NULL,
           x_vctr <- c(x_vctr, x_expand_limits)
         }
 
-        if (x_hms) x_vctr <- hms::as_hms(x_vctr)
-        else if (x_posixct) x_vctr <- lubridate::as_datetime(x_vctr, origin = "1970-01-01")
-        else if (x_date) x_vctr <- lubridate::as_date(x_vctr, origin = "1970-01-01")
+        if (x_scale_type == "time") x_vctr <- hms::as_hms(x_vctr)
+        else if (x_scale_type == "datetime") x_vctr <- lubridate::as_datetime(x_vctr, origin = "1970-01-01")
+        else if (x_scale_type == "date") x_vctr <- lubridate::as_date(x_vctr, origin = "1970-01-01")
 
         #get the range from the vctr
         x_range <- range(x_vctr, na.rm = TRUE)
-        if (x_hms) x_range <- hms::as_hms(x_range)
+        if (x_scale_type == "time") x_range <- hms::as_hms(x_range)
 
         if (any(x_transform_name %in% "reverse")) {
           x_range <- sort(x_range, decreasing = TRUE)
@@ -1665,13 +1697,13 @@ gg_blanket <- function(data = NULL,
           y_vctr <- c(y_vctr, y_expand_limits)
         }
 
-        if (y_hms) y_vctr <- hms::as_hms(y_vctr)
-        else if (y_posixct) y_vctr <- lubridate::as_datetime(y_vctr, origin = "1970-01-01")
-        else if (y_date) y_vctr <- lubridate::as_date(y_vctr, origin = "1970-01-01")
+        if (y_scale_type == "time") y_vctr <- hms::as_hms(y_vctr)
+        else if (y_scale_type == "datetime")  y_vctr <- lubridate::as_datetime(y_vctr, origin = "1970-01-01")
+        else if (y_scale_type == "date")  y_vctr <- lubridate::as_date(y_vctr, origin = "1970-01-01")
 
         #get the range from the vctr
         y_range <- range(y_vctr, na.rm = TRUE)
-        if (y_hms) y_range <- hms::as_hms(y_range)
+        if (y_scale_type == "time") y_range <- hms::as_hms(y_range)
 
         if (any(y_transform_name %in% "reverse")) {
           y_range <- sort(y_range, decreasing = TRUE)
