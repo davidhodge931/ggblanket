@@ -41,14 +41,12 @@ get_contrast <- function(fill, dark = "black", light = "white") {
 #'     x = sex,
 #'     y = n,
 #'     col = species,
-#'     label = n,
 #'     position = position_dodge2(preserve = "single"),
 #'     width = 0.75,
 #'     x_labels = \(x) str_to_sentence(x),
 #'   ) +
 #'   geom_text(
-#'     mapping = aes_contrast(),
-#'     # mapping = aes(!!!aes_contrast()),
+#'     mapping = aes(label = n, !!!aes_contrast()),
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     vjust = 1.33,
 #'     show.legend = FALSE,
@@ -60,15 +58,13 @@ get_contrast <- function(fill, dark = "black", light = "white") {
 #'     x = sex,
 #'     y = n,
 #'     col = species,
-#'     label = n,
 #'     position = position_dodge2(preserve = "single"),
 #'     width = 0.75,
 #'     x_labels = \(x) str_to_sentence(x),
 #'     mode = dark_mode_r(),
 #'   ) +
 #'   geom_text(
-#'     mapping = aes_contrast("dark"),
-#'     #' mapping = aes(!!!aes_contrast("dark")),
+#'     mapping = aes(label = n, !!!aes_contrast("dark")),
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     vjust = 1.33,
 #'     show.legend = FALSE,
