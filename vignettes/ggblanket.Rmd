@@ -90,7 +90,7 @@ Each `gg_*` function wraps a `ggplot2::ggplot()` function with the associated `g
 
 Almost every geom in ggplot2 is wrapped. 
 
-Most aesthetics can be added directly as arguments. 
+Commonly used aesthetics can be added directly as arguments. 
 
 ```{r}
 penguins2 |>
@@ -150,7 +150,7 @@ penguins2 |>
 
 Some aesthetics are not available via an argument (e.g. `alpha`, `size`, `shape`, `linetype` and `linewidth`).
 
-These can be accessed via the `mapping` argument with aesthetics placed within `ggplot2::aes(...)`.
+These can be accessed via the `mapping` argument using the `aes()` function. 
 
 To customise associated scales/guides, `+` on the applicable ggplot2 layer. In some situations, you may have to reverse the values in the relevant scale etc.
 
@@ -290,6 +290,8 @@ The `gg_*` function puts the aesthetic variables within the wrapped `ggplot` fun
 It generally works best to add all aesthetics required to the `gg_*` function. The `gg_*()` function should also be appropriate to be the bottom geom of the plot, given that geoms are drawn in order. 
 
 Subsequently, you may sometimes need to use `gg_blanket()` which defaults to a `blank` geom.
+
+Note directly added aesthetics in the `gg_*` function are globally inherited, and those added via the `mapping` argument are only available locally.  
 
 ```{r, fig.asp = 0.5}
 penguins2 |>
