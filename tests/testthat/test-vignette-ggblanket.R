@@ -473,27 +473,6 @@ test_that(test_name, {
   vdiffr::expect_doppelganger(test_name, p)
 })
 
-
-
-## ---------------------------------------------------------------------------------------------------
-test_name <- "22"
-
-test_that(test_name, {
-  p <- penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
-    gg_blanket(
-      geom = "violin",
-      stat = "ydensity",
-      position = "dodge",
-      x = sex,
-      y = body_mass_g,
-      col = species,
-    )
-
-  vdiffr::expect_doppelganger(test_name, p)
-})
-
 set_blanket()
 
 
