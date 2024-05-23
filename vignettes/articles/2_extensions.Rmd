@@ -490,29 +490,5 @@ penguins2 |>
   easy_remove_legend_title()
 ```
 
-### ggnewscale
-
-The ggnewscale package enables multiple colour scales.
-
-```{r}
-penguins2 |> 
-  gg_blanket(
-    x = flipper_length_mm, 
-    y = body_mass_g,
-  ) + 
-  geom_point(
-    mapping = aes(colour = bill_length_mm), 
-    data = penguins2 |> filter(species == "Gentoo"),
-  ) +
-  scale_color_viridis_c(option = "G", direction = -1) +
-  labs(colour = "Gentoo\nBill length (mm)") +
-  ggnewscale::new_scale_colour() +
-  geom_point(
-    mapping = aes(colour = species), 
-    data = penguins2 |> filter(species != "Gentoo"),
-  ) +
-  scale_color_manual(values = c("#901752", orange)) +
-  labs(colour = "Species")
-```
 
 

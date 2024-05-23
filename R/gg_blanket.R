@@ -172,196 +172,6 @@ gg_blanket <- function(data = NULL,
   if (rlang::is_null(data)) data <- data.frame(x = NA)
 
   ##############################################################################
-  #determine classes
-  ##############################################################################
-
-  x_null <- inherits(
-    rlang::eval_tidy(x, data),
-    what = c("NULL")
-  ) &
-    inherits(
-      rlang::eval_tidy(xmin, data),
-      what = c("NULL")
-    ) &
-    inherits(
-      rlang::eval_tidy(xmax, data),
-      what = c("NULL")
-    ) &
-    inherits(
-      rlang::eval_tidy(xend, data),
-      what = c("NULL")
-    )
-
-  x_numeric <- inherits(
-    rlang::eval_tidy(x, data),
-    what = c("numeric", "double", "integer")
-  ) |
-    inherits(
-      rlang::eval_tidy(xmin, data),
-      what = c("numeric", "double", "integer")
-    ) |
-    inherits(
-      rlang::eval_tidy(xmax, data),
-      what = c("numeric", "double", "integer")
-    ) |
-    inherits(
-      rlang::eval_tidy(xend, data),
-      what = c("numeric", "double", "integer")
-    )
-
-  x_date <- inherits(
-    rlang::eval_tidy(x, data),
-    what = c("Date")
-  ) |
-    inherits(
-      rlang::eval_tidy(xmin, data),
-      what = c("Date")
-    ) |
-    inherits(
-      rlang::eval_tidy(xmax, data),
-      what = c("Date")
-    ) |
-    inherits(
-      rlang::eval_tidy(xend, data),
-      what = c("Date")
-    )
-
-  x_posixct <- inherits(
-    rlang::eval_tidy(x, data),
-    what = c("POSIXct")
-  ) |
-    inherits(
-      rlang::eval_tidy(xmin, data),
-      what = c("POSIXct")
-    ) |
-    inherits(
-      rlang::eval_tidy(xmax, data),
-      what = c("POSIXct")
-    ) |
-    inherits(
-      rlang::eval_tidy(xend, data),
-      what = c("POSIXct")
-    )
-
-  x_hms <- inherits(
-    rlang::eval_tidy(x, data),
-    what = c("hms")
-  ) |
-    inherits(
-      rlang::eval_tidy(xmin, data),
-      what = c("hms")
-    ) |
-    inherits(
-      rlang::eval_tidy(xmax, data),
-      what = c("hms")
-    ) |
-    inherits(
-      rlang::eval_tidy(xend, data),
-      what = c("hms")
-    )
-
-  x_continuous <- x_null | x_numeric | x_date | x_posixct | x_hms
-
-  y_null <- inherits(
-    rlang::eval_tidy(y, data),
-    what = c("NULL")
-  ) &
-    inherits(
-      rlang::eval_tidy(ymin, data),
-      what = c("NULL")
-    ) &
-    inherits(
-      rlang::eval_tidy(ymax, data),
-      what = c("NULL")
-    ) &
-    inherits(
-      rlang::eval_tidy(yend, data),
-      what = c("NULL")
-    )
-
-  y_numeric <- inherits(
-    rlang::eval_tidy(y, data),
-    what = c("numeric", "double", "integer")
-  ) |
-    inherits(
-      rlang::eval_tidy(ymin, data),
-      what = c("numeric", "double", "integer")
-    ) |
-    inherits(
-      rlang::eval_tidy(ymax, data),
-      what = c("numeric", "double", "integer")
-    ) |
-    inherits(
-      rlang::eval_tidy(yend, data),
-      what = c("numeric", "double", "integer")
-    )
-
-  y_date <- inherits(
-    rlang::eval_tidy(y, data),
-    what = c("Date")
-  ) |
-    inherits(
-      rlang::eval_tidy(ymin, data),
-      what = c("Date")
-    ) |
-    inherits(
-      rlang::eval_tidy(ymax, data),
-      what = c("Date")
-    ) |
-    inherits(
-      rlang::eval_tidy(yend, data),
-      what = c("Date")
-    )
-
-  y_posixct <- inherits(
-    rlang::eval_tidy(y, data),
-    what = c("POSIXct")
-  ) |
-    inherits(
-      rlang::eval_tidy(ymin, data),
-      what = c("POSIXct")
-    ) |
-    inherits(
-      rlang::eval_tidy(ymax, data),
-      what = c("POSIXct")
-    ) |
-    inherits(
-      rlang::eval_tidy(yend, data),
-      what = c("POSIXct")
-    )
-
-  y_hms <- inherits(
-    rlang::eval_tidy(y, data),
-    what = c("hms")
-  ) |
-    inherits(
-      rlang::eval_tidy(ymin, data),
-      what = c("hms")
-    ) |
-    inherits(
-      rlang::eval_tidy(ymax, data),
-      what = c("hms")
-    ) |
-    inherits(
-      rlang::eval_tidy(yend, data),
-      what = c("hms")
-    )
-
-  y_continuous <- y_null | y_numeric | y_date | y_posixct | y_hms
-
-  ##############################################################################
-  #determine if flipped
-  ##############################################################################
-
-  if (x_null & !y_null) flipped <- TRUE
-  else if ((x_numeric | x_date | x_posixct | x_hms) &
-           !(y_null | y_numeric | y_date | y_posixct | y_hms)) {
-    flipped <- TRUE
-  }
-  else if (x_numeric & (y_date | y_posixct | y_hms)) flipped <- TRUE
-  else flipped <- FALSE
-
-  ##############################################################################
   #get geom, stat, transform & position strings
   ##############################################################################
 
@@ -381,14 +191,231 @@ gg_blanket <- function(data = NULL,
   else if (is.character(position)) position_name <- position
 
   ##############################################################################
+  #build plot for classes
+  ##############################################################################
+
+  plot <- get_base(
+    data = data,
+    x = !!x,
+    y = !!y,
+    col = !!col,
+    xmin = !!xmin,
+    xmax = !!xmax,
+    xend = !!xend,
+    ymin = !!ymin,
+    ymax = !!ymax,
+    yend = !!yend,
+    z = !!z,
+    group = !!group,
+    subgroup = !!subgroup,
+    sample = !!sample,
+    label = !!label,
+    text = !!text,
+  ) +
+    mode
+
+
+  ##############################################################################
+  # Add layer
+  ##############################################################################
+
+  if (geom_name == "blank") show_legend <- FALSE
+  else show_legend <- TRUE
+
+  if (stringr::str_detect(stat_name, "sf")) {
+    if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
+
+    plot <- plot +
+      ggplot2::layer_sf(
+        geom = geom,
+        stat = stat,
+        position = position,
+        mapping = ggplot2::aes(!!!mapping),
+        params = rlang::list2(...),
+        show.legend = show_legend,
+      ) +
+      coord
+  }
+  else {
+    if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
+
+    plot <- plot +
+      ggplot2::layer(
+        geom = geom,
+        stat = stat,
+        position = position,
+        mapping = ggplot2::aes(!!!mapping),
+        params = rlang::list2(...),
+        show.legend = show_legend,
+      ) +
+      coord
+  }
+
+  if (!rlang::is_null(x_expand_limits)) {
+    plot <- plot +
+      ggplot2::expand_limits(x = x_expand_limits)
+  }
+
+  if (!rlang::is_null(y_expand_limits)) {
+    plot <- plot +
+      ggplot2::expand_limits(y = y_expand_limits)
+  }
+
+  ##############################################################################
+  # Get plot build and data
+  ##############################################################################
+
+  suppressMessages({
+    suppressWarnings({
+      plot_build <- ggplot2::ggplot_build(plot)
+      plot_data <- plot_build$data[[1]]
+
+      facet_nrows <- length(unique(plot_build$layout$layout$ROW))
+      facet_ncols <- length(unique(plot_build$layout$layout$COL))
+    })
+  })
+
+  ##############################################################################
+  # Detect scale types
+  ##############################################################################
+
+  plot_scales <- purrr::map_chr(plot_build$plot$scales$scales, function(x) {
+    ifelse(rlang::is_null(rlang::call_name(x[["call"]])), NA,
+           rlang::call_name(x[["call"]]))
+  })
+
+  if (any(plot_scales %in% "scale_x_discrete")) x_scale_type <- "discrete"
+  else if (any(plot_scales %in% "scale_x_date")) x_scale_type <- "date"
+  else if (any(plot_scales %in% "scale_x_datetime")) x_scale_type <- "datetime"
+  else if (any(plot_scales %in% "scale_x_time")) x_scale_type <- "time"
+  else if (any(plot_scales %in% "scale_x_continuous")) x_scale_type <- "numeric"
+  else x_scale_type <- "numeric"
+
+  if (any(plot_scales %in% "scale_y_discrete")) y_scale_type <- "discrete"
+  else if (any(plot_scales %in% "scale_y_date")) y_scale_type <- "date"
+  else if (any(plot_scales %in% "scale_y_datetime")) y_scale_type <- "datetime"
+  else if (any(plot_scales %in% "scale_y_time")) y_scale_type <- "time"
+  else if (any(plot_scales %in% "scale_y_continuous")) y_scale_type <- "numeric"
+  else y_scale_type <- "numeric"
+
+  if (any(plot_scales %in% c("scale_colour_discrete", "scale_fill_discrete"))) col_scale_type <- "discrete"
+  else if (any(plot_scales %in% c("scale_colour_ordinal", "scale_fill_ordinal"))) col_scale_type <- "ordinal"
+  else if (any(plot_scales %in% c("scale_colour_date", "scale_fill_date"))) col_scale_type <- "date"
+  else if (any(plot_scales %in% c("scale_colour_datetime", "scale_fill_datetime"))) col_scale_type <- "datetime"
+  else if (any(plot_scales %in% c("scale_colour_time", "scale_fill_time"))) col_scale_type <- "time"
+  else if (any(plot_scales %in% c("scale_colour_continuous", "scale_fill_continuous"))) col_scale_type <- "numeric"
+  else col_scale_type <- "numeric"
+
+  if (!rlang::quo_is_null(col)) {
+    if (inherits(rlang::eval_tidy(col, data), what = c("hms"))) {
+      col_scale_type <- "time"
+    }
+  }
+
+  ##############################################################################
+  #determine if flipped
+  ##############################################################################
+
+  if (x_scale_type %in% c("numeric", "date", "datetime", "time") &
+      y_scale_type == "discrete") {
+    flipped <- TRUE
+  }
+  else flipped <- FALSE
+
+  ##############################################################################
+  #build plot for classes
+  ##############################################################################
+
+  plot <- get_base(
+    data = data,
+    x = !!x,
+    y = !!y,
+    col = !!col,
+    xmin = !!xmin,
+    xmax = !!xmax,
+    xend = !!xend,
+    ymin = !!ymin,
+    ymax = !!ymax,
+    yend = !!yend,
+    z = !!z,
+    group = !!group,
+    subgroup = !!subgroup,
+    sample = !!sample,
+    label = !!label,
+    text = !!text,
+  ) +
+    mode
+
+
+  ##############################################################################
+  # Add layer
+  ##############################################################################
+
+  if (geom_name == "blank") show_legend <- FALSE
+  else show_legend <- TRUE
+
+  if (stringr::str_detect(stat_name, "sf")) {
+    if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
+
+    plot <- plot +
+      ggplot2::layer_sf(
+        geom = geom,
+        stat = stat,
+        position = position,
+        mapping = ggplot2::aes(!!!mapping),
+        params = rlang::list2(...),
+        show.legend = show_legend,
+      ) +
+      coord
+  }
+  else {
+    if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
+
+    plot <- plot +
+      ggplot2::layer(
+        geom = geom,
+        stat = stat,
+        position = position,
+        mapping = ggplot2::aes(!!!mapping),
+        params = rlang::list2(...),
+        show.legend = show_legend,
+      ) +
+      coord
+  }
+
+  if (!rlang::is_null(x_expand_limits)) {
+    plot <- plot +
+      ggplot2::expand_limits(x = x_expand_limits)
+  }
+
+  if (!rlang::is_null(y_expand_limits)) {
+    plot <- plot +
+      ggplot2::expand_limits(y = y_expand_limits)
+  }
+
+  ##############################################################################
+  # Get plot build and data
+  ##############################################################################
+
+  suppressMessages({
+    suppressWarnings({
+      plot_build <- ggplot2::ggplot_build(plot)
+      plot_data <- plot_build$data[[1]]
+
+      facet_nrows <- length(unique(plot_build$layout$layout$ROW))
+      facet_ncols <- length(unique(plot_build$layout$layout$COL))
+    })
+  })
+
+  ##############################################################################
   #get positional transform defaults - and strings
   ##############################################################################
 
   #get x_transform if NULL
   if (rlang::is_null(x_transform)) {
-    if (x_hms) x_transform <- scales::transform_hms()
-    else if (x_posixct) x_transform <- scales::transform_time()
-    else if (x_date) x_transform <- scales::transform_date()
+    if (x_scale_type == "time") x_transform <- scales::transform_hms()
+    else if (x_scale_type == "datetime") x_transform <- scales::transform_time()
+    else if (x_scale_type == "date") x_transform <- scales::transform_date()
     else x_transform <- scales::transform_identity()
   }
 
@@ -405,9 +432,9 @@ gg_blanket <- function(data = NULL,
 
   #get y_transform if NULL
   if (rlang::is_null(y_transform)) {
-    if (y_hms) y_transform <- scales::transform_hms()
-    else if (y_posixct) y_transform <- scales::transform_time()
-    else if (y_date) y_transform <- scales::transform_date()
+    if (y_scale_type == "time") y_transform <- scales::transform_hms()
+    else if (y_scale_type == "datetime")  y_transform <- scales::transform_time()
+    else if (y_scale_type == "date")  y_transform <- scales::transform_date()
     else y_transform <- scales::transform_identity()
   }
 
@@ -465,178 +492,25 @@ gg_blanket <- function(data = NULL,
   # add ggplot() with aesthetics
   ##############################################################################
 
-  if (rlang::quo_is_null(col)) {
-    if (!x_null & !y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          y = !!y,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          !!!mapping
-        )) +
-        mode
-    }
-    else if (!x_null & y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          !!!mapping
-        )) +
-        mode
-    }
-    else if (x_null & !y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          y = !!y,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          !!!mapping
-        )) +
-        mode
-    }
-    else if (x_null & y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          !!!mapping
-        )) +
-        mode
-    }
-  }
-  else {
-    if (!x_null & !y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          y = !!y,
-          col = !!col,
-          fill = !!col,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          !!!mapping
-        )) +
-        mode
-    }
-    else if (!x_null & y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          x = !!x,
-          col = !!col,
-          fill = !!col,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          !!!mapping
-        )) +
-        mode
-    }
-    else if (x_null & !y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          y = !!y,
-          col = !!col,
-          fill = !!col,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          !!!mapping
-        )) +
-        mode
-    }
-    else if (x_null & y_null) {
-      plot <- data %>%
-        ggplot2::ggplot(mapping = ggplot2::aes(
-          col = !!col,
-          fill = !!col,
-          xmin = !!xmin,
-          xmax = !!xmax,
-          xend = !!xend,
-          ymin = !!ymin,
-          ymax = !!ymax,
-          yend = !!yend,
-          z = !!z,
-          group = !!group,
-          subgroup = !!subgroup,
-          sample = !!sample,
-          label = !!label,
-          text = !!text,
-          !!!mapping
-        )) +
-        mode
-    }
-  }
+  plot <- get_base(
+    data = data,
+    x = !!x,
+    y = !!y,
+    col = !!col,
+    xmin = !!xmin,
+    xmax = !!xmax,
+    xend = !!xend,
+    ymin = !!ymin,
+    ymax = !!ymax,
+    yend = !!yend,
+    z = !!z,
+    group = !!group,
+    subgroup = !!subgroup,
+    sample = !!sample,
+    label = !!label,
+    text = !!text,
+  ) +
+  mode
 
   ##############################################################################
   # add faceting
@@ -656,7 +530,7 @@ gg_blanket <- function(data = NULL,
   }
 
   #add facet layer. Reverse facet if y is already reversed to keep order correct
-  if (!y_continuous & (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(facet, data)))) {
+  if (y_scale_type == "discrete" & (identical(rlang::eval_tidy(y, data), rlang::eval_tidy(facet, data)))) {
     if (facet_layout == "wrap") {
       if (!rlang::quo_is_null(facet) & rlang::quo_is_null(facet2)) {
         plot <- plot +
@@ -855,6 +729,7 @@ gg_blanket <- function(data = NULL,
         geom = geom,
         stat = stat,
         position = position,
+        mapping = ggplot2::aes(!!!mapping),
         params = rlang::list2(...),
         show.legend = show_legend,
       ) +
@@ -868,6 +743,7 @@ gg_blanket <- function(data = NULL,
         geom = geom,
         stat = stat,
         position = position,
+        mapping = ggplot2::aes(!!!mapping),
         params = rlang::list2(...),
         show.legend = show_legend,
       ) +
@@ -899,25 +775,11 @@ gg_blanket <- function(data = NULL,
   })
 
   ##############################################################################
-  # Detect whether the plot has a col scale
-  ##############################################################################
-
-  scales <- purrr::map_chr(plot_build$plot$scales$scales, function(x) {
-    ifelse(rlang::is_null(rlang::call_name(x[["call"]])), NA,
-           rlang::call_name(x[["call"]]))
-  })
-
-  if (any(scales %in% continuous_scales_col)) col_scale_type <- "continuous"
-  else if (any(scales %in% discrete_scales_col)) col_scale_type <- "discrete"
-  else if (any(scales %in% ordinal_scales_col)) col_scale_type <- "ordinal"
-  else col_scale_type <- NA
-
-  ##############################################################################
   # Make colour scale where there is a colour scale identified
   ##############################################################################
 
   if (!is.na(col_scale_type)) {
-    if (col_scale_type == "continuous") {
+    if (col_scale_type %in% c("date", "datetime", "time", "numeric")) {
 
       if (rlang::is_null(col_palette)) {
         col_palette <- get_col_palette_c()
@@ -1028,14 +890,13 @@ gg_blanket <- function(data = NULL,
       }
 
       if (!rlang::is_null(col_n))  {
-      # if (col_scale_type == "discrete" & !rlang::is_null(col_n))  {
         if (rlang::is_function(col_palette)) col_palette <- col_palette(col_n)
         else if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
       }
 
       if (flipped) {
         col_legend_rev <- !col_legend_rev
-        col_palette <- rev(col_palette)
+        if (col_scale_type == "discrete") col_palette <- rev(col_palette)
       }
 
       if (col_scale_type == "ordinal") col_legend_rev <- !col_legend_rev
@@ -1345,7 +1206,7 @@ gg_blanket <- function(data = NULL,
         transform = x_transform
       )
   }
-  else if (!x_continuous) {
+  else if (x_scale_type  == "discrete") {
     if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
     if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
     if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
@@ -1381,6 +1242,7 @@ gg_blanket <- function(data = NULL,
 
     #get x_expand and x_breaks for non-'symmetric' scales situation
     if (!flipped |
+        stringr::str_detect(stat_name, "sf") |
         facet_scales %in% c("free", "free_x") |
         length(x_transform_name) > 1 |
         !any(x_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
@@ -1438,13 +1300,13 @@ gg_blanket <- function(data = NULL,
           x_vctr <- c(x_vctr, x_expand_limits)
         }
 
-        if (x_hms) x_vctr <- hms::as_hms(x_vctr)
-        else if (x_posixct) x_vctr <- lubridate::as_datetime(x_vctr, origin = "1970-01-01")
-        else if (x_date) x_vctr <- lubridate::as_date(x_vctr, origin = "1970-01-01")
+        if (x_scale_type == "time") x_vctr <- hms::as_hms(x_vctr)
+        else if (x_scale_type == "datetime") x_vctr <- lubridate::as_datetime(x_vctr, origin = "1970-01-01")
+        else if (x_scale_type == "date") x_vctr <- lubridate::as_date(x_vctr, origin = "1970-01-01")
 
         #get the range from the vctr
         x_range <- range(x_vctr, na.rm = TRUE)
-        if (x_hms) x_range <- hms::as_hms(x_range)
+        if (x_scale_type == "time") x_range <- hms::as_hms(x_range)
 
         if (any(x_transform_name %in% "reverse")) {
           x_range <- sort(x_range, decreasing = TRUE)
@@ -1532,7 +1394,7 @@ gg_blanket <- function(data = NULL,
         transform = y_transform
       )
   }
-  else if (!y_continuous) {
+  else if (y_scale_type  == "discrete") {
     if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
     if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
     if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
@@ -1568,6 +1430,7 @@ gg_blanket <- function(data = NULL,
 
     #get y_expand and y_breaks for non-'symmetric' scales situation
     if (flipped |
+        stringr::str_detect(stat_name, "sf") |
         facet_scales %in% c("free", "free_y") |
         length(y_transform_name) > 1 |
         !any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
@@ -1625,13 +1488,13 @@ gg_blanket <- function(data = NULL,
           y_vctr <- c(y_vctr, y_expand_limits)
         }
 
-        if (y_hms) y_vctr <- hms::as_hms(y_vctr)
-        else if (y_posixct) y_vctr <- lubridate::as_datetime(y_vctr, origin = "1970-01-01")
-        else if (y_date) y_vctr <- lubridate::as_date(y_vctr, origin = "1970-01-01")
+        if (y_scale_type == "time") y_vctr <- hms::as_hms(y_vctr)
+        else if (y_scale_type == "datetime")  y_vctr <- lubridate::as_datetime(y_vctr, origin = "1970-01-01")
+        else if (y_scale_type == "date")  y_vctr <- lubridate::as_date(y_vctr, origin = "1970-01-01")
 
         #get the range from the vctr
         y_range <- range(y_vctr, na.rm = TRUE)
-        if (y_hms) y_range <- hms::as_hms(y_range)
+        if (y_scale_type == "time") y_range <- hms::as_hms(y_range)
 
         if (any(y_transform_name %in% "reverse")) {
           y_range <- sort(y_range, decreasing = TRUE)
@@ -1736,6 +1599,7 @@ gg_blanket <- function(data = NULL,
       else if (!rlang::is_null(plot_build$plot$labels$x)) {
         x_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), label_to_case)
       }
+      else x_label <- purrr::map_chr("x", label_to_case)
     }
   }
 
@@ -1760,6 +1624,7 @@ gg_blanket <- function(data = NULL,
       else if (!rlang::is_null(plot_build$plot$labels$y)) {
         y_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$y[1]), label_to_case)
       }
+      else y_label <- purrr::map_chr("y", label_to_case)
     }
   }
 
@@ -1790,110 +1655,110 @@ gg_blanket <- function(data = NULL,
   if (!rlang::is_null(plot_build$plot$labels$alpha)) {
     if (!rlang::is_null(plot_build$plot$labels$colour[1])) {
       if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$alpha[1])) {
-        alpha_title <- col_label
+        alpha_label <- col_label
       }
-      else alpha_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), label_to_case)
+      else alpha_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), label_to_case)
     }
     else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
       if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$alpha[1])) {
-        alpha_title <- col_label
+        alpha_label <- col_label
       }
-      else alpha_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), label_to_case)
+      else alpha_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), label_to_case)
     }
     else {
-      alpha_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), label_to_case)
+      alpha_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), label_to_case)
     }
-  } else alpha_title <- NULL
+  } else alpha_label <- NULL
 
   if (!rlang::is_null(plot_build$plot$labels$shape)) {
     if (!rlang::is_null(plot_build$plot$labels$colour[1])) {
       if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$shape[1])) {
-        shape_title <- col_label
+        shape_label <- col_label
       }
-      else shape_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), label_to_case)
+      else shape_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), label_to_case)
     }
     else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
       if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$shape[1])) {
-        shape_title <- col_label
+        shape_label <- col_label
       }
-      else shape_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), label_to_case)
+      else shape_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), label_to_case)
     }
     else {
-      shape_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), label_to_case)
+      shape_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), label_to_case)
     }
-  } else shape_title <- NULL
+  } else shape_label <- NULL
 
   if (!rlang::is_null(plot_build$plot$labels$size)) {
     if (!rlang::is_null(plot_build$plot$labels$colour[1])) {
       if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$size[1])) {
-        size_title <- col_label
+        size_label <- col_label
       }
-      else size_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), label_to_case)
+      else size_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), label_to_case)
     }
     else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
       if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$size[1])) {
-        size_title <- col_label
+        size_label <- col_label
       }
-      else size_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), label_to_case)
+      else size_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), label_to_case)
     }
     else {
-      size_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), label_to_case)
+      size_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), label_to_case)
     }
-  } else size_title <- NULL
+  } else size_label <- NULL
 
   if (!rlang::is_null(plot_build$plot$labels$linewidth)) {
     if (!rlang::is_null(plot_build$plot$labels$colour[1])) {
       if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$linewidth[1])) {
-        linewidth_title <- col_label
+        linewidth_label <- col_label
       }
-      else linewidth_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), label_to_case)
+      else linewidth_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), label_to_case)
     }
     else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
       if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$linewidth[1])) {
-        linewidth_title <- col_label
+        linewidth_label <- col_label
       }
-      else linewidth_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), label_to_case)
+      else linewidth_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), label_to_case)
     }
     else {
-      linewidth_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), label_to_case)
+      linewidth_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), label_to_case)
     }
-  } else linewidth_title <- NULL
+  } else linewidth_label <- NULL
 
   if (!rlang::is_null(plot_build$plot$labels$linetype)) {
     if (!rlang::is_null(plot_build$plot$labels$colour[1])) {
       if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$linetype[1])) {
-        linetype_title <- col_label
+        linetype_label <- col_label
       }
-      else linetype_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), label_to_case)
+      else linetype_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), label_to_case)
     }
     else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
       if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$linetype[1])) {
-        linetype_title <- col_label
+        linetype_label <- col_label
       }
-      else linetype_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), label_to_case)
+      else linetype_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), label_to_case)
     }
     else {
-      linetype_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), label_to_case)
+      linetype_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), label_to_case)
     }
-  } else linetype_title <- NULL
+  } else linetype_label <- NULL
 
   if (!rlang::is_null(plot_build$plot$labels$pattern)) {
     if (!rlang::is_null(plot_build$plot$labels$colour[1])) {
       if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$pattern[1])) {
-        pattern_title <- col_label
+        pattern_label <- col_label
       }
-      else pattern_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_to_case)
+      else pattern_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_to_case)
     }
     else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
       if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$pattern[1])) {
-        pattern_title <- col_label
+        pattern_label <- col_label
       }
-      else pattern_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_to_case)
+      else pattern_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_to_case)
     }
     else {
-      pattern_title <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_to_case)
+      pattern_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_to_case)
     }
-  } else pattern_title <- NULL
+  } else pattern_label <- NULL
 
   plot <- plot +
     ggplot2::labs(
@@ -1904,13 +1769,13 @@ gg_blanket <- function(data = NULL,
       y = y_label,
       colour = col_label,
       fill = col_label,
-      alpha = alpha_title,
-      shape = shape_title,
-      size = size_title,
-      linewidth = linewidth_title,
-      linetype = linetype_title,
+      alpha = alpha_label,
+      shape = shape_label,
+      size = size_label,
+      linewidth = linewidth_label,
+      linetype = linetype_label,
 
-      pattern = pattern_title
+      pattern = pattern_label
     )
 
   ##############################################################################
@@ -1920,8 +1785,11 @@ gg_blanket <- function(data = NULL,
   if (stringr::str_detect(stat_name, "sf")) {
     plot <- plot +
       ggplot2::theme(
-        panel.grid.major.x = ggplot2::element_blank(),
-        panel.grid.minor.x = ggplot2::element_blank(),
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+
+        # panel.grid.major.x = ggplot2::element_blank(),
+        # panel.grid.minor.x = ggplot2::element_blank(),
         axis.line.x.top = ggplot2::element_blank(),
         axis.line.x.bottom = ggplot2::element_blank(),
         axis.ticks.x.top = ggplot2::element_blank(),
@@ -1931,8 +1799,8 @@ gg_blanket <- function(data = NULL,
         axis.text.x.top = ggplot2::element_blank(),
         axis.text.x.bottom = ggplot2::element_blank(),
 
-        panel.grid.major.y = ggplot2::element_blank(),
-        panel.grid.minor.y = ggplot2::element_blank(),
+        # panel.grid.major.y = ggplot2::element_blank(),
+        # panel.grid.minor.y = ggplot2::element_blank(),
         axis.line.y.left = ggplot2::element_blank(),
         axis.line.y.right = ggplot2::element_blank(),
         axis.ticks.y.left = ggplot2::element_blank(),
