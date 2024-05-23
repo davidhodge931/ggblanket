@@ -2,6 +2,8 @@
 
 * Made pattern guide and label equal to colour/fill align automatically.
 * Supported col_palette argument to accept a vector for ordinal variables.
+* Determine 'symmetric' axis based on discrete y axis.
+* Moved `mapping` argument to within layer.
 
 # ggblanket 9.0.0
 
