@@ -169,7 +169,7 @@ can be customised.</p>
 <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code> function with the associated
 <code>ggplot2::geom_*()</code> function.</p>
 <p>Almost every geom in ggplot2 is wrapped.</p>
-<p>Most aesthetics can be added directly as arguments.</p>
+<p>Commonly used aesthetics can be added directly as arguments.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
@@ -237,8 +237,8 @@ will default to a <code>"grid"</code> of the <code>facet</code> variable
 <p>Some aesthetics are not available via an argument
 (e.g. <code>alpha</code>, <code>size</code>, <code>shape</code>,
 <code>linetype</code> and <code>linewidth</code>).</p>
-<p>These can be accessed via the <code>mapping</code> argument with
-aesthetics placed within <code>ggplot2::aes(...)</code>.</p>
+<p>These can be accessed via the <code>mapping</code> argument using the
+<code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> function.</p>
 <p>To customise associated scales/guides, <code>+</code> on the
 applicable ggplot2 layer. In some situations, you may have to reverse
 the values in the relevant scale etc.</p>
@@ -362,6 +362,9 @@ be appropriate to be the bottom geom of the plot, given that geoms are
 drawn in order.</p>
 <p>Subsequently, you may sometimes need to use <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code>
 which defaults to a <code>blank</code> geom.</p>
+<p>Note directly added aesthetics in the <code>gg_*</code> function are
+globally inherited, and those added via the <code>mapping</code>
+argument are only available locally.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
