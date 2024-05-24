@@ -446,19 +446,21 @@ faithfuld |>
 
 ### 12. Correct the default orientation
 
-The `gg_*` function guesses the orientation of the plot to determine how to make continuous axes and what side-effects to have on the provided mode. If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument.
+The `gg_*` function guesses the orientation of the plot to determine how to make continuous axes and what side-effects to have on the provided mode. 
+
+If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument.
+
+(Note in the example below, histograms are different because they have different limits).
 
 ```{r}
 p1 <- penguins |>
-  gg_point(
-    stat = "bin",
+  gg_histogram(
     y = flipper_length_mm,
     subtitle = "\nDefault orientation",
-  ) 
+  )
 
 p2 <- penguins |>
-  gg_point(
-    stat = "bin",
+  gg_histogram(
     y = flipper_length_mm,
     y_orientation = TRUE,
     subtitle = "\nCorrected orientation",
