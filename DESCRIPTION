@@ -46,8 +46,8 @@ Suggests:
 VignetteBuilder: 
     knitr
 Config/Needs/website: corrr, farver, ggbeeswarm, ggblend, ggdensity, ggdist, 
-    ggeasy, ggforce, ggh4x, gghighlight, ggnewscale, ggrepel, ggridges, ggtext, 
-    glue, paletteer, showtext, sysfonts
+    ggeasy, ggforce, ggh4x, gghighlight, ggnewscale, ggrepel, ggridges, 
+    ggpattern, ggtext, glue, paletteer, showtext, sysfonts
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB

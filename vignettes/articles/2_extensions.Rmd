@@ -386,6 +386,28 @@ data.frame(
   ) 
 ```
 
+### ggpattern
+
+```{r}
+library(ggpattern)
+
+penguins2 |>
+  group_by(species, sex) |>
+  summarise(across(body_mass_g, \(x) mean(x))) |>
+  tidyr::drop_na() |> 
+  labelled::copy_labels_from(penguins2) |> 
+  gg_blanket(
+    geom = "col_pattern",
+    position = "dodge",
+    y = species,
+    x = body_mass_g,
+    col = sex,
+    mapping = aes(pattern = sex),
+    width = 0.75,
+  ) 
+```
+
+
 ### paletteer
 
 The paletteer package provides access to most of the palettes within R. 
@@ -489,6 +511,5 @@ penguins2 |>
   easy_remove_x_axis(what = c("line", "ticks")) +
   easy_remove_legend_title()
 ```
-
 
 
