@@ -19,6 +19,7 @@
 #' @param x_limits,y_limits,col_limits For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with `factor`, `forcats::fct_expand` or `forcats::fct_drop`.
 #' @param x_oob,y_oob,col_oob For a continuous scale, a `scales::oob_*` function of how to handle values outside of limits. Defaults to `scales::oob_keep`.
 #' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_mode_*` theme, add `caption = ""` or `caption = "\n"`.
+#' @param x_orientation,y_orientation `TRUE` or `FALSE` of whether the mode and scales orientation should be to x or y. Note, these arguments do not affect the orientation of the layer itself.
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
@@ -92,7 +93,7 @@ gg_blanket <- function(data = NULL,
                        x_labels = NULL,
                        x_limits = NULL,
                        x_oob = scales::oob_keep,
-                       x_position = "bottom",
+                       x_orientation = NULL, x_position = "bottom",
                        x_label = NULL,
                        x_transform = NULL,
                        y_breaks = NULL,
@@ -101,7 +102,7 @@ gg_blanket <- function(data = NULL,
                        y_labels = NULL,
                        y_limits = NULL,
                        y_oob = scales::oob_keep,
-                       y_position = "left",
+                       y_orientation = NULL, y_position = "left",
                        y_label = NULL,
                        y_transform = NULL,
                        col_breaks = NULL,
@@ -316,11 +317,21 @@ gg_blanket <- function(data = NULL,
   #determine if flipped
   ##############################################################################
 
-  if (x_scale_type %in% c("numeric", "date", "datetime", "time") &
-      y_scale_type == "discrete") {
-    flipped <- TRUE
+  if (!rlang::is_null(x_orientation)) {
+    if (x_orientation) flipped <- FALSE
+    else flipped <- TRUE
   }
-  else flipped <- FALSE
+  else if (!rlang::is_null(y_orientation)) {
+    if (y_orientation) flipped <- TRUE
+    else flipped <- FALSE
+  }
+  else {
+    if (x_scale_type %in% c("numeric", "date", "datetime", "time") &
+        y_scale_type == "discrete") {
+      flipped <- TRUE
+    }
+    else flipped <- FALSE
+  }
 
   ##############################################################################
   #build plot for classes

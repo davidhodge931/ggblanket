@@ -234,7 +234,9 @@ penguins2 |>
 
 ### 10. A 'symmetric' continuous scale with easy opt-out
 
-The `gg_*` function will generally create a 'symmetric' continuous y scale with `y_limits` the range of `y_breaks` and `y_expand` of `c(0, 0)`. The vice-versa will occur where a y orientation is guessed.
+The `gg_*` function will guess the orientation of the plot. 
+
+Where it guesses `x_orientation = TRUE` and there is a continuous y scale, it will make this y scale 'symmetric' if possible with the `y_limits` the range of `y_breaks` and `y_expand` of `c(0, 0)`. The vice-versa will occur where it guesses a `y_orientation = TRUE`.
 
 You can turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc). For a date variable, use `lubridate::NA_Date_` instead of `NA`.
 
@@ -322,9 +324,11 @@ penguins2 |>
 
 `light_mode_*`, `grey_mode_*` and `dark_mode_*` theme families are provided with themes that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
 
-These are built for use with the `mode` argument in the `gg_*` functions, which has  side-effects for x and y orientations removing axis lines/ticks and gridlines. 
+These are built for use with the `mode` argument in the `gg_*` functions, which has helpful side-effects. 
 
-If you want to use a theme with no side-effects, then `+` on the theme instead.
+The `gg_*` function will guess the orientation of the plot. Where it guesses `x_orientation = TRUE`, it will remove the y axis line/ticks and the x gridlines from the `mode`. The vice versa will occur where it guesses `y_orientation = TRUE`.
+
+If you want to use a theme with _no_ side-effects, then `+` on the theme instead.
 
 ```{r, fig.asp=0.65}
 penguins2 |>

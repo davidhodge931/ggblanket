@@ -35,6 +35,7 @@ gg_rect(
   x_labels = NULL,
   x_limits = NULL,
   x_oob = scales::oob_keep,
+  x_orientation = NULL,
   x_position = "bottom",
   x_label = NULL,
   x_transform = NULL,
@@ -44,6 +45,7 @@ gg_rect(
   y_labels = NULL,
   y_limits = NULL,
   y_oob = scales::oob_keep,
+  y_orientation = NULL,
   y_position = "left",
   y_label = NULL,
   y_transform = NULL,
@@ -105,6 +107,8 @@ gg_rect(
 \item{x_limits, y_limits, col_limits}{For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with \code{factor}, \code{forcats::fct_expand} or \code{forcats::fct_drop}.}
 
 \item{x_oob, y_oob, col_oob}{For a continuous scale, a \verb{scales::oob_*} function of how to handle values outside of limits. Defaults to \code{scales::oob_keep}.}
+
+\item{x_orientation, y_orientation}{\code{TRUE} or \code{FALSE} of whether the mode and scales orientation should be to x or y. Note, these arguments do not affect the orientation of the layer itself.}
 
 \item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_mode_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 
