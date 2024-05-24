@@ -510,11 +510,33 @@ estimates.</p>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
+<h3 id="ggpattern">ggpattern<a class="anchor" aria-label="anchor" href="#ggpattern"></a>
+</h3>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/coolbutuseless/ggpattern" class="external-link">ggpattern</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">body_mass_g</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">labelled</span><span class="fu">::</span><span class="fu"><a href="https://larmarange.github.io/labelled/reference/copy_labels.html" class="external-link">copy_labels_from</a></span><span class="op">(</span><span class="va">penguins2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_blanket.html">gg_blanket</a></span><span class="op">(</span></span>
+<span>    geom <span class="op">=</span> <span class="st">"col_pattern"</span>,</span>
+<span>    position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    x <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="va">sex</span><span class="op">)</span>,</span>
+<span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
+<span>  <span class="op">)</span> </span></code></pre></div>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
 <h3 id="paletteer">paletteer<a class="anchor" aria-label="anchor" href="#paletteer"></a>
 </h3>
 <p>The paletteer package provides access to most of the palettes within
 R.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EmilHvitfeldt/paletteer" class="external-link">paletteer</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
@@ -538,14 +560,14 @@ R.</p>
 <span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="ggblend">ggblend<a class="anchor" aria-label="anchor" href="#ggblend"></a>
 </h3>
 <p>The ggblend package provides blending of colours. You must use a
 graphics device that supports blending.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
@@ -571,13 +593,13 @@ graphics device that supports blending.</p>
 <span>  <span class="fu">ggeasy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_y_axis</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="ggh4x">ggh4x<a class="anchor" aria-label="anchor" href="#ggh4x"></a>
 </h3>
 <p>The ggh4x package includes enhanced facet functionality.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename_with</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_snake_case</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">species</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_sentence</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -593,14 +615,14 @@ graphics device that supports blending.</p>
 <span>    solo_line <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>strip.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">2.5</span>, b <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="ggeasy">ggeasy<a class="anchor" aria-label="anchor" href="#ggeasy"></a>
 </h3>
 <p>The ggeasy package provides a lot of support for easily modifying
 themes. Removing axes and gridlines is often useful.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonocarroll/ggeasy" class="external-link">ggeasy</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
@@ -613,7 +635,7 @@ themes. Removing axes and gridlines is often useful.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_gridlines.html" class="external-link">easy_remove_y_gridlines</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_x_axis</a></span><span class="op">(</span>what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"line"</span>, <span class="st">"ticks"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_legend_title.html" class="external-link">easy_remove_legend_title</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="2_extensions_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
+<p><img src="2_extensions_files/figure-html/unnamed-chunk-20-1.svg" width="70%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
