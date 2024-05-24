@@ -338,10 +338,13 @@ available.</p>
 <div class="section level3">
 <h3 id="a-symmetric-continuous-scale-with-easy-opt-out">10. A ‘symmetric’ continuous scale with easy opt-out<a class="anchor" aria-label="anchor" href="#a-symmetric-continuous-scale-with-easy-opt-out"></a>
 </h3>
-<p>The <code>gg_*</code> function will generally create a ‘symmetric’
-continuous y scale with <code>y_limits</code> the range of
-<code>y_breaks</code> and <code>y_expand</code> of <code>c(0, 0)</code>.
-The vice-versa will occur where a y orientation is guessed.</p>
+<p>The <code>gg_*</code> function will guess the orientation of the
+plot.</p>
+<p>Where it guesses <code>x_orientation = TRUE</code> and there is a
+continuous y scale, it will make this y scale ‘symmetric’ if possible
+with the <code>y_limits</code> the range of <code>y_breaks</code> and
+<code>y_expand</code> of <code>c(0, 0)</code>. The vice-versa will occur
+where it guesses a <code>y_orientation = TRUE</code>.</p>
 <p>You can turn this ‘symmetric’ scale off using
 <code>*_limits = c(NA, NA)</code> (or <code>*_limits = c(0, NA)</code>
 for bars etc). For a date variable, use <code><a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">lubridate::NA_Date_</a></code>
@@ -403,10 +406,14 @@ differ based on legend placement with suffix <code>r</code> (right),
 <code>b</code> (bottom), <code>t</code> (top) and <code>n</code>
 (none).</p>
 <p>These are built for use with the <code>mode</code> argument in the
-<code>gg_*</code> functions, which has side-effects for x and y
-orientations removing axis lines/ticks and gridlines.</p>
-<p>If you want to use a theme with no side-effects, then <code>+</code>
-on the theme instead.</p>
+<code>gg_*</code> functions, which has helpful side-effects.</p>
+<p>The <code>gg_*</code> function will guess the orientation of the
+plot. Where it guesses <code>x_orientation = TRUE</code>, it will remove
+the y axis line/ticks and the x gridlines from the <code>mode</code>.
+The vice versa will occur where it guesses
+<code>y_orientation = TRUE</code>.</p>
+<p>If you want to use a theme with <em>no</em> side-effects, then
+<code>+</code> on the theme instead.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
