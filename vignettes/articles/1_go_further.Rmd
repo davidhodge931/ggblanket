@@ -450,18 +450,20 @@ The `gg_*` function guesses the orientation of the plot to determine how to make
 
 If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument.
 
-(Note in the example below, the two histograms have different shapes, because they have different limits).
+(Note in the example below, the two histograms have different shapes, because they have different their y scales' have different limits).
 
 ```{r}
 p1 <- penguins |>
-  gg_histogram(
-    y = flipper_length_mm,
+  gg_point(
+    x = bill_depth_mm,
+    y = bill_length_mm,
     subtitle = "\nDefault orientation",
   )
 
 p2 <- penguins |>
-  gg_histogram(
-    y = flipper_length_mm,
+  gg_point(
+    x = bill_depth_mm,
+    y = bill_length_mm,
     y_orientation = TRUE,
     subtitle = "\nCorrected orientation",
   ) 
