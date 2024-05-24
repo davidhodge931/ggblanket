@@ -154,7 +154,7 @@ These can be accessed via the `mapping` argument using the `aes()` function.
 
 To customise associated scales/guides, `+` on the applicable ggplot2 layer. In some situations, you may have to reverse the values in the relevant scale etc.
 
-Note: you can use `set_blanket(geom_colour = lightness[1], ...)` to make legend symbols black where needed - and then `set_blanket` it back to how it was after. 
+(Note: you can use `set_blanket(geom_colour = lightness[1], ...)` to make legend symbols black where needed). 
 
 ```{r}
 penguins2 |> 
