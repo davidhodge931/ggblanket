@@ -126,9 +126,9 @@ visualisation</strong>.</p>
 <li>Other <code>ggplot2::geom_*</code> arguments via
 <code>...</code>
 </li>
-<li>A ‘symmetric’ continuous scale with easy opt-out</li>
-<li>Ability to add multiple <code>geom_*</code> layers</li>
 <li>Families of <code>*_mode_*</code> themes with legend variants</li>
+<li>Helpful orientation defaults and side-effects</li>
+<li>Ability to add multiple <code>geom_*</code> layers</li>
 <li>Arguments to customise setup with <code><a href="../reference/set_blanket.html">set_blanket()</a></code>
 </li>
 <li>A <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with <code>geom</code>
@@ -336,27 +336,68 @@ available.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="a-symmetric-continuous-scale-with-easy-opt-out">10. A ‘symmetric’ continuous scale with easy opt-out<a class="anchor" aria-label="anchor" href="#a-symmetric-continuous-scale-with-easy-opt-out"></a>
+<h3 id="families-of-_mode_-themes-with-legend-variants">10. Families of <code>*_mode_*</code> themes with legend
+variants<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-with-legend-variants"></a>
 </h3>
-<p>The <code>gg_*</code> function will guess the orientation of the
-plot.</p>
-<p>Where it guesses <code>x_orientation = TRUE</code> and there is a
-continuous y scale, it will make this y scale ‘symmetric’ if possible.
-This is that the <code>y_limits</code> will be the range of the
-<code>y_breaks</code> and <code>y_expand</code> will be
-<code>c(0, 0)</code>. The vice-versa will occur where it guesses
-<code>y_orientation = TRUE</code>.</p>
-<p>You can turn this ‘symmetric’ scale off using
-<code>*_limits = c(NA, NA)</code> (or <code>*_limits = c(0, NA)</code>
-for bars etc). For a date variable, use <code><a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">lubridate::NA_Date_</a></code>
-instead of <code>NA</code>.</p>
-<p>(Note this ‘symmetric’ scale does not occur where the associated
-<code>*_limits</code> are specified or the <code>*_transform</code> is
-non-linear).</p>
+<p><code>light_mode_*</code>, <code>grey_mode_*</code> and
+<code>dark_mode_*</code> theme families are provided with variants that
+differ based on legend placement with suffix <code>r</code> (right),
+<code>b</code> (bottom), <code>t</code> (top) and <code>n</code>
+(none).</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Penguin flipper length by species"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
+<span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_r.html">grey_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="ability-to-add-multiple-geom_-layers">11. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
+<h3 id="helpful-orientation-defaults-and-side-effects">11. Helpful orientation defaults and side-effects<a class="anchor" aria-label="anchor" href="#helpful-orientation-defaults-and-side-effects"></a>
+</h3>
+<p>The <code>gg_*</code> function will guess the orientation of the plot
+based on whether the y axis is discrete.</p>
+<p>Where <code>x_orientation = TRUE</code>, it will:</p>
+<p>1). remove any y axis line/ticks and the x gridlines from the
+<code>mode</code> theme. Note you can avoid these side-effects with
+<code>+</code> theme.</p>
+<p>2). make y continuous scales <code>symmetric</code> with
+<code>y_limits</code> the range of <code>y_breaks</code> and
+<code>y_expand = c(0, 0)</code>. Note you can avoid this ‘symmetric’
+scale off using <code>*_limits = c(NA, NA)</code>,
+<code>*_limits = c(0, NA)</code> or
+<code>*_limits = c(lubridate::NA_Date_, lubridate::NA_Date_)</code>.
+This ‘symmetric’ scale does not occur where the associated
+<code>*_limits</code> are specified or the <code>*_transform</code> is
+non-linear.</p>
+<p>The vice versa will occur for when <code>y_orientation = TRUE</code>.
+If it guesses incorrectly, use either the <code>x_orientation</code> or
+<code>y_orientation</code> argument to rectify.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\nx_orientation = TRUE"</span>,</span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">sex</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\ny_orientation = TRUE"</span>,</span>
+<span>  <span class="op">)</span> </span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
+</div>
+<div class="section level3">
+<h3 id="ability-to-add-multiple-geom_-layers">12. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
 </h3>
 <p>Users can make plots with multiple layers by adding on
 <code>ggplot2::geom_*</code> layers.</p>
@@ -370,7 +411,7 @@ aesthetics as possible to the <code>gg_*</code> function. The
 geom of the plot, given that geoms are drawn in order. Subsequently, you
 may sometimes need to use <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> which defaults to a
 <code>blank</code> geom.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
@@ -387,44 +428,12 @@ may sometimes need to use <code><a href="../reference/gg_blanket.html">gg_blanke
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
-<span>    x_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span></span>
 <span>    width <span class="op">=</span> <span class="fl">0.1</span>, </span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>    colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  <span class="op">)</span>  </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
-</div>
-<div class="section level3">
-<h3 id="families-of-_mode_-themes-with-legend-variants">12. Families of <code>*_mode_*</code> themes with legend
-variants<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-with-legend-variants"></a>
-</h3>
-<p><code>light_mode_*</code>, <code>grey_mode_*</code> and
-<code>dark_mode_*</code> theme families are provided with themes that
-differ based on legend placement with suffix <code>r</code> (right),
-<code>b</code> (bottom), <code>t</code> (top) and <code>n</code>
-(none).</p>
-<p>These are built for use with the <code>mode</code> argument in the
-<code>gg_*</code> functions, which has helpful side-effects.</p>
-<p>The <code>gg_*</code> function will guess the orientation of the
-plot. Where it guesses <code>x_orientation = TRUE</code>, it will remove
-the y axis line/ticks and the x gridlines from the <code>mode</code>.
-The vice versa will occur where it guesses
-<code>y_orientation = TRUE</code>.</p>
-<p>If you want to use a theme with <em>no</em> side-effects, then
-<code>+</code> on the theme instead.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Penguin flipper length by species"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
-<span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_r.html">grey_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -446,7 +455,7 @@ for other geoms often used for annotation)</li>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults()</a></code> function can be used
 to further fine-tune geom defaults.</p>
 <p><code><a href="../reference/set_blanket.html">set_blanket()</a></code> also works on ggplot2 code.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
 <span>  mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>, </span>
 <span>  geom_colour <span class="op">=</span> <span class="st">"#e7298a"</span>,</span>
@@ -475,7 +484,7 @@ to further fine-tune geom defaults.</p>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -495,12 +504,12 @@ defaults for <code>geom</code>, <code>stat</code> and
 associated <code>gg_*</code> function.</p>
 <p>You can print a <code>geom_*</code> function to identify the default
 <code>stat</code> and <code>position</code> arguments etc.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_spoke.html" class="external-link">geom_spoke</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_spoke: na.rm = FALSE</span></span>
 <span><span class="co">#&gt; stat_identity: na.rm = FALSE</span></span>
 <span><span class="co">#&gt; position_identity</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -514,13 +523,16 @@ associated <code>gg_*</code> function.</p>
 <span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="va">angle</span>, radius <span class="op">=</span> <span class="va">speed</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%">
-## Further information</p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="further-information">Further information<a class="anchor" aria-label="anchor" href="#further-information"></a>
+</h2>
 <p>See the ggblanket <a href="https://davidhodge931.github.io/ggblanket/index.html">website</a>
 for further information, including <a href="https://davidhodge931.github.io/ggblanket/articles/">articles</a>
 and <a href="https://davidhodge931.github.io/ggblanket/reference/index.html">function
 reference</a>.</p>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
