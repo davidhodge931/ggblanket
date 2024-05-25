@@ -529,11 +529,8 @@ anything outside the cartesian coordinate space
 <div class="section level3">
 <h3 id="use-delayed-evaluation">11. Use delayed evaluation<a class="anchor" aria-label="anchor" href="#use-delayed-evaluation"></a>
 </h3>
-<p>As the <code>x</code>, <code>y</code>, and <code>col</code> aesthetic
-arguments require a unquoted variable, you cannot apply a function to
-these. However, you can for aesthetics within the <code>mapping</code>
-argument. This can be used for delayed evaluation with the
-<code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">ggplot2::after_stat</a></code> function.</p>
+<p>The <code>mapping</code> argument can be used for delayed evaluation
+with the <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">ggplot2::after_stat</a></code> function.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
@@ -558,11 +555,8 @@ argument. This can be used for delayed evaluation with the
 </h3>
 <p>The <code>gg_*</code> function guesses the orientation of the plot to
 determine how to make continuous axes and what side-effects to have on
-the provided mode.</p>
-<p>If it guesses incorrectly, use either the <code>x_orientation</code>
-or <code>y_orientation</code> argument.</p>
-<p>(Note in the example below, the two histograms have different shapes,
-because they have different their y scales’ have different limits).</p>
+the provided mode. If it guesses incorrectly, use either the
+<code>x_orientation</code> or <code>y_orientation</code> argument.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
