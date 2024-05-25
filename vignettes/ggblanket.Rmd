@@ -369,8 +369,6 @@ All other functions wrap this function with a fixed `geom`, and their own defaul
 
 This function can often be used with geoms that do not have an associated `gg_*` function.
 
-You can print a `geom_*` function to identify the default `stat` and `position` arguments etc. 
-
 ```{r}
 geom_spoke()
 
