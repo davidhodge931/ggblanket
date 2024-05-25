@@ -344,6 +344,8 @@ variants<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-w
 differ based on legend placement with suffix <code>r</code> (right),
 <code>b</code> (bottom), <code>t</code> (top) and <code>n</code>
 (none).</p>
+<p>These themes are intended to be used with the <code>mode</code>
+argument.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
@@ -352,9 +354,8 @@ differ based on legend placement with suffix <code>r</code> (right),
 <span>    title <span class="op">=</span> <span class="st">"Penguin flipper length by species"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_r.html">grey_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_r.html">grey_mode_t</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
