@@ -235,6 +235,8 @@ penguins2 |>
 
 `light_mode_*`, `grey_mode_*` and `dark_mode_*` theme families are provided with variants that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
 
+These themes are intended to be used with the `mode` argument.
+
 ```{r, fig.asp=0.65}
 penguins2 |>
   gg_histogram(
@@ -243,9 +245,8 @@ penguins2 |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    mode = grey_mode_t(),
-  ) +
-  theme(legend.title = element_blank())
+    mode = grey_mode_t() + theme(legend.title = element_blank()),
+  ) 
 ```
 
 ### 11.  Helpful orientation defaults and side-effects 
