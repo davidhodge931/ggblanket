@@ -399,13 +399,13 @@ the plot, and adding a <code>*_limits = c(NA, NA)</code> argument (or
 <p>Users can make plots with multiple layers by adding on
 <code>ggplot2::geom_*</code> layers.</p>
 <p>Aesthetics directly added in the <code>gg_*</code> function are
-globally inherited, whereas those added via the <code>mapping</code>
-argument are only available locally to the layer associated with the
+globally inherited. Those added via the <code>mapping</code> argument
+are only available locally to the layer associated with the
 <code>gg_*</code> function.</p>
 <p>It works best to add as many of the globally inherited aesthetics as
 possible to the <code>gg_*</code> function.</p>
 <p>The <code>gg_*()</code> function should also be appropriate to be the
-bottom layer of the plot. Subsequently, you may sometimes need to use
+bottom layer of the plot. You may sometimes need to use
 <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> which defaults to a <code>blank</code>
 geom.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
