@@ -236,7 +236,7 @@ penguins2 |>
 
 The `gg_*` function will guess the orientation of the plot. 
 
-Where it guesses `x_orientation = TRUE` and there is a continuous y scale, it will make this y scale 'symmetric' if possible with the `y_limits` the range of `y_breaks` and `y_expand` of `c(0, 0)`. The vice-versa will occur where it guesses a `y_orientation = TRUE`.
+Where it guesses `x_orientation = TRUE` and there is a continuous y scale, it will make this y scale 'symmetric' if possible with the `y_limits` the range of `y_breaks` and `y_expand` of `c(0, 0)`. The vice-versa will occur where it guesses `y_orientation = TRUE`.
 
 You can turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc). For a date variable, use `lubridate::NA_Date_` instead of `NA`.
 
