@@ -36,7 +36,6 @@ Computational speed has been traded-off.
 
 ## How it works
 
-
 1.  First setup with `set_blanket()`
 2.  Each `gg_*` function wraps a geom
 3.  A merged `col` argument to colour/fill by a variable
@@ -46,9 +45,9 @@ Computational speed has been traded-off.
 7.  Prefixed arguments to customise x/y/col/facet
 8.  Smart `*_label` defaults for axis and legend titles
 9.  Other `ggplot2::geom_*` arguments via `...`
-10. A 'symmetric' continuous scale with easy opt-out
-11. Ability to add multiple `geom_*` layers
-12. Families of `*_mode_*` themes with legend variants
+10. Families of `*_mode_*` themes with legend variants
+11. Helpful orientation defaults and side-effects 
+12. Ability to add multiple `geom_*` layers
 13. Arguments to customise setup with `set_blanket()`
 14. A `gg_blanket()` function with `geom` flexibility
 
@@ -232,60 +231,54 @@ penguins2 |>
   ) 
 ```
 
-### 10. A 'symmetric' continuous scale with easy opt-out
+### 10.  Families of `*_mode_*` themes with legend variants 
 
-The `gg_*` function will guess the orientation of the plot. 
+`light_mode_*`, `grey_mode_*` and `dark_mode_*` theme families are provided with variants that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
 
-Where it guesses `x_orientation = TRUE` and there is a continuous y scale, it will make this y scale 'symmetric' if possible. This is that the `y_limits` will be the range of the `y_breaks` and `y_expand` will be `c(0, 0)`. The vice-versa will occur where it guesses `y_orientation = TRUE`.
-
-You can turn this 'symmetric' scale off using `*_limits = c(NA, NA)` (or `*_limits = c(0, NA)` for bars etc). For a date variable, use `lubridate::NA_Date_` instead of `NA`.
-
-(Note this 'symmetric' scale does not occur where the associated `*_limits` are specified or the `*_transform` is non-linear).
-
-```{r, echo=FALSE}
-p1 <- penguins2 |>
-  gg_pointrange(
-    x = sex,
-    y = flipper_length_mm,
-    stat = "summary",
-    position = position_dodge(),
-    x_labels = \(x) str_sub(x, 1, 1),
-    subtitle = "\ny_limits = NULL",
-    mode = grey_mode_r()
+```{r, fig.asp=0.65}
+penguins2 |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = species,
+    title = "Penguin flipper length by species",
+    subtitle = "Palmer Archipelago, Antarctica",
+    caption = "Source: Gorman, 2020", 
+    mode = grey_mode_t(),
   ) +
-  labs(y = NULL)
-
-p2 <- penguins2 |>
-  gg_pointrange(
-    x = sex,
-    y = flipper_length_mm,
-    stat = "summary",
-    position = position_dodge(),
-    x_labels = \(x) str_sub(x, 1, 1),
-    y_limits = c(NA, NA),
-    subtitle = "\ny_limits = c(NA, NA),",
-    mode = grey_mode_r()
-  ) +
-  labs(y = NULL)
-
-p3 <- penguins2 |>
-  gg_col(
-    x = sex,
-    y = flipper_length_mm,
-    stat = "summary",
-    position = position_dodge(),
-    width = 0.5,
-    x_labels = \(x) str_sub(x, 1, 1),
-    y_limits = c(0, NA),
-    subtitle = "\ny_limits = c(0, NA),",
-    mode = grey_mode_r()
-  ) +
-  labs(y = NULL)
-
-p1 + p2 + p3
+  theme(legend.title = element_blank())
 ```
 
-### 11. Ability to add multiple `geom_*` layers
+### 11.  Helpful orientation defaults and side-effects 
+
+The `gg_*` function will guess the orientation of the plot based on whether the y axis is discrete. 
+
+Where `x_orientation = TRUE`, it will:
+
+1). remove any y axis line/ticks and the x gridlines from the `mode` theme. Note you can avoid these side-effects with `+` theme.
+
+2). make y continuous scales `symmetric` with `y_limits` the range of `y_breaks` and `y_expand = c(0, 0)`. Note you can avoid this 'symmetric' scale off using `*_limits = c(NA, NA)`, `*_limits = c(0, NA)` or  `*_limits = c(lubridate::NA_Date_, lubridate::NA_Date_)`. This 'symmetric' scale does not occur where the associated `*_limits` are specified or the `*_transform` is non-linear.
+
+The vice versa will occur for when `y_orientation = TRUE`. If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument to rectify.
+
+```{r}
+p1 <- penguins2 |>
+  gg_jitter(
+    x = sex,
+    y = bill_depth_mm,
+    subtitle = "\nx_orientation = TRUE",
+  )
+
+p2 <- penguins2 |>
+  gg_jitter(
+    x = bill_depth_mm,
+    y = sex,
+    subtitle = "\ny_orientation = TRUE",
+  ) 
+
+p1 + p2
+```
+
+### 12. Ability to add multiple `geom_*` layers
 
 Users can make plots with multiple layers by adding on `ggplot2::geom_*` layers. 
 
@@ -310,7 +303,6 @@ penguins2 |>
     col = sex,
     position = position_dodge(),
     width = 0.75,
-    x_expand_limits = 0,
   ) +
   geom_errorbar(
     width = 0.1, 
@@ -319,28 +311,6 @@ penguins2 |>
   )  
 ```
 
-### 12.  Families of `*_mode_*` themes with legend variants 
-
-`light_mode_*`, `grey_mode_*` and `dark_mode_*` theme families are provided with themes that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
-
-These are built for use with the `mode` argument in the `gg_*` functions, which has helpful side-effects. 
-
-The `gg_*` function will guess the orientation of the plot. Where it guesses `x_orientation = TRUE`, it will remove the y axis line/ticks and the x gridlines from the `mode`. The vice versa will occur where it guesses `y_orientation = TRUE`.
-
-If you want to use a theme with _no_ side-effects, then `+` on the theme instead.
-
-```{r, fig.asp=0.65}
-penguins2 |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-    title = "Penguin flipper length by species",
-    subtitle = "Palmer Archipelago, Antarctica",
-    caption = "Source: Gorman, 2020", 
-    mode = grey_mode_t(),
-  ) +
-  theme(legend.title = element_blank())
-```
 
 ### 13. Arguments to customise setup with `set_blanket()`
 
@@ -415,6 +385,7 @@ expand.grid(x = 1:10, y = 1:10) |>
   ) +
   geom_point()
 ```
+
 ## Further information 
 
 See the ggblanket [website](https://davidhodge931.github.io/ggblanket/index.html) for further information, including [articles](https://davidhodge931.github.io/ggblanket/articles/) and [function reference](https://davidhodge931.github.io/ggblanket/reference/index.html).

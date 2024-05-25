@@ -466,4 +466,71 @@ p2 <- penguins2 |>
 
 p1 + p2
 ```
+### 13. Avoid the 'symmmetric' scale
+
+```{r}
+p1 <- penguins2 |>
+  gg_pointrange(
+    x = sex,
+    y = flipper_length_mm,
+    stat = "summary",
+    position = position_dodge(),
+    x_labels = \(x) str_sub(x, 1, 1),
+    subtitle = "\ny_limits = NULL",
+    mode = grey_mode_r()
+  ) +
+  labs(y = NULL)
+
+p2 <- penguins2 |>
+  gg_pointrange(
+    x = sex,
+    y = flipper_length_mm,
+    stat = "summary",
+    position = position_dodge(),
+    x_labels = \(x) str_sub(x, 1, 1),
+    y_limits = c(NA, NA),
+    subtitle = "\ny_limits = c(NA, NA),",
+    mode = grey_mode_r()
+  ) +
+  labs(y = NULL)
+
+p3 <- penguins2 |>
+  gg_col(
+    x = sex,
+    y = flipper_length_mm,
+    stat = "summary",
+    position = position_dodge(),
+    width = 0.5,
+    x_labels = \(x) str_sub(x, 1, 1),
+    y_limits = c(0, NA),
+    subtitle = "\ny_limits = c(0, NA),",
+    mode = grey_mode_r()
+  ) +
+  labs(y = NULL)
+
+p1 + p2 + p3
+
+```
+
+### 13. Avoid the mode side-effects
+
+```{r}
+p1 <- penguins2 |>
+  gg_jitter(
+    x = island,
+    y = bill_length_mm,
+    subtitle = "\nmode = grey_more_r()",
+    mode = grey_mode_r(),
+  )
+
+p2 <- penguins2 |>
+  gg_jitter(
+    x = bill_length_mm,
+    y = island,
+    subtitle = "\n+ grey_more_r()",
+  ) +
+  grey_mode_r()
+
+p1 + p2
+```
 
