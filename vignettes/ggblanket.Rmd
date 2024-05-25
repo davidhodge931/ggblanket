@@ -285,7 +285,9 @@ Users can make plots with multiple layers by adding on `ggplot2::geom_*` layers.
 
 Aesthetics directly added in the `gg_*` function are globally inherited, whereas those added via the `mapping` argument are only available locally to the layer associated with the `gg_*` function.  
 
-It generally works best to add as many of the globally inherited aesthetics as possible to the `gg_*` function. The `gg_*()` function should also be appropriate to be the bottom geom of the plot, given that geoms are drawn in order. Subsequently, you may sometimes need to use `gg_blanket()` which defaults to a `blank` geom.
+It generally works best to add as many of the globally inherited aesthetics as possible to the `gg_*` function. 
+
+The `gg_*()` function should also be appropriate to be the bottom geom of the plot, given that geoms are drawn in order. Subsequently, you may sometimes need to use `gg_blanket()` which defaults to a `blank` geom.
 
 ```{r, fig.asp = 0.5}
 penguins2 |>
