@@ -453,14 +453,14 @@ If it guesses incorrectly, use either the `x_orientation` or `y_orientation` arg
 (Note in the example below, the two histograms have different shapes, because they have different their y scales' have different limits).
 
 ```{r}
-p1 <- penguins |>
+p1 <- penguins2 |>
   gg_point(
     x = bill_depth_mm,
     y = bill_length_mm,
     subtitle = "\nDefault orientation",
   )
 
-p2 <- penguins |>
+p2 <- penguins2 |>
   gg_point(
     x = bill_depth_mm,
     y = bill_length_mm,
