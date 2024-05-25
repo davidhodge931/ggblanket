@@ -32,6 +32,8 @@ This article will demonstrate a random assortment of content, including some of 
 10. Understand `oob` & `clip`
 11. Use delayed evaluation
 12. Correct the default orientation
+13. Avoid the 'symmetric' scale
+14. Avoid the mode side-effects
 
 ```{r setup}
 library(dplyr)
@@ -466,7 +468,11 @@ p2 <- penguins2 |>
 
 p1 + p2
 ```
-### 13. Avoid the 'symmmetric' scale
+### 13. Avoid the 'symmetric' scale
+
+Where `*_orientation = TRUE`, it will make relevant linear continuous scales ‘symmetric’ where possible with (a) `*_limits` the range of `*_breaks` and (b) `*_expand = c(0, 0)`. 
+
+But you can avoid this by adding a `*_limits = c(NA, NA)` argument (or `*_limits = c(0, NA)` for bars).
 
 ```{r}
 p1 <- penguins2 |>
@@ -513,6 +519,10 @@ p1 + p2 + p3
 ```
 
 ### 14. Avoid the mode side-effects
+
+Where `*_orientation = TRUE`, it will remove the relevant axis line/ticks and the gridlines from the mode theme. 
+
+But you can avoid this by `+`-ing your theme on to the plot, instead of adding it to the `mode` argument.
 
 ```{r}
 p1 <- penguins2 |>
