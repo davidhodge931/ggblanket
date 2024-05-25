@@ -46,7 +46,7 @@ Computational speed has been traded-off.
 8.  Smart `*_label` defaults for axis and legend titles
 9.  Other `ggplot2::geom_*` arguments via `...`
 10. Families of `*_mode_*` themes with legend variants
-11. Helpful orientation defaults and side-effects 
+11. Helpful `*_orientation` defaults and side-effects 
 12. Ability to add multiple `geom_*` layers
 13. Arguments to customise setup with `set_blanket()`
 14. A `gg_blanket()` function with `geom` flexibility
@@ -89,7 +89,7 @@ Each `gg_*` function wraps a `ggplot2::ggplot()` function with the associated `g
 
 Almost every geom in ggplot2 is wrapped. 
 
-Commonly used aesthetics can be added directly as arguments. 
+Position related aesthetics can be added directly as arguments. 
 
 ```{r}
 penguins2 |>
@@ -235,7 +235,7 @@ penguins2 |>
 
 `light_mode_*`, `grey_mode_*` and `dark_mode_*` theme families are provided with variants that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
 
-These themes are intended to be used with the `mode` argument.
+These themes were built for use with the `mode` argument.
 
 ```{r, fig.asp=0.65}
 penguins2 |>
@@ -249,12 +249,12 @@ penguins2 |>
   ) 
 ```
 
-### 11.  Helpful orientation defaults and side-effects 
+### 11.  Helpful `*_orientation` defaults and side-effects 
 
 If not specified, the `gg_*` function will guess the plot orientation (based on whether the y axis is discrete). Where `x_orientation = TRUE`, it will:
 
-* remove any y axis line/ticks and the x gridlines from the `mode` theme. 
-* make linear y continuous scales 'symmetric' where possible with (a) `y_limits` the range of `y_breaks` and (b) `y_expand = c(0, 0)`.
+* remove the y axis line/ticks and the x gridlines from the `mode` theme. 
+* make the linear y continuous scale 'symmetric' if possible with (a) `y_limits` the range of `y_breaks` and (b) `y_expand = c(0, 0)`.
 
 The vice versa will occur for when `y_orientation = TRUE`. 
 

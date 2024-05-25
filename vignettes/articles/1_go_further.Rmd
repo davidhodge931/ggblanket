@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-This article will demonstrate a random assortment of content, including some of which is quite advanced.  
+This article will demonstrate a random assortment of content, including some of which is morre advanced.  
 
 1. Change the `stat` of the layer
 2. Change the `position` of the layer
@@ -26,14 +26,15 @@ This article will demonstrate a random assortment of content, including some of 
 4. Reorder and/or reverse categorical variables
 5. Drop unused categorical variable values
 6. Transform scales to `"log"` etc
-7. Change the `*_position` of positional axes 
-8. Add contrasting dark or light text on polygons
-9. Use opacity with to emphasise/demphasise. 
-10. Understand `oob` & `clip`
-11. Use delayed evaluation
-12. Correct the default orientation
-13. Avoid the 'symmetric' scale
-14. Avoid the mode side-effects
+7. Correct the default `*_orientation`
+8. Avoid the 'symmetric' scale
+9. Avoid the mode side-effects
+10. Change the `*_position` of positional axes 
+11. Add contrasting dark or light text on polygons
+12. Use opacity with to emphasise/demphasise. 
+13. Understand `oob` & `clip`
+14. Use delayed evaluation
+15. Rescale a diverging col scale
 
 ```{r setup}
 library(dplyr)
@@ -230,7 +231,106 @@ p4 <- pressure |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 7. Change the `*_position` of positional axes 
+### 7. Correct the default `*_orientation`
+
+The `gg_*` function guesses the `*_orientation` of the plot to determine how to make continuous axes and what side-effects to have on the provided mode. If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument.
+
+```{r}
+p1 <- penguins2 |>
+  gg_point(
+    x = bill_depth_mm,
+    y = bill_length_mm,
+    subtitle = "\nDefault orientation",
+  )
+
+p2 <- penguins2 |>
+  gg_point(
+    x = bill_depth_mm,
+    y = bill_length_mm,
+    y_orientation = TRUE,
+    subtitle = "\nCorrected orientation",
+  ) 
+
+p1 + p2
+```
+
+### 8. Avoid the 'symmetric' scale
+
+Where `*_orientation = TRUE`, it will make relevant linear continuous scales ‘symmetric’ where possible with (a) `*_limits` the range of `*_breaks` and (b) `*_expand = c(0, 0)`. 
+
+But you can avoid this by adding a `*_limits = c(NA, NA)` argument (or `*_limits = c(0, NA)` for bars).
+
+```{r}
+p1 <- penguins2 |>
+  gg_pointrange(
+    x = sex,
+    y = flipper_length_mm,
+    stat = "summary",
+    position = position_dodge(),
+    x_labels = \(x) str_sub(x, 1, 1),
+    subtitle = "\ny_limits = NULL",
+    mode = grey_mode_r()
+  ) +
+  labs(y = NULL)
+
+p2 <- penguins2 |>
+  gg_pointrange(
+    x = sex,
+    y = flipper_length_mm,
+    stat = "summary",
+    position = position_dodge(),
+    x_labels = \(x) str_sub(x, 1, 1),
+    y_limits = c(NA, NA),
+    subtitle = "\ny_limits = c(NA, NA),",
+    mode = grey_mode_r()
+  ) +
+  labs(y = NULL)
+
+p3 <- penguins2 |>
+  gg_col(
+    x = sex,
+    y = flipper_length_mm,
+    stat = "summary",
+    position = position_dodge(),
+    width = 0.5,
+    x_labels = \(x) str_sub(x, 1, 1),
+    y_limits = c(0, NA),
+    subtitle = "\ny_limits = c(0, NA),",
+    mode = grey_mode_r()
+  ) +
+  labs(y = NULL)
+
+p1 + p2 + p3
+
+```
+
+### 9. Avoid the mode side-effects
+
+Where `*_orientation = TRUE`, it will remove the relevant axis line/ticks and the gridlines from the mode theme. 
+
+But you can avoid this by `+`-ing your theme on to the plot, instead of adding it to the `mode` argument.
+
+```{r}
+p1 <- penguins2 |>
+  gg_jitter(
+    x = sex,
+    y = bill_depth_mm,
+    subtitle = "\nmode = grey_more_r()",
+    mode = grey_mode_r(),
+  )
+
+p2 <- penguins2 |>
+  gg_jitter(
+    x = sex,
+    y = bill_depth_mm,
+    subtitle = "\n+ grey_more_r()",
+  ) +
+  grey_mode_r()
+
+p1 + p2
+```
+
+### 10. Change the `*_position` of positional axes 
 
 Positional axes can be changed using `*_position`.
 
@@ -250,7 +350,7 @@ economics |>
   ) 
 ```
 
-### 8. Add contrasting dark or light text on polygons
+### 11. Add contrasting dark or light text on polygons
 
 Text on polygons can be coloured with a dark or light colour that is determined based on the underlying polygon colour using `!!!aes_contrast()`. This method was developed by Teun van den Brand (@teunbrand).  
 
@@ -291,7 +391,7 @@ penguins2 |>
   )
 ```
 
-### 9. Use opacity to emphasise/demphasise 
+### 12. Use opacity to emphasise/demphasise 
 
 Use opacity with `mapping = aes(alpha = ...)`, `col = ...`, and `col_palette` to emphasise/demphasise parts of the visualisation. 
 
@@ -349,7 +449,7 @@ p4 <- penguins2 |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 10. Understand `oob` & `clip`
+### 13. Understand `oob` & `clip`
 
 By default, ggblanket keeps values outside of the limits (`*_oob = oob_keep`) in calculating the geoms and scales to plot. It also does _not_ clip anything outside the cartesian coordinate space by default (`coord = ggplot2::coord_cartesian(clip = "off"`)). 
 
@@ -422,7 +522,7 @@ p5 <- economics |>
 p4 + p5
 ```
 
-### 11. Use delayed evaluation
+### 14. Use delayed evaluation
 
  The `mapping` argument can be used for delayed evaluation with the `ggplot2::after_stat` function.
 
@@ -446,101 +546,22 @@ faithfuld |>
   )
 ```
 
-### 12. Correct the default orientation
+### 15. Rescale a diverging col scale
 
-The `gg_*` function guesses the orientation of the plot to determine how to make continuous axes and what side-effects to have on the provided mode. If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument.
+Use `col_rescale` to rescale a diverging scale around a central point. 
 
 ```{r}
-p1 <- penguins2 |>
+rescale_vctr <- sort(c(range(mpg$cty), 15))
+
+mpg  |>  
   gg_point(
-    x = bill_depth_mm,
-    y = bill_length_mm,
-    subtitle = "\nDefault orientation",
+    x = displ, 
+    y = hwy, 
+    col = cty,
+    col_palette = c(navy, teal, "white", orange, red),
+    col_rescale = scales::rescale(rescale_vctr),
+    col_breaks = scales::breaks_width(5),
+    mode = dark_mode_r(),
   )
-
-p2 <- penguins2 |>
-  gg_point(
-    x = bill_depth_mm,
-    y = bill_length_mm,
-    y_orientation = TRUE,
-    subtitle = "\nCorrected orientation",
-  ) 
-
-p1 + p2
-```
-### 13. Avoid the 'symmetric' scale
-
-Where `*_orientation = TRUE`, it will make relevant linear continuous scales ‘symmetric’ where possible with (a) `*_limits` the range of `*_breaks` and (b) `*_expand = c(0, 0)`. 
-
-But you can avoid this by adding a `*_limits = c(NA, NA)` argument (or `*_limits = c(0, NA)` for bars).
-
-```{r}
-p1 <- penguins2 |>
-  gg_pointrange(
-    x = sex,
-    y = flipper_length_mm,
-    stat = "summary",
-    position = position_dodge(),
-    x_labels = \(x) str_sub(x, 1, 1),
-    subtitle = "\ny_limits = NULL",
-    mode = grey_mode_r()
-  ) +
-  labs(y = NULL)
-
-p2 <- penguins2 |>
-  gg_pointrange(
-    x = sex,
-    y = flipper_length_mm,
-    stat = "summary",
-    position = position_dodge(),
-    x_labels = \(x) str_sub(x, 1, 1),
-    y_limits = c(NA, NA),
-    subtitle = "\ny_limits = c(NA, NA),",
-    mode = grey_mode_r()
-  ) +
-  labs(y = NULL)
-
-p3 <- penguins2 |>
-  gg_col(
-    x = sex,
-    y = flipper_length_mm,
-    stat = "summary",
-    position = position_dodge(),
-    width = 0.5,
-    x_labels = \(x) str_sub(x, 1, 1),
-    y_limits = c(0, NA),
-    subtitle = "\ny_limits = c(0, NA),",
-    mode = grey_mode_r()
-  ) +
-  labs(y = NULL)
-
-p1 + p2 + p3
-
-```
-
-### 14. Avoid the mode side-effects
-
-Where `*_orientation = TRUE`, it will remove the relevant axis line/ticks and the gridlines from the mode theme. 
-
-But you can avoid this by `+`-ing your theme on to the plot, instead of adding it to the `mode` argument.
-
-```{r}
-p1 <- penguins2 |>
-  gg_jitter(
-    x = sex,
-    y = bill_depth_mm,
-    subtitle = "\nmode = grey_more_r()",
-    mode = grey_mode_r(),
-  )
-
-p2 <- penguins2 |>
-  gg_jitter(
-    x = sex,
-    y = bill_depth_mm,
-    subtitle = "\n+ grey_more_r()",
-  ) +
-  grey_mode_r()
-
-p1 + p2
 ```
 
