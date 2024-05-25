@@ -361,8 +361,8 @@ differ based on legend placement with suffix <code>r</code> (right),
 <h3 id="helpful-orientation-defaults-and-side-effects">11. Helpful orientation defaults and side-effects<a class="anchor" aria-label="anchor" href="#helpful-orientation-defaults-and-side-effects"></a>
 </h3>
 <p>If not specified, the <code>gg_*</code> function will guess the plot
-orientation (based on whether the y axis is discrete).</p>
-<p>Where <code>x_orientation = TRUE</code>, it will:</p>
+orientation (based on whether the y axis is discrete). Where
+<code>x_orientation = TRUE</code>, it will:</p>
 <ul>
 <li>remove any y axis line/ticks and the x gridlines from the
 <code>mode</code> theme.</li>
@@ -402,12 +402,12 @@ the plot, and adding a <code>*_limits = c(NA, NA)</code> argument (or
 globally inherited, whereas those added via the <code>mapping</code>
 argument are only available locally to the layer associated with the
 <code>gg_*</code> function.</p>
-<p>It generally works best to add as many of the globally inherited
-aesthetics as possible to the <code>gg_*</code> function.</p>
+<p>It works best to add as many of the globally inherited aesthetics as
+possible to the <code>gg_*</code> function.</p>
 <p>The <code>gg_*()</code> function should also be appropriate to be the
-bottom geom of the plot, given that geoms are drawn in order.
-Subsequently, you may sometimes need to use <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code>
-which defaults to a <code>blank</code> geom.</p>
+bottom layer of the plot. Subsequently, you may sometimes need to use
+<code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> which defaults to a <code>blank</code>
+geom.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
