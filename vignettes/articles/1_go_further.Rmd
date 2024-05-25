@@ -422,7 +422,7 @@ p4 + p5
 
 ### 11. Use delayed evaluation
 
-As the `x`, `y`, and `col` aesthetic arguments require a unquoted variable, you cannot apply a function to these. However, you can for aesthetics within the `mapping` argument. This can be used for delayed evaluation with the `ggplot2::after_stat` function.
+ The `mapping` argument can be used for delayed evaluation with the `ggplot2::after_stat` function.
 
 ```{r, fig.asp=0.55}
 penguins2 |>
@@ -446,11 +446,7 @@ faithfuld |>
 
 ### 12. Correct the default orientation
 
-The `gg_*` function guesses the orientation of the plot to determine how to make continuous axes and what side-effects to have on the provided mode. 
-
-If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument.
-
-(Note in the example below, the two histograms have different shapes, because they have different their y scales' have different limits).
+The `gg_*` function guesses the orientation of the plot to determine how to make continuous axes and what side-effects to have on the provided mode. If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument.
 
 ```{r}
 p1 <- penguins2 |>
