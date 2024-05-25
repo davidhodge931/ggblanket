@@ -26,7 +26,7 @@ This article will demonstrate a random assortment of content, including some of 
 4. Reorder and/or reverse categorical variables
 5. Drop unused categorical variable values
 6. Transform scales to `"log"` etc
-7. Correct the default `*_orientation`
+7. Correct the default orientation
 8. Avoid the 'symmetric' scale
 9. Avoid the mode side-effects
 10. Change the `*_position` of positional axes 
@@ -231,7 +231,7 @@ p4 <- pressure |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 7. Correct the default `*_orientation`
+### 7. Correct the default orientation
 
 The `gg_*` function guesses the `*_orientation` of the plot to determine how to make continuous axes and what side-effects to have on the provided mode. If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument.
 

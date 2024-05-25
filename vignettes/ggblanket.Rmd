@@ -46,7 +46,7 @@ Computational speed has been traded-off.
 8.  Smart `*_label` defaults for axis and legend titles
 9.  Other `ggplot2::geom_*` arguments via `...`
 10. Families of `*_mode_*` themes with legend variants
-11. Helpful `*_orientation` defaults and side-effects 
+11. Helpful orientation defaults and side-effects 
 12. Ability to add multiple `geom_*` layers
 13. Arguments to customise setup with `set_blanket()`
 14. A `gg_blanket()` function with `geom` flexibility
@@ -249,7 +249,7 @@ penguins2 |>
   ) 
 ```
 
-### 11.  Helpful `*_orientation` defaults and side-effects 
+### 11.  Helpful orientation defaults and side-effects 
 
 If not specified, the `gg_*` function will guess the plot orientation (based on whether the y axis is discrete). Where `x_orientation = TRUE`, it will:
 
