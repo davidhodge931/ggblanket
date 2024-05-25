@@ -258,7 +258,7 @@ If not specified, the `gg_*` function will guess the plot orientation (based on 
 
 The vice versa will occur for when `y_orientation = TRUE`. 
 
-Note you can avoid all this by `+`-ing your theme on to the plot, and adding a `*_limits = c(NA, NA)` argument (or `*_limits = c(0, NA)` for bars). 
+Note you can avoid all this by `+`-ing your theme on to the `gg_*` output, and adding a `*_limits = c(NA, NA)` argument (or `*_limits = c(0, NA)` for bars). 
 
 ```{r}
 p1 <- penguins2 |>
