@@ -374,7 +374,8 @@ orientation (based on whether the y axis is discrete). Where
 <p>The vice versa will occur for when
 <code>y_orientation = TRUE</code>.</p>
 <p>Note you can avoid all this by <code>+</code>-ing your theme on to
-the plot, and adding a <code>*_limits = c(NA, NA)</code> argument (or
+the <code>gg_*</code> output, and adding a
+<code>*_limits = c(NA, NA)</code> argument (or
 <code>*_limits = c(0, NA)</code> for bars).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
