@@ -1,8 +1,8 @@
 # ggblanket 9.0.0.9000
 
 * Moved `mapping` argument to within layer.
+* Determine x and y classes based on axis of a built plot.
 * Guess orientation based on discrete y axis.
-* Determine x and y classes based on axis of built plot.
 * Added `*_orientation` arguments for when the orientation guess is incorrect.
 * Supported `col_palette` argument to accept a vector for ordinal variables.
 * Made pattern guide/label equal to colour/fill align automatically.
