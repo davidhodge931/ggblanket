@@ -30,7 +30,7 @@ ggeasy
 ggforce
 ggh
 gghighlight
-ggnewscale
+ggpattern
 ggplot
 ggproto
 ggrepel
@@ -38,6 +38,7 @@ ggridges
 ggtext
 gridline
 gridlines
+ing
 linerange
 linetype
 linewidth
@@ -51,7 +52,7 @@ rect
 ridgeline
 showtext
 snakecase
-stat
+symmetric’
 tibble
 tidyverse
 vjust
