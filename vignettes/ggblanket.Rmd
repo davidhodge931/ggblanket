@@ -250,15 +250,16 @@ penguins2 |>
 
 ### 11.  Helpful orientation defaults and side-effects 
 
-The `gg_*` function will guess the orientation of the plot based on whether the y axis is discrete. 
+The `gg_*` function will guess the plot orientation based on whether the y axis is discrete (if not specified). 
 
 Where `x_orientation = TRUE`, it will:
 
-1). remove any y axis line/ticks and the x gridlines from the `mode` theme. Note you can avoid these side-effects with `+` theme.
+* remove any y axis line/ticks and the x gridlines from the `mode` theme. 
+* make linear y continuous scales 'symmetric' where possible with (a) `y_limits` the range of `y_breaks` and (b) `y_expand = c(0, 0)`.
 
-2). make y continuous scales `symmetric` with `y_limits` the range of `y_breaks` and `y_expand = c(0, 0)`. Note you can avoid this 'symmetric' scale off using `*_limits = c(NA, NA)`, `*_limits = c(0, NA)` or  `*_limits = c(lubridate::NA_Date_, lubridate::NA_Date_)`. This 'symmetric' scale does not occur where the associated `*_limits` are specified or the `*_transform` is non-linear.
+The vice versa will occur for when `y_orientation = TRUE`. 
 
-The vice versa will occur for when `y_orientation = TRUE`. If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument to rectify.
+Note you can avoid the above by `+`-ing your theme on to the plot, and adding a `*_limits = c(NA, NA)` argument (or `*_limits = c(0, NA)` for bars) in the `gg_*` function. 
 
 ```{r}
 p1 <- penguins2 |>
