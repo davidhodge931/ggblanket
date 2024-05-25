@@ -250,7 +250,7 @@ penguins2 |>
 
 ### 11.  Helpful orientation defaults and side-effects 
 
-The `gg_*` function will guess the plot orientation based on whether the y axis is discrete (if not specified). 
+If not specified, the `gg_*` function will guess the plot orientation (based on whether the y axis is discrete). 
 
 Where `x_orientation = TRUE`, it will:
 
