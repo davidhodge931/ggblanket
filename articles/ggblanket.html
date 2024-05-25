@@ -127,7 +127,7 @@ visualisation</strong>.</p>
 <code>...</code>
 </li>
 <li>Families of <code>*_mode_*</code> themes with legend variants</li>
-<li>Helpful orientation defaults and side-effects</li>
+<li>Helpful <code>*_orientation</code> defaults and side-effects</li>
 <li>Ability to add multiple <code>geom_*</code> layers</li>
 <li>Arguments to customise setup with <code><a href="../reference/set_blanket.html">set_blanket()</a></code>
 </li>
@@ -169,7 +169,7 @@ can be customised.</p>
 <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code> function with the associated
 <code>ggplot2::geom_*()</code> function.</p>
 <p>Almost every geom in ggplot2 is wrapped.</p>
-<p>Commonly used aesthetics can be added directly as arguments.</p>
+<p>Position related aesthetics can be added directly as arguments.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
@@ -344,7 +344,7 @@ variants<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-w
 differ based on legend placement with suffix <code>r</code> (right),
 <code>b</code> (bottom), <code>t</code> (top) and <code>n</code>
 (none).</p>
-<p>These themes are intended to be used with the <code>mode</code>
+<p>These themes were built for use with the <code>mode</code>
 argument.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
@@ -359,15 +359,16 @@ argument.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="helpful-orientation-defaults-and-side-effects">11. Helpful orientation defaults and side-effects<a class="anchor" aria-label="anchor" href="#helpful-orientation-defaults-and-side-effects"></a>
+<h3 id="helpful-_orientation-defaults-and-side-effects">11. Helpful <code>*_orientation</code> defaults and
+side-effects<a class="anchor" aria-label="anchor" href="#helpful-_orientation-defaults-and-side-effects"></a>
 </h3>
 <p>If not specified, the <code>gg_*</code> function will guess the plot
 orientation (based on whether the y axis is discrete). Where
 <code>x_orientation = TRUE</code>, it will:</p>
 <ul>
-<li>remove any y axis line/ticks and the x gridlines from the
+<li>remove the y axis line/ticks and the x gridlines from the
 <code>mode</code> theme.</li>
-<li>make linear y continuous scales ‘symmetric’ where possible with (a)
+<li>make the linear y continuous scale ‘symmetric’ if possible with (a)
 <code>y_limits</code> the range of <code>y_breaks</code> and (b)
 <code>y_expand = c(0, 0)</code>.</li>
 </ul>
