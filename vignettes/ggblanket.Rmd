@@ -302,7 +302,6 @@ penguins2 |>
     flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE),
   ) |>
   labelled::copy_labels_from(penguins2) |>
-  ungroup() |> 
   gg_col(
     x = flipper_length_mm,
     xmin = lower, 
