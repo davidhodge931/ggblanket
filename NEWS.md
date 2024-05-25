@@ -1,4 +1,4 @@
-# ggblanket 9.0.0.9000
+# ggblanket 9.1.0
 
 * Moved `mapping` argument to within layer.
 * Determine x and y classes based on axis of a built plot.
