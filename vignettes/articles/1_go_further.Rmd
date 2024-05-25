@@ -512,21 +512,21 @@ p1 + p2 + p3
 
 ```
 
-### 13. Avoid the mode side-effects
+### 14. Avoid the mode side-effects
 
 ```{r}
 p1 <- penguins2 |>
   gg_jitter(
-    x = island,
-    y = bill_length_mm,
+    x = sex,
+    y = bill_depth_mm,
     subtitle = "\nmode = grey_more_r()",
     mode = grey_mode_r(),
   )
 
 p2 <- penguins2 |>
   gg_jitter(
-    x = bill_length_mm,
-    y = island,
+    x = sex,
+    y = bill_depth_mm,
     subtitle = "\n+ grey_more_r()",
   ) +
   grey_mode_r()
