@@ -1,6 +1,7 @@
 # ggblanket 9.1.0.9000
 
-* Fixed bug where colouring 7 or more values was not working.
+* Fixed bug in colouring 7 or more values.
+* Made `*_mode_t()` and `*_mode_b()` have `legend.byrow = TRUE`.
 
 # ggblanket 9.1.0
 

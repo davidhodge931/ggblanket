@@ -397,6 +397,7 @@ flex_mode_t <- function (
       legend.margin = ggplot2::margin(t = base_size * -1.5, r = base_size * 2, b = base_size * 0.5, l = 0),
       legend.box.margin = ggplot2::margin(t = base_size * 0.5, r = 0, b = base_size * 0.5, l = 0),
       legend.title = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.25, r = 0, b = base_size * 0.5, l = 0)),
+      legend.byrow = TRUE,
 
       axis.title.x.bottom = ggplot2::element_text(margin = ggplot2::margin(t = base_size * -0.33, r = 0, b = base_size * 0.75, l = 0)),
       axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = base_size * 0.5, l = 0)),
@@ -497,6 +498,8 @@ flex_mode_b <- function (
       legend.margin = ggplot2::margin(t = 0, r = base_size * 2, b = base_size * 0.75, l = 0),
       legend.box.margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = 0, l = 0),
       legend.title = ggplot2::element_text(margin = ggplot2::margin(t = base_size * 0.25, r = 0, b = base_size * 0.5, l = 0)),
+      legend.byrow = TRUE,
+
       axis.text.x.bottom = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = base_size * 0.3, r = 0, b = base_size * 1, l = 0)),
       axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = base_size * -0.5, r = 0, b = base_size * 0.3, l = 0))
     )
