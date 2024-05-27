@@ -1,6 +1,6 @@
 # ggblanket 9.1.0.9000
 
-* Fixed bug where colouring more than 7 or more values.
+* Fixed bug where colouring 7 or more values was not working.
 
 # ggblanket 9.1.0
 

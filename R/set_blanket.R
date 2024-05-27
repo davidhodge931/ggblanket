@@ -55,7 +55,7 @@ set_blanket <- function(
     annotate_linewidth = 0.33,
     annotate_family = "",
     annotate_size = 3.88,
-    col_palette_d = jumbleee,
+    col_palette_d = jumble_grey,
     col_palette_na_d = "#cdc5bfff",
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
     col_palette_na_c = "#988f88ff",

@@ -47,10 +47,7 @@ get_base <- function(
     if (rlang::quo_is_null(col)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          # x = !!x,
           y = !!y,
-          # col = !!col,
-          # fill = !!col,
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
@@ -62,14 +59,12 @@ get_base <- function(
           subgroup = !!subgroup,
           sample = !!sample,
           label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) #+
+          text = !!text
+        ))
     }
     else if (!rlang::quo_is_null(col)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          # x = !!x,
           y = !!y,
           col = !!col,
           fill = !!col,
@@ -84,9 +79,8 @@ get_base <- function(
           subgroup = !!subgroup,
           sample = !!sample,
           label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) #+
+          text = !!text
+        ))
     }
   }
   else if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
@@ -94,9 +88,6 @@ get_base <- function(
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
-          # y = !!y,
-          # col = !!col,
-          # fill = !!col,
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
@@ -108,15 +99,13 @@ get_base <- function(
           subgroup = !!subgroup,
           sample = !!sample,
           label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) #+
+          text = !!text
+        ))
     }
     else if (!rlang::quo_is_null(col)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
-          # y = !!y,
           col = !!col,
           fill = !!col,
           xmin = !!xmin,
@@ -130,9 +119,8 @@ get_base <- function(
           subgroup = !!subgroup,
           sample = !!sample,
           label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) #+
+          text = !!text
+        ))
     }
   }
   else if (!rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
@@ -141,8 +129,6 @@ get_base <- function(
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
-          # col = !!col,
-          # fill = !!col,
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
@@ -154,9 +140,8 @@ get_base <- function(
           subgroup = !!subgroup,
           sample = !!sample,
           label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) #+
+          text = !!text
+        ))
     }
     else if (!rlang::quo_is_null(col)) {
       plot <- data %>%
@@ -176,19 +161,14 @@ get_base <- function(
           subgroup = !!subgroup,
           sample = !!sample,
           label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) #+
+          text = !!text
+        ))
     }
   }
   else if (rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
     if (rlang::quo_is_null(col)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          # x = !!x,
-          # y = !!y,
-          # col = !!col,
-          # fill = !!col,
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
@@ -200,15 +180,12 @@ get_base <- function(
           subgroup = !!subgroup,
           sample = !!sample,
           label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) #+
+          text = !!text
+        ))
     }
     else if (!rlang::quo_is_null(col)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          # x = !!x,
-          # y = !!y,
           col = !!col,
           fill = !!col,
           xmin = !!xmin,
@@ -222,9 +199,8 @@ get_base <- function(
           subgroup = !!subgroup,
           sample = !!sample,
           label = !!label,
-          text = !!text,
-          # !!!mapping
-        )) #+
+          text = !!text
+        ))
     }
   }
 

@@ -36,7 +36,7 @@ grey <- "#cdc5bfff"
 #' colorspace::swatchplot(c(jumble, grey), cvd = TRUE)
 jumble <- c("#0095a8ff", "#ffa600ff", "#003f5cff", "#da3c39ff", "#ec9ecbff", "#67609cff")
 
-#' The jumbleee palette
+#' The jumble_grey palette
 #'
 #' @description
 #' A discrete palette that is relatively colour-blind safe.
@@ -44,8 +44,8 @@ jumble <- c("#0095a8ff", "#ffa600ff", "#003f5cff", "#da3c39ff", "#ec9ecbff", "#6
 #' @format NULL
 #' @return A character vector.
 #' @noRd
-jumbleee <- c("#0095a8ff", "#ffa600ff", "#003f5cff", "#da3c39ff", "#ec9ecbff", "#67609cff",
-            rep("#cdc5bfff", times = 14))
+jumble_grey <- c("#0095a8ff", "#ffa600ff", "#003f5cff", "#da3c39ff", "#ec9ecbff", "#67609cff",
+            rep("#cdc5bfff", times = 20))
 
 #' @rdname jumble
 #' @format NULL
