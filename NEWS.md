@@ -2,6 +2,7 @@
 
 * Fixed bug in colouring 7 or more values.
 * Made `*_mode_t()` and `*_mode_b()` have `legend.byrow = TRUE`.
+* Make `*_mode_*()` functions more intuitive to remove/adjust elements.
 
 # ggblanket 9.1.0
 
