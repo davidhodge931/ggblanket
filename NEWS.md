@@ -1,3 +1,7 @@
+# ggblanket 9.1.0.9000
+
+* Fixed bug where it was not working with col variable with 7 or more values.
+
 # ggblanket 9.1.0
 
 * Moved `mapping` argument to within layer.
