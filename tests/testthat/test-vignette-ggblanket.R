@@ -440,22 +440,19 @@ test_that(test_name, {
 
 
 ## ---------------------------------------------------------------------------------------------------
-# test_name <- "20"
-#
-# test_that(test_name, {
-#   p <- penguins |>
-#     gg_point(
-#       x = flipper_length_mm,
-#       y = body_mass_g,
-#       col = species,
-#       mapping = aes(alpha = species, shape = species),
-#     ) +
-#     scale_alpha_manual(values = c(1, 1, 0.33))
-#
-#   vdiffr::expect_doppelganger(test_name, p)
-# })
+test_name <- "20"
 
+test_that(test_name, {
+  p <- penguins |>
+    gg_point(
+      x = flipper_length_mm,
+      y = body_mass_g,
+      col = species,
+      mapping = aes(alpha = species, shape = species),
+    )
 
+  vdiffr::expect_doppelganger(test_name, p)
+})
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "21"
