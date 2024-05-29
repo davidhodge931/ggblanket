@@ -1796,11 +1796,6 @@ gg_blanket <- function(data = NULL,
   if (stringr::str_detect(stat_name, "sf")) {
     plot <- plot +
       ggplot2::theme(
-        panel.grid.major = ggplot2::element_blank(),
-        panel.grid.minor = ggplot2::element_blank(),
-
-        # panel.grid.major.x = ggplot2::element_blank(),
-        # panel.grid.minor.x = ggplot2::element_blank(),
         axis.line.x.top = ggplot2::element_blank(),
         axis.line.x.bottom = ggplot2::element_blank(),
         axis.ticks.x.top = ggplot2::element_blank(),
@@ -1810,8 +1805,6 @@ gg_blanket <- function(data = NULL,
         axis.text.x.top = ggplot2::element_blank(),
         axis.text.x.bottom = ggplot2::element_blank(),
 
-        # panel.grid.major.y = ggplot2::element_blank(),
-        # panel.grid.minor.y = ggplot2::element_blank(),
         axis.line.y.left = ggplot2::element_blank(),
         axis.line.y.right = ggplot2::element_blank(),
         axis.ticks.y.left = ggplot2::element_blank(),
