@@ -177,15 +177,13 @@ used to get a lot of the ggblanket style also works with ggplot2.</p>
 </h3>
 <p>The marquee package supports using markdown in text.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://marquee.r-lib.org" class="external-link">marquee</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">bill_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"***Pygoscelis* penguin bill lengths and depths**"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"{.#0095A8 Adelie}, {.#FF7043 Chinstrap}, *and* {.#112E51 Gentoo} species"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"**{.#0095a8ff Adelie}**, **{.#ffa600ff Chinstrap}**, *and* **{.#003f5cff Gentoo}** species"</span>,</span>
 <span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu">marquee</span><span class="fu">::</span><span class="fu"><a href="https://marquee.r-lib.org/reference/element_marquee.html" class="external-link">element_marquee</a></span><span class="op">(</span>margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span>t <span class="op">=</span> <span class="op">-</span><span class="fl">11</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
