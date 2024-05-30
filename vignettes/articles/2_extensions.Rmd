@@ -91,24 +91,24 @@ p3 <- mtcars |>
   )
 ```
 
-### ggtext
+### marquee
 
-The ggtext package support using markdown in text. 
+The marquee package supports using markdown in text. 
 
-```{r, fig.asp=0.75}
+```{r}
+library(marquee)
+
 penguins2 |>
   gg_point(
     x = bill_depth_mm,
     y = bill_length_mm,
     col = species,
-    title = "***Pygoscelis*** *penguin* bill **lengths** and depths",
-    subtitle = "<span style = 'color: #0095A8 ;'>**Adelie**</span>, 
-       <span style = 'color:#FF7043;'>**Chinstrap**</span>, 
-       *and* <span style = 'color:#112E51;'>**Gentoo**</span>", 
+    title = "***Pygoscelis* penguin bill lengths and depths**",
+    subtitle = "{.#0095A8 Adelie}, {.#FF7043 Chinstrap}, *and* {.#112E51 Gentoo} species",
     mode = light_mode_n()
   ) +
-  theme(plot.title = ggtext::element_markdown()) +
-  theme(plot.subtitle = ggtext::element_markdown())
+  theme(plot.title = marquee::element_marquee(margin = margin(t = -11))) + 
+  theme(plot.subtitle = marquee::element_marquee(margin = margin(t = -5.5, b = 11)))
 ```
 
 ### showtext
