@@ -152,10 +152,11 @@ weave_annotate_aes <- function(colour = "#121b24", linewidth = 0.33, family = ""
 #' @param na For a discrete scale, a hex code (or name) for the `col_palette_na`.
 #'
 #' @noRd
-weave_col_palette_d <- function(new = jumble_grey, na = "#cdc5bfff") {
+weave_col_palette_d <- function(new = jumble, na = "#cdc5bfff") {
 
-  # if (rlang::is_null(new)) new <- scales::pal_hue()
   if (rlang::is_null(na)) na <- "grey50"
+
+  if (!rlang::is_null(new)) new <- c(new, rep(na, times = 20))
 
   old <- ggblanket_global$col_palette_d
   ggblanket_global$col_palette_d <- new
