@@ -4,6 +4,7 @@
 * Made `*_mode_t()` and `*_mode_b()` have `legend.byrow = TRUE`.
 * Made `*_mode_*()` functions more intuitive to remove/adjust elements.
 * Changed `gg_sf` default to keeping all major gridlines.
+* Updated hex colour strings to caps.
 
 # ggblanket 9.1.0
 
