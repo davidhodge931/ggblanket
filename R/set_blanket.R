@@ -3,7 +3,7 @@
 #' @description Set a style by setting a mode, a series of geom and annotate aesthetic defaults, and a col_palette for discrete and continuous scales.
 #'
 #' @param mode A `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
-#' @param geom_colour A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to `blue`.
+#' @param geom_colour A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to `blue` (i.e. `#357BA2FF`).
 #' @param annotate_colour A hex colour (and fill) for other geoms commonly used for annotation (i.e. `*_hline`/`*_vline`/`*_abline` and `*_curve`). Defaults to "#121b24" (i.e. `lightness[1]`).
 #' @param annotate_linewidth A linewidth for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to 0.33.
 #' @param annotate_family A family for `*_text` and `*_label`. Defaults to ""
@@ -50,17 +50,17 @@
 #'
 set_blanket <- function(
     mode = light_mode_r(),
-    geom_colour = "#357ba2",
-    annotate_colour = "#121b24",
+    geom_colour = "#357BA2FF",
+    annotate_colour = "#121B24FF",
     annotate_linewidth = 0.33,
     annotate_family = "",
     annotate_size = 3.88,
     col_palette_d = jumble,
-    col_palette_na_d = "#cdc5bfff",
+    col_palette_na_d = "#CDC5BFFF",
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
-    col_palette_na_c = "#988f88ff",
+    col_palette_na_c = "#988F88FF",
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
-    col_palette_na_o = "#988f88ff",
+    col_palette_na_o = "#988F88FF",
     theme = light_mode_r(orientation = "x"),
     ...
 ) {

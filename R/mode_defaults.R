@@ -11,17 +11,17 @@
 #'
 #' @examples
 #' scales::show_col(c(lightness, greyness, darkness), ncol = 3)
-lightness <- c("#121b24ff", "#f6f8faff", "#ffffffff")
+lightness <- c("#121B24FF", "#F6F8FAFF", "#FFFFFFFF")
 
 #' @rdname lightness
 #' @format NULL
 #' @export
-greyness <- c("#121b24ff", "#f6f8faff", "#fcfdfeff")
+greyness <- c("#121B24FF", "#F6F8FAFF", "#FCFDFEFF")
 
 #' @rdname lightness
 #' @format NULL
 #' @export
-darkness <- c("#c8d7dfff", "#00040aff", "#050d1bff")
+darkness <- c("#C8D7DFFF", "#00040AFF", "#050D1BFF")
 
 #' @rdname lightness
 #' @format NULL

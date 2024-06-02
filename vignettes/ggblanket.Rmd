@@ -222,8 +222,8 @@ penguins2 |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex, 
-    col_palette = c("#003f5c", "#ffa600"),
-    colour = "#bc5090", 
+    col_palette = c("#003F5CFF", "#FFA600FF"),
+    colour = "#BC5090FF", 
     linewidth = 1, 
     linetype = "dashed",
     alpha = 1, 
@@ -335,10 +335,10 @@ The `ggplot2::update_geom_defaults()` function can be used to further fine-tune 
 ```{r}
 set_blanket(
   mode = dark_mode_r(), 
-  geom_colour = "#e7298a",
+  geom_colour = "#E7298AFF",
   annotate_colour = darkness[1],
-  col_palette_d = c("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", 
-                    "#e6ab02", "#a6761d", "#666666"), #RColorBrewer Dark2 
+  col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF", "#66A61EFF", 
+                    "#E6AB02FF", "#A6761DFF", "#666666FF"), #RColorBrewer Dark2 
 )
 
 p1 <- penguins2 |>

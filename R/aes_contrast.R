@@ -72,16 +72,16 @@ get_contrast <- function(fill, dark = "black", light = "white") {
 aes_contrast <- function(mode_family = "light", dark = NULL, light = NULL) {
 
   if (mode_family == "light") {
-    if (rlang::is_null(dark)) dark <- "#121b24ff"
-    if (rlang::is_null(light)) light <- "#ffffffff"
+    if (rlang::is_null(dark)) dark <- "#121B24FF"
+    if (rlang::is_null(light)) light <- "#FFFFFFFF"
   }
   else if (mode_family == "grey") {
-    if (rlang::is_null(dark)) dark <- "#121b24ff"
-    if (rlang::is_null(light)) light <- "#f6f8faff"
+    if (rlang::is_null(dark)) dark <- "#121B24FF"
+    if (rlang::is_null(light)) light <- "#F6F8FAFF"
   }
   else if (mode_family == "dark") {
-    if (rlang::is_null(dark)) dark <- "#050d1bff"
-    if (rlang::is_null(light)) light <- "#c8d7dfff"
+    if (rlang::is_null(dark)) dark <- "#050D1BFF"
+    if (rlang::is_null(light)) light <- "#C8D7DFFF"
   }
 
   ggplot2::aes(

@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' scales::show_col(blue)
-blue <- "#357ba2ff"
+blue <- "#357BA2FF"
 
 
 #' A grey colour
@@ -21,7 +21,7 @@ blue <- "#357ba2ff"
 #'
 #' @examples
 #' scales::show_col(grey)
-grey <- "#cdc5bfff"
+grey <- "#CDC5BFFF"
 
 #' The jumble palette
 #'
@@ -34,35 +34,35 @@ grey <- "#cdc5bfff"
 #'
 #' @examples
 #' colorspace::swatchplot(c(jumble, grey), cvd = TRUE)
-jumble <- c("#0095a8ff", "#ffa600ff", "#003f5cff", "#da3c39ff", "#ec9ecbff", "#67609cff")
+jumble <- c("#0095A8FF", "#FFA600FF", "#003F5CFF", "#DA3C39FF", "#EC9ECBFF", "#67609CFF")
 
 #' @rdname jumble
 #' @format NULL
 #' @export
-teal <- "#0095a8ff"
+teal <- "#0095A8FF"
 
 #' @rdname jumble
 #' @format NULL
 #' @export
-orange <- "#ffa600ff"
+orange <- "#FFA600FF"
 
 #' @rdname jumble
 #' @format NULL
 #' @export
-navy <- "#003f5cff"
+navy <- "#003F5CFF"
 
 #' @rdname jumble
 #' @format NULL
 #' @export
-red <- "#da3c39ff"
+red <- "#DA3C39FF"
 
 #' @rdname jumble
 #' @format NULL
 #' @export
-pink <- "#ec9ecbff"
+pink <- "#EC9ECBFF"
 
 #' @rdname jumble
 #' @format NULL
 #' @export
-purple <- "#67609cff"
+purple <- "#67609CFF"
 
