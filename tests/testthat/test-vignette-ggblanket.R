@@ -92,7 +92,7 @@ test_that(test_name, {
   set.seed(123)
 
   p <- penguins |>
-    gg_jitter(
+    gg_point(
       x = species,
       y = body_mass_g,
       colour = "#7FCDBB",
@@ -124,7 +124,7 @@ test_that(test_name, {
 
   p <- penguins |>
     drop_na(sex) |>
-    gg_jitter(
+    gg_point(
       x = species,
       y = body_mass_g,
       col = flipper_length_mm,

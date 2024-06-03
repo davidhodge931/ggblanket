@@ -156,7 +156,7 @@ weave_col_palette_d <- function(new = jumble, na = "#CDC5BFFF") {
 
   if (rlang::is_null(na)) na <- "grey50"
 
-  if (!rlang::is_null(new)) new <- c(new, rep(na, times = 100))
+  if (!rlang::is_null(new) & !rlang::is_function(new)) new <- c(new, rep(na, times = 100))
 
   old <- ggblanket_global$col_palette_d
   ggblanket_global$col_palette_d <- new

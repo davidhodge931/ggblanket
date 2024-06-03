@@ -5,6 +5,7 @@
 * Made `*_mode_*()` functions more intuitive to remove/adjust elements.
 * Changed `gg_sf` default to keeping all major gridlines.
 * Updated hex colour strings to caps.
+* Fixed code that was making the base plot twice unnecesarily.
 
 # ggblanket 9.1.0
 

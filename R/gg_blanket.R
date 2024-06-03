@@ -192,7 +192,7 @@ gg_blanket <- function(data = NULL,
   else if (is.character(position)) position_name <- position
 
   ##############################################################################
-  #build plot for classes
+  # determine scale types using a plot build with raw data
   ##############################################################################
 
   plot <- get_base(
@@ -214,11 +214,6 @@ gg_blanket <- function(data = NULL,
     text = !!text,
   ) +
     mode
-
-
-  ##############################################################################
-  # Add layer
-  ##############################################################################
 
   if (geom_name == "blank") show_legend <- FALSE
   else show_legend <- TRUE
@@ -262,10 +257,6 @@ gg_blanket <- function(data = NULL,
       ggplot2::expand_limits(y = y_expand_limits)
   }
 
-  ##############################################################################
-  # Get plot build and data
-  ##############################################################################
-
   suppressMessages({
     suppressWarnings({
       plot_build <- ggplot2::ggplot_build(plot)
@@ -275,10 +266,6 @@ gg_blanket <- function(data = NULL,
       facet_ncols <- length(unique(plot_build$layout$layout$COL))
     })
   })
-
-  ##############################################################################
-  # Detect scale types
-  ##############################################################################
 
   plot_scales <- purrr::map_chr(plot_build$plot$scales$scales, function(x) {
     ifelse(rlang::is_null(rlang::call_name(x[["call"]])), NA,
@@ -314,7 +301,7 @@ gg_blanket <- function(data = NULL,
   }
 
   ##############################################################################
-  #determine if flipped
+  # determine flipped or not
   ##############################################################################
 
   if (!rlang::is_null(x_orientation)) {
@@ -334,92 +321,33 @@ gg_blanket <- function(data = NULL,
   }
 
   ##############################################################################
-  #build plot for classes
+  # process the data
   ##############################################################################
 
-  plot <- get_base(
-    data = data,
-    x = !!x,
-    y = !!y,
-    col = !!col,
-    xmin = !!xmin,
-    xmax = !!xmax,
-    xend = !!xend,
-    ymin = !!ymin,
-    ymax = !!ymax,
-    yend = !!yend,
-    z = !!z,
-    group = !!group,
-    subgroup = !!subgroup,
-    sample = !!sample,
-    label = !!label,
-    text = !!text,
-  ) +
-    mode
+  data <- data %>%
+    #ungroup the data
+    dplyr::ungroup() %>%
+    #convert to factors class that can handle labels
+    dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
+                                  !!y, !!ymin, !!ymax, !!yend,
+                                  !!col, !!facet, !!facet2) &
+                                  (tidyselect::where(is.character) | tidyselect::where(is.factor) | tidyselect::where(is.logical)),
+                                function(x) labelled::to_factor(x))) %>%
+    #reverse y*, so that reads top low-levels to bottom high-levels
+    dplyr::mutate(dplyr::across(c(!!y, !!ymin, !!ymax, !!yend) &
+                                  tidyselect::where(is.factor),
+                                function(x) forcats::fct_rev(x)))
 
-
-  ##############################################################################
-  # Add layer
-  ##############################################################################
-
-  if (geom_name == "blank") show_legend <- FALSE
-  else show_legend <- TRUE
-
-  if (stringr::str_detect(stat_name, "sf")) {
-    if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
-
-    plot <- plot +
-      ggplot2::layer_sf(
-        geom = geom,
-        stat = stat,
-        position = position,
-        mapping = ggplot2::aes(!!!mapping),
-        params = rlang::list2(...),
-        show.legend = show_legend,
-      ) +
-      coord
-  }
-  else {
-    if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
-
-    plot <- plot +
-      ggplot2::layer(
-        geom = geom,
-        stat = stat,
-        position = position,
-        mapping = ggplot2::aes(!!!mapping),
-        params = rlang::list2(...),
-        show.legend = show_legend,
-      ) +
-      coord
-  }
-
-  if (!rlang::is_null(x_expand_limits)) {
-    plot <- plot +
-      ggplot2::expand_limits(x = x_expand_limits)
-  }
-
-  if (!rlang::is_null(y_expand_limits)) {
-    plot <- plot +
-      ggplot2::expand_limits(y = y_expand_limits)
+  #if flipped, order col correctly
+  if ((!identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) &
+      flipped) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!col & tidyselect::where(is.factor),
+                                  function(x) forcats::fct_rev(x)))
   }
 
   ##############################################################################
-  # Get plot build and data
-  ##############################################################################
-
-  suppressMessages({
-    suppressWarnings({
-      plot_build <- ggplot2::ggplot_build(plot)
-      plot_data <- plot_build$data[[1]]
-
-      facet_nrows <- length(unique(plot_build$layout$layout$ROW))
-      facet_ncols <- length(unique(plot_build$layout$layout$COL))
-    })
-  })
-
-  ##############################################################################
-  #get positional transform defaults - and strings
+  # get more defaults
   ##############################################################################
 
   #get x_transform if NULL
@@ -460,47 +388,17 @@ gg_blanket <- function(data = NULL,
       unlist()
   }
 
-  ##############################################################################
-  #process the data
-  ##############################################################################
-
-  data <- data %>%
-    #ungroup the data
-    dplyr::ungroup() %>%
-    #convert to factors class that can handle labels
-    dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
-                                  !!y, !!ymin, !!ymax, !!yend,
-                                  !!col, !!facet, !!facet2) &
-                                  (tidyselect::where(is.character) | tidyselect::where(is.factor) | tidyselect::where(is.logical)),
-                                function(x) labelled::to_factor(x))) %>%
-    #reverse y*, so that reads top low-levels to bottom high-levels
-    dplyr::mutate(dplyr::across(c(!!y, !!ymin, !!ymax, !!yend) &
-                                  tidyselect::where(is.factor),
-                                function(x) forcats::fct_rev(x)))
-
-  #if flipped, order col correctly
-  if ((!identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) &
-      flipped) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!col & tidyselect::where(is.factor),
-                                  function(x) forcats::fct_rev(x)))
-  }
-
-  ##############################################################################
-  #get more defaults
-  ##############################################################################
-
   #make drop appropriate to facet scales
   x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
   y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
 
-  #get mode
+  #get mode if NULL
   if (rlang::is_null(mode)) {
     mode <- get_mode()
   }
 
   ##############################################################################
-  # add ggplot() with aesthetics
+  # get the base plot using processed data
   ##############################################################################
 
   plot <- get_base(
@@ -524,7 +422,7 @@ gg_blanket <- function(data = NULL,
   mode
 
   ##############################################################################
-  # add faceting
+  # Add facet layer
   ##############################################################################
 
   #get layout if NULL
@@ -701,7 +599,7 @@ gg_blanket <- function(data = NULL,
   }
 
   ##############################################################################
-  # Add positional scales pre getting plot data
+  # Add positional scales
   ##############################################################################
 
   suppressMessages({
@@ -726,7 +624,7 @@ gg_blanket <- function(data = NULL,
   })
 
   ##############################################################################
-  # Add layer
+  # Add geom layer
   ##############################################################################
 
   if (geom_name == "blank") show_legend <- FALSE
@@ -772,7 +670,7 @@ gg_blanket <- function(data = NULL,
   }
 
   ##############################################################################
-  # Get plot build and data
+  # get the plot build and data
   ##############################################################################
 
   suppressMessages({
@@ -786,7 +684,7 @@ gg_blanket <- function(data = NULL,
   })
 
   ##############################################################################
-  # Make colour scale where there is a colour scale identified
+  # make colour scale
   ##############################################################################
 
   if (!is.na(col_scale_type)) {
@@ -1196,7 +1094,7 @@ gg_blanket <- function(data = NULL,
   }
 
   ##############################################################################
-  # Positional scales
+  # add positional scales
   ##############################################################################
 
   #Make x scale based on plot_data
@@ -1586,7 +1484,7 @@ gg_blanket <- function(data = NULL,
   }
 
   #############################################################################
-  # label_to_case
+  # get x_label, y_label and col_label, if NULL
   #############################################################################
 
   if (rlang::is_null(x_label)) {
@@ -1790,7 +1688,7 @@ gg_blanket <- function(data = NULL,
     )
 
   ##############################################################################
-  # auto panel.grid, line & ticks removal
+  # mode removal of theme components
   ##############################################################################
 
   if (stringr::str_detect(stat_name, "sf")) {
@@ -1843,7 +1741,7 @@ gg_blanket <- function(data = NULL,
   }
 
   ##############################################################################
-  #add the theme if globally set
+  # add the theme if globally set
   ##############################################################################
 
   if (rlang::is_null(mode) & rlang::is_null(get_mode())) {

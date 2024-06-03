@@ -28,7 +28,7 @@ test_that(test_name, {
   set.seed(123)
 
   p <- penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = species,
       col = bill_length_mm,
@@ -43,7 +43,7 @@ test_that(test_name, {
   set.seed(123)
 
   p <- penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = species,
       col = species,
@@ -74,7 +74,7 @@ test_that(test_name, {
   set.seed(123)
 
   p <- penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = species,
       col = bill_length_mm,
@@ -90,7 +90,7 @@ test_that(test_name, {
   set.seed(123)
 
   p <- penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = species,
       col = species,
@@ -106,7 +106,7 @@ test_that(test_name, {
   set.seed(123)
 
   p <- penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = species,
       col = bill_length_mm,
@@ -122,7 +122,7 @@ test_that(test_name, {
   set.seed(123)
 
   p <- penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = species,
       col = species,
@@ -138,7 +138,7 @@ test_that(test_name, {
   set.seed(123)
 
   p <- penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = species,
       col = species,

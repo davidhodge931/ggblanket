@@ -11,7 +11,7 @@ test_that(test_name, {
   set.seed(123)
 
   p <- penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = island,
       col = bill_depth_mm,
@@ -30,7 +30,7 @@ test_that(test_name, {
   set.seed(123)
 
   p <- penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = island,
       col = bill_depth_mm,
@@ -49,7 +49,7 @@ test_that(test_name, {
   set.seed(123)
 
   p <- penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = island,
       col = bill_depth_mm,
@@ -68,7 +68,7 @@ test_that(test_name, {
   set.seed(123)
 
   p <- penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = island,
       col = bill_depth_mm,
