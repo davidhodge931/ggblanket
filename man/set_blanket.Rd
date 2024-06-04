@@ -30,7 +30,7 @@ set_blanket(
 
 \item{annotate_linewidth}{A linewidth for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to 0.33.}
 
-\item{annotate_family}{A family for \verb{*_text} and \verb{*_label}. Defaults to ""}
+\item{annotate_family}{A family for \verb{*_text} and \verb{*_label}. Defaults to "".}
 
 \item{annotate_size}{A size for \verb{*_text} and \verb{*_label}. Defaults to 3.88.}
 
