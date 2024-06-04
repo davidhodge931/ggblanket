@@ -212,8 +212,7 @@ gg_blanket <- function(data = NULL,
     sample = !!sample,
     label = !!label,
     text = !!text,
-  ) +
-    mode
+  )
 
   if (geom_name == "blank") show_legend <- FALSE
   else show_legend <- TRUE
@@ -1683,9 +1682,9 @@ gg_blanket <- function(data = NULL,
       size = size_label,
       linewidth = linewidth_label,
       linetype = linetype_label,
-
       pattern = pattern_label
-    )
+    ) +
+    mode
 
   ##############################################################################
   # mode removal of theme components
