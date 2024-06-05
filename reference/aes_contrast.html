@@ -64,7 +64,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">aes_contrast</span><span class="op">(</span><span class="va">...</span>, mode_family <span class="op">=</span> <span class="st">"light"</span>, dark <span class="op">=</span> <span class="cn">NULL</span>, light <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">aes_contrast</span><span class="op">(</span><span class="va">...</span>, dark <span class="op">=</span> <span class="st">"#121B24FF"</span>, light <span class="op">=</span> <span class="st">"#FFFFFFFF"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -73,16 +73,12 @@
 <dd><p>Provided to force user argument naming etc.</p></dd>
 
 
-<dt>mode_family</dt>
-<dd><p>The mode family to optimise light and dark colours for. Options are "light", "grey" or "dark".</p></dd>
-
-
 <dt>dark</dt>
-<dd><p>A dark colour. If NULL, uses <code>mode_family</code> optimised colour.</p></dd>
+<dd><p>A dark colour.</p></dd>
 
 
 <dt>light</dt>
-<dd><p>A light colour. If NULL, uses <code>mode_family</code> optimised colour.</p></dd>
+<dd><p>A light colour.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -139,7 +135,7 @@
 <span class="r-in"><span>    mode <span class="op">=</span> <span class="fu"><a href="dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">n</span>, <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="fu">aes_contrast</span><span class="op">(</span>mode_family <span class="op">=</span> <span class="st">"dark"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">n</span>, <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="fu">aes_contrast</span><span class="op">(</span>dark <span class="op">=</span> <span class="st">"#050D1BFF"</span>, light <span class="op">=</span> <span class="st">"#C8D7DFFF"</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge2</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span>, preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    vjust <span class="op">=</span> <span class="fl">1.33</span>,</span></span>
 <span class="r-in"><span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
