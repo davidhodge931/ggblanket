@@ -65,6 +65,7 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">flex_mode_r</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  base_face <span class="op">=</span> <span class="st">"plain"</span>,</span>
@@ -99,14 +100,17 @@
 <span>  legend_ticks_colour <span class="op">=</span> <span class="va">legend_axis_line_colour</span>,</span>
 <span>  legend_ticks_linewidth <span class="op">=</span> <span class="va">legend_axis_line_linewidth</span>,</span>
 <span>  legend_ticks_length <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">rel</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.175</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  orientation <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">...</span></span>
+<span>  orientation <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>base_size</dt>
+    <dl><dt>...</dt>
+<dd><p>Provided to force user argument naming etc.</p></dd>
+
+
+<dt>base_size</dt>
 <dd><p>The base size of the text theme element. Defaults to 11.</p></dd>
 
 
@@ -244,10 +248,6 @@
 
 <dt>orientation</dt>
 <dd><p>The orientation of the plot. Either "x" or "y". Defaults to NULL. Not intended for use with the mode argument of gg_* functions.</p></dd>
-
-
-<dt>...</dt>
-<dd><p>Provided to support trailing commas only.</p></dd>
 
 </dl></div>
     <div class="section level2">
