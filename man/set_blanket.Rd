@@ -5,6 +5,7 @@
 \title{Set a style}
 \usage{
 set_blanket(
+  ...,
   mode = light_mode_r(),
   geom_colour = "#357BA2FF",
   annotate_colour = "#121B24FF",
@@ -17,11 +18,12 @@ set_blanket(
   col_palette_na_c = "#988F88FF",
   col_palette_o = scales::pal_viridis(option = "G", direction = -1),
   col_palette_na_o = "#988F88FF",
-  theme = light_mode_r(orientation = "x"),
-  ...
+  theme = light_mode_r(orientation = "x")
 )
 }
 \arguments{
+\item{...}{Provided to force user argument naming etc.}
+
 \item{mode}{A \verb{*_mode_*}. E.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
 
 \item{geom_colour}{A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to \code{blue} (i.e. \verb{#357BA2FF}).}
@@ -47,8 +49,6 @@ set_blanket(
 \item{col_palette_na_o}{For an ordinal scale, a hex code or name for the \code{col_palette_na}.}
 
 \item{theme}{A ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note, \code{mode} takes precedence, unless \code{mode = NULL}.}
-
-\item{...}{Provided to support trailing commas only.}
 }
 \value{
 A globally set style.

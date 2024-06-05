@@ -3,6 +3,7 @@
 #' @description
 #' Set a style by setting a mode, a series of geom and annotate aesthetic defaults, and a col_palette for discrete and continuous scales.
 #'
+#' @param ... Provided to force user argument naming etc.
 #' @param mode A `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
 #' @param geom_colour A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to `blue` (i.e. `#357BA2FF`).
 #' @param annotate_colour A hex colour (and fill) for other geoms commonly used for annotation (i.e. `*_hline`/`*_vline`/`*_abline` and `*_curve`). Defaults to "#121b24" (i.e. `lightness[1]`).
@@ -16,7 +17,6 @@
 #' @param col_palette_na_c For a continuous scale, a hex code or name for the `col_palette_na`.
 #' @param col_palette_na_o For an ordinal scale, a hex code or name for the `col_palette_na`.
 #' @param theme A ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence, unless `mode = NULL`.
-#' @param ... Provided to support trailing commas only.
 #'
 #' @return A globally set style.
 #' @export
@@ -50,6 +50,7 @@
 #'   annotate("text", x = I(0.75), y = I(0.75), label = "Here")
 #'
 set_blanket <- function(
+    ...,
     mode = light_mode_r(),
     geom_colour = "#357BA2FF",
     annotate_colour = "#121B24FF",
@@ -62,9 +63,8 @@ set_blanket <- function(
     col_palette_na_c = "#988F88FF",
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
     col_palette_na_o = "#988F88FF",
-    theme = light_mode_r(orientation = "x"),
-    ...
-) {
+    theme = light_mode_r(orientation = "x")) {
+
   weave_mode(new = mode)
 
   weave_geom_aes(colour = geom_colour)

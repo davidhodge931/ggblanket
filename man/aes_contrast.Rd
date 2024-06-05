@@ -4,9 +4,11 @@
 \alias{aes_contrast}
 \title{An auto-contrast colour aesthetic}
 \usage{
-aes_contrast(mode_family = "light", dark = NULL, light = NULL)
+aes_contrast(..., mode_family = "light", dark = NULL, light = NULL)
 }
 \arguments{
+\item{...}{Provided to force user argument naming etc.}
+
 \item{mode_family}{The mode family to optimise light and dark colours for. Options are "light", "grey" or "dark".}
 
 \item{dark}{A dark colour. If NULL, uses \code{mode_family} optimised colour.}

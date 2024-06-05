@@ -219,12 +219,13 @@ flex_mode_base <- function(
 #' @description Flexible mode with right legend.
 #'
 #' @inheritParams flex_mode_base
-#' @param ... Provided to support trailing commas only.
+#' @param ... Provided to force user argument naming etc.
 #'
 #' @return A ggplot theme.
 #' @keywords internal
 #'
 flex_mode_r <- function (
+    ...,
     base_size = 11,
     base_family = "",
     base_face = "plain",
@@ -259,8 +260,7 @@ flex_mode_r <- function (
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
     legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    orientation = NULL,
-    ...) {
+    orientation = NULL) {
 
   flex_mode_base(
     base_size = base_size,
@@ -311,6 +311,7 @@ flex_mode_r <- function (
 #' @keywords internal
 #'
 flex_mode_t <- function (
+    ...,
     base_size = 11,
     base_family = "",
     base_face = "plain",
@@ -345,8 +346,7 @@ flex_mode_t <- function (
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
     legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    orientation = NULL,
-    ...) {
+    orientation = NULL) {
 
   flex_mode_base(
     base_size = base_size,
@@ -412,6 +412,7 @@ flex_mode_t <- function (
 #' @keywords internal
 #'
 flex_mode_b <- function (
+    ...,
     base_size = 11,
     base_family = "",
     base_face = "plain",
@@ -446,8 +447,7 @@ flex_mode_b <- function (
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
     legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    orientation = NULL,
-    ...) {
+    orientation = NULL) {
 
   flex_mode_base(
     base_size = base_size,
@@ -511,6 +511,7 @@ flex_mode_b <- function (
 #' @keywords internal
 #'
 flex_mode_n <- function (
+    ...,
     base_size = 11,
     base_family = "",
     base_face = "plain",
@@ -545,8 +546,7 @@ flex_mode_n <- function (
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
     legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    orientation = NULL,
-    ...) {
+    orientation = NULL) {
 
   flex_mode_base(
     base_size = base_size,

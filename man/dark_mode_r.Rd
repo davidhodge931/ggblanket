@@ -8,6 +8,7 @@
 \title{Dark mode theme family}
 \usage{
 dark_mode_r(
+  ...,
   base_size = 11,
   base_family = "",
   base_colour = "#C8D7DFFF",
@@ -28,11 +29,11 @@ dark_mode_r(
   legend_ticks_colour = legend_axis_line_colour,
   legend_ticks_linewidth = legend_axis_line_linewidth,
   legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-  orientation = NULL,
-  ...
+  orientation = NULL
 )
 
 dark_mode_t(
+  ...,
   base_size = 11,
   base_family = "",
   base_colour = "#C8D7DFFF",
@@ -53,11 +54,11 @@ dark_mode_t(
   legend_ticks_colour = legend_axis_line_colour,
   legend_ticks_linewidth = legend_axis_line_linewidth,
   legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-  orientation = NULL,
-  ...
+  orientation = NULL
 )
 
 dark_mode_b(
+  ...,
   base_size = 11,
   base_family = "",
   base_colour = "#C8D7DFFF",
@@ -78,11 +79,11 @@ dark_mode_b(
   legend_ticks_colour = legend_axis_line_colour,
   legend_ticks_linewidth = legend_axis_line_linewidth,
   legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-  orientation = NULL,
-  ...
+  orientation = NULL
 )
 
 dark_mode_n(
+  ...,
   base_size = 11,
   base_family = "",
   base_colour = "#C8D7DFFF",
@@ -103,11 +104,12 @@ dark_mode_n(
   legend_ticks_colour = legend_axis_line_colour,
   legend_ticks_linewidth = legend_axis_line_linewidth,
   legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-  orientation = NULL,
-  ...
+  orientation = NULL
 )
 }
 \arguments{
+\item{...}{Provided to force user argument naming etc.}
+
 \item{base_size}{The base size of the text theme element. Defaults to 11.}
 
 \item{base_family}{The base family of the text theme element. Defaults to "".}
@@ -149,8 +151,6 @@ dark_mode_n(
 \item{legend_ticks_length}{The legend.ticks.length theme element.}
 
 \item{orientation}{The orientation of the plot. Either "x" or "y". Defaults to NULL. Not intended for use with the mode argument of gg_* functions.}
-
-\item{...}{Provided to support trailing commas only.}
 }
 \value{
 A ggplot theme.

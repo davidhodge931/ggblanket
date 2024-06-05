@@ -1,5 +1,6 @@
 # ggblanket 9.1.0.9000
 
+* Forced user argument naming for `set_blanket()`, `*_mode_*()` and `aes_contrast()`.
 * Fixed bug in colouring more discrete values than the set `col_palette_d`.
 * Made `*_mode_t()` and `*_mode_b()` have `legend.byrow = TRUE`.
 * Made `*_mode_*()` functions more intuitive to remove/adjust elements.

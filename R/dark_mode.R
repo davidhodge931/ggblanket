@@ -7,6 +7,7 @@
 #' * `dark_mode_b()` with legend on bottom
 #' * `dark_mode_n()` with no legend
 #'
+#' @param ... Provided to force user argument naming etc.
 #' @param base_size The base size of the text theme element. Defaults to 11.
 #' @param base_family The base family of the text theme element. Defaults to "".
 #' @param base_colour The base colour of the text theme element.
@@ -28,7 +29,6 @@
 #' @param legend_ticks_linewidth The linewidth of the legend.ticks theme element.
 #' @param legend_ticks_length The legend.ticks.length theme element.
 #' @param orientation The orientation of the plot. Either "x" or "y". Defaults to NULL. Not intended for use with the mode argument of gg_* functions.
-#' @param ... Provided to support trailing commas only.
 #'
 #' @return A ggplot theme.
 #' @export
@@ -72,6 +72,7 @@
 #'   )
 #'
 dark_mode_r <- function (
+    ...,
     base_size = 11,
     base_family = "",
     base_colour = "#C8D7DFFF",
@@ -92,15 +93,12 @@ dark_mode_r <- function (
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
     legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    orientation = NULL,
-    ...
-) {
+    orientation = NULL) {
 
   flex_mode_r(
     base_size = base_size,
     base_family = base_family,
     base_colour = base_colour,
-
     base_face = "plain",
     plot_title_size = ggplot2::rel(1.1),
     plot_title_family = base_family,
@@ -133,14 +131,13 @@ dark_mode_r <- function (
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
     legend_ticks_length = legend_ticks_length,
-    orientation = orientation,
-    ...
-  )
+    orientation = orientation)
 }
 
 #' @rdname dark_mode_r
 #' @export
 dark_mode_t <- function (
+    ...,
     base_size = 11,
     base_family = "",
     base_colour = "#C8D7DFFF",
@@ -161,15 +158,12 @@ dark_mode_t <- function (
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
     legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    orientation = NULL,
-    ...
-) {
+    orientation = NULL) {
 
   flex_mode_t(
     base_size = base_size,
     base_family = base_family,
     base_colour = base_colour,
-
     base_face = "plain",
     plot_title_size = ggplot2::rel(1.1),
     plot_title_family = base_family,
@@ -202,14 +196,13 @@ dark_mode_t <- function (
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
     legend_ticks_length = legend_ticks_length,
-    orientation = orientation,
-    ...
-  )
+    orientation = orientation)
 }
 
 #' @rdname dark_mode_r
 #' @export
 dark_mode_b <- function (
+    ...,
     base_size = 11,
     base_family = "",
     base_colour = "#C8D7DFFF",
@@ -230,15 +223,12 @@ dark_mode_b <- function (
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
     legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    orientation = NULL,
-    ...
-) {
+    orientation = NULL) {
 
   flex_mode_b(
     base_size = base_size,
     base_family = base_family,
     base_colour = base_colour,
-
     base_face = "plain",
     plot_title_size = ggplot2::rel(1.1),
     plot_title_family = base_family,
@@ -271,14 +261,13 @@ dark_mode_b <- function (
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
     legend_ticks_length = legend_ticks_length,
-    orientation = orientation,
-    ...
-  )
+    orientation = orientation)
 }
 
 #' @rdname dark_mode_r
 #' @export
 dark_mode_n <- function (
+    ...,
     base_size = 11,
     base_family = "",
     base_colour = "#C8D7DFFF",
@@ -299,15 +288,12 @@ dark_mode_n <- function (
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
     legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    orientation = NULL,
-    ...
-) {
+    orientation = NULL) {
 
   flex_mode_n(
     base_size = base_size,
     base_family = base_family,
     base_colour = base_colour,
-
     base_face = "plain",
     plot_title_size = ggplot2::rel(1.1),
     plot_title_family = base_family,
@@ -340,7 +326,5 @@ dark_mode_n <- function (
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
     legend_ticks_length = legend_ticks_length,
-    orientation = orientation,
-    ...
-  )
+    orientation = orientation)
 }

@@ -1,5 +1,6 @@
 #' Get contrast
 #'
+#' @param ... Provided to force user argument naming etc.
 #' @param fill A fill aesthetic from which to determine the colour scale for contrast.
 #' @param dark A dark colour. Defaults to `"black"`.
 #' @param light A light colour. Defaults to `"white"`.
@@ -20,6 +21,7 @@ get_contrast <- function(fill, dark = "black", light = "white") {
 #'
 #' @description A colour aesthetic for annotation that automatically contrasts with fill. Can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
+#' @param ... Provided to force user argument naming etc.
 #' @param mode_family The mode family to optimise light and dark colours for. Options are "light", "grey" or "dark".
 #' @param dark A dark colour. If NULL, uses `mode_family` optimised colour.
 #' @param light A light colour. If NULL, uses `mode_family` optimised colour.
@@ -69,7 +71,7 @@ get_contrast <- function(fill, dark = "black", light = "white") {
 #'     vjust = 1.33,
 #'     show.legend = FALSE,
 #'   )
-aes_contrast <- function(mode_family = "light", dark = NULL, light = NULL) {
+aes_contrast <- function(..., mode_family = "light", dark = NULL, light = NULL) {
 
   if (mode_family == "light") {
     if (rlang::is_null(dark)) dark <- "#121B24FF"
