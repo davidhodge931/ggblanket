@@ -4,16 +4,14 @@
 \alias{aes_contrast}
 \title{An auto-contrast colour aesthetic}
 \usage{
-aes_contrast(..., mode_family = "light", dark = NULL, light = NULL)
+aes_contrast(..., dark = "#121B24FF", light = "#FFFFFFFF")
 }
 \arguments{
 \item{...}{Provided to force user argument naming etc.}
 
-\item{mode_family}{The mode family to optimise light and dark colours for. Options are "light", "grey" or "dark".}
+\item{dark}{A dark colour.}
 
-\item{dark}{A dark colour. If NULL, uses \code{mode_family} optimised colour.}
-
-\item{light}{A light colour. If NULL, uses \code{mode_family} optimised colour.}
+\item{light}{A light colour.}
 }
 \value{
 An aesthetic
@@ -58,7 +56,7 @@ penguins |>
     mode = dark_mode_r(),
   ) +
   geom_text(
-    mapping = aes(label = n, !!!aes_contrast(mode_family = "dark")),
+    mapping = aes(label = n, !!!aes_contrast(dark = "#050D1BFF", light = "#C8D7DFFF")),
     position = position_dodge2(width = 0.75, preserve = "single"),
     vjust = 1.33,
     show.legend = FALSE,

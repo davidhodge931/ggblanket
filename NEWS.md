@@ -2,6 +2,7 @@
 
 * Forced user argument naming for `set_blanket()`, `*_mode_*()` and `aes_contrast()`.
 * Fixed bug in colouring more discrete values than the set `col_palette_d`.
+* Removed `mode_family` argument from `aes_contrast()`.
 * Made `*_mode_t()` and `*_mode_b()` have `legend.byrow = TRUE`.
 * Made `*_mode_*()` functions more intuitive to remove/adjust elements.
 * Changed `gg_sf` default to keeping all major gridlines.

@@ -22,9 +22,8 @@ get_contrast <- function(fill, dark = "black", light = "white") {
 #' @description A colour aesthetic for annotation that automatically contrasts with fill. Can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
 #' @param ... Provided to force user argument naming etc.
-#' @param mode_family The mode family to optimise light and dark colours for. Options are "light", "grey" or "dark".
-#' @param dark A dark colour. If NULL, uses `mode_family` optimised colour.
-#' @param light A light colour. If NULL, uses `mode_family` optimised colour.
+#' @param dark A dark colour.
+#' @param light A light colour.
 #'
 #' @return An aesthetic
 #' @export
@@ -66,25 +65,12 @@ get_contrast <- function(fill, dark = "black", light = "white") {
 #'     mode = dark_mode_r(),
 #'   ) +
 #'   geom_text(
-#'     mapping = aes(label = n, !!!aes_contrast(mode_family = "dark")),
+#'     mapping = aes(label = n, !!!aes_contrast(dark = "#050D1BFF", light = "#C8D7DFFF")),
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     vjust = 1.33,
 #'     show.legend = FALSE,
 #'   )
-aes_contrast <- function(..., mode_family = "light", dark = NULL, light = NULL) {
-
-  if (mode_family == "light") {
-    if (rlang::is_null(dark)) dark <- "#121B24FF"
-    if (rlang::is_null(light)) light <- "#FFFFFFFF"
-  }
-  else if (mode_family == "grey") {
-    if (rlang::is_null(dark)) dark <- "#121B24FF"
-    if (rlang::is_null(light)) light <- "#F6F8FAFF"
-  }
-  else if (mode_family == "dark") {
-    if (rlang::is_null(dark)) dark <- "#050D1BFF"
-    if (rlang::is_null(light)) light <- "#C8D7DFFF"
-  }
+aes_contrast <- function(..., dark = "#121B24FF", light = "#FFFFFFFF") {
 
   ggplot2::aes(
     colour = ggplot2::after_scale(
