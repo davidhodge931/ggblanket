@@ -101,13 +101,11 @@ penguins2 |>
     x = bill_depth_mm,
     y = bill_length_mm,
     col = species,
-    title = "***Pygoscelis* penguin bill lengths and depths**",
-    subtitle = "**{.#0095a8ff Adelie}**, **{.#ffa600ff Chinstrap}**, *and* 
-    **{.#003f5cff Gentoo}** species",
+    title = "**{.#0095a8ff Adelie}**, **{.#ffa600ff Chinstrap}**, *and* 
+    **{.#003f5cff Gentoo}** penguin species",
     mode = light_mode_n()
   ) +
-  theme(plot.title = marquee::element_marquee()) + 
-  theme(plot.subtitle = marquee::element_marquee())
+  theme(plot.title = marquee::element_marquee()) 
 ```
 
 ### showtext
