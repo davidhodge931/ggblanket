@@ -196,7 +196,7 @@ p1 <- pressure |>
   gg_point(
     x = temperature, 
     y = pressure, 
-    x_breaks = breaks_pretty(n = 3),
+    x_breaks = breaks_extended(n = 4),
     y_breaks = breaks_pretty(n = 4),
     subtitle = "\nDefault",
   )
@@ -205,7 +205,7 @@ p2 <- pressure |>
   gg_point(
     x = temperature, 
     y = pressure, 
-    x_breaks = breaks_pretty(n = 3),
+    x_breaks = breaks_extended(n = 4),
     y_breaks = breaks_pretty(n = 4),
     y_transform = "reverse", 
     subtitle = "\nReverse",
@@ -215,7 +215,7 @@ p3 <- pressure |>
   gg_point(
     x = temperature, 
     y = pressure,
-    x_breaks = breaks_pretty(n = 3),
+    x_breaks = breaks_extended(n = 4),
     y_transform = "log10",
     subtitle = "\nLog10", 
   )
@@ -224,7 +224,7 @@ p4 <- pressure |>
   gg_point(
     x = temperature, 
     y = pressure, 
-    x_breaks = breaks_pretty(n = 3),
+    x_breaks = breaks_extended(n = 4),
     y_transform = c("log10", "reverse"),
     subtitle = "\nLog10 & Reverse",
   )
@@ -401,7 +401,7 @@ p1 <- penguins2 |>
   drop_na(sex) |> 
   gg_density(
     x = flipper_length_mm,
-    x_breaks = breaks_pretty(n = 3),
+    x_breaks = breaks_extended(n = 4),
     y_breaks = breaks_pretty(n = 4),
     colour = alpha(orange, 0.33),
     fill = orange,
@@ -414,7 +414,7 @@ p2 <- penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = sex,
-    x_breaks = breaks_pretty(n = 3),
+    x_breaks = breaks_extended(n = 4),
     y_breaks = breaks_pretty(n = 4),
     col_palette = c(orange, "#78909C"),
     subtitle = "\ncol variable"
@@ -426,7 +426,7 @@ p3 <- penguins2 |>
     x = flipper_length_mm,
     col = sex, 
     mapping = aes(alpha = sex),
-    x_breaks = breaks_pretty(n = 3),
+    x_breaks = breaks_extended(n = 4),
     y_breaks = breaks_pretty(n = 4),
     col_palette = c(orange, "#78909C"),
     subtitle = "\ncol and alpha variable",
@@ -440,7 +440,7 @@ p4 <- penguins2 |>
     x = flipper_length_mm,
     col = sex, 
     mapping = aes(alpha = sex),
-    x_breaks = breaks_pretty(n = 3),
+    x_breaks = breaks_extended(n = 4),
     y_breaks = breaks_pretty(n = 4),
     col_palette = c(orange, alpha("#78909C", 0.25)),
     subtitle = "\ncol and alpha variable & outline opacity",

@@ -56,7 +56,6 @@ p1 <- mtcars |>
   gg_point(
     x = mpg, 
     y = disp,
-    y_breaks = breaks_pretty(),
   ) +
   facet_wrap(~"Plot 1")
 
@@ -66,7 +65,6 @@ p2 <- mtcars |>
     y = disp, 
     group = gear, 
     width = 0.5,
-    y_breaks = breaks_pretty(),
   ) +
   facet_wrap(~"Plot 2")
 
@@ -74,8 +72,6 @@ p3 <- mtcars |>
   gg_smooth(
     x = disp, 
     y = qsec, 
-    x_breaks = breaks_pretty(n = 4), 
-    y_breaks = breaks_pretty(),
   ) +
   facet_wrap(~"Plot 3")
 
@@ -160,7 +156,7 @@ penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
-    x_breaks = breaks_pretty(4),
+    x_breaks = breaks_extended(n = 4),
   ) + #build the scale for all data
   facet_wrap(~species) + #then add facet layer
   gghighlight::gghighlight() 
@@ -418,7 +414,7 @@ p1 <- penguins2 |>
     y = body_mass_g,
     col = species,
     col_palette = paletteer_d("RColorBrewer::Dark2"),
-    x_breaks = breaks_pretty(3),
+    x_breaks = breaks_extended(n = 4),
     mode = light_mode_n(),
   ) 
 
@@ -428,7 +424,7 @@ p2 <- penguins2 |>
     y = body_mass_g,
     col = bill_depth_mm,
     col_palette = paletteer_c("viridis::rocket", 9),
-    x_breaks = breaks_pretty(3),
+    x_breaks = breaks_extended(n = 4),
     mode = light_mode_n(),
   ) 
 
@@ -480,7 +476,7 @@ iris |>
   gg_point(
     x = sepal_width, 
     y = sepal_length, 
-    x_breaks = breaks_pretty(n = 3),
+    x_breaks = breaks_extended(n = 4),
   ) +
   ggh4x::facet_nested(
     cols = vars(size, species), 
