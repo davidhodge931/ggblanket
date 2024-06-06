@@ -106,8 +106,8 @@ penguins2 |>
     **{.#003f5cff Gentoo}** species",
     mode = light_mode_n()
   ) +
-  theme(plot.title = marquee::element_marquee(margin = margin(t = -11))) + 
-  theme(plot.subtitle = marquee::element_marquee(margin = margin(t = -5.5, b = 11)))
+  theme(plot.title = marquee::element_marquee()) + 
+  theme(plot.subtitle = marquee::element_marquee())
 ```
 
 ### showtext

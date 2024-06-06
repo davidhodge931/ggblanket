@@ -31,10 +31,11 @@ This article will demonstrate a random assortment of content, including some of 
 9. Avoid the mode side-effects
 10. Change the `*_position` of positional axes 
 11. Add contrasting dark or light text on polygons
-12. Use opacity with to emphasise/demphasise. 
+12. Use opacity with to emphasise/de-emphasise 
 13. Understand `oob` & `clip`
 14. Use delayed evaluation
 15. Rescale a diverging col scale
+16. Add a legend within the panel
 
 ```{r setup}
 library(dplyr)
@@ -391,9 +392,9 @@ penguins2 |>
   )
 ```
 
-### 12. Use opacity to emphasise/demphasise 
+### 12. Use opacity to emphasise/de-emphasise 
 
-Use opacity with `mapping = aes(alpha = ...)`, `col = ...`, and `col_palette` to emphasise/demphasise parts of the visualisation. 
+Use opacity with `mapping = aes(alpha = ...)`, `col = ...`, and `col_palette` to emphasise/de-emphasise parts of the visualisation. 
 
 ```{r, fig.asp=0.75}
 p1 <- penguins2 |> 
@@ -563,5 +564,23 @@ mpg  |>
     col_breaks = scales::breaks_width(5),
     mode = dark_mode_r(),
   )
+```
+
+### 16. Add a legend within the panel
+
+```{r}
+set_blanket()
+
+penguins2 |> 
+  gg_histogram(
+    x = flipper_length_mm,
+    col = species,
+    mode = light_mode_r(),
+  ) +
+  theme(legend.position = "inside") +
+  theme(legend.direction = "vertical") +
+  theme(legend.justification = c(1, 1)) +
+  theme(legend.position.inside = c(1, 0.975)) +
+  theme(legend.location = "panel") 
 ```
 
