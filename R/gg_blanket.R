@@ -799,7 +799,7 @@ gg_blanket <- function(data = NULL,
 
       if (!rlang::is_null(col_n))  {
         if (rlang::is_function(col_palette)) col_palette <- col_palette(col_n)
-        else if (!rlang::is_named(col_palette)) col_palette <- col_palette[1:col_n]
+        else if (!any(rlang::have_name(col_palette))) col_palette <- col_palette[1:col_n]
       }
 
       if (flipped) {
