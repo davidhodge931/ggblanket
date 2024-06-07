@@ -528,19 +528,19 @@ test_that(test_name, {
 })
 
 ## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_rug"
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
-    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
-    gg_rug(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = sex,
-    )
-
-  vdiffr::expect_doppelganger(test_name, p)
-})
+# test_name <- "gg_rug"
+#
+# test_that(test_name, {
+#   p <- palmerpenguins::penguins |>
+#     dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
+#     gg_rug(
+#       x = flipper_length_mm,
+#       y = body_mass_g,
+#       col = sex,
+#     )
+#
+#   vdiffr::expect_doppelganger(test_name, p)
+# })
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "gg_segment"

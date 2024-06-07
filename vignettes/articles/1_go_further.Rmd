@@ -578,10 +578,8 @@ penguins2 |>
     mode = light_mode_r(),
   ) +
   theme(legend.position = "inside") +
-  theme(legend.direction = "vertical") +
-  theme(legend.justification = c(1, 1)) +
   theme(legend.position.inside = c(1, 0.975)) +
-  theme(legend.location = "panel") 
+  theme(legend.justification = c(1, 1)) 
 ```
 
 
