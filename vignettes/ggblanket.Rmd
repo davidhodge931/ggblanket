@@ -358,9 +358,34 @@ expand.grid(x = 1:10, y = 1:10) |>
 Users can make plots with multiple `ggplot2::geom_*` layers with consideration that:
 
 * the `gg_*()` geom layer will be the bottom geom layer of the plot, and subsequent `geom_*()` layers are placed on top. 
-* scales are built within `gg_*()` and _without_ reference to later geom layers. Therefore, the `gg_*()` function should be relevant to a `geom_*()` that can _understand_ the aesthetics and other arguments needed to construct the scales correctly - and/or include appropriate `*_expand_limits` arguments. 
+* scales are built within `gg_*()` and _without_ reference to later geom layers.
 
-The `gg_blanket()` function with it's `"blank"` geom can be useful. 
+Sometimes this will all just work without much thought. 
+
+```{r}
+p1 <- economics |> 
+  slice(1:20) |> 
+  gg_line(
+    x = date, 
+    y = unemploy,
+  ) +
+  geom_point()
+
+p2 <- penguins2 |> 
+  gg_violin(
+    x = species, 
+    y = flipper_length_mm
+  ) +
+  geom_boxplot(
+    fill = "white", 
+    width = 0.25,
+    colour = lightness[1],
+  )
+
+p1 + p2
+```
+
+However, in other situations, users will need to take care to ensure the `gg_*()` function is (a) relevant to a `geom_*()` that can _understand_ the aesthetics and (b) includes other arguments needed to construct the scales correctly. The `gg_blanket()` function with it's `"blank"` geom can be useful here. 
 
 (Note, aesthetics added to the `mapping` argument are only available _locally_ to the geom layer associated with the `gg_*` function). 
 
