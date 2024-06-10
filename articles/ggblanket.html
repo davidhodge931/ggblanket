@@ -402,7 +402,8 @@ the <code>gg_*</code> output, and adding a
 layers with consideration that:</p>
 <ul>
 <li>the <code>gg_*()</code> geom layer will be the bottom geom layer of
-the plot, and subsequent geom layers are placed on top.</li>
+the plot, and subsequent <code>geom_*()</code> layers are placed on
+top.</li>
 <li>scales are built within <code>gg_*()</code> and <em>without</em>
 reference to later geom layers. Therefore, the <code>gg_*()</code>
 function should be relevant to a <code>geom_*()</code> that can
