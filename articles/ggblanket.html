@@ -519,10 +519,10 @@ reference to later geom layers.</li>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
 <p>However, in other situations, users will need to take care to ensure
 the <code>gg_*()</code> function is (a) relevant to a
-<code>geom_*()</code> that can <em>understand</em> the aesthetics and
-(b) includes other arguments needed to construct the scales correctly.
-The <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with it’s <code>"blank"</code>
-geom can be useful here.</p>
+<code>geom_*()</code> that can <em>understand</em> the aesthetics
+required and (b) includes all arguments needed to construct the scales
+correctly. The <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with it’s
+<code>"blank"</code> default geom can be useful here.</p>
 <p>(Note, aesthetics added to the <code>mapping</code> argument are only
 available <em>locally</em> to the geom layer associated with the
 <code>gg_*</code> function).</p>
@@ -543,7 +543,6 @@ available <em>locally</em> to the geom layer associated with the
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>    x_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_t</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span></span>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
