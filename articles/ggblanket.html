@@ -400,25 +400,22 @@ the <code>gg_*</code> output, and adding a
 </h3>
 <p>Users can make plots with multiple layers by adding on
 <code>ggplot2::geom_*</code> layers.</p>
-<p>In making a plot with multiple layers, users should consider:</p>
+<p>To make a plot with multiple layers, users should consider:</p>
 <ul>
-<li>the order of <code>geom_*()</code> layers with the
-<code>gg_*()</code> appropriate to the bottom layer</li>
+<li>that the <code>gg_*()</code> geom layer will be the bottom geom
+layer of the plot, and subsequent geom layers will plot on top.</li>
 <li>that scales are built within <code>gg_*()</code> and without
-reference to later layers. Subsequently, users must ensure that
-aesthetics are <em>understood</em> by the <code>geom_*()</code> within
-the <code>gg_*()</code> function that cover the full range of the data.
-A <code>"blank"</code> geom with <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> can
-accommodate <em>all</em> aesthetics. However, if this is used, users
-should also ensure that arguments such as <code>stat</code>,
-<code>position</code>, <code>facet</code>, <code>facet2</code>, and
-<code>*_expand_limits</code> etc are used as necessary.</li>
+reference to later geom layers. Therefore, the <code>gg_*()</code>
+function should be relevant to a <code>geom_*()</code> that can
+understand the aesthetics and other arguments needed to construct the
+scales correctly (and/or include appropriate
+<code>*_expand_limits</code> arguments).</li>
 </ul>
-<p>For layers after the <code>gg_*()</code> function, users should also
-note that aesthetics directly added in the <code>gg_*</code> function
-are globally inherited. However, those added to the <code>mapping</code>
-argument are only available <em>locally</em> to the layer associated
-with the <code>gg_*</code> function.</p>
+<p>The <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with it’s <code>"blank"</code>
+geom can be useful.</p>
+<p>(Note, aesthetics added to the <code>mapping</code> argument are only
+available <em>locally</em> to the geom layer associated with the
+<code>gg_*</code> function).</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
