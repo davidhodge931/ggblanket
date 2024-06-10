@@ -298,7 +298,7 @@ penguins2 |>
     fill = lightness[2],
   ) +
   geom_jitter(
-    colour = lightness[1],
+    colour = navy,
   ) 
 ```
 
