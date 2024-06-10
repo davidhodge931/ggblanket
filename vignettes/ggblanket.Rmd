@@ -283,7 +283,11 @@ p1 + p2
 
 ### 12. Ability to add multiple `geom_*` layers
 
-Users can make plots with multiple `ggplot2::geom_*` layers. The `gg_*()` geom layer will be the bottom geom layer of the plot, and each subsequent `geom_*()` layer is placed on top. 
+Users can make plots with multiple `ggplot2::geom_*` layers. 
+
+The `gg_*()` geom layer will be the bottom geom layer of the plot, and each subsequent `geom_*()` layer is placed on top. 
+
+Aesthetics added directly (e.g. `x`, `y` etc.) to the `gg_*()` function will inherit to later `geom_*()` layers, whereas those added to the `mapping` argument will not. 
 
 ```{r}
 penguins2 |> 
@@ -302,7 +306,7 @@ penguins2 |>
   ) 
 ```
 
-The scales are built within the `gg_*()` function _without_ knowledge of later geom layers. The `gg_*()` function builds scales with regard to the `stat`, `position`, and aesthetics (that the geom understands) etc. So, in some situations, users will need to take care. The `gg_blanket()` function and `*_expand_limits` argument can often be useful.  
+The scales are built within the `gg_*()` function _without_ knowledge of later geom layers. The `gg_*()` function builds scales with regard to the `stat`, `position`, and aesthetics (that the geom understands) etc. So, in some situations, users will need to take care. 
 
 ```{r}
 penguins2 |>
@@ -333,8 +337,6 @@ penguins2 |>
     colour = lightness[1],
   ) 
 ```
-
-(Note, any aesthetics added to the `mapping` argument are only available _locally_ to the geom layer associated with the `gg_*` function). 
 
 ### 13. Arguments to customise setup with `set_blanket()`
 
