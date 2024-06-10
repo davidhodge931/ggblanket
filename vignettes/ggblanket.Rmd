@@ -406,7 +406,6 @@ penguins2 |>
     col = sex,
     position = position_dodge(width = 0.75),
     x_expand_limits = 0,
-    mode = light_mode_t() + theme(legend.title = element_blank()),
   ) +
   geom_col(
     width = 0.75,
