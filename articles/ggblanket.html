@@ -489,12 +489,13 @@ associated <code>gg_*</code> function.</p>
 layers with consideration that:</p>
 <ul>
 <li>the <code>gg_*()</code> geom layer will be the bottom geom layer of
-the plot, and subsequent <code>geom_*()</code> layers are placed on
+the plot, and each subsequent <code>geom_*()</code> layer is placed on
 top.</li>
-<li>scales are built within <code>gg_*()</code> and <em>without</em>
-reference to later geom layers.</li>
+<li>the scales are built within the <code>gg_*()</code> function
+<em>without</em> knowledge of later geom layers. Users will need to take
+extra care in some situations to accommodate this in the
+<code>gg_*()</code> function.</li>
 </ul>
-<p>Sometimes this will all just work without much thought.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -517,15 +518,6 @@ reference to later geom layers.</li>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
-<p>However, in other situations, users will need to take further care to
-ensure the <code>gg_*()</code> function is (a) relevant to a
-<code>geom_*()</code> that can <em>understand</em> the aesthetics
-required and (b) includes all arguments needed to construct the scales
-correctly. The <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with it’s
-<code>"blank"</code> default geom can often be useful here.</p>
-<p>(Note, aesthetics added to the <code>mapping</code> argument are only
-available <em>locally</em> to the geom layer associated with the
-<code>gg_*</code> function).</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -554,7 +546,10 @@ available <em>locally</em> to the geom layer associated with the
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>    colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%">
+(Note, aesthetics added to the <code>mapping</code> argument are only
+available <em>locally</em> to the geom layer associated with the
+<code>gg_*</code> function).</p>
 </div>
 </div>
 <div class="section level2">
