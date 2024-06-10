@@ -302,7 +302,7 @@ penguins2 |>
   ) 
 ```
 
-The scales are built within the `gg_*()` function _without_ knowledge of later geom layers. So, in some situations, users will need to take care to accommodate this within the `gg_*()` function. The `gg_*()` function builds scales with regard to the `stat`, `position`, and aesthetics (that the geom understands) etc.  
+The scales are built within the `gg_*()` function _without_ knowledge of later geom layers. The `gg_*()` function builds scales with regard to the `stat`, `position`, and aesthetics (that the geom understands) etc. So, in some situations, users will need to take care. The `gg_blanket()` function and `*_expand_limits` argument can often be useful.  
 
 ```{r}
 penguins2 |>
