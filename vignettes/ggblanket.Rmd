@@ -385,7 +385,7 @@ p2 <- penguins2 |>
 p1 + p2
 ```
 
-However, in other situations, users will need to take care to ensure the `gg_*()` function is (a) relevant to a `geom_*()` that can _understand_ the aesthetics and (b) includes other arguments needed to construct the scales correctly. The `gg_blanket()` function with it's `"blank"` geom can be useful here. 
+However, in other situations, users will need to take care to ensure the `gg_*()` function is (a) relevant to a `geom_*()` that can _understand_ the aesthetics required and (b) includes all arguments needed to construct the scales correctly. The `gg_blanket()` function with it's `"blank"` default geom can be useful here. 
 
 (Note, aesthetics added to the `mapping` argument are only available _locally_ to the geom layer associated with the `gg_*` function). 
 
