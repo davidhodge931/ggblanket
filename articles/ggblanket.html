@@ -399,9 +399,10 @@ the <code>gg_*</code> output, and adding a
 <h3 id="ability-to-add-multiple-geom_-layers">12. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
 </h3>
 <p>Users can make plots with multiple <code>ggplot2::geom_*</code>
-layers. The <code>gg_*()</code> geom layer will be the bottom geom layer
-of the plot, and each subsequent <code>geom_*()</code> layer is placed
-on top.</p>
+layers.</p>
+<p>The <code>gg_*()</code> geom layer will be the bottom geom layer of
+the plot, and each subsequent <code>geom_*()</code> layer is placed on
+top.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_violin.html">gg_violin</a></span><span class="op">(</span></span>
@@ -419,8 +420,8 @@ on top.</p>
 <span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
 <p>The scales are built within the <code>gg_*()</code> function
-<em>without</em> knowledge of later geom layers. So users will need to
-take care in some situations to accommodate this within the
+<em>without</em> knowledge of later geom layers. So, in some situations,
+users will need to take care to accommodate this within the
 <code>gg_*()</code> function.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
