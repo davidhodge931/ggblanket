@@ -285,11 +285,12 @@ p1 + p2
 
 Users can make plots with multiple layers by adding on `ggplot2::geom_*` layers. 
 
-Aesthetics directly added in the `gg_*` function are globally inherited. Those added via the `mapping` argument are only available locally to the layer associated with the `gg_*` function.  
+In making a plot with multiple layers, users should consider:
 
-It works best to add as many of the globally inherited aesthetics as possible to the `gg_*` function. 
+* the order of `geom_*()` layers with the `gg_*()` appropriate to the bottom layer
+* that scales are built within `gg_*()` and without reference to later layers. Subsequently, users must ensure that aesthetics are _understood_ by the `geom_*()` within the `gg_*()` function that cover the full range of the data. A `"blank"` geom with `gg_blanket()` can accommodate _all_ aesthetics, and such can be used to accomplish this. However, if this is used, users should also ensure that arguments such as `stat`, `position`, `facet`, `facet2`, and `*_expand_limits` etc are used as necessary.
 
-The `gg_*()` function should also be appropriate to be the bottom layer of the plot. You may sometimes need to use `gg_blanket()` which defaults to a `blank` geom.
+For layers after the `gg_*()` function, users should also note that aesthetics directly added in the `gg_*` function are globally inherited. However, those added to the `mapping` argument are only available _locally_ to the layer associated with the `gg_*` function. 
 
 ```{r, fig.asp = 0.5}
 penguins2 |>
@@ -300,20 +301,26 @@ penguins2 |>
     flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE),
   ) |>
   labelled::copy_labels_from(penguins2) |>
-  gg_col(
+  gg_blanket(
     x = flipper_length_mm,
     xmin = lower, 
     xmax = upper,
     y = species,
     col = sex,
-    position = position_dodge(),
+    position = position_dodge(width = 0.75),
+    x_expand_limits = 0,
+  ) +
+  geom_col(
     width = 0.75,
+    position = position_dodge(width = 0.75),
+    alpha = 0.9,
   ) +
   geom_errorbar(
     width = 0.1, 
     position = position_dodge(width = 0.75),
     colour = lightness[1],
   )  
+
 ```
 
 

@@ -19,18 +19,18 @@
 </defs>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <rect x='0.000000000000064' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<rect x='49.49' y='21.92' width='603.48' height='508.26' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<polyline points='49.49,530.17 652.97,530.17 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
-<polyline points='49.49,457.57 652.97,457.57 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
-<polyline points='49.49,384.96 652.97,384.96 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
-<polyline points='49.49,312.35 652.97,312.35 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
-<polyline points='49.49,239.74 652.97,239.74 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
-<polyline points='49.49,167.13 652.97,167.13 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
-<polyline points='49.49,94.53 652.97,94.53 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
-<polyline points='49.49,21.92 652.97,21.92 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
-<text x='162.64' y='382.61' text-anchor='middle' style='font-size: 10.04px; fill: #FFA600; font-family: sans;' textLength='84.86px' lengthAdjust='spacingAndGlyphs'>Cadillac Fleetwood</text>
-<text x='351.23' y='382.61' text-anchor='middle' style='font-size: 10.04px; fill: #FFA600; font-family: sans;' textLength='85.43px' lengthAdjust='spacingAndGlyphs'>Lincoln Continental</text>
-<text x='539.82' y='41.35' text-anchor='middle' style='font-size: 10.04px; fill: #0095A8; font-family: sans;' textLength='65.32px' lengthAdjust='spacingAndGlyphs'>Toyota Corolla</text>
+<rect x='49.49' y='21.92' width='603.29' height='508.26' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<polyline points='49.49,530.17 652.78,530.17 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='49.49,457.57 652.78,457.57 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='49.49,384.96 652.78,384.96 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='49.49,312.35 652.78,312.35 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='49.49,239.74 652.78,239.74 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='49.49,167.13 652.78,167.13 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='49.49,94.53 652.78,94.53 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='49.49,21.92 652.78,21.92 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<text x='162.60' y='382.61' text-anchor='middle' style='font-size: 10.04px; fill: #FFA600; font-family: sans;' textLength='84.86px' lengthAdjust='spacingAndGlyphs'>Cadillac Fleetwood</text>
+<text x='351.13' y='382.61' text-anchor='middle' style='font-size: 10.04px; fill: #FFA600; font-family: sans;' textLength='85.43px' lengthAdjust='spacingAndGlyphs'>Lincoln Continental</text>
+<text x='539.66' y='41.35' text-anchor='middle' style='font-size: 10.04px; fill: #0095A8; font-family: sans;' textLength='65.32px' lengthAdjust='spacingAndGlyphs'>Toyota Corolla</text>
 <text x='44.01' y='533.96' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='44.01' y='461.35' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>5</text>
 <text x='44.01' y='388.74' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='12.24px' lengthAdjust='spacingAndGlyphs'>10</text>
@@ -39,14 +39,14 @@
 <text x='44.01' y='170.92' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='12.24px' lengthAdjust='spacingAndGlyphs'>25</text>
 <text x='44.01' y='98.31' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='12.24px' lengthAdjust='spacingAndGlyphs'>30</text>
 <text x='44.01' y='25.70' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='12.24px' lengthAdjust='spacingAndGlyphs'>35</text>
-<polyline points='49.49,530.17 652.97,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
-<polyline points='162.64,533.83 162.64,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
-<polyline points='351.23,533.83 351.23,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
-<polyline points='539.82,533.83 539.82,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
-<text x='162.64' y='544.68' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='92.94px' lengthAdjust='spacingAndGlyphs'>Cadillac Fleetwood</text>
-<text x='351.23' y='544.68' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='93.57px' lengthAdjust='spacingAndGlyphs'>Lincoln Continental</text>
-<text x='539.82' y='544.68' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='71.54px' lengthAdjust='spacingAndGlyphs'>Toyota Corolla</text>
-<text x='351.23' y='563.02' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='29.96px' lengthAdjust='spacingAndGlyphs'>Model</text>
+<polyline points='49.49,530.17 652.78,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='162.60,533.83 162.60,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='351.13,533.83 351.13,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='539.66,533.83 539.66,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<text x='162.60' y='544.68' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='92.94px' lengthAdjust='spacingAndGlyphs'>Cadillac Fleetwood</text>
+<text x='351.13' y='544.68' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='93.57px' lengthAdjust='spacingAndGlyphs'>Lincoln Continental</text>
+<text x='539.66' y='544.68' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='71.54px' lengthAdjust='spacingAndGlyphs'>Toyota Corolla</text>
+<text x='351.13' y='563.02' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='29.96px' lengthAdjust='spacingAndGlyphs'>Model</text>
 <text transform='translate(19.67,276.05) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='77.04px' lengthAdjust='spacingAndGlyphs'>Miles per gallon</text>
 <rect x='658.45' y='21.92' width='39.63' height='119.44' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <text x='666.67' y='30.63' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='21.40px' lengthAdjust='spacingAndGlyphs'>Mpg</text>
