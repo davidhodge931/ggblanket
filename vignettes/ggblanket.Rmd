@@ -283,7 +283,7 @@ p1 + p2
 
 ### 12. Ability to add multiple `geom_*` layers
 
-Users can make plots with multiple `ggplot2::geom_*` layers. The `gg_*()` geom layer will be the bottom geom layer of the plot, and each  subsequent `geom_*()` layer is placed on top. 
+Users can make plots with multiple `ggplot2::geom_*` layers. The `gg_*()` geom layer will be the bottom geom layer of the plot, and each subsequent `geom_*()` layer is placed on top. 
 
 ```{r, fig.asp=0.8}
 penguins2 |> 
@@ -302,7 +302,7 @@ penguins2 |>
   ) 
 ```
 
-The scales are built within the `gg_*()` function _without_ knowledge of later geom layers. So, in some situations, users will need to take care to accommodate this within the `gg_*()` function. The `gg_*()` function will build scales with regard to the `stat`, `position`, and aesthetics relevant to the geom (e.g. `geom_col()` does not understand the `xmax` aesthetic) etc.  
+The scales are built within the `gg_*()` function _without_ knowledge of later geom layers. So, in some situations, users will need to take care to accommodate this within the `gg_*()` function. The `gg_*()` function builds scales with regard to the `stat`, `position`, and aesthetics that the geom understands etc.  
 
 ```{r}
 penguins2 |>
