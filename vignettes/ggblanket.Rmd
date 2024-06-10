@@ -309,6 +309,7 @@ penguins2 |>
     col = sex,
     position = position_dodge(width = 0.75),
     x_expand_limits = 0,
+    mode = light_mode_t() + theme(legend.title = element_blank()),
   ) +
   geom_col(
     width = 0.75,
@@ -319,8 +320,7 @@ penguins2 |>
     width = 0.1, 
     position = position_dodge(width = 0.75),
     colour = lightness[1],
-  )  
-
+  )
 ```
 
 ### 13. Arguments to customise setup with `set_blanket()`
