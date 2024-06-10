@@ -285,12 +285,14 @@ p1 + p2
 
 Users can make plots with multiple layers by adding on `ggplot2::geom_*` layers. 
 
-In making a plot with multiple layers, users should consider:
+To make a plot with multiple layers, users should consider:
 
-* the order of `geom_*()` layers with the `gg_*()` appropriate to the bottom layer
-* that scales are built within `gg_*()` and without reference to later layers. Subsequently, users must ensure that aesthetics are _understood_ by the `geom_*()` within the `gg_*()` function that cover the full range of the data. A `"blank"` geom with `gg_blanket()` can accommodate _all_ aesthetics. However, if this is used, users should also ensure that arguments such as `stat`, `position`, `facet`, `facet2`, and `*_expand_limits` etc are used as necessary.
+* that the `gg_*()` geom layer will be the bottom geom layer of the plot, and subsequent geom layers will plot on top. 
+* that scales are built within `gg_*()` and without reference to later geom layers. Therefore, the `gg_*()` function should be relevant to a `geom_*()` that can understand the aesthetics and other arguments needed to construct the scales correctly (and/or include appropriate `*_expand_limits` arguments). 
 
-For layers after the `gg_*()` function, users should also note that aesthetics directly added in the `gg_*` function are globally inherited. However, those added to the `mapping` argument are only available _locally_ to the layer associated with the `gg_*` function. 
+The `gg_blanket()` function with it's `"blank"` geom can be useful. 
+
+(Note, aesthetics added to the `mapping` argument are only available _locally_ to the geom layer associated with the `gg_*` function). 
 
 ```{r, fig.asp = 0.5}
 penguins2 |>
