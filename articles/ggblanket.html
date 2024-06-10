@@ -400,16 +400,26 @@ the <code>gg_*</code> output, and adding a
 </h3>
 <p>Users can make plots with multiple layers by adding on
 <code>ggplot2::geom_*</code> layers.</p>
-<p>Aesthetics directly added in the <code>gg_*</code> function are
-globally inherited. Those added via the <code>mapping</code> argument
-are only available locally to the layer associated with the
-<code>gg_*</code> function.</p>
-<p>It works best to add as many of the globally inherited aesthetics as
-possible to the <code>gg_*</code> function.</p>
-<p>The <code>gg_*()</code> function should also be appropriate to be the
-bottom layer of the plot. You may sometimes need to use
-<code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> which defaults to a <code>blank</code>
-geom.</p>
+<p>In making a plot with multiple layers, users should consider:</p>
+<ul>
+<li>the order of <code>geom_*()</code> layers with the
+<code>gg_*()</code> appropriate to the bottom layer</li>
+<li>that scales are built within <code>gg_*()</code> and without
+reference to later layers. Subsequently, users must ensure that
+aesthetics are <em>understood</em> by the <code>geom_*()</code> within
+the <code>gg_*()</code> function that cover the full range of the data.
+A <code>"blank"</code> geom with <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> can
+accommodate <em>all</em> aesthetics, and such can be used to accomplish
+this. However, if this is used, users should also ensure that arguments
+such as <code>stat</code>, <code>position</code>, <code>facet</code>,
+<code>facet2</code>, and <code>*_expand_limits</code> etc are used as
+necessary.</li>
+</ul>
+<p>For layers after the <code>gg_*()</code> function, users should also
+note that aesthetics directly added in the <code>gg_*</code> function
+are globally inherited. However, those added to the <code>mapping</code>
+argument are only available <em>locally</em> to the layer associated
+with the <code>gg_*</code> function.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -419,14 +429,19 @@ geom.</p>
 <span>    flipper_length_mm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">flipper_length_mm</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">labelled</span><span class="fu">::</span><span class="fu"><a href="https://larmarange.github.io/labelled/reference/copy_labels.html" class="external-link">copy_labels_from</a></span><span class="op">(</span><span class="va">penguins2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/gg_blanket.html">gg_blanket</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    xmin <span class="op">=</span> <span class="va">lower</span>, </span>
 <span>    xmax <span class="op">=</span> <span class="va">upper</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>,</span>
+<span>    x_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span></span>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
+<span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.9</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span></span>
 <span>    width <span class="op">=</span> <span class="fl">0.1</span>, </span>
