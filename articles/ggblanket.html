@@ -423,9 +423,9 @@ on top.</p>
 users will need to take care to accommodate this within the
 <code>gg_*()</code> function. The <code>gg_*()</code> function will
 build scales only with regard to the <code>stat</code>,
-<code>position</code>, and aesthetics relevant to the associated geom
+<code>position</code>, and aesthetics relevant to the geom
 (e.g. <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col()</a></code> does not understand the <code>xmax</code>
-aesthetic).</p>
+aesthetic). The <code>*_expand_limits</code></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
