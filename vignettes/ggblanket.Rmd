@@ -299,7 +299,6 @@ penguins2 |>
   ) +
   geom_jitter(
     colour = lightness[1],
-    alpha = 0.5,
   ) 
 ```
 
