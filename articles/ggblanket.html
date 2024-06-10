@@ -419,11 +419,12 @@ on top.</p>
 <span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
 <p>The scales are built within the <code>gg_*()</code> function
-<em>without</em> knowledge of later geom layers. So, in some situations,
-users will need to take care to accommodate this within the
-<code>gg_*()</code> function. The <code>gg_*()</code> function builds
-scales with regard to the <code>stat</code>, <code>position</code>, and
-aesthetics (that the geom understands) etc.</p>
+<em>without</em> knowledge of later geom layers. The <code>gg_*()</code>
+function builds scales with regard to the <code>stat</code>,
+<code>position</code>, and aesthetics (that the geom understands) etc.
+So, in some situations, users will need to take care. The
+<code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function and <code>*_expand_limits</code>
+argument can often be useful.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
