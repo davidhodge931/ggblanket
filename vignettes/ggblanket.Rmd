@@ -357,10 +357,8 @@ expand.grid(x = 1:10, y = 1:10) |>
 
 Users can make plots with multiple `ggplot2::geom_*` layers with consideration that:
 
-* the `gg_*()` geom layer will be the bottom geom layer of the plot, and subsequent `geom_*()` layers are placed on top. 
-* scales are built within `gg_*()` and _without_ reference to later geom layers.
-
-Sometimes this will all just work without much thought. 
+* the `gg_*()` geom layer will be the bottom geom layer of the plot, and each  subsequent `geom_*()` layer is placed on top. 
+* the scales are built within the `gg_*()` function _without_ knowledge of later geom layers. Users will need to take extra care in some situations to accommodate this in the `gg_*()` function. 
 
 ```{r}
 p1 <- economics |> 
@@ -384,10 +382,6 @@ p2 <- penguins2 |>
 
 p1 + p2
 ```
-
-However, in other situations, users will need to take further care to ensure the `gg_*()` function is (a) relevant to a `geom_*()` that can _understand_ the aesthetics required and (b) includes all arguments needed to construct the scales correctly. The `gg_blanket()` function with it's `"blank"` default geom can often be useful here. 
-
-(Note, aesthetics added to the `mapping` argument are only available _locally_ to the geom layer associated with the `gg_*` function). 
 
 ```{r, fig.asp = 0.5}
 penguins2 |>
@@ -418,6 +412,7 @@ penguins2 |>
     colour = lightness[1],
   )
 ```
+(Note, aesthetics added to the `mapping` argument are only available _locally_ to the geom layer associated with the `gg_*` function). 
 
 ## Further information 
 
