@@ -332,8 +332,7 @@ penguins2 |>
     width = 0.1, 
     position = position_dodge(width = 0.75),
     colour = lightness[1],
-  ) +
-  labs(y = NULL)
+  ) 
 ```
 
 (Note, any aesthetics added to the `mapping` argument are only available _locally_ to the geom layer associated with the `gg_*` function). 
