@@ -302,7 +302,7 @@ penguins2 |>
   ) 
 ```
 
-The scales are built within the `gg_*()` function _without_ knowledge of later geom layers. So, in some situations, users will need to take care to accommodate this within the `gg_*()` function. The `gg_*()` function will build scales only with regard to the `stat`, `position`, and aesthetics relevant to the geom (e.g. `geom_col()` does not understand the `xmax` aesthetic). The `*_expand_limits` 
+The scales are built within the `gg_*()` function _without_ knowledge of later geom layers. So, in some situations, users will need to take care to accommodate this within the `gg_*()` function. The `gg_*()` function will build scales with regard to the `stat`, `position`, and aesthetics relevant to the geom (e.g. `geom_col()` does not understand the `xmax` aesthetic) etc.  
 
 ```{r}
 penguins2 |>
