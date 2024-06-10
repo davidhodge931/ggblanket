@@ -398,18 +398,17 @@ the <code>gg_*</code> output, and adding a
 <div class="section level3">
 <h3 id="ability-to-add-multiple-geom_-layers">12. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
 </h3>
-<p>Users can make plots with multiple layers by adding on
-<code>ggplot2::geom_*</code> layers.</p>
-<p>To make a plot with multiple layers, users should consider:</p>
+<p>Users can make plots with multiple <code>ggplot2::geom_*</code>
+layers with consideration that:</p>
 <ul>
-<li>that the <code>gg_*()</code> geom layer will be the bottom geom
-layer of the plot, and subsequent geom layers will plot on top.</li>
-<li>that scales are built within <code>gg_*()</code> and without
+<li>the <code>gg_*()</code> geom layer will be the bottom geom layer of
+the plot, and subsequent geom layers are placed on top.</li>
+<li>scales are built within <code>gg_*()</code> and <em>without</em>
 reference to later geom layers. Therefore, the <code>gg_*()</code>
 function should be relevant to a <code>geom_*()</code> that can
 understand the aesthetics and other arguments needed to construct the
-scales correctly (and/or include appropriate
-<code>*_expand_limits</code> arguments).</li>
+scales correctly - and/or include appropriate
+<code>*_expand_limits</code> arguments.</li>
 </ul>
 <p>The <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with it’s <code>"blank"</code>
 geom can be useful.</p>
