@@ -492,18 +492,41 @@ layers with consideration that:</p>
 the plot, and subsequent <code>geom_*()</code> layers are placed on
 top.</li>
 <li>scales are built within <code>gg_*()</code> and <em>without</em>
-reference to later geom layers. Therefore, the <code>gg_*()</code>
-function should be relevant to a <code>geom_*()</code> that can
-<em>understand</em> the aesthetics and other arguments needed to
-construct the scales correctly - and/or include appropriate
-<code>*_expand_limits</code> arguments.</li>
+reference to later geom layers.</li>
 </ul>
-<p>The <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with it’s <code>"blank"</code>
-geom can be useful.</p>
+<p>Sometimes this will all just work without much thought.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">date</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/gg_violin.html">gg_violin</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">species</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">flipper_length_mm</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span></span>
+<span>    fill <span class="op">=</span> <span class="st">"white"</span>, </span>
+<span>    width <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>    colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
+<p>However, in other situations, users will need to take care to ensure
+the <code>gg_*()</code> function is (a) relevant to a
+<code>geom_*()</code> that can <em>understand</em> the aesthetics and
+(b) includes other arguments needed to construct the scales correctly.
+The <code><a href="../reference/gg_blanket.html">gg_blanket()</a></code> function with it’s <code>"blank"</code>
+geom can be useful here.</p>
 <p>(Note, aesthetics added to the <code>mapping</code> argument are only
 available <em>locally</em> to the geom layer associated with the
 <code>gg_*</code> function).</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
@@ -532,7 +555,7 @@ available <em>locally</em> to the geom layer associated with the
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>    colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
 </div>
 </div>
 <div class="section level2">
