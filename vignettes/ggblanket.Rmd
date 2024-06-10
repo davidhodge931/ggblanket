@@ -285,7 +285,7 @@ p1 + p2
 
 Users can make plots with multiple `ggplot2::geom_*` layers. The `gg_*()` geom layer will be the bottom geom layer of the plot, and each subsequent `geom_*()` layer is placed on top. 
 
-```{r, fig.asp=0.8}
+```{r}
 penguins2 |> 
   gg_violin(
     x = species, 
