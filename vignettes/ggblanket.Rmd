@@ -283,50 +283,46 @@ p1 + p2
 
 ### 12. Ability to add multiple `geom_*` layers
 
-Users can make plots with multiple `ggplot2::geom_*` layers with consideration that:
-
-* the `gg_*()` geom layer will be the bottom geom layer of the plot, and each  subsequent `geom_*()` layer is placed on top. 
-* the scales are built within the `gg_*()` function _without_ knowledge of later geom layers. Users will need to take extra care in some situations to accommodate this in the `gg_*()` function. 
-
-(Note, aesthetics added to the `mapping` argument are only available _locally_ to the geom layer associated with the `gg_*` function). 
+Users can make plots with multiple `ggplot2::geom_*` layers. The `gg_*()` geom layer will be the bottom geom layer of the plot, and each  subsequent `geom_*()` layer is placed on top. 
 
 ```{r, fig.asp=0.8}
-p1 <- economics |> 
-  slice(1:20) |> 
-  gg_line(
-    x = date, 
-    y = unemploy,
-  ) +
-  geom_point()
-
-p2 <- penguins2 |> 
+penguins2 |> 
   gg_violin(
     x = species, 
-    y = flipper_length_mm,
-    x_labels = \(x) str_sub(x, 1, 1),
+    y = bill_depth_mm,
+    outliers = FALSE,
   ) +
   geom_boxplot(
-    fill = "white", 
     width = 0.25,
     colour = lightness[1],
-  )
+    fill = lightness[2],
+  ) +
+  geom_jitter(
+    colour = lightness[1],
+    alpha = 0.5,
+  ) 
+```
 
-p3 <- penguins2 |>
+The scales are built within the `gg_*()` function _without_ knowledge of later geom layers. So users will sometimes need to take extra care in some situations to accommodate this in the `gg_*()` function. 
+
+```{r}
+penguins2 |>
   group_by(species, sex) |>
   summarise(
-    lower = quantile(flipper_length_mm, probs = 0.05),
-    upper = quantile(flipper_length_mm, probs = 0.95),
-    flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE),
+    lower = quantile(bill_depth_mm, probs = 0.05),
+    upper = quantile(bill_depth_mm, probs = 0.95),
+    bill_depth_mm = mean(bill_depth_mm, na.rm = TRUE),
   ) |>
   labelled::copy_labels_from(penguins2) |>
   gg_blanket(
-    x = flipper_length_mm,
+    y = species,
+    x = bill_depth_mm,
     xmin = lower, 
     xmax = upper,
-    y = species,
     col = sex,
     position = position_dodge(width = 0.75),
     x_expand_limits = 0,
+    mode = light_mode_t() + theme(legend.title = element_blank()),
   ) +
   geom_col(
     width = 0.75,
@@ -337,10 +333,11 @@ p3 <- penguins2 |>
     width = 0.1, 
     position = position_dodge(width = 0.75),
     colour = lightness[1],
-  )
-
-(p1 + p2) / p3
+  ) +
+  labs(y = NULL)
 ```
+
+(Note, any aesthetics added to the `mapping` argument are only available _locally_ to the geom layer associated with the `gg_*` function). 
 
 ### 13. Arguments to customise setup with `set_blanket()`
 
