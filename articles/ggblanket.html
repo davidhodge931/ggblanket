@@ -399,56 +399,48 @@ the <code>gg_*</code> output, and adding a
 <h3 id="ability-to-add-multiple-geom_-layers">12. Ability to add multiple <code>geom_*</code> layers<a class="anchor" aria-label="anchor" href="#ability-to-add-multiple-geom_-layers"></a>
 </h3>
 <p>Users can make plots with multiple <code>ggplot2::geom_*</code>
-layers with consideration that:</p>
-<ul>
-<li>the <code>gg_*()</code> geom layer will be the bottom geom layer of
-the plot, and each subsequent <code>geom_*()</code> layer is placed on
-top.</li>
-<li>the scales are built within the <code>gg_*()</code> function
-<em>without</em> knowledge of later geom layers. Users will need to take
-extra care in some situations to accommodate this in the
-<code>gg_*()</code> function.</li>
-</ul>
-<p>(Note, aesthetics added to the <code>mapping</code> argument are only
-available <em>locally</em> to the geom layer associated with the
-<code>gg_*</code> function).</p>
+layers. The <code>gg_*()</code> geom layer will be the bottom geom layer
+of the plot, and each subsequent <code>geom_*()</code> layer is placed
+on top.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">economics</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">date</span>, </span>
-<span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_violin.html">gg_violin</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">species</span>, </span>
-<span>    y <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
+<span>    outliers <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span></span>
-<span>    fill <span class="op">=</span> <span class="st">"white"</span>, </span>
 <span>    width <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>    colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
+<span>    fill <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span></span>
+<span>    colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  <span class="op">)</span> </span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
+<p>The scales are built within the <code>gg_*()</code> function
+<em>without</em> knowledge of later geom layers. So users will sometimes
+need to take extra care in some situations to accommodate this in the
+<code>gg_*()</code> function.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">flipper_length_mm</span>, probs <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>,</span>
-<span>    upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">flipper_length_mm</span>, probs <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span>,</span>
-<span>    flipper_length_mm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">flipper_length_mm</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">bill_depth_mm</span>, probs <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>    upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">bill_depth_mm</span>, probs <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span>,</span>
+<span>    bill_depth_mm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">bill_depth_mm</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">labelled</span><span class="fu">::</span><span class="fu"><a href="https://larmarange.github.io/labelled/reference/copy_labels.html" class="external-link">copy_labels_from</a></span><span class="op">(</span><span class="va">penguins2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_blanket.html">gg_blanket</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    x <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
 <span>    xmin <span class="op">=</span> <span class="va">lower</span>, </span>
 <span>    xmax <span class="op">=</span> <span class="va">upper</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>    x_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_t</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span></span>
 <span>    width <span class="op">=</span> <span class="fl">0.75</span>,</span>
@@ -459,10 +451,12 @@ available <em>locally</em> to the geom layer associated with the
 <span>    width <span class="op">=</span> <span class="fl">0.1</span>, </span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>    colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="va">p3</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
+<p>(Note, any aesthetics added to the <code>mapping</code> argument are
+only available <em>locally</em> to the geom layer associated with the
+<code>gg_*</code> function).</p>
 </div>
 <div class="section level3">
 <h3 id="arguments-to-customise-setup-with-set_blanket">13. Arguments to customise setup with
@@ -483,7 +477,7 @@ for other geoms often used for annotation)</li>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults()</a></code> function can be used
 to further fine-tune geom defaults.</p>
 <p><code><a href="../reference/set_blanket.html">set_blanket()</a></code> also works on ggplot2 code.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
 <span>  mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>, </span>
 <span>  geom_colour <span class="op">=</span> <span class="st">"#E7298AFF"</span>,</span>
@@ -511,8 +505,8 @@ to further fine-tune geom defaults.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Here"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -530,12 +524,12 @@ defaults for <code>geom</code>, <code>stat</code> and
 <code>geom_*</code> function.</p>
 <p>This function can often be used with geoms that do not have an
 associated <code>gg_*</code> function.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_spoke.html" class="external-link">geom_spoke</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; geom_spoke: na.rm = FALSE</span></span>
 <span><span class="co">#&gt; stat_identity: na.rm = FALSE</span></span>
 <span><span class="co">#&gt; position_identity</span></span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -549,7 +543,7 @@ associated <code>gg_*</code> function.</p>
 <span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="va">angle</span>, radius <span class="op">=</span> <span class="va">speed</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
 </div>
 </div>
 <div class="section level2">
