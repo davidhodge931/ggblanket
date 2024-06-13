@@ -1182,11 +1182,13 @@ gg_blanket <- function(data = NULL,
     #get x_limits and x_breaks for 'symmetric'
     else {
       if (!rlang::is_null(x_limits)) {
-        if (any(x_transform_name %in% c("date", "time", "hms"))) {
-          x_breaks <- scales::breaks_pretty(n = x_breaks_n)
-        }
-        else {
-          x_breaks <- scales::breaks_extended(n = x_breaks_n, only.loose = TRUE)
+        if (rlang::is_null(x_breaks)) {
+          if (any(x_transform_name %in% c("date", "time", "hms"))) {
+            x_breaks <- scales::breaks_pretty(n = x_breaks_n)
+          }
+          else {
+            x_breaks <- scales::breaks_extended(n = x_breaks_n, only.loose = TRUE)
+          }
         }
       }
       else {
@@ -1370,11 +1372,13 @@ gg_blanket <- function(data = NULL,
     #get y_limits and y_breaks for 'symmetric'
     else {
       if (!rlang::is_null(y_limits)) {
-        if (any(y_transform_name %in% c("date", "time", "hms"))) {
-          y_breaks <- scales::breaks_pretty(n = y_breaks_n)
-        }
-        else {
-          y_breaks <- scales::breaks_extended(n = y_breaks_n, only.loose = TRUE)
+        if (rlang::is_null(y_breaks)) {
+          if (any(y_transform_name %in% c("date", "time", "hms"))) {
+            y_breaks <- scales::breaks_pretty(n = y_breaks_n)
+          }
+          else {
+            y_breaks <- scales::breaks_extended(n = y_breaks_n, only.loose = TRUE)
+          }
         }
       }
       else {

@@ -9,6 +9,7 @@
 * Changed `gg_sf` default to keeping all major gridlines.
 * Updated hex colour strings to caps.
 * Fixed code that was making the base plot an extra time unnecessarily.
+* Fixed bug where `*_breaks` and `*_limits` was not working.
 
 # ggblanket 9.1.0
 
