@@ -1,4 +1,4 @@
-# ggblanket 9.1.0.9000
+# ggblanket 9.1.1
 
 * Forced user argument naming for `set_blanket()`, `*_mode_*()` and `aes_contrast()`.
 * Fixed bug in colouring more discrete values than the set `col_palette_d`.

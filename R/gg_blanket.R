@@ -401,17 +401,17 @@ gg_blanket <- function(data = NULL,
   ##############################################################################
 
   if (!flipped & stat_name != "sf" & (!rlang::is_null(y_limits) | !rlang::is_null(y_expand))) {
-    rlang::warn("y 'symmetric' scale cannot be constructed unless `y_limits = NULL` & `y_expand = NULL`")
+    rlang::inform("y 'symmetric' scale cannot be constructed unless `y_limits = NULL` & `y_expand = NULL`")
   }
   if (!any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms")) & !flipped) {
-    rlang::warn("y 'symmetric' scale cannot be constructed with non-linear y_transform`")
+    rlang::inform("y 'symmetric' scale cannot be constructed with non-linear y_transform`")
   }
 
   if (flipped & stat_name != "sf" & (!rlang::is_null(x_limits) | !rlang::is_null(x_expand))) {
-    rlang::warn("x 'symmetric' scale cannot be constructed unless `x_limits = NULL` & `x_expand = NULL`")
+    rlang::inform("x 'symmetric' scale cannot be constructed unless `x_limits = NULL` & `x_expand = NULL`")
   }
   if (!any(x_transform_name %in% c("identity", "reverse", "date", "time", "hms")) & flipped) {
-    rlang::warn("x 'symmetric' scale cannot be constructed with non-linear x_transform`")
+    rlang::inform("x 'symmetric' scale cannot be constructed with non-linear x_transform`")
   }
 
   ##############################################################################
