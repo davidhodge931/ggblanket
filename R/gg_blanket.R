@@ -397,6 +397,24 @@ gg_blanket <- function(data = NULL,
   }
 
   ##############################################################################
+  #stop, warn and inform
+  ##############################################################################
+
+  if (!flipped & stat_name != "sf" & (!rlang::is_null(y_limits) | !rlang::is_null(y_expand))) {
+    rlang::warn("y 'symmetric' scale cannot be constructed unless `y_limits = NULL` & `y_expand = NULL`")
+  }
+  if (!any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms")) & !flipped) {
+    rlang::warn("y 'symmetric' scale cannot be constructed with non-linear y_transform`")
+  }
+
+  if (flipped & stat_name != "sf" & (!rlang::is_null(x_limits) | !rlang::is_null(x_expand))) {
+    rlang::warn("x 'symmetric' scale cannot be constructed unless `x_limits = NULL` & `x_expand = NULL`")
+  }
+  if (!any(x_transform_name %in% c("identity", "reverse", "date", "time", "hms")) & flipped) {
+    rlang::warn("x 'symmetric' scale cannot be constructed with non-linear x_transform`")
+  }
+
+  ##############################################################################
   # get the base plot using processed data
   ##############################################################################
 
@@ -608,16 +626,51 @@ gg_blanket <- function(data = NULL,
         if (any(x_transform_name %in% "reverse")) x_limits1 <- rev(x_limits)
         else x_limits1 <- x_limits
 
-        plot <- plot +
-          ggplot2::scale_x_continuous(limits = x_limits1)
-      }
+        if (any(plot_scales %in% "scale_x_discrete")) x_scale_type <- "discrete"
+        else if (any(plot_scales %in% "scale_x_date")) x_scale_type <- "date"
+        else if (any(plot_scales %in% "scale_x_datetime")) x_scale_type <- "datetime"
+        else if (any(plot_scales %in% "scale_x_time")) x_scale_type <- "time"
+        else if (any(plot_scales %in% "scale_x_continuous")) x_scale_type <- "numeric"
+        else x_scale_type <- "numeric"
+
+        if (x_scale_type == "discrete") {
+          plot <- plot +
+            ggplot2::scale_x_discrete(limits = x_limits1)
+        }
+        else if (x_scale_type == "date") {
+          plot <- plot +
+            ggplot2::scale_x_date(limits = x_limits1)
+        }
+        else if (x_scale_type %in% c("datetime", "time")) {
+          plot <- plot +
+            ggplot2::scale_x_datetime(limits = x_limits1)
+        }
+        else {
+          plot <- plot +
+            ggplot2::scale_x_continuous(limits = x_limits1)
+        }
+    }
 
       if (!rlang::is_null(y_limits)) {
         if (any(y_transform_name %in% "reverse")) y_limits1 <- rev(y_limits)
         else y_limits1 <- y_limits
 
-        plot <- plot +
-          ggplot2::scale_y_continuous(limits = y_limits1)
+        if (y_scale_type == "discrete") {
+          plot <- plot +
+            ggplot2::scale_y_discrete(limits = y_limits1)
+        }
+        else if (y_scale_type == "date") {
+          plot <- plot +
+            ggplot2::scale_y_date(limits = y_limits1)
+        }
+        else if (y_scale_type %in% c("datetime", "time")) {
+          plot <- plot +
+            ggplot2::scale_y_datetime(limits = y_limits1)
+        }
+        else {
+          plot <- plot +
+            ggplot2::scale_y_continuous(limits = y_limits1)
+        }
       }
     })
   })
@@ -1463,7 +1516,6 @@ gg_blanket <- function(data = NULL,
       }
     }
 
-    #make the y_scale
     plot <- plot +
       ggplot2::scale_y_continuous(
         limits = y_limits,

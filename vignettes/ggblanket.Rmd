@@ -257,7 +257,7 @@ If not specified, the `gg_*` function will guess the plot orientation (based on 
 Where `x_orientation = TRUE`, it will:
 
 * remove the y axis line/ticks and the x gridlines from the `mode` theme. 
-* where `y_limits = NULL`, make any _linear_ y continuous scale 'symmetric' if possible with (a) `y_limits` the range of `y_breaks` and (b) `y_expand = c(0, 0)`.
+* where `y_limits = NULL` and `y_expand = NULL`, make any _linear_ y continuous scale 'symmetric' if possible with (a) `y_limits` the range of `y_breaks` and (b) `y_expand = c(0, 0)`.
 
 The vice versa occurs when `y_orientation = TRUE`. 
 
