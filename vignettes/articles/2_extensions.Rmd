@@ -99,8 +99,8 @@ penguins2 |>
     col = species,
     title = "**{.#0095a8ff Adelie}**, **{.#ffa600ff Chinstrap}**, *and* 
     **{.#003f5cff Gentoo}** penguin species",
-    mode = light_mode_n()
   ) +
+  theme(legend.position = "none") +
   theme(plot.title = marquee::element_marquee()) 
 ```
 
@@ -231,8 +231,8 @@ p1 <- penguins2 |>
     col = sex,
     x_labels = \(x) str_to_upper(str_sub(x, 1, 1)),
     subtitle = "\nBeeswarm",
-    mode = light_mode_n(),
-  ) 
+  ) +
+  theme(legend.position = "none")
 
 p2 <- penguins2 |> 
   gg_point(
@@ -242,8 +242,8 @@ p2 <- penguins2 |>
     col = sex,
     x_labels = \(x) str_to_upper(str_sub(x, 1, 1)),
     subtitle = "\nQuasirandom",
-    mode = light_mode_n(),
-  ) 
+  ) +
+  theme(legend.position = "none")
 
 p1 + p2
 ```
@@ -303,11 +303,11 @@ data.frame(
     fill = blue,
     alpha = 0.6,
     y_expand = c(0.05, 0.05),
-    mode = light_mode_n(),
     # show_slab = FALSE,
     # show_interval = FALSE,
     # side = "both",
-  )
+  ) +
+  theme(legend.position = "none")
 ```
 
 ```{r}
@@ -415,8 +415,8 @@ p1 <- penguins2 |>
     col = species,
     col_palette = paletteer_d("RColorBrewer::Dark2"),
     x_breaks = breaks_extended(n = 4),
-    mode = light_mode_n(),
-  ) 
+  ) +
+  theme(legend.position = "none")
 
 p2 <- penguins2 |>
   gg_point(
@@ -425,8 +425,8 @@ p2 <- penguins2 |>
     col = bill_depth_mm,
     col_palette = paletteer_c("viridis::rocket", 9),
     x_breaks = breaks_extended(n = 4),
-    mode = light_mode_n(),
-  ) 
+  ) +
+  theme(legend.position = "none")
 
 p1 + p2
 ```
@@ -442,7 +442,6 @@ p1 <- penguins2 |>
     x = flipper_length_mm,
     col = species,
     y_limits = c(0, NA),
-    mode = light_mode_n(),
   ) +
   facet_wrap(~"Normal") +
   ggeasy::easy_remove_x_axis() +
@@ -454,7 +453,6 @@ p2 <- penguins2 |>
     x = flipper_length_mm,
     col = species,
     y_limits = c(0, NA),
-    mode = light_mode_n(),
   ) +
   facet_wrap(~"Blended") +
   geom_density(alpha = 0.6) |> ggblend::blend(blend = "multiply") +

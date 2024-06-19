@@ -234,7 +234,7 @@ penguins2 |>
 
 ### 10.  Families of `*_mode_*` themes with legend variants 
 
-`light_mode_*`, `grey_mode_*` and `dark_mode_*` theme families are provided with variants that differ based on legend placement with suffix `r` (right), `b` (bottom), `t` (top) and `n` (none). 
+`light_mode_*`, `grey_mode_*` and `dark_mode_*` theme families are provided with variants that differ based on legend placement with suffix `r` (right), `b` (bottom), and `t` (top). 
 
 These themes were built for use with the `mode` argument.
 

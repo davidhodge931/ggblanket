@@ -1,3 +1,7 @@
+# ggblanket 9.1.1.9000
+
+* Remove `*_mode_n` variants.
+
 # ggblanket 9.1.1
 
 * Forced user argument naming for `set_blanket()`, `*_mode_*()` and `aes_contrast()`.

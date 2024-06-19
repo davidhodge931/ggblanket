@@ -179,9 +179,9 @@ test_that(test_name, {
       width = 0.1,
       x_label = "Treatment",
       y_label = "Response",
-      mode = light_mode_n(),
-      subtitle = "\nmode = light_mode_n(),"
-    )
+      subtitle = "\nmode = light_mode_r(),"
+    ) +
+    theme(legend.position = "none")
 
   p2 <- d |>
     gg_errorbar(
@@ -192,9 +192,9 @@ test_that(test_name, {
       width = 0.1,
       x_label = "Treatment",
       y_label = "Response",
-      subtitle = "\n+ light_mode_n()"
+      subtitle = "\n+ light_mode_r()"
     ) +
-    light_mode_n()
+    theme(legend.position = "none")
 
   p <- p1 + p2
 
@@ -282,9 +282,9 @@ test_that(test_name, {
       width = 0.1,
       x_label = "Treatment",
       y_label = "Response",
-      mode = light_mode_n(),
       subtitle = "\nDefault y scale"
-    )
+    ) +
+    theme(legend.position = "none")
 
   p2 <- d |>
     gg_errorbar(
@@ -296,9 +296,9 @@ test_that(test_name, {
       x_label = "Treatment",
       y_label = "Response",
       y_limits = c(NA, NA),
-      mode = light_mode_n(),
       subtitle = "\ny_limits = c(NA, NA),"
-    )
+    ) +
+    theme(legend.position = "none")
 
   p3 <- d |>
     gg_col(
@@ -310,9 +310,9 @@ test_that(test_name, {
       x_label = "Treatment upper",
       y_label = "Response",
       y_limits = c(0, NA),
-      mode = light_mode_n(),
       subtitle = "\ny_limits = c(0, NA),"
-    )
+    ) +
+    theme(legend.position = "none")
 
   p <- p1 + p2 + p3
 

@@ -4,7 +4,6 @@
 \alias{light_mode_r}
 \alias{light_mode_t}
 \alias{light_mode_b}
-\alias{light_mode_n}
 \title{Light mode theme family}
 \usage{
 light_mode_r(
@@ -58,31 +57,6 @@ light_mode_t(
 )
 
 light_mode_b(
-  ...,
-  base_size = 11,
-  base_family = "",
-  base_colour = "#121B24FF",
-  axis_line_colour = "#121B24FF",
-  axis_line_linewidth = 0.33,
-  axis_ticks_colour = axis_line_colour,
-  axis_ticks_linewidth = axis_line_linewidth,
-  axis_ticks_length_x = grid::unit(base_size/3, "pt"),
-  axis_ticks_length_y = grid::unit(base_size/4, "pt"),
-  panel_grid_colour = "#F6F8FAFF",
-  panel_grid_linewidth = 1.33,
-  panel_background_fill = "#FFFFFFFF",
-  plot_background_fill = "#FFFFFFFF",
-  legend_axis_line_colour = plot_background_fill,
-  legend_axis_line_linewidth = 0.33,
-  legend_background_fill = plot_background_fill,
-  legend_key_fill = plot_background_fill,
-  legend_ticks_colour = legend_axis_line_colour,
-  legend_ticks_linewidth = legend_axis_line_linewidth,
-  legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-  orientation = NULL
-)
-
-light_mode_n(
   ...,
   base_size = 11,
   base_family = "",
@@ -161,7 +135,6 @@ A dark mode family of functions:
 \item \code{light_mode_r()} with legend on right
 \item \code{light_mode_t()} with legend on top
 \item \code{light_mode_b()} with legend on bottom
-\item \code{light_mode_n()} with no legend
 }
 }
 \examples{
@@ -192,14 +165,6 @@ penguins |>
     y = body_mass_g,
     col = species,
     mode = light_mode_b()
-  )
-
-penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = species,
-    mode = light_mode_n()
   )
 
 }

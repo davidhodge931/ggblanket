@@ -5,7 +5,6 @@
 #' * `light_mode_r()` with legend on right
 #' * `light_mode_t()` with legend on top
 #' * `light_mode_b()` with legend on bottom
-#' * `light_mode_n()` with no legend
 #'
 #' @param ... Provided to force user argument naming etc.
 #' @param base_size The base size of the text theme element. Defaults to 11.
@@ -61,14 +60,6 @@
 #'     y = body_mass_g,
 #'     col = species,
 #'     mode = light_mode_b()
-#'   )
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'     mode = light_mode_n()
 #'   )
 #'
 light_mode_r <- function (
@@ -266,68 +257,3 @@ light_mode_b <- function (
     orientation = orientation)
 }
 
-#' @rdname light_mode_r
-#' @export
-light_mode_n <- function (
-    ...,
-    base_size = 11,
-    base_family = "",
-    base_colour = "#121B24FF",
-    axis_line_colour = "#121B24FF",
-    axis_line_linewidth = 0.33,
-    axis_ticks_colour = axis_line_colour,
-    axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length_x = grid::unit(base_size / 3, "pt"),
-    axis_ticks_length_y = grid::unit(base_size / 4, "pt"),
-    panel_grid_colour = "#F6F8FAFF",
-    panel_grid_linewidth = 1.33,
-    panel_background_fill ="#FFFFFFFF",
-    plot_background_fill = "#FFFFFFFF",
-    legend_axis_line_colour = plot_background_fill,
-    legend_axis_line_linewidth = 0.33,
-    legend_background_fill = plot_background_fill,
-    legend_key_fill = plot_background_fill,
-    legend_ticks_colour = legend_axis_line_colour,
-    legend_ticks_linewidth = legend_axis_line_linewidth,
-    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    orientation = NULL) {
-
-  flex_mode_n(
-    base_size = base_size,
-    base_family = base_family,
-    base_colour = base_colour,
-    base_face = "plain",
-    plot_title_size = ggplot2::rel(1.1),
-    plot_title_family = base_family,
-    plot_title_face = "bold",
-    plot_title_colour = base_colour,
-    plot_subtitle_size = ggplot2::rel(1),
-    plot_subtitle_family = base_family,
-    plot_subtitle_face = "plain",
-    plot_subtitle_colour = base_colour,
-    plot_caption_size = ggplot2::rel(0.85),
-    plot_caption_family = base_family,
-    plot_caption_face = "plain",
-    plot_caption_colour = colorspace::lighten(base_colour, 0.1),
-    plot_caption_hjust = 0,
-
-    axis_line_colour = axis_line_colour,
-    axis_line_linewidth = axis_line_linewidth,
-    axis_ticks_colour = axis_ticks_colour,
-    axis_ticks_linewidth = axis_ticks_linewidth,
-    axis_ticks_length_x = axis_ticks_length_x,
-    axis_ticks_length_y = axis_ticks_length_y,
-    panel_grid_colour = panel_grid_colour,
-    panel_grid_linewidth = panel_grid_linewidth,
-    panel_background_fill = panel_background_fill,
-    plot_background_fill = plot_background_fill,
-    legend_axis_line_colour = legend_axis_line_colour,
-    legend_axis_line_linewidth = legend_axis_line_linewidth,
-    legend_background_fill = legend_background_fill,
-    legend_key_fill = legend_key_fill,
-    legend_ticks_colour = legend_ticks_colour,
-    legend_ticks_linewidth = legend_ticks_linewidth,
-    legend_ticks_length = legend_ticks_length,
-    orientation = orientation
-  )
-}

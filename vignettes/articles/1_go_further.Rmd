@@ -98,8 +98,8 @@ penguins2 |>
     x = sex, 
     y = flipper_length_mm,
     col = sex,
-    mode = light_mode_n(),
-  ) 
+  ) +
+  theme(legend.position = "none")
 ```
 
 ### 3. Use `+ *_mode_*` where axis-lines and gridlines are not as wanted
