@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.1.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -180,8 +180,8 @@ used to get a lot of the ggblanket style also works with ggplot2.</p>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"**{.#0095a8ff Adelie}**, **{.#ffa600ff Chinstrap}**, *and* </span></span>
 <span><span class="st">    **{.#003f5cff Gentoo}** penguin species"</span>,</span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu">marquee</span><span class="fu">::</span><span class="fu"><a href="https://marquee.r-lib.org/reference/element_marquee.html" class="external-link">element_marquee</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-3-1.svg" width="70%"></p>
 </div>
@@ -339,8 +339,8 @@ labels.</p>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_upper</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"\nBeeswarm"</span>,</span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> </span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
@@ -350,8 +350,8 @@ labels.</p>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html" class="external-link">str_to_upper</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"\nQuasirandom"</span>,</span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> </span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
@@ -419,11 +419,11 @@ labels.</p>
 <span>    fill <span class="op">=</span> <span class="va">blue</span>,</span>
 <span>    alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
 <span>    y_expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    <span class="co"># show_slab = FALSE,</span></span>
 <span>    <span class="co"># show_interval = FALSE,</span></span>
 <span>    <span class="co"># side = "both",</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="http://mjskay.github.io/ggdist/reference/geom_lineribbon.html" class="external-link">geom_lineribbon</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -539,8 +539,8 @@ R.</p>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    col_palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html" class="external-link">paletteer_d</a></span><span class="op">(</span><span class="st">"RColorBrewer::Dark2"</span><span class="op">)</span>,</span>
 <span>    x_breaks <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/breaks_extended.html" class="external-link">breaks_extended</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> </span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
@@ -549,8 +549,8 @@ R.</p>
 <span>    col <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
 <span>    col_palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/paletteer/man/paletteer_c.html" class="external-link">paletteer_c</a></span><span class="op">(</span><span class="st">"viridis::rocket"</span>, <span class="fl">9</span><span class="op">)</span>,</span>
 <span>    x_breaks <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/breaks_extended.html" class="external-link">breaks_extended</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="op">)</span> </span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="2_extensions_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
@@ -566,7 +566,6 @@ graphics device that supports blending.</p>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="st">"Normal"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggeasy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggeasy/man/easy_remove_axes.html" class="external-link">easy_remove_x_axis</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -578,7 +577,6 @@ graphics device that supports blending.</p>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="st">"Blended"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html" class="external-link">geom_density</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggblend</span><span class="fu">::</span><span class="fu"><a href="https://mjskay.github.io/ggblend/reference/blend.html" class="external-link">blend</a></span><span class="op">(</span>blend <span class="op">=</span> <span class="st">"multiply"</span><span class="op">)</span> <span class="op">+</span></span>
