@@ -358,38 +358,35 @@ argument.</p>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="helpful-orientation-defaults-and-side-effects">11. Helpful orientation defaults and side-effects<a class="anchor" aria-label="anchor" href="#helpful-orientation-defaults-and-side-effects"></a>
+<h3 id="helpful-defaults-and-side-effects">11. Helpful defaults and side-effects<a class="anchor" aria-label="anchor" href="#helpful-defaults-and-side-effects"></a>
 </h3>
-<p>The <code>gg_*</code> function will guess the orientation of the plot
-(based on whether the y axis is discrete).</p>
-<p>If it is guessed an x orientation, it will:</p>
+<p>For most plots, the <code>gg_*</code> function will:</p>
 <ul>
 <li>remove the y axis line/ticks and the x gridlines from the
 <code>mode</code> theme.</li>
-<li>generally make <em>linear</em> y continuous scales ‘symmetric’ with
-(a) <code>y_limits</code> the range of <code>y_breaks</code> and (b)
+<li>make a <em>linear</em> y continuous scale ‘symmetric’ with (a)
+<code>y_limits</code> the range of <code>y_breaks</code> and (b)
 <code>y_expand = c(0, 0)</code>.</li>
 </ul>
-<p>The vice versa occurs when it guesses a y orientation.</p>
+<p>However, the <code>gg_*</code> plot will do the opposite when the
+plot has a continuous x axis <em>and</em> a discrete y axis.</p>
 <p>To avoid these side-effects:</p>
 <ul>
 <li>
 <code>+</code> the theme on to the <code>gg_*</code> output</li>
-<li>Change the <code>*_symmetric</code> arguments.</li>
+<li>add a <code>*_symmetric = FALSE</code> argument.</li>
 </ul>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"\nx_orientation = TRUE"</span>,</span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"\ny_orientation = TRUE"</span>,</span>
 <span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
