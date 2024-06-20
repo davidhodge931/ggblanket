@@ -250,35 +250,31 @@ penguins2 |>
   ) 
 ```
 
-### 11.  Helpful orientation defaults and side-effects 
+### 11.  Helpful defaults and side-effects 
 
-The `gg_*` function will guess the orientation of the plot (based on whether the y axis is discrete).
-
-If it is guessed an x orientation, it will:
+For most plots, the `gg_*` function will:
 
 * remove the y axis line/ticks and the x gridlines from the `mode` theme. 
-* generally make _linear_ y continuous scales 'symmetric' with (a) `y_limits` the range of `y_breaks` and (b) `y_expand = c(0, 0)`.
+* make a _linear_ y continuous scale 'symmetric' with (a) `y_limits` the range of `y_breaks` and (b) `y_expand = c(0, 0)`.
 
-The vice versa occurs when it guesses a y orientation. 
+However, the `gg_*` plot will do the opposite when the plot has a continuous x axis _and_ a discrete y axis.
 
 To avoid these side-effects:
 
 * `+` the theme on to the `gg_*` output
-* Change the `*_symmetric` arguments. 
+* add a `*_symmetric = FALSE` argument. 
 
 ```{r}
 p1 <- penguins2 |>
   gg_jitter(
     x = sex,
     y = bill_depth_mm,
-    subtitle = "\nx_orientation = TRUE",
   )
 
 p2 <- penguins2 |>
   gg_jitter(
     x = bill_depth_mm,
     y = sex,
-    subtitle = "\ny_orientation = TRUE",
   ) 
 
 p1 + p2
