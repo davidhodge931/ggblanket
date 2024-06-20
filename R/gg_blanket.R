@@ -169,8 +169,7 @@ gg_blanket <- function(data = NULL,
   if (any(is.na(x_limits)) |
       any(is.na(y_limits)) |
       any(is.na(col_limits))) {
-    rlang::abort("NA values in `*_limits` are not supported.
-                 Please use `*_symmetric` and/or `*_expand_limits`")
+    rlang::abort("NA values in `*_limits` are not supported: Please use `*_symmetric` and/or `*_expand_limits` instead")
   }
 
   ##############################################################################
