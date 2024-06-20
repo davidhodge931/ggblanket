@@ -354,7 +354,7 @@ data.frame(
     x = x, 
     y = y, 
     colour = NA,
-    y_limits = c(NA, NA),
+    y_symmetric = FALSE,
   ) +
   guides(colour = FALSE, fill = FALSE)
 ```
@@ -375,7 +375,7 @@ data.frame(
     col = z,
     facet = z,
     colour = NA,
-    y_limits = c(NA, NA),
+    y_symmetric = FALSE,
   ) 
 ```
 
@@ -441,7 +441,7 @@ p1 <- penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = species,
-    y_limits = c(0, NA),
+    y_symmetric = FALSE,
   ) +
   facet_wrap(~"Normal") +
   ggeasy::easy_remove_x_axis() +
@@ -452,7 +452,7 @@ p2 <- penguins2 |>
     stat = "density",
     x = flipper_length_mm,
     col = species,
-    y_limits = c(0, NA),
+    y_symmetric = FALSE,
   ) +
   facet_wrap(~"Blended") +
   geom_density(alpha = 0.6) |> ggblend::blend(blend = "multiply") +

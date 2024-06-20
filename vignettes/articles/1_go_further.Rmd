@@ -257,7 +257,7 @@ p1 + p2
 
 ### 8. Avoid the 'symmetric' scale
 
-Where `*_orientation = TRUE`, it will make relevant linear continuous scales ‘symmetric’ where possible with (a) `*_limits` the range of `*_breaks` and (b) `*_expand = c(0, 0)`. 
+Symmetric scales can be turned off or on using `*_symmetric` arguments. 
 
 ```{r}
 p1 <- penguins2 |>
@@ -267,7 +267,7 @@ p1 <- penguins2 |>
     stat = "summary",
     position = position_dodge(),
     x_labels = \(x) str_sub(x, 1, 1),
-    subtitle = "\ny_limits = NULL",
+    subtitle = "\ny_symmetric = NULL",
     mode = grey_mode_r()
   ) +
   labs(y = NULL)
@@ -279,8 +279,8 @@ p2 <- penguins2 |>
     stat = "summary",
     position = position_dodge(),
     x_labels = \(x) str_sub(x, 1, 1),
-    y_limits = c(NA, NA),
-    subtitle = "\ny_limits = c(NA, NA),",
+    y_symmetric = FALSE,
+    subtitle = "\ny_symmetric = FALSE,",
     mode = grey_mode_r()
   ) +
   labs(y = NULL)
@@ -294,7 +294,7 @@ p3 <- penguins2 |>
     width = 0.5,
     x_labels = \(x) str_sub(x, 1, 1),
     y_limits = c(0, NA),
-    subtitle = "\ny_limits = c(0, NA),",
+    subtitle = "\ny_symmetric = FALSE,",
     mode = grey_mode_r()
   ) +
   labs(y = NULL)
