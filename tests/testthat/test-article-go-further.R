@@ -228,8 +228,7 @@ test_that(test_name, {
       width = 1,
       orientation = "y",
       x_labels = \(x) abs(x),
-      x_include = max(abs(.$population)) * c(-1, 1),
-      y_limits = c(NA, NA),
+      y_symmetric = TRUE,
     ) +
     geom_vline(
       xintercept = 0,
@@ -257,8 +256,7 @@ test_that(test_name, {
       width = 1,
       orientation = "y",
       x_labels = \(x) abs(x),
-      x_include = max(abs(.$population)) * c(-1, 1),
-      y_limits = c(NA, NA),
+      y_symmetric = TRUE,
     ) +
     geom_vline(
       xintercept = 0,

@@ -163,11 +163,10 @@ library(dplyr)
 set_blanket()
 
 economics |>
+  filter(date > lubridate::ymd("2010-01-01")) |>
   gg_step(
     x = date,
     y = unemploy,
-    coord = ggplot2::coord_cartesian(clip = "on"),
-    x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
     y_expand_limits = 0,
     y_label = "Unemployment",
   )

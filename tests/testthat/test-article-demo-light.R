@@ -591,11 +591,10 @@ test_name <- "gg_step"
 
 test_that(test_name, {
   p <- economics |>
+    filter(date > lubridate::ymd("2010-01-01")) |>
     gg_step(
       x = date,
       y = unemploy,
-      coord = coord_cartesian(clip = "on"),
-      x_limits = c(lubridate::ymd("2010-01-01"), lubridate::NA_Date_),
       y_expand_limits = 0,
       y_label = "Unemployment",
     )

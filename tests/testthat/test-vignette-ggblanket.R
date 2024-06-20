@@ -295,7 +295,7 @@ test_that(test_name, {
       width = 0.1,
       x_label = "Treatment",
       y_label = "Response",
-      y_limits = c(NA, NA),
+      y_symmetric = TRUE,
       subtitle = "\ny_limits = c(NA, NA),"
     ) +
     theme(legend.position = "none")
@@ -309,7 +309,7 @@ test_that(test_name, {
       width = 0.5,
       x_label = "Treatment upper",
       y_label = "Response",
-      y_limits = c(0, NA),
+      y_symmetric = TRUE,
       subtitle = "\ny_limits = c(0, NA),"
     ) +
     theme(legend.position = "none")
