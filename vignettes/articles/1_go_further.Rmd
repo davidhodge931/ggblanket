@@ -263,7 +263,7 @@ Symmetric scales can be turned off or on using `*_symmetric` arguments.
 p1 <- penguins2 |>
   gg_pointrange(
     x = sex,
-    y = flipper_length_mm,
+    y = bill_length_mm,
     stat = "summary",
     position = position_dodge(),
     x_labels = \(x) str_sub(x, 1, 1),
@@ -275,7 +275,7 @@ p1 <- penguins2 |>
 p2 <- penguins2 |>
   gg_pointrange(
     x = sex,
-    y = flipper_length_mm,
+    y = bill_length_mm,
     stat = "summary",
     position = position_dodge(),
     x_labels = \(x) str_sub(x, 1, 1),
@@ -288,19 +288,18 @@ p2 <- penguins2 |>
 p3 <- penguins2 |>
   gg_col(
     x = sex,
-    y = flipper_length_mm,
+    y = bill_length_mm,
     stat = "summary",
     position = position_dodge(),
     width = 0.5,
     x_labels = \(x) str_sub(x, 1, 1),
-    y_limits = c(0, NA),
+    y_symmetric = FALSE,
     subtitle = "\ny_symmetric = FALSE,",
     mode = grey_mode_r()
   ) +
   labs(y = NULL)
 
 p1 + p2 + p3
-
 ```
 
 ### 9. Avoid the mode side-effects
