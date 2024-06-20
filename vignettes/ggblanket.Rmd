@@ -269,12 +269,14 @@ p1 <- penguins2 |>
   gg_jitter(
     x = sex,
     y = bill_depth_mm,
+    mode = grey_mode_r(),
   )
 
 p2 <- penguins2 |>
   gg_jitter(
     x = bill_depth_mm,
     y = sex,
+    mode = grey_mode_r(),
   ) 
 
 p1 + p2
