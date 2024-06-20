@@ -259,8 +259,6 @@ p1 + p2
 
 Where `*_orientation = TRUE`, it will make relevant linear continuous scales ‘symmetric’ where possible with (a) `*_limits` the range of `*_breaks` and (b) `*_expand = c(0, 0)`. 
 
-But you can avoid this by adding a `*_limits = c(NA, NA)` argument (or `*_limits = c(0, NA)` for bars).
-
 ```{r}
 p1 <- penguins2 |>
   gg_pointrange(

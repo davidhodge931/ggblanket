@@ -397,24 +397,6 @@ gg_blanket <- function(data = NULL,
   }
 
   ##############################################################################
-  #stop, warn and inform
-  ##############################################################################
-
-  if (!flipped & stat_name != "sf" & (!rlang::is_null(y_limits) | !rlang::is_null(y_expand))) {
-    rlang::inform("y 'symmetric' scale cannot be constructed unless `y_limits = NULL` & `y_expand = NULL`")
-  }
-  if (!any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms")) & !flipped) {
-    rlang::inform("y 'symmetric' scale cannot be constructed with non-linear y_transform`")
-  }
-
-  if (flipped & stat_name != "sf" & (!rlang::is_null(x_limits) | !rlang::is_null(x_expand))) {
-    rlang::inform("x 'symmetric' scale cannot be constructed unless `x_limits = NULL` & `x_expand = NULL`")
-  }
-  if (!any(x_transform_name %in% c("identity", "reverse", "date", "time", "hms")) & flipped) {
-    rlang::inform("x 'symmetric' scale cannot be constructed with non-linear x_transform`")
-  }
-
-  ##############################################################################
   # get the base plot using processed data
   ##############################################################################
 
@@ -790,7 +772,6 @@ gg_blanket <- function(data = NULL,
                  any(col_transform_name %in% c("log", "log2", "log10"))) {
           col_labels <- scales::label_log()
         }
-        else if (!any(col_transform_name %in% c("identity", "reverse"))) col_labels <- ggplot2::waiver()
         else col_labels <- scales::label_comma(drop0trailing = TRUE)
       }
 
@@ -1191,7 +1172,6 @@ gg_blanket <- function(data = NULL,
                any(x_transform_name %in% c("log", "log2", "log10"))) {
         x_labels <- scales::label_log()
       }
-      else if (!any(x_transform_name %in% c("identity", "reverse"))) x_labels <- ggplot2::waiver()
       else x_labels <- scales::label_comma(drop0trailing = TRUE)
     }
 
@@ -1206,10 +1186,8 @@ gg_blanket <- function(data = NULL,
         stringr::str_detect(stat_name, "sf") |
         facet_scales %in% c("free", "free_x") |
         length(x_transform_name) > 1 |
-        !any(x_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
-        !rlang::is_null(x_expand)) {
-
-      # x_breaks_n <- x_breaks_n + 1
+        !any(x_transform_name %in% c("identity", "reverse", "date", "time", "hms"))
+        ) {
 
       if (rlang::is_null(x_expand)) {
         if (any(colnames(plot_data) %in% "xmin")) {
@@ -1239,8 +1217,18 @@ gg_blanket <- function(data = NULL,
           if (any(x_transform_name %in% c("date", "time", "hms"))) {
             x_breaks <- scales::breaks_pretty(n = x_breaks_n)
           }
-          else {
+          else if (any(is.na(x_limits)) & x_scale_type == "numeric") {
             x_breaks <- scales::breaks_extended(n = x_breaks_n, only.loose = TRUE)
+          }
+          else if (any(is.na(x_limits))) {
+            x_breaks <- scales::breaks_pretty(n = x_breaks_n)
+          }
+          else {
+            x_breaks <- seq(
+              from = x_limits[1],
+              to = x_limits[2],
+              by = (x_limits[2] - x_limits[1]) / (x_breaks_n - 1)
+            )
           }
         }
       }
@@ -1307,7 +1295,7 @@ gg_blanket <- function(data = NULL,
 
       #and x_expand
       if (rlang::is_null(x_expand)) {
-        if (!rlang::is_null(x_limits)) {
+        # if (!rlang::is_null(x_limits)) {
           if (identical(x_limits, c(NA, NA))) {
             x_expand <- ggplot2::waiver()
           }
@@ -1321,8 +1309,8 @@ gg_blanket <- function(data = NULL,
             x_expand <- ggplot2::waiver()
           }
           else x_expand <- c(0, 0)
-        }
-        else x_expand <- c(0, 0)
+      #   }
+      #   else x_expand <- c(0, 0)
       }
     }
 
@@ -1381,7 +1369,6 @@ gg_blanket <- function(data = NULL,
                any(y_transform_name %in% c("log", "log2", "log10"))) {
         y_labels <- scales::label_log()
       }
-      else if (!any(y_transform_name %in% c("identity", "reverse"))) y_labels <- ggplot2::waiver()
       else y_labels <- scales::label_comma(drop0trailing = TRUE)
     }
 
@@ -1391,13 +1378,15 @@ gg_blanket <- function(data = NULL,
     else if (facet_nrows == 3) y_breaks_n <- 4
     else y_breaks_n <- 3
 
+
+
     #get y_expand and y_breaks for non-'symmetric' scales situation
     if (flipped |
         stringr::str_detect(stat_name, "sf") |
         facet_scales %in% c("free", "free_y") |
         length(y_transform_name) > 1 |
-        !any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
-        !rlang::is_null(y_expand)) {
+        !any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms"))
+        ) {
 
       # y_breaks_n <- y_breaks_n + 1
 
@@ -1429,8 +1418,18 @@ gg_blanket <- function(data = NULL,
           if (any(y_transform_name %in% c("date", "time", "hms"))) {
             y_breaks <- scales::breaks_pretty(n = y_breaks_n)
           }
-          else {
+          else if (any(is.na(y_limits)) & y_scale_type == "numeric") {
             y_breaks <- scales::breaks_extended(n = y_breaks_n, only.loose = TRUE)
+          }
+          else if (any(is.na(y_limits))) {
+            y_breaks <- scales::breaks_pretty(n = y_breaks_n)
+          }
+          else {
+            y_breaks <- seq(
+              from = y_limits[1],
+              to = y_limits[2],
+              by = (y_limits[2] - y_limits[1]) / (y_breaks_n - 1)
+            )
           }
         }
       }
@@ -1497,7 +1496,7 @@ gg_blanket <- function(data = NULL,
 
       #and y_expand
       if (rlang::is_null(y_expand)) {
-        if (!rlang::is_null(y_limits)) {
+        # if (!rlang::is_null(y_limits)) {
           if (identical(y_limits, c(NA, NA))) {
             y_expand <- ggplot2::waiver()
           }
@@ -1511,8 +1510,8 @@ gg_blanket <- function(data = NULL,
             y_expand <- ggplot2::waiver()
           }
           else y_expand <- c(0, 0)
-        }
-        else y_expand <- c(0, 0)
+        # }
+        # else y_expand <- c(0, 0)
       }
     }
 
