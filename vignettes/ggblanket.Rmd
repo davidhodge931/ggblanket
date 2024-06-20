@@ -261,10 +261,10 @@ If it is guessed an x orientation, it will:
 
 The vice versa occurs when it guesses a y orientation. 
 
-You can avoid these side-effects by:
+To avoid these side-effects:
 
-* `+`-ing your theme on to the `gg_*` output
-* Changing the `*_symmetric` arguments. 
+* `+` the theme on to the `gg_*` output
+* Change the `*_symmetric` arguments. 
 
 ```{r}
 p1 <- penguins2 |>

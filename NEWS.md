@@ -2,9 +2,8 @@
 
 * Breaking: Removed `*_mode_n` variants.
 * Breaking: Removed `*_orientation` arguments.
+* Breaking: NA values in `*_limits` are no longer supported.
 * Added `*_symmetric` arguments.
-* Made symmetric scale build if `*_limits` specified and `*_breaks` not.
-* Made `*_labels` default to `scales::label_comma()` for unusual transformations.
 
 # ggblanket 9.1.1
 

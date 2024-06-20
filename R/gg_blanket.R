@@ -157,13 +157,20 @@ gg_blanket <- function(data = NULL,
   sample <- rlang::enquo(sample)
 
   ##############################################################################
-  #stop, warn and inform
+  #abort if necessary
   ##############################################################################
 
   if (!rlang::is_null(mapping)) {
     if (any(names(unlist(mapping)) %in% c("facet", "facet2"))) {
       rlang::abort("mapping argument does not support facet or facet2")
     }
+  }
+
+  if (any(is.na(x_limits)) |
+      any(is.na(y_limits)) |
+      any(is.na(col_limits))) {
+    rlang::abort("NA values in `*_limits` are not supported.
+                 Please use `*_symmetric` and/or `*_expand_limits`")
   }
 
   ##############################################################################
