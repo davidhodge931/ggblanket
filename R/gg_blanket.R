@@ -19,7 +19,7 @@
 #' @param x_limits,y_limits,col_limits For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with `factor`, `forcats::fct_expand` or `forcats::fct_drop`.
 #' @param x_oob,y_oob,col_oob For a continuous scale, a `scales::oob_*` function of how to handle values outside of limits. Defaults to `scales::oob_keep`.
 #' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_mode_*` theme, add `caption = ""` or `caption = "\n"`.
-#' @param x_orientation,y_orientation `TRUE` or `FALSE` of whether the mode and scales orientation should be to x or y. Note, these arguments do not affect the orientation of the layer itself.
+#' @param x_symmetric,y_symmetric `TRUE` or `FALSE` of whether a x or y 'symmetric' scale should be built.
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
@@ -93,7 +93,7 @@ gg_blanket <- function(data = NULL,
                        x_labels = NULL,
                        x_limits = NULL,
                        x_oob = scales::oob_keep,
-                       x_orientation = NULL, x_position = "bottom",
+                       x_symmetric = NULL, x_position = "bottom",
                        x_label = NULL,
                        x_transform = NULL,
                        y_breaks = NULL,
@@ -102,7 +102,7 @@ gg_blanket <- function(data = NULL,
                        y_labels = NULL,
                        y_limits = NULL,
                        y_oob = scales::oob_keep,
-                       y_orientation = NULL, y_position = "left",
+                       y_symmetric = NULL, y_position = "left",
                        y_label = NULL,
                        y_transform = NULL,
                        col_breaks = NULL,
@@ -300,52 +300,6 @@ gg_blanket <- function(data = NULL,
   }
 
   ##############################################################################
-  # determine flipped or not
-  ##############################################################################
-
-  if (!rlang::is_null(x_orientation)) {
-    if (x_orientation) flipped <- FALSE
-    else flipped <- TRUE
-  }
-  else if (!rlang::is_null(y_orientation)) {
-    if (y_orientation) flipped <- TRUE
-    else flipped <- FALSE
-  }
-  else {
-    if (x_scale_type %in% c("numeric", "date", "datetime", "time") &
-        y_scale_type == "discrete") {
-      flipped <- TRUE
-    }
-    else flipped <- FALSE
-  }
-
-  ##############################################################################
-  # process the data
-  ##############################################################################
-
-  data <- data %>%
-    #ungroup the data
-    dplyr::ungroup() %>%
-    #convert to factors class that can handle labels
-    dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
-                                  !!y, !!ymin, !!ymax, !!yend,
-                                  !!col, !!facet, !!facet2) &
-                                  (tidyselect::where(is.character) | tidyselect::where(is.factor) | tidyselect::where(is.logical)),
-                                function(x) labelled::to_factor(x))) %>%
-    #reverse y*, so that reads top low-levels to bottom high-levels
-    dplyr::mutate(dplyr::across(c(!!y, !!ymin, !!ymax, !!yend) &
-                                  tidyselect::where(is.factor),
-                                function(x) forcats::fct_rev(x)))
-
-  #if flipped, order col correctly
-  if ((!identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) &
-      flipped) {
-    data <- data %>%
-      dplyr::mutate(dplyr::across(!!col & tidyselect::where(is.factor),
-                                  function(x) forcats::fct_rev(x)))
-  }
-
-  ##############################################################################
   # get more defaults
   ##############################################################################
 
@@ -394,6 +348,67 @@ gg_blanket <- function(data = NULL,
   #get mode if NULL
   if (rlang::is_null(mode)) {
     mode <- get_mode()
+  }
+
+  ##############################################################################
+  # determine flipped or not
+  ##############################################################################
+
+  if (rlang::is_null(x_symmetric)) {
+    if (stringr::str_detect(stat_name, "sf") |
+        facet_scales %in% c("free", "free_x") |
+        length(x_transform_name) > 1 |
+        !any(x_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
+        !(x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete")
+    ) {
+      x_symmetric <- FALSE
+    }
+    else x_symmetric <- TRUE
+  }
+
+  if (rlang::is_null(y_symmetric)) {
+    if (stringr::str_detect(stat_name, "sf") |
+        facet_scales %in% c("free", "free_y") |
+        length(y_transform_name) > 1 |
+        !any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms")) |
+        !(y_scale_type %in% c("numeric", "date", "datetime", "time"))
+    ) {
+      y_symmetric <- FALSE
+    }
+    else y_symmetric <- TRUE
+  }
+
+  if (x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete") {
+    flipped <- TRUE
+  }
+  else {
+    flipped <- FALSE
+  }
+
+  ##############################################################################
+  # process the data
+  ##############################################################################
+
+  data <- data %>%
+    #ungroup the data
+    dplyr::ungroup() %>%
+    #convert to factors class that can handle labels
+    dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
+                                  !!y, !!ymin, !!ymax, !!yend,
+                                  !!col, !!facet, !!facet2) &
+                                  (tidyselect::where(is.character) | tidyselect::where(is.factor) | tidyselect::where(is.logical)),
+                                function(x) labelled::to_factor(x))) %>%
+    #reverse y*, so that reads top low-levels to bottom high-levels
+    dplyr::mutate(dplyr::across(c(!!y, !!ymin, !!ymax, !!yend) &
+                                  tidyselect::where(is.factor),
+                                function(x) forcats::fct_rev(x)))
+
+  #if flipped, order col correctly
+  if ((!identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) &
+      flipped) {
+    data <- data %>%
+      dplyr::mutate(dplyr::across(!!col & tidyselect::where(is.factor),
+                                  function(x) forcats::fct_rev(x)))
   }
 
   ##############################################################################
@@ -1182,12 +1197,7 @@ gg_blanket <- function(data = NULL,
     else x_breaks_n <- 3
 
     #get x_expand and x_breaks for non-'symmetric' scales situation
-    if (!flipped |
-        stringr::str_detect(stat_name, "sf") |
-        facet_scales %in% c("free", "free_x") |
-        length(x_transform_name) > 1 |
-        !any(x_transform_name %in% c("identity", "reverse", "date", "time", "hms"))
-        ) {
+    if (!x_symmetric) {
 
       if (rlang::is_null(x_expand)) {
         if (any(colnames(plot_data) %in% "xmin")) {
@@ -1378,17 +1388,8 @@ gg_blanket <- function(data = NULL,
     else if (facet_nrows == 3) y_breaks_n <- 4
     else y_breaks_n <- 3
 
-
-
     #get y_expand and y_breaks for non-'symmetric' scales situation
-    if (flipped |
-        stringr::str_detect(stat_name, "sf") |
-        facet_scales %in% c("free", "free_y") |
-        length(y_transform_name) > 1 |
-        !any(y_transform_name %in% c("identity", "reverse", "date", "time", "hms"))
-        ) {
-
-      # y_breaks_n <- y_breaks_n + 1
+    if (!y_symmetric) {
 
       if (rlang::is_null(y_expand)) {
         if (any(colnames(plot_data) %in% "ymin")) {
