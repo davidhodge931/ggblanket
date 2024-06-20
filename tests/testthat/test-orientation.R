@@ -39,7 +39,8 @@ test_that(test_name, {
   p <- penguins |>
     gg_histogram(
       y = flipper_length_mm,
-      y_orientation = TRUE,
+      x_symmetric = FALSE,
+      y_symmetric = TRUE,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -52,7 +53,22 @@ test_that(test_name, {
   p <- penguins |>
     gg_histogram(
       y = flipper_length_mm,
-      x_orientation = FALSE,
+      x_symmetric = TRUE,
+      y_symmetric = FALSE,
+    )
+
+  vdiffr::expect_doppelganger(test_name, p)
+})
+
+test_name <- "5"
+
+test_that(test_name, {
+
+  p <- penguins |>
+    gg_histogram(
+      y = flipper_length_mm,
+      x_symmetric = TRUE,
+      y_symmetric = TRUE,
     )
 
   vdiffr::expect_doppelganger(test_name, p)

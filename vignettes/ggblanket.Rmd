@@ -264,7 +264,7 @@ The vice versa occurs when `y_orientation = TRUE`.
 You can avoid these side-effects by:
 
 * `+`-ing your theme on to the `gg_*` output
-* adding a `*_limits = c(NA, NA)` argument (or `*_limits = c(0, NA)` for bars). 
+* Add a `*_symmetric` argument. 
 
 ```{r}
 p1 <- penguins2 |>

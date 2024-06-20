@@ -157,7 +157,7 @@ penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = species,
-    mode = light_mode_t(),
+    mode = light_cmode_t(),
   )
 ```
 
