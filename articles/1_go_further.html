@@ -358,19 +358,17 @@ argument.</p>
 <div class="section level3">
 <h3 id="avoid-the-symmetric-scale">8. Avoid the ‘symmetric’ scale<a class="anchor" aria-label="anchor" href="#avoid-the-symmetric-scale"></a>
 </h3>
-<p>Where <code>*_orientation = TRUE</code>, it will make relevant linear
-continuous scales ‘symmetric’ where possible with (a)
-<code>*_limits</code> the range of <code>*_breaks</code> and (b)
-<code>*_expand = c(0, 0)</code>.</p>
+<p>Symmetric scales can be turned off or on using
+<code>*_symmetric</code> arguments.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_pointrange.html">gg_pointrange</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">bill_length_mm</span>,</span>
 <span>    stat <span class="op">=</span> <span class="st">"summary"</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"\ny_limits = NULL"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\ny_symmetric = NULL"</span>,</span>
 <span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_r.html">grey_mode_r</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
@@ -378,12 +376,12 @@ continuous scales ‘symmetric’ where possible with (a)
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_pointrange.html">gg_pointrange</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">bill_length_mm</span>,</span>
 <span>    stat <span class="op">=</span> <span class="st">"summary"</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"\ny_limits = c(NA, NA),"</span>,</span>
+<span>    y_symmetric <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\ny_symmetric = FALSE,"</span>,</span>
 <span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_r.html">grey_mode_r</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
@@ -391,13 +389,13 @@ continuous scales ‘symmetric’ where possible with (a)
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_col.html">gg_col</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">sex</span>,</span>
-<span>    y <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">bill_length_mm</span>,</span>
 <span>    stat <span class="op">=</span> <span class="st">"summary"</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"\ny_limits = c(0, NA),"</span>,</span>
+<span>    y_symmetric <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\ny_symmetric = FALSE,"</span>,</span>
 <span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/grey_mode_r.html">grey_mode_r</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
