@@ -157,22 +157,6 @@ gg_blanket <- function(data = NULL,
   sample <- rlang::enquo(sample)
 
   ##############################################################################
-  #abort if necessary
-  ##############################################################################
-
-  if (!rlang::is_null(mapping)) {
-    if (any(names(unlist(mapping)) %in% c("facet", "facet2"))) {
-      rlang::abort("mapping argument does not support facet or facet2")
-    }
-  }
-
-  if (any(is.na(x_limits)) |
-      any(is.na(y_limits)) |
-      any(is.na(col_limits))) {
-    rlang::abort("NA values in `*_limits` are not supported: Please use `*_symmetric` and/or `*_expand_limits` instead")
-  }
-
-  ##############################################################################
   #make gg_function work
   ##############################################################################
 
@@ -357,7 +341,7 @@ gg_blanket <- function(data = NULL,
   }
 
   ##############################################################################
-  # determine flipped or not
+  # determine *_symmetric & flipped
   ##############################################################################
 
   if (rlang::is_null(x_symmetric)) {
@@ -390,6 +374,26 @@ gg_blanket <- function(data = NULL,
   else {
     flipped <- FALSE
   }
+
+  ##############################################################################
+  #abort if necessary
+  ##############################################################################
+
+  if (!rlang::is_null(mapping)) {
+    if (any(names(unlist(mapping)) %in% c("facet", "facet2"))) {
+      rlang::abort("mapping argument does not support facet or facet2")
+    }
+  }
+
+  if (x_symmetric & y_symmetric) {
+    rlang::abort("Both x_symmetric and y_symmetric are not supported: please make one FALSE.")
+  }
+
+  # if (any(is.na(x_limits)) |
+  #     any(is.na(y_limits)) |
+  #     any(is.na(col_limits))) {
+  #   rlang::abort("NA values in `*_limits` are not supported: Please use `*_symmetric` and/or `*_expand_limits` instead")
+  # }
 
   ##############################################################################
   # process the data
@@ -1311,7 +1315,7 @@ gg_blanket <- function(data = NULL,
 
       #and x_expand
       if (rlang::is_null(x_expand)) {
-        # if (!rlang::is_null(x_limits)) {
+        if (!rlang::is_null(x_limits)) {
           if (identical(x_limits, c(NA, NA))) {
             x_expand <- ggplot2::waiver()
           }
@@ -1325,8 +1329,8 @@ gg_blanket <- function(data = NULL,
             x_expand <- ggplot2::waiver()
           }
           else x_expand <- c(0, 0)
-      #   }
-      #   else x_expand <- c(0, 0)
+        }
+        else x_expand <- c(0, 0)
       }
     }
 
@@ -1503,7 +1507,7 @@ gg_blanket <- function(data = NULL,
 
       #and y_expand
       if (rlang::is_null(y_expand)) {
-        # if (!rlang::is_null(y_limits)) {
+        if (!rlang::is_null(y_limits)) {
           if (identical(y_limits, c(NA, NA))) {
             y_expand <- ggplot2::waiver()
           }
@@ -1517,8 +1521,8 @@ gg_blanket <- function(data = NULL,
             y_expand <- ggplot2::waiver()
           }
           else y_expand <- c(0, 0)
-        # }
-        # else y_expand <- c(0, 0)
+        }
+        else y_expand <- c(0, 0)
       }
     }
 
