@@ -1,5 +1,6 @@
 get_scale_x_symmetric <- function(data = NULL,
                                   x = NULL,
+                                  ...,
                                   x_breaks = NULL,
                                   x_breaks_n = 6,
                                   x_expand = NULL,
@@ -7,8 +8,7 @@ get_scale_x_symmetric <- function(data = NULL,
                                   x_labels = NULL,
                                   x_position = "bottom",
                                   x_sec_axis = ggplot2::waiver(),
-                                  x_transform = NULL, #scales::transform_identity(), #or "hms", "time" or "date"
-                                  position = NULL) {
+                                  x_transform = NULL) {
 
   x <- rlang::enquo(x)
 
@@ -16,9 +16,10 @@ get_scale_x_symmetric <- function(data = NULL,
     dplyr::pull(!!x)
 
   if (rlang::is_null(x_transform)) {
-    if (inherits(rlang::eval_tidy(x, data), what = c("hms"))) x_transform <- "time"
-    if (inherits(rlang::eval_tidy(x, data), what = c("POSIXt"))) x_transform <- "time"
-    if (inherits(rlang::eval_tidy(x, data), what = c("Date"))) x_transform <- "date"
+    if (inherits(rlang::eval_tidy(x, data), what = c("hms"))) x_transform <- "hms"
+    else if (inherits(rlang::eval_tidy(x, data), what = c("POSIXt"))) x_transform <- "time"
+    else if (inherits(rlang::eval_tidy(x, data), what = c("Date"))) x_transform <- "date"
+    else x_transform <- "identity"
   }
 
   if (is.character(x_transform)) x_transform_name <- x_transform
@@ -48,13 +49,11 @@ get_scale_x_symmetric <- function(data = NULL,
   x_range <- range(x_vctr, na.rm = TRUE)
   if (any(x_transform_name == "hms")) x_range <- hms::as_hms(x_range)
 
-  if (!rlang::is_null(position)) {
-    if (position == "fill") {
-      if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
-      x_limits <- c(0, 1)
-    }
-  }
-  else if (rlang::is_null(x_breaks)) {
+  if (rlang::is_null(x_breaks)) {
+    # if (any(x_transform_name %in% c("hms"))) {
+    #   x_breaks <- hms::as_hms(scales::breaks_timespan(n = x_breaks_n)(x_range))
+    #   #doesn't work for symmetric as does not always include all data
+    # }
     if (any(x_transform_name %in% c("hms", "time", "datetime", "date"))) {
       x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
     }
@@ -91,21 +90,27 @@ library(ggblanket)
 
 set_blanket()
 
+
+p <- penguins |>
+  ggplot() +
+  geom_point(aes(x = bill_depth_mm, body_mass_g), position = "fill")
+
 penguins |>
   ggplot() +
-  geom_point(aes(x = bill_depth_mm, body_mass_g)) +
+  geom_point(aes(x = bill_depth_mm, body_mass_g), position = "fill") +
   get_scale_x_symmetric(
     penguins,
     x = bill_depth_mm,
+    # position = "fill",
     # x_position = "top",
-    # x_expand = c(0.05,0.05),
-    x_labels = scales::label_currency(accuracy = 1),
-    # x_expand_limits = 5,
-    # x_breaks = scales::breaks_extended(5, only.loose = TRUE),
-    x_breaks_n = 10,
-    x_sec_axis = dup_axis(),
-    # x_transform = transform_compose(transform_log()),
-    x_transform = c("sqrt", "reverse"),
+    # # x_expand = c(0.05,0.05),
+    # x_labels = scales::label_currency(accuracy = 1),
+    # # x_expand_limits = 5,
+    # # x_breaks = scales::breaks_extended(5, only.loose = TRUE),
+    # x_breaks_n = 10,
+    # x_sec_axis = dup_axis(),
+    # # x_transform = transform_compose(transform_log()),
+    # x_transform = c("sqrt", "reverse"),
   )
 
 economics |>
@@ -131,22 +136,26 @@ economics |>
 
 flights_0101_0102 <-
   nycflights13::flights %>%
-  filter(month == 1, day <= 2) %>%
+  filter(month == 1, day <= 3) %>%
   group_by(time_hour = lubridate::floor_date(time_hour, "hour")) %>%
   summarize(num_flights = n())
 
-p <- flights_0101_0102 %>%
+d <- flights_0101_0102 %>%
+  mutate(time_hour = hms::as_hms(time_hour))
+
+d |>
   ggplot() +
   geom_point(aes(x = time_hour, y = num_flights)) +
-  get_scale_x_symmetric(flights_0101_0102, x = time_hour)
+  get_scale_x_symmetric(d,
+                        x = time_hour,
+                        x_breaks_n = 3,
+                        # x_labels = scales::label_time(format = "%H:%M")
+                        #
+                        # x_breaks = scales::breaks_width("5 hours"),
+                        # x_breaks = scales::breaks_timespan()
+                        )
 
-ggplot_build(p)[[1]]
 
-flights_0101_0102 |>
-  mutate()
-  mutate(time_hour2 = lubridate::as_datetime(time_hour, origin = "1970-01-01"))
+hms::as_hms(range(d$time_hour))
 
-lubridate::as_datetime(1357034400)
-lubridate::as_date(-915)
 
-p
