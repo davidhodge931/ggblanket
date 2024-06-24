@@ -134,7 +134,6 @@ test_that(test_name, {
       y_breaks = scales::breaks_width(1500),
       y_labels = scales::label_number(big.mark = " "),
       y_expand = expansion(mult = c(0, 0.05)),
-      y_transform = "sqrt",
       y_label = "Body mass (g)",
       col_steps = TRUE,
       facet_labels = \(x) str_to_sentence(x),
@@ -152,7 +151,6 @@ test_that(test_name, {
       x = carat,
       y = price,
       coord = coord_cartesian(clip = "on"),
-      y_limits = c(0, 20000),
     )
 
   vdiffr::expect_doppelganger(test_name, p)

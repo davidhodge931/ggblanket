@@ -18,8 +18,6 @@
 #'   gg_hex(
 #'     x = carat,
 #'     y = price,
-#'     coord = coord_cartesian(clip = "on"),
-#'     y_limits = c(0, 20000),
 #'   )
 #'
 gg_hex <- function(data = NULL,

@@ -87,7 +87,6 @@ diamonds |>
   gg_bin_2d(
     x = carat,
     y = price,
-    y_limits = c(0, 20000),
   )
 ```
 
@@ -223,7 +222,7 @@ penguins2 |>
 ```{r}
 gg_function(
   fun = \(x) dnorm(x, mean = 0, sd = 5),
-  x_limits = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
+  x_expand_limits = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
   x_label = "X",
   y_expand_limits = 0,
 )
@@ -236,8 +235,6 @@ diamonds |>
   gg_hex(
     x = carat,
     y = price,
-    coord = coord_cartesian(clip = "on"), 
-    y_limits = c(0, 20000),
   )
 ```
 

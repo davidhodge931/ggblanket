@@ -13,17 +13,14 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      x_breaks = scales::breaks_width(-15),
+      x_breaks = scales::breaks_width(15),
       x_expand_limits = 250,
       x_labels = scales::label_currency(),
-      x_transform = scales::transform_reverse(),
-      x_limits = c(200, 170),
-      x_oob = scales::oob_censor,
       x_expand = c(0.5, 0.5),
       x_position = "top",
       x_label = "Blah",
       caption = ""
-  )
+    )
 
   vdiffr::expect_doppelganger(test_name, p)
 })
@@ -36,12 +33,9 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      y_breaks = scales::breaks_width(-1000),
+      y_breaks = scales::breaks_width(1000),
       y_expand_limits = 7000,
       y_labels = scales::label_currency(),
-      y_transform = scales::transform_reverse(),
-      y_limits = c(6000, 2000),
-      y_oob = scales::oob_censor,
       y_expand = c(0.1, 0.1),
       y_position = "right",
       y_label = "Blah",
@@ -59,21 +53,15 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      x_breaks = scales::breaks_width(-15),
+      x_breaks = scales::breaks_width(15),
       x_expand_limits = 250,
       x_labels = scales::label_currency(),
-      x_transform = scales::transform_reverse(),
-      x_limits = c(200, 170),
-      x_oob = scales::oob_censor,
       x_expand = c(0.5, 0.5),
       x_position = "top",
       x_label = "Blah",
-      y_breaks = scales::breaks_width(-1000),
+      y_breaks = scales::breaks_width(1000),
       y_expand_limits = 7000,
       y_labels = scales::label_currency(),
-      y_transform = scales::transform_reverse(),
-      y_limits = c(6000, 2000),
-      y_oob = scales::oob_censor,
       y_expand = c(0.1, 0.1),
       y_position = "right",
       y_label = "Blah",

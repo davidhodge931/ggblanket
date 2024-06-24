@@ -15,7 +15,7 @@
 #'
 #' gg_function(
 #'   fun = \(x) dnorm(x, mean = 0, sd = 5),
-#'   x_limits = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
+#'   x_expand_limits = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
 #'   y_expand_limits = 0,
 #' )
 #'
