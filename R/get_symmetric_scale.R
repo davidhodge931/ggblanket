@@ -22,8 +22,8 @@ get_x_symmetric_scale <- function(data = NULL,
   }
 
   if (rlang::is_null(x_labels)) {
-    if (x_transform_name == "hms") x_labels <- scales::label_time()
-    else if (x_transform_name %in% c("time", "datetime", "date")) x_labels <- scales::label_date_short()
+    if (any(x_transform_name == "hms")) x_labels <- scales::label_time()
+    else if (any(x_transform_name %in% c("time", "datetime", "date"))) x_labels <- scales::label_date_short()
     else x_labels <- scales::label_comma(drop0trailing = TRUE)
   }
 
@@ -95,12 +95,12 @@ penguins |>
     x = bill_depth_mm,
     # x_position = "top",
     # x_expand = c(0.05,0.05),
-    x_labels = scales::label_dollar(),
+    # x_labels = scales::label_dollar(),
     # x_expand_limits = 5,
     # x_breaks = scales::breaks_extended(5, only.loose = TRUE),
     x_breaks_n = 10,
     x_sec_axis = dup_axis(),
-    # x_transform = transform_compose(transform_sqrt(), transform_reverse()),
+    x_transform = transform_compose(transform_sqrt(), transform_reverse()),
     # x_transform = c("sqrt", "reverse"),
   )
 
