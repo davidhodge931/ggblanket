@@ -5,7 +5,9 @@ get_x_symmetric_scale <- function(data = NULL,
                                   x_expand = NULL,
                                   x_expand_limits = NULL,
                                   x_labels = NULL,
+                                  x_oob = scales::oob_keep,
                                   x_position = "bottom",
+                                  x_sec_axis = ggplot2::waiver(),
                                   x_transform = scales::transform_identity(), #or "hms", "time" or "date"
                                   position = NULL) {
 
@@ -71,29 +73,34 @@ get_x_symmetric_scale <- function(data = NULL,
     labels = x_labels,
     oob = scales::oob_keep,
     position = x_position,
+    sec.axis = x_sec_axis,
     transform = x_transform
   )
 
   return(x_scale)
 }
 
-# library(scales)
-#
-# penguins |>
-#   ggplot() +
-#   geom_point(aes(x = bill_depth_mm, body_mass_g)) +
-#   get_x_symmetric_scale(
-#     penguins,
-#     x = bill_depth_mm,
-#     # x_position = "top",
-#     # x_expand = c(0.05,0.05),
-#     x_labels = scales::label_dollar(),
-#     # x_expand_limits = 5,
-#     x_breaks = scales::breaks_extended(5, only.loose = TRUE),
-#     x_breaks_n = 7,
-#     # x_transform = transform_compose(transform_sqrt(), transform_reverse()),
-#     # x_transform = c("sqrt", "reverse"),
-#   )
-#
-#
-#
+library(scales)
+library(tidyverse)
+library(palmerpenguins)
+library(ggblanket)
+
+set_blanket()
+
+penguins |>
+  ggplot() +
+  geom_point(aes(x = bill_depth_mm, body_mass_g)) +
+  get_x_symmetric_scale(
+    penguins,
+    x = bill_depth_mm,
+    # x_position = "top",
+    # x_expand = c(0.05,0.05),
+    x_labels = scales::label_dollar(),
+    # x_expand_limits = 5,
+    # x_breaks = scales::breaks_extended(5, only.loose = TRUE),
+    x_breaks_n = 10,
+    x_sec_axis = dup_axis(),
+    # x_transform = transform_compose(transform_sqrt(), transform_reverse()),
+    # x_transform = c("sqrt", "reverse"),
+  )
+
