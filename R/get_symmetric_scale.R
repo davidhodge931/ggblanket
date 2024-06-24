@@ -7,8 +7,19 @@ get_scale_x_symmetric <- function(data = NULL,
                                   x_labels = NULL,
                                   x_position = "bottom",
                                   x_sec_axis = ggplot2::waiver(),
-                                  x_transform = scales::transform_identity(), #or "hms", "time" or "date"
+                                  x_transform = NULL, #scales::transform_identity(), #or "hms", "time" or "date"
                                   position = NULL) {
+
+  x <- rlang::enquo(x)
+
+  x_vctr <- data %>%
+    dplyr::pull(!!x)
+
+  if (rlang::is_null(x_transform)) {
+    if (inherits(rlang::eval_tidy(x, data), what = c("hms"))) x_transform <- "time"
+    if (inherits(rlang::eval_tidy(x, data), what = c("POSIXt"))) x_transform <- "time"
+    if (inherits(rlang::eval_tidy(x, data), what = c("Date"))) x_transform <- "date"
+  }
 
   if (is.character(x_transform)) x_transform_name <- x_transform
   else if (inherits(x_transform, what = "transform")) {
@@ -26,18 +37,13 @@ get_scale_x_symmetric <- function(data = NULL,
     else x_labels <- scales::label_comma(drop0trailing = TRUE)
   }
 
-  x <- rlang::enquo(x)
-
-  x_vctr <- data %>%
-    dplyr::pull(!!x)
-
   if (!rlang::is_null(x_expand_limits)) {
     x_vctr <- c(x_vctr, x_expand_limits)
   }
 
   if (any(x_transform_name == "hms")) x_vctr <- hms::as_hms(x_vctr)
-  else if (any(x_transform_name %in% c("time", "datetime"))) x_vctr <- lubridate::as_datetime(x_vctr, origin = "1970-01-01")
-  else if (any(x_transform_name == "date")) x_vctr <- lubridate::as_date(x_vctr, origin = "1970-01-01")
+  else if (any(x_transform_name %in% c("time", "datetime"))) x_vctr <- lubridate::as_datetime(x_vctr)
+  else if (any(x_transform_name == "date")) x_vctr <- lubridate::as_date(x_vctr)
 
   x_range <- range(x_vctr, na.rm = TRUE)
   if (any(x_transform_name == "hms")) x_range <- hms::as_hms(x_range)
@@ -54,7 +60,6 @@ get_scale_x_symmetric <- function(data = NULL,
     }
     else {
       x_breaks <- scales::breaks_extended(n = x_breaks_n, only.loose = TRUE)(x_range)
-      print(x_breaks)
     }
   }
   else if (is.function(x_breaks)) x_breaks <- x_breaks(x_range)
@@ -103,3 +108,45 @@ penguins |>
     x_transform = c("sqrt", "reverse"),
   )
 
+economics |>
+  ggplot() +
+  geom_point(aes(x = date, y = unemploy)) +
+  get_scale_x_symmetric(
+    economics,
+    x = date,
+    # x_transform = "date",
+    # x_breaks_n = 10,
+    )
+
+ economics |>
+  ggplot() +
+  geom_point(aes(x = date, y = unemploy)) +
+  get_scale_x_symmetric(
+    economics,
+    x = date,
+    x_transform = c("date", "reverse"),
+    # x_transform = "date",
+    # x_breaks_n = 10,
+  )
+
+flights_0101_0102 <-
+  nycflights13::flights %>%
+  filter(month == 1, day <= 2) %>%
+  group_by(time_hour = lubridate::floor_date(time_hour, "hour")) %>%
+  summarize(num_flights = n())
+
+p <- flights_0101_0102 %>%
+  ggplot() +
+  geom_point(aes(x = time_hour, y = num_flights)) +
+  get_scale_x_symmetric(flights_0101_0102, x = time_hour)
+
+ggplot_build(p)[[1]]
+
+flights_0101_0102 |>
+  mutate()
+  mutate(time_hour2 = lubridate::as_datetime(time_hour, origin = "1970-01-01"))
+
+lubridate::as_datetime(1357034400)
+lubridate::as_date(-915)
+
+p
