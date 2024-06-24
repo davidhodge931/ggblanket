@@ -295,10 +295,10 @@ gg_blanket <- function(data = NULL,
 
   #get x_transform if NULL
   # if (rlang::is_null(x_transform)) {
-    if (x_scale_type == "time") x_transform <- scales::transform_hms()
-    else if (x_scale_type == "datetime") x_transform <- scales::transform_time()
-    else if (x_scale_type == "date") x_transform <- scales::transform_date()
-    else x_transform <- scales::transform_identity()
+  if (x_scale_type == "time") x_transform <- scales::transform_hms()
+  else if (x_scale_type == "datetime") x_transform <- scales::transform_time()
+  else if (x_scale_type == "date") x_transform <- scales::transform_date()
+  else x_transform <- scales::transform_identity()
   # }
 
   #make a tidy name to deal with composed transforms
@@ -314,10 +314,10 @@ gg_blanket <- function(data = NULL,
 
   #get y_transform if NULL
   # if (rlang::is_null(y_transform)) {
-    if (y_scale_type == "time") y_transform <- scales::transform_hms()
-    else if (y_scale_type == "datetime")  y_transform <- scales::transform_time()
-    else if (y_scale_type == "date")  y_transform <- scales::transform_date()
-    else y_transform <- scales::transform_identity()
+  if (y_scale_type == "time") y_transform <- scales::transform_hms()
+  else if (y_scale_type == "datetime")  y_transform <- scales::transform_time()
+  else if (y_scale_type == "date")  y_transform <- scales::transform_date()
+  else y_transform <- scales::transform_identity()
   # }
 
   #make a tidy name to deal with composed transforms
@@ -353,26 +353,26 @@ gg_blanket <- function(data = NULL,
     }
     else x_symmetric <- FALSE
   }
-    # else if (stringr::str_detect(stat_name, "sf") |
-    #     facet_scales %in% c("free", "free_x")
-    #     # length(x_transform) > 1 |
-    #     # !any(x_transform %in% c("identity", "reverse", "date", "time", "hms")) |
-    #     # !(x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete")
-    # ) {
-    #   x_symmetric <- FALSE
-    # }
-    # else x_symmetric <- TRUE
+  # else if (stringr::str_detect(stat_name, "sf") |
+  #     facet_scales %in% c("free", "free_x")
+  #     # length(x_transform) > 1 |
+  #     # !any(x_transform %in% c("identity", "reverse", "date", "time", "hms")) |
+  #     # !(x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete")
+  # ) {
+  #   x_symmetric <- FALSE
+  # }
+  # else x_symmetric <- TRUE
 
-    # if (stringr::str_detect(stat_name, "sf") |
-    #     facet_scales %in% c("free", "free_x") |
-    #     y_scale_type != "discrete"
-    #     # length(x_transform) > 1 |
-    #     # !any(x_transform %in% c("identity", "reverse", "date", "time", "hms")) |
-    #     # !(x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete")
-    # ) {
-    #   x_symmetric <- FALSE
-    # }
-    # else x_symmetric <- TRUE
+  # if (stringr::str_detect(stat_name, "sf") |
+  #     facet_scales %in% c("free", "free_x") |
+  #     y_scale_type != "discrete"
+  #     # length(x_transform) > 1 |
+  #     # !any(x_transform %in% c("identity", "reverse", "date", "time", "hms")) |
+  #     # !(x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete")
+  # ) {
+  #   x_symmetric <- FALSE
+  # }
+  # else x_symmetric <- TRUE
   # }
 
   if (rlang::is_null(y_symmetric)) {
@@ -405,7 +405,7 @@ gg_blanket <- function(data = NULL,
   # }
 
   if (y_scale_type == "discrete" & x_scale_type != "discrete") {
-  # if (x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete") {
+    # if (x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete") {
     flipped <- TRUE
   }
   else {
@@ -480,7 +480,7 @@ gg_blanket <- function(data = NULL,
     label = !!label,
     text = !!text,
   ) +
-  mode
+    mode
 
   ##############################################################################
   # Add facet layer
@@ -747,15 +747,15 @@ gg_blanket <- function(data = NULL,
       }
 
       #make a tidy name to deal with composed transforms
-      if (is.character(col_transform)) col_transform <- col_transform
-      else if (inherits(col_transform, what = "transform")) {
-        col_transform <- col_transform$name %>%
-          stringr::str_remove("composition") %>%
-          stringr::str_remove("\\(") %>%
-          stringr::str_remove("\\)") %>%
-          stringr::str_split(",") %>%
-          unlist()
-      }
+      # if (is.character(col_transform)) col_transform <- col_transform
+      # else if (inherits(col_transform, what = "transform")) {
+      #   col_transform <- col_transform$name %>%
+      #     stringr::str_remove("composition") %>%
+      #     stringr::str_remove("\\(") %>%
+      #     stringr::str_remove("\\)") %>%
+      #     stringr::str_split(",") %>%
+      #     unlist()
+      # }
 
       if (rlang::is_null(col_breaks)) {
         if (any(stringr::str_detect(col_transform, "log-")) |
@@ -782,7 +782,7 @@ gg_blanket <- function(data = NULL,
           ggplot2::scale_colour_gradientn(
             colours = col_palette,
             values = col_rescale,
-            limits = col_limits,
+            # limits = col_limits,
             breaks = col_breaks,
             labels = col_labels,
             transform = col_transform,
@@ -1192,7 +1192,7 @@ gg_blanket <- function(data = NULL,
         }
         else {
           x_breaks <- scales::breaks_extended(n = x_breaks_n, only.loose = FALSE)
-          }
+        }
       }
     }
     #symmetric
