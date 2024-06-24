@@ -1,11 +1,10 @@
-get_x_symmetric_scale <- function(data = NULL,
+get_scale_x_symmetric <- function(data = NULL,
                                   x = NULL,
                                   x_breaks = NULL,
                                   x_breaks_n = 6,
                                   x_expand = NULL,
                                   x_expand_limits = NULL,
                                   x_labels = NULL,
-                                  x_oob = scales::oob_keep,
                                   x_position = "bottom",
                                   x_sec_axis = ggplot2::waiver(),
                                   x_transform = scales::transform_identity(), #or "hms", "time" or "date"
@@ -90,17 +89,17 @@ set_blanket()
 penguins |>
   ggplot() +
   geom_point(aes(x = bill_depth_mm, body_mass_g)) +
-  get_x_symmetric_scale(
+  get_scale_x_symmetric(
     penguins,
     x = bill_depth_mm,
     # x_position = "top",
     # x_expand = c(0.05,0.05),
-    # x_labels = scales::label_dollar(),
+    x_labels = scales::label_currency(accuracy = 1),
     # x_expand_limits = 5,
     # x_breaks = scales::breaks_extended(5, only.loose = TRUE),
     x_breaks_n = 10,
     x_sec_axis = dup_axis(),
-    x_transform = transform_compose(transform_sqrt(), transform_reverse()),
-    # x_transform = c("sqrt", "reverse"),
+    # x_transform = transform_compose(transform_log()),
+    x_transform = c("sqrt", "reverse"),
   )
 
