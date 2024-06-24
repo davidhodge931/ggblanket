@@ -5,7 +5,6 @@
 #                                   x_expand = NULL,
 #                                   x_expand_limits = NULL,
 #                                   x_labels = NULL,
-#                                   x_oob = scales::oob_keep,
 #                                   x_position = "bottom",
 #                                   x_transform = scales::transform_identity(), #or "hms", "time" or "date"
 #                                   position = NULL) {
@@ -70,7 +69,7 @@
 #     expand = x_expand,
 #     breaks = x_breaks,
 #     labels = x_labels,
-#     oob = x_oob,
+#     oob = scales::oob_keep,
 #     position = x_position,
 #     transform = x_transform
 #   )
