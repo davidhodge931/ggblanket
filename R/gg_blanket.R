@@ -19,7 +19,7 @@
 #' @param x_limits,y_limits,col_limits For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with `factor`, `forcats::fct_expand` or `forcats::fct_drop`.
 #' @param x_oob,y_oob,col_oob For a continuous scale, a `scales::oob_*` function of how to handle values outside of limits. Defaults to `scales::oob_keep`.
 #' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_mode_*` theme, add `caption = ""` or `caption = "\n"`.
-#' @param x_symmetric,y_symmetric `TRUE` or `FALSE` of whether a x or y symmetric scale should be built.
+#' @param x_symmetry,y_symmetry `TRUE` or `FALSE` of whether a x or y symmetry scale should be built.
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
@@ -87,22 +87,13 @@ gg_blanket <- function(data = NULL,
                        text = NULL,
                        sample = NULL,
                        mapping = NULL,
-                       x_breaks = NULL,
-                       x_expand = NULL,
-                       x_expand_limits = NULL,
-                       x_labels = NULL,
-                       x_limits = NULL,
-                       x_oob = scales::oob_keep,
-                       x_symmetric = NULL, x_position = "bottom",
-                       x_label = NULL,
-                       x_transform = NULL,
-                       y_breaks = NULL,
+ |>                        y_breaks = NULL,
                        y_expand = NULL,
                        y_expand_limits = NULL,
                        y_labels = NULL,
                        y_limits = NULL,
                        y_oob = scales::oob_keep,
-                       y_symmetric = NULL, y_position = "left",
+                       y_symmetry = NULL, y_position = "left",
                        y_label = NULL,
                        y_transform = NULL,
                        col_breaks = NULL,
@@ -341,17 +332,17 @@ gg_blanket <- function(data = NULL,
   }
 
   ##############################################################################
-  # determine *_symmetric & flipped
+  # determine *_symmetry & flipped
   ##############################################################################
 
-  if (rlang::is_null(x_symmetric)) {
+  if (rlang::is_null(x_symmetry)) {
     if (!stringr::str_detect(stat_name, "sf") &
         facet_scales %in% c("fixed", "free_y") &
         y_scale_type == "discrete" &
         x_scale_type != "discrete") {
-      x_symmetric <- TRUE
+      x_symmetry <- TRUE
     }
-    else x_symmetric <- FALSE
+    else x_symmetry <- FALSE
   }
   # else if (stringr::str_detect(stat_name, "sf") |
   #     facet_scales %in% c("free", "free_x")
@@ -359,9 +350,9 @@ gg_blanket <- function(data = NULL,
   #     # !any(x_transform %in% c("identity", "reverse", "date", "time", "hms")) |
   #     # !(x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete")
   # ) {
-  #   x_symmetric <- FALSE
+  #   x_symmetry <- FALSE
   # }
-  # else x_symmetric <- TRUE
+  # else x_symmetry <- TRUE
 
   # if (stringr::str_detect(stat_name, "sf") |
   #     facet_scales %in% c("free", "free_x") |
@@ -370,27 +361,27 @@ gg_blanket <- function(data = NULL,
   #     # !any(x_transform %in% c("identity", "reverse", "date", "time", "hms")) |
   #     # !(x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete")
   # ) {
-  #   x_symmetric <- FALSE
+  #   x_symmetry <- FALSE
   # }
-  # else x_symmetric <- TRUE
+  # else x_symmetry <- TRUE
   # }
 
-  if (rlang::is_null(y_symmetric)) {
+  if (rlang::is_null(y_symmetry)) {
     if (stringr::str_detect(stat_name, "sf")) {
-      y_symmetric <- FALSE
+      y_symmetry <- FALSE
     }
     else if (facet_scales %in% c("free", "free_y")) {
-      y_symmetric <- FALSE
+      y_symmetry <- FALSE
     }
     else if (y_scale_type == "discrete" & x_scale_type != "discrete") {
-      y_symmetric <- FALSE
+      y_symmetry <- FALSE
     }
-    else y_symmetric <- TRUE
+    else y_symmetry <- TRUE
   }
 
-  # if (rlang::is_null(y_symmetric)) {
+  # if (rlang::is_null(y_symmetry)) {
   #   if (x_scale_type != "discrete" & y_scale_type == "discrete") {
-  #     y_symmetric <- FALSE
+  #     y_symmetry <- FALSE
   #   }
   #   else if (stringr::str_detect(stat_name, "sf") |
   #       facet_scales %in% c("free", "free_y")
@@ -399,9 +390,9 @@ gg_blanket <- function(data = NULL,
   #       # !any(y_transform %in% c("identity", "reverse", "date", "time", "hms")) |
   #       # !(y_scale_type %in% c("numeric", "date", "datetime", "time"))
   #   ) {
-  #     y_symmetric <- FALSE
+  #     y_symmetry <- FALSE
   #   }
-  #   else y_symmetric <- TRUE
+  #   else y_symmetry <- TRUE
   # }
 
   if (y_scale_type == "discrete" & x_scale_type != "discrete") {
@@ -422,14 +413,14 @@ gg_blanket <- function(data = NULL,
     }
   }
 
-  if (x_symmetric & y_symmetric) {
-    rlang::abort("Both x_symmetric and y_symmetric are not supported: please make one FALSE.")
+  if (x_symmetry & y_symmetry) {
+    rlang::abort("Both x_symmetry and y_symmetry are not supported: please make one FALSE.")
   }
 
   # if (any(is.na(x_limits)) |
   #     any(is.na(y_limits)) |
   #     any(is.na(col_limits))) {
-  #   rlang::abort("NA values in `*_limits` are not supported: Please use `*_symmetric` and/or `*_expand_limits` instead")
+  #   rlang::abort("NA values in `*_limits` are not supported: Please use `*_symmetry` and/or `*_expand_limits` instead")
   # }
 
   ##############################################################################
@@ -1174,8 +1165,8 @@ gg_blanket <- function(data = NULL,
     else if (facet_ncols == 3) x_breaks_n <- 4
     else x_breaks_n <- 3
 
-    #non-symmetric
-    if (!x_symmetric) {
+    #non-symmetry
+    if (!x_symmetry) {
       x_limits <- NULL
 
       if (rlang::is_null(x_expand)) {
@@ -1195,8 +1186,8 @@ gg_blanket <- function(data = NULL,
         }
       }
     }
-    #symmetric
-    else if (x_symmetric) {
+    #symmetry
+    else if (x_symmetry) {
       x_vars_str <- "^(?!xid|xbin)x.*" #starts with x & not xid & not xbin
 
       x_vctr <- plot_data %>%
@@ -1299,8 +1290,8 @@ gg_blanket <- function(data = NULL,
     else if (facet_nrows == 3) y_breaks_n <- 4
     else y_breaks_n <- 3
 
-    #non-symmetric
-    if (!y_symmetric) {
+    #non-symmetry
+    if (!y_symmetry) {
       y_limits <- NULL
 
       if (rlang::is_null(y_expand)) {
@@ -1320,8 +1311,8 @@ gg_blanket <- function(data = NULL,
         }
       }
     }
-    #symmetric
-    else if (y_symmetric) {
+    #symmetry
+    else if (y_symmetry) {
       y_vars_str <- "^(?!yid|ybin)y.*" #starts with y & not yid & not ybin
 
       y_vctr <- plot_data %>%

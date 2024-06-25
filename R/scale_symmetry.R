@@ -1,8 +1,10 @@
-get_scale_x_symmetric <- function(data = NULL,
+# scale_x_conrinuous_normal
+
+get_scale_x_symmetry <- function(data = NULL,
                                   x = NULL,
                                   ...,
                                   x_breaks = NULL,
-                                  x_breaks_n = 6,
+                                  x_n_breaks = 6,
                                   x_expand = NULL,
                                   x_expand_limits = NULL,
                                   x_labels = NULL,
@@ -51,10 +53,10 @@ get_scale_x_symmetric <- function(data = NULL,
 
   if (rlang::is_null(x_breaks)) {
     if (any(x_transform_name %in% c("hms", "time", "datetime", "date"))) {
-      x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
+      x_breaks <- scales::breaks_pretty(n = x_n_breaks)(x_range)
     }
     else {
-      x_breaks <- scales::breaks_extended(n = x_breaks_n, only.loose = TRUE)(x_range)
+      x_breaks <- scales::breaks_extended(n = x_n_breaks, only.loose = TRUE)(x_range)
     }
   }
   else if (is.function(x_breaks)) x_breaks <- x_breaks(x_range)
@@ -80,11 +82,11 @@ get_scale_x_symmetric <- function(data = NULL,
 }
 
 
-get_scale_y_symmetric <- function(data = NULL,
+get_scale_y_symmetry <- function(data = NULL,
                                   y = NULL,
                                   ...,
                                   y_breaks = NULL,
-                                  y_breaks_n = 6,
+                                  y_n_breaks = 6,
                                   y_expand = NULL,
                                   y_expand_limits = NULL,
                                   y_labels = NULL,
@@ -133,10 +135,10 @@ get_scale_y_symmetric <- function(data = NULL,
 
   if (rlang::is_null(y_breaks)) {
     if (any(y_transform_name %in% c("hms", "time", "datetime", "date"))) {
-      y_breaks <- scales::breaks_pretty(n = y_breaks_n)(y_range)
+      y_breaks <- scales::breaks_pretty(n = y_n_breaks)(y_range)
     }
     else {
-      y_breaks <- scales::breaks_extended(n = y_breaks_n, only.loose = TRUE)(y_range)
+      y_breaks <- scales::breaks_extended(n = y_n_breaks, only.loose = TRUE)(y_range)
     }
   }
   else if (is.function(y_breaks)) y_breaks <- y_breaks(y_range)
