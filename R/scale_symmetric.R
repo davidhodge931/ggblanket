@@ -1,4 +1,4 @@
-#' Get a symmetric x continuous scale
+#' Symmetric x continuous scale
 #'
 #' @param data A data frame or tibble.
 #' @param x An unquoted variable.
@@ -14,17 +14,17 @@
 #'
 #' @return A ggplot2 continuous x scale.
 #' @export
-get_scale_x_symmetric <- function(data = NULL,
-                                  x = NULL,
-                                  ...,
-                                  breaks = NULL,
-                                  n_breaks = 6,
-                                  expand = NULL,
-                                  expand_limits = NULL,
-                                  labels = NULL,
-                                  position = "bottom",
-                                  sec_axis = ggplot2::waiver(),
-                                  transform = NULL) {
+scale_x_symmetric <- function(data = NULL,
+                              x = NULL,
+                              ...,
+                              breaks = NULL,
+                              n_breaks = 6,
+                              expand = NULL,
+                              expand_limits = NULL,
+                              labels = NULL,
+                              position = "bottom",
+                              sec_axis = ggplot2::waiver(),
+                              transform = NULL) {
 
   x <- rlang::enquo(x)
 
@@ -93,7 +93,7 @@ get_scale_x_symmetric <- function(data = NULL,
   )
 }
 
-#' Get a symmetric y continuous scale
+#' Symmetric y continuous scale
 #'
 #' @param data A data frame or tibble.
 #' @param y An unquoted variable.
@@ -109,17 +109,17 @@ get_scale_x_symmetric <- function(data = NULL,
 #'
 #' @return A ggplot2 continuous y scale.
 #' @export
-get_scale_y_symmetric <- function(data = NULL,
-                                  y = NULL,
-                                  ...,
-                                  breaks = NULL,
-                                  n_breaks = 6,
-                                  expand = NULL,
-                                  expand_limits = NULL,
-                                  labels = NULL,
-                                  position = "left",
-                                  sec_axis = ggplot2::waiver(),
-                                  transform = NULL) {
+scale_y_symmetric <- function(data = NULL,
+                              y = NULL,
+                              ...,
+                              breaks = NULL,
+                              n_breaks = 6,
+                              expand = NULL,
+                              expand_limits = NULL,
+                              labels = NULL,
+                              position = "left",
+                              sec_axis = ggplot2::waiver(),
+                              transform = NULL) {
 
   y <- rlang::enquo(y)
 
