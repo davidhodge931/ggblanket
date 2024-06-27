@@ -14,8 +14,8 @@
 #'
 #' @return A ggplot2 continuous x scale.
 #' @export
-scale_x_symmetric <- function(data = NULL,
-                              x = NULL,
+scale_x_symmetric <- function(data,
+                              x,
                               ...,
                               breaks = NULL,
                               n_breaks = 6,
@@ -109,8 +109,8 @@ scale_x_symmetric <- function(data = NULL,
 #'
 #' @return A ggplot2 continuous y scale.
 #' @export
-scale_y_symmetric <- function(data = NULL,
-                              y = NULL,
+scale_y_symmetric <- function(data,
+                              y,
                               ...,
                               breaks = NULL,
                               n_breaks = 6,

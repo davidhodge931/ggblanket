@@ -5,8 +5,8 @@
 \title{Symmetric y continuous scale}
 \usage{
 scale_y_symmetric(
-  data = NULL,
-  y = NULL,
+  data,
+  y,
   ...,
   breaks = NULL,
   n_breaks = 6,
