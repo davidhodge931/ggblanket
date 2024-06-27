@@ -1,8 +1,8 @@
 #' Symmetric x continuous scale
 #'
+#' @param ... Provided to force user argument naming etc.
 #' @param data A data frame or tibble.
 #' @param x An unquoted variable.
-#' @param ... Provided to force user argument naming etc.
 #' @param breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
 #' @param n_breaks If `breaks = NULL`, the desired number of breaks.
 #' @param expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
@@ -14,9 +14,21 @@
 #'
 #' @return A ggplot2 continuous x scale.
 #' @export
-scale_x_symmetric <- function(data,
+#'
+#' @examples
+#' library(ggplot2)
+#' library(palmerpenguins)
+#'
+#' set_blanket()
+#'
+#' penguins |>
+#'   ggplot(mapping = aes(x = flipper_length_mm, y = bill_length_mm)) +
+#'   geom_point() +
+#'   scale_x_symmetric(data = penguins, x = flipper_length_mm)
+#'
+scale_x_symmetric <- function(...,
+                              data,
                               x,
-                              ...,
                               breaks = NULL,
                               n_breaks = 6,
                               expand = NULL,
@@ -95,9 +107,9 @@ scale_x_symmetric <- function(data,
 
 #' Symmetric y continuous scale
 #'
+#' @param ... Provided to force user argument naming etc.
 #' @param data A data frame or tibble.
 #' @param y An unquoted variable.
-#' @param ... Provided to force user argument naming etc.
 #' @param breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
 #' @param n_breaks If `breaks = NULL`, the desired number of breaks.
 #' @param expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
@@ -109,9 +121,21 @@ scale_x_symmetric <- function(data,
 #'
 #' @return A ggplot2 continuous y scale.
 #' @export
-scale_y_symmetric <- function(data,
+#'
+#' @examples
+#' library(ggplot2)
+#' library(palmerpenguins)
+#'
+#' set_blanket()
+#'
+#' penguins |>
+#'   ggplot(mapping = aes(x = flipper_length_mm, y = bill_length_mm)) +
+#'   geom_point() +
+#'   scale_y_symmetric(data = penguins, y = bill_length_mm)
+#'
+scale_y_symmetric <- function(...,
+                              data,
                               y,
-                              ...,
                               breaks = NULL,
                               n_breaks = 6,
                               expand = NULL,

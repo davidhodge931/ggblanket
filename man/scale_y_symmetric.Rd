@@ -5,9 +5,9 @@
 \title{Symmetric y continuous scale}
 \usage{
 scale_y_symmetric(
+  ...,
   data,
   y,
-  ...,
   breaks = NULL,
   n_breaks = 6,
   expand = NULL,
@@ -19,11 +19,11 @@ scale_y_symmetric(
 )
 }
 \arguments{
+\item{...}{Provided to force user argument naming etc.}
+
 \item{data}{A data frame or tibble.}
 
 \item{y}{An unquoted variable.}
-
-\item{...}{Provided to force user argument naming etc.}
 
 \item{breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 
@@ -46,4 +46,16 @@ A ggplot2 continuous y scale.
 }
 \description{
 Symmetric y continuous scale
+}
+\examples{
+library(ggplot2)
+library(palmerpenguins)
+
+set_blanket()
+
+penguins |>
+  ggplot(mapping = aes(x = flipper_length_mm, y = bill_length_mm)) +
+  geom_point() +
+  scale_y_symmetric(data = penguins, y = bill_length_mm)
+
 }
