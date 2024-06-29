@@ -8,6 +8,7 @@ scale_y_symmetric(
   ...,
   data,
   y,
+  symmetric = TRUE,
   breaks = NULL,
   n_breaks = 6,
   expand = NULL,
@@ -15,7 +16,7 @@ scale_y_symmetric(
   labels = NULL,
   position = "left",
   sec_axis = ggplot2::waiver(),
-  transform = NULL
+  transform = "identity"
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ scale_y_symmetric(
 \item{data}{A data frame or tibble.}
 
 \item{y}{An unquoted variable.}
+
+\item{symmetric}{\code{TRUE} or \code{FALSE} of whether a symmetric scale.}
 
 \item{breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 
@@ -47,15 +50,4 @@ A ggplot2 continuous y scale.
 \description{
 Symmetric y continuous scale
 }
-\examples{
-library(ggplot2)
-library(palmerpenguins)
-
-set_blanket()
-
-penguins |>
-  ggplot(mapping = aes(x = flipper_length_mm, y = bill_length_mm)) +
-  geom_point() +
-  scale_y_symmetric(data = penguins, y = bill_length_mm)
-
-}
+\keyword{internal}

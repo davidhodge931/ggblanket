@@ -3,6 +3,7 @@
 #' @param ... Provided to force user argument naming etc.
 #' @param data A data frame or tibble.
 #' @param x An unquoted variable.
+#' @param symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #' @param breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
 #' @param n_breaks If `breaks = NULL`, the desired number of breaks.
 #' @param expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
@@ -13,22 +14,12 @@
 #' @param transform A transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #'
 #' @return A ggplot2 continuous x scale.
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#' library(palmerpenguins)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   ggplot(mapping = aes(x = flipper_length_mm, y = bill_length_mm)) +
-#'   geom_point() +
-#'   scale_x_symmetric(data = penguins, x = flipper_length_mm)
+#' @keywords internal
 #'
 scale_x_symmetric <- function(...,
-                              data,
-                              x,
+                              data = NULL,
+                              x = NULL,
+                              symmetric = TRUE,
                               breaks = NULL,
                               n_breaks = 6,
                               expand = NULL,
@@ -36,19 +27,7 @@ scale_x_symmetric <- function(...,
                               labels = NULL,
                               position = "bottom",
                               sec_axis = ggplot2::waiver(),
-                              transform = NULL) {
-
-  x <- rlang::enquo(x)
-
-  vctr <- data %>%
-    dplyr::pull(!!x)
-
-  if (rlang::is_null(transform)) {
-    if (inherits(vctr, what = c("hms"))) transform <- "hms"
-    else if (inherits(vctr, what = c("POSIXt"))) transform <- "time"
-    else if (inherits(vctr, what = c("Date"))) transform <- "date"
-    else transform <- "identity"
-  }
+                              transform = "identity") {
 
   if (is.character(transform)) transform_name <- transform
   else if (inherits(transform, what = "transform")) {
@@ -60,49 +39,89 @@ scale_x_symmetric <- function(...,
       unlist()
   }
 
-  if (rlang::is_null(labels)) {
-    if (any(transform_name == "hms")) labels <- scales::label_time()
-    else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short()
-    else labels <- scales::label_comma(drop0trailing = TRUE)
-  }
+  if (symmetric) {
+    x <- rlang::enquo(x)
 
-  if (!rlang::is_null(expand_limits)) {
-    vctr <- c(vctr, expand_limits)
-  }
+    vctr <- data %>%
+      dplyr::pull(!!x)
 
-  if (any(transform_name == "hms")) vctr <- hms::as_hms(vctr)
-  else if (any(transform_name %in% c("time", "datetime"))) vctr <- lubridate::as_datetime(vctr)
-  else if (any(transform_name == "date")) vctr <- lubridate::as_date(vctr)
-
-  range <- range(vctr, na.rm = TRUE)
-  if (any(transform_name == "hms")) range <- hms::as_hms(range)
-
-  if (rlang::is_null(breaks)) {
-    if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
-      breaks <- scales::breaks_pretty(n = n_breaks)(range)
+    if (!rlang::is_null(expand_limits)) {
+      vctr <- c(vctr, expand_limits)
     }
-    else {
-      breaks <- scales::breaks_extended(n = n_breaks, only.loose = TRUE)(range)
+
+    if (any(transform_name == "hms")) vctr <- hms::as_hms(vctr)
+    else if (any(transform_name %in% c("time", "datetime"))) vctr <- lubridate::as_datetime(vctr)
+    else if (any(transform_name == "date")) vctr <- lubridate::as_date(vctr)
+
+    range <- range(vctr, na.rm = TRUE)
+
+    if (any(transform_name == "hms")) range <- hms::as_hms(range)
+
+    if (rlang::is_null(breaks)) {
+      if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
+        breaks <- scales::breaks_pretty(n = n_breaks)(range)
+      }
+      else {
+        breaks <- scales::breaks_extended(n = n_breaks, only.loose = TRUE)(range)
+      }
     }
+    else if (is.function(breaks)) breaks <- breaks(range)
+
+    limits <- range(breaks)
+
+    if (any(transform_name %in% "reverse")) limits <- rev(limits)
+
+    if (rlang::is_null(expand)) expand <- c(0, 0)
+
+    if (rlang::is_null(labels)) {
+      if (any(transform_name == "hms")) labels <- scales::label_time()
+      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short()
+      else labels <- scales::label_comma(drop0trailing = TRUE)
+    }
+
+    scale <- ggplot2::scale_x_continuous(
+      breaks = breaks,
+      labels = labels,
+      limits = limits,
+      expand = expand,
+      oob = scales::oob_keep,
+      transform = transform,
+      position = position,
+      sec.axis = sec_axis
+    )
   }
-  else if (is.function(breaks)) breaks <- breaks(range)
+  else {
+    if (rlang::is_null(breaks)) {
+      if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
+        breaks <- scales::breaks_pretty(n = n_breaks)
+      }
+      else {
+        breaks <- scales::breaks_extended(n = n_breaks, only.loose = FALSE)
+      }
+    }
 
-  limits <- range(breaks)
+    if (rlang::is_null(expand)) expand <- c(0.05, 0.05)
 
-  if (any(transform_name %in% "reverse")) limits <- rev(limits)
+    if (rlang::is_null(labels)) {
+      if (any(transform_name == "hms")) labels <- scales::label_time()
+      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short()
+      else labels <- scales::label_comma(drop0trailing = TRUE)
+    }
 
-  if (rlang::is_null(expand)) expand <- c(0, 0)
+    scale <- list(
+      ggplot2::scale_x_continuous(
+        breaks = breaks,
+        labels = labels,
+        expand = expand,
+        oob = scales::oob_keep,
+        transform = transform,
+        position = position,
+        sec.axis = sec_axis),
+      ggplot2::expand_limits(x = expand_limits)
+    )
+  }
 
-  ggplot2::scale_x_continuous(
-    limits = limits,
-    expand = expand,
-    breaks = breaks,
-    labels = labels,
-    oob = scales::oob_keep,
-    position = position,
-    sec.axis = sec_axis,
-    transform = transform
-  )
+  return(scale)
 }
 
 #' Symmetric y continuous scale
@@ -110,6 +129,7 @@ scale_x_symmetric <- function(...,
 #' @param ... Provided to force user argument naming etc.
 #' @param data A data frame or tibble.
 #' @param y An unquoted variable.
+#' @param symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #' @param breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
 #' @param n_breaks If `breaks = NULL`, the desired number of breaks.
 #' @param expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
@@ -120,22 +140,12 @@ scale_x_symmetric <- function(...,
 #' @param transform A transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #'
 #' @return A ggplot2 continuous y scale.
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#' library(palmerpenguins)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   ggplot(mapping = aes(x = flipper_length_mm, y = bill_length_mm)) +
-#'   geom_point() +
-#'   scale_y_symmetric(data = penguins, y = bill_length_mm)
+#' @keywords internal
 #'
 scale_y_symmetric <- function(...,
                               data,
                               y,
+                              symmetric = TRUE,
                               breaks = NULL,
                               n_breaks = 6,
                               expand = NULL,
@@ -143,19 +153,7 @@ scale_y_symmetric <- function(...,
                               labels = NULL,
                               position = "left",
                               sec_axis = ggplot2::waiver(),
-                              transform = NULL) {
-
-  y <- rlang::enquo(y)
-
-  vctr <- data %>%
-    dplyr::pull(!!y)
-
-  if (rlang::is_null(transform)) {
-    if (inherits(vctr, what = c("hms"))) transform <- "hms"
-    else if (inherits(vctr, what = c("POSIXt"))) transform <- "time"
-    else if (inherits(vctr, what = c("Date"))) transform <- "date"
-    else transform <- "identity"
-  }
+                              transform = "identity") {
 
   if (is.character(transform)) transform_name <- transform
   else if (inherits(transform, what = "transform")) {
@@ -167,47 +165,88 @@ scale_y_symmetric <- function(...,
       unlist()
   }
 
-  if (rlang::is_null(labels)) {
-    if (any(transform_name == "hms")) labels <- scales::label_time()
-    else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short()
-    else labels <- scales::label_comma(drop0trailing = TRUE)
-  }
+  if (symmetric) {
+    y <- rlang::enquo(y)
 
-  if (!rlang::is_null(expand_limits)) {
-    vctr <- c(vctr, expand_limits)
-  }
+    vctr <- data %>%
+      dplyr::pull(!!y)
 
-  if (any(transform_name == "hms")) vctr <- hms::as_hms(vctr)
-  else if (any(transform_name %in% c("time", "datetime"))) vctr <- lubridate::as_datetime(vctr)
-  else if (any(transform_name == "date")) vctr <- lubridate::as_date(vctr)
-
-  range <- range(vctr, na.rm = TRUE)
-  if (any(transform_name == "hms")) range <- hms::as_hms(range)
-
-  if (rlang::is_null(breaks)) {
-    if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
-      breaks <- scales::breaks_pretty(n = n_breaks)(range)
+    if (!rlang::is_null(expand_limits)) {
+      vctr <- c(vctr, expand_limits)
     }
-    else {
-      breaks <- scales::breaks_extended(n = n_breaks, only.loose = TRUE)(range)
+
+    if (any(transform_name == "hms")) vctr <- hms::as_hms(vctr)
+    else if (any(transform_name %in% c("time", "datetime"))) vctr <- lubridate::as_datetime(vctr)
+    else if (any(transform_name == "date")) vctr <- lubridate::as_date(vctr)
+
+    range <- range(vctr, na.rm = TRUE)
+
+    if (any(transform_name == "hms")) range <- hms::as_hms(range)
+
+    if (rlang::is_null(breaks)) {
+      if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
+        breaks <- scales::breaks_pretty(n = n_breaks)(range)
+      }
+      else {
+        breaks <- scales::breaks_extended(n = n_breaks, only.loose = TRUE)(range)
+      }
     }
+    else if (is.function(breaks)) breaks <- breaks(range)
+
+    limits <- range(breaks)
+
+    if (any(transform_name %in% "reverse")) limits <- rev(limits)
+
+    if (rlang::is_null(expand)) expand <- c(0, 0)
+
+    if (rlang::is_null(labels)) {
+      if (any(transform_name == "hms")) labels <- scales::label_time()
+      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short()
+      else labels <- scales::label_comma(drop0trailing = TRUE)
+    }
+
+    scale <- ggplot2::scale_y_continuous(
+      breaks = breaks,
+      labels = labels,
+      limits = limits,
+      expand = expand,
+      oob = scales::oob_keep,
+      transform = transform,
+      position = position,
+      sec.axis = sec_axis
+    )
   }
-  else if (is.function(breaks)) breaks <- breaks(range)
+  else {
+    if (rlang::is_null(breaks)) {
+      if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
+        breaks <- scales::breaks_pretty(n = n_breaks)
+      }
+      else {
+        breaks <- scales::breaks_extended(n = n_breaks, only.loose = FALSE)
+      }
+    }
 
-  limits <- range(breaks)
+    if (rlang::is_null(expand)) expand <- c(0.05, 0.05)
 
-  if (any(transform_name %in% "reverse")) limits <- rev(limits)
+    if (rlang::is_null(labels)) {
+      if (any(transform_name == "hms")) labels <- scales::label_time()
+      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short()
+      else labels <- scales::label_comma(drop0trailing = TRUE)
+    }
 
-  if (rlang::is_null(expand)) expand <- c(0, 0)
+    scale <- list(
+      ggplot2::scale_y_continuous(
+        breaks = breaks,
+        labels = labels,
+        expand = expand,
+        oob = scales::oob_keep,
+        transform = transform,
+        position = position,
+        sec.axis = sec_axis
+      ),
+      ggplot2::expand_limits(y = expand_limits)
+    )
+  }
 
-  ggplot2::scale_y_continuous(
-    limits = limits,
-    expand = expand,
-    breaks = breaks,
-    labels = labels,
-    oob = scales::oob_keep,
-    position = position,
-    sec.axis = sec_axis,
-    transform = transform
-  )
+  return(scale)
 }

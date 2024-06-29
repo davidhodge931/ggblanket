@@ -6,8 +6,9 @@
 \usage{
 scale_x_symmetric(
   ...,
-  data,
-  x,
+  data = NULL,
+  x = NULL,
+  symmetric = TRUE,
   breaks = NULL,
   n_breaks = 6,
   expand = NULL,
@@ -15,7 +16,7 @@ scale_x_symmetric(
   labels = NULL,
   position = "bottom",
   sec_axis = ggplot2::waiver(),
-  transform = NULL
+  transform = "identity"
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ scale_x_symmetric(
 \item{data}{A data frame or tibble.}
 
 \item{x}{An unquoted variable.}
+
+\item{symmetric}{\code{TRUE} or \code{FALSE} of whether a symmetric scale.}
 
 \item{breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 
@@ -47,15 +50,4 @@ A ggplot2 continuous x scale.
 \description{
 Symmetric x continuous scale
 }
-\examples{
-library(ggplot2)
-library(palmerpenguins)
-
-set_blanket()
-
-penguins |>
-  ggplot(mapping = aes(x = flipper_length_mm, y = bill_length_mm)) +
-  geom_point() +
-  scale_x_symmetric(data = penguins, x = flipper_length_mm)
-
-}
+\keyword{internal}
