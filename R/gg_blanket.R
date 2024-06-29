@@ -1271,7 +1271,10 @@ gg_blanket <- function(data = NULL,
       )
   }
   else {
-    if (stringr::str_detect(stat_name, "sf")) y_symmetric <- FALSE
+    if (stringr::str_detect(stat_name, "sf")) {
+      if (rlang::is_null(y_breaks)) y_breaks <- ggplot2::waiver()
+      if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
+    }
 
     #add NULL arg & condition
     if (facet_nrows == 1) y_n_breaks <- 6
@@ -1303,7 +1306,7 @@ gg_blanket <- function(data = NULL,
         )
     }
     else {
-      plot +
+      plot <- plot +
         scale_y_symmetric(
           symmetric = FALSE,
           breaks = y_breaks,
