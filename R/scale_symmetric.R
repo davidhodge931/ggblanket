@@ -143,8 +143,8 @@ scale_x_symmetric <- function(...,
 #' @keywords internal
 #'
 scale_y_symmetric <- function(...,
-                              data,
-                              y,
+                              data = NULL,
+                              y = NULL,
                               symmetric = TRUE,
                               breaks = NULL,
                               n_breaks = 6,
