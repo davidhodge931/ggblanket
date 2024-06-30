@@ -204,9 +204,6 @@ gg_blanket <- function(data = NULL,
     text = !!text,
   )
 
-  if (geom_name == "blank") show_legend <- FALSE
-  else show_legend <- TRUE
-
   if (stringr::str_detect(stat_name, "sf")) {
     if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
 
@@ -236,23 +233,10 @@ gg_blanket <- function(data = NULL,
       coord
   }
 
-  # if (!rlang::is_null(x_expand_limits)) {
-  #   plot <- plot +
-  #     ggplot2::expand_limits(x = x_expand_limits)
-  # }
-  #
-  # if (!rlang::is_null(y_expand_limits)) {
-  #   plot <- plot +
-  #     ggplot2::expand_limits(y = y_expand_limits)
-  # }
-
   suppressMessages({
     suppressWarnings({
       plot_build <- ggplot2::ggplot_build(plot)
       plot_data <- plot_build$data[[1]]
-
-      # facet_nrows <- length(unique(plot_build$layout$layout$ROW))
-      # facet_ncols <- length(unique(plot_build$layout$layout$COL))
     })
   })
 
@@ -294,42 +278,19 @@ gg_blanket <- function(data = NULL,
   ##############################################################################
 
   #get x_transform if NULL
-  # if (rlang::is_null(x_transform)) {
-  if (x_scale_type == "time") x_transform <- scales::transform_hms()
-  else if (x_scale_type == "datetime") x_transform <- scales::transform_time()
-  else if (x_scale_type == "date") x_transform <- scales::transform_date()
-  else x_transform <- scales::transform_identity()
-  # }
-
-  #make a tidy name to deal with composed transforms
-  # if (is.character(x_transform)) x_transform <- x_transform
-  # else if (inherits(x_transform, what = "transform")) {
-  #   x_transform <- x_transform$name %>%
-  #     stringr::str_remove("composition") %>%
-  #     stringr::str_remove("\\(") %>%
-  #     stringr::str_remove("\\)") %>%
-  #     stringr::str_split(",") %>%
-  #     unlist()
-  # }
-
+  if (rlang::is_null(x_transform)) {
+    if (x_scale_type == "time") x_transform <- scales::transform_hms()
+    else if (x_scale_type == "datetime") x_transform <- scales::transform_time()
+    else if (x_scale_type == "date") x_transform <- scales::transform_date()
+    else x_transform <- scales::transform_identity()
+  }
   #get y_transform if NULL
-  # if (rlang::is_null(y_transform)) {
-  if (y_scale_type == "time") y_transform <- scales::transform_hms()
-  else if (y_scale_type == "datetime")  y_transform <- scales::transform_time()
-  else if (y_scale_type == "date")  y_transform <- scales::transform_date()
-  else y_transform <- scales::transform_identity()
-  # }
-
-  #make a tidy name to deal with composed transforms
-  # if (is.character(y_transform)) y_transform <- y_transform
-  # else if (inherits(y_transform, what = "transform")) {
-  #   y_transform <- y_transform$name %>%
-  #     stringr::str_remove("composition") %>%
-  #     stringr::str_remove("\\(") %>%
-  #     stringr::str_remove("\\)") %>%
-  #     stringr::str_split(",") %>%
-  #     unlist()
-  # }
+  if (rlang::is_null(y_transform)) {
+    if (y_scale_type == "time") y_transform <- scales::transform_hms()
+    else if (y_scale_type == "datetime")  y_transform <- scales::transform_time()
+    else if (y_scale_type == "date")  y_transform <- scales::transform_date()
+    else y_transform <- scales::transform_identity()
+  }
 
   #make drop appropriate to facet scales
   x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
@@ -340,86 +301,20 @@ gg_blanket <- function(data = NULL,
     mode <- get_mode()
   }
 
-  ##############################################################################
-  # determine *_symmetric
-  ##############################################################################
-
+  #determine *_symmetric
   if (rlang::is_null(x_symmetric)) {
-    if (!stringr::str_detect(stat_name, "sf") &
-        facet_scales %in% c("fixed", "free_y") &
-        y_scale_type == "discrete" &
-        x_scale_type != "discrete") {
-      x_symmetric <- TRUE
-    }
+    if (stringr::str_detect(stat_name, "sf")) x_symmetric <- FALSE
+    else if (facet_scales %in% c("free", "free_x")) x_symmetric <- FALSE
+    else if (y_scale_type == "discrete" & x_scale_type != "discrete") x_symmetric <- TRUE
     else x_symmetric <- FALSE
   }
-  # else if (stringr::str_detect(stat_name, "sf") |
-  #     facet_scales %in% c("free", "free_x")
-  #     # length(x_transform) > 1 |
-  #     # !any(x_transform %in% c("identity", "reverse", "date", "time", "hms")) |
-  #     # !(x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete")
-  # ) {
-  #   x_symmetric <- FALSE
-  # }
-  # else x_symmetric <- TRUE
-
-  # if (stringr::str_detect(stat_name, "sf") |
-  #     facet_scales %in% c("free", "free_x") |
-  #     y_scale_type != "discrete"
-  #     # length(x_transform) > 1 |
-  #     # !any(x_transform %in% c("identity", "reverse", "date", "time", "hms")) |
-  #     # !(x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete")
-  # ) {
-  #   x_symmetric <- FALSE
-  # }
-  # else x_symmetric <- TRUE
-  # }
 
   if (rlang::is_null(y_symmetric)) {
-    if (stringr::str_detect(stat_name, "sf")) {
-      y_symmetric <- FALSE
-    }
-    else if (facet_scales %in% c("free", "free_y")) {
-      y_symmetric <- FALSE
-    }
-    else if (y_scale_type == "discrete" & x_scale_type != "discrete") {
-      y_symmetric <- FALSE
-    }
+    if (stringr::str_detect(stat_name, "sf")) y_symmetric <- FALSE
+    else if (facet_scales %in% c("free", "free_y")) y_symmetric <- FALSE
+    else if (y_scale_type == "discrete" & x_scale_type != "discrete") y_symmetric <- FALSE
     else y_symmetric <- TRUE
   }
-
-  # if (rlang::is_null(y_symmetric)) {
-  #   if (x_scale_type != "discrete" & y_scale_type == "discrete") {
-  #     y_symmetric <- FALSE
-  #   }
-  #   else if (stringr::str_detect(stat_name, "sf") |
-  #       facet_scales %in% c("free", "free_y")
-  #       # !(x_scale_type != "discrete" & y_scale_type != "discrete")
-  #       # length(y_transform) > 1 |
-  #       # !any(y_transform %in% c("identity", "reverse", "date", "time", "hms")) |
-  #       # !(y_scale_type %in% c("numeric", "date", "datetime", "time"))
-  #   ) {
-  #     y_symmetric <- FALSE
-  #   }
-  #   else y_symmetric <- TRUE
-  # }
-
-  # if (y_scale_type == "discrete" & x_scale_type != "discrete") {
-  #   # if (x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete") {
-  #   flipped <- TRUE
-  # }
-  # else {
-  #   flipped <- FALSE
-  # }
-
-  # if (x_symmetric) {
-  #   # if (x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete") {
-  #   flipped <- TRUE
-  # }
-  # else if (y_symmetric) {
-  #   flipped <- FALSE
-  # }
-
 
   ##############################################################################
   #abort if necessary
@@ -434,12 +329,6 @@ gg_blanket <- function(data = NULL,
   if (x_symmetric & y_symmetric) {
     rlang::abort("Both x_symmetric and y_symmetric are not supported: please make one FALSE.")
   }
-
-  # if (any(is.na(x_limits)) |
-  #     any(is.na(y_limits)) |
-  #     any(is.na(col_limits))) {
-  #   rlang::abort("NA values in `*_limits` are not supported: Please use `*_symmetric` and/or `*_expand_limits` instead")
-  # }
 
   ##############################################################################
   # process the data
@@ -489,6 +378,53 @@ gg_blanket <- function(data = NULL,
     text = !!text,
   ) +
     mode
+
+  ##############################################################################
+  # Add geom layer
+  ##############################################################################
+
+  if (geom_name == "blank") show_legend <- FALSE
+  else show_legend <- TRUE
+
+  if (stringr::str_detect(stat_name, "sf")) {
+    if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
+
+    plot <- plot +
+      ggplot2::layer_sf(
+        geom = geom,
+        stat = stat,
+        position = position,
+        mapping = ggplot2::aes(!!!mapping),
+        params = rlang::list2(...),
+        show.legend = show_legend,
+      ) +
+      coord
+  }
+  else {
+    if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
+
+    plot <- plot +
+      ggplot2::layer(
+        geom = geom,
+        stat = stat,
+        position = position,
+        mapping = ggplot2::aes(!!!mapping),
+        params = rlang::list2(...),
+        show.legend = show_legend,
+      ) +
+      coord
+  }
+
+  if (!rlang::is_null(x_expand_limits)) {
+    plot <- plot +
+      ggplot2::expand_limits(x = x_expand_limits)
+  }
+
+  if (!rlang::is_null(y_expand_limits)) {
+    plot <- plot +
+      ggplot2::expand_limits(y = y_expand_limits)
+  }
+
 
   ##############################################################################
   # Add facet layer
@@ -668,53 +604,7 @@ gg_blanket <- function(data = NULL,
   }
 
   ##############################################################################
-  # Add geom layer
-  ##############################################################################
-
-  if (geom_name == "blank") show_legend <- FALSE
-  else show_legend <- TRUE
-
-  if (stringr::str_detect(stat_name, "sf")) {
-    if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
-
-    plot <- plot +
-      ggplot2::layer_sf(
-        geom = geom,
-        stat = stat,
-        position = position,
-        mapping = ggplot2::aes(!!!mapping),
-        params = rlang::list2(...),
-        show.legend = show_legend,
-      ) +
-      coord
-  }
-  else {
-    if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
-
-    plot <- plot +
-      ggplot2::layer(
-        geom = geom,
-        stat = stat,
-        position = position,
-        mapping = ggplot2::aes(!!!mapping),
-        params = rlang::list2(...),
-        show.legend = show_legend,
-      ) +
-      coord
-  }
-
-  if (!rlang::is_null(x_expand_limits)) {
-    plot <- plot +
-      ggplot2::expand_limits(x = x_expand_limits)
-  }
-
-  if (!rlang::is_null(y_expand_limits)) {
-    plot <- plot +
-      ggplot2::expand_limits(y = y_expand_limits)
-  }
-
-  ##############################################################################
-  # get the plot build and data
+  # get the plot build and plot data
   ##############################################################################
 
   suppressMessages({
@@ -1269,16 +1159,6 @@ gg_blanket <- function(data = NULL,
         )
     }
   }
-
-  #expand limits if necessary
-  # if (!rlang::is_null(x_expand_limits)) {
-  #   plot <- plot +
-  #     ggplot2::expand_limits(x = x_expand_limits)
-  # }
-  # if (!rlang::is_null(y_expand_limits)) {
-  #   plot <- plot +
-  #     ggplot2::expand_limits(y = y_expand_limits)
-  # }
 
   #############################################################################
   # get x_label, y_label and col_label, if NULL
