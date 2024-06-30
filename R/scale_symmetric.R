@@ -71,7 +71,7 @@ scale_x_symmetric <- function(...,
 
     if (any(transform_name %in% "reverse")) limits <- rev(limits)
 
-    if (rlang::is_null(expand)) expand <- c(0, 0)
+    if (rlang::is_null(expand)) expand <- ggplot2::expansion(mult = c(0, 0))
 
     if (rlang::is_null(labels)) {
       if (any(transform_name == "hms")) labels <- scales::label_time()
@@ -100,7 +100,15 @@ scale_x_symmetric <- function(...,
       }
     }
 
-    if (rlang::is_null(expand)) expand <- c(0.05, 0.05)
+    if (rlang::is_null(expand)) expand <- ggplot2::expansion(mult = c(0.05, 0.05))
+
+    # if (rlang::is_null(x_expand)) {
+    #   if (any(colnames(data) %in% "xmin")) {
+    #     if (all(data["xmin"] == 0)) x_expand <- ggplot2::expansion(c(0, 0.05))
+    #     else if (all(data["xmax"] == 0)) x_expand <- ggplot2::expansion(c(0.05, 0))
+    #     else x_expand <- ggplot2::expansion(c(0.05, 0.05))
+    #   } else x_expand <- ggplot2::expansion(c(0.05, 0.05))
+    # }
 
     if (rlang::is_null(labels)) {
       if (any(transform_name == "hms")) labels <- scales::label_time()
@@ -197,7 +205,7 @@ scale_y_symmetric <- function(...,
 
     if (any(transform_name %in% "reverse")) limits <- rev(limits)
 
-    if (rlang::is_null(expand)) expand <- c(0, 0)
+    if (rlang::is_null(expand)) expand <- ggplot2::expansion(mult = c(0, 0))
 
     if (rlang::is_null(labels)) {
       if (any(transform_name == "hms")) labels <- scales::label_time()
@@ -226,7 +234,7 @@ scale_y_symmetric <- function(...,
       }
     }
 
-    if (rlang::is_null(expand)) expand <- c(0.05, 0.05)
+    if (rlang::is_null(expand)) expand <- ggplot2::expansion(mult = c(0.05, 0.05))
 
     if (rlang::is_null(labels)) {
       if (any(transform_name == "hms")) labels <- scales::label_time()

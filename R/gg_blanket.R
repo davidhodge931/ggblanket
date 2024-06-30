@@ -341,7 +341,7 @@ gg_blanket <- function(data = NULL,
   }
 
   ##############################################################################
-  # determine *_symmetric & flipped
+  # determine *_symmetric
   ##############################################################################
 
   if (rlang::is_null(x_symmetric)) {
@@ -404,13 +404,22 @@ gg_blanket <- function(data = NULL,
   #   else y_symmetric <- TRUE
   # }
 
-  if (y_scale_type == "discrete" & x_scale_type != "discrete") {
-    # if (x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete") {
-    flipped <- TRUE
-  }
-  else {
-    flipped <- FALSE
-  }
+  # if (y_scale_type == "discrete" & x_scale_type != "discrete") {
+  #   # if (x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete") {
+  #   flipped <- TRUE
+  # }
+  # else {
+  #   flipped <- FALSE
+  # }
+
+  # if (x_symmetric) {
+  #   # if (x_scale_type %in% c("numeric", "date", "datetime", "time") & y_scale_type == "discrete") {
+  #   flipped <- TRUE
+  # }
+  # else if (y_symmetric) {
+  #   flipped <- FALSE
+  # }
+
 
   ##############################################################################
   #abort if necessary
@@ -451,8 +460,7 @@ gg_blanket <- function(data = NULL,
                                 function(x) forcats::fct_rev(x)))
 
   #if flipped, order col correctly
-  if ((!identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) &
-      flipped) {
+  if ((!identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) & x_symmetric) {
     data <- data %>%
       dplyr::mutate(dplyr::across(!!col & tidyselect::where(is.factor),
                                   function(x) forcats::fct_rev(x)))
@@ -495,7 +503,7 @@ gg_blanket <- function(data = NULL,
   }
 
   if (rlang::is_null(facet_axes)) {
-    if (flipped) facet_axes <- "all_y"
+    if (x_symmetric) facet_axes <- "all_y"
     else facet_axes <- "all_x"
   }
 
@@ -838,7 +846,7 @@ gg_blanket <- function(data = NULL,
         else if (!any(rlang::have_name(col_palette))) col_palette <- col_palette[1:col_n]
       }
 
-      if (flipped) {
+      if (x_symmetric) {
         col_legend_rev <- !col_legend_rev
         if (col_scale_type == "discrete") col_palette <- rev(col_palette)
       }
@@ -1132,29 +1140,15 @@ gg_blanket <- function(data = NULL,
   # add positional scales
   ##############################################################################
 
-  #Make x scale based on plot_data
-  if (stringr::str_detect(stat_name, "sf")) {
-    if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
-    if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
-    if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
-
-    plot <- plot +
-      ggplot2::scale_x_continuous(
-        expand = x_expand,
-        breaks = x_breaks,
-        labels = x_labels,
-        oob = scales::oob_keep,
-        position = x_position,
-        transform = x_transform
-      )
-  }
-  else if (x_scale_type  == "discrete") {
+  #Make x scale
+  if (x_scale_type  == "discrete") {
     if (rlang::is_null(x_expand)) x_expand <- ggplot2::waiver()
     if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
     if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
 
     plot <- plot +
       ggplot2::scale_x_discrete(
+        limits = x_limits,
         expand = x_expand,
         breaks = x_breaks,
         labels = x_labels,
@@ -1162,99 +1156,56 @@ gg_blanket <- function(data = NULL,
         position = x_position
       )
   }
-  else { #continuous x_scale_type
-    if (rlang::is_null(x_labels)) {
-      if (any(x_transform %in% c("hms"))) x_labels <- scales::label_time()
-      else if (any(x_transform %in% c("date", "time"))) x_labels <- scales::label_date_short()
-      else x_labels <- scales::label_comma(drop0trailing = TRUE)
+  else {
+    if (stringr::str_detect(stat_name, "sf")) {
+      if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
+      if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
     }
 
-    if (facet_ncols == 1) x_breaks_n <- 6
-    else if (facet_ncols == 2) x_breaks_n <- 5
-    else if (facet_ncols == 3) x_breaks_n <- 4
-    else x_breaks_n <- 3
+    #add NULL arg & condition
+    if (facet_ncols == 1) x_n_breaks <- 6
+    else if (facet_ncols == 2) x_n_breaks <- 5
+    else if (facet_ncols == 3) x_n_breaks <- 4
+    else x_n_breaks <- 3
 
-    #non-symmetric
-    if (!x_symmetric) {
-      x_limits <- NULL
+    if (x_symmetric) {
+      data_x <- plot_data %>%
+        dplyr::select(tidyselect::matches(stringr::regex("^(?!xid|xbin)x.*"))) %>%
+        tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "x") %>%
+        dplyr::filter(!is.na(.data$x))
 
-      if (rlang::is_null(x_expand)) {
-        if (any(colnames(plot_data) %in% "xmin")) {
-          if (all(plot_data["xmin"] == 0)) x_expand <- ggplot2::expansion(c(0, 0.05))
-          else if (all(plot_data["xmax"] == 0)) x_expand <- ggplot2::expansion(c(0.05, 0))
-          else x_expand <- ggplot2::waiver()
-        } else x_expand <- ggplot2::waiver()
-      }
-
-      if (rlang::is_null(x_breaks)) {
-        if (any(x_transform %in% c("date", "time", "hms"))) {
-          x_breaks <- scales::breaks_pretty(n = x_breaks_n)
-        }
-        else {
-          x_breaks <- scales::breaks_extended(n = x_breaks_n, only.loose = FALSE)
-        }
-      }
+      plot <- plot +
+        scale_x_symmetric(
+          data = data_x,
+          x = x,
+          symmetric = TRUE,
+          breaks = x_breaks,
+          n_breaks = x_n_breaks, ###
+          expand = x_expand,
+          expand_limits = x_expand_limits,
+          labels = x_labels,
+          position = x_position,
+          sec_axis = ggplot2::waiver(), ###
+          transform = x_transform
+        )
     }
-    #symmetric
-    else if (x_symmetric) {
-      x_vars_str <- "^(?!xid|xbin)x.*" #starts with x & not xid & not xbin
-
-      x_vctr <- plot_data %>%
-        dplyr::select(tidyselect::matches(stringr::regex(x_vars_str)))
-
-      if (ncol(x_vctr) != 0) {
-        x_vctr <- x_vctr %>%
-          tidyr::pivot_longer(cols = tidyselect::everything()) %>%
-          dplyr::filter(!is.na(.data$value)) %>%
-          dplyr::pull(.data$value)
-      } else {
-        x_vctr <- c(-Inf, Inf)
-      }
-
-      if (!rlang::is_null(x_expand_limits)) {
-        x_vctr <- c(x_vctr, x_expand_limits)
-      }
-
-      if (x_scale_type == "time") x_vctr <- hms::as_hms(x_vctr)
-      else if (x_scale_type == "datetime") x_vctr <- lubridate::as_datetime(x_vctr, origin = "1970-01-01")
-      else if (x_scale_type == "date") x_vctr <- lubridate::as_date(x_vctr, origin = "1970-01-01")
-
-      x_range <- range(x_vctr, na.rm = TRUE)
-      if (x_scale_type == "time") x_range <- hms::as_hms(x_range)
-
-      if (position_name == "fill") {
-        if (rlang::is_null(x_breaks)) x_breaks <- ggplot2::waiver()
-        x_limits <- c(0, 1)
-      }
-      else if (rlang::is_null(x_breaks)) {
-        if (any(x_transform %in% c("date", "time", "hms"))) {
-          x_breaks <- scales::breaks_pretty(n = x_breaks_n)(x_range)
-        }
-        else {
-          x_breaks <- scales::breaks_extended(n = x_breaks_n, only.loose = TRUE)(x_range)
-        }
-      }
-      else if (is.function(x_breaks)) x_breaks <- x_breaks(x_range)
-
-      x_limits <- range(x_breaks)
-
-      if (rlang::is_null(x_expand)) x_expand <- c(0, 0)
+    else {
+      plot <- plot +
+        scale_x_symmetric(
+          symmetric = FALSE,
+          breaks = x_breaks,
+          n_breaks = x_n_breaks, ###
+          expand = x_expand,
+          expand_limits = x_expand_limits,
+          labels = x_labels,
+          position = x_position,
+          sec_axis = ggplot2::waiver(), ###
+          transform = x_transform
+        )
     }
-
-    #make the x_scale
-    plot <- plot +
-      ggplot2::scale_x_continuous(
-        limits = x_limits,
-        expand = x_expand,
-        breaks = x_breaks,
-        labels = x_labels,
-        oob = scales::oob_keep,
-        position = x_position,
-        transform = x_transform
-      )
   }
 
-  #Make y scale based on plot_data
+  #Make y scale
   if (y_scale_type  == "discrete") {
     if (rlang::is_null(y_expand)) y_expand <- ggplot2::waiver()
     if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
@@ -1283,16 +1234,14 @@ gg_blanket <- function(data = NULL,
     else y_n_breaks <- 3
 
     if (y_symmetric) {
-      y_vars_str <- "^(?!yid|ybin)y.*" #starts with y & not yid & not ybin
-
-      plot_data_y <- plot_data %>%
+      data_y <- plot_data %>%
         dplyr::select(tidyselect::matches(stringr::regex("^(?!yid|ybin)y.*"))) %>%
         tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "y") %>%
         dplyr::filter(!is.na(.data$y))
 
       plot <- plot +
         scale_y_symmetric(
-          data = plot_data_y,
+          data = data_y,
           y = y,
           symmetric = TRUE,
           breaks = y_breaks,
@@ -1322,10 +1271,10 @@ gg_blanket <- function(data = NULL,
   }
 
   #expand limits if necessary
-  if (!rlang::is_null(x_expand_limits)) {
-    plot <- plot +
-      ggplot2::expand_limits(x = x_expand_limits)
-  }
+  # if (!rlang::is_null(x_expand_limits)) {
+  #   plot <- plot +
+  #     ggplot2::expand_limits(x = x_expand_limits)
+  # }
   # if (!rlang::is_null(y_expand_limits)) {
   #   plot <- plot +
   #     ggplot2::expand_limits(y = y_expand_limits)
@@ -1561,7 +1510,7 @@ gg_blanket <- function(data = NULL,
         axis.text.y.right = ggplot2::element_blank()
       )
   }
-  else if (flipped) {
+  else if (x_symmetric) {
     plot <- plot +
       ggplot2::theme(
         panel.grid.major.y = ggplot2::element_blank(),
