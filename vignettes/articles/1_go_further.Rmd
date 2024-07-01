@@ -463,7 +463,7 @@ penguins |>
 ```{r}
 #To zoom-in when the stat equals "identity", use dplyr::filter
 penguins |>
-  filter(between(bill_depth_mm, 0, 15)) |>
+  filter(bill_depth_mm < 15) |>
   gg_point(
     x =  bill_depth_mm, 
     y = body_mass_g,
@@ -481,8 +481,8 @@ penguins |>
     y = bill_depth_mm,
     se = TRUE,
     coord = coord_cartesian(ylim = c(14.8, 15)), 
+    y_breaks = scales::breaks_width(0.05),
     # y_symmetric = FALSE,
-    # y_breaks = scales::breaks_width(0.05), #recreate breaks
   ) 
 ```
 
