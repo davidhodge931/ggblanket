@@ -162,7 +162,6 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_bin_2d.html">gg_bin_2d</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">carat</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">price</span>,</span>
-<span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20000</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="4_demo_grey_files/figure-html/unnamed-chunk-4-1.svg" width="70%"></p>
 </div>
@@ -309,7 +308,7 @@ Hodge</h4>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/gg_function.html">gg_function</a></span><span class="op">(</span></span>
 <span>  fun <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="va">x</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span>  x_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.005</span>, <span class="fl">0.995</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  x_expand_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.005</span>, <span class="fl">0.995</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
 <span>  x_label <span class="op">=</span> <span class="st">"X"</span>,</span>
 <span>  y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -323,8 +322,6 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_hex.html">gg_hex</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">carat</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">price</span>,</span>
-<span>    coord <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span>, </span>
-<span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20000</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="4_demo_grey_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
 </div>
