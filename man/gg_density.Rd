@@ -33,7 +33,7 @@ gg_density(
   x_expand = NULL,
   x_expand_limits = NULL,
   x_labels = NULL,
-  x_n_breaks = NULL,
+  x_breaks_n = NULL,
   x_sec_axis = ggplot2::waiver(),
   x_symmetric = NULL,
   x_position = "bottom",
@@ -43,7 +43,7 @@ gg_density(
   y_expand = NULL,
   y_expand_limits = NULL,
   y_labels = NULL,
-  y_n_breaks = NULL,
+  y_breaks_n = NULL,
   y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
   y_position = "left",
@@ -56,7 +56,7 @@ gg_density(
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
-  col_n_breaks = 5,
+  col_breaks_n = 5,
   col_palette = NULL,
   col_palette_na = NULL,
   col_rescale = scales::rescale(),
@@ -103,7 +103,7 @@ gg_density(
 
 \item{x_labels, y_labels, col_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \verb{scales::label_*()}), or a vector of labels. (Note this must be named for \code{facet_labels}).}
 
-\item{x_n_breaks, y_n_breaks, col_n_breaks}{A number of desired breaks for when \verb{*_breaks = NULL}.}
+\item{x_breaks_n, y_breaks_n, col_breaks_n}{A number of desired breaks for when \verb{*_breaks = NULL}.}
 
 \item{x_sec_axis, y_sec_axis}{A secondary axis with \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}} or  \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}}.}
 

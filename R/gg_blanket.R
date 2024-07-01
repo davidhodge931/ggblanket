@@ -12,7 +12,7 @@
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()]. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
-#' @param x_n_breaks,y_n_breaks,col_n_breaks A number of desired breaks for when `*_breaks = NULL`.
+#' @param x_breaks_n,y_breaks_n,col_breaks_n A number of desired breaks for when `*_breaks = NULL`.
 #' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
 #' @param x_expand_limits,y_expand_limits,col_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
 #' @param x_label,y_label,col_label Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)` for no title.
@@ -90,7 +90,7 @@ gg_blanket <- function(data = NULL,
                        x_expand = NULL,
                        x_expand_limits = NULL,
                        x_labels = NULL,
-                       x_n_breaks = NULL,
+                       x_breaks_n = NULL,
                        x_sec_axis = ggplot2::waiver(),
                        x_symmetric = NULL, x_position = "bottom",
                        x_label = NULL,
@@ -99,7 +99,7 @@ gg_blanket <- function(data = NULL,
                        y_expand = NULL,
                        y_expand_limits = NULL,
                        y_labels = NULL,
-                       y_n_breaks = NULL,
+                       y_breaks_n = NULL,
                        y_sec_axis = ggplot2::waiver(),
                        y_symmetric = NULL, y_position = "left",
                        y_label = NULL,
@@ -111,7 +111,7 @@ gg_blanket <- function(data = NULL,
                        col_legend_ncol = NULL,
                        col_legend_nrow = NULL,
                        col_legend_rev = FALSE,
-                       col_n_breaks = 5,
+                       col_breaks_n = 5,
 
                        col_palette = NULL,
                        col_palette_na = NULL,
@@ -670,10 +670,10 @@ gg_blanket <- function(data = NULL,
 
       if (rlang::is_null(col_breaks)) {
         if (any(col_transform %in% c("hms", "time", "datetime", "date"))) {
-          col_breaks <- scales::breaks_pretty(n = col_n_breaks)
+          col_breaks <- scales::breaks_pretty(n = col_breaks_n)
         }
         else {
-          col_breaks <- scales::breaks_extended(n = col_n_breaks, only.loose = FALSE)
+          col_breaks <- scales::breaks_extended(n = col_breaks_n, only.loose = FALSE)
         }
       }
 
@@ -1053,11 +1053,11 @@ gg_blanket <- function(data = NULL,
       if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
     }
 
-    if (rlang::is_null(x_n_breaks)) {
-      if (facet_ncols == 1) x_n_breaks <- 6
-      else if (facet_ncols == 2) x_n_breaks <- 5
-      else if (facet_ncols == 3) x_n_breaks <- 4
-      else x_n_breaks <- 3
+    if (rlang::is_null(x_breaks_n)) {
+      if (facet_ncols == 1) x_breaks_n <- 6
+      else if (facet_ncols == 2) x_breaks_n <- 5
+      else if (facet_ncols == 3) x_breaks_n <- 4
+      else x_breaks_n <- 3
     }
 
     if (x_symmetric) {
@@ -1072,7 +1072,7 @@ gg_blanket <- function(data = NULL,
           x = x,
           symmetric = TRUE,
           breaks = x_breaks,
-          n_breaks = x_n_breaks,
+          breaks_n = x_breaks_n,
           expand = x_expand,
           expand_limits = x_expand_limits,
           labels = x_labels,
@@ -1086,7 +1086,7 @@ gg_blanket <- function(data = NULL,
         scale_x_symmetric(
           symmetric = FALSE,
           breaks = x_breaks,
-          n_breaks = x_n_breaks,
+          breaks_n = x_breaks_n,
           expand = x_expand,
           expand_limits = x_expand_limits,
           labels = x_labels,
@@ -1118,11 +1118,11 @@ gg_blanket <- function(data = NULL,
       if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
     }
 
-    if (rlang::is_null(y_n_breaks)) {
-      if (facet_nrows == 1) y_n_breaks <- 6
-      else if (facet_nrows == 2) y_n_breaks <- 5
-      else if (facet_nrows == 3) y_n_breaks <- 4
-      else y_n_breaks <- 3
+    if (rlang::is_null(y_breaks_n)) {
+      if (facet_nrows == 1) y_breaks_n <- 6
+      else if (facet_nrows == 2) y_breaks_n <- 5
+      else if (facet_nrows == 3) y_breaks_n <- 4
+      else y_breaks_n <- 3
     }
 
     if (y_symmetric) {
@@ -1137,7 +1137,7 @@ gg_blanket <- function(data = NULL,
           y = y,
           symmetric = TRUE,
           breaks = y_breaks,
-          n_breaks = y_n_breaks,
+          breaks_n = y_breaks_n,
           expand = y_expand,
           expand_limits = y_expand_limits,
           labels = y_labels,
@@ -1151,7 +1151,7 @@ gg_blanket <- function(data = NULL,
         scale_y_symmetric(
           symmetric = FALSE,
           breaks = y_breaks,
-          n_breaks = y_n_breaks,
+          breaks_n = y_breaks_n,
           expand = y_expand,
           expand_limits = y_expand_limits,
           labels = y_labels,

@@ -5,7 +5,7 @@
 #' @param x An unquoted variable.
 #' @param symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #' @param breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
-#' @param n_breaks If `breaks = NULL`, the desired number of breaks.
+#' @param breaks_n If `breaks = NULL`, the desired number of breaks.
 #' @param expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
 #' @param expand_limits Any values that the limits should encompass (e.g. `0`).
 #' @param labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_*()`), or a vector of labels.
@@ -21,7 +21,7 @@ scale_x_symmetric <- function(...,
                               x = NULL,
                               symmetric = TRUE,
                               breaks = NULL,
-                              n_breaks = 6,
+                              breaks_n = 6,
                               expand = NULL,
                               expand_limits = NULL,
                               labels = NULL,
@@ -59,10 +59,10 @@ scale_x_symmetric <- function(...,
 
     if (rlang::is_null(breaks)) {
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
-        breaks <- scales::breaks_pretty(n = n_breaks)(range)
+        breaks <- scales::breaks_pretty(n = breaks_n)(range)
       }
       else {
-        breaks <- scales::breaks_extended(n = n_breaks, only.loose = TRUE)(range)
+        breaks <- scales::breaks_extended(n = breaks_n, only.loose = TRUE)(range)
       }
     }
     else if (is.function(breaks)) breaks <- breaks(range)
@@ -93,10 +93,10 @@ scale_x_symmetric <- function(...,
   else {
     if (rlang::is_null(breaks)) {
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
-        breaks <- scales::breaks_pretty(n = n_breaks)
+        breaks <- scales::breaks_pretty(n = breaks_n)
       }
       else {
-        breaks <- scales::breaks_extended(n = n_breaks, only.loose = FALSE)
+        breaks <- scales::breaks_extended(n = breaks_n, only.loose = FALSE)
       }
     }
 
@@ -131,7 +131,7 @@ scale_x_symmetric <- function(...,
 #' @param y An unquoted variable.
 #' @param symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #' @param breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
-#' @param n_breaks If `breaks = NULL`, the desired number of breaks.
+#' @param breaks_n If `breaks = NULL`, the desired number of breaks.
 #' @param expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
 #' @param expand_limits Any values that the limits should encompass (e.g. `0`).
 #' @param labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_*()`), or a vector of labels.
@@ -147,7 +147,7 @@ scale_y_symmetric <- function(...,
                               y = NULL,
                               symmetric = TRUE,
                               breaks = NULL,
-                              n_breaks = 6,
+                              breaks_n = 6,
                               expand = NULL,
                               expand_limits = NULL,
                               labels = NULL,
@@ -185,10 +185,10 @@ scale_y_symmetric <- function(...,
 
     if (rlang::is_null(breaks)) {
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
-        breaks <- scales::breaks_pretty(n = n_breaks)(range)
+        breaks <- scales::breaks_pretty(n = breaks_n)(range)
       }
       else {
-        breaks <- scales::breaks_extended(n = n_breaks, only.loose = TRUE)(range)
+        breaks <- scales::breaks_extended(n = breaks_n, only.loose = TRUE)(range)
       }
     }
     else if (is.function(breaks)) breaks <- breaks(range)
@@ -219,10 +219,10 @@ scale_y_symmetric <- function(...,
   else {
     if (rlang::is_null(breaks)) {
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
-        breaks <- scales::breaks_pretty(n = n_breaks)
+        breaks <- scales::breaks_pretty(n = breaks_n)
       }
       else {
-        breaks <- scales::breaks_extended(n = n_breaks, only.loose = FALSE)
+        breaks <- scales::breaks_extended(n = breaks_n, only.loose = FALSE)
       }
     }
 

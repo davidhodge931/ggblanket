@@ -4,7 +4,7 @@
 * Breaking: removed `*_mode_n` and `grey_mode_*` functions.
 * Breaking: removed `*_orientation` arguments.
 * Breaking: removed `greyness` helper.
-* Added `*_n_breaks` and `*_sec_axis` arguments.
+* Added `*_breaks_n` and `*_sec_axis` arguments.
 * Added `*_symmetric` arguments.
 
 # ggblanket 9.1.1

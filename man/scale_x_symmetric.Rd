@@ -10,7 +10,7 @@ scale_x_symmetric(
   x = NULL,
   symmetric = TRUE,
   breaks = NULL,
-  n_breaks = 6,
+  breaks_n = 6,
   expand = NULL,
   expand_limits = NULL,
   labels = NULL,
@@ -30,7 +30,7 @@ scale_x_symmetric(
 
 \item{breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 
-\item{n_breaks}{If \code{breaks = NULL}, the desired number of breaks.}
+\item{breaks_n}{If \code{breaks = NULL}, the desired number of breaks.}
 
 \item{expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 
