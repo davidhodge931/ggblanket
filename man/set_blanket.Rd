@@ -24,7 +24,7 @@ set_blanket(
 \arguments{
 \item{...}{Provided to force user argument naming etc.}
 
-\item{mode}{A \verb{*_mode_*}. E.g. \code{\link[=light_mode_t]{light_mode_t()}}, \code{\link[=grey_mode_r]{grey_mode_r()}}, or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
+\item{mode}{A \verb{*_mode_*}. E.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
 
 \item{geom_colour}{A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to \code{blue} (i.e. \verb{#357BA2FF}).}
 

@@ -8,7 +8,7 @@
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
-#' @param mode A ggplot2 theme (e.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()]). This argument adds the theme with side-effects of removing relevant axis line/ticks and gridlines per the orientation. To avoid these side-effects, `+` the theme on to the output of `gg_*`.
+#' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]). This argument adds the theme with side-effects of removing relevant axis line/ticks and gridlines per the orientation. To avoid these side-effects, `+` the theme on to the output of `gg_*`.
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()]. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
@@ -59,7 +59,6 @@
 #'     y = body_mass_g,
 #'     col = sex,
 #'     facet = species,
-#'     mode = grey_mode_b(),
 #'   )
 #'
 gg_blanket <- function(data = NULL,

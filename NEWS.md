@@ -1,10 +1,10 @@
 # ggblanket 9.1.1.9000
 
 * Breaking: removed `*_limits` and `*_oob` arguments.
-* Added `*_n_breaks` and `*_sec_axis` arguments.
-* Breaking: Removed `*_mode_n` variants.
+* Breaking: Removed `*_mode_n` and `grey_mode_*` functions.
 * Breaking: Removed `*_orientation` arguments.
-* Breaking: NA values in `*_limits` are no longer supported.
+* Breaking: Removed `greyness` helper.
+* Added `*_n_breaks` and `*_sec_axis` arguments.
 * Added `*_symmetric` arguments.
 
 # ggblanket 9.1.1

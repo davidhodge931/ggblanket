@@ -220,26 +220,6 @@ test_that(test_name, {
 })
 
 
-
-## ----fig.asp=0.75-----------------------------------------------------------------------------------
-test_name <- "12"
-
-test_that(test_name, {
-  p <- penguins |>
-    gg_histogram(
-      x = flipper_length_mm,
-      col = species,
-      title = "Penguin flipper length by species",
-      subtitle = "Palmer Archipelago, Antarctica",
-      caption = "Source: Gorman, 2020",
-      mode = grey_mode_b(),
-    )
-
-  vdiffr::expect_doppelganger(test_name, p)
-})
-
-
-
 ## ----fig.asp=0.65-----------------------------------------------------------------------------------
 test_name <- "13"
 

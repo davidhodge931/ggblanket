@@ -234,9 +234,7 @@ penguins2 |>
 
 ### 10.  Families of `*_mode_*` themes with legend variants 
 
-`light_mode_*`, `grey_mode_*` and `dark_mode_*` theme families are provided with variants that differ based on legend placement with suffix `r` (right), `b` (bottom), and `t` (top). 
-
-These themes were built for use with the `mode` argument.
+`light_mode_*` and `dark_mode_*` theme families are provided with variants that differ based on legend placement with suffix `r` (right), `b` (bottom), and `t` (top). These functions were built for use with the `mode` argument - and have flexibility to adjust colours, linewidths etc. 
 
 ```{r, fig.asp=0.65}
 penguins2 |>
@@ -246,7 +244,7 @@ penguins2 |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    mode = grey_mode_t() + theme(legend.title = element_blank()),
+    mode = dark_mode_t() + theme(legend.title = element_blank()),
   ) 
 ```
 
@@ -269,14 +267,12 @@ p1 <- penguins2 |>
   gg_jitter(
     x = sex,
     y = bill_depth_mm,
-    mode = grey_mode_r(),
   )
 
 p2 <- penguins2 |>
   gg_jitter(
     x = bill_depth_mm,
     y = sex,
-    mode = grey_mode_r(),
   ) 
 
 p1 + p2

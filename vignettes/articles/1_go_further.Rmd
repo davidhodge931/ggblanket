@@ -268,7 +268,6 @@ p1 <- penguins2 |>
     position = position_dodge(),
     x_labels = \(x) str_sub(x, 1, 1),
     subtitle = "\ny_symmetric = NULL",
-    mode = grey_mode_r()
   ) +
   labs(y = NULL)
 
@@ -281,7 +280,6 @@ p2 <- penguins2 |>
     x_labels = \(x) str_sub(x, 1, 1),
     y_symmetric = FALSE,
     subtitle = "\ny_symmetric = FALSE,",
-    mode = grey_mode_r()
   ) +
   labs(y = NULL)
 
@@ -295,7 +293,6 @@ p3 <- penguins2 |>
     x_labels = \(x) str_sub(x, 1, 1),
     y_symmetric = FALSE,
     subtitle = "\ny_symmetric = FALSE,",
-    mode = grey_mode_r()
   ) +
   labs(y = NULL)
 
@@ -313,17 +310,16 @@ p1 <- penguins2 |>
   gg_jitter(
     x = sex,
     y = bill_depth_mm,
-    subtitle = "\nmode = grey_more_r()",
-    mode = grey_mode_r(),
+    subtitle = "\nmode = light_more_r()",
   )
 
 p2 <- penguins2 |>
   gg_jitter(
     x = sex,
     y = bill_depth_mm,
-    subtitle = "\n+ grey_more_r()",
+    subtitle = "\n+ light_more_r()",
   ) +
-  grey_mode_r()
+  light_mode_r()
 
 p1 + p2
 ```

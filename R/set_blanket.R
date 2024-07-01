@@ -4,7 +4,7 @@
 #' Set a style by setting a mode, a series of geom and annotate aesthetic defaults, and a col_palette for discrete and continuous scales.
 #'
 #' @param ... Provided to force user argument naming etc.
-#' @param mode A `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
+#' @param mode A `*_mode_*`. E.g. [light_mode_t()] or [dark_mode_r()].
 #' @param geom_colour A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to `blue` (i.e. `#357BA2FF`).
 #' @param annotate_colour A hex colour (and fill) for other geoms commonly used for annotation (i.e. `*_hline`/`*_vline`/`*_abline` and `*_curve`). Defaults to "#121b24" (i.e. `lightness[1]`).
 #' @param annotate_linewidth A linewidth for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to 0.33.

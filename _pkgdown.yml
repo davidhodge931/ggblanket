@@ -17,9 +17,6 @@ reference:
   - light_mode_r
   - light_mode_t
   - light_mode_b
-  - grey_mode_r
-  - grey_mode_t
-  - grey_mode_b
   - dark_mode_r
   - dark_mode_t
   - dark_mode_b
@@ -35,7 +32,6 @@ reference:
   - purple
   - grey
   - lightness
-  - greyness
   - darkness
   - linewidthness
 - title: Other
