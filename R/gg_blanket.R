@@ -318,6 +318,17 @@ gg_blanket <- function(data = NULL,
     else y_symmetric <- TRUE
   }
 
+  # if (rlang::is_null(x_orientation) & rlang::is_null(y_orientation)) {
+  #   if (y_scale_type == "discrete" & x_scale_type != "discrete") x_orientation <- TRUE
+  #   else x_orientation <- FALSE
+  # }
+  # else if (!rlang::is_null(x_orientation) & rlang::is_null(y_orientation)) {
+  #   y_orientation <- !x_orientation
+  # }
+  # else if (rlang::is_null(x_orientation) & !rlang::is_null(y_orientation)) {
+  #   x_orientation <- !y_orientation
+  # }
+
   ##############################################################################
   #abort if necessary
   ##############################################################################
