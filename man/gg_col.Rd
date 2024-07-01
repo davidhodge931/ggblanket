@@ -33,8 +33,8 @@ gg_col(
   x_expand = NULL,
   x_expand_limits = NULL,
   x_labels = NULL,
-  x_limits = NULL,
-  x_oob = scales::oob_keep,
+  x_n_breaks = NULL,
+  x_sec_axis = ggplot2::waiver(),
   x_symmetric = NULL,
   x_position = "bottom",
   x_label = NULL,
@@ -43,8 +43,8 @@ gg_col(
   y_expand = NULL,
   y_expand_limits = NULL,
   y_labels = NULL,
-  y_limits = NULL,
-  y_oob = scales::oob_keep,
+  y_n_breaks = NULL,
+  y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
   y_position = "left",
   y_label = NULL,
@@ -56,8 +56,7 @@ gg_col(
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
-  col_limits = NULL,
-  col_oob = scales::oob_keep,
+  col_n_breaks = 5,
   col_palette = NULL,
   col_palette_na = NULL,
   col_rescale = scales::rescale(),
@@ -104,9 +103,9 @@ gg_col(
 
 \item{x_labels, y_labels, col_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \verb{scales::label_*()}), or a vector of labels. (Note this must be named for \code{facet_labels}).}
 
-\item{x_limits, y_limits, col_limits}{For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with \code{factor}, \code{forcats::fct_expand} or \code{forcats::fct_drop}.}
+\item{x_n_breaks, y_n_breaks, col_n_breaks}{A number of desired breaks for when \verb{*_breaks = NULL}.}
 
-\item{x_oob, y_oob, col_oob}{For a continuous scale, a \verb{scales::oob_*} function of how to handle values outside of limits. Defaults to \code{scales::oob_keep}.}
+\item{x_sec_axis, y_sec_axis}{A secondary axis with \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}} or  \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}}.}
 
 \item{x_symmetric, y_symmetric}{\code{TRUE} or \code{FALSE} of whether a symmetric scale.}
 

@@ -12,13 +12,13 @@
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()]. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
+#' @param x_n_breaks,y_n_breaks,col_n_breaks A number of desired breaks for when `*_breaks = NULL`.
 #' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
 #' @param x_expand_limits,y_expand_limits,col_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
 #' @param x_label,y_label,col_label Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)` for no title.
 #' @param x_labels,y_labels,col_labels,facet_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_*()`), or a vector of labels. (Note this must be named for `facet_labels`).
-#' @param x_limits,y_limits,col_limits For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with `factor`, `forcats::fct_expand` or `forcats::fct_drop`.
-#' @param x_oob,y_oob,col_oob For a continuous scale, a `scales::oob_*` function of how to handle values outside of limits. Defaults to `scales::oob_keep`.
 #' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_mode_*` theme, add `caption = ""` or `caption = "\n"`.
+#' @param x_sec_axis,y_sec_axis A secondary axis with [ggplot2::dup_axis()] or  [ggplot2::sec_axis()].
 #' @param x_symmetric,y_symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
@@ -91,8 +91,8 @@ gg_blanket <- function(data = NULL,
                        x_expand = NULL,
                        x_expand_limits = NULL,
                        x_labels = NULL,
-                       x_limits = NULL,
-                       x_oob = scales::oob_keep,
+                       x_n_breaks = NULL,
+                       x_sec_axis = ggplot2::waiver(),
                        x_symmetric = NULL, x_position = "bottom",
                        x_label = NULL,
                        x_transform = NULL,
@@ -100,8 +100,8 @@ gg_blanket <- function(data = NULL,
                        y_expand = NULL,
                        y_expand_limits = NULL,
                        y_labels = NULL,
-                       y_limits = NULL,
-                       y_oob = scales::oob_keep,
+                       y_n_breaks = NULL,
+                       y_sec_axis = ggplot2::waiver(),
                        y_symmetric = NULL, y_position = "left",
                        y_label = NULL,
                        y_transform = NULL,
@@ -112,8 +112,8 @@ gg_blanket <- function(data = NULL,
                        col_legend_ncol = NULL,
                        col_legend_nrow = NULL,
                        col_legend_rev = FALSE,
-                       col_limits = NULL,
-                       col_oob = scales::oob_keep,
+                       col_n_breaks = 5,
+
                        col_palette = NULL,
                        col_palette_na = NULL,
                        col_rescale = scales::rescale(),
@@ -641,9 +641,9 @@ gg_blanket <- function(data = NULL,
 
       #get col_transform if NULL
       if (rlang::is_null(col_transform)) {
-        if (inherits(rlang::eval_tidy(col, data), what = "hms")) col_transform <- scales::transform_hms()
-        else if (inherits(rlang::eval_tidy(col, data), what = "POSIXct")) col_transform <- scales::transform_time()
-        else if (inherits(rlang::eval_tidy(col, data), what = "Date")) col_transform <- scales::transform_date()
+        if (col_scale_type == "time") col_transform <- scales::transform_hms()
+        else if (col_scale_type == "datetime") col_transform <- scales::transform_time()
+        else if (col_scale_type == "date") col_transform <- scales::transform_date()
         else col_transform <- scales::transform_identity()
       }
 
@@ -659,22 +659,17 @@ gg_blanket <- function(data = NULL,
       }
 
       if (rlang::is_null(col_breaks)) {
-        # if (any(stringr::str_detect(col_transform, "log-")) |
-        #     any(col_transform %in% c("log", "log2", "log10"))
-        # ) {
-        #   col_breaks <- scales::breaks_log(n = 5)
-        # }
-        if (!any(col_transform %in% c("identity", "reverse"))) col_breaks <- ggplot2::waiver()
-        else col_breaks <- scales::breaks_extended(n = 5, only.loose = TRUE)
+        if (any(col_transform %in% c("hms", "time", "datetime", "date"))) {
+          col_breaks <- scales::breaks_pretty(n = col_n_breaks)
+        }
+        else {
+          col_breaks <- scales::breaks_extended(n = col_n_breaks, only.loose = FALSE)
+        }
       }
 
       if (rlang::is_null(col_labels)) {
         if (any(col_transform %in% c("hms"))) col_labels <- scales::label_time()
-        else if (any(col_transform %in% c("date", "time"))) col_labels <- scales::label_date_short()
-        else if (any(stringr::str_detect(col_transform, "log-")) |
-                 any(col_transform %in% c("log", "log2", "log10"))) {
-          col_labels <- scales::label_log()
-        }
+        else if (any(col_transform %in% c("date", "datetime", "time"))) col_labels <- scales::label_date_short()
         else col_labels <- scales::label_comma(drop0trailing = TRUE)
       }
 
@@ -683,7 +678,6 @@ gg_blanket <- function(data = NULL,
           ggplot2::scale_colour_gradientn(
             colours = col_palette,
             values = col_rescale,
-            # limits = col_limits,
             breaks = col_breaks,
             labels = col_labels,
             transform = col_transform,
@@ -701,7 +695,6 @@ gg_blanket <- function(data = NULL,
           ggplot2::scale_colour_stepsn(
             colours = col_palette,
             values = col_rescale,
-            limits = col_limits,
             breaks = col_breaks,
             labels = col_labels,
             transform = col_transform,
@@ -761,7 +754,6 @@ gg_blanket <- function(data = NULL,
           plot <- plot +
             ggplot2::scale_colour_manual(
               values = col_palette,
-              limits = col_limits,
               breaks = col_breaks,
               labels = col_labels,
               na.value = col_palette_na,
@@ -785,7 +777,6 @@ gg_blanket <- function(data = NULL,
           plot <- plot +
             ggplot2::discrete_scale(
               palette = col_palette,
-              limits = col_limits,
               breaks = col_breaks,
               labels = col_labels,
               na.value = col_palette_na,
@@ -812,7 +803,6 @@ gg_blanket <- function(data = NULL,
         if (col_scale_type == "discrete") {
           plot <- plot +
             ggplot2::scale_colour_hue(
-              limits = col_limits,
               breaks = col_breaks,
               labels = col_labels,
               na.value = col_palette_na,
@@ -835,7 +825,6 @@ gg_blanket <- function(data = NULL,
         else if (col_scale_type == "ordinal") {
           plot <- plot +
             ggplot2::scale_colour_viridis_d(
-              limits = col_limits,
               breaks = col_breaks,
               labels = col_labels,
               na.value = col_palette_na,
@@ -1054,11 +1043,12 @@ gg_blanket <- function(data = NULL,
       if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
     }
 
-    #add NULL arg & condition
-    if (facet_ncols == 1) x_n_breaks <- 6
-    else if (facet_ncols == 2) x_n_breaks <- 5
-    else if (facet_ncols == 3) x_n_breaks <- 4
-    else x_n_breaks <- 3
+    if (rlang::is_null(x_n_breaks)) {
+      if (facet_ncols == 1) x_n_breaks <- 6
+      else if (facet_ncols == 2) x_n_breaks <- 5
+      else if (facet_ncols == 3) x_n_breaks <- 4
+      else x_n_breaks <- 3
+    }
 
     if (x_symmetric) {
       data_x <- plot_data %>%
@@ -1072,12 +1062,12 @@ gg_blanket <- function(data = NULL,
           x = x,
           symmetric = TRUE,
           breaks = x_breaks,
-          n_breaks = x_n_breaks, ###
+          n_breaks = x_n_breaks,
           expand = x_expand,
           expand_limits = x_expand_limits,
           labels = x_labels,
           position = x_position,
-          sec_axis = ggplot2::waiver(), ###
+          sec_axis = x_sec_axis,
           transform = x_transform
         )
     }
@@ -1086,12 +1076,12 @@ gg_blanket <- function(data = NULL,
         scale_x_symmetric(
           symmetric = FALSE,
           breaks = x_breaks,
-          n_breaks = x_n_breaks, ###
+          n_breaks = x_n_breaks,
           expand = x_expand,
           expand_limits = x_expand_limits,
           labels = x_labels,
           position = x_position,
-          sec_axis = ggplot2::waiver(), ###
+          sec_axis = x_sec_axis,
           transform = x_transform
         )
     }
@@ -1118,11 +1108,12 @@ gg_blanket <- function(data = NULL,
       if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
     }
 
-    #add NULL arg & condition
-    if (facet_nrows == 1) y_n_breaks <- 6
-    else if (facet_nrows == 2) y_n_breaks <- 5
-    else if (facet_nrows == 3) y_n_breaks <- 4
-    else y_n_breaks <- 3
+    if (rlang::is_null(y_n_breaks)) {
+      if (facet_nrows == 1) y_n_breaks <- 6
+      else if (facet_nrows == 2) y_n_breaks <- 5
+      else if (facet_nrows == 3) y_n_breaks <- 4
+      else y_n_breaks <- 3
+    }
 
     if (y_symmetric) {
       data_y <- plot_data %>%
@@ -1136,12 +1127,12 @@ gg_blanket <- function(data = NULL,
           y = y,
           symmetric = TRUE,
           breaks = y_breaks,
-          n_breaks = y_n_breaks, ###
+          n_breaks = y_n_breaks,
           expand = y_expand,
           expand_limits = y_expand_limits,
           labels = y_labels,
           position = y_position,
-          sec_axis = ggplot2::waiver(), ###
+          sec_axis = y_sec_axis,
           transform = y_transform
         )
     }
@@ -1150,12 +1141,12 @@ gg_blanket <- function(data = NULL,
         scale_y_symmetric(
           symmetric = FALSE,
           breaks = y_breaks,
-          n_breaks = y_n_breaks, ###
+          n_breaks = y_n_breaks,
           expand = y_expand,
           expand_limits = y_expand_limits,
           labels = y_labels,
           position = y_position,
-          sec_axis = ggplot2::waiver(), ###
+          sec_axis = y_sec_axis,
           transform = y_transform
         )
     }
