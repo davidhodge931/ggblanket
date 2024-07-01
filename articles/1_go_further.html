@@ -551,23 +551,13 @@ emphasise/de-emphasise parts of the visualisation.</p>
 <div class="section level3">
 <h3 id="do-the-equivalent-of-setting-limits">13. Do the equivalent of setting limits<a class="anchor" aria-label="anchor" href="#do-the-equivalent-of-setting-limits"></a>
 </h3>
-<p>There are no <code>*_limits</code> arguments in ggblanket. Instead,
-users should use a combination of filtering the data, and adding
+<p>There are no <code>*_limits</code> arguments in ggblanket.</p>
+<p>Instead, users should use a combination of filtering the data, adding
 <code>*_expand_limits</code> and
-`<code>coord_cartesian(xlim = ..., ylim = ...)</code> arguments etc. In
-some situations, the <code>*_breaks</code> will need to be updated.</p>
+<code>coord = coord_cartesian(xlim = ..., ylim = ...)</code> arguments
+etc.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#where the stat is "identity"...</span></span>
-<span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html" class="external-link">between</a></span><span class="op">(</span><span class="va">bill_depth_mm</span>, <span class="fl">0</span>, <span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span>  <span class="va">bill_depth_mm</span>, </span>
-<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    x_expand_limits <span class="op">=</span> <span class="fl">13</span>,</span>
-<span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="1_go_further_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#where the stat is _not_ "identity", zoom out as follows:</span></span>
+<code class="sourceCode R"><span><span class="co">#To Zoom out, se *_expand_limits:</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span>  <span class="va">body_mass_g</span>, </span>
@@ -576,16 +566,27 @@ some situations, the <code>*_breaks</code> will need to be updated.</p>
 <span>    x_expand_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>,</span>
 <span>    y_expand_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">25</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
+<p><img src="1_go_further_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#To zoom-in when the stat equals "identity", use dplyr::filter</span></span>
+<span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html" class="external-link">between</a></span><span class="op">(</span><span class="va">bill_depth_mm</span>, <span class="fl">0</span>, <span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span>  <span class="va">bill_depth_mm</span>, </span>
+<span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
+<span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#where the stat is _not_ "identity", zoom in as follows: </span></span>
+<code class="sourceCode R"><span><span class="co">#To zoom-in when the stat does _not_ equal "identity", use coord_cartesian </span></span>
+<span><span class="co">#Then either recreate the breaks, or turn off the symmetric axis </span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_smooth.html">gg_smooth</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span>  <span class="va">body_mass_g</span>, </span>
 <span>    y <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
 <span>    se <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    coord <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">15</span><span class="op">)</span><span class="op">)</span>, </span>
-<span>    y_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_width.html" class="external-link">breaks_width</a></span><span class="op">(</span><span class="fl">0.05</span><span class="op">)</span>, <span class="co">#recreate breaks on symmetric axis</span></span>
+<span>    coord <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">14.8</span>, <span class="fl">15</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>    <span class="co"># y_symmetric = FALSE,</span></span>
+<span>    <span class="co"># y_breaks = scales::breaks_width(0.05), #recreate breaks</span></span>
 <span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
 </div>
