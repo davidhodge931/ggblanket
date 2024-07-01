@@ -570,7 +570,7 @@ etc.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#To zoom-in when the stat equals "identity", use dplyr::filter</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html" class="external-link">between</a></span><span class="op">(</span><span class="va">bill_depth_mm</span>, <span class="fl">0</span>, <span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">bill_depth_mm</span> <span class="op">&lt;</span> <span class="fl">15</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span>  <span class="va">bill_depth_mm</span>, </span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
@@ -585,8 +585,8 @@ etc.</p>
 <span>    y <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
 <span>    se <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    coord <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">14.8</span>, <span class="fl">15</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>    y_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_width.html" class="external-link">breaks_width</a></span><span class="op">(</span><span class="fl">0.05</span><span class="op">)</span>,</span>
 <span>    <span class="co"># y_symmetric = FALSE,</span></span>
-<span>    <span class="co"># y_breaks = scales::breaks_width(0.05), #recreate breaks</span></span>
 <span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="1_go_further_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
 </div>
