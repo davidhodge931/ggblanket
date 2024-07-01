@@ -364,9 +364,9 @@ argument.</p>
 <ul>
 <li>remove the y axis line/ticks and the x gridlines from the
 <code>mode</code> theme.</li>
-<li>make a <em>linear</em> y continuous scale ‘symmetric’ with (a)
-<code>y_limits</code> the range of <code>y_breaks</code> and (b)
-<code>y_expand = c(0, 0)</code>.</li>
+<li>make a <em>linear</em> y continuous scale ‘symmetric’ with (a) the
+limits the range of <code>y_breaks</code> and (b) <code>y_expand</code>
+default to <code>c(0, 0)</code>.</li>
 </ul>
 <p>However, the <code>gg_*</code> plot will do the opposite when the
 plot has a continuous x axis <em>and</em> a discrete y axis.</p>
@@ -374,7 +374,7 @@ plot has a continuous x axis <em>and</em> a discrete y axis.</p>
 <ul>
 <li>
 <code>+</code> the theme on to the <code>gg_*</code> output</li>
-<li>add a <code>*_symmetric = FALSE</code> argument.</li>
+<li>add <code>*_symmetric = FALSE</code> arguments.</li>
 </ul>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>

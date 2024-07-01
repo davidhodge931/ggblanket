@@ -93,8 +93,8 @@
 <span>  x_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  x_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  x_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
+<span>  x_n_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  x_sec_axis <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  x_symmetric <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
 <span>  x_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -103,8 +103,8 @@
 <span>  y_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  y_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  y_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
+<span>  y_n_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  y_sec_axis <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  y_symmetric <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_position <span class="op">=</span> <span class="st">"left"</span>,</span>
 <span>  y_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -116,8 +116,7 @@
 <span>  col_legend_ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_legend_nrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_legend_rev <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  col_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  col_oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>,</span>
+<span>  col_n_breaks <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  col_palette <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_palette_na <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_rescale <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -190,12 +189,12 @@
 <dd><p>A function that takes the breaks as inputs (e.g. <code>\(x) stringr::str_to_sentence(x)</code> or <code>scales::label_*()</code>), or a vector of labels. (Note this must be named for <code>facet_labels</code>).</p></dd>
 
 
-<dt>x_limits, y_limits, col_limits</dt>
-<dd><p>For a continuous scale, a vector of length 2 to determine the limits of the scale. For a discrete scale, manipulate the data instead with <code>factor</code>, <code><a href="https://forcats.tidyverse.org/reference/fct_expand.html" class="external-link">forcats::fct_expand</a></code> or <code><a href="https://forcats.tidyverse.org/reference/fct_drop.html" class="external-link">forcats::fct_drop</a></code>.</p></dd>
+<dt>x_n_breaks, y_n_breaks, col_n_breaks</dt>
+<dd><p>A number of desired breaks for when <code>*_breaks = NULL</code>.</p></dd>
 
 
-<dt>x_oob, y_oob, col_oob</dt>
-<dd><p>For a continuous scale, a <code>scales::oob_*</code> function of how to handle values outside of limits. Defaults to <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code>.</p></dd>
+<dt>x_sec_axis, y_sec_axis</dt>
+<dd><p>A secondary axis with <code><a href="https://ggplot2.tidyverse.org/reference/sec_axis.html" class="external-link">ggplot2::dup_axis()</a></code> or  <code><a href="https://ggplot2.tidyverse.org/reference/sec_axis.html" class="external-link">ggplot2::sec_axis()</a></code>.</p></dd>
 
 
 <dt>x_symmetric, y_symmetric</dt>
