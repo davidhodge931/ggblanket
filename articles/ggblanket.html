@@ -375,8 +375,8 @@ plot has a continuous x axis <em>and</em> a discrete y axis.</p>
 <code>+</code> the theme on to the <code>gg_*</code> output</li>
 <li>add <code>*_symmetric = FALSE</code> arguments.</li>
 </ul>
-<p>Note all scales prioritise avoiding error with <em>all</em> data kept
-using <code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code> - and, by default, left unclipped
+<p>Note all scales ensure <em>all</em> data is kept using
+<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::oob_keep</a></code> - and, by default, are left unclipped
 (i.e. <code>coord_cartesian(clip = "off")</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
