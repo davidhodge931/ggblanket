@@ -445,21 +445,12 @@ p4 <- penguins2 |>
 
 ### 13. Do the equivalent of setting limits
 
-There are no `*_limits` arguments in ggblanket. Instead, users should use a combination of filtering the data, and adding `*_expand_limits` and ``coord_cartesian(xlim = ..., ylim = ...)` arguments etc. In some situations, the `*_breaks` will need to be updated.
+There are no `*_limits` arguments in ggblanket. 
+
+Instead, users should use a combination of filtering the data, adding `*_expand_limits` and `coord = coord_cartesian(xlim = ..., ylim = ...)` arguments etc. 
 
 ```{r}
-#where the stat is "identity"...
-penguins |>
-  filter(between(bill_depth_mm, 0, 15)) |>
-  gg_point(
-    x =  bill_depth_mm, 
-    y = body_mass_g,
-    x_expand_limits = 13,
-  ) 
-```
-
-```{r}
-#where the stat is _not_ "identity", zoom out as follows:
+#To Zoom out, se *_expand_limits:
 penguins |>
   gg_smooth(
     x =  body_mass_g, 
@@ -469,19 +460,31 @@ penguins |>
     y_expand_limits = c(10, 25),
   ) 
 ```
+```{r}
+#To zoom-in when the stat equals "identity", use dplyr::filter
+penguins |>
+  filter(between(bill_depth_mm, 0, 15)) |>
+  gg_point(
+    x =  bill_depth_mm, 
+    y = body_mass_g,
+  ) 
+```
+
+
 
 ```{r}
-#where the stat is _not_ "identity", zoom in as follows: 
+#To zoom-in when the stat does _not_ equal "identity", use coord_cartesian 
+#Then either recreate the breaks, or turn off the symmetric axis 
 penguins |>
   gg_smooth(
     x =  body_mass_g, 
     y = bill_depth_mm,
     se = TRUE,
-    coord = coord_cartesian(ylim = c(NA, 15)), 
-    y_breaks = scales::breaks_width(0.05), #recreate breaks on symmetric axis
+    coord = coord_cartesian(ylim = c(14.8, 15)), 
+    # y_symmetric = FALSE,
+    # y_breaks = scales::breaks_width(0.05), #recreate breaks
   ) 
 ```
-
 
 ### 14. Use delayed evaluation
 
