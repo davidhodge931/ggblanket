@@ -262,7 +262,7 @@ To avoid these side-effects:
 * `+` the theme on to the `gg_*` output
 * add `*_symmetric = FALSE` arguments. 
 
-Note all scales prioritise avoiding error with _all_ data kept using `scales::oob_keep` - and, by default, left unclipped (i.e. `coord_cartesian(clip = "off")`. 
+Note all scales ensure _all_ data is kept using `scales::oob_keep` - and, by default, are left unclipped (i.e. `coord_cartesian(clip = "off")`. 
 
 ```{r}
 p1 <- penguins2 |>

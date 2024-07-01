@@ -32,7 +32,7 @@ This article will demonstrate a random assortment of content, including some of 
 10. Change the `*_position` of positional axes 
 11. Add contrasting dark or light text on polygons
 12. Use opacity with to emphasise/de-emphasise 
-13. Do the equivalent of setting limits
+13. Zoom in or out on scales
 14. Use delayed evaluation
 15. Rescale a diverging col scale
 16. Add a legend within the panel
@@ -443,7 +443,7 @@ p4 <- penguins2 |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 13. Do the equivalent of setting limits
+### 13. Zoom in or out on scales
 
 There are no `*_limits` arguments in ggblanket. 
 
