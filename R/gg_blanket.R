@@ -204,6 +204,9 @@ gg_blanket <- function(data = NULL,
     text = !!text,
   )
 
+  if (geom_name == "blank") show_legend <- FALSE
+  else show_legend <- TRUE
+
   if (stringr::str_detect(stat_name, "sf")) {
     if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
 
@@ -1038,7 +1041,6 @@ gg_blanket <- function(data = NULL,
 
     plot <- plot +
       ggplot2::scale_x_discrete(
-        limits = x_limits,
         expand = x_expand,
         breaks = x_breaks,
         labels = x_labels,
@@ -1103,7 +1105,6 @@ gg_blanket <- function(data = NULL,
 
     plot <- plot +
       ggplot2::scale_y_discrete(
-        limits = y_limits,
         expand = y_expand,
         breaks = y_breaks,
         labels = y_labels,
