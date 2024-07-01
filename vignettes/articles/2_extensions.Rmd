@@ -262,12 +262,11 @@ ggridges::Catalan_elections |>
   gg_blanket(
     geom = "density_ridges",
     stat = "density_ridges",
-    coord = coord_cartesian(),
+    coord = coord_cartesian(xlim = c(0, 100)),
     x = percent,
     y = year,
     col = option,
     colour = "white",
-    x_limits = c(0, 100),
     y_expand = expansion(c(0, 0.125)),
     alpha = 0.9,
   )

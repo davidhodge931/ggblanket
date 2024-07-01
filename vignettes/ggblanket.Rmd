@@ -255,14 +255,14 @@ penguins2 |>
 For most plots, the `gg_*` function will:
 
 * remove the y axis line/ticks and the x gridlines from the `mode` theme. 
-* make a _linear_ y continuous scale 'symmetric' with (a) `y_limits` the range of `y_breaks` and (b) `y_expand = c(0, 0)`.
+* make a _linear_ y continuous scale 'symmetric' with (a) the limits the range of `y_breaks` and (b) `y_expand` default to `c(0, 0)`.
 
 However, the `gg_*` plot will do the opposite when the plot has a continuous x axis _and_ a discrete y axis.
 
 To avoid these side-effects:
 
 * `+` the theme on to the `gg_*` output
-* add a `*_symmetric = FALSE` argument. 
+* add `*_symmetric = FALSE` arguments. 
 
 ```{r}
 p1 <- penguins2 |>
