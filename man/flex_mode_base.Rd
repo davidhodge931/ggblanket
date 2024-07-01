@@ -39,7 +39,8 @@ flex_mode_base(
   legend_ticks_colour = legend_axis_line_colour,
   legend_ticks_linewidth = legend_axis_line_linewidth,
   legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-  orientation = NULL
+  x_orientation = NULL,
+  y_orientation = NULL
 )
 }
 \arguments{

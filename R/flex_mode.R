@@ -76,7 +76,8 @@ flex_mode_base <- function(
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
     legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    orientation = NULL
+    x_orientation = NULL,
+    y_orientation = NULL
 ) {
 
   theme <- ggplot2::theme(
@@ -183,8 +184,17 @@ flex_mode_base <- function(
     complete = FALSE
   )
 
-  if (!rlang::is_null(orientation)) {
-    if (orientation == "x") {
+  # if (rlang::is_null(x_orientation)) x_orientation <- FALSE
+  # if (rlang::is_null(y_orientation)) y_orientation <- FALSE
+
+  if (!rlang::is_null(x_orientation) | !rlang::is_null(y_orientation)) {
+    if (rlang::is_null(x_orientation) & !rlang::is_null(y_orientation)) {
+      x_orientation <- !y_orientation
+    }
+    else if (rlang::is_null(y_orientation) & !rlang::is_null(x_orientation)) {
+      y_orientation <- !x_orientation
+    }
+    if (x_orientation | !y_orientation) {
       theme <- theme +
         ggplot2::theme(
           panel.grid.major.x = ggplot2::element_blank(),
@@ -197,7 +207,7 @@ flex_mode_base <- function(
           axis.minor.ticks.y.right = ggplot2::element_blank()
         )
     }
-    if (orientation == "y") {
+    else if (!x_orientation | y_orientation) {
       theme <- theme +
         ggplot2::theme(
           panel.grid.major.y = ggplot2::element_blank(),
@@ -261,7 +271,8 @@ flex_mode_r <- function (
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
     legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    orientation = NULL) {
+    x_orientation = NULL,
+    y_orientation = NULL) {
 
   flex_mode_base(
     base_size = base_size,
@@ -298,7 +309,8 @@ flex_mode_r <- function (
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
     legend_ticks_length = legend_ticks_length,
-    orientation = orientation
+    x_orientation = x_orientation,
+    y_orientation = y_orientation
   )
 }
 
@@ -347,7 +359,8 @@ flex_mode_t <- function (
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
     legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    orientation = NULL) {
+    x_orientation = NULL,
+    y_orientation = NULL) {
 
   flex_mode_base(
     base_size = base_size,
@@ -384,7 +397,8 @@ flex_mode_t <- function (
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
     legend_ticks_length = legend_ticks_length,
-    orientation = orientation
+    x_orientation = x_orientation,
+    y_orientation = y_orientation
   ) +
     ggplot2::theme(
       legend.position = "top",
@@ -448,7 +462,8 @@ flex_mode_b <- function (
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
     legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    orientation = NULL) {
+    x_orientation = NULL,
+    y_orientation = NULL) {
 
   flex_mode_base(
     base_size = base_size,
@@ -485,7 +500,8 @@ flex_mode_b <- function (
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
     legend_ticks_length = legend_ticks_length,
-    orientation = orientation
+    x_orientation = x_orientation,
+    y_orientation = y_orientation
   ) +
     ggplot2::theme(
       legend.position = "bottom",

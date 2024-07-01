@@ -30,7 +30,7 @@ weave_mode <- function(new = light_mode_r()) {
 #' @param new A ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions.
 #'
 #' @noRd
-weave_theme <- function(new = light_mode_r(orientation = "x")) {
+weave_theme <- function(new = light_mode_r(x_orientation = TRUE)) {
   old <- ggblanket_global$theme
   ggblanket_global$theme <- new
   invisible(old)
