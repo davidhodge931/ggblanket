@@ -15,6 +15,7 @@ test_that(test_name, {
       y = flipper_length_mm,
       x_symmetric = FALSE,
       y_symmetric = TRUE,
+      mode_orientation = NULL,
     )
 
   vdiffr::expect_doppelganger(test_name, p)

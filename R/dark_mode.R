@@ -27,8 +27,6 @@
 #' @param legend_ticks_colour The colour of the legend.ticks theme element.
 #' @param legend_ticks_linewidth The linewidth of the legend.ticks theme element.
 #' @param legend_ticks_length The legend.ticks.length theme element.
-#' @param x_orientation TRUE or FALSE for whether it should be orientated to the x axis. Use outside of gg_* functions only.
-#' @param y_orientation TRUE or FALSE for whether it should be orientated to the y axis. Use outside of gg_* functions only.
 #'
 #' @return A ggplot theme.
 #' @export
@@ -84,9 +82,9 @@ dark_mode_r <- function (
     legend_key_fill = plot_background_fill,
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
-    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    x_orientation = NULL,
-    y_orientation = NULL) {
+    legend_ticks_length = ggplot2::rel(c(0.175, 0))
+
+    ) {
 
   flex_mode_r(
     base_size = base_size,
@@ -123,9 +121,9 @@ dark_mode_r <- function (
     legend_key_fill = legend_key_fill,
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
-    legend_ticks_length = legend_ticks_length,
-    x_orientation = x_orientation,
-    y_orientation = y_orientation
+    legend_ticks_length = legend_ticks_length
+
+
   )
 }
 
@@ -152,9 +150,9 @@ dark_mode_t <- function (
     legend_key_fill = plot_background_fill,
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
-    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    x_orientation = NULL,
-    y_orientation = NULL) {
+    legend_ticks_length = ggplot2::rel(c(0.175, 0))
+
+    ) {
 
   flex_mode_t(
     base_size = base_size,
@@ -191,9 +189,9 @@ dark_mode_t <- function (
     legend_key_fill = legend_key_fill,
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
-    legend_ticks_length = legend_ticks_length,
-    x_orientation = x_orientation,
-    y_orientation = y_orientation
+    legend_ticks_length = legend_ticks_length
+
+
   )
 }
 
@@ -220,9 +218,9 @@ dark_mode_b <- function (
     legend_key_fill = plot_background_fill,
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
-    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    x_orientation = NULL,
-    y_orientation = NULL) {
+    legend_ticks_length = ggplot2::rel(c(0.175, 0))
+
+    ) {
 
   flex_mode_b(
     base_size = base_size,
@@ -259,8 +257,8 @@ dark_mode_b <- function (
     legend_key_fill = legend_key_fill,
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
-    legend_ticks_length = legend_ticks_length,
-    x_orientation = x_orientation,
-    y_orientation = y_orientation
+    legend_ticks_length = legend_ticks_length
+
+
   )
 }

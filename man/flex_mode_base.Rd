@@ -38,9 +38,7 @@ flex_mode_base(
   legend_key_fill = plot_background_fill,
   legend_ticks_colour = legend_axis_line_colour,
   legend_ticks_linewidth = legend_axis_line_linewidth,
-  legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-  x_orientation = NULL,
-  y_orientation = NULL
+  legend_ticks_length = ggplot2::rel(c(0.175, 0))
 )
 }
 \arguments{
@@ -111,8 +109,6 @@ flex_mode_base(
 \item{legend_ticks_linewidth}{The linewidth of the legend.ticks theme element.}
 
 \item{legend_ticks_length}{The legend.ticks.length theme element.}
-
-\item{orientation}{The orientation of the plot. Either "x" or "y". Defaults to NULL. Not intended for use with the mode argument of gg_* functions.}
 }
 \value{
 A ggplot theme.

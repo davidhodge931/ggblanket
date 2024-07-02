@@ -11,6 +11,7 @@ gg_boxplot(
   position = "dodge2",
   coord = ggplot2::coord_cartesian(clip = "off"),
   mode = NULL,
+  mode_orientation = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -32,36 +33,36 @@ gg_boxplot(
   x_breaks = NULL,
   x_expand = NULL,
   x_expand_limits = NULL,
+  x_label = NULL,
   x_labels = NULL,
-  x_breaks_n = NULL,
+  x_n_breaks = NULL,
+  x_position = "bottom",
   x_sec_axis = ggplot2::waiver(),
   x_symmetric = NULL,
-  x_position = "bottom",
-  x_label = NULL,
   x_transform = NULL,
   y_breaks = NULL,
   y_expand = NULL,
   y_expand_limits = NULL,
+  y_label = NULL,
   y_labels = NULL,
-  y_breaks_n = NULL,
+  y_n_breaks = NULL,
+  y_position = "left",
   y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
-  y_position = "left",
-  y_label = NULL,
   y_transform = NULL,
   col_breaks = NULL,
   col_drop = FALSE,
   col_expand_limits = NULL,
+  col_label = NULL,
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
-  col_breaks_n = 5,
+  col_n_breaks = 5,
   col_palette = NULL,
   col_palette_na = NULL,
   col_rescale = scales::rescale(),
   col_steps = FALSE,
-  col_label = NULL,
   col_transform = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
@@ -91,6 +92,8 @@ gg_boxplot(
 
 \item{mode}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}). This argument adds the theme with side-effects of removing relevant axis line/ticks and gridlines per the orientation. To avoid these side-effects, \code{+} the theme on to the output of \verb{gg_*}.}
 
+\item{mode_orientation}{The orientation of plot, which affects the theme components that are removed from the mode. Either "x" or "y".}
+
 \item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}}. Intended primarily for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}), but can also be used for delayed evaluation etc.}
@@ -101,17 +104,17 @@ gg_boxplot(
 
 \item{x_expand_limits, y_expand_limits, col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
 
+\item{x_label, y_label, col_label}{Label for the axis or legend title. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
+
 \item{x_labels, y_labels, col_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \verb{scales::label_*()}), or a vector of labels. (Note this must be named for \code{facet_labels}).}
 
-\item{x_breaks_n, y_breaks_n, col_breaks_n}{A number of desired breaks for when \verb{*_breaks = NULL}.}
+\item{x_n_breaks, y_n_breaks, col_n_breaks}{A number of desired breaks for when \verb{*_breaks = NULL}.}
+
+\item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_mode_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 
 \item{x_sec_axis, y_sec_axis}{A secondary axis with \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}} or  \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}}.}
 
 \item{x_symmetric, y_symmetric}{\code{TRUE} or \code{FALSE} of whether a symmetric scale.}
-
-\item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_mode_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
-
-\item{x_label, y_label, col_label}{Label for the axis or legend title. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
 
 \item{x_transform, y_transform, col_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
 

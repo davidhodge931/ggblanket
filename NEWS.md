@@ -2,7 +2,6 @@
 
 * Breaking: removed `*_limits` and `*_oob` arguments.
 * Breaking: removed `*_mode_n` and `grey_mode_*` functions.
-* Breaking: removed `*_orientation` arguments.
 * Breaking: removed `greyness` helper.
 * Added `*_breaks_n` and `*_sec_axis` arguments.
 * Added `*_symmetric` arguments.
