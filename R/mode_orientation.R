@@ -1,6 +1,6 @@
 #' Orientate a mode to "x"
 #'
-#' @return A list of ggplot2 theme components.
+#' @return ggplot2 theme components.
 #' @export
 #'
 #' @examples
@@ -14,17 +14,15 @@
 #'   mode_orientation_x()
 #'
 mode_orientation_x <- function() {
-  list(
-    ggplot2::theme(
-      panel.grid.major.x = ggplot2::element_blank(),
-      panel.grid.minor.x = ggplot2::element_blank(),
-      axis.line.y.left = ggplot2::element_blank(),
-      axis.line.y.right = ggplot2::element_blank(),
-      axis.ticks.y.left = ggplot2::element_blank(),
-      axis.ticks.y.right = ggplot2::element_blank(),
-      axis.minor.ticks.y.left = ggplot2::element_blank(),
-      axis.minor.ticks.y.right = ggplot2::element_blank()
-    )
+  ggplot2::theme(
+    panel.grid.major.x = ggplot2::element_blank(),
+    panel.grid.minor.x = ggplot2::element_blank(),
+    axis.line.y.left = ggplot2::element_blank(),
+    axis.line.y.right = ggplot2::element_blank(),
+    axis.ticks.y.left = ggplot2::element_blank(),
+    axis.ticks.y.right = ggplot2::element_blank(),
+    axis.minor.ticks.y.left = ggplot2::element_blank(),
+    axis.minor.ticks.y.right = ggplot2::element_blank()
   )
 }
 
@@ -33,7 +31,7 @@ mode_orientation_x <- function() {
 #' @description
 #' For use when a mode is used outside of a `gg_*` function.
 #'
-#' @return A list of ggplot2 theme components.
+#' @return ggplot2 theme components.
 #' @export
 #'
 #' @examples
@@ -47,16 +45,14 @@ mode_orientation_x <- function() {
 #'   mode_orientation_y()
 #'
 mode_orientation_y <- function() {
-  list(
-    ggplot2::theme(
-      panel.grid.major.y = ggplot2::element_blank(),
-      panel.grid.minor.y = ggplot2::element_blank(),
-      axis.line.x.top = ggplot2::element_blank(),
-      axis.line.x.bottom = ggplot2::element_blank(),
-      axis.ticks.x.top = ggplot2::element_blank(),
-      axis.ticks.x.bottom = ggplot2::element_blank(),
-      axis.minor.ticks.x.top = ggplot2::element_blank(),
-      axis.minor.ticks.x.bottom = ggplot2::element_blank()
-    )
+  ggplot2::theme(
+    panel.grid.major.y = ggplot2::element_blank(),
+    panel.grid.minor.y = ggplot2::element_blank(),
+    axis.line.x.top = ggplot2::element_blank(),
+    axis.line.x.bottom = ggplot2::element_blank(),
+    axis.ticks.x.top = ggplot2::element_blank(),
+    axis.ticks.x.bottom = ggplot2::element_blank(),
+    axis.minor.ticks.x.top = ggplot2::element_blank(),
+    axis.minor.ticks.x.bottom = ggplot2::element_blank()
   )
 }

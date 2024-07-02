@@ -7,7 +7,7 @@
 mode_orientation_x()
 }
 \value{
-A list of ggplot2 theme components.
+ggplot2 theme components.
 }
 \description{
 Orientate a mode to "x"

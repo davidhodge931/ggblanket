@@ -31,26 +31,27 @@ gg_col(
   sample = NULL,
   mapping = NULL,
   x_breaks = NULL,
+  x_breaks_n = NULL,
   x_expand = NULL,
   x_expand_limits = NULL,
   x_label = NULL,
   x_labels = NULL,
-  x_n_breaks = NULL,
   x_position = "bottom",
   x_sec_axis = ggplot2::waiver(),
   x_symmetric = NULL,
   x_transform = NULL,
   y_breaks = NULL,
+  y_breaks_n = NULL,
   y_expand = NULL,
   y_expand_limits = NULL,
   y_label = NULL,
   y_labels = NULL,
-  y_n_breaks = NULL,
   y_position = "left",
   y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
   y_transform = NULL,
   col_breaks = NULL,
+  col_breaks_n = 5,
   col_drop = FALSE,
   col_expand_limits = NULL,
   col_label = NULL,
@@ -58,7 +59,6 @@ gg_col(
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
-  col_n_breaks = 5,
   col_palette = NULL,
   col_palette_na = NULL,
   col_rescale = scales::rescale(),
@@ -100,6 +100,8 @@ gg_col(
 
 \item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 
+\item{x_breaks_n, y_breaks_n, col_breaks_n}{A number of desired breaks for when \verb{*_breaks = NULL}.}
+
 \item{x_expand, y_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 
 \item{x_expand_limits, y_expand_limits, col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
@@ -107,8 +109,6 @@ gg_col(
 \item{x_label, y_label, col_label}{Label for the axis or legend title. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
 
 \item{x_labels, y_labels, col_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \verb{scales::label_*()}), or a vector of labels. (Note this must be named for \code{facet_labels}).}
-
-\item{x_n_breaks, y_n_breaks, col_n_breaks}{A number of desired breaks for when \verb{*_breaks = NULL}.}
 
 \item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_mode_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 

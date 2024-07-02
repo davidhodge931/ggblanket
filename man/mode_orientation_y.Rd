@@ -7,7 +7,7 @@
 mode_orientation_y()
 }
 \value{
-A list of ggplot2 theme components.
+ggplot2 theme components.
 }
 \description{
 For use when a mode is used outside of a \verb{gg_*} function.
