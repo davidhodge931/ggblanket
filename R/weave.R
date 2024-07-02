@@ -30,7 +30,7 @@ weave_mode <- function(new = light_mode_r()) {
 #' @param new A ggplot2 theme that the `gg_*` function will add without side-effects. Note, `mode` takes precedence, unless `mode = NULL`.
 #'
 #' @noRd
-weave_theme <- function(new = light_mode_r() + mode_orientation_to_x()) {
+weave_theme <- function(new = ggplot2::theme_grey()) {
   old <- ggblanket_global$theme
   ggblanket_global$theme <- new
   invisible(old)

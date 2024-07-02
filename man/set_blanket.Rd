@@ -18,7 +18,7 @@ set_blanket(
   col_palette_na_c = "#988F88FF",
   col_palette_o = scales::pal_viridis(option = "G", direction = -1),
   col_palette_na_o = "#988F88FF",
-  theme = light_mode_r() + mode_orientation_to_x()
+  theme = ggplot2::theme_grey()
 )
 }
 \arguments{

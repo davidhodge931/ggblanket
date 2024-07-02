@@ -47,10 +47,11 @@ Computational speed has been traded-off.
 8.  Smart `*_label` defaults for axis and legend titles
 9.  Other `ggplot2::geom_*` arguments via `...`
 10. Families of `*_mode_*` themes with legend variants
-11. Helpful orientation defaults and side-effects 
-12. Ability to add multiple `geom_*` layers
-13. Arguments to customise setup with `set_blanket()`
-14. A `gg_blanket()` function with `geom` flexibility
+11.  Side-effects to the `mode` based on the `mode_orientation`
+12.  One `*_symmetric` continuous scale
+13. Ability to add multiple `geom_*` layers
+14. Arguments to customise setup with `set_blanket()`
+15. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
 library(dplyr)
@@ -248,21 +249,15 @@ penguins2 |>
   ) 
 ```
 
-### 11.  Helpful defaults and side-effects 
+### 11.  Side-effects to the `mode` based on the `mode_orientation`
 
-For most plots, the `gg_*` function will:
+The `gg_*` function adds helpful side-effects to the mode. 
 
-* remove the y axis line/ticks and the x gridlines from the `mode` theme. 
-* make a _linear_ y continuous scale 'symmetric' with (a) the limits the range of `y_breaks` and (b) `y_expand` default to `c(0, 0)`.
+Where `mode_orientation = "x"`, the `gg_*` function will remove the y axis line/ticks and the x gridlines from the `mode`. Where it is  `mode_orientation = "y"`, the opposite will occur. If the `gg_*` guesses an incorrect `mode_orientation`, then the user can change this.
 
-However, the `gg_*` plot will do the opposite when the plot has a continuous x axis _and_ a discrete y axis.
+For this reason, any `mode` used should be designed to anticipate these side-effects.
 
-To avoid these side-effects:
-
-* `+` the theme on to the `gg_*` output
-* add `*_symmetric = FALSE` arguments. 
-
-Note all scales ensure _all_ data is kept using `scales::oob_keep` - and, by default, are left unclipped (i.e. `coord_cartesian(clip = "off")`. 
+To avoid these side-effects, instead `+` the theme on to the `gg_*` output (or use the `theme` argument in `set_blanket`).
 
 ```{r}
 p1 <- penguins2 |>
@@ -280,7 +275,28 @@ p2 <- penguins2 |>
 p1 + p2
 ```
 
-### 12. Ability to add multiple `geom_*` layers
+### 12.  One `*_symmetric` continuous scale
+
+One `*_symmetric` continuous scale can be made where:
+
+* `*_transform` is linear
+* the `stat` is not "sf"
+* if faceted, the relevant scale is fixed 
+
+By default, the gg_* function will make a `x_symmetric` scale if there is a y discrete axis and a x continuous axis. Otherwise, it will make a `y_symmetric` scale. 
+
+A `y_symmetric` axis makes:
+
+* the limits locked to the range of the `y_breaks`
+* the `y_expand` default to `c(0, 0)`.
+
+The vice versa occurs for an `x_symmetric` axis.
+
+Use `*_symmetric = FALSE` to revert to the normal limits and expand defaults (i.e. the limits of the range of the data including `*_expand_limits` with `*_expand = c(0.05, 0.05)`).
+
+Note all continuous scales ensure _all_ data is kept using `scales::oob_keep` - and, by default, are left unclipped (i.e. `coord_cartesian(clip = "off")`. 
+
+### 13. Ability to add multiple `geom_*` layers
 
 Users can make plots with multiple `ggplot2::geom_*` layers. 
 
@@ -337,7 +353,7 @@ penguins2 |>
   ) 
 ```
 
-### 13. Arguments to customise setup with `set_blanket()`
+### 14. Arguments to customise setup with `set_blanket()`
 
 The `set_blanket` function sets customisable defaults for the:
 
@@ -384,7 +400,7 @@ p1 + p2
 set_blanket()
 ```
 
-### 14. A `gg_blanket()` function with `geom` flexibility
+### 15. A `gg_blanket()` function with `geom` flexibility
 
 The package is driven by the `gg_blanket` function, which has a `geom` argument with `ggplot2::geom_blank` defaults for `geom`, `stat` and `position`.
 

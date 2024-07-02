@@ -7,7 +7,8 @@
 * Added `mode_orientation` argument. 
 * Added `*_breaks_n` and `*_sec_axis` arguments.
 * Added `*_symmetric` arguments.
-* Added `theme_orientation_to_x` and `theme_orientation_to_y` functions.
+* Added `mode_orientation_to_x` and `mode_orientation_to_y` functions.
+* In `set_blanket`, changed `theme` argument default to `theme_grey()`.
 
 # ggblanket 9.1.1
 

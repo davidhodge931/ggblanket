@@ -18,7 +18,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #00040A; fill: #00040A;' />
+<rect x='-0.000000000000064' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #00040A; fill: #00040A;' />
 <rect x='88.34' y='29.89' width='601.78' height='483.62' style='stroke-width: 1.07; stroke: #050D1B; fill: #050D1B;' />
 <polyline points='88.34,513.51 690.11,513.51 ' style='stroke-width: 2.84; stroke: #00040A; stroke-linecap: butt;' />
 <polyline points='88.34,453.06 690.11,453.06 ' style='stroke-width: 2.84; stroke: #00040A; stroke-linecap: butt;' />
@@ -389,7 +389,7 @@
 <text x='189.87' y='533.30' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='25.03px' lengthAdjust='spacingAndGlyphs'>180</text>
 <text x='375.32' y='533.30' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='25.03px' lengthAdjust='spacingAndGlyphs'>200</text>
 <text x='560.76' y='533.30' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='25.03px' lengthAdjust='spacingAndGlyphs'>220</text>
-<text x='389.22' y='558.30' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='120.05px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
-<text transform='translate(26.82,271.70) rotate(-90)' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='86.73px' lengthAdjust='spacingAndGlyphs'>Body mass g</text>
+<text x='389.22' y='556.75' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='120.05px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
+<text transform='translate(25.27,271.70) rotate(-90)' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='86.73px' lengthAdjust='spacingAndGlyphs'>Body mass g</text>
 </g>
 </svg>
