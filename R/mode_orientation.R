@@ -1,5 +1,7 @@
 #' Orientate a mode to "x"
 #'
+#' @description Theme components to add to a `*_mode_*` theme used used outside of a `gg_*` function.
+#'
 #' @return ggplot2 theme components.
 #' @export
 #'
@@ -28,8 +30,7 @@ mode_orientation_x <- function() {
 
 #' Orientate a mode to "y"
 #'
-#' @description
-#' For use when a mode is used outside of a `gg_*` function.
+#' @description Theme components to add to a `*_mode_*` theme used used outside of a `gg_*` function.
 #'
 #' @return ggplot2 theme components.
 #' @export

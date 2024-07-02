@@ -3,8 +3,11 @@
 * Breaking: removed `*_limits` and `*_oob` arguments.
 * Breaking: removed `*_mode_n` and `grey_mode_*` functions.
 * Breaking: removed `greyness` helper.
+* Breaking: removed `*_orientation` arguments from `*_mode_*` functions.
+* Added `mode_orientation` argument. 
 * Added `*_breaks_n` and `*_sec_axis` arguments.
 * Added `*_symmetric` arguments.
+* Added `mode_orientation_x` and `mode_orientation_y` functions.
 
 # ggblanket 9.1.1
 
