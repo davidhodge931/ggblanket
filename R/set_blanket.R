@@ -4,7 +4,7 @@
 #' Set a style by setting a mode, a series of geom and annotate aesthetic defaults, and a col_palette for discrete and continuous scales.
 #'
 #' @param ... Provided to force user argument naming etc.
-#' @param mode A `*_mode_*`. E.g. [light_mode_t()] or [dark_mode_r()].
+#' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
 #' @param geom_colour A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to `blue` (i.e. `#357BA2FF`).
 #' @param annotate_colour A hex colour (and fill) for other geoms commonly used for annotation (i.e. `*_hline`/`*_vline`/`*_abline` and `*_curve`). Defaults to "#121b24" (i.e. `lightness[1]`).
 #' @param annotate_linewidth A linewidth for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to 0.33.
@@ -16,7 +16,7 @@
 #' @param col_palette_na_d For a discrete scale, a hex code or name for the `col_palette_na`.
 #' @param col_palette_na_c For a continuous scale, a hex code or name for the `col_palette_na`.
 #' @param col_palette_na_o For an ordinal scale, a hex code or name for the `col_palette_na`.
-#' @param theme A ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence, unless `mode = NULL`.
+#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects. Note, `mode` takes precedence, unless `mode = NULL`.
 #'
 #' @return A globally set style.
 #' @export
@@ -63,7 +63,7 @@ set_blanket <- function(
     col_palette_na_c = "#988F88FF",
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
     col_palette_na_o = "#988F88FF",
-    theme = light_mode_r() + mode_orientation_x()) {
+    theme = light_mode_r() + mode_orientation_to_x()) {
 
   weave_mode(new = mode)
 

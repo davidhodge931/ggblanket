@@ -37,5 +37,5 @@ reference:
 - title: Other
 - contents:
   - aes_contrast
-  - mode_orientation_x
-  - mode_orientation_y
+  - mode_orientation_to_x
+  - mode_orientation_to_y

@@ -14,7 +14,7 @@ ggblanket_global$theme <- NULL
 #'
 #' @description Set a mode for the mode argument in `gg_*` functions.
 #'
-#' @param new A `*_mode_*`. E.g. [light_mode_t()], [grey_mode_r()], or [dark_mode_r()].
+#' @param new A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
 #'
 #' @noRd
 weave_mode <- function(new = light_mode_r()) {
@@ -27,10 +27,10 @@ weave_mode <- function(new = light_mode_r()) {
 #'
 #' @description Set a theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence unless NULL.
 #'
-#' @param new A ggplot2 theme to be `+`-ed on unmodified to `gg_*` functions.
+#' @param new A ggplot2 theme that the `gg_*` function will add without side-effects. Note, `mode` takes precedence, unless `mode = NULL`.
 #'
 #' @noRd
-weave_theme <- function(new = light_mode_r() + mode_orientation_x()) {
+weave_theme <- function(new = light_mode_r() + mode_orientation_to_x()) {
   old <- ggblanket_global$theme
   ggblanket_global$theme <- new
   invisible(old)

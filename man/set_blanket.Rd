@@ -18,13 +18,13 @@ set_blanket(
   col_palette_na_c = "#988F88FF",
   col_palette_o = scales::pal_viridis(option = "G", direction = -1),
   col_palette_na_o = "#988F88FF",
-  theme = light_mode_r() + mode_orientation_x()
+  theme = light_mode_r() + mode_orientation_to_x()
 )
 }
 \arguments{
 \item{...}{Provided to force user argument naming etc.}
 
-\item{mode}{A \verb{*_mode_*}. E.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}.}
+\item{mode}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates \verb{gg_*} side-effects of removing relevant axis line/ticks and gridlines per the \code{mode_orientation}.}
 
 \item{geom_colour}{A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to \code{blue} (i.e. \verb{#357BA2FF}).}
 
@@ -48,7 +48,7 @@ set_blanket(
 
 \item{col_palette_na_o}{For an ordinal scale, a hex code or name for the \code{col_palette_na}.}
 
-\item{theme}{A ggplot2 theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note, \code{mode} takes precedence, unless \code{mode = NULL}.}
+\item{theme}{A ggplot2 theme that the \verb{gg_*} function will add without side-effects. Note, \code{mode} takes precedence, unless \code{mode = NULL}.}
 }
 \value{
 A globally set style.

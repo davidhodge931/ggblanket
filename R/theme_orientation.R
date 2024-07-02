@@ -1,6 +1,6 @@
 #' Orientate a mode to "x"
 #'
-#' @description Theme components to add to a `*_mode_*` theme used used outside of a `gg_*` function.
+#' @description Theme components to add to a mode used used outside of a `gg_*` context.
 #'
 #' @return ggplot2 theme components.
 #' @export
@@ -13,9 +13,9 @@
 #'   ggplot() +
 #'   geom_point(aes(x = flipper_length_mm, y = body_mass_g)) +
 #'   light_mode_r() +
-#'   mode_orientation_x()
+#'   mode_orientation_to_x()
 #'
-mode_orientation_x <- function() {
+mode_orientation_to_x <- function() {
   ggplot2::theme(
     panel.grid.major.x = ggplot2::element_blank(),
     panel.grid.minor.x = ggplot2::element_blank(),
@@ -30,7 +30,7 @@ mode_orientation_x <- function() {
 
 #' Orientate a mode to "y"
 #'
-#' @description Theme components to add to a `*_mode_*` theme used used outside of a `gg_*` function.
+#' @description Theme components to add to a mode used used outside of a `gg_*` context.
 #'
 #' @return ggplot2 theme components.
 #' @export
@@ -43,9 +43,9 @@ mode_orientation_x <- function() {
 #'   ggplot() +
 #'   geom_bar(aes(y = island)) +
 #'   light_mode_r() +
-#'   mode_orientation_y()
+#'   mode_orientation_to_y()
 #'
-mode_orientation_y <- function() {
+mode_orientation_to_y <- function() {
   ggplot2::theme(
     panel.grid.major.y = ggplot2::element_blank(),
     panel.grid.minor.y = ggplot2::element_blank(),
