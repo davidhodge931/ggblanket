@@ -90,7 +90,7 @@ gg_blanket <- function(data = NULL,
                        x_breaks = NULL, x_breaks_n = NULL,
                        x_expand = NULL,
                        x_expand_limits = NULL,
-                       x_label = NULL, x_labels = NULL, 
+                       x_label = NULL, x_labels = NULL,
 
 
                        x_position = "bottom",
@@ -112,7 +112,7 @@ gg_blanket <- function(data = NULL,
                        col_legend_ncol = NULL,
                        col_legend_nrow = NULL,
                        col_legend_rev = FALSE,
-                       
+
 
                        col_palette = NULL,
                        col_palette_na = NULL,
@@ -657,8 +657,7 @@ gg_blanket <- function(data = NULL,
       }
 
       #make a tidy name to deal with composed transforms
-      if (is.character(col_transform)) col_transform <- col_transform
-      else if (inherits(col_transform, what = "transform")) {
+      if (inherits(col_transform, what = "transform")) {
         col_transform <- col_transform$name %>%
           stringr::str_remove("composition") %>%
           stringr::str_remove("\\(") %>%
