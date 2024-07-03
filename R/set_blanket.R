@@ -6,10 +6,10 @@
 #' @param ... Provided to force user argument naming etc.
 #' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
 #' @param geom_colour A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to `blue` (i.e. `#357BA2FF`).
-#' @param annotate_colour A hex colour (and fill) for other geoms commonly used for annotation (i.e. `*_hline`/`*_vline`/`*_abline` and `*_curve`). Defaults to "#121b24" (i.e. `lightness[1]`).
-#' @param annotate_linewidth A linewidth for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to 0.33.
-#' @param annotate_family A family for `*_text` and `*_label`. Defaults to "".
-#' @param annotate_size A size for `*_text` and `*_label`. Defaults to 3.88.
+#' @param annotation_colour A hex colour (and fill) for other geoms commonly used for annotation (i.e. `*_hline`/`*_vline`/`*_abline` and `*_curve`). Defaults to "#121b24" (i.e. `lightness[1]`).
+#' @param annotation_linewidth A linewidth for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to 0.33.
+#' @param annotation_family A family for `*_text` and `*_label`. Defaults to "".
+#' @param annotation_size A size for `*_text` and `*_label`. Defaults to 3.88.
 #' @param col_palette_d For a discrete scale, a character vector of hex codes (or names) for the `col_palette`.
 #' @param col_palette_c For a continuous scale, a character vector of hex codes (or names) for the `col_palette`.
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function for the `col_palette`.
@@ -29,7 +29,7 @@
 #' set_blanket(
 #'   mode = dark_mode_r(),
 #'   geom_colour = orange,
-#'   annotate_colour = darkness[1],
+#'   annotation_colour = darkness[1],
 #' )
 #'
 #' penguins |>
@@ -53,10 +53,10 @@ set_blanket <- function(
     ...,
     mode = light_mode_r(),
     geom_colour = "#357BA2FF",
-    annotate_colour = "#121B24FF",
-    annotate_linewidth = 0.33,
-    annotate_family = "",
-    annotate_size = 3.88,
+    annotation_colour = "#121B24FF",
+    annotation_linewidth = 0.33,
+    annotation_family = "",
+    annotation_size = 3.88,
     col_palette_d = jumble,
     col_palette_na_d = "#CDC5BFFF",
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
@@ -67,13 +67,13 @@ set_blanket <- function(
 
   weave_mode(new = mode)
 
-  weave_geom_aes(colour = geom_colour)
+  weave_geom_defaults(colour = geom_colour)
 
-  weave_annotate_aes(
-    colour = annotate_colour,
-    linewidth = annotate_linewidth,
-    size = annotate_size,
-    family = annotate_family
+  weave_annotation_defaults(
+    colour = annotation_colour,
+    linewidth = annotation_linewidth,
+    size = annotation_size,
+    family = annotation_family
   )
 
   weave_col_palette_d(

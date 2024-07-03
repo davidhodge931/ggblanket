@@ -29,7 +29,7 @@ library(palmerpenguins)
 
 set_blanket(
   mode = dark_mode_r(), 
-  annotate_colour = darkness[1],
+  annotation_colour = darkness[1],
   col_palette_d = c(teal, orange, purple, red, pink, navy),
   col_palette_c = viridis::mako(n = 9),
   col_palette_o = scales::pal_viridis(option = "G"),

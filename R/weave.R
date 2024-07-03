@@ -40,12 +40,12 @@ weave_theme <- function(new = ggplot2::theme_grey()) {
 
 #' Set a series of geom defaults
 #'
-#' @description Update most geom defaults.
+#' @description Update most geom defaults (i.e. those other than `*_vline`/`*_hline`/`*_abline`, `*_curve`, and `*_text`/`*_label`)..
 #'
 #' @param colour A hex colour (and fill) for geoms. Fill inherits from this colour. Defaults to `blue` (i.e. `#357BA2FF`).
 #'
 #' @noRd
-weave_geom_aes <- function(colour = "#357BA2FF") {
+weave_geom_defaults <- function(colour = "#357BA2FF") {
 
   if (!rlang::is_null(colour)) {
     ggplot2::update_geom_defaults("area", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9, linewidth = 0.66))
@@ -127,7 +127,7 @@ weave_geom_aes <- function(colour = "#357BA2FF") {
 #' @param size A size for `*_text` and `*_label`. Defaults to 3.88.
 #'
 #' @noRd
-weave_annotate_aes <- function(colour = "#121B24FF", linewidth = 0.33, family = "", size = 3.88) {
+weave_annotation_defaults <- function(colour = "#121B24FF", linewidth = 0.33, family = "", size = 3.88) {
   if (!rlang::is_null(colour)) {
     ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
     ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))

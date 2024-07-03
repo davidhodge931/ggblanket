@@ -8,10 +8,10 @@ set_blanket(
   ...,
   mode = light_mode_r(),
   geom_colour = "#357BA2FF",
-  annotate_colour = "#121B24FF",
-  annotate_linewidth = 0.33,
-  annotate_family = "",
-  annotate_size = 3.88,
+  annotation_colour = "#121B24FF",
+  annotation_linewidth = 0.33,
+  annotation_family = "",
+  annotation_size = 3.88,
   col_palette_d = jumble,
   col_palette_na_d = "#CDC5BFFF",
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
@@ -28,13 +28,13 @@ set_blanket(
 
 \item{geom_colour}{A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to \code{blue} (i.e. \verb{#357BA2FF}).}
 
-\item{annotate_colour}{A hex colour (and fill) for other geoms commonly used for annotation (i.e. \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}). Defaults to "#121b24" (i.e. \code{lightness[1]}).}
+\item{annotation_colour}{A hex colour (and fill) for other geoms commonly used for annotation (i.e. \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}). Defaults to "#121b24" (i.e. \code{lightness[1]}).}
 
-\item{annotate_linewidth}{A linewidth for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to 0.33.}
+\item{annotation_linewidth}{A linewidth for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to 0.33.}
 
-\item{annotate_family}{A family for \verb{*_text} and \verb{*_label}. Defaults to "".}
+\item{annotation_family}{A family for \verb{*_text} and \verb{*_label}. Defaults to "".}
 
-\item{annotate_size}{A size for \verb{*_text} and \verb{*_label}. Defaults to 3.88.}
+\item{annotation_size}{A size for \verb{*_text} and \verb{*_label}. Defaults to 3.88.}
 
 \item{col_palette_d}{For a discrete scale, a character vector of hex codes (or names) for the \code{col_palette}.}
 
@@ -64,7 +64,7 @@ library(palmerpenguins)
 set_blanket(
   mode = dark_mode_r(),
   geom_colour = orange,
-  annotate_colour = darkness[1],
+  annotation_colour = darkness[1],
 )
 
 penguins |>

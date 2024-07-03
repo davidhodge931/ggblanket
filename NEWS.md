@@ -4,6 +4,7 @@
 * Breaking: removed `*_mode_n` and `grey_mode_*` functions.
 * Breaking: removed `greyness` helper.
 * Breaking: removed `*_orientation` arguments from `*_mode_*` functions.
+* Breaking: In `set_blanket`, renamed `annotate_*` arguments to `annotation_*`.
 * Added `mode_orientation` argument. 
 * Added `*_breaks_n` and `*_sec_axis` arguments.
 * Added `*_symmetric` arguments.
