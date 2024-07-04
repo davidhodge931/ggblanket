@@ -253,7 +253,7 @@ penguins2 |>
 
 The `gg_*` function adds helpful side-effects to the mode. 
 
-Where `mode_orientation = "x"`, the `gg_*` function will remove the y axis line/ticks and the x gridlines from the `mode`. Where it is  `mode_orientation = "y"`, the opposite will occur. If the `gg_*` guesses an incorrect `mode_orientation`, then the user can change this.
+Where `mode_orientation = "x"`, the `gg_*` function will remove the y axis line/ticks and the x gridlines from the `mode` (by changing their colour to "transparent"). Where it is  `mode_orientation = "y"`, the opposite will occur. If the `gg_*` guesses an incorrect `mode_orientation`, then the user can change this.
 
 For this reason, any `mode` used should be designed to anticipate these side-effects.
 
