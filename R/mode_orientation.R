@@ -2,6 +2,8 @@
 #'
 #' @description Theme components to add to a mode used used outside of a `gg_*` context.
 #'
+#' @param axis_ticks_x TRUE or FALSE of whether to show x axis ticks.
+#'
 #' @return ggplot2 theme components.
 #' @export
 #'
@@ -15,22 +17,29 @@
 #'   light_mode_r() +
 #'   mode_orientation_to_x()
 #'
-mode_orientation_to_x <- function() {
-  ggplot2::theme(
-    panel.grid.major.x = ggplot2::element_blank(),
-    panel.grid.minor.x = ggplot2::element_blank(),
-    axis.line.y.left = ggplot2::element_blank(),
-    axis.line.y.right = ggplot2::element_blank(),
-    axis.ticks.y.left = ggplot2::element_blank(),
-    axis.ticks.y.right = ggplot2::element_blank(),
-    axis.minor.ticks.y.left = ggplot2::element_blank(),
-    axis.minor.ticks.y.right = ggplot2::element_blank()
+mode_orientation_to_x <- function(axis_ticks_x = FALSE) {
+  theme <- ggplot2::theme(
+    panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
+    panel.grid.minor.x = ggplot2::element_line(colour = "transparent"),
+    axis.line.y = ggplot2::element_line(colour = "transparent"),
+    axis.ticks.y = ggplot2::element_line(colour = "transparent")
   )
+
+  if (!axis_ticks_x) {
+    theme <- theme +
+      ggplot2::theme(
+      axis.ticks.x = ggplot2::element_line(colour = "transparent")
+    )
+  }
+
+  return(theme)
 }
 
 #' Orientate a mode to "y"
 #'
 #' @description Theme components to add to a mode used used outside of a `gg_*` context.
+#'
+#' @param axis_ticks_y TRUE or FALSE of whether to show y axis ticks.
 #'
 #' @return ggplot2 theme components.
 #' @export
@@ -45,15 +54,20 @@ mode_orientation_to_x <- function() {
 #'   light_mode_r() +
 #'   mode_orientation_to_y()
 #'
-mode_orientation_to_y <- function() {
-  ggplot2::theme(
-    panel.grid.major.y = ggplot2::element_blank(),
-    panel.grid.minor.y = ggplot2::element_blank(),
-    axis.line.x.top = ggplot2::element_blank(),
-    axis.line.x.bottom = ggplot2::element_blank(),
-    axis.ticks.x.top = ggplot2::element_blank(),
-    axis.ticks.x.bottom = ggplot2::element_blank(),
-    axis.minor.ticks.x.top = ggplot2::element_blank(),
-    axis.minor.ticks.x.bottom = ggplot2::element_blank()
+mode_orientation_to_y <- function(axis_ticks_y = FALSE) {
+  theme <- ggplot2::theme(
+    panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
+    panel.grid.minor.y = ggplot2::element_line(colour = "transparent"),
+    axis.line.x = ggplot2::element_line(colour = "transparent"),
+    axis.ticks.x = ggplot2::element_line(colour = "transparent")
   )
+
+  if (!axis_ticks_y) {
+    theme <- theme +
+      ggplot2::theme(
+        axis.ticks.y = ggplot2::element_line(colour = "transparent")
+      )
+  }
+
+  return(theme)
 }

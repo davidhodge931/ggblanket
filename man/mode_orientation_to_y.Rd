@@ -4,7 +4,10 @@
 \alias{mode_orientation_to_y}
 \title{Orientate a mode to "y"}
 \usage{
-mode_orientation_to_y()
+mode_orientation_to_y(axis_ticks_y = FALSE)
+}
+\arguments{
+\item{axis_ticks_y}{TRUE or FALSE of whether to show y axis ticks.}
 }
 \value{
 ggplot2 theme components.

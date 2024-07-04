@@ -4,7 +4,10 @@
 \alias{mode_orientation_to_x}
 \title{Orientate a mode to "x"}
 \usage{
-mode_orientation_to_x()
+mode_orientation_to_x(axis_ticks_x = FALSE)
+}
+\arguments{
+\item{axis_ticks_x}{TRUE or FALSE of whether to show x axis ticks.}
 }
 \value{
 ggplot2 theme components.

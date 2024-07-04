@@ -1362,71 +1362,92 @@ gg_blanket <- function(data = NULL,
     mode
 
   ##############################################################################
-  # mode removal of theme components
+  # mode make transparent some theme components
   ##############################################################################
 
-  if (stringr::str_detect(stat_name, "sf")) {
+  if (mode_orientation == "x") {
     plot <- plot +
       ggplot2::theme(
-        axis.line.x.top = ggplot2::element_blank(),
-        axis.line.x.bottom = ggplot2::element_blank(),
-        axis.ticks.x.top = ggplot2::element_blank(),
-        axis.ticks.x.bottom = ggplot2::element_blank(),
-        axis.minor.ticks.x.top = ggplot2::element_blank(),
-        axis.minor.ticks.x.bottom = ggplot2::element_blank(),
-        axis.text.x.top = ggplot2::element_blank(),
-        axis.text.x.bottom = ggplot2::element_blank(),
+        panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
+        panel.grid.minor.x = ggplot2::element_line(colour = "transparent"),
+        axis.line.y = ggplot2::element_line(colour = "transparent"),
+        axis.ticks.y = ggplot2::element_line(colour = "transparent")
+      )
 
-        axis.line.y.left = ggplot2::element_blank(),
-        axis.line.y.right = ggplot2::element_blank(),
-        axis.ticks.y.left = ggplot2::element_blank(),
-        axis.ticks.y.right = ggplot2::element_blank(),
-        axis.minor.ticks.y.left = ggplot2::element_blank(),
-        axis.minor.ticks.y.right = ggplot2::element_blank(),
-        axis.text.y.left = ggplot2::element_blank(),
-        axis.text.y.right = ggplot2::element_blank()
-      )
-  }
-  else if (mode_orientation == "x") {
-    plot <- plot +
-      ggplot2::theme(
-        panel.grid.major.x = ggplot2::element_blank(),
-        panel.grid.minor.x = ggplot2::element_blank(),
-        axis.line.y.left = ggplot2::element_blank(),
-        axis.line.y.right = ggplot2::element_blank(),
-        axis.ticks.y.left = ggplot2::element_blank(),
-        axis.ticks.y.right = ggplot2::element_blank(),
-        axis.minor.ticks.y.left = ggplot2::element_blank(),
-        axis.minor.ticks.y.right = ggplot2::element_blank()
-      )
+    if (x_scale_type == "discrete") {
+      plot <- plot +
+        ggplot2::theme(
+          axis.ticks.x = ggplot2::element_line(colour = "transparent")
+        )
+    }
   }
   else if (mode_orientation == "y") {
     plot <- plot +
       ggplot2::theme(
-        panel.grid.major.y = ggplot2::element_blank(),
-        panel.grid.minor.y = ggplot2::element_blank(),
-        axis.line.x.top = ggplot2::element_blank(),
-        axis.line.x.bottom = ggplot2::element_blank(),
-        axis.ticks.x.top = ggplot2::element_blank(),
-        axis.ticks.x.bottom = ggplot2::element_blank(),
-        axis.minor.ticks.x.top = ggplot2::element_blank(),
-        axis.minor.ticks.x.bottom = ggplot2::element_blank()
+        panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
+        panel.grid.minor.y = ggplot2::element_line(colour = "transparent"),
+        axis.line.x = ggplot2::element_line(colour = "transparent"),
+        axis.ticks.x = ggplot2::element_line(colour = "transparent")
       )
+
+    if (y_scale_type == "discrete") {
+      plot <- plot +
+        ggplot2::theme(
+          axis.ticks.y = ggplot2::element_line(colour = "transparent")
+        )
+    }
   }
 
   ##############################################################################
   # add the theme if globally set
   ##############################################################################
 
-  if (rlang::is_null(mode) & rlang::is_null(get_mode())) {
-    if (!rlang::is_null(get_theme())) {
-      plot <- plot +
-        get_theme()
-    } else {
-      plot <- plot +
-        ggplot2::theme_grey()
+  if (rlang::is_null(mode)) {
+    if (rlang::is_null(get_mode())) {
+      if (!rlang::is_null(get_theme())) {
+        plot <- plot +
+          get_theme()
+      }
+      else {
+        plot <- plot +
+          ggplot2::theme_grey()
+
+        if (mode_orientation == "x") {
+          plot <- plot +
+            ggplot2::theme(
+              panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
+              panel.grid.minor.x = ggplot2::element_line(colour = "transparent"),
+              axis.line.y = ggplot2::element_line(colour = "transparent"),
+              axis.ticks.y = ggplot2::element_line(colour = "transparent")
+            )
+
+          if (x_scale_type == "discrete") {
+            plot <- plot +
+              ggplot2::theme(
+                axis.ticks.x = ggplot2::element_line(colour = "transparent")
+              )
+          }
+        }
+        else if (mode_orientation == "y") {
+          plot <- plot +
+            ggplot2::theme(
+              panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
+              panel.grid.minor.y = ggplot2::element_line(colour = "transparent"),
+              axis.line.x = ggplot2::element_line(colour = "transparent"),
+              axis.ticks.x = ggplot2::element_line(colour = "transparent")
+            )
+
+          if (y_scale_type == "discrete") {
+            plot <- plot +
+              ggplot2::theme(
+                axis.ticks.y = ggplot2::element_line(colour = "transparent")
+              )
+          }
+        }
+      }
     }
   }
+
 
   return(plot)
 }

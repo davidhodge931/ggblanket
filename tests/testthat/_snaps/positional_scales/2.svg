@@ -20,12 +20,25 @@
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <rect x='10.96' y='21.92' width='632.66' height='488.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<polyline points='68.96,510.84 68.96,21.92 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
+<polyline points='166.44,510.84 166.44,21.92 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
+<polyline points='263.93,510.84 263.93,21.92 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
+<polyline points='361.41,510.84 361.41,21.92 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
+<polyline points='458.89,510.84 458.89,21.92 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
+<polyline points='556.38,510.84 556.38,21.92 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
 <polyline points='10.96,470.09 643.62,470.09 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <polyline points='10.96,388.60 643.62,388.60 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <polyline points='10.96,307.12 643.62,307.12 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <polyline points='10.96,225.64 643.62,225.64 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <polyline points='10.96,144.15 643.62,144.15 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <polyline points='10.96,62.67 643.62,62.67 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
+<polyline points='20.22,510.84 20.22,21.92 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
+<polyline points='117.70,510.84 117.70,21.92 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
+<polyline points='215.19,510.84 215.19,21.92 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
+<polyline points='312.67,510.84 312.67,21.92 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
+<polyline points='410.15,510.84 410.15,21.92 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
+<polyline points='507.63,510.84 507.63,21.92 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
+<polyline points='605.12,510.84 605.12,21.92 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
 <circle cx='127.45' cy='327.49' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
 <circle cx='176.19' cy='323.42' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
 <circle cx='263.93' cy='368.23' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
@@ -368,6 +381,13 @@
 <circle cx='244.43' cy='325.45' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
 <circle cx='410.15' cy='298.97' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
 <circle cx='293.17' cy='325.45' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
+<polyline points='643.62,510.84 643.62,21.92 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
+<polyline points='646.36,470.09 643.62,470.09 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
+<polyline points='646.36,388.60 643.62,388.60 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
+<polyline points='646.36,307.12 643.62,307.12 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
+<polyline points='646.36,225.64 643.62,225.64 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
+<polyline points='646.36,144.15 643.62,144.15 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
+<polyline points='646.36,62.67 643.62,62.67 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
 <text x='649.10' y='473.87' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='33.65px' lengthAdjust='spacingAndGlyphs'>$2,000</text>
 <text x='649.10' y='392.39' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='33.65px' lengthAdjust='spacingAndGlyphs'>$3,000</text>
 <text x='649.10' y='310.91' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='33.65px' lengthAdjust='spacingAndGlyphs'>$4,000</text>
