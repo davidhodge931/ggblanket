@@ -5,8 +5,8 @@
 #'
 #' @param ... Provided to force user argument naming etc.
 #' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
-#' @param geom_colour A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to `blue` (i.e. `#357BA2FF`).
-#' @param annotation_colour A hex colour (and fill) for other geoms commonly used for annotation (i.e. `*_hline`/`*_vline`/`*_abline` and `*_curve`). Defaults to "#121b24" (i.e. `lightness[1]`).
+#' @param colour A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to `blue` (i.e. `#357BA2FF`).
+#' @param annotation_colour A hex colour (and fill) for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to "#121b24" (i.e. `lightness[1]`).
 #' @param annotation_linewidth A linewidth for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to 0.33.
 #' @param annotation_family A family for `*_text` and `*_label`. Defaults to "".
 #' @param annotation_size A size for `*_text` and `*_label`. Defaults to 3.88.
@@ -28,7 +28,7 @@
 #'
 #' set_blanket(
 #'   mode = dark_mode_r(),
-#'   geom_colour = orange,
+#'   colour = orange,
 #'   annotation_colour = darkness[1],
 #' )
 #'
@@ -52,7 +52,7 @@
 set_blanket <- function(
     ...,
     mode = light_mode_r(),
-    geom_colour = "#357BA2FF",
+    colour = "#357BA2FF",
     annotation_colour = "#121B24FF",
     annotation_linewidth = 0.33,
     annotation_family = "",
@@ -63,34 +63,33 @@ set_blanket <- function(
     col_palette_na_c = "#988F88FF",
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
     col_palette_na_o = "#988F88FF",
-    theme = ggplot2::theme_grey()) {
+    theme = light_mode_r() + mode_orientation_to_x()) {
 
-  weave_mode(new = mode)
+  weave_mode(mode = mode)
 
-  weave_geom_defaults(colour = geom_colour)
-
-  weave_annotation_defaults(
-    colour = annotation_colour,
-    linewidth = annotation_linewidth,
-    size = annotation_size,
-    family = annotation_family
+  weave_geom_defaults(
+    colour = colour,
+    annotation_colour = annotation_colour,
+    annotation_linewidth = annotation_linewidth,
+    annotation_size = annotation_size,
+    annotation_family = annotation_family
   )
 
   weave_col_palette_d(
-    new = col_palette_d,
-    na = col_palette_na_d
+    col_palette_d = col_palette_d,
+    col_palette_d_na = col_palette_na_d
   )
 
   weave_col_palette_o(
-    new = col_palette_o,
-    na = col_palette_na_o
+    col_palette_o = col_palette_o,
+    col_palette_o_na = col_palette_na_o
   )
 
   weave_col_palette_c(
-    new = col_palette_c,
-    na = col_palette_na_c
+    col_palette_c = col_palette_c,
+    col_palette_c_na = col_palette_na_c
   )
 
-  weave_theme(new = theme)
+  weave_theme(theme = theme)
 }
 

@@ -7,7 +7,7 @@
 set_blanket(
   ...,
   mode = light_mode_r(),
-  geom_colour = "#357BA2FF",
+  colour = "#357BA2FF",
   annotation_colour = "#121B24FF",
   annotation_linewidth = 0.33,
   annotation_family = "",
@@ -18,7 +18,7 @@ set_blanket(
   col_palette_na_c = "#988F88FF",
   col_palette_o = scales::pal_viridis(option = "G", direction = -1),
   col_palette_na_o = "#988F88FF",
-  theme = ggplot2::theme_grey()
+  theme = light_mode_r() + mode_orientation_to_x()
 )
 }
 \arguments{
@@ -26,9 +26,9 @@ set_blanket(
 
 \item{mode}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates \verb{gg_*} side-effects of removing relevant axis line/ticks and gridlines per the \code{mode_orientation}.}
 
-\item{geom_colour}{A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to \code{blue} (i.e. \verb{#357BA2FF}).}
+\item{colour}{A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to \code{blue} (i.e. \verb{#357BA2FF}).}
 
-\item{annotation_colour}{A hex colour (and fill) for other geoms commonly used for annotation (i.e. \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}). Defaults to "#121b24" (i.e. \code{lightness[1]}).}
+\item{annotation_colour}{A hex colour (and fill) for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to "#121b24" (i.e. \code{lightness[1]}).}
 
 \item{annotation_linewidth}{A linewidth for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to 0.33.}
 
@@ -63,7 +63,7 @@ library(palmerpenguins)
 
 set_blanket(
   mode = dark_mode_r(),
-  geom_colour = orange,
+  colour = orange,
   annotation_colour = darkness[1],
 )
 

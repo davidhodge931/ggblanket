@@ -139,8 +139,8 @@
 <text x='397.79' y='525.35' text-anchor='middle' style='font-size: 11.00px; fill: #C8D7DF; font-family: sans;' textLength='18.35px' lengthAdjust='spacingAndGlyphs'>210</text>
 <text x='482.46' y='525.35' text-anchor='middle' style='font-size: 11.00px; fill: #C8D7DF; font-family: sans;' textLength='18.35px' lengthAdjust='spacingAndGlyphs'>220</text>
 <text x='567.13' y='525.35' text-anchor='middle' style='font-size: 11.00px; fill: #C8D7DF; font-family: sans;' textLength='18.35px' lengthAdjust='spacingAndGlyphs'>230</text>
-<text x='333.71' y='542.55' text-anchor='middle' style='font-size: 11.00px; fill: #C8D7DF; font-family: sans;' textLength='88.04px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
-<text transform='translate(18.53,284.94) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; fill: #C8D7DF; font-family: sans;' textLength='29.36px' lengthAdjust='spacingAndGlyphs'>Count</text>
+<text x='333.71' y='543.69' text-anchor='middle' style='font-size: 11.00px; fill: #C8D7DF; font-family: sans;' textLength='88.04px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
+<text transform='translate(19.67,284.94) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; fill: #C8D7DF; font-family: sans;' textLength='29.36px' lengthAdjust='spacingAndGlyphs'>Count</text>
 <rect x='623.60' y='59.05' width='74.48' height='93.22' style='stroke-width: 1.07; stroke: #00040A; fill: #00040A;' />
 <text x='631.82' y='67.76' style='font-size: 11.00px; fill: #C8D7DF; font-family: sans;' textLength='39.14px' lengthAdjust='spacingAndGlyphs'>Species</text>
 <rect x='631.82' y='74.38' width='19.18' height='20.81' style='stroke-width: 1.07; stroke: #00040A; fill: #00040A;' />
@@ -152,8 +152,8 @@
 <text x='656.48' y='88.57' style='font-size: 11.00px; fill: #C8D7DF; font-family: sans;' textLength='30.58px' lengthAdjust='spacingAndGlyphs'>Adelie</text>
 <text x='656.48' y='113.00' style='font-size: 11.00px; fill: #C8D7DF; font-family: sans;' textLength='47.08px' lengthAdjust='spacingAndGlyphs'>Chinstrap</text>
 <text x='656.48' y='137.43' style='font-size: 11.00px; fill: #C8D7DF; font-family: sans;' textLength='36.09px' lengthAdjust='spacingAndGlyphs'>Gentoo</text>
-<text x='10.96' y='34.85' style='font-size: 11.00px; fill: #C8D7DF; font-family: sans;' textLength='151.03px' lengthAdjust='spacingAndGlyphs'>Palmer Archipelago, Antarctica</text>
-<text x='10.96' y='19.29' style='font-size: 12.10px; font-weight: bold; fill: #C8D7DF; font-family: sans;' textLength='177.60px' lengthAdjust='spacingAndGlyphs'>Penguin flipper length by species</text>
-<text x='10.96' y='564.96' style='font-size: 9.35px; fill: #B3BFC5; font-family: sans;' textLength='94.61px' lengthAdjust='spacingAndGlyphs'>Source: Gorman, 2020</text>
+<text x='10.96' y='35.99' style='font-size: 11.00px; fill: #C8D7DF; font-family: sans;' textLength='151.03px' lengthAdjust='spacingAndGlyphs'>Palmer Archipelago, Antarctica</text>
+<text x='10.96' y='20.54' style='font-size: 12.10px; font-weight: bold; fill: #C8D7DF; font-family: sans;' textLength='177.60px' lengthAdjust='spacingAndGlyphs'>Penguin flipper length by species</text>
+<text x='10.96' y='565.93' style='font-size: 9.35px; fill: #B3BFC5; font-family: sans;' textLength='94.61px' lengthAdjust='spacingAndGlyphs'>Source: Gorman, 2020</text>
 </g>
 </svg>

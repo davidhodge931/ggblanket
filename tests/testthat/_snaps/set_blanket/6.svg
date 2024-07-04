@@ -18,7 +18,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<rect x='-0.000000000000064' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #00040A; fill: #00040A;' />
+<rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #00040A; fill: #00040A;' />
 <rect x='88.34' y='29.89' width='498.53' height='483.62' style='stroke-width: 1.07; stroke: #050D1B; fill: #050D1B;' />
 <polyline points='88.34,513.51 586.86,513.51 ' style='stroke-width: 2.84; stroke: #00040A; stroke-linecap: butt;' />
 <polyline points='88.34,444.42 586.86,444.42 ' style='stroke-width: 2.84; stroke: #00040A; stroke-linecap: butt;' />
@@ -65,8 +65,8 @@
 <text x='402.89' y='533.30' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='25.03px' lengthAdjust='spacingAndGlyphs'>210</text>
 <text x='479.71' y='533.30' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='25.03px' lengthAdjust='spacingAndGlyphs'>220</text>
 <text x='556.52' y='533.30' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='25.03px' lengthAdjust='spacingAndGlyphs'>230</text>
-<text x='337.60' y='556.75' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='120.05px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
-<text transform='translate(25.27,271.70) rotate(-90)' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='86.73px' lengthAdjust='spacingAndGlyphs'>Body mass g</text>
+<text x='337.60' y='558.30' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='120.05px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
+<text transform='translate(26.82,271.70) rotate(-90)' text-anchor='middle' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='86.73px' lengthAdjust='spacingAndGlyphs'>Body mass g</text>
 <rect x='592.53' y='29.89' width='97.58' height='120.44' style='stroke-width: 1.07; stroke: #00040A; fill: #00040A;' />
 <text x='603.74' y='41.77' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='53.38px' lengthAdjust='spacingAndGlyphs'>Species</text>
 <rect x='603.74' y='50.80' width='26.15' height='26.15' style='stroke-width: 1.07; stroke: #00040A; fill: #00040A;' />
