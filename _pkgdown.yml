@@ -20,8 +20,17 @@ reference:
   - dark_mode_r
   - dark_mode_t
   - dark_mode_b
-- title: Colour
+- title: Other
 - contents:
+  - aes_contrast
+  - weave_mode
+  - weave_theme
+  - weave_geom_defaults
+  - weave_col_palette_d
+  - weave_col_palette_c
+  - weave_col_palette_o
+  - mode_orientation_to_x
+  - mode_orientation_to_y
   - blue
   - jumble
   - teal
@@ -34,8 +43,3 @@ reference:
   - lightness
   - darkness
   - linewidthness
-- title: Other
-- contents:
-  - aes_contrast
-  - mode_orientation_to_x
-  - mode_orientation_to_y

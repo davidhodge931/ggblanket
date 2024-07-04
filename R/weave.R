@@ -16,7 +16,7 @@ ggblanket_global$theme <- NULL
 #'
 #' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
 #'
-#' @noRd
+#' @export
 weave_mode <- function(mode = light_mode_r()) {
   old <- ggblanket_global$mode
   ggblanket_global$mode <- mode
@@ -29,7 +29,7 @@ weave_mode <- function(mode = light_mode_r()) {
 #'
 #' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects. Note, `mode` takes precedence, unless `mode = NULL`.
 #'
-#' @noRd
+#' @export
 weave_theme <- function(theme = light_mode_r() + mode_orientation_to_x()) {
   old <- ggblanket_global$theme
   ggblanket_global$theme <- theme
@@ -48,7 +48,7 @@ weave_theme <- function(theme = light_mode_r() + mode_orientation_to_x()) {
 #' @param annotation_family A annotation_family for `*_text` and `*_label`. Defaults to ""
 #' @param annotation_size A annotation_size for `*_text` and `*_label`. Defaults to 3.88.
 #'
-#' @noRd
+#' @export
 weave_geom_defaults <- function(colour = "#357BA2FF",
                                 annotation_colour = "#121B24FF",
                                 annotation_linewidth = 0.33,
@@ -101,7 +101,7 @@ weave_geom_defaults <- function(colour = "#357BA2FF",
 #' @param col_palette_d For a discrete scale, a character vector of hex codes (or col_palette_d_names) for the `col_palette_d`.
 #' @param col_palette_d_na For a discrete scale, a hex code (or col_palette_d_name) for the `col_palette_d_col_palette_d_na`.
 #'
-#' @noRd
+#' @export
 weave_col_palette_d <- function(col_palette_d = jumble, col_palette_d_na = "#CDC5BFFF") {
 
   if (rlang::is_null(col_palette_d_na)) col_palette_d_na <- "grey50"
@@ -149,7 +149,7 @@ weave_col_palette_d <- function(col_palette_d = jumble, col_palette_d_na = "#CDC
 #' @param col_palette_c For a continuous scale, a character vector of hex codes (or col_palette_c_names)
 #' @param col_palette_c_na For a continuous scale, a hex code (or col_palette_c_name) for the `col_palette_col_palette_c_na`.
 #'
-#' @noRd
+#' @export
 weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, direction = -1),
                                 col_palette_c_na = "#988F88FF") { # i.e. colorspace::darken(grey, 0.25)
 
@@ -188,7 +188,7 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
 #' @param col_palette_o For an ordicol_palette_o_nal scale, a `scales::pal_*()` function for the `col_palette_o`.
 #' @param col_palette_o_na For an ordicol_palette_o_nal scale, a hex code (or col_palette_o_name) for the `col_palette_o_col_palette_o_na`.
 #'
-#' @noRd
+#' @export
 weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G", direction = -1),
                                 col_palette_o_na = "#988F88FF") {
 

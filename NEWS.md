@@ -5,9 +5,10 @@
 * Breaking: removed `greyness` helper.
 * Breaking: removed `*_orientation` arguments from `*_mode_*` functions.
 * Breaking: In `set_blanket`, renamed `annotate_*` arguments to `annotation_*`.
+* Added `*_symmetric` arguments.
 * Added `mode_orientation` argument. 
 * Added `*_breaks_n` and `*_sec_axis` arguments.
-* Added `*_symmetric` arguments.
+* Added `weave_*` setup functions. 
 * Added `mode_orientation_to_x` and `mode_orientation_to_y` functions.
 * In `set_blanket`, changed `theme` argument default to `theme_grey()`.
 
