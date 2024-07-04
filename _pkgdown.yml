@@ -20,7 +20,7 @@ reference:
   - dark_mode_r
   - dark_mode_t
   - dark_mode_b
-- title: Other
+- title: Helpers
 - contents:
   - aes_contrast
   - weave_mode
