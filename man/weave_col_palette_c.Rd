@@ -10,9 +10,9 @@ weave_col_palette_c(
 )
 }
 \arguments{
-\item{col_palette_c}{For a continuous scale, a character vector of hex codes (or col_palette_c_names)}
+\item{col_palette_c}{For a continuous scale, a character vector of hex codes.}
 
-\item{col_palette_c_na}{For a continuous scale, a hex code (or col_palette_c_name) for the \code{col_palette_col_palette_c_na}.}
+\item{col_palette_c_na}{For a continuous scale, a hex code.}
 }
 \description{
 Set a continuous colour palette

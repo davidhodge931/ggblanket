@@ -10,9 +10,9 @@ weave_col_palette_o(
 )
 }
 \arguments{
-\item{col_palette_o}{For an ordicol_palette_o_nal scale, a \verb{scales::pal_*()} function for the \code{col_palette_o}.}
+\item{col_palette_o}{For an ordinal scale, a \verb{scales::pal_*()} function.}
 
-\item{col_palette_o_na}{For an ordicol_palette_o_nal scale, a hex code (or col_palette_o_name) for the \code{col_palette_o_col_palette_o_na}.}
+\item{col_palette_o_na}{For an ordinal scale, a hex code.}
 }
 \description{
 Set an ordinal colour palette

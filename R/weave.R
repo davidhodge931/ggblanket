@@ -23,7 +23,7 @@ weave_mode <- function(mode = light_mode_r()) {
   invisible(old)
 }
 
-#' Set a theme
+#' Set a theme (without side-effects)
 #'
 #' @description Set a theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence unless NULL.
 #'
@@ -98,8 +98,8 @@ weave_geom_defaults <- function(colour = "#357BA2FF",
 
 #' Set a discrete colour palette
 #'
-#' @param col_palette_d For a discrete scale, a character vector of hex codes (or col_palette_d_names) for the `col_palette_d`.
-#' @param col_palette_d_na For a discrete scale, a hex code (or col_palette_d_name) for the `col_palette_d_col_palette_d_na`.
+#' @param col_palette_d For a discrete scale, a character vector of hex codes.
+#' @param col_palette_d_na For a discrete scale, a hex code.
 #'
 #' @export
 weave_col_palette_d <- function(col_palette_d = jumble, col_palette_d_na = "#CDC5BFFF") {
@@ -146,8 +146,8 @@ weave_col_palette_d <- function(col_palette_d = jumble, col_palette_d_na = "#CDC
 
 #' Set a continuous colour palette
 #'
-#' @param col_palette_c For a continuous scale, a character vector of hex codes (or col_palette_c_names)
-#' @param col_palette_c_na For a continuous scale, a hex code (or col_palette_c_name) for the `col_palette_col_palette_c_na`.
+#' @param col_palette_c For a continuous scale, a character vector of hex codes.
+#' @param col_palette_c_na For a continuous scale, a hex code.
 #'
 #' @export
 weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, direction = -1),
@@ -185,8 +185,8 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
 
 #' Set an ordinal colour palette
 #'
-#' @param col_palette_o For an ordicol_palette_o_nal scale, a `scales::pal_*()` function for the `col_palette_o`.
-#' @param col_palette_o_na For an ordicol_palette_o_nal scale, a hex code (or col_palette_o_name) for the `col_palette_o_col_palette_o_na`.
+#' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function.
+#' @param col_palette_o_na For an ordinal scale, a hex code.
 #'
 #' @export
 weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G", direction = -1),

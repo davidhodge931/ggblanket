@@ -1,5 +1,7 @@
 #' Unweave geom defaults
 #'
+#' @description Reset all updated geom defaults back to ggplot2 defaults.
+#'
 #' @noRd
 unweave_geom_defaults <- function() {
   ggplot2::update_geom_defaults("area", NULL)

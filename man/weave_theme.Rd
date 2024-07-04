@@ -2,7 +2,7 @@
 % Please edit documentation in R/weave.R
 \name{weave_theme}
 \alias{weave_theme}
-\title{Set a theme}
+\title{Set a theme (without side-effects)}
 \usage{
 weave_theme(theme = light_mode_r() + mode_orientation_to_x())
 }

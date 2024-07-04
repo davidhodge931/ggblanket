@@ -7,9 +7,9 @@
 weave_col_palette_d(col_palette_d = jumble, col_palette_d_na = "#CDC5BFFF")
 }
 \arguments{
-\item{col_palette_d}{For a discrete scale, a character vector of hex codes (or col_palette_d_names) for the \code{col_palette_d}.}
+\item{col_palette_d}{For a discrete scale, a character vector of hex codes.}
 
-\item{col_palette_d_na}{For a discrete scale, a hex code (or col_palette_d_name) for the \code{col_palette_d_col_palette_d_na}.}
+\item{col_palette_d_na}{For a discrete scale, a hex code.}
 }
 \description{
 Set a discrete colour palette

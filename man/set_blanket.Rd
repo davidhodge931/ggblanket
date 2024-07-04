@@ -36,17 +36,17 @@ set_blanket(
 
 \item{annotation_size}{A size for \verb{*_text} and \verb{*_label}. Defaults to 3.88.}
 
-\item{col_palette_d}{For a discrete scale, a character vector of hex codes (or names) for the \code{col_palette}.}
+\item{col_palette_d}{For a discrete scale, a character vector of hex codes.}
 
-\item{col_palette_na_d}{For a discrete scale, a hex code or name for the \code{col_palette_na}.}
+\item{col_palette_na_d}{For a discrete scale, a hex code.}
 
-\item{col_palette_c}{For a continuous scale, a character vector of hex codes (or names) for the \code{col_palette}.}
+\item{col_palette_c}{For a continuous scale, a character vector of hex codes.}
 
-\item{col_palette_na_c}{For a continuous scale, a hex code or name for the \code{col_palette_na}.}
+\item{col_palette_na_c}{For a continuous scale, a hex code.}
 
-\item{col_palette_o}{For an ordinal scale, a \verb{scales::pal_*()} function for the \code{col_palette}.}
+\item{col_palette_o}{For an ordinal scale, a \verb{scales::pal_*()} function.}
 
-\item{col_palette_na_o}{For an ordinal scale, a hex code or name for the \code{col_palette_na}.}
+\item{col_palette_na_o}{For an ordinal scale, a hex code.}
 
 \item{theme}{A ggplot2 theme that the \verb{gg_*} function will add without side-effects. Note, \code{mode} takes precedence, unless \code{mode = NULL}.}
 }
