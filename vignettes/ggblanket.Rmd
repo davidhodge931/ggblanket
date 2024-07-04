@@ -251,11 +251,13 @@ penguins2 |>
 
 ### 11.  Side-effects to the `mode` based on the `mode_orientation`
 
-The `gg_*` function adds helpful side-effects to the mode. 
+The `gg_*` function adds helpful side-effects to the mode. The intent is to enable users to be able to use one theme, which can then be applied asymmetrically.
 
 Where `mode_orientation = "x"`, the `gg_*` function will remove the y axis line/ticks and the x gridlines from the `mode` (by changing their colour to "transparent"). Where it is  `mode_orientation = "y"`, the opposite will occur. If the `gg_*` guesses an incorrect `mode_orientation`, then the user can change this.
 
-For this reason, any `mode` used should be designed to anticipate these side-effects.
+Additionally, the `gg_*` function will remove ticks from discrete scales.
+
+Any `mode` used should be designed to anticipate these side-effects.
 
 To avoid these side-effects, instead `+` the theme on to the `gg_*` output (or use the `theme` argument in `set_blanket`).
 
