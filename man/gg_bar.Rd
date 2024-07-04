@@ -166,12 +166,8 @@ library(palmerpenguins)
 set_blanket()
 
 penguins |>
-  tidyr::drop_na(sex) |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_bar(
     y = species,
-    col = sex,
-    position = position_dodge(preserve = "single"),
     width = 0.75,
   )
 

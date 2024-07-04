@@ -166,12 +166,9 @@ library(palmerpenguins)
 set_blanket()
 
 penguins |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
-  tidyr::drop_na(sex) |>
   gg_density(
     x = flipper_length_mm,
     col = species,
-    mode = light_mode_t(),
   )
 
 }

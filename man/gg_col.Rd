@@ -167,7 +167,6 @@ set_blanket()
 
 penguins |>
   tidyr::drop_na(sex) |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   group_by(sex, species) |>
   summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
   gg_col(

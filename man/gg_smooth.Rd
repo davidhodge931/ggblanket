@@ -166,12 +166,10 @@ library(palmerpenguins)
 set_blanket()
 
 penguins |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
-  tidyr::drop_na(sex) |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex,
+    col = species,
     se = TRUE,
   )
 

@@ -169,16 +169,13 @@ library(palmerpenguins)
 set_blanket()
 
 penguins \%>\%
-  tidyr::drop_na(sex) \%>\%
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) \%>\%
   gg_blanket(
     geom = "violin",
     stat = "ydensity",
     position = "dodge",
-    x = sex,
+    x = species,
     y = body_mass_g,
     col = sex,
-    facet = species,
   )
 
 }

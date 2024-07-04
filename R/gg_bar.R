@@ -15,12 +15,8 @@
 #' set_blanket()
 #'
 #' penguins |>
-#'   tidyr::drop_na(sex) |>
-#'   mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
 #'   gg_bar(
 #'     y = species,
-#'     col = sex,
-#'     position = position_dodge(preserve = "single"),
 #'     width = 0.75,
 #'   )
 #'
@@ -51,7 +47,7 @@ gg_bar <- function(data = NULL,
                    x_breaks = NULL, x_breaks_n = NULL,
                    x_expand = NULL,
                    x_expand_limits = NULL,
-                   x_label = NULL, x_labels = NULL, 
+                   x_label = NULL, x_labels = NULL,
 
 
                    x_position = "bottom",
@@ -73,7 +69,7 @@ gg_bar <- function(data = NULL,
                    col_legend_ncol = NULL,
                    col_legend_nrow = NULL,
                    col_legend_rev = FALSE,
-                   
+
 
                    col_palette = NULL,
                    col_palette_na = NULL,

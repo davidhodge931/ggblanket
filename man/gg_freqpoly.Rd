@@ -166,12 +166,9 @@ library(palmerpenguins)
 set_blanket()
 
 penguins |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
-    col_label = "",
-    mode = light_mode_t(),
   )
 
 }

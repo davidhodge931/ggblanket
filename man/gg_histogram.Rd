@@ -166,13 +166,10 @@ library(palmerpenguins)
 set_blanket()
 
 penguins |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_histogram(
     x = flipper_length_mm,
     col = sex,
-    facet = species,
     bins = 50,
-    mode = light_mode_b(),
   )
 
 }

@@ -166,11 +166,10 @@ library(palmerpenguins)
 set_blanket()
 
 penguins |>
-  mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex,
+    col = species,
   )
 
 }
