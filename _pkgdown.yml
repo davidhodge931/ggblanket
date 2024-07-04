@@ -24,13 +24,13 @@ reference:
 - contents:
   - aes_contrast
   - weave_mode
-  - weave_theme
   - weave_geom_defaults
   - weave_col_palette_d
   - weave_col_palette_c
   - weave_col_palette_o
   - mode_orientation_to_x
   - mode_orientation_to_y
+  - weave_theme
   - blue
   - jumble
   - teal
