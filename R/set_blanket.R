@@ -1,7 +1,13 @@
 #' Set a style
 #'
 #' @description
-#' Set a style by setting a mode, a series of geom and annotate aesthetic defaults, and a col_palette for discrete and continuous scales.
+#' Set a style by setting a:
+#'
+#' * mode
+#' * geom defaults, including for annotation
+#' * col_palettes for discrete, continuous and ordinal scales.
+#'
+#' Alternatively, use the `weave_*` functions to only apply a subset of these.
 #'
 #' @param ... Provided to force user argument naming etc.
 #' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.

@@ -54,7 +54,14 @@ set_blanket(
 A globally set style.
 }
 \description{
-Set a style by setting a mode, a series of geom and annotate aesthetic defaults, and a col_palette for discrete and continuous scales.
+Set a style by setting a:
+\itemize{
+\item mode
+\item geom defaults, including for annotation
+\item col_palettes for discrete, continuous and ordinal scales.
+}
+
+Alternatively, use the \verb{weave_*} functions to only apply a subset of these.
 }
 \examples{
 library(ggplot2)
