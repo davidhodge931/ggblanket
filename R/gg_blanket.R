@@ -718,14 +718,41 @@ gg_blanket <- function(data = NULL,
       }
     }
     else if (col_scale_type %in% c("discrete", "ordinal")) {
-      if (col_scale_type == "discrete") {
-        if (!rlang::quo_is_null(col)) {
-          col_n <- data %>%
-            dplyr::pull(!!col) %>%
-            levels() %>%
-            length()
-        } else col_n <- NULL
-      } else col_n <- NULL
+
+      if (rlang::is_null(col_palette_na)) {
+        if (col_scale_type == "discrete") {
+          if (rlang::is_null(get_col_palette_na_d())) col_palette_na <- "grey50"
+          else col_palette_na <- get_col_palette_na_d()
+        }
+        else if (col_scale_type == "ordinal") {
+          if (rlang::is_null(get_col_palette_na_o())) col_palette_na <- "grey50"
+          else col_palette_na <- get_col_palette_na_o()
+        }
+      }
+
+        colour_n <- plot_data %>%
+          dplyr::select(tidyselect::any_of("colour")) %>%
+          dplyr::distinct()
+
+        if (nrow(colour_n) > 0) {
+          colour_n <- colour_n %>%
+            dplyr::filter(.data$colour != col_palette_na) |>
+            dplyr::count() |>
+            dplyr::pull()
+        } else colour_n <- 1
+
+        fill_n <- plot_data %>%
+          dplyr::select(tidyselect::any_of("fill")) %>%
+          dplyr::distinct()
+
+        if (nrow(fill_n) > 0) {
+          fill_n <- fill_n %>%
+            dplyr::filter(.data$fill != !!col_palette_na) |>
+            dplyr::count() |>
+            dplyr::pull()
+        } else fill_n <- 1
+
+        col_n <- max(colour_n, fill_n)
 
       if (rlang::is_null(col_palette)) {
         if (col_scale_type == "discrete") col_palette <- get_col_palette_d()
@@ -743,11 +770,6 @@ gg_blanket <- function(data = NULL,
       }
 
       if (col_scale_type == "ordinal") col_legend_rev <- !col_legend_rev
-
-      if (rlang::is_null(col_palette_na)) {
-        if (col_scale_type == "discrete") col_palette_na <- get_col_palette_na_d()
-        else if (col_scale_type == "ordinal") col_palette_na <- get_col_palette_na_o()
-      }
 
       if (rlang::is_null(col_labels)) col_labels <- ggplot2::waiver()
 

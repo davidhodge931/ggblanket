@@ -5,7 +5,7 @@
 * Breaking: removed `greyness` helper.
 * Breaking: removed `*_orientation` arguments from `*_mode_*` functions.
 * Breaking: In `set_blanket`, renamed `annotate_*` arguments to `annotation_*`.
-* Breking: in `*_mode_*`, removed `ticks_length_*` arguments.
+* Breaking: in `*_mode_*`, removed `ticks_length_*` arguments.
 * Added `*_symmetric` arguments.
 * Added `mode_orientation` argument. 
 * Added `*_breaks_n` and `*_sec_axis` arguments.
@@ -16,6 +16,7 @@
 * Made `mode_orientation` make unneeded components transparent.
 * Made `mode_orientation` apply where no mode or theme set.
 * In `set_blanket`, changed `theme` argument default to `theme_grey()`.
+* For discrete colour scales, determined the number of colours based on the `after_stat` data. 
 
 # ggblanket 9.1.1
 

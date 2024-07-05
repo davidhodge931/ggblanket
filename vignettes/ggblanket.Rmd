@@ -155,7 +155,7 @@ These can be accessed via the `mapping` argument using the `aes()` function.
 
 To customise associated scales/guides, `+` on the applicable ggplot2 layer. In some situations, you may have to reverse the values in the relevant scale etc.
 
-This argument can also be used to add _only_ a `colour` or `fill` aesthetic scale, and _not_ both. 
+The `mapping` argument can also be used to add _only_ a `colour` or `fill` aesthetic scale, and _not_ both. 
 
 ```{r}
 penguins2 |> 
