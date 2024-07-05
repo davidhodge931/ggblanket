@@ -11,8 +11,10 @@
 #'
 #' @param ... Provided to force user argument naming etc.
 #' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
-#' @param colour A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to `blue` (i.e. `#357BA2FF`).
-#' @param annotation_colour A hex colour (and fill) for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to "#121b24" (i.e. `lightness[1]`).
+#' @param colour A hex colour for the colour of geoms other than `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to `blue` (i.e. `#357BA2FF`).
+#' @param fill A hex colour for the fill of geoms `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to `colour`.
+#' @param annotation_colour A hex annotation colour for the colour of`*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to "#121b24" (i.e. `lightness[1]`).
+#' @param annotation_fill A hex annotation colour for the colour of `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to `annotation_colour`.
 #' @param annotation_linewidth A linewidth for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to 0.33.
 #' @param annotation_family A family for `*_text` and `*_label`. Defaults to "".
 #' @param annotation_size A size for `*_text` and `*_label`. Defaults to 3.88.
@@ -59,7 +61,9 @@ set_blanket <- function(
     ...,
     mode = light_mode_r(),
     colour = "#357BA2FF",
+    fill = colour,
     annotation_colour = "#121B24FF",
+    annotation_fill = annotation_colour,
     annotation_linewidth = 0.33,
     annotation_family = "",
     annotation_size = 3.88,
@@ -75,7 +79,9 @@ set_blanket <- function(
 
   weave_geom_defaults(
     colour = colour,
+    fill = fill,
     annotation_colour = annotation_colour,
+    annotation_fill = annotation_fill,
     annotation_linewidth = annotation_linewidth,
     annotation_size = annotation_size,
     annotation_family = annotation_family

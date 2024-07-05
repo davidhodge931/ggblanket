@@ -8,7 +8,9 @@ set_blanket(
   ...,
   mode = light_mode_r(),
   colour = "#357BA2FF",
+  fill = colour,
   annotation_colour = "#121B24FF",
+  annotation_fill = annotation_colour,
   annotation_linewidth = 0.33,
   annotation_family = "",
   annotation_size = 3.88,
@@ -26,9 +28,13 @@ set_blanket(
 
 \item{mode}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates \verb{gg_*} side-effects of removing relevant axis line/ticks and gridlines per the \code{mode_orientation}.}
 
-\item{colour}{A hex colour (and fill) for most geoms. Fill inherits from this colour. Defaults to \code{blue} (i.e. \verb{#357BA2FF}).}
+\item{colour}{A hex colour for the colour of geoms other than \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to \code{blue} (i.e. \verb{#357BA2FF}).}
 
-\item{annotation_colour}{A hex colour (and fill) for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to "#121b24" (i.e. \code{lightness[1]}).}
+\item{fill}{A hex colour for the fill of geoms \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to \code{colour}.}
+
+\item{annotation_colour}{A hex annotation colour for the colour of\verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to "#121b24" (i.e. \code{lightness[1]}).}
+
+\item{annotation_fill}{A hex annotation colour for the colour of \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to \code{annotation_colour}.}
 
 \item{annotation_linewidth}{A linewidth for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to 0.33.}
 

@@ -42,58 +42,62 @@ weave_theme <- function(theme = light_mode_r() + mode_orientation_to_x()) {
 #'
 #' @description Update all geom defaults.
 #'
-#' @param colour A hex colour (and fill) for geoms other than `*_hline`/`*_vline`/`*_abline` and `*_curve`. Fill inherits from this colour. Defaults to `blue` (i.e. `#357BA2FF`).
-#' @param annotation_colour A hex annotation_colour (and fill) for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to "#121b24" (i.e. `lightness[1]`).
+#' @param colour A hex colour for the colour of geoms other than `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to `blue` (i.e. `#357BA2FF`).
+#' @param fill A hex colour for the fill of geoms `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to `colour`.
+#' @param annotation_colour A hex annotation colour for the colour of`*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to "#121b24" (i.e. `lightness[1]`).
+#' @param annotation_fill A hex annotation colour for the colour of `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to `annotation_colour`.
 #' @param annotation_linewidth A annotation_linewidth for `*_hline`/`*_vline`/`*_abline` and `*_curve`. Defaults to 0.33.
 #' @param annotation_family A annotation_family for `*_text` and `*_label`. Defaults to ""
 #' @param annotation_size A annotation_size for `*_text` and `*_label`. Defaults to 3.88.
 #'
 #' @export
 weave_geom_defaults <- function(colour = "#357BA2FF",
+                                fill = colour,
                                 annotation_colour = "#121B24FF",
+                                annotation_fill = annotation_colour,
                                 annotation_linewidth = 0.33,
                                 annotation_family = "",
                                 annotation_size = 3.88) {
 
-    ggplot2::update_geom_defaults("area", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9, linewidth = 0.66))
-    ggplot2::update_geom_defaults("bar", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9, linewidth = 0.66))
-    ggplot2::update_geom_defaults("boxplot", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9 * 0.67, linewidth = 0.66))
-    ggplot2::update_geom_defaults("col", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9, linewidth = 0.66))
+    ggplot2::update_geom_defaults("area", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.9, linewidth = 0.66))
+    ggplot2::update_geom_defaults("bar", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.9, linewidth = 0.66))
+    ggplot2::update_geom_defaults("boxplot", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.9 * 0.67, linewidth = 0.66))
+    ggplot2::update_geom_defaults("col", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.9, linewidth = 0.66))
     ggplot2::update_geom_defaults("contour", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-    ggplot2::update_geom_defaults("contour_filled", ggplot2::aes(fill = !!colour, linewidth = 0.66))
-    ggplot2::update_geom_defaults("crossbar", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9 * 0.67, linewidth = 0.66))
-    ggplot2::update_geom_defaults("density", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9 * 0.67, linewidth = 0.66))
+    ggplot2::update_geom_defaults("contour_filled", ggplot2::aes(fill = !!fill, linewidth = 0.66))
+    ggplot2::update_geom_defaults("crossbar", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.9 * 0.67, linewidth = 0.66))
+    ggplot2::update_geom_defaults("density", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.9 * 0.67, linewidth = 0.66))
     ggplot2::update_geom_defaults("density2d", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-    ggplot2::update_geom_defaults("density_2d_filled", ggplot2::aes(fill = !!colour, linewidth = 0.66))
+    ggplot2::update_geom_defaults("density_2d_filled", ggplot2::aes(fill = !!fill, linewidth = 0.66))
     ggplot2::update_geom_defaults("errorbar", ggplot2::aes(colour = !!colour, linewidth = 0.66))
     ggplot2::update_geom_defaults("function", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-    ggplot2::update_geom_defaults("hex", ggplot2::aes(fill = !!colour))
+    ggplot2::update_geom_defaults("hex", ggplot2::aes(fill = !!fill))
     ggplot2::update_geom_defaults("line", ggplot2::aes(colour = !!colour, linewidth = 0.66))
     ggplot2::update_geom_defaults("linerange", ggplot2::aes(colour = !!colour, linewidth = 0.66))
     ggplot2::update_geom_defaults("path", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-    ggplot2::update_geom_defaults("point", ggplot2::aes(colour = !!colour, fill = !!colour, size = 1.5))
-    ggplot2::update_geom_defaults("pointrange", ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66, size = 1.5 / 7.5))
-    ggplot2::update_geom_defaults("polygon", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9, linewidth = 0.66))
+    ggplot2::update_geom_defaults("point", ggplot2::aes(colour = !!colour, fill = !!fill, size = 1.5))
+    ggplot2::update_geom_defaults("pointrange", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66, size = 1.5 / 7.5))
+    ggplot2::update_geom_defaults("polygon", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.9, linewidth = 0.66))
     ggplot2::update_geom_defaults("quantile", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-    ggplot2::update_geom_defaults("raster", ggplot2::aes(fill = !!colour))
-    ggplot2::update_geom_defaults("rect", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9, linewidth = 0.66))
-    ggplot2::update_geom_defaults("ribbon", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9 * 0.67, linewidth = 0.66))
+    ggplot2::update_geom_defaults("raster", ggplot2::aes(fill = !!fill))
+    ggplot2::update_geom_defaults("rect", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.9, linewidth = 0.66))
+    ggplot2::update_geom_defaults("ribbon", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.9 * 0.67, linewidth = 0.66))
     ggplot2::update_geom_defaults("rug", ggplot2::aes(colour = !!colour, linewidth = 0.66))
     ggplot2::update_geom_defaults("segment", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-    ggplot2::update_geom_defaults("sf", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9, linewidth = 0.66, size = 1.5))
-    ggplot2::update_geom_defaults("smooth", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9 * 0.67, linewidth = 0.66))
+    ggplot2::update_geom_defaults("sf", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.9, linewidth = 0.66, size = 1.5))
+    ggplot2::update_geom_defaults("smooth", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.9 * 0.67, linewidth = 0.66))
     ggplot2::update_geom_defaults("spoke", ggplot2::aes(colour = !!colour, linewidth = 0.66))
     ggplot2::update_geom_defaults("step", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-    ggplot2::update_geom_defaults("violin", ggplot2::aes(colour = !!colour, fill = !!colour, alpha = 0.9, linewidth = 0.66))
+    ggplot2::update_geom_defaults("violin", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.9, linewidth = 0.66))
     #to add and adjust once ggplot makes GeomBin2d
-    ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = NA, fill = !!colour, alpha = 0.9, linewidth = 0.66))
+    ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = NA, fill = !!fill, alpha = 0.9, linewidth = 0.66))
 
     ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!annotation_colour, linewidth = !!annotation_linewidth))
     ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!annotation_colour, linewidth = !!annotation_linewidth))
     ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!annotation_colour, linewidth = !!annotation_linewidth))
     ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!annotation_colour, linewidth = !!annotation_linewidth))
     ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!annotation_colour, size = !!annotation_size, family = !!annotation_family))
-    ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!annotation_colour, fill = !!annotation_colour, alpha = 0.05, size = !!annotation_size, family = !!annotation_family))
+    ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!annotation_colour, fill = !!annotation_fill, alpha = 0.05, size = !!annotation_size, family = !!annotation_family))
 }
 
 #' Set a discrete colour palette

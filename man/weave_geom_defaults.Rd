@@ -6,16 +6,22 @@
 \usage{
 weave_geom_defaults(
   colour = "#357BA2FF",
+  fill = colour,
   annotation_colour = "#121B24FF",
+  annotation_fill = annotation_colour,
   annotation_linewidth = 0.33,
   annotation_family = "",
   annotation_size = 3.88
 )
 }
 \arguments{
-\item{colour}{A hex colour (and fill) for geoms other than \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Fill inherits from this colour. Defaults to \code{blue} (i.e. \verb{#357BA2FF}).}
+\item{colour}{A hex colour for the colour of geoms other than \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to \code{blue} (i.e. \verb{#357BA2FF}).}
 
-\item{annotation_colour}{A hex annotation_colour (and fill) for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to "#121b24" (i.e. \code{lightness[1]}).}
+\item{fill}{A hex colour for the fill of geoms \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to \code{colour}.}
+
+\item{annotation_colour}{A hex annotation colour for the colour of\verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to "#121b24" (i.e. \code{lightness[1]}).}
+
+\item{annotation_fill}{A hex annotation colour for the colour of \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to \code{annotation_colour}.}
 
 \item{annotation_linewidth}{A annotation_linewidth for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to 0.33.}
 
