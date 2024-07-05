@@ -612,6 +612,15 @@ gg_blanket <- function(data = NULL,
     }
   }
 
+  #so that col_n can identify complete set of required non-NA colours
+  #and work even if col_palette_d sets insufficient colours
+
+  if (col_scale_type %in% c("discrete", "ordinal")) {
+    plot <- plot +
+      ggplot2::scale_colour_hue(na.value = "grey50") +
+      ggplot2::scale_fill_hue(na.value = "grey50")
+  }
+
   ##############################################################################
   # get the plot build and plot data
   ##############################################################################
@@ -736,7 +745,7 @@ gg_blanket <- function(data = NULL,
 
         if (nrow(colour_n) > 0) {
           colour_n <- colour_n %>%
-            dplyr::filter(.data$colour != col_palette_na) |>
+            dplyr::filter(.data$colour != "grey50") |>
             dplyr::count() |>
             dplyr::pull()
         } else colour_n <- 1
@@ -747,7 +756,7 @@ gg_blanket <- function(data = NULL,
 
         if (nrow(fill_n) > 0) {
           fill_n <- fill_n %>%
-            dplyr::filter(.data$fill != !!col_palette_na) |>
+            dplyr::filter(.data$fill != "grey50") |>
             dplyr::count() |>
             dplyr::pull()
         } else fill_n <- 1
@@ -766,7 +775,9 @@ gg_blanket <- function(data = NULL,
 
       if (x_symmetric) {
         col_legend_rev <- !col_legend_rev
-        if (col_scale_type == "discrete") col_palette <- rev(col_palette)
+        if (col_scale_type == "discrete") {
+          col_palette <- rev(col_palette)
+        }
       }
 
       if (col_scale_type == "ordinal") col_legend_rev <- !col_legend_rev
