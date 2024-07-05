@@ -8,6 +8,12 @@ reference:
 - title: Setup
 - contents:
   - set_blanket
+  - weave_mode
+  - weave_geom_defaults
+  - weave_col_palette_d
+  - weave_col_palette_c
+  - weave_col_palette_o
+  - weave_theme
 - title: Plot
 - contents:
   - gg_blanket
@@ -20,14 +26,6 @@ reference:
   - dark_mode_r
   - dark_mode_t
   - dark_mode_b
-- title: Weave
-- contents:
-  - weave_mode
-  - weave_geom_defaults
-  - weave_col_palette_d
-  - weave_col_palette_c
-  - weave_col_palette_o
-  - weave_theme
 - title: Helper
 - contents:
   - aes_contrast
