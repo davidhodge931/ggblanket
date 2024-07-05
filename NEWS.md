@@ -10,9 +10,11 @@
 * Added `*_breaks_n` and `*_sec_axis` arguments.
 * Added `weave_*` setup functions. 
 * Added `mode_orientation_to_x` and `mode_orientation_to_y` functions.
+* Added `element_line_transparent` shortcut function.
 * Made `mode_orientation` make unneeded components transparent.
 * Made `mode_orientation` apply where no mode or theme set.
 * In `set_blanket`, changed `theme` argument default to `theme_grey()`.
+* In `*_mode_*`, removed `ticks_length_*` arguments.
 
 # ggblanket 9.1.1
 
