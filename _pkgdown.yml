@@ -31,9 +31,9 @@ reference:
 - title: Helper
 - contents:
   - aes_contrast
-  - element_line_transparent
   - mode_orientation_to_x
   - mode_orientation_to_y
+  - element_line_transparent
   - blue
   - jumble
   - teal
