@@ -392,7 +392,7 @@
 <circle cx='308.82' cy='390.50' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
 <circle cx='377.40' cy='349.06' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
 <circle cx='328.99' cy='390.50' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
-<polyline points='64.78,43.09 698.08,43.09 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='64.78,43.09 698.08,43.09 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: square;' />
 <polyline points='74.86,39.43 74.86,43.09 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
 <polyline points='135.37,39.43 135.37,43.09 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
 <polyline points='195.88,39.43 195.88,43.09 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
@@ -415,7 +415,7 @@
 <text x='558.92' y='36.15' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='24.47px' lengthAdjust='spacingAndGlyphs'>$255</text>
 <text x='619.42' y='36.15' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='24.47px' lengthAdjust='spacingAndGlyphs'>$270</text>
 <text x='679.93' y='36.15' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='24.47px' lengthAdjust='spacingAndGlyphs'>$285</text>
-<polyline points='64.78,553.05 64.78,43.09 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
+<polyline points='64.78,553.05 64.78,43.09 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: square;' />
 <text x='59.30' y='556.83' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='27.53px' lengthAdjust='spacingAndGlyphs'>2,500</text>
 <text x='59.30' y='493.09' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='27.53px' lengthAdjust='spacingAndGlyphs'>3,000</text>
 <text x='59.30' y='429.34' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='27.53px' lengthAdjust='spacingAndGlyphs'>3,500</text>

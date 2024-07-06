@@ -380,7 +380,7 @@
 <circle cx='315.37' cy='359.36' r='1.95' style='stroke-width: 0.71; stroke: #DA3C39; fill: #DA3C39;' />
 <line x1='331.06' y1='513.51' x2='331.06' y2='29.89' style='stroke-width: 10.67; stroke: #FF0000; stroke-linecap: butt;' />
 <text x='215.58' y='155.97' text-anchor='middle' style='font-size: 15.05px; fill: #FF0000; font-family: sans;' textLength='32.63px' lengthAdjust='spacingAndGlyphs'>Here</text>
-<polyline points='88.34,513.51 88.34,29.89 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
+<polyline points='88.34,513.51 88.34,29.89 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: square;' />
 <text x='80.86' y='518.67' text-anchor='end' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='37.54px' lengthAdjust='spacingAndGlyphs'>2,500</text>
 <text x='80.86' y='458.22' text-anchor='end' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='37.54px' lengthAdjust='spacingAndGlyphs'>3,000</text>
 <text x='80.86' y='397.77' text-anchor='end' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='37.54px' lengthAdjust='spacingAndGlyphs'>3,500</text>
@@ -399,7 +399,7 @@
 <polyline points='84.60,150.79 88.34,150.79 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
 <polyline points='84.60,90.34 88.34,90.34 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
 <polyline points='84.60,29.89 88.34,29.89 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
-<polyline points='88.34,513.51 597.31,513.51 ' style='stroke-width: 0.70; stroke: #C8D7DF; stroke-linecap: butt;' />
+<polyline points='88.34,513.51 597.31,513.51 ' style='stroke-width: 0.70; stroke: #C8D7DF; stroke-linecap: square;' />
 <polyline points='174.21,518.49 174.21,513.51 ' style='stroke-width: 0.70; stroke: #C8D7DF; stroke-linecap: butt;' />
 <polyline points='331.06,518.49 331.06,513.51 ' style='stroke-width: 0.70; stroke: #C8D7DF; stroke-linecap: butt;' />
 <polyline points='487.90,518.49 487.90,513.51 ' style='stroke-width: 0.70; stroke: #C8D7DF; stroke-linecap: butt;' />

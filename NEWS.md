@@ -17,6 +17,7 @@
 * Made `mode_orientation` apply where no mode or theme set.
 * In `set_blanket`, changed `theme` argument default to `theme_grey()`.
 * For discrete colour scales, determined the number of colours based on the `after_stat` data. 
+* In `*_mode_*`, changed `lineend` to `"square"`. 
 
 # ggblanket 9.1.1
 

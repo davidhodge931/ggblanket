@@ -384,7 +384,7 @@
 <polygon points='268.91,365.13 271.54,369.69 266.28,369.69 ' style='stroke-width: 0.71; stroke: none; fill: #FFA600; fill-opacity: 0.55;' />
 <polygon points='413.80,323.83 416.43,328.39 411.17,328.39 ' style='stroke-width: 0.71; stroke: none; fill: #FFA600; fill-opacity: 0.55;' />
 <polygon points='311.52,365.13 314.16,369.69 308.89,369.69 ' style='stroke-width: 0.71; stroke: none; fill: #FFA600; fill-opacity: 0.55;' />
-<polyline points='64.78,530.17 64.78,21.92 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
+<polyline points='64.78,530.17 64.78,21.92 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: square;' />
 <text x='59.30' y='533.96' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='27.53px' lengthAdjust='spacingAndGlyphs'>2,500</text>
 <text x='59.30' y='470.43' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='27.53px' lengthAdjust='spacingAndGlyphs'>3,000</text>
 <text x='59.30' y='406.89' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='27.53px' lengthAdjust='spacingAndGlyphs'>3,500</text>
@@ -403,7 +403,7 @@
 <polyline points='62.04,148.98 64.78,148.98 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
 <polyline points='62.04,85.45 64.78,85.45 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
 <polyline points='62.04,21.92 64.78,21.92 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
-<polyline points='64.78,530.17 617.93,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='64.78,530.17 617.93,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: square;' />
 <polyline points='72.88,533.83 72.88,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
 <polyline points='158.11,533.83 158.11,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
 <polyline points='243.34,533.83 243.34,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />

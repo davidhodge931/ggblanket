@@ -131,7 +131,7 @@
 <rect x='609.64' y='454.13' width='19.65' height='56.71' style='stroke-width: 1.41; stroke: #003F5C; stroke-linecap: butt; stroke-linejoin: miter; fill: #003F5C; fill-opacity: 0.90;' />
 <rect x='629.29' y='383.25' width='19.65' height='127.59' style='stroke-width: 1.41; stroke: #003F5C; stroke-linecap: butt; stroke-linejoin: miter; fill: #003F5C; fill-opacity: 0.90;' />
 <rect x='648.95' y='496.66' width='19.65' height='14.18' style='stroke-width: 1.41; stroke: #003F5C; stroke-linecap: butt; stroke-linejoin: miter; fill: #003F5C; fill-opacity: 0.90;' />
-<polyline points='49.49,510.84 49.49,85.53 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
+<polyline points='49.49,510.84 49.49,85.53 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: square;' />
 <text x='44.01' y='514.62' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='44.01' y='443.74' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>5</text>
 <text x='44.01' y='372.85' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='12.24px' lengthAdjust='spacingAndGlyphs'>10</text>
@@ -146,7 +146,7 @@
 <polyline points='46.75,227.30 49.49,227.30 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
 <polyline points='46.75,156.42 49.49,156.42 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
 <polyline points='46.75,85.53 49.49,85.53 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
-<polyline points='49.49,510.84 698.08,510.84 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='49.49,510.84 698.08,510.84 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: square;' />
 <polyline points='60.48,514.49 60.48,510.84 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
 <polyline points='157.09,514.49 157.09,510.84 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
 <polyline points='253.69,514.49 253.69,510.84 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />

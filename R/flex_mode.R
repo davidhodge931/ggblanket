@@ -82,7 +82,7 @@ flex_mode_base <- function(
   theme <- ggplot2::theme(
     text = ggplot2::element_text(size = base_size, family = base_family, face = "plain", colour = base_colour,
                                  lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(), debug = FALSE),
-    axis.line = ggplot2::element_line(colour = axis_line_colour, linewidth = axis_line_linewidth),
+    axis.line = ggplot2::element_line(colour = axis_line_colour, linewidth = axis_line_linewidth, lineend = "square"),
     axis.line.x = NULL,
     axis.line.x.bottom = NULL,
     axis.line.x.top = NULL,

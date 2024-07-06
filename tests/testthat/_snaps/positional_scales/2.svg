@@ -381,7 +381,7 @@
 <circle cx='244.43' cy='325.45' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
 <circle cx='410.15' cy='298.97' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
 <circle cx='293.17' cy='325.45' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
-<polyline points='643.62,510.84 643.62,21.92 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
+<polyline points='643.62,510.84 643.62,21.92 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: square;' />
 <polyline points='646.36,470.09 643.62,470.09 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
 <polyline points='646.36,388.60 643.62,388.60 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
 <polyline points='646.36,307.12 643.62,307.12 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
@@ -394,7 +394,7 @@
 <text x='649.10' y='229.42' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='33.65px' lengthAdjust='spacingAndGlyphs'>$5,000</text>
 <text x='649.10' y='147.94' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='33.65px' lengthAdjust='spacingAndGlyphs'>$6,000</text>
 <text x='649.10' y='66.45' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='33.65px' lengthAdjust='spacingAndGlyphs'>$7,000</text>
-<polyline points='10.96,510.84 643.62,510.84 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='10.96,510.84 643.62,510.84 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: square;' />
 <polyline points='20.22,514.49 20.22,510.84 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
 <polyline points='117.70,514.49 117.70,510.84 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
 <polyline points='215.19,514.49 215.19,510.84 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />

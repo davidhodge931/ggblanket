@@ -35,17 +35,17 @@
 <text x='190.24' y='30.63' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>1</text>
 <rect x='355.97' y='21.92' width='287.63' height='17.09' style='stroke-width: 1.07; stroke: none;' />
 <text x='499.79' y='30.63' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>2</text>
-<polyline points='46.42,530.17 334.05,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='46.42,530.17 334.05,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: square;' />
 <polyline points='124.86,533.83 124.86,530.17 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
 <polyline points='255.61,533.83 255.61,530.17 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
 <text x='124.86' y='544.68' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='34.85px' lengthAdjust='spacingAndGlyphs'>FALSE</text>
 <text x='255.61' y='544.68' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='29.95px' lengthAdjust='spacingAndGlyphs'>TRUE</text>
-<polyline points='355.97,530.17 643.61,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: butt;' />
+<polyline points='355.97,530.17 643.61,530.17 ' style='stroke-width: 0.70; stroke: #121B24; stroke-linecap: square;' />
 <polyline points='434.42,533.83 434.42,530.17 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
 <polyline points='565.16,533.83 565.16,530.17 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
 <text x='434.42' y='544.68' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='34.85px' lengthAdjust='spacingAndGlyphs'>FALSE</text>
 <text x='565.16' y='544.68' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='29.95px' lengthAdjust='spacingAndGlyphs'>TRUE</text>
-<polyline points='46.42,530.17 46.42,39.00 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
+<polyline points='46.42,530.17 46.42,39.00 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: square;' />
 <text x='40.94' y='400.00' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='9.17px' lengthAdjust='spacingAndGlyphs'>M</text>
 <text x='40.94' y='176.74' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='6.72px' lengthAdjust='spacingAndGlyphs'>F</text>
 <polyline points='43.68,396.22 46.42,396.22 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: butt;' />
