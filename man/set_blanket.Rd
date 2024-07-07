@@ -54,7 +54,7 @@ set_blanket(
 
 \item{col_palette_na_o}{For an ordinal scale, a hex code.}
 
-\item{theme}{A ggplot2 theme that the \verb{gg_*} function will add without side-effects. Note, \code{mode} takes precedence, unless \code{mode = NULL}.}
+\item{theme}{A ggplot2 theme that the \verb{gg_*} function will add without side-effects. Note, the \code{mode} takes precedence, unless \code{mode = NULL}.}
 }
 \value{
 A globally set style.

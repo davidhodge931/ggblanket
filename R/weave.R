@@ -25,9 +25,9 @@ weave_mode <- function(mode = light_mode_r()) {
 
 #' Set a theme (without side-effects)
 #'
-#' @description Set a theme to be `+`-ed on unmodified to `gg_*` functions. Note, `mode` takes precedence unless NULL.
+#' @description Set a theme to be `+`-ed on unmodified to `gg_*` functions. Note, the `mode` takes precedence, unless `mode = NULL`.
 #'
-#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects. Note, `mode` takes precedence, unless `mode = NULL`.
+#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects. Use NULL for ggplot2 default.
 #'
 #' @export
 weave_theme <- function(theme = light_mode_r() + mode_orientation_to_x()) {
@@ -35,7 +35,12 @@ weave_theme <- function(theme = light_mode_r() + mode_orientation_to_x()) {
   ggblanket_global$theme <- theme
   invisible(old)
 
-  ggplot2::theme_set(new = theme)
+  if (rlang::is_null(theme)) {
+    ggplot2::theme_set(new = ggplot2::theme_grey())
+  }
+  else {
+    ggplot2::theme_set(new = theme)
+  }
 }
 
 #' Set a series of geom defaults
@@ -102,7 +107,7 @@ weave_geom_defaults <- function(colour = "#357BA2FF",
 
 #' Set a discrete colour palette
 #'
-#' @param col_palette_d For a discrete scale, a character vector of hex codes.
+#' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.
 #' @param col_palette_d_na For a discrete scale, a hex code.
 #' @param ... Dots to support trailing commas etc.
 #'
@@ -153,7 +158,7 @@ weave_col_palette_d <- function(col_palette_d = jumble, col_palette_d_na = "#CDC
 
 #' Set a continuous colour palette
 #'
-#' @param col_palette_c For a continuous scale, a character vector of hex codes.
+#' @param col_palette_c For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default.
 #' @param col_palette_c_na For a continuous scale, a hex code.
 #' @param ... Dots to support trailing commas etc.
 #'
@@ -196,7 +201,7 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
 
 #' Set an ordinal colour palette
 #'
-#' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function.
+#' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function. Use NULL for ggplot2 default.
 #' @param col_palette_o_na For an ordinal scale, a hex code.
 #'
 #' @export

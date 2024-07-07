@@ -10,7 +10,7 @@ weave_col_palette_o(
 )
 }
 \arguments{
-\item{col_palette_o}{For an ordinal scale, a \verb{scales::pal_*()} function.}
+\item{col_palette_o}{For an ordinal scale, a \verb{scales::pal_*()} function. Use NULL for ggplot2 default.}
 
 \item{col_palette_o_na}{For an ordinal scale, a hex code.}
 }

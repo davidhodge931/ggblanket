@@ -11,7 +11,7 @@ weave_col_palette_d(
 )
 }
 \arguments{
-\item{col_palette_d}{For a discrete scale, a character vector of hex codes.}
+\item{col_palette_d}{For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.}
 
 \item{col_palette_d_na}{For a discrete scale, a hex code.}
 

@@ -11,7 +11,7 @@ weave_col_palette_c(
 )
 }
 \arguments{
-\item{col_palette_c}{For a continuous scale, a character vector of hex codes.}
+\item{col_palette_c}{For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default.}
 
 \item{col_palette_c_na}{For a continuous scale, a hex code.}
 

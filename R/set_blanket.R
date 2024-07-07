@@ -24,7 +24,7 @@
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
-#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects. Note, `mode` takes precedence, unless `mode = NULL`.
+#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects. Note, the `mode` takes precedence, unless `mode = NULL`.
 #'
 #' @return A globally set style.
 #' @export
