@@ -104,9 +104,10 @@ weave_geom_defaults <- function(colour = "#357BA2FF",
 #'
 #' @param col_palette_d For a discrete scale, a character vector of hex codes.
 #' @param col_palette_d_na For a discrete scale, a hex code.
+#' @param ... Dots to support trailing commas etc.
 #'
 #' @export
-weave_col_palette_d <- function(col_palette_d = jumble, col_palette_d_na = "#CDC5BFFF") {
+weave_col_palette_d <- function(col_palette_d = jumble, col_palette_d_na = "#CDC5BFFF", ...) {
 
   if (rlang::is_null(col_palette_d_na)) col_palette_d_na <- "grey50"
 
@@ -126,23 +127,25 @@ weave_col_palette_d <- function(col_palette_d = jumble, col_palette_d_na = "#CDC
 
   if (rlang::is_null(col_palette_d)) {
     options(
-      ggplot2.discrete.colour = function()
-        ggplot2::scale_colour_hue(),
-      ggplot2.discrete.fill = function()
-        ggplot2::scale_fill_hue()
+      ggplot2.discrete.colour = function(...)
+        ggplot2::scale_colour_hue(...),
+      ggplot2.discrete.fill = function(...)
+        ggplot2::scale_fill_hue(...)
     )
   }
   else {
     options(
-      ggplot2.discrete.colour = function()
+      ggplot2.discrete.colour = function(...)
         ggplot2::scale_colour_manual(
           values = col_palette_d,
-          na.value = col_palette_d_na
+          na.value = col_palette_d_na,
+          ...
         ),
-      ggplot2.discrete.fill = function()
+      ggplot2.discrete.fill = function(...)
         ggplot2::scale_fill_manual(
           values = col_palette_d,
-          na.value = col_palette_d_na
+          na.value = col_palette_d_na,
+          ...
         )
     )
   }
@@ -152,10 +155,12 @@ weave_col_palette_d <- function(col_palette_d = jumble, col_palette_d_na = "#CDC
 #'
 #' @param col_palette_c For a continuous scale, a character vector of hex codes.
 #' @param col_palette_c_na For a continuous scale, a hex code.
+#' @param ... Dots to support trailing commas etc.
 #'
 #' @export
 weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, direction = -1),
-                                col_palette_c_na = "#988F88FF") { # i.e. colorspace::darken(grey, 0.25)
+                                col_palette_c_na = "#988F88FF", # i.e. colorspace::darken(grey, 0.25)
+                                ...) {
 
   if (rlang::is_null(col_palette_c)) {
     col_palette_c <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")(seq(0, 1, length.out = 20))
@@ -174,15 +179,17 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
   invisible(old)
 
   options(
-    ggplot2.continuous.colour = function()
+    ggplot2.continuous.colour = function(...)
       ggplot2::scale_color_gradientn(
         colours = col_palette_c,
-        na.value = col_palette_c_na
+        na.value = col_palette_c_na,
+        ...
       ),
-    ggplot2.continuous.fill = function()
+    ggplot2.continuous.fill = function(...)
       ggplot2::scale_fill_gradientn(
         colours = col_palette_c,
-        na.value = col_palette_c_na
+        na.value = col_palette_c_na,
+        ...
       )
   )
 }
@@ -206,6 +213,7 @@ weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G"
   old <- ggblanket_global$col_palette_o_na
   ggblanket_global$col_palette_o_na <- col_palette_o_na
   invisible(old)
+
 }
 
 #' Get the mode

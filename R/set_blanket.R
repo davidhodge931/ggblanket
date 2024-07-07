@@ -89,17 +89,19 @@ set_blanket <- function(
 
   weave_col_palette_d(
     col_palette_d = col_palette_d,
-    col_palette_d_na = col_palette_na_d
+    col_palette_d_na = col_palette_na_d,
+    ...
+  )
+
+  weave_col_palette_c(
+    col_palette_c = col_palette_c,
+    col_palette_c_na = col_palette_na_c,
+    ...
   )
 
   weave_col_palette_o(
     col_palette_o = col_palette_o,
     col_palette_o_na = col_palette_na_o
-  )
-
-  weave_col_palette_c(
-    col_palette_c = col_palette_c,
-    col_palette_c_na = col_palette_na_c
   )
 
   weave_theme(theme = theme)

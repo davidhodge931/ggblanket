@@ -6,13 +6,16 @@
 \usage{
 weave_col_palette_c(
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
-  col_palette_c_na = "#988F88FF"
+  col_palette_c_na = "#988F88FF",
+  ...
 )
 }
 \arguments{
 \item{col_palette_c}{For a continuous scale, a character vector of hex codes.}
 
 \item{col_palette_c_na}{For a continuous scale, a hex code.}
+
+\item{...}{Dots to support trailing commas etc.}
 }
 \description{
 Set a continuous colour palette

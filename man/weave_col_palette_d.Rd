@@ -4,12 +4,18 @@
 \alias{weave_col_palette_d}
 \title{Set a discrete colour palette}
 \usage{
-weave_col_palette_d(col_palette_d = jumble, col_palette_d_na = "#CDC5BFFF")
+weave_col_palette_d(
+  col_palette_d = jumble,
+  col_palette_d_na = "#CDC5BFFF",
+  ...
+)
 }
 \arguments{
 \item{col_palette_d}{For a discrete scale, a character vector of hex codes.}
 
 \item{col_palette_d_na}{For a discrete scale, a hex code.}
+
+\item{...}{Dots to support trailing commas etc.}
 }
 \description{
 Set a discrete colour palette
