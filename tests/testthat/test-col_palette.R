@@ -165,4 +165,31 @@ test_that(test_name, {
   vdiffr::expect_doppelganger(test_name, p)
 })
 
+test_name <- "11"
+
+test_that(test_name, {
+  set.seed(123)
+
+  p <- data.frame(
+    trt = factor(c(1, 1, 2, 2)),
+    resp = c(1, 5, 3, 4),
+    group = factor(c(1, 2, 1, 2)),
+    upper = c(1.1, 5.3, 3.3, 4.2),
+    lower = c(0.8, 4.6, 2.4, 3.6)
+  ) |>
+    gg_linerange(
+      x = trt,
+      ymin = lower,
+      ymax = upper,
+      mapping = aes(colour = group),
+      position = position_dodge(width = 0.2),
+      x_label = "Treatment",
+      y_label = "Response",
+    )
+
+  vdiffr::expect_doppelganger(test_name, p)
+})
+
+
+
 set_blanket()

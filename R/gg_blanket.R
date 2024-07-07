@@ -739,29 +739,29 @@ gg_blanket <- function(data = NULL,
         }
       }
 
-        colour_n <- plot_data %>%
-          dplyr::select(tidyselect::any_of("colour")) %>%
-          dplyr::distinct()
+      colour_distinct <- plot_data %>%
+        dplyr::select(tidyselect::any_of("colour")) %>%
+        dplyr::distinct()
 
-        if (nrow(colour_n) > 0) {
-          colour_n <- colour_n %>%
-            dplyr::filter(.data$colour != "grey50") |>
-            dplyr::count() |>
-            dplyr::pull()
-        } else colour_n <- 1
+      if (ncol(colour_distinct) > 0) {
+        colour_n <- colour_distinct %>%
+          dplyr::filter(.data$colour != "grey50") |>
+          dplyr::count() |>
+          dplyr::pull()
+      } else colour_n <- 1
 
-        fill_n <- plot_data %>%
-          dplyr::select(tidyselect::any_of("fill")) %>%
-          dplyr::distinct()
+      fill_distinct <- plot_data %>%
+        dplyr::select(tidyselect::any_of("fill")) %>%
+        dplyr::distinct()
 
-        if (nrow(fill_n) > 0) {
-          fill_n <- fill_n %>%
-            dplyr::filter(.data$fill != "grey50") |>
-            dplyr::count() |>
-            dplyr::pull()
-        } else fill_n <- 1
+      if (ncol(fill_distinct) > 0) {
+        fill_n <- fill_distinct %>%
+          dplyr::filter(.data$fill != "grey50") |>
+          dplyr::count() |>
+          dplyr::pull()
+      } else fill_n <- 1
 
-        col_n <- max(colour_n, fill_n)
+      col_n <- max(colour_n, fill_n)
 
       if (rlang::is_null(col_palette)) {
         if (col_scale_type == "discrete") col_palette <- get_col_palette_d()
