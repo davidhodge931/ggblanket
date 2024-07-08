@@ -27,8 +27,7 @@ flex_mode_t(
   axis_line_linewidth = 0.33,
   axis_ticks_colour = axis_line_colour,
   axis_ticks_linewidth = axis_line_linewidth,
-  axis_ticks_length_x = grid::unit(base_size/3, "pt"),
-  axis_ticks_length_y = grid::unit(base_size/4, "pt"),
+  axis.ticks.length = grid::unit(base_size/3, "pt"),
   panel_grid_colour = "#F6F8FAFF",
   panel_grid_linewidth = 1.33,
   panel_background_fill = "#FFFFFFFF",
@@ -87,9 +86,7 @@ flex_mode_t(
 
 \item{axis_ticks_linewidth}{The linewidth of the axis.ticks theme element.}
 
-\item{axis_ticks_length_x}{The length of the axis.ticks.length.x theme element.}
-
-\item{axis_ticks_length_y}{The length of the axis.ticks.length.y theme element.}
+\item{axis.ticks.length}{The length of the axis.ticks.length.x theme element.}
 
 \item{panel_grid_colour}{The colour of the panel.grid theme element.}
 
