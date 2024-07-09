@@ -30,12 +30,11 @@ This article will demonstrate a random assortment of content, including some of 
 8. Avoid the 'symmetric' scale
 9. Avoid the mode side-effects
 10. Change the `*_position` of positional axes 
-11. Add contrasting dark or light text on polygons
-12. Use opacity with to emphasise/de-emphasise 
-13. Zoom in or out on scales
-14. Use delayed evaluation
-15. Rescale a diverging col scale
-16. Add a legend within the panel
+11. Use opacity with to emphasise/de-emphasise 
+12. Zoom in or out on scales
+13. Use delayed evaluation
+14. Rescale a diverging col scale
+15. Add a legend within the panel
 
 ```{r setup}
 library(dplyr)
@@ -344,48 +343,7 @@ economics |>
   ) 
 ```
 
-### 11. Add contrasting dark or light text on polygons
-
-Text on polygons can be coloured with a dark or light colour that is determined based on the underlying polygon colour using `!!!aes_contrast()`. This method was developed by Teun van den Brand (@teunbrand).  
-
-```{r}
-penguins2 |>
-  count(species, sex) |>
-  gg_col(
-    x = sex,
-    y = n, 
-    col = species,
-    position = position_dodge2(preserve = "single"),
-    width = 0.75,
-  ) +
-  geom_text(
-    mapping = aes(label = n, !!!aes_contrast()),
-    position = position_dodge2(width = 0.75, preserve = "single"),
-    vjust = 1.33,
-    show.legend = FALSE,
-  )
-```
-
-```{r}
-penguins2 |>
-  count(species, sex) |>
-  gg_col(
-    position = position_dodge2(preserve = "single"),
-    x = n,
-    y = sex,
-    col = species,
-    width = 0.75,
-    mode = dark_mode_r(),
-  ) +
-  geom_text(
-    mapping = aes(label = n, !!!aes_contrast("dark")),
-    position = position_dodge2(width = 0.75, preserve = "single"),
-    hjust = 1.25,
-    show.legend = FALSE,
-  )
-```
-
-### 12. Use opacity to emphasise/de-emphasise 
+### 11. Use opacity to emphasise/de-emphasise 
 
 Use opacity with `mapping = aes(alpha = ...)`, `col = ...`, and `col_palette` to emphasise/de-emphasise parts of the visualisation. 
 
@@ -443,7 +401,7 @@ p4 <- penguins2 |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 13. Zoom in or out on scales
+### 12. Zoom in or out on scales
 
 There are no `*_limits` arguments in ggblanket. 
 
@@ -486,7 +444,7 @@ penguins |>
   ) 
 ```
 
-### 14. Use delayed evaluation
+### 13. Use delayed evaluation
 
  The `mapping` argument can be used for delayed evaluation with the `ggplot2::after_stat` function.
 
@@ -510,7 +468,7 @@ faithfuld |>
   )
 ```
 
-### 15. Rescale a diverging col scale
+### 14. Rescale a diverging col scale
 
 Use `col_rescale` to rescale a diverging scale around a central point. 
 
@@ -529,7 +487,7 @@ mpg  |>
   )
 ```
 
-### 16. Add a legend within the panel
+### 15. Add a legend within the panel
 
 ```{r}
 set_blanket()

@@ -28,7 +28,6 @@ reference:
   - dark_mode_b
 - title: Helper
 - contents:
-  - aes_contrast
   - mode_orientation_to_x
   - mode_orientation_to_y
   - element_line_transparent

@@ -13,7 +13,6 @@ BugReports: https://github.com/davidhodge931/ggblanket/issues
 Imports: 
     colorspace,
     dplyr (>= 1.0.4),
-    farver,
     forcats,
     ggplot2 (>= 3.5.0),
     grid,
