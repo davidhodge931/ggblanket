@@ -10,11 +10,10 @@ Qq
 RStudio
 Rect
 Stat
-Teun
+abline
 beeswarm
 coord
 datetime
-demphasise
 dplyr
 ed
 errorbar
@@ -35,9 +34,9 @@ ggplot
 ggproto
 ggrepel
 ggridges
-ggtext
 gridline
 gridlines
+hline
 ing
 linerange
 linetype
@@ -52,7 +51,7 @@ rect
 ridgeline
 showtext
 snakecase
-symmetric’
 tibble
 tidyverse
 vjust
+vline

@@ -1,21 +1,20 @@
-# ggblanket 9.1.1.9000
+# ggblanket 9.1.999
 
 * Breaking: removed `*_limits` and `*_oob` arguments.
 * Breaking: removed `*_mode_n` and `grey_mode_*` functions.
 * Breaking: removed `greyness` helper.
 * Breaking: removed `*_orientation` arguments from `*_mode_*` functions.
-* Breaking: In `set_blanket`, renamed `annotate_*` arguments to `annotation_*`.
+* Breaking: In `set_blanket`, removed `annotate_*` arguments.
 * Breaking: in `*_mode_*`, removed `ticks_length_*` arguments.
+* Added hierarchical arguments that set geom defaults.
 * Added `*_symmetric` arguments.
 * Added `mode_orientation` argument. 
 * Added `*_breaks_n` and `*_sec_axis` arguments.
 * Added `weave_*` setup functions. 
 * Added `mode_orientation_to_x` and `mode_orientation_to_y` functions.
 * Added `element_line_transparent` shortcut function.
-* Added support for `fill` and `annotation_fill` in `set_blanket`. 
-* Made `mode_orientation` make unneeded components transparent.
+* Made `mode_orientation` convert unneeded components to transparent.
 * Made `mode_orientation` apply where no mode or theme set.
-* In `set_blanket`, changed `theme` argument default to `theme_grey()`.
 * For discrete colour scales, determined the number of colours based on the `after_stat` data. 
 * In `*_mode_*`, changed `lineend` to `"square"`. 
 * Fixed bug in `col_palette_*` by adding `...`.

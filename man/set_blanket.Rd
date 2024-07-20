@@ -8,12 +8,34 @@ set_blanket(
   ...,
   mode = light_mode_r(),
   colour = "#357BA2FF",
+  colour_text = "#121B24FF",
+  colour_label = colour_text,
+  colour_reference_line = colour_text,
+  colour_curve = colour_reference_line,
   fill = colour,
-  annotation_colour = "#121B24FF",
-  annotation_fill = annotation_colour,
-  annotation_linewidth = 0.33,
-  annotation_family = "",
-  annotation_size = 3.88,
+  fill_label = colour_label,
+  linewidth = 0.66,
+  linewidth_reference_line = 0.33,
+  linewidth_curve = linewidth_reference_line,
+  alpha_area = 0.9,
+  alpha_bar = 0.9,
+  alpha_boxplot = 0.6,
+  alpha_crossbar = 0.6,
+  alpha_density = 0.6,
+  alpha_label = 0.05,
+  alpha_polygon = 0.9,
+  alpha_rect = 0.9,
+  alpha_ribbon = 0.6,
+  alpha_smooth = 0.6,
+  alpha_tile = 0.9,
+  alpha_violin = 0.9,
+  size_point = 1.5,
+  size_pointrange = 0.2,
+  size_sf = 1.5,
+  size_text = 11/2.835052,
+  size_label = size_text,
+  family_text = "",
+  family_label = family_text,
   col_palette_d = jumble,
   col_palette_na_d = "#CDC5BFFF",
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
@@ -28,19 +50,63 @@ set_blanket(
 
 \item{mode}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates \verb{gg_*} side-effects of removing relevant axis line/ticks and gridlines per the \code{mode_orientation}.}
 
-\item{colour}{A hex colour for the colour of geoms other than \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to \code{blue} (i.e. \verb{#357BA2FF}).}
+\item{colour}{A default hex colour for the colour of geoms.}
 
-\item{fill}{A hex colour for the fill of geoms \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to \code{colour}.}
+\item{colour_text}{A default hex colour for the colour of the "text" geom.}
 
-\item{annotation_colour}{A hex annotation colour for the colour of\verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to "#121b24" (i.e. \code{lightness[1]}).}
+\item{colour_label}{A default hex colour for the colour of the "label" geom.}
 
-\item{annotation_fill}{A hex annotation colour for the colour of \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to \code{annotation_colour}.}
+\item{colour_reference_line}{A default hex colour for the colour of the "hline", "vline" and "abline" geoms.}
 
-\item{annotation_linewidth}{A linewidth for \verb{*_hline}/\verb{*_vline}/\verb{*_abline} and \verb{*_curve}. Defaults to 0.33.}
+\item{colour_curve}{A default hex colour for the colour of the "curve" geom.}
 
-\item{annotation_family}{A family for \verb{*_text} and \verb{*_label}. Defaults to "".}
+\item{fill}{A default hex colour for the fill of geoms.}
 
-\item{annotation_size}{A size for \verb{*_text} and \verb{*_label}. Defaults to 3.88.}
+\item{fill_label}{A default hex colour for the fill of the "label" geom.}
+
+\item{linewidth}{A default linewidth for geoms.}
+
+\item{linewidth_reference_line}{A default linewidth for the the "hline", "vline" and "abline" geoms.}
+
+\item{linewidth_curve}{A default linewidth for the the "curve" geom.}
+
+\item{alpha_area}{A default alpha for the "area" geom.}
+
+\item{alpha_bar}{A default alpha for the "bar" geom.}
+
+\item{alpha_boxplot}{A default alpha for the "boxplot" geom.}
+
+\item{alpha_crossbar}{A default alpha for the "crossbar" geom.}
+
+\item{alpha_density}{A default alpha for the "density" geom.}
+
+\item{alpha_label}{A default alpha for the "label" geom.}
+
+\item{alpha_polygon}{A default alpha for the "polygon" geom.}
+
+\item{alpha_rect}{A default alpha for the "rect" geom.}
+
+\item{alpha_ribbon}{A default alpha for the "ribbon" geom.}
+
+\item{alpha_smooth}{A default alpha for the "smooth" geom.}
+
+\item{alpha_tile}{A default alpha for the "tile" geom.}
+
+\item{alpha_violin}{A default alpha for the "violin" geom.}
+
+\item{size_point}{A default size for the "point" geom.}
+
+\item{size_pointrange}{A default size for the "pointrange" geom.}
+
+\item{size_sf}{A default size for the "sf" geom.}
+
+\item{size_text}{A default size for the "text" geom.}
+
+\item{size_label}{A default size for the "label" geom.}
+
+\item{family_text}{A default family for the "text" geom.}
+
+\item{family_label}{A default family for the "text" geom.}
 
 \item{col_palette_d}{For a discrete scale, a character vector of hex codes.}
 
@@ -60,10 +126,10 @@ set_blanket(
 A globally set style.
 }
 \description{
-Set a style by setting a:
+Set a style by setting:
 \itemize{
-\item mode
-\item geom defaults, including for annotation
+\item the mode
+\item geom defaults
 \item col_palettes for discrete, continuous and ordinal scales.
 }
 
