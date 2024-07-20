@@ -195,8 +195,8 @@ p1 <- pressure |>
   gg_point(
     x = temperature, 
     y = pressure, 
-    x_breaks = breaks_extended(n = 4),
-    y_breaks = breaks_pretty(n = 4),
+    x_breaks_n = 4,
+    y_breaks_n = 4,
     subtitle = "\nDefault",
   )
 
@@ -204,8 +204,8 @@ p2 <- pressure |>
   gg_point(
     x = temperature, 
     y = pressure, 
-    x_breaks = breaks_extended(n = 4),
-    y_breaks = breaks_pretty(n = 4),
+    x_breaks_n = 4,
+    y_breaks_n = 4,
     y_transform = "reverse", 
     subtitle = "\nReverse",
   )
@@ -214,18 +214,18 @@ p3 <- pressure |>
   gg_point(
     x = temperature, 
     y = pressure,
-    x_breaks = breaks_extended(n = 4),
-    y_transform = "log10",
-    subtitle = "\nLog10", 
+    x_breaks_n = 4,
+    y_transform = "sqrt",
+    subtitle = "\nSqrt", 
   )
 
 p4 <- pressure |>
   gg_point(
     x = temperature, 
     y = pressure, 
-    x_breaks = breaks_extended(n = 4),
-    y_transform = c("log10", "reverse"),
-    subtitle = "\nLog10 & Reverse",
+    x_breaks_n = 4,
+    y_transform = c("sqrt", "reverse"),
+    subtitle = "\nSqrt & Reverse",
   )
 
 (p1 + p2) / (p3 + p4)
