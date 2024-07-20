@@ -215,6 +215,7 @@ p3 <- pressure |>
     x = temperature, 
     y = pressure,
     x_breaks_n = 4,
+    y_breaks_n = 4,
     y_transform = "sqrt",
     subtitle = "\nSqrt", 
   )
@@ -224,6 +225,7 @@ p4 <- pressure |>
     x = temperature, 
     y = pressure, 
     x_breaks_n = 4,
+    y_breaks_n = 4,
     y_transform = c("sqrt", "reverse"),
     subtitle = "\nSqrt & Reverse",
   )
@@ -352,8 +354,8 @@ p1 <- penguins2 |>
   drop_na(sex) |> 
   gg_density(
     x = flipper_length_mm,
-    x_breaks = breaks_extended(n = 4),
-    y_breaks = breaks_pretty(n = 4),
+    x_breaks_n = 4,
+    y_breaks_n = 4,
     colour = alpha(orange, 0.33),
     fill = orange,
     alpha = 0.1,
@@ -365,8 +367,8 @@ p2 <- penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = sex,
-    x_breaks = breaks_extended(n = 4),
-    y_breaks = breaks_pretty(n = 4),
+    x_breaks_n = 4,
+    y_breaks_n = 4,
     col_palette = c(orange, "#78909C"),
     subtitle = "\ncol variable"
   )
@@ -377,8 +379,8 @@ p3 <- penguins2 |>
     x = flipper_length_mm,
     col = sex, 
     mapping = aes(alpha = sex),
-    x_breaks = breaks_extended(n = 4),
-    y_breaks = breaks_pretty(n = 4),
+    x_breaks_n = 4,
+    y_breaks_n = 4,
     col_palette = c(orange, "#78909C"),
     subtitle = "\ncol and alpha variable",
   ) +
@@ -391,8 +393,8 @@ p4 <- penguins2 |>
     x = flipper_length_mm,
     col = sex, 
     mapping = aes(alpha = sex),
-    x_breaks = breaks_extended(n = 4),
-    y_breaks = breaks_pretty(n = 4),
+    x_breaks_n = 4,
+    y_breaks_n = 4,
     col_palette = c(orange, alpha("#78909C", 0.25)),
     subtitle = "\ncol and alpha variable & outline opacity",
   ) +

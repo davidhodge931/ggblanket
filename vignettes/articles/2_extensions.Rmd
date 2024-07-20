@@ -156,7 +156,7 @@ penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
-    x_breaks = breaks_extended(n = 4),
+    x_breaks_n = 4,
   ) + #build the scale for all data
   facet_wrap(~species) + #then add facet layer
   gghighlight::gghighlight() 
@@ -413,7 +413,7 @@ p1 <- penguins2 |>
     y = body_mass_g,
     col = species,
     col_palette = paletteer_d("RColorBrewer::Dark2"),
-    x_breaks = breaks_extended(n = 4),
+    x_breaks_n = 4,
   ) +
   theme(legend.position = "none")
 
@@ -423,7 +423,7 @@ p2 <- penguins2 |>
     y = body_mass_g,
     col = bill_depth_mm,
     col_palette = paletteer_c("viridis::rocket", 9),
-    x_breaks = breaks_extended(n = 4),
+    x_breaks_n = 4,
   ) +
   theme(legend.position = "none")
 
@@ -473,7 +473,7 @@ iris |>
   gg_point(
     x = sepal_width, 
     y = sepal_length, 
-    x_breaks = breaks_extended(n = 4),
+    x_breaks_n = 4,
   ) +
   ggh4x::facet_nested(
     cols = vars(size, species), 
