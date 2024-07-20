@@ -61,6 +61,10 @@ scale_x_symmetric <- function(...,
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
         breaks <- scales::breaks_pretty(n = breaks_n)(range)
       }
+      else if (any(stringr::str_detect(transform_name, "log-")) |
+               any(transform_name %in% c("log", "log2", "log10"))) {
+        breaks <- scales::breaks_log(n = breaks_n)(range) # needs only.loose = TRUE arg
+      }
       else {
         breaks <- scales::breaks_extended(n = breaks_n, only.loose = TRUE)(range)
       }
@@ -95,6 +99,10 @@ scale_x_symmetric <- function(...,
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
         breaks <- scales::breaks_pretty(n = breaks_n)
       }
+      else if (any(stringr::str_detect(transform_name, "log-")) |
+               any(transform_name %in% c("log", "log2", "log10"))) {
+        breaks <- scales::breaks_log(n = breaks_n)
+      }
       else {
         breaks <- scales::breaks_extended(n = breaks_n, only.loose = FALSE)
       }
@@ -116,7 +124,8 @@ scale_x_symmetric <- function(...,
         oob = scales::oob_keep,
         transform = transform,
         position = position,
-        sec.axis = sec_axis),
+        sec.axis = sec_axis
+      ),
       ggplot2::expand_limits(x = expand_limits)
     )
   }
@@ -187,6 +196,10 @@ scale_y_symmetric <- function(...,
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
         breaks <- scales::breaks_pretty(n = breaks_n)(range)
       }
+      else if (any(stringr::str_detect(transform_name, "log-")) |
+               any(transform_name %in% c("log", "log2", "log10"))) {
+        breaks <- scales::breaks_log(n = breaks_n)(range) # needs only.loose = TRUE arg
+      }
       else {
         breaks <- scales::breaks_extended(n = breaks_n, only.loose = TRUE)(range)
       }
@@ -220,6 +233,10 @@ scale_y_symmetric <- function(...,
     if (rlang::is_null(breaks)) {
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
         breaks <- scales::breaks_pretty(n = breaks_n)
+      }
+      else if (any(stringr::str_detect(transform_name, "log-")) |
+               any(transform_name %in% c("log", "log2", "log10"))) {
+        breaks <- scales::breaks_log(n = breaks_n)
       }
       else {
         breaks <- scales::breaks_extended(n = breaks_n, only.loose = FALSE)
