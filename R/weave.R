@@ -27,14 +27,14 @@ weave_mode <- function(mode = light_mode_r()) {
 #'
 #' @description Update all geom defaults.
 #'
-#' @param colour A default hex colour for the colour of geoms.
+#' @param colour A default hex colour for the colour of geoms without a more specific `colour_*` argument.
 #' @param colour_text A default hex colour for the colour of the "text" geom.
 #' @param colour_label A default hex colour for the colour of the "label" geom.
 #' @param colour_reference_line A default hex colour for the colour of the "hline", "vline" and "abline" geoms.
 #' @param colour_curve A default hex colour for the colour of the "curve" geom.
-#' @param fill A default hex colour for the fill of geoms.
+#' @param fill A default hex colour for the fill of geoms without a more specific `fill_*` argument.
 #' @param fill_label A default hex colour for the fill of the "label" geom.
-#' @param alpha A default alpha for geoms.
+#' @param alpha A default alpha for geoms without a more specific `alpha_*` argument.
 #' @param alpha_area A default alpha for the "area" geom.
 #' @param alpha_bar A default alpha for the "bar" geom.
 #' @param alpha_boxplot A default alpha for the "boxplot" geom.

@@ -39,7 +39,7 @@ weave_geom_defaults(
 )
 }
 \arguments{
-\item{colour}{A default hex colour for the colour of geoms.}
+\item{colour}{A default hex colour for the colour of geoms without a more specific \verb{colour_*} argument.}
 
 \item{colour_text}{A default hex colour for the colour of the "text" geom.}
 
@@ -49,11 +49,11 @@ weave_geom_defaults(
 
 \item{colour_curve}{A default hex colour for the colour of the "curve" geom.}
 
-\item{fill}{A default hex colour for the fill of geoms.}
+\item{fill}{A default hex colour for the fill of geoms without a more specific \verb{fill_*} argument.}
 
 \item{fill_label}{A default hex colour for the fill of the "label" geom.}
 
-\item{alpha}{A default alpha for geoms.}
+\item{alpha}{A default alpha for geoms without a more specific \verb{alpha_*} argument.}
 
 \item{alpha_area}{A default alpha for the "area" geom.}
 

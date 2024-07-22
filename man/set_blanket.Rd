@@ -52,7 +52,7 @@ set_blanket(
 
 \item{mode}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates \verb{gg_*} side-effects of removing relevant axis line/ticks and gridlines per the \code{mode_orientation}.}
 
-\item{colour}{A default hex colour for the colour of geoms.}
+\item{colour}{A default hex colour for the colour of geoms without a more specific \verb{colour_*} argument.}
 
 \item{colour_text}{A default hex colour for the colour of the "text" geom.}
 
@@ -62,11 +62,11 @@ set_blanket(
 
 \item{colour_curve}{A default hex colour for the colour of the "curve" geom.}
 
-\item{fill}{A default hex colour for the fill of geoms.}
+\item{fill}{A default hex colour for the fill of geoms without a more specific \verb{fill_*} argument.}
 
 \item{fill_label}{A default hex colour for the fill of the "label" geom.}
 
-\item{alpha}{A default alpha for geoms.}
+\item{alpha}{A default alpha for geoms without a more specific \verb{alpha_*} argument.}
 
 \item{alpha_area}{A default alpha for the "area" geom.}
 
