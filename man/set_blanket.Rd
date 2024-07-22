@@ -14,9 +14,7 @@ set_blanket(
   colour_curve = colour_reference_line,
   fill = colour,
   fill_label = colour_label,
-  linewidth = 0.66,
-  linewidth_reference_line = 0.33,
-  linewidth_curve = linewidth_reference_line,
+  alpha = 1,
   alpha_area = 0.9,
   alpha_bar = 0.9,
   alpha_boxplot = 0.6,
@@ -29,6 +27,10 @@ set_blanket(
   alpha_smooth = 0.6,
   alpha_tile = 0.9,
   alpha_violin = 0.9,
+  alpha_recursive = NULL,
+  linewidth = 0.66,
+  linewidth_reference_line = 0.33,
+  linewidth_curve = linewidth_reference_line,
   size_point = 1.5,
   size_pointrange = 0.2,
   size_sf = 1.5,
@@ -64,11 +66,7 @@ set_blanket(
 
 \item{fill_label}{A default hex colour for the fill of the "label" geom.}
 
-\item{linewidth}{A default linewidth for geoms.}
-
-\item{linewidth_reference_line}{A default linewidth for the the "hline", "vline" and "abline" geoms.}
-
-\item{linewidth_curve}{A default linewidth for the the "curve" geom.}
+\item{alpha}{A default alpha for geoms.}
 
 \item{alpha_area}{A default alpha for the "area" geom.}
 
@@ -93,6 +91,14 @@ set_blanket(
 \item{alpha_tile}{A default alpha for the "tile" geom.}
 
 \item{alpha_violin}{A default alpha for the "violin" geom.}
+
+\item{alpha_recursive}{A default alpha applied to all geoms.}
+
+\item{linewidth}{A default linewidth for geoms.}
+
+\item{linewidth_reference_line}{A default linewidth for the the "hline", "vline" and "abline" geoms.}
+
+\item{linewidth_curve}{A default linewidth for the the "curve" geom.}
 
 \item{size_point}{A default size for the "point" geom.}
 

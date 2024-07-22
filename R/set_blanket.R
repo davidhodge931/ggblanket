@@ -18,9 +18,7 @@
 #' @param colour_curve A default hex colour for the colour of the "curve" geom.
 #' @param fill A default hex colour for the fill of geoms.
 #' @param fill_label A default hex colour for the fill of the "label" geom.
-#' @param linewidth A default linewidth for geoms.
-#' @param linewidth_reference_line A default linewidth for the the "hline", "vline" and "abline" geoms.
-#' @param linewidth_curve A default linewidth for the the "curve" geom.
+#' @param alpha A default alpha for geoms.
 #' @param alpha_area A default alpha for the "area" geom.
 #' @param alpha_bar A default alpha for the "bar" geom.
 #' @param alpha_boxplot A default alpha for the "boxplot" geom.
@@ -33,6 +31,10 @@
 #' @param alpha_smooth A default alpha for the "smooth" geom.
 #' @param alpha_tile A default alpha for the "tile" geom.
 #' @param alpha_violin A default alpha for the "violin" geom.
+#' @param alpha_recursive A default alpha applied to all geoms.
+#' @param linewidth A default linewidth for geoms.
+#' @param linewidth_reference_line A default linewidth for the the "hline", "vline" and "abline" geoms.
+#' @param linewidth_curve A default linewidth for the the "curve" geom.
 #' @param size_point A default size for the "point" geom.
 #' @param size_pointrange A default size for the "pointrange" geom.
 #' @param size_sf A default size for the "sf" geom.
@@ -92,10 +94,7 @@ set_blanket <- function(
     fill = colour,
     fill_label = colour_label,
 
-    linewidth = 0.66,
-    linewidth_reference_line = 0.33,
-    linewidth_curve = linewidth_reference_line,
-
+    alpha = 1,
     alpha_area = 0.9,
     alpha_bar = 0.9,
     alpha_boxplot = 0.6,
@@ -108,6 +107,11 @@ set_blanket <- function(
     alpha_smooth = 0.6,
     alpha_tile = 0.9,
     alpha_violin = 0.9,
+    alpha_recursive = NULL,
+
+    linewidth = 0.66,
+    linewidth_reference_line = 0.33,
+    linewidth_curve = linewidth_reference_line,
 
     size_point = 1.5,
     size_pointrange = 0.2, # 1.5 / 7.5
@@ -139,10 +143,7 @@ set_blanket <- function(
     fill = fill,
     fill_label = fill_label,
 
-    linewidth = linewidth,
-    linewidth_reference_line = linewidth_reference_line,
-    linewidth_curve = linewidth_curve,
-
+    alpha = alpha,
     alpha_area = alpha_area,
     alpha_bar = alpha_bar,
     alpha_boxplot = alpha_boxplot,
@@ -155,6 +156,11 @@ set_blanket <- function(
     alpha_smooth = alpha_smooth,
     alpha_tile = alpha_tile,
     alpha_violin = alpha_violin,
+    alpha_recursive = alpha_recursive,
+
+    linewidth = linewidth,
+    linewidth_reference_line = linewidth_reference_line,
+    linewidth_curve = linewidth_curve,
 
     size_point = size_point,
     size_pointrange = size_pointrange,
