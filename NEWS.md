@@ -7,6 +7,7 @@
 * Breaking: in `set_blanket`, removed `annotate_*` arguments.
 * Breaking: in `*_mode_*`, removed `ticks_length_*` arguments.
 * Breaking: renamed `aes_contrast` to `aes_colour_contrast`.
+* Added `aes_colour_lighten`, `aes_colour_darken`, `aes_fill_lighten` and `aes_fill_darken` inspired by work by (@teunbrand)
 * Added hierarchical arguments that set geom defaults.
 * Added `*_symmetric` arguments.
 * Added `mode_orientation` argument. 
@@ -96,7 +97,7 @@
 
 * Rewrote code completely. 
 * Exported `gg_blanket` function, which allows for a ggproto geom (or character string) to be added.
-* Added `aes_contrast` for a colour aesthetic that automatically contrasts with the fill aesthetic based on work by (@teunbrand, #649)
+* Added `aes_contrast` for a colour aesthetic that automatically contrasts with the fill aesthetic inspired by work by (@teunbrand, #649)
 ** Added `alpha` aesthetic support with new `alpha`, `alpha_pal` and `alpha_*` arguments.
 * Added `stat` support for a ggproto object (or character string).
 * Added `position` support for a ggproto object (or character string).
