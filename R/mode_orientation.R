@@ -22,9 +22,12 @@ element_line_transparent <- function() {
   ggplot2::element_line(colour = "transparent")
 }
 
-#' Orientate a mode to "x"
+#' Orientate a mode to "x" or "y"
 #'
-#' @description Theme components to add to a mode used used outside of a `gg_*` context.
+#' @description
+#' Add theme components to a mode use outside of a `gg_*` context
+#' * `mode_orientation_to_x()` Orientate the plot from the x axis.
+#' * `mode_orientation_to_y()` Orientate the plot from the y axis.
 #'
 #' @return ggplot2 theme components.
 #' @export
@@ -39,6 +42,13 @@ element_line_transparent <- function() {
 #'   light_mode_r() +
 #'   mode_orientation_to_x()
 #'
+#'
+#' penguins |>
+#'   ggplot() +
+#'   geom_bar(aes(y = island)) +
+#'   light_mode_r() +
+#'   mode_orientation_to_y()
+#'
 mode_orientation_to_x <- function() {
   ggplot2::theme(
     panel.grid.major.x = element_line_transparent(),
@@ -48,23 +58,8 @@ mode_orientation_to_x <- function() {
   )
 }
 
-#' Orientate a mode to "y"
-#'
-#' @description Theme components to add to a mode used used outside of a `gg_*` context.
-#'
-#' @return ggplot2 theme components.
+#' @rdname mode_orientation_to_x
 #' @export
-#'
-#' @examples
-#' library(ggplot2)
-#' library(palmerpenguins)
-#'
-#' penguins |>
-#'   ggplot() +
-#'   geom_bar(aes(y = island)) +
-#'   light_mode_r() +
-#'   mode_orientation_to_y()
-#'
 mode_orientation_to_y <- function() {
   ggplot2::theme(
     panel.grid.major.y = element_line_transparent(),

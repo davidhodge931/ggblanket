@@ -2,15 +2,22 @@
 % Please edit documentation in R/mode_orientation.R
 \name{mode_orientation_to_x}
 \alias{mode_orientation_to_x}
-\title{Orientate a mode to "x"}
+\alias{mode_orientation_to_y}
+\title{Orientate a mode to "x" or "y"}
 \usage{
 mode_orientation_to_x()
+
+mode_orientation_to_y()
 }
 \value{
 ggplot2 theme components.
 }
 \description{
-Theme components to add to a mode used used outside of a \verb{gg_*} context.
+Add theme components to a mode use outside of a \verb{gg_*} context
+\itemize{
+\item \code{mode_orientation_to_x()} Orientate the plot from the x axis.
+\item \code{mode_orientation_to_y()} Orientate the plot from the y axis.
+}
 }
 \examples{
 library(ggplot2)
@@ -21,5 +28,12 @@ penguins |>
   geom_point(aes(x = flipper_length_mm, y = body_mass_g)) +
   light_mode_r() +
   mode_orientation_to_x()
+
+
+penguins |>
+  ggplot() +
+  geom_bar(aes(y = island)) +
+  light_mode_r() +
+  mode_orientation_to_y()
 
 }
