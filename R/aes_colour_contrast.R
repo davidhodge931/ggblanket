@@ -1,33 +1,32 @@
-#' Get contrast
+#' Get a dark/light colour for contrast
 #'
-#' @param ... Provided to force user argument naming etc.
+#' @description Get a dark/light colour based on contrast with fill colours
+#'
 #' @param fill A fill aesthetic from which to determine the colour scale for contrast.
-#' @param dark A dark colour. Defaults to `"black"`.
-#' @param light A light colour. Defaults to `"white"`.
+#' @param dark A dark colour.
+#' @param light A light colour.
 #'
 #' @noRd
 #'
 #' @examples
-#' get_contrast(fill = c("navy", "yellow", "orange"), dark = "black", light = "white")
+#' get_colour_contrast(fill = c("navy", "yellow", "orange"), dark = "black", light = "white")
 #'
-get_contrast <- function(fill,
-                         dark = "black",
-                         light = "white") {
+get_colour_contrast <- function(fill,
+                                dark = "#121B24FF",
+                                light = "#FFFFFFFF") {
 
-  ifelse(
-    farver::get_channel(
-      colour = fill,
-      channel = "l",
-      space = "hcl"
-      ) < 50,
-    light,
-    dark
-  )
+  ifelse(farver::get_channel(
+    colour = fill,
+    channel = "l",
+    space = "hcl"
+  ) < 50,
+  light,
+  dark)
 }
 
-#' An auto-contrast colour aesthetic
+#' A colour aesthetic for contrast
 #'
-#' @description A colour aesthetic for annotation that automatically contrasts with fill. Can be spliced into [ggplot2::aes] with [rlang::!!!].
+#' @description A colour aesthetic to contrast with a fill aesthetic. Can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
 #' @param ... Provided to force user argument naming etc.
 #' @param dark A dark colour.
@@ -56,7 +55,7 @@ get_contrast <- function(fill,
 #'     x_labels = \(x) str_to_sentence(x),
 #'   ) +
 #'   geom_text(
-#'     mapping = aes_contrast(),
+#'     mapping = aes_colour_contrast(),
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     vjust = 1.33,
 #'     show.legend = FALSE,
@@ -74,16 +73,16 @@ get_contrast <- function(fill,
 #'     mode = dark_mode_r(),
 #'   ) +
 #'   geom_text(
-#'     mapping = aes(label = n, !!!aes_contrast(dark = darkness[3], light = darkness[1])),
+#'     mapping = aes(label = n, !!!aes_colour_contrast(dark = darkness[3], light = darkness[1])),
 #'     position = position_dodge2(width = 0.75, preserve = "single"),
 #'     vjust = 1.33,
 #'     show.legend = FALSE,
 #'   )
-aes_contrast <- function(..., dark = "#121B24FF", light = "#FFFFFFFF") {
+aes_colour_contrast <- function(..., dark = "#121B24FF", light = "#FFFFFFFF") {
 
   ggplot2::aes(
     colour = ggplot2::after_scale(
-      get_contrast(.data$fill, dark = dark, light = light)
+      get_colour_contrast(.data$fill, dark = dark, light = light)
     )
   )
 }

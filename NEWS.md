@@ -4,8 +4,9 @@
 * Breaking: removed `*_mode_n` and `grey_mode_*` functions.
 * Breaking: removed `greyness` helper.
 * Breaking: removed `*_orientation` arguments from `*_mode_*` functions.
-* Breaking: In `set_blanket`, removed `annotate_*` arguments.
+* Breaking: in `set_blanket`, removed `annotate_*` arguments.
 * Breaking: in `*_mode_*`, removed `ticks_length_*` arguments.
+* Breaking: renamed `aes_contrast` to `aes_colour_contrast`.
 * Added hierarchical arguments that set geom defaults.
 * Added `*_symmetric` arguments.
 * Added `mode_orientation` argument. 
