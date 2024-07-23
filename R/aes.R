@@ -97,7 +97,8 @@ aes_colour_contrast <- function(..., dark = "#121B24FF", light = "#FFFFFFFF") {
 #' * `aes_fill_lighten()` Lighten a fill aesthetic, relative to the colour aesthetic
 #' Can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
-#' @param ... Arguments passed to [colorspace::darken()]/[colorspace::lighten()] (excluding `col`).
+#' @param amount Numeric specifying the amount of lightening or darkening.
+#' @param ... Other arguments passed to [colorspace::darken()]/[colorspace::lighten()].
 #'
 #' @return A ggplot2 aesthetic
 #' @export
@@ -127,15 +128,15 @@ aes_colour_contrast <- function(..., dark = "#121B24FF", light = "#FFFFFFFF") {
 #'   width = 0.75,
 #' )
 #'
-aes_colour_darken <- function(...) {
-  ggplot2::aes(colour = ggplot2::after_scale(colorspace::darken(.data$fill, ...)))
+aes_colour_darken <- function(..., amount = 0.1) {
+  ggplot2::aes(colour = ggplot2::after_scale(colorspace::darken(.data$fill, amount = amount, ...)))
 }
 
 #' @rdname aes_colour_darken
 #' @export
 #'
-aes_colour_lighten <- function(...) {
-  ggplot2::aes(colour = ggplot2::after_scale(colorspace::lighten(.data$fill, ...)))
+aes_colour_lighten <- function(..., amount = 0.1) {
+  ggplot2::aes(colour = ggplot2::after_scale(colorspace::lighten(.data$fill, amount = amount, ...)))
 }
 
 #' @rdname aes_colour_darken
