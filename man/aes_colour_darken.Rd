@@ -11,9 +11,9 @@ aes_colour_darken(..., amount = 0.1)
 
 aes_colour_lighten(..., amount = 0.1)
 
-aes_fill_darken(...)
+aes_fill_darken(..., amount = 0.1)
 
-aes_fill_lighten(...)
+aes_fill_lighten(..., amount = 0.1)
 }
 \arguments{
 \item{...}{Other arguments passed to \code{\link[colorspace:lighten]{colorspace::darken()}}/\code{\link[colorspace:lighten]{colorspace::lighten()}}.}

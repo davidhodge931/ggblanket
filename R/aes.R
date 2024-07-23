@@ -142,13 +142,13 @@ aes_colour_lighten <- function(..., amount = 0.1) {
 #' @rdname aes_colour_darken
 #' @export
 #'
-aes_fill_darken <- function(...) {
-  ggplot2::aes(fill = ggplot2::after_scale(colorspace::darken(.data$colour, ...)))
+aes_fill_darken <- function(..., amount = 0.1) {
+  ggplot2::aes(fill = ggplot2::after_scale(colorspace::darken(.data$colour, amount = amount, ...)))
 }
 
 #' @rdname aes_colour_darken
 #' @export
 #'
-aes_fill_lighten <- function(...) {
-  ggplot2::aes(fill = ggplot2::after_scale(colorspace::lighten(.data$colour, ...)))
+aes_fill_lighten <- function(..., amount = 0.1) {
+  ggplot2::aes(fill = ggplot2::after_scale(colorspace::lighten(.data$colour, amount = amount, ...)))
 }
