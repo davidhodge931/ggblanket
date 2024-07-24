@@ -35,7 +35,6 @@ reference:
   - aes_fill_lighten
   - mode_orientation_to_x
   - mode_orientation_to_y
-  - element_line_transparent
   - blue
   - jumble
   - teal

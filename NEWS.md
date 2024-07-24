@@ -14,7 +14,6 @@
 * Added `*_breaks_n` and `*_sec_axis` arguments.
 * Added `weave_*` setup functions. 
 * Added `mode_orientation_to_x` and `mode_orientation_to_y` functions.
-* Added `element_line_transparent` short-cut function.
 * Made `mode_orientation` convert unneeded components to transparent.
 * Made `mode_orientation` apply where no mode or theme set.
 * For discrete colour scales, determined the number of colours based on the `after_stat` data. 

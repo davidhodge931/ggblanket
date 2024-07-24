@@ -1,22 +1,22 @@
 #' A transparent line element
 #'
 #' @description
-#' A short-cut for `ggplot2::element_line(colour = "transparent")`.
+#' A short-cut for ggplot2::element_line(colour = "transparent").
 #'
 #' Assists in 'removing' a line element from the theme, regardless of how it is specified in the theme hierarchy.
 #'
-#' @export
+#' @noRd
 #'
 #' @examples
 #' library(ggplot2)
 #' library(palmerpenguins)
 #'
 #' penguins |>
-#'   gg_point(x = flipper_length_mm, y = body_mass_g) +
-#'   light_mode_r() +
-#'   theme(axis.line.y = element_line_transparent()) +
-#'   theme(axis.ticks.y = element_line_transparent()) +
-#'   theme(panel.grid.major.y = element_line_transparent())
+#' gg_point(x = flipper_length_mm, y = body_mass_g) +
+#'  light_mode_r() +
+#'  theme(axis.line.y = element_line_transparent()) +
+#'  theme(axis.ticks.y = element_line_transparent()) +
+#'  theme(panel.grid.major.y = element_line_transparent())
 #'
 element_line_transparent <- function() {
   ggplot2::element_line(colour = "transparent")
