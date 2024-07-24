@@ -3,7 +3,7 @@
 \name{mode_orientation_to_x}
 \alias{mode_orientation_to_x}
 \alias{mode_orientation_to_y}
-\title{Orientate a mode to "x" or "y"}
+\title{Orientate a mode used outside of a \verb{gg_*} context}
 \usage{
 mode_orientation_to_x()
 
@@ -13,10 +13,10 @@ mode_orientation_to_y()
 ggplot2 theme components.
 }
 \description{
-Add theme components to a mode use outside of a \verb{gg_*} context
+Add theme components to a mode used outside of a \verb{gg_*} context
 \itemize{
-\item \code{mode_orientation_to_x()} Orientate the plot from the x axis.
-\item \code{mode_orientation_to_y()} Orientate the plot from the y axis.
+\item \code{mode_orientation_to_x()} Orientate the plot to the x axis.
+\item \code{mode_orientation_to_y()} Orientate the plot to the y axis.
 }
 }
 \examples{

@@ -22,12 +22,12 @@ element_line_transparent <- function() {
   ggplot2::element_line(colour = "transparent")
 }
 
-#' Orientate a mode to "x" or "y"
+#' Orientate a mode used outside of a `gg_*` context
 #'
 #' @description
-#' Add theme components to a mode use outside of a `gg_*` context
-#' * `mode_orientation_to_x()` Orientate the plot from the x axis.
-#' * `mode_orientation_to_y()` Orientate the plot from the y axis.
+#' Add theme components to a mode used outside of a `gg_*` context
+#' * `mode_orientation_to_x()` Orientate the plot to the x axis.
+#' * `mode_orientation_to_y()` Orientate the plot to the y axis.
 #'
 #' @return ggplot2 theme components.
 #' @export
