@@ -114,6 +114,7 @@ msleep |>
     col_labels = str_to_sentence,
     x_transform = "log10",
     y_transform = "log10",
+    y_symmetric = FALSE,
   ) +
   light_mode_r() +
   guides(
