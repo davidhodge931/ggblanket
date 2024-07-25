@@ -190,6 +190,25 @@ test_that(test_name, {
   vdiffr::expect_doppelganger(test_name, p)
 })
 
+test_name <- "12"
+
+test_that(test_name, {
+  set.seed(123)
+
+  p <- mtcars %>%
+    dplyr::mutate(
+      cyl = factor(cyl, levels = c("4", "6", "8", "10"))
+    ) |>
+    gg_point(
+      x = mpg,
+      y = wt,
+      col = cyl,
+    )
+
+  vdiffr::expect_doppelganger(test_name, p)
+})
+
+
 
 
 set_blanket()

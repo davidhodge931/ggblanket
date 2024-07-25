@@ -39,6 +39,15 @@ scale_x_symmetric <- function(...,
       unlist()
   }
 
+  if (any(stringr::str_detect(transform_name, "log-")) |
+      any(transform_name %in% c("log", "log2", "log10"))) {
+
+    symmetric <- FALSE
+
+    rlang::inform("ggblanket does not currenly support log symmetric axes")
+  } #remove and update below once there is a mechanism to ensure breaks surround data
+
+
   if (symmetric) {
     x <- rlang::enquo(x)
 
@@ -56,12 +65,6 @@ scale_x_symmetric <- function(...,
     range <- range(vctr, na.rm = TRUE)
 
     if (any(transform_name == "hms")) range <- hms::as_hms(range)
-
-    if (any(stringr::str_detect(transform_name, "log-")) |
-        any(transform_name %in% c("log", "log2", "log10"))) {
-      rlang::abort("ggblanket does not currenly support log symmetric axes.
-                   Please use *_symmetric = FALSE")
-    } #remove and update below once there is a mechanism to ensure breaks surround data
 
     if (rlang::is_null(breaks)) {
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
@@ -180,6 +183,14 @@ scale_y_symmetric <- function(...,
       unlist()
   }
 
+  if (any(stringr::str_detect(transform_name, "log-")) |
+      any(transform_name %in% c("log", "log2", "log10"))) {
+
+    symmetric <- FALSE
+
+    rlang::inform("ggblanket does not currenly support log symmetric axes")
+  } #remove and update below once there is a mechanism to ensure breaks surround data
+
   if (symmetric) {
     y <- rlang::enquo(y)
 
@@ -197,12 +208,6 @@ scale_y_symmetric <- function(...,
     range <- range(vctr, na.rm = TRUE)
 
     if (any(transform_name == "hms")) range <- hms::as_hms(range)
-
-    if (any(stringr::str_detect(transform_name, "log-")) |
-        any(transform_name %in% c("log", "log2", "log10"))) {
-      rlang::abort("ggblanket does not currenly support log symmetric axes.
-                   Please use *_symmetric = FALSE")
-    } #remove and update below once there is a mechanism to ensure breaks surround data
 
     if (rlang::is_null(breaks)) {
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {

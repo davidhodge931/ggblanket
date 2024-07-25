@@ -739,6 +739,12 @@ gg_blanket <- function(data = NULL,
         }
       }
 
+      if (!rlang::quo_is_null(col)) {
+        if (inherits(rlang::eval_tidy(col, data), what = c("factor"))) {
+          col_n_factor <- length(levels(rlang::eval_tidy(col, data)))
+        }
+      } else col_n_factor <- NA
+
       colour_distinct <- plot_data %>%
         dplyr::select(tidyselect::any_of("colour")) %>%
         dplyr::distinct()
@@ -761,7 +767,7 @@ gg_blanket <- function(data = NULL,
           dplyr::pull()
       } else fill_n <- 1
 
-      col_n <- max(colour_n, fill_n)
+      col_n <- max(col_n_factor, colour_n, fill_n, na.rm = TRUE)
 
       if (rlang::is_null(col_palette)) {
         if (col_scale_type == "discrete") col_palette <- get_col_palette_d()
