@@ -57,13 +57,19 @@ scale_x_symmetric <- function(...,
 
     if (any(transform_name == "hms")) range <- hms::as_hms(range)
 
+    if (any(stringr::str_detect(transform_name, "log-")) |
+        any(transform_name %in% c("log", "log2", "log10"))) {
+      rlang::abort("ggblanket does not currenly support log symmetric axes.
+                   Please use *_symmetric = FALSE")
+    } #remove and update below once there is a mechanism to ensure breaks surround data
+
     if (rlang::is_null(breaks)) {
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
         breaks <- scales::breaks_pretty(n = breaks_n)(range)
       }
       else if (any(stringr::str_detect(transform_name, "log-")) |
                any(transform_name %in% c("log", "log2", "log10"))) {
-        breaks <- scales::breaks_log(n = breaks_n)(range) # needs only.loose = TRUE arg
+        breaks <- scales::breaks_log(n = breaks_n)(range) # update here
       }
       else {
         breaks <- scales::breaks_extended(n = breaks_n, only.loose = TRUE)(range)
@@ -192,13 +198,19 @@ scale_y_symmetric <- function(...,
 
     if (any(transform_name == "hms")) range <- hms::as_hms(range)
 
+    if (any(stringr::str_detect(transform_name, "log-")) |
+        any(transform_name %in% c("log", "log2", "log10"))) {
+      rlang::abort("ggblanket does not currenly support log symmetric axes.
+                   Please use *_symmetric = FALSE")
+    } #remove and update below once there is a mechanism to ensure breaks surround data
+
     if (rlang::is_null(breaks)) {
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
         breaks <- scales::breaks_pretty(n = breaks_n)(range)
       }
       else if (any(stringr::str_detect(transform_name, "log-")) |
                any(transform_name %in% c("log", "log2", "log10"))) {
-        breaks <- scales::breaks_log(n = breaks_n)(range) # needs only.loose = TRUE arg
+        breaks <- scales::breaks_log(n = breaks_n)(range) # update here
       }
       else {
         breaks <- scales::breaks_extended(n = breaks_n, only.loose = TRUE)(range)

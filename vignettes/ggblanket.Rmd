@@ -186,7 +186,7 @@ penguins2 |>
     x_labels = \(x) stringr::str_sub(x, 1, 1),
     y_expand_limits = 1000,
     y_labels = label_number(big.mark = " "), 
-    y_transform = "log10",
+    y_transform = "sqrt",
     col_label = "Flipper\nlength (mm)",
     col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
