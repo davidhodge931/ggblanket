@@ -20,24 +20,23 @@ reference:
   - dark_mode_r
   - dark_mode_t
   - dark_mode_b
-- title: Other
+- title: Aesthetics
 - contents:
   - aes_colour_contrast
   - aes_colour_darken
   - aes_colour_lighten
   - aes_fill_darken
   - aes_fill_lighten
+- title: Sub-setup
+- contents:
   - weave_mode
   - weave_geom_defaults
   - weave_col_palette_d
   - weave_col_palette_c
   - weave_col_palette_o
   - weave_theme
-  - mode_orientation_to_x
-  - mode_orientation_to_y
-  - lightness
-  - darkness
-  - linewidthness
+- title: Other
+- contents:
   - blue
   - jumble
   - teal
@@ -47,3 +46,8 @@ reference:
   - pink
   - purple
   - grey
+  - lightness
+  - darkness
+  - linewidthness
+  - mode_orientation_to_x
+  - mode_orientation_to_y
