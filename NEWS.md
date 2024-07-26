@@ -2,21 +2,22 @@
 
 * Breaking: removed `*_limits` and `*_oob` arguments.
 * Breaking: removed `*_mode_n` and `grey_mode_*` functions.
+* Breaking: removed `grey_mode_*` functions.
 * Breaking: removed `greyness` helper.
-* Breaking: removed `*_orientation` arguments from `*_mode_*` functions.
 * Breaking: in `set_blanket`, removed `annotate_*` arguments.
+* Breaking: removed `*_orientation` arguments from `*_mode_*` functions.
 * Breaking: in `*_mode_*`, removed `ticks_length_*` arguments.
 * Breaking: renamed `aes_contrast` to `aes_colour_contrast`.
-* Added `aes_colour_lighten`, `aes_colour_darken`, `aes_fill_lighten` and `aes_fill_darken` inspired by work by (@teunbrand)
-* Added hierarchical arguments that set geom defaults.
+* In `set_blanket`, added hierarchical arguments that set geom defaults.
+* Added `*_breaks_n` arguments.
+* Added `*_sec_axis` arguments.
 * Added `*_symmetric` arguments.
 * Added `mode_orientation` argument. 
-* Added `*_breaks_n` and `*_sec_axis` arguments.
-* Added `weave_*` setup functions. 
+* Added `weave_*` sub-setup functions. 
 * Added `mode_orientation_to_x` and `mode_orientation_to_y` functions.
+* Added `aes_colour_*` and `aes_fill_*` functions inspired by work by (@teunbrand).
 * Made `mode_orientation` convert unneeded components to transparent.
-* Made `mode_orientation` apply where no mode or theme set.
-* For discrete colour scales, determined the number of colours based on the `after_stat` data. 
+* For discrete colour scales, improved the determination of the number of colours required. 
 * In `*_mode_*`, changed `lineend` to `"square"`. 
 * Fixed bug in `col_palette_*` by adding `...`.
 
