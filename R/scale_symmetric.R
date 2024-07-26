@@ -39,14 +39,15 @@ scale_x_symmetric <- function(...,
       unlist()
   }
 
-  if (any(stringr::str_detect(transform_name, "log-")) |
-      any(transform_name %in% c("log", "log2", "log10"))) {
+  if (symmetric) {
+    if (any(stringr::str_detect(transform_name, "log-")) |
+        any(transform_name %in% c("log", "log2", "log10"))) {
 
-    symmetric <- FALSE
+      symmetric <- FALSE
 
-    rlang::inform("ggblanket does not currenly support log symmetric axes")
-  } #remove and update below once there is a mechanism to ensure breaks surround data
-
+      rlang::inform("ggblanket does not currently support log symmetric axes")
+    } #remove and update below once there is a mechanism to ensure breaks surround data
+  }
 
   if (symmetric) {
     x <- rlang::enquo(x)
@@ -183,13 +184,15 @@ scale_y_symmetric <- function(...,
       unlist()
   }
 
-  if (any(stringr::str_detect(transform_name, "log-")) |
-      any(transform_name %in% c("log", "log2", "log10"))) {
+  if (symmetric) {
+    if (any(stringr::str_detect(transform_name, "log-")) |
+        any(transform_name %in% c("log", "log2", "log10"))) {
 
-    symmetric <- FALSE
+      symmetric <- FALSE
 
-    rlang::inform("ggblanket does not currenly support log symmetric axes")
-  } #remove and update below once there is a mechanism to ensure breaks surround data
+      rlang::inform("ggblanket does not currently support log symmetric axes")
+    } #remove and update below once there is a mechanism to ensure breaks surround data
+  }
 
   if (symmetric) {
     y <- rlang::enquo(y)
