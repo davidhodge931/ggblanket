@@ -1,4 +1,4 @@
-# ggblanket 9.1.999
+# ggblanket 10.0.0
 
 * Breaking: removed `*_limits` and `*_oob` arguments.
 * Breaking: removed `*_mode_n` and `grey_mode_*` functions.
