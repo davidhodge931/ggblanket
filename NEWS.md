@@ -1,5 +1,3 @@
-# ggblanket 10.0.0.9000
-
 # ggblanket 10.0.0
 
 * Breaking: removed `*_limits` and `*_oob` arguments.

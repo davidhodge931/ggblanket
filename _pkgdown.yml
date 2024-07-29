@@ -6,8 +6,7 @@ figures:
   fig.ext: svg
 reference:
 - title: Setup
-- contents:
-  - set_blanket
+- contents: set_blanket
 - title: Plot
 - contents:
   - gg_blanket
@@ -51,3 +50,4 @@ reference:
   - linewidthness
   - mode_orientation_to_x
   - mode_orientation_to_y
+
