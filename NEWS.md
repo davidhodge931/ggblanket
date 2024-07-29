@@ -1,3 +1,7 @@
+# ggblanket 10.0.0.9000
+
+* Updated pkgdown yml. 
+
 # ggblanket 10.0.0
 
 * Breaking: removed `*_limits` and `*_oob` arguments.
