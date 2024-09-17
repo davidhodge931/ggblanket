@@ -143,7 +143,9 @@ weave_geom_defaults <- function(colour = "#357BA2FF",
   ggplot2::update_geom_defaults("spoke", ggplot2::aes(colour = !!colour, linewidth = !!linewidth, alpha = !!alpha))
   ggplot2::update_geom_defaults("step", ggplot2::aes(colour = !!colour, linewidth = !!linewidth, alpha = !!alpha))
   ggplot2::update_geom_defaults("violin", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = !!alpha_violin, linewidth = !!linewidth))
-  #adjust once ggplot makes GeomBin2d to make colour = !!colour
+
+  # ggplot2::update_geom_defaults("bin2d", ggplot2::aes(colour = NA, fill = !!fill, alpha = !!alpha_tile, linewidth = !!linewidth))
+  # ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = !!alpha_tile, linewidth = !!linewidth))
   ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = NA, fill = !!fill, alpha = !!alpha_tile, linewidth = !!linewidth))
 
   ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour_reference_line, alpha = !!alpha, linewidth = !!linewidth_reference_line))
