@@ -170,7 +170,6 @@ penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
-    se = TRUE,
   )
 
 }

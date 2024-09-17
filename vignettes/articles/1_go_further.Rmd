@@ -415,7 +415,6 @@ penguins |>
   gg_smooth(
     x =  body_mass_g, 
     y = bill_depth_mm,
-    se = TRUE,
     x_expand_limits = c(0),
     y_expand_limits = c(10, 25),
   ) 
@@ -439,7 +438,6 @@ penguins |>
   gg_smooth(
     x =  body_mass_g, 
     y = bill_depth_mm,
-    se = TRUE,
     coord = coord_cartesian(ylim = c(14.8, 15)), 
     y_breaks = scales::breaks_width(0.05),
     # y_symmetric = FALSE,

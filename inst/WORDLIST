@@ -45,6 +45,7 @@ linewidths
 magrittr
 nd
 paletteer
+pkgdown
 pointrange
 qq
 rect
@@ -55,3 +56,4 @@ tibble
 tidyverse
 vjust
 vline
+yml
