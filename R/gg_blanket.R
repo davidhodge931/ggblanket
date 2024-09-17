@@ -34,7 +34,7 @@
 #' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
 #' @param facet_ncol,facet_nrow The number of columns and rows of facet panels. Only applies to a facet layout of `"wrap"`.
 #' @param facet_scales Whether facet scales should be `"fixed"` across facets, `"free"` in both directions, or free in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
-#' @param facet_space When the facet layout is `"grid"` and facet scales are not `"fixed"`, whether facet space should be `"fixed"` across facets, `"free"` to be proportional in both directions, or free to be proportional in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
+#' @param facet_space When the facet scales are _not_ `"fixed"`, whether facet space should be `"fixed"` across facets, `"free"` to be proportional in both directions, or free to be proportional in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
@@ -460,6 +460,7 @@ gg_blanket <- function(data = NULL,
           ggplot2::facet_wrap(
             facets = ggplot2::vars(forcats::fct_rev(!!facet)),
             scales = facet_scales,
+            space = facet_space,
             drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
@@ -473,6 +474,7 @@ gg_blanket <- function(data = NULL,
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet2),
             scales = facet_scales,
+            space = facet_space,
             drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
@@ -486,6 +488,7 @@ gg_blanket <- function(data = NULL,
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet, !!facet2),
             scales = facet_scales,
+            space = facet_space,
             drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
@@ -539,6 +542,7 @@ gg_blanket <- function(data = NULL,
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet),
             scales = facet_scales,
+            space = facet_space,
             drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
@@ -552,6 +556,7 @@ gg_blanket <- function(data = NULL,
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet2),
             scales = facet_scales,
+            space = facet_space,
             drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
@@ -565,6 +570,7 @@ gg_blanket <- function(data = NULL,
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet, !!facet2),
             scales = facet_scales,
+            space = facet_space,
             drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,

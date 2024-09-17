@@ -1,6 +1,7 @@
 # ggblanket 10.0.0.9000
 
 * Updated pkgdown yml. 
+* Added support for `facet_space` when `facet_layout = "wrap"`. 
 
 # ggblanket 10.0.0
 
