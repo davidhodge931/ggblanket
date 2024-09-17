@@ -50,13 +50,13 @@ get_colour_contrast <- function(fill,
 #'     y = n,
 #'     col = species,
 #'     label = n,
-#'     position = position_dodge2(preserve = "single"),
+#'     position = position_dodge(preserve = "single"),
 #'     width = 0.75,
 #'     x_labels = \(x) str_to_sentence(x),
 #'   ) +
 #'   geom_text(
 #'     mapping = aes_colour_contrast(),
-#'     position = position_dodge2(width = 0.75, preserve = "single"),
+#'     position = position_dodge(width = 0.75, preserve = "single"),
 #'     vjust = 1.33,
 #'     show.legend = FALSE,
 #'   )
@@ -67,14 +67,14 @@ get_colour_contrast <- function(fill,
 #'     x = sex,
 #'     y = n,
 #'     col = species,
-#'     position = position_dodge2(preserve = "single"),
+#'     position = position_dodge(preserve = "single"),
 #'     width = 0.75,
 #'     x_labels = \(x) str_to_sentence(x),
 #'     mode = dark_mode_r(),
 #'   ) +
 #'   geom_text(
 #'     mapping = aes(label = n, !!!aes_colour_contrast(dark = darkness[3], light = darkness[1])),
-#'     position = position_dodge2(width = 0.75, preserve = "single"),
+#'     position = position_dodge(width = 0.75, preserve = "single"),
 #'     vjust = 1.33,
 #'     show.legend = FALSE,
 #'   )

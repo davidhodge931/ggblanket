@@ -171,8 +171,6 @@ penguins |>
     facet = species,
     coord = coord_cartesian(clip = "on"),
   ) +
-  geom_qq_line(
-    colour = blue,
-  )
+  geom_qq_line()
 
 }
