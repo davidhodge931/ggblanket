@@ -10,6 +10,7 @@ License: MIT + file LICENSE
 URL: https://davidhodge931.github.io/ggblanket/,
     https://github.com/davidhodge931/ggblanket
 BugReports: https://github.com/davidhodge931/ggblanket/issues
+Remotes: tidyverse/ggplot2
 Imports: 
     colorspace,
     dplyr (>= 1.0.4),
