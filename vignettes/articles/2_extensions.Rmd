@@ -111,9 +111,13 @@ The showtext package enables the use of different fonts in plots. The `*_mode_*`
 ```{r, fig.asp = 0.7, fig.showtext = TRUE}
 head(sysfonts::font_families_google())
 
-sysfonts::font_add_google("Covered By Your Grace", "grace")
-sysfonts::font_add_google('Roboto Slab', 'roboto_slab')
-sysfonts::font_add_google('Syne Mono', 'syne')
+#register google fonts
+sysfonts::font_add_google(name = "Covered By Your Grace", family = "grace")
+sysfonts::font_add_google(name = 'Roboto Slab', family = 'roboto_slab')
+sysfonts::font_add_google(name = 'Syne Mono', family = 'syne')
+
+#or download, extract install, and register one from somewhere else
+# sysfonts::font_add(family = "blah", regular = "blah1.otf", bold = "blah2.otf")
 
 showtext::showtext_auto(enable = TRUE)
 
