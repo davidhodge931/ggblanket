@@ -16,7 +16,7 @@ Imports:
     dplyr (>= 1.0.4),
     farver,
     forcats,
-    ggplot2 (>= 3.5.0),
+    ggplot2 (>= 3.5.1),
     grid,
     hms (>= 0.5.0),
     labelled,
