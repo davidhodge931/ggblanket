@@ -92,6 +92,7 @@ penguins2 |>
     x = flipper_length_mm,
     y = sex,
     col = species,
+    alpha = 0,
   )
 ```
 
@@ -144,6 +145,7 @@ experiment |>
     ymin = lower,
     ymax = upper,
     col = group,
+    alpha = 0,
     width = 0.5,
     y_expand_limits = 0,
   )
@@ -441,7 +443,6 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     x = year,
     ymin = level_min,
     ymax = level_max,
-    colour = NA,
     x_labels = \(x) x,
     y_label = "Level",
   ) +

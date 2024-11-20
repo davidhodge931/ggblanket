@@ -170,7 +170,6 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     x = year,
     ymin = level_min,
     ymax = level_max,
-    colour = NA,
     x_labels = \(x) x,
     y_label = "Level",
   ) +

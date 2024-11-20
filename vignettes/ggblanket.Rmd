@@ -111,7 +111,7 @@ Use `colour = NA` or `fill = NA` to turn one of these off.
 
 ```{r, fig.asp=0.45}
 penguins2 |>
-  gg_boxplot(
+  gg_violin(
     x = flipper_length_mm,
     y = island,
     col = sex, 
