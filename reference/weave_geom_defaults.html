@@ -60,26 +60,8 @@
 <span>  colour_curve <span class="op">=</span> <span class="va">colour_reference_line</span>,</span>
 <span>  fill <span class="op">=</span> <span class="va">colour</span>,</span>
 <span>  fill_label <span class="op">=</span> <span class="va">colour_label</span>,</span>
-<span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  alpha_area <span class="op">=</span> <span class="fl">0.9</span>,</span>
-<span>  alpha_bar <span class="op">=</span> <span class="fl">0.9</span>,</span>
-<span>  alpha_boxplot <span class="op">=</span> <span class="fl">0.6</span>,</span>
-<span>  alpha_crossbar <span class="op">=</span> <span class="fl">0.6</span>,</span>
-<span>  alpha_density <span class="op">=</span> <span class="fl">0.6</span>,</span>
-<span>  alpha_label <span class="op">=</span> <span class="fl">0.05</span>,</span>
-<span>  alpha_polygon <span class="op">=</span> <span class="fl">0.9</span>,</span>
-<span>  alpha_rect <span class="op">=</span> <span class="fl">0.9</span>,</span>
-<span>  alpha_ribbon <span class="op">=</span> <span class="fl">0.6</span>,</span>
-<span>  alpha_smooth <span class="op">=</span> <span class="fl">0.6</span>,</span>
-<span>  alpha_tile <span class="op">=</span> <span class="fl">0.9</span>,</span>
-<span>  alpha_violin <span class="op">=</span> <span class="fl">0.9</span>,</span>
-<span>  alpha_recursive <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  linewidth <span class="op">=</span> <span class="fl">0.66</span>,</span>
 <span>  linewidth_reference_line <span class="op">=</span> <span class="fl">0.33</span>,</span>
 <span>  linewidth_curve <span class="op">=</span> <span class="va">linewidth_reference_line</span>,</span>
-<span>  size_point <span class="op">=</span> <span class="fl">1.5</span>,</span>
-<span>  size_pointrange <span class="op">=</span> <span class="fl">0.2</span>,</span>
-<span>  size_sf <span class="op">=</span> <span class="fl">1.5</span>,</span>
 <span>  size_text <span class="op">=</span> <span class="fl">11</span><span class="op">/</span><span class="fl">2.835052</span>,</span>
 <span>  size_label <span class="op">=</span> <span class="va">size_text</span>,</span>
 <span>  family_text <span class="op">=</span> <span class="st">""</span>,</span>
@@ -119,84 +101,12 @@
 <dd><p>A default hex colour for the fill of the "label" geom.</p></dd>
 
 
-<dt id="arg-alpha">alpha<a class="anchor" aria-label="anchor" href="#arg-alpha"></a></dt>
-<dd><p>A default alpha for geoms without a more specific <code>alpha_*</code> argument.</p></dd>
-
-
-<dt id="arg-alpha-area">alpha_area<a class="anchor" aria-label="anchor" href="#arg-alpha-area"></a></dt>
-<dd><p>A default alpha for the "area" geom.</p></dd>
-
-
-<dt id="arg-alpha-bar">alpha_bar<a class="anchor" aria-label="anchor" href="#arg-alpha-bar"></a></dt>
-<dd><p>A default alpha for the "bar" geom.</p></dd>
-
-
-<dt id="arg-alpha-boxplot">alpha_boxplot<a class="anchor" aria-label="anchor" href="#arg-alpha-boxplot"></a></dt>
-<dd><p>A default alpha for the "boxplot" geom.</p></dd>
-
-
-<dt id="arg-alpha-crossbar">alpha_crossbar<a class="anchor" aria-label="anchor" href="#arg-alpha-crossbar"></a></dt>
-<dd><p>A default alpha for the "crossbar" geom.</p></dd>
-
-
-<dt id="arg-alpha-density">alpha_density<a class="anchor" aria-label="anchor" href="#arg-alpha-density"></a></dt>
-<dd><p>A default alpha for the "density" geom.</p></dd>
-
-
-<dt id="arg-alpha-label">alpha_label<a class="anchor" aria-label="anchor" href="#arg-alpha-label"></a></dt>
-<dd><p>A default alpha for the "label" geom.</p></dd>
-
-
-<dt id="arg-alpha-polygon">alpha_polygon<a class="anchor" aria-label="anchor" href="#arg-alpha-polygon"></a></dt>
-<dd><p>A default alpha for the "polygon" geom.</p></dd>
-
-
-<dt id="arg-alpha-rect">alpha_rect<a class="anchor" aria-label="anchor" href="#arg-alpha-rect"></a></dt>
-<dd><p>A default alpha for the "rect" geom.</p></dd>
-
-
-<dt id="arg-alpha-ribbon">alpha_ribbon<a class="anchor" aria-label="anchor" href="#arg-alpha-ribbon"></a></dt>
-<dd><p>A default alpha for the "ribbon" geom.</p></dd>
-
-
-<dt id="arg-alpha-smooth">alpha_smooth<a class="anchor" aria-label="anchor" href="#arg-alpha-smooth"></a></dt>
-<dd><p>A default alpha for the "smooth" geom.</p></dd>
-
-
-<dt id="arg-alpha-tile">alpha_tile<a class="anchor" aria-label="anchor" href="#arg-alpha-tile"></a></dt>
-<dd><p>A default alpha for the "tile" geom.</p></dd>
-
-
-<dt id="arg-alpha-violin">alpha_violin<a class="anchor" aria-label="anchor" href="#arg-alpha-violin"></a></dt>
-<dd><p>A default alpha for the "violin" geom.</p></dd>
-
-
-<dt id="arg-alpha-recursive">alpha_recursive<a class="anchor" aria-label="anchor" href="#arg-alpha-recursive"></a></dt>
-<dd><p>A default alpha applied to all geoms.</p></dd>
-
-
-<dt id="arg-linewidth">linewidth<a class="anchor" aria-label="anchor" href="#arg-linewidth"></a></dt>
-<dd><p>A default linewidth for geoms.</p></dd>
-
-
 <dt id="arg-linewidth-reference-line">linewidth_reference_line<a class="anchor" aria-label="anchor" href="#arg-linewidth-reference-line"></a></dt>
 <dd><p>A default linewidth for the the "hline", "vline" and "abline" geoms.</p></dd>
 
 
 <dt id="arg-linewidth-curve">linewidth_curve<a class="anchor" aria-label="anchor" href="#arg-linewidth-curve"></a></dt>
 <dd><p>A default linewidth for the the "curve" geom.</p></dd>
-
-
-<dt id="arg-size-point">size_point<a class="anchor" aria-label="anchor" href="#arg-size-point"></a></dt>
-<dd><p>A default size for the "point" geom.</p></dd>
-
-
-<dt id="arg-size-pointrange">size_pointrange<a class="anchor" aria-label="anchor" href="#arg-size-pointrange"></a></dt>
-<dd><p>A default size for the "pointrange" geom.</p></dd>
-
-
-<dt id="arg-size-sf">size_sf<a class="anchor" aria-label="anchor" href="#arg-size-sf"></a></dt>
-<dd><p>A default size for the "sf" geom.</p></dd>
 
 
 <dt id="arg-size-text">size_text<a class="anchor" aria-label="anchor" href="#arg-size-text"></a></dt>
