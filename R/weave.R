@@ -285,10 +285,10 @@ weave_theme <- function(theme = light_mode_r() + mode_orientation_to_x()) {
   invisible(old)
 
   if (rlang::is_null(theme)) {
-    ggplot2::set_theme(new = ggplot2::theme_grey())
+    ggplot2::theme_set(new = ggplot2::theme_grey())
   }
   else {
-    ggplot2::set_theme(new = theme)
+    ggplot2::theme_set(new = theme)
   }
 }
 

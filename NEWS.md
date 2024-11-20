@@ -1,6 +1,6 @@
 # ggblanket 10.0.0.9000
 
-* Added support for `facet_space` when `facet_layout = "wrap"`. 
+* Updated legend key size.
 
 # ggblanket 10.0.0
 

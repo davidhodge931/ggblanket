@@ -230,6 +230,7 @@ penguins2 |>
     linetype = "dashed",
     alpha = 1, 
     level = 0.999, 
+    se = TRUE,
   ) 
 ```
 
