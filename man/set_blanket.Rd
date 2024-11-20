@@ -14,26 +14,8 @@ set_blanket(
   colour_curve = colour_reference_line,
   fill = colour,
   fill_label = colour_label,
-  alpha = 1,
-  alpha_area = 0.9,
-  alpha_bar = 0.9,
-  alpha_boxplot = 0.6,
-  alpha_crossbar = 0.6,
-  alpha_density = 0.6,
-  alpha_label = 0.05,
-  alpha_polygon = 0.9,
-  alpha_rect = 0.9,
-  alpha_ribbon = 0.6,
-  alpha_smooth = 0.6,
-  alpha_tile = 0.9,
-  alpha_violin = 0.9,
-  alpha_recursive = NULL,
-  linewidth = 0.66,
   linewidth_reference_line = 0.33,
   linewidth_curve = linewidth_reference_line,
-  size_point = 1.5,
-  size_pointrange = 0.2,
-  size_sf = 1.5,
   size_text = 11/2.835052,
   size_label = size_text,
   family_text = "",
@@ -66,45 +48,9 @@ set_blanket(
 
 \item{fill_label}{A default hex colour for the fill of the "label" geom.}
 
-\item{alpha}{A default alpha for geoms without a more specific \verb{alpha_*} argument.}
-
-\item{alpha_area}{A default alpha for the "area" geom.}
-
-\item{alpha_bar}{A default alpha for the "bar" geom.}
-
-\item{alpha_boxplot}{A default alpha for the "boxplot" geom.}
-
-\item{alpha_crossbar}{A default alpha for the "crossbar" geom.}
-
-\item{alpha_density}{A default alpha for the "density" geom.}
-
-\item{alpha_label}{A default alpha for the "label" geom.}
-
-\item{alpha_polygon}{A default alpha for the "polygon" geom.}
-
-\item{alpha_rect}{A default alpha for the "rect" geom.}
-
-\item{alpha_ribbon}{A default alpha for the "ribbon" geom.}
-
-\item{alpha_smooth}{A default alpha for the "smooth" geom.}
-
-\item{alpha_tile}{A default alpha for the "tile" geom.}
-
-\item{alpha_violin}{A default alpha for the "violin" geom.}
-
-\item{alpha_recursive}{A default alpha applied to all geoms.}
-
-\item{linewidth}{A default linewidth for geoms.}
-
 \item{linewidth_reference_line}{A default linewidth for the the "hline", "vline" and "abline" geoms.}
 
 \item{linewidth_curve}{A default linewidth for the the "curve" geom.}
-
-\item{size_point}{A default size for the "point" geom.}
-
-\item{size_pointrange}{A default size for the "pointrange" geom.}
-
-\item{size_sf}{A default size for the "sf" geom.}
 
 \item{size_text}{A default size for the "text" geom.}
 

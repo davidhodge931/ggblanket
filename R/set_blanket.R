@@ -18,26 +18,8 @@
 #' @param colour_curve A default hex colour for the colour of the "curve" geom.
 #' @param fill A default hex colour for the fill of geoms without a more specific `fill_*` argument.
 #' @param fill_label A default hex colour for the fill of the "label" geom.
-#' @param alpha A default alpha for geoms without a more specific `alpha_*` argument.
-#' @param alpha_area A default alpha for the "area" geom.
-#' @param alpha_bar A default alpha for the "bar" geom.
-#' @param alpha_boxplot A default alpha for the "boxplot" geom.
-#' @param alpha_crossbar A default alpha for the "crossbar" geom.
-#' @param alpha_density A default alpha for the "density" geom.
-#' @param alpha_label A default alpha for the "label" geom.
-#' @param alpha_polygon A default alpha for the "polygon" geom.
-#' @param alpha_rect A default alpha for the "rect" geom.
-#' @param alpha_ribbon A default alpha for the "ribbon" geom.
-#' @param alpha_smooth A default alpha for the "smooth" geom.
-#' @param alpha_tile A default alpha for the "tile" geom.
-#' @param alpha_violin A default alpha for the "violin" geom.
-#' @param alpha_recursive A default alpha applied to all geoms.
-#' @param linewidth A default linewidth for geoms.
 #' @param linewidth_reference_line A default linewidth for the the "hline", "vline" and "abline" geoms.
 #' @param linewidth_curve A default linewidth for the the "curve" geom.
-#' @param size_point A default size for the "point" geom.
-#' @param size_pointrange A default size for the "pointrange" geom.
-#' @param size_sf A default size for the "sf" geom.
 #' @param size_text A default size for the "text" geom.
 #' @param size_label A default size for the "label" geom.
 #' @param family_text A default family for the "text" geom.
@@ -94,28 +76,9 @@ set_blanket <- function(
     fill = colour,
     fill_label = colour_label,
 
-    alpha = 1,
-    alpha_area = 0.9,
-    alpha_bar = 0.9,
-    alpha_boxplot = 0.6,
-    alpha_crossbar = 0.6,
-    alpha_density = 0.6,
-    alpha_label = 0.05,
-    alpha_polygon = 0.9,
-    alpha_rect = 0.9,
-    alpha_ribbon = 0.6,
-    alpha_smooth = 0.6,
-    alpha_tile = 0.9,
-    alpha_violin = 0.9,
-    alpha_recursive = NULL,
-
-    linewidth = 0.66,
     linewidth_reference_line = 0.33,
     linewidth_curve = linewidth_reference_line,
 
-    size_point = 1.5,
-    size_pointrange = 0.2, # 1.5 / 7.5
-    size_sf = 1.5,
     size_text = 11 / 2.835052,
     size_label = size_text,
 
@@ -143,28 +106,9 @@ set_blanket <- function(
     fill = fill,
     fill_label = fill_label,
 
-    alpha = alpha,
-    alpha_area = alpha_area,
-    alpha_bar = alpha_bar,
-    alpha_boxplot = alpha_boxplot,
-    alpha_crossbar = alpha_crossbar,
-    alpha_density = alpha_density,
-    alpha_label = alpha_label,
-    alpha_polygon = alpha_polygon,
-    alpha_rect = alpha_rect,
-    alpha_ribbon = alpha_ribbon,
-    alpha_smooth = alpha_smooth,
-    alpha_tile = alpha_tile,
-    alpha_violin = alpha_violin,
-    alpha_recursive = alpha_recursive,
-
-    linewidth = linewidth,
     linewidth_reference_line = linewidth_reference_line,
     linewidth_curve = linewidth_curve,
 
-    size_point = size_point,
-    size_pointrange = size_pointrange,
-    size_sf = size_sf,
     size_text = size_text,
     size_label = size_label,
 

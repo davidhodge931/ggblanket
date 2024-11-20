@@ -154,10 +154,10 @@
 <polyline points='519.10,92.85 676.16,92.85 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <polyline points='561.94,526.90 561.94,92.85 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
 <polyline points='633.33,526.90 633.33,92.85 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
-<rect x='544.09' y='447.32' width='17.85' height='79.58' style='stroke-width: 1.41; stroke: #0095A8; stroke-linecap: butt; stroke-linejoin: miter; fill: #0095A8; fill-opacity: 0.90;' />
-<rect x='561.94' y='143.49' width='17.85' height='383.41' style='stroke-width: 1.41; stroke: #FFA600; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFA600; fill-opacity: 0.90;' />
-<rect x='615.48' y='288.17' width='17.85' height='238.73' style='stroke-width: 1.41; stroke: #0095A8; stroke-linecap: butt; stroke-linejoin: miter; fill: #0095A8; fill-opacity: 0.90;' />
-<rect x='633.33' y='223.06' width='17.85' height='303.84' style='stroke-width: 1.41; stroke: #FFA600; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFA600; fill-opacity: 0.90;' />
+<rect x='544.09' y='447.32' width='17.85' height='79.58' style='stroke-width: 0.00; stroke: #0095A8; stroke-linecap: butt; stroke-linejoin: miter; fill: #0095A8;' />
+<rect x='561.94' y='143.49' width='17.85' height='383.41' style='stroke-width: 0.00; stroke: #FFA600; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFA600;' />
+<rect x='615.48' y='288.17' width='17.85' height='238.73' style='stroke-width: 0.00; stroke: #0095A8; stroke-linecap: butt; stroke-linejoin: miter; fill: #0095A8;' />
+<rect x='633.33' y='223.06' width='17.85' height='303.84' style='stroke-width: 0.00; stroke: #FFA600; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFA600;' />
 <polyline points='519.10,526.90 519.10,92.85 ' style='stroke-width: 0.70; stroke: none; stroke-linecap: square;' />
 <text x='513.05' y='530.68' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='513.05' y='458.34' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>1</text>
