@@ -109,7 +109,7 @@ This combined aesthetic means that all colour outlines and all fill interiors sh
 
 Use `colour = NA` or `fill = NA` to turn one of these off.
 
-```{r, fig.asp=0.45}
+```{r}
 penguins2 |>
   gg_violin(
     x = flipper_length_mm,
