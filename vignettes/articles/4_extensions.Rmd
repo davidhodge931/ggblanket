@@ -302,13 +302,11 @@ data.frame(
     stat = "slabinterval",
     y = distribution,
     mapping = aes(dist = values),
-    colour = blue,
+    colour = lightness[1],
     fill = blue,
-    alpha = 0.6,
     y_expand = c(0.05, 0.05),
     # show_slab = FALSE,
     # show_interval = FALSE,
-    # side = "both",
   ) +
   theme(legend.position = "none")
 ```
