@@ -356,7 +356,6 @@ data.frame(
     stat = "hdr",
     x = x, 
     y = y, 
-    colour = NA,
     y_symmetric = FALSE,
   ) +
   guides(colour = FALSE, fill = FALSE)
@@ -377,7 +376,6 @@ data.frame(
     y = y, 
     col = z,
     facet = z,
-    colour = NA,
     y_symmetric = FALSE,
   ) 
 ```
@@ -402,7 +400,6 @@ penguins2 |>
     width = 0.75,
   ) 
 ```
-
 
 ### paletteer
 
