@@ -1,7 +1,7 @@
 # ggblanket 10.0.0.9000
 
 * Updated legend key size.
-* Removed base_size scaling, so that plot_size only controls the size of text.
+* Removed base_size scaling, so that base_size only controls the size of text.
 
 # ggblanket 10.0.0
 
