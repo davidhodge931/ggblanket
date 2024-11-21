@@ -1403,8 +1403,7 @@ gg_blanket <- function(data = NULL,
       linewidth = linewidth_label,
       linetype = linetype_label,
       pattern = pattern_label
-    ) +
-    mode
+    )
 
   ##############################################################################
   # mode make transparent some theme components

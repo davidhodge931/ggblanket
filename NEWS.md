@@ -1,7 +1,9 @@
 # ggblanket 10.0.0.9000
 
-* Updated legend key size.
-* Removed base_size scaling, so that base_size only controls the size of text.
+* In `set_blanket`, default to using no opacity, and updated arguments accordingly.
+* In `*_mode_*`, updated the legend key size.
+* In `*_mode_*`, removed `base_size` scaling of anything other than text size.
+* Supported `*_label` to work where a mode is set as a list with `*_label = NULL`.  
 
 # ggblanket 10.0.0
 

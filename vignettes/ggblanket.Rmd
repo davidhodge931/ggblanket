@@ -358,12 +358,14 @@ penguins2 |>
 
 The `set_blanket` function sets customisable defaults for the:
 
-* mode (i.e. a theme added with side-effects)
+* mode (i.e. a theme added with side-effects). 
 * geom defaults (i.e. colour/fill used where no colour aesthetic scale)
 * discrete colour palette (and NA colour)
 * continuous colour palette (and NA colour)
 * ordinal colour palette (and NA colour)
 * theme (i.e. a theme added with no side-effects)
+
+Note the `mode` argument can also be used to default a `*_label` to NULL.
 
 The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
 
@@ -371,7 +373,7 @@ The `ggplot2::update_geom_defaults()` function can be used to further fine-tune 
 
 ```{r}
 set_blanket(
-  mode = dark_mode_r(), 
+  mode = list(dark_mode_r(), labs(colour = NULL, fill = NULL)), 
   colour = "#E7298AFF",
   colour_text = darkness[1],
   col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF", "#66A61EFF", 
