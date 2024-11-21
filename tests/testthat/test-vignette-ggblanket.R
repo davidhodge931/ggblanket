@@ -32,7 +32,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = species,
+      ink = species,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -47,7 +47,7 @@ test_that(test_name, {
     mutate(across(sex, \(x) str_to_sentence(x))) |>
     gg_bar(
       y = species,
-      col = sex,
+      ink = sex,
       width = 0.75,
       position = "dodge",
     )
@@ -109,8 +109,8 @@ test_that(test_name, {
 #
 #   p <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE) |>
 #     gg_sf(
-#       col = AREA,
-#       col_palette = viridisLite::rocket(n = 9)
+#       ink = AREA,
+#       ink_palette = viridisLite::rocket(n = 9)
 #     )
 #
 #   vdiffr::expect_doppelganger(test_name, p)
@@ -127,7 +127,7 @@ test_that(test_name, {
     gg_point(
       x = species,
       y = body_mass_g,
-      col = flipper_length_mm,
+      ink = flipper_length_mm,
       facet = sex,
       x_labels = \(x) str_sub(x, 1, 1),
       y_expand_limits = 0,
@@ -135,7 +135,7 @@ test_that(test_name, {
       y_labels = scales::label_number(big.mark = " "),
       y_expand = expansion(mult = c(0, 0.05)),
       y_label = "Body mass (g)",
-      col_steps = TRUE,
+      ink_steps = TRUE,
       facet_labels = \(x) str_to_sentence(x),
     )
 
@@ -173,7 +173,7 @@ test_that(test_name, {
       x = trt,
       ymin = lower,
       ymax = upper,
-      col = group,
+      ink = group,
       width = 0.1,
       x_label = "Treatment",
       y_label = "Response",
@@ -186,7 +186,7 @@ test_that(test_name, {
       x = trt,
       ymin = lower,
       ymax = upper,
-      col = group,
+      ink = group,
       width = 0.1,
       x_label = "Treatment",
       y_label = "Response",
@@ -208,7 +208,7 @@ test_that(test_name, {
   p <- penguins |>
     gg_histogram(
       x = flipper_length_mm,
-      col = species,
+      ink = species,
       title = "Penguin flipper length by species",
       subtitle = "Palmer Archipelago, Antarctica",
       caption = "Source: Gorman, 2020",
@@ -227,7 +227,7 @@ test_that(test_name, {
   p <- penguins |>
     gg_histogram(
       x = flipper_length_mm,
-      col = species,
+      ink = species,
       title = "Penguin flipper length by species",
       subtitle = "Palmer Archipelago, Antarctica",
       caption = "Source: Gorman, 2020",
@@ -256,7 +256,7 @@ test_that(test_name, {
       x = trt,
       ymin = lower,
       ymax = upper,
-      col = group,
+      ink = group,
       width = 0.1,
       x_label = "Treatment",
       y_label = "Response",
@@ -269,7 +269,7 @@ test_that(test_name, {
       x = trt,
       ymin = lower,
       ymax = upper,
-      col = group,
+      ink = group,
       width = 0.1,
       x_label = "Treatment",
       y_label = "Response",
@@ -282,7 +282,7 @@ test_that(test_name, {
     gg_col(
       x = trt,
       y = upper,
-      col = group,
+      ink = group,
       position = "dodge",
       width = 0.5,
       x_label = "Treatment upper",
@@ -307,7 +307,7 @@ test_that(test_name, {
     gg_smooth(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = sex,
+      ink = sex,
       se = TRUE, # via ... from geom_smooth
       level = 0.999, # via ... from geom_smooth
     )
@@ -342,7 +342,7 @@ test_that(test_name, {
     gg_boxplot(
       x = species,
       y = flipper_length_mm,
-      col = sex,
+      ink = sex,
       position = position_dodge2(preserve = "single"),
       alpha = 0,
     )
@@ -366,7 +366,7 @@ test_that(test_name, {
       xmin = lower,
       xmax = upper,
       y = species,
-      col = species,
+      ink = species,
       width = 0.75,
       x_expand_limits = c(0, max(.$upper)),
       x_labels = \(x) x / 1000,
@@ -394,7 +394,7 @@ test_that(test_name, {
     gg_blanket(
       x = body_mass_g,
       y = species,
-      col = species,
+      ink = species,
       xmin = lower,
       xmax = upper,
       width = 0.75,
@@ -425,7 +425,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = species,
+      ink = species,
       mapping = aes(alpha = species, shape = species),
     )
 
@@ -442,7 +442,7 @@ test_that(test_name, {
       stat = "bin",
       position = "stack",
       x = flipper_length_mm,
-      col = species,
+      ink = species,
     )
 
   vdiffr::expect_doppelganger(test_name, p)

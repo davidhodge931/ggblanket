@@ -1,7 +1,7 @@
 #' Get the base of the plot
 #'
 #' @param data A data frame or tibble.
-#' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,group,subgroup,label,text,sample An unquoted aesthetic variable.
+#' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,ink,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #'
 #' @noRd
 get_base <- function(
@@ -15,7 +15,7 @@ get_base <- function(
     ymax = NULL,
     yend = NULL,
     z = NULL,
-    col = NULL,
+    ink = NULL,
     facet = NULL,
     facet2 = NULL,
     group = NULL,
@@ -26,7 +26,7 @@ get_base <- function(
 
   x <- rlang::enquo(x)
   y <- rlang::enquo(y)
-  col <- rlang::enquo(col)
+  ink <- rlang::enquo(ink)
   facet <- rlang::enquo(facet)
   facet2 <- rlang::enquo(facet2)
   xmin <- rlang::enquo(xmin)
@@ -44,7 +44,7 @@ get_base <- function(
   text <- rlang::enquo(text)
 
   if (rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
-    if (rlang::quo_is_null(col)) {
+    if (rlang::quo_is_null(ink)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
@@ -62,12 +62,12 @@ get_base <- function(
           text = !!text
         ))
     }
-    else if (!rlang::quo_is_null(col)) {
+    else if (!rlang::quo_is_null(ink)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
-          col = !!col,
-          fill = !!col,
+          colour = !!ink,
+          fill = !!ink,
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
@@ -84,7 +84,7 @@ get_base <- function(
     }
   }
   else if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
-    if (rlang::quo_is_null(col)) {
+    if (rlang::quo_is_null(ink)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
@@ -102,12 +102,12 @@ get_base <- function(
           text = !!text
         ))
     }
-    else if (!rlang::quo_is_null(col)) {
+    else if (!rlang::quo_is_null(ink)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
-          col = !!col,
-          fill = !!col,
+          colour = !!ink,
+          fill = !!ink,
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
@@ -124,7 +124,7 @@ get_base <- function(
     }
   }
   else if (!rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
-    if (rlang::quo_is_null(col)) {
+    if (rlang::quo_is_null(ink)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
@@ -143,13 +143,13 @@ get_base <- function(
           text = !!text
         ))
     }
-    else if (!rlang::quo_is_null(col)) {
+    else if (!rlang::quo_is_null(ink)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
-          col = !!col,
-          fill = !!col,
+          colour = !!ink,
+          fill = !!ink,
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,
@@ -166,7 +166,7 @@ get_base <- function(
     }
   }
   else if (rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
-    if (rlang::quo_is_null(col)) {
+    if (rlang::quo_is_null(ink)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
           xmin = !!xmin,
@@ -183,11 +183,11 @@ get_base <- function(
           text = !!text
         ))
     }
-    else if (!rlang::quo_is_null(col)) {
+    else if (!rlang::quo_is_null(ink)) {
       plot <- data %>%
         ggplot2::ggplot(mapping = ggplot2::aes(
-          col = !!col,
-          fill = !!col,
+          colour = !!ink,
+          fill = !!ink,
           xmin = !!xmin,
           xmax = !!xmax,
           xend = !!xend,

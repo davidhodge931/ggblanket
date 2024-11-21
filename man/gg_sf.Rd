@@ -21,7 +21,7 @@ gg_sf(
   ymax = NULL,
   yend = NULL,
   z = NULL,
-  col = NULL,
+  ink = NULL,
   facet = NULL,
   facet2 = NULL,
   group = NULL,
@@ -50,20 +50,20 @@ gg_sf(
   y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
   y_transform = NULL,
-  col_breaks = NULL,
-  col_breaks_n = 5,
-  col_drop = FALSE,
-  col_expand_limits = NULL,
-  col_label = NULL,
-  col_labels = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
-  col_legend_rev = FALSE,
-  col_palette = NULL,
-  col_palette_na = NULL,
-  col_rescale = scales::rescale(),
-  col_steps = FALSE,
-  col_transform = NULL,
+  ink_breaks = NULL,
+  ink_breaks_n = 5,
+  ink_drop = FALSE,
+  ink_expand_limits = NULL,
+  ink_label = NULL,
+  ink_labels = NULL,
+  ink_legend_ncol = NULL,
+  ink_legend_nrow = NULL,
+  ink_legend_rev = FALSE,
+  ink_palette = NULL,
+  ink_palette_na = NULL,
+  ink_rescale = scales::rescale(),
+  ink_steps = FALSE,
+  ink_transform = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
   facet_drop = FALSE,
@@ -94,21 +94,21 @@ gg_sf(
 
 \item{mode_orientation}{The orientation of plot, which affects the theme components that are removed from the mode. Either "x" or "y".}
 
-\item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
+\item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, ink, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}}. Intended primarily for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}), but can also be used for delayed evaluation etc.}
 
-\item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
+\item{x_breaks, y_breaks, ink_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 
-\item{x_breaks_n, y_breaks_n, col_breaks_n}{A number of desired breaks for when \verb{*_breaks = NULL}.}
+\item{x_breaks_n, y_breaks_n, ink_breaks_n}{A number of desired breaks for when \verb{*_breaks = NULL}.}
 
 \item{x_expand, y_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 
-\item{x_expand_limits, y_expand_limits, col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
+\item{x_expand_limits, y_expand_limits, ink_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
 
-\item{x_label, y_label, col_label}{Label for the axis or legend title. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
+\item{x_label, y_label, ink_label}{Label for the axis or legend title. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
 
-\item{x_labels, y_labels, col_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \verb{scales::label_*()}), or a vector of labels. (Note this must be named for \code{facet_labels}).}
+\item{x_labels, y_labels, ink_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \verb{scales::label_*()}), or a vector of labels. (Note this must be named for \code{facet_labels}).}
 
 \item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_mode_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 
@@ -116,21 +116,21 @@ gg_sf(
 
 \item{x_symmetric, y_symmetric}{\code{TRUE} or \code{FALSE} of whether a symmetric scale.}
 
-\item{x_transform, y_transform, col_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
+\item{x_transform, y_transform, ink_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
 
-\item{col_drop, facet_drop}{For a discrete variable, FALSE or TRUE of whether to drop unused levels.}
+\item{ink_drop, facet_drop}{For a discrete variable, FALSE or TRUE of whether to drop unused levels.}
 
-\item{col_legend_ncol, col_legend_nrow}{The number of columns and rows in a legend guide.}
+\item{ink_legend_ncol, ink_legend_nrow}{The number of columns and rows in a legend guide.}
 
-\item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
+\item{ink_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
 
-\item{col_palette}{A character vector of hex codes (or names) or a \verb{scales::pal_*()} function.}
+\item{ink_palette}{A character vector of hex codes (or names) or a \verb{scales::pal_*()} function.}
 
-\item{col_palette_na}{A hex code (or name) for the colour of \code{NA} values.}
+\item{ink_palette_na}{A hex code (or name) for the colour of \code{NA} values.}
 
-\item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
+\item{ink_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
-\item{col_steps}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
+\item{ink_steps}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
 
 \item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_mode_*()} may be needed.}
 
@@ -150,7 +150,7 @@ gg_sf(
 
 \item{caption}{Caption title string.}
 
-\item{label_to_case}{A function to format the default \code{x_label}, \code{y_label} and \code{col_label} of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
+\item{label_to_case}{A function to format the default \code{x_label}, \code{y_label} and \code{ink_label} of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
 }
 \value{
 A ggplot object.
@@ -167,7 +167,7 @@ set_blanket()
 if (requireNamespace("sf", quietly = TRUE)) {
   sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
     gg_sf(
-      col = AREA,
+      ink = AREA,
     )
 }
 

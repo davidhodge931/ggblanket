@@ -132,7 +132,7 @@ penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = species,
+    ink = species,
     mode = light_mode_r()
   )
 
@@ -140,7 +140,7 @@ penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = species,
+    ink = species,
     mode = light_mode_t()
   )
 
@@ -148,7 +148,7 @@ penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = species,
+    ink = species,
     mode = light_mode_b()
   )
 

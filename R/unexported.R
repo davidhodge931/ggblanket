@@ -25,7 +25,7 @@
 #'    gg_point(
 #'      x = flipper_length_mm,
 #'      y = body_mass_g,
-#'      col = sex,
+#'      ink = sex,
 #'      x_labels = label_every_nth(),
 #'      y_labels = label_every_nth(),
 #'    )

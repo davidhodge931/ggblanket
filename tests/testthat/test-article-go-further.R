@@ -84,7 +84,7 @@ test_name <- "3"
 
 test_that(test_name, {
   p <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE) |>
-    gg_sf(col = AREA)
+    gg_sf(ink = AREA)
 
   vdiffr::expect_doppelganger(test_name, p)
 })
@@ -115,7 +115,7 @@ test_that(test_name, {
     gg_boxplot(
       x = species,
       y = flipper_length_mm,
-      col = sex,
+      ink = sex,
       colour = "black", #or fill = #D3D3D3",
       position = position_dodge2(preserve = "single"),
       alpha = 0.9,
@@ -153,7 +153,7 @@ test_that(test_name, {
     gg_col(
       x = sex,
       y = n,
-      col = species,
+      ink = species,
       position = position_dodge2(preserve = "single"),
       width = 0.75,
       x_labels = \(x) str_to_sentence(x),
@@ -171,7 +171,7 @@ test_that(test_name, {
     gg_col(
       x = n,
       y = sex,
-      col = species,
+      ink = species,
       position = position_dodge2(preserve = "single"),
       width = 0.75,
       y_labels = \(x) str_to_sentence(x),
@@ -212,7 +212,7 @@ test_that(test_name, {
     gg_col(
       y = age,
       x = population,
-      col = sex,
+      ink = sex,
       width = 1,
       orientation = "y",
       x_labels = \(x) abs(x),
@@ -240,7 +240,7 @@ test_that(test_name, {
     gg_col(
       y = age,
       x = population,
-      col = sex,
+      ink = sex,
       width = 1,
       orientation = "y",
       x_labels = \(x) abs(x),

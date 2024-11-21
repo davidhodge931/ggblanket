@@ -32,7 +32,7 @@ penguins |>
   gg_col(
     x = sex,
     y = n,
-    col = species,
+    ink = species,
     label = n,
     position = position_dodge(preserve = "single"),
     width = 0.75,
@@ -50,7 +50,7 @@ penguins |>
   gg_col(
     x = sex,
     y = n,
-    col = species,
+    ink = species,
     position = position_dodge(preserve = "single"),
     width = 0.75,
     x_labels = \(x) str_to_sentence(x),

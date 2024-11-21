@@ -25,7 +25,7 @@ test_that(test_name, {
     gg_point(
       x = q2,
       y = q1,
-      col = q3,
+      ink = q3,
       facet = q4,
     )
 

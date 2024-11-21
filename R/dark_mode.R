@@ -39,7 +39,7 @@
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
-#'     col = species,
+#'     ink = species,
 #'     mode = dark_mode_r()
 #'   )
 #'
@@ -47,7 +47,7 @@
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
-#'     col = species,
+#'     ink = species,
 #'     mode = dark_mode_t()
 #'   )
 #'
@@ -55,7 +55,7 @@
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
-#'     col = species,
+#'     ink = species,
 #'     mode = dark_mode_b()
 #'   )
 #'

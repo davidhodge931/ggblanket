@@ -95,7 +95,7 @@ penguins2 |>
     position = ggbeeswarm::position_quasirandom(),
     x = sex, 
     y = flipper_length_mm,
-    col = sex,
+    ink = sex,
   ) +
   theme(legend.position = "none")
 ```
@@ -109,8 +109,8 @@ msleep |>
   gg_point(
     x = bodywt, 
     y = brainwt,
-    col = vore,
-    col_labels = str_to_sentence,
+    ink = vore,
+    ink_labels = str_to_sentence,
     x_transform = "log10",
     y_transform = "log10",
   ) +
@@ -335,7 +335,7 @@ economics |>
   gg_line(
     x = date,
     y = unemploy,
-    col = date,
+    ink = date,
     y_position = "right",
     x_position = "top",
     caption = "", 
@@ -411,7 +411,7 @@ faithfuld |>
 
 ### 13. Rescale a diverging col scale
 
-Use `col_rescale` to rescale a diverging scale around a central point. 
+Use `ink_rescale` to rescale a diverging scale around a central point. 
 
 ```{r}
 rescale_vctr <- sort(c(range(mpg$cty), 15))
@@ -420,10 +420,10 @@ mpg  |>
   gg_point(
     x = displ, 
     y = hwy, 
-    col = cty,
-    col_palette = c(navy, teal, "white", orange, red),
-    col_rescale = scales::rescale(rescale_vctr),
-    col_breaks = scales::breaks_width(5),
+    ink = cty,
+    ink_palette = c(navy, teal, "white", orange, red),
+    ink_rescale = scales::rescale(rescale_vctr),
+    ink_breaks = scales::breaks_width(5),
     mode = dark_mode_r(),
   )
 ```
@@ -436,7 +436,7 @@ set_blanket()
 penguins2 |> 
   gg_histogram(
     x = flipper_length_mm,
-    col = species,
+    ink = species,
     mode = light_mode_r(),
   ) +
   theme(legend.position = "inside") +

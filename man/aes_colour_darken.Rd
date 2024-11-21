@@ -45,7 +45,7 @@ set_blanket(
 penguins |>
   gg_bar(
     y = species,
-    col = island,
+    ink = island,
     mapping = aes_colour_darken(amount = 0.2),
     width = 0.75,
   )
@@ -53,7 +53,7 @@ penguins |>
 penguins |>
 gg_bar(
   y = species,
-  col = island,
+  ink = island,
   mapping = aes(!!!aes_colour_darken(amount = 0.2)),
   width = 0.75,
 )

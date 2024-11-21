@@ -21,7 +21,7 @@ test_that(test_name, {
       position = "dodge",
       x = sex,
       y = body_mass_g,
-      col = species,
+      ink = species,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -39,7 +39,7 @@ test_that(test_name, {
       position = "dodge",
       x = sex,
       y = body_mass_g,
-      col = species,
+      ink = species,
     )
 
     vdiffr::expect_doppelganger(test_name, p)
@@ -57,7 +57,7 @@ test_that(test_name, {
       position = "dodge",
       x = sex,
       y = body_mass_g,
-      col = species,
+      ink = species,
     )
 
     vdiffr::expect_doppelganger(test_name, p)
@@ -75,7 +75,7 @@ test_that(test_name, {
       position = PositionDodge,
       x = sex,
       y = body_mass_g,
-      col = species,
+      ink = species,
     )
 
     vdiffr::expect_doppelganger(test_name, p)
@@ -93,7 +93,7 @@ test_that(test_name, {
       position = PositionDodge,
       x = sex,
       y = body_mass_g,
-      col = species,
+      ink = species,
     )
 
     vdiffr::expect_doppelganger(test_name, p)

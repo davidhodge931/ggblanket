@@ -26,7 +26,7 @@ test_that(test_name, {
     dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_bar(
       y = species,
-      col = sex,
+      ink = sex,
       position = position_dodge(preserve = "single"),
       width = 0.75,
     )
@@ -55,7 +55,7 @@ test_that(test_name, {
     gg_boxplot(
       x = flipper_length_mm,
       y = sex,
-      col = species,
+      ink = species,
       mode = light_mode_b(),
     )
   vdiffr::expect_doppelganger(test_name, p)
@@ -73,7 +73,7 @@ test_that(test_name, {
     gg_col(
       x = flipper_length_mm,
       y = species,
-      col = sex,
+      ink = sex,
       position = position_dodge(preserve = "single"),
       width = 0.75,
     )
@@ -125,7 +125,7 @@ test_that(test_name, {
       y = resp,
       ymin = lower,
       ymax = upper,
-      col = group,
+      ink = group,
       width = 0.5,
       x_label = "Treatment",
       y_label = "Response",
@@ -143,7 +143,7 @@ test_that(test_name, {
     tidyr::drop_na(sex) |>
     gg_density(
       x = flipper_length_mm,
-      col = species,
+      ink = species,
       mode = light_mode_t(),
     )
 
@@ -199,7 +199,7 @@ test_that(test_name, {
       x = trt,
       ymin = lower,
       ymax = upper,
-      col = group,
+      ink = group,
       width = 0.1,
       x_label = "Treatment",
       y_label = "Response",
@@ -216,7 +216,7 @@ test_that(test_name, {
     dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_freqpoly(
       x = flipper_length_mm,
-      col = sex,
+      ink = sex,
       mode = light_mode_t(),
     ) +
     theme(legend.title = element_blank())
@@ -259,7 +259,7 @@ test_that(test_name, {
     dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_histogram(
       x = flipper_length_mm,
-      col = sex,
+      ink = sex,
       facet = species,
       bins = 50,
       mode = light_mode_b(),
@@ -278,10 +278,10 @@ test_that(test_name, {
 #     gg_jitter(
 #       x = species,
 #       y = body_mass_g,
-#       col = flipper_length_mm,
+#       ink = flipper_length_mm,
 #       position = position_jitter(height = 0),
 #       y_expand_limits = 0,
-#       col_steps = TRUE,
+#       ink_steps = TRUE,
 #     )
 #
 #   vdiffr::expect_doppelganger(test_name, p)
@@ -298,12 +298,12 @@ test_that(test_name, {
     gg_label(
       x = model,
       y = mpg,
-      col = mpg,
+      ink = mpg,
       label = model,
       size = 3.53,
       y_expand_limits = 0,
       y_label = "Miles per gallon",
-      col_palette = c(orange, "white", teal),
+      ink_palette = c(orange, "white", teal),
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -338,7 +338,7 @@ test_that(test_name, {
       x = trt,
       ymin = lower,
       ymax = upper,
-      col = group,
+      ink = group,
       position = position_dodge(width = 0.2),
       x_label = "Treatment",
       y_label = "Response",
@@ -372,7 +372,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = species,
+      ink = species,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -391,7 +391,7 @@ test_that(test_name, {
     gg_pointrange(
       x = trt,
       y = resp,
-      col = group,
+      ink = group,
       ymin = lower,
       ymax = upper,
       position = position_dodge(width = 0.2),
@@ -428,7 +428,7 @@ test_that(test_name, {
     gg_polygon(
       x = x,
       y = y,
-      col = value,
+      ink = value,
       group = id,
     )
 
@@ -473,7 +473,7 @@ test_that(test_name, {
     gg_raster(
       x = waiting,
       y = eruptions,
-      col = density,
+      ink = density,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -499,7 +499,7 @@ test_that(test_name, {
       xmax = xmax,
       ymin = ymin,
       ymax = ymax,
-      col = z,
+      ink = z,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -535,7 +535,7 @@ test_that(test_name, {
 #     gg_rug(
 #       x = flipper_length_mm,
 #       y = body_mass_g,
-#       col = sex,
+#       ink = sex,
 #     )
 #
 #   vdiffr::expect_doppelganger(test_name, p)
@@ -562,7 +562,7 @@ test_that(test_name, {
 # test_that(test_name, {
 #   p <- sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
 #     gg_sf(
-#       col = AREA,
+#       ink = AREA,
 #     )
 #
 #   vdiffr::expect_doppelganger(test_name, p)
@@ -578,7 +578,7 @@ test_that(test_name, {
     gg_smooth(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = sex,
+      ink = sex,
       se = TRUE,
     )
 
@@ -612,12 +612,12 @@ test_that(test_name, {
     gg_text(
       x = model,
       y = mpg,
-      col = mpg,
+      ink = mpg,
       label = model,
       size = 3.53,
       y_expand_limits = 0,
       y_label = "Miles per gallon",
-      col_palette = c(orange, "white", teal),
+      ink_palette = c(orange, "white", teal),
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -634,7 +634,7 @@ test_that(test_name, {
     gg_tile(
       x = sex,
       y = species,
-      col = flipper_length_mm,
+      ink = flipper_length_mm,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -652,7 +652,7 @@ test_that(test_name, {
     gg_violin(
       x = sex,
       y = body_mass_g,
-      col = species,
+      ink = species,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -671,7 +671,7 @@ test_that(test_name, {
       position = "dodge",
       x = sex,
       y = body_mass_g,
-      col = species,
+      ink = species,
     )
 
   vdiffr::expect_doppelganger(test_name, p)

@@ -14,7 +14,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = species,
+      ink = species,
       facet = sex,
       facet2 = island,
       mapping = aes(alpha = species, shape = species),
@@ -33,7 +33,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = species,
+      ink = species,
       facet = sex,
       facet2 = island,
       mapping = aes(alpha = species, shape = species),
@@ -52,7 +52,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = species,
+      ink = species,
       facet = sex,
       facet2 = island,
       mapping = aes(alpha = species, shape = species),
@@ -72,7 +72,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = species,
+      ink = species,
       facet = sex,
       facet2 = island,
       mapping = aes(alpha = species, shape = species),

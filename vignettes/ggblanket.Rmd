@@ -103,18 +103,16 @@ penguins2 |>
 
 ### 3. A merged `col` argument to colour/fill by a variable
 
-The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. 
+The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `ink` argument. 
 
-This combined aesthetic means that all colour outlines and all fill interiors should be coloured with the `col_palette` by the `col` variable. 
-
-Use `colour = NA` or `fill = NA` to turn one of these off.
+This combined aesthetic means that all colour outlines and all fill interiors should be coloured with the `ink_palette` by the `ink` variable. 
 
 ```{r}
 penguins2 |>
   gg_violin(
     x = flipper_length_mm,
     y = island,
-    col = sex, 
+    ink = sex, 
   )
 ```
 
@@ -162,7 +160,7 @@ penguins2 |>
   gg_jitter(
     x = species, 
     y = flipper_length_mm, 
-    col = island,
+    ink = island,
     mapping = aes(shape = sex),
   ) +
   guides(shape = guide_legend(override.aes = list(colour = grey)))
@@ -181,23 +179,23 @@ penguins2 |>
   gg_jitter(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = bill_length_mm,
+    ink = bill_length_mm,
     x_breaks_n = 4,
     x_label = "Flipper length",
     x_labels = \(x) paste0(x, " mm"),
     y_expand_limits = 1000,
     y_labels = label_number(big.mark = " "), 
     y_transform = "sqrt",
-    col_label = "Bill\nlength (mm)",
-    col_steps = TRUE,
-    col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
-    col_palette = viridis::rocket(n = 9, direction = -1),
+    ink_label = "Bill\nlength (mm)",
+    ink_steps = TRUE,
+    ink_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
+    ink_palette = viridis::rocket(n = 9, direction = -1),
   )
 ```
 
 ### 8.  Smart `*_label` defaults for axis and legend titles
 
-The `x_label`, `y_label` and `col_label` for the axis and legend titles can be manually specified with the applicable `*_label` argument (or `+ ggplot2::labs(...)`).
+The `x_label`, `y_label` and `ink_label` for the axis and legend titles can be manually specified with the applicable `*_label` argument (or `+ ggplot2::labs(...)`).
 
 If not specified, they will first take any label attribute associated with the applicable variable. 
 
@@ -207,7 +205,7 @@ If none, they will then convert the variable name to a label name using the `lab
 penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
-    col = species,
+    ink = species,
   )
 ```
 
@@ -224,8 +222,8 @@ penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex, 
-    col_palette = c("#003F5CFF", "#FFA600FF"),
+    ink = sex, 
+    ink_palette = c("#003F5CFF", "#FFA600FF"),
     colour = "#BC5090FF", 
     linewidth = 1, 
     linetype = "dashed",
@@ -243,7 +241,7 @@ penguins2 |>
 penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
-    col = species,
+    ink = species,
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
@@ -339,7 +337,7 @@ penguins2 |>
     x = bill_depth_mm,
     xmin = lower, 
     xmax = upper,
-    col = sex,
+    ink = sex,
     position = position_dodge(width = 0.75),
     x_expand_limits = 0,
   ) +
@@ -377,7 +375,7 @@ set_blanket(
   colour = "#E7298AFF",
   text_colour = darkness[1],
   reference_line_colour = darkness[1],
-  col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
+  ink_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
                     "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
 )
 
@@ -393,7 +391,7 @@ p1 <- penguins2 |>
 p2 <- penguins2 |> 
   gg_histogram(
     x = flipper_length_mm,
-    col = species,
+    ink = species,
     x_breaks_n = 4, 
   ) +
   geom_vline(xintercept = 200) +
@@ -423,7 +421,7 @@ expand.grid(x = 1:10, y = 1:10) |>
     geom = "spoke",
     x = x, 
     y = y,
-    col = speed,
+    ink = speed,
     mapping = aes(angle = angle, radius = speed),
   ) +
   geom_point()

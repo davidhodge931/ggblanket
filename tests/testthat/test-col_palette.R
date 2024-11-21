@@ -31,7 +31,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = species,
-      col = bill_length_mm,
+      ink = bill_length_mm,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -46,7 +46,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = species,
-      col = species,
+      ink = species,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -62,7 +62,7 @@ test_that(test_name, {
       y = eruptions,
       z = density,
       bins = 8,
-      col_palette = scales::pal_viridis(option = "A"),
+      ink_palette = scales::pal_viridis(option = "A"),
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -77,8 +77,8 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = species,
-      col = bill_length_mm,
-      col_palette = scales::pal_viridis(option = "A"),
+      ink = bill_length_mm,
+      ink_palette = scales::pal_viridis(option = "A"),
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -93,8 +93,8 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = species,
-      col = species,
-      col_palette = scales::pal_viridis(option = "A")
+      ink = species,
+      ink_palette = scales::pal_viridis(option = "A")
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -109,8 +109,8 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = species,
-      col = bill_length_mm,
-      col_palette = viridisLite::magma(n = 20)
+      ink = bill_length_mm,
+      ink_palette = viridisLite::magma(n = 20)
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -125,8 +125,8 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = species,
-      col = species,
-      col_palette = c("red", "blue", "green")
+      ink = species,
+      ink_palette = c("red", "blue", "green")
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -141,8 +141,8 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = species,
-      col = species,
-      col_palette = c("Gentoo" = "red", "Adelie" = "blue", "Chinstrap" = "green")
+      ink = species,
+      ink_palette = c("Gentoo" = "red", "Adelie" = "blue", "Chinstrap" = "green")
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -159,7 +159,7 @@ test_that(test_name, {
       y = eruptions,
       z = density,
       bins = 8,
-      col_palette = viridisLite::magma(n = 8)
+      ink_palette = viridisLite::magma(n = 8)
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -202,7 +202,7 @@ test_that(test_name, {
     gg_point(
       x = mpg,
       y = wt,
-      col = cyl,
+      ink = cyl,
     )
 
   vdiffr::expect_doppelganger(test_name, p)

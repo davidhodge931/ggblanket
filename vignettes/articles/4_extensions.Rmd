@@ -96,7 +96,7 @@ penguins2 |>
   gg_point(
     x = bill_depth_mm,
     y = bill_length_mm,
-    col = species,
+    ink = species,
     title = "**{.#0095a8ff Adelie}**, **{.#ffa600ff Chinstrap}**, *and* 
     **{.#003f5cff Gentoo}** penguin species",
   ) +
@@ -125,7 +125,7 @@ penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex,
+    ink = sex,
     facet = species,
     title = "penguins2 body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
@@ -159,7 +159,7 @@ The `gg_*` function builds the scale for the data that it thinks will be within 
 penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
-    col = species,
+    ink = species,
     x_breaks_n = 4,
   ) + #build the scale for all data
   facet_wrap(~species) + #then add facet layer
@@ -193,7 +193,7 @@ penguins2 |>
     geom = "mark_hull",
     x = flipper_length_mm,
     y = body_mass_g,
-    col = species,
+    ink = species,
     coord = coord_cartesian(),
   ) +
   geom_point()
@@ -232,7 +232,7 @@ p1 <- penguins2 |>
     position = position_beeswarm(),
     x = sex, 
     y = flipper_length_mm,
-    col = sex,
+    ink = sex,
     x_labels = \(x) str_to_upper(str_sub(x, 1, 1)),
     subtitle = "\nBeeswarm",
   ) +
@@ -243,7 +243,7 @@ p2 <- penguins2 |>
     position = ggbeeswarm::position_quasirandom(),
     x = sex, 
     y = flipper_length_mm,
-    col = sex,
+    ink = sex,
     x_labels = \(x) str_to_upper(str_sub(x, 1, 1)),
     subtitle = "\nQuasirandom",
   ) +
@@ -269,7 +269,7 @@ ggridges::Catalan_elections |>
     coord = coord_cartesian(xlim = c(0, 100)),
     x = percent,
     y = year,
-    col = option,
+    ink = option,
     colour = "white",
     y_expand = expansion(c(0, 0.125)),
     alpha = 0.9,
@@ -327,10 +327,10 @@ tibble(x = 1:10) |>
     y = y,
     ymin = .lower,
     ymax = .upper,
-    col = .width,
+    ink = .width,
     colour = viridis::mako(n = 9)[c(1)],
-    col_legend_rev = TRUE,
-    col_palette = viridis::mako(n = 9)[c(4,6,9)],
+    ink_legend_rev = TRUE,
+    ink_palette = viridis::mako(n = 9)[c(4,6,9)],
   )
 ```
 
@@ -372,7 +372,7 @@ data.frame(
     stat = "hdr",
     x = x, 
     y = y, 
-    col = z,
+    ink = z,
     facet = z,
     y_symmetric = FALSE,
   ) 
@@ -389,11 +389,11 @@ penguins2 |>
   tidyr::drop_na() |> 
   labelled::copy_labels_from(penguins2) |> 
   gg_blanket(
-    geom = "col_pattern",
+    geom = "ink_pattern",
     position = "dodge",
     y = species,
     x = body_mass_g,
-    col = sex,
+    ink = sex,
     mapping = aes(pattern = sex),
     width = 0.75,
   ) 
@@ -410,8 +410,8 @@ p1 <- penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = species,
-    col_palette = paletteer_d("RColorBrewer::Dark2"),
+    ink = species,
+    ink_palette = paletteer_d("RColorBrewer::Dark2"),
     x_breaks_n = 4,
   ) +
   theme(legend.position = "none")
@@ -420,8 +420,8 @@ p2 <- penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = bill_depth_mm,
-    col_palette = paletteer_c("viridis::rocket", 9),
+    ink = bill_depth_mm,
+    ink_palette = paletteer_c("viridis::rocket", 9),
     x_breaks_n = 4,
   ) +
   theme(legend.position = "none")
@@ -438,7 +438,7 @@ The ggblend package provides blending of colours. You must use a graphics device
 p1 <- penguins2 |>
   gg_density(
     x = flipper_length_mm,
-    col = species,
+    ink = species,
     y_symmetric = FALSE,
   ) +
   facet_wrap(~"Normal") +
@@ -449,7 +449,7 @@ p2 <- penguins2 |>
   gg_blanket(
     stat = "density",
     x = flipper_length_mm,
-    col = species,
+    ink = species,
     y_symmetric = FALSE,
   ) +
   facet_wrap(~"Blended") +
@@ -493,7 +493,7 @@ penguins2 |>
   gg_jitter(
     x = species, 
     y = body_mass_g, 
-    col = sex, 
+    ink = sex, 
   ) +
   light_mode_t() +
   easy_remove_y_gridlines() +

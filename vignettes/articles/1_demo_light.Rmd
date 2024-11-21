@@ -69,7 +69,7 @@ penguins2 |>
   gg_bar(
     position = position_dodge(preserve = "single"),
     y = species,
-    col = sex,
+    ink = sex,
     width = 0.75,
   )
 ```
@@ -91,7 +91,7 @@ penguins2 |>
   gg_boxplot(
     x = flipper_length_mm,
     y = sex,
-    col = species,
+    ink = species,
     alpha = 0,
   )
 ```
@@ -107,7 +107,7 @@ penguins2 |>
     position = position_dodge(preserve = "single"),
     x = flipper_length_mm,
     y = species,
-    col = sex,
+    ink = sex,
     width = 0.75,
   )
 ```
@@ -144,7 +144,7 @@ experiment |>
     y = resp,
     ymin = lower,
     ymax = upper,
-    col = group,
+    ink = group,
     alpha = 0,
     width = 0.5,
     y_expand_limits = 0,
@@ -157,7 +157,7 @@ experiment |>
 penguins2 |>
   gg_density(
     x = flipper_length_mm,
-    col = species,
+    ink = species,
     mode = light_mode_t(),
   )
 ```
@@ -194,7 +194,7 @@ experiment |>
     x = trt,
     ymin = lower,
     ymax = upper,
-    col = group,
+    ink = group,
     y_label = "Response",
     width = 0.1,
     y_expand_limits = 0,
@@ -207,7 +207,7 @@ experiment |>
 penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
-    col = sex,
+    ink = sex,
     mode = light_mode_t(),
   ) +
   theme(legend.title = element_blank())
@@ -240,7 +240,7 @@ diamonds |>
 penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
-    col = sex,
+    ink = sex,
     facet = species,
     bins = 50,
     mode = light_mode_t(),
@@ -258,9 +258,9 @@ penguins2 |>
     position = position_jitter(), 
     x = species,
     y = body_mass_g,
-    col = flipper_length_mm,
+    ink = flipper_length_mm,
     y_expand_limits = 0,
-    col_steps = TRUE,
+    ink_steps = TRUE,
   )
 ```
 
@@ -274,11 +274,11 @@ bind_rows(
   gg_label(
     x = model,
     y = mpg,
-    col = mpg,
+    ink = mpg,
     label = model,
     y_expand_limits = 0,
     y_label = "Miles per gallon", 
-    col_palette = c(orange, "white", teal),
+    ink_palette = c(orange, "white", teal),
   )
 ```
 
@@ -303,7 +303,7 @@ experiment |>
     x = trt,
     ymin = lower,
     ymax = upper,
-    col = group,
+    ink = group,
     y_label = "Response",
     y_expand_limits = 0,
   )
@@ -330,7 +330,7 @@ penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g, 
-    col = species,
+    ink = species,
   )
 ```
 
@@ -342,7 +342,7 @@ experiment |>
     position = position_dodge(width = 0.2),
     x = trt,
     y = resp,
-    col = group,
+    ink = group,
     ymin = lower,
     ymax = upper,
     y_expand_limits = 0,
@@ -373,7 +373,7 @@ datapoly |>
   gg_polygon(
     x = x,
     y = y,
-    col = value,
+    ink = value,
     group = id, 
   )
 ```
@@ -407,7 +407,7 @@ faithfuld |>
   gg_raster(
     x = waiting,
     y = eruptions,
-    col = density,
+    ink = density,
   )
 ```
 
@@ -430,7 +430,7 @@ data.frame(
     xmax = xmax,
     ymin = ymin,
     ymax = ymax,
-    col = z,
+    ink = z,
   )
 ```
 
@@ -456,7 +456,7 @@ penguins2 |>
   gg_rug(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex,
+    ink = sex,
   )
 ```
 
@@ -477,7 +477,7 @@ data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
 ```{r}
 sf::st_read(system.file("shape/nc.shp", package = "sf")) |> 
   gg_sf(
-    col = AREA, 
+    ink = AREA, 
   )
 ```
 
@@ -488,7 +488,7 @@ penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex, 
+    ink = sex, 
     se = TRUE,
   )
 ```
@@ -516,11 +516,11 @@ bind_rows(
   gg_text(
     x = model,
     y = mpg,
-    col = mpg,
+    ink = mpg,
     label = model,
     y_expand_limits = 0,
     y_label = "Miles per gallon",
-    col_palette = c(orange, "white", teal),
+    ink_palette = c(orange, "white", teal),
   )
 ```
 
@@ -534,7 +534,7 @@ penguins2 |>
   gg_tile(
     x = sex,
     y = species,
-    col = flipper_length_mm,
+    ink = flipper_length_mm,
   )
 ```
 
@@ -545,7 +545,7 @@ penguins2 |>
   gg_violin(
     x = sex,
     y = body_mass_g,
-    col = species,
+    ink = species,
   )
 ```
 
@@ -559,7 +559,7 @@ penguins2 |>
     position = "dodge",
     x = sex,
     y = body_mass_g,
-    col = species,
+    ink = species,
   )
 ```
 

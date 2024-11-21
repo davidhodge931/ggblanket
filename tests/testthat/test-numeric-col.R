@@ -3,7 +3,7 @@ testthat::skip_on_os(c("mac", "linux"))
 
 library(palmerpenguins)
 library(ggplot2)
-set_blanket(colour = "#121b24")
+set_blanket(ink = "#121b24")
 
 test_name <- "light_mode_r"
 
@@ -14,7 +14,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = island,
-      col = bill_depth_mm,
+      ink = bill_depth_mm,
       facet = sex,
       mapping = aes(alpha = species, shape = species),
       mode = light_mode_r()
@@ -33,7 +33,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = island,
-      col = bill_depth_mm,
+      ink = bill_depth_mm,
       facet = sex,
       mapping = aes(alpha = species, shape = species),
       mode = light_mode_t()
@@ -52,7 +52,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = island,
-      col = bill_depth_mm,
+      ink = bill_depth_mm,
       facet = sex,
       mapping = aes(alpha = species, shape = species),
       mode = light_mode_b()

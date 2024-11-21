@@ -48,7 +48,7 @@ get_colour_contrast <- function(fill,
 #'   gg_col(
 #'     x = sex,
 #'     y = n,
-#'     col = species,
+#'     ink = species,
 #'     label = n,
 #'     position = position_dodge(preserve = "single"),
 #'     width = 0.75,
@@ -66,7 +66,7 @@ get_colour_contrast <- function(fill,
 #'   gg_col(
 #'     x = sex,
 #'     y = n,
-#'     col = species,
+#'     ink = species,
 #'     position = position_dodge(preserve = "single"),
 #'     width = 0.75,
 #'     x_labels = \(x) str_to_sentence(x),
@@ -115,7 +115,7 @@ aes_colour_contrast <- function(..., dark = "#121B24FF", light = "#FFFFFFFF") {
 #' penguins |>
 #'   gg_bar(
 #'     y = species,
-#'     col = island,
+#'     ink = island,
 #'     mapping = aes_colour_darken(amount = 0.2),
 #'     width = 0.75,
 #'   )
@@ -123,7 +123,7 @@ aes_colour_contrast <- function(..., dark = "#121B24FF", light = "#FFFFFFFF") {
 #' penguins |>
 #' gg_bar(
 #'   y = species,
-#'   col = island,
+#'   ink = island,
 #'   mapping = aes(!!!aes_colour_darken(amount = 0.2)),
 #'   width = 0.75,
 #' )

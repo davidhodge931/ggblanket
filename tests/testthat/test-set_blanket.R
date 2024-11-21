@@ -20,7 +20,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = sex,
+      ink = sex,
     ) +
     geom_vline(xintercept = 200)
 
@@ -34,9 +34,9 @@ test_that(test_name, {
 
   set_blanket(
     mode = light_mode_r(),
-    colour = red,
-    text_colour = teal,
-    reference_line_colour = teal,
+    ink = red,
+    text_ink = teal,
+    reference_line_ink = teal,
   )
 
   p <- penguins |>
@@ -44,7 +44,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = sex,
+      ink = sex,
     ) +
     geom_vline(xintercept = 200)
 
@@ -55,13 +55,13 @@ test_that(test_name, {
 
 set_blanket(
   mode = dark_mode_r(base_size = 15),
-  colour = red,
-  text_colour = "red",
-  reference_line_colour = "red",
+  ink = red,
+  text_ink = "red",
+  reference_line_ink = "red",
   reference_line_linewidth = 5,
   text_size = 15 / 2.83505,
-  col_palette_d = c(navy, red, "green"),
-  col_palette_c = c(navy, purple, red, orange)
+  ink_palette_d = c(navy, red, "green"),
+  ink_palette_c = c(navy, purple, red, orange)
 )
 
 ###
@@ -90,7 +90,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = species,
+      ink = species,
       x_breaks = scales::breaks_pretty(3),
     ) +
     geom_vline(xintercept = 200) +
@@ -112,7 +112,7 @@ test_that(test_name, {
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = bill_depth_mm,
+      ink = bill_depth_mm,
       x_breaks = scales::breaks_pretty(3),
     ) +
     geom_vline(xintercept = 200) +
@@ -131,7 +131,7 @@ test_that(test_name, {
     gg_smooth(
       x = flipper_length_mm,
       y = body_mass_g,
-      col = species,
+      ink = species,
       se = TRUE,
     ) +
     geom_vline(xintercept = 200) +

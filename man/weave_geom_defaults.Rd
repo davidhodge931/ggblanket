@@ -5,27 +5,24 @@
 \title{Set a series of geom defaults}
 \usage{
 weave_geom_defaults(
-  colour = "#357BA2FF",
-  fill = colour,
-  text_colour = "#121B24FF",
+  ink = "#357BA2FF",
+  text_ink = "#121B24FF",
   text_size = 11/2.835052,
   text_family = "",
-  reference_line_colour = "#121B24FF",
+  reference_line_ink = "#121B24FF",
   reference_line_linewidth = 0.33
 )
 }
 \arguments{
-\item{colour}{A default hex colour for the colour of geoms (other than text or reference line geoms).}
+\item{ink}{A default hex colour for the colour and fill of geoms (other than text or reference line geoms).}
 
-\item{fill}{A default hex colour for the fill of geoms (other than text or reference line geoms).}
-
-\item{text_colour}{A default hex colour for the colour (and fill) of the "text" and "label" geoms.}
+\item{text_ink}{A default hex colour for the colour (and fill) of the "text" and "label" geoms.}
 
 \item{text_size}{A default size for the "text" and "label" geoms.}
 
 \item{text_family}{A default family for the "text" and "label" geoms.}
 
-\item{reference_line_colour}{A default hex colour for the colour of the "hline", "vline", "abline" and "curve" geoms.}
+\item{reference_line_ink}{A default hex colour for the colour of the "hline", "vline", "abline" and "curve" geoms.}
 
 \item{reference_line_linewidth}{A default linewidth for the the "hline", "vline", "abline" and "curve" geoms.}
 }
