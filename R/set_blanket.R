@@ -42,16 +42,18 @@
 #' library(palmerpenguins)
 #'
 #' set_blanket(
-#'   mode = dark_mode_r(),
-#'   colour = orange,
+#'   mode = list(dark_mode_r(), labs(colour = NULL, fill = NULL)),
+#'   colour = "#E7298AFF",
 #'   colour_text = darkness[1],
+#'   colour_reference_line = darkness[1],
+#'   col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
+#'                     "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
 #' )
 #'
 #' penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
-#'     x_breaks = scales::breaks_pretty(3),
 #'   ) +
 #'   geom_vline(xintercept = 200) +
 #'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
@@ -59,7 +61,7 @@
 #' penguins |>
 #'   gg_histogram(
 #'     x = flipper_length_mm,
-#'     x_breaks = scales::breaks_pretty(3),
+#'     col = species,
 #'   ) +
 #'   geom_vline(xintercept = 200) +
 #'   annotate("text", x = I(0.75), y = I(0.75), label = "Here")

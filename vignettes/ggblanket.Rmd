@@ -181,13 +181,13 @@ penguins2 |>
   gg_jitter(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = flipper_length_mm,
+    col = bill_length_mm,
     x_breaks_n = 4,
     x_labels = \(x) stringr::str_sub(x, 1, 1),
     y_expand_limits = 1000,
     y_labels = label_number(big.mark = " "), 
     y_transform = "sqrt",
-    col_label = "Flipper\nlength (mm)",
+    col_label = "Bill\nlength (mm)",
     col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
     col_palette = viridis::rocket(n = 9, direction = -1),
@@ -376,6 +376,7 @@ set_blanket(
   mode = list(dark_mode_r(), labs(colour = NULL, fill = NULL)), 
   colour = "#E7298AFF",
   colour_text = darkness[1],
+  colour_reference_line = darkness[1],
   col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF", "#66A61EFF", 
                     "#E6AB02FF", "#A6761DFF", "#666666FF"), #RColorBrewer Dark2 
 )

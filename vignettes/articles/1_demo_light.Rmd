@@ -488,7 +488,8 @@ penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex,
+    col = sex, 
+    se = TRUE,
   )
 ```
 
