@@ -72,17 +72,18 @@ set_blanket(
 
 \item{col_palette_na_o}{For an ordinal scale, a hex code.}
 
-\item{theme}{A ggplot2 theme that the \verb{gg_*} function will add without side-effects. Note, the \code{mode} takes precedence, unless \code{mode = NULL}.}
+\item{theme}{A ggplot2 theme that (1). the \verb{gg_*} function will add without side-effects if the mode is set/weaved to \code{NULL} - and (2) is applied to ggplot code outside of ggblanket.}
 }
 \value{
 A globally set style.
 }
 \description{
-Set a style by setting:
-\itemize{
-\item the mode
-\item geom defaults
-\item col_palettes for discrete, continuous and ordinal scales.
+Weave the style by setting:
+\enumerate{
+\item the mode to be added with \verb{gg_*()} side-effects.
+\item updated geom defaults
+\item col_palettes for discrete, continuous and ordinal colour/fill scales
+\item a theme to be added \emph{without} \verb{gg_*()} side-effects.
 }
 
 Alternatively, use the \verb{weave_*} functions to only apply a subset of these.

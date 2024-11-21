@@ -2,7 +2,7 @@
 % Please edit documentation in R/weave.R
 \name{weave_col_palettes}
 \alias{weave_col_palettes}
-\title{Set a discrete colour palette}
+\title{Set a discrete colour and fill palettes}
 \usage{
 weave_col_palettes(
   col_palette_d = jumble,
@@ -30,5 +30,5 @@ weave_col_palettes(
 \item{...}{Dots to support trailing commas etc.}
 }
 \description{
-Set a discrete colour palette
+Set a discrete colour and fill palettes
 }

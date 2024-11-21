@@ -1,11 +1,12 @@
 #' Set a style
 #'
 #' @description
-#' Set a style by setting:
+#' Weave the style by setting:
 #'
-#' * the mode
-#' * geom defaults
-#' * col_palettes for discrete, continuous and ordinal scales.
+#' 1. the mode to be added with `gg_*()` side-effects.
+#' 2. updated geom defaults
+#' 3. col_palettes for discrete, continuous and ordinal colour/fill scales
+#' 4. a theme to be added _without_ `gg_*()` side-effects.
 #'
 #' Alternatively, use the `weave_*` functions to only apply a subset of these.
 #'
@@ -30,7 +31,7 @@
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
-#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects. Note, the `mode` takes precedence, unless `mode = NULL`.
+#' @param theme A ggplot2 theme that (1). the `gg_*` function will add without side-effects if the mode is set/weaved to `NULL` - and (2) is applied to ggplot code outside of ggblanket.
 #'
 #' @return A globally set style.
 #' @export

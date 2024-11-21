@@ -103,7 +103,7 @@ weave_geom_defaults <- function(colour = "#357BA2FF",
   ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour_label, fill = !!fill_label, alpha = 0.05, size = !!size_label, family = !!family_label))
 }
 
-#' Set a discrete colour palette
+#' Set a discrete colour and fill palettes
 #'
 #' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.
 #' @param col_palette_c For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default.
@@ -127,7 +127,7 @@ weave_col_palettes <- function(
   weave_col_palette_o(col_palette_o = col_palette_o, col_palette_na_o = col_palette_na_o)
 }
 
-#' Set a discrete colour palette
+#' Set a discrete colour and fill palette
 #'
 #' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.
 #' @param col_palette_na_d For a discrete scale, a hex code.
@@ -178,7 +178,7 @@ weave_col_palette_d <- function(col_palette_d = jumble, col_palette_na_d = "#CDC
   }
 }
 
-#' Set a continuous colour palette
+#' Set a continuous colour and fill palette
 #'
 #' @param col_palette_c For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default.
 #' @param col_palette_na_c For a continuous scale, a hex code.
@@ -221,7 +221,7 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
   )
 }
 
-#' Set an ordinal colour palette
+#' Set an ordinal colour and fill palette
 #'
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function. Use NULL for ggplot2 default.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
@@ -244,9 +244,9 @@ weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G"
 
 #' Set a theme (without side-effects)
 #'
-#' @description Set a theme to be `+`-ed on unmodified to `gg_*` functions. Note, the `mode` takes precedence, unless `mode = NULL`.
+#' @description Set a theme to be `+`-ed on unmodified to `gg_*` functions. Note, the `mode` takes precedence, unless the set/weaved mode is `mode = NULL`.
 #'
-#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects. Use NULL for ggplot2 default.
+#' @param theme A ggplot2 theme that (1). the `gg_*` function will add without side-effects, if the mode is set/weaved to `NULL` - and (2) is applied to ggplot code outside of ggblanket.
 #'
 #' @export
 weave_theme <- function(theme = light_mode_r() + mode_orientation_to_x()) {
