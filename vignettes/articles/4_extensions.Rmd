@@ -389,7 +389,7 @@ penguins2 |>
   tidyr::drop_na() |> 
   labelled::copy_labels_from(penguins2) |> 
   gg_blanket(
-    geom = "ink_pattern",
+    geom = "col_pattern",
     position = "dodge",
     y = species,
     x = body_mass_g,

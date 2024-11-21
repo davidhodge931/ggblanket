@@ -49,7 +49,7 @@ set_blanket()
 penguins |>
   gg_histogram(
     x = flipper_length_mm,
-    col = species,
+    ink = species,
   )
 ```
 
