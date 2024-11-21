@@ -268,7 +268,8 @@ customised by adding the applicable ggplot2 layer.</p>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">bill_length_mm</span>,</span>
 <span>    x_breaks_n <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    x_label <span class="op">=</span> <span class="st">"Flipper length"</span>,</span>
+<span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">" mm"</span><span class="op">)</span>,</span>
 <span>    y_expand_limits <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>    y_labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_number</a></span><span class="op">(</span>big.mark <span class="op">=</span> <span class="st">" "</span><span class="op">)</span>, </span>
 <span>    y_transform <span class="op">=</span> <span class="st">"sqrt"</span>,</span>
@@ -483,8 +484,7 @@ So, in some situations, users will need to take care.</p>
 the:</p>
 <ul>
 <li>mode (i.e. a theme added with side-effects).</li>
-<li>geom defaults (i.e. colour/fill used where no colour aesthetic
-scale)</li>
+<li>geom defaults (e.g. colour/fill)</li>
 <li>discrete colour palette (and NA colour)</li>
 <li>continuous colour palette (and NA colour)</li>
 <li>ordinal colour palette (and NA colour)</li>
@@ -500,8 +500,8 @@ to further fine-tune geom defaults.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
 <span>  mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,  </span>
 <span>  colour <span class="op">=</span> <span class="st">"#E7298AFF"</span>,</span>
-<span>  colour_text <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>  colour_reference_line <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  text_colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  reference_line_colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  col_palette_d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#1B9E77FF"</span>, <span class="st">"#D95F02FF"</span>, <span class="st">"#7570b3FF"</span>, <span class="st">"#E7298AFF"</span>,</span>
 <span>                    <span class="st">"#66A61EFF"</span>, <span class="st">"#E6AB02FF"</span>, <span class="st">"#A6761DFF"</span>, <span class="st">"#666666FF"</span><span class="op">)</span>,</span>
 <span><span class="op">)</span></span>
