@@ -1,6 +1,7 @@
 # ggblanket 10.0.0.9000
 
-* In `set_blanket`, default to using no opacity, and updated arguments accordingly.
+* Breaking: in `set_blanket`, default to using no opacity, and updated arguments accordingly.
+* Breaking: in `weave_geom_defaults` and `set_blanket`, arguments updated.
 * In `*_mode_*`, updated the legend key size.
 * In `*_mode_*`, removed `base_size` scaling of anything other than text size.
 * Supported `*_label` to work where a mode is set as a list with `*_label = NULL`.  

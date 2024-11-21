@@ -6,47 +6,31 @@
 \usage{
 weave_geom_defaults(
   colour = "#357BA2FF",
-  colour_text = "#121B24FF",
-  colour_label = colour_text,
-  colour_reference_line = colour_text,
-  colour_curve = colour_reference_line,
   fill = colour,
-  fill_label = colour_label,
-  linewidth_reference_line = 0.33,
-  linewidth_curve = linewidth_reference_line,
-  size_text = 11/2.835052,
-  size_label = size_text,
-  family_text = "",
-  family_label = family_text
+  text_colour = "#121B24FF",
+  text_size = 11/2.835052,
+  text_family = "",
+  reference_line_colour = "#121B24FF",
+  reference_line_linewidth = 0.33
 )
 }
 \arguments{
-\item{colour}{A default hex colour for the colour of geoms without a more specific \verb{colour_*} argument.}
+\item{colour}{A default hex colour for the colour of geoms (other than text or reference line geoms).}
 
-\item{colour_text}{A default hex colour for the colour of the "text" geom.}
+\item{fill}{A default hex colour for the fill of geoms (other than text or reference line geoms).}
 
-\item{colour_label}{A default hex colour for the colour of the "label" geom.}
+\item{text_colour}{A default hex colour for the colour (and fill) of the "text" and "label" geoms.}
 
-\item{colour_reference_line}{A default hex colour for the colour of the "hline", "vline" and "abline" geoms.}
+\item{text_size}{A default size for the "text" and "label" geoms.}
 
-\item{colour_curve}{A default hex colour for the colour of the "curve" geom.}
+\item{text_family}{A default family for the "text" and "label" geoms.}
 
-\item{fill}{A default hex colour for the fill of geoms without a more specific \verb{fill_*} argument.}
+\item{reference_line_colour}{A default hex colour for the colour of the "hline", "vline", "abline" and "curve" geoms.}
 
-\item{fill_label}{A default hex colour for the fill of the "label" geom.}
-
-\item{linewidth_reference_line}{A default linewidth for the the "hline", "vline" and "abline" geoms.}
-
-\item{linewidth_curve}{A default linewidth for the the "curve" geom.}
-
-\item{size_text}{A default size for the "text" geom.}
-
-\item{size_label}{A default size for the "label" geom.}
-
-\item{family_text}{A default family for the "text" geom.}
-
-\item{family_label}{A default family for the "text" geom.}
+\item{reference_line_linewidth}{A default linewidth for the the "hline", "vline", "abline" and "curve" geoms.}
 }
 \description{
-Update all geom defaults.
+Update the colour/fill geom default, and update other defaults for text and reference line geoms.
+
+\code{\link[ggplot2:update_defaults]{ggplot2::update_geom_defaults()}} can be used to further fine-tune geom defaults.
 }

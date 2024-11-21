@@ -25,36 +25,27 @@ weave_mode <- function(mode = light_mode_r()) {
 
 #' Set a series of geom defaults
 #'
-#' @description Update all geom defaults.
+#' @description Update the colour/fill geom default, and update other defaults for text and reference line geoms.
 #'
-#' @param colour A default hex colour for the colour of geoms without a more specific `colour_*` argument.
-#' @param colour_text A default hex colour for the colour of the "text" geom.
-#' @param colour_label A default hex colour for the colour of the "label" geom.
-#' @param colour_reference_line A default hex colour for the colour of the "hline", "vline" and "abline" geoms.
-#' @param colour_curve A default hex colour for the colour of the "curve" geom.
-#' @param fill A default hex colour for the fill of geoms without a more specific `fill_*` argument.
-#' @param fill_label A default hex colour for the fill of the "label" geom.
-#' @param linewidth_reference_line A default linewidth for the the "hline", "vline" and "abline" geoms.
-#' @param linewidth_curve A default linewidth for the the "curve" geom.
-#' @param size_text A default size for the "text" geom.
-#' @param size_label A default size for the "label" geom.
-#' @param family_text A default family for the "text" geom.
-#' @param family_label A default family for the "text" geom.
+#' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
+#'
+#' @param colour A default hex colour for the colour of geoms (other than text or reference line geoms).
+#' @param fill A default hex colour for the fill of geoms (other than text or reference line geoms).
+#' @param text_colour A default hex colour for the colour (and fill) of the "text" and "label" geoms.
+#' @param text_size A default size for the "text" and "label" geoms.
+#' @param text_family A default family for the "text" and "label" geoms.
+#' @param reference_line_colour A default hex colour for the colour of the "hline", "vline", "abline" and "curve" geoms.
+#' @param reference_line_linewidth A default linewidth for the the "hline", "vline", "abline" and "curve" geoms.
 #'
 #' @export
-weave_geom_defaults <- function(colour = "#357BA2FF",
-                                colour_text = "#121B24FF",
-                                colour_label = colour_text,
-                                colour_reference_line = colour_text,
-                                colour_curve = colour_reference_line,
-                                fill = colour,
-                                fill_label = colour_label,
-                                linewidth_reference_line = 0.33,
-                                linewidth_curve = linewidth_reference_line,
-                                size_text = 11 / 2.835052,
-                                size_label = size_text,
-                                family_text = "",
-                                family_label = family_text) {
+weave_geom_defaults <- function(
+    colour = "#357BA2FF",
+    fill = colour,
+    text_colour = "#121B24FF",
+    text_size = 11 / 2.835052,
+    text_family = "",
+    reference_line_colour = "#121B24FF",
+    reference_line_linewidth = 0.33) {
 
   ggplot2::update_geom_defaults("area", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("bar", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
@@ -91,12 +82,12 @@ weave_geom_defaults <- function(colour = "#357BA2FF",
   # ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = NA, fill = !!fill, linewidth = 0))
 
-  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour_reference_line, linewidth = !!linewidth_reference_line))
-  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour_reference_line, linewidth = !!linewidth_reference_line))
-  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour_reference_line, linewidth = !!linewidth_reference_line))
-  ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!colour_curve, linewidth = !!linewidth_curve))
-  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour_text, size = !!size_text, family = !!family_text))
-  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour_label, fill = !!fill_label, alpha = 0.05, size = !!size_label, family = !!family_label))
+  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!reference_line_colour, linewidth = !!reference_line_linewidth))
+  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!reference_line_colour, linewidth = !!reference_line_linewidth))
+  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!reference_line_colour, linewidth = !!reference_line_linewidth))
+  ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!reference_line_colour, linewidth = !!reference_line_linewidth))
+  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!text_colour, size = !!text_size, family = !!text_family))
+  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!text_colour, fill = !!text_colour, alpha = 0.05, size = !!text_size, family = !!text_family))
 }
 
 #' Set a discrete colour and fill palettes
@@ -242,7 +233,7 @@ weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G"
 #'
 #' @description Set a theme to be `+`-ed on unmodified to `gg_*` functions. Note, the `mode` takes precedence, unless the set/weaved mode is `mode = NULL`.
 #'
-#' @param theme A ggplot2 theme that (1). the `gg_*` function will add without side-effects, if the mode is set/weaved to `NULL` - and (2) is applied to ggplot code outside of ggblanket.
+#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects if the mode is set/weaved to `NULL` (and also is applied to ggplot code outside of ggblanket).
 #'
 #' @export
 weave_theme <- function(theme = light_mode_r() + mode_orientation_to_x()) {

@@ -3,35 +3,30 @@
 #' @description
 #' Weave the style by setting:
 #'
-#' 1. the mode to be added with `gg_*()` side-effects.
-#' 2. updated geom defaults
-#' 3. col_palettes for discrete, continuous and ordinal colour/fill scales
+#' 1. the mode to be added with `gg_*()` side-effects
+#' 2. the colour/fill geom default, and other defaults for text, reference line and curve geoms
+#' 3. the col_palettes for discrete, continuous and ordinal colour/fill scales
 #' 4. a theme to be added _without_ `gg_*()` side-effects.
 #'
 #' Alternatively, use the `weave_*` functions to only apply a subset of these.
+#' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
 #'
 #' @param ... Provided to force user argument naming etc.
 #' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
-#' @param colour A default hex colour for the colour of geoms without a more specific `colour_*` argument.
-#' @param colour_text A default hex colour for the colour of the "text" geom.
-#' @param colour_label A default hex colour for the colour of the "label" geom.
-#' @param colour_reference_line A default hex colour for the colour of the "hline", "vline" and "abline" geoms.
-#' @param colour_curve A default hex colour for the colour of the "curve" geom.
-#' @param fill A default hex colour for the fill of geoms without a more specific `fill_*` argument.
-#' @param fill_label A default hex colour for the fill of the "label" geom.
-#' @param linewidth_reference_line A default linewidth for the the "hline", "vline" and "abline" geoms.
-#' @param linewidth_curve A default linewidth for the the "curve" geom.
-#' @param size_text A default size for the "text" geom.
-#' @param size_label A default size for the "label" geom.
-#' @param family_text A default family for the "text" geom.
-#' @param family_label A default family for the "text" geom.
+#' @param colour A default hex colour for the colour of geoms (other than text or reference line geoms).
+#' @param fill A default hex colour for the fill of geoms (other than text or reference line geoms).
+#' @param text_colour A default hex colour for the colour (and fill) of the "text" and "label" geoms.
+#' @param text_size A default size for the "text" and "label" geoms.
+#' @param text_family A default family for the "text" and "label" geoms.
+#' @param reference_line_colour A default hex colour for the colour of the "hline", "vline", "abline" and "curve" geoms.
+#' @param reference_line_linewidth A default linewidth for the the "hline", "vline", "abline" and "curve" geoms.
 #' @param col_palette_d For a discrete scale, a character vector of hex codes.
 #' @param col_palette_c For a continuous scale, a character vector of hex codes.
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function.
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
-#' @param theme A ggplot2 theme that (1). the `gg_*` function will add without side-effects if the mode is set/weaved to `NULL` - and (2) is applied to ggplot code outside of ggblanket.
+#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects if the mode is set/weaved to `NULL` (and also is applied to ggplot code outside of ggblanket).
 #'
 #' @return A globally set style.
 #' @export
@@ -44,8 +39,8 @@
 #' set_blanket(
 #'   mode = dark_mode_r(),
 #'   colour = "#E7298AFF",
-#'   colour_text = darkness[1],
-#'   colour_reference_line = darkness[1],
+#'   text_colour = darkness[1],
+#'   reference_line_colour = darkness[1],
 #'   col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
 #'                     "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
 #' )
@@ -70,18 +65,12 @@ set_blanket <- function(
     ...,
     mode = light_mode_r(),
     colour = "#357BA2FF",
-    colour_text = "#121B24FF",
-    colour_label = colour_text,
-    colour_reference_line = colour_text,
-    colour_curve = colour_reference_line,
     fill = colour,
-    fill_label = colour_label,
-    linewidth_reference_line = 0.33,
-    linewidth_curve = linewidth_reference_line,
-    size_text = 11 / 2.835052,
-    size_label = size_text,
-    family_text = "",
-    family_label = family_text,
+    text_colour = "#121B24FF",
+    text_size = 11 / 2.835052,
+    text_family = "",
+    reference_line_colour = "#121B24FF",
+    reference_line_linewidth = 0.33,
     col_palette_d = jumble,
     col_palette_na_d = "#CDC5BFFF",
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
@@ -94,18 +83,13 @@ set_blanket <- function(
 
   weave_geom_defaults(
     colour = colour,
-    colour_text = colour_text,
-    colour_label = colour_label,
-    colour_reference_line = colour_reference_line,
-    colour_curve = colour_curve,
     fill = fill,
-    fill_label = fill_label,
-    linewidth_reference_line = linewidth_reference_line,
-    linewidth_curve = linewidth_curve,
-    size_text = size_text,
-    size_label = size_label,
-    family_text = family_text,
-    family_label = family_label)
+    text_colour = text_colour,
+    text_size = text_size,
+    text_family = text_family,
+    reference_line_colour = reference_line_colour,
+    reference_line_linewidth = reference_line_linewidth
+  )
 
   weave_col_palettes(
     col_palette_d = col_palette_d,

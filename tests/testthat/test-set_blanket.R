@@ -35,7 +35,8 @@ test_that(test_name, {
   set_blanket(
     mode = light_mode_r(),
     colour = red,
-    colour_text = teal,
+    text_colour = teal,
+    reference_line_colour = teal,
   )
 
   p <- penguins |>
@@ -55,9 +56,10 @@ test_that(test_name, {
 set_blanket(
   mode = dark_mode_r(base_size = 15),
   colour = red,
-  colour_text = "red",
-  linewidth_reference_line = 5,
-  size_text = 15 / 2.83505,
+  text_colour = "red",
+  reference_line_colour = "red",
+  reference_line_linewidth = 5,
+  text_size = 15 / 2.83505,
   col_palette_d = c(navy, red, "green"),
   col_palette_c = c(navy, purple, red, orange)
 )
@@ -83,7 +85,6 @@ test_that(test_name, {
 test_name <- "4"
 
 test_that(test_name, {
-
 
   p <- penguins |>
     gg_point(

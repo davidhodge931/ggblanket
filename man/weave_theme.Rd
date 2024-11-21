@@ -7,7 +7,7 @@
 weave_theme(theme = light_mode_r() + mode_orientation_to_x())
 }
 \arguments{
-\item{theme}{A ggplot2 theme that (1). the \verb{gg_*} function will add without side-effects, if the mode is set/weaved to \code{NULL} - and (2) is applied to ggplot code outside of ggblanket.}
+\item{theme}{A ggplot2 theme that the \verb{gg_*} function will add without side-effects if the mode is set/weaved to \code{NULL} (and also is applied to ggplot code outside of ggblanket).}
 }
 \description{
 Set a theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note, the \code{mode} takes precedence, unless the set/weaved mode is \code{mode = NULL}.
