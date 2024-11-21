@@ -95,7 +95,7 @@ library(palmerpenguins)
 set_blanket(
   mode = dark_mode_r(),
   colour = orange,
-  annotation_colour = darkness[1],
+  colour_text = darkness[1],
 )
 
 penguins |>

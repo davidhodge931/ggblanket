@@ -4,6 +4,7 @@
 * In `*_mode_*`, updated the legend key size.
 * In `*_mode_*`, removed `base_size` scaling of anything other than text size.
 * Supported `*_label` to work where a mode is set as a list with `*_label = NULL`.  
+* Breaking: removed `weave_col_palette_*` functions, and replaced with a single `weave_col_palettes` function.
 
 # ggblanket 10.0.0
 

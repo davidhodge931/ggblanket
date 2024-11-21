@@ -43,7 +43,7 @@
 #' set_blanket(
 #'   mode = dark_mode_r(),
 #'   colour = orange,
-#'   annotation_colour = darkness[1],
+#'   colour_text = darkness[1],
 #' )
 #'
 #' penguins |>
@@ -66,32 +66,25 @@
 set_blanket <- function(
     ...,
     mode = light_mode_r(),
-
     colour = "#357BA2FF",
     colour_text = "#121B24FF",
     colour_label = colour_text,
     colour_reference_line = colour_text,
     colour_curve = colour_reference_line,
-
     fill = colour,
     fill_label = colour_label,
-
     linewidth_reference_line = 0.33,
     linewidth_curve = linewidth_reference_line,
-
     size_text = 11 / 2.835052,
     size_label = size_text,
-
     family_text = "",
     family_label = family_text,
-
     col_palette_d = jumble,
     col_palette_na_d = "#CDC5BFFF",
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
     col_palette_na_c = "#988F88FF",
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
     col_palette_na_o = "#988F88FF",
-
     theme = light_mode_r() + mode_orientation_to_x()) {
 
   weave_mode(mode = mode)
@@ -102,34 +95,22 @@ set_blanket <- function(
     colour_label = colour_label,
     colour_reference_line = colour_reference_line,
     colour_curve = colour_curve,
-
     fill = fill,
     fill_label = fill_label,
-
     linewidth_reference_line = linewidth_reference_line,
     linewidth_curve = linewidth_curve,
-
     size_text = size_text,
     size_label = size_label,
-
     family_text = family_text,
     family_label = family_label)
 
-  weave_col_palette_d(
+  weave_col_palettes(
     col_palette_d = col_palette_d,
-    col_palette_d_na = col_palette_na_d,
-    ...
-  )
-
-  weave_col_palette_c(
+    col_palette_na_d = col_palette_na_d,
     col_palette_c = col_palette_c,
-    col_palette_c_na = col_palette_na_c,
-    ...
-  )
-
-  weave_col_palette_o(
+    col_palette_na_c = col_palette_na_c,
     col_palette_o = col_palette_o,
-    col_palette_o_na = col_palette_na_o
+    col_palette_na_o = col_palette_na_o
   )
 
   weave_theme(theme = theme)

@@ -31,9 +31,7 @@ reference:
 - contents:
   - weave_mode
   - weave_geom_defaults
-  - weave_col_palette_d
-  - weave_col_palette_c
-  - weave_col_palette_o
+  - weave_col_palettes
   - weave_theme
 - title: Other
 - contents:

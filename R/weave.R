@@ -106,17 +106,41 @@ weave_geom_defaults <- function(colour = "#357BA2FF",
 #' Set a discrete colour palette
 #'
 #' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.
-#' @param col_palette_d_na For a discrete scale, a hex code.
+#' @param col_palette_c For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default.
+#' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function. Use NULL for ggplot2 default.
+#' @param col_palette_na_d For a discrete scale, a hex code.
+#' @param col_palette_na_c For a continuous scale, a hex code.
+#' @param col_palette_na_o For an ordinal scale, a hex code.
 #' @param ... Dots to support trailing commas etc.
 #'
 #' @export
-weave_col_palette_d <- function(col_palette_d = jumble, col_palette_d_na = "#CDC5BFFF", ...) {
+weave_col_palettes <- function(
+    col_palette_d = jumble,
+    col_palette_c = viridisLite::mako(n = 9, direction = -1),
+    col_palette_o = scales::pal_viridis(option = "G", direction = -1),
+    col_palette_na_d = "#CDC5BFFF",
+    col_palette_na_c = "#988F88FF", # i.e. colorspace::darken(grey, 0.25)
+    col_palette_na_o = "#988F88FF",
+    ...) {
+  weave_col_palette_d(col_palette_d = col_palette_d, col_palette_na_d = col_palette_na_d)
+  weave_col_palette_c(col_palette_c = col_palette_c, col_palette_na_c = col_palette_na_c)
+  weave_col_palette_o(col_palette_o = col_palette_o, col_palette_na_o = col_palette_na_o)
+}
 
-  if (rlang::is_null(col_palette_d_na)) col_palette_d_na <- "grey50"
+#' Set a discrete colour palette
+#'
+#' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.
+#' @param col_palette_na_d For a discrete scale, a hex code.
+#' @param ... Dots to support trailing commas etc.
+#'
+#' @noRd
+weave_col_palette_d <- function(col_palette_d = jumble, col_palette_na_d = "#CDC5BFFF", ...) {
+
+  if (rlang::is_null(col_palette_na_d)) col_palette_na_d <- "grey50"
 
   if (!rlang::is_null(col_palette_d)) {
     if (!rlang::is_function(col_palette_d)) {
-      col_palette_d <- c(col_palette_d, rep(col_palette_d_na, times = 100))
+      col_palette_d <- c(col_palette_d, rep(col_palette_na_d, times = 100))
     }
   }
 
@@ -125,7 +149,7 @@ weave_col_palette_d <- function(col_palette_d = jumble, col_palette_d_na = "#CDC
   invisible(old)
 
   old <- ggblanket_global$col_palette_na_d
-  ggblanket_global$col_palette_na_d <- col_palette_d_na
+  ggblanket_global$col_palette_na_d <- col_palette_na_d
   invisible(old)
 
   if (rlang::is_null(col_palette_d)) {
@@ -141,13 +165,13 @@ weave_col_palette_d <- function(col_palette_d = jumble, col_palette_d_na = "#CDC
       ggplot2.discrete.colour = function(...)
         ggplot2::scale_colour_manual(
           values = col_palette_d,
-          na.value = col_palette_d_na,
+          na.value = col_palette_na_d,
           ...
         ),
       ggplot2.discrete.fill = function(...)
         ggplot2::scale_fill_manual(
           values = col_palette_d,
-          na.value = col_palette_d_na,
+          na.value = col_palette_na_d,
           ...
         )
     )
@@ -157,41 +181,41 @@ weave_col_palette_d <- function(col_palette_d = jumble, col_palette_d_na = "#CDC
 #' Set a continuous colour palette
 #'
 #' @param col_palette_c For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default.
-#' @param col_palette_c_na For a continuous scale, a hex code.
+#' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param ... Dots to support trailing commas etc.
 #'
-#' @export
+#' @noRd
 weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, direction = -1),
-                                col_palette_c_na = "#988F88FF", # i.e. colorspace::darken(grey, 0.25)
+                                col_palette_na_c = "#988F88FF", # i.e. colorspace::darken(grey, 0.25)
                                 ...) {
 
   if (rlang::is_null(col_palette_c)) {
     col_palette_c <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")(seq(0, 1, length.out = 20))
   }
 
-  if (rlang::is_null(col_palette_c_na)) {
-    col_palette_c_na <- "grey50"
+  if (rlang::is_null(col_palette_na_c)) {
+    col_palette_na_c <- "grey50"
   }
 
   old <- ggblanket_global$col_palette_c
   ggblanket_global$col_palette_c <- col_palette_c
   invisible(old)
 
-  old <- ggblanket_global$col_palette_c_na
-  ggblanket_global$col_palette_c_na <- col_palette_c_na
+  old <- ggblanket_global$col_palette_na_c
+  ggblanket_global$col_palette_na_c <- col_palette_na_c
   invisible(old)
 
   options(
     ggplot2.continuous.colour = function(...)
       ggplot2::scale_color_gradientn(
         colours = col_palette_c,
-        na.value = col_palette_c_na,
+        na.value = col_palette_na_c,
         ...
       ),
     ggplot2.continuous.fill = function(...)
       ggplot2::scale_fill_gradientn(
         colours = col_palette_c,
-        na.value = col_palette_c_na,
+        na.value = col_palette_na_c,
         ...
       )
   )
@@ -200,23 +224,22 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
 #' Set an ordinal colour palette
 #'
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function. Use NULL for ggplot2 default.
-#' @param col_palette_o_na For an ordinal scale, a hex code.
+#' @param col_palette_na_o For an ordinal scale, a hex code.
 #'
-#' @export
+#' @noRd
 weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G", direction = -1),
-                                col_palette_o_na = "#988F88FF") {
+                                col_palette_na_o = "#988F88FF") {
 
   if (rlang::is_null(col_palette_o)) col_palette_o <- scales::pal_viridis()
-  if (rlang::is_null(col_palette_o_na)) col_palette_o_na <- "grey50"
+  if (rlang::is_null(col_palette_na_o)) col_palette_na_o <- "grey50"
 
   old <- ggblanket_global$col_palette_o
   ggblanket_global$col_palette_o <- col_palette_o
   invisible(old)
 
-  old <- ggblanket_global$col_palette_o_na
-  ggblanket_global$col_palette_o_na <- col_palette_o_na
+  old <- ggblanket_global$col_palette_na_o
+  ggblanket_global$col_palette_na_o <- col_palette_na_o
   invisible(old)
-
 }
 
 #' Set a theme (without side-effects)
