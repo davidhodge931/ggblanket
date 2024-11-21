@@ -42,7 +42,7 @@
 #' library(palmerpenguins)
 #'
 #' set_blanket(
-#'   mode = list(dark_mode_r(), labs(colour = NULL, fill = NULL)),
+#'   mode = dark_mode_r(),
 #'   colour = "#E7298AFF",
 #'   colour_text = darkness[1],
 #'   colour_reference_line = darkness[1],
