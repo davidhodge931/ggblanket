@@ -266,13 +266,13 @@ customised by adding the applicable ggplot2 layer.</p>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
+<span>    col <span class="op">=</span> <span class="va">bill_length_mm</span>,</span>
 <span>    x_breaks_n <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html" class="external-link">str_sub</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    y_expand_limits <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>    y_labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_number</a></span><span class="op">(</span>big.mark <span class="op">=</span> <span class="st">" "</span><span class="op">)</span>, </span>
 <span>    y_transform <span class="op">=</span> <span class="st">"sqrt"</span>,</span>
-<span>    col_label <span class="op">=</span> <span class="st">"Flipper\nlength (mm)"</span>,</span>
+<span>    col_label <span class="op">=</span> <span class="st">"Bill\nlength (mm)"</span>,</span>
 <span>    col_steps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    col_breaks <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    col_palette <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">rocket</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
@@ -500,6 +500,7 @@ to further fine-tune geom defaults.</p>
 <span>  mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="cn">NULL</span>, fill <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>  colour <span class="op">=</span> <span class="st">"#E7298AFF"</span>,</span>
 <span>  colour_text <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  colour_reference_line <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  col_palette_d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#1B9E77FF"</span>, <span class="st">"#D95F02FF"</span>, <span class="st">"#7570b3FF"</span>, <span class="st">"#E7298AFF"</span>, <span class="st">"#66A61EFF"</span>, </span>
 <span>                    <span class="st">"#E6AB02FF"</span>, <span class="st">"#A6761DFF"</span>, <span class="st">"#666666FF"</span><span class="op">)</span>, <span class="co">#RColorBrewer Dark2 </span></span>
 <span><span class="op">)</span></span>
