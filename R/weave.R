@@ -47,16 +47,12 @@ weave_geom_defaults <- function(colour = "#357BA2FF",
                                 colour_label = colour_text,
                                 colour_reference_line = colour_text,
                                 colour_curve = colour_reference_line,
-
                                 fill = colour,
                                 fill_label = colour_label,
-
                                 linewidth_reference_line = 0.33,
                                 linewidth_curve = linewidth_reference_line,
-
                                 size_text = 11 / 2.835052,
                                 size_label = size_text,
-
                                 family_text = "",
                                 family_label = family_text) {
 
