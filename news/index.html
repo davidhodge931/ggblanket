@@ -47,12 +47,12 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="10.0.0.9000" id="ggblanket-10009000">ggblanket 10.0.0.9000<a class="anchor" aria-label="anchor" href="#ggblanket-10009000"></a></h2>
-<ul><li>Breaking: in <code>set_blanket</code>, default to using no opacity, and updated arguments accordingly.</li>
-<li>Breaking: in <code>weave_geom_defaults</code> and <code>set_blanket</code>, arguments updated.</li>
+<ul><li>Breaking: in <code>set_blanket</code>, changed default to use <code>alpha = NA</code>, and used <code>linewidth = 0</code> generally for polygons.</li>
+<li>Breaking: redesigned <code>weave_geom_defaults</code> arguments, and updated in <code>set_blanket</code>.</li>
+<li>Breaking: removed <code>weave_col_palette_*</code> functions, and replaced with a single <code>weave_col_palettes</code> function.</li>
 <li>In <code>*_mode_*</code>, updated the legend key size.</li>
 <li>In <code>*_mode_*</code>, removed <code>base_size</code> scaling of anything other than text size.</li>
-<li>Supported <code>*_label</code> to work where a mode is set as a list with <code>*_label = NULL</code>.<br></li>
-<li>Breaking: removed <code>weave_col_palette_*</code> functions, and replaced with a single <code>weave_col_palettes</code> function.</li>
+<li>Supported <code>*_label</code> to work where a mode is set as a list with <code>*_label = NULL</code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="10.0.0" id="ggblanket-1000">ggblanket 10.0.0<a class="anchor" aria-label="anchor" href="#ggblanket-1000"></a></h2><p class="text-muted">CRAN release: 2024-07-26</p>
