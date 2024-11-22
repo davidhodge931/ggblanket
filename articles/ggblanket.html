@@ -178,8 +178,9 @@ concept represented by the <code>col</code> argument.</p>
 <p>This combined aesthetic means that all colour outlines and all fill
 interiors should be coloured with the <code>col_palette</code> by the
 <code>col</code> variable.</p>
-<p>Use <code>colour = NA</code> or <code>fill = NA</code> to turn one of
-these off.</p>
+<p>The defaults used in <code>set_blanket</code> for the various geoms
+use <code>linewidth = 0</code> and <code>linewidth = 0.66</code> to make
+things work nicely.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_violin.html">gg_violin</a></span><span class="op">(</span></span>
