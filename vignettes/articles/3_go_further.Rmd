@@ -443,19 +443,3 @@ penguins2 |>
   theme(legend.justification = c(1, 1)) 
 ```
 
-### 15. Test
-
-```{r}
-set_blanket()
-
-penguins2 |> 
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-    colour = NA,
-  ) +
-  theme(legend.position = "inside") +
-  theme(legend.position.inside = c(1, 0.975)) +
-  theme(legend.justification = c(1, 1)) 
-```
-
