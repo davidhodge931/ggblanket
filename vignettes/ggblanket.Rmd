@@ -107,7 +107,7 @@ The colour and fill aesthetics of ggplot2 are merged into a single concept repre
 
 This combined aesthetic means that all colour outlines and all fill interiors should be coloured with the `col_palette` by the `col` variable. 
 
-The defaults used in `set_blanket` for the various geoms use `linewidth = 0` and `linewidth = 0.66` to make things work nicely.
+The defaults used in `set_blanket` for the various geoms use `linewidth = 0` and sometimes `alpha = 0` to make things work nicely.
 
 ```{r}
 penguins2 |>
