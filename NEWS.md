@@ -1,11 +1,11 @@
 # ggblanket 10.0.0.9000
 
-* Breaking: in `set_blanket`, default to using no opacity, and updated arguments accordingly.
-* Breaking: in `weave_geom_defaults` and `set_blanket`, arguments updated.
+* Breaking: in `set_blanket`, changed default to use `alpha = NA`, and used `linewidth = 0` generally for polygons.
+* Breaking: redesigned `weave_geom_defaults` arguments, and updated in `set_blanket`.
+* Breaking: removed `weave_col_palette_*` functions, and replaced with a single `weave_col_palettes` function.
 * In `*_mode_*`, updated the legend key size.
 * In `*_mode_*`, removed `base_size` scaling of anything other than text size.
 * Supported `*_label` to work where a mode is set as a list with `*_label = NULL`.  
-* Breaking: removed `weave_col_palette_*` functions, and replaced with a single `weave_col_palettes` function.
 
 # ggblanket 10.0.0
 

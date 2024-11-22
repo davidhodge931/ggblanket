@@ -47,46 +47,50 @@ weave_geom_defaults <- function(
     reference_line_colour = "#121B24FF",
     reference_line_linewidth = 0.33) {
 
+  #polygons
   ggplot2::update_geom_defaults("area", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("bar", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("col", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
-  ggplot2::update_geom_defaults("contour", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("contour_filled", ggplot2::aes(fill = !!fill, linewidth = 0.66))
+  ggplot2::update_geom_defaults("boxplot", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
+  ggplot2::update_geom_defaults("col", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
+  ggplot2::update_geom_defaults("contour_filled", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
+  ggplot2::update_geom_defaults("crossbar", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
   ggplot2::update_geom_defaults("density", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("density2d", ggplot2::aes(colour = !!colour, linewidth = !!0.66))
-  ggplot2::update_geom_defaults("density_2d_filled", ggplot2::aes(fill = !!fill, linewidth = 0))
+  ggplot2::update_geom_defaults("density_2d_filled", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
+  ggplot2::update_geom_defaults("hex", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
+  ggplot2::update_geom_defaults("polygon", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
+  ggplot2::update_geom_defaults("raster", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
+  ggplot2::update_geom_defaults("rect", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
+  ggplot2::update_geom_defaults("ribbon", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.4, linewidth = 0))
+  ggplot2::update_geom_defaults("sf", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
+  ggplot2::update_geom_defaults("smooth", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
+  ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
+  ggplot2::update_geom_defaults("violin", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
+
+  #lines
+  ggplot2::update_geom_defaults("contour", ggplot2::aes(colour = !!colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("density2d", ggplot2::aes(colour = !!colour, linewidth = 0.66))
   ggplot2::update_geom_defaults("errorbar", ggplot2::aes(colour = !!colour, linewidth = 0.66))
   ggplot2::update_geom_defaults("function", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("hex", ggplot2::aes(fill = !!fill))
   ggplot2::update_geom_defaults("line", ggplot2::aes(colour = !!colour, linewidth = 0.66))
   ggplot2::update_geom_defaults("linerange", ggplot2::aes(colour = !!colour, linewidth = 0.66))
   ggplot2::update_geom_defaults("path", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("point", ggplot2::aes(colour = !!colour, fill = !!fill))
-  ggplot2::update_geom_defaults("pointrange", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66, size = 0.2)) # 1.5 / 7.5
-  ggplot2::update_geom_defaults("polygon", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("quantile", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("raster", ggplot2::aes(fill = !!fill))
-  ggplot2::update_geom_defaults("rect", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("ribbon", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.4, linewidth = 0))
   ggplot2::update_geom_defaults("rug", ggplot2::aes(colour = !!colour, linewidth = 0.66))
   ggplot2::update_geom_defaults("segment", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("sf", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("smooth", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
   ggplot2::update_geom_defaults("spoke", ggplot2::aes(colour = !!colour, linewidth = 0.66))
   ggplot2::update_geom_defaults("step", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("violin", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
 
-  # ggplot2::update_geom_defaults("bin2d", ggplot2::aes(colour = NA, fill = !!fill, linewidth = 0))
-  # ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = NA, fill = !!fill, linewidth = 0))
+  #points
+  ggplot2::update_geom_defaults("point", ggplot2::aes(colour = !!colour, fill = !!fill))
+  ggplot2::update_geom_defaults("pointrange", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66, size = 0.2)) # 1.5 / 7.5
 
-  ggplot2::update_geom_defaults("boxplot", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
-  ggplot2::update_geom_defaults("crossbar", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
-
+  #reference lines
   ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!reference_line_colour, linewidth = !!reference_line_linewidth))
   ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!reference_line_colour, linewidth = !!reference_line_linewidth))
   ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!reference_line_colour, linewidth = !!reference_line_linewidth))
   ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!reference_line_colour, linewidth = !!reference_line_linewidth))
+
+  #text
   ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!text_colour, size = !!text_size, family = !!text_family))
   ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!text_colour, fill = !!text_colour, alpha = 0.05, size = !!text_size, family = !!text_family))
 }
