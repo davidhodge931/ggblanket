@@ -6,6 +6,7 @@
 * In `*_mode_*`, updated the legend key size.
 * In `*_mode_*`, removed `base_size` scaling of anything other than text size.
 * Supported `*_label` to work where a mode is set as a list with `*_label = NULL`.  
+* Added `label_every_nth`.
 
 # ggblanket 10.0.0
 
