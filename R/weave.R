@@ -49,11 +49,9 @@ weave_geom_defaults <- function(
 
   ggplot2::update_geom_defaults("area", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("bar", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("boxplot", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
   ggplot2::update_geom_defaults("col", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
   ggplot2::update_geom_defaults("contour", ggplot2::aes(colour = !!colour, linewidth = 0.66))
   ggplot2::update_geom_defaults("contour_filled", ggplot2::aes(fill = !!fill, linewidth = 0.66))
-  ggplot2::update_geom_defaults("crossbar", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
   ggplot2::update_geom_defaults("density", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("density2d", ggplot2::aes(colour = !!colour, linewidth = !!0.66))
   ggplot2::update_geom_defaults("density_2d_filled", ggplot2::aes(fill = !!fill, linewidth = 0))
@@ -81,6 +79,9 @@ weave_geom_defaults <- function(
   # ggplot2::update_geom_defaults("bin2d", ggplot2::aes(colour = NA, fill = !!fill, linewidth = 0))
   # ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = NA, fill = !!fill, linewidth = 0))
+
+  ggplot2::update_geom_defaults("boxplot", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
+  ggplot2::update_geom_defaults("crossbar", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
 
   ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!reference_line_colour, linewidth = !!reference_line_linewidth))
   ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!reference_line_colour, linewidth = !!reference_line_linewidth))
