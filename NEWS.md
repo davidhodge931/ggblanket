@@ -1,4 +1,4 @@
-# ggblanket 10.0.0.9000
+# ggblanket 11.0.0
 
 * Breaking: in `set_blanket`, changed default to use `alpha = NA`, and used `linewidth = 0` generally for polygons.
 * Breaking: redesigned `weave_geom_defaults` arguments, and updated in `set_blanket`.
