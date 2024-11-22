@@ -50,10 +50,10 @@ weave_geom_defaults <- function(
   #polygons
   ggplot2::update_geom_defaults("area", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("bar", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("boxplot", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
+  ggplot2::update_geom_defaults("boxplot", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0, linewidth = 0.66))
   ggplot2::update_geom_defaults("col", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("contour_filled", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("crossbar", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
+  ggplot2::update_geom_defaults("crossbar", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0, linewidth = 0.66))
   ggplot2::update_geom_defaults("density", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("density_2d_filled", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("hex", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))

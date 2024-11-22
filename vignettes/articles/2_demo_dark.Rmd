@@ -99,7 +99,6 @@ penguins2 |>
     x = flipper_length_mm,
     y = sex,
     col = species,
-    alpha = 0,
   )
 ```
 
@@ -152,7 +151,6 @@ experiment |>
     ymin = lower,
     ymax = upper,
     col = group,
-    alpha = 0,
     width = 0.5,
     y_expand_limits = 0,
   )
