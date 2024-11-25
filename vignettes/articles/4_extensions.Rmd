@@ -443,6 +443,24 @@ penguins2 |>
   geom_density() |> ggblend::blend(blend = "multiply") 
 ```
 
+```{r}
+data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
+  mutate(level_min = level - 1, level_max = level + 1) |>
+  gg_blanket(
+    x = year, 
+    y = level, 
+    ymin = level_min, 
+    ymax = level_max
+  ) +
+  ggblend::blend(
+    list(
+      geom_ribbon(alpha = 1), 
+      geom_line() 
+    ),
+    "multiply")
+```
+
+
 ### ggh4x
 
 The ggh4x package includes enhanced facet functionality.
