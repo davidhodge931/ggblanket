@@ -457,7 +457,7 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
       geom_ribbon(alpha = 1), 
       geom_line() 
     ),
-    "multiply")
+    blend = "multiply")
 ```
 
 
