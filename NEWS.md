@@ -1,3 +1,7 @@
+# ggblanket 11.0.0.9000
+
+* Added {ggblend} colour blending. 
+
 # ggblanket 11.0.0
 
 * Breaking: in `set_blanket`, changed default to use `alpha = NA`, and used `linewidth = 0` generally for polygons.
