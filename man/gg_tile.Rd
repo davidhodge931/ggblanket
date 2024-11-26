@@ -12,6 +12,7 @@ gg_tile(
   coord = ggplot2::coord_cartesian(clip = "off"),
   mode = NULL,
   mode_orientation = NULL,
+  blend = "over",
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -93,6 +94,8 @@ gg_tile(
 \item{mode}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates side-effects of removing relevant axis line/ticks and gridlines per the \code{mode_orientation}.}
 
 \item{mode_orientation}{The orientation of plot, which affects the theme components that are removed from the mode. Either "x" or "y".}
+
+\item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
 
 \item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
 

@@ -10,6 +10,7 @@
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
 #' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
 #' @param mode_orientation The orientation of plot, which affects the theme components that are removed from the mode. Either "x" or "y".
+#' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()]. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
@@ -65,7 +66,7 @@ gg_blanket <- function(data = NULL,
                        stat = "identity",
                        position = "identity",
                        coord = NULL,
-                       mode = NULL, mode_orientation = NULL,
+                       mode = NULL, mode_orientation = NULL, blend = "over",
                        x = NULL,
                        xmin = NULL,
                        xmax = NULL,
@@ -130,6 +131,8 @@ gg_blanket <- function(data = NULL,
                        subtitle = NULL,
                        caption = NULL,
                        label_to_case = snakecase::to_sentence_case) {
+
+  suppressMessages(ggblend::blend(blend = blend))
 
   ##############################################################################
   #quote
@@ -216,7 +219,7 @@ gg_blanket <- function(data = NULL,
         params = rlang::list2(...),
         show.legend = show_legend,
       # ) +
-      ) |> suppressMessages(ggblend::blend(blend = "over")) +
+      ) |> ggblend::blend(blend = blend) +
       coord
   }
   else {
@@ -231,7 +234,7 @@ gg_blanket <- function(data = NULL,
         params = rlang::list2(outlier.alpha = 1, ...),
         show.legend = show_legend,
       # ) +
-      ) |> suppressMessages(ggblend::blend(blend = "over")) +
+      ) |> ggblend::blend(blend = blend) +
       coord
   }
 
@@ -409,7 +412,7 @@ gg_blanket <- function(data = NULL,
         params = rlang::list2(...),
         show.legend = show_legend,
       # ) +
-      ) |> suppressMessages(ggblend::blend(blend = "over")) +
+      ) |> ggblend::blend(blend = blend) +
       coord
   }
   else {
@@ -424,7 +427,7 @@ gg_blanket <- function(data = NULL,
         params = rlang::list2(outlier.alpha = 1, ...),
         show.legend = show_legend,
       # ) +
-      ) |> suppressMessages(ggblend::blend(blend = "over")) +
+      ) |> ggblend::blend(blend = blend) +
       coord
   }
 
