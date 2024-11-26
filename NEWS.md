@@ -1,6 +1,6 @@
 # ggblanket 11.0.0.9000
 
-* Added {ggblend} colour blending. 
+* Changed `gg_smooth` and `gg_ribbon` default to NA.
 
 # ggblanket 11.0.0
 

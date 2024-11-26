@@ -216,7 +216,7 @@ gg_blanket <- function(data = NULL,
         params = rlang::list2(...),
         show.legend = show_legend,
       # ) +
-      ) |> ggblend::blend(blend = "multiply") +
+      ) |> suppressMessages(ggblend::blend(blend = "over")) +
       coord
   }
   else {
@@ -231,7 +231,7 @@ gg_blanket <- function(data = NULL,
         params = rlang::list2(outlier.alpha = 1, ...),
         show.legend = show_legend,
       # ) +
-      ) |> ggblend::blend(blend = "multiply") +
+      ) |> suppressMessages(ggblend::blend(blend = "over")) +
       coord
   }
 
@@ -409,7 +409,7 @@ gg_blanket <- function(data = NULL,
         params = rlang::list2(...),
         show.legend = show_legend,
       # ) +
-      ) |> ggblend::blend(blend = "multiply") +
+      ) |> suppressMessages(ggblend::blend(blend = "over")) +
       coord
   }
   else {
@@ -424,7 +424,7 @@ gg_blanket <- function(data = NULL,
         params = rlang::list2(outlier.alpha = 1, ...),
         show.legend = show_legend,
       # ) +
-      ) |> ggblend::blend(blend = "multiply") +
+      ) |> suppressMessages(ggblend::blend(blend = "over")) +
       coord
   }
 
