@@ -60,9 +60,9 @@ weave_geom_defaults <- function(
   ggplot2::update_geom_defaults("polygon", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("raster", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("rect", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("ribbon", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0.4, linewidth = 0))
+  ggplot2::update_geom_defaults("ribbon", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("sf", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("smooth", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
+  ggplot2::update_geom_defaults("smooth", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = NA, linewidth = 0.66))
   ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("violin", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
 
