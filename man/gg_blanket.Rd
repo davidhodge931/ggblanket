@@ -13,7 +13,7 @@ gg_blanket(
   coord = NULL,
   mode = NULL,
   mode_orientation = NULL,
-  blend = "over",
+  blend = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,

@@ -66,7 +66,7 @@ gg_blanket <- function(data = NULL,
                        stat = "identity",
                        position = "identity",
                        coord = NULL,
-                       mode = NULL, mode_orientation = NULL, blend = "over",
+                       mode = NULL, mode_orientation = NULL, blend = NULL,
                        x = NULL,
                        xmin = NULL,
                        xmax = NULL,
@@ -132,7 +132,7 @@ gg_blanket <- function(data = NULL,
                        caption = NULL,
                        label_to_case = snakecase::to_sentence_case) {
 
-  suppressMessages(ggblend::blend(blend = blend))
+  options(ggblend.check_blend = FALSE)
 
   ##############################################################################
   #quote
@@ -210,32 +210,58 @@ gg_blanket <- function(data = NULL,
   if (stringr::str_detect(stat_name, "sf")) {
     if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
 
-    plot <- plot +
-      ggplot2::layer_sf(
-        geom = geom,
-        stat = stat,
-        position = position,
-        mapping = ggplot2::aes(!!!mapping),
-        params = rlang::list2(...),
-        show.legend = show_legend,
-      # ) +
-      ) |> ggblend::blend(blend = blend) +
-      coord
+    if (rlang::is_null(blend)) {
+      plot <- plot +
+        ggplot2::layer_sf(
+          geom = geom,
+          stat = stat,
+          position = position,
+          mapping = ggplot2::aes(!!!mapping),
+          params = rlang::list2(...),
+          show.legend = show_legend,
+        ) +
+        coord
+    }
+    else {
+      plot <- plot +
+        ggplot2::layer_sf(
+          geom = geom,
+          stat = stat,
+          position = position,
+          mapping = ggplot2::aes(!!!mapping),
+          params = rlang::list2(...),
+          show.legend = show_legend,
+        ) |> ggblend::blend(blend = blend) +
+        coord
+    }
   }
   else {
     if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
 
-    plot <- plot +
-      ggplot2::layer(
-        geom = geom,
-        stat = stat,
-        position = position,
-        mapping = ggplot2::aes(!!!mapping),
-        params = rlang::list2(outlier.alpha = 1, ...),
-        show.legend = show_legend,
-      # ) +
-      ) |> ggblend::blend(blend = blend) +
-      coord
+    if (rlang::is_null(blend)) {
+      plot <- plot +
+        ggplot2::layer(
+          geom = geom,
+          stat = stat,
+          position = position,
+          mapping = ggplot2::aes(!!!mapping),
+          params = rlang::list2(outlier.alpha = 1, ...),
+          show.legend = show_legend,
+        ) +
+        coord
+    }
+    else {
+      plot <- plot +
+        ggplot2::layer(
+          geom = geom,
+          stat = stat,
+          position = position,
+          mapping = ggplot2::aes(!!!mapping),
+          params = rlang::list2(outlier.alpha = 1, ...),
+          show.legend = show_legend,
+        ) |> ggblend::blend(blend = blend) +
+        coord
+    }
   }
 
   suppressMessages({
@@ -403,32 +429,58 @@ gg_blanket <- function(data = NULL,
   if (stringr::str_detect(stat_name, "sf")) {
     if (rlang::is_null(coord)) coord <- ggplot2::coord_sf(clip = "off")
 
-    plot <- plot +
-      ggplot2::layer_sf(
-        geom = geom,
-        stat = stat,
-        position = position,
-        mapping = ggplot2::aes(!!!mapping),
-        params = rlang::list2(...),
-        show.legend = show_legend,
-      # ) +
-      ) |> ggblend::blend(blend = blend) +
-      coord
+    if (rlang::is_null(blend)) {
+      plot <- plot +
+        ggplot2::layer_sf(
+          geom = geom,
+          stat = stat,
+          position = position,
+          mapping = ggplot2::aes(!!!mapping),
+          params = rlang::list2(...),
+          show.legend = show_legend,
+        ) +
+        coord
+    }
+    else {
+      plot <- plot +
+        ggplot2::layer_sf(
+          geom = geom,
+          stat = stat,
+          position = position,
+          mapping = ggplot2::aes(!!!mapping),
+          params = rlang::list2(...),
+          show.legend = show_legend,
+        ) |> ggblend::blend(blend = blend) +
+        coord
+    }
   }
   else {
     if (rlang::is_null(coord)) coord <- ggplot2::coord_cartesian(clip = "off")
 
-    plot <- plot +
-      ggplot2::layer(
-        geom = geom,
-        stat = stat,
-        position = position,
-        mapping = ggplot2::aes(!!!mapping),
-        params = rlang::list2(outlier.alpha = 1, ...),
-        show.legend = show_legend,
-      # ) +
-      ) |> ggblend::blend(blend = blend) +
-      coord
+    if (rlang::is_null(blend)) {
+      plot <- plot +
+        ggplot2::layer(
+          geom = geom,
+          stat = stat,
+          position = position,
+          mapping = ggplot2::aes(!!!mapping),
+          params = rlang::list2(outlier.alpha = 1, ...),
+          show.legend = show_legend,
+        ) +
+        coord
+    }
+    else {
+      plot <- plot +
+        ggplot2::layer(
+          geom = geom,
+          stat = stat,
+          position = position,
+          mapping = ggplot2::aes(!!!mapping),
+          params = rlang::list2(outlier.alpha = 1, ...),
+          show.legend = show_legend,
+        ) |> ggblend::blend(blend = blend) +
+        coord
+    }
   }
 
   if (!rlang::is_null(x_expand_limits)) {

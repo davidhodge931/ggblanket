@@ -12,7 +12,7 @@ gg_density(
   coord = ggplot2::coord_cartesian(clip = "off"),
   mode = NULL,
   mode_orientation = NULL,
-  blend = "over",
+  blend = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,
