@@ -156,6 +156,7 @@ penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = species,
+    col_palette = c(teal, orange, pink),
     blend = "multiply",
     mode = light_mode_t(),
   )
