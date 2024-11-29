@@ -156,6 +156,7 @@ penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = species,
+    blend = "multiply",
     mode = light_mode_t(),
   )
 ```
@@ -443,8 +444,7 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     ymax = level_max,
     x_labels = \(x) x,
     y_label = "Level",
-  ) +
-  geom_line(mapping = aes(x = year, y = level))
+  )
 ```
 
 ### gg_rug
@@ -487,6 +487,7 @@ penguins2 |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex, 
+    blend = "multiply",
     se = TRUE,
   )
 ```
