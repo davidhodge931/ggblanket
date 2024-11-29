@@ -231,6 +231,7 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_density.html">gg_density</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span>    blend <span class="op">=</span> <span class="st">"multiply"</span>,</span>
 <span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/light_mode_r.html">light_mode_t</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="1_demo_light_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
@@ -538,8 +539,7 @@ Hodge</h4>
 <span>    ymax <span class="op">=</span> <span class="va">level_max</span>,</span>
 <span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span>,</span>
 <span>    y_label <span class="op">=</span> <span class="st">"Level"</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">level</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="1_demo_light_files/figure-html/unnamed-chunk-30-1.svg" width="70%"></p>
 </div>
 <div class="section level3">
@@ -593,6 +593,7 @@ Hodge</h4>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>, </span>
+<span>    blend <span class="op">=</span> <span class="st">"multiply"</span>,</span>
 <span>    se <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="1_demo_light_files/figure-html/unnamed-chunk-34-1.svg" width="70%"></p>

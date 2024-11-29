@@ -78,12 +78,12 @@
 <clipPath id="clip1">
   <path d="M 371.128906 39.398438 L 383.085938 39.398438 L 383.085938 99.175781 L 371.128906 99.175781 Z M 371.128906 39.398438 "/>
 </clipPath>
-<image id="image168" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAAzUlEQVQ4jY1TQRKEMAzC/P+Ne9sn7FHYQ6lJq1UPmRQCNM5YfH7foBQEg1IICorm1Lo4nNXPJ+21T3PGizsIBIW2k1CwuQHD3nbWhHn4k9tLfp/vBfd55zqWEHBp6Jpw6Vjw0om/yki/ljp4BwixVQ4q81G3xoXDs+9qB6DvMe90h8/5282e24Cfvkklk8Yu0Fm1aG1qsNBkzgVXtVj75XxZJ89e8X63ENs/Ane/1fuc9I0ZTSO/35pz4GPGSZOevE8ld8r0XtWTXCu2/geswDeJ+uK7bwAAAABJRU5ErkJggg=="/>
+<image id="image186" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAAzUlEQVQ4jY1TQRKEMAzC/P+Ne9sn7FHYQ6lJq1UPmRQCNM5YfH7foBQEg1IICorm1Lo4nNXPJ+21T3PGizsIBIW2k1CwuQHD3nbWhHn4k9tLfp/vBfd55zqWEHBp6Jpw6Vjw0om/yki/ljp4BwixVQ4q81G3xoXDs+9qB6DvMe90h8/5282e24Cfvkklk8Yu0Fm1aG1qsNBkzgVXtVj75XxZJ89e8X63ENs/Ane/1fuc9I0ZTSO/35pz4GPGSZOevE8ld8r0XtWTXCu2/geswDeJ+uK7bwAAAABJRU5ErkJggg=="/>
 <pattern id="pattern0" patternUnits="userSpaceOnUse" width="1" height="300"  patternTransform="matrix(11.955168,0,0,0.199253,371.127024,39.39726)">
-  <use xlink:href="#image168"/>
+  <use xlink:href="#image186"/>
 </pattern>
 </defs>
-<g id="surface164">
+<g id="surface182">
 <rect x="0" y="0" width="432" height="259" style="fill:rgb(0%,1.568627%,3.921569%);fill-opacity:1;stroke:none;"/>
 <path style="fill:none;stroke-width:1.066978;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,1.568627%,3.921569%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 259 L 432 259 L 432 0 L 0 0 Z M 0 259 "/>
 <path style="fill-rule:nonzero;fill:rgb(1.960784%,5.098039%,10.588235%);fill-opacity:1;stroke-width:1.066978;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(1.960784%,5.098039%,10.588235%);stroke-opacity:1;stroke-miterlimit:10;" d="M 72.96875 209.222656 L 357.238281 209.222656 L 357.238281 21.917969 L 72.96875 21.917969 Z M 72.96875 209.222656 "/>

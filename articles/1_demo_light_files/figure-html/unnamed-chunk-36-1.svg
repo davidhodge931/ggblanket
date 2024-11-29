@@ -177,12 +177,12 @@
 <clipPath id="clip1">
   <path d="M 386.128906 39.398438 L 398.085938 39.398438 L 398.085938 99.175781 L 386.128906 99.175781 Z M 386.128906 39.398438 "/>
 </clipPath>
-<image id="image404" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAAt0lEQVQ4jb2QwRKCMAxEd7eMjv8//oPfiEo8WEqSwgAHPTDZtnmvocD9oRupK6ALqYHQgFpJFVIFkEgVQgWUWNd1X6TUMtJ6ySQkx3Pj7LvvMiGmM84Oz5OpL/ORY53POyLn++IMa/6Wg/OEP83fc70j3r+8Qcvp3zu25cju3pG96W0IE8wEmwSkaiYg1TPna+5DzFbfv9kfzXzIseMNjsR1fd610t+4aWfv7Wr95oynYC8Bo2DjB7zR8vydVfwwAAAAAElFTkSuQmCC"/>
+<image id="image440" width="1" height="300" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAIAAACNMk6CAAAABmJLR0QA/wD/AP+gvaeTAAAAt0lEQVQ4jb2QwRKCMAxEd7eMjv8//oPfiEo8WEqSwgAHPTDZtnmvocD9oRupK6ALqYHQgFpJFVIFkEgVQgWUWNd1X6TUMtJ6ySQkx3Pj7LvvMiGmM84Oz5OpL/ORY53POyLn++IMa/6Wg/OEP83fc70j3r+8Qcvp3zu25cju3pG96W0IE8wEmwSkaiYg1TPna+5DzFbfv9kfzXzIseMNjsR1fd610t+4aWfv7Wr95oynYC8Bo2DjB7zR8vydVfwwAAAAAElFTkSuQmCC"/>
 <pattern id="pattern0" patternUnits="userSpaceOnUse" width="1" height="300"  patternTransform="matrix(11.955168,0,0,0.199253,386.127024,39.39726)">
-  <use xlink:href="#image404"/>
+  <use xlink:href="#image440"/>
 </pattern>
 </defs>
-<g id="surface400">
+<g id="surface436">
 <rect x="0" y="0" width="432" height="259" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
 <path style="fill:none;stroke-width:1.066978;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(100%,100%,100%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 259 L 432 259 L 432 0 L 0 0 Z M 0 259 "/>
 <path style="fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;stroke-width:1.066978;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(100%,100%,100%);stroke-opacity:1;stroke-miterlimit:10;" d="M 51.96875 209.222656 L 372.238281 209.222656 L 372.238281 21.917969 L 51.96875 21.917969 Z M 51.96875 209.222656 "/>
