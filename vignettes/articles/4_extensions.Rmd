@@ -278,10 +278,27 @@ ggridges::Catalan_elections |>
 
 ### ggdist
 
-The ggdist package enables the visualisation of uncertainty. 
+The ggdist package supports the visualisation of uncertainty. 
 
 ```{r}
 library(ggdist)
+geom_lineribbon()
+
+data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
+  mutate(level_min = level - 1, level_max = level + 1) |>
+  gg_blanket(
+    geom = "lineribbon",
+    x = year,
+    y = level,
+    ymin = level_min,
+    ymax = level_max,
+    x_labels = \(x) x,
+    y_label = "Level",
+    blend = "multiply",
+  ) 
+```
+
+```{r}
 library(distributional)
 geom_slabinterval()
 
@@ -311,29 +328,6 @@ data.frame(
   theme(legend.position = "none")
 ```
 
-```{r}
-geom_lineribbon()
-
-set.seed(123)
-
-tibble(x = 1:10) |> 
-  group_by(across(everything()))  |> 
-  do(tibble(y = rnorm(100, .$x))) |> 
-  median_qi(.width = c(0.5, 0.8, 0.95)) |>
-  mutate(.width = factor(.width)) |>
-  gg_blanket(
-    geom = "lineribbon",
-    x = x,
-    y = y,
-    ymin = .lower,
-    ymax = .upper,
-    col = .width,
-    colour = viridis::mako(n = 9)[c(1)],
-    col_legend_rev = TRUE,
-    col_palette = viridis::mako(n = 9)[c(4,6,9)],
-  )
-```
-
 ### ggdensity
 
 The ggdensity package provides visualizations of density estimates.  
@@ -355,8 +349,7 @@ data.frame(
     x = x, 
     y = y, 
     y_symmetric = FALSE,
-  ) +
-  guides(colour = FALSE, fill = FALSE)
+  ) 
 ```
 
 ```{r}
