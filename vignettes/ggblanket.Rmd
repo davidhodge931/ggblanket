@@ -226,7 +226,6 @@ penguins2 |>
     y = body_mass_g,
     linewidth = 1, 
     linetype = "dashed",
-    alpha = 1, 
     level = 0.999, 
     se = TRUE,
     blend = "multiply",
