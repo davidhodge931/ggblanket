@@ -171,7 +171,7 @@ library(palmerpenguins)
 
 set_blanket()
 
-penguins \%>\%
+penguins |>
   gg_blanket(
     geom = "violin",
     stat = "ydensity",

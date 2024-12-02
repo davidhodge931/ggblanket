@@ -50,7 +50,7 @@
 #'
 #' set_blanket()
 #'
-#' penguins %>%
+#' penguins |>
 #'   gg_blanket(
 #'     geom = "violin",
 #'     stat = "ydensity",
@@ -374,15 +374,15 @@ gg_blanket <- function(data = NULL,
   # process the data
   ##############################################################################
 
-  data <- data %>%
+  data <- data |>
     #ungroup the data
-    dplyr::ungroup() %>%
+    dplyr::ungroup() |>
     #convert to factors class that can handle labels
     dplyr::mutate(dplyr::across(c(!!x, !!xmin, !!xmax, !!xend,
                                   !!y, !!ymin, !!ymax, !!yend,
                                   !!col, !!facet, !!facet2) &
                                   (tidyselect::where(is.character) | tidyselect::where(is.factor) | tidyselect::where(is.logical)),
-                                function(x) labelled::to_factor(x))) %>%
+                                function(x) labelled::to_factor(x))) |>
     #reverse y*, so that reads top low-levels to bottom high-levels
     dplyr::mutate(dplyr::across(c(!!y, !!ymin, !!ymax, !!yend) &
                                   tidyselect::where(is.factor),
@@ -390,7 +390,7 @@ gg_blanket <- function(data = NULL,
 
   #if flipped, order col correctly
   if ((!identical(rlang::eval_tidy(y, data), rlang::eval_tidy(col, data))) & x_symmetric) {
-    data <- data %>%
+    data <- data |>
       dplyr::mutate(dplyr::across(!!col & tidyselect::where(is.factor),
                                   function(x) forcats::fct_rev(x)))
   }
@@ -729,11 +729,11 @@ gg_blanket <- function(data = NULL,
 
       #make a tidy name to deal with composed transforms
       if (inherits(col_transform, what = "transform")) {
-        col_transform <- col_transform$name %>%
-          stringr::str_remove("composition") %>%
-          stringr::str_remove("\\(") %>%
-          stringr::str_remove("\\)") %>%
-          stringr::str_split(",") %>%
+        col_transform <- col_transform$name |>
+          stringr::str_remove("composition") |>
+          stringr::str_remove("\\(") |>
+          stringr::str_remove("\\)") |>
+          stringr::str_split(",") |>
           unlist()
       }
 
@@ -810,23 +810,23 @@ gg_blanket <- function(data = NULL,
         }
       } else col_n_factor <- NA
 
-      colour_distinct <- plot_data %>%
-        dplyr::select(tidyselect::any_of("colour")) %>%
+      colour_distinct <- plot_data |>
+        dplyr::select(tidyselect::any_of("colour")) |>
         dplyr::distinct()
 
       if (ncol(colour_distinct) > 0) {
-        colour_n <- colour_distinct %>%
+        colour_n <- colour_distinct |>
           dplyr::filter(.data$colour != "grey50") |>
           dplyr::count() |>
           dplyr::pull()
       } else colour_n <- 1
 
-      fill_distinct <- plot_data %>%
-        dplyr::select(tidyselect::any_of("fill")) %>%
+      fill_distinct <- plot_data |>
+        dplyr::select(tidyselect::any_of("fill")) |>
         dplyr::distinct()
 
       if (ncol(fill_distinct) > 0) {
-        fill_n <- fill_distinct %>%
+        fill_n <- fill_distinct |>
           dplyr::filter(.data$fill != "grey50") |>
           dplyr::count() |>
           dplyr::pull()
@@ -1160,9 +1160,9 @@ gg_blanket <- function(data = NULL,
     }
 
     if (x_symmetric) {
-      data_x <- plot_data %>%
-        dplyr::select(tidyselect::matches(stringr::regex("^(?!xid|xbin)x.*"))) %>%
-        tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "x") %>%
+      data_x <- plot_data |>
+        dplyr::select(tidyselect::matches(stringr::regex("^(?!xid|xbin)x.*"))) |>
+        tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "x") |>
         dplyr::filter(!is.na(.data$x))
 
       plot <- plot +
@@ -1225,9 +1225,9 @@ gg_blanket <- function(data = NULL,
     }
 
     if (y_symmetric) {
-      data_y <- plot_data %>%
-        dplyr::select(tidyselect::matches(stringr::regex("^(?!yid|ybin)y.*"))) %>%
-        tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "y") %>%
+      data_y <- plot_data |>
+        dplyr::select(tidyselect::matches(stringr::regex("^(?!yid|ybin)y.*"))) |>
+        tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "y") |>
         dplyr::filter(!is.na(.data$y))
 
       plot <- plot +

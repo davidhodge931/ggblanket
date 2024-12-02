@@ -45,7 +45,7 @@ get_base <- function(
 
   if (rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
     if (rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
           xmin = !!xmin,
@@ -63,7 +63,7 @@ get_base <- function(
         ))
     }
     else if (!rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           y = !!y,
           col = !!col,
@@ -85,7 +85,7 @@ get_base <- function(
   }
   else if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
     if (rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           xmin = !!xmin,
@@ -103,7 +103,7 @@ get_base <- function(
         ))
     }
     else if (!rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           col = !!col,
@@ -125,7 +125,7 @@ get_base <- function(
   }
   else if (!rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
     if (rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
@@ -144,7 +144,7 @@ get_base <- function(
         ))
     }
     else if (!rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           x = !!x,
           y = !!y,
@@ -167,7 +167,7 @@ get_base <- function(
   }
   else if (rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
     if (rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           xmin = !!xmin,
           xmax = !!xmax,
@@ -184,7 +184,7 @@ get_base <- function(
         ))
     }
     else if (!rlang::quo_is_null(col)) {
-      plot <- data %>%
+      plot <- data |>
         ggplot2::ggplot(mapping = ggplot2::aes(
           col = !!col,
           fill = !!col,

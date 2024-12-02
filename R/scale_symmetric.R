@@ -31,11 +31,11 @@ scale_x_symmetric <- function(...,
 
   if (is.character(transform)) transform_name <- transform
   else if (inherits(transform, what = "transform")) {
-    transform_name <- transform$name %>%
-      stringr::str_remove("composition") %>%
-      stringr::str_remove("\\(") %>%
-      stringr::str_remove("\\)") %>%
-      stringr::str_split(",") %>%
+    transform_name <- transform$name |>
+      stringr::str_remove("composition") |>
+      stringr::str_remove("\\(") |>
+      stringr::str_remove("\\)") |>
+      stringr::str_split(",") |>
       unlist()
   }
 
@@ -52,7 +52,7 @@ scale_x_symmetric <- function(...,
   if (symmetric) {
     x <- rlang::enquo(x)
 
-    vctr <- data %>%
+    vctr <- data |>
       dplyr::pull(!!x)
 
     if (!rlang::is_null(expand_limits)) {
@@ -176,11 +176,11 @@ scale_y_symmetric <- function(...,
 
   if (is.character(transform)) transform_name <- transform
   else if (inherits(transform, what = "transform")) {
-    transform_name <- transform$name %>%
-      stringr::str_remove("composition") %>%
-      stringr::str_remove("\\(") %>%
-      stringr::str_remove("\\)") %>%
-      stringr::str_split(",") %>%
+    transform_name <- transform$name |>
+      stringr::str_remove("composition") |>
+      stringr::str_remove("\\(") |>
+      stringr::str_remove("\\)") |>
+      stringr::str_split(",") |>
       unlist()
   }
 
@@ -197,7 +197,7 @@ scale_y_symmetric <- function(...,
   if (symmetric) {
     y <- rlang::enquo(y)
 
-    vctr <- data %>%
+    vctr <- data |>
       dplyr::pull(!!y)
 
     if (!rlang::is_null(expand_limits)) {

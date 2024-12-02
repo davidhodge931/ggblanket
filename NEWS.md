@@ -1,7 +1,8 @@
 # ggblanket 11.0.0.9000
 
-* Deprecated `aes_colour_darken`, `aes_colour_lighten`, `aes_fill_darken` and `aes_colour_lighten`.
-* Changed `gg_smooth` and `gg_ribbon` alpha default to NA.
+* Added R 4.2.0 dependency.
+* Removed `aes_colour_darken`, `aes_colour_lighten`, `aes_fill_darken` and `aes_colour_lighten`.
+* Removed `gg_ribbon` alpha default, and changed `gg_smooth` to NA.
 * Added colour blending (e.g. `blend = "multiply`).
 * Added `gg_lineribbon`.
 

@@ -11,7 +11,7 @@ URL: https://davidhodge931.github.io/ggblanket/,
     https://github.com/davidhodge931/ggblanket
 BugReports: https://github.com/davidhodge931/ggblanket/issues
 Depends: 
-    R (>= 4.2.0)
+  R (>= 4.2.0)
 Imports: 
     colorspace,
     dplyr (>= 1.0.4),
@@ -23,7 +23,6 @@ Imports:
     hms (>= 0.5.0),
     labelled,
     lubridate (>= 1.7.8),
-    magrittr,
     purrr,
     rlang (>= 1.1.0),
     scales (>= 1.3.0),
