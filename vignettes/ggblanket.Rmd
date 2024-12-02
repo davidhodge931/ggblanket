@@ -224,14 +224,12 @@ penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex, 
-    col_palette = c("#003F5CFF", "#FFA600FF"),
-    colour = "#BC5090FF", 
     linewidth = 1, 
     linetype = "dashed",
     alpha = 1, 
     level = 0.999, 
     se = TRUE,
+    blend = "multiply",
   ) 
 ```
 
