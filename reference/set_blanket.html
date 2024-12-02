@@ -84,10 +84,10 @@ ggplot2::update_geom_defaults() can be used to further fine-tune geom defaults."
 <span>  reference_line_colour <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
 <span>  reference_line_linewidth <span class="op">=</span> <span class="fl">0.33</span>,</span>
 <span>  col_palette_d <span class="op">=</span> <span class="va">jumble</span>,</span>
-<span>  col_palette_na_d <span class="op">=</span> <span class="st">"#CDC5BFFF"</span>,</span>
 <span>  col_palette_c <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
-<span>  col_palette_na_c <span class="op">=</span> <span class="st">"#988F88FF"</span>,</span>
 <span>  col_palette_o <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/pal_viridis.html" class="external-link">pal_viridis</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"G"</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>  col_palette_na_d <span class="op">=</span> <span class="st">"#CDC5BFFF"</span>,</span>
+<span>  col_palette_na_c <span class="op">=</span> <span class="st">"#988F88FF"</span>,</span>
 <span>  col_palette_na_o <span class="op">=</span> <span class="st">"#988F88FF"</span>,</span>
 <span>  theme <span class="op">=</span> <span class="fu"><a href="light_mode_r.html">light_mode_r</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="mode_orientation_to_x.html">mode_orientation_to_x</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -137,20 +137,20 @@ ggplot2::update_geom_defaults() can be used to further fine-tune geom defaults."
 <dd><p>For a discrete scale, a character vector of hex codes.</p></dd>
 
 
-<dt id="arg-col-palette-na-d">col_palette_na_d<a class="anchor" aria-label="anchor" href="#arg-col-palette-na-d"></a></dt>
-<dd><p>For a discrete scale, a hex code.</p></dd>
-
-
 <dt id="arg-col-palette-c">col_palette_c<a class="anchor" aria-label="anchor" href="#arg-col-palette-c"></a></dt>
 <dd><p>For a continuous scale, a character vector of hex codes.</p></dd>
 
 
-<dt id="arg-col-palette-na-c">col_palette_na_c<a class="anchor" aria-label="anchor" href="#arg-col-palette-na-c"></a></dt>
-<dd><p>For a continuous scale, a hex code.</p></dd>
-
-
 <dt id="arg-col-palette-o">col_palette_o<a class="anchor" aria-label="anchor" href="#arg-col-palette-o"></a></dt>
 <dd><p>For an ordinal scale, a <code>scales::pal_*()</code> function.</p></dd>
+
+
+<dt id="arg-col-palette-na-d">col_palette_na_d<a class="anchor" aria-label="anchor" href="#arg-col-palette-na-d"></a></dt>
+<dd><p>For a discrete scale, a hex code.</p></dd>
+
+
+<dt id="arg-col-palette-na-c">col_palette_na_c<a class="anchor" aria-label="anchor" href="#arg-col-palette-na-c"></a></dt>
+<dd><p>For a continuous scale, a hex code.</p></dd>
 
 
 <dt id="arg-col-palette-na-o">col_palette_na_o<a class="anchor" aria-label="anchor" href="#arg-col-palette-na-o"></a></dt>
