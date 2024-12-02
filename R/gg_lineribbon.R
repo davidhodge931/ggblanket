@@ -1,6 +1,6 @@
-#' Ribbon ggplot
+#' Lineribbon ggplot
 #'
-#' @description Create a ribbon ggplot with a wrapper around [ggplot2::ggplot()] + [geom_ribbon()][ggplot2::geom_ribbon()]
+#' @description Create a lineribbon ggplot with a wrapper around [ggplot2::ggplot()] + [geom_ribbon()][ggplot2::geom_ribbon()] + [geom_ribbon()][ggplot2::geom_line()]
 #'
 #' @inheritParams gg_blanket
 #'
@@ -15,14 +15,16 @@
 #'
 #' data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
 #'   mutate(level_min = level - 1, level_max = level + 1) |>
-#'   gg_ribbon(
+#'   gg_lineribbon(
 #'     x = year,
+#'     y = level,
 #'     ymin = level_min,
 #'     ymax = level_max,
 #'     x_labels = \(x) x,
+#'     blend = "multiply",
 #'   )
 #'
-gg_ribbon <- function(data = NULL,
+gg_lineribbon <- function(data = NULL,
                       ...,
                       stat = "identity",
                       position = "identity",
@@ -92,9 +94,9 @@ gg_ribbon <- function(data = NULL,
                       subtitle = NULL,
                       caption = NULL,
                       label_to_case = snakecase::to_sentence_case) {
-  gg_blanket(
+  plot <- gg_blanket(
     data = data,
-    geom = "ribbon",
+    geom = "blank",
     stat = stat,
     position = position,
     coord = coord,
@@ -165,4 +167,50 @@ gg_ribbon <- function(data = NULL,
     label_to_case = label_to_case,
     ...
   )
+
+  if (rlang::is_null(blend)) {
+    plot +
+        list(
+          ggplot2::layer(
+            geom = "ribbon",
+            stat = stat,
+            position = position,
+            mapping = ggplot2::aes(!!!mapping),
+            params = rlang::list2(...),
+            # show.legend = show_legend,
+          ),
+          ggplot2::layer(
+            geom = "line",
+            stat = stat,
+            position = position,
+            mapping = ggplot2::aes(!!!mapping),
+            params = rlang::list2(...),
+            # show.legend = show_legend,
+          )
+        )
+  }
+  else {
+    plot +
+      ggblend::blend(
+        list(
+          ggplot2::layer(
+            geom = "ribbon",
+            stat = stat,
+            position = position,
+            mapping = ggplot2::aes(!!!mapping),
+            params = rlang::list2(...),
+            # show.legend = show_legend,
+          ) |> ggblend::blend(blend = blend),
+          ggplot2::layer(
+            geom = "line",
+            stat = stat,
+            position = position,
+            mapping = ggplot2::aes(!!!mapping),
+            params = rlang::list2(...),
+            # show.legend = show_legend,
+          ) |> ggblend::blend(blend = blend)
+        ), blend = blend
+      )
+
+  }
 }

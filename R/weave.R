@@ -93,9 +93,6 @@ weave_geom_defaults <- function(
   #text
   ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!text_colour, size = !!text_size, family = !!text_family))
   ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!text_colour, fill = !!text_colour, alpha = 0.05, size = !!text_size, family = !!text_family))
-
-  #extras
-  ggplot2::update_geom_defaults("lineribbon", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
 }
 
 #' Set a discrete colour and fill palettes

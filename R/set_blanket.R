@@ -72,10 +72,10 @@ set_blanket <- function(
     reference_line_colour = "#121B24FF",
     reference_line_linewidth = 0.33,
     col_palette_d = jumble,
-    col_palette_na_d = "#CDC5BFFF",
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
-    col_palette_na_c = "#988F88FF",
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
+    col_palette_na_d = "#CDC5BFFF",
+    col_palette_na_c = "#988F88FF",
     col_palette_na_o = "#988F88FF",
     theme = light_mode_r() + mode_orientation_to_x()) {
 
@@ -93,10 +93,10 @@ set_blanket <- function(
 
   weave_col_palettes(
     col_palette_d = col_palette_d,
-    col_palette_na_d = col_palette_na_d,
     col_palette_c = col_palette_c,
-    col_palette_na_c = col_palette_na_c,
     col_palette_o = col_palette_o,
+    col_palette_na_d = col_palette_na_d,
+    col_palette_na_c = col_palette_na_c,
     col_palette_na_o = col_palette_na_o
   )
 

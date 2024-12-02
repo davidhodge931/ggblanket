@@ -1,6 +1,8 @@
 # ggblanket 11.0.0.9000
 
 * Changed `gg_smooth` and `gg_ribbon` default to NA.
+* Added colour blending (e.g. `blend = "multiply`).
+* Added `gg_lineribbon`.
 
 # ggblanket 11.0.0
 

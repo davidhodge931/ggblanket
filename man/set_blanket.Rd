@@ -15,10 +15,10 @@ set_blanket(
   reference_line_colour = "#121B24FF",
   reference_line_linewidth = 0.33,
   col_palette_d = jumble,
-  col_palette_na_d = "#CDC5BFFF",
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
-  col_palette_na_c = "#988F88FF",
   col_palette_o = scales::pal_viridis(option = "G", direction = -1),
+  col_palette_na_d = "#CDC5BFFF",
+  col_palette_na_c = "#988F88FF",
   col_palette_na_o = "#988F88FF",
   theme = light_mode_r() + mode_orientation_to_x()
 )
@@ -44,13 +44,13 @@ set_blanket(
 
 \item{col_palette_d}{For a discrete scale, a character vector of hex codes.}
 
-\item{col_palette_na_d}{For a discrete scale, a hex code.}
-
 \item{col_palette_c}{For a continuous scale, a character vector of hex codes.}
 
-\item{col_palette_na_c}{For a continuous scale, a hex code.}
-
 \item{col_palette_o}{For an ordinal scale, a \verb{scales::pal_*()} function.}
+
+\item{col_palette_na_d}{For a discrete scale, a hex code.}
+
+\item{col_palette_na_c}{For a continuous scale, a hex code.}
 
 \item{col_palette_na_o}{For an ordinal scale, a hex code.}
 

@@ -3,6 +3,7 @@ Coord
 Errorbar
 Freqpoly
 Linerange
+Lineribbon
 Nik
 ORCID
 Pointrange
@@ -39,13 +40,13 @@ gridlines
 hline
 ing
 linerange
+lineribbon
 linetype
 linewidth
 linewidths
 magrittr
 nd
 paletteer
-pkgdown
 pointrange
 qq
 rect
@@ -56,4 +57,3 @@ tibble
 tidyverse
 vjust
 vline
-yml

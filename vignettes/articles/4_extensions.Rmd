@@ -281,24 +281,6 @@ ggridges::Catalan_elections |>
 The ggdist package supports the visualisation of uncertainty. 
 
 ```{r}
-library(ggdist)
-geom_lineribbon()
-
-data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
-  mutate(level_min = level - 1, level_max = level + 1) |>
-  gg_blanket(
-    geom = "lineribbon",
-    x = year,
-    y = level,
-    ymin = level_min,
-    ymax = level_max,
-    x_labels = \(x) x,
-    y_label = "Level",
-    blend = "multiply",
-  ) 
-```
-
-```{r}
 library(distributional)
 geom_slabinterval()
 
@@ -319,8 +301,9 @@ data.frame(
     stat = "slabinterval",
     y = distribution,
     mapping = aes(dist = values),
-    colour = lightness[1],
-    fill = blue,
+    # colour = lightness[1],
+    blend = "multiply",
+    # fill = blue,
     y_expand = c(0.05, 0.05),
     # show_slab = FALSE,
     # show_interval = FALSE,
@@ -433,26 +416,24 @@ penguins2 |>
     x = flipper_length_mm,
     col = species,
   ) +
-  geom_density() |> ggblend::blend(blend = "multiply") 
+  ggblend::blend(geom_density(), blend = "multiply") 
 ```
 
 ```{r}
 data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
   mutate(level_min = level - 1, level_max = level + 1) |>
   gg_blanket(
-    x = year, 
-    y = level, 
-    ymin = level_min, 
-    ymax = level_max
+    x = year,
+    y = level,
+    ymin = level_min,
+    ymax = level_max,
+    x_labels = \(x) x,
   ) +
   ggblend::blend(
-    list(
-      geom_ribbon(alpha = 1), 
-      geom_line() 
-    ),
-    blend = "multiply")
+    list(geom_ribbon(), geom_line()),
+    blend = "multiply",
+  )
 ```
-
 
 ### ggh4x
 
