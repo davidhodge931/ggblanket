@@ -1,6 +1,6 @@
 #' Lineribbon ggplot
 #'
-#' @description Create a lineribbon ggplot with a wrapper around [ggplot2::ggplot()] + [geom_ribbon()][ggplot2::geom_ribbon()] + [geom_ribbon()][ggplot2::geom_line()]
+#' @description Create a lineribbon ggplot with a wrapper around [ggplot2::ggplot()] + [geom_ribbon()][ggplot2::geom_ribbon()] + [geom_line()][ggplot2::geom_line()]
 #'
 #' @inheritParams gg_blanket
 #'

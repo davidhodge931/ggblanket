@@ -18,6 +18,7 @@
 #'   gg_density(
 #'     x = flipper_length_mm,
 #'     col = species,
+#'     blend = "multiply",
 #'   )
 #'
 gg_density <- function(data = NULL,

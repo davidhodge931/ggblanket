@@ -165,7 +165,6 @@ penguins2 |>
     col = species,
     col_palette = c(teal, orange, pink),
     blend = "multiply",
-    mode = dark_mode_t(),
   )
 ```
 

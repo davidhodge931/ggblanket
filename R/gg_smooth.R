@@ -19,6 +19,7 @@
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
+#'     blend = "multiply",
 #'   )
 #'
 gg_smooth <- function(data = NULL,
