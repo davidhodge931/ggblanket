@@ -56,7 +56,6 @@ weave_geom_defaults <- function(
   ggplot2::update_geom_defaults("crossbar", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = 0, linewidth = 0.66))
   ggplot2::update_geom_defaults("density", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("density_2d_filled", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("hex", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("polygon", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("raster", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("rect", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
@@ -65,6 +64,10 @@ weave_geom_defaults <- function(
   ggplot2::update_geom_defaults("smooth", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = NA, linewidth = 0.66))
   ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults("violin", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
+
+  # ggplot2::update_geom_defaults("bin2d", ggplot2::aes(fill = !!fill, linewidth = 0))
+  ggplot2::update_geom_defaults("raster", ggplot2::aes(fill = !!fill, linewidth = 0))
+  ggplot2::update_geom_defaults("hex", ggplot2::aes(fill = !!fill, linewidth = 0))
 
   #lines
   ggplot2::update_geom_defaults("contour", ggplot2::aes(colour = !!colour, linewidth = 0.66))
