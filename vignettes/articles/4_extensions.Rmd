@@ -281,6 +281,7 @@ ggridges::Catalan_elections |>
 The ggdist package supports the visualisation of uncertainty. 
 
 ```{r}
+library(ggdist)
 library(distributional)
 geom_slabinterval()
 
