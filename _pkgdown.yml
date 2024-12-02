@@ -20,13 +20,6 @@ reference:
   - dark_mode_r
   - dark_mode_t
   - dark_mode_b
-- title: Aesthetics
-- contents:
-  - aes_colour_contrast
-  - aes_colour_darken
-  - aes_colour_lighten
-  - aes_fill_darken
-  - aes_fill_lighten
 - title: Sub-setup
 - contents:
   - weave_mode
@@ -49,4 +42,5 @@ reference:
   - linewidthness
   - mode_orientation_to_x
   - mode_orientation_to_y
+  - aes_colour_contrast
   - label_every_nth

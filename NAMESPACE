@@ -2,10 +2,6 @@
 
 export("%>%")
 export(aes_colour_contrast)
-export(aes_colour_darken)
-export(aes_colour_lighten)
-export(aes_fill_darken)
-export(aes_fill_lighten)
 export(blue)
 export(dark_mode_b)
 export(dark_mode_r)

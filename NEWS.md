@@ -3,6 +3,7 @@
 * Changed `gg_smooth` and `gg_ribbon` default to NA.
 * Added colour blending (e.g. `blend = "multiply`).
 * Added `gg_lineribbon`.
+* Deprecated `aes_colour_darken`, `aes_colour_lighten`, `aes_fill_darken` and `aes_colour_lighten`.
 
 # ggblanket 11.0.0
 
