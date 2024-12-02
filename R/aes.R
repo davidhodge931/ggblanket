@@ -108,9 +108,7 @@ aes_colour_contrast <- function(..., dark = "#121B24FF", light = "#FFFFFFFF") {
 #' library(ggplot2)
 #' library(palmerpenguins)
 #'
-#' set_blanket(
-#'   alpha_recursive = 1,
-#' )
+#' set_blanket()
 #'
 #' penguins |>
 #'   gg_bar(
@@ -118,6 +116,7 @@ aes_colour_contrast <- function(..., dark = "#121B24FF", light = "#FFFFFFFF") {
 #'     col = island,
 #'     mapping = aes_colour_darken(amount = 0.2),
 #'     width = 0.75,
+#'     linewidth = 0.66,
 #'   )
 #'
 #' penguins |>
@@ -126,6 +125,7 @@ aes_colour_contrast <- function(..., dark = "#121B24FF", light = "#FFFFFFFF") {
 #'   col = island,
 #'   mapping = aes(!!!aes_colour_darken(amount = 0.2)),
 #'   width = 0.75,
+#'     linewidth = 0.66,
 #' )
 #'
 aes_colour_darken <- function(..., amount = 0.1) {
