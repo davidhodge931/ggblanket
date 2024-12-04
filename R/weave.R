@@ -149,25 +149,23 @@ weave_col_palette_d <- function(col_palette_d = jumble, col_palette_na_d = "#CDC
 
   if (rlang::is_null(col_palette_d)) {
     options(
-      ggplot2.discrete.colour = function(...)
-        ggplot2::scale_colour_hue(...),
-      ggplot2.discrete.fill = function(...)
-        ggplot2::scale_fill_hue(...)
+      ggplot2.discrete.colour = function()
+        ggplot2::scale_colour_hue(),
+      ggplot2.discrete.fill = function()
+        ggplot2::scale_fill_hue()
     )
   }
   else {
     options(
-      ggplot2.discrete.colour = function(...)
+      ggplot2.discrete.colour = function()
         ggplot2::scale_colour_manual(
           values = col_palette_d,
-          na.value = col_palette_na_d,
-          ...
+          na.value = col_palette_na_d
         ),
-      ggplot2.discrete.fill = function(...)
+      ggplot2.discrete.fill = function()
         ggplot2::scale_fill_manual(
           values = col_palette_d,
-          na.value = col_palette_na_d,
-          ...
+          na.value = col_palette_na_d
         )
     )
   }
@@ -201,17 +199,15 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
   invisible(old)
 
   options(
-    ggplot2.continuous.colour = function(...)
+    ggplot2.continuous.colour = function()
       ggplot2::scale_color_gradientn(
         colours = col_palette_c,
-        na.value = col_palette_na_c,
-        ...
+        na.value = col_palette_na_c
       ),
-    ggplot2.continuous.fill = function(...)
+    ggplot2.continuous.fill = function()
       ggplot2::scale_fill_gradientn(
         colours = col_palette_c,
         na.value = col_palette_na_c,
-        ...
       )
   )
 }
@@ -220,10 +216,11 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
 #'
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function. Use NULL for ggplot2 default.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
+#' @param ... Dots to support trailing commas etc.
 #'
 #' @noRd
 weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G", direction = -1),
-                                col_palette_na_o = "#988F88FF") {
+                                col_palette_na_o = "#988F88FF", ...) {
 
   if (rlang::is_null(col_palette_o)) col_palette_o <- scales::pal_viridis()
   if (rlang::is_null(col_palette_na_o)) col_palette_na_o <- "grey50"
