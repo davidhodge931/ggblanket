@@ -23,7 +23,7 @@ test_that(test_name, {
     h = c(one + 1, two + 1),
     id = rep(c("one", "two"), each = 10)
   ) |>
-    gg_lineribbon(
+    gg_ribbon_line(
       x = x,
       y = y,
       ymin = l,

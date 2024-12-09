@@ -295,21 +295,6 @@ economics |>
   )
 ```
 
-### gg_lineribbon
-
-```{r}
-data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
-  mutate(level_min = level - 1, level_max = level + 1) |>
-  gg_lineribbon(
-    x = year,
-    y = level,
-    ymin = level_min,
-    ymax = level_max,
-    x_labels = \(x) x,
-    blend = "multiply",
-  )
-```
-
 ### gg_linerange
 
 ```{r}
@@ -461,6 +446,21 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     ymax = level_max,
     x_labels = \(x) x,
     y_label = "Level",
+  )
+```
+
+### gg_ribbon_line
+
+```{r}
+data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
+  mutate(level_min = level - 1, level_max = level + 1) |>
+  gg_ribbon_line(
+    x = year,
+    y = level,
+    ymin = level_min,
+    ymax = level_max,
+    x_labels = \(x) x,
+    blend = "multiply",
   )
 ```
 

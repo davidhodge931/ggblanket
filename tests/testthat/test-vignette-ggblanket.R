@@ -326,7 +326,6 @@ test_that(test_name, {
       x = flipper_length_mm,
       y = species,
       position = position_dodge2(preserve = "single"),
-      alpha = 0,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -344,7 +343,6 @@ test_that(test_name, {
       y = flipper_length_mm,
       col = sex,
       position = position_dodge2(preserve = "single"),
-      alpha = 0,
     )
 
   vdiffr::expect_doppelganger(test_name, p)

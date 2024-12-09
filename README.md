@@ -15,7 +15,6 @@ downloads](https://cranlogs.r-pkg.org/badges/last-month/ggblanket?color=lightgre
 downloads](https://cranlogs.r-pkg.org/badges/last-week/ggblanket?color=lightgrey)](https://r-pkg.org/pkg/ggblanket)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-day/ggblanket?color=lightgrey)](https://r-pkg.org/pkg/ggblanket)
-[![R-CMD-check](https://github.com/davidhodge931/ggblanket/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/davidhodge931/ggblanket/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ## Overview

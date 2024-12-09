@@ -15,7 +15,7 @@
 #'
 #' data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
 #'   mutate(level_min = level - 1, level_max = level + 1) |>
-#'   gg_lineribbon(
+#'   gg_ribbon_line(
 #'     x = year,
 #'     y = level,
 #'     ymin = level_min,
@@ -24,7 +24,7 @@
 #'     blend = "multiply",
 #'   )
 #'
-gg_lineribbon <- function(data = NULL,
+gg_ribbon_line <- function(data = NULL,
                       ...,
                       stat = "identity",
                       position = "identity",

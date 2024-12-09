@@ -245,7 +245,7 @@ gg_blanket <- function(data = NULL,
           stat = stat,
           position = position,
           mapping = ggplot2::aes(!!!mapping),
-          params = rlang::list2(outlier.alpha = 1, ...),
+          params = rlang::list2(...),
           show.legend = show_legend,
         ) +
         coord
@@ -257,7 +257,7 @@ gg_blanket <- function(data = NULL,
           stat = stat,
           position = position,
           mapping = ggplot2::aes(!!!mapping),
-          params = rlang::list2(outlier.alpha = 1, ...),
+          params = rlang::list2(...),
           show.legend = show_legend,
         ) |> ggblend::blend(blend = blend) +
         coord
@@ -464,7 +464,7 @@ gg_blanket <- function(data = NULL,
           stat = stat,
           position = position,
           mapping = ggplot2::aes(!!!mapping),
-          params = rlang::list2(outlier.alpha = 1, ...),
+          params = rlang::list2(...),
           show.legend = show_legend,
         ) +
         coord
@@ -476,7 +476,7 @@ gg_blanket <- function(data = NULL,
           stat = stat,
           position = position,
           mapping = ggplot2::aes(!!!mapping),
-          params = rlang::list2(outlier.alpha = 1, ...),
+          params = rlang::list2(...),
           show.legend = show_legend,
         ) |> ggblend::blend(blend = blend) +
         coord

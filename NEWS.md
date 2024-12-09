@@ -4,7 +4,7 @@
 * Removed `aes_colour_darken`, `aes_colour_lighten`, `aes_fill_darken` and `aes_colour_lighten`.
 * Removed `gg_ribbon`, `gg_boxplot`, `gg_crossbar` and `gg_smooth` alpha default to `NA`.
 * Added colour blending (e.g. `blend = "multiply`).
-* Added `gg_lineribbon`.
+* Added `gg_ribbon_line`.
 * Updated `*_mode_*` themes to default to `axis_line_linewidth = 0.25`. 
 
 # ggblanket 11.0.0
