@@ -5,6 +5,7 @@
 * Removed `gg_ribbon` alpha default, and changed `gg_smooth` to NA.
 * Added colour blending (e.g. `blend = "multiply`).
 * Added `gg_lineribbon`.
+* Updated `*_mode_*` themes to default to `axis_line_linewidth = 0.25`. 
 
 # ggblanket 11.0.0
 
