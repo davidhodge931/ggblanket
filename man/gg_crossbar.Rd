@@ -183,6 +183,7 @@ data.frame(
     width = 0.5,
     x_label = "Treatment",
     y_label = "Response",
+    blend = "multiply",
   )
 
 }

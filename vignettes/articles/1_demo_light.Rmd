@@ -92,6 +92,7 @@ penguins2 |>
     x = flipper_length_mm,
     y = sex,
     col = species,
+    blend = "multiply",
   )
 ```
 
@@ -146,6 +147,7 @@ experiment |>
     col = group,
     width = 0.5,
     y_expand_limits = 0,
+    blend = "multiply",
   )
 ```
 

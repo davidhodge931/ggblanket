@@ -19,6 +19,7 @@
 #'     x = flipper_length_mm,
 #'     y = species,
 #'     col = sex,
+#'     blend = "multiply",
 #'   )
 #'
 gg_boxplot <- function(data = NULL,

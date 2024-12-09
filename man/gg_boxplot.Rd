@@ -173,6 +173,7 @@ penguins |>
     x = flipper_length_mm,
     y = species,
     col = sex,
+    blend = "multiply",
   )
 
 }
