@@ -384,7 +384,7 @@
 <circle cx='275.65' cy='368.53' r='1.95' style='stroke-width: 0.71; stroke: #FFA600; fill: #FFA600;' />
 <circle cx='425.06' cy='327.20' r='1.95' style='stroke-width: 0.71; stroke: #FFA600; fill: #FFA600;' />
 <circle cx='319.59' cy='368.53' r='1.95' style='stroke-width: 0.71; stroke: #0095A8; fill: #0095A8;' />
-<line x1='337.17' y1='530.71' x2='337.17' y2='21.92' style='stroke-width: 0.70; stroke: #0095A8; stroke-linecap: butt;' />
+<line x1='337.17' y1='530.71' x2='337.17' y2='21.92' style='stroke-width: 0.53; stroke: #0095A8; stroke-linecap: butt;' />
 <polyline points='65.15,530.71 65.15,21.92 ' style='stroke-width: 0.53; stroke: none; stroke-linecap: square;' />
 <text x='59.30' y='534.50' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='27.53px' lengthAdjust='spacingAndGlyphs'>2,500</text>
 <text x='59.30' y='470.90' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='27.53px' lengthAdjust='spacingAndGlyphs'>3,000</text>

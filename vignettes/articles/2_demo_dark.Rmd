@@ -29,8 +29,9 @@ library(palmerpenguins)
 
 set_blanket(
   mode = dark_mode_r(), 
-  text_colour = darkness[1],
-  reference_line_colour = darkness[1],
+  colour_text = darkness[1],
+  colour_hline = darkness[1],
+  colour_vline = darkness[1],
   col_palette_d = c(teal, orange, purple, red, pink, navy),
   col_palette_c = viridis::mako(n = 9),
   col_palette_o = scales::pal_viridis(option = "G"),
@@ -282,7 +283,6 @@ bind_rows(
   gg_label(
     x = model,
     y = mpg,
-    col = mpg,
     label = model,
     y_expand_limits = 0,
     y_label = "Miles per gallon", 
@@ -539,7 +539,6 @@ bind_rows(
   gg_text(
     x = model,
     y = mpg,
-    col = mpg,
     label = model,
     y_expand_limits = 0,
     y_label = "Miles per gallon",

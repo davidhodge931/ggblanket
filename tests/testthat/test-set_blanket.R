@@ -35,8 +35,8 @@ test_that(test_name, {
   set_blanket(
     mode = light_mode_r(),
     colour = red,
-    text_colour = teal,
-    reference_line_colour = teal,
+    colour_text = teal,
+    colour_vline = teal,
   )
 
   p <- penguins |>
@@ -56,10 +56,10 @@ test_that(test_name, {
 set_blanket(
   mode = dark_mode_r(base_size = 15),
   colour = red,
-  text_colour = "red",
-  reference_line_colour = "red",
-  reference_line_linewidth = 5,
-  text_size = 15 / 2.83505,
+  colour_text = "red",
+  colour_vline = "red",
+  linewidth_vline = 5,
+  size_text = 15 / 2.83505,
   col_palette_d = c(navy, red, "green"),
   col_palette_c = c(navy, purple, red, orange)
 )

@@ -298,7 +298,6 @@ test_that(test_name, {
     gg_label(
       x = model,
       y = mpg,
-      col = mpg,
       label = model,
       size = 3.53,
       y_expand_limits = 0,
@@ -612,7 +611,6 @@ test_that(test_name, {
     gg_text(
       x = model,
       y = mpg,
-      col = mpg,
       label = model,
       size = 3.53,
       y_expand_limits = 0,

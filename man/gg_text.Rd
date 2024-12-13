@@ -175,7 +175,6 @@ bind_rows(
   gg_text(
     x = model,
     y = mpg,
-    col = mpg,
     label = model,
     y_expand_limits = 0,
     y_label = "Miles per gallon",
