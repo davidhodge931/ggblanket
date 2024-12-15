@@ -77,18 +77,12 @@ ggplot2::update_geom_defaults() can be used to further fine-tune geom defaults."
 <span>  <span class="va">...</span>,</span>
 <span>  mode <span class="op">=</span> <span class="fu"><a href="light_mode_r.html">light_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  colour <span class="op">=</span> <span class="st">"#357BA2FF"</span>,</span>
-<span>  colour_text <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
-<span>  colour_label <span class="op">=</span> <span class="st">"#FFFFFFFF"</span>,</span>
-<span>  colour_hline <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
-<span>  colour_vline <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
 <span>  fill <span class="op">=</span> <span class="va">colour</span>,</span>
-<span>  fill_label <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
-<span>  size_text <span class="op">=</span> <span class="fl">11</span><span class="op">/</span><span class="fl">2.835052</span>,</span>
-<span>  size_label <span class="op">=</span> <span class="va">size_text</span>,</span>
-<span>  family_text <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  family_label <span class="op">=</span> <span class="va">family_text</span>,</span>
-<span>  linewidth_hline <span class="op">=</span> <span class="fl">0.25</span>,</span>
-<span>  linewidth_vline <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>  text_colour <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
+<span>  text_size <span class="op">=</span> <span class="fl">11</span><span class="op">/</span><span class="fl">2.835052</span>,</span>
+<span>  text_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  reference_colour <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
+<span>  reference_linewidth <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>  col_palette_d <span class="op">=</span> <span class="va">jumble</span>,</span>
 <span>  col_palette_c <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>  col_palette_o <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/pal_viridis.html" class="external-link">pal_viridis</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"G"</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
@@ -112,55 +106,31 @@ ggplot2::update_geom_defaults() can be used to further fine-tune geom defaults."
 
 
 <dt id="arg-colour">colour<a class="anchor" aria-label="anchor" href="#arg-colour"></a></dt>
-<dd><p>A default hex colour for the colour of geoms.</p></dd>
-
-
-<dt id="arg-colour-text">colour_text<a class="anchor" aria-label="anchor" href="#arg-colour-text"></a></dt>
-<dd><p>A default hex colour for the colour of the "text" geom.</p></dd>
-
-
-<dt id="arg-colour-label">colour_label<a class="anchor" aria-label="anchor" href="#arg-colour-label"></a></dt>
-<dd><p>A default hex colour for the colour of the "label" geom.</p></dd>
-
-
-<dt id="arg-colour-hline">colour_hline<a class="anchor" aria-label="anchor" href="#arg-colour-hline"></a></dt>
-<dd><p>A default hex colour for the colour of the "hline" geom.</p></dd>
-
-
-<dt id="arg-colour-vline">colour_vline<a class="anchor" aria-label="anchor" href="#arg-colour-vline"></a></dt>
-<dd><p>A default hex colour for the colour of the vline" geom.</p></dd>
+<dd><p>A default hex colour for the colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).</p></dd>
 
 
 <dt id="arg-fill">fill<a class="anchor" aria-label="anchor" href="#arg-fill"></a></dt>
-<dd><p>A default hex colour for the fill of geoms.</p></dd>
+<dd><p>A default hex colour for the fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).</p></dd>
 
 
-<dt id="arg-fill-label">fill_label<a class="anchor" aria-label="anchor" href="#arg-fill-label"></a></dt>
-<dd><p>A default hex colour for the fill of the "label" geom.</p></dd>
+<dt id="arg-text-colour">text_colour<a class="anchor" aria-label="anchor" href="#arg-text-colour"></a></dt>
+<dd><p>A default hex colour for the colour of the "text" and "label" geoms.</p></dd>
 
 
-<dt id="arg-size-text">size_text<a class="anchor" aria-label="anchor" href="#arg-size-text"></a></dt>
-<dd><p>A default size for the "text" geom.</p></dd>
+<dt id="arg-text-size">text_size<a class="anchor" aria-label="anchor" href="#arg-text-size"></a></dt>
+<dd><p>A default size for the "text" and "label" geoms.</p></dd>
 
 
-<dt id="arg-size-label">size_label<a class="anchor" aria-label="anchor" href="#arg-size-label"></a></dt>
-<dd><p>A default size for the label" geom.</p></dd>
+<dt id="arg-text-family">text_family<a class="anchor" aria-label="anchor" href="#arg-text-family"></a></dt>
+<dd><p>A default family for the "text" and "label" geoms.</p></dd>
 
 
-<dt id="arg-family-text">family_text<a class="anchor" aria-label="anchor" href="#arg-family-text"></a></dt>
-<dd><p>A default family for the "text" geom.</p></dd>
+<dt id="arg-reference-colour">reference_colour<a class="anchor" aria-label="anchor" href="#arg-reference-colour"></a></dt>
+<dd><p>A default hex colour for the colour of the "hline", "vline" and "abline" geoms.</p></dd>
 
 
-<dt id="arg-family-label">family_label<a class="anchor" aria-label="anchor" href="#arg-family-label"></a></dt>
-<dd><p>A default family for the "label" geom.</p></dd>
-
-
-<dt id="arg-linewidth-hline">linewidth_hline<a class="anchor" aria-label="anchor" href="#arg-linewidth-hline"></a></dt>
-<dd><p>A default hex colour for the colour of the "hline" geom.</p></dd>
-
-
-<dt id="arg-linewidth-vline">linewidth_vline<a class="anchor" aria-label="anchor" href="#arg-linewidth-vline"></a></dt>
-<dd><p>A default hex colour for the colour of the "vline" geom.</p></dd>
+<dt id="arg-reference-linewidth">reference_linewidth<a class="anchor" aria-label="anchor" href="#arg-reference-linewidth"></a></dt>
+<dd><p>A default hex colour for the colour of the "hline", "vline" and "abline" geoms.</p></dd>
 
 
 <dt id="arg-col-palette-d">col_palette_d<a class="anchor" aria-label="anchor" href="#arg-col-palette-d"></a></dt>
