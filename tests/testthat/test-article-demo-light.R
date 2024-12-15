@@ -302,7 +302,7 @@ test_that(test_name, {
       size = 3.53,
       y_expand_limits = 0,
       y_label = "Miles per gallon",
-      col_palette = c(orange, "white", teal),
+      # col_palette = c(orange, "white", teal),
     )
 
   vdiffr::expect_doppelganger(test_name, p)

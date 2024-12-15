@@ -29,35 +29,23 @@ weave_mode <- function(mode = light_mode_r()) {
 #'
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune individual geom defaults.
 #'
-#' @param colour A default hex colour for the colour of geoms.
-#' @param colour_text A default hex colour for the colour of the "text" geom.
-#' @param colour_label A default hex colour for the colour of the "label" geom.
-#' @param colour_hline A default hex colour for the colour of the "hline" geom.
-#' @param colour_vline A default hex colour for the colour of the vline" geom.
-#' @param fill A default hex colour for the fill of geoms.
-#' @param fill_label A default hex colour for the fill of the "label" geom.
-#' @param size_text A default size for the "text" geom.
-#' @param size_label A default size for the label" geom.
-#' @param family_text A default family for the "text" geom.
-#' @param family_label A default family for the "label" geom.
-#' @param linewidth_hline A default hex colour for the colour of the "hline" geom.
-#' @param linewidth_vline A default hex colour for the colour of the "vline" geom.
+#' @param colour A default hex colour for the colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
+#' @param fill A default hex colour for the fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
+#' @param text_colour A default hex colour for the colour of the "text" and "label" geoms.
+#' @param text_size A default size for the "text" and "label" geoms.
+#' @param text_family A default family for the "text" and "label" geoms.
+#' @param reference_colour A default hex colour for the colour of the "hline", "vline" and "abline" geoms.
+#' @param reference_linewidth A default hex colour for the colour of the "hline", "vline" and "abline" geoms.
 #'
 #' @export
 weave_geom_defaults <- function(
     colour = "#357BA2FF",
-    colour_text = "#121B24FF",
-    colour_label = "#FFFFFFFF",
-    colour_hline = "#121B24FF",
-    colour_vline = "#121B24FF",
     fill = colour,
-    fill_label = "#121B24FF",
-    size_text = 11 / 2.835052,
-    size_label = 11 / 2.835052,
-    family_text = "",
-    family_label = "",
-    linewidth_hline = 0.25,
-    linewidth_vline = 0.25
+    text_colour = "#121B24FF",
+    text_size = 11 / 2.835052,
+    text_family = "",
+    reference_colour = "#121B24FF",
+    reference_linewidth = 0.25
     ) {
 
   #polygons
@@ -83,7 +71,6 @@ weave_geom_defaults <- function(
   ggplot2::update_geom_defaults("hex", ggplot2::aes(fill = !!fill, linewidth = 0))
 
   #lines
-  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour, linewidth = 0.66))
   ggplot2::update_geom_defaults("contour", ggplot2::aes(colour = !!colour, linewidth = 0.66))
   ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!colour, linewidth = 0.66))
   ggplot2::update_geom_defaults("density2d", ggplot2::aes(colour = !!colour, linewidth = 0.66))
@@ -103,12 +90,13 @@ weave_geom_defaults <- function(
   ggplot2::update_geom_defaults("pointrange", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66, size = 0.2)) # 1.5 / 7.5
 
   #hline & vline
-  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour_hline, linewidth = !!linewidth_hline))
-  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour_vline, linewidth = !!linewidth_vline))
+  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!reference_colour, linewidth = !!reference_linewidth))
+  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!reference_colour, linewidth = !!reference_linewidth))
+  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!reference_colour, linewidth = !!reference_linewidth))
 
   #text and label
-  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour_text, size = !!size_text, family = !!family_text))
-  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour_label, fill = !!fill_label, size = !!size_label, family = !!family_label))
+  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!text_colour, size = !!text_size, family = !!text_family))
+  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!text_colour, size = !!text_size, family = !!text_family))
 }
 
 #' Set a discrete colour and fill palettes

@@ -13,19 +13,13 @@
 #'
 #' @param ... Provided to force user argument naming etc.
 #' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
-#' @param colour A default hex colour for the colour of geoms.
-#' @param colour_text A default hex colour for the colour of the "text" geom.
-#' @param colour_label A default hex colour for the colour of the "label" geom.
-#' @param colour_hline A default hex colour for the colour of the "hline" geom.
-#' @param colour_vline A default hex colour for the colour of the vline" geom.
-#' @param fill A default hex colour for the fill of geoms.
-#' @param fill_label A default hex colour for the fill of the "label" geom.
-#' @param size_text A default size for the "text" geom.
-#' @param size_label A default size for the label" geom.
-#' @param family_text A default family for the "text" geom.
-#' @param family_label A default family for the "label" geom.
-#' @param linewidth_hline A default hex colour for the colour of the "hline" geom.
-#' @param linewidth_vline A default hex colour for the colour of the "vline" geom.
+#' @param colour A default hex colour for the colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
+#' @param fill A default hex colour for the fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
+#' @param text_colour A default hex colour for the colour of the "text" and "label" geoms.
+#' @param text_size A default size for the "text" and "label" geoms.
+#' @param text_family A default family for the "text" and "label" geoms.
+#' @param reference_colour A default hex colour for the colour of the "hline", "vline" and "abline" geoms.
+#' @param reference_linewidth A default hex colour for the colour of the "hline", "vline" and "abline" geoms.
 #' @param col_palette_d For a discrete scale, a character vector of hex codes.
 #' @param col_palette_c For a continuous scale, a character vector of hex codes.
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function.
@@ -72,18 +66,12 @@ set_blanket <- function(
     ...,
     mode = light_mode_r(),
     colour = "#357BA2FF",
-    colour_text = "#121B24FF",
-    colour_label = "#FFFFFFFF",
-    colour_hline = "#121B24FF",
-    colour_vline = "#121B24FF",
     fill = colour,
-    fill_label = "#121B24FF",
-    size_text = 11 / 2.835052,
-    size_label = size_text,
-    family_text = "",
-    family_label = family_text,
-    linewidth_hline = 0.25,
-    linewidth_vline = 0.25,
+    text_colour = "#121B24FF",
+    text_size = 11 / 2.835052,
+    text_family = "",
+    reference_colour = "#121B24FF",
+    reference_linewidth = 0.25,
     col_palette_d = jumble,
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
@@ -96,18 +84,12 @@ set_blanket <- function(
 
   weave_geom_defaults(
     colour = colour,
-    colour_text = colour_text,
-    colour_label = colour_label,
-    colour_hline = colour_hline,
-    colour_vline = colour_vline,
     fill = fill,
-    fill_label = fill_label,
-    size_text = size_text,
-    size_label = size_label,
-    family_text = family_text,
-    family_label = family_label,
-    linewidth_hline = linewidth_hline,
-    linewidth_vline = linewidth_vline
+    text_colour = text_colour,
+    text_size = text_size,
+    text_family = text_family,
+    reference_colour = reference_colour,
+    reference_linewidth = reference_linewidth
   )
 
   weave_col_palettes(

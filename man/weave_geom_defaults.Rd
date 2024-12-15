@@ -6,46 +6,28 @@
 \usage{
 weave_geom_defaults(
   colour = "#357BA2FF",
-  colour_text = "#121B24FF",
-  colour_label = "#FFFFFFFF",
-  colour_hline = "#121B24FF",
-  colour_vline = "#121B24FF",
   fill = colour,
-  fill_label = "#121B24FF",
-  size_text = 11/2.835052,
-  size_label = 11/2.835052,
-  family_text = "",
-  family_label = "",
-  linewidth_hline = 0.25,
-  linewidth_vline = 0.25
+  text_colour = "#121B24FF",
+  text_size = 11/2.835052,
+  text_family = "",
+  reference_colour = "#121B24FF",
+  reference_linewidth = 0.25
 )
 }
 \arguments{
-\item{colour}{A default hex colour for the colour of geoms.}
+\item{colour}{A default hex colour for the colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).}
 
-\item{colour_text}{A default hex colour for the colour of the "text" geom.}
+\item{fill}{A default hex colour for the fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).}
 
-\item{colour_label}{A default hex colour for the colour of the "label" geom.}
+\item{text_colour}{A default hex colour for the colour of the "text" and "label" geoms.}
 
-\item{colour_hline}{A default hex colour for the colour of the "hline" geom.}
+\item{text_size}{A default size for the "text" and "label" geoms.}
 
-\item{colour_vline}{A default hex colour for the colour of the vline" geom.}
+\item{text_family}{A default family for the "text" and "label" geoms.}
 
-\item{fill}{A default hex colour for the fill of geoms.}
+\item{reference_colour}{A default hex colour for the colour of the "hline", "vline" and "abline" geoms.}
 
-\item{fill_label}{A default hex colour for the fill of the "label" geom.}
-
-\item{size_text}{A default size for the "text" geom.}
-
-\item{size_label}{A default size for the label" geom.}
-
-\item{family_text}{A default family for the "text" geom.}
-
-\item{family_label}{A default family for the "label" geom.}
-
-\item{linewidth_hline}{A default hex colour for the colour of the "hline" geom.}
-
-\item{linewidth_vline}{A default hex colour for the colour of the "vline" geom.}
+\item{reference_linewidth}{A default hex colour for the colour of the "hline", "vline" and "abline" geoms.}
 }
 \description{
 Update all the geom defaults.

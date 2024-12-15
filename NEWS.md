@@ -1,6 +1,6 @@
 # ggblanket 11.0.0.9000
 
-* Rethought `set_blanket` and `weave_geom_defaults` arguments.
+* In `set_blanket`, renamed `reference_line_*` arguments to `reference_*`.
 * Added R 4.2.0 dependency.
 * Removed `aes_colour_darken`, `aes_colour_lighten`, `aes_fill_darken` and `aes_colour_lighten`.
 * Removed `gg_ribbon`, `gg_boxplot`, `gg_crossbar` and `gg_smooth` alpha default to `NA`.
