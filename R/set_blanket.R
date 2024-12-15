@@ -4,7 +4,7 @@
 #' Weave the style by setting:
 #'
 #' 1. the mode to be added with `gg_*()` side-effects
-#' 2. the colour/fill geom defaults etc
+#' 2. the geom defaults (e.g. colour/fill), and text and reference line defaults
 #' 3. the col_palettes for discrete, continuous and ordinal colour/fill scales
 #' 4. a theme to be added _without_ `gg_*()` side-effects.
 #'
