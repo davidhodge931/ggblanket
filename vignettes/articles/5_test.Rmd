@@ -1,0 +1,38 @@
+---
+title: "5_test.Rmd"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(dplyr)
+library(ggblend)
+library(ggplot2)
+
+set.seed(1234)
+df_a = data.frame(x = rnorm(500, 0), y = rnorm(500, 1), set = "a")
+df_b = data.frame(x = rnorm(500, 1), y = rnorm(500, 2), set = "b")
+
+df_ab = rbind(df_a, df_b) |>
+  transform(order = "draw a then b")
+
+df_ba = rbind(df_b, df_a) |>
+  transform(order = "draw b then a")
+
+df = rbind(df_ab, df_ba)
+
+df |>
+  ggplot(aes(x, y, color = set)) +
+  geom_point(size = 3, alpha = 0.5) |> blend("multiply") +
+  scale_color_brewer(palette = "Set1") +
+  facet_grid(~ order) +
+  labs(
+    title = "geom_point(alpha = 0.5) |> blend('multiply')",
+    subtitle = "Draw order does not matter, but color is too dark."
+  )
+```
