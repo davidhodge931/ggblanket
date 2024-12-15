@@ -63,7 +63,7 @@ A globally set style.
 Weave the style by setting:
 \enumerate{
 \item the mode to be added with \verb{gg_*()} side-effects
-\item the colour/fill geom defaults etc
+\item the geom defaults (e.g. colour/fill), and text and reference line defaults
 \item the col_palettes for discrete, continuous and ordinal colour/fill scales
 \item a theme to be added \emph{without} \verb{gg_*()} side-effects.
 }

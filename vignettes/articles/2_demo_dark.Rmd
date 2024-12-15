@@ -26,6 +26,7 @@ library(ggplot2)
 library(scales)
 library(ggblanket)
 library(palmerpenguins)
+library(ragg)
 
 set_blanket(
   mode = dark_mode_r(), 
