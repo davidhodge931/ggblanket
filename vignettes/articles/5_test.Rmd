@@ -5,7 +5,9 @@ title: "5_test.Rmd"
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  dev.args = list(png = list(type = "cairo")),
+  fig.retina = 2
 )
 ```
 
