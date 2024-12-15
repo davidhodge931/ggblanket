@@ -53,9 +53,9 @@ weave_geom_defaults <- function(
     fill = colour,
     fill_label = "#121B24FF",
     size_text = 11 / 2.835052,
-    size_label = size_text,
+    size_label = 11 / 2.835052,
     family_text = "",
-    family_label = family_text,
+    family_label = "",
     linewidth_hline = 0.25,
     linewidth_vline = 0.25
     ) {
