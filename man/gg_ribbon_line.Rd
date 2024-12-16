@@ -162,6 +162,7 @@ A ggplot object.
 Create a lineribbon ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_ribbon]{geom_ribbon()} + \link[ggplot2:geom_path]{geom_line()}
 }
 \examples{
+\dontrun {
 library(ggplot2)
 library(dplyr)
 
@@ -177,5 +178,6 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     x_labels = \(x) x,
     blend = "multiply",
   )
+}
 
 }
