@@ -491,7 +491,7 @@
 <clipPath id="clip-0">
 <rect x="0" y="0" width="525" height="324"/>
 </clipPath>
-<g id="source-185" clip-path="url(#clip-0)">
+<g id="source-157" clip-path="url(#clip-0)">
 <g filter="url(#filter-17)" transform="translate(-115.5, -71.28)">
 <rect x="0" y="0" width="756" height="466.56" fill="rgb(0%, 0%, 0%)" fill-opacity="1"/>
 </g>
@@ -508,7 +508,7 @@
 <path fill="none" stroke-width="2.838162" stroke-linecap="butt" stroke-linejoin="round" stroke="rgb(96.470588%, 97.254902%, 98.039216%)" stroke-opacity="1" stroke-miterlimit="10" d="M 60.597656 94.707031 L 430.28125 94.707031 "/>
 <path fill="none" stroke-width="2.838162" stroke-linecap="butt" stroke-linejoin="round" stroke="rgb(96.470588%, 97.254902%, 98.039216%)" stroke-opacity="1" stroke-miterlimit="10" d="M 60.597656 58.3125 L 430.28125 58.3125 "/>
 <path fill="none" stroke-width="2.838162" stroke-linecap="butt" stroke-linejoin="round" stroke="rgb(96.470588%, 97.254902%, 98.039216%)" stroke-opacity="1" stroke-miterlimit="10" d="M 60.597656 21.917969 L 430.28125 21.917969 "/>
-<use xlink:href="#source-185"/>
+<use xlink:href="#source-157"/>
 <g fill="rgb(7.058824%, 10.588235%, 14.117647%)" fill-opacity="1">
 <use xlink:href="#glyph-0-0" x="48.742188" y="280.202148"/>
 </g>

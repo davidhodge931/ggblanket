@@ -23,7 +23,6 @@
     <li><a class="dropdown-item" href="../articles/2_demo_dark.html">Demo: dark mode</a></li>
     <li><a class="dropdown-item" href="../articles/3_go_further.html">Go further</a></li>
     <li><a class="dropdown-item" href="../articles/4_extensions.html">Extensions</a></li>
-    <li><a class="dropdown-item" href="../articles/5_test.html">5_test.Rmd</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -289,26 +288,7 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fl">1875</span><span class="op">:</span><span class="fl">1972</span>, level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">LakeHuron</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>level_min <span class="op">=</span> <span class="va">level</span> <span class="op">-</span> <span class="fl">1</span>, level_max <span class="op">=</span> <span class="va">level</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu">gg_ribbon_line</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    x <span class="op">=</span> <span class="va">year</span>,</span></span>
-<span class="r-in"><span>    y <span class="op">=</span> <span class="va">level</span>,</span></span>
-<span class="r-in"><span>    ymin <span class="op">=</span> <span class="va">level_min</span>,</span></span>
-<span class="r-in"><span>    ymax <span class="op">=</span> <span class="va">level_max</span>,</span></span>
-<span class="r-in"><span>    x_labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span>,</span></span>
-<span class="r-in"><span>    blend <span class="op">=</span> <span class="st">"multiply"</span>,</span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Group definition failed</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Group definition failed</span>
-<span class="r-plt img"><img src="gg_ribbon_line-1.svg" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-</code></pre></div>
+
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
