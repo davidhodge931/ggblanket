@@ -60,7 +60,7 @@ experiment <- data.frame(
 
 ### gg_area
 
-```{r }
+```{r}
 economics |>
   gg_area(
     x = date,
@@ -71,7 +71,7 @@ economics |>
 
 ### gg_bar
 
-```{r }
+```{r}
 penguins2 |>
   gg_bar(
     position = position_dodge(preserve = "single"),

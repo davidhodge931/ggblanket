@@ -86,7 +86,7 @@ diamonds |>
 
 ### gg_boxplot
 
-```{r, eval=FALSE}
+```{r}
 penguins2 |>
   gg_boxplot(
     x = flipper_length_mm,
@@ -137,7 +137,7 @@ faithfuld |>
 
 ### gg_crossbar
 
-```{r, eval=FALSE}
+```{r}
 experiment |>
   gg_crossbar(
     x = trt,
@@ -153,7 +153,7 @@ experiment |>
 
 ### gg_density
 
-```{r, eval=FALSE}
+```{r}
 penguins2 |>
   gg_density(
     x = flipper_length_mm,
@@ -495,7 +495,7 @@ sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
 
 ### gg_smooth
 
-```{r, eval=FALSE}
+```{r}
 penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
