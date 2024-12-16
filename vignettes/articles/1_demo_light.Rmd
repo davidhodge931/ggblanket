@@ -158,7 +158,6 @@ penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = species,
-    col_palette = c(teal, orange, pink),
     blend = "multiply",
   )
 ```
@@ -278,7 +277,6 @@ bind_rows(
     label = model,
     y_expand_limits = 0,
     y_label = "Miles per gallon", 
-    col_palette = c(orange, "white", teal),
   )
 ```
 
@@ -534,7 +532,6 @@ bind_rows(
     label = model,
     y_expand_limits = 0,
     y_label = "Miles per gallon",
-    col_palette = c(orange, "white", teal),
   )
 ```
 

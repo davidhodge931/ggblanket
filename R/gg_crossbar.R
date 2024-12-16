@@ -29,7 +29,7 @@
 #'     width = 0.5,
 #'     x_label = "Treatment",
 #'     y_label = "Response",
-#'     # blend = "multiply",
+#'     blend = "multiply",
 #'   )
 #'
 gg_crossbar <- function(data = NULL,

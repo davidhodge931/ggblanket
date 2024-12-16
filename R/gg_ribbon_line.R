@@ -21,7 +21,7 @@
 #'     ymin = level_min,
 #'     ymax = level_max,
 #'     x_labels = \(x) x,
-#'     # blend = "multiply",
+#'     blend = "multiply",
 #'   )
 #'
 gg_ribbon_line <- function(data = NULL,

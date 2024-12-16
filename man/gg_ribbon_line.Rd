@@ -175,7 +175,7 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     ymin = level_min,
     ymax = level_max,
     x_labels = \(x) x,
-    # blend = "multiply",
+    blend = "multiply",
   )
 
 }

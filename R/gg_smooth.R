@@ -20,7 +20,7 @@
 #'     y = body_mass_g,
 #'     col = species,
 #'     se = TRUE,
-#'     # blend = "multiply",
+#'     blend = "multiply",
 #'   )
 #'
 gg_smooth <- function(data = NULL,

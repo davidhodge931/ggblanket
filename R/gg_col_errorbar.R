@@ -1,28 +1,11 @@
 #' #' Lineribbon ggplot
 #' #'
-#' #' @description Create a lineribbon ggplot with a wrapper around [ggplot2::ggplot()] + [geom_ribbon()][ggplot2::geom_ribbon()] + [geom_line()][ggplot2::geom_line()]
+#' #' @description Create a column errorbar ggplot with a wrapper around [ggplot2::ggplot()] + [geom_col()][ggplot2::geom_col()] + [geom_errorbar()][ggplot2::geom_errorbar()]
 #' #'
 #' #' @inheritParams gg_blanket
 #' #'
 #' #' @return A ggplot object.
 #' #' @export
-#' #'
-#' #' @examples
-#' #' library(ggplot2)
-#' #' library(dplyr)
-#' #'
-#' #' set_blanket()
-#' #'
-#' #' data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
-#' #'   mutate(level_min = level - 1, level_max = level + 1) |>
-#' #'   gg_ribbon_line(
-#' #'     x = year,
-#' #'     y = level,
-#' #'     ymin = level_min,
-#' #'     ymax = level_max,
-#' #'     x_labels = \(x) x,
-#' #'     blend = "multiply",
-#' #'   )
 #' #'
 #' gg_col_errorbar <- function(data = NULL,
 #'                            ...,
