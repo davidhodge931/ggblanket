@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
@@ -53,6 +53,14 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/davidhodge931/ggblanket/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -131,7 +139,7 @@ be changed.</p>
 <span>    x <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">flipper_length_mm</span>, </span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-2-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-2-1.png" width="70%"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggforce.data-imaginist.com" class="external-link">ggforce</a></span><span class="op">)</span></span>
 <span></span>
@@ -144,7 +152,7 @@ be changed.</p>
 <span>    y_label <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
 <span>    linewidth <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-3-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-3-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="change-the-position-of-the-layer">2. Change the <code>position</code> of the layer<a class="anchor" aria-label="anchor" href="#change-the-position-of-the-layer"></a>
@@ -160,7 +168,7 @@ can be changed.</p>
 <span>    col <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-4-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-4-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="use-_mode_-where-axis-lines-and-gridlines-are-not-as-wanted">3. Use <code>+ *_mode_*</code> where axis-lines and gridlines are
@@ -185,7 +193,7 @@ want.</p>
 <span>    x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_axis_logticks.html" class="external-link">guide_axis_logticks</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_axis_logticks.html" class="external-link">guide_axis_logticks</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-5-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-5-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="reorder-andor-reverse-categorical-variables">4. Reorder and/or reverse categorical variables<a class="anchor" aria-label="anchor" href="#reorder-andor-reverse-categorical-variables"></a>
@@ -221,7 +229,7 @@ data prior to plotting to achieve what you want (e.g. using
 <span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-6-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-6-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="drop-unused-categorical-variable-values">5. Drop unused categorical variable values<a class="anchor" aria-label="anchor" href="#drop-unused-categorical-variable-values"></a>
@@ -256,7 +264,7 @@ plotting using <code><a href="https://forcats.tidyverse.org/reference/fct_drop.h
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-7-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-7-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="transform-scales-to-log-etc">6. Transform scales to <code>"log"</code> etc<a class="anchor" aria-label="anchor" href="#transform-scales-to-log-etc"></a>
@@ -305,7 +313,7 @@ these.</p>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-8-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-8-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="correct-the-default-orientation">7. Correct the default orientation<a class="anchor" aria-label="anchor" href="#correct-the-default-orientation"></a>
@@ -332,7 +340,7 @@ argument.</p>
 <span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-9-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-9-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="avoid-the-symmetric-scale">8. Avoid the ‘symmetric’ scale<a class="anchor" aria-label="anchor" href="#avoid-the-symmetric-scale"></a>
@@ -377,7 +385,7 @@ argument.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span></span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-10-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-10-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="avoid-the-mode-side-effects">9. Avoid the mode side-effects<a class="anchor" aria-label="anchor" href="#avoid-the-mode-side-effects"></a>
@@ -403,7 +411,7 @@ plot, instead of adding it to the <code>mode</code> argument.</p>
 <span>  <span class="fu"><a href="../reference/light_mode_r.html">light_mode_r</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-11-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-11-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="change-the-_position-of-positional-axes">10. Change the <code>*_position</code> of positional axes<a class="anchor" aria-label="anchor" href="#change-the-_position-of-positional-axes"></a>
@@ -424,7 +432,7 @@ theme.</p>
 <span>    title <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"1967\u20132015"</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-12-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-12-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="zoom-in-or-out-on-scales">11. Zoom in or out on scales<a class="anchor" aria-label="anchor" href="#zoom-in-or-out-on-scales"></a>
@@ -444,7 +452,7 @@ etc.</p>
 <span>    y_expand_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">25</span><span class="op">)</span>,</span>
 <span>    se <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-13-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-13-1.png" width="70%"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#To zoom-in when the stat equals "identity", use dplyr::filter</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -453,7 +461,7 @@ etc.</p>
 <span>    x <span class="op">=</span>  <span class="va">bill_depth_mm</span>, </span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-14-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-14-1.png" width="70%"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#To zoom-in when the stat does _not_ equal "identity", use coord_cartesian </span></span>
 <span><span class="co">#Then either recreate the breaks, or turn off the symmetric axis </span></span>
@@ -466,7 +474,7 @@ etc.</p>
 <span>    se <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    <span class="co"># y_symmetric = FALSE,</span></span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-15-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-15-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="use-delayed-evaluation">12. Use delayed evaluation<a class="anchor" aria-label="anchor" href="#use-delayed-evaluation"></a>
@@ -480,7 +488,7 @@ with the <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" c
 <span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-16-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-16-1.png" width="70%"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">faithfuld</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_contour.html">gg_contour</a></span><span class="op">(</span></span>
@@ -490,7 +498,7 @@ with the <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" c
 <span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">level</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    bins <span class="op">=</span> <span class="fl">8</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-17-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-17-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="rescale-a-diverging-col-scale">13. Rescale a diverging col scale<a class="anchor" aria-label="anchor" href="#rescale-a-diverging-col-scale"></a>
@@ -510,7 +518,7 @@ central point.</p>
 <span>    col_breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/breaks_width.html" class="external-link">breaks_width</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>,</span>
 <span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-18-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-18-1.png" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="add-a-legend-within-the-panel">14. Add a legend within the panel<a class="anchor" aria-label="anchor" href="#add-a-legend-within-the-panel"></a>
@@ -526,7 +534,7 @@ central point.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"inside"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position.inside <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.justification <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="3_go_further_files/figure-html/unnamed-chunk-19-1.svg" width="70%"></p>
+<p><img src="3_go_further_files/figure-html/unnamed-chunk-19-1.png" width="70%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
