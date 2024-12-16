@@ -2,8 +2,6 @@ url: https://davidhodge931.github.io/ggblanket/
 template:
   bootstrap: 5
   light-switch: true
-authors:
-  David Hodge
 reference:
 - title: Setup
 - contents: set_blanket
