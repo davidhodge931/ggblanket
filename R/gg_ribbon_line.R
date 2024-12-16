@@ -8,6 +8,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun {
 #' library(ggplot2)
 #' library(dplyr)
 #'
@@ -23,6 +24,7 @@
 #'     x_labels = \(x) x,
 #'     blend = "multiply",
 #'   )
+#' }
 #'
 gg_ribbon_line <- function(data = NULL,
                       ...,

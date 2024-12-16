@@ -86,7 +86,7 @@ diamonds |>
 
 ### gg_boxplot
 
-```{r}
+```{r, eval=FALSE}
 penguins2 |>
   gg_boxplot(
     x = flipper_length_mm,
@@ -137,7 +137,7 @@ faithfuld |>
 
 ### gg_crossbar
 
-```{r}
+```{r, eval=FALSE}
 experiment |>
   gg_crossbar(
     x = trt,
@@ -450,7 +450,7 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
 
 ### gg_ribbon_line
 
-```{r}
+```{r, eval = FALSE}
 data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
   mutate(level_min = level - 1, level_max = level + 1) |>
   gg_ribbon_line(
@@ -497,7 +497,7 @@ sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
 
 ### gg_smooth
 
-```{r}
+```{r, eval=FALSE}
 penguins2 |>
   gg_smooth(
     x = flipper_length_mm,

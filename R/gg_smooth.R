@@ -8,6 +8,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun {
 #' library(ggplot2)
 #' library(dplyr)
 #' library(palmerpenguins)
@@ -22,6 +23,7 @@
 #'     se = TRUE,
 #'     blend = "multiply",
 #'   )
+#' }
 #'
 gg_smooth <- function(data = NULL,
                       ...,

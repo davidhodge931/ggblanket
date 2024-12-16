@@ -8,6 +8,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun {
 #' library(ggplot2)
 #' library(dplyr)
 #' library(palmerpenguins)
@@ -21,6 +22,7 @@
 #'     col = sex,
 #'     blend = "multiply",
 #'   )
+#' }
 #'
 gg_boxplot <- function(data = NULL,
                        ...,
