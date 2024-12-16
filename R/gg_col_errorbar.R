@@ -7,10 +7,33 @@
 #' #' @return A ggplot object.
 #' #' @export
 #' #'
+#' #' @examples
+#' #'
+#' #' set_blanket()
+#' #'
+#' #' data.frame(
+#' #'   trt = factor(c(1, 1, 2, 2)),
+#' #'   resp = c(1, 5, 3, 4),
+#' #'   group = factor(c(1, 2, 1, 2)),
+#' #'   upper = c(1.1, 5.3, 3.3, 4.2),
+#' #'   middle = c(1, 5, 3, 4),
+#' #'   lower = c(0.8, 4.6, 2.4, 3.6)
+#' #' ) |>
+#' #'   gg_col_errorbar(
+#' #'     x = trt,
+#' #'     y = middle,
+#' #'     ymin = lower,
+#' #'     ymax = upper,
+#' #'     col = group,
+#' #'     width = 0.33,
+#' #'     y_expand_limits = 0,
+#' #'     blend = "multiply",
+#' #'   )
+#' #'
 #' gg_col_errorbar <- function(data = NULL,
 #'                            ...,
 #'                            stat = "identity",
-#'                            position = "identity",
+#'                            position = "dodge",
 #'                            coord = ggplot2::coord_cartesian(clip = "off"),
 #'                            mode = NULL, mode_orientation = NULL, blend = NULL,
 #'                            x = NULL,
