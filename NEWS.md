@@ -1,10 +1,10 @@
-# ggblanket 11.0.0.9000
+# ggblanket 11.1.0
 
 * Breaking: removed `aes_colour_darken`, `aes_colour_lighten`, `aes_fill_darken` and `aes_colour_lighten`.
-* In `set_blanket`, renamed `reference_line_*` arguments to `reference_*`.
+* Breaking: in `set_blanket`, renamed `reference_line_*` arguments to `reference_*`.
 * Added R 4.2.0 dependency.
-* Removed `gg_ribbon`, `gg_boxplot`, `gg_crossbar` and `gg_smooth` alpha default to `NA`.
 * Added colour blending (e.g. `blend = "multiply`).
+* Removed `gg_ribbon`, `gg_boxplot`, `gg_crossbar` and `gg_smooth` alpha default to `NA`.
 * Added `gg_ribbon_line`.
 * Updated `*_mode_*` themes to default to `axis_line_linewidth = 0.25`. 
 

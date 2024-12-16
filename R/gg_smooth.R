@@ -8,7 +8,6 @@
 #' @export
 #'
 #' @examples
-#' \dontrun {
 #' library(ggplot2)
 #' library(dplyr)
 #' library(palmerpenguins)
@@ -21,9 +20,8 @@
 #'     y = body_mass_g,
 #'     col = species,
 #'     se = TRUE,
-#'     blend = "multiply",
+#'     # blend = "multiply",
 #'   )
-#' }
 #'
 gg_smooth <- function(data = NULL,
                       ...,

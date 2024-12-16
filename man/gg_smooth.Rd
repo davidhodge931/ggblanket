@@ -162,7 +162,6 @@ A ggplot object.
 Create a smooth ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_smooth]{geom_smooth()}.
 }
 \examples{
-\dontrun {
 library(ggplot2)
 library(dplyr)
 library(palmerpenguins)
@@ -175,8 +174,7 @@ penguins |>
     y = body_mass_g,
     col = species,
     se = TRUE,
-    blend = "multiply",
+    # blend = "multiply",
   )
-}
 
 }

@@ -162,7 +162,6 @@ A ggplot object.
 Create a boxplot ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_boxplot]{geom_boxplot()}.
 }
 \examples{
-\dontrun {
 library(ggplot2)
 library(dplyr)
 library(palmerpenguins)
@@ -174,8 +173,7 @@ penguins |>
     x = flipper_length_mm,
     y = species,
     col = sex,
-    blend = "multiply",
+    # blend = "multiply",
   )
-}
 
 }

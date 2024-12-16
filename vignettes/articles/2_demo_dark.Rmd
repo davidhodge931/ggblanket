@@ -160,7 +160,7 @@ experiment |>
 
 ### gg_density
 
-```{r}
+```{r, eval=FALSE}
 penguins2 |>
   gg_density(
     x = flipper_length_mm,

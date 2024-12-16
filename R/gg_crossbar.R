@@ -8,7 +8,6 @@
 #' @export
 #'
 #' @examples
-#' \dontrun {
 #' library(ggplot2)
 #' library(dplyr)
 #'
@@ -30,9 +29,8 @@
 #'     width = 0.5,
 #'     x_label = "Treatment",
 #'     y_label = "Response",
-#'     blend = "multiply",
+#'     # blend = "multiply",
 #'   )
-#' }
 #'
 gg_crossbar <- function(data = NULL,
                         ...,

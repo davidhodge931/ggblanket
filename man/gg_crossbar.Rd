@@ -162,7 +162,6 @@ A ggplot object.
 Create a crossbar ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_linerange]{geom_crossbar()}.
 }
 \examples{
-\dontrun {
 library(ggplot2)
 library(dplyr)
 
@@ -184,8 +183,7 @@ data.frame(
     width = 0.5,
     x_label = "Treatment",
     y_label = "Response",
-    blend = "multiply",
+    # blend = "multiply",
   )
-}
 
 }

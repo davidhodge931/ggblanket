@@ -8,7 +8,6 @@
 #' @export
 #'
 #' @examples
-#' \dontrun {
 #' library(ggplot2)
 #' library(dplyr)
 #' library(palmerpenguins)
@@ -20,9 +19,8 @@
 #'     x = flipper_length_mm,
 #'     y = species,
 #'     col = sex,
-#'     blend = "multiply",
+#'     # blend = "multiply",
 #'   )
-#' }
 #'
 gg_boxplot <- function(data = NULL,
                        ...,
