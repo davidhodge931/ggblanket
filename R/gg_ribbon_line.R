@@ -1,6 +1,6 @@
 #' Lineribbon ggplot
 #'
-#' @description Create a lineribbon ggplot with a wrapper around [ggplot2::ggplot()] + [geom_ribbon()][ggplot2::geom_ribbon()] + [geom_line()][ggplot2::geom_line()]
+#' @description Create a lineribbon ggplot with a wrapper around [ggplot2::ggplot()] + [geom_ribbon()][ggplot2::geom_ribbon()] + [geom_line()][ggplot2::geom_line()]. Note this function forces the linewidth of the ribbon to zero, and the alpha of the line to NA.
 #'
 #' @inheritParams gg_blanket
 #'
@@ -176,7 +176,7 @@ gg_ribbon_line <- function(data = NULL,
             stat = stat,
             position = position,
             mapping = ggplot2::aes(!!!mapping),
-            params = rlang::list2(...),
+            params = rlang::list2(linewidth = 0, ...),
             # show.legend = show_legend,
           ),
           ggplot2::layer(
@@ -184,7 +184,7 @@ gg_ribbon_line <- function(data = NULL,
             stat = stat,
             position = position,
             mapping = ggplot2::aes(!!!mapping),
-            params = rlang::list2(...),
+            params = rlang::list2(alpha = NA, ...),
             # show.legend = show_legend,
           )
         )
@@ -198,7 +198,7 @@ gg_ribbon_line <- function(data = NULL,
             stat = stat,
             position = position,
             mapping = ggplot2::aes(!!!mapping),
-            params = rlang::list2(...),
+            params = rlang::list2(linewidth = 0, ...),
             # show.legend = show_legend,
           ) |> ggblend::blend(blend = blend),
           ggplot2::layer(
@@ -206,7 +206,7 @@ gg_ribbon_line <- function(data = NULL,
             stat = stat,
             position = position,
             mapping = ggplot2::aes(!!!mapping),
-            params = rlang::list2(...),
+            params = rlang::list2(alpha = NA, ...),
             # show.legend = show_legend,
           ) |> ggblend::blend(blend = blend)
         ), blend = blend

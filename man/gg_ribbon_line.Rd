@@ -159,7 +159,7 @@ gg_ribbon_line(
 A ggplot object.
 }
 \description{
-Create a lineribbon ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_ribbon]{geom_ribbon()} + \link[ggplot2:geom_path]{geom_line()}
+Create a lineribbon ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \link[ggplot2:geom_ribbon]{geom_ribbon()} + \link[ggplot2:geom_path]{geom_line()}. Note this function forces the linewidth of the ribbon to zero, and the alpha of the line to NA.
 }
 \examples{
 library(ggplot2)
