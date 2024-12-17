@@ -1,4 +1,6 @@
-#' Replace a axis line with an annotated segment, so that geom features are behind the axis line.
+#' Replace a axis line with an annotated segment
+#'
+#' @description Replace a axis line with an annotated segment, so that geom features are in front of it.
 #'
 #' @param axis The axis. Either "x" or "y"
 #' @param x_position The position of the "x" axis, if applicable. Either "bottom" or "top".

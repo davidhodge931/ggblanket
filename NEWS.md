@@ -7,6 +7,7 @@
 * Removed `gg_ribbon`, `gg_boxplot`, `gg_crossbar` and `gg_smooth` alpha default to `NA`.
 * Added `gg_ribbon_line`.
 * Updated `*_mode_*` themes to default to `axis_line_linewidth = 0.25`. 
+* In `set_blanket`, removed `theme` argument - and updated `weave_theme` to apply `weave_mode(mode = NULL)`.
 
 # ggblanket 11.0.0
 

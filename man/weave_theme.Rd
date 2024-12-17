@@ -2,13 +2,14 @@
 % Please edit documentation in R/weave.R
 \name{weave_theme}
 \alias{weave_theme}
-\title{Set a theme (without side-effects)}
+\title{Set a theme to apply \emph{without} side-effects}
 \usage{
 weave_theme(theme = light_mode_r() + mode_orientation_to_x())
 }
 \arguments{
-\item{theme}{A ggplot2 theme that the \verb{gg_*} function will add without side-effects if the mode is set/weaved to \code{NULL} (and also is applied to ggplot code outside of ggblanket).}
+\item{theme}{A ggplot2 theme that the \verb{gg_*} function will add without side-effects.}
 }
 \description{
-Set a theme to be \code{+}-ed on unmodified to \verb{gg_*} functions. Note, the \code{mode} takes precedence, unless the set/weaved mode is \code{mode = NULL}.
+Set a theme to added to \verb{gg_*} functions \emph{without} side-effects.
+Note this sets the mode to NULL to allow this to work, and therefore should be run after \code{set_blanket}.
 }

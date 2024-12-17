@@ -192,6 +192,7 @@ test_that(test_name, {
       y_label = "Response",
       subtitle = "\n+ light_mode_r()"
     ) +
+    light_mode_r() +
     theme(legend.position = "none")
 
   p <- p1 + p2
@@ -260,7 +261,7 @@ test_that(test_name, {
       width = 0.1,
       x_label = "Treatment",
       y_label = "Response",
-      subtitle = "\nDefault y scale"
+      subtitle = "\nDefault y scale",
     ) +
     theme(legend.position = "none")
 
@@ -273,8 +274,8 @@ test_that(test_name, {
       width = 0.1,
       x_label = "Treatment",
       y_label = "Response",
-      y_symmetric = TRUE,
-      subtitle = "\ny_limits = c(NA, NA),"
+      y_symmetric = FALSE,
+      subtitle = "\ny_symmetric = FALSE,",
     ) +
     theme(legend.position = "none")
 
@@ -287,8 +288,9 @@ test_that(test_name, {
       width = 0.5,
       x_label = "Treatment upper",
       y_label = "Response",
-      y_symmetric = TRUE,
-      subtitle = "\ny_limits = c(0, NA),"
+      y_symmetric = FALSE,
+      y_expand = ggplot2::expansion(c(0, 0.05)),
+      subtitle = "\ny_symmetric = FALSE, \ny_expand = ggplot2::expansion(c(0, 0.05)),"
     ) +
     theme(legend.position = "none")
 

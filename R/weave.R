@@ -235,14 +235,17 @@ weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G"
   invisible(old)
 }
 
-#' Set a theme (without side-effects)
+#' Set a theme to apply _without_ side-effects
 #'
-#' @description Set a theme to be `+`-ed on unmodified to `gg_*` functions. Note, the `mode` takes precedence, unless the set/weaved mode is `mode = NULL`.
+#' @description Set a theme to added to `gg_*` functions _without_ side-effects.
+#' Note this sets the mode to NULL to allow this to work, and therefore should be run after `set_blanket`.
 #'
-#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects if the mode is set/weaved to `NULL` (and also is applied to ggplot code outside of ggblanket).
+#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects.
 #'
 #' @export
 weave_theme <- function(theme = light_mode_r() + mode_orientation_to_x()) {
+  weave_mode(mode = NULL)
+
   old <- ggblanket_global$theme
   ggblanket_global$theme <- theme
   invisible(old)

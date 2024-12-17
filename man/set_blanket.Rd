@@ -2,7 +2,7 @@
 % Please edit documentation in R/set_blanket.R
 \name{set_blanket}
 \alias{set_blanket}
-\title{Set a style}
+\title{Set the style}
 \usage{
 set_blanket(
   ...,
@@ -19,8 +19,7 @@ set_blanket(
   col_palette_o = scales::pal_viridis(option = "G", direction = -1),
   col_palette_na_d = "#CDC5BFFF",
   col_palette_na_c = "#988F88FF",
-  col_palette_na_o = "#988F88FF",
-  theme = light_mode_r() + mode_orientation_to_x()
+  col_palette_na_o = "#988F88FF"
 )
 }
 \arguments{
@@ -53,8 +52,6 @@ set_blanket(
 \item{col_palette_na_c}{For a continuous scale, a hex code.}
 
 \item{col_palette_na_o}{For an ordinal scale, a hex code.}
-
-\item{theme}{A ggplot2 theme that the \verb{gg_*} function will add without side-effects if the mode is set/weaved to \code{NULL} (and also is applied to ggplot code outside of ggblanket).}
 }
 \value{
 A globally set style.
@@ -62,13 +59,13 @@ A globally set style.
 \description{
 Weave the style by setting:
 \enumerate{
-\item the mode to be added with \verb{gg_*()} side-effects
+\item the mode to be added by default
 \item the geom defaults (e.g. colour/fill), and text and reference line defaults
 \item the col_palettes for discrete, continuous and ordinal colour/fill scales
-\item a theme to be added \emph{without} \verb{gg_*()} side-effects.
 }
 
 Alternatively, use the \verb{weave_*} functions to only apply a subset of these.
+A \code{weave_theme} function is also provided to set a theme \emph{without} \verb{gg_*} side-effects.
 \code{\link[ggplot2:update_defaults]{ggplot2::update_geom_defaults()}} can be used to further fine-tune geom defaults.
 }
 \examples{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/annotate_axis_line.R
 \name{annotate_axis_line}
 \alias{annotate_axis_line}
-\title{Replace a axis line with an annotated segment, so that geom features are behind the axis line.}
+\title{Replace a axis line with an annotated segment}
 \usage{
 annotate_axis_line(
   axis = "x",
@@ -30,7 +30,7 @@ annotate_axis_line(
 A list of a annotate layer and theme elements.
 }
 \description{
-Replace a axis line with an annotated segment, so that geom features are behind the axis line.
+Replace a axis line with an annotated segment, so that geom features are in front of it.
 }
 \examples{
 library(dplyr)

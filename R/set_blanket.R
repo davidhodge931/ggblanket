@@ -1,14 +1,14 @@
-#' Set a style
+#' Set the style
 #'
 #' @description
 #' Weave the style by setting:
 #'
-#' 1. the mode to be added with `gg_*()` side-effects
+#' 1. the mode to be added by default
 #' 2. the geom defaults (e.g. colour/fill), and text and reference line defaults
 #' 3. the col_palettes for discrete, continuous and ordinal colour/fill scales
-#' 4. a theme to be added _without_ `gg_*()` side-effects.
 #'
 #' Alternatively, use the `weave_*` functions to only apply a subset of these.
+#' A `weave_theme` function is also provided to set a theme _without_ `gg_*` side-effects.
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
 #'
 #' @param ... Provided to force user argument naming etc.
@@ -26,7 +26,6 @@
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
-#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects if the mode is set/weaved to `NULL` (and also is applied to ggplot code outside of ggblanket).
 #'
 #' @return A globally set style.
 #' @export
@@ -77,8 +76,7 @@ set_blanket <- function(
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
     col_palette_na_d = "#CDC5BFFF",
     col_palette_na_c = "#988F88FF",
-    col_palette_na_o = "#988F88FF",
-    theme = light_mode_r() + mode_orientation_to_x()) {
+    col_palette_na_o = "#988F88FF") {
 
   weave_mode(mode = mode)
 
@@ -100,7 +98,5 @@ set_blanket <- function(
     col_palette_na_c = col_palette_na_c,
     col_palette_na_o = col_palette_na_o
   )
-
-  weave_theme(theme = theme)
 }
 

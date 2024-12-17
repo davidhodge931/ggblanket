@@ -12,8 +12,8 @@ test_that(test_name, {
 
   set_blanket(
     mode = NULL,
-    theme = theme_grey(),
   )
+  weave_theme(theme = theme_grey())
 
   p <- penguins |>
     mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
