@@ -1,6 +1,6 @@
-#' Lineribbon ggplot
+#' Ribbon line ggplot
 #'
-#' @description Create a lineribbon ggplot with a wrapper around [ggplot2::ggplot()] + [geom_ribbon()][ggplot2::geom_ribbon()] + [geom_line()][ggplot2::geom_line()]. Note this function forces the linewidth of the ribbon to zero, and the alpha of the line to NA.
+#' @description Create a ribbon line ggplot with a wrapper around [ggplot2::ggplot()] + [geom_smooth(stat = "identity", ...)][ggplot2::geom_smooth()].
 #'
 #' @inheritParams gg_blanket
 #'
@@ -20,83 +20,83 @@
 #'     y = level,
 #'     ymin = level_min,
 #'     ymax = level_max,
-#'     x_labels = \(x) x,
 #'     blend = "multiply",
+#'     se = TRUE,
 #'   )
 #'
 gg_ribbon_line <- function(data = NULL,
-                      ...,
-                      stat = "identity",
-                      position = "identity",
-                      coord = ggplot2::coord_cartesian(clip = "off"),
-                      mode = NULL, mode_orientation = NULL, blend = NULL,
-                      x = NULL,
-                      xmin = NULL,
-                      xmax = NULL,
-                      xend = NULL,
-                      y = NULL,
-                      ymin = NULL,
-                      ymax = NULL,
-                      yend = NULL,
-                      z = NULL,
-                      col = NULL,
-                      facet = NULL,
-                      facet2 = NULL,
-                      group = NULL,
-                      subgroup = NULL,
-                      label = NULL,
-                      text = NULL,
-                      sample = NULL,
-                      mapping = NULL,
-                      x_breaks = NULL, x_breaks_n = NULL,
-                      x_expand = NULL,
-                      x_expand_limits = NULL,
-                      x_label = NULL, x_labels = NULL,
+                         ...,
+                         stat = "identity",
+                         position = "identity",
+                         coord = ggplot2::coord_cartesian(clip = "off"),
+                         mode = NULL, mode_orientation = NULL, blend = NULL,
+                         x = NULL,
+                         xmin = NULL,
+                         xmax = NULL,
+                         xend = NULL,
+                         y = NULL,
+                         ymin = NULL,
+                         ymax = NULL,
+                         yend = NULL,
+                         z = NULL,
+                         col = NULL,
+                         facet = NULL,
+                         facet2 = NULL,
+                         group = NULL,
+                         subgroup = NULL,
+                         label = NULL,
+                         text = NULL,
+                         sample = NULL,
+                         mapping = NULL,
+                         x_breaks = NULL, x_breaks_n = NULL,
+                         x_expand = NULL,
+                         x_expand_limits = NULL,
+                         x_label = NULL, x_labels = NULL,
 
 
-                      x_position = "bottom",
+                         x_position = "bottom",
 
-                      x_sec_axis = ggplot2::waiver(), x_symmetric = NULL, x_transform = NULL,
-                      y_breaks = NULL, y_breaks_n = NULL,
-                      y_expand = NULL,
-                      y_expand_limits = NULL,
-                      y_label = NULL, y_labels = NULL,
-                       y_position = "left",
-                      y_sec_axis = ggplot2::waiver(),
-                      y_symmetric = NULL,
+                         x_sec_axis = ggplot2::waiver(), x_symmetric = NULL, x_transform = NULL,
+                         y_breaks = NULL, y_breaks_n = NULL,
+                         y_expand = NULL,
+                         y_expand_limits = NULL,
+                         y_label = NULL, y_labels = NULL,
+                         y_position = "left",
+                         y_sec_axis = ggplot2::waiver(),
+                         y_symmetric = NULL,
 
-                      y_transform = NULL,
-                      col_breaks = NULL, col_breaks_n = 5,
-                      col_drop = FALSE,
-                      col_expand_limits = NULL,
-                      col_label = NULL, col_labels = NULL,
-                      col_legend_ncol = NULL,
-                      col_legend_nrow = NULL,
-                      col_legend_rev = FALSE,
+                         y_transform = NULL,
+                         col_breaks = NULL, col_breaks_n = 5,
+                         col_drop = FALSE,
+                         col_expand_limits = NULL,
+                         col_label = NULL, col_labels = NULL,
+                         col_legend_ncol = NULL,
+                         col_legend_nrow = NULL,
+                         col_legend_rev = FALSE,
 
 
-                      col_palette = NULL,
-                      col_palette_na = NULL,
-                      col_rescale = scales::rescale(),
-                      col_steps = FALSE,
+                         col_palette = NULL,
+                         col_palette_na = NULL,
+                         col_rescale = scales::rescale(),
+                         col_steps = FALSE,
 
-                      col_transform = NULL,
-                      facet_axes = NULL,
-                      facet_axis_labels = "margins",
-                      facet_drop = FALSE,
-                      facet_labels = NULL,
-                      facet_layout = NULL,
-                      facet_ncol = NULL,
-                      facet_nrow = NULL,
-                      facet_scales = "fixed",
-                      facet_space = "fixed",
-                      title = NULL,
-                      subtitle = NULL,
-                      caption = NULL,
-                      label_to_case = snakecase::to_sentence_case) {
-  plot <- gg_blanket(
+                         col_transform = NULL,
+                         facet_axes = NULL,
+                         facet_axis_labels = "margins",
+                         facet_drop = FALSE,
+                         facet_labels = NULL,
+                         facet_layout = NULL,
+                         facet_ncol = NULL,
+                         facet_nrow = NULL,
+                         facet_scales = "fixed",
+                         facet_space = "fixed",
+                         title = NULL,
+                         subtitle = NULL,
+                         caption = NULL,
+                         label_to_case = snakecase::to_sentence_case) {
+  gg_blanket(
     data = data,
-    geom = "blank",
+    geom = "smooth",
     stat = stat,
     position = position,
     coord = coord,
@@ -167,50 +167,4 @@ gg_ribbon_line <- function(data = NULL,
     label_to_case = label_to_case,
     ...
   )
-
-  if (rlang::is_null(blend)) {
-    plot +
-        list(
-          ggplot2::layer(
-            geom = "ribbon",
-            stat = stat,
-            position = position,
-            mapping = ggplot2::aes(!!!mapping),
-            params = rlang::list2(linewidth = 0, ...),
-            # show.legend = show_legend,
-          ),
-          ggplot2::layer(
-            geom = "line",
-            stat = stat,
-            position = position,
-            mapping = ggplot2::aes(!!!mapping),
-            params = rlang::list2(alpha = NA, ...),
-            # show.legend = show_legend,
-          )
-        )
-  }
-  else {
-    plot +
-      ggblend::blend(
-        list(
-          ggplot2::layer(
-            geom = "ribbon",
-            stat = stat,
-            position = position,
-            mapping = ggplot2::aes(!!!mapping),
-            params = rlang::list2(linewidth = 0, ...),
-            # show.legend = show_legend,
-          ) |> ggblend::blend(blend = blend),
-          ggplot2::layer(
-            geom = "line",
-            stat = stat,
-            position = position,
-            mapping = ggplot2::aes(!!!mapping),
-            params = rlang::list2(alpha = NA, ...),
-            # show.legend = show_legend,
-          ) |> ggblend::blend(blend = blend)
-        ), blend = blend
-      )
-
-  }
 }

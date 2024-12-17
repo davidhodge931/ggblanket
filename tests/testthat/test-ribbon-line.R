@@ -30,7 +30,8 @@ test_that(test_name, {
       ymax = h,
       col = id,
       mapping = aes(linetype = id),
-      blend = "multiply",
+      # blend = "multiply",
+      se = TRUE,
     )
 
   vdiffr::expect_doppelganger(test_name, p)
