@@ -1,7 +1,7 @@
 #' Set the style
 #'
 #' @description
-#' Weave the style by setting:
+#' Set the style by setting:
 #'
 #' 1. the mode to be added by default
 #' 2. the geom defaults (e.g. colour/fill), and text and reference line defaults

@@ -57,7 +57,7 @@ set_blanket(
 A globally set style.
 }
 \description{
-Weave the style by setting:
+Set the style by setting:
 \enumerate{
 \item the mode to be added by default
 \item the geom defaults (e.g. colour/fill), and text and reference line defaults
