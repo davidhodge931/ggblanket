@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">11.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">11.1.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,7 @@
 Hodge</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/davidhodge931/ggblanket/blob/v11.1.0/vignettes/ggblanket.Rmd" class="external-link"><code>vignettes/ggblanket.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/davidhodge931/ggblanket/blob/main/vignettes/ggblanket.Rmd" class="external-link"><code>vignettes/ggblanket.Rmd</code></a></small>
       <div class="d-none name"><code>ggblanket.Rmd</code></div>
     </div>
 
@@ -483,17 +483,13 @@ the:</p>
 <li>mode (i.e. a theme added with side-effects)</li>
 <li>geom defaults (e.g. colour/fill), and text and reference line
 defaults</li>
-<li>discrete colour palette (and NA colour)</li>
-<li>continuous colour palette (and NA colour)</li>
-<li>ordinal colour palette (and NA colour)</li>
-<li>theme (i.e. a theme added with no side-effects).</li>
+<li>colour palettes (i.e. discrete, continuous and ordinal)</li>
 </ul>
 <p>Note the <code>mode</code> argument in <code>set_blanket</code> can
 also be used to default a <code>*_label</code> to <code>NULL</code>
 (e.g. <code>set_blanket(mode = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))</code>).</p>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults()</a></code> function can be used
 to further fine-tune geom defaults.</p>
-<p><code><a href="../reference/set_blanket.html">set_blanket()</a></code> also works on ggplot2 code.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
 <span>  mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,  </span>
