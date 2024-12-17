@@ -23,7 +23,7 @@ reference:
   - weave_geom_defaults
   - weave_col_palettes
   - weave_theme
-- title: Other
+- title: Colours
 - contents:
   - blue
   - jumble
@@ -37,7 +37,10 @@ reference:
   - lightness
   - darkness
   - linewidthness
+- title: Other
+- contents:
   - mode_orientation_to_x
   - mode_orientation_to_y
   - aes_colour_contrast
   - label_every_nth
+  - annotate_axis_line
