@@ -43,7 +43,7 @@ annotate_axis_line <- function(
 
   if (axis == "x") {
     if (rlang::is_null(colour)) colour <- ggplot2::GeomHline$default_aes$colour
-    if (rlang::is_null(linewidth)) colour <- ggplot2::GeomHline$default_aes$linewidth
+    if (rlang::is_null(linewidth)) linewidth <- ggplot2::GeomHline$default_aes$linewidth
 
     if (x_position == "bottom") {
       stamp <- rlang::list2(
@@ -72,7 +72,7 @@ annotate_axis_line <- function(
   }
   else if (axis == "y") {
     if (rlang::is_null(colour)) colour <- ggplot2::GeomVline$default_aes$colour
-    if (rlang::is_null(linewidth)) colour <- ggplot2::GeomVline$default_aes$linewidth
+    if (rlang::is_null(linewidth)) linewidth <- ggplot2::GeomVline$default_aes$linewidth
 
     if (y_position == "left") {
       stamp <- rlang::list2(
