@@ -1,3 +1,7 @@
+# ggblanket 11.1.0.9000
+
+* Updated `set_blanket` part of the vignette.
+
 # ggblanket 11.1.0
 
 * Breaking: removed `aes_colour_darken`, `aes_colour_lighten`, `aes_fill_darken` and `aes_colour_lighten`.

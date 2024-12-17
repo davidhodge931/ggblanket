@@ -357,16 +357,11 @@ The `set_blanket` function sets customisable defaults for the:
 
 * mode (i.e. a theme added with side-effects)
 * geom defaults (e.g. colour/fill), and text and reference line defaults
-* discrete colour palette (and NA colour)
-* continuous colour palette (and NA colour)
-* ordinal colour palette (and NA colour)
-* theme (i.e. a theme added with no side-effects).
+* colour palettes (i.e. discrete, continuous and ordinal)
 
 Note the `mode` argument in `set_blanket` can also be used to default a `*_label` to `NULL` (e.g. `set_blanket(mode = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))`).
 
 The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
-
-`set_blanket()` also works on ggplot2 code. 
 
 ```{r}
 set_blanket(
