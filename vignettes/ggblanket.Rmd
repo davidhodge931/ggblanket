@@ -337,12 +337,12 @@ penguins2 |>
     xmin = lower, 
     xmax = upper,
     col = sex,
-    position = position_dodge(width = 0.75),
+    position = position_dodge(),
     x_expand_limits = 0,
   ) +
   geom_col(
     width = 0.75,
-    position = position_dodge(width = 0.75),
+    position = position_dodge(),
   ) +
   geom_errorbar(
     width = 0.1, 

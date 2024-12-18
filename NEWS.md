@@ -1,6 +1,6 @@
 # ggblanket 11.1.0.9000
 
-* Updated `set_blanket` part of the vignette.
+* Minor changes to the vignette.
 
 # ggblanket 11.1.0
 
