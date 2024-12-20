@@ -51,7 +51,7 @@ annotate_axis_line <- function(
       stamp <- rlang::list2(
         ggplot2::annotate(
           "segment",
-          x = -Inf, xend = Inf, y = -Inf, yend = -Inf,
+          x = I(-Inf), xend = I(Inf), y = I(-Inf), yend = I(-Inf),
           colour = colour,
           linewidth = linewidth,
           ...
@@ -63,7 +63,7 @@ annotate_axis_line <- function(
       stamp <- rlang::list2(
         ggplot2::annotate(
           "segment",
-          x = -Inf, xend = Inf, y = Inf, yend = Inf,
+          x = I(-Inf), xend = I(Inf), y = I(Inf), yend = I(Inf),
           colour = colour,
           linewidth = linewidth,
           ...
@@ -80,7 +80,7 @@ annotate_axis_line <- function(
       stamp <- rlang::list2(
         ggplot2::annotate(
           "segment",
-          x = -Inf, xend = -Inf, y = -Inf, yend = Inf,
+          x = I(-Inf), xend = I(-Inf), y = I(-Inf), yend = I(Inf),
           colour = colour,
           linewidth = linewidth,
           ...
@@ -92,7 +92,7 @@ annotate_axis_line <- function(
       stamp <- rlang::list2(
         ggplot2::annotate(
           "segment",
-          x = Inf, xend = Inf, y = -Inf, yend = Inf,
+          x = I(Inf), xend = I(Inf), y = I(-Inf), yend = I(Inf),
           colour = colour,
           linewidth = linewidth,
           ...
