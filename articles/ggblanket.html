@@ -386,13 +386,15 @@ argument in <code>set_blanket</code>).</p>
 <div class="section level3">
 <h3 id="one-_symmetric-continuous-scale">12. One <code>*_symmetric</code> continuous scale<a class="anchor" aria-label="anchor" href="#one-_symmetric-continuous-scale"></a>
 </h3>
-<p>One <code>*_symmetric</code> continuous scale can be made where:</p>
+<p>A <code>*_symmetric</code> continuous scale can be made where:</p>
 <ul>
 <li>
-<code>*_transform</code> is linear</li>
+<code>x_transform</code> and <code>y_transform</code> are NULL</li>
 <li>the <code>stat</code> is not “sf”</li>
-<li>if faceted, the relevant scale is fixed</li>
+<li>if faceted, the relevant scale is “fixed”</li>
 </ul>
+<p>Both symmetric continuous scales cannot be made where the stat is not
+‘identity’.</p>
 <p>By default, the gg_* function will make a <code>x_symmetric</code>
 scale if there is a y discrete axis and a x continuous axis. Otherwise,
 it will make a <code>y_symmetric</code> scale.</p>
