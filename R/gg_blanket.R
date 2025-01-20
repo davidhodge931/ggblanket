@@ -310,17 +310,28 @@ gg_blanket <- function(data = NULL,
 
   #get x_transform if NULL
   if (rlang::is_null(x_transform)) {
+    x_transform_null <- TRUE
+
     if (x_scale_type == "time") x_transform <- scales::transform_hms()
     else if (x_scale_type == "datetime") x_transform <- scales::transform_time()
     else if (x_scale_type == "date") x_transform <- scales::transform_date()
     else x_transform <- scales::transform_identity()
   }
+  else {
+    x_transform_null <- FALSE
+  }
+
   #get y_transform if NULL
   if (rlang::is_null(y_transform)) {
+    y_transform_null <- TRUE
+
     if (y_scale_type == "time") y_transform <- scales::transform_hms()
     else if (y_scale_type == "datetime")  y_transform <- scales::transform_time()
     else if (y_scale_type == "date")  y_transform <- scales::transform_date()
     else y_transform <- scales::transform_identity()
+  }
+  else {
+    y_transform_null <- FALSE
   }
 
   #make drop appropriate to facet scales
@@ -366,8 +377,12 @@ gg_blanket <- function(data = NULL,
     }
   }
 
-  if (x_symmetric & y_symmetric) {
-    rlang::abort("Both x_symmetric and y_symmetric are not supported: please make one FALSE.")
+  if (x_symmetric &
+      y_symmetric &
+      !(x_transform_null & y_transform_null & identical(stat, "identity"))
+      ) {
+        rlang::abort("Both x_symmetric and y_symmetric are not supported
+                     where a positional axis is transformed or the stat is not 'identity'")
   }
 
   ##############################################################################

@@ -1,6 +1,7 @@
 # ggblanket 11.1.0.9000
 
 * Made `annotate_axis_line` work with date and datetime.
+* Added support for both symmetric axes where both `*_transform = NULL` and `stat = "identity"`.
 * Minor changes to the vignette.
 
 # ggblanket 11.1.0

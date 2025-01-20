@@ -276,11 +276,13 @@ p1 + p2
 
 ### 12.  One `*_symmetric` continuous scale
 
-One `*_symmetric` continuous scale can be made where:
+A `*_symmetric` continuous scale can be made where:
 
-* `*_transform` is linear
+* `x_transform` and `y_transform` are NULL
 * the `stat` is not "sf"
-* if faceted, the relevant scale is fixed 
+* if faceted, the relevant scale is "fixed" 
+
+Both symmetric continuous scales cannot be made where the stat is not 'identity'.
 
 By default, the gg_* function will make a `x_symmetric` scale if there is a y discrete axis and a x continuous axis. Otherwise, it will make a `y_symmetric` scale. 
 
