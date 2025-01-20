@@ -15,9 +15,11 @@ ggblanket_global$theme <- NULL
 #' @description Set a mode for the mode argument in `gg_*` functions.
 #'
 #' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
+#' @param ... Dots to support trailing commas etc.
 #'
 #' @export
-weave_mode <- function(mode = light_mode_r()) {
+weave_mode <- function(mode = light_mode_r(),
+                       ...) {
   old <- ggblanket_global$mode
   ggblanket_global$mode <- mode
   invisible(old)
@@ -130,7 +132,9 @@ weave_col_palettes <- function(
 #' @param ... Dots to support trailing commas etc.
 #'
 #' @noRd
-weave_col_palette_d <- function(col_palette_d = jumble, col_palette_na_d = "#CDC5BFFF", ...) {
+weave_col_palette_d <- function(col_palette_d = jumble,
+                                col_palette_na_d = "#CDC5BFFF",
+                                ...) {
 
   if (rlang::is_null(col_palette_na_d)) col_palette_na_d <- "grey50"
 
@@ -221,7 +225,8 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
 #'
 #' @noRd
 weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G", direction = -1),
-                                col_palette_na_o = "#988F88FF", ...) {
+                                col_palette_na_o = "#988F88FF",
+                                ...) {
 
   if (rlang::is_null(col_palette_o)) col_palette_o <- scales::pal_viridis()
   if (rlang::is_null(col_palette_na_o)) col_palette_na_o <- "grey50"
@@ -241,9 +246,11 @@ weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G"
 #' Note this sets the mode to NULL to allow this to work, and therefore should be run after `set_blanket`.
 #'
 #' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects.
+#' @param ... Dots to support trailing commas etc.
 #'
 #' @export
-weave_theme <- function(theme = light_mode_r() + mode_orientation_to_x()) {
+weave_theme <- function(theme = light_mode_r() + mode_orientation_to_x(),
+                        ...) {
   weave_mode(mode = NULL)
 
   old <- ggblanket_global$theme

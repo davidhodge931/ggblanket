@@ -4,10 +4,12 @@
 \alias{weave_theme}
 \title{Set a theme to apply \emph{without} side-effects}
 \usage{
-weave_theme(theme = light_mode_r() + mode_orientation_to_x())
+weave_theme(theme = light_mode_r() + mode_orientation_to_x(), ...)
 }
 \arguments{
 \item{theme}{A ggplot2 theme that the \verb{gg_*} function will add without side-effects.}
+
+\item{...}{Dots to support trailing commas etc.}
 }
 \description{
 Set a theme to added to \verb{gg_*} functions \emph{without} side-effects.

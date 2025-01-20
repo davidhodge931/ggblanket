@@ -4,10 +4,12 @@
 \alias{weave_mode}
 \title{Set a mode}
 \usage{
-weave_mode(mode = light_mode_r())
+weave_mode(mode = light_mode_r(), ...)
 }
 \arguments{
 \item{mode}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates \verb{gg_*} side-effects of removing relevant axis line/ticks and gridlines per the \code{mode_orientation}.}
+
+\item{...}{Dots to support trailing commas etc.}
 }
 \description{
 Set a mode for the mode argument in \verb{gg_*} functions.
