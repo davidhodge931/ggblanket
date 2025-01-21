@@ -3,7 +3,7 @@
 #' @description
 #' Set the style by setting:
 #'
-#' 1. the mode to be added by default
+#' 1. the theme to be added by default
 #' 2. the geom defaults (e.g. colour/fill), and text and reference line defaults
 #' 3. the col_palettes for discrete, continuous and ordinal colour/fill scales
 #'
@@ -12,7 +12,7 @@
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
 #'
 #' @param ... Provided to force user argument naming etc.
-#' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
+#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `theme_orientation`.
 #' @param colour A default hex colour for the colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
 #' @param fill A default hex colour for the fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
 #' @param text_colour A default hex colour for the colour of the "text" and "label" geoms.
@@ -36,7 +36,7 @@
 #' library(palmerpenguins)
 #'
 #' set_blanket(
-#'   mode = dark_mode_r(),
+#'   theme = dark_mode_r(),
 #'   colour = "#E7298AFF",
 #'   colour_text = darkness[1],
 #'   colour_hline = darkness[1],
@@ -63,7 +63,7 @@
 #'
 set_blanket <- function(
     ...,
-    mode = light_mode_r(),
+    theme = light_mode_r(),
     colour = "#357BA2FF",
     fill = colour,
     text_colour = "#121B24FF",
@@ -78,7 +78,7 @@ set_blanket <- function(
     col_palette_na_c = "#988F88FF",
     col_palette_na_o = "#988F88FF") {
 
-  weave_mode(mode = mode)
+  weave_theme(theme = theme)
 
   weave_geom_defaults(
     colour = colour,

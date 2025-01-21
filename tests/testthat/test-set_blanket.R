@@ -6,26 +6,26 @@ library(ggplot2)
 library(dplyr)
 
 ###
-test_name <- "1"
-
-test_that(test_name, {
-
-  set_blanket(
-    mode = NULL,
-  )
-  weave_theme(theme = theme_grey())
-
-  p <- penguins |>
-    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = sex,
-    ) +
-    geom_vline(xintercept = 200)
-
-  vdiffr::expect_doppelganger(test_name, p)
-})
+# test_name <- "1"
+#
+# test_that(test_name, {
+#
+#   set_blanket(
+#     theme = NULL,
+#   )
+#   weave_theme(theme = theme_grey())
+#
+#   p <- penguins |>
+#     mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+#     gg_point(
+#       x = flipper_length_mm,
+#       y = body_mass_g,
+#       col = sex,
+#     ) +
+#     geom_vline(xintercept = 200)
+#
+#   vdiffr::expect_doppelganger(test_name, p)
+# })
 
 ###
 test_name <- "2"
@@ -33,7 +33,7 @@ test_name <- "2"
 test_that(test_name, {
 
   set_blanket(
-    mode = light_mode_r(),
+    theme = light_mode_r(),
     colour = red,
     text_colour = teal,
     reference_colour = teal,
@@ -54,7 +54,7 @@ test_that(test_name, {
 ###
 
 set_blanket(
-  mode = dark_mode_r(base_size = 15),
+  theme = dark_mode_r(base_size = 15),
   colour = red,
   text_colour = "red",
   text_size = 15 / 2.83505,

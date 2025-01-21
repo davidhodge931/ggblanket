@@ -17,7 +17,7 @@ test_that(test_name, {
       col = bill_depth_mm,
       facet = sex,
       mapping = aes(alpha = species, shape = species),
-      mode = light_mode_r()
+      theme = light_mode_r()
     ) +
     scale_alpha_manual(values = c(1, 1, 0.33))
 
@@ -36,7 +36,7 @@ test_that(test_name, {
       col = bill_depth_mm,
       facet = sex,
       mapping = aes(alpha = species, shape = species),
-      mode = light_mode_t()
+      theme = light_mode_t()
     ) +
     scale_alpha_manual(values = c(1, 1, 0.33))
 
@@ -55,7 +55,7 @@ test_that(test_name, {
       col = bill_depth_mm,
       facet = sex,
       mapping = aes(alpha = species, shape = species),
-      mode = light_mode_b()
+      theme = light_mode_b()
     ) +
     scale_alpha_manual(values = c(1, 1, 0.33))
 

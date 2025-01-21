@@ -2,16 +2,21 @@
 % Please edit documentation in R/weave.R
 \name{weave_theme}
 \alias{weave_theme}
-\title{Set a theme to apply \emph{without} side-effects}
+\title{Set a theme}
 \usage{
-weave_theme(theme = light_mode_r() + mode_orientation_to_x(), ...)
+weave_theme(
+  theme = light_mode_r(),
+  ...,
+  theme_axis_line_rm = TRUE,
+  theme_axis_ticks_rm = TRUE,
+  theme_panel_grid_rm = TRUE
+)
 }
 \arguments{
-\item{theme}{A ggplot2 theme that the \verb{gg_*} function will add without side-effects.}
+\item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates \verb{gg_*} side-effects of removing relevant axis line/ticks and gridlines per the \code{theme_orientation}.}
 
 \item{...}{Dots to support trailing commas etc.}
 }
 \description{
-Set a theme to added to \verb{gg_*} functions \emph{without} side-effects.
-Note this sets the mode to NULL to allow this to work, and therefore should be run after \code{set_blanket}.
+Set a theme for the theme argument in \verb{gg_*} functions.
 }

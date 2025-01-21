@@ -47,7 +47,7 @@ Computational speed has been traded-off.
 8.  Smart `*_label` defaults for axis and legend titles
 9.  Other `ggplot2::geom_*` arguments via `...`
 10. Families of `*_mode_*` themes with legend variants
-11.  Side-effects to the `mode` based on the `mode_orientation`
+11.  Side-effects to the `theme` based on the `theme_orientation`
 12.  One `*_symmetric` continuous scale
 13. Ability to add multiple `geom_*` layers
 14. Arguments to customise setup with `set_blanket()`
@@ -244,19 +244,19 @@ penguins2 |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    mode = dark_mode_t() + theme(legend.title = element_blank()),
+    theme = dark_mode_t() + theme(legend.title = element_blank()),
   ) 
 ```
 
-### 11.  Side-effects to the `mode` based on the `mode_orientation`
+### 11.  Side-effects to the `theme` based on the `theme_orientation`
 
-The `gg_*` function adds helpful side-effects to the mode. 
+The `gg_*` function adds helpful side-effects to the theme. 
 
-Where `mode_orientation = "x"`, the `gg_*` function will remove the y axis line/ticks and the x gridlines from the `mode` (by changing their colour to "transparent"). Where it is  `mode_orientation = "y"`, the opposite will occur. If the `gg_*` guesses an incorrect `mode_orientation`, then the user can change this.
+Where `theme_orientation = "x"`, the `gg_*` function will remove the y axis line/ticks and the x gridlines from the `mode` (by changing their colour to "transparent"). Where it is  `theme_orientation = "y"`, the opposite will occur. If the `gg_*` guesses an incorrect `theme_orientation`, then the user can change this.
 
 Additionally, the `gg_*` function will remove ticks from discrete scales.
 
-Any `mode` used should be designed to anticipate these side-effects. To avoid these side-effects, instead `+` the theme on to the `gg_*` output (or use the `theme` argument in `set_blanket`).
+Any `theme` used should be designed to anticipate these side-effects. To avoid these side-effects, instead `+` the theme on to the `gg_*` output (or use the `theme` argument in `set_blanket`).
 
 ```{r}
 p1 <- penguins2 |>
@@ -361,13 +361,13 @@ The `set_blanket` function sets customisable defaults for the:
 * geom defaults (e.g. colour/fill), and text and reference line defaults
 * colour palettes (i.e. discrete, continuous and ordinal)
 
-Note the `mode` argument in `set_blanket` can also be used to default a `*_label` to `NULL` (e.g. `set_blanket(mode = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))`).
+Note the `mode` argument in `set_blanket` can also be used to default a `*_label` to `NULL` (e.g. `set_blanket(theme = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))`).
 
 The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
 
 ```{r}
 set_blanket(
-  mode = dark_mode_r(),  
+  theme = dark_mode_r(),  
   colour = "#E7298AFF",
   text_colour = darkness[1],
   reference_colour = darkness[1],

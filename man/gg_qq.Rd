@@ -10,8 +10,8 @@ gg_qq(
   stat = "qq",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
-  mode = NULL,
-  mode_orientation = NULL,
+  theme = NULL,
+  theme_orientation = NULL,
   blend = NULL,
   x = NULL,
   xmin = NULL,
@@ -91,9 +91,9 @@ gg_qq(
 
 \item{coord}{A coordinate system. A \verb{coord_*()} function that outputs a constructed ggproto Coord subclass object (e.g. \code{\link[ggplot2:coord_cartesian]{ggplot2::coord_cartesian()}}).}
 
-\item{mode}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates side-effects of removing relevant axis line/ticks and gridlines per the \code{mode_orientation}.}
+\item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates side-effects of removing relevant axis line/ticks and gridlines per the \code{theme_orientation}.}
 
-\item{mode_orientation}{The orientation of plot, which affects the theme components that are removed from the mode. Either "x" or "y".}
+\item{theme_orientation}{The orientation of plot, which affects the theme components that are removed. Either "x" or "y".}
 
 \item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
 
@@ -113,7 +113,7 @@ gg_qq(
 
 \item{x_labels, y_labels, col_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \verb{scales::label_*()}), or a vector of labels. (Note this must be named for \code{facet_labels}).}
 
-\item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_mode_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
+\item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_theme_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 
 \item{x_sec_axis, y_sec_axis}{A secondary axis with \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}} or  \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}}.}
 
@@ -135,7 +135,7 @@ gg_qq(
 
 \item{col_steps}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
 
-\item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_mode_*()} may be needed.}
+\item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_theme_*()} may be needed.}
 
 \item{facet_axis_labels}{Whether to add interior axis labels with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
 

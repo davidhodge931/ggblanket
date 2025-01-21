@@ -1,27 +1,46 @@
 # global defaults
 ggblanket_global <- new.env(parent = emptyenv())
 
-ggblanket_global$mode <- NULL
+ggblanket_global$theme <- NULL
+ggblanket_global$theme_axis_line_rm <- NULL
+ggblanket_global$theme_axis_ticks_rm <- NULL
+ggblanket_global$theme_axis_line_rm <- NULL
+
 ggblanket_global$col_palette_d <- NULL
 ggblanket_global$col_palette_c <- NULL
 ggblanket_global$col_palette_o <- NULL
 ggblanket_global$col_palette_na_d <- NULL
 ggblanket_global$col_palette_na_c <- NULL
 ggblanket_global$col_palette_na_o <- NULL
-ggblanket_global$theme <- NULL
 
-#' Set a mode
+#' Set a theme
 #'
-#' @description Set a mode for the mode argument in `gg_*` functions.
+#' @description Set a theme for the theme argument in `gg_*` functions.
 #'
-#' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
+#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `theme_orientation`.
 #' @param ... Dots to support trailing commas etc.
 #'
 #' @export
-weave_mode <- function(mode = light_mode_r(),
-                       ...) {
-  old <- ggblanket_global$mode
-  ggblanket_global$mode <- mode
+weave_theme <- function(theme = light_mode_r(),
+                       ...,
+                       theme_axis_line_rm = TRUE,
+                       theme_axis_ticks_rm = TRUE,
+                       theme_panel_grid_rm = TRUE) {
+
+  old <- ggblanket_global$theme
+  ggblanket_global$theme <- theme
+  invisible(old)
+
+  old <- ggblanket_global$theme_axis_line_rm
+  ggblanket_global$theme_axis_line_rm <- theme_axis_line_rm
+  invisible(old)
+
+  old <- ggblanket_global$theme_axis_ticks_rm
+  ggblanket_global$theme_axis_ticks_rm <- theme_axis_ticks_rm
+  invisible(old)
+
+  old <- ggblanket_global$theme_panel_grid_rm
+  ggblanket_global$theme_panel_grid_rm <- theme_panel_grid_rm
   invisible(old)
 }
 
@@ -239,36 +258,6 @@ weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G"
   ggblanket_global$col_palette_na_o <- col_palette_na_o
   invisible(old)
 }
-
-#' Set a theme to apply _without_ side-effects
-#'
-#' @description Set a theme to added to `gg_*` functions _without_ side-effects.
-#' Note this sets the mode to NULL to allow this to work, and therefore should be run after `set_blanket`.
-#'
-#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects.
-#' @param ... Dots to support trailing commas etc.
-#'
-#' @export
-weave_theme <- function(theme = light_mode_r() + mode_orientation_to_x(),
-                        ...) {
-  weave_mode(mode = NULL)
-
-  old <- ggblanket_global$theme
-  ggblanket_global$theme <- theme
-  invisible(old)
-
-  if (rlang::is_null(theme)) {
-    ggplot2::theme_set(new = ggplot2::theme_grey())
-  }
-  else {
-    ggplot2::theme_set(new = theme)
-  }
-}
-
-#' Get the mode
-#' @description Get the currently set mode.
-#' @noRd
-get_mode <- function() ggblanket_global$mode
 
 #' Get the theme
 #' @description Get the currently set theme.

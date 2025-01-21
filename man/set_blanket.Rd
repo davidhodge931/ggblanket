@@ -6,7 +6,7 @@
 \usage{
 set_blanket(
   ...,
-  mode = light_mode_r(),
+  theme = light_mode_r(),
   colour = "#357BA2FF",
   fill = colour,
   text_colour = "#121B24FF",
@@ -25,7 +25,7 @@ set_blanket(
 \arguments{
 \item{...}{Provided to force user argument naming etc.}
 
-\item{mode}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates \verb{gg_*} side-effects of removing relevant axis line/ticks and gridlines per the \code{mode_orientation}.}
+\item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates \verb{gg_*} side-effects of removing relevant axis line/ticks and gridlines per the \code{theme_orientation}.}
 
 \item{colour}{A default hex colour for the colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).}
 
@@ -59,7 +59,7 @@ A globally set style.
 \description{
 Set the style by setting:
 \enumerate{
-\item the mode to be added by default
+\item the theme to be added by default
 \item the geom defaults (e.g. colour/fill), and text and reference line defaults
 \item the col_palettes for discrete, continuous and ordinal colour/fill scales
 }
@@ -74,7 +74,7 @@ library(ggblanket)
 library(palmerpenguins)
 
 set_blanket(
-  mode = dark_mode_r(),
+  theme = dark_mode_r(),
   colour = "#E7298AFF",
   colour_text = darkness[1],
   colour_hline = darkness[1],
