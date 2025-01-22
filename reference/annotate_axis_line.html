@@ -54,11 +54,11 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">annotate_axis_line</span><span class="op">(</span></span>
 <span>  axis <span class="op">=</span> <span class="st">"x"</span>,</span>
+<span>  <span class="va">...</span>,</span>
 <span>  x_position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
 <span>  y_position <span class="op">=</span> <span class="st">"left"</span>,</span>
 <span>  colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">...</span></span>
+<span>  linewidth <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -68,6 +68,10 @@
 
 <dl><dt id="arg-axis">axis<a class="anchor" aria-label="anchor" href="#arg-axis"></a></dt>
 <dd><p>The axis. Either "x" or "y"</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Extra parameters passed to <code>ggplot2::annotate("segment", ...)</code>.</p></dd>
 
 
 <dt id="arg-x-position">x_position<a class="anchor" aria-label="anchor" href="#arg-x-position"></a></dt>
@@ -84,10 +88,6 @@
 
 <dt id="arg-linewidth">linewidth<a class="anchor" aria-label="anchor" href="#arg-linewidth"></a></dt>
 <dd><p>The linewidth of the annotated segment.</p></dd>
-
-
-<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Extra parameters passed to <code>ggplot2::annotate("segment", ...)</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
