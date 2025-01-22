@@ -215,7 +215,7 @@ penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
-    mode = dark_mode_t(),
+    theme = dark_mode_t(),
   ) +
   theme(legend.title = element_blank())
 ```
@@ -250,7 +250,7 @@ penguins2 |>
     col = sex,
     facet = species,
     bins = 50,
-    mode = dark_mode_t(),
+    theme = dark_mode_t(),
   ) +
   theme(legend.title = element_blank())
 ```

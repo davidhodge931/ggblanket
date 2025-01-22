@@ -212,22 +212,22 @@ p4 <- pressure |>
 
 ### Correct the default orientation
 
-The `gg_*` function guesses the `*_orientation` of the plot to determine how to make continuous axes and what side-effects to have on the provided mode. If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument.
+The `gg_*` function guesses the `*_orientation` of the plot to determine how to make continuous axes and what side-effects to have on the provided theme. If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument.
 
 ```{r}
 p1 <- penguins2 |>
   gg_point(
     x = bill_depth_mm,
     y = bill_length_mm,
-    subtitle = "\nDefault orientation",
+    subtitle = "\nDefault theme orientation",
   )
 
 p2 <- penguins2 |>
   gg_point(
     x = bill_depth_mm,
     y = bill_length_mm,
-    mode_orientation = "y",
-    subtitle = "\nAdjusted orientation",
+    theme_orientation = "y",
+    subtitle = "\nAdjusted theme orientation",
   ) 
 
 p1 + p2
