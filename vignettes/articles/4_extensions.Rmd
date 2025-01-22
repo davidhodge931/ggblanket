@@ -130,7 +130,7 @@ penguins2 |>
     title = "penguins2 body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    mode = light_mode_r(base_family = "grace"),
+    theme = light_mode_r(base_family = "grace"),
   ) +
   theme(
     plot.title = element_text(family = "roboto_slab"),

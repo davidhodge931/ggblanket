@@ -6,26 +6,28 @@ library(ggplot2)
 library(dplyr)
 
 ###
-# test_name <- "1"
-#
-# test_that(test_name, {
-#
-#   set_blanket(
-#     theme = NULL,
-#   )
-#   weave_theme(theme = theme_grey())
-#
-#   p <- penguins |>
-#     mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
-#     gg_point(
-#       x = flipper_length_mm,
-#       y = body_mass_g,
-#       col = sex,
-#     ) +
-#     geom_vline(xintercept = 200)
-#
-#   vdiffr::expect_doppelganger(test_name, p)
-# })
+test_name <- "1"
+
+test_that(test_name, {
+
+  set_blanket(
+    theme = theme_grey(),
+    theme_axis_line_rm = FALSE,
+    theme_axis_ticks_rm = FALSE,
+    theme_panel_grid_rm = FALSE
+  )
+
+  p <- penguins |>
+    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
+    gg_point(
+      x = flipper_length_mm,
+      y = body_mass_g,
+      col = sex,
+    ) +
+    geom_vline(xintercept = 200)
+
+  vdiffr::expect_doppelganger(test_name, p)
+})
 
 ###
 test_name <- "2"
@@ -34,9 +36,9 @@ test_that(test_name, {
 
   set_blanket(
     theme = light_mode_r(),
-    colour = red,
-    text_colour = teal,
-    reference_colour = teal,
+    geom_colour = red,
+    geom_text_colour = teal,
+    geom_reference_colour = teal,
   )
 
   p <- penguins |>
@@ -55,11 +57,11 @@ test_that(test_name, {
 
 set_blanket(
   theme = dark_mode_r(base_size = 15),
-  colour = red,
-  text_colour = "red",
-  text_size = 15 / 2.83505,
-  reference_colour = "red",
-  reference_linewidth = 5,
+  geom_colour = red,
+  geom_text_colour = "red",
+  geom_text_size = 15 / 2.83505,
+  geom_reference_colour = "red",
+  geom_reference_linewidth = 5,
   col_palette_d = c(navy, red, "green"),
   col_palette_c = c(navy, purple, red, orange)
 )
