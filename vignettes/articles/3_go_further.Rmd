@@ -20,18 +20,18 @@ knitr::opts_chunk$set(
 
 This article will demonstrate a random assortment of content, including some of which is more advanced.  
 
-1. Change the `stat` of the layer
-2. Change the `position` of the layer
-3. Reorder and/or reverse categorical variables
-4. Drop unused categorical variable values
-5. Transform scales to `"log"` etc
-6. Correct the default orientation
-7. Avoid the 'symmetric' scale
-8. Change the `*_position` of positional axes 
-9. Zoom in or out on scales
-10. Use delayed evaluation
-11. Rescale a diverging col scale
-12. Add a legend within the panel
+* Change the `stat` of the layer
+* Change the `position` of the layer
+* Reorder and/or reverse categorical variables
+* Drop unused categorical variable values
+* Transform scales to `"log"` etc
+* Correct the default orientation
+* Avoid the 'symmetric' scale
+* Change the `*_position` of positional axes 
+* Zoom in or out on scales
+* Use delayed evaluation
+* Rescale a diverging col scale
+* Add a legend within the panel
 
 ```{r setup}
 library(dplyr)
@@ -56,7 +56,7 @@ penguins2 <- penguins |>
   mutate(sex = factor(sex, labels = c("Female", "Male")))
 ```
 
-### 1. Change the `stat` of the layer
+### Change the `stat` of the layer
 
 The default `stat` of each `gg_*` function can be changed. 
 
@@ -83,7 +83,7 @@ ggplot2::economics |>
   ) 
 ```
 
-### 2. Change the `position` of the layer
+### Change the `position` of the layer
 
 The default `position` of each `gg_*` function can be changed. 
 
@@ -99,7 +99,7 @@ penguins2 |>
 ```
 
 
-### 3. Reorder and/or reverse categorical variables
+### Reorder and/or reverse categorical variables
 
 ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet`, `facet2` and  `alpha`. You can often manipulate the data prior to plotting to achieve what you want (e.g. using `tidyr::drop_na`, `forcats::fct_rev` and/or `forcats::fct_reorder`).
 
@@ -130,7 +130,7 @@ p2 <- diamonds |>
 p1 + p2
 ```
 
-### 4. Drop unused categorical variable values
+### Drop unused categorical variable values
 
 ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting using `forcats::fct_drop`. 
 
@@ -163,7 +163,7 @@ p2 <- diamonds |>
 p1 + p2
 ```
 
-### 5. Transform scales to `"log"` etc
+### Transform scales to `"log"` etc
 
 Transform objects (e.g. `transform_log()` or character strings of these can be used to transform scales - including combining these.
 
@@ -210,7 +210,7 @@ p4 <- pressure |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 6. Correct the default orientation
+### Correct the default orientation
 
 The `gg_*` function guesses the `*_orientation` of the plot to determine how to make continuous axes and what side-effects to have on the provided mode. If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument.
 
@@ -233,7 +233,7 @@ p2 <- penguins2 |>
 p1 + p2
 ```
 
-### 7. Avoid the 'symmetric' scale
+### Avoid the 'symmetric' scale
 
 Symmetric scales can be turned off or on using `*_symmetric` arguments. 
 
@@ -277,7 +277,7 @@ p3 <- penguins2 |>
 p1 + p2 + p3
 ```
 
-### 8. Change the `*_position` of positional axes 
+### Change the `*_position` of positional axes 
 
 Positional axes can be changed using `*_position`.
 
@@ -297,7 +297,7 @@ economics |>
   ) 
 ```
 
-### 9. Zoom in or out on scales
+### Zoom in or out on scales
 
 There are no `*_limits` arguments in ggblanket. 
 
@@ -338,7 +338,7 @@ penguins |>
   ) 
 ```
 
-### 10. Use delayed evaluation
+###  Use delayed evaluation
 
  The `mapping` argument can be used for delayed evaluation with the `ggplot2::after_stat` function.
 
@@ -362,7 +362,7 @@ faithfuld |>
   )
 ```
 
-### 11. Rescale a diverging col scale
+### Rescale a diverging col scale
 
 Use `col_rescale` to rescale a diverging scale around a central point. 
 
@@ -381,7 +381,7 @@ mpg  |>
   )
 ```
 
-### 12. Add a legend within the panel
+### Add a legend within the panel
 
 ```{r}
 set_blanket()
