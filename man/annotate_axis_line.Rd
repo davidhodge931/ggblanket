@@ -6,15 +6,17 @@
 \usage{
 annotate_axis_line(
   axis = "x",
+  ...,
   x_position = "bottom",
   y_position = "left",
   colour = NULL,
-  linewidth = NULL,
-  ...
+  linewidth = NULL
 )
 }
 \arguments{
 \item{axis}{The axis. Either "x" or "y"}
+
+\item{...}{Extra parameters passed to \code{ggplot2::annotate("segment", ...)}.}
 
 \item{x_position}{The position of the "x" axis, if applicable. Either "bottom" or "top".}
 
@@ -23,8 +25,6 @@ annotate_axis_line(
 \item{colour}{The colour of the annotated segment.}
 
 \item{linewidth}{The linewidth of the annotated segment.}
-
-\item{...}{Extra parameters passed to \code{ggplot2::annotate("segment", ...)}.}
 }
 \value{
 A list of a annotate layer and theme elements.

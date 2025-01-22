@@ -190,8 +190,8 @@ flex_mode_base <- function(
 #'
 #' @description Flexible mode with right legend.
 #'
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @inheritParams flex_mode_base
-#' @param ... Provided to force user argument naming etc.
 #'
 #' @return A ggplot theme.
 #' @keywords internal

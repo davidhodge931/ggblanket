@@ -5,6 +5,7 @@
 \title{Set a series of geom defaults}
 \usage{
 weave_geom_defaults(
+  ...,
   geom_colour = "#357BA2FF",
   geom_fill = geom_colour,
   geom_text_colour = "#121B24FF",
@@ -15,6 +16,8 @@ weave_geom_defaults(
 )
 }
 \arguments{
+\item{...}{Provided to require argument naming, support trailing commas etc.}
+
 \item{geom_colour}{A default hex geom_colour for the geom_colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).}
 
 \item{geom_fill}{A default hex geom_colour for the geom_fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).}

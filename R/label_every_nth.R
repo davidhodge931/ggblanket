@@ -3,9 +3,9 @@
 #' @description
 #' Label every nth element in a vector, and replace the rest with "".
 #'
-#' @param ... If numeric, arguments passed to the `scales::comma` function. Otherwise, arguments passed to `format`.
 #' @param n The increment of elements to hold as is. Defaults to `2`.
 #' @param offset An offset for which element to first hold. Defaults to `0`. Possible values are `-1` to (`n - 2`)
+#' @param ... If numeric, arguments passed to the `scales::comma` function. Otherwise, arguments passed to `format`.
 #'
 #' @return A labelling function
 #' @export
@@ -30,7 +30,7 @@
 #'      y_labels = label_every_nth(),
 #'    )
 #
-label_every_nth <- function(..., n = 2, offset = 0) {
+label_every_nth <- function(n = 2, offset = 0, ...) {
   function(x) {
     i <- which(is.finite(x) | is.character(x) | is.factor(x) | is.logical(x))
     i <- i[seq_along(i) %% n == (offset + 1)]

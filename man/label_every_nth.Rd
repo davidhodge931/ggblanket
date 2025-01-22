@@ -4,14 +4,14 @@
 \alias{label_every_nth}
 \title{Label every nth element}
 \usage{
-label_every_nth(..., n = 2, offset = 0)
+label_every_nth(n = 2, offset = 0, ...)
 }
 \arguments{
-\item{...}{If numeric, arguments passed to the \code{scales::comma} function. Otherwise, arguments passed to \code{format}.}
-
 \item{n}{The increment of elements to hold as is. Defaults to \code{2}.}
 
 \item{offset}{An offset for which element to first hold. Defaults to \code{0}. Possible values are \code{-1} to (\code{n - 2})}
+
+\item{...}{If numeric, arguments passed to the \code{scales::comma} function. Otherwise, arguments passed to \code{format}.}
 }
 \value{
 A labelling function

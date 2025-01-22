@@ -3,6 +3,7 @@
 #' @description Get a dark/light colour based on contrast with fill colours
 #'
 #' @param fill A fill aesthetic from which to determine the colour scale for contrast.
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param dark A dark colour.
 #' @param light A light colour.
 #'
@@ -12,6 +13,7 @@
 #' get_colour_contrast(fill = c("navy", "yellow", "orange"), dark = "black", light = "white")
 #'
 get_colour_contrast <- function(fill,
+                                ...,
                                 dark = "#121B24FF",
                                 light = "#FFFFFFFF") {
 
@@ -28,7 +30,7 @@ get_colour_contrast <- function(fill,
 #'
 #' @description A colour aesthetic to contrast with a fill aesthetic. Can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
-#' @param ... Provided to force user argument naming etc.
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param dark A dark colour.
 #' @param light A light colour.
 #'

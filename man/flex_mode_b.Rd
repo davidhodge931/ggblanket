@@ -42,7 +42,7 @@ flex_mode_b(
 )
 }
 \arguments{
-\item{...}{Provided to force user argument naming etc.}
+\item{...}{Provided to require argument naming, support trailing commas etc.}
 
 \item{base_size}{The base size of the text theme element. Defaults to 11.}
 

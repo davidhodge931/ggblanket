@@ -16,7 +16,7 @@ weave_theme(
 \arguments{
 \item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}).}
 
-\item{...}{Dots to support trailing commas etc.}
+\item{...}{Provided to require argument naming, support trailing commas etc.}
 
 \item{theme_orientation}{The orientation of plot, which affects the theme components that can be removed by the \verb{gg_*} function. Either \code{"x"} or \code{"y"}. Defaults to \code{NULL}, which lets the \verb{gg_*} function guess it based on the data.}
 

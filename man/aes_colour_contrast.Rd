@@ -7,7 +7,7 @@
 aes_colour_contrast(..., dark = "#121B24FF", light = "#FFFFFFFF")
 }
 \arguments{
-\item{...}{Provided to force user argument naming etc.}
+\item{...}{Provided to require argument naming, support trailing commas etc.}
 
 \item{dark}{A dark colour.}
 

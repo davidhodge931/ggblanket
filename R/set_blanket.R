@@ -12,7 +12,7 @@
 #'
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
 #'
-#' @param ... Provided to force user argument naming etc.
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]).
 #' @param theme_orientation The orientation of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
 #' @param theme_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.

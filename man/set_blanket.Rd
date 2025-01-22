@@ -28,7 +28,7 @@ set_blanket(
 )
 }
 \arguments{
-\item{...}{Provided to force user argument naming etc.}
+\item{...}{Provided to require argument naming, support trailing commas etc.}
 
 \item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}).}
 

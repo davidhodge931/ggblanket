@@ -21,7 +21,7 @@ ggblanket_global$col_palette_na_o <- NULL
 #' @description Set a theme for the theme argument in `gg_*` functions.
 #'
 #' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]).
-#' @param ... Dots to support trailing commas etc.
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param theme_orientation The orientation of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
 #' @param theme_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
 #' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
@@ -29,11 +29,11 @@ ggblanket_global$col_palette_na_o <- NULL
 #'
 #' @export
 weave_theme <- function(theme = light_mode_r(),
-                       ...,
-                       theme_orientation = NULL,
-                       theme_axis_line_rm = TRUE,
-                       theme_axis_ticks_rm = TRUE,
-                       theme_panel_grid_rm = TRUE) {
+                        ...,
+                        theme_orientation = NULL,
+                        theme_axis_line_rm = TRUE,
+                        theme_axis_ticks_rm = TRUE,
+                        theme_panel_grid_rm = TRUE) {
 
   old <- ggblanket_global$theme
   ggblanket_global$theme <- theme
@@ -61,11 +61,11 @@ weave_theme <- function(theme = light_mode_r(),
 #' @description Set a function to format the label of unlabelled variables.
 #'
 #' @param label_case A function to format the label of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
-#' @param ... Dots to support trailing commas etc.
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @export
 weave_label_case <- function(label_case = snakecase::to_sentence_case,
-                        ...) {
+                             ...) {
 
   old <- ggblanket_global$label_case
   ggblanket_global$label_case <- label_case
@@ -78,6 +78,7 @@ weave_label_case <- function(label_case = snakecase::to_sentence_case,
 #'
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune individual geom defaults.
 #'
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param geom_colour A default hex geom_colour for the geom_colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
 #' @param geom_fill A default hex geom_colour for the geom_fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
 #' @param geom_text_colour A default hex geom_colour for the geom_colour of the "text" and "label" geoms.
@@ -88,6 +89,7 @@ weave_label_case <- function(label_case = snakecase::to_sentence_case,
 #'
 #' @export
 weave_geom_defaults <- function(
+    ...,
     geom_colour = "#357BA2FF",
     geom_fill = geom_colour,
     geom_text_colour = "#121B24FF",
@@ -150,13 +152,13 @@ weave_geom_defaults <- function(
 
 #' Set a discrete geom_colour and geom_fill palettes
 #'
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.
 #' @param col_palette_c For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default.
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function. Use NULL for ggplot2 default.
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
-#' @param ... Dots to support trailing commas etc.
 #'
 #' @export
 weave_col_palettes <- function(
@@ -176,7 +178,7 @@ weave_col_palettes <- function(
 #'
 #' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.
 #' @param col_palette_na_d For a discrete scale, a hex code.
-#' @param ... Dots to support trailing commas etc.
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @noRd
 weave_col_palette_d <- function(col_palette_d = jumble,
@@ -205,7 +207,7 @@ weave_col_palette_d <- function(col_palette_d = jumble,
 #'
 #' @param col_palette_c For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default.
 #' @param col_palette_na_c For a continuous scale, a hex code.
-#' @param ... Dots to support trailing commas etc.
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @noRd
 weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, direction = -1),
@@ -233,7 +235,7 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
 #'
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function. Use NULL for ggplot2 default.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
-#' @param ... Dots to support trailing commas etc.
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @noRd
 weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G", direction = -1),

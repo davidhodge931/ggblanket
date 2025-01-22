@@ -15,7 +15,7 @@ weave_col_palettes(
 )
 }
 \arguments{
-\item{...}{Dots to support trailing commas etc.}
+\item{...}{Provided to require argument naming, support trailing commas etc.}
 
 \item{col_palette_d}{For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.}
 

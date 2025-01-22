@@ -6,7 +6,7 @@
 #' * `dark_mode_t()` with legend on top
 #' * `dark_mode_b()` with legend on bottom
 #'
-#' @param ... Provided to force user argument naming etc.
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param base_size The base size of the text theme element. Defaults to 11.
 #' @param base_family The base family of the text theme element. Defaults to "".
 #' @param base_colour The base colour of the text theme element.
