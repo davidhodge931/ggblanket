@@ -89,7 +89,7 @@ Hodge</h4>
 </h2>
 <p>This article will demonstrate a random assortment of content,
 including some of which is more advanced.</p>
-<ol style="list-style-type: decimal">
+<ul>
 <li>Change the <code>stat</code> of the layer</li>
 <li>Change the <code>position</code> of the layer</li>
 <li>Reorder and/or reverse categorical variables</li>
@@ -102,7 +102,7 @@ including some of which is more advanced.</p>
 <li>Use delayed evaluation</li>
 <li>Rescale a diverging col scale</li>
 <li>Add a legend within the panel</li>
-</ol>
+</ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
@@ -125,7 +125,7 @@ including some of which is more advanced.</p>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">sex</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Female"</span>, <span class="st">"Male"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
-<h3 id="change-the-stat-of-the-layer">1. Change the <code>stat</code> of the layer<a class="anchor" aria-label="anchor" href="#change-the-stat-of-the-layer"></a>
+<h3 id="change-the-stat-of-the-layer">Change the <code>stat</code> of the layer<a class="anchor" aria-label="anchor" href="#change-the-stat-of-the-layer"></a>
 </h3>
 <p>The default <code>stat</code> of each <code>gg_*</code> function can
 be changed.</p>
@@ -152,7 +152,7 @@ be changed.</p>
 <p><img src="3_go_further_files/figure-html/unnamed-chunk-3-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="change-the-position-of-the-layer">2. Change the <code>position</code> of the layer<a class="anchor" aria-label="anchor" href="#change-the-position-of-the-layer"></a>
+<h3 id="change-the-position-of-the-layer">Change the <code>position</code> of the layer<a class="anchor" aria-label="anchor" href="#change-the-position-of-the-layer"></a>
 </h3>
 <p>The default <code>position</code> of each <code>gg_*</code> function
 can be changed.</p>
@@ -168,7 +168,7 @@ can be changed.</p>
 <p><img src="3_go_further_files/figure-html/unnamed-chunk-4-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="reorder-andor-reverse-categorical-variables">3. Reorder and/or reverse categorical variables<a class="anchor" aria-label="anchor" href="#reorder-andor-reverse-categorical-variables"></a>
+<h3 id="reorder-andor-reverse-categorical-variables">Reorder and/or reverse categorical variables<a class="anchor" aria-label="anchor" href="#reorder-andor-reverse-categorical-variables"></a>
 </h3>
 <p>ggblanket requires unquoted variables only for <code>x</code>,
 <code>y</code>, <code>col</code>, <code>facet</code>,
@@ -204,7 +204,7 @@ data prior to plotting to achieve what you want (e.g. using
 <p><img src="3_go_further_files/figure-html/unnamed-chunk-5-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="drop-unused-categorical-variable-values">4. Drop unused categorical variable values<a class="anchor" aria-label="anchor" href="#drop-unused-categorical-variable-values"></a>
+<h3 id="drop-unused-categorical-variable-values">Drop unused categorical variable values<a class="anchor" aria-label="anchor" href="#drop-unused-categorical-variable-values"></a>
 </h3>
 <p>ggblanket keeps unused factor levels in the plot. If users wish to
 drop unused levels they should likewise do it in the data prior to
@@ -239,7 +239,7 @@ plotting using <code><a href="https://forcats.tidyverse.org/reference/fct_drop.h
 <p><img src="3_go_further_files/figure-html/unnamed-chunk-6-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="transform-scales-to-log-etc">5. Transform scales to <code>"log"</code> etc<a class="anchor" aria-label="anchor" href="#transform-scales-to-log-etc"></a>
+<h3 id="transform-scales-to-log-etc">Transform scales to <code>"log"</code> etc<a class="anchor" aria-label="anchor" href="#transform-scales-to-log-etc"></a>
 </h3>
 <p>Transform objects (e.g. <code><a href="https://scales.r-lib.org/reference/transform_log.html" class="external-link">transform_log()</a></code> or character
 strings of these can be used to transform scales - including combining
@@ -288,7 +288,7 @@ these.</p>
 <p><img src="3_go_further_files/figure-html/unnamed-chunk-7-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="correct-the-default-orientation">6. Correct the default orientation<a class="anchor" aria-label="anchor" href="#correct-the-default-orientation"></a>
+<h3 id="correct-the-default-orientation">Correct the default orientation<a class="anchor" aria-label="anchor" href="#correct-the-default-orientation"></a>
 </h3>
 <p>The <code>gg_*</code> function guesses the <code>*_orientation</code>
 of the plot to determine how to make continuous axes and what
@@ -315,7 +315,7 @@ argument.</p>
 <p><img src="3_go_further_files/figure-html/unnamed-chunk-8-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="avoid-the-symmetric-scale">7. Avoid the ‘symmetric’ scale<a class="anchor" aria-label="anchor" href="#avoid-the-symmetric-scale"></a>
+<h3 id="avoid-the-symmetric-scale">Avoid the ‘symmetric’ scale<a class="anchor" aria-label="anchor" href="#avoid-the-symmetric-scale"></a>
 </h3>
 <p>Symmetric scales can be turned off or on using
 <code>*_symmetric</code> arguments.</p>
@@ -360,7 +360,7 @@ argument.</p>
 <p><img src="3_go_further_files/figure-html/unnamed-chunk-9-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="change-the-_position-of-positional-axes">8. Change the <code>*_position</code> of positional axes<a class="anchor" aria-label="anchor" href="#change-the-_position-of-positional-axes"></a>
+<h3 id="change-the-_position-of-positional-axes">Change the <code>*_position</code> of positional axes<a class="anchor" aria-label="anchor" href="#change-the-_position-of-positional-axes"></a>
 </h3>
 <p>Positional axes can be changed using <code>*_position</code>.</p>
 <p>Note that for <code>x_position = "top"</code>, a caption must be
@@ -381,7 +381,7 @@ theme.</p>
 <p><img src="3_go_further_files/figure-html/unnamed-chunk-10-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="zoom-in-or-out-on-scales">9. Zoom in or out on scales<a class="anchor" aria-label="anchor" href="#zoom-in-or-out-on-scales"></a>
+<h3 id="zoom-in-or-out-on-scales">Zoom in or out on scales<a class="anchor" aria-label="anchor" href="#zoom-in-or-out-on-scales"></a>
 </h3>
 <p>There are no <code>*_limits</code> arguments in ggblanket.</p>
 <p>Instead, users should use a combination of filtering the data, adding
@@ -423,7 +423,7 @@ etc.</p>
 <p><img src="3_go_further_files/figure-html/unnamed-chunk-13-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="use-delayed-evaluation">10. Use delayed evaluation<a class="anchor" aria-label="anchor" href="#use-delayed-evaluation"></a>
+<h3 id="use-delayed-evaluation">Use delayed evaluation<a class="anchor" aria-label="anchor" href="#use-delayed-evaluation"></a>
 </h3>
 <p>The <code>mapping</code> argument can be used for delayed evaluation
 with the <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">ggplot2::after_stat</a></code> function.</p>
@@ -447,7 +447,7 @@ with the <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" c
 <p><img src="3_go_further_files/figure-html/unnamed-chunk-15-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="rescale-a-diverging-col-scale">11. Rescale a diverging col scale<a class="anchor" aria-label="anchor" href="#rescale-a-diverging-col-scale"></a>
+<h3 id="rescale-a-diverging-col-scale">Rescale a diverging col scale<a class="anchor" aria-label="anchor" href="#rescale-a-diverging-col-scale"></a>
 </h3>
 <p>Use <code>col_rescale</code> to rescale a diverging scale around a
 central point.</p>
@@ -467,7 +467,7 @@ central point.</p>
 <p><img src="3_go_further_files/figure-html/unnamed-chunk-16-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="add-a-legend-within-the-panel">12. Add a legend within the panel<a class="anchor" aria-label="anchor" href="#add-a-legend-within-the-panel"></a>
+<h3 id="add-a-legend-within-the-panel">Add a legend within the panel<a class="anchor" aria-label="anchor" href="#add-a-legend-within-the-panel"></a>
 </h3>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="op">)</span></span>
