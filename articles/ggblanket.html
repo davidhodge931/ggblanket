@@ -335,7 +335,7 @@ variants<a class="anchor" aria-label="anchor" href="#families-of-_mode_-themes-w
 are provided with variants that differ based on legend placement with
 suffix <code>r</code> (right), <code>b</code> (bottom), and
 <code>t</code> (top). These functions were built for use with the
-<code>mode</code> argument - and have flexibility to adjust colours,
+<code>theme</code> argument - and have flexibility to adjust colours,
 linewidths etc.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
@@ -363,7 +363,7 @@ all equal <code>TRUE</code>:</p>
 <ul>
 <li>Where <code>theme_orientation = "x"</code>, the <code>gg_*</code>
 function will remove the y axis line/ticks and the x gridlines from the
-<code>mode</code> (by changing their colour to “transparent”).</li>
+<code>theme</code> (by changing their colour to “transparent”).</li>
 <li>Where <code>theme_orientation = "y"</code>, the opposite will
 occur.</li>
 </ul>
@@ -496,7 +496,7 @@ the:</p>
 <li>the colour palettes (i.e. discrete, continuous and ordinal)</li>
 <li>and more</li>
 </ul>
-<p>Note the <code>mode</code> argument in <code>set_blanket</code> can
+<p>Note the <code>theme</code> argument in <code>set_blanket</code> can
 also be used to default a <code>*_label</code> to <code>NULL</code>
 (e.g. <code>set_blanket(theme = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))</code>).</p>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults()</a></code> function can be used

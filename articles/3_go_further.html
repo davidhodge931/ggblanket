@@ -292,7 +292,7 @@ these.</p>
 </h3>
 <p>The <code>gg_*</code> function guesses the <code>*_orientation</code>
 of the plot to determine how to make continuous axes and what
-side-effects to have on the provided mode. If it guesses incorrectly,
+side-effects to have on the provided theme. If it guesses incorrectly,
 use either the <code>x_orientation</code> or <code>y_orientation</code>
 argument.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -300,15 +300,15 @@ argument.</p>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">bill_length_mm</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"\nDefault orientation"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\nDefault theme orientation"</span>,</span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">bill_depth_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">bill_length_mm</span>,</span>
-<span>    mode_orientation <span class="op">=</span> <span class="st">"y"</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="st">"\nAdjusted orientation"</span>,</span>
+<span>    theme_orientation <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"\nAdjusted theme orientation"</span>,</span>
 <span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
