@@ -17,6 +17,7 @@
 #' @param theme_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
 #' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
 #' @param theme_panel_grid_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `theme_orientation` of the plot.
+#'
 #' @param colour A default hex colour for the colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
 #' @param fill A default hex colour for the fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
 #' @param text_colour A default hex colour for the colour of the "text" and "label" geoms.
@@ -72,6 +73,7 @@ set_blanket <- function(
     theme_axis_line_rm = TRUE,
     theme_axis_ticks_rm = TRUE,
     theme_panel_grid_rm = TRUE,
+    label_case = snakecase::to_sentence_case,
     colour = "#357BA2FF",
     fill = colour,
     text_colour = "#121B24FF",
@@ -91,6 +93,8 @@ set_blanket <- function(
               theme_axis_line_rm = theme_axis_line_rm,
               theme_axis_ticks_rm = theme_axis_ticks_rm,
               theme_panel_grid_rm = theme_panel_grid_rm)
+
+  weave_label_case(label_case = label_case)
 
   weave_geom_defaults(
     colour = colour,

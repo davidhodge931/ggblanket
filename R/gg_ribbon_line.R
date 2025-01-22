@@ -93,7 +93,7 @@ gg_ribbon_line <- function(data = NULL,
                          title = NULL,
                          subtitle = NULL,
                          caption = NULL,
-                         label_to_case = snakecase::to_sentence_case) {
+                         label_case = NULL) {
   gg_blanket(
     data = data,
     geom = "smooth",
@@ -164,7 +164,7 @@ gg_ribbon_line <- function(data = NULL,
     title = title,
     subtitle = subtitle,
     caption = caption,
-    label_to_case = label_to_case,
+    label_case = label_case,
     ...
   )
 }

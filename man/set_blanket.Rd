@@ -11,6 +11,7 @@ set_blanket(
   theme_axis_line_rm = TRUE,
   theme_axis_ticks_rm = TRUE,
   theme_panel_grid_rm = TRUE,
+  label_case = snakecase::to_sentence_case,
   colour = "#357BA2FF",
   fill = colour,
   text_colour = "#121B24FF",
