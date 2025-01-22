@@ -2,19 +2,21 @@
 % Please edit documentation in R/weave.R
 \name{weave_col_palettes}
 \alias{weave_col_palettes}
-\title{Set a discrete colour and fill palettes}
+\title{Set a discrete geom_colour and geom_fill palettes}
 \usage{
 weave_col_palettes(
+  ...,
   col_palette_d = jumble,
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
   col_palette_o = scales::pal_viridis(option = "G", direction = -1),
   col_palette_na_d = "#CDC5BFFF",
   col_palette_na_c = "#988F88FF",
-  col_palette_na_o = "#988F88FF",
-  ...
+  col_palette_na_o = "#988F88FF"
 )
 }
 \arguments{
+\item{...}{Dots to support trailing commas etc.}
+
 \item{col_palette_d}{For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.}
 
 \item{col_palette_c}{For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default.}
@@ -26,9 +28,7 @@ weave_col_palettes(
 \item{col_palette_na_c}{For a continuous scale, a hex code.}
 
 \item{col_palette_na_o}{For an ordinal scale, a hex code.}
-
-\item{...}{Dots to support trailing commas etc.}
 }
 \description{
-Set a discrete colour and fill palettes
+Set a discrete geom_colour and geom_fill palettes
 }

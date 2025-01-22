@@ -6,14 +6,19 @@
 \usage{
 set_blanket(
   ...,
-  mode = light_mode_r(),
-  colour = "#357BA2FF",
-  fill = colour,
-  text_colour = "#121B24FF",
-  text_size = 11/2.835052,
-  text_family = "",
-  reference_colour = "#121B24FF",
-  reference_linewidth = 0.25,
+  theme = light_mode_r(),
+  theme_orientation = NULL,
+  theme_axis_line_rm = TRUE,
+  theme_axis_ticks_rm = TRUE,
+  theme_panel_grid_rm = TRUE,
+  label_case = snakecase::to_sentence_case,
+  geom_colour = "#357BA2FF",
+  geom_fill = geom_colour,
+  geom_text_colour = "#121B24FF",
+  geom_text_size = 11/2.835052,
+  geom_text_family = "",
+  geom_reference_colour = "#121B24FF",
+  geom_reference_linewidth = 0.25,
   col_palette_d = jumble,
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
   col_palette_o = scales::pal_viridis(option = "G", direction = -1),
@@ -25,21 +30,31 @@ set_blanket(
 \arguments{
 \item{...}{Provided to force user argument naming etc.}
 
-\item{mode}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates \verb{gg_*} side-effects of removing relevant axis line/ticks and gridlines per the \code{mode_orientation}.}
+\item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}).}
 
-\item{colour}{A default hex colour for the colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).}
+\item{theme_orientation}{The orientation of plot, which affects the theme components that can be removed by the \verb{gg_*} function. Either \code{"x"} or \code{"y"}. Defaults to \code{NULL}, which lets the \verb{gg_*} function guess it based on the data.}
 
-\item{fill}{A default hex colour for the fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).}
+\item{theme_axis_line_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis line per the \code{theme_orientation} of the plot.}
 
-\item{text_colour}{A default hex colour for the colour of the "text" and "label" geoms.}
+\item{theme_axis_ticks_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis ticks per the \code{theme_orientation} of the plot.}
 
-\item{text_size}{A default size for the "text" and "label" geoms.}
+\item{theme_panel_grid_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant panel grid per the \code{theme_orientation} of the plot.}
 
-\item{text_family}{A default family for the "text" and "label" geoms.}
+\item{label_case}{A function to format the default \code{x_label}, \code{y_label} and \code{col_label} etc of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
 
-\item{reference_colour}{A default hex colour for the colour of the "hline", "vline" and "abline" geoms.}
+\item{geom_colour}{A default hex geom_colour for the geom_colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).}
 
-\item{reference_linewidth}{A default hex colour for the colour of the "hline", "vline" and "abline" geoms.}
+\item{geom_fill}{A default hex geom_colour for the geom_fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).}
+
+\item{geom_text_colour}{A default hex geom_colour for the geom_colour of the "text" and "label" geoms.}
+
+\item{geom_text_size}{A default size for the "text" and "label" geoms.}
+
+\item{geom_text_family}{A default family for the "text" and "label" geoms.}
+
+\item{geom_reference_colour}{A default hex geom_colour for the geom_colour of the "hline", "vline" and "abline" geoms.}
+
+\item{geom_reference_linewidth}{A default hex geom_colour for the geom_colour of the "hline", "vline" and "abline" geoms.}
 
 \item{col_palette_d}{For a discrete scale, a character vector of hex codes.}
 
@@ -59,13 +74,14 @@ A globally set style.
 \description{
 Set the style by setting:
 \enumerate{
-\item the mode to be added by default
-\item the geom defaults (e.g. colour/fill), and text and reference line defaults
-\item the col_palettes for discrete, continuous and ordinal colour/fill scales
+\item the theme, and how/what side-effects are to be applied
+\item the geom defaults, including those for text and reference lines
+\item the colour palettes (i.e. discrete, continuous and ordinal)
+\item and more
 }
 
 Alternatively, use the \verb{weave_*} functions to only apply a subset of these.
-A \code{weave_theme} function is also provided to set a theme \emph{without} \verb{gg_*} side-effects.
+
 \code{\link[ggplot2:update_defaults]{ggplot2::update_geom_defaults()}} can be used to further fine-tune geom defaults.
 }
 \examples{
@@ -74,11 +90,11 @@ library(ggblanket)
 library(palmerpenguins)
 
 set_blanket(
-  mode = dark_mode_r(),
-  colour = "#E7298AFF",
-  colour_text = darkness[1],
-  colour_hline = darkness[1],
-  colour_vline = darkness[1],
+  theme = dark_mode_r(),
+  geom_colour = "#E7298AFF",
+  geom_colour_text = darkness[1],
+  geom_colour_hline = darkness[1],
+  geom_colour_vline = darkness[1],
   col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
                     "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
 )

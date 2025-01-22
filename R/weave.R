@@ -1,27 +1,74 @@
 # global defaults
 ggblanket_global <- new.env(parent = emptyenv())
 
-ggblanket_global$mode <- NULL
+ggblanket_global$theme <- NULL
+ggblanket_global$theme_orientation <- NULL
+ggblanket_global$theme_axis_line_rm <- NULL
+ggblanket_global$theme_axis_ticks_rm <- NULL
+ggblanket_global$theme_axis_line_rm <- NULL
+
+ggblanket_global$label_case <- NULL
+
 ggblanket_global$col_palette_d <- NULL
 ggblanket_global$col_palette_c <- NULL
 ggblanket_global$col_palette_o <- NULL
 ggblanket_global$col_palette_na_d <- NULL
 ggblanket_global$col_palette_na_c <- NULL
 ggblanket_global$col_palette_na_o <- NULL
-ggblanket_global$theme <- NULL
 
-#' Set a mode
+#' Set a theme
 #'
-#' @description Set a mode for the mode argument in `gg_*` functions.
+#' @description Set a theme for the theme argument in `gg_*` functions.
 #'
-#' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
+#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]).
+#' @param ... Dots to support trailing commas etc.
+#' @param theme_orientation The orientation of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
+#' @param theme_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
+#' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
+#' @param theme_panel_grid_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `theme_orientation` of the plot.
+#'
+#' @export
+weave_theme <- function(theme = light_mode_r(),
+                       ...,
+                       theme_orientation = NULL,
+                       theme_axis_line_rm = TRUE,
+                       theme_axis_ticks_rm = TRUE,
+                       theme_panel_grid_rm = TRUE) {
+
+  old <- ggblanket_global$theme
+  ggblanket_global$theme <- theme
+  invisible(old)
+
+  old <- ggblanket_global$theme_orientation
+  ggblanket_global$theme_orientation <- theme_orientation
+  invisible(old)
+
+  old <- ggblanket_global$theme_axis_line_rm
+  ggblanket_global$theme_axis_line_rm <- theme_axis_line_rm
+  invisible(old)
+
+  old <- ggblanket_global$theme_axis_ticks_rm
+  ggblanket_global$theme_axis_ticks_rm <- theme_axis_ticks_rm
+  invisible(old)
+
+  old <- ggblanket_global$theme_panel_grid_rm
+  ggblanket_global$theme_panel_grid_rm <- theme_panel_grid_rm
+  invisible(old)
+}
+
+#' Set a label to case function
+#'
+#' @description Set a label to case function.
+#'
+#' @param label_case A function to format the default `x_label`, `y_label` and `col_label` etc of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
 #' @param ... Dots to support trailing commas etc.
 #'
 #' @export
-weave_mode <- function(mode = light_mode_r(),
-                       ...) {
-  old <- ggblanket_global$mode
-  ggblanket_global$mode <- mode
+weave_label_case <- function(label_case = snakecase::to_sentence_case,
+                        ...) {
+
+  old <- ggblanket_global$label_case
+  ggblanket_global$label_case <- label_case
   invisible(old)
 }
 
@@ -31,77 +78,77 @@ weave_mode <- function(mode = light_mode_r(),
 #'
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune individual geom defaults.
 #'
-#' @param colour A default hex colour for the colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
-#' @param fill A default hex colour for the fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
-#' @param text_colour A default hex colour for the colour of the "text" and "label" geoms.
-#' @param text_size A default size for the "text" and "label" geoms.
-#' @param text_family A default family for the "text" and "label" geoms.
-#' @param reference_colour A default hex colour for the colour of the "hline", "vline" and "abline" geoms.
-#' @param reference_linewidth A default hex colour for the colour of the "hline", "vline" and "abline" geoms.
+#' @param geom_colour A default hex geom_colour for the geom_colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
+#' @param geom_fill A default hex geom_colour for the geom_fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
+#' @param geom_text_colour A default hex geom_colour for the geom_colour of the "text" and "label" geoms.
+#' @param geom_text_size A default size for the "text" and "label" geoms.
+#' @param geom_text_family A default family for the "text" and "label" geoms.
+#' @param geom_reference_colour A default hex geom_colour for the geom_colour of the "hline", "vline" and "abline" geoms.
+#' @param geom_reference_linewidth A default hex geom_colour for the geom_colour of the "hline", "vline" and "abline" geoms.
 #'
 #' @export
 weave_geom_defaults <- function(
-    colour = "#357BA2FF",
-    fill = colour,
-    text_colour = "#121B24FF",
-    text_size = 11 / 2.835052,
-    text_family = "",
-    reference_colour = "#121B24FF",
-    reference_linewidth = 0.25
+    geom_colour = "#357BA2FF",
+    geom_fill = geom_colour,
+    geom_text_colour = "#121B24FF",
+    geom_text_size = 11 / 2.835052,
+    geom_text_family = "",
+    geom_reference_colour = "#121B24FF",
+    geom_reference_linewidth = 0.25
     ) {
 
   #polygons
-  ggplot2::update_geom_defaults("area", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("bar", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("boxplot", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
-  ggplot2::update_geom_defaults("col", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("contour_filled", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("crossbar", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66))
-  ggplot2::update_geom_defaults("density", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("density_2d_filled", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("polygon", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("raster", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("rect", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("ribbon", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("sf", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("smooth", ggplot2::aes(colour = !!colour, fill = !!fill, alpha = NA, linewidth = 0.66))
-  ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("violin", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0))
+  ggplot2::update_geom_defaults("area", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("bar", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("boxplot", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0.66))
+  ggplot2::update_geom_defaults("col", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("contour_filled", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("crossbar", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0.66))
+  ggplot2::update_geom_defaults("density", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("density_2d_filled", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("polygon", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("raster", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("rect", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("ribbon", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("sf", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("smooth", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, alpha = NA, linewidth = 0.66))
+  ggplot2::update_geom_defaults("tile", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("violin", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0))
 
-  # ggplot2::update_geom_defaults("bin2d", ggplot2::aes(fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("raster", ggplot2::aes(fill = !!fill, linewidth = 0))
-  ggplot2::update_geom_defaults("hex", ggplot2::aes(fill = !!fill, linewidth = 0))
+  # ggplot2::update_geom_defaults("bin2d", ggplot2::aes(fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("raster", ggplot2::aes(fill = !!geom_fill, linewidth = 0))
+  ggplot2::update_geom_defaults("hex", ggplot2::aes(fill = !!geom_fill, linewidth = 0))
 
   #lines
-  ggplot2::update_geom_defaults("contour", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("density2d", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("errorbar", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("function", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("line", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("linerange", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("path", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("quantile", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("rug", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("segment", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("spoke", ggplot2::aes(colour = !!colour, linewidth = 0.66))
-  ggplot2::update_geom_defaults("step", ggplot2::aes(colour = !!colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("contour", ggplot2::aes(colour = !!geom_colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!geom_colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("density2d", ggplot2::aes(colour = !!geom_colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("errorbar", ggplot2::aes(colour = !!geom_colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("function", ggplot2::aes(colour = !!geom_colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("line", ggplot2::aes(colour = !!geom_colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("linerange", ggplot2::aes(colour = !!geom_colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("path", ggplot2::aes(colour = !!geom_colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("quantile", ggplot2::aes(colour = !!geom_colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("rug", ggplot2::aes(colour = !!geom_colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("segment", ggplot2::aes(colour = !!geom_colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("spoke", ggplot2::aes(colour = !!geom_colour, linewidth = 0.66))
+  ggplot2::update_geom_defaults("step", ggplot2::aes(colour = !!geom_colour, linewidth = 0.66))
 
   #points
-  ggplot2::update_geom_defaults("point", ggplot2::aes(colour = !!colour, fill = !!fill))
-  ggplot2::update_geom_defaults("pointrange", ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0.66, size = 0.2)) # 1.5 / 7.5
+  ggplot2::update_geom_defaults("point", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill))
+  ggplot2::update_geom_defaults("pointrange", ggplot2::aes(colour = !!geom_colour, fill = !!geom_fill, linewidth = 0.66, size = 0.2)) # 1.5 / 7.5
 
   #hline & vline
-  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!reference_colour, linewidth = !!reference_linewidth))
-  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!reference_colour, linewidth = !!reference_linewidth))
-  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!reference_colour, linewidth = !!reference_linewidth))
+  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!geom_reference_colour, linewidth = !!geom_reference_linewidth))
+  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!geom_reference_colour, linewidth = !!geom_reference_linewidth))
+  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!geom_reference_colour, linewidth = !!geom_reference_linewidth))
 
   #text and label
-  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!text_colour, size = !!text_size, family = !!text_family))
-  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!text_colour, size = !!text_size, family = !!text_family))
+  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!geom_text_colour, size = !!geom_text_size, family = !!geom_text_family))
+  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!geom_text_colour, size = !!geom_text_size, family = !!geom_text_family))
 }
 
-#' Set a discrete colour and fill palettes
+#' Set a discrete geom_colour and geom_fill palettes
 #'
 #' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.
 #' @param col_palette_c For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default.
@@ -113,19 +160,19 @@ weave_geom_defaults <- function(
 #'
 #' @export
 weave_col_palettes <- function(
+    ...,
     col_palette_d = jumble,
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
     col_palette_na_d = "#CDC5BFFF",
     col_palette_na_c = "#988F88FF", # i.e. colorspace::darken(grey, 0.25)
-    col_palette_na_o = "#988F88FF",
-    ...) {
+    col_palette_na_o = "#988F88FF") {
   weave_col_palette_d(col_palette_d = col_palette_d, col_palette_na_d = col_palette_na_d)
   weave_col_palette_c(col_palette_c = col_palette_c, col_palette_na_c = col_palette_na_c)
   weave_col_palette_o(col_palette_o = col_palette_o, col_palette_na_o = col_palette_na_o)
 }
 
-#' Set a discrete colour and fill palette
+#' Set a discrete geom_colour and geom_fill palette
 #'
 #' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.
 #' @param col_palette_na_d For a discrete scale, a hex code.
@@ -133,8 +180,8 @@ weave_col_palettes <- function(
 #'
 #' @noRd
 weave_col_palette_d <- function(col_palette_d = jumble,
-                                col_palette_na_d = "#CDC5BFFF",
-                                ...) {
+                                col_palette_na_d = "#CDC5BFFF"
+                                ) {
 
   if (rlang::is_null(col_palette_na_d)) col_palette_na_d <- "grey50"
 
@@ -151,32 +198,9 @@ weave_col_palette_d <- function(col_palette_d = jumble,
   old <- ggblanket_global$col_palette_na_d
   ggblanket_global$col_palette_na_d <- col_palette_na_d
   invisible(old)
-
-  if (rlang::is_null(col_palette_d)) {
-    options(
-      ggplot2.discrete.colour = function()
-        ggplot2::scale_colour_hue(),
-      ggplot2.discrete.fill = function()
-        ggplot2::scale_fill_hue()
-    )
-  }
-  else {
-    options(
-      ggplot2.discrete.colour = function()
-        ggplot2::scale_colour_manual(
-          values = col_palette_d,
-          na.value = col_palette_na_d
-        ),
-      ggplot2.discrete.fill = function()
-        ggplot2::scale_fill_manual(
-          values = col_palette_d,
-          na.value = col_palette_na_d
-        )
-    )
-  }
 }
 
-#' Set a continuous colour and fill palette
+#' Set a continuous geom_colour and geom_fill palette
 #'
 #' @param col_palette_c For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default.
 #' @param col_palette_na_c For a continuous scale, a hex code.
@@ -202,22 +226,9 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
   old <- ggblanket_global$col_palette_na_c
   ggblanket_global$col_palette_na_c <- col_palette_na_c
   invisible(old)
-
-  options(
-    ggplot2.continuous.colour = function()
-      ggplot2::scale_color_gradientn(
-        colours = col_palette_c,
-        na.value = col_palette_na_c
-      ),
-    ggplot2.continuous.fill = function()
-      ggplot2::scale_fill_gradientn(
-        colours = col_palette_c,
-        na.value = col_palette_na_c,
-      )
-  )
 }
 
-#' Set an ordinal colour and fill palette
+#' Set an ordinal geom_colour and geom_fill palette
 #'
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function. Use NULL for ggplot2 default.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
@@ -240,40 +251,35 @@ weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G"
   invisible(old)
 }
 
-#' Set a theme to apply _without_ side-effects
-#'
-#' @description Set a theme to added to `gg_*` functions _without_ side-effects.
-#' Note this sets the mode to NULL to allow this to work, and therefore should be run after `set_blanket`.
-#'
-#' @param theme A ggplot2 theme that the `gg_*` function will add without side-effects.
-#' @param ... Dots to support trailing commas etc.
-#'
-#' @export
-weave_theme <- function(theme = light_mode_r() + mode_orientation_to_x(),
-                        ...) {
-  weave_mode(mode = NULL)
-
-  old <- ggblanket_global$theme
-  ggblanket_global$theme <- theme
-  invisible(old)
-
-  if (rlang::is_null(theme)) {
-    ggplot2::theme_set(new = ggplot2::theme_grey())
-  }
-  else {
-    ggplot2::theme_set(new = theme)
-  }
-}
-
-#' Get the mode
-#' @description Get the currently set mode.
-#' @noRd
-get_mode <- function() ggblanket_global$mode
-
 #' Get the theme
 #' @description Get the currently set theme.
 #' @noRd
 get_theme <- function() ggblanket_global$theme
+
+#' Get the label_case function
+#' @description Get the currently set label_case function.
+#' @noRd
+get_label_case <- function() ggblanket_global$label_case
+
+#' Get the theme_orientation
+#' @description Get the currently set theme_orientation.
+#' @noRd
+get_theme_orientation <- function() ggblanket_global$theme_orientation
+
+#' Get the theme_axis_line_rm
+#' @description Get the currently set theme_axis_line_rm.
+#' @noRd
+get_theme_axis_line_rm <- function() ggblanket_global$theme_axis_line_rm
+
+#' Get the theme_axis_ticks_rm
+#' @description Get the currently set theme_axis_ticks_rm.
+#' @noRd
+get_theme_axis_ticks_rm <- function() ggblanket_global$theme_axis_ticks_rm
+
+#' Get the theme_panel_grid_rm
+#' @description Get the currently set theme_panel_grid_rm.
+#' @noRd
+get_theme_panel_grid_rm <- function() ggblanket_global$theme_panel_grid_rm
 
 #' Get the discrete palette
 #' @description Get the currently set discrete palette.
@@ -290,18 +296,18 @@ get_col_palette_c <- function() ggblanket_global$col_palette_c
 #' @noRd
 get_col_palette_o <- function() ggblanket_global$col_palette_o
 
-#' Get the discrete NA colour
-#' @description Get the currently set discrete NA colour.
+#' Get the discrete NA geom_colour
+#' @description Get the currently set discrete NA geom_colour.
 #' @noRd
 get_col_palette_na_d <- function() ggblanket_global$col_palette_na_d
 
-#' Get the continuous NA colour
-#' @description Get the currently set continuous NA colour.
+#' Get the continuous NA geom_colour
+#' @description Get the currently set continuous NA geom_colour.
 #' @noRd
 get_col_palette_na_c <- function() ggblanket_global$col_palette_na_c
 
-#' Get the ordinal NA colour
-#' @description Get the currently set ordinal NA colour.
+#' Get the ordinal NA geom_colour
+#' @description Get the currently set ordinal NA geom_colour.
 #' @noRd
 get_col_palette_na_o <- function() ggblanket_global$col_palette_na_o
 

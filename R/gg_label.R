@@ -17,11 +17,11 @@
 #'   mtcars |> slice_min(order_by = mpg),
 #'   mtcars |> slice_max(order_by = mpg)
 #' ) |>
-#'   tibble::rownames_to_column("model") |>
+#'   tibble::rownames_to_column("themel") |>
 #'   gg_label(
-#'     x = model,
+#'     x = themel,
 #'     y = mpg,
-#'     label = model,
+#'     label = themel,
 #'     y_expand_limits = 0,
 #'     y_label = "Miles per gallon",
 #'     col_palette = c(orange, "white", teal),
@@ -32,7 +32,7 @@ gg_label <- function(data = NULL,
                      stat = "identity",
                      position = "identity",
                      coord = ggplot2::coord_cartesian(clip = "off"),
-                     mode = NULL, mode_orientation = NULL, blend = NULL,
+                     theme = NULL, theme_orientation = NULL, theme_axis_line_rm = NULL,  theme_axis_ticks_rm = NULL,  theme_panel_grid_rm = NULL, blend = NULL,
                      x = NULL,
                      xmin = NULL,
                      xmax = NULL,
@@ -96,14 +96,14 @@ gg_label <- function(data = NULL,
                      title = NULL,
                      subtitle = NULL,
                      caption = NULL,
-                     label_to_case = snakecase::to_sentence_case) {
+                     label_case = NULL) {
   gg_blanket(
     data = data,
     geom = "label",
     stat = stat,
     position = position,
     coord = coord,
-    mode = mode, mode_orientation = mode_orientation, blend = blend,
+    theme = theme, theme_orientation = theme_orientation, theme_axis_line_rm = theme_axis_line_rm ,  theme_axis_ticks_rm = theme_axis_ticks_rm,  theme_panel_grid_rm = theme_panel_grid_rm, blend = blend,
     x = {{ x }},
     y = {{ y }},
     xmin = {{ xmin }},
@@ -167,7 +167,7 @@ gg_label <- function(data = NULL,
     title = title,
     subtitle = subtitle,
     caption = caption,
-    label_to_case = label_to_case,
+    label_case = label_case,
     ...
   )
 }

@@ -11,9 +11,11 @@ test_name <- "1"
 test_that(test_name, {
 
   set_blanket(
-    mode = NULL,
+    theme = theme_grey(),
+    theme_axis_line_rm = FALSE,
+    theme_axis_ticks_rm = FALSE,
+    theme_panel_grid_rm = FALSE
   )
-  weave_theme(theme = theme_grey())
 
   p <- penguins |>
     mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
@@ -33,10 +35,10 @@ test_name <- "2"
 test_that(test_name, {
 
   set_blanket(
-    mode = light_mode_r(),
-    colour = red,
-    text_colour = teal,
-    reference_colour = teal,
+    theme = light_mode_r(),
+    geom_colour = red,
+    geom_text_colour = teal,
+    geom_reference_colour = teal,
   )
 
   p <- penguins |>
@@ -54,12 +56,12 @@ test_that(test_name, {
 ###
 
 set_blanket(
-  mode = dark_mode_r(base_size = 15),
-  colour = red,
-  text_colour = "red",
-  text_size = 15 / 2.83505,
-  reference_colour = "red",
-  reference_linewidth = 5,
+  theme = dark_mode_r(base_size = 15),
+  geom_colour = red,
+  geom_text_colour = "red",
+  geom_text_size = 15 / 2.83505,
+  geom_reference_colour = "red",
+  geom_reference_linewidth = 5,
   col_palette_d = c(navy, red, "green"),
   col_palette_c = c(navy, purple, red, orange)
 )

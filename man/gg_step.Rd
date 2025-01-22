@@ -10,8 +10,11 @@ gg_step(
   stat = "identity",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
-  mode = NULL,
-  mode_orientation = NULL,
+  theme = NULL,
+  theme_orientation = NULL,
+  theme_axis_line_rm = NULL,
+  theme_axis_ticks_rm = NULL,
+  theme_panel_grid_rm = NULL,
   blend = NULL,
   x = NULL,
   xmin = NULL,
@@ -77,7 +80,7 @@ gg_step(
   title = NULL,
   subtitle = NULL,
   caption = NULL,
-  label_to_case = snakecase::to_sentence_case
+  label_case = NULL
 )
 }
 \arguments{
@@ -91,9 +94,15 @@ gg_step(
 
 \item{coord}{A coordinate system. A \verb{coord_*()} function that outputs a constructed ggproto Coord subclass object (e.g. \code{\link[ggplot2:coord_cartesian]{ggplot2::coord_cartesian()}}).}
 
-\item{mode}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates side-effects of removing relevant axis line/ticks and gridlines per the \code{mode_orientation}.}
+\item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}).}
 
-\item{mode_orientation}{The orientation of plot, which affects the theme components that are removed from the mode. Either "x" or "y".}
+\item{theme_orientation}{The orientation of plot, which affects the theme components that are removed. Either \code{"x"} or \code{"y"}.}
+
+\item{theme_axis_line_rm}{TRUE or FALSE of whether the \verb{gg_*} function should remove the relevant axis line per the \code{theme_orientation} of the plot.}
+
+\item{theme_axis_ticks_rm}{TRUE or FALSE of whether the \verb{gg_*} function should remove the relevant axis ticks per the \code{theme_orientation} of the plot.}
+
+\item{theme_panel_grid_rm}{TRUE or FALSE of whether the \verb{gg_*} function should remove the relevant panel grid per the \code{theme_orientation} of the plot.}
 
 \item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
 
@@ -113,7 +122,7 @@ gg_step(
 
 \item{x_labels, y_labels, col_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \verb{scales::label_*()}), or a vector of labels. (Note this must be named for \code{facet_labels}).}
 
-\item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_mode_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
+\item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_theme_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 
 \item{x_sec_axis, y_sec_axis}{A secondary axis with \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}} or  \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}}.}
 
@@ -135,7 +144,7 @@ gg_step(
 
 \item{col_steps}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
 
-\item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_mode_*()} may be needed.}
+\item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_theme_*()} may be needed.}
 
 \item{facet_axis_labels}{Whether to add interior axis labels with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
 
@@ -153,7 +162,7 @@ gg_step(
 
 \item{caption}{Caption title string.}
 
-\item{label_to_case}{A function to format the default \code{x_label}, \code{y_label} and \code{col_label} of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
+\item{label_case}{A function to format the default \code{x_label}, \code{y_label} and \code{col_label} etc of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
 }
 \value{
 A ggplot object.

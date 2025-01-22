@@ -56,7 +56,7 @@ test_that(test_name, {
       x = flipper_length_mm,
       y = sex,
       col = species,
-      mode = light_mode_b(),
+      theme = light_mode_b(),
     )
   vdiffr::expect_doppelganger(test_name, p)
 })
@@ -144,7 +144,7 @@ test_that(test_name, {
     gg_density(
       x = flipper_length_mm,
       col = species,
-      mode = light_mode_t(),
+      theme = light_mode_t(),
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -217,7 +217,7 @@ test_that(test_name, {
     gg_freqpoly(
       x = flipper_length_mm,
       col = sex,
-      mode = light_mode_t(),
+      theme = light_mode_t(),
     ) +
     theme(legend.title = element_blank())
 
@@ -262,7 +262,7 @@ test_that(test_name, {
       col = sex,
       facet = species,
       bins = 50,
-      mode = light_mode_b(),
+      theme = light_mode_b(),
     )
 
   vdiffr::expect_doppelganger(test_name, p)

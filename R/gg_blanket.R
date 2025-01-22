@@ -8,8 +8,11 @@
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
-#' @param mode A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates side-effects of removing relevant axis line/ticks and gridlines per the `mode_orientation`.
-#' @param mode_orientation The orientation of plot, which affects the theme components that are removed from the mode. Either "x" or "y".
+#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]).
+#' @param theme_orientation The orientation of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
+#' @param theme_axis_line_rm TRUE or FALSE of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
+#' @param theme_axis_ticks_rm TRUE or FALSE of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
+#' @param theme_panel_grid_rm TRUE or FALSE of whether the `gg_*` function should remove the relevant panel grid per the `theme_orientation` of the plot.
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()]. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
@@ -19,7 +22,7 @@
 #' @param x_expand_limits,y_expand_limits,col_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
 #' @param x_label,y_label,col_label Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)` for no title.
 #' @param x_labels,y_labels,col_labels,facet_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_*()`), or a vector of labels. (Note this must be named for `facet_labels`).
-#' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_mode_*` theme, add `caption = ""` or `caption = "\n"`.
+#' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_theme_*` theme, add `caption = ""` or `caption = "\n"`.
 #' @param x_sec_axis,y_sec_axis A secondary axis with [ggplot2::dup_axis()] or  [ggplot2::sec_axis()].
 #' @param x_symmetric,y_symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
@@ -30,7 +33,7 @@
 #' @param col_palette_na A hex code (or name) for the colour of `NA` values.
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
 #' @param col_steps For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
-#' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_mode_*()` may be needed.
+#' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_theme_*()` may be needed.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
 #' @param facet_ncol,facet_nrow The number of columns and rows of facet panels. Only applies to a facet layout of `"wrap"`.
@@ -39,7 +42,7 @@
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
-#' @param label_to_case A function to format the default `x_label`, `y_label` and `col_label` of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
+#' @param label_case A function to format the default `x_label`, `y_label` and `col_label` etc of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
 #'
 #' @return A ggplot object.
 #' @export
@@ -66,7 +69,7 @@ gg_blanket <- function(data = NULL,
                        stat = "identity",
                        position = "identity",
                        coord = NULL,
-                       mode = NULL, mode_orientation = NULL, blend = NULL,
+                       theme = NULL, theme_orientation = NULL, theme_axis_line_rm = NULL,  theme_axis_ticks_rm = NULL,  theme_panel_grid_rm = NULL, blend = NULL,
                        x = NULL,
                        xmin = NULL,
                        xmax = NULL,
@@ -130,7 +133,7 @@ gg_blanket <- function(data = NULL,
                        title = NULL,
                        subtitle = NULL,
                        caption = NULL,
-                       label_to_case = snakecase::to_sentence_case) {
+                       label_case = NULL) {
 
   options(ggblend.check_blend = FALSE)
 
@@ -338,9 +341,9 @@ gg_blanket <- function(data = NULL,
   x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
   y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
 
-  #get mode if NULL
-  if (rlang::is_null(mode)) {
-    mode <- get_mode()
+  #get theme if NULL
+  if (rlang::is_null(theme)) {
+    theme <- get_theme()
   }
 
   #determine *_symmetric
@@ -358,13 +361,22 @@ gg_blanket <- function(data = NULL,
     else y_symmetric <- TRUE
   }
 
-  if (rlang::is_null(mode_orientation)) {
-    if (y_scale_type == "discrete" & x_scale_type != "discrete") {
-      mode_orientation <- "y"
+  if (rlang::is_null(theme_orientation)) {
+    if (rlang::is_null(theme_orientation)) theme_orientation <- get_theme_orientation()
+
+    if (rlang::is_null(theme_orientation)) {
+      if (y_scale_type == "discrete" & x_scale_type != "discrete") {
+        theme_orientation <- "y"
+      }
+      else {
+        theme_orientation <- "x"
+      }
     }
-    else {
-      mode_orientation <- "x"
-    }
+  }
+
+  if (rlang::is_null(label_case)) {
+    label_case <- get_label_case()
+    if (rlang::is_null(label_case)) label_case <- snakecase::to_sentence_case
   }
 
   ##############################################################################
@@ -432,7 +444,7 @@ gg_blanket <- function(data = NULL,
     label = !!label,
     text = !!text,
   ) +
-    mode
+    theme
 
   ##############################################################################
   # Add geom layer
@@ -1290,7 +1302,7 @@ gg_blanket <- function(data = NULL,
           x_label <- ""
         }
         else if (!rlang::is_null(plot_build$plot$labels$x)) {
-          x_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), label_to_case)
+          x_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), label_case)
         }
       }
     }
@@ -1299,9 +1311,9 @@ gg_blanket <- function(data = NULL,
         x_label <- ""
       }
       else if (!rlang::is_null(plot_build$plot$labels$x)) {
-        x_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), label_to_case)
+        x_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$x[1]), label_case)
       }
-      else x_label <- purrr::map_chr("x", label_to_case)
+      else x_label <- purrr::map_chr("x", label_case)
     }
   }
 
@@ -1315,7 +1327,7 @@ gg_blanket <- function(data = NULL,
           y_label <- ""
         }
         else if (!rlang::is_null(plot_build$plot$labels$y)) {
-          y_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$y[1]), label_to_case)
+          y_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$y[1]), label_case)
         }
       }
     }
@@ -1324,9 +1336,9 @@ gg_blanket <- function(data = NULL,
         y_label <- ""
       }
       else if (!rlang::is_null(plot_build$plot$labels$y)) {
-        y_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$y[1]), label_to_case)
+        y_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$y[1]), label_case)
       }
-      else y_label <- purrr::map_chr("y", label_to_case)
+      else y_label <- purrr::map_chr("y", label_case)
     }
   }
 
@@ -1337,19 +1349,19 @@ gg_blanket <- function(data = NULL,
       }
       else {
         if (!rlang::is_null(plot_build$plot$labels$fill)) {
-          col_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$fill[1]), label_to_case)
+          col_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$fill[1]), label_case)
         }
         else if (!rlang::is_null(plot_build$plot$labels$colour)) {
-          col_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), label_to_case)
+          col_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), label_case)
         }
       }
     }
     else {
       if (!rlang::is_null(plot_build$plot$labels$fill)) {
-        col_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$fill[1]), label_to_case)
+        col_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$fill[1]), label_case)
       }
       else if (!rlang::is_null(plot_build$plot$labels$colour)) {
-        col_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), label_to_case)
+        col_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$colour[1]), label_case)
       }
     }
   }
@@ -1359,16 +1371,16 @@ gg_blanket <- function(data = NULL,
       if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$alpha[1])) {
         alpha_label <- col_label
       }
-      else alpha_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), label_to_case)
+      else alpha_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), label_case)
     }
     else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
       if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$alpha[1])) {
         alpha_label <- col_label
       }
-      else alpha_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), label_to_case)
+      else alpha_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), label_case)
     }
     else {
-      alpha_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), label_to_case)
+      alpha_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$alpha[1]), label_case)
     }
   } else alpha_label <- NULL
 
@@ -1377,16 +1389,16 @@ gg_blanket <- function(data = NULL,
       if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$shape[1])) {
         shape_label <- col_label
       }
-      else shape_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), label_to_case)
+      else shape_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), label_case)
     }
     else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
       if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$shape[1])) {
         shape_label <- col_label
       }
-      else shape_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), label_to_case)
+      else shape_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), label_case)
     }
     else {
-      shape_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), label_to_case)
+      shape_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$shape[1]), label_case)
     }
   } else shape_label <- NULL
 
@@ -1395,16 +1407,16 @@ gg_blanket <- function(data = NULL,
       if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$size[1])) {
         size_label <- col_label
       }
-      else size_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), label_to_case)
+      else size_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), label_case)
     }
     else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
       if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$size[1])) {
         size_label <- col_label
       }
-      else size_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), label_to_case)
+      else size_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), label_case)
     }
     else {
-      size_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), label_to_case)
+      size_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$size[1]), label_case)
     }
   } else size_label <- NULL
 
@@ -1413,16 +1425,16 @@ gg_blanket <- function(data = NULL,
       if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$linewidth[1])) {
         linewidth_label <- col_label
       }
-      else linewidth_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), label_to_case)
+      else linewidth_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), label_case)
     }
     else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
       if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$linewidth[1])) {
         linewidth_label <- col_label
       }
-      else linewidth_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), label_to_case)
+      else linewidth_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), label_case)
     }
     else {
-      linewidth_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), label_to_case)
+      linewidth_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linewidth[1]), label_case)
     }
   } else linewidth_label <- NULL
 
@@ -1431,16 +1443,16 @@ gg_blanket <- function(data = NULL,
       if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$linetype[1])) {
         linetype_label <- col_label
       }
-      else linetype_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), label_to_case)
+      else linetype_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), label_case)
     }
     else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
       if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$linetype[1])) {
         linetype_label <- col_label
       }
-      else linetype_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), label_to_case)
+      else linetype_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), label_case)
     }
     else {
-      linetype_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), label_to_case)
+      linetype_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$linetype[1]), label_case)
     }
   } else linetype_label <- NULL
 
@@ -1449,16 +1461,16 @@ gg_blanket <- function(data = NULL,
       if (rlang::as_name(plot_build$plot$labels$colour[1]) == rlang::as_name(plot_build$plot$labels$pattern[1])) {
         pattern_label <- col_label
       }
-      else pattern_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_to_case)
+      else pattern_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_case)
     }
     else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
       if (rlang::as_name(plot_build$plot$labels$fill[1]) == rlang::as_name(plot_build$plot$labels$pattern[1])) {
         pattern_label <- col_label
       }
-      else pattern_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_to_case)
+      else pattern_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_case)
     }
     else {
-      pattern_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_to_case)
+      pattern_label <- purrr::map_chr(rlang::as_name(plot_build$plot$labels$pattern[1]), label_case)
     }
   } else pattern_label <- NULL
 
@@ -1480,17 +1492,37 @@ gg_blanket <- function(data = NULL,
     )
 
   ##############################################################################
-  # mode make transparent some theme components
+  # theme make transparent some theme components
   ##############################################################################
 
-  if (mode_orientation == "x") {
-    plot <- plot +
-      ggplot2::theme(
-        panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
-        panel.grid.minor.x = ggplot2::element_line(colour = "transparent"),
-        axis.line.y = ggplot2::element_line(colour = "transparent"),
-        axis.ticks.y = ggplot2::element_line(colour = "transparent")
-      )
+  if (rlang::is_null(theme_axis_line_rm)) theme_axis_line_rm <- get_theme_axis_line_rm()
+  if (rlang::is_null(theme_axis_ticks_rm)) theme_axis_ticks_rm <- get_theme_axis_ticks_rm()
+  if (rlang::is_null(theme_panel_grid_rm)) theme_panel_grid_rm <- get_theme_panel_grid_rm()
+
+  if (rlang::is_null(theme_axis_line_rm)) theme_axis_line_rm <- TRUE
+  if (rlang::is_null(theme_axis_ticks_rm)) theme_axis_ticks_rm <- TRUE
+  if (rlang::is_null(theme_panel_grid_rm)) theme_panel_grid_rm <- TRUE
+
+  if (theme_orientation == "x") {
+    if (theme_axis_line_rm) {
+      plot <- plot +
+        ggplot2::theme(
+          axis.line.y = ggplot2::element_line(colour = "transparent")
+        )
+    }
+    if (theme_axis_ticks_rm) {
+      plot <- plot +
+        ggplot2::theme(
+          axis.ticks.y = ggplot2::element_line(colour = "transparent")
+        )
+    }
+    if (theme_panel_grid_rm) {
+      plot <- plot +
+        ggplot2::theme(
+          panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
+          panel.grid.minor.x = ggplot2::element_line(colour = "transparent")
+        )
+    }
 
     if (x_scale_type == "discrete") {
       plot <- plot +
@@ -1499,14 +1531,27 @@ gg_blanket <- function(data = NULL,
         )
     }
   }
-  else if (mode_orientation == "y") {
-    plot <- plot +
-      ggplot2::theme(
-        panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
-        panel.grid.minor.y = ggplot2::element_line(colour = "transparent"),
-        axis.line.x = ggplot2::element_line(colour = "transparent"),
-        axis.ticks.x = ggplot2::element_line(colour = "transparent")
-      )
+  else if (theme_orientation == "y") {
+      if (theme_axis_line_rm) {
+        plot <- plot +
+          ggplot2::theme(
+            axis.line.x = ggplot2::element_line(colour = "transparent")
+          )
+      }
+      if (theme_axis_ticks_rm) {
+        plot <- plot +
+          ggplot2::theme(
+            axis.ticks.x = ggplot2::element_line(colour = "transparent")
+          )
+      }
+      if (theme_panel_grid_rm) {
+        plot <- plot +
+          ggplot2::theme(
+            panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
+            panel.grid.minor.y = ggplot2::element_line(colour = "transparent")
+          )
+      }
+
 
     if (y_scale_type == "discrete") {
       plot <- plot +
@@ -1520,51 +1565,51 @@ gg_blanket <- function(data = NULL,
   # add the theme if globally set
   ##############################################################################
 
-  if (rlang::is_null(mode)) {
-    if (rlang::is_null(get_mode())) {
-      if (!rlang::is_null(get_theme())) {
-        plot <- plot +
-          get_theme()
-      }
-      else {
-        plot <- plot +
-          ggplot2::theme_grey()
-
-        if (mode_orientation == "x") {
-          plot <- plot +
-            ggplot2::theme(
-              panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
-              panel.grid.minor.x = ggplot2::element_line(colour = "transparent"),
-              axis.line.y = ggplot2::element_line(colour = "transparent"),
-              axis.ticks.y = ggplot2::element_line(colour = "transparent")
-            )
-
-          if (x_scale_type == "discrete") {
-            plot <- plot +
-              ggplot2::theme(
-                axis.ticks.x = ggplot2::element_line(colour = "transparent")
-              )
-          }
-        }
-        else if (mode_orientation == "y") {
-          plot <- plot +
-            ggplot2::theme(
-              panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
-              panel.grid.minor.y = ggplot2::element_line(colour = "transparent"),
-              axis.line.x = ggplot2::element_line(colour = "transparent"),
-              axis.ticks.x = ggplot2::element_line(colour = "transparent")
-            )
-
-          if (y_scale_type == "discrete") {
-            plot <- plot +
-              ggplot2::theme(
-                axis.ticks.y = ggplot2::element_line(colour = "transparent")
-              )
-          }
-        }
-      }
-    }
-  }
+  # if (rlang::is_null(theme)) {
+  #   if (rlang::is_null(get_theme())) {
+  #     if (!rlang::is_null(get_theme())) {
+  #       plot <- plot +
+  #         get_theme()
+  #     }
+  #     else {
+  #       plot <- plot +
+  #         ggplot2::theme_grey()
+  #
+  #       if (theme_orientation == "x") {
+  #         plot <- plot +
+  #           ggplot2::theme(
+  #             panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
+  #             panel.grid.minor.x = ggplot2::element_line(colour = "transparent"),
+  #             axis.line.y = ggplot2::element_line(colour = "transparent"),
+  #             axis.ticks.y = ggplot2::element_line(colour = "transparent")
+  #           )
+  #
+  #         if (x_scale_type == "discrete") {
+  #           plot <- plot +
+  #             ggplot2::theme(
+  #               axis.ticks.x = ggplot2::element_line(colour = "transparent")
+  #             )
+  #         }
+  #       }
+  #       else if (theme_orientation == "y") {
+  #         plot <- plot +
+  #           ggplot2::theme(
+  #             panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
+  #             panel.grid.minor.y = ggplot2::element_line(colour = "transparent"),
+  #             axis.line.x = ggplot2::element_line(colour = "transparent"),
+  #             axis.ticks.x = ggplot2::element_line(colour = "transparent")
+  #           )
+  #
+  #         if (y_scale_type == "discrete") {
+  #           plot <- plot +
+  #             ggplot2::theme(
+  #               axis.ticks.y = ggplot2::element_line(colour = "transparent")
+  #             )
+  #         }
+  #       }
+  #     }
+  #   }
+  # }
 
 
   return(plot)

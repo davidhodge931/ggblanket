@@ -1,9 +1,7 @@
-CMD
 Coord
 Errorbar
 Freqpoly
 Linerange
-Lineribbon
 Nik
 ORCID
 Pointrange
@@ -16,7 +14,6 @@ beeswarm
 coord
 datetime
 dplyr
-ed
 errorbar
 etc
 freqpoly
@@ -38,13 +35,10 @@ ggridges
 gridline
 gridlines
 hline
-ing
 linerange
-lineribbon
 linetype
 linewidth
 linewidths
-magrittr
 nd
 paletteer
 pointrange
@@ -53,6 +47,7 @@ rect
 ridgeline
 showtext
 snakecase
+stat
 tibble
 tidyverse
 vjust

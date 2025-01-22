@@ -22,18 +22,16 @@ This article will demonstrate a random assortment of content, including some of 
 
 1. Change the `stat` of the layer
 2. Change the `position` of the layer
-3. Use `+ *_mode_*` where axis-lines and gridlines are not as wanted
-4. Reorder and/or reverse categorical variables
-5. Drop unused categorical variable values
-6. Transform scales to `"log"` etc
-7. Correct the default orientation
-8. Avoid the 'symmetric' scale
-9. Avoid the mode side-effects
-10. Change the `*_position` of positional axes 
-11. Zoom in or out on scales
-12. Use delayed evaluation
-13. Rescale a diverging col scale
-14. Add a legend within the panel
+3. Reorder and/or reverse categorical variables
+4. Drop unused categorical variable values
+5. Transform scales to `"log"` etc
+6. Correct the default orientation
+7. Avoid the 'symmetric' scale
+8. Change the `*_position` of positional axes 
+9. Zoom in or out on scales
+10. Use delayed evaluation
+11. Rescale a diverging col scale
+12. Add a legend within the panel
 
 ```{r setup}
 library(dplyr)
@@ -100,28 +98,8 @@ penguins2 |>
   theme(legend.position = "none")
 ```
 
-### 3. Use `+ *_mode_*` where axis-lines and gridlines are not as wanted
 
-Sometimes the plot might guess the removal of gridlines and axis-line/ticks incorrectly. In these situations, you can `+ *_mode_*` on to the plot, and then remove whatever you want. 
-
-```{r}
-msleep |> 
-  gg_point(
-    x = bodywt, 
-    y = brainwt,
-    col = vore,
-    col_labels = str_to_sentence,
-    x_transform = "log10",
-    y_transform = "log10",
-  ) +
-  light_mode_r() +
-  guides(
-    x = guide_axis_logticks(),
-    y = guide_axis_logticks(),
-  ) 
-```
-
-### 4. Reorder and/or reverse categorical variables
+### 3. Reorder and/or reverse categorical variables
 
 ggblanket requires unquoted variables only for `x`, `y`, `col`, `facet`, `facet2` and  `alpha`. You can often manipulate the data prior to plotting to achieve what you want (e.g. using `tidyr::drop_na`, `forcats::fct_rev` and/or `forcats::fct_reorder`).
 
@@ -152,7 +130,7 @@ p2 <- diamonds |>
 p1 + p2
 ```
 
-### 5. Drop unused categorical variable values
+### 4. Drop unused categorical variable values
 
 ggblanket keeps unused factor levels in the plot. If users wish to drop unused levels they should likewise do it in the data prior to plotting using `forcats::fct_drop`. 
 
@@ -185,7 +163,7 @@ p2 <- diamonds |>
 p1 + p2
 ```
 
-### 6. Transform scales to `"log"` etc
+### 5. Transform scales to `"log"` etc
 
 Transform objects (e.g. `transform_log()` or character strings of these can be used to transform scales - including combining these.
 
@@ -232,7 +210,7 @@ p4 <- pressure |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### 7. Correct the default orientation
+### 6. Correct the default orientation
 
 The `gg_*` function guesses the `*_orientation` of the plot to determine how to make continuous axes and what side-effects to have on the provided mode. If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument.
 
@@ -255,7 +233,7 @@ p2 <- penguins2 |>
 p1 + p2
 ```
 
-### 8. Avoid the 'symmetric' scale
+### 7. Avoid the 'symmetric' scale
 
 Symmetric scales can be turned off or on using `*_symmetric` arguments. 
 
@@ -299,32 +277,7 @@ p3 <- penguins2 |>
 p1 + p2 + p3
 ```
 
-### 9. Avoid the mode side-effects
-
-Where `*_orientation = TRUE`, it will remove the relevant axis line/ticks and the gridlines from the mode theme. 
-
-But you can avoid this by `+`-ing your theme on to the plot, instead of adding it to the `mode` argument.
-
-```{r}
-p1 <- penguins2 |>
-  gg_jitter(
-    x = sex,
-    y = bill_depth_mm,
-    subtitle = "\nmode = light_more_r()",
-  )
-
-p2 <- penguins2 |>
-  gg_jitter(
-    x = sex,
-    y = bill_depth_mm,
-    subtitle = "\n+ light_more_r()",
-  ) +
-  light_mode_r()
-
-p1 + p2
-```
-
-### 10. Change the `*_position` of positional axes 
+### 8. Change the `*_position` of positional axes 
 
 Positional axes can be changed using `*_position`.
 
@@ -344,7 +297,7 @@ economics |>
   ) 
 ```
 
-### 11. Zoom in or out on scales
+### 9. Zoom in or out on scales
 
 There are no `*_limits` arguments in ggblanket. 
 
@@ -385,7 +338,7 @@ penguins |>
   ) 
 ```
 
-### 12. Use delayed evaluation
+### 10. Use delayed evaluation
 
  The `mapping` argument can be used for delayed evaluation with the `ggplot2::after_stat` function.
 
@@ -409,7 +362,7 @@ faithfuld |>
   )
 ```
 
-### 13. Rescale a diverging col scale
+### 11. Rescale a diverging col scale
 
 Use `col_rescale` to rescale a diverging scale around a central point. 
 
@@ -424,11 +377,11 @@ mpg  |>
     col_palette = c(navy, teal, "white", orange, red),
     col_rescale = scales::rescale(rescale_vctr),
     col_breaks = scales::breaks_width(5),
-    mode = dark_mode_r(),
+    theme = dark_mode_r(),
   )
 ```
 
-### 14. Add a legend within the panel
+### 12. Add a legend within the panel
 
 ```{r}
 set_blanket()
