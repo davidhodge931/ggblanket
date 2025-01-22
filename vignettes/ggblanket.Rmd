@@ -250,13 +250,18 @@ penguins2 |>
 
 ### 11.  Side-effects to the `theme` based on the `theme_orientation`
 
-The `gg_*` function adds helpful side-effects to the theme. 
+The `gg_*` function adds helpful side-effects to the theme based on the `theme_orientation`, `theme_axis_line_rm`, `theme_axis_ticks_rm` and , `theme_panel_grid_rm` arguments. 
 
-Where `theme_orientation = "x"`, the `gg_*` function will remove the y axis line/ticks and the x gridlines from the `mode` (by changing their colour to "transparent"). Where it is  `theme_orientation = "y"`, the opposite will occur. If the `gg_*` guesses an incorrect `theme_orientation`, then the user can change this.
+For the default where `theme_axis_line_rm`, `theme_axis_ticks_rm` and , `theme_panel_grid_rm` all equal `TRUE`:
 
-Additionally, the `gg_*` function will remove ticks from discrete scales.
+* Where `theme_orientation = "x"`, the `gg_*` function will remove the y axis line/ticks and the x gridlines from the `mode` (by changing their colour to "transparent"). 
+* Where `theme_orientation = "y"`, the opposite will occur. 
 
-Any `theme` used should be designed to anticipate these side-effects. To avoid these side-effects, instead `+` the theme on to the `gg_*` output (or use the `theme` argument in `set_blanket`).
+If the `gg_*` guesses an incorrect `theme_orientation`, then the user can change this. The user can change any of these side-effects by setting `theme_axis_line_rm`, `theme_axis_ticks_rm` or , `theme_panel_grid_rm` to `FALSE`.
+
+Any `theme` used should be designed to anticipate the side-effects desired. 
+
+The effect of this is to enable _one_ theme to be used across all plots whether the plot is vertical or horizontal. 
 
 ```{r}
 p1 <- penguins2 |>
@@ -365,6 +370,8 @@ The `set_blanket` function sets customisable defaults for the:
 Note the `mode` argument in `set_blanket` can also be used to default a `*_label` to `NULL` (e.g. `set_blanket(theme = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))`).
 
 The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
+
+Users should try to do as much as possible in these set-up functions, rather than continually adding arguments to their `gg_*` functions.
 
 ```{r}
 set_blanket(

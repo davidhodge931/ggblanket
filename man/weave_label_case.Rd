@@ -2,15 +2,15 @@
 % Please edit documentation in R/weave.R
 \name{weave_label_case}
 \alias{weave_label_case}
-\title{Set a label to case function}
+\title{Set a label case function}
 \usage{
 weave_label_case(label_case = snakecase::to_sentence_case, ...)
 }
 \arguments{
-\item{label_case}{A function to format the default \code{x_label}, \code{y_label} and \code{col_label} etc of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
+\item{label_case}{A function to format the label of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
 
 \item{...}{Dots to support trailing commas etc.}
 }
 \description{
-Set a label to case function.
+Set a function to format the label of unlabelled variables.
 }

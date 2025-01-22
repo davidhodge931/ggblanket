@@ -56,11 +56,11 @@ weave_theme <- function(theme = light_mode_r(),
   invisible(old)
 }
 
-#' Set a label to case function
+#' Set a label case function
 #'
-#' @description Set a label to case function.
+#' @description Set a function to format the label of unlabelled variables.
 #'
-#' @param label_case A function to format the default `x_label`, `y_label` and `col_label` etc of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
+#' @param label_case A function to format the label of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
 #' @param ... Dots to support trailing commas etc.
 #'
 #' @export
@@ -180,7 +180,8 @@ weave_col_palettes <- function(
 #'
 #' @noRd
 weave_col_palette_d <- function(col_palette_d = jumble,
-                                col_palette_na_d = "#CDC5BFFF"
+                                col_palette_na_d = "#CDC5BFFF",
+                                ...
                                 ) {
 
   if (rlang::is_null(col_palette_na_d)) col_palette_na_d <- "grey50"

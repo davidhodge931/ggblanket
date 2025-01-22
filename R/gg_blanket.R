@@ -10,9 +10,9 @@
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
 #' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]).
 #' @param theme_orientation The orientation of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
-#' @param theme_axis_line_rm TRUE or FALSE of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
-#' @param theme_axis_ticks_rm TRUE or FALSE of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
-#' @param theme_panel_grid_rm TRUE or FALSE of whether the `gg_*` function should remove the relevant panel grid per the `theme_orientation` of the plot.
+#' @param theme_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
+#' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
+#' @param theme_panel_grid_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `theme_orientation` of the plot.
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()]. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
@@ -42,7 +42,7 @@
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
-#' @param label_case A function to format the default `x_label`, `y_label` and `col_label` etc of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
+#' @param label_case A function to format the label of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
 #'
 #' @return A ggplot object.
 #' @export

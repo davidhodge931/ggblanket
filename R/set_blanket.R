@@ -31,7 +31,7 @@
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
-#' @param label_case A function to format the default `x_label`, `y_label` and `col_label` etc of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
+#' @param label_case A function to format the label of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
 #'
 #' @return A globally set style.
 #' @export

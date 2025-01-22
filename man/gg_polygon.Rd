@@ -162,7 +162,7 @@ gg_polygon(
 
 \item{caption}{Caption title string.}
 
-\item{label_case}{A function to format the default \code{x_label}, \code{y_label} and \code{col_label} etc of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
+\item{label_case}{A function to format the label of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
 }
 \value{
 A ggplot object.

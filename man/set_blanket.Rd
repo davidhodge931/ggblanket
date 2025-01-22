@@ -40,7 +40,7 @@ set_blanket(
 
 \item{theme_panel_grid_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant panel grid per the \code{theme_orientation} of the plot.}
 
-\item{label_case}{A function to format the default \code{x_label}, \code{y_label} and \code{col_label} etc of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
+\item{label_case}{A function to format the label of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
 
 \item{geom_colour}{A default hex geom_colour for the geom_colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).}
 
