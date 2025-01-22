@@ -115,8 +115,8 @@ visualisation</strong>.</p>
 <code>...</code>
 </li>
 <li>Families of <code>*_mode_*</code> themes with legend variants</li>
-<li>Side-effects to the <code>mode</code> based on the
-<code>mode_orientation</code>
+<li>Side-effects to the <code>theme</code> based on the
+<code>theme_orientation</code>
 </li>
 <li>One <code>*_symmetric</code> continuous scale</li>
 <li>Ability to add multiple <code>geom_*</code> layers</li>
@@ -345,25 +345,25 @@ linewidths etc.</p>
 <span>    title <span class="op">=</span> <span class="st">"Penguin flipper length by species"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Palmer Archipelago, Antarctica"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
-<span>    mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_t</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_t</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.png" width="70%"></p>
 </div>
 <div class="section level3">
-<h3 id="side-effects-to-the-mode-based-on-the-mode_orientation">11. Side-effects to the <code>mode</code> based on the
-<code>mode_orientation</code><a class="anchor" aria-label="anchor" href="#side-effects-to-the-mode-based-on-the-mode_orientation"></a>
+<h3 id="side-effects-to-the-theme-based-on-the-theme_orientation">11. Side-effects to the <code>theme</code> based on the
+<code>theme_orientation</code><a class="anchor" aria-label="anchor" href="#side-effects-to-the-theme-based-on-the-theme_orientation"></a>
 </h3>
 <p>The <code>gg_*</code> function adds helpful side-effects to the
-mode.</p>
-<p>Where <code>mode_orientation = "x"</code>, the <code>gg_*</code>
+theme.</p>
+<p>Where <code>theme_orientation = "x"</code>, the <code>gg_*</code>
 function will remove the y axis line/ticks and the x gridlines from the
 <code>mode</code> (by changing their colour to “transparent”). Where it
-is <code>mode_orientation = "y"</code>, the opposite will occur. If the
-<code>gg_*</code> guesses an incorrect <code>mode_orientation</code>,
+is <code>theme_orientation = "y"</code>, the opposite will occur. If the
+<code>gg_*</code> guesses an incorrect <code>theme_orientation</code>,
 then the user can change this.</p>
 <p>Additionally, the <code>gg_*</code> function will remove ticks from
 discrete scales.</p>
-<p>Any <code>mode</code> used should be designed to anticipate these
+<p>Any <code>theme</code> used should be designed to anticipate these
 side-effects. To avoid these side-effects, instead <code>+</code> the
 theme on to the <code>gg_*</code> output (or use the <code>theme</code>
 argument in <code>set_blanket</code>).</p>
@@ -482,22 +482,24 @@ So, in some situations, users will need to take care.</p>
 <p>The <code>set_blanket</code> function sets customisable defaults for
 the:</p>
 <ul>
-<li>mode (i.e. a theme added with side-effects)</li>
-<li>geom defaults (e.g. colour/fill), and text and reference line
-defaults</li>
-<li>colour palettes (i.e. discrete, continuous and ordinal)</li>
+<li>the theme, and how/what side-effects are to be applied</li>
+<li>the geom defaults, including those for text and reference lines</li>
+<li>the colour palettes (i.e. discrete, continuous and ordinal)</li>
+<li>and more</li>
 </ul>
 <p>Note the <code>mode</code> argument in <code>set_blanket</code> can
 also be used to default a <code>*_label</code> to <code>NULL</code>
-(e.g. <code>set_blanket(mode = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))</code>).</p>
+(e.g. <code>set_blanket(theme = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))</code>).</p>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults()</a></code> function can be used
 to further fine-tune geom defaults.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
-<span>  mode <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,  </span>
-<span>  colour <span class="op">=</span> <span class="st">"#E7298AFF"</span>,</span>
-<span>  text_colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>  reference_colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  theme <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,  </span>
+<span>  theme_axis_line_rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  theme_axis_ticks_rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  geom_colour <span class="op">=</span> <span class="st">"#E7298AFF"</span>,</span>
+<span>  geom_text_colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  geom_reference_colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  col_palette_d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#1B9E77FF"</span>, <span class="st">"#D95F02FF"</span>, <span class="st">"#7570b3FF"</span>, <span class="st">"#E7298AFF"</span>,</span>
 <span>                    <span class="st">"#66A61EFF"</span>, <span class="st">"#E6AB02FF"</span>, <span class="st">"#A6761DFF"</span>, <span class="st">"#666666FF"</span><span class="op">)</span>,</span>
 <span><span class="op">)</span></span>

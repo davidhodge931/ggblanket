@@ -58,8 +58,11 @@
 <span>  stat <span class="op">=</span> <span class="st">"binhex"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  coord <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span>,</span>
-<span>  mode <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  mode_orientation <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  theme_orientation <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  theme_axis_line_rm <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  theme_axis_ticks_rm <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  theme_panel_grid_rm <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  blend <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  xmin <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -125,7 +128,7 @@
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  caption <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  label_to_case <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span></span>
+<span>  label_case <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -153,12 +156,24 @@
 <dd><p>A coordinate system. A <code>coord_*()</code> function that outputs a constructed ggproto Coord subclass object (e.g. <code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">ggplot2::coord_cartesian()</a></code>).</p></dd>
 
 
-<dt id="arg-mode">mode<a class="anchor" aria-label="anchor" href="#arg-mode"></a></dt>
-<dd><p>A ggplot2 theme (e.g. <code><a href="light_mode_r.html">light_mode_t()</a></code> or <code><a href="dark_mode_r.html">dark_mode_r()</a></code>) that anticipates side-effects of removing relevant axis line/ticks and gridlines per the <code>mode_orientation</code>.</p></dd>
+<dt id="arg-theme">theme<a class="anchor" aria-label="anchor" href="#arg-theme"></a></dt>
+<dd><p>A ggplot2 theme (e.g. <code><a href="light_mode_r.html">light_mode_t()</a></code> or <code><a href="dark_mode_r.html">dark_mode_r()</a></code>).</p></dd>
 
 
-<dt id="arg-mode-orientation">mode_orientation<a class="anchor" aria-label="anchor" href="#arg-mode-orientation"></a></dt>
-<dd><p>The orientation of plot, which affects the theme components that are removed from the mode. Either "x" or "y".</p></dd>
+<dt id="arg-theme-orientation">theme_orientation<a class="anchor" aria-label="anchor" href="#arg-theme-orientation"></a></dt>
+<dd><p>The orientation of plot, which affects the theme components that are removed. Either <code>"x"</code> or <code>"y"</code>.</p></dd>
+
+
+<dt id="arg-theme-axis-line-rm">theme_axis_line_rm<a class="anchor" aria-label="anchor" href="#arg-theme-axis-line-rm"></a></dt>
+<dd><p>TRUE or FALSE of whether the <code>gg_*</code> function should remove the relevant axis line per the <code>theme_orientation</code> of the plot.</p></dd>
+
+
+<dt id="arg-theme-axis-ticks-rm">theme_axis_ticks_rm<a class="anchor" aria-label="anchor" href="#arg-theme-axis-ticks-rm"></a></dt>
+<dd><p>TRUE or FALSE of whether the <code>gg_*</code> function should remove the relevant axis ticks per the <code>theme_orientation</code> of the plot.</p></dd>
+
+
+<dt id="arg-theme-panel-grid-rm">theme_panel_grid_rm<a class="anchor" aria-label="anchor" href="#arg-theme-panel-grid-rm"></a></dt>
+<dd><p>TRUE or FALSE of whether the <code>gg_*</code> function should remove the relevant panel grid per the <code>theme_orientation</code> of the plot.</p></dd>
 
 
 <dt id="arg-blend">blend<a class="anchor" aria-label="anchor" href="#arg-blend"></a></dt>
@@ -198,7 +213,7 @@
 
 
 <dt id="arg-x-position-y-position">x_position, y_position<a class="anchor" aria-label="anchor" href="#arg-x-position-y-position"></a></dt>
-<dd><p>The position of the axis (i.e. <code>"left"</code>, <code>"right"</code>, <code>"bottom"</code> or <code>"top"</code>).If using <code>y_position = "top"</code> with a <code>*_mode_*</code> theme, add <code>caption = ""</code> or <code>caption = "\n"</code>.</p></dd>
+<dd><p>The position of the axis (i.e. <code>"left"</code>, <code>"right"</code>, <code>"bottom"</code> or <code>"top"</code>).If using <code>y_position = "top"</code> with a <code>*_theme_*</code> theme, add <code>caption = ""</code> or <code>caption = "\n"</code>.</p></dd>
 
 
 <dt id="arg-x-sec-axis-y-sec-axis">x_sec_axis, y_sec_axis<a class="anchor" aria-label="anchor" href="#arg-x-sec-axis-y-sec-axis"></a></dt>
@@ -242,7 +257,7 @@
 
 
 <dt id="arg-facet-axes">facet_axes<a class="anchor" aria-label="anchor" href="#arg-facet-axes"></a></dt>
-<dd><p>Whether to add interior axes and ticks with <code>"margins"</code>, <code>"all"</code>, <code>"all_x"</code>, or <code>"all_y"</code>. Sometimes <code>+ *_mode_*()</code> may be needed.</p></dd>
+<dd><p>Whether to add interior axes and ticks with <code>"margins"</code>, <code>"all"</code>, <code>"all_x"</code>, or <code>"all_y"</code>. Sometimes <code>+ *_theme_*()</code> may be needed.</p></dd>
 
 
 <dt id="arg-facet-axis-labels">facet_axis_labels<a class="anchor" aria-label="anchor" href="#arg-facet-axis-labels"></a></dt>
@@ -277,8 +292,8 @@
 <dd><p>Caption title string.</p></dd>
 
 
-<dt id="arg-label-to-case">label_to_case<a class="anchor" aria-label="anchor" href="#arg-label-to-case"></a></dt>
-<dd><p>A function to format the default <code>x_label</code>, <code>y_label</code> and <code>col_label</code> of unlabelled variables. Defaults to <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_sentence_case</a></code>.</p></dd>
+<dt id="arg-label-case">label_case<a class="anchor" aria-label="anchor" href="#arg-label-case"></a></dt>
+<dd><p>A function to format the default <code>x_label</code>, <code>y_label</code> and <code>col_label</code> etc of unlabelled variables. Defaults to <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_sentence_case</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

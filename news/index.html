@@ -46,8 +46,14 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="11.1.0.9000" id="ggblanket-11109000">ggblanket 11.1.0.9000<a class="anchor" aria-label="anchor" href="#ggblanket-11109000"></a></h2>
-<ul><li>Made <code>annotate_axis_line</code> work with date and datetime.</li>
+<h2 class="pkg-version" data-toc-text="11.9.9.9000" id="ggblanket-11999000">ggblanket 11.9.9.9000<a class="anchor" aria-label="anchor" href="#ggblanket-11999000"></a></h2>
+<ul><li>Breaking: renamed <code>mode</code> and <code>mode_orientation</code> arguments to <code>theme</code> and <code>theme_orientation</code>.</li>
+<li>Breaking: renamed <code>label_to_case</code> argument to <code>label_case</code>.</li>
+<li>Breaking: renamed geom_default arguments to be prefixed by <code>geom_</code>.</li>
+<li>Breaking: removed <code>mode_to_orientation_x</code> and <code>mode_to_orientation_y</code> functions.</li>
+<li>Added functionality to set custom theme magic in <code>set_blanket</code> and <code>weave_theme</code>.</li>
+<li>Added functionality to set the <code>label_case</code> in <code>set_blanket</code> and <code>weave_label_case</code>.</li>
+<li>Made <code>annotate_axis_line</code> work with date and datetime.</li>
 <li>Added support for both symmetric axes where both <code>*_transform = NULL</code> and <code>stat = "identity"</code>.</li>
 <li>Minor changes to the vignette.</li>
 </ul></div>
