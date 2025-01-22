@@ -8,8 +8,11 @@
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
-#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates side-effects of removing relevant axis line/ticks and gridlines per the `theme_orientation`.
-#' @param theme_orientation The orientation of plot, which affects the theme components that are removed. Either "x" or "y".
+#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]).
+#' @param theme_orientation The orientation of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
+#' @param theme_axis_line_rm TRUE or FALSE of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
+#' @param theme_axis_ticks_rm TRUE or FALSE of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
+#' @param theme_panel_grid_rm TRUE or FALSE of whether the `gg_*` function should remove the relevant panel grid per the `theme_orientation` of the plot.
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()]. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
@@ -66,7 +69,7 @@ gg_blanket <- function(data = NULL,
                        stat = "identity",
                        position = "identity",
                        coord = NULL,
-                       theme = NULL, theme_orientation = NULL, blend = NULL,
+                       theme = NULL, theme_orientation = NULL, theme_axis_line_rm = NULL,  theme_axis_ticks_rm = NULL,  theme_panel_grid_rm = NULL, blend = NULL,
                        x = NULL,
                        xmin = NULL,
                        xmax = NULL,
@@ -359,11 +362,15 @@ gg_blanket <- function(data = NULL,
   }
 
   if (rlang::is_null(theme_orientation)) {
-    if (y_scale_type == "discrete" & x_scale_type != "discrete") {
-      theme_orientation <- "y"
-    }
-    else {
-      theme_orientation <- "x"
+    if (rlang::is_null(theme_orientation)) theme_orientation <- get_theme_orientation()
+
+    if (rlang::is_null(theme_orientation)) {
+      if (y_scale_type == "discrete" & x_scale_type != "discrete") {
+        theme_orientation <- "y"
+      }
+      else {
+        theme_orientation <- "x"
+      }
     }
   }
 
@@ -1483,14 +1490,34 @@ gg_blanket <- function(data = NULL,
   # theme make transparent some theme components
   ##############################################################################
 
+  if (rlang::is_null(theme_axis_line_rm)) theme_axis_line_rm <- get_theme_axis_line_rm()
+  if (rlang::is_null(theme_axis_ticks_rm)) theme_axis_ticks_rm <- get_theme_axis_ticks_rm()
+  if (rlang::is_null(theme_panel_grid_rm)) theme_panel_grid_rm <- get_theme_panel_grid_rm()
+
+  if (rlang::is_null(theme_axis_line_rm)) theme_axis_line_rm <- TRUE
+  if (rlang::is_null(theme_axis_ticks_rm)) theme_axis_ticks_rm <- TRUE
+  if (rlang::is_null(theme_panel_grid_rm)) theme_panel_grid_rm <- TRUE
+
   if (theme_orientation == "x") {
-    plot <- plot +
-      ggplot2::theme(
-        panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
-        panel.grid.minor.x = ggplot2::element_line(colour = "transparent"),
-        axis.line.y = ggplot2::element_line(colour = "transparent"),
-        axis.ticks.y = ggplot2::element_line(colour = "transparent")
-      )
+    if (theme_axis_line_rm) {
+      plot <- plot +
+        ggplot2::theme(
+          axis.line.y = ggplot2::element_line(colour = "transparent")
+        )
+    }
+    if (theme_axis_ticks_rm) {
+      plot <- plot +
+        ggplot2::theme(
+          axis.ticks.y = ggplot2::element_line(colour = "transparent")
+        )
+    }
+    if (theme_panel_grid_rm) {
+      plot <- plot +
+        ggplot2::theme(
+          panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
+          panel.grid.minor.x = ggplot2::element_line(colour = "transparent")
+        )
+    }
 
     if (x_scale_type == "discrete") {
       plot <- plot +
@@ -1500,13 +1527,26 @@ gg_blanket <- function(data = NULL,
     }
   }
   else if (theme_orientation == "y") {
-    plot <- plot +
-      ggplot2::theme(
-        panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
-        panel.grid.minor.y = ggplot2::element_line(colour = "transparent"),
-        axis.line.x = ggplot2::element_line(colour = "transparent"),
-        axis.ticks.x = ggplot2::element_line(colour = "transparent")
-      )
+      if (theme_axis_line_rm) {
+        plot <- plot +
+          ggplot2::theme(
+            axis.line.x = ggplot2::element_line(colour = "transparent")
+          )
+      }
+      if (theme_axis_ticks_rm) {
+        plot <- plot +
+          ggplot2::theme(
+            axis.ticks.x = ggplot2::element_line(colour = "transparent")
+          )
+      }
+      if (theme_panel_grid_rm) {
+        plot <- plot +
+          ggplot2::theme(
+            panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
+            panel.grid.minor.y = ggplot2::element_line(colour = "transparent")
+          )
+      }
+
 
     if (y_scale_type == "discrete") {
       plot <- plot +

@@ -12,6 +12,9 @@ gg_ribbon_line(
   coord = ggplot2::coord_cartesian(clip = "off"),
   theme = NULL,
   theme_orientation = NULL,
+  theme_axis_line_rm = NULL,
+  theme_axis_ticks_rm = NULL,
+  theme_panel_grid_rm = NULL,
   blend = NULL,
   x = NULL,
   xmin = NULL,
@@ -91,9 +94,15 @@ gg_ribbon_line(
 
 \item{coord}{A coordinate system. A \verb{coord_*()} function that outputs a constructed ggproto Coord subclass object (e.g. \code{\link[ggplot2:coord_cartesian]{ggplot2::coord_cartesian()}}).}
 
-\item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates side-effects of removing relevant axis line/ticks and gridlines per the \code{theme_orientation}.}
+\item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}).}
 
-\item{theme_orientation}{The orientation of plot, which affects the theme components that are removed. Either "x" or "y".}
+\item{theme_orientation}{The orientation of plot, which affects the theme components that are removed. Either \code{"x"} or \code{"y"}.}
+
+\item{theme_axis_line_rm}{TRUE or FALSE of whether the \verb{gg_*} function should remove the relevant axis line per the \code{theme_orientation} of the plot.}
+
+\item{theme_axis_ticks_rm}{TRUE or FALSE of whether the \verb{gg_*} function should remove the relevant axis ticks per the \code{theme_orientation} of the plot.}
+
+\item{theme_panel_grid_rm}{TRUE or FALSE of whether the \verb{gg_*} function should remove the relevant panel grid per the \code{theme_orientation} of the plot.}
 
 \item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
 

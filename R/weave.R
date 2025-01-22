@@ -2,6 +2,7 @@
 ggblanket_global <- new.env(parent = emptyenv())
 
 ggblanket_global$theme <- NULL
+ggblanket_global$theme_orientation <- NULL
 ggblanket_global$theme_axis_line_rm <- NULL
 ggblanket_global$theme_axis_ticks_rm <- NULL
 ggblanket_global$theme_axis_line_rm <- NULL
@@ -17,18 +18,27 @@ ggblanket_global$col_palette_na_o <- NULL
 #'
 #' @description Set a theme for the theme argument in `gg_*` functions.
 #'
-#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `theme_orientation`.
+#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]).
 #' @param ... Dots to support trailing commas etc.
+#' @param theme_orientation The orientation of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
+#' @param theme_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
+#' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
+#' @param theme_panel_grid_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `theme_orientation` of the plot.
 #'
 #' @export
 weave_theme <- function(theme = light_mode_r(),
                        ...,
+                       theme_orientation = NULL,
                        theme_axis_line_rm = TRUE,
                        theme_axis_ticks_rm = TRUE,
                        theme_panel_grid_rm = TRUE) {
 
   old <- ggblanket_global$theme
   ggblanket_global$theme <- theme
+  invisible(old)
+
+  old <- ggblanket_global$theme_orientation
+  ggblanket_global$theme_orientation <- theme_orientation
   invisible(old)
 
   old <- ggblanket_global$theme_axis_line_rm
@@ -263,6 +273,26 @@ weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G"
 #' @description Get the currently set theme.
 #' @noRd
 get_theme <- function() ggblanket_global$theme
+
+#' Get the theme_orientation
+#' @description Get the currently set theme_orientation.
+#' @noRd
+get_theme_orientation <- function() ggblanket_global$theme_orientation
+
+#' Get the theme_axis_line_rm
+#' @description Get the currently set theme_axis_line_rm.
+#' @noRd
+get_theme_axis_line_rm <- function() ggblanket_global$theme_axis_line_rm
+
+#' Get the theme_axis_ticks_rm
+#' @description Get the currently set theme_axis_ticks_rm.
+#' @noRd
+get_theme_axis_ticks_rm <- function() ggblanket_global$theme_axis_ticks_rm
+
+#' Get the theme_panel_grid_rm
+#' @description Get the currently set theme_panel_grid_rm.
+#' @noRd
+get_theme_panel_grid_rm <- function() ggblanket_global$theme_panel_grid_rm
 
 #' Get the discrete palette
 #' @description Get the currently set discrete palette.

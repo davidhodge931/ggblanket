@@ -12,7 +12,11 @@
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
 #'
 #' @param ... Provided to force user argument naming etc.
-#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]) that anticipates `gg_*` side-effects of removing relevant axis line/ticks and gridlines per the `theme_orientation`.
+#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]).
+#' @param theme_orientation The orientation of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
+#' @param theme_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
+#' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
+#' @param theme_panel_grid_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `theme_orientation` of the plot.
 #' @param colour A default hex colour for the colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
 #' @param fill A default hex colour for the fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).
 #' @param text_colour A default hex colour for the colour of the "text" and "label" geoms.
@@ -64,6 +68,10 @@
 set_blanket <- function(
     ...,
     theme = light_mode_r(),
+    theme_orientation = NULL,
+    theme_axis_line_rm = TRUE,
+    theme_axis_ticks_rm = TRUE,
+    theme_panel_grid_rm = TRUE,
     colour = "#357BA2FF",
     fill = colour,
     text_colour = "#121B24FF",
@@ -78,7 +86,11 @@ set_blanket <- function(
     col_palette_na_c = "#988F88FF",
     col_palette_na_o = "#988F88FF") {
 
-  weave_theme(theme = theme)
+  weave_theme(theme = theme,
+              theme_orientation = theme_orientation,
+              theme_axis_line_rm = theme_axis_line_rm,
+              theme_axis_ticks_rm = theme_axis_ticks_rm,
+              theme_panel_grid_rm = theme_panel_grid_rm)
 
   weave_geom_defaults(
     colour = colour,

@@ -7,15 +7,24 @@
 weave_theme(
   theme = light_mode_r(),
   ...,
+  theme_orientation = NULL,
   theme_axis_line_rm = TRUE,
   theme_axis_ticks_rm = TRUE,
   theme_panel_grid_rm = TRUE
 )
 }
 \arguments{
-\item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}) that anticipates \verb{gg_*} side-effects of removing relevant axis line/ticks and gridlines per the \code{theme_orientation}.}
+\item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}).}
 
 \item{...}{Dots to support trailing commas etc.}
+
+\item{theme_orientation}{The orientation of plot, which affects the theme components that can be removed by the \verb{gg_*} function. Either \code{"x"} or \code{"y"}. Defaults to \code{NULL}, which lets the \verb{gg_*} function guess it based on the data.}
+
+\item{theme_axis_line_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis line per the \code{theme_orientation} of the plot.}
+
+\item{theme_axis_ticks_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis ticks per the \code{theme_orientation} of the plot.}
+
+\item{theme_panel_grid_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant panel grid per the \code{theme_orientation} of the plot.}
 }
 \description{
 Set a theme for the theme argument in \verb{gg_*} functions.
