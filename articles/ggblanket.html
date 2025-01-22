@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">11.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">11.9.9.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -353,20 +353,29 @@ linewidths etc.</p>
 <h3 id="side-effects-to-the-theme-based-on-the-theme_orientation">11. Side-effects to the <code>theme</code> based on the
 <code>theme_orientation</code><a class="anchor" aria-label="anchor" href="#side-effects-to-the-theme-based-on-the-theme_orientation"></a>
 </h3>
-<p>The <code>gg_*</code> function adds helpful side-effects to the
-theme.</p>
-<p>Where <code>theme_orientation = "x"</code>, the <code>gg_*</code>
+<p>The <code>gg_*</code> function adds helpful side-effects to the theme
+based on the <code>theme_orientation</code>,
+<code>theme_axis_line_rm</code>, <code>theme_axis_ticks_rm</code> and ,
+<code>theme_panel_grid_rm</code> arguments.</p>
+<p>For the default where <code>theme_axis_line_rm</code>,
+<code>theme_axis_ticks_rm</code> and , <code>theme_panel_grid_rm</code>
+all equal <code>TRUE</code>:</p>
+<ul>
+<li>Where <code>theme_orientation = "x"</code>, the <code>gg_*</code>
 function will remove the y axis line/ticks and the x gridlines from the
-<code>mode</code> (by changing their colour to “transparent”). Where it
-is <code>theme_orientation = "y"</code>, the opposite will occur. If the
-<code>gg_*</code> guesses an incorrect <code>theme_orientation</code>,
-then the user can change this.</p>
-<p>Additionally, the <code>gg_*</code> function will remove ticks from
-discrete scales.</p>
-<p>Any <code>theme</code> used should be designed to anticipate these
-side-effects. To avoid these side-effects, instead <code>+</code> the
-theme on to the <code>gg_*</code> output (or use the <code>theme</code>
-argument in <code>set_blanket</code>).</p>
+<code>mode</code> (by changing their colour to “transparent”).</li>
+<li>Where <code>theme_orientation = "y"</code>, the opposite will
+occur.</li>
+</ul>
+<p>If the <code>gg_*</code> guesses an incorrect
+<code>theme_orientation</code>, then the user can change this. The user
+can change any of these side-effects by setting
+<code>theme_axis_line_rm</code>, <code>theme_axis_ticks_rm</code> or ,
+<code>theme_panel_grid_rm</code> to <code>FALSE</code>.</p>
+<p>Any <code>theme</code> used should be designed to anticipate the
+side-effects desired.</p>
+<p>The effect of this is to enable <em>one</em> theme to be used across
+all plots whether the plot is vertical or horizontal.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
@@ -492,6 +501,9 @@ also be used to default a <code>*_label</code> to <code>NULL</code>
 (e.g. <code>set_blanket(theme = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))</code>).</p>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults()</a></code> function can be used
 to further fine-tune geom defaults.</p>
+<p>Users should try to do as much as possible in these set-up functions,
+rather than continually adding arguments to their <code>gg_*</code>
+functions.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
 <span>  theme <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,  </span>
