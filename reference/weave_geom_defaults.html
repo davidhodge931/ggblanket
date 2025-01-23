@@ -57,13 +57,13 @@ ggplot2::update_geom_defaults() can be used to further fine-tune individual geom
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">weave_geom_defaults</span><span class="op">(</span></span>
 <span>  <span class="va">...</span>,</span>
-<span>  geom_colour <span class="op">=</span> <span class="st">"#357BA2FF"</span>,</span>
-<span>  geom_fill <span class="op">=</span> <span class="va">geom_colour</span>,</span>
-<span>  geom_text_colour <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
-<span>  geom_text_size <span class="op">=</span> <span class="fl">11</span><span class="op">/</span><span class="fl">2.835052</span>,</span>
-<span>  geom_text_family <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  geom_reference_colour <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
-<span>  geom_reference_linewidth <span class="op">=</span> <span class="fl">0.25</span></span>
+<span>  colour <span class="op">=</span> <span class="st">"#357BA2FF"</span>,</span>
+<span>  fill <span class="op">=</span> <span class="va">colour</span>,</span>
+<span>  text_colour <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
+<span>  text_size <span class="op">=</span> <span class="fl">11</span><span class="op">/</span><span class="fl">2.835052</span>,</span>
+<span>  text_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  reference_colour <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
+<span>  reference_linewidth <span class="op">=</span> <span class="fl">0.25</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -75,32 +75,32 @@ ggplot2::update_geom_defaults() can be used to further fine-tune individual geom
 <dd><p>Provided to require argument naming, support trailing commas etc.</p></dd>
 
 
-<dt id="arg-geom-colour">geom_colour<a class="anchor" aria-label="anchor" href="#arg-geom-colour"></a></dt>
-<dd><p>A default hex geom_colour for the geom_colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).</p></dd>
+<dt id="arg-colour">colour<a class="anchor" aria-label="anchor" href="#arg-colour"></a></dt>
+<dd><p>For most geoms, a default hex colour for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline").</p></dd>
 
 
-<dt id="arg-geom-fill">geom_fill<a class="anchor" aria-label="anchor" href="#arg-geom-fill"></a></dt>
-<dd><p>A default hex geom_colour for the geom_fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).</p></dd>
+<dt id="arg-fill">fill<a class="anchor" aria-label="anchor" href="#arg-fill"></a></dt>
+<dd><p>For most geoms, a default hex colour for the fill of geoms  (i.e. geoms other than "text", "label", "hline", "vline" and "abline").</p></dd>
 
 
-<dt id="arg-geom-text-colour">geom_text_colour<a class="anchor" aria-label="anchor" href="#arg-geom-text-colour"></a></dt>
-<dd><p>A default hex geom_colour for the geom_colour of the "text" and "label" geoms.</p></dd>
+<dt id="arg-text-colour">text_colour<a class="anchor" aria-label="anchor" href="#arg-text-colour"></a></dt>
+<dd><p>For the "text" and "label" geoms, a default hex colour.</p></dd>
 
 
-<dt id="arg-geom-text-size">geom_text_size<a class="anchor" aria-label="anchor" href="#arg-geom-text-size"></a></dt>
-<dd><p>A default size for the "text" and "label" geoms.</p></dd>
+<dt id="arg-text-size">text_size<a class="anchor" aria-label="anchor" href="#arg-text-size"></a></dt>
+<dd><p>For the "text" and "label" geoms, a default size.</p></dd>
 
 
-<dt id="arg-geom-text-family">geom_text_family<a class="anchor" aria-label="anchor" href="#arg-geom-text-family"></a></dt>
-<dd><p>A default family for the "text" and "label" geoms.</p></dd>
+<dt id="arg-text-family">text_family<a class="anchor" aria-label="anchor" href="#arg-text-family"></a></dt>
+<dd><p>For the "text" and "label" geoms, a default family.</p></dd>
 
 
-<dt id="arg-geom-reference-colour">geom_reference_colour<a class="anchor" aria-label="anchor" href="#arg-geom-reference-colour"></a></dt>
-<dd><p>A default hex geom_colour for the geom_colour of the "hline", "vline" and "abline" geoms.</p></dd>
+<dt id="arg-reference-colour">reference_colour<a class="anchor" aria-label="anchor" href="#arg-reference-colour"></a></dt>
+<dd><p>For the "hline", "vline" and "abline" geoms, a default hex colour.</p></dd>
 
 
-<dt id="arg-geom-reference-linewidth">geom_reference_linewidth<a class="anchor" aria-label="anchor" href="#arg-geom-reference-linewidth"></a></dt>
-<dd><p>A default hex geom_colour for the geom_colour of the "hline", "vline" and "abline" geoms.</p></dd>
+<dt id="arg-reference-linewidth">reference_linewidth<a class="anchor" aria-label="anchor" href="#arg-reference-linewidth"></a></dt>
+<dd><p>For the "hline", "vline" and "abline" geoms, a default linewidth.</p></dd>
 
 </dl></div>
 

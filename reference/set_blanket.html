@@ -81,13 +81,13 @@ ggplot2::update_geom_defaults() can be used to further fine-tune geom defaults."
 <span>  theme_axis_ticks_rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  theme_panel_grid_rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  label_case <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_sentence_case</a></span>,</span>
-<span>  geom_colour <span class="op">=</span> <span class="st">"#357BA2FF"</span>,</span>
-<span>  geom_fill <span class="op">=</span> <span class="va">geom_colour</span>,</span>
-<span>  geom_text_colour <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
-<span>  geom_text_size <span class="op">=</span> <span class="fl">11</span><span class="op">/</span><span class="fl">2.835052</span>,</span>
-<span>  geom_text_family <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  geom_reference_colour <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
-<span>  geom_reference_linewidth <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>  colour <span class="op">=</span> <span class="st">"#357BA2FF"</span>,</span>
+<span>  fill <span class="op">=</span> <span class="va">colour</span>,</span>
+<span>  text_colour <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
+<span>  text_size <span class="op">=</span> <span class="fl">11</span><span class="op">/</span><span class="fl">2.835052</span>,</span>
+<span>  text_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  reference_colour <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
+<span>  reference_linewidth <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>  col_palette_d <span class="op">=</span> <span class="va">jumble</span>,</span>
 <span>  col_palette_c <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">mako</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>  col_palette_o <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/pal_viridis.html" class="external-link">pal_viridis</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"G"</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
@@ -129,32 +129,32 @@ ggplot2::update_geom_defaults() can be used to further fine-tune geom defaults."
 <dd><p>A function to format the label of unlabelled variables. Defaults to <code><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">snakecase::to_sentence_case</a></code>.</p></dd>
 
 
-<dt id="arg-geom-colour">geom_colour<a class="anchor" aria-label="anchor" href="#arg-geom-colour"></a></dt>
-<dd><p>A default hex geom_colour for the geom_colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).</p></dd>
+<dt id="arg-colour">colour<a class="anchor" aria-label="anchor" href="#arg-colour"></a></dt>
+<dd><p>For most geoms, a default hex colour for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline").</p></dd>
 
 
-<dt id="arg-geom-fill">geom_fill<a class="anchor" aria-label="anchor" href="#arg-geom-fill"></a></dt>
-<dd><p>A default hex geom_colour for the geom_fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).</p></dd>
+<dt id="arg-fill">fill<a class="anchor" aria-label="anchor" href="#arg-fill"></a></dt>
+<dd><p>For most geoms, a default hex colour for the fill of geoms  (i.e. geoms other than "text", "label", "hline", "vline" and "abline").</p></dd>
 
 
-<dt id="arg-geom-text-colour">geom_text_colour<a class="anchor" aria-label="anchor" href="#arg-geom-text-colour"></a></dt>
-<dd><p>A default hex geom_colour for the geom_colour of the "text" and "label" geoms.</p></dd>
+<dt id="arg-text-colour">text_colour<a class="anchor" aria-label="anchor" href="#arg-text-colour"></a></dt>
+<dd><p>For the "text" and "label" geoms, a default hex colour.</p></dd>
 
 
-<dt id="arg-geom-text-size">geom_text_size<a class="anchor" aria-label="anchor" href="#arg-geom-text-size"></a></dt>
-<dd><p>A default size for the "text" and "label" geoms.</p></dd>
+<dt id="arg-text-size">text_size<a class="anchor" aria-label="anchor" href="#arg-text-size"></a></dt>
+<dd><p>For the "text" and "label" geoms, a default size.</p></dd>
 
 
-<dt id="arg-geom-text-family">geom_text_family<a class="anchor" aria-label="anchor" href="#arg-geom-text-family"></a></dt>
-<dd><p>A default family for the "text" and "label" geoms.</p></dd>
+<dt id="arg-text-family">text_family<a class="anchor" aria-label="anchor" href="#arg-text-family"></a></dt>
+<dd><p>For the "text" and "label" geoms, a default family.</p></dd>
 
 
-<dt id="arg-geom-reference-colour">geom_reference_colour<a class="anchor" aria-label="anchor" href="#arg-geom-reference-colour"></a></dt>
-<dd><p>A default hex geom_colour for the geom_colour of the "hline", "vline" and "abline" geoms.</p></dd>
+<dt id="arg-reference-colour">reference_colour<a class="anchor" aria-label="anchor" href="#arg-reference-colour"></a></dt>
+<dd><p>For the "hline", "vline" and "abline" geoms, a default hex colour.</p></dd>
 
 
-<dt id="arg-geom-reference-linewidth">geom_reference_linewidth<a class="anchor" aria-label="anchor" href="#arg-geom-reference-linewidth"></a></dt>
-<dd><p>A default hex geom_colour for the geom_colour of the "hline", "vline" and "abline" geoms.</p></dd>
+<dt id="arg-reference-linewidth">reference_linewidth<a class="anchor" aria-label="anchor" href="#arg-reference-linewidth"></a></dt>
+<dd><p>For the "hline", "vline" and "abline" geoms, a default linewidth.</p></dd>
 
 
 <dt id="arg-col-palette-d">col_palette_d<a class="anchor" aria-label="anchor" href="#arg-col-palette-d"></a></dt>
@@ -194,10 +194,9 @@ ggplot2::update_geom_defaults() can be used to further fine-tune geom defaults."
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">set_blanket</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  theme <span class="op">=</span> <span class="fu"><a href="dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  geom_colour <span class="op">=</span> <span class="st">"#E7298AFF"</span>,</span></span>
-<span class="r-in"><span>  geom_colour_text <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span></span>
-<span class="r-in"><span>  geom_colour_hline <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span></span>
-<span class="r-in"><span>  geom_colour_vline <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>  colour <span class="op">=</span> <span class="st">"#E7298AFF"</span>,</span></span>
+<span class="r-in"><span>  text_colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>  reference_colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>  col_palette_d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#1B9E77FF"</span>, <span class="st">"#D95F02FF"</span>, <span class="st">"#7570b3FF"</span>, <span class="st">"#E7298AFF"</span>,</span></span>
 <span class="r-in"><span>                    <span class="st">"#66A61EFF"</span>, <span class="st">"#E6AB02FF"</span>, <span class="st">"#A6761DFF"</span>, <span class="st">"#666666FF"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
