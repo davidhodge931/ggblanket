@@ -2,7 +2,6 @@
 
 * Breaking: renamed `mode` and `mode_orientation` arguments to `theme` and `theme_orientation`.
 * Breaking: renamed `label_to_case` argument to `label_case`.
-* Breaking: renamed geom_default arguments to be prefixed by `geom_`.
 * Breaking: removed `mode_to_orientation_x` and `mode_to_orientation_y` functions.
 * Added functionality to set custom theme magic in `set_blanket` and `weave_theme`.
 * Added functionality to set the `label_case` in `set_blanket` and `weave_label_case`.

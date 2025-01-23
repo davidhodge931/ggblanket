@@ -378,9 +378,9 @@ set_blanket(
   theme = dark_mode_r(),  
   theme_axis_line_rm = FALSE,
   theme_axis_ticks_rm = FALSE,
-  geom_colour = "#E7298AFF",
-  geom_text_colour = darkness[1],
-  geom_reference_colour = darkness[1],
+  colour = "#E7298AFF",
+  text_colour = darkness[1],
+  reference_colour = darkness[1],
   col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
                     "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
 )

@@ -29,8 +29,8 @@ library(palmerpenguins)
 
 set_blanket(
   theme = dark_mode_r(), 
-  geom_text_colour = darkness[1],
-  geom_reference_colour = darkness[1],
+  text_colour = darkness[1],
+  reference_colour = darkness[1],
   col_palette_d = c(teal, orange, purple, red, pink, navy),
   col_palette_c = viridis::mako(n = 9),
   col_palette_o = scales::pal_viridis(option = "G"),

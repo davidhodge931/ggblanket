@@ -6,31 +6,31 @@
 \usage{
 weave_geom_defaults(
   ...,
-  geom_colour = "#357BA2FF",
-  geom_fill = geom_colour,
-  geom_text_colour = "#121B24FF",
-  geom_text_size = 11/2.835052,
-  geom_text_family = "",
-  geom_reference_colour = "#121B24FF",
-  geom_reference_linewidth = 0.25
+  colour = "#357BA2FF",
+  fill = colour,
+  text_colour = "#121B24FF",
+  text_size = 11/2.835052,
+  text_family = "",
+  reference_colour = "#121B24FF",
+  reference_linewidth = 0.25
 )
 }
 \arguments{
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
-\item{geom_colour}{A default hex geom_colour for the geom_colour of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).}
+\item{colour}{For most geoms, a default hex colour for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline").}
 
-\item{geom_fill}{A default hex geom_colour for the geom_fill of geoms (other than "text", "label", "hline", "vline" and "abline" geoms).}
+\item{fill}{For most geoms, a default hex colour for the fill of geoms  (i.e. geoms other than "text", "label", "hline", "vline" and "abline").}
 
-\item{geom_text_colour}{A default hex geom_colour for the geom_colour of the "text" and "label" geoms.}
+\item{text_colour}{For the "text" and "label" geoms, a default hex colour.}
 
-\item{geom_text_size}{A default size for the "text" and "label" geoms.}
+\item{text_size}{For the "text" and "label" geoms, a default size.}
 
-\item{geom_text_family}{A default family for the "text" and "label" geoms.}
+\item{text_family}{For the "text" and "label" geoms, a default family.}
 
-\item{geom_reference_colour}{A default hex geom_colour for the geom_colour of the "hline", "vline" and "abline" geoms.}
+\item{reference_colour}{For the "hline", "vline" and "abline" geoms, a default hex colour.}
 
-\item{geom_reference_linewidth}{A default hex geom_colour for the geom_colour of the "hline", "vline" and "abline" geoms.}
+\item{reference_linewidth}{For the "hline", "vline" and "abline" geoms, a default linewidth.}
 }
 \description{
 Update all the geom defaults.
