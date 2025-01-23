@@ -491,30 +491,34 @@ So, in some situations, users will need to take care.</p>
 <p>The <code>set_blanket</code> function sets customisable defaults for
 the:</p>
 <ul>
-<li>the theme, and how/what side-effects are to be applied</li>
-<li>the geom defaults, including those for text and reference lines</li>
+<li>the geom defaults, including the colour (and fill) of geoms</li>
 <li>the colour palettes (i.e. discrete, continuous and ordinal)</li>
+<li>the theme, and how/what side-effects are to be applied</li>
 <li>and more</li>
 </ul>
+<p><code><a href="../reference/weave_text_defaults.html">weave_text_defaults()</a></code> and
+<code><a href="../reference/weave_reference_defaults.html">weave_reference_defaults()</a></code> can subsequently be run to
+customise “text”, “label”, “abline,”vline” and “hline” geom
+defaults.</p>
 <p>Note the <code>theme</code> argument in <code>set_blanket</code> can
 also be used to default a <code>*_label</code> to <code>NULL</code>
 (e.g. <code>set_blanket(theme = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))</code>).</p>
-<p>The <code><a href="https://ggplot2.tidyverse.org/reference/update_defaults.html" class="external-link">ggplot2::update_geom_defaults()</a></code> function can be used
-to further fine-tune geom defaults.</p>
 <p>Users should try to do as much as possible in these set-up functions,
 rather than continually adding arguments to their <code>gg_*</code>
 functions.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
+<span>  colour <span class="op">=</span> <span class="st">"#E7298AFF"</span>,</span>
+<span>  col_palette_d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#1B9E77FF"</span>, <span class="st">"#D95F02FF"</span>, <span class="st">"#7570b3FF"</span>, <span class="st">"#E7298AFF"</span>,</span>
+<span>                    <span class="st">"#66A61EFF"</span>, <span class="st">"#E6AB02FF"</span>, <span class="st">"#A6761DFF"</span>, <span class="st">"#666666FF"</span><span class="op">)</span>,</span>
 <span>  theme <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,  </span>
 <span>  theme_axis_line_rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  theme_axis_ticks_rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  colour <span class="op">=</span> <span class="st">"#E7298AFF"</span>,</span>
-<span>  text_colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>  reference_colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>  col_palette_d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#1B9E77FF"</span>, <span class="st">"#D95F02FF"</span>, <span class="st">"#7570b3FF"</span>, <span class="st">"#E7298AFF"</span>,</span>
-<span>                    <span class="st">"#66A61EFF"</span>, <span class="st">"#E6AB02FF"</span>, <span class="st">"#A6761DFF"</span>, <span class="st">"#666666FF"</span><span class="op">)</span>,</span>
 <span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/weave_text_defaults.html">weave_text_defaults</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/weave_reference_defaults.html">weave_reference_defaults</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
