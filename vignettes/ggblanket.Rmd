@@ -362,28 +362,30 @@ penguins2 |>
 
 The `set_blanket` function sets customisable defaults for the:
 
-* the theme, and how/what side-effects are to be applied
-* the geom defaults, including those for text and reference lines
+* the geom defaults, including the colour (and fill) of geoms
 * the colour palettes (i.e. discrete, continuous and ordinal)
+* the theme, and how/what side-effects are to be applied
 * and more
 
-Note the `theme` argument in `set_blanket` can also be used to default a `*_label` to `NULL` (e.g. `set_blanket(theme = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))`).
+`weave_text_defaults()` and `weave_reference_defaults()` can subsequently be run to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
 
-The `ggplot2::update_geom_defaults()` function can be used to further fine-tune geom defaults. 
+Note the `theme` argument in `set_blanket` can also be used to default a `*_label` to `NULL` (e.g. `set_blanket(theme = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))`).
 
 Users should try to do as much as possible in these set-up functions, rather than continually adding arguments to their `gg_*` functions.
 
 ```{r}
 set_blanket(
+  colour = "#E7298AFF",
+  col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
+                    "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
   theme = dark_mode_r(),  
   theme_axis_line_rm = FALSE,
   theme_axis_ticks_rm = FALSE,
-  colour = "#E7298AFF",
-  text_colour = darkness[1],
-  reference_colour = darkness[1],
-  col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
-                    "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
 )
+
+weave_text_defaults(colour = darkness[1])
+
+weave_reference_defaults(colour = darkness[1])
 
 p1 <- penguins2 |>
   gg_point(

@@ -28,13 +28,15 @@ library(ggblanket)
 library(palmerpenguins)
 
 set_blanket(
-  theme = dark_mode_r(), 
-  text_colour = darkness[1],
-  reference_colour = darkness[1],
   col_palette_d = c(teal, orange, purple, red, pink, navy),
   col_palette_c = viridis::mako(n = 9),
   col_palette_o = scales::pal_viridis(option = "G"),
+  theme = dark_mode_r(),  
 )
+
+weave_text_defaults(colour = darkness[1])
+
+weave_reference_defaults(colour = darkness[1])
 
 penguins2 <- penguins |> 
   labelled::set_variable_labels(

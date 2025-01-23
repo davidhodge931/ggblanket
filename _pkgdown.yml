@@ -19,9 +19,11 @@ reference:
   - dark_mode_b
 - title: Sub-setup
 - contents:
-  - weave_theme
   - weave_geom_defaults
   - weave_col_palettes
+  - weave_theme
+  - weave_text_defaults
+  - weave_reference_defaults
   - weave_label_case
 - title: Colours
 - contents:

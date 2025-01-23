@@ -3,12 +3,12 @@
 #' @description
 #' Set the style by setting:
 #'
-#' 1. the theme, and how/what side-effects are to be applied
-#' 2. the geom defaults, including those for text and reference lines
-#' 3. the colour palettes (i.e. discrete, continuous and ordinal)
+#' 1. the geom defaults, including the colour (and fill) of geoms
+#' 2. the colour palettes (i.e. discrete, continuous and ordinal)
+#' 3. the theme, and how/what side-effects are to be applied
 #' 4. and more
 #'
-#' Alternatively, use the `weave_*` functions to only apply a subset of these.
+#' `weave_text_defaults()` and `weave_reference_defaults()` can subsequently be run to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
 #'
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
 #'
@@ -18,13 +18,7 @@
 #' @param theme_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
 #' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
 #' @param theme_panel_grid_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `theme_orientation` of the plot.
-#' @param colour For most geoms, a default hex colour for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline").
-#' @param fill For most geoms, a default hex colour for the fill of geoms  (i.e. geoms other than "text", "label", "hline", "vline" and "abline").
-#' @param text_colour For the "text" and "label" geoms, a default hex colour.
-#' @param text_size For the "text" and "label" geoms, a default size.
-#' @param text_family For the "text" and "label" geoms, a default family.
-#' @param reference_colour For the "hline", "vline" and "abline" geoms, a default hex colour.
-#' @param reference_linewidth For the "hline", "vline" and "abline" geoms, a default linewidth.
+#' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline"). Note "fill" inherits from this argument.
 #' @param col_palette_d For a discrete scale, a character vector of hex codes.
 #' @param col_palette_c For a continuous scale, a character vector of hex codes.
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function.
@@ -44,8 +38,6 @@
 #' set_blanket(
 #'   theme = dark_mode_r(),
 #'   colour = "#E7298AFF",
-#'   text_colour = darkness[1],
-#'   reference_colour = darkness[1],
 #'   col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
 #'                     "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
 #' )
@@ -54,57 +46,31 @@
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
-#'   ) +
-#'   geom_vline(xintercept = 200) +
-#'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
+#'   )
 #'
 #' penguins |>
 #'   gg_histogram(
 #'     x = flipper_length_mm,
 #'     col = species,
-#'   ) +
-#'   geom_vline(xintercept = 200) +
-#'   annotate("text", x = I(0.75), y = I(0.75), label = "Here")
+#'   )
 #'
 set_blanket <- function(
     ...,
-    theme = light_mode_r(),
-    theme_orientation = NULL,
-    theme_axis_line_rm = TRUE,
-    theme_axis_ticks_rm = TRUE,
-    theme_panel_grid_rm = TRUE,
-    label_case = snakecase::to_sentence_case,
     colour = "#357BA2FF",
-    fill = colour,
-    text_colour = "#121B24FF",
-    text_size = 11 / 2.835052,
-    text_family = "",
-    reference_colour = "#121B24FF",
-    reference_linewidth = 0.25,
     col_palette_d = jumble,
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
     col_palette_na_d = "#CDC5BFFF",
     col_palette_na_c = "#988F88FF",
-    col_palette_na_o = "#988F88FF") {
+    col_palette_na_o = "#988F88FF",
+    theme = light_mode_r(),
+    theme_orientation = NULL,
+    theme_axis_line_rm = TRUE,
+    theme_axis_ticks_rm = TRUE,
+    theme_panel_grid_rm = TRUE,
+    label_case = snakecase::to_sentence_case) {
 
-  weave_theme(theme = theme,
-              theme_orientation = theme_orientation,
-              theme_axis_line_rm = theme_axis_line_rm,
-              theme_axis_ticks_rm = theme_axis_ticks_rm,
-              theme_panel_grid_rm = theme_panel_grid_rm)
-
-  weave_label_case(label_case = label_case)
-
-  weave_geom_defaults(
-    colour = colour,
-    fill = fill,
-    text_colour = text_colour,
-    text_size = text_size,
-    text_family = text_family,
-    reference_colour = reference_colour,
-    reference_linewidth = reference_linewidth
-  )
+  weave_geom_defaults(colour = colour)
 
   weave_col_palettes(
     col_palette_d = col_palette_d,
@@ -114,5 +80,13 @@ set_blanket <- function(
     col_palette_na_c = col_palette_na_c,
     col_palette_na_o = col_palette_na_o
   )
+
+  weave_theme(theme = theme,
+              theme_orientation = theme_orientation,
+              theme_axis_line_rm = theme_axis_line_rm,
+              theme_axis_ticks_rm = theme_axis_ticks_rm,
+              theme_panel_grid_rm = theme_panel_grid_rm)
+
+  weave_label_case(label_case = label_case)
 }
 

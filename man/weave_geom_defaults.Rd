@@ -4,33 +4,12 @@
 \alias{weave_geom_defaults}
 \title{Set a series of geom defaults}
 \usage{
-weave_geom_defaults(
-  ...,
-  colour = "#357BA2FF",
-  fill = colour,
-  text_colour = "#121B24FF",
-  text_size = 11/2.835052,
-  text_family = "",
-  reference_colour = "#121B24FF",
-  reference_linewidth = 0.25
-)
+weave_geom_defaults(..., colour = "#357BA2FF")
 }
 \arguments{
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
-\item{colour}{For most geoms, a default hex colour for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline").}
-
-\item{fill}{For most geoms, a default hex colour for the fill of geoms  (i.e. geoms other than "text", "label", "hline", "vline" and "abline").}
-
-\item{text_colour}{For the "text" and "label" geoms, a default hex colour.}
-
-\item{text_size}{For the "text" and "label" geoms, a default size.}
-
-\item{text_family}{For the "text" and "label" geoms, a default family.}
-
-\item{reference_colour}{For the "hline", "vline" and "abline" geoms, a default hex colour.}
-
-\item{reference_linewidth}{For the "hline", "vline" and "abline" geoms, a default linewidth.}
+\item{colour}{For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline"). Note "fill" inherits from this argument.}
 }
 \description{
 Update all the geom defaults.
