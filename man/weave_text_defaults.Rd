@@ -4,12 +4,20 @@
 \alias{weave_text_defaults}
 \title{Set the "text" and "label" geom defaults}
 \usage{
-weave_text_defaults(..., colour = "#121B24FF", size = 11/2.835052, family = "")
+weave_text_defaults(
+  ...,
+  colour = "#121B24FF",
+  fill = "#FFFFFFFF",
+  size = 11/2.835052,
+  family = ""
+)
 }
 \arguments{
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
 \item{colour}{A hex code.}
+
+\item{fill}{A hex code.}
 
 \item{size}{A size.}
 

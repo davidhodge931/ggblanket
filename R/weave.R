@@ -129,7 +129,7 @@ weave_geom_defaults <- function(
 
   #text
   ggplot2::update_geom_defaults("text", ggplot2::aes(colour = "#121B24FF", size = 11 / 2.835052, family = ""))
-  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = "#121B24FF", size = 11 / 2.835052, family = ""))
+  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = "#121B24FF", fill = "#FFFFFFFF", size = 11 / 2.835052, family = ""))
 
   #reference
   ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = "#121B24FF", linewidth = 0.25))
@@ -143,6 +143,7 @@ weave_geom_defaults <- function(
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param colour A hex code.
+#' @param fill A hex code.
 #' @param size A size.
 #' @param family A family.
 #'
@@ -169,11 +170,12 @@ weave_geom_defaults <- function(
 weave_text_defaults <- function(
     ...,
     colour = "#121B24FF",
+    fill = "#FFFFFFFF",
     size = 11 / 2.835052,
     family = "") {
 
   ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour, size = !!size, family = !!family))
-  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour, size = !!size, family = !!family))
+  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour, fill = !!fill, size = !!size, family = !!family))
 }
 
 #' Set reference-line geom defaults
