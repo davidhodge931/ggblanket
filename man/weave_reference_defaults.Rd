@@ -14,7 +14,7 @@ weave_reference_defaults(..., colour = "#121B24FF", linewidth = 0.25)
 \item{linewidth}{A linewidth.}
 }
 \description{
-Update the "abline", "hline" and "vline" geom defaults. Note this function must be applied after \code{set_blanket}.
+Update the "abline", "hline" and "vline" geom defaults.
 }
 \examples{
 library(ggplot2)

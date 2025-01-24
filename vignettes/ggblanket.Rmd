@@ -367,7 +367,7 @@ The `set_blanket` function sets customisable defaults for the:
 * the theme, and how/what side-effects are to be applied
 * the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc.
 
-`weave_font_defaults()` and `weave_reference_defaults()` can subsequently be run to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
+`weave_font_defaults()` and `weave_reference_defaults()` can be used to customise the "text", "label", "abline, "vline" and "hline" geom defaults.
 
 Note the `theme` argument in `set_blanket` can also be used to default a `*_label` to `NULL` (e.g. `set_blanket(theme = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))`).
 

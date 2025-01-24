@@ -24,7 +24,7 @@ weave_font_defaults(
 \item{family}{A family.}
 }
 \description{
-Update the "text" and "label" geom defaults. This function must be applied after \code{set_blanket}. All other text is controlled by the theme.
+Update the "text" and "label" geom defaults. Note all other text is controlled by the theme.
 }
 \examples{
 library(ggplot2)

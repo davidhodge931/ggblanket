@@ -2,7 +2,7 @@
 % Please edit documentation in R/weave.R
 \name{weave_col_palette}
 \alias{weave_col_palette}
-\title{Set a discrete geom_colour and geom_fill palettes}
+\title{Set colour (and fill) palettes}
 \usage{
 weave_col_palette(
   ...,
@@ -30,5 +30,5 @@ weave_col_palette(
 \item{col_palette_na_o}{For an ordinal scale, a hex code.}
 }
 \description{
-Set a discrete geom_colour and geom_fill palettes
+Set colour (and fill) palettes
 }

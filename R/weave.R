@@ -126,20 +126,11 @@ weave_geom_defaults <- function(
   #points
   ggplot2::update_geom_defaults("point", ggplot2::aes(colour = !!colour, fill = !!colour))
   ggplot2::update_geom_defaults("pointrange", ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66, size = 0.2)) # 1.5 / 7.5
-
-  #text
-  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = "#121B24FF", size = 11 / 2.835052, family = ""))
-  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = "#121B24FF", fill = "#FFFFFFFF", size = 11 / 2.835052, family = ""))
-
-  #reference
-  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = "#121B24FF", linewidth = 0.25))
-  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = "#121B24FF", linewidth = 0.25))
-  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = "#121B24FF", linewidth = 0.25))
 }
 
 #' Set the font geom defaults
 #'
-#' @description Update the "text" and "label" geom defaults. This function must be applied after `set_blanket`. All other text is controlled by the theme.
+#' @description Update the "text" and "label" geom defaults. Note all other text is controlled by the theme.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param colour A hex code.
@@ -180,7 +171,7 @@ weave_font_defaults <- function(
 
 #' Set reference-line geom defaults
 #'
-#' @description Update the "abline", "hline" and "vline" geom defaults. Note this function must be applied after `set_blanket`.
+#' @description Update the "abline", "hline" and "vline" geom defaults.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param colour A hex code.

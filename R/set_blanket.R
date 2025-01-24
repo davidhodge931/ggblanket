@@ -8,7 +8,7 @@
 #' 3. the theme, and how/what side-effects are to be applied (i.e. `weave_theme`)
 #' 4. the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc (i.e. `weave_label_case`).
 #'
-#' `weave_font_defaults()` and `weave_reference_defaults()` can subsequently be run to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
+#' `weave_font_defaults()` and `weave_reference_defaults()` can be used to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
 #'
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
 #'

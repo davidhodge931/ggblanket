@@ -57,12 +57,12 @@ A globally set style.
 Set the style by setting:
 \enumerate{
 \item the geom defaults, including the colour (and fill) of geoms (i.e. \code{weave_geom_defaults})
-\item the colour palettes (i.e. discrete, continuous and ordinal) (i.e. \code{weave_col_palette})
+\item the colour (and fill) palettes (i.e. discrete, continuous and ordinal) (i.e. \code{weave_col_palette})
 \item the theme, and how/what side-effects are to be applied (i.e. \code{weave_theme})
 \item the function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc (i.e. \code{weave_label_case}).
 }
 
-\code{weave_font_defaults()} and \code{weave_reference_defaults()} can subsequently be run to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
+\code{weave_font_defaults()} and \code{weave_reference_defaults()} can be used to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
 
 \code{\link[ggplot2:update_defaults]{ggplot2::update_geom_defaults()}} can be used to further fine-tune geom defaults.
 }
