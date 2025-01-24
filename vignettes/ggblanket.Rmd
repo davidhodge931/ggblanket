@@ -363,7 +363,7 @@ penguins2 |>
 The `set_blanket` function sets customisable defaults for the:
 
 * the geom defaults, including the colour (and fill) of geoms
-* the colour palettes (i.e. discrete, continuous and ordinal)
+* the colour (and fill) palettes (i.e. discrete, continuous and ordinal)
 * the theme, and how/what side-effects are to be applied
 * the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc.
 

@@ -20,7 +20,7 @@ reference:
   - dark_mode_r
   - dark_mode_t
   - dark_mode_b
-- title: Colours
+- title: Colour
 - contents:
   - blue
   - jumble
@@ -39,7 +39,7 @@ reference:
   - aes_colour_contrast
   - annotate_axis_line
   - label_every_nth
-  - weave_col_palettes
+  - weave_col_palette
   - weave_geom_defaults
   - weave_label_case
   - weave_theme

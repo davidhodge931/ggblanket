@@ -57,7 +57,7 @@ A globally set style.
 Set the style by setting:
 \enumerate{
 \item the geom defaults, including the colour (and fill) of geoms (i.e. \code{weave_geom_defaults})
-\item the colour palettes (i.e. discrete, continuous and ordinal) (i.e. \code{weave_col_palettes})
+\item the colour palettes (i.e. discrete, continuous and ordinal) (i.e. \code{weave_col_palette})
 \item the theme, and how/what side-effects are to be applied (i.e. \code{weave_theme})
 \item the function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc (i.e. \code{weave_label_case}).
 }

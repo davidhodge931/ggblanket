@@ -4,6 +4,7 @@
 * Breaking: renamed `label_to_case` argument to `label_case`.
 * Breaking: removed `mode_to_orientation_x` and `mode_to_orientation_y` functions.
 * Breaking: removed `reference_*` and `text_*` arguments from `set_blanket`, and made separate `weave_*` functions for these.
+* Breaking: renamed `weave_col_palettes` to `weave_col_palette`.
 * Added functionality to set custom theme magic in `set_blanket` and `weave_theme`.
 * Added functionality to set the `label_case` in `set_blanket` and `weave_label_case`.
 * Made `annotate_axis_line` work with date and datetime.

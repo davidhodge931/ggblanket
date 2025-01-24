@@ -4,7 +4,7 @@
 #' Set the style by setting:
 #'
 #' 1. the geom defaults, including the colour (and fill) of geoms (i.e. `weave_geom_defaults`)
-#' 2. the colour palettes (i.e. discrete, continuous and ordinal) (i.e. `weave_col_palettes`)
+#' 2. the colour (and fill) palettes (i.e. discrete, continuous and ordinal) (i.e. `weave_col_palette`)
 #' 3. the theme, and how/what side-effects are to be applied (i.e. `weave_theme`)
 #' 4. the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc (i.e. `weave_label_case`).
 #'
@@ -72,7 +72,7 @@ set_blanket <- function(
 
   weave_geom_defaults(colour = colour)
 
-  weave_col_palettes(
+  weave_col_palette(
     col_palette_d = col_palette_d,
     col_palette_c = col_palette_c,
     col_palette_o = col_palette_o,

@@ -215,18 +215,18 @@ weave_reference_defaults <- function(
   ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
 }
 
-#' Set a discrete geom_colour and geom_fill palettes
+#' Set colour (and fill) palettes
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.
-#' @param col_palette_c For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default.
-#' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function. Use NULL for ggplot2 default.
+#' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default. Use NULL to leave as is.
+#' @param col_palette_c For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default. Use NULL to leave as is.
+#' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function. Use NULL for ggplot2 default. Use NULL to leave as is.
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
 #'
 #' @export
-weave_col_palettes <- function(
+weave_col_palette <- function(
     ...,
     col_palette_d = jumble,
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
@@ -234,9 +234,9 @@ weave_col_palettes <- function(
     col_palette_na_d = "#CDC5BFFF",
     col_palette_na_c = "#988F88FF", # i.e. colorspace::darken(grey, 0.25)
     col_palette_na_o = "#988F88FF") {
-  weave_col_palette_d(col_palette_d = col_palette_d, col_palette_na_d = col_palette_na_d)
-  weave_col_palette_c(col_palette_c = col_palette_c, col_palette_na_c = col_palette_na_c)
-  weave_col_palette_o(col_palette_o = col_palette_o, col_palette_na_o = col_palette_na_o)
+  if (!rlang::is_null(col_palette_d)) weave_col_palette_d(col_palette_d = col_palette_d, col_palette_na_d = col_palette_na_d)
+  if (!rlang::is_null(col_palette_c)) weave_col_palette_c(col_palette_c = col_palette_c, col_palette_na_c = col_palette_na_c)
+  if (!rlang::is_null(col_palette_o)) weave_col_palette_o(col_palette_o = col_palette_o, col_palette_na_o = col_palette_na_o)
 }
 
 #' Set a discrete geom_colour and geom_fill palette
