@@ -383,7 +383,7 @@ set_blanket(
   theme_axis_ticks_rm = FALSE,
 )
 
-weave_font_defaults(colour = darkness[1])
+weave_font_defaults(colour = darkness[1], fill = darkness[3])
 
 weave_reference_defaults(colour = darkness[1])
 
@@ -403,7 +403,7 @@ p2 <- penguins2 |>
     x_breaks_n = 4, 
   ) +
   geom_vline(xintercept = 200) +
-  annotate("text", x = I(0.75), y = I(0.75), label = "Here")
+  annotate("label", x = I(0.75), y = I(0.75), label = "Here")
 
 p1 + p2
 
