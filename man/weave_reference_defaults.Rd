@@ -22,7 +22,7 @@ library(dplyr)
 library(palmerpenguins)
 
 set_blanket(theme = dark_mode_r())
-weave_text_defaults(colour = darkness[1])
+weave_font_defaults(colour = darkness[1])
 weave_reference_defaults(colour = darkness[1])
 
 penguins |>

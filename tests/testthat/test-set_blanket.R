@@ -39,7 +39,7 @@ test_that(test_name, {
     colour = red,
   )
 
-  weave_text_defaults(colour = teal)
+  weave_font_defaults(colour = teal)
 
   weave_reference_defaults(colour = teal)
 
@@ -64,7 +64,7 @@ set_blanket(
   col_palette_c = c(navy, purple, red, orange)
 )
 
-weave_text_defaults(colour = "red", size = 15 / 2.83505)
+weave_font_defaults(colour = "red", size = 15 / 2.83505)
 
 weave_reference_defaults(colour = "red", linewidth = 5)
 

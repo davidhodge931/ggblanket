@@ -8,7 +8,7 @@
 #' 3. the theme, and how/what side-effects are to be applied
 #' 4. and more
 #'
-#' `weave_text_defaults()` and `weave_reference_defaults()` can subsequently be run to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
+#' `weave_font_defaults()` and `weave_reference_defaults()` can subsequently be run to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
 #'
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
 #'

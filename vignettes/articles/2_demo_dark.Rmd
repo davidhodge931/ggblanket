@@ -35,8 +35,8 @@ set_blanket(
 )
 
 weave_reference_defaults(colour = darkness[1])
-weave_text_defaults(colour = darkness[1])
-weave_label_defaults(colour = darkness[1], fill = darkness[3])
+
+weave_font_defaults(colour = darkness[1], fill = darkness[3])
 
 penguins2 <- penguins |> 
   labelled::set_variable_labels(

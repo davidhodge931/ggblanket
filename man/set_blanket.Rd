@@ -62,7 +62,7 @@ Set the style by setting:
 \item and more
 }
 
-\code{weave_text_defaults()} and \code{weave_reference_defaults()} can subsequently be run to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
+\code{weave_font_defaults()} and \code{weave_reference_defaults()} can subsequently be run to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
 
 \code{\link[ggplot2:update_defaults]{ggplot2::update_geom_defaults()}} can be used to further fine-tune geom defaults.
 }

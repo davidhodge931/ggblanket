@@ -137,47 +137,9 @@ weave_geom_defaults <- function(
   ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = "#121B24FF", linewidth = 0.25))
 }
 
-#' Set the "text" geom defaults
+#' Set the font geom defaults
 #'
-#' @description Update the "text" geom defaults. Note this function must be applied after `set_blanket`.
-#'
-#' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param colour A hex code.
-#' @param size A size.
-#' @param family A family.
-#'
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#' library(dplyr)
-#' library(palmerpenguins)
-#'
-#' set_blanket(theme = dark_mode_r())
-#' weave_text_defaults(colour = darkness[1])
-#' weave_reference_defaults(colour = darkness[1])
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     x_breaks_n = 4,
-#'   ) +
-#'   geom_vline(xintercept = 200) +
-#'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
-#'
-weave_text_defaults <- function(
-    ...,
-    colour = "#121B24FF",
-    size = 11 / 2.835052,
-    family = "") {
-
-  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour, size = !!size, family = !!family))
-}
-
-#' Set the "label" geom default
-#'
-#' @description Update the "label" geom defaults. Note this function must be applied after `set_blanket`.
+#' @description Update the "text" and "label" geom defaults. Note this function must be applied after `set_blanket`, and all other text is controlled by the theme.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param colour A hex code.
@@ -193,8 +155,8 @@ weave_text_defaults <- function(
 #' library(palmerpenguins)
 #'
 #' set_blanket(theme = dark_mode_r())
-#' weave_text_defaults(colour = darkness[1])
-#' weave_reference_defaults(colour = darkness[1], fill = darkness[3])
+#' weave_font_defaults(colour = darkness[1])
+#' weave_reference_defaults(colour = darkness[1])
 #'
 #' penguins |>
 #'   gg_point(
@@ -203,15 +165,16 @@ weave_text_defaults <- function(
 #'     x_breaks_n = 4,
 #'   ) +
 #'   geom_vline(xintercept = 200) +
-#'   annotate("label", x = I(0.25), y = I(0.75), label = "Here")
+#'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
 #'
-weave_label_defaults <- function(
+weave_font_defaults <- function(
     ...,
     colour = "#121B24FF",
     fill = "#FFFFFFFF",
     size = 11 / 2.835052,
     family = "") {
 
+  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour, size = !!size, family = !!family))
   ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour, fill = !!fill, size = !!size, family = !!family))
 }
 
@@ -231,7 +194,7 @@ weave_label_defaults <- function(
 #' library(palmerpenguins)
 #'
 #' set_blanket(theme = dark_mode_r())
-#' weave_text_defaults(colour = darkness[1])
+#' weave_font_defaults(colour = darkness[1])
 #' weave_reference_defaults(colour = darkness[1])
 #'
 #' penguins |>
