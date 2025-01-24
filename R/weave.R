@@ -60,7 +60,7 @@ weave_theme <- function(theme = light_mode_r(),
 #'
 #' @description Set a function to format the label of unlabelled variables.
 #'
-#' @param label_case A function to format the label of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
+#' @param label_case A function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc. Defaults to `snakecase::to_sentence_case`.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @export
@@ -139,7 +139,7 @@ weave_geom_defaults <- function(
 
 #' Set the font geom defaults
 #'
-#' @description Update the "text" and "label" geom defaults. Note this function must be applied after `set_blanket`, and all other text is controlled by the theme.
+#' @description Update the "text" and "label" geom defaults. This function must be applied after `set_blanket`. All other text is controlled by the theme.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param colour A hex code.

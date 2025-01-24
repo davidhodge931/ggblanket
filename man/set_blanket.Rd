@@ -48,7 +48,7 @@ set_blanket(
 
 \item{theme_panel_grid_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant panel grid per the \code{theme_orientation} of the plot.}
 
-\item{label_case}{A function to format the label of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
+\item{label_case}{A function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc. Defaults to \code{snakecase::to_sentence_case}.}
 }
 \value{
 A globally set style.
@@ -56,10 +56,10 @@ A globally set style.
 \description{
 Set the style by setting:
 \enumerate{
-\item the geom defaults, including the colour (and fill) of geoms
-\item the colour palettes (i.e. discrete, continuous and ordinal)
-\item the theme, and how/what side-effects are to be applied
-\item and more
+\item the geom defaults, including the colour (and fill) of geoms (i.e. \code{weave_geom_defaults})
+\item the colour palettes (i.e. discrete, continuous and ordinal) (i.e. \code{weave_col_palettes})
+\item the theme, and how/what side-effects are to be applied (i.e. \code{weave_theme})
+\item the function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc (i.e. \code{weave_label_case}).
 }
 
 \code{weave_font_defaults()} and \code{weave_reference_defaults()} can subsequently be run to customise "text", "label",  "abline, "vline" and "hline" geom defaults.

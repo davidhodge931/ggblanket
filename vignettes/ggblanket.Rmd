@@ -365,7 +365,7 @@ The `set_blanket` function sets customisable defaults for the:
 * the geom defaults, including the colour (and fill) of geoms
 * the colour palettes (i.e. discrete, continuous and ordinal)
 * the theme, and how/what side-effects are to be applied
-* and more
+* the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc.
 
 `weave_font_defaults()` and `weave_reference_defaults()` can subsequently be run to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
 

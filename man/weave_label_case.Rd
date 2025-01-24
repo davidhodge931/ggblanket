@@ -7,7 +7,7 @@
 weave_label_case(label_case = snakecase::to_sentence_case, ...)
 }
 \arguments{
-\item{label_case}{A function to format the label of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
+\item{label_case}{A function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc. Defaults to \code{snakecase::to_sentence_case}.}
 
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 }
