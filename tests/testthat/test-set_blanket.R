@@ -16,6 +16,8 @@ test_that(test_name, {
     theme_axis_ticks_rm = FALSE,
     theme_panel_grid_rm = FALSE
   )
+  weave_font_defaults()
+  weave_reference_defaults()
 
   p <- penguins |>
     mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>

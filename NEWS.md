@@ -1,4 +1,4 @@
-# ggblanket 11.9.9.9000
+# ggblanket 12.0.0
 
 * Breaking: renamed `mode` and `mode_orientation` arguments to `theme` and `theme_orientation`.
 * Breaking: renamed `label_to_case` argument to `label_case`.

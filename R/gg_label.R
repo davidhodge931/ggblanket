@@ -12,6 +12,7 @@
 #' library(dplyr)
 #'
 #' set_blanket()
+#' weave_font_defaults()
 #'
 #' bind_rows(
 #'   mtcars |> slice_min(order_by = mpg),
