@@ -4,7 +4,10 @@ template:
   light-switch: true
 reference:
 - title: Setup
-- contents: set_blanket
+- contents:
+  - set_blanket
+  - weave_font_defaults
+  - weave_reference_defaults
 - title: Plot
 - contents:
   - gg_blanket
@@ -17,14 +20,6 @@ reference:
   - dark_mode_r
   - dark_mode_t
   - dark_mode_b
-- title: Sub-setup
-- contents:
-  - weave_geom_defaults
-  - weave_col_palettes
-  - weave_theme
-  - weave_font_defaults
-  - weave_reference_defaults
-  - weave_label_case
 - title: Colours
 - contents:
   - blue
@@ -42,5 +37,9 @@ reference:
 - title: Other
 - contents:
   - aes_colour_contrast
-  - label_every_nth
   - annotate_axis_line
+  - label_every_nth
+  - weave_col_palettes
+  - weave_geom_defaults
+  - weave_label_case
+  - weave_theme
