@@ -362,12 +362,12 @@ penguins2 |>
 
 The `set_blanket` function sets customisable defaults for the:
 
-* the geom defaults, including the colour (and fill) of geoms
-* the colour (and fill) palettes (i.e. discrete, continuous and ordinal)
-* the theme, and how/what side-effects are to be applied
-* the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc.
+* the geom defaults, including the colour (and fill) of geoms (as per `weave_geom_defaults`)
+* the colour (and fill) palettes for discrete, continuous and ordinal (as per `weave_col_palette`)
+* the theme, and how/what side-effects are to be applied (as per `weave_theme`
+* the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc (as per `weave_label_case`.
 
-`weave_font_defaults()` and `weave_reference_defaults()` can be used to customise the "text", "label", "abline, "vline" and "hline" geom defaults.
+In addition to `set_blanket`, `set_font_defaults()` and `set_reference_defaults()` can be used to customise the "text", "label", "abline, "vline" and "hline" geom defaults.
 
 Note the `theme` argument in `set_blanket` can also be used to default a `*_label` to `NULL` (e.g. `set_blanket(theme = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))`).
 
@@ -383,9 +383,9 @@ set_blanket(
   theme_axis_ticks_rm = FALSE,
 )
 
-weave_font_defaults(colour = darkness[1], fill = darkness[3])
+set_font_defaults(colour = darkness[1], fill = darkness[3])
 
-weave_reference_defaults(colour = darkness[1])
+set_reference_defaults(colour = darkness[1])
 
 p1 <- penguins2 |>
   gg_point(

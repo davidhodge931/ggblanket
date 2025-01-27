@@ -28,8 +28,8 @@ library(ggblanket)
 library(palmerpenguins)
 
 set_blanket()
-weave_font_defaults()
-weave_reference_defaults()
+set_font_defaults()
+set_reference_defaults()
 
 penguins2 <- penguins |> 
   labelled::set_variable_labels(

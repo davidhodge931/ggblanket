@@ -8,7 +8,7 @@
 #' 3. the theme, and how/what side-effects are to be applied (i.e. `weave_theme`)
 #' 4. the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc (i.e. `weave_label_case`).
 #'
-#' `weave_font_defaults()` and `weave_reference_defaults()` can be used to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
+#' `set_font_defaults()` and `set_reference_defaults()` can be used to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
 #'
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
 #'
@@ -88,5 +88,83 @@ set_blanket <- function(
               theme_panel_grid_rm = theme_panel_grid_rm)
 
   weave_label_case(label_case = label_case)
+}
+
+#' Set the font geom defaults
+#'
+#' @description Update the "text" and "label" geom defaults. Note all other text is controlled by the theme.
+#'
+#' @param ... Provided to require argument naming, support trailing commas etc.
+#' @param colour A hex code.
+#' @param fill A hex code.
+#' @param size A size.
+#' @param family A family.
+#'
+#' @export
+#'
+#' @examples
+#' library(ggplot2)
+#' library(dplyr)
+#' library(palmerpenguins)
+#'
+#' set_blanket(theme = dark_mode_r())
+#' set_font_defaults(colour = darkness[1])
+#' set_reference_defaults(colour = darkness[1])
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     x_breaks_n = 4,
+#'   ) +
+#'   geom_vline(xintercept = 200) +
+#'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
+#'
+set_font_defaults <- function(
+    ...,
+    colour = "#121B24FF",
+    fill = "#FFFFFFFF",
+    size = 11 / 2.835052,
+    family = "") {
+
+  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour, size = !!size, family = !!family))
+  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour, fill = !!fill, size = !!size, family = !!family))
+}
+
+#' Set reference-line geom defaults
+#'
+#' @description Update the "abline", "hline" and "vline" geom defaults.
+#'
+#' @param ... Provided to require argument naming, support trailing commas etc.
+#' @param colour A hex code.
+#' @param linewidth A linewidth.
+#'
+#' @export
+#'
+#' @examples
+#' library(ggplot2)
+#' library(dplyr)
+#' library(palmerpenguins)
+#'
+#' set_blanket(theme = dark_mode_r())
+#' set_font_defaults(colour = darkness[1])
+#' set_reference_defaults(colour = darkness[1])
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     x_breaks_n = 4,
+#'   ) +
+#'   geom_vline(xintercept = 200) +
+#'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
+#'
+set_reference_defaults <- function(
+    ...,
+    colour = "#121B24FF",
+    linewidth = 0.25) {
+  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
+  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
+  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
 }
 

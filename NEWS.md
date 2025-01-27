@@ -1,3 +1,8 @@
+# ggblanket 12.0.9000
+
+* Breaking: renamed `weave_font_defaults` to `set_font_defaults`.
+* Breaking: renamed `weave_reference_defaults` to `set_reference_defaults`.
+
 # ggblanket 12.0.0
 
 * Breaking: renamed `mode` and `mode_orientation` arguments to `theme` and `theme_orientation`.

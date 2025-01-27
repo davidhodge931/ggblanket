@@ -6,8 +6,8 @@ reference:
 - title: Setup
 - contents:
   - set_blanket
-  - weave_font_defaults
-  - weave_reference_defaults
+  - set_font_defaults
+  - set_reference_defaults
 - title: Plot
 - contents:
   - gg_blanket

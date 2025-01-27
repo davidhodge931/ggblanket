@@ -4,8 +4,8 @@ testthat::skip_on_os(c("mac", "linux"))
 library(ggplot2)
 library(dplyr)
 set_blanket()
-weave_font_defaults()
-weave_reference_defaults()
+set_font_defaults()
+set_reference_defaults()
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "gg_area"
