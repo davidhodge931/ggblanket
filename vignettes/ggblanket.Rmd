@@ -384,7 +384,7 @@ set_blanket(
       axis_line_linewidth = 0.25, 
       panel_grid_linewidth = 0.25, 
     ),
-    theme(legend.location = "panel"),
+    # theme(legend.location = "panel"),
     labs(colour = NULL, fill = NULL, linetype = NULL, shape = NULL, alpha = NULL),
   ),
   colour = "tan", 
