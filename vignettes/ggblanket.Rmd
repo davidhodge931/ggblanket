@@ -390,7 +390,6 @@ set_blanket(
   colour = "tan", 
   col_palette_d = c("#003f5c", "#bc5090", "#ffa600", "#357BA2"),
   col_palette_na_d = "#78909C",
-  col_palette_c = viridisLite::rocket(n = 9),
 )
 
 set_font_defaults(text_size = 9 / 2.835)
