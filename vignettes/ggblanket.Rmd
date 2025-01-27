@@ -384,7 +384,8 @@ set_blanket(
       axis_line_linewidth = 0.25, 
       panel_grid_linewidth = 0.25, 
     ),
-    labs(colour = NULL, fill = NULL, linetype = NULL, shape = NULL, alpha = NULL)
+    theme(legend.location = "panel"),
+    labs(colour = NULL, fill = NULL, linetype = NULL, shape = NULL, alpha = NULL),
   ),
   colour = "tan", 
   col_palette_d = c("#003f5c", "#bc5090", "#ffa600", "#357BA2"),
@@ -406,13 +407,11 @@ p1 <- penguins2 |>
   annotate("text", x = I(0.2), y = I(0.8), label = "Here")
 
 p2 <- penguins2 |> 
-  gg_histogram(
-    x = flipper_length_mm,
+  gg_bar(
+    y = sex,
     col = species,
-    x_breaks_n = 4, 
-  ) +
-  geom_vline(xintercept = 200) +
-  annotate("label", x = I(0.8), y = I(0.8), label = "Here")
+    position = "dodge",
+  ) 
 
 p1 + p2
 
