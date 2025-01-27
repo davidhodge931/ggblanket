@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">12.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">12.1.0999</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,7 @@
 Hodge</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/davidhodge931/ggblanket/blob/v12.1.0/vignettes/ggblanket.Rmd" class="external-link"><code>vignettes/ggblanket.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/davidhodge931/ggblanket/blob/main/vignettes/ggblanket.Rmd" class="external-link"><code>vignettes/ggblanket.Rmd</code></a></small>
       <div class="d-none name"><code>ggblanket.Rmd</code></div>
     </div>
 
@@ -514,17 +514,26 @@ rather than continually adding arguments to their <code>gg_*</code>
 functions.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span></span>
-<span>  colour <span class="op">=</span> <span class="st">"#E7298AFF"</span>,</span>
-<span>  col_palette_d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#1B9E77FF"</span>, <span class="st">"#D95F02FF"</span>, <span class="st">"#7570b3FF"</span>, <span class="st">"#E7298AFF"</span>,</span>
-<span>                    <span class="st">"#66A61EFF"</span>, <span class="st">"#E6AB02FF"</span>, <span class="st">"#A6761DFF"</span>, <span class="st">"#666666FF"</span><span class="op">)</span>,</span>
-<span>  theme <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_r</a></span><span class="op">(</span><span class="op">)</span>,  </span>
-<span>  theme_axis_line_rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  theme_axis_ticks_rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  theme <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/list2.html" class="external-link">list2</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/light_mode_r.html">light_mode_t</a></span><span class="op">(</span></span>
+<span>      base_size <span class="op">=</span> <span class="fl">9</span>,</span>
+<span>      axis_line_colour <span class="op">=</span> <span class="st">"#78909C"</span>,</span>
+<span>      panel_grid_colour <span class="op">=</span> <span class="st">"#C8D7DF"</span>,</span>
+<span>      panel_background_fill <span class="op">=</span> <span class="st">"#E8EFF2"</span>,</span>
+<span>      axis_line_linewidth <span class="op">=</span> <span class="fl">0.25</span>, </span>
+<span>      panel_grid_linewidth <span class="op">=</span> <span class="fl">0.25</span>, </span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="cn">NULL</span>, fill <span class="op">=</span> <span class="cn">NULL</span>, linetype <span class="op">=</span> <span class="cn">NULL</span>, shape <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  colour <span class="op">=</span> <span class="st">"tan"</span>, </span>
+<span>  col_palette_d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#003f5c"</span>, <span class="st">"#bc5090"</span>, <span class="st">"#ffa600"</span>, <span class="st">"#357BA2"</span><span class="op">)</span>,</span>
+<span>  col_palette_na_d <span class="op">=</span> <span class="st">"#78909C"</span>,</span>
+<span>  col_palette_c <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">rocket</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>,</span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/set_font_defaults.html">set_font_defaults</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, fill <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/set_font_defaults.html">set_font_defaults</a></span><span class="op">(</span>text_size <span class="op">=</span> <span class="fl">9</span> <span class="op">/</span> <span class="fl">2.835</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/set_reference_defaults.html">set_reference_defaults</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">darkness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/set_reference_defaults.html">set_reference_defaults</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"#78909C"</span>, linewidth <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
@@ -533,7 +542,7 @@ functions.</p>
 <span>    x_breaks_n <span class="op">=</span> <span class="fl">4</span>, </span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">200</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.25</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Here"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.8</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Here"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
@@ -542,7 +551,7 @@ functions.</p>
 <span>    x_breaks_n <span class="op">=</span> <span class="fl">4</span>, </span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">200</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"label"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Here"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"label"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.8</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.8</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Here"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
 <p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.png" width="70%"></p>
