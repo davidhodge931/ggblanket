@@ -40,7 +40,7 @@ reference:
   - lightness
   - darkness
   - linewidthness
-- title: Other helpers
+- title: Other
 - contents:
   - aes_colour_contrast
   - annotate_axis_line
