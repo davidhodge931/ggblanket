@@ -250,11 +250,7 @@ penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
     col = sex,
-    facet = species,
-    bins = 50,
-    theme = dark_mode_t(),
-  ) +
-  theme(legend.title = element_blank())
+  ) 
 ```
 
 ### gg_jitter

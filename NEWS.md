@@ -1,3 +1,7 @@
+# ggblanket 12.1.0999
+
+* Minor documentation updates.
+
 # ggblanket 12.1.0
 
 * Breaking: renamed `weave_font_defaults` to `set_font_defaults`.

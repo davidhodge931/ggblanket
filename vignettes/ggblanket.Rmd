@@ -375,17 +375,26 @@ Users should try to do as much as possible in these set-up functions, rather tha
 
 ```{r}
 set_blanket(
-  colour = "#E7298AFF",
-  col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
-                    "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
-  theme = dark_mode_r(),  
-  theme_axis_line_rm = FALSE,
-  theme_axis_ticks_rm = FALSE,
+  theme = rlang::list2(
+    light_mode_t(
+      base_size = 9,
+      axis_line_colour = "#78909C",
+      panel_grid_colour = "#C8D7DF",
+      panel_background_fill = "#E8EFF2",
+      axis_line_linewidth = 0.25, 
+      panel_grid_linewidth = 0.25, 
+    ),
+    labs(colour = NULL, fill = NULL, linetype = NULL, shape = NULL, alpha = NULL)
+  ),
+  colour = "tan", 
+  col_palette_d = c("#003f5c", "#bc5090", "#ffa600", "#357BA2"),
+  col_palette_na_d = "#78909C",
+  col_palette_c = viridisLite::rocket(n = 9),
 )
 
-set_font_defaults(colour = darkness[1], fill = darkness[3])
+set_font_defaults(text_size = 9 / 2.835)
 
-set_reference_defaults(colour = darkness[1])
+set_reference_defaults(colour = "#78909C", linewidth = 0.25)
 
 p1 <- penguins2 |>
   gg_point(
@@ -394,7 +403,7 @@ p1 <- penguins2 |>
     x_breaks_n = 4, 
   ) +
   geom_vline(xintercept = 200) +
-  annotate("text", x = I(0.25), y = I(0.75), label = "Here")
+  annotate("text", x = I(0.2), y = I(0.8), label = "Here")
 
 p2 <- penguins2 |> 
   gg_histogram(
@@ -403,7 +412,7 @@ p2 <- penguins2 |>
     x_breaks_n = 4, 
   ) +
   geom_vline(xintercept = 200) +
-  annotate("label", x = I(0.75), y = I(0.75), label = "Here")
+  annotate("label", x = I(0.8), y = I(0.8), label = "Here")
 
 p1 + p2
 
