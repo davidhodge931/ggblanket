@@ -384,7 +384,7 @@ set_blanket(
       axis_line_linewidth = 0.25, 
       panel_grid_linewidth = 0.25, 
     ),
-    labs(colour = NULL, fill = NULL, linetype = NULL, shape = NULL, alpha = NULL),
+    labs(colour = NULL, fill = NULL),
   ),
   colour = "tan", 
   col_palette_d = c("#003f5c", "#bc5090", "#ffa600", "#357BA2"),
