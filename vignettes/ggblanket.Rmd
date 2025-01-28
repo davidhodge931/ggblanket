@@ -384,7 +384,6 @@ set_blanket(
       axis_line_linewidth = 0.25, 
       panel_grid_linewidth = 0.25, 
     ),
-    # theme(legend.location = "panel"),
     labs(colour = NULL, fill = NULL, linetype = NULL, shape = NULL, alpha = NULL),
   ),
   colour = "tan", 
@@ -398,11 +397,10 @@ set_reference_defaults(colour = "#78909C", linewidth = 0.25)
 
 p1 <- penguins2 |>
   gg_point(
-    x = flipper_length_mm, 
-    y = body_mass_g,
-    x_breaks_n = 4, 
+    x = bill_depth_mm, 
+    y = flipper_length_mm,
   ) +
-  geom_vline(xintercept = 200) +
+  geom_vline(xintercept = I(0.5)) +
   annotate("text", x = I(0.2), y = I(0.8), label = "Here")
 
 p2 <- penguins2 |> 
