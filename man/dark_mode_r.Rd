@@ -15,6 +15,7 @@ dark_mode_r(
   axis_line_linewidth = 0.25,
   axis_ticks_colour = axis_line_colour,
   axis_ticks_linewidth = axis_line_linewidth,
+  axis_ticks_length = grid::unit(11/3, "pt"),
   panel_grid_colour = "#00040AFF",
   panel_grid_linewidth = 1.33,
   panel_background_fill = "#050D1BFF",
@@ -37,6 +38,7 @@ dark_mode_t(
   axis_line_linewidth = 0.25,
   axis_ticks_colour = axis_line_colour,
   axis_ticks_linewidth = axis_line_linewidth,
+  axis_ticks_length = grid::unit(11/3, "pt"),
   panel_grid_colour = "#00040AFF",
   panel_grid_linewidth = 1.33,
   panel_background_fill = "#050D1BFF",
@@ -59,6 +61,7 @@ dark_mode_b(
   axis_line_linewidth = 0.25,
   axis_ticks_colour = axis_line_colour,
   axis_ticks_linewidth = axis_line_linewidth,
+  axis_ticks_length = grid::unit(11/3, "pt"),
   panel_grid_colour = "#00040AFF",
   panel_grid_linewidth = 1.33,
   panel_background_fill = "#050D1BFF",
@@ -89,6 +92,8 @@ dark_mode_b(
 
 \item{axis_ticks_linewidth}{The linewidth of the axis.ticks theme element.}
 
+\item{axis_ticks_length}{The length of the axis.ticks.length theme element.}
+
 \item{panel_grid_colour}{The colour of the panel.grid theme element.}
 
 \item{panel_grid_linewidth}{The linewidth of the panel.grid theme element.}
@@ -109,10 +114,10 @@ dark_mode_b(
 
 \item{legend_ticks_linewidth}{The linewidth of the legend.ticks theme element.}
 
-\item{legend_ticks_length}{The legend.ticks.length theme element.}
+\item{legend_ticks_length}{The  theme element.}
 }
 \value{
-A ggplot theme.
+A ggplot theme.legend.ticks.length
 }
 \description{
 A dark mode family of functions:

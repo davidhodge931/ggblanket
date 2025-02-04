@@ -14,6 +14,7 @@
 #' @param axis_line_linewidth The linewidth of the axis.line theme element.
 #' @param axis_ticks_colour The colour of the axis.ticks theme element.
 #' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
+#' @param axis_ticks_length The length of the axis.ticks.length theme element.
 #' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
 #' @param panel_background_fill The fill (and colour) of the panel.background theme element.
@@ -68,6 +69,7 @@ light_mode_r <- function (
     axis_line_linewidth = 0.25,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length = grid::unit(11 / 3, "pt"),
     panel_grid_colour = "#F6F8FAFF",
     panel_grid_linewidth = 1.33,
     panel_background_fill ="#FFFFFFFF",
@@ -92,6 +94,7 @@ light_mode_r <- function (
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
+    axis_ticks_length = axis_ticks_length,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
@@ -115,6 +118,7 @@ light_mode_t <- function (
     axis_line_linewidth = 0.25,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length = grid::unit(11 / 3, "pt"),
     panel_grid_colour = "#F6F8FAFF",
     panel_grid_linewidth = 1.33,
     panel_background_fill ="#FFFFFFFF",
@@ -137,6 +141,7 @@ light_mode_t <- function (
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
+    axis_ticks_length = axis_ticks_length,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
@@ -160,6 +165,7 @@ light_mode_b <- function (
     axis_line_linewidth = 0.25,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length = grid::unit(11 / 3, "pt"),
     panel_grid_colour = "#F6F8FAFF",
     panel_grid_linewidth = 1.33,
     panel_background_fill ="#FFFFFFFF",
@@ -184,6 +190,7 @@ light_mode_b <- function (
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
+    axis_ticks_length = axis_ticks_length,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,

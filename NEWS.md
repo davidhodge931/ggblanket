@@ -1,5 +1,6 @@
 # ggblanket 12.1.0999
 
+* For `*_mode_*` themes, added `axis_ticks_length` argument. 
 * Minor documentation updates.
 
 # ggblanket 12.1.0
