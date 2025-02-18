@@ -175,12 +175,12 @@ variable<a class="anchor" aria-label="anchor" href="#a-merged-col-argument-to-co
 </h3>
 <p>The colour and fill aesthetics of ggplot2 are merged into a single
 concept represented by the <code>col</code> argument.</p>
-<p>This combined aesthetic means that all colour outlines and all fill
-interiors should be coloured with the <code>col_palette</code> by the
-<code>col</code> variable.</p>
-<p>The defaults used in <code>set_blanket</code> for the various geoms
-use <code>linewidth = 0</code> and sometimes <code>alpha = 0</code> to
-make things work nicely.</p>
+<p>When the <code>col</code> argument is added, this means that outlines
+<em>and</em> interiors are coloured/filled by the <code>col</code>
+variable using the <code>col_palette</code>.</p>
+<p>The defaults used in <code>set_blanket</code> for the polygon-ish
+geoms generally use <code>linewidth = 0</code> to make things work
+nicely.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_violin.html">gg_violin</a></span><span class="op">(</span></span>
@@ -231,13 +231,10 @@ will default to a <code>"grid"</code> of the <code>facet</code> variable
 <code>linetype</code> and <code>linewidth</code>).</p>
 <p>These can be accessed via the <code>mapping</code> argument using the
 <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> function.</p>
-<p>To customise associated scales/guides, <code>+</code> on the
-applicable ggplot2 layer. In some situations, you may need to override
-the colour used in the guide, or reverse the values in the relevant
-scale etc.</p>
-<p>The <code>mapping</code> argument can also be used to add
-<em>only</em> a <code>colour</code> or <code>fill</code> aesthetic
-scale, and <em>not</em> both.</p>
+<p>To customise the scales/guides of these other aesthetics, just
+<code>+</code> on the applicable ggplot2 layer. In some situations, you
+may need to override the colour used in the guide, or reverse the values
+in the relevant scale etc.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_jitter.html">gg_jitter</a></span><span class="op">(</span></span>
