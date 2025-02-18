@@ -105,9 +105,10 @@ penguins2 |>
 
 The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. 
 
-This combined aesthetic means that all colour outlines and all fill interiors should be coloured with the `col_palette` by the `col` variable. 
+When the `col` argument is added, this means that outlines _and_ interiors 
+are coloured/filled by the `col` variable using the `col_palette`. 
 
-The defaults used in `set_blanket` for the various geoms use `linewidth = 0` and sometimes `alpha = 0` to make things work nicely.
+The defaults used in `set_blanket` for the polygon-ish geoms generally use `linewidth = 0` to make things work nicely.
 
 ```{r}
 penguins2 |>
@@ -153,9 +154,7 @@ Some aesthetics are not available via an argument (e.g. `alpha`, `size`, `shape`
 
 These can be accessed via the `mapping` argument using the `aes()` function. 
 
-To customise associated scales/guides, `+` on the applicable ggplot2 layer. In some situations, you may need to override the colour used in the guide, or reverse the values in the relevant scale etc.
-
-The `mapping` argument can also be used to add _only_ a `colour` or `fill` aesthetic scale, and _not_ both. 
+To customise the scales/guides of these other aesthetics, just `+` on the applicable ggplot2 layer. In some situations, you may need to override the colour used in the guide, or reverse the values in the relevant scale etc.
 
 ```{r}
 penguins2 |> 
