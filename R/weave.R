@@ -54,6 +54,9 @@ weave_theme <- function(theme = light_mode_r(),
   old <- ggblanket_global$theme_panel_grid_rm
   ggblanket_global$theme_panel_grid_rm <- theme_panel_grid_rm
   invisible(old)
+
+  if (ggplot2::is.theme(theme)) ggplot2::theme_set(new = theme)
+  else ggplot2::theme_set(new = theme[[1]])
 }
 
 #' Set a label case function
@@ -179,6 +182,19 @@ weave_col_palette_d <- function(col_palette_d = jumble,
   old <- ggblanket_global$col_palette_na_d
   ggblanket_global$col_palette_na_d <- col_palette_na_d
   invisible(old)
+
+  options(
+    ggplot2.discrete.colour = function()
+      ggplot2::scale_colour_manual(
+        values = col_palette_d,
+        na.value = col_palette_na_d
+      ),
+    ggplot2.discrete.fill = function()
+      ggplot2::scale_fill_manual(
+        values = col_palette_d,
+        na.value = col_palette_na_d
+      )
+  )
 }
 
 #' Set a continuous geom_colour and geom_fill palette
@@ -207,6 +223,19 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
   old <- ggblanket_global$col_palette_na_c
   ggblanket_global$col_palette_na_c <- col_palette_na_c
   invisible(old)
+
+  options(
+    ggplot2.continuous.colour = function()
+      ggplot2::scale_color_gradientn(
+        colours = col_palette_c,
+        na.value = col_palette_na_c
+      ),
+    ggplot2.continuous.fill = function()
+      ggplot2::scale_fill_gradientn(
+        colours = col_palette_c,
+        na.value = col_palette_na_c,
+      )
+  )
 }
 
 #' Set an ordinal geom_colour and geom_fill palette
@@ -230,6 +259,19 @@ weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G"
   old <- ggblanket_global$col_palette_na_o
   ggblanket_global$col_palette_na_o <- col_palette_na_o
   invisible(old)
+
+  # options(
+  #   ggplot2.ordinal.colour = function()
+  #     ggplot2::scale_color_ordinal(
+  #       colours = col_palette_o,
+  #       na.value = col_palette_na_o
+  #     ),
+  #   ggplot2.ordinal.fill = function()
+  #     ggplot2::scale_fill_ordinal(
+  #       colours = col_palette_o,
+  #       na.value = col_palette_na_o,
+  #     )
+  # )
 }
 
 #' Get the theme
