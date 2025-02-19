@@ -5,10 +5,9 @@
 \title{Symmetric y continuous scale}
 \usage{
 scale_y_symmetric(
-  ...,
   data = NULL,
   y = NULL,
-  symmetric = TRUE,
+  ...,
   breaks = NULL,
   breaks_n = 6,
   expand = NULL,
@@ -16,17 +15,16 @@ scale_y_symmetric(
   labels = NULL,
   position = "left",
   sec_axis = ggplot2::waiver(),
-  transform = "identity"
+  transform = "identity",
+  symmetric = TRUE
 )
 }
 \arguments{
-\item{...}{Provided to force user argument naming etc.}
-
 \item{data}{A data frame or tibble.}
 
 \item{y}{An unquoted variable.}
 
-\item{symmetric}{\code{TRUE} or \code{FALSE} of whether a symmetric scale.}
+\item{...}{Provided to force user argument naming etc.}
 
 \item{breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 
@@ -43,11 +41,16 @@ scale_y_symmetric(
 \item{sec_axis}{A secondary axis created with \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}} or \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}}.}
 
 \item{transform}{A transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
+
+\item{symmetric}{\code{TRUE} or \code{FALSE} of whether a symmetric scale.}
 }
 \value{
 A ggplot2 continuous y scale.
 }
 \description{
+Create a symmetric continuous y scale for ggplot2 plots.
+The scale ensures that limits set to the range of breaks (where \code{symmetric = TRUE}).
+Note this scale should only be used in plots with geoms with \code{stat = "identity"}.
 Symmetric y continuous scale
 }
 \keyword{internal}

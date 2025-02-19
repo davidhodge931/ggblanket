@@ -1,9 +1,13 @@
 #' Symmetric x continuous scale
 #'
-#' @param ... Provided to force user argument naming etc.
+#' @description
+#' Create a symmetric continuous x scale for ggplot2 plots.
+#' The scale ensures that limits set to the range of breaks (where `symmetric = TRUE`).
+#' Note this scale should only be used in plots with geoms with `stat = "identity"`.
+#'
 #' @param data A data frame or tibble.
 #' @param x An unquoted variable.
-#' @param symmetric `TRUE` or `FALSE` of whether a symmetric scale.
+#' @param ... Provided to force user argument naming etc.
 #' @param breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
 #' @param breaks_n If `breaks = NULL`, the desired number of breaks.
 #' @param expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
@@ -12,14 +16,14 @@
 #' @param position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).
 #' @param sec_axis A secondary axis created with [ggplot2::sec_axis()] or [ggplot2::dup_axis()].
 #' @param transform A transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
+#' @param symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #'
 #' @return A ggplot2 continuous x scale.
 #' @keywords internal
 #'
-scale_x_symmetric <- function(...,
-                              data = NULL,
+scale_x_symmetric <- function(data = NULL,
                               x = NULL,
-                              symmetric = TRUE,
+                              ...,
                               breaks = NULL,
                               breaks_n = 6,
                               expand = NULL,
@@ -27,7 +31,8 @@ scale_x_symmetric <- function(...,
                               labels = NULL,
                               position = "bottom",
                               sec_axis = ggplot2::waiver(),
-                              transform = "identity") {
+                              transform = "identity",
+                              symmetric = TRUE) {
 
   if (is.character(transform)) transform_name <- transform
   else if (inherits(transform, what = "transform")) {
@@ -145,10 +150,15 @@ scale_x_symmetric <- function(...,
 
 #' Symmetric y continuous scale
 #'
-#' @param ... Provided to force user argument naming etc.
+#' @description
+#' Create a symmetric continuous y scale for ggplot2 plots.
+#' The scale ensures that limits set to the range of breaks (where `symmetric = TRUE`).
+#' Note this scale should only be used in plots with geoms with `stat = "identity"`.
+#' Symmetric y continuous scale
+#'
 #' @param data A data frame or tibble.
 #' @param y An unquoted variable.
-#' @param symmetric `TRUE` or `FALSE` of whether a symmetric scale.
+#' @param ... Provided to force user argument naming etc.
 #' @param breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
 #' @param breaks_n If `breaks = NULL`, the desired number of breaks.
 #' @param expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
@@ -157,14 +167,14 @@ scale_x_symmetric <- function(...,
 #' @param position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).
 #' @param sec_axis A secondary axis created with [ggplot2::sec_axis()] or [ggplot2::dup_axis()].
 #' @param transform A transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
+#' @param symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #'
 #' @return A ggplot2 continuous y scale.
 #' @keywords internal
 #'
-scale_y_symmetric <- function(...,
-                              data = NULL,
+scale_y_symmetric <- function(data = NULL,
                               y = NULL,
-                              symmetric = TRUE,
+                              ...,
                               breaks = NULL,
                               breaks_n = 6,
                               expand = NULL,
@@ -172,7 +182,8 @@ scale_y_symmetric <- function(...,
                               labels = NULL,
                               position = "left",
                               sec_axis = ggplot2::waiver(),
-                              transform = "identity") {
+                              transform = "identity",
+                              symmetric = TRUE) {
 
   if (is.character(transform)) transform_name <- transform
   else if (inherits(transform, what = "transform")) {
