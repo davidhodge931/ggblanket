@@ -56,7 +56,7 @@ theme_x_orientation <- function(
 #'   geom_jitter(aes(x = body_mass_g, y = species)) +
 #'   scale_x_symmetric(penguins, body_mass_g) +
 #'   theme_y_orientation() +
-#'   theme(axis.ticks.y = element_line_transparent()) +
+#'   theme(axis.ticks.y = element_blank()) +
 #'   coord_cartesian(clip = "off") +
 #'   labs(x = "Body mass g", y = "Species")
 #'
@@ -74,28 +74,3 @@ theme_y_orientation <- function(
   theme
 }
 
-#' A transparent line element
-#'
-#' @param ... Passed to [element_line()][ggplot2::element_line()].
-#'
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#' library(dplyr)
-#' library(palmerpenguins)
-#'
-#' set_blanket()
-#'
-#' penguins |>
-#'   ggplot() +
-#'   geom_jitter(aes(x = body_mass_g, y = species)) +
-#'   scale_x_symmetric(penguins, body_mass_g) +
-#'   theme_y_orientation() +
-#'   theme(axis.ticks.y = element_line_transparent()) +
-#'   coord_cartesian(clip = "off") +
-#'   labs(x = "Body mass g", y = "Species")
-#'
-element_line_transparent <- function(...) {
-  ggplot2::element_line(colour = "transparent", ...)
-}

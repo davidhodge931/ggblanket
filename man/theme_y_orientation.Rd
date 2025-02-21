@@ -35,7 +35,7 @@ penguins |>
   geom_jitter(aes(x = body_mass_g, y = species)) +
   scale_x_symmetric(penguins, body_mass_g) +
   theme_y_orientation() +
-  theme(axis.ticks.y = element_line_transparent()) +
+  theme(axis.ticks.y = element_blank()) +
   coord_cartesian(clip = "off") +
   labs(x = "Body mass g", y = "Species")
 
