@@ -98,11 +98,11 @@ gg_quantile(
 
 \item{theme_orientation}{The orientation of plot, which affects the theme components that are removed. Either \code{"x"} or \code{"y"}.}
 
-\item{theme_axis_line_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis line per the \code{theme_orientation} of the plot.}
+\item{theme_axis_line_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis line per the \code{theme_orientation} of the plot.}
 
-\item{theme_axis_ticks_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis ticks per the \code{theme_orientation} of the plot.}
+\item{theme_axis_ticks_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis ticks per the \code{theme_orientation} of the plot.}
 
-\item{theme_panel_grid_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant panel grid per the \code{theme_orientation} of the plot.}
+\item{theme_panel_grid_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{theme_orientation} of the plot.}
 
 \item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
 

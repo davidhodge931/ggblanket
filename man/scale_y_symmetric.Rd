@@ -49,8 +49,7 @@ A ggplot2 continuous y scale.
 }
 \description{
 Create a symmetric continuous y scale for ggplot2 plots.
-The scale ensures that limits set to the range of breaks (where \code{symmetric = TRUE}).
+The scale ensures that limits set to the range of breaks with zero expand (where \code{symmetric = TRUE}).
 Note this scale should only be used in plots with geoms with \code{stat = "identity"}.
 Symmetric y continuous scale
 }
-\keyword{internal}

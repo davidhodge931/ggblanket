@@ -216,6 +216,8 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
     col_palette_na_c <- "grey50"
   }
 
+  col_palette_c <- if (is.function(col_palette_c)) col_palette_c(256) else col_palette_c
+
   old <- ggblanket_global$col_palette_c
   ggblanket_global$col_palette_c <- col_palette_c
   invisible(old)
@@ -223,8 +225,6 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
   old <- ggblanket_global$col_palette_na_c
   ggblanket_global$col_palette_na_c <- col_palette_na_c
   invisible(old)
-
-  col_palette_c <- if (is.function(col_palette_c)) col_palette_c(256) else col_palette_c
 
   options(
     ggplot2.continuous.colour = function()

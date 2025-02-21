@@ -10,9 +10,9 @@
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
 #' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]).
 #' @param theme_orientation The orientation of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
-#' @param theme_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
-#' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
-#' @param theme_panel_grid_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `theme_orientation` of the plot.
+#' @param theme_axis_line_rm `TRUE` or `FALSE` of whether to remove the relevant axis line per the `theme_orientation` of the plot.
+#' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `theme_orientation` of the plot.
+#' @param theme_panel_grid_rm `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `theme_orientation` of the plot.
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()]. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
@@ -1560,57 +1560,6 @@ gg_blanket <- function(data = NULL,
         )
     }
   }
-
-  ##############################################################################
-  # add the theme if globally set
-  ##############################################################################
-
-  # if (rlang::is_null(theme)) {
-  #   if (rlang::is_null(get_theme())) {
-  #     if (!rlang::is_null(get_theme())) {
-  #       plot <- plot +
-  #         get_theme()
-  #     }
-  #     else {
-  #       plot <- plot +
-  #         ggplot2::theme_grey()
-  #
-  #       if (theme_orientation == "x") {
-  #         plot <- plot +
-  #           ggplot2::theme(
-  #             panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
-  #             panel.grid.minor.x = ggplot2::element_line(colour = "transparent"),
-  #             axis.line.y = ggplot2::element_line(colour = "transparent"),
-  #             axis.ticks.y = ggplot2::element_line(colour = "transparent")
-  #           )
-  #
-  #         if (x_scale_type == "discrete") {
-  #           plot <- plot +
-  #             ggplot2::theme(
-  #               axis.ticks.x = ggplot2::element_line(colour = "transparent")
-  #             )
-  #         }
-  #       }
-  #       else if (theme_orientation == "y") {
-  #         plot <- plot +
-  #           ggplot2::theme(
-  #             panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
-  #             panel.grid.minor.y = ggplot2::element_line(colour = "transparent"),
-  #             axis.line.x = ggplot2::element_line(colour = "transparent"),
-  #             axis.ticks.x = ggplot2::element_line(colour = "transparent")
-  #           )
-  #
-  #         if (y_scale_type == "discrete") {
-  #           plot <- plot +
-  #             ggplot2::theme(
-  #               axis.ticks.y = ggplot2::element_line(colour = "transparent")
-  #             )
-  #         }
-  #       }
-  #     }
-  #   }
-  # }
-
 
   return(plot)
 }

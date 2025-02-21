@@ -19,7 +19,7 @@
 #' @param symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #'
 #' @return A ggplot2 continuous x scale.
-#' @keywords internal
+#' @export
 #'
 scale_x_symmetric <- function(data = NULL,
                               x = NULL,
@@ -170,7 +170,7 @@ scale_x_symmetric <- function(data = NULL,
 #' @param symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #'
 #' @return A ggplot2 continuous y scale.
-#' @keywords internal
+#' @export
 #'
 scale_y_symmetric <- function(data = NULL,
                               y = NULL,

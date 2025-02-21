@@ -1,6 +1,8 @@
 # ggblanket 12.1.0999
 
-* 
+* Exported `scale_x_symmetric` and `scale_y_symmetric`.
+* Added `theme_x_orientation` and `theme_y_orientation`.
+* Added `element_line_transparent`.
 * For `*_mode_*` themes, added `axis_ticks_length` argument. 
 * Minor documentation updates.
 
