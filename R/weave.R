@@ -199,7 +199,7 @@ weave_col_palette_d <- function(col_palette_d = jumble,
 
 #' Set a continuous geom_colour and geom_fill palette
 #'
-#' @param col_palette_c For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default.
+#' @param col_palette_c For a continuous scale, A character vector of hex codes (or names) or a `scales::pal_*()` function. Use NULL for ggplot2 default.
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
@@ -224,16 +224,18 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
   ggblanket_global$col_palette_na_c <- col_palette_na_c
   invisible(old)
 
+  col_palette_c <- if (is.function(col_palette_c)) col_palette_c(256) else col_palette_c
+
   options(
     ggplot2.continuous.colour = function()
-      ggplot2::scale_color_gradientn(
+      ggplot2::scale_colour_gradientn(
         colours = col_palette_c,
         na.value = col_palette_na_c
       ),
     ggplot2.continuous.fill = function()
       ggplot2::scale_fill_gradientn(
         colours = col_palette_c,
-        na.value = col_palette_na_c,
+        na.value = col_palette_na_c
       )
   )
 }
