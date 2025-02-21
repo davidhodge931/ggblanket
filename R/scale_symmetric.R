@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Create a symmetric continuous x scale for ggplot2 plots.
-#' The scale ensures that limits set to the range of breaks (where `symmetric = TRUE`).
+#' The scale ensures that limits set to the range of breaks with zero expand (where `symmetric = TRUE`).
 #' Note this scale should only be used in plots with geoms with `stat = "identity"`.
 #'
 #' @param data A data frame or tibble.
@@ -152,7 +152,7 @@ scale_x_symmetric <- function(data = NULL,
 #'
 #' @description
 #' Create a symmetric continuous y scale for ggplot2 plots.
-#' The scale ensures that limits set to the range of breaks (where `symmetric = TRUE`).
+#' The scale ensures that limits set to the range of breaks with zero expand (where `symmetric = TRUE`).
 #' Note this scale should only be used in plots with geoms with `stat = "identity"`.
 #' Symmetric y continuous scale
 #'
