@@ -52,3 +52,22 @@ Create a symmetric continuous x scale for ggplot2 plots.
 The scale ensures that limits set to the range of breaks with zero expand (where \code{symmetric = TRUE}).
 Note this scale should only be used in plots with geoms with \code{stat = "identity"}.
 }
+\examples{
+library(ggplot2)
+library(dplyr)
+library(palmerpenguins)
+
+set_blanket()
+
+penguins |>
+  ggplot() +
+  geom_jitter(aes(x = body_mass_g, y = species, colour = species)) +
+  scale_x_symmetric(penguins, body_mass_g) +
+  theme(axis.line.x = element_blank()) +
+  theme(axis.ticks.x = element_blank()) +
+  theme(panel.grid.major.y = element_blank()) +
+  theme(axis.ticks.y = element_blank()) +
+  coord_cartesian(clip = "off") +
+  labs(x = "Body mass g", y = "Species", colour = "Species")
+
+}

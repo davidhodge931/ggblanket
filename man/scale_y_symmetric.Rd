@@ -53,3 +53,21 @@ The scale ensures that limits set to the range of breaks with zero expand (where
 Note this scale should only be used in plots with geoms with \code{stat = "identity"}.
 Symmetric y continuous scale
 }
+\examples{
+library(ggplot2)
+library(dplyr)
+library(palmerpenguins)
+
+set_blanket()
+
+penguins |>
+  ggplot() +
+  geom_point(aes(x = flipper_length_mm, y = body_mass_g, colour = species)) +
+  scale_y_symmetric(penguins, body_mass_g) +
+  theme(axis.line.y = element_blank()) +
+  theme(axis.ticks.y = element_blank()) +
+  theme(panel.grid.major.x = element_blank()) +
+  coord_cartesian(clip = "off") +
+  labs(x = "Flipper length mm", y = "Body mass g", colour = "Species")
+
+}
