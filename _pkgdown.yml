@@ -45,8 +45,6 @@ reference:
   - aes_colour_contrast
   - annotate_axis_line
   - label_every_nth
-  - theme_x_orientation
-  - theme_y_orientation
   - scale_x_symmetric
   - scale_y_symmetric
 
