@@ -34,10 +34,6 @@ set_blanket(
   theme = dark_mode_r(),  
 )
 
-set_geom_font(colour = darkness[1])
-
-set_geom_reference_line(colour = darkness[1])
-
 penguins2 <- penguins |> 
   labelled::set_variable_labels(
     bill_length_mm = "Bill length (mm)",
@@ -280,7 +276,9 @@ bind_rows(
     x = model,
     y = mpg,
     label = model,
-    fill = darkness[3],
+    size = 11 / 2.835052,
+    colour = "#121B24FF",
+    fill = "#C8D7DFFF",
     y_expand_limits = 0,
     y_label = "Miles per gallon", 
   )
@@ -536,6 +534,8 @@ bind_rows(
     x = model,
     y = mpg,
     label = model,
+    colour = "#C8D7DFFF",
+    size = 11 / 2.835052,
     y_expand_limits = 0,
     y_label = "Miles per gallon",
   )
