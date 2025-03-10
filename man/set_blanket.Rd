@@ -56,10 +56,10 @@ A globally set style.
 \description{
 Set the style by setting:
 \enumerate{
-\item the geom defaults, including the colour (and fill) of geoms (i.e. \code{weave_geom_defaults})
-\item the colour (and fill) palettes (i.e. discrete, continuous and ordinal) (i.e. \code{weave_col_palette})
-\item the theme, and how/what side-effects are to be applied (i.e. \code{weave_theme})
-\item the function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc (i.e. \code{weave_label_case}).
+\item the geom defaults, including the colour (and fill) of geoms
+\item the colour (and fill) palettes (i.e. discrete, continuous and ordinal)
+\item the theme, and how/what side-effects are to be applied
+\item the function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc.
 }
 
 \code{set_geom_font()}, \code{set_geom_font()} and \code{set_geom_reference_line()} can be used to customise "text", "label",  "abline, "vline" and "hline" geom defaults.

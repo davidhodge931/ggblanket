@@ -27,7 +27,6 @@ reference:
   - scale_y_symmetric
   - set_geom_font
   - set_geom_reference_line
-  - starts_with("weave_")
 - title: Colours
 - contents:
   - blue

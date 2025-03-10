@@ -1,5 +1,6 @@
 # ggblanket 12.1.0999
 
+* Breaking: made `weave_*` functions internal.
 * Breaking: renamed `set_font_defaults` to `set_geom_font`.
 * Breaking: renamed `set_reference_defaults` to `set_geom_reference_line`.
 * Made setup functions work with ggplot2 code.

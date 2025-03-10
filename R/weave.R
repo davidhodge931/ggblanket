@@ -27,7 +27,7 @@ ggblanket_global$col_palette_na_o <- NULL
 #' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
 #' @param theme_panel_grid_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `theme_orientation` of the plot.
 #'
-#' @export
+#' @noRd
 weave_theme <- function(theme = light_mode_r(),
                         ...,
                         theme_orientation = NULL,
@@ -66,7 +66,7 @@ weave_theme <- function(theme = light_mode_r(),
 #' @param label_case A function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc. Defaults to `snakecase::to_sentence_case`.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
-#' @export
+#' @noRd
 weave_label_case <- function(label_case = snakecase::to_sentence_case,
                              ...) {
 
@@ -84,7 +84,7 @@ weave_label_case <- function(label_case = snakecase::to_sentence_case,
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline"). Note "fill" inherits from this argument.
 #'
-#' @export
+#' @noRd
 weave_geom_defaults <- function(
     ...,
     colour = "#357BA2FF") {
@@ -141,7 +141,7 @@ weave_geom_defaults <- function(
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
 #'
-#' @export
+#' @noRd
 weave_col_palette <- function(
     ...,
     col_palette_d = jumble,
@@ -161,7 +161,7 @@ weave_col_palette <- function(
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
-#' @export
+#' @noRd
 weave_col_palette_d <- function(col_palette_d = jumble,
                                 col_palette_na_d = "#CDC5BFFF",
                                 ...
@@ -202,7 +202,7 @@ weave_col_palette_d <- function(col_palette_d = jumble,
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
-#' @export
+#' @noRd
 weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, direction = -1),
                                 col_palette_na_c = "#988F88FF", # i.e. colorspace::darken(grey, 0.25)
                                 ...) {
@@ -245,7 +245,7 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
 #' @param col_palette_na_o For an ordinal scale, a hex code.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
-#' @export
+#' @noRd
 weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G", direction = -1),
                                 col_palette_na_o = "#988F88FF",
                                 ...) {
