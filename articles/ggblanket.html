@@ -488,21 +488,14 @@ So, in some situations, users will need to take care.</p>
 <p>The <code>set_blanket</code> function sets customisable defaults for
 the:</p>
 <ul>
-<li>the geom defaults, including the colour (and fill) of geoms (as per
-<code>weave_geom_defaults</code>)</li>
-<li>the colour (and fill) palettes for discrete, continuous and ordinal
-(as per <code>weave_col_palette</code>)</li>
-<li>the theme, and how/what side-effects are to be applied (as per
-<code>weave_theme</code>
-</li>
+<li>the geom defaults, including the colour (and fill) of geoms</li>
+<li>the colour (and fill) palettes for discrete, continuous and
+ordinal</li>
+<li>the theme, and how/what side-effects are to be applied</li>
 <li>the function to apply to a unspecified/unlabelled
-<code>x_label</code>, <code>y_label</code>, <code>col_label</code> etc
-(as per <code>weave_label_case</code>.</li>
+<code>x_label</code>, <code>y_label</code>, <code>col_label</code>
+etc.</li>
 </ul>
-<p>In addition to <code>set_blanket</code>,
-<code><a href="../reference/set_font_defaults.html">set_font_defaults()</a></code> and
-<code><a href="../reference/set_reference_defaults.html">set_reference_defaults()</a></code> can be used to customise the
-“text”, “label”, “abline,”vline” and “hline” geom defaults.</p>
 <p>Note the <code>theme</code> argument in <code>set_blanket</code> can
 also be used to default a <code>*_label</code> to <code>NULL</code>
 (e.g. <code>set_blanket(theme = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))</code>).</p>
@@ -527,17 +520,11 @@ functions.</p>
 <span>  col_palette_na_d <span class="op">=</span> <span class="st">"#78909C"</span>,</span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/set_font_defaults.html">set_font_defaults</a></span><span class="op">(</span>text_size <span class="op">=</span> <span class="fl">9</span> <span class="op">/</span> <span class="fl">2.835</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/set_reference_defaults.html">set_reference_defaults</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"#78909C"</span>, linewidth <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span>
-<span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">bill_depth_mm</span>, </span>
 <span>    y <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fl">0.8</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Here"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">penguins2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/gg_bar.html">gg_bar</a></span><span class="op">(</span></span>
