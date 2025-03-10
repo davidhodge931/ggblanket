@@ -264,61 +264,61 @@ weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G"
 
 #' Get the theme
 #' @description Get the currently set theme.
-#' @export
+#' @noRd
 get_theme <- function() ggblanket_global$theme
 
 #' Get the label_case function
 #' @description Get the currently set label_case function.
-#' @export
+#' @noRd
 get_label_case <- function() ggblanket_global$label_case
 
 #' Get the theme_orientation
 #' @description Get the currently set theme_orientation.
-#' @export
+#' @noRd
 get_theme_orientation <- function() ggblanket_global$theme_orientation
 
 #' Get the theme_axis_line_rm
 #' @description Get the currently set theme_axis_line_rm.
-#' @export
+#' @noRd
 get_theme_axis_line_rm <- function() ggblanket_global$theme_axis_line_rm
 
 #' Get the theme_axis_ticks_rm
 #' @description Get the currently set theme_axis_ticks_rm.
-#' @export
+#' @noRd
 get_theme_axis_ticks_rm <- function() ggblanket_global$theme_axis_ticks_rm
 
 #' Get the theme_panel_grid_rm
 #' @description Get the currently set theme_panel_grid_rm.
-#' @export
+#' @noRd
 get_theme_panel_grid_rm <- function() ggblanket_global$theme_panel_grid_rm
 
 #' Get the discrete palette
 #' @description Get the currently set discrete palette.
-#' @export
+#' @noRd
 get_col_palette_d <- function() ggblanket_global$col_palette_d
 
 #' Get the continuous palette
 #' @description Get the currently set continuous palette.
-#' @export
+#' @noRd
 get_col_palette_c <- function() ggblanket_global$col_palette_c
 
 #' Get the ordinal palette
 #' @description Get the currently set ordinal palette.
-#' @export
+#' @noRd
 get_col_palette_o <- function() ggblanket_global$col_palette_o
 
 #' Get the discrete NA geom_colour
 #' @description Get the currently set discrete NA geom_colour.
-#' @export
+#' @noRd
 get_col_palette_na_d <- function() ggblanket_global$col_palette_na_d
 
 #' Get the continuous NA geom_colour
 #' @description Get the currently set continuous NA geom_colour.
-#' @export
+#' @noRd
 get_col_palette_na_c <- function() ggblanket_global$col_palette_na_c
 
 #' Get the ordinal NA geom_colour
 #' @description Get the currently set ordinal NA geom_colour.
-#' @export
+#' @noRd
 get_col_palette_na_o <- function() ggblanket_global$col_palette_na_o
 
