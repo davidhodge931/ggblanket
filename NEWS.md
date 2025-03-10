@@ -1,5 +1,7 @@
 # ggblanket 12.1.0999
 
+* Breaking: renamed `set_font_defaults` to `set_geom_font`.
+* Breaking: renamed `set_reference_defaults` to `set_geom_reference_line`.
 * Made setup functions work with ggplot2 code.
 * Exported `scale_x_symmetric` and `scale_y_symmetric`.
 * For `*_mode_*` themes, added `axis_ticks_length` argument. 

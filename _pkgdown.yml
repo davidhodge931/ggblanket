@@ -6,11 +6,11 @@ reference:
 - title: Setup
 - contents:
   - set_blanket
-- title: Plot
+- title: Wrappers
 - contents:
   - gg_blanket
   - starts_with("gg_")
-- title: Theme
+- title: Themes
 - contents:
   - light_mode_r
   - light_mode_t
@@ -18,15 +18,17 @@ reference:
   - dark_mode_r
   - dark_mode_t
   - dark_mode_b
-- title: Setup extras
+- title: Extras
 - contents:
-  - set_font_defaults
-  - set_reference_defaults
-  - weave_col_palette
-  - weave_geom_defaults
-  - weave_label_case
-  - weave_theme
-- title: Colour
+  - aes_colour_contrast
+  - annotate_axis_line
+  - label_every_nth
+  - scale_x_symmetric
+  - scale_y_symmetric
+  - set_geom_font
+  - set_geom_reference_line
+  - starts_with("weave_")
+- title: Colours
 - contents:
   - blue
   - jumble
@@ -40,11 +42,4 @@ reference:
   - lightness
   - darkness
   - linewidthness
-- title: Other
-- contents:
-  - aes_colour_contrast
-  - annotate_axis_line
-  - label_every_nth
-  - scale_x_symmetric
-  - scale_y_symmetric
 

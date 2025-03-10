@@ -12,7 +12,7 @@
 #' library(dplyr)
 #'
 #' set_blanket()
-#' set_font_defaults()
+#' set_geom_font()
 #'
 #' bind_rows(
 #'   mtcars |> slice_min(order_by = mpg),

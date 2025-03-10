@@ -8,7 +8,7 @@
 #' 3. the theme, and how/what side-effects are to be applied (i.e. `weave_theme`)
 #' 4. the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc (i.e. `weave_label_case`).
 #'
-#' `set_font_defaults()` and `set_reference_defaults()` can be used to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
+#' `set_geom_font()`, `set_geom_font()` and `set_geom_reference_line()` can be used to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
 #'
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
 #'
@@ -90,7 +90,7 @@ set_blanket <- function(
   weave_label_case(label_case = label_case)
 }
 
-#' Set the font geom defaults
+#' Set the text and label geom defaults
 #'
 #' @description Update the "text" and "label" geom defaults. Note all other text is controlled by the theme.
 #'
@@ -108,8 +108,8 @@ set_blanket <- function(
 #' library(palmerpenguins)
 #'
 #' set_blanket(theme = dark_mode_r())
-#' set_font_defaults(colour = darkness[1])
-#' set_reference_defaults(colour = darkness[1])
+#' set_geom_font(colour = darkness[1])
+#' set_geom_reference_line(colour = darkness[1])
 #'
 #' penguins |>
 #'   gg_point(
@@ -120,7 +120,7 @@ set_blanket <- function(
 #'   geom_vline(xintercept = 200) +
 #'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
 #'
-set_font_defaults <- function(
+set_geom_font <- function(
     ...,
     colour = "#121B24FF",
     fill = "#FFFFFFFF",
@@ -131,9 +131,9 @@ set_font_defaults <- function(
   ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour, fill = !!fill, size = !!size, family = !!family))
 }
 
-#' Set reference-line geom defaults
+#' Set the geom reference line defaults
 #'
-#' @description Update the "abline", "hline" and "vline" geom defaults.
+#' @description Update the "hline", "vline", "abline", and "curve" geom defaults.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param colour A hex code.
@@ -147,8 +147,8 @@ set_font_defaults <- function(
 #' library(palmerpenguins)
 #'
 #' set_blanket(theme = dark_mode_r())
-#' set_font_defaults(colour = darkness[1])
-#' set_reference_defaults(colour = darkness[1])
+#' set_geom_font(colour = darkness[1])
+#' set_geom_reference_line(colour = darkness[1])
 #'
 #' penguins |>
 #'   gg_point(
@@ -159,12 +159,13 @@ set_font_defaults <- function(
 #'   geom_vline(xintercept = 200) +
 #'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
 #'
-set_reference_defaults <- function(
+set_geom_reference_line <- function(
     ...,
     colour = "#121B24FF",
     linewidth = 0.25) {
   ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
   ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
   ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
+  ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
 }
 

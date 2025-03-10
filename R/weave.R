@@ -161,7 +161,7 @@ weave_col_palette <- function(
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
-#' @noRd
+#' @export
 weave_col_palette_d <- function(col_palette_d = jumble,
                                 col_palette_na_d = "#CDC5BFFF",
                                 ...
@@ -173,28 +173,27 @@ weave_col_palette_d <- function(col_palette_d = jumble,
     if (!rlang::is_function(col_palette_d)) {
       col_palette_d <- c(col_palette_d, rep(col_palette_na_d, times = 100))
     }
+    old <- ggblanket_global$col_palette_d
+    ggblanket_global$col_palette_d <- col_palette_d
+    invisible(old)
+
+    old <- ggblanket_global$col_palette_na_d
+    ggblanket_global$col_palette_na_d <- col_palette_na_d
+    invisible(old)
+
+    options(
+      ggplot2.discrete.colour = function()
+        ggplot2::scale_colour_manual(
+          values = col_palette_d,
+          na.value = col_palette_na_d
+        ),
+      ggplot2.discrete.fill = function()
+        ggplot2::scale_fill_manual(
+          values = col_palette_d,
+          na.value = col_palette_na_d
+        )
+    )
   }
-
-  old <- ggblanket_global$col_palette_d
-  ggblanket_global$col_palette_d <- col_palette_d
-  invisible(old)
-
-  old <- ggblanket_global$col_palette_na_d
-  ggblanket_global$col_palette_na_d <- col_palette_na_d
-  invisible(old)
-
-  options(
-    ggplot2.discrete.colour = function()
-      ggplot2::scale_colour_manual(
-        values = col_palette_d,
-        na.value = col_palette_na_d
-      ),
-    ggplot2.discrete.fill = function()
-      ggplot2::scale_fill_manual(
-        values = col_palette_d,
-        na.value = col_palette_na_d
-      )
-  )
 }
 
 #' Set a continuous geom_colour and geom_fill palette
@@ -203,7 +202,7 @@ weave_col_palette_d <- function(col_palette_d = jumble,
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
-#' @noRd
+#' @export
 weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, direction = -1),
                                 col_palette_na_c = "#988F88FF", # i.e. colorspace::darken(grey, 0.25)
                                 ...) {
@@ -246,7 +245,7 @@ weave_col_palette_c <- function(col_palette_c = viridisLite::mako(n = 9, directi
 #' @param col_palette_na_o For an ordinal scale, a hex code.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
-#' @noRd
+#' @export
 weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G", direction = -1),
                                 col_palette_na_o = "#988F88FF",
                                 ...) {
@@ -261,78 +260,65 @@ weave_col_palette_o <- function(col_palette_o = scales::pal_viridis(option = "G"
   old <- ggblanket_global$col_palette_na_o
   ggblanket_global$col_palette_na_o <- col_palette_na_o
   invisible(old)
-
-  # options(
-  #   ggplot2.ordinal.colour = function()
-  #     ggplot2::scale_color_ordinal(
-  #       colours = col_palette_o,
-  #       na.value = col_palette_na_o
-  #     ),
-  #   ggplot2.ordinal.fill = function()
-  #     ggplot2::scale_fill_ordinal(
-  #       colours = col_palette_o,
-  #       na.value = col_palette_na_o,
-  #     )
-  # )
 }
 
 #' Get the theme
 #' @description Get the currently set theme.
-#' @noRd
+#' @export
 get_theme <- function() ggblanket_global$theme
 
 #' Get the label_case function
 #' @description Get the currently set label_case function.
-#' @noRd
+#' @export
 get_label_case <- function() ggblanket_global$label_case
 
 #' Get the theme_orientation
 #' @description Get the currently set theme_orientation.
-#' @noRd
+#' @export
 get_theme_orientation <- function() ggblanket_global$theme_orientation
 
 #' Get the theme_axis_line_rm
 #' @description Get the currently set theme_axis_line_rm.
-#' @noRd
+#' @export
 get_theme_axis_line_rm <- function() ggblanket_global$theme_axis_line_rm
 
 #' Get the theme_axis_ticks_rm
 #' @description Get the currently set theme_axis_ticks_rm.
-#' @noRd
+#' @export
 get_theme_axis_ticks_rm <- function() ggblanket_global$theme_axis_ticks_rm
 
 #' Get the theme_panel_grid_rm
 #' @description Get the currently set theme_panel_grid_rm.
-#' @noRd
+#' @export
 get_theme_panel_grid_rm <- function() ggblanket_global$theme_panel_grid_rm
 
 #' Get the discrete palette
 #' @description Get the currently set discrete palette.
-#' @noRd
+#' @export
 get_col_palette_d <- function() ggblanket_global$col_palette_d
 
 #' Get the continuous palette
 #' @description Get the currently set continuous palette.
-#' @noRd
+#' @export
 get_col_palette_c <- function() ggblanket_global$col_palette_c
 
 #' Get the ordinal palette
 #' @description Get the currently set ordinal palette.
-#' @noRd
+#' @export
 get_col_palette_o <- function() ggblanket_global$col_palette_o
 
 #' Get the discrete NA geom_colour
 #' @description Get the currently set discrete NA geom_colour.
-#' @noRd
+#' @export
 get_col_palette_na_d <- function() ggblanket_global$col_palette_na_d
 
 #' Get the continuous NA geom_colour
 #' @description Get the currently set continuous NA geom_colour.
-#' @noRd
+#' @export
 get_col_palette_na_c <- function() ggblanket_global$col_palette_na_c
 
 #' Get the ordinal NA geom_colour
 #' @description Get the currently set ordinal NA geom_colour.
-#' @noRd
+#' @export
 get_col_palette_na_o <- function() ggblanket_global$col_palette_na_o
 

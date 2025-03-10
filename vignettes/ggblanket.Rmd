@@ -361,12 +361,10 @@ penguins2 |>
 
 The `set_blanket` function sets customisable defaults for the:
 
-* the geom defaults, including the colour (and fill) of geoms (as per `weave_geom_defaults`)
-* the colour (and fill) palettes for discrete, continuous and ordinal (as per `weave_col_palette`)
-* the theme, and how/what side-effects are to be applied (as per `weave_theme`
-* the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc (as per `weave_label_case`.
-
-In addition to `set_blanket`, `set_font_defaults()` and `set_reference_defaults()` can be used to customise the "text", "label", "abline, "vline" and "hline" geom defaults.
+* the geom defaults, including the colour (and fill) of geoms
+* the colour (and fill) palettes for discrete, continuous and ordinal
+* the theme, and how/what side-effects are to be applied
+* the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc.
 
 Note the `theme` argument in `set_blanket` can also be used to default a `*_label` to `NULL` (e.g. `set_blanket(theme = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))`).
 
@@ -390,17 +388,11 @@ set_blanket(
   col_palette_na_d = "#78909C",
 )
 
-set_font_defaults(text_size = 9 / 2.835)
-
-set_reference_defaults(colour = "#78909C", linewidth = 0.25)
-
 p1 <- penguins2 |>
   gg_point(
     x = bill_depth_mm, 
     y = flipper_length_mm,
-  ) +
-  geom_vline(xintercept = I(0.5)) +
-  annotate("text", x = I(0.2), y = I(0.8), label = "Here")
+  ) 
 
 p2 <- penguins2 |> 
   gg_bar(

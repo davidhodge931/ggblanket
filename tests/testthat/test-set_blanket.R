@@ -16,8 +16,9 @@ test_that(test_name, {
     theme_axis_ticks_rm = FALSE,
     theme_panel_grid_rm = FALSE
   )
-  set_font_defaults()
-  set_reference_defaults()
+  set_geom_font()
+
+  set_geom_reference_line()
 
   p <- penguins |>
     mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
@@ -41,9 +42,9 @@ test_that(test_name, {
     colour = red,
   )
 
-  set_font_defaults(colour = teal)
+  set_geom_font(colour = teal)
 
-  set_reference_defaults(colour = teal)
+  set_geom_reference_line(colour = teal)
 
   p <- penguins |>
     mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
@@ -66,9 +67,9 @@ set_blanket(
   col_palette_c = c(navy, purple, red, orange)
 )
 
-set_font_defaults(colour = "red", size = 15 / 2.83505)
+set_geom_font(colour = "red", size = 15 / 2.83505)
 
-set_reference_defaults(colour = "red", linewidth = 5)
+set_geom_reference_line(colour = "red", linewidth = 5)
 
 ###
 test_name <- "3"
