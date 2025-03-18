@@ -32,6 +32,7 @@ This article will demonstrate a random assortment of content, including some of 
 * Use delayed evaluation
 * Rescale a diverging col scale
 * Add a legend within the panel
+* Maintain fixed panel sizes
 
 ```{r setup}
 library(dplyr)
@@ -394,5 +395,67 @@ penguins2 |>
   theme(legend.position = "inside") +
   theme(legend.position.inside = c(1, 0.975)) +
   theme(legend.justification = c(1, 1)) 
+```
+
+### Maintain fixed panel sizes
+
+For non-faceted plots, use `patchwork::plot_layout`.
+
+```{r}
+penguins |>
+  drop_na(sex) |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+    x_breaks_n = 4,
+  ) +
+  patchwork::plot_layout(
+    widths = unit(50, "mm"),
+    heights = unit(50, "mm"),
+  )
+
+p2 <- penguins |>
+  drop_na(sex) |>
+  gg_bar(
+    y = species,
+    col = sex,
+    theme = light_mode_r()) +
+  patchwork::plot_layout(
+    widths = unit(50, "mm"),
+    heights = unit(50, "mm"))
+```
+
+For faceted plots, use `purrr::map` and `patchwork::wrap_plots`.
+
+```{r, eval=FALSE}
+d <- penguins |>
+  drop_na()
+
+purrr::map(unique(d$island), \(x) {
+  d |>
+    filter(island == x) |>
+    gg_point(
+      x = flipper_length_mm,
+      y = body_mass_g,
+      col = sex,
+      position = position_dodge(preserve = "single"),
+      subtitle = x,
+      x_breaks_n = 4,
+      x_expand_limits = range(d$flipper_length_mm),
+      y_expand_limits = range(d$body_mass_g),
+    ) +
+    theme(plot.title.position = "panel") +
+    theme(plot.subtitle = element_text(hjust = 0.5, margin = margin(b = 11)))
+}
+)|>
+  wrap_plots(ncol = 2,
+             widths = unit(50, "mm"),
+             heights = unit(50, "mm")) +
+  guide_area() +
+  plot_layout(
+    guides = 'collect',
+    axes = "collect_x",
+  )
 ```
 
