@@ -32,7 +32,7 @@ This article will demonstrate a random assortment of content, including some of 
 * Use delayed evaluation
 * Rescale a diverging col scale
 * Add a legend within the panel
-* Maintain fixed panel sizes
+* Constant panel sizes
 
 ```{r setup}
 library(dplyr)
@@ -397,7 +397,7 @@ penguins2 |>
   theme(legend.justification = c(1, 1)) 
 ```
 
-### Maintain fixed panel sizes
+### Constant panel sizes
 
 For non-faceted plots, use `patchwork::plot_layout`.
 
