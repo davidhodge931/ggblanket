@@ -32,7 +32,7 @@ This article will demonstrate a random assortment of content, including some of 
 * Use delayed evaluation
 * Rescale a diverging col scale
 * Add a legend within the panel
-* Constant panel sizes
+* Specifying panel sizes
 
 ```{r setup}
 library(dplyr)
@@ -397,7 +397,7 @@ penguins2 |>
   theme(legend.justification = c(1, 1)) 
 ```
 
-### Constant panel sizes
+### Specifying panel sizes
 
 For non-faceted plots, use `patchwork::plot_layout`.
 
@@ -414,16 +414,6 @@ penguins |>
     widths = unit(50, "mm"),
     heights = unit(50, "mm"),
   )
-
-p2 <- penguins |>
-  drop_na(sex) |>
-  gg_bar(
-    y = species,
-    col = sex,
-    theme = light_mode_r()) +
-  patchwork::plot_layout(
-    widths = unit(50, "mm"),
-    heights = unit(50, "mm"))
 ```
 
 For faceted plots, use `purrr::map` and `patchwork::wrap_plots`.
