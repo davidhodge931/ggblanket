@@ -507,9 +507,9 @@ central point.</p>
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">island</span><span class="op">)</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">species</span><span class="op">)</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">d</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">island</span> <span class="op">==</span> <span class="va">x</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="va">x</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="../reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
 <span>      x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>      y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
@@ -517,6 +517,7 @@ central point.</p>
 <span>      position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
 <span>      subtitle <span class="op">=</span> <span class="va">x</span>,</span>
 <span>      x_breaks_n <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>      y_breaks_n <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>      x_expand_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">flipper_length_mm</span><span class="op">)</span>,</span>
 <span>      y_expand_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">body_mass_g</span><span class="op">)</span>,</span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
