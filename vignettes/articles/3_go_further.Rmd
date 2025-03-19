@@ -419,11 +419,9 @@ penguins |>
 For faceted plots, use `purrr::map` and `patchwork::wrap_plots`.
 
 ```{r, eval=FALSE}
-d <- penguins |>
-  drop_na()
-
 purrr::map(unique(d$species), \(x) {
-  d |>
+  penguins |>
+    drop_na(sex) |> 
     filter(species == x) |>
     gg_point(
       x = flipper_length_mm,
@@ -433,8 +431,8 @@ purrr::map(unique(d$species), \(x) {
       subtitle = x,
       x_breaks_n = 4,
       y_breaks_n = 5,
-      x_expand_limits = range(d$flipper_length_mm),
-      y_expand_limits = range(d$body_mass_g),
+      x_expand_limits = range(penguins$flipper_length_mm, na.rm = TRUE),
+      y_expand_limits = range(penguins$body_mass_g, na.rm = TRUE),
     ) +
     theme(plot.title.position = "panel") +
     theme(plot.subtitle = element_text(hjust = 0.5, margin = margin(b = 11)))
