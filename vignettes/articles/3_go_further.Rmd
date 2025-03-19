@@ -419,7 +419,7 @@ penguins |>
 For faceted plots, use `purrr::map` and `patchwork::wrap_plots`.
 
 ```{r, eval=FALSE}
-purrr::map(unique(d$species), \(x) {
+purrr::map(unique(penguins$species), \(x) {
   penguins |>
     drop_na(sex) |> 
     filter(species == x) |>
@@ -437,7 +437,7 @@ purrr::map(unique(d$species), \(x) {
     theme(plot.title.position = "panel") +
     theme(plot.subtitle = element_text(hjust = 0.5, margin = margin(b = 11)))
 }
-)|>
+) |>
   wrap_plots(ncol = 2,
              widths = unit(50, "mm"),
              heights = unit(50, "mm")) +
