@@ -422,9 +422,9 @@ For faceted plots, use `purrr::map` and `patchwork::wrap_plots`.
 d <- penguins |>
   drop_na()
 
-purrr::map(unique(d$island), \(x) {
+purrr::map(unique(d$species), \(x) {
   d |>
-    filter(island == x) |>
+    filter(species == x) |>
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
@@ -432,6 +432,7 @@ purrr::map(unique(d$island), \(x) {
       position = position_dodge(preserve = "single"),
       subtitle = x,
       x_breaks_n = 4,
+      y_breaks_n = 5,
       x_expand_limits = range(d$flipper_length_mm),
       y_expand_limits = range(d$body_mass_g),
     ) +
