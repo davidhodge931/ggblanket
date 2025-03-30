@@ -1,3 +1,7 @@
+# ggblanket 12.2.0900
+
+* Support default titles, subtitles and captions in `set_blanket`.
+
 # ggblanket 12.2.0
 
 * Breaking: made `weave_*` functions internal.

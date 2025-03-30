@@ -8,7 +8,7 @@
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
-#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]).
+#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]). Or a list that includes 1). a theme and 2). a [ggplot2::labs()] function. E.g. `list(light_mode_r(), labs(colour = NULL, fill = NULL)`.
 #' @param theme_orientation The orientation of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
 #' @param theme_axis_line_rm `TRUE` or `FALSE` of whether to remove the relevant axis line per the `theme_orientation` of the plot.
 #' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `theme_orientation` of the plot.
@@ -1476,9 +1476,6 @@ gg_blanket <- function(data = NULL,
 
   plot <- plot +
     ggplot2::labs(
-      title = title,
-      subtitle = subtitle,
-      caption = caption,
       x = x_label,
       y = y_label,
       colour = col_label,
@@ -1490,6 +1487,25 @@ gg_blanket <- function(data = NULL,
       linetype = linetype_label,
       pattern = pattern_label
     )
+
+  if (!rlang::is_null(title)) {
+    plot <- plot +
+      ggplot2::labs(
+        title = title
+      )
+  }
+  if (!rlang::is_null(subtitle)) {
+    plot <- plot +
+      ggplot2::labs(
+        subtitle = subtitle
+      )
+  }
+  if (!rlang::is_null(caption)) {
+    plot <- plot +
+      ggplot2::labs(
+        caption = caption
+      )
+  }
 
   ##############################################################################
   # theme make transparent some theme components
