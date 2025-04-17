@@ -1181,9 +1181,9 @@ gg_blanket <- function(data = NULL,
 
     if (rlang::is_null(x_breaks_n)) {
       if (facet_ncols == 1) x_breaks_n <- 6
-      else if (facet_ncols == 2) x_breaks_n <- 5
-      else if (facet_ncols == 3) x_breaks_n <- 4
-      else x_breaks_n <- 3
+      # else if (facet_ncols == 2) x_breaks_n <- 5
+      # else if (facet_ncols == 3) x_breaks_n <- 4
+      else x_breaks_n <- 4
     }
 
     if (x_symmetric) {
@@ -1246,9 +1246,9 @@ gg_blanket <- function(data = NULL,
 
     if (rlang::is_null(y_breaks_n)) {
       if (facet_nrows == 1) y_breaks_n <- 6
-      else if (facet_nrows == 2) y_breaks_n <- 5
-      else if (facet_nrows == 3) y_breaks_n <- 4
-      else y_breaks_n <- 3
+      # else if (facet_nrows == 2) y_breaks_n <- 5
+      # else if (facet_nrows == 3) y_breaks_n <- 4
+      else y_breaks_n <- 4
     }
 
     if (y_symmetric) {
