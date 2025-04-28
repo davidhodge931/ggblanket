@@ -17,8 +17,3 @@ lightness <- c("#121B24FF", "#F6F8FAFF", "#FFFFFFFF")
 #' @format NULL
 #' @export
 darkness <- c("#C8D7DFFF", "#00040AFF", "#050D1BFF")
-
-#' @rdname lightness
-#' @format NULL
-#' @export
-linewidthness <- c(0.25, 1.33)

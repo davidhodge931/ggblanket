@@ -4,14 +4,11 @@
 \name{lightness}
 \alias{lightness}
 \alias{darkness}
-\alias{linewidthness}
 \title{Mode colour and linewidth defaults}
 \usage{
 lightness
 
 darkness
-
-linewidthness
 }
 \value{
 A character vector.
