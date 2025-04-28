@@ -18,19 +18,7 @@ reference:
   - dark_mode_r
   - dark_mode_t
   - dark_mode_b
-- title: Extras
-- contents:
-  - aes_contrast
-  - annotate_axis_line
-  - guides_shape_grey
-  - guides_shape_linewidth
-  - guides_shape_size
-  - label_every_nth
-  - scale_x_symmetric
-  - scale_y_symmetric
-  - set_geom_font
-  - set_geom_reference_line
-- title: Palette
+- title: Palettes
 - contents:
   - blue
   - jumble
@@ -44,4 +32,16 @@ reference:
   - lightness
   - darkness
   - linewidthness
+- title: Extras
+- contents:
+  - aes_contrast
+  - annotate_axis_line
+  - guides_shape_grey
+  - guides_shape_linewidth
+  - guides_shape_size
+  - label_every_nth
+  - scale_x_symmetric
+  - scale_y_symmetric
+  - set_geom_font
+  - set_geom_reference_line
 
