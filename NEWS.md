@@ -1,10 +1,11 @@
 # ggblanket 12.2.0900
 
+* Breaking: renamed `aes_colour_contrast` to `aes_contrast`.
 * Support default titles, subtitles and captions in `set_blanket`.
 * Changed default `*_breaks_n` for `x` or `y` to be either 6 or 4 (if faceted). 
 Note, symmetric uses `only.loose = TRUE` whereas `FALSE` for non-symmetric.
 
-# ggblanket 12.2.0
+# ggblanket 12.3.0
 
 * Breaking: made `weave_*` functions internal.
 * Breaking: renamed `set_font_defaults` to `set_geom_font`.

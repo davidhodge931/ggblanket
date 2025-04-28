@@ -10,9 +10,9 @@
 #' @noRd
 #'
 #' @examples
-#' get_colour_contrast(fill = c("navy", "yellow", "orange"), dark = "black", light = "white")
+#' get_contrast(fill = c("navy", "yellow", "orange"), dark = "black", light = "white")
 #'
-get_colour_contrast <- function(fill,
+get_contrast <- function(fill,
                                 ...,
                                 dark = "#121B24FF",
                                 light = "#FFFFFFFF") {
@@ -57,7 +57,7 @@ get_colour_contrast <- function(fill,
 #'     x_labels = \(x) str_to_sentence(x),
 #'   ) +
 #'   geom_text(
-#'     mapping = aes_colour_contrast(),
+#'     mapping = aes_contrast(),
 #'     position = position_dodge(width = 0.75, preserve = "single"),
 #'     vjust = 1.33,
 #'     show.legend = FALSE,
@@ -75,16 +75,16 @@ get_colour_contrast <- function(fill,
 #'     theme = dark_mode_r(),
 #'   ) +
 #'   geom_text(
-#'     mapping = aes(label = n, !!!aes_colour_contrast(dark = darkness[3], light = darkness[1])),
+#'     mapping = aes(label = n, !!!aes_contrast(dark = darkness[3], light = darkness[1])),
 #'     position = position_dodge(width = 0.75, preserve = "single"),
 #'     vjust = 1.33,
 #'     show.legend = FALSE,
 #'   )
-aes_colour_contrast <- function(..., dark = "#121B24FF", light = "#FFFFFFFF") {
+aes_contrast <- function(..., dark = "#121B24FF", light = "#FFFFFFFF") {
 
   ggplot2::aes(
     colour = ggplot2::after_scale(
-      get_colour_contrast(.data$fill, dark = dark, light = light)
+      get_contrast(.data$fill, dark = dark, light = light)
     )
   )
 }

@@ -20,7 +20,7 @@ reference:
   - dark_mode_b
 - title: Extras
 - contents:
-  - aes_colour_contrast
+  - aes_contrast
   - annotate_axis_line
   - label_every_nth
   - scale_x_symmetric
