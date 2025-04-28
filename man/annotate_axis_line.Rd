@@ -39,19 +39,31 @@ library(ggblanket)
 library(palmerpenguins)
 
 set_blanket()
+set_geom_reference_line()
 
-penguins |>
+d <- penguins |>
   add_row(
     flipper_length_mm = 175,
     body_mass_g = 2500,
     species = "Adelie",
-  ) |>
+  )
+
+# axis line goes through geom
+d |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+  )
+
+# axis line does not go through geom
+d |>
   gg_blanket(
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
   ) +
   annotate_axis_line() +
-  geom_point(size = 2.5)
+  geom_point()
 
 }

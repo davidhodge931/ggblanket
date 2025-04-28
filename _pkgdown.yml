@@ -22,6 +22,9 @@ reference:
 - contents:
   - aes_contrast
   - annotate_axis_line
+  - guides_shape_grey
+  - guides_shape_linewidth
+  - guides_shape_size
   - label_every_nth
   - scale_x_symmetric
   - scale_y_symmetric

@@ -4,6 +4,7 @@
 * Support default titles, subtitles and captions in `set_blanket`.
 * Changed default `*_breaks_n` for `x` or `y` to be either 6 or 4 (if faceted). 
 Note, symmetric uses `only.loose = TRUE` whereas `FALSE` for non-symmetric.
+* Added guides to over-ride legend colour.
 
 # ggblanket 12.3.0
 

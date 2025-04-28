@@ -164,7 +164,7 @@ penguins2 |>
     col = island,
     mapping = aes(shape = sex),
   ) +
-  guides(shape = guide_legend(override.aes = list(colour = grey)))
+  guides_shape_grey()
 ```
 
 ### 7.  Prefixed arguments to customise x/y/col/facet
