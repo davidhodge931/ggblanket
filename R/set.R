@@ -13,7 +13,7 @@
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline"). Note "fill" inherits from this argument.
+#' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline"). Note, the "fill" inherits from this argument.
 #' @param col_palette_d For a discrete scale, a character vector of hex codes.
 #' @param col_palette_c For a continuous scale, a character vector of hex codes.
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function.

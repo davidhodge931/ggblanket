@@ -32,6 +32,7 @@ Guides to over-ride legend elements with a grey colour
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(palmerpenguins)
 
 set_blanket()
 

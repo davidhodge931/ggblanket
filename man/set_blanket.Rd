@@ -24,7 +24,7 @@ set_blanket(
 \arguments{
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
-\item{colour}{For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline"). Note "fill" inherits from this argument.}
+\item{colour}{For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline"). Note, the "fill" inherits from this argument.}
 
 \item{col_palette_d}{For a discrete scale, a character vector of hex codes.}
 
