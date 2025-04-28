@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">12.2.0900</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">12.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,11 +47,12 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="12.2.0900" id="ggblanket-1220900">ggblanket 12.2.0900<a class="anchor" aria-label="anchor" href="#ggblanket-1220900"></a></h2>
-<ul><li>Support default titles, subtitles and captions in <code>set_blanket</code>.</li>
+<ul><li>Breaking: renamed <code>aes_colour_contrast</code> to <code>aes_contrast</code>.</li>
+<li>Support default titles, subtitles and captions in <code>set_blanket</code>.</li>
 <li>Changed default <code>*_breaks_n</code> for <code>x</code> or <code>y</code> to be either 6 or 4 (if faceted). Note, symmetric uses <code>only.loose = TRUE</code> whereas <code>FALSE</code> for non-symmetric.</li>
 </ul></div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="12.2.0" id="ggblanket-1220">ggblanket 12.2.0<a class="anchor" aria-label="anchor" href="#ggblanket-1220"></a></h2><p class="text-muted">CRAN release: 2025-03-10</p>
+<h2 class="pkg-version" data-toc-text="12.3.0" id="ggblanket-1230">ggblanket 12.3.0<a class="anchor" aria-label="anchor" href="#ggblanket-1230"></a></h2>
 <ul><li>Breaking: made <code>weave_*</code> functions internal.</li>
 <li>Breaking: renamed <code>set_font_defaults</code> to <code>set_geom_font</code>.</li>
 <li>Breaking: renamed <code>set_reference_defaults</code> to <code>set_geom_reference_line</code>.</li>
@@ -124,10 +125,10 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="9.1.1" id="ggblanket-911">ggblanket 9.1.1<a class="anchor" aria-label="anchor" href="#ggblanket-911"></a></h2><p class="text-muted">CRAN release: 2024-06-14</p>
-<ul><li>Forced user argument naming for <code><a href="../reference/set_blanket.html">set_blanket()</a></code>, <code>*_mode_*()</code> and <code>aes_contrast()</code>.</li>
+<ul><li>Forced user argument naming for <code><a href="../reference/set_blanket.html">set_blanket()</a></code>, <code>*_mode_*()</code> and <code><a href="../reference/aes_contrast.html">aes_contrast()</a></code>.</li>
 <li>Fixed bug in colouring more discrete values than the set <code>col_palette_d</code>.</li>
 <li>Fixed bug in colouring with when <code>col_palette_d</code> was set with names not in the data.</li>
-<li>Removed <code>mode_family</code> argument from <code>aes_contrast()</code>.</li>
+<li>Removed <code>mode_family</code> argument from <code><a href="../reference/aes_contrast.html">aes_contrast()</a></code>.</li>
 <li>Made <code>*_mode_t()</code> and <code>*_mode_b()</code> have <code>legend.byrow = TRUE</code>.</li>
 <li>Made <code>*_mode_*()</code> functions more intuitive to remove/adjust elements.</li>
 <li>Changed <code>gg_sf</code> default to keeping all major gridlines.</li>
