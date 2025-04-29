@@ -7,7 +7,7 @@
 Note, symmetric uses `only.loose = TRUE` whereas `FALSE` for non-symmetric.
 * Added guides functions to over-ride legend colour.
 
-# ggblanket 12.3.0
+# ggblanket 12.2.0
 
 * Breaking: made `weave_*` functions internal.
 * Breaking: renamed `set_font_defaults` to `set_geom_font`.
