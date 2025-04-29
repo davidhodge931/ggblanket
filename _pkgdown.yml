@@ -3,14 +3,14 @@ template:
   bootstrap: 5
   light-switch: true
 reference:
-- title: Setup
+- title: Set
 - contents:
   - set_blanket
-- title: Wrappers
+- title: Wrap
 - contents:
   - gg_blanket
   - starts_with("gg_")
-- title: Themes
+- title: Theme
 - contents:
   - light_mode_r
   - light_mode_t
@@ -18,7 +18,7 @@ reference:
   - dark_mode_r
   - dark_mode_t
   - dark_mode_b
-- title: Palettes
+- title: Palette
 - contents:
   - blue
   - jumble
@@ -31,7 +31,7 @@ reference:
   - grey
   - lightness
   - darkness
-- title: Extras
+- title: Extra
 - contents:
   - aes_contrast
   - annotate_axis_line
