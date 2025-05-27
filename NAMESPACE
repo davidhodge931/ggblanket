@@ -2,7 +2,7 @@
 
 export(aes_contrast)
 export(annotate_axis_line)
-export(bind_all)
+export(bind_all_by)
 export(blue)
 export(dark_mode_b)
 export(dark_mode_r)

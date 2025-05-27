@@ -4,11 +4,11 @@
 #' Bind all the data to itself by a variable for plotting of groups against all data.
 #'
 #' @param data A data frame or tibble.
+#' @param by An unquoted character or factor variable.
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param by An unquoted variable.
-#' @param all_value A character value for the all value. Defaults to "All".
-#' @param all_value_after A number for where the all value should be placed. Either 0 for first or Inf for last.
-#' @param groups_value A character value for the group value. Defaults to "Groups".
+#' @param all A character value for the all value. Defaults to "All".
+#' @param all_after A number for where the all value should be placed after. Either 0 for first or Inf for last.
+#' @param groups A character value for the group value. Defaults to "Groups".
 #' @param name A variable name. Defaults to `all_or_groups`.
 #'
 #' @return A data frame or tibble
@@ -22,19 +22,19 @@
 #' library(palmerpenguins)
 #'
 #' penguins |>
-#'   bind_all(by = species) |>
+#'   bind_all_by(species) |>
 #'   distinct(species, all_or_groups)
 #'
 #' penguins |>
-#'   bind_all(by = species,
-#'            all_value = "All\nspecies",
-#'            groups_value = "Species") |>
+#'   bind_all_by(species,
+#'            all = "All\nspecies",
+#'            groups = "Species") |>
 #'   distinct(species, all_or_groups)
 #'
 #' set.seed(123)
 #'
 #' penguins |>
-#'   bind_all(by = species, all_value = "All\nspecies", groups_value = "Species") |>
+#'   bind_all_by(species, all = "All\nspecies", groups = "Species") |>
 #'   gg_jitter(
 #'     x = species,
 #'     y = body_mass_g,
@@ -47,7 +47,7 @@
 #' set.seed(123)
 #'
 #' penguins |>
-#'   bind_all(by = species, all_value = "All\nspecies", groups_value = "Species") |>
+#'   bind_all_by(species, all = "All\nspecies", groups = "Species") |>
 #'   gg_jitter(
 #'     x = species,
 #'     y = body_mass_g,
@@ -65,7 +65,7 @@
 #' set.seed(123)
 #'
 #' penguins |>
-#'   bind_all(by = species, all_value = "All\nspecies", groups_value = "Species") |>
+#'   bind_all_by(species, all = "All\nspecies", groups = "Species") |>
 #'   drop_na(sex) |>
 #'   mutate(sex = str_to_sentence(sex)) |>
 #'   gg_violin(
@@ -87,7 +87,7 @@
 #' penguins |>
 #'   drop_na(sex) |>
 #'   mutate(sex = str_to_sentence(sex)) |>
-#'   bind_all(by = species, all_value = "All\nspecies", groups_value = "Species") |>
+#'   bind_all_by(species, all = "All\nspecies", groups = "Species") |>
 #'   gg_violin(
 #'     x = species,
 #'     y = body_mass_g,
@@ -98,35 +98,35 @@
 #'   theme(legend.position = "none") +
 #'   labs(x = NULL)
 #'
-bind_all <- function(data,
-                     ...,
-                     by,
-                     all_value = "All",
-                     all_value_after = Inf,
-                     groups_value = "Groups",
-                     name = "all_or_groups") {
+bind_all_by <- function(data,
+                        by,
+                        ...,
+                        all = "All",
+                        all_after = Inf,
+                        groups = "Groups",
+                        name = "all_or_groups") {
 
   by <- rlang::enquo(by)
 
   if (inherits(rlang::eval_tidy({{ by }}, data), what = c("character"))) {
     data <- data |>
-      dplyr::bind_rows(dplyr::mutate(data, !!by := all_value)) |>
-      dplyr::mutate(!!by := forcats::fct_relevel(!!by, all_value, after = all_value_after))
+      dplyr::bind_rows(dplyr::mutate(data, !!by := all)) |>
+      dplyr::mutate(!!by := forcats::fct_relevel(!!by, all, after = all_after))
   }
   else if (inherits(rlang::eval_tidy(by, data), what = c("factor"))) {
     levels <- levels(rlang::eval_tidy(by, data))
 
     data <- data |>
-      dplyr::bind_rows(dplyr::mutate(data, !!by := all_value)) |>
-      dplyr::mutate(!!by := factor(!!by, levels = c(levels, all_value))) |>
-      dplyr::mutate(!!by := forcats::fct_relevel(!!by, all_value, after = all_value_after))
+      dplyr::bind_rows(dplyr::mutate(data, !!by := all)) |>
+      dplyr::mutate(!!by := factor(!!by, levels = c(levels, all))) |>
+      dplyr::mutate(!!by := forcats::fct_relevel(!!by, all, after = all_after))
   }
 
   data <- data |>
-    dplyr::mutate(!!name := ifelse(!!by == all_value, all_value, groups_value)) |>
+    dplyr::mutate(!!name := ifelse(!!by == all, all, groups)) |>
     dplyr::mutate(dplyr::across(!!name, forcats::fct_inorder))
 
-  if (all_value_after == 0) {
+  if (all_after == 0) {
     data <- data |>
       dplyr::mutate(dplyr::across(!!name, forcats::fct_rev))
   }
@@ -139,19 +139,19 @@ bind_all <- function(data,
 #' library(palmerpenguins)
 #'
 #' penguins |>
-#'   bind_all(by = species) |>
-#'   distinct(species, all_or_groups)
+#'   bind_all_by(species) |>
+#'   distinct(species, all_or_g |> |> |> |> roups)
 #'
 #' penguins |>
-#'   bind_all(by = species,
-#'            all_value = "All species",
-#'            groups_value = "Species") |>
+#'   bind_all_by(species,
+#'            all = "All species",
+#'            groups = "Species") |>
 #'   distinct(species, all_or_groups)
 #'
 #' set.seed(123)
 #'
 #' penguins |>
-#'   bind_all(by = species, all_value = "All\nspecies", groups_value = "Species") |>
+#'   bind_all_by(species, all = "All\nspecies", groups = "Species") |>
 #'   gg_jitter(
 #'     x = species,
 #'     y = body_mass_g,
@@ -164,7 +164,7 @@ bind_all <- function(data,
 #' set.seed(123)
 #'
 #' penguins |>
-#'   bind_all(by = species, all_value = "All\nspecies", groups_value = "Species") |>
+#'   bind_all_by(species, all = "All\nspecies", groups = "Species") |>
 #'   gg_jitter(
 #'     x = species,
 #'     y = body_mass_g,
@@ -182,7 +182,7 @@ bind_all <- function(data,
 #' set.seed(123)
 #'
 #' penguins |>
-#'   bind_all(by = species, all_value = "All\nspecies", groups_value = "Species") |>
+#'   bind_all_by(species, all = "All\nspecies", groups = "Species") |>
 #'   drop_na(sex) |>
 #'   mutate(sex = str_to_sentence(sex)) |>
 #'   gg_violin(
@@ -204,7 +204,7 @@ bind_all <- function(data,
 #' penguins |>
 #'   drop_na(sex) |>
 #'   mutate(sex = str_to_sentence(sex)) |>
-#'   bind_all(by = species, all_value = "All\nspecies", groups_value = "Species") |>
+#'   bind_all_by(species, all = "All\nspecies", groups = "Species") |>
 #'   gg_violin(
 #'     x = species,
 #'     y = body_mass_g,
