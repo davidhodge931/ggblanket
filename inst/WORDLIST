@@ -1,6 +1,7 @@
 Coord
 Errorbar
 Freqpoly
+Inf
 Linerange
 Nik
 ORCID
@@ -12,7 +13,6 @@ Stat
 abline
 beeswarm
 coord
-datetime
 dplyr
 errorbar
 etc
@@ -45,7 +45,6 @@ pointrange
 qq
 rect
 ridgeline
-rm
 showtext
 snakecase
 stat

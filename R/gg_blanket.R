@@ -101,7 +101,7 @@ gg_blanket <- function(data = NULL,
                        y_expand = NULL,
                        y_expand_limits = NULL,
                        y_label = NULL, y_labels = NULL,
-                        y_position = "left",
+                       y_position = "left",
                        y_sec_axis = ggplot2::waiver(),
                        y_symmetric = NULL,
 

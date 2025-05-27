@@ -6,6 +6,7 @@
 * Changed default `*_breaks_n` for `x` or `y` to be either 6 or 4 (if faceted). 
 Note, symmetric uses `only.loose = TRUE` whereas `FALSE` for non-symmetric.
 * Added guides functions to over-ride legend colour.
+* Added `bind_all` function to assist with plotting groups and totals.
 
 # ggblanket 12.2.0
 
