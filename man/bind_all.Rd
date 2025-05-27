@@ -10,7 +10,7 @@ bind_all(
   by,
   all_value = "All",
   all_value_after = Inf,
-  group_value = "Groups",
+  groups_value = "Groups",
   name = "all_or_groups"
 )
 }
@@ -25,7 +25,7 @@ bind_all(
 
 \item{all_value_after}{A number for where the all value should be placed. Either 0 for first or Inf for last.}
 
-\item{group_value}{A character value for the group value. Defaults to "Groups".}
+\item{groups_value}{A character value for the group value. Defaults to "Groups".}
 
 \item{name}{A variable name. Defaults to \code{all_or_groups}.}
 }
@@ -49,14 +49,13 @@ penguins |>
 penguins |>
   bind_all(by = species,
            all_value = "All\nspecies",
-           group_value = "Species",
-           ) |>
+           groups_value = "Species") |>
   distinct(species, all_or_groups)
 
 set.seed(123)
 
 penguins |>
-  bind_all(by = species, all_value = "All\nspecies", group_value = "Species") |>
+  bind_all(by = species, all_value = "All\nspecies", groups_value = "Species") |>
   gg_jitter(
     x = species,
     y = body_mass_g,
@@ -69,7 +68,7 @@ penguins |>
 set.seed(123)
 
 penguins |>
-  bind_all(by = species, all_value = "All\nspecies", group_value = "Species") |>
+  bind_all(by = species, all_value = "All\nspecies", groups_value = "Species") |>
   gg_jitter(
     x = species,
     y = body_mass_g,
@@ -87,7 +86,7 @@ penguins |>
 set.seed(123)
 
 penguins |>
-  bind_all(by = species, all_value = "All\nspecies", group_value = "Species") |>
+  bind_all(by = species, all_value = "All\nspecies", groups_value = "Species") |>
   drop_na(sex) |>
   mutate(sex = str_to_sentence(sex)) |>
   gg_violin(
@@ -109,7 +108,7 @@ set.seed(123)
 penguins |>
   drop_na(sex) |>
   mutate(sex = str_to_sentence(sex)) |>
-  bind_all(by = species, all_value = "All\nspecies", group_value = "Species") |>
+  bind_all(by = species, all_value = "All\nspecies", groups_value = "Species") |>
   gg_violin(
     x = species,
     y = body_mass_g,
