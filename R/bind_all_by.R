@@ -43,8 +43,6 @@
 #'   theme(legend.position = "none")
 #'
 #' penguins |>
-#'   group_by(species) |>
-#'   summarise(across(body_mass_g, \(x) mean(x, na.rm = TRUE))) |>
 #'   bind_all_by(species) |>
 #'   group_by(species, all_or_groups) |>
 #'   summarise(across(body_mass_g, \(x) mean(x, na.rm = TRUE))) |>
