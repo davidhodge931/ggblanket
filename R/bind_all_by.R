@@ -15,87 +15,42 @@
 #' @export
 #'
 #' @examples
-#' library(dplyr)
-#' library(stringr)
-#' library(tidyr)
 #' library(ggplot2)
 #' library(palmerpenguins)
 #'
+#' set_blanket()
+#'
 #' penguins |>
 #'   bind_all_by(species) |>
-#'   distinct(species, all_or_groups)
+#'   gg_jitter(
+#'     x = species,
+#'     y = body_mass_g,
+#'   )
 #'
 #' penguins |>
-#'   bind_all_by(species,
-#'            all = "All\nspecies",
-#'            groups = "Species") |>
-#'   distinct(species, all_or_groups)
-#'
-#' set.seed(123)
-#'
-#' penguins |>
-#'   bind_all_by(species, all = "All\nspecies", groups = "Species") |>
+#'   bind_all_by(species) |>
 #'   gg_jitter(
 #'     x = species,
 #'     y = body_mass_g,
 #'     col = all_or_groups,
 #'     col_palette = c(blue, grey),
 #'   ) +
-#'   theme(legend.position = "none") +
-#'   labs(x = NULL)
-#'
-#' set.seed(123)
+#'   theme(legend.position = "none")
 #'
 #' penguins |>
-#'   bind_all_by(species, all = "All\nspecies", groups = "Species") |>
+#'   bind_all_by(species, all = "All\nspecies") |>
 #'   gg_jitter(
 #'     x = species,
 #'     y = body_mass_g,
 #'     col = all_or_groups,
+#'     col_palette = c(blue, grey),
 #'     facet = all_or_groups,
-#'     col_palette = c(blue, grey),
 #'     facet_layout = "grid",
-#'     facet_space = "free_x",
 #'     facet_scales = "free_x",
-#'   ) +
-#'   theme(legend.position = "none") +
-#'   theme(strip.text = element_blank()) +
-#'   labs(x = NULL)
-#'
-#' set.seed(123)
-#'
-#' penguins |>
-#'   bind_all_by(species, all = "All\nspecies", groups = "Species") |>
-#'   drop_na(sex) |>
-#'   mutate(sex = str_to_sentence(sex)) |>
-#'   gg_violin(
-#'     x = species,
-#'     y = body_mass_g,
-#'     facet = all_or_groups,
-#'     col = all_or_groups,
-#'     col_palette = c(blue, grey),
-#'     facet_layout = "grid",
 #'     facet_space = "free_x",
-#'     facet_scales = "free_x",
-#'   ) +
-#'   theme(strip.text = element_blank()) +
-#'   theme(legend.position = "none") +
-#'   labs(x = NULL)
-#'
-#' set.seed(123)
-#'
-#' penguins |>
-#'   drop_na(sex) |>
-#'   mutate(sex = str_to_sentence(sex)) |>
-#'   bind_all_by(species, all = "All\nspecies", groups = "Species") |>
-#'   gg_violin(
-#'     x = species,
-#'     y = body_mass_g,
-#'     col = all_or_groups,
-#'     facet = sex,
-#'     col_palette = c(blue, grey),
 #'   ) +
 #'   theme(legend.position = "none") +
+#'   theme(strip.text.x = element_blank()) +
 #'   labs(x = NULL)
 #'
 bind_all_by <- function(data,
