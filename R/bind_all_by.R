@@ -15,8 +15,13 @@
 #' @export
 #'
 #' @examples
+#' library(dplyr)
 #' library(ggplot2)
 #' library(palmerpenguins)
+#'
+#' penguins |>
+#'   bind_all_by(species) |>
+#'   distinct(species, all_or_groups)
 #'
 #' set_blanket()
 #'
