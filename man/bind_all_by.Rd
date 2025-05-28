@@ -38,13 +38,12 @@ Bind all the data to itself by a variable for plotting of groups against all dat
 \examples{
 library(dplyr)
 library(ggplot2)
-library(palmerpenguins)
+
+set_blanket()
 
 penguins |>
   bind_all_by(species) |>
   distinct(species, all_or_groups)
-
-set_blanket()
 
 penguins |>
   bind_all_by(species) |>
