@@ -64,6 +64,22 @@ penguins |>
   theme(legend.position = "none")
 
 penguins |>
+  group_by(species) |>
+  summarise(across(body_mass_g, \(x) mean(x, na.rm = TRUE))) |>
+  bind_all_by(species) |>
+  group_by(species, all_or_groups) |>
+  summarise(across(body_mass_g, \(x) mean(x, na.rm = TRUE))) |>
+  gg_col(
+    x = species,
+    y = body_mass_g,
+    col = all_or_groups,
+    col_palette = c(blue, grey),
+    width = 0.5,
+    y_label = "Average body mass g",
+  ) +
+  theme(legend.position = "none")
+
+penguins |>
   bind_all_by(species, all = "All\nspecies") |>
   gg_jitter(
     x = species,
