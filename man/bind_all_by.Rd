@@ -11,7 +11,7 @@ bind_all_by(
   all = "All",
   all_after = Inf,
   groups = "Groups",
-  name = "all_or_groups"
+  name = "groups_or_all"
 )
 }
 \arguments{
@@ -27,7 +27,7 @@ bind_all_by(
 
 \item{groups}{A character value for the group value. Defaults to \code{"Groups"}.}
 
-\item{name}{A variable name. Defaults to \code{all_or_groups}.}
+\item{name}{A variable name. Defaults to \code{groups_or_all}.}
 }
 \value{
 A data frame or tibble
@@ -44,7 +44,7 @@ set_blanket()
 
 penguins |>
   bind_all_by(species) |>
-  distinct(species, all_or_groups)
+  distinct(species, groups_or_all)
 
 penguins |>
   bind_all_by(species) |>
@@ -58,19 +58,19 @@ penguins |>
   gg_jitter(
     x = species,
     y = body_mass_g,
-    col = all_or_groups,
+    col = groups_or_all,
     col_palette = c(blue, grey),
   ) +
   theme(legend.position = "none")
 
 penguins |>
   bind_all_by(species) |>
-  group_by(species, all_or_groups) |>
+  group_by(species, groups_or_all) |>
   summarise(across(body_mass_g, \(x) mean(x, na.rm = TRUE))) |>
   gg_col(
     x = species,
     y = body_mass_g,
-    col = all_or_groups,
+    col = groups_or_all,
     col_palette = c(blue, grey),
     width = 0.5,
     y_label = "Average body mass g",
@@ -82,9 +82,9 @@ penguins |>
   gg_jitter(
     x = species,
     y = body_mass_g,
-    col = all_or_groups,
+    col = groups_or_all,
     col_palette = c(blue, grey),
-    facet = all_or_groups,
+    facet = groups_or_all,
     facet_layout = "grid",
     facet_scales = "free_x",
     facet_space = "free_x",
