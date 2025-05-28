@@ -17,6 +17,7 @@
 #' @examples
 #' library(dplyr)
 #' library(ggplot2)
+#' library(palmerpenguins)
 #'
 #' set_blanket()
 #'
