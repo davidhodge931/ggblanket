@@ -2,7 +2,7 @@
 % Please edit documentation in R/bind_all_by.R
 \name{bind_all_by}
 \alias{bind_all_by}
-\title{Bind all the data to itself.}
+\title{Bind all the data to itself}
 \usage{
 bind_all_by(
   data,
@@ -21,11 +21,11 @@ bind_all_by(
 
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
-\item{all}{A character value for the all value. Defaults to "All".}
+\item{all}{A character value for the all value. Defaults to \code{"All"}.}
 
 \item{all_after}{A number for where the all value should be placed after. Either 0 for first or Inf for last.}
 
-\item{groups}{A character value for the group value. Defaults to "Groups".}
+\item{groups}{A character value for the group value. Defaults to \code{"Groups"}.}
 
 \item{name}{A variable name. Defaults to \code{all_or_groups}.}
 }

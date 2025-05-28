@@ -1,4 +1,4 @@
-#' Bind all the data to itself.
+#' Bind all the data to itself
 #'
 #' @description
 #' Bind all the data to itself by a variable for plotting of groups against all data.
@@ -6,9 +6,9 @@
 #' @param data A data frame or tibble.
 #' @param by An unquoted character or factor variable.
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param all A character value for the all value. Defaults to "All".
+#' @param all A character value for the all value. Defaults to `"All"`.
 #' @param all_after A number for where the all value should be placed after. Either 0 for first or Inf for last.
-#' @param groups A character value for the group value. Defaults to "Groups".
+#' @param groups A character value for the group value. Defaults to `"Groups"`.
 #' @param name A variable name. Defaults to `all_or_groups`.
 #'
 #' @return A data frame or tibble
