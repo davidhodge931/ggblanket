@@ -69,7 +69,7 @@ penguins2 <- penguins |>
     flipper_length_mm = "Flipper length (mm)",
     body_mass_g = "Body mass (g)",
   ) |> 
-  mutate(sex = factor(sex, labels = c("Female", "Male"))) |> 
+  mutate(sex = str_to_sentence(sex)) |> 
   tidyr::drop_na(sex) 
 ```
 

@@ -75,39 +75,46 @@
 #'   labs(x = NULL)
 #'
 bind_each_all <- function(data,
-                        ...,
-                        name = "each_all",
-                        each = "Each",
-                        all = "All",
-                        all_after = Inf) {
-
+                          ...,
+                          name = "each_all",
+                          each = "Each",
+                          all = "All",
+                          all_after = Inf) {
   if (...length() != 1) stop("Please provide one variable")
-
   by <- rlang::enquos(...)[1][[1]]
-
   if (inherits(rlang::eval_tidy(by, data), what = c("factor"))) {
     levels <- levels(rlang::eval_tidy(by, data))
-
     data <- data |>
       dplyr::bind_rows(dplyr::mutate(data, !!by := all)) |>
       dplyr::mutate(!!by := factor(!!by, levels = c(levels, all))) |>
-      dplyr::mutate(!!by := forcats::fct_relevel(!!by, all, after = all_after))
+      dplyr::mutate(!!by := {
+        col_values <- !!by
+        if (any(is.na(col_values))) {
+          forcats::fct_relevel(forcats::fct_na_value_to_level(col_values), all, after = all_after)
+        } else {
+          forcats::fct_relevel(col_values, all, after = all_after)
+        }
+      })
   }
   else {
-      data <- data |>
+    data <- data |>
       dplyr::mutate(!!by := as.character(!!by)) |>
       dplyr::bind_rows(dplyr::mutate(data, !!by := all)) |>
-      dplyr::mutate(!!by := forcats::fct_relevel(!!by, all, after = all_after))
+      dplyr::mutate(!!by := {
+        col_values <- !!by
+        if (any(is.na(col_values))) {
+          forcats::fct_relevel(forcats::fct_na_value_to_level(col_values), all, after = all_after)
+        } else {
+          forcats::fct_relevel(as.factor(col_values), all, after = all_after)
+        }
+      })
   }
-
   data <- data |>
-    dplyr::mutate(!!name := ifelse(!!by == all, all, each)) |>
+    dplyr::mutate(!!name := dplyr::if_else(!!by == all, all, each, missing = each)) |>
     dplyr::mutate(dplyr::across(!!name, forcats::fct_inorder))
-
   if (all_after == 0) {
     data <- data |>
       dplyr::mutate(dplyr::across(!!name, forcats::fct_rev))
   }
-
   return(data)
 }
