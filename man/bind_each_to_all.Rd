@@ -30,7 +30,7 @@ bind_each_to_all(
 A data frame or tibble
 }
 \description{
-Bind data to compare each category with all of the data.
+Bind data to support comparing each category with all of the data.
 }
 \examples{
 library(dplyr)
