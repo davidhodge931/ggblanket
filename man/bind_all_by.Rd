@@ -27,7 +27,7 @@ bind_all_by(
 
 \item{all}{A string for the all value. Defaults to \code{"All"}.}
 
-\item{all_after}{A number for where the all value should be placed after. Either 0 for first or Inf for last.}
+\item{all_after}{A number for where the all value should be placed after. Use 0 for first or Inf for last. Defaults to Inf.}
 }
 \value{
 A data frame or tibble

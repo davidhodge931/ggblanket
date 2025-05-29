@@ -9,7 +9,7 @@
 #' @param name A variable name. Defaults to `groups_or_all`.
 #' @param groups A string for the group value. Defaults to `"Groups"`.
 #' @param all A string for the all value. Defaults to `"All"`.
-#' @param all_after A number for where the all value should be placed after. Either 0 for first or Inf for last.
+#' @param all_after A number for where the all value should be placed after. Use 0 for first or Inf for last. Defaults to Inf.
 #'
 #' @return A data frame or tibble
 #' @export
