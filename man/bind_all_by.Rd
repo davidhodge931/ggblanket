@@ -23,9 +23,9 @@ bind_all_by(
 
 \item{name}{A variable name. Defaults to \code{groups_or_all}.}
 
-\item{groups}{A character value for the group value. Defaults to \code{"Groups"}.}
+\item{groups}{A string for the group value. Defaults to \code{"Groups"}.}
 
-\item{all}{A character value for the all value. Defaults to \code{"All"}.}
+\item{all}{A string for the all value. Defaults to \code{"All"}.}
 
 \item{all_after}{A number for where the all value should be placed after. Either 0 for first or Inf for last.}
 }

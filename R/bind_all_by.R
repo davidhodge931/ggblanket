@@ -7,8 +7,8 @@
 #' @param by An unquoted character or factor variable.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param name A variable name. Defaults to `groups_or_all`.
-#' @param groups A character value for the group value. Defaults to `"Groups"`.
-#' @param all A character value for the all value. Defaults to `"All"`.
+#' @param groups A string for the group value. Defaults to `"Groups"`.
+#' @param all A string for the all value. Defaults to `"All"`.
 #' @param all_after A number for where the all value should be placed after. Either 0 for first or Inf for last.
 #'
 #' @return A data frame or tibble
