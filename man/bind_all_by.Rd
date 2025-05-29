@@ -8,10 +8,10 @@ bind_all_by(
   data,
   by,
   ...,
-  all = "All",
-  all_after = Inf,
+  name = "groups_or_all",
   groups = "Groups",
-  name = "groups_or_all"
+  all = "All",
+  all_after = Inf
 )
 }
 \arguments{
@@ -21,13 +21,13 @@ bind_all_by(
 
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
-\item{all}{A character value for the all value. Defaults to \code{"All"}.}
-
-\item{all_after}{A number for where the all value should be placed after. Either 0 for first or Inf for last.}
+\item{name}{A variable name. Defaults to \code{groups_or_all}.}
 
 \item{groups}{A character value for the group value. Defaults to \code{"Groups"}.}
 
-\item{name}{A variable name. Defaults to \code{groups_or_all}.}
+\item{all}{A character value for the all value. Defaults to \code{"All"}.}
+
+\item{all_after}{A number for where the all value should be placed after. Either 0 for first or Inf for last.}
 }
 \value{
 A data frame or tibble

@@ -6,10 +6,10 @@
 #' @param data A data frame or tibble.
 #' @param by An unquoted character or factor variable.
 #' @param ... Provided to require argument naming, support trailing commas etc.
+#' @param name A variable name. Defaults to `groups_or_all`.
+#' @param groups A character value for the group value. Defaults to `"Groups"`.
 #' @param all A character value for the all value. Defaults to `"All"`.
 #' @param all_after A number for where the all value should be placed after. Either 0 for first or Inf for last.
-#' @param groups A character value for the group value. Defaults to `"Groups"`.
-#' @param name A variable name. Defaults to `groups_or_all`.
 #'
 #' @return A data frame or tibble
 #' @export
@@ -75,10 +75,10 @@
 bind_all_by <- function(data,
                         by,
                         ...,
-                        all = "All",
-                        all_after = Inf,
+                        name = "groups_or_all",
                         groups = "Groups",
-                        name = "groups_or_all") {
+                        all = "All",
+                        all_after = Inf) {
 
   by <- rlang::enquo(by)
 
