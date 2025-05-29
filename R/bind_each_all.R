@@ -21,6 +21,9 @@
 #' set_blanket()
 #'
 #' penguins |>
+#'   distinct(species)
+#'
+#' penguins |>
 #'   bind_each_all(species) |>
 #'   distinct(species, each_all)
 #'
