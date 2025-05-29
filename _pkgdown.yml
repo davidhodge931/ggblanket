@@ -35,7 +35,7 @@ reference:
 - contents:
   - aes_contrast
   - annotate_axis_line
-  - bind_each_to_all
+  - bind_each_all
   - guides_shape_grey
   - guides_linewidth_grey
   - guides_size_grey
