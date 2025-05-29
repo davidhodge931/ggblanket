@@ -445,21 +445,6 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
   )
 ```
 
-### gg_ribbon_line
-
-```{r, eval = FALSE}
-data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
-  mutate(level_min = level - 1, level_max = level + 1) |>
-  gg_ribbon_line(
-    x = year,
-    y = level,
-    ymin = level_min,
-    ymax = level_max,
-    x_labels = \(x) x,
-    blend = "multiply",
-  )
-```
-
 ### gg_rug
 
 ```{r}
