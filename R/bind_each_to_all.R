@@ -1,7 +1,7 @@
 #' Bind each to all
 #'
 #' @description
-#' Create a data frame or tibble for comparing individual categories with all of the data.
+#' Bind data to compare each category with all of the data.
 #'
 #' @param data A data frame or tibble.
 #' @param ... An unquoted variable.
