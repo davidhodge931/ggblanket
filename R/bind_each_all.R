@@ -1,7 +1,7 @@
 #' Bind each all.
 #'
 #' @description
-#' Binds data to support plots with each category and all combined data.
+#' Binds data in a special way to support plotting each category _and_ all combined data.
 #'
 #' @param data A data frame or tibble.
 #' @param ... An unquoted variable.
