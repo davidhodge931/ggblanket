@@ -1,14 +1,14 @@
 #' Bind each to all data.
 #'
 #' @description
-#' Binds data to support comparing each category against all data combined.
+#' Binds data to support plots with each category and all combined data.
 #'
 #' @param data A data frame or tibble.
 #' @param ... An unquoted variable.
 #' @param name A variable name. Defaults to `each_all`.
 #' @param each A string for the each value. Defaults to `"Each"`.
 #' @param all A string for the all value. Defaults to `"All"`.
-#' @param all_after A number for where the all value should be placed after. Use 0 for first or Inf for last. Defaults to Inf.
+#' @param all_after A number for where the all value should be placed after. Use `0` for first or `Inf` for last. Defaults to `Inf`.
 #'
 #' @return A data frame or tibble
 #' @export

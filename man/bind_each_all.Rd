@@ -24,13 +24,13 @@ bind_each_all(
 
 \item{all}{A string for the all value. Defaults to \code{"All"}.}
 
-\item{all_after}{A number for where the all value should be placed after. Use 0 for first or Inf for last. Defaults to Inf.}
+\item{all_after}{A number for where the all value should be placed after. Use \code{0} for first or \code{Inf} for last. Defaults to \code{Inf}.}
 }
 \value{
 A data frame or tibble
 }
 \description{
-Binds data to support comparing each category against all data combined.
+Binds data to support plots with each category and all combined data.
 }
 \examples{
 library(dplyr)
