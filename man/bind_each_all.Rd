@@ -30,7 +30,7 @@ bind_each_all(
 A data frame or tibble
 }
 \description{
-Binds data in a special way to support plotting each category \emph{and} all combined data.
+Binds data to support plotting each category \emph{and} all combined data.
 }
 \examples{
 library(dplyr)
