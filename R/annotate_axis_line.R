@@ -1,4 +1,4 @@
-#' Replace a axis line with an annotated segment
+#' Annotated axis line segment
 #'
 #' @description Replace a axis line with an annotated segment, so that geom features are in front of it.
 #'
