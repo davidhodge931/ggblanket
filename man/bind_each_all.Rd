@@ -2,7 +2,7 @@
 % Please edit documentation in R/bind_each_all.R
 \name{bind_each_all}
 \alias{bind_each_all}
-\title{Bind each to all data.}
+\title{Bind each all.}
 \usage{
 bind_each_all(
   data,

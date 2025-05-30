@@ -1,4 +1,4 @@
-#' Bind each to all data.
+#' Bind each all.
 #'
 #' @description
 #' Binds data to support plots with each category and all combined data.
