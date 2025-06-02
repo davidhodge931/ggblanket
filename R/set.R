@@ -8,12 +8,10 @@
 #' 3. the theme, and how/what side-effects are to be applied
 #' 4. the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc.
 #'
-#' `set_geom_font()`, `set_geom_font()` and `set_geom_reference_line()` can be used to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
-#'
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline"). Note, the "fill" inherits from this argument.
+#' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note, the "fill" inherits from this argument.
 #' @param col_palette_d For a discrete scale, a character vector of hex codes.
 #' @param col_palette_c For a continuous scale, a character vector of hex codes.
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function.
@@ -70,7 +68,17 @@ set_blanket <- function(
     theme_panel_grid_rm = TRUE,
     label_case = snakecase::to_sentence_case) {
 
+  weave_theme(theme = theme,
+              theme_orientation = theme_orientation,
+              theme_axis_line_rm = theme_axis_line_rm,
+              theme_axis_ticks_rm = theme_axis_ticks_rm,
+              theme_panel_grid_rm = theme_panel_grid_rm)
+
   weave_geom_defaults(colour = colour)
+
+  weave_geom_font()
+
+  weave_geom_reference_line()
 
   weave_col_palette(
     col_palette_d = col_palette_d,
@@ -81,91 +89,5 @@ set_blanket <- function(
     col_palette_na_o = col_palette_na_o
   )
 
-  weave_theme(theme = theme,
-              theme_orientation = theme_orientation,
-              theme_axis_line_rm = theme_axis_line_rm,
-              theme_axis_ticks_rm = theme_axis_ticks_rm,
-              theme_panel_grid_rm = theme_panel_grid_rm)
-
   weave_label_case(label_case = label_case)
 }
-
-#' Set the text and label geom defaults
-#'
-#' @description Update the "text" and "label" geom defaults. Note all other text is controlled by the theme.
-#'
-#' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param colour A hex code.
-#' @param fill A hex code.
-#' @param size A size.
-#' @param family A family.
-#'
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#' library(dplyr)
-#' library(palmerpenguins)
-#'
-#' set_blanket(theme = dark_mode_r())
-#' set_geom_font(colour = darkness[1])
-#' set_geom_reference_line(colour = darkness[1])
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     x_breaks_n = 4,
-#'   ) +
-#'   geom_vline(xintercept = 200) +
-#'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
-#'
-set_geom_font <- function(
-    ...,
-    colour = "#121B24FF",
-    fill = "#FFFFFFFF",
-    size = 11 / 2.835052,
-    family = "") {
-
-  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour, size = !!size, family = !!family))
-  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour, fill = !!fill, size = !!size, family = !!family))
-}
-
-#' Set the geom reference line defaults
-#'
-#' @description Update the "hline", "vline", "abline", and "curve" geom defaults.
-#'
-#' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param colour A hex code.
-#' @param linewidth A linewidth.
-#'
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#' library(dplyr)
-#' library(palmerpenguins)
-#'
-#' set_blanket(theme = dark_mode_r())
-#' set_geom_font(colour = darkness[1])
-#' set_geom_reference_line(colour = darkness[1])
-#'
-#' penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     x_breaks_n = 4,
-#'   ) +
-#'   geom_vline(xintercept = 200) +
-#'   annotate("text", x = I(0.25), y = I(0.75), label = "Here")
-#'
-set_geom_reference_line <- function(
-    ...,
-    colour = "#121B24FF",
-    linewidth = 0.25) {
-  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
-  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
-  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
-  ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
-}
-

@@ -42,6 +42,4 @@ reference:
   - label_every_nth
   - scale_x_symmetric
   - scale_y_symmetric
-  - set_geom_font
-  - set_geom_reference_line
 

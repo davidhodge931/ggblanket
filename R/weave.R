@@ -82,7 +82,7 @@ weave_label_case <- function(label_case = snakecase::to_sentence_case,
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune individual geom defaults.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline"). Note "fill" inherits from this argument.
+#' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note "fill" inherits from this argument.
 #'
 #' @noRd
 weave_geom_defaults <- function(
@@ -112,6 +112,7 @@ weave_geom_defaults <- function(
   ggplot2::update_geom_defaults("hex", ggplot2::aes(fill = !!colour, linewidth = 0))
 
   #lines
+  ggplot2::update_geom_defaults("abline", ggplot2::aes(colour = !!colour, linewidth = 0.66))
   ggplot2::update_geom_defaults("contour", ggplot2::aes(colour = !!colour, linewidth = 0.66))
   ggplot2::update_geom_defaults("curve", ggplot2::aes(colour = !!colour, linewidth = 0.66))
   ggplot2::update_geom_defaults("density2d", ggplot2::aes(colour = !!colour, linewidth = 0.66))
@@ -129,6 +130,53 @@ weave_geom_defaults <- function(
   #points
   ggplot2::update_geom_defaults("point", ggplot2::aes(colour = !!colour, fill = !!colour))
   ggplot2::update_geom_defaults("pointrange", ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66, size = 0.2)) # 1.5 / 7.5
+}
+
+#' Set the text and label geom defaults
+#'
+#' @description Update the "text" and "label" geom defaults. Note all other text is controlled by the theme.
+#'
+#' @param ... Provided to require argument naming, support trailing commas etc.
+#' @param colour A hex code.
+#' @param fill A hex code.
+#' @param size A size.
+#' @param family A family.
+#'
+#' @noRd
+weave_geom_font <- function(
+    ...,
+    colour = ggplot2::theme_get()$text$colour,
+    fill = "#FFFFFFFF",
+    size = ggplot2::theme_get()$text$size / 2.835052,
+    family = ggplot2::theme_get()$text$family) {
+
+  if (rlang::is_null(colour)) colour <-  "#121B24FF"
+  if (rlang::is_null(size)) size <- 11 / 2.835052
+  if (rlang::is_null(family)) family <- ""
+
+  ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour, size = !!size, family = !!family))
+  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour, fill = !!fill, size = !!size, family = !!family))
+}
+
+#' Set the geom reference line defaults
+#'
+#' @description Update the "hline", "vline", "abline", and "curve" geom defaults.
+#'
+#' @param ... Provided to require argument naming, support trailing commas etc.
+#' @param colour A hex code.
+#' @param linewidth A linewidth.
+#'
+#' @noRd
+weave_geom_reference_line <- function(
+    ...,
+    colour = ggplot2::theme_get()$axis.line$colour,
+    linewidth = ggplot2::theme_get()$axis.line$linewidth) {
+
+  if (rlang::is_null(colour)) colour <-  "#121B24FF"
+  if (rlang::is_null(linewidth)) linewidth <- 0.25
+
+  ggplot2::update_geom_defaults("hline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
+  ggplot2::update_geom_defaults("vline", ggplot2::aes(colour = !!colour, linewidth = !!linewidth))
 }
 
 #' Set colour (and fill) palettes

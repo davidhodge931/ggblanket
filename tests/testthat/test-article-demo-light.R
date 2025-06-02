@@ -4,8 +4,6 @@ testthat::skip_on_os(c("mac", "linux"))
 library(ggplot2)
 library(dplyr)
 set_blanket()
-set_geom_font()
-set_geom_reference_line()
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "gg_area"

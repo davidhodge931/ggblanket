@@ -175,7 +175,6 @@ library(ggplot2)
 library(dplyr)
 
 set_blanket()
-set_geom_font()
 
 bind_rows(
   mtcars |> slice_min(order_by = mpg),

@@ -39,7 +39,6 @@ library(ggblanket)
 library(palmerpenguins)
 
 set_blanket()
-set_geom_reference_line()
 
 d <- penguins |>
   add_row(

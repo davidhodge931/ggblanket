@@ -24,7 +24,7 @@ set_blanket(
 \arguments{
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
-\item{colour}{For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", "vline" and "abline"). Note, the "fill" inherits from this argument.}
+\item{colour}{For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note, the "fill" inherits from this argument.}
 
 \item{col_palette_d}{For a discrete scale, a character vector of hex codes.}
 
@@ -61,8 +61,6 @@ Set the style by setting:
 \item the theme, and how/what side-effects are to be applied
 \item the function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc.
 }
-
-\code{set_geom_font()}, \code{set_geom_font()} and \code{set_geom_reference_line()} can be used to customise "text", "label",  "abline, "vline" and "hline" geom defaults.
 
 \code{\link[ggplot2:update_defaults]{ggplot2::update_geom_defaults()}} can be used to further fine-tune geom defaults.
 }
