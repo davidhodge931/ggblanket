@@ -134,7 +134,7 @@ weave_geom_defaults <- function(
 
 #' Set the text and label geom defaults
 #'
-#' @description Update the "text" and "label" geom defaults. Note all other text is controlled by the theme.
+#' @description Update the "text" geom defaults. Note all other text is controlled by the theme.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param colour A hex code.
@@ -143,10 +143,9 @@ weave_geom_defaults <- function(
 #' @param family A family.
 #'
 #' @noRd
-weave_geom_font <- function(
+weave_geom_text <- function(
     ...,
     colour = ggplot2::theme_get()$text$colour,
-    fill = "#FFFFFFFF",
     size = ggplot2::theme_get()$text$size / 2.835052,
     family = ggplot2::theme_get()$text$family) {
 
@@ -155,7 +154,32 @@ weave_geom_font <- function(
   if (rlang::is_null(family)) family <- ""
 
   ggplot2::update_geom_defaults("text", ggplot2::aes(colour = !!colour, size = !!size, family = !!family))
-  ggplot2::update_geom_defaults("label", ggplot2::aes(colour = !!colour, fill = !!fill, size = !!size, family = !!family))
+}
+
+#' Set the text and label geom defaults
+#'
+#' @description Update the "label" geom defaults. Note all other text is controlled by the theme.
+#'
+#' @param ... Provided to require argument naming, support trailing commas etc.
+#' @param fill A hex code.
+#' @param colour A hex code.
+#' @param size A size.
+#' @param family A family.
+#'
+#' @noRd
+weave_geom_label <- function(
+    ...,
+    fill = ggplot2::theme_get()$text$colour,
+    colour = ggplot2::theme_get()$panel.background$fill,
+    size = ggplot2::theme_get()$text$size / 2.835052,
+    family = ggplot2::theme_get()$text$family) {
+
+  if (rlang::is_null(fill)) fill <-  "#121B24FF"
+  if (rlang::is_null(colour)) colour <-  "#FFFFFFFF"
+  if (rlang::is_null(size)) size <- 11 / 2.835052
+  if (rlang::is_null(family)) family <- ""
+
+  ggplot2::update_geom_defaults("label", ggplot2::aes(fill = !!fill, colour = !!colour, fill = !!fill, size = !!size, family = !!family))
 }
 
 #' Set the geom reference line defaults

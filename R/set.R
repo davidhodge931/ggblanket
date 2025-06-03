@@ -76,7 +76,8 @@ set_blanket <- function(
 
   weave_geom_defaults(colour = colour)
 
-  weave_geom_font()
+  weave_geom_text()
+  weave_geom_label()
 
   weave_geom_reference_line()
 

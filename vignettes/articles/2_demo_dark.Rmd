@@ -41,7 +41,7 @@ penguins2 <- penguins |>
     flipper_length_mm = "Flipper length (mm)",
     body_mass_g = "Body mass (g)",
   ) |> 
-  mutate(sex = factor(sex, labels = c("Female", "Male"))) |>
+  mutate(sex = stringr::str_to_sentence(sex)) |> 
   tidyr::drop_na(sex)
 
 experiment <- data.frame(
@@ -276,9 +276,6 @@ bind_rows(
     x = model,
     y = mpg,
     label = model,
-    size = 11 / 2.835052,
-    colour = "#121B24FF",
-    fill = "#C8D7DFFF",
     y_limits_include = 0,
     y_label = "Miles per gallon", 
   )
@@ -519,8 +516,6 @@ bind_rows(
     x = model,
     y = mpg,
     label = model,
-    colour = "#C8D7DFFF",
-    size = 11 / 2.835052,
     y_limits_include = 0,
     y_label = "Miles per gallon",
   )

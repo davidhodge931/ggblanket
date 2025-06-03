@@ -4,6 +4,7 @@
 * Breaking: renamed `*_expand_limits` to `*_limits_include`.
 * Breaking: removed `gg_ribbon_line`. Use `gg_smooth(stat = "identity", ...)` instead.
 * Added `bind_each_all` function to assist with plotting groups alongside the total.
+* `set_blanket` now sets hline, vline, text, and label defaults based on the theme. 
 
 # ggblanket 12.3.0
 
