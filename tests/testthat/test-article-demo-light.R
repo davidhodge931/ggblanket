@@ -230,8 +230,8 @@ test_name <- "gg_function"
 test_that(test_name, {
   p <- gg_function(
     fun = \(x) dnorm(x, mean = 0, sd = 5),
-    x_expand_limits = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
-    y_expand_limits = 0,
+    x_limits_include = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
+    y_limits_include = 0,
   )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -280,7 +280,7 @@ test_that(test_name, {
 #       y = body_mass_g,
 #       col = flipper_length_mm,
 #       position = position_jitter(height = 0),
-#       y_expand_limits = 0,
+#       y_limits_include = 0,
 #       col_steps = TRUE,
 #     )
 #
@@ -300,7 +300,7 @@ test_that(test_name, {
       y = mpg,
       label = model,
       size = 3.53,
-      y_expand_limits = 0,
+      y_limits_include = 0,
       y_label = "Miles per gallon",
       # col_palette = c(orange, "white", teal),
     )
@@ -316,7 +316,7 @@ test_that(test_name, {
     gg_line(
       x = date,
       y = unemploy,
-      y_expand_limits = 0,
+      y_limits_include = 0,
       y_label = "Unemployment",
     )
 
@@ -356,7 +356,7 @@ test_that(test_name, {
       x = unemploy_rate,
       y = psavert,
       x_label = "Unemployment rate",
-      y_expand_limits = 0,
+      y_limits_include = 0,
       y_label = "Personal savings rate",
     )
 
@@ -593,7 +593,7 @@ test_that(test_name, {
     gg_step(
       x = date,
       y = unemploy,
-      y_expand_limits = 0,
+      y_limits_include = 0,
       y_label = "Unemployment",
     )
 
@@ -613,7 +613,7 @@ test_that(test_name, {
       y = mpg,
       label = model,
       size = 3.53,
-      y_expand_limits = 0,
+      y_limits_include = 0,
       y_label = "Miles per gallon",
       col_palette = c(orange, "white", teal),
     )

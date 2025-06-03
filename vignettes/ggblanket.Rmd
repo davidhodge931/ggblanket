@@ -184,7 +184,7 @@ penguins2 |>
     x_breaks_n = 4,
     x_label = "Flipper length",
     x_labels = \(x) paste0(x, " mm"),
-    y_expand_limits = 1000,
+    y_limits_include = 1000,
     y_labels = label_number(big.mark = " "), 
     y_transform = "sqrt",
     col_label = "Bill\nlength (mm)",
@@ -297,7 +297,7 @@ A `y_symmetric` axis makes:
 
 The vice versa occurs for an `x_symmetric` axis.
 
-Use `*_symmetric = FALSE` to revert to the normal limits and expand defaults (i.e. the limits of the range of the data including `*_expand_limits` with `*_expand = c(0.05, 0.05)`).
+Use `*_symmetric = FALSE` to revert to the normal limits and expand defaults (i.e. the limits of the range of the data with `*_expand = c(0.05, 0.05)`).
 
 Note all continuous scales ensure _all_ data is kept using `scales::oob_keep` - and, by default, are left unclipped (i.e. `coord_cartesian(clip = "off")`. 
 
@@ -344,7 +344,7 @@ penguins2 |>
     xmax = upper,
     col = sex,
     position = position_dodge(),
-    x_expand_limits = 0,
+    x_limits_include = 0,
   ) +
   geom_col(
     width = 0.75,

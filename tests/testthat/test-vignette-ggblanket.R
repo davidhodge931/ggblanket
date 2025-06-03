@@ -130,7 +130,7 @@ test_that(test_name, {
       col = flipper_length_mm,
       facet = sex,
       x_labels = \(x) str_sub(x, 1, 1),
-      y_expand_limits = 0,
+      y_limits_include = 0,
       y_breaks = scales::breaks_width(1500),
       y_labels = scales::label_number(big.mark = " "),
       y_expand = expansion(mult = c(0, 0.05)),
@@ -368,7 +368,7 @@ test_that(test_name, {
       y = species,
       col = species,
       width = 0.75,
-      x_expand_limits = c(0, max(.$upper)),
+      x_limits_include = c(0, max(.$upper)),
       x_labels = \(x) x / 1000,
       x_label = "Body mass kg",
     ) +
@@ -398,7 +398,7 @@ test_that(test_name, {
       xmin = lower,
       xmax = upper,
       width = 0.75,
-      x_expand_limits = 0,
+      x_limits_include = 0,
       x_labels = \(x) x / 1000,
       x_label = "Body mass kg",
     ) +

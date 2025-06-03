@@ -151,7 +151,7 @@ experiment |>
     ymax = upper,
     col = group,
     width = 0.5,
-    y_expand_limits = 0,
+    y_limits_include = 0,
     blend = "multiply",
   )
 ```
@@ -202,7 +202,7 @@ experiment |>
     col = group,
     y_label = "Response",
     width = 0.1,
-    y_expand_limits = 0,
+    y_limits_include = 0,
  )
 ```
 
@@ -223,9 +223,9 @@ penguins2 |>
 ```{r}
 gg_function(
   fun = \(x) dnorm(x, mean = 0, sd = 5),
-  x_expand_limits = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
+  x_limits_include = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
   x_label = "X",
-  y_expand_limits = 0,
+  y_limits_include = 0,
 )
 ```
 
@@ -260,7 +260,7 @@ penguins2 |>
     x = species,
     y = body_mass_g,
     col = flipper_length_mm,
-    y_expand_limits = 0,
+    y_limits_include = 0,
     col_steps = TRUE,
   )
 ```
@@ -279,7 +279,7 @@ bind_rows(
     size = 11 / 2.835052,
     colour = "#121B24FF",
     fill = "#C8D7DFFF",
-    y_expand_limits = 0,
+    y_limits_include = 0,
     y_label = "Miles per gallon", 
   )
 ```
@@ -291,7 +291,7 @@ economics |>
   gg_line(
     x = date,
     y = unemploy,
-    y_expand_limits = 0, 
+    y_limits_include = 0, 
     y_label = "Unemployment",
   )
 ```
@@ -307,7 +307,7 @@ experiment |>
     ymax = upper,
     col = group,
     y_label = "Response",
-    y_expand_limits = 0,
+    y_limits_include = 0,
   )
 ```
 
@@ -320,7 +320,7 @@ economics |>
     x = unemploy_rate,
     y = psavert,
     x_label = "Unemployment rate",
-    y_expand_limits = 0,
+    y_limits_include = 0,
     y_label = "Personal savings rate",
   )
 ```
@@ -347,7 +347,7 @@ experiment |>
     col = group,
     ymin = lower,
     ymax = upper,
-    y_expand_limits = 0,
+    y_limits_include = 0,
   )
 ```
 
@@ -503,7 +503,7 @@ economics |>
   gg_step(
     x = date,
     y = unemploy,
-    y_expand_limits = 0,
+    y_limits_include = 0,
     y_label = "Unemployment",
   )
 ```
@@ -521,7 +521,7 @@ bind_rows(
     label = model,
     colour = "#C8D7DFFF",
     size = 11 / 2.835052,
-    y_expand_limits = 0,
+    y_limits_include = 0,
     y_label = "Miles per gallon",
   )
 ```

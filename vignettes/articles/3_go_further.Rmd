@@ -310,8 +310,8 @@ penguins |>
   gg_smooth(
     x =  body_mass_g, 
     y = bill_depth_mm,
-    x_expand_limits = c(0),
-    y_expand_limits = c(10, 25),
+    x_limits_include = c(0),
+    y_limits_include = c(10, 25),
     se = TRUE,
   ) 
 ```
@@ -431,8 +431,8 @@ purrr::map(unique(penguins$species), \(x) {
       subtitle = x,
       x_breaks_n = 4,
       y_breaks_n = 5,
-      x_expand_limits = range(penguins$flipper_length_mm, na.rm = TRUE),
-      y_expand_limits = range(penguins$body_mass_g, na.rm = TRUE),
+      x_limits_include = range(penguins$flipper_length_mm, na.rm = TRUE),
+      y_limits_include = range(penguins$body_mass_g, na.rm = TRUE),
     ) +
     theme(plot.title.position = "panel") +
     theme(plot.subtitle = element_text(hjust = 0.5, margin = margin(b = 11)))

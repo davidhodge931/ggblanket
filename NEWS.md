@@ -1,8 +1,9 @@
 # ggblanket 12.3.0900
 
-* Breaking: removed `gg_ribbon_line`. Use `gg_smooth(stat = "identity", ...)` instead.
 * Breaking: removed `set_geom_font` and `set_geom_reference_line`.
-* Added `bind_each_all` function to assist with plotting groups and totals.
+* Breaking: renamed `*_expand_limits` to `*_limits_include`.
+* Breaking: removed `gg_ribbon_line`. Use `gg_smooth(stat = "identity", ...)` instead.
+* Added `bind_each_all` function to assist with plotting groups alongside the total.
 
 # ggblanket 12.3.0
 

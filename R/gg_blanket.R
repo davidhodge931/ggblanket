@@ -19,7 +19,7 @@
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
 #' @param x_breaks_n,y_breaks_n,col_breaks_n A number of desired breaks for when `*_breaks = NULL`.
 #' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
-#' @param x_expand_limits,y_expand_limits,col_expand_limits For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
+#' @param x_limits_include,y_limits_include,col_limits_include For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
 #' @param x_label,y_label,col_label Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)` for no title.
 #' @param x_labels,y_labels,col_labels,facet_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_*()`), or a vector of labels. (Note this must be named for `facet_labels`).
 #' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_theme_*` theme, add `caption = ""` or `caption = "\n"`.
@@ -90,7 +90,7 @@ gg_blanket <- function(data = NULL,
                        mapping = NULL,
                        x_breaks = NULL, x_breaks_n = NULL,
                        x_expand = NULL,
-                       x_expand_limits = NULL,
+                       x_limits_include = NULL,
                        x_label = NULL, x_labels = NULL,
 
 
@@ -99,7 +99,7 @@ gg_blanket <- function(data = NULL,
                        x_sec_axis = ggplot2::waiver(), x_symmetric = NULL, x_transform = NULL,
                        y_breaks = NULL, y_breaks_n = NULL,
                        y_expand = NULL,
-                       y_expand_limits = NULL,
+                       y_limits_include = NULL,
                        y_label = NULL, y_labels = NULL,
                        y_position = "left",
                        y_sec_axis = ggplot2::waiver(),
@@ -108,7 +108,7 @@ gg_blanket <- function(data = NULL,
                        y_transform = NULL,
                        col_breaks = NULL, col_breaks_n = 5,
                        col_drop = FALSE,
-                       col_expand_limits = NULL,
+                       col_limits_include = NULL,
                        col_label = NULL, col_labels = NULL,
                        col_legend_ncol = NULL,
                        col_legend_nrow = NULL,
@@ -169,17 +169,17 @@ gg_blanket <- function(data = NULL,
   #get geom, stat & position strings
   ##############################################################################
 
-  if (ggplot2::is.ggproto(geom)) {
+  if (ggplot2::is_ggproto(geom)) {
     geom_name <- stringr::str_to_lower(stringr::str_remove(class(geom)[1], "Geom"))
   }
   else if (is.character(geom)) geom_name <- geom
 
-  if (ggplot2::is.ggproto(stat)) {
+  if (ggplot2::is_ggproto(stat)) {
     stat_name <- stringr::str_to_lower(stringr::str_remove(class(stat)[1], "Stat"))
   }
   else if (is.character(stat)) stat_name <- stat
 
-  if (ggplot2::is.ggproto(position)) {
+  if (ggplot2::is_ggproto(position)) {
     position_name <- stringr::str_to_lower(stringr::str_remove(class(position)[1], "Position"))
   }
   else if (is.character(position)) position_name <- position
@@ -510,14 +510,14 @@ gg_blanket <- function(data = NULL,
     }
   }
 
-  if (!rlang::is_null(x_expand_limits)) {
+  if (!rlang::is_null(x_limits_include)) {
     plot <- plot +
-      ggplot2::expand_limits(x = x_expand_limits)
+      ggplot2::expand_limits(x = x_limits_include)
   }
 
-  if (!rlang::is_null(y_expand_limits)) {
+  if (!rlang::is_null(y_limits_include)) {
     plot <- plot +
-      ggplot2::expand_limits(y = y_expand_limits)
+      ggplot2::expand_limits(y = y_limits_include)
   }
 
 
@@ -1149,8 +1149,8 @@ gg_blanket <- function(data = NULL,
     #expand limits if necessary
     plot <- plot +
       ggplot2::expand_limits(
-        colour = col_expand_limits,
-        fill = col_expand_limits
+        colour = col_limits_include,
+        fill = col_limits_include
       )
   }
 
@@ -1200,7 +1200,7 @@ gg_blanket <- function(data = NULL,
           breaks = x_breaks,
           breaks_n = x_breaks_n,
           expand = x_expand,
-          expand_limits = x_expand_limits,
+          expand_limits = x_limits_include,
           labels = x_labels,
           position = x_position,
           sec_axis = x_sec_axis,
@@ -1214,7 +1214,7 @@ gg_blanket <- function(data = NULL,
           breaks = x_breaks,
           breaks_n = x_breaks_n,
           expand = x_expand,
-          expand_limits = x_expand_limits,
+          expand_limits = x_limits_include,
           labels = x_labels,
           position = x_position,
           sec_axis = x_sec_axis,
@@ -1265,7 +1265,7 @@ gg_blanket <- function(data = NULL,
           breaks = y_breaks,
           breaks_n = y_breaks_n,
           expand = y_expand,
-          expand_limits = y_expand_limits,
+          expand_limits = y_limits_include,
           labels = y_labels,
           position = y_position,
           sec_axis = y_sec_axis,
@@ -1279,7 +1279,7 @@ gg_blanket <- function(data = NULL,
           breaks = y_breaks,
           breaks_n = y_breaks_n,
           expand = y_expand,
-          expand_limits = y_expand_limits,
+          expand_limits = y_limits_include,
           labels = y_labels,
           position = y_position,
           sec_axis = y_sec_axis,

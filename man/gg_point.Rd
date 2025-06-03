@@ -37,7 +37,7 @@ gg_point(
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_expand = NULL,
-  x_expand_limits = NULL,
+  x_limits_include = NULL,
   x_label = NULL,
   x_labels = NULL,
   x_position = "bottom",
@@ -47,7 +47,7 @@ gg_point(
   y_breaks = NULL,
   y_breaks_n = NULL,
   y_expand = NULL,
-  y_expand_limits = NULL,
+  y_limits_include = NULL,
   y_label = NULL,
   y_labels = NULL,
   y_position = "left",
@@ -57,7 +57,7 @@ gg_point(
   col_breaks = NULL,
   col_breaks_n = 5,
   col_drop = FALSE,
-  col_expand_limits = NULL,
+  col_limits_include = NULL,
   col_label = NULL,
   col_labels = NULL,
   col_legend_ncol = NULL,
@@ -116,7 +116,7 @@ gg_point(
 
 \item{x_expand, y_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 
-\item{x_expand_limits, y_expand_limits, col_expand_limits}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
+\item{x_limits_include, y_limits_include, col_limits_include}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
 
 \item{x_label, y_label, col_label}{Label for the axis or legend title. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
 
