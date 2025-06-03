@@ -224,7 +224,7 @@ Hodge</h4>
 <span>    ymax <span class="op">=</span> <span class="va">upper</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">group</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    y_limits_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    blend <span class="op">=</span> <span class="st">"multiply"</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_demo_dark_files/figure-html/unnamed-chunk-9-1.png" width="70%"></p>
@@ -279,7 +279,7 @@ Hodge</h4>
 <span>    col <span class="op">=</span> <span class="va">group</span>,</span>
 <span>    y_label <span class="op">=</span> <span class="st">"Response"</span>,</span>
 <span>    width <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    y_limits_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span> <span class="op">)</span></span></code></pre></div>
 <p><img src="2_demo_dark_files/figure-html/unnamed-chunk-13-1.png" width="70%"></p>
 </div>
@@ -302,9 +302,9 @@ Hodge</h4>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/gg_function.html">gg_function</a></span><span class="op">(</span></span>
 <span>  fun <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="va">x</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span>  x_expand_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.005</span>, <span class="fl">0.995</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  x_limits_include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.005</span>, <span class="fl">0.995</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
 <span>  x_label <span class="op">=</span> <span class="st">"X"</span>,</span>
-<span>  y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  y_limits_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="2_demo_dark_files/figure-html/unnamed-chunk-15-1.png" width="70%"></p>
 </div>
@@ -342,7 +342,7 @@ Hodge</h4>
 <span>    x <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    y_limits_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    col_steps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_demo_dark_files/figure-html/unnamed-chunk-18-1.png" width="70%"></p>
@@ -362,7 +362,7 @@ Hodge</h4>
 <span>    size <span class="op">=</span> <span class="fl">11</span> <span class="op">/</span> <span class="fl">2.835052</span>,</span>
 <span>    colour <span class="op">=</span> <span class="st">"#121B24FF"</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">"#C8D7DFFF"</span>,</span>
-<span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    y_limits_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    y_label <span class="op">=</span> <span class="st">"Miles per gallon"</span>, </span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_demo_dark_files/figure-html/unnamed-chunk-19-1.png" width="70%"></p>
@@ -375,7 +375,7 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_line.html">gg_line</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">date</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
-<span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>    y_limits_include <span class="op">=</span> <span class="fl">0</span>, </span>
 <span>    y_label <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_demo_dark_files/figure-html/unnamed-chunk-20-1.png" width="70%"></p>
@@ -392,7 +392,7 @@ Hodge</h4>
 <span>    ymax <span class="op">=</span> <span class="va">upper</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">group</span>,</span>
 <span>    y_label <span class="op">=</span> <span class="st">"Response"</span>,</span>
-<span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    y_limits_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_demo_dark_files/figure-html/unnamed-chunk-21-1.png" width="70%"></p>
 </div>
@@ -406,7 +406,7 @@ Hodge</h4>
 <span>    x <span class="op">=</span> <span class="va">unemploy_rate</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">psavert</span>,</span>
 <span>    x_label <span class="op">=</span> <span class="st">"Unemployment rate"</span>,</span>
-<span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    y_limits_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    y_label <span class="op">=</span> <span class="st">"Personal savings rate"</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_demo_dark_files/figure-html/unnamed-chunk-22-1.png" width="70%"></p>
@@ -435,7 +435,7 @@ Hodge</h4>
 <span>    col <span class="op">=</span> <span class="va">group</span>,</span>
 <span>    ymin <span class="op">=</span> <span class="va">lower</span>,</span>
 <span>    ymax <span class="op">=</span> <span class="va">upper</span>,</span>
-<span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    y_limits_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_demo_dark_files/figure-html/unnamed-chunk-24-1.png" width="70%"></p>
 </div>
@@ -609,7 +609,7 @@ Hodge</h4>
 <span>  <span class="fu"><a href="../reference/gg_step.html">gg_step</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">date</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">unemploy</span>,</span>
-<span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    y_limits_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    y_label <span class="op">=</span> <span class="st">"Unemployment"</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_demo_dark_files/figure-html/unnamed-chunk-35-1.png" width="70%"></p>
@@ -628,7 +628,7 @@ Hodge</h4>
 <span>    label <span class="op">=</span> <span class="va">model</span>,</span>
 <span>    colour <span class="op">=</span> <span class="st">"#C8D7DFFF"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">11</span> <span class="op">/</span> <span class="fl">2.835052</span>,</span>
-<span>    y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    y_limits_include <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    y_label <span class="op">=</span> <span class="st">"Miles per gallon"</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="2_demo_dark_files/figure-html/unnamed-chunk-36-1.png" width="70%"></p>

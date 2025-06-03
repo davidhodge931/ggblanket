@@ -85,7 +85,7 @@
 <span>  x_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_breaks_n <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  x_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  x_limits_include <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
@@ -95,7 +95,7 @@
 <span>  y_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_breaks_n <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  y_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  y_limits_include <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_position <span class="op">=</span> <span class="st">"left"</span>,</span>
@@ -105,7 +105,7 @@
 <span>  col_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_breaks_n <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  col_drop <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  col_expand_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col_limits_include <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col_legend_ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -200,7 +200,7 @@
 <dd><p>Padding to the limits with the <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">ggplot2::expansion()</a></code> function, or a vector of length 2 (e.g. <code>c(0, 0)</code>).</p></dd>
 
 
-<dt id="arg-x-expand-limits-y-expand-limits-col-expand-limits">x_expand_limits, y_expand_limits, col_expand_limits<a class="anchor" aria-label="anchor" href="#arg-x-expand-limits-y-expand-limits-col-expand-limits"></a></dt>
+<dt id="arg-x-limits-include-y-limits-include-col-limits-include">x_limits_include, y_limits_include, col_limits_include<a class="anchor" aria-label="anchor" href="#arg-x-limits-include-y-limits-include-col-limits-include"></a></dt>
 <dd><p>For a continuous variable, any values that the limits should encompass (e.g. <code>0</code>). For a discrete scale, manipulate the data instead with <code><a href="https://forcats.tidyverse.org/reference/fct_expand.html" class="external-link">forcats::fct_expand</a></code>.</p></dd>
 
 
@@ -310,8 +310,8 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">gg_function</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  fun <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="va">x</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  x_expand_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.005</span>, <span class="fl">0.995</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  y_expand_limits <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  x_limits_include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.005</span>, <span class="fl">0.995</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  y_limits_include <span class="op">=</span> <span class="fl">0</span>,</span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="gg_function-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
