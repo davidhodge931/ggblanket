@@ -40,11 +40,11 @@ library(palmerpenguins)
 set_blanket()
 
 penguins |>
-  distinct(species)
+  count(species)
 
 penguins |>
   bind_each_all(species) |>
-  distinct(species, each_all)
+  count(species, each_all)
 
 penguins |>
   bind_each_all(species) |>
