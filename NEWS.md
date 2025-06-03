@@ -1,4 +1,4 @@
-# ggblanket 12.3.0900
+# ggblanket 12.4.0
 
 * Breaking: removed `set_geom_font` and `set_geom_reference_line`.
 * Breaking: renamed `*_expand_limits` to `*_limits_include`.
