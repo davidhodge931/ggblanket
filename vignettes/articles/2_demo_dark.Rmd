@@ -86,6 +86,7 @@ diamonds |>
   gg_bin_2d(
     x = carat,
     y = price,
+    coord = coord_cartesian(),
   )
 ```
 

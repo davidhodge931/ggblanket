@@ -41,6 +41,7 @@ test_that(test_name, {
     gg_bin_2d(
       x = carat,
       y = price,
+      coord = coord_cartesian(),
     )
   vdiffr::expect_doppelganger(test_name, p)
 })
