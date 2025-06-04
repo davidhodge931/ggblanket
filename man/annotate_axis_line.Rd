@@ -11,9 +11,9 @@ annotate_axis_line(..., position = "bottom", colour = NULL, linewidth = NULL)
 
 \item{position}{The position of the axis. One of "bottom", "top", "left", or "right".}
 
-\item{colour}{The colour of the annotated segment.}
+\item{colour}{The colour of the annotated segment. Inherits from theme axis.line etc.}
 
-\item{linewidth}{The linewidth of the annotated segment.}
+\item{linewidth}{The linewidth of the annotated segment. Inherits from theme axis.line etc.}
 }
 \value{
 A list of a annotate layer and theme elements.

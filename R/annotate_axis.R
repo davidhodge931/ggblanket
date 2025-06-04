@@ -4,8 +4,8 @@
 #'
 #' @param ... Extra parameters passed to `ggplot2::annotate("segment", ...)`.
 #' @param position The position of the axis. One of "bottom", "top", "left", or "right".
-#' @param colour The colour of the annotated segment.
-#' @param linewidth The linewidth of the annotated segment.
+#' @param colour The colour of the annotated segment. Inherits from theme axis.line etc.
+#' @param linewidth The linewidth of the annotated segment. Inherits from theme axis.line etc.
 #'
 #' @return A list of a annotate layer and theme elements.
 #' @export
@@ -141,9 +141,9 @@ annotate_axis_line <- function(...,
 #' #' @param breaks A vector of breaks.
 #' #' @param ... Extra parameters passed to `ggplot2::annotate("segment", ...)`.
 #' #' @param position The position of the axis. One of "bottom" or "top".
-#' #' @param colour The colour of the annotated segment.
-#' #' @param linewidth The linewidth of the annotated segment.
-#' #' @param length The length of the annotated segment, relative to the plot area. Defaults to 0.02.
+#' #' @param colour The colour of the annotated segment. Inherits from theme axis.ticks etc.
+#' #' @param linewidth The linewidth of the annotated segment. Inherits from theme axis.ticks etc.
+#' #' @param length The length of the annotated segment, relative to the plot area. Between 0 and 1. Defaults to 0.02.
 #' #'
 #' #' @return A list of a annotate layer and theme elements.
 #' #' @export
@@ -153,7 +153,7 @@ annotate_axis_line <- function(...,
 #'                                 position = "bottom",
 #'                                 colour = NULL,
 #'                                 linewidth = NULL,
-#'                                 length = NULL) {
+#'                                 length = 0.02) {
 #'
 #'   rlang::inform("Please use this function with ggplot2::coord_cartesian(clip = 'off')")
 #'
@@ -229,11 +229,6 @@ annotate_axis_line <- function(...,
 #'           0.5
 #'       }
 #'     }
-#'   }
-#'
-#'   # Use fixed default length if not provided
-#'   if (rlang::is_null(length)) {
-#'     length <- 0.02  # 2% of plot area - reasonable default for tick length
 #'   }
 #'
 #'   # Create appropriate segment and theme based on position
