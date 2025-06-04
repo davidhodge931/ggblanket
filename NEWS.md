@@ -1,3 +1,7 @@
+# ggblanket 12.4.0900
+
+* Breaking: adjusted `annotate_axis_line` arguments.
+
 # ggblanket 12.4.0
 
 * Breaking: removed `set_geom_font` and `set_geom_reference_line`.
