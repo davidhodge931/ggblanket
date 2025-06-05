@@ -11,9 +11,9 @@ annotate_axis_line(position, ..., colour = NULL, linewidth = NULL)
 
 \item{...}{Extra parameters passed to \code{ggplot2::annotate("segment", ...)}.}
 
-\item{colour}{The colour of the annotated segment. Inherits from theme axis.line etc.}
+\item{colour}{The colour of the annotated segment. Inherits from the current theme axis.line etc.}
 
-\item{linewidth}{The linewidth of the annotated segment. Inherits from theme axis.line etc.}
+\item{linewidth}{The linewidth of the annotated segment. Inherits from the current theme axis.line etc.}
 }
 \value{
 A list of a annotate layer and theme elements.
