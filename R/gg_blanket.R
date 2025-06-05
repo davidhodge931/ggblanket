@@ -775,7 +775,7 @@ gg_blanket <- function(data = NULL,
 
       if (rlang::is_null(col_labels)) {
         if (any(col_transform %in% c("hms"))) col_labels <- scales::label_time()
-        else if (any(col_transform %in% c("date", "datetime", "time"))) col_labels <- scales::label_date_short()
+        else if (any(col_transform %in% c("date", "datetime", "time"))) col_labels <- scales::label_date_short(leading = "")
         else col_labels <- scales::label_comma(drop0trailing = TRUE)
       }
 

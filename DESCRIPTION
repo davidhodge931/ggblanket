@@ -25,7 +25,7 @@ Imports:
     lubridate (>= 1.7.8),
     purrr,
     rlang (>= 1.1.0),
-    scales (>= 1.3.0),
+    scales (>= 1.4.0),
     snakecase,
     stringr (>= 1.3.0),
     tidyr (>= 1.0.0),

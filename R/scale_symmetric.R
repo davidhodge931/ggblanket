@@ -112,7 +112,7 @@ scale_x_symmetric <- function(data = NULL,
 
     if (rlang::is_null(labels)) {
       if (any(transform_name == "hms")) labels <- scales::label_time()
-      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short()
+      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short(leading = "")
       else labels <- scales::label_comma(drop0trailing = TRUE)
     }
 
@@ -145,7 +145,7 @@ scale_x_symmetric <- function(data = NULL,
 
     if (rlang::is_null(labels)) {
       if (any(transform_name == "hms")) labels <- scales::label_time()
-      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short()
+      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short(leading = "")
       else labels <- scales::label_comma(drop0trailing = TRUE)
     }
 
@@ -280,7 +280,7 @@ scale_y_symmetric <- function(data = NULL,
 
     if (rlang::is_null(labels)) {
       if (any(transform_name == "hms")) labels <- scales::label_time()
-      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short()
+      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short(leading = "")
       else labels <- scales::label_comma(drop0trailing = TRUE)
     }
 
@@ -313,7 +313,7 @@ scale_y_symmetric <- function(data = NULL,
 
     if (rlang::is_null(labels)) {
       if (any(transform_name == "hms")) labels <- scales::label_time()
-      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short()
+      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short(leading = "")
       else labels <- scales::label_comma(drop0trailing = TRUE)
     }
 

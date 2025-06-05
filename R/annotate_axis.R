@@ -138,22 +138,22 @@ annotate_axis_line <- function(...,
 #' #'
 #' #' @description Replace axis ticks with annotated segments. Note these are of length relative to plot area.
 #' #'
-#' #' @param breaks A vector of breaks.
 #' #' @param ... Extra parameters passed to `ggplot2::annotate("segment", ...)`.
+#' #' @param breaks A vector of breaks.
 #' #' @param position The position of the axis. One of "bottom" or "top".
 #' #' @param colour The colour of the annotated segment. Inherits from theme axis.ticks etc.
 #' #' @param linewidth The linewidth of the annotated segment. Inherits from theme axis.ticks etc.
-#' #' @param length The length of the annotated segment, relative to the plot area. Between 0 and 1. Defaults to 0.02.
+#' #' @param length The length of the annotated segment, relative to the plot area. Between 0 and 1. Defaults to 0.02 if position in "bottom" or "top", or 0.01 otherwise.
 #' #'
 #' #' @return A list of a annotate layer and theme elements.
 #' #' @export
 #' #'
-#' annotate_axis_ticks <- function(breaks = NULL,
-#'                                 ...,
+#' annotate_axis_ticks <- function(...,
 #'                                 position = "bottom",
+#'                                 breaks = NULL,
 #'                                 colour = NULL,
 #'                                 linewidth = NULL,
-#'                                 length = 0.02) {
+#'                                 length = NULL) {
 #'
 #'   rlang::inform("Please use this function with ggplot2::coord_cartesian(clip = 'off')")
 #'
@@ -161,11 +161,13 @@ annotate_axis_line <- function(...,
 #'     rlang::abort("breaks must be provided")
 #'   }
 #'
-#'   # if (!position %in% c("bottom", "top", "left", "right")) {
-#'   #   rlang::abort("position must be one of 'bottom', 'top', 'left', or 'right'")
-#'   # }
-#'   if (!position %in% c("bottom", "top")) {
-#'     rlang::abort("position must be one of 'bottom' or 'top'")
+#'   if (rlang::is_null(length)) {
+#'     if (position %in% c("bottom", "top")) {
+#'       length <- 0.02
+#'     }
+#'     else if (position %in% c("left", "right")) {
+#'       length <- 0.01
+#'     }
 #'   }
 #'
 #'   # Get current theme
