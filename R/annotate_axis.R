@@ -34,24 +34,24 @@ annotate_axis_line <- function(position,
         current_theme$axis.line.x.bottom$colour %||%
           current_theme$axis.line.x$colour %||%
           current_theme$axis.line$colour %||%
-          "black"
+          "#121B24FF"
       } else {
         current_theme$axis.line.x.top$colour %||%
           current_theme$axis.line.x$colour %||%
           current_theme$axis.line$colour %||%
-          "black"
+          "#121B24FF"
       }
     } else {
       colour <- if (position == "left") {
         current_theme$axis.line.y.left$colour %||%
           current_theme$axis.line.y$colour %||%
           current_theme$axis.line$colour %||%
-          "black"
+          "#121B24FF"
       } else {
         current_theme$axis.line.y.right$colour %||%
           current_theme$axis.line.y$colour %||%
           current_theme$axis.line$colour %||%
-          "black"
+          "#121B24FF"
       }
     }
   }
@@ -179,24 +179,24 @@ annotate_axis_ticks <- function(position,
         current_theme$axis.ticks.x.bottom$colour %||%
           current_theme$axis.ticks.x$colour %||%
           current_theme$axis.ticks$colour %||%
-          "black"
+          "#121B24FF"
       } else {
         current_theme$axis.ticks.x.top$colour %||%
           current_theme$axis.ticks.x$colour %||%
           current_theme$axis.ticks$colour %||%
-          "black"
+          "#121B24FF"
       }
     } else {
       colour <- if (position == "left") {
         current_theme$axis.ticks.y.left$colour %||%
           current_theme$axis.ticks.y$colour %||%
           current_theme$axis.ticks$colour %||%
-          "black"
+          "#121B24FF"
       } else {
         current_theme$axis.ticks.y.right$colour %||%
           current_theme$axis.ticks.y$colour %||%
           current_theme$axis.ticks$colour %||%
-          "black"
+          "#121B24FF"
       }
     }
   }
