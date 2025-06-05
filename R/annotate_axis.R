@@ -146,7 +146,7 @@ annotate_axis_line <- function(position,
 #' @param length The length of the annotated segment, relative to the plot area. Between 0 and 1. Defaults to 0.02 if position in "bottom" or "top", or 0.01 otherwise.
 #'
 #' @return A list of a annotate layer and theme elements.
-#' @export
+#' @noRd
 #'
 annotate_axis_ticks <- function(position,
                                 breaks,
