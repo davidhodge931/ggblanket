@@ -2,16 +2,16 @@
 #'
 #' @description Replace axis line with an annotated segment.
 #'
-#' @param ... Extra parameters passed to `ggplot2::annotate("segment", ...)`.
 #' @param position The position of the axis. One of "bottom", "top", "left", or "right".
+#' @param ... Extra parameters passed to `ggplot2::annotate("segment", ...)`.
 #' @param colour The colour of the annotated segment. Inherits from theme axis.line etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from theme axis.line etc.
 #'
 #' @return A list of a annotate layer and theme elements.
 #' @export
 #'
-annotate_axis_line <- function(...,
-                               position = "bottom",
+annotate_axis_line <- function(position,
+                               ...,
                                colour = NULL,
                                linewidth = NULL) {
 
@@ -138,9 +138,9 @@ annotate_axis_line <- function(...,
 #' #'
 #' #' @description Replace axis ticks with annotated segments. Note these are of length relative to plot area.
 #' #'
-#' #' @param ... Extra parameters passed to `ggplot2::annotate("segment", ...)`.
 #' #' @param breaks A vector of breaks.
-#' #' @param position The position of the axis. One of "bottom" or "top".
+#' #' @param position The position of the axis. One of "bottom", "top", "left" or "right".
+#' #' @param ... Extra parameters passed to `ggplot2::annotate("segment", ...)`.
 #' #' @param colour The colour of the annotated segment. Inherits from theme axis.ticks etc.
 #' #' @param linewidth The linewidth of the annotated segment. Inherits from theme axis.ticks etc.
 #' #' @param length The length of the annotated segment, relative to the plot area. Between 0 and 1. Defaults to 0.02 if position in "bottom" or "top", or 0.01 otherwise.
@@ -148,18 +148,14 @@ annotate_axis_line <- function(...,
 #' #' @return A list of a annotate layer and theme elements.
 #' #' @export
 #' #'
-#' annotate_axis_ticks <- function(...,
-#'                                 position = "bottom",
-#'                                 breaks = NULL,
+#' annotate_axis_ticks <- function(position,
+#'                                 breaks,
+#'                                 ...,
 #'                                 colour = NULL,
 #'                                 linewidth = NULL,
 #'                                 length = NULL) {
 #'
 #'   rlang::inform("Please use this function with ggplot2::coord_cartesian(clip = 'off')")
-#'
-#'   if (rlang::is_null(breaks)) {
-#'     rlang::abort("breaks must be provided")
-#'   }
 #'
 #'   if (rlang::is_null(length)) {
 #'     if (position %in% c("bottom", "top")) {

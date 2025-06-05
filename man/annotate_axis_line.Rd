@@ -4,12 +4,12 @@
 \alias{annotate_axis_line}
 \title{Annotated axis line segment}
 \usage{
-annotate_axis_line(..., position = "bottom", colour = NULL, linewidth = NULL)
+annotate_axis_line(position, ..., colour = NULL, linewidth = NULL)
 }
 \arguments{
-\item{...}{Extra parameters passed to \code{ggplot2::annotate("segment", ...)}.}
-
 \item{position}{The position of the axis. One of "bottom", "top", "left", or "right".}
+
+\item{...}{Extra parameters passed to \code{ggplot2::annotate("segment", ...)}.}
 
 \item{colour}{The colour of the annotated segment. Inherits from theme axis.line etc.}
 
