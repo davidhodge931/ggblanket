@@ -1,0 +1,24 @@
+#' Standardise width
+#'
+#' Calculate consistent bar widths across plots with different numbers of categories.
+#' This ensures bars have the same physical width regardless of how many bars are in the plot.
+#' Save plots with uniform panel dimensions.
+#'
+#' @param n Number of categories in the current plot
+#' @param reference_n Number of categories in the reference plot. Defaults to 3.
+#' @param reference_width Width value in the reference plot. Defaults to 0.5.
+#'
+#' @returns A numeric value
+#' @export
+#'
+#' @examples
+#' # For a plot with 2 bars, standardised to a 3-bar reference
+#' standardise_width(2)
+#'
+#' # For a plot with 5 bars
+#' standardise_width(5)
+standardise_width <- function(n, reference_n = 3, reference_width = 0.5) {
+  width <- (n / reference_n) * reference_width
+  if (width >= 1) rlang::abort("width cannot be greater than or equal to 1")
+  return(width)
+}

@@ -42,4 +42,5 @@ reference:
   - label_every_nth
   - scale_x_symmetric
   - scale_y_symmetric
+  - standardise_width
 

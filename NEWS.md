@@ -2,6 +2,7 @@
 
 * Breaking: adjusted `annotate_axis_line` arguments.
 * For dates etc, defaulted labels to `scales::label_date_short(leading = "")`.
+* Added `standardise_width`.
 
 # ggblanket 12.4.0
 

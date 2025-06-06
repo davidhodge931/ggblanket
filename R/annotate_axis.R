@@ -134,16 +134,17 @@ annotate_axis_line <- function(position,
   return(stamp)
 }
 
-#' Annotated axis ticks segment
+#' Annotated axis ticks segments
 #'
-#' @description Replace axis ticks with annotated segments. Note these are of length relative to plot area.
+#' @description Replace axis ticks with annotated segments using absolute measurements.
+#' This function only works when panel dimensions are set uniformly via panel.widths and panel.heights.
 #'
 #' @param breaks A vector of breaks.
 #' @param position The position of the axis. One of "bottom", "top", "left" or "right".
 #' @param ... Extra parameters passed to `ggplot2::annotate("segment", ...)`.
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.ticks etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.ticks etc.
-#' @param length The length of the annotated segment, relative to the plot area. Between 0 and 1. Defaults to 0.02 if position in "bottom" or "top", or 0.01 otherwise.
+#' @param length The absolute length of the annotated segment as a grid unit. Defaults to unit(11/3, "pt").
 #'
 #' @return A list of a annotate layer and theme elements.
 #' @noRd
@@ -157,20 +158,74 @@ annotate_axis_ticks <- function(position,
 
   rlang::inform("Please use this function with ggplot2::coord_cartesian(clip = 'off')")
 
-  if (rlang::is_null(length)) {
-    if (position %in% c("bottom", "top")) {
-      length <- 0.02
-    }
-    else if (position %in% c("left", "right")) {
-      length <- 0.01
-    }
-  }
-
-  # Get current theme
+  # Check if panel dimensions are set
   current_theme <- ggplot2::theme_get()
+  panel_widths <- current_theme$panel.widths
+  panel_heights <- current_theme$panel.heights
+
+  if (is.null(panel_widths) && is.null(panel_heights)) {
+    rlang::abort("This function only works when panel dimensions are explicitly set via theme(panel.widths = ..., panel.heights = ...)")
+  }
 
   # Determine if this is x-axis or y-axis
   is_x_axis <- position %in% c("bottom", "top")
+
+  # Set default length from current theme
+  if (rlang::is_null(length)) {
+    if (is_x_axis) {
+      length <- if (position == "bottom") {
+        current_theme$axis.ticks.x.bottom$length %||%
+          current_theme$axis.ticks.x$length %||%
+          current_theme$axis.ticks$length %||%
+          grid::unit(11/3, "pt")
+      } else {
+        current_theme$axis.ticks.x.top$length %||%
+          current_theme$axis.ticks.x$length %||%
+          current_theme$axis.ticks$length %||%
+          grid::unit(11/3, "pt")
+      }
+    } else {
+      length <- if (position == "left") {
+        current_theme$axis.ticks.y.left$length %||%
+          current_theme$axis.ticks.y$length %||%
+          current_theme$axis.ticks$length %||%
+          grid::unit(11/3, "pt")
+      } else {
+        current_theme$axis.ticks.y.right$length %||%
+          current_theme$axis.ticks.y$length %||%
+          current_theme$axis.ticks$length %||%
+          grid::unit(11/3, "pt")
+      }
+    }
+  }
+
+  # Determine if this is x-axis or y-axis
+  is_x_axis <- position %in% c("bottom", "top")
+
+  # Get the relevant panel dimension
+  if (is_x_axis) {
+    if (is.null(panel_heights)) {
+      rlang::abort("panel.heights must be set in theme for horizontal axis tick annotation")
+    }
+    if (length(panel_heights) > 1 && length(unique(as.numeric(panel_heights))) > 1) {
+      rlang::abort("Different panel heights set. This function only works with uniform panel dimensions.")
+    }
+    panel_dimension <- panel_heights[1]  # Use first panel height
+  } else {
+    if (is.null(panel_widths)) {
+      rlang::abort("panel.widths must be set in theme for vertical axis tick annotation")
+    }
+    if (length(panel_widths) > 1 && length(unique(as.numeric(panel_widths))) > 1) {
+      rlang::abort("Different panel widths set. This function only works with uniform panel dimensions.")
+    }
+    panel_dimension <- panel_widths[1]  # Use first panel width
+  }
+
+  # Convert absolute length to relative proportion of panel
+  # Convert both to same units for calculation
+  length_mm <- grid::convertUnit(length, "mm", valueOnly = TRUE)
+  panel_mm <- grid::convertUnit(panel_dimension, "mm", valueOnly = TRUE)
+  relative_length <- length_mm / panel_mm
 
   # Extract theme properties for axis ticks
   if (rlang::is_null(colour)) {
@@ -235,7 +290,7 @@ annotate_axis_ticks <- function(position,
       ggplot2::theme(axis.ticks.x.bottom = ggplot2::element_line(colour = "transparent")),
       ggplot2::annotate("segment",
                         x = breaks, xend = breaks,
-                        y = I(0), yend = I(-length),
+                        y = I(0), yend = I(-relative_length),
                         colour = colour,
                         linewidth = linewidth,
                         ...)
@@ -245,7 +300,7 @@ annotate_axis_ticks <- function(position,
       ggplot2::theme(axis.ticks.x.top = ggplot2::element_line(colour = "transparent")),
       ggplot2::annotate("segment",
                         x = breaks, xend = breaks,
-                        y = I(1), yend = I(1 + length),
+                        y = I(1), yend = I(1 + relative_length),
                         colour = colour,
                         linewidth = linewidth,
                         ...)
@@ -254,7 +309,7 @@ annotate_axis_ticks <- function(position,
     stamp <- rlang::list2(
       ggplot2::theme(axis.ticks.y.left = ggplot2::element_line(colour = "transparent")),
       ggplot2::annotate("segment",
-                        x = I(0), xend = I(-length),
+                        x = I(0), xend = I(-relative_length),
                         y = breaks, yend = breaks,
                         colour = colour,
                         linewidth = linewidth,
@@ -264,7 +319,7 @@ annotate_axis_ticks <- function(position,
     stamp <- rlang::list2(
       ggplot2::theme(axis.ticks.y.right = ggplot2::element_line(colour = "transparent")),
       ggplot2::annotate("segment",
-                        x = I(1), xend = I(1 + length),
+                        x = I(1), xend = I(1 + relative_length),
                         y = breaks, yend = breaks,
                         colour = colour,
                         linewidth = linewidth,
