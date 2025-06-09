@@ -12,16 +12,6 @@
 #'
 #' @returns A numeric value
 #' @noRd
-#'
-#' @examples
-#' # For a plot with 2 bars, standardised to a 3-bar reference with 0.5 width
-#' standardise_width(2)
-#'
-#' # For dodged bars
-#' standardise_width(n = 3, dodge_n = 2)
-#'
-#' # For position_dodge2 with dodge_padding
-#' standardise_width(n = 3, dodge_n = 2, dodge_padding = 0.1)
 standardise_width <- function(n,
                               dodge_n = 1,
                               dodge_padding = 0,
