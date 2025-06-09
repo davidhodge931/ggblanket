@@ -1,11 +1,6 @@
 #' Standardise width
 #'
-#' Calculate consistent bar widths across plots with different numbers of categories.
-#' This ensures bars have the same physical width regardless of how many bars are in the plot.
-#' Save plots with uniform panel dimensions.
-#'
-#' Note: intended for polygons.
-#' Works with position_dodge and position_dodge2.
+#' Calculate widths that are standardised.
 #'
 #' @param n Number of x aesthetic groups.
 #' @param dodge_n Number of fill aesthetic etc groups dodged.
