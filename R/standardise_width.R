@@ -2,6 +2,7 @@
 #'
 #' Calculate widths that are standardised.
 #'
+#' @param ... Provided to force user argument naming etc.
 #' @param from_width In the reference, width value. Required.
 #' @param from_n In the reference, number of x aesthetic groups. Required.
 #' @param from_dodge_n In the reference, number of fill aesthetic etc groups dodged. Defaults to 1.
@@ -18,7 +19,8 @@
 #'
 #' @returns A numeric value
 #' @noRd
-standardise_width <- function(from_width,
+standardise_width <- function(...,
+                              from_width,
                               from_n,
                               from_dodge_n = 1,
                               from_dodge_padding = 0,
