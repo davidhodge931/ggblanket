@@ -33,30 +33,35 @@ standardise_width <- function(from_width,
                               to_panel_heights = from_panel_heights) {
 
   # Check required arguments
-  if (missing(from_width) || missing(from_n)) {
+  if (missing(from_width) | missing(from_n)) {
     rlang::abort("Both from_width and from_n must be specified")
+  }
+
+  # Check orientation compatibility
+  if (to_orientation == "y" & is.null(from_panel_heights)) {
+    rlang::abort("Cannot use to_orientation = 'y' when from_panel_heights is NULL")
   }
 
   # Base category scaling
   base_width <- (to_n / from_n) * from_width
 
   # Dodge scaling: maintain consistent individual bar width
-  if (to_dodge_n > 1 || from_dodge_n > 1) {
+  if (to_dodge_n > 1 | from_dodge_n > 1) {
     width <- base_width * (to_dodge_n / from_dodge_n)
   } else {
     width <- base_width
   }
 
   # dodge_padding adjustment for position_dodge2
-  if (to_dodge_padding > 0 || from_dodge_padding > 0) {
+  if (to_dodge_padding > 0 | from_dodge_padding > 0) {
     # Adjust for difference in dodge_padding - more dodge_padding requires wider total width
     dodge_padding_factor <- (1 + to_dodge_padding) / (1 + from_dodge_padding)
     width <- width * dodge_padding_factor
   }
 
   # Panel dimension adjustment for visual consistency
-  if (!is.null(to_panel_widths) || !is.null(to_panel_heights) ||
-      !is.null(from_panel_widths) || !is.null(from_panel_heights)) {
+  if (!is.null(to_panel_widths) | !is.null(to_panel_heights) |
+      !is.null(from_panel_widths) | !is.null(from_panel_heights)) {
 
     # Get the relevant dimension for each orientation
     # For orientation "x" (vertical bars): width depends on panel width
