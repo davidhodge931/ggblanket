@@ -1,6 +1,6 @@
 #' Standardise width
 #'
-#' Calculate widths that are standardised, accounting for panel dimensions.
+#' Calculate widths that are standardised.
 #'
 #' @param from_width In the reference, width value. Required.
 #' @param from_n In the reference, number of x aesthetic groups. Required.
@@ -16,7 +16,7 @@
 #' @param to_panel_widths Unit vector of individual panel widths. If NULL, inherits from from_panel_widths.
 #' @param to_panel_heights Unit vector of individual panel heights. If NULL, inherits from from_panel_heights.
 #'
-#' @returns A numeric value or vector of values (one per panel if panel dimensions vary)
+#' @returns A numeric value
 #' @noRd
 standardise_width <- function(from_width,
                               from_n,
@@ -40,6 +40,26 @@ standardise_width <- function(from_width,
   # Check orientation compatibility
   if (to_orientation == "y" & is.null(from_panel_heights)) {
     rlang::abort("Cannot use to_orientation = 'y' when from_panel_heights is NULL")
+  }
+
+  # Check for mixed units in panel dimensions
+  panel_dims <- list(from_panel_widths, from_panel_heights, to_panel_widths, to_panel_heights)
+  panel_dims <- panel_dims[!purrr::map_lgl(panel_dims, is.null)]  # Remove NULL values
+
+  if (length(panel_dims) > 1) {
+    # Extract units from each non-NULL panel dimension
+    units_list <- purrr::map_chr(panel_dims, function(x) {
+      if (inherits(x, "unit")) {
+        as.character(attr(x, "unit"))
+      } else {
+        "numeric"  # Plain numeric values
+      }
+    })
+
+    # Check if all units are the same
+    if (length(unique(units_list)) > 1) {
+      rlang::abort("All panel dimensions must use the same units. Mixed units detected.")
+    }
   }
 
   # Base category scaling
