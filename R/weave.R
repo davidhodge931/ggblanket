@@ -55,7 +55,7 @@ weave_theme <- function(theme = light_mode_r(),
   ggblanket_global$theme_panel_grid_rm <- theme_panel_grid_rm
   invisible(old)
 
-  if (ggplot2::is.theme(theme)) ggplot2::theme_set(new = theme)
+  if (ggplot2::is_theme(theme)) ggplot2::theme_set(new = theme)
   else ggplot2::theme_set(new = theme[[1]])
 }
 
