@@ -9,3 +9,5 @@
 ^doc$
 ^Meta$
 ^vignettes/articles$
+^[\.]?air\.toml$
+^\.vscode$
