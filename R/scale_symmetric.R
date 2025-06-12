@@ -39,21 +39,23 @@
 #'   coord_cartesian(clip = "off") +
 #'   labs(x = "Body mass g", y = "Species", colour = "Species")
 #'
-scale_x_symmetric <- function(data = NULL,
-                              x = NULL,
-                              ...,
-                              breaks = NULL,
-                              breaks_n = 6,
-                              expand = NULL,
-                              expand_limits = NULL,
-                              labels = NULL,
-                              position = "bottom",
-                              sec_axis = ggplot2::waiver(),
-                              transform = "identity",
-                              symmetric = TRUE) {
-
-  if (is.character(transform)) transform_name <- transform
-  else if (inherits(transform, what = "transform")) {
+scale_x_symmetric <- function(
+  data = NULL,
+  x = NULL,
+  ...,
+  breaks = NULL,
+  breaks_n = 6,
+  expand = NULL,
+  expand_limits = NULL,
+  labels = NULL,
+  position = "bottom",
+  sec_axis = ggplot2::waiver(),
+  transform = "identity",
+  symmetric = TRUE
+) {
+  if (is.character(transform)) {
+    transform_name <- transform
+  } else if (inherits(transform, what = "transform")) {
     transform_name <- transform$name |>
       stringr::str_remove("composition") |>
       stringr::str_remove("\\(") |>
@@ -63,9 +65,10 @@ scale_x_symmetric <- function(data = NULL,
   }
 
   if (symmetric) {
-    if (any(stringr::str_detect(transform_name, "log-")) |
-        any(transform_name %in% c("log", "log2", "log10"))) {
-
+    if (
+      any(stringr::str_detect(transform_name, "log-")) |
+        any(transform_name %in% c("log", "log2", "log10"))
+    ) {
       symmetric <- FALSE
 
       rlang::inform("ggblanket does not currently support log symmetric axes")
@@ -82,38 +85,55 @@ scale_x_symmetric <- function(data = NULL,
       vctr <- c(vctr, expand_limits)
     }
 
-    if (any(transform_name == "hms")) vctr <- hms::as_hms(vctr)
-    else if (any(transform_name %in% c("time", "datetime"))) vctr <- lubridate::as_datetime(vctr)
-    else if (any(transform_name == "date")) vctr <- lubridate::as_date(vctr)
+    if (any(transform_name == "hms")) {
+      vctr <- hms::as_hms(vctr)
+    } else if (any(transform_name %in% c("time", "datetime"))) {
+      vctr <- lubridate::as_datetime(vctr)
+    } else if (any(transform_name == "date")) {
+      vctr <- lubridate::as_date(vctr)
+    }
 
     range <- range(vctr, na.rm = TRUE)
 
-    if (any(transform_name == "hms")) range <- hms::as_hms(range)
+    if (any(transform_name == "hms")) {
+      range <- hms::as_hms(range)
+    }
 
     if (rlang::is_null(breaks)) {
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
         breaks <- scales::breaks_pretty(n = breaks_n)(range)
-      }
-      else if (any(stringr::str_detect(transform_name, "log-")) |
-               any(transform_name %in% c("log", "log2", "log10"))) {
+      } else if (
+        any(stringr::str_detect(transform_name, "log-")) |
+          any(transform_name %in% c("log", "log2", "log10"))
+      ) {
         breaks <- scales::breaks_log(n = breaks_n)(range) # update here
+      } else {
+        breaks <- scales::breaks_extended(n = breaks_n, only.loose = TRUE)(
+          range
+        )
       }
-      else {
-        breaks <- scales::breaks_extended(n = breaks_n, only.loose = TRUE)(range)
-      }
+    } else if (is.function(breaks)) {
+      breaks <- breaks(range)
     }
-    else if (is.function(breaks)) breaks <- breaks(range)
 
     limits <- range(breaks)
 
-    if (any(transform_name %in% "reverse")) limits <- rev(limits)
+    if (any(transform_name %in% "reverse")) {
+      limits <- rev(limits)
+    }
 
-    if (rlang::is_null(expand)) expand <- ggplot2::expansion(mult = c(0, 0))
+    if (rlang::is_null(expand)) {
+      expand <- ggplot2::expansion(mult = c(0, 0))
+    }
 
     if (rlang::is_null(labels)) {
-      if (any(transform_name == "hms")) labels <- scales::label_time()
-      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short(leading = "")
-      else labels <- scales::label_comma(drop0trailing = TRUE)
+      if (any(transform_name == "hms")) {
+        labels <- scales::label_time()
+      } else if (any(transform_name %in% c("time", "datetime", "date"))) {
+        labels <- scales::label_date_short(leading = "")
+      } else {
+        labels <- scales::label_comma(drop0trailing = TRUE)
+      }
     }
 
     scale <- ggplot2::scale_x_continuous(
@@ -126,27 +146,32 @@ scale_x_symmetric <- function(data = NULL,
       position = position,
       sec.axis = sec_axis
     )
-  }
-  else {
+  } else {
     if (rlang::is_null(breaks)) {
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
         breaks <- scales::breaks_pretty(n = breaks_n)
-      }
-      else if (any(stringr::str_detect(transform_name, "log-")) |
-               any(transform_name %in% c("log", "log2", "log10"))) {
+      } else if (
+        any(stringr::str_detect(transform_name, "log-")) |
+          any(transform_name %in% c("log", "log2", "log10"))
+      ) {
         breaks <- scales::breaks_log(n = breaks_n)
-      }
-      else {
+      } else {
         breaks <- scales::breaks_extended(n = breaks_n, only.loose = FALSE)
       }
     }
 
-    if (rlang::is_null(expand)) expand <- ggplot2::expansion(mult = c(0.05, 0.05))
+    if (rlang::is_null(expand)) {
+      expand <- ggplot2::expansion(mult = c(0.05, 0.05))
+    }
 
     if (rlang::is_null(labels)) {
-      if (any(transform_name == "hms")) labels <- scales::label_time()
-      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short(leading = "")
-      else labels <- scales::label_comma(drop0trailing = TRUE)
+      if (any(transform_name == "hms")) {
+        labels <- scales::label_time()
+      } else if (any(transform_name %in% c("time", "datetime", "date"))) {
+        labels <- scales::label_date_short(leading = "")
+      } else {
+        labels <- scales::label_comma(drop0trailing = TRUE)
+      }
     }
 
     scale <- list(
@@ -207,21 +232,23 @@ scale_x_symmetric <- function(data = NULL,
 #'   coord_cartesian(clip = "off") +
 #'   labs(x = "Flipper length mm", y = "Body mass g", colour = "Species")
 #'
-scale_y_symmetric <- function(data = NULL,
-                              y = NULL,
-                              ...,
-                              breaks = NULL,
-                              breaks_n = 6,
-                              expand = NULL,
-                              expand_limits = NULL,
-                              labels = NULL,
-                              position = "left",
-                              sec_axis = ggplot2::waiver(),
-                              transform = "identity",
-                              symmetric = TRUE) {
-
-  if (is.character(transform)) transform_name <- transform
-  else if (inherits(transform, what = "transform")) {
+scale_y_symmetric <- function(
+  data = NULL,
+  y = NULL,
+  ...,
+  breaks = NULL,
+  breaks_n = 6,
+  expand = NULL,
+  expand_limits = NULL,
+  labels = NULL,
+  position = "left",
+  sec_axis = ggplot2::waiver(),
+  transform = "identity",
+  symmetric = TRUE
+) {
+  if (is.character(transform)) {
+    transform_name <- transform
+  } else if (inherits(transform, what = "transform")) {
     transform_name <- transform$name |>
       stringr::str_remove("composition") |>
       stringr::str_remove("\\(") |>
@@ -231,9 +258,10 @@ scale_y_symmetric <- function(data = NULL,
   }
 
   if (symmetric) {
-    if (any(stringr::str_detect(transform_name, "log-")) |
-        any(transform_name %in% c("log", "log2", "log10"))) {
-
+    if (
+      any(stringr::str_detect(transform_name, "log-")) |
+        any(transform_name %in% c("log", "log2", "log10"))
+    ) {
       symmetric <- FALSE
 
       rlang::inform("ggblanket does not currently support log symmetric axes")
@@ -250,38 +278,55 @@ scale_y_symmetric <- function(data = NULL,
       vctr <- c(vctr, expand_limits)
     }
 
-    if (any(transform_name == "hms")) vctr <- hms::as_hms(vctr)
-    else if (any(transform_name %in% c("time", "datetime"))) vctr <- lubridate::as_datetime(vctr)
-    else if (any(transform_name == "date")) vctr <- lubridate::as_date(vctr)
+    if (any(transform_name == "hms")) {
+      vctr <- hms::as_hms(vctr)
+    } else if (any(transform_name %in% c("time", "datetime"))) {
+      vctr <- lubridate::as_datetime(vctr)
+    } else if (any(transform_name == "date")) {
+      vctr <- lubridate::as_date(vctr)
+    }
 
     range <- range(vctr, na.rm = TRUE)
 
-    if (any(transform_name == "hms")) range <- hms::as_hms(range)
+    if (any(transform_name == "hms")) {
+      range <- hms::as_hms(range)
+    }
 
     if (rlang::is_null(breaks)) {
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
         breaks <- scales::breaks_pretty(n = breaks_n)(range)
-      }
-      else if (any(stringr::str_detect(transform_name, "log-")) |
-               any(transform_name %in% c("log", "log2", "log10"))) {
+      } else if (
+        any(stringr::str_detect(transform_name, "log-")) |
+          any(transform_name %in% c("log", "log2", "log10"))
+      ) {
         breaks <- scales::breaks_log(n = breaks_n)(range) # update here
+      } else {
+        breaks <- scales::breaks_extended(n = breaks_n, only.loose = TRUE)(
+          range
+        )
       }
-      else {
-        breaks <- scales::breaks_extended(n = breaks_n, only.loose = TRUE)(range)
-      }
+    } else if (is.function(breaks)) {
+      breaks <- breaks(range)
     }
-    else if (is.function(breaks)) breaks <- breaks(range)
 
     limits <- range(breaks)
 
-    if (any(transform_name %in% "reverse")) limits <- rev(limits)
+    if (any(transform_name %in% "reverse")) {
+      limits <- rev(limits)
+    }
 
-    if (rlang::is_null(expand)) expand <- ggplot2::expansion(mult = c(0, 0))
+    if (rlang::is_null(expand)) {
+      expand <- ggplot2::expansion(mult = c(0, 0))
+    }
 
     if (rlang::is_null(labels)) {
-      if (any(transform_name == "hms")) labels <- scales::label_time()
-      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short(leading = "")
-      else labels <- scales::label_comma(drop0trailing = TRUE)
+      if (any(transform_name == "hms")) {
+        labels <- scales::label_time()
+      } else if (any(transform_name %in% c("time", "datetime", "date"))) {
+        labels <- scales::label_date_short(leading = "")
+      } else {
+        labels <- scales::label_comma(drop0trailing = TRUE)
+      }
     }
 
     scale <- ggplot2::scale_y_continuous(
@@ -294,27 +339,32 @@ scale_y_symmetric <- function(data = NULL,
       position = position,
       sec.axis = sec_axis
     )
-  }
-  else {
+  } else {
     if (rlang::is_null(breaks)) {
       if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
         breaks <- scales::breaks_pretty(n = breaks_n)
-      }
-      else if (any(stringr::str_detect(transform_name, "log-")) |
-               any(transform_name %in% c("log", "log2", "log10"))) {
+      } else if (
+        any(stringr::str_detect(transform_name, "log-")) |
+          any(transform_name %in% c("log", "log2", "log10"))
+      ) {
         breaks <- scales::breaks_log(n = breaks_n)
-      }
-      else {
+      } else {
         breaks <- scales::breaks_extended(n = breaks_n, only.loose = FALSE)
       }
     }
 
-    if (rlang::is_null(expand)) expand <- ggplot2::expansion(mult = c(0.05, 0.05))
+    if (rlang::is_null(expand)) {
+      expand <- ggplot2::expansion(mult = c(0.05, 0.05))
+    }
 
     if (rlang::is_null(labels)) {
-      if (any(transform_name == "hms")) labels <- scales::label_time()
-      else if (any(transform_name %in% c("time", "datetime", "date"))) labels <- scales::label_date_short(leading = "")
-      else labels <- scales::label_comma(drop0trailing = TRUE)
+      if (any(transform_name == "hms")) {
+        labels <- scales::label_time()
+      } else if (any(transform_name %in% c("time", "datetime", "date"))) {
+        labels <- scales::label_date_short(leading = "")
+      } else {
+        labels <- scales::label_comma(drop0trailing = TRUE)
+      }
     }
 
     scale <- list(

@@ -9,7 +9,6 @@ library(dplyr)
 test_name <- "1"
 
 test_that(test_name, {
-
   set_blanket(
     theme = theme_grey(),
     theme_axis_line_rm = FALSE,
@@ -33,7 +32,6 @@ test_that(test_name, {
 test_name <- "2"
 
 test_that(test_name, {
-
   set_blanket(
     theme = light_mode_r(),
     colour = red,
@@ -72,7 +70,6 @@ update_geom_defaults("vline", aes(colour = "red", linewidth = 5))
 test_name <- "3"
 
 test_that(test_name, {
-
   p <- penguins |>
     gg_point(
       x = flipper_length_mm,
@@ -89,7 +86,6 @@ test_that(test_name, {
 test_name <- "4"
 
 test_that(test_name, {
-
   p <- penguins |>
     gg_point(
       x = flipper_length_mm,
@@ -98,11 +94,7 @@ test_that(test_name, {
       x_breaks = scales::breaks_pretty(3),
     ) +
     geom_vline(xintercept = 200) +
-    annotate("text",
-             x = I(0.25),
-             y = I(0.75),
-             label = "Here")
-
+    annotate("text", x = I(0.25), y = I(0.75), label = "Here")
 
   vdiffr::expect_doppelganger(test_name, p)
 })
@@ -111,7 +103,6 @@ test_that(test_name, {
 test_name <- "5"
 
 test_that(test_name, {
-
   p <- penguins |>
     gg_point(
       x = flipper_length_mm,
@@ -129,7 +120,6 @@ test_that(test_name, {
 test_name <- "6"
 
 test_that(test_name, {
-
   p <- penguins |>
     mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_smooth(

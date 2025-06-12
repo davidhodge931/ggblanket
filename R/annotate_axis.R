@@ -10,12 +10,10 @@
 #' @return A list of a annotate layer and theme elements.
 #' @export
 #'
-annotate_axis_line <- function(position,
-                               ...,
-                               colour = NULL,
-                               linewidth = NULL) {
-
-  rlang::inform("Please use this function with ggplot2::coord_cartesian(clip = 'off')")
+annotate_axis_line <- function(position, ..., colour = NULL, linewidth = NULL) {
+  rlang::inform(
+    "Please use this function with ggplot2::coord_cartesian(clip = 'off')"
+  )
 
   if (!position %in% c("bottom", "top", "left", "right")) {
     rlang::abort("position must be one of 'bottom', 'top', 'left', or 'right'")
@@ -89,45 +87,65 @@ annotate_axis_line <- function(position,
     stamp <- rlang::list2(
       ggplot2::annotate(
         "segment",
-        x = I(-Inf), xend = I(Inf), y = I(-Inf), yend = I(-Inf),
+        x = I(-Inf),
+        xend = I(Inf),
+        y = I(-Inf),
+        yend = I(-Inf),
         colour = colour,
         linewidth = linewidth,
         ...
       ),
-      ggplot2::theme(axis.line.x.bottom = ggplot2::element_line(colour = "transparent"))
+      ggplot2::theme(
+        axis.line.x.bottom = ggplot2::element_line(colour = "transparent")
+      )
     )
   } else if (position == "top") {
     stamp <- rlang::list2(
       ggplot2::annotate(
         "segment",
-        x = I(-Inf), xend = I(Inf), y = I(Inf), yend = I(Inf),
+        x = I(-Inf),
+        xend = I(Inf),
+        y = I(Inf),
+        yend = I(Inf),
         colour = colour,
         linewidth = linewidth,
         ...
       ),
-      ggplot2::theme(axis.line.x.top = ggplot2::element_line(colour = "transparent"))
+      ggplot2::theme(
+        axis.line.x.top = ggplot2::element_line(colour = "transparent")
+      )
     )
   } else if (position == "left") {
     stamp <- rlang::list2(
       ggplot2::annotate(
         "segment",
-        x = I(-Inf), xend = I(-Inf), y = I(-Inf), yend = I(Inf),
+        x = I(-Inf),
+        xend = I(-Inf),
+        y = I(-Inf),
+        yend = I(Inf),
         colour = colour,
         linewidth = linewidth,
         ...
       ),
-      ggplot2::theme(axis.line.y.left = ggplot2::element_line(colour = "transparent"))
+      ggplot2::theme(
+        axis.line.y.left = ggplot2::element_line(colour = "transparent")
+      )
     )
   } else if (position == "right") {
     stamp <- rlang::list2(
       ggplot2::annotate(
         "segment",
-        x = I(Inf), xend = I(Inf), y = I(-Inf), yend = I(Inf),
+        x = I(Inf),
+        xend = I(Inf),
+        y = I(-Inf),
+        yend = I(Inf),
         colour = colour,
         linewidth = linewidth,
         ...
       ),
-      ggplot2::theme(axis.line.y.right = ggplot2::element_line(colour = "transparent"))
+      ggplot2::theme(
+        axis.line.y.right = ggplot2::element_line(colour = "transparent")
+      )
     )
   }
 
@@ -149,14 +167,17 @@ annotate_axis_line <- function(position,
 #' @return A list of a annotate layer and theme elements.
 #' @noRd
 #'
-annotate_axis_ticks <- function(position,
-                                breaks,
-                                ...,
-                                colour = NULL,
-                                linewidth = NULL,
-                                length = NULL) {
-
-  rlang::inform("Please use this function with ggplot2::coord_cartesian(clip = 'off')")
+annotate_axis_ticks <- function(
+  position,
+  breaks,
+  ...,
+  colour = NULL,
+  linewidth = NULL,
+  length = NULL
+) {
+  rlang::inform(
+    "Please use this function with ggplot2::coord_cartesian(clip = 'off')"
+  )
 
   # Check if panel dimensions are set
   current_theme <- ggplot2::theme_get()
@@ -164,7 +185,9 @@ annotate_axis_ticks <- function(position,
   panel_heights <- current_theme$panel.heights
 
   if (is.null(panel_widths) && is.null(panel_heights)) {
-    rlang::abort("This function only works when panel dimensions are explicitly set via theme(panel.widths = ..., panel.heights = ...)")
+    rlang::abort(
+      "This function only works when panel dimensions are explicitly set via theme(panel.widths = ..., panel.heights = ...)"
+    )
   }
 
   # Determine if this is x-axis or y-axis
@@ -177,24 +200,24 @@ annotate_axis_ticks <- function(position,
         current_theme$axis.ticks.x.bottom$length %||%
           current_theme$axis.ticks.x$length %||%
           current_theme$axis.ticks$length %||%
-          grid::unit(11/3, "pt")
+          grid::unit(11 / 3, "pt")
       } else {
         current_theme$axis.ticks.x.top$length %||%
           current_theme$axis.ticks.x$length %||%
           current_theme$axis.ticks$length %||%
-          grid::unit(11/3, "pt")
+          grid::unit(11 / 3, "pt")
       }
     } else {
       length <- if (position == "left") {
         current_theme$axis.ticks.y.left$length %||%
           current_theme$axis.ticks.y$length %||%
           current_theme$axis.ticks$length %||%
-          grid::unit(11/3, "pt")
+          grid::unit(11 / 3, "pt")
       } else {
         current_theme$axis.ticks.y.right$length %||%
           current_theme$axis.ticks.y$length %||%
           current_theme$axis.ticks$length %||%
-          grid::unit(11/3, "pt")
+          grid::unit(11 / 3, "pt")
       }
     }
   }
@@ -205,20 +228,32 @@ annotate_axis_ticks <- function(position,
   # Get the relevant panel dimension
   if (is_x_axis) {
     if (is.null(panel_heights)) {
-      rlang::abort("panel.heights must be set in theme for horizontal axis tick annotation")
+      rlang::abort(
+        "panel.heights must be set in theme for horizontal axis tick annotation"
+      )
     }
-    if (length(panel_heights) > 1 && length(unique(as.numeric(panel_heights))) > 1) {
-      rlang::abort("Different panel heights set. This function only works with uniform panel dimensions.")
+    if (
+      length(panel_heights) > 1 && length(unique(as.numeric(panel_heights))) > 1
+    ) {
+      rlang::abort(
+        "Different panel heights set. This function only works with uniform panel dimensions."
+      )
     }
-    panel_dimension <- panel_heights[1]  # Use first panel height
+    panel_dimension <- panel_heights[1] # Use first panel height
   } else {
     if (is.null(panel_widths)) {
-      rlang::abort("panel.widths must be set in theme for vertical axis tick annotation")
+      rlang::abort(
+        "panel.widths must be set in theme for vertical axis tick annotation"
+      )
     }
-    if (length(panel_widths) > 1 && length(unique(as.numeric(panel_widths))) > 1) {
-      rlang::abort("Different panel widths set. This function only works with uniform panel dimensions.")
+    if (
+      length(panel_widths) > 1 && length(unique(as.numeric(panel_widths))) > 1
+    ) {
+      rlang::abort(
+        "Different panel widths set. This function only works with uniform panel dimensions."
+      )
     }
-    panel_dimension <- panel_widths[1]  # Use first panel width
+    panel_dimension <- panel_widths[1] # Use first panel width
   }
 
   # Convert absolute length to relative proportion of panel
@@ -287,43 +322,67 @@ annotate_axis_ticks <- function(position,
   # Create appropriate segment and theme based on position
   if (position == "bottom") {
     stamp <- rlang::list2(
-      ggplot2::theme(axis.ticks.x.bottom = ggplot2::element_line(colour = "transparent")),
-      ggplot2::annotate("segment",
-                        x = breaks, xend = breaks,
-                        y = I(0), yend = I(-relative_length),
-                        colour = colour,
-                        linewidth = linewidth,
-                        ...)
+      ggplot2::theme(
+        axis.ticks.x.bottom = ggplot2::element_line(colour = "transparent")
+      ),
+      ggplot2::annotate(
+        "segment",
+        x = breaks,
+        xend = breaks,
+        y = I(0),
+        yend = I(-relative_length),
+        colour = colour,
+        linewidth = linewidth,
+        ...
+      )
     )
   } else if (position == "top") {
     stamp <- rlang::list2(
-      ggplot2::theme(axis.ticks.x.top = ggplot2::element_line(colour = "transparent")),
-      ggplot2::annotate("segment",
-                        x = breaks, xend = breaks,
-                        y = I(1), yend = I(1 + relative_length),
-                        colour = colour,
-                        linewidth = linewidth,
-                        ...)
+      ggplot2::theme(
+        axis.ticks.x.top = ggplot2::element_line(colour = "transparent")
+      ),
+      ggplot2::annotate(
+        "segment",
+        x = breaks,
+        xend = breaks,
+        y = I(1),
+        yend = I(1 + relative_length),
+        colour = colour,
+        linewidth = linewidth,
+        ...
+      )
     )
   } else if (position == "left") {
     stamp <- rlang::list2(
-      ggplot2::theme(axis.ticks.y.left = ggplot2::element_line(colour = "transparent")),
-      ggplot2::annotate("segment",
-                        x = I(0), xend = I(-relative_length),
-                        y = breaks, yend = breaks,
-                        colour = colour,
-                        linewidth = linewidth,
-                        ...)
+      ggplot2::theme(
+        axis.ticks.y.left = ggplot2::element_line(colour = "transparent")
+      ),
+      ggplot2::annotate(
+        "segment",
+        x = I(0),
+        xend = I(-relative_length),
+        y = breaks,
+        yend = breaks,
+        colour = colour,
+        linewidth = linewidth,
+        ...
+      )
     )
   } else if (position == "right") {
     stamp <- rlang::list2(
-      ggplot2::theme(axis.ticks.y.right = ggplot2::element_line(colour = "transparent")),
-      ggplot2::annotate("segment",
-                        x = I(1), xend = I(1 + relative_length),
-                        y = breaks, yend = breaks,
-                        colour = colour,
-                        linewidth = linewidth,
-                        ...)
+      ggplot2::theme(
+        axis.ticks.y.right = ggplot2::element_line(colour = "transparent")
+      ),
+      ggplot2::annotate(
+        "segment",
+        x = I(1),
+        xend = I(1 + relative_length),
+        y = breaks,
+        yend = breaks,
+        colour = colour,
+        linewidth = linewidth,
+        ...
+      )
     )
   }
 

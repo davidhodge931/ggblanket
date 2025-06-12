@@ -12,18 +12,17 @@
 #' @examples
 #' get_contrast(fill = c("navy", "yellow", "orange"), dark = "black", light = "white")
 #'
-get_contrast <- function(fill,
-                                ...,
-                                dark = "#121B24FF",
-                                light = "#FFFFFFFF") {
-
-  ifelse(farver::get_channel(
-    colour = fill,
-    channel = "l",
-    space = "hcl"
-  ) < 50,
-  light,
-  dark)
+get_contrast <- function(fill, ..., dark = "#121B24FF", light = "#FFFFFFFF") {
+  ifelse(
+    farver::get_channel(
+      colour = fill,
+      channel = "l",
+      space = "hcl"
+    ) <
+      50,
+    light,
+    dark
+  )
 }
 
 #' A colour aesthetic for contrast
@@ -81,7 +80,6 @@ get_contrast <- function(fill,
 #'     show.legend = FALSE,
 #'   )
 aes_contrast <- function(..., dark = "#121B24FF", light = "#FFFFFFFF") {
-
   ggplot2::aes(
     colour = ggplot2::after_scale(
       get_contrast(.data$fill, dark = dark, light = light)

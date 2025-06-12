@@ -9,7 +9,6 @@ set_blanket()
 test_name <- "light_mode_r"
 
 test_that(test_name, {
-
   p <- penguins |>
     gg_point(
       x = flipper_length_mm,
@@ -28,7 +27,6 @@ test_that(test_name, {
 test_name <- "light_mode_t"
 
 test_that(test_name, {
-
   p <- penguins |>
     gg_point(
       x = flipper_length_mm,
@@ -47,7 +45,6 @@ test_that(test_name, {
 test_name <- "light_mode_b"
 
 test_that(test_name, {
-
   p <- penguins |>
     gg_point(
       x = flipper_length_mm,
@@ -67,7 +64,6 @@ test_that(test_name, {
 test_name <- "dark_mode_r"
 
 test_that(test_name, {
-
   p <- penguins |>
     gg_point(
       x = flipper_length_mm,
@@ -84,4 +80,3 @@ test_that(test_name, {
 })
 
 set_blanket()
-

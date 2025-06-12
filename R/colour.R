@@ -34,7 +34,14 @@ grey <- "#CDC5BFFF"
 #'
 #' @examples
 #' colorspace::swatchplot(c(jumble, grey), cvd = TRUE)
-jumble <- c("#0095A8FF", "#FFA600FF", "#003F5CFF", "#DA3C39FF", "#EC9ECBFF", "#67609CFF")
+jumble <- c(
+  "#0095A8FF",
+  "#FFA600FF",
+  "#003F5CFF",
+  "#DA3C39FF",
+  "#EC9ECBFF",
+  "#67609CFF"
+)
 
 #' @rdname jumble
 #' @format NULL
@@ -65,4 +72,3 @@ pink <- "#EC9ECBFF"
 #' @format NULL
 #' @export
 purple <- "#67609CFF"
-

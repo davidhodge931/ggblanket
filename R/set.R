@@ -53,26 +53,28 @@
 #'   )
 #'
 set_blanket <- function(
-    ...,
-    colour = "#357BA2FF",
-    col_palette_d = jumble,
-    col_palette_c = viridisLite::mako(n = 9, direction = -1),
-    col_palette_o = scales::pal_viridis(option = "G", direction = -1),
-    col_palette_na_d = "#CDC5BFFF",
-    col_palette_na_c = "#988F88FF",
-    col_palette_na_o = "#988F88FF",
-    theme = light_mode_r(),
-    theme_orientation = NULL,
-    theme_axis_line_rm = TRUE,
-    theme_axis_ticks_rm = TRUE,
-    theme_panel_grid_rm = TRUE,
-    label_case = snakecase::to_sentence_case) {
-
-  weave_theme(theme = theme,
-              theme_orientation = theme_orientation,
-              theme_axis_line_rm = theme_axis_line_rm,
-              theme_axis_ticks_rm = theme_axis_ticks_rm,
-              theme_panel_grid_rm = theme_panel_grid_rm)
+  ...,
+  colour = "#357BA2FF",
+  col_palette_d = jumble,
+  col_palette_c = viridisLite::mako(n = 9, direction = -1),
+  col_palette_o = scales::pal_viridis(option = "G", direction = -1),
+  col_palette_na_d = "#CDC5BFFF",
+  col_palette_na_c = "#988F88FF",
+  col_palette_na_o = "#988F88FF",
+  theme = light_mode_r(),
+  theme_orientation = NULL,
+  theme_axis_line_rm = TRUE,
+  theme_axis_ticks_rm = TRUE,
+  theme_panel_grid_rm = TRUE,
+  label_case = snakecase::to_sentence_case
+) {
+  weave_theme(
+    theme = theme,
+    theme_orientation = theme_orientation,
+    theme_axis_line_rm = theme_axis_line_rm,
+    theme_axis_ticks_rm = theme_axis_ticks_rm,
+    theme_panel_grid_rm = theme_panel_grid_rm
+  )
 
   weave_geom_defaults(colour = colour)
 

@@ -31,27 +31,32 @@
 #'   guides_shape_grey()
 #'
 guides_shape_grey <- function(colour = grey, ...) {
-
-  ggplot2::guides(shape = ggplot2::guide_legend(
-    override.aes = list(colour = colour, fill = colour),
-    ...))
+  ggplot2::guides(
+    shape = ggplot2::guide_legend(
+      override.aes = list(colour = colour, fill = colour),
+      ...
+    )
+  )
 }
 
 #' @rdname guides_shape_grey
 #' @export
 guides_linewidth_grey <- function(colour = grey, ...) {
-
-  ggplot2::guides(linewidth = ggplot2::guide_legend(
-    override.aes = list(colour = colour, fill = colour),
-    ...))
+  ggplot2::guides(
+    linewidth = ggplot2::guide_legend(
+      override.aes = list(colour = colour, fill = colour),
+      ...
+    )
+  )
 }
 
 #' @rdname guides_shape_grey
 #' @export
 guides_size_grey <- function(colour = grey, ...) {
-
-  ggplot2::guides(size = ggplot2::guide_legend(
-    override.aes = list(colour = colour, fill = colour),
-    ...))
+  ggplot2::guides(
+    size = ggplot2::guide_legend(
+      override.aes = list(colour = colour, fill = colour),
+      ...
+    )
+  )
 }
-

@@ -27,9 +27,11 @@ test_that(test_name, {
 
   p2 <- diamonds |>
     count(color) |>
-    mutate(across(color, \(x) x |>
-                    forcats::fct_reorder(n) |>
-                    forcats::fct_rev())) |>
+    mutate(across(color, \(x) {
+      x |>
+        forcats::fct_reorder(n) |>
+        forcats::fct_rev()
+    })) |>
     gg_col(
       x = n,
       y = color,
@@ -105,7 +107,6 @@ test_that(test_name, {
 })
 
 
-
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "5"
 
@@ -125,7 +126,6 @@ test_that(test_name, {
 })
 
 
-
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "6"
 
@@ -141,7 +141,6 @@ test_that(test_name, {
 
   vdiffr::expect_doppelganger(test_name, p)
 })
-
 
 
 ## ---------------------------------------------------------------------------------------------------
@@ -181,7 +180,6 @@ test_that(test_name, {
 })
 
 
-
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "9"
 
@@ -198,7 +196,6 @@ test_that(test_name, {
 })
 
 
-
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "10"
 
@@ -206,8 +203,29 @@ test_that(test_name, {
   p <- data.frame(
     age = c(0:9, 0:9),
     sex = c(rep("Male", 10), rep("Female", 10)),
-    population = c(200, 250, 300, 350, 440, 450, 500, 550, 600, 650,
-                   190, 240, 290, 330, 420, 430, 480, 530, 580, 630)) |>
+    population = c(
+      200,
+      250,
+      300,
+      350,
+      440,
+      450,
+      500,
+      550,
+      600,
+      650,
+      190,
+      240,
+      290,
+      330,
+      420,
+      430,
+      480,
+      530,
+      580,
+      630
+    )
+  ) |>
     mutate(population = ifelse(sex == "Female", -population, population)) %>%
     gg_col(
       y = age,
@@ -234,8 +252,29 @@ test_that(test_name, {
   p <- data.frame(
     age = c(0:9, 0:9),
     sex = c(rep("Male", 10), rep("Female", 10)),
-    population = c(200, 250, 300, 350, 440, 450, 500, 550, 600, 650,
-                   190, 240, 290, 330, 420, 430, 480, 530, 580, 630)) |>
+    population = c(
+      200,
+      250,
+      300,
+      350,
+      440,
+      450,
+      500,
+      550,
+      600,
+      650,
+      190,
+      240,
+      290,
+      330,
+      420,
+      430,
+      480,
+      530,
+      580,
+      630
+    )
+  ) |>
     mutate(population = ifelse(sex == "Female", -population, population)) %>%
     gg_col(
       y = age,
@@ -259,8 +298,6 @@ test_that(test_name, {
 })
 
 
-
-
 ## ----fig.asp=0.55-----------------------------------------------------------------------------------
 test_name <- "12"
 
@@ -276,12 +313,10 @@ test_that(test_name, {
 })
 
 
-
 ## ----fig.asp=0.55-----------------------------------------------------------------------------------
 test_name <- "13"
 
 test_that(test_name, {
-
   p <- faithfuld |>
     gg_contour(
       x = waiting,
@@ -293,7 +328,3 @@ test_that(test_name, {
 
   vdiffr::expect_doppelganger(test_name, p)
 })
-
-
-
-

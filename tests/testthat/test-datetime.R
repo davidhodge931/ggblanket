@@ -24,7 +24,6 @@ test_that(test_name, {
       y = total,
     )
 
-
   vdiffr::expect_doppelganger(test_name, p)
 })
 

@@ -120,7 +120,8 @@ test_that(test_name, {
     resp = c(1, 5, 3, 4),
     group = factor(c(1, 2, 1, 2)),
     upper = c(1.1, 5.3, 3.3, 4.2),
-    lower = c(0.8, 4.6, 2.4, 3.6)) |>
+    lower = c(0.8, 4.6, 2.4, 3.6)
+  ) |>
     gg_crossbar(
       x = trt,
       y = resp,
@@ -294,7 +295,8 @@ test_name <- "gg_label"
 test_that(test_name, {
   p <- bind_rows(
     mtcars |> slice_min(order_by = mpg),
-    mtcars |> slice_max(order_by = mpg)) |>
+    mtcars |> slice_max(order_by = mpg)
+  ) |>
     tibble::rownames_to_column("model") |>
     gg_label(
       x = model,
@@ -333,7 +335,8 @@ test_that(test_name, {
     resp = c(1, 5, 3, 4),
     group = factor(c(1, 2, 1, 2)),
     upper = c(1.1, 5.3, 3.3, 4.2),
-    lower = c(0.8, 4.6, 2.4, 3.6)) |>
+    lower = c(0.8, 4.6, 2.4, 3.6)
+  ) |>
     gg_linerange(
       x = trt,
       ymin = lower,
@@ -387,7 +390,8 @@ test_that(test_name, {
     resp = c(1, 5, 3, 4),
     group = factor(c(1, 2, 1, 2)),
     upper = c(1.1, 5.3, 3.3, 4.2),
-    lower = c(0.8, 4.6, 2.4, 3.6)) |>
+    lower = c(0.8, 4.6, 2.4, 3.6)
+  ) |>
     gg_pointrange(
       x = trt,
       y = resp,
@@ -416,10 +420,58 @@ test_that(test_name, {
 
   positions <- data.frame(
     id = rep(ids, each = 4),
-    x = c(2, 1, 1.1, 2.2, 1, 0, 0.3, 1.1, 2.2, 1.1, 1.2, 2.5, 1.1, 0.3,
-          0.5, 1.2, 2.5, 1.2, 1.3, 2.7, 1.2, 0.5, 0.6, 1.3),
-    y = c(-0.5, 0, 1, 0.5, 0, 0.5, 1.5, 1, 0.5, 1, 2.1, 1.7, 1, 1.5,
-          2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2)
+    x = c(
+      2,
+      1,
+      1.1,
+      2.2,
+      1,
+      0,
+      0.3,
+      1.1,
+      2.2,
+      1.1,
+      1.2,
+      2.5,
+      1.1,
+      0.3,
+      0.5,
+      1.2,
+      2.5,
+      1.2,
+      1.3,
+      2.7,
+      1.2,
+      0.5,
+      0.6,
+      1.3
+    ),
+    y = c(
+      -0.5,
+      0,
+      1,
+      0.5,
+      0,
+      0.5,
+      1.5,
+      1,
+      0.5,
+      1,
+      2.1,
+      1.7,
+      1,
+      1.5,
+      2.2,
+      2.1,
+      1.7,
+      2.1,
+      3.2,
+      2.8,
+      2.1,
+      2.2,
+      3.3,
+      3.2
+    )
   )
 
   datapoly <- merge(values, positions, by = c("id"))
@@ -487,7 +539,8 @@ test_that(test_name, {
     x = rep(c(2, 5, 7, 9, 12), 2),
     y = rep(c(1, 2), each = 5),
     z = factor(c(rep(1:4, each = 2), 5, NA)),
-    w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)) |>
+    w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
+  ) |>
     dplyr::mutate(
       xmin = x - w / 2,
       xmax = x + w / 2,
@@ -607,7 +660,8 @@ test_name <- "gg_text"
 test_that(test_name, {
   p <- bind_rows(
     mtcars |> slice_min(order_by = mpg),
-    mtcars |> slice_max(order_by = mpg)) |>
+    mtcars |> slice_max(order_by = mpg)
+  ) |>
     tibble::rownames_to_column("model") |>
     gg_text(
       x = model,
@@ -638,7 +692,6 @@ test_that(test_name, {
 
   vdiffr::expect_doppelganger(test_name, p)
 })
-
 
 
 ## ---------------------------------------------------------------------------------------------------

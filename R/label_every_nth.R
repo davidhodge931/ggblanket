@@ -35,8 +35,11 @@ label_every_nth <- function(n = 2, offset = 0, ...) {
     i <- which(is.finite(x) | is.character(x) | is.factor(x) | is.logical(x))
     i <- i[seq_along(i) %% n == (offset + 1)]
 
-    if (is.numeric(x)) x <- scales::comma(x, ...)
-    else x <- format(x, ...)
+    if (is.numeric(x)) {
+      x <- scales::comma(x, ...)
+    } else {
+      x <- format(x, ...)
+    }
 
     x[-i] <- ""
     x

@@ -9,7 +9,6 @@ set_blanket()
 test_name <- "1"
 
 test_that(test_name, {
-
   p <- penguins |>
     gg_histogram(
       y = flipper_length_mm,
@@ -24,7 +23,6 @@ test_that(test_name, {
 test_name <- "2"
 
 test_that(test_name, {
-
   p <- penguins |>
     gg_histogram(
       y = flipper_length_mm,

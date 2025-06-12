@@ -42,7 +42,7 @@ test_that(test_name, {
       col = species,
     )
 
-    vdiffr::expect_doppelganger(test_name, p)
+  vdiffr::expect_doppelganger(test_name, p)
 })
 
 test_name <- "StatYdensity"
@@ -60,7 +60,7 @@ test_that(test_name, {
       col = species,
     )
 
-    vdiffr::expect_doppelganger(test_name, p)
+  vdiffr::expect_doppelganger(test_name, p)
 })
 
 test_name <- "PositionDodge"
@@ -78,7 +78,7 @@ test_that(test_name, {
       col = species,
     )
 
-    vdiffr::expect_doppelganger(test_name, p)
+  vdiffr::expect_doppelganger(test_name, p)
 })
 
 test_name <- "all 3"
@@ -96,5 +96,5 @@ test_that(test_name, {
       col = species,
     )
 
-    vdiffr::expect_doppelganger(test_name, p)
+  vdiffr::expect_doppelganger(test_name, p)
 })

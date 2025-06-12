@@ -142,7 +142,11 @@ test_that(test_name, {
       x = flipper_length_mm,
       y = species,
       col = species,
-      col_palette = c("Gentoo" = "red", "Adelie" = "blue", "Chinstrap" = "green")
+      col_palette = c(
+        "Gentoo" = "red",
+        "Adelie" = "blue",
+        "Chinstrap" = "green"
+      )
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -207,8 +211,6 @@ test_that(test_name, {
 
   vdiffr::expect_doppelganger(test_name, p)
 })
-
-
 
 
 set_blanket()

@@ -19,21 +19,22 @@
 #'
 #' @returns A numeric value
 #' @noRd
-standardise_width <- function(...,
-                              from_width,
-                              from_n,
-                              from_dodge_n = 1,
-                              from_dodge_padding = 0,
-                              from_orientation = "x",
-                              from_panel_widths = NULL,
-                              from_panel_heights = NULL,
-                              to_n = from_n,
-                              to_dodge_n = from_dodge_n,
-                              to_dodge_padding = from_dodge_padding,
-                              to_orientation = from_orientation,
-                              to_panel_widths = from_panel_widths,
-                              to_panel_heights = from_panel_heights) {
-
+standardise_width <- function(
+  ...,
+  from_width,
+  from_n,
+  from_dodge_n = 1,
+  from_dodge_padding = 0,
+  from_orientation = "x",
+  from_panel_widths = NULL,
+  from_panel_heights = NULL,
+  to_n = from_n,
+  to_dodge_n = from_dodge_n,
+  to_dodge_padding = from_dodge_padding,
+  to_orientation = from_orientation,
+  to_panel_widths = from_panel_widths,
+  to_panel_heights = from_panel_heights
+) {
   # Check required arguments
   if (missing(from_width) | missing(from_n)) {
     rlang::abort("Both from_width and from_n must be specified")
@@ -41,12 +42,19 @@ standardise_width <- function(...,
 
   # Check orientation compatibility
   if (to_orientation == "y" & is.null(from_panel_heights)) {
-    rlang::abort("Cannot use to_orientation = 'y' when from_panel_heights is NULL")
+    rlang::abort(
+      "Cannot use to_orientation = 'y' when from_panel_heights is NULL"
+    )
   }
 
   # Check for mixed units in panel dimensions
-  panel_dims <- list(from_panel_widths, from_panel_heights, to_panel_widths, to_panel_heights)
-  panel_dims <- panel_dims[!purrr::map_lgl(panel_dims, is.null)]  # Remove NULL values
+  panel_dims <- list(
+    from_panel_widths,
+    from_panel_heights,
+    to_panel_widths,
+    to_panel_heights
+  )
+  panel_dims <- panel_dims[!purrr::map_lgl(panel_dims, is.null)] # Remove NULL values
 
   if (length(panel_dims) > 1) {
     # Extract units from each non-NULL panel dimension
@@ -54,13 +62,15 @@ standardise_width <- function(...,
       if (inherits(x, "unit")) {
         as.character(attr(x, "unit"))
       } else {
-        "numeric"  # Plain numeric values
+        "numeric" # Plain numeric values
       }
     })
 
     # Check if all units are the same
     if (length(unique(units_list)) > 1) {
-      rlang::abort("All panel dimensions must use the same units. Mixed units detected.")
+      rlang::abort(
+        "All panel dimensions must use the same units. Mixed units detected."
+      )
     }
   }
 
@@ -82,9 +92,12 @@ standardise_width <- function(...,
   }
 
   # Panel dimension adjustment for visual consistency
-  if (!is.null(to_panel_widths) | !is.null(to_panel_heights) |
-      !is.null(from_panel_widths) | !is.null(from_panel_heights)) {
-
+  if (
+    !is.null(to_panel_widths) |
+      !is.null(to_panel_heights) |
+      !is.null(from_panel_widths) |
+      !is.null(from_panel_heights)
+  ) {
     # Get the relevant dimension for each orientation
     # For orientation "x" (vertical bars): width depends on panel width
     # For orientation "y" (horizontal bars): width depends on panel height

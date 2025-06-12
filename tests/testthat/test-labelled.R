@@ -18,10 +18,12 @@ test_that(test_name, {
     q3 = c(1, 2),
     q4 = factor(c(1, 2)),
   ) |>
-    labelled::set_variable_labels(q1 = "Sex",
-                                  q2 = "Happy",
-                                  q3 = "Age",
-                                  q4 = "Zero or one") |> #str()
+    labelled::set_variable_labels(
+      q1 = "Sex",
+      q2 = "Happy",
+      q3 = "Age",
+      q4 = "Zero or one"
+    ) |> #str()
     gg_point(
       x = q2,
       y = q1,
@@ -33,4 +35,3 @@ test_that(test_name, {
 })
 
 set_blanket()
-
