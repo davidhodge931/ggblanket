@@ -100,9 +100,7 @@ gg_blanket <- function(
   x_limits_include = NULL,
   x_label = NULL,
   x_labels = NULL,
-
   x_position = "bottom",
-
   x_sec_axis = ggplot2::waiver(),
   x_symmetric = NULL,
   x_transform = NULL,
@@ -115,7 +113,6 @@ gg_blanket <- function(
   y_position = "left",
   y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
-
   y_transform = NULL,
   col_breaks = NULL,
   col_breaks_n = 5,
@@ -126,12 +123,10 @@ gg_blanket <- function(
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
-
   col_palette = NULL,
   col_palette_na = NULL,
   col_rescale = scales::rescale(),
   col_steps = FALSE,
-
   col_transform = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",

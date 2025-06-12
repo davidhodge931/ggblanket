@@ -186,7 +186,7 @@ penguins |>
     blend = "multiply",
   )
 
- data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
+data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
   mutate(level_min = level - 1, level_max = level + 1) |>
   gg_smooth(
     stat = "identity",
