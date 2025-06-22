@@ -171,7 +171,6 @@ faithful |>
     x = waiting,
     y = eruptions,
     bins = 8,
-    contour = TRUE,
   )
 ```
 
@@ -183,7 +182,6 @@ faithful |>
     x = waiting,
     y = eruptions,
     bins = 8,
-    contour = TRUE,
   )
 ```
 
@@ -484,7 +482,6 @@ penguins2 |>
     y = body_mass_g,
     col = sex, 
     blend = "multiply",
-    se = TRUE,
   )
 ```
 

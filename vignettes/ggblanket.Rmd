@@ -46,7 +46,7 @@ Computational speed has been traded-off.
 7.  Prefixed arguments to customise x/y/col/facet
 8.  Smart `*_label` defaults for axis and legend titles
 9.  Other `ggplot2::geom_*` arguments via `...`
-10. Families of `*_mode_*` themes with legend variants
+10.  `theme_lightmode` and `theme_darkmode` themes 
 11.  Side-effects to the `theme` based on the `theme_orientation`
 12.  One `*_symmetric` continuous scale
 13. Ability to add multiple `geom_*` layers
@@ -226,14 +226,13 @@ penguins2 |>
     linewidth = 1, 
     linetype = "dashed",
     level = 0.999, 
-    se = TRUE,
     blend = "multiply",
   ) 
 ```
 
-### 10.  Families of `*_mode_*` themes with legend variants 
+### 10.  `theme_lightmode` and `theme_darkmode` themes 
 
-`light_mode_*` and `dark_mode_*` theme families are provided with variants that differ based on legend placement with suffix `r` (right), `b` (bottom), and `t` (top). These functions were built for use with the `theme` argument - and have flexibility to adjust colours, linewidths etc. 
+`theme_lightmode` and `theme_darkmode`. These functions were built for use with the `theme` argument - and have flexibility to adjust colours, linewidths etc. 
 
 ```{r, fig.asp=0.65}
 penguins2 |>
@@ -243,7 +242,8 @@ penguins2 |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    theme = dark_mode_t() + theme(legend.title = element_blank()),
+    theme = theme_darkmode(legend_position = "bottom") + 
+      theme(legend.title = element_blank()),
   ) 
 ```
 
@@ -373,12 +373,13 @@ Users should try to do as much as possible in these set-up functions, rather tha
 ```{r}
 set_blanket(
   theme = rlang::list2(
-    light_mode_t(
+    theme_lightmode(
       base_size = 9,
+      legend_position = "top",
+      axis_line_linewidth = 0.25, 
       axis_line_colour = "#78909C",
       panel_grid_colour = "#C8D7DF",
       panel_background_fill = "#E8EFF2",
-      axis_line_linewidth = 0.25, 
       panel_grid_linewidth = 0.25, 
     ),
     labs(colour = NULL, fill = NULL),

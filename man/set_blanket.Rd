@@ -13,7 +13,7 @@ set_blanket(
   col_palette_na_d = "#CDC5BFFF",
   col_palette_na_c = "#988F88FF",
   col_palette_na_o = "#988F88FF",
-  theme = light_mode_r(),
+  theme = theme_lightmode(),
   theme_orientation = NULL,
   theme_axis_line_rm = TRUE,
   theme_axis_ticks_rm = TRUE,
@@ -38,7 +38,7 @@ set_blanket(
 
 \item{col_palette_na_o}{For an ordinal scale, a hex code.}
 
-\item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}).}
+\item{theme}{A ggplot2 theme (e.g. \code{\link[=theme_lightmode]{theme_lightmode()}} or \code{\link[=theme_darkmode]{theme_darkmode()}}).}
 
 \item{theme_orientation}{The orientation of plot, which affects the theme components that can be removed by the \verb{gg_*} function. Either \code{"x"} or \code{"y"}. Defaults to \code{NULL}, which lets the \verb{gg_*} function guess it based on the data.}
 
@@ -70,7 +70,7 @@ library(ggblanket)
 library(palmerpenguins)
 
 set_blanket(
-  theme = dark_mode_r(),
+  theme = theme_darkmode(),
   colour = "#E7298AFF",
   col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
                     "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),

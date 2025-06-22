@@ -5,7 +5,7 @@ library(palmerpenguins)
 library(ggplot2)
 set_blanket(colour = "#121b24")
 
-test_name <- "light_mode_r"
+test_name <- "theme_lightmode_right"
 
 test_that(test_name, {
   set.seed(123)
@@ -17,14 +17,14 @@ test_that(test_name, {
       col = bill_depth_mm,
       facet = sex,
       mapping = aes(alpha = species, shape = species),
-      theme = light_mode_r()
+      theme = theme_lightmode()
     ) +
     scale_alpha_manual(values = c(1, 1, 0.33))
 
   vdiffr::expect_doppelganger(test_name, p)
 })
 
-test_name <- "light_mode_t"
+test_name <- "theme_lightmode_top"
 
 test_that(test_name, {
   set.seed(123)
@@ -36,14 +36,14 @@ test_that(test_name, {
       col = bill_depth_mm,
       facet = sex,
       mapping = aes(alpha = species, shape = species),
-      theme = light_mode_t()
+      theme = theme_lightmode(legend_position = "top")
     ) +
     scale_alpha_manual(values = c(1, 1, 0.33))
 
   vdiffr::expect_doppelganger(test_name, p)
 })
 
-test_name <- "light_mode_b"
+test_name <- "theme_lightmode_bottom"
 
 test_that(test_name, {
   set.seed(123)
@@ -55,7 +55,7 @@ test_that(test_name, {
       col = bill_depth_mm,
       facet = sex,
       mapping = aes(alpha = species, shape = species),
-      theme = light_mode_b()
+      theme = theme_lightmode(legend_position = "bottom")
     ) +
     scale_alpha_manual(values = c(1, 1, 0.33))
 

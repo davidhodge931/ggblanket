@@ -6,7 +6,7 @@ library(ggplot2)
 
 set_blanket()
 
-test_name <- "light_mode_r"
+test_name <- "theme_lightmode"
 
 test_that(test_name, {
   p <- penguins |>
@@ -17,14 +17,14 @@ test_that(test_name, {
       facet = sex,
       facet2 = island,
       mapping = aes(alpha = species, shape = species),
-      theme = light_mode_r()
+      theme = theme_lightmode()
     ) +
     scale_alpha_manual(values = c(1, 1, 0.33))
 
   vdiffr::expect_doppelganger(test_name, p)
 })
 
-test_name <- "light_mode_t"
+test_name <- "theme_lightmode-top"
 
 test_that(test_name, {
   p <- penguins |>
@@ -35,14 +35,16 @@ test_that(test_name, {
       facet = sex,
       facet2 = island,
       mapping = aes(alpha = species, shape = species),
-      theme = light_mode_t()
+      theme = theme_lightmode(
+        legend_position = "top"
+      )
     ) +
     scale_alpha_manual(values = c(1, 1, 0.33))
 
   vdiffr::expect_doppelganger(test_name, p)
 })
 
-test_name <- "light_mode_b"
+test_name <- "theme_lightmode-bottom"
 
 test_that(test_name, {
   p <- penguins |>
@@ -53,7 +55,9 @@ test_that(test_name, {
       facet = sex,
       facet2 = island,
       mapping = aes(alpha = species, shape = species),
-      theme = light_mode_b()
+      theme = theme_lightmode(
+        legend_postion = "top",
+      )
     ) +
     scale_alpha_manual(values = c(1, 1, 0.33))
 
@@ -61,7 +65,7 @@ test_that(test_name, {
 })
 
 ###
-test_name <- "dark_mode_r"
+test_name <- "theme_darkmode"
 
 test_that(test_name, {
   p <- penguins |>
@@ -72,7 +76,7 @@ test_that(test_name, {
       facet = sex,
       facet2 = island,
       mapping = aes(alpha = species, shape = species),
-      theme = dark_mode_r()
+      theme = theme_darkmode()
     ) +
     scale_alpha_manual(values = c(1, 1, 0.33))
 

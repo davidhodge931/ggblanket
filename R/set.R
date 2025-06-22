@@ -18,7 +18,7 @@
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
-#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]).
+#' @param theme A ggplot2 theme (e.g. [theme_lightmode()] or [theme_darkmode()]).
 #' @param theme_orientation The orientation of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
 #' @param theme_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
 #' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
@@ -34,7 +34,7 @@
 #' library(palmerpenguins)
 #'
 #' set_blanket(
-#'   theme = dark_mode_r(),
+#'   theme = theme_darkmode(),
 #'   colour = "#E7298AFF",
 #'   col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
 #'                     "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
@@ -61,7 +61,7 @@ set_blanket <- function(
   col_palette_na_d = "#CDC5BFFF",
   col_palette_na_c = "#988F88FF",
   col_palette_na_o = "#988F88FF",
-  theme = light_mode_r(),
+  theme = theme_lightmode(),
   theme_orientation = NULL,
   theme_axis_line_rm = TRUE,
   theme_axis_ticks_rm = TRUE,

@@ -90,7 +90,7 @@
 <text x='198.51' y='559.41' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='50.13px' lengthAdjust='spacingAndGlyphs'>Treatment</text>
 <text transform='translate(30.63,309.70) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='49.55px' lengthAdjust='spacingAndGlyphs'>Response</text>
 <text x='21.92' y='57.91' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='21.92' y='69.79' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='117.10px' lengthAdjust='spacingAndGlyphs'>theme = light_mode_r(),</text>
+<text x='21.92' y='69.79' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='137.89px' lengthAdjust='spacingAndGlyphs'>theme = theme_lightmode(),</text>
 <rect x='407.98' y='92.85' width='268.19' height='433.71' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <polyline points='407.98,526.56 676.16,526.56 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <polyline points='407.98,439.82 676.16,439.82 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
@@ -133,7 +133,7 @@
 <text x='542.07' y='559.41' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='50.13px' lengthAdjust='spacingAndGlyphs'>Treatment</text>
 <text transform='translate(374.19,309.70) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='49.55px' lengthAdjust='spacingAndGlyphs'>Response</text>
 <text x='365.48' y='57.91' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='365.48' y='69.79' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='80.41px' lengthAdjust='spacingAndGlyphs'>+ light_mode_r()</text>
+<text x='365.48' y='69.79' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='101.20px' lengthAdjust='spacingAndGlyphs'>+ theme_lightmode()</text>
 <text x='21.92' y='20.54' style='font-size: 12.10px; font-weight: bold; fill: #121B24; font-family: sans;' textLength='13.46px' lengthAdjust='spacingAndGlyphs'>10</text>
 </g>
 </svg>

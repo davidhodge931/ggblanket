@@ -20,7 +20,7 @@ ggblanket_global$col_palette_na_o <- NULL
 #'
 #' @description Set a theme for the theme argument in `gg_*` functions.
 #'
-#' @param theme A ggplot2 theme (e.g. [light_mode_t()] or [dark_mode_r()]).
+#' @param theme A ggplot2 theme (e.g. [theme_lightmode()] or [theme_darkmode()]).
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param theme_orientation The orientation of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
 #' @param theme_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
@@ -29,7 +29,7 @@ ggblanket_global$col_palette_na_o <- NULL
 #'
 #' @noRd
 weave_theme <- function(
-  theme = light_mode_r(),
+  theme = theme_lightmode(),
   ...,
   theme_orientation = NULL,
   theme_axis_line_rm = TRUE,
@@ -162,7 +162,8 @@ weave_geom_defaults <- function(
     ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
   )
 
-  # ggplot2::update_geom_defaults("bin2d", ggplot2::aes(fill = !!colour, linewidth = 0))
+  ggplot2::update_geom_defaults("bin2d", ggplot2::aes(fill = !!colour, linewidth = 0))
+
   ggplot2::update_geom_defaults(
     "raster",
     ggplot2::aes(fill = !!colour, linewidth = 0)

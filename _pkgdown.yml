@@ -12,12 +12,8 @@ reference:
   - starts_with("gg_")
 - title: Theme
 - contents:
-  - light_mode_r
-  - light_mode_t
-  - light_mode_b
-  - dark_mode_r
-  - dark_mode_t
-  - dark_mode_b
+  - theme_lightmode
+  - theme_darkmode
 - title: Palette
 - contents:
   - blue

@@ -100,7 +100,7 @@ gg_bin_2d <- function(
 ) {
   gg_blanket(
     data = data,
-    geom = "tile",
+    geom = "bin2d",
     stat = stat,
     position = position,
     coord = coord,

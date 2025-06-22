@@ -1,4 +1,4 @@
-#' Mode theme base
+#' Flexible theme
 #'
 #' @description Theme base for `*_mode_*` functions.
 #'
@@ -24,10 +24,13 @@
 #' @param axis_ticks_colour The colour of the axis.ticks theme element.
 #' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
 #' @param axis_ticks_length The length of the axis.ticks.length theme element.
+#' @param panel_heights The height of the panels.
+#' @param panel_widths The width of the panels.
 #' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
 #' @param panel_background_fill The fill (and colour) of the panel.background theme element.
 #' @param plot_background_fill The fill (and colour) of the plot.background theme element.
+#' @param legend_position The position of the legend. Either "right", "top" or "bottom".
 #' @param legend_axis_line_colour The colour of the legend.axis.line theme element.
 #' @param legend_axis_line_linewidth The linewidth of the legend.axis.line theme element.
 #' @param legend_background_fill The fill (and colour) of the legend.background theme element.
@@ -39,41 +42,45 @@
 #' @return A ggplot theme.
 #' @keywords internal
 #'
-flex_mode_base <- function(
-  base_size = 11,
-  base_family = "",
-  base_colour = "#121B24FF",
-  base_face = "plain",
-  plot_title_size = ggplot2::rel(1.1),
-  plot_title_family = base_family,
-  plot_title_colour = base_colour,
-  plot_title_face = "bold",
-  plot_subtitle_size = ggplot2::rel(1),
-  plot_subtitle_family = base_family,
-  plot_subtitle_colour = base_colour,
-  plot_subtitle_face = "plain",
-  plot_caption_size = ggplot2::rel(0.85),
-  plot_caption_family = base_family,
-  plot_caption_colour = colorspace::lighten(base_colour, 0.1),
-  plot_caption_face = "plain",
-  plot_caption_hjust = 0,
-  axis_line_colour = "#121B24FF",
-  axis_line_linewidth = 0.25,
-  axis_ticks_colour = axis_line_colour,
-  axis_ticks_linewidth = axis_line_linewidth,
-  axis_ticks_length = grid::unit(11 / 3, "pt"),
+theme_blanket <- function(
+    base_size = 11,
+    base_family = "",
+    base_colour = "#121B24FF",
+    base_face = "plain",
+    plot_title_size = ggplot2::rel(1.1),
+    plot_title_family = base_family,
+    plot_title_colour = base_colour,
+    plot_title_face = "bold",
+    plot_subtitle_size = ggplot2::rel(1),
+    plot_subtitle_family = base_family,
+    plot_subtitle_colour = base_colour,
+    plot_subtitle_face = "plain",
+    plot_caption_size = ggplot2::rel(0.85),
+    plot_caption_family = base_family,
+    plot_caption_colour = colorspace::lighten(base_colour, 0.1),
+    plot_caption_face = "plain",
+    plot_caption_hjust = 0,
+    axis_line_colour = "#121B24FF",
+    axis_line_linewidth = 0.25,
+    axis_ticks_colour = axis_line_colour,
+    axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length = grid::unit(11 / 3, "pt"),
 
-  panel_grid_colour = "#F6F8FAFF",
-  panel_grid_linewidth = 1.33,
-  panel_background_fill = "#FFFFFFFF",
-  plot_background_fill = "#FFFFFFFF",
-  legend_axis_line_colour = plot_background_fill,
-  legend_axis_line_linewidth = axis_line_linewidth,
-  legend_background_fill = plot_background_fill,
-  legend_key_fill = plot_background_fill,
-  legend_ticks_colour = legend_axis_line_colour,
-  legend_ticks_linewidth = legend_axis_line_linewidth,
-  legend_ticks_length = ggplot2::rel(c(0.175, 0))
+    panel_heights = NULL,
+    panel_widths = NULL,
+    panel_grid_colour = "#F6F8FAFF",
+    panel_grid_linewidth = 1.33,
+    panel_background_fill = "#FFFFFFFF",
+    plot_background_fill = "#FFFFFFFF",
+
+    legend_position = "right",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = axis_line_linewidth,
+    legend_background_fill = plot_background_fill,
+    legend_key_fill = plot_background_fill,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = ggplot2::rel(c(0.175, 0))
 ) {
   theme <- ggplot2::theme(
     text = ggplot2::element_text(
@@ -110,7 +117,6 @@ flex_mode_base <- function(
     axis.ticks.y.left = NULL,
     axis.ticks.y.right = NULL,
     axis.ticks.length = axis_ticks_length,
-    # axis.ticks.length = grid::unit(2.5 + (axis_line_linewidth * 2.5), "pt"),
     axis.ticks.length.x = NULL,
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
@@ -211,6 +217,9 @@ flex_mode_base <- function(
     panel.spacing.x = NULL,
     panel.spacing.y = NULL,
     panel.ontop = FALSE,
+    panel.heights = panel_heights,
+    panel.widths = panel_widths,
+
     strip.background = ggplot2::element_rect(fill = NA, colour = NA),
     strip.clip = "off",
     strip.text = ggplot2::element_text(
@@ -287,80 +296,279 @@ flex_mode_base <- function(
     complete = TRUE
   )
 
+  if (legend_position == "top") {
+    theme <- theme +
+      ggplot2::theme(
+        legend.position = "top",
+        legend.direction = "horizontal",
+        legend.justification = c(0, 0.5),
+        legend.location = "plot",
+        legend.margin = ggplot2::margin(
+          t = 11 * -1.5,
+          r = 11 * 2,
+          b = 11 * 0.5,
+          l = 0
+        ),
+        legend.box.margin = ggplot2::margin(
+          t = 11 * 0.5,
+          r = 0,
+          b = 11 * 0.5,
+          l = 0
+        ),
+        legend.title = ggplot2::element_text(
+          margin = ggplot2::margin(t = 11 * 0.25, r = 0, b = 11 * 0.5, l = 0)
+        ),
+        legend.byrow = TRUE,
+
+        axis.title.x = ggplot2::element_text(
+          margin = ggplot2::margin(t = 11 * -0.33, r = 0, b = 11 * 0.75, l = 0)
+        ),
+        axis.title.x.top = ggplot2::element_text(
+          margin = ggplot2::margin(t = 0, r = 0, b = 11 * 0.5, l = 0)
+        ),
+        axis.text.x.top = ggplot2::element_text(
+          vjust = 0,
+          margin = ggplot2::margin(t = 0, r = 0, b = 11 * 0.3, l = 0)
+        ),
+        axis.title.y.right = ggplot2::element_text(
+          margin = ggplot2::margin(t = 0, r = 11 * -0.5, b = 0, l = 11 * 1),
+          angle = -90
+        )
+      )
+  }
+  else if (legend_position == "bottom") {
+    theme <- theme +
+      ggplot2::theme(
+        legend.position = "bottom",
+        legend.direction = "horizontal",
+        legend.justification = c(0, 0.5),
+        legend.location = "plot",
+        legend.margin = ggplot2::margin(t = 0, r = 11 * 2, b = 11 * 0.75, l = 0),
+        legend.box.margin = ggplot2::margin(t = 11 * -0.5, r = 0, b = 0, l = 0),
+        legend.title = ggplot2::element_text(
+          margin = ggplot2::margin(t = 11 * 0.25, r = 0, b = 11 * 0.5, l = 0)
+        ),
+        legend.byrow = TRUE,
+
+        axis.text.x = ggplot2::element_text(
+          vjust = 1,
+          margin = ggplot2::margin(t = 11 * 0.3, r = 0, b = 11 * 1, l = 0)
+        ),
+        axis.text.x.top = ggplot2::element_text(
+          vjust = 0,
+          margin = ggplot2::margin(t = 11 * -0.5, r = 0, b = 11 * 0.3, l = 0)
+        )
+      )
+  }
+
   return(theme)
 }
 
-#' Flexible mode with right legend
+#' Light mode theme
 #'
-#' @description Flexible mode with right legend.
+#' @description A light theme.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @inheritParams flex_mode_base
+#' @param base_size The base size of the text theme element. Defaults to 11.
+#' @param base_family The base family of the text theme element. Defaults to "".
+#' @param base_colour The base colour of the text theme element.
+#' @param axis_line_colour The colour of the axis.line theme element.
+#' @param axis_line_linewidth The linewidth of the axis.line theme element.
+#' @param axis_ticks_colour The colour of the axis.ticks theme element.
+#' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
+#' @param axis_ticks_length The length of the axis.ticks.length theme element.
+#' @param legend_position The position of the legend. Either "right", "top" or "bottom".
+#' @param legend_axis_line_colour The colour of the legend.axis.line theme element.
+#' @param legend_axis_line_linewidth The linewidth of the legend.axis.line theme element.
+#' @param legend_background_fill The fill (and colour) of the legend.background theme element.
+#' @param legend_key_fill The fill (and colour) of the legend.key theme element.
+#' @param legend_ticks_colour The colour of the legend.ticks theme element.
+#' @param legend_ticks_linewidth The linewidth of the legend.ticks theme element.
+#' @param legend_ticks_length The legend.ticks.length theme element.
+#' @param panel_heights The height of the panels.
+#' @param panel_widths The width of the panels.
+#' @param panel_grid_colour The colour of the panel.grid theme element.
+#' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
+#' @param panel_background_fill The fill (and colour) of the panel.background theme element.
+#' @param plot_background_fill The fill (and colour) of the plot.background theme element.
 #'
 #' @return A ggplot theme.
-#' @keywords internal
+#' @export
 #'
-flex_mode_r <- function(
-  ...,
-  base_size = 11,
-  base_family = "",
-  base_face = "plain",
-  base_colour = "#121B24FF",
-  plot_title_size = ggplot2::rel(1.1),
-  plot_title_family = base_family,
-  plot_title_face = "bold",
-  plot_title_colour = base_colour,
-  plot_subtitle_size = ggplot2::rel(1),
-  plot_subtitle_family = base_family,
-  plot_subtitle_face = "plain",
-  plot_subtitle_colour = base_colour,
-  plot_caption_size = ggplot2::rel(0.85),
-  plot_caption_family = base_family,
-  plot_caption_face = "plain",
-  plot_caption_colour = colorspace::lighten(base_colour, 0.1),
-  plot_caption_hjust = 0,
-  axis_line_colour = "#121B24FF",
-  axis_line_linewidth = 0.25,
-  axis_ticks_colour = axis_line_colour,
-  axis_ticks_linewidth = axis_line_linewidth,
-  axis_ticks_length = grid::unit(3.67, "pt"),
-
-  panel_grid_colour = "#F6F8FAFF",
-  panel_grid_linewidth = 1.33,
-  panel_background_fill = "#FFFFFFFF",
-  plot_background_fill = "#FFFFFFFF",
-  legend_axis_line_colour = plot_background_fill,
-  legend_axis_line_linewidth = axis_line_linewidth,
-  legend_background_fill = plot_background_fill,
-  legend_key_fill = plot_background_fill,
-  legend_ticks_colour = legend_axis_line_colour,
-  legend_ticks_linewidth = legend_axis_line_linewidth,
-  legend_ticks_length = ggplot2::rel(c(0.175, 0))
+#' @examples
+#' library(palmerpenguins)
+#' library(ggplot2)
+#'
+#' set_blanket()
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     theme = theme_lightmode()
+#'   )
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     theme = theme_lightmode(legend_position = "top")
+#'   )
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     theme = theme_lightmode(legend_position = "bottom")
+#'   )
+#'
+theme_lightmode <- function(
+    ...,
+    base_size = 11,
+    base_family = "",
+    base_colour = "#121B24FF",
+    axis_line_colour = "#121B24FF",
+    axis_line_linewidth = 0.25,
+    axis_ticks_colour = axis_line_colour,
+    axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length = grid::unit(11 / 3, "pt"),
+    legend_position = "right",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = axis_line_linewidth,
+    legend_background_fill = plot_background_fill,
+    legend_key_fill = plot_background_fill,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
+    panel_heights = NULL,
+    panel_widths = NULL,
+    panel_grid_colour = "#F6F8FAFF",
+    panel_grid_linewidth = 1.33,
+    panel_background_fill = "#FFFFFFFF",
+    plot_background_fill = "#FFFFFFFF"
 ) {
-  flex_mode_base(
+  theme_blanket(
     base_size = base_size,
     base_family = base_family,
-    base_face = "plain",
     base_colour = base_colour,
-    plot_title_size = plot_title_size,
-    plot_title_family = plot_title_family,
-    plot_title_face = plot_title_face,
-    plot_title_colour = plot_title_colour,
-    plot_subtitle_size = plot_subtitle_size,
-    plot_subtitle_family = plot_subtitle_family,
-    plot_subtitle_face = plot_subtitle_face,
-    plot_subtitle_colour = plot_subtitle_colour,
-    plot_caption_size = plot_caption_size,
-    plot_caption_family = plot_caption_family,
-    plot_caption_face = plot_caption_face,
-    plot_caption_colour = plot_caption_colour,
-    plot_caption_hjust = plot_caption_hjust,
+    plot_caption_colour = colorspace::lighten(base_colour, 0.1),
     axis_line_colour = axis_line_colour,
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
     axis_ticks_length = axis_ticks_length,
+    panel_grid_colour = panel_grid_colour,
+    panel_grid_linewidth = panel_grid_linewidth,
+    panel_background_fill = panel_background_fill,
+    plot_background_fill = plot_background_fill,
+    legend_position = legend_position,
+    legend_axis_line_colour = legend_axis_line_colour,
+    legend_axis_line_linewidth = legend_axis_line_linewidth,
+    legend_background_fill = legend_background_fill,
+    legend_key_fill = legend_key_fill,
+    legend_ticks_colour = legend_ticks_colour
+  )
+}
 
+#' Dark mode theme
+#'
+#' @description A dark theme.
+#'
+#' @param ... Provided to require argument naming, support trailing commas etc.
+#' @param base_size The base size of the text theme element. Defaults to 11.
+#' @param base_family The base family of the text theme element. Defaults to "".
+#' @param base_colour The base colour of the text theme element.
+#' @param axis_line_colour The colour of the axis.line theme element.
+#' @param axis_line_linewidth The linewidth of the axis.line theme element.
+#' @param axis_ticks_colour The colour of the axis.ticks theme element.
+#' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
+#' @param axis_ticks_length The length of the axis.ticks.length theme element.
+#' @param legend_position The position of the legend. Either "right", "top" or "bottom".
+#' @param legend_axis_line_colour The colour of the legend.axis.line theme element.
+#' @param legend_axis_line_linewidth The linewidth of the legend.axis.line theme element.
+#' @param legend_background_fill The fill (and colour) of the legend.background theme element.
+#' @param legend_key_fill The fill (and colour) of the legend.key theme element.
+#' @param legend_ticks_colour The colour of the legend.ticks theme element.
+#' @param legend_ticks_linewidth The linewidth of the legend.ticks theme element.
+#' @param legend_ticks_length The  theme element.
+#' @param panel_heights The height of the panels.
+#' @param panel_widths The width of the panels.
+#' @param panel_grid_colour The colour of the panel.grid theme element.
+#' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
+#' @param panel_background_fill The fill (and colour) of the panel.background theme element.
+#' @param plot_background_fill The fill (and colour) of the plot.background theme element.
+#'
+#' @return A ggplot theme.legend.ticks.length
+#' @export
+#'
+#' @examples
+#' library(palmerpenguins)
+#' library(ggplot2)
+#'
+#' set_blanket()
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     theme = theme_darkmode()
+#'   )
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     theme = theme_darkmode(legend_position = "top")
+#'   )
+#'
+#' penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'     theme = theme_darkmode(legend_position = "bottom")
+#'   )
+#'
+theme_darkmode <- function(
+    ...,
+    base_size = 11,
+    base_family = "",
+    base_colour = "#C8D7DFFF",
+    axis_line_colour = "#C8D7DFFF",
+    axis_line_linewidth = 0.25,
+    axis_ticks_colour = axis_line_colour,
+    axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length = grid::unit(11 / 3, "pt"),
+    legend_position = "right",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = axis_line_linewidth,
+    legend_background_fill = plot_background_fill,
+    legend_key_fill = plot_background_fill,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
+    panel_heights = NULL,
+    panel_widths = NULL,
+    panel_grid_colour = "#00040AFF",
+    panel_grid_linewidth = 1.33,
+    panel_background_fill = "#050D1BFF",
+    plot_background_fill = "#00040AFF"
+) {
+  theme_blanket(
+    base_size = base_size,
+    base_family = base_family,
+    base_colour = base_colour,
+    plot_caption_colour = colorspace::darken(base_colour, 0.1),
+    axis_line_colour = axis_line_colour,
+    axis_line_linewidth = axis_line_linewidth,
+    axis_ticks_colour = axis_ticks_colour,
+    axis_ticks_linewidth = axis_ticks_linewidth,
+    axis_ticks_length = axis_ticks_length,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_background_fill = panel_background_fill,
@@ -375,228 +583,3 @@ flex_mode_r <- function(
   )
 }
 
-#' Flexible mode with top legend
-#'
-#' @description Flexible mode with legend at top.
-#'
-#' @inheritParams flex_mode_r
-#'
-#' @return A ggplot theme.
-#' @keywords internal
-#'
-flex_mode_t <- function(
-  ...,
-  base_size = 11,
-  base_family = "",
-  base_face = "plain",
-  base_colour = "#121B24FF",
-  plot_title_size = ggplot2::rel(1.1),
-  plot_title_family = base_family,
-  plot_title_face = "bold",
-  plot_title_colour = base_colour,
-  plot_subtitle_size = ggplot2::rel(1),
-  plot_subtitle_family = base_family,
-  plot_subtitle_face = "plain",
-  plot_subtitle_colour = base_colour,
-  plot_caption_size = ggplot2::rel(0.85),
-  plot_caption_family = base_family,
-  plot_caption_face = "plain",
-  plot_caption_colour = colorspace::lighten(base_colour, 0.1),
-  plot_caption_hjust = 0,
-  axis_line_colour = "#121B24FF",
-  axis_line_linewidth = 0.25,
-  axis_ticks_colour = axis_line_colour,
-  axis_ticks_linewidth = axis_line_linewidth,
-  axis_ticks_length = grid::unit(3.67, "pt"),
-
-  panel_grid_colour = "#F6F8FAFF",
-  panel_grid_linewidth = 1.33,
-  panel_background_fill = "#FFFFFFFF",
-  plot_background_fill = "#FFFFFFFF",
-  legend_axis_line_colour = plot_background_fill,
-  legend_axis_line_linewidth = axis_line_linewidth,
-  legend_background_fill = plot_background_fill,
-  legend_key_fill = plot_background_fill,
-  legend_ticks_colour = legend_axis_line_colour,
-  legend_ticks_linewidth = legend_axis_line_linewidth,
-  legend_ticks_length = ggplot2::rel(c(0.175, 0))
-) {
-  flex_mode_base(
-    base_size = base_size,
-    base_family = base_family,
-    base_face = "plain",
-    base_colour = base_colour,
-    plot_title_size = plot_title_size,
-    plot_title_family = plot_title_family,
-    plot_title_face = plot_title_face,
-    plot_title_colour = plot_title_colour,
-    plot_subtitle_size = plot_subtitle_size,
-    plot_subtitle_family = plot_subtitle_family,
-    plot_subtitle_face = plot_subtitle_face,
-    plot_subtitle_colour = plot_subtitle_colour,
-    plot_caption_size = plot_caption_size,
-    plot_caption_family = plot_caption_family,
-    plot_caption_face = plot_caption_face,
-    plot_caption_colour = plot_caption_colour,
-    plot_caption_hjust = plot_caption_hjust,
-    axis_line_colour = axis_line_colour,
-    axis_line_linewidth = axis_line_linewidth,
-    axis_ticks_colour = axis_ticks_colour,
-    axis_ticks_linewidth = axis_ticks_linewidth,
-    axis_ticks_length = axis_ticks_length,
-
-    panel_grid_colour = panel_grid_colour,
-    panel_grid_linewidth = panel_grid_linewidth,
-    panel_background_fill = panel_background_fill,
-    plot_background_fill = plot_background_fill,
-    legend_axis_line_colour = legend_axis_line_colour,
-    legend_axis_line_linewidth = legend_axis_line_linewidth,
-    legend_background_fill = legend_background_fill,
-    legend_key_fill = legend_key_fill,
-    legend_ticks_colour = legend_ticks_colour,
-    legend_ticks_linewidth = legend_ticks_linewidth,
-    legend_ticks_length = legend_ticks_length
-  ) +
-    ggplot2::theme(
-      legend.position = "top",
-      legend.direction = "horizontal",
-      legend.justification = c(0, 0.5),
-      legend.location = "plot",
-      legend.margin = ggplot2::margin(
-        t = 11 * -1.5,
-        r = 11 * 2,
-        b = 11 * 0.5,
-        l = 0
-      ),
-      legend.box.margin = ggplot2::margin(
-        t = 11 * 0.5,
-        r = 0,
-        b = 11 * 0.5,
-        l = 0
-      ),
-      legend.title = ggplot2::element_text(
-        margin = ggplot2::margin(t = 11 * 0.25, r = 0, b = 11 * 0.5, l = 0)
-      ),
-      legend.byrow = TRUE,
-
-      axis.title.x = ggplot2::element_text(
-        margin = ggplot2::margin(t = 11 * -0.33, r = 0, b = 11 * 0.75, l = 0)
-      ),
-      axis.title.x.top = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 0, b = 11 * 0.5, l = 0)
-      ),
-      axis.text.x.top = ggplot2::element_text(
-        vjust = 0,
-        margin = ggplot2::margin(t = 0, r = 0, b = 11 * 0.3, l = 0)
-      ),
-      axis.title.y.right = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 11 * -0.5, b = 0, l = 11 * 1),
-        angle = -90
-      )
-    )
-}
-
-#' Flexible mode with bottom legend
-#'
-#' @description Flexible mode with legend at bottom.
-#'
-#' @inheritParams flex_mode_r
-#'
-#' @return A ggplot theme.
-#' @keywords internal
-#'
-flex_mode_b <- function(
-  ...,
-  base_size = 11,
-  base_family = "",
-  base_face = "plain",
-  base_colour = "#121B24FF",
-  plot_title_size = ggplot2::rel(1.1),
-  plot_title_family = base_family,
-  plot_title_face = "bold",
-  plot_title_colour = base_colour,
-  plot_subtitle_size = ggplot2::rel(1),
-  plot_subtitle_family = base_family,
-  plot_subtitle_face = "plain",
-  plot_subtitle_colour = base_colour,
-  plot_caption_size = ggplot2::rel(0.85),
-  plot_caption_family = base_family,
-  plot_caption_face = "plain",
-  plot_caption_colour = colorspace::lighten(base_colour, 0.1),
-  plot_caption_hjust = 0,
-  axis_line_colour = "#121B24FF",
-  axis_line_linewidth = 0.25,
-  axis_ticks_colour = axis_line_colour,
-  axis_ticks_linewidth = axis_line_linewidth,
-  axis_ticks_length = grid::unit(3.67, "pt"),
-
-  panel_grid_colour = "#F6F8FAFF",
-  panel_grid_linewidth = 1.33,
-  panel_background_fill = "#FFFFFFFF",
-  plot_background_fill = "#FFFFFFFF",
-  legend_axis_line_colour = plot_background_fill,
-  legend_axis_line_linewidth = axis_line_linewidth,
-  legend_background_fill = plot_background_fill,
-  legend_key_fill = plot_background_fill,
-  legend_ticks_colour = legend_axis_line_colour,
-  legend_ticks_linewidth = legend_axis_line_linewidth,
-  legend_ticks_length = ggplot2::rel(c(0.175, 0))
-) {
-  flex_mode_base(
-    base_size = base_size,
-    base_family = base_family,
-    base_face = "plain",
-    base_colour = base_colour,
-    plot_title_size = plot_title_size,
-    plot_title_family = plot_title_family,
-    plot_title_face = plot_title_face,
-    plot_title_colour = plot_title_colour,
-    plot_subtitle_size = plot_subtitle_size,
-    plot_subtitle_family = plot_subtitle_family,
-    plot_subtitle_face = plot_subtitle_face,
-    plot_subtitle_colour = plot_subtitle_colour,
-    plot_caption_size = plot_caption_size,
-    plot_caption_family = plot_caption_family,
-    plot_caption_face = plot_caption_face,
-    plot_caption_colour = plot_caption_colour,
-    plot_caption_hjust = plot_caption_hjust,
-    axis_line_colour = axis_line_colour,
-    axis_line_linewidth = axis_line_linewidth,
-    axis_ticks_colour = axis_ticks_colour,
-    axis_ticks_linewidth = axis_ticks_linewidth,
-    axis_ticks_length = axis_ticks_length,
-
-    panel_grid_colour = panel_grid_colour,
-    panel_grid_linewidth = panel_grid_linewidth,
-    panel_background_fill = panel_background_fill,
-    plot_background_fill = plot_background_fill,
-    legend_axis_line_colour = legend_axis_line_colour,
-    legend_axis_line_linewidth = legend_axis_line_linewidth,
-    legend_background_fill = legend_background_fill,
-    legend_key_fill = legend_key_fill,
-    legend_ticks_colour = legend_ticks_colour,
-    legend_ticks_linewidth = legend_ticks_linewidth,
-    legend_ticks_length = legend_ticks_length
-  ) +
-    ggplot2::theme(
-      legend.position = "bottom",
-      legend.direction = "horizontal",
-      legend.justification = c(0, 0.5),
-      legend.location = "plot",
-      legend.margin = ggplot2::margin(t = 0, r = 11 * 2, b = 11 * 0.75, l = 0),
-      legend.box.margin = ggplot2::margin(t = 11 * -0.5, r = 0, b = 0, l = 0),
-      legend.title = ggplot2::element_text(
-        margin = ggplot2::margin(t = 11 * 0.25, r = 0, b = 11 * 0.5, l = 0)
-      ),
-      legend.byrow = TRUE,
-
-      axis.text.x = ggplot2::element_text(
-        vjust = 1,
-        margin = ggplot2::margin(t = 11 * 0.3, r = 0, b = 11 * 1, l = 0)
-      ),
-      axis.text.x.top = ggplot2::element_text(
-        vjust = 0,
-        margin = ggplot2::margin(t = 11 * -0.5, r = 0, b = 11 * 0.3, l = 0)
-      )
-    )
-}

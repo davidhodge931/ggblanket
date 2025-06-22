@@ -33,7 +33,7 @@ test_name <- "2"
 
 test_that(test_name, {
   set_blanket(
-    theme = light_mode_r(),
+    theme = theme_lightmode(),
     colour = red,
   )
 
@@ -56,7 +56,7 @@ test_that(test_name, {
 ###
 
 set_blanket(
-  theme = dark_mode_r(base_size = 15),
+  theme = theme_darkmode(base_size = 15),
   colour = red,
   col_palette_d = c(navy, red, "green"),
   col_palette_c = c(navy, purple, red, orange)

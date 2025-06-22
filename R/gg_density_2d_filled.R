@@ -19,7 +19,6 @@
 #'     x = waiting,
 #'     y = eruptions,
 #'     bins = 8,
-#'     contour = TRUE,
 #'   )
 #'
 gg_density_2d_filled <- function(

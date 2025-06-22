@@ -28,10 +28,10 @@ library(ggblanket)
 library(palmerpenguins)
 
 set_blanket(
+  theme = theme_darkmode(),  
   col_palette_d = c(teal, orange, purple, red, pink, navy),
   col_palette_c = viridis::mako(n = 9),
   col_palette_o = scales::pal_viridis(option = "G"),
-  theme = dark_mode_r(),  
 )
 
 penguins2 <- penguins |> 
@@ -176,7 +176,6 @@ faithful |>
     x = waiting,
     y = eruptions,
     bins = 8,
-    contour = TRUE,
   )
 ```
 
@@ -188,7 +187,6 @@ faithful |>
     x = waiting,
     y = eruptions,
     bins = 8,
-    contour = TRUE,
   )
 ```
 
@@ -489,7 +487,6 @@ penguins2 |>
     y = body_mass_g,
     col = sex,
     blend = "multiply",
-    se = TRUE,
   )
 ```
 

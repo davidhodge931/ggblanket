@@ -290,7 +290,7 @@ test_that(test_name, {
       colour = "#121b24",
       linewidth = 10 / 33
     ) +
-    light_mode_r()
+    theme_lightmode()
   # ggeasy::easy_remove_y_gridlines() +
   # ggeasy::easy_remove_y_axis()
 
