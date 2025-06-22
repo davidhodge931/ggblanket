@@ -29,12 +29,12 @@ ggblanket_global$col_palette_na_o <- NULL
 #'
 #' @noRd
 weave_theme <- function(
-  theme = light_mode_r(),
-  ...,
-  theme_orientation = NULL,
-  theme_axis_line_rm = TRUE,
-  theme_axis_ticks_rm = TRUE,
-  theme_panel_grid_rm = TRUE
+    theme = light_mode_r(),
+    ...,
+    theme_orientation = NULL,
+    theme_axis_line_rm = TRUE,
+    theme_axis_ticks_rm = TRUE,
+    theme_panel_grid_rm = TRUE
 ) {
   old <- ggblanket_global$theme
   ggblanket_global$theme <- theme
@@ -84,164 +84,169 @@ weave_label_case <- function(label_case = snakecase::to_sentence_case, ...) {
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune individual geom defaults.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note "fill" inherits from this argument.
+#' @param colour A default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note "fill" inherits from this argument.
+#' @param fill A default hex code for the fill of relevant geoms (i.e. geoms other than "label"). Inherits from colour.
+#' @param linewidth A numeric linewidth (i.e. for geoms that are polygons, and do not potentially have necessary adjacent lines - these get a linewidth of 0). Defaults to 0.66.
 #'
 #' @noRd
-weave_geom_defaults <- function(
-  ...,
-  colour = "#357BA2FF"
+weave_geom_base <- function(
+    ...,
+    colour = "#357BA2FF",
+    fill = colour,
+    linewidth = 0.66
 ) {
-  #polygons
+
+  #borderwidth
   ggplot2::update_geom_defaults(
     "area",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0)
   )
   ggplot2::update_geom_defaults(
     "bar",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0)
   )
   ggplot2::update_geom_defaults(
     "boxplot",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "col",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0)
   )
   ggplot2::update_geom_defaults(
     "contour_filled",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0)
   )
   ggplot2::update_geom_defaults(
     "crossbar",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "density",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0)
   )
   ggplot2::update_geom_defaults(
     "density_2d_filled",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0)
   )
   ggplot2::update_geom_defaults(
     "polygon",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0)
   )
   ggplot2::update_geom_defaults(
     "raster",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0)
   )
   ggplot2::update_geom_defaults(
     "rect",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0)
   )
   ggplot2::update_geom_defaults(
     "ribbon",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0)
   )
   ggplot2::update_geom_defaults(
     "sf",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0)
   )
   ggplot2::update_geom_defaults(
     "smooth",
     ggplot2::aes(
       colour = !!colour,
-      fill = !!colour,
+      fill = !!fill,
       alpha = NA,
-      linewidth = 0.66
+      linewidth = !!linewidth
     )
   )
   ggplot2::update_geom_defaults(
     "tile",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0)
   )
   ggplot2::update_geom_defaults(
     "violin",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!fill, linewidth = 0)
   )
 
-  # ggplot2::update_geom_defaults("bin2d", ggplot2::aes(fill = !!colour, linewidth = 0))
+  # ggplot2::update_geom_defaults("bin2d", ggplot2::aes(fill = !!fill, linewidth = 0))
   ggplot2::update_geom_defaults(
     "raster",
-    ggplot2::aes(fill = !!colour, linewidth = 0)
+    ggplot2::aes(fill = !!fill, linewidth = 0)
   )
   ggplot2::update_geom_defaults(
     "hex",
-    ggplot2::aes(fill = !!colour, linewidth = 0)
+    ggplot2::aes(fill = !!fill, linewidth = 0)
   )
 
   #lines
   ggplot2::update_geom_defaults(
     "abline",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "contour",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "curve",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "density2d",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "errorbar",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "function",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "line",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "linerange",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "path",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "quantile",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "rug",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "segment",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "spoke",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
   ggplot2::update_geom_defaults(
     "step",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
+    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
 
   #points
   ggplot2::update_geom_defaults(
     "point",
-    ggplot2::aes(colour = !!colour, fill = !!colour)
+    ggplot2::aes(colour = !!colour, fill = !!fill)
   )
   ggplot2::update_geom_defaults(
     "pointrange",
     ggplot2::aes(
       colour = !!colour,
-      fill = !!colour,
-      linewidth = 0.66,
-      size = 0.2
+      fill = !!fill,
+      linewidth = !!linewidth,
+      size = 0.25
     )
   ) # 1.5 / 7.5
 }
@@ -364,7 +369,7 @@ weave_geom_reference_line <- function(
 #' @param col_palette_na_o For an ordinal scale, a hex code.
 #'
 #' @noRd
-weave_col_palette <- function(
+weave_col_palettes <- function(
   ...,
   col_palette_d = jumble,
   col_palette_c = viridisLite::mako(n = 9, direction = -1),

@@ -6,25 +6,35 @@
 \usage{
 set_blanket(
   ...,
-  colour = "#357BA2FF",
+  theme = light_mode_r(),
+  theme_orientation = NULL,
+  theme_axis_line_rm = TRUE,
+  theme_axis_ticks_rm = TRUE,
+  theme_panel_grid_rm = TRUE,
   col_palette_d = jumble,
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
   col_palette_o = scales::pal_viridis(option = "G", direction = -1),
   col_palette_na_d = "#CDC5BFFF",
   col_palette_na_c = "#988F88FF",
   col_palette_na_o = "#988F88FF",
-  theme = light_mode_r(),
-  theme_orientation = NULL,
-  theme_axis_line_rm = TRUE,
-  theme_axis_ticks_rm = TRUE,
-  theme_panel_grid_rm = TRUE,
+  colour = "#357BA2FF",
+  fill = colour,
+  linewidth = 0.66,
   label_case = snakecase::to_sentence_case
 )
 }
 \arguments{
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
-\item{colour}{For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note, the "fill" inherits from this argument.}
+\item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}).}
+
+\item{theme_orientation}{The orientation of plot, which affects the theme components that can be removed by the \verb{gg_*} function. Either \code{"x"} or \code{"y"}. Defaults to \code{NULL}, which lets the \verb{gg_*} function guess it based on the data.}
+
+\item{theme_axis_line_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis line per the \code{theme_orientation} of the plot.}
+
+\item{theme_axis_ticks_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis ticks per the \code{theme_orientation} of the plot.}
+
+\item{theme_panel_grid_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant panel grid per the \code{theme_orientation} of the plot.}
 
 \item{col_palette_d}{For a discrete scale, a character vector of hex codes.}
 
@@ -38,15 +48,11 @@ set_blanket(
 
 \item{col_palette_na_o}{For an ordinal scale, a hex code.}
 
-\item{theme}{A ggplot2 theme (e.g. \code{\link[=light_mode_t]{light_mode_t()}} or \code{\link[=dark_mode_r]{dark_mode_r()}}).}
+\item{colour}{A default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note, the "fill" inherits from this argument.}
 
-\item{theme_orientation}{The orientation of plot, which affects the theme components that can be removed by the \verb{gg_*} function. Either \code{"x"} or \code{"y"}. Defaults to \code{NULL}, which lets the \verb{gg_*} function guess it based on the data.}
+\item{fill}{A default hex code for the fill of relevant geoms  (i.e. geoms other than "label"). Inherits from colour.}
 
-\item{theme_axis_line_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis line per the \code{theme_orientation} of the plot.}
-
-\item{theme_axis_ticks_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis ticks per the \code{theme_orientation} of the plot.}
-
-\item{theme_panel_grid_rm}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant panel grid per the \code{theme_orientation} of the plot.}
+\item{linewidth}{A numeric linewidth (i.e. for geoms that are polygons, and do not potentially have necessary adjacent lines - these get a linewidth of 0). Defaults to 0.66.}
 
 \item{label_case}{A function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc. Defaults to \code{snakecase::to_sentence_case}.}
 }
@@ -56,9 +62,9 @@ A globally set style.
 \description{
 Set the style by setting:
 \enumerate{
-\item the geom defaults, including the colour (and fill) of geoms
-\item the colour (and fill) palettes (i.e. discrete, continuous and ordinal)
 \item the theme, and how/what side-effects are to be applied
+\item the geom defaults, including the colour (and fill) of geoms
+\item the geom colour (and fill) palettes (i.e. discrete, continuous and ordinal)
 \item the function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc.
 }
 
