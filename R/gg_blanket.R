@@ -32,7 +32,7 @@
 #' @param col_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' @param col_palette_na A hex code (or name) for the colour of `NA` values.
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
-#' @param col_steps For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
+#' @param col_scale_type For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_theme_*()` may be needed.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
@@ -126,7 +126,7 @@ gg_blanket <- function(
   col_palette = NULL,
   col_palette_na = NULL,
   col_rescale = scales::rescale(),
-  col_steps = FALSE,
+  col_scale_type = "gradient",
   col_transform = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
@@ -663,7 +663,7 @@ gg_blanket <- function(
           ggplot2::facet_wrap(
             facets = ggplot2::vars(forcats::fct_rev(!!facet)),
             scales = facet_scales,
-            # space = facet_space,
+            space = facet_space,
             drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
@@ -676,7 +676,7 @@ gg_blanket <- function(
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet2),
             scales = facet_scales,
-            # space = facet_space,
+            space = facet_space,
             drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
@@ -689,7 +689,7 @@ gg_blanket <- function(
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet, !!facet2),
             scales = facet_scales,
-            # space = facet_space,
+            space = facet_space,
             drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
@@ -742,7 +742,7 @@ gg_blanket <- function(
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet),
             scales = facet_scales,
-            # space = facet_space,
+            space = facet_space,
             drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
@@ -755,7 +755,7 @@ gg_blanket <- function(
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet2),
             scales = facet_scales,
-            # space = facet_space,
+            space = facet_space,
             drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
@@ -768,7 +768,7 @@ gg_blanket <- function(
           ggplot2::facet_wrap(
             facets = ggplot2::vars(!!facet, !!facet2),
             scales = facet_scales,
-            # space = facet_space,
+            space = facet_space,
             drop = facet_drop,
             axes = facet_axes,
             axis.labels = facet_axis_labels,
@@ -906,7 +906,7 @@ gg_blanket <- function(
         }
       }
 
-      if (isFALSE(col_steps)) {
+      if (col_scale_type == "gradient") {
         plot <- plot +
           ggplot2::scale_colour_gradientn(
             colours = col_palette,
@@ -922,7 +922,7 @@ gg_blanket <- function(
             colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
             fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
           )
-      } else if (isTRUE(col_steps)) {
+      } else if (col_scale_type == "steps") {
         plot <- plot +
           ggplot2::scale_colour_stepsn(
             colours = col_palette,

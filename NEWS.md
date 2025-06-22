@@ -3,6 +3,8 @@
 * Breaking: adjusted `annotate_axis_line` arguments.
 * For dates etc, defaulted labels to `scales::label_date_short(leading = "")`.
 * Added `standardise_width`.
+* Added `facet_space` argument with discrete.
+* Breaking: renamed `col_steps = FALSE` argument to `col_scale_type = "gradient"` with `"steps"` option.
 
 # ggblanket 12.4.0
 

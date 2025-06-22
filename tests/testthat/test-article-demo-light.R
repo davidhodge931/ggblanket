@@ -283,7 +283,7 @@ test_that(test_name, {
 #       col = flipper_length_mm,
 #       position = position_jitter(height = 0),
 #       y_limits_include = 0,
-#       col_steps = TRUE,
+#       col_scale_type = TRUE,
 #     )
 #
 #   vdiffr::expect_doppelganger(test_name, p)
