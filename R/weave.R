@@ -90,6 +90,9 @@ weave_label_case <- function(label_case = snakecase::to_sentence_case, ...) {
 weave_geom_defaults <- function(
     ...,
     colour = "#357BA2FF"
+    # fill = colour,
+    # borderwidth = 0,
+    # linewidth = 0.66,
 ) {
   #polygons
   ggplot2::update_geom_defaults(
@@ -354,7 +357,7 @@ weave_geom_reference_line <- function(
   )
 }
 
-#' Set colour (and fill) palettes
+#' Set geom palettes
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default. Use NULL to leave as is.
@@ -365,7 +368,7 @@ weave_geom_reference_line <- function(
 #' @param col_palette_na_o For an ordinal scale, a hex code.
 #'
 #' @noRd
-weave_col_palette <- function(
+weave_geom_palettes <- function(
   ...,
   col_palette_d = jumble,
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
