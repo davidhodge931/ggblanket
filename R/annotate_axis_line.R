@@ -174,7 +174,7 @@ annotate_axis_ticks <- function(
     colour = NULL,
     linewidth = NULL,
     length = NULL
-  ) {
+) {
   rlang::inform(
     "Please use this function with ggplot2::coord_cartesian(clip = 'off')"
   )

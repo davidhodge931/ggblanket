@@ -12,10 +12,6 @@
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
-#' @param perspective The perspective of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
-#' @param axis_line_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `perspective` of the plot.
-#' @param axis_ticks_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `perspective` of the plot.
-#' @param panel_grid_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `perspective` of the plot.
 #' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note, the "fill" inherits from this argument.
 #' @param col_palette_d For a discrete scale, a character vector of hex codes.
 #' @param col_palette_c For a continuous scale, a character vector of hex codes.
@@ -24,6 +20,10 @@
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
 #' @param label_case A function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc. Defaults to `snakecase::to_sentence_case`.
+#' @param perspective The perspective of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
+#' @param axis_line_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `perspective` of the plot.
+#' @param axis_ticks_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `perspective` of the plot.
+#' @param panel_grid_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `perspective` of the plot.
 #'
 #' @return A globally set style.
 #' @export
@@ -55,18 +55,22 @@
 set_blanket <- function(
     ...,
     theme = theme_lighter(),
-    perspective = NULL,
-    axis_line_transparent = TRUE,
-    axis_ticks_transparent = TRUE,
-    panel_grid_transparent = TRUE,
     colour = "#357BA2FF",
+
+    # col_palette_discrete = jumble,
+    # col_palette_continuous = viridisLite::mako(n = 9, direction = -1),
+
     col_palette_d = jumble,
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
     col_palette_na_d = "#CDC5BFFF",
     col_palette_na_c = "#988F88FF",
     col_palette_na_o = "#988F88FF",
-    label_case = snakecase::to_sentence_case
+    label_case = snakecase::to_sentence_case,
+    perspective = NULL,
+    axis_line_transparent = TRUE,
+    axis_ticks_transparent = TRUE,
+    panel_grid_transparent = TRUE
 ) {
 
   weave_theme(

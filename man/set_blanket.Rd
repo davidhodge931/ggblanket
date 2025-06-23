@@ -7,10 +7,6 @@
 set_blanket(
   ...,
   theme = theme_lighter(),
-  perspective = NULL,
-  axis_line_transparent = TRUE,
-  axis_ticks_transparent = TRUE,
-  panel_grid_transparent = TRUE,
   colour = "#357BA2FF",
   col_palette_d = jumble,
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
@@ -18,21 +14,17 @@ set_blanket(
   col_palette_na_d = "#CDC5BFFF",
   col_palette_na_c = "#988F88FF",
   col_palette_na_o = "#988F88FF",
-  label_case = snakecase::to_sentence_case
+  label_case = snakecase::to_sentence_case,
+  perspective = NULL,
+  axis_line_transparent = TRUE,
+  axis_ticks_transparent = TRUE,
+  panel_grid_transparent = TRUE
 )
 }
 \arguments{
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
 \item{theme}{A ggplot2 theme (e.g. \code{\link[=theme_lighter]{theme_lighter()}} or \code{\link[=theme_darker]{theme_darker()}}).}
-
-\item{perspective}{The perspective of plot, which affects the theme components that can be removed by the \verb{gg_*} function. Either \code{"x"} or \code{"y"}. Defaults to \code{NULL}, which lets the \verb{gg_*} function guess it based on the data.}
-
-\item{axis_line_transparent}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis line per the \code{perspective} of the plot.}
-
-\item{axis_ticks_transparent}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis ticks per the \code{perspective} of the plot.}
-
-\item{panel_grid_transparent}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant panel grid per the \code{perspective} of the plot.}
 
 \item{colour}{For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note, the "fill" inherits from this argument.}
 
@@ -49,6 +41,14 @@ set_blanket(
 \item{col_palette_na_o}{For an ordinal scale, a hex code.}
 
 \item{label_case}{A function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc. Defaults to \code{snakecase::to_sentence_case}.}
+
+\item{perspective}{The perspective of plot, which affects the theme components that can be removed by the \verb{gg_*} function. Either \code{"x"} or \code{"y"}. Defaults to \code{NULL}, which lets the \verb{gg_*} function guess it based on the data.}
+
+\item{axis_line_transparent}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis line per the \code{perspective} of the plot.}
+
+\item{axis_ticks_transparent}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis ticks per the \code{perspective} of the plot.}
+
+\item{panel_grid_transparent}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant panel grid per the \code{perspective} of the plot.}
 }
 \value{
 A globally set style.
