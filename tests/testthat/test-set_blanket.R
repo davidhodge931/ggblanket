@@ -11,9 +11,9 @@ test_name <- "1"
 test_that(test_name, {
   set_blanket(
     theme = theme_grey(),
-    theme_axis_line_rm = FALSE,
-    theme_axis_ticks_rm = FALSE,
-    theme_panel_grid_rm = FALSE
+    axis_line_transparent = FALSE,
+    axis_ticks_transparent = FALSE,
+    panel_grid_transparent = FALSE
   )
 
   p <- penguins |>
@@ -33,7 +33,7 @@ test_name <- "2"
 
 test_that(test_name, {
   set_blanket(
-    theme = theme_lightmode(),
+    theme = theme_lighter(),
     colour = red,
   )
 
@@ -56,7 +56,7 @@ test_that(test_name, {
 ###
 
 set_blanket(
-  theme = theme_darkmode(base_size = 15),
+  theme = theme_darker(base_size = 15),
   colour = red,
   col_palette_d = c(navy, red, "green"),
   col_palette_c = c(navy, purple, red, orange)

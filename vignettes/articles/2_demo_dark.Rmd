@@ -28,7 +28,7 @@ library(ggblanket)
 library(palmerpenguins)
 
 set_blanket(
-  theme = theme_darkmode(),  
+  theme = theme_darker(),  
   col_palette_d = c(teal, orange, purple, red, pink, navy),
   col_palette_c = viridis::mako(n = 9),
   col_palette_o = scales::pal_viridis(option = "G"),
@@ -212,7 +212,7 @@ penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
-    theme = dark_mode_t(),
+    theme = theme_darker(legend_position = "top"),
   ) +
   theme(legend.title = element_blank())
 ```

@@ -31,6 +31,8 @@ reference:
 - contents:
   - aes_contrast
   - annotate_axis_line
+  - annotate_axis_ticks
+  - element_line_transparent
   - bind_each_all
   - guides_shape_grey
   - guides_linewidth_grey
@@ -38,4 +40,5 @@ reference:
   - label_every_nth
   - scale_x_symmetric
   - scale_y_symmetric
+  - standardise_width
 

@@ -4,7 +4,7 @@
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #'
 #' @noRd
-get_base <- function(
+plot_base_internal <- function(
   data,
   x = NULL,
   xmin = NULL,

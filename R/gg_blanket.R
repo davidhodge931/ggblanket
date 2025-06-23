@@ -8,11 +8,11 @@
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
-#' @param theme A ggplot2 theme (e.g. [theme_lightmode()] or [theme_darkmode()]). (Or a list that includes 1. a theme and 2. a [ggplot2::labs()] function. E.g. `list(theme_lightmode(), ggplot2::labs(colour = NULL, fill = NULL)`).
-#' @param theme_orientation The orientation of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
-#' @param theme_axis_line_rm `TRUE` or `FALSE` of whether to remove the relevant axis line per the `theme_orientation` of the plot.
-#' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `theme_orientation` of the plot.
-#' @param theme_panel_grid_rm `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `theme_orientation` of the plot.
+#' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]). (Or a list that includes 1. a theme and 2. a [ggplot2::labs()] function. E.g. `list(theme_lighter(), ggplot2::labs(colour = NULL, fill = NULL)`).
+#' @param perspective The perspective of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
+#' @param axis_line_transparent `TRUE` or `FALSE` of whether to remove the relevant axis line per the `perspective` of the plot.
+#' @param axis_ticks_transparent `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `perspective` of the plot.
+#' @param panel_grid_transparent `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `perspective` of the plot.
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()]. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
@@ -22,7 +22,7 @@
 #' @param x_limits_include,y_limits_include,col_limits_include For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
 #' @param x_label,y_label,col_label Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)` for no title.
 #' @param x_labels,y_labels,col_labels,facet_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_*()`), or a vector of labels. (Note this must be named for `facet_labels`).
-#' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_theme_*` theme, add `caption = ""` or `caption = "\n"`.
+#' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_*` theme, add `caption = ""` or `caption = "\n"`.
 #' @param x_sec_axis,y_sec_axis A secondary axis with [ggplot2::dup_axis()] or  [ggplot2::sec_axis()].
 #' @param x_symmetric,y_symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
@@ -33,7 +33,7 @@
 #' @param col_palette_na A hex code (or name) for the colour of `NA` values.
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
 #' @param col_scale_type For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
-#' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_theme_*()` may be needed.
+#' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_*()` may be needed.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
 #' @param facet_ncol,facet_nrow The number of columns and rows of facet panels. Only applies to a facet layout of `"wrap"`.
@@ -71,10 +71,10 @@ gg_blanket <- function(
     position = "identity",
     coord = NULL,
     theme = NULL,
-    theme_orientation = NULL,
-    theme_axis_line_rm = NULL,
-    theme_axis_ticks_rm = NULL,
-    theme_panel_grid_rm = NULL,
+    perspective = NULL,
+    axis_line_transparent = NULL,
+    axis_ticks_transparent = NULL,
+    panel_grid_transparent = NULL,
     blend = NULL,
     x = NULL,
     xmin = NULL,
@@ -209,7 +209,7 @@ gg_blanket <- function(
   # determine scale type
   ##############################################################################
 
-  plot <- get_base(
+  plot <- plot_base_internal(
     data = data,
     x = !!x,
     y = !!y,
@@ -409,7 +409,7 @@ gg_blanket <- function(
 
   #get theme if NULL
   if (rlang::is_null(theme)) {
-    theme <- get_theme()
+    theme <- ggblanket_global$theme
   }
 
   #determine *_symmetric
@@ -437,22 +437,22 @@ gg_blanket <- function(
     }
   }
 
-  if (rlang::is_null(theme_orientation)) {
-    if (rlang::is_null(theme_orientation)) {
-      theme_orientation <- get_theme_orientation()
+  if (rlang::is_null(perspective)) {
+    if (rlang::is_null(perspective)) {
+      perspective <- ggblanket_global$perspective
     }
 
-    if (rlang::is_null(theme_orientation)) {
+    if (rlang::is_null(perspective)) {
       if (y_scale_type == "discrete" & x_scale_type != "discrete") {
-        theme_orientation <- "y"
+        perspective <- "y"
       } else {
-        theme_orientation <- "x"
+        perspective <- "x"
       }
     }
   }
 
   if (rlang::is_null(label_case)) {
-    label_case <- get_label_case()
+    label_case <- ggblanket_global$label_case
     if (rlang::is_null(label_case)) label_case <- snakecase::to_sentence_case
   }
 
@@ -468,8 +468,8 @@ gg_blanket <- function(
 
   if (
     x_symmetric &
-      y_symmetric &
-      !(x_transform_null & y_transform_null & identical(stat, "identity"))
+    y_symmetric &
+    !(x_transform_null & y_transform_null & identical(stat, "identity"))
   ) {
     rlang::abort(
       "Both x_symmetric and y_symmetric are not supported
@@ -527,7 +527,7 @@ gg_blanket <- function(
   # get the base plot using processed data
   ##############################################################################
 
-  plot <- get_base(
+  plot <- plot_base_internal(
     data = data,
     x = !!x,
     y = !!y,
@@ -846,7 +846,7 @@ gg_blanket <- function(
   if (!is.na(col_scale_type)) {
     if (col_scale_type %in% c("date", "datetime", "time", "numeric")) {
       if (rlang::is_null(col_palette)) {
-        col_palette <- get_col_palette_c()
+        col_palette <- ggblanket_global$col_palette_c
         if (rlang::is_null(col_palette)) {
           col_palette <- scales::pal_seq_gradient(
             low = "#132B43",
@@ -858,7 +858,7 @@ gg_blanket <- function(
       }
 
       if (rlang::is_null(col_palette_na)) {
-        col_palette_na <- get_col_palette_na_c()
+        col_palette_na <- ggblanket_global$col_palette_na_c
         if (rlang::is_null(col_palette_na)) col_palette_na <- "grey50"
       }
 
@@ -948,16 +948,16 @@ gg_blanket <- function(
     } else if (col_scale_type %in% c("discrete", "ordinal")) {
       if (rlang::is_null(col_palette_na)) {
         if (col_scale_type == "discrete") {
-          if (rlang::is_null(get_col_palette_na_d())) {
+          if (rlang::is_null(ggblanket_global$col_palette_na_d)) {
             col_palette_na <- "grey50"
           } else {
-            col_palette_na <- get_col_palette_na_d()
+            col_palette_na <- ggblanket_global$col_palette_na_d
           }
         } else if (col_scale_type == "ordinal") {
-          if (rlang::is_null(get_col_palette_na_o())) {
+          if (rlang::is_null(ggblanket_global$col_palette_na_o)) {
             col_palette_na <- "grey50"
           } else {
-            col_palette_na <- get_col_palette_na_o()
+            col_palette_na <- ggblanket_global$col_palette_na_o
           }
         }
       }
@@ -1000,9 +1000,9 @@ gg_blanket <- function(
 
       if (rlang::is_null(col_palette)) {
         if (col_scale_type == "discrete") {
-          col_palette <- get_col_palette_d()
+          col_palette <- ggblanket_global$col_palette_d
         } else if (col_scale_type == "ordinal") {
-          col_palette <- get_col_palette_o()
+          col_palette <- ggblanket_global$col_palette_o
         }
       }
 
@@ -1825,40 +1825,40 @@ gg_blanket <- function(
   # theme make transparent some theme components
   ##############################################################################
 
-  if (rlang::is_null(theme_axis_line_rm)) {
-    theme_axis_line_rm <- get_theme_axis_line_rm()
+  if (rlang::is_null(axis_line_transparent)) {
+    axis_line_transparent <- ggblanket_global$axis_line_transparent
   }
-  if (rlang::is_null(theme_axis_ticks_rm)) {
-    theme_axis_ticks_rm <- get_theme_axis_ticks_rm()
+  if (rlang::is_null(axis_ticks_transparent)) {
+    axis_ticks_transparent <- ggblanket_global$axis_ticks_transparent
   }
-  if (rlang::is_null(theme_panel_grid_rm)) {
-    theme_panel_grid_rm <- get_theme_panel_grid_rm()
-  }
-
-  if (rlang::is_null(theme_axis_line_rm)) {
-    theme_axis_line_rm <- TRUE
-  }
-  if (rlang::is_null(theme_axis_ticks_rm)) {
-    theme_axis_ticks_rm <- TRUE
-  }
-  if (rlang::is_null(theme_panel_grid_rm)) {
-    theme_panel_grid_rm <- TRUE
+  if (rlang::is_null(panel_grid_transparent)) {
+    panel_grid_transparent <- ggblanket_global$panel_grid_transparent
   }
 
-  if (theme_orientation == "x") {
-    if (theme_axis_line_rm) {
+  if (rlang::is_null(axis_line_transparent)) {
+    axis_line_transparent <- TRUE
+  }
+  if (rlang::is_null(axis_ticks_transparent)) {
+    axis_ticks_transparent <- TRUE
+  }
+  if (rlang::is_null(panel_grid_transparent)) {
+    panel_grid_transparent <- TRUE
+  }
+
+  if (perspective == "x") {
+    if (axis_line_transparent) {
       plot <- plot +
         ggplot2::theme(
           axis.line.y = ggplot2::element_line(colour = "transparent")
         )
     }
-    if (theme_axis_ticks_rm) {
+    if (axis_ticks_transparent) {
       plot <- plot +
         ggplot2::theme(
           axis.ticks.y = ggplot2::element_line(colour = "transparent")
         )
     }
-    if (theme_panel_grid_rm) {
+    if (panel_grid_transparent) {
       plot <- plot +
         ggplot2::theme(
           panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
@@ -1872,20 +1872,20 @@ gg_blanket <- function(
           axis.ticks.x = ggplot2::element_line(colour = "transparent")
         )
     }
-  } else if (theme_orientation == "y") {
-    if (theme_axis_line_rm) {
+  } else if (perspective == "y") {
+    if (axis_line_transparent) {
       plot <- plot +
         ggplot2::theme(
           axis.line.x = ggplot2::element_line(colour = "transparent")
         )
     }
-    if (theme_axis_ticks_rm) {
+    if (axis_ticks_transparent) {
       plot <- plot +
         ggplot2::theme(
           axis.ticks.x = ggplot2::element_line(colour = "transparent")
         )
     }
-    if (theme_panel_grid_rm) {
+    if (panel_grid_transparent) {
       plot <- plot +
         ggplot2::theme(
           panel.grid.major.y = ggplot2::element_line(colour = "transparent"),

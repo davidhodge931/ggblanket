@@ -211,24 +211,24 @@ p4 <- pressure |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### Correct the default orientation
+### Correct the default perspective
 
-The `gg_*` function guesses the `*_orientation` of the plot to determine how to make continuous axes and what side-effects to have on the provided theme. If it guesses incorrectly, use either the `x_orientation` or `y_orientation` argument.
+The `gg_*` function guesses the `perspective` of the plot to determine how to make continuous axes and what side-effects to have on the provided theme. If it guesses incorrectly, use either the `perspective` argument.
 
 ```{r}
 p1 <- penguins2 |>
   gg_point(
     x = bill_depth_mm,
     y = bill_length_mm,
-    subtitle = "\nDefault theme orientation",
+    subtitle = "\nDefault perspective",
   )
 
 p2 <- penguins2 |>
   gg_point(
     x = bill_depth_mm,
     y = bill_length_mm,
-    theme_orientation = "y",
-    subtitle = "\nAdjusted theme orientation",
+    perspective = "y",
+    subtitle = "\nAdjusted perspective",
   ) 
 
 p1 + p2

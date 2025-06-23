@@ -71,7 +71,7 @@ get_contrast <- function(fill, ..., dark = "#121B24FF", light = "#FFFFFFFF") {
 #'     position = position_dodge(preserve = "single"),
 #'     width = 0.75,
 #'     x_labels = \(x) str_to_sentence(x),
-#'     theme = theme_darkmode(),
+#'     theme = theme_darker(),
 #'   ) +
 #'   geom_text(
 #'     mapping = aes(label = n, !!!aes_contrast(dark = darkness[3], light = darkness[1])),

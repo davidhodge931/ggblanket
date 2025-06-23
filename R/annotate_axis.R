@@ -20,7 +20,7 @@ annotate_axis_line <- function(position, ..., colour = NULL, linewidth = NULL) {
   }
 
   # Get current theme
-  current_theme <- ggplot2::theme_get()
+  current_theme <- ggplot2::get_theme()
 
   # Determine if this is x-axis or y-axis
   is_x_axis <- position %in% c("bottom", "top")
@@ -165,22 +165,22 @@ annotate_axis_line <- function(position, ..., colour = NULL, linewidth = NULL) {
 #' @param length The absolute length of the annotated segment as a grid unit. Defaults to unit(11/3, "pt").
 #'
 #' @return A list of a annotate layer and theme elements.
-#' @noRd
+#' @export
 #'
 annotate_axis_ticks <- function(
-  position,
-  breaks,
-  ...,
-  colour = NULL,
-  linewidth = NULL,
-  length = NULL
-) {
+    position,
+    breaks,
+    ...,
+    colour = NULL,
+    linewidth = NULL,
+    length = NULL
+  ) {
   rlang::inform(
     "Please use this function with ggplot2::coord_cartesian(clip = 'off')"
   )
 
   # Check if panel dimensions are set
-  current_theme <- ggplot2::theme_get()
+  current_theme <- ggplot2::get_theme()
   panel_widths <- current_theme$panel.widths
   panel_heights <- current_theme$panel.heights
 

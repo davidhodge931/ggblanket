@@ -1,11 +1,14 @@
 # ggblanket 12.4.0900
 
+* Breaking: renamed and redesigned themes to `theme_lighter` and `theme_darker`.
+* Breaking: renamed `theme_` prefixed arguments to `perspective`, `axis_line_transparent`, `axis_ticks_transparent`, and `panel_grid_transparent`.
+* Breaking: renamed `col_steps = FALSE` argument to `col_scale_type = "gradient"` with `"steps"` option.
 * Breaking: adjusted `annotate_axis_line` arguments.
 * For dates etc, defaulted labels to `scales::label_date_short(leading = "")`.
 * Added `standardise_width`.
-* Supported `facet_space` argument with discrete.
-* Breaking: renamed `col_steps = FALSE` argument to `col_scale_type = "gradient"` with `"steps"` option.
-* Breaking: renamed and redesigned themes to `theme_lightmode` and `theme_darkmode`.
+* Added `annotate_axis_ticks`.
+* Added `element_line_transparent`.
+* Supported `facet_space` argument with a discrete scale.
 
 # ggblanket 12.4.0
 

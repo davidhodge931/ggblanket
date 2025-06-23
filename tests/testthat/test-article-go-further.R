@@ -280,23 +280,18 @@ test_that(test_name, {
       y = age,
       x = population,
       col = sex,
-      width = 1,
+      perspective = "x",
       orientation = "y",
       x_labels = \(x) abs(x),
-      y_symmetric = TRUE,
+      y_symmetric = FALSE,
+      y_expand = c(0, 0),
     ) +
     geom_vline(
       xintercept = 0,
-      colour = "#121b24",
-      linewidth = 10 / 33
-    ) +
-    theme_lightmode()
-  # ggeasy::easy_remove_y_gridlines() +
-  # ggeasy::easy_remove_y_axis()
+    )
 
   vdiffr::expect_doppelganger(test_name, p)
 })
-
 
 ## ----fig.asp=0.55-----------------------------------------------------------------------------------
 test_name <- "12"

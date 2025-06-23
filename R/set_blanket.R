@@ -18,11 +18,11 @@
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
-#' @param theme A ggplot2 theme (e.g. [theme_lightmode()] or [theme_darkmode()]).
-#' @param theme_orientation The orientation of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
-#' @param theme_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
-#' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
-#' @param theme_panel_grid_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `theme_orientation` of the plot.
+#' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
+#' @param perspective The perspective of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
+#' @param axis_line_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `perspective` of the plot.
+#' @param axis_ticks_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `perspective` of the plot.
+#' @param panel_grid_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `perspective` of the plot.
 #' @param label_case A function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc. Defaults to `snakecase::to_sentence_case`.
 #'
 #' @return A globally set style.
@@ -34,7 +34,7 @@
 #' library(palmerpenguins)
 #'
 #' set_blanket(
-#'   theme = theme_darkmode(),
+#'   theme = theme_darker(),
 #'   colour = "#E7298AFF",
 #'   col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
 #'                     "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
@@ -61,19 +61,19 @@ set_blanket <- function(
   col_palette_na_d = "#CDC5BFFF",
   col_palette_na_c = "#988F88FF",
   col_palette_na_o = "#988F88FF",
-  theme = theme_lightmode(),
-  theme_orientation = NULL,
-  theme_axis_line_rm = TRUE,
-  theme_axis_ticks_rm = TRUE,
-  theme_panel_grid_rm = TRUE,
+  theme = theme_lighter(),
+  perspective = NULL,
+  axis_line_transparent = TRUE,
+  axis_ticks_transparent = TRUE,
+  panel_grid_transparent = TRUE,
   label_case = snakecase::to_sentence_case
 ) {
   weave_theme(
     theme = theme,
-    theme_orientation = theme_orientation,
-    theme_axis_line_rm = theme_axis_line_rm,
-    theme_axis_ticks_rm = theme_axis_ticks_rm,
-    theme_panel_grid_rm = theme_panel_grid_rm
+    perspective = perspective,
+    axis_line_transparent = axis_line_transparent,
+    axis_ticks_transparent = axis_ticks_transparent,
+    panel_grid_transparent = panel_grid_transparent
   )
 
   weave_geom_defaults(colour = colour)

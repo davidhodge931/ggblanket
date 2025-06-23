@@ -11,10 +11,10 @@ gg_col(
   position = "stack",
   coord = ggplot2::coord_cartesian(clip = "off"),
   theme = NULL,
-  theme_orientation = NULL,
-  theme_axis_line_rm = NULL,
-  theme_axis_ticks_rm = NULL,
-  theme_panel_grid_rm = NULL,
+  perspective = NULL,
+  axis_line_transparent = NULL,
+  axis_ticks_transparent = NULL,
+  panel_grid_transparent = NULL,
   blend = NULL,
   x = NULL,
   xmin = NULL,
@@ -94,15 +94,15 @@ gg_col(
 
 \item{coord}{A coordinate system. A \verb{coord_*()} function that outputs a constructed ggproto Coord subclass object (e.g. \code{\link[ggplot2:coord_cartesian]{ggplot2::coord_cartesian()}}).}
 
-\item{theme}{A ggplot2 theme (e.g. \code{\link[=theme_lightmode]{theme_lightmode()}} or \code{\link[=theme_darkmode]{theme_darkmode()}}). (Or a list that includes 1. a theme and 2. a \code{\link[ggplot2:labs]{ggplot2::labs()}} function. E.g. \verb{list(theme_lightmode(), ggplot2::labs(colour = NULL, fill = NULL)}).}
+\item{theme}{A ggplot2 theme (e.g. \code{\link[=theme_lighter]{theme_lighter()}} or \code{\link[=theme_darker]{theme_darker()}}). (Or a list that includes 1. a theme and 2. a \code{\link[ggplot2:labs]{ggplot2::labs()}} function. E.g. \verb{list(theme_lighter(), ggplot2::labs(colour = NULL, fill = NULL)}).}
 
-\item{theme_orientation}{The orientation of plot, which affects the theme components that are removed. Either \code{"x"} or \code{"y"}.}
+\item{perspective}{The perspective of plot, which affects the theme components that are removed. Either \code{"x"} or \code{"y"}.}
 
-\item{theme_axis_line_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis line per the \code{theme_orientation} of the plot.}
+\item{axis_line_transparent}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis line per the \code{perspective} of the plot.}
 
-\item{theme_axis_ticks_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis ticks per the \code{theme_orientation} of the plot.}
+\item{axis_ticks_transparent}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis ticks per the \code{perspective} of the plot.}
 
-\item{theme_panel_grid_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{theme_orientation} of the plot.}
+\item{panel_grid_transparent}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{perspective} of the plot.}
 
 \item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
 
@@ -122,7 +122,7 @@ gg_col(
 
 \item{x_labels, y_labels, col_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \verb{scales::label_*()}), or a vector of labels. (Note this must be named for \code{facet_labels}).}
 
-\item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_theme_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
+\item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 
 \item{x_sec_axis, y_sec_axis}{A secondary axis with \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}} or  \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}}.}
 
@@ -144,7 +144,7 @@ gg_col(
 
 \item{col_scale_type}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
 
-\item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_theme_*()} may be needed.}
+\item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_*()} may be needed.}
 
 \item{facet_axis_labels}{Whether to add interior axis labels with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
 

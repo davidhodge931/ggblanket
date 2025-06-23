@@ -2,10 +2,10 @@
 ggblanket_global <- new.env(parent = emptyenv())
 
 ggblanket_global$theme <- NULL
-ggblanket_global$theme_orientation <- NULL
-ggblanket_global$theme_axis_line_rm <- NULL
-ggblanket_global$theme_axis_ticks_rm <- NULL
-ggblanket_global$theme_axis_line_rm <- NULL
+ggblanket_global$perspective <- NULL
+ggblanket_global$axis_line_transparent <- NULL
+ggblanket_global$axis_ticks_transparent <- NULL
+ggblanket_global$axis_line_transparent <- NULL
 
 ggblanket_global$label_case <- NULL
 
@@ -20,46 +20,46 @@ ggblanket_global$col_palette_na_o <- NULL
 #'
 #' @description Set a theme for the theme argument in `gg_*` functions.
 #'
-#' @param theme A ggplot2 theme (e.g. [theme_lightmode()] or [theme_darkmode()]).
+#' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param theme_orientation The orientation of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
-#' @param theme_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `theme_orientation` of the plot.
-#' @param theme_axis_ticks_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `theme_orientation` of the plot.
-#' @param theme_panel_grid_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `theme_orientation` of the plot.
+#' @param perspective The perspective of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
+#' @param axis_line_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `perspective` of the plot.
+#' @param axis_ticks_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `perspective` of the plot.
+#' @param panel_grid_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `perspective` of the plot.
 #'
 #' @noRd
 weave_theme <- function(
-  theme = theme_lightmode(),
+  theme = theme_lighter(),
   ...,
-  theme_orientation = NULL,
-  theme_axis_line_rm = TRUE,
-  theme_axis_ticks_rm = TRUE,
-  theme_panel_grid_rm = TRUE
+  perspective = NULL,
+  axis_line_transparent = TRUE,
+  axis_ticks_transparent = TRUE,
+  panel_grid_transparent = TRUE
 ) {
   old <- ggblanket_global$theme
   ggblanket_global$theme <- theme
   invisible(old)
 
-  old <- ggblanket_global$theme_orientation
-  ggblanket_global$theme_orientation <- theme_orientation
+  old <- ggblanket_global$perspective
+  ggblanket_global$perspective <- perspective
   invisible(old)
 
-  old <- ggblanket_global$theme_axis_line_rm
-  ggblanket_global$theme_axis_line_rm <- theme_axis_line_rm
+  old <- ggblanket_global$axis_line_transparent
+  ggblanket_global$axis_line_transparent <- axis_line_transparent
   invisible(old)
 
-  old <- ggblanket_global$theme_axis_ticks_rm
-  ggblanket_global$theme_axis_ticks_rm <- theme_axis_ticks_rm
+  old <- ggblanket_global$axis_ticks_transparent
+  ggblanket_global$axis_ticks_transparent <- axis_ticks_transparent
   invisible(old)
 
-  old <- ggblanket_global$theme_panel_grid_rm
-  ggblanket_global$theme_panel_grid_rm <- theme_panel_grid_rm
+  old <- ggblanket_global$panel_grid_transparent
+  ggblanket_global$panel_grid_transparent <- panel_grid_transparent
   invisible(old)
 
   if (ggplot2::is_theme(theme)) {
-    ggplot2::theme_set(new = theme)
+    ggplot2::set_theme(new = theme)
   } else {
-    ggplot2::theme_set(new = theme[[1]])
+    ggplot2::set_theme(new = theme[[1]])
   }
 }
 
@@ -88,8 +88,8 @@ weave_label_case <- function(label_case = snakecase::to_sentence_case, ...) {
 #'
 #' @noRd
 weave_geom_defaults <- function(
-  ...,
-  colour = "#357BA2FF"
+    ...,
+    colour = "#357BA2FF"
 ) {
   #polygons
   ggplot2::update_geom_defaults(
@@ -259,10 +259,10 @@ weave_geom_defaults <- function(
 #'
 #' @noRd
 weave_geom_text <- function(
-  ...,
-  colour = ggplot2::theme_get()$text$colour,
-  size = ggplot2::theme_get()$text$size / 2.835052,
-  family = ggplot2::theme_get()$text$family
+    ...,
+    colour = ggplot2::get_theme()$text$colour,
+    size = ggplot2::get_theme()$text$size / 2.835052,
+    family = ggplot2::get_theme()$text$family
 ) {
   if (rlang::is_null(colour)) {
     colour <- "#121B24FF"
@@ -293,10 +293,10 @@ weave_geom_text <- function(
 #' @noRd
 weave_geom_label <- function(
   ...,
-  fill = ggplot2::theme_get()$text$colour,
-  colour = ggplot2::theme_get()$panel.background$fill,
-  size = ggplot2::theme_get()$text$size / 2.835052,
-  family = ggplot2::theme_get()$text$family
+  fill = ggplot2::get_theme()$text$colour,
+  colour = ggplot2::get_theme()$panel.background$fill,
+  size = ggplot2::get_theme()$text$size / 2.835052,
+  family = ggplot2::get_theme()$text$family
 ) {
   if (rlang::is_null(fill)) {
     fill <- "#121B24FF"
@@ -334,8 +334,8 @@ weave_geom_label <- function(
 #' @noRd
 weave_geom_reference_line <- function(
   ...,
-  colour = ggplot2::theme_get()$axis.line$colour,
-  linewidth = ggplot2::theme_get()$axis.line$linewidth
+  colour = ggplot2::get_theme()$axis.line$colour,
+  linewidth = ggplot2::get_theme()$axis.line$linewidth
 ) {
   if (rlang::is_null(colour)) {
     colour <- "#121B24FF"
@@ -519,63 +519,3 @@ weave_col_palette_o <- function(
   ggblanket_global$col_palette_na_o <- col_palette_na_o
   invisible(old)
 }
-
-#' Get the theme
-#' @description Get the currently set theme.
-#' @noRd
-get_theme <- function() ggblanket_global$theme
-
-#' Get the label_case function
-#' @description Get the currently set label_case function.
-#' @noRd
-get_label_case <- function() ggblanket_global$label_case
-
-#' Get the theme_orientation
-#' @description Get the currently set theme_orientation.
-#' @noRd
-get_theme_orientation <- function() ggblanket_global$theme_orientation
-
-#' Get the theme_axis_line_rm
-#' @description Get the currently set theme_axis_line_rm.
-#' @noRd
-get_theme_axis_line_rm <- function() ggblanket_global$theme_axis_line_rm
-
-#' Get the theme_axis_ticks_rm
-#' @description Get the currently set theme_axis_ticks_rm.
-#' @noRd
-get_theme_axis_ticks_rm <- function() ggblanket_global$theme_axis_ticks_rm
-
-#' Get the theme_panel_grid_rm
-#' @description Get the currently set theme_panel_grid_rm.
-#' @noRd
-get_theme_panel_grid_rm <- function() ggblanket_global$theme_panel_grid_rm
-
-#' Get the discrete palette
-#' @description Get the currently set discrete palette.
-#' @noRd
-get_col_palette_d <- function() ggblanket_global$col_palette_d
-
-#' Get the continuous palette
-#' @description Get the currently set continuous palette.
-#' @noRd
-get_col_palette_c <- function() ggblanket_global$col_palette_c
-
-#' Get the ordinal palette
-#' @description Get the currently set ordinal palette.
-#' @noRd
-get_col_palette_o <- function() ggblanket_global$col_palette_o
-
-#' Get the discrete NA geom_colour
-#' @description Get the currently set discrete NA geom_colour.
-#' @noRd
-get_col_palette_na_d <- function() ggblanket_global$col_palette_na_d
-
-#' Get the continuous NA geom_colour
-#' @description Get the currently set continuous NA geom_colour.
-#' @noRd
-get_col_palette_na_c <- function() ggblanket_global$col_palette_na_c
-
-#' Get the ordinal NA geom_colour
-#' @description Get the currently set ordinal NA geom_colour.
-#' @noRd
-get_col_palette_na_o <- function() ggblanket_global$col_palette_na_o

@@ -177,7 +177,7 @@ test_that(test_name, {
       width = 0.1,
       x_label = "Treatment",
       y_label = "Response",
-      subtitle = "\ntheme = theme_lightmode(),"
+      subtitle = "\ntheme = theme_lighter(),"
     ) +
     theme(legend.position = "none")
 
@@ -190,9 +190,9 @@ test_that(test_name, {
       width = 0.1,
       x_label = "Treatment",
       y_label = "Response",
-      subtitle = "\n+ theme_lightmode()"
+      subtitle = "\n+ theme_lighter()"
     ) +
-    theme_lightmode() +
+    theme_lighter() +
     theme(legend.position = "none")
 
   p <- p1 + p2
@@ -212,7 +212,7 @@ test_that(test_name, {
       title = "Penguin flipper length by species",
       subtitle = "Palmer Archipelago, Antarctica",
       caption = "Source: Gorman, 2020",
-      theme = theme_lightmode(legend_position = "top"),
+      theme = theme_lighter(legend_position = "top"),
     ) +
     theme(legend.title = element_blank())
 
@@ -231,7 +231,7 @@ test_that(test_name, {
       title = "Penguin flipper length by species",
       subtitle = "Palmer Archipelago, Antarctica",
       caption = "Source: Gorman, 2020",
-      theme = theme_darkmode(),
+      theme = theme_darker(),
     )
 
   vdiffr::expect_doppelganger(test_name, p)
