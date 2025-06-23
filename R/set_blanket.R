@@ -53,16 +53,20 @@
 #'   )
 #'
 set_blanket <- function(
-  ...,
-  theme = theme_lighter(),
-  colour = "#357BA2FF",
-  col_palette_d = jumble,
-  col_palette_c = viridisLite::mako(n = 9, direction = -1),
-  col_palette_o = scales::pal_viridis(option = "G", direction = -1),
-  col_palette_na_d = "#CDC5BFFF",
-  col_palette_na_c = "#988F88FF",
-  col_palette_na_o = "#988F88FF",
-  label_case = snakecase::to_sentence_case
+    ...,
+    theme = theme_lighter(),
+    perspective = NULL,
+    axis_line_transparent = TRUE,
+    axis_ticks_transparent = TRUE,
+    panel_grid_transparent = TRUE,
+    colour = "#357BA2FF",
+    col_palette_d = jumble,
+    col_palette_c = viridisLite::mako(n = 9, direction = -1),
+    col_palette_o = scales::pal_viridis(option = "G", direction = -1),
+    col_palette_na_d = "#CDC5BFFF",
+    col_palette_na_c = "#988F88FF",
+    col_palette_na_o = "#988F88FF",
+    label_case = snakecase::to_sentence_case
 ) {
 
   weave_theme(

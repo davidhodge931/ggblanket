@@ -20,8 +20,8 @@ ggblanket_global$col_palette_na_o <- NULL
 #'
 #' @description Set a theme for the theme argument in `gg_*` functions.
 #'
-#' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
 #' @param ... Provided to require argument naming, support trailing commas etc.
+#' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
 #' @param perspective The perspective of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
 #' @param axis_line_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `perspective` of the plot.
 #' @param axis_ticks_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `perspective` of the plot.
@@ -29,12 +29,12 @@ ggblanket_global$col_palette_na_o <- NULL
 #'
 #' @noRd
 weave_theme <- function(
-  theme = theme_lighter(),
-  ...,
-  perspective = NULL,
-  axis_line_transparent = TRUE,
-  axis_ticks_transparent = TRUE,
-  panel_grid_transparent = TRUE
+    ...,
+    theme = theme_lighter(),
+    perspective = NULL,
+    axis_line_transparent = TRUE,
+    axis_ticks_transparent = TRUE,
+    panel_grid_transparent = TRUE
 ) {
   old <- ggblanket_global$theme
   ggblanket_global$theme <- theme
