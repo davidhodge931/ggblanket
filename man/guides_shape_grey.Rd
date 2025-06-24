@@ -15,7 +15,7 @@ guides_size_grey(colour = grey, ...)
 \arguments{
 \item{colour}{A default hex code to override the colour of the legend elements. Note, the "fill" inherits from this argument.  Defaults to grey.}
 
-\item{...}{Other arguments passed to \code{\link[ggplot2:guide_legend]{ggplot2::guide_legend()}}.}
+\item{...}{Other arguments passed to \code{\link[ggplot2:guide_legend]{ggplot2::guide_legend ()}}.}
 }
 \value{
 A ggplot guides.

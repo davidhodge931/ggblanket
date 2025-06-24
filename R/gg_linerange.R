@@ -1,6 +1,6 @@
 #' Linerange ggplot
 #'
-#' @description Create a linerange ggplot with a wrapper around [ggplot2::ggplot()] + [geom_linerange()][ggplot2::geom_linerange()].
+#' @description Create a linerange ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_linerange()][ggplot2::geom_linerange()] defaults.
 #'
 #' @inheritParams gg_blanket
 #'

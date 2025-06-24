@@ -1,6 +1,6 @@
 #' Path ggplot
 #'
-#' @description Create a path ggplot with a wrapper around [ggplot2::ggplot()] + [geom_path()][ggplot2::geom_path()].
+#' @description Create a path ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_path()][ggplot2::geom_path()] defaults.
 #'
 #' @inheritParams gg_blanket
 #'

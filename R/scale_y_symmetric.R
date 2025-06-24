@@ -15,7 +15,7 @@
 #' @param expand_limits Any values that the limits should encompass (e.g. `0`).
 #' @param labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_*()`), or a vector of labels.
 #' @param position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).
-#' @param sec_axis A secondary axis created with [ggplot2::sec_axis()] or [ggplot2::dup_axis()].
+#' @param sec_axis A secondary axis created with [ggplot2::sec_axis()] or [ggplot2::dup_axis ()].
 #' @param transform A transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #'

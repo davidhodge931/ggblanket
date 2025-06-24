@@ -38,7 +38,7 @@ scale_y_symmetric(
 
 \item{position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).}
 
-\item{sec_axis}{A secondary axis created with \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}} or \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}}.}
+\item{sec_axis}{A secondary axis created with \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}} or \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis ()}}.}
 
 \item{transform}{A transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
 

@@ -1,6 +1,6 @@
 #' Contour ggplot
 #'
-#' @description Create a contour ggplot with a wrapper around [ggplot2::ggplot()] + [geom_contour()][ggplot2::geom_contour()].
+#' @description Create a contour ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_contour()][ggplot2::geom_contour()] defaults.
 #'
 #' @inheritParams gg_blanket
 #'

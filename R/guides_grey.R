@@ -7,7 +7,7 @@
 #' * `guides_size_grey()` for size.
 #'
 #' @param colour A default hex code to override the colour of the legend elements. Note, the "fill" inherits from this argument.  Defaults to grey.
-#' @param ... Other arguments passed to [ggplot2::guide_legend()].
+#' @param ... Other arguments passed to [ggplot2::guide_legend ()].
 #'
 #' @return A ggplot guides.
 #' @export

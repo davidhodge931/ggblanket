@@ -1,6 +1,6 @@
 #' Tile ggplot
 #'
-#' @description Create a tile plot with a wrapper around [ggplot2::ggplot()] + [geom_tile()][ggplot2::geom_tile()].
+#' @description Create a tile plot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_tile()][ggplot2::geom_tile()] defaults.
 #'
 #' @inheritParams gg_blanket
 #'

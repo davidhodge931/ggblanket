@@ -1,6 +1,6 @@
 #' A transparent element line
 #'
-#' @param ... Other arguments passed to [ggplot2::element_line()].
+#' @param ... Other arguments passed to [ggplot2::element_line ()].
 #'
 #' @return A element_line.
 #' @export

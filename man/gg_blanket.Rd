@@ -87,7 +87,7 @@ gg_blanket(
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{...}{Other arguments passed to within a \code{params} list in \code{layer()}.}
+\item{...}{Other arguments passed to within a \code{params} list in \code{\link[ggplot2:layer]{ggplot2::layer()}} defaults.}
 
 \item{geom}{A geometric object to display the data. A snakecase character string of a ggproto Geom subclass object minus the Geom prefix (e.g. \code{"point"}).}
 
@@ -111,7 +111,7 @@ gg_blanket(
 
 \item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
 
-\item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}}. Intended primarily for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}), but can also be used for delayed evaluation etc.}
+\item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} defaults. Intended primarily for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}), but can also be used for delayed evaluation etc.}
 
 \item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 
@@ -127,7 +127,7 @@ gg_blanket(
 
 \item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 
-\item{x_sec_axis, y_sec_axis}{A secondary axis with \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}} or  \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}}.}
+\item{x_sec_axis, y_sec_axis}{A secondary axis with \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}} or  \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}} defaults.}
 
 \item{x_symmetric, y_symmetric}{\code{TRUE} or \code{FALSE} of whether a symmetric scale.}
 

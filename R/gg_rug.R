@@ -1,6 +1,6 @@
 #' Rug ggplot
 #'
-#' @description Create a rug ggplot with a wrapper around [ggplot2::ggplot()] + [geom_rug()][ggplot2::geom_rug()].
+#' @description Create a rug ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_rug()][ggplot2::geom_rug()] defaults.
 #'
 #' @inheritParams gg_blanket
 #'

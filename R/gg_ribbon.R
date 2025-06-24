@@ -1,6 +1,6 @@
 #' Ribbon ggplot
 #'
-#' @description Create a ribbon ggplot with a wrapper around [ggplot2::ggplot()] + [geom_ribbon()][ggplot2::geom_ribbon()]
+#' @description Create a ribbon ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_ribbon()][ggplot2::geom_ribbon()]
 #'
 #' @inheritParams gg_blanket
 #'

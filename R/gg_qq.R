@@ -1,6 +1,6 @@
 #' Qq ggplot
 #'
-#' @description Create a qq ggplot with a wrapper around [ggplot2::ggplot()] + [geom_qq()][ggplot2::geom_qq()].
+#' @description Create a qq ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_qq()][ggplot2::geom_qq()] defaults.
 #'
 #' @inheritParams gg_blanket
 #'

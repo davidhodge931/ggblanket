@@ -1,6 +1,6 @@
 #' Quantile ggplot
 #'
-#' @description Create an quantile ggplot with a wrapper around [ggplot2::ggplot()] + [geom_quantile()][ggplot2::geom_quantile()].
+#' @description Create an quantile ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_quantile()][ggplot2::geom_quantile()] defaults.
 #'
 #' @inheritParams gg_blanket
 #'

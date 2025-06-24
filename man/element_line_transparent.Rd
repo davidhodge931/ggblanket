@@ -7,7 +7,7 @@
 element_line_transparent(...)
 }
 \arguments{
-\item{...}{Other arguments passed to \code{\link[ggplot2:element]{ggplot2::element_line()}}.}
+\item{...}{Other arguments passed to \code{\link[ggplot2:element]{ggplot2::element_line ()}}.}
 }
 \value{
 A element_line.

@@ -1,6 +1,6 @@
 #' Line ggplot
 #'
-#' @description Create a line ggplot with a wrapper around [ggplot2::ggplot()] + [geom_line()][ggplot2::geom_line()].
+#' @description Create a line ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_line()][ggplot2::geom_line()] defaults.
 #'
 #' @inheritParams gg_blanket
 #'

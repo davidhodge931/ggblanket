@@ -1,6 +1,6 @@
 #' Col ggplot
 #'
-#' @description Create a col ggplot with a wrapper around [ggplot2::ggplot()] + [geom_col()][ggplot2::geom_col()].
+#' @description Create a col ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_col()][ggplot2::geom_col()] defaults.
 #'
 #' @inheritParams gg_blanket
 #'

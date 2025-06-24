@@ -1,6 +1,6 @@
 #' Density_2d ggplot
 #'
-#' @description Create a density_2d ggplot with a wrapper around [ggplot2::ggplot()] + [geom_density_2d()][ggplot2::geom_density_2d()].
+#' @description Create a density_2d ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_density_2d()][ggplot2::geom_density_2d()] defaults.
 #'
 #' @inheritParams gg_blanket
 #'
