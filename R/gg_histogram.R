@@ -1,6 +1,6 @@
 #' Histogram ggplot
 #'
-#' @description Create a histogram ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_histogram()][ggplot2::geom_histogram()] defaults.
+#' @description Create a histogram ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_histogram()][ggplot2::geom_histogram()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

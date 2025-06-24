@@ -87,7 +87,7 @@ gg_blanket(
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{...}{Other arguments passed to within a \code{params} list in \code{\link[ggplot2:layer]{ggplot2::layer()}} defaults.}
+\item{...}{Other arguments passed to within a \code{params} list in \code{\link[ggplot2:layer]{ggplot2::layer()}}.}
 
 \item{geom}{A geometric object to display the data. A snakecase character string of a ggproto Geom subclass object minus the Geom prefix (e.g. \code{"point"}).}
 
@@ -171,7 +171,7 @@ gg_blanket(
 A ggplot object.
 }
 \description{
-Create a blanket ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \code{layer()} with \link[ggplot2:geom_blank]{geom_blank()} defaults. This function underlies all other \verb{gg_*} functions. It contains a \code{geom} argument for maximum flexibility.
+Create a blanket ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \code{layer()} with \link[ggplot2:geom_blank]{geom_blank()} defaults for the geom, stat and position. This function underlies all other \verb{gg_*} functions. It contains a \code{geom} argument for maximum flexibility.
 }
 \examples{
 library(ggplot2)

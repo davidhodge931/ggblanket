@@ -1,6 +1,6 @@
 #' Bar ggplot
 #'
-#' @description Create a bar ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_bar()][ggplot2::geom_bar()] defaults.
+#' @description Create a bar ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_bar()][ggplot2::geom_bar()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

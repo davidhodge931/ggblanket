@@ -1,6 +1,6 @@
 #' Sf ggplot
 #'
-#' @description Create a blank ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_sf()][ggplot2::geom_sf()] defaults.
+#' @description Create a blank ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_sf()][ggplot2::geom_sf()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

@@ -1,6 +1,6 @@
 #' Jitter ggplot
 #'
-#' @description Create a jitter ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_jitter()][ggplot2::geom_jitter()] defaults.
+#' @description Create a jitter ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_jitter()][ggplot2::geom_jitter()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

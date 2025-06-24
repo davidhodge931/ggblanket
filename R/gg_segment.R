@@ -1,6 +1,6 @@
 #' Segment ggplot
 #'
-#' @description Create a segment ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_segment()][ggplot2::geom_segment()] defaults.
+#' @description Create a segment ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_segment()][ggplot2::geom_segment()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

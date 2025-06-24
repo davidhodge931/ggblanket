@@ -1,6 +1,6 @@
 #' Violin ggplot
 #'
-#' @description Create a violin plot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_violin()][ggplot2::geom_violin()] defaults.
+#' @description Create a violin plot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_violin()][ggplot2::geom_violin()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

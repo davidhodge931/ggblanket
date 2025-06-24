@@ -1,6 +1,6 @@
 #' Area ggplot
 #'
-#' @description Create an area ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_area()][ggplot2::geom_area()] defaults.
+#' @description Create an area ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_area()][ggplot2::geom_area()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

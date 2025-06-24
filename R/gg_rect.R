@@ -1,6 +1,6 @@
 #' Rect ggplot
 #'
-#' @description Create a rect ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_rect()][ggplot2::geom_rect()] defaults.
+#' @description Create a rect ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_rect()][ggplot2::geom_rect()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

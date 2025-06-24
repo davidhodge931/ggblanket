@@ -86,7 +86,7 @@ gg_ribbon(
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{...}{Other arguments passed to within a \code{params} list in \code{\link[ggplot2:layer]{ggplot2::layer()}} defaults.}
+\item{...}{Other arguments passed to within a \code{params} list in \code{\link[ggplot2:layer]{ggplot2::layer()}}.}
 
 \item{stat}{A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. \code{"identity"}).}
 

@@ -1,6 +1,6 @@
 #' Crossbar ggplot
 #'
-#' @description Create a crossbar ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_crossbar()][ggplot2::geom_crossbar()] defaults.
+#' @description Create a crossbar ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_crossbar()][ggplot2::geom_crossbar()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

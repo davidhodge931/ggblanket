@@ -1,9 +1,9 @@
 #' Blanket ggplot
 #'
-#' @description Create a blanket ggplot with a wrapper around [ggplot2::ggplot()] + `layer()` with [geom_blank()][ggplot2::geom_blank()] defaults. This function underlies all other `gg_*` functions. It contains a `geom` argument for maximum flexibility.
+#' @description Create a blanket ggplot with a wrapper around [ggplot2::ggplot()] + `layer()` with [geom_blank()][ggplot2::geom_blank()] defaults for the geom, stat and position. This function underlies all other `gg_*` functions. It contains a `geom` argument for maximum flexibility.
 #'
 #' @param data A data frame or tibble.
-#' @param ... Other arguments passed to within a `params` list in [ggplot2::layer()] defaults.
+#' @param ... Other arguments passed to within a `params` list in [ggplot2::layer()].
 #' @param geom A geometric object to display the data. A snakecase character string of a ggproto Geom subclass object minus the Geom prefix (e.g. `"point"`).
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).

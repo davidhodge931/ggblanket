@@ -86,7 +86,7 @@ gg_contour(
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{...}{Other arguments passed to within a \code{params} list in \code{\link[ggplot2:layer]{ggplot2::layer()}} defaults.}
+\item{...}{Other arguments passed to within a \code{params} list in \code{\link[ggplot2:layer]{ggplot2::layer()}}.}
 
 \item{stat}{A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. \code{"identity"}).}
 
@@ -168,7 +168,7 @@ gg_contour(
 A ggplot object.
 }
 \description{
-Create a contour ggplot with a wrapper around \link[ggplot2:ggplot]{ggplot()} + \link[ggplot2:layer]{layer()} with \link[ggplot2:geom_contour]{geom_contour()} defaults.
+Create a contour ggplot with a wrapper around \link[ggplot2:ggplot]{ggplot()} + \link[ggplot2:layer]{layer()} with \link[ggplot2:geom_contour]{geom_contour()} defaults for the geom, stat and position.
 }
 \examples{
 library(ggplot2)

@@ -1,6 +1,6 @@
 #' Boxplot ggplot
 #'
-#' @description Create a boxplot ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_boxplot()][ggplot2::geom_boxplot()] defaults.
+#' @description Create a boxplot ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_boxplot()][ggplot2::geom_boxplot()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

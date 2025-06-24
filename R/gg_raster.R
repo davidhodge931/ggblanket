@@ -1,6 +1,6 @@
 #' Raster ggplot
 #'
-#' @description Create a raster ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_raster()][ggplot2::geom_raster()] defaults.
+#' @description Create a raster ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_raster()][ggplot2::geom_raster()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

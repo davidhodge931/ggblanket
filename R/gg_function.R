@@ -1,6 +1,6 @@
 #' Function ggplot
 #'
-#' @description Create a function ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_function()][ggplot2::geom_function()] defaults.
+#' @description Create a function ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_function()][ggplot2::geom_function()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

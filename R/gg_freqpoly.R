@@ -1,6 +1,6 @@
 #' Freqpoly ggplot
 #'
-#' @description Create a freqpoly ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_freqpoly()][ggplot2::geom_freqpoly()] defaults.
+#' @description Create a freqpoly ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_freqpoly()][ggplot2::geom_freqpoly()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

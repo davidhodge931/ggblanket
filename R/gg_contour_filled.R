@@ -1,6 +1,6 @@
 #' Contour_filled ggplot
 #'
-#' @description Create a contour_filled ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_contour_filled()][ggplot2::geom_contour_filled()] defaults.
+#' @description Create a contour_filled ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_contour_filled()][ggplot2::geom_contour_filled()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

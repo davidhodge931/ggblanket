@@ -1,6 +1,6 @@
 #' Smooth ggplot
 #'
-#' @description Create a smooth ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_smooth()][ggplot2::geom_smooth()] defaults.
+#' @description Create a smooth ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_smooth()][ggplot2::geom_smooth()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'
