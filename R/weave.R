@@ -98,11 +98,11 @@ weave_geom <- function(
   #polygons
   ggplot2::update_geom_defaults(
     "area",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
   )
   ggplot2::update_geom_defaults(
     "bar",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
   )
   ggplot2::update_geom_defaults(
     "boxplot",
@@ -110,11 +110,11 @@ weave_geom <- function(
   )
   ggplot2::update_geom_defaults(
     "col",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
   )
   ggplot2::update_geom_defaults(
     "contour_filled",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
   )
   ggplot2::update_geom_defaults(
     "crossbar",
@@ -122,31 +122,31 @@ weave_geom <- function(
   )
   ggplot2::update_geom_defaults(
     "density",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
   )
   ggplot2::update_geom_defaults(
     "density_2d_filled",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
   )
   ggplot2::update_geom_defaults(
     "polygon",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
   )
   ggplot2::update_geom_defaults(
     "raster",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
   )
   ggplot2::update_geom_defaults(
     "rect",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
   )
   ggplot2::update_geom_defaults(
     "ribbon",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
   )
   ggplot2::update_geom_defaults(
     "sf",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
   )
   ggplot2::update_geom_defaults(
     "smooth",
@@ -159,22 +159,22 @@ weave_geom <- function(
   )
   ggplot2::update_geom_defaults(
     "tile",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
   )
   ggplot2::update_geom_defaults(
     "violin",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0)
+    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
   )
 
-  ggplot2::update_geom_defaults("bin2d", ggplot2::aes(fill = !!colour, linewidth = 0))
+  ggplot2::update_geom_defaults("bin2d", ggplot2::aes(fill = !!colour, linewidth = 0.66))
 
   ggplot2::update_geom_defaults(
     "raster",
-    ggplot2::aes(fill = !!colour, linewidth = 0)
+    ggplot2::aes(fill = !!colour, linewidth = 0.66)
   )
   ggplot2::update_geom_defaults(
     "hex",
-    ggplot2::aes(fill = !!colour, linewidth = 0)
+    ggplot2::aes(fill = !!colour, linewidth = 0.66)
   )
 
   #lines
@@ -240,15 +240,189 @@ weave_geom <- function(
     "point",
     ggplot2::aes(colour = !!colour, fill = !!colour)
   )
+
   ggplot2::update_geom_defaults(
     "pointrange",
     ggplot2::aes(
       colour = !!colour,
       fill = !!colour,
       linewidth = 0.66,
-      size = 0.2
+      size = 0.2 #extra
     )
   ) # 1.5 / 7.5
+}
+
+#' Title
+#'
+#' @param colour
+#' @param fill
+#' @param ...
+#'
+#' @returns
+#' @export
+#'
+#' @examples
+weave_geom_colour_fill <- function(colour = blue, fill = colour, ...) {
+
+  ggplot2::update_theme(
+    #includes polygons (with borders)
+    geom.area = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.bar = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.bin2d = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.boxplot = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.col = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.contour_filled = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.crossbar = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.density = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.density_2d_filled = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.hex = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.polygon = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.raster = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.rect = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.ribbon = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.sf = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.tile = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.violin = ggplot2::element_geom(colour = colour, fill = fill ),
+
+    #else includes points
+    geom.point = ggplot2::element_geom(colour = colour, fill = colour),
+    geom.pointrange = ggplot2::element_geom(colour = colour, fill = colour),
+
+    #else just lines
+    geom.abline = ggplot2::element_geom(colour = colour),
+    geom.contour = ggplot2::element_geom(colour = colour),
+    geom.curve = ggplot2::element_geom(colour = colour),
+    geom.density2d = ggplot2::element_geom(colour = colour),
+    geom.errorbar = ggplot2::element_geom(colour = colour),
+    geom.function = ggplot2::element_geom(colour = colour),
+    geom.line = ggplot2::element_geom(colour = colour),
+    geom.linerange = ggplot2::element_geom(colour = colour),
+    geom.path = ggplot2::element_geom(colour = colour),
+    geom.quantile = ggplot2::element_geom(colour = colour),
+    geom.rug = ggplot2::element_geom(colour = colour),
+    geom.segment = ggplot2::element_geom(colour = colour),
+    geom.spoke = ggplot2::element_geom(colour = colour),
+    geom.step = ggplot2::element_geom(colour = colour),
+  )
+}
+
+#' Title
+#'
+#' @returns
+#' @export
+weave_geom_linetype_zero <- function() {
+
+  ggplot2::update_theme(
+
+    #includes polygons with necessary borders
+    geom.boxplot = ggplot2::element_geom(bordertype = 1, linetype = 1),
+    geom.crossbar = ggplot2::element_geom(bordertype = 1, linetype = 1),
+
+    #includes polygons (with borders)
+    geom.area = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.bar = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.bin2d = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.col = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.contour_filled = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.density = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.density_2d_filled = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.hex = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.polygon = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.raster = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.rect = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.ribbon = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.sf = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.tile = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.violin = ggplot2::element_geom(bordertype = 0, linetype = 0),
+
+    #else includes points
+    geom.point = ggplot2::element_geom(linetype = 1),
+    geom.pointrange = ggplot2::element_geom(linetype = 1),
+
+    #else just lines
+    geom.abline = ggplot2::element_geom(linetype = 1),
+    geom.contour = ggplot2::element_geom(linetype = 1),
+    geom.curve = ggplot2::element_geom(linetype = 1),
+    geom.density2d = ggplot2::element_geom(linetype = 1),
+    geom.errorbar = ggplot2::element_geom(linetype = 1),
+    geom.function = ggplot2::element_geom(linetype = 1),
+    geom.line = ggplot2::element_geom(linetype = 1),
+    geom.linerange = ggplot2::element_geom(linetype = 1),
+    geom.path = ggplot2::element_geom(linetype = 1),
+    geom.quantile = ggplot2::element_geom(linetype = 1),
+    geom.rug = ggplot2::element_geom(linetype = 1),
+    geom.segment = ggplot2::element_geom(linetype = 1),
+    geom.spoke = ggplot2::element_geom(linetype = 1),
+    geom.step = ggplot2::element_geom(linetype = 1),
+  )
+}
+
+#' Title
+#'
+#' @param ...
+#' @param nonborder
+#' @param border
+#'
+#' @returns
+#' @export
+weave_geom_linewidth <- function(linewidth = 0.66, ...) {
+
+  #includes polygons (with borders)
+  ggplot2::update_theme(
+    geom.area = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.bar = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.bin2d = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.boxplot = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.col = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.contour_filled = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.crossbar = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.density = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.density_2d_filled = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.hex = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.polygon = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.raster = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.rect = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.ribbon = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.sf = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.tile = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.violin = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+
+    #else includes points
+    geom.point = ggplot2::element_geom(linewidth = linewidth),
+    geom.pointrange = ggplot2::element_geom(linewidth = linewidth),
+
+    #else just lines
+    geom.abline = ggplot2::element_geom(linewidth = linewidth),
+    geom.contour = ggplot2::element_geom(linewidth = linewidth),
+    geom.curve = ggplot2::element_geom(linewidth = linewidth),
+    geom.density2d = ggplot2::element_geom(linewidth = linewidth),
+    geom.errorbar = ggplot2::element_geom(linewidth = linewidth),
+    geom.function = ggplot2::element_geom(linewidth = linewidth),
+    geom.line = ggplot2::element_geom(linewidth = linewidth),
+    geom.linerange = ggplot2::element_geom(linewidth = linewidth),
+    geom.path = ggplot2::element_geom(linewidth = linewidth),
+    geom.quantile = ggplot2::element_geom(linewidth = linewidth),
+    geom.rug = ggplot2::element_geom(linewidth = linewidth),
+    geom.segment = ggplot2::element_geom(linewidth = linewidth),
+    geom.spoke = ggplot2::element_geom(linewidth = linewidth),
+    geom.step = ggplot2::element_geom(linewidth = linewidth),
+  )
+}
+
+#' Title
+#'
+#' @param point
+#' @param pointrange
+#'
+#' @returns
+#' @export
+weave_geom_size <- function(point = 1.5, pointrange = point / 7.5) {
+
+  #includes polygons (with borders)
+  ggplot2::update_theme(
+    geom.point = ggplot2::element_geom(pointsize = point),
+    geom.pointrange = ggplot2::element_geom(pointsize = pointrange),
+  )
 }
 
 #' Set the text and label geom defaults
@@ -283,6 +457,7 @@ weave_geom_text <- function(
     ggplot2::aes(colour = !!colour, size = !!size, family = !!family)
   )
 }
+
 
 #' Set the text and label geom defaults
 #'

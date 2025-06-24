@@ -8,12 +8,12 @@
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
+#' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]). (Or a list that includes 1. a theme and 2. a [ggplot2::labs()] function. E.g. `list(theme_lighter(), ggplot2::labs(colour = NULL, fill = NULL)`).
 #' @param perspective The perspective of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
 #' @param axis_line_transparent `TRUE` or `FALSE` of whether to remove the relevant axis line per the `perspective` of the plot.
 #' @param axis_ticks_transparent `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `perspective` of the plot.
 #' @param panel_grid_transparent `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `perspective` of the plot.
-#' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()]. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
@@ -70,12 +70,12 @@ gg_blanket <- function(
     stat = "identity",
     position = "identity",
     coord = NULL,
-    theme = NULL,
+    blend = NULL, theme = NULL,
     perspective = NULL,
     axis_line_transparent = NULL,
     axis_ticks_transparent = NULL,
     panel_grid_transparent = NULL,
-    blend = NULL,
+
     x = NULL,
     xmin = NULL,
     xmax = NULL,
@@ -236,14 +236,14 @@ gg_blanket <- function(
 
   if (geom_name == "boxplot") {
     params <- rlang::list2(
-      median_gp = list(linewidth = get_geom_defaults("boxplot")$linewidth),
+      median_gp = list(linetype = 1, linewidth = ggplot2::get_geom_defaults("boxplot")$linewidth),
       box_gp = list(linewidth = 0),
       ...
       )
   }
   else if (geom_name == "crossbar") {
     params <- rlang::list2(
-      middle_gp = list(linewidth = get_geom_defaults("crossbar")$linewidth),
+      middle_gp = list(linetype = 1, linewidth = ggplot2::get_geom_defaults("crossbar")$linewidth),
       box_gp = list(linewidth = 0),
       ...
     )

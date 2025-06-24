@@ -82,7 +82,12 @@ set_blanket <- function(
     panel_grid_transparent = panel_grid_transparent
   )
 
-  weave_geom(colour = colour)
+  # weave_geom(colour = colour)
+  weave_geom_colour_fill(colour = colour)
+  weave_geom_linewidth()
+  weave_geom_linetype_zero()
+  weave_geom_size()
+
   weave_geom_text()
   weave_geom_label()
   weave_geom_vline()

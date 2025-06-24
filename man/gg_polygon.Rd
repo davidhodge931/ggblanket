@@ -10,12 +10,12 @@ gg_polygon(
   stat = "identity",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
+  blend = NULL,
   theme = NULL,
   perspective = NULL,
   axis_line_transparent = NULL,
   axis_ticks_transparent = NULL,
   panel_grid_transparent = NULL,
-  blend = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -94,6 +94,8 @@ gg_polygon(
 
 \item{coord}{A coordinate system. A \verb{coord_*()} function that outputs a constructed ggproto Coord subclass object (e.g. \code{\link[ggplot2:coord_cartesian]{ggplot2::coord_cartesian()}}).}
 
+\item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
+
 \item{theme}{A ggplot2 theme (e.g. \code{\link[=theme_lighter]{theme_lighter()}} or \code{\link[=theme_darker]{theme_darker()}}). (Or a list that includes 1. a theme and 2. a \code{\link[ggplot2:labs]{ggplot2::labs()}} function. E.g. \verb{list(theme_lighter(), ggplot2::labs(colour = NULL, fill = NULL)}).}
 
 \item{perspective}{The perspective of plot, which affects the theme components that are removed. Either \code{"x"} or \code{"y"}.}
@@ -103,8 +105,6 @@ gg_polygon(
 \item{axis_ticks_transparent}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis ticks per the \code{perspective} of the plot.}
 
 \item{panel_grid_transparent}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{perspective} of the plot.}
-
-\item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
 
 \item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
 
