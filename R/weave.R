@@ -20,8 +20,8 @@ ggblanket_global$col_palette_na_o <- NULL
 #'
 #' @description Set a theme for the theme argument in `gg_*` functions.
 #'
-#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param perspective The perspective of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
 #' @param axis_line_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `perspective` of the plot.
 #' @param axis_ticks_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `perspective` of the plot.
@@ -29,8 +29,8 @@ ggblanket_global$col_palette_na_o <- NULL
 #'
 #' @noRd
 weave_theme <- function(
-    ...,
     theme = theme_lighter(),
+    ...,
     perspective = NULL,
     axis_line_transparent = TRUE,
     axis_ticks_transparent = TRUE,
@@ -87,12 +87,13 @@ weave_label_case <- function(label_case = snakecase::to_sentence_case, ...) {
 #' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note "fill" inherits from this argument.
 #'
 #' @noRd
-weave_geom_defaults <- function(
+weave_geom <- function(
     ...,
     colour = "#357BA2FF"
     # fill = colour,
-    # borderwidth = 0,
     # linewidth = 0.66,
+    # linewidth_border = 0,
+    # linewidth_box = linewidth,
 ) {
   #polygons
   ggplot2::update_geom_defaults(
@@ -268,7 +269,7 @@ weave_geom_text <- function(
     family = ggplot2::get_theme()$text$family
 ) {
   if (rlang::is_null(colour)) {
-    colour <- "#121B24FF"
+    colour <- "black"
   }
   if (rlang::is_null(size)) {
     size <- 11 / 2.835052
@@ -326,19 +327,19 @@ weave_geom_label <- function(
   )
 }
 
-#' Set the geom reference line defaults
+#' Set the geom hline defaults
 #'
-#' @description Update the "hline", "vline", "abline", and "curve" geom defaults.
+#' @description Update the "hline" geom defaults.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param colour A hex code.
 #' @param linewidth A linewidth.
 #'
 #' @noRd
-weave_geom_reference_line <- function(
-  ...,
-  colour = ggplot2::get_theme()$axis.line$colour,
-  linewidth = ggplot2::get_theme()$axis.line$linewidth
+weave_geom_hline <- function(
+    ...,
+    colour = ggplot2::get_theme()$axis.line$colour,
+    linewidth = ggplot2::get_theme()$axis.line$linewidth
 ) {
   if (rlang::is_null(colour)) {
     colour <- "#121B24FF"
@@ -351,6 +352,30 @@ weave_geom_reference_line <- function(
     "hline",
     ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
   )
+}
+
+
+#' Set the geom vline defaults
+#'
+#' @description Update the "vline" geom defaults.
+#'
+#' @param ... Provided to require argument naming, support trailing commas etc.
+#' @param colour A hex code.
+#' @param linewidth A linewidth.
+#'
+#' @noRd
+weave_geom_vline <- function(
+    ...,
+    colour = ggplot2::get_theme()$axis.line$colour,
+    linewidth = ggplot2::get_theme()$axis.line$linewidth
+) {
+  if (rlang::is_null(colour)) {
+    colour <- "#121B24FF"
+  }
+  if (rlang::is_null(linewidth)) {
+    linewidth <- 0.25
+  }
+
   ggplot2::update_geom_defaults(
     "vline",
     ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
@@ -368,7 +393,7 @@ weave_geom_reference_line <- function(
 #' @param col_palette_na_o For an ordinal scale, a hex code.
 #'
 #' @noRd
-weave_geom_palettes <- function(
+weave_palettes <- function(
   ...,
   col_palette_d = jumble,
   col_palette_c = viridisLite::mako(n = 9, direction = -1),

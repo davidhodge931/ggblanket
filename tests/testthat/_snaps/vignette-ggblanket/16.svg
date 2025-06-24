@@ -33,18 +33,18 @@
 <polyline points='698.08,530.17 698.08,49.20 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <line x1='531.74' y1='439.99' x2='619.29' y2='439.99' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
 <line x1='452.95' y1='439.99' x2='374.16' y2='439.99' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
-<polygon points='531.74,496.35 452.95,496.35 452.95,383.63 531.74,383.63 531.74,496.35 ' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter; fill: #357BA2;' />
-<line x1='487.97' y1='496.35' x2='487.97' y2='383.63' style='stroke-width: 2.82; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter;' />
+<polygon points='531.74,496.35 452.95,496.35 452.95,383.63 531.74,383.63 531.74,496.35 ' style='stroke-width: 0.00; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter; fill: #357BA2;' />
+<line x1='487.97' y1='496.35' x2='487.97' y2='383.63' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter;' />
 <line x1='356.65' y1='289.68' x2='452.95' y2='289.68' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
 <line x1='269.10' y1='289.68' x2='155.29' y2='289.68' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
-<polygon points='356.65,346.05 269.10,346.05 269.10,233.32 356.65,233.32 356.65,346.05 ' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter; fill: #357BA2;' />
-<line x1='312.87' y1='346.05' x2='312.87' y2='233.32' style='stroke-width: 2.82; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter;' />
+<polygon points='356.65,346.05 269.10,346.05 269.10,233.32 356.65,233.32 356.65,346.05 ' style='stroke-width: 0.00; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter; fill: #357BA2;' />
+<line x1='312.87' y1='346.05' x2='312.87' y2='233.32' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter;' />
 <circle cx='102.76' cy='139.38' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
 <circle cx='435.44' cy='139.38' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
 <line x1='304.12' y1='139.38' x2='417.93' y2='139.38' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
 <line x1='225.32' y1='139.38' x2='120.27' y2='139.38' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
-<polygon points='304.12,195.74 225.32,195.74 225.32,83.01 304.12,83.01 304.12,195.74 ' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter; fill: #357BA2;' />
-<line x1='260.34' y1='195.74' x2='260.34' y2='83.01' style='stroke-width: 2.82; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter;' />
+<polygon points='304.12,195.74 225.32,195.74 225.32,83.01 304.12,83.01 304.12,195.74 ' style='stroke-width: 0.00; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter; fill: #357BA2;' />
+<line x1='260.34' y1='195.74' x2='260.34' y2='83.01' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter;' />
 <polyline points='85.25,530.17 85.25,49.20 ' style='stroke-width: 0.53; stroke: #121B24; stroke-linecap: square;' />
 <text x='78.86' y='443.78' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='36.09px' lengthAdjust='spacingAndGlyphs'>Gentoo</text>
 <text x='78.86' y='293.47' text-anchor='end' style='font-size: 11.00px; fill: #121B24; font-family: sans;' textLength='47.08px' lengthAdjust='spacingAndGlyphs'>Chinstrap</text>

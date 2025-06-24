@@ -234,6 +234,24 @@ gg_blanket <- function(
     show_legend <- TRUE
   }
 
+  if (geom_name == "boxplot") {
+    params <- rlang::list2(
+      median_gp = list(linewidth = get_geom_defaults("boxplot")$linewidth),
+      box_gp = list(linewidth = 0),
+      ...
+      )
+  }
+  else if (geom_name == "crossbar") {
+    params <- rlang::list2(
+      middle_gp = list(linewidth = get_geom_defaults("crossbar")$linewidth),
+      box_gp = list(linewidth = 0),
+      ...
+    )
+  }
+  else {
+    params <- rlang::list2(...)
+  }
+
   if (stringr::str_detect(stat_name, "sf")) {
     if (rlang::is_null(coord)) {
       coord <- ggplot2::coord_sf(clip = "off")
@@ -246,7 +264,7 @@ gg_blanket <- function(
           stat = stat,
           position = position,
           mapping = ggplot2::aes(!!!mapping),
-          params = rlang::list2(...),
+          params = params,
           show.legend = show_legend,
         ) +
         coord
@@ -257,7 +275,7 @@ gg_blanket <- function(
           stat = stat,
           position = position,
           mapping = ggplot2::aes(!!!mapping),
-          params = rlang::list2(...),
+          params = params,
           show.legend = show_legend,
         ) |>
         ggblend::blend(blend = blend) +
@@ -275,7 +293,7 @@ gg_blanket <- function(
           stat = stat,
           position = position,
           mapping = ggplot2::aes(!!!mapping),
-          params = rlang::list2(...),
+          params = params,
           show.legend = show_legend,
         ) +
         coord
@@ -286,7 +304,7 @@ gg_blanket <- function(
           stat = stat,
           position = position,
           mapping = ggplot2::aes(!!!mapping),
-          params = rlang::list2(...),
+          params = params,
           show.legend = show_legend,
         ) |>
         ggblend::blend(blend = blend) +
@@ -569,7 +587,7 @@ gg_blanket <- function(
           stat = stat,
           position = position,
           mapping = ggplot2::aes(!!!mapping),
-          params = rlang::list2(...),
+          params = params,
           show.legend = show_legend,
         ) +
         coord
@@ -580,7 +598,7 @@ gg_blanket <- function(
           stat = stat,
           position = position,
           mapping = ggplot2::aes(!!!mapping),
-          params = rlang::list2(...),
+          params = params,
           show.legend = show_legend,
         ) |>
           ggblend::blend(blend = blend) +
@@ -598,7 +616,7 @@ gg_blanket <- function(
           stat = stat,
           position = position,
           mapping = ggplot2::aes(!!!mapping),
-          params = rlang::list2(...),
+          params = params,
           show.legend = show_legend,
         ) +
         coord
@@ -609,7 +627,7 @@ gg_blanket <- function(
           stat = stat,
           position = position,
           mapping = ggplot2::aes(!!!mapping),
-          params = rlang::list2(...),
+          params = params,
           show.legend = show_legend,
         ) |>
           ggblend::blend(blend = blend) +

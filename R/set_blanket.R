@@ -10,8 +10,8 @@
 #'
 #' [ggplot2::update_geom_defaults()] can be used to further fine-tune geom defaults.
 #'
-#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note, the "fill" inherits from this argument.
 #' @param col_palette_d For a discrete scale, a character vector of hex codes.
 #' @param col_palette_c For a continuous scale, a character vector of hex codes.
@@ -53,8 +53,8 @@
 #'   )
 #'
 set_blanket <- function(
-    ...,
     theme = theme_lighter(),
+    ...,
     colour = "#357BA2FF",
 
     # col_palette_discrete = jumble,
@@ -67,6 +67,7 @@ set_blanket <- function(
     col_palette_na_c = "#988F88FF",
     col_palette_na_o = "#988F88FF",
     label_case = snakecase::to_sentence_case,
+
     perspective = NULL,
     axis_line_transparent = TRUE,
     axis_ticks_transparent = TRUE,
@@ -81,15 +82,13 @@ set_blanket <- function(
     panel_grid_transparent = panel_grid_transparent
   )
 
-  weave_geom_defaults(colour = colour)
-
+  weave_geom(colour = colour)
   weave_geom_text()
-
   weave_geom_label()
+  weave_geom_vline()
+  weave_geom_hline()
 
-  weave_geom_reference_line()
-
-  weave_geom_palettes(
+  weave_palettes(
     col_palette_d = col_palette_d,
     col_palette_c = col_palette_c,
     col_palette_o = col_palette_o,

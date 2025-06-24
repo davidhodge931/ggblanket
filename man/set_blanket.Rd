@@ -5,8 +5,8 @@
 \title{Set the style}
 \usage{
 set_blanket(
-  ...,
   theme = theme_lighter(),
+  ...,
   colour = "#357BA2FF",
   col_palette_d = jumble,
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
@@ -22,9 +22,9 @@ set_blanket(
 )
 }
 \arguments{
-\item{...}{Provided to require argument naming, support trailing commas etc.}
-
 \item{theme}{A ggplot2 theme (e.g. \code{\link[=theme_lighter]{theme_lighter()}} or \code{\link[=theme_darker]{theme_darker()}}).}
+
+\item{...}{Provided to require argument naming, support trailing commas etc.}
 
 \item{colour}{For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note, the "fill" inherits from this argument.}
 
