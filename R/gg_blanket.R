@@ -239,7 +239,7 @@ gg_blanket <- function(
       median_gp = list(linetype = 1, linewidth = ggplot2::get_geom_defaults("boxplot")$linewidth),
       box_gp = list(linewidth = 0),
       ...
-      )
+    )
   }
   else if (geom_name == "crossbar") {
     params <- rlang::list2(
@@ -253,6 +253,9 @@ gg_blanket <- function(
   #     quantile_gp  = list(linetype = 1, linewidth = ggplot2::get_geom_defaults("violin")$linewidth),
   #     ...
   #   )
+  # }
+  # else if (geom_name %in% c("text", "label")) {
+  #   params <- rlang::list2(size.unit = "pt", ...)
   # }
   else {
     params <- rlang::list2(...)

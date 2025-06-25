@@ -261,79 +261,178 @@ weave_geom_size <- function(size = 1.5, ...) {
   )
 }
 
-#' Set the text and label geom defaults
+#' Set the text geom defaults
 #'
 #' @description Update the "text" geom defaults. Note all other text is controlled by the theme.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param colour A hex code.
 #' @param fill A hex code.
-#' @param size A size.
+#' @param size A size in mm.
 #' @param family A family.
 #'
 #' @noRd
+#'
+#' @examples
+#' weave_geom_label(size = 4.233333)
+#' weave_geom_label(size = pt_to_mm(12))
+#'
 weave_geom_text <- function(
     ...,
-    colour = ggplot2::get_theme()$text$colour,
-    size = ggplot2::get_theme()$text$size / 2.835052,
-    family = ggplot2::get_theme()$text$family
+    colour = NULL,
+    size = NULL,
+    family = NULL
 ) {
+  # Get current theme
+  current_theme <- ggplot2::get_theme()
+
+  # Extract theme properties with fallback hierarchy
   if (rlang::is_null(colour)) {
-    colour <- "black"
-  }
-  if (rlang::is_null(size)) {
-    size <- 11 / 2.835052
-  }
-  if (rlang::is_null(family)) {
-    family <- ""
+    colour <- current_theme$axis.text.x$colour %||%
+      current_theme$axis.text.y$colour %||%
+      current_theme$axis.text$colour %||%
+      current_theme$text$colour %||%
+      "black"
   }
 
-  ggplot2::update_geom_defaults(
-    "text",
-    ggplot2::aes(colour = !!colour, size = !!size, family = !!family)
+  if (rlang::is_null(size)) {
+    # Get the raw size value from theme hierarchy
+    raw_size <- current_theme$axis.text.x$size %||%
+      current_theme$axis.text.y$size %||%
+      current_theme$axis.text$size %||%
+      current_theme$text$size
+
+    # If we found a theme size, handle rel() objects
+    if (!is.null(raw_size)) {
+      if (inherits(raw_size, "rel")) {
+        base_size <- current_theme$text$size
+        # If base_size is also rel() or NULL, use default
+        if (is.null(base_size) || inherits(base_size, "rel")) {
+          base_size <- 11
+        }
+        size <- as.numeric(raw_size) * base_size
+      } else {
+        size <- raw_size
+      }
+    } else {
+      # Only use the conversion factor for the final fallback
+      size <- 11
+    }
+
+    # Theme sizes are already in the correct units for fontsize
+    # No conversion needed
+  } else {
+    # If size is provided by user in mm, convert to fontsize scale
+    # fontsize expects points, so convert mm to points
+    size <- as.numeric(size) / 0.352777778
+  }
+
+  if (rlang::is_null(family)) {
+    family <- current_theme$axis.text.x$family %||%
+      current_theme$axis.text.y$family %||%
+      current_theme$axis.text$family %||%
+      current_theme$text$family %||%
+      ""
+  }
+
+  # Update the theme
+  ggplot2::update_theme(
+    geom.text = ggplot2::element_geom(
+      colour = colour,
+      family = family,
+      fontsize = size  # Size in mm, matching geom_text behavior
+    )
   )
 }
 
-
-#' Set the text and label geom defaults
+#' Set the label geom defaults
 #'
 #' @description Update the "label" geom defaults. Note all other text is controlled by the theme.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param fill A hex code.
 #' @param colour A hex code.
-#' @param size A size.
+#' @param size A size in pt units.
 #' @param family A family.
 #'
 #' @noRd
+#'
+#' @examples
+#' weave_geom_label(size = 4.233333)
+#' weave_geom_label(size = pt_to_mm(12))
+#'
 weave_geom_label <- function(
-  ...,
-  fill = ggplot2::get_theme()$text$colour,
-  colour = ggplot2::get_theme()$panel.background$fill,
-  size = ggplot2::get_theme()$text$size / 2.835052,
-  family = ggplot2::get_theme()$text$family
+    ...,
+    fill = NULL,
+    colour = NULL,
+    size = NULL,
+    family = NULL
 ) {
+  # Get current theme
+  current_theme <- ggplot2::get_theme()
+
+  # Extract theme properties with fallback hierarchy
   if (rlang::is_null(fill)) {
-    fill <- "#121B24FF"
-  }
-  if (rlang::is_null(colour)) {
-    colour <- "#FFFFFFFF"
-  }
-  if (rlang::is_null(size)) {
-    size <- 11 / 2.835052
-  }
-  if (rlang::is_null(family)) {
-    family <- ""
+    fill <- current_theme$axis.text.x$colour %||%
+      current_theme$axis.text.y$colour %||%
+      current_theme$axis.text$colour %||%
+      current_theme$text$colour %||%
+      "black"
   }
 
-  ggplot2::update_geom_defaults(
-    "label",
-    ggplot2::aes(
-      fill = !!fill,
-      colour = !!colour,
-      fill = !!fill,
-      size = !!size,
-      family = !!family
+  if (rlang::is_null(colour)) {
+    colour <- current_theme$panel.background$fill %||%
+      current_theme$plot.background$fill %||%
+      "white"
+  }
+
+  if (rlang::is_null(size)) {
+    # Get the raw size value from theme hierarchy
+    raw_size <- current_theme$axis.text.x$size %||%
+      current_theme$axis.text.y$size %||%
+      current_theme$axis.text$size %||%
+      current_theme$text$size
+
+    # If we found a theme size, handle rel() objects
+    if (!is.null(raw_size)) {
+      if (inherits(raw_size, "rel")) {
+        base_size <- current_theme$text$size
+        # If base_size is also rel() or NULL, use default
+        if (is.null(base_size) || inherits(base_size, "rel")) {
+          base_size <- 11
+        }
+        size <- as.numeric(raw_size) * base_size
+      } else {
+        size <- raw_size
+      }
+    } else {
+      # Only use the conversion factor for the final fallback
+      size <- 11
+    }
+
+    # Theme sizes are already in the correct units for fontsize
+    # No conversion needed
+  } else {
+    # If size is provided by user in mm, convert to fontsize scale
+    # fontsize expects points, so convert mm to points
+    size <- as.numeric(size) / 0.352777778
+  }
+
+  if (rlang::is_null(family)) {
+    family <- current_theme$axis.text.x$family %||%
+      current_theme$axis.text.y$family %||%
+      current_theme$axis.text$family %||%
+      current_theme$text$family %||%
+      ""
+  }
+
+  # Update the theme
+  ggplot2::update_theme(
+    geom.label = ggplot2::element_geom(
+      colour = colour,
+      fill = fill,
+      family = family,
+      fontsize = size  # Size in correct scale for fontsize
     )
   )
 }
@@ -349,22 +448,37 @@ weave_geom_label <- function(
 #' @noRd
 weave_geom_hline <- function(
     ...,
-    colour = ggplot2::get_theme()$axis.line$colour,
-    linewidth = ggplot2::get_theme()$axis.line$linewidth
+    colour = NULL,
+    linewidth = NULL
 ) {
+  # Get current theme
+  current_theme <- ggplot2::get_theme()
+
+  # Extract theme properties with fallback hierarchy
   if (rlang::is_null(colour)) {
-    colour <- "#121B24FF"
-  }
-  if (rlang::is_null(linewidth)) {
-    linewidth <- 0.25
+    colour <- current_theme$axis.line.x.bottom$colour %||%
+      current_theme$axis.line.x.top$colour %||%
+      current_theme$axis.line.x$colour %||%
+      current_theme$axis.line$colour %||%
+      "black"
   }
 
-  ggplot2::update_geom_defaults(
-    "hline",
-    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
+  if (rlang::is_null(linewidth)) {
+    linewidth <- current_theme$axis.line.x.bottom$linewidth %||%
+      current_theme$axis.line.x.top$linewidth %||%
+      current_theme$axis.line.x$linewidth %||%
+      current_theme$axis.line$linewidth %||%
+      0.25
+  }
+
+  # Update the theme
+  ggplot2::update_theme(
+    geom.hline = ggplot2::element_geom(
+      colour = colour,
+      linewidth = linewidth
+    )
   )
 }
-
 
 #' Set the geom vline defaults
 #'
@@ -377,21 +491,39 @@ weave_geom_hline <- function(
 #' @noRd
 weave_geom_vline <- function(
     ...,
-    colour = ggplot2::get_theme()$axis.line$colour,
-    linewidth = ggplot2::get_theme()$axis.line$linewidth
+    colour = NULL,
+    linewidth = NULL
 ) {
+  # Get current theme
+  current_theme <- ggplot2::get_theme()
+
+  # Extract theme properties with fallback hierarchy
   if (rlang::is_null(colour)) {
-    colour <- "#121B24FF"
-  }
-  if (rlang::is_null(linewidth)) {
-    linewidth <- 0.25
+    colour <- current_theme$axis.line.y.left$colour %||%
+      current_theme$axis.line.y.right$colour %||%
+      current_theme$axis.line.y$colour %||%
+      current_theme$axis.line$colour %||%
+      "black"
   }
 
-  ggplot2::update_geom_defaults(
-    "vline",
-    ggplot2::aes(colour = !!colour, linewidth = !!linewidth)
+
+  if (rlang::is_null(linewidth)) {
+    linewidth <- current_theme$axis.line.y.left$linewidth %||%
+      current_theme$axis.line.y.right$linewidth %||%
+      current_theme$axis.line.y$linewidth %||%
+      current_theme$axis.line$linewidth %||%
+      0.25
+  }
+
+  # Update the theme
+  ggplot2::update_theme(
+    geom.vline = ggplot2::element_geom(
+      colour = colour,
+      linewidth = linewidth
+    )
   )
 }
+
 
 #' Set geom palettes
 #'

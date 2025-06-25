@@ -62,9 +62,8 @@ set_blanket(
   col_palette_continuous = c(navy, purple, red, orange)
 )
 
-weave_geom_text(colour = "red", size = 15 / 2.83505)
+weave_geom_text(colour = "red", size = 15)
 weave_geom_vline(colour = "red", linewidth = 5)
-
 ###
 test_name <- "3"
 

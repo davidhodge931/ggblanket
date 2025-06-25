@@ -38,6 +38,7 @@ reference:
   - guides_linewidth_grey
   - guides_size_grey
   - label_every_nth
+  - pt_to_mm
   - scale_x_symmetric
   - scale_y_symmetric
   - standardise_width
