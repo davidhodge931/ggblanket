@@ -7,11 +7,11 @@
 weave_geom_bordertype(bordertype = 0)
 }
 \arguments{
-\item{bordertype}{A linewidth for geoms with unnecessary border lines. Defaults to 0.}
+\item{bordertype}{A default linetype for geoms with unnecessary border lines. Defaults to 0.}
 }
 \value{
 Updated geom defaults for linetype
 }
 \description{
-Update the linetype for geoms with unnecessary border lines to zero. Note excludes boxplot and crossbar.
+Update the linetype for geoms with unnecessary border lines to zero. Excludes boxplot and crossbar.
 }

@@ -7,9 +7,9 @@
 weave_geom_colour_fill(colour = blue, fill = colour, ...)
 }
 \arguments{
-\item{colour}{A default hex code for the colour of geoms.}
+\item{colour}{A default hex code for the colour of most geoms. Defaults to blue.}
 
-\item{fill}{A default hex code for the colour of geoms. Note inherits from colour.}
+\item{fill}{A default hex code for the fill of most geoms. Inherits from colour.}
 
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 }
@@ -17,5 +17,5 @@ weave_geom_colour_fill(colour = blue, fill = colour, ...)
 Updated geom defaults for colour and fill
 }
 \description{
-Update the colour and fill for most geoms  (i.e. geoms other than "text", "label", "hline", and "vline").
+Update the colour and fill for most geoms. Excludes "text", "label", "hline", and "vline".
 }

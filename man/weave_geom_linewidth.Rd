@@ -7,7 +7,7 @@
 weave_geom_linewidth(linewidth = 0.66, ...)
 }
 \arguments{
-\item{linewidth}{A default linewidth for geoms.}
+\item{linewidth}{A default linewidth for most geoms. Defaults to 0.66.}
 
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 }
@@ -15,5 +15,5 @@ weave_geom_linewidth(linewidth = 0.66, ...)
 Updated geom defaults for linewidth
 }
 \description{
-Update the linewidth for most geoms  (i.e. geoms other than "text", "label", "hline", and "vline").
+Update the linewidth for most geoms. Excludes "text", "label", "hline", and "vline".
 }

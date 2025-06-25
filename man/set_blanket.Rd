@@ -8,6 +8,10 @@ set_blanket(
   theme = theme_lighter(),
   ...,
   colour = "#357BA2FF",
+  fill = colour,
+  linewidth = 0.66,
+  bordertype = 0,
+  size = 1.5,
   col_palette_discrete = jumble,
   col_palette_continuous = viridisLite::mako(n = 9, direction = -1),
   col_palette_o = scales::pal_viridis(option = "G", direction = -1),
@@ -26,7 +30,15 @@ set_blanket(
 
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
-\item{colour}{For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note, the "fill" inherits from this argument.}
+\item{colour}{A default hex code for the colour of most geoms. Defaults to blue.}
+
+\item{fill}{A default hex code for the fill of most geoms. Inherits from colour.}
+
+\item{linewidth}{A default linewidth for most geoms. Defaults to 0.66.}
+
+\item{bordertype}{A default linetype for geoms with unnecessary border lines. Defaults to 0.}
+
+\item{size}{A default size for the point geom. Defaults to 1.5. The pointrange size defaults to dividing by 6 (i.e. 0.25).}
 
 \item{col_palette_discrete}{For a discrete scale, a character vector of hex codes.}
 

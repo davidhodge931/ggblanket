@@ -58,13 +58,12 @@ test_that(test_name, {
 set_blanket(
   theme = theme_darker(base_size = 15),
   colour = red,
-  col_palette_d = c(navy, red, "green"),
-  col_palette_c = c(navy, purple, red, orange)
+  col_palette_discrete = c(navy, red, "green"),
+  col_palette_continuous = c(navy, purple, red, orange)
 )
 
-update_geom_defaults("text", aes(colour = "red", size = 15 / 2.83505))
-
-update_geom_defaults("vline", aes(colour = "red", linewidth = 5))
+weave_geom_text(colour = "red", size = 15 / 2.83505)
+weave_geom_vline(colour = "red", linewidth = 5)
 
 ###
 test_name <- "3"

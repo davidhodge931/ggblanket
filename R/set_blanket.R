@@ -12,7 +12,11 @@
 #'
 #' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note, the "fill" inherits from this argument.
+#' @param colour A default hex code for the colour of most geoms. Defaults to blue.
+#' @param fill A default hex code for the fill of most geoms. Inherits from colour.
+#' @param size A default size for the point geom. Defaults to 1.5. The pointrange size defaults to dividing by 6 (i.e. 0.25).
+#' @param linewidth A default linewidth for most geoms. Defaults to 0.66.
+#' @param bordertype A default linetype for geoms with unnecessary border lines. Defaults to 0.
 #' @param col_palette_discrete For a discrete scale, a character vector of hex codes.
 #' @param col_palette_continuous For a continuous scale, a character vector of hex codes.
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function.
@@ -55,12 +59,13 @@ set_blanket <- function(
     theme = theme_lighter(),
     ...,
     colour = "#357BA2FF",
-
-    # col_palette_discreteiscrete = jumble,
-    # col_palette_continuousontinuous = viridisLite::mako(n = 9, direction = -1),
-
+    fill = colour,
+    linewidth = 0.66,
+    bordertype = 0,
+    size = 1.5,
     col_palette_discrete = jumble,
     col_palette_continuous = viridisLite::mako(n = 9, direction = -1),
+
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
     col_palette_na_d = "#CDC5BFFF",
     col_palette_na_c = "#988F88FF",
@@ -81,11 +86,10 @@ set_blanket <- function(
     panel_grid_transparent = panel_grid_transparent
   )
 
-  # weave_geom(colour = colour)
-  weave_geom_colour_fill(colour = colour)
-  weave_geom_linewidth()
-  weave_geom_bordertype()
-  weave_geom_size()
+  weave_geom_colour_fill(colour = colour, fill = fill)
+  weave_geom_linewidth(linewidth = linewidth)
+  weave_geom_bordertype(bordertype = bordertype)
+  weave_geom_size(size = size)
 
   weave_geom_text()
   weave_geom_label()

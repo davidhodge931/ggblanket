@@ -80,10 +80,10 @@ weave_label_case <- function(label_case = snakecase::to_sentence_case, ...) {
 #' Update the colour and fill for geoms
 #'
 #' @description
-#' Update the colour and fill for most geoms  (i.e. geoms other than "text", "label", "hline", and "vline").
+#' Update the colour and fill for most geoms. Excludes "text", "label", "hline", and "vline".
 #'
-#' @param colour A default hex code for the colour of geoms.
-#' @param fill A default hex code for the colour of geoms. Note inherits from colour.
+#' @param colour A default hex code for the colour of most geoms. Defaults to blue.
+#' @param fill A default hex code for the fill of most geoms. Inherits from colour.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @return Updated geom defaults for colour and fill
@@ -135,9 +135,9 @@ weave_geom_colour_fill <- function(colour = blue, fill = colour, ...) {
 #' Update the linetype for some geoms
 #'
 #' @description
-#' Update the linetype for geoms with unnecessary border lines to zero. Note excludes boxplot and crossbar.
+#' Update the linetype for geoms with unnecessary border lines to zero. Excludes boxplot and crossbar.
 #'
-#' @param bordertype A linewidth for geoms with unnecessary border lines. Defaults to 0.
+#' @param bordertype A default linetype for geoms with unnecessary border lines. Defaults to 0.
 #'
 #' @return Updated geom defaults for linetype
 #' @export
@@ -192,9 +192,9 @@ weave_geom_bordertype <- function(bordertype = 0) {
 #' Update the linewidth for geoms
 #'
 #' @description
-#' Update the linewidth for most geoms  (i.e. geoms other than "text", "label", "hline", and "vline").
+#' Update the linewidth for most geoms. Excludes "text", "label", "hline", and "vline".
 #'
-#' @param linewidth A default linewidth for geoms.
+#' @param linewidth A default linewidth for most geoms. Defaults to 0.66.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @return Updated geom defaults for linewidth
@@ -246,9 +246,9 @@ weave_geom_linewidth <- function(linewidth = 0.66, ...) {
 #' Update the size for point/pointrange geoms
 #'
 #' @description
-#' Update the size for point/pointrange geoms.
+#' Update the size for point/pointrange geoms. Excludes "text" and "label".
 #'
-#' @param size A default size for the point geom. The pointrange size divides this by 6.
+#' @param size A default size for the point geom. Defaults to 1.5. The pointrange size defaults to dividing by 6 (i.e. 0.25).
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @return Updated geom defaults for size
