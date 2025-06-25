@@ -65,7 +65,6 @@
 #'     col = each_all,
 #'     col_palette = c(blue, grey),
 #'     facet = each_all,
-#'     facet_layout = "grid",
 #'     facet_scales = "free_x",
 #'     facet_space = "free_x",
 #'   ) +
