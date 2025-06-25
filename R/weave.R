@@ -59,7 +59,7 @@ weave_theme <- function(
   if (ggplot2::is_theme(theme)) {
     ggplot2::set_theme(new = theme)
   } else {
-    ggplot2::set_theme(new = theme[[1]])
+    ggplot2::set_theme(new = theme[[1]]) #if list, assume first element is theme
   }
 }
 
@@ -77,7 +77,7 @@ weave_label_case <- function(label_case = snakecase::to_sentence_case, ...) {
   invisible(old)
 }
 
-#' Update the geom default colour and fill
+#' Update the colour and fill for geoms
 #'
 #' @description
 #' Update the colour and fill for most geoms  (i.e. geoms other than "text", "label", "hline", and "vline").
@@ -132,62 +132,64 @@ weave_geom_colour_fill <- function(colour = blue, fill = colour, ...) {
   )
 }
 
-#' Update the geom default linetype
+#' Update the linetype for some geoms
 #'
 #' @description
-#' Update the linetype for polygon geoms with unnecessary lines to zero.
+#' Update the linetype for geoms with unnecessary border lines to zero. Note excludes boxplot and crossbar.
+#'
+#' @param bordertype
 #'
 #' @return Updated geom defaults for linetype
 #' @export
 #'
-weave_geom_linetype_zero <- function() {
+weave_geom_bordertype <- function(bordertype = 0) {
 
   ggplot2::update_theme(
 
     #includes polygons with necessary borders
-    geom.boxplot = ggplot2::element_geom(bordertype = 1, linetype = 1),
-    geom.crossbar = ggplot2::element_geom(bordertype = 1, linetype = 1),
+    # geom.boxplot = ggplot2::element_geom(bordertype = 1, linetype = 1),
+    # geom.crossbar = ggplot2::element_geom(bordertype = 1, linetype = 1),
 
     #includes polygons (with borders)
-    geom.area = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.bar = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.bin2d = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.col = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.contour_filled = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.density = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.density_2d_filled = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.hex = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.polygon = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.raster = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.rect = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.ribbon = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.sf = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.tile = ggplot2::element_geom(bordertype = 0, linetype = 0),
-    geom.violin = ggplot2::element_geom(bordertype = 0, linetype = 0),
+    geom.area = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.bar = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.bin2d = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.col = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.contour_filled = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.density = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.density_2d_filled = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.hex = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.polygon = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.raster = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.rect = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.ribbon = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.sf = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.tile = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.violin = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
 
     #else includes points
-    geom.point = ggplot2::element_geom(linetype = 1),
-    geom.pointrange = ggplot2::element_geom(linetype = 1),
+    # geom.point = ggplot2::element_geom(linetype = 1),
+    # geom.pointrange = ggplot2::element_geom(linetype = 1),
 
     #else just lines
-    geom.abline = ggplot2::element_geom(linetype = 1),
-    geom.contour = ggplot2::element_geom(linetype = 1),
-    geom.curve = ggplot2::element_geom(linetype = 1),
-    geom.density2d = ggplot2::element_geom(linetype = 1),
-    geom.errorbar = ggplot2::element_geom(linetype = 1),
-    geom.function = ggplot2::element_geom(linetype = 1),
-    geom.line = ggplot2::element_geom(linetype = 1),
-    geom.linerange = ggplot2::element_geom(linetype = 1),
-    geom.path = ggplot2::element_geom(linetype = 1),
-    geom.quantile = ggplot2::element_geom(linetype = 1),
-    geom.rug = ggplot2::element_geom(linetype = 1),
-    geom.segment = ggplot2::element_geom(linetype = 1),
-    geom.spoke = ggplot2::element_geom(linetype = 1),
-    geom.step = ggplot2::element_geom(linetype = 1),
+    # geom.abline = ggplot2::element_geom(linetype = 1),
+    # geom.contour = ggplot2::element_geom(linetype = 1),
+    # geom.curve = ggplot2::element_geom(linetype = 1),
+    # geom.density2d = ggplot2::element_geom(linetype = 1),
+    # geom.errorbar = ggplot2::element_geom(linetype = 1),
+    # geom.function = ggplot2::element_geom(linetype = 1),
+    # geom.line = ggplot2::element_geom(linetype = 1),
+    # geom.linerange = ggplot2::element_geom(linetype = 1),
+    # geom.path = ggplot2::element_geom(linetype = 1),
+    # geom.quantile = ggplot2::element_geom(linetype = 1),
+    # geom.rug = ggplot2::element_geom(linetype = 1),
+    # geom.segment = ggplot2::element_geom(linetype = 1),
+    # geom.spoke = ggplot2::element_geom(linetype = 1),
+    # geom.step = ggplot2::element_geom(linetype = 1),
   )
 }
 
-#' Update the geom default linewidth
+#' Update the linewidth for geoms
 #'
 #' @description
 #' Update the linewidth for most geoms  (i.e. geoms other than "text", "label", "hline", and "vline").
@@ -241,10 +243,10 @@ weave_geom_linewidth <- function(linewidth = 0.66, ...) {
   )
 }
 
-#' Update the geom default size
+#' Update the size for point/pointrange geoms
 #'
 #' @description
-#' Update the size for most geoms  (i.e. geoms other than "text", "label", "hline", and "vline").
+#' Update the size for point/pointrange geoms.
 #'
 #' @param size A default size for the point geom. The pointrange size divides this by 6.
 #' @param ... Provided to require argument naming, support trailing commas etc.
@@ -402,7 +404,7 @@ weave_geom_vline <- function(
 #' @param col_palette_na_o For an ordinal scale, a hex code.
 #'
 #' @noRd
-weave_palettes <- function(
+weave_geom_palettes <- function(
   ...,
   col_palette_d = jumble,
   col_palette_c = viridisLite::mako(n = 9, direction = -1),

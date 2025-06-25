@@ -2,7 +2,7 @@
 % Please edit documentation in R/weave.R
 \name{weave_geom_colour_fill}
 \alias{weave_geom_colour_fill}
-\title{Update the geom default colour and fill}
+\title{Update the colour and fill for geoms}
 \usage{
 weave_geom_colour_fill(colour = blue, fill = colour, ...)
 }

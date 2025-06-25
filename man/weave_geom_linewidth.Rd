@@ -2,7 +2,7 @@
 % Please edit documentation in R/weave.R
 \name{weave_geom_linewidth}
 \alias{weave_geom_linewidth}
-\title{Update the geom default linewidth}
+\title{Update the linewidth for geoms}
 \usage{
 weave_geom_linewidth(linewidth = 0.66, ...)
 }

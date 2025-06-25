@@ -84,7 +84,7 @@ set_blanket <- function(
   # weave_geom(colour = colour)
   weave_geom_colour_fill(colour = colour)
   weave_geom_linewidth()
-  weave_geom_linetype_zero()
+  weave_geom_bordertype()
   weave_geom_size()
 
   weave_geom_text()
@@ -92,7 +92,7 @@ set_blanket <- function(
   weave_geom_vline()
   weave_geom_hline()
 
-  weave_palettes(
+  weave_geom_palettes(
     col_palette_d = col_palette_d,
     col_palette_c = col_palette_c,
     col_palette_o = col_palette_o,
