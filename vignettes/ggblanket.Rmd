@@ -180,7 +180,7 @@ palmerpenguins::penguins |>
     y_labels = label_number(big.mark = " "), 
     y_transform = "sqrt",
     col_label = "Bill\nlength (mm)",
-    col_scale_type = NULL,
+    col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
     col_palette = viridis::rocket(n = 9, direction = -1),
   )
@@ -218,7 +218,7 @@ palmerpenguins::penguins |>
     linewidth = 1, 
     linetype = "dashed",
     level = 0.999, 
-    blend = "multiply",
+    alpha = 1,
   ) 
 ```
 
@@ -320,6 +320,7 @@ The scales are built within the `gg_*()` function _without_ knowledge of later l
 
 ```{r}
 palmerpenguins::penguins |>
+  tidyr::drop_na(sex) |> 
   group_by(species, sex) |>
   summarise(
     lower = quantile(bill_depth_mm, probs = 0.05),
@@ -333,7 +334,6 @@ palmerpenguins::penguins |>
     xmin = lower, 
     xmax = upper,
     col = sex,
-    position = position_dodge(),
     x_limits_include = 0,
   ) +
   geom_col(
