@@ -55,14 +55,13 @@ Note this scale should only be used in plots with geoms with \code{stat = "ident
 \examples{
 library(ggplot2)
 library(dplyr)
-library(palmerpenguins)
 
 set_blanket()
 
-penguins |>
+palmerpenguins::penguins |>
   ggplot() +
   geom_jitter(aes(x = body_mass_g, y = species, colour = species)) +
-  scale_x_symmetric(penguins, body_mass_g) +
+  scale_x_symmetric(palmerpenguins::penguins, body_mass_g) +
   theme(axis.line.x = element_blank()) +
   theme(axis.ticks.x = element_blank()) +
   theme(panel.grid.major.y = element_blank()) +

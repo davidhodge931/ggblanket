@@ -30,12 +30,11 @@
 #' @export
 #'
 #' @examples
-#' library(palmerpenguins)
 #' library(ggplot2)
 #'
 #' set_blanket()
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
@@ -43,7 +42,7 @@
 #'     theme = theme_lighter()
 #'   )
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
@@ -51,7 +50,7 @@
 #'     theme = theme_lighter(legend_position = "top")
 #'   )
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,

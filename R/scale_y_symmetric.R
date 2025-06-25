@@ -25,14 +25,13 @@
 #' @examples
 #' library(ggplot2)
 #' library(dplyr)
-#' library(palmerpenguins)
 #'
 #' set_blanket()
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   ggplot() +
 #'   geom_point(aes(x = flipper_length_mm, y = body_mass_g, colour = species)) +
-#'   scale_y_symmetric(penguins, body_mass_g) +
+#'   scale_y_symmetric(palmerpenguins::penguins, body_mass_g) +
 #'   theme(axis.line.y = element_blank()) +
 #'   theme(axis.ticks.y = element_blank()) +
 #'   theme(panel.grid.major.x = element_blank()) +

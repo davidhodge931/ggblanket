@@ -23,11 +23,10 @@ A colour aesthetic to contrast with a fill aesthetic. Can be spliced into \link[
 library(ggplot2)
 library(dplyr)
 library(stringr)
-library(palmerpenguins)
 
 set_blanket()
 
-penguins |>
+palmerpenguins::penguins |>
   count(species, sex) |>
   gg_col(
     x = sex,
@@ -45,7 +44,7 @@ penguins |>
     show.legend = FALSE,
   )
 
-penguins |>
+palmerpenguins::penguins |>
   count(species, sex) |>
   gg_col(
     x = sex,

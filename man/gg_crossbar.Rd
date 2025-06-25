@@ -66,7 +66,7 @@ gg_crossbar(
   col_palette = NULL,
   col_palette_na = NULL,
   col_rescale = scales::rescale(),
-  col_scale_type = "gradient",
+  col_steps = FALSE,
   col_transform = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
@@ -141,8 +141,6 @@ gg_crossbar(
 \item{col_palette_na}{A hex code (or name) for the colour of \code{NA} values.}
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
-
-\item{col_scale_type}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
 
 \item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_*()} may be needed.}
 

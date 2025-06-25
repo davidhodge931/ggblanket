@@ -61,16 +61,6 @@ library(scales)
 library(ggblanket)
 library(palmerpenguins)
 library(patchwork)
-
-penguins2 <- penguins |> 
-  labelled::set_variable_labels(
-    bill_length_mm = "Bill length (mm)",
-    bill_depth_mm = "Bill depth (mm)",
-    flipper_length_mm = "Flipper length (mm)",
-    body_mass_g = "Body mass (g)",
-  ) |> 
-  mutate(sex = str_to_sentence(sex)) |> 
-  tidyr::drop_na(sex) 
 ```
 
 ### 1. First setup with `set_blanket()`
@@ -94,7 +84,7 @@ Almost every geom in ggplot2 is wrapped.
 Position related aesthetics can be added directly as arguments. 
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -111,7 +101,8 @@ are coloured/filled by the `col` variable using the `col_palette`.
 The defaults used in `set_blanket` for the polygon-ish geoms generally use `linewidth = 0` to make things work nicely.
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
+  tidyr::drop_na(sex) |> 
   gg_violin(
     x = flipper_length_mm,
     y = island,
@@ -126,7 +117,7 @@ Users provide an unquoted `facet` variable to facet by.
 When `facet` is specified, the `facet_layout` will default to a `"wrap"` of the `facet` variable (if `facet2 = NULL`).
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
   gg_histogram(
     x = flipper_length_mm,
     facet = species,
@@ -140,7 +131,7 @@ Users can also provide an unquoted `facet2` variable to facet by.
 When `facet2` is specified, the `facet_layout` will default to a `"grid"` of the `facet` variable (horizontally) by the `facet2` variable (vertically).
 
 ```{r, fig.asp=0.75}
-penguins2 |>
+palmerpenguins::penguins |>
   gg_histogram(
     x = flipper_length_mm,
     facet = species,
@@ -157,7 +148,8 @@ These can be accessed via the `mapping` argument using the `aes()` function.
 To customise the scales/guides of these other aesthetics, just `+` on the applicable ggplot2 layer. In some situations, you may need to override the colour used in the guide, or reverse the values in the relevant scale etc.
 
 ```{r}
-penguins2 |> 
+palmerpenguins::penguins |> 
+  tidyr::drop_na(sex) |> 
   gg_jitter(
     x = species, 
     y = flipper_length_mm, 
@@ -176,7 +168,7 @@ For `x`, `y` and `col`, these relate to associated arguments within ggplot2 scal
 Scales and guides associated with other other aesthetics can be customised by adding the applicable ggplot2 layer. 
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
   gg_jitter(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -188,7 +180,7 @@ penguins2 |>
     y_labels = label_number(big.mark = " "), 
     y_transform = "sqrt",
     col_label = "Bill\nlength (mm)",
-    col_steps = TRUE,
+    col_scale_type = NULL,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
     col_palette = viridis::rocket(n = 9, direction = -1),
   )
@@ -203,7 +195,7 @@ If not specified, they will first take any label attribute associated with the a
 If none, they will then convert the variable name to a label name using the `label_to_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence_case`). 
 
 ```{r, fig.asp=0.6}
-penguins2 |>
+palmerpenguins::penguins |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = species,
@@ -219,7 +211,7 @@ Common arguments to add include `colour`, `fill`, `alpha`, `linewidth`, `linetyp
 Use the `ggplot2::geom_*` help to see what arguments are available. 
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -235,7 +227,7 @@ penguins2 |>
 `theme_lighter` and `theme_darker`. These functions were built for use with the `theme` argument - and have flexibility to adjust colours, linewidths etc. 
 
 ```{r, fig.asp=0.65}
-penguins2 |>
+palmerpenguins::penguins |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
@@ -261,13 +253,13 @@ Any `theme` used should be designed to anticipate the side-effects desired (i.e.
 This enables _one_ theme to be used across all plots whether the plot is vertical or horizontal. 
 
 ```{r}
-p1 <- penguins2 |>
+p1 <- palmerpenguins::penguins |>
   gg_jitter(
     x = sex,
     y = bill_depth_mm,
   )
 
-p2 <- penguins2 |>
+p2 <- palmerpenguins::penguins |>
   gg_jitter(
     x = bill_depth_mm,
     y = sex,
@@ -308,7 +300,7 @@ The `gg_*()` geom layer will be the bottom geom layer of the plot, and each subs
 Aesthetics added directly (e.g. `x`, `y` etc.) to the `gg_*()` function will inherit to later `geom_*()` layers, whereas those added to the `mapping` argument will not. 
 
 ```{r}
-penguins2 |> 
+palmerpenguins::penguins |> 
   gg_violin(
     x = species, 
     y = bill_depth_mm,
@@ -327,14 +319,14 @@ penguins2 |>
 The scales are built within the `gg_*()` function _without_ knowledge of later layers. The `gg_*()` function builds scales with regard to the `stat`, `position`, and aesthetics (that the geom understands) etc. So, in some situations, users will need to take care. 
 
 ```{r}
-penguins2 |>
+palmerpenguins::penguins |>
   group_by(species, sex) |>
   summarise(
     lower = quantile(bill_depth_mm, probs = 0.05),
     upper = quantile(bill_depth_mm, probs = 0.95),
     bill_depth_mm = mean(bill_depth_mm, na.rm = TRUE),
   ) |>
-  labelled::copy_labels_from(penguins2) |>
+  labelled::copy_labels_from(palmerpenguins::penguins) |>
   gg_blanket(
     y = species,
     x = bill_depth_mm,
@@ -387,13 +379,13 @@ set_blanket(
   col_palette_na_d = "#78909C",
 )
 
-p1 <- penguins2 |>
+p1 <- palmerpenguins::penguins |>
   gg_point(
     x = bill_depth_mm, 
     y = flipper_length_mm,
   ) 
 
-p2 <- penguins2 |> 
+p2 <- palmerpenguins::penguins |> 
   gg_bar(
     y = sex,
     col = species,

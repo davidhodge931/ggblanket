@@ -40,11 +40,10 @@ get_contrast <- function(fill, ..., dark = "#121B24FF", light = "#FFFFFFFF") {
 #' library(ggplot2)
 #' library(dplyr)
 #' library(stringr)
-#' library(palmerpenguins)
 #'
 #' set_blanket()
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   count(species, sex) |>
 #'   gg_col(
 #'     x = sex,
@@ -62,7 +61,7 @@ get_contrast <- function(fill, ..., dark = "#121B24FF", light = "#FFFFFFFF") {
 #'     show.legend = FALSE,
 #'   )
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   count(species, sex) |>
 #'   gg_col(
 #'     x = sex,

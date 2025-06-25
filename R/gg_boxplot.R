@@ -10,11 +10,11 @@
 #' @examples
 #' library(ggplot2)
 #' library(dplyr)
-#' library(palmerpenguins)
+#' 
 #'
 #' set_blanket()
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   gg_boxplot(
 #'     x = flipper_length_mm,
 #'     y = species,
@@ -84,7 +84,7 @@ gg_boxplot <- function(
   col_palette = NULL,
   col_palette_na = NULL,
   col_rescale = scales::rescale(),
-  col_scale_type = "gradient",
+  col_steps = FALSE,
   col_transform = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
@@ -161,7 +161,7 @@ gg_boxplot <- function(
     col_palette = col_palette,
     col_palette_na = col_palette_na,
     col_rescale = col_rescale,
-    col_scale_type = col_scale_type,
+    col_steps = col_steps,
     col_label = col_label,
     col_transform = col_transform,
     facet_axes = facet_axes,

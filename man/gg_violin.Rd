@@ -66,7 +66,7 @@ gg_violin(
   col_palette = NULL,
   col_palette_na = NULL,
   col_rescale = scales::rescale(),
-  col_scale_type = "gradient",
+  col_steps = FALSE,
   col_transform = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
@@ -142,8 +142,6 @@ gg_violin(
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
-\item{col_scale_type}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
-
 \item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_*()} may be needed.}
 
 \item{facet_axis_labels}{Whether to add interior axis labels with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
@@ -173,11 +171,11 @@ Create a violin plot with a wrapper around \link[ggplot2:ggplot]{ggplot()} + \li
 \examples{
 library(ggplot2)
 library(dplyr)
-library(palmerpenguins)
+
 
 set_blanket()
 
-penguins |>
+palmerpenguins::penguins |>
   tidyr::drop_na(sex) |>
   gg_violin(
     x = species,

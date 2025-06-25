@@ -114,12 +114,11 @@ A darker complete theme.
 A dark theme.
 }
 \examples{
-library(palmerpenguins)
 library(ggplot2)
 
 set_blanket()
 
-penguins |>
+palmerpenguins::penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -127,7 +126,7 @@ penguins |>
     theme = theme_darker()
   )
 
-penguins |>
+palmerpenguins::penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -135,7 +134,7 @@ penguins |>
     theme = theme_darker(legend_position = "top")
   )
 
-penguins |>
+palmerpenguins::penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -143,12 +142,12 @@ penguins |>
     theme = theme_darker(legend_position = "bottom")
   )
 
-library(palmerpenguins)
+
 library(ggplot2)
 
 set_blanket()
 
-penguins |>
+palmerpenguins::penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -156,7 +155,7 @@ penguins |>
     theme = theme_darker()
   )
 
-penguins |>
+palmerpenguins::penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
@@ -164,7 +163,7 @@ penguins |>
     theme = theme_darker(legend_position = "top")
   )
 
-penguins |>
+palmerpenguins::penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,

@@ -16,11 +16,10 @@
 #'  label_every_nth()(LETTERS[1:12])
 #'
 #'  library(dplyr)
-#'  library(palmerpenguins)
 #'
 #'  set_blanket()
 #'
-#'  penguins |>
+#'  palmerpenguins::penguins |>
 #'    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
 #'    gg_point(
 #'      x = flipper_length_mm,

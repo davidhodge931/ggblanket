@@ -16,25 +16,24 @@
 #' @examples
 #' library(dplyr)
 #' library(ggplot2)
-#' library(palmerpenguins)
 #'
 #' set_blanket()
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   count(species)
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   bind_each_all(species) |>
 #'   count(species, each_all)
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   bind_each_all(species) |>
 #'   gg_jitter(
 #'     x = species,
 #'     y = body_mass_g,
 #'   )
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   bind_each_all(species) |>
 #'   gg_jitter(
 #'     x = species,
@@ -44,7 +43,7 @@
 #'   ) +
 #'   theme(legend.position = "none")
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   bind_each_all(species) |>
 #'   group_by(species, each_all) |>
 #'   summarise(across(body_mass_g, \(x) mean(x, na.rm = TRUE))) |>
@@ -58,7 +57,7 @@
 #'   ) +
 #'   theme(legend.position = "none")
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   bind_each_all(species, all = "All\nspecies") |>
 #'   gg_jitter(
 #'     x = species,

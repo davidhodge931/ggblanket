@@ -31,7 +31,6 @@
 #' @examples
 #' library(ggplot2)
 #' library(ggblanket)
-#' library(palmerpenguins)
 #'
 #' set_blanket(
 #'   theme = theme_darker(),
@@ -40,13 +39,13 @@
 #'                     "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
 #' )
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'   )
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   gg_histogram(
 #'     x = flipper_length_mm,
 #'     col = species,

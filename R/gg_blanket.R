@@ -32,7 +32,7 @@
 #' @param col_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' @param col_palette_na A hex code (or name) for the colour of `NA` values.
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
-#' @param col_scale_type For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
+#' @param col_scale_class For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_*()` may be needed.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
@@ -49,11 +49,11 @@
 #' @examples
 #' library(ggplot2)
 #' library(dplyr)
-#' library(palmerpenguins)
+#'
 #'
 #' set_blanket()
 #'
-#' penguins |>
+#' palmerpenguins::penguins |>
 #'   gg_blanket(
 #'     geom = "violin",
 #'     stat = "ydensity",
@@ -126,7 +126,7 @@ gg_blanket <- function(
     col_palette = NULL,
     col_palette_na = NULL,
     col_rescale = scales::rescale(),
-    col_scale_type = "gradient",
+    col_steps = FALSE,
     col_transform = NULL,
     facet_axes = NULL,
     facet_axis_labels = "margins",
@@ -362,30 +362,30 @@ gg_blanket <- function(
   }
 
   if (any(plot_scales %in% c("scale_colour_discrete", "scale_fill_discrete"))) {
-    col_scale_type <- "discrete"
+    col_scale_class <- "discrete"
   } else if (
     any(plot_scales %in% c("scale_colour_ordinal", "scale_fill_ordinal"))
   ) {
-    col_scale_type <- "ordinal"
+    col_scale_class <- "ordinal"
   } else if (any(plot_scales %in% c("scale_colour_date", "scale_fill_date"))) {
-    col_scale_type <- "date"
+    col_scale_class <- "date"
   } else if (
     any(plot_scales %in% c("scale_colour_datetime", "scale_fill_datetime"))
   ) {
-    col_scale_type <- "datetime"
+    col_scale_class <- "datetime"
   } else if (any(plot_scales %in% c("scale_colour_time", "scale_fill_time"))) {
-    col_scale_type <- "time"
+    col_scale_class <- "time"
   } else if (
     any(plot_scales %in% c("scale_colour_continuous", "scale_fill_continuous"))
   ) {
-    col_scale_type <- "numeric"
+    col_scale_class <- "numeric"
   } else {
-    col_scale_type <- "numeric"
+    col_scale_class <- "numeric"
   }
 
   if (!rlang::quo_is_null(col)) {
     if (inherits(rlang::eval_tidy(col, data), what = c("hms"))) {
-      col_scale_type <- "time"
+      col_scale_class <- "time"
     }
   }
 
@@ -843,7 +843,7 @@ gg_blanket <- function(
   #so that col_n can identify complete set of required non-NA colours
   #and work even if col_palette_d sets insufficient colours
 
-  if (col_scale_type %in% c("discrete", "ordinal")) {
+  if (col_scale_class %in% c("discrete", "ordinal")) {
     plot <- plot +
       ggplot2::scale_colour_hue(na.value = "grey50") +
       ggplot2::scale_fill_hue(na.value = "grey50")
@@ -867,8 +867,8 @@ gg_blanket <- function(
   # make colour scale
   ##############################################################################
 
-  if (!is.na(col_scale_type)) {
-    if (col_scale_type %in% c("date", "datetime", "time", "numeric")) {
+  if (!is.na(col_scale_class)) {
+    if (col_scale_class %in% c("date", "datetime", "time", "numeric")) {
       if (rlang::is_null(col_palette)) {
         col_palette <- ggblanket_global$col_palette_c
         if (rlang::is_null(col_palette)) {
@@ -888,11 +888,11 @@ gg_blanket <- function(
 
       #get col_transform if NULL
       if (rlang::is_null(col_transform)) {
-        if (col_scale_type == "time") {
+        if (col_scale_class == "time") {
           col_transform <- scales::transform_hms()
-        } else if (col_scale_type == "datetime") {
+        } else if (col_scale_class == "datetime") {
           col_transform <- scales::transform_time()
-        } else if (col_scale_type == "date") {
+        } else if (col_scale_class == "date") {
           col_transform <- scales::transform_date()
         } else {
           col_transform <- scales::transform_identity()
@@ -930,7 +930,7 @@ gg_blanket <- function(
         }
       }
 
-      if (col_scale_type == "gradient") {
+      if (!col_steps) {
         plot <- plot +
           ggplot2::scale_colour_gradientn(
             colours = col_palette,
@@ -946,7 +946,8 @@ gg_blanket <- function(
             colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
             fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
           )
-      } else if (col_scale_type == "steps") {
+      }
+      else if (col_steps) {
         plot <- plot +
           ggplot2::scale_colour_stepsn(
             colours = col_palette,
@@ -969,15 +970,15 @@ gg_blanket <- function(
             )
           )
       }
-    } else if (col_scale_type %in% c("discrete", "ordinal")) {
+    } else if (col_scale_class %in% c("discrete", "ordinal")) {
       if (rlang::is_null(col_palette_na)) {
-        if (col_scale_type == "discrete") {
+        if (col_scale_class == "discrete") {
           if (rlang::is_null(ggblanket_global$col_palette_na_d)) {
             col_palette_na <- "grey50"
           } else {
             col_palette_na <- ggblanket_global$col_palette_na_d
           }
-        } else if (col_scale_type == "ordinal") {
+        } else if (col_scale_class == "ordinal") {
           if (rlang::is_null(ggblanket_global$col_palette_na_o)) {
             col_palette_na <- "grey50"
           } else {
@@ -1023,9 +1024,9 @@ gg_blanket <- function(
       col_n <- max(col_n_factor, colour_n, fill_n, na.rm = TRUE)
 
       if (rlang::is_null(col_palette)) {
-        if (col_scale_type == "discrete") {
+        if (col_scale_class == "discrete") {
           col_palette <- ggblanket_global$col_palette_d
-        } else if (col_scale_type == "ordinal") {
+        } else if (col_scale_class == "ordinal") {
           col_palette <- ggblanket_global$col_palette_o
         }
       }
@@ -1040,12 +1041,12 @@ gg_blanket <- function(
 
       if (x_symmetric) {
         col_legend_rev <- !col_legend_rev
-        if (col_scale_type == "discrete") {
+        if (col_scale_class == "discrete") {
           col_palette <- rev(col_palette)
         }
       }
 
-      if (col_scale_type == "ordinal") {
+      if (col_scale_class == "ordinal") {
         col_legend_rev <- !col_legend_rev
       }
 
@@ -1108,7 +1109,7 @@ gg_blanket <- function(
           col_palette_na <- "grey50"
         }
 
-        if (col_scale_type == "discrete") {
+        if (col_scale_class == "discrete") {
           plot <- plot +
             ggplot2::scale_colour_hue(
               breaks = col_breaks,
@@ -1129,7 +1130,7 @@ gg_blanket <- function(
                 nrow = col_legend_nrow
               )
             )
-        } else if (col_scale_type == "ordinal") {
+        } else if (col_scale_class == "ordinal") {
           plot <- plot +
             ggplot2::scale_colour_viridis_d(
               breaks = col_breaks,
