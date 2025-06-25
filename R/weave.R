@@ -268,7 +268,7 @@ weave_geom_size <- function(size = 1.5, ...) {
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param colour A hex code.
 #' @param fill A hex code.
-#' @param size A size in mm.
+#' @param size A size in mm. Use `pt_to_mm` to convert.
 #' @param family A family.
 #'
 #' @noRd
@@ -352,7 +352,7 @@ weave_geom_text <- function(
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param fill A hex code.
 #' @param colour A hex code.
-#' @param size A size in pt units.
+#' @param size A size in mm. Use `pt_to_mm` to convert.
 #' @param family A family.
 #'
 #' @noRd
