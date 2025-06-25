@@ -145,6 +145,8 @@ gg_blanket(
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
+\item{col_steps}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
+
 \item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_*()} may be needed.}
 
 \item{facet_axis_labels}{Whether to add interior axis labels with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}.}
@@ -164,8 +166,6 @@ gg_blanket(
 \item{caption}{Caption title string.}
 
 \item{label_case}{A function to format the label of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
-
-\item{col_scale_class}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
 }
 \value{
 A ggplot object.

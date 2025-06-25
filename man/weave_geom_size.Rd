@@ -2,13 +2,18 @@
 % Please edit documentation in R/weave.R
 \name{weave_geom_size}
 \alias{weave_geom_size}
-\title{Title}
+\title{Update the geom default size}
 \usage{
-weave_geom_size(point = 1.5, pointrange = point/7.5)
+weave_geom_size(size = 1.5, ...)
 }
 \arguments{
-\item{pointrange}{}
+\item{size}{A default size for the point geom. The pointrange size divides this by 6.}
+
+\item{...}{Provided to require argument naming, support trailing commas etc.}
+}
+\value{
+Updated geom defaults for size
 }
 \description{
-Title
+Update the size for most geoms  (i.e. geoms other than "text", "label", "hline", and "vline").
 }

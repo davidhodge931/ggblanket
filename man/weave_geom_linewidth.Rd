@@ -2,13 +2,18 @@
 % Please edit documentation in R/weave.R
 \name{weave_geom_linewidth}
 \alias{weave_geom_linewidth}
-\title{Title}
+\title{Update the geom default linewidth}
 \usage{
 weave_geom_linewidth(linewidth = 0.66, ...)
 }
 \arguments{
-\item{border}{}
+\item{linewidth}{A default linewidth for geoms.}
+
+\item{...}{Provided to require argument naming, support trailing commas etc.}
+}
+\value{
+Updated geom defaults for linewidth
 }
 \description{
-Title
+Update the linewidth for most geoms  (i.e. geoms other than "text", "label", "hline", and "vline").
 }

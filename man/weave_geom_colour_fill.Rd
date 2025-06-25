@@ -2,13 +2,20 @@
 % Please edit documentation in R/weave.R
 \name{weave_geom_colour_fill}
 \alias{weave_geom_colour_fill}
-\title{Title}
+\title{Update the geom default colour and fill}
 \usage{
 weave_geom_colour_fill(colour = blue, fill = colour, ...)
 }
 \arguments{
-\item{...}{}
+\item{colour}{A default hex code for the colour of geoms.}
+
+\item{fill}{A default hex code for the colour of geoms. Note inherits from colour.}
+
+\item{...}{Provided to require argument naming, support trailing commas etc.}
+}
+\value{
+Updated geom defaults for colour and fill
 }
 \description{
-Title
+Update the colour and fill for most geoms  (i.e. geoms other than "text", "label", "hline", and "vline").
 }

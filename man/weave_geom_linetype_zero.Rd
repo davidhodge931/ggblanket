@@ -2,10 +2,13 @@
 % Please edit documentation in R/weave.R
 \name{weave_geom_linetype_zero}
 \alias{weave_geom_linetype_zero}
-\title{Title}
+\title{Update the geom default linetype}
 \usage{
 weave_geom_linetype_zero()
 }
+\value{
+Updated geom defaults for linetype
+}
 \description{
-Title
+Update the linetype for polygon geoms with unnecessary lines to zero.
 }

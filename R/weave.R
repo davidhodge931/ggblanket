@@ -77,191 +77,17 @@ weave_label_case <- function(label_case = snakecase::to_sentence_case, ...) {
   invisible(old)
 }
 
-#' Set a series of geom defaults
+#' Update the geom default colour and fill
 #'
-#' @description Update all the geom defaults.
+#' @description
+#' Update the colour and fill for most geoms  (i.e. geoms other than "text", "label", "hline", and "vline").
 #'
-#' [ggplot2::update_geom_defaults()] can be used to further fine-tune individual geom defaults.
-#'
+#' @param colour A default hex code for the colour of geoms.
+#' @param fill A default hex code for the colour of geoms. Note inherits from colour.
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note "fill" inherits from this argument.
 #'
-#' @noRd
-weave_geom <- function(
-    ...,
-    colour = "#357BA2FF"
-    # fill = colour,
-    # linewidth = 0.66,
-    # linewidth_border = 0,
-    # linewidth_box = linewidth,
-) {
-  #polygons
-  ggplot2::update_geom_defaults(
-    "area",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "bar",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "boxplot",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "col",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "contour_filled",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "crossbar",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "density",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "density_2d_filled",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "polygon",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "raster",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "rect",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "ribbon",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "sf",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "smooth",
-    ggplot2::aes(
-      colour = !!colour,
-      fill = !!colour,
-      alpha = NA,
-      linewidth = 0.66
-    )
-  )
-  ggplot2::update_geom_defaults(
-    "tile",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "violin",
-    ggplot2::aes(colour = !!colour, fill = !!colour, linewidth = 0.66)
-  )
-
-  ggplot2::update_geom_defaults("bin2d", ggplot2::aes(fill = !!colour, linewidth = 0.66))
-
-  ggplot2::update_geom_defaults(
-    "raster",
-    ggplot2::aes(fill = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "hex",
-    ggplot2::aes(fill = !!colour, linewidth = 0.66)
-  )
-
-  #lines
-  ggplot2::update_geom_defaults(
-    "abline",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "contour",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "curve",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "density2d",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "errorbar",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "function",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "line",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "linerange",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "path",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "quantile",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "rug",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "segment",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "spoke",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-  ggplot2::update_geom_defaults(
-    "step",
-    ggplot2::aes(colour = !!colour, linewidth = 0.66)
-  )
-
-  #points
-  ggplot2::update_geom_defaults(
-    "point",
-    ggplot2::aes(colour = !!colour, fill = !!colour)
-  )
-
-  ggplot2::update_geom_defaults(
-    "pointrange",
-    ggplot2::aes(
-      colour = !!colour,
-      fill = !!colour,
-      linewidth = 0.66,
-      size = 0.2 #extra
-    )
-  ) # 1.5 / 7.5
-}
-
-#' Title
-#'
-#' @param colour
-#' @param fill
-#' @param ...
-#'
-#' @returns
+#' @return Updated geom defaults for colour and fill
 #' @export
-#'
-#' @examples
 weave_geom_colour_fill <- function(colour = blue, fill = colour, ...) {
 
   ggplot2::update_theme(
@@ -306,10 +132,14 @@ weave_geom_colour_fill <- function(colour = blue, fill = colour, ...) {
   )
 }
 
-#' Title
+#' Update the geom default linetype
 #'
-#' @returns
+#' @description
+#' Update the linetype for polygon geoms with unnecessary lines to zero.
+#'
+#' @return Updated geom defaults for linetype
 #' @export
+#'
 weave_geom_linetype_zero <- function() {
 
   ggplot2::update_theme(
@@ -357,13 +187,15 @@ weave_geom_linetype_zero <- function() {
   )
 }
 
-#' Title
+#' Update the geom default linewidth
 #'
-#' @param ...
-#' @param nonborder
-#' @param border
+#' @description
+#' Update the linewidth for most geoms  (i.e. geoms other than "text", "label", "hline", and "vline").
 #'
-#' @returns
+#' @param linewidth A default linewidth for geoms.
+#' @param ... Provided to require argument naming, support trailing commas etc.
+#'
+#' @return Updated geom defaults for linewidth
 #' @export
 weave_geom_linewidth <- function(linewidth = 0.66, ...) {
 
@@ -409,19 +241,21 @@ weave_geom_linewidth <- function(linewidth = 0.66, ...) {
   )
 }
 
-#' Title
+#' Update the geom default size
 #'
-#' @param point
-#' @param pointrange
+#' @description
+#' Update the size for most geoms  (i.e. geoms other than "text", "label", "hline", and "vline").
 #'
-#' @returns
+#' @param size A default size for the point geom. The pointrange size divides this by 6.
+#' @param ... Provided to require argument naming, support trailing commas etc.
+#'
+#' @return Updated geom defaults for size
 #' @export
-weave_geom_size <- function(point = 1.5, pointrange = point / 7.5) {
+weave_geom_size <- function(size = 1.5, ...) {
 
-  #includes polygons (with borders)
   ggplot2::update_theme(
-    geom.point = ggplot2::element_geom(pointsize = point),
-    geom.pointrange = ggplot2::element_geom(pointsize = pointrange),
+    geom.point = ggplot2::element_geom(pointsize = size),
+    geom.pointrange = ggplot2::element_geom(pointsize = size / 6),
   )
 }
 
