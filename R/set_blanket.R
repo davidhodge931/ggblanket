@@ -13,8 +13,8 @@
 #' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param colour For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note, the "fill" inherits from this argument.
-#' @param col_palette_d For a discrete scale, a character vector of hex codes.
-#' @param col_palette_c For a continuous scale, a character vector of hex codes.
+#' @param col_palette_discrete For a discrete scale, a character vector of hex codes.
+#' @param col_palette_continuous For a continuous scale, a character vector of hex codes.
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function.
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param col_palette_na_c For a continuous scale, a hex code.
@@ -35,7 +35,7 @@
 #' set_blanket(
 #'   theme = theme_darker(),
 #'   colour = "#E7298AFF",
-#'   col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
+#'   col_palette_discrete = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
 #'                     "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
 #' )
 #'
@@ -56,11 +56,11 @@ set_blanket <- function(
     ...,
     colour = "#357BA2FF",
 
-    # col_palette_discrete = jumble,
-    # col_palette_continuous = viridisLite::mako(n = 9, direction = -1),
+    # col_palette_discreteiscrete = jumble,
+    # col_palette_continuousontinuous = viridisLite::mako(n = 9, direction = -1),
 
-    col_palette_d = jumble,
-    col_palette_c = viridisLite::mako(n = 9, direction = -1),
+    col_palette_discrete = jumble,
+    col_palette_continuous = viridisLite::mako(n = 9, direction = -1),
     col_palette_o = scales::pal_viridis(option = "G", direction = -1),
     col_palette_na_d = "#CDC5BFFF",
     col_palette_na_c = "#988F88FF",
@@ -93,8 +93,8 @@ set_blanket <- function(
   weave_geom_hline()
 
   weave_geom_palettes(
-    col_palette_d = col_palette_d,
-    col_palette_c = col_palette_c,
+    col_palette_discrete = col_palette_discrete,
+    col_palette_continuous = col_palette_continuous,
     col_palette_o = col_palette_o,
     col_palette_na_d = col_palette_na_d,
     col_palette_na_c = col_palette_na_c,

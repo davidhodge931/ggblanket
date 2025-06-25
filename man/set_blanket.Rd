@@ -8,8 +8,8 @@ set_blanket(
   theme = theme_lighter(),
   ...,
   colour = "#357BA2FF",
-  col_palette_d = jumble,
-  col_palette_c = viridisLite::mako(n = 9, direction = -1),
+  col_palette_discrete = jumble,
+  col_palette_continuous = viridisLite::mako(n = 9, direction = -1),
   col_palette_o = scales::pal_viridis(option = "G", direction = -1),
   col_palette_na_d = "#CDC5BFFF",
   col_palette_na_c = "#988F88FF",
@@ -28,9 +28,9 @@ set_blanket(
 
 \item{colour}{For most geoms, a default hex code for the colour of geoms (i.e. geoms other than "text", "label", "hline", and "vline"). Note, the "fill" inherits from this argument.}
 
-\item{col_palette_d}{For a discrete scale, a character vector of hex codes.}
+\item{col_palette_discrete}{For a discrete scale, a character vector of hex codes.}
 
-\item{col_palette_c}{For a continuous scale, a character vector of hex codes.}
+\item{col_palette_continuous}{For a continuous scale, a character vector of hex codes.}
 
 \item{col_palette_o}{For an ordinal scale, a \verb{scales::pal_*()} function.}
 
@@ -71,7 +71,7 @@ library(ggblanket)
 set_blanket(
   theme = theme_darker(),
   colour = "#E7298AFF",
-  col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
+  col_palette_discrete = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
                     "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
 )
 

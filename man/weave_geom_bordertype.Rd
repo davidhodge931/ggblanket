@@ -7,7 +7,7 @@
 weave_geom_bordertype(bordertype = 0)
 }
 \arguments{
-\item{bordertype}{}
+\item{bordertype}{A linewidth for geoms with unnecessary border lines. Defaults to 0.}
 }
 \value{
 Updated geom defaults for linetype

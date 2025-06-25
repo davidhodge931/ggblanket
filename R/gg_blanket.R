@@ -841,7 +841,7 @@ gg_blanket <- function(
   }
 
   #so that col_n can identify complete set of required non-NA colours
-  #and work even if col_palette_d sets insufficient colours
+  #and work even if col_palette_discrete sets insufficient colours
 
   if (col_scale_class %in% c("discrete", "ordinal")) {
     plot <- plot +
@@ -870,7 +870,7 @@ gg_blanket <- function(
   if (!is.na(col_scale_class)) {
     if (col_scale_class %in% c("date", "datetime", "time", "numeric")) {
       if (rlang::is_null(col_palette)) {
-        col_palette <- ggblanket_global$col_palette_c
+        col_palette <- ggblanket_global$col_palette_continuous
         if (rlang::is_null(col_palette)) {
           col_palette <- scales::pal_seq_gradient(
             low = "#132B43",
@@ -1025,7 +1025,7 @@ gg_blanket <- function(
 
       if (rlang::is_null(col_palette)) {
         if (col_scale_class == "discrete") {
-          col_palette <- ggblanket_global$col_palette_d
+          col_palette <- ggblanket_global$col_palette_discrete
         } else if (col_scale_class == "ordinal") {
           col_palette <- ggblanket_global$col_palette_o
         }

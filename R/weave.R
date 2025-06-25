@@ -9,8 +9,8 @@ ggblanket_global$axis_line_transparent <- NULL
 
 ggblanket_global$label_case <- NULL
 
-ggblanket_global$col_palette_d <- NULL
-ggblanket_global$col_palette_c <- NULL
+ggblanket_global$col_palette_discrete <- NULL
+ggblanket_global$col_palette_continuous <- NULL
 ggblanket_global$col_palette_o <- NULL
 ggblanket_global$col_palette_na_d <- NULL
 ggblanket_global$col_palette_na_c <- NULL
@@ -137,7 +137,7 @@ weave_geom_colour_fill <- function(colour = blue, fill = colour, ...) {
 #' @description
 #' Update the linetype for geoms with unnecessary border lines to zero. Note excludes boxplot and crossbar.
 #'
-#' @param bordertype
+#' @param bordertype A linewidth for geoms with unnecessary border lines. Defaults to 0.
 #'
 #' @return Updated geom defaults for linetype
 #' @export
@@ -396,8 +396,8 @@ weave_geom_vline <- function(
 #' Set geom palettes
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default. Use NULL to leave as is.
-#' @param col_palette_c For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default. Use NULL to leave as is.
+#' @param col_palette_discrete For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default. Use NULL to leave as is.
+#' @param col_palette_continuous For a continuous scale, a character vector of hex codes. Use NULL for ggplot2 default. Use NULL to leave as is.
 #' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function. Use NULL for ggplot2 default. Use NULL to leave as is.
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param col_palette_na_c For a continuous scale, a hex code.
@@ -406,22 +406,22 @@ weave_geom_vline <- function(
 #' @noRd
 weave_geom_palettes <- function(
   ...,
-  col_palette_d = jumble,
-  col_palette_c = viridisLite::mako(n = 9, direction = -1),
+  col_palette_discrete = jumble,
+  col_palette_continuous = viridisLite::mako(n = 9, direction = -1),
   col_palette_o = scales::pal_viridis(option = "G", direction = -1),
   col_palette_na_d = "#CDC5BFFF",
   col_palette_na_c = "#988F88FF", # i.e. colorspace::darken(grey, 0.25)
   col_palette_na_o = "#988F88FF"
 ) {
-  if (!rlang::is_null(col_palette_d)) {
-    weave_col_palette_d(
-      col_palette_d = col_palette_d,
+  if (!rlang::is_null(col_palette_discrete)) {
+    weave_col_palette_discrete(
+      col_palette_discrete = col_palette_discrete,
       col_palette_na_d = col_palette_na_d
     )
   }
-  if (!rlang::is_null(col_palette_c)) {
-    weave_col_palette_c(
-      col_palette_c = col_palette_c,
+  if (!rlang::is_null(col_palette_continuous)) {
+    weave_col_palette_continuous(
+      col_palette_continuous = col_palette_continuous,
       col_palette_na_c = col_palette_na_c
     )
   }
@@ -435,13 +435,13 @@ weave_geom_palettes <- function(
 
 #' Set a discrete geom_colour and geom_fill palette
 #'
-#' @param col_palette_d For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.
+#' @param col_palette_discrete For a discrete scale, a character vector of hex codes. Use NULL for ggplot2 default.
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @noRd
-weave_col_palette_d <- function(
-  col_palette_d = jumble,
+weave_col_palette_discrete <- function(
+  col_palette_discrete = jumble,
   col_palette_na_d = "#CDC5BFFF",
   ...
 ) {
@@ -449,12 +449,12 @@ weave_col_palette_d <- function(
     col_palette_na_d <- "grey50"
   }
 
-  if (!rlang::is_null(col_palette_d)) {
-    if (!rlang::is_function(col_palette_d)) {
-      col_palette_d <- c(col_palette_d, rep(col_palette_na_d, times = 100))
+  if (!rlang::is_null(col_palette_discrete)) {
+    if (!rlang::is_function(col_palette_discrete)) {
+      col_palette_discrete <- c(col_palette_discrete, rep(col_palette_na_d, times = 100))
     }
-    old <- ggblanket_global$col_palette_d
-    ggblanket_global$col_palette_d <- col_palette_d
+    old <- ggblanket_global$col_palette_discrete
+    ggblanket_global$col_palette_discrete <- col_palette_discrete
     invisible(old)
 
     old <- ggblanket_global$col_palette_na_d
@@ -464,13 +464,13 @@ weave_col_palette_d <- function(
     options(
       ggplot2.discrete.colour = function() {
         ggplot2::scale_colour_manual(
-          values = col_palette_d,
+          values = col_palette_discrete,
           na.value = col_palette_na_d
         )
       },
       ggplot2.discrete.fill = function() {
         ggplot2::scale_fill_manual(
-          values = col_palette_d,
+          values = col_palette_discrete,
           na.value = col_palette_na_d
         )
       }
@@ -480,18 +480,18 @@ weave_col_palette_d <- function(
 
 #' Set a continuous geom_colour and geom_fill palette
 #'
-#' @param col_palette_c For a continuous scale, A character vector of hex codes (or names) or a `scales::pal_*()` function. Use NULL for ggplot2 default.
+#' @param col_palette_continuous For a continuous scale, A character vector of hex codes (or names) or a `scales::pal_*()` function. Use NULL for ggplot2 default.
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @noRd
-weave_col_palette_c <- function(
-  col_palette_c = viridisLite::mako(n = 9, direction = -1),
+weave_col_palette_continuous <- function(
+  col_palette_continuous = viridisLite::mako(n = 9, direction = -1),
   col_palette_na_c = "#988F88FF", # i.e. colorspace::darken(grey, 0.25)
   ...
 ) {
-  if (rlang::is_null(col_palette_c)) {
-    col_palette_c <- scales::pal_seq_gradient(
+  if (rlang::is_null(col_palette_continuous)) {
+    col_palette_continuous <- scales::pal_seq_gradient(
       low = "#132B43",
       high = "#56B1F7"
     )(seq(0, 1, length.out = 20))
@@ -501,14 +501,14 @@ weave_col_palette_c <- function(
     col_palette_na_c <- "grey50"
   }
 
-  col_palette_c <- if (is.function(col_palette_c)) {
-    col_palette_c(256)
+  col_palette_continuous <- if (is.function(col_palette_continuous)) {
+    col_palette_continuous(256)
   } else {
-    col_palette_c
+    col_palette_continuous
   }
 
-  old <- ggblanket_global$col_palette_c
-  ggblanket_global$col_palette_c <- col_palette_c
+  old <- ggblanket_global$col_palette_continuous
+  ggblanket_global$col_palette_continuous <- col_palette_continuous
   invisible(old)
 
   old <- ggblanket_global$col_palette_na_c
@@ -518,13 +518,13 @@ weave_col_palette_c <- function(
   options(
     ggplot2.continuous.colour = function() {
       ggplot2::scale_colour_gradientn(
-        colours = col_palette_c,
+        colours = col_palette_continuous,
         na.value = col_palette_na_c
       )
     },
     ggplot2.continuous.fill = function() {
       ggplot2::scale_fill_gradientn(
-        colours = col_palette_c,
+        colours = col_palette_continuous,
         na.value = col_palette_na_c
       )
     }
