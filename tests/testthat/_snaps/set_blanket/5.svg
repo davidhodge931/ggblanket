@@ -378,8 +378,8 @@
 <circle cx='273.09' cy='373.24' r='1.95' style='stroke-width: 0.71; stroke: #CB464B; fill: #CB464B;' />
 <circle cx='410.66' cy='335.06' r='1.95' style='stroke-width: 0.71; stroke: #DE4A37; fill: #DE4A37;' />
 <circle cx='313.56' cy='373.24' r='1.95' style='stroke-width: 0.71; stroke: #DA3C39; fill: #DA3C39;' />
-<line x1='329.74' y1='523.01' x2='329.74' y2='53.14' style='stroke-width: 10.67; stroke: #FF0000; stroke-linecap: butt;' />
-<text x='210.58' y='175.78' text-anchor='middle' style='font-size: 15.05px; fill: #FF0000; font-family: sans;' textLength='32.63px' lengthAdjust='spacingAndGlyphs'>Here</text>
+<line x1='329.74' y1='523.01' x2='329.74' y2='53.14' style='stroke-width: 10.67; stroke: #0095A8; stroke-linecap: butt;' />
+<text x='210.58' y='185.24' text-anchor='middle' style='font-size: 42.52px; fill: #0095A8; font-family: sans;' textLength='92.17px' lengthAdjust='spacingAndGlyphs'>Here</text>
 <polyline points='79.29,523.01 79.29,53.14 ' style='stroke-width: 0.53; stroke: none; stroke-linecap: square;' />
 <text x='72.89' y='528.17' text-anchor='end' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='37.54px' lengthAdjust='spacingAndGlyphs'>2,500</text>
 <text x='72.89' y='469.43' text-anchor='end' style='font-size: 15.00px; fill: #C8D7DF; font-family: sans;' textLength='37.54px' lengthAdjust='spacingAndGlyphs'>3,000</text>
