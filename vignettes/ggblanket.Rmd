@@ -351,8 +351,8 @@ palmerpenguins::penguins |>
 
 The `set_blanket` function sets customisable defaults for the:
 
-* the geom defaults, including the colour (and fill) of geoms
-* the colour (and fill) palettes for discrete, continuous and ordinal
+* the geom defaults, including the colour/fill
+* the colour/fill palettes for discrete, continuous and ordinal
 * the theme, and how/what side-effects are to be applied
 * the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc.
 
@@ -374,7 +374,7 @@ set_blanket(
     ),
     labs(colour = NULL, fill = NULL),
   ),
-  colour = "tan", 
+  col = "tan", 
   col_palette_d = c("#003f5c", "#bc5090", "#ffa600", "#357BA2"),
   col_palette_na_d = "#78909C",
 )

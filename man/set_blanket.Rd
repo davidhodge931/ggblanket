@@ -7,11 +7,15 @@
 set_blanket(
   theme = theme_lighter(),
   ...,
-  colour = "#357BA2FF",
-  fill = colour,
+  col = "#357BA2FF",
+  colour = col,
+  fill = col,
   linewidth = 0.66,
-  bordertype = 0,
   size = 1.5,
+  linetype = 1,
+  linetype_border = 0,
+  linetype_box = 1,
+  linetype_sf = 1,
   col_palette_discrete = jumble,
   col_palette_continuous = viridisLite::mako(n = 9, direction = -1),
   col_palette_o = scales::pal_viridis(option = "G", direction = -1),
@@ -30,15 +34,23 @@ set_blanket(
 
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
-\item{colour}{A default hex code for the colour of most geoms. Defaults to blue.}
+\item{col}{A default hex code for the colour and fill of most geoms. Defaults to "#357BA2FF" (i.e. \code{blue}).}
 
-\item{fill}{A default hex code for the fill of most geoms. Inherits from colour.}
+\item{colour}{A default hex code for the colour of most geoms. Defaults to col.}
+
+\item{fill}{A default hex code for the fill of most geoms. Defaults to col.}
 
 \item{linewidth}{A default linewidth for most geoms. Defaults to 0.66.}
 
-\item{bordertype}{A default linetype for geoms with unnecessary border lines. Defaults to 0.}
-
 \item{size}{A default size for the point geom. Defaults to 1.5. The pointrange size defaults to dividing by 6 (i.e. 0.25).}
+
+\item{linetype}{A default linetype for geoms not specified by linetype_border, linetype_box. or linetype_sf. Defaults to 1.}
+
+\item{linetype_border}{A default linetype for polygon-is geoms (other than boxplot, crossbar or sf). Defaults to 0.}
+
+\item{linetype_box}{A default linetype for boxplot and crossbar geoms. Defaults to 1.}
+
+\item{linetype_sf}{A default linetype for sf geoms. Defaults to 0.}
 
 \item{col_palette_discrete}{For a discrete scale, a character vector of hex codes.}
 

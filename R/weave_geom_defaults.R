@@ -3,13 +3,14 @@
 #' @description
 #' Update the colour and fill for most geoms. Excludes "text", "label", "hline", and "vline".
 #'
-#' @param colour A default hex code for the colour of most geoms. Defaults to blue.
-#' @param fill A default hex code for the fill of most geoms. Inherits from colour.
+#' @param col A default hex code for the colour and fill of most geoms. Defaults to "#357BA2FF" (i.e. `blue`).
+#' @param colour A default hex code for the colour of most geoms. Defaults to col.
+#' @param fill A default hex code for the fill of most geoms. Defaults to col.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @return Updated geom defaults for colour and fill
 #' @export
-weave_geom_colour_fill <- function(colour = blue, fill = colour, ...) {
+weave_geom_col <- function(col = blue, colour = col, fill = col, ...) {
 
   ggplot2::update_theme(
     #includes polygons (with borders)
@@ -28,6 +29,7 @@ weave_geom_colour_fill <- function(colour = blue, fill = colour, ...) {
     geom.rect = ggplot2::element_geom(colour = colour, fill = fill ),
     geom.ribbon = ggplot2::element_geom(colour = colour, fill = fill ),
     geom.sf = ggplot2::element_geom(colour = colour, fill = fill ),
+    geom.smooth = ggplot2::element_geom(colour = colour, fill = fill ),
     geom.tile = ggplot2::element_geom(colour = colour, fill = fill ),
     geom.violin = ggplot2::element_geom(colour = colour, fill = fill ),
 
@@ -56,57 +58,65 @@ weave_geom_colour_fill <- function(colour = blue, fill = colour, ...) {
 #' Update the linetype for some geoms
 #'
 #' @description
-#' Update the linetype for geoms with unnecessary border lines to zero. Excludes boxplot and crossbar.
+#' Update the linetype for geoms with unnecessary border lines to 0. Excludes boxplot, crossbar and smooth.
 #'
-#' @param bordertype A default linetype for geoms with unnecessary border lines. Defaults to 0.
+#' @param linetype A default linetype for geoms not specified by linetype_border, linetype_box. or linetype_sf. Defaults to 1.
+#' @param linetype_sf A default linetype for sf geoms. Defaults to 0.
+#' @param linetype_box A default linetype for boxplot and crossbar geoms. Defaults to 1.
+#' @param linetype_border A default linetype for polygon-is geoms (other than boxplot, crossbar or sf). Defaults to 0.
 #'
 #' @return Updated geom defaults for linetype
 #' @export
 #'
-weave_geom_bordertype <- function(bordertype = 0) {
+weave_geom_linetype <- function(linetype = 1, linetype_sf = 1, linetype_box = 1, linetype_border = 0) {
 
   ggplot2::update_theme(
 
+    #includes everything
+    geom.sf = ggplot2::element_geom(linetype = linetype_sf),
+
     #includes polygons with necessary borders
-    # geom.boxplot = ggplot2::element_geom(bordertype = 1, linetype = 1),
-    # geom.crossbar = ggplot2::element_geom(bordertype = 1, linetype = 1),
+    geom.boxplot = ggplot2::element_geom(bordertype = linetype_box),
+    geom.crossbar = ggplot2::element_geom(bordertype = linetype_box),
 
     #includes polygons (with borders)
-    geom.area = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.bar = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.bin2d = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.col = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.contour_filled = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.density = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.density_2d_filled = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.hex = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.polygon = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.raster = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.rect = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.ribbon = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.sf = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.tile = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
-    geom.violin = ggplot2::element_geom(bordertype = bordertype, linetype = bordertype),
+    geom.area = ggplot2::element_geom(bordertype = linetype_border),
+    geom.bar = ggplot2::element_geom(bordertype = linetype_border),
+    geom.bin2d = ggplot2::element_geom(bordertype = linetype_border),
+    geom.col = ggplot2::element_geom(bordertype = linetype_border),
+    geom.contour_filled = ggplot2::element_geom(bordertype = linetype_border),
+    geom.density = ggplot2::element_geom(bordertype = linetype_border),
+    geom.density_2d_filled = ggplot2::element_geom(bordertype = linetype_border),
+    geom.hex = ggplot2::element_geom(bordertype = linetype_border),
+    geom.polygon = ggplot2::element_geom(bordertype = linetype_border),
+    geom.raster = ggplot2::element_geom(bordertype = linetype_border),
+    geom.rect = ggplot2::element_geom(bordertype = linetype_border),
+    geom.ribbon = ggplot2::element_geom(bordertype = linetype_border),
+    geom.tile = ggplot2::element_geom(bordertype = linetype_border),
+    geom.violin = ggplot2::element_geom(bordertype = linetype_border),
+
+    # else smooth which ggplot2 interprets as line
+    geom.smooth = ggplot2::element_geom(linetype = linetype),
 
     #else includes points
-    # geom.point = ggplot2::element_geom(linetype = 1),
-    # geom.pointrange = ggplot2::element_geom(linetype = 1),
+    geom.point = ggplot2::element_geom(linetype = linetype),
+    geom.pointrange = ggplot2::element_geom(linetype = linetype),
 
     #else just lines
-    # geom.abline = ggplot2::element_geom(linetype = 1),
-    # geom.contour = ggplot2::element_geom(linetype = 1),
-    # geom.curve = ggplot2::element_geom(linetype = 1),
-    # geom.density2d = ggplot2::element_geom(linetype = 1),
-    # geom.errorbar = ggplot2::element_geom(linetype = 1),
-    # geom.function = ggplot2::element_geom(linetype = 1),
-    # geom.line = ggplot2::element_geom(linetype = 1),
-    # geom.linerange = ggplot2::element_geom(linetype = 1),
-    # geom.path = ggplot2::element_geom(linetype = 1),
-    # geom.quantile = ggplot2::element_geom(linetype = 1),
-    # geom.rug = ggplot2::element_geom(linetype = 1),
-    # geom.segment = ggplot2::element_geom(linetype = 1),
-    # geom.spoke = ggplot2::element_geom(linetype = 1),
-    # geom.step = ggplot2::element_geom(linetype = 1),
+    geom.abline = ggplot2::element_geom(linetype = linetype),
+    geom.contour = ggplot2::element_geom(linetype = linetype),
+    geom.curve = ggplot2::element_geom(linetype = linetype),
+    geom.density2d = ggplot2::element_geom(linetype = linetype),
+    geom.errorbar = ggplot2::element_geom(linetype = linetype),
+    geom.function = ggplot2::element_geom(linetype = linetype),
+    geom.line = ggplot2::element_geom(linetype = linetype),
+    geom.linerange = ggplot2::element_geom(linetype = linetype),
+    geom.path = ggplot2::element_geom(linetype = linetype),
+    geom.quantile = ggplot2::element_geom(linetype = linetype),
+    geom.rug = ggplot2::element_geom(linetype = linetype),
+    geom.segment = ggplot2::element_geom(linetype = linetype),
+    geom.spoke = ggplot2::element_geom(linetype = linetype),
+    geom.step = ggplot2::element_geom(linetype = linetype),
   )
 }
 
@@ -138,6 +148,7 @@ weave_geom_linewidth <- function(linewidth = 0.66, ...) {
     geom.raster = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
     geom.rect = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
     geom.ribbon = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
+    geom.smooth = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
     geom.sf = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
     geom.tile = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),
     geom.violin = ggplot2::element_geom(borderwidth = linewidth, linewidth = linewidth),

@@ -236,14 +236,14 @@ gg_blanket <- function(
 
   if (geom_name == "boxplot") {
     params <- rlang::list2(
-      median_gp = list(linetype = 1, linewidth = ggplot2::get_geom_defaults("boxplot")$linewidth),
+      median_gp = list(linewidth = ggplot2::get_geom_defaults("boxplot")$linewidth),
       box_gp = list(linewidth = 0),
       ...
     )
   }
   else if (geom_name == "crossbar") {
     params <- rlang::list2(
-      middle_gp = list(linetype = 1, linewidth = ggplot2::get_geom_defaults("crossbar")$linewidth),
+      middle_gp = list(linewidth = ggplot2::get_geom_defaults("crossbar")$linewidth),
       box_gp = list(linewidth = 0),
       ...
     )
@@ -253,9 +253,6 @@ gg_blanket <- function(
   #     quantile_gp  = list(linetype = 1, linewidth = ggplot2::get_geom_defaults("violin")$linewidth),
   #     ...
   #   )
-  # }
-  # else if (geom_name %in% c("text", "label")) {
-  #   params <- rlang::list2(size.unit = "pt", ...)
   # }
   else {
     params <- rlang::list2(...)
@@ -946,8 +943,14 @@ gg_blanket <- function(
             aesthetics = c("colour", "fill")
           ) +
           ggplot2::guides(
-            colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
-            fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
+            colour = ggplot2::guide_colourbar(
+              reverse = col_legend_rev,
+              # theme = ggplot2::theme(legend.key.height = ggplot2::rel(1.5))
+            ),
+            fill = ggplot2::guide_colourbar(
+              reverse = col_legend_rev,
+              # theme = ggplot2::theme(legend.key.height = ggplot2::rel(1.5))
+              )
           )
       }
       else if (col_steps) {
@@ -965,11 +968,17 @@ gg_blanket <- function(
           ggplot2::guides(
             colour = ggplot2::guide_coloursteps(
               reverse = col_legend_rev,
-              theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+              theme = ggplot2::theme(
+                legend.ticks = ggplot2::element_blank(),
+                # legend.key.height = ggplot2::rel(1.5)
+                )
             ),
             fill = ggplot2::guide_coloursteps(
               reverse = col_legend_rev,
-              theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+              theme = ggplot2::theme(
+                legend.ticks = ggplot2::element_blank(),
+                # legend.key.height = ggplot2::rel(1.5)
+                ),
             )
           )
       }

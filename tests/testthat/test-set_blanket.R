@@ -8,14 +8,14 @@ library(dplyr)
 ###
 test_name <- "1"
 
-test_that(test_name, {
-  set_blanket(
-    theme = theme_grey(),
-    axis_line_transparent = FALSE,
-    axis_ticks_transparent = FALSE,
-    panel_grid_transparent = FALSE
-  )
+set_blanket(
+  theme = theme_grey(),
+  axis_line_transparent = FALSE,
+  axis_ticks_transparent = FALSE,
+  panel_grid_transparent = FALSE
+)
 
+test_that(test_name, {
   p <- penguins |>
     mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_point(
@@ -31,16 +31,15 @@ test_that(test_name, {
 ###
 test_name <- "2"
 
+set_blanket(
+  theme = theme_lighter(),
+  col = red,
+)
+
+update_geom_defaults("text", aes(colour = teal))
+update_geom_defaults("vline", aes(colour = teal))
+
 test_that(test_name, {
-  set_blanket(
-    theme = theme_lighter(),
-    colour = red,
-  )
-
-  update_geom_defaults("text", aes(colour = teal))
-
-  update_geom_defaults("vline", aes(colour = teal))
-
   p <- penguins |>
     mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_point(
@@ -57,7 +56,7 @@ test_that(test_name, {
 
 set_blanket(
   theme = theme_darker(base_size = 15),
-  colour = red,
+  col = red,
   col_palette_discrete = c(navy, red, "green"),
   col_palette_continuous = c(navy, purple, red, orange)
 )

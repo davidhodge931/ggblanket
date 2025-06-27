@@ -1,5 +1,6 @@
 # ggblanket 12.4.0900
 
+* Breaking: added `col` to `set_blanket`, and made `colour` and `fill` only set itself.
 * Breaking: lines turned off through `linetype = 0` instead of `linewidth = 0`.
 * Breaking: renamed and redesigned themes to `theme_lighter` and `theme_darker`.
 * Breaking: renamed `theme_` prefixed arguments to `perspective`, `axis_line_transparent`, `axis_ticks_transparent`, and `panel_grid_transparent`.
