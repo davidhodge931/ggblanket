@@ -8,7 +8,8 @@ weave_geom_linetype(
   linetype = 1,
   linetype_border = 0,
   linetype_box = 1,
-  linetype_sf = 0
+  linetype_sf = 0,
+  ...
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ weave_geom_linetype(
 \item{linetype_box}{A default linetype for boxplot and crossbar geoms. Defaults to 1.}
 
 \item{linetype_sf}{A default linetype for sf geoms. Defaults to 0.}
+
+\item{...}{Provided to require argument naming, support trailing commas etc.}
 }
 \value{
 Updated geom defaults for linetype

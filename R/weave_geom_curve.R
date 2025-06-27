@@ -4,7 +4,7 @@
 #'
 #' @param colour A hex code.
 #' @param linewidth A linewidth.
-#' @param ... Additional arguments passed to [ggplot2::element_geom()].#'
+#' @param ... Additional arguments passed to [ggplot2::element_geom()].
 #' @noRd
 weave_geom_curve <- function(
     ...,

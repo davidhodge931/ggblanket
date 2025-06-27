@@ -25,17 +25,16 @@ weave_geom_label <- function(
   current_theme <- ggplot2::get_theme()
 
   # Extract theme properties with fallback hierarchy
-  if (rlang::is_null(fill)) {
-    fill <- current_theme$axis.text.x$colour %||%
+  if (rlang::is_null(colour)) {
+    colour <- current_theme$axis.text.x$colour %||%
       current_theme$axis.text.y$colour %||%
       current_theme$axis.text$colour %||%
       current_theme$text$colour %||%
       "black"
   }
 
-  if (rlang::is_null(colour)) {
-    colour <- current_theme$panel.background$fill %||%
-      current_theme$plot.background$fill %||%
+  if (rlang::is_null(fill)) {
+    fill <- current_theme$panel.background$fill %||%
       "white"
   }
 
