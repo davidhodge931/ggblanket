@@ -108,9 +108,16 @@ set_blanket <- function(
     linetype_sf = linetype_sf
   )
 
+  # weave_geom_annotation(
+  #   colour = NULL,
+  #   fill = NULL,
+  #   linewidth = NULL,
+  #   size = NULL,
+  # )
+
   weave_geom_text()
   weave_geom_label()
-  weave_geom_vline()
+  weave_geom_vline() #ABLINE TOO??
   weave_geom_hline()
   weave_geom_curve() #NOT SURE
 
