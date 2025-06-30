@@ -173,21 +173,3 @@ A ggplot object.
 \description{
 Create a blanket ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \code{layer()} with \link[ggplot2:geom_blank]{geom_blank()} defaults for the geom, stat and position. This function underlies all other \verb{gg_*} functions. It contains a \code{geom} argument for maximum flexibility.
 }
-\examples{
-library(ggplot2)
-library(dplyr)
-
-
-set_blanket()
-
-palmerpenguins::penguins |>
-  gg_blanket(
-    geom = "violin",
-    stat = "ydensity",
-    position = "dodge",
-    x = species,
-    y = body_mass_g,
-    col = sex,
-  )
-
-}

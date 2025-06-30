@@ -2,29 +2,30 @@
 # Helper functions for gg_blanket to modularize the code
 # These functions extract logical chunks from the original gg_blanket function
 
-#' Quote all aesthetic variables
+#' Store already-quoted aesthetic variables in a list
+#' @description This function expects already-quoted expressions (quosures)
 #' @noRd
 quote_aesthetics <- function(x, y, col, facet, facet2, xmin, xmax, xend,
                              ymin, ymax, yend, z, group, subgroup, label,
                              text, sample) {
   list(
-    x = rlang::enquo(x),
-    y = rlang::enquo(y),
-    col = rlang::enquo(col),
-    facet = rlang::enquo(facet),
-    facet2 = rlang::enquo(facet2),
-    xmin = rlang::enquo(xmin),
-    xmax = rlang::enquo(xmax),
-    xend = rlang::enquo(xend),
-    ymin = rlang::enquo(ymin),
-    ymax = rlang::enquo(ymax),
-    yend = rlang::enquo(yend),
-    z = rlang::enquo(z),
-    group = rlang::enquo(group),
-    subgroup = rlang::enquo(subgroup),
-    label = rlang::enquo(label),
-    text = rlang::enquo(text),
-    sample = rlang::enquo(sample)
+    x = x,
+    y = y,
+    col = col,
+    facet = facet,
+    facet2 = facet2,
+    xmin = xmin,
+    xmax = xmax,
+    xend = xend,
+    ymin = ymin,
+    ymax = ymax,
+    yend = yend,
+    z = z,
+    group = group,
+    subgroup = subgroup,
+    label = label,
+    text = text,
+    sample = sample
   )
 }
 
