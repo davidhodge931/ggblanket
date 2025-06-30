@@ -174,7 +174,7 @@ gg_blanket <- function(
   ##############################################################################
 
   # Create initial plot to determine scale types
-  plot <- plot_base_internal(
+  plot <- create_base_plot(
     data = data,
     x = !!aes_list$x,
     y = !!aes_list$y,
@@ -247,7 +247,7 @@ gg_blanket <- function(
   ##############################################################################
   # Step 8: Rebuild base plot with processed data
   ##############################################################################
-  plot <- plot_base_internal(
+  plot <- create_base_plot(
     data = data,
     x = !!aes_list$x,
     y = !!aes_list$y,

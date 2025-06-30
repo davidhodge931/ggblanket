@@ -209,7 +209,7 @@
 #'   # determine scale type
 #'   ##############################################################################
 #'
-#'   plot <- plot_base_internal(
+#'   plot <- create_base_plot(
 #'     data = data,
 #'     x = !!x,
 #'     y = !!y,
@@ -551,7 +551,7 @@
 #'   # get the base plot using processed data
 #'   ##############################################################################
 #'
-#'   plot <- plot_base_internal(
+#'   plot <- create_base_plot(
 #'     data = data,
 #'     x = !!x,
 #'     y = !!y,
