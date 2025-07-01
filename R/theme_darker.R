@@ -3,7 +3,7 @@
 #' @description A darker complete theme.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param base_size The base size of the text theme element. Defaults to 11.
+#' @param base_size The base size of the text theme element. Defaults to 10.
 #' @param base_family The base family of the text theme element. Defaults to "".
 #' @param base_colour The base colour of the text theme element.
 #' @param legend_position The position of the legend. Either "right", "top" or "bottom".
@@ -60,7 +60,7 @@
 #'
 theme_darker <- function(
     ...,
-    base_size = 11,
+    base_size = 10,
     base_family = "",
     base_colour = "#C8D7DFFF",
     legend_position = "right",
@@ -83,7 +83,7 @@ theme_darker <- function(
     panel_background_fill = "#050D1BFF",
     plot_background_fill = "#00040AFF"
 ) {
-  theme_internal(
+  theme_base(
     base_size = base_size,
     base_family = base_family,
     base_colour = base_colour,

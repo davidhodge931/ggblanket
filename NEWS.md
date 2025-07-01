@@ -1,5 +1,6 @@
 # ggblanket 12.4.0900
 
+* Modularised `gg_blanket` function somewhat.
 * Breaking: renamed `*_label` to `*_title`, and `label_case` to `titles_case`.
 * Breaking: added `col` to `set_blanket`, and made `colour` and `fill` only set itself.
 * Breaking: lines turned off through `linetype = 0` instead of `linewidth = 0`.
@@ -7,6 +8,7 @@
 * Breaking: renamed `theme_` prefixed arguments to `perspective`, `axis_line_transparent`, `axis_ticks_transparent`, and `panel_grid_transparent`.
 * Breaking: adjusted `annotate_axis_line` arguments.
 * For dates etc, defaulted labels to `scales::label_date_short(leading = "")`.
+* Added `bind_each_all` to assist with plotting groups alongside the total.
 * Added `standardise_width`.
 * Added `annotate_axis_ticks`.
 * Added `element_line_transparent`.
@@ -17,7 +19,6 @@
 * Breaking: removed `set_geom_font` and `set_geom_reference_line`.
 * Breaking: renamed `*_expand_limits` to `*_limits_include`.
 * Breaking: removed `gg_ribbon_line`. Use `gg_smooth(stat = "identity", ...)` instead.
-* Added `bind_each_all` function to assist with plotting groups alongside the total.
 * `set_blanket` now sets hline, vline, text, and label defaults based on the theme. 
 
 # ggblanket 12.3.0

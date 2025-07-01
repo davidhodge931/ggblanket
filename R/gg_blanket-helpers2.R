@@ -930,15 +930,15 @@ check_aesthetic_matches_colour <- function(plot_build, aesthetic) {
 
 #' Extract label with fallback
 #' @noRd
-extract_title <- function(data, aes_quo, labs, titles_case, default = NULL) {
+extract_title <- function(data, aes_quo, build_title, titles_case, default = NULL) {
   if (!rlang::quo_is_null(aes_quo)) {
     #get any label attribute from data
     if (!rlang::is_null(attr(dplyr::pull(data, !!aes_quo), "label"))) {
       title <- attr(dplyr::pull(data, !!aes_quo), "label")
     }
     #then get it from the plot_data and apply titles_case function
-    else if (!rlang::is_null(labs)) {
-      title <- purrr::map_chr(rlang::as_name(labs[1]), titles_case)
+    else if (!rlang::is_null(build_title)) {
+      title <- purrr::map_chr(rlang::as_name(build_title[1]), titles_case)
     }
     #otherwise
     else {
@@ -946,8 +946,8 @@ extract_title <- function(data, aes_quo, labs, titles_case, default = NULL) {
     }
   }
   #if NULL
-  else if (!rlang::is_null(title)) {
-    title <- purrr::map_chr(rlang::as_name(labs[1]), titles_case)
+  else if (!rlang::is_null(build_title)) {
+    title <- purrr::map_chr(rlang::as_name(build_title[1]), titles_case)
   } else {
     title <- default
   }
