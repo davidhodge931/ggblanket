@@ -285,10 +285,10 @@ test_that(test_name, {
       x_labels = \(x) abs(x),
       y_symmetric = FALSE,
       y_expand = c(0, 0),
-    ) +
-    geom_vline(
-      xintercept = 0,
     )
+    # geom_vline(
+    #   xintercept = 0,
+    # )
 
   vdiffr::expect_doppelganger(test_name, p)
 })

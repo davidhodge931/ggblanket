@@ -63,7 +63,7 @@ economics |>
   gg_area(
     x = date,
     y = unemploy,
-    y_label = "Unemployment",
+    y_title = "Unemployment",
   )
 ```
 
@@ -199,7 +199,7 @@ experiment |>
     ymin = lower,
     ymax = upper,
     col = group,
-    y_label = "Response",
+    y_title = "Response",
     width = 0.1,
     y_limits_include = 0,
  )
@@ -223,7 +223,7 @@ penguins2 |>
 gg_function(
   fun = \(x) dnorm(x, mean = 0, sd = 5),
   x_limits_include = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
-  x_label = "X",
+  x_title = "X",
   y_limits_include = 0,
 )
 ```
@@ -276,7 +276,7 @@ bind_rows(
     y = mpg,
     label = model,
     y_limits_include = 0,
-    y_label = "Miles per gallon", 
+    y_title = "Miles per gallon", 
   )
 ```
 
@@ -288,7 +288,7 @@ economics |>
     x = date,
     y = unemploy,
     y_limits_include = 0, 
-    y_label = "Unemployment",
+    y_title = "Unemployment",
   )
 ```
 
@@ -302,7 +302,7 @@ experiment |>
     ymin = lower,
     ymax = upper,
     col = group,
-    y_label = "Response",
+    y_title = "Response",
     y_limits_include = 0,
   )
 ```
@@ -315,9 +315,9 @@ economics |>
   gg_path(
     x = unemploy_rate,
     y = psavert,
-    x_label = "Unemployment rate",
+    x_title = "Unemployment rate",
     y_limits_include = 0,
-    y_label = "Personal savings rate",
+    y_title = "Personal savings rate",
   )
 ```
 
@@ -442,7 +442,7 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     ymin = level_min,
     ymax = level_max,
     x_labels = \(x) x,
-    y_label = "Level",
+    y_title = "Level",
   ) 
 ```
 
@@ -499,7 +499,7 @@ economics |>
     x = date,
     y = unemploy,
     y_limits_include = 0,
-    y_label = "Unemployment",
+    y_title = "Unemployment",
   )
 ```
 
@@ -515,7 +515,7 @@ bind_rows(
     y = mpg,
     label = model,
     y_limits_include = 0,
-    y_label = "Miles per gallon",
+    y_title = "Miles per gallon",
   )
 ```
 

@@ -180,8 +180,7 @@ economics |>
     stat = "bspline", n = 100, type = "clamped",
     x = date, 
     y = unemploy,
-    linewidth = 1,
-    y_label = "Unemployment",
+    y_title = "Unemployment",
   ) 
 ```
 

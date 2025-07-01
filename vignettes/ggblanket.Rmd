@@ -44,7 +44,7 @@ Computational speed has been traded-off.
 5.  A `facet2` argument to facet by a 2nd variable
 6.  Other aesthetics via `mapping` argument
 7.  Prefixed arguments to customise x/y/col/facet
-8.  Smart `*_label` defaults for axis and legend titles
+8.  Smart `*_title` defaults for axis and legend titles
 9.  Other `ggplot2::geom_*` arguments via `...`
 10.  `theme_lighter` and `theme_darker` themes 
 11.  Side-effects to the `theme` based on the `theme_orientation`
@@ -98,7 +98,7 @@ The colour and fill aesthetics of ggplot2 are merged into a single concept repre
 When the `col` argument is added, this means that outlines _and_ interiors 
 are coloured/filled by the `col` variable using the `col_palette`. 
 
-The defaults used in `set_blanket` for the polygon-ish geoms generally use `linewidth = 0` to make things work nicely.
+The defaults used in `set_blanket` for the linewidth of polygon-ish geoms generally use zero.
 
 ```{r}
 palmerpenguins::penguins |>
@@ -174,25 +174,25 @@ palmerpenguins::penguins |>
     y = body_mass_g,
     col = bill_length_mm,
     x_breaks_n = 4,
-    x_label = "Flipper length",
+    x_title = "Flipper length",
     x_labels = \(x) paste0(x, " mm"),
     y_limits_include = 1000,
     y_labels = label_number(big.mark = " "), 
     y_transform = "sqrt",
-    col_label = "Bill\nlength (mm)",
+    col_title = "Bill\nlength (mm)",
     col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
     col_palette = viridis::rocket(n = 9, direction = -1),
   )
 ```
 
-### 8.  Smart `*_label` defaults for axis and legend titles
+### 8.  Smart `*_title` defaults for axis and legend titles
 
-The `x_label`, `y_label` and `col_label` for the axis and legend titles can be manually specified with the applicable `*_label` argument (or `+ ggplot2::labs(...)`).
+The `x_title`, `y_title` and `col_title` for the axis and legend titles can be manually specified with the applicable `*_title` argument (or `+ ggplot2::labs(...)`).
 
 If not specified, they will first take any label attribute associated with the applicable variable. 
 
-If none, they will then convert the variable name to a label name using the `label_to_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence_case`). 
+If none, they will then convert the variable name to a label name using the `titles_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence_case`). 
 
 ```{r, fig.asp=0.6}
 palmerpenguins::penguins |>
@@ -354,9 +354,9 @@ The `set_blanket` function sets customisable defaults for the:
 * the geom defaults, including the colour/fill
 * the colour/fill palettes for discrete, continuous and ordinal
 * the theme, and how/what side-effects are to be applied
-* the function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc.
+* the function to apply to a unspecified/unlabelled `x_title`, `y_title`, `col_title` etc.
 
-Note the `theme` argument in `set_blanket` can also be used to default a `*_label` to `NULL` (e.g. `set_blanket(theme = list(dark_mode_r(), labs(colour = NULL, fill = NULL)))`).
+Note the `theme` argument in `set_blanket` can also be used to default a `*_label` to `NULL` (e.g. `set_blanket(theme = list(theme_lighter(), labs(colour = NULL, fill = NULL)))`).
 
 Users should try to do as much as possible in these set-up functions, rather than continually adding arguments to their `gg_*` functions.
 
