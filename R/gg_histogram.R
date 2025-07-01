@@ -27,7 +27,7 @@ gg_histogram <- function(
   stat = "bin",
   position = "stack",
   coord = ggplot2::coord_cartesian(clip = "off"),
-  blend = NULL, theme = NULL,
+  blend = NULL, theme = ggplot2::get_theme(),
   perspective = NULL,
   axis_line_transparent = NULL,
   axis_ticks_transparent = NULL,

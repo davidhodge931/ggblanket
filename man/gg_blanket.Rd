@@ -12,7 +12,7 @@ gg_blanket(
   position = "identity",
   coord = NULL,
   blend = NULL,
-  theme = NULL,
+  theme = ggplot2::get_theme(),
   perspective = NULL,
   axis_line_transparent = NULL,
   axis_ticks_transparent = NULL,

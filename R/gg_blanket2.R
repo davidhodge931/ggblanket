@@ -57,7 +57,7 @@ gg_blanket <- function(
     stat = "identity",
     position = "identity",
     coord = NULL,
-    blend = NULL, theme = NULL,
+    blend = NULL, theme = ggplot2::get_theme(),
     perspective = NULL,
     axis_line_transparent = NULL,
     axis_ticks_transparent = NULL,
@@ -209,15 +209,15 @@ gg_blanket <- function(
   })
 
   # Determine scale types
-  scale_types <- determine_scale_types(plot_build, aes_list, data)
-  x_scale_type <- scale_types$x_scale_type
-  y_scale_type <- scale_types$y_scale_type
-  col_scale_class <- scale_types$col_scale_class
+  scale_classs <- determine_scale_classs(plot_build, aes_list, data)
+  x_scale_class <- scale_classs$x_scale_class
+  y_scale_class <- scale_classs$y_scale_class
+  col_scale_class <- scale_classs$col_scale_class
 
   ##############################################################################
   # Step 5: Get defaults
   ##############################################################################
-  defaults <- get_defaults(x_transform, y_transform, x_scale_type, y_scale_type,
+  defaults <- get_defaults(x_transform, y_transform, x_scale_class, y_scale_class,
                            facet_scales, theme, x_symmetric, y_symmetric,
                            stat_name, perspective, label_case)
 
@@ -289,7 +289,7 @@ gg_blanket <- function(
 
   plot <- add_facet_layer(plot, aes_list, data, facet_layout, facet_scales,
                           facet_space, facet_drop, facet_axes, facet_axis_labels,
-                          facet_nrow, facet_ncol, facet_labels, y_scale_type)
+                          facet_nrow, facet_ncol, facet_labels, y_scale_class)
 
   # Add default color scales
   if (col_scale_class %in% c("discrete", "ordinal")) {
@@ -588,7 +588,7 @@ gg_blanket <- function(
   ##############################################################################
 
   # Make x scale
-  if (x_scale_type == "discrete") {
+  if (x_scale_class == "discrete") {
     if (rlang::is_null(x_expand)) {
       x_expand <- ggplot2::waiver()
     }
@@ -662,7 +662,7 @@ gg_blanket <- function(
   }
 
   # Make y scale
-  if (y_scale_type == "discrete") {
+  if (y_scale_class == "discrete") {
     if (rlang::is_null(y_expand)) {
       y_expand <- ggplot2::waiver()
     }
@@ -829,7 +829,7 @@ gg_blanket <- function(
     transparency$axis_line_transparent,
     transparency$axis_ticks_transparent,
     transparency$panel_grid_transparent,
-    x_scale_type, y_scale_type
+    x_scale_class, y_scale_class
   )
 
   return(plot)

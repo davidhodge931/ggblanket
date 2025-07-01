@@ -70,7 +70,7 @@
 #'     stat = "identity",
 #'     position = "identity",
 #'     coord = NULL,
-#'     blend = NULL, theme = NULL,
+#'     blend = NULL, theme = ggplot2::get_theme(),
 #'     perspective = NULL,
 #'     axis_line_transparent = NULL,
 #'     axis_ticks_transparent = NULL,

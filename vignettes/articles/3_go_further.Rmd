@@ -378,7 +378,7 @@ mpg  |>
     col_palette = c(navy, teal, "white", orange, red),
     col_rescale = scales::rescale(rescale_vctr),
     col_breaks = scales::breaks_width(5),
-    theme = dark_mode_r(),
+    theme = theme_darker(),
   )
 ```
 
