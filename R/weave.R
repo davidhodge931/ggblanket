@@ -9,13 +9,6 @@ ggblanket_global$axis_line_transparent <- NULL
 
 ggblanket_global$titles_case <- NULL
 
-# ggblanket_global$col_palette_d <- NULL
-# ggblanket_global$col_palette_c <- NULL
-# ggblanket_global$col_palette_o <- NULL
-# ggblanket_global$col_palette_na_d <- NULL
-# ggblanket_global$col_palette_na_c <- NULL
-# ggblanket_global$col_palette_na_o <- NULL
-
 #' Set a theme
 #'
 #' @description Set a theme for the theme argument in `gg_*` functions.

@@ -60,8 +60,12 @@ set_blanket <- function(
     theme = theme_lighter(),
     ...,
     col = "#357BA2FF",
+
     colour = col,
+    colour_border = colour,
     fill = col,
+    fill_border = fill,
+
     linewidth = 0.66,
     size = 1.5,
     linetype = 1,

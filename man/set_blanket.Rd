@@ -9,7 +9,9 @@ set_blanket(
   ...,
   col = "#357BA2FF",
   colour = col,
+  colour_border = colour,
   fill = col,
+  fill_border = fill,
   linewidth = 0.66,
   size = 1.5,
   linetype = 1,
@@ -49,9 +51,11 @@ set_blanket(
 
 \item{linetype_sf}{A default linetype for sf geoms. Defaults to 0.}
 
-\item{col_palette_d}{For a discrete scale, a character vector of hex codes.}
+\item{col_palette}{For a colour/fill scale, a character vector of hex codes or a \verb{scales::pal_*} function.}
 
-\item{col_palette_c}{For a continuous scale, a character vector of hex codes.}
+\item{col_palette_d}{For a discrete colour/fill scale, a character vector of hex codes or a \verb{scales::pal_*} function.}
+
+\item{col_palette_c}{For a continuous (or ordinal) colour/fill scale, a character vector of hex codes or a \verb{scales::pal_*} function.}
 
 \item{titles_case}{A function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc. Defaults to \code{snakecase::to_sentence_case}.}
 

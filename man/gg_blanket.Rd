@@ -141,13 +141,15 @@ gg_blanket(
 
 \item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
 
-\item{col_palette, colour_palette, fill_palette}{A character vector of hex codes (or names) or a \verb{scales::pal_*()} function.}
+\item{col_palette}{A character vector of hex codes (or names) or a \verb{scales::pal_*()} function.}
 
 \item{col_palette_na}{A hex code (or name) for the colour of \code{NA} values.}
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
 \item{col_steps}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
+
+\item{colour_palette, fill_palette}{A character vector of hex codes (or names) or a \verb{scales::pal_*()} function.}
 
 \item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_*()} may be needed.}
 
