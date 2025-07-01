@@ -210,7 +210,7 @@ gg_blanket <- function(
   # Get plot build
   suppressMessages({
     suppressWarnings({
-      plot_build <- ggplot2::ggplot_build(plot)
+      plot_build <- ggplot2::build_ggplot(plot)
       plot_data <- plot_build$data[[1]]
     })
   })
@@ -310,7 +310,7 @@ gg_blanket <- function(
   ##############################################################################
   suppressMessages({
     suppressWarnings({
-      plot_build <- ggplot2::ggplot_build(plot)
+      plot_build <- ggplot2::build_ggplot(plot)
       plot_data <- plot_build$data[[1]]
 
       facet_nrows <- length(unique(plot_build$layout$layout$ROW))

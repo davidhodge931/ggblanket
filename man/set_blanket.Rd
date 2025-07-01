@@ -13,14 +13,10 @@ set_blanket(
   linewidth = 0.66,
   size = 1.5,
   linetype = 1,
-  linetype_border = 0,
-  linetype_box = linetype,
-  linetype_sf = linetype,
   col_palette = NULL,
   col_palette_d = jumble,
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
   titles_case = snakecase::to_sentence_case,
-  perspective = NULL,
   axis_line_transparent = TRUE,
   axis_ticks_transparent = TRUE,
   panel_grid_transparent = TRUE
@@ -33,31 +29,19 @@ set_blanket(
 
 \item{col}{A default hex code for the colour and fill of most geoms. Defaults to "#357BA2FF" (i.e. \code{blue}).}
 
-\item{colour}{A default hex code for the colour of most geoms. Defaults to col.}
-
-\item{fill}{A default hex code for the fill of most geoms. Defaults to col.}
-
 \item{linewidth}{A default linewidth for most geoms. Defaults to 0.66.}
 
 \item{size}{A default size for the point geom. Defaults to 1.5. The pointrange size defaults to dividing by 6 (i.e. 0.25).}
 
-\item{linetype}{A default linetype for geoms not specified by linetype_border, linetype_box. or linetype_sf. Defaults to 1.}
+\item{linetype}{A default linetype for most geoms without borders. Defaults to 1.}
 
-\item{linetype_border}{A default linetype for polygon-is geoms (other than boxplot, crossbar or sf). Defaults to 0.}
-
-\item{linetype_box}{A default linetype for boxplot and crossbar geoms. Defaults to 1.}
-
-\item{linetype_sf}{A default linetype for sf geoms. Defaults to 0.}
-
-\item{col_palette}{For a colour/fill scale, a character vector of hex codes or a \verb{scales::pal_*} function.}
+\item{col_palette}{For a discrete colour/fill scale, a character vector of hex codes or a \verb{scales::pal_*} function.}
 
 \item{col_palette_d}{For a discrete colour/fill scale, a character vector of hex codes or a \verb{scales::pal_*} function.}
 
 \item{col_palette_c}{For a continuous (or ordinal) colour/fill scale, a character vector of hex codes or a \verb{scales::pal_*} function.}
 
 \item{titles_case}{A function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc. Defaults to \code{snakecase::to_sentence_case}.}
-
-\item{perspective}{The perspective of plot, which affects the theme components that can be removed by the \verb{gg_*} function. Either \code{"x"} or \code{"y"}. Defaults to \code{NULL}, which lets the \verb{gg_*} function guess it based on the data.}
 
 \item{axis_line_transparent}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis line per the \code{perspective} of the plot.}
 
@@ -69,15 +53,23 @@ set_blanket(
 A globally set style.
 }
 \description{
-Set the style by setting:
+This function sets the default:
 \enumerate{
-\item the theme, and how/what side-effects are to be applied
-\item the geom defaults, including the colour (and fill) of geoms
-\item the colour (and fill) palettes (i.e. discrete, continuous and ordinal)
-\item the function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc.
+\item theme, and how/what side-effects are to be applied (\code{weave_theme})
+\item geom colour/fill (\code{weave_geom_col})
+\item geom size (\code{weave_geom_size})
+\item geom linewidth (\code{weave_geom_linewidth})
+\item geom linetype (\code{weave_geom_linetype}).
+\item geom font (\code{weave_geom_font})
+\item geom reference lines (\code{weave_geom_reference_line})
+\item geom colour/fill palettes (i.e. discrete, continuous and ordinal) (\code{weave_geom_palettes})
+\item the function to apply to a unspecified/unlabelled \code{x_title}, \code{y_title}, \code{col_title} etc. (\code{weave_titles_case})
 }
 
-\code{\link[ggplot2:update_defaults]{ggplot2::update_geom_defaults()}} can be used to further fine-tune geom defaults.
+For simplicity, this function does not provide all arguments.
+
+For further control, use the \verb{weave_*} functions.
+Note the theme should be set first first before any other \verb{weave_*} functions are run.
 }
 \examples{
 library(ggplot2)
@@ -85,7 +77,7 @@ library(ggblanket)
 
 set_blanket(
   theme = theme_darker(),
-  colour = "#E7298AFF",
+  col = "#E7298AFF",
   col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
                     "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
 )

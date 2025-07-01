@@ -21,18 +21,16 @@ weave_geom_font <- function(
   current_theme <- ggplot2::get_theme()
 
   # Extract text properties for font-based geoms
-  if (rlang::is_null(colour)) {
-    colour <- current_theme$axis.text.x$colour %||%
+    colour <- colour %||%
+      current_theme$axis.text.x$colour %||%
       current_theme$axis.text.y$colour %||%
       current_theme$axis.text$colour %||%
       current_theme$text$colour %||%
       "black"
-  }
 
-  if (rlang::is_null(fill)) {
-    fill <- current_theme$panel.background$fill %||%
+    fill <- fill %||%
+      current_theme$panel.background$fill %||%
       "white"
-  }
 
   # Text-specific size handling
   if (rlang::is_null(size)) {

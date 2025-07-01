@@ -13,7 +13,7 @@ weave_geom_linetype(
 )
 }
 \arguments{
-\item{linetype}{A default linetype for geoms not specified by linetype_border, linetype_box. or linetype_sf. Defaults to 1.}
+\item{linetype}{A default linetype for most geoms without borders. Defaults to 1. Defaults to 1.}
 
 \item{linetype_border}{A default linetype for polygon-is geoms (other than boxplot, crossbar or sf). Defaults to 0.}
 

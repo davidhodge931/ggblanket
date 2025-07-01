@@ -489,11 +489,11 @@
 <rect x='10.96' y='527.07' width='215.99' height='45.31' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <text x='10.96' y='537.73' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='35.59px' lengthAdjust='spacingAndGlyphs'>Species</text>
 <rect x='10.96' y='544.25' width='11.96' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='16.94' cy='554.21' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #121B24;' />
+<circle cx='16.94' cy='554.21' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #357BA2;' />
 <rect x='72.63' y='544.25' width='11.96' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<polygon points='78.61,551.17 81.24,555.73 75.97,555.73 ' style='stroke-width: 0.71; stroke: none; fill: #121B24;' />
+<polygon points='78.61,551.17 81.24,555.73 75.97,555.73 ' style='stroke-width: 0.71; stroke: none; fill: #357BA2;' />
 <rect x='149.31' y='544.25' width='11.96' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<polygon points='153.33,556.16 157.24,556.16 157.24,552.25 153.33,552.25 ' style='stroke-width: 0.71; stroke: none; fill: #121B24; fill-opacity: 0.33;' />
+<polygon points='153.33,556.16 157.24,556.16 157.24,552.25 153.33,552.25 ' style='stroke-width: 0.71; stroke: none; fill: #357BA2; fill-opacity: 0.33;' />
 <text x='28.39' y='557.65' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='27.80px' lengthAdjust='spacingAndGlyphs'>Adelie</text>
 <text x='90.06' y='557.65' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='42.80px' lengthAdjust='spacingAndGlyphs'>Chinstrap</text>
 <text x='166.74' y='557.65' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='32.81px' lengthAdjust='spacingAndGlyphs'>Gentoo</text>

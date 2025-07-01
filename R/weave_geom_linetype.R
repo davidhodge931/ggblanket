@@ -3,7 +3,7 @@
 #' @description
 #' Update the linetype for geoms with unnecessary border lines to 0. Excludes boxplot, crossbar and smooth.
 #'
-#' @param linetype A default linetype for geoms not specified by linetype_border, linetype_box. or linetype_sf. Defaults to 1.
+#' @param linetype A default linetype for most geoms without borders. Defaults to 1. Defaults to 1.
 #' @param linetype_sf A default linetype for sf geoms. Defaults to 0.
 #' @param linetype_box A default linetype for boxplot and crossbar geoms. Defaults to 1.
 #' @param linetype_border A default linetype for polygon-is geoms (other than boxplot, crossbar or sf). Defaults to 0.
@@ -12,14 +12,22 @@
 #' @return Updated geom defaults for linetype
 #' @export
 #'
-weave_geom_linetype <- function(linetype = 1, linetype_border = 0, linetype_box = 1, linetype_sf = 0, ...) {
+weave_geom_linetype <- function(
+    linetype = 1,
+    linetype_border = 0,
+    linetype_box = 1,
+    linetype_sf = 0,
+    ...) {
+
+
   ggplot2::update_theme(
-    # sf geoms (linetype_sf)
+    # sf
     geom.sf = ggplot2::element_geom(linetype = linetype_sf),
-    # box geoms (linetype_box)
+    # box
     geom.boxplot = ggplot2::element_geom(bordertype = linetype_box),
     geom.crossbar = ggplot2::element_geom(bordertype = linetype_box),
-    # border geoms (linetype_border)
+
+    # border
     geom.area = ggplot2::element_geom(bordertype = linetype_border),
     geom.bar = ggplot2::element_geom(bordertype = linetype_border),
     geom.bin2d = ggplot2::element_geom(bordertype = linetype_border),
@@ -36,7 +44,8 @@ weave_geom_linetype <- function(linetype = 1, linetype_border = 0, linetype_box 
     geom.ribbon = ggplot2::element_geom(bordertype = linetype_border),
     geom.tile = ggplot2::element_geom(bordertype = linetype_border),
     geom.violin = ggplot2::element_geom(bordertype = linetype_border),
-    # line/point geoms (linetype)
+
+    # other
     geom.abline = ggplot2::element_geom(linetype = linetype),
     geom.contour = ggplot2::element_geom(linetype = linetype),
     geom.count = ggplot2::element_geom(linetype = linetype),
