@@ -7,8 +7,6 @@ ggblanket_global$axis_line_transparent <- NULL
 ggblanket_global$axis_ticks_transparent <- NULL
 ggblanket_global$axis_line_transparent <- NULL
 
-ggblanket_global$titles_case <- NULL
-
 #' Set a theme
 #'
 #' @description Set a theme for the theme argument in `gg_*` functions.
@@ -55,18 +53,3 @@ weave_theme <- function(
     ggplot2::set_theme(new = theme[[1]]) #if list, assume first element is theme
   }
 }
-
-#' Set a label case function
-#'
-#' @description Set a function to format the label of unlabelled variables.
-#'
-#' @param titles_case A function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc. Defaults to `snakecase::to_sentence_case`.
-#' @param ... Provided to require argument naming, support trailing commas etc.
-#'
-#' @noRd
-weave_titles_case <- function(titles_case = snakecase::to_sentence_case, ...) {
-  old <- ggblanket_global$titles_case
-  ggblanket_global$titles_case <- titles_case
-  invisible(old)
-}
-

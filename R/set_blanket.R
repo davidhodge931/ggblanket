@@ -62,16 +62,19 @@ set_blanket <- function(
     col = "#357BA2FF",
 
     colour = col,
-    colour_border = colour,
+    # colour_border = colour,
+    # colour_box = colour_border,
+    # colour_sf = colour_border,
+
     fill = col,
-    fill_border = fill,
 
     linewidth = 0.66,
     size = 1.5,
+
     linetype = 1,
     linetype_border = 0,
-    linetype_box = 1,
-    linetype_sf = 1,
+    linetype_box = linetype,
+    linetype_sf = linetype,
 
     col_palette = NULL,
     col_palette_d = jumble,

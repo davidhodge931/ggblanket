@@ -47,7 +47,7 @@
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
-#' @param titles_case A function to format the label of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
+#' @param titles_case A function to format the title of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
 #'
 #' @return A ggplot object.
 #' @export

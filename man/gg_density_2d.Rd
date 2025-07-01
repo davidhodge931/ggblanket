@@ -162,7 +162,7 @@ gg_density_2d(
 
 \item{caption}{Caption title string.}
 
-\item{titles_case}{A function to format the label of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
+\item{titles_case}{A function to format the title of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
 }
 \value{
 A ggplot object.
