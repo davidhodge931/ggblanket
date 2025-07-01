@@ -111,10 +111,12 @@
 #'     col_legend_nrow = NULL,
 #'     col_legend_rev = FALSE,
 #'     col_palette = NULL,
-#'     col_palette_na = NULL,
+#'     col_palette_na = "#CDC5BFFF",
 #'     col_rescale = scales::rescale(),
 #'     col_steps = FALSE,
 #'     col_transform = NULL,
+#'     colour_palette = NULL,
+#'     fill_palette = NULL,
 #'     facet_axes = NULL,
 #'     facet_axis_labels = "margins",
 #'     facet_drop = FALSE,
@@ -130,6 +132,10 @@
 #'     titles_case = NULL
 #' ) {
 #'   options(ggblend.check_blend = FALSE)
+#'   options(ggplot2.discrete.fill = NULL)
+#'   options(ggplot2.continuous.fill = NULL)
+#'   options(ggplot2.discrete.colour = NULL)
+#'   options(ggplot2.continuous.colour = NULL)
 #'
 #'   ##############################################################################
 #'   # Step 1: Quote aesthetics
@@ -311,39 +317,129 @@
 #'     })
 #'   })
 #'
+#'   # Updated gg_blanket function with theme-based color palettes
+#'   # This shows the key changes needed in the color scale section (Step 12)
+#'
+#'   # Add these new parameters to the function signature:
+#'   # colour_palette = NULL,
+#'   # fill_palette = NULL,
+#'
+#'   # Update the default for col_palette_na:
+#'   # col_palette_na = "#CDC5BFFF",
+#'
 #'   ##############################################################################
 #'   # Step 12: Make colour scale
 #'   ##############################################################################
 #'
-#'   # This section contains the color scale logic from the original
-#'   # Due to its complexity, I'm keeping it mostly intact but could be further modularized
-#'
 #'   if (!is.na(col_scale_class)) {
+#'     # Get theme palettes
+#'     theme_palettes <- ggplot2::get_theme()
+#'
 #'     if (col_scale_class %in% c("date", "datetime", "time", "numeric")) {
 #'       # Continuous color scale
-#'       if (rlang::is_null(col_palette)) {
-#'         col_palette <- ggblanket_global$col_palette_c
+#'
+#'       # Determine which palette to use for colour
+#'       if (rlang::is_null(colour_palette)) {
 #'         if (rlang::is_null(col_palette)) {
-#'           col_palette <- scales::pal_seq_gradient(
-#'             low = "#132B43",
-#'             high = "#56B1F7"
-#'           )(seq(0, 1, length.out = 20))
+#'           # Use theme palette
+#'           colour_palette <- theme_palettes$palette.colour.continuous
+#'           if (rlang::is_null(colour_palette)) {
+#'             colour_palette <- scales::pal_seq_gradient(
+#'               low = "#132B43",
+#'               high = "#56B1F7"
+#'             )
+#'           } else if (!rlang::is_function(colour_palette)) {
+#'             # Convert vector from theme to function
+#'             colour_palette <- scales::pal_gradient_n(colours = colour_palette)
+#'           }
+#'         } else {
+#'           colour_palette <- col_palette
 #'         }
-#'       } else if (rlang::is_function(col_palette)) {
-#'         col_palette <- col_palette(20)
 #'       }
 #'
+#'       # Determine which palette to use for fill
+#'       if (rlang::is_null(fill_palette)) {
+#'         if (rlang::is_null(col_palette)) {
+#'           # Use theme palette
+#'           fill_palette <- theme_palettes$palette.fill.continuous
+#'           if (rlang::is_null(fill_palette)) {
+#'             fill_palette <- scales::pal_seq_gradient(
+#'               low = "#132B43",
+#'               high = "#56B1F7"
+#'             )
+#'           } else if (!rlang::is_function(fill_palette)) {
+#'             # Convert vector from theme to function
+#'             fill_palette <- scales::pal_gradient_n(colours = fill_palette)
+#'           }
+#'         } else {
+#'           fill_palette <- col_palette
+#'         }
+#'       }
+#'
+#'       # Process palettes - handle different palette function types
+#'       if (rlang::is_function(colour_palette)) {
+#'         # Try to determine palette type by checking if it accepts a single n
+#'         tryCatch({
+#'           # First try calling with a single integer
+#'           test_colors <- colour_palette(20)
+#'           if (length(test_colors) == 20) {
+#'             # It's a standard discrete palette function
+#'             colour_palette_values <- test_colors
+#'           } else {
+#'             # Fallback to gradient approach
+#'             colour_palette_values <- colour_palette(seq(0, 1, length.out = 20))
+#'           }
+#'         }, error = function(e) {
+#'           # If error with integer, try gradient approach
+#'           tryCatch({
+#'             colour_palette_values <- colour_palette(seq(0, 1, length.out = 20))
+#'           }, error = function(e2) {
+#'             # If both fail, use a default
+#'             warning("Could not determine palette function type, using default colors")
+#'             colour_palette_values <- scales::viridis_pal()(20)
+#'           })
+#'         })
+#'       } else {
+#'         colour_palette_values <- colour_palette
+#'       }
+#'
+#'       if (rlang::is_function(fill_palette)) {
+#'         # Try to determine palette type by checking if it accepts a single n
+#'         tryCatch({
+#'           # First try calling with a single integer
+#'           test_colors <- fill_palette(20)
+#'           if (length(test_colors) == 20) {
+#'             # It's a standard discrete palette function
+#'             fill_palette_values <- test_colors
+#'           } else {
+#'             # Fallback to gradient approach
+#'             fill_palette_values <- fill_palette(seq(0, 1, length.out = 20))
+#'           }
+#'         }, error = function(e) {
+#'           # If error with integer, try gradient approach
+#'           tryCatch({
+#'             fill_palette_values <- fill_palette(seq(0, 1, length.out = 20))
+#'           }, error = function(e2) {
+#'             # If both fail, use a default
+#'             warning("Could not determine palette function type, using default colors")
+#'             fill_palette_values <- scales::viridis_pal()(20)
+#'           })
+#'         })
+#'       } else {
+#'         fill_palette_values <- fill_palette
+#'       }
+#'
+#'       # Set default NA color if not specified
 #'       if (rlang::is_null(col_palette_na)) {
-#'         col_palette_na <- ggblanket_global$col_palette_na_c
-#'         if (rlang::is_null(col_palette_na)) col_palette_na <- "grey50"
+#'         col_palette_na <- "#CDC5BFFF"
 #'       }
 #'
-#'       #get col_transform if NULL
+#'       # Get col_transform if NULL
 #'       if (rlang::is_null(col_transform)) {
 #'         col_transform <- get_default_transform(col_scale_class)
 #'       }
 #'
-#'       #make a tidy name to deal with composed transforms
+#'       # Make a tidy name to deal with composed transforms
 #'       col_transform_name <- get_transform_name(col_transform)
 #'
 #'       if (rlang::is_null(col_breaks)) {
@@ -368,33 +464,49 @@
 #'       }
 #'
 #'       if (!col_steps) {
+#'         # Apply separate colour and fill scales
 #'         plot <- plot +
 #'           ggplot2::scale_colour_gradientn(
-#'             colours = col_palette,
+#'             colours = colour_palette_values,
 #'             values = col_rescale,
 #'             breaks = col_breaks,
 #'             labels = col_labels,
 #'             transform = col_transform,
 #'             oob = scales::oob_keep,
-#'             na.value = col_palette_na,
-#'             aesthetics = c("colour", "fill")
+#'             na.value = col_palette_na
+#'           ) +
+#'           ggplot2::scale_fill_gradientn(
+#'             colours = fill_palette_values,
+#'             values = col_rescale,
+#'             breaks = col_breaks,
+#'             labels = col_labels,
+#'             transform = col_transform,
+#'             oob = scales::oob_keep,
+#'             na.value = col_palette_na
 #'           ) +
 #'           ggplot2::guides(
 #'             colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
 #'             fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
 #'           )
-#'       }
-#'       else if (col_steps) {
+#'       } else if (col_steps) {
 #'         plot <- plot +
 #'           ggplot2::scale_colour_stepsn(
-#'             colours = col_palette,
+#'             colours = colour_palette_values,
 #'             values = col_rescale,
 #'             breaks = col_breaks,
 #'             labels = col_labels,
 #'             transform = col_transform,
 #'             oob = scales::oob_keep,
-#'             na.value = col_palette_na,
-#'             aesthetics = c("colour", "fill")
+#'             na.value = col_palette_na
+#'           ) +
+#'           ggplot2::scale_fill_stepsn(
+#'             colours = fill_palette_values,
+#'             values = col_rescale,
+#'             breaks = col_breaks,
+#'             labels = col_labels,
+#'             transform = col_transform,
+#'             oob = scales::oob_keep,
+#'             na.value = col_palette_na
 #'           ) +
 #'           ggplot2::guides(
 #'             colour = ggplot2::guide_coloursteps(
@@ -407,51 +519,73 @@
 #'             )
 #'           )
 #'       }
-#'     } else if (col_scale_class %in% c("discrete", "ordinal")) {
+#'
+#'     } else if (col_scale_class == "discrete") {
 #'       # Discrete color scale
+#'
+#'       # Set default NA color
 #'       if (rlang::is_null(col_palette_na)) {
-#'         if (col_scale_class == "discrete") {
-#'           if (rlang::is_null(ggblanket_global$col_palette_na_d)) {
-#'             col_palette_na <- "grey50"
-#'           } else {
-#'             col_palette_na <- ggblanket_global$col_palette_na_d
-#'           }
-#'         } else if (col_scale_class == "ordinal") {
-#'           if (rlang::is_null(ggblanket_global$col_palette_na_o)) {
-#'             col_palette_na <- "grey50"
-#'           } else {
-#'             col_palette_na <- ggblanket_global$col_palette_na_o
-#'           }
-#'         }
+#'         col_palette_na <- "#CDC5BFFF"
 #'       }
 #'
 #'       col_n <- calculate_colour_n(aes_list, data, plot_data)
 #'
-#'       if (rlang::is_null(col_palette)) {
-#'         if (col_scale_class == "discrete") {
-#'           col_palette <- ggblanket_global$col_palette_d
-#'         } else if (col_scale_class == "ordinal") {
-#'           col_palette <- ggblanket_global$col_palette_o
+#'       # Determine which palette to use for colour
+#'       if (rlang::is_null(colour_palette)) {
+#'         if (rlang::is_null(col_palette)) {
+#'           # Use theme palette
+#'           colour_palette <- theme_palettes$palette.colour.discrete
+#'           # Theme palettes for discrete should remain as vectors or functions
+#'         } else {
+#'           colour_palette <- col_palette
 #'         }
 #'       }
 #'
-#'       if (!rlang::is_null(col_n)) {
-#'         if (rlang::is_function(col_palette)) {
-#'           col_palette <- col_palette(col_n)
-#'         } else if (!any(rlang::have_name(col_palette))) {
-#'           col_palette <- col_palette[1:col_n]
+#'       # Determine which palette to use for fill
+#'       if (rlang::is_null(fill_palette)) {
+#'         if (rlang::is_null(col_palette)) {
+#'           # Use theme palette
+#'           fill_palette <- theme_palettes$palette.fill.discrete
+#'         } else {
+#'           fill_palette <- col_palette
 #'         }
 #'       }
 #'
+#'       # Process colour palette
+#'       if (!rlang::is_null(col_n) && !rlang::is_null(colour_palette)) {
+#'         if (rlang::is_function(colour_palette)) {
+#'           colour_palette_values <- colour_palette(col_n)
+#'         } else if (!any(rlang::have_name(colour_palette))) {
+#'           colour_palette_values <- colour_palette[1:col_n]
+#'         } else {
+#'           colour_palette_values <- colour_palette
+#'         }
+#'       } else {
+#'         colour_palette_values <- colour_palette
+#'       }
+#'
+#'       # Process fill palette
+#'       if (!rlang::is_null(col_n) && !rlang::is_null(fill_palette)) {
+#'         if (rlang::is_function(fill_palette)) {
+#'           fill_palette_values <- fill_palette(col_n)
+#'         } else if (!any(rlang::have_name(fill_palette))) {
+#'           fill_palette_values <- fill_palette[1:col_n]
+#'         } else {
+#'           fill_palette_values <- fill_palette
+#'         }
+#'       } else {
+#'         fill_palette_values <- fill_palette
+#'       }
+#'
+#'       # Handle reversing for x_symmetric
 #'       if (x_symmetric) {
 #'         col_legend_rev <- !col_legend_rev
-#'         if (col_scale_class == "discrete") {
-#'           col_palette <- rev(col_palette)
+#'         if (!rlang::is_null(colour_palette_values)) {
+#'           colour_palette_values <- rev(colour_palette_values)
 #'         }
-#'       }
-#'
-#'       if (col_scale_class == "ordinal") {
-#'         col_legend_rev <- !col_legend_rev
+#'         if (!rlang::is_null(fill_palette_values)) {
+#'           fill_palette_values <- rev(fill_palette_values)
+#'         }
 #'       }
 #'
 #'       if (rlang::is_null(col_labels)) {
@@ -462,127 +596,271 @@
 #'         col_breaks <- ggplot2::waiver()
 #'       }
 #'
-#'       if (!rlang::is_null(col_palette)) {
-#'         if (rlang::is_vector(col_palette)) {
-#'           plot <- plot +
-#'             ggplot2::scale_colour_manual(
-#'               values = col_palette,
-#'               breaks = col_breaks,
-#'               labels = col_labels,
-#'               na.value = col_palette_na,
-#'               drop = col_drop,
-#'               aesthetics = c("colour", "fill")
-#'             ) +
-#'             ggplot2::guides(
-#'               colour = ggplot2::guide_legend(
-#'                 reverse = col_legend_rev,
-#'                 ncol = col_legend_ncol,
-#'                 nrow = col_legend_nrow
-#'               ),
-#'               fill = ggplot2::guide_legend(
-#'                 reverse = col_legend_rev,
-#'                 ncol = col_legend_ncol,
-#'                 nrow = col_legend_nrow
+#'       # Apply scales based on palette types
+#'       if (!rlang::is_null(colour_palette_values) || !rlang::is_null(fill_palette_values)) {
+#'         # Apply colour scale
+#'         if (!rlang::is_null(colour_palette_values)) {
+#'           if (rlang::is_vector(colour_palette_values)) {
+#'             plot <- plot +
+#'               ggplot2::scale_colour_manual(
+#'                 values = colour_palette_values,
+#'                 breaks = col_breaks,
+#'                 labels = col_labels,
+#'                 na.value = col_palette_na,
+#'                 drop = col_drop
 #'               )
-#'             )
-#'         } else if (rlang::is_function(col_palette)) {
-#'           plot <- plot +
-#'             ggplot2::discrete_scale(
-#'               palette = col_palette,
-#'               breaks = col_breaks,
-#'               labels = col_labels,
-#'               na.value = col_palette_na,
-#'               drop = col_drop,
-#'               aesthetics = c("colour", "fill")
-#'             ) +
-#'             ggplot2::guides(
-#'               colour = ggplot2::guide_legend(
-#'                 reverse = col_legend_rev,
-#'                 ncol = col_legend_ncol,
-#'                 nrow = col_legend_nrow
-#'               ),
-#'               fill = ggplot2::guide_legend(
-#'                 reverse = col_legend_rev,
-#'                 ncol = col_legend_ncol,
-#'                 nrow = col_legend_nrow
+#'           } else if (rlang::is_function(colour_palette)) {
+#'             plot <- plot +
+#'               ggplot2::discrete_scale(
+#'                 aesthetics = "colour",
+#'                 palette = colour_palette,
+#'                 breaks = col_breaks,
+#'                 labels = col_labels,
+#'                 na.value = col_palette_na,
+#'                 drop = col_drop
 #'               )
-#'             )
-#'         }
-#'       } else {
-#'         if (rlang::is_null(col_palette_na)) {
-#'           col_palette_na <- "grey50"
+#'           }
 #'         }
 #'
-#'         if (col_scale_class == "discrete") {
-#'           plot <- plot +
-#'             ggplot2::scale_colour_hue(
-#'               breaks = col_breaks,
-#'               labels = col_labels,
-#'               na.value = col_palette_na,
-#'               drop = col_drop,
-#'               aesthetics = c("colour", "fill")
-#'             ) +
-#'             ggplot2::guides(
-#'               colour = ggplot2::guide_legend(
-#'                 reverse = col_legend_rev,
-#'                 ncol = col_legend_ncol,
-#'                 nrow = col_legend_nrow
-#'               ),
-#'               fill = ggplot2::guide_legend(
-#'                 reverse = col_legend_rev,
-#'                 ncol = col_legend_ncol,
-#'                 nrow = col_legend_nrow
+#'         # Apply fill scale
+#'         if (!rlang::is_null(fill_palette_values)) {
+#'           if (rlang::is_vector(fill_palette_values)) {
+#'             plot <- plot +
+#'               ggplot2::scale_fill_manual(
+#'                 values = fill_palette_values,
+#'                 breaks = col_breaks,
+#'                 labels = col_labels,
+#'                 na.value = col_palette_na,
+#'                 drop = col_drop
 #'               )
-#'             )
-#'         } else if (col_scale_class == "ordinal") {
-#'           plot <- plot +
-#'             ggplot2::scale_colour_viridis_d(
-#'               breaks = col_breaks,
-#'               labels = col_labels,
-#'               na.value = col_palette_na,
-#'               drop = col_drop,
-#'               aesthetics = c("colour", "fill")
-#'             ) +
-#'             ggplot2::guides(
-#'               colour = ggplot2::guide_legend(
-#'                 reverse = col_legend_rev,
-#'                 ncol = col_legend_ncol,
-#'                 nrow = col_legend_nrow
-#'               ),
-#'               fill = ggplot2::guide_legend(
-#'                 reverse = col_legend_rev,
-#'                 ncol = col_legend_ncol,
-#'                 nrow = col_legend_nrow
+#'           } else if (rlang::is_function(fill_palette)) {
+#'             plot <- plot +
+#'               ggplot2::discrete_scale(
+#'                 aesthetics = "fill",
+#'                 palette = fill_palette,
+#'                 breaks = col_breaks,
+#'                 labels = col_labels,
+#'                 na.value = col_palette_na,
+#'                 drop = col_drop
 #'               )
+#'           }
+#'         }
+#'
+#'         # Add guides
+#'         plot <- plot +
+#'           ggplot2::guides(
+#'             colour = ggplot2::guide_legend(
+#'               reverse = col_legend_rev,
+#'               ncol = col_legend_ncol,
+#'               nrow = col_legend_nrow
+#'             ),
+#'             fill = ggplot2::guide_legend(
+#'               reverse = col_legend_rev,
+#'               ncol = col_legend_ncol,
+#'               nrow = col_legend_nrow
 #'             )
+#'           )
+#'       } else {
+#'         # Fallback to default hue scale
+#'         plot <- plot +
+#'           ggplot2::scale_colour_hue(
+#'             breaks = col_breaks,
+#'             labels = col_labels,
+#'             na.value = col_palette_na,
+#'             drop = col_drop
+#'           ) +
+#'           ggplot2::scale_fill_hue(
+#'             breaks = col_breaks,
+#'             labels = col_labels,
+#'             na.value = col_palette_na,
+#'             drop = col_drop
+#'           ) +
+#'           ggplot2::guides(
+#'             colour = ggplot2::guide_legend(
+#'               reverse = col_legend_rev,
+#'               ncol = col_legend_ncol,
+#'               nrow = col_legend_nrow
+#'             ),
+#'             fill = ggplot2::guide_legend(
+#'               reverse = col_legend_rev,
+#'               ncol = col_legend_ncol,
+#'               nrow = col_legend_nrow
+#'             )
+#'           )
+#'       }
+#'
+#'     } else if (col_scale_class == "ordinal") {
+#'       # Ordinal color scale
+#'
+#'       # Set default NA color
+#'       if (rlang::is_null(col_palette_na)) {
+#'         col_palette_na <- "#CDC5BFFF"
+#'       }
+#'
+#'       col_n <- calculate_colour_n(aes_list, data, plot_data)
+#'
+#'       # For ordinal, use continuous palette from theme if available
+#'       if (rlang::is_null(colour_palette)) {
+#'         if (rlang::is_null(col_palette)) {
+#'           # Try to use continuous palette from theme
+#'           colour_palette <- theme_palettes$palette.colour.continuous
+#'           if (rlang::is_null(colour_palette)) {
+#'             # Fallback to viridis
+#'             colour_palette <- scales::pal_viridis(option = "G", direction = -1)
+#'           }
+#'         } else {
+#'           colour_palette <- col_palette
 #'         }
 #'       }
 #'
-#'       # Handle guides for other aesthetics that match color
-#'       for (aes in c("alpha", "shape", "size", "linewidth", "linetype", "pattern")) {
-#'         if (!rlang::is_null(plot_build$plot$labels[[aes]])) {
-#'           if (check_aesthetic_matches_colour(plot_build, aes)) {
-#'             plot <- plot +
-#'               ggplot2::guides(
-#'                 !!aes := ggplot2::guide_legend(
-#'                   reverse = col_legend_rev,
-#'                   ncol = col_legend_ncol,
-#'                   nrow = col_legend_nrow
-#'                 )
-#'               )
+#'       if (rlang::is_null(fill_palette)) {
+#'         if (rlang::is_null(col_palette)) {
+#'           # Try to use continuous palette from theme
+#'           fill_palette <- theme_palettes$palette.fill.continuous
+#'           if (rlang::is_null(fill_palette)) {
+#'             # Fallback to viridis
+#'             fill_palette <- scales::pal_viridis(option = "G", direction = -1)
 #'           }
+#'         } else {
+#'           fill_palette <- col_palette
+#'         }
+#'       }
+#'
+#'       # Convert vector palettes to functions for ordinal
+#'       if (rlang::is_vector(colour_palette)) {
+#'         colour_palette <- scales::pal_gradient_n(colours = colour_palette)
+#'       }
+#'
+#'       if (rlang::is_vector(fill_palette)) {
+#'         fill_palette <- scales::pal_gradient_n(colours = fill_palette)
+#'       }
+#'
+#'       # Always reverse legend for ordinal
+#'       col_legend_rev <- !col_legend_rev
+#'
+#'       if (rlang::is_null(col_labels)) {
+#'         col_labels <- ggplot2::waiver()
+#'       }
+#'
+#'       if (rlang::is_null(col_breaks)) {
+#'         col_breaks <- ggplot2::waiver()
+#'       }
+#'
+#'       # Apply scales
+#'       # For ordinal, we need to create appropriate wrapper functions
+#'       if (rlang::is_function(colour_palette)) {
+#'         # Create a wrapper that handles both types of palette functions
+#'         colour_palette_discrete <- function(n) {
+#'           if (n == 0) return(character(0))
+#'
+#'           # Try standard discrete palette approach first
+#'           tryCatch({
+#'             colours <- colour_palette(n)
+#'             if (length(colours) == n) {
+#'               return(colours)
+#'             } else {
+#'               # If it didn't return n colors, try gradient approach
+#'               return(colour_palette(seq(0, 1, length.out = n)))
+#'             }
+#'           }, error = function(e) {
+#'             # If error, try gradient approach
+#'             tryCatch({
+#'               return(colour_palette(seq(0, 1, length.out = n)))
+#'             }, error = function(e2) {
+#'               # Final fallback
+#'               warning("Palette function failed, using default colors")
+#'               return(scales::viridis_pal()(n))
+#'             })
+#'           })
+#'         }
+#'
+#'         plot <- plot +
+#'           ggplot2::discrete_scale(
+#'             aesthetics = "colour",
+#'             palette = colour_palette_discrete,
+#'             breaks = col_breaks,
+#'             labels = col_labels,
+#'             na.value = col_palette_na,
+#'             drop = col_drop
+#'           )
+#'       }
+#'
+#'       if (rlang::is_function(fill_palette)) {
+#'         # Create a wrapper that handles both types of palette functions
+#'         fill_palette_discrete <- function(n) {
+#'           if (n == 0) return(character(0))
+#'
+#'           # Try standard discrete palette approach first
+#'           tryCatch({
+#'             colours <- fill_palette(n)
+#'             if (length(colours) == n) {
+#'               return(colours)
+#'             } else {
+#'               # If it didn't return n colors, try gradient approach
+#'               return(fill_palette(seq(0, 1, length.out = n)))
+#'             }
+#'           }, error = function(e) {
+#'             # If error, try gradient approach
+#'             tryCatch({
+#'               return(fill_palette(seq(0, 1, length.out = n)))
+#'             }, error = function(e2) {
+#'               # Final fallback
+#'               warning("Palette function failed, using default colors")
+#'               return(scales::viridis_pal()(n))
+#'             })
+#'           })
+#'         }
+#'
+#'         plot <- plot +
+#'           ggplot2::discrete_scale(
+#'             aesthetics = "fill",
+#'             palette = fill_palette_discrete,
+#'             breaks = col_breaks,
+#'             labels = col_labels,
+#'             na.value = col_palette_na,
+#'             drop = col_drop
+#'           )
+#'       }
+#'
+#'       # Add guides
+#'       plot <- plot +
+#'         ggplot2::guides(
+#'           colour = ggplot2::guide_legend(
+#'             reverse = col_legend_rev,
+#'             ncol = col_legend_ncol,
+#'             nrow = col_legend_nrow
+#'           ),
+#'           fill = ggplot2::guide_legend(
+#'             reverse = col_legend_rev,
+#'             ncol = col_legend_ncol,
+#'             nrow = col_legend_nrow
+#'           )
+#'         )
+#'     }
+#'
+#'     # Handle guides for other aesthetics that match color
+#'     for (aes in c("alpha", "shape", "size", "linewidth", "linetype", "pattern")) {
+#'       if (!rlang::is_null(plot_build$plot$labels[[aes]])) {
+#'         if (check_aesthetic_matches_colour(plot_build, aes)) {
+#'           plot <- plot +
+#'             ggplot2::guides(
+#'               !!aes := ggplot2::guide_legend(
+#'                 reverse = col_legend_rev,
+#'                 ncol = col_legend_ncol,
+#'                 nrow = col_legend_nrow
+#'               )
+#'             )
 #'         }
 #'       }
 #'     }
 #'
-#'     #expand limits if necessary
+#'     # Expand limits if necessary
 #'     plot <- plot +
 #'       ggplot2::expand_limits(
 #'         colour = col_limits_include,
 #'         fill = col_limits_include
 #'       )
 #'   }
-#'
 #'   ##############################################################################
 #'   # Step 13: Add positional scales
 #'   ##############################################################################

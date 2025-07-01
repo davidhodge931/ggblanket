@@ -21,12 +21,9 @@
 #' @param linetype_sf A default linetype for sf geoms. Defaults to 0.
 #' @param linetype_box A default linetype for boxplot and crossbar geoms. Defaults to 1.
 #' @param linetype_border A default linetype for polygon-is geoms (other than boxplot, crossbar or sf). Defaults to 0.
-#' @param col_palette_d For a discrete scale, a character vector of hex codes.
-#' @param col_palette_c For a continuous scale, a character vector of hex codes.
-#' @param col_palette_o For an ordinal scale, a `scales::pal_*()` function.
-#' @param col_palette_na_d For a discrete scale, a hex code.
-#' @param col_palette_na_c For a continuous scale, a hex code.
-#' @param col_palette_na_o For an ordinal scale, a hex code.
+#' @param col_palette For a colour/fill scale, a character vector of hex codes or a `scales::pal_*` function.
+#' @param col_palette_d For a discrete colour/fill scale, a character vector of hex codes or a `scales::pal_*` function.
+#' @param col_palette_c For a continuous (or ordinal) colour/fill scale, a character vector of hex codes or a `scales::pal_*` function.
 #' @param titles_case A function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc. Defaults to `snakecase::to_sentence_case`.
 #' @param perspective The perspective of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
 #' @param axis_line_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `perspective` of the plot.
@@ -72,13 +69,14 @@ set_blanket <- function(
     linetype_box = 1,
     linetype_sf = 1,
 
+    col_palette = NULL,
     col_palette_d = jumble,
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
 
-    col_palette_o = scales::pal_viridis(option = "G", direction = -1),
-    col_palette_na_d = "#CDC5BFFF",
-    col_palette_na_c = "#988F88FF",
-    col_palette_na_o = "#988F88FF",
+    # col_palette_o = scales::pal_viridis(option = "G", direction = -1),
+    # col_palette_na_d = "#CDC5BFFF",
+    # col_palette_na_c = "#988F88FF",
+    # col_palette_na_o = "#988F88FF",
     titles_case = snakecase::to_sentence_case,
 
     perspective = NULL,
@@ -122,12 +120,13 @@ set_blanket <- function(
   weave_geom_curve() #NOT SURE
 
   weave_geom_palettes(
+    col_palette = col_palette,
     col_palette_d = col_palette_d,
     col_palette_c = col_palette_c,
-    col_palette_o = col_palette_o,
-    col_palette_na_d = col_palette_na_d,
-    col_palette_na_c = col_palette_na_c,
-    col_palette_na_o = col_palette_na_o
+    # col_palette_o = col_palette_o,
+    # col_palette_na_d = col_palette_na_d,
+    # col_palette_na_c = col_palette_na_c,
+    # col_palette_na_o = col_palette_na_o
   )
 
   weave_titles_case(titles_case = titles_case)

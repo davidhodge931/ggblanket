@@ -163,7 +163,7 @@ test_that(test_name, {
       y = eruptions,
       z = density,
       bins = 8,
-      col_palette = viridisLite::magma(n = 8)
+      # col_palette = viridisLite::magma(n = 8)
     )
 
   vdiffr::expect_doppelganger(test_name, p)
