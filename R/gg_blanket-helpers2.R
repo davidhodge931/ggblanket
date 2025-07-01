@@ -5,9 +5,12 @@
 #' Store already-quoted aesthetic variables in a list
 #' @description This function expects already-quoted expressions (quosures)
 #' @noRd
-quote_aesthetics <- function(x, y, col, facet, facet2, xmin, xmax, xend,
-                             ymin, ymax, yend, z, group, subgroup, label,
-                             text, sample) {
+quote_aesthetics <- function(x = NULL, y = NULL, col = NULL,
+                             facet = NULL, facet2 = NULL,
+                             xmin = NULL, xmax = NULL, xend = NULL,
+                             ymin = NULL, ymax = NULL, yend = NULL,
+                             z = NULL, group = NULL, subgroup = NULL,
+                             label = NULL, text = NULL, sample = NULL) {
   list(
     x = x,
     y = y,
@@ -31,7 +34,7 @@ quote_aesthetics <- function(x, y, col, facet, facet2, xmin, xmax, xend,
 
 #' Extract geom, stat, and position names
 #' @noRd
-extract_names <- function(geom, stat, position) {
+extract_names <- function(geom = NULL, stat = NULL, position = NULL) {
   # Extract geom name
   if (ggplot2::is_ggproto(geom)) {
     geom_name <- stringr::str_to_lower(stringr::str_remove(
@@ -376,7 +379,7 @@ add_initial_layer <- function(plot, geom, stat, position, mapping, params,
 
 #' Determine scale types from plot build
 #' @noRd
-determine_scale_types <- function(plot_build, aes_list, data) {
+determine_scale_class <- function(plot_build, aes_list, data) {
   plot_scales <- purrr::map_chr(plot_build$plot$scales$scales, function(x) {
     ifelse(
       rlang::is_null(rlang::call_name(x[["call"]])),
@@ -387,32 +390,32 @@ determine_scale_types <- function(plot_build, aes_list, data) {
 
   # X scale type
   if (any(plot_scales %in% "scale_x_discrete")) {
-    x_scale_type <- "discrete"
+    x_scale_class <- "discrete"
   } else if (any(plot_scales %in% "scale_x_date")) {
-    x_scale_type <- "date"
+    x_scale_class <- "date"
   } else if (any(plot_scales %in% "scale_x_datetime")) {
-    x_scale_type <- "datetime"
+    x_scale_class <- "datetime"
   } else if (any(plot_scales %in% "scale_x_time")) {
-    x_scale_type <- "time"
+    x_scale_class <- "time"
   } else if (any(plot_scales %in% "scale_x_continuous")) {
-    x_scale_type <- "numeric"
+    x_scale_class <- "numeric"
   } else {
-    x_scale_type <- "numeric"
+    x_scale_class <- "numeric"
   }
 
   # Y scale type
   if (any(plot_scales %in% "scale_y_discrete")) {
-    y_scale_type <- "discrete"
+    y_scale_class <- "discrete"
   } else if (any(plot_scales %in% "scale_y_date")) {
-    y_scale_type <- "date"
+    y_scale_class <- "date"
   } else if (any(plot_scales %in% "scale_y_datetime")) {
-    y_scale_type <- "datetime"
+    y_scale_class <- "datetime"
   } else if (any(plot_scales %in% "scale_y_time")) {
-    y_scale_type <- "time"
+    y_scale_class <- "time"
   } else if (any(plot_scales %in% "scale_y_continuous")) {
-    y_scale_type <- "numeric"
+    y_scale_class <- "numeric"
   } else {
-    y_scale_type <- "numeric"
+    y_scale_class <- "numeric"
   }
 
   # Color scale class
@@ -440,20 +443,20 @@ determine_scale_types <- function(plot_build, aes_list, data) {
   }
 
   list(
-    x_scale_type = x_scale_type,
-    y_scale_type = y_scale_type,
+    x_scale_class = x_scale_class,
+    y_scale_class = y_scale_class,
     col_scale_class = col_scale_class
   )
 }
 
 #' Get default transform based on scale type
 #' @noRd
-get_default_transform <- function(scale_type) {
-  if (scale_type == "time") {
+get_default_transform <- function(scale_class) {
+  if (scale_class == "time") {
     scales::transform_hms()
-  } else if (scale_type == "datetime") {
+  } else if (scale_class == "datetime") {
     scales::transform_time()
-  } else if (scale_type == "date") {
+  } else if (scale_class == "date") {
     scales::transform_date()
   } else {
     scales::transform_identity()
@@ -462,20 +465,20 @@ get_default_transform <- function(scale_type) {
 
 #' Get defaults for various parameters
 #' @noRd
-get_defaults <- function(x_transform, y_transform, x_scale_type, y_scale_type,
+get_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_class,
                          facet_scales, theme, x_symmetric, y_symmetric,
-                         stat_name, perspective, label_case) {
+                         stat_name, perspective, titles_case) {
   # Get transforms
   if (rlang::is_null(x_transform)) {
     x_transform_null <- TRUE
-    x_transform <- get_default_transform(x_scale_type)
+    x_transform <- get_default_transform(x_scale_class)
   } else {
     x_transform_null <- FALSE
   }
 
   if (rlang::is_null(y_transform)) {
     y_transform_null <- TRUE
-    y_transform <- get_default_transform(y_scale_type)
+    y_transform <- get_default_transform(y_scale_class)
   } else {
     y_transform_null <- FALSE
   }
@@ -495,7 +498,7 @@ get_defaults <- function(x_transform, y_transform, x_scale_type, y_scale_type,
       x_symmetric <- FALSE
     } else if (facet_scales %in% c("free", "free_x")) {
       x_symmetric <- FALSE
-    } else if (y_scale_type == "discrete" & x_scale_type != "discrete") {
+    } else if (y_scale_class == "discrete" & x_scale_class != "discrete") {
       x_symmetric <- TRUE
     } else {
       x_symmetric <- FALSE
@@ -507,7 +510,7 @@ get_defaults <- function(x_transform, y_transform, x_scale_type, y_scale_type,
       y_symmetric <- FALSE
     } else if (facet_scales %in% c("free", "free_y")) {
       y_symmetric <- FALSE
-    } else if (y_scale_type == "discrete" & x_scale_type != "discrete") {
+    } else if (y_scale_class == "discrete" & x_scale_class != "discrete") {
       y_symmetric <- FALSE
     } else {
       y_symmetric <- TRUE
@@ -519,7 +522,7 @@ get_defaults <- function(x_transform, y_transform, x_scale_type, y_scale_type,
     perspective <- ggblanket_global$perspective
 
     if (rlang::is_null(perspective)) {
-      if (y_scale_type == "discrete" & x_scale_type != "discrete") {
+      if (y_scale_class == "discrete" & x_scale_class != "discrete") {
         perspective <- "y"
       } else {
         perspective <- "x"
@@ -527,10 +530,10 @@ get_defaults <- function(x_transform, y_transform, x_scale_type, y_scale_type,
     }
   }
 
-  # Get label_case
-  if (rlang::is_null(label_case)) {
-    label_case <- ggblanket_global$label_case
-    if (rlang::is_null(label_case)) label_case <- snakecase::to_sentence_case
+  # Get titles_case
+  if (rlang::is_null(titles_case)) {
+    titles_case <- ggblanket_global$titles_case
+    if (rlang::is_null(titles_case)) titles_case <- snakecase::to_sentence_case
   }
 
   list(
@@ -544,7 +547,7 @@ get_defaults <- function(x_transform, y_transform, x_scale_type, y_scale_type,
     x_symmetric = x_symmetric,
     y_symmetric = y_symmetric,
     perspective = perspective,
-    label_case = label_case
+    titles_case = titles_case
   )
 }
 
@@ -646,10 +649,10 @@ get_facet_axes <- function(facet_axes, x_symmetric) {
 #' @noRd
 add_facet_layer <- function(plot, aes_list, data, facet_layout, facet_scales,
                             facet_space, facet_drop, facet_axes, facet_axis_labels,
-                            facet_nrow, facet_ncol, facet_labels, y_scale_type) {
+                            facet_nrow, facet_ncol, facet_labels, y_scale_class) {
 
   # Check if we need to reverse facet
-  reverse_facet <- y_scale_type == "discrete" &
+  reverse_facet <- y_scale_class == "discrete" &
     identical(rlang::eval_tidy(aes_list$y, data),
               rlang::eval_tidy(aes_list$facet, data))
 
@@ -927,36 +930,44 @@ check_aesthetic_matches_colour <- function(plot_build, aesthetic) {
 
 #' Extract label with fallback
 #' @noRd
-extract_label <- function(data, aes_quo, plot_label, label_case, default = NULL) {
+extract_title <- function(data, aes_quo, labs, titles_case, default = NULL) {
   if (!rlang::quo_is_null(aes_quo)) {
+    #get any label attribute from data
     if (!rlang::is_null(attr(dplyr::pull(data, !!aes_quo), "label"))) {
-      attr(dplyr::pull(data, !!aes_quo), "label")
-    } else if (!rlang::is_null(plot_label)) {
-      purrr::map_chr(rlang::as_name(plot_label[1]), label_case)
-    } else {
-      default
+      title <- attr(dplyr::pull(data, !!aes_quo), "label")
     }
-  } else if (!rlang::is_null(plot_label)) {
-    purrr::map_chr(rlang::as_name(plot_label[1]), label_case)
-  } else {
-    default
+    #then get it from the plot_data and apply titles_case function
+    else if (!rlang::is_null(labs)) {
+      title <- purrr::map_chr(rlang::as_name(labs[1]), titles_case)
+    }
+    #otherwise
+    else {
+      title <- default
+    }
   }
-}
+  #if NULL
+  else if (!rlang::is_null(title)) {
+    title <- purrr::map_chr(rlang::as_name(labs[1]), titles_case)
+  } else {
+    title <- default
+  }
+  return(title)
+  }
 
-#' Extract labels for secondary aesthetics
+#' Extract titles for other aesthetics
 #' @noRd
-extract_secondary_labels <- function(plot_build, col_label, label_case) {
-  labels <- list()
+extract_other_titles <- function(plot_build, col_title, titles_case) {
+  titles <- list()
 
   # Helper to get label for an aesthetic
-  get_aes_label <- function(aes) {
+  get_aes_title <- function(aes) {
     if (!rlang::is_null(plot_build$plot$labels[[aes]])) {
       if (check_aesthetic_matches_colour(plot_build, aes)) {
-        col_label
+        col_title
       } else {
         purrr::map_chr(
           rlang::as_name(plot_build$plot$labels[[aes]][1]),
-          label_case
+          titles_case
         )
       }
     } else {
@@ -964,14 +975,14 @@ extract_secondary_labels <- function(plot_build, col_label, label_case) {
     }
   }
 
-  labels$alpha_label <- get_aes_label("alpha")
-  labels$shape_label <- get_aes_label("shape")
-  labels$size_label <- get_aes_label("size")
-  labels$linewidth_label <- get_aes_label("linewidth")
-  labels$linetype_label <- get_aes_label("linetype")
-  labels$pattern_label <- get_aes_label("pattern")
+  titles$alpha_title <- get_aes_title("alpha")
+  titles$shape_title <- get_aes_title("shape")
+  titles$size_title <- get_aes_title("size")
+  titles$linewidth_title <- get_aes_title("linewidth")
+  titles$linetype_title <- get_aes_title("linetype")
+  titles$pattern_title <- get_aes_title("pattern")
 
-  labels
+  titles
 }
 
 #' Get transparency defaults
@@ -1004,7 +1015,7 @@ get_transparency_defaults <- function(axis_line_transparent, axis_ticks_transpar
 #' @noRd
 apply_theme_transparency <- function(plot, perspective, axis_line_transparent,
                                      axis_ticks_transparent, panel_grid_transparent,
-                                     x_scale_type, y_scale_type) {
+                                     x_scale_class, y_scale_class) {
   if (perspective == "x") {
     if (axis_line_transparent) {
       plot <- plot +
@@ -1026,7 +1037,7 @@ apply_theme_transparency <- function(plot, perspective, axis_line_transparent,
         )
     }
 
-    if (x_scale_type == "discrete") {
+    if (x_scale_class == "discrete") {
       plot <- plot +
         ggplot2::theme(
           axis.ticks.x = ggplot2::element_line(colour = "transparent")
@@ -1053,7 +1064,7 @@ apply_theme_transparency <- function(plot, perspective, axis_line_transparent,
         )
     }
 
-    if (y_scale_type == "discrete") {
+    if (y_scale_class == "discrete") {
       plot <- plot +
         ggplot2::theme(
           axis.ticks.y = ggplot2::element_line(colour = "transparent")

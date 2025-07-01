@@ -187,8 +187,8 @@ test_that(test_name, {
       ymax = upper,
       mapping = aes(colour = group),
       position = position_dodge(width = 0.2),
-      x_label = "Treatment",
-      y_label = "Response",
+      x_title = "Treatment",
+      y_title = "Response",
     )
 
   vdiffr::expect_doppelganger(test_name, p)

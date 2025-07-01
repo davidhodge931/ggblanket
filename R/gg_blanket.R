@@ -20,7 +20,7 @@
 #' #' @param x_breaks_n,y_breaks_n,col_breaks_n A number of desired breaks for when `*_breaks = NULL`.
 #' #' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
 #' #' @param x_limits_include,y_limits_include,col_limits_include For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
-#' #' @param x_label,y_label,col_label Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)` for no title.
+#' #' @param x_title,y_title,col_title Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)` for no title.
 #' #' @param x_labels,y_labels,col_labels,facet_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_*()`), or a vector of labels. (Note this must be named for `facet_labels`).
 #' #' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_*` theme, add `caption = ""` or `caption = "\n"`.
 #' #' @param x_sec_axis,y_sec_axis A secondary axis with [ggplot2::dup_axis()] or  [ggplot2::sec_axis()] defaults.
@@ -42,7 +42,7 @@
 #' #' @param title Title string.
 #' #' @param subtitle Subtitle string.
 #' #' @param caption Caption title string.
-#' #' @param label_case A function to format the label of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
+#' #' @param titles_case A function to format the label of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
 #' #'
 #' #' @return A ggplot object.
 #' #' @export
@@ -98,7 +98,7 @@
 #'     x_breaks_n = NULL,
 #'     x_expand = NULL,
 #'     x_limits_include = NULL,
-#'     x_label = NULL,
+#'     x_title = NULL,
 #'     x_labels = NULL,
 #'     x_position = "bottom",
 #'     x_sec_axis = ggplot2::waiver(),
@@ -108,7 +108,7 @@
 #'     y_breaks_n = NULL,
 #'     y_expand = NULL,
 #'     y_limits_include = NULL,
-#'     y_label = NULL,
+#'     y_title = NULL,
 #'     y_labels = NULL,
 #'     y_position = "left",
 #'     y_sec_axis = ggplot2::waiver(),
@@ -118,7 +118,7 @@
 #'     col_breaks_n = 5,
 #'     col_drop = FALSE,
 #'     col_limits_include = NULL,
-#'     col_label = NULL,
+#'     col_title = NULL,
 #'     col_labels = NULL,
 #'     col_legend_ncol = NULL,
 #'     col_legend_nrow = NULL,
@@ -140,7 +140,7 @@
 #'     title = NULL,
 #'     subtitle = NULL,
 #'     caption = NULL,
-#'     label_case = NULL
+#'     titles_case = NULL
 #' ) {
 #'   options(ggblend.check_blend = FALSE)
 #'
@@ -475,9 +475,9 @@
 #'     }
 #'   }
 #'
-#'   if (rlang::is_null(label_case)) {
-#'     label_case <- ggblanket_global$label_case
-#'     if (rlang::is_null(label_case)) label_case <- snakecase::to_sentence_case
+#'   if (rlang::is_null(titles_case)) {
+#'     titles_case <- ggblanket_global$titles_case
+#'     if (rlang::is_null(titles_case)) titles_case <- snakecase::to_sentence_case
 #'   }
 #'
 #'   ##############################################################################
@@ -1524,7 +1524,7 @@
 #'   }
 #'
 #'   #############################################################################
-#'   # get x_label, y_label and col_label, if NULL
+#'   # get x_title, y_label and col_title, if NULL
 #'   #############################################################################
 #'
 #'   if (rlang::is_null(x_label)) {
@@ -1537,7 +1537,7 @@
 #'         } else if (!rlang::is_null(plot_build$plot$labels$x)) {
 #'           x_label <- purrr::map_chr(
 #'             rlang::as_name(plot_build$plot$labels$x[1]),
-#'             label_case
+#'             titles_case
 #'           )
 #'         }
 #'       }
@@ -1547,10 +1547,10 @@
 #'       } else if (!rlang::is_null(plot_build$plot$labels$x)) {
 #'         x_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$x[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       } else {
-#'         x_label <- purrr::map_chr("x", label_case)
+#'         x_label <- purrr::map_chr("x", titles_case)
 #'       }
 #'     }
 #'   }
@@ -1565,7 +1565,7 @@
 #'         } else if (!rlang::is_null(plot_build$plot$labels$y)) {
 #'           y_label <- purrr::map_chr(
 #'             rlang::as_name(plot_build$plot$labels$y[1]),
-#'             label_case
+#'             titles_case
 #'           )
 #'         }
 #'       }
@@ -1575,10 +1575,10 @@
 #'       } else if (!rlang::is_null(plot_build$plot$labels$y)) {
 #'         y_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$y[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       } else {
-#'         y_label <- purrr::map_chr("y", label_case)
+#'         y_label <- purrr::map_chr("y", titles_case)
 #'       }
 #'     }
 #'   }
@@ -1586,30 +1586,30 @@
 #'   if (rlang::is_null(col_label)) {
 #'     if ((!rlang::quo_is_null(col))) {
 #'       if (!rlang::is_null(attr(dplyr::pull(data, !!col), "label"))) {
-#'         col_label <- attr(dplyr::pull(data, !!col), "label")
+#'         col_title <- attr(dplyr::pull(data, !!col), "label")
 #'       } else {
 #'         if (!rlang::is_null(plot_build$plot$labels$fill)) {
-#'           col_label <- purrr::map_chr(
+#'           col_title <- purrr::map_chr(
 #'             rlang::as_name(plot_build$plot$labels$fill[1]),
-#'             label_case
+#'             titles_case
 #'           )
 #'         } else if (!rlang::is_null(plot_build$plot$labels$colour)) {
-#'           col_label <- purrr::map_chr(
+#'           col_title <- purrr::map_chr(
 #'             rlang::as_name(plot_build$plot$labels$colour[1]),
-#'             label_case
+#'             titles_case
 #'           )
 #'         }
 #'       }
 #'     } else {
 #'       if (!rlang::is_null(plot_build$plot$labels$fill)) {
-#'         col_label <- purrr::map_chr(
+#'         col_title <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$fill[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       } else if (!rlang::is_null(plot_build$plot$labels$colour)) {
-#'         col_label <- purrr::map_chr(
+#'         col_title <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$colour[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       }
 #'     }
@@ -1625,7 +1625,7 @@
 #'       } else {
 #'         alpha_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$alpha[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       }
 #'     } else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
@@ -1637,13 +1637,13 @@
 #'       } else {
 #'         alpha_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$alpha[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       }
 #'     } else {
 #'       alpha_label <- purrr::map_chr(
 #'         rlang::as_name(plot_build$plot$labels$alpha[1]),
-#'         label_case
+#'         titles_case
 #'       )
 #'     }
 #'   } else {
@@ -1660,7 +1660,7 @@
 #'       } else {
 #'         shape_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$shape[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       }
 #'     } else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
@@ -1672,13 +1672,13 @@
 #'       } else {
 #'         shape_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$shape[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       }
 #'     } else {
 #'       shape_label <- purrr::map_chr(
 #'         rlang::as_name(plot_build$plot$labels$shape[1]),
-#'         label_case
+#'         titles_case
 #'       )
 #'     }
 #'   } else {
@@ -1695,7 +1695,7 @@
 #'       } else {
 #'         size_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$size[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       }
 #'     } else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
@@ -1707,13 +1707,13 @@
 #'       } else {
 #'         size_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$size[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       }
 #'     } else {
 #'       size_label <- purrr::map_chr(
 #'         rlang::as_name(plot_build$plot$labels$size[1]),
-#'         label_case
+#'         titles_case
 #'       )
 #'     }
 #'   } else {
@@ -1730,7 +1730,7 @@
 #'       } else {
 #'         linewidth_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$linewidth[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       }
 #'     } else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
@@ -1742,13 +1742,13 @@
 #'       } else {
 #'         linewidth_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$linewidth[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       }
 #'     } else {
 #'       linewidth_label <- purrr::map_chr(
 #'         rlang::as_name(plot_build$plot$labels$linewidth[1]),
-#'         label_case
+#'         titles_case
 #'       )
 #'     }
 #'   } else {
@@ -1765,7 +1765,7 @@
 #'       } else {
 #'         linetype_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$linetype[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       }
 #'     } else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
@@ -1777,13 +1777,13 @@
 #'       } else {
 #'         linetype_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$linetype[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       }
 #'     } else {
 #'       linetype_label <- purrr::map_chr(
 #'         rlang::as_name(plot_build$plot$labels$linetype[1]),
-#'         label_case
+#'         titles_case
 #'       )
 #'     }
 #'   } else {
@@ -1800,7 +1800,7 @@
 #'       } else {
 #'         pattern_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$pattern[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       }
 #'     } else if (!rlang::is_null(plot_build$plot$labels$fill[1])) {
@@ -1812,13 +1812,13 @@
 #'       } else {
 #'         pattern_label <- purrr::map_chr(
 #'           rlang::as_name(plot_build$plot$labels$pattern[1]),
-#'           label_case
+#'           titles_case
 #'         )
 #'       }
 #'     } else {
 #'       pattern_label <- purrr::map_chr(
 #'         rlang::as_name(plot_build$plot$labels$pattern[1]),
-#'         label_case
+#'         titles_case
 #'       )
 #'     }
 #'   } else {
@@ -1827,15 +1827,15 @@
 #'
 #'   plot <- plot +
 #'     ggplot2::labs(
-#'       x = x_label,
-#'       y = y_label,
-#'       colour = col_label,
-#'       fill = col_label,
-#'       alpha = alpha_label,
-#'       shape = shape_label,
-#'       size = size_label,
-#'       linewidth = linewidth_label,
-#'       linetype = linetype_label,
+#'       x = x_title,
+#'       y = y_title,
+#'       colour = col_title,
+#'       fill = col_title,
+#'       alpha = alpha_title,
+#'       shape = shape_title,
+#'       size = size_title,
+#'       linewidth = linewidth_title,
+#'       linetype = linetype_title,
 #'       pattern = pattern_label
 #'     )
 #'

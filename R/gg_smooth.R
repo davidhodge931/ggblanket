@@ -69,7 +69,7 @@ gg_smooth <- function(
   x_breaks_n = NULL,
   x_expand = NULL,
   x_limits_include = NULL,
-  x_label = NULL,
+  x_title = NULL,
   x_labels = NULL,
   x_position = "bottom",
   x_sec_axis = ggplot2::waiver(),
@@ -79,7 +79,7 @@ gg_smooth <- function(
   y_breaks_n = NULL,
   y_expand = NULL,
   y_limits_include = NULL,
-  y_label = NULL,
+  y_title = NULL,
   y_labels = NULL,
   y_position = "left",
   y_sec_axis = ggplot2::waiver(),
@@ -89,7 +89,7 @@ gg_smooth <- function(
   col_breaks_n = 5,
   col_drop = FALSE,
   col_limits_include = NULL,
-  col_label = NULL,
+  col_title = NULL,
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
@@ -111,7 +111,7 @@ gg_smooth <- function(
   title = NULL,
   subtitle = NULL,
   caption = NULL,
-  label_case = NULL
+  titles_case = NULL
 ) {
   gg_blanket(
     data = data,
@@ -151,7 +151,7 @@ gg_smooth <- function(
     x_sec_axis = x_sec_axis,
     x_symmetric = x_symmetric,
     x_position = x_position,
-    x_label = x_label,
+    x_title = x_title,
     x_transform = x_transform,
     y_breaks = y_breaks,
     y_expand = y_expand,
@@ -161,7 +161,7 @@ gg_smooth <- function(
     y_sec_axis = y_sec_axis,
     y_symmetric = y_symmetric,
     y_position = y_position,
-    y_label = y_label,
+    y_title = y_title,
     y_transform = y_transform,
     col_breaks = col_breaks,
     col_drop = col_drop,
@@ -175,7 +175,7 @@ gg_smooth <- function(
     col_palette_na = col_palette_na,
     col_rescale = col_rescale,
     col_steps = col_steps,
-    col_label = col_label,
+    col_title = col_title,
     col_transform = col_transform,
     facet_axes = facet_axes,
     facet_axis_labels = facet_axis_labels,
@@ -189,7 +189,7 @@ gg_smooth <- function(
     title = title,
     subtitle = subtitle,
     caption = caption,
-    label_case = label_case,
+    titles_case = titles_case,
     ...
   )
 }

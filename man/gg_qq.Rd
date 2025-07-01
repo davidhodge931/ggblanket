@@ -38,7 +38,7 @@ gg_qq(
   x_breaks_n = NULL,
   x_expand = NULL,
   x_limits_include = NULL,
-  x_label = NULL,
+  x_title = NULL,
   x_labels = NULL,
   x_position = "bottom",
   x_sec_axis = ggplot2::waiver(),
@@ -48,7 +48,7 @@ gg_qq(
   y_breaks_n = NULL,
   y_expand = NULL,
   y_limits_include = NULL,
-  y_label = NULL,
+  y_title = NULL,
   y_labels = NULL,
   y_position = "left",
   y_sec_axis = ggplot2::waiver(),
@@ -58,7 +58,7 @@ gg_qq(
   col_breaks_n = 5,
   col_drop = FALSE,
   col_limits_include = NULL,
-  col_label = NULL,
+  col_title = NULL,
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
@@ -80,7 +80,7 @@ gg_qq(
   title = NULL,
   subtitle = NULL,
   caption = NULL,
-  label_case = NULL
+  titles_case = NULL
 )
 }
 \arguments{
@@ -118,7 +118,7 @@ gg_qq(
 
 \item{x_limits_include, y_limits_include, col_limits_include}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
 
-\item{x_label, y_label, col_label}{Label for the axis or legend title. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
+\item{x_title, y_title, col_title}{Label for the axis or legend title. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
 
 \item{x_labels, y_labels, col_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \verb{scales::label_*()}), or a vector of labels. (Note this must be named for \code{facet_labels}).}
 
@@ -162,7 +162,7 @@ gg_qq(
 
 \item{caption}{Caption title string.}
 
-\item{label_case}{A function to format the label of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
+\item{titles_case}{A function to format the label of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
 }
 \value{
 A ggplot object.

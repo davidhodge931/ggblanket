@@ -13,7 +13,7 @@
 #     gg_area(
 #       x = date,
 #       y = unemploy,
-#       y_label = "Unemployment",
+#       y_title = "Unemployment",
 #     )
 #   vdiffr::expect_doppelganger(test_name, p)
 # })
@@ -129,8 +129,8 @@
 #       ymax = upper,
 #       col = group,
 #       width = 0.5,
-#       x_label = "Treatment",
-#       y_label = "Response",
+#       x_title = "Treatment",
+#       y_title = "Response",
 #     )
 #
 #   vdiffr::expect_doppelganger(test_name, p)
@@ -203,8 +203,8 @@
 #       ymax = upper,
 #       col = group,
 #       width = 0.1,
-#       x_label = "Treatment",
-#       y_label = "Response",
+#       x_title = "Treatment",
+#       y_title = "Response",
 #     )
 #
 #   vdiffr::expect_doppelganger(test_name, p)
@@ -304,7 +304,7 @@
 #       label = model,
 #       size = 3.53,
 #       y_limits_include = 0,
-#       y_label = "Miles per gallon",
+#       y_title = "Miles per gallon",
 #       # col_palette = c(orange, "white", teal),
 #     )
 #
@@ -320,7 +320,7 @@
 #       x = date,
 #       y = unemploy,
 #       y_limits_include = 0,
-#       y_label = "Unemployment",
+#       y_title = "Unemployment",
 #     )
 #
 #   vdiffr::expect_doppelganger(test_name, p)
@@ -343,8 +343,8 @@
 #       ymax = upper,
 #       col = group,
 #       position = position_dodge(width = 0.2),
-#       x_label = "Treatment",
-#       y_label = "Response",
+#       x_title = "Treatment",
+#       y_title = "Response",
 #     )
 #
 #   vdiffr::expect_doppelganger(test_name, p)
@@ -359,9 +359,9 @@
 #     gg_path(
 #       x = unemploy_rate,
 #       y = psavert,
-#       x_label = "Unemployment rate",
+#       x_title = "Unemployment rate",
 #       y_limits_include = 0,
-#       y_label = "Personal savings rate",
+#       y_title = "Personal savings rate",
 #     )
 #
 #   vdiffr::expect_doppelganger(test_name, p)
@@ -400,8 +400,8 @@
 #       ymax = upper,
 #       position = position_dodge(width = 0.2),
 #       size = 0.2,
-#       x_label = "Treatment",
-#       y_label = "Response",
+#       x_title = "Treatment",
+#       y_title = "Response",
 #     )
 #
 #   vdiffr::expect_doppelganger(test_name, p)
@@ -570,7 +570,7 @@
 #       ymax = level_max,
 #       colour = NA,
 #       x_labels = \(x) x,
-#       y_label = "Level",
+#       y_title = "Level",
 #     ) +
 #     geom_line(
 #       mapping = aes(y = level),
@@ -648,7 +648,7 @@
 #       x = date,
 #       y = unemploy,
 #       y_limits_include = 0,
-#       y_label = "Unemployment",
+#       y_title = "Unemployment",
 #     )
 #
 #   vdiffr::expect_doppelganger(test_name, p)
@@ -669,7 +669,7 @@
 #       label = model,
 #       size = 3.53,
 #       y_limits_include = 0,
-#       y_label = "Miles per gallon",
+#       y_title = "Miles per gallon",
 #       col_palette = c(orange, "white", teal),
 #     )
 #

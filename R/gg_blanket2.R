@@ -24,7 +24,7 @@
 #' @param x_breaks_n,y_breaks_n,col_breaks_n A number of desired breaks for when `*_breaks = NULL`.
 #' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
 #' @param x_limits_include,y_limits_include,col_limits_include For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
-#' @param x_label,y_label,col_label Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)` for no title.
+#' @param x_title,y_title,col_title Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)` for no title.
 #' @param x_labels,y_labels,col_labels,facet_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_*()`), or a vector of labels. (Note this must be named for `facet_labels`).
 #' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_*` theme, add `caption = ""` or `caption = "\n"`.
 #' @param x_sec_axis,y_sec_axis A secondary axis with [ggplot2::dup_axis()] or  [ggplot2::sec_axis()] defaults.
@@ -46,7 +46,7 @@
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
-#' @param label_case A function to format the label of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
+#' @param titles_case A function to format the label of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
 #'
 #' @return A ggplot object.
 #' @export
@@ -85,7 +85,7 @@ gg_blanket <- function(
     x_breaks_n = NULL,
     x_expand = NULL,
     x_limits_include = NULL,
-    x_label = NULL,
+    x_title = NULL,
     x_labels = NULL,
     x_position = "bottom",
     x_sec_axis = ggplot2::waiver(),
@@ -95,7 +95,7 @@ gg_blanket <- function(
     y_breaks_n = NULL,
     y_expand = NULL,
     y_limits_include = NULL,
-    y_label = NULL,
+    y_title = NULL,
     y_labels = NULL,
     y_position = "left",
     y_sec_axis = ggplot2::waiver(),
@@ -105,7 +105,7 @@ gg_blanket <- function(
     col_breaks_n = 5,
     col_drop = FALSE,
     col_limits_include = NULL,
-    col_label = NULL,
+    col_title = NULL,
     col_labels = NULL,
     col_legend_ncol = NULL,
     col_legend_nrow = NULL,
@@ -127,7 +127,7 @@ gg_blanket <- function(
     title = NULL,
     subtitle = NULL,
     caption = NULL,
-    label_case = NULL
+    titles_case = NULL
 ) {
   options(ggblend.check_blend = FALSE)
 
@@ -209,7 +209,7 @@ gg_blanket <- function(
   })
 
   # Determine scale types
-  scale_classs <- determine_scale_classs(plot_build, aes_list, data)
+  scale_classs <- determine_scale_class(plot_build, aes_list, data)
   x_scale_class <- scale_classs$x_scale_class
   y_scale_class <- scale_classs$y_scale_class
   col_scale_class <- scale_classs$col_scale_class
@@ -219,7 +219,7 @@ gg_blanket <- function(
   ##############################################################################
   defaults <- get_defaults(x_transform, y_transform, x_scale_class, y_scale_class,
                            facet_scales, theme, x_symmetric, y_symmetric,
-                           stat_name, perspective, label_case)
+                           stat_name, perspective, titles_case)
 
   x_transform <- defaults$x_transform
   y_transform <- defaults$y_transform
@@ -231,7 +231,7 @@ gg_blanket <- function(
   x_symmetric <- defaults$x_symmetric
   y_symmetric <- defaults$y_symmetric
   perspective <- defaults$perspective
-  label_case <- defaults$label_case
+  titles_case <- defaults$titles_case
 
   ##############################################################################
   # Step 6: Validate inputs
@@ -736,64 +736,63 @@ gg_blanket <- function(
   }
 
   #############################################################################
-  # Step 14: Get labels
+  # Step 14: Get titles
   #############################################################################
 
-  # Get x_label if NULL
-  if (rlang::is_null(x_label)) {
+  if (rlang::is_null(x_title)) {
     if (stringr::str_detect(stat_name, "sf")) {
-      x_label <- ""
+      x_title <- ""
     } else {
-      x_label <- extract_label(
+      x_title <- extract_title(
         data, aes_list$x, plot_build$plot$labels$x,
-        label_case, purrr::map_chr("x", label_case)
+        titles_case,
+        purrr::map_chr("x", titles_case)
       )
     }
   }
 
-  # Get y_label if NULL
-  if (rlang::is_null(y_label)) {
+  if (rlang::is_null(y_title)) {
     if (stringr::str_detect(stat_name, "sf")) {
-      y_label <- ""
+      y_title <- ""
     } else {
-      y_label <- extract_label(
+      y_title <- extract_title(
         data, aes_list$y, plot_build$plot$labels$y,
-        label_case, purrr::map_chr("y", label_case)
+        titles_case, purrr::map_chr("y", titles_case)
       )
     }
   }
 
-  # Get col_label if NULL
-  if (rlang::is_null(col_label)) {
-    if (!rlang::is_null(plot_build$plot$labels$fill)) {
-      col_label <- extract_label(
-        data, aes_list$col, plot_build$plot$labels$fill,
-        label_case, NULL
-      )
-    } else if (!rlang::is_null(plot_build$plot$labels$colour)) {
-      col_label <- extract_label(
+  if (rlang::is_null(col_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$colour)) {
+      col_title <- extract_title(
         data, aes_list$col, plot_build$plot$labels$colour,
-        label_case, NULL
+        titles_case, NULL
+      )
+    }
+    else if (!rlang::is_null(plot_build$plot$labels$fill)) {
+      col_title <- extract_title(
+        data, aes_list$col, plot_build$plot$labels$fill,
+        titles_case, NULL
       )
     }
   }
 
   # Get labels for other aesthetics
-  secondary_labels <- extract_secondary_labels(plot_build, col_label, label_case)
+  other_titles <- extract_other_titles(plot_build, col_title, titles_case)
 
   # Apply labels
   plot <- plot +
     ggplot2::labs(
-      x = x_label,
-      y = y_label,
-      colour = col_label,
-      fill = col_label,
-      alpha = secondary_labels$alpha_label,
-      shape = secondary_labels$shape_label,
-      size = secondary_labels$size_label,
-      linewidth = secondary_labels$linewidth_label,
-      linetype = secondary_labels$linetype_label,
-      pattern = secondary_labels$pattern_label
+      x = x_title,
+      y = y_title,
+      colour = col_title,
+      fill = col_title,
+      alpha = other_titles$alpha_title,
+      shape = other_titles$shape_title,
+      size = other_titles$size_title,
+      linewidth = other_titles$linewidth_title,
+      linetype = other_titles$linetype_title,
+      pattern = other_titles$pattern_title
     )
 
   # Add title, subtitle, caption

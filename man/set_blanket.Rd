@@ -22,7 +22,7 @@ set_blanket(
   col_palette_na_d = "#CDC5BFFF",
   col_palette_na_c = "#988F88FF",
   col_palette_na_o = "#988F88FF",
-  label_case = snakecase::to_sentence_case,
+  titles_case = snakecase::to_sentence_case,
   perspective = NULL,
   axis_line_transparent = TRUE,
   axis_ticks_transparent = TRUE,
@@ -64,7 +64,7 @@ set_blanket(
 
 \item{col_palette_na_o}{For an ordinal scale, a hex code.}
 
-\item{label_case}{A function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc. Defaults to \code{snakecase::to_sentence_case}.}
+\item{titles_case}{A function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc. Defaults to \code{snakecase::to_sentence_case}.}
 
 \item{perspective}{The perspective of plot, which affects the theme components that can be removed by the \verb{gg_*} function. Either \code{"x"} or \code{"y"}. Defaults to \code{NULL}, which lets the \verb{gg_*} function guess it based on the data.}
 

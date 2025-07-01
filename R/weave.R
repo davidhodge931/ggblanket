@@ -7,7 +7,7 @@ ggblanket_global$axis_line_transparent <- NULL
 ggblanket_global$axis_ticks_transparent <- NULL
 ggblanket_global$axis_line_transparent <- NULL
 
-ggblanket_global$label_case <- NULL
+ggblanket_global$titles_case <- NULL
 
 ggblanket_global$col_palette_d <- NULL
 ggblanket_global$col_palette_c <- NULL
@@ -67,13 +67,13 @@ weave_theme <- function(
 #'
 #' @description Set a function to format the label of unlabelled variables.
 #'
-#' @param label_case A function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc. Defaults to `snakecase::to_sentence_case`.
+#' @param titles_case A function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc. Defaults to `snakecase::to_sentence_case`.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @noRd
-weave_label_case <- function(label_case = snakecase::to_sentence_case, ...) {
-  old <- ggblanket_global$label_case
-  ggblanket_global$label_case <- label_case
+weave_titles_case <- function(titles_case = snakecase::to_sentence_case, ...) {
+  old <- ggblanket_global$titles_case
+  ggblanket_global$titles_case <- titles_case
   invisible(old)
 }
 

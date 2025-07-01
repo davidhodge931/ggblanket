@@ -134,7 +134,7 @@ test_that(test_name, {
       y_breaks = scales::breaks_width(1500),
       y_labels = scales::label_number(big.mark = " "),
       y_expand = expansion(mult = c(0, 0.05)),
-      y_label = "Body mass (g)",
+      y_title = "Body mass (g)",
       col_scale_type = TRUE,
       facet_labels = \(x) str_to_sentence(x),
     )
@@ -175,8 +175,8 @@ test_that(test_name, {
       ymax = upper,
       col = group,
       width = 0.1,
-      x_label = "Treatment",
-      y_label = "Response",
+      x_title = "Treatment",
+      y_title = "Response",
       subtitle = "\ntheme = theme_lighter(),"
     ) +
     theme(legend.position = "none")
@@ -188,8 +188,8 @@ test_that(test_name, {
       ymax = upper,
       col = group,
       width = 0.1,
-      x_label = "Treatment",
-      y_label = "Response",
+      x_title = "Treatment",
+      y_title = "Response",
       subtitle = "\n+ theme_lighter()"
     ) +
     theme_lighter() +
@@ -257,8 +257,8 @@ test_that(test_name, {
       ymax = upper,
       col = group,
       width = 0.1,
-      x_label = "Treatment",
-      y_label = "Response",
+      x_title = "Treatment",
+      y_title = "Response",
       subtitle = "\nDefault y scale",
     ) +
     theme(legend.position = "none")
@@ -270,8 +270,8 @@ test_that(test_name, {
       ymax = upper,
       col = group,
       width = 0.1,
-      x_label = "Treatment",
-      y_label = "Response",
+      x_title = "Treatment",
+      y_title = "Response",
       y_symmetric = FALSE,
       subtitle = "\ny_symmetric = FALSE,",
     ) +
@@ -284,8 +284,8 @@ test_that(test_name, {
       col = group,
       position = "dodge",
       width = 0.5,
-      x_label = "Treatment upper",
-      y_label = "Response",
+      x_title = "Treatment upper",
+      y_title = "Response",
       y_symmetric = FALSE,
       y_expand = ggplot2::expansion(c(0, 0.05)),
       subtitle = "\ny_symmetric = FALSE, \ny_expand = ggplot2::expansion(c(0, 0.05)),"
@@ -365,7 +365,7 @@ test_that(test_name, {
       width = 0.75,
       x_limits_include = c(0, max(.$upper)),
       x_labels = \(x) x / 1000,
-      x_label = "Body mass kg",
+      x_title = "Body mass kg",
     ) +
     geom_errorbar(
       colour = "black",
@@ -394,7 +394,7 @@ test_that(test_name, {
       width = 0.75,
       x_limits_include = 0,
       x_labels = \(x) x / 1000,
-      x_label = "Body mass kg",
+      x_title = "Body mass kg",
     ) +
     geom_col(
       colour = "#d3d3d3",

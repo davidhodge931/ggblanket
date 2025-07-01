@@ -27,7 +27,7 @@
 #' @param col_palette_na_d For a discrete scale, a hex code.
 #' @param col_palette_na_c For a continuous scale, a hex code.
 #' @param col_palette_na_o For an ordinal scale, a hex code.
-#' @param label_case A function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc. Defaults to `snakecase::to_sentence_case`.
+#' @param titles_case A function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc. Defaults to `snakecase::to_sentence_case`.
 #' @param perspective The perspective of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
 #' @param axis_line_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `perspective` of the plot.
 #' @param axis_ticks_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `perspective` of the plot.
@@ -79,7 +79,7 @@ set_blanket <- function(
     col_palette_na_d = "#CDC5BFFF",
     col_palette_na_c = "#988F88FF",
     col_palette_na_o = "#988F88FF",
-    label_case = snakecase::to_sentence_case,
+    titles_case = snakecase::to_sentence_case,
 
     perspective = NULL,
     axis_line_transparent = TRUE,
@@ -130,5 +130,5 @@ set_blanket <- function(
     col_palette_na_o = col_palette_na_o
   )
 
-  weave_label_case(label_case = label_case)
+  weave_titles_case(titles_case = titles_case)
 }

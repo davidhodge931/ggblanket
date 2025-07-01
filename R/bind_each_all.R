@@ -53,7 +53,7 @@
 #'     col = each_all,
 #'     col_palette = c(blue, grey),
 #'     width = 0.5,
-#'     y_label = "Average body mass g",
+#'     y_title = "Average body mass g",
 #'   ) +
 #'   theme(legend.position = "none")
 #'
