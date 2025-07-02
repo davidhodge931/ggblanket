@@ -377,20 +377,21 @@ datapoly |>
 penguins2 |>
   gg_qq(
     sample = body_mass_g,
-    facet = species,
+    col = species,
   ) +
-  geom_qq_line()
+  geom_qq_line(colour = get_geom_defaults("qq_line")$colour)
 ```
+### gg_qq_line
 
 ```{r}
 penguins2 |>
   gg_qq_line(
     sample = body_mass_g,
-    facet = species,
+    col = species,
+    colour = get_geom_defaults("qq_line")$colour
   ) +
   geom_qq()
 ```
-
 
 ### gg_quantile
 

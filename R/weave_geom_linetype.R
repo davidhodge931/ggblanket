@@ -46,7 +46,6 @@ weave_geom_linetype <- function(
     geom.violin = ggplot2::element_geom(bordertype = linetype_border),
 
     # other
-    geom.abline = ggplot2::element_geom(linetype = linetype),
     geom.contour = ggplot2::element_geom(linetype = linetype),
     geom.count = ggplot2::element_geom(linetype = linetype),
     geom.curve = ggplot2::element_geom(linetype = linetype),

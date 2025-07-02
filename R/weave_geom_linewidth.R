@@ -37,7 +37,6 @@ weave_geom_linewidth <- function(linewidth = 0.66, ...) {
     geom.pointrange = ggplot2::element_geom(linewidth = linewidth),
     geom.qq = ggplot2::element_geom(linewidth = linewidth),
     #else just lines
-    geom.abline = ggplot2::element_geom(linewidth = linewidth),
     geom.contour = ggplot2::element_geom(linewidth = linewidth),
     geom.curve = ggplot2::element_geom(linewidth = linewidth),
     geom.density2d = ggplot2::element_geom(linewidth = linewidth),

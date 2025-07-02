@@ -17,7 +17,14 @@
 #' palmerpenguins::penguins |>
 #'   gg_qq_line(
 #'     sample = body_mass_g,
-#'     facet = species,
+#'   ) +
+#'   geom_qq()
+#'
+#' palmerpenguins::penguins |>
+#'   gg_qq_line(
+#'     sample = body_mass_g,
+#'     col = species,
+#'     colour = get_geom_defaults("qq_line")$colour,
 #'   ) +
 #'   geom_qq()
 #'
