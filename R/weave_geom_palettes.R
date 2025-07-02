@@ -3,6 +3,7 @@
 #' @description
 #' This function allows you to set colour and fill palettes with a hierarchical priority system. More specific parameters override more general ones.
 #'
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param col_palette For a colour and fill scale, a character vector of hex codes, or a `scales::pal_*()` function. Note does not apply to ordinal scales.
 #' @param col_palette_d For a discrete colour and fill scale, a character vector of hex codes, or a `scales::pal_*()` function.
 #' @param col_palette_c For a continuous colour and fill scale, a character vector of hex codes, or a `scales::pal_*()` function.
@@ -42,6 +43,7 @@
 #' # Set different palettes for colour and fill discrete
 #' weave_geom_palettes(colour_palette_d = colorspace::darken(jumble, 0.1), fill_palette_d = jumble)
 weave_geom_palettes <- function(
+    ...,
     col_palette = NULL,
     col_palette_d = NULL,
     col_palette_c = NULL,

@@ -7,12 +7,12 @@
 #'
 #' @param linetype A default linetype for geoms that don't fall into other categories
 #'   (e.g., point, line, path). Defaults to 1 (solid line).
+#' @param ... Provided to require argument naming and support trailing commas.
 #' @param linetype_border The linetype for polygon geoms (excluding boxplot, crossbar,
 #'   and sf). Defaults to 0 (no line).
 #' @param linetype_box The linetype for boxplot and crossbar geoms specifically.
 #'   Defaults to 1 (solid line).
 #' @param linetype_sf The linetype for the sf geom specifically. Defaults to 0 (no line).
-#' @param ... Provided to require argument naming and support trailing commas.
 #'
 #' @details
 #' The default behavior allows polygon-based visualizations allows for neat
@@ -56,10 +56,10 @@
 #'
 weave_geom_linetype <- function(
     linetype = 1,
+    ...,
     linetype_border = 0,
     linetype_box = 1,
-    linetype_sf = 0,
-    ...) {
+    linetype_sf = 0) {
   ggplot2::update_theme(
     # sf
     geom.sf = ggplot2::element_geom(linetype = linetype_sf),

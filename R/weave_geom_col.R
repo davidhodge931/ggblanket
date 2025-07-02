@@ -1,11 +1,12 @@
 #' Update the colour/fill for geoms
 #'
 #' @description
-#' Update the colour and fill defaults for ggplot2 geoms using a hierarchical system.
+#' Update the colour/fill defaults for ggplot2 geoms using a hierarchical system.
 #' More specific parameters override more general ones, allowing fine-grained control
 #' over different geom categories.
 #'
 #' @param col A default hex code for both colour and fill of all geoms.
+#' @param ... Provided to require argument naming and support trailing commas.
 #' @param colour A default hex code for the colour of all geoms. Overrides `col` for colour.
 #' @param colour_border The outline colour for polygon geoms (excluding boxplot, crossbar,
 #'   and sf). Controls the colour of the border line itself. Overrides `colour` and `col`.
@@ -19,7 +20,6 @@
 #' @param fill_box The interior fill colour for boxplot and crossbar geoms specifically.
 #'   Overrides `fill` and `col`.
 #' @param fill_sf The interior fill colour for sf geoms specifically. Overrides `fill` and `col`.
-#' @param ... Provided to require argument naming and support trailing commas.
 #'
 #' @details
 #' The function uses a hierarchical priority system where more specific parameters
@@ -85,6 +85,7 @@
 #'   fill = colorspace::lighten("#3498DB", 0.4)
 #' )
 weave_geom_col <- function(col = NULL,
+                           ...,
                            colour = NULL,
                            colour_border = NULL,
                            colour_box = NULL,
@@ -92,8 +93,7 @@ weave_geom_col <- function(col = NULL,
                            fill = NULL,
                            fill_border = NULL,
                            fill_box = NULL,
-                           fill_sf = NULL,
-                           ...) {
+                           fill_sf = NULL) {
 
   # Determine from most specific to most general
   colour_sf <- colour_sf %||% colour %||% col %||% blue
