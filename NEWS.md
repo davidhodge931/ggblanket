@@ -16,6 +16,7 @@
 * Added `standardise_width`.
 * Added `annotate_axis_ticks`.
 * Added `element_line_transparent`.
+* Added `gg_qq_line`.
 * Supported `facet_space` argument with a discrete scale.
 
 # ggblanket 12.4.0

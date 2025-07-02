@@ -380,12 +380,11 @@ datapoly |>
 
 ```{r}
 penguins2 |>
-  gg_qq(
+  gg_qq_line(
     sample = body_mass_g,
     facet = species,
-    coord = coord_cartesian(clip = "on"), 
   ) +
-  geom_qq_line()
+  geom_qq()
 ```
 
 ### gg_quantile
