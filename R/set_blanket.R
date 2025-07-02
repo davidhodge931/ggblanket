@@ -13,6 +13,7 @@
 #' 7. geom reference lines (`weave_geom_reference_line`)
 #'
 #' 8. geom colour/fill palettes (i.e. discrete, continuous and ordinal) (`weave_geom_palettes`)
+#'
 #' 9. the function to apply to a unspecified/unlabelled `x_title`, `y_title`, `col_title` etc. (`weave_titles_case`)
 #'
 #' For simplicity, this function does not provide all arguments.
@@ -64,34 +65,13 @@ set_blanket <- function(
     theme = theme_lighter(),
     ...,
     col = "#357BA2FF",
-
-    colour = col, #???
-    # colour_border = colour,
-    # colour_box = colour_border,
-    # colour_sf = colour_border,
-
-    fill = col, #???
-
     linewidth = 0.66,
-
     size = 1.5,
-
     linetype = 1,
-    # linetype_border = 0,
-    # linetype_box = linetype,
-    # linetype_sf = linetype,
-
     col_palette = NULL,
     col_palette_d = jumble,
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
-
-    # col_palette_o = scales::pal_viridis(option = "G", direction = -1),
-    # col_palette_na_d = "#CDC5BFFF",
-    # col_palette_na_c = "#988F88FF",
-    # col_palette_na_o = "#988F88FF",
     titles_case = snakecase::to_sentence_case,
-
-    # perspective = NULL,
     axis_line_transparent = TRUE,
     axis_ticks_transparent = TRUE,
     panel_grid_transparent = TRUE
@@ -99,14 +79,12 @@ set_blanket <- function(
 
   weave_theme(
     theme = theme,
-    # perspective = perspective,
     axis_line_transparent = axis_line_transparent,
     axis_ticks_transparent = axis_ticks_transparent,
     panel_grid_transparent = panel_grid_transparent
   )
 
   weave_geom_col(col = col)
-  # weave_geom_col(col = col, colour = colour, fill = fill)
 
   weave_geom_size(size = size)
 
@@ -114,33 +92,15 @@ set_blanket <- function(
 
   weave_geom_linetype(linetype = linetype)
 
-  # weave_geom_linetype(
-  #   linetype = linetype,
-  #   linetype_border = linetype_border,
-  #   linetype_box = linetype_box,
-  #   linetype_sf = linetype_sf
-  # )
-
-  # weave_geom_annotation(
-  #   colour = NULL,
-  #   fill = NULL,
-  #   linewidth = NULL,
-  #   size = NULL,
-  # )
-
   weave_geom_reference_line()
 
   weave_geom_font()
 
   weave_geom_palettes(
+    col_palette = col_palette,
     col_palette_d = col_palette_d,
     col_palette_c = col_palette_c,
   )
-  # weave_geom_palettes(
-  #   col_palette = col_palette,
-  #   col_palette_d = col_palette_d,
-  #   col_palette_c = col_palette_c,
-  # )
 
   weave_titles_case(titles_case = titles_case)
 }

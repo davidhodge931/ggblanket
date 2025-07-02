@@ -39,7 +39,7 @@ Computational speed has been traded-off.
 
 1.  First setup with `set_blanket()`
 2.  Each `gg_*` function wraps a geom
-3.  A merged `col` argument to colour/fill by a variable
+3.  The `col` aesthetic is highjacked to be both colour and fill
 4.  A `facet` argument to facet by a variable
 5.  A `facet2` argument to facet by a 2nd variable
 6.  Other aesthetics via `mapping` argument
@@ -91,14 +91,16 @@ palmerpenguins::penguins |>
   )
 ```
 
-### 3. A merged `col` argument to colour/fill by a variable
+### 3.  The `col` aesthetic is highjacked to be both colour and fill
 
-The colour and fill aesthetics of ggplot2 are merged into a single concept represented by the `col` argument. 
+In ggplot2, the `col` aesthetic is shorthand for the `colour` aesthetic.
+
+In ggblanket, the `col` aesthetic is highjacked to instead represent *both* the `colour` *and* the `fill` aesthetic.
 
 When the `col` argument is added, this means that outlines _and_ interiors 
 are coloured/filled by the `col` variable using the `col_palette`. 
 
-The defaults used in `set_blanket` for the linewidth of polygon-ish geoms generally use zero.
+Likewise, when you add `col = "red"`, the red is added to the `colour` and the `fill`.
 
 ```{r}
 palmerpenguins::penguins |>

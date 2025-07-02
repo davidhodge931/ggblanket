@@ -573,23 +573,29 @@ validate_inputs <- function(mapping, x_symmetric, y_symmetric,
 #' Process data for factors and reversing
 #' @noRd
 process_data <- function(data, aes_list, x_symmetric) {
+  # Get list of aesthetics that are not NULL
+  aes_to_process <- list(
+    aes_list$x,
+    aes_list$xmin,
+    aes_list$xmax,
+    aes_list$xend,
+    aes_list$y,
+    aes_list$ymin,
+    aes_list$ymax,
+    aes_list$yend,
+    aes_list$col,
+    aes_list$facet,
+    aes_list$facet2
+  )
+
+  # Remove NULL values
+  aes_to_process <- aes_to_process[!sapply(aes_to_process, rlang::quo_is_null)]
+
   # Ungroup and convert to factors
   data <- data |>
     dplyr::ungroup() |>
     dplyr::mutate(dplyr::across(
-      c(
-        !!aes_list$x,
-        !!aes_list$xmin,
-        !!aes_list$xmax,
-        !!aes_list$xend,
-        !!aes_list$y,
-        !!aes_list$ymin,
-        !!aes_list$ymax,
-        !!aes_list$yend,
-        !!aes_list$col,
-        !!aes_list$facet,
-        !!aes_list$facet2
-      ) &
+      c(!!!aes_to_process) &
         (tidyselect::where(is.character) |
            tidyselect::where(is.factor) |
            tidyselect::where(is.logical)),
@@ -602,14 +608,16 @@ process_data <- function(data, aes_list, x_symmetric) {
       function(x) forcats::fct_rev(x)
     ))
 
-  # If flipped, order col correctly
-  if ((!identical(rlang::eval_tidy(aes_list$y, data),
-                  rlang::eval_tidy(aes_list$col, data))) & x_symmetric) {
-    data <- data |>
-      dplyr::mutate(dplyr::across(
-        !!aes_list$col & tidyselect::where(is.factor),
-        function(x) forcats::fct_rev(x)
-      ))
+  # If flipped, order col correctly (only if col is not NULL)
+  if (!rlang::quo_is_null(aes_list$col) && x_symmetric) {
+    if (!identical(rlang::eval_tidy(aes_list$y, data),
+                   rlang::eval_tidy(aes_list$col, data))) {
+      data <- data |>
+        dplyr::mutate(dplyr::across(
+          !!aes_list$col & tidyselect::where(is.factor),
+          function(x) forcats::fct_rev(x)
+        ))
+    }
   }
 
   data

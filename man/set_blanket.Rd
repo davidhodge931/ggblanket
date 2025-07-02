@@ -8,8 +8,6 @@ set_blanket(
   theme = theme_lighter(),
   ...,
   col = "#357BA2FF",
-  colour = col,
-  fill = col,
   linewidth = 0.66,
   size = 1.5,
   linetype = 1,

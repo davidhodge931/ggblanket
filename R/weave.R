@@ -1,72 +1,72 @@
-# global defaults
-ggblanket_global <- new.env(parent = emptyenv())
-
-ggblanket_global$theme <- NULL
-ggblanket_global$perspective <- NULL
-ggblanket_global$axis_line_transparent <- NULL
-ggblanket_global$axis_ticks_transparent <- NULL
-ggblanket_global$axis_line_transparent <- NULL
-
-ggblanket_global$titles_case <- NULL
-
-#' Set a theme
+#' # global defaults
+#' ggblanket_global <- new.env(parent = emptyenv())
 #'
-#' @description Set a theme for the theme argument in `gg_*` functions.
+#' ggblanket_global$theme <- NULL
+#' ggblanket_global$perspective <- NULL
+#' ggblanket_global$axis_line_transparent <- NULL
+#' ggblanket_global$axis_ticks_transparent <- NULL
+#' ggblanket_global$axis_line_transparent <- NULL
 #'
-#' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
-#' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param perspective The perspective of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
-#' @param axis_line_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `perspective` of the plot.
-#' @param axis_ticks_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `perspective` of the plot.
-#' @param panel_grid_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `perspective` of the plot.
+#' ggblanket_global$titles_case <- NULL
 #'
-#' @noRd
-weave_theme <- function(
-    theme = theme_lighter(),
-    ...,
-    perspective = NULL,
-    axis_line_transparent = TRUE,
-    axis_ticks_transparent = TRUE,
-    panel_grid_transparent = TRUE
-) {
-  old <- ggblanket_global$theme
-  ggblanket_global$theme <- theme
-  invisible(old)
-
-  old <- ggblanket_global$perspective
-  ggblanket_global$perspective <- perspective
-  invisible(old)
-
-  old <- ggblanket_global$axis_line_transparent
-  ggblanket_global$axis_line_transparent <- axis_line_transparent
-  invisible(old)
-
-  old <- ggblanket_global$axis_ticks_transparent
-  ggblanket_global$axis_ticks_transparent <- axis_ticks_transparent
-  invisible(old)
-
-  old <- ggblanket_global$panel_grid_transparent
-  ggblanket_global$panel_grid_transparent <- panel_grid_transparent
-  invisible(old)
-
-  if (ggplot2::is_theme(theme)) {
-    ggplot2::set_theme(new = theme)
-  } else {
-    ggplot2::set_theme(new = theme[[1]]) #if list, assume first element is theme
-  }
-}
-
-#' Set a label case function
+#' #' Set a theme
+#' #'
+#' #' @description Set a theme for the theme argument in `gg_*` functions.
+#' #'
+#' #' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
+#' #' @param ... Provided to require argument naming, support trailing commas etc.
+#' #' @param perspective The perspective of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
+#' #' @param axis_line_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `perspective` of the plot.
+#' #' @param axis_ticks_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `perspective` of the plot.
+#' #' @param panel_grid_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `perspective` of the plot.
+#' #'
+#' #' @noRd
+#' weave_theme <- function(
+#'     theme = theme_lighter(),
+#'     ...,
+#'     perspective = NULL,
+#'     axis_line_transparent = TRUE,
+#'     axis_ticks_transparent = TRUE,
+#'     panel_grid_transparent = TRUE
+#' ) {
+#'   old <- ggblanket_global$theme
+#'   ggblanket_global$theme <- theme
+#'   invisible(old)
 #'
-#' @description Set a function to format the label of unlabelled variables.
+#'   old <- ggblanket_global$perspective
+#'   ggblanket_global$perspective <- perspective
+#'   invisible(old)
 #'
-#' @param titles_case A function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc. Defaults to `snakecase::to_sentence_case`.
-#' @param ... Provided to require argument naming, support trailing commas etc.
+#'   old <- ggblanket_global$axis_line_transparent
+#'   ggblanket_global$axis_line_transparent <- axis_line_transparent
+#'   invisible(old)
 #'
-#' @noRd
-weave_titles_case <- function(titles_case = snakecase::to_sentence_case, ...) {
-  old <- ggblanket_global$titles_case
-  ggblanket_global$titles_case <- titles_case
-  invisible(old)
-}
-
+#'   old <- ggblanket_global$axis_ticks_transparent
+#'   ggblanket_global$axis_ticks_transparent <- axis_ticks_transparent
+#'   invisible(old)
+#'
+#'   old <- ggblanket_global$panel_grid_transparent
+#'   ggblanket_global$panel_grid_transparent <- panel_grid_transparent
+#'   invisible(old)
+#'
+#'   if (ggplot2::is_theme(theme)) {
+#'     ggplot2::set_theme(new = theme)
+#'   } else {
+#'     ggplot2::set_theme(new = theme[[1]]) #if list, assume first element is theme
+#'   }
+#' }
+#'
+#' #' Set a label case function
+#' #'
+#' #' @description Set a function to format the label of unlabelled variables.
+#' #'
+#' #' @param titles_case A function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc. Defaults to `snakecase::to_sentence_case`.
+#' #' @param ... Provided to require argument naming, support trailing commas etc.
+#' #'
+#' #' @noRd
+#' weave_titles_case <- function(titles_case = snakecase::to_sentence_case, ...) {
+#'   old <- ggblanket_global$titles_case
+#'   ggblanket_global$titles_case <- titles_case
+#'   invisible(old)
+#' }
+#'

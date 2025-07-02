@@ -1,19 +1,16 @@
 # ggblanket 12.4.0900
 
-TO DO
-* Make themes set palettes
-* Make col = "blue" work
-* Test colouring via colourspace::darken
-* Update vignettes re colouring.
-
-DONE
-* Modularised `gg_blanket` function somewhat.
 * Breaking: renamed `*_label` to `*_title`, and `label_case` to `titles_case`.
 * Breaking: added `col` to `set_blanket`, and made `colour` and `fill` only set itself.
 * Breaking: lines turned off through `linetype = 0` instead of `linewidth = 0`.
 * Breaking: renamed and redesigned themes to `theme_lighter` and `theme_darker`.
 * Breaking: renamed `theme_` prefixed arguments to `perspective`, `axis_line_transparent`, `axis_ticks_transparent`, and `panel_grid_transparent`.
 * Breaking: adjusted `annotate_axis_line` arguments.
+* Modularised `gg_blanket` function somewhat.
+* `col = 'red'` now works for colouring/filling. 
+* Geom defaults and palettes set via the `ggplot2::update_theme`.  
+* Supported setting col/colour/fill palettes.
+* Exported `weave_*` functions.
 * For dates etc, defaulted labels to `scales::label_date_short(leading = "")`.
 * Added `bind_each_all` to assist with plotting groups alongside the total.
 * Added `standardise_width`.
