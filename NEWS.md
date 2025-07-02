@@ -1,4 +1,6 @@
 # ggblanket 12.4.0900
+TO DO
+* Export `weave_*` functions.
 
 * Breaking: renamed `*_label` to `*_title`, and `label_case` to `titles_case`.
 * Breaking: added `col` to `set_blanket`, and made `colour` and `fill` only set itself.

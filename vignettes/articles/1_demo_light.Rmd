@@ -21,13 +21,17 @@ knitr::opts_chunk$set(
 This article will demonstrate each wrapper function.
 
 ```{r setup}
+library(ggblanket)
 library(dplyr)
 library(ggplot2)
 library(scales)
-library(ggblanket)
 library(palmerpenguins)
 
 set_blanket()
+
+# weave_geom_linetype(linetype_border = 1)
+# weave_geom_col(col = blue, fill_border = colorspace::lighten(blue, 0.2))
+# weave_geom_palettes(fill_palette_d = colorspace::lighten(jumble, 0.2))
 
 penguins2 <- penguins |> 
   labelled::set_variable_labels(

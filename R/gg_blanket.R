@@ -250,7 +250,8 @@ gg_blanket <- function(
     )
   }
 
-  show_legend <- ifelse(geom_name == "blank", FALSE, TRUE)
+  show_legend <- ifelse(geom_name %in% c("blank", "abline"), FALSE, TRUE)
+
   params <- get_geom_params(geom_name, ...)
 
   # Add literal color to params if provided

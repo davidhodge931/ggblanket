@@ -16,10 +16,11 @@ weave_geom_linewidth <- function(linewidth = 0.66, ...) {
     geom.bin2d = ggplot2::element_geom(borderwidth = linewidth),
     geom.boxplot = ggplot2::element_geom(borderwidth = linewidth),
     geom.col = ggplot2::element_geom(borderwidth = linewidth),
-    geom.contour_filled = ggplot2::element_geom(borderwidth = linewidth),
+    geom.contour.filled = ggplot2::element_geom(borderwidth = linewidth),
     geom.crossbar = ggplot2::element_geom(borderwidth = linewidth),
     geom.density = ggplot2::element_geom(borderwidth = linewidth),
-    geom.density_2d_filled = ggplot2::element_geom(borderwidth = linewidth),
+    geom.density2d = ggplot2::element_geom(linewidth = linewidth),
+    geom.density2d.filled = ggplot2::element_geom(borderwidth = linewidth),
     geom.dotplot = ggplot2::element_geom(borderwidth = linewidth),
     geom.hex = ggplot2::element_geom(borderwidth = linewidth),
     geom.map = ggplot2::element_geom(borderwidth = linewidth),
@@ -30,6 +31,7 @@ weave_geom_linewidth <- function(linewidth = 0.66, ...) {
     geom.sf = ggplot2::element_geom(borderwidth = linewidth),
     geom.tile = ggplot2::element_geom(borderwidth = linewidth),
     geom.violin = ggplot2::element_geom(borderwidth = linewidth),
+
     #else includes points
     geom.count = ggplot2::element_geom(linewidth = linewidth),
     geom.jitter = ggplot2::element_geom(linewidth = linewidth),
@@ -39,7 +41,6 @@ weave_geom_linewidth <- function(linewidth = 0.66, ...) {
     #else just lines
     geom.contour = ggplot2::element_geom(linewidth = linewidth),
     geom.curve = ggplot2::element_geom(linewidth = linewidth),
-    geom.density2d = ggplot2::element_geom(linewidth = linewidth),
     geom.errorbar = ggplot2::element_geom(linewidth = linewidth),
     geom.freqpoly = ggplot2::element_geom(linewidth = linewidth),
     geom.function = ggplot2::element_geom(linewidth = linewidth),
@@ -53,5 +54,8 @@ weave_geom_linewidth <- function(linewidth = 0.66, ...) {
     geom.smooth = ggplot2::element_geom(linewidth = linewidth),
     geom.spoke = ggplot2::element_geom(linewidth = linewidth),
     geom.step = ggplot2::element_geom(linewidth = linewidth),
+
+
+
   )
 }

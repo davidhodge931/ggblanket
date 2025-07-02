@@ -37,7 +37,7 @@
 #' - **box**: geom_boxplot, geom_crossbar
 #' - **border**: geoms with both colour and fill where the colour defines a border
 #'   (e.g., geom_area, geom_bar, geom_polygon, geom_ribbon, geom_tile, geom_violin)
-#' - **other**: all remaining geoms (e.g., geom_point, geom_line, geom_path)
+#' - **other**: all remaining geoms (e.g., geom_point, geom_line, geom_path).
 #'
 #' @return An updated ggplot2 theme with modified geom defaults
 #' @export
@@ -60,7 +60,7 @@
 #'   col = "#333333",           # fallback for everything
 #'   colour_border = "#666666", # borders of areas, bars, etc.
 #'   fill_border = "#CCCCCC",   # fills of areas, bars, etc.
-#'   colour_box = "#0066CC",    # boxplot outlines
+#'   colour_box = "#0066CC",    # boxplot lines
 #'   fill_box = "#CCE5FF"       # boxplot fills
 #' )
 #'
@@ -103,9 +103,9 @@ weave_geom_col <- function(col = NULL,
     geom.bar = ggplot2::element_geom(colour = colour_border, fill = fill_border),
     geom.bin2d = ggplot2::element_geom(colour = colour_border, fill = fill_border),
     geom.col = ggplot2::element_geom(colour = colour_border, fill = fill_border),
-    geom.contour_filled = ggplot2::element_geom(colour = colour_border, fill = fill_border),
+    geom.contour.filled = ggplot2::element_geom(colour = colour_border, fill = fill_border),
     geom.density = ggplot2::element_geom(colour = colour_border, fill = fill_border),
-    geom.density_2d_filled = ggplot2::element_geom(colour = colour_border, fill = fill_border),
+    geom.density2d.filled = ggplot2::element_geom(colour = colour_border, fill = fill_border),
     geom.dotplot = ggplot2::element_geom(colour = colour_border, fill = fill_border),
     geom.hex = ggplot2::element_geom(colour = colour_border, fill = fill_border),
     geom.map = ggplot2::element_geom(colour = colour_border, fill = fill_border),

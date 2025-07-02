@@ -30,20 +30,24 @@ weave_geom_linetype <- function(
     # border
     geom.area = ggplot2::element_geom(bordertype = linetype_border),
     geom.bar = ggplot2::element_geom(bordertype = linetype_border),
-    geom.bin2d = ggplot2::element_geom(bordertype = linetype_border),
     geom.col = ggplot2::element_geom(bordertype = linetype_border),
-    geom.contour_filled = ggplot2::element_geom(bordertype = linetype_border),
     geom.density = ggplot2::element_geom(bordertype = linetype_border),
-    geom.density_2d_filled = ggplot2::element_geom(bordertype = linetype_border),
     geom.dotplot = ggplot2::element_geom(bordertype = linetype_border),
-    geom.hex = ggplot2::element_geom(bordertype = linetype_border),
     geom.map = ggplot2::element_geom(bordertype = linetype_border),
     geom.polygon = ggplot2::element_geom(bordertype = linetype_border),
-    geom.raster = ggplot2::element_geom(bordertype = linetype_border),
     geom.rect = ggplot2::element_geom(bordertype = linetype_border),
     geom.ribbon = ggplot2::element_geom(bordertype = linetype_border),
     geom.tile = ggplot2::element_geom(bordertype = linetype_border),
     geom.violin = ggplot2::element_geom(bordertype = linetype_border),
+
+    # heatmaps = 0
+    geom.bin2d = ggplot2::element_geom(bordertype = 0),
+    geom.hex = ggplot2::element_geom(bordertype = 0),
+    geom.raster = ggplot2::element_geom(bordertype = 0),
+
+    #filled contours/density2d = 0
+    geom.contour.filled = ggplot2::element_geom(bordertype = 0),
+    geom.density2d.filled = ggplot2::element_geom(bordertype = 0),
 
     # other
     geom.contour = ggplot2::element_geom(linetype = linetype),

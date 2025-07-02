@@ -2,7 +2,7 @@
 % Please edit documentation in R/weave_geom_col.R
 \name{weave_geom_col}
 \alias{weave_geom_col}
-\title{Update the colour and fill for geoms}
+\title{Update the col, colour and fill for geoms}
 \usage{
 weave_geom_col(
   col = NULL,
@@ -18,40 +18,85 @@ weave_geom_col(
 )
 }
 \arguments{
-\item{col}{A default hex code for the colour and fill of most geoms. Defaults to NULL.}
+\item{col}{A default hex code for the colour and fill of all geoms.}
 
-\item{colour}{A default hex code for the colour of most geoms. Defaults to NULL.}
+\item{colour}{A default hex code for the colour of most geoms. Overrides \code{col} for colour.}
 
-\item{fill}{A default hex code for the fill of most geoms. Defaults to NULL.}
+\item{colour_border}{A default hex code for the colour of border-style geoms (area, bar, polygon, etc.). Overrides \code{colour} and \code{col}.}
 
-\item{...}{Provided to require argument naming, support trailing commas etc.}
+\item{colour_box}{A default hex code for the colour of box-style geoms (boxplot, crossbar). Overrides \code{colour} and \code{col}.}
+
+\item{colour_sf}{A default hex code for the colour of sf geoms. Overrides \code{colour} and \code{col}.}
+
+\item{fill}{A default hex code for the fill of most geoms. Overrides \code{col} for fill.}
+
+\item{fill_border}{A default hex code for the fill of border-style geoms. Overrides \code{fill} and \code{col}.}
+
+\item{fill_box}{A default hex code for the fill of box-style geoms. Overrides \code{fill} and \code{col}.}
+
+\item{fill_sf}{A default hex code for the fill of sf geoms. Overrides \code{fill} and \code{col}.}
+
+\item{...}{Provided to require argument naming and support trailing commas.}
 }
 \value{
-Updated geom defaults for colour and fill
+An updated ggplot2 theme with modified geom defaults
 }
 \description{
-Update the colour and fill for most geoms. Excludes "text", "label", "hline", and "vline".
-Uses a hierarchical system where more specific parameters override more general ones.
+Update the col, colour and fill defaults for ggplot2 geoms using a hierarchical system.
+More specific parameters override more general ones, allowing fine-grained control
+over different geom categories.
 }
 \details{
 The function uses a hierarchical priority system where more specific parameters
-override more general ones. The priority order is:
+override more general ones:
+
+For colour properties:
 \enumerate{
-\item \code{colour}/\code{fill} (most specific)
-\item \code{col} (general)
+\item \code{colour_sf}, \code{colour_box}, \code{colour_border} (most specific, for geom categories)
+\item \code{colour} (general colour override)
+\item \code{col} (applies to both colour and fill)
 \item \code{blue} ("#357BA2FF") as final fallback
+}
+
+For fill properties:
+\enumerate{
+\item \code{fill_sf}, \code{fill_box}, \code{fill_border} (most specific, for geom categories)
+\item \code{fill} (general fill override)
+\item \code{col} (applies to both colour and fill)
+\item \code{blue} ("#357BA2FF") as final fallback
+}
+
+Geom categories:
+\itemize{
+\item \strong{sf}: geom_sf
+\item \strong{box}: geom_boxplot, geom_crossbar
+\item \strong{border}: geoms with both colour and fill where the colour defines a border
+(e.g., geom_area, geom_bar, geom_polygon, geom_ribbon, geom_tile, geom_violin)
+\item \strong{other}: all remaining geoms (e.g., geom_point, geom_line, geom_path).
 }
 }
 \examples{
-# Use default blue colour
+# Use default blue colour for all geoms
 weave_geom_col()
 
-# Set a general colour for all geoms
+# Set a general col for all geoms
 weave_geom_col(col = "#E74C3C")
 
 # Override colour and fill separately
 weave_geom_col(colour = "#3498DB", fill = "#2ECC71")
 
-# Set general colour but override just fill
+# Set general col, but override fill
 weave_geom_col(col = "#9B59B6", fill = "#E67E22")
+
+# Fine-grained control: different colors for different geom types
+weave_geom_col(
+  col = "#333333",           # fallback for everything
+  colour_border = "#666666", # borders of areas, bars, etc.
+  fill_border = "#CCCCCC",   # fills of areas, bars, etc.
+  colour_box = "#0066CC",    # boxplot lines
+  fill_box = "#CCE5FF"       # boxplot fills
+)
+
+# Reset to package defaults
+weave_geom_col()
 }
