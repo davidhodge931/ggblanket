@@ -2,7 +2,7 @@
 % Please edit documentation in R/weave_geom_linetype.R
 \name{weave_geom_linetype}
 \alias{weave_geom_linetype}
-\title{Update the linetype for some geoms}
+\title{Update the linetype for geoms}
 \usage{
 weave_geom_linetype(
   linetype = 1,
@@ -13,19 +13,64 @@ weave_geom_linetype(
 )
 }
 \arguments{
-\item{linetype}{A default linetype for most geoms without borders. Defaults to 1. Defaults to 1.}
+\item{linetype}{A default linetype for geoms that don't fall into other categories
+(e.g., point, line, path). Defaults to 1 (solid line).}
 
-\item{linetype_border}{A default linetype for polygon-is geoms (other than boxplot, crossbar or sf). Defaults to 0.}
+\item{linetype_border}{The linetype for polygon geoms (excluding boxplot, crossbar,
+and sf). Defaults to 0 (no line).}
 
-\item{linetype_box}{A default linetype for boxplot and crossbar geoms. Defaults to 1.}
+\item{linetype_box}{The linetype for boxplot and crossbar geoms specifically.
+Defaults to 1 (solid line).}
 
-\item{linetype_sf}{A default linetype for sf geoms. Defaults to 0.}
+\item{linetype_sf}{The linetype for the sf geom specifically. Defaults to 0 (no line).}
 
-\item{...}{Provided to require argument naming, support trailing commas etc.}
+\item{...}{Provided to require argument naming and support trailing commas.}
 }
 \value{
-Updated geom defaults for linetype
+An updated ggplot2 theme with modified geom linetype defaults
 }
 \description{
-Update the linetype for geoms with unnecessary border lines to 0. Excludes boxplot, crossbar and smooth.
+Update the linetype defaults for ggplot2 geoms using a hierarchical system.
+More specific parameters override more general ones, allowing fine-grained control
+over different geom categories.
+}
+\details{
+The default behavior allows polygon-based visualizations allows for neat
+display of adjacent shapes. Set \code{linetype_border = 1} and \code{linetype_sf = 1}
+to restore visible borders.
+}
+\note{
+Heatmap geoms (bin2d, hex, raster) and filled contour geoms (contour_filled,
+density_2d_filled) always have their borders set to 0 regardless of the
+\code{linetype} setting.
+}
+\section{Geom Categories}{
+
+Geoms are grouped into categories for consistent styling:
+\describe{
+\item{\strong{border}}{Polygon geoms (excluding boxplot, crossbar, and sf) where
+borders are often unnecessary: area, bar, col, density, dotplot, map,
+polygon, rect, ribbon, tile, violin. Also includes heatmap geoms (bin2d,
+hex, raster) and filled contours (contour_filled, density2d_filled) which
+always have borders removed.}
+\item{\strong{box}}{Specifically boxplot and crossbar geoms}
+\item{\strong{sf}}{Specifically the sf geom}
+\item{\strong{other}}{Line-based and point geoms: contour, count, curve, density2d,
+errorbar, freqpoly, function, jitter, line, linerange, path, point,
+pointrange, qq, qq_line, quantile, rug, segment, smooth, spoke, step}
+}
+}
+
+\examples{
+# Default: remove outlines from polygons for nice adjacency
+weave_geom_linetype()
+
+# Restore outlines on all border category geoms
+weave_geom_linetype(linetype_border = 1)
+
+# Dashed outlines for border category
+weave_geom_linetype(
+  linetype_border = 2,  # dashed
+)
+
 }

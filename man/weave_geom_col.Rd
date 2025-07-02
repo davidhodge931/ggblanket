@@ -2,7 +2,7 @@
 % Please edit documentation in R/weave_geom_col.R
 \name{weave_geom_col}
 \alias{weave_geom_col}
-\title{Update the col, colour and fill for geoms}
+\title{Update the colour/fill for geoms}
 \usage{
 weave_geom_col(
   col = NULL,
@@ -18,23 +18,28 @@ weave_geom_col(
 )
 }
 \arguments{
-\item{col}{A default hex code for the colour and fill of all geoms.}
+\item{col}{A default hex code for both colour and fill of all geoms.}
 
-\item{colour}{A default hex code for the colour of most geoms. Overrides \code{col} for colour.}
+\item{colour}{A default hex code for the colour of all geoms. Overrides \code{col} for colour.}
 
-\item{colour_border}{A default hex code for the colour of border-style geoms (area, bar, polygon, etc.). Overrides \code{colour} and \code{col}.}
+\item{colour_border}{The outline colour for polygon geoms (excluding boxplot, crossbar,
+and sf). Controls the colour of the border line itself. Overrides \code{colour} and \code{col}.}
 
-\item{colour_box}{A default hex code for the colour of box-style geoms (boxplot, crossbar). Overrides \code{colour} and \code{col}.}
+\item{colour_box}{The outline colour for boxplot and crossbar geoms specifically.
+Overrides \code{colour} and \code{col}.}
 
-\item{colour_sf}{A default hex code for the colour of sf geoms. Overrides \code{colour} and \code{col}.}
+\item{colour_sf}{The outline colour for sf geoms specifically. Overrides \code{colour} and \code{col}.}
 
-\item{fill}{A default hex code for the fill of most geoms. Overrides \code{col} for fill.}
+\item{fill}{A default hex code for the fill of all geoms. Overrides \code{col} for fill.}
 
-\item{fill_border}{A default hex code for the fill of border-style geoms. Overrides \code{fill} and \code{col}.}
+\item{fill_border}{The interior fill colour for polygon geoms (excluding boxplot,
+crossbar, and sf). This sets the fill colour inside the shape, not the border
+line colour. Overrides \code{fill} and \code{col}.}
 
-\item{fill_box}{A default hex code for the fill of box-style geoms. Overrides \code{fill} and \code{col}.}
+\item{fill_box}{The interior fill colour for boxplot and crossbar geoms specifically.
+Overrides \code{fill} and \code{col}.}
 
-\item{fill_sf}{A default hex code for the fill of sf geoms. Overrides \code{fill} and \code{col}.}
+\item{fill_sf}{The interior fill colour for sf geoms specifically. Overrides \code{fill} and \code{col}.}
 
 \item{...}{Provided to require argument naming and support trailing commas.}
 }
@@ -42,7 +47,7 @@ weave_geom_col(
 An updated ggplot2 theme with modified geom defaults
 }
 \description{
-Update the col, colour and fill defaults for ggplot2 geoms using a hierarchical system.
+Update the colour and fill defaults for ggplot2 geoms using a hierarchical system.
 More specific parameters override more general ones, allowing fine-grained control
 over different geom categories.
 }
@@ -55,7 +60,7 @@ For colour properties:
 \item \code{colour_sf}, \code{colour_box}, \code{colour_border} (most specific, for geom categories)
 \item \code{colour} (general colour override)
 \item \code{col} (applies to both colour and fill)
-\item \code{blue} ("#357BA2FF") as final fallback
+\item \code{"#357BA2FF"} (blue) as final fallback
 }
 
 For fill properties:
@@ -63,40 +68,53 @@ For fill properties:
 \item \code{fill_sf}, \code{fill_box}, \code{fill_border} (most specific, for geom categories)
 \item \code{fill} (general fill override)
 \item \code{col} (applies to both colour and fill)
-\item \code{blue} ("#357BA2FF") as final fallback
+\item \code{"#357BA2FF"} (blue) as final fallback
+}
+}
+\section{Geom Categories}{
+
+Geoms are grouped into categories for consistent styling:
+\describe{
+\item{\strong{border}}{Polygon geoms (excluding boxplot, crossbar, and sf) where
+colour defines the outline and fill defines the interior: area, bar, bin2d,
+col, contour_filled, density, density_2d_filled, dotplot, hex, map, polygon,
+raster, rect, ribbon, smooth, tile, violin}
+\item{\strong{box}}{Specifically boxplot and crossbar geoms only}
+\item{\strong{sf}}{Specifically geom_sf only}
+\item{\strong{other}}{All remaining geoms (e.g., point, line, path). For these geoms,
+colour and fill are typically the same value.}
+}
 }
 
-Geom categories:
-\itemize{
-\item \strong{sf}: geom_sf
-\item \strong{box}: geom_boxplot, geom_crossbar
-\item \strong{border}: geoms with both colour and fill where the colour defines a border
-(e.g., geom_area, geom_bar, geom_polygon, geom_ribbon, geom_tile, geom_violin)
-\item \strong{other}: all remaining geoms (e.g., geom_point, geom_line, geom_path).
-}
-}
 \examples{
-# Use default blue colour for all geoms
+# Use default blue colour/fill for all geoms
 weave_geom_col()
 
-# Set a general col for all geoms
+# Set a general colour/fill for all geoms
 weave_geom_col(col = "#E74C3C")
 
-# Override colour and fill separately
-weave_geom_col(colour = "#3498DB", fill = "#2ECC71")
+# Set different colours for outline vs fill
+weave_geom_col(colour = "#3498DB", fill = "#E8F4F8")
 
-# Set general col, but override fill
-weave_geom_col(col = "#9B59B6", fill = "#E67E22")
+# Remove borders from polygons (by setting same colour for border and fill)
+weave_geom_col(
+  col = "#2ECC71",
+  colour_border = "#2ECC71",  # Same as fill = invisible border
+  fill_border = "#2ECC71"
+)
 
 # Fine-grained control: different colors for different geom types
 weave_geom_col(
   col = "#333333",           # fallback for everything
-  colour_border = "#666666", # borders of areas, bars, etc.
-  fill_border = "#CCCCCC",   # fills of areas, bars, etc.
-  colour_box = "#0066CC",    # boxplot lines
-  fill_box = "#CCE5FF"       # boxplot fills
+  colour_border = "#666666", # outline of areas, bars, etc.
+  fill_border = "#CCCCCC",   # interior of areas, bars, etc.
+  colour_box = "#0066CC",    # boxplot outlines
+  fill_box = "#CCE5FF"       # boxplot interiors
 )
 
-# Reset to package defaults
-weave_geom_col()
+# Style for a clean look: darker outlines, lighter fills
+weave_geom_col(
+  colour = colorspace::darken("#3498DB", 0.3),
+  fill = colorspace::lighten("#3498DB", 0.4)
+)
 }
