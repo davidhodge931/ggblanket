@@ -6,6 +6,7 @@
 \usage{
 weave_geom_col(
   col = NULL,
+  ...,
   colour = NULL,
   colour_border = NULL,
   colour_box = NULL,
@@ -13,12 +14,13 @@ weave_geom_col(
   fill = NULL,
   fill_border = NULL,
   fill_box = NULL,
-  fill_sf = NULL,
-  ...
+  fill_sf = NULL
 )
 }
 \arguments{
 \item{col}{A default hex code for both colour and fill of all geoms.}
+
+\item{...}{Provided to require argument naming and support trailing commas.}
 
 \item{colour}{A default hex code for the colour of all geoms. Overrides \code{col} for colour.}
 
@@ -40,14 +42,12 @@ line colour. Overrides \code{fill} and \code{col}.}
 Overrides \code{fill} and \code{col}.}
 
 \item{fill_sf}{The interior fill colour for sf geoms specifically. Overrides \code{fill} and \code{col}.}
-
-\item{...}{Provided to require argument naming and support trailing commas.}
 }
 \value{
 An updated ggplot2 theme with modified geom defaults
 }
 \description{
-Update the colour and fill defaults for ggplot2 geoms using a hierarchical system.
+Update the colour/fill defaults for ggplot2 geoms using a hierarchical system.
 More specific parameters override more general ones, allowing fine-grained control
 over different geom categories.
 }

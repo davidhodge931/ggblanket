@@ -6,15 +6,17 @@
 \usage{
 weave_geom_linetype(
   linetype = 1,
+  ...,
   linetype_border = 0,
   linetype_box = 1,
-  linetype_sf = 0,
-  ...
+  linetype_sf = 0
 )
 }
 \arguments{
 \item{linetype}{A default linetype for geoms that don't fall into other categories
 (e.g., point, line, path). Defaults to 1 (solid line).}
+
+\item{...}{Provided to require argument naming and support trailing commas.}
 
 \item{linetype_border}{The linetype for polygon geoms (excluding boxplot, crossbar,
 and sf). Defaults to 0 (no line).}
@@ -23,8 +25,6 @@ and sf). Defaults to 0 (no line).}
 Defaults to 1 (solid line).}
 
 \item{linetype_sf}{The linetype for the sf geom specifically. Defaults to 0 (no line).}
-
-\item{...}{Provided to require argument naming and support trailing commas.}
 }
 \value{
 An updated ggplot2 theme with modified geom linetype defaults

@@ -5,6 +5,7 @@
 \title{Update the geom palettes}
 \usage{
 weave_geom_palettes(
+  ...,
   col_palette = NULL,
   col_palette_d = NULL,
   col_palette_c = NULL,
@@ -17,6 +18,8 @@ weave_geom_palettes(
 )
 }
 \arguments{
+\item{...}{Provided to require argument naming, support trailing commas etc.}
+
 \item{col_palette}{For a colour and fill scale, a character vector of hex codes, or a \verb{scales::pal_*()} function. Note does not apply to ordinal scales.}
 
 \item{col_palette_d}{For a discrete colour and fill scale, a character vector of hex codes, or a \verb{scales::pal_*()} function.}
