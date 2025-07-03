@@ -1,11 +1,11 @@
 # global defaults
 ggblanket_global$titles_case <- NULL
 
-#' Set a titles case function
+#' Set the titles case behaviour
 #'
-#' @description Set a function to format the titles of unlabelled variables.
+#' @description Set the titles case behaviour in `gg_*` functions.
 #'
-#' @param titles_case A function to format the title of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
+#' @param titles_case A function to apply to unspecified/unlabelled titles. Defaults to `snakecase::to_sentence_case`.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @noRd

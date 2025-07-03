@@ -20,11 +20,11 @@
 #' @section Geom Categories:
 #' Geoms are grouped into categories for consistent styling:
 #' \describe{
-#'   \item{**border**}Polygon geoms (excluding boxplot, crossbar) where
+#'   \item{**border**}{Polygon geoms (excluding boxplot, crossbar) where
 #'     borders are often unnecessary: area, bar, col, density, dotplot, map,
-#'     polygon, rect, ribbon, tile, violin.
-#'   \item{**box**}Specifically boxplot and crossbar geoms}
-#'   \item{**other**}Line-based and point geoms: contour, count, curve, density2d,
+#'     polygon, rect, ribbon, tile, violin.}
+#'   \item{**box**}{Specifically boxplot and crossbar geoms}
+#'   \item{**other**}{Line-based and point geoms: contour, count, curve, density2d,
 #'     errorbar, freqpoly, function, jitter, line, linerange, path, point,
 #'     pointrange, qq, qq_line, quantile, rug, segment, smooth, spoke, step}
 #' }
@@ -39,17 +39,17 @@
 #'
 #' @examples
 #' # Default: remove outlines from polygons for nice adjacency
-#' weave_geom_linetype()
+#' update_geom_linetype()
 #'
 #' # Restore outlines on all border category geoms
-#' weave_geom_linetype(linetype_border = 1)
+#' update_geom_linetype(linetype_border = 1)
 #'
 #' # Dashed outlines for border category
-#' weave_geom_linetype(
+#' update_geom_linetype(
 #'   linetype_border = 2,  # dashed
 #' )
 #'
-weave_geom_linetype <- function(
+update_geom_linetype <- function(
     linetype = 1,
     ...,
     linetype_border = 0,

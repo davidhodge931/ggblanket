@@ -8,9 +8,9 @@ set_blanket(
   theme = theme_lighter(),
   ...,
   col = "#357BA2FF",
+  linetype = 1,
   linewidth = 0.66,
   size = 1.5,
-  linetype = 1,
   col_palette = NULL,
   col_palette_d = jumble,
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
@@ -27,11 +27,11 @@ set_blanket(
 
 \item{col}{A default hex code for the colour and fill of most geoms. Defaults to "#357BA2FF" (i.e. \code{blue}).}
 
+\item{linetype}{A default linetype for most geoms without borders. Defaults to 1.}
+
 \item{linewidth}{A default linewidth for most geoms. Defaults to 0.66.}
 
 \item{size}{A default size for the point geom. Defaults to 1.5. The pointrange size defaults to dividing by 6 (i.e. 0.25).}
-
-\item{linetype}{A default linetype for most geoms without borders. Defaults to 1.}
 
 \item{col_palette}{For a discrete colour/fill scale, a character vector of hex codes or a \verb{scales::pal_*} function.}
 
@@ -53,21 +53,23 @@ A globally set style.
 \description{
 This function sets the default:
 \enumerate{
-\item theme, and how/what side-effects are to be applied (\code{weave_theme})
-\item geom colour/fill (\code{weave_geom_col})
-\item geom size (\code{weave_geom_size})
-\item geom linewidth (\code{weave_geom_linewidth})
-\item geom linetype (\code{weave_geom_linetype}).
-\item geom font (\code{weave_geom_font})
-\item geom reference lines (\code{weave_geom_reference_line})
-\item geom colour/fill palettes (i.e. discrete, continuous and ordinal) (\code{weave_geom_palettes})
-\item the function to apply to a unspecified/unlabelled \code{x_title}, \code{y_title}, \code{col_title} etc. (\code{weave_titles_case})
+\item theme (\code{ggplot2::set_theme})
+\item geom colour/fill (\code{update_geom_col})
+\item geom linetype (\code{update_geom_linetype}).
+\item geom linewidth (\code{update_geom_linewidth})
+\item geom size (\code{update_geom_size})
+\item geom font (\code{update_geom_font})
+\item geom reference line (\code{update_geom_reference_line})
+\item geom colour/fill palettes (\code{update_geom_palettes})
+\item the function to apply to unspecified/unlabelled titles in \verb{gg_*} functions (\code{weave_titles_case})
+\item the perspective behaviour in \verb{gg_*} functions in \verb{gg_*} functions (\code{weave_perspective})
 }
 
 For simplicity, this function does not provide all arguments.
 
-For further control, use the \verb{weave_*} functions.
-Note the theme should be set first first before any other \verb{weave_*} functions are run.
+For further control, use \verb{update_*} and \verb{weave_*} functions.
+
+Note the theme should be set before any \verb{update_*} functions.
 }
 \examples{
 library(ggplot2)

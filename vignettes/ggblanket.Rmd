@@ -358,14 +358,11 @@ The `set_blanket` function sets customisable defaults for the:
 * the theme, and how/what side-effects are to be applied
 * the function to apply to a unspecified/unlabelled `x_title`, `y_title`, `col_title` etc.
 
-Note the `theme` argument in `set_blanket` can also be used to default a `*_label` to `NULL` (e.g. `set_blanket(theme = list(theme_lighter(), labs(colour = NULL, fill = NULL)))`).
-
 Users should try to do as much as possible in these set-up functions, rather than continually adding arguments to their `gg_*` functions.
 
 ```{r}
 set_blanket(
-  theme = rlang::list2(
-    theme_lighter(
+  theme = theme_lighter(
       base_size = 9,
       legend_position = "top",
       axis_line_linewidth = 0.25, 
@@ -373,8 +370,6 @@ set_blanket(
       panel_grid_colour = "#C8D7DF",
       panel_background_fill = "#E8EFF2",
       panel_grid_linewidth = 0.25, 
-    ),
-    labs(colour = NULL, fill = NULL),
   ),
   col = "tan", 
   col_palette_d = c("#003f5c", "#bc5090", "#ffa600", "#357BA2"),

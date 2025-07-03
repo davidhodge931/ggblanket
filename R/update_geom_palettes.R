@@ -35,14 +35,14 @@
 #'
 #' @examples
 #' # Set a general palette for all scales
-#' weave_geom_palettes(col_palette = scales::pal_viridis())
+#' update_geom_palettes(col_palette = scales::pal_viridis())
 #'
 #' # Override just discrete colours
-#' weave_geom_palettes(col_palette = scales::pal_hue())
+#' update_geom_palettes(col_palette = scales::pal_hue())
 #'
 #' # Set different palettes for colour and fill discrete
-#' weave_geom_palettes(colour_palette_d = colorspace::darken(jumble, 0.1), fill_palette_d = jumble)
-weave_geom_palettes <- function(
+#' update_geom_palettes(colour_palette_d = colorspace::darken(jumble, 0.1), fill_palette_d = jumble)
+update_geom_palettes <- function(
     ...,
     col_palette = NULL,
     col_palette_d = NULL,

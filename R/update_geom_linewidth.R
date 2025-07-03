@@ -9,7 +9,7 @@
 #' @return Updated geom defaults for linewidth
 #'
 #' @export
-weave_geom_linewidth <- function(linewidth = 0.66, ...) {
+update_geom_linewidth <- function(linewidth = 0.66, ...) {
   #includes polygons (with borders)
   ggplot2::update_theme(
     geom.area = ggplot2::element_geom(borderwidth = linewidth),
@@ -53,8 +53,5 @@ weave_geom_linewidth <- function(linewidth = 0.66, ...) {
     geom.smooth = ggplot2::element_geom(linewidth = linewidth / 2),
     geom.spoke = ggplot2::element_geom(linewidth = linewidth),
     geom.step = ggplot2::element_geom(linewidth = linewidth),
-
-
-
   )
 }

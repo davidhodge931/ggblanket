@@ -3,23 +3,27 @@
 #' @description
 #' This function sets the default:
 #'
-#' 1. theme, and how/what side-effects are to be applied (`weave_theme`)
+#' 1. theme (`ggplot2::set_theme`)
 #'
-#' 2. geom colour/fill (`weave_geom_col`)
-#' 3. geom size (`weave_geom_size`)
-#' 4. geom linewidth (`weave_geom_linewidth`)
-#' 5. geom linetype (`weave_geom_linetype`).
-#' 6. geom font (`weave_geom_font`)
-#' 7. geom reference lines (`weave_geom_reference_line`)
+#' 2. geom colour/fill (`update_geom_col`)
+#' 3. geom linetype (`update_geom_linetype`).
+#' 4. geom linewidth (`update_geom_linewidth`)
+#' 5. geom size (`update_geom_size`)
 #'
-#' 8. geom colour/fill palettes (i.e. discrete, continuous and ordinal) (`weave_geom_palettes`)
+#' 6. geom font (`update_geom_font`)
+#' 7. geom reference line (`update_geom_reference_line`)
 #'
-#' 9. the function to apply to a unspecified/unlabelled `x_title`, `y_title`, `col_title` etc. (`weave_titles_case`)
+#' 8. geom colour/fill palettes (`update_geom_palettes`)
+#'
+#' 9. the function to apply to unspecified/unlabelled titles in `gg_*` functions (`weave_titles_case`)
+#'
+#' 10. the perspective behaviour in `gg_*` functions in `gg_*` functions (`weave_perspective`)
 #'
 #' For simplicity, this function does not provide all arguments.
 #'
-#' For further control, use the `weave_*` functions.
-#' Note the theme should be set first first before any other `weave_*` functions are run.
+#' For further control, use `update_*` and `weave_*` functions.
+#'
+#' Note the theme should be set before any `update_*` functions.
 #'
 #' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
 #' @param ... Provided to require argument naming, support trailing commas etc.
@@ -65,9 +69,9 @@ set_blanket <- function(
     theme = theme_lighter(),
     ...,
     col = "#357BA2FF",
+    linetype = 1,
     linewidth = 0.66,
     size = 1.5,
-    linetype = 1,
     col_palette = NULL,
     col_palette_d = jumble,
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
@@ -77,30 +81,31 @@ set_blanket <- function(
     panel_grid_transparent = TRUE
 ) {
 
-  weave_theme(
-    theme = theme,
-    axis_line_transparent = axis_line_transparent,
-    axis_ticks_transparent = axis_ticks_transparent,
-    panel_grid_transparent = panel_grid_transparent
-  )
+  ggplot2::set_theme(theme)
 
-  weave_geom_col(col = col)
+  update_geom_col(col)
 
-  weave_geom_size(size = size)
+  update_geom_linetype(linetype)
 
-  weave_geom_linewidth(linewidth = linewidth)
+  update_geom_linewidth(linewidth)
 
-  weave_geom_linetype(linetype = linetype)
+  update_geom_size(size)
 
-  weave_geom_reference_line()
+  update_geom_font()
 
-  weave_geom_font()
+  update_geom_reference_line()
 
-  weave_geom_palettes(
+  update_geom_palettes(
     col_palette = col_palette,
     col_palette_d = col_palette_d,
     col_palette_c = col_palette_c,
   )
 
   weave_titles_case(titles_case = titles_case)
+
+  weave_perspective(
+    axis_line_transparent = axis_line_transparent,
+    axis_ticks_transparent = axis_ticks_transparent,
+    panel_grid_transparent = panel_grid_transparent,
+  )
 }

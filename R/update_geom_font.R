@@ -13,7 +13,7 @@
 #'
 #' @export
 #'
-weave_geom_font <- function(
+update_geom_font <- function(
     ...,
     colour = NULL,
     fill = NULL,

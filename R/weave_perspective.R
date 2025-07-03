@@ -1,17 +1,15 @@
 # global defaults
 ggblanket_global <- new.env(parent = emptyenv())
 
-ggblanket_global$theme <- NULL
 ggblanket_global$perspective <- NULL
 ggblanket_global$axis_line_transparent <- NULL
 ggblanket_global$axis_ticks_transparent <- NULL
 ggblanket_global$axis_line_transparent <- NULL
 
-#' Set a theme
+#' Set the perspective behaviour
 #'
-#' @description Set a theme for the theme argument in `gg_*` functions.
+#' @description Set the perspective behaviour in `gg_*` functions.
 #'
-#' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param perspective The perspective of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
 #' @param axis_line_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `perspective` of the plot.
@@ -19,18 +17,13 @@ ggblanket_global$axis_line_transparent <- NULL
 #' @param panel_grid_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `perspective` of the plot.
 #'
 #' @noRd
-weave_theme <- function(
-    theme = theme_lighter(),
+weave_perspective <- function(
     ...,
     perspective = NULL,
     axis_line_transparent = TRUE,
     axis_ticks_transparent = TRUE,
     panel_grid_transparent = TRUE
 ) {
-  old <- ggblanket_global$theme
-  ggblanket_global$theme <- theme
-  invisible(old)
-
   old <- ggblanket_global$perspective
   ggblanket_global$perspective <- perspective
   invisible(old)
@@ -46,10 +39,4 @@ weave_theme <- function(
   old <- ggblanket_global$panel_grid_transparent
   ggblanket_global$panel_grid_transparent <- panel_grid_transparent
   invisible(old)
-
-  if (ggplot2::is_theme(theme)) {
-    ggplot2::set_theme(new = theme)
-  } else {
-    ggplot2::set_theme(new = theme[[1]]) #if list, assume first element is theme
-  }
 }

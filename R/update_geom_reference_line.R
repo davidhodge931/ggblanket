@@ -12,7 +12,7 @@
 #'
 #' @export
 #'
-weave_geom_reference_line <- function(
+update_geom_reference_line <- function(
     ...,
     colour = NULL,
     linewidth = NULL,

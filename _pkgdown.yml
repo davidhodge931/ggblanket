@@ -6,7 +6,6 @@ reference:
 - title: Set
 - contents:
   - set_blanket
-  - starts_with("weave_")
 - title: Wrap
 - contents:
   - gg_blanket
@@ -43,4 +42,6 @@ reference:
   - scale_x_symmetric
   - scale_y_symmetric
   - standardise_width
+  - starts_with("update_")
+  - starts_with("weave_")
 

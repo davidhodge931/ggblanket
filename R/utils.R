@@ -455,7 +455,7 @@ get_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_class,
 
   # Get theme if NULL
   if (rlang::is_null(theme)) {
-    theme <- ggblanket_global$theme
+    theme <- ggplot2::get_theme()
   }
 
   # Determine *_symmetric

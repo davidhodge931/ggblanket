@@ -1,6 +1,7 @@
 Coord
 Errorbar
 Freqpoly
+Geoms
 Linerange
 Nik
 ORCID
@@ -9,8 +10,10 @@ Qq
 RStudio
 Rect
 Stat
+abline
 beeswarm
 coord
+dotplot
 dplyr
 errorbar
 etc
