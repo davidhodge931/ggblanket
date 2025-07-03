@@ -1,7 +1,5 @@
 # ggblanket 12.4.0900
 TO DO
-* Remove `*_sf` arguments. For sf line, use linetype = 1 in the gg_* function.
-
 
 
 * Breaking: renamed `*_label` to `*_title`, and `label_case` to `titles_case`.
@@ -13,8 +11,8 @@ TO DO
 * Modularised `gg_blanket` function somewhat.
 * `col = 'red'` now works for colouring/filling. 
 * Geom defaults and palettes set via the `ggplot2::update_theme`.  
+* Added `update_*` and `weave_*` functions.
 * Supported setting col/colour/fill palettes.
-* Exported `weave_*` functions.
 * For dates etc, defaulted labels to `scales::label_date_short(leading = "")`.
 * Added `bind_each_all` to assist with plotting groups alongside the total.
 * Added `standardise_width`.
