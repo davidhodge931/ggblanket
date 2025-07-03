@@ -29,7 +29,7 @@ weave_geom_linewidth <- function(linewidth = 0.66, ...) {
     geom.rect = ggplot2::element_geom(borderwidth = linewidth),
     geom.ribbon = ggplot2::element_geom(borderwidth = linewidth),
     geom.sf = ggplot2::element_geom(borderwidth = linewidth),
-    geom.tile = ggplot2::element_geom(borderwidth = linewidth),
+    geom.tile = ggplot2::element_geom(borderwidth = linewidth / 0.4),
     geom.violin = ggplot2::element_geom(borderwidth = linewidth),
 
     #else includes points
@@ -51,7 +51,7 @@ weave_geom_linewidth <- function(linewidth = 0.66, ...) {
     geom.quantile = ggplot2::element_geom(linewidth = linewidth),
     geom.rug = ggplot2::element_geom(linewidth = linewidth),
     geom.segment = ggplot2::element_geom(linewidth = linewidth),
-    geom.smooth = ggplot2::element_geom(linewidth = linewidth),
+    geom.smooth = ggplot2::element_geom(linewidth = linewidth / 2),
     geom.spoke = ggplot2::element_geom(linewidth = linewidth),
     geom.step = ggplot2::element_geom(linewidth = linewidth),
 

@@ -199,7 +199,7 @@ gg_blanket <- function(
   ##############################################################################
   # Step 3: Extract geom, stat & position strings
   ##############################################################################
-  names <- extract_names(geom, stat, position)
+  names <- get_names(geom, stat, position)
   geom_name <- names$geom_name
   stat_name <- names$stat_name
   position_name <- names$position_name
@@ -1099,7 +1099,7 @@ gg_blanket <- function(
     if (stringr::str_detect(stat_name, "sf")) {
       x_title <- ""
     } else {
-      x_title <- extract_title(
+      x_title <- get_title(
         data, aes_list$x, plot_build$plot$labels$x,
         titles_case,
         purrr::map_chr("x", titles_case)
@@ -1111,7 +1111,7 @@ gg_blanket <- function(
     if (stringr::str_detect(stat_name, "sf")) {
       y_title <- ""
     } else {
-      y_title <- extract_title(
+      y_title <- get_title(
         data, aes_list$y, plot_build$plot$labels$y,
         titles_case, purrr::map_chr("y", titles_case)
       )
@@ -1120,13 +1120,13 @@ gg_blanket <- function(
 
   if (rlang::is_null(col_title)) {
     if (!rlang::is_null(plot_build$plot$labels$colour)) {
-      col_title <- extract_title(
+      col_title <- get_title(
         data, aes_list$col, plot_build$plot$labels$colour,
         titles_case, NULL
       )
     }
     else if (!rlang::is_null(plot_build$plot$labels$fill)) {
-      col_title <- extract_title(
+      col_title <- get_title(
         data, aes_list$col, plot_build$plot$labels$fill,
         titles_case, NULL
       )
@@ -1134,7 +1134,7 @@ gg_blanket <- function(
   }
 
   # Get labels for other aesthetics
-  other_titles <- extract_other_titles(plot_build, col_title, titles_case)
+  other_titles <- get_other_titles(plot_build, col_title, titles_case)
 
   # Apply labels
   plot <- plot +

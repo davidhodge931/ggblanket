@@ -14,7 +14,7 @@ weave_geom_size <- function(size = 1.5, ...) {
     geom.count = ggplot2::element_geom(pointsize = size),
     geom.jitter = ggplot2::element_geom(pointsize = size),
     geom.point = ggplot2::element_geom(pointsize = size),
-    geom.pointrange = ggplot2::element_geom(pointsize = size),
+    geom.pointrange = ggplot2::element_geom(pointsize = size * 3),
     geom.qq = ggplot2::element_geom(pointsize = size),
   )
 }

@@ -34,7 +34,7 @@ quote_aesthetics <- function(x = NULL, y = NULL, col = NULL,
 
 #' Extract geom, stat, and position names
 #' @noRd
-extract_names <- function(geom = NULL, stat = NULL, position = NULL) {
+get_names <- function(geom = NULL, stat = NULL, position = NULL) {
   # Extract geom name
   if (ggplot2::is_ggproto(geom)) {
     geom_name <- stringr::str_to_lower(stringr::str_remove(
@@ -938,7 +938,7 @@ check_aesthetic_matches_colour <- function(plot_build, aesthetic) {
 
 #' Extract label with fallback
 #' @noRd
-extract_title <- function(data, aes_quo, build_title, titles_case, default = NULL) {
+get_title <- function(data, aes_quo, build_title, titles_case, default = NULL) {
   if (!rlang::quo_is_null(aes_quo)) {
     #get any label attribute from data
     if (!rlang::is_null(attr(dplyr::pull(data, !!aes_quo), "label"))) {
@@ -964,7 +964,7 @@ extract_title <- function(data, aes_quo, build_title, titles_case, default = NUL
 
 #' Extract titles for other aesthetics
 #' @noRd
-extract_other_titles <- function(plot_build, col_title, titles_case) {
+get_other_titles <- function(plot_build, col_title, titles_case) {
   titles <- list()
 
   # Helper to get label for an aesthetic
