@@ -4,13 +4,7 @@
 \alias{weave_geom_linetype}
 \title{Update the linetype for geoms}
 \usage{
-weave_geom_linetype(
-  linetype = 1,
-  ...,
-  linetype_border = 0,
-  linetype_box = 1,
-  linetype_sf = 0
-)
+weave_geom_linetype(linetype = 1, ..., linetype_border = 0, linetype_box = 1)
 }
 \arguments{
 \item{linetype}{A default linetype for geoms that don't fall into other categories
@@ -18,13 +12,10 @@ weave_geom_linetype(
 
 \item{...}{Provided to require argument naming and support trailing commas.}
 
-\item{linetype_border}{The linetype for polygon geoms (excluding boxplot, crossbar,
-and sf). Defaults to 0 (no line).}
+\item{linetype_border}{The linetype for polygon geoms (excluding boxplot, crossbar). Defaults to 0 (no line).}
 
 \item{linetype_box}{The linetype for boxplot and crossbar geoms specifically.
 Defaults to 1 (solid line).}
-
-\item{linetype_sf}{The linetype for the sf geom specifically. Defaults to 0 (no line).}
 }
 \value{
 An updated ggplot2 theme with modified geom linetype defaults
@@ -35,9 +26,9 @@ More specific parameters override more general ones, allowing fine-grained contr
 over different geom categories.
 }
 \details{
-The default behavior allows polygon-based visualizations allows for neat
-display of adjacent shapes. Set \code{linetype_border = 1} and \code{linetype_sf = 1}
-to restore visible borders.
+The default behaviour allows polygon-based visualizations allows for neat
+display of adjacent shapes. Set \code{linetype_border = 1} to restore visible
+borders.
 }
 \note{
 Heatmap geoms (bin2d, hex, raster) and filled contour geoms (contour_filled,
@@ -48,14 +39,11 @@ density_2d_filled) always have their borders set to 0 regardless of the
 
 Geoms are grouped into categories for consistent styling:
 \describe{
-\item{\strong{border}}{Polygon geoms (excluding boxplot, crossbar, and sf) where
+\item{\strong{border}}Polygon geoms (excluding boxplot, crossbar) where
 borders are often unnecessary: area, bar, col, density, dotplot, map,
-polygon, rect, ribbon, tile, violin. Also includes heatmap geoms (bin2d,
-hex, raster) and filled contours (contour_filled, density2d_filled) which
-always have borders removed.}
-\item{\strong{box}}{Specifically boxplot and crossbar geoms}
-\item{\strong{sf}}{Specifically the sf geom}
-\item{\strong{other}}{Line-based and point geoms: contour, count, curve, density2d,
+polygon, rect, ribbon, tile, violin.
+\item{\strong{box}}Specifically boxplot and crossbar geoms}
+\item{\strong{other}}Line-based and point geoms: contour, count, curve, density2d,
 errorbar, freqpoly, function, jitter, line, linerange, path, point,
 pointrange, qq, qq_line, quantile, rug, segment, smooth, spoke, step}
 }

@@ -31,7 +31,7 @@ gg_area <- function(
   axis_line_transparent = NULL,
   axis_ticks_transparent = NULL,
   panel_grid_transparent = NULL,
-  
+
   x = NULL,
   xmin = NULL,
   xmax = NULL,

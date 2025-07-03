@@ -8,28 +8,23 @@
 #' @param linetype A default linetype for geoms that don't fall into other categories
 #'   (e.g., point, line, path). Defaults to 1 (solid line).
 #' @param ... Provided to require argument naming and support trailing commas.
-#' @param linetype_border The linetype for polygon geoms (excluding boxplot, crossbar,
-#'   and sf). Defaults to 0 (no line).
+#' @param linetype_border The linetype for polygon geoms (excluding boxplot, crossbar). Defaults to 0 (no line).
 #' @param linetype_box The linetype for boxplot and crossbar geoms specifically.
 #'   Defaults to 1 (solid line).
-#' @param linetype_sf The linetype for the sf geom specifically. Defaults to 0 (no line).
 #'
 #' @details
-#' The default behavior allows polygon-based visualizations allows for neat
-#' display of adjacent shapes. Set `linetype_border = 1` and `linetype_sf = 1`
-#' to restore visible borders.
+#' The default behaviour allows polygon-based visualizations allows for neat
+#' display of adjacent shapes. Set `linetype_border = 1` to restore visible
+#' borders.
 #'
 #' @section Geom Categories:
 #' Geoms are grouped into categories for consistent styling:
 #' \describe{
-#'   \item{**border**}{Polygon geoms (excluding boxplot, crossbar, and sf) where
+#'   \item{**border**}Polygon geoms (excluding boxplot, crossbar) where
 #'     borders are often unnecessary: area, bar, col, density, dotplot, map,
-#'     polygon, rect, ribbon, tile, violin. Also includes heatmap geoms (bin2d,
-#'     hex, raster) and filled contours (contour_filled, density2d_filled) which
-#'     always have borders removed.}
-#'   \item{**box**}{Specifically boxplot and crossbar geoms}
-#'   \item{**sf**}{Specifically the sf geom}
-#'   \item{**other**}{Line-based and point geoms: contour, count, curve, density2d,
+#'     polygon, rect, ribbon, tile, violin.
+#'   \item{**box**}Specifically boxplot and crossbar geoms}
+#'   \item{**other**}Line-based and point geoms: contour, count, curve, density2d,
 #'     errorbar, freqpoly, function, jitter, line, linerange, path, point,
 #'     pointrange, qq, qq_line, quantile, rug, segment, smooth, spoke, step}
 #' }
@@ -58,12 +53,8 @@ weave_geom_linetype <- function(
     linetype = 1,
     ...,
     linetype_border = 0,
-    linetype_box = 1,
-    linetype_sf = 0) {
+    linetype_box = 1) {
   ggplot2::update_theme(
-    # sf
-    geom.sf = ggplot2::element_geom(linetype = linetype_sf),
-
     # box
     geom.boxplot = ggplot2::element_geom(linetype = linetype_box),
     geom.crossbar = ggplot2::element_geom(linetype = linetype_box),
@@ -73,7 +64,6 @@ weave_geom_linetype <- function(
     geom.bar = ggplot2::element_geom(bordertype = linetype_border),
     geom.col = ggplot2::element_geom(bordertype = linetype_border),
     geom.density = ggplot2::element_geom(bordertype = linetype_border),
-    geom.dotplot = ggplot2::element_geom(bordertype = linetype_border),
     geom.map = ggplot2::element_geom(bordertype = linetype_border),
     geom.polygon = ggplot2::element_geom(bordertype = linetype_border),
     geom.rect = ggplot2::element_geom(bordertype = linetype_border),
@@ -94,6 +84,7 @@ weave_geom_linetype <- function(
     geom.contour = ggplot2::element_geom(linetype = linetype),
     geom.count = ggplot2::element_geom(linetype = linetype),
     geom.curve = ggplot2::element_geom(linetype = linetype),
+    geom.dotplot = ggplot2::element_geom(linetype = linetype),
     geom.density2d = ggplot2::element_geom(linetype = linetype),
     geom.errorbar = ggplot2::element_geom(linetype = linetype),
     geom.freqpoly = ggplot2::element_geom(linetype = linetype),

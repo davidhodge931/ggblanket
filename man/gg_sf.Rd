@@ -177,10 +177,23 @@ library(dplyr)
 set_blanket()
 
 if (requireNamespace("sf", quietly = TRUE)) {
-  sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
-    gg_sf(
-      col = AREA,
-    )
+
+d <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
+
+d |>
+  sf::st_centroid() |>
+  gg_sf()
+
+d |>
+  gg_sf(
+    col = AREA,
+  )
+
+d |>
+  gg_sf(
+    blend = "multiply",
+    linetype = 1,
+  )
 }
 
 }

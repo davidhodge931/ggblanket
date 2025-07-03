@@ -12,27 +12,25 @@
 #'   and sf). Controls the colour of the border line itself. Overrides `colour` and `col`.
 #' @param colour_box The outline colour for boxplot and crossbar geoms specifically.
 #'   Overrides `colour` and `col`.
-#' @param colour_sf The outline colour for sf geoms specifically. Overrides `colour` and `col`.
 #' @param fill A default hex code for the fill of all geoms. Overrides `col` for fill.
 #' @param fill_border The interior fill colour for polygon geoms (excluding boxplot,
 #'   crossbar, and sf). This sets the fill colour inside the shape, not the border
 #'   line colour. Overrides `fill` and `col`.
 #' @param fill_box The interior fill colour for boxplot and crossbar geoms specifically.
 #'   Overrides `fill` and `col`.
-#' @param fill_sf The interior fill colour for sf geoms specifically. Overrides `fill` and `col`.
 #'
 #' @details
 #' The function uses a hierarchical priority system where more specific parameters
 #' override more general ones:
 #'
 #' For colour properties:
-#' 1. `colour_sf`, `colour_box`, `colour_border` (most specific, for geom categories)
+#' 1. `colour_box`, `colour_border` (most specific, for geom categories)
 #' 2. `colour` (general colour override)
 #' 3. `col` (applies to both colour and fill)
 #' 4. `"#357BA2FF"` (blue) as final fallback
 #'
 #' For fill properties:
-#' 1. `fill_sf`, `fill_box`, `fill_border` (most specific, for geom categories)
+#' 1. `fill_box`, `fill_border` (most specific, for geom categories)
 #' 2. `fill` (general fill override)
 #' 3. `col` (applies to both colour and fill)
 #' 4. `"#357BA2FF"` (blue) as final fallback
@@ -45,7 +43,6 @@
 #'     col, contour_filled, density, density_2d_filled, dotplot, hex, map, polygon,
 #'     raster, rect, ribbon, smooth, tile, violin}
 #'   \item{**box**}{Specifically boxplot and crossbar geoms only}
-#'   \item{**sf**}{Specifically geom_sf only}
 #'   \item{**other**}{All remaining geoms (e.g., point, line, path). For these geoms,
 #'     colour and fill are typically the same value.}
 #' }
@@ -89,16 +86,12 @@ weave_geom_col <- function(col = NULL,
                            colour = NULL,
                            colour_border = NULL,
                            colour_box = NULL,
-                           colour_sf = NULL,
                            fill = NULL,
                            fill_border = NULL,
-                           fill_box = NULL,
-                           fill_sf = NULL) {
+                           fill_box = NULL
+                           ) {
 
   # Determine from most specific to most general
-  colour_sf <- colour_sf %||% colour %||% col %||% blue
-  fill_sf <- fill_sf %||% fill %||% col %||% blue
-
   colour_box <- colour_box %||% colour %||% col %||% blue
   fill_box <- fill_box %||% fill %||% col %||% blue
 
@@ -109,9 +102,6 @@ weave_geom_col <- function(col = NULL,
   fill <- fill %||% col %||% blue
 
   ggplot2::update_theme(
-    # sf
-    geom.sf = ggplot2::element_geom(colour = colour_sf, fill = fill_sf),
-
     # box
     geom.boxplot = ggplot2::element_geom(colour = colour_box, fill = fill_box),
     geom.crossbar = ggplot2::element_geom(colour = colour_box, fill = fill_box),
@@ -124,7 +114,6 @@ weave_geom_col <- function(col = NULL,
     geom.contour.filled = ggplot2::element_geom(colour = colour_border, fill = fill_border),
     geom.density = ggplot2::element_geom(colour = colour_border, fill = fill_border),
     geom.density2d.filled = ggplot2::element_geom(colour = colour_border, fill = fill_border),
-    geom.dotplot = ggplot2::element_geom(colour = colour_border, fill = fill_border),
     geom.hex = ggplot2::element_geom(colour = colour_border, fill = fill_border),
     geom.map = ggplot2::element_geom(colour = colour_border, fill = fill_border),
     geom.polygon = ggplot2::element_geom(colour = colour_border, fill = fill_border),
@@ -140,6 +129,7 @@ weave_geom_col <- function(col = NULL,
     geom.count = ggplot2::element_geom(colour = colour, fill = colour),
     geom.curve = ggplot2::element_geom(colour = colour),
     geom.density2d = ggplot2::element_geom(colour = colour),
+    geom.dotplot = ggplot2::element_geom(colour = colour, fill = fill),
     geom.errorbar = ggplot2::element_geom(colour = colour),
     geom.freqpoly = ggplot2::element_geom(colour = colour),
     geom.function = ggplot2::element_geom(colour = colour),

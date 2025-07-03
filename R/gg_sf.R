@@ -14,10 +14,23 @@
 #' set_blanket()
 #'
 #' if (requireNamespace("sf", quietly = TRUE)) {
-#'   sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
-#'     gg_sf(
-#'       col = AREA,
-#'     )
+#'
+#' d <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
+#'
+#' d |>
+#'   sf::st_centroid() |>
+#'   gg_sf()
+#'
+#' d |>
+#'   gg_sf(
+#'     col = AREA,
+#'   )
+#'
+#' d |>
+#'   gg_sf(
+#'     blend = "multiply",
+#'     linetype = 1,
+#'   )
 #' }
 #'
 gg_sf <- function(
@@ -31,7 +44,7 @@ gg_sf <- function(
   axis_line_transparent = NULL,
   axis_ticks_transparent = NULL,
   panel_grid_transparent = NULL,
-  
+
   x = NULL,
   xmin = NULL,
   xmax = NULL,

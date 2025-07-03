@@ -10,11 +10,9 @@ weave_geom_col(
   colour = NULL,
   colour_border = NULL,
   colour_box = NULL,
-  colour_sf = NULL,
   fill = NULL,
   fill_border = NULL,
-  fill_box = NULL,
-  fill_sf = NULL
+  fill_box = NULL
 )
 }
 \arguments{
@@ -30,8 +28,6 @@ and sf). Controls the colour of the border line itself. Overrides \code{colour} 
 \item{colour_box}{The outline colour for boxplot and crossbar geoms specifically.
 Overrides \code{colour} and \code{col}.}
 
-\item{colour_sf}{The outline colour for sf geoms specifically. Overrides \code{colour} and \code{col}.}
-
 \item{fill}{A default hex code for the fill of all geoms. Overrides \code{col} for fill.}
 
 \item{fill_border}{The interior fill colour for polygon geoms (excluding boxplot,
@@ -40,8 +36,6 @@ line colour. Overrides \code{fill} and \code{col}.}
 
 \item{fill_box}{The interior fill colour for boxplot and crossbar geoms specifically.
 Overrides \code{fill} and \code{col}.}
-
-\item{fill_sf}{The interior fill colour for sf geoms specifically. Overrides \code{fill} and \code{col}.}
 }
 \value{
 An updated ggplot2 theme with modified geom defaults
@@ -57,7 +51,7 @@ override more general ones:
 
 For colour properties:
 \enumerate{
-\item \code{colour_sf}, \code{colour_box}, \code{colour_border} (most specific, for geom categories)
+\item \code{colour_box}, \code{colour_border} (most specific, for geom categories)
 \item \code{colour} (general colour override)
 \item \code{col} (applies to both colour and fill)
 \item \code{"#357BA2FF"} (blue) as final fallback
@@ -65,7 +59,7 @@ For colour properties:
 
 For fill properties:
 \enumerate{
-\item \code{fill_sf}, \code{fill_box}, \code{fill_border} (most specific, for geom categories)
+\item \code{fill_box}, \code{fill_border} (most specific, for geom categories)
 \item \code{fill} (general fill override)
 \item \code{col} (applies to both colour and fill)
 \item \code{"#357BA2FF"} (blue) as final fallback
@@ -80,7 +74,6 @@ colour defines the outline and fill defines the interior: area, bar, bin2d,
 col, contour_filled, density, density_2d_filled, dotplot, hex, map, polygon,
 raster, rect, ribbon, smooth, tile, violin}
 \item{\strong{box}}{Specifically boxplot and crossbar geoms only}
-\item{\strong{sf}}{Specifically geom_sf only}
 \item{\strong{other}}{All remaining geoms (e.g., point, line, path). For these geoms,
 colour and fill are typically the same value.}
 }
