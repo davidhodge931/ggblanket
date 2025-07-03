@@ -100,7 +100,6 @@ test_that(test_name, {
       stat = "summary",
       x = species,
       y = flipper_length_mm,
-      size = 0.1,
     )
 
   vdiffr::expect_doppelganger(test_name, p)

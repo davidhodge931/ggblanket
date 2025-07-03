@@ -32,10 +32,10 @@
 <line x1='233.08' y1='135.29' x2='233.08' y2='67.56' style='stroke-width: 1.41; stroke: #FFA600; stroke-linecap: butt;' />
 <line x1='484.96' y1='348.14' x2='484.96' y2='261.06' style='stroke-width: 1.41; stroke: #0095A8; stroke-linecap: butt;' />
 <line x1='512.94' y1='232.04' x2='512.94' y2='173.99' style='stroke-width: 1.41; stroke: #FFA600; stroke-linecap: butt;' />
-<circle cx='205.09' cy='483.59' r='1.56' style='stroke-width: 1.42; stroke: #0095A8; fill: #0095A8;' />
-<circle cx='233.08' cy='96.59' r='1.56' style='stroke-width: 1.42; stroke: #FFA600; fill: #FFA600;' />
-<circle cx='484.96' cy='290.09' r='1.56' style='stroke-width: 1.42; stroke: #0095A8; fill: #0095A8;' />
-<circle cx='512.94' cy='193.34' r='1.56' style='stroke-width: 1.42; stroke: #FFA600; fill: #FFA600;' />
+<circle cx='205.09' cy='483.59' r='1.95' style='stroke-width: 0.71; stroke: #0095A8; fill: #0095A8;' />
+<circle cx='233.08' cy='96.59' r='1.95' style='stroke-width: 0.71; stroke: #FFA600; fill: #FFA600;' />
+<circle cx='484.96' cy='290.09' r='1.95' style='stroke-width: 0.71; stroke: #0095A8; fill: #0095A8;' />
+<circle cx='512.94' cy='193.34' r='1.95' style='stroke-width: 0.71; stroke: #FFA600; fill: #FFA600;' />
 <polyline points='51.17,531.97 51.17,48.21 ' style='stroke-width: 0.53; stroke: none; stroke-linecap: square;' />
 <text x='44.78' y='535.41' text-anchor='end' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='13.90px' lengthAdjust='spacingAndGlyphs'>0.5</text>
 <text x='44.78' y='438.66' text-anchor='end' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='13.90px' lengthAdjust='spacingAndGlyphs'>1.5</text>
@@ -60,10 +60,10 @@
 <text x='680.57' y='56.13' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='27.80px' lengthAdjust='spacingAndGlyphs'>Group</text>
 <rect x='680.57' y='62.65' width='11.96' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <line x1='686.54' y1='80.57' x2='686.54' y2='64.64' style='stroke-width: 1.41; stroke: #0095A8; stroke-linecap: butt;' />
-<circle cx='686.54' cy='72.61' r='1.56' style='stroke-width: 1.42; stroke: #0095A8; fill: #0095A8;' />
+<circle cx='686.54' cy='72.61' r='1.95' style='stroke-width: 0.71; stroke: #0095A8; fill: #0095A8;' />
 <rect x='680.57' y='86.18' width='11.96' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <line x1='686.54' y1='104.11' x2='686.54' y2='88.17' style='stroke-width: 1.41; stroke: #FFA600; stroke-linecap: butt;' />
-<circle cx='686.54' cy='96.14' r='1.56' style='stroke-width: 1.42; stroke: #FFA600; fill: #FFA600;' />
+<circle cx='686.54' cy='96.14' r='1.95' style='stroke-width: 0.71; stroke: #FFA600; fill: #FFA600;' />
 <text x='698.00' y='76.05' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>1</text>
 <text x='698.00' y='99.58' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>2</text>
 <text x='10.96' y='19.67' style='font-size: 11.00px; font-weight: bold; fill: #121B24; font-family: sans;' textLength='70.34px' lengthAdjust='spacingAndGlyphs'>gg_pointrange</text>

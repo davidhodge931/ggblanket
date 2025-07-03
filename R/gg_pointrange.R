@@ -1,6 +1,6 @@
 #' Pointrange ggplot
 #'
-#' @description Create a pointrange ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_pointrange()][ggplot2::geom_pointrange()] defaults for the geom, stat and position.
+#' @description Create a pointrange ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_linerange()][ggplot2::geom_linerange()] + [geom_point()][ggplot2::geom_point()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'
@@ -42,7 +42,7 @@ gg_pointrange <- function(
   axis_line_transparent = NULL,
   axis_ticks_transparent = NULL,
   panel_grid_transparent = NULL,
-  
+
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -111,7 +111,7 @@ gg_pointrange <- function(
 ) {
   gg_blanket(
     data = data,
-    geom = "pointrange",
+    geom = "linerange",
     stat = stat,
     position = position,
     coord = coord,
@@ -187,5 +187,6 @@ gg_pointrange <- function(
     caption = caption,
     titles_case = titles_case,
     ...
-  )
+  ) +
+    ggplot2::geom_point(stat = stat, position = position, ...)
 }

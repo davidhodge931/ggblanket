@@ -168,7 +168,7 @@ gg_pointrange(
 A ggplot object.
 }
 \description{
-Create a pointrange ggplot with a wrapper around \link[ggplot2:ggplot]{ggplot()} + \link[ggplot2:layer]{layer()} with \link[ggplot2:geom_linerange]{geom_pointrange()} defaults for the geom, stat and position.
+Create a pointrange ggplot with a wrapper around \link[ggplot2:ggplot]{ggplot()} + \link[ggplot2:layer]{layer()} with \link[ggplot2:geom_linerange]{geom_linerange()} + \link[ggplot2:geom_point]{geom_point()} defaults for the geom, stat and position.
 }
 \examples{
 library(ggplot2)

@@ -7,7 +7,7 @@
 weave_geom_size(size = 1.5, ...)
 }
 \arguments{
-\item{size}{A default size for the point geom. Defaults to 1.5. The pointrange size defaults to dividing by 6 (i.e. 0.25).}
+\item{size}{A default size for the point geom. Defaults to 1.5.}
 
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 }
@@ -15,5 +15,5 @@ weave_geom_size(size = 1.5, ...)
 Updated geom defaults for size
 }
 \description{
-Update the size for point/pointrange geoms. Excludes "text" and "label".
+Update the size for geoms. Excludes "text" and "label".
 }
