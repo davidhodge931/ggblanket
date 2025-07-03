@@ -6,10 +6,13 @@
 #' @param ... Additional arguments passed to [ggplot2::element_geom()].
 #' @param colour A hex code. If NULL, derived from axis text colour.
 #' @param fill A hex code. If NULL, derived from panel background.
-#' @param size A size (for text geoms). If NULL, derived from axis text size.
+#' @param size A size (for text geoms) in mm. If NULL, derived from axis text size. Use `pt_to_mm` to convert a size in pt.
 #' @param family A font family. If NULL, derived from axis text family.
 #'
-#' @noRd
+#' @return An updated ggplot2 theme with modified geom text and label defaults
+#'
+#' @export
+#'
 weave_geom_font <- function(
     ...,
     colour = NULL,

@@ -7,6 +7,7 @@
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @return Updated geom defaults for linewidth
+#'
 #' @export
 weave_geom_linewidth <- function(linewidth = 0.66, ...) {
   #includes polygons (with borders)

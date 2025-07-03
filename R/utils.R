@@ -1,37 +1,3 @@
-# gg_blanket_helpers.R
-# Helper functions for gg_blanket to modularize the code
-# These functions extract logical chunks from the original gg_blanket function
-
-#' Store already-quoted aesthetic variables in a list
-#' @description This function expects already-quoted expressions (quosures)
-#' @noRd
-quote_aesthetics <- function(x = NULL, y = NULL, col = NULL,
-                             facet = NULL, facet2 = NULL,
-                             xmin = NULL, xmax = NULL, xend = NULL,
-                             ymin = NULL, ymax = NULL, yend = NULL,
-                             z = NULL, group = NULL, subgroup = NULL,
-                             label = NULL, text = NULL, sample = NULL) {
-  list(
-    x = x,
-    y = y,
-    col = col,
-    facet = facet,
-    facet2 = facet2,
-    xmin = xmin,
-    xmax = xmax,
-    xend = xend,
-    ymin = ymin,
-    ymax = ymax,
-    yend = yend,
-    z = z,
-    group = group,
-    subgroup = subgroup,
-    label = label,
-    text = text,
-    sample = sample
-  )
-}
-
 #' Extract geom, stat, and position names
 #' @noRd
 get_ggproto_names <- function(geom = NULL, stat = NULL, position = NULL) {
@@ -379,7 +345,7 @@ add_initial_layer <- function(plot, geom, stat, position, mapping, params,
 
 #' Determine scale types from plot build
 #' @noRd
-determine_scale_class <- function(plot_build, aes_list, data) {
+get_scale_class <- function(plot_build, aes_list, data) {
   plot_scales <- purrr::map_chr(plot_build$plot$scales$scales, function(x) {
     ifelse(
       rlang::is_null(rlang::call_name(x[["call"]])),
@@ -451,7 +417,7 @@ determine_scale_class <- function(plot_build, aes_list, data) {
 
 #' Get default transform based on scale type
 #' @noRd
-get_default_transform <- function(scale_class) {
+get_transform_default <- function(scale_class) {
   if (scale_class == "time") {
     scales::transform_hms()
   } else if (scale_class == "datetime") {
@@ -471,14 +437,14 @@ get_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_class,
   # Get transforms
   if (rlang::is_null(x_transform)) {
     x_transform_null <- TRUE
-    x_transform <- get_default_transform(x_scale_class)
+    x_transform <- get_transform_default(x_scale_class)
   } else {
     x_transform_null <- FALSE
   }
 
   if (rlang::is_null(y_transform)) {
     y_transform_null <- TRUE
-    y_transform <- get_default_transform(y_scale_class)
+    y_transform <- get_transform_default(y_scale_class)
   } else {
     y_transform_null <- FALSE
   }
@@ -551,9 +517,9 @@ get_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_class,
   )
 }
 
-#' Validate inputs
+#' Check inputs are valid
 #' @noRd
-validate_inputs <- function(mapping, x_symmetric, y_symmetric,
+check_inputs <- function(mapping, x_symmetric, y_symmetric,
                             x_transform_null, y_transform_null, stat) {
   if (!rlang::is_null(mapping)) {
     if (any(names(unlist(mapping)) %in% c("facet", "facet2"))) {
@@ -665,11 +631,11 @@ add_facet_layer <- function(plot, aes_list, data, facet_layout, facet_scales,
               rlang::eval_tidy(aes_list$facet, data))
 
   if (reverse_facet) {
-    add_facet_layer_reversed(plot, aes_list, facet_layout, facet_scales,
+    add_facet_layer_rev(plot, aes_list, facet_layout, facet_scales,
                              facet_space, facet_drop, facet_axes, facet_axis_labels,
                              facet_nrow, facet_ncol, facet_labels)
   } else {
-    add_facet_layer_normal(plot, aes_list, facet_layout, facet_scales,
+    add_facet_layer_std(plot, aes_list, facet_layout, facet_scales,
                            facet_space, facet_drop, facet_axes, facet_axis_labels,
                            facet_nrow, facet_ncol, facet_labels)
   }
@@ -677,7 +643,7 @@ add_facet_layer <- function(plot, aes_list, data, facet_layout, facet_scales,
 
 #' Add facet layer with reversed facet
 #' @noRd
-add_facet_layer_reversed <- function(plot, aes_list, facet_layout, facet_scales,
+add_facet_layer_rev <- function(plot, aes_list, facet_layout, facet_scales,
                                      facet_space, facet_drop, facet_axes,
                                      facet_axis_labels, facet_nrow, facet_ncol,
                                      facet_labels) {
@@ -769,7 +735,7 @@ add_facet_layer_reversed <- function(plot, aes_list, facet_layout, facet_scales,
 
 #' Add facet layer normal (not reversed)
 #' @noRd
-add_facet_layer_normal <- function(plot, aes_list, facet_layout, facet_scales,
+add_facet_layer_std <- function(plot, aes_list, facet_layout, facet_scales,
                                    facet_space, facet_drop, facet_axes,
                                    facet_axis_labels, facet_nrow, facet_ncol,
                                    facet_labels) {
@@ -936,7 +902,7 @@ check_aesthetic_matches_colour <- function(plot_build, aesthetic) {
   FALSE
 }
 
-#' Extract label with fallback
+#' Extract title with fallback
 #' @noRd
 get_title <- function(data, aes_quo, build_title, titles_case, default = NULL) {
   if (!rlang::quo_is_null(aes_quo)) {
@@ -964,7 +930,7 @@ get_title <- function(data, aes_quo, build_title, titles_case, default = NULL) {
 
 #' Extract titles for other aesthetics
 #' @noRd
-get_other_titles <- function(plot_build, col_title, titles_case) {
+get_titles_other <- function(plot_build, col_title, titles_case) {
   titles <- list()
 
   # Helper to get label for an aesthetic
@@ -1019,9 +985,9 @@ get_transparency_defaults <- function(axis_line_transparent, axis_ticks_transpar
   )
 }
 
-#' Apply theme transparency
+#' Add transparency
 #' @noRd
-apply_theme_transparency <- function(plot, perspective, axis_line_transparent,
+add_transparency <- function(plot, perspective, axis_line_transparent,
                                      axis_ticks_transparent, panel_grid_transparent,
                                      x_scale_class, y_scale_class) {
   if (perspective == "x") {

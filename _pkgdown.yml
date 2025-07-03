@@ -6,6 +6,7 @@ reference:
 - title: Set
 - contents:
   - set_blanket
+  - starts_with("weave_")
 - title: Wrap
 - contents:
   - gg_blanket

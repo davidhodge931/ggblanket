@@ -137,7 +137,7 @@ gg_blanket <- function(
   ##############################################################################
   # Step 1: Quote aesthetics
   ##############################################################################
-  aes_list <- quote_aesthetics(
+  aes_list <- list(
     x = rlang::enquo(x),
     y = rlang::enquo(y),
     col = rlang::enquo(col),
@@ -158,7 +158,7 @@ gg_blanket <- function(
   )
 
   ##############################################################################
-  # Step 1.5: Check if col is a literal color value
+  # Step 2: Check if col is a literal color value
   ##############################################################################
 
   # Initialize flags
@@ -190,14 +190,14 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # Step 2: Handle NULL data
+  # Step 3: Handle NULL data
   ##############################################################################
   if (rlang::is_null(data)) {
     data <- data.frame(x = NA)
   }
 
   ##############################################################################
-  # Step 3: Extract geom, stat & position strings
+  # Step 4: Extract geom, stat & position strings
   ##############################################################################
   ggproto_names <- get_ggproto_names(geom, stat, position)
   geom_name <- ggproto_names$geom_name
@@ -205,7 +205,7 @@ gg_blanket <- function(
   position_name <- ggproto_names$position_name
 
   ##############################################################################
-  # Step 4: Determine scale types
+  # Step 5: Determine scale types
   ##############################################################################
 
   # Create initial plot to determine scale types
@@ -272,7 +272,7 @@ gg_blanket <- function(
   })
 
   # Determine scale types
-  scale_classs <- determine_scale_class(plot_build, aes_list, data)
+  scale_classs <- get_scale_class(plot_build, aes_list, data)
   x_scale_class <- scale_classs$x_scale_class
   y_scale_class <- scale_classs$y_scale_class
   col_scale_class <- scale_classs$col_scale_class
@@ -283,7 +283,7 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # Step 5: Get defaults
+  # Step 6: Get defaults
   ##############################################################################
   defaults <- get_defaults(x_transform, y_transform, x_scale_class, y_scale_class,
                            facet_scales, theme, x_symmetric, y_symmetric,
@@ -302,18 +302,18 @@ gg_blanket <- function(
   titles_case <- defaults$titles_case
 
   ##############################################################################
-  # Step 6: Validate inputs
+  # Step 7: Validate inputs
   ##############################################################################
-  validate_inputs(mapping, x_symmetric, y_symmetric,
+  check_inputs(mapping, x_symmetric, y_symmetric,
                   x_transform_null, y_transform_null, stat)
 
   ##############################################################################
-  # Step 7: Process the data
+  # Step 8: Process the data
   ##############################################################################
   data <- process_data(data, aes_list, x_symmetric)
 
   ##############################################################################
-  # Step 8: Rebuild base plot with processed data
+  # Step 9: Rebuild base plot with processed data
   ##############################################################################
 
   if (col_is_literal) {
@@ -359,7 +359,7 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # Step 9: Add geom layer
+  # Step 10: Add geom layer
   ##############################################################################
   plot <- add_initial_layer(plot, geom, stat, position, mapping, params,
                             show_legend, coord, blend, stat_name)
@@ -373,7 +373,7 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # Step 10: Add facet layer
+  # Step 11: Add facet layer
   ##############################################################################
   facet_layout <- get_facet_layout(facet_layout, aes_list)
   facet_axes <- get_facet_axes(facet_axes, x_symmetric)
@@ -390,7 +390,7 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # Step 11: Get plot build again
+  # Step 12: Get plot build again
   ##############################################################################
   suppressMessages({
     suppressWarnings({
@@ -404,7 +404,7 @@ gg_blanket <- function(
 
 
   ##############################################################################
-  # Step 12: Make colour scale
+  # Step 13: Make colour scale
   ##############################################################################
 
   if (!is.na(col_scale_class) && !col_is_literal) {
@@ -512,7 +512,7 @@ gg_blanket <- function(
 
       # Get col_transform if NULL
       if (rlang::is_null(col_transform)) {
-        col_transform <- get_default_transform(col_scale_class)
+        col_transform <- get_transform_default(col_scale_class)
       }
 
       # Make a tidy name to deal with composed transforms
@@ -940,7 +940,7 @@ gg_blanket <- function(
     # If col_is_literal is TRUE, we skip all the color scale logic
 
   ##############################################################################
-  # Step 13: Add positional scales
+  # Step 14: Add positional scales
   ##############################################################################
 
   # Make x scale
@@ -1092,7 +1092,7 @@ gg_blanket <- function(
   }
 
   #############################################################################
-  # Step 14: Get titles
+  # Step 15: Get titles
   #############################################################################
 
   if (rlang::is_null(x_title)) {
@@ -1134,7 +1134,7 @@ gg_blanket <- function(
   }
 
   # Get labels for other aesthetics
-  other_titles <- get_other_titles(plot_build, col_title, titles_case)
+  other_titles <- get_titles_other(plot_build, col_title, titles_case)
 
   # Apply labels
   plot <- plot +
@@ -1172,14 +1172,14 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # Step 15: Apply theme transparency
+  # Step 16: Apply theme transparency
   ##############################################################################
 
   transparency <- get_transparency_defaults(axis_line_transparent,
                                             axis_ticks_transparent,
                                             panel_grid_transparent)
 
-  plot <- apply_theme_transparency(
+  plot <- add_transparency(
     plot, perspective,
     transparency$axis_line_transparent,
     transparency$axis_ticks_transparent,

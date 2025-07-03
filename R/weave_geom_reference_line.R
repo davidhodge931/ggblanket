@@ -8,7 +8,10 @@
 #' @param linewidth A linewidth. If NULL, derived from axis line linewidth.
 #' @param linetype A linewidth. If NULL, derived from axis line linetype.
 #'
-#' @noRd
+#' @return An updated ggplot2 theme with modified geom abline, hline and vline defaults
+#'
+#' @export
+#'
 weave_geom_reference_line <- function(
     ...,
     colour = NULL,
