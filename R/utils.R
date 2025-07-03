@@ -34,7 +34,7 @@ quote_aesthetics <- function(x = NULL, y = NULL, col = NULL,
 
 #' Extract geom, stat, and position names
 #' @noRd
-get_names <- function(geom = NULL, stat = NULL, position = NULL) {
+get_ggproto_names <- function(geom = NULL, stat = NULL, position = NULL) {
   # Extract geom name
   if (ggplot2::is_ggproto(geom)) {
     geom_name <- stringr::str_to_lower(stringr::str_remove(
@@ -78,7 +78,7 @@ get_names <- function(geom = NULL, stat = NULL, position = NULL) {
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #'
 #' @noRd
-create_base_plot <- function(
+create_ggplot <- function(
     data,
     x = NULL,
     xmin = NULL,

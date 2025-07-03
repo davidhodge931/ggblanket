@@ -199,10 +199,10 @@ gg_blanket <- function(
   ##############################################################################
   # Step 3: Extract geom, stat & position strings
   ##############################################################################
-  names <- get_names(geom, stat, position)
-  geom_name <- names$geom_name
-  stat_name <- names$stat_name
-  position_name <- names$position_name
+  ggproto_names <- get_ggproto_names(geom, stat, position)
+  geom_name <- ggproto_names$geom_name
+  stat_name <- ggproto_names$stat_name
+  position_name <- ggproto_names$position_name
 
   ##############################################################################
   # Step 4: Determine scale types
@@ -211,7 +211,7 @@ gg_blanket <- function(
   # Create initial plot to determine scale types
   if (col_is_literal) {
     # Don't map col to aesthetics if it's a literal value
-    plot <- create_base_plot(
+    plot <- create_ggplot(
       data = data,
       x = !!aes_list$x,
       y = !!aes_list$y,
@@ -230,7 +230,7 @@ gg_blanket <- function(
       text = !!aes_list$text,
     )
   } else {
-    plot <- create_base_plot(
+    plot <- create_ggplot(
       data = data,
       x = !!aes_list$x,
       y = !!aes_list$y,
@@ -317,7 +317,7 @@ gg_blanket <- function(
   ##############################################################################
 
   if (col_is_literal) {
-    plot <- create_base_plot(
+    plot <- create_ggplot(
       data = data,
       x = !!aes_list$x,
       y = !!aes_list$y,
@@ -337,7 +337,7 @@ gg_blanket <- function(
     ) +
       theme
   } else {
-    plot <- create_base_plot(
+    plot <- create_ggplot(
       data = data,
       x = !!aes_list$x,
       y = !!aes_list$y,
