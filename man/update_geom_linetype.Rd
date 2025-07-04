@@ -2,63 +2,59 @@
 % Please edit documentation in R/update_geom_linetype.R
 \name{update_geom_linetype}
 \alias{update_geom_linetype}
-\title{Update the linetype for geoms}
+\title{Update default linetype for geoms}
 \usage{
-update_geom_linetype(linetype = 1, ..., linetype_border = 0, linetype_box = 1)
+update_geom_linetype(
+  linetype = 1,
+  linetype2 = 0,
+  linetype2_geoms = c("area", "bar", "col", "density", "map", "polygon", "rect",
+    "ribbon", "tile", "violin", "bin2d", "hex", "raster", "contour_filled",
+    "density_2d_filled")
+)
 }
 \arguments{
-\item{linetype}{A default linetype for geoms that don't fall into other categories
-(e.g., point, line, path). Defaults to 1 (solid line).}
+\item{linetype}{The default linetype to use for most geoms. Can be specified as:
+\itemize{
+\item An integer (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash,
+5 = longdash, 6 = twodash)
+\item A string ("blank", "solid", "dashed", "dotted", "dotdash", "longdash", "twodash")
+\item A numeric vector defining a custom dash-dot pattern
+Defaults to 1 (solid line).
+}}
 
-\item{...}{Provided to require argument naming and support trailing commas.}
+\item{linetype2}{The alternative linetype to use for geoms specified in
+\code{linetype2_geoms}. Uses the same specification options as \code{linetype}.
+Defaults to 0 (blank/no line).}
 
-\item{linetype_border}{The linetype for polygon geoms (excluding boxplot, crossbar). Defaults to 0 (no line).}
-
-\item{linetype_box}{The linetype for boxplot and crossbar geoms specifically.
-Defaults to 1 (solid line).}
+\item{linetype2_geoms}{Character vector of geom names that should use \code{linetype2}
+instead of the default \code{linetype}. Common filled geoms are included by default.}
 }
 \value{
-An updated ggplot2 theme with modified geom linetype defaults
+Invisibly returns the previous theme settings.
 }
 \description{
-Update the linetype defaults for ggplot2 geoms using a hierarchical system.
-More specific parameters override more general ones, allowing fine-grained control
-over different geom categories.
+Modifies the default linetype for all geoms or specific geoms in ggplot2 plots.
+This function updates the active theme to apply consistent linetype styling across
+plot elements.
 }
 \details{
-The default behaviour allows polygon-based visualizations allows for neat
-display of adjacent shapes. Set \code{linetype_border = 1} to restore visible
-borders.
+This function modifies both \code{linetype} and \code{bordertype} properties of geoms to
+ensure consistent appearance. The \code{linetype2} value is typically used to remove
+borders from filled geoms (like bars and areas) while maintaining lines for
+other geoms (like lines and points).
 }
-\note{
-Heatmap geoms (bin2d, hex, raster) and filled contour geoms (contour_filled,
-density_2d_filled) always have their borders set to 0 regardless of the
-\code{linetype} setting.
-}
-\section{Geom Categories}{
-
-Geoms are grouped into categories for consistent styling:
-\describe{
-\item{\strong{border}}{Polygon geoms (excluding boxplot, crossbar) where
-borders are often unnecessary: area, bar, col, density, dotplot, map,
-polygon, rect, ribbon, tile, violin.}
-\item{\strong{box}}{Specifically boxplot and crossbar geoms}
-\item{\strong{other}}{Line-based and point geoms: contour, count, curve, density2d,
-errorbar, freqpoly, function, jitter, line, linerange, path, point,
-pointrange, qq, qq_line, quantile, rug, segment, smooth, spoke, step}
-}
-}
-
 \examples{
-# Default: remove outlines from polygons for nice adjacency
-update_geom_linetype()
+# Remove borders from filled geoms
+update_geom_linetype(linetype = 1, linetype2 = 0)
 
-# Restore outlines on all border category geoms
-update_geom_linetype(linetype_border = 1)
-
-# Dashed outlines for border category
+# Use dashed lines for specific geoms
 update_geom_linetype(
-  linetype_border = 2,  # dashed
+  linetype = 1,
+  linetype2 = 2,
+  linetype2_geoms = c("smooth", "line")
 )
 
+}
+\seealso{
+\code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}
 }

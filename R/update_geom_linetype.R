@@ -1,107 +1,83 @@
-#' Update the linetype for geoms
+#' Update default linetype for geoms
 #'
 #' @description
-#' Update the linetype defaults for ggplot2 geoms using a hierarchical system.
-#' More specific parameters override more general ones, allowing fine-grained control
-#' over different geom categories.
+#' Modifies the default linetype for all geoms or specific geoms in ggplot2 plots.
+#' This function updates the active theme to apply consistent linetype styling across
+#' plot elements.
 #'
-#' @param linetype A default linetype for geoms that don't fall into other categories
-#'   (e.g., point, line, path). Defaults to 1 (solid line).
-#' @param ... Provided to require argument naming and support trailing commas.
-#' @param linetype_border The linetype for polygon geoms (excluding boxplot, crossbar). Defaults to 0 (no line).
-#' @param linetype_box The linetype for boxplot and crossbar geoms specifically.
+#' @param linetype The default linetype to use for most geoms. Can be specified as:
+#'   - An integer (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash,
+#'     5 = longdash, 6 = twodash)
+#'   - A string ("blank", "solid", "dashed", "dotted", "dotdash", "longdash", "twodash")
+#'   - A numeric vector defining a custom dash-dot pattern
 #'   Defaults to 1 (solid line).
+#' @param linetype2 The alternative linetype to use for geoms specified in
+#'   `linetype2_geoms`. Uses the same specification options as `linetype`.
+#'   Defaults to 0 (blank/no line).
+#' @param linetype2_geoms Character vector of geom names that should use `linetype2`
+#'   instead of the default `linetype`. Common filled geoms are included by default.
 #'
 #' @details
-#' The default behaviour allows polygon-based visualizations allows for neat
-#' display of adjacent shapes. Set `linetype_border = 1` to restore visible
-#' borders.
+#' This function modifies both `linetype` and `bordertype` properties of geoms to
+#' ensure consistent appearance. The `linetype2` value is typically used to remove
+#' borders from filled geoms (like bars and areas) while maintaining lines for
+#' other geoms (like lines and points).
 #'
-#' @section Geom Categories:
-#' Geoms are grouped into categories for consistent styling:
-#' \describe{
-#'   \item{**border**}{Polygon geoms (excluding boxplot, crossbar) where
-#'     borders are often unnecessary: area, bar, col, density, dotplot, map,
-#'     polygon, rect, ribbon, tile, violin.}
-#'   \item{**box**}{Specifically boxplot and crossbar geoms}
-#'   \item{**other**}{Line-based and point geoms: contour, count, curve, density2d,
-#'     errorbar, freqpoly, function, jitter, line, linerange, path, point,
-#'     pointrange, qq, qq_line, quantile, rug, segment, smooth, spoke, step}
-#' }
-#'
-#' @note
-#' Heatmap geoms (bin2d, hex, raster) and filled contour geoms (contour_filled,
-#' density_2d_filled) always have their borders set to 0 regardless of the
-#' `linetype` setting.
-#'
-#' @return An updated ggplot2 theme with modified geom linetype defaults
-#' @export
+#' @return
+#' Invisibly returns the previous theme settings.
 #'
 #' @examples
-#' # Default: remove outlines from polygons for nice adjacency
-#' update_geom_linetype()
+#' # Remove borders from filled geoms
+#' update_geom_linetype(linetype = 1, linetype2 = 0)
 #'
-#' # Restore outlines on all border category geoms
-#' update_geom_linetype(linetype_border = 1)
-#'
-#' # Dashed outlines for border category
+#' # Use dashed lines for specific geoms
 #' update_geom_linetype(
-#'   linetype_border = 2,  # dashed
+#'   linetype = 1,
+#'   linetype2 = 2,
+#'   linetype2_geoms = c("smooth", "line")
 #' )
 #'
+#' @seealso
+#' \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}
+#'
+#' @export
 update_geom_linetype <- function(
     linetype = 1,
-    ...,
-    linetype_border = 0,
-    linetype_box = 1) {
-  ggplot2::update_theme(
-    # box
-    geom.boxplot = ggplot2::element_geom(linetype = linetype_box),
-    geom.crossbar = ggplot2::element_geom(linetype = linetype_box),
+    linetype2 = 0,
+    linetype2_geoms = c("area", "bar", "col", "density", "map", "polygon",
+                        "rect", "ribbon", "tile", "violin", "bin2d", "hex",
+                        "raster", "contour_filled", "density_2d_filled")) {
 
-    # border (using bordertype for polygon-based geoms)
-    geom.area = ggplot2::element_geom(bordertype = linetype_border),
-    geom.bar = ggplot2::element_geom(bordertype = linetype_border),
-    geom.col = ggplot2::element_geom(bordertype = linetype_border),
-    geom.density = ggplot2::element_geom(bordertype = linetype_border),
-    geom.map = ggplot2::element_geom(bordertype = linetype_border),
-    geom.polygon = ggplot2::element_geom(bordertype = linetype_border),
-    geom.rect = ggplot2::element_geom(bordertype = linetype_border),
-    geom.ribbon = ggplot2::element_geom(bordertype = linetype_border),
-    geom.tile = ggplot2::element_geom(bordertype = linetype_border),
-    geom.violin = ggplot2::element_geom(bordertype = linetype_border),
+  # Get all geom names from ggplot2
+  all_geoms <- c("boxplot", "crossbar", "contour", "count", "curve",
+                 "dotplot", "density2d", "errorbar", "freqpoly", "function",
+                 "jitter", "line", "linerange", "path", "point", "pointrange",
+                 "qq", "qq_line", "quantile", "rug", "segment", "smooth",
+                 "spoke", "step", "area", "bar", "col", "density", "map",
+                 "polygon", "rect", "ribbon", "tile", "violin", "bin2d",
+                 "hex", "raster", "contour_filled", "density_2d_filled")
 
-    # heatmaps - always remove borders
-    geom.bin2d = ggplot2::element_geom(bordertype = 0),
-    geom.hex = ggplot2::element_geom(bordertype = 0),
-    geom.raster = ggplot2::element_geom(bordertype = 0),
+  # Build named list of theme elements
+  theme_args <- list()
 
-    # filled contours/density2d - always remove borders
-    geom.contour.filled = ggplot2::element_geom(bordertype = 0),
-    geom.density2d.filled = ggplot2::element_geom(bordertype = 0),
+  # Apply linetype to all geoms
+  for (geom in all_geoms) {
+    geom_name <- paste0("geom.", gsub("_", "", geom))
 
-    # other (using linetype for non-polygon geoms)
-    geom.contour = ggplot2::element_geom(linetype = linetype),
-    geom.count = ggplot2::element_geom(linetype = linetype),
-    geom.curve = ggplot2::element_geom(linetype = linetype),
-    geom.dotplot = ggplot2::element_geom(linetype = linetype),
-    geom.density2d = ggplot2::element_geom(linetype = linetype),
-    geom.errorbar = ggplot2::element_geom(linetype = linetype),
-    geom.freqpoly = ggplot2::element_geom(linetype = linetype),
-    geom.function = ggplot2::element_geom(linetype = linetype),
-    geom.jitter = ggplot2::element_geom(linetype = linetype),
-    geom.line = ggplot2::element_geom(linetype = linetype),
-    geom.linerange = ggplot2::element_geom(linetype = linetype),
-    geom.path = ggplot2::element_geom(linetype = linetype),
-    geom.point = ggplot2::element_geom(linetype = linetype),
-    geom.pointrange = ggplot2::element_geom(linetype = linetype),
-    geom.qq = ggplot2::element_geom(linetype = linetype),
-    geom.qq_line = ggplot2::element_geom(linetype = linetype),
-    geom.quantile = ggplot2::element_geom(linetype = linetype),
-    geom.rug = ggplot2::element_geom(linetype = linetype),
-    geom.segment = ggplot2::element_geom(linetype = linetype),
-    geom.smooth = ggplot2::element_geom(linetype = linetype),
-    geom.spoke = ggplot2::element_geom(linetype = linetype),
-    geom.step = ggplot2::element_geom(linetype = linetype),
-  )
+    # Check if this geom should use linetype2
+    if (geom %in% linetype2_geoms) {
+      theme_args[[geom_name]] <- ggplot2::element_geom(
+        bordertype = linetype2,
+        linetype = linetype2
+      )
+    } else {
+      theme_args[[geom_name]] <- ggplot2::element_geom(
+        bordertype = linetype,
+        linetype = linetype
+      )
+    }
+  }
+
+  # Use inject and splice to pass the arguments
+  rlang::inject(ggplot2::update_theme(!!!theme_args))
 }

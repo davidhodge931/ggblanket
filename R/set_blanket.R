@@ -30,7 +30,6 @@
 #' @param col A default hex code for the colour and fill of most geoms. Defaults to "#357BA2FF" (i.e. `blue`).
 #' @param size A default size for the point geom. Defaults to 1.5. The pointrange size defaults to dividing by 6 (i.e. 0.25).
 #' @param linewidth A default linewidth for most geoms. Defaults to 0.66.
-#' @param linetype A default linetype for most geoms without borders. Defaults to 1.
 #' @param col_palette For a discrete colour/fill scale, a character vector of hex codes or a `scales::pal_*` function.
 #' @param col_palette_d For a discrete colour/fill scale, a character vector of hex codes or a `scales::pal_*` function.
 #' @param col_palette_c For a continuous (or ordinal) colour/fill scale, a character vector of hex codes or a `scales::pal_*` function.
@@ -69,7 +68,6 @@ set_blanket <- function(
     theme = theme_lighter(),
     ...,
     col = "#357BA2FF",
-    linetype = 1,
     linewidth = 0.66,
     size = 1.5,
     col_palette = NULL,
@@ -85,7 +83,7 @@ set_blanket <- function(
 
   update_geom_col(col)
 
-  update_geom_linetype(linetype)
+  update_geom_linetype()
 
   update_geom_linewidth(linewidth)
 

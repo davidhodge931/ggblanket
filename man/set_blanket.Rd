@@ -8,7 +8,6 @@ set_blanket(
   theme = theme_lighter(),
   ...,
   col = "#357BA2FF",
-  linetype = 1,
   linewidth = 0.66,
   size = 1.5,
   col_palette = NULL,
@@ -26,8 +25,6 @@ set_blanket(
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
 \item{col}{A default hex code for the colour and fill of most geoms. Defaults to "#357BA2FF" (i.e. \code{blue}).}
-
-\item{linetype}{A default linetype for most geoms without borders. Defaults to 1.}
 
 \item{linewidth}{A default linewidth for most geoms. Defaults to 0.66.}
 
