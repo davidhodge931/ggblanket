@@ -17,6 +17,7 @@ TO DO
 * Exported `update_geom_font` and `update_geom_reference_line` functions.
 * Supported setting col/colour/fill palettes.
 * For dates etc, defaulted labels to `scales::label_date_short(leading = "")`.
+* Added `col_square` helper.
 * Added `colour_palette` and `fill_palette` arguments to `gg_*` functions.
 * Added `bind_each_all` to assist with plotting groups alongside the total.
 * Added `standardise_width`.

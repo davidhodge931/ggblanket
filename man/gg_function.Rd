@@ -64,7 +64,7 @@ gg_function(
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
   col_palette = NULL,
-  col_palette_na = NULL,
+  col_palette_na = "#CDC5BFFF",
   col_rescale = scales::rescale(),
   col_scale_type = "gradient",
   col_transform = NULL,

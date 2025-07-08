@@ -128,11 +128,6 @@ gg_blanket <- function(
     caption = NULL,
     titles_case = NULL
 ) {
-  # options(ggblend.check_blend = FALSE)
-  # options(ggplot2.discrete.fill = NULL)
-  # options(ggplot2.continuous.fill = NULL)
-  # options(ggplot2.discrete.colour = NULL)
-  # options(ggplot2.continuous.colour = NULL)
 
   ##############################################################################
   # Step 1: Quote aesthetics
@@ -411,85 +406,259 @@ gg_blanket <- function(
   # Step 13: Make colour scale
   ##############################################################################
 
-  # Define which geoms should use darker palettes
-  darker_colour_geoms <- c("area", "bar", "col", "crossbar", "density", "map", "polygon",
-                    "rect", "ribbon", "smooth", "tile", "violin", "bin2d", "hex",
-                    "raster", "contour_filled", "density_2d_filled")
-
   if (!is.na(col_scale_class) && !col_is_literal) {
     # Get theme palettes
     theme_palettes <- ggplot2::get_theme()
 
-    # Apply darker palettes for specific geoms if palettes not explicitly provided
-    if (is.null(colour_palette) && geom_name %in% darker_colour_geoms) {
-      # Check theme for existing palette and darken it
-      if (!is.null(theme_palettes$palette.colour.discrete) && col_scale_class %in% c("discrete")) {
-        colour_palette <- scales::col_darker(theme_palettes$palette.colour.discrete)
-      } else if (!is.null(theme_palettes$palette.colour.continuous) && col_scale_class %in% c("date", "datetime", "time", "numeric")) {
-        colour_palette <- scales::col_darker(theme_palettes$palette.colour.continuous)
+    # Get colour_palette and fill_palette
+    # Take first non-NULL from: function arg > col_palette > theme palette
+
+    if (col_scale_class %in% c("discrete")) {
+      if (rlang::is_null(colour_palette)) {
+        if (!rlang::is_null(col_palette)) {
+          colour_palette <- col_palette
+        } else if (!rlang::is_null(theme_palettes$palette.colour.discrete)) {
+          colour_palette <- theme_palettes$palette.colour.discrete
+        } else {
+          colour_palette <- scales::pal_hue()
+        }
+      }
+
+      if (rlang::is_null(fill_palette)) {
+        if (!rlang::is_null(col_palette)) {
+          fill_palette <- col_palette
+        } else if (!rlang::is_null(theme_palettes$palette.fill.discrete)) {
+          fill_palette <- theme_palettes$palette.fill.discrete
+        } else {
+          fill_palette <- scales::pal_hue()
+        }
+      }
+    }
+    else if (col_scale_class %in% c("numeric", "date", "datetime", "time")) {
+      if (rlang::is_null(colour_palette)) {
+        if (!rlang::is_null(col_palette)) {
+          colour_palette <- col_palette
+        } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
+          colour_palette <- theme_palettes$palette.colour.continuous
+        } else {
+          colour_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")
+        }
+      }
+      if (rlang::is_null(fill_palette)) {
+        if (!rlang::is_null(col_palette)) {
+          fill_palette <- col_palette
+        } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {
+          fill_palette <- theme_palettes$palette.fill.continuous
+        } else {
+          fill_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")
+        }
+      }
+    }
+    else if (col_scale_class %in% c("ordinal")) {
+      if (rlang::is_null(colour_palette)) {
+        if (!rlang::is_null(col_palette)) {
+          colour_palette <- col_palette
+        } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
+          colour_palette <- theme_palettes$palette.colour.continuous
+        } else {
+          colour_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")
+        }
+      }
+
+      if (rlang::is_null(fill_palette)) {
+        if (!rlang::is_null(col_palette)) {
+          fill_palette <- col_palette
+        } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {
+          fill_palette <- theme_palettes$palette.fill.continuous
+        } else {
+          fill_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")
+        }
       }
     }
 
-    if (col_scale_class %in% c("date", "datetime", "time", "numeric")) {
-      # Continuous color scale
+    # Check if colour scale should have accented
+    colour2_geoms <- c("area", "bar", "col", "crossbar", "density", "histogram",
+                       "map","polygon", "rect", "ribbon", "smooth", "sf", "tile",
+                        "violin","bin2d", "hex", "raster",
+                        "contour_filled", "density_2d_filled")
 
-      # Determine which palette to use for colour
-      if (rlang::is_null(colour_palette)) {
-        if (rlang::is_null(col_palette)) {
-          # Use theme palette
-          colour_palette <- theme_palettes$palette.colour.continuous
-          if (rlang::is_null(colour_palette)) {
-            colour_palette <- scales::pal_seq_gradient(
-              low = "#132B43",
-              high = "#56B1F7"
-            )
-          } else if (!rlang::is_function(colour_palette)) {
-            # Convert vector from theme to function
-            colour_palette <- scales::pal_gradient_n(colours = colour_palette)
+    colour2 <- geom_name %in% colour2_geoms
+
+    if (colour2) {
+      if (!rlang::is_null(colour_palette)) {
+        colour_palette <- col_square(colour_palette)
+      }
+    }
+
+    # Get other defaults (transform, breaks, labels, etc.)
+    # Get transform
+    if (rlang::is_null(col_transform)) {
+      col_transform <- get_transform_default(col_scale_class)
+    }
+    col_transform_name <- get_transform_name(col_transform)
+
+    # Get breaks
+    if (rlang::is_null(col_breaks)) {
+      if (col_scale_class %in% c("discrete", "ordinal")) {
+        col_breaks <- ggplot2::waiver()
+      } else if (any(col_transform_name %in% c("hms", "time", "datetime", "date"))) {
+        col_breaks <- scales::breaks_pretty(n = col_breaks_n)
+      } else {
+        col_breaks <- scales::breaks_extended(n = col_breaks_n, only.loose = FALSE)
+      }
+    }
+
+    # Get labels
+    if (rlang::is_null(col_labels)) {
+      if (col_scale_class %in% c("discrete", "ordinal")) {
+        col_labels <- ggplot2::waiver()
+      } else if (any(col_transform_name %in% c("hms"))) {
+        col_labels <- scales::label_time()
+      } else if (any(col_transform_name %in% c("date", "datetime", "time"))) {
+        col_labels <- scales::label_date_short(leading = "")
+      } else {
+        col_labels <- scales::label_comma(drop0trailing = TRUE)
+      }
+    }
+
+    # Add the scales and guides
+    if (col_scale_class == "discrete") {
+      # Calculate number of colors needed
+      col_n <- calculate_colour_n(aes_list, data, plot_data)
+
+      # Process palettes for discrete scales
+      if (!rlang::is_null(colour_palette)) {
+        if (rlang::is_function(colour_palette)) {
+          if (!rlang::is_null(col_n)) {
+            colour_palette_values <- colour_palette(col_n)
+          } else {
+            colour_palette_values <- colour_palette
+          }
+        } else if (!any(rlang::have_name(colour_palette))) {
+          if (!rlang::is_null(col_n)) {
+            colour_palette_values <- colour_palette[1:col_n]
+          } else {
+            colour_palette_values <- colour_palette
           }
         } else {
-          colour_palette <- col_palette
+          colour_palette_values <- colour_palette
+        }
+      } else {
+        colour_palette_values <- NULL
+      }
+
+      if (!rlang::is_null(fill_palette)) {
+        if (rlang::is_function(fill_palette)) {
+          if (!rlang::is_null(col_n)) {
+            fill_palette_values <- fill_palette(col_n)
+          } else {
+            fill_palette_values <- fill_palette
+          }
+        } else if (!any(rlang::have_name(fill_palette))) {
+          if (!rlang::is_null(col_n)) {
+            fill_palette_values <- fill_palette[1:col_n]
+          } else {
+            fill_palette_values <- fill_palette
+          }
+        } else {
+          fill_palette_values <- fill_palette
+        }
+      } else {
+        fill_palette_values <- NULL
+      }
+
+      # Handle x_symmetric reversal
+      if (x_symmetric) {
+        col_legend_rev <- !col_legend_rev
+        if (!rlang::is_null(colour_palette_values)) {
+          colour_palette_values <- rev(colour_palette_values)
+        }
+        if (!rlang::is_null(fill_palette_values)) {
+          fill_palette_values <- rev(fill_palette_values)
         }
       }
 
-      # Determine which palette to use for fill
-      if (rlang::is_null(fill_palette)) {
-        if (rlang::is_null(col_palette)) {
-          # Use theme palette
-          fill_palette <- theme_palettes$palette.fill.continuous
-          if (rlang::is_null(fill_palette)) {
-            fill_palette <- scales::pal_seq_gradient(
-              low = "#132B43",
-              high = "#56B1F7"
+      # Apply discrete scales
+      if (!rlang::is_null(colour_palette_values)) {
+        if (rlang::is_vector(colour_palette_values)) {
+          plot <- plot +
+            ggplot2::scale_colour_manual(
+              values = colour_palette_values,
+              breaks = col_breaks,
+              labels = col_labels,
+              na.value = col_palette_na,
+              drop = col_drop
             )
-          } else if (!rlang::is_function(fill_palette)) {
-            # Convert vector from theme to function
-            fill_palette <- scales::pal_gradient_n(colours = fill_palette)
-          }
-        } else {
-          fill_palette <- col_palette
+        } else if (rlang::is_function(colour_palette)) {
+          plot <- plot +
+            ggplot2::discrete_scale(
+              aesthetics = "colour",
+              palette = colour_palette,
+              breaks = col_breaks,
+              labels = col_labels,
+              na.value = col_palette_na,
+              drop = col_drop
+            )
         }
       }
 
-      # Process palettes - handle different palette function types
+      if (!rlang::is_null(fill_palette_values)) {
+        if (rlang::is_vector(fill_palette_values)) {
+          plot <- plot +
+            ggplot2::scale_fill_manual(
+              values = fill_palette_values,
+              breaks = col_breaks,
+              labels = col_labels,
+              na.value = col_palette_na,
+              drop = col_drop
+            )
+        } else if (rlang::is_function(fill_palette)) {
+          plot <- plot +
+            ggplot2::discrete_scale(
+              aesthetics = "fill",
+              palette = fill_palette,
+              breaks = col_breaks,
+              labels = col_labels,
+              na.value = col_palette_na,
+              drop = col_drop
+            )
+        }
+      }
+
+      # Add guides
+      plot <- plot +
+        ggplot2::guides(
+          colour = ggplot2::guide_legend(
+            reverse = col_legend_rev,
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow
+          ),
+          fill = ggplot2::guide_legend(
+            reverse = col_legend_rev,
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow
+          )
+        )
+
+    }
+    else if (col_scale_class %in% c("numeric", "date", "datetime", "time")) {
+      # Process palette functions to get color vectors
       if (rlang::is_function(colour_palette)) {
-        # Try to determine palette type by checking if it accepts a single n
+        # Handle different types of palette functions
         tryCatch({
-          # First try calling with a single integer
+          # Try standard discrete palette approach
           test_colors <- colour_palette(20)
           if (length(test_colors) == 20) {
-            # It's a standard discrete palette function
             colour_palette_values <- test_colors
           } else {
-            # Fallback to gradient approach
+            # Try gradient approach
             colour_palette_values <- colour_palette(seq(0, 1, length.out = 20))
           }
         }, error = function(e) {
-          # If error with integer, try gradient approach
+          # Fallback to gradient approach
           tryCatch({
             colour_palette_values <- colour_palette(seq(0, 1, length.out = 20))
           }, error = function(e2) {
-            # If both fail, use a default
             warning("Could not determine palette function type, using default colors")
             colour_palette_values <- scales::viridis_pal()(20)
           })
@@ -499,23 +668,21 @@ gg_blanket <- function(
       }
 
       if (rlang::is_function(fill_palette)) {
-        # Try to determine palette type by checking if it accepts a single n
+        # Handle different types of palette functions
         tryCatch({
-          # First try calling with a single integer
+          # Try standard discrete palette approach
           test_colors <- fill_palette(20)
           if (length(test_colors) == 20) {
-            # It's a standard discrete palette function
             fill_palette_values <- test_colors
           } else {
-            # Fallback to gradient approach
+            # Try gradient approach
             fill_palette_values <- fill_palette(seq(0, 1, length.out = 20))
           }
         }, error = function(e) {
-          # If error with integer, try gradient approach
+          # Fallback to gradient approach
           tryCatch({
             fill_palette_values <- fill_palette(seq(0, 1, length.out = 20))
           }, error = function(e2) {
-            # If both fail, use a default
             warning("Could not determine palette function type, using default colors")
             fill_palette_values <- scales::viridis_pal()(20)
           })
@@ -524,42 +691,8 @@ gg_blanket <- function(
         fill_palette_values <- fill_palette
       }
 
-      # Set default NA color if not specified
-      if (rlang::is_null(col_palette_na)) {
-        col_palette_na <- "#CDC5BFFF"
-      }
-
-      # Get col_transform if NULL
-      if (rlang::is_null(col_transform)) {
-        col_transform <- get_transform_default(col_scale_class)
-      }
-
-      # Make a tidy name to deal with composed transforms
-      col_transform_name <- get_transform_name(col_transform)
-
-      if (rlang::is_null(col_breaks)) {
-        if (any(col_transform_name %in% c("hms", "time", "datetime", "date"))) {
-          col_breaks <- scales::breaks_pretty(n = col_breaks_n)
-        } else {
-          col_breaks <- scales::breaks_extended(
-            n = col_breaks_n,
-            only.loose = FALSE
-          )
-        }
-      }
-
-      if (rlang::is_null(col_labels)) {
-        if (any(col_transform_name %in% c("hms"))) {
-          col_labels <- scales::label_time()
-        } else if (any(col_transform_name %in% c("date", "datetime", "time"))) {
-          col_labels <- scales::label_date_short(leading = "")
-        } else {
-          col_labels <- scales::label_comma(drop0trailing = TRUE)
-        }
-      }
-
+      # Apply continuous scales
       if (col_scale_type == "gradient") {
-        # Apply separate colour and fill scales
         plot <- plot +
           ggplot2::scale_colour_gradientn(
             colours = colour_palette_values,
@@ -580,7 +713,7 @@ gg_blanket <- function(
             na.value = col_palette_na
           )
 
-        if (geom_name %in% darker_colour_geoms) {
+        if (colour2) {
           plot <- plot +
             ggplot2::guides(
               colour = ggplot2::guide_none(),
@@ -594,7 +727,8 @@ gg_blanket <- function(
               fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
             )
         }
-      } else if (col_scale_type == "steps") {
+      }
+      else if (col_scale_type == "steps") {
         plot <- plot +
           ggplot2::scale_colour_stepsn(
             colours = colour_palette_values,
@@ -615,7 +749,7 @@ gg_blanket <- function(
             na.value = col_palette_na
           )
 
-        if (geom_name %in% darker_colour_geoms) {
+        if (colour2) {
           plot <- plot +
             ggplot2::guides(
               colour = ggplot2::guide_none(),
@@ -639,218 +773,15 @@ gg_blanket <- function(
             )
         }
       }
-
-    } else if (col_scale_class == "discrete") {
-      # Discrete color scale
-
-      # Set default NA color
-      if (rlang::is_null(col_palette_na)) {
-        col_palette_na <- "#CDC5BFFF"
-      }
-
+    }
+    else if (col_scale_class == "ordinal") {
+      # Calculate number of colors needed
       col_n <- calculate_colour_n(aes_list, data, plot_data)
-
-      # Determine which palette to use for colour
-      if (rlang::is_null(colour_palette)) {
-        if (rlang::is_null(col_palette)) {
-          # Use theme palette
-          colour_palette <- theme_palettes$palette.colour.discrete
-          # Theme palettes for discrete should remain as vectors or functions
-        } else {
-          colour_palette <- col_palette
-        }
-      }
-
-      # Determine which palette to use for fill
-      if (rlang::is_null(fill_palette)) {
-        if (rlang::is_null(col_palette)) {
-          # Use theme palette
-          fill_palette <- theme_palettes$palette.fill.discrete
-        } else {
-          fill_palette <- col_palette
-        }
-      }
-
-      # Process colour palette
-      if (!rlang::is_null(col_n) && !rlang::is_null(colour_palette)) {
-        if (rlang::is_function(colour_palette)) {
-          colour_palette_values <- colour_palette(col_n)
-        } else if (!any(rlang::have_name(colour_palette))) {
-          colour_palette_values <- colour_palette[1:col_n]
-        } else {
-          colour_palette_values <- colour_palette
-        }
-      } else {
-        colour_palette_values <- colour_palette
-      }
-
-      # Process fill palette
-      if (!rlang::is_null(col_n) && !rlang::is_null(fill_palette)) {
-        if (rlang::is_function(fill_palette)) {
-          fill_palette_values <- fill_palette(col_n)
-        } else if (!any(rlang::have_name(fill_palette))) {
-          fill_palette_values <- fill_palette[1:col_n]
-        } else {
-          fill_palette_values <- fill_palette
-        }
-      } else {
-        fill_palette_values <- fill_palette
-      }
-
-      # Handle reversing for x_symmetric
-      if (x_symmetric) {
-        col_legend_rev <- !col_legend_rev
-        if (!rlang::is_null(colour_palette_values)) {
-          colour_palette_values <- rev(colour_palette_values)
-        }
-        if (!rlang::is_null(fill_palette_values)) {
-          fill_palette_values <- rev(fill_palette_values)
-        }
-      }
-
-      if (rlang::is_null(col_labels)) {
-        col_labels <- ggplot2::waiver()
-      }
-
-      if (rlang::is_null(col_breaks)) {
-        col_breaks <- ggplot2::waiver()
-      }
-
-      # Apply scales based on palette types
-      if (!rlang::is_null(colour_palette_values) || !rlang::is_null(fill_palette_values)) {
-        # Apply colour scale
-        if (!rlang::is_null(colour_palette_values)) {
-          if (rlang::is_vector(colour_palette_values)) {
-            plot <- plot +
-              ggplot2::scale_colour_manual(
-                values = colour_palette_values,
-                breaks = col_breaks,
-                labels = col_labels,
-                na.value = col_palette_na,
-                drop = col_drop
-              )
-          } else if (rlang::is_function(colour_palette)) {
-            plot <- plot +
-              ggplot2::discrete_scale(
-                aesthetics = "colour",
-                palette = colour_palette,
-                breaks = col_breaks,
-                labels = col_labels,
-                na.value = col_palette_na,
-                drop = col_drop
-              )
-          }
-        }
-
-        # Apply fill scale
-        if (!rlang::is_null(fill_palette_values)) {
-          if (rlang::is_vector(fill_palette_values)) {
-            plot <- plot +
-              ggplot2::scale_fill_manual(
-                values = fill_palette_values,
-                breaks = col_breaks,
-                labels = col_labels,
-                na.value = col_palette_na,
-                drop = col_drop
-              )
-          } else if (rlang::is_function(fill_palette)) {
-            plot <- plot +
-              ggplot2::discrete_scale(
-                aesthetics = "fill",
-                palette = fill_palette,
-                breaks = col_breaks,
-                labels = col_labels,
-                na.value = col_palette_na,
-                drop = col_drop
-              )
-          }
-        }
-
-        # Add guides
-        plot <- plot +
-          ggplot2::guides(
-            colour = ggplot2::guide_legend(
-              reverse = col_legend_rev,
-              ncol = col_legend_ncol,
-              nrow = col_legend_nrow
-            ),
-            fill = ggplot2::guide_legend(
-              reverse = col_legend_rev,
-              ncol = col_legend_ncol,
-              nrow = col_legend_nrow
-            )
-          )
-      } else {
-        # Fallback to default hue scale
-        plot <- plot +
-          ggplot2::scale_colour_hue(
-            breaks = col_breaks,
-            labels = col_labels,
-            na.value = col_palette_na,
-            drop = col_drop
-          ) +
-          ggplot2::scale_fill_hue(
-            breaks = col_breaks,
-            labels = col_labels,
-            na.value = col_palette_na,
-            drop = col_drop
-          ) +
-          ggplot2::guides(
-            colour = ggplot2::guide_legend(
-              reverse = col_legend_rev,
-              ncol = col_legend_ncol,
-              nrow = col_legend_nrow
-            ),
-            fill = ggplot2::guide_legend(
-              reverse = col_legend_rev,
-              ncol = col_legend_ncol,
-              nrow = col_legend_nrow
-            )
-          )
-      }
-
-    } else if (col_scale_class == "ordinal") {
-      # Ordinal color scale
-
-      # Set default NA color
-      if (rlang::is_null(col_palette_na)) {
-        col_palette_na <- "#CDC5BFFF"
-      }
-
-      col_n <- calculate_colour_n(aes_list, data, plot_data)
-
-      # For ordinal, use continuous palette from theme if available
-      if (rlang::is_null(colour_palette)) {
-        if (rlang::is_null(col_palette)) {
-          # Try to use continuous palette from theme
-          colour_palette <- theme_palettes$palette.colour.continuous
-          if (rlang::is_null(colour_palette)) {
-            # Fallback to viridis
-            colour_palette <- scales::pal_viridis(option = "D")
-          }
-        } else {
-          colour_palette <- col_palette
-        }
-      }
-
-      if (rlang::is_null(fill_palette)) {
-        if (rlang::is_null(col_palette)) {
-          # Try to use continuous palette from theme
-          fill_palette <- theme_palettes$palette.fill.continuous
-          if (rlang::is_null(fill_palette)) {
-            # Fallback to viridis
-            fill_palette <- scales::pal_viridis(option = "D")
-          }
-        } else {
-          fill_palette <- col_palette
-        }
-      }
 
       # Convert vector palettes to functions for ordinal
       if (rlang::is_vector(colour_palette)) {
         colour_palette <- scales::pal_gradient_n(colours = colour_palette)
       }
-
       if (rlang::is_vector(fill_palette)) {
         fill_palette <- scales::pal_gradient_n(colours = fill_palette)
       }
@@ -858,36 +789,21 @@ gg_blanket <- function(
       # Always reverse legend for ordinal
       col_legend_rev <- !col_legend_rev
 
-      if (rlang::is_null(col_labels)) {
-        col_labels <- ggplot2::waiver()
-      }
-
-      if (rlang::is_null(col_breaks)) {
-        col_breaks <- ggplot2::waiver()
-      }
-
-      # Apply scales
-      # For ordinal, we need to create appropriate wrapper functions
+      # Create wrapper functions for ordinal scales
       if (rlang::is_function(colour_palette)) {
-        # Create a wrapper that handles both types of palette functions
         colour_palette_discrete <- function(n) {
           if (n == 0) return(character(0))
-
-          # Try standard discrete palette approach first
           tryCatch({
             colours <- colour_palette(n)
             if (length(colours) == n) {
               return(colours)
             } else {
-              # If it didn't return n colors, try gradient approach
               return(colour_palette(seq(0, 1, length.out = n)))
             }
           }, error = function(e) {
-            # If error, try gradient approach
             tryCatch({
               return(colour_palette(seq(0, 1, length.out = n)))
             }, error = function(e2) {
-              # Final fallback
               warning("Palette function failed, using default colors")
               return(scales::viridis_pal()(n))
             })
@@ -906,25 +822,19 @@ gg_blanket <- function(
       }
 
       if (rlang::is_function(fill_palette)) {
-        # Create a wrapper that handles both types of palette functions
         fill_palette_discrete <- function(n) {
           if (n == 0) return(character(0))
-
-          # Try standard discrete palette approach first
           tryCatch({
             colours <- fill_palette(n)
             if (length(colours) == n) {
               return(colours)
             } else {
-              # If it didn't return n colors, try gradient approach
               return(fill_palette(seq(0, 1, length.out = n)))
             }
           }, error = function(e) {
-            # If error, try gradient approach
             tryCatch({
               return(fill_palette(seq(0, 1, length.out = n)))
             }, error = function(e2) {
-              # Final fallback
               warning("Palette function failed, using default colors")
               return(scales::viridis_pal()(n))
             })
@@ -981,7 +891,6 @@ gg_blanket <- function(
         fill = col_limits_include
       )
   }
-  # If col_is_literal is TRUE, we skip all the color scale logic
 
   ##############################################################################
   # Step 14: Add positional scales

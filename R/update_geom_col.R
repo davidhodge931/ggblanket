@@ -16,16 +16,20 @@ update_geom_col <- function(col = blue) {
 
   ###########
   colour = col
-  colour2 = scales::col_darker(col)
-  colour2_geoms = c("area", "bar", "col", "density", "map", "polygon",
-                    "rect", "ribbon", "smooth", "tile", "violin", "bin2d", "hex",
-                    "raster", "contour_filled", "density_2d_filled")
+  colour2 = col_square(colour)
+  colour2_geoms = c("area", "bar", "col", "crossbar", "density", "histogram",
+                    "map","polygon", "rect", "ribbon", "smooth", "sf", "tile",
+                    "violin","bin2d", "hex", "raster", "contour_filled",
+                    "density_2d_filled")
+
   fill = col
-  fill2 = NULL
-  fill2_geoms = c("area", "bar", "col", "density", "map", "polygon",
-                  "rect", "ribbon", "smooth", "tile", "violin", "bin2d", "hex",
-                  "raster", "contour_filled", "density_2d_filled")
+  fill2 = fill
+  fill2_geoms = c("area", "bar", "col", "crossbar", "density", "histogram",
+                  "map","polygon", "rect", "ribbon", "smooth", "sf", "tile",
+                  "violin","bin2d", "hex", "raster", "contour_filled",
+                  "density_2d_filled")
   ###########
+  print(fill2)
 
   # Get all geom names from ggplot2
   all_geoms <- c("contour", "count", "curve",
@@ -45,8 +49,8 @@ update_geom_col <- function(col = blue) {
     geom_name <- paste0("geom.", gsub("_", "", geom))
 
     # Determine which colour and fill to use
-    geom_colour <- if (geom %in% colour2_geoms && !is.null(colour2)) colour2 else colour
-    geom_fill <- if (geom %in% fill2_geoms && !is.null(fill2)) fill2 else fill
+    geom_colour <- if (geom %in% colour2_geoms) colour2 else colour
+    geom_fill <- if (geom %in% fill2_geoms) fill2 else fill
 
     theme_args[[geom_name]] <- ggplot2::element_geom(
       colour = geom_colour,

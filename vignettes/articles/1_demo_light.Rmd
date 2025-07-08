@@ -21,7 +21,8 @@ knitr::opts_chunk$set(
 This article will demonstrate each wrapper function.
 
 ```{r setup}
-library(ggblanket)
+# library(ggblanket)
+devtools::load_all()
 library(dplyr)
 library(ggplot2)
 library(scales)

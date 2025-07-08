@@ -70,7 +70,7 @@ set_blanket <- function(
     linewidth = 0.66,
     size = 1.5,
     col_palette_d = jumble,
-    col_palette_c = viridisLite::mako(n = 9, direction = -1),
+    col_palette_c = scales::pal_viridis(option = "G", direction = -1),
     titles_case = snakecase::to_sentence_case,
     axis_line_transparent = TRUE,
     axis_ticks_transparent = TRUE,
