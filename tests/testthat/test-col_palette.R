@@ -110,7 +110,11 @@ test_that(test_name, {
       x = flipper_length_mm,
       y = species,
       col = bill_length_mm,
-      col_palette = viridisLite::magma(n = 20)
+      col_palette = c("#000004FF", "#07071DFF", "#160F3BFF", "#29115AFF", "#400F73FF",
+                      "#56147DFF", "#6B1D81FF", "#802582FF",
+                      "#952C80FF", "#AB337CFF", "#C03A76FF", "#D6456CFF", "#E85362FF",
+                      "#F4685CFF", "#FA815FFF", "#FD9A6AFF",
+                      "#FEB37BFF", "#FECC8FFF", "#FDE4A6FF", "#FCFDBFFF")
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -163,7 +167,6 @@ test_that(test_name, {
       y = eruptions,
       z = density,
       bins = 8,
-      # col_palette = viridisLite::magma(n = 8)
     )
 
   vdiffr::expect_doppelganger(test_name, p)

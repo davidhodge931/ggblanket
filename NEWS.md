@@ -11,6 +11,7 @@ TO DO
 * Breaking: renamed `theme_` prefixed arguments to `perspective`, `axis_line_transparent`, `axis_ticks_transparent`, and `panel_grid_transparent`.
 * Breaking: adjusted `annotate_axis_line` arguments.
 * Breaking: renamed `col_steps = TRUE` argument to `col_scale_type = "steps"`.
+* Added defaults to `aes_contrast` to make it determine NULL colours based on theme.
 * Modularised `gg_blanket` function somewhat.
 * `col = 'red'` now works for colouring/filling. 
 * Geom defaults and palettes set via the `ggplot2::update_theme`.  
