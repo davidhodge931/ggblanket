@@ -4,85 +4,18 @@
 \alias{update_geom_col}
 \title{Update default colours for geoms}
 \usage{
-update_geom_col(
-  col = blue,
-  colour = col,
-  colour2 = NULL,
-  colour2_geoms = c("area", "bar", "col", "density", "map", "polygon", "rect", "ribbon",
-    "tile", "violin", "bin2d", "hex", "raster", "contour_filled", "density_2d_filled",
-    "boxplot", "crossbar"),
-  fill = col,
-  fill2 = NULL,
-  fill2_geoms = c("area", "bar", "col", "density", "map", "polygon", "rect", "ribbon",
-    "tile", "violin", "bin2d", "hex", "raster", "contour_filled", "density_2d_filled",
-    "boxplot", "crossbar")
-)
+update_geom_col(col = blue)
 }
 \arguments{
-\item{col}{Convenience parameter that sets both \code{colour} and \code{fill} to the same value.
-Defaults to "blue".}
-
-\item{colour}{The default colour to use for most geoms. Can be any valid R colour
-specification (name, hex code, or rgb()).}
-
-\item{colour2}{The alternative colour to use for geoms specified in \code{colour2_geoms}.
-If NULL (default), uses the value of \code{colour}.}
-
-\item{colour2_geoms}{Character vector of geom names that should use \code{colour2}
-instead of the default \code{colour}. Defaults to "bar".}
-
-\item{fill}{The default fill colour to use for most geoms. Can be any valid R colour
-specification.}
-
-\item{fill2}{The alternative fill colour to use for geoms specified in \code{fill2_geoms}.
-If NULL (default), uses the value of \code{fill}.}
-
-\item{fill2_geoms}{Character vector of geom names that should use \code{fill2}
-instead of the default \code{fill}. Defaults to "bar".}
+\item{col}{Convenience parameter that sets both \code{colour} and \code{fill}.}
 }
 \value{
-Invisibly returns the previous theme settings.
+An updated ggplot2 theme.
 }
 \description{
 Modifies the default colour and fill for all geoms or specific geoms in ggplot2 plots.
 This function updates the active theme to apply consistent colour styling across
-plot elements.
-}
-\details{
-This function is useful for:
-\itemize{
-\item Applying a consistent colour scheme across all plot elements
-\item Highlighting specific geom types with different colours
-\item Creating themed visualizations with custom colour palettes
-}
-
-The \code{col} parameter is provided as a convenience to set both outline and fill
-colours simultaneously, which is often desired for a cohesive appearance.
-}
-\examples{
-# Set all geoms to use blue
-update_geom_col(col = "blue")
-
-# Different colors for bars vs other geoms
-update_geom_col(
-  colour = "black",
-  colour2 = "red",
-  colour2_geoms = c("bar", "col"),
-  fill = "gray80",
-  fill2 = "pink",
-  fill2_geoms = c("bar", "col")
-)
-
-# Highlight violin plots with different colors
-update_geom_col(
-  colour = "darkgreen",
-  colour2 = "orange",
-  colour2_geoms = "violin",
-  fill = "lightgreen",
-  fill2 = "yellow",
-  fill2_geoms = "violin"
-)
-
+plot elements. Some geoms will get a darker colour default with scales::col_darker.
 }
 \seealso{
 \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}

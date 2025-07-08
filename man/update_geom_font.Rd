@@ -18,9 +18,12 @@ update_geom_font(..., colour = NULL, fill = NULL, size = NULL, family = NULL)
 \item{family}{A font family. If NULL, derived from axis text family.}
 }
 \value{
-An updated ggplot2 theme with modified geom text and label defaults
+An updated ggplot2 theme.
 }
 \description{
 Update defaults for text/label geoms (text, label).
 Uses axis text properties as the basis for styling.
+}
+\seealso{
+\code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}
 }

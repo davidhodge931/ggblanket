@@ -33,10 +33,6 @@ set_blanket(
   col_palette_c = viridis::mako(n = 9),
 )
 
-# weave_geom_linetype(linetype_border = 1)
-# weave_geom_col(col = blue, fill_border = colorspace::darken(blue, 0.2))
-# weave_geom_palettes(fill_palette_d = colorspace::darken(jumble, 0.2))
-
 penguins2 <- penguins |> 
   labelled::set_variable_labels(
     bill_length_mm = "Bill length (mm)",
@@ -101,7 +97,7 @@ penguins2 |>
     x = flipper_length_mm,
     y = sex,
     col = species,
-    blend = "multiply",
+    # blend = "multiply",
   )
 ```
 
@@ -156,7 +152,7 @@ experiment |>
     col = group,
     width = 0.5,
     y_limits_include = 0,
-    blend = "multiply",
+    # blend = "multiply",
   )
 ```
 
@@ -167,7 +163,7 @@ penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = species,
-    blend = "multiply",
+    # blend = "multiply",
   )
 ```
 
@@ -226,8 +222,6 @@ penguins2 |>
 gg_function(
   fun = \(x) dnorm(x, mean = 0, sd = 5),
   x_limits_include = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
-  x_title = "X",
-  y_limits_include = 0,
 )
 ```
 
@@ -500,6 +494,7 @@ penguins2 |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
+    alpha = 1, 
     blend = "multiply",
   )
 ```

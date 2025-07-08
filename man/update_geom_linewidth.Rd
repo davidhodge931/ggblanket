@@ -12,8 +12,11 @@ update_geom_linewidth(linewidth = 0.66, ...)
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 }
 \value{
-Updated geom defaults for linewidth
+An updated ggplot2 theme.
 }
 \description{
 Update the linewidth for most geoms. Excludes "text", "label", "hline", and "vline".
+}
+\seealso{
+\code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}
 }

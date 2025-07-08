@@ -16,7 +16,6 @@
 #' gg_function(
 #'   fun = \(x) dnorm(x, mean = 0, sd = 5),
 #'   x_limits_include = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
-#'   y_limits_include = 0,
 #' )
 #'
 gg_function <- function(
@@ -30,7 +29,7 @@ gg_function <- function(
   axis_line_transparent = NULL,
   axis_ticks_transparent = NULL,
   panel_grid_transparent = NULL,
-  
+
   x = NULL,
   xmin = NULL,
   xmax = NULL,

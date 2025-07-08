@@ -6,7 +6,10 @@
 #' @param linewidth A default linewidth for most geoms. Defaults to 0.66.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
-#' @return Updated geom defaults for linewidth
+#' @return An updated ggplot2 theme.
+#'
+#' @seealso
+#' \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}
 #'
 #' @export
 update_geom_linewidth <- function(linewidth = 0.66, ...) {

@@ -10,7 +10,6 @@ set_blanket(
   col = "#357BA2FF",
   linewidth = 0.66,
   size = 1.5,
-  col_palette = NULL,
   col_palette_d = jumble,
   col_palette_c = viridisLite::mako(n = 9, direction = -1),
   titles_case = snakecase::to_sentence_case,
@@ -29,8 +28,6 @@ set_blanket(
 \item{linewidth}{A default linewidth for most geoms. Defaults to 0.66.}
 
 \item{size}{A default size for the point geom. Defaults to 1.5. The pointrange size defaults to dividing by 6 (i.e. 0.25).}
-
-\item{col_palette}{For a discrete colour/fill scale, a character vector of hex codes or a \verb{scales::pal_*} function.}
 
 \item{col_palette_d}{For a discrete colour/fill scale, a character vector of hex codes or a \verb{scales::pal_*} function.}
 

@@ -31,20 +31,6 @@
 <polyline points='521.51,531.97 521.51,48.21 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <polyline points='609.80,531.97 609.80,48.21 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <polyline points='698.08,531.97 698.08,48.21 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
-<line x1='530.34' y1='441.26' x2='618.62' y2='441.26' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
-<line x1='450.88' y1='441.26' x2='371.42' y2='441.26' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
-<polygon points='530.34,497.95 450.88,497.95 450.88,384.57 530.34,384.57 530.34,497.95 ' style='stroke-width: 0.00; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter; fill: #357BA2;' />
-<line x1='486.19' y1='497.95' x2='486.19' y2='384.57' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter;' />
-<line x1='353.76' y1='290.09' x2='450.88' y2='290.09' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
-<line x1='265.48' y1='290.09' x2='150.70' y2='290.09' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
-<polygon points='353.76,346.78 265.48,346.78 265.48,233.40 353.76,233.40 353.76,346.78 ' style='stroke-width: 0.00; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter; fill: #357BA2;' />
-<line x1='309.62' y1='346.78' x2='309.62' y2='233.40' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter;' />
-<circle cx='97.73' cy='138.91' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
-<circle cx='433.22' cy='138.91' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
-<line x1='300.79' y1='138.91' x2='415.56' y2='138.91' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
-<line x1='221.33' y1='138.91' x2='115.39' y2='138.91' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
-<polygon points='300.79,195.60 221.33,195.60 221.33,82.22 300.79,82.22 300.79,195.60 ' style='stroke-width: 0.00; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter; fill: #357BA2;' />
-<line x1='256.65' y1='195.60' x2='256.65' y2='82.22' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt; stroke-linejoin: miter;' />
 <polyline points='80.07,531.97 80.07,48.21 ' style='stroke-width: 0.53; stroke: #121B24; stroke-linecap: square;' />
 <text x='73.68' y='444.70' text-anchor='end' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='32.81px' lengthAdjust='spacingAndGlyphs'>Gentoo</text>
 <text x='73.68' y='293.53' text-anchor='end' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='42.80px' lengthAdjust='spacingAndGlyphs'>Chinstrap</text>

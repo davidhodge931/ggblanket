@@ -30,7 +30,7 @@
 #' @param col A default hex code for the colour and fill of most geoms. Defaults to "#357BA2FF" (i.e. `blue`).
 #' @param size A default size for the point geom. Defaults to 1.5. The pointrange size defaults to dividing by 6 (i.e. 0.25).
 #' @param linewidth A default linewidth for most geoms. Defaults to 0.66.
-#' @param col_palette For a discrete colour/fill scale, a character vector of hex codes or a `scales::pal_*` function.
+#'
 #' @param col_palette_d For a discrete colour/fill scale, a character vector of hex codes or a `scales::pal_*` function.
 #' @param col_palette_c For a continuous (or ordinal) colour/fill scale, a character vector of hex codes or a `scales::pal_*` function.
 #' @param titles_case A function to apply to a unspecified/unlabelled `x_label`, `y_label`, `col_label` etc. Defaults to `snakecase::to_sentence_case`.
@@ -70,7 +70,6 @@ set_blanket <- function(
     col = "#357BA2FF",
     linewidth = 0.66,
     size = 1.5,
-    col_palette = NULL,
     col_palette_d = jumble,
     col_palette_c = viridisLite::mako(n = 9, direction = -1),
     titles_case = snakecase::to_sentence_case,
@@ -94,7 +93,6 @@ set_blanket <- function(
   update_geom_reference_line()
 
   update_geom_palettes(
-    col_palette = col_palette,
     col_palette_d = col_palette_d,
     col_palette_c = col_palette_c,
   )

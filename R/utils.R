@@ -256,8 +256,6 @@ create_ggplot <- function(
   return(plot)
 }
 
-
-
 #' Get params based on geom type
 #' @noRd
 get_geom_params <- function(geom_name, ...) {
@@ -265,12 +263,18 @@ get_geom_params <- function(geom_name, ...) {
     rlang::list2(
       median_gp = list(linewidth = ggplot2::get_geom_defaults("boxplot")$linewidth),
       box_gp = list(linewidth = 0),
+      outlier_gp = list(stroke = 0),
       ...
     )
   } else if (geom_name == "crossbar") {
     rlang::list2(
       middle_gp = list(linewidth = ggplot2::get_geom_defaults("crossbar")$linewidth),
       box_gp = list(linewidth = 0),
+      ...
+    )
+  } else if (geom_name == "violin") {
+    rlang::list2(
+      # quantile_gp = list(linetype = 1),
       ...
     )
   } else {

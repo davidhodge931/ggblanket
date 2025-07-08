@@ -9,10 +9,12 @@
 #' @param size A size (for text geoms) in mm. If NULL, derived from axis text size. Use `pt_to_mm` to convert a size in pt.
 #' @param family A font family. If NULL, derived from axis text family.
 #'
-#' @return An updated ggplot2 theme with modified geom text and label defaults
+#' @return An updated ggplot2 theme.
+#'
+#' @seealso
+#' \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}
 #'
 #' @export
-#'
 update_geom_font <- function(
     ...,
     colour = NULL,

@@ -10,16 +10,16 @@ ggblanket_global$axis_line_transparent <- NULL
 #'
 #' @description Set the perspective behaviour in `gg_*` functions.
 #'
-#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param perspective The perspective of plot, which affects the theme components that can be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to `NULL`, which lets the `gg_*` function guess it based on the data.
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param axis_line_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `perspective` of the plot.
 #' @param axis_ticks_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `perspective` of the plot.
 #' @param panel_grid_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `perspective` of the plot.
 #'
-#' @noRd
+#' @export
 weave_perspective <- function(
-    ...,
     perspective = NULL,
+    ...,
     axis_line_transparent = TRUE,
     axis_ticks_transparent = TRUE,
     panel_grid_transparent = TRUE

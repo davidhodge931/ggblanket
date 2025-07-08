@@ -5,48 +5,22 @@
 #' This function updates the active theme to apply consistent linetype styling across
 #' plot elements.
 #'
-#' @param linetype The default linetype to use for most geoms. Can be specified as:
-#'   - An integer (0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash,
-#'     5 = longdash, 6 = twodash)
-#'   - A string ("blank", "solid", "dashed", "dotted", "dotdash", "longdash", "twodash")
-#'   - A numeric vector defining a custom dash-dot pattern
-#'   Defaults to 1 (solid line).
-#' @param linetype2 The alternative linetype to use for geoms specified in
-#'   `linetype2_geoms`. Uses the same specification options as `linetype`.
-#'   Defaults to 0 (blank/no line).
-#' @param linetype2_geoms Character vector of geom names that should use `linetype2`
-#'   instead of the default `linetype`. Common filled geoms are included by default.
-#'
-#' @details
-#' This function modifies both `linetype` and `bordertype` properties of geoms to
-#' ensure consistent appearance. The `linetype2` value is typically used to remove
-#' borders from filled geoms (like bars and areas) while maintaining lines for
-#' other geoms (like lines and points).
-#'
-#' @return
-#' Invisibly returns the previous theme settings.
-#'
-#' @examples
-#' # Remove borders from filled geoms
-#' update_geom_linetype(linetype = 1, linetype2 = 0)
-#'
-#' # Use dashed lines for specific geoms
-#' update_geom_linetype(
-#'   linetype = 1,
-#'   linetype2 = 2,
-#'   linetype2_geoms = c("smooth", "line")
-#' )
+#' @return An updated ggplot2 theme.
 #'
 #' @seealso
 #' \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}
 #'
 #' @export
 update_geom_linetype <- function(
-    linetype = 1,
-    linetype2 = 0,
-    linetype2_geoms = c("area", "bar", "col", "density", "map", "polygon",
-                        "rect", "ribbon", "tile", "violin", "bin2d", "hex",
-                        "raster", "contour_filled", "density_2d_filled")) {
+    ) {
+
+  ###########
+  linetype = 1
+  linetype2 = 0
+  linetype2_geoms <- c("area", "bar", "col", "density", "map", "polygon",
+                      "rect", "ribbon", "tile", "violin", "bin2d", "hex",
+                      "raster", "contour_filled", "density_2d_filled")
+  ###########
 
   # Get all geom names from ggplot2
   all_geoms <- c("boxplot", "crossbar", "contour", "count", "curve",
