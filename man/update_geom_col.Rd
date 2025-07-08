@@ -2,7 +2,7 @@
 % Please edit documentation in R/update_geom_col.R
 \name{update_geom_col}
 \alias{update_geom_col}
-\title{Update default colours for geoms}
+\title{Update the default colour/fill}
 \usage{
 update_geom_col(col = blue)
 }
@@ -13,9 +13,8 @@ update_geom_col(col = blue)
 An updated ggplot2 theme.
 }
 \description{
-Modifies the default colour and fill for all geoms or specific geoms in ggplot2 plots.
-This function updates the active theme to apply consistent colour styling across
-plot elements. Some geoms will get a darker colour default with scales::col_darker.
+Updates the active theme to apply consistent colour/fill styling.
+Excludes "text", "label", "hline", and "vline".
 }
 \seealso{
 \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}

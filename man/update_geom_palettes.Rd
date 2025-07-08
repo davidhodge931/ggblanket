@@ -2,7 +2,7 @@
 % Please edit documentation in R/update_geom_palettes.R
 \name{update_geom_palettes}
 \alias{update_geom_palettes}
-\title{Update the geom palettes}
+\title{Update the default geom palettes}
 \usage{
 update_geom_palettes(..., col_palette_d = NULL, col_palette_c = NULL)
 }
@@ -17,7 +17,8 @@ update_geom_palettes(..., col_palette_d = NULL, col_palette_c = NULL)
 An updated ggplot2 theme.
 }
 \description{
-This function allows you to set colour and fill palettes with a hierarchical priority system. More specific parameters override more general ones.
+Updates the active theme to apply consistent colour/fill palette styling.
+Excludes "text", "label", "hline", and "vline".
 }
 \seealso{
 \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}

@@ -1,9 +1,10 @@
-#' Update the size for point/pointrange geoms
+#' Update the default size
 #'
 #' @description
-#' Update the size for geoms. Excludes "text" and "label".
+#' Updates the active theme to apply consistent size styling.
+#' Excludes "text", "label", "hline", and "vline".
 #'
-#' @param size A default size for the point geom. Defaults to 1.5.
+#' @param size A default size. Defaults to 1.5.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @return Updated geom defaults for size

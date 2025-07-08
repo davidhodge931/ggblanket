@@ -1,9 +1,8 @@
-#' Update default colours for geoms
+#' Update the default colour/fill
 #'
 #' @description
-#' Modifies the default colour and fill for all geoms or specific geoms in ggplot2 plots.
-#' This function updates the active theme to apply consistent colour styling across
-#' plot elements. Some geoms will get a darker colour default with scales::col_darker.
+#' Updates the active theme to apply consistent colour/fill styling.
+#' Excludes "text", "label", "hline", and "vline".
 #'
 #' @param col Convenience parameter that sets both `colour` and `fill`.
 #'
@@ -15,8 +14,7 @@
 #' @export
 update_geom_col <- function(col = blue) {
 
-  ##############################################################################
-  #more args set
+  ###########
   colour = col
   colour2 = scales::col_darker(col)
   colour2_geoms = c("area", "bar", "col", "density", "map", "polygon",
@@ -27,7 +25,7 @@ update_geom_col <- function(col = blue) {
   fill2_geoms = c("area", "bar", "col", "density", "map", "polygon",
                   "rect", "ribbon", "smooth", "tile", "violin", "bin2d", "hex",
                   "raster", "contour_filled", "density_2d_filled")
-  ##############################################################################
+  ###########
 
   # Get all geom names from ggplot2
   all_geoms <- c("contour", "count", "curve",

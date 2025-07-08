@@ -1,7 +1,8 @@
-#' Update the geom palettes
+#' Update the default geom palettes
 #'
 #' @description
-#' This function allows you to set colour and fill palettes with a hierarchical priority system. More specific parameters override more general ones.
+#' Updates the active theme to apply consistent colour/fill palette styling.
+#' Excludes "text", "label", "hline", and "vline".
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param col_palette_d For a discrete colour and fill scale, a character vector of hex codes, or a `scales::pal_*()` function.

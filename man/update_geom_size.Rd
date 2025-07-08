@@ -2,12 +2,12 @@
 % Please edit documentation in R/update_geom_size.R
 \name{update_geom_size}
 \alias{update_geom_size}
-\title{Update the size for point/pointrange geoms}
+\title{Update the default size}
 \usage{
 update_geom_size(size = 1.5, ...)
 }
 \arguments{
-\item{size}{A default size for the point geom. Defaults to 1.5.}
+\item{size}{A default size. Defaults to 1.5.}
 
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 }
@@ -15,5 +15,6 @@ update_geom_size(size = 1.5, ...)
 Updated geom defaults for size
 }
 \description{
-Update the size for geoms. Excludes "text" and "label".
+Updates the active theme to apply consistent size styling.
+Excludes "text", "label", "hline", and "vline".
 }

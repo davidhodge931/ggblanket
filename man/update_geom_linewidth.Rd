@@ -2,12 +2,12 @@
 % Please edit documentation in R/update_geom_linewidth.R
 \name{update_geom_linewidth}
 \alias{update_geom_linewidth}
-\title{Update the linewidth for geoms}
+\title{Update the default linewidth}
 \usage{
 update_geom_linewidth(linewidth = 0.66, ...)
 }
 \arguments{
-\item{linewidth}{A default linewidth for most geoms. Defaults to 0.66.}
+\item{linewidth}{A default linewidth. Defaults to 0.66.}
 
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 }
@@ -15,7 +15,8 @@ update_geom_linewidth(linewidth = 0.66, ...)
 An updated ggplot2 theme.
 }
 \description{
-Update the linewidth for most geoms. Excludes "text", "label", "hline", and "vline".
+Updates the active theme to apply consistent linewidth styling.
+Excludes "text", "label", "hline", and "vline".
 }
 \seealso{
 \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}

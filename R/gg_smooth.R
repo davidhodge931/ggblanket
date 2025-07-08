@@ -10,7 +10,7 @@
 #' @examples
 #' library(ggplot2)
 #' library(dplyr)
-#' 
+#'
 #'
 #' set_blanket()
 #'
@@ -30,8 +30,6 @@
 #'     y = level,
 #'     ymin = level_min,
 #'     ymax = level_max,
-#'     blend = "multiply",
-#'     se = TRUE,
 #'     x_labels = \(x) x,
 #'   )
 #'
@@ -46,7 +44,7 @@ gg_smooth <- function(
   axis_line_transparent = NULL,
   axis_ticks_transparent = NULL,
   panel_grid_transparent = NULL,
-  
+
   x = NULL,
   xmin = NULL,
   xmax = NULL,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/update_geom_linetype.R
 \name{update_geom_linetype}
 \alias{update_geom_linetype}
-\title{Update default linetype for geoms}
+\title{Update the default linetype}
 \usage{
 update_geom_linetype()
 }
@@ -10,9 +10,8 @@ update_geom_linetype()
 An updated ggplot2 theme.
 }
 \description{
-Modifies the default linetype for all geoms or specific geoms in ggplot2 plots.
-This function updates the active theme to apply consistent linetype styling across
-plot elements.
+Updates the active theme to apply consistent linetype styling.
+Excludes "text", "label", "hline", and "vline".
 }
 \seealso{
 \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}

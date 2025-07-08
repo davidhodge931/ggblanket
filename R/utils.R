@@ -272,9 +272,9 @@ get_geom_params <- function(geom_name, ...) {
       box_gp = list(linewidth = 0),
       ...
     )
-  } else if (geom_name == "violin") {
+  } else if (geom_name == "smooth") {
     rlang::list2(
-      # quantile_gp = list(linetype = 1),
+      alpha = NA,
       ...
     )
   } else {

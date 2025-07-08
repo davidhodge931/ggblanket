@@ -1,9 +1,8 @@
-#' Update default linetype for geoms
+#' Update the default linetype
 #'
 #' @description
-#' Modifies the default linetype for all geoms or specific geoms in ggplot2 plots.
-#' This function updates the active theme to apply consistent linetype styling across
-#' plot elements.
+#' Updates the active theme to apply consistent linetype styling.
+#' Excludes "text", "label", "hline", and "vline".
 #'
 #' @return An updated ggplot2 theme.
 #'

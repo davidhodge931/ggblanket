@@ -1,9 +1,10 @@
-#' Update the linewidth for geoms
+#' Update the default linewidth
 #'
 #' @description
-#' Update the linewidth for most geoms. Excludes "text", "label", "hline", and "vline".
+#' Updates the active theme to apply consistent linewidth styling.
+#' Excludes "text", "label", "hline", and "vline".
 #'
-#' @param linewidth A default linewidth for most geoms. Defaults to 0.66.
+#' @param linewidth A default linewidth. Defaults to 0.66.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @return An updated ggplot2 theme.
