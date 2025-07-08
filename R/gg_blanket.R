@@ -32,7 +32,7 @@
 #' @param col_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' @param col_palette_na A hex code (or name) for the colour of `NA` values.
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
-#' @param col_steps For a continuous variable, `TRUE` or `FALSE` of whether to colour in steps. Defaults to `FALSE`.
+#' @param col_scale_type The continuous scale type. Either `"gradient"` or `"steps"`.
 #' @param colour_palette,fill_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_*()` may be needed.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
@@ -110,7 +110,7 @@ gg_blanket <- function(
     col_palette = NULL,
     col_palette_na = "#CDC5BFFF",
     col_rescale = scales::rescale(),
-    col_steps = FALSE,
+    col_scale_type = "gradient",
     col_transform = NULL,
     colour_palette = NULL,
     fill_palette = NULL,
@@ -558,7 +558,7 @@ gg_blanket <- function(
         }
       }
 
-      if (!col_steps) {
+      if (col_scale_type == "gradient") {
         # Apply separate colour and fill scales
         plot <- plot +
           ggplot2::scale_colour_gradientn(
@@ -594,7 +594,7 @@ gg_blanket <- function(
               fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
             )
         }
-      } else if (col_steps) {
+      } else if (col_scale_type == "steps") {
         plot <- plot +
           ggplot2::scale_colour_stepsn(
             colours = colour_palette_values,

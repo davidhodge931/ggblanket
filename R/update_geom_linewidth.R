@@ -12,7 +12,7 @@
 #' @seealso
 #' \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}
 #'
-#' @export
+#' @noRd
 update_geom_linewidth <- function(linewidth = 0.66, ...) {
   #includes polygons (with borders)
   ggplot2::update_theme(

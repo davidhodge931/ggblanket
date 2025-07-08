@@ -3,7 +3,7 @@ template:
   bootstrap: 5
   light-switch: true
 reference:
-- title: Set
+- title: Setup
 - contents:
   - set_blanket
 - title: Wrap
@@ -43,5 +43,4 @@ reference:
   - scale_y_symmetric
   - standardise_width
   - starts_with("update_")
-  - starts_with("weave_")
 

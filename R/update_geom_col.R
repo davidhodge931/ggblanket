@@ -11,7 +11,7 @@
 #' @seealso
 #' \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}
 #'
-#' @export
+#' @noRd
 update_geom_col <- function(col = blue) {
 
   ###########

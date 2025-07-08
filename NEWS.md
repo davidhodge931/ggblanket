@@ -1,14 +1,20 @@
 # ggblanket 12.4.0900
+TO DO 
+* Update the ggplot2 version dependency to 4. Delete remotes
+* Update the ggblanket version to 14
+
+
 * Breaking: renamed `*_label` to `*_title`, and `label_case` to `titles_case`.
 * Breaking: added `col` to `set_blanket`, and made `colour` and `fill` only set itself.
 * Breaking: lines turned off through `linetype = 0` instead of `linewidth = 0`.
 * Breaking: renamed and redesigned themes to `theme_lighter` and `theme_darker`.
 * Breaking: renamed `theme_` prefixed arguments to `perspective`, `axis_line_transparent`, `axis_ticks_transparent`, and `panel_grid_transparent`.
 * Breaking: adjusted `annotate_axis_line` arguments.
+* Breaking: renamed `col_steps = TRUE` argument to `col_scale_type = "steps"`.
 * Modularised `gg_blanket` function somewhat.
 * `col = 'red'` now works for colouring/filling. 
 * Geom defaults and palettes set via the `ggplot2::update_theme`.  
-* Exported `update_*` and `weave_*` functions.
+* Exported `update_geom_font` and `update_geom_reference_line` functions.
 * Supported setting col/colour/fill palettes.
 * For dates etc, defaulted labels to `scales::label_date_short(leading = "")`.
 * Added `bind_each_all` to assist with plotting groups alongside the total.

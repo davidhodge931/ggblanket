@@ -67,7 +67,7 @@ gg_blanket(
   col_palette = NULL,
   col_palette_na = "#CDC5BFFF",
   col_rescale = scales::rescale(),
-  col_steps = FALSE,
+  col_scale_type = "gradient",
   col_transform = NULL,
   colour_palette = NULL,
   fill_palette = NULL,
@@ -147,7 +147,7 @@ gg_blanket(
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
-\item{col_steps}{For a continuous variable, \code{TRUE} or \code{FALSE} of whether to colour in steps. Defaults to \code{FALSE}.}
+\item{col_scale_type}{The continuous scale type. Either \code{"gradient"} or \code{"steps"}.}
 
 \item{colour_palette, fill_palette}{A character vector of hex codes (or names) or a \verb{scales::pal_*()} function.}
 

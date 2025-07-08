@@ -182,9 +182,9 @@ palmerpenguins::penguins |>
     y_labels = label_number(big.mark = " "), 
     y_transform = "sqrt",
     col_title = "Bill\nlength (mm)",
-    col_steps = TRUE,
     col_breaks = \(x) quantile(x, seq(0, 1, 0.25)),
     col_palette = viridis::rocket(n = 9, direction = -1),
+    col_scale_type = "steps",
   )
 ```
 

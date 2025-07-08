@@ -9,7 +9,7 @@
 #'
 #' @return Updated geom defaults for size
 #'
-#' @export
+#' @noRd
 update_geom_size <- function(size = 1.5, ...) {
   ggplot2::update_theme(
     geom.count = ggplot2::element_geom(pointsize = size),

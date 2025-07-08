@@ -16,7 +16,7 @@ ggblanket_global$axis_line_transparent <- NULL
 #' @param axis_ticks_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `perspective` of the plot.
 #' @param panel_grid_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `perspective` of the plot.
 #'
-#' @export
+#' @noRd
 weave_perspective <- function(
     perspective = NULL,
     ...,
