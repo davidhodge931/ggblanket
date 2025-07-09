@@ -969,7 +969,7 @@ get_transparency_defaults <- function(axis_line_transparent, axis_ticks_transpar
   }
 
   if (rlang::is_null(panel_grid_transparent)) {
-    axis_ticks_transparent <- getOption("ggblanket.panel_grid_transparent")
+    panel_grid_transparent <- getOption("ggblanket.panel_grid_transparent")
     if (rlang::is_null(panel_grid_transparent)) panel_grid_transparent <- TRUE
   }
 
