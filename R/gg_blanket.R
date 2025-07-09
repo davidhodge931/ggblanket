@@ -99,7 +99,7 @@ gg_blanket <- function(
     y_symmetric = NULL,
     y_transform = NULL,
     col_breaks = NULL,
-    col_breaks_n = 5,
+    col_breaks_n = 6,
     col_drop = FALSE,
     col_limits_include = NULL,
     col_title = NULL,
@@ -522,7 +522,7 @@ gg_blanket <- function(
       } else if (any(col_transform_name %in% c("hms", "time", "datetime", "date"))) {
         col_breaks <- scales::breaks_pretty(n = col_breaks_n)
       } else {
-        col_breaks <- scales::breaks_extended(n = col_breaks_n, only.loose = FALSE)
+        col_breaks <- scales::breaks_pretty(n = col_breaks_n)
       }
     }
 
@@ -731,20 +731,20 @@ gg_blanket <- function(
             na.value = col_palette_na
           )
 
-        # if (colour2) {
-        #   plot <- plot +
-        #     ggplot2::guides(
-        #       colour = ggplot2::guide_none(),
-        #       fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
-        #     )
-        # }
-        # else {
-        #   plot <- plot +
-        #     ggplot2::guides(
-        #       colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
-        #       fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
-        #     )
-        # }
+        if (!identical(colour_palette, fill_palette)) {
+          plot <- plot +
+            ggplot2::guides(
+              colour = ggplot2::guide_none(),
+              fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
+            )
+        }
+        else {
+          plot <- plot +
+            ggplot2::guides(
+              colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
+              fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
+            )
+        }
       }
       else if (col_scale_type == "steps") {
         plot <- plot +
@@ -767,29 +767,29 @@ gg_blanket <- function(
             na.value = col_palette_na
           )
 
-        # if (colour2) {
-        #   plot <- plot +
-        #     ggplot2::guides(
-        #       colour = ggplot2::guide_none(),
-        #       fill = ggplot2::guide_coloursteps(
-        #         reverse = col_legend_rev,
-        #         theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-        #       )
-        #     )
-        # }
-        # else {
-        #   plot <- plot +
-        #     ggplot2::guides(
-        #       colour = ggplot2::guide_coloursteps(
-        #         reverse = col_legend_rev,
-        #         theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-        #       ),
-        #       fill = ggplot2::guide_coloursteps(
-        #         reverse = col_legend_rev,
-        #         theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-        #       )
-        #     )
-        # }
+        if (!identical(colour_palette, fill_palette)) {
+          plot <- plot +
+            ggplot2::guides(
+              colour = ggplot2::guide_none(),
+              fill = ggplot2::guide_coloursteps(
+                reverse = col_legend_rev,
+                theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+              )
+            )
+        }
+        else {
+          plot <- plot +
+            ggplot2::guides(
+              colour = ggplot2::guide_coloursteps(
+                reverse = col_legend_rev,
+                theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+              ),
+              fill = ggplot2::guide_coloursteps(
+                reverse = col_legend_rev,
+                theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+              )
+            )
+        }
       }
     }
     else if (col_scale_class == "ordinal") {

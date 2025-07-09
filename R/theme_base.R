@@ -167,9 +167,9 @@ theme_base <- function(
       colour = legend_key_fill,
       fill = legend_key_fill
     ),
-    legend.key.size = grid::unit(11 * 12 / 11, "pt"),
+    # legend.key.size = NULL,
     legend.key.height = NULL,
-    legend.key.width = NULL,
+    legend.key.width = ggplot2::rel(0.6),
     legend.key.spacing = NULL,
     legend.key.spacing.x = grid::unit(11, "pt"),
     legend.key.spacing.y = grid::unit(11 * 0.33, "pt"),

@@ -107,7 +107,7 @@ scale_x_symmetric <- function(
       ) {
         breaks <- scales::breaks_log(n = breaks_n)(range) # update here
       } else {
-        breaks <- scales::breaks_extended(n = breaks_n, only.loose = TRUE)(
+        breaks <- scales::breaks_pretty(n = breaks_n)(
           range
         )
       }
@@ -155,7 +155,7 @@ scale_x_symmetric <- function(
       ) {
         breaks <- scales::breaks_log(n = breaks_n)
       } else {
-        breaks <- scales::breaks_extended(n = breaks_n, only.loose = FALSE)
+        breaks <- scales::breaks_pretty(n = breaks_n)
       }
     }
 

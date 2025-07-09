@@ -79,7 +79,7 @@ gg_qq_line <- function(
     y_symmetric = NULL,
     y_transform = NULL,
     col_breaks = NULL,
-    col_breaks_n = 5,
+    col_breaks_n = 6,
     col_drop = FALSE,
     col_limits_include = NULL,
     col_title = NULL,
