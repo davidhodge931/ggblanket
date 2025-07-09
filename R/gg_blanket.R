@@ -194,7 +194,7 @@ gg_blanket <- function(
   ##############################################################################
   # Step 4: Extract geom, stat & position strings
   ##############################################################################
-  ggproto_names <- get_ggproto_names(geom, stat, position)
+  ggproto_names <- get_geom_stat_position_names(geom, stat, position)
   geom_name <- ggproto_names$geom_name
   stat_name <- ggproto_names$stat_name
   position_name <- ggproto_names$position_name
@@ -284,7 +284,7 @@ gg_blanket <- function(
   ##############################################################################
   # Step 6: Get defaults
   ##############################################################################
-  defaults <- get_defaults(x_transform, y_transform, x_scale_class, y_scale_class,
+  defaults <- get_other_defaults(x_transform, y_transform, x_scale_class, y_scale_class,
                            facet_scales, theme, x_symmetric, y_symmetric,
                            stat_name, perspective, titles_case)
 
@@ -1105,7 +1105,7 @@ gg_blanket <- function(
   }
 
   # Get labels for other aesthetics
-  other_titles <- get_titles_other(plot_build, col_title, titles_case)
+  other_titles <- get_titles2(plot_build, col_title, titles_case)
 
   # Apply labels
   plot <- plot +
@@ -1146,11 +1146,11 @@ gg_blanket <- function(
   # Step 16: Apply theme transparency
   ##############################################################################
 
-  transparency <- get_transparency_defaults(axis_line_transparent,
+  transparency <- get_perspective_behaviour(axis_line_transparent,
                                             axis_ticks_transparent,
                                             panel_grid_transparent)
 
-  plot <- add_transparency(
+  plot <- add_perspective(
     plot, perspective,
     transparency$axis_line_transparent,
     transparency$axis_ticks_transparent,

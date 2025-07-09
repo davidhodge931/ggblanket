@@ -1,6 +1,6 @@
 #' Extract geom, stat, and position names
 #' @noRd
-get_ggproto_names <- function(geom = NULL, stat = NULL, position = NULL) {
+get_geom_stat_position_names <- function(geom = NULL, stat = NULL, position = NULL) {
   # Extract geom name
   if (ggplot2::is_ggproto(geom)) {
     geom_name <- stringr::str_to_lower(stringr::str_remove(
@@ -429,7 +429,7 @@ get_transform_default <- function(scale_class) {
 
 #' Get defaults for various parameters
 #' @noRd
-get_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_class,
+get_other_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_class,
                          facet_scales, theme, x_symmetric, y_symmetric,
                          stat_name, perspective, titles_case) {
   # Get transforms
@@ -925,7 +925,7 @@ get_title <- function(data, aes_quo, build_title, titles_case, default = NULL) {
 
 #' Extract titles for other aesthetics
 #' @noRd
-get_titles_other <- function(plot_build, col_title, titles_case) {
+get_titles2 <- function(plot_build, col_title, titles_case) {
   titles <- list()
 
   # Helper to get label for an aesthetic
@@ -956,7 +956,7 @@ get_titles_other <- function(plot_build, col_title, titles_case) {
 
 #' Get transparency defaults
 #' @noRd
-get_transparency_defaults <- function(axis_line_transparent, axis_ticks_transparent,
+get_perspective_behaviour <- function(axis_line_transparent, axis_ticks_transparent,
                                       panel_grid_transparent) {
   if (rlang::is_null(axis_line_transparent)) {
     axis_line_transparent <- getOption("ggblanket.axis_line_transparent")
@@ -982,7 +982,7 @@ get_transparency_defaults <- function(axis_line_transparent, axis_ticks_transpar
 
 #' Add transparency
 #' @noRd
-add_transparency <- function(plot, perspective, axis_line_transparent,
+add_perspective <- function(plot, perspective, axis_line_transparent,
                                      axis_ticks_transparent, panel_grid_transparent,
                                      x_scale_class, y_scale_class) {
   if (perspective == "x") {
