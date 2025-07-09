@@ -261,15 +261,9 @@ create_ggplot <- function(
 get_geom_params <- function(geom_name, ...) {
   if (geom_name == "boxplot") {
     rlang::list2(
-      median_gp = list(linewidth = ggplot2::get_geom_defaults("boxplot")$linewidth),
-      box_gp = list(linewidth = 0),
+      whisker_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth),
+      staple_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth),
       outlier_gp = list(stroke = 0),
-      ...
-    )
-  } else if (geom_name == "crossbar") {
-    rlang::list2(
-      middle_gp = list(linewidth = ggplot2::get_geom_defaults("crossbar")$linewidth),
-      box_gp = list(linewidth = 0),
       ...
     )
   } else if (geom_name == "smooth") {
@@ -489,8 +483,6 @@ get_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_class,
 
   # Determine perspective
   if (rlang::is_null(perspective)) {
-    perspective <- ggblanket_global$perspective
-
     if (rlang::is_null(perspective)) {
       if (y_scale_class == "discrete" & x_scale_class != "discrete") {
         perspective <- "y"
@@ -502,8 +494,7 @@ get_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_class,
 
   # Get titles_case
   if (rlang::is_null(titles_case)) {
-    titles_case <- ggblanket_global$titles_case
-    if (rlang::is_null(titles_case)) titles_case <- snakecase::to_sentence_case
+    titles_case <- getOption("ggblanket.titles_case")
   }
 
   list(
@@ -968,17 +959,17 @@ get_titles_other <- function(plot_build, col_title, titles_case) {
 get_transparency_defaults <- function(axis_line_transparent, axis_ticks_transparent,
                                       panel_grid_transparent) {
   if (rlang::is_null(axis_line_transparent)) {
-    axis_line_transparent <- ggblanket_global$axis_line_transparent
+    axis_line_transparent <- getOption("ggblanket.axis_line_transparent")
     if (rlang::is_null(axis_line_transparent)) axis_line_transparent <- TRUE
   }
 
   if (rlang::is_null(axis_ticks_transparent)) {
-    axis_ticks_transparent <- ggblanket_global$axis_ticks_transparent
+    axis_ticks_transparent <- getOption("ggblanket.axis_ticks_transparent")
     if (rlang::is_null(axis_ticks_transparent)) axis_ticks_transparent <- TRUE
   }
 
   if (rlang::is_null(panel_grid_transparent)) {
-    panel_grid_transparent <- ggblanket_global$panel_grid_transparent
+    axis_ticks_transparent <- getOption("ggblanket.panel_grid_transparent")
     if (rlang::is_null(panel_grid_transparent)) panel_grid_transparent <- TRUE
   }
 
@@ -1021,7 +1012,8 @@ add_transparency <- function(plot, perspective, axis_line_transparent,
           axis.ticks.x = ggplot2::element_line(colour = "transparent")
         )
     }
-  } else if (perspective == "y") {
+  }
+  else if (perspective == "y") {
     if (axis_line_transparent) {
       plot <- plot +
         ggplot2::theme(

@@ -6,86 +6,172 @@
 \usage{
 set_blanket(
   theme = theme_lighter(),
-  ...,
-  col = "#357BA2FF",
+  col = blue,
+  colour = NULL,
+  colour_polygon = NULL,
+  colour_box = NULL,
+  colour_font = NULL,
+  colour_reference_line = NULL,
+  fill = NULL,
+  fill_polygon = NULL,
+  fill_box = NULL,
+  fill_font = NULL,
   linewidth = 0.66,
+  linewidth_polygon = 0.25,
+  linewidth_box = NULL,
+  linewidth_reference_line = NULL,
+  linetype = 1,
+  linetype_polygon = NULL,
+  linetype_box = NULL,
+  linetype_reference_line = NULL,
   size = 1.5,
+  size_font = NULL,
+  family_font = NULL,
   col_palette_d = jumble,
   col_palette_c = scales::pal_viridis(option = "G", direction = -1),
+  colour_palette_d = NULL,
+  colour_palette_d_polygon = NULL,
+  colour_palette_d_box = NULL,
+  fill_palette_d = NULL,
+  fill_palette_d_polygon = NULL,
+  fill_palette_d_box = NULL,
+  colour_palette_c = NULL,
+  colour_palette_c_polygon = NULL,
+  colour_palette_c_box = NULL,
+  fill_palette_c = NULL,
+  fill_palette_c_polygon = NULL,
+  fill_palette_c_box = NULL,
   titles_case = snakecase::to_sentence_case,
   axis_line_transparent = TRUE,
   axis_ticks_transparent = TRUE,
-  panel_grid_transparent = TRUE
+  panel_grid_transparent = TRUE,
+  ...
 )
 }
 \arguments{
 \item{theme}{A ggplot2 theme (e.g. \code{\link[=theme_lighter]{theme_lighter()}} or \code{\link[=theme_darker]{theme_darker()}}).}
 
-\item{...}{Provided to require argument naming, support trailing commas etc.}
+\item{col}{A default hex code for the colour and fill of most geoms. Defaults to \code{blue}.}
 
-\item{col}{A default hex code for the colour and fill of most geoms. Defaults to "#357BA2FF" (i.e. \code{blue}).}
+\item{colour}{A default hex code for the colour of most geoms. If NULL, uses \code{col}.}
+
+\item{colour_polygon}{A hex code for polygon-type geoms (area, bar, density, etc.).
+If NULL, uses \code{col_squared(colour)}.}
+
+\item{colour_box}{A hex code for box-type geoms (boxplot, crossbar). If NULL, uses \code{colour}.}
+
+\item{colour_font}{A hex code for text/label geoms. If NULL, derived from theme axis text colour.}
+
+\item{colour_reference_line}{A hex code for reference line geoms (abline, hline, vline).
+If NULL, derived from theme axis line colour.}
+
+\item{fill}{A default hex code for the fill of most geoms. If NULL, uses \code{col}.}
+
+\item{fill_polygon}{A hex code for polygon-type geoms. If NULL, uses \code{fill}.}
+
+\item{fill_box}{A hex code for box-type geoms. If NULL, uses \code{fill}.}
+
+\item{fill_font}{A hex code for label geom fills. If NULL, derived from theme panel background.}
 
 \item{linewidth}{A default linewidth for most geoms. Defaults to 0.66.}
 
-\item{size}{A default size for the point geom. Defaults to 1.5. The pointrange size defaults to dividing by 6 (i.e. 0.25).}
+\item{linewidth_polygon}{A linewidth for polygon-type geoms. Defaults to 0.25.}
 
-\item{col_palette_d}{For a discrete colour/fill scale, a character vector of hex codes or a \verb{scales::pal_*} function.}
+\item{linewidth_box}{A linewidth for box-type geoms. Defaults to 0.25.}
 
-\item{col_palette_c}{For a continuous (or ordinal) colour/fill scale, a character vector of hex codes or a \verb{scales::pal_*} function.}
+\item{linewidth_reference_line}{A linewidth for reference line geoms.
+If NULL, derived from theme axis line linewidth.}
 
-\item{titles_case}{A function to apply to a unspecified/unlabelled \code{x_label}, \code{y_label}, \code{col_label} etc. Defaults to \code{snakecase::to_sentence_case}.}
+\item{linetype}{A default linetype for most geoms. Defaults to 1 (solid).}
 
-\item{axis_line_transparent}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis line per the \code{perspective} of the plot.}
+\item{linetype_polygon}{A linetype for polygon-type geoms. If NULL, uses \code{linetype}.}
 
-\item{axis_ticks_transparent}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant axis ticks per the \code{perspective} of the plot.}
+\item{linetype_box}{A linetype for box-type geoms. If NULL, uses \code{linetype}.}
 
-\item{panel_grid_transparent}{\code{TRUE} or \code{FALSE} of whether the \verb{gg_*} function should remove the relevant panel grid per the \code{perspective} of the plot.}
+\item{linetype_reference_line}{A linetype for reference line geoms. If NULL, uses \code{linetype}.}
+
+\item{size}{A default size for point geoms. Defaults to 1.5.}
+
+\item{size_font}{A size for text/label geoms in mm. If NULL, derived from theme axis text size.}
+
+\item{family_font}{A font family. If NULL, derived from axis text family.}
+
+\item{col_palette_d}{For discrete scales, a palette to use for both colour and fill.
+A character vector of hex codes or a \verb{scales::pal_*} function. Defaults to \code{jumble}.}
+
+\item{col_palette_c}{For continuous scales, a palette to use for both colour and fill.
+A character vector of hex codes or a \verb{scales::pal_*} function.
+Defaults to \code{scales::pal_viridis(option = "G", direction = -1)}.}
+
+\item{colour_palette_d}{For discrete colour scales. If NULL, uses \code{col_palette_d}.}
+
+\item{colour_palette_d_polygon}{For polygon-type geoms with discrete colour scales.
+If NULL, uses \code{col_squared(colour_palette_d)}.}
+
+\item{colour_palette_d_box}{For box-type geoms with discrete colour scales.
+If NULL, uses \code{colour_palette_d}.}
+
+\item{fill_palette_d}{For discrete fill scales. If NULL, uses \code{col_palette_d}.}
+
+\item{fill_palette_d_polygon}{For polygon-type geoms with discrete fill scales.
+If NULL, uses \code{fill_palette_d}.}
+
+\item{fill_palette_d_box}{For box-type geoms with discrete fill scales.
+If NULL, uses \code{fill_palette_d}.}
+
+\item{colour_palette_c}{For continuous colour scales. If NULL, uses \code{col_palette_c}.}
+
+\item{colour_palette_c_polygon}{For polygon-type geoms with continuous colour scales.
+If NULL, uses \code{colour_palette_c}.}
+
+\item{colour_palette_c_box}{For box-type geoms with continuous colour scales.
+If NULL, uses \code{colour_palette_c}.}
+
+\item{fill_palette_c}{For continuous fill scales. If NULL, uses \code{col_palette_c}.}
+
+\item{fill_palette_c_polygon}{For polygon-type geoms with continuous fill scales.
+If NULL, uses \code{fill_palette_c}.}
+
+\item{fill_palette_c_box}{For box-type geoms with continuous fill scales.
+If NULL, uses \code{fill_palette_c}.}
+
+\item{titles_case}{A function to apply to unspecified/unlabelled titles in \verb{gg_*} functions.
+Defaults to \code{snakecase::to_sentence_case}.}
+
+\item{axis_line_transparent}{Logical. Whether \verb{gg_*} functions should remove the relevant
+axis line based on plot perspective. Defaults to TRUE.}
+
+\item{axis_ticks_transparent}{Logical. Whether \verb{gg_*} functions should remove the relevant
+axis ticks based on plot perspective. Defaults to TRUE.}
+
+\item{panel_grid_transparent}{Logical. Whether \verb{gg_*} functions should remove the relevant
+panel grid based on plot perspective. Defaults to TRUE.}
+
+\item{...}{Additional arguments (not used).}
 }
 \value{
-A globally set style.
+Invisibly returns NULL. Sets global styling options as a side effect.
 }
 \description{
-This function sets the default:
-\enumerate{
-\item theme (\code{ggplot2::set_theme})
-\item geom colour/fill (\code{update_geom_col})
-\item geom linetype (\code{update_geom_linetype}).
-\item geom linewidth (\code{update_geom_linewidth})
-\item geom size (\code{update_geom_size})
-\item geom font (\code{update_geom_font})
-\item geom reference line (\code{update_geom_reference_line})
-\item geom colour/fill palettes (\code{update_geom_palettes})
-\item the function to apply to unspecified/unlabelled titles in \verb{gg_*} functions (\code{weave_titles_case})
-\item the perspective behaviour in \verb{gg_*} functions in \verb{gg_*} functions (\code{weave_perspective})
-}
+Set a consistent style for ggplot2 visualizations by configuring:
+theme, geom aesthetics (colour/fill), linetypes, linewidths, sizes,
+fonts, palettes, and other styling options.
 
-For simplicity, this function does not provide all arguments.
-
-For further control, use \verb{update_*} and \verb{weave_*} functions.
-
-Note the theme should be set before any \verb{update_*} functions.
+For convenience, \code{col_palette_d} and \code{col_palette_c} can be used to set
+both colour and fill palettes simultaneously. More specific palette arguments
+(e.g., \code{colour_palette_d}, \code{fill_palette_d}) will override these general settings.
 }
 \examples{
 library(ggplot2)
 library(ggblanket)
 
+# Use col_palette_d for both colour and fill
 set_blanket(
-  theme = theme_darker(),
-  col = "#E7298AFF",
-  col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
-                    "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
+  col_palette_d = c("#E69F00", "#56B4E9", "#009E73")
 )
 
-palmerpenguins::penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-  )
-
-palmerpenguins::penguins |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-  )
-
+}
+\seealso{
+\code{\link[=theme_lighter]{theme_lighter()}}, \code{\link[=theme_darker]{theme_darker()}} for theme options
+\code{\link[=col_squared]{col_squared()}} for creating accent colours
 }

@@ -405,28 +405,45 @@ gg_blanket <- function(
   ##############################################################################
   # Step 13: Make colour scale
   ##############################################################################
-
   if (!is.na(col_scale_class) && !col_is_literal) {
     # Get theme palettes
     theme_palettes <- ggplot2::get_theme()
 
-    # Get colour_palette and fill_palette
-    # Take first non-NULL from: function arg > col_palette > theme palette
+    # Define geom categories (matching update_geom_col)
+    polygon_geoms <- c("area", "bar", "col", "crossbar", "density", "histogram",
+                       "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
+                       "violin", "raster", "contour_filled", "density2d_filled",
+                       "bin2d", "hex")
 
+    box_geoms <- c("boxplot", "crossbar")
+
+    # Determine if this geom needs special palette handling
+    is_polygon_geom <- geom_name %in% polygon_geoms
+    is_box_geom <- geom_name %in% box_geoms
+
+    # Get colour_palette and fill_palette
+    # Take first non-NULL from: function arg > col_palette > geom-specific palette > theme palette > default
     if (col_scale_class %in% c("discrete")) {
       if (rlang::is_null(colour_palette)) {
         if (!rlang::is_null(col_palette)) {
           colour_palette <- col_palette
+        } else if (is_polygon_geom && !rlang::is_null(getOption("ggblanket.colour_palette_d_polygon"))) {
+          colour_palette <- getOption("ggblanket.colour_palette_d_polygon")
+        } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.colour_palette_d_box"))) {
+          colour_palette <- getOption("ggblanket.colour_palette_d_box")
         } else if (!rlang::is_null(theme_palettes$palette.colour.discrete)) {
           colour_palette <- theme_palettes$palette.colour.discrete
         } else {
           colour_palette <- scales::pal_hue()
         }
       }
-
       if (rlang::is_null(fill_palette)) {
         if (!rlang::is_null(col_palette)) {
           fill_palette <- col_palette
+        } else if (is_polygon_geom && !rlang::is_null(getOption("ggblanket.fill_palette_d_polygon"))) {
+          fill_palette <- getOption("ggblanket.fill_palette_d_polygon")
+        } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.fill_palette_d_box"))) {
+          fill_palette <- getOption("ggblanket.fill_palette_d_box")
         } else if (!rlang::is_null(theme_palettes$palette.fill.discrete)) {
           fill_palette <- theme_palettes$palette.fill.discrete
         } else {
@@ -438,6 +455,10 @@ gg_blanket <- function(
       if (rlang::is_null(colour_palette)) {
         if (!rlang::is_null(col_palette)) {
           colour_palette <- col_palette
+        } else if (is_polygon_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_polygon"))) {
+          colour_palette <- getOption("ggblanket.colour_palette_c_polygon")
+        } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_box"))) {
+          colour_palette <- getOption("ggblanket.colour_palette_c_box")
         } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
           colour_palette <- theme_palettes$palette.colour.continuous
         } else {
@@ -447,6 +468,10 @@ gg_blanket <- function(
       if (rlang::is_null(fill_palette)) {
         if (!rlang::is_null(col_palette)) {
           fill_palette <- col_palette
+        } else if (is_polygon_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_polygon"))) {
+          fill_palette <- getOption("ggblanket.fill_palette_c_polygon")
+        } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_box"))) {
+          fill_palette <- getOption("ggblanket.fill_palette_c_box")
         } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {
           fill_palette <- theme_palettes$palette.fill.continuous
         } else {
@@ -458,35 +483,28 @@ gg_blanket <- function(
       if (rlang::is_null(colour_palette)) {
         if (!rlang::is_null(col_palette)) {
           colour_palette <- col_palette
+        } else if (is_polygon_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_polygon"))) {
+          colour_palette <- getOption("ggblanket.colour_palette_c_polygon")
+        } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_box"))) {
+          colour_palette <- getOption("ggblanket.colour_palette_c_box")
         } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
           colour_palette <- theme_palettes$palette.colour.continuous
         } else {
           colour_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")
         }
       }
-
       if (rlang::is_null(fill_palette)) {
         if (!rlang::is_null(col_palette)) {
           fill_palette <- col_palette
+        } else if (is_polygon_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_polygon"))) {
+          fill_palette <- getOption("ggblanket.fill_palette_c_polygon")
+        } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_box"))) {
+          fill_palette <- getOption("ggblanket.fill_palette_c_box")
         } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {
           fill_palette <- theme_palettes$palette.fill.continuous
         } else {
           fill_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")
         }
-      }
-    }
-
-    # Check if colour scale should have accented
-    colour2_geoms <- c("area", "bar", "col", "crossbar", "density", "histogram",
-                       "map","polygon", "rect", "ribbon", "smooth", "sf", "tile",
-                        "violin","bin2d", "hex", "raster",
-                        "contour_filled", "density_2d_filled")
-
-    colour2 <- geom_name %in% colour2_geoms
-
-    if (colour2) {
-      if (!rlang::is_null(colour_palette)) {
-        colour_palette <- col_square(colour_palette)
       }
     }
 
@@ -713,20 +731,20 @@ gg_blanket <- function(
             na.value = col_palette_na
           )
 
-        if (colour2) {
-          plot <- plot +
-            ggplot2::guides(
-              colour = ggplot2::guide_none(),
-              fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
-            )
-        }
-        else {
-          plot <- plot +
-            ggplot2::guides(
-              colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
-              fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
-            )
-        }
+        # if (colour2) {
+        #   plot <- plot +
+        #     ggplot2::guides(
+        #       colour = ggplot2::guide_none(),
+        #       fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
+        #     )
+        # }
+        # else {
+        #   plot <- plot +
+        #     ggplot2::guides(
+        #       colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
+        #       fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
+        #     )
+        # }
       }
       else if (col_scale_type == "steps") {
         plot <- plot +
@@ -749,29 +767,29 @@ gg_blanket <- function(
             na.value = col_palette_na
           )
 
-        if (colour2) {
-          plot <- plot +
-            ggplot2::guides(
-              colour = ggplot2::guide_none(),
-              fill = ggplot2::guide_coloursteps(
-                reverse = col_legend_rev,
-                theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-              )
-            )
-        }
-        else {
-          plot <- plot +
-            ggplot2::guides(
-              colour = ggplot2::guide_coloursteps(
-                reverse = col_legend_rev,
-                theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-              ),
-              fill = ggplot2::guide_coloursteps(
-                reverse = col_legend_rev,
-                theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-              )
-            )
-        }
+        # if (colour2) {
+        #   plot <- plot +
+        #     ggplot2::guides(
+        #       colour = ggplot2::guide_none(),
+        #       fill = ggplot2::guide_coloursteps(
+        #         reverse = col_legend_rev,
+        #         theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+        #       )
+        #     )
+        # }
+        # else {
+        #   plot <- plot +
+        #     ggplot2::guides(
+        #       colour = ggplot2::guide_coloursteps(
+        #         reverse = col_legend_rev,
+        #         theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+        #       ),
+        #       fill = ggplot2::guide_coloursteps(
+        #         reverse = col_legend_rev,
+        #         theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+        #       )
+        #     )
+        # }
       }
     }
     else if (col_scale_class == "ordinal") {

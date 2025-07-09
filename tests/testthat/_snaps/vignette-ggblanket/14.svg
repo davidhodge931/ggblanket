@@ -150,10 +150,10 @@
 <polyline points='514.65,144.11 676.16,144.11 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <polyline points='558.70,528.35 558.70,100.69 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
 <polyline points='632.12,528.35 632.12,100.69 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
-<rect x='540.35' y='443.82' width='18.35' height='84.53' style='stroke-width: 1.41; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #0095A8;' />
-<rect x='558.70' y='121.05' width='18.35' height='407.30' style='stroke-width: 1.41; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFA600;' />
-<rect x='613.76' y='274.75' width='18.35' height='253.60' style='stroke-width: 1.41; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #0095A8;' />
-<rect x='632.12' y='205.58' width='18.35' height='322.76' style='stroke-width: 1.41; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFA600;' />
+<rect x='540.35' y='443.82' width='18.35' height='84.53' style='stroke-width: 0.53; stroke: #00576F; stroke-linecap: butt; stroke-linejoin: miter; fill: #0095A8;' />
+<rect x='558.70' y='121.05' width='18.35' height='407.30' style='stroke-width: 0.53; stroke: #FF6C00; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFA600;' />
+<rect x='613.76' y='274.75' width='18.35' height='253.60' style='stroke-width: 0.53; stroke: #00576F; stroke-linecap: butt; stroke-linejoin: miter; fill: #0095A8;' />
+<rect x='632.12' y='205.58' width='18.35' height='322.76' style='stroke-width: 0.53; stroke: #FF6C00; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFA600;' />
 <polyline points='514.65,528.35 514.65,100.69 ' style='stroke-width: 0.53; stroke: none; stroke-linecap: square;' />
 <text x='508.26' y='531.79' text-anchor='end' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='508.26' y='454.94' text-anchor='end' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>1</text>

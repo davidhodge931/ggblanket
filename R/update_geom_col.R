@@ -2,44 +2,80 @@
 #'
 #' @description
 #' Updates the active theme to apply consistent colour/fill styling.
-#' Excludes "text", "label", "hline", and "vline".
 #'
-#' @param col Convenience parameter that sets both `colour` and `fill`.
+#' @param colour Default colour for most geoms.
+#' @param colour_polygon Colour for polygon-type geoms.
+#' @param colour_box Colour for box-type geoms.
+#' @param colour_font Colour for text/label geoms. If NULL, derived from axis text colour.
+#' @param colour_reference_line Colour for reference line geoms. If NULL, derived from axis line colour.
+#' @param fill Default fill for most geoms.
+#' @param fill_polygon Fill for polygon-type geoms.
+#' @param fill_box Fill for box-type geoms.
+#' @param fill_font Fill for text/label geoms. If NULL, derived from panel background.
+#' @param ... Additional arguments (not used).
 #'
 #' @return An updated ggplot2 theme.
 #'
-#' @seealso
-#' \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{update_theme}}
-#'
 #' @noRd
-update_geom_col <- function(col = blue) {
+update_geom_col <- function(
+    colour = col,
+    colour_polygon = col_squared(colour),
+    colour_box = colour,
+    colour_font = NULL,
+    colour_reference_line = NULL,
+    fill = col,
+    fill_polygon = fill,
+    fill_box = fill,
+    fill_font = NULL,
+    ...
+) {
 
-  ###########
-  colour = col
-  colour2 = col_square(colour)
-  colour2_geoms = c("area", "bar", "col", "crossbar", "density", "histogram",
-                    "map","polygon", "rect", "ribbon", "smooth", "sf", "tile",
-                    "violin","bin2d", "hex", "raster", "contour_filled",
-                    "density_2d_filled")
+  # Get current theme for NULL defaults
+  current_theme <- ggplot2::get_theme()
 
-  fill = col
-  fill2 = fill
-  fill2_geoms = c("area", "bar", "col", "crossbar", "density", "histogram",
-                  "map","polygon", "rect", "ribbon", "smooth", "sf", "tile",
-                  "violin","bin2d", "hex", "raster", "contour_filled",
-                  "density_2d_filled")
-  ###########
-  print(fill2)
+  # Handle font colour/fill defaults
+  colour_font <- colour_font %||%
+    current_theme$axis.text.x$colour %||%
+    current_theme$axis.text.y$colour %||%
+    current_theme$axis.text$colour %||%
+    current_theme$text$colour %||%
+    "black"
 
-  # Get all geom names from ggplot2
-  all_geoms <- c("contour", "count", "curve",
-                 "dotplot", "density2d", "errorbar", "freqpoly", "function",
-                 "jitter", "line", "linerange", "path", "point", "pointrange",
-                 "qq", "quantile", "rug", "segment", "smooth", "spoke", "step",
-                 "area", "bar", "col", "density", "map", "polygon", "rect",
-                 "ribbon", "tile", "violin",
-                 "boxplot", "crossbar",
-                 "bin2d", "hex", "raster", "contour_filled", "density_2d_filled")
+  fill_font <- fill_font %||%
+    current_theme$panel.background$fill %||%
+    "white"
+
+  # Handle reference line colour defaults
+  colour_reference_line <- colour_reference_line %||%
+    current_theme$axis.line.x.bottom$colour %||%
+    current_theme$axis.line.x.top$colour %||%
+    current_theme$axis.line.y.left$colour %||%
+    current_theme$axis.line.y.right$colour %||%
+    current_theme$axis.line.x$colour %||%
+    current_theme$axis.line.y$colour %||%
+    current_theme$axis.line$colour %||%
+    "black"
+
+  # Define geom categories
+  polygon_geoms <- c("area", "bar", "col", "crossbar", "density", "histogram",
+                     "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
+                     "violin", "raster", "contour_filled", "density2d_filled",
+                     "bin2d", "hex")
+
+  box_geoms <- c("boxplot", "crossbar")
+
+  font_geoms <- c("text", "label")
+
+  reference_line_geoms <- c("abline", "hline", "vline")
+
+  # Get all geom names
+  all_geoms <- c("contour", "count", "curve", "dotplot", "density2d", "errorbar",
+                 "freqpoly", "function", "jitter", "line", "linerange", "path",
+                 "point", "pointrange", "qq", "quantile", "rug", "segment", "smooth",
+                 "spoke", "step", "area", "bar", "col", "density", "map", "polygon",
+                 "rect", "ribbon", "tile", "violin", "boxplot", "crossbar", "bin2d",
+                 "hex", "raster", "contour_filled", "density2d_filled", "histogram",
+                 "text", "label", "abline", "hline", "vline")
 
   # Build named list of theme elements
   theme_args <- list()
@@ -49,13 +85,33 @@ update_geom_col <- function(col = blue) {
     geom_name <- paste0("geom.", gsub("_", "", geom))
 
     # Determine which colour and fill to use
-    geom_colour <- if (geom %in% colour2_geoms) colour2 else colour
-    geom_fill <- if (geom %in% fill2_geoms) fill2 else fill
-
-    theme_args[[geom_name]] <- ggplot2::element_geom(
-      colour = geom_colour,
-      fill = geom_fill
-    )
+    if (geom %in% font_geoms) {
+      if (geom == "text") {
+        theme_args[[geom_name]] <- ggplot2::element_geom(colour = colour_font)
+      } else { # label
+        theme_args[[geom_name]] <- ggplot2::element_geom(
+          colour = colour_font,
+          fill = fill_font
+        )
+      }
+    } else if (geom %in% reference_line_geoms) {
+      theme_args[[geom_name]] <- ggplot2::element_geom(colour = colour_reference_line)
+    } else if (geom %in% polygon_geoms) {
+      theme_args[[geom_name]] <- ggplot2::element_geom(
+        colour = colour_polygon,
+        fill = fill_polygon
+      )
+    } else if (geom %in% box_geoms) {
+      theme_args[[geom_name]] <- ggplot2::element_geom(
+        colour = colour_box,
+        fill = fill_box
+      )
+    } else {
+      theme_args[[geom_name]] <- ggplot2::element_geom(
+        colour = colour,
+        fill = fill
+      )
+    }
   }
 
   # Use inject and splice to pass the arguments

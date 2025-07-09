@@ -32,7 +32,7 @@ reference:
   - aes_contrast
   - annotate_axis_line
   - annotate_axis_ticks
-  - col_square
+  - col_squared
   - element_line_transparent
   - bind_each_all
   - guides_shape_grey

@@ -12,7 +12,7 @@
 #' If input is a function, returns a function that generates squared colours.
 #'
 #' @export
-col_square <- function(col) {
+col_squared <- function(col) {
   if (is.function(col)) {
     # Return a function that squares the palette output
     function(n) {

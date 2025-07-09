@@ -1,6 +1,3 @@
-# global defaults
-ggblanket_global$titles_case <- NULL
-
 #' Set the titles case behaviour
 #'
 #' @description Set the titles case behaviour in `gg_*` functions.
@@ -10,8 +7,9 @@ ggblanket_global$titles_case <- NULL
 #'
 #' @noRd
 weave_titles_case <- function(titles_case = snakecase::to_sentence_case, ...) {
-  old <- ggblanket_global$titles_case
-  ggblanket_global$titles_case <- titles_case
-  invisible(old)
+
+  options(
+    ggblanket.titles_case = titles_case
+  )
 }
 
