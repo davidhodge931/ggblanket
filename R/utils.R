@@ -280,6 +280,7 @@ get_geom_params <- function(geom_name, ...) {
 #' @noRd
 add_initial_layer <- function(plot, geom, stat, position, mapping, params,
                               show_legend, coord, blend, stat_name) {
+
   if (stringr::str_detect(stat_name, "sf")) {
     if (rlang::is_null(coord)) {
       coord <- ggplot2::coord_sf(clip = "off")
@@ -430,8 +431,8 @@ get_transform_default <- function(scale_class) {
 #' Get defaults for various parameters
 #' @noRd
 get_other_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_class,
-                         facet_scales, theme, x_symmetric, y_symmetric,
-                         stat_name, perspective, titles_case) {
+                               facet_scales, theme, x_symmetric, y_symmetric,
+                               stat_name, perspective, titles_case) {
   # Get transforms
   if (rlang::is_null(x_transform)) {
     x_transform_null <- TRUE

@@ -28,7 +28,7 @@ set_blanket(
   size_font = NULL,
   family_font = NULL,
   col_palette_d = jumble,
-  col_palette_c = scales::pal_viridis(option = "G", direction = -1),
+  col_palette_c = viridisLite::mako(20, direction = -1),
   colour_palette_d = NULL,
   colour_palette_d_polygon = NULL,
   colour_palette_d_box = NULL,

@@ -285,8 +285,8 @@ gg_blanket <- function(
   # Step 6: Get defaults
   ##############################################################################
   defaults <- get_other_defaults(x_transform, y_transform, x_scale_class, y_scale_class,
-                           facet_scales, theme, x_symmetric, y_symmetric,
-                           stat_name, perspective, titles_case)
+                                 facet_scales, theme, x_symmetric, y_symmetric,
+                                 stat_name, perspective, titles_case)
 
   x_transform <- defaults$x_transform
   y_transform <- defaults$y_transform

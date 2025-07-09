@@ -25,15 +25,16 @@
 #' @noRd
 update_geom_palettes <- function(
     col_palette_d = jumble,
-    col_palette_c = scales::pal_viridis(option = "G", direction = -1),
+    col_palette_c = viridisLite::mako(20, direction = -1),
     colour_palette_d = col_palette_d,
     colour_palette_d_polygon = col_squared(colour_palette_d),
     colour_palette_d_box = colour_palette_d,
     fill_palette_d = col_palette_d,
     fill_palette_d_polygon = fill_palette_d,
     fill_palette_d_box = fill_palette_d,
+
     colour_palette_c = col_palette_c,
-    colour_palette_c_polygon = colour_palette_c,
+    colour_palette_c_polygon = col_squared(colour_palette_c),
     colour_palette_c_box = colour_palette_c,
     fill_palette_c = col_palette_c,
     fill_palette_c_polygon = fill_palette_c,
