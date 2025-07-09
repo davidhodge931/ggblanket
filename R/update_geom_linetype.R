@@ -37,7 +37,7 @@ update_geom_linetype <- function(
   # Define geom categories
   polygon_geoms <- c("area", "bar", "col", "density", "map", "polygon",
                      "rect", "ribbon", "tile", "violin", "bin2d", "hex",
-                     "raster", "contour_filled", "density_2d_filled", "histogram")
+                     "raster", "contour_filled", "density2d_filled", "histogram")
 
   box_geoms <- c("boxplot", "crossbar")
 
@@ -50,7 +50,7 @@ update_geom_linetype <- function(
                  "qq", "qq_line", "quantile", "rug", "segment", "smooth",
                  "spoke", "step", "area", "bar", "col", "density", "map",
                  "polygon", "rect", "ribbon", "tile", "violin", "bin2d",
-                 "hex", "raster", "contour_filled", "density_2d_filled", "histogram",
+                 "hex", "raster", "contour_filled", "density2d_filled", "histogram",
                  "abline", "hline", "vline")
 
   # Build named list of theme elements

@@ -78,11 +78,11 @@ penguins2 |>
   )
 ```
 
-### gg_bin_2d
+### gg_bin2d
 
 ```{r}
 diamonds |>
-  gg_bin_2d(
+  gg_bin2d(
     x = carat,
     y = price,
     coord = coord_cartesian(),
@@ -167,22 +167,22 @@ penguins2 |>
   )
 ```
 
-### gg_density_2d
+### gg_density2d
 
 ```{r}
 faithful |>
-  gg_density_2d(
+  gg_density2d(
     x = waiting,
     y = eruptions,
     bins = 8,
   )
 ```
 
-### gg_density_2d_filled
+### gg_density2d_filled
 
 ```{r}
 faithful |>
-  gg_density_2d_filled(
+  gg_density2d_filled(
     x = waiting,
     y = eruptions,
     bins = 8,

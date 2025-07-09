@@ -1,6 +1,6 @@
-#' Density_2d_filled ggplot
+#' Bin2d ggplot
 #'
-#' @description Create a density_2d_filled ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_density_2d_filled()][ggplot2::geom_density_2d_filled()] defaults for the geom, stat and position.
+#' @description Create a bin2d ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_bin2d()][ggplot2::geom_bin2d()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'
@@ -10,21 +10,20 @@
 #' @examples
 #' library(ggplot2)
 #' library(dplyr)
-#' 
 #'
 #' set_blanket()
 #'
-#' faithful |>
-#'   gg_density_2d_filled(
-#'     x = waiting,
-#'     y = eruptions,
-#'     bins = 8,
+#' diamonds |>
+#'   gg_bin2d(
+#'     x = carat,
+#'     y = price,
+#'     coord = coord_cartesian(),
 #'   )
 #'
-gg_density_2d_filled <- function(
+gg_bin2d <- function(
   data = NULL,
   ...,
-  stat = "density_2d_filled",
+  stat = "bin2d",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   blend = NULL, theme = ggplot2::get_theme(),
@@ -32,7 +31,7 @@ gg_density_2d_filled <- function(
   axis_line_transparent = NULL,
   axis_ticks_transparent = NULL,
   panel_grid_transparent = NULL,
-  
+
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -101,7 +100,7 @@ gg_density_2d_filled <- function(
 ) {
   gg_blanket(
     data = data,
-    geom = "density_2d_filled",
+    geom = "bin2d",
     stat = stat,
     position = position,
     coord = coord,

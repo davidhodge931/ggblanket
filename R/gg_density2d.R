@@ -1,6 +1,6 @@
-#' Density_2d ggplot
+#' density2d ggplot
 #'
-#' @description Create a density_2d ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_density_2d()][ggplot2::geom_density_2d()] defaults for the geom, stat and position.
+#' @description Create a density2d ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_density2d()][ggplot2::geom_density2d()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'
@@ -10,21 +10,21 @@
 #' @examples
 #' library(ggplot2)
 #' library(dplyr)
-#' 
+#'
 #'
 #' set_blanket()
 #'
 #' faithful |>
-#'   gg_density_2d(
+#'   gg_density2d(
 #'     x = waiting,
 #'     y = eruptions,
 #'     bins = 8,
 #'   )
 #'
-gg_density_2d <- function(
+gg_density2d <- function(
   data = NULL,
   ...,
-  stat = "density_2d",
+  stat = "density2d",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
   blend = NULL, theme = ggplot2::get_theme(),
@@ -32,7 +32,7 @@ gg_density_2d <- function(
   axis_line_transparent = NULL,
   axis_ticks_transparent = NULL,
   panel_grid_transparent = NULL,
-  
+
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -101,7 +101,7 @@ gg_density_2d <- function(
 ) {
   gg_blanket(
     data = data,
-    geom = "density_2d",
+    geom = "density2d",
     stat = stat,
     position = position,
     coord = coord,

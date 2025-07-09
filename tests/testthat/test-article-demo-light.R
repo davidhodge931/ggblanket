@@ -34,11 +34,11 @@ test_that(test_name, {
 })
 
 ## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_bin_2d"
+test_name <- "gg_bin2d"
 
 test_that(test_name, {
   p <- ggplot2::diamonds |>
-    gg_bin_2d(
+    gg_bin2d(
       x = carat,
       y = price,
       coord = coord_cartesian(),
@@ -153,13 +153,13 @@ test_that(test_name, {
 })
 
 ## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_density_2d"
+test_name <- "gg_density2d"
 
 test_that(test_name, {
   set.seed(123)
 
   p <- faithful |>
-    gg_density_2d(
+    gg_density2d(
       x = waiting,
       y = eruptions,
       bins = 8,
@@ -170,13 +170,13 @@ test_that(test_name, {
 })
 
 ## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_density_2d_filled"
+test_name <- "gg_density2d_filled"
 
 test_that(test_name, {
   set.seed(123)
 
   p <- faithful |>
-    gg_density_2d_filled(
+    gg_density2d_filled(
       x = waiting,
       y = eruptions,
       bins = 8,
