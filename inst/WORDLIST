@@ -1,7 +1,6 @@
 Coord
 Errorbar
 Freqpoly
-Geoms
 Linerange
 Nik
 ORCID
@@ -13,7 +12,6 @@ Stat
 abline
 beeswarm
 coord
-dotplot
 dplyr
 errorbar
 etc
@@ -38,6 +36,7 @@ gridlines
 hline
 linerange
 linetype
+linetypes
 linewidth
 linewidths
 nd

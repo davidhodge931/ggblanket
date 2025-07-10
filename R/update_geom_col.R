@@ -4,13 +4,11 @@
 #' Updates the active theme to apply consistent colour/fill styling.
 #'
 #' @param colour Default colour for most geoms.
-#' @param colour_polygon Colour for border geoms.
-#' @param colour_box Colour for the boxplot geom.
+#' @param colour_border Colour for border geoms. Excludes boxplot.
 #' @param colour_font Colour for text/label geoms. If NULL, derived from axis text colour.
 #' @param colour_reference_line Colour for reference line geoms. If NULL, derived from axis line colour.
 #' @param fill Default fill for most geoms.
-#' @param fill_polygon Fill for border geoms.
-#' @param fill_box Fill for the boxplot geom.
+#' @param fill_border Fill for border geoms. Excludes boxplot.
 #' @param fill_font Fill for text/label geoms. If NULL, derived from panel background.
 #' @param ... Additional arguments (not used).
 #'
@@ -19,13 +17,11 @@
 #' @noRd
 update_geom_col <- function(
     colour = col,
-    colour_polygon = col_squared(colour),
-    colour_box = colour,
+    colour_border = col_squared(colour),
     colour_font = NULL,
     colour_reference_line = NULL,
     fill = col,
-    fill_polygon = fill,
-    fill_box = fill,
+    fill_border = fill,
     fill_font = NULL,
     ...
 ) {
@@ -62,8 +58,6 @@ update_geom_col <- function(
                      "violin", "raster", "contour_filled", "density2d_filled",
                      "bin2d", "hex")
 
-  box_geoms <- c("boxplot")
-
   font_geoms <- c("text", "label")
 
   reference_line_geoms <- c("abline", "hline", "vline")
@@ -74,7 +68,7 @@ update_geom_col <- function(
                  "point", "pointrange", "qq", "quantile", "rug", "segment", "smooth",
                  "spoke", "step", "area", "bar", "col", "density", "map", "polygon",
                  "rect", "ribbon", "tile", "violin", "boxplot", "crossbar", "bin2d",
-                 "hex", "raster", "contour_filled", "density2d_filled", "histogram",
+                 "hex", "raster", "contour_filled", "density2d_filled",
                  "text", "label", "abline", "hline", "vline")
 
   # Build named list of theme elements
@@ -98,13 +92,8 @@ update_geom_col <- function(
       theme_args[[geom_name]] <- ggplot2::element_geom(colour = colour_reference_line)
     } else if (geom %in% border_geoms) {
       theme_args[[geom_name]] <- ggplot2::element_geom(
-        colour = colour_polygon,
-        fill = fill_polygon
-      )
-    } else if (geom %in% box_geoms) {
-      theme_args[[geom_name]] <- ggplot2::element_geom(
-        colour = colour_box,
-        fill = fill_box
+        colour = colour_border,
+        fill = fill_border
       )
     } else {
       theme_args[[geom_name]] <- ggplot2::element_geom(

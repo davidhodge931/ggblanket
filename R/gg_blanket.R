@@ -411,15 +411,12 @@ gg_blanket <- function(
 
     # Define geom categories (matching update_geom_col)
     border_geoms <- c("area", "bar", "col", "crossbar", "density",
-                       "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
-                       "violin", "raster", "contour_filled", "density2d_filled",
-                       "bin2d", "hex")
-
-    box_geoms <- c("boxplot")
+                      "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
+                      "violin", "raster", "contour_filled", "density2d_filled",
+                      "bin2d", "hex")
 
     # Determine if this geom needs special palette handling
     is_border_geom <- geom_name %in% border_geoms
-    is_box_geom <- geom_name %in% box_geoms
 
     # Get colour_palette and fill_palette
     # Take first non-NULL from: function arg > col_palette > geom-specific palette > theme palette > default
@@ -429,8 +426,6 @@ gg_blanket <- function(
           colour_palette <- col_palette
         } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_d_border"))) {
           colour_palette <- getOption("ggblanket.colour_palette_d_border")
-        } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.colour_palette_d_box"))) {
-          colour_palette <- getOption("ggblanket.colour_palette_d_box")
         } else if (!rlang::is_null(theme_palettes$palette.colour.discrete)) {
           colour_palette <- theme_palettes$palette.colour.discrete
         } else {
@@ -442,8 +437,6 @@ gg_blanket <- function(
           fill_palette <- col_palette
         } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_d_border"))) {
           fill_palette <- getOption("ggblanket.fill_palette_d_border")
-        } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.fill_palette_d_box"))) {
-          fill_palette <- getOption("ggblanket.fill_palette_d_box")
         } else if (!rlang::is_null(theme_palettes$palette.fill.discrete)) {
           fill_palette <- theme_palettes$palette.fill.discrete
         } else {
@@ -457,8 +450,6 @@ gg_blanket <- function(
           colour_palette <- col_palette
         } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
           colour_palette <- getOption("ggblanket.colour_palette_c_border")
-        } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_box"))) {
-          colour_palette <- getOption("ggblanket.colour_palette_c_box")
         } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
           colour_palette <- theme_palettes$palette.colour.continuous
         } else {
@@ -470,8 +461,6 @@ gg_blanket <- function(
           fill_palette <- col_palette
         } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
           fill_palette <- getOption("ggblanket.fill_palette_c_border")
-        } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_box"))) {
-          fill_palette <- getOption("ggblanket.fill_palette_c_box")
         } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {
           fill_palette <- theme_palettes$palette.fill.continuous
         } else {
@@ -485,8 +474,6 @@ gg_blanket <- function(
           colour_palette <- col_palette
         } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
           colour_palette <- getOption("ggblanket.colour_palette_c_border")
-        } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_box"))) {
-          colour_palette <- getOption("ggblanket.colour_palette_c_box")
         } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
           colour_palette <- theme_palettes$palette.colour.continuous
         } else {
@@ -498,8 +485,6 @@ gg_blanket <- function(
           fill_palette <- col_palette
         } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
           fill_palette <- getOption("ggblanket.fill_palette_c_border")
-        } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_box"))) {
-          fill_palette <- getOption("ggblanket.fill_palette_c_box")
         } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {
           fill_palette <- theme_palettes$palette.fill.continuous
         } else {

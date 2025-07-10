@@ -4,8 +4,7 @@
 #' Updates the active theme to apply consistent linetype styling.
 #'
 #' @param linetype Default linetype for most geoms.
-#' @param linetype_polygon Linetype for border geoms.
-#' @param linetype_box Linetype for the boxplot geom.
+#' @param linetype_border Linetype for border geoms. Excludes boxplot.
 #' @param linetype_reference_line Linetype for reference line geoms. If NULL, derived from axis line linetype.
 #' @param ... Additional arguments (not used).
 #'
@@ -14,7 +13,7 @@
 #' @noRd
 update_geom_linetype <- function(
     linetype = 1,
-    linetype_polygon = linetype,
+    linetype_border = linetype,
     linetype_box = linetype,
     linetype_reference_line = NULL,
     ...
@@ -34,52 +33,41 @@ update_geom_linetype <- function(
     current_theme$axis.line$linetype %||%
     1
 
-  # Define geom categories
+  # Border geoms
   border_geoms <- c("area", "bar", "col", "crossbar", "density",
-                     "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
-                     "violin", "raster", "contour_filled", "density2d_filled",
-                     "bin2d", "hex")
+                    "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
+                    "violin", "raster", "contour_filled", "density2d_filled",
+                    "bin2d", "hex")
 
-  box_geoms <- c("boxplot")
+  # Line geoms
+  line_geoms <- c("contour", "curve", "errorbar", "freqpoly", "function",
+                  "line", "linerange", "path", "qq_line", "quantile", "rug",
+                  "segment", "spoke", "step", "density2d")
 
+  # reference_line_geoms
   reference_line_geoms <- c("abline", "hline", "vline")
-
-  # Get all geom names
-  all_geoms <- c("boxplot", "crossbar", "contour", "count", "curve",
-                 "dotplot", "density2d", "errorbar", "freqpoly", "function",
-                 "jitter", "line", "linerange", "path", "point", "pointrange",
-                 "qq", "qq_line", "quantile", "rug", "segment", "smooth",
-                 "spoke", "step", "area", "bar", "col", "density", "map",
-                 "polygon", "rect", "ribbon", "tile", "violin", "bin2d",
-                 "hex", "raster", "contour_filled", "density2d_filled", "histogram",
-                 "abline", "hline", "vline")
 
   # Build named list of theme elements
   theme_args <- list()
 
-  # Apply linetype to all geoms
-  for (geom in all_geoms) {
-    geom_name <- paste0("geom.", gsub("_", "", geom))
-
-    if (geom %in% reference_line_geoms) {
-      theme_args[[geom_name]] <- ggplot2::element_geom(linetype = linetype_reference_line)
-    } else if (geom %in% border_geoms) {
-      theme_args[[geom_name]] <- ggplot2::element_geom(
-        bordertype = linetype_polygon,
-        linetype = linetype_polygon
-      )
-    } else if (geom %in% box_geoms) {
-      theme_args[[geom_name]] <- ggplot2::element_geom(
-        bordertype = linetype_box,
-        linetype = linetype_box
-      )
-    } else {
-      theme_args[[geom_name]] <- ggplot2::element_geom(
-        bordertype = linetype,
-        linetype = linetype
-      )
-    }
+  for (geom in reference_line_geoms) {
+    geom_name <- paste0("geom.", geom)
+    theme_args[[geom_name]] <- ggplot2::element_geom(linetype = linetype_reference_line)
   }
+
+  # Border geoms
+  for (geom in border_geoms) {
+    geom_name <- paste0("geom.", geom)
+      theme_args[[geom_name]] <- ggplot2::element_geom(linetype = linetype_border,
+                                                       bordertype = linetype_border)
+  }
+
+  # Line geoms
+  for (geom in line_geoms) {
+    geom_name <- paste0("geom.", geom)
+    theme_args[[geom_name]] <- ggplot2::element_geom(linetype = linetype)
+  }
+
 
   # Use inject and splice to pass the arguments
   rlang::inject(ggplot2::update_theme(!!!theme_args))

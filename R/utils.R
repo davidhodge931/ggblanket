@@ -261,8 +261,10 @@ create_ggplot <- function(
 get_geom_params <- function(geom_name, ...) {
   if (geom_name == "boxplot") {
     rlang::list2(
-      whisker_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth),
-      staple_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth),
+      # whisker_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth),
+      # staple_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth),
+      median_gp = list(linewidth = ggplot2::get_geom_defaults("boxplot")$linewidth), #take from polygon
+      box_gp = list(linewidth = ggplot2::get_geom_defaults("polygon")$linewidth), #take from polygon
       outlier_gp = list(stroke = 0),
       ...
     )
@@ -496,6 +498,7 @@ get_other_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_
   # Get titles_case
   if (rlang::is_null(titles_case)) {
     titles_case <- getOption("ggblanket.titles_case")
+    if (rlang::is_null(titles_case)) titles_case <- \(x) x
   }
 
   list(
