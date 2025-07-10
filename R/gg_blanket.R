@@ -410,15 +410,15 @@ gg_blanket <- function(
     theme_palettes <- ggplot2::get_theme()
 
     # Define geom categories (matching update_geom_col)
-    polygon_geoms <- c("area", "bar", "col", "crossbar", "density", "histogram",
+    border_geoms <- c("area", "bar", "col", "crossbar", "density",
                        "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
                        "violin", "raster", "contour_filled", "density2d_filled",
                        "bin2d", "hex")
 
-    box_geoms <- c("boxplot", "crossbar")
+    box_geoms <- c("boxplot")
 
     # Determine if this geom needs special palette handling
-    is_polygon_geom <- geom_name %in% polygon_geoms
+    is_border_geom <- geom_name %in% border_geoms
     is_box_geom <- geom_name %in% box_geoms
 
     # Get colour_palette and fill_palette
@@ -427,8 +427,8 @@ gg_blanket <- function(
       if (rlang::is_null(colour_palette)) {
         if (!rlang::is_null(col_palette)) {
           colour_palette <- col_palette
-        } else if (is_polygon_geom && !rlang::is_null(getOption("ggblanket.colour_palette_d_polygon"))) {
-          colour_palette <- getOption("ggblanket.colour_palette_d_polygon")
+        } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_d_border"))) {
+          colour_palette <- getOption("ggblanket.colour_palette_d_border")
         } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.colour_palette_d_box"))) {
           colour_palette <- getOption("ggblanket.colour_palette_d_box")
         } else if (!rlang::is_null(theme_palettes$palette.colour.discrete)) {
@@ -440,8 +440,8 @@ gg_blanket <- function(
       if (rlang::is_null(fill_palette)) {
         if (!rlang::is_null(col_palette)) {
           fill_palette <- col_palette
-        } else if (is_polygon_geom && !rlang::is_null(getOption("ggblanket.fill_palette_d_polygon"))) {
-          fill_palette <- getOption("ggblanket.fill_palette_d_polygon")
+        } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_d_border"))) {
+          fill_palette <- getOption("ggblanket.fill_palette_d_border")
         } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.fill_palette_d_box"))) {
           fill_palette <- getOption("ggblanket.fill_palette_d_box")
         } else if (!rlang::is_null(theme_palettes$palette.fill.discrete)) {
@@ -455,8 +455,8 @@ gg_blanket <- function(
       if (rlang::is_null(colour_palette)) {
         if (!rlang::is_null(col_palette)) {
           colour_palette <- col_palette
-        } else if (is_polygon_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_polygon"))) {
-          colour_palette <- getOption("ggblanket.colour_palette_c_polygon")
+        } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
+          colour_palette <- getOption("ggblanket.colour_palette_c_border")
         } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_box"))) {
           colour_palette <- getOption("ggblanket.colour_palette_c_box")
         } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
@@ -468,8 +468,8 @@ gg_blanket <- function(
       if (rlang::is_null(fill_palette)) {
         if (!rlang::is_null(col_palette)) {
           fill_palette <- col_palette
-        } else if (is_polygon_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_polygon"))) {
-          fill_palette <- getOption("ggblanket.fill_palette_c_polygon")
+        } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
+          fill_palette <- getOption("ggblanket.fill_palette_c_border")
         } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_box"))) {
           fill_palette <- getOption("ggblanket.fill_palette_c_box")
         } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {
@@ -483,8 +483,8 @@ gg_blanket <- function(
       if (rlang::is_null(colour_palette)) {
         if (!rlang::is_null(col_palette)) {
           colour_palette <- col_palette
-        } else if (is_polygon_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_polygon"))) {
-          colour_palette <- getOption("ggblanket.colour_palette_c_polygon")
+        } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
+          colour_palette <- getOption("ggblanket.colour_palette_c_border")
         } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_box"))) {
           colour_palette <- getOption("ggblanket.colour_palette_c_box")
         } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
@@ -496,8 +496,8 @@ gg_blanket <- function(
       if (rlang::is_null(fill_palette)) {
         if (!rlang::is_null(col_palette)) {
           fill_palette <- col_palette
-        } else if (is_polygon_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_polygon"))) {
-          fill_palette <- getOption("ggblanket.fill_palette_c_polygon")
+        } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
+          fill_palette <- getOption("ggblanket.fill_palette_c_border")
         } else if (is_box_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_box"))) {
           fill_palette <- getOption("ggblanket.fill_palette_c_box")
         } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {

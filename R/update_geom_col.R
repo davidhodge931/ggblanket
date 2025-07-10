@@ -4,13 +4,13 @@
 #' Updates the active theme to apply consistent colour/fill styling.
 #'
 #' @param colour Default colour for most geoms.
-#' @param colour_polygon Colour for polygon-type geoms.
-#' @param colour_box Colour for box-type geoms.
+#' @param colour_polygon Colour for border geoms.
+#' @param colour_box Colour for the boxplot geom.
 #' @param colour_font Colour for text/label geoms. If NULL, derived from axis text colour.
 #' @param colour_reference_line Colour for reference line geoms. If NULL, derived from axis line colour.
 #' @param fill Default fill for most geoms.
-#' @param fill_polygon Fill for polygon-type geoms.
-#' @param fill_box Fill for box-type geoms.
+#' @param fill_polygon Fill for border geoms.
+#' @param fill_box Fill for the boxplot geom.
 #' @param fill_font Fill for text/label geoms. If NULL, derived from panel background.
 #' @param ... Additional arguments (not used).
 #'
@@ -57,12 +57,12 @@ update_geom_col <- function(
     "black"
 
   # Define geom categories
-  polygon_geoms <- c("area", "bar", "col", "crossbar", "density", "histogram",
+  border_geoms <- c("area", "bar", "col", "crossbar", "density",
                      "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
                      "violin", "raster", "contour_filled", "density2d_filled",
                      "bin2d", "hex")
 
-  box_geoms <- c("boxplot", "crossbar")
+  box_geoms <- c("boxplot")
 
   font_geoms <- c("text", "label")
 
@@ -96,7 +96,7 @@ update_geom_col <- function(
       }
     } else if (geom %in% reference_line_geoms) {
       theme_args[[geom_name]] <- ggplot2::element_geom(colour = colour_reference_line)
-    } else if (geom %in% polygon_geoms) {
+    } else if (geom %in% border_geoms) {
       theme_args[[geom_name]] <- ggplot2::element_geom(
         colour = colour_polygon,
         fill = fill_polygon

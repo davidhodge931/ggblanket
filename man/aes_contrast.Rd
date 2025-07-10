@@ -38,7 +38,7 @@ It works by:
 }
 
 The function intelligently adapts to both light and dark themes by examining
-the current theme's text and panel background colours. Any colorful tints
+the current theme's text and panel background colours. Any colourful tints
 (e.g., from base_colour) are removed to ensure neutral contrast colours.
 }
 \examples{

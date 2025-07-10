@@ -549,10 +549,8 @@ process_data <- function(data, aes_list, x_symmetric) {
     aes_list$facet,
     aes_list$facet2
   )
-
   # Remove NULL values
   aes_to_process <- aes_to_process[!sapply(aes_to_process, rlang::quo_is_null)]
-
   # Ungroup and convert to factors
   data <- data |>
     dplyr::ungroup() |>
@@ -569,7 +567,6 @@ process_data <- function(data, aes_list, x_symmetric) {
         tidyselect::where(is.factor),
       function(x) forcats::fct_rev(x)
     ))
-
   # If flipped, order col correctly (only if col is not NULL)
   if (!rlang::quo_is_null(aes_list$col) && x_symmetric) {
     if (!identical(rlang::eval_tidy(aes_list$y, data),
@@ -581,10 +578,8 @@ process_data <- function(data, aes_list, x_symmetric) {
         ))
     }
   }
-
   data
 }
-
 #' Get facet layout
 #' @noRd
 get_facet_layout <- function(facet_layout, aes_list) {

@@ -4,8 +4,8 @@
 #' Updates the active theme to apply consistent linetype styling.
 #'
 #' @param linetype Default linetype for most geoms.
-#' @param linetype_polygon Linetype for polygon-type geoms.
-#' @param linetype_box Linetype for box-type geoms.
+#' @param linetype_polygon Linetype for border geoms.
+#' @param linetype_box Linetype for the boxplot geom.
 #' @param linetype_reference_line Linetype for reference line geoms. If NULL, derived from axis line linetype.
 #' @param ... Additional arguments (not used).
 #'
@@ -35,11 +35,12 @@ update_geom_linetype <- function(
     1
 
   # Define geom categories
-  polygon_geoms <- c("area", "bar", "col", "density", "map", "polygon",
-                     "rect", "ribbon", "tile", "violin", "bin2d", "hex",
-                     "raster", "contour_filled", "density2d_filled", "histogram")
+  border_geoms <- c("area", "bar", "col", "crossbar", "density",
+                     "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
+                     "violin", "raster", "contour_filled", "density2d_filled",
+                     "bin2d", "hex")
 
-  box_geoms <- c("boxplot", "crossbar")
+  box_geoms <- c("boxplot")
 
   reference_line_geoms <- c("abline", "hline", "vline")
 
@@ -62,7 +63,7 @@ update_geom_linetype <- function(
 
     if (geom %in% reference_line_geoms) {
       theme_args[[geom_name]] <- ggplot2::element_geom(linetype = linetype_reference_line)
-    } else if (geom %in% polygon_geoms) {
+    } else if (geom %in% border_geoms) {
       theme_args[[geom_name]] <- ggplot2::element_geom(
         bordertype = linetype_polygon,
         linetype = linetype_polygon

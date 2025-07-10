@@ -4,8 +4,8 @@
 #' Updates the active theme to apply consistent linewidth styling.
 #'
 #' @param linewidth Default linewidth for most geoms.
-#' @param linewidth_polygon Linewidth for polygon-type geoms.
-#' @param linewidth_box Linewidth for box-type geoms.
+#' @param linewidth_polygon Linewidth for border geoms.
+#' @param linewidth_box Linewidth for the boxplot geom.
 #' @param linewidth_reference_line Linewidth for reference line geoms. If NULL, derived from axis line linewidth.
 #' @param ... Additional arguments (not used).
 #'
@@ -35,11 +35,12 @@ update_geom_linewidth <- function(
     0.25
 
   # Define geom categories
-  polygon_geoms <- c("area", "bar", "bin2d", "col", "contour.filled",
-                     "density", "density2d.filled", "hex", "histogram", "map",
-                     "polygon", "raster", "rect", "ribbon", "tile", "violin")
+  border_geoms <- c("area", "bar", "col", "crossbar", "density",
+                     "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
+                     "violin", "raster", "contour_filled", "density2d_filled",
+                     "bin2d", "hex")
 
-  box_geoms <- c("boxplot", "crossbar")
+  box_geoms <- c("boxplot")
 
   reference_line_geoms <- c("abline", "hline", "vline")
 
@@ -53,7 +54,7 @@ update_geom_linewidth <- function(
   }
 
   # Polygon geoms
-  for (geom in polygon_geoms) {
+  for (geom in border_geoms) {
     geom_name <- paste0("geom.", geom)
     if (geom == "tile") {
       theme_args[[geom_name]] <- ggplot2::element_geom(borderwidth = linewidth_polygon / 0.4)

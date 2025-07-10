@@ -1,9 +1,9 @@
 #' Get a dark/light colour for contrast
 #'
 #' @description Get a dark/light colour based on contrast with fill colours.
-#'              When dark/light colors are not provided, intelligently derives them from
-#'              the current ggplot2 theme by examining text and panel background colors.
-#'              Colors are automatically desaturated to ensure readability.
+#'              When dark/light colours are not provided, intelligently derives them from
+#'              the current ggplot2 theme by examining text and panel background colours.
+#'              colours are automatically desaturated to ensure readability.
 #'
 #' @param fill A fill aesthetic from which to determine the colour scale for contrast.
 #' @param ... Provided to require argument naming, support trailing commas etc.
@@ -20,19 +20,19 @@
 #' - The `dark` colour when fill luminance > 50 (light fills)
 #' - The `light` colour when fill luminance <= 50 (dark fills)
 #'
-#' When deriving colors from the theme, the function:
-#' 1. Extracts text color (from axis.text.x, axis.text.y, axis.text, or text)
-#' 2. Extracts panel background color
-#' 3. Desaturates both colors to remove any colorful tints
+#' When deriving colours from the theme, the function:
+#' 1. Extracts text colour (from axis.text.x, axis.text.y, axis.text, or text)
+#' 2. Extracts panel background colour
+#' 3. Desaturates both colours to remove any colourful tints
 #' 4. Assigns the darker one to `dark` and lighter one to `light`
 #'
-#' This ensures readable contrast even when themes use colorful base colours.
+#' This ensures readable contrast even when themes use colourful base colours.
 #'
 #' @noRd
 #'
 #' @examples
 #' get_contrast(fill = c("navy", "yellow", "orange"), dark = "black", light = "white")
-#' get_contrast(fill = c("#000000", "#FFFFFF", "#808080"))  # Uses theme colors
+#' get_contrast(fill = c("#000000", "#FFFFFF", "#808080"))  # Uses theme colours
 #'
 get_contrast <- function(fill, ..., dark = NULL, light = NULL) {
   # Only get theme if we need it
@@ -40,7 +40,7 @@ get_contrast <- function(fill, ..., dark = NULL, light = NULL) {
     # Get current theme
     current_theme <- ggplot2::get_theme()
 
-    # Get text color from theme
+    # Get text colour from theme
     theme_text <- current_theme$axis.text.x$colour %||%
       current_theme$axis.text.y$colour %||%
       current_theme$axis.text$colour %||%
@@ -107,7 +107,7 @@ get_contrast <- function(fill, ..., dark = NULL, light = NULL) {
 #' 3. Selecting either the dark or light colour based on contrast needs
 #'
 #' The function intelligently adapts to both light and dark themes by examining
-#' the current theme's text and panel background colours. Any colorful tints
+#' the current theme's text and panel background colours. Any colourful tints
 #' (e.g., from base_colour) are removed to ensure neutral contrast colours.
 #'
 #' @seealso
@@ -146,7 +146,7 @@ aes_contrast <- function(..., dark = NULL, light = NULL) {
     # Get current theme
     current_theme <- ggplot2::get_theme()
 
-    # Get text color from theme
+    # Get text colour from theme
     theme_text <- current_theme$axis.text.x$colour %||%
       current_theme$axis.text.y$colour %||%
       current_theme$axis.text$colour %||%
