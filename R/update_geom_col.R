@@ -3,6 +3,7 @@
 #' @description
 #' Updates the active theme to apply consistent colour/fill styling.
 #'
+#' @param col Default colour/fill base for most geoms.
 #' @param colour Default colour for most geoms.
 #' @param colour_border Colour for border geoms. Excludes boxplot.
 #' @param colour_font Colour for text/label geoms. If NULL, derived from axis text colour.
@@ -16,6 +17,7 @@
 #'
 #' @noRd
 update_geom_col <- function(
+    col = blue,
     colour = col,
     colour_border = col_squared(colour),
     colour_font = NULL,

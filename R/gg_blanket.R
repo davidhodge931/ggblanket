@@ -17,7 +17,7 @@
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] defaults. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
-#' @param x_breaks_n,y_breaks_n,col_breaks_n A number of desired breaks for when `*_breaks = NULL`.
+#' @param x_breaks_n,y_breaks_n,col_breaks_n A number of desired breaks.
 #' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
 #' @param x_limits_include,y_limits_include,col_limits_include For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
 #' @param x_title,y_title,col_title Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)` for no title.
@@ -32,6 +32,7 @@
 #' @param col_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' @param col_palette_na A hex code (or name) for the colour of `NA` values.
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
+#' @param col_scale_type Either "gradient" or "steps". Defaults to "gradient".
 #' @param colour_palette,fill_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_*()` may be needed.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
@@ -97,8 +98,8 @@ gg_blanket <- function(
     y_sec_axis = ggplot2::waiver(),
     y_symmetric = NULL,
     y_transform = NULL,
-    col_breaks = NULL,
-    col_breaks_n = 6,
+    col_breaks = ggplot2::waiver(),
+    col_breaks_n = NULL,
     col_drop = FALSE,
     col_limits_include = NULL,
     col_title = NULL,
@@ -109,7 +110,7 @@ gg_blanket <- function(
     col_palette = NULL,
     col_palette_na = "#CDC5BFFF",
     col_rescale = scales::rescale(),
-    # col_scale_type = "gradient",
+    col_scale_type = "gradient",
     col_transform = NULL,
     colour_palette = NULL,
     fill_palette = NULL,
@@ -499,17 +500,6 @@ gg_blanket <- function(
     }
     col_transform_name <- get_transform_name(col_transform)
 
-    # Get breaks
-    if (rlang::is_null(col_breaks)) {
-      if (col_scale_class %in% c("discrete", "ordinal")) {
-        col_breaks <- ggplot2::waiver()
-      } else if (any(col_transform_name %in% c("hms", "time", "datetime", "date"))) {
-        col_breaks <- scales::breaks_pretty(n = col_breaks_n)
-      } else {
-        col_breaks <- scales::breaks_pretty(n = col_breaks_n)
-      }
-    }
-
     # Get labels
     if (rlang::is_null(col_labels)) {
       if (col_scale_class %in% c("discrete", "ordinal")) {
@@ -694,12 +684,13 @@ gg_blanket <- function(
       }
 
       # Apply continuous scales
-      # if (col_scale_type == "gradient") {
+      if (col_scale_type == "gradient") {
         plot <- plot +
           ggplot2::scale_colour_gradientn(
             colours = colour_palette_values,
             values = col_rescale,
             breaks = col_breaks,
+            n.breaks = col_breaks_n,
             labels = col_labels,
             transform = col_transform,
             oob = scales::oob_keep,
@@ -709,6 +700,7 @@ gg_blanket <- function(
             colours = fill_palette_values,
             values = col_rescale,
             breaks = col_breaks,
+            n.breaks = col_breaks_n,
             labels = col_labels,
             transform = col_transform,
             oob = scales::oob_keep,
@@ -729,52 +721,54 @@ gg_blanket <- function(
               fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
             )
         }
-      # }
-      # else if (col_scale_type == "steps") {
-      #   plot <- plot +
-      #     ggplot2::scale_colour_stepsn(
-      #       colours = colour_palette_values,
-      #       values = col_rescale,
-      #       breaks = col_breaks, # col_breaks not working
-      #       labels = col_labels,
-      #       transform = col_transform,
-      #       oob = scales::oob_keep,
-      #       na.value = col_palette_na
-      #     ) +
-      #     ggplot2::scale_fill_stepsn(
-      #       colours = fill_palette_values,
-      #       values = col_rescale,
-      #       breaks = col_breaks, # col_breaks not working
-      #       labels = col_labels,
-      #       transform = col_transform,
-      #       oob = scales::oob_keep,
-      #       na.value = col_palette_na
-      #     )
-      #
-      #   if (!identical(colour_palette, fill_palette)) {
-      #     plot <- plot +
-      #       ggplot2::guides(
-      #         colour = ggplot2::guide_none(),
-      #         fill = ggplot2::guide_coloursteps(
-      #           reverse = col_legend_rev,
-      #           theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-      #         )
-      #       )
-      #   }
-      #   else {
-      #     plot <- plot +
-      #       ggplot2::guides(
-      #         colour = ggplot2::guide_coloursteps(
-      #           reverse = col_legend_rev,
-      #           theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-      #         ),
-      #         fill = ggplot2::guide_coloursteps(
-      #           reverse = col_legend_rev,
-      #           theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-      #         )
-      #       )
-      #   }
-      # }
+      }
+      else if (col_scale_type == "steps") {
+        plot <- plot +
+          ggplot2::scale_colour_stepsn(
+            colours = colour_palette_values,
+            values = col_rescale,
+            breaks = col_breaks,
+            n.breaks = col_breaks_n,
+            labels = col_labels,
+            transform = col_transform,
+            oob = scales::oob_keep,
+            na.value = col_palette_na
+          ) +
+          ggplot2::scale_fill_stepsn(
+            colours = fill_palette_values,
+            values = col_rescale,
+            breaks = col_breaks,
+            n.breaks = col_breaks_n,
+            labels = col_labels,
+            transform = col_transform,
+            oob = scales::oob_keep,
+            na.value = col_palette_na
+          )
+
+        if (!identical(colour_palette, fill_palette)) {
+          plot <- plot +
+            ggplot2::guides(
+              colour = ggplot2::guide_none(),
+              fill = ggplot2::guide_coloursteps(
+                reverse = col_legend_rev,
+                theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+              )
+            )
+        }
+        else {
+          plot <- plot +
+            ggplot2::guides(
+              colour = ggplot2::guide_coloursteps(
+                reverse = col_legend_rev,
+                theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+              ),
+              fill = ggplot2::guide_coloursteps(
+                reverse = col_legend_rev,
+                theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+              )
+            )
+        }
+      }
     }
     else if (col_scale_class == "ordinal") {
       # Calculate number of colors needed

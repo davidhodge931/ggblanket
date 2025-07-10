@@ -55,8 +55,8 @@ gg_blanket(
   y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
   y_transform = NULL,
-  col_breaks = NULL,
-  col_breaks_n = 6,
+  col_breaks = ggplot2::waiver(),
+  col_breaks_n = NULL,
   col_drop = FALSE,
   col_limits_include = NULL,
   col_title = NULL,
@@ -67,6 +67,7 @@ gg_blanket(
   col_palette = NULL,
   col_palette_na = "#CDC5BFFF",
   col_rescale = scales::rescale(),
+  col_scale_type = "gradient",
   col_transform = NULL,
   colour_palette = NULL,
   fill_palette = NULL,
@@ -116,7 +117,7 @@ gg_blanket(
 
 \item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 
-\item{x_breaks_n, y_breaks_n, col_breaks_n}{A number of desired breaks for when \verb{*_breaks = NULL}.}
+\item{x_breaks_n, y_breaks_n, col_breaks_n}{A number of desired breaks.}
 
 \item{x_expand, y_expand}{Padding to the limits with the \code{\link[ggplot2:expansion]{ggplot2::expansion()}} function, or a vector of length 2 (e.g. \code{c(0, 0)}).}
 
@@ -145,6 +146,8 @@ gg_blanket(
 \item{col_palette_na}{A hex code (or name) for the colour of \code{NA} values.}
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
+
+\item{col_scale_type}{Either "gradient" or "steps". Defaults to "gradient".}
 
 \item{colour_palette, fill_palette}{A character vector of hex codes (or names) or a \verb{scales::pal_*()} function.}
 

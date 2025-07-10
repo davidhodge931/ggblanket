@@ -10,7 +10,7 @@
 #' @examples
 #' library(ggplot2)
 #' library(dplyr)
-#' 
+#'
 #'
 #' set_blanket()
 #'
@@ -31,7 +31,7 @@ gg_hex <- function(
   axis_line_transparent = NULL,
   axis_ticks_transparent = NULL,
   panel_grid_transparent = NULL,
-  
+
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -70,8 +70,8 @@ gg_hex <- function(
   y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
   y_transform = NULL,
-  col_breaks = NULL,
-  col_breaks_n = 6,
+  col_breaks = ggplot2::waiver(),
+  col_breaks_n = NULL,
   col_drop = FALSE,
   col_limits_include = NULL,
   col_title = NULL,
@@ -82,7 +82,7 @@ gg_hex <- function(
   col_palette = NULL,
   col_palette_na = "#CDC5BFFF",
   col_rescale = scales::rescale(),
-  # col_scale_type = "gradient",
+  col_scale_type = "gradient",
   col_transform = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
@@ -159,7 +159,7 @@ gg_hex <- function(
     col_palette = col_palette,
     col_palette_na = col_palette_na,
     col_rescale = col_rescale,
-    # col_scale_type = col_scale_type,
+    col_scale_type = col_scale_type,
     col_title = col_title,
     col_transform = col_transform,
     facet_axes = facet_axes,

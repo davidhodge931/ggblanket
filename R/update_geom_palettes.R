@@ -21,7 +21,7 @@
 #' @noRd
 update_geom_palettes <- function(
     col_palette_d = jumble,
-    col_palette_c = viridisLite::mako(20, direction = -1),
+    col_palette_c = viridisLite::mako(n = 20, direction = -1, end = 0.9),
 
     colour_palette_d = col_palette_d,
     colour_palette_d_border = col_squared(colour_palette_d),
