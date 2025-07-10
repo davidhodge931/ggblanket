@@ -203,6 +203,28 @@ gg_blanket <- function(
     if (geom_name == "boxplot") blend <- "multiply"
   }
 
+  if (geom_name %in% c("bin2d", "hex")) {
+    if (is.null(mapping)) {
+      mapping <- aes(colour = after_stat(count))
+    }
+    else if (!is.null(mapping)) {
+      if (!"colour" %in% names(mapping)) {
+        mapping <- modifyList(mapping, aes(colour = after_stat(count)))
+      }
+    }
+  }
+
+  if (geom_name %in% c("contour_filled", "density2d_filled")) {
+    if (is.null(mapping)) {
+      mapping <- aes(colour = after_stat(level))
+    }
+    else if (!is.null(mapping)) {
+      if (!"colour" %in% names(mapping)) {
+        mapping <- modifyList(mapping, aes(colour = after_stat(level)))
+      }
+    }
+  }
+
   ##############################################################################
   # Step 5: Determine scale types
   ##############################################################################
