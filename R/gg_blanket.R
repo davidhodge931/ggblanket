@@ -108,7 +108,7 @@ gg_blanket <- function(
     col_legend_nrow = NULL,
     col_legend_rev = FALSE,
     col_palette = NULL,
-    col_palette_na = "#CDC5BFFF",
+    col_palette_na = NULL,
     col_rescale = scales::rescale(),
     col_scale_type = "gradient",
     col_transform = NULL,
@@ -511,6 +511,17 @@ gg_blanket <- function(
       }
     }
 
+    # Get NA colours for colour_palette and fill_palette
+    if (is_border_geom) {
+      na_colour <- getOption("ggblanket.colour_palette_na_border", "grey50")
+      na_fill <- getOption("ggblanket.fill_palette_na_border", "grey50")
+    } else {
+      na_colour <- getOption("ggblanket.colour_palette_na", "grey50")
+      na_fill <- getOption("ggblanket.fill_palette_na", "grey50")
+    }
+    # if (rlang::is_null(na_colour)) na_colour <- "grey50"
+    # if (rlang::is_null(na_fill)) na_fill <- "grey50"
+
     # Get other defaults (transform, breaks, labels, etc.)
     # Get transform
     if (rlang::is_null(col_transform)) {
@@ -596,7 +607,7 @@ gg_blanket <- function(
               values = colour_palette_values,
               breaks = col_breaks,
               labels = col_labels,
-              na.value = col_palette_na,
+              na.value = na_colour,
               drop = col_drop
             )
         } else if (rlang::is_function(colour_palette)) {
@@ -606,7 +617,7 @@ gg_blanket <- function(
               palette = colour_palette,
               breaks = col_breaks,
               labels = col_labels,
-              na.value = col_palette_na,
+              na.value = na_colour,
               drop = col_drop
             )
         }
@@ -619,7 +630,7 @@ gg_blanket <- function(
               values = fill_palette_values,
               breaks = col_breaks,
               labels = col_labels,
-              na.value = col_palette_na,
+              na.value = na_fill,
               drop = col_drop
             )
         } else if (rlang::is_function(fill_palette)) {
@@ -629,7 +640,7 @@ gg_blanket <- function(
               palette = fill_palette,
               breaks = col_breaks,
               labels = col_labels,
-              na.value = col_palette_na,
+              na.value = na_fill,
               drop = col_drop
             )
         }
@@ -712,7 +723,7 @@ gg_blanket <- function(
             labels = col_labels,
             transform = col_transform,
             oob = scales::oob_keep,
-            na.value = col_palette_na
+            na.value = na_colour
           ) +
           ggplot2::scale_fill_gradientn(
             colours = fill_palette_values,
@@ -722,7 +733,7 @@ gg_blanket <- function(
             labels = col_labels,
             transform = col_transform,
             oob = scales::oob_keep,
-            na.value = col_palette_na
+            na.value = na_fill
           )
 
         if (!identical(colour_palette, fill_palette)) {
@@ -750,7 +761,7 @@ gg_blanket <- function(
             labels = col_labels,
             transform = col_transform,
             oob = scales::oob_keep,
-            na.value = col_palette_na
+            na.value = na_colour
           ) +
           ggplot2::scale_fill_stepsn(
             colours = fill_palette_values,
@@ -760,7 +771,7 @@ gg_blanket <- function(
             labels = col_labels,
             transform = col_transform,
             oob = scales::oob_keep,
-            na.value = col_palette_na
+            na.value = na_fill
           )
 
         if (!identical(colour_palette, fill_palette)) {
@@ -830,7 +841,7 @@ gg_blanket <- function(
             palette = colour_palette_discrete,
             breaks = col_breaks,
             labels = col_labels,
-            na.value = col_palette_na,
+            na.value = na_colour,
             drop = col_drop
           )
       }
@@ -861,7 +872,7 @@ gg_blanket <- function(
             palette = fill_palette_discrete,
             breaks = col_breaks,
             labels = col_labels,
-            na.value = col_palette_na,
+            na.value = na_fill,
             drop = col_drop
           )
       }

@@ -49,7 +49,7 @@
 <rect x='237.02' y='48.21' width='79.08' height='241.88' style='stroke-width: 0.53; stroke: #BA0E0D; stroke-linecap: butt; stroke-linejoin: miter; fill: #DA3C39;' />
 <rect x='316.10' y='48.21' width='79.08' height='241.88' style='stroke-width: 0.53; stroke: #BA0E0D; stroke-linecap: butt; stroke-linejoin: miter; fill: #DA3C39;' />
 <rect x='395.19' y='48.21' width='79.08' height='241.88' style='stroke-width: 0.53; stroke: #DA62A2; stroke-linecap: butt; stroke-linejoin: miter; fill: #EC9ECB;' />
-<rect x='474.27' y='48.21' width='158.17' height='241.88' style='stroke-width: 0.53; stroke: #CDC5BF; stroke-linecap: butt; stroke-linejoin: miter; fill: #CDC5BF;' />
+<rect x='474.27' y='48.21' width='158.17' height='241.88' style='stroke-width: 0.53; stroke: #A5988F; stroke-linecap: butt; stroke-linejoin: miter; fill: #CDC5BF;' />
 <polyline points='51.17,531.97 51.17,48.21 ' style='stroke-width: 0.53; stroke: none; stroke-linecap: square;' />
 <text x='44.78' y='535.41' text-anchor='end' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>1</text>
 <text x='44.78' y='414.47' text-anchor='end' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='13.90px' lengthAdjust='spacingAndGlyphs'>1.5</text>
@@ -93,7 +93,7 @@
 <rect x='673.82' y='156.78' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <rect x='674.17' y='157.14' width='9.66' height='19.21' style='stroke-width: 0.53; stroke: #DA62A2; stroke-linecap: butt; stroke-linejoin: miter; fill: #EC9ECB;' />
 <rect x='673.82' y='180.31' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<rect x='674.17' y='180.67' width='9.66' height='19.21' style='stroke-width: 0.53; stroke: #CDC5BF; stroke-linecap: butt; stroke-linejoin: miter; fill: #CDC5BF;' />
+<rect x='674.17' y='180.67' width='9.66' height='19.21' style='stroke-width: 0.53; stroke: #A5988F; stroke-linecap: butt; stroke-linejoin: miter; fill: #CDC5BF;' />
 <text x='689.67' y='76.05' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>1</text>
 <text x='689.67' y='99.58' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>2</text>
 <text x='689.67' y='123.11' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>3</text>

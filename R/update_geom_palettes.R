@@ -2,18 +2,23 @@
 #'
 #' @description
 #' Updates the active theme to apply consistent colour/fill palette styling.
-#' Sets global options for col_palette and geom-specific palettes.
+#' Sets global options for col_palette and geom-specific palettes, including NA values.
 #'
 #' @param col_palette_d For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
+#' @param col_palette_c For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param colour_palette_d For a discrete colour scale, a character vector or a `scales::pal_*` function.
 #' @param colour_palette_d_border For border geoms with discrete colour scale, a character vector or a `scales::pal_*` function.
 #' @param fill_palette_d For a discrete fill scale, a character vector or a `scales::pal_*` function.
 #' @param fill_palette_d_border For border geoms with discrete fill scale, a character vector or a `scales::pal_*` function.
-#' @param col_palette_c For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param colour_palette_c For a continuous colour scale, a character vector or a `scales::pal_*` function.
 #' @param colour_palette_c_border For border geoms with continuous colour scale, a character vector or a `scales::pal_*` function.
 #' @param fill_palette_c For a continuous fill scale, a character vector or a `scales::pal_*` function.
 #' @param fill_palette_c_border For border geoms with continuous fill scale, a character vector or a `scales::pal_*` function.
+#' @param col_palette_na For NA values in both colour/fill scales, a hex code. Defaults to "#CDC5BFFF".
+#' @param colour_palette_na For NA values in colour scales, a hex code.
+#' @param colour_palette_na_border For NA values in border geoms with colour scale, a hex code.
+#' @param fill_palette_na For NA values in fill scales, a hex code.
+#' @param fill_palette_na_border For NA values in border geoms with fill scale, a hex code.
 #' @param ... Additional arguments (not used).
 #'
 #' @return An updated ggplot2 theme and global options.
@@ -22,7 +27,6 @@
 update_geom_palettes <- function(
     col_palette_d = jumble,
     col_palette_c = viridisLite::mako(n = 20, direction = -1, end = 0.9),
-
     colour_palette_d = NULL,
     colour_palette_d_border = NULL,
     fill_palette_d = NULL,
@@ -31,18 +35,28 @@ update_geom_palettes <- function(
     colour_palette_c_border = NULL,
     fill_palette_c = NULL,
     fill_palette_c_border = NULL,
+    col_palette_na = "#CDC5BFFF",
+    colour_palette_na = NULL,
+    colour_palette_na_border = NULL,
+    fill_palette_na = NULL,
+    fill_palette_na_border = NULL,
     ...
 ) {
+  # Handle palette defaults
+  if (rlang::is_null(colour_palette_d)) colour_palette_d <- col_palette_d
+  if (rlang::is_null(colour_palette_d_border)) colour_palette_d_border <- col_squared(colour_palette_d)
+  if (rlang::is_null(fill_palette_d)) fill_palette_d <- col_palette_d
+  if (rlang::is_null(fill_palette_d_border)) fill_palette_d_border <- fill_palette_d
+  if (rlang::is_null(colour_palette_c)) colour_palette_c <- col_palette_c
+  if (rlang::is_null(colour_palette_c_border)) colour_palette_c_border <- col_squared(colour_palette_c)
+  if (rlang::is_null(fill_palette_c)) fill_palette_c <- col_palette_c
+  if (rlang::is_null(fill_palette_c_border)) fill_palette_c_border <- fill_palette_c
 
-  # Handle defaults
-  if(is.null(colour_palette_d)) colour_palette_d <- col_palette_d
-  if(is.null(colour_palette_d_border)) colour_palette_d_border <- col_squared(colour_palette_d)
-  if(is.null(fill_palette_d)) fill_palette_d <- col_palette_d
-  if(is.null(fill_palette_d_border)) fill_palette_d_border <- fill_palette_d
-  if(is.null(colour_palette_c)) colour_palette_c <- col_palette_c
-  if(is.null(colour_palette_c_border)) colour_palette_c_border <- col_squared(colour_palette_c)
-  if(is.null(fill_palette_c)) fill_palette_c <- col_palette_c
-  if(is.null(fill_palette_c_border)) fill_palette_c_border <- fill_palette_c
+  # Handle NA color defaults
+  if (rlang::is_null(colour_palette_na)) colour_palette_na <- col_palette_na
+  if (rlang::is_null(colour_palette_na_border)) colour_palette_na_border <- col_squared(colour_palette_na)
+  if (rlang::is_null(fill_palette_na)) fill_palette_na <- col_palette_na
+  if (rlang::is_null(fill_palette_na_border)) fill_palette_na_border <- fill_palette_na
 
   # Set theme-level palettes
   ggplot2::update_theme(
@@ -52,11 +66,18 @@ update_geom_palettes <- function(
     palette.fill.continuous = fill_palette_c
   )
 
-  # Set global ggblanket options for border palettes
+  # Set global ggblanket options for all palettes and NA colors
   options(
+    # Border palettes
     ggblanket.colour_palette_d_border = colour_palette_d_border,
     ggblanket.fill_palette_d_border = fill_palette_d_border,
     ggblanket.colour_palette_c_border = colour_palette_c_border,
-    ggblanket.fill_palette_c_border = fill_palette_c_border
+    ggblanket.fill_palette_c_border = fill_palette_c_border,
+    # NA colors
+    ggblanket.col_palette_na = col_palette_na,
+    ggblanket.colour_palette_na = colour_palette_na,
+    ggblanket.colour_palette_na_border = colour_palette_na_border,
+    ggblanket.fill_palette_na = fill_palette_na,
+    ggblanket.fill_palette_na_border = fill_palette_na_border
   )
 }

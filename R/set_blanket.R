@@ -30,23 +30,21 @@
 #' @param size A default size for point geoms. Defaults to 1.5.
 #' @param size_font A size for text/label geoms in mm. If NULL, derived from theme axis text size.
 #' @param family_font A font family. If NULL, derived from axis text family.
-#' @param col_palette_d For discrete scales, a palette to use for both colour and fill.
-#'   A character vector of hex codes or a `scales::pal_*` function. Defaults to `jumble`.
-#' @param col_palette_c For continuous scales, a palette to use for both colour and fill.
-#'   A character vector of hex codes or a `scales::pal_*` function.
-#'   Defaults to `scales::pal_viridis(option = "G", direction = -1)`.
-#' @param colour_palette_d For discrete colour scales. If NULL, uses `col_palette_d`.
-#' @param colour_palette_d_border For border geoms with discrete colour scales.
-#'   If NULL, uses `col_squared(colour_palette_d)`.
-#' @param fill_palette_d For discrete fill scales. If NULL, uses `col_palette_d`.
-#' @param fill_palette_d_border For border geoms with discrete fill scales.
-#'   If NULL, uses `fill_palette_d`.
-#' @param colour_palette_c For continuous colour scales. If NULL, uses `col_palette_c`.
-#' @param colour_palette_c_border For border geoms with continuous colour scales.
-#'   If NULL, uses `colour_palette_c`.
-#' @param fill_palette_c For continuous fill scales. If NULL, uses `col_palette_c`.
-#' @param fill_palette_c_border For border geoms with continuous fill scales.
-#'   If NULL, uses `fill_palette_c`.
+#' @param col_palette_d For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
+#' @param col_palette_c For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
+#' @param colour_palette_d For a discrete colour scale, a character vector or a `scales::pal_*` function.
+#' @param colour_palette_d_border For border geoms with discrete colour scale, a character vector or a `scales::pal_*` function.
+#' @param fill_palette_d For a discrete fill scale, a character vector or a `scales::pal_*` function.
+#' @param fill_palette_d_border For border geoms with discrete fill scale, a character vector or a `scales::pal_*` function.
+#' @param colour_palette_c For a continuous colour scale, a character vector or a `scales::pal_*` function.
+#' @param colour_palette_c_border For border geoms with continuous colour scale, a character vector or a `scales::pal_*` function.
+#' @param fill_palette_c For a continuous fill scale, a character vector or a `scales::pal_*` function.
+#' @param fill_palette_c_border For border geoms with continuous fill scale, a character vector or a `scales::pal_*` function.
+#' @param col_palette_na For NA values in both colour/fill scales, a hex code. Defaults to "#CDC5BFFF".
+#' @param colour_palette_na For NA values in colour scales, a hex code.
+#' @param colour_palette_na_border For NA values in border geoms with colour scale, a hex code.
+#' @param fill_palette_na For NA values in fill scales, a hex code.
+#' @param fill_palette_na_border For NA values in border geoms with fill scale, a hex code.
 #' @param titles_case A function to apply to unspecified/unlabelled titles in `gg_*` functions.
 #'   Defaults to `snakecase::to_sentence_case`.
 #' @param axis_line_transparent Logical. Whether `gg_*` functions should remove the relevant
@@ -110,6 +108,12 @@ set_blanket <- function(
     colour_palette_c_border = NULL,
     fill_palette_c = NULL,
     fill_palette_c_border = NULL,
+
+    col_palette_na = "#CDC5BFFF",
+    colour_palette_na = NULL,
+    colour_palette_na_border = NULL,
+    fill_palette_na = NULL,
+    fill_palette_na_border = NULL,
 
     titles_case = snakecase::to_sentence_case,
     axis_line_transparent = TRUE,
@@ -182,6 +186,12 @@ set_blanket <- function(
     fill_palette_d_border = fill_palette_d_border,
     colour_palette_c_border = colour_palette_c_border,
     fill_palette_c_border = fill_palette_c_border,
+
+    col_palette_na = col_palette_na,
+    colour_palette_na = colour_palette_na,
+    colour_palette_na_border = colour_palette_na_border,
+    fill_palette_na = fill_palette_na,
+    fill_palette_na_border = fill_palette_na_border
   )
 
   weave_titles_case(titles_case = titles_case)
