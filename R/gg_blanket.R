@@ -32,7 +32,6 @@
 #' @param col_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' @param col_palette_na A hex code (or name) for the colour of `NA` values.
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
-#' @param col_scale_type The continuous scale type. Either `"gradient"` or `"steps"`.
 #' @param colour_palette,fill_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_*()` may be needed.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
@@ -110,7 +109,7 @@ gg_blanket <- function(
     col_palette = NULL,
     col_palette_na = "#CDC5BFFF",
     col_rescale = scales::rescale(),
-    col_scale_type = "gradient",
+    # col_scale_type = "gradient",
     col_transform = NULL,
     colour_palette = NULL,
     fill_palette = NULL,
@@ -695,7 +694,7 @@ gg_blanket <- function(
       }
 
       # Apply continuous scales
-      if (col_scale_type == "gradient") {
+      # if (col_scale_type == "gradient") {
         plot <- plot +
           ggplot2::scale_colour_gradientn(
             colours = colour_palette_values,
@@ -730,52 +729,52 @@ gg_blanket <- function(
               fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
             )
         }
-      }
-      else if (col_scale_type == "steps") {
-        plot <- plot +
-          ggplot2::scale_colour_stepsn(
-            colours = colour_palette_values,
-            values = col_rescale,
-            breaks = col_breaks,
-            labels = col_labels,
-            transform = col_transform,
-            oob = scales::oob_keep,
-            na.value = col_palette_na
-          ) +
-          ggplot2::scale_fill_stepsn(
-            colours = fill_palette_values,
-            values = col_rescale,
-            breaks = col_breaks,
-            labels = col_labels,
-            transform = col_transform,
-            oob = scales::oob_keep,
-            na.value = col_palette_na
-          )
-
-        if (!identical(colour_palette, fill_palette)) {
-          plot <- plot +
-            ggplot2::guides(
-              colour = ggplot2::guide_none(),
-              fill = ggplot2::guide_coloursteps(
-                reverse = col_legend_rev,
-                theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-              )
-            )
-        }
-        else {
-          plot <- plot +
-            ggplot2::guides(
-              colour = ggplot2::guide_coloursteps(
-                reverse = col_legend_rev,
-                theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-              ),
-              fill = ggplot2::guide_coloursteps(
-                reverse = col_legend_rev,
-                theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-              )
-            )
-        }
-      }
+      # }
+      # else if (col_scale_type == "steps") {
+      #   plot <- plot +
+      #     ggplot2::scale_colour_stepsn(
+      #       colours = colour_palette_values,
+      #       values = col_rescale,
+      #       breaks = col_breaks, # col_breaks not working
+      #       labels = col_labels,
+      #       transform = col_transform,
+      #       oob = scales::oob_keep,
+      #       na.value = col_palette_na
+      #     ) +
+      #     ggplot2::scale_fill_stepsn(
+      #       colours = fill_palette_values,
+      #       values = col_rescale,
+      #       breaks = col_breaks, # col_breaks not working
+      #       labels = col_labels,
+      #       transform = col_transform,
+      #       oob = scales::oob_keep,
+      #       na.value = col_palette_na
+      #     )
+      #
+      #   if (!identical(colour_palette, fill_palette)) {
+      #     plot <- plot +
+      #       ggplot2::guides(
+      #         colour = ggplot2::guide_none(),
+      #         fill = ggplot2::guide_coloursteps(
+      #           reverse = col_legend_rev,
+      #           theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+      #         )
+      #       )
+      #   }
+      #   else {
+      #     plot <- plot +
+      #       ggplot2::guides(
+      #         colour = ggplot2::guide_coloursteps(
+      #           reverse = col_legend_rev,
+      #           theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+      #         ),
+      #         fill = ggplot2::guide_coloursteps(
+      #           reverse = col_legend_rev,
+      #           theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+      #         )
+      #       )
+      #   }
+      # }
     }
     else if (col_scale_class == "ordinal") {
       # Calculate number of colors needed

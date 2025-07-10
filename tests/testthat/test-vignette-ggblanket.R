@@ -119,7 +119,6 @@ test_that(test_name, {
       y_labels = scales::label_number(big.mark = " "),
       y_expand = expansion(mult = c(0, 0.05)),
       y_title = "Body mass (g)",
-      col_scale_type = "steps",
       facet_labels = \(x) str_to_sentence(x),
     )
 

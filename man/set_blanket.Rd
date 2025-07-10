@@ -9,20 +9,16 @@ set_blanket(
   col = blue,
   colour = NULL,
   colour_border = NULL,
-  colour_box = NULL,
   colour_font = NULL,
   colour_reference_line = NULL,
   fill = NULL,
   fill_border = NULL,
-  fill_box = NULL,
   fill_font = NULL,
   linewidth = 0.66,
   linewidth_border = 0.25,
-  linewidth_box = NULL,
   linewidth_reference_line = NULL,
   linetype = 1,
   linetype_border = NULL,
-  linetype_box = NULL,
   linetype_reference_line = NULL,
   size = 1.5,
   size_font = NULL,
@@ -31,16 +27,12 @@ set_blanket(
   col_palette_c = viridisLite::mako(20, direction = -1),
   colour_palette_d = NULL,
   colour_palette_d_border = NULL,
-  colour_palette_d_box = NULL,
   fill_palette_d = NULL,
   fill_palette_d_border = NULL,
-  fill_palette_d_box = NULL,
   colour_palette_c = NULL,
   colour_palette_c_border = NULL,
-  colour_palette_c_box = NULL,
   fill_palette_c = NULL,
   fill_palette_c_border = NULL,
-  fill_palette_c_box = NULL,
   titles_case = snakecase::to_sentence_case,
   axis_line_transparent = TRUE,
   axis_ticks_transparent = TRUE,
@@ -58,8 +50,6 @@ set_blanket(
 \item{colour_border}{A hex code for border geoms.
 If NULL, uses \code{col_squared(colour)}.}
 
-\item{colour_box}{A hex code for the boxplot geom. If NULL, uses \code{colour}.}
-
 \item{colour_font}{A hex code for text/label geoms. If NULL, derived from theme axis text colour.}
 
 \item{colour_reference_line}{A hex code for reference line geoms (abline, hline, vline).
@@ -69,15 +59,11 @@ If NULL, derived from theme axis line colour.}
 
 \item{fill_border}{A hex code for border geoms. If NULL, uses \code{fill}.}
 
-\item{fill_box}{A hex code for the boxplot geom. If NULL, uses \code{fill}.}
-
 \item{fill_font}{A hex code for label geom fills. If NULL, derived from theme panel background.}
 
 \item{linewidth}{A default linewidth for most geoms. Defaults to 0.66.}
 
 \item{linewidth_border}{A linewidth for border geoms. Defaults to 0.25.}
-
-\item{linewidth_box}{A linewidth for the boxplot geom. Defaults to 0.25.}
 
 \item{linewidth_reference_line}{A linewidth for reference line geoms.
 If NULL, derived from theme axis line linewidth.}
@@ -85,8 +71,6 @@ If NULL, derived from theme axis line linewidth.}
 \item{linetype}{A default linetype for most geoms. Defaults to 1 (solid).}
 
 \item{linetype_border}{A linetype for border geoms. If NULL, uses \code{linetype}.}
-
-\item{linetype_box}{A linetype for the boxplot geom. If NULL, uses \code{linetype}.}
 
 \item{linetype_reference_line}{A linetype for reference line geoms. If NULL, uses \code{linetype}.}
 
@@ -108,15 +92,9 @@ Defaults to \code{scales::pal_viridis(option = "G", direction = -1)}.}
 \item{colour_palette_d_border}{For border geoms with discrete colour scales.
 If NULL, uses \code{col_squared(colour_palette_d)}.}
 
-\item{colour_palette_d_box}{For the boxplot geom with discrete colour scales.
-If NULL, uses \code{colour_palette_d}.}
-
 \item{fill_palette_d}{For discrete fill scales. If NULL, uses \code{col_palette_d}.}
 
 \item{fill_palette_d_border}{For border geoms with discrete fill scales.
-If NULL, uses \code{fill_palette_d}.}
-
-\item{fill_palette_d_box}{For the boxplot geom with discrete fill scales.
 If NULL, uses \code{fill_palette_d}.}
 
 \item{colour_palette_c}{For continuous colour scales. If NULL, uses \code{col_palette_c}.}
@@ -124,15 +102,9 @@ If NULL, uses \code{fill_palette_d}.}
 \item{colour_palette_c_border}{For border geoms with continuous colour scales.
 If NULL, uses \code{colour_palette_c}.}
 
-\item{colour_palette_c_box}{For the boxplot geom with continuous colour scales.
-If NULL, uses \code{colour_palette_c}.}
-
 \item{fill_palette_c}{For continuous fill scales. If NULL, uses \code{col_palette_c}.}
 
 \item{fill_palette_c_border}{For border geoms with continuous fill scales.
-If NULL, uses \code{fill_palette_c}.}
-
-\item{fill_palette_c_box}{For the boxplot geom with continuous fill scales.
 If NULL, uses \code{fill_palette_c}.}
 
 \item{titles_case}{A function to apply to unspecified/unlabelled titles in \verb{gg_*} functions.

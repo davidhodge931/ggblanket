@@ -257,7 +257,6 @@ penguins2 |>
     y = body_mass_g,
     col = flipper_length_mm,
     y_limits_include = 0,
-    col_steps = TRUE,
   )
 ```
 

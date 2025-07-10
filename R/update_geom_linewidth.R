@@ -4,7 +4,7 @@
 #' Updates the active theme to apply consistent linewidth styling.
 #'
 #' @param linewidth Default linewidth for most geoms.
-#' @param linewidth_border Linewidth for border geoms. Excludes boxplot.
+#' @param linewidth_border Linewidth for border geoms. Excludes boxplot and smooth.
 #' @param linewidth_reference_line Linewidth for reference line geoms. If NULL, derived from axis line linewidth.
 #' @param ... Additional arguments (not used).
 #'
@@ -14,7 +14,6 @@
 update_geom_linewidth <- function(
     linewidth = 0.66,
     linewidth_border = 0.25,
-    linewidth_box = linewidth_border,
     linewidth_reference_line = NULL,
     ...
 ) {
@@ -35,14 +34,14 @@ update_geom_linewidth <- function(
 
   # Border geoms
   border_geoms <- c("area", "bar", "col", "crossbar", "density",
-                     "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
+                     "map", "polygon", "rect", "ribbon", "sf", "tile",
                      "violin", "raster", "contour_filled", "density2d_filled",
                      "bin2d", "hex")
 
   # Line geoms
   line_geoms <- c("contour", "curve", "errorbar", "freqpoly", "function",
                   "line", "linerange", "path", "qq_line", "quantile", "rug",
-                  "segment", "spoke", "step", "density2d")
+                  "smooth", "segment", "spoke", "step", "density2d")
 
 
   # reference_line_geoms
@@ -63,9 +62,6 @@ update_geom_linewidth <- function(
     if (geom == "tile") {
       theme_args[[geom_name]] <- ggplot2::element_geom(linewidth = linewidth_border / 0.4,
                                                        borderwidth = linewidth_border / 0.4)
-    } else if (geom == "smooth") {
-      theme_args[[geom_name]] <- ggplot2::element_geom(linewidth = linewidth / 2,
-                                                       borderwidth = linewidth / 2)
     } else {
       theme_args[[geom_name]] <- ggplot2::element_geom(linewidth = linewidth_border,
                                                        borderwidth = linewidth_border)
@@ -75,7 +71,16 @@ update_geom_linewidth <- function(
   # Line geoms
   for (geom in line_geoms) {
     geom_name <- paste0("geom.", geom)
-    theme_args[[geom_name]] <- ggplot2::element_geom(linewidth = linewidth)
+    if (geom == "smooth") {
+      theme_args[[geom_name]] <- ggplot2::element_geom(
+        borderwidth = linewidth / 2,
+        linewidth = linewidth / 2,
+
+      )
+    } else {
+      geom_name <- paste0("geom.", geom)
+      theme_args[[geom_name]] <- ggplot2::element_geom(linewidth = linewidth)
+    }
   }
 
   # Use inject and splice to pass the arguments

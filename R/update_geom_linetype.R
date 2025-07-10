@@ -4,7 +4,7 @@
 #' Updates the active theme to apply consistent linetype styling.
 #'
 #' @param linetype Default linetype for most geoms.
-#' @param linetype_border Linetype for border geoms. Excludes boxplot.
+#' @param linetype_border Linetype for border geoms. Excludes boxplot and smooth.
 #' @param linetype_reference_line Linetype for reference line geoms. If NULL, derived from axis line linetype.
 #' @param ... Additional arguments (not used).
 #'
@@ -14,7 +14,6 @@
 update_geom_linetype <- function(
     linetype = 1,
     linetype_border = linetype,
-    linetype_box = linetype,
     linetype_reference_line = NULL,
     ...
 ) {
@@ -35,14 +34,14 @@ update_geom_linetype <- function(
 
   # Border geoms
   border_geoms <- c("area", "bar", "col", "crossbar", "density",
-                    "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
+                    "map", "polygon", "rect", "ribbon", "sf", "tile",
                     "violin", "raster", "contour_filled", "density2d_filled",
                     "bin2d", "hex")
 
   # Line geoms
   line_geoms <- c("contour", "curve", "errorbar", "freqpoly", "function",
                   "line", "linerange", "path", "qq_line", "quantile", "rug",
-                  "segment", "spoke", "step", "density2d")
+                  "segment", "smooth", "spoke", "step", "density2d")
 
   # reference_line_geoms
   reference_line_geoms <- c("abline", "hline", "vline")
