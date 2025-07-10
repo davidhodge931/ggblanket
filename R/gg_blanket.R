@@ -199,28 +199,24 @@ gg_blanket <- function(
   stat_name <- ggproto_names$stat_name
   position_name <- ggproto_names$position_name
 
-  if (rlang::is_null(blend)) {
-    if (geom_name == "boxplot") blend <- "multiply"
-  }
-
   if (geom_name %in% c("bin2d", "hex")) {
     if (is.null(mapping)) {
-      mapping <- aes(colour = after_stat(count))
+      mapping <- ggplot2::aes(colour = ggplot2::after_stat(.data$count))
     }
     else if (!is.null(mapping)) {
       if (!"colour" %in% names(mapping)) {
-        mapping <- modifyList(mapping, aes(colour = after_stat(count)))
+        mapping <- utils::modifyList(mapping, ggplot2::aes(colour = ggplot2::after_stat(.data$count)))
       }
     }
   }
 
   if (geom_name %in% c("contour_filled", "density2d_filled")) {
     if (is.null(mapping)) {
-      mapping <- aes(colour = after_stat(level))
+      mapping <- ggplot2::aes(colour = ggplot2::after_stat(.data$level))
     }
     else if (!is.null(mapping)) {
       if (!"colour" %in% names(mapping)) {
-        mapping <- modifyList(mapping, aes(colour = after_stat(level)))
+        mapping <- utils::modifyList(mapping, ggplot2::aes(colour = ggplot2::after_stat(.data$level)))
       }
     }
   }
@@ -432,7 +428,7 @@ gg_blanket <- function(
     theme_palettes <- ggplot2::get_theme()
 
     # Define geom categories (matching update_geom_col)
-    border_geoms <- c("area", "bar", "col", "crossbar", "density",
+    border_geoms <- c("area", "bar", "boxplot", "col", "crossbar", "density",
                       "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
                       "violin", "raster", "contour_filled", "density2d_filled",
                       "bin2d", "hex")

@@ -4,7 +4,7 @@
 #' Updates the active theme to apply consistent linetype styling.
 #'
 #' @param linetype Default linetype for most geoms.
-#' @param linetype_border Linetype for border geoms. Excludes boxplot and smooth.
+#' @param linetype_border Linetype for border geoms.
 #' @param linetype_reference_line Linetype for reference line geoms. If NULL, derived from axis line linetype.
 #' @param ... Additional arguments (not used).
 #'
@@ -13,10 +13,14 @@
 #' @noRd
 update_geom_linetype <- function(
     linetype = 1,
-    linetype_border = linetype,
+    linetype_border = NULL,
     linetype_reference_line = NULL,
     ...
 ) {
+
+  # Handle defaults inside the function
+  if(is.null(linetype_border)) linetype_border <- linetype
+
 
   # Get current theme for NULL defaults
   current_theme <- ggplot2::get_theme()
@@ -33,7 +37,7 @@ update_geom_linetype <- function(
     1
 
   # Border geoms
-  border_geoms <- c("area", "bar", "col", "crossbar", "density",
+  border_geoms <- c("area", "bar", "boxplot", "col", "crossbar", "density",
                     "map", "polygon", "rect", "ribbon", "sf", "tile",
                     "violin", "raster", "contour_filled", "density2d_filled",
                     "bin2d", "hex")

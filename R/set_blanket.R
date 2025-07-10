@@ -78,12 +78,12 @@ set_blanket <- function(
     theme = theme_lighter(),
 
     col = blue,
-    colour = col,
-    colour_border = col_squared(colour),
+    colour = NULL,
+    colour_border = NULL,
     colour_font = NULL,
     colour_reference_line = NULL,
-    fill = col,
-    fill_border = fill,
+    fill = NULL,
+    fill_border = NULL,
     fill_font = NULL,
 
     linewidth = 0.66,
@@ -91,7 +91,7 @@ set_blanket <- function(
     linewidth_reference_line = NULL,
 
     linetype = 1,
-    linetype_border = linetype,
+    linetype_border = NULL,
     linetype_reference_line = NULL,
 
     size = 1.5,
@@ -101,15 +101,15 @@ set_blanket <- function(
     col_palette_d = jumble,
     col_palette_c = viridisLite::mako(n = 20, direction = -1, end = 0.9),
 
-    colour_palette_d = col_palette_d,
-    colour_palette_d_border = col_squared(colour_palette_d),
-    fill_palette_d = col_palette_d,
-    fill_palette_d_border = fill_palette_d,
+    colour_palette_d = NULL,
+    colour_palette_d_border = NULL,
+    fill_palette_d = NULL,
+    fill_palette_d_border = NULL,
 
-    colour_palette_c = col_palette_c,
-    colour_palette_c_border = col_squared(colour_palette_c),
-    fill_palette_c = col_palette_c,
-    fill_palette_c_border = fill_palette_c,
+    colour_palette_c = NULL,
+    colour_palette_c_border = NULL,
+    fill_palette_c = NULL,
+    fill_palette_c_border = NULL,
 
     titles_case = snakecase::to_sentence_case,
     axis_line_transparent = TRUE,
@@ -118,29 +118,25 @@ set_blanket <- function(
     ...
 ) {
 
-  # # Handle colour/fill defaults
-  # colour <- colour %||% col
-  # colour_border <- colour_border %||% col_squared(colour)
-  #
-  # fill <- fill %||% col
-  # fill_border <- fill_border %||% fill
-  #
-  # # Handle linetype defaults
-  # linetype_border <- linetype_border %||% linetype
+  # Handle colour/fill defaults
+  if(is.null(colour)) colour <- col
+  if(is.null(colour_border)) colour_border <- col_squared(colour)
+  if(is.null(fill)) fill <- col
+  if(is.null(fill_border)) fill_border <- fill
 
-  # # Handle palette defaults
-  # # If specific palettes aren't provided, use col_palette as default
-  # colour_palette_d <- colour_palette_d %||% col_palette_d
-  # fill_palette_d <- fill_palette_d %||% col_palette_d
-  # colour_palette_c <- colour_palette_c %||% col_palette_c
-  # fill_palette_c <- fill_palette_c %||% col_palette_c
-  #
-  # # Handle polygon/box palette defaults
-  # colour_palette_d_border <- colour_palette_d_border %||% col_squared(colour_palette_d)
-  # fill_palette_d_border <- fill_palette_d_border %||% fill_palette_d
-  #
-  # colour_palette_c_border <- colour_palette_c_border %||% colour_palette_c
-  # fill_palette_c_border <- fill_palette_c_border %||% fill_palette_c
+  # Handle linetype defaults
+  if(is.null(linetype_border)) linetype_border <- linetype
+
+  # Handle palette defaults
+  if(is.null(colour_palette_d)) colour_palette_d <- col_palette_d
+  if(is.null(colour_palette_d_border)) colour_palette_d_border <- col_squared(colour_palette_d)
+  if(is.null(fill_palette_d)) fill_palette_d <- col_palette_d
+  if(is.null(fill_palette_d_border)) fill_palette_d_border <- fill_palette_d
+
+  if(is.null(colour_palette_c)) colour_palette_c <- col_palette_c
+  if(is.null(colour_palette_c_border)) colour_palette_c_border <- col_squared(colour_palette_c)
+  if(is.null(fill_palette_c)) fill_palette_c <- col_palette_c
+  if(is.null(fill_palette_c_border)) fill_palette_c_border <- fill_palette_c
 
   # Set the theme first
   ggplot2::set_theme(theme)
@@ -196,10 +192,3 @@ set_blanket <- function(
     panel_grid_transparent = panel_grid_transparent
   )
 }
-
-
-
-
-
-
-

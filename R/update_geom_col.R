@@ -18,15 +18,21 @@
 #' @noRd
 update_geom_col <- function(
     col = blue,
-    colour = col,
-    colour_border = col_squared(colour),
+    colour = NULL,
+    colour_border = NULL,
     colour_font = NULL,
     colour_reference_line = NULL,
-    fill = col,
-    fill_border = fill,
+    fill = NULL,
+    fill_border = NULL,
     fill_font = NULL,
     ...
 ) {
+
+  # Handle defaults inside the function
+  if (is.null(colour)) colour <- col
+  if (is.null(colour_border)) colour_border <- col_squared(colour)
+  if (is.null(fill)) fill <- col
+  if (is.null(fill_border)) fill_border <- fill
 
   # Get current theme for NULL defaults
   current_theme <- ggplot2::get_theme()
@@ -55,7 +61,7 @@ update_geom_col <- function(
     "black"
 
   # Define geom categories
-  border_geoms <- c("area", "bar", "col", "crossbar", "density",
+  border_geoms <- c("area", "bar", "boxplot", "col", "crossbar", "density",
                      "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
                      "violin", "raster", "contour_filled", "density2d_filled",
                      "bin2d", "hex")
@@ -68,8 +74,8 @@ update_geom_col <- function(
   all_geoms <- c("contour", "count", "curve", "dotplot", "density2d", "errorbar",
                  "freqpoly", "function", "jitter", "line", "linerange", "path",
                  "point", "pointrange", "qq", "quantile", "rug", "segment", "smooth",
-                 "spoke", "step", "area", "bar", "col", "density", "map", "polygon",
-                 "rect", "ribbon", "tile", "violin", "boxplot", "crossbar", "bin2d",
+                 "spoke", "step", "area", "bar", "boxplot", "col", "density", "map",
+                 "polygon", "rect", "ribbon", "tile", "violin", "crossbar", "bin2d",
                  "hex", "raster", "contour_filled", "density2d_filled",
                  "text", "label", "abline", "hline", "vline")
 

@@ -261,11 +261,15 @@ create_ggplot <- function(
 get_geom_params <- function(geom_name, ...) {
   if (geom_name == "boxplot") {
     rlang::list2(
-      # whisker_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth),
-      # staple_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth),
-      median_gp = list(linewidth = ggplot2::get_geom_defaults("boxplot")$linewidth), #take from polygon
-      box_gp = list(linewidth = ggplot2::get_geom_defaults("polygon")$linewidth), #take from polygon
+      median_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth), #take from polygon
+      whisker_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth), #take from polygon
+      staple_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth), #take from polygon
       outlier_gp = list(stroke = 0),
+      ...
+    )
+  } else if (geom_name == "crossbar") {
+    rlang::list2(
+      middle_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth), #take from polygon
       ...
     )
   } else if (geom_name == "smooth") {

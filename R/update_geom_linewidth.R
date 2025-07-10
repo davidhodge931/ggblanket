@@ -4,7 +4,7 @@
 #' Updates the active theme to apply consistent linewidth styling.
 #'
 #' @param linewidth Default linewidth for most geoms.
-#' @param linewidth_border Linewidth for border geoms. Excludes boxplot and smooth.
+#' @param linewidth_border Linewidth for border geoms.
 #' @param linewidth_reference_line Linewidth for reference line geoms. If NULL, derived from axis line linewidth.
 #' @param ... Additional arguments (not used).
 #'
@@ -33,7 +33,7 @@ update_geom_linewidth <- function(
     0.25
 
   # Border geoms
-  border_geoms <- c("area", "bar", "col", "crossbar", "density",
+  border_geoms <- c("area", "bar", "boxplot", "col", "crossbar", "density",
                      "map", "polygon", "rect", "ribbon", "sf", "tile",
                      "violin", "raster", "contour_filled", "density2d_filled",
                      "bin2d", "hex")
