@@ -4,12 +4,12 @@
 \alias{annotate_axis_line}
 \title{Annotated axis line segment}
 \usage{
-annotate_axis_line(position, ..., colour = NULL, linewidth = NULL)
+annotate_axis_line(..., position = "bottom", colour = NULL, linewidth = NULL)
 }
 \arguments{
-\item{position}{The position of the axis. One of "bottom", "top", "left", or "right".}
-
 \item{...}{Extra parameters passed to \code{ggplot2::annotate("segment", ...)}.}
+
+\item{position}{The position of the axis. One of "bottom", "top", "left", or "right". Defaults "bottom".}
 
 \item{colour}{The colour of the annotated segment. Inherits from the current theme axis.line etc.}
 
@@ -22,6 +22,7 @@ A list of a annotate layer and theme elements.
 Replace axis line with an annotated segment.
 }
 \examples{
+library(ggplot2)
 library(dplyr)
 library(stringr)
 library(palmerpenguins)
@@ -42,7 +43,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
   ) +
-  annotate_axis_line(position = "bottom") +
+  annotate_axis_line() +
   geom_point()
 
 }

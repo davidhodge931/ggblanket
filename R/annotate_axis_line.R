@@ -2,8 +2,8 @@
 #'
 #' @description Replace axis line with an annotated segment.
 #'
-#' @param position The position of the axis. One of "bottom", "top", "left", or "right".
 #' @param ... Extra parameters passed to `ggplot2::annotate("segment", ...)`.
+#' @param position The position of the axis. One of "bottom", "top", "left", or "right". Defaults "bottom".
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.line etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.line etc.
 #'
@@ -11,6 +11,7 @@
 #' @export
 #'
 #' @examples
+#' library(ggplot2)
 #' library(dplyr)
 #' library(stringr)
 #' library(palmerpenguins)
@@ -31,10 +32,10 @@
 #'     y = body_mass_g,
 #'     col = sex,
 #'   ) +
-#'   annotate_axis_line(position = "bottom") +
+#'   annotate_axis_line() +
 #'   geom_point()
 #'
-annotate_axis_line <- function(position, ..., colour = NULL, linewidth = NULL) {
+annotate_axis_line <- function(..., position = "bottom", colour = NULL, linewidth = NULL) {
   rlang::inform(
     "Please use this function with ggplot2::coord_cartesian(clip = 'off')"
   )

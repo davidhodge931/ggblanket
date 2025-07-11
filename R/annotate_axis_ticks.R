@@ -2,18 +2,21 @@
 #'
 #' @description Replace axis ticks with annotated segments using absolute measurements.
 #' This function only works when panel dimensions are set uniformly via panel.widths and panel.heights.
+#' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
+#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param breaks A vector of breaks.
-#' @param position The position of the axis. One of "bottom", "top", "left" or "right".
-#' @param ... Extra parameters passed to `ggplot2::annotate("segment", ...)`.
+#' @param position The position of the axis. One of "bottom", "top", "left" or "right". Defaults "bottom".
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.ticks etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.ticks etc.
 #' @param length The absolute length of the annotated segment as a grid unit. Defaults to unit(11/3, "pt").
+#' @param theme_elements What to do with theme axis tick elements. Either "transparent", "keep" or "blank". Defaults "transparent".
 #'
 #' @return A list of a annotate layer and theme elements.
 #' @export
 #'
 #' @examples
+#' library(ggplot2)
 #' library(dplyr)
 #' library(stringr)
 #' library(palmerpenguins)
@@ -32,7 +35,7 @@
 #'     x = flipper_length_mm,
 #'     col = sex,
 #'   ) +
-#'   annotate_axis_ticks(position = "bottom", breaks = c(seq(170, 230, 10), 195))
+#'   annotate_axis_ticks(breaks = c(185, 195))
 #'
 #' penguins |>
 #'   tidyr::drop_na(sex) |>
@@ -42,15 +45,16 @@
 #'     col = sex,
 #'     width = 0.75,
 #'   ) +
-#'   annotate_axis_ticks(position = "bottom", breaks = c(0.5, 1.5, 2.5, 3.5))
+#'   annotate_axis_ticks(breaks = c(0.5, 1.5, 2.5, 3.5))
 #'
 annotate_axis_ticks <- function(
-    position,
-    breaks,
     ...,
+    breaks,
+    position = "bottom",
     colour = NULL,
     linewidth = NULL,
-    length = NULL
+    length = NULL,
+    theme_elements = "transparent"
 ) {
   rlang::inform(
     "Please use this function with ggplot2::coord_cartesian(clip = 'off')"
@@ -74,33 +78,30 @@ annotate_axis_ticks <- function(
   if (rlang::is_null(length)) {
     if (is_x_axis) {
       length <- if (position == "bottom") {
-        current_theme$axis.ticks.x.bottom$length %||%
-          current_theme$axis.ticks.x$length %||%
-          current_theme$axis.ticks$length %||%
+        current_theme$axis.ticks.length.x.bottom %||%
+          current_theme$axis.ticks.length.x %||%
+          current_theme$axis.ticks.length %||%
           grid::unit(11 / 3, "pt")
       } else {
-        current_theme$axis.ticks.x.top$length %||%
-          current_theme$axis.ticks.x$length %||%
-          current_theme$axis.ticks$length %||%
+        current_theme$axis.ticks.length.x.top %||%
+          current_theme$axis.ticks.length.x %||%
+          current_theme$axis.ticks.length %||%
           grid::unit(11 / 3, "pt")
       }
     } else {
       length <- if (position == "left") {
-        current_theme$axis.ticks.y.left$length %||%
-          current_theme$axis.ticks.y$length %||%
-          current_theme$axis.ticks$length %||%
+        current_theme$axis.ticks.length.y.left %||%
+          current_theme$axis.ticks.length.y %||%
+          current_theme$axis.ticks.length %||%
           grid::unit(11 / 3, "pt")
       } else {
-        current_theme$axis.ticks.y.right$length %||%
-          current_theme$axis.ticks.y$length %||%
-          current_theme$axis.ticks$length %||%
+        current_theme$axis.ticks.length.y.right %||%
+          current_theme$axis.ticks.length.y %||%
+          current_theme$axis.ticks.length %||%
           grid::unit(11 / 3, "pt")
       }
     }
   }
-
-  # Determine if this is x-axis or y-axis
-  is_x_axis <- position %in% c("bottom", "top")
 
   # Get the relevant panel dimension
   if (is_x_axis) {
@@ -133,11 +134,8 @@ annotate_axis_ticks <- function(
     panel_dimension <- panel_widths[1] # Use first panel width
   }
 
-  # Convert absolute length to relative proportion of panel
-  # Convert both to same units for calculation
-  length_mm <- grid::convertUnit(length, "mm", valueOnly = TRUE)
-  panel_mm <- grid::convertUnit(panel_dimension, "mm", valueOnly = TRUE)
-  relative_length <- length_mm / panel_mm
+  # We can't use relative length directly with Inf positioning
+  # Instead, we'll use the absolute length in the annotation
 
   # Extract theme properties for axis ticks
   if (rlang::is_null(colour)) {
@@ -196,71 +194,129 @@ annotate_axis_ticks <- function(
     }
   }
 
-  # Create appropriate segment and theme based on position
-  if (position == "bottom") {
-    stamp <- rlang::list2(
-      ggplot2::theme(
-        axis.ticks.x.bottom = ggplot2::element_line(colour = "transparent")
-      ),
-      ggplot2::annotate(
-        "segment",
-        x = breaks,
-        xend = breaks,
-        y = I(0),
-        yend = I(-relative_length),
-        colour = colour,
-        linewidth = linewidth,
-        ...
+  # Create list to store output
+  stamp <- list()
+
+  # Add theme modification if requested
+  if (theme_elements == "transparent") {
+    if (position == "bottom") {
+      stamp <- c(stamp, list(
+        ggplot2::theme(axis.ticks.x.bottom = ggplot2::element_line(colour = "transparent"))
+      ))
+    } else if (position == "top") {
+      stamp <- c(stamp, list(
+        ggplot2::theme(axis.ticks.x.top = ggplot2::element_line(colour = "transparent"))
+      ))
+    } else if (position == "left") {
+      stamp <- c(stamp, list(
+        ggplot2::theme(axis.ticks.y.left = ggplot2::element_line(colour = "transparent"))
+      ))
+    } else if (position == "right") {
+      stamp <- c(stamp, list(
+        ggplot2::theme(axis.ticks.y.right = ggplot2::element_line(colour = "transparent"))
+      ))
+    }
+  }
+  else if (theme_elements == "blank") {
+    if (position == "bottom") {
+      stamp <- c(stamp, list(
+        ggplot2::theme(axis.ticks.x.bottom = ggplot2::element_blank())
+      ))
+    } else if (position == "top") {
+      stamp <- c(stamp, list(
+        ggplot2::theme(axis.ticks.x.top = ggplot2::element_blank())
+      ))
+    } else if (position == "left") {
+      stamp <- c(stamp, list(
+        ggplot2::theme(axis.ticks.y.left = ggplot2::element_blank())
+      ))
+    } else if (position == "right") {
+      stamp <- c(stamp, list(
+        ggplot2::theme(axis.ticks.y.right = ggplot2::element_blank())
+      ))
+    }
+  }
+  else if (theme_elements == "keep") {
+    stamp <- c(stamp, list())
+  }
+
+  # Create annotation with segments at the edge
+  # We use annotation_custom with grobs instead of annotate to avoid scale issues
+  for (break_val in breaks) {
+    if (position == "bottom") {
+      # Create a tick mark grob
+      tick_grob <- grid::segmentsGrob(
+        x0 = grid::unit(0.5, "npc"),
+        x1 = grid::unit(0.5, "npc"),
+        y0 = grid::unit(0, "npc"),
+        y1 = grid::unit(0, "npc") - length,
+        gp = grid::gpar(col = colour, lwd = linewidth * 72/25.4, lineend = "butt")
       )
-    )
-  } else if (position == "top") {
-    stamp <- rlang::list2(
-      ggplot2::theme(
-        axis.ticks.x.top = ggplot2::element_line(colour = "transparent")
-      ),
-      ggplot2::annotate(
-        "segment",
-        x = breaks,
-        xend = breaks,
-        y = I(1),
-        yend = I(1 + relative_length),
-        colour = colour,
-        linewidth = linewidth,
-        ...
+
+      stamp <- c(stamp, list(
+        ggplot2::annotation_custom(
+          grob = tick_grob,
+          xmin = break_val,
+          xmax = break_val,
+          ymin = -Inf,
+          ymax = -Inf
+        )
+      ))
+    } else if (position == "top") {
+      tick_grob <- grid::segmentsGrob(
+        x0 = grid::unit(0.5, "npc"),
+        x1 = grid::unit(0.5, "npc"),
+        y0 = grid::unit(1, "npc"),
+        y1 = grid::unit(1, "npc") + length,
+        gp = grid::gpar(col = colour, lwd = linewidth * 72/25.4, lineend = "butt")
       )
-    )
-  } else if (position == "left") {
-    stamp <- rlang::list2(
-      ggplot2::theme(
-        axis.ticks.y.left = ggplot2::element_line(colour = "transparent")
-      ),
-      ggplot2::annotate(
-        "segment",
-        x = I(0),
-        xend = I(-relative_length),
-        y = breaks,
-        yend = breaks,
-        colour = colour,
-        linewidth = linewidth,
-        ...
+
+      stamp <- c(stamp, list(
+        ggplot2::annotation_custom(
+          grob = tick_grob,
+          xmin = break_val,
+          xmax = break_val,
+          ymin = Inf,
+          ymax = Inf
+        )
+      ))
+    } else if (position == "left") {
+      tick_grob <- grid::segmentsGrob(
+        x0 = grid::unit(0, "npc"),
+        x1 = grid::unit(0, "npc") - length,
+        y0 = grid::unit(0.5, "npc"),
+        y1 = grid::unit(0.5, "npc"),
+        gp = grid::gpar(col = colour, lwd = linewidth * 72/25.4, lineend = "butt")
       )
-    )
-  } else if (position == "right") {
-    stamp <- rlang::list2(
-      ggplot2::theme(
-        axis.ticks.y.right = ggplot2::element_line(colour = "transparent")
-      ),
-      ggplot2::annotate(
-        "segment",
-        x = I(1),
-        xend = I(1 + relative_length),
-        y = breaks,
-        yend = breaks,
-        colour = colour,
-        linewidth = linewidth,
-        ...
+
+      stamp <- c(stamp, list(
+        ggplot2::annotation_custom(
+          grob = tick_grob,
+          xmin = -Inf,
+          xmax = -Inf,
+          ymin = break_val,
+          ymax = break_val
+        )
+      ))
+    } else if (position == "right") {
+      tick_grob <- grid::segmentsGrob(
+        x0 = grid::unit(1, "npc"),
+        x1 = grid::unit(1, "npc") + length,
+        y0 = grid::unit(0.5, "npc"),
+        y1 = grid::unit(0.5, "npc"),
+        gp = grid::gpar(col = colour, lwd = linewidth * 72/25.4, lineend = "butt")
       )
-    )
+
+      stamp <- c(stamp, list(
+        ggplot2::annotation_custom(
+          grob = tick_grob,
+          xmin = Inf,
+          xmax = Inf,
+          ymin = break_val,
+          ymax = break_val
+        )
+      ))
+    }
   }
 
   return(stamp)

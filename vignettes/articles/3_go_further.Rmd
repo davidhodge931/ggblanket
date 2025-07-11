@@ -486,7 +486,10 @@ penguins |>
     )
   )
 ```
-### Annotate axis line
+
+### Annotate an axis line
+
+An axis line can be easily replaced by a new annotated axis line, which can sometimes be useful. This function only works where the panel heights and panel widths are set in the theme.
 
 ```{r}
 set_blanket(
@@ -510,6 +513,10 @@ penguins |>
 ```
 
 ### Annotate axis ticks
+
+Likewise, axis ticks can be easily be replaced by new annotated axis ticks, which is sometimes be useful.
+
+ This function only works where the panel heights and panel widths are set in the theme.
 
 ```{r}
 set_blanket(
