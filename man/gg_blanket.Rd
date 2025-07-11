@@ -64,13 +64,13 @@ gg_blanket(
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
-  col_palette = NULL,
-  col_palette_na = NULL,
   col_rescale = scales::rescale(),
   col_scale_type = "gradient",
   col_transform = NULL,
   colour_palette = NULL,
+  colour_palette_na = NULL,
   fill_palette = NULL,
+  fill_palette_na = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
   facet_drop = FALSE,
@@ -141,15 +141,13 @@ gg_blanket(
 
 \item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
 
-\item{col_palette}{A character vector of hex codes (or names) or a \verb{scales::pal_*()} function.}
-
-\item{col_palette_na}{A hex code (or name) for the colour of \code{NA} values.}
-
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
 \item{col_scale_type}{Either "gradient" or "steps". Defaults to "gradient".}
 
 \item{colour_palette, fill_palette}{A character vector of hex codes (or names) or a \verb{scales::pal_*()} function.}
+
+\item{colour_palette_na, fill_palette_na}{A hex code (or name) for the \code{NA} values.}
 
 \item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_*()} may be needed.}
 

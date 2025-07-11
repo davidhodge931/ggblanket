@@ -76,18 +76,18 @@ theme_darker <- function(
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = grid::unit(11 / 3, "pt"),
-    panel_heights = NULL,
-    panel_widths = NULL,
+    plot_background_fill = "#00040AFF",
+    panel_background_fill = "#050D1BFF",
     panel_grid_colour = "#00040AFF",
     panel_grid_linewidth = 1.33,
-    panel_background_fill = "#050D1BFF",
-    plot_background_fill = "#00040AFF"
+    panel_heights = NULL,
+    panel_widths = NULL
 ) {
-  theme_base(
+  theme_blanket(
     base_size = base_size,
     base_family = base_family,
     base_colour = base_colour,
-    plot_caption_colour = colorspace::darken(base_colour, 0.1),
+    caption_colour = colorspace::darken(base_colour, 0.1),
     axis_line_colour = axis_line_colour,
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
@@ -101,10 +101,12 @@ theme_darker <- function(
     legend_ticks_colour = legend_ticks_colour,
     legend_ticks_linewidth = legend_ticks_linewidth,
     legend_ticks_length = legend_ticks_length,
+    plot_background_fill = plot_background_fill,
+    panel_background_fill = panel_background_fill,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
-    panel_background_fill = panel_background_fill,
-    plot_background_fill = plot_background_fill
+    panel_heights = panel_heights,
+    panel_widths = panel_widths
   )
 }
 

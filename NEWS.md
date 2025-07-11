@@ -3,6 +3,8 @@ TO DO
 * Update the ggplot2 version dependency to 4. Delete remotes
 * Update the ggblanket version to 14
 
+* Redesign of how `colour`/`fill`/`linewidth`/`linetype` and palettes work both 
+in `set_blanket` and `gg_blanket` with defaults and flexibility for border geoms.
 * Breaking: renamed `gg_bin_2d`, `gg_density_2d` and `gg_density_2d_filled` to `gg_bin2d` etc. 
 * Breaking: renamed `*_label` to `*_title`, and `label_case` to `titles_case`.
 * Breaking: added `col` to `set_blanket` instead of `colour`/`fill`.

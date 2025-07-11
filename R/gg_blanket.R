@@ -29,11 +29,10 @@
 #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
 #' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
-#' @param col_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
-#' @param col_palette_na A hex code (or name) for the colour of `NA` values.
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
 #' @param col_scale_type Either "gradient" or "steps". Defaults to "gradient".
 #' @param colour_palette,fill_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
+#' @param colour_palette_na,fill_palette_na A hex code (or name) for the `NA` values.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_*()` may be needed.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
@@ -54,12 +53,12 @@ gg_blanket <- function(
     stat = "identity",
     position = "identity",
     coord = NULL,
-    blend = NULL, theme = ggplot2::get_theme(),
+    blend = NULL,
+    theme = ggplot2::get_theme(),
     perspective = NULL,
     axis_line_transparent = NULL,
     axis_ticks_transparent = NULL,
     panel_grid_transparent = NULL,
-
     x = NULL,
     xmin = NULL,
     xmax = NULL,
@@ -107,13 +106,13 @@ gg_blanket <- function(
     col_legend_ncol = NULL,
     col_legend_nrow = NULL,
     col_legend_rev = FALSE,
-    col_palette = NULL,
-    col_palette_na = NULL,
     col_rescale = scales::rescale(),
     col_scale_type = "gradient",
     col_transform = NULL,
     colour_palette = NULL,
+    colour_palette_na = NULL,
     fill_palette = NULL,
+    fill_palette_na = NULL,
     facet_axes = NULL,
     facet_axis_labels = "margins",
     facet_drop = FALSE,
@@ -153,46 +152,14 @@ gg_blanket <- function(
   )
 
   ##############################################################################
-  # Step 2: Check if col is a literal color value
-  ##############################################################################
-
-  # Initialize flags
-  col_is_literal <- FALSE
-  col_literal_value <- NULL
-
-  # Check if col is provided
-  if (!rlang::quo_is_null(aes_list$col)) {
-    # Try to evaluate the expression to see if it results in a color
-    tryCatch({
-      # Evaluate the quosure in the data environment
-      col_evaluated <- rlang::eval_tidy(aes_list$col, data)
-
-      # Check if it evaluated to a single character string (color)
-      if (is.character(col_evaluated) && length(col_evaluated) == 1) {
-        # Additional check: make sure it's not a column name in the data
-        if (!col_evaluated %in% names(data)) {
-          col_is_literal <- TRUE
-          col_literal_value <- col_evaluated
-          # Set col to NULL so it's not treated as an aesthetic mapping
-          aes_list$col <- rlang::quo(NULL)
-        }
-      }
-    }, error = function(e) {
-      # If evaluation fails (e.g., it's a column that doesn't exist yet),
-      # treat it as a regular aesthetic
-      col_is_literal <- FALSE
-    })
-  }
-
-  ##############################################################################
-  # Step 3: Handle NULL data
+  # Step 2: Handle NULL data
   ##############################################################################
   if (rlang::is_null(data)) {
     data <- data.frame(x = NA)
   }
 
   ##############################################################################
-  # Step 4: Extract geom, stat & position strings
+  # Step 3: Extract geom, stat & position strings
   ##############################################################################
   ggproto_names <- get_geom_stat_position_names(geom, stat, position)
   geom_name <- ggproto_names$geom_name
@@ -222,59 +189,32 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # Step 5: Determine scale types
+  # Step 4: Determine scale types
   ##############################################################################
 
   # Create initial plot to determine scale types
-  if (col_is_literal) {
-    # Don't map col to aesthetics if it's a literal value
-    plot <- create_ggplot(
-      data = data,
-      x = !!aes_list$x,
-      y = !!aes_list$y,
-      col = NULL,  # Don't map col
-      xmin = !!aes_list$xmin,
-      xmax = !!aes_list$xmax,
-      xend = !!aes_list$xend,
-      ymin = !!aes_list$ymin,
-      ymax = !!aes_list$ymax,
-      yend = !!aes_list$yend,
-      z = !!aes_list$z,
-      group = !!aes_list$group,
-      subgroup = !!aes_list$subgroup,
-      sample = !!aes_list$sample,
-      label = !!aes_list$label,
-      text = !!aes_list$text,
-    )
-  } else {
-    plot <- create_ggplot(
-      data = data,
-      x = !!aes_list$x,
-      y = !!aes_list$y,
-      col = !!aes_list$col,
-      xmin = !!aes_list$xmin,
-      xmax = !!aes_list$xmax,
-      xend = !!aes_list$xend,
-      ymin = !!aes_list$ymin,
-      ymax = !!aes_list$ymax,
-      yend = !!aes_list$yend,
-      z = !!aes_list$z,
-      group = !!aes_list$group,
-      subgroup = !!aes_list$subgroup,
-      sample = !!aes_list$sample,
-      label = !!aes_list$label,
-      text = !!aes_list$text,
-    )
-  }
+  plot <- create_ggplot(
+    data = data,
+    x = !!aes_list$x,
+    y = !!aes_list$y,
+    col = !!aes_list$col,
+    xmin = !!aes_list$xmin,
+    xmax = !!aes_list$xmax,
+    xend = !!aes_list$xend,
+    ymin = !!aes_list$ymin,
+    ymax = !!aes_list$ymax,
+    yend = !!aes_list$yend,
+    z = !!aes_list$z,
+    group = !!aes_list$group,
+    subgroup = !!aes_list$subgroup,
+    sample = !!aes_list$sample,
+    label = !!aes_list$label,
+    text = !!aes_list$text,
+  )
 
   show_legend <- ifelse(geom_name %in% c("blank", "abline"), FALSE, TRUE)
 
   params <- get_geom_params(geom_name, ...)
-
-  # Add literal color to params if provided
-  if (col_is_literal) {
-    params <- utils::modifyList(params, list(colour = col_literal_value, fill = col_literal_value))
-  }
 
   # Add initial layer
   plot <- add_initial_layer(plot, geom, stat, position, mapping, params,
@@ -294,13 +234,8 @@ gg_blanket <- function(
   y_scale_class <- scale_classs$y_scale_class
   col_scale_class <- scale_classs$col_scale_class
 
-  # If col is literal, set col_scale_class to NA
-  if (col_is_literal) {
-    col_scale_class <- NA
-  }
-
   ##############################################################################
-  # Step 6: Get defaults
+  # Step 5: Get defaults
   ##############################################################################
   defaults <- get_other_defaults(x_transform, y_transform, x_scale_class, y_scale_class,
                                  facet_scales, theme, x_symmetric, y_symmetric,
@@ -319,64 +254,42 @@ gg_blanket <- function(
   titles_case <- defaults$titles_case
 
   ##############################################################################
-  # Step 7: Validate inputs
+  # Step 6: Validate inputs
   ##############################################################################
   check_inputs(mapping, x_symmetric, y_symmetric,
                x_transform_null, y_transform_null, stat)
 
   ##############################################################################
-  # Step 8: Process the data
+  # Step 7: Process the data
   ##############################################################################
   data <- process_data(data, aes_list, x_symmetric)
 
   ##############################################################################
-  # Step 9: Rebuild base plot with processed data
+  # Step 8: Rebuild base plot with processed data
   ##############################################################################
 
-  if (col_is_literal) {
-    plot <- create_ggplot(
-      data = data,
-      x = !!aes_list$x,
-      y = !!aes_list$y,
-      col = NULL,  # Don't map col
-      xmin = !!aes_list$xmin,
-      xmax = !!aes_list$xmax,
-      xend = !!aes_list$xend,
-      ymin = !!aes_list$ymin,
-      ymax = !!aes_list$ymax,
-      yend = !!aes_list$yend,
-      z = !!aes_list$z,
-      group = !!aes_list$group,
-      subgroup = !!aes_list$subgroup,
-      sample = !!aes_list$sample,
-      label = !!aes_list$label,
-      text = !!aes_list$text,
-    ) +
-      theme
-  } else {
-    plot <- create_ggplot(
-      data = data,
-      x = !!aes_list$x,
-      y = !!aes_list$y,
-      col = !!aes_list$col,
-      xmin = !!aes_list$xmin,
-      xmax = !!aes_list$xmax,
-      xend = !!aes_list$xend,
-      ymin = !!aes_list$ymin,
-      ymax = !!aes_list$ymax,
-      yend = !!aes_list$yend,
-      z = !!aes_list$z,
-      group = !!aes_list$group,
-      subgroup = !!aes_list$subgroup,
-      sample = !!aes_list$sample,
-      label = !!aes_list$label,
-      text = !!aes_list$text,
-    ) +
-      theme
-  }
+  plot <- create_ggplot(
+    data = data,
+    x = !!aes_list$x,
+    y = !!aes_list$y,
+    col = !!aes_list$col,
+    xmin = !!aes_list$xmin,
+    xmax = !!aes_list$xmax,
+    xend = !!aes_list$xend,
+    ymin = !!aes_list$ymin,
+    ymax = !!aes_list$ymax,
+    yend = !!aes_list$yend,
+    z = !!aes_list$z,
+    group = !!aes_list$group,
+    subgroup = !!aes_list$subgroup,
+    sample = !!aes_list$sample,
+    label = !!aes_list$label,
+    text = !!aes_list$text,
+  ) +
+    theme
 
   ##############################################################################
-  # Step 10: Add geom layer
+  # Step 9: Add geom layer
   ##############################################################################
   plot <- add_initial_layer(plot, geom, stat, position, mapping, params,
                             show_legend, coord, blend, stat_name)
@@ -390,7 +303,7 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # Step 11: Add facet layer
+  # Step 10: Add facet layer
   ##############################################################################
   facet_layout <- get_facet_layout(facet_layout, aes_list)
   facet_axes <- get_facet_axes(facet_axes, x_symmetric)
@@ -407,7 +320,7 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # Step 12: Get plot build again
+  # Step 11: Get plot build again
   ##############################################################################
   suppressMessages({
     suppressWarnings({
@@ -419,11 +332,11 @@ gg_blanket <- function(
     })
   })
 
+  ##############################################################################
+  # Step 12: Make colour scale
+  ##############################################################################
 
-  ##############################################################################
-  # Step 13: Make colour scale
-  ##############################################################################
-  if (!is.na(col_scale_class) && !col_is_literal) {
+  if (!is.na(col_scale_class)) {
     # Get theme palettes
     theme_palettes <- ggplot2::get_theme()
 
@@ -436,13 +349,9 @@ gg_blanket <- function(
     # Determine if this geom needs special palette handling
     is_border_geom <- geom_name %in% border_geoms
 
-    # Get colour_palette and fill_palette
-    # Take first non-NULL from: function arg > col_palette > geom-specific palette > theme palette > default
     if (col_scale_class %in% c("discrete")) {
       if (rlang::is_null(colour_palette)) {
-        if (!rlang::is_null(col_palette)) {
-          colour_palette <- col_palette
-        } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_d_border"))) {
+        if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_d_border"))) {
           colour_palette <- getOption("ggblanket.colour_palette_d_border")
         } else if (!rlang::is_null(theme_palettes$palette.colour.discrete)) {
           colour_palette <- theme_palettes$palette.colour.discrete
@@ -450,10 +359,9 @@ gg_blanket <- function(
           colour_palette <- scales::pal_hue()
         }
       }
+
       if (rlang::is_null(fill_palette)) {
-        if (!rlang::is_null(col_palette)) {
-          fill_palette <- col_palette
-        } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_d_border"))) {
+        if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_d_border"))) {
           fill_palette <- getOption("ggblanket.fill_palette_d_border")
         } else if (!rlang::is_null(theme_palettes$palette.fill.discrete)) {
           fill_palette <- theme_palettes$palette.fill.discrete
@@ -464,9 +372,7 @@ gg_blanket <- function(
     }
     else if (col_scale_class %in% c("numeric", "date", "datetime", "time")) {
       if (rlang::is_null(colour_palette)) {
-        if (!rlang::is_null(col_palette)) {
-          colour_palette <- col_palette
-        } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
+        if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
           colour_palette <- getOption("ggblanket.colour_palette_c_border")
         } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
           colour_palette <- theme_palettes$palette.colour.continuous
@@ -475,9 +381,7 @@ gg_blanket <- function(
         }
       }
       if (rlang::is_null(fill_palette)) {
-        if (!rlang::is_null(col_palette)) {
-          fill_palette <- col_palette
-        } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
+        if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
           fill_palette <- getOption("ggblanket.fill_palette_c_border")
         } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {
           fill_palette <- theme_palettes$palette.fill.continuous
@@ -488,9 +392,7 @@ gg_blanket <- function(
     }
     else if (col_scale_class %in% c("ordinal")) {
       if (rlang::is_null(colour_palette)) {
-        if (!rlang::is_null(col_palette)) {
-          colour_palette <- col_palette
-        } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
+        if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
           colour_palette <- getOption("ggblanket.colour_palette_c_border")
         } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
           colour_palette <- theme_palettes$palette.colour.continuous
@@ -499,9 +401,7 @@ gg_blanket <- function(
         }
       }
       if (rlang::is_null(fill_palette)) {
-        if (!rlang::is_null(col_palette)) {
-          fill_palette <- col_palette
-        } else if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
+        if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
           fill_palette <- getOption("ggblanket.fill_palette_c_border")
         } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {
           fill_palette <- theme_palettes$palette.fill.continuous
@@ -511,16 +411,27 @@ gg_blanket <- function(
       }
     }
 
-    # Get NA colours for colour_palette and fill_palette
-    if (is_border_geom) {
-      na_colour <- getOption("ggblanket.colour_palette_na_border", "grey50")
-      na_fill <- getOption("ggblanket.fill_palette_na_border", "grey50")
+    # Determine NA colors
+    # If user provided NA colors, use them. Otherwise, get from global options based on geom type
+    if (!is.null(colour_palette_na)) {
+      na_colour <- colour_palette_na
     } else {
-      na_colour <- getOption("ggblanket.colour_palette_na", "grey50")
-      na_fill <- getOption("ggblanket.fill_palette_na", "grey50")
+      if (is_border_geom) {
+        na_colour <- getOption("ggblanket.colour_palette_na_border", "#CDC5BFFF")
+      } else {
+        na_colour <- getOption("ggblanket.colour_palette_na", "#CDC5BFFF")
+      }
     }
-    # if (rlang::is_null(na_colour)) na_colour <- "grey50"
-    # if (rlang::is_null(na_fill)) na_fill <- "grey50"
+
+    if (!is.null(fill_palette_na)) {
+      na_fill <- fill_palette_na
+    } else {
+      if (is_border_geom) {
+        na_fill <- getOption("ggblanket.fill_palette_na_border", "#CDC5BFFF")
+      } else {
+        na_fill <- getOption("ggblanket.fill_palette_na", "#CDC5BFFF")
+      }
+    }
 
     # Get other defaults (transform, breaks, labels, etc.)
     # Get transform
@@ -542,6 +453,7 @@ gg_blanket <- function(
       }
     }
 
+    # Add the scales and guides
     # Add the scales and guides
     if (col_scale_class == "discrete") {
       # Calculate number of colors needed
@@ -918,7 +830,7 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # Step 14: Add positional scales
+  # Step 13: Add positional scales
   ##############################################################################
 
   # Make x scale
@@ -1070,7 +982,7 @@ gg_blanket <- function(
   }
 
   #############################################################################
-  # Step 15: Get titles
+  # Step 14: Get titles
   #############################################################################
 
   if (rlang::is_null(x_title)) {
@@ -1150,7 +1062,7 @@ gg_blanket <- function(
   }
 
   ##############################################################################
-  # Step 16: Apply theme transparency
+  # Step 15: Apply theme transparency
   ##############################################################################
 
   transparency <- get_perspective_behaviour(axis_line_transparent,

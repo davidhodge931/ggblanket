@@ -47,3 +47,35 @@ This function only works when panel dimensions are set uniformly via panel.width
 Replace axis ticks with annotated segments using absolute measurements.
 This function only works when panel dimensions are set uniformly via panel.widths and panel.heights.
 }
+\examples{
+library(dplyr)
+library(stringr)
+library(palmerpenguins)
+
+set_blanket(
+  theme = theme_lighter(
+    panel_heights = rep(unit(50, "mm"), times = 100),
+    panel_widths = rep(unit(75, "mm"), times = 100),
+  ),
+)
+
+penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = sex,
+  ) +
+  annotate_axis_ticks(position = "bottom", breaks = c(seq(170, 230, 10), 195))
+
+penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_bar(
+    x = island,
+    col = sex,
+    width = 0.75,
+  ) +
+  annotate_axis_ticks(position = "bottom", breaks = c(0.5, 1.5, 2.5, 3.5))
+
+}

@@ -25,14 +25,16 @@ This article will demonstrate a random assortment of content, including some of 
 * Reorder and/or reverse categorical variables
 * Drop unused categorical variable values
 * Transform scales to `"log"` etc
-* Correct the default orientation
+* Correct the default perspective
 * Avoid the 'symmetric' scale
 * Change the `*_position` of positional axes 
 * Zoom in or out on scales
 * Use delayed evaluation
 * Rescale a diverging col scale
 * Add a legend within the panel
-* Specifying panel sizes
+* Set consistent panel sizes
+* Set consistent widths across panels
+
 
 ```{r setup}
 library(dplyr)
@@ -374,9 +376,9 @@ mpg  |>
     x = displ, 
     y = hwy, 
     col = cty,
-    col_palette = c(navy, teal, "white", orange, red),
     col_rescale = scales::rescale(rescale_vctr),
     col_breaks = scales::breaks_width(5),
+    colour_palette = c(navy, teal, "white", orange, red),
     theme = theme_darker(),
   )
 ```
@@ -396,54 +398,133 @@ penguins2 |>
   theme(legend.justification = c(1, 1)) 
 ```
 
-### Specifying panel sizes
+### Set consistent panel sizes
 
-For non-faceted plots, use `patchwork::plot_layout`.
+Use `panel_heights` and `panel_widths` arguments in `theme_lighter`/`theme_darker` - or `+ theme(panel.heights = NULL, panel.widths = NULL)`. Use `rep` to make them all the same.
 
 ```{r}
+set_blanket(
+  theme = theme_lighter(
+    panel_heights = rep(unit(50, "mm"), times = 100), 
+    panel_widths = rep(unit(50, "mm"), times = 100),
+  )
+)
+
 penguins |>
-  drop_na(sex) |>
   gg_point(
-    x = flipper_length_mm,
+    x = bill_length_mm,
     y = body_mass_g,
     col = species,
-    x_breaks_n = 4,
+    size = 1,
+  )
+
+penguins |>
+  drop_na(sex) |> 
+  mutate(across(sex, \(x) str_to_sentence(x))) |> 
+  gg_point(
+    x = bill_length_mm,
+    y = body_mass_g,
+    col = species,
+    facet = sex,
+    size = 1,
+  )
+```
+
+### Set consistent widths across panels
+
+The width of geoms can be standardised across geoms using `standardise_width`. 
+
+```{r}
+set_blanket(
+  theme = theme_lighter(
+    panel_heights = rep(unit(50, "mm"), times = 100),
+    panel_widths = rep(unit(75, "mm"), times = 100),
+  )
+)
+
+# create standard
+penguins |>
+  drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_bar(
+    x = species,
+    col = sex,
+    width = 0.25,
+  )
+
+# align width with standard
+penguins |>
+  drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_bar(
+    x = sex,
+    col = species,
+    width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2)
+  )
+
+penguins |>
+  drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_bar(
+    x = sex,
+    col = species,
+    position = position_dodge(),
+    width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2, to_dodge_n = 3)
+  )
+
+penguins |>
+  drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_bar(
+    y = sex,
+    col = species,
+    position = position_dodge(),
+    width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2, to_dodge_n = 3,
+                              to_perspective = "y",
+                              from_panel_heights = rep(unit(50, "mm"), times = 100),
+                              from_panel_widths = rep(unit(75, "mm"), times = 100),
+    )
+  )
+```
+### Annotate axis line
+
+```{r}
+set_blanket(
+  theme = theme_lighter(
+    panel_heights = rep(unit(50, "mm"), times = 100),
+    panel_widths = rep(unit(75, "mm"), times = 100),
+  ),
+)
+
+penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  add_row(flipper_length_mm = 195, body_mass_g = 2500, sex = "Female") |> 
+  gg_blanket(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = sex,
   ) +
-  patchwork::plot_layout(
-    widths = unit(50, "mm"),
-    heights = unit(50, "mm"),
-  )
+  annotate_axis_line(position = "bottom") +
+  geom_point()
 ```
 
-For faceted plots, use `purrr::map` and `patchwork::wrap_plots`.
+### Annotate axis ticks
 
-```{r, eval=FALSE}
-purrr::map(unique(penguins$species), \(x) {
-  penguins |>
-    drop_na(sex) |> 
-    filter(species == x) |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = sex,
-      position = position_dodge(preserve = "single"),
-      subtitle = x,
-      x_breaks_n = 4,
-      y_breaks_n = 5,
-      x_limits_include = range(penguins$flipper_length_mm, na.rm = TRUE),
-      y_limits_include = range(penguins$body_mass_g, na.rm = TRUE),
-    ) +
-    theme(plot.title.position = "panel") +
-    theme(plot.subtitle = element_text(hjust = 0.5, margin = margin(b = 11)))
-}
-) |>
-  wrap_plots(ncol = 2,
-             widths = unit(50, "mm"),
-             heights = unit(50, "mm")) +
-  guide_area() +
-  plot_layout(
-    guides = 'collect',
-    axes = "collect_x",
-  )
+```{r}
+set_blanket(
+  theme = theme_lighter(
+    panel_heights = rep(unit(50, "mm"), times = 100),
+    panel_widths = rep(unit(75, "mm"), times = 100),
+  ),
+)
+
+penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_histogram(
+    x = flipper_length_mm,
+    col = sex,
+  ) +
+  annotate_axis_ticks(position = "bottom", breaks = c(seq(170, 230, 10), 195))
 ```
-

@@ -22,12 +22,12 @@ theme_darker(
   axis_ticks_colour = axis_line_colour,
   axis_ticks_linewidth = axis_line_linewidth,
   axis_ticks_length = grid::unit(11/3, "pt"),
-  panel_heights = NULL,
-  panel_widths = NULL,
+  plot_background_fill = "#00040AFF",
+  panel_background_fill = "#050D1BFF",
   panel_grid_colour = "#00040AFF",
   panel_grid_linewidth = 1.33,
-  panel_background_fill = "#050D1BFF",
-  plot_background_fill = "#00040AFF"
+  panel_heights = NULL,
+  panel_widths = NULL
 )
 }
 \arguments{
@@ -65,17 +65,17 @@ theme_darker(
 
 \item{axis_ticks_length}{The length of the axis.ticks.length theme element.}
 
-\item{panel_heights}{The height of the panels.}
+\item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
 
-\item{panel_widths}{The width of the panels.}
+\item{panel_background_fill}{The fill (and colour) of the panel.background theme element.}
 
 \item{panel_grid_colour}{The colour of the panel.grid theme element.}
 
 \item{panel_grid_linewidth}{The linewidth of the panel.grid theme element.}
 
-\item{panel_background_fill}{The fill (and colour) of the panel.background theme element.}
+\item{panel_heights}{The height of the panels.}
 
-\item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
+\item{panel_widths}{The width of the panels.}
 }
 \value{
 A ggplot theme.legend.ticks.length

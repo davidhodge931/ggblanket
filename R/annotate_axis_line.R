@@ -10,6 +10,30 @@
 #' @return A list of a annotate layer and theme elements.
 #' @export
 #'
+#' @examples
+#' library(dplyr)
+#' library(stringr)
+#' library(palmerpenguins)
+#'
+#' set_blanket(
+#'   theme = theme_lighter(
+#'     panel_heights = rep(unit(50, "mm"), times = 100),
+#'     panel_widths = rep(unit(75, "mm"), times = 100),
+#'   ),
+#' )
+#'
+#' penguins |>
+#'   tidyr::drop_na(sex) |>
+#'   mutate(across(sex, \(x) str_to_sentence(x))) |>
+#'   add_row(flipper_length_mm = 195, body_mass_g = 2500, sex = "Female") |>
+#'   gg_blanket(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = sex,
+#'   ) +
+#'   annotate_axis_line(position = "bottom") +
+#'   geom_point()
+#'
 annotate_axis_line <- function(position, ..., colour = NULL, linewidth = NULL) {
   rlang::inform(
     "Please use this function with ggplot2::coord_cartesian(clip = 'off')"

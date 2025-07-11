@@ -387,7 +387,7 @@ p1 <- penguins2 |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
-    col_palette = paletteer_d("RColorBrewer::Dark2"),
+    colour_palette = paletteer_d("RColorBrewer::Dark2"),
     x_breaks_n = 4,
   ) +
   theme(legend.position = "none")
@@ -397,7 +397,7 @@ p2 <- penguins2 |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = bill_depth_mm,
-    col_palette = paletteer_c("viridis::rocket", 9),
+    colour_palette = paletteer_c("viridis::rocket", 9),
     x_breaks_n = 4,
   ) +
   theme(legend.position = "none")

@@ -83,11 +83,11 @@ theme_lighter <- function(
     panel_background_fill = "#FFFFFFFF",
     plot_background_fill = "#FFFFFFFF"
 ) {
-  theme_base(
+  theme_blanket(
     base_size = base_size,
     base_family = base_family,
     base_colour = base_colour,
-    plot_caption_colour = colorspace::lighten(base_colour, 0.1),
+    caption_colour = colorspace::lighten(base_colour, 0.1),
     axis_line_colour = axis_line_colour,
     axis_line_linewidth = axis_line_linewidth,
     axis_ticks_colour = axis_ticks_colour,
@@ -99,10 +99,12 @@ theme_lighter <- function(
     legend_background_fill = legend_background_fill,
     legend_key_fill = legend_key_fill,
     legend_ticks_colour = legend_ticks_colour,
+    plot_background_fill = plot_background_fill,
+    panel_background_fill = panel_background_fill,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
-    panel_background_fill = panel_background_fill,
-    plot_background_fill = plot_background_fill
+    panel_heights = panel_heights,
+    panel_widths = panel_widths
   )
 }
 

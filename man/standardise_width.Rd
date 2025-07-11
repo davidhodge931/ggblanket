@@ -56,3 +56,62 @@ A numeric value
 \description{
 Calculate widths that are standardised.
 }
+\examples{
+library(ggplot2)
+library(dplyr)
+library(stringr)
+library(palmerpenguins)
+
+set_blanket(
+  theme = theme_lighter(
+    panel_heights = rep(unit(50, "mm"), times = 100),
+    panel_widths = rep(unit(75, "mm"), times = 100),
+  )
+)
+
+# create standard
+penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_bar(
+    x = species,
+    col = sex,
+    width = 0.25,
+  )
+
+# align width with standard
+penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_bar(
+    x = sex,
+    col = species,
+    width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2)
+  )
+
+penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_bar(
+    x = sex,
+    col = species,
+    position = position_dodge(),
+    width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2, to_dodge_n = 3)
+  )
+
+penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_bar(
+    y = sex,
+    col = species,
+    position = position_dodge(),
+    width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2, to_dodge_n = 3,
+                              to_perspective = "y",
+                              from_panel_heights = rep(unit(50, "mm"), times = 100),
+                              from_panel_widths = rep(unit(75, "mm"), times = 100),
+    )
+  )
+
+
+}

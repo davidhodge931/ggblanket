@@ -19,30 +19,30 @@
 #' @param axis_ticks_colour The colour of the axis.ticks theme element.
 #' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
 #' @param axis_ticks_length The length of the axis.ticks.length theme element.
-#' @param panel_heights The height of the panels.
-#' @param panel_widths The width of the panels.
+#' @param plot_background_fill The fill (and colour) of the plot.background theme element.
+#' @param panel_background_fill The fill (and colour) of the panel.background theme element.
 #' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
-#' @param panel_background_fill The fill (and colour) of the panel.background theme element.
-#' @param plot_background_fill The fill (and colour) of the plot.background theme element.
-#' @param plot_title_size The size of the plot.title theme element.
-#' @param plot_title_family The family of the plot.title theme element.
-#' @param plot_title_colour The colour of the plot.title theme element.
-#' @param plot_title_face The face of the plot.title theme element.
-#' @param plot_subtitle_size The size of the plot.subtitle theme element.
-#' @param plot_subtitle_family The family of the plot.subtitle theme element.
-#' @param plot_subtitle_colour The colour of the plot.subtitle theme element.
-#' @param plot_subtitle_face The face of the plot.subtitle theme element.
-#' @param plot_caption_size The size of the plot.caption theme element.
-#' @param plot_caption_family The family of the plot.caption theme element.
-#' @param plot_caption_colour The colour of the plot.caption theme element.
-#' @param plot_caption_face The face of the plot.caption theme element.
-#' @param plot_caption_hjust The horizontal adjustment of the plot.caption theme element.
+#' @param panel_heights The height of the panels.
+#' @param panel_widths The width of the panels.
+#' @param title_size The size of the plot.title theme element.
+#' @param title_family The family of the plot.title theme element.
+#' @param title_colour The colour of the plot.title theme element.
+#' @param title_face The face of the plot.title theme element.
+#' @param subtitle_size The size of the plot.subtitle theme element.
+#' @param subtitle_family The family of the plot.subtitle theme element.
+#' @param subtitle_colour The colour of the plot.subtitle theme element.
+#' @param subtitle_face The face of the plot.subtitle theme element.
+#' @param caption_size The size of the plot.caption theme element.
+#' @param caption_family The family of the plot.caption theme element.
+#' @param caption_colour The colour of the plot.caption theme element.
+#' @param caption_face The face of the plot.caption theme element.
+#' @param caption_hjust The horizontal adjustment of the plot.caption theme element.
 #'
 #' @return A ggplot theme.
 #' @noRd
 #'
-theme_base <- function(
+theme_blanket <- function(
     base_size = 10,
     base_family = "",
     base_colour = "#121B24FF",
@@ -60,25 +60,25 @@ theme_base <- function(
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = grid::unit(11 / 3, "pt"),
-    panel_heights = NULL,
-    panel_widths = NULL,
-    panel_grid_colour = "#F6F8FAFF",
-    panel_grid_linewidth = 1.33,
     panel_background_fill = "#FFFFFFFF",
     plot_background_fill = "#FFFFFFFF",
-    plot_title_size = ggplot2::rel(1.1),
-    plot_title_family = base_family,
-    plot_title_colour = base_colour,
-    plot_title_face = "bold",
-    plot_subtitle_size = ggplot2::rel(1),
-    plot_subtitle_family = base_family,
-    plot_subtitle_colour = base_colour,
-    plot_subtitle_face = "plain",
-    plot_caption_size = ggplot2::rel(0.85),
-    plot_caption_family = base_family,
-    plot_caption_colour = colorspace::lighten(base_colour, 0.1),
-    plot_caption_face = "plain",
-    plot_caption_hjust = 0
+    panel_grid_colour = "#F6F8FAFF",
+    panel_grid_linewidth = 1.33,
+    panel_heights = NULL,
+    panel_widths = NULL,
+    title_size = ggplot2::rel(1.1),
+    title_family = base_family,
+    title_colour = base_colour,
+    title_face = "bold",
+    subtitle_size = ggplot2::rel(1),
+    subtitle_family = base_family,
+    subtitle_colour = base_colour,
+    subtitle_face = "plain",
+    caption_size = ggplot2::rel(0.85),
+    caption_family = base_family,
+    caption_colour = colorspace::lighten(base_colour, 0.1),
+    caption_face = "plain",
+    caption_hjust = 0
 ) {
   theme <- ggplot2::theme(
     text = ggplot2::element_text(
@@ -245,28 +245,28 @@ theme_base <- function(
       fill = plot_background_fill
     ),
     plot.title = ggplot2::element_text(
-      size = plot_title_size,
-      family = plot_title_family,
-      face = plot_title_face,
-      colour = plot_title_colour,
+      size = title_size,
+      family = title_family,
+      face = title_face,
+      colour = title_colour,
       hjust = 0,
       margin = ggplot2::margin(t = 11 * -1, r = 0, b = 11 * 2.5, l = 0)
     ),
     plot.title.position = "plot",
     plot.subtitle = ggplot2::element_text(
-      size = plot_subtitle_size,
-      family = plot_subtitle_family,
-      face = plot_subtitle_face,
-      colour = plot_subtitle_colour,
+      size = subtitle_size,
+      family = subtitle_family,
+      face = subtitle_face,
+      colour = subtitle_colour,
       hjust = 0,
       margin = ggplot2::margin(t = 11 * -2, r = 0, b = 11 * 2, l = 0)
     ),
     plot.caption = ggplot2::element_text(
-      size = plot_caption_size,
-      family = plot_caption_family,
-      face = plot_caption_face,
-      colour = plot_caption_colour,
-      hjust = plot_caption_hjust,
+      size = caption_size,
+      family = caption_family,
+      face = caption_face,
+      colour = caption_colour,
+      hjust = caption_hjust,
       margin = ggplot2::margin(t = 11 * 0.5, r = 0, b = 11 * 0.5, l = 0)
     ),
     plot.caption.position = "plot",

@@ -85,32 +85,35 @@ If NULL, derived from theme axis line linewidth.}
 
 \item{family_font}{A font family. If NULL, derived from axis text family.}
 
-\item{col_palette_d}{For discrete scales, a palette to use for both colour and fill.
-A character vector of hex codes or a \verb{scales::pal_*} function. Defaults to \code{jumble}.}
+\item{col_palette_d}{For a discrete colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{col_palette_c}{For continuous scales, a palette to use for both colour and fill.
-A character vector of hex codes or a \verb{scales::pal_*} function.
-Defaults to \code{scales::pal_viridis(option = "G", direction = -1)}.}
+\item{col_palette_c}{For a continuous colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{colour_palette_d}{For discrete colour scales. If NULL, uses \code{col_palette_d}.}
+\item{colour_palette_d}{For a discrete colour scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{colour_palette_d_border}{For border geoms with discrete colour scales.
-If NULL, uses \code{col_squared(colour_palette_d)}.}
+\item{colour_palette_d_border}{For border geoms with discrete colour scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{fill_palette_d}{For discrete fill scales. If NULL, uses \code{col_palette_d}.}
+\item{fill_palette_d}{For a discrete fill scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{fill_palette_d_border}{For border geoms with discrete fill scales.
-If NULL, uses \code{fill_palette_d}.}
+\item{fill_palette_d_border}{For border geoms with discrete fill scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{colour_palette_c}{For continuous colour scales. If NULL, uses \code{col_palette_c}.}
+\item{colour_palette_c}{For a continuous colour scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{colour_palette_c_border}{For border geoms with continuous colour scales.
-If NULL, uses \code{colour_palette_c}.}
+\item{colour_palette_c_border}{For border geoms with continuous colour scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{fill_palette_c}{For continuous fill scales. If NULL, uses \code{col_palette_c}.}
+\item{fill_palette_c}{For a continuous fill scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{fill_palette_c_border}{For border geoms with continuous fill scales.
-If NULL, uses \code{fill_palette_c}.}
+\item{fill_palette_c_border}{For border geoms with continuous fill scale, a character vector or a \verb{scales::pal_*} function.}
+
+\item{col_palette_na}{For NA values in both colour/fill scales, a hex code. Defaults to "#CDC5BFFF".}
+
+\item{colour_palette_na}{For NA values in colour scales, a hex code.}
+
+\item{colour_palette_na_border}{For NA values in border geoms with colour scale, a hex code.}
+
+\item{fill_palette_na}{For NA values in fill scales, a hex code.}
+
+\item{fill_palette_na_border}{For NA values in border geoms with fill scale, a hex code.}
 
 \item{titles_case}{A function to apply to unspecified/unlabelled titles in \verb{gg_*} functions.
 Defaults to \code{snakecase::to_sentence_case}.}
@@ -132,11 +135,8 @@ Invisibly returns NULL. Sets global styling options as a side effect.
 \description{
 Set a consistent style for ggplot2 visualizations by configuring:
 theme, geom default colour/fill, linetypes, linewidths, sizes,
-fonts, palettes, and other styling options.
-
-For convenience, \code{col_palette_d} and \code{col_palette_c} can be used to set
-both colour and fill palettes simultaneously. More specific palette arguments
-(e.g., \code{colour_palette_d}, \code{fill_palette_d}) will override these general settings.
+fonts, palettes, and other styling options. Most users will only need
+\code{theme}, \code{col}, \code{col_palette_d} and , \code{col_palette_c} arguments.
 }
 \examples{
 library(ggplot2)

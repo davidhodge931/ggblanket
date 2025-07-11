@@ -3,11 +3,8 @@
 #' @description
 #' Set a consistent style for ggplot2 visualizations by configuring:
 #' theme, geom default colour/fill, linetypes, linewidths, sizes,
-#' fonts, palettes, and other styling options.
-#'
-#' For convenience, `col_palette_d` and `col_palette_c` can be used to set
-#' both colour and fill palettes simultaneously. More specific palette arguments
-#' (e.g., `colour_palette_d`, `fill_palette_d`) will override these general settings.
+#' fonts, palettes, and other styling options. Most users will only need
+#' `theme`, `col`, `col_palette_d` and , `col_palette_c` arguments.
 #'
 #' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
 #' @param col A default hex code for the colour and fill of most geoms. Defaults to `blue`.
