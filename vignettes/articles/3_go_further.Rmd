@@ -480,11 +480,18 @@ penguins |>
     col = species,
     position = position_dodge(),
     width = standardise_width(from_n = 2, 
-                              from_dodge_n = 3, 
+                              from_dodge_n = 3,
+                              from_perspective = "y",
                               to_width = 0.25, 
-                              to_n = 3, 
-                              to_perspective = "y")
+                              to_n = 3)
   )
+
+set_blanket(
+  theme = theme_lighter(
+    panel_heights = rep(unit(40, "mm"), times = 100),
+    panel_widths = rep(unit(100, "mm"), times = 100),
+  )
+)
 ```
 
 ### Annotate an axis line

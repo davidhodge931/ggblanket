@@ -56,9 +56,6 @@ A numeric value
 \description{
 Calculate widths that are standardised.
 }
-\details{
-Note: For a faceted plot, it will only correctly, if all the current plot panels are of equal height and width.
-}
 \examples{
 library(ggplot2)
 library(dplyr)
@@ -115,10 +112,17 @@ penguins |>
       from_perspective = "y",
       to_width = 0.25,
       to_n = 3,
-      to_panel_heights = rep(unit(50, "mm"), times = 100),
-      to_panel_widths = rep(unit(75, "mm"), times = 100),
     )
   )
 
+penguins |>
+  tidyr::drop_na(sex) |>
+  mutate(across(sex, \(x) str_to_sentence(x))) |>
+  gg_boxplot(
+   x = sex,
+   y = flipper_length_mm,
+   col = species,
+   width = standardise_width(from_n = 2, from_dodge_n = 3, to_width = 0.25, to_n = 3)
+ )
 
 }

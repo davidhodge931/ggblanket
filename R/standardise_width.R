@@ -2,8 +2,6 @@
 #'
 #' Calculate widths that are standardised.
 #'
-#' Note: For a faceted plot, it will only correctly, if all the current plot panels are of equal height and width.
-#'
 #' @param ... Provided to force user argument naming etc.
 #' @param from_n Number of x aesthetic groups in the current plot. Required.
 #' @param from_dodge_n Number of fill aesthetic etc groups dodged in the current plot. Defaults to 1.
@@ -78,11 +76,18 @@
 #'       from_perspective = "y",
 #'       to_width = 0.25,
 #'       to_n = 3,
-#'       to_panel_heights = rep(unit(50, "mm"), times = 100),
-#'       to_panel_widths = rep(unit(75, "mm"), times = 100),
 #'     )
 #'   )
 #'
+#' penguins |>
+#'   tidyr::drop_na(sex) |>
+#'   mutate(across(sex, \(x) str_to_sentence(x))) |>
+#'   gg_boxplot(
+#'    x = sex,
+#'    y = flipper_length_mm,
+#'    col = species,
+#'    width = standardise_width(from_n = 2, from_dodge_n = 3, to_width = 0.25, to_n = 3)
+#'  )
 #'
 standardise_width <- function(
     ...,
@@ -103,6 +108,15 @@ standardise_width <- function(
   # Check required arguments
   if (missing(to_width) | missing(to_n) | missing(from_n)) {
     rlang::abort("to_width, to_n, and from_n must all be specified")
+  }
+
+  # Validate panel dimensions - if any provided, all must be provided
+  if (!is.null(from_panel_widths) || !is.null(from_panel_heights) ||
+      !is.null(to_panel_widths) || !is.null(to_panel_heights)) {
+    if (is.null(from_panel_widths) || is.null(from_panel_heights) ||
+        is.null(to_panel_widths) || is.null(to_panel_heights)) {
+      rlang::abort("If any panel dimension is provided, all four must be provided")
+    }
   }
 
   # Get current theme
