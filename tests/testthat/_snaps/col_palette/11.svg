@@ -29,10 +29,10 @@
 <polyline points='42.83,48.21 667.54,48.21 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <polyline points='213.21,531.97 213.21,48.21 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
 <polyline points='497.17,531.97 497.17,48.21 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
-<line x1='199.01' y1='467.46' x2='199.01' y2='443.28' style='stroke-width: 1.41; stroke: #0095A8; stroke-linecap: butt;' />
-<line x1='227.41' y1='161.09' x2='227.41' y2='104.65' style='stroke-width: 1.41; stroke: #FFA600; stroke-linecap: butt;' />
-<line x1='482.97' y1='338.46' x2='482.97' y2='265.90' style='stroke-width: 1.41; stroke: #0095A8; stroke-linecap: butt;' />
-<line x1='511.37' y1='241.71' x2='511.37' y2='193.34' style='stroke-width: 1.41; stroke: #FFA600; stroke-linecap: butt;' />
+<line x1='199.01' y1='467.46' x2='199.01' y2='443.28' style='stroke-width: 1.41; stroke: #F8766D; stroke-linecap: butt;' />
+<line x1='227.41' y1='161.09' x2='227.41' y2='104.65' style='stroke-width: 1.41; stroke: #00BFC4; stroke-linecap: butt;' />
+<line x1='482.97' y1='338.46' x2='482.97' y2='265.90' style='stroke-width: 1.41; stroke: #F8766D; stroke-linecap: butt;' />
+<line x1='511.37' y1='241.71' x2='511.37' y2='193.34' style='stroke-width: 1.41; stroke: #00BFC4; stroke-linecap: butt;' />
 <polyline points='42.83,531.97 42.83,48.21 ' style='stroke-width: 0.53; stroke: none; stroke-linecap: square;' />
 <text x='36.44' y='535.41' text-anchor='end' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='36.44' y='454.78' text-anchor='end' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>1</text>
@@ -58,9 +58,9 @@
 <rect x='673.02' y='48.21' width='25.06' height='66.11' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <text x='681.24' y='56.13' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='27.80px' lengthAdjust='spacingAndGlyphs'>Group</text>
 <rect x='681.24' y='62.65' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<line x1='686.43' y1='80.57' x2='686.43' y2='64.64' style='stroke-width: 1.41; stroke: #0095A8; stroke-linecap: butt;' />
+<line x1='686.43' y1='80.57' x2='686.43' y2='64.64' style='stroke-width: 1.41; stroke: #F8766D; stroke-linecap: butt;' />
 <rect x='681.24' y='86.18' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<line x1='686.43' y1='104.11' x2='686.43' y2='88.17' style='stroke-width: 1.41; stroke: #FFA600; stroke-linecap: butt;' />
+<line x1='686.43' y1='104.11' x2='686.43' y2='88.17' style='stroke-width: 1.41; stroke: #00BFC4; stroke-linecap: butt;' />
 <text x='697.09' y='76.05' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>1</text>
 <text x='697.09' y='99.58' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>2</text>
 <text x='10.96' y='19.67' style='font-size: 11.00px; font-weight: bold; fill: #121B24; font-family: sans;' textLength='12.24px' lengthAdjust='spacingAndGlyphs'>11</text>

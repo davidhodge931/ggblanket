@@ -341,13 +341,15 @@ gg_blanket <- function(
     theme_palettes <- ggplot2::get_theme()
 
     # Define geom categories (matching update_geom_col)
-    border_geoms <- c("area", "bar", "boxplot", "col", "crossbar", "density",
+    border_polygon_geoms <- c("area", "bar", "boxplot", "col", "crossbar", "density",
                       "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
                       "violin", "raster", "contour_filled", "density2d_filled",
                       "bin2d", "hex")
 
+    border_point_geoms <- c("point", "jitter", "count", "qq")
+
     # Determine if this geom needs special palette handling
-    is_border_geom <- geom_name %in% border_geoms
+    is_border_geom <- geom_name %in% c(border_polygon_geoms, border_point_geoms)
 
     if (col_scale_class %in% c("discrete")) {
       if (rlang::is_null(colour_palette)) {

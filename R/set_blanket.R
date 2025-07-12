@@ -72,7 +72,7 @@
 set_blanket <- function(
     theme = theme_lighter(),
 
-    col = blue,
+    col = "#8991A1",
     colour = NULL,
     colour_border = NULL,
     colour_font = NULL,
@@ -93,8 +93,8 @@ set_blanket <- function(
     size_font = NULL,
     family_font = NULL,
 
-    col_palette_d = jumble,
-    col_palette_c = NULL,
+    col_palette_d = scales::pal_hue(),
+    col_palette_c = mako_cruise(),
 
     colour_palette_d = NULL,
     colour_palette_d_border = NULL,
@@ -106,7 +106,7 @@ set_blanket <- function(
     fill_palette_c = NULL,
     fill_palette_c_border = NULL,
 
-    col_palette_na = "#CDC5BFFF",
+    col_palette_na = "#A6A6A6",
     colour_palette_na = NULL,
     colour_palette_na_border = NULL,
     fill_palette_na = NULL,
@@ -119,9 +119,19 @@ set_blanket <- function(
     ...
 ) {
 
+  # Set the theme first
+  ggplot2::set_theme(theme)
+  current_theme <- ggplot2::get_theme()
+
   # Handle colour/fill defaults
   if(is.null(colour)) colour <- col
-  if(is.null(colour_border)) colour_border <- col_multiply(colour)
+  if (is.null(colour_border)) {
+    if (is_panel_background_dark(theme = current_theme)) {
+      colour_border <- col_screen(colour)
+    } else {
+      colour_border <- col_multiply(colour)
+    }
+  }
   if(is.null(fill)) fill <- col
   if(is.null(fill_border)) fill_border <- fill
 
@@ -129,28 +139,39 @@ set_blanket <- function(
   if(is.null(linetype_border)) linetype_border <- linetype
 
   # Handle palette defaults
-  if(is.null(colour_palette_d)) colour_palette_d <- col_palette_d
-  if(is.null(colour_palette_d_border)) colour_palette_d_border <- col_multiply(colour_palette_d)
-  if(is.null(fill_palette_d)) fill_palette_d <- col_palette_d
-  if(is.null(fill_palette_d_border)) fill_palette_d_border <- fill_palette_d
-
-  if (rlang::is_null(col_palette_c)) {
-    col_palette_c <- viridisLite::mako(n = 9, direction = -1)
-
-    # col_palette_c <- viridisLite::mako(
-    #   n = 20,
-    #   begin = 0.1,
-    #   end = 0.9,
-    #   direction = ifelse(is_panel_background_dark(), 1, -1),
-    # )
+  if (rlang::is_null(colour_palette_d)) colour_palette_d <- col_palette_d
+  if (rlang::is_null(colour_palette_d_border)) {
+    if (is_panel_background_dark(theme = current_theme)) {
+      colour_palette_d_border <- col_screen(colour_palette_d)
+    } else {
+      colour_palette_d_border <- col_multiply(colour_palette_d)
+    }
   }
-  if(is.null(colour_palette_c)) colour_palette_c <- col_palette_c
-  if(is.null(colour_palette_c_border)) colour_palette_c_border <- col_multiply(colour_palette_c)
-  if(is.null(fill_palette_c)) fill_palette_c <- col_palette_c
-  if(is.null(fill_palette_c_border)) fill_palette_c_border <- fill_palette_c
+  if (rlang::is_null(fill_palette_d)) fill_palette_d <- col_palette_d
+  if (rlang::is_null(fill_palette_d_border)) fill_palette_d_border <- fill_palette_d
 
-  # Set the theme first
-  ggplot2::set_theme(theme)
+  if (rlang::is_null(colour_palette_c)) colour_palette_c <- col_palette_c
+  if (rlang::is_null(colour_palette_c_border)) {
+    if (is_panel_background_dark(current_theme)) {
+      colour_palette_c_border <- col_screen(colour_palette_c)
+    } else {
+      colour_palette_c_border <- col_multiply(colour_palette_c)
+    }
+  }
+  if (rlang::is_null(fill_palette_c)) fill_palette_c <- col_palette_c
+  if (rlang::is_null(fill_palette_c_border)) fill_palette_c_border <- fill_palette_c
+
+  # Handle NA color defaults
+  if (rlang::is_null(colour_palette_na)) colour_palette_na <- col_palette_na
+  if (rlang::is_null(colour_palette_na_border)) {
+    if (is_panel_background_dark(theme = current_theme)) {
+      colour_palette_na_border <- col_screen(colour_palette_na)
+    } else {
+      colour_palette_na_border <- col_multiply(colour_palette_na)
+    }
+  }
+  if (rlang::is_null(fill_palette_na)) fill_palette_na <- col_palette_na
+  if (rlang::is_null(fill_palette_na_border)) fill_palette_na_border <- fill_palette_na
 
   # Update geom defaults
   update_geom_col(

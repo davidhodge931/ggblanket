@@ -459,7 +459,7 @@ penguins |>
   gg_bar(
     x = sex,
     col = species,
-    width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2)
+    width = standardise_width(from_n = 2, to_width = 0.25, to_n = 3)
   )
 
 penguins |>
@@ -469,7 +469,7 @@ penguins |>
     x = sex,
     col = species,
     position = position_dodge(),
-    width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2, to_dodge_n = 3)
+    width = standardise_width(from_n = 2, from_dodge_n = 3, to_width = 0.25, to_n = 3)
   )
 
 penguins |>
@@ -479,11 +479,11 @@ penguins |>
     y = sex,
     col = species,
     position = position_dodge(),
-    width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2, to_dodge_n = 3,
-                              to_perspective = "y",
-                              from_panel_heights = rep(unit(50, "mm"), times = 100),
-                              from_panel_widths = rep(unit(75, "mm"), times = 100),
-    )
+    width = standardise_width(from_n = 2, 
+                              from_dodge_n = 3, 
+                              to_width = 0.25, 
+                              to_n = 3, 
+                              to_perspective = "y")
   )
 ```
 

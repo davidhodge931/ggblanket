@@ -55,8 +55,10 @@ update_geom_size <- function(
     geom.count = ggplot2::element_geom(pointsize = size),
     geom.jitter = ggplot2::element_geom(pointsize = size),
     geom.point = ggplot2::element_geom(pointsize = size),
-    geom.pointrange = ggplot2::element_geom(pointsize = size * 3),
     geom.qq = ggplot2::element_geom(pointsize = size),
+
+    geom.pointrange = ggplot2::element_geom(pointsize = size * 3),
+
     # Update font geoms
     geom.text = ggplot2::element_geom(
       fontsize = size_font

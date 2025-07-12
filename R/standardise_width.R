@@ -2,20 +2,22 @@
 #'
 #' Calculate widths that are standardised.
 #'
+#' Note: For a faceted plot, it will only correctly, if all the current plot panels are of equal height and width.
+#'
 #' @param ... Provided to force user argument naming etc.
-#' @param from_width In the reference, width value. Required.
-#' @param from_n In the reference, number of x aesthetic groups. Required.
-#' @param from_dodge_n In the reference, number of fill aesthetic etc groups dodged. Defaults to 1.
-#' @param from_dodge_padding In the reference, amount of padding (in position_dodge2). Defaults to 0.
-#' @param from_perspective In the reference, perspective of the plot. Either "x" (default) or "y".
-#' @param from_panel_widths In the reference, unit vector of individual panel widths. If NULL, panels assumed equal.
-#' @param from_panel_heights In the reference, unit vector of individual panel heights. If NULL, panels assumed equal.
-#' @param to_n Number of x aesthetic groups.
-#' @param to_dodge_n Number of fill aesthetic etc groups dodged. If NULL, inherits from from_dodge_n.
-#' @param to_dodge_padding Amount of padding (in position_dodge2). If NULL, inherits from from_dodge_padding.
-#' @param to_perspective perspective of the plot. Either "x" or "y". If NULL, inherits from from_perspective.
-#' @param to_panel_widths Unit vector of individual panel widths. If NULL, inherits from from_panel_widths.
-#' @param to_panel_heights Unit vector of individual panel heights. If NULL, inherits from from_panel_heights.
+#' @param from_n Number of x aesthetic groups in the current plot. Required.
+#' @param from_dodge_n Number of fill aesthetic etc groups dodged in the current plot. Defaults to 1.
+#' @param from_dodge_padding Amount of padding (in position_dodge2) in the current plot. Defaults to 0.
+#' @param from_perspective Perspective of the current plot. Either "x" (default) or "y".
+#' @param from_panel_widths Unit vector of individual panel widths in the current plot. If NULL, panels assumed equal.
+#' @param from_panel_heights Unit vector of individual panel heights in the current plot. If NULL, panels assumed equal.
+#' @param to_width Width value in the reference standard. Required.
+#' @param to_n Number of x aesthetic groups in the reference standard. Required.
+#' @param to_dodge_n Number of fill aesthetic etc groups dodged in the reference standard. Defaults to 1.
+#' @param to_dodge_padding Amount of padding (in position_dodge2) in the reference standard. Defaults to 0.
+#' @param to_perspective Perspective of the reference standard plot. Either "x" (default) or "y".
+#' @param to_panel_widths Unit vector of individual panel widths in the reference standard. If NULL, panels assumed equal.
+#' @param to_panel_heights Unit vector of individual panel heights in the reference standard. If NULL, panels assumed equal.
 #'
 #' @return A numeric value
 #' @export
@@ -33,7 +35,7 @@
 #'   )
 #' )
 #'
-#' # create standard
+#' # create reference standard
 #' penguins |>
 #'   tidyr::drop_na(sex) |>
 #'   mutate(across(sex, \(x) str_to_sentence(x))) |>
@@ -43,14 +45,14 @@
 #'     width = 0.25,
 #'   )
 #'
-#' # align width with standard
+#' # align width with reference standard
 #' penguins |>
 #'   tidyr::drop_na(sex) |>
 #'   mutate(across(sex, \(x) str_to_sentence(x))) |>
 #'   gg_bar(
 #'     x = sex,
 #'     col = species,
-#'     width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2)
+#'     width = standardise_width(from_n = 2, to_width = 0.25, to_n = 3)
 #'   )
 #'
 #' penguins |>
@@ -60,7 +62,7 @@
 #'     x = sex,
 #'     col = species,
 #'     position = position_dodge(),
-#'     width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2, to_dodge_n = 3)
+#'     width = standardise_width(from_n = 2, from_dodge_n = 3, to_width = 0.25, to_n = 3)
 #'   )
 #'
 #' penguins |>
@@ -70,40 +72,54 @@
 #'     y = sex,
 #'     col = species,
 #'     position = position_dodge(),
-#'     width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2, to_dodge_n = 3,
-#'                               to_perspective = "y",
-#'                               from_panel_heights = rep(unit(50, "mm"), times = 100),
-#'                               from_panel_widths = rep(unit(75, "mm"), times = 100),
+#'     width = standardise_width(
+#'       from_n = 2,
+#'       from_dodge_n = 3,
+#'       from_perspective = "y",
+#'       to_width = 0.25,
+#'       to_n = 3,
+#'       to_panel_heights = rep(unit(50, "mm"), times = 100),
+#'       to_panel_widths = rep(unit(75, "mm"), times = 100),
 #'     )
 #'   )
 #'
 #'
 standardise_width <- function(
-  ...,
-  from_width,
-  from_n,
-  from_dodge_n = 1,
-  from_dodge_padding = 0,
-  from_perspective = "x",
-  from_panel_widths = NULL,
-  from_panel_heights = NULL,
-  to_n = from_n,
-  to_dodge_n = from_dodge_n,
-  to_dodge_padding = from_dodge_padding,
-  to_perspective = from_perspective,
-  to_panel_widths = from_panel_widths,
-  to_panel_heights = from_panel_heights
+    ...,
+    from_n,
+    from_dodge_n = 1,
+    from_dodge_padding = 0,
+    from_perspective = "x",
+    from_panel_widths = NULL,
+    from_panel_heights = NULL,
+    to_width,
+    to_n,
+    to_dodge_n = 1,
+    to_dodge_padding = 0,
+    to_perspective = "x",
+    to_panel_widths = NULL,
+    to_panel_heights = NULL
 ) {
   # Check required arguments
-  if (missing(from_width) | missing(from_n)) {
-    rlang::abort("Both from_width and from_n must be specified")
+  if (missing(to_width) | missing(to_n) | missing(from_n)) {
+    rlang::abort("to_width, to_n, and from_n must all be specified")
   }
 
-  # Check perspective compatibility
-  if (to_perspective == "y" & is.null(from_panel_heights)) {
-    rlang::abort(
-      "Cannot use to_perspective = 'y' when from_panel_heights is NULL"
-    )
+  # Get current theme
+  current_theme <- ggplot2::theme_get()
+
+  # Extract panel dimensions from theme if not provided
+  if (is.null(from_panel_widths) && !is.null(current_theme$panel.widths)) {
+    from_panel_widths <- current_theme$panel.widths
+  }
+  if (is.null(from_panel_heights) && !is.null(current_theme$panel.heights)) {
+    from_panel_heights <- current_theme$panel.heights
+  }
+  if (is.null(to_panel_widths) && !is.null(current_theme$panel.widths)) {
+    to_panel_widths <- current_theme$panel.widths
+  }
+  if (is.null(to_panel_heights) && !is.null(current_theme$panel.heights)) {
+    to_panel_heights <- current_theme$panel.heights
   }
 
   # Check for mixed units in panel dimensions
@@ -134,43 +150,43 @@ standardise_width <- function(
   }
 
   # Base category scaling
-  base_width <- (to_n / from_n) * from_width
+  base_width <- (from_n / to_n) * to_width
 
   # Dodge scaling: maintain consistent individual bar width
-  if (to_dodge_n > 1 | from_dodge_n > 1) {
-    width <- base_width * (to_dodge_n / from_dodge_n)
+  if (from_dodge_n > 1 | to_dodge_n > 1) {
+    width <- base_width * (from_dodge_n / to_dodge_n)
   } else {
     width <- base_width
   }
 
   # dodge_padding adjustment for position_dodge2
-  if (to_dodge_padding > 0 | from_dodge_padding > 0) {
+  if (from_dodge_padding > 0 | to_dodge_padding > 0) {
     # Adjust for difference in dodge_padding - more dodge_padding requires wider total width
-    dodge_padding_factor <- (1 + to_dodge_padding) / (1 + from_dodge_padding)
+    dodge_padding_factor <- (1 + from_dodge_padding) / (1 + to_dodge_padding)
     width <- width * dodge_padding_factor
   }
 
   # Panel dimension adjustment for visual consistency
   if (
     !is.null(to_panel_widths) |
-      !is.null(to_panel_heights) |
-      !is.null(from_panel_widths) |
-      !is.null(from_panel_heights)
+    !is.null(to_panel_heights) |
+    !is.null(from_panel_widths) |
+    !is.null(from_panel_heights)
   ) {
     # Get the relevant dimension for each perspective
     # For perspective "x" (vertical bars): width depends on panel width
     # For perspective "y" (horizontal bars): width depends on panel height
 
-    current_relevant_dim <- if (to_perspective == "x") {
-      if (!is.null(to_panel_widths)) as.numeric(to_panel_widths)[1] else 1
-    } else {
-      if (!is.null(to_panel_heights)) as.numeric(to_panel_heights)[1] else 1
-    }
-
-    reference_relevant_dim <- if (from_perspective == "x") {
+    current_relevant_dim <- if (from_perspective == "x") {
       if (!is.null(from_panel_widths)) as.numeric(from_panel_widths)[1] else 1
     } else {
       if (!is.null(from_panel_heights)) as.numeric(from_panel_heights)[1] else 1
+    }
+
+    reference_relevant_dim <- if (to_perspective == "x") {
+      if (!is.null(to_panel_widths)) as.numeric(to_panel_widths)[1] else 1
+    } else {
+      if (!is.null(to_panel_heights)) as.numeric(to_panel_heights)[1] else 1
     }
 
     # Scale to maintain visual consistency

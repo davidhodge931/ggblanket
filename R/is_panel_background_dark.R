@@ -13,6 +13,7 @@
 #' @export
 #'
 is_panel_background_dark <- function(theme = NULL) {
+
   # Get theme if not provided
   if (is.null(theme)) {
     theme <- ggplot2::theme_get()

@@ -277,7 +277,14 @@ get_geom_params <- function(geom_name, ...) {
       alpha = NA,
       ...
     )
-  } else {
+  }
+  else if (geom_name %in% c("point", "jitter", "count", "qq")) {
+    rlang::list2(
+      shape = 21,
+      ...
+    )
+  }
+  else {
     rlang::list2(...)
   }
 }

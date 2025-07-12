@@ -17,7 +17,7 @@
 #'
 #' @noRd
 update_geom_col <- function(
-    col = blue,
+    col = "#8991A1",
     colour = NULL,
     colour_border = NULL,
     colour_font = NULL,
@@ -27,15 +27,23 @@ update_geom_col <- function(
     fill_font = NULL,
     ...
 ) {
+  # Get current theme first
+  current_theme <- ggplot2::get_theme()
 
   # Handle defaults inside the function
   if (is.null(colour)) colour <- col
-  if (is.null(colour_border)) colour_border <- col_multiply(colour)
+
+  # Get the colour_border
+  if (is.null(colour_border)) {
+    if (is_panel_background_dark(theme = current_theme)) {
+      colour_border <- col_screen(colour)
+    } else {
+      colour_border <- col_multiply(colour)
+    }
+  }
+
   if (is.null(fill)) fill <- col
   if (is.null(fill_border)) fill_border <- fill
-
-  # Get current theme for NULL defaults
-  current_theme <- ggplot2::get_theme()
 
   # Handle font colour/fill defaults
   colour_font <- colour_font %||%
@@ -61,10 +69,12 @@ update_geom_col <- function(
     "black"
 
   # Define geom categories
-  border_geoms <- c("area", "bar", "boxplot", "col", "crossbar", "density",
+  border_polygon_geoms <- c("area", "bar", "boxplot", "col", "crossbar", "density",
                      "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
                      "violin", "raster", "contour_filled", "density2d_filled",
                      "bin2d", "hex")
+
+  border_point_geoms <- c("point", "jitter", "count", "qq")
 
   font_geoms <- c("text", "label")
 
@@ -96,9 +106,11 @@ update_geom_col <- function(
           fill = fill_font
         )
       }
-    } else if (geom %in% reference_line_geoms) {
+    }
+    else if (geom %in% reference_line_geoms) {
       theme_args[[geom_name]] <- ggplot2::element_geom(colour = colour_reference_line)
-    } else if (geom %in% border_geoms) {
+    }
+    else if (geom %in% c(border_polygon_geoms, border_point_geoms)) {
       theme_args[[geom_name]] <- ggplot2::element_geom(
         colour = colour_border,
         fill = fill_border

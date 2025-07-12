@@ -6,7 +6,7 @@
 \usage{
 set_blanket(
   theme = theme_lighter(),
-  col = blue,
+  col = "#8991A1",
   colour = NULL,
   colour_border = NULL,
   colour_font = NULL,
@@ -23,8 +23,8 @@ set_blanket(
   size = 1.5,
   size_font = NULL,
   family_font = NULL,
-  col_palette_d = jumble,
-  col_palette_c = NULL,
+  col_palette_d = scales::pal_hue(),
+  col_palette_c = mako_cruise(),
   colour_palette_d = NULL,
   colour_palette_d_border = NULL,
   fill_palette_d = NULL,
@@ -33,7 +33,7 @@ set_blanket(
   colour_palette_c_border = NULL,
   fill_palette_c = NULL,
   fill_palette_c_border = NULL,
-  col_palette_na = "#CDC5BFFF",
+  col_palette_na = "#A6A6A6",
   colour_palette_na = NULL,
   colour_palette_na_border = NULL,
   fill_palette_na = NULL,

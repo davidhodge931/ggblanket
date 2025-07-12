@@ -6,55 +6,58 @@
 \usage{
 standardise_width(
   ...,
-  from_width,
   from_n,
   from_dodge_n = 1,
   from_dodge_padding = 0,
   from_perspective = "x",
   from_panel_widths = NULL,
   from_panel_heights = NULL,
-  to_n = from_n,
-  to_dodge_n = from_dodge_n,
-  to_dodge_padding = from_dodge_padding,
-  to_perspective = from_perspective,
-  to_panel_widths = from_panel_widths,
-  to_panel_heights = from_panel_heights
+  to_width,
+  to_n,
+  to_dodge_n = 1,
+  to_dodge_padding = 0,
+  to_perspective = "x",
+  to_panel_widths = NULL,
+  to_panel_heights = NULL
 )
 }
 \arguments{
 \item{...}{Provided to force user argument naming etc.}
 
-\item{from_width}{In the reference, width value. Required.}
+\item{from_n}{Number of x aesthetic groups in the current plot. Required.}
 
-\item{from_n}{In the reference, number of x aesthetic groups. Required.}
+\item{from_dodge_n}{Number of fill aesthetic etc groups dodged in the current plot. Defaults to 1.}
 
-\item{from_dodge_n}{In the reference, number of fill aesthetic etc groups dodged. Defaults to 1.}
+\item{from_dodge_padding}{Amount of padding (in position_dodge2) in the current plot. Defaults to 0.}
 
-\item{from_dodge_padding}{In the reference, amount of padding (in position_dodge2). Defaults to 0.}
+\item{from_perspective}{Perspective of the current plot. Either "x" (default) or "y".}
 
-\item{from_perspective}{In the reference, perspective of the plot. Either "x" (default) or "y".}
+\item{from_panel_widths}{Unit vector of individual panel widths in the current plot. If NULL, panels assumed equal.}
 
-\item{from_panel_widths}{In the reference, unit vector of individual panel widths. If NULL, panels assumed equal.}
+\item{from_panel_heights}{Unit vector of individual panel heights in the current plot. If NULL, panels assumed equal.}
 
-\item{from_panel_heights}{In the reference, unit vector of individual panel heights. If NULL, panels assumed equal.}
+\item{to_width}{Width value in the reference standard. Required.}
 
-\item{to_n}{Number of x aesthetic groups.}
+\item{to_n}{Number of x aesthetic groups in the reference standard. Required.}
 
-\item{to_dodge_n}{Number of fill aesthetic etc groups dodged. If NULL, inherits from from_dodge_n.}
+\item{to_dodge_n}{Number of fill aesthetic etc groups dodged in the reference standard. Defaults to 1.}
 
-\item{to_dodge_padding}{Amount of padding (in position_dodge2). If NULL, inherits from from_dodge_padding.}
+\item{to_dodge_padding}{Amount of padding (in position_dodge2) in the reference standard. Defaults to 0.}
 
-\item{to_perspective}{perspective of the plot. Either "x" or "y". If NULL, inherits from from_perspective.}
+\item{to_perspective}{Perspective of the reference standard plot. Either "x" (default) or "y".}
 
-\item{to_panel_widths}{Unit vector of individual panel widths. If NULL, inherits from from_panel_widths.}
+\item{to_panel_widths}{Unit vector of individual panel widths in the reference standard. If NULL, panels assumed equal.}
 
-\item{to_panel_heights}{Unit vector of individual panel heights. If NULL, inherits from from_panel_heights.}
+\item{to_panel_heights}{Unit vector of individual panel heights in the reference standard. If NULL, panels assumed equal.}
 }
 \value{
 A numeric value
 }
 \description{
 Calculate widths that are standardised.
+}
+\details{
+Note: For a faceted plot, it will only correctly, if all the current plot panels are of equal height and width.
 }
 \examples{
 library(ggplot2)
@@ -69,7 +72,7 @@ set_blanket(
   )
 )
 
-# create standard
+# create reference standard
 penguins |>
   tidyr::drop_na(sex) |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
@@ -79,14 +82,14 @@ penguins |>
     width = 0.25,
   )
 
-# align width with standard
+# align width with reference standard
 penguins |>
   tidyr::drop_na(sex) |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_bar(
     x = sex,
     col = species,
-    width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2)
+    width = standardise_width(from_n = 2, to_width = 0.25, to_n = 3)
   )
 
 penguins |>
@@ -96,7 +99,7 @@ penguins |>
     x = sex,
     col = species,
     position = position_dodge(),
-    width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2, to_dodge_n = 3)
+    width = standardise_width(from_n = 2, from_dodge_n = 3, to_width = 0.25, to_n = 3)
   )
 
 penguins |>
@@ -106,10 +109,14 @@ penguins |>
     y = sex,
     col = species,
     position = position_dodge(),
-    width = standardise_width(from_width = 0.25, from_n = 3, to_n = 2, to_dodge_n = 3,
-                              to_perspective = "y",
-                              from_panel_heights = rep(unit(50, "mm"), times = 100),
-                              from_panel_widths = rep(unit(75, "mm"), times = 100),
+    width = standardise_width(
+      from_n = 2,
+      from_dodge_n = 3,
+      from_perspective = "y",
+      to_width = 0.25,
+      to_n = 3,
+      to_panel_heights = rep(unit(50, "mm"), times = 100),
+      to_panel_widths = rep(unit(75, "mm"), times = 100),
     )
   )
 

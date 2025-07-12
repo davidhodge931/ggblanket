@@ -80,6 +80,7 @@ theme_blanket <- function(
     caption_face = "plain",
     caption_hjust = 0
 ) {
+
   theme <- ggplot2::theme(
     text = ggplot2::element_text(
       size = base_size,
@@ -168,8 +169,8 @@ theme_blanket <- function(
       fill = legend_key_fill
     ),
     # legend.key.size = NULL,
-    legend.key.height = NULL,
-    legend.key.width = ggplot2::rel(0.6),
+    legend.key.height = ggplot2::rel(ifelse(legend_position == "right", 1, 0.6)),
+    legend.key.width = ggplot2::rel(ifelse(legend_position == "right", 0.6, 1)),
     legend.key.spacing = NULL,
     legend.key.spacing.x = grid::unit(11, "pt"),
     legend.key.spacing.y = grid::unit(11 * 0.33, "pt"),
