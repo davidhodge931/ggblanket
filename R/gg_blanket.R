@@ -342,9 +342,9 @@ gg_blanket <- function(
 
     # Define geom categories (matching update_geom_col)
     border_polygon_geoms <- c("area", "bar", "boxplot", "col", "crossbar", "density",
-                      "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
-                      "violin", "raster", "contour_filled", "density2d_filled",
-                      "bin2d", "hex")
+                              "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
+                              "violin", "raster", "contour_filled", "density2d_filled",
+                              "bin2d", "hex")
 
     border_point_geoms <- c("point", "jitter", "count", "qq")
 

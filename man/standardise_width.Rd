@@ -8,14 +8,12 @@ standardise_width(
   ...,
   from_n,
   from_dodge_n = 1,
-  from_dodge_padding = 0,
   from_perspective = "x",
   from_panel_widths = NULL,
   from_panel_heights = NULL,
   to_width,
   to_n,
   to_dodge_n = 1,
-  to_dodge_padding = 0,
   to_perspective = "x",
   to_panel_widths = NULL,
   to_panel_heights = NULL
@@ -27,8 +25,6 @@ standardise_width(
 \item{from_n}{Number of x aesthetic groups in the current plot. Required.}
 
 \item{from_dodge_n}{Number of fill aesthetic etc groups dodged in the current plot. Defaults to 1.}
-
-\item{from_dodge_padding}{Amount of padding (in position_dodge2) in the current plot. Defaults to 0.}
 
 \item{from_perspective}{Perspective of the current plot. Either "x" (default) or "y".}
 
@@ -42,8 +38,6 @@ standardise_width(
 
 \item{to_dodge_n}{Number of fill aesthetic etc groups dodged in the reference standard. Defaults to 1.}
 
-\item{to_dodge_padding}{Amount of padding (in position_dodge2) in the reference standard. Defaults to 0.}
-
 \item{to_perspective}{Perspective of the reference standard plot. Either "x" (default) or "y".}
 
 \item{to_panel_widths}{Unit vector of individual panel widths in the reference standard. If NULL, panels assumed equal.}
@@ -54,7 +48,7 @@ standardise_width(
 A numeric value
 }
 \description{
-Calculate widths that are standardised.
+Calculate widths that are standardised for bars, boxplots, errorbars etc.
 }
 \examples{
 library(ggplot2)
@@ -115,14 +109,5 @@ penguins |>
     )
   )
 
-penguins |>
-  tidyr::drop_na(sex) |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
-  gg_boxplot(
-   x = sex,
-   y = flipper_length_mm,
-   col = species,
-   width = standardise_width(from_n = 2, from_dodge_n = 3, to_width = 0.25, to_n = 3)
- )
 
 }

@@ -1,18 +1,16 @@
 #' Standardise width
 #'
-#' Calculate widths that are standardised.
+#' Calculate widths that are standardised for bars, boxplots, errorbars etc.
 #'
 #' @param ... Provided to force user argument naming etc.
 #' @param from_n Number of x aesthetic groups in the current plot. Required.
 #' @param from_dodge_n Number of fill aesthetic etc groups dodged in the current plot. Defaults to 1.
-#' @param from_dodge_padding Amount of padding (in position_dodge2) in the current plot. Defaults to 0.
 #' @param from_perspective Perspective of the current plot. Either "x" (default) or "y".
 #' @param from_panel_widths Unit vector of individual panel widths in the current plot. If NULL, panels assumed equal.
 #' @param from_panel_heights Unit vector of individual panel heights in the current plot. If NULL, panels assumed equal.
 #' @param to_width Width value in the reference standard. Required.
 #' @param to_n Number of x aesthetic groups in the reference standard. Required.
 #' @param to_dodge_n Number of fill aesthetic etc groups dodged in the reference standard. Defaults to 1.
-#' @param to_dodge_padding Amount of padding (in position_dodge2) in the reference standard. Defaults to 0.
 #' @param to_perspective Perspective of the reference standard plot. Either "x" (default) or "y".
 #' @param to_panel_widths Unit vector of individual panel widths in the reference standard. If NULL, panels assumed equal.
 #' @param to_panel_heights Unit vector of individual panel heights in the reference standard. If NULL, panels assumed equal.
@@ -79,28 +77,17 @@
 #'     )
 #'   )
 #'
-#' penguins |>
-#'   tidyr::drop_na(sex) |>
-#'   mutate(across(sex, \(x) str_to_sentence(x))) |>
-#'   gg_boxplot(
-#'    x = sex,
-#'    y = flipper_length_mm,
-#'    col = species,
-#'    width = standardise_width(from_n = 2, from_dodge_n = 3, to_width = 0.25, to_n = 3)
-#'  )
 #'
 standardise_width <- function(
     ...,
     from_n,
     from_dodge_n = 1,
-    from_dodge_padding = 0,
     from_perspective = "x",
     from_panel_widths = NULL,
     from_panel_heights = NULL,
     to_width,
     to_n,
     to_dodge_n = 1,
-    to_dodge_padding = 0,
     to_perspective = "x",
     to_panel_widths = NULL,
     to_panel_heights = NULL
@@ -108,15 +95,6 @@ standardise_width <- function(
   # Check required arguments
   if (missing(to_width) | missing(to_n) | missing(from_n)) {
     rlang::abort("to_width, to_n, and from_n must all be specified")
-  }
-
-  # Validate panel dimensions - if any provided, all must be provided
-  if (!is.null(from_panel_widths) || !is.null(from_panel_heights) ||
-      !is.null(to_panel_widths) || !is.null(to_panel_heights)) {
-    if (is.null(from_panel_widths) || is.null(from_panel_heights) ||
-        is.null(to_panel_widths) || is.null(to_panel_heights)) {
-      rlang::abort("If any panel dimension is provided, all four must be provided")
-    }
   }
 
   # Get current theme
@@ -134,6 +112,15 @@ standardise_width <- function(
   }
   if (is.null(to_panel_heights) && !is.null(current_theme$panel.heights)) {
     to_panel_heights <- current_theme$panel.heights
+  }
+
+  # Validate panel dimensions - if any provided, all must be provided
+  if (!is.null(from_panel_widths) || !is.null(from_panel_heights) ||
+      !is.null(to_panel_widths) || !is.null(to_panel_heights)) {
+    if (is.null(from_panel_widths) || is.null(from_panel_heights) ||
+        is.null(to_panel_widths) || is.null(to_panel_heights)) {
+      rlang::abort("If any panel dimension is provided, all four (from_panel_widths, from_panel_heights, to_panel_widths, to_panel_heights) must be provided")
+    }
   }
 
   # Check for mixed units in panel dimensions
@@ -171,13 +158,6 @@ standardise_width <- function(
     width <- base_width * (from_dodge_n / to_dodge_n)
   } else {
     width <- base_width
-  }
-
-  # dodge_padding adjustment for position_dodge2
-  if (from_dodge_padding > 0 | to_dodge_padding > 0) {
-    # Adjust for difference in dodge_padding - more dodge_padding requires wider total width
-    dodge_padding_factor <- (1 + from_dodge_padding) / (1 + to_dodge_padding)
-    width <- width * dodge_padding_factor
   }
 
   # Panel dimension adjustment for visual consistency
