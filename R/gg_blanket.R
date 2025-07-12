@@ -454,7 +454,6 @@ gg_blanket <- function(
     }
 
     # Add the scales and guides
-    # Add the scales and guides
     if (col_scale_class == "discrete") {
       # Calculate number of colors needed
       col_n <- calculate_colour_n(aes_list, data, plot_data)
@@ -648,7 +647,7 @@ gg_blanket <- function(
             na.value = na_fill
           )
 
-        if (!identical(colour_palette, fill_palette)) {
+        if (is_border_geom) {
           plot <- plot +
             ggplot2::guides(
               colour = ggplot2::guide_none(),
@@ -659,7 +658,7 @@ gg_blanket <- function(
           plot <- plot +
             ggplot2::guides(
               colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
-              fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
+              fill = ggplot2::guide_none()
             )
         }
       }
@@ -703,10 +702,7 @@ gg_blanket <- function(
                 reverse = col_legend_rev,
                 theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
               ),
-              fill = ggplot2::guide_coloursteps(
-                reverse = col_legend_rev,
-                theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-              )
+              fill = ggplot2::guide_none()
             )
         }
       }

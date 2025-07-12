@@ -26,7 +26,7 @@
 #' @noRd
 update_geom_palettes <- function(
     col_palette_d = jumble,
-    col_palette_c = viridisLite::mako(n = 20, direction = -1, end = 0.9),
+    col_palette_c = NULL,
     colour_palette_d = NULL,
     colour_palette_d_border = NULL,
     fill_palette_d = NULL,
@@ -44,17 +44,29 @@ update_geom_palettes <- function(
 ) {
   # Handle palette defaults
   if (rlang::is_null(colour_palette_d)) colour_palette_d <- col_palette_d
-  if (rlang::is_null(colour_palette_d_border)) colour_palette_d_border <- col_squared(colour_palette_d)
+  if (rlang::is_null(colour_palette_d_border)) colour_palette_d_border <- col_multiply(colour_palette_d)
   if (rlang::is_null(fill_palette_d)) fill_palette_d <- col_palette_d
   if (rlang::is_null(fill_palette_d_border)) fill_palette_d_border <- fill_palette_d
+
+  if (rlang::is_null(col_palette_c)) {
+    col_palette_c <- viridisLite::mako(n = 9, direction = -1)
+
+    # col_palette_c <- viridisLite::mako(
+    #   n = 20,
+    #   begin = 0.1,
+    #   end = 0.9,
+    #   direction = ifelse(is_panel_background_dark(), 1, -1),
+    # )
+  }
+
   if (rlang::is_null(colour_palette_c)) colour_palette_c <- col_palette_c
-  if (rlang::is_null(colour_palette_c_border)) colour_palette_c_border <- col_squared(colour_palette_c)
+  if (rlang::is_null(colour_palette_c_border)) colour_palette_c_border <- col_multiply(colour_palette_c)
   if (rlang::is_null(fill_palette_c)) fill_palette_c <- col_palette_c
   if (rlang::is_null(fill_palette_c_border)) fill_palette_c_border <- fill_palette_c
 
   # Handle NA color defaults
   if (rlang::is_null(colour_palette_na)) colour_palette_na <- col_palette_na
-  if (rlang::is_null(colour_palette_na_border)) colour_palette_na_border <- col_squared(colour_palette_na)
+  if (rlang::is_null(colour_palette_na_border)) colour_palette_na_border <- col_multiply(colour_palette_na)
   if (rlang::is_null(fill_palette_na)) fill_palette_na <- col_palette_na
   if (rlang::is_null(fill_palette_na_border)) fill_palette_na_border <- fill_palette_na
 

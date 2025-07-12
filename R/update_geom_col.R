@@ -30,7 +30,7 @@ update_geom_col <- function(
 
   # Handle defaults inside the function
   if (is.null(colour)) colour <- col
-  if (is.null(colour_border)) colour_border <- col_squared(colour)
+  if (is.null(colour_border)) colour_border <- col_multiply(colour)
   if (is.null(fill)) fill <- col
   if (is.null(fill_border)) fill_border <- fill
 

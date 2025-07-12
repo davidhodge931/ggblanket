@@ -24,7 +24,7 @@ set_blanket(
   size_font = NULL,
   family_font = NULL,
   col_palette_d = jumble,
-  col_palette_c = viridisLite::mako(n = 20, direction = -1, end = 0.9),
+  col_palette_c = NULL,
   colour_palette_d = NULL,
   colour_palette_d_border = NULL,
   fill_palette_d = NULL,
@@ -53,7 +53,7 @@ set_blanket(
 \item{colour}{A default hex code for the colour of most geoms. If NULL, uses \code{col}.}
 
 \item{colour_border}{A hex code for border geoms.
-If NULL, uses \code{col_squared(colour)}.}
+If NULL, uses \code{col_multiply(colour)}.}
 
 \item{colour_font}{A hex code for text/label geoms. If NULL, derived from theme axis text colour.}
 
@@ -150,5 +150,5 @@ set_blanket(
 }
 \seealso{
 \code{\link[=theme_lighter]{theme_lighter()}}, \code{\link[=theme_darker]{theme_darker()}} for theme options
-\code{\link[=col_squared]{col_squared()}} for creating accent colours
+\code{\link[=col_multiply]{col_multiply()}} for creating accent colours
 }

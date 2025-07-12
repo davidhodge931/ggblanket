@@ -174,7 +174,7 @@ gg_area <- function(
     title = title,
     subtitle = subtitle,
     caption = caption,
-    titles_case = titles_case,
+    titles_case = titles_case, 
     ...
   )
 }

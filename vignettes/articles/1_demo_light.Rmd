@@ -30,20 +30,15 @@ library(palmerpenguins)
 
 set_blanket()
 
-set_blanket(
-  col = orange,
-  col_palette_d = rev(jumble),
-  col_palette_c = viridis::rocket(n = 20, end = 0.9, direction = -1)
-)
-
-set_blanket(
-  col = orange,
-  colour_border = scales::col_lighter(orange, amount = 30),
-  col_palette_d = rev(jumble),
-  colour_palette_d_border = scales::col_lighter(rev(jumble), amount = 30),
-  col_palette_c = viridis::rocket(n = 20, end = 0.9, direction = -1),
-  colour_palette_c_border = scales::col_lighter(viridis::rocket(n = 20, end = 0.9, direction = -1), amount = 30),
-)
+# set_blanket(
+#   theme = theme_darker(),
+#   col = pink,
+#   colour_border = col_screen(orange),
+#   col_palette_d = rev(jumble),
+#   colour_palette_d_border = scales::col_lighter(rev(jumble)),
+#   col_palette_c = viridis::rocket(n = 20, end = 0.9, direction = -1),
+#   colour_palette_c_border = col_screen(viridis::rocket(n = 20, end = 0.9, direction = -1)),
+# )
 
 penguins2 <- penguins |> 
   labelled::set_variable_labels(

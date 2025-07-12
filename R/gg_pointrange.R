@@ -185,7 +185,7 @@ gg_pointrange <- function(
     title = title,
     subtitle = subtitle,
     caption = caption,
-    titles_case = titles_case,
+    titles_case = titles_case, 
     ...
   ) +
     ggplot2::geom_point(stat = stat, position = position, ...)

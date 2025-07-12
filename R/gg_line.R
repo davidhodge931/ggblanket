@@ -175,7 +175,7 @@ gg_line <- function(
     title = title,
     subtitle = subtitle,
     caption = caption,
-    titles_case = titles_case,
+    titles_case = titles_case, 
     ...
   )
 }

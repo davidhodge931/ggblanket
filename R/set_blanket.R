@@ -10,7 +10,7 @@
 #' @param col A default hex code for the colour and fill of most geoms. Defaults to `blue`.
 #' @param colour A default hex code for the colour of most geoms. If NULL, uses `col`.
 #' @param colour_border A hex code for border geoms.
-#'   If NULL, uses `col_squared(colour)`.
+#'   If NULL, uses `col_multiply(colour)`.
 #' @param colour_font A hex code for text/label geoms. If NULL, derived from theme axis text colour.
 #' @param colour_reference_line A hex code for reference line geoms (abline, hline, vline).
 #'   If NULL, derived from theme axis line colour.
@@ -56,7 +56,7 @@
 #'
 #' @seealso
 #' [theme_lighter()], [theme_darker()] for theme options
-#' [col_squared()] for creating accent colours
+#' [col_multiply()] for creating accent colours
 #'
 #' @export
 #'
@@ -94,7 +94,7 @@ set_blanket <- function(
     family_font = NULL,
 
     col_palette_d = jumble,
-    col_palette_c = viridisLite::mako(n = 20, direction = -1, end = 0.9),
+    col_palette_c = NULL,
 
     colour_palette_d = NULL,
     colour_palette_d_border = NULL,
@@ -121,7 +121,7 @@ set_blanket <- function(
 
   # Handle colour/fill defaults
   if(is.null(colour)) colour <- col
-  if(is.null(colour_border)) colour_border <- col_squared(colour)
+  if(is.null(colour_border)) colour_border <- col_multiply(colour)
   if(is.null(fill)) fill <- col
   if(is.null(fill_border)) fill_border <- fill
 
@@ -130,12 +130,22 @@ set_blanket <- function(
 
   # Handle palette defaults
   if(is.null(colour_palette_d)) colour_palette_d <- col_palette_d
-  if(is.null(colour_palette_d_border)) colour_palette_d_border <- col_squared(colour_palette_d)
+  if(is.null(colour_palette_d_border)) colour_palette_d_border <- col_multiply(colour_palette_d)
   if(is.null(fill_palette_d)) fill_palette_d <- col_palette_d
   if(is.null(fill_palette_d_border)) fill_palette_d_border <- fill_palette_d
 
+  if (rlang::is_null(col_palette_c)) {
+    col_palette_c <- viridisLite::mako(n = 9, direction = -1)
+
+    # col_palette_c <- viridisLite::mako(
+    #   n = 20,
+    #   begin = 0.1,
+    #   end = 0.9,
+    #   direction = ifelse(is_panel_background_dark(), 1, -1),
+    # )
+  }
   if(is.null(colour_palette_c)) colour_palette_c <- col_palette_c
-  if(is.null(colour_palette_c_border)) colour_palette_c_border <- col_squared(colour_palette_c)
+  if(is.null(colour_palette_c_border)) colour_palette_c_border <- col_multiply(colour_palette_c)
   if(is.null(fill_palette_c)) fill_palette_c <- col_palette_c
   if(is.null(fill_palette_c_border)) fill_palette_c_border <- fill_palette_c
 
