@@ -1,6 +1,12 @@
 #' Blanket ggplot
 #'
-#' @description Create a blanket ggplot with a wrapper around [ggplot2::ggplot()] + `layer()` with [geom_blank()][ggplot2::geom_blank()] defaults for the geom, stat and position. This function underlies all other `gg_*` functions. It contains a `geom` argument for maximum flexibility.
+#' @description Create a blanket ggplot with a wrapper around [ggplot2::ggplot()] + `layer()` with [geom_blank()][ggplot2::geom_blank()] defaults for the geom, stat and position.
+#'
+#' This function underlies all other `gg_*` functions.
+#'
+#' It additionally contains `geom` and `col_border` arguments.
+#'
+#' This function contains the additional geom
 #'
 #' @param data A data frame or tibble.
 #' @param ... Other arguments passed to within a `params` list in [ggplot2::layer()].
@@ -98,7 +104,8 @@ gg_blanket <- function(
     y_sec_axis = ggplot2::waiver(),
     y_symmetric = NULL,
     y_transform = NULL,
-    col_border = NULL, col_breaks = ggplot2::waiver(),
+    col_border = NULL,
+    col_breaks = ggplot2::waiver(),
     col_breaks_n = NULL,
     col_drop = FALSE,
     col_limits_include = NULL,

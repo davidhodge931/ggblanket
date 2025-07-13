@@ -176,5 +176,11 @@ gg_blanket(
 A ggplot object.
 }
 \description{
-Create a blanket ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \code{layer()} with \link[ggplot2:geom_blank]{geom_blank()} defaults for the geom, stat and position. This function underlies all other \verb{gg_*} functions. It contains a \code{geom} argument for maximum flexibility.
+Create a blanket ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \code{layer()} with \link[ggplot2:geom_blank]{geom_blank()} defaults for the geom, stat and position.
+
+This function underlies all other \verb{gg_*} functions.
+
+It additionally contains \code{geom} and \code{col_border} arguments.
+
+This function contains the additional geom
 }

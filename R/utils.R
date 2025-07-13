@@ -151,11 +151,7 @@ get_geom_params <- function(geom_name, ...) {
     )
   } else if (geom_name == "crossbar") {
     rlang::list2(
-      # middle_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth), #take from polygon
-
-      #use for gg_pointrange
-      linetype = 0, fill = NA,
-
+      middle_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth), #take from polygon
       ...
     )
   } else if (geom_name == "smooth") {

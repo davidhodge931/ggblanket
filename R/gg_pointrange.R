@@ -81,7 +81,7 @@ gg_pointrange <- function(
     y_sec_axis = ggplot2::waiver(),
     y_symmetric = NULL,
     y_transform = NULL,
-    col_border = NULL, col_breaks = ggplot2::waiver(),
+    col_breaks = ggplot2::waiver(),
     col_breaks_n = NULL,
     col_drop = FALSE,
     col_limits_include = NULL,
@@ -111,7 +111,7 @@ gg_pointrange <- function(
 ) {
   gg_blanket(
     data = data,
-    geom = "crossbar",
+    geom = "linerange",
     stat = stat,
     position = position,
     coord = coord,
@@ -159,7 +159,7 @@ gg_pointrange <- function(
     y_position = y_position,
     y_title = y_title,
     y_transform = y_transform,
-    col_border = col_border, col_breaks = col_breaks,
+    col_border = TRUE, col_breaks = col_breaks,
     col_drop = col_drop,
     col_limits_include = col_limits_include,
     col_labels = col_labels,
@@ -188,6 +188,5 @@ gg_pointrange <- function(
     titles_case = titles_case,
     ...
   ) +
-    ggplot2::geom_linerange(stat = stat, position = position, ...) +
     ggplot2::geom_point(stat = stat, position = position, ...)
 }

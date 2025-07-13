@@ -29,10 +29,6 @@
 <polyline points='42.83,48.21 667.54,48.21 ' style='stroke-width: 2.84; stroke: #F6F8FA; stroke-linecap: butt;' />
 <polyline points='213.21,531.97 213.21,48.21 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
 <polyline points='497.17,531.97 497.17,48.21 ' style='stroke-width: 2.84; stroke: none; stroke-linecap: butt;' />
-<polygon points='135.12,443.28 135.12,467.46 262.90,467.46 262.90,443.28 135.12,443.28 ' style='stroke-width: 0.53; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: none;' />
-<polygon points='163.51,104.65 163.51,161.09 291.30,161.09 291.30,104.65 163.51,104.65 ' style='stroke-width: 0.53; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: none;' />
-<polygon points='419.08,265.90 419.08,338.46 546.86,338.46 546.86,265.90 419.08,265.90 ' style='stroke-width: 0.53; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: none;' />
-<polygon points='447.47,193.34 447.47,241.71 575.26,241.71 575.26,193.34 447.47,193.34 ' style='stroke-width: 0.53; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: none;' />
 <line x1='199.01' y1='467.46' x2='199.01' y2='443.28' style='stroke-width: 1.41; stroke: #F1372F; stroke-linecap: butt;' />
 <line x1='227.41' y1='161.09' x2='227.41' y2='104.65' style='stroke-width: 1.41; stroke: #008F97; stroke-linecap: butt;' />
 <line x1='482.97' y1='338.46' x2='482.97' y2='265.90' style='stroke-width: 1.41; stroke: #F1372F; stroke-linecap: butt;' />
@@ -66,11 +62,9 @@
 <rect x='673.02' y='48.21' width='25.06' height='66.11' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <text x='681.24' y='56.13' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='27.80px' lengthAdjust='spacingAndGlyphs'>Group</text>
 <rect x='681.24' y='62.65' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<rect x='682.54' y='67.63' width='7.78' height='9.96' style='stroke-width: 0.53; stroke: none; stroke-linecap: butt; stroke-linejoin: miter;' />
 <line x1='686.43' y1='80.57' x2='686.43' y2='64.64' style='stroke-width: 1.41; stroke: #F1372F; stroke-linecap: butt;' />
 <circle cx='686.43' cy='72.61' r='1.95' style='stroke-width: 0.71; stroke: #F1372F; fill: #F8766D;' />
 <rect x='681.24' y='86.18' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<rect x='682.54' y='91.16' width='7.78' height='9.96' style='stroke-width: 0.53; stroke: none; stroke-linecap: butt; stroke-linejoin: miter;' />
 <line x1='686.43' y1='104.11' x2='686.43' y2='88.17' style='stroke-width: 1.41; stroke: #008F97; stroke-linecap: butt;' />
 <circle cx='686.43' cy='96.14' r='1.95' style='stroke-width: 0.71; stroke: #008F97; fill: #00BFC4;' />
 <text x='697.09' y='76.05' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>1</text>
