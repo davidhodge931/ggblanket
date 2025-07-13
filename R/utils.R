@@ -42,6 +42,7 @@ get_geom_stat_position_names <- function(geom = NULL, stat = NULL, position = NU
 #'
 #' @param data A data frame or tibble.
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,group,subgroup,label,text,sample An unquoted aesthetic variable.
+#' @param mapping Additional aesthetic mappings
 #'
 #' @noRd
 create_ggplot <- function(
@@ -80,179 +81,59 @@ create_ggplot <- function(
   group <- rlang::enquo(group)
   subgroup <- rlang::enquo(subgroup)
   sample <- rlang::enquo(sample)
-
   label <- rlang::enquo(label)
   text <- rlang::enquo(text)
 
-  if (rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
-    if (rlang::quo_is_null(col)) {
-      plot <- data |>
-        ggplot2::ggplot(
-          mapping = ggplot2::aes(
-            y = !!y,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-          )
-        )
-    } else if (!rlang::quo_is_null(col)) {
-      plot <- data |>
-        ggplot2::ggplot(
-          mapping = ggplot2::aes(
-            y = !!y,
-            col = !!col,
-            fill = !!col,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-          )
-        )
-    }
-  } else if (!rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
-    if (rlang::quo_is_null(col)) {
-      plot <- data |>
-        ggplot2::ggplot(
-          mapping = ggplot2::aes(
-            x = !!x,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-          )
-        )
-    } else if (!rlang::quo_is_null(col)) {
-      plot <- data |>
-        ggplot2::ggplot(
-          mapping = ggplot2::aes(
-            x = !!x,
-            col = !!col,
-            fill = !!col,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-          )
-        )
-    }
-  } else if (!rlang::quo_is_null(x) & !rlang::quo_is_null(y)) {
-    if (rlang::quo_is_null(col)) {
-      plot <- data |>
-        ggplot2::ggplot(
-          mapping = ggplot2::aes(
-            x = !!x,
-            y = !!y,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-          )
-        )
-    } else if (!rlang::quo_is_null(col)) {
-      plot <- data |>
-        ggplot2::ggplot(
-          mapping = ggplot2::aes(
-            x = !!x,
-            y = !!y,
-            col = !!col,
-            fill = !!col,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-          )
-        )
-    }
-  } else if (rlang::quo_is_null(x) & rlang::quo_is_null(y)) {
-    if (rlang::quo_is_null(col)) {
-      plot <- data |>
-        ggplot2::ggplot(
-          mapping = ggplot2::aes(
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-          )
-        )
-    } else if (!rlang::quo_is_null(col)) {
-      plot <- data |>
-        ggplot2::ggplot(
-          mapping = ggplot2::aes(
-            col = !!col,
-            fill = !!col,
-            xmin = !!xmin,
-            xmax = !!xmax,
-            xend = !!xend,
-            ymin = !!ymin,
-            ymax = !!ymax,
-            yend = !!yend,
-            z = !!z,
-            group = !!group,
-            subgroup = !!subgroup,
-            sample = !!sample,
-            label = !!label,
-            text = !!text,
-          )
-        )
-    }
+  # Build base aesthetics
+  base_aes <- ggplot2::aes(
+    # x = !!x,
+    # y = !!y,
+    xmin = !!xmin,
+    xmax = !!xmax,
+    xend = !!xend,
+    ymin = !!ymin,
+    ymax = !!ymax,
+    yend = !!yend,
+    z = !!z,
+    group = !!group,
+    subgroup = !!subgroup,
+    sample = !!sample,
+    label = !!label,
+    text = !!text
+  )
+
+  if (!rlang::quo_is_null(x)) {
+    base_aes <- utils::modifyList(
+      base_aes,
+      ggplot2::aes(x = !!x)
+    )
   }
+
+  if (!rlang::quo_is_null(y)) {
+    base_aes <- utils::modifyList(
+      base_aes,
+      ggplot2::aes(y = !!y)
+    )
+  }
+
+
+  # Add col/fill if provided
+  if (!rlang::quo_is_null(col)) {
+    base_aes <- utils::modifyList(
+      base_aes,
+      ggplot2::aes(col = !!col, fill = !!col)
+    )
+  }
+
+  # Merge with additional mapping if provided
+  if (!is.null(mapping)) {
+    final_aes <- utils::modifyList(base_aes, mapping)
+  } else {
+    final_aes <- base_aes
+  }
+
+  # Create plot with merged aesthetics
+  plot <- data |> ggplot2::ggplot(mapping = final_aes)
 
   return(plot)
 }
@@ -270,7 +151,11 @@ get_geom_params <- function(geom_name, ...) {
     )
   } else if (geom_name == "crossbar") {
     rlang::list2(
-      middle_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth), #take from polygon
+      # middle_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth), #take from polygon
+
+      #use for gg_pointrange
+      linetype = 0, fill = NA,
+
       ...
     )
   } else if (geom_name == "smooth") {
@@ -286,7 +171,7 @@ get_geom_params <- function(geom_name, ...) {
 
 #' Add initial layer to plot
 #' @noRd
-add_initial_layer <- function(plot, geom, stat, position, mapping, params,
+add_initial_layer <- function(plot, geom, stat, position, params,
                               show_legend, coord, blend, stat_name) {
 
   if (stringr::str_detect(stat_name, "sf")) {
@@ -300,7 +185,6 @@ add_initial_layer <- function(plot, geom, stat, position, mapping, params,
           geom = geom,
           stat = stat,
           position = position,
-          mapping = ggplot2::aes(!!!mapping),
           params = params,
           show.legend = show_legend,
         ) +
@@ -311,7 +195,6 @@ add_initial_layer <- function(plot, geom, stat, position, mapping, params,
           geom = geom,
           stat = stat,
           position = position,
-          mapping = ggplot2::aes(!!!mapping),
           params = params,
           show.legend = show_legend,
         ) |>
@@ -329,7 +212,6 @@ add_initial_layer <- function(plot, geom, stat, position, mapping, params,
           geom = geom,
           stat = stat,
           position = position,
-          mapping = ggplot2::aes(!!!mapping),
           params = params,
           show.legend = show_legend,
         ) +
@@ -340,7 +222,6 @@ add_initial_layer <- function(plot, geom, stat, position, mapping, params,
           geom = geom,
           stat = stat,
           position = position,
-          mapping = ggplot2::aes(!!!mapping),
           params = params,
           show.legend = show_legend,
         ) |>
@@ -525,7 +406,7 @@ get_other_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_
 #' Check inputs are valid
 #' @noRd
 check_inputs <- function(mapping, x_symmetric, y_symmetric,
-                            x_transform_null, y_transform_null, stat) {
+                         x_transform_null, y_transform_null, stat) {
   if (!rlang::is_null(mapping)) {
     if (any(names(unlist(mapping)) %in% c("facet", "facet2"))) {
       rlang::abort("mapping argument does not support facet or facet2")
@@ -632,21 +513,21 @@ add_facet_layer <- function(plot, aes_list, data, facet_layout, facet_scales,
 
   if (reverse_facet) {
     add_facet_layer_rev(plot, aes_list, facet_layout, facet_scales,
-                             facet_space, facet_drop, facet_axes, facet_axis_labels,
-                             facet_nrow, facet_ncol, facet_labels)
+                        facet_space, facet_drop, facet_axes, facet_axis_labels,
+                        facet_nrow, facet_ncol, facet_labels)
   } else {
     add_facet_layer_std(plot, aes_list, facet_layout, facet_scales,
-                           facet_space, facet_drop, facet_axes, facet_axis_labels,
-                           facet_nrow, facet_ncol, facet_labels)
+                        facet_space, facet_drop, facet_axes, facet_axis_labels,
+                        facet_nrow, facet_ncol, facet_labels)
   }
 }
 
 #' Add facet layer with reversed facet
 #' @noRd
 add_facet_layer_rev <- function(plot, aes_list, facet_layout, facet_scales,
-                                     facet_space, facet_drop, facet_axes,
-                                     facet_axis_labels, facet_nrow, facet_ncol,
-                                     facet_labels) {
+                                facet_space, facet_drop, facet_axes,
+                                facet_axis_labels, facet_nrow, facet_ncol,
+                                facet_labels) {
   if (facet_layout == "wrap") {
     if (!rlang::quo_is_null(aes_list$facet) & rlang::quo_is_null(aes_list$facet2)) {
       plot +
@@ -736,9 +617,9 @@ add_facet_layer_rev <- function(plot, aes_list, facet_layout, facet_scales,
 #' Add facet layer normal (not reversed)
 #' @noRd
 add_facet_layer_std <- function(plot, aes_list, facet_layout, facet_scales,
-                                   facet_space, facet_drop, facet_axes,
-                                   facet_axis_labels, facet_nrow, facet_ncol,
-                                   facet_labels) {
+                                facet_space, facet_drop, facet_axes,
+                                facet_axis_labels, facet_nrow, facet_ncol,
+                                facet_labels) {
   if (facet_layout == "wrap") {
     if (!rlang::quo_is_null(aes_list$facet) & rlang::quo_is_null(aes_list$facet2)) {
       plot +
@@ -926,7 +807,7 @@ get_title <- function(data, aes_quo, build_title, titles_case, default = NULL) {
     title <- default
   }
   return(title)
-  }
+}
 
 #' Extract titles for other aesthetics
 #' @noRd

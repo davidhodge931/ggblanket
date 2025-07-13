@@ -25,6 +25,7 @@
 #' @param linetype_border A linetype for border geoms. If NULL, uses `linetype`.
 #' @param linetype_reference_line A linetype for reference line geoms. If NULL, uses `linetype`.
 #' @param shape A default shape for point geoms. Must be an integer between 0 and 25.
+#' @param size A default size for point geoms.
 #' @param size_font A size for text/label geoms in mm. If NULL, derived from theme axis text size.
 #' @param family_font A font family. If NULL, derived from axis text family.
 #' @param col_palette_d For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.

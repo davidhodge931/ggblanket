@@ -26,6 +26,7 @@
 #' @param x_sec_axis,y_sec_axis A secondary axis with [ggplot2::dup_axis()] or  [ggplot2::sec_axis()] defaults.
 #' @param x_symmetric,y_symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
+#' @param col_border `TRUE` or `FALSE` of whether the geom is to be treated as if it has borders.
 #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
 #' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
@@ -97,7 +98,7 @@ gg_blanket <- function(
     y_sec_axis = ggplot2::waiver(),
     y_symmetric = NULL,
     y_transform = NULL,
-    col_breaks = ggplot2::waiver(),
+    col_border = NULL, col_breaks = ggplot2::waiver(),
     col_breaks_n = NULL,
     col_drop = FALSE,
     col_limits_include = NULL,
@@ -209,7 +210,8 @@ gg_blanket <- function(
     subgroup = !!aes_list$subgroup,
     sample = !!aes_list$sample,
     label = !!aes_list$label,
-    text = !!aes_list$text
+    text = !!aes_list$text,
+    mapping = mapping
   )
 
   show_legend <- ifelse(geom_name %in% c("blank", "abline"), FALSE, TRUE)
@@ -217,7 +219,7 @@ gg_blanket <- function(
   params <- get_geom_params(geom_name, ...)
 
   # Add initial layer
-  plot <- add_initial_layer(plot, geom, stat, position, mapping, params,
+  plot <- add_initial_layer(plot, geom, stat, position, params,
                             show_legend, coord, blend, stat_name)
 
   # Get plot build
@@ -285,13 +287,14 @@ gg_blanket <- function(
     sample = !!aes_list$sample,
     label = !!aes_list$label,
     text = !!aes_list$text,
+    mapping = mapping
   ) +
     theme
 
   ##############################################################################
   # Step 9: Add geom layer
   ##############################################################################
-  plot <- add_initial_layer(plot, geom, stat, position, mapping, params,
+  plot <- add_initial_layer(plot, geom, stat, position, params,
                             show_legend, coord, blend, stat_name)
 
   if (!rlang::is_null(x_limits_include)) {
@@ -349,13 +352,15 @@ gg_blanket <- function(
     border_point_geoms <- c("point", "jitter", "count", "qq")
 
     # Determine if this geom needs special palette handling
-    is_border_geom <- (geom_name %in% border_polygon_geoms) ||
-      ((geom_name %in% c("point", "jitter", "count", "qq", "pointrange")) &&
-         (get_geom_defaults(geom_name)$shape %in% 21:25))
+    if (rlang::is_null(col_border)) {
+      col_border <- (geom_name %in% border_polygon_geoms) ||
+        ((geom_name %in% c("point", "jitter", "count", "qq", "pointrange")) &&
+           (ggplot2::get_geom_defaults(geom_name)$shape %in% 21:25))
+    }
 
     if (col_scale_class %in% c("discrete")) {
       if (rlang::is_null(colour_palette)) {
-        if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_d_border"))) {
+        if (col_border && !rlang::is_null(getOption("ggblanket.colour_palette_d_border"))) {
           colour_palette <- getOption("ggblanket.colour_palette_d_border")
         } else if (!rlang::is_null(theme_palettes$palette.colour.discrete)) {
           colour_palette <- theme_palettes$palette.colour.discrete
@@ -365,7 +370,7 @@ gg_blanket <- function(
       }
 
       if (rlang::is_null(fill_palette)) {
-        if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_d_border"))) {
+        if (col_border && !rlang::is_null(getOption("ggblanket.fill_palette_d_border"))) {
           fill_palette <- getOption("ggblanket.fill_palette_d_border")
         } else if (!rlang::is_null(theme_palettes$palette.fill.discrete)) {
           fill_palette <- theme_palettes$palette.fill.discrete
@@ -376,7 +381,7 @@ gg_blanket <- function(
     }
     else if (col_scale_class %in% c("numeric", "date", "datetime", "time")) {
       if (rlang::is_null(colour_palette)) {
-        if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
+        if (col_border && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
           colour_palette <- getOption("ggblanket.colour_palette_c_border")
         } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
           colour_palette <- theme_palettes$palette.colour.continuous
@@ -385,7 +390,7 @@ gg_blanket <- function(
         }
       }
       if (rlang::is_null(fill_palette)) {
-        if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
+        if (col_border && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
           fill_palette <- getOption("ggblanket.fill_palette_c_border")
         } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {
           fill_palette <- theme_palettes$palette.fill.continuous
@@ -396,7 +401,7 @@ gg_blanket <- function(
     }
     else if (col_scale_class %in% c("ordinal")) {
       if (rlang::is_null(colour_palette)) {
-        if (is_border_geom && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
+        if (col_border && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
           colour_palette <- getOption("ggblanket.colour_palette_c_border")
         } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
           colour_palette <- theme_palettes$palette.colour.continuous
@@ -405,7 +410,7 @@ gg_blanket <- function(
         }
       }
       if (rlang::is_null(fill_palette)) {
-        if (is_border_geom && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
+        if (col_border && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
           fill_palette <- getOption("ggblanket.fill_palette_c_border")
         } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {
           fill_palette <- theme_palettes$palette.fill.continuous
@@ -420,7 +425,7 @@ gg_blanket <- function(
     if (!is.null(colour_palette_na)) {
       na_colour <- colour_palette_na
     } else {
-      if (is_border_geom) {
+      if (col_border) {
         na_colour <- getOption("ggblanket.colour_palette_na_border", "#CDC5BFFF")
       } else {
         na_colour <- getOption("ggblanket.colour_palette_na", "#CDC5BFFF")
@@ -430,7 +435,7 @@ gg_blanket <- function(
     if (!is.null(fill_palette_na)) {
       na_fill <- fill_palette_na
     } else {
-      if (is_border_geom) {
+      if (col_border) {
         na_fill <- getOption("ggblanket.fill_palette_na_border", "#CDC5BFFF")
       } else {
         na_fill <- getOption("ggblanket.fill_palette_na", "#CDC5BFFF")
@@ -651,7 +656,7 @@ gg_blanket <- function(
             na.value = na_fill
           )
 
-        if (is_border_geom) {
+        if (col_border) {
           plot <- plot +
             ggplot2::guides(
               colour = ggplot2::guide_none(),

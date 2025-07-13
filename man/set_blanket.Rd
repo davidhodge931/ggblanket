@@ -80,6 +80,8 @@ If NULL, derived from theme axis line linewidth.}
 
 \item{linetype_reference_line}{A linetype for reference line geoms. If NULL, uses \code{linetype}.}
 
+\item{size}{A default size for point geoms.}
+
 \item{size_font}{A size for text/label geoms in mm. If NULL, derived from theme axis text size.}
 
 \item{shape}{A default shape for point geoms. Must be an integer between 0 and 25.}
