@@ -24,7 +24,7 @@
 #' @param linetype A default linetype for most geoms. Defaults to 1 (solid).
 #' @param linetype_border A linetype for border geoms. If NULL, uses `linetype`.
 #' @param linetype_reference_line A linetype for reference line geoms. If NULL, uses `linetype`.
-#' @param size A default size for point geoms. Defaults to 1.5.
+#' @param shape A default shape for point geoms. Must be an integer between 0 and 25.
 #' @param size_font A size for text/label geoms in mm. If NULL, derived from theme axis text size.
 #' @param family_font A font family. If NULL, derived from axis text family.
 #' @param col_palette_d For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
@@ -91,6 +91,7 @@ set_blanket <- function(
 
     size = 1.5,
     size_font = NULL,
+    shape = 21,
     family_font = NULL,
 
     col_palette_d = scales::pal_hue(),
@@ -174,6 +175,10 @@ set_blanket <- function(
   if (rlang::is_null(fill_palette_na_border)) fill_palette_na_border <- fill_palette_na
 
   # Update geom defaults
+  update_geom_shape(
+    shape = shape
+  )
+
   update_geom_col(
     colour = colour,
     colour_border = colour_border,

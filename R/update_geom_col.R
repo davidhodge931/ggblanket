@@ -70,9 +70,9 @@ update_geom_col <- function(
 
   # Define geom categories
   border_polygon_geoms <- c("area", "bar", "boxplot", "col", "crossbar", "density",
-                     "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
-                     "violin", "raster", "contour_filled", "density2d_filled",
-                     "bin2d", "hex")
+                            "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
+                            "violin", "raster", "contour_filled", "density2d_filled",
+                            "bin2d", "hex")
 
   border_point_geoms <- c("point", "jitter", "count", "qq")
 
@@ -110,11 +110,27 @@ update_geom_col <- function(
     else if (geom %in% reference_line_geoms) {
       theme_args[[geom_name]] <- ggplot2::element_geom(colour = colour_reference_line)
     }
-    else if (geom %in% c(border_polygon_geoms, border_point_geoms)) {
+    else if (geom %in% border_polygon_geoms) {
+      # Polygon geoms always get border treatment
       theme_args[[geom_name]] <- ggplot2::element_geom(
         colour = colour_border,
         fill = fill_border
       )
+    }
+    else if (geom %in% border_point_geoms) {
+      # Point geoms only get border treatment if shape is 21:25
+      current_shape <- ggplot2::get_geom_defaults(geom)$shape
+      if (!is.null(current_shape) && current_shape %in% 21:25) {
+        theme_args[[geom_name]] <- ggplot2::element_geom(
+          colour = colour_border,
+          fill = fill_border
+        )
+      } else {
+        theme_args[[geom_name]] <- ggplot2::element_geom(
+          colour = colour,
+          fill = fill
+        )
+      }
     } else {
       theme_args[[geom_name]] <- ggplot2::element_geom(
         colour = colour,

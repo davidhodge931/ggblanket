@@ -6,16 +6,16 @@
 \alias{guides_size_grey}
 \title{Guides for legend element colour}
 \usage{
-guides_shape_grey(colour = grey, ...)
+guides_shape_grey(col = "#8991A1", ...)
 
-guides_linewidth_grey(colour = grey, ...)
+guides_linewidth_grey(col = "#8991A1", ...)
 
-guides_size_grey(colour = grey, ...)
+guides_size_grey(col = "#8991A1", ...)
 }
 \arguments{
-\item{colour}{A default hex code to override the colour of the legend elements. Note, the "fill" inherits from this argument.  Defaults to grey.}
+\item{col}{A default hex code to override the colour of the legend elements. Defaults to grey.}
 
-\item{...}{Other arguments passed to \code{\link[ggplot2:guide_legend]{ggplot2::guide_legend ()}}.}
+\item{...}{Other arguments passed to \code{\link[ggplot2:guide_legend]{ggplot2::guide_legend()}}.}
 }
 \value{
 A ggplot guides.

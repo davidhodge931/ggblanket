@@ -22,6 +22,7 @@ set_blanket(
   linetype_reference_line = NULL,
   size = 1.5,
   size_font = NULL,
+  shape = 21,
   family_font = NULL,
   col_palette_d = scales::pal_hue(),
   col_palette_c = mako_cruise(),
@@ -79,9 +80,9 @@ If NULL, derived from theme axis line linewidth.}
 
 \item{linetype_reference_line}{A linetype for reference line geoms. If NULL, uses \code{linetype}.}
 
-\item{size}{A default size for point geoms. Defaults to 1.5.}
-
 \item{size_font}{A size for text/label geoms in mm. If NULL, derived from theme axis text size.}
+
+\item{shape}{A default shape for point geoms. Must be an integer between 0 and 25.}
 
 \item{family_font}{A font family. If NULL, derived from axis text family.}
 

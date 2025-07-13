@@ -209,7 +209,7 @@ gg_blanket <- function(
     subgroup = !!aes_list$subgroup,
     sample = !!aes_list$sample,
     label = !!aes_list$label,
-    text = !!aes_list$text,
+    text = !!aes_list$text
   )
 
   show_legend <- ifelse(geom_name %in% c("blank", "abline"), FALSE, TRUE)
@@ -349,7 +349,9 @@ gg_blanket <- function(
     border_point_geoms <- c("point", "jitter", "count", "qq")
 
     # Determine if this geom needs special palette handling
-    is_border_geom <- geom_name %in% c(border_polygon_geoms, border_point_geoms)
+    is_border_geom <- (geom_name %in% border_polygon_geoms) ||
+      ((geom_name %in% c("point", "jitter", "count", "qq", "pointrange")) &&
+         (get_geom_defaults(geom_name)$shape %in% 21:25))
 
     if (col_scale_class %in% c("discrete")) {
       if (rlang::is_null(colour_palette)) {
@@ -1074,6 +1076,17 @@ gg_blanket <- function(
     transparency$panel_grid_transparent,
     x_scale_class, y_scale_class
   )
+
+  ##############################################################################
+  # Step X: Apply theme transparency
+  ##############################################################################
+
+  is_shape_mapping <- !is.null(mapping) && "shape" %in% names(mapping)
+
+  if (is_shape_mapping) {
+    plot <- plot +
+      ggplot2::scale_shape_manual(values = 21:25)
+  }
 
   return(plot)
 }

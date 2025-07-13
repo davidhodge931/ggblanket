@@ -62,7 +62,8 @@ create_ggplot <- function(
     subgroup = NULL,
     sample = NULL,
     label = NULL,
-    text = NULL
+    text = NULL,
+    mapping = NULL
 ) {
   x <- rlang::enquo(x)
   y <- rlang::enquo(y)
@@ -100,7 +101,7 @@ create_ggplot <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            text = !!text
+            text = !!text,
           )
         )
     } else if (!rlang::quo_is_null(col)) {
@@ -121,7 +122,7 @@ create_ggplot <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            text = !!text
+            text = !!text,
           )
         )
     }
@@ -142,7 +143,7 @@ create_ggplot <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            text = !!text
+            text = !!text,
           )
         )
     } else if (!rlang::quo_is_null(col)) {
@@ -163,7 +164,7 @@ create_ggplot <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            text = !!text
+            text = !!text,
           )
         )
     }
@@ -185,7 +186,7 @@ create_ggplot <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            text = !!text
+            text = !!text,
           )
         )
     } else if (!rlang::quo_is_null(col)) {
@@ -207,7 +208,7 @@ create_ggplot <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            text = !!text
+            text = !!text,
           )
         )
     }
@@ -227,7 +228,7 @@ create_ggplot <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            text = !!text
+            text = !!text,
           )
         )
     } else if (!rlang::quo_is_null(col)) {
@@ -247,7 +248,7 @@ create_ggplot <- function(
             subgroup = !!subgroup,
             sample = !!sample,
             label = !!label,
-            text = !!text
+            text = !!text,
           )
         )
     }
@@ -275,12 +276,6 @@ get_geom_params <- function(geom_name, ...) {
   } else if (geom_name == "smooth") {
     rlang::list2(
       alpha = NA,
-      ...
-    )
-  }
-  else if (geom_name %in% c("point", "jitter", "count", "qq")) {
-    rlang::list2(
-      shape = 21,
       ...
     )
   }
@@ -993,8 +988,8 @@ get_perspective_behaviour <- function(axis_line_transparent, axis_ticks_transpar
 #' Add transparency
 #' @noRd
 add_perspective <- function(plot, perspective, axis_line_transparent,
-                                     axis_ticks_transparent, panel_grid_transparent,
-                                     x_scale_class, y_scale_class) {
+                            axis_ticks_transparent, panel_grid_transparent,
+                            x_scale_class, y_scale_class) {
   if (perspective == "x") {
     if (axis_line_transparent) {
       plot <- plot +
