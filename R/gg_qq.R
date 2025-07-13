@@ -33,7 +33,7 @@ gg_qq <- function(
   stat = "qq",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
-  blend = NULL, theme = ggplot2::get_theme(),
+  blend = NULL, 
   perspective = NULL,
   axis_line_transparent = NULL,
   axis_ticks_transparent = NULL,

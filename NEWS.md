@@ -13,6 +13,7 @@ in `set_blanket` and `gg_blanket` with defaults and flexibility for border geoms
 * Breaking: renamed `theme_` prefixed arguments to `perspective`, `axis_line_transparent`, `axis_ticks_transparent`, and `panel_grid_transparent`.
 * Breaking: adjusted `annotate_axis_line` arguments.
 * Breaking: changed `col_steps = TRUE` argument to `col_scale_type = "steps"`.
+* Breaking: removed `theme` from `gg_*`. 
 * Added defaults to `aes_contrast` to make it determine NULL colours based on theme.
 * Modularised `gg_blanket` function somewhat.
 * `col = 'red'` now works for colouring/filling. 

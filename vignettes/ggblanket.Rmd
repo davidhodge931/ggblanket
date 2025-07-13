@@ -224,6 +224,8 @@ palmerpenguins::penguins |>
 `theme_lighter` and `theme_darker`. These functions were built for use with the `theme` argument - and have flexibility to adjust colours, linewidths etc. 
 
 ```{r, fig.asp=0.65}
+set_blanket(theme = theme_darker())
+      
 palmerpenguins::penguins |>
   gg_histogram(
     x = flipper_length_mm,
@@ -231,9 +233,9 @@ palmerpenguins::penguins |>
     title = "Penguin flipper length by species",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020", 
-    theme = theme_darker(legend_position = "bottom") + 
-      theme(legend.title = element_blank()),
   ) 
+
+set_blanket()
 ```
 
 ### 11.  Side-effects to the `theme` based on the `perspective`

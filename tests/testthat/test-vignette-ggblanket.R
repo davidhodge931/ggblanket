@@ -187,6 +187,9 @@ test_that(test_name, {
 ## ----fig.asp=0.7------------------------------------------------------------------------------------
 test_name <- "11"
 
+set_blanket(
+  theme = theme_lighter(legend_position = "top"),
+)
 test_that(test_name, {
   p <- penguins |>
     gg_histogram(
@@ -195,7 +198,6 @@ test_that(test_name, {
       title = "Penguin flipper length by species",
       subtitle = "Palmer Archipelago, Antarctica",
       caption = "Source: Gorman, 2020",
-      theme = theme_lighter(legend_position = "top"),
     ) +
     theme(legend.title = element_blank())
 
@@ -206,6 +208,8 @@ test_that(test_name, {
 ## ----fig.asp=0.65-----------------------------------------------------------------------------------
 test_name <- "13"
 
+set_blanket(theme = theme_darker())
+
 test_that(test_name, {
   p <- penguins |>
     gg_histogram(
@@ -214,7 +218,6 @@ test_that(test_name, {
       title = "Penguin flipper length by species",
       subtitle = "Palmer Archipelago, Antarctica",
       caption = "Source: Gorman, 2020",
-      theme = theme_darker(),
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -223,6 +226,8 @@ test_that(test_name, {
 
 ## ----echo=FALSE-------------------------------------------------------------------------------------
 test_name <- "14"
+
+set_blanket()
 
 test_that(test_name, {
   d <- data.frame(

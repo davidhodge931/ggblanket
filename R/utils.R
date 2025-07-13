@@ -316,7 +316,7 @@ get_transform_default <- function(scale_class) {
 #' Get defaults for various parameters
 #' @noRd
 get_other_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_class,
-                               facet_scales, theme, x_symmetric, y_symmetric,
+                               facet_scales, x_symmetric, y_symmetric,
                                stat_name, perspective, titles_case) {
   # Get transforms
   if (rlang::is_null(x_transform)) {
@@ -336,11 +336,6 @@ get_other_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_
   # Make drop appropriate to facet scales
   x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
   y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
-
-  # Get theme if NULL
-  if (rlang::is_null(theme)) {
-    theme <- ggplot2::get_theme()
-  }
 
   # Determine *_symmetric
   if (rlang::is_null(x_symmetric)) {

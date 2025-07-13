@@ -48,6 +48,7 @@ test_that(test_name, {
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "gg_boxplot"
+set_blanket(theme = theme_lighter(legend_position = "bottom"))
 
 test_that(test_name, {
   p <- palmerpenguins::penguins |>
@@ -57,11 +58,11 @@ test_that(test_name, {
       x = flipper_length_mm,
       y = sex,
       col = species,
-      theme = theme_lighter(legend_position = "bottom"),
     )
   vdiffr::expect_doppelganger(test_name, p)
 })
 
+set_blanket()
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "gg_col"
 
@@ -219,7 +220,6 @@ test_that(test_name, {
     gg_freqpoly(
       x = flipper_length_mm,
       col = sex,
-      theme = theme_lighter(legend_position = "top"),
     ) +
     theme(legend.title = element_blank())
 
@@ -264,7 +264,6 @@ test_that(test_name, {
       col = sex,
       facet = species,
       bins = 50,
-      theme = theme_lighter(legend_position = "bottom"),
     )
 
   vdiffr::expect_doppelganger(test_name, p)

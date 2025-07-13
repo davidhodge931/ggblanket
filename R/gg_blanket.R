@@ -15,7 +15,6 @@
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
-#' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]). (Or a list that includes 1. a theme and 2. a [ggplot2::labs()] function. E.g. `list(theme_lighter(), ggplot2::labs(colour = NULL, fill = NULL)`).
 #' @param perspective The perspective of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
 #' @param axis_line_transparent `TRUE` or `FALSE` of whether to remove the relevant axis line per the `perspective` of the plot.
 #' @param axis_ticks_transparent `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `perspective` of the plot.
@@ -61,7 +60,7 @@ gg_blanket <- function(
     position = "identity",
     coord = NULL,
     blend = NULL,
-    theme = ggplot2::get_theme(),
+
     perspective = NULL,
     axis_line_transparent = NULL,
     axis_ticks_transparent = NULL,
@@ -246,19 +245,23 @@ gg_blanket <- function(
   ##############################################################################
   # Step 5: Get defaults
   ##############################################################################
+  theme <- ggplot2::get_theme()
+
   defaults <- get_other_defaults(x_transform, y_transform, x_scale_class, y_scale_class,
-                                 facet_scales, theme, x_symmetric, y_symmetric,
+                                 facet_scales, x_symmetric, y_symmetric,
                                  stat_name, perspective, titles_case)
 
   x_transform <- defaults$x_transform
   y_transform <- defaults$y_transform
   x_transform_null <- defaults$x_transform_null
   y_transform_null <- defaults$y_transform_null
+
   x_drop <- defaults$x_drop
   y_drop <- defaults$y_drop
-  theme <- defaults$theme
+
   x_symmetric <- defaults$x_symmetric
   y_symmetric <- defaults$y_symmetric
+
   perspective <- defaults$perspective
   titles_case <- defaults$titles_case
 
