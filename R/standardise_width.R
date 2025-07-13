@@ -92,6 +92,8 @@ standardise_width <- function(
     to_panel_widths = NULL,
     to_panel_heights = NULL
 ) {
+
+
   # Check required arguments
   if (missing(to_width) | missing(to_n) | missing(from_n)) {
     rlang::abort("to_width, to_n, and from_n must all be specified")
@@ -112,6 +114,13 @@ standardise_width <- function(
   }
   if (is.null(to_panel_heights) && !is.null(current_theme$panel.heights)) {
     to_panel_heights <- current_theme$panel.heights
+  }
+
+  if (rlang::is_null(from_panel_widths) |
+      rlang::is_null(to_panel_heights) |
+      rlang::is_null(to_panel_widths) |
+      rlang::is_null(to_panel_heights)) {
+    rlang::abort("panel widths and heights must be set or specified")
   }
 
   # Validate panel dimensions - if any provided, all must be provided

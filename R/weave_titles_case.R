@@ -6,7 +6,7 @@
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #'
 #' @noRd
-weave_titles_case <- function(titles_case = snakecase::to_sentence_case, ...) {
+update_titles_case <- function(titles_case = snakecase::to_sentence_case, ...) {
 
   options(
     ggblanket.titles_case = titles_case

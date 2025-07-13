@@ -222,9 +222,9 @@ set_blanket <- function(
     fill_palette_na_border = fill_palette_na_border
   )
 
-  weave_titles_case(titles_case = titles_case)
+  update_titles_case(titles_case = titles_case)
 
-  weave_perspective(
+  update_perspective(
     axis_line_transparent = axis_line_transparent,
     axis_ticks_transparent = axis_ticks_transparent,
     panel_grid_transparent = panel_grid_transparent

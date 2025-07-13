@@ -8,7 +8,7 @@
 #' @param panel_grid_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `perspective` of the plot.
 #'
 #' @noRd
-weave_perspective <- function(
+update_perspective <- function(
     ...,
     axis_line_transparent = TRUE,
     axis_ticks_transparent = TRUE,
