@@ -425,6 +425,7 @@ process_data <- function(data, aes_list, x_symmetric) {
   )
   # Remove NULL values
   aes_to_process <- aes_to_process[!sapply(aes_to_process, rlang::quo_is_null)]
+
   # Ungroup and convert to factors
   data <- data |>
     dplyr::ungroup() |>

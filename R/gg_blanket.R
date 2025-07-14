@@ -273,7 +273,7 @@ gg_blanket <- function(
                                  y_scale_class = y_scale_class)
 
   ##############################################################################
-  # Step 6: Validate inputs
+  # Step 6: Check inputs
   ##############################################################################
   check_inputs(mapping, x_symmetric, y_symmetric,
                x_transform, y_transform, stat)
@@ -306,7 +306,6 @@ gg_blanket <- function(
     text = !!aes_list$text,
     mapping = mapping
   )
-    # theme
 
   ##############################################################################
   # Step 9: Add geom layer
@@ -333,13 +332,6 @@ gg_blanket <- function(
                           facet_space, facet_drop, facet_axes, facet_axis_labels,
                           facet_nrow, facet_ncol, facet_labels, y_scale_class)
 
-  # # Add default color scales
-  # if (col_scale_class %in% c("discrete", "ordinal")) {
-  #   plot <- plot +
-  #     ggplot2::scale_colour_hue(na.value = "grey50") +
-  #     ggplot2::scale_fill_hue(na.value = "grey50")
-  # }
-  #
   ##############################################################################
   # Step 11: Get plot build again
   ##############################################################################
