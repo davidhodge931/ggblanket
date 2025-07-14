@@ -254,13 +254,13 @@ gg_blanket <- function(
   x_transform <- get_transform(x_transform, scale_class = x_scale_class)
   y_transform <- get_transform(y_transform, scale_class = y_scale_class)
 
-  x_symmetric <- get_x_symmetric(x_symmetric,
+  x_symmetric <- is_x_symmetric(x_symmetric,
                   stat = stat,
                   facet_scales = facet_scales,
                   x_scale_class = x_scale_class,
                   y_scale_class = y_scale_class)
 
-  y_symmetric <- get_y_symmetric(y_symmetric,
+  y_symmetric <- is_y_symmetric(y_symmetric,
                                  stat = stat,
                                  facet_scales = facet_scales,
                                  x_scale_class = x_scale_class,

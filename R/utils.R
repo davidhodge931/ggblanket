@@ -345,7 +345,8 @@ get_perspective <- function(perspective = NULL, x_scale_class, y_scale_class) {
   return(perspective)
 }
 
-get_x_symmetric <- function(x_symmetric = NULL,
+# Is x symmetric logical
+is_x_symmetric <- function(x_symmetric = NULL,
                             stat,
                             facet_scales,
                             x_scale_class,
@@ -364,7 +365,8 @@ get_x_symmetric <- function(x_symmetric = NULL,
   return(x_symmetric)
 }
 
-get_y_symmetric <- function(y_symmetric = NULL,
+# Is y symmetric
+is_y_symmetric <- function(y_symmetric = NULL,
                             stat,
                             facet_scales,
                             x_scale_class,
