@@ -152,7 +152,6 @@ experiment |>
     col = group,
     width = 0.5,
     y_limits_include = 0,
-    # blend = "multiply",
   )
 ```
 
@@ -219,10 +218,14 @@ penguins2 |>
 ### gg_function
 
 ```{r}
+mean <- 0
+sd <- 1
+
 gg_function(
-  fun = \(x) dnorm(x, mean = 0, sd = 5),
-  x_limits_include = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
-)
+  fun = \(x) dnorm(x, mean = mean, sd = sd),
+  x_limits_include = qnorm(p = c(0.005, 0.995), mean = mean, sd = sd),
+  y_symmetric = FALSE,
+) 
 ```
 
 ### gg_hex
@@ -232,6 +235,7 @@ diamonds |>
   gg_hex(
     x = carat,
     y = price,
+    coord = coord_cartesian(),
   )
 ```
 

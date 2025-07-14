@@ -30,15 +30,15 @@ library(palmerpenguins)
 
 set_blanket()
 
-# set_blanket(
-#   theme = theme_darker(),
-#   col = pink,
-#   colour_border = col_screen(orange),
-#   col_palette_d = rev(jumble),
-#   colour_palette_d_border = scales::col_lighter(rev(jumble)),
-#   col_palette_c = viridis::rocket(n = 20, end = 0.9, direction = -1),
-#   colour_palette_c_border = col_screen(viridis::rocket(n = 20, end = 0.9, direction = -1)),
-# )
+set_blanket(
+  theme = theme_darker(),
+  col = orange,
+  colour_border = col_screen(orange),
+  col_palette_d = rev(jumble),
+  colour_palette_d_border = scales::col_lighter(rev(jumble)),
+  col_palette_c = viridis::rocket(n = 20, end = 0.9, direction = -1),
+  colour_palette_c_border = col_screen(viridis::rocket(n = 20, end = 0.9, direction = -1)),
+)
 
 penguins2 <- penguins |> 
   labelled::set_variable_labels(
@@ -158,7 +158,6 @@ experiment |>
     col = group,
     width = 0.5,
     y_limits_include = 0,
-    # blend = "multiply",
   )
 ```
 
@@ -226,10 +225,14 @@ penguins2 |>
 ### gg_function
 
 ```{r}
+mean <- 0
+sd <- 1
+
 gg_function(
-  fun = \(x) dnorm(x, mean = 0, sd = 5),
-  x_limits_include = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
-)
+  fun = \(x) dnorm(x, mean = mean, sd = sd),
+  x_limits_include = qnorm(p = c(0.005, 0.995), mean = mean, sd = sd),
+  y_symmetric = FALSE,
+) 
 ```
 
 ### gg_hex
@@ -239,6 +242,7 @@ diamonds |>
   gg_hex(
     x = carat,
     y = price,
+    coord = coord_cartesian(),
   )
 ```
 

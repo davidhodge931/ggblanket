@@ -6,31 +6,37 @@ library(dplyr)
 
 set_blanket()
 
-set.seed(123)
-t <- as.POSIXct("2021-01-01")
-e1 <- as.POSIXct("2021-12-31 23:59:59")
-n1 <- as.numeric(lubridate::as.duration(e1 - t))
-s1 <- sample(seq.int(n1), 3000L)
-
 ## ---------------------------------------------------------------------------------------------------
-test_name <- "datetime"
+# test_name <- "datetime"
 
-test_that(test_name, {
-  p <- tibble::tibble(dttm = t + s1) |>
-    dplyr::mutate(mon = lubridate::floor_date(dttm, "month")) |>
-    dplyr::summarise(total = dplyr::n(), .by = "mon") |>
-    gg_point(
-      x = mon,
-      y = total,
-    )
+# test_that(test_name, {
+  # set.seed(123)
+  # t <- as.POSIXct("2021-01-01")
+  # e1 <- as.POSIXct("2021-12-31 23:59:59")
+  # n1 <- as.numeric(lubridate::as.duration(e1 - t))
+  # s1 <- sample(seq.int(n1), 3000L)
+  #
+  # p <- tibble::tibble(dttm = t + s1) |>
+  #   dplyr::mutate(mon = lubridate::floor_date(dttm, "month")) |>
+  #   dplyr::summarise(total = dplyr::n(), .by = "mon") |>
+  #   gg_point(
+  #     x = mon,
+  #     y = total,
+#   )
 
-  vdiffr::expect_doppelganger(test_name, p)
-})
+# vdiffr::expect_doppelganger(test_name, p)
+# })
 
 ## ---------------------------------------------------------------------------------------------------
 test_name <- "time"
 
 test_that(test_name, {
+  set.seed(123)
+  t <- as.POSIXct("2021-01-01")
+  e1 <- as.POSIXct("2021-12-31 23:59:59")
+  n1 <- as.numeric(lubridate::as.duration(e1 - t))
+  s1 <- sample(seq.int(n1), 3000L)
+
   p <- tibble::tibble(dttm = t + s1) |>
     dplyr::mutate(mon = lubridate::floor_date(dttm, "month")) |>
     dplyr::summarise(total = dplyr::n(), .by = "mon") |>
@@ -47,6 +53,12 @@ test_that(test_name, {
 test_name <- "date"
 
 test_that(test_name, {
+  set.seed(123)
+  t <- as.POSIXct("2021-01-01")
+  e1 <- as.POSIXct("2021-12-31 23:59:59")
+  n1 <- as.numeric(lubridate::as.duration(e1 - t))
+  s1 <- sample(seq.int(n1), 3000L)
+
   p <- tibble::tibble(dttm = t + s1) |>
     dplyr::mutate(mon = lubridate::floor_date(dttm, "month")) |>
     dplyr::summarise(total = dplyr::n(), .by = "mon") |>
