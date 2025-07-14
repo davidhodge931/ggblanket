@@ -115,7 +115,7 @@ gg_pointrange <- function(
     stat = stat,
     position = position,
     coord = coord,
-    theme = theme,
+    
     perspective = perspective,
     axis_line_transparent = axis_line_transparent,
     axis_ticks_transparent = axis_ticks_transparent,

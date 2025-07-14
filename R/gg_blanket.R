@@ -326,19 +326,20 @@ gg_blanket <- function(
   # Step 10: Add facet layer
   ##############################################################################
   facet_layout <- get_facet_layout(facet_layout, aes_list)
+
   facet_axes <- get_facet_axes(facet_axes, x_symmetric)
 
   plot <- add_facet_layer(plot, aes_list, data, facet_layout, facet_scales,
                           facet_space, facet_drop, facet_axes, facet_axis_labels,
                           facet_nrow, facet_ncol, facet_labels, y_scale_class)
 
-  # Add default color scales
-  if (col_scale_class %in% c("discrete", "ordinal")) {
-    plot <- plot +
-      ggplot2::scale_colour_hue(na.value = "grey50") +
-      ggplot2::scale_fill_hue(na.value = "grey50")
-  }
-
+  # # Add default color scales
+  # if (col_scale_class %in% c("discrete", "ordinal")) {
+  #   plot <- plot +
+  #     ggplot2::scale_colour_hue(na.value = "grey50") +
+  #     ggplot2::scale_fill_hue(na.value = "grey50")
+  # }
+  #
   ##############################################################################
   # Step 11: Get plot build again
   ##############################################################################
