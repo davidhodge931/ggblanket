@@ -138,6 +138,7 @@ gg_blanket <- function(
   ##############################################################################
   # Step 1: Quote aesthetics
   ##############################################################################
+
   aes_list <- list(
     x = rlang::enquo(x),
     y = rlang::enquo(y),
@@ -168,12 +169,12 @@ gg_blanket <- function(
   ##############################################################################
   # Step 3: Extract geom, stat & position strings
   ##############################################################################
-  ggproto_names <- get_geom_stat_position_names(geom, stat, position)
-  geom_name <- ggproto_names$geom_name
-  stat_name <- ggproto_names$stat_name
-  position_name <- ggproto_names$position_name
+  ggproto_strings <- get_ggproto_strings_list(geom = geom, stat = stat, transform = transform)
+  geom <- ggproto_strings$geom
+  stat <- ggproto_strings$stat
+  transform <- ggproto_strings$transform
 
-  if (geom_name %in% c("bin2d", "hex")) {
+  if (geom %in% c("bin2d", "hex")) {
     if (is.null(mapping)) {
       mapping <- ggplot2::aes(colour = ggplot2::after_stat(.data$count))
     }
@@ -184,7 +185,7 @@ gg_blanket <- function(
     }
   }
 
-  if (geom_name %in% c("contour_filled", "density2d_filled")) {
+  if (geom %in% c("contour_filled", "density2d_filled")) {
     if (is.null(mapping)) {
       mapping <- ggplot2::aes(colour = ggplot2::after_stat(.data$level))
     }
@@ -220,13 +221,13 @@ gg_blanket <- function(
     mapping = mapping
   )
 
-  show_legend <- ifelse(geom_name %in% c("blank", "abline"), FALSE, TRUE)
+  show_legend <- ifelse(geom %in% c("blank", "abline"), FALSE, TRUE)
 
-  params <- get_geom_params(geom_name, ...)
+  params <- get_geom_params(geom, ...)
 
   # Add initial layer
   plot <- add_initial_layer(plot, geom, stat, position, params,
-                            show_legend, coord, blend, stat_name)
+                            show_legend, coord, blend)
 
   # Get plot build
   suppressMessages({
@@ -237,39 +238,45 @@ gg_blanket <- function(
   })
 
   # Determine scale types
-  scale_classs <- get_scale_class(plot_build, aes_list, data)
-  x_scale_class <- scale_classs$x_scale_class
-  y_scale_class <- scale_classs$y_scale_class
-  col_scale_class <- scale_classs$col_scale_class
+  scale_class <- get_scale_class(plot_build, aes_list, data)
+
+  x_scale_class <- scale_class$x_scale_class
+  y_scale_class <- scale_class$y_scale_class
+  col_scale_class <- scale_class$col_scale_class
 
   ##############################################################################
   # Step 5: Get defaults
   ##############################################################################
-  theme <- ggplot2::get_theme()
 
-  defaults <- get_other_defaults(x_transform, y_transform, x_scale_class, y_scale_class,
-                                 facet_scales, x_symmetric, y_symmetric,
-                                 stat_name, perspective, titles_case)
+  x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
+  y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
 
-  x_transform <- defaults$x_transform
-  y_transform <- defaults$y_transform
-  x_transform_null <- defaults$x_transform_null
-  y_transform_null <- defaults$y_transform_null
+  x_transform <- get_transform(x_transform, scale_class = x_scale_class)
+  y_transform <- get_transform(y_transform, scale_class = y_scale_class)
 
-  x_drop <- defaults$x_drop
-  y_drop <- defaults$y_drop
+  x_symmetric <- get_x_symmetric(x_symmetric,
+                  stat = stat,
+                  facet_scales = facet_scales,
+                  x_scale_class = x_scale_class,
+                  y_scale_class = y_scale_class)
 
-  x_symmetric <- defaults$x_symmetric
-  y_symmetric <- defaults$y_symmetric
+  y_symmetric <- get_y_symmetric(y_symmetric,
+                                 stat = stat,
+                                 facet_scales = facet_scales,
+                                 x_scale_class = x_scale_class,
+                                 y_scale_class = y_scale_class)
 
-  perspective <- defaults$perspective
-  titles_case <- defaults$titles_case
+  titles_case <- get_titles_case(titles_case = titles_case)
+
+  perspective <- get_perspective(perspective = perspective,
+                                 x_scale_class = x_scale_class,
+                                 y_scale_class = y_scale_class)
 
   ##############################################################################
   # Step 6: Validate inputs
   ##############################################################################
   check_inputs(mapping, x_symmetric, y_symmetric,
-               x_transform_null, y_transform_null, stat)
+               x_transform, y_transform, stat)
 
   ##############################################################################
   # Step 7: Process the data
@@ -298,14 +305,14 @@ gg_blanket <- function(
     label = !!aes_list$label,
     text = !!aes_list$text,
     mapping = mapping
-  ) +
-    theme
+  )
+    # theme
 
   ##############################################################################
   # Step 9: Add geom layer
   ##############################################################################
   plot <- add_initial_layer(plot, geom, stat, position, params,
-                            show_legend, coord, blend, stat_name)
+                            show_legend, coord, blend)
 
   if (!rlang::is_null(x_limits_include)) {
     plot <- plot + ggplot2::expand_limits(x = x_limits_include)
@@ -363,9 +370,9 @@ gg_blanket <- function(
 
     # Determine if this geom needs special palette handling
     if (rlang::is_null(col_border)) {
-      col_border <- (geom_name %in% border_polygon_geoms) ||
-        ((geom_name %in% c("point", "jitter", "count", "qq", "pointrange")) &&
-           (ggplot2::get_geom_defaults(geom_name)$shape %in% 21:25))
+      col_border <- (geom %in% border_polygon_geoms) ||
+        ((geom %in% c("point", "jitter", "count", "qq", "pointrange")) &&
+           (ggplot2::get_geom_defaults(geom)$shape %in% 21:25))
     }
 
     if (col_scale_class %in% c("discrete")) {
@@ -454,18 +461,17 @@ gg_blanket <- function(
 
     # Get other defaults (transform, breaks, labels, etc.)
     # Get transform
-    if (rlang::is_null(col_transform)) {
-      col_transform <- get_transform_default(col_scale_class)
-    }
-    col_transform_name <- get_transform_name(col_transform)
+    # if (rlang::is_null(col_transform)) {
+      col_transform <- get_transform(col_transform, scale_class = col_scale_class)
+    # }
 
     # Get labels
     if (rlang::is_null(col_labels)) {
       if (col_scale_class %in% c("discrete", "ordinal")) {
         col_labels <- ggplot2::waiver()
-      } else if (any(col_transform_name %in% c("hms"))) {
+      } else if (any(col_transform %in% c("hms"))) {
         col_labels <- scales::label_time()
-      } else if (any(col_transform_name %in% c("date", "datetime", "time"))) {
+      } else if (any(col_transform %in% c("date", "datetime", "time"))) {
         col_labels <- scales::label_date_short(leading = "")
       } else {
         col_labels <- scales::label_comma(drop0trailing = TRUE)
@@ -869,7 +875,7 @@ gg_blanket <- function(
         position = x_position
       )
   } else {
-    if (stringr::str_detect(stat_name, "sf")) {
+    if (stringr::str_detect(stat, "sf")) {
       if (rlang::is_null(x_breaks)) {
         x_breaks <- ggplot2::waiver()
       }
@@ -943,7 +949,7 @@ gg_blanket <- function(
         position = y_position
       )
   } else {
-    if (stringr::str_detect(stat_name, "sf")) {
+    if (stringr::str_detect(stat, "sf")) {
       if (rlang::is_null(y_breaks)) {
         y_breaks <- ggplot2::waiver()
       }
@@ -1001,7 +1007,7 @@ gg_blanket <- function(
   #############################################################################
 
   if (rlang::is_null(x_title)) {
-    if (stringr::str_detect(stat_name, "sf")) {
+    if (stringr::str_detect(stat, "sf")) {
       x_title <- ""
     } else {
       x_title <- get_title(
@@ -1013,7 +1019,7 @@ gg_blanket <- function(
   }
 
   if (rlang::is_null(y_title)) {
-    if (stringr::str_detect(stat_name, "sf")) {
+    if (stringr::str_detect(stat, "sf")) {
       y_title <- ""
     } else {
       y_title <- get_title(

@@ -1,40 +1,43 @@
-#' Extract geom, stat, and position names
+#' Extract geom, stat, and transform names
 #' @noRd
-get_geom_stat_position_names <- function(geom = NULL, stat = NULL, position = NULL) {
-  # Extract geom name
+get_ggproto_strings_list <- function(geom = NULL, stat = NULL, transform = NULL) {
+  # Extract geom
   if (ggplot2::is_ggproto(geom)) {
-    geom_name <- stringr::str_to_lower(stringr::str_remove(
+    geom <- stringr::str_to_lower(stringr::str_remove(
       class(geom)[1],
       "Geom"
     ))
   } else if (is.character(geom)) {
-    geom_name <- geom
+    geom <- geom
   }
 
-  # Extract stat name
+  # Extract stat
   if (ggplot2::is_ggproto(stat)) {
-    stat_name <- stringr::str_to_lower(stringr::str_remove(
+    stat <- stringr::str_to_lower(stringr::str_remove(
       class(stat)[1],
       "Stat"
     ))
   } else if (is.character(stat)) {
-    stat_name <- stat
+    stat <- stat
   }
 
-  # Extract position name
-  if (ggplot2::is_ggproto(position)) {
-    position_name <- stringr::str_to_lower(stringr::str_remove(
-      class(position)[1],
-      "Position"
-    ))
-  } else if (is.character(position)) {
-    position_name <- position
+  # Extract transform
+  if (inherits(transform, what = "transform")) {
+    transform$name |>
+      stringr::str_remove("composition") |>
+      stringr::str_remove("\\(") |>
+      stringr::str_remove("\\)") |>
+      stringr::str_split(",") |>
+      unlist()
+  }
+  else if (is.character(transform)) {
+    transform <- transform
   }
 
   list(
-    geom_name = geom_name,
-    stat_name = stat_name,
-    position_name = position_name
+    geom = geom,
+    stat = stat,
+    transform = transform
   )
 }
 
@@ -140,8 +143,8 @@ create_ggplot <- function(
 
 #' Get params based on geom type
 #' @noRd
-get_geom_params <- function(geom_name, ...) {
-  if (geom_name == "boxplot") {
+get_geom_params <- function(geom, ...) {
+  if (geom == "boxplot") {
     rlang::list2(
       median_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth), #take from polygon
       whisker_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth), #take from polygon
@@ -149,12 +152,12 @@ get_geom_params <- function(geom_name, ...) {
       outlier_gp = list(stroke = 0),
       ...
     )
-  } else if (geom_name == "crossbar") {
+  } else if (geom == "crossbar") {
     rlang::list2(
       middle_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth), #take from polygon
       ...
     )
-  } else if (geom_name == "smooth") {
+  } else if (geom == "smooth") {
     rlang::list2(
       alpha = NA,
       ...
@@ -168,9 +171,9 @@ get_geom_params <- function(geom_name, ...) {
 #' Add initial layer to plot
 #' @noRd
 add_initial_layer <- function(plot, geom, stat, position, params,
-                              show_legend, coord, blend, stat_name) {
+                              show_legend, coord, blend) {
 
-  if (stringr::str_detect(stat_name, "sf")) {
+  if (stringr::str_detect(stat, "sf")) {
     if (rlang::is_null(coord)) {
       coord <- ggplot2::coord_sf(clip = "off")
     }
@@ -299,47 +302,56 @@ get_scale_class <- function(plot_build, aes_list, data) {
   )
 }
 
-#' Get default transform based on scale type
+#' Get transform
 #' @noRd
-get_transform_default <- function(scale_class) {
-  if (scale_class == "time") {
-    scales::transform_hms()
-  } else if (scale_class == "datetime") {
-    scales::transform_time()
-  } else if (scale_class == "date") {
-    scales::transform_date()
-  } else {
-    scales::transform_identity()
+get_transform <- function(transform = NULL, scale_class = NULL) {
+  if (rlang::is_null(transform)) {
+    if (scale_class == "time") {
+      transform <- "hms"
+    } else if (scale_class == "datetime") {
+      transform <- "time"
+    } else if (scale_class == "date") {
+      transform <- "date"
+    } else {
+      transform <- "identity"
+    }
   }
+
+  return(transform)
 }
 
-#' Get defaults for various parameters
+#' Get titles case
 #' @noRd
-get_other_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_class,
-                               facet_scales, x_symmetric, y_symmetric,
-                               stat_name, perspective, titles_case) {
-  # Get transforms
-  if (rlang::is_null(x_transform)) {
-    x_transform_null <- TRUE
-    x_transform <- get_transform_default(x_scale_class)
-  } else {
-    x_transform_null <- FALSE
+get_titles_case <- function(titles_case = NULL) {
+  if (rlang::is_null(titles_case)) {
+    titles_case <- getOption("ggblanket.titles_case")
+    if (rlang::is_null(titles_case)) titles_case <- \(x) x
   }
+  return(titles_case)
+}
 
-  if (rlang::is_null(y_transform)) {
-    y_transform_null <- TRUE
-    y_transform <- get_transform_default(y_scale_class)
-  } else {
-    y_transform_null <- FALSE
+# Get perspective
+#' @noRd
+get_perspective <- function(perspective = NULL, x_scale_class, y_scale_class) {
+  if (rlang::is_null(perspective)) {
+    if (rlang::is_null(perspective)) {
+      if (y_scale_class == "discrete" & x_scale_class != "discrete") {
+        perspective <- "y"
+      } else {
+        perspective <- "x"
+      }
+    }
   }
+  return(perspective)
+}
 
-  # Make drop appropriate to facet scales
-  x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
-  y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
-
-  # Determine *_symmetric
+get_x_symmetric <- function(x_symmetric = NULL,
+                            stat,
+                            facet_scales,
+                            x_scale_class,
+                            y_scale_class) {
   if (rlang::is_null(x_symmetric)) {
-    if (stringr::str_detect(stat_name, "sf")) {
+    if (stringr::str_detect(stat, "sf")) {
       x_symmetric <- FALSE
     } else if (facet_scales %in% c("free", "free_x")) {
       x_symmetric <- FALSE
@@ -349,9 +361,17 @@ get_other_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_
       x_symmetric <- FALSE
     }
   }
+  return(x_symmetric)
+}
+
+get_y_symmetric <- function(y_symmetric = NULL,
+                            stat,
+                            facet_scales,
+                            x_scale_class,
+                            y_scale_class) {
 
   if (rlang::is_null(y_symmetric)) {
-    if (stringr::str_detect(stat_name, "sf")) {
+    if (stringr::str_detect(stat, "sf")) {
       y_symmetric <- FALSE
     } else if (facet_scales %in% c("free", "free_y")) {
       y_symmetric <- FALSE
@@ -362,42 +382,13 @@ get_other_defaults <- function(x_transform, y_transform, x_scale_class, y_scale_
     }
   }
 
-  # Determine perspective
-  if (rlang::is_null(perspective)) {
-    if (rlang::is_null(perspective)) {
-      if (y_scale_class == "discrete" & x_scale_class != "discrete") {
-        perspective <- "y"
-      } else {
-        perspective <- "x"
-      }
-    }
-  }
-
-  # Get titles_case
-  if (rlang::is_null(titles_case)) {
-    titles_case <- getOption("ggblanket.titles_case")
-    if (rlang::is_null(titles_case)) titles_case <- \(x) x
-  }
-
-  list(
-    x_transform = x_transform,
-    y_transform = y_transform,
-    x_transform_null = x_transform_null,
-    y_transform_null = y_transform_null,
-    x_drop = x_drop,
-    y_drop = y_drop,
-    theme = theme,
-    x_symmetric = x_symmetric,
-    y_symmetric = y_symmetric,
-    perspective = perspective,
-    titles_case = titles_case
-  )
+  return(y_symmetric)
 }
 
 #' Check inputs are valid
 #' @noRd
 check_inputs <- function(mapping, x_symmetric, y_symmetric,
-                         x_transform_null, y_transform_null, stat) {
+                         x_transform, y_transform, stat) {
   if (!rlang::is_null(mapping)) {
     if (any(names(unlist(mapping)) %in% c("facet", "facet2"))) {
       rlang::abort("mapping argument does not support facet or facet2")
@@ -405,7 +396,7 @@ check_inputs <- function(mapping, x_symmetric, y_symmetric,
   }
 
   if (x_symmetric & y_symmetric &
-      !(x_transform_null & y_transform_null & identical(stat, "identity"))) {
+      !(rlang::is_null(x_transform) & rlang::is_null(y_transform) & identical(stat, "identity"))) {
     rlang::abort(
       "Both x_symmetric and y_symmetric are not supported
        where a positional axis is transformed or the stat is not 'identity'"
@@ -461,6 +452,7 @@ process_data <- function(data, aes_list, x_symmetric) {
   }
   data
 }
+
 #' Get facet layout
 #' @noRd
 get_facet_layout <- function(facet_layout, aes_list) {
@@ -735,23 +727,6 @@ calculate_colour_n <- function(aes_list, data, plot_data) {
   }
 
   max(col_n_factor, colour_n, fill_n, na.rm = TRUE)
-}
-
-#' Get transform name
-#' @noRd
-get_transform_name <- function(transform) {
-  if (is.character(transform)) {
-    transform
-  } else if (inherits(transform, what = "transform")) {
-    transform$name |>
-      stringr::str_remove("composition") |>
-      stringr::str_remove("\\(") |>
-      stringr::str_remove("\\)") |>
-      stringr::str_split(",") |>
-      unlist()
-  } else {
-    "identity"
-  }
 }
 
 #' Check if aesthetic matches colour

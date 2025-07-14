@@ -52,21 +52,13 @@ scale_y_symmetric <- function(
     transform = "identity",
     symmetric = TRUE
 ) {
-  if (is.character(transform)) {
-    transform_name <- transform
-  } else if (inherits(transform, what = "transform")) {
-    transform_name <- transform$name |>
-      stringr::str_remove("composition") |>
-      stringr::str_remove("\\(") |>
-      stringr::str_remove("\\)") |>
-      stringr::str_split(",") |>
-      unlist()
-  }
+
+  transform <- get_transform(transform = transform)
 
   if (symmetric) {
     if (
-      any(stringr::str_detect(transform_name, "log-")) |
-      any(transform_name %in% c("log", "log2", "log10"))
+      any(stringr::str_detect(transform, "log-")) |
+      any(transform %in% c("log", "log2", "log10"))
     ) {
       symmetric <- FALSE
 
@@ -84,26 +76,26 @@ scale_y_symmetric <- function(
       vctr <- c(vctr, expand_limits)
     }
 
-    if (any(transform_name == "hms")) {
+    if (any(transform == "hms")) {
       vctr <- hms::as_hms(vctr)
-    } else if (any(transform_name %in% c("time", "datetime"))) {
+    } else if (any(transform %in% c("time", "datetime"))) {
       vctr <- lubridate::as_datetime(vctr)
-    } else if (any(transform_name == "date")) {
+    } else if (any(transform == "date")) {
       vctr <- lubridate::as_date(vctr)
     }
 
     range <- range(vctr, na.rm = TRUE)
 
-    if (any(transform_name == "hms")) {
+    if (any(transform == "hms")) {
       range <- hms::as_hms(range)
     }
 
     if (rlang::is_null(breaks)) {
-      if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
+      if (any(transform %in% c("hms", "time", "datetime", "date"))) {
         breaks <- scales::breaks_pretty(n = breaks_n)(range)
       } else if (
-        any(stringr::str_detect(transform_name, "log-")) |
-        any(transform_name %in% c("log", "log2", "log10"))
+        any(stringr::str_detect(transform, "log-")) |
+        any(transform %in% c("log", "log2", "log10"))
       ) {
         breaks <- scales::breaks_log(n = breaks_n)(range) # update here
       } else {
@@ -117,7 +109,7 @@ scale_y_symmetric <- function(
 
     limits <- range(breaks)
 
-    if (any(transform_name %in% "reverse")) {
+    if (any(transform %in% "reverse")) {
       limits <- rev(limits)
     }
 
@@ -126,9 +118,9 @@ scale_y_symmetric <- function(
     }
 
     if (rlang::is_null(labels)) {
-      if (any(transform_name == "hms")) {
+      if (any(transform == "hms")) {
         labels <- scales::label_time()
-      } else if (any(transform_name %in% c("time", "datetime", "date"))) {
+      } else if (any(transform %in% c("time", "datetime", "date"))) {
         labels <- scales::label_date_short(leading = "")
       } else {
         labels <- scales::label_comma(drop0trailing = TRUE)
@@ -147,11 +139,11 @@ scale_y_symmetric <- function(
     )
   } else {
     if (rlang::is_null(breaks)) {
-      if (any(transform_name %in% c("hms", "time", "datetime", "date"))) {
+      if (any(transform %in% c("hms", "time", "datetime", "date"))) {
         breaks <- scales::breaks_pretty(n = breaks_n)
       } else if (
-        any(stringr::str_detect(transform_name, "log-")) |
-        any(transform_name %in% c("log", "log2", "log10"))
+        any(stringr::str_detect(transform, "log-")) |
+        any(transform %in% c("log", "log2", "log10"))
       ) {
         breaks <- scales::breaks_log(n = breaks_n)
       } else {
@@ -164,9 +156,9 @@ scale_y_symmetric <- function(
     }
 
     if (rlang::is_null(labels)) {
-      if (any(transform_name == "hms")) {
+      if (any(transform == "hms")) {
         labels <- scales::label_time()
-      } else if (any(transform_name %in% c("time", "datetime", "date"))) {
+      } else if (any(transform %in% c("time", "datetime", "date"))) {
         labels <- scales::label_date_short(leading = "")
       } else {
         labels <- scales::label_comma(drop0trailing = TRUE)
