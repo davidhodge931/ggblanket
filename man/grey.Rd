@@ -3,7 +3,7 @@
 \docType{data}
 \name{grey}
 \alias{grey}
-\title{A grey colour}
+\title{Grey}
 \usage{
 grey
 }

@@ -73,7 +73,7 @@
 set_blanket <- function(
     theme = theme_lighter(),
 
-    col = "#8991A1",
+    col = "#357BA2FF",
     colour = NULL,
     colour_border = NULL,
     colour_font = NULL,
@@ -108,7 +108,7 @@ set_blanket <- function(
     fill_palette_c = NULL,
     fill_palette_c_border = NULL,
 
-    col_palette_na = "#A6A6A6",
+    col_palette_na = "#A6A6A6FF",
     colour_palette_na = NULL,
     colour_palette_na_border = NULL,
     fill_palette_na = NULL,

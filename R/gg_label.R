@@ -24,7 +24,6 @@
 #'     label = themel,
 #'     y_limits_include = 0,
 #'     y_title = "Miles per gallon",
-#'     col_palette = c(orange, "white", teal),
 #'   )
 #'
 gg_label <- function(
@@ -33,12 +32,12 @@ gg_label <- function(
   stat = "identity",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
-  blend = NULL, 
+  blend = NULL,
   perspective = NULL,
   axis_line_transparent = NULL,
   axis_ticks_transparent = NULL,
   panel_grid_transparent = NULL,
-  
+
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -77,7 +76,7 @@ gg_label <- function(
   y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
   y_transform = NULL,
-  col_breaks = ggplot2::waiver(), 
+  col_breaks = ggplot2::waiver(),
   col_breaks_n = NULL,
   col_drop = FALSE,
   col_limits_include = NULL,
@@ -86,11 +85,11 @@ gg_label <- function(
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_legend_rev = FALSE,
-  
-  
+
+
   col_rescale = scales::rescale(),
   col_scale_type = "gradient",
-  col_transform = NULL, colour_palette = NULL, colour_palette_na = NULL, fill_palette = NULL, fill_palette_na = NULL, 
+  col_transform = NULL, colour_palette = NULL, colour_palette_na = NULL, fill_palette = NULL, fill_palette_na = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
   facet_drop = FALSE,
@@ -111,7 +110,7 @@ gg_label <- function(
     stat = stat,
     position = position,
     coord = coord,
-    
+
     perspective = perspective,
     axis_line_transparent = axis_line_transparent,
     axis_ticks_transparent = axis_ticks_transparent,
@@ -163,12 +162,12 @@ gg_label <- function(
     col_legend_nrow = col_legend_nrow,
     col_legend_rev = col_legend_rev,
     col_breaks_n = col_breaks_n,
-    
-    
+
+
     col_rescale = col_rescale,
     col_scale_type = col_scale_type,
     col_title = col_title,
-    col_transform = col_transform, colour_palette = colour_palette, colour_palette_na = colour_palette_na, fill_palette = fill_palette, fill_palette_na = fill_palette_na, 
+    col_transform = col_transform, colour_palette = colour_palette, colour_palette_na = colour_palette_na, fill_palette = fill_palette, fill_palette_na = fill_palette_na,
     facet_axes = facet_axes,
     facet_axis_labels = facet_axis_labels,
     facet_drop = facet_drop,
@@ -181,7 +180,7 @@ gg_label <- function(
     title = title,
     subtitle = subtitle,
     caption = caption,
-    titles_case = titles_case, 
+    titles_case = titles_case,
     ...
   )
 }

@@ -32,8 +32,8 @@ set_blanket()
 
 set_blanket(
   theme = theme_darker(),
-  col = orange,
-  colour_border = col_screen(orange),
+  col = jumble[2],
+  colour_border = col_screen(jumble[2]),
   col_palette_d = rev(jumble),
   colour_palette_d_border = scales::col_lighter(rev(jumble)),
   col_palette_c = viridis::rocket(n = 20, end = 0.9, direction = -1),

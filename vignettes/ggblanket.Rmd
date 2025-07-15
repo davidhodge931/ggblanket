@@ -305,14 +305,7 @@ palmerpenguins::penguins |>
     y = bill_depth_mm,
     outliers = FALSE,
   ) +
-  geom_boxplot(
-    width = 0.25,
-    colour = lightness[1],
-    fill = lightness[2],
-  ) +
-  geom_jitter(
-    colour = navy,
-  ) 
+  geom_jitter(shape = 19) 
 ```
 
 The scales are built within the `gg_*()` function _without_ knowledge of later layers. The `gg_*()` function builds scales with regard to the `stat`, `position`, and aesthetics (that the geom understands) etc. So, in some situations, users will need to take care. 
@@ -333,6 +326,7 @@ palmerpenguins::penguins |>
     xmin = lower, 
     xmax = upper,
     col = sex,
+    col_border = TRUE, 
     x_limits_include = 0,
   ) +
   geom_col(
@@ -342,7 +336,6 @@ palmerpenguins::penguins |>
   geom_errorbar(
     width = 0.1, 
     position = position_dodge(width = 0.75),
-    colour = lightness[1],
   ) 
 ```
 

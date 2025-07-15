@@ -186,7 +186,6 @@ bind_rows(
     label = themel,
     y_limits_include = 0,
     y_title = "Miles per gallon",
-    col_palette = c(orange, "white", teal),
   )
 
 }

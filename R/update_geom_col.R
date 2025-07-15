@@ -17,7 +17,7 @@
 #'
 #' @noRd
 update_geom_col <- function(
-    col = "#8991A1",
+    col = "#357BA2FF",
     colour = NULL,
     colour_border = NULL,
     colour_font = NULL,
