@@ -622,7 +622,19 @@
 #'   )
 #'
 #'   # Get transform and labels
-#'   col_transform <- get_transform(col_transform, scale_class = col_scale_class)
+#'   if (is.null(col_transform)) {
+#'     # Special handling for color transforms
+#'     if (!rlang::quo_is_null(aes_list$col) && col_scale_class == "continuous") {
+#'       col_data <- rlang::eval_tidy(aes_list$col, data)
+#'       if (inherits(col_data, "hms")) {
+#'         col_transform <- "hms"
+#'       } else {
+#'         col_transform <- get_transform(NULL, col_scale_class)
+#'       }
+#'     } else {
+#'       col_transform <- get_transform(NULL, col_scale_class)
+#'     }
+#'   }
 #'   col_labels <- get_col_label(col_labels, col_scale_class, col_transform)
 #'
 #'   # Apply scales based on type
@@ -632,7 +644,7 @@
 #'       col_breaks, col_labels, col_drop, col_legend_ncol,
 #'       col_legend_nrow, col_legend_rev, x_symmetric
 #'     )
-#'   } else if (col_scale_class %in% c("numeric", "date", "datetime", "time")) {
+#'   } else if (col_scale_class %in% c("continuous", "date", "datetime", "time")) {
 #'     plot <- add_col_scale_continuous(
 #'       plot, palettes, col_border, col_breaks, col_breaks_n,
 #'       col_labels, col_legend_rev, col_rescale, col_scale_type,

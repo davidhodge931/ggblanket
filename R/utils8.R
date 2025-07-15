@@ -2,16 +2,6 @@
 #'
 #' # Core utility functions ----
 #'
-#' #' Extract geom, stat, and transform names
-#' #' @noRd
-#' get_ggproto_strings_list <- function(geom = NULL, stat = NULL, transform = NULL) {
-#'   list(
-#'     geom = extract_ggproto_name(geom, "Geom"),
-#'     stat = extract_ggproto_name(stat, "Stat"),
-#'     transform = extract_transform_name(transform)
-#'   )
-#' }
-#'
 #' #' Extract ggproto name helper
 #' #' @noRd
 #' extract_ggproto_name <- function(object, prefix) {
@@ -165,7 +155,7 @@
 #' #' Add initial layer to plot
 #' #' @noRd
 #' add_initial_layer <- function(
-    #'     plot, geom, stat, position, params,
+#'     plot, geom, stat, position, params,
 #'     show_legend, coord, blend
 #' ) {
 #'   # Determine if using sf
@@ -216,14 +206,14 @@
 #'   x_scale_class <- get_x_scale_class(plot_scales)
 #'
 #'   # Check actual data type for x if needed
-#'   if (x_scale_class == "numeric" && !rlang::quo_is_null(aes_list$x)) {
+#'   if (x_scale_class == "continuous" && !rlang::quo_is_null(aes_list$x)) {
 #'     x_data <- rlang::eval_tidy(aes_list$x, data)
 #'     if (inherits(x_data, "POSIXt") || inherits(x_data, "POSIXct")) {
 #'       x_scale_class <- "datetime"
 #'     } else if (inherits(x_data, "Date")) {
 #'       x_scale_class <- "date"
 #'     } else if (inherits(x_data, "hms")) {
-#'       x_scale_class <- "time"
+#'       x_scale_class <- "hms"
 #'     }
 #'   }
 #'
@@ -231,14 +221,14 @@
 #'   y_scale_class <- get_y_scale_class(plot_scales)
 #'
 #'   # Check actual data type for y if needed
-#'   if (y_scale_class == "numeric" && !rlang::quo_is_null(aes_list$y)) {
+#'   if (y_scale_class == "continuous" && !rlang::quo_is_null(aes_list$y)) {
 #'     y_data <- rlang::eval_tidy(aes_list$y, data)
 #'     if (inherits(y_data, "POSIXt") || inherits(y_data, "POSIXct")) {
 #'       y_scale_class <- "datetime"
 #'     } else if (inherits(y_data, "Date")) {
 #'       y_scale_class <- "date"
 #'     } else if (inherits(y_data, "hms")) {
-#'       y_scale_class <- "time"
+#'       y_scale_class <- "hms"
 #'     }
 #'   }
 #'
@@ -255,48 +245,48 @@
 #' #' Get x scale class
 #' #' @noRd
 #' get_x_scale_class <- function(plot_scales) {
-#'   dplyr::case_when(
-#'     any(stringr::str_detect(plot_scales, "scale_x_discrete")) ~ "discrete",
-#'     any(stringr::str_detect(plot_scales, "scale_x_datetime")) ~ "datetime",
-#'     any(stringr::str_detect(plot_scales, "scale_x_date")) ~ "date",
-#'     any(stringr::str_detect(plot_scales, "scale_x_time")) ~ "time",
-#'     any(stringr::str_detect(plot_scales, "scale_x_continuous")) ~ "numeric",
-#'     TRUE ~ "numeric"
-#'   )
+#'   # Find scale_x_* and extract the third word
+#'   x_scale <- plot_scales[stringr::str_detect(plot_scales, "^scale_x_")]
+#'   if (length(x_scale) > 0) {
+#'     # Extract third word (after scale_x_)
+#'     stringr::str_extract(x_scale[1], "(?<=scale_x_)\\w+")
+#'   } else {
+#'     "continuous"  # default
+#'   }
 #' }
 #'
 #' #' Get y scale class
 #' #' @noRd
 #' get_y_scale_class <- function(plot_scales) {
-#'   dplyr::case_when(
-#'     any(stringr::str_detect(plot_scales, "scale_y_discrete")) ~ "discrete",
-#'     any(stringr::str_detect(plot_scales, "scale_y_datetime")) ~ "datetime",
-#'     any(stringr::str_detect(plot_scales, "scale_y_date")) ~ "date",
-#'     any(stringr::str_detect(plot_scales, "scale_y_time")) ~ "time",
-#'     any(stringr::str_detect(plot_scales, "scale_y_continuous")) ~ "numeric",
-#'     TRUE ~ "numeric"
-#'   )
+#'   # Find scale_y_* and extract the third word
+#'   y_scale <- plot_scales[stringr::str_detect(plot_scales, "^scale_y_")]
+#'   if (length(y_scale) > 0) {
+#'     # Extract third word (after scale_y_)
+#'     stringr::str_extract(y_scale[1], "(?<=scale_y_)\\w+")
+#'   } else {
+#'     "continuous"  # default
+#'   }
 #' }
 #'
 #' #' Get color scale class
 #' #' @noRd
 #' get_col_scale_class <- function(plot_scales, col_quo, data) {
-#'   # Check plot scales
-#'   scale_class <- dplyr::case_when(
-#'     any(plot_scales %in% c("scale_colour_discrete", "scale_fill_discrete")) ~ "discrete",
-#'     any(plot_scales %in% c("scale_colour_ordinal", "scale_fill_ordinal")) ~ "ordinal",
-#'     any(plot_scales %in% c("scale_colour_datetime", "scale_fill_datetime")) ~ "datetime",
-#'     any(plot_scales %in% c("scale_colour_date", "scale_fill_date")) ~ "date",
-#'     any(plot_scales %in% c("scale_colour_time", "scale_fill_time")) ~ "time",
-#'     any(plot_scales %in% c("scale_colour_continuous", "scale_fill_continuous")) ~ "numeric",
-#'     TRUE ~ "numeric"
-#'   )
+#'   # Find scale_colour_* or scale_fill_* and extract the third word
+#'   col_scale <- plot_scales[stringr::str_detect(plot_scales, "^scale_(colour|fill)_")]
 #'
-#'   # Special case for hms
-#'   if (!rlang::quo_is_null(col_quo)) {
+#'   if (length(col_scale) > 0) {
+#'     # Extract third word (after scale_colour_ or scale_fill_)
+#'     scale_class <- stringr::str_extract(col_scale[1], "(?<=scale_colour_|scale_fill_)\\w+")
+#'   } else {
+#'     scale_class <- "continuous"  # default
+#'   }
+#'
+#'   # Special case for hms - color scales remain continuous
+#'   if (!rlang::quo_is_null(col_quo) && scale_class == "continuous") {
 #'     col_data <- rlang::eval_tidy(col_quo, data)
 #'     if (inherits(col_data, "hms")) {
-#'       scale_class <- "time"
+#'       # Keep scale_class as "continuous" but we'll use hms transform
+#'       scale_class <- "continuous"
 #'     }
 #'   }
 #'
@@ -310,8 +300,8 @@
 #' get_transform <- function(transform = NULL, scale_class = NULL) {
 #'   transform %||% switch(
 #'     scale_class,
-#'     time = "hms",
-#'     datetime = "time",  # datetime scales should use "time" transform
+#'     time = "hms",       # time scale class uses hms transform
+#'     datetime = "time",  # datetime scales use "time" transform
 #'     date = "date",
 #'     "identity"  # default
 #'   )
@@ -336,7 +326,7 @@
 #' #' Determine if x should be symmetric
 #' #' @noRd
 #' is_x_symmetric <- function(
-    #'     x_symmetric = NULL,
+#'     x_symmetric = NULL,
 #'     stat,
 #'     facet_scales,
 #'     x_scale_class,
@@ -355,7 +345,7 @@
 #' #' Determine if y should be symmetric
 #' #' @noRd
 #' is_y_symmetric <- function(
-    #'     y_symmetric = NULL,
+#'     y_symmetric = NULL,
 #'     stat,
 #'     facet_scales,
 #'     x_scale_class,
@@ -373,10 +363,10 @@
 #'
 #' # Input validation functions ----
 #'
-#' #' Check inputs are valid
+#' #' Validate inputs are valid
 #' #' @noRd
-#' check_inputs <- function(mapping, x_symmetric, y_symmetric,
-#'                          x_transform, y_transform, stat) {
+#' validate_inputs <- function(mapping, x_symmetric, y_symmetric,
+#'                             x_transform, y_transform, stat) {
 #'   # Check mapping doesn't include facets
 #'   if (!is.null(mapping)) {
 #'     mapping_names <- names(unlist(mapping))
@@ -481,7 +471,7 @@
 #' #' Add facet layer to plot
 #' #' @noRd
 #' add_facet_layer <- function(
-    #'     plot, aes_list, data, facet_layout, facet_scales,
+#'     plot, aes_list, data, facet_layout, facet_scales,
 #'     facet_space, facet_drop, facet_axes, facet_axis_labels,
 #'     facet_nrow, facet_ncol, facet_labels, y_scale_class
 #' ) {
@@ -509,7 +499,7 @@
 #' #' Add facet layer with reversed facet
 #' #' @noRd
 #' add_facet_layer_rev <- function(
-    #'     plot, aes_list, facet_layout, facet_scales,
+#'     plot, aes_list, facet_layout, facet_scales,
 #'     facet_space, facet_drop, facet_axes,
 #'     facet_axis_labels, facet_nrow, facet_ncol,
 #'     facet_labels
@@ -528,7 +518,7 @@
 #' #' Add facet layer normal (not reversed)
 #' #' @noRd
 #' add_facet_layer_std <- function(
-    #'     plot, aes_list, facet_layout, facet_scales,
+#'     plot, aes_list, facet_layout, facet_scales,
 #'     facet_space, facet_drop, facet_axes,
 #'     facet_axis_labels, facet_nrow, facet_ncol,
 #'     facet_labels
@@ -569,7 +559,7 @@
 #' #' Add facet by layout type
 #' #' @noRd
 #' add_facet_by_layout <- function(
-    #'     plot, facet_vars, facet_layout, facet_scales,
+#'     plot, facet_vars, facet_layout, facet_scales,
 #'     facet_space, facet_drop, facet_axes,
 #'     facet_axis_labels, facet_nrow, facet_ncol,
 #'     facet_labels
@@ -644,7 +634,7 @@
 #'
 #' #' Check if aesthetic matches colour
 #' #' @noRd
-#' check_aesthetic_matches_col <- function(plot_build, aesthetic) {
+#' is_aes_identical_to_col <- function(plot_build, aesthetic) {
 #'   colour_label <- plot_build$plot$labels$colour
 #'   fill_label <- plot_build$plot$labels$fill
 #'   aes_label <- plot_build$plot$labels[[aesthetic]]
@@ -692,7 +682,7 @@
 #'         return(NULL)
 #'       }
 #'
-#'       if (check_aesthetic_matches_col(plot_build, aes)) {
+#'       if (is_aes_identical_to_col(plot_build, aes)) {
 #'         col_title
 #'       } else {
 #'         purrr::map_chr(rlang::as_name(label[1]), titles_case)
