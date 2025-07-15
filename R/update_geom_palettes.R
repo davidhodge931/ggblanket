@@ -26,7 +26,7 @@
 #' @noRd
 update_geom_palettes <- function(
     col_palette_d = scales::pal_hue(),
-    col_palette_c = mako_cruise(),
+    col_palette_c = viridis_by_panel(n = 256, begin = 0.05, end = 0.95, option = "G"),
     colour_palette_d = NULL,
     colour_palette_d_border = NULL,
     fill_palette_d = NULL,
@@ -49,7 +49,7 @@ update_geom_palettes <- function(
   # Handle palette defaults
   if (rlang::is_null(colour_palette_d)) colour_palette_d <- col_palette_d
   if (rlang::is_null(colour_palette_d_border)) {
-    if (is_panel_background_dark(theme = current_theme)) {
+    if (is_panel_dark(theme = current_theme)) {
       colour_palette_d_border <- col_screen(colour_palette_d)
     } else {
       colour_palette_d_border <- col_multiply(colour_palette_d)
@@ -60,7 +60,7 @@ update_geom_palettes <- function(
 
   if (rlang::is_null(colour_palette_c)) colour_palette_c <- col_palette_c
   if (rlang::is_null(colour_palette_c_border)) {
-    if (is_panel_background_dark(current_theme)) {
+    if (is_panel_dark(current_theme)) {
       colour_palette_c_border <- col_screen(colour_palette_c)
     } else {
       colour_palette_c_border <- col_multiply(colour_palette_c)
@@ -72,7 +72,7 @@ update_geom_palettes <- function(
   # Handle NA color defaults
   if (rlang::is_null(colour_palette_na)) colour_palette_na <- col_palette_na
   if (rlang::is_null(colour_palette_na_border)) {
-    if (is_panel_background_dark(theme = current_theme)) {
+    if (is_panel_dark(theme = current_theme)) {
       colour_palette_na_border <- col_screen(colour_palette_na)
     } else {
       colour_palette_na_border <- col_multiply(colour_palette_na)

@@ -12,7 +12,7 @@
 #'
 #' @export
 #'
-is_panel_background_dark <- function(theme = NULL) {
+is_panel_dark <- function(theme = NULL) {
 
   # Get theme if not provided
   if (is.null(theme)) {

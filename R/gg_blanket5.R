@@ -312,7 +312,7 @@
 #'
 #'   # Step 12: Make colour scale
 #'   if (!is.na(col_scale_class)) {
-#'     plot <- add_color_scales(
+#'     plot <- add_col_scale(
 #'       plot = plot,
 #'       geom = geom,
 #'       col_scale_class = col_scale_class,
@@ -357,7 +357,7 @@
 #'       )
 #'   } else {
 #'     plot <- plot |>
-#'       add_continuous_x_scale(
+#'       add_x_scale_continuous(
 #'         stat = stat,
 #'         x_breaks = x_breaks,
 #'         x_breaks_n = x_breaks_n %||% if (facet_ncols == 1) 6 else 4,
@@ -388,7 +388,7 @@
 #'       )
 #'   } else {
 #'     plot <- plot |>
-#'       add_continuous_y_scale(
+#'       add_y_scale_continuous(
 #'         stat = stat,
 #'         y_breaks = y_breaks,
 #'         y_breaks_n = y_breaks_n %||% if (facet_nrows == 1) 6 else 4,
@@ -467,8 +467,8 @@
 #'
 #' #' Add continuous x scale
 #' #' @noRd
-#' add_continuous_x_scale <- function(
-#'     plot, stat, x_breaks, x_breaks_n, x_labels, x_expand,
+#' add_x_scale_continuous <- function(
+    #'     plot, stat, x_breaks, x_breaks_n, x_labels, x_expand,
 #'     x_limits_include, x_position, x_sec_axis, x_symmetric,
 #'     x_transform, plot_data
 #' ) {
@@ -516,8 +516,8 @@
 #'
 #' #' Add continuous y scale
 #' #' @noRd
-#' add_continuous_y_scale <- function(
-#'     plot, stat, y_breaks, y_breaks_n, y_labels, y_expand,
+#' add_y_scale_continuous <- function(
+    #'     plot, stat, y_breaks, y_breaks_n, y_labels, y_expand,
 #'     y_limits_include, y_position, y_sec_axis, y_symmetric,
 #'     y_transform, plot_data
 #' ) {
@@ -591,7 +591,7 @@
 #'
 #' #' Add color scales
 #' #' @noRd
-#' add_color_scales <- function(
+#' add_col_scale <- function(
 #'     plot, geom, col_scale_class, col_border, aes_list, data, plot_data,
 #'     plot_build, x_symmetric, col_breaks, col_breaks_n, col_drop,
 #'     col_limits_include, col_labels, col_legend_ncol, col_legend_nrow,
@@ -616,7 +616,7 @@
 #'   }
 #'
 #'   # Get palettes and NA colors
-#'   palettes <- get_color_palettes(
+#'   palettes <- get_col_palette(
 #'     col_scale_class, col_border, theme_palettes,
 #'     colour_palette, fill_palette,
 #'     colour_palette_na, fill_palette_na
@@ -624,23 +624,23 @@
 #'
 #'   # Get transform and labels
 #'   col_transform <- get_transform(col_transform, scale_class = col_scale_class)
-#'   col_labels <- get_col_labels(col_labels, col_scale_class, col_transform)
+#'   col_labels <- get_col_label(col_labels, col_scale_class, col_transform)
 #'
 #'   # Apply scales based on type
 #'   if (col_scale_class == "discrete") {
-#'     plot <- add_discrete_color_scale(
+#'     plot <- add_col_scale_discrete(
 #'       plot, aes_list, data, plot_data, palettes,
 #'       col_breaks, col_labels, col_drop, col_legend_ncol,
 #'       col_legend_nrow, col_legend_rev, x_symmetric
 #'     )
 #'   } else if (col_scale_class %in% c("numeric", "date", "datetime", "time")) {
-#'     plot <- add_continuous_color_scale(
+#'     plot <- add_col_scale_continuous(
 #'       plot, palettes, col_border, col_breaks, col_breaks_n,
 #'       col_labels, col_legend_rev, col_rescale, col_scale_type,
 #'       col_transform
 #'     )
 #'   } else if (col_scale_class == "ordinal") {
-#'     plot <- add_ordinal_color_scale(
+#'     plot <- add_col_scale_ordinal(
 #'       plot, aes_list, data, plot_data, palettes,
 #'       col_breaks, col_labels, col_drop, col_legend_ncol,
 #'       col_legend_nrow, col_legend_rev
@@ -666,7 +666,7 @@
 #'
 #' #' Get color palettes
 #' #' @noRd
-#' get_color_palettes <- function(
+#' get_col_palette <- function(
 #'     col_scale_class, col_border, theme_palettes,
 #'     colour_palette, fill_palette,
 #'     colour_palette_na, fill_palette_na
@@ -740,7 +740,7 @@
 #'
 #' #' Get color labels
 #' #' @noRd
-#' get_col_labels <- function(col_labels, col_scale_class, col_transform) {
+#' get_col_label <- function(col_labels, col_scale_class, col_transform) {
 #'   if (!is.null(col_labels)) {
 #'     return(col_labels)
 #'   }
@@ -758,13 +758,13 @@
 #'
 #' #' Add discrete color scale
 #' #' @noRd
-#' add_discrete_color_scale <- function(
+#' add_col_scale_discrete <- function(
 #'     plot, aes_list, data, plot_data, palettes,
 #'     col_breaks, col_labels, col_drop, col_legend_ncol,
 #'     col_legend_nrow, col_legend_rev, x_symmetric
 #' ) {
 #'   # Calculate number of colors needed
-#'   col_n <- calculate_colour_n(aes_list, data, plot_data)
+#'   col_n <- calculate_col_n(aes_list, data, plot_data)
 #'
 #'   # Process palettes
 #'   colour_palette_values <- process_discrete_palette(
@@ -875,7 +875,7 @@
 #'
 #' #' Add continuous color scale
 #' #' @noRd
-#' add_continuous_color_scale <- function(
+#' add_col_scale_continuous <- function(
 #'     plot, palettes, col_border, col_breaks, col_breaks_n,
 #'     col_labels, col_legend_rev, col_rescale, col_scale_type,
 #'     col_transform
@@ -999,13 +999,13 @@
 #'
 #' #' Add ordinal color scale
 #' #' @noRd
-#' add_ordinal_color_scale <- function(
+#' add_col_scale_ordinal <- function(
 #'     plot, aes_list, data, plot_data, palettes,
 #'     col_breaks, col_labels, col_drop, col_legend_ncol,
 #'     col_legend_nrow, col_legend_rev
 #' ) {
 #'   # Calculate number of colors needed
-#'   col_n <- calculate_colour_n(aes_list, data, plot_data)
+#'   col_n <- calculate_col_n(aes_list, data, plot_data)
 #'
 #'   # Convert vector palettes to functions for ordinal
 #'   if (is.vector(palettes$colour_palette)) {
@@ -1101,7 +1101,7 @@
 #'
 #'   for (aes in aesthetics) {
 #'     if (!is.null(plot_build$plot$labels[[aes]])) {
-#'       if (check_aesthetic_matches_colour(plot_build, aes)) {
+#'       if (check_aesthetic_matches_col(plot_build, aes)) {
 #'         plot <- plot +
 #'           ggplot2::guides(
 #'             !!aes := ggplot2::guide_legend(

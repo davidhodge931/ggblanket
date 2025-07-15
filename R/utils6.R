@@ -213,7 +213,7 @@
 #'     })
 #'
 #'   # Determine x scale class
-#'   x_scale_class <- determine_scale_class(plot_scales, "x")
+#'   x_scale_class <- get_x_scale_class(plot_scales)
 #'
 #'   # Check actual data type for x if needed
 #'   if (x_scale_class == "numeric" && !rlang::quo_is_null(aes_list$x)) {
@@ -228,7 +228,7 @@
 #'   }
 #'
 #'   # Determine y scale class
-#'   y_scale_class <- determine_scale_class(plot_scales, "y")
+#'   y_scale_class <- get_y_scale_class(plot_scales)
 #'
 #'   # Check actual data type for y if needed
 #'   if (y_scale_class == "numeric" && !rlang::quo_is_null(aes_list$y)) {
@@ -243,7 +243,7 @@
 #'   }
 #'
 #'   # Determine color scale class
-#'   col_scale_class <- determine_color_scale_class(plot_scales, aes_list$col, data)
+#'   col_scale_class <- get_col_scale_class(plot_scales, aes_list$col, data)
 #'
 #'   list(
 #'     x_scale_class = x_scale_class,
@@ -252,24 +252,35 @@
 #'   )
 #' }
 #'
-#' #' Determine scale class for a given axis
+#' #' Get x scale class
 #' #' @noRd
-#' determine_scale_class <- function(plot_scales, axis) {
-#'   scale_pattern <- paste0("scale_", axis, "_")
-#'
+#' get_x_scale_class <- function(plot_scales) {
 #'   dplyr::case_when(
-#'     any(stringr::str_detect(plot_scales, paste0(scale_pattern, "discrete"))) ~ "discrete",
-#'     any(stringr::str_detect(plot_scales, paste0(scale_pattern, "datetime"))) ~ "datetime",
-#'     any(stringr::str_detect(plot_scales, paste0(scale_pattern, "date"))) ~ "date",
-#'     any(stringr::str_detect(plot_scales, paste0(scale_pattern, "time"))) ~ "time",
-#'     any(stringr::str_detect(plot_scales, paste0(scale_pattern, "continuous"))) ~ "numeric",
+#'     any(stringr::str_detect(plot_scales, "scale_x_discrete")) ~ "discrete",
+#'     any(stringr::str_detect(plot_scales, "scale_x_datetime")) ~ "datetime",
+#'     any(stringr::str_detect(plot_scales, "scale_x_date")) ~ "date",
+#'     any(stringr::str_detect(plot_scales, "scale_x_time")) ~ "time",
+#'     any(stringr::str_detect(plot_scales, "scale_x_continuous")) ~ "numeric",
 #'     TRUE ~ "numeric"
 #'   )
 #' }
 #'
-#' #' Determine color scale class
+#' #' Get y scale class
 #' #' @noRd
-#' determine_color_scale_class <- function(plot_scales, col_quo, data) {
+#' get_y_scale_class <- function(plot_scales) {
+#'   dplyr::case_when(
+#'     any(stringr::str_detect(plot_scales, "scale_y_discrete")) ~ "discrete",
+#'     any(stringr::str_detect(plot_scales, "scale_y_datetime")) ~ "datetime",
+#'     any(stringr::str_detect(plot_scales, "scale_y_date")) ~ "date",
+#'     any(stringr::str_detect(plot_scales, "scale_y_time")) ~ "time",
+#'     any(stringr::str_detect(plot_scales, "scale_y_continuous")) ~ "numeric",
+#'     TRUE ~ "numeric"
+#'   )
+#' }
+#'
+#' #' Get color scale class
+#' #' @noRd
+#' get_col_scale_class <- function(plot_scales, col_quo, data) {
 #'   # Check plot scales
 #'   scale_class <- dplyr::case_when(
 #'     any(plot_scales %in% c("scale_colour_discrete", "scale_fill_discrete")) ~ "discrete",
@@ -470,7 +481,7 @@
 #' #' Add facet layer to plot
 #' #' @noRd
 #' add_facet_layer <- function(
-#'     plot, aes_list, data, facet_layout, facet_scales,
+    #'     plot, aes_list, data, facet_layout, facet_scales,
 #'     facet_space, facet_drop, facet_axes, facet_axis_labels,
 #'     facet_nrow, facet_ncol, facet_labels, y_scale_class
 #' ) {
@@ -498,7 +509,7 @@
 #' #' Add facet layer with reversed facet
 #' #' @noRd
 #' add_facet_layer_rev <- function(
-#'     plot, aes_list, facet_layout, facet_scales,
+    #'     plot, aes_list, facet_layout, facet_scales,
 #'     facet_space, facet_drop, facet_axes,
 #'     facet_axis_labels, facet_nrow, facet_ncol,
 #'     facet_labels
@@ -517,7 +528,7 @@
 #' #' Add facet layer normal (not reversed)
 #' #' @noRd
 #' add_facet_layer_std <- function(
-#'     plot, aes_list, facet_layout, facet_scales,
+    #'     plot, aes_list, facet_layout, facet_scales,
 #'     facet_space, facet_drop, facet_axes,
 #'     facet_axis_labels, facet_nrow, facet_ncol,
 #'     facet_labels
@@ -558,7 +569,7 @@
 #' #' Add facet by layout type
 #' #' @noRd
 #' add_facet_by_layout <- function(
-#'     plot, facet_vars, facet_layout, facet_scales,
+    #'     plot, facet_vars, facet_layout, facet_scales,
 #'     facet_space, facet_drop, facet_axes,
 #'     facet_axis_labels, facet_nrow, facet_ncol,
 #'     facet_labels
@@ -607,7 +618,7 @@
 #'
 #' #' Calculate number of colors needed
 #' #' @noRd
-#' calculate_colour_n <- function(aes_list, data, plot_data) {
+#' calculate_col_n <- function(aes_list, data, plot_data) {
 #'   # Get factor levels if col is a factor
 #'   col_n_factor <- if (!rlang::quo_is_null(aes_list$col)) {
 #'     col_data <- rlang::eval_tidy(aes_list$col, data)
@@ -633,7 +644,7 @@
 #'
 #' #' Check if aesthetic matches colour
 #' #' @noRd
-#' check_aesthetic_matches_colour <- function(plot_build, aesthetic) {
+#' check_aesthetic_matches_col <- function(plot_build, aesthetic) {
 #'   colour_label <- plot_build$plot$labels$colour
 #'   fill_label <- plot_build$plot$labels$fill
 #'   aes_label <- plot_build$plot$labels[[aesthetic]]
@@ -681,7 +692,7 @@
 #'         return(NULL)
 #'       }
 #'
-#'       if (check_aesthetic_matches_colour(plot_build, aes)) {
+#'       if (check_aesthetic_matches_col(plot_build, aes)) {
 #'         col_title
 #'       } else {
 #'         purrr::map_chr(rlang::as_name(label[1]), titles_case)
