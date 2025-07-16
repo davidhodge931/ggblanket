@@ -53,6 +53,7 @@ gg_sf(
   y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
   y_transform = NULL,
+  col_border = NULL,
   col_breaks = ggplot2::waiver(),
   col_breaks_n = NULL,
   col_drop = FALSE,
@@ -129,6 +130,8 @@ gg_sf(
 
 \item{x_transform, y_transform, col_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
 
+\item{col_border}{\code{TRUE} or \code{FALSE} of whether the geom is to be treated as if it has borders.}
+
 \item{col_drop, facet_drop}{For a discrete variable, FALSE or TRUE of whether to drop unused levels.}
 
 \item{col_legend_ncol, col_legend_nrow}{The number of columns and rows in a legend guide.}
@@ -188,11 +191,6 @@ d |>
     col = AREA,
   )
 
-d |>
-  gg_sf(
-    blend = "multiply",
-    linetype = 1,
-  )
 }
 
 }

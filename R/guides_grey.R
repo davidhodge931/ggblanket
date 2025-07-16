@@ -32,16 +32,16 @@
 guides_shape_grey <- function(col = "#8991A1", ...) {
   # Get current theme and geom defaults
   current_theme <- ggplot2::theme_get()
-  point_shape <- ggplot2::get_geom_defaults("point")$shape
+  shape <- ggplot2::get_geom_defaults("point")$shape
 
   # If shape is fillable (21-25), adjust colour and use col for fill
-  if (!is.null(point_shape) && point_shape %in% 21:25) {
+  if (!is.null(shape) && shape %in% 21:25) {
     if (is_panel_dark(theme = current_theme)) {
-      adjusted_colour <- col_screen(col)
+      col_border <- col_screen(col)
     } else {
-      adjusted_colour <- col_multiply(col)
+      col_border <- col_multiply(col)
     }
-    override_aes <- list(colour = adjusted_colour, fill = col)
+    override_aes <- list(colour = col_border, fill = col)
   } else {
     # Otherwise just use normal colour
     override_aes <- list(colour = col)
@@ -72,16 +72,16 @@ guides_linewidth_grey <- function(col = "#8991A1", ...) {
 guides_size_grey <- function(col = "#8991A1", ...) {
   # Get current theme and geom defaults
   current_theme <- ggplot2::theme_get()
-  point_shape <- ggplot2::get_geom_defaults("point")$shape
+  shape <- ggplot2::get_geom_defaults("point")$shape
 
   # If shape is fillable (21-25), adjust colour and use col for fill
-  if (!is.null(point_shape) && point_shape %in% 21:25) {
+  if (!is.null(shape) && shape %in% 21:25) {
     if (is_panel_dark(theme = current_theme)) {
-      adjusted_colour <- col_screen(col)
+      col_border <- col_screen(col)
     } else {
-      adjusted_colour <- col_multiply(col)
+      col_border <- col_multiply(col)
     }
-    override_aes <- list(colour = adjusted_colour, fill = col)
+    override_aes <- list(colour = col_border, fill = col)
   } else {
     # Otherwise just use normal colour
     override_aes <- list(colour = col)

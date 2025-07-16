@@ -407,7 +407,7 @@ test_that(test_name, {
       x = flipper_length_mm,
       y = body_mass_g,
       col = species,
-      mapping = aes(alpha = species, shape = species),
+      shape = species,
     )
 
   vdiffr::expect_doppelganger(test_name, p)

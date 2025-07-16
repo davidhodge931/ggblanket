@@ -301,7 +301,6 @@ test_that(test_name, {
       x = model,
       y = mpg,
       label = model,
-      size = 3.53,
       y_limits_include = 0,
       y_title = "Miles per gallon",
       # col_palette = c(orange, "white", teal),
@@ -665,7 +664,6 @@ test_that(test_name, {
       x = model,
       y = mpg,
       label = model,
-      size = 3.53,
       y_limits_include = 0,
       y_title = "Miles per gallon",
     )

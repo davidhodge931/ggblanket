@@ -81,7 +81,7 @@ gg_pointrange <- function(
     y_sec_axis = ggplot2::waiver(),
     y_symmetric = NULL,
     y_transform = NULL,
-    col_breaks = ggplot2::waiver(),
+    col_border = NULL, col_breaks = ggplot2::waiver(),
     col_breaks_n = NULL,
     col_drop = FALSE,
     col_limits_include = NULL,
@@ -166,7 +166,7 @@ gg_pointrange <- function(
     col_legend_ncol = col_legend_ncol,
     col_legend_nrow = col_legend_nrow,
     col_legend_rev = col_legend_rev,
-    col_breaks_n = col_breaks_n,
+    
 
 
     col_rescale = col_rescale,

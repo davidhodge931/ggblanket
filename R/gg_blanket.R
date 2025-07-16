@@ -1,12 +1,9 @@
 #' #' Blanket ggplot
 #' #'
-#' #' @description Create a blanket ggplot with a wrapper around [ggplot2::ggplot()] + `layer()` with [geom_blank()][ggplot2::geom_blank()] defaults for the geom, stat and position.
+#' #' @description Create a blanket ggplot with a wrapper around [ggplot2::ggplot()] + `layer()`
+#' #' with [geom_blank()][ggplot2::geom_blank()] defaults for the geom, stat and position.
 #' #'
 #' #' This function underlies all other `gg_*` functions.
-#' #'
-#' #' It additionally contains `geom` and `col_border` arguments.
-#' #'
-#' #' This function contains the additional geom
 #' #'
 #' #' @param data A data frame or tibble.
 #' #' @param ... Other arguments passed to within a `params` list in [ggplot2::layer()].
@@ -60,7 +57,6 @@
 #'     position = "identity",
 #'     coord = NULL,
 #'     blend = NULL,
-#'
 #'     perspective = NULL,
 #'     axis_line_transparent = NULL,
 #'     axis_ticks_transparent = NULL,
@@ -104,7 +100,7 @@
 #'     y_symmetric = NULL,
 #'     y_transform = NULL,
 #'     col_border = NULL,
-#'     col_breaks = ggplot2::waiver(),
+#'     col_border = NULL, col_breaks = ggplot2::waiver(),
 #'     col_breaks_n = NULL,
 #'     col_drop = FALSE,
 #'     col_limits_include = NULL,
@@ -135,10 +131,7 @@
 #'     titles_case = NULL
 #' ) {
 #'
-#'   ##############################################################################
 #'   # Step 1: Quote aesthetics
-#'   ##############################################################################
-#'
 #'   aes_list <- list(
 #'     x = rlang::enquo(x),
 #'     y = rlang::enquo(y),
@@ -159,49 +152,38 @@
 #'     sample = rlang::enquo(sample)
 #'   )
 #'
-#'   ##############################################################################
 #'   # Step 2: Handle NULL data
-#'   ##############################################################################
-#'   if (rlang::is_null(data)) {
+#'   if (is.null(data)) {
 #'     data <- data.frame(x = NA)
 #'   }
 #'
-#'   ##############################################################################
 #'   # Step 3: Extract geom, stat & position strings
-#'   ##############################################################################
-#'   ggproto_strings <- get_ggproto_strings_list(geom = geom, stat = stat, transform = transform)
-#'   geom <- ggproto_strings$geom
-#'   stat <- ggproto_strings$stat
-#'   transform <- ggproto_strings$transform
+#'   geom <- extract_ggproto_name(geom, "Geom")
+#'   stat <- extract_ggproto_name(stat, "Stat")
+#'   transform <- extract_transform_name(transform)
 #'
+#'   # Update mapping for specific geoms
 #'   if (geom %in% c("bin2d", "hex")) {
+#'     default_aes <- ggplot2::aes(colour = ggplot2::after_stat(.data$count))
 #'     if (is.null(mapping)) {
-#'       mapping <- ggplot2::aes(colour = ggplot2::after_stat(.data$count))
-#'     }
-#'     else if (!is.null(mapping)) {
-#'       if (!"colour" %in% names(mapping)) {
-#'         mapping <- utils::modifyList(mapping, ggplot2::aes(colour = ggplot2::after_stat(.data$count)))
-#'       }
+#'       mapping <- default_aes
+#'     } else if (!"colour" %in% names(mapping)) {
+#'       mapping <- utils::modifyList(mapping, default_aes)
 #'     }
 #'   }
 #'
 #'   if (geom %in% c("contour_filled", "density2d_filled")) {
+#'     default_aes <- ggplot2::aes(colour = ggplot2::after_stat(.data$level))
 #'     if (is.null(mapping)) {
-#'       mapping <- ggplot2::aes(colour = ggplot2::after_stat(.data$level))
-#'     }
-#'     else if (!is.null(mapping)) {
-#'       if (!"colour" %in% names(mapping)) {
-#'         mapping <- utils::modifyList(mapping, ggplot2::aes(colour = ggplot2::after_stat(.data$level)))
-#'       }
+#'       mapping <- default_aes
+#'     } else if (!"colour" %in% names(mapping)) {
+#'       mapping <- utils::modifyList(mapping, default_aes)
 #'     }
 #'   }
 #'
-#'   ##############################################################################
 #'   # Step 4: Determine scale types
-#'   ##############################################################################
-#'
 #'   # Create initial plot to determine scale types
-#'   plot <- create_ggplot(
+#'   plot <- initialise_ggplot(
 #'     data = data,
 #'     x = !!aes_list$x,
 #'     y = !!aes_list$y,
@@ -221,8 +203,7 @@
 #'     mapping = mapping
 #'   )
 #'
-#'   show_legend <- ifelse(geom %in% c("blank", "abline"), FALSE, TRUE)
-#'
+#'   show_legend <- !(geom %in% c("blank", "abline"))
 #'   params <- get_geom_params(geom, ...)
 #'
 #'   # Add initial layer
@@ -244,27 +225,24 @@
 #'   y_scale_class <- scale_class$y_scale_class
 #'   col_scale_class <- scale_class$col_scale_class
 #'
-#'   ##############################################################################
 #'   # Step 5: Get defaults
-#'   ##############################################################################
-#'
-#'   x_drop <- ifelse(facet_scales %in% c("free_x", "free"), TRUE, FALSE)
-#'   y_drop <- ifelse(facet_scales %in% c("free_y", "free"), TRUE, FALSE)
+#'   x_drop <- facet_scales %in% c("free_x", "free")
+#'   y_drop <- facet_scales %in% c("free_y", "free")
 #'
 #'   x_transform <- get_transform(x_transform, scale_class = x_scale_class)
 #'   y_transform <- get_transform(y_transform, scale_class = y_scale_class)
 #'
 #'   x_symmetric <- is_x_symmetric(x_symmetric,
-#'                   stat = stat,
-#'                   facet_scales = facet_scales,
-#'                   x_scale_class = x_scale_class,
-#'                   y_scale_class = y_scale_class)
+#'                                 stat = stat,
+#'                                 facet_scales = facet_scales,
+#'                                 x_scale_class = x_scale_class,
+#'                                 y_scale_class = y_scale_class)
 #'
 #'   y_symmetric <- is_y_symmetric(y_symmetric,
-#'                                  stat = stat,
-#'                                  facet_scales = facet_scales,
-#'                                  x_scale_class = x_scale_class,
-#'                                  y_scale_class = y_scale_class)
+#'                                 stat = stat,
+#'                                 facet_scales = facet_scales,
+#'                                 x_scale_class = x_scale_class,
+#'                                 y_scale_class = y_scale_class)
 #'
 #'   titles_case <- get_titles_case(titles_case = titles_case)
 #'
@@ -272,22 +250,15 @@
 #'                                  x_scale_class = x_scale_class,
 #'                                  y_scale_class = y_scale_class)
 #'
-#'   ##############################################################################
 #'   # Step 6: Check inputs
-#'   ##############################################################################
-#'   check_inputs(mapping, x_symmetric, y_symmetric,
-#'                x_transform, y_transform, stat)
+#'   validate_inputs(mapping, x_symmetric, y_symmetric,
+#'                   x_transform, y_transform, stat)
 #'
-#'   ##############################################################################
 #'   # Step 7: Process the data
-#'   ##############################################################################
 #'   data <- process_data(data, aes_list, x_symmetric)
 #'
-#'   ##############################################################################
 #'   # Step 8: Rebuild base plot with processed data
-#'   ##############################################################################
-#'
-#'   plot <- create_ggplot(
+#'   plot <- initialise_ggplot(
 #'     data = data,
 #'     x = !!aes_list$x,
 #'     y = !!aes_list$y,
@@ -307,34 +278,27 @@
 #'     mapping = mapping
 #'   )
 #'
-#'   ##############################################################################
 #'   # Step 9: Add geom layer
-#'   ##############################################################################
 #'   plot <- add_initial_layer(plot, geom, stat, position, params,
 #'                             show_legend, coord, blend)
 #'
-#'   if (!rlang::is_null(x_limits_include)) {
+#'   if (!is.null(x_limits_include)) {
 #'     plot <- plot + ggplot2::expand_limits(x = x_limits_include)
 #'   }
 #'
-#'   if (!rlang::is_null(y_limits_include)) {
+#'   if (!is.null(y_limits_include)) {
 #'     plot <- plot + ggplot2::expand_limits(y = y_limits_include)
 #'   }
 #'
-#'   ##############################################################################
 #'   # Step 10: Add facet layer
-#'   ##############################################################################
 #'   facet_layout <- get_facet_layout(facet_layout, aes_list)
-#'
 #'   facet_axes <- get_facet_axes(facet_axes, x_symmetric)
 #'
 #'   plot <- add_facet_layer(plot, aes_list, data, facet_layout, facet_scales,
 #'                           facet_space, facet_drop, facet_axes, facet_axis_labels,
 #'                           facet_nrow, facet_ncol, facet_labels, y_scale_class)
 #'
-#'   ##############################################################################
 #'   # Step 11: Get plot build again
-#'   ##############################################################################
 #'   suppressMessages({
 #'     suppressWarnings({
 #'       plot_build <- ggplot2::ggplot_build(plot)
@@ -345,519 +309,42 @@
 #'     })
 #'   })
 #'
-#'   ##############################################################################
 #'   # Step 12: Make colour scale
-#'   ##############################################################################
-#'
 #'   if (!is.na(col_scale_class)) {
-#'     # Get theme palettes
-#'     theme_palettes <- ggplot2::get_theme()
-#'
-#'     # Define geom categories (matching update_geom_col)
-#'     border_polygon_geoms <- c("area", "bar", "boxplot", "col", "crossbar", "density",
-#'                               "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
-#'                               "violin", "raster", "contour_filled", "density2d_filled",
-#'                               "bin2d", "hex")
-#'
-#'     border_point_geoms <- c("point", "jitter", "count", "qq")
-#'
-#'     # Determine if this geom needs special palette handling
-#'     if (rlang::is_null(col_border)) {
-#'       col_border <- (geom %in% border_polygon_geoms) ||
-#'         ((geom %in% c("point", "jitter", "count", "qq", "pointrange")) &&
-#'            (ggplot2::get_geom_defaults(geom)$shape %in% 21:25))
-#'     }
-#'
-#'     if (col_scale_class %in% c("discrete")) {
-#'       if (rlang::is_null(colour_palette)) {
-#'         if (col_border && !rlang::is_null(getOption("ggblanket.colour_palette_d_border"))) {
-#'           colour_palette <- getOption("ggblanket.colour_palette_d_border")
-#'         } else if (!rlang::is_null(theme_palettes$palette.colour.discrete)) {
-#'           colour_palette <- theme_palettes$palette.colour.discrete
-#'         } else {
-#'           colour_palette <- scales::pal_hue()
-#'         }
-#'       }
-#'
-#'       if (rlang::is_null(fill_palette)) {
-#'         if (col_border && !rlang::is_null(getOption("ggblanket.fill_palette_d_border"))) {
-#'           fill_palette <- getOption("ggblanket.fill_palette_d_border")
-#'         } else if (!rlang::is_null(theme_palettes$palette.fill.discrete)) {
-#'           fill_palette <- theme_palettes$palette.fill.discrete
-#'         } else {
-#'           fill_palette <- scales::pal_hue()
-#'         }
-#'       }
-#'     }
-#'     else if (col_scale_class %in% c("numeric", "date", "datetime", "time")) {
-#'       if (rlang::is_null(colour_palette)) {
-#'         if (col_border && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
-#'           colour_palette <- getOption("ggblanket.colour_palette_c_border")
-#'         } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
-#'           colour_palette <- theme_palettes$palette.colour.continuous
-#'         } else {
-#'           colour_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")
-#'         }
-#'       }
-#'       if (rlang::is_null(fill_palette)) {
-#'         if (col_border && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
-#'           fill_palette <- getOption("ggblanket.fill_palette_c_border")
-#'         } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {
-#'           fill_palette <- theme_palettes$palette.fill.continuous
-#'         } else {
-#'           fill_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")
-#'         }
-#'       }
-#'     }
-#'     else if (col_scale_class %in% c("ordinal")) {
-#'       if (rlang::is_null(colour_palette)) {
-#'         if (col_border && !rlang::is_null(getOption("ggblanket.colour_palette_c_border"))) {
-#'           colour_palette <- getOption("ggblanket.colour_palette_c_border")
-#'         } else if (!rlang::is_null(theme_palettes$palette.colour.continuous)) {
-#'           colour_palette <- theme_palettes$palette.colour.continuous
-#'         } else {
-#'           colour_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")
-#'         }
-#'       }
-#'       if (rlang::is_null(fill_palette)) {
-#'         if (col_border && !rlang::is_null(getOption("ggblanket.fill_palette_c_border"))) {
-#'           fill_palette <- getOption("ggblanket.fill_palette_c_border")
-#'         } else if (!rlang::is_null(theme_palettes$palette.fill.continuous)) {
-#'           fill_palette <- theme_palettes$palette.fill.continuous
-#'         } else {
-#'           fill_palette <- scales::pal_seq_gradient(low = "#132B43", high = "#56B1F7")
-#'         }
-#'       }
-#'     }
-#'
-#'     # Determine NA colors
-#'     # If user provided NA colors, use them. Otherwise, get from global options based on geom type
-#'     if (!is.null(colour_palette_na)) {
-#'       na_colour <- colour_palette_na
-#'     } else {
-#'       if (col_border) {
-#'         na_colour <- getOption("ggblanket.colour_palette_na_border", "#CDC5BFFF")
-#'       } else {
-#'         na_colour <- getOption("ggblanket.colour_palette_na", "#CDC5BFFF")
-#'       }
-#'     }
-#'
-#'     if (!is.null(fill_palette_na)) {
-#'       na_fill <- fill_palette_na
-#'     } else {
-#'       if (col_border) {
-#'         na_fill <- getOption("ggblanket.fill_palette_na_border", "#CDC5BFFF")
-#'       } else {
-#'         na_fill <- getOption("ggblanket.fill_palette_na", "#CDC5BFFF")
-#'       }
-#'     }
-#'
-#'     # Get other defaults (transform, breaks, labels, etc.)
-#'     # Get transform
-#'     # if (rlang::is_null(col_transform)) {
-#'       col_transform <- get_transform(col_transform, scale_class = col_scale_class)
-#'     # }
-#'
-#'     # Get labels
-#'     if (rlang::is_null(col_labels)) {
-#'       if (col_scale_class %in% c("discrete", "ordinal")) {
-#'         col_labels <- ggplot2::waiver()
-#'       } else if (any(col_transform %in% c("hms"))) {
-#'         col_labels <- scales::label_time()
-#'       } else if (any(col_transform %in% c("date", "datetime", "time"))) {
-#'         col_labels <- scales::label_date_short(leading = "")
-#'       } else {
-#'         col_labels <- scales::label_comma(drop0trailing = TRUE)
-#'       }
-#'     }
-#'
-#'     # Add the scales and guides
-#'     if (col_scale_class == "discrete") {
-#'       # Calculate number of colors needed
-#'       col_n <- calculate_colour_n(aes_list, data, plot_data)
-#'
-#'       # Process palettes for discrete scales
-#'       if (!rlang::is_null(colour_palette)) {
-#'         if (rlang::is_function(colour_palette)) {
-#'           if (!rlang::is_null(col_n)) {
-#'             colour_palette_values <- colour_palette(col_n)
-#'           } else {
-#'             colour_palette_values <- colour_palette
-#'           }
-#'         } else if (!any(rlang::have_name(colour_palette))) {
-#'           if (!rlang::is_null(col_n)) {
-#'             colour_palette_values <- colour_palette[1:col_n]
-#'           } else {
-#'             colour_palette_values <- colour_palette
-#'           }
-#'         } else {
-#'           colour_palette_values <- colour_palette
-#'         }
-#'       } else {
-#'         colour_palette_values <- NULL
-#'       }
-#'
-#'       if (!rlang::is_null(fill_palette)) {
-#'         if (rlang::is_function(fill_palette)) {
-#'           if (!rlang::is_null(col_n)) {
-#'             fill_palette_values <- fill_palette(col_n)
-#'           } else {
-#'             fill_palette_values <- fill_palette
-#'           }
-#'         } else if (!any(rlang::have_name(fill_palette))) {
-#'           if (!rlang::is_null(col_n)) {
-#'             fill_palette_values <- fill_palette[1:col_n]
-#'           } else {
-#'             fill_palette_values <- fill_palette
-#'           }
-#'         } else {
-#'           fill_palette_values <- fill_palette
-#'         }
-#'       } else {
-#'         fill_palette_values <- NULL
-#'       }
-#'
-#'       # Handle x_symmetric reversal
-#'       if (x_symmetric) {
-#'         col_legend_rev <- !col_legend_rev
-#'         if (!rlang::is_null(colour_palette_values)) {
-#'           colour_palette_values <- rev(colour_palette_values)
-#'         }
-#'         if (!rlang::is_null(fill_palette_values)) {
-#'           fill_palette_values <- rev(fill_palette_values)
-#'         }
-#'       }
-#'
-#'       # Apply discrete scales
-#'       if (!rlang::is_null(colour_palette_values)) {
-#'         if (rlang::is_vector(colour_palette_values)) {
-#'           plot <- plot +
-#'             ggplot2::scale_colour_manual(
-#'               values = colour_palette_values,
-#'               breaks = col_breaks,
-#'               labels = col_labels,
-#'               na.value = na_colour,
-#'               drop = col_drop
-#'             )
-#'         } else if (rlang::is_function(colour_palette)) {
-#'           plot <- plot +
-#'             ggplot2::discrete_scale(
-#'               aesthetics = "colour",
-#'               palette = colour_palette,
-#'               breaks = col_breaks,
-#'               labels = col_labels,
-#'               na.value = na_colour,
-#'               drop = col_drop
-#'             )
-#'         }
-#'       }
-#'
-#'       if (!rlang::is_null(fill_palette_values)) {
-#'         if (rlang::is_vector(fill_palette_values)) {
-#'           plot <- plot +
-#'             ggplot2::scale_fill_manual(
-#'               values = fill_palette_values,
-#'               breaks = col_breaks,
-#'               labels = col_labels,
-#'               na.value = na_fill,
-#'               drop = col_drop
-#'             )
-#'         } else if (rlang::is_function(fill_palette)) {
-#'           plot <- plot +
-#'             ggplot2::discrete_scale(
-#'               aesthetics = "fill",
-#'               palette = fill_palette,
-#'               breaks = col_breaks,
-#'               labels = col_labels,
-#'               na.value = na_fill,
-#'               drop = col_drop
-#'             )
-#'         }
-#'       }
-#'
-#'       # Add guides
-#'       plot <- plot +
-#'         ggplot2::guides(
-#'           colour = ggplot2::guide_legend(
-#'             reverse = col_legend_rev,
-#'             ncol = col_legend_ncol,
-#'             nrow = col_legend_nrow
-#'           ),
-#'           fill = ggplot2::guide_legend(
-#'             reverse = col_legend_rev,
-#'             ncol = col_legend_ncol,
-#'             nrow = col_legend_nrow
-#'           )
-#'         )
-#'
-#'     }
-#'     else if (col_scale_class %in% c("numeric", "date", "datetime", "time")) {
-#'       # Process palette functions to get color vectors
-#'       if (rlang::is_function(colour_palette)) {
-#'         # Handle different types of palette functions
-#'         tryCatch({
-#'           # Try standard discrete palette approach
-#'           test_colors <- colour_palette(20)
-#'           if (length(test_colors) == 20) {
-#'             colour_palette_values <- test_colors
-#'           } else {
-#'             # Try gradient approach
-#'             colour_palette_values <- colour_palette(seq(0, 1, length.out = 20))
-#'           }
-#'         }, error = function(e) {
-#'           # Fallback to gradient approach
-#'           tryCatch({
-#'             colour_palette_values <- colour_palette(seq(0, 1, length.out = 20))
-#'           }, error = function(e2) {
-#'             warning("Could not determine palette function type, using default colors")
-#'             colour_palette_values <- scales::viridis_pal()(20)
-#'           })
-#'         })
-#'       } else {
-#'         colour_palette_values <- colour_palette
-#'       }
-#'
-#'       if (rlang::is_function(fill_palette)) {
-#'         # Handle different types of palette functions
-#'         tryCatch({
-#'           # Try standard discrete palette approach
-#'           test_colors <- fill_palette(20)
-#'           if (length(test_colors) == 20) {
-#'             fill_palette_values <- test_colors
-#'           } else {
-#'             # Try gradient approach
-#'             fill_palette_values <- fill_palette(seq(0, 1, length.out = 20))
-#'           }
-#'         }, error = function(e) {
-#'           # Fallback to gradient approach
-#'           tryCatch({
-#'             fill_palette_values <- fill_palette(seq(0, 1, length.out = 20))
-#'           }, error = function(e2) {
-#'             warning("Could not determine palette function type, using default colors")
-#'             fill_palette_values <- scales::viridis_pal()(20)
-#'           })
-#'         })
-#'       } else {
-#'         fill_palette_values <- fill_palette
-#'       }
-#'
-#'       # Apply continuous scales
-#'       if (col_scale_type == "gradient") {
-#'         plot <- plot +
-#'           ggplot2::scale_colour_gradientn(
-#'             colours = colour_palette_values,
-#'             values = col_rescale,
-#'             breaks = col_breaks,
-#'             n.breaks = col_breaks_n,
-#'             labels = col_labels,
-#'             transform = col_transform,
-#'             oob = scales::oob_keep,
-#'             na.value = na_colour
-#'           ) +
-#'           ggplot2::scale_fill_gradientn(
-#'             colours = fill_palette_values,
-#'             values = col_rescale,
-#'             breaks = col_breaks,
-#'             n.breaks = col_breaks_n,
-#'             labels = col_labels,
-#'             transform = col_transform,
-#'             oob = scales::oob_keep,
-#'             na.value = na_fill
-#'           )
-#'
-#'         if (col_border) {
-#'           plot <- plot +
-#'             ggplot2::guides(
-#'               colour = ggplot2::guide_none(),
-#'               fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
-#'             )
-#'         }
-#'         else {
-#'           plot <- plot +
-#'             ggplot2::guides(
-#'               colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
-#'               fill = ggplot2::guide_none()
-#'             )
-#'         }
-#'       }
-#'       else if (col_scale_type == "steps") {
-#'         plot <- plot +
-#'           ggplot2::scale_colour_stepsn(
-#'             colours = colour_palette_values,
-#'             values = col_rescale,
-#'             breaks = col_breaks,
-#'             n.breaks = col_breaks_n,
-#'             labels = col_labels,
-#'             transform = col_transform,
-#'             oob = scales::oob_keep,
-#'             na.value = na_colour
-#'           ) +
-#'           ggplot2::scale_fill_stepsn(
-#'             colours = fill_palette_values,
-#'             values = col_rescale,
-#'             breaks = col_breaks,
-#'             n.breaks = col_breaks_n,
-#'             labels = col_labels,
-#'             transform = col_transform,
-#'             oob = scales::oob_keep,
-#'             na.value = na_fill
-#'           )
-#'
-#'         if (!identical(colour_palette, fill_palette)) {
-#'           plot <- plot +
-#'             ggplot2::guides(
-#'               colour = ggplot2::guide_none(),
-#'               fill = ggplot2::guide_coloursteps(
-#'                 reverse = col_legend_rev,
-#'                 theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-#'               )
-#'             )
-#'         }
-#'         else {
-#'           plot <- plot +
-#'             ggplot2::guides(
-#'               colour = ggplot2::guide_coloursteps(
-#'                 reverse = col_legend_rev,
-#'                 theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
-#'               ),
-#'               fill = ggplot2::guide_none()
-#'             )
-#'         }
-#'       }
-#'     }
-#'     else if (col_scale_class == "ordinal") {
-#'       # Calculate number of colors needed
-#'       col_n <- calculate_colour_n(aes_list, data, plot_data)
-#'
-#'       # Convert vector palettes to functions for ordinal
-#'       if (rlang::is_vector(colour_palette)) {
-#'         colour_palette <- scales::pal_gradient_n(colours = colour_palette)
-#'       }
-#'       if (rlang::is_vector(fill_palette)) {
-#'         fill_palette <- scales::pal_gradient_n(colours = fill_palette)
-#'       }
-#'
-#'       # Always reverse legend for ordinal
-#'       col_legend_rev <- !col_legend_rev
-#'
-#'       # Create wrapper functions for ordinal scales
-#'       if (rlang::is_function(colour_palette)) {
-#'         colour_palette_discrete <- function(n) {
-#'           if (n == 0) return(character(0))
-#'           tryCatch({
-#'             colours <- colour_palette(n)
-#'             if (length(colours) == n) {
-#'               return(colours)
-#'             } else {
-#'               return(colour_palette(seq(0, 1, length.out = n)))
-#'             }
-#'           }, error = function(e) {
-#'             tryCatch({
-#'               return(colour_palette(seq(0, 1, length.out = n)))
-#'             }, error = function(e2) {
-#'               warning("Palette function failed, using default colors")
-#'               return(scales::viridis_pal()(n))
-#'             })
-#'           })
-#'         }
-#'
-#'         plot <- plot +
-#'           ggplot2::discrete_scale(
-#'             aesthetics = "colour",
-#'             palette = colour_palette_discrete,
-#'             breaks = col_breaks,
-#'             labels = col_labels,
-#'             na.value = na_colour,
-#'             drop = col_drop
-#'           )
-#'       }
-#'
-#'       if (rlang::is_function(fill_palette)) {
-#'         fill_palette_discrete <- function(n) {
-#'           if (n == 0) return(character(0))
-#'           tryCatch({
-#'             colours <- fill_palette(n)
-#'             if (length(colours) == n) {
-#'               return(colours)
-#'             } else {
-#'               return(fill_palette(seq(0, 1, length.out = n)))
-#'             }
-#'           }, error = function(e) {
-#'             tryCatch({
-#'               return(fill_palette(seq(0, 1, length.out = n)))
-#'             }, error = function(e2) {
-#'               warning("Palette function failed, using default colors")
-#'               return(scales::viridis_pal()(n))
-#'             })
-#'           })
-#'         }
-#'
-#'         plot <- plot +
-#'           ggplot2::discrete_scale(
-#'             aesthetics = "fill",
-#'             palette = fill_palette_discrete,
-#'             breaks = col_breaks,
-#'             labels = col_labels,
-#'             na.value = na_fill,
-#'             drop = col_drop
-#'           )
-#'       }
-#'
-#'       # Add guides
-#'       plot <- plot +
-#'         ggplot2::guides(
-#'           colour = ggplot2::guide_legend(
-#'             reverse = col_legend_rev,
-#'             ncol = col_legend_ncol,
-#'             nrow = col_legend_nrow
-#'           ),
-#'           fill = ggplot2::guide_legend(
-#'             reverse = col_legend_rev,
-#'             ncol = col_legend_ncol,
-#'             nrow = col_legend_nrow
-#'           )
-#'         )
-#'     }
-#'
-#'     # Handle guides for other aesthetics that match color
-#'     for (aes in c("alpha", "shape", "size", "linewidth", "linetype", "pattern")) {
-#'       if (!rlang::is_null(plot_build$plot$labels[[aes]])) {
-#'         if (check_aesthetic_matches_colour(plot_build, aes)) {
-#'           plot <- plot +
-#'             ggplot2::guides(
-#'               !!aes := ggplot2::guide_legend(
-#'                 reverse = col_legend_rev,
-#'                 ncol = col_legend_ncol,
-#'                 nrow = col_legend_nrow
-#'               )
-#'             )
-#'         }
-#'       }
-#'     }
-#'
-#'     # Expand limits if necessary
-#'     plot <- plot +
-#'       ggplot2::expand_limits(
-#'         colour = col_limits_include,
-#'         fill = col_limits_include
-#'       )
+#'     plot <- add_col_scale(
+#'       plot = plot,
+#'       geom = geom,
+#'       col_scale_class = col_scale_class,
+#'       col_border = col_border,
+#'       aes_list = aes_list,
+#'       data = data,
+#'       plot_data = plot_data,
+#'       plot_build = plot_build,
+#'       x_symmetric = x_symmetric,
+#'       col_breaks = col_breaks,
+#'       
+#'       col_drop = col_drop,
+#'       col_limits_include = col_limits_include,
+#'       col_labels = col_labels,
+#'       col_legend_ncol = col_legend_ncol,
+#'       col_legend_nrow = col_legend_nrow,
+#'       col_legend_rev = col_legend_rev,
+#'       col_rescale = col_rescale,
+#'       col_scale_type = col_scale_type,
+#'       col_transform = col_transform,
+#'       colour_palette = colour_palette,
+#'       colour_palette_na = colour_palette_na,
+#'       fill_palette = fill_palette,
+#'       fill_palette_na = fill_palette_na
+#'     )
 #'   }
 #'
-#'   ##############################################################################
 #'   # Step 13: Add positional scales
-#'   ##############################################################################
-#'
 #'   # Make x scale
 #'   if (x_scale_class == "discrete") {
-#'     if (rlang::is_null(x_expand)) {
-#'       x_expand <- ggplot2::waiver()
-#'     }
-#'     if (rlang::is_null(x_labels)) {
-#'       x_labels <- ggplot2::waiver()
-#'     }
-#'     if (rlang::is_null(x_breaks)) {
-#'       x_breaks <- ggplot2::waiver()
-#'     }
+#'     if (is.null(x_expand)) x_expand <- ggplot2::waiver()
+#'     if (is.null(x_labels)) x_labels <- ggplot2::waiver()
+#'     if (is.null(x_breaks)) x_breaks <- ggplot2::waiver()
 #'
 #'     plot <- plot +
 #'       ggplot2::scale_x_discrete(
@@ -868,70 +355,27 @@
 #'         position = x_position
 #'       )
 #'   } else {
-#'     if (stringr::str_detect(stat, "sf")) {
-#'       if (rlang::is_null(x_breaks)) {
-#'         x_breaks <- ggplot2::waiver()
-#'       }
-#'       if (rlang::is_null(x_labels)) x_labels <- ggplot2::waiver()
-#'     }
-#'
-#'     if (rlang::is_null(x_breaks_n)) {
-#'       if (facet_ncols == 1) {
-#'         x_breaks_n <- 6
-#'       } else {
-#'         x_breaks_n <- 4
-#'       }
-#'     }
-#'
-#'     if (x_symmetric) {
-#'       data_x <- plot_data |>
-#'         dplyr::select(tidyselect::matches(stringr::regex(
-#'           "^(?!xid|xbin)x.*"
-#'         ))) |>
-#'         tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "x") |>
-#'         dplyr::filter(!is.na(.data$x))
-#'
-#'       plot <- plot +
-#'         scale_x_symmetric(
-#'           data = data_x,
-#'           x = x,
-#'           symmetric = TRUE,
-#'           breaks = x_breaks,
-#'           breaks_n = x_breaks_n,
-#'           expand = x_expand,
-#'           expand_limits = x_limits_include,
-#'           labels = x_labels,
-#'           position = x_position,
-#'           sec_axis = x_sec_axis,
-#'           transform = x_transform
-#'         )
-#'     } else {
-#'       plot <- plot +
-#'         scale_x_symmetric(
-#'           symmetric = FALSE,
-#'           breaks = x_breaks,
-#'           breaks_n = x_breaks_n,
-#'           expand = x_expand,
-#'           expand_limits = x_limits_include,
-#'           labels = x_labels,
-#'           position = x_position,
-#'           sec_axis = x_sec_axis,
-#'           transform = x_transform
-#'         )
-#'     }
+#'     plot <- plot |>
+#'       add_x_scale_continuous(
+#'         stat = stat,
+#'         x_breaks = x_breaks,
+#'         x_breaks_n = x_breaks_n %||% if (facet_ncols == 1) 6 else 4,
+#'         x_labels = x_labels,
+#'         x_expand = x_expand,
+#'         x_limits_include = x_limits_include,
+#'         x_position = x_position,
+#'         x_sec_axis = x_sec_axis,
+#'         x_symmetric = x_symmetric,
+#'         x_transform = x_transform,
+#'         plot_data = plot_data
+#'       )
 #'   }
 #'
 #'   # Make y scale
 #'   if (y_scale_class == "discrete") {
-#'     if (rlang::is_null(y_expand)) {
-#'       y_expand <- ggplot2::waiver()
-#'     }
-#'     if (rlang::is_null(y_labels)) {
-#'       y_labels <- ggplot2::waiver()
-#'     }
-#'     if (rlang::is_null(y_breaks)) {
-#'       y_breaks <- ggplot2::waiver()
-#'     }
+#'     if (is.null(y_expand)) y_expand <- ggplot2::waiver()
+#'     if (is.null(y_labels)) y_labels <- ggplot2::waiver()
+#'     if (is.null(y_breaks)) y_breaks <- ggplot2::waiver()
 #'
 #'     plot <- plot +
 #'       ggplot2::scale_y_discrete(
@@ -942,99 +386,38 @@
 #'         position = y_position
 #'       )
 #'   } else {
-#'     if (stringr::str_detect(stat, "sf")) {
-#'       if (rlang::is_null(y_breaks)) {
-#'         y_breaks <- ggplot2::waiver()
-#'       }
-#'       if (rlang::is_null(y_labels)) y_labels <- ggplot2::waiver()
-#'     }
-#'
-#'     if (rlang::is_null(y_breaks_n)) {
-#'       if (facet_nrows == 1) {
-#'         y_breaks_n <- 6
-#'       } else {
-#'         y_breaks_n <- 4
-#'       }
-#'     }
-#'
-#'     if (y_symmetric) {
-#'       data_y <- plot_data |>
-#'         dplyr::select(tidyselect::matches(stringr::regex(
-#'           "^(?!yid|ybin)y.*"
-#'         ))) |>
-#'         tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "y") |>
-#'         dplyr::filter(!is.na(.data$y))
-#'
-#'       plot <- plot +
-#'         scale_y_symmetric(
-#'           data = data_y,
-#'           y = y,
-#'           symmetric = TRUE,
-#'           breaks = y_breaks,
-#'           breaks_n = y_breaks_n,
-#'           expand = y_expand,
-#'           expand_limits = y_limits_include,
-#'           labels = y_labels,
-#'           position = y_position,
-#'           sec_axis = y_sec_axis,
-#'           transform = y_transform
-#'         )
-#'     } else {
-#'       plot <- plot +
-#'         scale_y_symmetric(
-#'           symmetric = FALSE,
-#'           breaks = y_breaks,
-#'           breaks_n = y_breaks_n,
-#'           expand = y_expand,
-#'           expand_limits = y_limits_include,
-#'           labels = y_labels,
-#'           position = y_position,
-#'           sec_axis = y_sec_axis,
-#'           transform = y_transform
-#'         )
-#'     }
+#'     plot <- plot |>
+#'       add_y_scale_continuous(
+#'         stat = stat,
+#'         y_breaks = y_breaks,
+#'         y_breaks_n = y_breaks_n %||% if (facet_nrows == 1) 6 else 4,
+#'         y_labels = y_labels,
+#'         y_expand = y_expand,
+#'         y_limits_include = y_limits_include,
+#'         y_position = y_position,
+#'         y_sec_axis = y_sec_axis,
+#'         y_symmetric = y_symmetric,
+#'         y_transform = y_transform,
+#'         plot_data = plot_data
+#'       )
 #'   }
 #'
-#'   #############################################################################
 #'   # Step 14: Get titles
-#'   #############################################################################
+#'   x_title <- x_title %||% get_axis_title(
+#'     data, aes_list$x, plot_build$plot$labels$x,
+#'     titles_case, stat, "x"
+#'   )
 #'
-#'   if (rlang::is_null(x_title)) {
-#'     if (stringr::str_detect(stat, "sf")) {
-#'       x_title <- ""
-#'     } else {
-#'       x_title <- get_title(
-#'         data, aes_list$x, plot_build$plot$labels$x,
-#'         titles_case,
-#'         purrr::map_chr("x", titles_case)
-#'       )
-#'     }
-#'   }
+#'   y_title <- y_title %||% get_axis_title(
+#'     data, aes_list$y, plot_build$plot$labels$y,
+#'     titles_case, stat, "y"
+#'   )
 #'
-#'   if (rlang::is_null(y_title)) {
-#'     if (stringr::str_detect(stat, "sf")) {
-#'       y_title <- ""
-#'     } else {
-#'       y_title <- get_title(
-#'         data, aes_list$y, plot_build$plot$labels$y,
-#'         titles_case, purrr::map_chr("y", titles_case)
-#'       )
-#'     }
-#'   }
-#'
-#'   if (rlang::is_null(col_title)) {
-#'     if (!rlang::is_null(plot_build$plot$labels$colour)) {
-#'       col_title <- get_title(
-#'         data, aes_list$col, plot_build$plot$labels$colour,
-#'         titles_case, NULL
-#'       )
-#'     }
-#'     else if (!rlang::is_null(plot_build$plot$labels$fill)) {
-#'       col_title <- get_title(
-#'         data, aes_list$col, plot_build$plot$labels$fill,
-#'         titles_case, NULL
-#'       )
-#'     }
+#'   if (is.null(col_title)) {
+#'     col_title <- get_col_title(
+#'       data, aes_list$col, plot_build$plot$labels,
+#'       titles_case
+#'     )
 #'   }
 #'
 #'   # Get labels for other aesthetics
@@ -1052,33 +435,13 @@
 #'       size = other_titles$size_title,
 #'       linewidth = other_titles$linewidth_title,
 #'       linetype = other_titles$linetype_title,
-#'       pattern = other_titles$pattern_title
+#'       pattern = other_titles$pattern_title,
+#'       title = title,
+#'       subtitle = subtitle,
+#'       caption = caption
 #'     )
 #'
-#'   # Add title, subtitle, caption
-#'   if (!rlang::is_null(title)) {
-#'     plot <- plot +
-#'       ggplot2::labs(
-#'         title = title
-#'       )
-#'   }
-#'   if (!rlang::is_null(subtitle)) {
-#'     plot <- plot +
-#'       ggplot2::labs(
-#'         subtitle = subtitle
-#'       )
-#'   }
-#'   if (!rlang::is_null(caption)) {
-#'     plot <- plot +
-#'       ggplot2::labs(
-#'         caption = caption
-#'       )
-#'   }
-#'
-#'   ##############################################################################
 #'   # Step 15: Apply theme transparency
-#'   ##############################################################################
-#'
 #'   transparency <- get_perspective_behaviour(axis_line_transparent,
 #'                                             axis_ticks_transparent,
 #'                                             panel_grid_transparent)
@@ -1091,16 +454,11 @@
 #'     x_scale_class, y_scale_class
 #'   )
 #'
-#'   ##############################################################################
-#'   # Step X: Apply theme transparency
-#'   ##############################################################################
-#'
-#'   is_shape_mapping <- !is.null(mapping) && "shape" %in% names(mapping)
-#'
-#'   if (is_shape_mapping) {
-#'     plot <- plot +
-#'       ggplot2::scale_shape_manual(values = 21:25)
+#'   # Handle shape mapping
+#'   if (!is.null(mapping) && "shape" %in% names(mapping)) {
+#'     plot <- plot + ggplot2::scale_shape_manual(values = 21:25)
 #'   }
 #'
 #'   return(plot)
 #' }
+#'
