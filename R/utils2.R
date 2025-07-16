@@ -978,41 +978,41 @@ add_col_scale_discrete <- function(
   col_n <- get_col_n(aes_list, data, plot_data)
 
   # Process palettes
-  colour_palette_values <- process_discrete_palette(
+  colour_palette_processed <- process_discrete_palette(
     palettes$colour_palette, col_n
   )
 
-  fill_palette_values <- process_discrete_palette(
+  fill_palette_processed <- process_discrete_palette(
     palettes$fill_palette, col_n
   )
 
   # Handle x_symmetric reversal
   if (x_symmetric) {
     col_legend_rev <- !col_legend_rev
-    if (!is.null(colour_palette_values)) {
-      colour_palette_values <- rev(colour_palette_values)
+    if (!is.null(colour_palette_processed)) {
+      colour_palette_processed <- rev(colour_palette_processed)
     }
-    if (!is.null(fill_palette_values)) {
-      fill_palette_values <- rev(fill_palette_values)
+    if (!is.null(fill_palette_processed)) {
+      fill_palette_processed <- rev(fill_palette_processed)
     }
   }
 
-  # Apply scales
-  if (!is.null(colour_palette_values)) {
-    if (is.vector(colour_palette_values)) {
+  # Apply colour scale
+  if (!is.null(colour_palette_processed)) {
+    if (is.vector(colour_palette_processed)) {
       plot <- plot +
         ggplot2::scale_colour_manual(
-          values = colour_palette_values,
+          values = colour_palette_processed,
           breaks = col_breaks,
           labels = col_labels,
           na.value = palettes$na_colour,
           drop = col_drop
         )
-    } else if (is.function(palettes$colour_palette)) {
+    } else if (is.function(colour_palette_processed)) {
       plot <- plot +
         ggplot2::discrete_scale(
           aesthetics = "colour",
-          palette = palettes$colour_palette,
+          palette = colour_palette_processed,
           breaks = col_breaks,
           labels = col_labels,
           na.value = palettes$na_colour,
@@ -1021,21 +1021,22 @@ add_col_scale_discrete <- function(
     }
   }
 
-  if (!is.null(fill_palette_values)) {
-    if (is.vector(fill_palette_values)) {
+  # Apply fill scale
+  if (!is.null(fill_palette_processed)) {
+    if (is.vector(fill_palette_processed)) {
       plot <- plot +
         ggplot2::scale_fill_manual(
-          values = fill_palette_values,
+          values = fill_palette_processed,
           breaks = col_breaks,
           labels = col_labels,
           na.value = palettes$na_fill,
           drop = col_drop
         )
-    } else if (is.function(palettes$fill_palette)) {
+    } else if (is.function(fill_palette_processed)) {
       plot <- plot +
         ggplot2::discrete_scale(
           aesthetics = "fill",
-          palette = palettes$fill_palette,
+          palette = fill_palette_processed,
           breaks = col_breaks,
           labels = col_labels,
           na.value = palettes$na_fill,

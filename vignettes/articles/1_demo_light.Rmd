@@ -30,15 +30,15 @@ library(palmerpenguins)
 
 set_blanket()
 
-set_blanket(
-  theme = theme_darker(),
-  col = jumble[2],
-  colour_border = col_screen(jumble[2]),
-  col_palette_d = rev(jumble),
-  colour_palette_d_border = scales::col_lighter(rev(jumble)),
-  col_palette_c = viridis::rocket(n = 20, end = 0.9, direction = -1),
-  colour_palette_c_border = col_screen(viridis::rocket(n = 20, end = 0.9, direction = -1)),
-)
+# set_blanket(
+#   theme = theme_darker(),
+#   col = jumble[2],
+#   colour_border = col_screen(jumble[2]),
+#   col_palette_d = rev(jumble),
+#   colour_palette_d_border = scales::col_lighter(rev(jumble)),
+#   col_palette_c = viridis::rocket(n = 20, end = 0.9, direction = -1),
+#   colour_palette_c_border = col_screen(viridis::rocket(n = 20, end = 0.9, direction = -1)),
+# )
 
 penguins2 <- penguins |> 
   labelled::set_variable_labels(
