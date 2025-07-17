@@ -176,14 +176,19 @@ Create a density2d ggplot with a wrapper around \link[ggplot2:ggplot]{ggplot()} 
 library(ggplot2)
 library(dplyr)
 
-
 set_blanket()
 
-faithful |>
+set.seed(123)
+
+data.frame(
+  x = rnorm(1000),
+  y = rnorm(1000),
+  z = c(rep("A", times = 500), rep("B", times = 500))
+) |>
   gg_density2d(
-    x = waiting,
-    y = eruptions,
-    bins = 8,
+    x = x,
+    y = y,
+    bins = 20,
   )
 
 }

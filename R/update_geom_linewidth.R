@@ -34,9 +34,9 @@ update_geom_linewidth <- function(
 
   # Border geoms
   border_geoms <- c("area", "bar", "boxplot", "col", "crossbar", "density",
-                     "map", "polygon", "rect", "ribbon", "sf", "tile",
-                     "violin", "raster", "contour_filled", "density2d_filled",
-                     "bin2d", "hex")
+                    "map", "polygon", "rect", "ribbon", "sf", "tile",
+                    "violin", "raster", "contour_filled", "density2d_filled",
+                    "bin2d", "hex")
 
   # Line geoms
   line_geoms <- c("contour", "curve", "errorbar", "freqpoly", "function",

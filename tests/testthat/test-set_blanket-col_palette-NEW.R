@@ -4,7 +4,7 @@ test_that("discrete palettes work with functions and vectors", {
   # Test with palette function
   set_blanket(col_palette_d = scales::pal_hue(h.start = 15))
   p1 <- palmerpenguins::penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
       col = species
@@ -14,7 +14,7 @@ test_that("discrete palettes work with functions and vectors", {
   # Test with palette vector (pre-evaluated)
   set_blanket(col_palette_d = scales::pal_hue(h.start = 15)(3))
   p2 <- palmerpenguins::penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
       col = species
@@ -24,7 +24,7 @@ test_that("discrete palettes work with functions and vectors", {
   # Test with palette function and legend reverse
   set_blanket(col_palette_d = scales::pal_hue(h.start = 15))
   p3 <- palmerpenguins::penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
       col = species,
@@ -39,7 +39,7 @@ test_that("continuous palettes work with functions and vectors", {
   # Test with palette function
   set_blanket(col_palette_c = scales::pal_viridis(option = "A"))
   p1 <- palmerpenguins::penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
       col = bill_length_mm
@@ -49,7 +49,7 @@ test_that("continuous palettes work with functions and vectors", {
   # Test with palette vector (pre-evaluated)
   set_blanket(col_palette_c = scales::pal_viridis(option = "A")(256))
   p2 <- palmerpenguins::penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
       col = bill_length_mm
@@ -59,7 +59,7 @@ test_that("continuous palettes work with functions and vectors", {
   # Test with palette function and legend reverse
   set_blanket(col_palette_c = scales::pal_viridis(option = "A"))
   p3 <- palmerpenguins::penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
       col = bill_length_mm,
@@ -70,7 +70,7 @@ test_that("continuous palettes work with functions and vectors", {
   # Test with palette vector and legend reverse
   set_blanket(col_palette_c = scales::pal_viridis(option = "A")(256))
   p4 <- palmerpenguins::penguins |>
-    gg_jitter(
+    gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
       col = bill_length_mm,

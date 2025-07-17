@@ -270,25 +270,6 @@ test_that(test_name, {
 })
 
 ## ---------------------------------------------------------------------------------------------------
-# test_name <- "gg_jitter"
-#
-# test_that(test_name, {
-#   set.seed(123)
-#
-#   p <- palmerpenguins::penguins |>
-#     gg_jitter(
-#       x = species,
-#       y = body_mass_g,
-#       col = flipper_length_mm,
-#       position = position_jitter(height = 0),
-#       y_limits_include = 0,
-#       col_scale_type = TRUE,
-#     )
-#
-#   vdiffr::expect_doppelganger(test_name, p)
-# })
-
-## ---------------------------------------------------------------------------------------------------
 test_name <- "gg_label"
 
 test_that(test_name, {

@@ -9,7 +9,7 @@ set_blanket()
 
 test_that("discrete variables", {
   p <- penguins |>
-    gg_jitter(
+    gg_point(
       x = species,
       y = island,
       col = sex,

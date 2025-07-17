@@ -27,9 +27,11 @@ library(dplyr)
 library(stringr)
 library(ggplot2)
 library(scales)
-library(ggblanket)
 library(patchwork)
 library(palmerpenguins)
+
+# library(ggblanket)
+devtools::load_all()
 
 set_blanket()
 
@@ -194,6 +196,7 @@ penguins2 |>
     y = body_mass_g,
     col = species,
     coord = coord_cartesian(),
+    col_border = TRUE,
   ) +
   geom_point()
 ```
@@ -265,13 +268,14 @@ ggridges::Catalan_elections |>
   gg_blanket(
     geom = "density_ridges",
     stat = "density_ridges",
+    position = "points_sina",
     coord = coord_cartesian(xlim = c(0, 100)),
     x = percent,
     y = year,
     col = option,
-    colour = "white",
-    y_expand = expansion(c(0, 0.125)),
-    alpha = 0.9,
+    col_border = TRUE,
+    y_expand = c(0, 0),
+    perspective = "x",
   )
 ```
 
@@ -286,7 +290,7 @@ geom_slabinterval()
 
 set.seed(123)
 
-data.frame(
+d <- data.frame(
   distribution = c("Gamma(2,1)", "Normal(5,1)", "Mixture"),
   values = c(
     dist_gamma(2, 1),
@@ -295,20 +299,19 @@ data.frame(
       dist_gamma(2, 1),
       dist_normal(5, 1),
       weights = c(0.4, 0.6))
-  )) |> 
+  ))
+
+d |> 
   gg_blanket(
     geom = "slabinterval",
     stat = "slabinterval",
     y = distribution,
     mapping = aes(dist = values),
-    # colour = lightness[1],
-    blend = "multiply",
-    # fill = blue,
-    y_expand = c(0.05, 0.05),
-    # show_slab = FALSE,
-    # show_interval = FALSE,
-  ) +
-  theme(legend.position = "none")
+    fill = blue, 
+    colour = col_multiply(blue),
+    y_expand = expansion(c(0.05, 0)),
+    perspective = "x",
+  ) 
 ```
 
 ### ggdensity
@@ -325,14 +328,17 @@ data.frame(
   x = rnorm(1000),
   y = rnorm(1000),
   z = c(rep("A", times = 500), rep("B", times = 500))
-) |>
+  ) |>
   gg_blanket(
-    geom = "hdr", 
+    geom = "hdr",
     stat = "hdr",
     x = x, 
-    y = y, 
-    y_symmetric = FALSE,
-  ) 
+    y = y,
+    mapping = aes(fill = after_stat(probs), colour = after_stat(probs)),
+    alpha = NA,
+    col_legend_rev = TRUE,
+  ) +
+  guides(alpha = guide_none())
 ```
 
 ```{r}
@@ -350,7 +356,7 @@ data.frame(
     y = y, 
     col = z,
     facet = z,
-    y_symmetric = FALSE,
+    colour = NA,
   ) 
 ```
 
@@ -382,22 +388,28 @@ The paletteer package provides access to most of the palettes within R.
 ```{r}
 library(paletteer)
 
+set_blanket(
+  col_palette_d = as.vector(paletteer_d("RColorBrewer::Dark2")),
+)
+
 p1 <- penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
-    colour_palette = paletteer_d("RColorBrewer::Dark2"),
     x_breaks_n = 4,
   ) +
   theme(legend.position = "none")
+
+set_blanket(
+  col_palette_c = as.vector(paletteer_c("viridis::rocket", 9)),
+)
 
 p2 <- penguins2 |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = bill_depth_mm,
-    colour_palette = paletteer_c("viridis::rocket", 9),
     x_breaks_n = 4,
   ) +
   theme(legend.position = "none")

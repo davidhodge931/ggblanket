@@ -171,23 +171,60 @@ gg_blanket <- function(
   transform <- extract_transform_name(transform)
 
   # Update mapping for specific geoms
-  if (geom %in% c("bin2d", "hex")) {
-    default_aes <- ggplot2::aes(colour = ggplot2::after_stat(.data$count))
+  # if (stat %in% c("bin2d", "binhex")) {
+  #   default_aes <- ggplot2::aes(colour = ggplot2::after_stat(.data$count))
+  #   if (is.null(mapping)) {
+  #     mapping <- default_aes
+  #   } else if (!("colour" %in% names(mapping) || "fill" %in% names(mapping))) {
+  #     mapping <- utils::modifyList(mapping, default_aes)
+  #   }
+  # }
+  #
+  # if (stat %in% c("contour_filled", "density2d_filled")) {
+  #   default_aes <- ggplot2::aes(colour = ggplot2::after_stat(.data$level))
+  #   if (is.null(mapping)) {
+  #     mapping <- default_aes
+  #   } else if (!("colour" %in% names(mapping) || "fill" %in% names(mapping))) {
+  #     mapping <- utils::modifyList(mapping, default_aes)
+  #   }
+  # }
+
+  if (stat %in% c("bin2d", "binhex")) {
+    default_colour <- ggplot2::aes(colour = ggplot2::after_stat(.data$count))
     if (is.null(mapping)) {
-      mapping <- default_aes
-    } else if (!"colour" %in% names(mapping)) {
-      mapping <- utils::modifyList(mapping, default_aes)
+      mapping <- default_colour
+    } else {
+      has_colour <- "colour" %in% names(mapping)
+      has_fill <- "fill" %in% names(mapping)
+
+      if (!has_colour && !has_fill) {
+        mapping <- utils::modifyList(mapping, default_colour)
+      } else if (has_colour && !has_fill) {
+        mapping$fill <- mapping$colour
+      } else if (!has_colour && has_fill) {
+        mapping$colour <- mapping$fill
+      }
     }
   }
 
-  if (geom %in% c("contour_filled", "density2d_filled")) {
-    default_aes <- ggplot2::aes(colour = ggplot2::after_stat(.data$level))
+  if (stat %in% c("contour_filled", "density2d_filled")) {
+    default_colour <- ggplot2::aes(colour = ggplot2::after_stat(.data$level))
     if (is.null(mapping)) {
-      mapping <- default_aes
-    } else if (!"colour" %in% names(mapping)) {
-      mapping <- utils::modifyList(mapping, default_aes)
+      mapping <- default_colour
+    } else {
+      has_colour <- "colour" %in% names(mapping)
+      has_fill <- "fill" %in% names(mapping)
+
+      if (!has_colour && !has_fill) {
+        mapping <- utils::modifyList(mapping, default_colour)
+      } else if (has_colour && !has_fill) {
+        mapping$fill <- mapping$colour
+      } else if (!has_colour && has_fill) {
+        mapping$colour <- mapping$fill
+      }
     }
   }
+
 
   # Step 4: Determine scale types
   # Create initial plot to determine scale types
@@ -479,6 +516,11 @@ gg_blanket <- function(
   # Handle shape mapping
   # if (!is.null(mapping) && "shape" %in% names(mapping)) {
   # plot <- plot + ggplot2::scale_shape_manual(values = c(21,25, 22:24))
+  # }
+
+  # if (stat %in% c("contour", "contour_filled", "density2d", "density2d_filled")) {
+  #   plot <- plot +
+  #     ggplot2::theme(legend.position = "none")
   # }
 
   return(plot)

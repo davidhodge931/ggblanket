@@ -13,7 +13,6 @@
 #' @export
 #'
 is_panel_dark <- function(theme = NULL) {
-
   # Get theme if not provided
   if (is.null(theme)) {
     theme <- ggplot2::theme_get()
@@ -22,13 +21,6 @@ is_panel_dark <- function(theme = NULL) {
   # Get panel background colour from theme
   panel_colour <- theme$panel.background$fill %||% "white"
 
-  # Calculate luminance of panel background
-  panel_luminance <- farver::get_channel(
-    colour = panel_colour,
-    channel = "l",
-    space = "hcl"
-  )
-
-  # Return TRUE if dark (low luminance), FALSE if light
-  panel_luminance <= 50
+  # Use is_col_dark to check if the panel colour is dark
+  is_col_dark(panel_colour)
 }

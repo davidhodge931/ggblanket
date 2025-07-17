@@ -176,14 +176,18 @@ Create a density2d_filled ggplot with a wrapper around \link[ggplot2:ggplot]{ggp
 library(ggplot2)
 library(dplyr)
 
+set.seed(123)
 
-set_blanket()
-
-faithful |>
+data.frame(
+  x = rnorm(1000),
+  y = rnorm(1000),
+  z = c(rep("A", times = 500), rep("B", times = 500))
+) |>
   gg_density2d_filled(
-    x = waiting,
-    y = eruptions,
-    bins = 8,
-  )
+    x = x,
+    y = y,
+    bins = 20,
+  ) +
+  theme(legend.position = "none")
 
 }
