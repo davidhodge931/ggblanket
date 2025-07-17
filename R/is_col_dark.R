@@ -12,7 +12,10 @@
 #' @export
 #'
 #' @examples
-#' is_col_dark("#000000")  # TRUE (black)
+#' is_col_dark("#0095A8FF")
+#' is_col_dark("#FFA600FF")
+#' is_col_dark("#003F5CFF")
+#' is_col_dark("#357BA2FF")
 #' is_col_dark("#FFFFFF")  # FALSE (white)
 #' is_col_dark("darkblue") # TRUE
 #' is_col_dark("#121B24FF") # TRUE (dark blue-gray from theme_lighter)
@@ -30,6 +33,8 @@ is_col_dark <- function(col) {
     channel = "l",
     space = "hcl"
   )
+
+  # print(col_luminance)
 
   # Return TRUE if dark (low luminance), FALSE if light
   col_luminance <= 50

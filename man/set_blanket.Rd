@@ -25,7 +25,7 @@ set_blanket(
   shape = 21,
   family_font = NULL,
   col_palette_d = scales::pal_hue(),
-  col_palette_c = viridis_by_panel(n = 256, begin = 0.05, end = 0.95, option = "G"),
+  col_palette_c = viridis_by_theme(n = 256, begin = 0.05, end = 0.95, option = "G"),
   colour_palette_d = NULL,
   colour_palette_d_border = NULL,
   fill_palette_d = NULL,

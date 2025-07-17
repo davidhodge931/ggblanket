@@ -15,15 +15,21 @@
 #' @export
 #'
 #' @examples
-#' viridis_by_panel(n = 256)
-#' viridis_by_panel(n = 5)
-#' viridis_by_panel(n = 256, rev = TRUE)
-viridis_by_panel <- function(
+#' viridis_by_theme(n = 256)
+#' viridis_by_theme(n = 5)
+#' viridis_by_theme(n = 256, rev = TRUE)
+viridis_by_theme <- function(
     n,
     begin = 0,
     end = 1,
     option = "D",
-    rev = FALSE) {
+    rev = FALSE,
+    theme = NULL) {
+
+  # Get theme if not provided
+  if (is.null(theme)) {
+    theme <- ggplot2::theme_get()
+  }
 
   if (rev) {
     viridisLite::viridis(
@@ -31,7 +37,7 @@ viridis_by_panel <- function(
       begin = begin,
       end = end,
       option = option,
-      direction = ifelse(is_panel_dark(), -1, 1),
+      direction = ifelse(is_theme_dark(theme = theme), -1, 1),
     )
   }
   else {
@@ -40,7 +46,7 @@ viridis_by_panel <- function(
       begin = begin,
       end = end,
       option = option,
-      direction = ifelse(is_panel_dark(), 1, -1),
+      direction = ifelse(is_theme_dark(theme = theme), 1, -1),
     )
   }
 }
@@ -62,8 +68,8 @@ viridis_by_panel <- function(
 #' @export
 #'
 #' @examples
-#' pal <- pal_viridis_by_panel()(5)
-pal_viridis_by_panel <- function(
+#' pal <- pal_viridis_by_theme()(5)
+pal_viridis_by_theme <- function(
     begin = 0,
     end = 1,
     option = "D",
@@ -74,7 +80,7 @@ pal_viridis_by_panel <- function(
       begin = begin,
       end = end,
       option = option,
-      direction = ifelse(is_panel_dark(), -1, 1),
+      direction = ifelse(is_theme_dark(), -1, 1),
     )
   }
   else {
@@ -82,7 +88,7 @@ pal_viridis_by_panel <- function(
       begin = begin,
       end = end,
       option = option,
-      direction = ifelse(is_panel_dark(), 1, -1),
+      direction = ifelse(is_theme_dark(), 1, -1),
     )
   }
 }

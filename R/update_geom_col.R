@@ -35,7 +35,7 @@ update_geom_col <- function(
 
   # Get the colour_border
   if (is.null(colour_border)) {
-    if (is_panel_dark(theme = current_theme)) {
+    if (is_theme_dark(theme = current_theme)) {
       colour_border <- col_screen(colour)
     } else {
       colour_border <- col_multiply(colour)
