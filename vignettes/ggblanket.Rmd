@@ -55,6 +55,7 @@ Computational speed has been traded-off.
 
 ```{r setup}
 library(dplyr)
+library(tidyr)
 library(stringr)
 library(ggplot2)
 library(scales)
@@ -101,7 +102,7 @@ The `col` argument is the variable to map the `colour` and `fill` aesthetics.
 
 ```{r}
 palmerpenguins::penguins |>
-  tidyr::drop_na(sex) |> 
+  drop_na(sex) |> 
   gg_violin(
     x = flipper_length_mm,
     y = island,
@@ -148,7 +149,7 @@ To customise the scales/guides of these other aesthetics, just `+` on the applic
 
 ```{r}
 palmerpenguins::penguins |> 
-  tidyr::drop_na(sex) |> 
+  drop_na(sex) |> 
   gg_jitter(
     x = species, 
     y = flipper_length_mm, 
@@ -212,10 +213,7 @@ palmerpenguins::penguins |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    linewidth = 1, 
-    linetype = "dashed",
     level = 0.999, 
-    alpha = 1,
   ) 
 ```
 
@@ -253,18 +251,23 @@ This enables _one_ theme to be used across all plots whether the plot is vertica
 
 ```{r}
 p1 <- palmerpenguins::penguins |>
+  drop_na() |>
   gg_jitter(
     x = sex,
     y = bill_depth_mm,
-  )
+    col = sex,
+  ) +
+  labs(x = NULL)
 
 p2 <- palmerpenguins::penguins |>
+  drop_na() |>
   gg_jitter(
     x = bill_depth_mm,
     y = sex,
+    col = sex,
   ) 
 
-p1 + p2
+p1 / p2
 ```
 
 ### 12.  One `*_symmetric` continuous scale
@@ -312,7 +315,7 @@ The scales are built within the `gg_*()` function _without_ knowledge of later l
 
 ```{r}
 palmerpenguins::penguins |>
-  tidyr::drop_na(sex) |> 
+  drop_na(sex) |> 
   group_by(species, sex) |>
   summarise(
     lower = quantile(bill_depth_mm, probs = 0.05),

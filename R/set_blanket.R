@@ -43,6 +43,8 @@
 #' @param colour_palette_na_border For NA values in border geoms with colour scale, a hex code.
 #' @param fill_palette_na For NA values in fill scales, a hex code.
 #' @param fill_palette_na_border For NA values in border geoms with fill scale, a hex code.
+#' @param shape_palette For shape scales, a numeric vector of shape codes. Defaults to c(21, 25, 22:24).
+#' @param linetype_palette For linetype scales, a character vector or a `scales::pal_*` function. Defaults to scales::pal_linetype().
 #' @param titles_case A function to apply to unspecified/unlabelled titles in `gg_*` functions.
 #'   Defaults to `snakecase::to_sentence_case`.
 #' @param axis_line_transparent Logical. Whether `gg_*` functions should remove the relevant
@@ -113,6 +115,9 @@ set_blanket <- function(
     colour_palette_na_border = NULL,
     fill_palette_na = NULL,
     fill_palette_na_border = NULL,
+
+    shape_palette = c(21, 24, 22, 23, 25),
+    linetype_palette = c("solid", "dashed", "dotted", "longdash"),
 
     titles_case = snakecase::to_sentence_case,
     axis_line_transparent = TRUE,
@@ -225,7 +230,10 @@ set_blanket <- function(
     colour_palette_na = colour_palette_na,
     colour_palette_na_border = colour_palette_na_border,
     fill_palette_na = fill_palette_na,
-    fill_palette_na_border = fill_palette_na_border
+    fill_palette_na_border = fill_palette_na_border,
+
+    shape_palette = shape_palette,
+    linetype_palette = linetype_palette,
   )
 
   update_titles_case(titles_case = titles_case)

@@ -2,9 +2,9 @@
 % Please edit documentation in R/aes_contrast.R
 \name{aes_contrast}
 \alias{aes_contrast}
-\title{A colour aesthetic for contrast}
+\title{Modify an aesthetic for contrast}
 \usage{
-aes_contrast(..., dark = NULL, light = NULL)
+aes_contrast(..., dark = NULL, light = NULL, aes = "colour")
 }
 \arguments{
 \item{...}{Provided to require argument naming, support trailing commas etc.}
@@ -16,30 +16,18 @@ with saturation removed for better contrast.}
 \item{light}{A light colour. If NULL, derived from the current theme by using
 either the theme's text colour or panel background (whichever is lighter),
 with saturation removed for better contrast.}
+
+\item{aes}{The aesthetic to be modified for contrast. Either "colour" (default) or "fill".}
 }
 \value{
-A ggplot2 aesthetic that can be used directly in geom_text(), geom_label(),
-or similar geoms. Uses \code{after_scale()} to calculate appropriate contrast
-colours based on the fill aesthetic.
+A ggplot2 aesthetic in \link[ggplot2:aes]{ggplot2::aes}.
 }
 \description{
-A colour aesthetic to contrast with a fill aesthetic. Can be spliced
-into \link[ggplot2:aes]{ggplot2::aes} with \link[rlang:splice-operator]{rlang::!!!}. This function creates text/label
-colours that are readable against varying fill backgrounds by automatically
-selecting dark or light colours based on fill luminance.
-}
-\details{
-This function is designed to be used with text/label geoms to ensure readability.
-It works by:
-\enumerate{
-\item Accessing the fill aesthetic using \code{after_scale()}
-\item Calculating the luminance of each fill value
-\item Selecting either the dark or light colour based on contrast needs
-}
+Modifies a colour (or fill) aesthetic for contrast against the fill (or colour) aesthetic.
 
-The function intelligently adapts to both light and dark themes by examining
-the current theme's text and panel background colours. Any colourful tints
-(e.g., from base_colour) are removed to ensure neutral contrast colours.
+Function can be spliced into \link[ggplot2:aes]{ggplot2::aes} with \link[rlang:splice-operator]{rlang::!!!}.
+
+The contrast palette is a light and dark colour selected based on the luminance.
 }
 \examples{
 library(ggplot2)
@@ -50,7 +38,7 @@ set_blanket(
   col_palette_d = jumble,
 )
 
-palmerpenguins::penguins |>
+p <- palmerpenguins::penguins |>
   count(species, sex) |>
   mutate(sex = str_to_sentence(sex)) |>
   gg_col(
@@ -60,15 +48,17 @@ palmerpenguins::penguins |>
     label = n,
     position = position_dodge(preserve = "single"),
     width = 0.75,
-  ) +
+  )
+
+p +
   geom_text(
     mapping = aes_contrast(),
     position = position_dodge(width = 0.75, preserve = "single"),
     vjust = 1.33,
     show.legend = FALSE,
   )
+
 }
 \seealso{
-\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{after_scale}},
 \code{\link[rlang]{splice}}
 }

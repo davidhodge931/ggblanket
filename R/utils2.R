@@ -300,6 +300,112 @@ validate_inputs <- function(mapping, x_symmetric, y_symmetric,
   }
 }
 
+#' # Data processing functions ----
+#'
+#' #' Process data for factors and reversing
+#' #' @noRd
+#' process_data <- function(data, aes_list, x_symmetric) {
+#'   # Get non-NULL aesthetics
+#'   active_aes <- list(
+#'     aes_list$x, aes_list$xmin, aes_list$xmax, aes_list$xend,
+#'     aes_list$y, aes_list$ymin, aes_list$ymax, aes_list$yend,
+#'     aes_list$col, aes_list$facet, aes_list$facet2,
+#'     aes_list$shape, aes_list$linetype
+#'   ) |>
+#'     purrr::discard(rlang::quo_is_null)
+#'
+#'   data |>
+#'     dplyr::ungroup() |>
+#'     # Convert character/logical to factors
+#'     dplyr::mutate(dplyr::across(
+#'       c(!!!active_aes) &
+#'         (tidyselect::where(is.character) |
+#'            tidyselect::where(is.factor) |
+#'            tidyselect::where(is.logical)),
+#'       labelled::to_factor
+#'     )) |>
+#'     # Reverse y factors for top-to-bottom reading
+#'     dplyr::mutate(dplyr::across(
+#'       c(!!aes_list$y, !!aes_list$ymin, !!aes_list$ymax, !!aes_list$yend) &
+#'         tidyselect::where(is.factor),
+#'       forcats::fct_rev
+#'     )) |>
+#'     # Handle col factor reversal for flipped plots
+#'     reverse_col_if_needed(aes_list, x_symmetric)
+#' }
+#'
+#' #' Reverse col factor if needed
+#' #' @noRd
+#' reverse_col_if_needed <- function(data, aes_list, x_symmetric) {
+#'   if (x_symmetric) {
+#'     # Reverse col if it's not the same as y
+#'     if (!rlang::quo_is_null(aes_list$col)) {
+#'       col_equals_y <- identical(
+#'         rlang::eval_tidy(aes_list$y, data),
+#'         rlang::eval_tidy(aes_list$col, data)
+#'       )
+#'
+#'       if (!col_equals_y) {
+#'         data <- data |>
+#'           dplyr::mutate(dplyr::across(
+#'             !!aes_list$col & tidyselect::where(is.factor),
+#'             forcats::fct_rev
+#'           ))
+#'       }
+#'     }
+#'
+#'     # Reverse shape if it's (A) not the same as y and (B) not the same as col
+#'     if (!rlang::quo_is_null(aes_list$shape)) {
+#'       shape_equals_y <- identical(
+#'         rlang::eval_tidy(aes_list$y, data),
+#'         rlang::eval_tidy(aes_list$shape, data)
+#'       )
+#'
+#'       shape_equals_col <- FALSE
+#'       if (!rlang::quo_is_null(aes_list$col)) {
+#'         shape_equals_col <- identical(
+#'           rlang::eval_tidy(aes_list$col, data),
+#'           rlang::eval_tidy(aes_list$shape, data)
+#'         )
+#'       }
+#'
+#'       if (!shape_equals_y && !shape_equals_col) {
+#'         data <- data |>
+#'           dplyr::mutate(dplyr::across(
+#'             !!aes_list$shape & tidyselect::where(is.factor),
+#'             forcats::fct_rev
+#'           ))
+#'       }
+#'     }
+#'
+#'     # Reverse linetype if it's (A) not the same as y and (B) not the same as col
+#'     if (!rlang::quo_is_null(aes_list$linetype)) {
+#'       linetype_equals_y <- identical(
+#'         rlang::eval_tidy(aes_list$y, data),
+#'         rlang::eval_tidy(aes_list$linetype, data)
+#'       )
+#'
+#'       linetype_equals_col <- FALSE
+#'       if (!rlang::quo_is_null(aes_list$col)) {
+#'         linetype_equals_col <- identical(
+#'           rlang::eval_tidy(aes_list$col, data),
+#'           rlang::eval_tidy(aes_list$linetype, data)
+#'         )
+#'       }
+#'
+#'       if (!linetype_equals_y && !linetype_equals_col) {
+#'         data <- data |>
+#'           dplyr::mutate(dplyr::across(
+#'             !!aes_list$linetype & tidyselect::where(is.factor),
+#'             forcats::fct_rev
+#'           ))
+#'       }
+#'     }
+#'   }
+#'
+#'   data
+#' }
+
 # Data processing functions ----
 
 #' Process data for factors and reversing
@@ -309,7 +415,8 @@ process_data <- function(data, aes_list, x_symmetric) {
   active_aes <- list(
     aes_list$x, aes_list$xmin, aes_list$xmax, aes_list$xend,
     aes_list$y, aes_list$ymin, aes_list$ymax, aes_list$yend,
-    aes_list$col, aes_list$facet, aes_list$facet2
+    aes_list$col, aes_list$facet, aes_list$facet2,
+    aes_list$shape, aes_list$linetype
   ) |>
     purrr::discard(rlang::quo_is_null)
 
@@ -336,21 +443,72 @@ process_data <- function(data, aes_list, x_symmetric) {
 #' Reverse col factor if needed
 #' @noRd
 reverse_col_if_needed <- function(data, aes_list, x_symmetric) {
-  if (!rlang::quo_is_null(aes_list$col) && x_symmetric) {
-    # Check if col and y are different
-    col_equals_y <- identical(
-      rlang::eval_tidy(aes_list$y, data),
-      rlang::eval_tidy(aes_list$col, data)
-    )
+  if (x_symmetric) {
+    # Reverse col if it's not the same as y
+    if (!rlang::quo_is_null(aes_list$col)) {
+      col_equals_y <- identical(
+        rlang::eval_tidy(aes_list$y, data),
+        rlang::eval_tidy(aes_list$col, data)
+      )
 
-    if (!col_equals_y) {
-      data <- data |>
-        dplyr::mutate(dplyr::across(
-          !!aes_list$col & tidyselect::where(is.factor),
-          forcats::fct_rev
-        ))
+      if (!col_equals_y) {
+        data <- data |>
+          dplyr::mutate(dplyr::across(
+            !!aes_list$col & tidyselect::where(is.factor),
+            forcats::fct_rev
+          ))
+      }
+    }
+
+    # Reverse shape if it's (A) not the same as y and (B) not the same as col
+    if (!rlang::quo_is_null(aes_list$shape)) {
+      shape_equals_y <- identical(
+        rlang::eval_tidy(aes_list$y, data),
+        rlang::eval_tidy(aes_list$shape, data)
+      )
+
+      shape_equals_col <- FALSE
+      if (!rlang::quo_is_null(aes_list$col)) {
+        shape_equals_col <- identical(
+          rlang::eval_tidy(aes_list$col, data),
+          rlang::eval_tidy(aes_list$shape, data)
+        )
+      }
+
+      if (!shape_equals_y && !shape_equals_col) {
+        data <- data |>
+          dplyr::mutate(dplyr::across(
+            !!aes_list$shape & tidyselect::where(is.factor),
+            forcats::fct_rev
+          ))
+      }
+    }
+
+    # Reverse linetype if it's (A) not the same as y and (B) not the same as col
+    if (!rlang::quo_is_null(aes_list$linetype)) {
+      linetype_equals_y <- identical(
+        rlang::eval_tidy(aes_list$y, data),
+        rlang::eval_tidy(aes_list$linetype, data)
+      )
+
+      linetype_equals_col <- FALSE
+      if (!rlang::quo_is_null(aes_list$col)) {
+        linetype_equals_col <- identical(
+          rlang::eval_tidy(aes_list$col, data),
+          rlang::eval_tidy(aes_list$linetype, data)
+        )
+      }
+
+      if (!linetype_equals_y && !linetype_equals_col) {
+        data <- data |>
+          dplyr::mutate(dplyr::across(
+            !!aes_list$linetype & tidyselect::where(is.factor),
+            forcats::fct_rev
+          ))
+      }
     }
   }
+
   data
 }
 

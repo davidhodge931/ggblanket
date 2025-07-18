@@ -39,6 +39,8 @@ set_blanket(
   colour_palette_na_border = NULL,
   fill_palette_na = NULL,
   fill_palette_na_border = NULL,
+  shape_palette = c(21, 24, 22, 23, 25),
+  linetype_palette = c("solid", "dashed", "dotted", "longdash"),
   titles_case = snakecase::to_sentence_case,
   axis_line_transparent = TRUE,
   axis_ticks_transparent = TRUE,
@@ -117,6 +119,10 @@ If NULL, derived from theme axis line linewidth.}
 \item{fill_palette_na}{For NA values in fill scales, a hex code.}
 
 \item{fill_palette_na_border}{For NA values in border geoms with fill scale, a hex code.}
+
+\item{shape_palette}{For shape scales, a numeric vector of shape codes. Defaults to c(21, 25, 22:24).}
+
+\item{linetype_palette}{For linetype scales, a character vector or a \verb{scales::pal_*} function. Defaults to scales::pal_linetype().}
 
 \item{titles_case}{A function to apply to unspecified/unlabelled titles in \verb{gg_*} functions.
 Defaults to \code{snakecase::to_sentence_case}.}

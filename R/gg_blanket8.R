@@ -36,6 +36,8 @@
 #' #' @param col_scale_type Either "gradient" or "steps". Defaults to "gradient".
 #' #' @param colour_palette,fill_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' #' @param colour_palette_na,fill_palette_na A hex code (or name) for the `NA` values.
+#' #' @param shape_palette A numeric vector of shape codes or a `scales::pal_*()` function. If NULL, uses the value from `getOption("ggblanket.shape_palette")`.
+#' #' @param linetype_palette A character vector of linetype names or a `scales::pal_*()` function. If NULL, uses the value from `getOption("ggblanket.linetype_palette")`.
 #' #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_*()` may be needed.
 #' #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' #' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
@@ -115,6 +117,8 @@
 #'     colour_palette_na = NULL,
 #'     fill_palette = NULL,
 #'     fill_palette_na = NULL,
+#'     shape_palette = NULL,
+#'     linetype_palette = NULL,
 #'     facet_axes = NULL,
 #'     facet_axis_labels = "margins",
 #'     facet_drop = FALSE,
@@ -133,6 +137,14 @@
 #'     linewidth = NULL,
 #'     size = NULL
 #' ) {
+#'
+#'   # Get palette defaults from options if not provided
+#'   if (is.null(shape_palette)) {
+#'     shape_palette <- getOption("ggblanket.shape_palette")
+#'   }
+#'   if (is.null(linetype_palette)) {
+#'     linetype_palette <- getOption("ggblanket.linetype_palette")
+#'   }
 #'
 #'   # Step 1: Quote aesthetics
 #'   aes_list <- list(
@@ -276,6 +288,10 @@
 #'   y_scale_class <- scale_class$y_scale_class
 #'   col_scale_class <- scale_class$col_scale_class
 #'
+#'   # Shape and linetype are always discrete scales if they're mapped
+#'   shape_mapped <- !rlang::quo_is_null(aes_list$shape)
+#'   linetype_mapped <- !rlang::quo_is_null(aes_list$linetype)
+#'
 #'   # Step 5: Get defaults
 #'   x_drop <- facet_scales %in% c("free_x", "free")
 #'   y_drop <- facet_scales %in% c("free_y", "free")
@@ -394,6 +410,106 @@
 #'       fill_palette = fill_palette,
 #'       fill_palette_na = fill_palette_na
 #'     )
+#'   }
+#'
+#'   # Add shape scale if shape aesthetic is mapped
+#'   if (shape_mapped && !is.null(shape_palette)) {
+#'     # Calculate number of shapes needed
+#'     shape_n <- if (!rlang::quo_is_null(aes_list$shape)) {
+#'       shape_data <- rlang::eval_tidy(aes_list$shape, data)
+#'       if (is.factor(shape_data)) {
+#'         length(levels(shape_data))
+#'       } else {
+#'         length(unique(shape_data[!is.na(shape_data)]))
+#'       }
+#'     } else {
+#'       NA
+#'     }
+#'
+#'     # Process palette to get correct number of values
+#'     if (is.function(shape_palette)) {
+#'       shape_values <- if (!is.na(shape_n)) shape_palette(shape_n) else shape_palette
+#'     } else {
+#'       shape_values <- if (!is.na(shape_n) && !any(rlang::have_name(shape_palette))) {
+#'         shape_palette[1:shape_n]
+#'       } else {
+#'         shape_palette
+#'       }
+#'     }
+#'
+#'     # Check if shape maps to the same variable as col
+#'     shape_equals_col <- FALSE
+#'     if (!rlang::quo_is_null(aes_list$col) && !rlang::quo_is_null(aes_list$shape)) {
+#'       shape_equals_col <- identical(
+#'         rlang::eval_tidy(aes_list$shape, data),
+#'         rlang::eval_tidy(aes_list$col, data)
+#'       )
+#'     }
+#'
+#'     # Handle reversal for perspective = "y" (when x_symmetric is TRUE)
+#'     # But don't reverse if shape equals col (to avoid double reversal)
+#'     shape_legend_rev <- FALSE
+#'     if (x_symmetric && !shape_equals_col) {
+#'       shape_values <- rev(shape_values)
+#'       shape_legend_rev <- TRUE
+#'     } else if (x_symmetric && shape_equals_col) {
+#'       # Match the col legend reversal
+#'       shape_legend_rev <- !col_legend_rev
+#'     }
+#'
+#'     plot <- plot +
+#'       ggplot2::scale_shape_manual(values = shape_values) +
+#'       ggplot2::guides(shape = ggplot2::guide_legend(reverse = shape_legend_rev))
+#'   }
+#'
+#'   # Add linetype scale if linetype aesthetic is mapped
+#'   if (linetype_mapped && !is.null(linetype_palette)) {
+#'     # Calculate number of linetypes needed
+#'     linetype_n <- if (!rlang::quo_is_null(aes_list$linetype)) {
+#'       linetype_data <- rlang::eval_tidy(aes_list$linetype, data)
+#'       if (is.factor(linetype_data)) {
+#'         length(levels(linetype_data))
+#'       } else {
+#'         length(unique(linetype_data[!is.na(linetype_data)]))
+#'       }
+#'     } else {
+#'       NA
+#'     }
+#'
+#'     # Process palette to get correct number of values
+#'     if (is.function(linetype_palette)) {
+#'       linetype_values <- if (!is.na(linetype_n)) linetype_palette(linetype_n) else linetype_palette
+#'     } else {
+#'       linetype_values <- if (!is.na(linetype_n) && !any(rlang::have_name(linetype_palette))) {
+#'         linetype_palette[1:linetype_n]
+#'       } else {
+#'         linetype_palette
+#'       }
+#'     }
+#'
+#'     # Check if linetype maps to the same variable as col
+#'     linetype_equals_col <- FALSE
+#'     if (!rlang::quo_is_null(aes_list$col) && !rlang::quo_is_null(aes_list$linetype)) {
+#'       linetype_equals_col <- identical(
+#'         rlang::eval_tidy(aes_list$linetype, data),
+#'         rlang::eval_tidy(aes_list$col, data)
+#'       )
+#'     }
+#'
+#'     # Handle reversal for perspective = "y" (when x_symmetric is TRUE)
+#'     # But don't reverse if linetype equals col (to avoid double reversal)
+#'     linetype_legend_rev <- FALSE
+#'     if (x_symmetric && !linetype_equals_col) {
+#'       linetype_values <- rev(linetype_values)
+#'       linetype_legend_rev <- TRUE
+#'     } else if (x_symmetric && linetype_equals_col) {
+#'       # Match the col legend reversal
+#'       linetype_legend_rev <- !col_legend_rev
+#'     }
+#'
+#'     plot <- plot +
+#'       ggplot2::scale_linetype_manual(values = linetype_values) +
+#'       ggplot2::guides(linetype = ggplot2::guide_legend(reverse = linetype_legend_rev))
 #'   }
 #'
 #'   # Step 13: Add positional scales
@@ -520,4 +636,3 @@
 #'
 #'   return(plot)
 #' }
-#'

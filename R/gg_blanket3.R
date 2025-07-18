@@ -36,6 +36,8 @@
 #' #' @param col_scale_type Either "gradient" or "steps". Defaults to "gradient".
 #' #' @param colour_palette,fill_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' #' @param colour_palette_na,fill_palette_na A hex code (or name) for the `NA` values.
+#' #' @param shape_palette A numeric vector of shape codes or a `scales::pal_*()` function. If NULL, uses the value from `getOption("ggblanket.shape_palette")`.
+#' #' @param linetype_palette A character vector of linetype names or a `scales::pal_*()` function. If NULL, uses the value from `getOption("ggblanket.linetype_palette")`.
 #' #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_*()` may be needed.
 #' #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' #' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
@@ -115,6 +117,8 @@
 #'     colour_palette_na = NULL,
 #'     fill_palette = NULL,
 #'     fill_palette_na = NULL,
+#'     shape_palette = NULL,
+#'     linetype_palette = NULL,
 #'     facet_axes = NULL,
 #'     facet_axis_labels = "margins",
 #'     facet_drop = FALSE,
@@ -133,6 +137,14 @@
 #'     linewidth = NULL,
 #'     size = NULL
 #' ) {
+#'
+#'   # Get palette defaults from options if not provided
+#'   if (is.null(shape_palette)) {
+#'     shape_palette <- getOption("ggblanket.shape_palette")
+#'   }
+#'   if (is.null(linetype_palette)) {
+#'     linetype_palette <- getOption("ggblanket.linetype_palette")
+#'   }
 #'
 #'   # Step 1: Quote aesthetics
 #'   aes_list <- list(
@@ -276,6 +288,10 @@
 #'   y_scale_class <- scale_class$y_scale_class
 #'   col_scale_class <- scale_class$col_scale_class
 #'
+#'   # Shape and linetype are always discrete scales if they're mapped
+#'   shape_mapped <- !rlang::quo_is_null(aes_list$shape)
+#'   linetype_mapped <- !rlang::quo_is_null(aes_list$linetype)
+#'
 #'   # Step 5: Get defaults
 #'   x_drop <- facet_scales %in% c("free_x", "free")
 #'   y_drop <- facet_scales %in% c("free_y", "free")
@@ -394,6 +410,36 @@
 #'       fill_palette = fill_palette,
 #'       fill_palette_na = fill_palette_na
 #'     )
+#'   }
+#'
+#'   # Add shape scale if shape aesthetic is mapped
+#'   if (shape_mapped && !is.null(shape_palette)) {
+#'     # If shape_palette is a function, call it to get values
+#'     if (is.function(shape_palette)) {
+#'       # Get the number of unique shape values needed
+#'       shape_data <- rlang::eval_tidy(aes_list$shape, data)
+#'       n_shapes <- length(unique(shape_data[!is.na(shape_data)]))
+#'       shape_values <- shape_palette(n_shapes)
+#'     } else {
+#'       shape_values <- shape_palette
+#'     }
+#'     plot <- plot +
+#'       ggplot2::scale_shape_manual(values = shape_values)
+#'   }
+#'
+#'   # Add linetype scale if linetype aesthetic is mapped
+#'   if (linetype_mapped && !is.null(linetype_palette)) {
+#'     # If linetype_palette is a function, call it to get values
+#'     if (is.function(linetype_palette)) {
+#'       # Get the number of unique linetype values needed
+#'       linetype_data <- rlang::eval_tidy(aes_list$linetype, data)
+#'       n_linetypes <- length(unique(linetype_data[!is.na(linetype_data)]))
+#'       linetype_values <- linetype_palette(n_linetypes)
+#'     } else {
+#'       linetype_values <- linetype_palette
+#'     }
+#'     plot <- plot +
+#'       ggplot2::scale_linetype_manual(values = linetype_values)
 #'   }
 #'
 #'   # Step 13: Add positional scales
@@ -520,4 +566,3 @@
 #'
 #'   return(plot)
 #' }
-#'

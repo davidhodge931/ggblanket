@@ -19,6 +19,8 @@
 #' @param colour_palette_na_border For NA values in border geoms with colour scale, a hex code.
 #' @param fill_palette_na For NA values in fill scales, a hex code.
 #' @param fill_palette_na_border For NA values in border geoms with fill scale, a hex code.
+#' @param shape_palette For shape scales, a numeric vector of shape codes. Defaults to c(21, 25, 22:24).
+#' @param linetype_palette For linetype scales, a character vector or a `scales::pal_*` function. Defaults to scales::pal_linetype().
 #' @param ... Additional arguments (not used).
 #'
 #' @return An updated ggplot2 theme and global options.
@@ -40,6 +42,8 @@ update_geom_palettes <- function(
     colour_palette_na_border = NULL,
     fill_palette_na = NULL,
     fill_palette_na_border = NULL,
+    shape_palette = c(21, 24, 22, 23, 25),
+    linetype_palette = c("solid", "dashed", "dotted", "longdash"),
     ...
 ) {
 
@@ -101,6 +105,9 @@ update_geom_palettes <- function(
     ggblanket.colour_palette_na = colour_palette_na,
     ggblanket.colour_palette_na_border = colour_palette_na_border,
     ggblanket.fill_palette_na = fill_palette_na,
-    ggblanket.fill_palette_na_border = fill_palette_na_border
+    ggblanket.fill_palette_na_border = fill_palette_na_border,
+    # Shape and linetype palettes
+    ggblanket.shape_palette = shape_palette,
+    ggblanket.linetype_palette = linetype_palette
   )
 }

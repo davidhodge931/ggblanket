@@ -1,24 +1,24 @@
 #' Get a dark/light colour for contrast
 #'
-#' @description Get a dark/light colour based on contrast with fill colours.
+#' @description Get a dark/light colour based on contrast.
 #'              When dark/light colours are not provided, intelligently derives them from
 #'              the current ggplot2 theme by examining text and panel background colours.
 #'              colours are automatically desaturated to ensure readability.
 #'
-#' @param fill A fill aesthetic from which to determine the colour scale for contrast.
+#' @param col A vector of colours from which to determine the contrast colours.
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param dark A dark colour. If NULL, derived from theme text or panel background
 #'             (whichever is darker), with saturation removed.
 #' @param light A light colour. If NULL, derived from theme text or panel background
 #'              (whichever is lighter), with saturation removed.
 #'
-#' @return A character vector of colours, the same length as `fill`, containing either
-#'         the dark or light colour based on the luminance of each fill value.
+#' @return A character vector of colours, the same length as the `col` vector, containing either
+#'         the dark or light colour determined for contrast.
 #'
 #' @details
-#' The function calculates the luminance of each fill colour and returns:
-#' - The `dark` colour when fill luminance > 50 (light fills)
-#' - The `light` colour when fill luminance <= 50 (dark fills)
+#' The function calculates the luminance of each colour and returns:
+#' - The `dark` colour when col luminance > 50 (light cols)
+#' - The `light` colour when col luminance <= 50 (dark cols)
 #'
 #' When deriving colours from the theme, the function:
 #' 1. Extracts text colour (from axis.text.x, axis.text.y, axis.text, or text)
@@ -31,10 +31,10 @@
 #' @noRd
 #'
 #' @examples
-#' get_contrast(fill = c("navy", "yellow", "orange"), dark = "black", light = "white")
-#' get_contrast(fill = c("#000000", "#FFFFFF", "#808080"))  # Uses theme colours
+#' get_contrast(col = c("#000000", "#FFFFFF", "#808080"))  # Uses theme colours
+#' get_contrast(col = c("navy", "yellow", "orange"), dark = "black", light = "white")
 #'
-get_contrast <- function(fill, ..., dark = NULL, light = NULL) {
+get_contrast <- function(col, ..., dark = NULL, light = NULL) {
   # Only get theme if we need it
   if (is.null(dark) || is.null(light)) {
     # Get current theme
@@ -64,15 +64,16 @@ get_contrast <- function(fill, ..., dark = NULL, light = NULL) {
   }
 
   # Use is_col_dark to determine which colour to return
-  ifelse(!is_col_dark(fill), dark, light)
+  ifelse(!is_col_dark(col), dark, light)
 }
 
-#' A colour aesthetic for contrast
+#' Modify an aesthetic for contrast
 #'
-#' @description A colour aesthetic to contrast with a fill aesthetic. Can be spliced
-#'              into [ggplot2::aes] with [rlang::!!!]. This function creates text/label
-#'              colours that are readable against varying fill backgrounds by automatically
-#'              selecting dark or light colours based on fill luminance.
+#' @description Modifies a colour (or fill) aesthetic for contrast against the fill (or colour) aesthetic.
+#'
+#' Function can be spliced into [ggplot2::aes] with [rlang::!!!].
+#'
+#' The contrast palette is a light and dark colour selected based on the luminance.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param dark A dark colour. If NULL, derived from the current theme by using
@@ -81,24 +82,11 @@ get_contrast <- function(fill, ..., dark = NULL, light = NULL) {
 #' @param light A light colour. If NULL, derived from the current theme by using
 #'              either the theme's text colour or panel background (whichever is lighter),
 #'              with saturation removed for better contrast.
+#' @param aes The aesthetic to be modified for contrast. Either "colour" (default) or "fill".
 #'
-#' @return A ggplot2 aesthetic that can be used directly in geom_text(), geom_label(),
-#'         or similar geoms. Uses `after_scale()` to calculate appropriate contrast
-#'         colours based on the fill aesthetic.
-#'
-#' @details
-#' This function is designed to be used with text/label geoms to ensure readability.
-#' It works by:
-#' 1. Accessing the fill aesthetic using `after_scale()`
-#' 2. Calculating the luminance of each fill value
-#' 3. Selecting either the dark or light colour based on contrast needs
-#'
-#' The function intelligently adapts to both light and dark themes by examining
-#' the current theme's text and panel background colours. Any colourful tints
-#' (e.g., from base_colour) are removed to ensure neutral contrast colours.
+#' @return A ggplot2 aesthetic in [ggplot2::aes].
 #'
 #' @seealso
-#' \code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{after_scale}},
 #' \code{\link[rlang]{splice}}
 #'
 #' @export
@@ -112,7 +100,7 @@ get_contrast <- function(fill, ..., dark = NULL, light = NULL) {
 #'   col_palette_d = jumble,
 #' )
 #'
-#' palmerpenguins::penguins |>
+#' p <- palmerpenguins::penguins |>
 #'   count(species, sex) |>
 #'   mutate(sex = str_to_sentence(sex)) |>
 #'   gg_col(
@@ -122,14 +110,17 @@ get_contrast <- function(fill, ..., dark = NULL, light = NULL) {
 #'     label = n,
 #'     position = position_dodge(preserve = "single"),
 #'     width = 0.75,
-#'   ) +
+#'   )
+#'
+#' p +
 #'   geom_text(
 #'     mapping = aes_contrast(),
 #'     position = position_dodge(width = 0.75, preserve = "single"),
 #'     vjust = 1.33,
 #'     show.legend = FALSE,
 #'   )
-aes_contrast <- function(..., dark = NULL, light = NULL) {
+#'
+aes_contrast <- function(..., dark = NULL, light = NULL, aes = "colour") {
   # Only get theme if we need it
   if (is.null(dark) || is.null(light)) {
     # Get current theme
@@ -158,9 +149,19 @@ aes_contrast <- function(..., dark = NULL, light = NULL) {
     }
   }
 
-  ggplot2::aes(
-    colour = ggplot2::after_scale(
-      get_contrast(.data$fill, dark = dark, light = light)
+  if (aes == "colour") {
+    ggplot2::aes(
+      colour = ggplot2::after_scale(
+        get_contrast(.data$fill, dark = dark, light = light)
+      )
     )
-  )
+  }
+  else if (aes == "fill") {
+    ggplot2::aes(
+      fill = ggplot2::after_scale(
+        get_contrast(.data$colour, dark = dark, light = light)
+      )
+    )
+  }
+  else rlang::abort("aes must be either 'colour' or 'fill'")
 }
