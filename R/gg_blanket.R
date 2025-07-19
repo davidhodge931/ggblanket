@@ -16,7 +16,7 @@
 #' @param axis_line_transparent `TRUE` or `FALSE` of whether to remove the relevant axis line per the `perspective` of the plot.
 #' @param axis_ticks_transparent `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `perspective` of the plot.
 #' @param panel_grid_transparent `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `perspective` of the plot.
-#' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
+#' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,shape,linetype,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] defaults. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
 #' @param x_breaks_n,y_breaks_n,col_breaks_n A number of desired breaks.
@@ -73,7 +73,7 @@ gg_blanket <- function(
     yend = NULL,
     z = NULL,
     col = NULL,
-    facet = NULL,
+    shape = NULL, linetype = NULL, facet = NULL,
     facet2 = NULL,
     group = NULL,
     subgroup = NULL,
@@ -132,8 +132,6 @@ gg_blanket <- function(
     subtitle = NULL,
     caption = NULL,
     titles_case = NULL,
-    shape = NULL,
-    linetype = NULL,
     linewidth = NULL,
     size = NULL
 ) {

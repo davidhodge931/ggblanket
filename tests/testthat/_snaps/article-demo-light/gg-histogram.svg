@@ -498,7 +498,7 @@
 <polyline points='44.74,38.11 48.39,38.11 ' style='stroke-width: 0.53; stroke: none; stroke-linecap: butt;' />
 <text x='344.53' y='563.13' text-anchor='middle' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='80.03px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
 <text transform='translate(18.88,285.04) rotate(-90)' text-anchor='middle' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='26.69px' lengthAdjust='spacingAndGlyphs'>Count</text>
-<rect x='646.15' y='38.11' width='51.94' height='89.64' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<rect x='646.15' y='38.11' width='51.94' height='81.42' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <text x='654.37' y='46.03' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='17.24px' lengthAdjust='spacingAndGlyphs'>Sex</text>
 <rect x='654.37' y='52.55' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <rect x='654.72' y='52.90' width='9.66' height='19.21' style='stroke-width: 0.53; stroke: #F1372F; stroke-linecap: butt; stroke-linejoin: miter; fill: #F8766D;' />

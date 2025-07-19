@@ -395,7 +395,7 @@
 <text x='511.16' y='545.79' text-anchor='middle' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='11.12px' lengthAdjust='spacingAndGlyphs'>20</text>
 <text x='340.47' y='563.13' text-anchor='middle' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='60.58px' lengthAdjust='spacingAndGlyphs'>Bill depth mm</text>
 <text transform='translate(18.88,276.94) rotate(-90)' text-anchor='middle' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='62.80px' lengthAdjust='spacingAndGlyphs'>Bill length mm</text>
-<rect x='638.02' y='21.92' width='60.06' height='109.06' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<rect x='638.02' y='21.92' width='60.06' height='100.84' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <text x='646.24' y='29.84' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='62.80px' lengthAdjust='spacingAndGlyphs'>Bill length mm</text>
 <image width='10.37' height='86.40' x='646.24' y='36.36' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAABB0lEQVQ4jZ2UUW7EMAhEJ77/sXqAnqN3WF4/CBjwbir1x3KYmQckUvT1880C00JomUzLhJYRB4QAaL38kTtRak6RlvmxKab10uDprnnC4rHEpOyWNz+2ObvRzPdjqNAtZM0B1+HblnG4oFaTnhLb4rf/WaQQhip/p81SKDtmw8LB02gkIjZ8ZZZGKQDj5O3ErD2i/lBTyAWvz404AfY4lfN6zDpP55Zlgv7aC6p8GdQGHy05ofREAYQ6zJftBS0+LS1xQ3fCmuCqVcsU8sZQS8u40bNgh3lasgd9UpGAjBWLPljuW0LV9kW84QVl1N71ZeP7MqgB7kbxB94LMscYMTtXJf6nCP0Cf6zspH50IjgAAAAASUVORK5CYII='/>
 <polyline points='653.58,61.24 656.61,61.24 ' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt;' />

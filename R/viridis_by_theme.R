@@ -10,6 +10,8 @@
 #' @param option A character string indicating the palette option to use.
 #' @param rev Logical. If `TRUE`, reverses the behaviour of the direction
 #'   adjustment based on panel background. Default is `FALSE`.
+#' @param theme A ggplot2 theme object. If NULL (default), uses the current theme
+#'        from `ggplot2::theme_get()`.
 #'
 #' @return A character vector of colour values in hexadecimal format.
 #' @export

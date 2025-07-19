@@ -405,7 +405,7 @@
 <polyline points='58.64,61.63 62.29,61.63 ' style='stroke-width: 0.53; stroke: none; stroke-linecap: butt;' />
 <text x='338.80' y='563.13' text-anchor='middle' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='35.59px' lengthAdjust='spacingAndGlyphs'>Species</text>
 <text transform='translate(18.88,285.04) rotate(-90)' text-anchor='middle' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='64.48px' lengthAdjust='spacingAndGlyphs'>Body mass (g)</text>
-<rect x='620.79' y='38.11' width='77.29' height='109.06' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<rect x='620.79' y='38.11' width='77.29' height='100.84' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <text x='629.01' y='46.03' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='80.03px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
 <image width='10.37' height='86.40' x='629.01' y='52.55' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAABBUlEQVQ4jY2Uy5LEIAwDW8p9zzP//6HsgYdtIFVzSQFqSw6E8P37NAthAUbCICytBy5TeSKVQ3MNfKjCE0kZXhXVKlz2XB9cN0gdRJCzc0SyhFtuQupuJPvLy0RFdHpFKpyRiCwqdUs2obl0moQ+ooaDmzeOUsE4viHEZ5HgWCMHpQpHOAc3EC6mS6VkDLhaUcu2ds0F0R1ue1dxFy4ZOt/tPWPfRM5a/xakTXUcbfHbOF23nXXja0UK0hjtuQvZVL2pvyIS2DeEKbxWhGrApo1RII90cE8YUJDhAn5Ya9JEAmYKRhP27LlPmafQDbqfc1lHupWHs9b/tDuvNePsl13iv2v+AVWPE9Ta9UTIAAAAAElFTkSuQmCC'/>
 <polyline points='636.35,127.13 639.38,127.13 ' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt;' />

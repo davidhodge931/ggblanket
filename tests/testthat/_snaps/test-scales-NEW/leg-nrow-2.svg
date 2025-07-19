@@ -395,7 +395,7 @@
 <text x='458.54' y='545.79' text-anchor='middle' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='11.12px' lengthAdjust='spacingAndGlyphs'>20</text>
 <text x='307.26' y='563.13' text-anchor='middle' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='60.58px' lengthAdjust='spacingAndGlyphs'>Bill depth mm</text>
 <text transform='translate(18.88,276.94) rotate(-90)' text-anchor='middle' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='62.80px' lengthAdjust='spacingAndGlyphs'>Bill length mm</text>
-<rect x='571.60' y='21.92' width='126.48' height='66.11' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<rect x='571.60' y='21.92' width='126.48' height='57.89' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <text x='579.82' y='29.84' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='35.59px' lengthAdjust='spacingAndGlyphs'>Species</text>
 <rect x='579.82' y='36.36' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <circle cx='585.00' cy='46.31' r='1.95' style='stroke-width: 0.71; stroke: #F1372F; fill: #F8766D;' />

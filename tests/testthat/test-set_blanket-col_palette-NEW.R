@@ -1,4 +1,9 @@
 # test-palettes.R
+library(testthat)
+library(vdiffr)
+library(ggplot2)
+library(dplyr)
+
 test_that("disc_pal_fn_vec", {
   # Test with palette function
   set_blanket(col_palette_d = scales::pal_hue(h.start = 15))

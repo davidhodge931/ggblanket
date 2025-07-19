@@ -399,7 +399,7 @@
 <text x='520.72' y='545.79' text-anchor='middle' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='32.81px' lengthAdjust='spacingAndGlyphs'>Gentoo</text>
 <text x='341.19' y='563.13' text-anchor='middle' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='35.59px' lengthAdjust='spacingAndGlyphs'>Species</text>
 <text transform='translate(18.88,276.94) rotate(-90)' text-anchor='middle' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='80.03px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
-<rect x='633.91' y='21.92' width='48.61' height='89.64' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<rect x='633.91' y='21.92' width='48.61' height='81.42' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <text x='642.13' y='29.84' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='17.24px' lengthAdjust='spacingAndGlyphs'>Sex</text>
 <rect x='642.13' y='36.36' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <circle cx='647.32' cy='46.31' r='1.95' style='stroke-width: 0.71; stroke: #F1372F; fill: #F8766D;' />
@@ -410,16 +410,16 @@
 <text x='657.98' y='49.75' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>female</text>
 <text x='657.98' y='73.29' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='21.68px' lengthAdjust='spacingAndGlyphs'>male</text>
 <text x='657.98' y='96.82' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='13.90px' lengthAdjust='spacingAndGlyphs'>NA</text>
-<rect x='633.91' y='128.00' width='64.17' height='89.64' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<text x='642.13' y='135.92' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='26.69px' lengthAdjust='spacingAndGlyphs'>Island</text>
-<rect x='642.13' y='142.43' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='647.32' cy='152.39' r='1.95' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
-<rect x='642.13' y='165.97' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<polygon points='647.32,172.89 649.95,177.45 644.68,177.45 ' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
-<rect x='642.13' y='189.50' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<rect x='645.58' y='197.73' width='3.46' height='3.46' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
-<text x='657.98' y='155.83' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>Biscoe</text>
-<text x='657.98' y='179.37' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='30.01px' lengthAdjust='spacingAndGlyphs'>Dream</text>
-<text x='657.98' y='202.90' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='45.58px' lengthAdjust='spacingAndGlyphs'>Torgersen</text>
+<rect x='633.91' y='119.78' width='64.17' height='81.42' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<text x='642.13' y='127.70' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='26.69px' lengthAdjust='spacingAndGlyphs'>Island</text>
+<rect x='642.13' y='134.21' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<circle cx='647.32' cy='144.17' r='1.95' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
+<rect x='642.13' y='157.75' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<polygon points='647.32,164.67 649.95,169.23 644.68,169.23 ' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
+<rect x='642.13' y='181.28' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<rect x='645.58' y='189.51' width='3.46' height='3.46' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
+<text x='657.98' y='147.61' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>Biscoe</text>
+<text x='657.98' y='171.15' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='30.01px' lengthAdjust='spacingAndGlyphs'>Dream</text>
+<text x='657.98' y='194.68' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='45.58px' lengthAdjust='spacingAndGlyphs'>Torgersen</text>
 </g>
 </svg>

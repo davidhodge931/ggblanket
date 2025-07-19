@@ -19,7 +19,7 @@ theme_blanket_move_legend <- function(legend_position = "right") {
       legend.margin = ggplot2::margin(
         t = 0,
         r = 11 * -1,
-        b = 11 * 0.75,
+        b = 0,
         l = 11 * 0.75
       ),
       legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),

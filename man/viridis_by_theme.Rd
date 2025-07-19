@@ -24,6 +24,9 @@ viridis_by_theme(
 
 \item{rev}{Logical. If \code{TRUE}, reverses the behaviour of the direction
 adjustment based on panel background. Default is \code{FALSE}.}
+
+\item{theme}{A ggplot2 theme object. If NULL (default), uses the current theme
+from \code{ggplot2::theme_get()}.}
 }
 \value{
 A character vector of colour values in hexadecimal format.

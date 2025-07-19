@@ -1,4 +1,8 @@
 # test-palettes-discrete-functions.R
+library(testthat)
+library(vdiffr)
+library(ggplot2)
+library(dplyr)
 
 test_that("disc_col_trans", {
   # Test with col_palette_d using color transformation
