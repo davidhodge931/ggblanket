@@ -1,82 +1,88 @@
 # test-palettes.R
-
-test_that("discrete palettes work with functions and vectors", {
+test_that("disc_pal_fn_vec", {
   # Test with palette function
   set_blanket(col_palette_d = scales::pal_hue(h.start = 15))
-  p1 <- palmerpenguins::penguins |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = species
-    )
-  vdiffr::expect_doppelganger("discrete palette function", p1)
+  expect_doppelganger("disc_pal_fn",
+                      palmerpenguins::penguins |>
+                        gg_point(
+                          x = flipper_length_mm,
+                          y = body_mass_g,
+                          col = species
+                        )
+  )
 
   # Test with palette vector (pre-evaluated)
   set_blanket(col_palette_d = scales::pal_hue(h.start = 15)(3))
-  p2 <- palmerpenguins::penguins |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = species
-    )
-  vdiffr::expect_doppelganger("discrete palette vector", p2)
+  expect_doppelganger("disc_pal_vec",
+                      palmerpenguins::penguins |>
+                        gg_point(
+                          x = flipper_length_mm,
+                          y = body_mass_g,
+                          col = species
+                        )
+  )
 
   # Test with palette function and legend reverse
   set_blanket(col_palette_d = scales::pal_hue(h.start = 15))
-  p3 <- palmerpenguins::penguins |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = species,
-      col_legend_rev = TRUE
-    )
-  vdiffr::expect_doppelganger("discrete palette function reversed", p3)
+  expect_doppelganger("disc_pal_fn_rev",
+                      palmerpenguins::penguins |>
+                        gg_point(
+                          x = flipper_length_mm,
+                          y = body_mass_g,
+                          col = species,
+                          col_legend_rev = TRUE
+                        )
+  )
 
   set_blanket()
 })
 
-test_that("continuous palettes work with functions and vectors", {
+test_that("cont_pal_fn_vec", {
   # Test with palette function
   set_blanket(col_palette_c = scales::pal_viridis(option = "A"))
-  p1 <- palmerpenguins::penguins |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = bill_length_mm
-    )
-  vdiffr::expect_doppelganger("continuous palette function", p1)
+  expect_doppelganger("cont_pal_fn",
+                      palmerpenguins::penguins |>
+                        gg_point(
+                          x = flipper_length_mm,
+                          y = body_mass_g,
+                          col = bill_length_mm
+                        )
+  )
 
   # Test with palette vector (pre-evaluated)
   set_blanket(col_palette_c = scales::pal_viridis(option = "A")(256))
-  p2 <- palmerpenguins::penguins |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = bill_length_mm
-    )
-  vdiffr::expect_doppelganger("continuous palette vector", p2)
+  expect_doppelganger("cont_pal_vec",
+                      palmerpenguins::penguins |>
+                        gg_point(
+                          x = flipper_length_mm,
+                          y = body_mass_g,
+                          col = bill_length_mm
+                        )
+  )
 
   # Test with palette function and legend reverse
   set_blanket(col_palette_c = scales::pal_viridis(option = "A"))
-  p3 <- palmerpenguins::penguins |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = bill_length_mm,
-      col_legend_rev = TRUE
-    )
-  vdiffr::expect_doppelganger("continuous palette function reversed", p3)
+  expect_doppelganger("cont_pal_fn_rev",
+                      palmerpenguins::penguins |>
+                        gg_point(
+                          x = flipper_length_mm,
+                          y = body_mass_g,
+                          col = bill_length_mm,
+                          col_legend_rev = TRUE
+                        )
+  )
 
   # Test with palette vector and legend reverse
   set_blanket(col_palette_c = scales::pal_viridis(option = "A")(256))
-  p4 <- palmerpenguins::penguins |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = bill_length_mm,
-      col_legend_rev = TRUE
-    )
-  vdiffr::expect_doppelganger("continuous palette vector reversed", p4)
+  expect_doppelganger("cont_pal_vec_rev",
+                      palmerpenguins::penguins |>
+                        gg_point(
+                          x = flipper_length_mm,
+                          y = body_mass_g,
+                          col = bill_length_mm,
+                          col_legend_rev = TRUE
+                        )
+  )
 
   set_blanket()
 })

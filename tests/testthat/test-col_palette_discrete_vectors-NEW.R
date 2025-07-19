@@ -1,172 +1,186 @@
 # test-palettes-discrete-vectors.R
 
-test_that("discrete palettes work with color transformation vectors", {
+test_that("disc_vec_col_trans", {
   # Test with col_palette_d using color transformation
   set_blanket(col_palette_d = scales::col_darker(scales::pal_hue()(3)))
 
-  p1 <- palmerpenguins::penguins |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = species
-    )
-  vdiffr::expect_doppelganger("discrete darker hue jitter", p1)
+  expect_doppelganger("disc_vec_dark_jit",
+                      palmerpenguins::penguins |>
+                        gg_point(
+                          x = flipper_length_mm,
+                          y = body_mass_g,
+                          col = species
+                        )
+  )
 
-  p2 <- palmerpenguins::penguins |>
-    gg_violin(
-      x = species,
-      y = body_mass_g,
-      col = island
-    )
-  vdiffr::expect_doppelganger("discrete darker hue violin", p2)
+  expect_doppelganger("disc_vec_dark_vio",
+                      palmerpenguins::penguins |>
+                        gg_violin(
+                          x = species,
+                          y = body_mass_g,
+                          col = island
+                        )
+  )
 
   set_blanket()
 })
 
-test_that("discrete palettes work with separate colour and fill transformations", {
+test_that("disc_vec_sep_col_fill", {
   # Test with separate colour_palette_d and fill_palette_d
   set_blanket(
     colour_palette_d = scales::col_darker(scales::pal_hue(h.start = 15)(3)),
     fill_palette_d = scales::col_lighter(scales::pal_hue(h.start = 15)(3))
   )
 
-  p1 <- palmerpenguins::penguins |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = species
-    )
-  vdiffr::expect_doppelganger("discrete darker colour lighter fill jitter", p1)
+  expect_doppelganger("disc_vec_dark_light_jit",
+                      palmerpenguins::penguins |>
+                        gg_point(
+                          x = flipper_length_mm,
+                          y = body_mass_g,
+                          col = species
+                        )
+  )
 
-  p2 <- palmerpenguins::penguins |>
-    gg_violin(
-      x = species,
-      y = body_mass_g,
-      col = island
-    )
-  vdiffr::expect_doppelganger("discrete darker colour lighter fill violin", p2)
+  expect_doppelganger("disc_vec_dark_light_vio",
+                      palmerpenguins::penguins |>
+                        gg_violin(
+                          x = species,
+                          y = body_mass_g,
+                          col = island
+                        )
+  )
 
-  p3 <- palmerpenguins::penguins |>
-    gg_violin(
-      x = species,
-      y = body_mass_g,
-      col = island,
-      col_legend_rev = TRUE
-    )
-  vdiffr::expect_doppelganger("discrete darker colour lighter fill violin reversed", p3)
+  expect_doppelganger("disc_vec_dark_light_rev",
+                      palmerpenguins::penguins |>
+                        gg_violin(
+                          x = species,
+                          y = body_mass_g,
+                          col = island,
+                          col_legend_rev = TRUE
+                        )
+  )
 
   set_blanket()
 })
 
-test_that("discrete palettes work with flipped orientation", {
+test_that("disc_vec_flip", {
   set_blanket(
     colour_palette_d = scales::col_darker(scales::pal_hue(h.start = 15)(3)),
     fill_palette_d = scales::col_lighter(scales::pal_hue(h.start = 15)(3))
   )
 
-  p1 <- palmerpenguins::penguins |>
-    gg_violin(
-      x = body_mass_g,
-      y = species,
-      col = island
-    )
-  vdiffr::expect_doppelganger("discrete flipped violin", p1)
+  expect_doppelganger("disc_vec_flip_vio",
+                      palmerpenguins::penguins |>
+                        gg_violin(
+                          x = body_mass_g,
+                          y = species,
+                          col = island
+                        )
+  )
 
-  p2 <- palmerpenguins::penguins |>
-    gg_violin(
-      x = body_mass_g,
-      y = species,
-      col = island,
-      col_legend_rev = TRUE
-    )
-  vdiffr::expect_doppelganger("discrete flipped violin reversed", p2)
+  expect_doppelganger("disc_vec_flip_rev",
+                      palmerpenguins::penguins |>
+                        gg_violin(
+                          x = body_mass_g,
+                          y = species,
+                          col = island,
+                          col_legend_rev = TRUE
+                        )
+  )
 
   set_blanket()
 })
 
-test_that("discrete palettes can be overridden at plot level", {
+test_that("disc_vec_override", {
   set_blanket(
     colour_palette_d = scales::col_darker(scales::pal_hue(h.start = 15)(3)),
     fill_palette_d = scales::col_lighter(scales::pal_hue(h.start = 15)(3))
   )
 
   # Base plot with blanket settings
-  p1 <- palmerpenguins::penguins |>
-    gg_violin(
-      x = body_mass_g,
-      y = species,
-      col = island
-    )
-  vdiffr::expect_doppelganger("discrete base violin", p1)
+  expect_doppelganger("disc_vec_base",
+                      palmerpenguins::penguins |>
+                        gg_violin(
+                          x = body_mass_g,
+                          y = species,
+                          col = island
+                        )
+  )
 
   # Override colour_palette only
-  p2 <- palmerpenguins::penguins |>
-    gg_violin(
-      x = body_mass_g,
-      y = species,
-      col = island,
-      colour_palette = scales::pal_viridis()(3)
-    )
-  vdiffr::expect_doppelganger("discrete override colour palette", p2)
+  expect_doppelganger("disc_vec_over_col",
+                      palmerpenguins::penguins |>
+                        gg_violin(
+                          x = body_mass_g,
+                          y = species,
+                          col = island,
+                          colour_palette = scales::pal_viridis()(3)
+                        )
+  )
 
   # Override fill_palette only
-  p3 <- palmerpenguins::penguins |>
-    gg_violin(
-      x = body_mass_g,
-      y = species,
-      col = island,
-      fill_palette = scales::pal_viridis()(3)
-    )
-  vdiffr::expect_doppelganger("discrete override fill palette", p3)
+  expect_doppelganger("disc_vec_over_fill",
+                      palmerpenguins::penguins |>
+                        gg_violin(
+                          x = body_mass_g,
+                          y = species,
+                          col = island,
+                          fill_palette = scales::pal_viridis()(3)
+                        )
+  )
 
   # Override both with transformations
-  p4 <- palmerpenguins::penguins |>
-    gg_violin(
-      x = body_mass_g,
-      y = species,
-      col = island,
-      colour_palette = col_multiply(scales::pal_viridis()(3)),
-      fill_palette = scales::pal_viridis()(3)
-    )
-  vdiffr::expect_doppelganger("discrete override both palettes with transform", p4)
+  expect_doppelganger("disc_vec_over_both",
+                      palmerpenguins::penguins |>
+                        gg_violin(
+                          x = body_mass_g,
+                          y = species,
+                          col = island,
+                          colour_palette = col_multiply(scales::pal_viridis()(3)),
+                          fill_palette = scales::pal_viridis()(3)
+                        )
+  )
 
   set_blanket()
 })
 
-test_that("discrete palettes work without blanket settings", {
+test_that("disc_vec_no_blanket", {
   # Ensure blanket is reset
   set_blanket()
 
   # Override colour_palette at plot level
-  p1 <- palmerpenguins::penguins |>
-    gg_violin(
-      x = body_mass_g,
-      y = species,
-      col = island,
-      colour_palette = scales::pal_viridis()(3)
-    )
-  vdiffr::expect_doppelganger("discrete no blanket colour override", p1)
+  expect_doppelganger("disc_vec_no_bl_col",
+                      palmerpenguins::penguins |>
+                        gg_violin(
+                          x = body_mass_g,
+                          y = species,
+                          col = island,
+                          colour_palette = scales::pal_viridis()(3)
+                        )
+  )
 
   # Override fill_palette at plot level
-  p2 <- palmerpenguins::penguins |>
-    gg_violin(
-      x = body_mass_g,
-      y = species,
-      col = island,
-      fill_palette = scales::pal_viridis()(3)
-    )
-  vdiffr::expect_doppelganger("discrete no blanket fill override", p2)
+  expect_doppelganger("disc_vec_no_bl_fill",
+                      palmerpenguins::penguins |>
+                        gg_violin(
+                          x = body_mass_g,
+                          y = species,
+                          col = island,
+                          fill_palette = scales::pal_viridis()(3)
+                        )
+  )
 
   # Override both with transformations
-  p3 <- palmerpenguins::penguins |>
-    gg_violin(
-      x = body_mass_g,
-      y = species,
-      col = island,
-      colour_palette = col_multiply(scales::pal_viridis()(3)),
-      fill_palette = scales::pal_viridis()(3)
-    )
-  vdiffr::expect_doppelganger("discrete no blanket both override with transform", p3)
+  expect_doppelganger("disc_vec_no_bl_both",
+                      palmerpenguins::penguins |>
+                        gg_violin(
+                          x = body_mass_g,
+                          y = species,
+                          col = island,
+                          colour_palette = col_multiply(scales::pal_viridis()(3)),
+                          fill_palette = scales::pal_viridis()(3)
+                        )
+  )
 
   set_blanket()
 })

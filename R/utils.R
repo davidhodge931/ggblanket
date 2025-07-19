@@ -304,7 +304,7 @@ validate_inputs <- function(mapping, x_symmetric, y_symmetric,
 
 #' Process data for factors and reversing
 #' @noRd
-process_data <- function(data, aes_list, x_symmetric) {
+process_data <- function(data, aes_list, perspective) {
   # Get non-NULL aesthetics
   active_aes <- list(
     aes_list$x, aes_list$xmin, aes_list$xmax, aes_list$xend,
@@ -331,13 +331,13 @@ process_data <- function(data, aes_list, x_symmetric) {
       forcats::fct_rev
     )) |>
     # Handle col factor reversal for flipped plots
-    reverse_col_if_needed(aes_list, x_symmetric)
+    reverse_if_needed(aes_list, perspective)
 }
 
-#' Reverse col factor if needed
+#' Reverse factor if needed
 #' @noRd
-reverse_col_if_needed <- function(data, aes_list, x_symmetric) {
-  if (x_symmetric) {
+reverse_if_needed <- function(data, aes_list, perspective) {
+  if (perspective == "y") {
     # Reverse col if it's not the same as y
     if (!rlang::quo_is_null(aes_list$col)) {
       col_equals_y <- identical(
@@ -361,12 +361,13 @@ reverse_col_if_needed <- function(data, aes_list, x_symmetric) {
         rlang::eval_tidy(aes_list$shape, data)
       )
 
-      shape_equals_col <- FALSE
       if (!rlang::quo_is_null(aes_list$col)) {
         shape_equals_col <- identical(
           rlang::eval_tidy(aes_list$col, data),
           rlang::eval_tidy(aes_list$shape, data)
         )
+      } else {
+        shape_equals_col <- FALSE
       }
 
       if (!shape_equals_y && !shape_equals_col) {
@@ -385,12 +386,14 @@ reverse_col_if_needed <- function(data, aes_list, x_symmetric) {
         rlang::eval_tidy(aes_list$linetype, data)
       )
 
-      linetype_equals_col <- FALSE
       if (!rlang::quo_is_null(aes_list$col)) {
         linetype_equals_col <- identical(
           rlang::eval_tidy(aes_list$col, data),
           rlang::eval_tidy(aes_list$linetype, data)
         )
+      }
+      else {
+        linetype_equals_col <- FALSE
       }
 
       if (!linetype_equals_y && !linetype_equals_col) {

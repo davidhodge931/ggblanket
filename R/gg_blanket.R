@@ -322,7 +322,7 @@ gg_blanket <- function(
                   x_transform, y_transform, stat)
 
   # Step 7: Process the data
-  data <- process_data(data, aes_list, x_symmetric)
+  data <- process_data(data, aes_list, perspective)
 
   # Step 8: Rebuild base plot with processed data
   plot <- initialise_ggplot(
@@ -439,7 +439,6 @@ gg_blanket <- function(
         shape_palette
       }
     }
-
 
     # Reverse the shape values and legend if required
     if (perspective == "y") {
