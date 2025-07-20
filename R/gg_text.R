@@ -48,7 +48,7 @@ gg_text <- function(
   yend = NULL,
   z = NULL,
   col = NULL,
-  shape = NULL, linetype = NULL, facet = NULL,
+  colour = NULL, fill = NULL, shape = NULL, linetype = NULL, facet = NULL,
   facet2 = NULL,
   group = NULL,
   subgroup = NULL,
