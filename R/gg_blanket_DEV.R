@@ -207,24 +207,41 @@ gg_blanket <- function(
 
   # Handle colour fixed value (priority: colour > col)
   if (!colour_detection$is_aesthetic && !is.null(colour_detection$value)) {
-    fixed_params$colour <- colour_detection$value
+    # Only add to params if it's not NA
+    if (!is.na(colour_detection$value)) {
+      fixed_params$colour <- colour_detection$value
+    } else {
+      fixed_params$colour <- NA  # This will remove colour
+    }
   } else if (!col_detection$is_aesthetic && !is.null(col_detection$value)) {
-    fixed_params$colour <- col_detection$value
+    if (!is.na(col_detection$value)) {
+      fixed_params$colour <- col_detection$value
+    } else {
+      fixed_params$colour <- NA
+    }
   }
 
   # Handle fill fixed value (priority: fill > col)
   if (!fill_detection$is_aesthetic && !is.null(fill_detection$value)) {
-    fixed_params$fill <- fill_detection$value
+    if (!is.na(fill_detection$value)) {
+      fixed_params$fill <- fill_detection$value
+    } else {
+      fixed_params$fill <- NA
+    }
   } else if (!col_detection$is_aesthetic && !is.null(col_detection$value)) {
-    fixed_params$fill <- col_detection$value
+    if (!is.na(col_detection$value)) {
+      fixed_params$fill <- col_detection$value
+    } else {
+      fixed_params$fill <- NA
+    }
   }
 
   # Shape and linetype fixed values
   if (!shape_detection$is_aesthetic && !is.null(shape_detection$value)) {
-    fixed_params$shape <- shape_detection$value
+    fixed_params$shape <- shape_detection$value  # NA works properly for shape
   }
   if (!linetype_detection$is_aesthetic && !is.null(linetype_detection$value)) {
-    fixed_params$linetype <- linetype_detection$value
+    fixed_params$linetype <- linetype_detection$value  # NA works properly for linetype
   }
 
   # Step 2: Handle NULL data

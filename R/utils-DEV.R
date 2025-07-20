@@ -1,5 +1,3 @@
-#' Detect if input is aesthetic or fixed value
-#' @noRd
 detect_aesthetic_or_value <- function(quo_input, arg_name = "col") {
   if (rlang::quo_is_null(quo_input)) {
     return(list(is_aesthetic = FALSE, value = NULL))
@@ -16,20 +14,23 @@ detect_aesthetic_or_value <- function(quo_input, arg_name = "col") {
 
     # Check based on argument type
     if (arg_name %in% c("col", "colour", "fill")) {
-      # Color: single character string
-      if (is.character(eval_value) && length(eval_value) == 1) {
+      # Color: single character string OR NA
+      if ((is.character(eval_value) && length(eval_value) == 1) ||
+          (length(eval_value) == 1 && is.na(eval_value))) {
         return(list(is_aesthetic = FALSE, value = eval_value))
       }
     } else if (arg_name == "shape") {
-      # Shape: single numeric or character
-      if ((is.numeric(eval_value) || is.character(eval_value)) &&
-          length(eval_value) == 1) {
+      # Shape: single numeric or character or NA
+      if (((is.numeric(eval_value) || is.character(eval_value)) &&
+           length(eval_value) == 1) ||
+          (length(eval_value) == 1 && is.na(eval_value))) {
         return(list(is_aesthetic = FALSE, value = eval_value))
       }
     } else if (arg_name == "linetype") {
-      # Linetype: single numeric or character
-      if ((is.numeric(eval_value) || is.character(eval_value)) &&
-          length(eval_value) == 1) {
+      # Linetype: single numeric or character or NA
+      if (((is.numeric(eval_value) || is.character(eval_value)) &&
+           length(eval_value) == 1) ||
+          (length(eval_value) == 1 && is.na(eval_value))) {
         return(list(is_aesthetic = FALSE, value = eval_value))
       }
     }
@@ -42,7 +43,6 @@ detect_aesthetic_or_value <- function(quo_input, arg_name = "col") {
     return(list(is_aesthetic = TRUE, value = quo_input))
   })
 }
-
 #' Create base ggplot with aesthetic mappings
 #'
 #' @param data A data frame or tibble.

@@ -43,7 +43,7 @@ update_geom_palettes <- function(
     fill_palette_na = NULL,
     fill_palette_na_border = NULL,
     shape_palette = c(21, 24, 22, 23, 25),
-    linetype_palette = c("solid", "dashed", "dotted", "longdash"),
+    linetype_palette = 1:6,
     ...
 ) {
 

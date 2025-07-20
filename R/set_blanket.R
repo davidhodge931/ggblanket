@@ -117,7 +117,7 @@ set_blanket <- function(
     fill_palette_na_border = NULL,
 
     shape_palette = c(21, 24, 22, 23, 25),
-    linetype_palette = c("solid", "dashed", "dotted", "longdash"),
+    linetype_palette = 1:6,
 
     titles_case = snakecase::to_sentence_case,
     axis_line_transparent = TRUE,
