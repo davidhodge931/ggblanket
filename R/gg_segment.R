@@ -156,7 +156,7 @@ gg_segment <- function(
     col_labels = col_labels,
     col_legend_ncol = col_legend_ncol,
     col_legend_nrow = col_legend_nrow,
-    col_legend_rev = col_legend_rev,
+    col_legend_rev = col_legend_rev, col_palette = col_palette, col_palette_na = col_palette_na,   
     
     
     

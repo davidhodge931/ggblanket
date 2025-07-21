@@ -664,6 +664,8 @@ test_that(test_name, {
       x = sex,
       y = species,
       col = flipper_length_mm,
+      width = 0.95,
+      height = 0.95,
     )
 
   vdiffr::expect_doppelganger(test_name, p)

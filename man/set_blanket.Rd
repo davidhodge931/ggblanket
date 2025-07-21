@@ -11,13 +11,15 @@ set_blanket(
   linetype = 1,
   size = 1.5,
   shape = 21,
-  bordered_colour = function(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
-  bordered_fill = NULL,
-  bordered_linewidth = function(x) x/2.64,
+  stroke = 0.5,
+  border_colour = function(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
+  border_fill = NULL,
+  border_linewidth = function(x) x/2.64,
   col_palette_discrete = scales::pal_hue(),
   col_palette_continuous = viridis_by_theme(n = 256, begin = 0.05, end = 0.95, option =
     "G"),
   col_palette_ordinal = NULL,
+  col_palette_na = "#A6A6A6FF",
   shape_palette_discrete = c(21, 24, 22, 23, 25),
   linetype_palette_discrete = 1:6,
   titles_case = snakecase::to_sentence_case,
@@ -40,17 +42,21 @@ set_blanket(
 
 \item{shape}{A default shape for point geoms. Must be an integer between 0 and 25.}
 
-\item{bordered_colour}{A function with input of \code{col}. Defaults to \verb{(x) col_multiply(x)}. Affects colour as well as colour palette.}
+\item{stroke}{A default stroke for point geoms.}
 
-\item{bordered_fill}{A function with input of \code{col}. Defaults to NA. Affects fill as well as fill palette.}
+\item{border_colour}{A function with input of \code{col}. Defaults to \verb{(x) col_multiply(x)}. Affects colour as well as colour palette.}
 
-\item{bordered_linewidth}{A function with input of \code{linewidth}. Defaults to \(x) x / 2.64.}
+\item{border_fill}{A function with input of \code{col}. Defaults to NA. Affects fill as well as fill palette.}
+
+\item{border_linewidth}{A function with input of \code{linewidth}. Defaults to \(x) x / 2.64.}
 
 \item{col_palette_discrete}{For a discrete colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 
 \item{col_palette_continuous}{For a continuous colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 
 \item{col_palette_ordinal}{For a ordinal colour/fill scale, a \verb{scales::pal_*} function. If NULL, determined from \code{col_palette_continuous}.}
+
+\item{col_palette_na}{A NA colour/fill value.}
 
 \item{shape_palette_discrete}{For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).}
 

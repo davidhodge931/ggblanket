@@ -8,7 +8,7 @@
 #'
 #' @return An updated ggplot2 theme.
 #'
-#' @noRd
+#' @export
 update_geom_col <- function(
     col = "#357BA2FF",
     ...
@@ -26,14 +26,13 @@ update_geom_col <- function(
 #'
 #' @return Updated geom defaults for shape
 #'
-#' @noRd
+#' @export
 update_geom_shape <- function(
     shape = 21,
     ...
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(pointshape = shape))
 }
-
 
 #' Update the linetype
 #'
@@ -45,7 +44,7 @@ update_geom_shape <- function(
 #'
 #' @return An updated ggplot2 theme.
 #'
-#' @noRd
+#' @export
 update_geom_linetype <- function(
     linetype = 1,
     ...
@@ -64,7 +63,7 @@ update_geom_linetype <- function(
 #'
 #' @return An updated ggplot2 theme.
 #'
-#' @noRd
+#' @export
 update_geom_linewidth <- function(
     linewidth = 0.66,
     ...
@@ -83,12 +82,11 @@ update_geom_linewidth <- function(
 #'
 #' @return Updated geom defaults for size
 #'
-#' @noRd
+#' @export
 update_geom_size <- function(
     size = 1.5,
     ...
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(pointsize = size))
 }
-
 

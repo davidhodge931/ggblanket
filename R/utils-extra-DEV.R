@@ -444,9 +444,3 @@ get_plot_titles <- function(
     other_titles
   )
 }
-
-# And remove these old functions:
-# - get_axis_title()
-# - get_col_title()
-# - get_title()
-# - get_titles2()

@@ -7,17 +7,19 @@
 #' @param col_palette_discrete For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_continuous For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_ordinal For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_continuous`.
+#' @param col_palette_na A NA colour/fill value.
 #' @param shape_palette_discrete For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
 #' @param linetype_palette_discrete For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
 #' @param ... Additional arguments (not used).
 #'
 #' @return An updated ggplot2 theme and global options.
 #'
-#' @noRd
+#' @export
 update_geom_palettes <- function(
     col_palette_discrete = scales::pal_hue(),
     col_palette_continuous = viridis_by_theme(n = 256, begin = 0.05, end = 0.95, option = "G"),
     col_palette_ordinal = NULL,
+    col_palette_na = "#A6A6A6FF",
     shape_palette_discrete = c(21, 24, 22, 23, 25),
     linetype_palette_discrete = 1:6,
     ...
@@ -45,35 +47,39 @@ update_geom_palettes <- function(
   options(
     # Ordinal col palette
     ggblanket.col_palette_ordinal = col_palette_ordinal,
+
+    # NA col value
+    ggblanket.col_palette_na = col_palette_na,
+
     # Other palettes
     ggblanket.shape_palette_discrete = shape_palette_discrete,
     ggblanket.linetype_palette_discrete = linetype_palette_discrete
   )
 }
 
-#' Update the border geom defaults
+#' Update the bordered geom defaults
 #'
 #' @description
-#' Sets global options for border geom transformations.
+#' Sets global options for bordered geom transformations.
 #'
 #' @param ... Additional arguments (not used).
-#' @param border_colour A function with input of `col`. Defaults to screen/multiply based on theme.
-#' @param border_fill A function with input of `col`. Defaults to NULL.
-#' @param border_linewidth A function with input of `linewidth`. Defaults to \(x) x / 2.64.
+#' @param bordered_colour A function with input of `col`. Defaults to screen/multiply based on theme.
+#' @param bordered_fill A function with input of `col`. Defaults to NULL.
+#' @param bordered_linewidth A function with input of `linewidth`. Defaults to \(x) x / 2.64.
 #'
-#' @return Global options for border geom styling.
+#' @return Global options for bordered geom styling.
 #'
-#' @noRd
+#' @export
 update_geom_border <- function(
     ...,
-    border_colour = \(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
-    border_fill = NULL,
-    border_linewidth = \(x) x / 2.64
+    bordered_colour = \(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
+    bordered_fill = NULL,
+    bordered_linewidth = \(x) x / 2.64
 ) {
   options(
-    ggblanket.border_colour = border_colour,
-    ggblanket.border_fill = border_fill,
-    ggblanket.border_linewidth = border_linewidth
+    ggblanket.bordered_colour = bordered_colour,
+    ggblanket.bordered_fill = bordered_fill,
+    ggblanket.bordered_linewidth = bordered_linewidth
   )
 }
 
@@ -93,5 +99,4 @@ update_geom_stroke <- function(
     ...
 ) {
   options(ggblanket.stroke = stroke)
-  invisible(getOption("ggblanket.stroke"))
 }

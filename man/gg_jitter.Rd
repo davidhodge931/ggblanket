@@ -32,6 +32,7 @@ gg_jitter(
   linetype = NULL,
   linewidth = NULL,
   size = NULL,
+  stroke = NULL,
   facet = NULL,
   facet2 = NULL,
   group = NULL,
@@ -40,10 +41,10 @@ gg_jitter(
   text = NULL,
   sample = NULL,
   mapping = NULL,
-  bordered = NULL,
-  bordered_colour = NULL,
-  bordered_fill = NULL,
-  bordered_linewidth = NULL,
+  border = NULL,
+  border_colour = NULL,
+  border_fill = NULL,
+  border_linewidth = NULL,
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_expand = NULL,
@@ -73,6 +74,7 @@ gg_jitter(
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_palette = NULL,
+  col_palette_na = NULL,
   col_legend_rev = FALSE,
   col_rescale = scales::rescale(),
   col_scale_type = "gradient",
@@ -121,7 +123,7 @@ gg_jitter(
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} defaults. Intended primarily for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}), but can also be used for delayed evaluation etc.}
 
-\item{bordered}{\code{TRUE} or \code{FALSE} of whether the geom is to be treated as if it has borders.}
+\item{border}{\code{TRUE} or \code{FALSE} of whether the geom is to be treated as if it has borders.}
 
 \item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 

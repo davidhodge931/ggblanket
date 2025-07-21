@@ -37,9 +37,9 @@ gg_tile(
   text = NULL,
   sample = NULL,
   mapping = NULL,
-  bordered_colour = NULL,
-  bordered_fill = NULL,
-  bordered_linewidth = NULL,
+  border_colour = NULL,
+  border_fill = NULL,
+  border_linewidth = NULL,
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_expand = NULL,
@@ -60,7 +60,7 @@ gg_tile(
   y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
   y_transform = NULL,
-  bordered = NULL,
+  border = NULL,
   col_breaks = ggplot2::waiver(),
   col_breaks_n = NULL,
   col_drop = FALSE,
@@ -138,7 +138,7 @@ gg_tile(
 
 \item{x_transform, y_transform, col_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
 
-\item{bordered}{\code{TRUE} or \code{FALSE} of whether the geom is to be treated as if it has borders.}
+\item{border}{\code{TRUE} or \code{FALSE} of whether the geom is to be treated as if it has borders.}
 
 \item{col_drop, facet_drop}{For a discrete variable, FALSE or TRUE of whether to drop unused levels.}
 

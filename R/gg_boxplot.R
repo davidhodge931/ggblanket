@@ -79,7 +79,7 @@ gg_boxplot <- function(
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
-  col_palette = NULL, col_legend_rev = FALSE, 
+  col_palette = NULL, col_palette_na = NULL, col_legend_rev = FALSE, 
 
 
   col_rescale = scales::rescale(),
@@ -155,7 +155,7 @@ gg_boxplot <- function(
     col_labels = col_labels,
     col_legend_ncol = col_legend_ncol,
     col_legend_nrow = col_legend_nrow,
-    col_legend_rev = col_legend_rev,
+    col_legend_rev = col_legend_rev, col_palette = col_palette, col_palette_na = col_palette_na,   
     
 
 

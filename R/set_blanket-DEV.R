@@ -16,6 +16,7 @@
 #' @param col_palette_discrete For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_continuous For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_ordinal For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_continuous`.
+#' @param col_palette_na A NA colour/fill value.
 #' @param shape_palette_discrete For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
 #' @param linetype_palette_discrete For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
 #' @param border_colour A function with input of `col`. Defaults to `(x) col_multiply(x)`. Affects colour as well as colour palette.
@@ -66,6 +67,7 @@ set_blanket <- function(
     col_palette_discrete = scales::pal_hue(),
     col_palette_continuous = viridis_by_theme(n = 256, begin = 0.05, end = 0.95, option = "G"),
     col_palette_ordinal = NULL,
+    col_palette_na = "#A6A6A6FF",
     shape_palette_discrete = c(21, 24, 22, 23, 25),
     linetype_palette_discrete = 1:6,
 
@@ -95,6 +97,7 @@ set_blanket <- function(
     col_palette_discrete = col_palette_discrete,
     col_palette_continuous = col_palette_continuous,
     col_palette_ordinal = col_palette_ordinal,
+    col_palette_na = col_palette_na,
     shape_palette_discrete = shape_palette_discrete,
     linetype_palette_discrete = linetype_palette_discrete
   )
