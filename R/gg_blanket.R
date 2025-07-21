@@ -28,7 +28,7 @@
 #' #' @param x_sec_axis,y_sec_axis A secondary axis with [ggplot2::dup_axis()] or  [ggplot2::sec_axis()] defaults.
 #' #' @param x_symmetric,y_symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #' #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
-#' #' @param col_border `TRUE` or `FALSE` of whether the geom is to be treated as if it has borders.
+#' #' @param border `TRUE` or `FALSE` of whether the geom is to be treated as if it has borders.
 #' #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
 #' #' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
@@ -73,14 +73,14 @@
 #'     yend = NULL,
 #'     z = NULL,
 #'     col = NULL,
-#'     colour = NULL, fill = NULL, shape = NULL, linetype = NULL, facet = NULL,
+#'     colour = NULL, fill = NULL, alpha = NULL, shape = NULL, linetype = NULL, linewidth = NULL, size = NULL, stroke = NULL,facet = NULL,
 #'     facet2 = NULL,
 #'     group = NULL,
 #'     subgroup = NULL,
 #'     label = NULL,
 #'     text = NULL,
 #'     sample = NULL,
-#'     mapping = NULL,
+#'     mapping = NULL, border = NULL, border_colour = NULL, border_fill = NULL, border_linewidth = NULL,
 #'     x_breaks = NULL,
 #'     x_breaks_n = NULL,
 #'     x_expand = NULL,
@@ -101,7 +101,7 @@
 #'     y_sec_axis = ggplot2::waiver(),
 #'     y_symmetric = NULL,
 #'     y_transform = NULL,
-#'     col_border = NULL, col_breaks = ggplot2::waiver(),
+#'      col_breaks = ggplot2::waiver(),
 #'     col_breaks_n = NULL,
 #'     col_drop = FALSE,
 #'     col_limits_include = NULL,
@@ -109,7 +109,7 @@
 #'     col_labels = NULL,
 #'     col_legend_ncol = NULL,
 #'     col_legend_nrow = NULL,
-#'     col_legend_rev = FALSE,
+#'     col_palette = NULL, col_legend_rev = FALSE, 
 #'     col_rescale = scales::rescale(),
 #'     col_scale_type = "gradient",
 #'     col_transform = NULL,
@@ -391,7 +391,7 @@
 #'       plot_data = plot_data,
 #'       plot_build = plot_build,
 #'       x_symmetric = x_symmetric,
-#'       col_border = col_border,
+#'       border = border,
 #'       col_breaks = col_breaks,
 #'       col_breaks_n = col_breaks_n,
 #'       col_drop = col_drop,

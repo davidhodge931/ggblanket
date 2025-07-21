@@ -25,8 +25,13 @@ gg_histogram(
   yend = NULL,
   z = NULL,
   col = NULL,
+  colour = NULL,
+  fill = NULL,
+  alpha = NULL,
   shape = NULL,
   linetype = NULL,
+  linewidth = NULL,
+  size = NULL,
   facet = NULL,
   facet2 = NULL,
   group = NULL,
@@ -35,6 +40,10 @@ gg_histogram(
   text = NULL,
   sample = NULL,
   mapping = NULL,
+  bordered = NULL,
+  bordered_colour = NULL,
+  bordered_fill = NULL,
+  bordered_linewidth = NULL,
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_expand = NULL,
@@ -55,7 +64,6 @@ gg_histogram(
   y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
   y_transform = NULL,
-  col_border = NULL,
   col_breaks = ggplot2::waiver(),
   col_breaks_n = NULL,
   col_drop = FALSE,
@@ -64,6 +72,7 @@ gg_histogram(
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
+  col_palette = NULL,
   col_legend_rev = FALSE,
   col_rescale = scales::rescale(),
   col_scale_type = "gradient",
@@ -112,6 +121,8 @@ gg_histogram(
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} defaults. Intended primarily for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}), but can also be used for delayed evaluation etc.}
 
+\item{bordered}{\code{TRUE} or \code{FALSE} of whether the geom is to be treated as if it has borders.}
+
 \item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 
 \item{x_breaks_n, y_breaks_n, col_breaks_n}{A number of desired breaks.}
@@ -131,8 +142,6 @@ gg_histogram(
 \item{x_symmetric, y_symmetric}{\code{TRUE} or \code{FALSE} of whether a symmetric scale.}
 
 \item{x_transform, y_transform, col_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
-
-\item{col_border}{\code{TRUE} or \code{FALSE} of whether the geom is to be treated as if it has borders.}
 
 \item{col_drop, facet_drop}{For a discrete variable, FALSE or TRUE of whether to drop unused levels.}
 

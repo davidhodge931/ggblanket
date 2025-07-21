@@ -37,11 +37,11 @@ guides_shape_grey <- function(col = "#8991A1", ...) {
   # If shape is fillable (21-25), adjust colour and use col for fill
   if (!is.null(shape) && shape %in% 21:25) {
     if (is_theme_dark(theme = current_theme)) {
-      col_border <- col_screen(col)
+      border <- col_screen(col)
     } else {
-      col_border <- col_multiply(col)
+      border <- col_multiply(col)
     }
-    override_aes <- list(colour = col_border, fill = col)
+    override_aes <- list(colour = border, fill = col)
   } else {
     # Otherwise just use normal colour
     override_aes <- list(colour = col)
@@ -77,11 +77,11 @@ guides_size_grey <- function(col = "#8991A1", ...) {
   # If shape is fillable (21-25), adjust colour and use col for fill
   if (!is.null(shape) && shape %in% 21:25) {
     if (is_theme_dark(theme = current_theme)) {
-      col_border <- col_screen(col)
+      border <- col_screen(col)
     } else {
-      col_border <- col_multiply(col)
+      border <- col_multiply(col)
     }
-    override_aes <- list(colour = col_border, fill = col)
+    override_aes <- list(colour = border, fill = col)
   } else {
     # Otherwise just use normal colour
     override_aes <- list(colour = col)

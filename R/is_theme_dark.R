@@ -20,12 +20,11 @@ is_theme_dark <- function(theme = NULL, element = "panel_background") {
 
   # Get panel background colour from theme
   if (element == "panel_background") {
-    col <- theme$panel.background$fill %||% "white"
+    col <- ggplot2::calc_element(theme = theme, element = "panel.background")$fill
   }
   else if (element == "plot_background") {
-    col <- theme$panel.background$fill %||% "white"
+    col <- ggplot2::calc_element(theme = theme, element = "plot.background")$fill
   }
-  else rlang::abort("element must be either panel_background or plot_background")
 
   # Use is_col_dark to check if the panel colour is dark
   is_col_dark(col)
