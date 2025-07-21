@@ -710,31 +710,31 @@ add_y_scale_continuous <- function(
   }
 }
 
-#' Get axis title
-#' @noRd
-get_axis_title <- function(data, aes_quo, build_label, titles_case, stat, axis) {
-  if (stringr::str_detect(stat, "sf")) {
-    return("")
-  }
-
-  get_title(
-    data, aes_quo, build_label,
-    titles_case,
-    purrr::map_chr(axis, titles_case)
-  )
-}
+#' #' Get axis title
+#' #' @noRd
+#' get_axis_title <- function(data, aes_quo, build_label, titles_case, stat, axis) {
+#'   if (stringr::str_detect(stat, "sf")) {
+#'     return("")
+#'   }
+#'
+#'   get_title(
+#'     data, aes_quo, build_label,
+#'     titles_case,
+#'     purrr::map_chr(axis, titles_case)
+#'   )
+#' }
 
 #' Get color title
 #' @noRd
-get_col_title <- function(data, col_quo, labels, titles_case) {
-  if (!is.null(labels$colour)) {
-    get_title(data, col_quo, labels$colour, titles_case, NULL)
-  } else if (!is.null(labels$fill)) {
-    get_title(data, col_quo, labels$fill, titles_case, NULL)
-  } else {
-    NULL
-  }
-}
+# get_col_title <- function(data, col_quo, labels, titles_case) {
+#   if (!is.null(labels$colour)) {
+#     get_title(data, col_quo, labels$colour, titles_case, NULL)
+#   } else if (!is.null(labels$fill)) {
+#     get_title(data, col_quo, labels$fill, titles_case, NULL)
+#   } else {
+#     NULL
+#   }
+# }
 
 #' #' Add color scales
 #' #' @noRd
@@ -1593,50 +1593,50 @@ scale_y_symmetric <- function(
   return(scale)
 }
 
-# Title extraction functions ----
-
-#' Extract title with fallback
-#' @noRd
-get_title <- function(data, aes_quo, build_title, titles_case, default = NULL) {
-  # Try to get label attribute from data
-  if (!rlang::quo_is_null(aes_quo)) {
-    data_col <- dplyr::pull(data, !!aes_quo)
-    label_attr <- attr(data_col, "label")
-    if (!is.null(label_attr)) {
-      return(label_attr)
-    }
-  }
-
-  # Try to get from build title
-  if (!is.null(build_title)) {
-    return(purrr::map_chr(rlang::as_name(build_title[1]), titles_case))
-  }
-
-  # Return default
-  default
-}
-
-#' Extract titles for other aesthetics
-#' @noRd
-get_titles2 <- function(plot_build, col_title, titles_case) {
-  aesthetics <- c("alpha", "shape", "size", "linewidth", "linetype", "alpha", "pattern")
-
-  aesthetics |>
-    purrr::set_names() |>
-    purrr::map(\(aes) {
-      label <- plot_build$plot$labels[[aes]]
-      if (is.null(label)) {
-        return(NULL)
-      }
-
-      if (is_aes_identical_to_col(plot_build, aes)) {
-        col_title
-      } else {
-        purrr::map_chr(rlang::as_name(label[1]), titles_case)
-      }
-    }) |>
-    purrr::set_names(paste0, "_title")
-}
+#' # Title extraction functions ----
+#'
+#' #' Extract title with fallback
+#' #' @noRd
+#' get_title <- function(data, aes_quo, build_title, titles_case, default = NULL) {
+#'   # Try to get label attribute from data
+#'   if (!rlang::quo_is_null(aes_quo)) {
+#'     data_col <- dplyr::pull(data, !!aes_quo)
+#'     label_attr <- attr(data_col, "label")
+#'     if (!is.null(label_attr)) {
+#'       return(label_attr)
+#'     }
+#'   }
+#'
+#'   # Try to get from build title
+#'   if (!is.null(build_title)) {
+#'     return(purrr::map_chr(rlang::as_name(build_title[1]), titles_case))
+#'   }
+#'
+#'   # Return default
+#'   default
+#' }
+#'
+#' #' Extract titles for other aesthetics
+#' #' @noRd
+#' get_titles2 <- function(plot_build, col_title, titles_case) {
+#'   aesthetics <- c("alpha", "shape", "size", "linewidth", "linetype", "alpha", "pattern")
+#'
+#'   aesthetics |>
+#'     purrr::set_names() |>
+#'     purrr::map(\(aes) {
+#'       label <- plot_build$plot$labels[[aes]]
+#'       if (is.null(label)) {
+#'         return(NULL)
+#'       }
+#'
+#'       if (is_aes_identical_to_col(plot_build, aes)) {
+#'         col_title
+#'       } else {
+#'         purrr::map_chr(rlang::as_name(label[1]), titles_case)
+#'       }
+#'     }) |>
+#'     purrr::set_names(paste0, "_title")
+#' }
 
 # Theme modification functions ----
 

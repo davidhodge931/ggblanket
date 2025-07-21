@@ -351,3 +351,102 @@ is_border <- function(geom, theme_defaults) {
 
   return(is_border)
 }
+
+# Title extraction functions ----
+
+#' Get title for an aesthetic
+#' @description Extracts title from data label attribute, build label, or applies titles_case
+#' @noRd
+get_aes_title <- function(data, aes_quo, build_label, titles_case, default = NULL) {
+  # Priority 1: Check for label attribute in data column
+  if (!rlang::quo_is_null(aes_quo)) {
+    data_col <- dplyr::pull(data, !!aes_quo)
+    label_attr <- attr(data_col, "label")
+    if (!is.null(label_attr)) {
+      return(label_attr)
+    }
+  }
+
+  # Priority 2: Use build label with titles_case
+  if (!is.null(build_label)) {
+    return(titles_case(rlang::as_name(build_label[1])))
+  }
+
+  # Priority 3: Return default
+  default
+}
+
+#' Get all titles for a plot
+#' @description Centralizes all title extraction logic
+#' @noRd
+get_plot_titles <- function(
+    data, aes_list, plot_build, titles_case, stat,
+    x_title = NULL, y_title = NULL, col_title = NULL
+) {
+  # Get x and y titles
+  if (stringr::str_detect(stat, "sf")) {
+    # SF plots don't need axis titles
+    x_title <- x_title %||% ""
+    y_title <- y_title %||% ""
+  } else {
+    x_title <- x_title %||% get_aes_title(
+      data, aes_list$x, plot_build$plot$labels$x,
+      titles_case, titles_case("x")
+    )
+
+    y_title <- y_title %||% get_aes_title(
+      data, aes_list$y, plot_build$plot$labels$y,
+      titles_case, titles_case("y")
+    )
+  }
+
+  # Get col title (handles both colour and fill)
+  if (is.null(col_title)) {
+    if (!is.null(plot_build$plot$labels$colour)) {
+      col_title <- get_aes_title(
+        data, aes_list$col, plot_build$plot$labels$colour,
+        titles_case, NULL
+      )
+    } else if (!is.null(plot_build$plot$labels$fill)) {
+      col_title <- get_aes_title(
+        data, aes_list$col, plot_build$plot$labels$fill,
+        titles_case, NULL
+      )
+    }
+  }
+
+  # Get other aesthetic titles
+  other_aesthetics <- c("alpha", "shape", "size", "linewidth", "linetype", "stroke", "pattern")
+  other_titles <- list()
+
+  for (aes in other_aesthetics) {
+    label <- plot_build$plot$labels[[aes]]
+    if (!is.null(label)) {
+      # Check if this aesthetic is identical to col
+      if (is_aes_identical_to_col(plot_build, aes)) {
+        other_titles[[paste0(aes, "_title")]] <- col_title
+      } else {
+        other_titles[[paste0(aes, "_title")]] <- titles_case(rlang::as_name(label[1]))
+      }
+    } else {
+      other_titles[[paste0(aes, "_title")]] <- NULL
+    }
+  }
+
+  # Return all titles
+  c(
+    list(
+      x = x_title,
+      y = y_title,
+      colour = col_title,
+      fill = col_title
+    ),
+    other_titles
+  )
+}
+
+# And remove these old functions:
+# - get_axis_title()
+# - get_col_title()
+# - get_title()
+# - get_titles2()

@@ -802,40 +802,70 @@ gg_blanket <- function(
       )
   }
 
+  # # Step 22: Get titles
+  # x_title <- x_title %||% get_axis_title(
+  #   data, aes_list$x, plot_build$plot$labels$x,
+  #   titles_case, stat, "x"
+  # )
+  #
+  # y_title <- y_title %||% get_axis_title(
+  #   data, aes_list$y, plot_build$plot$labels$y,
+  #   titles_case, stat, "y"
+  # )
+  #
+  # if (is.null(col_title)) {
+  #   col_title <- get_col_title(
+  #     data, aes_list$col, plot_build$plot$labels,
+  #     titles_case
+  #   )
+  # }
+  #
+  # # Get labels for other aesthetics
+  # other_titles <- get_titles2(plot_build, col_title, titles_case)
+  #
+  # # Apply labels
+  # plot <- plot +
+  #   ggplot2::labs(
+  #     x = x_title,
+  #     y = y_title,
+  #     colour = col_title,
+  #     fill = col_title,
+  #     alpha = other_titles$alpha_title,
+  #     shape = other_titles$shape_title,
+  #     size = other_titles$size_title,
+  #     linewidth = other_titles$linewidth_title,
+  #     linetype = other_titles$linetype_title,
+  #     pattern = other_titles$pattern_title,
+  #     title = title,
+  #     subtitle = subtitle,
+  #     caption = caption
+  #   )
+
   # Step 22: Get titles
-  x_title <- x_title %||% get_axis_title(
-    data, aes_list$x, plot_build$plot$labels$x,
-    titles_case, stat, "x"
+  all_titles <- get_plot_titles(
+    data = data,
+    aes_list = aes_list,
+    plot_build = plot_build,
+    titles_case = titles_case,
+    stat = stat,
+    x_title = x_title,
+    y_title = y_title,
+    col_title = col_title
   )
-
-  y_title <- y_title %||% get_axis_title(
-    data, aes_list$y, plot_build$plot$labels$y,
-    titles_case, stat, "y"
-  )
-
-  if (is.null(col_title)) {
-    col_title <- get_col_title(
-      data, aes_list$col, plot_build$plot$labels,
-      titles_case
-    )
-  }
-
-  # Get labels for other aesthetics
-  other_titles <- get_titles2(plot_build, col_title, titles_case)
 
   # Apply labels
   plot <- plot +
     ggplot2::labs(
-      x = x_title,
-      y = y_title,
-      colour = col_title,
-      fill = col_title,
-      alpha = other_titles$alpha_title,
-      shape = other_titles$shape_title,
-      size = other_titles$size_title,
-      linewidth = other_titles$linewidth_title,
-      linetype = other_titles$linetype_title,
-      pattern = other_titles$pattern_title,
+      x = all_titles$x,
+      y = all_titles$y,
+      colour = all_titles$colour,
+      fill = all_titles$fill,
+      alpha = all_titles$alpha_title,
+      shape = all_titles$shape_title,
+      size = all_titles$size_title,
+      linewidth = all_titles$linewidth_title,
+      linetype = all_titles$linetype_title,
+      pattern = all_titles$pattern_title,
       title = title,
       subtitle = subtitle,
       caption = caption
