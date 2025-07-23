@@ -52,7 +52,7 @@
 #' #' @return A ggplot object.
 #' #' @export
 #' gg_blanket <- function(
-    #'     data = NULL,
+#'     data = NULL,
 #'     ...,
 #'     geom = "blank",
 #'     stat = "identity",
@@ -109,7 +109,7 @@
 #'     col_labels = NULL,
 #'     col_legend_ncol = NULL,
 #'     col_legend_nrow = NULL,
-#'     col_palette = NULL, col_palette_na = NULL, col_legend_rev = FALSE,
+#'     col_legend_rev = FALSE, col_palette = NULL, col_palette_na = NULL,
 #'     col_rescale = scales::rescale(),
 #'     col_scale_type = "gradient",
 #'     col_transform = NULL,
@@ -375,43 +375,7 @@
 #'   if (!rlang::is_null(y_transform)) y_transform <- extract_transform_name(y_transform)
 #'   if (!rlang::is_null(col_transform)) col_transform <- extract_transform_name(col_transform)
 #'
-#'   # # Update mapping for specific geoms
-#'   # if (stat %in% c("bin2d", "binhex")) {
-#'   #   default_colour <- ggplot2::aes(colour = ggplot2::after_stat(.data$count))
-#'   #   if (is.null(mapping)) {
-#'   #     mapping <- default_colour
-#'   #   } else {
-#'   #     has_colour <- "colour" %in% names(mapping)
-#'   #     has_fill <- "fill" %in% names(mapping)
-#'   #
-#'   #     if (!has_colour && !has_fill) {
-#'   #       mapping <- utils::modifyList(mapping, default_colour)
-#'   #     } else if (has_colour && !has_fill) {
-#'   #       mapping$fill <- mapping$colour
-#'   #     } else if (!has_colour && has_fill) {
-#'   #       mapping$colour <- mapping$fill
-#'   #     }
-#'   #   }
-#'   # }
-#'   #
-#'   # if (stat %in% c("contour_filled", "density2d_filled")) {
-#'   #   default_colour <- ggplot2::aes(colour = ggplot2::after_stat(.data$level))
-#'   #   if (is.null(mapping)) {
-#'   #     mapping <- default_colour
-#'   #   } else {
-#'   #     has_colour <- "colour" %in% names(mapping)
-#'   #     has_fill <- "fill" %in% names(mapping)
-#'   #
-#'   #     if (!has_colour && !has_fill) {
-#'   #       mapping <- utils::modifyList(mapping, default_colour)
-#'   #     } else if (has_colour && !has_fill) {
-#'   #       mapping$fill <- mapping$colour
-#'   #     } else if (!has_colour && has_fill) {
-#'   #       mapping$colour <- mapping$fill
-#'   #     }
-#'   #   }
-#'   # }
-#'
+#'   # Update mapping for specific geoms# if (stat %in% c("bin2d", "binhex")) {#   default_colour <- ggplot2::aes(colour = ggplot2::after_stat(.data$count))#   if (is.null(mapping)) {#     mapping <- default_colour#   } else {#     has_colour <- "colour" %in% names(mapping)#     has_fill <- "fill" %in% names(mapping)##     if (!has_colour && !has_fill) {#       mapping <- utils::modifyList(mapping, default_colour)#     } else if (has_colour && !has_fill) {#       mapping$fill <- mapping$colour#     } else if (!has_colour && has_fill) {#       mapping$colour <- mapping$fill#     }#   }# }## if (stat %in% c("contour_filled", "density2d_filled")) {#   default_colour <- ggplot2::aes(colour = ggplot2::after_stat(.data$level))#   if (is.null(mapping)) {#     mapping <- default_colour#   } else {#     has_colour <- "colour" %in% names(mapping)#     has_fill <- "fill" %in% names(mapping)##     if (!has_colour && !has_fill) {#       mapping <- utils::modifyList(mapping, default_colour)#     } else if (has_colour && !has_fill) {#       mapping$fill <- mapping$colour#     } else if (!has_colour && has_fill) {#       mapping$colour <- mapping$fill#     }#   }# }
 #'   # Step 4: Determine scale types
 #'   # Create initial plot to determine scale types
 #'   plot <- initialise_ggplot(
@@ -585,7 +549,7 @@
 #'   #     col_labels = col_labels,
 #'   #     col_legend_ncol = col_legend_ncol,
 #'   #     col_legend_nrow = col_legend_nrow,
-#'   #     col_legend_rev = col_legend_rev, col_palette = col_palette, col_palette_na = col_palette_na,   
+#'   #     col_legend_rev = col_legend_rev, col_palette = col_palette, col_palette_na = col_palette_na,
 #'   #     col_rescale = col_rescale,
 #'   #     col_scale_type = col_scale_type,
 #'   #     col_transform = col_transform,

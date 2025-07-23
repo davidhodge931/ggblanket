@@ -78,7 +78,7 @@ gg_freqpoly <- function(
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
-  col_palette = NULL, col_palette_na = NULL, col_legend_rev = FALSE, 
+  col_legend_rev = FALSE, col_palette = NULL, col_palette_na = NULL,  
   
   
   col_rescale = scales::rescale(),
