@@ -469,7 +469,23 @@ add_facet_by_layout <- function(
 
 #' Calculate number of colors needed
 #' @noRd
-get_col_n <- function(aes_list, data, plot_data) {
+get_col_n <- function(aes_list, data, plot_data, stat = NULL) {
+  # Special handling for contour_filled and density2d_filled
+  if (!is.null(stat) && stat %in% c("contour_filled", "density2d_filled")) {
+    # For contour plots, check if there's a 'level' column in plot_data
+    if ("level" %in% names(plot_data)) {
+      level_data <- plot_data$level
+      if (is.factor(level_data)) {
+        return(length(levels(level_data)))
+      } else {
+        return(length(unique(level_data[!is.na(level_data)])))
+      }
+    }
+    # If no level column yet, use a reasonable default
+    # (contour_filled typically creates about 7-9 levels by default)
+    return(9)
+  }
+
   # Get factor levels if col is a factor
   col_n_factor <- if (!rlang::quo_is_null(aes_list$col)) {
     col_data <- rlang::eval_tidy(aes_list$col, data)
@@ -492,6 +508,9 @@ get_col_n <- function(aes_list, data, plot_data) {
   # Return maximum
   max(col_n_factor, colour_n, fill_n, na.rm = TRUE)
 }
+
+
+
 
 #' Check if aesthetic matches colour
 #' @noRd
@@ -1428,7 +1447,7 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
 #' Add color scales
 #' @noRd
 add_col_scale <- function(
-    plot, geom, col_scale_class, border, aes_list, data, plot_data,
+    plot, geom, stat = NULL, col_scale_class, border, aes_list, data, plot_data,
     plot_build, x_symmetric, col_breaks, col_breaks_n, col_drop,
     col_limits_include, col_labels, col_legend_ncol, col_legend_nrow,
     col_legend_rev, col_rescale, col_scale_type, col_transform,
@@ -1464,14 +1483,15 @@ add_col_scale <- function(
       colour_palette_discrete, fill_palette_discrete,
       na_colour, na_fill,
       col_breaks, col_labels, col_drop, col_legend_ncol,
-      col_legend_nrow, col_legend_rev, x_symmetric
+      col_legend_nrow, col_legend_rev, x_symmetric, plot_build,
+      stat = stat
     )
   } else if (col_scale_class %in% c("continuous", "date", "datetime", "time")) {
     plot <- add_col_scale_continuous(
       plot, colour_palette_continuous, fill_palette_continuous,
       na_colour, na_fill, border, col_breaks, col_breaks_n,
       col_labels, col_legend_rev, col_rescale, col_scale_type,
-      col_transform
+      col_transform, aes_list, plot_build
     )
   } else if (col_scale_class == "ordinal") {
     plot <- add_col_scale_ordinal(
@@ -1479,7 +1499,8 @@ add_col_scale <- function(
       colour_palette_ordinal, fill_palette_ordinal,
       na_colour, na_fill,
       col_breaks, col_labels, col_drop, col_legend_ncol,
-      col_legend_nrow, col_legend_rev
+      col_legend_nrow, col_legend_rev, plot_build,
+      stat = stat
     )
   }
 
@@ -1500,6 +1521,48 @@ add_col_scale <- function(
   plot
 }
 
+#' Calculate number of colors needed
+#' @noRd
+get_col_n <- function(aes_list, data, plot_data, stat = NULL) {
+  # Special handling for contour_filled and density2d_filled
+  if (!is.null(stat) && stat %in% c("contour_filled", "density2d_filled")) {
+    # For contour plots, check if there's a 'level' column in plot_data
+    if ("level" %in% names(plot_data)) {
+      level_data <- plot_data$level
+      if (is.factor(level_data)) {
+        return(length(levels(level_data)))
+      } else {
+        return(length(unique(level_data[!is.na(level_data)])))
+      }
+    }
+    # If no level column yet, use a reasonable default
+    # (contour_filled typically creates about 7-9 levels by default)
+    return(9)
+  }
+
+  # Get factor levels if col is a factor
+  col_n_factor <- if (!rlang::quo_is_null(aes_list$col)) {
+    col_data <- rlang::eval_tidy(aes_list$col, data)
+    if (is.factor(col_data)) length(levels(col_data)) else NA
+  } else {
+    NA
+  }
+
+  # Count distinct colors in plot data
+  colour_n <- plot_data |>
+    dplyr::select(tidyselect::any_of("colour")) |>
+    dplyr::filter(.data$colour != "grey50") |>
+    dplyr::n_distinct()
+
+  fill_n <- plot_data |>
+    dplyr::select(tidyselect::any_of("fill")) |>
+    dplyr::filter(.data$fill != "grey50") |>
+    dplyr::n_distinct()
+
+  # Return maximum
+  max(col_n_factor, colour_n, fill_n, na.rm = TRUE)
+}
+
 #' Add discrete color scale
 #' @noRd
 add_col_scale_discrete <- function(
@@ -1507,10 +1570,11 @@ add_col_scale_discrete <- function(
     colour_palette, fill_palette,
     na_colour, na_fill,
     col_breaks, col_labels, col_drop, col_legend_ncol,
-    col_legend_nrow, col_legend_rev, x_symmetric
+    col_legend_nrow, col_legend_rev, x_symmetric, plot_build,
+    stat = NULL
 ) {
   # Calculate number of colors needed
-  col_n <- get_col_n(aes_list, data, plot_data)
+  col_n <- get_col_n(aes_list, data, plot_data, stat)
 
   # Process palettes
   colour_palette_processed <- process_discrete_palette(
@@ -1580,21 +1644,307 @@ add_col_scale_discrete <- function(
     }
   }
 
-  # Add guides
-  plot +
-    ggplot2::guides(
-      colour = ggplot2::guide_legend(
-        reverse = col_legend_rev,
-        ncol = col_legend_ncol,
-        nrow = col_legend_nrow
-      ),
-      fill = ggplot2::guide_legend(
+  # Check if colour and fill map to the same variable using plot object
+  same_mapping <- check_same_colour_fill_mapping(plot)
+
+  if (same_mapping) {
+    # Same variable mapped to both - typically show both for discrete
+    plot <- plot +
+      ggplot2::guides(
+        colour = ggplot2::guide_legend(
+          reverse = col_legend_rev,
+          ncol = col_legend_ncol,
+          nrow = col_legend_nrow
+        ),
+        fill = ggplot2::guide_legend(
+          reverse = col_legend_rev,
+          ncol = col_legend_ncol,
+          nrow = col_legend_nrow
+        )
+      )
+  } else {
+    # Different variables or only one is mapped - show appropriate guides
+    plot_mapping <- plot$mapping
+    has_colour_mapping <- !is.null(plot_mapping$colour)
+    has_fill_mapping <- !is.null(plot_mapping$fill)
+
+    guide_list <- list()
+
+    if (has_colour_mapping) {
+      guide_list$colour <- ggplot2::guide_legend(
         reverse = col_legend_rev,
         ncol = col_legend_ncol,
         nrow = col_legend_nrow
       )
-    )
+    }
+
+    if (has_fill_mapping) {
+      guide_list$fill <- ggplot2::guide_legend(
+        reverse = col_legend_rev,
+        ncol = col_legend_ncol,
+        nrow = col_legend_nrow
+      )
+    }
+
+    if (length(guide_list) > 0) {
+      plot <- plot + do.call(ggplot2::guides, guide_list)
+    }
+  }
+
+  plot
 }
+
+#' Add ordinal color scale
+#' @noRd
+add_col_scale_ordinal <- function(
+    plot, aes_list, data, plot_data,
+    colour_palette, fill_palette,
+    na_colour, na_fill,
+    col_breaks, col_labels, col_drop, col_legend_ncol,
+    col_legend_nrow, col_legend_rev, plot_build,
+    stat = NULL
+) {
+  # Calculate number of colors needed
+  col_n <- get_col_n(aes_list, data, plot_data, stat)
+
+  # Always reverse legend for ordinal
+  col_legend_rev <- !col_legend_rev
+
+  # Create wrapper functions for ordinal scales
+  if (is.function(colour_palette)) {
+    colour_palette_discrete <- create_ordinal_palette_wrapper(colour_palette)
+
+    plot <- plot +
+      ggplot2::discrete_scale(
+        aesthetics = "colour",
+        palette = colour_palette_discrete,
+        breaks = col_breaks,
+        labels = col_labels,
+        na.value = na_colour,
+        drop = col_drop
+      )
+  }
+
+  if (is.function(fill_palette)) {
+    fill_palette_discrete <- create_ordinal_palette_wrapper(fill_palette)
+
+    plot <- plot +
+      ggplot2::discrete_scale(
+        aesthetics = "fill",
+        palette = fill_palette_discrete,
+        breaks = col_breaks,
+        labels = col_labels,
+        na.value = na_fill,
+        drop = col_drop
+      )
+  }
+
+  # Check if colour and fill map to the same variable using plot object
+  same_mapping <- check_same_colour_fill_mapping(plot)
+
+  if (same_mapping) {
+    # Same variable mapped to both - show both guides for ordinal
+    # (unlike continuous, we typically want to show both for ordinal scales)
+    plot <- plot +
+      ggplot2::guides(
+        colour = ggplot2::guide_legend(
+          reverse = col_legend_rev,
+          ncol = col_legend_ncol,
+          nrow = col_legend_nrow
+        ),
+        fill = ggplot2::guide_legend(
+          reverse = col_legend_rev,
+          ncol = col_legend_ncol,
+          nrow = col_legend_nrow
+        )
+      )
+  } else {
+    # Different variables or only one is mapped - show appropriate guides
+    plot_mapping <- plot$mapping
+    has_colour_mapping <- !is.null(plot_mapping$colour)
+    has_fill_mapping <- !is.null(plot_mapping$fill)
+
+    guide_list <- list()
+
+    if (has_colour_mapping) {
+      guide_list$colour <- ggplot2::guide_legend(
+        reverse = col_legend_rev,
+        ncol = col_legend_ncol,
+        nrow = col_legend_nrow
+      )
+    }
+
+    if (has_fill_mapping) {
+      guide_list$fill <- ggplot2::guide_legend(
+        reverse = col_legend_rev,
+        ncol = col_legend_ncol,
+        nrow = col_legend_nrow
+      )
+    }
+
+    if (length(guide_list) > 0) {
+      plot <- plot + do.call(ggplot2::guides, guide_list)
+    }
+  }
+
+  plot
+}
+
+#' Add continuous color scale
+#' @noRd
+add_col_scale_continuous <- function(
+    plot, colour_palette, fill_palette,
+    na_colour, na_fill, border, col_breaks, col_breaks_n,
+    col_labels, col_legend_rev, col_rescale, col_scale_type,
+    col_transform, aes_list, plot_build
+) {
+  # Process palette functions to get color vectors
+  colour_palette_values <- process_continuous_palette(colour_palette)
+  fill_palette_values <- process_continuous_palette(fill_palette)
+
+  # Apply scales
+  if (col_scale_type == "gradient") {
+    plot <- plot +
+      ggplot2::scale_colour_gradientn(
+        colours = colour_palette_values,
+        values = col_rescale,
+        breaks = col_breaks,
+        n.breaks = col_breaks_n,
+        labels = col_labels,
+        transform = col_transform,
+        oob = scales::oob_keep,
+        na.value = na_colour
+      ) +
+      ggplot2::scale_fill_gradientn(
+        colours = fill_palette_values,
+        values = col_rescale,
+        breaks = col_breaks,
+        n.breaks = col_breaks_n,
+        labels = col_labels,
+        transform = col_transform,
+        oob = scales::oob_keep,
+        na.value = na_fill
+      )
+
+    # Check if colour and fill map to the same variable
+    same_mapping <- check_same_colour_fill_mapping(plot)
+
+    if (same_mapping) {
+      # Same variable mapped to both - hide one guide
+      if (border) {
+        plot <- plot +
+          ggplot2::guides(
+            colour = ggplot2::guide_none(),
+            fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
+          )
+      } else {
+        plot <- plot +
+          ggplot2::guides(
+            colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
+            fill = ggplot2::guide_none()
+          )
+      }
+    } else {
+      # Different variables or only one is mapped - show appropriate guides
+      plot_mapping <- plot$mapping
+      has_colour_mapping <- !is.null(plot_mapping$colour)
+      has_fill_mapping <- !is.null(plot_mapping$fill)
+
+      guide_list <- list()
+
+      if (has_colour_mapping) {
+        guide_list$colour <- ggplot2::guide_colourbar(reverse = col_legend_rev)
+      }
+
+      if (has_fill_mapping) {
+        guide_list$fill <- ggplot2::guide_colourbar(reverse = col_legend_rev)
+      }
+
+      if (length(guide_list) > 0) {
+        plot <- plot + do.call(ggplot2::guides, guide_list)
+      }
+    }
+
+  } else if (col_scale_type == "steps") {
+    plot <- plot +
+      ggplot2::scale_colour_stepsn(
+        colours = colour_palette_values,
+        values = col_rescale,
+        breaks = col_breaks,
+        n.breaks = col_breaks_n,
+        labels = col_labels,
+        transform = col_transform,
+        oob = scales::oob_keep,
+        na.value = na_colour
+      ) +
+      ggplot2::scale_fill_stepsn(
+        colours = fill_palette_values,
+        values = col_rescale,
+        breaks = col_breaks,
+        n.breaks = col_breaks_n,
+        labels = col_labels,
+        transform = col_transform,
+        oob = scales::oob_keep,
+        na.value = na_fill
+      )
+
+    # Check if colour and fill map to the same variable
+    same_mapping <- check_same_colour_fill_mapping(plot)
+
+    if (same_mapping) {
+      # Same variable mapped to both - hide one guide
+      if (border) {
+        plot <- plot +
+          ggplot2::guides(
+            colour = ggplot2::guide_none(),
+            fill = ggplot2::guide_coloursteps(
+              reverse = col_legend_rev,
+              theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+            )
+          )
+      } else {
+        plot <- plot +
+          ggplot2::guides(
+            colour = ggplot2::guide_coloursteps(
+              reverse = col_legend_rev,
+              theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+            ),
+            fill = ggplot2::guide_none()
+          )
+      }
+    } else {
+      # Different variables or only one is mapped - show appropriate guides
+      plot_mapping <- plot$mapping
+      has_colour_mapping <- !is.null(plot_mapping$colour)
+      has_fill_mapping <- !is.null(plot_mapping$fill)
+
+      guide_list <- list()
+
+      if (has_colour_mapping) {
+        guide_list$colour <- ggplot2::guide_coloursteps(
+          reverse = col_legend_rev,
+          theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+        )
+      }
+
+      if (has_fill_mapping) {
+        guide_list$fill <- ggplot2::guide_coloursteps(
+          reverse = col_legend_rev,
+          theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+        )
+      }
+
+      if (length(guide_list) > 0) {
+        plot <- plot + do.call(ggplot2::guides, guide_list)
+      }
+    }
+  }
+
+  plot
+}
+
+
+
 
 
 is_border <- function(geom, theme_defaults) {
@@ -1718,7 +2068,7 @@ get_plot_titles <- function(
 #' Add color scales
 #' @noRd
 add_col_scale <- function(
-    plot, geom, col_scale_class, border, aes_list, data, plot_data,
+    plot, stat = NULL, geom, col_scale_class, border, aes_list, data, plot_data,
     plot_build, x_symmetric, col_breaks, col_breaks_n, col_drop,
     col_limits_include, col_labels, col_legend_ncol, col_legend_nrow,
     col_legend_rev, col_rescale, col_scale_type, col_transform,

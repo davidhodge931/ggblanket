@@ -667,6 +667,7 @@ gg_blanket <- function(
     plot <- add_col_scale(
       plot = plot,
       geom = geom,
+      stat = stat,  # Add stat parameter here
       col_scale_class = col_scale_class,
       aes_list = aes_list,
       data = data,
