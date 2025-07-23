@@ -32,8 +32,7 @@ test_that("disc_col_trans", {
 test_that("disc_sep_col_fill", {
   # Test with separate colour_palette_d and fill_palette_d
   set_blanket(
-    colour_palette_d = scales::col_darker(scales::pal_hue(h.start = 15)),
-    fill_palette_d = scales::col_lighter(scales::pal_hue(h.start = 15))
+    col_palette_d = scales::col_darker(scales::pal_hue(h.start = 15)),
   )
 
   expect_doppelganger("disc_dark_light_jit",

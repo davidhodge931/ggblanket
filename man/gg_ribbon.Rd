@@ -37,7 +37,7 @@ gg_ribbon(
   text = NULL,
   sample = NULL,
   mapping = NULL,
-  border_colourer = NULL,
+  border_colour = NULL,
   border_fill = NULL,
   border_linewidth = NULL,
   x_breaks = NULL,
@@ -60,6 +60,7 @@ gg_ribbon(
   y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
   y_transform = NULL,
+  border = NULL,
   col_breaks = ggplot2::waiver(),
   col_breaks_n = NULL,
   col_drop = FALSE,
@@ -68,9 +69,9 @@ gg_ribbon(
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
+  col_legend_rev = FALSE,
   col_palette = NULL,
   col_palette_na = NULL,
-  col_legend_rev = FALSE,
   col_rescale = scales::rescale(),
   col_scale_type = "gradient",
   col_transform = NULL,
@@ -137,6 +138,8 @@ gg_ribbon(
 \item{x_symmetric, y_symmetric}{\code{TRUE} or \code{FALSE} of whether a symmetric scale.}
 
 \item{x_transform, y_transform, col_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
+
+\item{border}{\code{TRUE} or \code{FALSE} of whether the geom is to be treated as if it has borders.}
 
 \item{col_drop, facet_drop}{For a discrete variable, FALSE or TRUE of whether to drop unused levels.}
 

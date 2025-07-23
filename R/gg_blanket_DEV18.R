@@ -208,12 +208,42 @@
 #'   size_map_or_set <- is_aes_map_or_set(rlang::enquo(size), "size", data)
 #'   alpha_map_or_set <- is_aes_map_or_set(rlang::enquo(alpha), "alpha", data)
 #'
+#'
+#'
 #'   # Step 4: Get theme defaults
 #'   theme_defaults <- ggplot2::get_theme()
 #'
+#'   # Step 4.5: Check if colour or fill are in mapping (needed for border detection and fixed params)
+#'   colour_in_mapping <- is_in_mapping(mapping, "colour")
+#'   fill_in_mapping <- is_in_mapping(mapping, "fill")
+#'
 #'   # Step 5: Determine if this is a border geom
 #'   if (is.null(border)) {
+#'     # First get the default border value
 #'     border <- is_border(geom, theme_defaults)
+#'
+#'     # Then check if user explicitly set colour or fill to NA
+#'     user_set_colour_na <- !colour_map_or_set$is_aesthetic &&
+#'       !is.null(colour_map_or_set$value) &&
+#'       length(colour_map_or_set$value) == 1 &&
+#'       is.na(colour_map_or_set$value)
+#'
+#'     user_set_fill_na <- !fill_map_or_set$is_aesthetic &&
+#'       !is.null(fill_map_or_set$value) &&
+#'       length(fill_map_or_set$value) == 1 &&
+#'       is.na(fill_map_or_set$value)
+#'
+#'     # Check if col or colour/fill is mapped as aesthetic
+#'     has_col_aesthetic <- col_map_or_set$is_aesthetic
+#'     has_colour_aesthetic <- colour_map_or_set$is_aesthetic || has_col_aesthetic
+#'     has_fill_aesthetic <- fill_map_or_set$is_aesthetic || has_col_aesthetic
+#'
+#'     # If user maps col/colour and sets fill=NA, or maps col/fill and sets colour=NA,
+#'     # then border should be FALSE
+#'     if ((has_colour_aesthetic && user_set_fill_na) ||
+#'         (has_fill_aesthetic && user_set_colour_na)) {
+#'       border <- FALSE
+#'     }
 #'   }
 #'
 #'   # Step 6: Get border adjustment functions
@@ -366,24 +396,25 @@
 #'   # Step 9: Initialize fixed_params list
 #'   fixed_params <- list()
 #'
-#'   # Check if colour or fill are in mapping
-#'   colour_in_mapping <- is_in_mapping(mapping, "colour")
-#'   fill_in_mapping <- is_in_mapping(mapping, "fill")
-#'
 #'   # Handle colour fixed value (priority: colour > col)
 #'   # IMPORTANT: Only set as fixed if it's not being used as an aesthetic
-#'   # AND not in mapping
+#'   # AND not in mapping AND not explicitly set to NA
 #'   if (!colour_map_or_set$is_aesthetic && !colour_in_mapping) {
 #'     # colour is not mapped as aesthetic either directly or via col inheritance or mapping
 #'     if (!is.null(colour_map_or_set$value)) {
-#'       # Explicit colour value provided
-#'       fixed_params$colour <- colour_map_or_set$value
+#'       if (!is.na(colour_map_or_set$value)) {
+#'         # Explicit colour value provided (and it's not NA)
+#'         fixed_params$colour <- colour_map_or_set$value
+#'       }
+#'       # If it IS NA, we don't add it to fixed_params
 #'     } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
-#'       # No colour value, but col is set as fixed value
-#'       if (border && !is.null(border_colour)) {
-#'         fixed_params$colour <- border_colour(col_map_or_set$value)
-#'       } else {
-#'         fixed_params$colour <- col_map_or_set$value
+#'       if (!is.na(col_map_or_set$value)) {
+#'         # No colour value, but col is set as fixed value (and it's not NA)
+#'         if (border && !is.null(border_colour)) {
+#'           fixed_params$colour <- border_colour(col_map_or_set$value)
+#'         } else {
+#'           fixed_params$colour <- col_map_or_set$value
+#'         }
 #'       }
 #'     } else {
 #'       # Use theme default when neither colour nor col are set
@@ -398,18 +429,23 @@
 #'
 #'   # Handle fill fixed value (priority: fill > col)
 #'   # IMPORTANT: Only set as fixed if it's not being used as an aesthetic
-#'   # AND not in mapping
+#'   # AND not in mapping AND not explicitly set to NA
 #'   if (!fill_map_or_set$is_aesthetic && !fill_in_mapping) {
 #'     # fill is not mapped as aesthetic either directly or via col inheritance or mapping
 #'     if (!is.null(fill_map_or_set$value)) {
-#'       # Explicit fill value provided
-#'       fixed_params$fill <- fill_map_or_set$value
+#'       if (!is.na(fill_map_or_set$value)) {
+#'         # Explicit fill value provided (and it's not NA)
+#'         fixed_params$fill <- fill_map_or_set$value
+#'       }
+#'       # If it IS NA, we don't add it to fixed_params
 #'     } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
-#'       # No fill value, but col is set as fixed value
-#'       if (border && !is.null(border_fill)) {
-#'         fixed_params$fill <- border_fill(col_map_or_set$value)
-#'       } else {
-#'         fixed_params$fill <- col_map_or_set$value
+#'       if (!is.na(col_map_or_set$value)) {
+#'         # No fill value, but col is set as fixed value (and it's not NA)
+#'         if (border && !is.null(border_fill)) {
+#'           fixed_params$fill <- border_fill(col_map_or_set$value)
+#'         } else {
+#'           fixed_params$fill <- col_map_or_set$value
+#'         }
 #'       }
 #'     } else {
 #'       # Use theme default when neither fill nor col are set
@@ -423,21 +459,26 @@
 #'   }
 #'
 #'   # Fix 2: When col is mapped as an aesthetic, remove default colour/fill from fixed_params
-#'   # UNLESS the user explicitly provided them as fixed values OR they're in mapping
+#'   # UNLESS the user explicitly provided them as fixed values (and they're not NA) OR they're in mapping
 #'   if (col_map_or_set$is_aesthetic) {
-#'     # For colour: only remove if it wasn't explicitly set by the user and not in mapping
-#'     if (!colour_map_or_set$is_aesthetic && is.null(colour_map_or_set$value) && !colour_in_mapping) {
-#'       # colour was not provided by user, so remove the default
+#'     # For colour: only remove if it wasn't explicitly set by the user (or was set to NA) and not in mapping
+#'     if (!colour_map_or_set$is_aesthetic &&
+#'         (is.null(colour_map_or_set$value) || is.na(colour_map_or_set$value)) &&
+#'         !colour_in_mapping) {
+#'       # colour was not provided by user (or was NA), so remove the default
 #'       fixed_params$colour <- NULL
 #'     }
-#'     # For fill: only remove if it wasn't explicitly set by the user and not in mapping
-#'     if (!fill_map_or_set$is_aesthetic && is.null(fill_map_or_set$value) && !fill_in_mapping) {
-#'       # fill was not provided by user, so remove the default
+#'     # For fill: only remove if it wasn't explicitly set by the user (or was set to NA) and not in mapping
+#'     if (!fill_map_or_set$is_aesthetic &&
+#'         (is.null(fill_map_or_set$value) || is.na(fill_map_or_set$value)) &&
+#'         !fill_in_mapping) {
+#'       # fill was not provided by user (or was NA), so remove the default
 #'       fixed_params$fill <- NULL
 #'     }
 #'   }
 #'
-#'   #hacky fix. Should not apply if the user supplies colour = "black", fill = "grey" etc
+#'   # Also update the hacky fix to be more sophisticated:
+#'   # Should not apply if the user supplies colour = "black", fill = "grey" etc
 #'   # OR if colour/fill are in mapping
 #'   if (stat %in% c("bin2d", "binhex", "contour_filled", "density2d_filled")) {
 #'     if (!colour_in_mapping && is.null(colour_map_or_set$value)) {
@@ -447,6 +488,7 @@
 #'       fixed_params$fill <- NULL
 #'     }
 #'   }
+#'
 #'   # Handle other fixed values with theme defaults
 #'   if (!shape_map_or_set$is_aesthetic && !is.null(shape_map_or_set$value)) {
 #'     fixed_params$shape <- shape_map_or_set$value
@@ -504,7 +546,7 @@
 #'     fixed_params$fill <- NULL
 #'   }
 #'
-#'   # Step 9: Build aesthetic list (only aesthetics, not fixed values)
+#'   # is.na(col_scale_class)): Build aesthetic list (only aesthetics, not fixed values)
 #'   aes_list <- list(
 #'     x = rlang::enquo(x),
 #'     y = rlang::enquo(y),

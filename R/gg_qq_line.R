@@ -57,7 +57,7 @@ gg_qq_line <- function(
     label = NULL,
     text = NULL,
     sample = NULL,
-    mapping = NULL, border_colour = NULL, border_fill = NULL, border_linewidth = NULL,
+    mapping = NULL, border = NULL, border_colour = NULL, border_fill = NULL, border_linewidth = NULL,
     x_breaks = NULL,
     x_breaks_n = NULL,
     x_expand = NULL,
