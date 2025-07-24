@@ -52,7 +52,7 @@
 #' #' @return A ggplot object.
 #' #' @export
 #' gg_blanket <- function(
-    #'     data = NULL,
+#'     data = NULL,
 #'     ...,
 #'     geom = "blank",
 #'     stat = "identity",
@@ -111,7 +111,6 @@
 #'     y_sec_axis = ggplot2::waiver(),
 #'     y_symmetric = NULL,
 #'     y_transform = NULL,
-#'
 #'     col_breaks = ggplot2::waiver(),
 #'     col_breaks_n = NULL,
 #'     col_drop = FALSE,
@@ -158,6 +157,45 @@
 #'   if (!rlang::is_null(y_transform)) y_transform <- get_transform_name(y_transform)
 #'   if (!rlang::is_null(col_transform)) col_transform <- get_transform_name(col_transform)
 #'
+#'   # Step 2.5: Handle after_stat aesthetics for certain stats
+#'   if (stat %in% c("bin2d", "binhex")) {
+#'     default_aes <- ggplot2::aes(colour = ggplot2::after_stat(.data$count),
+#'                                 fill = ggplot2::after_stat(.data$count))
+#'     if (is.null(mapping)) {
+#'       mapping <- default_aes
+#'     } else {
+#'       has_colour <- "colour" %in% names(mapping)
+#'       has_fill <- "fill" %in% names(mapping)
+#'
+#'       if (!has_colour && !has_fill) {
+#'         mapping <- utils::modifyList(mapping, default_aes)
+#'       } else if (has_colour && !has_fill) {
+#'         mapping$fill <- mapping$colour
+#'       } else if (!has_colour && has_fill) {
+#'         mapping$colour <- mapping$fill
+#'       }
+#'     }
+#'   }
+#'
+#'   if (stat %in% c("contour_filled", "density2d_filled")) {
+#'     default_aes <- ggplot2::aes(colour = ggplot2::after_stat(.data$level),
+#'                                 fill = ggplot2::after_stat(.data$level))
+#'     if (is.null(mapping)) {
+#'       mapping <- default_aes
+#'     } else {
+#'       has_colour <- "colour" %in% names(mapping)
+#'       has_fill <- "fill" %in% names(mapping)
+#'
+#'       if (!has_colour && !has_fill) {
+#'         mapping <- utils::modifyList(mapping, default_aes)
+#'       } else if (has_colour && !has_fill) {
+#'         mapping$fill <- mapping$colour
+#'       } else if (!has_colour && has_fill) {
+#'         mapping$colour <- mapping$fill
+#'       }
+#'     }
+#'   }
+#'
 #'   # Step 3: Detect aesthetic vs fixed
 #'   col_map_or_set <- is_aes_map_or_set(rlang::enquo(col), "col", data)
 #'   colour_map_or_set <- is_aes_map_or_set(rlang::enquo(colour), "colour", data)
@@ -171,9 +209,37 @@
 #'   # Step 4: Get theme defaults
 #'   theme_defaults <- ggplot2::get_theme()
 #'
+#'   # Step 4.5: Check if colour or fill are in mapping (needed for border detection and fixed params)
+#'   colour_in_mapping <- is_in_mapping(mapping, "colour")
+#'   fill_in_mapping <- is_in_mapping(mapping, "fill")
+#'
 #'   # Step 5: Determine if this is a border geom
 #'   if (is.null(border)) {
+#'     # First get the default border value
 #'     border <- is_border(geom, theme_defaults)
+#'
+#'     # Then check if user explicitly set colour or fill to NA
+#'     user_set_colour_na <- !colour_map_or_set$is_aesthetic &&
+#'       !is.null(colour_map_or_set$value) &&
+#'       length(colour_map_or_set$value) == 1 &&
+#'       is.na(colour_map_or_set$value)
+#'
+#'     user_set_fill_na <- !fill_map_or_set$is_aesthetic &&
+#'       !is.null(fill_map_or_set$value) &&
+#'       length(fill_map_or_set$value) == 1 &&
+#'       is.na(fill_map_or_set$value)
+#'
+#'     # Check if col or colour/fill is mapped as aesthetic
+#'     has_col_aesthetic <- col_map_or_set$is_aesthetic
+#'     has_colour_aesthetic <- colour_map_or_set$is_aesthetic || has_col_aesthetic
+#'     has_fill_aesthetic <- fill_map_or_set$is_aesthetic || has_col_aesthetic
+#'
+#'     # If user maps col/colour and sets fill=NA, or maps col/fill and sets colour=NA,
+#'     # then border should be FALSE
+#'     if ((has_colour_aesthetic && user_set_fill_na) ||
+#'         (has_fill_aesthetic && user_set_colour_na)) {
+#'       border <- FALSE
+#'     }
 #'   }
 #'
 #'   # Step 6: Get border adjustment functions
@@ -196,58 +262,116 @@
 #'   if (rlang::is_null(col_palette_na)) {
 #'     col_palette_na <- getOption("ggblanket.col_palette_na", "grey50")
 #'   }
-#'   # If col_palette_na was provided by user, it's already in the variable
 #'
 #'   # Apply border adjustments to palettes and NA colors
 #'   if (border) {
 #'     if (!is.null(border_colour)) {
-#'       colour_palette_discrete <- border_colour(col_palette_discrete)
-#'       colour_palette_continuous <- border_colour(col_palette_continuous)
-#'       colour_palette_ordinal <- border_colour(col_palette_ordinal)
+#'       # If user provided colour_palette, use it; otherwise inherit from col_palette with border adjustment
+#'       if (!is.null(colour_palette)) {
+#'         colour_palette_discrete <- colour_palette
+#'         colour_palette_continuous <- colour_palette
+#'         colour_palette_ordinal <- colour_palette
+#'       } else {
+#'         # Apply border_colour transformation based on palette type
+#'         if (is.function(col_palette_discrete)) {
+#'           colour_palette_discrete <- border_colour(col_palette_discrete)
+#'         } else if (is.character(col_palette_discrete)) {
+#'           # For vector palettes, apply border_colour to each color
+#'           colour_palette_discrete <- purrr::map_chr(col_palette_discrete, border_colour)
+#'         } else {
+#'           colour_palette_discrete <- col_palette_discrete
+#'         }
+#'
+#'         if (is.function(col_palette_continuous)) {
+#'           colour_palette_continuous <- border_colour(col_palette_continuous)
+#'         } else if (is.character(col_palette_continuous)) {
+#'           # For vector palettes, apply border_colour to each color
+#'           colour_palette_continuous <- purrr::map_chr(col_palette_continuous, border_colour)
+#'         } else {
+#'           colour_palette_continuous <- col_palette_continuous
+#'         }
+#'
+#'         if (is.function(col_palette_ordinal)) {
+#'           colour_palette_ordinal <- border_colour(col_palette_ordinal)
+#'         } else if (is.character(col_palette_ordinal)) {
+#'           # For vector palettes, apply border_colour to each color
+#'           colour_palette_ordinal <- purrr::map_chr(col_palette_ordinal, border_colour)
+#'         } else {
+#'           colour_palette_ordinal <- col_palette_ordinal
+#'         }
+#'       }
+#'
 #'       # For NA color: priority is colour_palette_na > col_palette_na (transformed)
 #'       if (is.null(colour_palette_na)) {
-#'         # Transform the col_palette_na (whether from user or global option)
 #'         colour_palette_na <- border_colour(col_palette_na)
 #'       }
-#'       # If colour_palette_na was provided, it stays as-is
 #'     } else {
-#'       colour_palette_discrete <- col_palette_discrete
-#'       colour_palette_continuous <- col_palette_continuous
-#'       colour_palette_ordinal <- col_palette_ordinal
+#'       # No border_colour adjustment
+#'       colour_palette_discrete <- colour_palette %||% col_palette_discrete
+#'       colour_palette_continuous <- colour_palette %||% col_palette_continuous
+#'       colour_palette_ordinal <- colour_palette %||% col_palette_ordinal
 #'       if (is.null(colour_palette_na)) {
 #'         colour_palette_na <- col_palette_na
 #'       }
-#'       # If colour_palette_na was provided, it stays as-is
 #'     }
 #'
 #'     if (!is.null(border_fill)) {
-#'       fill_palette_discrete <- border_fill(col_palette_discrete)
-#'       fill_palette_continuous <- border_fill(col_palette_continuous)
-#'       fill_palette_ordinal <- border_fill(col_palette_ordinal)
+#'       # If user provided fill_palette, use it; otherwise inherit from col_palette with border adjustment
+#'       if (!is.null(fill_palette)) {
+#'         fill_palette_discrete <- fill_palette
+#'         fill_palette_continuous <- fill_palette
+#'         fill_palette_ordinal <- fill_palette
+#'       } else {
+#'         # Apply border_fill transformation based on palette type
+#'         if (is.function(col_palette_discrete)) {
+#'           fill_palette_discrete <- border_fill(col_palette_discrete)
+#'         } else if (is.character(col_palette_discrete)) {
+#'           # For vector palettes, apply border_fill to each color
+#'           fill_palette_discrete <- purrr::map_chr(col_palette_discrete, border_fill)
+#'         } else {
+#'           fill_palette_discrete <- col_palette_discrete
+#'         }
+#'
+#'         if (is.function(col_palette_continuous)) {
+#'           fill_palette_continuous <- border_fill(col_palette_continuous)
+#'         } else if (is.character(col_palette_continuous)) {
+#'           # For vector palettes, apply border_fill to each color
+#'           fill_palette_continuous <- purrr::map_chr(col_palette_continuous, border_fill)
+#'         } else {
+#'           fill_palette_continuous <- col_palette_continuous
+#'         }
+#'
+#'         if (is.function(col_palette_ordinal)) {
+#'           fill_palette_ordinal <- border_fill(col_palette_ordinal)
+#'         } else if (is.character(col_palette_ordinal)) {
+#'           # For vector palettes, apply border_fill to each color
+#'           fill_palette_ordinal <- purrr::map_chr(col_palette_ordinal, border_fill)
+#'         } else {
+#'           fill_palette_ordinal <- col_palette_ordinal
+#'         }
+#'       }
+#'
 #'       # For NA color: priority is fill_palette_na > col_palette_na (transformed)
 #'       if (is.null(fill_palette_na)) {
-#'         # Transform the col_palette_na (whether from user or global option)
 #'         fill_palette_na <- border_fill(col_palette_na)
 #'       }
-#'       # If fill_palette_na was provided, it stays as-is
 #'     } else {
-#'       fill_palette_discrete <- col_palette_discrete
-#'       fill_palette_continuous <- col_palette_continuous
-#'       fill_palette_ordinal <- col_palette_ordinal
+#'       # No border_fill adjustment
+#'       fill_palette_discrete <- fill_palette %||% col_palette_discrete
+#'       fill_palette_continuous <- fill_palette %||% col_palette_continuous
+#'       fill_palette_ordinal <- fill_palette %||% col_palette_ordinal
 #'       if (is.null(fill_palette_na)) {
 #'         fill_palette_na <- col_palette_na
 #'       }
-#'       # If fill_palette_na was provided, it stays as-is
 #'     }
 #'   } else {
-#'     # Not a border geom
+#'     # Not a border geom - respect user-provided palettes
 #'     colour_palette_discrete <- colour_palette %||% col_palette_discrete
 #'     colour_palette_continuous <- colour_palette %||% col_palette_continuous
 #'     colour_palette_ordinal <- colour_palette %||% col_palette_ordinal
 #'     if (is.null(colour_palette_na)) {
 #'       colour_palette_na <- col_palette_na
 #'     }
-#'     # If colour_palette_na was provided, it stays as-is
 #'
 #'     fill_palette_discrete <- fill_palette %||% col_palette_discrete
 #'     fill_palette_continuous <- fill_palette %||% col_palette_continuous
@@ -255,7 +379,6 @@
 #'     if (is.null(fill_palette_na)) {
 #'       fill_palette_na <- col_palette_na
 #'     }
-#'     # If fill_palette_na was provided, it stays as-is
 #'   }
 #'
 #'   # Get shape and linetype palettes from options
@@ -266,216 +389,87 @@
 #'     linetype_palette <- getOption("ggblanket.linetype_palette_discrete")
 #'   }
 #'
-#'   # # Step 8: Initialize fixed_params list
-#'   # fixed_params <- list()
-#'   #
-#'   # # Handle colour fixed value
-#'   # # Set fixed colour if colour is not mapped as aesthetic
-#'   # if (!colour_map_or_set$is_aesthetic) {
-#'   #   if (!is.null(colour_map_or_set$value)) {
-#'   #     # Explicit colour value provided - use as is (no border transformation)
-#'   #     fixed_params$colour <- colour_map_or_set$value
-#'   #   } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
-#'   #     # No colour value, but col is set as fixed value - apply border transformation
-#'   #     if (border && !is.null(border_colour)) {
-#'   #       fixed_params$colour <- border_colour(col_map_or_set$value)
-#'   #     } else {
-#'   #       fixed_params$colour <- col_map_or_set$value
-#'   #     }
-#'   #   } else if (!col_map_or_set$is_aesthetic) {
-#'   #     # Neither colour nor col are aesthetics or have fixed values, use theme default
-#'   #     default_col <- theme_defaults$geom$colour %||% "#8991A1FF"
-#'   #     if (border && !is.null(border_colour)) {
-#'   #       fixed_params$colour <- border_colour(default_col)
-#'   #     } else {
-#'   #       fixed_params$colour <- default_col
-#'   #     }
-#'   #   }
-#'   #   # If col IS an aesthetic and no colour value provided, don't set fixed colour
-#'   # }
-#'   #
-#'   # # Handle fill fixed value
-#'   # # Set fixed fill if fill is not mapped as aesthetic
-#'   # if (!fill_map_or_set$is_aesthetic) {
-#'   #   if (!is.null(fill_map_or_set$value)) {
-#'   #     # Explicit fill value provided - use as is (no border transformation)
-#'   #     fixed_params$fill <- fill_map_or_set$value
-#'   #   } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
-#'   #     # No fill value, but col is set as fixed value - apply border transformation
-#'   #     if (border && !is.null(border_fill)) {
-#'   #       fixed_params$fill <- border_fill(col_map_or_set$value)
-#'   #     } else {
-#'   #       fixed_params$fill <- col_map_or_set$value
-#'   #     }
-#'   #   } else if (!col_map_or_set$is_aesthetic) {
-#'   #     # Neither fill nor col are aesthetics or have fixed values, use theme default
-#'   #     default_fill <- theme_defaults$geom$fill %||% "#8991A1FF"
-#'   #     if (border && !is.null(border_fill)) {
-#'   #       fixed_params$fill <- border_fill(default_fill)
-#'   #     } else {
-#'   #       fixed_params$fill <- default_fill
-#'   #     }
-#'   #   }
-#'   #   # If col IS an aesthetic and no fill value provided, don't set fixed fill
-#'   # }
-#'   #
-#'   # # Handle other fixed values with theme defaults
-#'   # if (!shape_map_or_set$is_aesthetic && !is.null(shape_map_or_set$value)) {
-#'   #   fixed_params$shape <- shape_map_or_set$value
-#'   # } else if (!shape_map_or_set$is_aesthetic) {
-#'   #   fixed_params$shape <- theme_defaults$geom$pointshape %||% 19
-#'   # }
-#'   #
-#'   # if (!linetype_map_or_set$is_aesthetic && !is.null(linetype_map_or_set$value)) {
-#'   #   fixed_params$linetype <- linetype_map_or_set$value
-#'   # } else if (!linetype_map_or_set$is_aesthetic) {
-#'   #   default_linetype <- theme_defaults$geom$linetype %||% 1
-#'   #   if (border) {
-#'   #     fixed_params$linetype <- theme_defaults$geom$linetype %||% default_linetype
-#'   #   } else {
-#'   #     fixed_params$linetype <- default_linetype
-#'   #   }
-#'   # }
-#'   #
-#'   # if (!linewidth_map_or_set$is_aesthetic && !is.null(linewidth_map_or_set$value)) {
-#'   #   fixed_params$linewidth <- linewidth_map_or_set$value
-#'   # } else if (!linewidth_map_or_set$is_aesthetic) {
-#'   #   default_linewidth <- theme_defaults$geom$linewidth %||% 0.5
-#'   #   if (border && !is.null(border_linewidth)) {
-#'   #     fixed_params$linewidth <- border_linewidth(default_linewidth)
-#'   #   } else if (border) {
-#'   #     fixed_params$linewidth <- theme_defaults$geom$linewidth %||% default_linewidth
-#'   #   } else {
-#'   #     fixed_params$linewidth <- default_linewidth
-#'   #   }
-#'   # }
-#'   #
-#'   # if (!size_map_or_set$is_aesthetic && !is.null(size_map_or_set$value)) {
-#'   #   fixed_params$size <- size_map_or_set$value
-#'   # } else if (!size_map_or_set$is_aesthetic) {
-#'   #   fixed_params$size <- theme_defaults$geom$size %||% 1.5
-#'   # }
-#'   #
-#'   # if (!alpha_map_or_set$is_aesthetic && !is.null(alpha_map_or_set$value)) {
-#'   #   fixed_params$alpha <- alpha_map_or_set$value
-#'   # }
-#'   #
-#'   # # Handle stroke fixed value
-#'   # if (!is.null(stroke)) {
-#'   #   fixed_params$stroke <- stroke
-#'   # } else if (geom %in% c("point", "jitter", "count", "qq", "pointrange")) {
-#'   #   # Only set default stroke for point geoms that support it
-#'   #   # Get stroke from global option, fallback to 0.5
-#'   #   fixed_params$stroke <- getOption("ggblanket.stroke", 0.5)
-#'   # }
-#'
-#'   # Step 8: Initialize fixed_params list
+#'   # Step 9: Initialize fixed_params list
 #'   fixed_params <- list()
-#' #
-#' #   # Handle colour fixed value (priority: colour > col)
-#' #   # IMPORTANT: Only set as fixed if it's not being used as an aesthetic
-#' #   if (!colour_map_or_set$is_aesthetic && !(!rlang::quo_is_null(aes_list$colour))) {
-#' #     # colour is not mapped as aesthetic either directly or via col inheritance
-#' #     if (!is.null(colour_map_or_set$value)) {
-#' #       # Explicit colour value provided
-#' #       fixed_params$colour <- colour_map_or_set$value
-#' #     } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
-#' #       # No colour value, but col is set as fixed value
-#' #       if (border && !is.null(border_colour)) {
-#' #         fixed_params$colour <- border_colour(col_map_or_set$value)
-#' #       } else {
-#' #         fixed_params$colour <- col_map_or_set$value
-#' #       }
-#' #     } else {
-#' #       # Use theme default when neither colour nor col are set
-#' #       default_col <- theme_defaults$geom$colour %||% "#8991A1FF"
-#' #       if (border && !is.null(border_colour)) {
-#' #         fixed_params$colour <- border_colour(default_col)
-#' #       } else {
-#' #         fixed_params$colour <- default_col
-#' #       }
-#' #     }
-#' #   }
-#' #
-#' #   # Handle fill fixed value (priority: fill > col)
-#' #   # IMPORTANT: Only set as fixed if it's not being used as an aesthetic
-#' #   if (!fill_map_or_set$is_aesthetic && !(!rlang::quo_is_null(aes_list$fill))) {
-#' #     # fill is not mapped as aesthetic either directly or via col inheritance
-#' #     if (!is.null(fill_map_or_set$value)) {
-#' #       # Explicit fill value provided
-#' #       fixed_params$fill <- fill_map_or_set$value
-#' #     } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
-#' #       # No fill value, but col is set as fixed value
-#' #       if (border && !is.null(border_fill)) {
-#' #         fixed_params$fill <- border_fill(col_map_or_set$value)
-#' #       } else {
-#' #         fixed_params$fill <- col_map_or_set$value
-#' #       }
-#' #     } else {
-#' #       # Use theme default when neither fill nor col are set
-#' #       default_fill <- theme_defaults$geom$fill %||% "#8991A1FF"
-#' #       if (border && !is.null(border_fill)) {
-#' #         fixed_params$fill <- border_fill(default_fill)
-#' #       } else {
-#' #         fixed_params$fill <- default_fill
-#' #       }
-#' #     }
-#' #   }
 #'
 #'   # Handle colour fixed value (priority: colour > col)
 #'   # IMPORTANT: Only set as fixed if it's not being used as an aesthetic
-#'   if (!colour_map_or_set$is_aesthetic) {
+#'   # AND not in mapping
+#'   if (!colour_map_or_set$is_aesthetic && !colour_in_mapping) {
+#'     # colour is not mapped as aesthetic either directly or via col inheritance or mapping
 #'     if (!is.null(colour_map_or_set$value)) {
-#'       # Explicit colour value provided
+#'       # Explicit colour value provided - include even if NA!
 #'       fixed_params$colour <- colour_map_or_set$value
-#'
 #'     } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
-#'       # No colour value, but col is set as fixed value
-#'       fixed_params$colour <- if (border && !is.null(border_colour)) {
-#'         border_colour(col_map_or_set$value)
-#'       } else {
-#'         col_map_or_set$value
+#'       if (!is.na(col_map_or_set$value)) {
+#'         # No colour value, but col is set as fixed value (and it's not NA)
+#'         if (border && !is.null(border_colour)) {
+#'           fixed_params$colour <- border_colour(col_map_or_set$value)
+#'         } else {
+#'           fixed_params$colour <- col_map_or_set$value
+#'         }
 #'       }
-#'
+#'       # If col IS NA, don't inherit it to colour
 #'     } else {
 #'       # Use theme default when neither colour nor col are set
 #'       default_col <- theme_defaults$geom$colour %||% "#8991A1FF"
-#'       fixed_params$colour <- if (border && !is.null(border_colour)) {
-#'         border_colour(default_col)
+#'       if (border && !is.null(border_colour)) {
+#'         fixed_params$colour <- border_colour(default_col)
 #'       } else {
-#'         default_col
+#'         fixed_params$colour <- default_col
 #'       }
 #'     }
 #'   }
 #'
 #'   # Handle fill fixed value (priority: fill > col)
 #'   # IMPORTANT: Only set as fixed if it's not being used as an aesthetic
-#'   if (!fill_map_or_set$is_aesthetic) {
+#'   # AND not in mapping
+#'   if (!fill_map_or_set$is_aesthetic && !fill_in_mapping) {
+#'     # fill is not mapped as aesthetic either directly or via col inheritance or mapping
 #'     if (!is.null(fill_map_or_set$value)) {
-#'       # Explicit fill value provided
+#'       # Explicit fill value provided - include even if NA!
 #'       fixed_params$fill <- fill_map_or_set$value
-#'
 #'     } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
-#'       # No fill value, but col is set as fixed value
-#'       fixed_params$fill <- if (border && !is.null(border_fill)) {
-#'         border_fill(col_map_or_set$value)
-#'       } else {
-#'         col_map_or_set$value
+#'       if (!is.na(col_map_or_set$value)) {
+#'         # No fill value, but col is set as fixed value (and it's not NA)
+#'         if (border && !is.null(border_fill)) {
+#'           fixed_params$fill <- border_fill(col_map_or_set$value)
+#'         } else {
+#'           fixed_params$fill <- col_map_or_set$value
+#'         }
 #'       }
-#'
+#'       # If col IS NA, don't inherit it to fill
 #'     } else {
 #'       # Use theme default when neither fill nor col are set
 #'       default_fill <- theme_defaults$geom$fill %||% "#8991A1FF"
-#'       fixed_params$fill <- if (border && !is.null(border_fill)) {
-#'         border_fill(default_fill)
+#'       if (border && !is.null(border_fill)) {
+#'         fixed_params$fill <- border_fill(default_fill)
 #'       } else {
-#'         default_fill
+#'         fixed_params$fill <- default_fill
 #'       }
 #'     }
 #'   }
 #'
+#'   # Fix 2: When col is mapped as an aesthetic, remove default colour/fill from fixed_params
+#'   # UNLESS the user explicitly provided them as fixed values OR they're in mapping
+#'   if (col_map_or_set$is_aesthetic) {
+#'     # For colour: only remove if it wasn't explicitly set by the user and not in mapping
+#'     if (!colour_map_or_set$is_aesthetic &&
+#'         is.null(colour_map_or_set$value) &&
+#'         !colour_in_mapping) {
+#'       # colour was not provided by user, so remove the default
+#'       fixed_params$colour <- NULL
+#'     }
+#'     # For fill: only remove if it wasn't explicitly set by the user and not in mapping
+#'     if (!fill_map_or_set$is_aesthetic &&
+#'         is.null(fill_map_or_set$value) &&
+#'         !fill_in_mapping) {
+#'       # fill was not provided by user, so remove the default
+#'       fixed_params$fill <- NULL
+#'     }
+#'   }
 #'
-#'   # Handle other fixed values with theme defaults (unchanged)
+#'   # Handle other fixed values with theme defaults
 #'   if (!shape_map_or_set$is_aesthetic && !is.null(shape_map_or_set$value)) {
 #'     fixed_params$shape <- shape_map_or_set$value
 #'   } else if (!shape_map_or_set$is_aesthetic) {
@@ -525,44 +519,19 @@
 #'     fixed_params$stroke <- getOption("ggblanket.stroke", 0.5)
 #'   }
 #'
-#'   # Handle after_stat aesthetics for certain stats
-#'   if (stat %in% c("bin2d", "binhex")) {
-#'     default_aes <- ggplot2::aes(colour = ggplot2::after_stat(.data$count))
-#'     if (is.null(mapping)) {
-#'       mapping <- default_aes
-#'     } else {
-#'       has_colour <- "colour" %in% names(mapping)
-#'       has_fill <- "fill" %in% names(mapping)
-#'
-#'       if (!has_colour && !has_fill) {
-#'         mapping <- utils::modifyList(mapping, default_aes)
-#'       } else if (has_colour && !has_fill) {
-#'         mapping$fill <- mapping$colour
-#'       } else if (!has_colour && has_fill) {
-#'         mapping$colour <- mapping$fill
-#'       }
+#'   # Sophisticated hacky fix for certain stats
+#'   # Should not apply if the user supplies colour = "black", fill = "grey" etc
+#'   # OR if colour/fill are in mapping
+#'   if (stat %in% c("bin2d", "binhex", "contour_filled", "density2d_filled")) {
+#'     if (!colour_in_mapping && is.null(colour_map_or_set$value)) {
+#'       fixed_params$colour <- NULL
+#'     }
+#'     if (!fill_in_mapping && is.null(fill_map_or_set$value)) {
+#'       fixed_params$fill <- NULL
 #'     }
 #'   }
 #'
-#'   if (stat %in% c("contour_filled", "density2d_filled")) {
-#'     default_aes <- ggplot2::aes(colour = ggplot2::after_stat(.data$level))
-#'     if (is.null(mapping)) {
-#'       mapping <- default_aes
-#'     } else {
-#'       has_colour <- "colour" %in% names(mapping)
-#'       has_fill <- "fill" %in% names(mapping)
-#'
-#'       if (!has_colour && !has_fill) {
-#'         mapping <- utils::modifyList(mapping, default_aes)
-#'       } else if (has_colour && !has_fill) {
-#'         mapping$fill <- mapping$colour
-#'       } else if (!has_colour && has_fill) {
-#'         mapping$colour <- mapping$fill
-#'       }
-#'     }
-#'   }
-#'
-#'   # Step 9: Build aesthetic list (only aesthetics, not fixed values)
+#'   # Build aesthetic list (only aesthetics, not fixed values)
 #'   aes_list <- list(
 #'     x = rlang::enquo(x),
 #'     y = rlang::enquo(y),
@@ -580,60 +549,43 @@
 #'     label = rlang::enquo(label),
 #'     text = rlang::enquo(text),
 #'     sample = rlang::enquo(sample),
-#'     mapping = mapping,
-#'     # col = if (col_map_or_set$is_aesthetic) col_map_or_set$value else rlang::quo(NULL),
-#'     # colour = if (colour_map_or_set$is_aesthetic) colour_map_or_set$value else rlang::quo(NULL),
-#'     # fill = if (fill_map_or_set$is_aesthetic) fill_map_or_set$value else rlang::quo(NULL),
-#'     shape = if (shape_map_or_set$is_aesthetic) shape_map_or_set$value else rlang::quo(NULL),
-#'     linetype = if (linetype_map_or_set$is_aesthetic) linetype_map_or_set$value else rlang::quo(NULL),
-#'     linewidth = if (linewidth_map_or_set$is_aesthetic) linewidth_map_or_set$value else rlang::quo(NULL),
-#'     size = if (size_map_or_set$is_aesthetic) size_map_or_set$value else rlang::quo(NULL),
-#'     alpha = if (alpha_map_or_set$is_aesthetic) alpha_map_or_set$value else rlang::quo(NULL)
+#'     mapping = mapping
 #'   )
 #'
-#'   # Determine colour aesthetic
-#'   if (colour_map_or_set$is_aesthetic && !is.null(colour_map_or_set$value)) {
-#'     aes_list$colour <- colour_map_or_set$value
-#'   } else if (col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
-#'     aes_list$colour <- col_map_or_set$value
+#'   # Keep track of col, colour, and fill aesthetics separately
+#'   aes_list$col <- if (col_map_or_set$is_aesthetic) rlang::enquo(col) else rlang::quo(NULL)
+#'
+#'   # For colour: use colour if it's aesthetic, else use col if col is aesthetic AND colour wasn't explicitly set to NA
+#'   aes_list$colour <- if (colour_map_or_set$is_aesthetic) {
+#'     rlang::enquo(colour)
+#'   } else if (col_map_or_set$is_aesthetic &&
+#'              (is.null(colour_map_or_set$value) || !is.na(colour_map_or_set$value))) {
+#'     rlang::enquo(col)  # Inherit from col only if colour wasn't explicitly NA
 #'   } else {
-#'     aes_list$colour <- rlang::quo(NULL)
+#'     rlang::quo(NULL)
 #'   }
 #'
-#'   # Determine fill aesthetic
-#'   if (fill_map_or_set$is_aesthetic && !is.null(fill_map_or_set$value)) {
-#'     aes_list$fill <- fill_map_or_set$value
-#'   } else if (col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
-#'     aes_list$fill <- col_map_or_set$value
+#'   # For fill: use fill if it's aesthetic, else use col if col is aesthetic AND fill wasn't explicitly set to NA
+#'   aes_list$fill <- if (fill_map_or_set$is_aesthetic) {
+#'     rlang::enquo(fill)
+#'   } else if (col_map_or_set$is_aesthetic &&
+#'              (is.null(fill_map_or_set$value) || !is.na(fill_map_or_set$value))) {
+#'     rlang::enquo(col)  # Inherit from col only if fill wasn't explicitly NA
 #'   } else {
-#'     aes_list$fill <- rlang::quo(NULL)
+#'     rlang::quo(NULL)
 #'   }
+#'
+#'   # Other aesthetics
+#'   aes_list$shape <- if (shape_map_or_set$is_aesthetic) rlang::enquo(shape) else rlang::quo(NULL)
+#'   aes_list$linetype <- if (linetype_map_or_set$is_aesthetic) rlang::enquo(linetype) else rlang::quo(NULL)
+#'   aes_list$linewidth <- if (linewidth_map_or_set$is_aesthetic) rlang::enquo(linewidth) else rlang::quo(NULL)
+#'   aes_list$size <- if (size_map_or_set$is_aesthetic) rlang::enquo(size) else rlang::quo(NULL)
+#'   aes_list$alpha <- if (alpha_map_or_set$is_aesthetic) rlang::enquo(alpha) else rlang::quo(NULL)
 #'
 #'   # Step 10: Create initial plot to determine scale types
-#'   plot <- initialise_ggplot(
+#'   plot <- initialise_ggplot_from_list(
 #'     data = data,
-#'     x = !!aes_list$x,
-#'     y = !!aes_list$y,
-#'     col = !!aes_list$col,
-#'     colour = !!aes_list$colour,
-#'     fill = !!aes_list$fill,
-#'     xmin = !!aes_list$xmin,
-#'     xmax = !!aes_list$xmax,
-#'     xend = !!aes_list$xend,
-#'     ymin = !!aes_list$ymin,
-#'     ymax = !!aes_list$ymax,
-#'     yend = !!aes_list$yend,
-#'     z = !!aes_list$z,
-#'     group = !!aes_list$group,
-#'     subgroup = !!aes_list$subgroup,
-#'     sample = !!aes_list$sample,
-#'     label = !!aes_list$label,
-#'     text = !!aes_list$text,
-#'     shape = !!aes_list$shape,
-#'     linetype = !!aes_list$linetype,
-#'     linewidth = !!aes_list$linewidth,
-#'     size = !!aes_list$size,
-#'     alpha = !!aes_list$alpha,
+#'     aes_list = aes_list,
 #'     mapping = mapping
 #'   )
 #'
@@ -702,30 +654,9 @@
 #'   data <- process_data(data, aes_list, perspective)
 #'
 #'   # Step 14: Rebuild base plot with processed data
-#'   plot <- initialise_ggplot(
+#'   plot <- initialise_ggplot_from_list(
 #'     data = data,
-#'     x = !!aes_list$x,
-#'     y = !!aes_list$y,
-#'     col = !!aes_list$col,
-#'     colour = !!aes_list$colour,
-#'     fill = !!aes_list$fill,
-#'     xmin = !!aes_list$xmin,
-#'     xmax = !!aes_list$xmax,
-#'     xend = !!aes_list$xend,
-#'     ymin = !!aes_list$ymin,
-#'     ymax = !!aes_list$ymax,
-#'     yend = !!aes_list$yend,
-#'     z = !!aes_list$z,
-#'     group = !!aes_list$group,
-#'     subgroup = !!aes_list$subgroup,
-#'     sample = !!aes_list$sample,
-#'     label = !!aes_list$label,
-#'     text = !!aes_list$text,
-#'     shape = !!aes_list$shape,
-#'     linetype = !!aes_list$linetype,
-#'     linewidth = !!aes_list$linewidth,
-#'     size = !!aes_list$size,
-#'     alpha = !!aes_list$alpha,
+#'     aes_list = aes_list,
 #'     mapping = mapping
 #'   )
 #'
@@ -765,6 +696,7 @@
 #'     plot <- add_col_scale(
 #'       plot = plot,
 #'       geom = geom,
+#'       stat = stat,  # Add stat parameter here
 #'       col_scale_class = col_scale_class,
 #'       aes_list = aes_list,
 #'       data = data,
@@ -779,7 +711,7 @@
 #'       col_labels = col_labels,
 #'       col_legend_ncol = col_legend_ncol,
 #'       col_legend_nrow = col_legend_nrow,
-#'       col_legend_rev = col_legend_rev, #col_palette = col_palette, col_palette_na = col_palette_na,
+#'       col_legend_rev = col_legend_rev,
 #'       col_rescale = col_rescale,
 #'       col_scale_type = col_scale_type,
 #'       col_transform = col_transform,
@@ -936,45 +868,6 @@
 #'         plot_data = plot_data
 #'       )
 #'   }
-#'
-#'   # # Step 22: Get titles
-#'   # x_title <- x_title %||% get_axis_title(
-#'   #   data, aes_list$x, plot_build$plot$labels$x,
-#'   #   titles_case, stat, "x"
-#'   # )
-#'   #
-#'   # y_title <- y_title %||% get_axis_title(
-#'   #   data, aes_list$y, plot_build$plot$labels$y,
-#'   #   titles_case, stat, "y"
-#'   # )
-#'   #
-#'   # if (is.null(col_title)) {
-#'   #   col_title <- get_col_title(
-#'   #     data, aes_list$col, plot_build$plot$labels,
-#'   #     titles_case
-#'   #   )
-#'   # }
-#'   #
-#'   # # Get labels for other aesthetics
-#'   # other_titles <- get_titles2(plot_build, col_title, titles_case)
-#'   #
-#'   # # Apply labels
-#'   # plot <- plot +
-#'   #   ggplot2::labs(
-#'   #     x = x_title,
-#'   #     y = y_title,
-#'   #     colour = col_title,
-#'   #     fill = col_title,
-#'   #     alpha = other_titles$alpha_title,
-#'   #     shape = other_titles$shape_title,
-#'   #     size = other_titles$size_title,
-#'   #     linewidth = other_titles$linewidth_title,
-#'   #     linetype = other_titles$linetype_title,
-#'   #     pattern = other_titles$pattern_title,
-#'   #     title = title,
-#'   #     subtitle = subtitle,
-#'   #     caption = caption
-#'   #   )
 #'
 #'   # Step 22: Get titles
 #'   all_titles <- get_plot_titles(

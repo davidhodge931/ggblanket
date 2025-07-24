@@ -57,29 +57,29 @@ update_geom_palettes <- function(
   )
 }
 
-#' Update the bordered geom defaults
+#' Update the border geom defaults
 #'
 #' @description
-#' Sets global options for bordered geom transformations.
+#' Sets global options for border geom transformations.
 #'
 #' @param ... Additional arguments (not used).
-#' @param bordered_colour A function with input of `col`. Defaults to screen/multiply based on theme.
-#' @param bordered_fill A function with input of `col`. Defaults to NULL.
-#' @param bordered_linewidth A function with input of `linewidth`. Defaults to \(x) x / 2.64.
+#' @param border_colour A function with input of `col`. Defaults to screen/multiply based on theme.
+#' @param border_fill A function with input of `col`. Defaults to NULL.
+#' @param border_linewidth A function with input of `linewidth`. Defaults to \(x) x / 2.64.
 #'
-#' @return Global options for bordered geom styling.
+#' @return Global options for border geom styling.
 #'
 #' @export
 update_geom_border <- function(
     ...,
-    bordered_colour = \(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
-    bordered_fill = NULL,
-    bordered_linewidth = \(x) x / 2.64
+    border_colour = \(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
+    border_fill = NULL,
+    border_linewidth = 0.25
 ) {
   options(
-    ggblanket.bordered_colour = bordered_colour,
-    ggblanket.bordered_fill = bordered_fill,
-    ggblanket.bordered_linewidth = bordered_linewidth
+    ggblanket.border_colour = border_colour,
+    ggblanket.border_fill = border_fill,
+    ggblanket.border_linewidth = border_linewidth
   )
 }
 

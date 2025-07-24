@@ -2,27 +2,27 @@
 % Please edit documentation in R/update-geom-options-DEV.R
 \name{update_geom_border}
 \alias{update_geom_border}
-\title{Update the bordered geom defaults}
+\title{Update the border geom defaults}
 \usage{
 update_geom_border(
   ...,
-  bordered_colour = function(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
-  bordered_fill = NULL,
-  bordered_linewidth = function(x) x/2.64
+  border_colour = function(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
+  border_fill = NULL,
+  border_linewidth = 0.25
 )
 }
 \arguments{
 \item{...}{Additional arguments (not used).}
 
-\item{bordered_colour}{A function with input of \code{col}. Defaults to screen/multiply based on theme.}
+\item{border_colour}{A function with input of \code{col}. Defaults to screen/multiply based on theme.}
 
-\item{bordered_fill}{A function with input of \code{col}. Defaults to NULL.}
+\item{border_fill}{A function with input of \code{col}. Defaults to NULL.}
 
-\item{bordered_linewidth}{A function with input of \code{linewidth}. Defaults to \(x) x / 2.64.}
+\item{border_linewidth}{A function with input of \code{linewidth}. Defaults to \(x) x / 2.64.}
 }
 \value{
-Global options for bordered geom styling.
+Global options for border geom styling.
 }
 \description{
-Sets global options for bordered geom transformations.
+Sets global options for border geom transformations.
 }

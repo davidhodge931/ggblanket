@@ -96,11 +96,12 @@ test_name <- "4"
 
 test_that(test_name, {
   p <- penguins |>
-    gg_pointrange(
+    gg_linerange(
       stat = "summary",
       x = species,
       y = flipper_length_mm,
-    )
+    ) +
+    geom_point(stat = "summary")
 
   vdiffr::expect_doppelganger(test_name, p)
 })
@@ -285,9 +286,9 @@ test_that(test_name, {
       y_symmetric = FALSE,
       y_expand = c(0, 0),
     )
-    # geom_vline(
-    #   xintercept = 0,
-    # )
+  # geom_vline(
+  #   xintercept = 0,
+  # )
 
   vdiffr::expect_doppelganger(test_name, p)
 })

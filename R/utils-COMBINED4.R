@@ -1599,7 +1599,7 @@ initialise_ggplot_from_list <- function(
 #' @noRd
 add_col_scale <- function(
     plot, geom, stat = NULL, col_scale_class, aes_list, data, plot_data,
-    plot_build, x_symmetric, border, col_breaks, col_breaks_n, col_drop,
+    plot_build, x_symmetric,is_border_geom, col_breaks, col_breaks_n, col_drop,
     col_limits_include, col_labels, col_legend_ncol, col_legend_nrow,
     col_legend_rev, col_rescale, col_scale_type, col_transform,
     colour_palette_discrete, colour_palette_continuous, colour_palette_ordinal,
@@ -1640,7 +1640,7 @@ add_col_scale <- function(
   } else if (col_scale_class %in% c("continuous", "date", "datetime", "time")) {
     plot <- add_col_scale_continuous(
       plot, colour_palette_continuous, fill_palette_continuous,
-      na_colour, na_fill, border, col_breaks, col_breaks_n,
+      na_colour, na_fill,is_border_geom, col_breaks, col_breaks_n,
       col_labels, col_legend_rev, col_rescale, col_scale_type,
       col_transform, aes_list, plot_build
     )
@@ -1903,7 +1903,7 @@ add_col_scale_ordinal <- function(
 #' @noRd
 add_col_scale_continuous <- function(
     plot, colour_palette, fill_palette,
-    na_colour, na_fill, border, col_breaks, col_breaks_n,
+    na_colour, na_fill, is_border_geom, col_breaks, col_breaks_n,
     col_labels, col_legend_rev, col_rescale, col_scale_type,
     col_transform, aes_list, plot_build
 ) {
@@ -1940,7 +1940,7 @@ add_col_scale_continuous <- function(
 
     if (same_mapping) {
       # Same variable mapped to both - hide one guide
-      if (border) {
+      if (is_border_geom) {
         plot <- plot +
           ggplot2::guides(
             colour = ggplot2::guide_none(),
@@ -2002,7 +2002,7 @@ add_col_scale_continuous <- function(
 
     if (same_mapping) {
       # Same variable mapped to both - hide one guide
-      if (border) {
+      if (is_border_geom) {
         plot <- plot +
           ggplot2::guides(
             colour = ggplot2::guide_none(),

@@ -40,7 +40,6 @@ gg_point(
   text = NULL,
   sample = NULL,
   mapping = NULL,
-  border = NULL,
   border_colour = NULL,
   border_fill = NULL,
   border_linewidth = NULL,
@@ -122,8 +121,6 @@ gg_point(
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} defaults. Intended primarily for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}), but can also be used for delayed evaluation etc.}
 
-\item{border}{\code{TRUE} or \code{FALSE} of whether the geom is to be treated as if it has borders.}
-
 \item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 
 \item{x_breaks_n, y_breaks_n, col_breaks_n}{A number of desired breaks.}
@@ -189,13 +186,5 @@ library(ggplot2)
 library(dplyr)
 
 
-set_blanket()
-
-palmerpenguins::penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = species,
-  )
 
 }

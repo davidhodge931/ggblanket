@@ -84,7 +84,7 @@ gg_text <- function(
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
-  col_legend_rev = FALSE, col_palette = NULL, col_palette_na = NULL, 
+  col_legend_rev = FALSE, col_palette = NULL, col_palette_na = NULL,
 
 
   col_rescale = scales::rescale(),
@@ -154,14 +154,14 @@ gg_text <- function(
     y_position = y_position,
     y_title = y_title,
     y_transform = y_transform,
-    border = border, col_breaks = col_breaks, col_breaks_n = col_breaks_n,
+    border_colour = border_colour, border_fill = border_fill, border_linewidth = border_linewidth, col_breaks = col_breaks, col_breaks_n = col_breaks_n,
     col_drop = col_drop,
     col_limits_include = col_limits_include,
     col_labels = col_labels,
     col_legend_ncol = col_legend_ncol,
     col_legend_nrow = col_legend_nrow,
     col_legend_rev = col_legend_rev,
-    
+
 
 
     col_rescale = col_rescale,

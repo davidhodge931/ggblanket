@@ -335,16 +335,16 @@ penguins2 |>
 ### gg_pointrange
 
 ```{r}
-experiment |>
-  gg_pointrange(
-    position = position_dodge(width = 0.2),
-    x = trt,
-    y = resp,
-    col = group,
-    ymin = lower,
-    ymax = upper,
-    y_limits_include = 0,
-  )
+#experiment |>
+#  gg_pointrange(
+#    position = position_dodge(width = 0.2),
+#    x = trt,
+#    y = resp,
+#    col = group,
+#    ymin = lower,
+#    ymax = upper,
+#    y_limits_include = 0,
+#  )
 ```
 
 ### gg_polygon

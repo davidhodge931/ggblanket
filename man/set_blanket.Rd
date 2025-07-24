@@ -14,7 +14,7 @@ set_blanket(
   stroke = 0.5,
   border_colour = function(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
   border_fill = NULL,
-  border_linewidth = function(x) x/2.64,
+  border_linewidth = 0.25,
   col_palette_discrete = scales::pal_hue(),
   col_palette_continuous = viridis_by_theme(n = 256, begin = 0.05, end = 0.95, option =
     "G"),
