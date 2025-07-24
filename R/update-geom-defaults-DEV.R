@@ -14,6 +14,31 @@ update_geom_col <- function(
     ...
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(colour = col, fill = col))
+
+    font_geoms <- c("text", "label")
+    reference_geoms <- c("abline", "hline", "vline")
+    all_geoms <- c("contour", "count", "curve", "dotplot", "density2d", "errorbar",
+                   "freqpoly", "function", "jitter", "line", "linerange", "path",
+                   "point", "pointrange", "qq", "quantile", "rug", "segment", "smooth",
+                   "spoke", "step", "area", "bar", "boxplot", "col", "density", "map",
+                   "polygon", "rect", "ribbon", "tile", "violin", "crossbar", "bin2d",
+                   "hex", "raster", "contour_filled", "density2d_filled",
+                   "text", "label", "abline", "hline", "vline")
+
+    selected_geoms <- setdiff(all_geoms, c(font_geoms, reference_geoms))
+
+    # Build named list of theme elements
+    theme_args <- list()
+
+    # Apply colour and fill to all geoms
+    for (geom in selected_geoms) {
+      geom_name <- paste0("geom.", gsub("_", "", geom))
+
+        theme_args[[geom_name]] <- ggplot2::element_geom(
+          colour = col,
+          fill = col
+        )
+    }
 }
 
 #' Update the shape
@@ -68,8 +93,30 @@ update_geom_linewidth <- function(
     linewidth = 0.66,
     ...
 ) {
-  ggplot2::update_theme(geom = ggplot2::element_geom(linewidth = linewidth,
-                                                     borderwidth = linewidth))
+  ggplot2::update_theme(
+    geom.abline = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.blank = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.contour = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.curve = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.density2d = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.dotplot = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.errorbar = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.errorbarh = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.function = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.hline = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.label = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.line = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.linerange = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.path = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.quantile = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.rug = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.segment = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.smooth = ggplot2::element_geom(linewidth = linewidth / 2, borderwidth = linewidth / 2),
+    geom.spoke = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.step = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.text = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
+    geom.vline = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth)
+  )
 }
 
 #' Update the size
@@ -88,5 +135,176 @@ update_geom_size <- function(
     ...
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(pointsize = size))
+}
+
+#' Update the stroke
+#'
+#' @description
+#' Updates the active theme for stroke styling for set aesthetics.
+#'
+#' @param size A stroke for point geoms.
+#' @param ... Additional arguments (not used).
+#'
+#' @return Updated geom defaults for stroke
+#'
+#' @export
+update_geom_stroke <- function(
+    stroke = 0.5,
+    ...
+) {
+  ggplot2::update_theme(
+    geom.point = ggplot2::element_geom(borderwidth = stroke),
+    geom.jitter = ggplot2::element_geom(borderwidth = stroke),
+    geom.count = ggplot2::element_geom(borderwidth = stroke),
+    geom.qq = ggplot2::element_geom(borderwidth = stroke)
+  )
+}
+
+#' Update the geom text/label
+#'
+#' @description
+#' Updates the active theme to apply consistent size styling.
+#'
+#' @param ... Additional arguments (not used).
+#' @param colour A colour.
+#' @param fill A fill.
+#' @param size A size.
+#' @param family A family.
+#'
+#' @return Updated geom defaults for size
+#'
+#' @noRd
+update_geom_font <- function(
+    ...,
+    colour = NULL,
+    fill = NULL,
+    size = NULL,
+    family = NULL
+) {
+
+  # Get current theme for font defaults
+  current_theme <- ggplot2::get_theme()
+
+  if (rlang::is_null(size)) {
+    # Get the raw size value from theme hierarchy
+    raw_size <- current_theme$axis.text.x$size %||%
+      current_theme$axis.text.y$size %||%
+      current_theme$axis.text$size %||%
+      current_theme$text$size
+    # If we found a theme size, handle rel() objects
+    if (!is.null(raw_size)) {
+      if (inherits(raw_size, "rel")) {
+        base_size <- current_theme$text$size
+        # If base_size is also rel() or NULL, use default
+        if (is.null(base_size) || inherits(base_size, "rel")) {
+          base_size <- 11
+        }
+        size <- as.numeric(raw_size) * base_size
+      } else {
+        size <- raw_size
+      }
+    } else {
+      # Only use the conversion factor for the final fallback
+      size <- 11
+    }
+    # Theme sizes are already in the correct units for fontsize
+    # No conversion needed
+  }
+  else {
+    # If size is provided by user in mm, convert to fontsize scale
+    # fontsize expects points, so convert mm to points
+    size <- as.numeric(size) / 0.352777778
+  }
+
+  colour <- colour %||%
+    current_theme$axis.text.x$colour %||%
+    current_theme$axis.text.y$colour %||%
+    current_theme$axis.text$colour %||%
+    current_theme$text$colour %||%
+    "black"
+
+  fill <- fill %||%
+    current_theme$panel.background$fill %||%
+    "white"
+
+  if (rlang::is_null(family)) {
+    family <- current_theme$axis.text.x$family %||%
+      current_theme$axis.text.y$family %||%
+      current_theme$axis.text$family %||%
+      current_theme$text$family %||%
+      ""
+  }
+
+  ggplot2::update_theme(
+    geom.text = ggplot2::element_geom(
+      colour = colour,
+      fontsize = size,
+      family = family
+    ),
+    geom.label = ggplot2::element_geom(
+      colour = colour,
+      fill = fill,
+      fontsize = size,
+      family = family
+    )
+  )
+}
+
+#' Update the geom abline/vline/hline
+#'
+#' @description
+#' Updates the active theme to apply consistent reference line styling.
+#'
+#' @param ... Additional arguments (not used).
+#' @param colour A colour.
+#' @param linewidth A linewidth.
+#'
+#' @return Updated geom defaults
+#'
+#' @noRd
+update_geom_reference <- function(
+    ...,
+    colour = NULL,
+    linewidth = NULL
+) {
+
+  # Get current theme for font defaults
+  current_theme <- ggplot2::get_theme()
+
+  # Handle reference line linewidth defaults
+  linewidth <- linewidth %||%
+    current_theme$axis.line.x.bottom$linewidth %||%
+    current_theme$axis.line.x.top$linewidth %||%
+    current_theme$axis.line.y.left$linewidth %||%
+    current_theme$axis.line.y.right$linewidth %||%
+    current_theme$axis.line.x$linewidth %||%
+    current_theme$axis.line.y$linewidth %||%
+    current_theme$axis.line$linewidth %||%
+    0.25
+
+  colour <- colour %||%
+    current_theme$axis.line.x.bottom$colour %||%
+    current_theme$axis.line.x.top$colour %||%
+    current_theme$axis.line.y.left$colour %||%
+    current_theme$axis.line.y.right$colour %||%
+    current_theme$axis.line.x$colour %||%
+    current_theme$axis.line.y$colour %||%
+    current_theme$axis.line$colour %||%
+    0.25
+
+  ggplot2::update_theme(
+    geom.abline = ggplot2::element_geom(
+      colour = colour,
+      linewidth = linewidth
+    ),
+    geom.vline = ggplot2::element_geom(
+      colour = colour,
+      linewidth = linewidth
+    ),
+    geom.hline = ggplot2::element_geom(
+      colour = colour,
+      linewidth = linewidth
+    )
+  )
 }
 

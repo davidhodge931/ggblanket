@@ -27,6 +27,7 @@ gg_raster(
   col = NULL,
   colour = NULL,
   fill = NULL,
+  alpha = NULL,
   shape = NULL,
   linetype = NULL,
   linewidth = NULL,
@@ -116,7 +117,7 @@ gg_raster(
 
 \item{panel_grid_transparent}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{perspective} of the plot.}
 
-\item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, shape, linetype, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
+\item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, colour, fill, shape, linetype, linewidth, size, alpha, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} defaults. Intended primarily for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}), but can also be used for delayed evaluation etc.}
 

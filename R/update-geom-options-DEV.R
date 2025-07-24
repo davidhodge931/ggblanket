@@ -78,25 +78,28 @@ update_geom_border <- function(
 ) {
   options(
     ggblanket.border_colour = border_colour,
-    ggblanket.border_fill = border_fill,
-    ggblanket.border_linewidth = border_linewidth
+    ggblanket.border_fill = border_fill
+  )
+
+  ggplot2::update_theme(
+    geom.area = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.bin2d = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.bar = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.boxplot = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.col = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.contour_filled = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.crossbar = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.density = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.density2d_filled = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.hex = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.map = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.polygon = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.raster = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.rect = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.ribbon = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    # sf inherits from point/line, so not required
+    geom.tile = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.violin = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth)
   )
 }
 
-#' Update the stroke
-#'
-#' @description
-#' Sets global option for stroke styling for set aesthetics.
-#'
-#' @param stroke A stroke value for point geoms.
-#' @param ... Additional arguments (not used).
-#'
-#' @return Global option for stroke styling
-#'
-#' @export
-update_geom_stroke <- function(
-    stroke = 0.5,
-    ...
-) {
-  options(ggblanket.stroke = stroke)
-}

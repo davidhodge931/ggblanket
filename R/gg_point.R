@@ -11,7 +11,14 @@
 #' library(ggplot2)
 #' library(dplyr)
 #'
+#' set_blanket()
 #'
+#' palmerpenguins::penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'  )
 #'
 gg_point <- function(
     data = NULL,
@@ -35,7 +42,7 @@ gg_point <- function(
     yend = NULL,
     z = NULL,
     col = NULL,
-    colour = NULL, fill = NULL, alpha = NULL, shape = NULL, linetype = NULL, linewidth = NULL, size = NULL,facet = NULL,
+    colour = NULL, fill = NULL, alpha = NULL, shape = NULL, linetype = NULL, linewidth = NULL, size = NULL, facet = NULL,
     facet2 = NULL,
     group = NULL,
     subgroup = NULL,
@@ -113,7 +120,7 @@ gg_point <- function(
     yend = {{ yend }},
     z = {{ z }},
     col = {{ col }},
-    colour = {{ colour }}, fill = {{ fill }}, shape = {{ shape }}, linetype = {{ linetype }}, linewidth = {{ linewidth }}, size = {{ size }}, alpha = {{ alpha }},facet = {{ facet }},
+    colour = {{ colour }}, fill = {{ fill }}, alpha = {{ alpha }}, shape = {{ shape }}, linetype = {{ linetype }}, linewidth = {{ linewidth }}, size = {{ size }}, facet = {{ facet }},
     facet2 = {{ facet2 }},
     group = {{ group }},
     subgroup = {{ subgroup }},

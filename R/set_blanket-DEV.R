@@ -64,8 +64,6 @@ set_blanket <- function(
     border_fill = NULL,
     border_linewidth = 0.25,
 
-    # border_linewidth = \(x) x / 2.64,
-
     col_palette_discrete = scales::pal_hue(),
     col_palette_continuous = viridis_by_theme(n = 256, begin = 0.05, end = 0.95, option = "G"),
     col_palette_ordinal = NULL,
@@ -93,8 +91,6 @@ set_blanket <- function(
   update_geom_size(size = size)
   update_geom_stroke(stroke = stroke)
 
-  # update_geom_family(family_font = family_font)
-
   update_geom_palettes(
     col_palette_discrete = col_palette_discrete,
     col_palette_continuous = col_palette_continuous,
@@ -109,6 +105,10 @@ set_blanket <- function(
     border_fill = border_fill,
     border_linewidth = border_linewidth
   )
+
+  update_geom_font()
+
+  update_geom_reference()
 
   update_titles_case(titles_case = titles_case)
 

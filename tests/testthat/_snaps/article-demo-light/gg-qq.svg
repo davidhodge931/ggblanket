@@ -192,7 +192,7 @@
 <circle cx='231.33' cy='260.34' r='1.95' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
 <circle cx='237.88' cy='257.26' r='1.95' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
 <circle cx='250.64' cy='251.08' r='1.95' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
-<line x1='-135.02' y1='919.95' x2='456.93' y2='-146.16' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
+<line x1='-135.02' y1='919.95' x2='456.93' y2='-146.16' style='stroke-width: 0.53; stroke: #357BA2; stroke-linecap: butt;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>
@@ -285,7 +285,7 @@
 <circle cx='439.30' cy='285.04' r='1.95' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
 <circle cx='446.68' cy='278.86' r='1.95' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
 <circle cx='460.77' cy='248.00' r='1.95' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
-<line x1='84.21' y1='760.78' x2='676.16' y2='2.20' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
+<line x1='84.21' y1='760.78' x2='676.16' y2='2.20' style='stroke-width: 0.53; stroke: #357BA2; stroke-linecap: butt;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>
@@ -433,7 +433,7 @@
 <circle cx='667.04' cy='99.84' r='1.95' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
 <circle cx='673.78' cy='93.67' r='1.95' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
 <circle cx='686.85' cy='62.80' r='1.95' style='stroke-width: 0.71; stroke: #0B3B67; fill: #357BA2;' />
-<line x1='303.45' y1='867.03' x2='895.40' y2='-445.11' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
+<line x1='303.45' y1='867.03' x2='895.40' y2='-445.11' style='stroke-width: 0.53; stroke: #357BA2; stroke-linecap: butt;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <rect x='62.29' y='21.92' width='197.32' height='16.19' style='stroke-width: 1.07; stroke: none;' />

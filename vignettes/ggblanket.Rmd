@@ -154,7 +154,7 @@ palmerpenguins::penguins |>
     x = species, 
     y = flipper_length_mm, 
     col = island,
-    mapping = aes(shape = sex),
+    # mapping = aes(shape = sex),
   ) +
   guides_shape_grey()
 ```

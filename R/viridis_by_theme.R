@@ -17,11 +17,11 @@
 #' @export
 #'
 #' @examples
-#' viridis_by_theme(n = 256)
-#' viridis_by_theme(n = 5)
+#' viridis_by_theme()
+#' viridis_by_theme(n = 5, option = "A")
 #' viridis_by_theme(n = 256, rev = TRUE)
 viridis_by_theme <- function(
-    n,
+    n = 256,
     begin = 0,
     end = 1,
     option = "D",

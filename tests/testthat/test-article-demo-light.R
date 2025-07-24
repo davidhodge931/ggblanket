@@ -270,27 +270,6 @@ test_that(test_name, {
 })
 
 ## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_label"
-
-test_that(test_name, {
-  p <- bind_rows(
-    mtcars |> slice_min(order_by = mpg),
-    mtcars |> slice_max(order_by = mpg)
-  ) |>
-    tibble::rownames_to_column("model") |>
-    gg_label(
-      x = model,
-      y = mpg,
-      label = model,
-      y_limits_include = 0,
-      y_title = "Miles per gallon",
-      # col_palette = c(orange, "white", teal),
-    )
-
-  vdiffr::expect_doppelganger(test_name, p)
-})
-
-## ---------------------------------------------------------------------------------------------------
 test_name <- "gg_line"
 
 test_that(test_name, {
@@ -546,12 +525,8 @@ test_that(test_name, {
       x = year,
       ymin = level_min,
       ymax = level_max,
-      colour = NA,
       x_labels = \(x) x,
       y_title = "Level",
-    ) +
-    geom_line(
-      mapping = aes(y = level),
     )
 
   vdiffr::expect_doppelganger(test_name, p)
@@ -627,26 +602,6 @@ test_that(test_name, {
       y = unemploy,
       y_limits_include = 0,
       y_title = "Unemployment",
-    )
-
-  vdiffr::expect_doppelganger(test_name, p)
-})
-
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_text"
-
-test_that(test_name, {
-  p <- bind_rows(
-    mtcars |> slice_min(order_by = mpg),
-    mtcars |> slice_max(order_by = mpg)
-  ) |>
-    tibble::rownames_to_column("model") |>
-    gg_text(
-      x = model,
-      y = mpg,
-      label = model,
-      y_limits_include = 0,
-      y_title = "Miles per gallon",
     )
 
   vdiffr::expect_doppelganger(test_name, p)

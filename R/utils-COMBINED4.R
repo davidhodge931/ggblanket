@@ -45,10 +45,10 @@ get_geom_params <- function(geom, ...) {
     ),
     crossbar = list(
       middle_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth)
-    ),
-    smooth = list(
-      alpha = NA
     )
+    # smooth = list(
+    #   alpha = NA
+    # )
   )
 
   # Get specific params or empty list
@@ -1225,8 +1225,6 @@ add_perspective <- function(
   }
 }
 
-# Aesthetic detection functions ----
-
 #' Detect if a value is an aesthetic mapping or a fixed value
 #' @noRd
 is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
@@ -1306,7 +1304,55 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
 
   # Check if it's a call (expression)
   if (rlang::quo_is_call(quo_input)) {
-    return(list(is_aesthetic = TRUE, value = quo_input))
+    # Try to evaluate the call first
+    tryCatch({
+      eval_value <- rlang::eval_tidy(quo_input)
+
+      # Check based on argument type
+      if (arg_name %in% c("col", "colour", "fill")) {
+        if ((is.character(eval_value) && length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))) {
+          return(list(is_aesthetic = FALSE, value = eval_value))
+        }
+      } else if (arg_name == "shape") {
+        if (((is.numeric(eval_value) || is.character(eval_value)) &&
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))) {
+          return(list(is_aesthetic = FALSE, value = eval_value))
+        }
+      } else if (arg_name == "linetype") {
+        if (((is.numeric(eval_value) || is.character(eval_value)) &&
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))) {
+          return(list(is_aesthetic = FALSE, value = eval_value))
+        }
+      } else if (arg_name == "linewidth") {
+        if (((is.numeric(eval_value) || is.character(eval_value)) &&
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))) {
+          return(list(is_aesthetic = FALSE, value = eval_value))
+        }
+      } else if (arg_name == "size") {
+        if (((is.numeric(eval_value) || is.character(eval_value)) &&
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))) {
+          return(list(is_aesthetic = FALSE, value = eval_value))
+        }
+      } else if (arg_name == "alpha") {
+        if (((is.numeric(eval_value) || is.character(eval_value)) &&
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))) {
+          return(list(is_aesthetic = FALSE, value = eval_value))
+        }
+      }
+
+      # If it doesn't meet fixed value criteria, treat as aesthetic
+      return(list(is_aesthetic = TRUE, value = quo_input))
+
+    }, error = function(e) {
+      # If evaluation fails, treat as aesthetic
+      return(list(is_aesthetic = TRUE, value = quo_input))
+    })
   }
 
   # For other cases (like direct strings), try to evaluate
@@ -1373,7 +1419,7 @@ is_border <- function(geom, theme_defaults) {
   # Define which geoms are treated as border polygons
   border_polygons <- c(
     "area", "bar", "boxplot", "col", "crossbar", "density",
-    "map", "polygon", "rect", "ribbon", "smooth", "sf", "tile",
+    "map", "polygon", "rect", "ribbon", "smooth", "tile",
     "violin", "raster", "contour_filled", "density2d_filled",
     "bin2d", "hex"
   )
@@ -1456,7 +1502,7 @@ get_plot_titles <- function(
   }
 
   # Get other aesthetic titles
-  other_aesthetics <- c("alpha", "shape", "size", "linewidth", "linetype", "stroke", "pattern")
+  other_aesthetics <- c("alpha", "shape", "linetype", "linewidth", "size", "pattern")
   other_titles <- list()
 
   for (aes in other_aesthetics) {

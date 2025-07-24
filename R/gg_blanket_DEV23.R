@@ -16,7 +16,7 @@
 #' @param axis_line_transparent `TRUE` or `FALSE` of whether to remove the relevant axis line per the `perspective` of the plot.
 #' @param axis_ticks_transparent `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `perspective` of the plot.
 #' @param panel_grid_transparent `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `perspective` of the plot.
-#' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,shape,linetype,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
+#' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,linewidth,size,alpha,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] defaults. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
 #' @param x_breaks_n,y_breaks_n,col_breaks_n A number of desired breaks.
@@ -79,7 +79,7 @@ gg_blanket <- function(
     shape = NULL,
     linetype = NULL,
     linewidth = NULL,
-    size = NULL, stroke = NULL,
+    size = NULL,
     facet = NULL,
     facet2 = NULL,
     group = NULL,
@@ -269,16 +269,16 @@ gg_blanket <- function(
     border_fill <- border_fill
   }
 
-  if (rlang::is_null(border_linewidth)) {
-    border_linewidth <- if (is_border_geom) {
-      getOption("ggblanket.border_linewidth")
-    } else {
-      NULL
-    }
-  } else if (is.na(border_linewidth)) {
-    # User explicitly disabled border linewidth adjustment
-    border_linewidth <- NULL
-  }
+  # if (rlang::is_null(border_linewidth)) {
+  #   border_linewidth <- if (is_border_geom) {
+  #     getOption("ggblanket.border_linewidth")
+  #   } else {
+  #     NULL
+  #   }
+  # } else if (is.na(border_linewidth)) {
+  #   # User explicitly disabled border linewidth adjustment
+  #   border_linewidth <- NULL
+  # }
   # else {
   #   # User provided a numeric value
   #   border_linewidth <- border_linewidth
@@ -449,7 +449,9 @@ gg_blanket <- function(
       # If col IS NA, don't inherit it to colour
     } else {
       # Use theme default when neither colour nor col are set
-      default_col <- theme_defaults$geom$colour %||% "#8991A1FF"
+      # default_col <- theme_defaults$geom$colour %||% "#8991A1FF"
+      default_col <- ggplot2::get_geom_defaults(geom)$colour %||% "#8991A1FF"
+
       if (is_border_geom && !is.null(border_colour) && is.function(border_colour)) {
         fixed_params$colour <- border_colour(default_col)
       } else {
@@ -478,7 +480,10 @@ gg_blanket <- function(
       # If col IS NA, don't inherit it to fill
     } else {
       # Use theme default when neither fill nor col are set
-      default_fill <- theme_defaults$geom$fill %||% "#8991A1FF"
+
+      # default_fill <- theme_defaults$geom$fill %||% "#8991A1FF"
+      default_fill <- ggplot2::get_geom_defaults(geom)$fill %||% "#8991A1FF"
+
       if (is_border_geom && !is.null(border_fill) && is.function(border_fill)) {
         fixed_params$fill <- border_fill(default_fill)
       } else {
@@ -510,36 +515,49 @@ gg_blanket <- function(
   if (!shape_map_or_set$is_aesthetic && !is.null(shape_map_or_set$value)) {
     fixed_params$shape <- shape_map_or_set$value
   } else if (!shape_map_or_set$is_aesthetic) {
-    fixed_params$shape <- theme_defaults$geom$pointshape %||% 19
+    fixed_params$shape <- ggplot2::get_geom_defaults(geom)$shape %||% 19
   }
 
   if (!linetype_map_or_set$is_aesthetic && !is.null(linetype_map_or_set$value)) {
     fixed_params$linetype <- linetype_map_or_set$value
   } else if (!linetype_map_or_set$is_aesthetic) {
-    default_linetype <- theme_defaults$geom$linetype %||% 1
-    fixed_params$linetype <- default_linetype
+    fixed_params$linetype <- ggplot2::get_geom_defaults(geom)$linetype %||% 1
   }
 
   if (!linewidth_map_or_set$is_aesthetic && !is.null(linewidth_map_or_set$value)) {
     fixed_params$linewidth <- linewidth_map_or_set$value
   } else if (!linewidth_map_or_set$is_aesthetic) {
-    default_linewidth <- theme_defaults$geom$linewidth %||% 0.5
-
-    # Apply border linewidth adjustment if it's a border geom
-    if (is_border_geom && !is.null(border_linewidth)) {
-      if (is.numeric(border_linewidth)) {
-        # Direct numeric value
-        fixed_params$linewidth <- border_linewidth
-      } else if (is.function(border_linewidth)) {
-        # Function to modify default
-        fixed_params$linewidth <- border_linewidth(default_linewidth)
-      } else {
-        fixed_params$linewidth <- default_linewidth
-      }
-    } else {
-      fixed_params$linewidth <- default_linewidth
+    if (geom == "smooth") {
+      fixed_params$linewidth <- ggplot2::get_geom_defaults("line")$linewidth
+    }
+    else if (geom == "tile") {
+      fixed_params$linewidth <- ggplot2::get_geom_defaults("rect")$linewidth
+    }
+    else {
+      fixed_params$linewidth <- ggplot2::get_geom_defaults(geom)$linewidth
     }
   }
+
+  # if (!linewidth_map_or_set$is_aesthetic && !is.null(linewidth_map_or_set$value)) {
+  #   fixed_params$linewidth <- linewidth_map_or_set$value
+  # } else if (!linewidth_map_or_set$is_aesthetic) {
+  #   default_linewidth <- theme_defaults$geom$linewidth %||% 0.5
+  #
+  #   # Apply border linewidth adjustment if it's a border geom
+  #   if (is_border_geom && !is.null(border_linewidth)) {
+  #     if (is.numeric(border_linewidth)) {
+  #       # Direct numeric value
+  #       fixed_params$linewidth <- border_linewidth
+  #     } else if (is.function(border_linewidth)) {
+  #       # Function to modify default
+  #       fixed_params$linewidth <- border_linewidth(default_linewidth)
+  #     } else {
+  #       fixed_params$linewidth <- default_linewidth
+  #     }
+  #   } else {
+  #     fixed_params$linewidth <- default_linewidth
+  #   }
+  # }
 
   if (!size_map_or_set$is_aesthetic && !is.null(size_map_or_set$value)) {
     fixed_params$size <- size_map_or_set$value
@@ -550,27 +568,10 @@ gg_blanket <- function(
   if (!alpha_map_or_set$is_aesthetic && !is.null(alpha_map_or_set$value)) {
     fixed_params$alpha <- alpha_map_or_set$value
   }
-
-  # Handle stroke fixed value
-  if (!is.null(stroke)) {
-    fixed_params$stroke <- stroke
-  } else if (geom %in% c("point", "jitter", "count", "qq", "pointrange")) {
-    # Only set default stroke for point geoms that support it
-    # Get stroke from global option, fallback to 0.5
-    fixed_params$stroke <- getOption("ggblanket.stroke", 0.5)
+  else if (!alpha_map_or_set$is_aesthetic) {
+    if (geom == "smooth") fixed_params$alpha <- NA
   }
 
-  # Sophisticated hacky fix for certain stats
-  # Should not apply if the user supplies colour = "black", fill = "grey" etc
-  # OR if colour/fill are in mapping
-  if (stat %in% c("bin2d", "binhex", "contour_filled", "density2d_filled")) {
-    if (!colour_in_mapping && is.null(colour_map_or_set$value)) {
-      fixed_params$colour <- NULL
-    }
-    if (!fill_in_mapping && is.null(fill_map_or_set$value)) {
-      fixed_params$fill <- NULL
-    }
-  }
 
   # Build aesthetic list (only aesthetics, not fixed values)
   aes_list <- list(
@@ -639,6 +640,7 @@ gg_blanket <- function(
   # Add initial layer
   plot <- add_initial_layer(plot, geom, stat, position, params,
                             show_legend, coord, blend)
+
 
   # Get plot build
   suppressMessages({
@@ -731,6 +733,9 @@ gg_blanket <- function(
       facet_ncols <- length(unique(plot_build$layout$layout$COL))
     })
   })
+
+  # return(is_border_geom)
+  # return(fixed_params)
 
   # Step 18: Make colour scale
   if (!is.na(col_scale_class)) {

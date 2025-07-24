@@ -271,22 +271,6 @@ penguins2 |>
   )
 ```
 
-### gg_label
-
-```{r}
-bind_rows(
-  mtcars |> slice_min(order_by = mpg),
-  mtcars |> slice_max(order_by = mpg)) |>
-  tibble::rownames_to_column("model") |>
-  gg_label(
-    x = model,
-    y = mpg,
-    label = model,
-    y_limits_include = 0,
-    y_title = "Miles per gallon", 
-  )
-```
-
 ### gg_line
 
 ```{r}
@@ -392,17 +376,6 @@ penguins2 |>
     col = species,
   ) +
   geom_qq_line(colour = get_geom_defaults("qq_line")$colour)
-```
-### gg_qq_line
-
-```{r}
-penguins2 |>
-  gg_qq_line(
-    sample = body_mass_g,
-    col = species,
-    colour = "#357BA2FF"
-  ) +
-  geom_qq()
 ```
 
 ### gg_quantile
@@ -518,22 +491,6 @@ economics |>
     y = unemploy,
     y_limits_include = 0,
     y_title = "Unemployment",
-  )
-```
-
-### gg_text
-
-```{r}
-bind_rows(
-  mtcars |> slice_min(order_by = mpg),
-  mtcars |> slice_max(order_by = mpg)) |>
-  tibble::rownames_to_column("model") |>
-  gg_text(
-    x = model,
-    y = mpg,
-    label = model,
-    y_limits_include = 0,
-    y_title = "Miles per gallon",
   )
 ```
 

@@ -34,9 +34,9 @@
 <line x1='174.73' y1='467.53' x2='174.73' y2='452.02' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
 <line x1='376.02' y1='386.84' x2='376.02' y2='361.63' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
 <line x1='577.31' y1='71.43' x2='577.31' y2='54.39' style='stroke-width: 1.41; stroke: #357BA2; stroke-linecap: butt;' />
-<circle cx='174.73' cy='459.78' r='2.07' style='stroke-width: 0.94; stroke: #357BA2; fill: #357BA2;' />
-<circle cx='376.02' cy='374.24' r='2.07' style='stroke-width: 0.94; stroke: #357BA2; fill: #357BA2;' />
-<circle cx='577.31' cy='62.91' r='2.07' style='stroke-width: 0.94; stroke: #357BA2; fill: #357BA2;' />
+<circle cx='174.73' cy='459.78' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
+<circle cx='376.02' cy='374.24' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
+<circle cx='577.31' cy='62.91' r='1.95' style='stroke-width: 0.71; stroke: #357BA2; fill: #357BA2;' />
 <polyline points='53.95,531.97 53.95,21.92 ' style='stroke-width: 0.53; stroke: none; stroke-linecap: square;' />
 <text x='47.56' y='535.41' text-anchor='end' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='16.69px' lengthAdjust='spacingAndGlyphs'>185</text>
 <text x='47.56' y='462.54' text-anchor='end' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='16.69px' lengthAdjust='spacingAndGlyphs'>190</text>

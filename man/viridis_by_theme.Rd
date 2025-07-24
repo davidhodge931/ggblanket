@@ -5,7 +5,7 @@
 \title{Generate a viridis Colour Palette with Adaptive Direction}
 \usage{
 viridis_by_theme(
-  n,
+  n = 256,
   begin = 0,
   end = 1,
   option = "D",
@@ -37,7 +37,7 @@ with automatic direction adjustment depending on whether the panel background
 is dark or light. This ensures the palette maintains appropriate contrast.
 }
 \examples{
-viridis_by_theme(n = 256)
-viridis_by_theme(n = 5)
+viridis_by_theme()
+viridis_by_theme(n = 5, option = "A")
 viridis_by_theme(n = 256, rev = TRUE)
 }
