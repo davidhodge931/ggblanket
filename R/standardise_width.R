@@ -5,13 +5,13 @@
 #' @param ... Provided to force user argument naming etc.
 #' @param from_n Number of x aesthetic groups in the current plot. Required.
 #' @param from_dodge_n Number of fill aesthetic etc groups dodged in the current plot. Defaults to 1.
-#' @param from_perspective Perspective of the current plot. Either "x" (default) or "y".
+#' @param from_aspect aspect of the current plot. Either "x" (default) or "y".
 #' @param from_panel_widths Unit vector of individual panel widths in the current plot. If NULL, panels assumed equal.
 #' @param from_panel_heights Unit vector of individual panel heights in the current plot. If NULL, panels assumed equal.
 #' @param to_width Width value in the reference standard. Required.
 #' @param to_n Number of x aesthetic groups in the reference standard. Required.
 #' @param to_dodge_n Number of fill aesthetic etc groups dodged in the reference standard. Defaults to 1.
-#' @param to_perspective Perspective of the reference standard plot. Either "x" (default) or "y".
+#' @param to_aspect aspect of the reference standard plot. Either "x" (default) or "y".
 #' @param to_panel_widths Unit vector of individual panel widths in the reference standard. If NULL, panels assumed equal.
 #' @param to_panel_heights Unit vector of individual panel heights in the reference standard. If NULL, panels assumed equal.
 #'
@@ -71,7 +71,7 @@
 #'     width = standardise_width(
 #'       from_n = 2,
 #'       from_dodge_n = 3,
-#'       from_perspective = "y",
+#'       from_aspect = "y",
 #'       to_width = 0.25,
 #'       to_n = 3,
 #'     )
@@ -82,13 +82,13 @@ standardise_width <- function(
     ...,
     from_n,
     from_dodge_n = 1,
-    from_perspective = "x",
+    from_aspect = "x",
     from_panel_widths = NULL,
     from_panel_heights = NULL,
     to_width,
     to_n,
     to_dodge_n = 1,
-    to_perspective = "x",
+    to_aspect = "x",
     to_panel_widths = NULL,
     to_panel_heights = NULL
 ) {
@@ -176,17 +176,17 @@ standardise_width <- function(
     !is.null(from_panel_widths) |
     !is.null(from_panel_heights)
   ) {
-    # Get the relevant dimension for each perspective
-    # For perspective "x" (vertical bars): width depends on panel width
-    # For perspective "y" (horizontal bars): width depends on panel height
+    # Get the relevant dimension for each aspect
+    # For aspect "x" (vertical bars): width depends on panel width
+    # For aspect "y" (horizontal bars): width depends on panel height
 
-    current_relevant_dim <- if (from_perspective == "x") {
+    current_relevant_dim <- if (from_aspect == "x") {
       if (!is.null(from_panel_widths)) as.numeric(from_panel_widths)[1] else 1
     } else {
       if (!is.null(from_panel_heights)) as.numeric(from_panel_heights)[1] else 1
     }
 
-    reference_relevant_dim <- if (to_perspective == "x") {
+    reference_relevant_dim <- if (to_aspect == "x") {
       if (!is.null(to_panel_widths)) as.numeric(to_panel_widths)[1] else 1
     } else {
       if (!is.null(to_panel_heights)) as.numeric(to_panel_heights)[1] else 1

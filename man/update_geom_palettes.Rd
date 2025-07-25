@@ -6,8 +6,7 @@
 \usage{
 update_geom_palettes(
   col_palette_discrete = scales::pal_hue(),
-  col_palette_continuous = viridis_by_theme(n = 256, begin = 0.05, end = 0.95, option =
-    "G"),
+  col_palette_continuous = pal_viridis_by_panel("mako", 0.1, 0.9),
   col_palette_ordinal = NULL,
   col_palette_na = "#A6A6A6FF",
   shape_palette_discrete = c(21, 24, 22, 23, 25),

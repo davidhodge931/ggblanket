@@ -1,22 +1,22 @@
-#' Set the perspective behaviour
+#' Set the aspect behaviour
 #'
-#' @description Set the perspective behaviour in `gg_*` functions.
+#' @description Set the aspect behaviour in `gg_*` functions.
 #'
 #' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param axis_line_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `perspective` of the plot.
-#' @param axis_ticks_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `perspective` of the plot.
-#' @param panel_grid_transparent `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `perspective` of the plot.
+#' @param aspect_axis_line_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis line per the `aspect` of the plot.
+#' @param aspect_axis_ticks_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant axis ticks per the `aspect` of the plot.
+#' @param aspect_panel_grid_rm `TRUE` or `FALSE` of whether the `gg_*` function should remove the relevant panel grid per the `aspect` of the plot.
 #'
 #' @noRd
-update_perspective <- function(
+update_aspect <- function(
     ...,
-    axis_line_transparent = TRUE,
-    axis_ticks_transparent = TRUE,
-    panel_grid_transparent = TRUE
+    aspect_axis_line_rm = TRUE,
+    aspect_axis_ticks_rm = TRUE,
+    aspect_panel_grid_rm = TRUE
 ) {
   options(
-    ggblanket.axis_line_transparent = axis_line_transparent,
-    ggblanket.axis_ticks_transparent = axis_ticks_transparent,
-    ggblanket.panel_grid_transparent = panel_grid_transparent
+    ggblanket.aspect_axis_line_rm = aspect_axis_line_rm,
+    ggblanket.aspect_axis_ticks_rm = aspect_axis_ticks_rm,
+    ggblanket.aspect_panel_grid_rm = aspect_panel_grid_rm
   )
 }

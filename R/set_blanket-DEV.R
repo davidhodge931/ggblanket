@@ -25,12 +25,12 @@
 
 #' @param titles_case A function to apply to unspecified/unlabelled titles in `gg_*` functions.
 #'   Defaults to `snakecase::to_sentence_case`.
-#' @param perspective_axis_line_blank Logical. Whether `gg_*` functions should remove the relevant
-#'   axis line based on plot perspective. Defaults to TRUE.
-#' @param perspective_axis_ticks_rm Logical. Whether `gg_*` functions should remove the relevant
-#'   axis ticks based on plot perspective. Defaults to TRUE.
-#' @param perspective_panel_grid_rm Logical. Whether `gg_*` functions should remove the relevant
-#'   panel grid based on plot perspective. Defaults to TRUE.
+#' @param aspect_axis_line_rm Logical. Whether `gg_*` functions should remove the relevant
+#'   axis line based on plot aspect. Defaults to TRUE.
+#' @param aspect_axis_ticks_rm Logical. Whether `gg_*` functions should remove the relevant
+#'   axis ticks based on plot aspect. Defaults to TRUE.
+#' @param aspect_panel_grid_rm Logical. Whether `gg_*` functions should remove the relevant
+#'   panel grid based on plot aspect. Defaults to TRUE.
 #' @param ... Additional arguments (not used).
 #'
 #' @return Invisibly returns NULL. Sets global styling options as a side effect.
@@ -60,21 +60,21 @@ set_blanket <- function(
     shape = 21,
     stroke = 0.5,
 
-    bordered_colour_by = \(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
+    bordered_colour_by = \(x) ifelse(is_panel_dark(), col_screen(x), col_multiply(x)),
     bordered_fill_by = NULL,
     bordered_linewidth = 0.25,
 
-    col_palette_discrete = scales::pal_hue(),
-    col_palette_continuous = viridis_by_theme(n = 256, begin = 0.05, end = 0.95, option = "G"),
-    col_palette_ordinal = NULL,
-    col_palette_na = "#A6A6A6FF",
-    shape_palette_discrete = c(21, 24, 22, 23, 25),
-    linetype_palette_discrete = 1:6,
+    col_palette_d = scales::pal_hue(),
+    col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
+    col_palette_o = NULL,
+    col_na = "#A6A6A6FF",
+    shape_palette_d = c(21, 24, 22, 23, 25),
+    linetype_palette_d = 1:6,
 
     titles_case = snakecase::to_sentence_case,
-    perspective_axis_line_blank = TRUE,
-    perspective_axis_ticks_rm = TRUE,
-    perspective_panel_grid_rm = TRUE,
+    aspect_axis_line_rm = TRUE,
+    aspect_axis_ticks_rm = TRUE,
+    aspect_panel_grid_rm = TRUE,
     ...
 ) {
 
@@ -112,9 +112,9 @@ set_blanket <- function(
 
   update_titles_case(titles_case = titles_case)
 
-  update_perspective(
-    perspective_axis_line_blank = perspective_axis_line_blank,
-    perspective_axis_ticks_rm = perspective_axis_ticks_rm,
-    perspective_panel_grid_rm = perspective_panel_grid_rm
+  update_aspect(
+    aspect_axis_line_rm = aspect_axis_line_rm,
+    aspect_axis_ticks_rm = aspect_axis_ticks_rm,
+    aspect_panel_grid_rm = aspect_panel_grid_rm
   )
 }

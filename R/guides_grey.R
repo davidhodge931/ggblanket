@@ -36,7 +36,7 @@ guides_shape_grey <- function(col = "#8991A1", ...) {
 
   # If shape is fillable (21-25), adjust colour and use col for fill
   if (!is.null(shape) && shape %in% 21:25) {
-    if (is_theme_dark(theme = current_theme)) {
+    if (is_panel_dark(theme = current_theme)) {
       border <- col_screen(col)
     } else {
       border <- col_multiply(col)
@@ -76,7 +76,7 @@ guides_size_grey <- function(col = "#8991A1", ...) {
 
   # If shape is fillable (21-25), adjust colour and use col for fill
   if (!is.null(shape) && shape %in% 21:25) {
-    if (is_theme_dark(theme = current_theme)) {
+    if (is_panel_dark(theme = current_theme)) {
       border <- col_screen(col)
     } else {
       border <- col_multiply(col)

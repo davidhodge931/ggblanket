@@ -11,10 +11,10 @@ gg_area(
   position = "stack",
   coord = ggplot2::coord_cartesian(clip = "off"),
   blend = NULL,
-  perspective = NULL,
-  perspective_axis_line_rm = NULL,
-  perspective_axis_ticks_rm = NULL,
-  perspective_panel_grid_rm = NULL,
+  aspect = NULL,
+  aspect_axis_line_rm = NULL,
+  aspect_axis_ticks_rm = NULL,
+  aspect_panel_grid_rm = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -109,13 +109,13 @@ gg_area(
 
 \item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
 
-\item{perspective}{The perspective of plot, which affects the theme components that are removed. Either \code{"x"} or \code{"y"}.}
+\item{aspect}{The aspect of plot, which affects the theme components that are removed. Either \code{"x"} or \code{"y"}.}
 
-\item{perspective_axis_line_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis line per the \code{perspective} of the plot.}
+\item{aspect_axis_line_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis line per the \code{aspect} of the plot.}
 
-\item{perspective_axis_ticks_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis ticks per the \code{perspective} of the plot.}
+\item{aspect_axis_ticks_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis ticks per the \code{aspect} of the plot.}
 
-\item{perspective_panel_grid_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{perspective} of the plot.}
+\item{aspect_panel_grid_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{aspect} of the plot.}
 
 \item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, colour, fill, shape, linetype, alpha, linewidth, size, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
 

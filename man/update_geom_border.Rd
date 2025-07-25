@@ -6,7 +6,7 @@
 \usage{
 update_geom_border(
   ...,
-  bordered_colour_by = function(x) ifelse(is_theme_dark(), col_screen(x),
+  bordered_colour_by = function(x) ifelse(is_panel_dark(), col_screen(x),
     col_multiply(x)),
   bordered_fill_by = NULL,
   bordered_linewidth = 0.25

@@ -12,21 +12,20 @@ set_blanket(
   size = 1.5,
   shape = 21,
   stroke = 0.5,
-  bordered_colour_by = function(x) ifelse(is_theme_dark(), col_screen(x),
+  bordered_colour_by = function(x) ifelse(is_panel_dark(), col_screen(x),
     col_multiply(x)),
   bordered_fill_by = NULL,
   bordered_linewidth = 0.25,
   col_palette_discrete = scales::pal_hue(),
-  col_palette_continuous = viridis_by_theme(n = 256, begin = 0.05, end = 0.95, option =
-    "G"),
+  col_palette_continuous = pal_viridis_by_panel("mako", 0.1, 0.9),
   col_palette_ordinal = NULL,
   col_palette_na = "#A6A6A6FF",
   shape_palette_discrete = c(21, 24, 22, 23, 25),
   linetype_palette_discrete = 1:6,
   titles_case = snakecase::to_sentence_case,
-  perspective_axis_line_blank = TRUE,
-  perspective_axis_ticks_rm = TRUE,
-  perspective_panel_grid_rm = TRUE,
+  aspect_axis_line_rm = TRUE,
+  aspect_axis_ticks_rm = TRUE,
+  aspect_panel_grid_rm = TRUE,
   ...
 )
 }
@@ -66,14 +65,14 @@ set_blanket(
 \item{titles_case}{A function to apply to unspecified/unlabelled titles in \verb{gg_*} functions.
 Defaults to \code{snakecase::to_sentence_case}.}
 
-\item{perspective_axis_line_blank}{Logical. Whether \verb{gg_*} functions should remove the relevant
-axis line based on plot perspective. Defaults to TRUE.}
+\item{aspect_axis_line_rm}{Logical. Whether \verb{gg_*} functions should remove the relevant
+axis line based on plot aspect. Defaults to TRUE.}
 
-\item{perspective_axis_ticks_rm}{Logical. Whether \verb{gg_*} functions should remove the relevant
-axis ticks based on plot perspective. Defaults to TRUE.}
+\item{aspect_axis_ticks_rm}{Logical. Whether \verb{gg_*} functions should remove the relevant
+axis ticks based on plot aspect. Defaults to TRUE.}
 
-\item{perspective_panel_grid_rm}{Logical. Whether \verb{gg_*} functions should remove the relevant
-panel grid based on plot perspective. Defaults to TRUE.}
+\item{aspect_panel_grid_rm}{Logical. Whether \verb{gg_*} functions should remove the relevant
+panel grid based on plot aspect. Defaults to TRUE.}
 
 \item{...}{Additional arguments (not used).}
 }

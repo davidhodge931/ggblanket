@@ -116,10 +116,10 @@ get_titles_case <- function(titles_case = NULL) {
   titles_case %||% getOption("ggblanket.titles_case", \(x) x)
 }
 
-#' Get perspective based on scale classes
+#' Get aspect based on scale classes
 #' @noRd
-get_perspective <- function(perspective = NULL, x_scale_class, y_scale_class) {
-  perspective %||% if (y_scale_class == "discrete" && x_scale_class != "discrete") {
+get_aspect <- function(aspect = NULL, x_scale_class, y_scale_class) {
+  aspect %||% if (y_scale_class == "discrete" && x_scale_class != "discrete") {
     "y"
   } else {
     "x"
@@ -195,7 +195,7 @@ validate_inputs <- function(mapping, x_symmetric, y_symmetric,
 
 #' Process data for factors and reversing
 #' @noRd
-process_data <- function(data, aes_list, perspective) {
+process_data <- function(data, aes_list, aspect) {
   # Get non-NULL aesthetics
   active_aes <- list(
     aes_list$x, aes_list$xmin, aes_list$xmax, aes_list$xend,
@@ -222,13 +222,13 @@ process_data <- function(data, aes_list, perspective) {
       forcats::fct_rev
     )) |>
     # Handle col factor reversal for flipped plots
-    reverse_if_needed(aes_list, perspective)
+    reverse_if_needed(aes_list, aspect)
 }
 
 #' Reverse factor if needed
 #' @noRd
-reverse_if_needed <- function(data, aes_list, perspective) {
-  if (perspective == "y") {
+reverse_if_needed <- function(data, aes_list, aspect) {
+  if (aspect == "y") {
     # Reverse col if it's not the same as y
     if (!rlang::quo_is_null(aes_list$col)) {
       col_equals_y <- identical(
@@ -1164,52 +1164,52 @@ scale_y_symmetric <- function(
 
 #' Get transparency defaults
 #' @noRd
-get_perspective_behaviour <- function(
-    perspective_axis_line_rm,
-    perspective_axis_ticks_rm,
-    perspective_panel_grid_rm
+get_aspect_behaviour <- function(
+    aspect_axis_line_rm,
+    aspect_axis_ticks_rm,
+    aspect_panel_grid_rm
 ) {
   list(
-    perspective_axis_line_rm = perspective_axis_line_rm %||%
-      getOption("ggblanket.perspective_axis_line_rm", TRUE),
-    perspective_axis_ticks_rm = perspective_axis_ticks_rm %||%
-      getOption("ggblanket.perspective_axis_ticks_rm", TRUE),
-    perspective_panel_grid_rm = perspective_panel_grid_rm %||%
-      getOption("ggblanket.perspective_panel_grid_rm", TRUE)
+    aspect_axis_line_rm = aspect_axis_line_rm %||%
+      getOption("ggblanket.aspect_axis_line_rm", TRUE),
+    aspect_axis_ticks_rm = aspect_axis_ticks_rm %||%
+      getOption("ggblanket.aspect_axis_ticks_rm", TRUE),
+    aspect_panel_grid_rm = aspect_panel_grid_rm %||%
+      getOption("ggblanket.aspect_panel_grid_rm", TRUE)
   )
 }
 
-#' Add transparency based on perspective
+#' Add transparency based on aspect
 #' @noRd
-add_perspective <- function(
-    plot, perspective, perspective_axis_line_rm,
-    perspective_axis_ticks_rm, perspective_panel_grid_rm,
+add_aspect <- function(
+    plot, aspect, aspect_axis_line_rm,
+    aspect_axis_ticks_rm, aspect_panel_grid_rm,
     x_scale_class, y_scale_class
 ) {
   theme_updates <- list()
 
-  if (perspective == "x") {
-    if (perspective_axis_line_rm) {
+  if (aspect == "x") {
+    if (aspect_axis_line_rm) {
       theme_updates$axis.line.y <- ggplot2::element_line(colour = "transparent")
     }
-    if (perspective_axis_ticks_rm) {
+    if (aspect_axis_ticks_rm) {
       theme_updates$axis.ticks.y <- ggplot2::element_line(colour = "transparent")
     }
-    if (perspective_panel_grid_rm) {
+    if (aspect_panel_grid_rm) {
       theme_updates$panel.grid.major.x <- ggplot2::element_line(colour = "transparent")
       theme_updates$panel.grid.minor.x <- ggplot2::element_line(colour = "transparent")
     }
     if (x_scale_class == "discrete") {
       theme_updates$axis.ticks.x <- ggplot2::element_line(colour = "transparent")
     }
-  } else if (perspective == "y") {
-    if (perspective_axis_line_rm) {
+  } else if (aspect == "y") {
+    if (aspect_axis_line_rm) {
       theme_updates$axis.line.x <- ggplot2::element_line(colour = "transparent")
     }
-    if (perspective_axis_ticks_rm) {
+    if (aspect_axis_ticks_rm) {
       theme_updates$axis.ticks.x <- ggplot2::element_line(colour = "transparent")
     }
-    if (perspective_panel_grid_rm) {
+    if (aspect_panel_grid_rm) {
       theme_updates$panel.grid.major.y <- ggplot2::element_line(colour = "transparent")
       theme_updates$panel.grid.minor.y <- ggplot2::element_line(colour = "transparent")
     }

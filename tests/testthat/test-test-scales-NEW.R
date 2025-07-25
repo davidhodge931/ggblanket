@@ -458,8 +458,8 @@ test_that("steps_breaks_n", {
                           col_breaks_n = 10,
                           col_labels = \(x) paste0("$", x),
                           col_limits_include = 20,
-                          colour_palette = col_multiply(pal_viridis_by_theme(option = "F")),
-                          fill_palette = pal_viridis_by_theme(option = "F")
+                          colour_palette = col_multiply(pal_viridis_by_panel(option = "F")),
+                          fill_palette = pal_viridis_by_panel(option = "F")
                         )
   )
 })

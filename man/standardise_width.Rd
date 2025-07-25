@@ -8,13 +8,13 @@ standardise_width(
   ...,
   from_n,
   from_dodge_n = 1,
-  from_perspective = "x",
+  from_aspect = "x",
   from_panel_widths = NULL,
   from_panel_heights = NULL,
   to_width,
   to_n,
   to_dodge_n = 1,
-  to_perspective = "x",
+  to_aspect = "x",
   to_panel_widths = NULL,
   to_panel_heights = NULL
 )
@@ -26,7 +26,7 @@ standardise_width(
 
 \item{from_dodge_n}{Number of fill aesthetic etc groups dodged in the current plot. Defaults to 1.}
 
-\item{from_perspective}{Perspective of the current plot. Either "x" (default) or "y".}
+\item{from_aspect}{aspect of the current plot. Either "x" (default) or "y".}
 
 \item{from_panel_widths}{Unit vector of individual panel widths in the current plot. If NULL, panels assumed equal.}
 
@@ -38,7 +38,7 @@ standardise_width(
 
 \item{to_dodge_n}{Number of fill aesthetic etc groups dodged in the reference standard. Defaults to 1.}
 
-\item{to_perspective}{Perspective of the reference standard plot. Either "x" (default) or "y".}
+\item{to_aspect}{aspect of the reference standard plot. Either "x" (default) or "y".}
 
 \item{to_panel_widths}{Unit vector of individual panel widths in the reference standard. If NULL, panels assumed equal.}
 
@@ -103,7 +103,7 @@ penguins |>
     width = standardise_width(
       from_n = 2,
       from_dodge_n = 3,
-      from_perspective = "y",
+      from_aspect = "y",
       to_width = 0.25,
       to_n = 3,
     )

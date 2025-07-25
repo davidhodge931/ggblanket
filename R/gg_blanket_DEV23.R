@@ -12,13 +12,13 @@
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
-#' @param perspective The perspective of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
-#' @param perspective_axis_line_rm `TRUE` or `FALSE` of whether to remove the relevant axis line per the `perspective` of the plot.
-#' @param perspective_axis_ticks_rm `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `perspective` of the plot.
-#' @param perspective_panel_grid_rm `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `perspective` of the plot.
+#' @param aspect The aspect of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
+#' @param aspect_axis_line_rm `TRUE` or `FALSE` of whether to remove the relevant axis line per the `aspect` of the plot.
+#' @param aspect_axis_ticks_rm `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `aspect` of the plot.
+#' @param aspect_panel_grid_rm `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `aspect` of the plot.
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,alpha,linewidth,size,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] defaults for use with delayed evaluation etc.
-#' @param bordered TRUE or FALSE of whether to apply bordered behaviour.
+#' @param bordered TRUE or FALSE of whether the `bordered_colour_by` and `bordered_fill_by` should be applied.
 #' @param bordered_colour_by A function with input of `col` or `col_palette`. Defaults to screen/multiply based on theme.
 #' @param bordered_fill_by A function with input of `col` or `col_palette`. Defaults to NULL.
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
@@ -62,10 +62,10 @@ gg_blanket <- function(
     position = "identity",
     coord = NULL,
     blend = NULL,
-    perspective = NULL,
-    perspective_axis_line_rm = NULL,
-    perspective_axis_ticks_rm = NULL,
-    perspective_panel_grid_rm = NULL,
+    aspect = NULL,
+    aspect_axis_line_rm = NULL,
+    aspect_axis_ticks_rm = NULL,
+    aspect_panel_grid_rm = NULL,
     x = NULL,
     xmin = NULL,
     xmax = NULL,
@@ -690,7 +690,7 @@ gg_blanket <- function(
 
   titles_case <- get_titles_case(titles_case = titles_case)
 
-  perspective <- get_perspective(perspective = perspective,
+  aspect <- get_aspect(aspect = aspect,
                                  x_scale_class = x_scale_class,
                                  y_scale_class = y_scale_class)
 
@@ -699,7 +699,7 @@ gg_blanket <- function(
                   x_transform, y_transform, stat)
 
   # Step 13: Process the data
-  data <- process_data(data, aes_list, perspective)
+  data <- process_data(data, aes_list, aspect)
 
   # Step 14: Rebuild base plot with processed data
   plot <- initialise_ggplot_from_list(
@@ -803,7 +803,7 @@ gg_blanket <- function(
     }
 
     # Reverse the shape values and legend if required
-    if (perspective == "y") {
+    if (aspect == "y") {
       shape_legend_rev <- TRUE
       shape_values <- rev(shape_values)
     }
@@ -842,7 +842,7 @@ gg_blanket <- function(
     }
 
     # Reverse the linetype values and legend if required
-    if (perspective == "y") {
+    if (aspect == "y") {
       linetype_legend_rev <- TRUE
       linetype_values <- rev(linetype_values)
     }
@@ -951,15 +951,15 @@ gg_blanket <- function(
     )
 
   # Step 23: Apply theme transparency
-  transparency <- get_perspective_behaviour(perspective_axis_line_rm,
-                                            perspective_axis_ticks_rm,
-                                            perspective_panel_grid_rm)
+  transparency <- get_aspect_behaviour(aspect_axis_line_rm,
+                                            aspect_axis_ticks_rm,
+                                            aspect_panel_grid_rm)
 
-  plot <- add_perspective(
-    plot, perspective,
-    transparency$perspective_axis_line_rm,
-    transparency$perspective_axis_ticks_rm,
-    transparency$perspective_panel_grid_rm,
+  plot <- add_aspect(
+    plot, aspect,
+    transparency$aspect_axis_line_rm,
+    transparency$aspect_axis_ticks_rm,
+    transparency$aspect_panel_grid_rm,
     x_scale_class, y_scale_class
   )
 
