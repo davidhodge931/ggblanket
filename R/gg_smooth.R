@@ -90,12 +90,12 @@ gg_smooth <- function(
     col_labels = NULL,
     col_legend_ncol = NULL,
     col_legend_nrow = NULL,
-    col_legend_rev = FALSE, col_palette = NULL, col_palette_na = NULL,
+    col_legend_rev = FALSE, col_palette = NULL, col_na = NULL,
 
 
     col_rescale = scales::rescale(),
     col_scale_type = "gradient",
-    col_transform = NULL, colour_palette = NULL, colour_palette_na = NULL, fill_palette = NULL, fill_palette_na = NULL,
+    col_transform = NULL, colour_palette = NULL, colour_na = NULL, fill_palette = NULL, fill_na = NULL, 
     facet_axes = NULL,
     facet_axis_labels = "margins",
     facet_drop = FALSE,
@@ -166,14 +166,14 @@ gg_smooth <- function(
     col_labels = col_labels,
     col_legend_ncol = col_legend_ncol,
     col_legend_nrow = col_legend_nrow,
-    col_legend_rev = col_legend_rev, col_palette = col_palette, col_palette_na = col_palette_na,
+    col_legend_rev = col_legend_rev, col_palette = col_palette, col_na = col_na,
 
 
 
     col_rescale = col_rescale,
     col_scale_type = col_scale_type,
     col_title = col_title,
-    col_transform = col_transform, colour_palette = colour_palette, colour_palette_na = colour_palette_na, fill_palette = fill_palette, fill_palette_na = fill_palette_na,
+    col_transform = col_transform, colour_palette = colour_palette, colour_na = colour_na, fill_palette = fill_palette, fill_na = fill_na, 
     facet_axes = facet_axes,
     facet_axis_labels = facet_axis_labels,
     facet_drop = facet_drop,

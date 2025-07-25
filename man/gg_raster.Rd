@@ -43,8 +43,6 @@ gg_raster(
   bordered = NULL,
   bordered_colour_by = NULL,
   bordered_fill_by = NULL,
-  bordered_fill = NULL,
-  bordered_linewidth = NULL,
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_expand = NULL,
@@ -74,15 +72,15 @@ gg_raster(
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
   col_palette = NULL,
-  col_palette_na = NULL,
+  col_na = NULL,
   col_legend_rev = FALSE,
   col_rescale = scales::rescale(),
   col_scale_type = "gradient",
   col_transform = NULL,
   colour_palette = NULL,
-  colour_palette_na = NULL,
+  colour_na = NULL,
   fill_palette = NULL,
-  fill_palette_na = NULL,
+  fill_na = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
   facet_drop = FALSE,
@@ -123,7 +121,7 @@ gg_raster(
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} defaults for use with delayed evaluation etc.}
 
-\item{bordered}{TRUE or FALSE of whether to apply bordered behaviour.}
+\item{bordered}{TRUE or FALSE of whether the \code{bordered_colour_by} and \code{bordered_fill_by} should be applied.}
 
 \item{bordered_colour_by}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
 
@@ -155,7 +153,7 @@ gg_raster(
 
 \item{col_palette, colour_palette, fill_palette}{colour_palette,fill_palette A character vector of hex codes (or names) or a \verb{scales::pal_*()} function.}
 
-\item{col_palette_na, colour_palette_na, fill_palette_na}{A hex code (or name) for the \code{NA} value.}
+\item{col_na, colour_na, fill_na}{A hex code (or name) for the \code{NA} value.}
 
 \item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
 

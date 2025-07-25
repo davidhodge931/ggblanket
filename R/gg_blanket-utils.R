@@ -1648,14 +1648,14 @@ add_col_scale <- function(
     plot_build, x_symmetric,is_bordered_geom, col_breaks, col_breaks_n, col_drop,
     col_limits_include, col_labels, col_legend_ncol, col_legend_nrow,
     col_legend_rev, col_rescale, col_scale_type, col_transform,
-    colour_palette_discrete, colour_palette_continuous, colour_palette_ordinal,
-    colour_palette_na, fill_palette_discrete, fill_palette_continuous,
-    fill_palette_ordinal, fill_palette_na
+    colour_palette_d, colour_palette_c, colour_palette_o,
+    colour_na, fill_palette_d, fill_palette_c,
+    fill_palette_o, fill_na
 ) {
 
   # Get NA colors with defaults
-  na_colour <- colour_palette_na %||% "#CDC5BFFF"
-  na_fill <- fill_palette_na %||% "#CDC5BFFF"
+  na_colour <- colour_na %||% "#CDC5BFFF"
+  na_fill <- fill_na %||% "#CDC5BFFF"
 
   # Get transform and labels
   if (is.null(col_transform)) {
@@ -1677,7 +1677,7 @@ add_col_scale <- function(
   if (col_scale_class == "discrete") {
     plot <- add_col_scale_discrete(
       plot, aes_list, data, plot_data,
-      colour_palette_discrete, fill_palette_discrete,
+      colour_palette_d, fill_palette_d,
       na_colour, na_fill,
       col_breaks, col_labels, col_drop, col_legend_ncol,
       col_legend_nrow, col_legend_rev, x_symmetric, plot_build,
@@ -1685,7 +1685,7 @@ add_col_scale <- function(
     )
   } else if (col_scale_class %in% c("continuous", "date", "datetime", "time")) {
     plot <- add_col_scale_continuous(
-      plot, colour_palette_continuous, fill_palette_continuous,
+      plot, colour_palette_c, fill_palette_c,
       na_colour, na_fill,is_bordered_geom, col_breaks, col_breaks_n,
       col_labels, col_legend_rev, col_rescale, col_scale_type,
       col_transform, aes_list, plot_build
@@ -1693,7 +1693,7 @@ add_col_scale <- function(
   } else if (col_scale_class == "ordinal") {
     plot <- add_col_scale_ordinal(
       plot, aes_list, data, plot_data,
-      colour_palette_ordinal, fill_palette_ordinal,
+      colour_palette_o, fill_palette_o,
       na_colour, na_fill,
       col_breaks, col_labels, col_drop, col_legend_ncol,
       col_legend_nrow, col_legend_rev, plot_build,
@@ -1867,12 +1867,12 @@ add_col_scale_ordinal <- function(
 
   # Create wrapper functions for ordinal scales
   if (is.function(colour_palette)) {
-    colour_palette_discrete <- create_ordinal_palette_wrapper(colour_palette)
+    colour_palette_d <- create_ordinal_palette_wrapper(colour_palette)
 
     plot <- plot +
       ggplot2::discrete_scale(
         aesthetics = "colour",
-        palette = colour_palette_discrete,
+        palette = colour_palette_d,
         breaks = col_breaks,
         labels = col_labels,
         na.value = na_colour,
@@ -1881,12 +1881,12 @@ add_col_scale_ordinal <- function(
   }
 
   if (is.function(fill_palette)) {
-    fill_palette_discrete <- create_ordinal_palette_wrapper(fill_palette)
+    fill_palette_d <- create_ordinal_palette_wrapper(fill_palette)
 
     plot <- plot +
       ggplot2::discrete_scale(
         aesthetics = "fill",
-        palette = fill_palette_discrete,
+        palette = fill_palette_d,
         breaks = col_breaks,
         labels = col_labels,
         na.value = na_fill,

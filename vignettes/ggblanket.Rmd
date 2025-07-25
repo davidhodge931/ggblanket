@@ -154,9 +154,14 @@ palmerpenguins::penguins |>
     x = species, 
     y = flipper_length_mm, 
     col = island,
-    # mapping = aes(shape = sex),
+    shape = sex,
   ) +
-  guides_shape_grey()
+    guides(
+    shape = guide_legend(
+      override.aes = aes(colour = !!col_multiply("#8991A1FF"), fill = "#8991A1FF")
+    )
+  )
+
 ```
 
 ### 7.  Prefixed arguments to customise x/y/col/facet

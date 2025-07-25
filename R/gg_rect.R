@@ -39,12 +39,12 @@ gg_rect <- function(
   stat = "identity",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
-  blend = NULL, 
+  blend = NULL,
   aspect = NULL,
   aspect_axis_line_rm = NULL,
   aspect_axis_ticks_rm = NULL,
   aspect_panel_grid_rm = NULL,
-  
+
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -62,7 +62,7 @@ gg_rect <- function(
   label = NULL,
   text = NULL,
   sample = NULL,
-  mapping = NULL, bordered = NULL, bordered_colour_by = NULL, bordered_fill_by = NULL, bordered_fill = NULL, bordered_linewidth = NULL,
+  mapping = NULL, bordered = NULL, bordered_colour_by = NULL, bordered_fill_by = NULL,
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_expand = NULL,
@@ -83,7 +83,7 @@ gg_rect <- function(
   y_sec_axis = ggplot2::waiver(),
   y_symmetric = NULL,
   y_transform = NULL,
-   col_breaks = ggplot2::waiver(), 
+   col_breaks = ggplot2::waiver(),
   col_breaks_n = NULL,
   col_drop = FALSE,
   col_limits_include = NULL,
@@ -91,12 +91,12 @@ gg_rect <- function(
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
-  col_palette = NULL, col_palette_na = NULL, col_legend_rev = FALSE, 
-  
-  
+  col_palette = NULL, col_na = NULL, col_legend_rev = FALSE,
+
+
   col_rescale = scales::rescale(),
   col_scale_type = "gradient",
-  col_transform = NULL, colour_palette = NULL, colour_palette_na = NULL, fill_palette = NULL, fill_palette_na = NULL, 
+  col_transform = NULL, colour_palette = NULL, colour_na = NULL, fill_palette = NULL, fill_na = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
   facet_drop = FALSE,
@@ -117,7 +117,7 @@ gg_rect <- function(
     stat = stat,
     position = position,
     coord = coord,
-    
+
     aspect = aspect,
     aspect_axis_line_rm = aspect_axis_line_rm,
     aspect_axis_ticks_rm = aspect_axis_ticks_rm,
@@ -167,14 +167,14 @@ gg_rect <- function(
     col_labels = col_labels,
     col_legend_ncol = col_legend_ncol,
     col_legend_nrow = col_legend_nrow,
-    col_legend_rev = col_legend_rev, col_palette = col_palette, col_palette_na = col_palette_na,   
-    
-    
-    
+    col_legend_rev = col_legend_rev, col_palette = col_palette, col_na = col_na,
+
+
+
     col_rescale = col_rescale,
     col_scale_type = col_scale_type,
     col_title = col_title,
-    col_transform = col_transform, colour_palette = colour_palette, colour_palette_na = colour_palette_na, fill_palette = fill_palette, fill_palette_na = fill_palette_na, 
+    col_transform = col_transform, colour_palette = colour_palette, colour_na = colour_na, fill_palette = fill_palette, fill_na = fill_na,
     facet_axes = facet_axes,
     facet_axis_labels = facet_axis_labels,
     facet_drop = facet_drop,
@@ -187,7 +187,7 @@ gg_rect <- function(
     title = title,
     subtitle = subtitle,
     caption = caption,
-    titles_case = titles_case, 
+    titles_case = titles_case,
     ...
   )
 }

@@ -13,12 +13,12 @@
 #' @param shape A default shape for point geoms. Must be an integer between 0 and 25.
 #' @param size A default size for point geoms.
 #' @param stroke A default stroke for point geoms.
-#' @param col_palette_discrete For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
-#' @param col_palette_continuous For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
-#' @param col_palette_ordinal For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_continuous`.
-#' @param col_palette_na A NA colour/fill value.
-#' @param shape_palette_discrete For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
-#' @param linetype_palette_discrete For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
+#' @param col_palette_d For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
+#' @param col_palette_c For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
+#' @param col_palette_o For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_c`.
+#' @param col_na A NA colour/fill value.
+#' @param shape_palette_d For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
+#' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
 #' @param bordered_colour_by A function with input of `col`. Defaults to `(x) col_multiply(x)`. Affects colour as well as colour palette.
 #' @param bordered_fill_by A function with input of `col`. Defaults to NA. Affects fill as well as fill palette.
 #' @param bordered_linewidth A function with input of `linewidth`. Defaults to \(x) x / 2.64.
@@ -92,15 +92,15 @@ set_blanket <- function(
   update_geom_stroke(stroke = stroke)
 
   update_geom_palettes(
-    col_palette_discrete = col_palette_discrete,
-    col_palette_continuous = col_palette_continuous,
-    col_palette_ordinal = col_palette_ordinal,
-    col_palette_na = col_palette_na,
-    shape_palette_discrete = shape_palette_discrete,
-    linetype_palette_discrete = linetype_palette_discrete
+    col_palette_d = col_palette_d,
+    col_palette_c = col_palette_c,
+    col_palette_o = col_palette_o,
+    col_na = col_na,
+    shape_palette_d = shape_palette_d,
+    linetype_palette_d = linetype_palette_d
   )
 
-  update_geom_border(
+  update_geom_bordered(
     bordered_colour_by = bordered_colour_by,
     bordered_fill_by = bordered_fill_by,
     bordered_linewidth = bordered_linewidth

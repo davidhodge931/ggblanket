@@ -32,8 +32,8 @@ reference:
   - aes_contrast
   - annotate_axis_line
   - annotate_axis_ticks
-  - col_squared
-  - element_line_transparent
+  - col_multiply
+  - col_screen
   - bind_each_all
   - guides_shape_grey
   - guides_linewidth_grey
@@ -43,5 +43,4 @@ reference:
   - scale_x_symmetric
   - scale_y_symmetric
   - standardise_width
-  - starts_with("update_")
 
