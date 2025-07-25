@@ -1,43 +1,41 @@
-#' Override legend aesthetic colours
+#' Override legend aesthetic colors
 #'
 #' @description
-#' Override the colour of legend elements for any aesthetic. Provides full control
+#' Override the color of legend elements for any aesthetic. Provides full control
 #' over bordered geom appearance in legends.
 #'
 #' @param aesthetic Character string naming the aesthetic ("shape", "size", "alpha",
 #'   "linetype", "linewidth", etc.)
-#' @param col Base colour for the legend elements. Defaults to "#8991A1".
+#' @param col Base color for the legend elements. Defaults to "#8991A1".
 #' @param colour Direct override for the colour aesthetic in the legend. If NULL,
 #'   determined by `col` and border settings.
 #' @param fill Direct override for the fill aesthetic in the legend. If NULL,
 #'   determined by `col` and border settings.
 #' @param bordered Logical. Whether to treat as a bordered geom. If NULL,
 #'   automatically determined based on the aesthetic and current geom defaults.
-#' @param bordered_colour_by Function to transform the base colour for borders.
+#' @param bordered_colour_by Function to transform the base color for borders.
 #'   Defaults to `col_multiply()` for light themes and `col_screen()` for dark themes.
-#'   Set to NA to disable border colour transformation.
-#' @param bordered_fill_by Function to transform the base colour for fills.
+#'   Set to NA to disable border color transformation.
+#' @param bordered_fill_by Function to transform the base color for fills.
 #'   Defaults to NULL (no transformation). Set to NA to explicitly disable.
 #' @param ... Other arguments passed to [ggplot2::guide_legend()].
 #'
 #' @return A ggplot guides specification.
 #' @export
 guides_grey <- function(
-  aesthetic,
-  col = "#8991A1",
-  colour = NULL,
-  fill = NULL,
-  bordered = NULL,
-  bordered_colour_by = NULL,
-  bordered_fill_by = NULL,
-  ...
+    aesthetic,
+    col = "#8991A1",
+    colour = NULL,
+    fill = NULL,
+    bordered = NULL,
+    bordered_colour_by = NULL,
+    bordered_fill_by = NULL,
+    ...
 ) {
   # Direct overrides take precedence
   if (!is.null(colour) || !is.null(fill)) {
     override_aes <- list()
-    if (!is.null(colour)) {
-      override_aes$colour <- colour
-    }
+    if (!is.null(colour)) override_aes$colour <- colour
     if (!is.null(fill)) override_aes$fill <- fill
   } else {
     # Determine if we should treat as bordered
@@ -55,8 +53,9 @@ guides_grey <- function(
       }
     }
 
-    # Get border transformation functions if not provided
+    # Build override aesthetics
     if (bordered) {
+      # Get border transformation functions if not provided
       if (is.null(bordered_colour_by)) {
         current_theme <- ggplot2::theme_get()
         bordered_colour_by <- if (is_panel_dark(theme = current_theme)) {
@@ -65,11 +64,7 @@ guides_grey <- function(
           col_multiply
         }
       }
-      # bordered_fill_by defaults to NULL (no transformation)
-    }
 
-    # Build override aesthetics
-    if (bordered) {
       # Apply transformations unless explicitly disabled (NA)
       if (is.function(bordered_colour_by)) {
         override_colour <- bordered_colour_by(col)
@@ -92,13 +87,8 @@ guides_grey <- function(
 
       override_aes <- list(colour = override_colour, fill = override_fill)
     } else {
-      # Non-bordered: just use col for colour
-      override_aes <- list(colour = col)
-
-      # Special case: linewidth sometimes needs fill too
-      if (aesthetic == "linewidth") {
-        override_aes$fill <- col
-      }
+      # Non-bordered: use col for both colour and fill
+      override_aes <- list(colour = col, fill = col)
     }
   }
 

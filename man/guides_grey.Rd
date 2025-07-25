@@ -7,7 +7,7 @@
 \alias{guides_alpha_grey}
 \alias{guides_linetype_grey}
 \alias{guides_linewidth_grey}
-\title{Override legend aesthetic colours}
+\title{Override legend aesthetic colors}
 \usage{
 guides_grey(
   aesthetic,
@@ -34,7 +34,7 @@ guides_linewidth_grey(col = "#8991A1", ...)
 \item{aesthetic}{Character string naming the aesthetic ("shape", "size", "alpha",
 "linetype", "linewidth", etc.)}
 
-\item{col}{Base colour for the legend elements. Defaults to "#8991A1".}
+\item{col}{Base color for the legend elements. Defaults to "#8991A1".}
 
 \item{colour}{Direct override for the colour aesthetic in the legend. If NULL,
 determined by \code{col} and border settings.}
@@ -45,11 +45,11 @@ determined by \code{col} and border settings.}
 \item{bordered}{Logical. Whether to treat as a bordered geom. If NULL,
 automatically determined based on the aesthetic and current geom defaults.}
 
-\item{bordered_colour_by}{Function to transform the base colour for borders.
+\item{bordered_colour_by}{Function to transform the base color for borders.
 Defaults to \code{col_multiply()} for light themes and \code{col_screen()} for dark themes.
-Set to NA to disable border colour transformation.}
+Set to NA to disable border color transformation.}
 
-\item{bordered_fill_by}{Function to transform the base colour for fills.
+\item{bordered_fill_by}{Function to transform the base color for fills.
 Defaults to NULL (no transformation). Set to NA to explicitly disable.}
 
 \item{...}{Other arguments passed to \code{\link[ggplot2:guide_legend]{ggplot2::guide_legend()}}.}
@@ -58,6 +58,6 @@ Defaults to NULL (no transformation). Set to NA to explicitly disable.}
 A ggplot guides specification.
 }
 \description{
-Override the colour of legend elements for any aesthetic. Provides full control
+Override the color of legend elements for any aesthetic. Provides full control
 over bordered geom appearance in legends.
 }
