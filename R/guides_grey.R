@@ -1,22 +1,22 @@
-#' Override legend aesthetic colors
+#' Override legend aesthetic colours
 #'
 #' @description
-#' Override the color of legend elements for any aesthetic. Provides full control
+#' Override the colour of legend elements for any aesthetic. Provides full control
 #' over bordered geom appearance in legends.
 #'
 #' @param aesthetic Character string naming the aesthetic ("shape", "size", "alpha",
 #'   "linetype", "linewidth", etc.)
-#' @param col Base color for the legend elements. Defaults to "#8991A1".
+#' @param col Base colour for the legend elements. Defaults to "#8991A1".
 #' @param colour Direct override for the colour aesthetic in the legend. If NULL,
 #'   determined by `col` and border settings.
 #' @param fill Direct override for the fill aesthetic in the legend. If NULL,
 #'   determined by `col` and border settings.
 #' @param bordered Logical. Whether to treat as a bordered geom. If NULL,
 #'   automatically determined based on the aesthetic and current geom defaults.
-#' @param bordered_colour_by Function to transform the base color for borders.
+#' @param bordered_colour_by Function to transform the base colour for borders.
 #'   Defaults to `col_multiply()` for light themes and `col_screen()` for dark themes.
-#'   Set to NA to disable border color transformation.
-#' @param bordered_fill_by Function to transform the base color for fills.
+#'   Set to NA to disable border colour transformation.
+#' @param bordered_fill_by Function to transform the base colour for fills.
 #'   Defaults to NULL (no transformation). Set to NA to explicitly disable.
 #' @param ... Other arguments passed to [ggplot2::guide_legend()].
 #'
@@ -100,35 +100,4 @@ guides_grey <- function(
   )
 
   do.call(ggplot2::guides, guide_list)
-}
-
-# Convenience wrapper functions for common use cases
-#' @rdname guides_grey
-#' @export
-guides_shape_grey <- function(col = "#8991A1", ...) {
-  guides_grey("shape", col = col, ...)
-}
-
-#' @rdname guides_grey
-#' @export
-guides_size_grey <- function(col = "#8991A1", ...) {
-  guides_grey("size", col = col, ...)
-}
-
-#' @rdname guides_grey
-#' @export
-guides_alpha_grey <- function(col = "#8991A1", ...) {
-  guides_grey("alpha", col = col, ...)
-}
-
-#' @rdname guides_grey
-#' @export
-guides_linetype_grey <- function(col = "#8991A1", ...) {
-  guides_grey("linetype", col = col, ...)
-}
-
-#' @rdname guides_grey
-#' @export
-guides_linewidth_grey <- function(col = "#8991A1", ...) {
-  guides_grey("linewidth", col = col, ...)
 }

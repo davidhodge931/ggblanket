@@ -949,26 +949,112 @@ create_ordinal_palette_wrapper <- function(palette) {
 #' Add matching aesthetic guides
 #' @noRd
 add_matching_aesthetic_guides <- function(
-  plot,
-  plot_build,
-  col_legend_rev,
-  col_legend_ncol,
-  col_legend_nrow
+    plot, plot_build, col_legend_rev,
+    col_legend_ncol, col_legend_nrow,
+    geom = NULL, is_bordered_geom = FALSE,
+    bordered_colour_by = NULL, bordered_fill_by = NULL,
+    aes_list = NULL, data = NULL
 ) {
-  aesthetics <- c("alpha", "shape", "size", "linewidth", "linetype", "pattern")
+  # Fixed grey color for legend key overrides
+  grey_col <- "#8991A1"
 
-  for (aes in aesthetics) {
-    if (!is.null(plot_build$plot$labels[[aes]])) {
-      if (is_aes_identical_to_col(plot_build, aes)) {
-        plot <- plot +
-          ggplot2::guides(
-            !!aes := ggplot2::guide_legend(
-              reverse = col_legend_rev,
-              ncol = col_legend_ncol,
-              nrow = col_legend_nrow
+  # Check if col is mapped (either directly or through colour/fill)
+  col_mapped <- !rlang::quo_is_null(aes_list$col) ||
+    !rlang::quo_is_null(aes_list$colour) ||
+    !rlang::quo_is_null(aes_list$fill)
+
+  # Only proceed if col is mapped
+  if (!col_mapped) {
+    return(plot)
+  }
+
+  # Helper function to check if two aesthetics map to the same variable
+  aes_are_same <- function(aes1_quo, aes2_quo, data) {
+    if (rlang::quo_is_null(aes1_quo) || rlang::quo_is_null(aes2_quo)) {
+      return(FALSE)
+    }
+
+    # Try to evaluate both aesthetics
+    tryCatch({
+      data1 <- rlang::eval_tidy(aes1_quo, data)
+      data2 <- rlang::eval_tidy(aes2_quo, data)
+      identical(data1, data2)
+    }, error = function(e) {
+      # If we can't evaluate, compare the expressions
+      identical(rlang::quo_text(aes1_quo), rlang::quo_text(aes2_quo))
+    })
+  }
+
+  # Process each aesthetic
+  aesthetics_to_check <- list(
+    shape = aes_list$shape,
+    linetype = aes_list$linetype,
+    linewidth = aes_list$linewidth,
+    size = aes_list$size,
+    alpha = aes_list$alpha
+  )
+
+  for (aes_name in names(aesthetics_to_check)) {
+    aes_quo <- aesthetics_to_check[[aes_name]]
+
+    # Skip if this aesthetic is not mapped
+    if (rlang::quo_is_null(aes_quo)) {
+      next
+    }
+
+    # Check if this aesthetic maps to the same variable as col/colour/fill
+    same_as_col <- aes_are_same(aes_quo, aes_list$col, data) ||
+      aes_are_same(aes_quo, aes_list$colour, data) ||
+      aes_are_same(aes_quo, aes_list$fill, data)
+
+    if (!same_as_col) {
+      # Apply grey styling
+      override_aes <- switch(
+        aes_name,
+        "linetype" = list(colour = grey_col),
+        "shape" = {
+          if (geom %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
+            list(
+              colour = if (!is.null(bordered_colour_by) && is.function(bordered_colour_by))
+                bordered_colour_by(grey_col) else grey_col,
+              fill = if (!is.null(bordered_fill_by) && is.function(bordered_fill_by))
+                bordered_fill_by(grey_col) else grey_col
             )
+          } else {
+            list(colour = grey_col)
+          }
+        },
+        "size" = ,
+        "alpha" = {
+          if (geom %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
+            list(
+              colour = if (!is.null(bordered_colour_by) && is.function(bordered_colour_by))
+                bordered_colour_by(grey_col) else grey_col,
+              fill = if (!is.null(bordered_fill_by) && is.function(bordered_fill_by))
+                bordered_fill_by(grey_col) else grey_col
+            )
+          } else {
+            list(colour = grey_col, fill = grey_col)
+          }
+        },
+        "linewidth" = {
+          if (is_bordered_geom && !is.null(bordered_colour_by) && is.function(bordered_colour_by)) {
+            list(colour = bordered_colour_by(grey_col), fill = grey_col)
+          } else {
+            list(colour = grey_col, fill = grey_col)
+          }
+        }
+      )
+
+      plot <- plot +
+        ggplot2::guides(
+          !!aes_name := ggplot2::guide_legend(
+            reverse = col_legend_rev,
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow,
+            override.aes = override_aes
           )
-      }
+        )
     }
   }
 
@@ -1950,36 +2036,17 @@ initialise_ggplot_from_list <- function(
 #' Add color scales
 #' @noRd
 add_col_scale <- function(
-  plot,
-  geom,
-  stat = NULL,
-  col_scale_class,
-  aes_list,
-  data,
-  plot_data,
-  plot_build,
-  x_symmetric,
-  is_bordered_geom,
-  col_breaks,
-  col_breaks_n,
-  col_drop,
-  col_limits_include,
-  col_labels,
-  col_legend_ncol,
-  col_legend_nrow,
-  col_legend_rev,
-  col_rescale,
-  col_scale_type,
-  col_transform,
-  colour_palette_d,
-  colour_palette_c,
-  colour_palette_o,
-  colour_na,
-  fill_palette_d,
-  fill_palette_c,
-  fill_palette_o,
-  fill_na
+    plot, geom, stat = NULL, col_scale_class, aes_list, data, plot_data,
+    plot_build, x_symmetric, is_bordered_geom, col_breaks, col_breaks_n, col_drop,
+    col_limits_include, col_labels, col_legend_ncol, col_legend_nrow,
+    col_legend_rev, col_rescale, col_scale_type, col_transform,
+    colour_palette_d, colour_palette_c, colour_palette_o,
+    colour_na, fill_palette_d, fill_palette_c,
+    fill_palette_o, fill_na,
+    bordered_colour_by = NULL,
+    bordered_fill_by = NULL
 ) {
+
   # Get NA colors with defaults
   na_colour <- colour_na %||% "#CDC5BFFF"
   na_fill <- fill_na %||% "#CDC5BFFF"
@@ -2003,84 +2070,53 @@ add_col_scale <- function(
   # Apply scales based on type
   if (col_scale_class == "discrete") {
     plot <- add_col_scale_discrete(
-      plot,
-      aes_list,
-      data,
-      plot_data,
-      colour_palette_d,
-      fill_palette_d,
-      na_colour,
-      na_fill,
-      col_breaks,
-      col_labels,
-      col_drop,
-      col_legend_ncol,
-      col_legend_nrow,
-      col_legend_rev,
-      x_symmetric,
-      plot_build,
+      plot, aes_list, data, plot_data,
+      colour_palette_d, fill_palette_d,
+      na_colour, na_fill,
+      col_breaks, col_labels, col_drop, col_legend_ncol,
+      col_legend_nrow, col_legend_rev, x_symmetric, plot_build,
       stat = stat
     )
   } else if (col_scale_class %in% c("continuous", "date", "datetime", "time")) {
     plot <- add_col_scale_continuous(
-      plot,
-      colour_palette_c,
-      fill_palette_c,
-      na_colour,
-      na_fill,
-      is_bordered_geom,
-      col_breaks,
-      col_breaks_n,
-      col_labels,
-      col_legend_rev,
-      col_rescale,
-      col_scale_type,
-      col_transform,
-      aes_list,
-      plot_build
+      plot, colour_palette_c, fill_palette_c,
+      na_colour, na_fill, is_bordered_geom, col_breaks, col_breaks_n,
+      col_labels, col_legend_rev, col_rescale, col_scale_type,
+      col_transform, aes_list, plot_build
     )
   } else if (col_scale_class == "ordinal") {
     plot <- add_col_scale_ordinal(
-      plot,
-      aes_list,
-      data,
-      plot_data,
-      colour_palette_o,
-      fill_palette_o,
-      na_colour,
-      na_fill,
-      col_breaks,
-      col_labels,
-      col_drop,
-      col_legend_ncol,
-      col_legend_nrow,
-      col_legend_rev,
-      plot_build,
+      plot, aes_list, data, plot_data,
+      colour_palette_o, fill_palette_o,
+      na_colour, na_fill,
+      col_breaks, col_labels, col_drop, col_legend_ncol,
+      col_legend_nrow, col_legend_rev, plot_build,
       stat = stat
     )
   }
 
-  # Handle guides for other aesthetics
+  # Handle guides for other aesthetics - pass aes_list directly
   plot <- add_matching_aesthetic_guides(
-    plot,
-    plot_build,
-    col_legend_rev,
-    col_legend_ncol,
-    col_legend_nrow
+    plot, plot_build, col_legend_rev,
+    col_legend_ncol, col_legend_nrow,
+    geom = geom,
+    is_bordered_geom = is_bordered_geom,
+    bordered_colour_by = bordered_colour_by,
+    bordered_fill_by = bordered_fill_by,
+    aes_list = aes_list,
+    data = data
   )
 
   # Expand limits if necessary
   if (!is.null(col_limits_include)) {
-    plot <- plot +
-      ggplot2::expand_limits(
-        colour = col_limits_include,
-        fill = col_limits_include
-      )
+    plot <- plot + ggplot2::expand_limits(
+      colour = col_limits_include,
+      fill = col_limits_include
+    )
   }
 
   plot
 }
-
 #' Add discrete color scale
 #' @noRd
 add_col_scale_discrete <- function(
@@ -2512,4 +2548,83 @@ check_same_colour_fill_mapping <- function(plot) {
   }
 
   return(FALSE)
+}
+
+#' Apply grey styling to legend key override guides
+#' @noRd
+apply_secondary_grey_guides <- function(
+    plot, aes_list, data, geom, is_bordered_geom,
+    bordered_colour_by, bordered_fill_by,
+    col_legend_ncol, col_legend_nrow,
+    shape_legend_rev, linetype_legend_rev
+) {
+  grey_col <- "#8991A1"
+
+  # Helper function to check if two aesthetics map to the same variable
+  aes_are_same <- function(aes1_quo, aes2_quo, data) {
+    if (rlang::quo_is_null(aes1_quo) || rlang::quo_is_null(aes2_quo)) {
+      return(FALSE)
+    }
+
+    tryCatch({
+      data1 <- rlang::eval_tidy(aes1_quo, data)
+      data2 <- rlang::eval_tidy(aes2_quo, data)
+      identical(data1, data2)
+    }, error = function(e) {
+      identical(rlang::quo_text(aes1_quo), rlang::quo_text(aes2_quo))
+    })
+  }
+
+  # Process shape
+  if (!rlang::quo_is_null(aes_list$shape)) {
+    same_as_col <- aes_are_same(aes_list$shape, aes_list$col, data) ||
+      aes_are_same(aes_list$shape, aes_list$colour, data) ||
+      aes_are_same(aes_list$shape, aes_list$fill, data)
+
+    if (!same_as_col) {
+      if (geom %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
+        override_aes <- list(
+          colour = if (!is.null(bordered_colour_by) && is.function(bordered_colour_by))
+            bordered_colour_by(grey_col) else grey_col,
+          fill = if (!is.null(bordered_fill_by) && is.function(bordered_fill_by))
+            bordered_fill_by(grey_col) else grey_col
+        )
+      } else {
+        override_aes <- list(colour = grey_col)
+      }
+
+      plot <- plot +
+        ggplot2::guides(
+          shape = ggplot2::guide_legend(
+            reverse = shape_legend_rev,
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow,
+            override.aes = override_aes
+          )
+        )
+    }
+  }
+
+  # Process linetype
+  if (!rlang::quo_is_null(aes_list$linetype)) {
+    same_as_col <- aes_are_same(aes_list$linetype, aes_list$col, data) ||
+      aes_are_same(aes_list$linetype, aes_list$colour, data) ||
+      aes_are_same(aes_list$linetype, aes_list$fill, data)
+
+    if (!same_as_col) {
+      plot <- plot +
+        ggplot2::guides(
+          linetype = ggplot2::guide_legend(
+            reverse = linetype_legend_rev,
+            ncol = col_legend_ncol,
+            nrow = col_legend_nrow,
+            override.aes = list(colour = grey_col)
+          )
+        )
+    }
+  }
+
+  # Process other aesthetics (size, linewidth, alpha) similarly...
+
+  plot
 }

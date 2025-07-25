@@ -1,155 +1,3 @@
-#' Move legend position
-#'
-#' @description Helper function to move the legend position in theme_blanket.
-#'
-#' @param legend_position The position of the legend. Either "right", "top" or "bottom".
-#'
-#' @return A ggplot theme object with legend position settings.
-#' @noRd
-#'
-theme_blanket_move_legend <- function(legend_position = "right") {
-  if (legend_position == "right") {
-    ggplot2::theme(
-      # Legend-specific settings for right position
-      legend.position = "right",
-      legend.justification = c(0, 1),
-      legend.location = "panel",
-      legend.title.position = "top",
-      legend.margin = ggplot2::margin(
-        t = 0,
-        r = 11 * -1,
-        b = 0,
-        l = 11 * 0.75
-      ),
-      legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
-      legend.title = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 0, b = 11 * 0.5, l = 0)
-      ),
-      legend.byrow = FALSE,
-
-      # Axis settings for right legend
-      axis.title.x = ggplot2::element_text(
-        margin = ggplot2::margin(t = 11 * -0.33, r = 0, b = 11 * 0.75, l = 0)
-      ),
-      axis.title.x.top = ggplot2::element_text(
-        margin = ggplot2::margin(t = 11 * -1, r = 0, b = 11 * 1, l = 0)
-      ),
-      axis.title.y = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 11 * 1, b = 0, l = 0),
-        angle = 90
-      ),
-      axis.title.y.right = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 11 * -0.5, b = 0, l = 11 * 1),
-        angle = -90
-      ),
-      axis.text.x = ggplot2::element_text(
-        vjust = 1,
-        margin = ggplot2::margin(t = 11 * 0.3, r = 0, b = 11 * 1, l = 0)
-      ),
-      axis.text.x.top = ggplot2::element_text(
-        vjust = 0,
-        margin = ggplot2::margin(t = 11 * -0.5, r = 0, b = 11 * 0.3, l = 0)
-      )
-    )
-  } else if (legend_position == "top") {
-    ggplot2::theme(
-      # Legend-specific settings for top position
-      legend.position = "top",
-      legend.justification = c(0, 0.5),
-      legend.location = "plot",
-      legend.title.position = "top",
-      legend.margin = ggplot2::margin(
-        t = 11 * -1.5,
-        r = 11 * 2,
-        b = 11 * 0.5,
-        l = 0
-      ),
-      legend.box.margin = ggplot2::margin(
-        t = 11 * 0.5,
-        r = 0,
-        b = 11 * 0.5,
-        l = 0
-      ),
-      legend.title = ggplot2::element_text(
-        margin = ggplot2::margin(t = 11 * 0.25, r = 0, b = 11 * 0.5, l = 0)
-      ),
-      legend.byrow = TRUE,
-
-      # Axis settings for top legend
-      axis.title.x = ggplot2::element_text(
-        margin = ggplot2::margin(t = 11 * -0.33, r = 0, b = 11 * 0.75, l = 0)
-      ),
-      axis.title.x.top = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 0, b = 11 * 0.5, l = 0)
-      ),
-      axis.title.y = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 11 * 1, b = 0, l = 0),
-        angle = 90
-      ),
-      axis.title.y.right = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 11 * -0.5, b = 0, l = 11 * 1),
-        angle = -90
-      ),
-      axis.text.x = ggplot2::element_text(
-        vjust = 1,
-        margin = ggplot2::margin(t = 11 * 0.3, r = 0, b = 11 * 1, l = 0)
-      ),
-      axis.text.x.top = ggplot2::element_text(
-        vjust = 0,
-        margin = ggplot2::margin(t = 0, r = 0, b = 11 * 0.3, l = 0)
-      )
-    )
-  } else if (legend_position == "bottom") {
-    ggplot2::theme(
-      # Legend-specific settings for bottom position
-      legend.position = "bottom",
-      legend.justification = c(0, 0.5),
-      legend.location = "plot",
-      legend.title.position = "top",
-      legend.margin = ggplot2::margin(
-        t = 0,
-        r = 11 * 2,
-        b = 11 * 0.75,
-        l = 0
-      ),
-      legend.box.margin = ggplot2::margin(
-        t = 11 * -0.5,
-        r = 0,
-        b = 0,
-        l = 0
-      ),
-      legend.title = ggplot2::element_text(
-        margin = ggplot2::margin(t = 11 * 0.25, r = 0, b = 11 * 0.5, l = 0)
-      ),
-      legend.byrow = TRUE,
-
-      # Axis settings for bottom legend
-      axis.title.x = ggplot2::element_text(
-        margin = ggplot2::margin(t = 11 * -0.33, r = 0, b = 11 * 0.75, l = 0)
-      ),
-      axis.title.x.top = ggplot2::element_text(
-        margin = ggplot2::margin(t = 11 * -1, r = 0, b = 11 * 1, l = 0)
-      ),
-      axis.title.y = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 11 * 1, b = 0, l = 0),
-        angle = 90
-      ),
-      axis.title.y.right = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 11 * -0.5, b = 0, l = 11 * 1),
-        angle = -90
-      ),
-      axis.text.x = ggplot2::element_text(
-        vjust = 1,
-        margin = ggplot2::margin(t = 11 * 0.3, r = 0, b = 11 * 1, l = 0)
-      ),
-      axis.text.x.top = ggplot2::element_text(
-        vjust = 0,
-        margin = ggplot2::margin(t = 11 * -0.5, r = 0, b = 11 * 0.3, l = 0)
-      )
-    )
-  }
-}
-
 #' Internal theme
 #'
 #' @description Theme base for `*_mode_*` functions.
@@ -407,4 +255,156 @@ theme_blanket <- function(
 
   # Apply legend position specific settings
   theme + theme_blanket_move_legend(legend_position)
+}
+
+#' Move legend position
+#'
+#' @description Helper function to move the legend position in theme_blanket.
+#'
+#' @param legend_position The position of the legend. Either "right", "top" or "bottom".
+#'
+#' @return A ggplot theme object with legend position settings.
+#' @noRd
+#'
+theme_blanket_move_legend <- function(legend_position = "right") {
+  if (legend_position == "right") {
+    ggplot2::theme(
+      # Legend-specific settings for right position
+      legend.position = "right",
+      legend.justification = c(0, 1),
+      legend.location = "panel",
+      legend.title.position = "top",
+      legend.margin = ggplot2::margin(
+        t = 0,
+        r = 11 * -1,
+        b = 0,
+        l = 11 * 0.75
+      ),
+      legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
+      legend.title = ggplot2::element_text(
+        margin = ggplot2::margin(t = 0, r = 0, b = 11 * 0.5, l = 0)
+      ),
+      legend.byrow = FALSE,
+
+      # Axis settings for right legend
+      axis.title.x = ggplot2::element_text(
+        margin = ggplot2::margin(t = 11 * -0.33, r = 0, b = 11 * 0.75, l = 0)
+      ),
+      axis.title.x.top = ggplot2::element_text(
+        margin = ggplot2::margin(t = 11 * -1, r = 0, b = 11 * 1, l = 0)
+      ),
+      axis.title.y = ggplot2::element_text(
+        margin = ggplot2::margin(t = 0, r = 11 * 1, b = 0, l = 0),
+        angle = 90
+      ),
+      axis.title.y.right = ggplot2::element_text(
+        margin = ggplot2::margin(t = 0, r = 11 * -0.5, b = 0, l = 11 * 1),
+        angle = -90
+      ),
+      axis.text.x = ggplot2::element_text(
+        vjust = 1,
+        margin = ggplot2::margin(t = 11 * 0.3, r = 0, b = 11 * 1, l = 0)
+      ),
+      axis.text.x.top = ggplot2::element_text(
+        vjust = 0,
+        margin = ggplot2::margin(t = 11 * -0.5, r = 0, b = 11 * 0.3, l = 0)
+      )
+    )
+  } else if (legend_position == "top") {
+    ggplot2::theme(
+      # Legend-specific settings for top position
+      legend.position = "top",
+      legend.justification = c(0, 0.5),
+      legend.location = "plot",
+      legend.title.position = "top",
+      legend.margin = ggplot2::margin(
+        t = 11 * -1.5,
+        r = 11 * 2,
+        b = 11 * 0.5,
+        l = 0
+      ),
+      legend.box.margin = ggplot2::margin(
+        t = 11 * 0.5,
+        r = 0,
+        b = 11 * 0.5,
+        l = 0
+      ),
+      legend.title = ggplot2::element_text(
+        margin = ggplot2::margin(t = 11 * 0.25, r = 0, b = 11 * 0.5, l = 0)
+      ),
+      legend.byrow = TRUE,
+
+      # Axis settings for top legend
+      axis.title.x = ggplot2::element_text(
+        margin = ggplot2::margin(t = 11 * -0.33, r = 0, b = 11 * 0.75, l = 0)
+      ),
+      axis.title.x.top = ggplot2::element_text(
+        margin = ggplot2::margin(t = 0, r = 0, b = 11 * 0.5, l = 0)
+      ),
+      axis.title.y = ggplot2::element_text(
+        margin = ggplot2::margin(t = 0, r = 11 * 1, b = 0, l = 0),
+        angle = 90
+      ),
+      axis.title.y.right = ggplot2::element_text(
+        margin = ggplot2::margin(t = 0, r = 11 * -0.5, b = 0, l = 11 * 1),
+        angle = -90
+      ),
+      axis.text.x = ggplot2::element_text(
+        vjust = 1,
+        margin = ggplot2::margin(t = 11 * 0.3, r = 0, b = 11 * 1, l = 0)
+      ),
+      axis.text.x.top = ggplot2::element_text(
+        vjust = 0,
+        margin = ggplot2::margin(t = 0, r = 0, b = 11 * 0.3, l = 0)
+      )
+    )
+  } else if (legend_position == "bottom") {
+    ggplot2::theme(
+      # Legend-specific settings for bottom position
+      legend.position = "bottom",
+      legend.justification = c(0, 0.5),
+      legend.location = "plot",
+      legend.title.position = "top",
+      legend.margin = ggplot2::margin(
+        t = 0,
+        r = 11 * 2,
+        b = 11 * 0.75,
+        l = 0
+      ),
+      legend.box.margin = ggplot2::margin(
+        t = 11 * -0.5,
+        r = 0,
+        b = 0,
+        l = 0
+      ),
+      legend.title = ggplot2::element_text(
+        margin = ggplot2::margin(t = 11 * 0.25, r = 0, b = 11 * 0.5, l = 0)
+      ),
+      legend.byrow = TRUE,
+
+      # Axis settings for bottom legend
+      axis.title.x = ggplot2::element_text(
+        margin = ggplot2::margin(t = 11 * -0.33, r = 0, b = 11 * 0.75, l = 0)
+      ),
+      axis.title.x.top = ggplot2::element_text(
+        margin = ggplot2::margin(t = 11 * -1, r = 0, b = 11 * 1, l = 0)
+      ),
+      axis.title.y = ggplot2::element_text(
+        margin = ggplot2::margin(t = 0, r = 11 * 1, b = 0, l = 0),
+        angle = 90
+      ),
+      axis.title.y.right = ggplot2::element_text(
+        margin = ggplot2::margin(t = 0, r = 11 * -0.5, b = 0, l = 11 * 1),
+        angle = -90
+      ),
+      axis.text.x = ggplot2::element_text(
+        vjust = 1,
+        margin = ggplot2::margin(t = 11 * 0.3, r = 0, b = 11 * 1, l = 0)
+      ),
+      axis.text.x.top = ggplot2::element_text(
+        vjust = 0,
+        margin = ggplot2::margin(t = 11 * -0.5, r = 0, b = 11 * 0.3, l = 0)
+      )
+    )
+  }
 }

@@ -12,21 +12,8 @@ reference:
   - starts_with("gg_")
 - title: Theme
 - contents:
-  - theme_lightmode
-  - theme_darkmode
-- title: Palette
-- contents:
-  - blue
-  - jumble
-  - teal
-  - orange
-  - navy
-  - red
-  - pink
-  - purple
-  - grey
-  - lightness
-  - darkness
+  - theme_lighter
+  - theme_darker
 - title: Extra
 - contents:
   - aes_contrast
@@ -35,10 +22,11 @@ reference:
   - col_multiply
   - col_screen
   - bind_each_all
-  - guides_shape_grey
-  - guides_linewidth_grey
-  - guides_size_grey
+  - guides_grey
+  - is_panel_dark
+  - jumble
   - label_every_nth
+  - pal_viridis_by_panel
   - pt_to_mm
   - scale_x_symmetric
   - scale_y_symmetric

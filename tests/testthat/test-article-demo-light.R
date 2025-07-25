@@ -455,7 +455,7 @@ test_that(test_name, {
       coord = coord_cartesian(clip = "on"),
     ) +
     geom_qq_line(
-      colour = blue,
+      colour = "#357BA2FF",
     )
 
   vdiffr::expect_doppelganger(test_name, p)

@@ -42,7 +42,7 @@ Computational speed has been traded-off.
 3.  A `col` aesthetic representing both colour and fill
 4.  A `facet` argument to facet by a variable
 5.  A `facet2` argument to facet by a 2nd variable
-6.  Other aesthetics via `mapping` argument
+6.  Other aesthetics
 7.  Prefixed arguments to customise x/y/col/facet
 8.  Smart `*_title` defaults for axis and legend titles
 9.  Other `ggplot2::geom_*` arguments via `...`
@@ -139,13 +139,11 @@ palmerpenguins::penguins |>
   )
 ```
 
-### 6. Other aesthetics via `mapping` argument
+### 6. Other aesthetics
 
-Some aesthetics are not available via an argument (e.g. `alpha`, `size`, `shape`, `linetype` and `linewidth`).
+Other aeesthetics are available: `alpha`, `size`, `shape`, `linetype` and `linewidth`.
 
-These can be accessed via the `mapping` argument using the `aes()` function. 
-
-To customise the scales/guides of these other aesthetics, just `+` on the applicable ggplot2 layer. In some situations, you may need to override the colour used in the guide, or reverse the values in the relevant scale etc.
+The `mapping` argument is also provided for use with `ggplot2::after_stat`. 
 
 ```{r}
 palmerpenguins::penguins |> 
@@ -155,13 +153,7 @@ palmerpenguins::penguins |>
     y = flipper_length_mm, 
     col = island,
     shape = sex,
-  ) +
-    guides(
-    shape = guide_legend(
-      override.aes = aes(colour = !!col_multiply("#8991A1FF"), fill = "#8991A1FF")
-    )
-  )
-
+  ) 
 ```
 
 ### 7.  Prefixed arguments to customise x/y/col/facet
@@ -241,14 +233,14 @@ palmerpenguins::penguins |>
 set_blanket()
 ```
 
-### 11.  Side-effects to the `theme` based on the `perspective`
+### 11.  Side-effects to the `theme` based on the `aspect`
 
-The `gg_*` function adds helpful side-effects to the theme based on the `perspective`, `axis_line_transparent`, `axis_ticks_transparent` and , `panel_grid_transparent` arguments. 
+The `gg_*` function adds helpful side-effects to the theme based on the `aspect`, `aspect_axis_line_rm`, `aspect_axis_ticks_rm` and , `aspect_panel_grid_rm` arguments. 
 
-* Where `perspective = "x"`, the `gg_*` function will remove the y axis line/ticks and the x gridlines from the `theme` (by changing their colour to "transparent"). 
-* Where `perspective = "y"`, the opposite will occur. 
+* Where `aspect = "x"`, the `gg_*` function will remove the y axis line/ticks and the x gridlines from the `theme` (by changing their colour to "transparent"). 
+* Where `aspect = "y"`, the opposite will occur. 
 
-If the `gg_*` guesses an incorrect `perspective`, then the user can change this. The user can change any of these side-effects by setting `axis_line_transparent`, `axis_ticks_transparent` or , `panel_grid_transparent` to `FALSE`.
+If the `gg_*` guesses an incorrect `aspect`, then the user can change this. The user can change any of these side-effects by setting `axis_line_transparent`, `axis_ticks_transparent` or , `panel_grid_transparent` to `FALSE`.
 
 Any `theme` used should be designed to anticipate the side-effects desired (i.e. include panel grid, axis line and axis ticks in both directions. 
 
@@ -304,8 +296,6 @@ Users can make plots with multiple `ggplot2::geom_*` layers.
 
 The `gg_*()` geom layer will be the bottom geom layer of the plot, and each subsequent `geom_*()` layer is placed on top. 
 
-Aesthetics added directly (e.g. `x`, `y` etc.) to the `gg_*()` function will inherit to later `geom_*()` layers, whereas those added to the `mapping` argument will not. 
-
 ```{r}
 palmerpenguins::penguins |> 
   gg_violin(
@@ -349,14 +339,7 @@ palmerpenguins::penguins |>
 
 ### 14. Arguments to customise setup with `set_blanket()`
 
-The `set_blanket` function sets customisable defaults for the:
-
-* the geom defaults, including the colour/fill
-* the colour/fill palettes for discrete, continuous and ordinal
-* the theme, and how/what side-effects are to be applied
-* the function to apply to a unspecified/unlabelled `x_title`, `y_title`, `col_title` etc.
-
-Users should try to do as much as possible in these set-up functions, rather than continually adding arguments to their `gg_*` functions.
+The `set_blanket` function sets customisable defaults. Users should try to do as much as possible in this function, rather than continually add arguments to `gg_*` functions.
 
 ```{r}
 set_blanket(

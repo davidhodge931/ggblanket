@@ -3,9 +3,8 @@ TO DO
 * Update the ggplot2 version dependency to 4. Delete remotes
 * Update the ggblanket version to 14
 
-* Supported `colour`, `fill`, `alpha`, `linetype`, `linewidth` and `size` aesthetics.
-
-* Redesign of how `colour`/`fill`/`linewidth`/`linetype` and palettes work both 
+* Supported `colour`, `fill`, `alpha`, `linetype`, `linewidth` and `size` aesthetics and set values.
+* Redesign of how `colour`/`fill`/`linewidth` and palettes work. 
 in `set_blanket` and `gg_blanket` with defaults and flexibility for border geoms.
 * Breaking: renamed `gg_bin_2d`, `gg_density_2d` and `gg_density_2d_filled` to `gg_bin2d` etc. 
 * Breaking: renamed `*_label` to `*_title`, and `label_case` to `titles_case`.
@@ -17,15 +16,13 @@ in `set_blanket` and `gg_blanket` with defaults and flexibility for border geoms
 * Breaking: changed `col_steps = TRUE` argument to `col_scale_type = "steps"`.
 * Breaking: removed `theme` from `gg_*`. 
 * Breaking: removed `gg_text` and `gg_label`. 
+* Breaking: removed `lightness` and `darkness`.
 * Added defaults to `aes_contrast` to make it determine NULL colours based on theme.
-* Modularised `gg_blanket` function somewhat.
-* `col = 'red'` now works for colouring/filling. 
-* Geom defaults and palettes set via the `ggplot2::update_theme`.  
 * Exported `update_geom_font` and `update_geom_reference_line` functions.
 * Supported setting col/colour/fill palettes.
 * For dates etc, defaulted labels to `scales::label_date_short(leading = "")`.
-* Added `col_square` helper.
 * Added `colour_palette` and `fill_palette` arguments to `gg_*` functions.
+* Added `col_multiply` and `col_screen`.
 * Added `bind_each_all` to assist with plotting groups alongside the total.
 * Added `standardise_width`.
 * Added `annotate_axis_ticks`.

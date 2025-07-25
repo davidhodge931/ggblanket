@@ -307,8 +307,8 @@ d |>
     stat = "slabinterval",
     y = distribution,
     mapping = aes(dist = values),
-    fill = blue, 
-    colour = col_multiply(blue),
+    fill = jumble[11], 
+    colour = col_multiply(jumble[11]),
     y_expand = expansion(c(0.05, 0)),
     perspective = "x",
   ) 

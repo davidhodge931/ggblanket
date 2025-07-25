@@ -58,7 +58,7 @@ palmerpenguins::penguins |>
     x = species,
     y = body_mass_g,
     col = each_all,
-    col_palette = c(blue, grey),
+    col_palette = jumble[c(11, 10)],
   ) +
   theme(legend.position = "none")
 
@@ -70,7 +70,7 @@ palmerpenguins::penguins |>
     x = species,
     y = body_mass_g,
     col = each_all,
-    col_palette = c(blue, grey),
+    col_palette = jumble[c(11, 10)],
     width = 0.5,
     y_title = "Average body mass g",
   ) +
@@ -82,7 +82,7 @@ palmerpenguins::penguins |>
     x = species,
     y = body_mass_g,
     col = each_all,
-    col_palette = c(blue, grey),
+    col_palette = jumble[c(11, 10)],
     facet = each_all,
     facet_scales = "free_x",
     facet_space = "free_x",

@@ -54,99 +54,99 @@
 #' @return A ggplot object.
 #' @export
 gg_blanket <- function(
-  data = NULL,
-  ...,
-  geom = "blank",
-  stat = "identity",
-  position = "identity",
-  coord = NULL,
-  blend = NULL,
-  aspect = NULL,
-  aspect_axis_line_rm = NULL,
-  aspect_axis_ticks_rm = NULL,
-  aspect_panel_grid_rm = NULL,
-  x = NULL,
-  xmin = NULL,
-  xmax = NULL,
-  xend = NULL,
-  y = NULL,
-  ymin = NULL,
-  ymax = NULL,
-  yend = NULL,
-  z = NULL,
-  col = NULL,
-  colour = NULL,
-  fill = NULL,
-  alpha = NULL,
-  shape = NULL,
-  linetype = NULL,
-  linewidth = NULL,
-  size = NULL,
-  facet = NULL,
-  facet2 = NULL,
-  group = NULL,
-  subgroup = NULL,
-  label = NULL,
-  text = NULL,
-  sample = NULL,
-  mapping = NULL,
-  bordered = NULL,
-  bordered_colour_by = NULL,
-  bordered_fill_by = NULL,
+    data = NULL,
+    ...,
+    geom = "blank",
+    stat = "identity",
+    position = "identity",
+    coord = NULL,
+    blend = NULL,
+    aspect = NULL,
+    aspect_axis_line_rm = NULL,
+    aspect_axis_ticks_rm = NULL,
+    aspect_panel_grid_rm = NULL,
+    x = NULL,
+    xmin = NULL,
+    xmax = NULL,
+    xend = NULL,
+    y = NULL,
+    ymin = NULL,
+    ymax = NULL,
+    yend = NULL,
+    z = NULL,
+    col = NULL,
+    colour = NULL,
+    fill = NULL,
+    alpha = NULL,
+    shape = NULL,
+    linetype = NULL,
+    linewidth = NULL,
+    size = NULL,
+    facet = NULL,
+    facet2 = NULL,
+    group = NULL,
+    subgroup = NULL,
+    label = NULL,
+    text = NULL,
+    sample = NULL,
+    mapping = NULL,
+    bordered = NULL,
+    bordered_colour_by = NULL,
+    bordered_fill_by = NULL,
 
-  x_breaks = NULL,
-  x_breaks_n = NULL,
-  x_expand = NULL,
-  x_limits_include = NULL,
-  x_title = NULL,
-  x_labels = NULL,
-  x_position = "bottom",
-  x_sec_axis = ggplot2::waiver(),
-  x_symmetric = NULL,
-  x_transform = NULL,
-  y_breaks = NULL,
-  y_breaks_n = NULL,
-  y_expand = NULL,
-  y_limits_include = NULL,
-  y_title = NULL,
-  y_labels = NULL,
-  y_position = "left",
-  y_sec_axis = ggplot2::waiver(),
-  y_symmetric = NULL,
-  y_transform = NULL,
-  col_breaks = ggplot2::waiver(),
-  col_breaks_n = NULL,
-  col_drop = FALSE,
-  col_limits_include = NULL,
-  col_title = NULL,
-  col_labels = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
-  col_palette = NULL,
-  col_na = NULL,
-  col_legend_rev = FALSE,
-  col_rescale = scales::rescale(),
-  col_scale_type = "gradient",
-  col_transform = NULL,
-  colour_palette = NULL,
-  colour_na = NULL,
-  fill_palette = NULL,
-  fill_na = NULL,
-  shape_palette = NULL,
-  linetype_palette = NULL,
-  facet_axes = NULL,
-  facet_axis_labels = "margins",
-  facet_drop = FALSE,
-  facet_labels = NULL,
-  facet_layout = NULL,
-  facet_ncol = NULL,
-  facet_nrow = NULL,
-  facet_scales = "fixed",
-  facet_space = "fixed",
-  title = NULL,
-  subtitle = NULL,
-  caption = NULL,
-  titles_case = NULL
+    x_breaks = NULL,
+    x_breaks_n = NULL,
+    x_expand = NULL,
+    x_limits_include = NULL,
+    x_title = NULL,
+    x_labels = NULL,
+    x_position = "bottom",
+    x_sec_axis = ggplot2::waiver(),
+    x_symmetric = NULL,
+    x_transform = NULL,
+    y_breaks = NULL,
+    y_breaks_n = NULL,
+    y_expand = NULL,
+    y_limits_include = NULL,
+    y_title = NULL,
+    y_labels = NULL,
+    y_position = "left",
+    y_sec_axis = ggplot2::waiver(),
+    y_symmetric = NULL,
+    y_transform = NULL,
+    col_breaks = ggplot2::waiver(),
+    col_breaks_n = NULL,
+    col_drop = FALSE,
+    col_limits_include = NULL,
+    col_title = NULL,
+    col_labels = NULL,
+    col_legend_ncol = NULL,
+    col_legend_nrow = NULL,
+    col_palette = NULL,
+    col_na = NULL,
+    col_legend_rev = FALSE,
+    col_rescale = scales::rescale(),
+    col_scale_type = "gradient",
+    col_transform = NULL,
+    colour_palette = NULL,
+    colour_na = NULL,
+    fill_palette = NULL,
+    fill_na = NULL,
+    shape_palette = NULL,
+    linetype_palette = NULL,
+    facet_axes = NULL,
+    facet_axis_labels = "margins",
+    facet_drop = FALSE,
+    facet_labels = NULL,
+    facet_layout = NULL,
+    facet_ncol = NULL,
+    facet_nrow = NULL,
+    facet_scales = "fixed",
+    facet_space = "fixed",
+    title = NULL,
+    subtitle = NULL,
+    caption = NULL,
+    titles_case = NULL
 ) {
   # Step 1: Handle NULL data
   if (is.null(data)) {
@@ -260,7 +260,7 @@ gg_blanket <- function(
   # then treat as non-border behavior
   if (
     (has_colour_aesthetic && user_set_fill_na) ||
-      (has_fill_aesthetic && user_set_colour_na)
+    (has_fill_aesthetic && user_set_colour_na)
   ) {
     is_bordered_geom <- FALSE
   }
@@ -464,8 +464,8 @@ gg_blanket <- function(
         # No colour value, but col is set as fixed value (and it's not NA)
         if (
           is_bordered_geom &&
-            !is.null(bordered_colour_by) &&
-            is.function(bordered_colour_by)
+          !is.null(bordered_colour_by) &&
+          is.function(bordered_colour_by)
         ) {
           fixed_params$colour <- bordered_colour_by(col_map_or_set$value)
         } else {
@@ -480,8 +480,8 @@ gg_blanket <- function(
 
       if (
         is_bordered_geom &&
-          !is.null(bordered_colour_by) &&
-          is.function(bordered_colour_by)
+        !is.null(bordered_colour_by) &&
+        is.function(bordered_colour_by)
       ) {
         fixed_params$colour <- bordered_colour_by(default_col)
       } else {
@@ -503,8 +503,8 @@ gg_blanket <- function(
         # No fill value, but col is set as fixed value (and it's not NA)
         if (
           is_bordered_geom &&
-            !is.null(bordered_fill_by) &&
-            is.function(bordered_fill_by)
+          !is.null(bordered_fill_by) &&
+          is.function(bordered_fill_by)
         ) {
           fixed_params$fill <- bordered_fill_by(col_map_or_set$value)
         } else {
@@ -520,8 +520,8 @@ gg_blanket <- function(
 
       if (
         is_bordered_geom &&
-          !is.null(bordered_fill_by) &&
-          is.function(bordered_fill_by)
+        !is.null(bordered_fill_by) &&
+        is.function(bordered_fill_by)
       ) {
         fixed_params$fill <- bordered_fill_by(default_fill)
       } else {
@@ -536,8 +536,8 @@ gg_blanket <- function(
     # For colour: only remove if it wasn't explicitly set by the user and not in mapping
     if (
       !colour_map_or_set$is_aesthetic &&
-        is.null(colour_map_or_set$value) &&
-        !colour_in_mapping
+      is.null(colour_map_or_set$value) &&
+      !colour_in_mapping
     ) {
       # colour was not provided by user, so remove the default
       fixed_params$colour <- NULL
@@ -545,8 +545,8 @@ gg_blanket <- function(
     # For fill: only remove if it wasn't explicitly set by the user and not in mapping
     if (
       !fill_map_or_set$is_aesthetic &&
-        is.null(fill_map_or_set$value) &&
-        !fill_in_mapping
+      is.null(fill_map_or_set$value) &&
+      !fill_in_mapping
     ) {
       # fill was not provided by user, so remove the default
       fixed_params$fill <- NULL
@@ -627,7 +627,7 @@ gg_blanket <- function(
     rlang::enquo(colour)
   } else if (
     col_map_or_set$is_aesthetic &&
-      (is.null(colour_map_or_set$value) || !is.na(colour_map_or_set$value))
+    (is.null(colour_map_or_set$value) || !is.na(colour_map_or_set$value))
   ) {
     rlang::enquo(col) # Inherit from col only if colour wasn't explicitly NA
   } else {
@@ -639,7 +639,7 @@ gg_blanket <- function(
     rlang::enquo(fill)
   } else if (
     col_map_or_set$is_aesthetic &&
-      (is.null(fill_map_or_set$value) || !is.na(fill_map_or_set$value))
+    (is.null(fill_map_or_set$value) || !is.na(fill_map_or_set$value))
   ) {
     rlang::enquo(col) # Inherit from col only if fill wasn't explicitly NA
   } else {
@@ -822,9 +822,6 @@ gg_blanket <- function(
     })
   })
 
-  # return(is_bordered_geom)
-  # return(fixed_params)
-
   # Step 18: Make colour scale
   if (!is.na(col_scale_class)) {
     plot <- add_col_scale(
@@ -856,7 +853,9 @@ gg_blanket <- function(
       fill_palette_d = fill_palette_d,
       fill_palette_c = fill_palette_c,
       fill_palette_o = fill_palette_o,
-      fill_na = fill_na
+      fill_na = fill_na,
+      bordered_colour_by = bordered_colour_by,
+      bordered_fill_by = bordered_fill_by
     )
   }
 
@@ -948,6 +947,31 @@ gg_blanket <- function(
       ggplot2::guides(
         linetype = ggplot2::guide_legend(reverse = linetype_legend_rev)
       )
+  }
+
+  # Step 20.5: Apply grey styling to secondary aesthetic guides
+  # This must come AFTER all scales are added
+  if (!is.na(col_scale_class)) {
+    # Check if col is mapped
+    col_mapped <- !rlang::quo_is_null(aes_list$col) ||
+      !rlang::quo_is_null(aes_list$colour) ||
+      !rlang::quo_is_null(aes_list$fill)
+
+    if (col_mapped) {
+      plot <- apply_secondary_grey_guides(
+        plot = plot,
+        aes_list = aes_list,
+        data = data,
+        geom = geom,
+        is_bordered_geom = is_bordered_geom,
+        bordered_colour_by = bordered_colour_by,
+        bordered_fill_by = bordered_fill_by,
+        col_legend_ncol = col_legend_ncol,
+        col_legend_nrow = col_legend_nrow,
+        shape_legend_rev = if (aspect == "y") TRUE else FALSE,
+        linetype_legend_rev = if (aspect == "y") TRUE else FALSE
+      )
+    }
   }
 
   # Step 21: Add positional scales
