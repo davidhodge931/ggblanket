@@ -12,8 +12,10 @@ set_blanket(
   size = 1.5,
   shape = 21,
   stroke = 0.5,
-  bordered_colour_by = function(x) ifelse(is_panel_dark(), col_screen(x),
-    col_multiply(x)),
+  bordered_colour_by = function(x) {
+     ifelse(is_panel_dark(), col_screen(x),
+    col_multiply(x))
+ },
   bordered_fill_by = NULL,
   bordered_linewidth = 0.25,
   col_palette_d = scales::pal_hue(),

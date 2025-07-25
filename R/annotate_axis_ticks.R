@@ -48,13 +48,13 @@
 #'   annotate_axis_ticks(breaks = c(0.5, 1.5, 2.5, 3.5))
 #'
 annotate_axis_ticks <- function(
-    ...,
-    breaks,
-    position = "bottom",
-    colour = NULL,
-    linewidth = NULL,
-    length = NULL,
-    theme_elements = "transparent"
+  ...,
+  breaks,
+  position = "bottom",
+  colour = NULL,
+  linewidth = NULL,
+  length = NULL,
+  theme_elements = "transparent"
 ) {
   rlang::inform(
     "Please use this function with ggplot2::coord_cartesian(clip = 'off')"
@@ -200,43 +200,73 @@ annotate_axis_ticks <- function(
   # Add theme modification if requested
   if (theme_elements == "transparent") {
     if (position == "bottom") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(axis.ticks.x.bottom = ggplot2::element_line(colour = "transparent"))
-      ))
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(
+            axis.ticks.x.bottom = ggplot2::element_line(colour = "transparent")
+          )
+        )
+      )
     } else if (position == "top") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(axis.ticks.x.top = ggplot2::element_line(colour = "transparent"))
-      ))
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(
+            axis.ticks.x.top = ggplot2::element_line(colour = "transparent")
+          )
+        )
+      )
     } else if (position == "left") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(axis.ticks.y.left = ggplot2::element_line(colour = "transparent"))
-      ))
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(
+            axis.ticks.y.left = ggplot2::element_line(colour = "transparent")
+          )
+        )
+      )
     } else if (position == "right") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(axis.ticks.y.right = ggplot2::element_line(colour = "transparent"))
-      ))
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(
+            axis.ticks.y.right = ggplot2::element_line(colour = "transparent")
+          )
+        )
+      )
     }
-  }
-  else if (theme_elements == "blank") {
+  } else if (theme_elements == "blank") {
     if (position == "bottom") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(axis.ticks.x.bottom = ggplot2::element_blank())
-      ))
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(axis.ticks.x.bottom = ggplot2::element_blank())
+        )
+      )
     } else if (position == "top") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(axis.ticks.x.top = ggplot2::element_blank())
-      ))
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(axis.ticks.x.top = ggplot2::element_blank())
+        )
+      )
     } else if (position == "left") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(axis.ticks.y.left = ggplot2::element_blank())
-      ))
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(axis.ticks.y.left = ggplot2::element_blank())
+        )
+      )
     } else if (position == "right") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(axis.ticks.y.right = ggplot2::element_blank())
-      ))
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(axis.ticks.y.right = ggplot2::element_blank())
+        )
+      )
     }
-  }
-  else if (theme_elements == "keep") {
+  } else if (theme_elements == "keep") {
     stamp <- c(stamp, list())
   }
 
@@ -250,72 +280,100 @@ annotate_axis_ticks <- function(
         x1 = grid::unit(0.5, "npc"),
         y0 = grid::unit(0, "npc"),
         y1 = grid::unit(0, "npc") - length,
-        gp = grid::gpar(col = colour, lwd = linewidth * 72/25.4, lineend = "butt")
+        gp = grid::gpar(
+          col = colour,
+          lwd = linewidth * 72 / 25.4,
+          lineend = "butt"
+        )
       )
 
-      stamp <- c(stamp, list(
-        ggplot2::annotation_custom(
-          grob = tick_grob,
-          xmin = break_val,
-          xmax = break_val,
-          ymin = -Inf,
-          ymax = -Inf
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::annotation_custom(
+            grob = tick_grob,
+            xmin = break_val,
+            xmax = break_val,
+            ymin = -Inf,
+            ymax = -Inf
+          )
         )
-      ))
+      )
     } else if (position == "top") {
       tick_grob <- grid::segmentsGrob(
         x0 = grid::unit(0.5, "npc"),
         x1 = grid::unit(0.5, "npc"),
         y0 = grid::unit(1, "npc"),
         y1 = grid::unit(1, "npc") + length,
-        gp = grid::gpar(col = colour, lwd = linewidth * 72/25.4, lineend = "butt")
+        gp = grid::gpar(
+          col = colour,
+          lwd = linewidth * 72 / 25.4,
+          lineend = "butt"
+        )
       )
 
-      stamp <- c(stamp, list(
-        ggplot2::annotation_custom(
-          grob = tick_grob,
-          xmin = break_val,
-          xmax = break_val,
-          ymin = Inf,
-          ymax = Inf
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::annotation_custom(
+            grob = tick_grob,
+            xmin = break_val,
+            xmax = break_val,
+            ymin = Inf,
+            ymax = Inf
+          )
         )
-      ))
+      )
     } else if (position == "left") {
       tick_grob <- grid::segmentsGrob(
         x0 = grid::unit(0, "npc"),
         x1 = grid::unit(0, "npc") - length,
         y0 = grid::unit(0.5, "npc"),
         y1 = grid::unit(0.5, "npc"),
-        gp = grid::gpar(col = colour, lwd = linewidth * 72/25.4, lineend = "butt")
+        gp = grid::gpar(
+          col = colour,
+          lwd = linewidth * 72 / 25.4,
+          lineend = "butt"
+        )
       )
 
-      stamp <- c(stamp, list(
-        ggplot2::annotation_custom(
-          grob = tick_grob,
-          xmin = -Inf,
-          xmax = -Inf,
-          ymin = break_val,
-          ymax = break_val
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::annotation_custom(
+            grob = tick_grob,
+            xmin = -Inf,
+            xmax = -Inf,
+            ymin = break_val,
+            ymax = break_val
+          )
         )
-      ))
+      )
     } else if (position == "right") {
       tick_grob <- grid::segmentsGrob(
         x0 = grid::unit(1, "npc"),
         x1 = grid::unit(1, "npc") + length,
         y0 = grid::unit(0.5, "npc"),
         y1 = grid::unit(0.5, "npc"),
-        gp = grid::gpar(col = colour, lwd = linewidth * 72/25.4, lineend = "butt")
+        gp = grid::gpar(
+          col = colour,
+          lwd = linewidth * 72 / 25.4,
+          lineend = "butt"
+        )
       )
 
-      stamp <- c(stamp, list(
-        ggplot2::annotation_custom(
-          grob = tick_grob,
-          xmin = Inf,
-          xmax = Inf,
-          ymin = break_val,
-          ymax = break_val
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::annotation_custom(
+            grob = tick_grob,
+            xmin = Inf,
+            xmax = Inf,
+            ymin = break_val,
+            ymax = break_val
+          )
         )
-      ))
+      )
     }
   }
 

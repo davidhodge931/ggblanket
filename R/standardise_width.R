@@ -79,21 +79,19 @@
 #'
 #'
 standardise_width <- function(
-    ...,
-    from_n,
-    from_dodge_n = 1,
-    from_aspect = "x",
-    from_panel_widths = NULL,
-    from_panel_heights = NULL,
-    to_width,
-    to_n,
-    to_dodge_n = 1,
-    to_aspect = "x",
-    to_panel_widths = NULL,
-    to_panel_heights = NULL
+  ...,
+  from_n,
+  from_dodge_n = 1,
+  from_aspect = "x",
+  from_panel_widths = NULL,
+  from_panel_heights = NULL,
+  to_width,
+  to_n,
+  to_dodge_n = 1,
+  to_aspect = "x",
+  to_panel_widths = NULL,
+  to_panel_heights = NULL
 ) {
-
-
   # Check required arguments
   if (missing(to_width) | missing(to_n) | missing(from_n)) {
     rlang::abort("to_width, to_n, and from_n must all be specified")
@@ -116,19 +114,31 @@ standardise_width <- function(
     to_panel_heights <- current_theme$panel.heights
   }
 
-  if (rlang::is_null(from_panel_widths) |
+  if (
+    rlang::is_null(from_panel_widths) |
       rlang::is_null(to_panel_heights) |
       rlang::is_null(to_panel_widths) |
-      rlang::is_null(to_panel_heights)) {
+      rlang::is_null(to_panel_heights)
+  ) {
     rlang::abort("panel widths and heights must be set or specified")
   }
 
   # Validate panel dimensions - if any provided, all must be provided
-  if (!is.null(from_panel_widths) || !is.null(from_panel_heights) ||
-      !is.null(to_panel_widths) || !is.null(to_panel_heights)) {
-    if (is.null(from_panel_widths) || is.null(from_panel_heights) ||
-        is.null(to_panel_widths) || is.null(to_panel_heights)) {
-      rlang::abort("If any panel dimension is provided, all four (from_panel_widths, from_panel_heights, to_panel_widths, to_panel_heights) must be provided")
+  if (
+    !is.null(from_panel_widths) ||
+      !is.null(from_panel_heights) ||
+      !is.null(to_panel_widths) ||
+      !is.null(to_panel_heights)
+  ) {
+    if (
+      is.null(from_panel_widths) ||
+        is.null(from_panel_heights) ||
+        is.null(to_panel_widths) ||
+        is.null(to_panel_heights)
+    ) {
+      rlang::abort(
+        "If any panel dimension is provided, all four (from_panel_widths, from_panel_heights, to_panel_widths, to_panel_heights) must be provided"
+      )
     }
   }
 
@@ -172,9 +182,9 @@ standardise_width <- function(
   # Panel dimension adjustment for visual consistency
   if (
     !is.null(to_panel_widths) |
-    !is.null(to_panel_heights) |
-    !is.null(from_panel_widths) |
-    !is.null(from_panel_heights)
+      !is.null(to_panel_heights) |
+      !is.null(from_panel_widths) |
+      !is.null(from_panel_heights)
   ) {
     # Get the relevant dimension for each aspect
     # For aspect "x" (vertical bars): width depends on panel width

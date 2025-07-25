@@ -35,7 +35,12 @@
 #'   annotate_axis_line() +
 #'   geom_point()
 #'
-annotate_axis_line <- function(..., position = "bottom", colour = NULL, linewidth = NULL) {
+annotate_axis_line <- function(
+  ...,
+  position = "bottom",
+  colour = NULL,
+  linewidth = NULL
+) {
   rlang::inform(
     "Please use this function with ggplot2::coord_cartesian(clip = 'off')"
   )
@@ -193,12 +198,12 @@ annotate_axis_line <- function(..., position = "bottom", colour = NULL, linewidt
 #' @export
 #'
 annotate_axis_ticks <- function(
-    position,
-    breaks,
-    ...,
-    colour = NULL,
-    linewidth = NULL,
-    length = NULL
+  position,
+  breaks,
+  ...,
+  colour = NULL,
+  linewidth = NULL,
+  length = NULL
 ) {
   rlang::inform(
     "Please use this function with ggplot2::coord_cartesian(clip = 'off')"

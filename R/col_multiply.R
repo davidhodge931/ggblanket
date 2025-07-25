@@ -52,7 +52,9 @@ col_multiply <- function(col1, col2 = NULL) {
     # Blend the colour vectors directly
     multiply_blend(col1, col2)
   } else {
-    stop("col1 and col2 must be either character vectors of colours or palette functions")
+    stop(
+      "col1 and col2 must be either character vectors of colours or palette functions"
+    )
   }
 }
 
@@ -82,5 +84,5 @@ multiply_blend <- function(col1, col2) {
   blended_rgb <- rgb1 * rgb2
 
   # Convert back to hex colours
-  grDevices::rgb(blended_rgb[1,], blended_rgb[2,], blended_rgb[3,])
+  grDevices::rgb(blended_rgb[1, ], blended_rgb[2, ], blended_rgb[3, ])
 }

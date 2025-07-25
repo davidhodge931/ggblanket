@@ -10,35 +10,73 @@
 #'
 #' @export
 update_geom_col <- function(
-    col = "#357BA2FF",
-    ...
+  col = "#357BA2FF",
+  ...
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(colour = col, fill = col))
 
-    font_geoms <- c("text", "label")
-    reference_geoms <- c("abline", "hline", "vline")
-    all_geoms <- c("contour", "count", "curve", "dotplot", "density2d", "errorbar",
-                   "freqpoly", "function", "jitter", "line", "linerange", "path",
-                   "point", "pointrange", "qq", "quantile", "rug", "segment", "smooth",
-                   "spoke", "step", "area", "bar", "boxplot", "col", "density", "map",
-                   "polygon", "rect", "ribbon", "tile", "violin", "crossbar", "bin2d",
-                   "hex", "raster", "contour_filled", "density2d_filled",
-                   "text", "label", "abline", "hline", "vline")
+  font_geoms <- c("text", "label")
+  reference_geoms <- c("abline", "hline", "vline")
+  all_geoms <- c(
+    "contour",
+    "count",
+    "curve",
+    "dotplot",
+    "density2d",
+    "errorbar",
+    "freqpoly",
+    "function",
+    "jitter",
+    "line",
+    "linerange",
+    "path",
+    "point",
+    "pointrange",
+    "qq",
+    "quantile",
+    "rug",
+    "segment",
+    "smooth",
+    "spoke",
+    "step",
+    "area",
+    "bar",
+    "boxplot",
+    "col",
+    "density",
+    "map",
+    "polygon",
+    "rect",
+    "ribbon",
+    "tile",
+    "violin",
+    "crossbar",
+    "bin2d",
+    "hex",
+    "raster",
+    "contour_filled",
+    "density2d_filled",
+    "text",
+    "label",
+    "abline",
+    "hline",
+    "vline"
+  )
 
-    selected_geoms <- setdiff(all_geoms, c(font_geoms, reference_geoms))
+  selected_geoms <- setdiff(all_geoms, c(font_geoms, reference_geoms))
 
-    # Build named list of theme elements
-    theme_args <- list()
+  # Build named list of theme elements
+  theme_args <- list()
 
-    # Apply colour and fill to all geoms
-    for (geom in selected_geoms) {
-      geom_name <- paste0("geom.", gsub("_", "", geom))
+  # Apply colour and fill to all geoms
+  for (geom in selected_geoms) {
+    geom_name <- paste0("geom.", gsub("_", "", geom))
 
-        theme_args[[geom_name]] <- ggplot2::element_geom(
-          colour = col,
-          fill = col
-        )
-    }
+    theme_args[[geom_name]] <- ggplot2::element_geom(
+      colour = col,
+      fill = col
+    )
+  }
 }
 
 #' Update the shape
@@ -53,8 +91,8 @@ update_geom_col <- function(
 #'
 #' @export
 update_geom_shape <- function(
-    shape = 21,
-    ...
+  shape = 21,
+  ...
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(pointshape = shape))
 }
@@ -71,11 +109,12 @@ update_geom_shape <- function(
 #'
 #' @export
 update_geom_linetype <- function(
-    linetype = 1,
-    ...
+  linetype = 1,
+  ...
 ) {
-  ggplot2::update_theme(geom = ggplot2::element_geom(linetype = linetype,
-                                                     bordertype = linetype))
+  ggplot2::update_theme(
+    geom = ggplot2::element_geom(linetype = linetype, bordertype = linetype)
+  )
 }
 
 #' Update the linewidth
@@ -90,32 +129,98 @@ update_geom_linetype <- function(
 #'
 #' @export
 update_geom_linewidth <- function(
-    linewidth = 0.66,
-    ...
+  linewidth = 0.66,
+  ...
 ) {
   ggplot2::update_theme(
-    geom.abline = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.blank = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.contour = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.curve = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.density2d = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.dotplot = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.errorbar = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.errorbarh = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.function = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.hline = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.label = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.line = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.linerange = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.path = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.quantile = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.rug = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.segment = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.smooth = ggplot2::element_geom(linewidth = linewidth / 2, borderwidth = linewidth / 2),
-    geom.spoke = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.step = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.text = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth),
-    geom.vline = ggplot2::element_geom(linewidth = linewidth, borderwidth = linewidth)
+    geom.abline = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.blank = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.contour = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.curve = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.density2d = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.dotplot = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.errorbar = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.errorbarh = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.function = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.hline = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.label = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.line = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.linerange = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.path = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.quantile = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.rug = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.segment = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.smooth = ggplot2::element_geom(
+      linewidth = linewidth / 2,
+      borderwidth = linewidth / 2
+    ),
+    geom.spoke = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.step = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.text = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    ),
+    geom.vline = ggplot2::element_geom(
+      linewidth = linewidth,
+      borderwidth = linewidth
+    )
   )
 }
 
@@ -131,8 +236,8 @@ update_geom_linewidth <- function(
 #'
 #' @export
 update_geom_size <- function(
-    size = 1.5,
-    ...
+  size = 1.5,
+  ...
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(pointsize = size))
 }
@@ -149,8 +254,8 @@ update_geom_size <- function(
 #'
 #' @export
 update_geom_stroke <- function(
-    stroke = 0.5,
-    ...
+  stroke = 0.5,
+  ...
 ) {
   ggplot2::update_theme(
     geom.point = ggplot2::element_geom(borderwidth = stroke),
@@ -175,13 +280,12 @@ update_geom_stroke <- function(
 #'
 #' @noRd
 update_geom_font <- function(
-    ...,
-    colour = NULL,
-    fill = NULL,
-    size = NULL,
-    family = NULL
+  ...,
+  colour = NULL,
+  fill = NULL,
+  size = NULL,
+  family = NULL
 ) {
-
   # Get current theme for font defaults
   current_theme <- ggplot2::get_theme()
 
@@ -209,8 +313,7 @@ update_geom_font <- function(
     }
     # Theme sizes are already in the correct units for fontsize
     # No conversion needed
-  }
-  else {
+  } else {
     # If size is provided by user in mm, convert to fontsize scale
     # fontsize expects points, so convert mm to points
     size <- as.numeric(size) / 0.352777778
@@ -263,11 +366,10 @@ update_geom_font <- function(
 #'
 #' @noRd
 update_geom_reference <- function(
-    ...,
-    colour = NULL,
-    linewidth = NULL
+  ...,
+  colour = NULL,
+  linewidth = NULL
 ) {
-
   # Get current theme for font defaults
   current_theme <- ggplot2::get_theme()
 
@@ -307,4 +409,3 @@ update_geom_reference <- function(
     )
   )
 }
-

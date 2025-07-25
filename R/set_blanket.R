@@ -51,33 +51,34 @@
 #' )
 #'
 set_blanket <- function(
-    theme = theme_lighter(),
+  theme = theme_lighter(),
 
-    col = "#357BA2FF",
-    linewidth = 0.66,
-    linetype = 1,
-    size = 1.5,
-    shape = 21,
-    stroke = 0.5,
+  col = "#357BA2FF",
+  linewidth = 0.66,
+  linetype = 1,
+  size = 1.5,
+  shape = 21,
+  stroke = 0.5,
 
-    bordered_colour_by = \(x) ifelse(is_panel_dark(), col_screen(x), col_multiply(x)),
-    bordered_fill_by = NULL,
-    bordered_linewidth = 0.25,
+  bordered_colour_by = \(x) {
+    ifelse(is_panel_dark(), col_screen(x), col_multiply(x))
+  },
+  bordered_fill_by = NULL,
+  bordered_linewidth = 0.25,
 
-    col_palette_d = scales::pal_hue(),
-    col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
-    col_palette_o = NULL,
-    col_na = "#A6A6A6FF",
-    shape_palette_d = c(21, 24, 22, 23, 25),
-    linetype_palette_d = 1:6,
+  col_palette_d = scales::pal_hue(),
+  col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
+  col_palette_o = NULL,
+  col_na = "#A6A6A6FF",
+  shape_palette_d = c(21, 24, 22, 23, 25),
+  linetype_palette_d = 1:6,
 
-    titles_case = snakecase::to_sentence_case,
-    aspect_axis_line_rm = TRUE,
-    aspect_axis_ticks_rm = TRUE,
-    aspect_panel_grid_rm = TRUE,
-    ...
+  titles_case = snakecase::to_sentence_case,
+  aspect_axis_line_rm = TRUE,
+  aspect_axis_ticks_rm = TRUE,
+  aspect_panel_grid_rm = TRUE,
+  ...
 ) {
-
   # Set the theme first
   ggplot2::set_theme(theme)
 

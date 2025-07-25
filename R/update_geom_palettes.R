@@ -16,13 +16,13 @@
 #'
 #' @export
 update_geom_palettes <- function(
-    col_palette_d = scales::pal_hue(),
-    col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
-    col_palette_o = NULL,
-    col_na = "#A6A6A6FF",
-    shape_palette_d = c(21, 24, 22, 23, 25),
-    linetype_palette_d = 1:6,
-    ...
+  col_palette_d = scales::pal_hue(),
+  col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
+  col_palette_o = NULL,
+  col_na = "#A6A6A6FF",
+  shape_palette_d = c(21, 24, 22, 23, 25),
+  linetype_palette_d = 1:6,
+  ...
 ) {
   # Update theme-level palettes
   ggplot2::update_theme(

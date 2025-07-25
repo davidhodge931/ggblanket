@@ -9,10 +9,10 @@
 #'
 #' @noRd
 update_aspect <- function(
-    ...,
-    aspect_axis_line_rm = TRUE,
-    aspect_axis_ticks_rm = TRUE,
-    aspect_panel_grid_rm = TRUE
+  ...,
+  aspect_axis_line_rm = TRUE,
+  aspect_axis_ticks_rm = TRUE,
+  aspect_panel_grid_rm = TRUE
 ) {
   options(
     ggblanket.aspect_axis_line_rm = aspect_axis_line_rm,

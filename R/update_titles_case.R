@@ -7,9 +7,7 @@
 #'
 #' @noRd
 update_titles_case <- function(titles_case = snakecase::to_sentence_case, ...) {
-
   options(
     ggblanket.titles_case = titles_case
   )
 }
-

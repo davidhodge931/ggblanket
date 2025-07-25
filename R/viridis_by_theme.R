@@ -18,12 +18,12 @@
 #' @examples
 #' pal <- pal_viridis_by_panel("magma", 0.1, 0.9)(5)
 pal_viridis_by_panel <- function(
-    option = "viridis",
-    begin = 0,
-    end = 1,
-    ...,
-    rev = FALSE) {
-
+  option = "viridis",
+  begin = 0,
+  end = 1,
+  ...,
+  rev = FALSE
+) {
   if (rev) {
     scales::pal_viridis(
       option = option,
@@ -31,8 +31,7 @@ pal_viridis_by_panel <- function(
       end = end,
       direction = ifelse(is_panel_dark(), -1, 1),
     )
-  }
-  else {
+  } else {
     scales::pal_viridis(
       option = option,
       begin = begin,

@@ -59,29 +59,29 @@
 #'   )
 #'
 theme_darker <- function(
-    ...,
-    base_size = 10,
-    base_family = "",
-    base_colour = "#C8D7DFFF",
-    legend_position = "right",
-    legend_axis_line_colour = plot_background_fill,
-    legend_axis_line_linewidth = axis_line_linewidth,
-    legend_background_fill = plot_background_fill,
-    legend_key_fill = plot_background_fill,
-    legend_ticks_colour = legend_axis_line_colour,
-    legend_ticks_linewidth = legend_axis_line_linewidth,
-    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    axis_line_colour = "#C8D7DFFF",
-    axis_line_linewidth = 0.25,
-    axis_ticks_colour = axis_line_colour,
-    axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length = grid::unit(11 / 3, "pt"),
-    plot_background_fill = "#00040AFF",
-    panel_background_fill = "#050D1BFF",
-    panel_grid_colour = "#00040AFF",
-    panel_grid_linewidth = 1.33,
-    panel_heights = NULL,
-    panel_widths = NULL
+  ...,
+  base_size = 10,
+  base_family = "",
+  base_colour = "#C8D7DFFF",
+  legend_position = "right",
+  legend_axis_line_colour = plot_background_fill,
+  legend_axis_line_linewidth = axis_line_linewidth,
+  legend_background_fill = plot_background_fill,
+  legend_key_fill = plot_background_fill,
+  legend_ticks_colour = legend_axis_line_colour,
+  legend_ticks_linewidth = legend_axis_line_linewidth,
+  legend_ticks_length = ggplot2::rel(c(0.175, 0)),
+  axis_line_colour = "#C8D7DFFF",
+  axis_line_linewidth = 0.25,
+  axis_ticks_colour = axis_line_colour,
+  axis_ticks_linewidth = axis_line_linewidth,
+  axis_ticks_length = grid::unit(11 / 3, "pt"),
+  plot_background_fill = "#00040AFF",
+  panel_background_fill = "#050D1BFF",
+  panel_grid_colour = "#00040AFF",
+  panel_grid_linewidth = 1.33,
+  panel_heights = NULL,
+  panel_widths = NULL
 ) {
   theme_blanket(
     base_size = base_size,
@@ -109,4 +109,3 @@ theme_darker <- function(
     panel_widths = panel_widths
   )
 }
-

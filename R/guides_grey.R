@@ -23,19 +23,21 @@
 #' @return A ggplot guides specification.
 #' @export
 guides_grey <- function(
-    aesthetic,
-    col = "#8991A1",
-    colour = NULL,
-    fill = NULL,
-    bordered = NULL,
-    bordered_colour_by = NULL,
-    bordered_fill_by = NULL,
-    ...
+  aesthetic,
+  col = "#8991A1",
+  colour = NULL,
+  fill = NULL,
+  bordered = NULL,
+  bordered_colour_by = NULL,
+  bordered_fill_by = NULL,
+  ...
 ) {
   # Direct overrides take precedence
   if (!is.null(colour) || !is.null(fill)) {
     override_aes <- list()
-    if (!is.null(colour)) override_aes$colour <- colour
+    if (!is.null(colour)) {
+      override_aes$colour <- colour
+    }
     if (!is.null(fill)) override_aes$fill <- fill
   } else {
     # Determine if we should treat as bordered

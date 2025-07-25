@@ -54,99 +54,100 @@
 #' @return A ggplot object.
 #' @export
 gg_blanket <- function(
-    data = NULL,
-    ...,
-    geom = "blank",
-    stat = "identity",
-    position = "identity",
-    coord = NULL,
-    blend = NULL,
-    aspect = NULL,
-    aspect_axis_line_rm = NULL,
-    aspect_axis_ticks_rm = NULL,
-    aspect_panel_grid_rm = NULL,
-    x = NULL,
-    xmin = NULL,
-    xmax = NULL,
-    xend = NULL,
-    y = NULL,
-    ymin = NULL,
-    ymax = NULL,
-    yend = NULL,
-    z = NULL,
-    col = NULL,
-    colour = NULL,
-    fill = NULL,
-    alpha = NULL,
-    shape = NULL,
-    linetype = NULL,
-    linewidth = NULL,
-    size = NULL,
-    facet = NULL,
-    facet2 = NULL,
-    group = NULL,
-    subgroup = NULL,
-    label = NULL,
-    text = NULL,
-    sample = NULL,
-    mapping = NULL,
-    bordered = NULL, bordered_colour_by = NULL, bordered_fill_by = NULL,
+  data = NULL,
+  ...,
+  geom = "blank",
+  stat = "identity",
+  position = "identity",
+  coord = NULL,
+  blend = NULL,
+  aspect = NULL,
+  aspect_axis_line_rm = NULL,
+  aspect_axis_ticks_rm = NULL,
+  aspect_panel_grid_rm = NULL,
+  x = NULL,
+  xmin = NULL,
+  xmax = NULL,
+  xend = NULL,
+  y = NULL,
+  ymin = NULL,
+  ymax = NULL,
+  yend = NULL,
+  z = NULL,
+  col = NULL,
+  colour = NULL,
+  fill = NULL,
+  alpha = NULL,
+  shape = NULL,
+  linetype = NULL,
+  linewidth = NULL,
+  size = NULL,
+  facet = NULL,
+  facet2 = NULL,
+  group = NULL,
+  subgroup = NULL,
+  label = NULL,
+  text = NULL,
+  sample = NULL,
+  mapping = NULL,
+  bordered = NULL,
+  bordered_colour_by = NULL,
+  bordered_fill_by = NULL,
 
-
-    x_breaks = NULL,
-    x_breaks_n = NULL,
-    x_expand = NULL,
-    x_limits_include = NULL,
-    x_title = NULL,
-    x_labels = NULL,
-    x_position = "bottom",
-    x_sec_axis = ggplot2::waiver(),
-    x_symmetric = NULL,
-    x_transform = NULL,
-    y_breaks = NULL,
-    y_breaks_n = NULL,
-    y_expand = NULL,
-    y_limits_include = NULL,
-    y_title = NULL,
-    y_labels = NULL,
-    y_position = "left",
-    y_sec_axis = ggplot2::waiver(),
-    y_symmetric = NULL,
-    y_transform = NULL,
-    col_breaks = ggplot2::waiver(),
-    col_breaks_n = NULL,
-    col_drop = FALSE,
-    col_limits_include = NULL,
-    col_title = NULL,
-    col_labels = NULL,
-    col_legend_ncol = NULL,
-    col_legend_nrow = NULL,
-    col_palette = NULL, col_na = NULL,
-    col_legend_rev = FALSE,
-    col_rescale = scales::rescale(),
-    col_scale_type = "gradient",
-    col_transform = NULL,
-    colour_palette = NULL,
-    colour_na = NULL,
-    fill_palette = NULL,
-    fill_na = NULL,
-    shape_palette = NULL,
-    linetype_palette = NULL,
-    facet_axes = NULL,
-    facet_axis_labels = "margins",
-    facet_drop = FALSE,
-    facet_labels = NULL,
-    facet_layout = NULL,
-    facet_ncol = NULL,
-    facet_nrow = NULL,
-    facet_scales = "fixed",
-    facet_space = "fixed",
-    title = NULL,
-    subtitle = NULL,
-    caption = NULL,
-    titles_case = NULL
+  x_breaks = NULL,
+  x_breaks_n = NULL,
+  x_expand = NULL,
+  x_limits_include = NULL,
+  x_title = NULL,
+  x_labels = NULL,
+  x_position = "bottom",
+  x_sec_axis = ggplot2::waiver(),
+  x_symmetric = NULL,
+  x_transform = NULL,
+  y_breaks = NULL,
+  y_breaks_n = NULL,
+  y_expand = NULL,
+  y_limits_include = NULL,
+  y_title = NULL,
+  y_labels = NULL,
+  y_position = "left",
+  y_sec_axis = ggplot2::waiver(),
+  y_symmetric = NULL,
+  y_transform = NULL,
+  col_breaks = ggplot2::waiver(),
+  col_breaks_n = NULL,
+  col_drop = FALSE,
+  col_limits_include = NULL,
+  col_title = NULL,
+  col_labels = NULL,
+  col_legend_ncol = NULL,
+  col_legend_nrow = NULL,
+  col_palette = NULL,
+  col_na = NULL,
+  col_legend_rev = FALSE,
+  col_rescale = scales::rescale(),
+  col_scale_type = "gradient",
+  col_transform = NULL,
+  colour_palette = NULL,
+  colour_na = NULL,
+  fill_palette = NULL,
+  fill_na = NULL,
+  shape_palette = NULL,
+  linetype_palette = NULL,
+  facet_axes = NULL,
+  facet_axis_labels = "margins",
+  facet_drop = FALSE,
+  facet_labels = NULL,
+  facet_layout = NULL,
+  facet_ncol = NULL,
+  facet_nrow = NULL,
+  facet_scales = "fixed",
+  facet_space = "fixed",
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
+  titles_case = NULL
 ) {
-
   # Step 1: Handle NULL data
   if (is.null(data)) {
     data <- data.frame(x = NA)
@@ -155,14 +156,22 @@ gg_blanket <- function(
   # Step 2: Extract geom, stat & transform strings
   geom <- get_ggproto_name(geom, "Geom")
   stat <- get_ggproto_name(stat, "Stat")
-  if (!rlang::is_null(x_transform)) x_transform <- get_transform_name(x_transform)
-  if (!rlang::is_null(y_transform)) y_transform <- get_transform_name(y_transform)
-  if (!rlang::is_null(col_transform)) col_transform <- get_transform_name(col_transform)
+  if (!rlang::is_null(x_transform)) {
+    x_transform <- get_transform_name(x_transform)
+  }
+  if (!rlang::is_null(y_transform)) {
+    y_transform <- get_transform_name(y_transform)
+  }
+  if (!rlang::is_null(col_transform)) {
+    col_transform <- get_transform_name(col_transform)
+  }
 
   # Step 2.5: Handle after_stat aesthetics for certain stats
   if (stat %in% c("bin2d", "binhex")) {
-    default_aes <- ggplot2::aes(colour = ggplot2::after_stat(.data$count),
-                                fill = ggplot2::after_stat(.data$count))
+    default_aes <- ggplot2::aes(
+      colour = ggplot2::after_stat(.data$count),
+      fill = ggplot2::after_stat(.data$count)
+    )
     if (is.null(mapping)) {
       mapping <- default_aes
     } else {
@@ -180,8 +189,10 @@ gg_blanket <- function(
   }
 
   if (stat %in% c("contour_filled", "density2d_filled")) {
-    default_aes <- ggplot2::aes(colour = ggplot2::after_stat(.data$level),
-                                fill = ggplot2::after_stat(.data$level))
+    default_aes <- ggplot2::aes(
+      colour = ggplot2::after_stat(.data$level),
+      fill = ggplot2::after_stat(.data$level)
+    )
     if (is.null(mapping)) {
       mapping <- default_aes
     } else {
@@ -203,8 +214,16 @@ gg_blanket <- function(
   colour_map_or_set <- is_aes_map_or_set(rlang::enquo(colour), "colour", data)
   fill_map_or_set <- is_aes_map_or_set(rlang::enquo(fill), "fill", data)
   shape_map_or_set <- is_aes_map_or_set(rlang::enquo(shape), "shape", data)
-  linetype_map_or_set <- is_aes_map_or_set(rlang::enquo(linetype), "linetype", data)
-  linewidth_map_or_set <- is_aes_map_or_set(rlang::enquo(linewidth), "linewidth", data)
+  linetype_map_or_set <- is_aes_map_or_set(
+    rlang::enquo(linetype),
+    "linetype",
+    data
+  )
+  linewidth_map_or_set <- is_aes_map_or_set(
+    rlang::enquo(linewidth),
+    "linewidth",
+    data
+  )
   size_map_or_set <- is_aes_map_or_set(rlang::enquo(size), "size", data)
   alpha_map_or_set <- is_aes_map_or_set(rlang::enquo(alpha), "alpha", data)
 
@@ -239,8 +258,10 @@ gg_blanket <- function(
 
   # If user maps col/colour and sets fill=NA, or maps col/fill and sets colour=NA,
   # then treat as non-border behavior
-  if ((has_colour_aesthetic && user_set_fill_na) ||
-      (has_fill_aesthetic && user_set_colour_na)) {
+  if (
+    (has_colour_aesthetic && user_set_fill_na) ||
+      (has_fill_aesthetic && user_set_colour_na)
+  ) {
     is_bordered_geom <- FALSE
   }
 
@@ -301,7 +322,9 @@ gg_blanket <- function(
         # Apply bordered_colour_by transformation based on palette type
         if (is.function(col_palette_d) && is.function(bordered_colour_by)) {
           colour_palette_d <- bordered_colour_by(col_palette_d)
-        } else if (is.character(col_palette_d) && is.function(bordered_colour_by)) {
+        } else if (
+          is.character(col_palette_d) && is.function(bordered_colour_by)
+        ) {
           # For vector palettes, apply bordered_colour_by to each color
           colour_palette_d <- purrr::map_chr(col_palette_d, bordered_colour_by)
         } else {
@@ -310,7 +333,9 @@ gg_blanket <- function(
 
         if (is.function(col_palette_c) && is.function(bordered_colour_by)) {
           colour_palette_c <- bordered_colour_by(col_palette_c)
-        } else if (is.character(col_palette_c) && is.function(bordered_colour_by)) {
+        } else if (
+          is.character(col_palette_c) && is.function(bordered_colour_by)
+        ) {
           # For vector palettes, apply bordered_colour_by to each color
           colour_palette_c <- purrr::map_chr(col_palette_c, bordered_colour_by)
         } else {
@@ -319,7 +344,9 @@ gg_blanket <- function(
 
         if (is.function(col_palette_o) && is.function(bordered_colour_by)) {
           colour_palette_o <- bordered_colour_by(col_palette_o)
-        } else if (is.character(col_palette_o) && is.function(bordered_colour_by)) {
+        } else if (
+          is.character(col_palette_o) && is.function(bordered_colour_by)
+        ) {
           # For vector palettes, apply bordered_colour_by to each color
           colour_palette_o <- purrr::map_chr(col_palette_o, bordered_colour_by)
         } else {
@@ -351,7 +378,9 @@ gg_blanket <- function(
         # Apply bordered_fill_by transformation based on palette type
         if (is.function(col_palette_d) && is.function(bordered_fill_by)) {
           fill_palette_d <- bordered_fill_by(col_palette_d)
-        } else if (is.character(col_palette_d) && is.function(bordered_fill_by)) {
+        } else if (
+          is.character(col_palette_d) && is.function(bordered_fill_by)
+        ) {
           # For vector palettes, apply bordered_fill_by to each color
           fill_palette_d <- purrr::map_chr(col_palette_d, bordered_fill_by)
         } else {
@@ -360,7 +389,9 @@ gg_blanket <- function(
 
         if (is.function(col_palette_c) && is.function(bordered_fill_by)) {
           fill_palette_c <- bordered_fill_by(col_palette_c)
-        } else if (is.character(col_palette_c) && is.function(bordered_fill_by)) {
+        } else if (
+          is.character(col_palette_c) && is.function(bordered_fill_by)
+        ) {
           # For vector palettes, apply bordered_fill_by to each color
           fill_palette_c <- purrr::map_chr(col_palette_c, bordered_fill_by)
         } else {
@@ -369,7 +400,9 @@ gg_blanket <- function(
 
         if (is.function(col_palette_o) && is.function(bordered_fill_by)) {
           fill_palette_o <- bordered_fill_by(col_palette_o)
-        } else if (is.character(col_palette_o) && is.function(bordered_fill_by)) {
+        } else if (
+          is.character(col_palette_o) && is.function(bordered_fill_by)
+        ) {
           # For vector palettes, apply bordered_fill_by to each color
           fill_palette_o <- purrr::map_chr(col_palette_o, bordered_fill_by)
         } else {
@@ -429,7 +462,11 @@ gg_blanket <- function(
     } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
       if (!is.na(col_map_or_set$value)) {
         # No colour value, but col is set as fixed value (and it's not NA)
-        if (is_bordered_geom && !is.null(bordered_colour_by) && is.function(bordered_colour_by)) {
+        if (
+          is_bordered_geom &&
+            !is.null(bordered_colour_by) &&
+            is.function(bordered_colour_by)
+        ) {
           fixed_params$colour <- bordered_colour_by(col_map_or_set$value)
         } else {
           fixed_params$colour <- col_map_or_set$value
@@ -441,7 +478,11 @@ gg_blanket <- function(
       # default_col <- theme_defaults$geom$colour %||% "#8991A1FF"
       default_col <- ggplot2::get_geom_defaults(geom)$colour %||% "#8991A1FF"
 
-      if (is_bordered_geom && !is.null(bordered_colour_by) && is.function(bordered_colour_by)) {
+      if (
+        is_bordered_geom &&
+          !is.null(bordered_colour_by) &&
+          is.function(bordered_colour_by)
+      ) {
         fixed_params$colour <- bordered_colour_by(default_col)
       } else {
         fixed_params$colour <- default_col
@@ -460,7 +501,11 @@ gg_blanket <- function(
     } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
       if (!is.na(col_map_or_set$value)) {
         # No fill value, but col is set as fixed value (and it's not NA)
-        if (is_bordered_geom && !is.null(bordered_fill_by) && is.function(bordered_fill_by)) {
+        if (
+          is_bordered_geom &&
+            !is.null(bordered_fill_by) &&
+            is.function(bordered_fill_by)
+        ) {
           fixed_params$fill <- bordered_fill_by(col_map_or_set$value)
         } else {
           fixed_params$fill <- col_map_or_set$value
@@ -473,7 +518,11 @@ gg_blanket <- function(
       # default_fill <- theme_defaults$geom$fill %||% "#8991A1FF"
       default_fill <- ggplot2::get_geom_defaults(geom)$fill %||% "#8991A1FF"
 
-      if (is_bordered_geom && !is.null(bordered_fill_by) && is.function(bordered_fill_by)) {
+      if (
+        is_bordered_geom &&
+          !is.null(bordered_fill_by) &&
+          is.function(bordered_fill_by)
+      ) {
         fixed_params$fill <- bordered_fill_by(default_fill)
       } else {
         fixed_params$fill <- default_fill
@@ -485,16 +534,20 @@ gg_blanket <- function(
   # UNLESS the user explicitly provided them as fixed values OR they're in mapping
   if (col_map_or_set$is_aesthetic) {
     # For colour: only remove if it wasn't explicitly set by the user and not in mapping
-    if (!colour_map_or_set$is_aesthetic &&
+    if (
+      !colour_map_or_set$is_aesthetic &&
         is.null(colour_map_or_set$value) &&
-        !colour_in_mapping) {
+        !colour_in_mapping
+    ) {
       # colour was not provided by user, so remove the default
       fixed_params$colour <- NULL
     }
     # For fill: only remove if it wasn't explicitly set by the user and not in mapping
-    if (!fill_map_or_set$is_aesthetic &&
+    if (
+      !fill_map_or_set$is_aesthetic &&
         is.null(fill_map_or_set$value) &&
-        !fill_in_mapping) {
+        !fill_in_mapping
+    ) {
       # fill was not provided by user, so remove the default
       fixed_params$fill <- NULL
     }
@@ -507,22 +560,24 @@ gg_blanket <- function(
     fixed_params$shape <- ggplot2::get_geom_defaults(geom)$shape %||% 19
   }
 
-  if (!linetype_map_or_set$is_aesthetic && !is.null(linetype_map_or_set$value)) {
+  if (
+    !linetype_map_or_set$is_aesthetic && !is.null(linetype_map_or_set$value)
+  ) {
     fixed_params$linetype <- linetype_map_or_set$value
   } else if (!linetype_map_or_set$is_aesthetic) {
     fixed_params$linetype <- ggplot2::get_geom_defaults(geom)$linetype %||% 1
   }
 
-  if (!linewidth_map_or_set$is_aesthetic && !is.null(linewidth_map_or_set$value)) {
+  if (
+    !linewidth_map_or_set$is_aesthetic && !is.null(linewidth_map_or_set$value)
+  ) {
     fixed_params$linewidth <- linewidth_map_or_set$value
   } else if (!linewidth_map_or_set$is_aesthetic) {
     if (geom == "smooth") {
       fixed_params$linewidth <- ggplot2::get_geom_defaults("line")$linewidth
-    }
-    else if (geom == "tile") {
+    } else if (geom == "tile") {
       fixed_params$linewidth <- ggplot2::get_geom_defaults("rect")$linewidth
-    }
-    else {
+    } else {
       fixed_params$linewidth <- ggplot2::get_geom_defaults(geom)$linewidth
     }
   }
@@ -535,11 +590,9 @@ gg_blanket <- function(
 
   if (!alpha_map_or_set$is_aesthetic && !is.null(alpha_map_or_set$value)) {
     fixed_params$alpha <- alpha_map_or_set$value
-  }
-  else if (!alpha_map_or_set$is_aesthetic) {
+  } else if (!alpha_map_or_set$is_aesthetic) {
     if (geom == "smooth") fixed_params$alpha <- NA
   }
-
 
   # Build aesthetic list (only aesthetics, not fixed values)
   aes_list <- list(
@@ -563,14 +616,20 @@ gg_blanket <- function(
   )
 
   # Keep track of col, colour, and fill aesthetics separately
-  aes_list$col <- if (col_map_or_set$is_aesthetic) rlang::enquo(col) else rlang::quo(NULL)
+  aes_list$col <- if (col_map_or_set$is_aesthetic) {
+    rlang::enquo(col)
+  } else {
+    rlang::quo(NULL)
+  }
 
   # For colour: use colour if it's aesthetic, else use col if col is aesthetic AND colour wasn't explicitly set to NA
   aes_list$colour <- if (colour_map_or_set$is_aesthetic) {
     rlang::enquo(colour)
-  } else if (col_map_or_set$is_aesthetic &&
-             (is.null(colour_map_or_set$value) || !is.na(colour_map_or_set$value))) {
-    rlang::enquo(col)  # Inherit from col only if colour wasn't explicitly NA
+  } else if (
+    col_map_or_set$is_aesthetic &&
+      (is.null(colour_map_or_set$value) || !is.na(colour_map_or_set$value))
+  ) {
+    rlang::enquo(col) # Inherit from col only if colour wasn't explicitly NA
   } else {
     rlang::quo(NULL)
   }
@@ -578,19 +637,41 @@ gg_blanket <- function(
   # For fill: use fill if it's aesthetic, else use col if col is aesthetic AND fill wasn't explicitly set to NA
   aes_list$fill <- if (fill_map_or_set$is_aesthetic) {
     rlang::enquo(fill)
-  } else if (col_map_or_set$is_aesthetic &&
-             (is.null(fill_map_or_set$value) || !is.na(fill_map_or_set$value))) {
-    rlang::enquo(col)  # Inherit from col only if fill wasn't explicitly NA
+  } else if (
+    col_map_or_set$is_aesthetic &&
+      (is.null(fill_map_or_set$value) || !is.na(fill_map_or_set$value))
+  ) {
+    rlang::enquo(col) # Inherit from col only if fill wasn't explicitly NA
   } else {
     rlang::quo(NULL)
   }
 
   # Other aesthetics
-  aes_list$shape <- if (shape_map_or_set$is_aesthetic) rlang::enquo(shape) else rlang::quo(NULL)
-  aes_list$linetype <- if (linetype_map_or_set$is_aesthetic) rlang::enquo(linetype) else rlang::quo(NULL)
-  aes_list$linewidth <- if (linewidth_map_or_set$is_aesthetic) rlang::enquo(linewidth) else rlang::quo(NULL)
-  aes_list$size <- if (size_map_or_set$is_aesthetic) rlang::enquo(size) else rlang::quo(NULL)
-  aes_list$alpha <- if (alpha_map_or_set$is_aesthetic) rlang::enquo(alpha) else rlang::quo(NULL)
+  aes_list$shape <- if (shape_map_or_set$is_aesthetic) {
+    rlang::enquo(shape)
+  } else {
+    rlang::quo(NULL)
+  }
+  aes_list$linetype <- if (linetype_map_or_set$is_aesthetic) {
+    rlang::enquo(linetype)
+  } else {
+    rlang::quo(NULL)
+  }
+  aes_list$linewidth <- if (linewidth_map_or_set$is_aesthetic) {
+    rlang::enquo(linewidth)
+  } else {
+    rlang::quo(NULL)
+  }
+  aes_list$size <- if (size_map_or_set$is_aesthetic) {
+    rlang::enquo(size)
+  } else {
+    rlang::quo(NULL)
+  }
+  aes_list$alpha <- if (alpha_map_or_set$is_aesthetic) {
+    rlang::enquo(alpha)
+  } else {
+    rlang::quo(NULL)
+  }
 
   # Step 10: Create initial plot to determine scale types
   plot <- initialise_ggplot_from_list(
@@ -606,9 +687,16 @@ gg_blanket <- function(
   params <- utils::modifyList(params, fixed_params)
 
   # Add initial layer
-  plot <- add_initial_layer(plot, geom, stat, position, params,
-                            show_legend, coord, blend)
-
+  plot <- add_initial_layer(
+    plot,
+    geom,
+    stat,
+    position,
+    params,
+    show_legend,
+    coord,
+    blend
+  )
 
   # Get plot build
   suppressMessages({
@@ -639,27 +727,39 @@ gg_blanket <- function(
   x_transform <- get_transform(x_transform, scale_class = x_scale_class)
   y_transform <- get_transform(y_transform, scale_class = y_scale_class)
 
-  x_symmetric <- is_x_symmetric(x_symmetric,
-                                stat = stat,
-                                facet_scales = facet_scales,
-                                x_scale_class = x_scale_class,
-                                y_scale_class = y_scale_class)
+  x_symmetric <- is_x_symmetric(
+    x_symmetric,
+    stat = stat,
+    facet_scales = facet_scales,
+    x_scale_class = x_scale_class,
+    y_scale_class = y_scale_class
+  )
 
-  y_symmetric <- is_y_symmetric(y_symmetric,
-                                stat = stat,
-                                facet_scales = facet_scales,
-                                x_scale_class = x_scale_class,
-                                y_scale_class = y_scale_class)
+  y_symmetric <- is_y_symmetric(
+    y_symmetric,
+    stat = stat,
+    facet_scales = facet_scales,
+    x_scale_class = x_scale_class,
+    y_scale_class = y_scale_class
+  )
 
   titles_case <- get_titles_case(titles_case = titles_case)
 
-  aspect <- get_aspect(aspect = aspect,
-                                 x_scale_class = x_scale_class,
-                                 y_scale_class = y_scale_class)
+  aspect <- get_aspect(
+    aspect = aspect,
+    x_scale_class = x_scale_class,
+    y_scale_class = y_scale_class
+  )
 
   # Step 12: Check inputs
-  validate_inputs(mapping, x_symmetric, y_symmetric,
-                  x_transform, y_transform, stat)
+  validate_inputs(
+    mapping,
+    x_symmetric,
+    y_symmetric,
+    x_transform,
+    y_transform,
+    stat
+  )
 
   # Step 13: Process the data
   data <- process_data(data, aes_list, aspect)
@@ -672,8 +772,16 @@ gg_blanket <- function(
   )
 
   # Step 15: Add geom layer
-  plot <- add_initial_layer(plot, geom, stat, position, params,
-                            show_legend, coord, blend)
+  plot <- add_initial_layer(
+    plot,
+    geom,
+    stat,
+    position,
+    params,
+    show_legend,
+    coord,
+    blend
+  )
 
   if (!is.null(x_limits_include)) {
     plot <- plot + ggplot2::expand_limits(x = x_limits_include)
@@ -687,9 +795,21 @@ gg_blanket <- function(
   facet_layout <- get_facet_layout(facet_layout, aes_list)
   facet_axes <- get_facet_axes(facet_axes, x_symmetric)
 
-  plot <- add_facet_layer(plot, aes_list, data, facet_layout, facet_scales,
-                          facet_space, facet_drop, facet_axes, facet_axis_labels,
-                          facet_nrow, facet_ncol, facet_labels, y_scale_class)
+  plot <- add_facet_layer(
+    plot,
+    aes_list,
+    data,
+    facet_layout,
+    facet_scales,
+    facet_space,
+    facet_drop,
+    facet_axes,
+    facet_axis_labels,
+    facet_nrow,
+    facet_ncol,
+    facet_labels,
+    y_scale_class
+  )
 
   # Step 17: Get plot build again
   suppressMessages({
@@ -756,9 +876,15 @@ gg_blanket <- function(
 
     # Get correct number of shape values
     if (is.function(shape_palette)) {
-      shape_values <- if (!is.na(shape_n)) shape_palette(shape_n) else shape_palette
+      shape_values <- if (!is.na(shape_n)) {
+        shape_palette(shape_n)
+      } else {
+        shape_palette
+      }
     } else {
-      shape_values <- if (!is.na(shape_n) && !any(rlang::have_name(shape_palette))) {
+      shape_values <- if (
+        !is.na(shape_n) && !any(rlang::have_name(shape_palette))
+      ) {
         shape_palette[1:shape_n]
       } else {
         shape_palette
@@ -769,8 +895,7 @@ gg_blanket <- function(
     if (aspect == "y") {
       shape_legend_rev <- TRUE
       shape_values <- rev(shape_values)
-    }
-    else {
+    } else {
       shape_legend_rev <- FALSE
     }
 
@@ -795,9 +920,15 @@ gg_blanket <- function(
 
     # Get correct number of linetype values
     if (is.function(linetype_palette)) {
-      linetype_values <- if (!is.na(linetype_n)) linetype_palette(linetype_n) else linetype_palette
+      linetype_values <- if (!is.na(linetype_n)) {
+        linetype_palette(linetype_n)
+      } else {
+        linetype_palette
+      }
     } else {
-      linetype_values <- if (!is.na(linetype_n) && !any(rlang::have_name(linetype_palette))) {
+      linetype_values <- if (
+        !is.na(linetype_n) && !any(rlang::have_name(linetype_palette))
+      ) {
         linetype_palette[1:linetype_n]
       } else {
         linetype_palette
@@ -808,22 +939,29 @@ gg_blanket <- function(
     if (aspect == "y") {
       linetype_legend_rev <- TRUE
       linetype_values <- rev(linetype_values)
-    }
-    else {
+    } else {
       linetype_legend_rev <- FALSE
     }
 
     plot <- plot +
       ggplot2::scale_linetype_manual(values = linetype_values) +
-      ggplot2::guides(linetype = ggplot2::guide_legend(reverse = linetype_legend_rev))
+      ggplot2::guides(
+        linetype = ggplot2::guide_legend(reverse = linetype_legend_rev)
+      )
   }
 
   # Step 21: Add positional scales
   # Make x scale
   if (x_scale_class == "discrete") {
-    if (is.null(x_expand)) x_expand <- ggplot2::waiver()
-    if (is.null(x_labels)) x_labels <- ggplot2::waiver()
-    if (is.null(x_breaks)) x_breaks <- ggplot2::waiver()
+    if (is.null(x_expand)) {
+      x_expand <- ggplot2::waiver()
+    }
+    if (is.null(x_labels)) {
+      x_labels <- ggplot2::waiver()
+    }
+    if (is.null(x_breaks)) {
+      x_breaks <- ggplot2::waiver()
+    }
 
     plot <- plot +
       ggplot2::scale_x_discrete(
@@ -853,9 +991,15 @@ gg_blanket <- function(
 
   # Make y scale
   if (y_scale_class == "discrete") {
-    if (is.null(y_expand)) y_expand <- ggplot2::waiver()
-    if (is.null(y_labels)) y_labels <- ggplot2::waiver()
-    if (is.null(y_breaks)) y_breaks <- ggplot2::waiver()
+    if (is.null(y_expand)) {
+      y_expand <- ggplot2::waiver()
+    }
+    if (is.null(y_labels)) {
+      y_labels <- ggplot2::waiver()
+    }
+    if (is.null(y_breaks)) {
+      y_breaks <- ggplot2::waiver()
+    }
 
     plot <- plot +
       ggplot2::scale_y_discrete(
@@ -914,16 +1058,20 @@ gg_blanket <- function(
     )
 
   # Step 23: Apply theme transparency
-  transparency <- get_aspect_behaviour(aspect_axis_line_rm,
-                                            aspect_axis_ticks_rm,
-                                            aspect_panel_grid_rm)
+  transparency <- get_aspect_behaviour(
+    aspect_axis_line_rm,
+    aspect_axis_ticks_rm,
+    aspect_panel_grid_rm
+  )
 
   plot <- add_aspect(
-    plot, aspect,
+    plot,
+    aspect,
     transparency$aspect_axis_line_rm,
     transparency$aspect_axis_ticks_rm,
     transparency$aspect_panel_grid_rm,
-    x_scale_class, y_scale_class
+    x_scale_class,
+    y_scale_class
   )
 
   return(plot)

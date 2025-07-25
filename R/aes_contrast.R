@@ -155,13 +155,13 @@ aes_contrast <- function(..., dark = NULL, light = NULL, aes = "colour") {
         get_contrast(.data$fill, dark = dark, light = light)
       )
     )
-  }
-  else if (aes == "fill") {
+  } else if (aes == "fill") {
     ggplot2::aes(
       fill = ggplot2::after_scale(
         get_contrast(.data$colour, dark = dark, light = light)
       )
     )
+  } else {
+    rlang::abort("aes must be either 'colour' or 'fill'")
   }
-  else rlang::abort("aes must be either 'colour' or 'fill'")
 }

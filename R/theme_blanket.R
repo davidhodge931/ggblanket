@@ -8,7 +8,6 @@
 #' @noRd
 #'
 theme_blanket_move_legend <- function(legend_position = "right") {
-
   if (legend_position == "right") {
     ggplot2::theme(
       # Legend-specific settings for right position
@@ -52,8 +51,7 @@ theme_blanket_move_legend <- function(legend_position = "right") {
         margin = ggplot2::margin(t = 11 * -0.5, r = 0, b = 11 * 0.3, l = 0)
       )
     )
-  }
-  else if (legend_position == "top") {
+  } else if (legend_position == "top") {
     ggplot2::theme(
       # Legend-specific settings for top position
       legend.position = "top",
@@ -101,8 +99,7 @@ theme_blanket_move_legend <- function(legend_position = "right") {
         margin = ggplot2::margin(t = 0, r = 0, b = 11 * 0.3, l = 0)
       )
     )
-  }
-  else if (legend_position == "bottom") {
+  } else if (legend_position == "bottom") {
     ggplot2::theme(
       # Legend-specific settings for bottom position
       legend.position = "bottom",
@@ -198,44 +195,43 @@ theme_blanket_move_legend <- function(legend_position = "right") {
 #' @noRd
 #'
 theme_blanket <- function(
-    base_size = 10,
-    base_family = "",
-    base_colour = "#121B24FF",
-    base_face = "plain",
-    legend_position = "right",
-    legend_axis_line_colour = plot_background_fill,
-    legend_axis_line_linewidth = axis_line_linewidth,
-    legend_background_fill = plot_background_fill,
-    legend_key_fill = plot_background_fill,
-    legend_ticks_colour = legend_axis_line_colour,
-    legend_ticks_linewidth = legend_axis_line_linewidth,
-    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-    axis_line_colour = "#121B24FF",
-    axis_line_linewidth = 0.25,
-    axis_ticks_colour = axis_line_colour,
-    axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length = grid::unit(11 / 3, "pt"),
-    panel_background_fill = "#FFFFFFFF",
-    plot_background_fill = "#FFFFFFFF",
-    panel_grid_colour = "#F6F8FAFF",
-    panel_grid_linewidth = 1.33,
-    panel_heights = NULL,
-    panel_widths = NULL,
-    title_size = ggplot2::rel(1.1),
-    title_family = base_family,
-    title_colour = base_colour,
-    title_face = "bold",
-    subtitle_size = ggplot2::rel(1),
-    subtitle_family = base_family,
-    subtitle_colour = base_colour,
-    subtitle_face = "plain",
-    caption_size = ggplot2::rel(0.85),
-    caption_family = base_family,
-    caption_colour = colorspace::lighten(base_colour, 0.1),
-    caption_face = "plain",
-    caption_hjust = 0
+  base_size = 10,
+  base_family = "",
+  base_colour = "#121B24FF",
+  base_face = "plain",
+  legend_position = "right",
+  legend_axis_line_colour = plot_background_fill,
+  legend_axis_line_linewidth = axis_line_linewidth,
+  legend_background_fill = plot_background_fill,
+  legend_key_fill = plot_background_fill,
+  legend_ticks_colour = legend_axis_line_colour,
+  legend_ticks_linewidth = legend_axis_line_linewidth,
+  legend_ticks_length = ggplot2::rel(c(0.175, 0)),
+  axis_line_colour = "#121B24FF",
+  axis_line_linewidth = 0.25,
+  axis_ticks_colour = axis_line_colour,
+  axis_ticks_linewidth = axis_line_linewidth,
+  axis_ticks_length = grid::unit(11 / 3, "pt"),
+  panel_background_fill = "#FFFFFFFF",
+  plot_background_fill = "#FFFFFFFF",
+  panel_grid_colour = "#F6F8FAFF",
+  panel_grid_linewidth = 1.33,
+  panel_heights = NULL,
+  panel_widths = NULL,
+  title_size = ggplot2::rel(1.1),
+  title_family = base_family,
+  title_colour = base_colour,
+  title_face = "bold",
+  subtitle_size = ggplot2::rel(1),
+  subtitle_family = base_family,
+  subtitle_colour = base_colour,
+  subtitle_face = "plain",
+  caption_size = ggplot2::rel(0.85),
+  caption_family = base_family,
+  caption_colour = colorspace::lighten(base_colour, 0.1),
+  caption_face = "plain",
+  caption_hjust = 0
 ) {
-
   # Base theme (same for all legend positions)
   theme <- ggplot2::theme(
     text = ggplot2::element_text(
