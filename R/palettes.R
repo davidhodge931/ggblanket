@@ -10,18 +10,6 @@
 #' scales::show_col(blue)
 blue <- "#357BA2FF"
 
-#' Silver
-#'
-#' @description A silver colour.
-#'
-#' @format NULL
-#' @return A character vector.
-#' @export
-#'
-#' @examples
-#' scales::show_col(silver)
-silver <- "#8991A1FF"
-
 #' Grey
 #'
 #' @description A grey colour.
@@ -32,7 +20,7 @@ silver <- "#8991A1FF"
 #'
 #' @examples
 #' scales::show_col(grey)
-grey <- "#A6A6A6FF"
+grey <- "#8991A1FF"
 
 #' The jumble palette
 #'

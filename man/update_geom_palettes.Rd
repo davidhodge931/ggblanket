@@ -22,7 +22,7 @@ update_geom_palettes(
 
 \item{col_palette_ordinal}{For a ordinal colour/fill scale, a \verb{scales::pal_*} function. If NULL, determined from \code{col_palette_continuous}.}
 
-\item{col_palette_na}{A NA colour/fill value.}
+\item{col_palette_na}{A hex code (or name) for the \code{NA} value.}
 
 \item{shape_palette_discrete}{For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).}
 

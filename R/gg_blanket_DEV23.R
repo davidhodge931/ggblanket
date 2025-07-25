@@ -13,11 +13,14 @@
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param perspective The perspective of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
-#' @param axis_line_transparent `TRUE` or `FALSE` of whether to remove the relevant axis line per the `perspective` of the plot.
-#' @param axis_ticks_transparent `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `perspective` of the plot.
-#' @param panel_grid_transparent `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `perspective` of the plot.
-#' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,linewidth,size,alpha,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
-#' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] defaults. Intended primarily for non-supported aesthetics (e.g. `shape`, `linetype`, `linewidth`, or `size`), but can also be used for delayed evaluation etc.
+#' @param perspective_axis_line_rm `TRUE` or `FALSE` of whether to remove the relevant axis line per the `perspective` of the plot.
+#' @param perspective_axis_ticks_rm `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `perspective` of the plot.
+#' @param perspective_panel_grid_rm `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `perspective` of the plot.
+#' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,alpha,linewidth,size,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
+#' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] defaults for use with delayed evaluation etc.
+#' @param bordered TRUE or FALSE of whether to apply bordered behaviour.
+#' @param bordered_colour_by A function with input of `col` or `col_palette`. Defaults to screen/multiply based on theme.
+#' @param bordered_fill_by A function with input of `col` or `col_palette`. Defaults to NULL.
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
 #' @param x_breaks_n,y_breaks_n,col_breaks_n A number of desired breaks.
 #' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
@@ -34,8 +37,8 @@
 #' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
 #' @param col_scale_type Either "gradient" or "steps". Defaults to "gradient".
-#' @param colour_palette,fill_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
-#' @param colour_palette_na,fill_palette_na A hex code (or name) for the `NA` values.
+#' @param col_palette,colour_palette,fill_palette colour_palette,fill_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
+#' @param col_palette_na,colour_palette_na,fill_palette_na A hex code (or name) for the `NA` value.
 #' @param shape_palette A numeric vector of shape codes or a `scales::pal_*()` function. If NULL, uses the value from `getOption("ggblanket.shape_palette")`.
 #' @param linetype_palette A character vector of linetype names or a `scales::pal_*()` function. If NULL, uses the value from `getOption("ggblanket.linetype_palette")`.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_*()` may be needed.
@@ -60,9 +63,9 @@ gg_blanket <- function(
     coord = NULL,
     blend = NULL,
     perspective = NULL,
-    axis_line_transparent = NULL,
-    axis_ticks_transparent = NULL,
-    panel_grid_transparent = NULL,
+    perspective_axis_line_rm = NULL,
+    perspective_axis_ticks_rm = NULL,
+    perspective_panel_grid_rm = NULL,
     x = NULL,
     xmin = NULL,
     xmax = NULL,
@@ -88,9 +91,9 @@ gg_blanket <- function(
     text = NULL,
     sample = NULL,
     mapping = NULL,
-    border_colour = NULL,
-    border_fill = NULL,
-    border_linewidth = NULL,
+    bordered = NULL, bordered_colour_by = NULL, bordered_fill_by = NULL,
+
+
     x_breaks = NULL,
     x_breaks_n = NULL,
     x_expand = NULL,
@@ -215,7 +218,9 @@ gg_blanket <- function(
 
   # Step 5: Determine if this is a border geom
   # Always check if it's a border geom type
-  is_border_geom <- is_border(geom, theme_defaults)
+  if (rlang::is_null(bordered)) {
+    is_bordered_geom <- is_bordered(geom, theme_defaults)
+  }
 
   # Then check if user explicitly set colour or fill to NA
   user_set_colour_na <- !colour_map_or_set$is_aesthetic &&
@@ -237,51 +242,51 @@ gg_blanket <- function(
   # then treat as non-border behavior
   if ((has_colour_aesthetic && user_set_fill_na) ||
       (has_fill_aesthetic && user_set_colour_na)) {
-    is_border_geom <- FALSE
+    is_bordered_geom <- FALSE
   }
 
   # Step 6: Get border adjustment functions/values
-  if (rlang::is_null(border_colour)) {
-    border_colour <- if (is_border_geom) {
-      getOption("ggblanket.border_colour")
+  if (rlang::is_null(bordered_colour_by)) {
+    bordered_colour_by <- if (is_bordered_geom) {
+      getOption("ggblanket.bordered_colour_by")
     } else {
       NULL
     }
-  } else if (is.na(border_colour)) {
+  } else if (is.na(bordered_colour_by)) {
     # User explicitly disabled border colour adjustment
-    border_colour <- NULL
+    bordered_colour_by <- NULL
   } else {
     # User provided a function or value
-    border_colour <- border_colour
+    bordered_colour_by <- bordered_colour_by
   }
 
-  if (rlang::is_null(border_fill)) {
-    border_fill <- if (is_border_geom) {
-      getOption("ggblanket.border_fill")
+  if (rlang::is_null(bordered_fill_by)) {
+    bordered_fill_by <- if (is_bordered_geom) {
+      getOption("ggblanket.bordered_fill_by")
     } else {
       NULL
     }
-  } else if (is.na(border_fill)) {
+  } else if (is.na(bordered_fill_by)) {
     # User explicitly disabled border fill adjustment
-    border_fill <- NULL
+    bordered_fill_by <- NULL
   } else {
     # User provided a function or value
-    border_fill <- border_fill
+    bordered_fill_by <- bordered_fill_by
   }
 
-  # if (rlang::is_null(border_linewidth)) {
-  #   border_linewidth <- if (is_border_geom) {
-  #     getOption("ggblanket.border_linewidth")
+  # if (rlang::is_null(bordered_linewidth)) {
+  #   bordered_linewidth <- if (is_bordered_geom) {
+  #     getOption("ggblanket.bordered_linewidth")
   #   } else {
   #     NULL
   #   }
-  # } else if (is.na(border_linewidth)) {
+  # } else if (is.na(bordered_linewidth)) {
   #   # User explicitly disabled border linewidth adjustment
-  #   border_linewidth <- NULL
+  #   bordered_linewidth <- NULL
   # }
   # else {
   #   # User provided a numeric value
-  #   border_linewidth <- border_linewidth
+  #   bordered_linewidth <- bordered_linewidth
   # }
 
   # Step 7: Get palettes from theme and options
@@ -301,49 +306,49 @@ gg_blanket <- function(
   }
 
   # Apply border adjustments to palettes and NA colors
-  if (is_border_geom) {
-    if (!is.null(border_colour)) {
+  if (is_bordered_geom) {
+    if (!is.null(bordered_colour_by)) {
       # If user provided colour_palette, use it; otherwise inherit from col_palette with border adjustment
       if (!is.null(colour_palette)) {
         colour_palette_discrete <- colour_palette
         colour_palette_continuous <- colour_palette
         colour_palette_ordinal <- colour_palette
       } else {
-        # Apply border_colour transformation based on palette type
-        if (is.function(col_palette_discrete) && is.function(border_colour)) {
-          colour_palette_discrete <- border_colour(col_palette_discrete)
-        } else if (is.character(col_palette_discrete) && is.function(border_colour)) {
-          # For vector palettes, apply border_colour to each color
-          colour_palette_discrete <- purrr::map_chr(col_palette_discrete, border_colour)
+        # Apply bordered_colour_by transformation based on palette type
+        if (is.function(col_palette_discrete) && is.function(bordered_colour_by)) {
+          colour_palette_discrete <- bordered_colour_by(col_palette_discrete)
+        } else if (is.character(col_palette_discrete) && is.function(bordered_colour_by)) {
+          # For vector palettes, apply bordered_colour_by to each color
+          colour_palette_discrete <- purrr::map_chr(col_palette_discrete, bordered_colour_by)
         } else {
           colour_palette_discrete <- col_palette_discrete
         }
 
-        if (is.function(col_palette_continuous) && is.function(border_colour)) {
-          colour_palette_continuous <- border_colour(col_palette_continuous)
-        } else if (is.character(col_palette_continuous) && is.function(border_colour)) {
-          # For vector palettes, apply border_colour to each color
-          colour_palette_continuous <- purrr::map_chr(col_palette_continuous, border_colour)
+        if (is.function(col_palette_continuous) && is.function(bordered_colour_by)) {
+          colour_palette_continuous <- bordered_colour_by(col_palette_continuous)
+        } else if (is.character(col_palette_continuous) && is.function(bordered_colour_by)) {
+          # For vector palettes, apply bordered_colour_by to each color
+          colour_palette_continuous <- purrr::map_chr(col_palette_continuous, bordered_colour_by)
         } else {
           colour_palette_continuous <- col_palette_continuous
         }
 
-        if (is.function(col_palette_ordinal) && is.function(border_colour)) {
-          colour_palette_ordinal <- border_colour(col_palette_ordinal)
-        } else if (is.character(col_palette_ordinal) && is.function(border_colour)) {
-          # For vector palettes, apply border_colour to each color
-          colour_palette_ordinal <- purrr::map_chr(col_palette_ordinal, border_colour)
+        if (is.function(col_palette_ordinal) && is.function(bordered_colour_by)) {
+          colour_palette_ordinal <- bordered_colour_by(col_palette_ordinal)
+        } else if (is.character(col_palette_ordinal) && is.function(bordered_colour_by)) {
+          # For vector palettes, apply bordered_colour_by to each color
+          colour_palette_ordinal <- purrr::map_chr(col_palette_ordinal, bordered_colour_by)
         } else {
           colour_palette_ordinal <- col_palette_ordinal
         }
       }
 
       # For NA color: priority is colour_palette_na > col_palette_na (transformed)
-      if (is.null(colour_palette_na) && is.function(border_colour)) {
-        colour_palette_na <- border_colour(col_palette_na)
+      if (is.null(colour_palette_na) && is.function(bordered_colour_by)) {
+        colour_palette_na <- bordered_colour_by(col_palette_na)
       }
     } else {
-      # No border_colour adjustment
+      # No bordered_colour_by adjustment
       colour_palette_discrete <- colour_palette %||% col_palette_discrete
       colour_palette_continuous <- colour_palette %||% col_palette_continuous
       colour_palette_ordinal <- colour_palette %||% col_palette_ordinal
@@ -352,48 +357,48 @@ gg_blanket <- function(
       }
     }
 
-    if (!is.null(border_fill)) {
+    if (!is.null(bordered_fill_by)) {
       # If user provided fill_palette, use it; otherwise inherit from col_palette with border adjustment
       if (!is.null(fill_palette)) {
         fill_palette_discrete <- fill_palette
         fill_palette_continuous <- fill_palette
         fill_palette_ordinal <- fill_palette
       } else {
-        # Apply border_fill transformation based on palette type
-        if (is.function(col_palette_discrete) && is.function(border_fill)) {
-          fill_palette_discrete <- border_fill(col_palette_discrete)
-        } else if (is.character(col_palette_discrete) && is.function(border_fill)) {
-          # For vector palettes, apply border_fill to each color
-          fill_palette_discrete <- purrr::map_chr(col_palette_discrete, border_fill)
+        # Apply bordered_fill_by transformation based on palette type
+        if (is.function(col_palette_discrete) && is.function(bordered_fill_by)) {
+          fill_palette_discrete <- bordered_fill_by(col_palette_discrete)
+        } else if (is.character(col_palette_discrete) && is.function(bordered_fill_by)) {
+          # For vector palettes, apply bordered_fill_by to each color
+          fill_palette_discrete <- purrr::map_chr(col_palette_discrete, bordered_fill_by)
         } else {
           fill_palette_discrete <- col_palette_discrete
         }
 
-        if (is.function(col_palette_continuous) && is.function(border_fill)) {
-          fill_palette_continuous <- border_fill(col_palette_continuous)
-        } else if (is.character(col_palette_continuous) && is.function(border_fill)) {
-          # For vector palettes, apply border_fill to each color
-          fill_palette_continuous <- purrr::map_chr(col_palette_continuous, border_fill)
+        if (is.function(col_palette_continuous) && is.function(bordered_fill_by)) {
+          fill_palette_continuous <- bordered_fill_by(col_palette_continuous)
+        } else if (is.character(col_palette_continuous) && is.function(bordered_fill_by)) {
+          # For vector palettes, apply bordered_fill_by to each color
+          fill_palette_continuous <- purrr::map_chr(col_palette_continuous, bordered_fill_by)
         } else {
           fill_palette_continuous <- col_palette_continuous
         }
 
-        if (is.function(col_palette_ordinal) && is.function(border_fill)) {
-          fill_palette_ordinal <- border_fill(col_palette_ordinal)
-        } else if (is.character(col_palette_ordinal) && is.function(border_fill)) {
-          # For vector palettes, apply border_fill to each color
-          fill_palette_ordinal <- purrr::map_chr(col_palette_ordinal, border_fill)
+        if (is.function(col_palette_ordinal) && is.function(bordered_fill_by)) {
+          fill_palette_ordinal <- bordered_fill_by(col_palette_ordinal)
+        } else if (is.character(col_palette_ordinal) && is.function(bordered_fill_by)) {
+          # For vector palettes, apply bordered_fill_by to each color
+          fill_palette_ordinal <- purrr::map_chr(col_palette_ordinal, bordered_fill_by)
         } else {
           fill_palette_ordinal <- col_palette_ordinal
         }
       }
 
       # For NA color: priority is fill_palette_na > col_palette_na (transformed)
-      if (is.null(fill_palette_na) && is.function(border_fill)) {
-        fill_palette_na <- border_fill(col_palette_na)
+      if (is.null(fill_palette_na) && is.function(bordered_fill_by)) {
+        fill_palette_na <- bordered_fill_by(col_palette_na)
       }
     } else {
-      # No border_fill adjustment
+      # No bordered_fill_by adjustment
       fill_palette_discrete <- fill_palette %||% col_palette_discrete
       fill_palette_continuous <- fill_palette %||% col_palette_continuous
       fill_palette_ordinal <- fill_palette %||% col_palette_ordinal
@@ -440,8 +445,8 @@ gg_blanket <- function(
     } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
       if (!is.na(col_map_or_set$value)) {
         # No colour value, but col is set as fixed value (and it's not NA)
-        if (is_border_geom && !is.null(border_colour) && is.function(border_colour)) {
-          fixed_params$colour <- border_colour(col_map_or_set$value)
+        if (is_bordered_geom && !is.null(bordered_colour_by) && is.function(bordered_colour_by)) {
+          fixed_params$colour <- bordered_colour_by(col_map_or_set$value)
         } else {
           fixed_params$colour <- col_map_or_set$value
         }
@@ -452,8 +457,8 @@ gg_blanket <- function(
       # default_col <- theme_defaults$geom$colour %||% "#8991A1FF"
       default_col <- ggplot2::get_geom_defaults(geom)$colour %||% "#8991A1FF"
 
-      if (is_border_geom && !is.null(border_colour) && is.function(border_colour)) {
-        fixed_params$colour <- border_colour(default_col)
+      if (is_bordered_geom && !is.null(bordered_colour_by) && is.function(bordered_colour_by)) {
+        fixed_params$colour <- bordered_colour_by(default_col)
       } else {
         fixed_params$colour <- default_col
       }
@@ -471,8 +476,8 @@ gg_blanket <- function(
     } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
       if (!is.na(col_map_or_set$value)) {
         # No fill value, but col is set as fixed value (and it's not NA)
-        if (is_border_geom && !is.null(border_fill) && is.function(border_fill)) {
-          fixed_params$fill <- border_fill(col_map_or_set$value)
+        if (is_bordered_geom && !is.null(bordered_fill_by) && is.function(bordered_fill_by)) {
+          fixed_params$fill <- bordered_fill_by(col_map_or_set$value)
         } else {
           fixed_params$fill <- col_map_or_set$value
         }
@@ -484,8 +489,8 @@ gg_blanket <- function(
       # default_fill <- theme_defaults$geom$fill %||% "#8991A1FF"
       default_fill <- ggplot2::get_geom_defaults(geom)$fill %||% "#8991A1FF"
 
-      if (is_border_geom && !is.null(border_fill) && is.function(border_fill)) {
-        fixed_params$fill <- border_fill(default_fill)
+      if (is_bordered_geom && !is.null(bordered_fill_by) && is.function(bordered_fill_by)) {
+        fixed_params$fill <- bordered_fill_by(default_fill)
       } else {
         fixed_params$fill <- default_fill
       }
@@ -544,13 +549,13 @@ gg_blanket <- function(
   #   default_linewidth <- theme_defaults$geom$linewidth %||% 0.5
   #
   #   # Apply border linewidth adjustment if it's a border geom
-  #   if (is_border_geom && !is.null(border_linewidth)) {
-  #     if (is.numeric(border_linewidth)) {
+  #   if (is_bordered_geom && !is.null(bordered_linewidth)) {
+  #     if (is.numeric(bordered_linewidth)) {
   #       # Direct numeric value
-  #       fixed_params$linewidth <- border_linewidth
-  #     } else if (is.function(border_linewidth)) {
+  #       fixed_params$linewidth <- bordered_linewidth
+  #     } else if (is.function(bordered_linewidth)) {
   #       # Function to modify default
-  #       fixed_params$linewidth <- border_linewidth(default_linewidth)
+  #       fixed_params$linewidth <- bordered_linewidth(default_linewidth)
   #     } else {
   #       fixed_params$linewidth <- default_linewidth
   #     }
@@ -734,7 +739,7 @@ gg_blanket <- function(
     })
   })
 
-  # return(is_border_geom)
+  # return(is_bordered_geom)
   # return(fixed_params)
 
   # Step 18: Make colour scale
@@ -749,7 +754,7 @@ gg_blanket <- function(
       plot_data = plot_data,
       plot_build = plot_build,
       x_symmetric = x_symmetric,
-      is_border_geom = is_border_geom,
+      is_bordered_geom = is_bordered_geom,
       col_breaks = col_breaks,
       col_breaks_n = col_breaks_n,
       col_drop = col_drop,
@@ -946,15 +951,15 @@ gg_blanket <- function(
     )
 
   # Step 23: Apply theme transparency
-  transparency <- get_perspective_behaviour(axis_line_transparent,
-                                            axis_ticks_transparent,
-                                            panel_grid_transparent)
+  transparency <- get_perspective_behaviour(perspective_axis_line_rm,
+                                            perspective_axis_ticks_rm,
+                                            perspective_panel_grid_rm)
 
   plot <- add_perspective(
     plot, perspective,
-    transparency$axis_line_transparent,
-    transparency$axis_ticks_transparent,
-    transparency$panel_grid_transparent,
+    transparency$perspective_axis_line_rm,
+    transparency$perspective_axis_ticks_rm,
+    transparency$perspective_panel_grid_rm,
     x_scale_class, y_scale_class
   )
 

@@ -142,7 +142,7 @@ update_geom_size <- function(
 #' @description
 #' Updates the active theme for stroke styling for set aesthetics.
 #'
-#' @param size A stroke for point geoms.
+#' @param stroke A stroke for point geoms.
 #' @param ... Additional arguments (not used).
 #'
 #' @return Updated geom defaults for stroke

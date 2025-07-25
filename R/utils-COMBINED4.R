@@ -1165,37 +1165,37 @@ scale_y_symmetric <- function(
 #' Get transparency defaults
 #' @noRd
 get_perspective_behaviour <- function(
-    axis_line_transparent,
-    axis_ticks_transparent,
-    panel_grid_transparent
+    perspective_axis_line_rm,
+    perspective_axis_ticks_rm,
+    perspective_panel_grid_rm
 ) {
   list(
-    axis_line_transparent = axis_line_transparent %||%
-      getOption("ggblanket.axis_line_transparent", TRUE),
-    axis_ticks_transparent = axis_ticks_transparent %||%
-      getOption("ggblanket.axis_ticks_transparent", TRUE),
-    panel_grid_transparent = panel_grid_transparent %||%
-      getOption("ggblanket.panel_grid_transparent", TRUE)
+    perspective_axis_line_rm = perspective_axis_line_rm %||%
+      getOption("ggblanket.perspective_axis_line_rm", TRUE),
+    perspective_axis_ticks_rm = perspective_axis_ticks_rm %||%
+      getOption("ggblanket.perspective_axis_ticks_rm", TRUE),
+    perspective_panel_grid_rm = perspective_panel_grid_rm %||%
+      getOption("ggblanket.perspective_panel_grid_rm", TRUE)
   )
 }
 
 #' Add transparency based on perspective
 #' @noRd
 add_perspective <- function(
-    plot, perspective, axis_line_transparent,
-    axis_ticks_transparent, panel_grid_transparent,
+    plot, perspective, perspective_axis_line_rm,
+    perspective_axis_ticks_rm, perspective_panel_grid_rm,
     x_scale_class, y_scale_class
 ) {
   theme_updates <- list()
 
   if (perspective == "x") {
-    if (axis_line_transparent) {
+    if (perspective_axis_line_rm) {
       theme_updates$axis.line.y <- ggplot2::element_line(colour = "transparent")
     }
-    if (axis_ticks_transparent) {
+    if (perspective_axis_ticks_rm) {
       theme_updates$axis.ticks.y <- ggplot2::element_line(colour = "transparent")
     }
-    if (panel_grid_transparent) {
+    if (perspective_panel_grid_rm) {
       theme_updates$panel.grid.major.x <- ggplot2::element_line(colour = "transparent")
       theme_updates$panel.grid.minor.x <- ggplot2::element_line(colour = "transparent")
     }
@@ -1203,13 +1203,13 @@ add_perspective <- function(
       theme_updates$axis.ticks.x <- ggplot2::element_line(colour = "transparent")
     }
   } else if (perspective == "y") {
-    if (axis_line_transparent) {
+    if (perspective_axis_line_rm) {
       theme_updates$axis.line.x <- ggplot2::element_line(colour = "transparent")
     }
-    if (axis_ticks_transparent) {
+    if (perspective_axis_ticks_rm) {
       theme_updates$axis.ticks.x <- ggplot2::element_line(colour = "transparent")
     }
-    if (panel_grid_transparent) {
+    if (perspective_panel_grid_rm) {
       theme_updates$panel.grid.major.y <- ggplot2::element_line(colour = "transparent")
       theme_updates$panel.grid.minor.y <- ggplot2::element_line(colour = "transparent")
     }
@@ -1415,9 +1415,9 @@ is_in_mapping <- function(mapping, aesthetic) {
 
 #' Determine if geom should be treated as having borders
 #' @noRd
-is_border <- function(geom, theme_defaults) {
+is_bordered <- function(geom, theme_defaults) {
   # Define which geoms are treated as border polygons
-  border_polygons <- c(
+  bordered_polygons <- c(
     "area", "bar", "boxplot", "col", "crossbar", "density",
     "map", "polygon", "rect", "ribbon", "smooth", "tile",
     "violin", "raster", "contour_filled", "density2d_filled",
@@ -1425,17 +1425,17 @@ is_border <- function(geom, theme_defaults) {
   )
 
   # Define point geoms that can be border based on shape
-  border_points <- c("point", "jitter", "count", "qq", "pointrange")
+  bordered_points <- c("point", "jitter", "count", "qq", "pointrange")
 
-  is_border_polygon <- geom %in% border_polygons
+  is_bordered_polygon <- geom %in% bordered_polygons
 
-  is_border_point <- geom %in% border_points &&
+  is_bordered_point <- geom %in% bordered_points &&
     !is.null(theme_defaults$geom$pointshape) &&
     theme_defaults$geom$pointshape %in% 21:25
 
-  is_border <- is_border_polygon || is_border_point
+  is_bordered <- is_bordered_polygon || is_bordered_point
 
-  return(is_border)
+  return(is_bordered)
 }
 
 # Title extraction functions ----
@@ -1645,7 +1645,7 @@ initialise_ggplot_from_list <- function(
 #' @noRd
 add_col_scale <- function(
     plot, geom, stat = NULL, col_scale_class, aes_list, data, plot_data,
-    plot_build, x_symmetric,is_border_geom, col_breaks, col_breaks_n, col_drop,
+    plot_build, x_symmetric,is_bordered_geom, col_breaks, col_breaks_n, col_drop,
     col_limits_include, col_labels, col_legend_ncol, col_legend_nrow,
     col_legend_rev, col_rescale, col_scale_type, col_transform,
     colour_palette_discrete, colour_palette_continuous, colour_palette_ordinal,
@@ -1686,7 +1686,7 @@ add_col_scale <- function(
   } else if (col_scale_class %in% c("continuous", "date", "datetime", "time")) {
     plot <- add_col_scale_continuous(
       plot, colour_palette_continuous, fill_palette_continuous,
-      na_colour, na_fill,is_border_geom, col_breaks, col_breaks_n,
+      na_colour, na_fill,is_bordered_geom, col_breaks, col_breaks_n,
       col_labels, col_legend_rev, col_rescale, col_scale_type,
       col_transform, aes_list, plot_build
     )
@@ -1949,7 +1949,7 @@ add_col_scale_ordinal <- function(
 #' @noRd
 add_col_scale_continuous <- function(
     plot, colour_palette, fill_palette,
-    na_colour, na_fill, is_border_geom, col_breaks, col_breaks_n,
+    na_colour, na_fill, is_bordered_geom, col_breaks, col_breaks_n,
     col_labels, col_legend_rev, col_rescale, col_scale_type,
     col_transform, aes_list, plot_build
 ) {
@@ -1986,7 +1986,7 @@ add_col_scale_continuous <- function(
 
     if (same_mapping) {
       # Same variable mapped to both - hide one guide
-      if (is_border_geom) {
+      if (is_bordered_geom) {
         plot <- plot +
           ggplot2::guides(
             colour = ggplot2::guide_none(),
@@ -2048,7 +2048,7 @@ add_col_scale_continuous <- function(
 
     if (same_mapping) {
       # Same variable mapped to both - hide one guide
-      if (is_border_geom) {
+      if (is_bordered_geom) {
         plot <- plot +
           ggplot2::guides(
             colour = ggplot2::guide_none(),

@@ -12,9 +12,9 @@ gg_contour(
   coord = ggplot2::coord_cartesian(clip = "off"),
   blend = NULL,
   perspective = NULL,
-  axis_line_transparent = NULL,
-  axis_ticks_transparent = NULL,
-  panel_grid_transparent = NULL,
+  perspective_axis_line_rm = NULL,
+  perspective_axis_ticks_rm = NULL,
+  perspective_panel_grid_rm = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -40,9 +40,9 @@ gg_contour(
   text = NULL,
   sample = NULL,
   mapping = NULL,
-  border_colour = NULL,
-  border_fill = NULL,
-  border_linewidth = NULL,
+  bordered = NULL,
+  bordered_colour_by = NULL,
+  bordered_fill_by = NULL,
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_expand = NULL,
@@ -111,15 +111,21 @@ gg_contour(
 
 \item{perspective}{The perspective of plot, which affects the theme components that are removed. Either \code{"x"} or \code{"y"}.}
 
-\item{axis_line_transparent}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis line per the \code{perspective} of the plot.}
+\item{perspective_axis_line_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis line per the \code{perspective} of the plot.}
 
-\item{axis_ticks_transparent}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis ticks per the \code{perspective} of the plot.}
+\item{perspective_axis_ticks_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis ticks per the \code{perspective} of the plot.}
 
-\item{panel_grid_transparent}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{perspective} of the plot.}
+\item{perspective_panel_grid_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{perspective} of the plot.}
 
-\item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, colour, fill, shape, linetype, linewidth, size, alpha, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
+\item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, colour, fill, shape, linetype, alpha, linewidth, size, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
 
-\item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} defaults. Intended primarily for non-supported aesthetics (e.g. \code{shape}, \code{linetype}, \code{linewidth}, or \code{size}), but can also be used for delayed evaluation etc.}
+\item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} defaults for use with delayed evaluation etc.}
+
+\item{bordered}{TRUE or FALSE of whether to apply bordered behaviour.}
+
+\item{bordered_colour_by}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
+
+\item{bordered_fill_by}{A function with input of \code{col} or \code{col_palette}. Defaults to NULL.}
 
 \item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 
@@ -147,13 +153,13 @@ gg_contour(
 
 \item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
 
+\item{col_palette, colour_palette, fill_palette}{colour_palette,fill_palette A character vector of hex codes (or names) or a \verb{scales::pal_*()} function.}
+
+\item{col_palette_na, colour_palette_na, fill_palette_na}{A hex code (or name) for the \code{NA} value.}
+
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
 \item{col_scale_type}{Either "gradient" or "steps". Defaults to "gradient".}
-
-\item{colour_palette, fill_palette}{A character vector of hex codes (or names) or a \verb{scales::pal_*()} function.}
-
-\item{colour_palette_na, fill_palette_na}{A hex code (or name) for the \code{NA} values.}
 
 \item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_*()} may be needed.}
 

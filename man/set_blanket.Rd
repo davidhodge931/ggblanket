@@ -12,9 +12,10 @@ set_blanket(
   size = 1.5,
   shape = 21,
   stroke = 0.5,
-  border_colour = function(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
-  border_fill = NULL,
-  border_linewidth = 0.25,
+  bordered_colour_by = function(x) ifelse(is_theme_dark(), col_screen(x),
+    col_multiply(x)),
+  bordered_fill_by = NULL,
+  bordered_linewidth = 0.25,
   col_palette_discrete = scales::pal_hue(),
   col_palette_continuous = viridis_by_theme(n = 256, begin = 0.05, end = 0.95, option =
     "G"),
@@ -23,9 +24,9 @@ set_blanket(
   shape_palette_discrete = c(21, 24, 22, 23, 25),
   linetype_palette_discrete = 1:6,
   titles_case = snakecase::to_sentence_case,
-  axis_line_transparent = TRUE,
-  axis_ticks_transparent = TRUE,
-  panel_grid_transparent = TRUE,
+  perspective_axis_line_blank = TRUE,
+  perspective_axis_ticks_rm = TRUE,
+  perspective_panel_grid_rm = TRUE,
   ...
 )
 }
@@ -44,11 +45,11 @@ set_blanket(
 
 \item{stroke}{A default stroke for point geoms.}
 
-\item{border_colour}{A function with input of \code{col}. Defaults to \verb{(x) col_multiply(x)}. Affects colour as well as colour palette.}
+\item{bordered_colour_by}{A function with input of \code{col}. Defaults to \verb{(x) col_multiply(x)}. Affects colour as well as colour palette.}
 
-\item{border_fill}{A function with input of \code{col}. Defaults to NA. Affects fill as well as fill palette.}
+\item{bordered_fill_by}{A function with input of \code{col}. Defaults to NA. Affects fill as well as fill palette.}
 
-\item{border_linewidth}{A function with input of \code{linewidth}. Defaults to \(x) x / 2.64.}
+\item{bordered_linewidth}{A function with input of \code{linewidth}. Defaults to \(x) x / 2.64.}
 
 \item{col_palette_discrete}{For a discrete colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 
@@ -65,13 +66,13 @@ set_blanket(
 \item{titles_case}{A function to apply to unspecified/unlabelled titles in \verb{gg_*} functions.
 Defaults to \code{snakecase::to_sentence_case}.}
 
-\item{axis_line_transparent}{Logical. Whether \verb{gg_*} functions should remove the relevant
+\item{perspective_axis_line_blank}{Logical. Whether \verb{gg_*} functions should remove the relevant
 axis line based on plot perspective. Defaults to TRUE.}
 
-\item{axis_ticks_transparent}{Logical. Whether \verb{gg_*} functions should remove the relevant
+\item{perspective_axis_ticks_rm}{Logical. Whether \verb{gg_*} functions should remove the relevant
 axis ticks based on plot perspective. Defaults to TRUE.}
 
-\item{panel_grid_transparent}{Logical. Whether \verb{gg_*} functions should remove the relevant
+\item{perspective_panel_grid_rm}{Logical. Whether \verb{gg_*} functions should remove the relevant
 panel grid based on plot perspective. Defaults to TRUE.}
 
 \item{...}{Additional arguments (not used).}
@@ -97,5 +98,5 @@ set_blanket(
 }
 \seealso{
 \code{\link[=theme_lighter]{theme_lighter()}}, \code{\link[=theme_darker]{theme_darker()}} for theme options
-\code{\link[=col_mucol_multiply]{col_mucol_multiply()}} for creating accent colours
+\code{\link[=col_multiply]{col_multiply()}} for creating accent colours
 }

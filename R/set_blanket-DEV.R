@@ -19,17 +19,17 @@
 #' @param col_palette_na A NA colour/fill value.
 #' @param shape_palette_discrete For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
 #' @param linetype_palette_discrete For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
-#' @param border_colour A function with input of `col`. Defaults to `(x) col_multiply(x)`. Affects colour as well as colour palette.
-#' @param border_fill A function with input of `col`. Defaults to NA. Affects fill as well as fill palette.
-#' @param border_linewidth A function with input of `linewidth`. Defaults to \(x) x / 2.64.
+#' @param bordered_colour_by A function with input of `col`. Defaults to `(x) col_multiply(x)`. Affects colour as well as colour palette.
+#' @param bordered_fill_by A function with input of `col`. Defaults to NA. Affects fill as well as fill palette.
+#' @param bordered_linewidth A function with input of `linewidth`. Defaults to \(x) x / 2.64.
 
 #' @param titles_case A function to apply to unspecified/unlabelled titles in `gg_*` functions.
 #'   Defaults to `snakecase::to_sentence_case`.
-#' @param axis_line_transparent Logical. Whether `gg_*` functions should remove the relevant
+#' @param perspective_axis_line_blank Logical. Whether `gg_*` functions should remove the relevant
 #'   axis line based on plot perspective. Defaults to TRUE.
-#' @param axis_ticks_transparent Logical. Whether `gg_*` functions should remove the relevant
+#' @param perspective_axis_ticks_rm Logical. Whether `gg_*` functions should remove the relevant
 #'   axis ticks based on plot perspective. Defaults to TRUE.
-#' @param panel_grid_transparent Logical. Whether `gg_*` functions should remove the relevant
+#' @param perspective_panel_grid_rm Logical. Whether `gg_*` functions should remove the relevant
 #'   panel grid based on plot perspective. Defaults to TRUE.
 #' @param ... Additional arguments (not used).
 #'
@@ -37,7 +37,7 @@
 #'
 #' @seealso
 #' [theme_lighter()], [theme_darker()] for theme options
-#' [col_mucol_multiply()] for creating accent colours
+#' [col_multiply()] for creating accent colours
 #'
 #' @export
 #'
@@ -60,9 +60,9 @@ set_blanket <- function(
     shape = 21,
     stroke = 0.5,
 
-    border_colour = \(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
-    border_fill = NULL,
-    border_linewidth = 0.25,
+    bordered_colour_by = \(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
+    bordered_fill_by = NULL,
+    bordered_linewidth = 0.25,
 
     col_palette_discrete = scales::pal_hue(),
     col_palette_continuous = viridis_by_theme(n = 256, begin = 0.05, end = 0.95, option = "G"),
@@ -72,9 +72,9 @@ set_blanket <- function(
     linetype_palette_discrete = 1:6,
 
     titles_case = snakecase::to_sentence_case,
-    axis_line_transparent = TRUE,
-    axis_ticks_transparent = TRUE,
-    panel_grid_transparent = TRUE,
+    perspective_axis_line_blank = TRUE,
+    perspective_axis_ticks_rm = TRUE,
+    perspective_panel_grid_rm = TRUE,
     ...
 ) {
 
@@ -101,9 +101,9 @@ set_blanket <- function(
   )
 
   update_geom_border(
-    border_colour = border_colour,
-    border_fill = border_fill,
-    border_linewidth = border_linewidth
+    bordered_colour_by = bordered_colour_by,
+    bordered_fill_by = bordered_fill_by,
+    bordered_linewidth = bordered_linewidth
   )
 
   update_geom_font()
@@ -113,8 +113,8 @@ set_blanket <- function(
   update_titles_case(titles_case = titles_case)
 
   update_perspective(
-    axis_line_transparent = axis_line_transparent,
-    axis_ticks_transparent = axis_ticks_transparent,
-    panel_grid_transparent = panel_grid_transparent
+    perspective_axis_line_blank = perspective_axis_line_blank,
+    perspective_axis_ticks_rm = perspective_axis_ticks_rm,
+    perspective_panel_grid_rm = perspective_panel_grid_rm
   )
 }

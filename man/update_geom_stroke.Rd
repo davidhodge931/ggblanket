@@ -7,9 +7,9 @@
 update_geom_stroke(stroke = 0.5, ...)
 }
 \arguments{
-\item{...}{Additional arguments (not used).}
+\item{stroke}{A stroke for point geoms.}
 
-\item{size}{A stroke for point geoms.}
+\item{...}{Additional arguments (not used).}
 }
 \value{
 Updated geom defaults for stroke

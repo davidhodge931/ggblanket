@@ -3,6 +3,8 @@ TO DO
 * Update the ggplot2 version dependency to 4. Delete remotes
 * Update the ggblanket version to 14
 
+* Supported `colour`, `fill`, `alpha`, `linetype`, `linewidth` and `size` aesthetics.
+
 * Redesign of how `colour`/`fill`/`linewidth`/`linetype` and palettes work both 
 in `set_blanket` and `gg_blanket` with defaults and flexibility for border geoms.
 * Breaking: renamed `gg_bin_2d`, `gg_density_2d` and `gg_density_2d_filled` to `gg_bin2d` etc. 
@@ -14,6 +16,7 @@ in `set_blanket` and `gg_blanket` with defaults and flexibility for border geoms
 * Breaking: adjusted `annotate_axis_line` arguments.
 * Breaking: changed `col_steps = TRUE` argument to `col_scale_type = "steps"`.
 * Breaking: removed `theme` from `gg_*`. 
+* Breaking: removed `gg_text` and `gg_label`. 
 * Added defaults to `aes_contrast` to make it determine NULL colours based on theme.
 * Modularised `gg_blanket` function somewhat.
 * `col = 'red'` now works for colouring/filling. 

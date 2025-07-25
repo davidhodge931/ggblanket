@@ -7,7 +7,7 @@
 #' @param col_palette_discrete For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_continuous For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_ordinal For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_continuous`.
-#' @param col_palette_na A NA colour/fill value.
+#' @param col_palette_na A hex code (or name) for the `NA` value.
 #' @param shape_palette_discrete For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
 #' @param linetype_palette_discrete For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
 #' @param ... Additional arguments (not used).
@@ -57,49 +57,49 @@ update_geom_palettes <- function(
   )
 }
 
-#' Update the border geom defaults
+#' Update the bordered geom defaults
 #'
 #' @description
-#' Sets global options for border geom transformations.
+#' Sets global options for bordered geom transformations.
 #'
 #' @param ... Additional arguments (not used).
-#' @param border_colour A function with input of `col`. Defaults to screen/multiply based on theme.
-#' @param border_fill A function with input of `col`. Defaults to NULL.
-#' @param border_linewidth A function with input of `linewidth`. Defaults to \(x) x / 2.64.
+#' @param bordered_colour_by A function with input of `col`. Defaults to screen/multiply based on theme.
+#' @param bordered_fill_by A function with input of `col`. Defaults to NULL.
+#' @param bordered_linewidth A function with input of `linewidth`. Defaults to \(x) x / 2.64.
 #'
 #' @return Global options for border geom styling.
 #'
 #' @export
 update_geom_border <- function(
     ...,
-    border_colour = \(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
-    border_fill = NULL,
-    border_linewidth = 0.25
+    bordered_colour_by = \(x) ifelse(is_theme_dark(), col_screen(x), col_multiply(x)),
+    bordered_fill_by = NULL,
+    bordered_linewidth = 0.25
 ) {
   options(
-    ggblanket.border_colour = border_colour,
-    ggblanket.border_fill = border_fill
+    ggblanket.bordered_colour_by = bordered_colour_by,
+    ggblanket.bordered_fill_by = bordered_fill_by
   )
 
   ggplot2::update_theme(
-    geom.area = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.bin2d = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.bar = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.boxplot = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.col = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.contour_filled = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.crossbar = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.density = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.density2d_filled = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.hex = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.map = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.polygon = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.raster = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.rect = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.ribbon = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
+    geom.area = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.bin2d = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.bar = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.boxplot = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.col = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.contour_filled = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.crossbar = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.density = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.density2d_filled = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.hex = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.map = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.polygon = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.raster = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.rect = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.ribbon = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
     # sf inherits from point/line, so not required
-    geom.tile = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth),
-    geom.violin = ggplot2::element_geom(linewidth = border_linewidth, borderwidth = border_linewidth)
+    geom.tile = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth),
+    geom.violin = ggplot2::element_geom(linewidth = bordered_linewidth, borderwidth = bordered_linewidth)
   )
 }
 
