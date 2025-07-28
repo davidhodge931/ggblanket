@@ -117,7 +117,7 @@ gg_function(
 
 \item{aspect_panel_grid_rm}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{aspect} of the plot.}
 
-\item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, colour, fill, shape, linetype, alpha, linewidth, size, facet, facet2, group, subgroup, label, text, sample}{An unquoted aesthetic variable.}
+\item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, colour, fill, shape, linetype, alpha, linewidth, size, facet, facet2, group, subgroup, label, text, sample}{A mapped (unquoted) aesthetic variable. Or a set aesthetic value.}
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} defaults for use with delayed evaluation etc.}
 

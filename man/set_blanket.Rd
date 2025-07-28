@@ -46,11 +46,11 @@ set_blanket(
 
 \item{stroke}{A default stroke for point geoms.}
 
-\item{bordered_colour_by}{A function with input of \code{col}. Defaults to \verb{(x) col_multiply(x)}. Affects colour as well as colour palette.}
+\item{bordered_colour_by}{A function with input of \code{col}. Defaults to \code{col_screen}/\code{col_multiply} based on the panel.}
 
-\item{bordered_fill_by}{A function with input of \code{col}. Defaults to NA. Affects fill as well as fill palette.}
+\item{bordered_fill_by}{A function with input of \code{col}. Defaults to NULL.}
 
-\item{bordered_linewidth}{A function with input of \code{linewidth}. Defaults to \(x) x / 2.64.}
+\item{bordered_linewidth}{A number. Defaults to 0.25.}
 
 \item{col_palette_d}{For a discrete colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 

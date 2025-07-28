@@ -67,14 +67,14 @@ get_geom_params <- function(geom, ...) {
 #' Add initial layer to plot
 #' @noRd
 add_initial_layer <- function(
-  plot,
-  geom,
-  stat,
-  position,
-  params,
-  show_legend,
-  coord,
-  blend
+    plot,
+    geom,
+    stat,
+    position,
+    params,
+    show_legend,
+    coord,
+    blend
 ) {
   # Determine if using sf
   is_sf <- stringr::str_detect(stat, "sf")
@@ -143,11 +143,11 @@ get_aspect <- function(aspect = NULL, x_scale_class, y_scale_class) {
 #' Determine if x should be symmetric
 #' @noRd
 is_x_symmetric <- function(
-  x_symmetric = NULL,
-  stat,
-  facet_scales,
-  x_scale_class,
-  y_scale_class
+    x_symmetric = NULL,
+    stat,
+    facet_scales,
+    x_scale_class,
+    y_scale_class
 ) {
   if (!is.null(x_symmetric)) {
     return(x_symmetric)
@@ -155,18 +155,18 @@ is_x_symmetric <- function(
 
   # Conditions where x should NOT be symmetric
   !(stringr::str_detect(stat, "sf") ||
-    facet_scales %in% c("free", "free_x") ||
-    !(y_scale_class == "discrete" && x_scale_class != "discrete"))
+      facet_scales %in% c("free", "free_x") ||
+      !(y_scale_class == "discrete" && x_scale_class != "discrete"))
 }
 
 #' Determine if y should be symmetric
 #' @noRd
 is_y_symmetric <- function(
-  y_symmetric = NULL,
-  stat,
-  facet_scales,
-  x_scale_class,
-  y_scale_class
+    y_symmetric = NULL,
+    stat,
+    facet_scales,
+    x_scale_class,
+    y_scale_class
 ) {
   if (!is.null(y_symmetric)) {
     return(y_symmetric)
@@ -174,8 +174,8 @@ is_y_symmetric <- function(
 
   # Conditions where y should NOT be symmetric
   !(stringr::str_detect(stat, "sf") ||
-    facet_scales %in% c("free", "free_y") ||
-    (y_scale_class == "discrete" && x_scale_class != "discrete"))
+      facet_scales %in% c("free", "free_y") ||
+      (y_scale_class == "discrete" && x_scale_class != "discrete"))
 }
 
 # Input validation functions ----
@@ -183,12 +183,12 @@ is_y_symmetric <- function(
 #' Validate inputs are valid
 #' @noRd
 validate_inputs <- function(
-  mapping,
-  x_symmetric,
-  y_symmetric,
-  x_transform,
-  y_transform,
-  stat
+    mapping,
+    x_symmetric,
+    y_symmetric,
+    x_transform,
+    y_transform,
+    stat
 ) {
   # Check mapping doesn't include facets
   if (!is.null(mapping)) {
@@ -240,8 +240,8 @@ process_data <- function(data, aes_list, aspect) {
     dplyr::mutate(dplyr::across(
       c(!!!active_aes) &
         (tidyselect::where(is.character) |
-          tidyselect::where(is.factor) |
-          tidyselect::where(is.logical)),
+           tidyselect::where(is.factor) |
+           tidyselect::where(is.logical)),
       labelled::to_factor
     )) |>
     # Reverse y factors for top-to-bottom reading
@@ -357,19 +357,19 @@ get_facet_axes <- function(facet_axes, x_symmetric) {
 #' Add facet layer to plot
 #' @noRd
 add_facet_layer <- function(
-  plot,
-  aes_list,
-  data,
-  facet_layout,
-  facet_scales,
-  facet_space,
-  facet_drop,
-  facet_axes,
-  facet_axis_labels,
-  facet_nrow,
-  facet_ncol,
-  facet_labels,
-  y_scale_class
+    plot,
+    aes_list,
+    data,
+    facet_layout,
+    facet_scales,
+    facet_space,
+    facet_drop,
+    facet_axes,
+    facet_axis_labels,
+    facet_nrow,
+    facet_ncol,
+    facet_labels,
+    y_scale_class
 ) {
   # Check if we need to reverse facet
   reverse_facet <- y_scale_class == "discrete" &&
@@ -403,17 +403,17 @@ add_facet_layer <- function(
 #' Add facet layer with reversed facet
 #' @noRd
 add_facet_layer_rev <- function(
-  plot,
-  aes_list,
-  facet_layout,
-  facet_scales,
-  facet_space,
-  facet_drop,
-  facet_axes,
-  facet_axis_labels,
-  facet_nrow,
-  facet_ncol,
-  facet_labels
+    plot,
+    aes_list,
+    facet_layout,
+    facet_scales,
+    facet_space,
+    facet_drop,
+    facet_axes,
+    facet_axis_labels,
+    facet_nrow,
+    facet_ncol,
+    facet_labels
 ) {
   # Build facet vars with reversal
   facet_vars <- build_facet_vars(aes_list, reverse_facet = TRUE)
@@ -436,17 +436,17 @@ add_facet_layer_rev <- function(
 #' Add facet layer normal (not reversed)
 #' @noRd
 add_facet_layer_std <- function(
-  plot,
-  aes_list,
-  facet_layout,
-  facet_scales,
-  facet_space,
-  facet_drop,
-  facet_axes,
-  facet_axis_labels,
-  facet_nrow,
-  facet_ncol,
-  facet_labels
+    plot,
+    aes_list,
+    facet_layout,
+    facet_scales,
+    facet_space,
+    facet_drop,
+    facet_axes,
+    facet_axis_labels,
+    facet_nrow,
+    facet_ncol,
+    facet_labels
 ) {
   # Build facet vars without reversal
   facet_vars <- build_facet_vars(aes_list, reverse_facet = FALSE)
@@ -491,17 +491,17 @@ build_facet_vars <- function(aes_list, reverse_facet = FALSE) {
 #' Add facet by layout type
 #' @noRd
 add_facet_by_layout <- function(
-  plot,
-  facet_vars,
-  facet_layout,
-  facet_scales,
-  facet_space,
-  facet_drop,
-  facet_axes,
-  facet_axis_labels,
-  facet_nrow,
-  facet_ncol,
-  facet_labels
+    plot,
+    facet_vars,
+    facet_layout,
+    facet_scales,
+    facet_space,
+    facet_drop,
+    facet_axes,
+    facet_axis_labels,
+    facet_nrow,
+    facet_ncol,
+    facet_labels
 ) {
   if (facet_layout == "wrap") {
     # Combine facet vars for wrap
@@ -545,8 +545,6 @@ add_facet_by_layout <- function(
   }
 }
 
-# Colour calculation functions ----
-
 #' Calculate number of colors needed
 #' @noRd
 get_col_n <- function(aes_list, data, plot_data, stat = NULL) {
@@ -561,9 +559,8 @@ get_col_n <- function(aes_list, data, plot_data, stat = NULL) {
         return(length(unique(level_data[!is.na(level_data)])))
       }
     }
-    # If no level column yet, use a reasonable default
-    # (contour_filled typically creates about 7-9 levels by default)
-    return(9)
+    # If no level column yet, fall through to standard color counting
+    # The actual levels will be determined by ggplot2's stat computation
   }
 
   # Get factor levels if col is a factor
@@ -574,16 +571,24 @@ get_col_n <- function(aes_list, data, plot_data, stat = NULL) {
     NA
   }
 
-  # Count distinct colors in plot data
-  colour_n <- plot_data |>
-    dplyr::select(tidyselect::any_of("colour")) |>
-    dplyr::filter(.data$colour != "grey50") |>
-    dplyr::n_distinct()
+  # Count distinct colors in plot data - only if columns exist
+  colour_n <- if ("colour" %in% names(plot_data)) {
+    plot_data |>
+      dplyr::select(tidyselect::any_of("colour")) |>
+      dplyr::filter(.data$colour != "grey50") |>
+      dplyr::n_distinct()
+  } else {
+    0
+  }
 
-  fill_n <- plot_data |>
-    dplyr::select(tidyselect::any_of("fill")) |>
-    dplyr::filter(.data$fill != "grey50") |>
-    dplyr::n_distinct()
+  fill_n <- if ("fill" %in% names(plot_data)) {
+    plot_data |>
+      dplyr::select(tidyselect::any_of("fill")) |>
+      dplyr::filter(.data$fill != "grey50") |>
+      dplyr::n_distinct()
+  } else {
+    0
+  }
 
   # Return maximum
   max(col_n_factor, colour_n, fill_n, na.rm = TRUE)

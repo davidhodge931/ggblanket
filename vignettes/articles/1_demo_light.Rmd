@@ -27,6 +27,7 @@ library(ggplot2)
 library(scales)
 library(palmerpenguins)
 
+devtools::load_all()
 set_blanket()
 
 penguins2 <- penguins |> 
@@ -81,8 +82,9 @@ diamonds |>
   gg_bin2d(
     x = carat,
     y = price,
-    coord = coord_cartesian(),
-  )
+    coord = coord_cartesian(ylim = c(0, NA)),
+    y_expand = expansion(c(0, 0.01))
+  ) 
 ```
 
 ### gg_boxplot
@@ -120,6 +122,7 @@ faithfuld |>
    x = waiting,
    y = eruptions,
    z = density,
+   bins = 20,
   )
 ```
 
@@ -131,8 +134,9 @@ faithfuld |>
    x = waiting,
    y = eruptions,
    z = density,
-   bins = 8,
-  )
+   bins = 20,
+  ) +
+  theme(legend.position = "none")
 ```
 
 ### gg_crossbar
@@ -168,7 +172,7 @@ faithful |>
   gg_density2d(
     x = waiting,
     y = eruptions,
-    bins = 8,
+    bins = 20,
   )
 ```
 
@@ -179,9 +183,9 @@ faithful |>
   gg_density2d_filled(
     x = waiting,
     y = eruptions,
-    bins = 8,
-    linetype = 1,
-  )
+    bins = 20,
+  ) +
+  theme(legend.position = "none")
 ```
 
 ### gg_errorbar
@@ -231,8 +235,9 @@ diamonds |>
   gg_hex(
     x = carat,
     y = price,
-    coord = coord_cartesian(),
-  )
+    coord = coord_cartesian(ylim = c(0, NA)),
+    y_expand = expansion(c(0, 0.01))
+  ) 
 ```
 
 ### gg_histogram
@@ -315,16 +320,16 @@ penguins2 |>
 ### gg_pointrange
 
 ```{r}
-# experiment |>
-#   gg_pointrange(
-#     position = position_dodge(width = 0.2),
-#     x = trt,
-#     y = resp,
-#     col = group,
-#     ymin = lower,
-#     ymax = upper,
-#     y_limits_include = 0,
-#   )
+ experiment |>
+   gg_pointrange(
+     position = position_dodge(width = 0.2),
+     x = trt,
+     y = resp,
+     col = group,
+     ymin = lower,
+     ymax = upper,
+    y_limits_include = 0,
+   )
 ```
 
 ### gg_polygon

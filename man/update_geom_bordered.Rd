@@ -17,11 +17,11 @@ update_geom_bordered(
 \arguments{
 \item{...}{Additional arguments (not used).}
 
-\item{bordered_colour_by}{A function with input of \code{col}. Defaults to screen/multiply based on theme.}
+\item{bordered_colour_by}{A function with input of \code{col}. Defaults to \code{col_screen}/\code{col_multiply} based on the panel.}
 
 \item{bordered_fill_by}{A function with input of \code{col}. Defaults to NULL.}
 
-\item{bordered_linewidth}{A function with input of \code{linewidth}. Defaults to \(x) x / 2.64.}
+\item{bordered_linewidth}{A number. Defaults to 0.25.}
 }
 \value{
 Global options for border geom styling.

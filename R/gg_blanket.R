@@ -16,7 +16,7 @@
 #' @param aspect_axis_line_rm `TRUE` or `FALSE` of whether to remove the relevant axis line per the `aspect` of the plot.
 #' @param aspect_axis_ticks_rm `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `aspect` of the plot.
 #' @param aspect_panel_grid_rm `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `aspect` of the plot.
-#' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,alpha,linewidth,size,facet,facet2,group,subgroup,label,text,sample An unquoted aesthetic variable.
+#' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,alpha,linewidth,size,facet,facet2,group,subgroup,label,text,sample A mapped (unquoted) aesthetic variable. Or a set aesthetic value.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] defaults for use with delayed evaluation etc.
 #' @param bordered TRUE or FALSE of whether the `bordered_colour_by` and `bordered_fill_by` should be applied.
 #' @param bordered_colour_by A function with input of `col` or `col_palette`. Defaults to screen/multiply based on theme.
@@ -166,49 +166,6 @@ gg_blanket <- function(
     col_transform <- get_transform_name(col_transform)
   }
 
-  # Step 2.5: Handle after_stat aesthetics for certain stats
-  if (stat %in% c("bin2d", "binhex")) {
-    default_aes <- ggplot2::aes(
-      colour = ggplot2::after_stat(.data$count),
-      fill = ggplot2::after_stat(.data$count)
-    )
-    if (is.null(mapping)) {
-      mapping <- default_aes
-    } else {
-      has_colour <- "colour" %in% names(mapping)
-      has_fill <- "fill" %in% names(mapping)
-
-      if (!has_colour && !has_fill) {
-        mapping <- utils::modifyList(mapping, default_aes)
-      } else if (has_colour && !has_fill) {
-        mapping$fill <- mapping$colour
-      } else if (!has_colour && has_fill) {
-        mapping$colour <- mapping$fill
-      }
-    }
-  }
-
-  if (stat %in% c("contour_filled", "density2d_filled")) {
-    default_aes <- ggplot2::aes(
-      colour = ggplot2::after_stat(.data$level),
-      fill = ggplot2::after_stat(.data$level)
-    )
-    if (is.null(mapping)) {
-      mapping <- default_aes
-    } else {
-      has_colour <- "colour" %in% names(mapping)
-      has_fill <- "fill" %in% names(mapping)
-
-      if (!has_colour && !has_fill) {
-        mapping <- utils::modifyList(mapping, default_aes)
-      } else if (has_colour && !has_fill) {
-        mapping$fill <- mapping$colour
-      } else if (!has_colour && has_fill) {
-        mapping$colour <- mapping$fill
-      }
-    }
-  }
-
   # Step 3: Detect aesthetic vs fixed
   col_map_or_set <- is_aes_map_or_set(rlang::enquo(col), "col", data)
   colour_map_or_set <- is_aes_map_or_set(rlang::enquo(colour), "colour", data)
@@ -227,6 +184,119 @@ gg_blanket <- function(
   size_map_or_set <- is_aes_map_or_set(rlang::enquo(size), "size", data)
   alpha_map_or_set <- is_aes_map_or_set(rlang::enquo(alpha), "alpha", data)
 
+  # Step 2.5: Handle after_stat aesthetics for certain stats
+  # if (stat %in% c("bin2d", "binhex")) {
+  #   default_aes <- ggplot2::aes(
+  #     colour = ggplot2::after_stat(.data$count),
+  #     fill = ggplot2::after_stat(.data$count)
+  #   )
+  #   if (is.null(mapping)) {
+  #     mapping <- default_aes
+  #   } else {
+  #     has_colour <- "colour" %in% names(mapping)
+  #     has_fill <- "fill" %in% names(mapping)
+  #
+  #     if (!has_colour && !has_fill) {
+  #       mapping <- utils::modifyList(mapping, default_aes)
+  #     } else if (has_colour && !has_fill) {
+  #       mapping$fill <- mapping$colour
+  #     } else if (!has_colour && has_fill) {
+  #       mapping$colour <- mapping$fill
+  #     }
+  #   }
+  # }
+  #
+  # if (stat %in% c("contour_filled", "density2d_filled")) {
+  #   default_aes <- ggplot2::aes(
+  #     colour = ggplot2::after_stat(.data$level),
+  #     fill = ggplot2::after_stat(.data$level)
+  #   )
+  #   if (is.null(mapping)) {
+  #     mapping <- default_aes
+  #   } else {
+  #     has_colour <- "colour" %in% names(mapping)
+  #     has_fill <- "fill" %in% names(mapping)
+  #
+  #     if (!has_colour && !has_fill) {
+  #       mapping <- utils::modifyList(mapping, default_aes)
+  #     } else if (has_colour && !has_fill) {
+  #       mapping$fill <- mapping$colour
+  #     } else if (!has_colour && has_fill) {
+  #       mapping$colour <- mapping$fill
+  #     }
+  #   }
+  # }
+
+  # Step 2.5: Handle after_stat aesthetics for certain stats
+  # Step 2.5: Handle after_stat aesthetics for certain stats
+  if (stat %in% c("bin2d", "binhex")) {
+    # Check if user explicitly set colour as fixed
+    user_set_colour_fixed <- !colour_map_or_set$is_aesthetic &&
+      !is.null(colour_map_or_set$value)
+
+    if (user_set_colour_fixed) {
+      # User set colour, only apply after_stat to fill
+      default_aes <- ggplot2::aes(
+        fill = ggplot2::after_stat(.data$count)
+      )
+    } else {
+      # Apply after_stat to both as before
+      default_aes <- ggplot2::aes(
+        colour = ggplot2::after_stat(.data$count),
+        fill = ggplot2::after_stat(.data$count)
+      )
+    }
+
+    if (is.null(mapping)) {
+      mapping <- default_aes
+    } else {
+      has_colour <- "colour" %in% names(mapping)
+      has_fill <- "fill" %in% names(mapping)
+
+      if (!has_colour && !has_fill) {
+        mapping <- utils::modifyList(mapping, default_aes)
+      } else if (has_colour && !has_fill) {
+        mapping$fill <- mapping$colour
+      } else if (!has_colour && has_fill) {
+        mapping$colour <- mapping$fill
+      }
+    }
+  }
+
+  if (stat %in% c("contour_filled", "density2d_filled")) {
+    # Check if user explicitly set colour as fixed
+    user_set_colour_fixed <- !colour_map_or_set$is_aesthetic &&
+      !is.null(colour_map_or_set$value)
+
+    if (user_set_colour_fixed) {
+      # User set colour, only apply after_stat to fill
+      default_aes <- ggplot2::aes(
+        fill = ggplot2::after_stat(.data$level)
+      )
+    } else {
+      # Apply after_stat to both as before
+      default_aes <- ggplot2::aes(
+        colour = ggplot2::after_stat(.data$level),
+        fill = ggplot2::after_stat(.data$level)
+      )
+    }
+
+    if (is.null(mapping)) {
+      mapping <- default_aes
+    } else {
+      has_colour <- "colour" %in% names(mapping)
+      has_fill <- "fill" %in% names(mapping)
+
+      if (!has_colour && !has_fill) {
+        mapping <- utils::modifyList(mapping, default_aes)
+      } else if (has_colour && !has_fill) {
+        mapping$fill <- mapping$colour
+      } else if (!has_colour && has_fill) {
+        mapping$colour <- mapping$fill
+      }
+    }
+  }
+
   # Step 4: Get theme defaults
   theme_defaults <- ggplot2::get_theme()
 
@@ -235,9 +305,12 @@ gg_blanket <- function(
   fill_in_mapping <- is_in_mapping(mapping, "fill")
 
   # Step 5: Determine if this is a border geom
-  # Always check if it's a border geom type
   if (rlang::is_null(bordered)) {
+    # Auto-detect if it's a border geom type
     is_bordered_geom <- is_bordered(geom, theme_defaults)
+  } else {
+    # User explicitly set bordered = TRUE or FALSE
+    is_bordered_geom <- bordered
   }
 
   # Then check if user explicitly set colour or fill to NA
@@ -671,6 +744,22 @@ gg_blanket <- function(
     rlang::enquo(alpha)
   } else {
     rlang::quo(NULL)
+  }
+
+  # Step 9.5: Auto-set fill=NA when only colour is mapped (and vice versa)
+  # This prevents unwanted fill colors when user only wants outlines
+  if (colour_map_or_set$is_aesthetic && !fill_map_or_set$is_aesthetic &&
+      !col_map_or_set$is_aesthetic && is.null(fill_map_or_set$value)) {
+    # User mapped colour but not fill or col, and didn't set fill
+    # Default to NA fill to show only outlines
+    fixed_params$fill <- NA
+  }
+
+  if (fill_map_or_set$is_aesthetic && !colour_map_or_set$is_aesthetic &&
+      !col_map_or_set$is_aesthetic && is.null(colour_map_or_set$value)) {
+    # User mapped fill but not colour or col, and didn't set colour
+    # Default to NA colour to show only fills
+    fixed_params$colour <- NA
   }
 
   # Step 10: Create initial plot to determine scale types

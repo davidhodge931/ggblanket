@@ -4,20 +4,20 @@
 #' Sets global options for bordered geom transformations.
 #'
 #' @param ... Additional arguments (not used).
-#' @param bordered_colour_by A function with input of `col`. Defaults to screen/multiply based on theme.
+#' @param bordered_colour_by A function with input of `col`. Defaults to `col_screen`/`col_multiply` based on the panel.
 #' @param bordered_fill_by A function with input of `col`. Defaults to NULL.
-#' @param bordered_linewidth A function with input of `linewidth`. Defaults to \(x) x / 2.64.
+#' @param bordered_linewidth A number. Defaults to 0.25.
 #'
 #' @return Global options for border geom styling.
 #'
 #' @export
 update_geom_bordered <- function(
-  ...,
-  bordered_colour_by = \(x) {
-    ifelse(is_panel_dark(), col_screen(x), col_multiply(x))
-  },
-  bordered_fill_by = NULL,
-  bordered_linewidth = 0.25
+    ...,
+    bordered_colour_by = \(x) {
+      ifelse(is_panel_dark(), col_screen(x), col_multiply(x))
+    },
+    bordered_fill_by = NULL,
+    bordered_linewidth = 0.25
 ) {
   options(
     ggblanket.bordered_colour_by = bordered_colour_by,

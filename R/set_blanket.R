@@ -8,7 +8,7 @@
 #'
 #' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
 #' @param col A default hex code for the colour and fill of most geoms. Defaults to `blue`.
-#' @param linewidth A default linewidth for most geoms. Defaults to 0.66.
+#' @param linewidth A default linewidth for most geoms. Defaults to 0.5.
 #' @param linetype A default linetype for most geoms. Defaults to 1 (solid).
 #' @param shape A default shape for point geoms. Must be an integer between 0 and 25.
 #' @param size A default size for point geoms.
@@ -19,9 +19,9 @@
 #' @param col_na A NA colour/fill value.
 #' @param shape_palette_d For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
 #' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
-#' @param bordered_colour_by A function with input of `col`. Defaults to `(x) col_multiply(x)`. Affects colour as well as colour palette.
-#' @param bordered_fill_by A function with input of `col`. Defaults to NA. Affects fill as well as fill palette.
-#' @param bordered_linewidth A function with input of `linewidth`. Defaults to \(x) x / 2.64.
+#' @param bordered_colour_by A function with input of `col`. Defaults to `col_screen`/`col_multiply` based on the panel.
+#' @param bordered_fill_by A function with input of `col`. Defaults to NULL.
+#' @param bordered_linewidth A number. Defaults to 0.25.
 
 #' @param titles_case A function to apply to unspecified/unlabelled titles in `gg_*` functions.
 #'   Defaults to `snakecase::to_sentence_case`.
@@ -51,33 +51,33 @@
 #' )
 #'
 set_blanket <- function(
-  theme = theme_lighter(),
+    theme = theme_lighter(),
 
-  col = "#357BA2FF",
-  linewidth = 0.66,
-  linetype = 1,
-  size = 1.5,
-  shape = 21,
-  stroke = 0.5,
+    col = "#357BA2FF",
+    linewidth = 0.5,
+    linetype = 1,
+    size = 1.5,
+    shape = 21,
+    stroke = 0.5,
 
-  bordered_colour_by = \(x) {
-    ifelse(is_panel_dark(), col_screen(x), col_multiply(x))
-  },
-  bordered_fill_by = NULL,
-  bordered_linewidth = 0.25,
+    bordered_colour_by = \(x) {
+      ifelse(is_panel_dark(), col_screen(x), col_multiply(x))
+    },
+    bordered_fill_by = NULL,
+    bordered_linewidth = 0.25,
 
-  col_palette_d = scales::pal_hue(),
-  col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
-  col_palette_o = NULL,
-  col_na = "#A6A6A6FF",
-  shape_palette_d = c(21, 24, 22, 23, 25),
-  linetype_palette_d = 1:6,
+    col_palette_d = scales::pal_hue(),
+    col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
+    col_palette_o = NULL,
+    col_na = "#A6A6A6FF",
+    shape_palette_d = c(21, 24, 22, 23, 25),
+    linetype_palette_d = 1:6,
 
-  titles_case = snakecase::to_sentence_case,
-  aspect_axis_line_rm = TRUE,
-  aspect_axis_ticks_rm = TRUE,
-  aspect_panel_grid_rm = TRUE,
-  ...
+    titles_case = snakecase::to_sentence_case,
+    aspect_axis_line_rm = TRUE,
+    aspect_axis_ticks_rm = TRUE,
+    aspect_panel_grid_rm = TRUE,
+    ...
 ) {
   # Set the theme first
   ggplot2::set_theme(theme)

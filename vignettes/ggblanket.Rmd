@@ -42,15 +42,16 @@ Computational speed has been traded-off.
 3.  A `col` aesthetic representing both colour and fill
 4.  A `facet` argument to facet by a variable
 5.  A `facet2` argument to facet by a 2nd variable
-6.  Other aesthetics
+6.  All other aesthetics supported
 7.  Prefixed arguments to customise x/y/col/facet
 8.  Smart `*_title` defaults for axis and legend titles
 9.  Other `ggplot2::geom_*` arguments via `...`
-10.  `theme_lighter` and `theme_darker` themes 
-11.  Side-effects to the `theme` based on the `theme_orientation`
-12.  One `*_symmetric` continuous scale
+10. `theme_lighter` and `theme_darker` themes 
+11. Side-effects to the `theme` based on the `theme_orientation`
+12. One `*_symmetric` continuous scale
 13. Ability to add multiple `geom_*` layers
 14. Arguments to customise setup with `set_blanket()`
+15. Consistent effortless bordered style 
 15. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
@@ -139,11 +140,9 @@ palmerpenguins::penguins |>
   )
 ```
 
-### 6. Other aesthetics
+### 6. All other aesthetics supported
 
-Other aeesthetics are available: `alpha`, `size`, `shape`, `linetype` and `linewidth`.
-
-The `mapping` argument is also provided for use with `ggplot2::after_stat`. 
+Other aeesthetics are available: `alpha`, `size`, `shape`, `linetype` and `linewidth`. These can be either mapped as an aesthetic, or set to a value. The `mapping` argument is also provided for use with `ggplot2::after_stat`. 
 
 ```{r}
 palmerpenguins::penguins |> 
@@ -152,7 +151,7 @@ palmerpenguins::penguins |>
     x = species, 
     y = flipper_length_mm, 
     col = island,
-    shape = sex,
+    shape = body_mass_g,
   ) 
 ```
 
@@ -183,11 +182,9 @@ palmerpenguins::penguins |>
 
 ### 8.  Smart `*_title` defaults for axis and legend titles
 
-The `x_title`, `y_title` and `col_title` for the axis and legend titles can be manually specified with the applicable `*_title` argument (or `+ ggplot2::labs(...)`).
+The `x_title`, `y_title` and `col_title` for the axis and legend titles can be manually specified with the applicable `*_title` argument. All other titles will need to use `+ ggplot2::labs(...)`. 
 
-If not specified, they will first take any label attribute associated with the applicable variable. 
-
-If none, they will then convert the variable name to a label name using the `titles_case` function, which defaults to sentence case (i.e. `snakecase::to_sentence_case`). 
+If titles are not specified, they will first take any label attribute associated with the applicable variable. If no label attribute, they will then convert the variable name to a label name using the `titles_case` function, which defaults to sentence case. 
 
 ```{r, fig.asp=0.6}
 palmerpenguins::penguins |>
@@ -201,8 +198,6 @@ palmerpenguins::penguins |>
 
 The `...` argument provides access to all other arguments in the `ggplot2::geom_*()` function. 
 
-Common arguments to add include `colour`, `fill`, `alpha`, `linewidth`, `linetype`,  `size` and  `width`, which enables fixing of these to a particular value. 
-
 Use the `ggplot2::geom_*` help to see what arguments are available. 
 
 ```{r}
@@ -210,7 +205,7 @@ palmerpenguins::penguins |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    level = 0.999, 
+    level = 0.999, #argument accessed via ...
   ) 
 ```
 
@@ -339,7 +334,7 @@ palmerpenguins::penguins |>
 
 ### 14. Arguments to customise setup with `set_blanket()`
 
-The `set_blanket` function sets customisable defaults. Users should try to do as much as possible in this function, rather than continually add arguments to `gg_*` functions.
+The `set_blanket` function sets customisable defaults. This function should be run first prior to any `gg_*` functions. This function is for setting a consistent style. Users should try to do as much as possible in this function, rather than continually add arguments to `gg_*` functions. 
 
 ```{r}
 set_blanket(
@@ -374,7 +369,26 @@ p1 + p2
 set_blanket()
 ```
 
-### 15. A `gg_blanket()` function with `geom` flexibility
+### 15. Consistent effortless bordered style 
+
+Certain geoms are classified as "bordered" (e.g. bar, area, tile, polygon etc). Point geoms with shapes 21-25 are also considered bordered. This classification determines whether border logic applies to the underlying colour/fill and equivalent palettes for these aesthethics. By default bordered polygons are applied a multiply blending of their colour to itself, and fill is left unchanged. Use `bordered = FALSE` to turn this off, or `set_blanket(bordered_colour_by = \(x) x, bordered_fill_by = \(x) x, ...)`. It is intended that in `set_blanket`, users rely on the `col` argument primarily to colour/fill, and likewise the `col_palette_*` palettes. The `colour`/`fill` and `colour_palette`/`fill_palette` arguments are provided in `gg_blanket` to support deviations from this approach. 
+
+```{r}
+set_blanket(
+  theme = theme_lighter(),
+  bordered_colour_by = \(x) scales::col_darker(x, amount = 50),
+  bordered_linewidth = 0.5,
+)
+  
+palmerpenguins::penguins |> 
+  gg_violin(
+    x = species,
+    y = body_mass_g,
+    col = sex,
+  )
+```
+
+### 16. A `gg_blanket()` function with `geom` flexibility
 
 The package is driven by the `gg_blanket` function, which has a `geom` argument with `ggplot2::geom_blank` defaults for `geom`, `stat` and `position`.
 
@@ -383,6 +397,7 @@ All other functions wrap this function with a fixed `geom`, and their own defaul
 This function can often be used with geoms that do not have an associated `gg_*` function.
 
 ```{r}
+set_blanket()
 geom_spoke()
 
 expand.grid(x = 1:10, y = 1:10) |>
