@@ -151,7 +151,7 @@ palmerpenguins::penguins |>
     x = species, 
     y = flipper_length_mm, 
     col = island,
-    shape = body_mass_g,
+    shape = island,
   ) 
 ```
 
@@ -211,7 +211,9 @@ palmerpenguins::penguins |>
 
 ### 10.  `theme_lighter` and `theme_darker` themes 
 
-`theme_lighter` and `theme_darker`. These functions were built for use with the `theme` argument - and have flexibility to adjust colours, linewidths etc. 
+`theme_lighter` and `theme_darker`. 
+
+These functions were built for use within `set_blanket`, as then `bordered_colour` and `bordered_fill` adjustments can apply based on these (e.g. if the panel is dark). 
 
 ```{r, fig.asp=0.65}
 set_blanket(theme = theme_darker())
@@ -235,9 +237,9 @@ The `gg_*` function adds helpful side-effects to the theme based on the `aspect`
 * Where `aspect = "x"`, the `gg_*` function will remove the y axis line/ticks and the x gridlines from the `theme` (by changing their colour to "transparent"). 
 * Where `aspect = "y"`, the opposite will occur. 
 
-If the `gg_*` guesses an incorrect `aspect`, then the user can change this. The user can change any of these side-effects by setting `axis_line_transparent`, `axis_ticks_transparent` or , `panel_grid_transparent` to `FALSE`.
+If the `gg_*` guesses an incorrect `aspect`, then the user can change this. The user can set these side-effects in `set_blanket` by setting `axis_line_transparent`, `axis_ticks_transparent` or , `panel_grid_transparent` to `FALSE`.
 
-Any `theme` used should be designed to anticipate the side-effects desired (i.e. include panel grid, axis line and axis ticks in both directions. 
+Any `theme` used in `set_blanket` should be designed to anticipate the side-effects desired (i.e. include panel grid, axis line and axis ticks in both directions). 
 
 This enables _one_ theme to be used across all plots whether the plot is vertical or horizontal. 
 
@@ -371,12 +373,12 @@ set_blanket()
 
 ### 15. Consistent effortless bordered style 
 
-Certain geoms are classified as "bordered" (e.g. bar, area, tile, polygon etc). Point geoms with shapes 21-25 are also considered bordered. This classification determines whether border logic applies to the underlying colour/fill and equivalent palettes for these aesthethics. By default bordered polygons are applied a multiply blending of their colour to itself, and fill is left unchanged. Use `bordered = FALSE` to turn this off, or `set_blanket(bordered_colour_by = \(x) x, bordered_fill_by = \(x) x, ...)`. It is intended that in `set_blanket`, users rely on the `col` argument primarily to colour/fill, and likewise the `col_palette_*` palettes. The `colour`/`fill` and `colour_palette`/`fill_palette` arguments are provided in `gg_blanket` to support deviations from this approach. 
+Certain geoms are classified as "bordered" (e.g. bar, area, tile, polygon etc). Point geoms with shapes 21-25 are also considered bordered. This classification determines whether border logic applies to the underlying colour/fill and equivalent palettes for these aesthethics. By default bordered polygons are applied a multiply blending of their colour to itself, and fill is left unchanged. Use `bordered = FALSE` to turn this off, or `set_blanket(bordered_colour = \(x) x, bordered_fill = \(x) x, ...)`. It is intended that in `set_blanket`, users rely on the `col` argument primarily to colour/fill, and likewise the `col_palette_*` palettes. The `colour`/`fill` and `colour_palette`/`fill_palette` arguments are provided in `gg_blanket` to support deviations from this approach. 
 
 ```{r}
 set_blanket(
   theme = theme_lighter(),
-  bordered_colour_by = \(x) scales::col_darker(x, amount = 50),
+  bordered_colour = \(x) scales::col_darker(x, amount = 50),
   bordered_linewidth = 0.5,
 )
   

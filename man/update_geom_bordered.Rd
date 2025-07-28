@@ -6,22 +6,22 @@
 \usage{
 update_geom_bordered(
   ...,
-  bordered_colour_by = function(x) {
+  bordered_colour = function(x) {
      ifelse(is_panel_dark(), col_screen(x),
     col_multiply(x))
  },
-  bordered_fill_by = NULL,
+  bordered_fill = NULL,
   bordered_linewidth = 0.25
 )
 }
 \arguments{
 \item{...}{Additional arguments (not used).}
 
-\item{bordered_colour_by}{A function with input of \code{col}. Defaults to \code{col_screen}/\code{col_multiply} based on the panel.}
+\item{bordered_colour}{A function with input of the set \code{col}. Defaults to \code{col_screen}/\code{col_multiply} based on the panel.}
 
-\item{bordered_fill_by}{A function with input of \code{col}. Defaults to NULL.}
+\item{bordered_fill}{A function with input of the set \code{col}. Defaults to NULL.}
 
-\item{bordered_linewidth}{A number. Defaults to 0.25.}
+\item{bordered_linewidth}{A number, or a function with input of the set linewidth. Defaults to 0.25.}
 }
 \value{
 Global options for border geom styling.

@@ -12,11 +12,11 @@ set_blanket(
   size = 1.5,
   shape = 21,
   stroke = 0.5,
-  bordered_colour_by = function(x) {
+  bordered_colour = function(x) {
      ifelse(is_panel_dark(), col_screen(x),
     col_multiply(x))
  },
-  bordered_fill_by = NULL,
+  bordered_fill = NULL,
   bordered_linewidth = 0.25,
   col_palette_d = scales::pal_hue(),
   col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
@@ -36,7 +36,7 @@ set_blanket(
 
 \item{col}{A default hex code for the colour and fill of most geoms. Defaults to \code{blue}.}
 
-\item{linewidth}{A default linewidth for most geoms. Defaults to 0.66.}
+\item{linewidth}{A default linewidth for most geoms. Defaults to 0.5.}
 
 \item{linetype}{A default linetype for most geoms. Defaults to 1 (solid).}
 
@@ -46,11 +46,11 @@ set_blanket(
 
 \item{stroke}{A default stroke for point geoms.}
 
-\item{bordered_colour_by}{A function with input of \code{col}. Defaults to \code{col_screen}/\code{col_multiply} based on the panel.}
+\item{bordered_colour}{A function with input of the set \code{col}. Defaults to \code{col_screen}/\code{col_multiply} based on the panel.}
 
-\item{bordered_fill_by}{A function with input of \code{col}. Defaults to NULL.}
+\item{bordered_fill}{A function with input of the set \code{col}. Defaults to NULL.}
 
-\item{bordered_linewidth}{A number. Defaults to 0.25.}
+\item{bordered_linewidth}{A number, or a function with input of the set linewidth. Defaults to 0.25.}
 
 \item{col_palette_d}{For a discrete colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 

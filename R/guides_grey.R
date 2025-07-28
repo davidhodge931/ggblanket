@@ -13,10 +13,10 @@
 #'   determined by `col` and border settings.
 #' @param bordered Logical. Whether to treat as a bordered geom. If NULL,
 #'   automatically determined based on the aesthetic and current geom defaults.
-#' @param bordered_colour_by Function to transform the base colour for borders.
+#' @param bordered_colour Function to transform the base colour for borders.
 #'   Defaults to `col_multiply()` for light themes and `col_screen()` for dark themes.
 #'   Set to NA to disable border colour transformation.
-#' @param bordered_fill_by Function to transform the base colour for fills.
+#' @param bordered_fill Function to transform the base colour for fills.
 #'   Defaults to NULL (no transformation). Set to NA to explicitly disable.
 #' @param ... Other arguments passed to [ggplot2::guide_legend()].
 #'
@@ -28,8 +28,8 @@ guides_grey <- function(
     colour = NULL,
     fill = NULL,
     bordered = NULL,
-    bordered_colour_by = NULL,
-    bordered_fill_by = NULL,
+    bordered_colour = NULL,
+    bordered_fill = NULL,
     ...
 ) {
   # Direct overrides take precedence
@@ -56,9 +56,9 @@ guides_grey <- function(
     # Build override aesthetics
     if (bordered) {
       # Get border transformation functions if not provided
-      if (is.null(bordered_colour_by)) {
+      if (is.null(bordered_colour)) {
         current_theme <- ggplot2::theme_get()
-        bordered_colour_by <- if (is_panel_dark(theme = current_theme)) {
+        bordered_colour <- if (is_panel_dark(theme = current_theme)) {
           col_screen
         } else {
           col_multiply
@@ -66,23 +66,23 @@ guides_grey <- function(
       }
 
       # Apply transformations unless explicitly disabled (NA)
-      if (is.function(bordered_colour_by)) {
-        override_colour <- bordered_colour_by(col)
-      } else if (!is.null(bordered_colour_by) && is.na(bordered_colour_by)) {
+      if (is.function(bordered_colour)) {
+        override_colour <- bordered_colour(col)
+      } else if (!is.null(bordered_colour) && is.na(bordered_colour)) {
         override_colour <- col
       } else {
-        override_colour <- bordered_colour_by
+        override_colour <- bordered_colour
       }
 
-      # Handle bordered_fill_by - check for NULL first
-      if (is.null(bordered_fill_by)) {
+      # Handle bordered_fill - check for NULL first
+      if (is.null(bordered_fill)) {
         override_fill <- col
-      } else if (is.na(bordered_fill_by)) {
+      } else if (is.na(bordered_fill)) {
         override_fill <- col
-      } else if (is.function(bordered_fill_by)) {
-        override_fill <- bordered_fill_by(col)
+      } else if (is.function(bordered_fill)) {
+        override_fill <- bordered_fill(col)
       } else {
-        override_fill <- bordered_fill_by
+        override_fill <- bordered_fill
       }
 
       override_aes <- list(colour = override_colour, fill = override_fill)

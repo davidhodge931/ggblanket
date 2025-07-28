@@ -41,8 +41,8 @@ gg_segment(
   sample = NULL,
   mapping = NULL,
   bordered = NULL,
-  bordered_colour_by = NULL,
-  bordered_fill_by = NULL,
+  bordered_colour = NULL,
+  bordered_fill = NULL,
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_expand = NULL,
@@ -121,11 +121,11 @@ gg_segment(
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} defaults for use with delayed evaluation etc.}
 
-\item{bordered}{TRUE or FALSE of whether the \code{bordered_colour_by} and \code{bordered_fill_by} should be applied.}
+\item{bordered}{TRUE or FALSE of whether the \code{bordered_colour} and \code{bordered_fill} should be applied.}
 
-\item{bordered_colour_by}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
+\item{bordered_colour}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
 
-\item{bordered_fill_by}{A function with input of \code{col} or \code{col_palette}. Defaults to NULL.}
+\item{bordered_fill}{A function with input of \code{col} or \code{col_palette}. Defaults to NULL.}
 
 \item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 

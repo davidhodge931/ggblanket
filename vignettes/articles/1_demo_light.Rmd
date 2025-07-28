@@ -27,7 +27,6 @@ library(ggplot2)
 library(scales)
 library(palmerpenguins)
 
-devtools::load_all()
 set_blanket()
 
 penguins2 <- penguins |> 
@@ -198,7 +197,7 @@ experiment |>
     ymax = upper,
     col = group,
     y_title = "Response",
-    width = 0.1,
+    width = 0.05,
     y_limits_include = 0,
  )
 ```
@@ -210,7 +209,6 @@ penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
-    theme = theme_lighter(legend_position = "top"),
   ) +
   theme(legend.title = element_blank())
 ```
@@ -369,7 +367,7 @@ penguins2 |>
     sample = body_mass_g,
     col = species,
   ) +
-  geom_qq_line(colour = get_geom_defaults("qq_line")$colour)
+  geom_qq_line()
 ```
 
 ### gg_quantile

@@ -10,8 +10,8 @@ guides_grey(
   colour = NULL,
   fill = NULL,
   bordered = NULL,
-  bordered_colour_by = NULL,
-  bordered_fill_by = NULL,
+  bordered_colour = NULL,
+  bordered_fill = NULL,
   ...
 )
 }
@@ -30,11 +30,11 @@ determined by \code{col} and border settings.}
 \item{bordered}{Logical. Whether to treat as a bordered geom. If NULL,
 automatically determined based on the aesthetic and current geom defaults.}
 
-\item{bordered_colour_by}{Function to transform the base colour for borders.
+\item{bordered_colour}{Function to transform the base colour for borders.
 Defaults to \code{col_multiply()} for light themes and \code{col_screen()} for dark themes.
 Set to NA to disable border colour transformation.}
 
-\item{bordered_fill_by}{Function to transform the base colour for fills.
+\item{bordered_fill}{Function to transform the base colour for fills.
 Defaults to NULL (no transformation). Set to NA to explicitly disable.}
 
 \item{...}{Other arguments passed to \code{\link[ggplot2:guide_legend]{ggplot2::guide_legend()}}.}

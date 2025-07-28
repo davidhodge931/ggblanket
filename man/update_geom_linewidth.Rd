@@ -4,7 +4,7 @@
 \alias{update_geom_linewidth}
 \title{Update the linewidth}
 \usage{
-update_geom_linewidth(linewidth = 0.66, ...)
+update_geom_linewidth(linewidth = 0.5, ...)
 }
 \arguments{
 \item{linewidth}{linewidth.}

@@ -957,7 +957,7 @@ add_matching_aesthetic_guides <- function(
     plot, plot_build, col_legend_rev,
     col_legend_ncol, col_legend_nrow,
     geom = NULL, is_bordered_geom = FALSE,
-    bordered_colour_by = NULL, bordered_fill_by = NULL,
+    bordered_colour = NULL, bordered_fill = NULL,
     aes_list = NULL, data = NULL
 ) {
   # Fixed grey color for legend key overrides
@@ -1020,10 +1020,10 @@ add_matching_aesthetic_guides <- function(
         "shape" = {
           if (geom %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
             list(
-              colour = if (!is.null(bordered_colour_by) && is.function(bordered_colour_by))
-                bordered_colour_by(grey_col) else grey_col,
-              fill = if (!is.null(bordered_fill_by) && is.function(bordered_fill_by))
-                bordered_fill_by(grey_col) else grey_col
+              colour = if (!is.null(bordered_colour) && is.function(bordered_colour))
+                bordered_colour(grey_col) else grey_col,
+              fill = if (!is.null(bordered_fill) && is.function(bordered_fill))
+                bordered_fill(grey_col) else grey_col
             )
           } else {
             list(colour = grey_col)
@@ -1033,18 +1033,18 @@ add_matching_aesthetic_guides <- function(
         "alpha" = {
           if (geom %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
             list(
-              colour = if (!is.null(bordered_colour_by) && is.function(bordered_colour_by))
-                bordered_colour_by(grey_col) else grey_col,
-              fill = if (!is.null(bordered_fill_by) && is.function(bordered_fill_by))
-                bordered_fill_by(grey_col) else grey_col
+              colour = if (!is.null(bordered_colour) && is.function(bordered_colour))
+                bordered_colour(grey_col) else grey_col,
+              fill = if (!is.null(bordered_fill) && is.function(bordered_fill))
+                bordered_fill(grey_col) else grey_col
             )
           } else {
             list(colour = grey_col, fill = grey_col)
           }
         },
         "linewidth" = {
-          if (is_bordered_geom && !is.null(bordered_colour_by) && is.function(bordered_colour_by)) {
-            list(colour = bordered_colour_by(grey_col), fill = grey_col)
+          if (is_bordered_geom && !is.null(bordered_colour) && is.function(bordered_colour)) {
+            list(colour = bordered_colour(grey_col), fill = grey_col)
           } else {
             list(colour = grey_col, fill = grey_col)
           }
@@ -2048,8 +2048,8 @@ add_col_scale <- function(
     colour_palette_d, colour_palette_c, colour_palette_o,
     colour_na, fill_palette_d, fill_palette_c,
     fill_palette_o, fill_na,
-    bordered_colour_by = NULL,
-    bordered_fill_by = NULL
+    bordered_colour = NULL,
+    bordered_fill = NULL
 ) {
 
   # Get NA colors with defaults
@@ -2106,8 +2106,8 @@ add_col_scale <- function(
     col_legend_ncol, col_legend_nrow,
     geom = geom,
     is_bordered_geom = is_bordered_geom,
-    bordered_colour_by = bordered_colour_by,
-    bordered_fill_by = bordered_fill_by,
+    bordered_colour = bordered_colour,
+    bordered_fill = bordered_fill,
     aes_list = aes_list,
     data = data
   )
@@ -2559,7 +2559,7 @@ check_same_colour_fill_mapping <- function(plot) {
 #' @noRd
 apply_secondary_grey_guides <- function(
     plot, aes_list, data, geom, is_bordered_geom,
-    bordered_colour_by, bordered_fill_by,
+    bordered_colour, bordered_fill,
     col_legend_ncol, col_legend_nrow,
     shape_legend_rev, linetype_legend_rev
 ) {
@@ -2589,10 +2589,10 @@ apply_secondary_grey_guides <- function(
     if (!same_as_col) {
       if (geom %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
         override_aes <- list(
-          colour = if (!is.null(bordered_colour_by) && is.function(bordered_colour_by))
-            bordered_colour_by(grey_col) else grey_col,
-          fill = if (!is.null(bordered_fill_by) && is.function(bordered_fill_by))
-            bordered_fill_by(grey_col) else grey_col
+          colour = if (!is.null(bordered_colour) && is.function(bordered_colour))
+            bordered_colour(grey_col) else grey_col,
+          fill = if (!is.null(bordered_fill) && is.function(bordered_fill))
+            bordered_fill(grey_col) else grey_col
         )
       } else {
         override_aes <- list(colour = grey_col)

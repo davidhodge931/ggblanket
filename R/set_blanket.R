@@ -19,9 +19,9 @@
 #' @param col_na A NA colour/fill value.
 #' @param shape_palette_d For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
 #' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
-#' @param bordered_colour_by A function with input of `col`. Defaults to `col_screen`/`col_multiply` based on the panel.
-#' @param bordered_fill_by A function with input of `col`. Defaults to NULL.
-#' @param bordered_linewidth A number. Defaults to 0.25.
+#' @param bordered_colour A function with input of the set `col`. Defaults to `col_screen`/`col_multiply` based on the panel.
+#' @param bordered_fill A function with input of the set `col`. Defaults to NULL.
+#' @param bordered_linewidth A number, or a function with input of the set linewidth. Defaults to 0.25.
 
 #' @param titles_case A function to apply to unspecified/unlabelled titles in `gg_*` functions.
 #'   Defaults to `snakecase::to_sentence_case`.
@@ -54,16 +54,16 @@ set_blanket <- function(
     theme = theme_lighter(),
 
     col = "#357BA2FF",
-    linewidth = 0.5,
+    linewidth = 0.66,
     linetype = 1,
     size = 1.5,
     shape = 21,
     stroke = 0.5,
 
-    bordered_colour_by = \(x) {
+    bordered_colour = \(x) {
       ifelse(is_panel_dark(), col_screen(x), col_multiply(x))
     },
-    bordered_fill_by = NULL,
+    bordered_fill = NULL,
     bordered_linewidth = 0.25,
 
     col_palette_d = scales::pal_hue(),
@@ -102,8 +102,8 @@ set_blanket <- function(
   )
 
   update_geom_bordered(
-    bordered_colour_by = bordered_colour_by,
-    bordered_fill_by = bordered_fill_by,
+    bordered_colour = bordered_colour,
+    bordered_fill = bordered_fill,
     bordered_linewidth = bordered_linewidth
   )
 
