@@ -17,7 +17,6 @@
 #'   gg_area(
 #'     x = date,
 #'     y = unemploy,
-#'     y_title = "Unemployment",
 #'   )
 #'
 gg_area <- function(

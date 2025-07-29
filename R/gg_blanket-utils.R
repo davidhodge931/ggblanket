@@ -1720,6 +1720,7 @@ is_bordered <- function(geom, theme_defaults) {
     "polygon",
     "rect",
     "ribbon",
+    "sf",
     "smooth",
     "tile",
     "violin",

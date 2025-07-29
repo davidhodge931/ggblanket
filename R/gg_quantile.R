@@ -11,7 +11,6 @@
 #' if (requireNamespace("quantreg", quietly = TRUE)) {
 #'   library(ggplot2)
 #'
-#'
 #'   set_blanket()
 #'
 #'   palmerpenguins::penguins |>

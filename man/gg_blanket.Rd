@@ -124,7 +124,7 @@ gg_blanket(
 
 \item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, colour, fill, shape, linetype, alpha, linewidth, size, facet, facet2, group, subgroup, label, text, sample}{A mapped (unquoted) aesthetic variable. Or a set aesthetic value.}
 
-\item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} defaults for use with delayed evaluation etc.}
+\item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} for advanced edge-case situations (e.g.delayed evaluation etc).}
 
 \item{bordered}{TRUE or FALSE of whether the \code{bordered_colour} and \code{bordered_fill} should be applied.}
 
@@ -198,4 +198,21 @@ Create a blanket ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot
 with \link[ggplot2:geom_blank]{geom_blank()} defaults for the geom, stat and position.
 
 This function underlies all other \verb{gg_*} functions.
+}
+\examples{
+library(ggplot2)
+library(dplyr)
+
+set_blanket()
+
+palmerpenguins::penguins |>
+  gg_blanket(
+    geom = "violin",
+    stat = "ydensity",
+    position = "dodge",
+    x = flipper_length_mm,
+    y = species,
+    col = sex,
+  )
+
 }

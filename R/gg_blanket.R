@@ -17,7 +17,7 @@
 #' @param aspect_axis_ticks_rm `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `aspect` of the plot.
 #' @param aspect_panel_grid_rm `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `aspect` of the plot.
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,alpha,linewidth,size,facet,facet2,group,subgroup,label,text,sample A mapped (unquoted) aesthetic variable. Or a set aesthetic value.
-#' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] defaults for use with delayed evaluation etc.
+#' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] for advanced edge-case situations (e.g.delayed evaluation etc).
 #' @param bordered TRUE or FALSE of whether the `bordered_colour` and `bordered_fill` should be applied.
 #' @param bordered_colour A function with input of `col` or `col_palette`. Defaults to screen/multiply based on theme.
 #' @param bordered_fill A function with input of `col` or `col_palette`. Defaults to NULL.
@@ -53,6 +53,23 @@
 #'
 #' @return A ggplot object.
 #' @export
+#'
+#' @examples
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' set_blanket()
+#'
+#' palmerpenguins::penguins |>
+#'   gg_blanket(
+#'     geom = "violin",
+#'     stat = "ydensity",
+#'     position = "dodge",
+#'     x = flipper_length_mm,
+#'     y = species,
+#'     col = sex,
+#'   )
+#'
 gg_blanket <- function(
     data = NULL,
     ...,
@@ -547,9 +564,12 @@ gg_blanket <- function(
       }
       # If col IS NA, don't inherit it to colour
     } else {
-      # Use theme default when neither colour nor col are set
-      # default_col <- theme_defaults$geom$colour %||% "#8991A1FF"
-      default_col <- ggplot2::get_geom_defaults(geom)$colour %||% "#8991A1FF"
+      if (geom == "sf") {
+        default_col <- ggplot2::get_geom_defaults("bar")$colour %||% "#8991A1FF"
+      }
+      else {
+        default_col <- ggplot2::get_geom_defaults(geom)$colour %||% "#8991A1FF"
+      }
 
       if (
         is_bordered_geom &&
@@ -586,10 +606,12 @@ gg_blanket <- function(
       }
       # If col IS NA, don't inherit it to fill
     } else {
-      # Use theme default when neither fill nor col are set
-
-      # default_fill <- theme_defaults$geom$fill %||% "#8991A1FF"
-      default_fill <- ggplot2::get_geom_defaults(geom)$fill %||% "#8991A1FF"
+      if (geom == "sf") {
+        default_fill <- ggplot2::get_geom_defaults("bar")$fill %||% "#8991A1FF"
+      }
+      else {
+        default_fill <- ggplot2::get_geom_defaults(geom)$fill %||% "#8991A1FF"
+      }
 
       if (
         is_bordered_geom &&
@@ -630,7 +652,12 @@ gg_blanket <- function(
   if (!shape_map_or_set$is_aesthetic && !is.null(shape_map_or_set$value)) {
     fixed_params$shape <- shape_map_or_set$value
   } else if (!shape_map_or_set$is_aesthetic) {
-    fixed_params$shape <- ggplot2::get_geom_defaults(geom)$shape %||% 19
+    if (geom == "sf") {
+      fixed_params$shape <- 21
+    }
+    else if (!shape_map_or_set$is_aesthetic) {
+      fixed_params$shape <- ggplot2::get_geom_defaults(geom)$shape %||% 21
+    }
   }
 
   if (
@@ -649,7 +676,9 @@ gg_blanket <- function(
     if (geom == "smooth") {
       fixed_params$linewidth <- ggplot2::get_geom_defaults("line")$linewidth
     } else if (geom == "tile") {
-      fixed_params$linewidth <- ggplot2::get_geom_defaults("rect")$linewidth
+      fixed_params$linewidth <- ggplot2::get_geom_defaults("bar")$linewidth
+    } else if (geom == "sf") {
+      fixed_params$linewidth <- ggplot2::get_geom_defaults("bar")$linewidth
     } else {
       fixed_params$linewidth <- ggplot2::get_geom_defaults(geom)$linewidth
     }

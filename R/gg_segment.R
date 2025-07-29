@@ -11,7 +11,6 @@
 #' library(ggplot2)
 #' library(dplyr)
 #'
-#'
 #' set_blanket()
 #'
 #' data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>

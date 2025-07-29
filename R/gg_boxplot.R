@@ -13,7 +13,6 @@
 #' library(ggplot2)
 #' library(dplyr)
 #'
-#'
 #' set_blanket()
 #'
 #' palmerpenguins::penguins |>

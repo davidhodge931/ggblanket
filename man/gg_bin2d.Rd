@@ -119,7 +119,7 @@ gg_bin2d(
 
 \item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, colour, fill, shape, linetype, alpha, linewidth, size, facet, facet2, group, subgroup, label, text, sample}{A mapped (unquoted) aesthetic variable. Or a set aesthetic value.}
 
-\item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} defaults for use with delayed evaluation etc.}
+\item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} for advanced edge-case situations (e.g.delayed evaluation etc).}
 
 \item{bordered}{TRUE or FALSE of whether the \code{bordered_colour} and \code{bordered_fill} should be applied.}
 
@@ -197,7 +197,8 @@ diamonds |>
   gg_bin2d(
     x = carat,
     y = price,
-    coord = coord_cartesian(),
+    coord = coord_cartesian(ylim = c(0, NA)),
+    y_expand = expansion(c(0, 0.01)),
   )
 
 }

@@ -89,7 +89,10 @@ update_geom_bordered <- function(
       linewidth = bordered_linewidth,
       borderwidth = bordered_linewidth
     ),
-    # sf inherits from point/line, so not required
+    geom.sf = ggplot2::element_geom(
+      linewidth = bordered_linewidth,
+      borderwidth = bordered_linewidth
+    ),
     geom.tile = ggplot2::element_geom(
       linewidth = bordered_linewidth,
       borderwidth = bordered_linewidth

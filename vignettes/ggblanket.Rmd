@@ -142,7 +142,7 @@ palmerpenguins::penguins |>
 
 ### 6. All other aesthetics supported
 
-Other aeesthetics are available: `alpha`, `size`, `shape`, `linetype` and `linewidth`. These can be either mapped as an aesthetic, or set to a value. The `mapping` argument is also provided for use with `ggplot2::after_stat`. 
+Other aesthetics are available: `alpha`, `size`, `shape`, `linetype` and `linewidth`. These can be either mapped as an aesthetic, or set to a value. 
 
 ```{r}
 palmerpenguins::penguins |> 
@@ -373,7 +373,7 @@ set_blanket()
 
 ### 15. Consistent effortless bordered style 
 
-Certain geoms are classified as "bordered" (e.g. bar, area, tile, polygon etc). Point geoms with shapes 21-25 are also considered bordered. This classification determines whether border logic applies to the underlying colour/fill and equivalent palettes for these aesthethics. By default bordered polygons are applied a multiply blending of their colour to itself, and fill is left unchanged. Use `bordered = FALSE` to turn this off, or `set_blanket(bordered_colour = \(x) x, bordered_fill = \(x) x, ...)`. It is intended that in `set_blanket`, users rely on the `col` argument primarily to colour/fill, and likewise the `col_palette_*` palettes. The `colour`/`fill` and `colour_palette`/`fill_palette` arguments are provided in `gg_blanket` to support deviations from this approach. 
+Certain geoms are classified as "bordered" (e.g. bar, area, tile, polygon etc). Point geoms with shapes 21-25 are also considered bordered. This classification determines whether border logic applies to the underlying colour/fill and equivalent palettes for these aesthetics. By default bordered polygons are applied a multiply blending of their colour to itself, and fill is left unchanged. Use `bordered = FALSE` to turn this off, or `set_blanket(bordered_colour = \(x) x, bordered_fill = \(x) x, ...)`. It is intended that in `set_blanket`, users rely on the `col` argument primarily to colour/fill, and likewise the `col_palette_*` palettes. The `colour`/`fill` and `colour_palette`/`fill_palette` arguments are provided in `gg_blanket` to support deviations from this approach. 
 
 ```{r}
 set_blanket(

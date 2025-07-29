@@ -11,13 +11,14 @@
 #' library(ggplot2)
 #' library(dplyr)
 #'
-#'
 #' set_blanket()
 #'
 #' diamonds |>
 #'   gg_hex(
 #'     x = carat,
 #'     y = price,
+#'     coord = coord_cartesian(ylim = c(0, NA)),
+#'     y_expand = expansion(c(0, 0.01)),
 #'   )
 #'
 gg_hex <- function(
