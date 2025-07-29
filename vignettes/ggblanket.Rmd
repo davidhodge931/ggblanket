@@ -232,12 +232,12 @@ set_blanket()
 
 ### 11.  Side-effects to the `theme` based on the `aspect`
 
-The `gg_*` function adds helpful side-effects to the theme based on the `aspect`, `aspect_axis_line_rm`, `aspect_axis_ticks_rm` and , `aspect_panel_grid_rm` arguments. 
+The `gg_*` function adds helpful side-effects to the theme based on the `aspect`, `aspect_axis_line_transparent`, `aspect_axis_ticks_transparent` and , `aspect_panel_grid_transparent` arguments. 
 
 * Where `aspect = "x"`, the `gg_*` function will remove the y axis line/ticks and the x gridlines from the `theme` (by changing their colour to "transparent"). 
 * Where `aspect = "y"`, the opposite will occur. 
 
-If the `gg_*` guesses an incorrect `aspect`, then the user can change this. The user can set these side-effects in `set_blanket` by setting `axis_line_transparent`, `axis_ticks_transparent` or , `panel_grid_transparent` to `FALSE`.
+If the `gg_*` guesses an incorrect `aspect`, then the user can change this. The user can set these side-effects in `set_blanket` by setting `aspect_axis_line_transparent`, `aspect_axis_ticks_transparent` or , `aspect_panel_grid_transparent` to `FALSE`.
 
 Any `theme` used in `set_blanket` should be designed to anticipate the side-effects desired (i.e. include panel grid, axis line and axis ticks in both directions). 
 
@@ -289,7 +289,7 @@ Note all continuous scales ensure _all_ data is kept using `scales::oob_keep` - 
 
 ### 13. Ability to add multiple `geom_*` layers
 
-Users can make plots with multiple `ggplot2::geom_*` layers. 
+ggblanket is primarily build for single geoms. However, users can add multiple `ggplot2::geom_*` layers. 
 
 The `gg_*()` geom layer will be the bottom geom layer of the plot, and each subsequent `geom_*()` layer is placed on top. 
 
@@ -300,7 +300,7 @@ palmerpenguins::penguins |>
     y = bill_depth_mm,
     outliers = FALSE,
   ) +
-  geom_jitter(shape = 19) 
+  geom_jitter(shape = 19, colour = col_multiply(jumble[11])) 
 ```
 
 The scales are built within the `gg_*()` function _without_ knowledge of later layers. The `gg_*()` function builds scales with regard to the `stat`, `position`, and aesthetics (that the geom understands) etc. So, in some situations, users will need to take care. 
@@ -321,7 +321,7 @@ palmerpenguins::penguins |>
     xmin = lower, 
     xmax = upper,
     col = sex,
-    col_border = TRUE, 
+    bordered = TRUE,
     x_limits_include = 0,
   ) +
   geom_col(
@@ -378,7 +378,7 @@ Certain geoms are classified as "bordered" (e.g. bar, area, tile, polygon etc). 
 ```{r}
 set_blanket(
   theme = theme_lighter(),
-  bordered_colour = \(x) scales::col_darker(x, amount = 50),
+  bordered_colour = \(x) scales::col_darker(x, amount = 40),
   bordered_linewidth = 0.5,
 )
   

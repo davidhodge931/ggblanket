@@ -25,11 +25,11 @@
 
 #' @param titles_case A function to apply to unspecified/unlabelled titles in `gg_*` functions.
 #'   Defaults to `snakecase::to_sentence_case`.
-#' @param aspect_axis_line_rm Logical. Whether `gg_*` functions should remove the relevant
+#' @param aspect_axis_line_transparent Logical. Whether `gg_*` functions should remove the relevant
 #'   axis line based on plot aspect. Defaults to TRUE.
-#' @param aspect_axis_ticks_rm Logical. Whether `gg_*` functions should remove the relevant
+#' @param aspect_axis_ticks_transparent Logical. Whether `gg_*` functions should remove the relevant
 #'   axis ticks based on plot aspect. Defaults to TRUE.
-#' @param aspect_panel_grid_rm Logical. Whether `gg_*` functions should remove the relevant
+#' @param aspect_panel_grid_transparent Logical. Whether `gg_*` functions should remove the relevant
 #'   panel grid based on plot aspect. Defaults to TRUE.
 #' @param ... Additional arguments (not used).
 #'
@@ -74,9 +74,9 @@ set_blanket <- function(
     linetype_palette_d = 1:6,
 
     titles_case = snakecase::to_sentence_case,
-    aspect_axis_line_rm = TRUE,
-    aspect_axis_ticks_rm = TRUE,
-    aspect_panel_grid_rm = TRUE,
+    aspect_axis_line_transparent = TRUE,
+    aspect_axis_ticks_transparent = TRUE,
+    aspect_panel_grid_transparent = TRUE,
     ...
 ) {
   # Set the theme first
@@ -114,8 +114,8 @@ set_blanket <- function(
   update_titles_case(titles_case = titles_case)
 
   update_aspect(
-    aspect_axis_line_rm = aspect_axis_line_rm,
-    aspect_axis_ticks_rm = aspect_axis_ticks_rm,
-    aspect_panel_grid_rm = aspect_panel_grid_rm
+    aspect_axis_line_transparent = aspect_axis_line_transparent,
+    aspect_axis_ticks_transparent = aspect_axis_ticks_transparent,
+    aspect_panel_grid_transparent = aspect_panel_grid_transparent
   )
 }

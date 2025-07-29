@@ -123,6 +123,14 @@ sysfonts::font_add_google(name = 'Syne Mono', family = 'syne')
 
 showtext::showtext_auto(enable = TRUE)
 
+set_blanket(
+  theme = theme_lighter(base_family = "grace") +
+  theme(
+    plot.title = element_text(family = "roboto_slab"),
+    plot.subtitle = element_text(family = "syne")
+  ),
+)
+
 penguins2 |>
   gg_point(
     x = flipper_length_mm,
@@ -132,12 +140,7 @@ penguins2 |>
     title = "penguins2 body mass by flipper length",
     subtitle = "Palmer Archipelago, Antarctica",
     caption = "Source: Gorman, 2020",
-    theme = theme_lighter(base_family = "grace"),
-  ) +
-  theme(
-    plot.title = element_text(family = "roboto_slab"),
-    plot.subtitle = element_text(family = "syne")
-  )
+  ) 
 
 showtext::showtext_auto(enable = FALSE)
 ```
@@ -196,7 +199,7 @@ penguins2 |>
     y = body_mass_g,
     col = species,
     coord = coord_cartesian(),
-    col_border = TRUE,
+    bordered = TRUE,
   ) +
   geom_point()
 ```
@@ -270,12 +273,12 @@ ggridges::Catalan_elections |>
     stat = "density_ridges",
     position = "points_sina",
     coord = coord_cartesian(xlim = c(0, 100)),
+    bordered = TRUE,
     x = percent,
     y = year,
     col = option,
-    col_border = TRUE,
     y_expand = c(0, 0),
-    perspective = "x",
+    aspect = "x",
   )
 ```
 
@@ -310,7 +313,7 @@ d |>
     fill = jumble[11], 
     colour = col_multiply(jumble[11]),
     y_expand = expansion(c(0.05, 0)),
-    perspective = "x",
+    aspect = "x",
   ) 
 ```
 

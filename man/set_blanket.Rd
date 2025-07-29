@@ -25,9 +25,9 @@ set_blanket(
   shape_palette_d = c(21, 24, 22, 23, 25),
   linetype_palette_d = 1:6,
   titles_case = snakecase::to_sentence_case,
-  aspect_axis_line_rm = TRUE,
-  aspect_axis_ticks_rm = TRUE,
-  aspect_panel_grid_rm = TRUE,
+  aspect_axis_line_transparent = TRUE,
+  aspect_axis_ticks_transparent = TRUE,
+  aspect_panel_grid_transparent = TRUE,
   ...
 )
 }
@@ -67,13 +67,13 @@ set_blanket(
 \item{titles_case}{A function to apply to unspecified/unlabelled titles in \verb{gg_*} functions.
 Defaults to \code{snakecase::to_sentence_case}.}
 
-\item{aspect_axis_line_rm}{Logical. Whether \verb{gg_*} functions should remove the relevant
+\item{aspect_axis_line_transparent}{Logical. Whether \verb{gg_*} functions should remove the relevant
 axis line based on plot aspect. Defaults to TRUE.}
 
-\item{aspect_axis_ticks_rm}{Logical. Whether \verb{gg_*} functions should remove the relevant
+\item{aspect_axis_ticks_transparent}{Logical. Whether \verb{gg_*} functions should remove the relevant
 axis ticks based on plot aspect. Defaults to TRUE.}
 
-\item{aspect_panel_grid_rm}{Logical. Whether \verb{gg_*} functions should remove the relevant
+\item{aspect_panel_grid_transparent}{Logical. Whether \verb{gg_*} functions should remove the relevant
 panel grid based on plot aspect. Defaults to TRUE.}
 
 \item{...}{Additional arguments (not used).}

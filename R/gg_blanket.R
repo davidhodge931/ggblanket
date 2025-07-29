@@ -13,9 +13,9 @@
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param aspect The aspect of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
-#' @param aspect_axis_line_rm `TRUE` or `FALSE` of whether to remove the relevant axis line per the `aspect` of the plot.
-#' @param aspect_axis_ticks_rm `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `aspect` of the plot.
-#' @param aspect_panel_grid_rm `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `aspect` of the plot.
+#' @param aspect_axis_line_transparent `TRUE` or `FALSE` of whether to remove the relevant axis line per the `aspect` of the plot.
+#' @param aspect_axis_ticks_transparent `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `aspect` of the plot.
+#' @param aspect_panel_grid_transparent `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `aspect` of the plot.
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,alpha,linewidth,size,facet,facet2,group,subgroup,label,text,sample A mapped (unquoted) aesthetic variable. Or a set aesthetic value.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] for advanced edge-case situations (e.g.delayed evaluation etc).
 #' @param bordered TRUE or FALSE of whether the `bordered_colour` and `bordered_fill` should be applied.
@@ -79,9 +79,9 @@ gg_blanket <- function(
     coord = NULL,
     blend = NULL,
     aspect = NULL,
-    aspect_axis_line_rm = NULL,
-    aspect_axis_ticks_rm = NULL,
-    aspect_panel_grid_rm = NULL,
+    aspect_axis_line_transparent = NULL,
+    aspect_axis_ticks_transparent = NULL,
+    aspect_panel_grid_transparent = NULL,
     x = NULL,
     xmin = NULL,
     xmax = NULL,
@@ -1201,17 +1201,17 @@ gg_blanket <- function(
 
   # Step 23: Apply theme transparency
   transparency <- get_aspect_behaviour(
-    aspect_axis_line_rm,
-    aspect_axis_ticks_rm,
-    aspect_panel_grid_rm
+    aspect_axis_line_transparent,
+    aspect_axis_ticks_transparent,
+    aspect_panel_grid_transparent
   )
 
   plot <- add_aspect(
     plot,
     aspect,
-    transparency$aspect_axis_line_rm,
-    transparency$aspect_axis_ticks_rm,
-    transparency$aspect_panel_grid_rm,
+    transparency$aspect_axis_line_transparent,
+    transparency$aspect_axis_ticks_transparent,
+    transparency$aspect_panel_grid_transparent,
     x_scale_class,
     y_scale_class
   )

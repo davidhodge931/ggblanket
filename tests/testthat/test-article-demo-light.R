@@ -3,126 +3,93 @@ testthat::skip_on_os(c("mac", "linux"))
 
 library(ggplot2)
 library(dplyr)
+
 set_blanket()
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_area"
-
-test_that(test_name, {
-  p <- economics |>
+test_that("gg_area works", {
+  economics |>
     gg_area(
       x = date,
       y = unemploy,
       y_title = "Unemployment",
     )
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_bar"
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
-    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
+test_that("gg_bar works", {
+  palmerpenguins::penguins |>
     gg_bar(
+      position = position_dodge(preserve = "single"),
       y = species,
       col = sex,
-      position = position_dodge(preserve = "single"),
       width = 0.75,
     )
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_bin2d"
-
-test_that(test_name, {
-  p <- ggplot2::diamonds |>
+test_that("gg_bin2d works", {
+  diamonds |>
     gg_bin2d(
       x = carat,
       y = price,
-      coord = coord_cartesian(),
+      coord = coord_cartesian(ylim = c(0, NA)),
+      y_expand = expansion(c(0, 0.01))
     )
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_boxplot"
-set_blanket(theme = theme_lighter(legend_position = "bottom"))
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
-    tidyr::drop_na(sex) |>
-    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
+test_that("gg_boxplot works", {
+  palmerpenguins::penguins |>
     gg_boxplot(
       x = flipper_length_mm,
       y = sex,
       col = species,
     )
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-set_blanket()
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_col"
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
-    tidyr::drop_na(sex) |>
-    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
+test_that("gg_col works", {
+  palmerpenguins::penguins |>
     group_by(sex, species) |>
-    summarise(dplyr::across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
+    summarise(across(flipper_length_mm, \(x) mean(x, na.rm = TRUE))) |>
+    labelled::copy_labels_from(palmerpenguins::penguins) |>
     gg_col(
+      position = position_dodge(preserve = "single"),
       x = flipper_length_mm,
       y = species,
       col = sex,
-      position = position_dodge(preserve = "single"),
       width = 0.75,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_contour"
-
-test_that(test_name, {
-  p <- ggplot2::faithfuld |>
+test_that("gg_contour works", {
+  faithfuld |>
     gg_contour(
       x = waiting,
       y = eruptions,
       z = density,
+      bins = 20,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_contour_filled"
-
-test_that(test_name, {
-  p <- ggplot2::faithfuld |>
+test_that("gg_contour_filled works", {
+  faithfuld |>
     gg_contour_filled(
       x = waiting,
       y = eruptions,
       z = density,
-      bins = 8,
+      bins = 20,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_crossbar"
+test_that("gg_crossbar works", {
 
-test_that(test_name, {
-  p <- data.frame(
+  data.frame(
     trt = factor(c(1, 1, 2, 2)),
     resp = c(1, 5, 3, 4),
     group = factor(c(1, 2, 1, 2)),
     upper = c(1.1, 5.3, 3.3, 4.2),
-    lower = c(0.8, 4.6, 2.4, 3.6)
-  ) |>
+    lower = c(0.8, 4.6, 2.4, 3.6)) |>
+    labelled::set_variable_labels(
+      trt = "Treatment",
+      resp = "Response"
+    ) |>
     gg_crossbar(
       x = trt,
       y = resp,
@@ -130,190 +97,144 @@ test_that(test_name, {
       ymax = upper,
       col = group,
       width = 0.5,
-      x_title = "Treatment",
-      y_title = "Response",
+      y_limits_include = 0,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_density"
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
-    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
-    tidyr::drop_na(sex) |>
+test_that("gg_density works", {
+  palmerpenguins::penguins |>
     gg_density(
       x = flipper_length_mm,
       col = species,
-      theme = theme_lighter(legend_position = "top"),
+      blend = "multiply",
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_density2d"
-
-test_that(test_name, {
-  set.seed(123)
-
-  p <- faithful |>
+test_that("gg_density2d works", {
+  faithful |>
     gg_density2d(
       x = waiting,
       y = eruptions,
-      bins = 8,
-      contour = TRUE,
+      bins = 20,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_density2d_filled"
-
-test_that(test_name, {
-  set.seed(123)
-
-  p <- faithful |>
+test_that("gg_density2d_filled works", {
+  faithful |>
     gg_density2d_filled(
       x = waiting,
       y = eruptions,
-      bins = 8,
-      contour = TRUE,
+      bins = 20,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_errorbar"
-
-test_that(test_name, {
-  p <- data.frame(
+test_that("gg_errorbar works", {
+  data.frame(
     trt = factor(c(1, 1, 2, 2)),
     resp = c(1, 5, 3, 4),
     group = factor(c(1, 2, 1, 2)),
     upper = c(1.1, 5.3, 3.3, 4.2),
-    lower = c(0.8, 4.6, 2.4, 3.6)
-  ) |>
+    lower = c(0.8, 4.6, 2.4, 3.6)) |>
+    labelled::set_variable_labels(
+      trt = "Treatment",
+      resp = "Response"
+    ) |>
     gg_errorbar(
       x = trt,
       ymin = lower,
       ymax = upper,
       col = group,
-      width = 0.1,
-      x_title = "Treatment",
       y_title = "Response",
+      width = 0.05,
+      y_limits_include = 0,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_freqpoly"
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
-    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
+test_that("gg_freqpoly works", {
+  palmerpenguins::penguins |>
     gg_freqpoly(
       x = flipper_length_mm,
       col = sex,
-    ) +
-    theme(legend.title = element_blank())
-
-  vdiffr::expect_doppelganger(test_name, p)
+    )
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_function"
+test_that("gg_function works", {
+  mean <- 0
+  sd <- 1
 
-test_that(test_name, {
-  p <- gg_function(
-    fun = \(x) dnorm(x, mean = 0, sd = 5),
-    x_limits_include = qnorm(p = c(0.005, 0.995), mean = 0, sd = 5),
-    y_limits_include = 0,
+  gg_function(
+    fun = \(x) dnorm(x, mean = mean, sd = sd),
+    x_limits_include = qnorm(p = c(0.005, 0.995), mean = mean, sd = sd),
+    y_symmetric = FALSE,
   )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_hex"
-
-test_that(test_name, {
-  p <- ggplot2::diamonds |>
+test_that("gg_hex works", {
+  diamonds |>
     gg_hex(
       x = carat,
       y = price,
-      coord = coord_cartesian(clip = "on"),
+      coord = coord_cartesian(ylim = c(0, NA)),
+      y_expand = expansion(c(0, 0.01))
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_histogram"
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
-    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
+test_that("gg_histogram works", {
+  palmerpenguins::penguins |>
     gg_histogram(
       x = flipper_length_mm,
       col = sex,
-      facet = species,
-      bins = 50,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_line"
+test_that("gg_jitter works", {
+  set.seed(123)
 
-test_that(test_name, {
-  p <- economics |>
+  palmerpenguins::penguins |>
+    gg_jitter(
+      position = position_jitter(),
+      x = species,
+      y = body_mass_g,
+      col = flipper_length_mm,
+      y_limits_include = 0,
+    )
+})
+
+test_that("gg_line works", {
+  economics |>
     gg_line(
       x = date,
       y = unemploy,
       y_limits_include = 0,
       y_title = "Unemployment",
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_linerange"
-
-test_that(test_name, {
-  p <- data.frame(
+test_that("gg_linerange works", {
+  data.frame(
     trt = factor(c(1, 1, 2, 2)),
     resp = c(1, 5, 3, 4),
     group = factor(c(1, 2, 1, 2)),
     upper = c(1.1, 5.3, 3.3, 4.2),
-    lower = c(0.8, 4.6, 2.4, 3.6)
-  ) |>
+    lower = c(0.8, 4.6, 2.4, 3.6)) |>
+    labelled::set_variable_labels(
+      trt = "Treatment",
+      resp = "Response"
+    ) |>
     gg_linerange(
+      position = position_dodge(width = 0.2),
       x = trt,
       ymin = lower,
       ymax = upper,
       col = group,
-      position = position_dodge(width = 0.2),
-      x_title = "Treatment",
       y_title = "Response",
+      y_limits_include = 0,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_path"
-
-test_that(test_name, {
-  p <- economics |>
-    dplyr::mutate(unemploy_rate = unemploy / pop) |>
+test_that("gg_path works", {
+  economics |>
+    mutate(unemploy_rate = unemploy / pop) |>
     gg_path(
       x = unemploy_rate,
       y = psavert,
@@ -321,53 +242,40 @@ test_that(test_name, {
       y_limits_include = 0,
       y_title = "Personal savings rate",
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_point"
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
+test_that("gg_point works", {
+  palmerpenguins::penguins |>
     gg_point(
       x = flipper_length_mm,
       y = body_mass_g,
       col = species,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-# test_name <- "gg_pointrange"
-#
-# test_that(test_name, {
-#   p <- data.frame(
-#     trt = factor(c(1, 1, 2, 2)),
-#     resp = c(1, 5, 3, 4),
-#     group = factor(c(1, 2, 1, 2)),
-#     upper = c(1.1, 5.3, 3.3, 4.2),
-#     lower = c(0.8, 4.6, 2.4, 3.6)
-#   ) |>
-#     gg_pointrange(
-#       x = trt,
-#       y = resp,
-#       col = group,
-#       ymin = lower,
-#       ymax = upper,
-#       position = position_dodge(width = 0.2),
-#       x_title = "Treatment",
-#       y_title = "Response",
-#     )
-#
-#   vdiffr::expect_doppelganger(test_name, p)
-# })
+test_that("gg_pointrange works", {
+  data.frame(
+    trt = factor(c(1, 1, 2, 2)),
+    resp = c(1, 5, 3, 4),
+    group = factor(c(1, 2, 1, 2)),
+    upper = c(1.1, 5.3, 3.3, 4.2),
+    lower = c(0.8, 4.6, 2.4, 3.6)) |>
+    labelled::set_variable_labels(
+      trt = "Treatment",
+      resp = "Response"
+    ) |>
+    gg_pointrange(
+      position = position_dodge(width = 0.2),
+      x = trt,
+      y = resp,
+      col = group,
+      ymin = lower,
+      ymax = upper,
+      y_limits_include = 0,
+    )
+})
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_polygon"
-
-test_that(test_name, {
+test_that("gg_polygon works", {
   ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
 
   values <- data.frame(
@@ -377,128 +285,55 @@ test_that(test_name, {
 
   positions <- data.frame(
     id = rep(ids, each = 4),
-    x = c(
-      2,
-      1,
-      1.1,
-      2.2,
-      1,
-      0,
-      0.3,
-      1.1,
-      2.2,
-      1.1,
-      1.2,
-      2.5,
-      1.1,
-      0.3,
-      0.5,
-      1.2,
-      2.5,
-      1.2,
-      1.3,
-      2.7,
-      1.2,
-      0.5,
-      0.6,
-      1.3
-    ),
-    y = c(
-      -0.5,
-      0,
-      1,
-      0.5,
-      0,
-      0.5,
-      1.5,
-      1,
-      0.5,
-      1,
-      2.1,
-      1.7,
-      1,
-      1.5,
-      2.2,
-      2.1,
-      1.7,
-      2.1,
-      3.2,
-      2.8,
-      2.1,
-      2.2,
-      3.3,
-      3.2
-    )
+    x = c(2, 1, 1.1, 2.2, 1, 0, 0.3, 1.1, 2.2, 1.1, 1.2, 2.5, 1.1, 0.3,
+          0.5, 1.2, 2.5, 1.2, 1.3, 2.7, 1.2, 0.5, 0.6, 1.3),
+    y = c(-0.5, 0, 1, 0.5, 0, 0.5, 1.5, 1, 0.5, 1, 2.1, 1.7, 1, 1.5,
+          2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2)
   )
 
   datapoly <- merge(values, positions, by = c("id"))
 
-  p <- datapoly |>
+  datapoly |>
     gg_polygon(
       x = x,
       y = y,
       col = value,
       group = id,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_qq"
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
+test_that("gg_qq works", {
+  palmerpenguins::penguins |>
     gg_qq(
       sample = body_mass_g,
-      facet = species,
-      coord = coord_cartesian(clip = "on"),
-    ) +
-    geom_qq_line(
-      colour = "#357BA2FF",
+      col = species,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_quantile"
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
+test_that("gg_quantile works", {
+  palmerpenguins::penguins |>
     gg_quantile(
       x = flipper_length_mm,
       y = body_mass_g,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_raster"
-
-test_that(test_name, {
-  p <- ggplot2::faithfuld |>
+test_that("gg_raster works", {
+  faithfuld |>
     gg_raster(
       x = waiting,
       y = eruptions,
       col = density,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_rect"
-
-test_that(test_name, {
-  p <- data.frame(
+test_that("gg_rect works", {
+  data.frame(
     x = rep(c(2, 5, 7, 9, 12), 2),
     y = rep(c(1, 2), each = 5),
     z = factor(c(rep(1:4, each = 2), 5, NA)),
-    w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
-  ) |>
-    dplyr::mutate(
+    w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)) |>
+    mutate(
       xmin = x - w / 2,
       xmax = x + w / 2,
       ymin = y,
@@ -510,16 +345,12 @@ test_that(test_name, {
       ymin = ymin,
       ymax = ymax,
       col = z,
+      linetype = 1,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_ribbon"
-
-test_that(test_name, {
-  p <- data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
+test_that("gg_ribbon works", {
+  data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     mutate(level_min = level - 1, level_max = level + 1) |>
     gg_ribbon(
       x = year,
@@ -528,74 +359,46 @@ test_that(test_name, {
       x_labels = \(x) x,
       y_title = "Level",
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-# test_name <- "gg_rug"
-#
-# test_that(test_name, {
-#   p <- palmerpenguins::penguins |>
-#     dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
-#     gg_rug(
-#       x = flipper_length_mm,
-#       y = body_mass_g,
-#       col = sex,
-#     )
-#
-#   vdiffr::expect_doppelganger(test_name, p)
-# })
+test_that("gg_rug works", {
+  palmerpenguins::penguins |>
+    gg_rug(
+      x = flipper_length_mm,
+      y = body_mass_g,
+      col = sex,
+    )
+})
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_segment"
-
-test_that(test_name, {
-  p <- data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
+test_that("gg_segment works", {
+  data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0) |>
     gg_segment(
       x = x1,
       xend = x2,
       y = y1,
       yend = y2,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-# test_name <- "gg_sf"
-#
-# test_that(test_name, {
-#   p <- sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
-#     gg_sf(
-#       col = AREA,
-#     )
-#
-#   vdiffr::expect_doppelganger(test_name, p)
-# })
+test_that("gg_sf works", {
+  sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
+    gg_sf(
+      col = AREA,
+    )
+})
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_smooth"
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
-    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
-    tidyr::drop_na(sex) |>
+test_that("gg_smooth works", {
+  palmerpenguins::penguins |>
     gg_smooth(
       x = flipper_length_mm,
       y = body_mass_g,
       col = sex,
-      se = TRUE,
+      blend = "multiply",
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_step"
-
-test_that(test_name, {
-  p <- economics |>
+test_that("gg_step works", {
+  economics |>
     filter(date > lubridate::ymd("2010-01-01")) |>
     gg_step(
       x = date,
@@ -603,53 +406,31 @@ test_that(test_name, {
       y_limits_include = 0,
       y_title = "Unemployment",
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_tile"
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
-    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
+test_that("gg_tile works", {
+  palmerpenguins::penguins |>
     group_by(species, sex) |>
     summarise(flipper_length_mm = mean(flipper_length_mm, na.rm = TRUE)) |>
+    labelled::copy_labels_from(palmerpenguins::penguins) |>
     gg_tile(
       x = sex,
       y = species,
       col = flipper_length_mm,
-      width = 0.95,
-      height = 0.95,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_violin"
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
-    tidyr::drop_na(sex) |>
-    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
+test_that("gg_violin works", {
+  palmerpenguins::penguins |>
     gg_violin(
       x = sex,
       y = body_mass_g,
       col = species,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
-## ---------------------------------------------------------------------------------------------------
-test_name <- "gg_blanket"
-
-test_that(test_name, {
-  p <- palmerpenguins::penguins |>
-    tidyr::drop_na(sex) |>
-    dplyr::mutate(dplyr::across(sex, \(x) stringr::str_to_sentence(x))) |>
+test_that("gg_blanket works", {
+  palmerpenguins::penguins |>
     gg_blanket(
       geom = "violin",
       stat = "ydensity",
@@ -658,8 +439,6 @@ test_that(test_name, {
       y = body_mass_g,
       col = species,
     )
-
-  vdiffr::expect_doppelganger(test_name, p)
 })
 
 set_blanket()

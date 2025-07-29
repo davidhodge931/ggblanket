@@ -25,7 +25,7 @@ This article will demonstrate a random assortment of content, including some of 
 * Reorder and/or reverse categorical variables
 * Drop unused categorical variable values
 * Transform scales to `"log"` etc
-* Correct the default perspective
+* Correct the default aspect
 * Avoid the 'symmetric' scale
 * Change the `*_position` of positional axes 
 * Zoom in or out on scales
@@ -212,25 +212,29 @@ p4 <- pressure |>
 (p1 + p2) / (p3 + p4)
 ```
 
-### Correct the default perspective
+### Correct the default aspect (and symmetric scales)
 
-The `gg_*` function guesses the `perspective` of the plot to determine how to make continuous axes and what side-effects to have on the provided theme. If it guesses incorrectly, use either the `perspective` argument.
+The `gg_*` function guesses the `aspect` of the plot to determine what side-effects to have on the set theme. If it guesses incorrectly, use the `aspect` argument.
 
 ```{r}
-p1 <- penguins2 |>
-  gg_point(
-    x = bill_depth_mm,
-    y = bill_length_mm,
-    subtitle = "\nDefault perspective",
+p1 <- palmerpenguins::penguins |>
+  gg_histogram(
+    y = flipper_length_mm,
+    col = sex,
+    bins = 50,
+    subtitle = "\nDefault aspect  (and symmetric scales)",
   )
 
-p2 <- penguins2 |>
-  gg_point(
-    x = bill_depth_mm,
-    y = bill_length_mm,
-    perspective = "y",
-    subtitle = "\nAdjusted perspective",
-  ) 
+p2 <- palmerpenguins::penguins |>
+  gg_histogram(
+    y = flipper_length_mm,
+    col = sex,
+    bins = 50,
+    aspect = "y",
+    x_symmetric = TRUE,
+    y_symmetric = FALSE,
+    subtitle = "\nDefault aspect (and symmetric scales)",
+  )
 
 p1 + p2
 ```
@@ -378,8 +382,7 @@ mpg  |>
     col = cty,
     col_rescale = scales::rescale(rescale_vctr),
     col_breaks = scales::breaks_width(5),
-    colour_palette = c(navy, teal, "white", orange, red),
-    theme = theme_darker(),
+    col_palette = c(jumble[c(3, 1)], "white", jumble[c(2, 4)]),
   )
 ```
 
@@ -481,7 +484,7 @@ penguins |>
     position = position_dodge(),
     width = standardise_width(from_n = 2, 
                               from_dodge_n = 3,
-                              from_perspective = "y",
+                              from_aspect = "y",
                               to_width = 0.25, 
                               to_n = 3)
   )

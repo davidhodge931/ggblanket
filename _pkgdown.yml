@@ -19,9 +19,10 @@ reference:
   - aes_contrast
   - annotate_axis_line
   - annotate_axis_ticks
+  - bind_each_all
   - col_multiply
   - col_screen
-  - bind_each_all
+  - element_line_transparent
   - guides_grey
   - is_panel_dark
   - jumble
