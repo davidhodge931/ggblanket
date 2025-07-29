@@ -1,5 +1,5 @@
 ---
-title: "Demo: light mode"
+title: "Demo: darker"
 author: "David Hodge"
 ---
 
@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 
 This article will demonstrate each wrapper function.
 
+
 ```{r setup}
 library(ggblanket)
 library(dplyr)
@@ -27,7 +28,7 @@ library(ggplot2)
 library(scales)
 library(palmerpenguins)
 
-set_blanket()
+set_blanket(theme = theme_darker())
 
 penguins2 <- penguins |> 
   labelled::set_variable_labels(
@@ -524,4 +525,3 @@ penguins2 |>
     col = species,
   )
 ```
-

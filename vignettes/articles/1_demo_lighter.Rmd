@@ -1,5 +1,5 @@
 ---
-title: "Demo: dark mode"
+title: "Demo: lighter"
 author: "David Hodge"
 ---
 
@@ -27,9 +27,7 @@ library(ggplot2)
 library(scales)
 library(palmerpenguins)
 
-set_blanket(
-  theme = theme_darker(),
-)
+set_blanket()
 
 penguins2 <- penguins |> 
   labelled::set_variable_labels(
@@ -55,7 +53,7 @@ experiment <- data.frame(
 
 ### gg_area
 
-```{r}
+```{r }
 economics |>
   gg_area(
     x = date,
@@ -66,7 +64,7 @@ economics |>
 
 ### gg_bar
 
-```{r}
+```{r }
 penguins2 |>
   gg_bar(
     position = position_dodge(preserve = "single"),
@@ -83,19 +81,19 @@ diamonds |>
   gg_bin2d(
     x = carat,
     y = price,
-    coord = coord_cartesian(),
-  )
+    coord = coord_cartesian(ylim = c(0, NA)),
+    y_expand = expansion(c(0, 0.01))
+  ) 
 ```
 
 ### gg_boxplot
 
-```{r, }
+```{r}
 penguins2 |>
   gg_boxplot(
     x = flipper_length_mm,
     y = sex,
     col = species,
-    # blend = "multiply",
   )
 ```
 
@@ -123,6 +121,7 @@ faithfuld |>
    x = waiting,
    y = eruptions,
    z = density,
+   bins = 20,
   )
 ```
 
@@ -134,13 +133,14 @@ faithfuld |>
    x = waiting,
    y = eruptions,
    z = density,
-   bins = 8,
-  )
+   bins = 20,
+  ) +
+  theme(legend.position = "none")
 ```
 
 ### gg_crossbar
 
-```{r, }
+```{r}
 experiment |>
   gg_crossbar(
     x = trt,
@@ -155,12 +155,12 @@ experiment |>
 
 ### gg_density
 
-```{r, }
+```{r}
 penguins2 |>
   gg_density(
     x = flipper_length_mm,
     col = species,
-    # blend = "multiply",
+    blend = "multiply",
   )
 ```
 
@@ -171,7 +171,7 @@ faithful |>
   gg_density2d(
     x = waiting,
     y = eruptions,
-    bins = 8,
+    bins = 20,
   )
 ```
 
@@ -182,8 +182,9 @@ faithful |>
   gg_density2d_filled(
     x = waiting,
     y = eruptions,
-    bins = 8,
-  )
+    bins = 20,
+  ) +
+  theme(legend.position = "none")
 ```
 
 ### gg_errorbar
@@ -196,7 +197,7 @@ experiment |>
     ymax = upper,
     col = group,
     y_title = "Response",
-    width = 0.1,
+    width = 0.05,
     y_limits_include = 0,
  )
 ```
@@ -208,7 +209,6 @@ penguins2 |>
   gg_freqpoly(
     x = flipper_length_mm,
     col = sex,
-    theme = theme_darker(legend_position = "top"),
   ) +
   theme(legend.title = element_blank())
 ```
@@ -233,8 +233,9 @@ diamonds |>
   gg_hex(
     x = carat,
     y = price,
-    coord = coord_cartesian(),
-  )
+    coord = coord_cartesian(ylim = c(0, NA)),
+    y_expand = expansion(c(0, 0.01))
+  ) 
 ```
 
 ### gg_histogram
@@ -317,16 +318,16 @@ penguins2 |>
 ### gg_pointrange
 
 ```{r}
-#experiment |>
-#  gg_pointrange(
-#    position = position_dodge(width = 0.2),
-#    x = trt,
-#    y = resp,
-#    col = group,
-#    ymin = lower,
-#    ymax = upper,
-#    y_limits_include = 0,
-#  )
+ experiment |>
+   gg_pointrange(
+     position = position_dodge(width = 0.2),
+     x = trt,
+     y = resp,
+     col = group,
+     ymin = lower,
+     ymax = upper,
+    y_limits_include = 0,
+   )
 ```
 
 ### gg_polygon
@@ -366,7 +367,7 @@ penguins2 |>
     sample = body_mass_g,
     col = species,
   ) +
-  geom_qq_line(colour = get_geom_defaults("qq_line")$colour)
+  geom_qq_line()
 ```
 
 ### gg_quantile
@@ -410,6 +411,7 @@ data.frame(
     ymin = ymin,
     ymax = ymax,
     col = z,
+    linetype = 1,
   )
 ```
 
@@ -424,7 +426,7 @@ data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
     ymax = level_max,
     x_labels = \(x) x,
     y_title = "Level",
-  ) 
+  )
 ```
 
 ### gg_rug
@@ -461,12 +463,12 @@ sf::st_read(system.file("shape/nc.shp", package = "sf")) |>
 
 ### gg_smooth
 
-```{r, }
+```{r}
 penguins2 |>
   gg_smooth(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex,
+    col = sex, 
     blend = "multiply",
   )
 ```
@@ -522,3 +524,4 @@ penguins2 |>
     col = species,
   )
 ```
+

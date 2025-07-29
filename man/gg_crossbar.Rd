@@ -186,6 +186,8 @@ A ggplot object.
 }
 \description{
 Create a crossbar ggplot with a wrapper around \link[ggplot2:ggplot]{ggplot()} + \link[ggplot2:layer]{layer()} with \link[ggplot2:geom_linerange]{geom_crossbar()} defaults for the geom, stat and position.
+
+Note \code{gg_crossbar} has more limited functionality to fine-tune the style. Use \code{gg_blanket(...) + ggplot2::geom_crossbar(...)} instead if needed.
 }
 \examples{
 library(ggplot2)

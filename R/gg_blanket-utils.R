@@ -47,14 +47,14 @@ get_geom_params <- function(geom, ...) {
       staple_gp = list(
         linewidth = ggplot2::get_geom_defaults("line")$linewidth
       ),
+      box_gp = list(
+        linewidth = ggplot2::get_geom_defaults("rect")$linewidth
+      ),
       outlier_gp = list(stroke = 0)
     ),
     crossbar = list(
       middle_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth)
     )
-    # smooth = list(
-    #   alpha = NA
-    # )
   )
 
   # Get specific params or empty list

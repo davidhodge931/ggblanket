@@ -186,6 +186,8 @@ A ggplot object.
 }
 \description{
 Create a boxplot ggplot with a wrapper around \link[ggplot2:ggplot]{ggplot()} + \link[ggplot2:layer]{layer()} with \link[ggplot2:geom_boxplot]{geom_boxplot()} defaults for the geom, stat and position.
+
+Note \code{gg_boxplot} has more limited functionality to fine-tune the style. Use \code{gg_blanket(...) + ggplot2::geom_boxplot(...)} instead if needed.
 }
 \examples{
 library(ggplot2)
