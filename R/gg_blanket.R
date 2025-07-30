@@ -15,11 +15,11 @@
 #' @param aspect_axis_line `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
 #' @param aspect_axis_ticks `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
 #' @param aspect_panel_grid `"transparent"`, `"blank"` or `"keep"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
-#' @param symmetric The symmetric positional axis of the plot. Either `"x"`, `"y"` or `"none"`. Also `"both"` if `stat`, `x_transform` and `y_transform` equals `"identity"` (or `"reverse"`). If NULL, guesses based on `aspect`.
+#' @param symmetric Which positional axes are to appear symmetric with (1) the limits equal to the range of the breaks, and (2) `*_expand = c(0, 0)`. Either `"x"`, `"y"` or `NA` for none. Also `"xy"` if `stat`, `x_transform` and `y_transform` equals `"identity"` (or `"reverse"`). If NULL, guesses based on `aspect`.
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,alpha,linewidth,size,facet,facet2,group,subgroup,label,text,sample A mapped (unquoted) aesthetic variable. Or a set aesthetic value.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] for advanced edge-case situations (e.g.delayed evaluation etc).
-#' @param bordered TRUE or FALSE of whether the `bordered_colour` and `bordered_fill` should be applied.
+#' @param bordered `TRUE` or `FALSE` of whether the `bordered_colour` and `bordered_fill` should be applied.
 #' @param bordered_colour A function with input of `col` or `col_palette`. Defaults to screen/multiply based on theme.
 #' @param bordered_fill A function with input of `col` or `col_palette`. Defaults to NULL.
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
@@ -45,7 +45,7 @@
 #' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
 #' @param facet_ncol,facet_nrow The number of columns and rows of facet panels. Only applies to a facet layout of `"wrap"`.
 #' @param facet_scales Whether facet scales should be `"fixed"` across facets, `"free"` in both directions, or free in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
-#' @param facet_space When the facet scales are _not_ `"fixed"`, whether facet space should be `"fixed"` across facets, `"free"` to be proportional in both directions, or free to be proportional in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
+#' @param facet_space Whether facet space should be `"fixed"` across facets, `"free"` to be proportional in both directions, or free to be proportional in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
@@ -803,7 +803,7 @@ gg_blanket <- function(
 
   if (rlang::is_null(symmetric)) {
     if (geom == "sf") {
-      symmetric <- "none"
+      symmetric <- NA
     }
     else {
       if (aspect == "x") symmetric <- "y"
@@ -812,7 +812,7 @@ gg_blanket <- function(
     }
   }
 
-  if (symmetric == "none") {
+  if (is.na(symmetric)) {
     x_symmetric <- FALSE
     y_symmetric <- FALSE
   }
@@ -828,11 +828,11 @@ gg_blanket <- function(
       if (!facet_scales %in% c("free_y", "free")) y_symmetric <- TRUE
       else  y_symmetric <- FALSE
     }
-    else if (symmetric == "none") {
+    else if (is.na(symmetric)) {
       x_symmetric <- FALSE
       y_symmetric <- FALSE
     }
-    else if (symmetric == "both") {
+    else if (symmetric == "xy") {
       if (!facet_scales %in% c("free_x", "free")) x_symmetric <- TRUE
       if (!facet_scales %in% c("free_y", "free")) y_symmetric <- TRUE
     }

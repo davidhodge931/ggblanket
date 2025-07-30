@@ -70,7 +70,7 @@ test_that("gg_point with aspect x and symmetric none", {
       y = body_mass_g,
       col = species,
       aspect = "x",
-      symmetric = "none"
+      symmetric = NA
     )
 
   expect_doppelganger("gg_point_aspect_x_symmetric_none", p)
@@ -83,7 +83,7 @@ test_that("gg_point with aspect y and symmetric both", {
       y = body_mass_g,
       col = species,
       aspect = "y",
-      symmetric = "both"
+      symmetric = "xy"
     )
 
   expect_doppelganger("gg_point_aspect_y_symmetric_both", p)
@@ -96,7 +96,7 @@ test_that("gg_point with aspect y and symmetric none", {
       y = body_mass_g,
       col = species,
       aspect = "y",
-      symmetric = "none"
+      symmetric = NA
     )
 
   expect_doppelganger("gg_point_aspect_y_symmetric_none", p)
@@ -135,7 +135,7 @@ test_that("gg_point with aspect x and symmetric both", {
       y = body_mass_g,
       col = species,
       aspect = "x",
-      symmetric = "both"
+      symmetric = "xy"
     )
 
   expect_doppelganger("gg_point_aspect_x_symmetric_both", p)

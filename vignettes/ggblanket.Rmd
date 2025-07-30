@@ -278,9 +278,10 @@ The default behaviour from `set_blanket` is to make transparent one direction of
 ```{r}
 set_blanket(
   theme = theme_lighter(
-    panel_grid_colour = "orange", #for emphasis
+    panel_grid_colour = "#003F5CFF", 
   )
 )
+
 p1 <- palmerpenguins::penguins |>
   drop_na() |>
   gg_jitter(
@@ -303,13 +304,9 @@ p1 / p2
 
 ### 13. A `symmetric` continuous scale
 
-A `symmetric` continuous scale can often be useful and look good. 
+A `symmetric` continuous scale can often be useful and look good. It refers to the axis line and ticks appearing symmetrical where (1) the limits equals the range of the breaks, and (2) `*_expand = c(0, 0)`.
 
-This is the term used to describe a continuous scale where the limits equals the range of the breaks, and `*_expand = c(0, 0)`.
-
-By default, the `gg_*` function guesses the symmetric scale based on the `"aspect"` of the plot. 
-
-Use `symmetric = "none"` to revert to the normal limits and expand defaults.
+By default, the `gg_*` function determines the symmetric scale based on the `aspect` of the plot. This can be adjusted by the user using the symmetric argument, including using `symmetric = NA` to revert to the normal limits and expand defaults.
 
 Note all continuous scales ensure _all_ data is kept using `scales::oob_keep` - and, by default, are left unclipped (i.e. `coord_cartesian(clip = "off")`. 
 

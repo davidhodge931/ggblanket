@@ -114,7 +114,7 @@ gg_segment(
 
 \item{aspect_panel_grid}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the x panel grid for an \code{"x"} \code{aspect}, and vice versa.}
 
-\item{symmetric}{The symmetric positional axis of the plot. Either \code{"x"}, \code{"y"} or \code{"none"}. Also \code{"both"} if \code{stat}, \code{x_transform} and \code{y_transform} equals \code{"identity"} (or \code{"reverse"}). If NULL, guesses based on \code{aspect}.}
+\item{symmetric}{Which positional axes are to appear symmetric with (1) the limits equal to the range of the breaks, and (2) \verb{*_expand = c(0, 0)}. Either \code{"x"}, \code{"y"} or \code{NA} for none. Also \code{"xy"} if \code{stat}, \code{x_transform} and \code{y_transform} equals \code{"identity"} (or \code{"reverse"}). If NULL, guesses based on \code{aspect}.}
 
 \item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
 
@@ -122,7 +122,7 @@ gg_segment(
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} for advanced edge-case situations (e.g.delayed evaluation etc).}
 
-\item{bordered}{TRUE or FALSE of whether the \code{bordered_colour} and \code{bordered_fill} should be applied.}
+\item{bordered}{\code{TRUE} or \code{FALSE} of whether the \code{bordered_colour} and \code{bordered_fill} should be applied.}
 
 \item{bordered_colour}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
 
@@ -170,7 +170,7 @@ gg_segment(
 
 \item{facet_scales}{Whether facet scales should be \code{"fixed"} across facets, \code{"free"} in both directions, or free in just one direction (i.e. \code{"free_x"} or \code{"free_y"}). Defaults to \code{"fixed"}.}
 
-\item{facet_space}{When the facet scales are \emph{not} \code{"fixed"}, whether facet space should be \code{"fixed"} across facets, \code{"free"} to be proportional in both directions, or free to be proportional in just one direction (i.e. \code{"free_x"} or \code{"free_y"}). Defaults to \code{"fixed"}.}
+\item{facet_space}{Whether facet space should be \code{"fixed"} across facets, \code{"free"} to be proportional in both directions, or free to be proportional in just one direction (i.e. \code{"free_x"} or \code{"free_y"}). Defaults to \code{"fixed"}.}
 
 \item{title}{Title string.}
 
