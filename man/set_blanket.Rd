@@ -25,20 +25,20 @@ set_blanket(
   shape_palette_d = c(21, 24, 22, 23, 25),
   linetype_palette_d = 1:6,
   titles_case = snakecase::to_sentence_case,
-  aspect_axis_line_transparent = TRUE,
-  aspect_axis_ticks_transparent = TRUE,
-  aspect_panel_grid_transparent = TRUE,
+  aspect_axis_line = "transparent",
+  aspect_axis_ticks = "transparent",
+  aspect_panel_grid = "transparent",
   ...
 )
 }
 \arguments{
 \item{theme}{A ggplot2 theme (e.g. \code{\link[=theme_lighter]{theme_lighter()}} or \code{\link[=theme_darker]{theme_darker()}}).}
 
-\item{col}{A default hex code for the colour and fill of most geoms. Defaults to \code{blue}.}
+\item{col}{A default hex code for the colour and fill of most geoms.}
 
-\item{linewidth}{A default linewidth for most geoms. Defaults to 0.5.}
+\item{linewidth}{A default linewidth for most geoms.}
 
-\item{linetype}{A default linetype for most geoms. Defaults to 1 (solid).}
+\item{linetype}{A default linetype for most geoms.}
 
 \item{size}{A default size for point geoms.}
 
@@ -46,11 +46,11 @@ set_blanket(
 
 \item{stroke}{A default stroke for point geoms.}
 
-\item{bordered_colour}{A function with input of the set \code{col}. Defaults to \code{col_screen}/\code{col_multiply} based on the panel.}
+\item{bordered_colour}{A function with input of the set \code{col}.}
 
-\item{bordered_fill}{A function with input of the set \code{col}. Defaults to NULL.}
+\item{bordered_fill}{A function with input of the set \code{col}.}
 
-\item{bordered_linewidth}{A number, or a function with input of the set linewidth. Defaults to 0.25.}
+\item{bordered_linewidth}{A number, or a function with input of the set linewidth.}
 
 \item{col_palette_d}{For a discrete colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 
@@ -60,21 +60,17 @@ set_blanket(
 
 \item{col_na}{A NA colour/fill value.}
 
-\item{shape_palette_d}{For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).}
+\item{shape_palette_d}{For shape scales, a numeric vector of shape codes.}
 
-\item{linetype_palette_d}{For linetype scales, a character vector or a \verb{scales::pal_*} function. Defaults to 1:6.}
+\item{linetype_palette_d}{For linetype scales, a character vector or a \verb{scales::pal_*} function.}
 
-\item{titles_case}{A function to apply to unspecified/unlabelled titles in \verb{gg_*} functions.
-Defaults to \code{snakecase::to_sentence_case}.}
+\item{titles_case}{A function to apply to unspecified/unlabelled titles in \verb{gg_*} functions.}
 
-\item{aspect_axis_line_transparent}{Logical. Whether \verb{gg_*} functions should remove the relevant
-axis line based on plot aspect. Defaults to TRUE.}
+\item{aspect_axis_line}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis line for an \code{"x"} \code{aspect}, and vice versa.}
 
-\item{aspect_axis_ticks_transparent}{Logical. Whether \verb{gg_*} functions should remove the relevant
-axis ticks based on plot aspect. Defaults to TRUE.}
+\item{aspect_axis_ticks}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis ticks for an \code{"x"} \code{aspect}, and vice versa.}
 
-\item{aspect_panel_grid_transparent}{Logical. Whether \verb{gg_*} functions should remove the relevant
-panel grid based on plot aspect. Defaults to TRUE.}
+\item{aspect_panel_grid}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the x panel grid for an \code{"x"} \code{aspect}, and vice versa.}
 
 \item{...}{Additional arguments (not used).}
 }

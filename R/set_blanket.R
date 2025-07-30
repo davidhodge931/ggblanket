@@ -7,9 +7,9 @@
 #' `theme`, `col`, `col_palette_d` and , `col_palette_c` arguments.
 #'
 #' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
-#' @param col A default hex code for the colour and fill of most geoms. Defaults to `blue`.
-#' @param linewidth A default linewidth for most geoms. Defaults to 0.5.
-#' @param linetype A default linetype for most geoms. Defaults to 1 (solid).
+#' @param col A default hex code for the colour and fill of most geoms.
+#' @param linewidth A default linewidth for most geoms.
+#' @param linetype A default linetype for most geoms.
 #' @param shape A default shape for point geoms. Must be an integer between 0 and 25.
 #' @param size A default size for point geoms.
 #' @param stroke A default stroke for point geoms.
@@ -17,20 +17,15 @@
 #' @param col_palette_c For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_o For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_c`.
 #' @param col_na A NA colour/fill value.
-#' @param shape_palette_d For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
-#' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
-#' @param bordered_colour A function with input of the set `col`. Defaults to `col_screen`/`col_multiply` based on the panel.
-#' @param bordered_fill A function with input of the set `col`. Defaults to NULL.
-#' @param bordered_linewidth A number, or a function with input of the set linewidth. Defaults to 0.25.
-
+#' @param shape_palette_d For shape scales, a numeric vector of shape codes.
+#' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function.
+#' @param bordered_colour A function with input of the set `col`.
+#' @param bordered_fill A function with input of the set `col`.
+#' @param bordered_linewidth A number, or a function with input of the set linewidth.
 #' @param titles_case A function to apply to unspecified/unlabelled titles in `gg_*` functions.
-#'   Defaults to `snakecase::to_sentence_case`.
-#' @param aspect_axis_line_transparent Logical. Whether `gg_*` functions should remove the relevant
-#'   axis line based on plot aspect. Defaults to TRUE.
-#' @param aspect_axis_ticks_transparent Logical. Whether `gg_*` functions should remove the relevant
-#'   axis ticks based on plot aspect. Defaults to TRUE.
-#' @param aspect_panel_grid_transparent Logical. Whether `gg_*` functions should remove the relevant
-#'   panel grid based on plot aspect. Defaults to TRUE.
+#' @param aspect_axis_line `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
+#' @param aspect_axis_ticks `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
+#' @param aspect_panel_grid `"transparent"`, `"blank"` or `"keep"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
 #' @param ... Additional arguments (not used).
 #'
 #' @return Invisibly returns NULL. Sets global styling options as a side effect.
@@ -74,9 +69,9 @@ set_blanket <- function(
     linetype_palette_d = 1:6,
 
     titles_case = snakecase::to_sentence_case,
-    aspect_axis_line_transparent = TRUE,
-    aspect_axis_ticks_transparent = TRUE,
-    aspect_panel_grid_transparent = TRUE,
+    aspect_axis_line = "transparent",
+    aspect_axis_ticks = "transparent",
+    aspect_panel_grid = "transparent",
     ...
 ) {
   # Set the theme first
@@ -114,8 +109,8 @@ set_blanket <- function(
   update_titles_case(titles_case = titles_case)
 
   update_aspect(
-    aspect_axis_line_transparent = aspect_axis_line_transparent,
-    aspect_axis_ticks_transparent = aspect_axis_ticks_transparent,
-    aspect_panel_grid_transparent = aspect_panel_grid_transparent
+    aspect_axis_line = aspect_axis_line,
+    aspect_axis_ticks = aspect_axis_ticks,
+    aspect_panel_grid = aspect_panel_grid
   )
 }

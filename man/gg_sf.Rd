@@ -12,9 +12,9 @@ gg_sf(
   coord = ggplot2::coord_sf(clip = "off"),
   blend = NULL,
   aspect = NULL,
-  aspect_axis_line_transparent = NULL,
-  aspect_axis_ticks_transparent = NULL,
-  aspect_panel_grid_transparent = NULL,
+  aspect_axis_line = NULL,
+  aspect_axis_ticks = NULL,
+  aspect_panel_grid = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -111,11 +111,11 @@ gg_sf(
 
 \item{aspect}{The aspect of plot, which affects the theme components that are removed. Either \code{"x"} or \code{"y"}.}
 
-\item{aspect_axis_line_transparent}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis line per the \code{aspect} of the plot.}
+\item{aspect_axis_line}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis line per the \code{aspect} of the plot.}
 
-\item{aspect_axis_ticks_transparent}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis ticks per the \code{aspect} of the plot.}
+\item{aspect_axis_ticks}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis ticks per the \code{aspect} of the plot.}
 
-\item{aspect_panel_grid_transparent}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{aspect} of the plot.}
+\item{aspect_panel_grid}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{aspect} of the plot.}
 
 \item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, colour, fill, shape, linetype, alpha, linewidth, size, facet, facet2, group, subgroup, label, text, sample}{A mapped (unquoted) aesthetic variable. Or a set aesthetic value.}
 
