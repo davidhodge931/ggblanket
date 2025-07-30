@@ -339,7 +339,25 @@ The package is driven by the `gg_blanket` function, which has a `geom` argument 
 
 All other functions wrap this function with a fixed `geom`, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
-This function can often be used with geoms that do not have an associated `gg_*` function.
+This function can often be used (1) where an alternative geom or annotation is needed to be plotted first, or (2) where a geom is needed to be plotted that is not provided in a `gg_*` function.
+
+```{r}
+economics |>
+  gg_blanket(
+    x = date,
+    y = unemploy,
+    y_limits_include = 0,
+    y_title = "Unemployment",
+  ) +
+  annotate("rect", 
+           xmin = lubridate::ymd("2010-12-31"), 
+           xmax = lubridate::ymd("2020-12-31"),
+           ymin = -Inf, 
+           ymax = Inf,
+           colour = NA,
+           fill = jumble[9]) +
+  geom_line()
+```
 
 ```{r}
 set_blanket()
