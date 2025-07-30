@@ -341,22 +341,24 @@ All other functions wrap this function with a fixed `geom`, and their own defaul
 
 This function can often be used (1) where an alternative geom or annotation is needed to be plotted first, or (2) where a geom is needed to be plotted that is not provided in a `gg_*` function.
 
+Note bordered colouring/filling only passes through to `+ geom_` layers for mapped `col` aesthetics. Use `col_multiply` and `col_screen`, if you want to replicate the default ggblanket look for where `col` is not mapped.
+
 ```{r}
-economics |>
+palmerpenguins::penguins |>
+  drop_na() |> 
   gg_blanket(
-    x = date,
-    y = unemploy,
-    y_limits_include = 0,
-    y_title = "Unemployment",
+    x = flipper_length_mm,
+    y = body_mass_g,
+    size = bill_length_mm,
+    shape = sex,
+    bordered = TRUE,
   ) +
   annotate("rect", 
-           xmin = lubridate::ymd("2010-12-31"), 
-           xmax = lubridate::ymd("2020-12-31"),
-           ymin = -Inf, 
-           ymax = Inf,
+           xmin = I(0.9), xmax = Inf,
+           ymin = -Inf, ymax = Inf,
            colour = NA,
            fill = jumble[9]) +
-  geom_line()
+  geom_point(colour = col_multiply(jumble[11]))
 ```
 
 ```{r}
