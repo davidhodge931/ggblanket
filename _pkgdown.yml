@@ -29,7 +29,5 @@ reference:
   - label_every_nth
   - pal_viridis_by_panel
   - pt_to_mm
-  - scale_x_symmetric
-  - scale_y_symmetric
   - standardise_width
 
