@@ -12,9 +12,9 @@
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
 #' @param aspect The aspect of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
-#' @param aspect_axis_line `TRUE` or `FALSE` of whether to remove the relevant axis line per the `aspect` of the plot.
-#' @param aspect_axis_ticks `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `aspect` of the plot.
-#' @param aspect_panel_grid `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `aspect` of the plot.
+#' @param aspect_axis_line `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
+#' @param aspect_axis_ticks `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
+#' @param aspect_panel_grid `"transparent"`, `"blank"` or `"keep"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
 #' @param symmetric The symmetric positional axis of the plot. Either `"x"`, `"y"` or `"none"`. Also `"both"` if `stat`, `x_transform` and `y_transform` equals `"identity"` (or `"reverse"`). If NULL, guesses based on `aspect`.
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,alpha,linewidth,size,facet,facet2,group,subgroup,label,text,sample A mapped (unquoted) aesthetic variable. Or a set aesthetic value.
@@ -30,13 +30,12 @@
 #' @param x_labels,y_labels,col_labels,facet_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_*()`), or a vector of labels. (Note this must be named for `facet_labels`).
 #' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_*` theme, add `caption = ""` or `caption = "\n"`.
 #' @param x_sec_axis,y_sec_axis A secondary axis with [ggplot2::dup_axis()] or  [ggplot2::sec_axis()] defaults.
-#' @param x_symmetric,y_symmetric `TRUE` or `FALSE` of whether a symmetric scale.
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
 #' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
-#' @param col_scale_type Either "gradient" or "steps". Defaults to "gradient".
+#' @param col_scale_type Either `"gradient"` or `"steps"`. Defaults to `"gradient"`.
 #' @param col_palette,colour_palette,fill_palette colour_palette,fill_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' @param col_na,colour_na,fill_na A hex code (or name) for the `NA` value.
 #' @param shape_palette A numeric vector of shape codes or a `scales::pal_*()` function. If NULL, uses the value from `getOption("ggblanket.shape_palette")`.

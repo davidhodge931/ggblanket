@@ -108,11 +108,11 @@ gg_violin(
 
 \item{aspect}{The aspect of plot, which affects the theme components that are removed. Either \code{"x"} or \code{"y"}.}
 
-\item{aspect_axis_line}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis line per the \code{aspect} of the plot.}
+\item{aspect_axis_line}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis line for an \code{"x"} \code{aspect}, and vice versa.}
 
-\item{aspect_axis_ticks}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis ticks per the \code{aspect} of the plot.}
+\item{aspect_axis_ticks}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis ticks for an \code{"x"} \code{aspect}, and vice versa.}
 
-\item{aspect_panel_grid}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{aspect} of the plot.}
+\item{aspect_panel_grid}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the x panel grid for an \code{"x"} \code{aspect}, and vice versa.}
 
 \item{symmetric}{The symmetric positional axis of the plot. Either \code{"x"}, \code{"y"} or \code{"none"}. Also \code{"both"} if \code{stat}, \code{x_transform} and \code{y_transform} equals \code{"identity"} (or \code{"reverse"}). If NULL, guesses based on \code{aspect}.}
 
@@ -158,7 +158,7 @@ gg_violin(
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
-\item{col_scale_type}{Either "gradient" or "steps". Defaults to "gradient".}
+\item{col_scale_type}{Either \code{"gradient"} or \code{"steps"}. Defaults to \code{"gradient"}.}
 
 \item{facet_axes}{Whether to add interior axes and ticks with \code{"margins"}, \code{"all"}, \code{"all_x"}, or \code{"all_y"}. Sometimes \verb{+ *_*()} may be needed.}
 
