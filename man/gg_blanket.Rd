@@ -11,11 +11,12 @@ gg_blanket(
   stat = "identity",
   position = "identity",
   coord = NULL,
-  blend = NULL,
   aspect = NULL,
   aspect_axis_line = NULL,
   aspect_axis_ticks = NULL,
   aspect_panel_grid = NULL,
+  symmetric = NULL,
+  blend = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -52,7 +53,6 @@ gg_blanket(
   x_labels = NULL,
   x_position = "bottom",
   x_sec_axis = ggplot2::waiver(),
-  x_symmetric = NULL,
   x_transform = NULL,
   y_breaks = NULL,
   y_breaks_n = NULL,
@@ -62,7 +62,6 @@ gg_blanket(
   y_labels = NULL,
   y_position = "left",
   y_sec_axis = ggplot2::waiver(),
-  y_symmetric = NULL,
   y_transform = NULL,
   col_breaks = ggplot2::waiver(),
   col_breaks_n = NULL,
@@ -112,8 +111,6 @@ gg_blanket(
 
 \item{coord}{A coordinate system. A \verb{coord_*()} function that outputs a constructed ggproto Coord subclass object (e.g. \code{\link[ggplot2:coord_cartesian]{ggplot2::coord_cartesian()}}).}
 
-\item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
-
 \item{aspect}{The aspect of plot, which affects the theme components that are removed. Either \code{"x"} or \code{"y"}.}
 
 \item{aspect_axis_line}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis line per the \code{aspect} of the plot.}
@@ -121,6 +118,10 @@ gg_blanket(
 \item{aspect_axis_ticks}{\code{TRUE} or \code{FALSE} of whether to remove the relevant axis ticks per the \code{aspect} of the plot.}
 
 \item{aspect_panel_grid}{\code{TRUE} or \code{FALSE} of whether to remove the relevant panel grid per the \code{aspect} of the plot.}
+
+\item{symmetric}{The symmetric positional axis of the plot. Either \code{"x"}, \code{"y"} or \code{"none"}. Also \code{"both"} if \code{stat}, \code{x_transform} and \code{y_transform} equals \code{"identity"} (or \code{"reverse"}). If NULL, guesses based on \code{aspect}.}
+
+\item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
 
 \item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, colour, fill, shape, linetype, alpha, linewidth, size, facet, facet2, group, subgroup, label, text, sample}{A mapped (unquoted) aesthetic variable. Or a set aesthetic value.}
 
@@ -147,8 +148,6 @@ gg_blanket(
 \item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 
 \item{x_sec_axis, y_sec_axis}{A secondary axis with \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}} or  \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}} defaults.}
-
-\item{x_symmetric, y_symmetric}{\code{TRUE} or \code{FALSE} of whether a symmetric scale.}
 
 \item{x_transform, y_transform, col_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
 
@@ -189,6 +188,8 @@ gg_blanket(
 \item{caption}{Caption title string.}
 
 \item{titles_case}{A function to format the title of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
+
+\item{x_symmetric, y_symmetric}{\code{TRUE} or \code{FALSE} of whether a symmetric scale.}
 }
 \value{
 A ggplot object.

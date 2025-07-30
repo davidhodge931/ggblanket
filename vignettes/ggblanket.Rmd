@@ -43,15 +43,14 @@ Computational speed has been traded-off.
 4.  A `facet` argument to facet by a variable
 5.  A `facet2` argument to facet by a 2nd variable
 6.  All other aesthetics supported
-7.  Prefixed arguments to customise x/y/col/facet
+7.  Prefixed arguments to customise
 8.  Smart `*_title` defaults for axis and legend titles
 9.  Other `ggplot2::geom_*` arguments via `...`
 10. `theme_lighter` and `theme_darker` themes 
-11. Side-effects to the `theme` based on the `theme_orientation`
-12. One `*_symmetric` continuous scale
-13. Ability to add multiple `geom_*` layers
-14. Arguments to customise setup with `set_blanket()`
-15. Consistent effortless bordered style 
+11. Set and forget with `set_blanket()`
+12. An `aspect` for vertical/horizontal ease 
+13. A `symmetric` continuous scale
+14. A `bordered` style 
 15. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
@@ -155,7 +154,7 @@ palmerpenguins::penguins |>
   ) 
 ```
 
-### 7.  Prefixed arguments to customise x/y/col/facet
+### 7.  Prefixed arguments to customise
 
 There are numerous arguments to customise plots that are prefixed by whether they relate to `x`, `y`, `col` or `facet`. 
 
@@ -230,111 +229,7 @@ palmerpenguins::penguins |>
 set_blanket()
 ```
 
-### 11.  Side-effects to the `theme` based on the `aspect`
-
-The `gg_*` function adds helpful side-effects to the theme based on the `aspect`, `aspect_axis_line_transparent`, `aspect_axis_ticks_transparent` and , `aspect_panel_grid_transparent` arguments. 
-
-* Where `aspect = "x"`, the `gg_*` function will remove the y axis line/ticks and the x gridlines from the `theme` (by changing their colour to "transparent"). 
-* Where `aspect = "y"`, the opposite will occur. 
-
-If the `gg_*` guesses an incorrect `aspect`, then the user can change this. The user can set these side-effects in `set_blanket` by setting `aspect_axis_line_transparent`, `aspect_axis_ticks_transparent` or , `aspect_panel_grid_transparent` to `FALSE`.
-
-Any `theme` used in `set_blanket` should be designed to anticipate the side-effects desired (i.e. include panel grid, axis line and axis ticks in both directions). 
-
-This enables _one_ theme to be used across all plots whether the plot is vertical or horizontal. 
-
-```{r}
-p1 <- palmerpenguins::penguins |>
-  drop_na() |>
-  gg_jitter(
-    x = sex,
-    y = bill_depth_mm,
-    col = sex,
-  ) +
-  labs(x = NULL)
-
-p2 <- palmerpenguins::penguins |>
-  drop_na() |>
-  gg_jitter(
-    x = bill_depth_mm,
-    y = sex,
-    col = sex,
-  ) 
-
-p1 / p2
-```
-
-### 12.  One `*_symmetric` continuous scale
-
-A `*_symmetric` continuous scale can be made where:
-
-* `x_transform` and `y_transform` are NULL
-* the `stat` is not "sf"
-* if faceted, the relevant scale is "fixed" 
-
-Both symmetric continuous scales cannot be made where the stat is not 'identity'.
-
-By default, the gg_* function will make a `x_symmetric` scale if there is a y discrete axis and a x continuous axis. Otherwise, it will make a `y_symmetric` scale. 
-
-A `y_symmetric` axis makes:
-
-* the limits locked to the range of the `y_breaks`
-* the `y_expand` default to `c(0, 0)`.
-
-The vice versa occurs for an `x_symmetric` axis.
-
-Use `*_symmetric = FALSE` to revert to the normal limits and expand defaults (i.e. the limits of the range of the data with `*_expand = c(0.05, 0.05)`).
-
-Note all continuous scales ensure _all_ data is kept using `scales::oob_keep` - and, by default, are left unclipped (i.e. `coord_cartesian(clip = "off")`. 
-
-### 13. Ability to add multiple `geom_*` layers
-
-ggblanket is primarily build for single geoms. However, users can add multiple `ggplot2::geom_*` layers. 
-
-The `gg_*()` geom layer will be the bottom geom layer of the plot, and each subsequent `geom_*()` layer is placed on top. 
-
-```{r}
-palmerpenguins::penguins |> 
-  gg_violin(
-    x = species, 
-    y = bill_depth_mm,
-    outliers = FALSE,
-  ) +
-  geom_jitter(shape = 19, colour = col_multiply(jumble[11])) 
-```
-
-The scales are built within the `gg_*()` function _without_ knowledge of later layers. The `gg_*()` function builds scales with regard to the `stat`, `position`, and aesthetics (that the geom understands) etc. So, in some situations, users will need to take care. 
-
-```{r}
-palmerpenguins::penguins |>
-  drop_na(sex) |> 
-  group_by(species, sex) |>
-  summarise(
-    lower = quantile(bill_depth_mm, probs = 0.05),
-    upper = quantile(bill_depth_mm, probs = 0.95),
-    bill_depth_mm = mean(bill_depth_mm, na.rm = TRUE),
-  ) |>
-  labelled::copy_labels_from(palmerpenguins::penguins) |>
-  gg_blanket(
-    y = species,
-    x = bill_depth_mm,
-    xmin = lower, 
-    xmax = upper,
-    col = sex,
-    bordered = TRUE,
-    x_limits_include = 0,
-  ) +
-  geom_col(
-    width = 0.75,
-    position = position_dodge(),
-  ) +
-  geom_errorbar(
-    width = 0.1, 
-    position = position_dodge(width = 0.75),
-  ) 
-```
-
-### 14. Arguments to customise setup with `set_blanket()`
+### 11. Set and forget with `set_blanket()`
 
 The `set_blanket` function sets customisable defaults. This function should be run first prior to any `gg_*` functions. This function is for setting a consistent style. Users should try to do as much as possible in this function, rather than continually add arguments to `gg_*` functions. 
 
@@ -371,9 +266,60 @@ p1 + p2
 set_blanket()
 ```
 
-### 15. Consistent effortless bordered style 
+### 12. An `aspect` for vertical/horizontal ease 
 
-Certain geoms are classified as "bordered" (e.g. bar, area, tile, polygon etc). Point geoms with shapes 21-25 are also considered bordered. This classification determines whether border logic applies to the underlying colour/fill and equivalent palettes for these aesthetics. By default bordered polygons are applied a multiply blending of their colour to itself, and fill is left unchanged. Use `bordered = FALSE` to turn this off, or `set_blanket(bordered_colour = \(x) x, bordered_fill = \(x) x, ...)`. It is intended that in `set_blanket`, users rely on the `col` argument primarily to colour/fill, and likewise the `col_palette_*` palettes. The `colour`/`fill` and `colour_palette`/`fill_palette` arguments are provided in `gg_blanket` to support deviations from this approach. 
+The `aspect` parameter describes the intended way that a person would look at a plot - and then applies the `aspect_axis_line`, `aspect_axis_ticks` and `aspect_panel_grid` behaviour to the plot.
+
+The intention for this is to enable asymmetric axis lines, ticks and gridlines for vertical and horizontal plots using a single theme.
+
+The default behaviour from `set_blanket` is to make transparent one direction of axis lines, axis ticks and panel grid theme elements in accordance with the `"aspect"`.  
+
+
+```{r}
+set_blanket(
+  theme = theme_lighter(
+    panel_grid_colour = "orange", #for emphasis
+  )
+)
+p1 <- palmerpenguins::penguins |>
+  drop_na() |>
+  gg_jitter(
+    x = sex,
+    y = bill_depth_mm,
+    col = sex,
+  ) +
+  labs(x = NULL)
+
+p2 <- palmerpenguins::penguins |>
+  drop_na() |>
+  gg_jitter(
+    x = bill_depth_mm,
+    y = sex,
+    col = sex,
+  ) 
+
+p1 / p2
+```
+
+### 13. A `symmetric` continuous scale
+
+A `symmetric` continuous scale can often be useful and look good. 
+
+This is the term used to describe a continuous scale where the limits equals the range of the breaks, and `*_expand = c(0, 0)`.
+
+By default, the `gg_*` function guesses the symmetric scale based on the `"aspect"` of the plot. 
+
+Use `symmetric = "none"` to revert to the normal limits and expand defaults.
+
+Note all continuous scales ensure _all_ data is kept using `scales::oob_keep` - and, by default, are left unclipped (i.e. `coord_cartesian(clip = "off")`. 
+
+### 14. A `bordered` style 
+
+Certain geoms are classified as bordered (e.g. bar, area, tile, polygon etc). Point geoms with shapes 21-25 are also considered bordered. 
+
+This classification determines whether border logic applies to the underlying colour/fill and equivalent palettes for these aesthetics. By default bordered polygons are applied a multiply blending of their colour to itself, and fill is left unchanged. 
+
+Use `bordered = FALSE` to turn this off within the `gg_*` function, or `set_blanket(bordered_colour = \(x) x, bordered_fill = \(x) x, ...)`.
 
 ```{r}
 set_blanket(
@@ -390,7 +336,7 @@ palmerpenguins::penguins |>
   )
 ```
 
-### 16. A `gg_blanket()` function with `geom` flexibility
+### 15. A `gg_blanket()` function with `geom` flexibility
 
 The package is driven by the `gg_blanket` function, which has a `geom` argument with `ggplot2::geom_blank` defaults for `geom`, `stat` and `position`.
 

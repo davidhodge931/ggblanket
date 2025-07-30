@@ -184,6 +184,7 @@ is_y_symmetric <- function(
 #' @noRd
 validate_inputs <- function(
     mapping,
+    aspect,
     x_symmetric,
     y_symmetric,
     x_transform,
@@ -198,14 +199,16 @@ validate_inputs <- function(
     }
   }
 
-  # Check symmetric constraints
+  if (!aspect %in% c("x", "y")) rlang::abort("aspect can only be 'x' or 'y'")
+
   both_symmetric <- x_symmetric && y_symmetric
-  has_transform <- !is.null(x_transform) || !is.null(y_transform)
+  non_identity_x_transform <- !x_transform %in% c("identity", "reverse")
+  non_identity_y_transform <- !y_transform %in% c("identity", "reverse")
   non_identity_stat <- !identical(stat, "identity")
 
-  if (both_symmetric && (has_transform || non_identity_stat)) {
+  if (both_symmetric && (non_identity_x_transform || non_identity_y_transform || non_identity_stat)) {
     rlang::abort(c(
-      "Both x_symmetric and y_symmetric are not supported where",
+      "symmetric == 'both' not supported where",
       "a positional axis is transformed or the stat is not 'identity'"
     ))
   }

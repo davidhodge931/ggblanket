@@ -28,11 +28,11 @@ gg_step <- function(
   stat = "identity",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
-  blend = NULL,
+  
   aspect = NULL,
   aspect_axis_line = NULL,
   aspect_axis_ticks = NULL,
-  aspect_panel_grid = NULL,
+  aspect_panel_grid = NULL, symmetric = NULL, blend = NULL,
 
   x = NULL,
   xmin = NULL,
@@ -70,7 +70,7 @@ gg_step <- function(
   x_labels = NULL,
   x_position = "bottom",
   x_sec_axis = ggplot2::waiver(),
-  x_symmetric = NULL,
+  
   x_transform = NULL,
   y_breaks = NULL,
   y_breaks_n = NULL,
@@ -80,7 +80,7 @@ gg_step <- function(
   y_labels = NULL,
   y_position = "left",
   y_sec_axis = ggplot2::waiver(),
-  y_symmetric = NULL,
+  
   y_transform = NULL,
   col_breaks = ggplot2::waiver(),
   col_breaks_n = NULL,
@@ -125,7 +125,7 @@ gg_step <- function(
     aspect = aspect,
     aspect_axis_line = aspect_axis_line,
     aspect_axis_ticks = aspect_axis_ticks,
-    aspect_panel_grid = aspect_panel_grid,
+    aspect_panel_grid = aspect_panel_grid, symmetric =symmetric, 
     blend = blend,
     x = {{ x }},
     y = {{ y }},
@@ -158,7 +158,7 @@ gg_step <- function(
     x_labels = x_labels,
     x_breaks_n = x_breaks_n,
     x_sec_axis = x_sec_axis,
-    x_symmetric = x_symmetric,
+    
     x_position = x_position,
     x_title = x_title,
     x_transform = x_transform,
@@ -168,7 +168,7 @@ gg_step <- function(
     y_labels = y_labels,
     y_breaks_n = y_breaks_n,
     y_sec_axis = y_sec_axis,
-    y_symmetric = y_symmetric,
+    
     y_position = y_position,
     y_title = y_title,
     y_transform = y_transform,

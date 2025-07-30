@@ -26,7 +26,7 @@ This article will demonstrate a random assortment of content, including some of 
 * Drop unused categorical variable values
 * Transform scales to `"log"` etc
 * Correct the default aspect
-* Avoid the 'symmetric' scale
+* Avoid 'symmetric' scales
 * Change the `*_position` of positional axes 
 * Zoom in or out on scales
 * Use delayed evaluation
@@ -34,7 +34,7 @@ This article will demonstrate a random assortment of content, including some of 
 * Add a legend within the panel
 * Set consistent panel sizes
 * Set consistent widths across panels
-
+* Multiple geoms
 
 ```{r setup}
 library(dplyr)
@@ -231,17 +231,15 @@ p2 <- palmerpenguins::penguins |>
     col = sex,
     bins = 50,
     aspect = "y",
-    x_symmetric = TRUE,
-    y_symmetric = FALSE,
     subtitle = "\nDefault aspect (and symmetric scales)",
   )
 
 p1 + p2
 ```
 
-### Avoid the 'symmetric' scale
+### Avoid 'symmetric' scales
 
-Symmetric scales can be turned off or on using `*_symmetric` arguments. 
+Symmetric scales can be turned off or on using the `symmetric` argument. 
 
 ```{r}
 p1 <- penguins2 |>
@@ -251,7 +249,7 @@ p1 <- penguins2 |>
     stat = "summary",
     position = position_dodge(),
     x_labels = \(x) str_sub(x, 1, 1),
-    subtitle = "\ny_symmetric = NULL",
+    subtitle = "\nsymmetric = 'y'",
   ) +
   labs(y = NULL)
 
@@ -261,26 +259,13 @@ p2 <- penguins2 |>
     y = bill_length_mm,
     stat = "summary",
     position = position_dodge(),
+    symmetric = "none",
     x_labels = \(x) str_sub(x, 1, 1),
-    y_symmetric = FALSE,
-    subtitle = "\ny_symmetric = FALSE,",
+    subtitle = "\nsymmetric = 'none'",
   ) +
   labs(y = NULL)
 
-p3 <- penguins2 |>
-  gg_col(
-    x = sex,
-    y = bill_length_mm,
-    stat = "summary",
-    position = position_dodge(),
-    width = 0.5,
-    x_labels = \(x) str_sub(x, 1, 1),
-    y_symmetric = FALSE,
-    subtitle = "\ny_symmetric = FALSE,",
-  ) +
-  labs(y = NULL)
-
-p1 + p2 + p3
+p1 + p2
 ```
 
 ### Change the `*_position` of positional axes 
@@ -340,7 +325,6 @@ penguins |>
     coord = coord_cartesian(ylim = c(14.8, 15)),
     y_breaks = scales::breaks_width(0.05),
     se = TRUE,
-    # y_symmetric = FALSE,
   ) 
 ```
 
@@ -544,4 +528,51 @@ penguins |>
     col = sex,
   ) +
   annotate_axis_ticks(position = "bottom", breaks = c(seq(170, 230, 10), 195))
+```
+
+### Multiple geoms
+
+ggblanket is primarily build for single geoms. However, users can add multiple `ggplot2::geom_*` layers. 
+
+The `gg_*()` geom layer will be the bottom geom layer of the plot, and each subsequent `geom_*()` layer is placed on top. 
+
+```{r}
+palmerpenguins::penguins |> 
+  gg_violin(
+    x = species, 
+    y = bill_depth_mm,
+    outliers = FALSE,
+  ) +
+  geom_jitter(shape = 19, colour = col_multiply(jumble[11])) 
+```
+
+The scales are built within the `gg_*()` function _without_ knowledge of later layers. The `gg_*()` function builds scales with regard to the `stat`, `position`, and aesthetics (that the geom understands) etc. So, in some situations, users will need to take care. 
+
+```{r}
+palmerpenguins::penguins |>
+  drop_na(sex) |> 
+  group_by(species, sex) |>
+  summarise(
+    lower = quantile(bill_depth_mm, probs = 0.05),
+    upper = quantile(bill_depth_mm, probs = 0.95),
+    bill_depth_mm = mean(bill_depth_mm, na.rm = TRUE),
+  ) |>
+  labelled::copy_labels_from(palmerpenguins::penguins) |>
+  gg_blanket(
+    y = species,
+    x = bill_depth_mm,
+    xmin = lower, 
+    xmax = upper,
+    col = sex,
+    bordered = TRUE,
+    x_limits_include = 0,
+  ) +
+  geom_col(
+    width = 0.75,
+    position = position_dodge(),
+  ) +
+  geom_errorbar(
+    width = 0.1, 
+    position = position_dodge(width = 0.75),
+  ) 
 ```

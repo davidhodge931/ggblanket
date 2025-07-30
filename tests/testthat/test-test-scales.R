@@ -273,8 +273,7 @@ test_that("symmetric_x", {
         x = bill_depth_mm,
         y = bill_length_mm,
         col = bill_length_mm,
-        x_symmetric = TRUE,
-        y_symmetric = FALSE
+        symmetric = "x",
       )
   )
 })

@@ -11,11 +11,12 @@
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
-#' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param aspect The aspect of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
 #' @param aspect_axis_line `TRUE` or `FALSE` of whether to remove the relevant axis line per the `aspect` of the plot.
 #' @param aspect_axis_ticks `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the `aspect` of the plot.
 #' @param aspect_panel_grid `TRUE` or `FALSE` of whether to remove the relevant panel grid per the `aspect` of the plot.
+#' @param symmetric The symmetric positional axis of the plot. Either `"x"`, `"y"` or `"none"`. Also `"both"` if `stat`, `x_transform` and `y_transform` equals `"identity"` (or `"reverse"`). If NULL, guesses based on `aspect`.
+#' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,alpha,linewidth,size,facet,facet2,group,subgroup,label,text,sample A mapped (unquoted) aesthetic variable. Or a set aesthetic value.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] for advanced edge-case situations (e.g.delayed evaluation etc).
 #' @param bordered TRUE or FALSE of whether the `bordered_colour` and `bordered_fill` should be applied.
@@ -77,11 +78,12 @@ gg_blanket <- function(
     stat = "identity",
     position = "identity",
     coord = NULL,
-    blend = NULL,
     aspect = NULL,
     aspect_axis_line = NULL,
     aspect_axis_ticks = NULL,
     aspect_panel_grid = NULL,
+    symmetric = NULL,
+    blend = NULL,
     x = NULL,
     xmin = NULL,
     xmax = NULL,
@@ -119,7 +121,6 @@ gg_blanket <- function(
     x_labels = NULL,
     x_position = "bottom",
     x_sec_axis = ggplot2::waiver(),
-    x_symmetric = NULL,
     x_transform = NULL,
     y_breaks = NULL,
     y_breaks_n = NULL,
@@ -129,7 +130,6 @@ gg_blanket <- function(
     y_labels = NULL,
     y_position = "left",
     y_sec_axis = ggplot2::waiver(),
-    y_symmetric = NULL,
     y_transform = NULL,
     col_breaks = ggplot2::waiver(),
     col_breaks_n = NULL,
@@ -201,50 +201,6 @@ gg_blanket <- function(
   size_map_or_set <- is_aes_map_or_set(rlang::enquo(size), "size", data)
   alpha_map_or_set <- is_aes_map_or_set(rlang::enquo(alpha), "alpha", data)
 
-  # Step 2.5: Handle after_stat aesthetics for certain stats
-  # if (stat %in% c("bin2d", "binhex")) {
-  #   default_aes <- ggplot2::aes(
-  #     colour = ggplot2::after_stat(.data$count),
-  #     fill = ggplot2::after_stat(.data$count)
-  #   )
-  #   if (is.null(mapping)) {
-  #     mapping <- default_aes
-  #   } else {
-  #     has_colour <- "colour" %in% names(mapping)
-  #     has_fill <- "fill" %in% names(mapping)
-  #
-  #     if (!has_colour && !has_fill) {
-  #       mapping <- utils::modifyList(mapping, default_aes)
-  #     } else if (has_colour && !has_fill) {
-  #       mapping$fill <- mapping$colour
-  #     } else if (!has_colour && has_fill) {
-  #       mapping$colour <- mapping$fill
-  #     }
-  #   }
-  # }
-  #
-  # if (stat %in% c("contour_filled", "density2d_filled")) {
-  #   default_aes <- ggplot2::aes(
-  #     colour = ggplot2::after_stat(.data$level),
-  #     fill = ggplot2::after_stat(.data$level)
-  #   )
-  #   if (is.null(mapping)) {
-  #     mapping <- default_aes
-  #   } else {
-  #     has_colour <- "colour" %in% names(mapping)
-  #     has_fill <- "fill" %in% names(mapping)
-  #
-  #     if (!has_colour && !has_fill) {
-  #       mapping <- utils::modifyList(mapping, default_aes)
-  #     } else if (has_colour && !has_fill) {
-  #       mapping$fill <- mapping$colour
-  #     } else if (!has_colour && has_fill) {
-  #       mapping$colour <- mapping$fill
-  #     }
-  #   }
-  # }
-
-  # Step 2.5: Handle after_stat aesthetics for certain stats
   # Step 2.5: Handle after_stat aesthetics for certain stats
   if (stat %in% c("bin2d", "binhex")) {
     # Check if user explicitly set colour as fixed
@@ -839,33 +795,56 @@ gg_blanket <- function(
   x_transform <- get_transform(x_transform, scale_class = x_scale_class)
   y_transform <- get_transform(y_transform, scale_class = y_scale_class)
 
-  x_symmetric <- is_x_symmetric(
-    x_symmetric,
-    stat = stat,
-    facet_scales = facet_scales,
-    x_scale_class = x_scale_class,
-    y_scale_class = y_scale_class
-  )
-
-  y_symmetric <- is_y_symmetric(
-    y_symmetric,
-    stat = stat,
-    facet_scales = facet_scales,
-    x_scale_class = x_scale_class,
-    y_scale_class = y_scale_class
-  )
-
-  titles_case <- get_titles_case(titles_case = titles_case)
-
   aspect <- get_aspect(
     aspect = aspect,
     x_scale_class = x_scale_class,
     y_scale_class = y_scale_class
   )
 
+
+  if (rlang::is_null(symmetric)) {
+    if (geom == "sf") {
+      symmetric <- "none"
+    }
+    else {
+      if (aspect == "x") symmetric <- "y"
+      else if (aspect == "y") symmetric <- "x"
+      else symmetric <- "y"
+    }
+  }
+
+  if (symmetric == "none") {
+    x_symmetric <- FALSE
+    y_symmetric <- FALSE
+  }
+  else {
+    if (symmetric == "x") {
+      if (!facet_scales %in% c("free_x", "free")) x_symmetric <- TRUE
+      else x_symmetric <- FALSE
+
+      y_symmetric <- FALSE
+    }
+    else if (symmetric == "y") {
+      x_symmetric <- FALSE
+      if (!facet_scales %in% c("free_y", "free")) y_symmetric <- TRUE
+      else  y_symmetric <- FALSE
+    }
+    else if (symmetric == "none") {
+      x_symmetric <- FALSE
+      y_symmetric <- FALSE
+    }
+    else if (symmetric == "both") {
+      if (!facet_scales %in% c("free_x", "free")) x_symmetric <- TRUE
+      if (!facet_scales %in% c("free_y", "free")) y_symmetric <- TRUE
+    }
+  }
+
+  titles_case <- get_titles_case(titles_case = titles_case)
+
   # Step 12: Check inputs
   validate_inputs(
     mapping,
+    aspect,
     x_symmetric,
     y_symmetric,
     x_transform,
