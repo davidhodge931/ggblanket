@@ -15,7 +15,6 @@
 #' @param aspect_axis_line `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
 #' @param aspect_axis_ticks `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
 #' @param aspect_panel_grid `"transparent"`, `"blank"` or `"keep"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
-#' @param symmetric Which positional axes are to appear symmetric with (1) the limits equal to the range of the breaks, and (2) `*_expand = c(0, 0)`. Either `"x"`, `"y"` or `NA` for none. Also `"xy"` if `stat`, `x_transform` and `y_transform` equals `"identity"` (or `"reverse"`). If NULL, guesses based on `aspect`.
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,alpha,linewidth,size,facet,facet2,group,subgroup,label,text,sample A mapped (unquoted) aesthetic variable. Or a set aesthetic value.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] for advanced edge-case situations (e.g.delayed evaluation etc).
@@ -25,27 +24,28 @@
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
 #' @param x_breaks_n,y_breaks_n,col_breaks_n A number of desired breaks.
 #' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
-#' @param x_limits_include,y_limits_include,col_limits_include For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
-#' @param x_title,y_title,col_title Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)` for no title.
 #' @param x_labels,y_labels,col_labels,facet_labels A function that takes the breaks as inputs (e.g. `\(x) stringr::str_to_sentence(x)` or `scales::label_*()`), or a vector of labels. (Note this must be named for `facet_labels`).
+#' @param x_limits_include,y_limits_include,col_limits_include For a continuous variable, any values that the limits should encompass (e.g. `0`). For a discrete scale, manipulate the data instead with `forcats::fct_expand`.
+#' @param x_limits_to_breaks,y_limits_to_breaks `TRUE` or `FALSE` of whether the limits are to equal the range of the `*_breaks` (and `*_expand = c(0, 0)`). Note can only both be `TRUE` if `stat`, `x_transform` and `y_transform` equals `"identity"` (or `"reverse"`).
 #' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_*` theme, add `caption = ""` or `caption = "\n"`.
 #' @param x_sec_axis,y_sec_axis A secondary axis with [ggplot2::dup_axis()] or  [ggplot2::sec_axis()] defaults.
+#' @param x_title,y_title,col_title Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)` for no title.
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
 #' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
-#' @param col_scale_type Either `"gradient"` or `"steps"`. Defaults to `"gradient"`.
 #' @param col_palette,colour_palette,fill_palette colour_palette,fill_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' @param col_na,colour_na,fill_na A hex code (or name) for the `NA` value.
-#' @param shape_palette A numeric vector of shape codes or a `scales::pal_*()` function. If NULL, uses the value from `getOption("ggblanket.shape_palette")`.
-#' @param linetype_palette A character vector of linetype names or a `scales::pal_*()` function. If NULL, uses the value from `getOption("ggblanket.linetype_palette")`.
+#' @param col_scale_type Either `"gradient"` or `"steps"`. Defaults to `"gradient"`.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_*()` may be needed.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
 #' @param facet_ncol,facet_nrow The number of columns and rows of facet panels. Only applies to a facet layout of `"wrap"`.
 #' @param facet_scales Whether facet scales should be `"fixed"` across facets, `"free"` in both directions, or free in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
 #' @param facet_space Whether facet space should be `"fixed"` across facets, `"free"` to be proportional in both directions, or free to be proportional in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
+#' @param shape_palette A numeric vector of shape codes or a `scales::pal_*()` function. If NULL, uses the value from `getOption("ggblanket.shape_palette")`.
+#' @param linetype_palette A character vector of linetype names or a `scales::pal_*()` function. If NULL, uses the value from `getOption("ggblanket.linetype_palette")`.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
@@ -81,7 +81,7 @@ gg_blanket <- function(
     aspect_axis_line = NULL,
     aspect_axis_ticks = NULL,
     aspect_panel_grid = NULL,
-    symmetric = NULL,
+
     blend = NULL,
     x = NULL,
     xmin = NULL,
@@ -120,7 +120,7 @@ gg_blanket <- function(
     x_labels = NULL,
     x_position = "bottom",
     x_sec_axis = ggplot2::waiver(),
-    x_transform = NULL,
+    x_limits_to_breaks = NULL, x_transform = NULL,
     y_breaks = NULL,
     y_breaks_n = NULL,
     y_expand = NULL,
@@ -129,7 +129,7 @@ gg_blanket <- function(
     y_labels = NULL,
     y_position = "left",
     y_sec_axis = ggplot2::waiver(),
-    y_transform = NULL,
+    y_limits_to_breaks = NULL, y_transform = NULL,
     col_breaks = ggplot2::waiver(),
     col_breaks_n = NULL,
     col_drop = FALSE,
@@ -800,41 +800,25 @@ gg_blanket <- function(
     y_scale_class = y_scale_class
   )
 
-
-  if (rlang::is_null(symmetric)) {
-    if (geom == "sf") {
-      symmetric <- NA
+  if (rlang::is_null(x_limits_to_breaks)) {
+    if (geom == "sf") x_limits_to_breaks <- FALSE
+    else if (aspect == "x") {
+      x_limits_to_breaks <- FALSE
     }
-    else {
-      if (aspect == "x") symmetric <- "y"
-      else if (aspect == "y") symmetric <- "x"
-      else symmetric <- "y"
+    else if (aspect == "y") {
+      if (!facet_scales %in% c("free_x", "free")) x_limits_to_breaks <- TRUE
+      else x_limits_to_breaks <- FALSE
     }
   }
 
-  if (is.na(symmetric)) {
-    x_symmetric <- FALSE
-    y_symmetric <- FALSE
-  }
-  else {
-    if (symmetric == "x") {
-      if (!facet_scales %in% c("free_x", "free")) x_symmetric <- TRUE
-      else x_symmetric <- FALSE
-
-      y_symmetric <- FALSE
+  if (rlang::is_null(y_limits_to_breaks)) {
+    if (geom == "sf") y_limits_to_breaks <- FALSE
+    else if (aspect == "x") {
+      if (!facet_scales %in% c("free_y", "free")) y_limits_to_breaks <- TRUE
+      else y_limits_to_breaks <- FALSE
     }
-    else if (symmetric == "y") {
-      x_symmetric <- FALSE
-      if (!facet_scales %in% c("free_y", "free")) y_symmetric <- TRUE
-      else  y_symmetric <- FALSE
-    }
-    else if (is.na(symmetric)) {
-      x_symmetric <- FALSE
-      y_symmetric <- FALSE
-    }
-    else if (symmetric == "xy") {
-      if (!facet_scales %in% c("free_x", "free")) x_symmetric <- TRUE
-      if (!facet_scales %in% c("free_y", "free")) y_symmetric <- TRUE
+    else if (aspect == "y") {
+      y_limits_to_breaks <- FALSE
     }
   }
 
@@ -844,8 +828,8 @@ gg_blanket <- function(
   validate_inputs(
     mapping,
     aspect,
-    x_symmetric,
-    y_symmetric,
+    x_limits_to_breaks,
+    y_limits_to_breaks,
     x_transform,
     y_transform,
     stat
@@ -883,7 +867,7 @@ gg_blanket <- function(
 
   # Step 16: Add facet layer
   facet_layout <- get_facet_layout(facet_layout, aes_list)
-  facet_axes <- get_facet_axes(facet_axes, x_symmetric)
+  facet_axes <- get_facet_axes(facet_axes, x_limits_to_breaks)
 
   plot <- add_facet_layer(
     plot,
@@ -923,7 +907,7 @@ gg_blanket <- function(
       data = data,
       plot_data = plot_data,
       plot_build = plot_build,
-      x_symmetric = x_symmetric,
+      x_limits_to_breaks = x_limits_to_breaks,
       is_bordered_geom = is_bordered_geom,
       col_breaks = col_breaks,
       col_breaks_n = col_breaks_n,
@@ -1097,8 +1081,7 @@ gg_blanket <- function(
         x_limits_include = x_limits_include,
         x_position = x_position,
         x_sec_axis = x_sec_axis,
-        x_symmetric = x_symmetric,
-        x_transform = x_transform,
+        x_transform = x_transform, x_limits_to_breaks = x_limits_to_breaks,
         plot_data = plot_data
       )
   }
@@ -1135,8 +1118,7 @@ gg_blanket <- function(
         y_limits_include = y_limits_include,
         y_position = y_position,
         y_sec_axis = y_sec_axis,
-        y_symmetric = y_symmetric,
-        y_transform = y_transform,
+        y_transform = y_transform, y_limits_to_breaks = y_limits_to_breaks,
         plot_data = plot_data
       )
   }

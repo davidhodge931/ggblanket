@@ -49,7 +49,7 @@ Computational speed has been traded-off.
 10. `theme_lighter` and `theme_darker` themes 
 11. Set and forget with `set_blanket()`
 12. An `aspect` for vertical/horizontal ease 
-13. A `symmetric` continuous scale
+13. A `*_limits_to_breaks` continuous scale
 14. A `bordered` style 
 15. A `gg_blanket()` function with `geom` flexibility
 
@@ -302,13 +302,15 @@ p2 <- palmerpenguins::penguins |>
 p1 / p2
 ```
 
-### 13. A `symmetric` continuous scale
+### 13. A `*_limits_to_breaks` continuous scale
 
-A `symmetric` continuous scale can often be useful and look good. It refers to the axis line and ticks appearing symmetrical where (1) the limits equals the range of the breaks, and (2) `*_expand = c(0, 0)`.
+A `*_limits_to_breaks` continuous scale can look good. 
 
-By default, the `gg_*` function determines the symmetric scale based on the `aspect` of the plot. This can be adjusted by the user using the symmetric argument, including using `symmetric = NA` to revert to the normal limits and expand defaults.
+This refers to when the limits equals the range of the `*_breaks`. Where `*_limits_to_breaks = TRUE`, the NULL `*_expand` equals `c(0, 0)` instead of `ggplot2::waiver()`.
 
-Note all continuous scales ensure _all_ data is kept using `scales::oob_keep` - and, by default, are left unclipped (i.e. `coord_cartesian(clip = "off")`. 
+The NULL `*_limits_to_breaks`is larglely determined by the `aspect` of the plot. Where `aspect = 'x'`, then by default `x_limits_to_breaks = FALSE` and `y_limits_to_breaks = TRUE`. For `aspect = 'y'`, the vice versa occurs.
+
+Note all continuous scales ensure all data is kept using `scales::oob_keep` - and, by default, are unclipped (i.e. `coord_cartesian(clip = "off")`. 
 
 ### 14. A `bordered` style 
 

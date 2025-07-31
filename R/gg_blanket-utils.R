@@ -142,15 +142,15 @@ get_aspect <- function(aspect = NULL, x_scale_class, y_scale_class) {
 
 #' Determine if x should be symmetric
 #' @noRd
-is_x_symmetric <- function(
-    x_symmetric = NULL,
+is_x_limits_to_breaks <- function(
+    x_limits_to_breaks = NULL,
     stat,
     facet_scales,
     x_scale_class,
     y_scale_class
 ) {
-  if (!is.null(x_symmetric)) {
-    return(x_symmetric)
+  if (!is.null(x_limits_to_breaks)) {
+    return(x_limits_to_breaks)
   }
 
   # Conditions where x should NOT be symmetric
@@ -161,15 +161,15 @@ is_x_symmetric <- function(
 
 #' Determine if y should be symmetric
 #' @noRd
-is_y_symmetric <- function(
-    y_symmetric = NULL,
+is_y_limits_to_breaks <- function(
+    y_limits_to_breaks = NULL,
     stat,
     facet_scales,
     x_scale_class,
     y_scale_class
 ) {
-  if (!is.null(y_symmetric)) {
-    return(y_symmetric)
+  if (!is.null(y_limits_to_breaks)) {
+    return(y_limits_to_breaks)
   }
 
   # Conditions where y should NOT be symmetric
@@ -185,8 +185,8 @@ is_y_symmetric <- function(
 validate_inputs <- function(
     mapping,
     aspect,
-    x_symmetric,
-    y_symmetric,
+    x_limits_to_breaks,
+    y_limits_to_breaks,
     x_transform,
     y_transform,
     stat
@@ -201,7 +201,7 @@ validate_inputs <- function(
 
   if (!aspect %in% c("x", "y")) rlang::abort("aspect can only be 'x' or 'y'")
 
-  both_symmetric <- x_symmetric && y_symmetric
+  both_symmetric <- x_limits_to_breaks && y_limits_to_breaks
   non_identity_x_transform <- !x_transform %in% c("identity", "reverse")
   non_identity_y_transform <- !y_transform %in% c("identity", "reverse")
   non_identity_stat <- !identical(stat, "identity")
@@ -353,8 +353,8 @@ get_facet_layout <- function(facet_layout, aes_list) {
 
 #' Get facet axes default
 #' @noRd
-get_facet_axes <- function(facet_axes, x_symmetric) {
-  facet_axes %||% if (x_symmetric) "all_y" else "all_x"
+get_facet_axes <- function(facet_axes, x_limits_to_breaks) {
+  facet_axes %||% if (x_limits_to_breaks) "all_y" else "all_x"
 }
 
 #' Add facet layer to plot
@@ -736,7 +736,7 @@ add_x_scale_continuous <- function(
   x_limits_include,
   x_position,
   x_sec_axis,
-  x_symmetric,
+  x_limits_to_breaks,
   x_transform,
   plot_data
 ) {
@@ -746,14 +746,14 @@ add_x_scale_continuous <- function(
     x_labels <- x_labels %||% ggplot2::waiver()
   }
 
-  if (x_symmetric) {
+  if (x_limits_to_breaks) {
     data_x <- plot_data |>
       dplyr::select(tidyselect::matches(stringr::regex("^(?!xid|xbin)x.*"))) |>
       tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "x") |>
       dplyr::filter(!is.na(.data$x))
 
     plot +
-      scale_x_symmetric(
+      scale_x_limits_to_breaks(
         data = data_x,
         x = NULL, # Not needed since data already has 'x' column
         symmetric = TRUE,
@@ -768,7 +768,7 @@ add_x_scale_continuous <- function(
       )
   } else {
     plot +
-      scale_x_symmetric(
+      scale_x_limits_to_breaks(
         symmetric = FALSE,
         breaks = x_breaks,
         breaks_n = x_breaks_n,
@@ -794,7 +794,7 @@ add_y_scale_continuous <- function(
   y_limits_include,
   y_position,
   y_sec_axis,
-  y_symmetric,
+  y_limits_to_breaks,
   y_transform,
   plot_data
 ) {
@@ -804,14 +804,14 @@ add_y_scale_continuous <- function(
     y_labels <- y_labels %||% ggplot2::waiver()
   }
 
-  if (y_symmetric) {
+  if (y_limits_to_breaks) {
     data_y <- plot_data |>
       dplyr::select(tidyselect::matches(stringr::regex("^(?!yid|ybin)y.*"))) |>
       tidyr::pivot_longer(cols = tidyselect::everything(), values_to = "y") |>
       dplyr::filter(!is.na(.data$y))
 
     plot +
-      scale_y_symmetric(
+      scale_y_limits_to_breaks(
         data = data_y,
         y = NULL, # Not needed since data already has 'y' column
         symmetric = TRUE,
@@ -826,7 +826,7 @@ add_y_scale_continuous <- function(
       )
   } else {
     plot +
-      scale_y_symmetric(
+      scale_y_limits_to_breaks(
         symmetric = FALSE,
         breaks = y_breaks,
         breaks_n = y_breaks_n,
@@ -1073,7 +1073,7 @@ add_matching_aesthetic_guides <- function(
 
 #' Create symmetric x scale
 #' @noRd
-scale_x_symmetric <- function(
+scale_x_limits_to_breaks <- function(
   data = NULL,
   x = NULL,
   symmetric = TRUE,
@@ -1229,7 +1229,7 @@ scale_x_symmetric <- function(
 
 #' Create symmetric y scale
 #' @noRd
-scale_y_symmetric <- function(
+scale_y_limits_to_breaks <- function(
   data = NULL,
   y = NULL,
   symmetric = TRUE,
@@ -2054,7 +2054,7 @@ initialise_ggplot_from_list <- function(
 #' @noRd
 add_col_scale <- function(
     plot, geom, stat = NULL, col_scale_class, aes_list, data, plot_data,
-    plot_build, x_symmetric, is_bordered_geom, col_breaks, col_breaks_n, col_drop,
+    plot_build, x_limits_to_breaks, is_bordered_geom, col_breaks, col_breaks_n, col_drop,
     col_limits_include, col_labels, col_legend_ncol, col_legend_nrow,
     col_legend_rev, col_rescale, col_scale_type, col_transform,
     colour_palette_d, colour_palette_c, colour_palette_o,
@@ -2091,7 +2091,7 @@ add_col_scale <- function(
       colour_palette_d, fill_palette_d,
       na_colour, na_fill,
       col_breaks, col_labels, col_drop, col_legend_ncol,
-      col_legend_nrow, col_legend_rev, x_symmetric, plot_build,
+      col_legend_nrow, col_legend_rev, x_limits_to_breaks, plot_build,
       stat = stat
     )
   } else if (col_scale_class %in% c("continuous", "date", "datetime", "time")) {
@@ -2151,7 +2151,7 @@ add_col_scale_discrete <- function(
   col_legend_ncol,
   col_legend_nrow,
   col_legend_rev,
-  x_symmetric,
+  x_limits_to_breaks,
   plot_build,
   stat = NULL
 ) {
@@ -2169,8 +2169,8 @@ add_col_scale_discrete <- function(
     col_n
   )
 
-  # Handle x_symmetric reversal
-  if (x_symmetric) {
+  # Handle x_limits_to_breaks reversal
+  if (x_limits_to_breaks) {
     col_legend_rev <- !col_legend_rev
     if (!is.null(colour_palette_processed)) {
       colour_palette_processed <- rev(colour_palette_processed)

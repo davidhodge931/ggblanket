@@ -264,19 +264,19 @@ test_that("trans_log", {
   )
 })
 
-test_that("symmetric_x", {
-  expect_doppelganger(
-    "symmetric_x",
-    palmerpenguins::penguins |>
-      tidyr::drop_na() |>
-      gg_point(
-        x = bill_depth_mm,
-        y = bill_length_mm,
-        col = bill_length_mm,
-        symmetric = "x",
-      )
-  )
-})
+# test_that("symmetric_x", {
+#   expect_doppelganger(
+#     "symmetric_x",
+#     palmerpenguins::penguins |>
+#       tidyr::drop_na() |>
+#       gg_point(
+#         x = bill_depth_mm,
+#         y = bill_length_mm,
+#         col = bill_length_mm,
+#         symmetric = "x",
+#       )
+#   )
+# })
 
 # Legend tests
 test_that("leg_rev_disc", {

@@ -3,6 +3,7 @@
 export(aes_contrast)
 export(annotate_axis_line)
 export(annotate_axis_ticks)
+export(annotate_panel_grid)
 export(bind_each_all)
 export(col_multiply)
 export(col_screen)

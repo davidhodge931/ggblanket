@@ -502,7 +502,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
   ) +
-  annotate_axis_line(position = "bottom") +
+  annotate_axis_line() +
   geom_point()
 ```
 
@@ -527,7 +527,7 @@ penguins |>
     x = flipper_length_mm,
     col = sex,
   ) +
-  annotate_axis_ticks(position = "bottom", breaks = c(seq(170, 230, 10), 195))
+  annotate_axis_ticks(x_breaks = c(seq(170, 230, 10), 195))
 ```
 
 ### Multiple geoms

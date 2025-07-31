@@ -5,29 +5,28 @@ TO DO
 
 * Supported `alpha`, `linetype`, `linewidth`, `size`, `colour` and `fill` aesthetics and set values.
 * Redesign of how `colour`/`fill`/`linewidth` and palettes work. 
-in `set_blanket` and `gg_blanket` with defaults and flexibility for border geoms.
+* Creation of bordered concept.
+* Creation of aspect concept.
+
 * Breaking: renamed `gg_bin_2d`, `gg_density_2d` and `gg_density_2d_filled` to `gg_bin2d` etc. 
 * Breaking: renamed `*_label` to `*_title`, and `label_case` to `titles_case`.
 * Breaking: added `col` to `set_blanket` instead of `colour`/`fill`.
 * Breaking: lines turned off through `linetype = 0` instead of `linewidth = 0`.
 * Breaking: renamed and redesigned themes to `theme_lighter` and `theme_darker`.
-* Breaking: renamed `theme_` prefixed arguments to `perspective`, `axis_line_transparent`, `axis_ticks_transparent`, and `panel_grid_transparent`.
-* Breaking: adjusted `annotate_axis_line` arguments.
 * Breaking: changed `col_steps = TRUE` argument to `col_scale_type = "steps"`.
 * Breaking: removed `theme` from `gg_*`. 
 * Breaking: removed `gg_text` and `gg_label`. 
 * Breaking: removed `lightness` and `darkness`.
+* Breaking: adjusted `annotate_axis_line` arguments.
 * Added defaults to `aes_contrast` to make it determine NULL colours based on theme.
-* Exported `update_geom_font` and `update_geom_reference_line` functions.
 * Supported setting col/colour/fill palettes.
 * For dates etc, defaulted labels to `scales::label_date_short(leading = "")`.
 * Added `colour_palette` and `fill_palette` arguments to `gg_*` functions.
 * Added `col_multiply` and `col_screen`.
 * Added `bind_each_all` to assist with plotting groups alongside the total.
 * Added `standardise_width`.
-* Added `annotate_axis_ticks`.
+* Added `annotate_axis_ticks` and `annotate_panel_grid`.
 * Added `element_line_transparent`.
-* Added `gg_qq_line`.
 * Supported `facet_space` argument with a discrete scale.
 
 # ggblanket 12.4.0

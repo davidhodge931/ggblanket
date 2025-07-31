@@ -18,6 +18,7 @@ reference:
 - contents:
   - aes_contrast
   - annotate_axis_line
+  - annotate_panel_grid
   - annotate_axis_ticks
   - bind_each_all
   - col_multiply

@@ -14,7 +14,6 @@ gg_density2d(
   aspect_axis_line = NULL,
   aspect_axis_ticks = NULL,
   aspect_panel_grid = NULL,
-  symmetric = NULL,
   blend = NULL,
   x = NULL,
   xmin = NULL,
@@ -52,6 +51,7 @@ gg_density2d(
   x_labels = NULL,
   x_position = "bottom",
   x_sec_axis = ggplot2::waiver(),
+  x_limits_to_breaks = NULL,
   x_transform = NULL,
   y_breaks = NULL,
   y_breaks_n = NULL,
@@ -61,6 +61,7 @@ gg_density2d(
   y_labels = NULL,
   y_position = "left",
   y_sec_axis = ggplot2::waiver(),
+  y_limits_to_breaks = NULL,
   y_transform = NULL,
   col_breaks = ggplot2::waiver(),
   col_breaks_n = NULL,
@@ -114,8 +115,6 @@ gg_density2d(
 
 \item{aspect_panel_grid}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the x panel grid for an \code{"x"} \code{aspect}, and vice versa.}
 
-\item{symmetric}{Which positional axes are to appear symmetric with (1) the limits equal to the range of the breaks, and (2) \verb{*_expand = c(0, 0)}. Either \code{"x"}, \code{"y"} or \code{NA} for none. Also \code{"xy"} if \code{stat}, \code{x_transform} and \code{y_transform} equals \code{"identity"} (or \code{"reverse"}). If NULL, guesses based on \code{aspect}.}
-
 \item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
 
 \item{x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, colour, fill, shape, linetype, alpha, linewidth, size, facet, facet2, group, subgroup, label, text, sample}{A mapped (unquoted) aesthetic variable. Or a set aesthetic value.}
@@ -143,6 +142,8 @@ gg_density2d(
 \item{x_position, y_position}{The position of the axis (i.e. \code{"left"}, \code{"right"}, \code{"bottom"} or \code{"top"}).If using \code{y_position = "top"} with a \verb{*_*} theme, add \code{caption = ""} or \code{caption = "\\n"}.}
 
 \item{x_sec_axis, y_sec_axis}{A secondary axis with \code{\link[ggplot2:sec_axis]{ggplot2::dup_axis()}} or  \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis()}} defaults.}
+
+\item{x_limits_to_breaks, y_limits_to_breaks}{\code{TRUE} or \code{FALSE} of whether the limits are to equal the range of the \verb{*_breaks} (and \verb{*_expand = c(0, 0)}). Note can only both be \code{TRUE} if \code{stat}, \code{x_transform} and \code{y_transform} equals \code{"identity"} (or \code{"reverse"}).}
 
 \item{x_transform, y_transform, col_transform}{For a continuous scale, a transformation object (e.g. \code{\link[scales:transform_log]{scales::transform_log10()}}) or character string of this minus the \code{transform_} prefix (e.g. \code{"log10"}).}
 
