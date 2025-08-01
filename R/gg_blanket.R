@@ -747,7 +747,7 @@ gg_blanket <- function(
     mapping = mapping
   )
 
-  show_legend <- !(geom %in% c("blank", "abline"))
+  show_legend <- !(geom %in% c("blank"))
   params <- get_geom_params(geom, ...)
 
   # Merge in the fixed params

@@ -206,4 +206,13 @@ palmerpenguins::penguins |>
   ) +
   geom_qq_line(colour = get_geom_defaults("qq_line")$colour)
 
+palmerpenguins::penguins |>
+  gg_blanket(
+    stat = "qq",
+    sample = body_mass_g,
+    col = species,
+  ) +
+  geom_qq_line(colour = get_geom_defaults("qq_line")$colour) +
+  geom_qq()
+
 }

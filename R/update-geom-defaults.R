@@ -16,8 +16,9 @@ update_geom_col <- function(
   ggplot2::update_theme(geom = ggplot2::element_geom(colour = col, fill = col))
 
   font_geoms <- c("text", "label")
-  reference_geoms <- c("abline", "hline", "vline")
+  reference_geoms <- c("hline", "vline")
   all_geoms <- c(
+    "abline",
     "contour",
     "count",
     "curve",
@@ -58,7 +59,6 @@ update_geom_col <- function(
     "density2d_filled",
     "text",
     "label",
-    "abline",
     "hline",
     "vline"
   )
@@ -354,6 +354,7 @@ update_geom_font <- function(
 }
 
 #' Update the geom abline/vline/hline
+#' Note abline updates on linewidth, but not on col.
 #'
 #' @description
 #' Updates the active theme to apply consistent reference line styling.
@@ -396,7 +397,6 @@ update_geom_reference <- function(
 
   ggplot2::update_theme(
     geom.abline = ggplot2::element_geom(
-      colour = colour,
       linewidth = linewidth
     ),
     geom.vline = ggplot2::element_geom(

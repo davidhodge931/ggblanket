@@ -42,12 +42,7 @@ library(dplyr)
 library(stringr)
 library(palmerpenguins)
 
-set_blanket(
-  theme = theme_lighter(
-    panel_heights = rep(unit(50, "mm"), 100),
-    panel_widths = rep(unit(75, "mm"), 100),
-  ),
-)
+set_blanket()
 
 penguins |>
   tidyr::drop_na(sex) |>
