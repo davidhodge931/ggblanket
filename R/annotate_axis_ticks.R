@@ -172,21 +172,27 @@ annotate_axis_ticks <- function(
       }
     }
 
-    # Add theme modifications for x-axis
+    # Add theme modifications for x-axis - only for the specified position
     if (theme_elements == "transparent") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(
-          axis.ticks.x.bottom = ggplot2::element_line(colour = "transparent"),
-          axis.ticks.x.top = ggplot2::element_line(colour = "transparent")
-        )
-      ))
+      if (x_position == "bottom") {
+        stamp <- c(stamp, list(
+          ggplot2::theme(axis.ticks.x.bottom = ggplot2::element_line(colour = "transparent"))
+        ))
+      } else {
+        stamp <- c(stamp, list(
+          ggplot2::theme(axis.ticks.x.top = ggplot2::element_line(colour = "transparent"))
+        ))
+      }
     } else if (theme_elements == "blank") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(
-          axis.ticks.x.bottom = ggplot2::element_blank(),
-          axis.ticks.x.top = ggplot2::element_blank()
-        )
-      ))
+      if (x_position == "bottom") {
+        stamp <- c(stamp, list(
+          ggplot2::theme(axis.ticks.x.bottom = ggplot2::element_blank())
+        ))
+      } else {
+        stamp <- c(stamp, list(
+          ggplot2::theme(axis.ticks.x.top = ggplot2::element_blank())
+        ))
+      }
     }
 
     # Create x-axis tick annotations
@@ -226,9 +232,10 @@ annotate_axis_ticks <- function(
       stamp <- c(
         stamp,
         list(
-          do.call(
+          rlang::exec(
             ggplot2::annotation_custom,
-            c(list(grob = tick_grob), annotation_position)
+            grob = tick_grob,
+            !!!annotation_position
           )
         )
       )
@@ -280,21 +287,27 @@ annotate_axis_ticks <- function(
       }
     }
 
-    # Add theme modifications for y-axis
+    # Add theme modifications for y-axis - only for the specified position
     if (theme_elements == "transparent") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(
-          axis.ticks.y.left = ggplot2::element_line(colour = "transparent"),
-          axis.ticks.y.right = ggplot2::element_line(colour = "transparent")
-        )
-      ))
+      if (y_position == "left") {
+        stamp <- c(stamp, list(
+          ggplot2::theme(axis.ticks.y.left = ggplot2::element_line(colour = "transparent"))
+        ))
+      } else {
+        stamp <- c(stamp, list(
+          ggplot2::theme(axis.ticks.y.right = ggplot2::element_line(colour = "transparent"))
+        ))
+      }
     } else if (theme_elements == "blank") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(
-          axis.ticks.y.left = ggplot2::element_blank(),
-          axis.ticks.y.right = ggplot2::element_blank()
-        )
-      ))
+      if (y_position == "left") {
+        stamp <- c(stamp, list(
+          ggplot2::theme(axis.ticks.y.left = ggplot2::element_blank())
+        ))
+      } else {
+        stamp <- c(stamp, list(
+          ggplot2::theme(axis.ticks.y.right = ggplot2::element_blank())
+        ))
+      }
     }
 
     # Create y-axis tick annotations
@@ -334,9 +347,10 @@ annotate_axis_ticks <- function(
       stamp <- c(
         stamp,
         list(
-          do.call(
+          rlang::exec(
             ggplot2::annotation_custom,
-            c(list(grob = tick_grob), annotation_position)
+            grob = tick_grob,
+            !!!annotation_position
           )
         )
       )

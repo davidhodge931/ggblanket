@@ -3,7 +3,8 @@
 #' @description Replace axis line with an annotated segment.
 #'
 #' @param ... Extra parameters passed to `ggplot2::annotate("segment", ...)`.
-#' @param x_position,y_position The position of the axis line. One of `"bottom"`/`"top"` or `"left"`/`"right"`.
+#' @param x_position The position of the x-axis. One of "bottom" or "top". Leave NULL if not drawing x-axis line.
+#' @param y_position The position of the y-axis. One of "left" or "right". Leave NULL if not drawing y-axis line.
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.line etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.line etc.
 #' @param theme_elements What to do with theme axis line elements. Either "transparent", "keep" or "blank". Defaults "transparent".
@@ -17,7 +18,12 @@
 #' library(stringr)
 #' library(palmerpenguins)
 #'
-#' set_blanket()
+#' set_blanket(
+#'   theme = theme_lighter(
+#'     panel_heights = rep(unit(50, "mm"), 100),
+#'     panel_widths = rep(unit(75, "mm"), 100),
+#'   ),
+#' )
 #'
 #' penguins |>
 #'   tidyr::drop_na(sex) |>
@@ -101,12 +107,13 @@ annotate_axis_line <- function(
       linewidth
     }
 
-    # Create x-axis segment and theme
+    # Create x-axis segment
     if (x_position == "bottom") {
       stamp <- c(
         stamp,
         list(
-          ggplot2::annotate(
+          rlang::exec(
+            ggplot2::annotate,
             "segment",
             x = I(-Inf),
             xend = I(Inf),
@@ -114,12 +121,12 @@ annotate_axis_line <- function(
             yend = I(-Inf),
             colour = x_colour,
             linewidth = x_linewidth,
-            ...
+            !!!list(...)
           )
         )
       )
 
-      # Add theme modification if requested
+      # Add theme modification if requested - only for bottom
       if (theme_elements == "transparent") {
         stamp <- c(
           stamp,
@@ -135,7 +142,8 @@ annotate_axis_line <- function(
       stamp <- c(
         stamp,
         list(
-          ggplot2::annotate(
+          rlang::exec(
+            ggplot2::annotate,
             "segment",
             x = I(-Inf),
             xend = I(Inf),
@@ -143,12 +151,12 @@ annotate_axis_line <- function(
             yend = I(Inf),
             colour = x_colour,
             linewidth = x_linewidth,
-            ...
+            !!!list(...)
           )
         )
       )
 
-      # Add theme modification if requested
+      # Add theme modification if requested - only for top
       if (theme_elements == "transparent") {
         stamp <- c(
           stamp,
@@ -198,12 +206,13 @@ annotate_axis_line <- function(
       linewidth
     }
 
-    # Create y-axis segment and theme
+    # Create y-axis segment
     if (y_position == "left") {
       stamp <- c(
         stamp,
         list(
-          ggplot2::annotate(
+          rlang::exec(
+            ggplot2::annotate,
             "segment",
             x = I(-Inf),
             xend = I(-Inf),
@@ -211,12 +220,12 @@ annotate_axis_line <- function(
             yend = I(Inf),
             colour = y_colour,
             linewidth = y_linewidth,
-            ...
+            !!!list(...)
           )
         )
       )
 
-      # Add theme modification if requested
+      # Add theme modification if requested - only for left
       if (theme_elements == "transparent") {
         stamp <- c(
           stamp,
@@ -232,7 +241,8 @@ annotate_axis_line <- function(
       stamp <- c(
         stamp,
         list(
-          ggplot2::annotate(
+          rlang::exec(
+            ggplot2::annotate,
             "segment",
             x = I(Inf),
             xend = I(Inf),
@@ -240,12 +250,12 @@ annotate_axis_line <- function(
             yend = I(Inf),
             colour = y_colour,
             linewidth = y_linewidth,
-            ...
+            !!!list(...)
           )
         )
       )
 
-      # Add theme modification if requested
+      # Add theme modification if requested - only for right
       if (theme_elements == "transparent") {
         stamp <- c(
           stamp,

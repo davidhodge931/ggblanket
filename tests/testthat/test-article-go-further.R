@@ -331,7 +331,8 @@ test_that("annotate_axis_line works", {
       y = body_mass_g,
       col = sex,
     ) +
-    annotate_axis_line(position = "bottom") +
+    annotate_axis_line(x_position = "bottom") +
+    annotate_axis_ticks(x_breaks = 210, x_position = "bottom")
     geom_point()
 })
 

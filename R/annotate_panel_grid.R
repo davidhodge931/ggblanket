@@ -91,7 +91,7 @@ annotate_panel_grid <- function(
     }
 
     if (length(theme_list) > 0) {
-      stamp <- c(stamp, list(do.call(ggplot2::theme, theme_list)))
+      stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_list)))
     }
 
   } else if (theme_elements == "blank") {
@@ -110,7 +110,7 @@ annotate_panel_grid <- function(
     }
 
     if (length(theme_list) > 0) {
-      stamp <- c(stamp, list(do.call(ggplot2::theme, theme_list)))
+      stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_list)))
     }
   }
   # Add vertical grid lines (x_breaks)
@@ -118,7 +118,8 @@ annotate_panel_grid <- function(
     stamp <- c(
       stamp,
       list(
-        ggplot2::annotate(
+        rlang::exec(
+          ggplot2::annotate,
           "segment",
           x = x_breaks,
           xend = x_breaks,
@@ -127,7 +128,7 @@ annotate_panel_grid <- function(
           colour = colour,
           linewidth = linewidth,
           linetype = linetype,
-          ...
+          !!!list(...)
         )
       )
     )
@@ -137,7 +138,8 @@ annotate_panel_grid <- function(
     stamp <- c(
       stamp,
       list(
-        ggplot2::annotate(
+        rlang::exec(
+          ggplot2::annotate,
           "segment",
           x = -Inf,
           xend = Inf,
@@ -146,7 +148,7 @@ annotate_panel_grid <- function(
           colour = colour,
           linewidth = linewidth,
           linetype = linetype,
-          ...
+          !!!list(...)
         )
       )
     )

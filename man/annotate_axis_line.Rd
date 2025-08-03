@@ -16,7 +16,9 @@ annotate_axis_line(
 \arguments{
 \item{...}{Extra parameters passed to \code{ggplot2::annotate("segment", ...)}.}
 
-\item{x_position, y_position}{The position of the axis line. One of \code{"bottom"}/\code{"top"} or \code{"left"}/\code{"right"}.}
+\item{x_position}{The position of the x-axis. One of "bottom" or "top". Leave NULL if not drawing x-axis line.}
+
+\item{y_position}{The position of the y-axis. One of "left" or "right". Leave NULL if not drawing y-axis line.}
 
 \item{colour}{The colour of the annotated segment. Inherits from the current theme axis.line etc.}
 
@@ -36,7 +38,12 @@ library(dplyr)
 library(stringr)
 library(palmerpenguins)
 
-set_blanket()
+set_blanket(
+  theme = theme_lighter(
+    panel_heights = rep(unit(50, "mm"), 100),
+    panel_widths = rep(unit(75, "mm"), 100),
+  ),
+)
 
 penguins |>
   tidyr::drop_na(sex) |>
