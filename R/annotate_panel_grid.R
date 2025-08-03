@@ -3,8 +3,9 @@
 #' @description Replace panel grid lines with annotated segments.
 #' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
-#' @param ... Extra parameters passed to `ggplot2::annotate("segment", ...)`.
-#' @param x_breaks,y_breaks A vector of axis breaks for the panel grid.
+#' @param axis The axis to annotate. One of "x" or "y".
+#' @param ... Provided to require argument naming, support trailing commas etc.
+#' @param breaks A vector of axis breaks for the panel grid.
 #' @param colour The colour of grid lines. Inherits from current theme panel.grid.major etc.
 #' @param linewidth The linewidth of grid lines. Inherits from current theme panel.grid.major etc.
 #' @param linetype The linetype of grid lines. Inherits from current theme panel.grid.major etc.
@@ -29,16 +30,14 @@
 #'     y = body_mass_g,
 #'     col = sex,
 #'   ) +
-#'   annotate_panel_grid(
-#'     x_breaks = seq(190, 230, 15),
-#'     y_breaks = seq(3000, 6500, 250),
-#'   ) +
+#'   annotate_panel_grid(axis = "x", breaks = seq(190, 230, 15)) +
+#'   annotate_panel_grid(axis = "y", breaks = seq(3000, 6500, 250)) +
 #'   geom_point()
 #'
 annotate_panel_grid <- function(
+    axis,
     ...,
-    x_breaks = NULL,
-    y_breaks = NULL,
+    breaks,
     colour = NULL,
     linewidth = NULL,
     linetype = NULL,
@@ -47,94 +46,103 @@ annotate_panel_grid <- function(
   rlang::inform(
     "Please use this function with ggplot2::coord_cartesian(clip = 'off')"
   )
-  # Validate theme_elements parameter
+
+  # Validate arguments
+  if (!axis %in% c("x", "y")) {
+    rlang::abort("axis must be one of 'x' or 'y'")
+  }
+
   if (!theme_elements %in% c("transparent", "keep", "blank")) {
     rlang::abort("theme_elements must be one of 'transparent', 'keep', or 'blank'")
   }
-  # Return early if no breaks provided
-  if (is.null(x_breaks) && is.null(y_breaks)) {
-    return(list())
-  }
+
   # Get current theme
   current_theme <- ggplot2::get_theme()
-  # Extract theme properties for grid lines
-  if (rlang::is_null(colour)) {
-    colour <- current_theme$panel.grid.major$colour %||%
-      current_theme$panel.grid$colour %||%
-      "#E6E9EFFF"
+
+  # Helper function to extract theme properties
+  extract_theme_property <- function(property, default) {
+    current_theme[["panel.grid.major"]][[property]] %||%
+      current_theme[["panel.grid"]][[property]] %||%
+      default
   }
-  if (rlang::is_null(linewidth)) {
-    linewidth <- current_theme$panel.grid.major$linewidth %||%
-      current_theme$panel.grid$linewidth %||%
-      0.5
+
+  # Extract theme properties
+  grid_colour <- if (rlang::is_null(colour)) {
+    extract_theme_property("colour", "#E6E9EFFF")
+  } else {
+    colour
   }
-  if (rlang::is_null(linetype)) {
-    linetype <- current_theme$panel.grid.major$linetype %||%
-      current_theme$panel.grid$linetype %||%
-      "solid"
+
+  grid_linewidth <- if (rlang::is_null(linewidth)) {
+    extract_theme_property("linewidth", 0.5)
+  } else {
+    linewidth
   }
+
+  grid_linetype <- if (rlang::is_null(linetype)) {
+    extract_theme_property("linetype", "solid")
+  } else {
+    linetype
+  }
+
   stamp <- list()
-  # Add theme modifications if requested - target most specific elements
+
+  # Add theme modification if requested
   if (theme_elements == "transparent") {
-    theme_list <- list()
-
-    # Only modify x-direction grid elements if x_breaks provided
-    if (!is.null(x_breaks)) {
-      theme_list$panel.grid.major.x <- ggplot2::element_line(colour = "transparent")
-      theme_list$panel.grid.minor.x <- ggplot2::element_line(colour = "transparent")
+    if (axis == "x") {
+      stamp <- c(stamp, list(
+        ggplot2::theme(
+          panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
+          panel.grid.minor.x = ggplot2::element_line(colour = "transparent")
+        )
+      ))
+    } else { # y
+      stamp <- c(stamp, list(
+        ggplot2::theme(
+          panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
+          panel.grid.minor.y = ggplot2::element_line(colour = "transparent")
+        )
+      ))
     }
-
-    # Only modify y-direction grid elements if y_breaks provided
-    if (!is.null(y_breaks)) {
-      theme_list$panel.grid.major.y <- ggplot2::element_line(colour = "transparent")
-      theme_list$panel.grid.minor.y <- ggplot2::element_line(colour = "transparent")
-    }
-
-    if (length(theme_list) > 0) {
-      stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_list)))
-    }
-
   } else if (theme_elements == "blank") {
-    theme_list <- list()
-
-    # Only modify x-direction grid elements if x_breaks provided
-    if (!is.null(x_breaks)) {
-      theme_list$panel.grid.major.x <- ggplot2::element_blank()
-      theme_list$panel.grid.minor.x <- ggplot2::element_blank()
-    }
-
-    # Only modify y-direction grid elements if y_breaks provided
-    if (!is.null(y_breaks)) {
-      theme_list$panel.grid.major.y <- ggplot2::element_blank()
-      theme_list$panel.grid.minor.y <- ggplot2::element_blank()
-    }
-
-    if (length(theme_list) > 0) {
-      stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_list)))
+    if (axis == "x") {
+      stamp <- c(stamp, list(
+        ggplot2::theme(
+          panel.grid.major.x = ggplot2::element_blank(),
+          panel.grid.minor.x = ggplot2::element_blank()
+        )
+      ))
+    } else { # y
+      stamp <- c(stamp, list(
+        ggplot2::theme(
+          panel.grid.major.y = ggplot2::element_blank(),
+          panel.grid.minor.y = ggplot2::element_blank()
+        )
+      ))
     }
   }
-  # Add vertical grid lines (x_breaks)
-  if (!is.null(x_breaks)) {
+
+  # Create grid lines
+  if (axis == "x") {
+    # Add vertical grid lines
     stamp <- c(
       stamp,
       list(
         rlang::exec(
           ggplot2::annotate,
           "segment",
-          x = x_breaks,
-          xend = x_breaks,
+          x = breaks,
+          xend = breaks,
           y = -Inf,
           yend = Inf,
-          colour = colour,
-          linewidth = linewidth,
-          linetype = linetype,
-          !!!list(...)
+          colour = grid_colour,
+          linewidth = grid_linewidth,
+          linetype = grid_linetype
         )
       )
     )
-  }
-  # Add horizontal grid lines (y_breaks)
-  if (!is.null(y_breaks)) {
+  } else { # y-axis
+    # Add horizontal grid lines
     stamp <- c(
       stamp,
       list(
@@ -143,15 +151,15 @@ annotate_panel_grid <- function(
           "segment",
           x = -Inf,
           xend = Inf,
-          y = y_breaks,
-          yend = y_breaks,
-          colour = colour,
-          linewidth = linewidth,
-          linetype = linetype,
-          !!!list(...)
+          y = breaks,
+          yend = breaks,
+          colour = grid_colour,
+          linewidth = grid_linewidth,
+          linetype = grid_linetype
         )
       )
     )
   }
+
   return(stamp)
 }

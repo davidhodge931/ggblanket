@@ -521,7 +521,7 @@ test_that("annotate_axis", {
         col = bill_length_mm,
         y_breaks = scales::breaks_pretty(10)
       ) +
-      annotate_axis_line(x_position = "bottom") +
+      annotate_axis_line("x", position = "bottom") +
       geom_point()
   )
 })

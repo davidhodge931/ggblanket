@@ -331,8 +331,8 @@ test_that("annotate_axis_line works", {
       y = body_mass_g,
       col = sex,
     ) +
-    annotate_axis_line(x_position = "bottom") +
-    annotate_axis_ticks(x_breaks = 210, x_position = "bottom")
+    annotate_axis_line("x", position = "bottom") +
+    annotate_axis_ticks("x", breaks = 210, position = "bottom")
     geom_point()
 })
 
@@ -351,7 +351,7 @@ test_that("annotate_axis_ticks works", {
       x = flipper_length_mm,
       col = sex,
     ) +
-    annotate_axis_ticks(x_breaks = c(seq(170, 230, 10), 195))
+    annotate_axis_ticks("x", breaks = c(seq(170, 230, 10), 195))
 })
 
 set_blanket()

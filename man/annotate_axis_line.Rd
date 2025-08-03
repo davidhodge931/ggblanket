@@ -5,20 +5,20 @@
 \title{Annotated axis line segment}
 \usage{
 annotate_axis_line(
+  axis,
   ...,
-  x_position = NULL,
-  y_position = NULL,
+  position = NULL,
   colour = NULL,
   linewidth = NULL,
   theme_elements = "transparent"
 )
 }
 \arguments{
-\item{...}{Extra parameters passed to \code{ggplot2::annotate("segment", ...)}.}
+\item{axis}{The axis to annotate. One of "x" or "y".}
 
-\item{x_position}{The position of the x-axis. One of "bottom" or "top". Leave NULL if not drawing x-axis line.}
+\item{...}{Provided to require argument naming, support trailing commas etc.}
 
-\item{y_position}{The position of the y-axis. One of "left" or "right". Leave NULL if not drawing y-axis line.}
+\item{position}{The position of the axis. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.}
 
 \item{colour}{The colour of the annotated segment. Inherits from the current theme axis.line etc.}
 
@@ -54,7 +54,8 @@ penguins |>
     y = body_mass_g,
     col = sex,
   ) +
-  annotate_axis_line(x_position = "bottom") +
+  annotate_axis_line(axis = "x") +
+  annotate_axis_line(axis = "y") +
   geom_point()
 
 }

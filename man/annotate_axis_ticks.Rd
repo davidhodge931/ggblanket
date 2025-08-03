@@ -5,11 +5,10 @@
 \title{Annotated axis ticks segments}
 \usage{
 annotate_axis_ticks(
+  axis,
   ...,
-  x_breaks = NULL,
-  y_breaks = NULL,
-  x_position = NULL,
-  y_position = NULL,
+  breaks,
+  position = NULL,
   colour = NULL,
   linewidth = NULL,
   length = NULL,
@@ -17,11 +16,13 @@ annotate_axis_ticks(
 )
 }
 \arguments{
+\item{axis}{The axis to annotate. One of "x" or "y".}
+
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
-\item{x_breaks, y_breaks}{A vector of axis breaks for axis ticks.}
+\item{breaks}{A vector of axis breaks for axis ticks.}
 
-\item{x_position, y_position}{The position of the axis ticks. One of \code{"bottom"}/\code{"top"} or \code{"left"}/\code{"right"}.}
+\item{position}{The position of the axis ticks. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.}
 
 \item{colour}{The colour of the annotated segment. Inherits from the current theme axis.ticks etc.}
 
@@ -59,7 +60,7 @@ penguins |>
     x = flipper_length_mm,
     col = sex,
   ) +
-  annotate_axis_ticks(x_breaks = c(185, 195), x_position = "bottom")
+  annotate_axis_ticks(axis = "x", breaks = c(185, 195), position = "bottom")
 
 penguins |>
   tidyr::drop_na(sex) |>
@@ -69,12 +70,8 @@ penguins |>
     y = body_mass_g,
     col = sex,
   ) +
-  annotate_axis_ticks(
-    x_breaks = c(185, 195, 205, 215, 225),
-    y_breaks = c(3500, 4500, 5500),
-    x_position = "bottom",
-    y_position = "left"
-  ) +
+  annotate_axis_ticks(axis = "x", breaks = c(185, 195, 205, 215, 225)) +
+  annotate_axis_ticks(axis = "y", breaks = c(3500, 4500, 5500)) +
   geom_point()
 
 }

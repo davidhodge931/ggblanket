@@ -5,9 +5,9 @@
 \title{Annotated panel grid lines}
 \usage{
 annotate_panel_grid(
+  axis,
   ...,
-  x_breaks = NULL,
-  y_breaks = NULL,
+  breaks,
   colour = NULL,
   linewidth = NULL,
   linetype = NULL,
@@ -15,9 +15,11 @@ annotate_panel_grid(
 )
 }
 \arguments{
-\item{...}{Extra parameters passed to \code{ggplot2::annotate("segment", ...)}.}
+\item{axis}{The axis to annotate. One of "x" or "y".}
 
-\item{x_breaks, y_breaks}{A vector of axis breaks for the panel grid.}
+\item{...}{Provided to require argument naming, support trailing commas etc.}
+
+\item{breaks}{A vector of axis breaks for the panel grid.}
 
 \item{colour}{The colour of grid lines. Inherits from current theme panel.grid.major etc.}
 
@@ -50,10 +52,8 @@ penguins |>
     y = body_mass_g,
     col = sex,
   ) +
-  annotate_panel_grid(
-    x_breaks = seq(190, 230, 15),
-    y_breaks = seq(3000, 6500, 250),
-  ) +
+  annotate_panel_grid(axis = "x", breaks = seq(190, 230, 15)) +
+  annotate_panel_grid(axis = "y", breaks = seq(3000, 6500, 250)) +
   geom_point()
 
 }

@@ -1,3 +1,45 @@
+#' Viridis Colours with Adaptive Direction
+#'
+#' Returns a vector of viridis colours with automatic direction adjustment
+#' depending on the panel background. This is the vector form that directly
+#' returns colours rather than a palette function.
+#'
+#' @param n The number of colours to return.
+#' @param option A character string indicating the palette option to use.
+#' @param begin The (0–1) value at which to begin the colour scale. Default is 0.
+#' @param end The (0–1) value at which to end the colour scale. Default is 1.
+#' @param ... Provided to require argument naming, support trailing commas etc.
+#' @param rev Logical. If `TRUE`, reverses the behaviour of the direction
+#'   adjustment based on panel background. Default is `FALSE`.
+#'
+#' @returns A character vector of `n` hex colour codes.
+#' @export
+#'
+#' @examples
+#' viridis_by_panel(5, "magma", 0.1, 0.9)
+#' viridis_by_panel(3, "plasma")
+viridis_by_panel <- function(
+    n,
+    option = "viridis",
+    begin = 0,
+    end = 1,
+    ...,
+    rev = FALSE
+) {
+  direction <- if (rev) {
+    ifelse(is_panel_dark(), -1, 1)
+  } else {
+    ifelse(is_panel_dark(), 1, -1)
+  }
+
+  scales::viridis_pal(
+    option = option,
+    begin = begin,
+    end = end,
+    direction = direction
+  )(n)
+}
+
 #' Palette Function for viridis with Adaptive Direction
 #'
 #' Returns a palette function (for use in scales) based on the viridis colour palette,

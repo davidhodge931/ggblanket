@@ -25,11 +25,7 @@ reference:
   - col_multiply
   - col_screen
   - element_line_transparent
-  - guides_grey_alpha
-  - guides_grey_linetype
-  - guides_grey_linewidth
-  - guides_grey_shape
-  - guides_grey_size
+  - guides_grey
   - is_panel_dark
   - jumble
   - label_every_nth

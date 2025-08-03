@@ -5,13 +5,11 @@
 \title{Annotated axis text labels}
 \usage{
 annotate_axis_text(
+  axis,
   ...,
-  x_breaks = NULL,
-  y_breaks = NULL,
-  x_labels = NULL,
-  y_labels = NULL,
-  x_position = NULL,
-  y_position = NULL,
+  breaks,
+  position = NULL,
+  labels = NULL,
   colour = NULL,
   size = NULL,
   family = NULL,
@@ -24,13 +22,15 @@ annotate_axis_text(
 )
 }
 \arguments{
+\item{axis}{The axis to annotate. One of "x" or "y".}
+
 \item{...}{Provided to require argument naming, support trailing commas etc.}
 
-\item{x_breaks, y_breaks}{A vector of axis breaks for text positioning.}
+\item{breaks}{A vector of axis breaks for text positioning.}
 
-\item{x_labels, y_labels}{A vector of text labels. If NULL, uses the breaks as labels.}
+\item{position}{The position of the axis text. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.}
 
-\item{x_position, y_position}{The position of the axis text. One of \code{"bottom"}/\code{"top"} or \code{"left"}/\code{"right"}.}
+\item{labels}{A vector of text labels. If NULL, uses the breaks as labels.}
 
 \item{colour}{The colour of the text. Inherits from the current theme axis.text etc.}
 
@@ -77,19 +77,17 @@ penguins |>
     y = body_mass_g,
     col = sex,
   ) +
-  annotate_axis_ticks(
-    x_breaks = c(185, 195, 205, 215, 225),
-    y_breaks = c(3500, 4500, 5500),
-    x_position = "bottom",
-    y_position = "left"
+  annotate_axis_ticks(axis = "x", breaks = c(185, 195, 205, 215, 225)) +
+  annotate_axis_ticks(axis = "y", breaks = c(3500, 4500, 5500)) +
+  annotate_axis_text(
+    axis = "x",
+    breaks = c(185, 195, 205, 215, 225),
+    labels = c("185mm", "195mm", "205mm", "215mm", "225mm")
   ) +
   annotate_axis_text(
-    x_breaks = c(185, 195, 205, 215, 225),
-    y_breaks = c(3500, 4500, 5500),
-    x_labels = c("185mm", "195mm", "205mm", "215mm", "225mm"),
-    y_labels = c("3.5kg", "4.5kg", "5.5kg"),
-    x_position = "bottom",
-    y_position = "left"
+    axis = "y",
+    breaks = c(3500, 4500, 5500),
+    labels = c("3.5kg", "4.5kg", "5.5kg")
   ) +
   geom_point()
 
