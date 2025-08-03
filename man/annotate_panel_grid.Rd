@@ -15,11 +15,9 @@ annotate_panel_grid(
 )
 }
 \arguments{
-\item{...}{Provided to require argument naming, support trailing commas etc.}
+\item{...}{Extra parameters passed to \code{ggplot2::annotate("segment", ...)}.}
 
-\item{x_breaks}{A vector of x-axis breaks for vertical grid lines. If NULL, no vertical grid lines are drawn.}
-
-\item{y_breaks}{A vector of y-axis breaks for horizontal grid lines. If NULL, no horizontal grid lines are drawn.}
+\item{x_breaks, y_breaks}{A vector of axis breaks for the panel grid.}
 
 \item{colour}{The colour of grid lines. Inherits from current theme panel.grid.major etc.}
 

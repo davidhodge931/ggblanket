@@ -4,16 +4,25 @@
 \alias{annotate_axis_line}
 \title{Annotated axis line segment}
 \usage{
-annotate_axis_line(..., position = "bottom", colour = NULL, linewidth = NULL)
+annotate_axis_line(
+  ...,
+  x_position = NULL,
+  y_position = NULL,
+  colour = NULL,
+  linewidth = NULL,
+  theme_elements = "transparent"
+)
 }
 \arguments{
 \item{...}{Extra parameters passed to \code{ggplot2::annotate("segment", ...)}.}
 
-\item{position}{The position of the axis. One of "bottom", "top", "left", or "right". Defaults "bottom".}
+\item{x_position, y_position}{The position of the axis line. One of \code{"bottom"}/\code{"top"} or \code{"left"}/\code{"right"}.}
 
 \item{colour}{The colour of the annotated segment. Inherits from the current theme axis.line etc.}
 
 \item{linewidth}{The linewidth of the annotated segment. Inherits from the current theme axis.line etc.}
+
+\item{theme_elements}{What to do with theme axis line elements. Either "transparent", "keep" or "blank". Defaults "transparent".}
 }
 \value{
 A list of a annotate layer and theme elements.
@@ -27,12 +36,7 @@ library(dplyr)
 library(stringr)
 library(palmerpenguins)
 
-set_blanket(
-  theme = theme_lighter(
-    panel_heights = rep(unit(50, "mm"), 100),
-    panel_widths = rep(unit(75, "mm"), 100),
-  ),
-)
+set_blanket()
 
 penguins |>
   tidyr::drop_na(sex) |>
@@ -43,7 +47,7 @@ penguins |>
     y = body_mass_g,
     col = sex,
   ) +
-  annotate_axis_line() +
+  annotate_axis_line(x_position = "bottom") +
   geom_point()
 
 }
