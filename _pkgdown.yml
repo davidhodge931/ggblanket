@@ -18,17 +18,23 @@ reference:
 - contents:
   - aes_contrast
   - annotate_axis_line
-  - annotate_panel_grid
+  - annotate_axis_text
   - annotate_axis_ticks
+  - annotate_panel_grid
   - bind_each_all
   - col_multiply
   - col_screen
   - element_line_transparent
-  - guides_grey
+  - guides_grey_alpha
+  - guides_grey_linetype
+  - guides_grey_linewidth
+  - guides_grey_shape
+  - guides_grey_size
   - is_panel_dark
   - jumble
   - label_every_nth
   - pal_viridis_by_panel
   - pt_to_mm
   - standardise_width
+  - viridis_by_panel
 

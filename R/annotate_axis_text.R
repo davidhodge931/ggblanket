@@ -11,8 +11,8 @@
 #' @param colour The colour of the text. Inherits from the current theme axis.text etc.
 #' @param size The size of the text. Inherits from the current theme axis.text etc.
 #' @param family The font family of the text. Inherits from the current theme axis.text etc.
-#' @param tick_length The length of the tick marks as a grid unit. Used to position text relative to ticks.
-#' @param text_offset Additional offset for text positioning as a grid unit. Defaults to unit(3, "pt").
+#' @param length The length of the tick marks as a grid unit. Used to position text relative to ticks.
+#' @param offset Additional offset for text positioning as a grid unit. Defaults to unit(3, "pt").
 #' @param hjust,vjust Horizontal and vertical justification. Auto-calculated based on position if NULL.
 #' @param angle Text rotation angle. Defaults to 0.
 #' @param theme_elements What to do with theme axis text elements. Either "transparent", "keep" or "blank". Defaults "transparent".
@@ -68,8 +68,8 @@ annotate_axis_text <- function(
     colour = NULL,
     size = NULL,
     family = NULL,
-    tick_length = NULL,
-    text_offset = NULL,
+    length = NULL,
+    offset = NULL,
     hjust = NULL,
     vjust = NULL,
     angle = 0,
@@ -151,8 +151,8 @@ annotate_axis_text <- function(
   }
 
   # Set default text offset
-  if (is.null(text_offset)) {
-    text_offset <- grid::unit(3, "pt")
+  if (is.null(offset)) {
+    offset <- grid::unit(3, "pt")
   }
 
   stamp <- list()
@@ -160,8 +160,8 @@ annotate_axis_text <- function(
   # Process x-axis text
   if (!is.null(x_breaks)) {
     # Extract theme properties for x-axis text
-    if (rlang::is_null(tick_length)) {
-      tick_length <- if (x_position == "bottom") {
+    if (rlang::is_null(length)) {
+      length <- if (x_position == "bottom") {
         current_theme$axis.ticks.length.x.bottom %||%
           current_theme$axis.ticks.length.x %||%
           current_theme$axis.ticks.length %||%
@@ -175,7 +175,7 @@ annotate_axis_text <- function(
     }
 
     if (rlang::is_null(colour)) {
-      colour <- if (x_position == "bottom") {
+      x_colour <- if (x_position == "bottom") {
         current_theme$axis.text.x.bottom$colour %||%
           current_theme$axis.text.x$colour %||%
           current_theme$axis.text$colour %||%
@@ -188,6 +188,8 @@ annotate_axis_text <- function(
           current_theme$text$colour %||%
           "black"
       }
+    } else {
+      x_colour <- colour
     }
 
     if (rlang::is_null(size)) {
@@ -211,17 +213,19 @@ annotate_axis_text <- function(
           if (is.null(base_size) || inherits(base_size, "rel")) {
             base_size <- 11
           }
-          size <- as.numeric(raw_size) * base_size
+          x_size <- as.numeric(raw_size) * base_size
         } else {
-          size <- raw_size
+          x_size <- raw_size
         }
       } else {
-        size <- 11
+        x_size <- 11
       }
+    } else {
+      x_size <- size
     }
 
     if (rlang::is_null(family)) {
-      family <- if (x_position == "bottom") {
+      x_family <- if (x_position == "bottom") {
         current_theme$axis.text.x.bottom$family %||%
           current_theme$axis.text.x$family %||%
           current_theme$axis.text$family %||%
@@ -234,15 +238,15 @@ annotate_axis_text <- function(
           current_theme$text$family %||%
           ""
       }
+    } else {
+      x_family <- family
     }
 
-    # Set default justification based on position
-    if (is.null(hjust)) {
-      hjust <- 0.5  # center horizontally for x-axis text
-    }
-    if (is.null(vjust)) {
-      vjust <- if (x_position == "bottom") 1 else 0  # top-align for bottom, bottom-align for top
-    }
+    # Set justification for x-axis text
+    x_hjust <- if (is.null(hjust)) 0.5 else hjust  # center horizontally for x-axis text
+    x_vjust <- if (is.null(vjust)) {
+      if (x_position == "bottom") 1 else 0  # top-align for bottom, bottom-align for top
+    } else vjust
 
     # Add theme modifications for x-axis text
     if (theme_elements == "transparent") {
@@ -273,17 +277,17 @@ annotate_axis_text <- function(
         label = x_labels[i],
         x = grid::unit(0.5, "npc"),
         y = if (x_position == "bottom") {
-          grid::unit(0, "npc") - tick_length - text_offset
+          grid::unit(0, "npc") - length - offset
         } else {
-          grid::unit(1, "npc") + tick_length + text_offset
+          grid::unit(1, "npc") + length + offset
         },
-        hjust = hjust,
-        vjust = vjust,
+        hjust = x_hjust,
+        vjust = x_vjust,
         rot = angle,
         gp = grid::gpar(
-          col = colour,
-          fontsize = size,
-          fontfamily = family
+          col = x_colour,
+          fontsize = x_size,
+          fontfamily = x_family
         )
       )
 
@@ -309,8 +313,8 @@ annotate_axis_text <- function(
   # Process y-axis text
   if (!is.null(y_breaks)) {
     # Extract theme properties for y-axis text
-    if (rlang::is_null(tick_length)) {
-      tick_length <- if (y_position == "left") {
+    if (rlang::is_null(length)) {
+      length <- if (y_position == "left") {
         current_theme$axis.ticks.length.y.left %||%
           current_theme$axis.ticks.length.y %||%
           current_theme$axis.ticks.length %||%
@@ -324,7 +328,7 @@ annotate_axis_text <- function(
     }
 
     if (rlang::is_null(colour)) {
-      colour <- if (y_position == "left") {
+      y_colour <- if (y_position == "left") {
         current_theme$axis.text.y.left$colour %||%
           current_theme$axis.text.y$colour %||%
           current_theme$axis.text$colour %||%
@@ -335,6 +339,8 @@ annotate_axis_text <- function(
           current_theme$axis.text$colour %||%
           "#121B24FF"
       }
+    } else {
+      y_colour <- colour
     }
 
     if (rlang::is_null(size)) {
@@ -358,17 +364,19 @@ annotate_axis_text <- function(
           if (is.null(base_size) || inherits(base_size, "rel")) {
             base_size <- 11
           }
-          size <- as.numeric(raw_size) * base_size
+          y_size <- as.numeric(raw_size) * base_size
         } else {
-          size <- raw_size
+          y_size <- raw_size
         }
       } else {
-        size <- 11
+        y_size <- 11
       }
+    } else {
+      y_size <- size
     }
 
     if (rlang::is_null(family)) {
-      family <- if (y_position == "left") {
+      y_family <- if (y_position == "left") {
         current_theme$axis.text.y.left$family %||%
           current_theme$axis.text.y$family %||%
           current_theme$axis.text$family %||%
@@ -379,15 +387,15 @@ annotate_axis_text <- function(
           current_theme$axis.text$family %||%
           ""
       }
+    } else {
+      y_family <- family
     }
 
-    # Set default justification based on position
-    if (is.null(hjust)) {
-      hjust <- if (y_position == "left") 1 else 0  # right-align for left, left-align for right
-    }
-    if (is.null(vjust)) {
-      vjust <- 0.5  # center vertically for y-axis text
-    }
+    # Set justification for y-axis text
+    y_hjust <- if (is.null(hjust)) {
+      if (y_position == "left") 1 else 0  # right-align for left, left-align for right
+    } else hjust
+    y_vjust <- if (is.null(vjust)) 0.5 else vjust  # center vertically for y-axis text
 
     # Add theme modifications for y-axis text
     if (theme_elements == "transparent") {
@@ -417,18 +425,18 @@ annotate_axis_text <- function(
       text_grob <- grid::textGrob(
         label = y_labels[i],
         x = if (y_position == "left") {
-          grid::unit(0, "npc") - tick_length - text_offset
+          grid::unit(0, "npc") - length - offset
         } else {
-          grid::unit(1, "npc") + tick_length + text_offset
+          grid::unit(1, "npc") + length + offset
         },
         y = grid::unit(0.5, "npc"),
-        hjust = hjust,
-        vjust = vjust,
+        hjust = y_hjust,
+        vjust = y_vjust,
         rot = angle,
         gp = grid::gpar(
-          col = colour,
-          fontsize = size,
-          fontfamily = family
+          col = y_colour,
+          fontsize = y_size,
+          fontfamily = y_family
         )
       )
 
