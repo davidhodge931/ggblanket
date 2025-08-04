@@ -1,4 +1,4 @@
-#' Annotated axis text labels
+# Set default total distance from axis to text#' Annotated axis text labels
 #'
 #' @description Add text labels positioned relative to axis tick marks using absolute measurements.
 #' This function only works when panel dimensions are set uniformly via panel.widths and panel.heights.
@@ -13,6 +13,8 @@
 #' @param size The size of the text. Inherits from the current theme axis.text etc.
 #' @param family The font family of the text. Inherits from the current theme axis.text etc.
 #' @param length The total distance from the axis line to the text as a grid unit. Defaults to the sum of tick length plus 3pt offset.
+#' @param margin The margin around the background rectangle. Can be a single unit value (applied to all sides) or a margin object with top, right, bottom, left components. Defaults to unit(1, "pt").
+#' @param fill The fill colour of the background rectangle. If NULL, intelligently derived from theme (panel background for light themes, text colour for dark themes).
 #' @param hjust,vjust Horizontal and vertical justification. Auto-calculated based on position if NULL.
 #' @param angle Text rotation angle. Defaults to 0.
 #' @param theme_elements What to do with theme axis text elements. Either "transparent", "keep" or "blank". Defaults "transparent".
@@ -74,6 +76,8 @@ annotate_axis_text <- function(
     size = NULL,
     family = NULL,
     length = NULL,
+    margin = NULL,
+    fill = NULL,
     hjust = NULL,
     vjust = NULL,
     angle = 0,
@@ -121,7 +125,7 @@ annotate_axis_text <- function(
   }
 
   # Check if panel dimensions are explicitly set (required for positioning)
-  current_theme <- ggplot2::get_theme()
+  current_theme <- ggplot2::theme_get()
   panel_widths <- current_theme$panel.widths
   panel_heights <- current_theme$panel.heights
 
@@ -129,6 +133,23 @@ annotate_axis_text <- function(
     rlang::abort(
       "This function only works when panel dimensions are explicitly set via theme(panel.widths = ..., panel.heights = ...)"
     )
+  }
+
+  # Set default fill colour based on theme
+  if (is.null(fill)) {
+    # Get text colour from theme
+    theme_text <- current_theme$axis.text.x$colour %||%
+      current_theme$axis.text.y$colour %||%
+      current_theme$axis.text$colour %||%
+      current_theme$text$colour %||%
+      "black"
+
+    # Get panel background from theme
+    theme_panel <- current_theme$panel.background$fill %||%
+      "white"
+
+    # Always use panel background to mask gridlines
+    fill <- theme_panel
   }
 
   # Validate uniform panel dimensions for the specific axis
@@ -148,7 +169,21 @@ annotate_axis_text <- function(
     }
   }
 
-  # Set default total distance from axis to text
+  # Set default margin for background rectangle
+  if (is.null(margin)) {
+    margin <- grid::unit(1, "pt")
+  }
+
+  # Handle margin - can be single value or margin object
+  if (inherits(margin, "margin")) {
+    margin_top <- margin[1]
+    margin_right <- margin[2]
+    margin_bottom <- margin[3]
+    margin_left <- margin[4]
+  } else {
+    # Single value applied to all sides
+    margin_top <- margin_right <- margin_bottom <- margin_left <- margin
+  }
   if (is.null(length)) {
     # Calculate default as tick length + 3pt offset
     tick_length <- if (axis == "x") {
@@ -250,6 +285,35 @@ annotate_axis_text <- function(
   # Create text annotations for each break/label pair
   for (i in seq_along(breaks)) {
     if (axis == "x") {
+      # Calculate text dimensions using a temporary text grob
+      temp_text_grob <- grid::textGrob(
+        label = labels[i],
+        gp = grid::gpar(
+          fontsize = text_size,
+          fontfamily = text_family
+        )
+      )
+      text_width <- grid::grobWidth(temp_text_grob)
+      text_height <- grid::grobHeight(temp_text_grob)
+
+      # Create background rectangle for x-axis text
+      rect_grob <- grid::rectGrob(
+        x = grid::unit(0.5, "npc"),
+        y = if (position == "bottom") {
+          grid::unit(0, "npc") - length
+        } else {
+          grid::unit(1, "npc") + length
+        },
+        width = text_width + margin_left + margin_right,  # Add left and right margins
+        height = text_height + margin_top + margin_bottom,  # Add top and bottom margins
+        hjust = text_hjust,
+        vjust = text_vjust,
+        gp = grid::gpar(
+          fill = fill,
+          col = NA
+        )
+      )
+
       # Create text grob for x-axis
       text_grob <- grid::textGrob(
         label = labels[i],
@@ -276,6 +340,35 @@ annotate_axis_text <- function(
         list(xmin = breaks[i], xmax = breaks[i], ymin = Inf, ymax = Inf)
       }
     } else {
+      # Calculate text dimensions using a temporary text grob
+      temp_text_grob <- grid::textGrob(
+        label = labels[i],
+        gp = grid::gpar(
+          fontsize = text_size,
+          fontfamily = text_family
+        )
+      )
+      text_width <- grid::grobWidth(temp_text_grob)
+      text_height <- grid::grobHeight(temp_text_grob)
+
+      # Create background rectangle for y-axis text
+      rect_grob <- grid::rectGrob(
+        x = if (position == "left") {
+          grid::unit(0, "npc") - length
+        } else {
+          grid::unit(1, "npc") + length
+        },
+        y = grid::unit(0.5, "npc"),
+        width = text_width + margin_left + margin_right,  # Add left and right margins
+        height = text_height + margin_top + margin_bottom,  # Add top and bottom margins
+        hjust = text_hjust,
+        vjust = text_vjust,
+        gp = grid::gpar(
+          fill = fill,
+          col = NA
+        )
+      )
+
       # Create text grob for y-axis
       text_grob <- grid::textGrob(
         label = labels[i],
@@ -303,9 +396,16 @@ annotate_axis_text <- function(
       }
     }
 
-    # Add annotation to stamp list
+    # Add background rectangle first, then text on top
     stamp <- c(
       stamp,
+      list(
+        rlang::exec(
+          ggplot2::annotation_custom,
+          grob = rect_grob,
+          !!!annotation_position
+        )
+      ),
       list(
         rlang::exec(
           ggplot2::annotation_custom,

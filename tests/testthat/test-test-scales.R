@@ -529,7 +529,7 @@ test_that("annotate_axis", {
 test_that("contour_filled", {
   expect_doppelganger(
     "contour_filled",
-    faithfuld |>
+    ggplot2::faithfuld |>
       gg_contour_filled(
         x = waiting,
         y = eruptions,
