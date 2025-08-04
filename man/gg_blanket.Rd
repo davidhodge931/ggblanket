@@ -83,6 +83,7 @@ gg_blanket(
   fill_palette = NULL,
   fill_na = NULL,
   shape_palette = NULL,
+  shape_na = NULL,
   linetype_palette = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
@@ -167,6 +168,8 @@ gg_blanket(
 \item{col_scale_type}{Either \code{"gradient"} or \code{"steps"}. Defaults to \code{"gradient"}.}
 
 \item{shape_palette}{A numeric vector of shape codes or a \verb{scales::pal_*()} function. If NULL, uses the value from \code{getOption("ggblanket.shape_palette")}.}
+
+\item{shape_na}{A NA shape value.}
 
 \item{linetype_palette}{A character vector of linetype names or a \verb{scales::pal_*()} function. If NULL, uses the value from \code{getOption("ggblanket.linetype_palette")}.}
 

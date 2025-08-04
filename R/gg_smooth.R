@@ -37,7 +37,7 @@ gg_smooth <- function(
   stat = "smooth",
   position = "identity",
   coord = ggplot2::coord_cartesian(clip = "off"),
-  
+
   aspect = NULL,
   aspect_axis_line = NULL,
   aspect_axis_ticks = NULL,
@@ -79,7 +79,7 @@ gg_smooth <- function(
   x_labels = NULL,
   x_position = "bottom",
   x_sec_axis = ggplot2::waiver(),
-  
+
   x_limits_to_breaks = NULL, x_transform = NULL,
   y_breaks = NULL,
   y_breaks_n = NULL,
@@ -89,7 +89,7 @@ gg_smooth <- function(
   y_labels = NULL,
   y_position = "left",
   y_sec_axis = ggplot2::waiver(),
-  
+
   y_limits_to_breaks = NULL, y_transform = NULL,
   col_breaks = ggplot2::waiver(),
   col_breaks_n = NULL,
@@ -109,7 +109,7 @@ gg_smooth <- function(
   colour_palette = NULL,
   colour_na = NULL,
   fill_palette = NULL,
-  fill_na = NULL,
+  fill_na = NULL, shape_palette = NULL, shape_na = NULL, linetype_palette = NULL,
   facet_axes = NULL,
   facet_axis_labels = "margins",
   facet_drop = FALSE,
@@ -134,7 +134,7 @@ gg_smooth <- function(
     aspect = aspect,
     aspect_axis_line = aspect_axis_line,
     aspect_axis_ticks = aspect_axis_ticks,
-    aspect_panel_grid = aspect_panel_grid, 
+    aspect_panel_grid = aspect_panel_grid,
     blend = blend,
     x = {{ x }},
     y = {{ y }},
@@ -167,20 +167,20 @@ gg_smooth <- function(
     x_labels = x_labels,
     x_breaks_n = x_breaks_n,
     x_sec_axis = x_sec_axis,
-    
+
     x_position = x_position,
     x_title = x_title,
-    x_transform = x_transform, x_limits_to_breaks = x_limits_to_breaks, 
+    x_transform = x_transform, x_limits_to_breaks = x_limits_to_breaks,
     y_breaks = y_breaks,
     y_expand = y_expand,
     y_limits_include = y_limits_include,
     y_labels = y_labels,
     y_breaks_n = y_breaks_n,
     y_sec_axis = y_sec_axis,
-    
+
     y_position = y_position,
     y_title = y_title,
-    y_transform = y_transform, y_limits_to_breaks = y_limits_to_breaks, 
+    y_transform = y_transform, y_limits_to_breaks = y_limits_to_breaks,
     bordered = bordered,
     bordered_colour = bordered_colour,
     bordered_fill = bordered_fill,
@@ -202,7 +202,7 @@ gg_smooth <- function(
     colour_palette = colour_palette,
     colour_na = colour_na,
     fill_palette = fill_palette,
-    fill_na = fill_na,
+    fill_na = fill_na, shape_palette = shape_palette, shape_na = shape_na, linetype_palette = linetype_palette,
     facet_axes = facet_axes,
     facet_axis_labels = facet_axis_labels,
     facet_drop = facet_drop,

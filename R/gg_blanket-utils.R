@@ -606,11 +606,11 @@ is_aes_identical_to_col <- function(plot_build, aesthetic) {
 
   # Check if labels match
   (!is.null(colour_label) &&
-    !is.null(aes_label) &&
-    rlang::as_name(colour_label[1]) == rlang::as_name(aes_label[1])) ||
-    (!is.null(fill_label) &&
       !is.null(aes_label) &&
-      rlang::as_name(fill_label[1]) == rlang::as_name(aes_label[1]))
+      rlang::as_name(colour_label[1]) == rlang::as_name(aes_label[1])) ||
+    (!is.null(fill_label) &&
+       !is.null(aes_label) &&
+       rlang::as_name(fill_label[1]) == rlang::as_name(aes_label[1]))
 }
 
 # Scale determination functions ----
@@ -727,18 +727,18 @@ get_col_scale_class <- function(plot_scales, col_quo, data) {
 #' Add continuous x scale
 #' @noRd
 add_x_scale_continuous <- function(
-  plot,
-  stat,
-  x_breaks,
-  x_breaks_n,
-  x_labels,
-  x_expand,
-  x_limits_include,
-  x_position,
-  x_sec_axis,
-  x_limits_to_breaks,
-  x_transform,
-  plot_data
+    plot,
+    stat,
+    x_breaks,
+    x_breaks_n,
+    x_labels,
+    x_expand,
+    x_limits_include,
+    x_position,
+    x_sec_axis,
+    x_limits_to_breaks,
+    x_transform,
+    plot_data
 ) {
   # Handle sf special case
   if (stringr::str_detect(stat, "sf")) {
@@ -785,18 +785,18 @@ add_x_scale_continuous <- function(
 #' Add continuous y scale
 #' @noRd
 add_y_scale_continuous <- function(
-  plot,
-  stat,
-  y_breaks,
-  y_breaks_n,
-  y_labels,
-  y_expand,
-  y_limits_include,
-  y_position,
-  y_sec_axis,
-  y_limits_to_breaks,
-  y_transform,
-  plot_data
+    plot,
+    stat,
+    y_breaks,
+    y_breaks_n,
+    y_labels,
+    y_expand,
+    y_limits_include,
+    y_position,
+    y_sec_axis,
+    y_limits_to_breaks,
+    y_transform,
+    plot_data
 ) {
   # Handle sf special case
   if (stringr::str_detect(stat, "sf")) {
@@ -1074,17 +1074,17 @@ add_matching_aesthetic_guides <- function(
 #' Create symmetric x scale
 #' @noRd
 scale_x_limits_to_breaks <- function(
-  data = NULL,
-  x = NULL,
-  symmetric = TRUE,
-  breaks = NULL,
-  breaks_n = 6,
-  expand = NULL,
-  expand_limits = NULL,
-  labels = NULL,
-  position = "bottom",
-  sec_axis = ggplot2::waiver(),
-  transform = "identity"
+    data = NULL,
+    x = NULL,
+    symmetric = TRUE,
+    breaks = NULL,
+    breaks_n = 6,
+    expand = NULL,
+    expand_limits = NULL,
+    labels = NULL,
+    position = "bottom",
+    sec_axis = ggplot2::waiver(),
+    transform = "identity"
 ) {
   # Get transform
   transform <- get_transform(transform = transform)
@@ -1093,7 +1093,7 @@ scale_x_limits_to_breaks <- function(
   if (symmetric) {
     if (
       any(stringr::str_detect(transform, "log-")) |
-        any(transform %in% c("log", "log2", "log10"))
+      any(transform %in% c("log", "log2", "log10"))
     ) {
       rlang::abort("ggblanket does not currently support symmetric log axes")
     }
@@ -1136,7 +1136,7 @@ scale_x_limits_to_breaks <- function(
         breaks <- scales::breaks_pretty(n = breaks_n)(range)
       } else if (
         any(stringr::str_detect(transform, "log-")) |
-          any(transform %in% c("log", "log2", "log10"))
+        any(transform %in% c("log", "log2", "log10"))
       ) {
         breaks <- scales::breaks_log(n = breaks_n)(range)
       } else {
@@ -1188,7 +1188,7 @@ scale_x_limits_to_breaks <- function(
         breaks <- scales::breaks_pretty(n = breaks_n)
       } else if (
         any(stringr::str_detect(transform, "log-")) |
-          any(transform %in% c("log", "log2", "log10"))
+        any(transform %in% c("log", "log2", "log10"))
       ) {
         breaks <- scales::breaks_log(n = breaks_n)
       } else {
@@ -1230,17 +1230,17 @@ scale_x_limits_to_breaks <- function(
 #' Create symmetric y scale
 #' @noRd
 scale_y_limits_to_breaks <- function(
-  data = NULL,
-  y = NULL,
-  symmetric = TRUE,
-  breaks = NULL,
-  breaks_n = 6,
-  expand = NULL,
-  expand_limits = NULL,
-  labels = NULL,
-  position = "left",
-  sec_axis = ggplot2::waiver(),
-  transform = "identity"
+    data = NULL,
+    y = NULL,
+    symmetric = TRUE,
+    breaks = NULL,
+    breaks_n = 6,
+    expand = NULL,
+    expand_limits = NULL,
+    labels = NULL,
+    position = "left",
+    sec_axis = ggplot2::waiver(),
+    transform = "identity"
 ) {
   # Get transform
   transform <- get_transform(transform = transform)
@@ -1249,7 +1249,7 @@ scale_y_limits_to_breaks <- function(
   if (symmetric) {
     if (
       any(stringr::str_detect(transform, "log-")) |
-        any(transform %in% c("log", "log2", "log10"))
+      any(transform %in% c("log", "log2", "log10"))
     ) {
       rlang::abort("ggblanket does not currently support symmetric log axes")
     }
@@ -1292,7 +1292,7 @@ scale_y_limits_to_breaks <- function(
         breaks <- scales::breaks_pretty(n = breaks_n)(range)
       } else if (
         any(stringr::str_detect(transform, "log-")) |
-          any(transform %in% c("log", "log2", "log10"))
+        any(transform %in% c("log", "log2", "log10"))
       ) {
         breaks <- scales::breaks_log(n = breaks_n)(range)
       } else {
@@ -1344,7 +1344,7 @@ scale_y_limits_to_breaks <- function(
         breaks <- scales::breaks_pretty(n = breaks_n)
       } else if (
         any(stringr::str_detect(transform, "log-")) |
-          any(transform %in% c("log", "log2", "log10"))
+        any(transform %in% c("log", "log2", "log10"))
       ) {
         breaks <- scales::breaks_log(n = breaks_n)
       } else {
@@ -1388,9 +1388,9 @@ scale_y_limits_to_breaks <- function(
 #' Get transparency defaults
 #' @noRd
 get_aspect_behaviour <- function(
-  aspect_axis_line,
-  aspect_axis_ticks,
-  aspect_panel_grid
+    aspect_axis_line,
+    aspect_axis_ticks,
+    aspect_panel_grid
 ) {
   list(
     aspect_axis_line = aspect_axis_line %||%
@@ -1405,13 +1405,13 @@ get_aspect_behaviour <- function(
 #' Add transparency based on aspect
 #' @noRd
 add_aspect <- function(
-  plot,
-  aspect,
-  aspect_axis_line,
-  aspect_axis_ticks,
-  aspect_panel_grid,
-  x_scale_class,
-  y_scale_class
+    plot,
+    aspect,
+    aspect_axis_line,
+    aspect_axis_ticks,
+    aspect_panel_grid,
+    x_scale_class,
+    y_scale_class
 ) {
   theme_updates <- list()
 
@@ -1439,7 +1439,7 @@ add_aspect <- function(
     }
 
     if (x_scale_class == "discrete") {
-        theme_updates$axis.ticks.x <- element_line_transparent()
+      theme_updates$axis.ticks.x <- element_line_transparent()
     }
   } else if (aspect == "y") {
     if (aspect_axis_line == "transparent") {
@@ -1506,8 +1506,8 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
           if (arg_name %in% c("col", "colour", "fill")) {
             if (
               is.character(eval_value) &&
-                length(eval_value) == 1 &&
-                !inherits(eval_value, "AsIs")
+              length(eval_value) == 1 &&
+              !inherits(eval_value, "AsIs")
             ) {
               return(list(is_aesthetic = FALSE, value = eval_value))
             } else if (length(eval_value) == 1 && is.na(eval_value)) {
@@ -1516,8 +1516,8 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
           } else if (arg_name == "shape") {
             if (
               (is.numeric(eval_value) || is.character(eval_value)) &&
-                length(eval_value) == 1 &&
-                !inherits(eval_value, "AsIs")
+              length(eval_value) == 1 &&
+              !inherits(eval_value, "AsIs")
             ) {
               return(list(is_aesthetic = FALSE, value = eval_value))
             } else if (length(eval_value) == 1 && is.na(eval_value)) {
@@ -1526,8 +1526,8 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
           } else if (arg_name == "linetype") {
             if (
               (is.numeric(eval_value) || is.character(eval_value)) &&
-                length(eval_value) == 1 &&
-                !inherits(eval_value, "AsIs")
+              length(eval_value) == 1 &&
+              !inherits(eval_value, "AsIs")
             ) {
               return(list(is_aesthetic = FALSE, value = eval_value))
             } else if (length(eval_value) == 1 && is.na(eval_value)) {
@@ -1536,8 +1536,8 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
           } else if (arg_name == "linewidth") {
             if (
               (is.numeric(eval_value) || is.character(eval_value)) &&
-                length(eval_value) == 1 &&
-                !inherits(eval_value, "AsIs")
+              length(eval_value) == 1 &&
+              !inherits(eval_value, "AsIs")
             ) {
               return(list(is_aesthetic = FALSE, value = eval_value))
             } else if (length(eval_value) == 1 && is.na(eval_value)) {
@@ -1546,8 +1546,8 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
           } else if (arg_name == "size") {
             if (
               (is.numeric(eval_value) || is.character(eval_value)) &&
-                length(eval_value) == 1 &&
-                !inherits(eval_value, "AsIs")
+              length(eval_value) == 1 &&
+              !inherits(eval_value, "AsIs")
             ) {
               return(list(is_aesthetic = FALSE, value = eval_value))
             } else if (length(eval_value) == 1 && is.na(eval_value)) {
@@ -1556,8 +1556,8 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
           } else if (arg_name == "alpha") {
             if (
               (is.numeric(eval_value) || is.character(eval_value)) &&
-                length(eval_value) == 1 &&
-                !inherits(eval_value, "AsIs")
+              length(eval_value) == 1 &&
+              !inherits(eval_value, "AsIs")
             ) {
               return(list(is_aesthetic = FALSE, value = eval_value))
             } else if (length(eval_value) == 1 && is.na(eval_value)) {
@@ -1586,47 +1586,47 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
         if (arg_name %in% c("col", "colour", "fill")) {
           if (
             (is.character(eval_value) && length(eval_value) == 1) ||
-              (length(eval_value) == 1 && is.na(eval_value))
+            (length(eval_value) == 1 && is.na(eval_value))
           ) {
             return(list(is_aesthetic = FALSE, value = eval_value))
           }
         } else if (arg_name == "shape") {
           if (
             ((is.numeric(eval_value) || is.character(eval_value)) &&
-              length(eval_value) == 1) ||
-              (length(eval_value) == 1 && is.na(eval_value))
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))
           ) {
             return(list(is_aesthetic = FALSE, value = eval_value))
           }
         } else if (arg_name == "linetype") {
           if (
             ((is.numeric(eval_value) || is.character(eval_value)) &&
-              length(eval_value) == 1) ||
-              (length(eval_value) == 1 && is.na(eval_value))
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))
           ) {
             return(list(is_aesthetic = FALSE, value = eval_value))
           }
         } else if (arg_name == "linewidth") {
           if (
             ((is.numeric(eval_value) || is.character(eval_value)) &&
-              length(eval_value) == 1) ||
-              (length(eval_value) == 1 && is.na(eval_value))
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))
           ) {
             return(list(is_aesthetic = FALSE, value = eval_value))
           }
         } else if (arg_name == "size") {
           if (
             ((is.numeric(eval_value) || is.character(eval_value)) &&
-              length(eval_value) == 1) ||
-              (length(eval_value) == 1 && is.na(eval_value))
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))
           ) {
             return(list(is_aesthetic = FALSE, value = eval_value))
           }
         } else if (arg_name == "alpha") {
           if (
             ((is.numeric(eval_value) || is.character(eval_value)) &&
-              length(eval_value) == 1) ||
-              (length(eval_value) == 1 && is.na(eval_value))
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))
           ) {
             return(list(is_aesthetic = FALSE, value = eval_value))
           }
@@ -1651,47 +1651,47 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
       if (arg_name %in% c("col", "colour", "fill")) {
         if (
           (is.character(eval_value) && length(eval_value) == 1) ||
-            (length(eval_value) == 1 && is.na(eval_value))
+          (length(eval_value) == 1 && is.na(eval_value))
         ) {
           return(list(is_aesthetic = FALSE, value = eval_value))
         }
       } else if (arg_name == "shape") {
         if (
           ((is.numeric(eval_value) || is.character(eval_value)) &&
-            length(eval_value) == 1) ||
-            (length(eval_value) == 1 && is.na(eval_value))
+           length(eval_value) == 1) ||
+          (length(eval_value) == 1 && is.na(eval_value))
         ) {
           return(list(is_aesthetic = FALSE, value = eval_value))
         }
       } else if (arg_name == "linetype") {
         if (
           ((is.numeric(eval_value) || is.character(eval_value)) &&
-            length(eval_value) == 1) ||
-            (length(eval_value) == 1 && is.na(eval_value))
+           length(eval_value) == 1) ||
+          (length(eval_value) == 1 && is.na(eval_value))
         ) {
           return(list(is_aesthetic = FALSE, value = eval_value))
         }
       } else if (arg_name == "linewidth") {
         if (
           ((is.numeric(eval_value) || is.character(eval_value)) &&
-            length(eval_value) == 1) ||
-            (length(eval_value) == 1 && is.na(eval_value))
+           length(eval_value) == 1) ||
+          (length(eval_value) == 1 && is.na(eval_value))
         ) {
           return(list(is_aesthetic = FALSE, value = eval_value))
         }
       } else if (arg_name == "size") {
         if (
           ((is.numeric(eval_value) || is.character(eval_value)) &&
-            length(eval_value) == 1) ||
-            (length(eval_value) == 1 && is.na(eval_value))
+           length(eval_value) == 1) ||
+          (length(eval_value) == 1 && is.na(eval_value))
         ) {
           return(list(is_aesthetic = FALSE, value = eval_value))
         }
       } else if (arg_name == "alpha") {
         if (
           ((is.numeric(eval_value) || is.character(eval_value)) &&
-            length(eval_value) == 1) ||
-            (length(eval_value) == 1 && is.na(eval_value))
+           length(eval_value) == 1) ||
+          (length(eval_value) == 1 && is.na(eval_value))
         ) {
           return(list(is_aesthetic = FALSE, value = eval_value))
         }
@@ -1739,7 +1739,10 @@ is_bordered <- function(geom, theme_defaults) {
     "contour_filled",
     "density2d_filled",
     "bin2d",
-    "hex"
+    "hex",
+
+    #extensions
+    "star"
   )
 
   # Define point geoms that can be border based on shape
@@ -1754,6 +1757,10 @@ is_bordered <- function(geom, theme_defaults) {
 
   is_bordered <- is_bordered_polygon || is_bordered_point
 
+  # print(is_bordered_polygon)
+  # print(is_bordered_point)
+  # print(is_bordered)
+
   return(is_bordered)
 }
 
@@ -1763,11 +1770,11 @@ is_bordered <- function(geom, theme_defaults) {
 #' @description Extracts title from data label attribute, build label, or applies titles_case
 #' @noRd
 get_aes_title <- function(
-  data,
-  aes_quo,
-  build_label,
-  titles_case,
-  default = NULL
+    data,
+    aes_quo,
+    build_label,
+    titles_case,
+    default = NULL
 ) {
   # Priority 1: Check for label attribute in data column
   if (!rlang::quo_is_null(aes_quo)) {
@@ -1853,7 +1860,8 @@ get_plot_titles <- function(
     "linetype",
     "linewidth",
     "size",
-    "pattern"
+    "pattern",
+    "starshape"
   )
   other_titles <- list()
 

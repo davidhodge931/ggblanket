@@ -9,6 +9,7 @@
 #' @param col_palette_o For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_c`.
 #' @param col_na A hex code (or name) for the `NA` value.
 #' @param shape_palette_d For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
+#' @param shape_na A NA shape value.
 #' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
 #' @param ... Additional arguments (not used).
 #'
@@ -21,6 +22,7 @@ update_geom_palettes <- function(
   col_palette_o = NULL,
   col_na = "#A6A6A6FF",
   shape_palette_d = c(21, 24, 22, 23, 25),
+  shape_na = 4,
   linetype_palette_d = 1:6,
   ...
 ) {
@@ -50,6 +52,7 @@ update_geom_palettes <- function(
 
     # NA col value
     ggblanket.col_na = col_na,
+    ggblanket.shape_na = shape_na,
 
     # Other palettes
     ggblanket.shape_palette_d = shape_palette_d,

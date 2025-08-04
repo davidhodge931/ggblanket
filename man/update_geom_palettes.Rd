@@ -10,6 +10,7 @@ update_geom_palettes(
   col_palette_o = NULL,
   col_na = "#A6A6A6FF",
   shape_palette_d = c(21, 24, 22, 23, 25),
+  shape_na = 4,
   linetype_palette_d = 1:6,
   ...
 )
@@ -24,6 +25,8 @@ update_geom_palettes(
 \item{col_na}{A hex code (or name) for the \code{NA} value.}
 
 \item{shape_palette_d}{For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).}
+
+\item{shape_na}{A NA shape value.}
 
 \item{linetype_palette_d}{For linetype scales, a character vector or a \verb{scales::pal_*} function. Defaults to 1:6.}
 

@@ -129,8 +129,8 @@ update_geom_linetype <- function(
 #'
 #' @export
 update_geom_linewidth <- function(
-  linewidth = 0.5,
-  ...
+    linewidth = 0.5,
+    ...
 ) {
   ggplot2::update_theme(
     geom.abline = ggplot2::element_geom(

@@ -18,6 +18,7 @@
 #' @param col_palette_o For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_c`.
 #' @param col_na A NA colour/fill value.
 #' @param shape_palette_d For shape scales, a numeric vector of shape codes.
+#' @param shape_na A NA shape value.
 #' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function.
 #' @param bordered_colour A function with input of the set `col`.
 #' @param bordered_fill A function with input of the set `col`.
@@ -66,6 +67,7 @@ set_blanket <- function(
     col_palette_o = NULL,
     col_na = "#A6A6A6FF",
     shape_palette_d = c(21, 24, 22, 23, 25),
+    shape_na = 4,
     linetype_palette_d = 1:6,
 
     titles_case = snakecase::to_sentence_case,
@@ -93,6 +95,7 @@ set_blanket <- function(
     col_palette_o = col_palette_o,
     col_na = col_na,
     shape_palette_d = shape_palette_d,
+    shape_na = shape_na,
     linetype_palette_d = linetype_palette_d
   )
 

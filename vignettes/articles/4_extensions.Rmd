@@ -363,6 +363,21 @@ data.frame(
   ) 
 ```
 
+### ggstar
+
+```{r}
+library(ggstar)
+
+palmerpenguins::penguins |>
+  gg_blanket(
+    geom = "star",
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+    mapping = aes(starshape = species),
+  )
+```
+
 ### ggpattern
 
 ```{r}

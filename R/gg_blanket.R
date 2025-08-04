@@ -45,6 +45,7 @@
 #' @param facet_scales Whether facet scales should be `"fixed"` across facets, `"free"` in both directions, or free in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
 #' @param facet_space Whether facet space should be `"fixed"` across facets, `"free"` to be proportional in both directions, or free to be proportional in just one direction (i.e. `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
 #' @param shape_palette A numeric vector of shape codes or a `scales::pal_*()` function. If NULL, uses the value from `getOption("ggblanket.shape_palette")`.
+#' @param shape_na A NA shape value.
 #' @param linetype_palette A character vector of linetype names or a `scales::pal_*()` function. If NULL, uses the value from `getOption("ggblanket.linetype_palette")`.
 #' @param title Title string.
 #' @param subtitle Subtitle string.
@@ -147,9 +148,7 @@ gg_blanket <- function(
     colour_palette = NULL,
     colour_na = NULL,
     fill_palette = NULL,
-    fill_na = NULL,
-    shape_palette = NULL,
-    linetype_palette = NULL,
+    fill_na = NULL, shape_palette = NULL, shape_na = NULL, linetype_palette = NULL,
     facet_axes = NULL,
     facet_axis_labels = "margins",
     facet_drop = FALSE,
@@ -972,8 +971,12 @@ gg_blanket <- function(
       shape_legend_rev <- FALSE
     }
 
+    if (rlang::is_null(shape_na)) {
+      shape_na <- getOption("ggblanket.shape_na")
+    }
+
     plot <- plot +
-      ggplot2::scale_shape_manual(values = shape_values) +
+      ggplot2::scale_shape_manual(values = shape_values, na.value = shape_na) +
       ggplot2::guides(shape = ggplot2::guide_legend(reverse = shape_legend_rev))
   }
 
@@ -1148,6 +1151,7 @@ gg_blanket <- function(
       linewidth = all_titles$linewidth_title,
       linetype = all_titles$linetype_title,
       pattern = all_titles$pattern_title,
+      starshape = all_titles$starshape_title,
       title = title,
       subtitle = subtitle,
       caption = caption

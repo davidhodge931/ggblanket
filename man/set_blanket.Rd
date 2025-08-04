@@ -23,6 +23,7 @@ set_blanket(
   col_palette_o = NULL,
   col_na = "#A6A6A6FF",
   shape_palette_d = c(21, 24, 22, 23, 25),
+  shape_na = 4,
   linetype_palette_d = 1:6,
   titles_case = snakecase::to_sentence_case,
   aspect_axis_line = "transparent",
@@ -61,6 +62,8 @@ set_blanket(
 \item{col_na}{A NA colour/fill value.}
 
 \item{shape_palette_d}{For shape scales, a numeric vector of shape codes.}
+
+\item{shape_na}{A NA shape value.}
 
 \item{linetype_palette_d}{For linetype scales, a character vector or a \verb{scales::pal_*} function.}
 
