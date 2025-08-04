@@ -80,7 +80,7 @@ add_initial_layer <- function(
   is_sf <- stringr::str_detect(stat, "sf")
 
   # Set default coord if not provided
-  if (is.null(coord)) {
+  if (rlang::is_null(coord)) {
     coord <- if (is_sf) {
       ggplot2::coord_sf(clip = "off")
     } else {
@@ -101,7 +101,7 @@ add_initial_layer <- function(
   )
 
   # Add layer with optional blending
-  if (!is.null(blend)) {
+  if (!rlang::is_null(blend)) {
     plot + layer_call |> ggblend::blend(blend = blend) + coord
   } else {
     plot + layer_call + coord
@@ -149,7 +149,7 @@ is_x_limits_to_breaks <- function(
     x_scale_class,
     y_scale_class
 ) {
-  if (!is.null(x_limits_to_breaks)) {
+  if (!rlang::is_null(x_limits_to_breaks)) {
     return(x_limits_to_breaks)
   }
 
@@ -168,7 +168,7 @@ is_y_limits_to_breaks <- function(
     x_scale_class,
     y_scale_class
 ) {
-  if (!is.null(y_limits_to_breaks)) {
+  if (!rlang::is_null(y_limits_to_breaks)) {
     return(y_limits_to_breaks)
   }
 
@@ -192,7 +192,7 @@ validate_inputs <- function(
     stat
 ) {
   # Check mapping doesn't include facets
-  if (!is.null(mapping)) {
+  if (!rlang::is_null(mapping)) {
     mapping_names <- names(unlist(mapping))
     if (any(mapping_names %in% c("facet", "facet2"))) {
       rlang::abort("mapping argument does not support facet or facet2")
@@ -336,7 +336,7 @@ reverse_if_needed <- function(data, aes_list, aspect) {
 #' Get facet layout
 #' @noRd
 get_facet_layout <- function(facet_layout, aes_list) {
-  if (!is.null(facet_layout)) {
+  if (!rlang::is_null(facet_layout)) {
     return(facet_layout)
   }
 
@@ -528,7 +528,7 @@ add_facet_by_layout <- function(
       plot
     }
   } else if (facet_layout == "grid") {
-    if (!is.null(facet_vars$facet) || !is.null(facet_vars$facet2)) {
+    if (!rlang::is_null(facet_vars$facet) || !rlang::is_null(facet_vars$facet2)) {
       plot +
         ggplot2::facet_grid(
           rows = facet_vars$facet2,
@@ -552,7 +552,7 @@ add_facet_by_layout <- function(
 #' @noRd
 get_col_n <- function(aes_list, data, plot_data, stat = NULL) {
   # Special handling for contour_filled and density2d_filled
-  if (!is.null(stat) && stat %in% c("contour_filled", "density2d_filled")) {
+  if (!rlang::is_null(stat) && stat %in% c("contour_filled", "density2d_filled")) {
     # For contour plots, check if there's a 'level' column in plot_data
     if ("level" %in% names(plot_data)) {
       level_data <- plot_data$level
@@ -605,11 +605,11 @@ is_aes_identical_to_col <- function(plot_build, aesthetic) {
   aes_label <- plot_build$plot$labels[[aesthetic]]
 
   # Check if labels match
-  (!is.null(colour_label) &&
-      !is.null(aes_label) &&
+  (!rlang::is_null(colour_label) &&
+      !rlang::is_null(aes_label) &&
       rlang::as_name(colour_label[1]) == rlang::as_name(aes_label[1])) ||
-    (!is.null(fill_label) &&
-       !is.null(aes_label) &&
+    (!rlang::is_null(fill_label) &&
+       !rlang::is_null(aes_label) &&
        rlang::as_name(fill_label[1]) == rlang::as_name(aes_label[1]))
 }
 
@@ -622,7 +622,7 @@ get_scale_class <- function(plot_build, aes_list, data) {
   plot_scales <- plot_build$plot$scales$scales |>
     purrr::map_chr(\(x) {
       call_name <- rlang::call_name(x[["call"]])
-      if (is.null(call_name)) "continuous" else call_name
+      if (rlang::is_null(call_name)) "continuous" else call_name
     })
 
   # Determine x scale class
@@ -843,7 +843,7 @@ add_y_scale_continuous <- function(
 #' Get color labels
 #' @noRd
 get_col_label <- function(col_labels, col_scale_class, col_transform) {
-  if (!is.null(col_labels)) {
+  if (!rlang::is_null(col_labels)) {
     return(col_labels)
   }
 
@@ -861,19 +861,19 @@ get_col_label <- function(col_labels, col_scale_class, col_transform) {
 #' Process discrete palette
 #' @noRd
 process_discrete_palette <- function(palette, col_n) {
-  if (is.null(palette)) {
+  if (rlang::is_null(palette)) {
     return(NULL)
   }
 
   if (is.function(palette)) {
-    if (!is.null(col_n)) {
+    if (!rlang::is_null(col_n)) {
       palette(col_n)
     } else {
       palette
     }
   } else if (!any(rlang::have_name(palette))) {
     # For unnamed vectors
-    if (!is.null(col_n)) {
+    if (!rlang::is_null(col_n)) {
       # Use recycling if palette is shorter than needed
       if (length(palette) < col_n) {
         palette <- rep_len(palette, col_n)
@@ -1023,9 +1023,9 @@ add_matching_aesthetic_guides <- function(
         "shape" = {
           if (geom %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
             list(
-              colour = if (!is.null(bordered_colour) && is.function(bordered_colour))
+              colour = if (!rlang::is_null(bordered_colour) && is.function(bordered_colour))
                 bordered_colour(grey_col) else grey_col,
-              fill = if (!is.null(bordered_fill) && is.function(bordered_fill))
+              fill = if (!rlang::is_null(bordered_fill) && is.function(bordered_fill))
                 bordered_fill(grey_col) else grey_col
             )
           } else {
@@ -1036,9 +1036,9 @@ add_matching_aesthetic_guides <- function(
         "alpha" = {
           if (geom %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
             list(
-              colour = if (!is.null(bordered_colour) && is.function(bordered_colour))
+              colour = if (!rlang::is_null(bordered_colour) && is.function(bordered_colour))
                 bordered_colour(grey_col) else grey_col,
-              fill = if (!is.null(bordered_fill) && is.function(bordered_fill))
+              fill = if (!rlang::is_null(bordered_fill) && is.function(bordered_fill))
                 bordered_fill(grey_col) else grey_col
             )
           } else {
@@ -1046,7 +1046,7 @@ add_matching_aesthetic_guides <- function(
           }
         },
         "linewidth" = {
-          if (is_bordered_geom && !is.null(bordered_colour) && is.function(bordered_colour)) {
+          if (is_bordered_geom && !rlang::is_null(bordered_colour) && is.function(bordered_colour)) {
             list(colour = bordered_colour(grey_col), fill = grey_col)
           } else {
             list(colour = grey_col, fill = grey_col)
@@ -1101,7 +1101,7 @@ scale_x_limits_to_breaks <- function(
 
   if (symmetric) {
     # If x is provided as a symbol, use it; otherwise assume data has 'x' column
-    if (!is.null(x)) {
+    if (!rlang::is_null(x)) {
       x <- rlang::enquo(x)
       vctr <- data |>
         dplyr::pull(!!x)
@@ -1109,7 +1109,7 @@ scale_x_limits_to_breaks <- function(
       vctr <- data$x
     }
 
-    if (!is.null(expand_limits)) {
+    if (!rlang::is_null(expand_limits)) {
       vctr <- c(vctr, expand_limits)
     }
 
@@ -1129,7 +1129,7 @@ scale_x_limits_to_breaks <- function(
     }
 
     # Generate breaks
-    if (is.null(breaks)) {
+    if (rlang::is_null(breaks)) {
       if (any(transform == "hms")) {
         breaks <- scales::breaks_timespan()(range)
       } else if (any(transform %in% c("time", "datetime", "date"))) {
@@ -1154,12 +1154,12 @@ scale_x_limits_to_breaks <- function(
     }
 
     # Zero expand for symmetric
-    if (is.null(expand)) {
+    if (rlang::is_null(expand)) {
       expand <- ggplot2::expansion(mult = c(0, 0))
     }
 
     # Set labels
-    if (is.null(labels)) {
+    if (rlang::is_null(labels)) {
       if (any(transform == "hms")) {
         labels <- scales::label_time()
       } else if (any(transform %in% c("time", "datetime", "date"))) {
@@ -1181,7 +1181,7 @@ scale_x_limits_to_breaks <- function(
     )
   } else {
     # Non-symmetric scale
-    if (is.null(breaks)) {
+    if (rlang::is_null(breaks)) {
       if (any(transform == "hms")) {
         breaks <- scales::breaks_timespan()
       } else if (any(transform %in% c("time", "datetime", "date"))) {
@@ -1196,11 +1196,11 @@ scale_x_limits_to_breaks <- function(
       }
     }
 
-    if (is.null(expand)) {
+    if (rlang::is_null(expand)) {
       expand <- ggplot2::expansion(mult = c(0.05, 0.05))
     }
 
-    if (is.null(labels)) {
+    if (rlang::is_null(labels)) {
       if (any(transform == "hms")) {
         labels <- scales::label_time()
       } else if (any(transform %in% c("time", "datetime", "date"))) {
@@ -1257,7 +1257,7 @@ scale_y_limits_to_breaks <- function(
 
   if (symmetric) {
     # If y is provided as a symbol, use it; otherwise assume data has 'y' column
-    if (!is.null(y)) {
+    if (!rlang::is_null(y)) {
       y <- rlang::enquo(y)
       vctr <- data |>
         dplyr::pull(!!y)
@@ -1265,7 +1265,7 @@ scale_y_limits_to_breaks <- function(
       vctr <- data$y
     }
 
-    if (!is.null(expand_limits)) {
+    if (!rlang::is_null(expand_limits)) {
       vctr <- c(vctr, expand_limits)
     }
 
@@ -1285,7 +1285,7 @@ scale_y_limits_to_breaks <- function(
     }
 
     # Generate breaks
-    if (is.null(breaks)) {
+    if (rlang::is_null(breaks)) {
       if (any(transform == "hms")) {
         breaks <- scales::breaks_timespan()(range)
       } else if (any(transform %in% c("time", "datetime", "date"))) {
@@ -1310,12 +1310,12 @@ scale_y_limits_to_breaks <- function(
     }
 
     # Zero expand for symmetric
-    if (is.null(expand)) {
+    if (rlang::is_null(expand)) {
       expand <- ggplot2::expansion(mult = c(0, 0))
     }
 
     # Set labels
-    if (is.null(labels)) {
+    if (rlang::is_null(labels)) {
       if (any(transform == "hms")) {
         labels <- scales::label_time()
       } else if (any(transform %in% c("time", "datetime", "date"))) {
@@ -1337,7 +1337,7 @@ scale_y_limits_to_breaks <- function(
     )
   } else {
     # Non-symmetric scale
-    if (is.null(breaks)) {
+    if (rlang::is_null(breaks)) {
       if (any(transform == "hms")) {
         breaks <- scales::breaks_timespan()
       } else if (any(transform %in% c("time", "datetime", "date"))) {
@@ -1352,11 +1352,11 @@ scale_y_limits_to_breaks <- function(
       }
     }
 
-    if (is.null(expand)) {
+    if (rlang::is_null(expand)) {
       expand <- ggplot2::expansion(mult = c(0.05, 0.05))
     }
 
-    if (is.null(labels)) {
+    if (rlang::is_null(labels)) {
       if (any(transform == "hms")) {
         labels <- scales::label_time()
       } else if (any(transform %in% c("time", "datetime", "date"))) {
@@ -1470,7 +1470,7 @@ add_aspect <- function(
   }
 
   if (length(theme_updates) > 0) {
-    plot + do.call(ggplot2::theme, theme_updates)
+    plot + rlang::exec(ggplot2::theme, !!!theme_updates)
   } else {
     plot
   }
@@ -1491,7 +1491,7 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
     symbol_name <- rlang::as_name(rlang::quo_get_expr(quo_input))
 
     # First check if it's a column name in the data
-    if (!is.null(data) && symbol_name %in% names(data)) {
+    if (!rlang::is_null(data) && symbol_name %in% names(data)) {
       # It's a column name, treat as aesthetic
       return(list(is_aesthetic = TRUE, value = quo_input))
     }
@@ -1710,7 +1710,7 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
 #' Check if an aesthetic is in mapping
 #' @noRd
 is_in_mapping <- function(mapping, aesthetic) {
-  if (is.null(mapping)) {
+  if (rlang::is_null(mapping)) {
     return(FALSE)
   }
   aesthetic %in% names(mapping)
@@ -1722,6 +1722,7 @@ is_bordered <- function(geom, theme_defaults) {
   # Define which geoms are treated as border polygons
   bordered_polygons <- c(
     "area",
+    "blank",
     "bar",
     "boxplot",
     "col",
@@ -1752,7 +1753,7 @@ is_bordered <- function(geom, theme_defaults) {
 
   is_bordered_point <- geom %in%
     bordered_points &&
-    !is.null(theme_defaults$geom$pointshape) &&
+    !rlang::is_null(theme_defaults$geom$pointshape) &&
     theme_defaults$geom$pointshape %in% 21:25
 
   is_bordered <- is_bordered_polygon || is_bordered_point
@@ -1780,13 +1781,13 @@ get_aes_title <- function(
   if (!rlang::quo_is_null(aes_quo)) {
     data_col <- dplyr::pull(data, !!aes_quo)
     label_attr <- attr(data_col, "label")
-    if (!is.null(label_attr)) {
+    if (!rlang::is_null(label_attr)) {
       return(label_attr)
     }
   }
 
   # Priority 2: Use build label with titles_case
-  if (!is.null(build_label)) {
+  if (!rlang::is_null(build_label)) {
     return(titles_case(rlang::as_name(build_label[1])))
   }
 
@@ -1833,8 +1834,8 @@ get_plot_titles <- function(
   }
 
   # Get col title (handles both colour and fill)
-  if (is.null(col_title)) {
-    if (!is.null(plot_build$plot$labels$colour)) {
+  if (rlang::is_null(col_title)) {
+    if (!rlang::is_null(plot_build$plot$labels$colour)) {
       col_title <- get_aes_title(
         data,
         aes_list$col,
@@ -1842,7 +1843,7 @@ get_plot_titles <- function(
         titles_case,
         NULL
       )
-    } else if (!is.null(plot_build$plot$labels$fill)) {
+    } else if (!rlang::is_null(plot_build$plot$labels$fill)) {
       col_title <- get_aes_title(
         data,
         aes_list$col,
@@ -1867,7 +1868,7 @@ get_plot_titles <- function(
 
   for (aes in other_aesthetics) {
     label <- plot_build$plot$labels[[aes]]
-    if (!is.null(label)) {
+    if (!rlang::is_null(label)) {
       # Check if this aesthetic is identical to col
       if (is_aes_identical_to_col(plot_build, aes)) {
         other_titles[[paste0(aes, "_title")]] <- col_title
@@ -2045,7 +2046,7 @@ initialise_ggplot_from_list <- function(
   }
 
   # Merge with additional mapping
-  final_aes <- if (!is.null(mapping)) {
+  final_aes <- if (!rlang::is_null(mapping)) {
     utils::modifyList(base_aes, mapping)
   } else {
     base_aes
@@ -2077,7 +2078,7 @@ add_col_scale <- function(
   na_fill <- fill_na %||% "#CDC5BFFF"
 
   # Get transform and labels
-  if (is.null(col_transform)) {
+  if (rlang::is_null(col_transform)) {
     # Special handling for color transforms
     if (!rlang::quo_is_null(aes_list$col) && col_scale_class == "continuous") {
       col_data <- rlang::eval_tidy(aes_list$col, data)
@@ -2133,7 +2134,7 @@ add_col_scale <- function(
   )
 
   # Expand limits if necessary
-  if (!is.null(col_limits_include)) {
+  if (!rlang::is_null(col_limits_include)) {
     plot <- plot + ggplot2::expand_limits(
       colour = col_limits_include,
       fill = col_limits_include
@@ -2180,16 +2181,16 @@ add_col_scale_discrete <- function(
   # Handle x_limits_to_breaks reversal
   if (x_limits_to_breaks) {
     col_legend_rev <- !col_legend_rev
-    if (!is.null(colour_palette_processed)) {
+    if (!rlang::is_null(colour_palette_processed)) {
       colour_palette_processed <- rev(colour_palette_processed)
     }
-    if (!is.null(fill_palette_processed)) {
+    if (!rlang::is_null(fill_palette_processed)) {
       fill_palette_processed <- rev(fill_palette_processed)
     }
   }
 
   # Apply colour scale
-  if (!is.null(colour_palette_processed)) {
+  if (!rlang::is_null(colour_palette_processed)) {
     if (is.vector(colour_palette_processed)) {
       plot <- plot +
         ggplot2::scale_colour_manual(
@@ -2213,7 +2214,7 @@ add_col_scale_discrete <- function(
   }
 
   # Apply fill scale
-  if (!is.null(fill_palette_processed)) {
+  if (!rlang::is_null(fill_palette_processed)) {
     if (is.vector(fill_palette_processed)) {
       plot <- plot +
         ggplot2::scale_fill_manual(
@@ -2257,8 +2258,8 @@ add_col_scale_discrete <- function(
   } else {
     # Different variables or only one is mapped - show appropriate guides
     plot_mapping <- plot$mapping
-    has_colour_mapping <- !is.null(plot_mapping$colour)
-    has_fill_mapping <- !is.null(plot_mapping$fill)
+    has_colour_mapping <- !rlang::is_null(plot_mapping$colour)
+    has_fill_mapping <- !rlang::is_null(plot_mapping$fill)
 
     guide_list <- list()
 
@@ -2279,7 +2280,7 @@ add_col_scale_discrete <- function(
     }
 
     if (length(guide_list) > 0) {
-      plot <- plot + do.call(ggplot2::guides, guide_list)
+      plot <- plot + rlang::exec(ggplot2::guides, !!!guide_list)
     }
   }
 
@@ -2363,8 +2364,8 @@ add_col_scale_ordinal <- function(
   } else {
     # Different variables or only one is mapped - show appropriate guides
     plot_mapping <- plot$mapping
-    has_colour_mapping <- !is.null(plot_mapping$colour)
-    has_fill_mapping <- !is.null(plot_mapping$fill)
+    has_colour_mapping <- !rlang::is_null(plot_mapping$colour)
+    has_fill_mapping <- !rlang::is_null(plot_mapping$fill)
 
     guide_list <- list()
 
@@ -2385,7 +2386,7 @@ add_col_scale_ordinal <- function(
     }
 
     if (length(guide_list) > 0) {
-      plot <- plot + do.call(ggplot2::guides, guide_list)
+      plot <- plot + rlang::exec(ggplot2::guides, !!!guide_list)
     }
   }
 
@@ -2460,8 +2461,8 @@ add_col_scale_continuous <- function(
     } else {
       # Different variables or only one is mapped - show appropriate guides
       plot_mapping <- plot$mapping
-      has_colour_mapping <- !is.null(plot_mapping$colour)
-      has_fill_mapping <- !is.null(plot_mapping$fill)
+      has_colour_mapping <- !rlang::is_null(plot_mapping$colour)
+      has_fill_mapping <- !rlang::is_null(plot_mapping$fill)
 
       guide_list <- list()
 
@@ -2474,7 +2475,7 @@ add_col_scale_continuous <- function(
       }
 
       if (length(guide_list) > 0) {
-        plot <- plot + do.call(ggplot2::guides, guide_list)
+        plot <- plot + rlang::exec(ggplot2::guides, !!!guide_list)
       }
     }
   } else if (col_scale_type == "steps") {
@@ -2527,8 +2528,8 @@ add_col_scale_continuous <- function(
     } else {
       # Different variables or only one is mapped - show appropriate guides
       plot_mapping <- plot$mapping
-      has_colour_mapping <- !is.null(plot_mapping$colour)
-      has_fill_mapping <- !is.null(plot_mapping$fill)
+      has_colour_mapping <- !rlang::is_null(plot_mapping$colour)
+      has_fill_mapping <- !rlang::is_null(plot_mapping$fill)
 
       guide_list <- list()
 
@@ -2547,7 +2548,7 @@ add_col_scale_continuous <- function(
       }
 
       if (length(guide_list) > 0) {
-        plot <- plot + do.call(ggplot2::guides, guide_list)
+        plot <- plot + rlang::exec(ggplot2::guides, !!!guide_list)
       }
     }
   }
@@ -2562,8 +2563,8 @@ check_same_colour_fill_mapping <- function(plot) {
   plot_mapping <- plot$mapping
 
   # Check if both colour and fill exist in the mapping
-  has_colour <- !is.null(plot_mapping$colour)
-  has_fill <- !is.null(plot_mapping$fill)
+  has_colour <- !rlang::is_null(plot_mapping$colour)
+  has_fill <- !rlang::is_null(plot_mapping$fill)
 
   if (has_colour && has_fill) {
     # Compare the expressions
@@ -2609,9 +2610,9 @@ apply_secondary_grey_guides <- function(
     if (!same_as_col) {
       if (geom %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
         override_aes <- list(
-          colour = if (!is.null(bordered_colour) && is.function(bordered_colour))
+          colour = if (!rlang::is_null(bordered_colour) && is.function(bordered_colour))
             bordered_colour(grey_col) else grey_col,
-          fill = if (!is.null(bordered_fill) && is.function(bordered_fill))
+          fill = if (!rlang::is_null(bordered_fill) && is.function(bordered_fill))
             bordered_fill(grey_col) else grey_col
         )
       } else {

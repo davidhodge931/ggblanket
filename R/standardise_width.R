@@ -101,16 +101,16 @@ standardise_width <- function(
   current_theme <- ggplot2::theme_get()
 
   # Extract panel dimensions from theme if not provided
-  if (is.null(from_panel_widths) && !is.null(current_theme$panel.widths)) {
+  if (rlang::is_null(from_panel_widths) && !rlang::is_null(current_theme$panel.widths)) {
     from_panel_widths <- current_theme$panel.widths
   }
-  if (is.null(from_panel_heights) && !is.null(current_theme$panel.heights)) {
+  if (rlang::is_null(from_panel_heights) && !rlang::is_null(current_theme$panel.heights)) {
     from_panel_heights <- current_theme$panel.heights
   }
-  if (is.null(to_panel_widths) && !is.null(current_theme$panel.widths)) {
+  if (rlang::is_null(to_panel_widths) && !rlang::is_null(current_theme$panel.widths)) {
     to_panel_widths <- current_theme$panel.widths
   }
-  if (is.null(to_panel_heights) && !is.null(current_theme$panel.heights)) {
+  if (rlang::is_null(to_panel_heights) && !rlang::is_null(current_theme$panel.heights)) {
     to_panel_heights <- current_theme$panel.heights
   }
 
@@ -125,16 +125,16 @@ standardise_width <- function(
 
   # Validate panel dimensions - if any provided, all must be provided
   if (
-    !is.null(from_panel_widths) ||
-      !is.null(from_panel_heights) ||
-      !is.null(to_panel_widths) ||
-      !is.null(to_panel_heights)
+    !rlang::is_null(from_panel_widths) ||
+      !rlang::is_null(from_panel_heights) ||
+      !rlang::is_null(to_panel_widths) ||
+      !rlang::is_null(to_panel_heights)
   ) {
     if (
-      is.null(from_panel_widths) ||
-        is.null(from_panel_heights) ||
-        is.null(to_panel_widths) ||
-        is.null(to_panel_heights)
+      rlang::is_null(from_panel_widths) ||
+        rlang::is_null(from_panel_heights) ||
+        rlang::is_null(to_panel_widths) ||
+        rlang::is_null(to_panel_heights)
     ) {
       rlang::abort(
         "If any panel dimension is provided, all four (from_panel_widths, from_panel_heights, to_panel_widths, to_panel_heights) must be provided"
@@ -149,7 +149,7 @@ standardise_width <- function(
     to_panel_widths,
     to_panel_heights
   )
-  panel_dims <- panel_dims[!purrr::map_lgl(panel_dims, is.null)] # Remove NULL values
+  panel_dims <- panel_dims[!purrr::map_lgl(panel_dims, rlang::is_null)] # Remove NULL values
 
   if (length(panel_dims) > 1) {
     # Extract units from each non-NULL panel dimension
@@ -181,25 +181,25 @@ standardise_width <- function(
 
   # Panel dimension adjustment for visual consistency
   if (
-    !is.null(to_panel_widths) |
-      !is.null(to_panel_heights) |
-      !is.null(from_panel_widths) |
-      !is.null(from_panel_heights)
+    !rlang::is_null(to_panel_widths) |
+      !rlang::is_null(to_panel_heights) |
+      !rlang::is_null(from_panel_widths) |
+      !rlang::is_null(from_panel_heights)
   ) {
     # Get the relevant dimension for each aspect
     # For aspect "x" (vertical bars): width depends on panel width
     # For aspect "y" (horizontal bars): width depends on panel height
 
     current_relevant_dim <- if (from_aspect == "x") {
-      if (!is.null(from_panel_widths)) as.numeric(from_panel_widths)[1] else 1
+      if (!rlang::is_null(from_panel_widths)) as.numeric(from_panel_widths)[1] else 1
     } else {
-      if (!is.null(from_panel_heights)) as.numeric(from_panel_heights)[1] else 1
+      if (!rlang::is_null(from_panel_heights)) as.numeric(from_panel_heights)[1] else 1
     }
 
     reference_relevant_dim <- if (to_aspect == "x") {
-      if (!is.null(to_panel_widths)) as.numeric(to_panel_widths)[1] else 1
+      if (!rlang::is_null(to_panel_widths)) as.numeric(to_panel_widths)[1] else 1
     } else {
-      if (!is.null(to_panel_heights)) as.numeric(to_panel_heights)[1] else 1
+      if (!rlang::is_null(to_panel_heights)) as.numeric(to_panel_heights)[1] else 1
     }
 
     # Scale to maintain visual consistency

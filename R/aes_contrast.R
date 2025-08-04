@@ -36,7 +36,7 @@
 #'
 get_contrast <- function(col, ..., dark = NULL, light = NULL) {
   # Only get theme if we need it
-  if (is.null(dark) || is.null(light)) {
+  if (rlang::is_null(dark) || rlang::is_null(light)) {
     # Get current theme
     current_theme <- ggplot2::get_theme()
 
@@ -122,7 +122,7 @@ get_contrast <- function(col, ..., dark = NULL, light = NULL) {
 #'
 aes_contrast <- function(..., dark = NULL, light = NULL, aes = "colour") {
   # Only get theme if we need it
-  if (is.null(dark) || is.null(light)) {
+  if (rlang::is_null(dark) || rlang::is_null(light)) {
     # Get current theme
     current_theme <- ggplot2::get_theme()
 

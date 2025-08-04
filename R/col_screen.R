@@ -34,7 +34,7 @@
 #' pal_screened(5)
 col_screen <- function(col1, col2 = NULL) {
   # If col2 is NULL, use col1
-  if (is.null(col2)) {
+  if (rlang::is_null(col2)) {
     col2 <- col1
   }
 

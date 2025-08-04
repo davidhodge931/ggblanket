@@ -13,7 +13,7 @@
 #'
 is_panel_dark <- function(theme = NULL) {
   # Get theme if not provided
-  if (is.null(theme)) {
+  if (rlang::is_null(theme)) {
     theme <- ggplot2::theme_get()
   }
 

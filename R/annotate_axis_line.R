@@ -53,7 +53,7 @@ annotate_axis_line <- function(
   }
 
   # Set default position if not provided
-  if (is.null(position)) {
+  if (rlang::is_null(position)) {
     position <- if (axis == "x") "bottom" else "left"
   }
 
@@ -182,12 +182,12 @@ annotate_axis_line <- function(
     theme_element <- paste0("axis.line.", axis, ".", position)
     theme_mod <- list()
     theme_mod[[theme_element]] <- ggplot2::element_line(colour = "transparent")
-    stamp <- c(stamp, list(do.call(ggplot2::theme, theme_mod)))
+    stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   } else if (theme_elements == "blank") {
     theme_element <- paste0("axis.line.", axis, ".", position)
     theme_mod <- list()
     theme_mod[[theme_element]] <- ggplot2::element_blank()
-    stamp <- c(stamp, list(do.call(ggplot2::theme, theme_mod)))
+    stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   }
 
   return(stamp)

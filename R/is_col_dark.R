@@ -23,7 +23,7 @@
 #'
 is_col_dark <- function(col) {
   # Handle NULL or missing input
-  if (is.null(col) || length(col) == 0) {
+  if (rlang::is_null(col) || length(col) == 0) {
     return(FALSE)
   }
 

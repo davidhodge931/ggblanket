@@ -296,11 +296,11 @@ update_geom_font <- function(
       current_theme$axis.text$size %||%
       current_theme$text$size
     # If we found a theme size, handle rel() objects
-    if (!is.null(raw_size)) {
+    if (!rlang::is_null(raw_size)) {
       if (inherits(raw_size, "rel")) {
         base_size <- current_theme$text$size
         # If base_size is also rel() or NULL, use default
-        if (is.null(base_size) || inherits(base_size, "rel")) {
+        if (rlang::is_null(base_size) || inherits(base_size, "rel")) {
           base_size <- 11
         }
         size <- as.numeric(raw_size) * base_size

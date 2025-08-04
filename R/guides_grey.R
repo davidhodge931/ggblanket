@@ -33,17 +33,17 @@ guides_grey <- function(
     ...
 ) {
   # Direct overrides take precedence
-  if (!is.null(colour) || !is.null(fill)) {
+  if (!rlang::is_null(colour) || !rlang::is_null(fill)) {
     override_aes <- list()
-    if (!is.null(colour)) override_aes$colour <- colour
-    if (!is.null(fill)) override_aes$fill <- fill
+    if (!rlang::is_null(colour)) override_aes$colour <- colour
+    if (!rlang::is_null(fill)) override_aes$fill <- fill
   } else {
     # Determine if we should treat as bordered
-    if (is.null(bordered)) {
+    if (rlang::is_null(bordered)) {
       # Auto-detect based on aesthetic and geom defaults
       if (aesthetic %in% c("shape", "size", "alpha")) {
         shape <- ggplot2::get_geom_defaults("point")$shape
-        bordered <- !is.null(shape) && shape %in% 21:25
+        bordered <- !rlang::is_null(shape) && shape %in% 21:25
       } else if (aesthetic == "linewidth") {
         # Linewidth often applies to bordered geoms
         bordered <- TRUE
@@ -56,7 +56,7 @@ guides_grey <- function(
     # Build override aesthetics
     if (bordered) {
       # Get border transformation functions if not provided
-      if (is.null(bordered_colour)) {
+      if (rlang::is_null(bordered_colour)) {
         current_theme <- ggplot2::theme_get()
         bordered_colour <- if (is_panel_dark(theme = current_theme)) {
           col_screen
@@ -68,14 +68,14 @@ guides_grey <- function(
       # Apply transformations unless explicitly disabled (NA)
       if (is.function(bordered_colour)) {
         override_colour <- bordered_colour(col)
-      } else if (!is.null(bordered_colour) && is.na(bordered_colour)) {
+      } else if (!rlang::is_null(bordered_colour) && is.na(bordered_colour)) {
         override_colour <- col
       } else {
         override_colour <- bordered_colour
       }
 
       # Handle bordered_fill - check for NULL first
-      if (is.null(bordered_fill)) {
+      if (rlang::is_null(bordered_fill)) {
         override_fill <- col
       } else if (is.na(bordered_fill)) {
         override_fill <- col
@@ -99,5 +99,5 @@ guides_grey <- function(
     ...
   )
 
-  do.call(ggplot2::guides, guide_list)
+  rlang::exec(ggplot2::guides, !!!guide_list)
 }

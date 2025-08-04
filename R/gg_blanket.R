@@ -164,7 +164,7 @@ gg_blanket <- function(
     titles_case = NULL
 ) {
   # Step 1: Handle NULL data
-  if (is.null(data)) {
+  if (rlang::is_null(data)) {
     data <- data.frame(x = NA)
   }
 
@@ -203,7 +203,7 @@ gg_blanket <- function(
   if (stat %in% c("bin2d", "binhex")) {
     # Check if user explicitly set colour as fixed
     user_set_colour_fixed <- !colour_map_or_set$is_aesthetic &&
-      !is.null(colour_map_or_set$value)
+      !rlang::is_null(colour_map_or_set$value)
 
     if (user_set_colour_fixed) {
       # User set colour, only apply after_stat to fill
@@ -218,7 +218,7 @@ gg_blanket <- function(
       )
     }
 
-    if (is.null(mapping)) {
+    if (rlang::is_null(mapping)) {
       mapping <- default_aes
     } else {
       has_colour <- "colour" %in% names(mapping)
@@ -237,7 +237,7 @@ gg_blanket <- function(
   if (stat %in% c("contour_filled", "density2d_filled")) {
     # Check if user explicitly set colour as fixed
     user_set_colour_fixed <- !colour_map_or_set$is_aesthetic &&
-      !is.null(colour_map_or_set$value)
+      !rlang::is_null(colour_map_or_set$value)
 
     if (user_set_colour_fixed) {
       # User set colour, only apply after_stat to fill
@@ -252,7 +252,7 @@ gg_blanket <- function(
       )
     }
 
-    if (is.null(mapping)) {
+    if (rlang::is_null(mapping)) {
       mapping <- default_aes
     } else {
       has_colour <- "colour" %in% names(mapping)
@@ -286,12 +286,12 @@ gg_blanket <- function(
 
   # Then check if user explicitly set colour or fill to NA
   user_set_colour_na <- !colour_map_or_set$is_aesthetic &&
-    !is.null(colour_map_or_set$value) &&
+    !rlang::is_null(colour_map_or_set$value) &&
     length(colour_map_or_set$value) == 1 &&
     is.na(colour_map_or_set$value)
 
   user_set_fill_na <- !fill_map_or_set$is_aesthetic &&
-    !is.null(fill_map_or_set$value) &&
+    !rlang::is_null(fill_map_or_set$value) &&
     length(fill_map_or_set$value) == 1 &&
     is.na(fill_map_or_set$value)
 
@@ -345,13 +345,13 @@ gg_blanket <- function(
     col_palette_o <- getOption("ggblanket.col_palette_o")
 
     # Add fallback defaults if theme palettes are NULL
-    if (is.null(col_palette_d)) {
+    if (rlang::is_null(col_palette_d)) {
       col_palette_d <- scales::hue_pal()  # or your preferred default
     }
-    if (is.null(col_palette_c)) {
+    if (rlang::is_null(col_palette_c)) {
       col_palette_c <- scales::viridis_pal()  # or your preferred default
     }
-    if (is.null(col_palette_o)) {
+    if (rlang::is_null(col_palette_o)) {
       col_palette_o <- scales::viridis_pal()  # or your preferred default
     }
   } else {
@@ -367,9 +367,9 @@ gg_blanket <- function(
 
   # Apply border adjustments to palettes and NA colors - FIXED VERSION
   if (is_bordered_geom) {
-    if (!is.null(bordered_colour)) {
+    if (!rlang::is_null(bordered_colour)) {
       # ... existing border logic but add NULL checks
-      if (!is.null(colour_palette)) {
+      if (!rlang::is_null(colour_palette)) {
         colour_palette_d <- colour_palette
         colour_palette_c <- colour_palette
         colour_palette_o <- colour_palette
@@ -401,7 +401,7 @@ gg_blanket <- function(
       }
 
       # For NA color: priority is colour_na > col_na (transformed)
-      if (is.null(colour_na) && is.function(bordered_colour)) {
+      if (rlang::is_null(colour_na) && is.function(bordered_colour)) {
         colour_na <- bordered_colour(col_na)
       }
     } else {
@@ -409,15 +409,15 @@ gg_blanket <- function(
       colour_palette_d <- colour_palette %||% col_palette_d %||% scales::hue_pal()
       colour_palette_c <- colour_palette %||% col_palette_c %||% scales::viridis_pal()
       colour_palette_o <- colour_palette %||% col_palette_o %||% scales::viridis_pal()
-      if (is.null(colour_na)) {
+      if (rlang::is_null(colour_na)) {
         colour_na <- col_na
       }
     }
 
     # Similar fixes for fill palettes...
-    if (!is.null(bordered_fill)) {
+    if (!rlang::is_null(bordered_fill)) {
       # Add similar NULL safety checks for fill palettes
-      if (!is.null(fill_palette)) {
+      if (!rlang::is_null(fill_palette)) {
         fill_palette_d <- fill_palette
         fill_palette_c <- fill_palette
         fill_palette_o <- fill_palette
@@ -449,7 +449,7 @@ gg_blanket <- function(
       }
 
       # For NA color: priority is fill_na > col_na (transformed)
-      if (is.null(fill_na) && is.function(bordered_fill)) {
+      if (rlang::is_null(fill_na) && is.function(bordered_fill)) {
         fill_na <- bordered_fill(col_na)
       }
     } else {
@@ -457,7 +457,7 @@ gg_blanket <- function(
       fill_palette_d <- fill_palette %||% col_palette_d %||% scales::hue_pal()
       fill_palette_c <- fill_palette %||% col_palette_c %||% scales::viridis_pal()
       fill_palette_o <- fill_palette %||% col_palette_o %||% scales::viridis_pal()
-      if (is.null(fill_na)) {
+      if (rlang::is_null(fill_na)) {
         fill_na <- col_na
       }
     }
@@ -466,14 +466,14 @@ gg_blanket <- function(
     colour_palette_d <- colour_palette %||% col_palette_d %||% scales::hue_pal()
     colour_palette_c <- colour_palette %||% col_palette_c %||% scales::viridis_pal()
     colour_palette_o <- colour_palette %||% col_palette_o %||% scales::viridis_pal()
-    if (is.null(colour_na)) {
+    if (rlang::is_null(colour_na)) {
       colour_na <- col_na
     }
 
     fill_palette_d <- fill_palette %||% col_palette_d %||% scales::hue_pal()
     fill_palette_c <- fill_palette %||% col_palette_c %||% scales::viridis_pal()
     fill_palette_o <- fill_palette %||% col_palette_o %||% scales::viridis_pal()
-    if (is.null(fill_na)) {
+    if (rlang::is_null(fill_na)) {
       fill_na <- col_na
     }
   }
@@ -494,15 +494,15 @@ gg_blanket <- function(
   # AND not in mapping
   if (!colour_map_or_set$is_aesthetic && !colour_in_mapping) {
     # colour is not mapped as aesthetic either directly or via col inheritance or mapping
-    if (!is.null(colour_map_or_set$value)) {
+    if (!rlang::is_null(colour_map_or_set$value)) {
       # Explicit colour value provided - include even if NA!
       fixed_params$colour <- colour_map_or_set$value
-    } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
+    } else if (!col_map_or_set$is_aesthetic && !rlang::is_null(col_map_or_set$value)) {
       if (!is.na(col_map_or_set$value)) {
         # No colour value, but col is set as fixed value (and it's not NA)
         if (
           is_bordered_geom &&
-          !is.null(bordered_colour) &&
+          !rlang::is_null(bordered_colour) &&
           is.function(bordered_colour)
         ) {
           fixed_params$colour <- bordered_colour(col_map_or_set$value)
@@ -521,7 +521,7 @@ gg_blanket <- function(
 
       if (
         is_bordered_geom &&
-        !is.null(bordered_colour) &&
+        !rlang::is_null(bordered_colour) &&
         is.function(bordered_colour)
       ) {
         fixed_params$colour <- bordered_colour(default_col)
@@ -536,15 +536,15 @@ gg_blanket <- function(
   # AND not in mapping
   if (!fill_map_or_set$is_aesthetic && !fill_in_mapping) {
     # fill is not mapped as aesthetic either directly or via col inheritance or mapping
-    if (!is.null(fill_map_or_set$value)) {
+    if (!rlang::is_null(fill_map_or_set$value)) {
       # Explicit fill value provided - include even if NA!
       fixed_params$fill <- fill_map_or_set$value
-    } else if (!col_map_or_set$is_aesthetic && !is.null(col_map_or_set$value)) {
+    } else if (!col_map_or_set$is_aesthetic && !rlang::is_null(col_map_or_set$value)) {
       if (!is.na(col_map_or_set$value)) {
         # No fill value, but col is set as fixed value (and it's not NA)
         if (
           is_bordered_geom &&
-          !is.null(bordered_fill) &&
+          !rlang::is_null(bordered_fill) &&
           is.function(bordered_fill)
         ) {
           fixed_params$fill <- bordered_fill(col_map_or_set$value)
@@ -563,7 +563,7 @@ gg_blanket <- function(
 
       if (
         is_bordered_geom &&
-        !is.null(bordered_fill) &&
+        !rlang::is_null(bordered_fill) &&
         is.function(bordered_fill)
       ) {
         fixed_params$fill <- bordered_fill(default_fill)
@@ -579,7 +579,7 @@ gg_blanket <- function(
     # For colour: only remove if it wasn't explicitly set by the user and not in mapping
     if (
       !colour_map_or_set$is_aesthetic &&
-      is.null(colour_map_or_set$value) &&
+      rlang::is_null(colour_map_or_set$value) &&
       !colour_in_mapping
     ) {
       # colour was not provided by user, so remove the default
@@ -588,7 +588,7 @@ gg_blanket <- function(
     # For fill: only remove if it wasn't explicitly set by the user and not in mapping
     if (
       !fill_map_or_set$is_aesthetic &&
-      is.null(fill_map_or_set$value) &&
+      rlang::is_null(fill_map_or_set$value) &&
       !fill_in_mapping
     ) {
       # fill was not provided by user, so remove the default
@@ -597,7 +597,7 @@ gg_blanket <- function(
   }
 
   # Handle other fixed values with theme defaults
-  if (!shape_map_or_set$is_aesthetic && !is.null(shape_map_or_set$value)) {
+  if (!shape_map_or_set$is_aesthetic && !rlang::is_null(shape_map_or_set$value)) {
     fixed_params$shape <- shape_map_or_set$value
   } else if (!shape_map_or_set$is_aesthetic) {
     if (geom == "sf") {
@@ -609,7 +609,7 @@ gg_blanket <- function(
   }
 
   if (
-    !linetype_map_or_set$is_aesthetic && !is.null(linetype_map_or_set$value)
+    !linetype_map_or_set$is_aesthetic && !rlang::is_null(linetype_map_or_set$value)
   ) {
     fixed_params$linetype <- linetype_map_or_set$value
   } else if (!linetype_map_or_set$is_aesthetic) {
@@ -617,7 +617,7 @@ gg_blanket <- function(
   }
 
   if (
-    !linewidth_map_or_set$is_aesthetic && !is.null(linewidth_map_or_set$value)
+    !linewidth_map_or_set$is_aesthetic && !rlang::is_null(linewidth_map_or_set$value)
   ) {
     fixed_params$linewidth <- linewidth_map_or_set$value
   } else if (!linewidth_map_or_set$is_aesthetic) {
@@ -632,13 +632,13 @@ gg_blanket <- function(
     }
   }
 
-  if (!size_map_or_set$is_aesthetic && !is.null(size_map_or_set$value)) {
+  if (!size_map_or_set$is_aesthetic && !rlang::is_null(size_map_or_set$value)) {
     fixed_params$size <- size_map_or_set$value
   } else if (!size_map_or_set$is_aesthetic) {
     fixed_params$size <- theme_defaults$geom$size %||% 1.5
   }
 
-  if (!alpha_map_or_set$is_aesthetic && !is.null(alpha_map_or_set$value)) {
+  if (!alpha_map_or_set$is_aesthetic && !rlang::is_null(alpha_map_or_set$value)) {
     fixed_params$alpha <- alpha_map_or_set$value
   } else if (!alpha_map_or_set$is_aesthetic) {
     if (geom == "smooth") fixed_params$alpha <- NA
@@ -677,7 +677,7 @@ gg_blanket <- function(
     rlang::enquo(colour)
   } else if (
     col_map_or_set$is_aesthetic &&
-    (is.null(colour_map_or_set$value) || !is.na(colour_map_or_set$value))
+    (rlang::is_null(colour_map_or_set$value) || !is.na(colour_map_or_set$value))
   ) {
     rlang::enquo(col) # Inherit from col only if colour wasn't explicitly NA
   } else {
@@ -689,7 +689,7 @@ gg_blanket <- function(
     rlang::enquo(fill)
   } else if (
     col_map_or_set$is_aesthetic &&
-    (is.null(fill_map_or_set$value) || !is.na(fill_map_or_set$value))
+    (rlang::is_null(fill_map_or_set$value) || !is.na(fill_map_or_set$value))
   ) {
     rlang::enquo(col) # Inherit from col only if fill wasn't explicitly NA
   } else {
@@ -726,14 +726,14 @@ gg_blanket <- function(
   # Step 9.5: Auto-set fill=NA when only colour is mapped (and vice versa)
   # This prevents unwanted fill colors when user only wants outlines
   if (colour_map_or_set$is_aesthetic && !fill_map_or_set$is_aesthetic &&
-      !col_map_or_set$is_aesthetic && is.null(fill_map_or_set$value)) {
+      !col_map_or_set$is_aesthetic && rlang::is_null(fill_map_or_set$value)) {
     # User mapped colour but not fill or col, and didn't set fill
     # Default to NA fill to show only outlines
     fixed_params$fill <- NA
   }
 
   if (fill_map_or_set$is_aesthetic && !colour_map_or_set$is_aesthetic &&
-      !col_map_or_set$is_aesthetic && is.null(colour_map_or_set$value)) {
+      !col_map_or_set$is_aesthetic && rlang::is_null(colour_map_or_set$value)) {
     # User mapped fill but not colour or col, and didn't set colour
     # Default to NA colour to show only fills
     fixed_params$colour <- NA
@@ -856,11 +856,11 @@ gg_blanket <- function(
     blend
   )
 
-  if (!is.null(x_limits_include)) {
+  if (!rlang::is_null(x_limits_include)) {
     plot <- plot + ggplot2::expand_limits(x = x_limits_include)
   }
 
-  if (!is.null(y_limits_include)) {
+  if (!rlang::is_null(y_limits_include)) {
     plot <- plot + ggplot2::expand_limits(y = y_limits_include)
   }
 
@@ -933,7 +933,7 @@ gg_blanket <- function(
   }
 
   # Step 19: Add shape scale
-  if (shape_mapped && !is.null(shape_palette)) {
+  if (shape_mapped && !rlang::is_null(shape_palette)) {
     # Calculate number of shapes needed
     shape_n <- if (!rlang::quo_is_null(aes_list$shape)) {
       shape_data <- rlang::eval_tidy(aes_list$shape, data)
@@ -981,7 +981,7 @@ gg_blanket <- function(
   }
 
   # Step 20: Add linetype scale
-  if (linetype_mapped && !is.null(linetype_palette)) {
+  if (linetype_mapped && !rlang::is_null(linetype_palette)) {
     # Calculate number of linetypes needed
     linetype_n <- if (!rlang::quo_is_null(aes_list$linetype)) {
       linetype_data <- rlang::eval_tidy(aes_list$linetype, data)
@@ -1054,13 +1054,13 @@ gg_blanket <- function(
   # Step 21: Add positional scales
   # Make x scale
   if (x_scale_class == "discrete") {
-    if (is.null(x_expand)) {
+    if (rlang::is_null(x_expand)) {
       x_expand <- ggplot2::waiver()
     }
-    if (is.null(x_labels)) {
+    if (rlang::is_null(x_labels)) {
       x_labels <- ggplot2::waiver()
     }
-    if (is.null(x_breaks)) {
+    if (rlang::is_null(x_breaks)) {
       x_breaks <- ggplot2::waiver()
     }
 
@@ -1091,13 +1091,13 @@ gg_blanket <- function(
 
   # Make y scale
   if (y_scale_class == "discrete") {
-    if (is.null(y_expand)) {
+    if (rlang::is_null(y_expand)) {
       y_expand <- ggplot2::waiver()
     }
-    if (is.null(y_labels)) {
+    if (rlang::is_null(y_labels)) {
       y_labels <- ggplot2::waiver()
     }
-    if (is.null(y_breaks)) {
+    if (rlang::is_null(y_breaks)) {
       y_breaks <- ggplot2::waiver()
     }
 

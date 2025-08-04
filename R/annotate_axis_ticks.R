@@ -67,7 +67,7 @@ annotate_axis_ticks <- function(
   }
 
   # Set default position if not provided
-  if (is.null(position)) {
+  if (rlang::is_null(position)) {
     position <- if (axis == "x") "bottom" else "left"
   }
 
@@ -88,7 +88,7 @@ annotate_axis_ticks <- function(
   panel_widths <- current_theme$panel.widths
   panel_heights <- current_theme$panel.heights
 
-  if (is.null(panel_widths) && is.null(panel_heights)) {
+  if (rlang::is_null(panel_widths) && rlang::is_null(panel_heights)) {
     rlang::abort(
       "This function only works when panel dimensions are explicitly set via theme(panel.widths = ..., panel.heights = ...)"
     )
@@ -96,14 +96,14 @@ annotate_axis_ticks <- function(
 
   # Validate panel dimensions for the specific axis
   if (axis == "x") {
-    if (is.null(panel_heights)) {
+    if (rlang::is_null(panel_heights)) {
       rlang::abort("panel.heights must be set in theme for x-axis tick annotation")
     }
     if (length(panel_heights) > 1 && length(unique(as.numeric(panel_heights))) > 1) {
       rlang::abort("Different panel heights set. This function only works with uniform panel dimensions.")
     }
   } else {
-    if (is.null(panel_widths)) {
+    if (rlang::is_null(panel_widths)) {
       rlang::abort("panel.widths must be set in theme for y-axis tick annotation")
     }
     if (length(panel_widths) > 1 && length(unique(as.numeric(panel_widths))) > 1) {
@@ -160,12 +160,12 @@ annotate_axis_ticks <- function(
     theme_element <- paste0("axis.ticks.", axis, ".", position)
     theme_mod <- list()
     theme_mod[[theme_element]] <- ggplot2::element_line(colour = "transparent")
-    stamp <- c(stamp, list(do.call(ggplot2::theme, theme_mod)))
+    stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   } else if (theme_elements == "blank") {
     theme_element <- paste0("axis.ticks.", axis, ".", position)
     theme_mod <- list()
     theme_mod[[theme_element]] <- ggplot2::element_blank()
-    stamp <- c(stamp, list(do.call(ggplot2::theme, theme_mod)))
+    stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   }
 
   # Create tick annotations

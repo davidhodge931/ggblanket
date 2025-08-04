@@ -89,7 +89,7 @@ annotate_axis_text <- function(
   }
 
   # Set default position based on axis
-  if (is.null(position)) {
+  if (rlang::is_null(position)) {
     position <- if (axis == "x") "bottom" else "left"
   }
 
@@ -102,7 +102,7 @@ annotate_axis_text <- function(
   }
 
   # Process labels - support both vectors and functions
-  if (is.null(labels)) {
+  if (rlang::is_null(labels)) {
     # Default: use breaks as labels
     labels <- as.character(breaks)
   } else if (is.function(labels)) {
@@ -124,14 +124,14 @@ annotate_axis_text <- function(
   panel_widths <- current_theme$panel.widths
   panel_heights <- current_theme$panel.heights
 
-  if (is.null(panel_widths) && is.null(panel_heights)) {
+  if (rlang::is_null(panel_widths) && rlang::is_null(panel_heights)) {
     rlang::abort(
       "This function only works when panel dimensions are explicitly set via theme(panel.widths = ..., panel.heights = ...)"
     )
   }
 
   # Set default fill colour based on theme
-  if (is.null(fill)) {
+  if (rlang::is_null(fill)) {
     # Get text colour from theme
     theme_text <- current_theme$axis.text.x$colour %||%
       current_theme$axis.text.y$colour %||%
@@ -149,14 +149,14 @@ annotate_axis_text <- function(
 
   # Validate uniform panel dimensions for the specific axis
   if (axis == "x") {
-    if (is.null(panel_heights)) {
+    if (rlang::is_null(panel_heights)) {
       rlang::abort("panel.heights must be set in theme for x-axis text annotation")
     }
     if (length(panel_heights) > 1 && length(unique(as.numeric(panel_heights))) > 1) {
       rlang::abort("Different panel heights set. This function only works with uniform panel dimensions.")
     }
   } else {
-    if (is.null(panel_widths)) {
+    if (rlang::is_null(panel_widths)) {
       rlang::abort("panel.widths must be set in theme for y-axis text annotation")
     }
     if (length(panel_widths) > 1 && length(unique(as.numeric(panel_widths))) > 1) {
@@ -165,7 +165,7 @@ annotate_axis_text <- function(
   }
 
   # Set default margin for background rectangle
-  if (is.null(margin)) {
+  if (rlang::is_null(margin)) {
     margin <- grid::unit(2, "pt")
   }
 
@@ -183,7 +183,7 @@ annotate_axis_text <- function(
     # Single value applied to all sides
     margin_top <- margin_right <- margin_bottom <- margin_left <- margin
   }
-  if (is.null(length)) {
+  if (rlang::is_null(length)) {
     # Calculate default as tick length + 3pt offset
     tick_length <- if (axis == "x") {
       current_theme[[paste0("axis.ticks.length.x.", position)]] %||%
@@ -218,10 +218,10 @@ annotate_axis_text <- function(
 
   # Helper function to resolve theme size (handles rel() objects)
   resolve_theme_size <- function(theme_size, base_theme_size, default = 11) {
-    if (is.null(theme_size)) return(default)
+    if (rlang::is_null(theme_size)) return(default)
 
     if (inherits(theme_size, "rel")) {
-      base_size <- if (is.null(base_theme_size) || inherits(base_theme_size, "rel")) {
+      base_size <- if (rlang::is_null(base_theme_size) || inherits(base_theme_size, "rel")) {
         default
       } else {
         base_theme_size
@@ -254,15 +254,15 @@ annotate_axis_text <- function(
 
   # Set text justification based on axis and position
   if (axis == "x") {
-    text_hjust <- if (is.null(hjust)) 0.5 else hjust  # center horizontally
-    text_vjust <- if (is.null(vjust)) {
+    text_hjust <- if (rlang::is_null(hjust)) 0.5 else hjust  # center horizontally
+    text_vjust <- if (rlang::is_null(vjust)) {
       if (position == "bottom") 1 else 0  # top-align for bottom, bottom-align for top
     } else vjust
   } else {
-    text_hjust <- if (is.null(hjust)) {
+    text_hjust <- if (rlang::is_null(hjust)) {
       if (position == "left") 1 else 0  # right-align for left, left-align for right
     } else hjust
-    text_vjust <- if (is.null(vjust)) 0.5 else vjust  # center vertically
+    text_vjust <- if (rlang::is_null(vjust)) 0.5 else vjust  # center vertically
   }
 
   # Initialize list to store annotation layers and theme modifications
@@ -273,12 +273,12 @@ annotate_axis_text <- function(
     theme_element <- paste0("axis.text.", axis, ".", position)
     theme_mod <- list()
     theme_mod[[theme_element]] <- ggplot2::element_text(colour = "transparent")
-    stamp <- c(stamp, list(do.call(ggplot2::theme, theme_mod)))
+    stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   } else if (theme_elements == "blank") {
     theme_element <- paste0("axis.text.", axis, ".", position)
     theme_mod <- list()
     theme_mod[[theme_element]] <- ggplot2::element_blank()
-    stamp <- c(stamp, list(do.call(ggplot2::theme, theme_mod)))
+    stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   }
 
   # Create text annotations for each break/label pair

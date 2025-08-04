@@ -341,9 +341,9 @@ The package is driven by the `gg_blanket` function, which has a `geom` argument 
 
 All other functions wrap this function with a fixed `geom`, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
-This function can often be used (1) where an alternative geom or annotation is needed to be plotted first, or (2) where a geom is needed to be plotted that is not provided in a `gg_*` function.
+This function can often be used (1) where a annotation is needed to be plotted first, or (2) where a geom is needed to be plotted that is not provided as a `gg_*` function.
 
-Note bordered colouring/filling only passes through to `+ geom_` layers for mapped `col` aesthetics. Use `col_multiply` and `col_screen`, if you want to replicate the default ggblanket look for where `col` is not mapped.
+The `blank` geom gets `bordered = TRUE` unless otherwise specified. As such, bordered colouring/filling only passes through to `+ geom_` layers for mapped `col` aesthetics. Where `col` is not mapped, use `col_multiply` and `col_screen` in subsequent layers to replicate the default ggblanket look.
 
 ```{r}
 palmerpenguins::penguins |>
@@ -360,7 +360,7 @@ palmerpenguins::penguins |>
            ymin = -Inf, ymax = Inf,
            colour = NA,
            fill = jumble[9]) +
-  geom_point(colour = col_multiply(jumble[11]))
+  geom_point(colour = col_multiply(get_geom_defaults("point")$colour))
 ```
 
 ```{r}
