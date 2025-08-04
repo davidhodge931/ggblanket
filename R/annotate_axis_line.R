@@ -116,7 +116,8 @@ annotate_axis_line <- function(
             y = I(-Inf),
             yend = I(-Inf),
             colour = line_colour,
-            linewidth = line_linewidth
+            linewidth = line_linewidth,
+            ...
           )
         )
       )
@@ -132,7 +133,8 @@ annotate_axis_line <- function(
             y = I(Inf),
             yend = I(Inf),
             colour = line_colour,
-            linewidth = line_linewidth
+            linewidth = line_linewidth,
+            ...
           )
         )
       )
@@ -150,7 +152,8 @@ annotate_axis_line <- function(
             y = I(-Inf),
             yend = I(Inf),
             colour = line_colour,
-            linewidth = line_linewidth
+            linewidth = line_linewidth,
+            ...
           )
         )
       )
@@ -166,7 +169,8 @@ annotate_axis_line <- function(
             y = I(-Inf),
             yend = I(Inf),
             colour = line_colour,
-            linewidth = line_linewidth
+            linewidth = line_linewidth,
+            ...
           )
         )
       )
