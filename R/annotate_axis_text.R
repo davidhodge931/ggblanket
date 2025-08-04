@@ -13,7 +13,7 @@
 #' @param size The size of the text. Inherits from the current theme axis.text etc.
 #' @param family The font family of the text. Inherits from the current theme axis.text etc.
 #' @param length The total distance from the axis line to the text as a grid unit. Defaults to the sum of tick length plus 3pt offset.
-#' @param margin The margin around the background rectangle. Can be a single unit value (applied to all sides) or a margin object with top, right, bottom, left components. Defaults to unit(1, "pt").
+#' @param margin The margin around the background rectangle. Can be a single unit value (applied to all sides) or a margin object with top, right, bottom, left components. Defaults to unit(2, "pt").
 #' @param fill The fill colour of the background rectangle. If NULL, intelligently derived from theme (panel background for light themes, text colour for dark themes).
 #' @param hjust,vjust Horizontal and vertical justification. Auto-calculated based on position if NULL.
 #' @param angle Text rotation angle. Defaults to 0.
@@ -83,11 +83,6 @@ annotate_axis_text <- function(
     angle = 0,
     theme_elements = "transparent"
 ) {
-  # Inform user about clipping requirement
-  rlang::inform(
-    "Please use this function with ggplot2::coord_cartesian(clip = 'off')"
-  )
-
   # Validate axis argument
   if (!axis %in% c("x", "y")) {
     rlang::abort("axis must be one of 'x' or 'y'")
@@ -171,15 +166,19 @@ annotate_axis_text <- function(
 
   # Set default margin for background rectangle
   if (is.null(margin)) {
-    margin <- grid::unit(1, "pt")
+    margin <- grid::unit(2, "pt")
   }
 
   # Handle margin - can be single value or margin object
-  if (inherits(margin, "margin")) {
+  if (length(margin) == 4) {
+    # margin object with 4 values (top, right, bottom, left)
     margin_top <- margin[1]
     margin_right <- margin[2]
     margin_bottom <- margin[3]
     margin_left <- margin[4]
+
+    # Debug: print margin values
+    # print(paste("Margin values - t:", margin_top, "r:", margin_right, "b:", margin_bottom, "l:", margin_left))
   } else {
     # Single value applied to all sides
     margin_top <- margin_right <- margin_bottom <- margin_left <- margin

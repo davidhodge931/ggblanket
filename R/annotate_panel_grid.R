@@ -43,9 +43,6 @@ annotate_panel_grid <- function(
     linetype = NULL,
     theme_elements = "transparent"
 ) {
-  rlang::inform(
-    "Please use this function with ggplot2::coord_cartesian(clip = 'off')"
-  )
 
   # Validate arguments
   if (!axis %in% c("x", "y")) {
