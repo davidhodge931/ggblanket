@@ -168,9 +168,9 @@ gg_blanket <- function(
     data <- data.frame(x = NA)
   }
 
-  # Step 2: Extract geom, stat & transform strings
-  geom <- get_ggproto_name(geom, "Geom")
-  stat <- get_ggproto_name(stat, "Stat")
+  # Step 2: Extract geom_name, stat_name & transform strings
+  geom_name <- get_ggproto_name(geom, "Geom")
+  stat_name <- get_ggproto_name(stat, "Stat")
   if (!rlang::is_null(x_transform)) {
     x_transform <- get_transform_name(x_transform)
   }
@@ -199,19 +199,19 @@ gg_blanket <- function(
   size_map_or_set <- is_aes_map_or_set(rlang::enquo(size), "size", data)
   alpha_map_or_set <- is_aes_map_or_set(rlang::enquo(alpha), "alpha", data)
 
-  # Step 2.5: Handle after_stat aesthetics for certain stats
-  if (stat %in% c("bin2d", "binhex")) {
+  # Step 2.5: Handle after_stat_name aesthetics for certain stat_names
+  if (stat_name %in% c("bin2d", "binhex")) {
     # Check if user explicitly set colour as fixed
     user_set_colour_fixed <- !colour_map_or_set$is_aesthetic &&
       !rlang::is_null(colour_map_or_set$value)
 
     if (user_set_colour_fixed) {
-      # User set colour, only apply after_stat to fill
+      # User set colour, only apply after_stat_name to fill
       default_aes <- ggplot2::aes(
         fill = ggplot2::after_stat(.data$count)
       )
     } else {
-      # Apply after_stat to both as before
+      # Apply after_stat_name to both as before
       default_aes <- ggplot2::aes(
         colour = ggplot2::after_stat(.data$count),
         fill = ggplot2::after_stat(.data$count)
@@ -234,18 +234,18 @@ gg_blanket <- function(
     }
   }
 
-  if (stat %in% c("contour_filled", "density2d_filled")) {
+  if (stat_name %in% c("contour_filled", "density2d_filled")) {
     # Check if user explicitly set colour as fixed
     user_set_colour_fixed <- !colour_map_or_set$is_aesthetic &&
       !rlang::is_null(colour_map_or_set$value)
 
     if (user_set_colour_fixed) {
-      # User set colour, only apply after_stat to fill
+      # User set colour, only apply after_stat_name to fill
       default_aes <- ggplot2::aes(
         fill = ggplot2::after_stat(.data$level)
       )
     } else {
-      # Apply after_stat to both as before
+      # Apply after_stat_name to both as before
       default_aes <- ggplot2::aes(
         colour = ggplot2::after_stat(.data$level),
         fill = ggplot2::after_stat(.data$level)
@@ -275,10 +275,10 @@ gg_blanket <- function(
   colour_in_mapping <- is_in_mapping(mapping, "colour")
   fill_in_mapping <- is_in_mapping(mapping, "fill")
 
-  # Step 5: Determine if this is a border geom
+  # Step 5: Determine if this is a border geom_name
   if (rlang::is_null(bordered)) {
-    # Auto-detect if it's a border geom type
-    is_bordered_geom <- is_bordered(geom, theme_defaults)
+    # Auto-detect if it's a border geom_name type
+    is_bordered_geom <- is_bordered(geom_name, theme_defaults)
   } else {
     # User explicitly set bordered = TRUE or FALSE
     is_bordered_geom <- bordered
@@ -462,7 +462,7 @@ gg_blanket <- function(
       }
     }
   } else {
-    # Not a border geom - respect user-provided palettes with NULL safety
+    # Not a border geom_name - respect user-provided palettes with NULL safety
     colour_palette_d <- colour_palette %||% col_palette_d %||% scales::hue_pal()
     colour_palette_c <- colour_palette %||% col_palette_c %||% scales::viridis_pal()
     colour_palette_o <- colour_palette %||% col_palette_o %||% scales::viridis_pal()
@@ -512,11 +512,11 @@ gg_blanket <- function(
       }
       # If col IS NA, don't inherit it to colour
     } else {
-      if (geom == "sf") {
-        default_col <- ggplot2::get_geom_defaults("bar")$colour %||% "#8991A1FF"
+      if (geom_name == "sf") {
+        default_colour <- ggplot2::get_geom_defaults("bar")$colour %||% "#8991A1FF"
       }
       else {
-        default_col <- ggplot2::get_geom_defaults(geom)$colour %||% "#8991A1FF"
+        default_colour <- ggplot2::get_geom_defaults(geom_name)$colour %||% "#8991A1FF"
       }
 
       if (
@@ -524,9 +524,9 @@ gg_blanket <- function(
         !rlang::is_null(bordered_colour) &&
         is.function(bordered_colour)
       ) {
-        fixed_params$colour <- bordered_colour(default_col)
+        fixed_params$colour <- bordered_colour(default_colour)
       } else {
-        fixed_params$colour <- default_col
+        fixed_params$colour <- default_colour
       }
     }
   }
@@ -554,11 +554,11 @@ gg_blanket <- function(
       }
       # If col IS NA, don't inherit it to fill
     } else {
-      if (geom == "sf") {
+      if (geom_name == "sf") {
         default_fill <- ggplot2::get_geom_defaults("bar")$fill %||% "#8991A1FF"
       }
       else {
-        default_fill <- ggplot2::get_geom_defaults(geom)$fill %||% "#8991A1FF"
+        default_fill <- ggplot2::get_geom_defaults(geom_name)$fill %||% "#8991A1FF"
       }
 
       if (
@@ -600,11 +600,11 @@ gg_blanket <- function(
   if (!shape_map_or_set$is_aesthetic && !rlang::is_null(shape_map_or_set$value)) {
     fixed_params$shape <- shape_map_or_set$value
   } else if (!shape_map_or_set$is_aesthetic) {
-    if (geom == "sf") {
+    if (geom_name == "sf") {
       fixed_params$shape <- 21
     }
     else if (!shape_map_or_set$is_aesthetic) {
-      fixed_params$shape <- ggplot2::get_geom_defaults(geom)$shape %||% 21
+      fixed_params$shape <- ggplot2::get_geom_defaults(geom_name)$shape %||% 21
     }
   }
 
@@ -613,7 +613,7 @@ gg_blanket <- function(
   ) {
     fixed_params$linetype <- linetype_map_or_set$value
   } else if (!linetype_map_or_set$is_aesthetic) {
-    fixed_params$linetype <- ggplot2::get_geom_defaults(geom)$linetype %||% 1
+    fixed_params$linetype <- ggplot2::get_geom_defaults(geom_name)$linetype %||% 1
   }
 
   if (
@@ -621,14 +621,14 @@ gg_blanket <- function(
   ) {
     fixed_params$linewidth <- linewidth_map_or_set$value
   } else if (!linewidth_map_or_set$is_aesthetic) {
-    if (geom == "smooth") {
+    if (geom_name == "smooth") {
       fixed_params$linewidth <- ggplot2::get_geom_defaults("line")$linewidth
-    } else if (geom == "tile") {
+    } else if (geom_name == "tile") {
       fixed_params$linewidth <- ggplot2::get_geom_defaults("bar")$linewidth
-    } else if (geom == "sf") {
+    } else if (geom_name == "sf") {
       fixed_params$linewidth <- ggplot2::get_geom_defaults("bar")$linewidth
     } else {
-      fixed_params$linewidth <- ggplot2::get_geom_defaults(geom)$linewidth
+      fixed_params$linewidth <- ggplot2::get_geom_defaults(geom_name)$linewidth
     }
   }
 
@@ -641,7 +641,7 @@ gg_blanket <- function(
   if (!alpha_map_or_set$is_aesthetic && !rlang::is_null(alpha_map_or_set$value)) {
     fixed_params$alpha <- alpha_map_or_set$value
   } else if (!alpha_map_or_set$is_aesthetic) {
-    if (geom == "smooth") fixed_params$alpha <- NA
+    if (geom_name == "smooth") fixed_params$alpha <- NA
   }
 
   # Build aesthetic list (only aesthetics, not fixed values)
@@ -746,8 +746,8 @@ gg_blanket <- function(
     mapping = mapping
   )
 
-  show_legend <- !(geom %in% c("blank"))
-  params <- get_geom_params(geom, ...)
+  show_legend <- !(geom_name %in% c("blank"))
+  params <- get_geom_params(geom_name, ...)
 
   # Merge in the fixed params
   params <- utils::modifyList(params, fixed_params)
@@ -756,7 +756,9 @@ gg_blanket <- function(
   plot <- add_initial_layer(
     plot,
     geom,
+    geom_name,
     stat,
+    stat_name,
     position,
     params,
     show_legend,
@@ -800,7 +802,7 @@ gg_blanket <- function(
   )
 
   if (rlang::is_null(x_limits_to_breaks)) {
-    if (geom == "sf") x_limits_to_breaks <- FALSE
+    if (geom_name == "sf") x_limits_to_breaks <- FALSE
     else if (aspect == "x") {
       x_limits_to_breaks <- FALSE
     }
@@ -811,7 +813,7 @@ gg_blanket <- function(
   }
 
   if (rlang::is_null(y_limits_to_breaks)) {
-    if (geom == "sf") y_limits_to_breaks <- FALSE
+    if (geom_name == "sf") y_limits_to_breaks <- FALSE
     else if (aspect == "x") {
       if (!facet_scales %in% c("free_y", "free")) y_limits_to_breaks <- TRUE
       else y_limits_to_breaks <- FALSE
@@ -831,7 +833,7 @@ gg_blanket <- function(
     y_limits_to_breaks,
     x_transform,
     y_transform,
-    stat
+    stat_name
   )
 
   # Step 13: Process the data
@@ -844,11 +846,13 @@ gg_blanket <- function(
     mapping = mapping
   )
 
-  # Step 15: Add geom layer
+  # Step 15: Add geom_name layer
   plot <- add_initial_layer(
     plot,
     geom,
+    geom_name,
     stat,
+    stat_name,
     position,
     params,
     show_legend,
@@ -899,8 +903,8 @@ gg_blanket <- function(
   if (!is.na(col_scale_class)) {
     plot <- add_col_scale(
       plot = plot,
-      geom = geom,
-      stat = stat,
+      geom_name = geom_name,
+      stat_name = stat_name,
       col_scale_class = col_scale_class,
       aes_list = aes_list,
       data = data,
@@ -1039,7 +1043,7 @@ gg_blanket <- function(
         plot = plot,
         aes_list = aes_list,
         data = data,
-        geom = geom,
+        geom_name = geom_name,
         is_bordered_geom = is_bordered_geom,
         bordered_colour = bordered_colour,
         bordered_fill = bordered_fill,
@@ -1076,7 +1080,7 @@ gg_blanket <- function(
   } else {
     plot <- plot |>
       add_x_scale_continuous(
-        stat = stat,
+        stat_name = stat_name,
         x_breaks = x_breaks,
         x_breaks_n = x_breaks_n %||% if (facet_ncols == 1) 6 else 4,
         x_labels = x_labels,
@@ -1113,7 +1117,7 @@ gg_blanket <- function(
   } else {
     plot <- plot |>
       add_y_scale_continuous(
-        stat = stat,
+        stat_name = stat_name,
         y_breaks = y_breaks,
         y_breaks_n = y_breaks_n %||% if (facet_nrows == 1) 6 else 4,
         y_labels = y_labels,
@@ -1132,7 +1136,7 @@ gg_blanket <- function(
     aes_list = aes_list,
     plot_build = plot_build,
     titles_case = titles_case,
-    stat = stat,
+    stat_name = stat_name,
     x_title = x_title,
     y_title = y_title,
     col_title = col_title

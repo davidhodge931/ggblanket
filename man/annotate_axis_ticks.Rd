@@ -37,7 +37,7 @@ A list of a annotate layer and theme elements.
 }
 \description{
 Replace axis ticks with annotated segments using absolute measurements.
-This function only works when panel dimensions are set uniformly via panel.widths and panel.heights.
+This function only works when panel dimensions are set via panel.widths and panel.heights.
 It requires a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 }
 \examples{

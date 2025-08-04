@@ -26,10 +26,10 @@ viridis_by_panel <- function(
     ...,
     rev = FALSE
 ) {
-  direction <- if (rev) {
-    ifelse(is_panel_dark(), -1, 1)
+  direction <- if (!rev) {
+    ifelse(is_panel_light(), -1, 1)
   } else {
-    ifelse(is_panel_dark(), 1, -1)
+    ifelse(is_panel_light(), 1, -1)
   }
 
   scales::viridis_pal(
@@ -66,19 +66,19 @@ pal_viridis_by_panel <- function(
   ...,
   rev = FALSE
 ) {
-  if (rev) {
+  if (!rev) {
     scales::pal_viridis(
       option = option,
       begin = begin,
       end = end,
-      direction = ifelse(is_panel_dark(), -1, 1),
+      direction = ifelse(is_panel_light(), -1, 1),
     )
   } else {
     scales::pal_viridis(
       option = option,
       begin = begin,
       end = end,
-      direction = ifelse(is_panel_dark(), 1, -1),
+      direction = ifelse(is_panel_light(), 1, -1),
     )
   }
 }

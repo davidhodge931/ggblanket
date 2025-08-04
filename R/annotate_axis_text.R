@@ -1,7 +1,7 @@
-# Set default total distance from axis to text#' Annotated axis text labels
+#' Annotated axis text labels
 #'
 #' @description Add text labels positioned relative to axis tick marks using absolute measurements.
-#' This function only works when panel dimensions are set uniformly via panel.widths and panel.heights.
+#' This function only works when panel dimensions are set via panel.widths and panel.heights.
 #' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
 #' @param axis The axis to annotate. One of "x" or "y".

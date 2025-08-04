@@ -49,7 +49,7 @@
 set_blanket <- function(
     theme = theme_lighter(),
 
-    col = "#357BA2FF",
+    col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
     linewidth = 0.66,
     linetype = 1,
     size = 1.5,

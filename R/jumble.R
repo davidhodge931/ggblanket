@@ -23,5 +23,6 @@ jumble <- c(
   "#121B24FF",
   "#C8D7DFFF",
   "#8991A1FF",
+  "#4797C3FF",
   "#357BA2FF"
 )

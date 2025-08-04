@@ -32,11 +32,11 @@ get_transform_name <- function(transform) {
   }
 }
 
-#' Get params based on geom type
+#' Get params based on geom_name type
 #' @noRd
-get_geom_params <- function(geom, ...) {
-  # Define geom-specific parameters
-  geom_params <- list(
+get_geom_params <- function(geom_name, ...) {
+  # Define geom_name-specific parameters
+  geom_name_params <- list(
     boxplot = list(
       median_gp = list(
         linewidth = ggplot2::get_geom_defaults("line")$linewidth
@@ -58,7 +58,7 @@ get_geom_params <- function(geom, ...) {
   )
 
   # Get specific params or empty list
-  specific_params <- geom_params[[geom]] %||% list()
+  specific_params <- geom_name_params[[geom_name]] %||% list()
 
   # Combine with additional parameters
   rlang::list2(!!!specific_params, ...)
@@ -69,7 +69,9 @@ get_geom_params <- function(geom, ...) {
 add_initial_layer <- function(
     plot,
     geom,
+    geom_name,
     stat,
+    stat_name,
     position,
     params,
     show_legend,
@@ -77,7 +79,7 @@ add_initial_layer <- function(
     blend
 ) {
   # Determine if using sf
-  is_sf <- stringr::str_detect(stat, "sf")
+  is_sf <- stringr::str_detect(stat_name, "sf")
 
   # Set default coord if not provided
   if (rlang::is_null(coord)) {
@@ -144,7 +146,7 @@ get_aspect <- function(aspect = NULL, x_scale_class, y_scale_class) {
 #' @noRd
 is_x_limits_to_breaks <- function(
     x_limits_to_breaks = NULL,
-    stat,
+    stat_name,
     facet_scales,
     x_scale_class,
     y_scale_class
@@ -154,7 +156,7 @@ is_x_limits_to_breaks <- function(
   }
 
   # Conditions where x should NOT be symmetric
-  !(stringr::str_detect(stat, "sf") ||
+  !(stringr::str_detect(stat_name, "sf") ||
       facet_scales %in% c("free", "free_x") ||
       !(y_scale_class == "discrete" && x_scale_class != "discrete"))
 }
@@ -163,7 +165,7 @@ is_x_limits_to_breaks <- function(
 #' @noRd
 is_y_limits_to_breaks <- function(
     y_limits_to_breaks = NULL,
-    stat,
+    stat_name,
     facet_scales,
     x_scale_class,
     y_scale_class
@@ -173,7 +175,7 @@ is_y_limits_to_breaks <- function(
   }
 
   # Conditions where y should NOT be symmetric
-  !(stringr::str_detect(stat, "sf") ||
+  !(stringr::str_detect(stat_name, "sf") ||
       facet_scales %in% c("free", "free_y") ||
       (y_scale_class == "discrete" && x_scale_class != "discrete"))
 }
@@ -189,7 +191,7 @@ validate_inputs <- function(
     y_limits_to_breaks,
     x_transform,
     y_transform,
-    stat
+    stat_name
 ) {
   # Check mapping doesn't include facets
   if (!rlang::is_null(mapping)) {
@@ -204,12 +206,12 @@ validate_inputs <- function(
   both_symmetric <- x_limits_to_breaks && y_limits_to_breaks
   non_identity_x_transform <- !x_transform %in% c("identity", "reverse")
   non_identity_y_transform <- !y_transform %in% c("identity", "reverse")
-  non_identity_stat <- !identical(stat, "identity")
+  non_identity_stat_name <- !identical(stat_name, "identity")
 
-  if (both_symmetric && (non_identity_x_transform || non_identity_y_transform || non_identity_stat)) {
+  if (both_symmetric && (non_identity_x_transform || non_identity_y_transform || non_identity_stat_name)) {
     rlang::abort(c(
       "symmetric == 'both' not supported where",
-      "a positional axis is transformed or the stat is not 'identity'"
+      "a positional axis is transformed or the stat_name is not 'identity'"
     ))
   }
 }
@@ -550,9 +552,9 @@ add_facet_by_layout <- function(
 
 #' Calculate number of colors needed
 #' @noRd
-get_col_n <- function(aes_list, data, plot_data, stat = NULL) {
+get_col_n <- function(aes_list, data, plot_data, stat_name = NULL) {
   # Special handling for contour_filled and density2d_filled
-  if (!rlang::is_null(stat) && stat %in% c("contour_filled", "density2d_filled")) {
+  if (!rlang::is_null(stat_name) && stat_name %in% c("contour_filled", "density2d_filled")) {
     # For contour plots, check if there's a 'level' column in plot_data
     if ("level" %in% names(plot_data)) {
       level_data <- plot_data$level
@@ -563,7 +565,7 @@ get_col_n <- function(aes_list, data, plot_data, stat = NULL) {
       }
     }
     # If no level column yet, fall through to standard color counting
-    # The actual levels will be determined by ggplot2's stat computation
+    # The actual levels will be determined by ggplot2's stat_name computation
   }
 
   # Get factor levels if col is a factor
@@ -728,7 +730,7 @@ get_col_scale_class <- function(plot_scales, col_quo, data) {
 #' @noRd
 add_x_scale_continuous <- function(
     plot,
-    stat,
+    stat_name,
     x_breaks,
     x_breaks_n,
     x_labels,
@@ -741,7 +743,7 @@ add_x_scale_continuous <- function(
     plot_data
 ) {
   # Handle sf special case
-  if (stringr::str_detect(stat, "sf")) {
+  if (stringr::str_detect(stat_name, "sf")) {
     x_breaks <- x_breaks %||% ggplot2::waiver()
     x_labels <- x_labels %||% ggplot2::waiver()
   }
@@ -786,7 +788,7 @@ add_x_scale_continuous <- function(
 #' @noRd
 add_y_scale_continuous <- function(
     plot,
-    stat,
+    stat_name,
     y_breaks,
     y_breaks_n,
     y_labels,
@@ -799,7 +801,7 @@ add_y_scale_continuous <- function(
     plot_data
 ) {
   # Handle sf special case
-  if (stringr::str_detect(stat, "sf")) {
+  if (stringr::str_detect(stat_name, "sf")) {
     y_breaks <- y_breaks %||% ggplot2::waiver()
     y_labels <- y_labels %||% ggplot2::waiver()
   }
@@ -959,7 +961,7 @@ create_ordinal_palette_wrapper <- function(palette) {
 add_matching_aesthetic_guides <- function(
     plot, plot_build, col_legend_rev,
     col_legend_ncol, col_legend_nrow,
-    geom = NULL, is_bordered_geom = FALSE,
+    geom_name = NULL, is_bordered_geom = FALSE,
     bordered_colour = NULL, bordered_fill = NULL,
     aes_list = NULL, data = NULL
 ) {
@@ -1021,7 +1023,7 @@ add_matching_aesthetic_guides <- function(
         aes_name,
         "linetype" = list(colour = grey_col),
         "shape" = {
-          if (geom %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
+          if (geom_name %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
             list(
               colour = if (!rlang::is_null(bordered_colour) && is.function(bordered_colour))
                 bordered_colour(grey_col) else grey_col,
@@ -1034,7 +1036,7 @@ add_matching_aesthetic_guides <- function(
         },
         "size" = ,
         "alpha" = {
-          if (geom %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
+          if (geom_name %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
             list(
               colour = if (!rlang::is_null(bordered_colour) && is.function(bordered_colour))
                 bordered_colour(grey_col) else grey_col,
@@ -1716,10 +1718,10 @@ is_in_mapping <- function(mapping, aesthetic) {
   aesthetic %in% names(mapping)
 }
 
-#' Determine if geom should be treated as having borders
+#' Determine if geom_name should be treated as having borders
 #' @noRd
-is_bordered <- function(geom, theme_defaults) {
-  # Define which geoms are treated as border polygons
+is_bordered <- function(geom_name, theme_defaults) {
+  # Define which geom_names are treated as border polygons
   bordered_polygons <- c(
     "area",
     "blank",
@@ -1746,21 +1748,17 @@ is_bordered <- function(geom, theme_defaults) {
     "star"
   )
 
-  # Define point geoms that can be border based on shape
+  # Define point geom_names that can be border based on shape
   bordered_points <- c("point", "jitter", "count", "qq", "pointrange")
 
-  is_bordered_polygon <- geom %in% bordered_polygons
+  is_bordered_polygon <- geom_name %in% bordered_polygons
 
-  is_bordered_point <- geom %in%
+  is_bordered_point <- geom_name %in%
     bordered_points &&
     !rlang::is_null(theme_defaults$geom$pointshape) &&
     theme_defaults$geom$pointshape %in% 21:25
 
   is_bordered <- is_bordered_polygon || is_bordered_point
-
-  # print(is_bordered_polygon)
-  # print(is_bordered_point)
-  # print(is_bordered)
 
   return(is_bordered)
 }
@@ -1803,13 +1801,13 @@ get_plot_titles <- function(
   aes_list,
   plot_build,
   titles_case,
-  stat,
+  stat_name,
   x_title = NULL,
   y_title = NULL,
   col_title = NULL
 ) {
   # Get x and y titles
-  if (stringr::str_detect(stat, "sf")) {
+  if (stringr::str_detect(stat_name, "sf")) {
     # SF plots don't need axis titles
     x_title <- x_title %||% ""
     y_title <- y_title %||% ""
@@ -2062,7 +2060,7 @@ initialise_ggplot_from_list <- function(
 #' Add color scales
 #' @noRd
 add_col_scale <- function(
-    plot, geom, stat = NULL, col_scale_class, aes_list, data, plot_data,
+    plot, geom_name, stat_name = NULL, col_scale_class, aes_list, data, plot_data,
     plot_build, x_limits_to_breaks, is_bordered_geom, col_breaks, col_breaks_n, col_drop,
     col_limits_include, col_labels, col_legend_ncol, col_legend_nrow,
     col_legend_rev, col_rescale, col_scale_type, col_transform,
@@ -2101,7 +2099,7 @@ add_col_scale <- function(
       na_colour, na_fill,
       col_breaks, col_labels, col_drop, col_legend_ncol,
       col_legend_nrow, col_legend_rev, x_limits_to_breaks, plot_build,
-      stat = stat
+      stat_name = stat_name
     )
   } else if (col_scale_class %in% c("continuous", "date", "datetime", "time")) {
     plot <- add_col_scale_continuous(
@@ -2117,7 +2115,7 @@ add_col_scale <- function(
       na_colour, na_fill,
       col_breaks, col_labels, col_drop, col_legend_ncol,
       col_legend_nrow, col_legend_rev, plot_build,
-      stat = stat
+      stat_name = stat_name
     )
   }
 
@@ -2125,7 +2123,7 @@ add_col_scale <- function(
   plot <- add_matching_aesthetic_guides(
     plot, plot_build, col_legend_rev,
     col_legend_ncol, col_legend_nrow,
-    geom = geom,
+    geom_name = geom_name,
     is_bordered_geom = is_bordered_geom,
     bordered_colour = bordered_colour,
     bordered_fill = bordered_fill,
@@ -2162,10 +2160,10 @@ add_col_scale_discrete <- function(
   col_legend_rev,
   x_limits_to_breaks,
   plot_build,
-  stat = NULL
+  stat_name = NULL
 ) {
   # Calculate number of colors needed
-  col_n <- get_col_n(aes_list, data, plot_data, stat)
+  col_n <- get_col_n(aes_list, data, plot_data, stat_name)
 
   # Process palettes
   colour_palette_processed <- process_discrete_palette(
@@ -2305,10 +2303,10 @@ add_col_scale_ordinal <- function(
   col_legend_nrow,
   col_legend_rev,
   plot_build,
-  stat = NULL
+  stat_name = NULL
 ) {
   # Calculate number of colors needed
-  col_n <- get_col_n(aes_list, data, plot_data, stat)
+  col_n <- get_col_n(aes_list, data, plot_data, stat_name)
 
   # Always reverse legend for ordinal
   col_legend_rev <- !col_legend_rev
@@ -2579,7 +2577,7 @@ check_same_colour_fill_mapping <- function(plot) {
 #' Apply grey styling to legend key override guides
 #' @noRd
 apply_secondary_grey_guides <- function(
-    plot, aes_list, data, geom, is_bordered_geom,
+    plot, aes_list, data, geom_name, is_bordered_geom,
     bordered_colour, bordered_fill,
     col_legend_ncol, col_legend_nrow,
     shape_legend_rev, linetype_legend_rev
@@ -2608,7 +2606,7 @@ apply_secondary_grey_guides <- function(
       aes_are_same(aes_list$shape, aes_list$fill, data)
 
     if (!same_as_col) {
-      if (geom %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
+      if (geom_name %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
         override_aes <- list(
           colour = if (!rlang::is_null(bordered_colour) && is.function(bordered_colour))
             bordered_colour(grey_col) else grey_col,

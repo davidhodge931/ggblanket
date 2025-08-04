@@ -27,6 +27,7 @@ reference:
   - element_line_transparent
   - guides_grey
   - is_panel_dark
+  - is_panel_light
   - jumble
   - label_every_nth
   - pal_viridis_by_panel

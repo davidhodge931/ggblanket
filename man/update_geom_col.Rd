@@ -4,7 +4,7 @@
 \alias{update_geom_col}
 \title{Update the colour/fill}
 \usage{
-update_geom_col(col = "#357BA2FF", ...)
+update_geom_col(col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"), ...)
 }
 \arguments{
 \item{col}{colour/fill base for most geoms.}
