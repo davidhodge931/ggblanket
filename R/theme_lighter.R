@@ -23,6 +23,7 @@
 #' @param panel_widths The width of the panels.
 #' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
+#' @param panel_grid_minor_linewidth The linewidth of the panel.grid.minor theme element.
 #' @param panel_background_fill The fill (and colour) of the panel.background theme element.
 #' @param plot_background_fill The fill (and colour) of the plot.background theme element.
 #'
@@ -80,6 +81,7 @@ theme_lighter <- function(
   panel_widths = NULL,
   panel_grid_colour = "#F6F8FAFF",
   panel_grid_linewidth = 1.33,
+  panel_grid_minor_linewidth = ggplot2::rel(0),
   panel_background_fill = "#FFFFFFFF",
   plot_background_fill = "#FFFFFFFF"
 ) {
@@ -103,6 +105,7 @@ theme_lighter <- function(
     panel_background_fill = panel_background_fill,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linewidth = panel_grid_linewidth,
+    panel_grid_minor_linewidth = panel_grid_minor_linewidth,
     panel_heights = panel_heights,
     panel_widths = panel_widths
   )

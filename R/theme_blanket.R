@@ -1,6 +1,6 @@
 #' Internal theme
 #'
-#' @description Theme base for `*_mode_*` functions.
+#' @description Theme base for `theme_*er` functions.
 #'
 #' @param base_size The base size of the text theme element. Defaults to 10.
 #' @param base_family The base family of the text theme element. Defaults to "".
@@ -23,6 +23,7 @@
 #' @param panel_background_fill The fill (and colour) of the panel.background theme element.
 #' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
+#' @param panel_grid_minor_linewidth The linewidth of the panel.grid.minor theme element.
 #' @param panel_heights The height of the panels.
 #' @param panel_widths The width of the panels.
 #' @param title_size The size of the plot.title theme element.
@@ -64,6 +65,7 @@ theme_blanket <- function(
   plot_background_fill = "#FFFFFFFF",
   panel_grid_colour = "#F6F8FAFF",
   panel_grid_linewidth = 1.33,
+  panel_grid_minor_linewidth = ggplot2::rel(0),
   panel_heights = NULL,
   panel_widths = NULL,
   title_size = ggplot2::rel(1.1),
@@ -177,7 +179,7 @@ theme_blanket <- function(
     panel.grid.major = NULL,
     panel.grid.major.x = NULL,
     panel.grid.major.y = NULL,
-    panel.grid.minor = ggplot2::element_blank(),
+    panel.grid.minor = ggplot2::element_line(linewidth = panel_grid_minor_linewidth),
     panel.grid.minor.x = NULL,
     panel.grid.minor.y = NULL,
     panel.spacing = grid::unit(11 * 2, "pt"),

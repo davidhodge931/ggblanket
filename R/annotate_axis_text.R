@@ -8,12 +8,11 @@
 #' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param breaks A vector of axis breaks for text positioning.
 #' @param position The position of the axis text. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.
-#' @param labels A vector of text labels. If NULL, uses the breaks as labels.
+#' @param labels A vector of text labels or a function that takes breaks and returns labels. If NULL, uses the breaks as labels.
 #' @param colour The colour of the text. Inherits from the current theme axis.text etc.
 #' @param size The size of the text. Inherits from the current theme axis.text etc.
 #' @param family The font family of the text. Inherits from the current theme axis.text etc.
-#' @param length The length of the tick marks as a grid unit. Used to position text relative to ticks.
-#' @param offset Additional offset for text positioning as a grid unit. Defaults to unit(3, "pt").
+#' @param length The total distance from the axis line to the text as a grid unit. Defaults to the sum of tick length plus 3pt offset.
 #' @param hjust,vjust Horizontal and vertical justification. Auto-calculated based on position if NULL.
 #' @param angle Text rotation angle. Defaults to 0.
 #' @param theme_elements What to do with theme axis text elements. Either "transparent", "keep" or "blank". Defaults "transparent".
@@ -34,6 +33,7 @@
 #'   ),
 #' )
 #'
+#' # Using vector labels
 #' penguins |>
 #'   tidyr::drop_na(sex) |>
 #'   mutate(across(sex, \(x) str_to_sentence(x))) |>
@@ -42,17 +42,25 @@
 #'     y = body_mass_g,
 #'     col = sex,
 #'   ) +
-#'   annotate_axis_ticks(axis = "x", breaks = c(185, 195, 205, 215, 225)) +
-#'   annotate_axis_ticks(axis = "y", breaks = c(3500, 4500, 5500)) +
 #'   annotate_axis_text(
 #'     axis = "x",
 #'     breaks = c(185, 195, 205, 215, 225),
 #'     labels = c("185mm", "195mm", "205mm", "215mm", "225mm")
 #'   ) +
+#'   geom_point()
+#'
+#' # Using function labels
+#' penguins |>
+#'   gg_blanket(x = flipper_length_mm, y = body_mass_g) +
+#'   annotate_axis_text(
+#'     axis = "x",
+#'     breaks = c(185, 195, 205, 215, 225),
+#'     labels = function(x) paste0(x, "mm")
+#'   ) +
 #'   annotate_axis_text(
 #'     axis = "y",
 #'     breaks = c(3500, 4500, 5500),
-#'     labels = c("3.5kg", "4.5kg", "5.5kg")
+#'     labels = function(x) paste0(x/1000, "kg")
 #'   ) +
 #'   geom_point()
 #'
@@ -66,44 +74,53 @@ annotate_axis_text <- function(
     size = NULL,
     family = NULL,
     length = NULL,
-    offset = NULL,
     hjust = NULL,
     vjust = NULL,
     angle = 0,
     theme_elements = "transparent"
 ) {
+  # Inform user about clipping requirement
   rlang::inform(
     "Please use this function with ggplot2::coord_cartesian(clip = 'off')"
   )
 
-  # Validate arguments
+  # Validate axis argument
   if (!axis %in% c("x", "y")) {
     rlang::abort("axis must be one of 'x' or 'y'")
   }
 
-  # Set default position if not provided
+  # Set default position based on axis
   if (is.null(position)) {
     position <- if (axis == "x") "bottom" else "left"
   }
 
+  # Validate position for each axis
   if (axis == "x" && !position %in% c("bottom", "top")) {
     rlang::abort("For x-axis, position must be one of 'bottom' or 'top'")
   }
-
   if (axis == "y" && !position %in% c("left", "right")) {
     rlang::abort("For y-axis, position must be one of 'left' or 'right'")
   }
 
-  # Set default labels if not provided
+  # Process labels - support both vectors and functions
   if (is.null(labels)) {
+    # Default: use breaks as labels
     labels <- as.character(breaks)
+  } else if (is.function(labels)) {
+    # Apply function to breaks to generate labels
+    labels <- labels(breaks)
+    labels <- as.character(labels)
+  } else {
+    # Convert vector labels to character
+    labels <- as.character(labels)
   }
 
+  # Ensure breaks and labels have same length
   if (length(breaks) != length(labels)) {
     rlang::abort("breaks and labels must have the same length")
   }
 
-  # Check if panel dimensions are set
+  # Check if panel dimensions are explicitly set (required for positioning)
   current_theme <- ggplot2::get_theme()
   panel_widths <- current_theme$panel.widths
   panel_heights <- current_theme$panel.heights
@@ -114,7 +131,7 @@ annotate_axis_text <- function(
     )
   }
 
-  # Validate panel dimensions for the specific axis
+  # Validate uniform panel dimensions for the specific axis
   if (axis == "x") {
     if (is.null(panel_heights)) {
       rlang::abort("panel.heights must be set in theme for x-axis text annotation")
@@ -131,12 +148,24 @@ annotate_axis_text <- function(
     }
   }
 
-  # Set default text offset
-  if (is.null(offset)) {
-    offset <- grid::unit(3, "pt")
+  # Set default total distance from axis to text
+  if (is.null(length)) {
+    # Calculate default as tick length + 3pt offset
+    tick_length <- if (axis == "x") {
+      current_theme[[paste0("axis.ticks.length.x.", position)]] %||%
+        current_theme[["axis.ticks.length.x"]] %||%
+        current_theme[["axis.ticks.length"]] %||%
+        grid::unit(11 / 3, "pt")
+    } else {
+      current_theme[[paste0("axis.ticks.length.y.", position)]] %||%
+        current_theme[["axis.ticks.length.y"]] %||%
+        current_theme[["axis.ticks.length"]] %||%
+        grid::unit(11 / 3, "pt")
+    }
+    length <- tick_length + grid::unit(3, "pt")
   }
 
-  # Helper function to extract theme properties
+  # Helper function to extract theme properties with fallback hierarchy
   extract_theme_property <- function(property, default) {
     if (axis == "x") {
       current_theme[[paste0("axis.text.x.", position)]][[property]] %||%
@@ -169,22 +198,7 @@ annotate_axis_text <- function(
     return(theme_size)
   }
 
-  # Extract tick length for positioning
-  if (rlang::is_null(length)) {
-    length <- if (axis == "x") {
-      current_theme[[paste0("axis.ticks.length.x.", position)]] %||%
-        current_theme[["axis.ticks.length.x"]] %||%
-        current_theme[["axis.ticks.length"]] %||%
-        grid::unit(11 / 3, "pt")
-    } else {
-      current_theme[[paste0("axis.ticks.length.y.", position)]] %||%
-        current_theme[["axis.ticks.length.y"]] %||%
-        current_theme[["axis.ticks.length"]] %||%
-        grid::unit(11 / 3, "pt")
-    }
-  }
-
-  # Extract text properties
+  # Extract text properties from theme or use provided values
   text_colour <- if (rlang::is_null(colour)) {
     extract_theme_property("colour", "black")
   } else {
@@ -204,7 +218,7 @@ annotate_axis_text <- function(
     family
   }
 
-  # Set justification based on axis and position
+  # Set text justification based on axis and position
   if (axis == "x") {
     text_hjust <- if (is.null(hjust)) 0.5 else hjust  # center horizontally
     text_vjust <- if (is.null(vjust)) {
@@ -217,9 +231,10 @@ annotate_axis_text <- function(
     text_vjust <- if (is.null(vjust)) 0.5 else vjust  # center vertically
   }
 
+  # Initialize list to store annotation layers and theme modifications
   stamp <- list()
 
-  # Add theme modifications
+  # Add theme modifications to hide/modify original axis text
   if (theme_elements == "transparent") {
     theme_element <- paste0("axis.text.", axis, ".", position)
     theme_mod <- list()
@@ -232,16 +247,17 @@ annotate_axis_text <- function(
     stamp <- c(stamp, list(do.call(ggplot2::theme, theme_mod)))
   }
 
-  # Create text annotations
+  # Create text annotations for each break/label pair
   for (i in seq_along(breaks)) {
     if (axis == "x") {
+      # Create text grob for x-axis
       text_grob <- grid::textGrob(
         label = labels[i],
-        x = grid::unit(0.5, "npc"),
+        x = grid::unit(0.5, "npc"),  # centered horizontally
         y = if (position == "bottom") {
-          grid::unit(0, "npc") - length - offset
+          grid::unit(0, "npc") - length  # below panel
         } else {
-          grid::unit(1, "npc") + length + offset
+          grid::unit(1, "npc") + length  # above panel
         },
         hjust = text_hjust,
         vjust = text_vjust,
@@ -253,20 +269,22 @@ annotate_axis_text <- function(
         )
       )
 
+      # Set annotation position for x-axis
       annotation_position <- if (position == "bottom") {
         list(xmin = breaks[i], xmax = breaks[i], ymin = -Inf, ymax = -Inf)
       } else {
         list(xmin = breaks[i], xmax = breaks[i], ymin = Inf, ymax = Inf)
       }
-    } else { # y-axis
+    } else {
+      # Create text grob for y-axis
       text_grob <- grid::textGrob(
         label = labels[i],
         x = if (position == "left") {
-          grid::unit(0, "npc") - length - offset
+          grid::unit(0, "npc") - length  # left of panel
         } else {
-          grid::unit(1, "npc") + length + offset
+          grid::unit(1, "npc") + length  # right of panel
         },
-        y = grid::unit(0.5, "npc"),
+        y = grid::unit(0.5, "npc"),  # centered vertically
         hjust = text_hjust,
         vjust = text_vjust,
         rot = angle,
@@ -277,6 +295,7 @@ annotate_axis_text <- function(
         )
       )
 
+      # Set annotation position for y-axis
       annotation_position <- if (position == "left") {
         list(xmin = -Inf, xmax = -Inf, ymin = breaks[i], ymax = breaks[i])
       } else {
@@ -284,6 +303,7 @@ annotate_axis_text <- function(
       }
     }
 
+    # Add annotation to stamp list
     stamp <- c(
       stamp,
       list(

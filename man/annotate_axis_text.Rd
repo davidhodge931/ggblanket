@@ -14,7 +14,6 @@ annotate_axis_text(
   size = NULL,
   family = NULL,
   length = NULL,
-  offset = NULL,
   hjust = NULL,
   vjust = NULL,
   angle = 0,
@@ -30,7 +29,7 @@ annotate_axis_text(
 
 \item{position}{The position of the axis text. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.}
 
-\item{labels}{A vector of text labels. If NULL, uses the breaks as labels.}
+\item{labels}{A vector of text labels or a function that takes breaks and returns labels. If NULL, uses the breaks as labels.}
 
 \item{colour}{The colour of the text. Inherits from the current theme axis.text etc.}
 
@@ -38,9 +37,7 @@ annotate_axis_text(
 
 \item{family}{The font family of the text. Inherits from the current theme axis.text etc.}
 
-\item{length}{The length of the tick marks as a grid unit. Used to position text relative to ticks.}
-
-\item{offset}{Additional offset for text positioning as a grid unit. Defaults to unit(3, "pt").}
+\item{length}{The total distance from the axis line to the text as a grid unit. Defaults to the sum of tick length plus 3pt offset.}
 
 \item{hjust, vjust}{Horizontal and vertical justification. Auto-calculated based on position if NULL.}
 
@@ -69,6 +66,7 @@ set_blanket(
   ),
 )
 
+# Using vector labels
 penguins |>
   tidyr::drop_na(sex) |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
@@ -77,17 +75,25 @@ penguins |>
     y = body_mass_g,
     col = sex,
   ) +
-  annotate_axis_ticks(axis = "x", breaks = c(185, 195, 205, 215, 225)) +
-  annotate_axis_ticks(axis = "y", breaks = c(3500, 4500, 5500)) +
   annotate_axis_text(
     axis = "x",
     breaks = c(185, 195, 205, 215, 225),
     labels = c("185mm", "195mm", "205mm", "215mm", "225mm")
   ) +
+  geom_point()
+
+# Using function labels
+penguins |>
+  gg_blanket(x = flipper_length_mm, y = body_mass_g) +
+  annotate_axis_text(
+    axis = "x",
+    breaks = c(185, 195, 205, 215, 225),
+    labels = function(x) paste0(x, "mm")
+  ) +
   annotate_axis_text(
     axis = "y",
     breaks = c(3500, 4500, 5500),
-    labels = c("3.5kg", "4.5kg", "5.5kg")
+    labels = function(x) paste0(x/1000, "kg")
   ) +
   geom_point()
 
