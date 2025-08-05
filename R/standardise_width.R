@@ -1,6 +1,6 @@
 #' Standardise width
 #'
-#' Approximate widths that are standardised for bars, boxplots, errorbars etc.
+#' Approximate widths that are standardised across plots.
 #'
 #' When faceting, use with `ggplot2::scale_y_discrete(continuous.limits)` to standardise with to the panel with the most bars.
 #'
@@ -95,7 +95,7 @@
 #'   pull(n)
 #'
 #' d |>
-#'   mutate(country = fct_rev(country)) |> #'when uneven bars
+#'   mutate(country = forcats::fct_rev(country)) |> #'when uneven bars
 #'   gg_col(y = country,
 #'          x = value,
 #'          facet = continent,
@@ -110,7 +110,7 @@
 #'          facet_scales = "free_y",
 #'   ) +
 #'   scale_y_discrete(continuous.limits = c(1, from_n)) + #'when uneven bars
-#'   coord_cartesian(reverse = "y") #'when uneven bars
+#'   coord_cartesian(reverse = "y", clip = "off") #'when uneven bars
 #'
 standardise_width <- function(
   ...,
