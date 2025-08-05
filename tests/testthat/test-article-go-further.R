@@ -284,7 +284,7 @@ test_that("standardise_width works", {
     gg_bar(
       x = sex,
       col = species,
-      width = standardise_width(from_n = 2, to_width = 0.25, to_n = 3)
+      width = standardise_width(n = 2)
     )
 
   penguins |>
@@ -294,7 +294,7 @@ test_that("standardise_width works", {
       x = sex,
       col = species,
       position = position_dodge(),
-      width = standardise_width(from_n = 2, from_dodge_n = 3, to_width = 0.25, to_n = 3)
+      width = standardise_width(n = 2, dodge_n = 3)
     )
 
   penguins |>
@@ -305,11 +305,9 @@ test_that("standardise_width works", {
       col = species,
       position = position_dodge(),
       width = standardise_width(
-        from_n = 2,
-        from_dodge_n = 3,
-        from_aspect = "y",
-        to_width = 0.25,
-        to_n = 3
+        n = 2,
+        dodge_n = 3,
+        aspect = "y",
       )
     )
 })

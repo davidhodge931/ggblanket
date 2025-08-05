@@ -2,56 +2,29 @@
 % Please edit documentation in R/standardise_width.R
 \name{standardise_width}
 \alias{standardise_width}
-\title{Standardise width}
+\title{Standardise width to the reference}
 \usage{
 standardise_width(
-  ...,
-  from_n,
-  from_dodge_n = 1,
-  from_aspect = "x",
-  from_panel_widths = NULL,
-  from_panel_heights = NULL,
-  to_width,
-  to_n,
-  to_dodge_n = 1,
-  to_aspect = "x",
-  to_panel_widths = NULL,
-  to_panel_heights = NULL
+  n,
+  dodge_n = 1,
+  aspect = "x",
+  panel_widths = ggplot2::theme_get()$panel.widths,
+  panel_heights = ggplot2::theme_get()$panel.heights
 )
 }
 \arguments{
-\item{...}{Provided to force user argument naming etc.}
+\item{n}{Number of categories in the actual plot}
 
-\item{from_n}{Number of x aesthetic groups in the current plot. Required.}
+\item{dodge_n}{Number of dodge groups in the actual plot}
 
-\item{from_dodge_n}{Number of fill aesthetic etc groups dodged in the current plot. Defaults to 1.}
+\item{aspect}{Aspect of actual plot ("x" or "y")}
 
-\item{from_aspect}{aspect of the current plot. Either "x" (default) or "y".}
+\item{panel_widths}{Panel widths of actual plot}
 
-\item{from_panel_widths}{Unit vector of individual panel widths in the current plot. If NULL, panels assumed equal.}
-
-\item{from_panel_heights}{Unit vector of individual panel heights in the current plot. If NULL, panels assumed equal.}
-
-\item{to_width}{Width value in the reference standard. Required.}
-
-\item{to_n}{Number of x aesthetic groups in the reference standard. Required.}
-
-\item{to_dodge_n}{Number of fill aesthetic etc groups dodged in the reference standard. Defaults to 1.}
-
-\item{to_aspect}{aspect of the reference standard plot. Either "x" (default) or "y".}
-
-\item{to_panel_widths}{Unit vector of individual panel widths in the reference standard. If NULL, panels assumed equal.}
-
-\item{to_panel_heights}{Unit vector of individual panel heights in the reference standard. If NULL, panels assumed equal.}
-}
-\value{
-A numeric value
+\item{panel_heights}{Panel heights of actual plot}
 }
 \description{
-Approximate widths that are standardised across plots.
-}
-\details{
-When faceting, use with \code{ggplot2::scale_y_discrete(continuous.limits)} to standardise with to the panel with the most bars.
+Standardise the width against the reference, so that widths look the same across plots.
 }
 \examples{
 library(ggplot2)
@@ -66,24 +39,17 @@ set_blanket(
   )
 )
 
-# create reference standard
-penguins |>
-  tidyr::drop_na(sex) |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
-  gg_bar(
-    x = species,
-    col = sex,
-    width = 0.25,
-  )
-
-# align width with reference standard
 penguins |>
   tidyr::drop_na(sex) |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_bar(
     x = sex,
     col = species,
-    width = standardise_width(from_n = 2, to_width = 0.25, to_n = 3)
+    width = standardise_width(
+      n = 2,
+      dodge_n = 1,
+      aspect = "x",
+    )
   )
 
 penguins |>
@@ -93,7 +59,11 @@ penguins |>
     x = sex,
     col = species,
     position = position_dodge(),
-    width = standardise_width(from_n = 2, from_dodge_n = 3, to_width = 0.25, to_n = 3)
+    width = standardise_width(
+      n = 2,
+      dodge_n = 3,
+      aspect = "x",
+    )
   )
 
 penguins |>
@@ -104,15 +74,12 @@ penguins |>
     col = species,
     position = position_dodge(),
     width = standardise_width(
-      from_n = 2,
-      from_dodge_n = 3,
-      from_aspect = "y",
-      to_width = 0.25,
-      to_n = 3,
+      n = 2,
+      dodge_n = 3,
+      aspect = "y",
     )
   )
 
-# for facetted plots, standardise width to the panel with the most bars
 d <- tibble::tibble(
   continent = c("Europe","Europe","Europe",
                 "Europe","Europe","South America","South America"),
@@ -120,7 +87,7 @@ d <- tibble::tibble(
   value = c(10L, 15L, 20L, 25L, 17L, 13L, 5L)
 )
 
-from_n <- d |>
+max_n <- d |>
   group_by(continent) |>
   count() |>
   ungroup() |>
@@ -128,21 +95,18 @@ from_n <- d |>
   pull(n)
 
 d |>
-  mutate(country = forcats::fct_rev(country)) |> #'when uneven bars
+  mutate(country = forcats::fct_rev(country)) |>
   gg_col(y = country,
          x = value,
          facet = continent,
          width = standardise_width(
-           from_dodge_n = 1,
-           from_n = from_n,
-           from_aspect = "y",
-           to_width = 0.25,
-           to_n = 3,
-           to_aspect = "x",
+           n = max_n,
+           dodge_n = 1,
+           aspect = "y",
          ),
          facet_scales = "free_y",
   ) +
-  scale_y_discrete(continuous.limits = c(1, from_n)) + #'when uneven bars
-  coord_cartesian(reverse = "y", clip = "off") #'when uneven bars
+  scale_y_discrete(continuous.limits = c(1, max_n)) +
+  coord_cartesian(reverse = "y", clip = "off")
 
 }

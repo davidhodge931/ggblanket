@@ -308,7 +308,7 @@ A `*_limits_to_breaks` continuous scale can look good.
 
 This refers to when the limits equals the range of the `*_breaks`. Where `*_limits_to_breaks = TRUE`, the NULL `*_expand` equals `c(0, 0)` instead of `ggplot2::waiver()`.
 
-The NULL `*_limits_to_breaks`is larglely determined by the `aspect` of the plot. Where `aspect = 'x'`, then by default `x_limits_to_breaks = FALSE` and `y_limits_to_breaks = TRUE`. For `aspect = 'y'`, the vice versa occurs.
+The default `*_limits_to_breaks`is largely determined by the `aspect` of the plot. Where `aspect = 'x'`, then by default `x_limits_to_breaks = FALSE` and `y_limits_to_breaks = TRUE`. For `aspect = 'y'`, the vice versa occurs.
 
 Note all continuous scales ensure all data is kept using `scales::oob_keep` - and, by default, are unclipped (i.e. `coord_cartesian(clip = "off")`. 
 

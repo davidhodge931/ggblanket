@@ -424,61 +424,83 @@ The width of geoms can be standardised across geoms using `standardise_width`.
 ```{r}
 set_blanket(
   theme = theme_lighter(
-    panel_heights = rep(unit(50, "mm"), times = 100),
-    panel_widths = rep(unit(75, "mm"), times = 100),
+    panel_heights = rep(unit(50, "mm"), 100),
+    panel_widths = rep(unit(50, "mm"), 100),
   )
 )
 
-# create standard
 penguins |>
-  drop_na(sex) |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
-  gg_bar(
-    x = species,
-    col = sex,
-    width = 0.25,
-  )
-
-# align width with standard
-penguins |>
-  drop_na(sex) |>
+  tidyr::drop_na(sex) |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_bar(
     x = sex,
     col = species,
-    width = standardise_width(from_n = 2, to_width = 0.25, to_n = 3)
+    width = standardise_width(
+      n = 2,
+      dodge_n = 1,
+      aspect = "x",
+    )
   )
 
 penguins |>
-  drop_na(sex) |>
+  tidyr::drop_na(sex) |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_bar(
     x = sex,
     col = species,
     position = position_dodge(),
-    width = standardise_width(from_n = 2, from_dodge_n = 3, to_width = 0.25, to_n = 3)
+    width = standardise_width(
+      n = 2,
+      dodge_n = 3,
+      aspect = "x",
+    )
   )
 
 penguins |>
-  drop_na(sex) |>
+  tidyr::drop_na(sex) |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
   gg_bar(
     y = sex,
     col = species,
     position = position_dodge(),
-    width = standardise_width(from_n = 2, 
-                              from_dodge_n = 3,
-                              from_aspect = "y",
-                              to_width = 0.25, 
-                              to_n = 3)
+    width = standardise_width(
+      n = 2,
+      dodge_n = 3,
+      aspect = "y",
+    )
   )
+```
 
-set_blanket(
-  theme = theme_lighter(
-    panel_heights = rep(unit(40, "mm"), times = 100),
-    panel_widths = rep(unit(100, "mm"), times = 100),
-  )
+
+```{r}
+d <- tibble::tibble(
+  continent = c("Europe","Europe","Europe",
+                "Europe","Europe","South America","South America"),
+  country = c("AT", "DE", "DK", "ES", "PK", "TW", "BR"),
+  value = c(10L, 15L, 20L, 25L, 17L, 13L, 5L)
 )
+
+max_n <- d |>
+  group_by(continent) |>
+  count() |>
+  ungroup() |>
+  filter(n == max(n)) |>
+  pull(n)
+
+d |>
+  mutate(country = forcats::fct_rev(country)) |>
+  gg_col(y = country,
+         x = value,
+         facet = continent,
+         width = standardise_width(
+           n = max_n,
+           dodge_n = 1,
+           aspect = "y",
+         ),
+         facet_scales = "free_y",
+  ) +
+  scale_y_discrete(continuous.limits = c(1, max_n)) +
+  coord_cartesian(reverse = "y", clip = "off")
 ```
 
 ### Annotate an axis line

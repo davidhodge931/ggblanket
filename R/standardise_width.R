@@ -1,23 +1,59 @@
-#' Standardise width
+#' Default width reference
+#' @noRd
+width_reference <- list(
+  width = 0.2,
+  n = 3,
+  dodge_n = 1,
+  aspect = "x",
+  panel_heights = rep(grid::unit(50, "mm"), 100),
+  panel_widths = rep(grid::unit(75, "mm"), 100)
+)
+
+#' Update width reference
 #'
-#' Approximate widths that are standardised across plots.
+#' @description
+#' Update the width reference used by `standardise_width`.
 #'
-#' When faceting, use with `ggplot2::scale_y_discrete(continuous.limits)` to standardise with to the panel with the most bars.
 #'
-#' @param ... Provided to force user argument naming etc.
-#' @param from_n Number of x aesthetic groups in the current plot. Required.
-#' @param from_dodge_n Number of fill aesthetic etc groups dodged in the current plot. Defaults to 1.
-#' @param from_aspect aspect of the current plot. Either "x" (default) or "y".
-#' @param from_panel_widths Unit vector of individual panel widths in the current plot. If NULL, panels assumed equal.
-#' @param from_panel_heights Unit vector of individual panel heights in the current plot. If NULL, panels assumed equal.
-#' @param to_width Width value in the reference standard. Required.
-#' @param to_n Number of x aesthetic groups in the reference standard. Required.
-#' @param to_dodge_n Number of fill aesthetic etc groups dodged in the reference standard. Defaults to 1.
-#' @param to_aspect aspect of the reference standard plot. Either "x" (default) or "y".
-#' @param to_panel_widths Unit vector of individual panel widths in the reference standard. If NULL, panels assumed equal.
-#' @param to_panel_heights Unit vector of individual panel heights in the reference standard. If NULL, panels assumed equal.
+#' @param width Width value for the reference standard
+#' @param n Number of categories in the reference standard
+#' @param dodge_n Number of dodge groups in reference standard
+#' @param aspect Aspect of reference standard ("x" or "y")
+#' @param panel_heights Panel heights for reference standard
+#' @param panel_widths Panel widths for reference standard
 #'
-#' @return A numeric value
+#' @export
+update_width_reference <- function(
+    width = NULL,
+    n = NULL,
+    dodge_n = NULL,
+    aspect = NULL,
+    panel_heights = NULL,
+    panel_widths = NULL
+) {
+  width_reference <- getOption("ggblanket.width_reference", width_reference)
+
+  if (!rlang::is_null(width)) width_reference$width <- width
+  if (!rlang::is_null(n)) width_reference$n <- n
+  if (!rlang::is_null(dodge_n)) width_reference$dodge_n <- dodge_n
+  if (!rlang::is_null(aspect)) width_reference$aspect <- aspect
+  if (!rlang::is_null(panel_heights)) width_reference$panel_heights <- panel_heights
+  if (!rlang::is_null(panel_widths)) width_reference$panel_widths <- panel_widths
+
+  options(ggblanket.width_reference = width_reference)
+}
+
+#' Standardise width to the reference
+#'
+#' @description
+#' Standardise the width against the reference, so that widths look the same across plots.
+#'
+#' @param n Number of categories in the actual plot
+#' @param dodge_n Number of dodge groups in the actual plot
+#' @param aspect Aspect of actual plot ("x" or "y")
+#' @param panel_widths Panel widths of actual plot
+#' @param panel_heights Panel heights of actual plot
+#'
 #' @export
 #'
 #' @examples
@@ -33,24 +69,17 @@
 #'   )
 #' )
 #'
-#' # create reference standard
-#' penguins |>
-#'   tidyr::drop_na(sex) |>
-#'   mutate(across(sex, \(x) str_to_sentence(x))) |>
-#'   gg_bar(
-#'     x = species,
-#'     col = sex,
-#'     width = 0.25,
-#'   )
-#'
-#' # align width with reference standard
 #' penguins |>
 #'   tidyr::drop_na(sex) |>
 #'   mutate(across(sex, \(x) str_to_sentence(x))) |>
 #'   gg_bar(
 #'     x = sex,
 #'     col = species,
-#'     width = standardise_width(from_n = 2, to_width = 0.25, to_n = 3)
+#'     width = standardise_width(
+#'       n = 2,
+#'       dodge_n = 1,
+#'       aspect = "x",
+#'     )
 #'   )
 #'
 #' penguins |>
@@ -60,7 +89,11 @@
 #'     x = sex,
 #'     col = species,
 #'     position = position_dodge(),
-#'     width = standardise_width(from_n = 2, from_dodge_n = 3, to_width = 0.25, to_n = 3)
+#'     width = standardise_width(
+#'       n = 2,
+#'       dodge_n = 3,
+#'       aspect = "x",
+#'     )
 #'   )
 #'
 #' penguins |>
@@ -71,15 +104,12 @@
 #'     col = species,
 #'     position = position_dodge(),
 #'     width = standardise_width(
-#'       from_n = 2,
-#'       from_dodge_n = 3,
-#'       from_aspect = "y",
-#'       to_width = 0.25,
-#'       to_n = 3,
+#'       n = 2,
+#'       dodge_n = 3,
+#'       aspect = "y",
 #'     )
 #'   )
 #'
-#' # for facetted plots, standardise width to the panel with the most bars
 #' d <- tibble::tibble(
 #'   continent = c("Europe","Europe","Europe",
 #'                 "Europe","Europe","South America","South America"),
@@ -87,7 +117,7 @@
 #'   value = c(10L, 15L, 20L, 25L, 17L, 13L, 5L)
 #' )
 #'
-#' from_n <- d |>
+#' max_n <- d |>
 #'   group_by(continent) |>
 #'   count() |>
 #'   ungroup() |>
@@ -95,153 +125,67 @@
 #'   pull(n)
 #'
 #' d |>
-#'   mutate(country = forcats::fct_rev(country)) |> #'when uneven bars
+#'   mutate(country = forcats::fct_rev(country)) |>
 #'   gg_col(y = country,
 #'          x = value,
 #'          facet = continent,
 #'          width = standardise_width(
-#'            from_dodge_n = 1,
-#'            from_n = from_n,
-#'            from_aspect = "y",
-#'            to_width = 0.25,
-#'            to_n = 3,
-#'            to_aspect = "x",
+#'            n = max_n,
+#'            dodge_n = 1,
+#'            aspect = "y",
 #'          ),
 #'          facet_scales = "free_y",
 #'   ) +
-#'   scale_y_discrete(continuous.limits = c(1, from_n)) + #'when uneven bars
-#'   coord_cartesian(reverse = "y", clip = "off") #'when uneven bars
+#'   scale_y_discrete(continuous.limits = c(1, max_n)) +
+#'   coord_cartesian(reverse = "y", clip = "off")
 #'
 standardise_width <- function(
-  ...,
-  from_n,
-  from_dodge_n = 1,
-  from_aspect = "x",
-  from_panel_widths = NULL,
-  from_panel_heights = NULL,
-  to_width,
-  to_n,
-  to_dodge_n = 1,
-  to_aspect = "x",
-  to_panel_widths = NULL,
-  to_panel_heights = NULL
+    n,
+    dodge_n = 1,
+    aspect = "x",
+    panel_widths = ggplot2::theme_get()$panel.widths,
+    panel_heights = ggplot2::theme_get()$panel.heights
 ) {
-  # Check required arguments
-  if (missing(to_width) | missing(to_n) | missing(from_n)) {
-    rlang::abort("to_width, to_n, and from_n must all be specified")
+  if (missing(n)) {
+    rlang::abort("n must be specified")
   }
 
-  # Get current theme
-  current_theme <- ggplot2::theme_get()
+  # Get global standard
+  ws <- getOption("ggblanket.width_reference", width_reference)
 
-  # Extract panel dimensions from theme if not provided
-  if (rlang::is_null(from_panel_widths) && !rlang::is_null(current_theme$panel.widths)) {
-    from_panel_widths <- current_theme$panel.widths
-  }
-  if (rlang::is_null(from_panel_heights) && !rlang::is_null(current_theme$panel.heights)) {
-    from_panel_heights <- current_theme$panel.heights
-  }
-  if (rlang::is_null(to_panel_widths) && !rlang::is_null(current_theme$panel.widths)) {
-    to_panel_widths <- current_theme$panel.widths
-  }
-  if (rlang::is_null(to_panel_heights) && !rlang::is_null(current_theme$panel.heights)) {
-    to_panel_heights <- current_theme$panel.heights
-  }
-
+  # Validation
   if (
-    rlang::is_null(from_panel_widths) |
-      rlang::is_null(from_panel_heights) |
-      rlang::is_null(to_panel_widths) |
-      rlang::is_null(to_panel_heights)
+    rlang::is_null(panel_widths) |
+    rlang::is_null(panel_heights) |
+    rlang::is_null(ws$panel_widths) |
+    rlang::is_null(ws$panel_heights)
   ) {
     rlang::abort("panel widths and heights must be set or specified")
   }
 
-  # Validate panel dimensions - if any provided, all must be provided
-  if (
-    !rlang::is_null(from_panel_widths) ||
-      !rlang::is_null(from_panel_heights) ||
-      !rlang::is_null(to_panel_widths) ||
-      !rlang::is_null(to_panel_heights)
-  ) {
-    if (
-      rlang::is_null(from_panel_widths) ||
-        rlang::is_null(from_panel_heights) ||
-        rlang::is_null(to_panel_widths) ||
-        rlang::is_null(to_panel_heights)
-    ) {
-      rlang::abort(
-        "If any panel dimension is provided, all four (from_panel_widths, from_panel_heights, to_panel_widths, to_panel_heights) must be provided"
-      )
-    }
-  }
-
-  # Check for mixed units in panel dimensions
-  panel_dims <- list(
-    from_panel_widths,
-    from_panel_heights,
-    to_panel_widths,
-    to_panel_heights
-  )
-  panel_dims <- panel_dims[!purrr::map_lgl(panel_dims, rlang::is_null)] # Remove NULL values
-
-  if (length(panel_dims) > 1) {
-    # Extract units from each non-NULL panel dimension
-    units_list <- purrr::map_chr(panel_dims, function(x) {
-      if (inherits(x, "unit")) {
-        as.character(attr(x, "unit"))
-      } else {
-        "numeric" # Plain numeric values
-      }
-    })
-
-    # Check if all units are the same
-    if (length(unique(units_list)) > 1) {
-      rlang::abort(
-        "All panel dimensions must use the same units. Mixed units detected."
-      )
-    }
-  }
-
   # Base category scaling
-  base_width <- (from_n / to_n) * to_width
+  base_width <- (n / ws$n) * ws$width
 
-  # Dodge scaling: maintain consistent individual bar width
-  if (from_dodge_n > 1 | to_dodge_n > 1) {
-    width <- base_width * (from_dodge_n / to_dodge_n)
+  # Dodge scaling
+  width <- if (dodge_n > 1 | ws$dodge_n > 1) {
+    base_width * (dodge_n / ws$dodge_n)
   } else {
-    width <- base_width
+    base_width
   }
 
-  # Panel dimension adjustment for visual consistency
+  # Panel dimension adjustment
   if (
-    !rlang::is_null(to_panel_widths) |
-      !rlang::is_null(to_panel_heights) |
-      !rlang::is_null(from_panel_widths) |
-      !rlang::is_null(from_panel_heights)
+    !rlang::is_null(ws$panel_widths) |
+    !rlang::is_null(ws$panel_heights) |
+    !rlang::is_null(panel_widths) |
+    !rlang::is_null(panel_heights)
   ) {
-    # Get the relevant dimension for each aspect
-    # For aspect "x" (vertical bars): width depends on panel width
-    # For aspect "y" (horizontal bars): width depends on panel height
-
-    current_relevant_dim <- if (from_aspect == "x") {
-      if (!rlang::is_null(from_panel_widths)) as.numeric(from_panel_widths)[1] else 1
-    } else {
-      if (!rlang::is_null(from_panel_heights)) as.numeric(from_panel_heights)[1] else 1
-    }
-
-    reference_relevant_dim <- if (to_aspect == "x") {
-      if (!rlang::is_null(to_panel_widths)) as.numeric(to_panel_widths)[1] else 1
-    } else {
-      if (!rlang::is_null(to_panel_heights)) as.numeric(to_panel_heights)[1] else 1
-    }
-
-    # Scale to maintain visual consistency
-    scaling_factor <- reference_relevant_dim / current_relevant_dim
+    from_dim <- if (aspect == "x") as.numeric(panel_widths)[1] else as.numeric(panel_heights)[1]
+    to_dim <- if (ws$aspect == "x") as.numeric(ws$panel_widths)[1] else as.numeric(ws$panel_heights)[1]
+    scaling_factor <- to_dim / from_dim
     width <- width * scaling_factor
   }
 
-  # Safety check
   if (any(width >= 1)) {
     rlang::abort("width cannot be greater than or equal to 1")
   }
