@@ -9,7 +9,7 @@
 #' @param colour The colour of grid lines. Inherits from current theme panel.grid.major etc.
 #' @param linewidth The linewidth of grid lines. Inherits from current theme panel.grid.major etc.
 #' @param linetype The linetype of grid lines. Inherits from current theme panel.grid.major etc.
-#' @param theme_elements What to do with theme panel grid elements. Either "transparent", "keep" or "blank". Defaults "transparent".
+#' @param theme_element What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".
 #'
 #' @return A list of annotate layers and theme elements.
 #' @export
@@ -41,7 +41,7 @@ annotate_panel_grid <- function(
     colour = NULL,
     linewidth = NULL,
     linetype = NULL,
-    theme_elements = "transparent"
+    theme_element = "transparent"
 ) {
 
   # Validate arguments
@@ -49,8 +49,8 @@ annotate_panel_grid <- function(
     rlang::abort("axis must be one of 'x' or 'y'")
   }
 
-  if (!theme_elements %in% c("transparent", "keep", "blank")) {
-    rlang::abort("theme_elements must be one of 'transparent', 'keep', or 'blank'")
+  if (!theme_element %in% c("transparent", "keep", "blank")) {
+    rlang::abort("theme_element must be one of 'transparent', 'keep', or 'blank'")
   }
 
   # Get current theme
@@ -85,7 +85,7 @@ annotate_panel_grid <- function(
   stamp <- list()
 
   # Add theme modification if requested
-  if (theme_elements == "transparent") {
+  if (theme_element == "transparent") {
     if (axis == "x") {
       stamp <- c(stamp, list(
         ggplot2::theme(
@@ -101,7 +101,7 @@ annotate_panel_grid <- function(
         )
       ))
     }
-  } else if (theme_elements == "blank") {
+  } else if (theme_element == "blank") {
     if (axis == "x") {
       stamp <- c(stamp, list(
         ggplot2::theme(

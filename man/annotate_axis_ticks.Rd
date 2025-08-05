@@ -12,7 +12,7 @@ annotate_axis_ticks(
   colour = NULL,
   linewidth = NULL,
   length = NULL,
-  theme_elements = "transparent"
+  theme_element = "transparent"
 )
 }
 \arguments{
@@ -30,7 +30,7 @@ annotate_axis_ticks(
 
 \item{length}{The absolute length of the annotated segment as a grid unit. Defaults to unit(11/3, "pt").}
 
-\item{theme_elements}{What to do with theme axis tick elements. Either "transparent", "keep" or "blank". Defaults "transparent".}
+\item{theme_element}{What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".}
 }
 \value{
 A list of a annotate layer and theme elements.

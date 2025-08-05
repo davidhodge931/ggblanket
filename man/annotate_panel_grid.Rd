@@ -11,7 +11,7 @@ annotate_panel_grid(
   colour = NULL,
   linewidth = NULL,
   linetype = NULL,
-  theme_elements = "transparent"
+  theme_element = "transparent"
 )
 }
 \arguments{
@@ -27,7 +27,7 @@ annotate_panel_grid(
 
 \item{linetype}{The linetype of grid lines. Inherits from current theme panel.grid.major etc.}
 
-\item{theme_elements}{What to do with theme panel grid elements. Either "transparent", "keep" or "blank". Defaults "transparent".}
+\item{theme_element}{What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".}
 }
 \value{
 A list of annotate layers and theme elements.

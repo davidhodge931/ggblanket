@@ -17,7 +17,7 @@
 #' @param fill The fill colour of the background rectangle. If NULL, intelligently derived from theme (panel background for light themes, text colour for dark themes).
 #' @param hjust,vjust Horizontal and vertical justification. Auto-calculated based on position if NULL.
 #' @param angle Text rotation angle. Defaults to 0.
-#' @param theme_elements What to do with theme axis text elements. Either "transparent", "keep" or "blank". Defaults "transparent".
+#' @param theme_element What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".
 #'
 #' @return A list of annotation layers and theme elements.
 #' @export
@@ -81,7 +81,7 @@ annotate_axis_text <- function(
     hjust = NULL,
     vjust = NULL,
     angle = 0,
-    theme_elements = "transparent"
+    theme_element = "transparent"
 ) {
   # Validate axis argument
   if (!axis %in% c("x", "y")) {
@@ -269,12 +269,12 @@ annotate_axis_text <- function(
   stamp <- list()
 
   # Add theme modifications to hide/modify original axis text
-  if (theme_elements == "transparent") {
+  if (theme_element == "transparent") {
     theme_element <- paste0("axis.text.", axis, ".", position)
     theme_mod <- list()
     theme_mod[[theme_element]] <- ggplot2::element_text(colour = "transparent")
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
-  } else if (theme_elements == "blank") {
+  } else if (theme_element == "blank") {
     theme_element <- paste0("axis.text.", axis, ".", position)
     theme_mod <- list()
     theme_mod[[theme_element]] <- ggplot2::element_blank()

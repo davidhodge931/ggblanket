@@ -19,7 +19,7 @@ annotate_axis_text(
   hjust = NULL,
   vjust = NULL,
   angle = 0,
-  theme_elements = "transparent"
+  theme_element = "transparent"
 )
 }
 \arguments{
@@ -49,7 +49,7 @@ annotate_axis_text(
 
 \item{angle}{Text rotation angle. Defaults to 0.}
 
-\item{theme_elements}{What to do with theme axis text elements. Either "transparent", "keep" or "blank". Defaults "transparent".}
+\item{theme_element}{What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".}
 }
 \value{
 A list of annotation layers and theme elements.

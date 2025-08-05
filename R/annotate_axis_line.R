@@ -7,7 +7,7 @@
 #' @param position The position of the axis. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.line etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.line etc.
-#' @param theme_elements What to do with theme axis line elements. Either "transparent", "keep" or "blank". Defaults "transparent".
+#' @param theme_element What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".
 #'
 #' @return A list of a annotate layer and theme elements.
 #' @export
@@ -44,7 +44,7 @@ annotate_axis_line <- function(
     position = NULL,
     colour = NULL,
     linewidth = NULL,
-    theme_elements = "transparent"
+    theme_element = "transparent"
 ) {
 
   # Validate arguments
@@ -65,8 +65,8 @@ annotate_axis_line <- function(
     rlang::abort("For y-axis, position must be one of 'left' or 'right'")
   }
 
-  if (!theme_elements %in% c("transparent", "keep", "blank")) {
-    rlang::abort("theme_elements must be one of 'transparent', 'keep', or 'blank'")
+  if (!theme_element %in% c("transparent", "keep", "blank")) {
+    rlang::abort("theme_element must be one of 'transparent', 'keep', or 'blank'")
   }
 
   # Get current theme
@@ -178,12 +178,12 @@ annotate_axis_line <- function(
   }
 
   # Add theme modification if requested
-  if (theme_elements == "transparent") {
+  if (theme_element == "transparent") {
     theme_element <- paste0("axis.line.", axis, ".", position)
     theme_mod <- list()
     theme_mod[[theme_element]] <- ggplot2::element_line(colour = "transparent")
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
-  } else if (theme_elements == "blank") {
+  } else if (theme_element == "blank") {
     theme_element <- paste0("axis.line.", axis, ".", position)
     theme_mod <- list()
     theme_mod[[theme_element]] <- ggplot2::element_blank()

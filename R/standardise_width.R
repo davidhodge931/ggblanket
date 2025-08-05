@@ -1,6 +1,8 @@
 #' Standardise width
 #'
-#' Calculate widths that are standardised for bars, boxplots, errorbars etc.
+#' Approximate widths that are standardised for bars, boxplots, errorbars etc.
+#'
+#' When faceting, use with `ggplot2::scale_y_discrete(continuous.limits)`.
 #'
 #' @param ... Provided to force user argument naming etc.
 #' @param from_n Number of x aesthetic groups in the current plot. Required.
@@ -116,7 +118,7 @@ standardise_width <- function(
 
   if (
     rlang::is_null(from_panel_widths) |
-      rlang::is_null(to_panel_heights) |
+      rlang::is_null(from_panel_heights) |
       rlang::is_null(to_panel_widths) |
       rlang::is_null(to_panel_heights)
   ) {

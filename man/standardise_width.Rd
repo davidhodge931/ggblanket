@@ -48,7 +48,10 @@ standardise_width(
 A numeric value
 }
 \description{
-Calculate widths that are standardised for bars, boxplots, errorbars etc.
+Approximate widths that are standardised for bars, boxplots, errorbars etc.
+}
+\details{
+Use \code{ggplot2::scale_y_discrete(continuous.limits)} when faceting to standardise width.
 }
 \examples{
 library(ggplot2)
