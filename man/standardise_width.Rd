@@ -51,7 +51,7 @@ A numeric value
 Approximate widths that are standardised for bars, boxplots, errorbars etc.
 }
 \details{
-Use \code{ggplot2::scale_y_discrete(continuous.limits)} when faceting to standardise width.
+When faceting, use with \code{ggplot2::scale_y_discrete(continuous.limits)} to standardise with to the panel with the most bars.
 }
 \examples{
 library(ggplot2)
@@ -112,5 +112,37 @@ penguins |>
     )
   )
 
+# for facetted plots, standardise width to the panel with the most bars
+d <- tibble::tibble(
+  continent = c("Europe","Europe","Europe",
+                "Europe","Europe","South America","South America"),
+  country = c("AT", "DE", "DK", "ES", "PK", "TW", "BR"),
+  value = c(10L, 15L, 20L, 25L, 17L, 13L, 5L)
+)
+
+from_n <- d |>
+  group_by(continent) |>
+  count() |>
+  ungroup() |>
+  filter(n == max(n)) |>
+  pull(n)
+
+d |>
+  mutate(country = fct_rev(country)) |> #'when uneven bars
+  gg_col(y = country,
+         x = value,
+         facet = continent,
+         width = standardise_width(
+           from_dodge_n = 1,
+           from_n = from_n,
+           from_aspect = "y",
+           to_width = 0.25,
+           to_n = 3,
+           to_aspect = "x",
+         ),
+         facet_scales = "free_y",
+  ) +
+  scale_y_discrete(continuous.limits = c(1, from_n)) + #'when uneven bars
+  coord_cartesian(reverse = "y") #'when uneven bars
 
 }

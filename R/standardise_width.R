@@ -2,7 +2,7 @@
 #'
 #' Approximate widths that are standardised for bars, boxplots, errorbars etc.
 #'
-#' When faceting, use with `ggplot2::scale_y_discrete(continuous.limits)`.
+#' When faceting, use with `ggplot2::scale_y_discrete(continuous.limits)` to standardise with to the panel with the most bars.
 #'
 #' @param ... Provided to force user argument naming etc.
 #' @param from_n Number of x aesthetic groups in the current plot. Required.
@@ -79,6 +79,38 @@
 #'     )
 #'   )
 #'
+#' # for facetted plots, standardise width to the panel with the most bars
+#' d <- tibble::tibble(
+#'   continent = c("Europe","Europe","Europe",
+#'                 "Europe","Europe","South America","South America"),
+#'   country = c("AT", "DE", "DK", "ES", "PK", "TW", "BR"),
+#'   value = c(10L, 15L, 20L, 25L, 17L, 13L, 5L)
+#' )
+#'
+#' from_n <- d |>
+#'   group_by(continent) |>
+#'   count() |>
+#'   ungroup() |>
+#'   filter(n == max(n)) |>
+#'   pull(n)
+#'
+#' d |>
+#'   mutate(country = fct_rev(country)) |> #'when uneven bars
+#'   gg_col(y = country,
+#'          x = value,
+#'          facet = continent,
+#'          width = standardise_width(
+#'            from_dodge_n = 1,
+#'            from_n = from_n,
+#'            from_aspect = "y",
+#'            to_width = 0.25,
+#'            to_n = 3,
+#'            to_aspect = "x",
+#'          ),
+#'          facet_scales = "free_y",
+#'   ) +
+#'   scale_y_discrete(continuous.limits = c(1, from_n)) + #'when uneven bars
+#'   coord_cartesian(reverse = "y") #'when uneven bars
 #'
 standardise_width <- function(
   ...,
