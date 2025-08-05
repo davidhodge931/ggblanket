@@ -38,22 +38,27 @@ It requires a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 }
 \examples{
 library(ggplot2)
-library(dplyr)
-library(stringr)
-library(palmerpenguins)
 
-set_blanket()
+set_blanket(
+  theme = theme_lighter(
+    panel_heights = rep(unit(50, "mm"), 100),
+    panel_widths = rep(unit(75, "mm"), 100),
+  ),
+)
 
-penguins |>
-  tidyr::drop_na(sex) |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
+palmerpenguins::penguins |>
   gg_blanket(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex,
+    x_title = "Flipper length",
+    y_title = "Body mass",
   ) +
-  annotate_panel_grid(axis = "x", breaks = seq(190, 230, 15)) +
-  annotate_panel_grid(axis = "y", breaks = seq(3000, 6500, 250)) +
-  geom_point()
+  annotate_panel_grid(
+    axis = "y",
+    breaks = seq(2500, 6500, 250),
+  ) +
+  geom_point(
+    colour = col_multiply(get_geom_defaults("point")$colour),
+  )
 
 }

@@ -34,9 +34,6 @@ Replace axis line with an annotated segment.
 }
 \examples{
 library(ggplot2)
-library(dplyr)
-library(stringr)
-library(palmerpenguins)
 
 set_blanket(
   theme = theme_lighter(
@@ -45,17 +42,19 @@ set_blanket(
   ),
 )
 
-penguins |>
-  tidyr::drop_na(sex) |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
-  add_row(flipper_length_mm = 195, body_mass_g = 2500, sex = "Female") |>
+palmerpenguins::penguins |>
+  tibble::add_row(flipper_length_mm = 195, body_mass_g = 2500, sex = "Female") |>
   gg_blanket(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex,
   ) +
-  annotate_axis_line(axis = "x") +
-  annotate_axis_line(axis = "y") +
-  geom_point()
+  annotate_axis_line(
+    axis = "x",
+    arrow = arrow(angle = 15, length = unit(5, "pt"), type = "closed"),
+  ) +
+  geom_point(
+    colour = col_multiply(get_geom_defaults("point")$colour),
+    size = 3,
+  )
 
 }

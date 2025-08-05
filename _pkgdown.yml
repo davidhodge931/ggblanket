@@ -14,7 +14,7 @@ reference:
 - contents:
   - theme_lighter
   - theme_darker
-- title: Extra
+- title: Extras
 - contents:
   - aes_contrast
   - annotate_axis_line
@@ -24,12 +24,10 @@ reference:
   - bind_each_all
   - col_multiply
   - col_screen
-  - element_line_transparent
   - guides_grey
   - is_panel_dark
   - is_panel_light
   - jumble
-  - label_every_nth
   - pal_viridis_by_panel
   - standardise_width
   - viridis_by_panel

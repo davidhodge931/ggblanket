@@ -18,9 +18,6 @@
 #'
 #' @examples
 #' library(ggplot2)
-#' library(dplyr)
-#' library(stringr)
-#' library(palmerpenguins)
 #'
 #' set_blanket(
 #'   theme = theme_lighter(
@@ -29,26 +26,20 @@
 #'   ),
 #' )
 #'
-#' penguins |>
-#'   tidyr::drop_na(sex) |>
-#'   mutate(across(sex, \(x) str_to_sentence(x))) |>
-#'   gg_histogram(
-#'     x = flipper_length_mm,
-#'     col = sex,
-#'   ) +
-#'   annotate_axis_ticks(axis = "x", breaks = c(185, 195), position = "bottom")
-#'
-#' penguins |>
-#'   tidyr::drop_na(sex) |>
-#'   mutate(across(sex, \(x) str_to_sentence(x))) |>
+#' palmerpenguins::penguins |>
 #'   gg_blanket(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
-#'     col = sex,
+#'     x_title = "Flipper length",
+#'     y_title = "Body mass",
 #'   ) +
-#'   annotate_axis_ticks(axis = "x", breaks = c(185, 195, 205, 215, 225)) +
-#'   annotate_axis_ticks(axis = "y", breaks = c(3500, 4500, 5500)) +
-#'   geom_point()
+#'   annotate_axis_ticks(
+#'     axis = "y",
+#'     breaks = seq(3000, 6000, 1000),
+#'   ) +
+#'   geom_point(
+#'     colour = col_multiply(get_geom_defaults("point")$colour),
+#'   )
 #'
 annotate_axis_ticks <- function(
     axis,

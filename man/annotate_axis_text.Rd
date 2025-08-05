@@ -61,9 +61,6 @@ It requires a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 }
 \examples{
 library(ggplot2)
-library(dplyr)
-library(stringr)
-library(palmerpenguins)
 
 set_blanket(
   theme = theme_lighter(
@@ -72,35 +69,62 @@ set_blanket(
   ),
 )
 
-# Using vector labels
-penguins |>
-  tidyr::drop_na(sex) |>
-  mutate(across(sex, \(x) str_to_sentence(x))) |>
+p <- palmerpenguins::penguins |>
   gg_blanket(
     x = flipper_length_mm,
     y = body_mass_g,
-    col = sex,
-  ) +
-  annotate_axis_text(
-    axis = "x",
-    breaks = c(185, 195, 205, 215, 225),
-    labels = c("185mm", "195mm", "205mm", "215mm", "225mm")
-  ) +
-  geom_point()
+    x_title = "Flipper length",
+    y_title = "Body mass",
+  )
 
-# Using function labels
-penguins |>
-  gg_blanket(x = flipper_length_mm, y = body_mass_g) +
-  annotate_axis_text(
-    axis = "x",
-    breaks = c(185, 195, 205, 215, 225),
-    labels = function(x) paste0(x, "mm")
-  ) +
+y_breaks <- seq(2500, 6500, 500)
+
+key <- 4873
+
+p +
+  geom_hline(yintercept = key) +
   annotate_axis_text(
     axis = "y",
-    breaks = c(3500, 4500, 5500),
-    labels = function(x) paste0(x/1000, "kg")
+    breaks = key,
+    position = "right",
+    labels = scales::comma(key),
   ) +
-  geom_point()
+  geom_point(
+    colour = col_multiply(get_geom_defaults("point")$colour),
+  )
+
+p +
+  annotate_axis_text(
+    axis = "y",
+    breaks = 6500,
+    labels = "kg",
+    hjust = 0,
+    length = unit(0, "pt"),
+    theme_element = "keep",
+  ) +
+  annotate_axis_text(
+    axis = "x",
+    breaks = I(1),
+    labels = "mm",
+    hjust = 0,
+    margin = unit(1, "pt"),
+    theme_element = "keep",
+  ) +
+  geom_point(
+    colour = col_multiply(get_geom_defaults("point")$colour),
+  )
+
+p +
+  annotate_axis_text(
+    axis = "y",
+    breaks = y_breaks[-length(y_breaks)],
+    hjust = 0,
+    vjust = -0.4,
+    length = unit(0, "pt"),
+    theme_element = "blank",
+  ) +
+  geom_point(
+    colour = col_multiply(get_geom_defaults("point")$colour),
+  )
 
 }
