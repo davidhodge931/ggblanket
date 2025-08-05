@@ -13,15 +13,15 @@ standardise_width(
 )
 }
 \arguments{
-\item{n}{Number of categories in the actual plot}
+\item{n}{Number of categories (excluding dodge groups) in the plot with width to be standardised.}
 
-\item{dodge_n}{Number of dodge groups in the actual plot}
+\item{dodge_n}{Number of dodge groups in the plot with width to be standardised.}
 
-\item{aspect}{Aspect of actual plot ("x" or "y")}
+\item{aspect}{Aspect ("x" or "y") in the plot with width to be standardised.}
 
-\item{panel_widths}{Panel widths of actual plot}
+\item{panel_widths}{Panel widths in the plot with width to be standardised.}
 
-\item{panel_heights}{Panel heights of actual plot}
+\item{panel_heights}{Panel heights in the plot with width to be standardised.}
 }
 \description{
 Standardise the width against the reference, so that widths look the same across plots.

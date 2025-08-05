@@ -353,8 +353,7 @@ update_geom_font <- function(
   )
 }
 
-#' Update the geom abline/vline/hline
-#' Note abline updates on linewidth, but not on col.
+#' Update the geom hline/vline
 #'
 #' @description
 #' Updates the active theme to apply consistent reference line styling.
@@ -366,7 +365,7 @@ update_geom_font <- function(
 #' @return Updated geom defaults
 #'
 #' @noRd
-update_geom_reference <- function(
+update_geom_hvline <- function(
     ...,
     colour = NULL,
     linewidth = NULL

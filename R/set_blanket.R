@@ -107,7 +107,7 @@ set_blanket <- function(
 
   update_geom_font()
 
-  update_geom_reference()
+  update_geom_hvline()
 
   update_titles_case(titles_case = titles_case)
 

@@ -27,6 +27,7 @@ reference:
   - guides_grey
   - is_panel_dark
   - is_panel_light
+  - label_every_nth
   - jumble
   - pal_viridis_by_panel
   - standardise_width

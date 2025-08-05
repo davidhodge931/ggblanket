@@ -14,17 +14,17 @@ update_width_reference(
 )
 }
 \arguments{
-\item{width}{Width value for the reference standard}
+\item{width}{Width value for the reference standard.}
 
-\item{n}{Number of categories in the reference standard}
+\item{n}{Number of categories (excluding dodge groups) in the reference standard.}
 
-\item{dodge_n}{Number of dodge groups in reference standard}
+\item{dodge_n}{Number of dodge groups in reference standard.}
 
-\item{aspect}{Aspect of reference standard ("x" or "y")}
+\item{aspect}{Aspect of reference standard ("x" or "y").}
 
-\item{panel_heights}{Panel heights for reference standard}
+\item{panel_heights}{Panel heights for reference standard.}
 
-\item{panel_widths}{Panel widths for reference standard}
+\item{panel_widths}{Panel widths for reference standard.}
 }
 \description{
 Update the width reference used by \code{standardise_width}.

@@ -39,23 +39,24 @@ It requires a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 \examples{
 library(ggplot2)
 
-set_blanket(
-  theme = theme_lighter(
-    panel_heights = rep(unit(50, "mm"), 100),
-    panel_widths = rep(unit(75, "mm"), 100),
-  ),
-)
+set_blanket()
 
 palmerpenguins::penguins |>
   gg_blanket(
     x = flipper_length_mm,
     y = body_mass_g,
-    x_title = "Flipper length",
-    y_title = "Body mass",
+    facet = species,
+    y_breaks_n = 20,
+    y_labels = label_every_nth(),
   ) +
   annotate_panel_grid(
     axis = "y",
-    breaks = seq(2500, 6500, 250),
+    breaks = seq(2800, 6400, 400),
+    linewidth = rel(0.5),
+  ) +
+  annotate_panel_grid(
+    axis = "y",
+    breaks = seq(2600, 6200, 400),
   ) +
   geom_point(
     colour = col_multiply(get_geom_defaults("point")$colour),

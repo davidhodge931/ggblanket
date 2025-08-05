@@ -15,12 +15,12 @@ width_reference <- list(
 #' Update the width reference used by `standardise_width`.
 #'
 #'
-#' @param width Width value for the reference standard
-#' @param n Number of categories in the reference standard
-#' @param dodge_n Number of dodge groups in reference standard
-#' @param aspect Aspect of reference standard ("x" or "y")
-#' @param panel_heights Panel heights for reference standard
-#' @param panel_widths Panel widths for reference standard
+#' @param width Width value for the reference standard.
+#' @param n Number of categories (excluding dodge groups) in the reference standard.
+#' @param dodge_n Number of dodge groups in reference standard.
+#' @param aspect Aspect of reference standard ("x" or "y").
+#' @param panel_heights Panel heights for reference standard.
+#' @param panel_widths Panel widths for reference standard.
 #'
 #' @export
 update_width_reference <- function(
@@ -48,11 +48,11 @@ update_width_reference <- function(
 #' @description
 #' Standardise the width against the reference, so that widths look the same across plots.
 #'
-#' @param n Number of categories in the actual plot
-#' @param dodge_n Number of dodge groups in the actual plot
-#' @param aspect Aspect of actual plot ("x" or "y")
-#' @param panel_widths Panel widths of actual plot
-#' @param panel_heights Panel heights of actual plot
+#' @param n Number of categories (excluding dodge groups) in the plot with width to be standardised.
+#' @param dodge_n Number of dodge groups in the plot with width to be standardised.
+#' @param aspect Aspect ("x" or "y") in the plot with width to be standardised.
+#' @param panel_widths Panel widths in the plot with width to be standardised.
+#' @param panel_heights Panel heights in the plot with width to be standardised.
 #'
 #' @export
 #'
@@ -148,6 +148,17 @@ standardise_width <- function(
 ) {
   if (missing(n)) {
     rlang::abort("n must be specified")
+  }
+
+  # Input validation
+  if (!aspect %in% c("x", "y")) {
+    rlang::abort("aspect must be 'x' or 'y'")
+  }
+  if (n <= 0) {
+    rlang::abort("n must be positive")
+  }
+  if (dodge_n <= 0) {
+    rlang::abort("dodge_n must be positive")
   }
 
   # Get global standard
