@@ -23,7 +23,6 @@
 #' @param border_colour_transform A function with input of the set `col`.
 #' @param border_fill_transform A function with input of the set `col`.
 #' @param border_linewidth A number, or a function with input of the set linewidth.
-#' @param titles_case A function to apply to unspecified/unlabelled titles in `gg_*` functions.
 #' @param aspect_axis_line `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
 #' @param aspect_axis_ticks `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
 #' @param aspect_panel_grid `"transparent"`, `"blank"` or `"keep"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
@@ -70,7 +69,6 @@ set_blanket <- function(
     shape_na = 4,
     linetype_palette_d = 1:6,
 
-    titles_case = snakecase::to_sentence_case,
     aspect_axis_line = "transparent",
     aspect_axis_ticks = "transparent",
     aspect_panel_grid = "transparent",
@@ -108,8 +106,6 @@ set_blanket <- function(
   update_geom_font()
 
   update_geom_hvline()
-
-  update_titles_case(titles_case = titles_case)
 
   update_aspect(
     aspect_axis_line = aspect_axis_line,

@@ -50,7 +50,6 @@
 #' @param title Title string.
 #' @param subtitle Subtitle string.
 #' @param caption Caption title string.
-#' @param titles_case A function to format the title of unlabelled variables. Defaults to `snakecase::to_sentence_case`.
 #'
 #' @return A ggplot object.
 #' @export
@@ -160,8 +159,8 @@ gg_blanket <- function(
     facet_space = "fixed",
     title = NULL,
     subtitle = NULL,
-    caption = NULL,
-    titles_case = NULL
+    caption = NULL
+    
 ) {
   # Step 1: Handle NULL data
   if (rlang::is_null(data)) {
@@ -823,8 +822,6 @@ gg_blanket <- function(
     }
   }
 
-  titles_case <- get_titles_case(titles_case = titles_case)
-
   # Step 12: Check inputs
   validate_inputs(
     mapping,
@@ -1131,17 +1128,6 @@ gg_blanket <- function(
   }
 
   # Step 22: Get titles
-  # all_titles <- get_plot_titles(
-  #   data = data,
-  #   aes_list = aes_list,
-  #   plot_build = plot_build,
-  #   titles_case = titles_case,
-  #   stat_name = stat_name,
-  #   x_title = x_title,
-  #   y_title = y_title,
-  #   col_title = col_title
-  # )
-
   x_title <- process_title(x_title, aes_list$x, mapping, "x", stat_name, data, "x", plot)
   y_title <- process_title(y_title, aes_list$y, mapping, "y", stat_name, data, "y", plot)
   col_title <- process_title(col_title, aes_list$col, mapping, "col", stat_name, data, "col", plot)

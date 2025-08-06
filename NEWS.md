@@ -18,6 +18,7 @@ TO DO
 * Breaking: removed `gg_text` and `gg_label`. 
 * Breaking: removed `lightness` and `darkness`.
 * Breaking: adjusted `annotate_axis_line` arguments.
+* Breaking: removed `titles_case`.
 * Added defaults to `aes_contrast` to make it determine NULL colours based on theme.
 * Supported setting col/colour/fill palettes.
 * For dates etc, defaulted labels to `scales::label_date_short(leading = "")`.

@@ -101,8 +101,7 @@ gg_blanket(
   facet_space = "fixed",
   title = NULL,
   subtitle = NULL,
-  caption = NULL,
-  titles_case = NULL
+  caption = NULL
 )
 }
 \arguments{
@@ -195,8 +194,6 @@ gg_blanket(
 \item{subtitle}{Subtitle string.}
 
 \item{caption}{Caption title string.}
-
-\item{titles_case}{A function to format the title of unlabelled variables. Defaults to \code{snakecase::to_sentence_case}.}
 }
 \value{
 A ggplot object.

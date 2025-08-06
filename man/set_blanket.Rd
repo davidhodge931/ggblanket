@@ -25,7 +25,6 @@ set_blanket(
   shape_palette_d = c(21, 24, 22, 23, 25),
   shape_na = 4,
   linetype_palette_d = 1:6,
-  titles_case = snakecase::to_sentence_case,
   aspect_axis_line = "transparent",
   aspect_axis_ticks = "transparent",
   aspect_panel_grid = "transparent",
@@ -66,8 +65,6 @@ set_blanket(
 \item{shape_na}{A NA shape value.}
 
 \item{linetype_palette_d}{For linetype scales, a character vector or a \verb{scales::pal_*} function.}
-
-\item{titles_case}{A function to apply to unspecified/unlabelled titles in \verb{gg_*} functions.}
 
 \item{aspect_axis_line}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis line for an \code{"x"} \code{aspect}, and vice versa.}
 

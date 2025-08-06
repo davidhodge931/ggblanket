@@ -109,8 +109,8 @@ gg_bar <- function(
   facet_space = "fixed",
   title = NULL,
   subtitle = NULL,
-  caption = NULL,
-  titles_case = NULL
+  caption = NULL
+  
 ) {
   gg_blanket(
     data = data,
@@ -203,7 +203,7 @@ gg_bar <- function(
     title = title,
     subtitle = subtitle,
     caption = caption,
-    titles_case = titles_case,
+    
     ...
   )
 }

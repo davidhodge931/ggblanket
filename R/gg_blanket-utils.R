@@ -125,12 +125,6 @@ get_transform <- function(transform = NULL, scale_class = NULL) {
     )
 }
 
-#' Get titles case function
-#' @noRd
-get_titles_case <- function(titles_case = NULL) {
-  titles_case %||% getOption("ggblanket.titles_case", \(x) x)
-}
-
 #' Get aspect based on scale classes
 #' @noRd
 get_aspect <- function(aspect = NULL, x_scale_class, y_scale_class) {
@@ -1762,37 +1756,6 @@ is_border <- function(geom_name, theme_defaults) {
 
   return(is_border)
 }
-
-# Title extraction functions ----
-
-#' Get title for an aesthetic
-#' @description Extracts title from data label attribute, build label, or applies titles_case
-#' @noRd
-get_aes_title <- function(
-    data,
-    aes_quo,
-    build_label,
-    titles_case,
-    default = NULL
-) {
-  # Priority 1: Check for label attribute in data column
-  if (!rlang::quo_is_null(aes_quo)) {
-    data_col <- dplyr::pull(data, !!aes_quo)
-    label_attr <- attr(data_col, "label")
-    if (!rlang::is_null(label_attr)) {
-      return(label_attr)
-    }
-  }
-
-  # Priority 2: Use build label with titles_case
-  if (!rlang::is_null(build_label)) {
-    return(titles_case(rlang::as_name(build_label[1])))
-  }
-
-  # Priority 3: Return default
-  default
-}
-
 
 #' Create base ggplot from aesthetic list
 #' @noRd
