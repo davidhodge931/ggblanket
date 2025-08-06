@@ -38,14 +38,13 @@
 #'   )
 #'
 annotate_axis_line <- function(
-    axis,
-    ...,
-    position = NULL,
-    colour = NULL,
-    linewidth = NULL,
-    theme_element = "transparent"
+  axis,
+  ...,
+  position = NULL,
+  colour = NULL,
+  linewidth = NULL,
+  theme_element = "transparent"
 ) {
-
   # Validate arguments
   if (!axis %in% c("x", "y")) {
     rlang::abort("axis must be one of 'x' or 'y'")
@@ -65,7 +64,9 @@ annotate_axis_line <- function(
   }
 
   if (!theme_element %in% c("transparent", "keep", "blank")) {
-    rlang::abort("theme_element must be one of 'transparent', 'keep', or 'blank'")
+    rlang::abort(
+      "theme_element must be one of 'transparent', 'keep', or 'blank'"
+    )
   }
 
   # Get current theme
@@ -120,7 +121,8 @@ annotate_axis_line <- function(
           )
         )
       )
-    } else { # top
+    } else {
+      # top
       stamp <- c(
         stamp,
         list(
@@ -138,7 +140,8 @@ annotate_axis_line <- function(
         )
       )
     }
-  } else { # y-axis
+  } else {
+    # y-axis
     if (position == "left") {
       stamp <- c(
         stamp,
@@ -156,7 +159,8 @@ annotate_axis_line <- function(
           )
         )
       )
-    } else { # right
+    } else {
+      # right
       stamp <- c(
         stamp,
         list(

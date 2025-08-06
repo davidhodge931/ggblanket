@@ -12,12 +12,12 @@
 #'
 #' @export
 update_geom_border <- function(
-    ...,
-    border_colour_transform = \(x) {
-      ifelse(is_panel_dark(), col_screen(x), col_multiply(x))
-    },
-    border_fill_transform = NULL,
-    border_linewidth = 0.25
+  ...,
+  border_colour_transform = \(x) {
+    ifelse(is_panel_dark(), col_screen(x), col_multiply(x))
+  },
+  border_fill_transform = NULL,
+  border_linewidth = 0.25
 ) {
   options(
     ggblanket.border_colour_transform = border_colour_transform,
@@ -25,7 +25,9 @@ update_geom_border <- function(
   )
 
   if (is.function(border_linewidth)) {
-    border_linewidth <- border_linewidth(ggplot2::get_geom_defaults("line")$linewidth)
+    border_linewidth <- border_linewidth(
+      ggplot2::get_geom_defaults("line")$linewidth
+    )
   }
 
   ggplot2::update_theme(

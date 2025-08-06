@@ -18,23 +18,28 @@
 #' @return A ggplot guides specification.
 #' @export
 guides_grey <- function(
-    aesthetic,
-    col = "#8991A1",
-    colour = NULL,
-    fill = NULL,
-    border = NULL,
-    border_colour_transform = NULL,
-    border_fill_transform = NULL,
-    ...
+  aesthetic,
+  col = "#8991A1",
+  colour = NULL,
+  fill = NULL,
+  border = NULL,
+  border_colour_transform = NULL,
+  border_fill_transform = NULL,
+  ...
 ) {
-
-  if (rlang::is_null(border_colour_transform)) border_colour_transform <- getOption("ggblanket.border_colour_transform")
-  if (rlang::is_null(border_fill_transform)) border_fill_transform <- getOption("ggblanket.border_fill_transform")
+  if (rlang::is_null(border_colour_transform)) {
+    border_colour_transform <- getOption("ggblanket.border_colour_transform")
+  }
+  if (rlang::is_null(border_fill_transform)) {
+    border_fill_transform <- getOption("ggblanket.border_fill_transform")
+  }
 
   # Direct overrides take precedence
   if (!rlang::is_null(colour) || !rlang::is_null(fill)) {
     override_aes <- list()
-    if (!rlang::is_null(colour)) override_aes$colour <- colour
+    if (!rlang::is_null(colour)) {
+      override_aes$colour <- colour
+    }
     if (!rlang::is_null(fill)) override_aes$fill <- fill
   } else {
     # Determine if we should treat as border
@@ -67,7 +72,10 @@ guides_grey <- function(
       # Apply transformations unless explicitly disabled (NA)
       if (is.function(border_colour_transform)) {
         override_colour <- border_colour_transform(col)
-      } else if (!rlang::is_null(border_colour_transform) && is.na(border_colour_transform)) {
+      } else if (
+        !rlang::is_null(border_colour_transform) &&
+          is.na(border_colour_transform)
+      ) {
         override_colour <- col
       } else {
         override_colour <- border_colour_transform

@@ -14,10 +14,15 @@ update_aspect <- function(
   aspect_axis_ticks = "transparent",
   aspect_panel_grid = "transparent"
 ) {
-
-  if (!aspect_axis_line %in% c("transparent", "blank", "keep")) rlang::abort("aspect_axis_line must be 'transparent', 'blank', or 'keep'")
-  if (!aspect_axis_ticks %in% c("transparent", "blank", "keep")) rlang::abort("aspect_axis_ticks must be 'transparent', 'blank', or 'keep'")
-  if (!aspect_panel_grid %in% c("transparent", "blank", "keep")) rlang::abort("aspect_panel_grid must be 'transparent', 'blank', or 'keep'")
+  if (!aspect_axis_line %in% c("transparent", "blank", "keep")) {
+    rlang::abort("aspect_axis_line must be 'transparent', 'blank', or 'keep'")
+  }
+  if (!aspect_axis_ticks %in% c("transparent", "blank", "keep")) {
+    rlang::abort("aspect_axis_ticks must be 'transparent', 'blank', or 'keep'")
+  }
+  if (!aspect_panel_grid %in% c("transparent", "blank", "keep")) {
+    rlang::abort("aspect_panel_grid must be 'transparent', 'blank', or 'keep'")
+  }
 
   options(
     ggblanket.aspect_axis_line = aspect_axis_line,

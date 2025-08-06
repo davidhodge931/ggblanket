@@ -218,7 +218,7 @@ test_that("bordered style works", {
 test_that("gg_blanket with custom geom works", {
   expand.grid(x = 1:10, y = 1:10) |>
     tibble() |>
-    mutate(angle = runif(100, 0, 2*pi)) |>
+    mutate(angle = runif(100, 0, 2 * pi)) |>
     mutate(speed = runif(100, 0, sqrt(0.1 * x))) |>
     gg_blanket(
       geom = "spoke",

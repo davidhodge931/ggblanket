@@ -79,13 +79,13 @@ test_that("gg_contour_filled works", {
 })
 
 test_that("gg_crossbar works", {
-
   data.frame(
     trt = factor(c(1, 1, 2, 2)),
     resp = c(1, 5, 3, 4),
     group = factor(c(1, 2, 1, 2)),
     upper = c(1.1, 5.3, 3.3, 4.2),
-    lower = c(0.8, 4.6, 2.4, 3.6)) |>
+    lower = c(0.8, 4.6, 2.4, 3.6)
+  ) |>
     labelled::set_variable_labels(
       trt = "Treatment",
       resp = "Response"
@@ -134,7 +134,8 @@ test_that("gg_errorbar works", {
     resp = c(1, 5, 3, 4),
     group = factor(c(1, 2, 1, 2)),
     upper = c(1.1, 5.3, 3.3, 4.2),
-    lower = c(0.8, 4.6, 2.4, 3.6)) |>
+    lower = c(0.8, 4.6, 2.4, 3.6)
+  ) |>
     labelled::set_variable_labels(
       trt = "Treatment",
       resp = "Response"
@@ -216,7 +217,8 @@ test_that("gg_linerange works", {
     resp = c(1, 5, 3, 4),
     group = factor(c(1, 2, 1, 2)),
     upper = c(1.1, 5.3, 3.3, 4.2),
-    lower = c(0.8, 4.6, 2.4, 3.6)) |>
+    lower = c(0.8, 4.6, 2.4, 3.6)
+  ) |>
     labelled::set_variable_labels(
       trt = "Treatment",
       resp = "Response"
@@ -259,7 +261,8 @@ test_that("gg_pointrange works", {
     resp = c(1, 5, 3, 4),
     group = factor(c(1, 2, 1, 2)),
     upper = c(1.1, 5.3, 3.3, 4.2),
-    lower = c(0.8, 4.6, 2.4, 3.6)) |>
+    lower = c(0.8, 4.6, 2.4, 3.6)
+  ) |>
     labelled::set_variable_labels(
       trt = "Treatment",
       resp = "Response"
@@ -285,10 +288,58 @@ test_that("gg_polygon works", {
 
   positions <- data.frame(
     id = rep(ids, each = 4),
-    x = c(2, 1, 1.1, 2.2, 1, 0, 0.3, 1.1, 2.2, 1.1, 1.2, 2.5, 1.1, 0.3,
-          0.5, 1.2, 2.5, 1.2, 1.3, 2.7, 1.2, 0.5, 0.6, 1.3),
-    y = c(-0.5, 0, 1, 0.5, 0, 0.5, 1.5, 1, 0.5, 1, 2.1, 1.7, 1, 1.5,
-          2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2)
+    x = c(
+      2,
+      1,
+      1.1,
+      2.2,
+      1,
+      0,
+      0.3,
+      1.1,
+      2.2,
+      1.1,
+      1.2,
+      2.5,
+      1.1,
+      0.3,
+      0.5,
+      1.2,
+      2.5,
+      1.2,
+      1.3,
+      2.7,
+      1.2,
+      0.5,
+      0.6,
+      1.3
+    ),
+    y = c(
+      -0.5,
+      0,
+      1,
+      0.5,
+      0,
+      0.5,
+      1.5,
+      1,
+      0.5,
+      1,
+      2.1,
+      1.7,
+      1,
+      1.5,
+      2.2,
+      2.1,
+      1.7,
+      2.1,
+      3.2,
+      2.8,
+      2.1,
+      2.2,
+      3.3,
+      3.2
+    )
   )
 
   datapoly <- merge(values, positions, by = c("id"))
@@ -332,7 +383,8 @@ test_that("gg_rect works", {
     x = rep(c(2, 5, 7, 9, 12), 2),
     y = rep(c(1, 2), each = 5),
     z = factor(c(rep(1:4, each = 2), 5, NA)),
-    w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)) |>
+    w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
+  ) |>
     mutate(
       xmin = x - w / 2,
       xmax = x + w / 2,

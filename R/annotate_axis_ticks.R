@@ -42,16 +42,15 @@
 #'   )
 #'
 annotate_axis_ticks <- function(
-    axis,
-    ...,
-    breaks,
-    position = NULL,
-    colour = NULL,
-    linewidth = NULL,
-    length = NULL,
-    theme_element = "transparent"
+  axis,
+  ...,
+  breaks,
+  position = NULL,
+  colour = NULL,
+  linewidth = NULL,
+  length = NULL,
+  theme_element = "transparent"
 ) {
-
   # Validate arguments
   if (!axis %in% c("x", "y")) {
     rlang::abort("axis must be one of 'x' or 'y'")
@@ -71,7 +70,9 @@ annotate_axis_ticks <- function(
   }
 
   if (!theme_element %in% c("transparent", "keep", "blank")) {
-    rlang::abort("theme_element must be one of 'transparent', 'keep', or 'blank'")
+    rlang::abort(
+      "theme_element must be one of 'transparent', 'keep', or 'blank'"
+    )
   }
 
   # Check if panel dimensions are set
@@ -88,17 +89,29 @@ annotate_axis_ticks <- function(
   # Validate panel dimensions for the specific axis
   if (axis == "x") {
     if (rlang::is_null(panel_heights)) {
-      rlang::abort("panel.heights must be set in theme for x-axis tick annotation")
+      rlang::abort(
+        "panel.heights must be set in theme for x-axis tick annotation"
+      )
     }
-    if (length(panel_heights) > 1 && length(unique(as.numeric(panel_heights))) > 1) {
-      rlang::abort("Different panel heights set. This function only works with uniform panel dimensions.")
+    if (
+      length(panel_heights) > 1 && length(unique(as.numeric(panel_heights))) > 1
+    ) {
+      rlang::abort(
+        "Different panel heights set. This function only works with uniform panel dimensions."
+      )
     }
   } else {
     if (rlang::is_null(panel_widths)) {
-      rlang::abort("panel.widths must be set in theme for y-axis tick annotation")
+      rlang::abort(
+        "panel.widths must be set in theme for y-axis tick annotation"
+      )
     }
-    if (length(panel_widths) > 1 && length(unique(as.numeric(panel_widths))) > 1) {
-      rlang::abort("Different panel widths set. This function only works with uniform panel dimensions.")
+    if (
+      length(panel_widths) > 1 && length(unique(as.numeric(panel_widths))) > 1
+    ) {
+      rlang::abort(
+        "Different panel widths set. This function only works with uniform panel dimensions."
+      )
     }
   }
 
@@ -174,7 +187,8 @@ annotate_axis_ticks <- function(
             lineend = "butt"
           )
         )
-      } else { # top
+      } else {
+        # top
         grid::segmentsGrob(
           x0 = grid::unit(0.5, "npc"),
           x1 = grid::unit(0.5, "npc"),
@@ -193,7 +207,8 @@ annotate_axis_ticks <- function(
       } else {
         list(xmin = break_val, xmax = break_val, ymin = Inf, ymax = Inf)
       }
-    } else { # y-axis
+    } else {
+      # y-axis
       tick_grob <- if (position == "left") {
         grid::segmentsGrob(
           x0 = grid::unit(0, "npc"),
@@ -206,7 +221,8 @@ annotate_axis_ticks <- function(
             lineend = "butt"
           )
         )
-      } else { # right
+      } else {
+        # right
         grid::segmentsGrob(
           x0 = grid::unit(1, "npc"),
           x1 = grid::unit(1, "npc") + length,

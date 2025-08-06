@@ -22,7 +22,6 @@ set_blanket()
 
 # Basic point plots
 test_that("point plots render correctly", {
-
   expect_doppelganger("point_basic", {
     palmerpenguins::penguins |>
       gg_point(
@@ -79,7 +78,6 @@ test_that("point plots render correctly", {
 
 # Histogram tests
 test_that("histograms render correctly", {
-
   expect_doppelganger("hist_density_labeled", {
     penguins2 |>
       gg_histogram(
@@ -91,7 +89,6 @@ test_that("histograms render correctly", {
 
 # Boxplot tests
 test_that("boxplots render correctly", {
-
   expect_doppelganger("boxplot_labeled", {
     penguins2 |>
       tidyr::drop_na(sex) |>
@@ -106,7 +103,6 @@ test_that("boxplots render correctly", {
 
 # Computed variable tests (these should show proper titles, not "Col")
 test_that("computed variable titles render correctly", {
-
   expect_doppelganger("hex_count", {
     penguins2 |>
       gg_hex(
@@ -126,7 +122,6 @@ test_that("computed variable titles render correctly", {
 
 # Label priority tests
 test_that("label priorities work correctly", {
-
   # Test labeled data uses labels
   expect_doppelganger("labeled_data", {
     penguins2 |>

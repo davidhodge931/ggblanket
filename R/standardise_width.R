@@ -24,21 +24,33 @@ width_reference <- list(
 #'
 #' @export
 update_width_reference <- function(
-    width = NULL,
-    n = NULL,
-    dodge_n = NULL,
-    aspect = NULL,
-    panel_heights = NULL,
-    panel_widths = NULL
+  width = NULL,
+  n = NULL,
+  dodge_n = NULL,
+  aspect = NULL,
+  panel_heights = NULL,
+  panel_widths = NULL
 ) {
   width_reference <- getOption("ggblanket.width_reference", width_reference)
 
-  if (!rlang::is_null(width)) width_reference$width <- width
-  if (!rlang::is_null(n)) width_reference$n <- n
-  if (!rlang::is_null(dodge_n)) width_reference$dodge_n <- dodge_n
-  if (!rlang::is_null(aspect)) width_reference$aspect <- aspect
-  if (!rlang::is_null(panel_heights)) width_reference$panel_heights <- panel_heights
-  if (!rlang::is_null(panel_widths)) width_reference$panel_widths <- panel_widths
+  if (!rlang::is_null(width)) {
+    width_reference$width <- width
+  }
+  if (!rlang::is_null(n)) {
+    width_reference$n <- n
+  }
+  if (!rlang::is_null(dodge_n)) {
+    width_reference$dodge_n <- dodge_n
+  }
+  if (!rlang::is_null(aspect)) {
+    width_reference$aspect <- aspect
+  }
+  if (!rlang::is_null(panel_heights)) {
+    width_reference$panel_heights <- panel_heights
+  }
+  if (!rlang::is_null(panel_widths)) {
+    width_reference$panel_widths <- panel_widths
+  }
 
   options(ggblanket.width_reference = width_reference)
 }
@@ -140,11 +152,11 @@ update_width_reference <- function(
 #'   coord_cartesian(reverse = "y", clip = "off")
 #'
 standardise_width <- function(
-    n,
-    dodge_n = 1,
-    aspect = "x",
-    panel_widths = ggplot2::theme_get()$panel.widths,
-    panel_heights = ggplot2::theme_get()$panel.heights
+  n,
+  dodge_n = 1,
+  aspect = "x",
+  panel_widths = ggplot2::theme_get()$panel.widths,
+  panel_heights = ggplot2::theme_get()$panel.heights
 ) {
   if (missing(n)) {
     rlang::abort("n must be specified")
@@ -167,9 +179,9 @@ standardise_width <- function(
   # Validation
   if (
     rlang::is_null(panel_widths) |
-    rlang::is_null(panel_heights) |
-    rlang::is_null(ws$panel_widths) |
-    rlang::is_null(ws$panel_heights)
+      rlang::is_null(panel_heights) |
+      rlang::is_null(ws$panel_widths) |
+      rlang::is_null(ws$panel_heights)
   ) {
     rlang::abort("panel widths and heights must be set or specified")
   }
@@ -187,12 +199,20 @@ standardise_width <- function(
   # Panel dimension adjustment
   if (
     !rlang::is_null(ws$panel_widths) |
-    !rlang::is_null(ws$panel_heights) |
-    !rlang::is_null(panel_widths) |
-    !rlang::is_null(panel_heights)
+      !rlang::is_null(ws$panel_heights) |
+      !rlang::is_null(panel_widths) |
+      !rlang::is_null(panel_heights)
   ) {
-    from_dim <- if (aspect == "x") as.numeric(panel_widths)[1] else as.numeric(panel_heights)[1]
-    to_dim <- if (ws$aspect == "x") as.numeric(ws$panel_widths)[1] else as.numeric(ws$panel_heights)[1]
+    from_dim <- if (aspect == "x") {
+      as.numeric(panel_widths)[1]
+    } else {
+      as.numeric(panel_heights)[1]
+    }
+    to_dim <- if (ws$aspect == "x") {
+      as.numeric(ws$panel_widths)[1]
+    } else {
+      as.numeric(ws$panel_heights)[1]
+    }
     scaling_factor <- to_dim / from_dim
     width <- width * scaling_factor
   }

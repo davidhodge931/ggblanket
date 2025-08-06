@@ -41,22 +41,23 @@
 #'   )
 #'
 annotate_panel_grid <- function(
-    axis,
-    ...,
-    breaks,
-    colour = NULL,
-    linewidth = NULL,
-    linetype = NULL,
-    theme_element = "transparent"
+  axis,
+  ...,
+  breaks,
+  colour = NULL,
+  linewidth = NULL,
+  linetype = NULL,
+  theme_element = "transparent"
 ) {
-
   # Validate arguments
   if (!axis %in% c("x", "y")) {
     rlang::abort("axis must be one of 'x' or 'y'")
   }
 
   if (!theme_element %in% c("transparent", "keep", "blank")) {
-    rlang::abort("theme_element must be one of 'transparent', 'keep', or 'blank'")
+    rlang::abort(
+      "theme_element must be one of 'transparent', 'keep', or 'blank'"
+    )
   }
 
   # Get current theme
@@ -93,35 +94,49 @@ annotate_panel_grid <- function(
   # Add theme modification if requested
   if (theme_element == "transparent") {
     if (axis == "x") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(
-          panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
-          panel.grid.minor.x = ggplot2::element_line(colour = "transparent")
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(
+            panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
+            panel.grid.minor.x = ggplot2::element_line(colour = "transparent")
+          )
         )
-      ))
-    } else { # y
-      stamp <- c(stamp, list(
-        ggplot2::theme(
-          panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
-          panel.grid.minor.y = ggplot2::element_line(colour = "transparent")
+      )
+    } else {
+      # y
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(
+            panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
+            panel.grid.minor.y = ggplot2::element_line(colour = "transparent")
+          )
         )
-      ))
+      )
     }
   } else if (theme_element == "blank") {
     if (axis == "x") {
-      stamp <- c(stamp, list(
-        ggplot2::theme(
-          panel.grid.major.x = ggplot2::element_blank(),
-          panel.grid.minor.x = ggplot2::element_blank()
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(
+            panel.grid.major.x = ggplot2::element_blank(),
+            panel.grid.minor.x = ggplot2::element_blank()
+          )
         )
-      ))
-    } else { # y
-      stamp <- c(stamp, list(
-        ggplot2::theme(
-          panel.grid.major.y = ggplot2::element_blank(),
-          panel.grid.minor.y = ggplot2::element_blank()
+      )
+    } else {
+      # y
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(
+            panel.grid.major.y = ggplot2::element_blank(),
+            panel.grid.minor.y = ggplot2::element_blank()
+          )
         )
-      ))
+      )
     }
   }
 
@@ -144,7 +159,8 @@ annotate_panel_grid <- function(
         )
       )
     )
-  } else { # y-axis
+  } else {
+    # y-axis
     # Add horizontal grid lines
     stamp <- c(
       stamp,

@@ -91,21 +91,21 @@
 #'   )
 #'
 annotate_axis_text <- function(
-    axis,
-    ...,
-    breaks,
-    position = NULL,
-    labels = NULL,
-    colour = NULL,
-    size = NULL,
-    family = NULL,
-    length = NULL,
-    margin = NULL,
-    fill = NULL,
-    hjust = NULL,
-    vjust = NULL,
-    angle = 0,
-    theme_element = "transparent"
+  axis,
+  ...,
+  breaks,
+  position = NULL,
+  labels = NULL,
+  colour = NULL,
+  size = NULL,
+  family = NULL,
+  length = NULL,
+  margin = NULL,
+  fill = NULL,
+  hjust = NULL,
+  vjust = NULL,
+  angle = 0,
+  theme_element = "transparent"
 ) {
   # Validate axis argument
   if (!axis %in% c("x", "y")) {
@@ -174,17 +174,29 @@ annotate_axis_text <- function(
   # Validate uniform panel dimensions for the specific axis
   if (axis == "x") {
     if (rlang::is_null(panel_heights)) {
-      rlang::abort("panel.heights must be set in theme for x-axis text annotation")
+      rlang::abort(
+        "panel.heights must be set in theme for x-axis text annotation"
+      )
     }
-    if (length(panel_heights) > 1 && length(unique(as.numeric(panel_heights))) > 1) {
-      rlang::abort("Different panel heights set. This function only works with uniform panel dimensions.")
+    if (
+      length(panel_heights) > 1 && length(unique(as.numeric(panel_heights))) > 1
+    ) {
+      rlang::abort(
+        "Different panel heights set. This function only works with uniform panel dimensions."
+      )
     }
   } else {
     if (rlang::is_null(panel_widths)) {
-      rlang::abort("panel.widths must be set in theme for y-axis text annotation")
+      rlang::abort(
+        "panel.widths must be set in theme for y-axis text annotation"
+      )
     }
-    if (length(panel_widths) > 1 && length(unique(as.numeric(panel_widths))) > 1) {
-      rlang::abort("Different panel widths set. This function only works with uniform panel dimensions.")
+    if (
+      length(panel_widths) > 1 && length(unique(as.numeric(panel_widths))) > 1
+    ) {
+      rlang::abort(
+        "Different panel widths set. This function only works with uniform panel dimensions."
+      )
     }
   }
 
@@ -242,10 +254,14 @@ annotate_axis_text <- function(
 
   # Helper function to resolve theme size (handles rel() objects)
   resolve_theme_size <- function(theme_size, base_theme_size, default = 11) {
-    if (rlang::is_null(theme_size)) return(default)
+    if (rlang::is_null(theme_size)) {
+      return(default)
+    }
 
     if (inherits(theme_size, "rel")) {
-      base_size <- if (rlang::is_null(base_theme_size) || inherits(base_theme_size, "rel")) {
+      base_size <- if (
+        rlang::is_null(base_theme_size) || inherits(base_theme_size, "rel")
+      ) {
         default
       } else {
         base_theme_size
@@ -278,15 +294,19 @@ annotate_axis_text <- function(
 
   # Set text justification based on axis and position
   if (axis == "x") {
-    text_hjust <- if (rlang::is_null(hjust)) 0.5 else hjust  # center horizontally
+    text_hjust <- if (rlang::is_null(hjust)) 0.5 else hjust # center horizontally
     text_vjust <- if (rlang::is_null(vjust)) {
-      if (position == "bottom") 1 else 0  # top-align for bottom, bottom-align for top
-    } else vjust
+      if (position == "bottom") 1 else 0 # top-align for bottom, bottom-align for top
+    } else {
+      vjust
+    }
   } else {
     text_hjust <- if (rlang::is_null(hjust)) {
-      if (position == "left") 1 else 0  # right-align for left, left-align for right
-    } else hjust
-    text_vjust <- if (rlang::is_null(vjust)) 0.5 else vjust  # center vertically
+      if (position == "left") 1 else 0 # right-align for left, left-align for right
+    } else {
+      hjust
+    }
+    text_vjust <- if (rlang::is_null(vjust)) 0.5 else vjust # center vertically
   }
 
   # Initialize list to store annotation layers and theme modifications
@@ -327,8 +347,8 @@ annotate_axis_text <- function(
         } else {
           grid::unit(1, "npc") + length
         },
-        width = text_width + margin_left + margin_right,  # Add left and right margins
-        height = text_height + margin_top + margin_bottom,  # Add top and bottom margins
+        width = text_width + margin_left + margin_right, # Add left and right margins
+        height = text_height + margin_top + margin_bottom, # Add top and bottom margins
         hjust = text_hjust,
         vjust = text_vjust,
         gp = grid::gpar(
@@ -340,11 +360,11 @@ annotate_axis_text <- function(
       # Create text grob for x-axis
       text_grob <- grid::textGrob(
         label = labels[i],
-        x = grid::unit(0.5, "npc"),  # centered horizontally
+        x = grid::unit(0.5, "npc"), # centered horizontally
         y = if (position == "bottom") {
-          grid::unit(0, "npc") - length  # below panel
+          grid::unit(0, "npc") - length # below panel
         } else {
-          grid::unit(1, "npc") + length  # above panel
+          grid::unit(1, "npc") + length # above panel
         },
         hjust = text_hjust,
         vjust = text_vjust,
@@ -382,8 +402,8 @@ annotate_axis_text <- function(
           grid::unit(1, "npc") + length
         },
         y = grid::unit(0.5, "npc"),
-        width = text_width + margin_left + margin_right,  # Add left and right margins
-        height = text_height + margin_top + margin_bottom,  # Add top and bottom margins
+        width = text_width + margin_left + margin_right, # Add left and right margins
+        height = text_height + margin_top + margin_bottom, # Add top and bottom margins
         hjust = text_hjust,
         vjust = text_vjust,
         gp = grid::gpar(
@@ -396,11 +416,11 @@ annotate_axis_text <- function(
       text_grob <- grid::textGrob(
         label = labels[i],
         x = if (position == "left") {
-          grid::unit(0, "npc") - length  # left of panel
+          grid::unit(0, "npc") - length # left of panel
         } else {
-          grid::unit(1, "npc") + length  # right of panel
+          grid::unit(1, "npc") + length # right of panel
         },
-        y = grid::unit(0.5, "npc"),  # centered vertically
+        y = grid::unit(0.5, "npc"), # centered vertically
         hjust = text_hjust,
         vjust = text_vjust,
         rot = angle,

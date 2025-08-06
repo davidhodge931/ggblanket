@@ -10,7 +10,7 @@
 #'
 #' @export
 update_geom_col <- function(
-    col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
+  col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
   ...
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(colour = col, fill = col))
@@ -129,8 +129,8 @@ update_geom_linetype <- function(
 #'
 #' @export
 update_geom_linewidth <- function(
-    linewidth = 0.5,
-    ...
+  linewidth = 0.5,
+  ...
 ) {
   ggplot2::update_theme(
     geom.abline = ggplot2::element_geom(
@@ -236,8 +236,8 @@ update_geom_linewidth <- function(
 #'
 #' @export
 update_geom_size <- function(
-    size = 1.5,
-    ...
+  size = 1.5,
+  ...
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(pointsize = size))
 }
@@ -254,8 +254,8 @@ update_geom_size <- function(
 #'
 #' @export
 update_geom_stroke <- function(
-    stroke = 0.5,
-    ...
+  stroke = 0.5,
+  ...
 ) {
   ggplot2::update_theme(
     geom.point = ggplot2::element_geom(borderwidth = stroke),
@@ -280,11 +280,11 @@ update_geom_stroke <- function(
 #'
 #' @noRd
 update_geom_font <- function(
-    ...,
-    colour = NULL,
-    fill = NULL,
-    size = NULL,
-    family = NULL
+  ...,
+  colour = NULL,
+  fill = NULL,
+  size = NULL,
+  family = NULL
 ) {
   # Get current theme for font defaults
   current_theme <- ggplot2::get_theme()
@@ -366,9 +366,9 @@ update_geom_font <- function(
 #'
 #' @noRd
 update_geom_hvline <- function(
-    ...,
-    colour = NULL,
-    linewidth = NULL
+  ...,
+  colour = NULL,
+  linewidth = NULL
 ) {
   # Get current theme for font defaults
   current_theme <- ggplot2::get_theme()

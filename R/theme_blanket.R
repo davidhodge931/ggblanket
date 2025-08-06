@@ -179,7 +179,9 @@ theme_blanket <- function(
     panel.grid.major = NULL,
     panel.grid.major.x = NULL,
     panel.grid.major.y = NULL,
-    panel.grid.minor = ggplot2::element_line(linewidth = panel_grid_minor_linewidth),
+    panel.grid.minor = ggplot2::element_line(
+      linewidth = panel_grid_minor_linewidth
+    ),
     panel.grid.minor.x = NULL,
     panel.grid.minor.y = NULL,
     panel.spacing = grid::unit(11 * 2, "pt"),

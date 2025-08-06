@@ -41,7 +41,8 @@ gg_smooth <- function(
   aspect = NULL,
   aspect_axis_line = NULL,
   aspect_axis_ticks = NULL,
-  aspect_panel_grid = NULL,  blend = NULL,
+  aspect_panel_grid = NULL,
+  blend = NULL,
 
   x = NULL,
   xmin = NULL,
@@ -80,7 +81,8 @@ gg_smooth <- function(
   x_position = "bottom",
   x_sec_axis = ggplot2::waiver(),
 
-  x_limits_to_breaks = NULL, x_transform = NULL,
+  x_limits_to_breaks = NULL,
+  x_transform = NULL,
   y_breaks = NULL,
   y_breaks_n = NULL,
   y_expand = NULL,
@@ -90,7 +92,8 @@ gg_smooth <- function(
   y_position = "left",
   y_sec_axis = ggplot2::waiver(),
 
-  y_limits_to_breaks = NULL, y_transform = NULL,
+  y_limits_to_breaks = NULL,
+  y_transform = NULL,
   col_breaks = ggplot2::waiver(),
   col_breaks_n = NULL,
   col_drop = FALSE,
@@ -109,7 +112,15 @@ gg_smooth <- function(
   colour_palette = NULL,
   colour_na = NULL,
   fill_palette = NULL,
-  fill_na = NULL, alpha_title = snakecase::to_sentence_case, shape_palette = NULL, shape_na = NULL, shape_title = snakecase::to_sentence_case, linetype_palette = NULL, linetype_title = snakecase::to_sentence_case, linewidth_title = snakecase::to_sentence_case, size_title = snakecase::to_sentence_case,
+  fill_na = NULL,
+  alpha_title = snakecase::to_sentence_case,
+  shape_palette = NULL,
+  shape_na = NULL,
+  shape_title = snakecase::to_sentence_case,
+  linetype_palette = NULL,
+  linetype_title = snakecase::to_sentence_case,
+  linewidth_title = snakecase::to_sentence_case,
+  size_title = snakecase::to_sentence_case,
   facet_axes = NULL,
   facet_axis_labels = "margins",
   facet_drop = FALSE,
@@ -122,7 +133,6 @@ gg_smooth <- function(
   title = NULL,
   subtitle = NULL,
   caption = NULL
-  
 ) {
   gg_blanket(
     data = data,
@@ -170,7 +180,8 @@ gg_smooth <- function(
 
     x_position = x_position,
     x_title = x_title,
-    x_transform = x_transform, x_limits_to_breaks = x_limits_to_breaks,
+    x_transform = x_transform,
+    x_limits_to_breaks = x_limits_to_breaks,
     y_breaks = y_breaks,
     y_expand = y_expand,
     y_limits_include = y_limits_include,
@@ -180,7 +191,8 @@ gg_smooth <- function(
 
     y_position = y_position,
     y_title = y_title,
-    y_transform = y_transform, y_limits_to_breaks = y_limits_to_breaks,
+    y_transform = y_transform,
+    y_limits_to_breaks = y_limits_to_breaks,
     border = border,
     border_colour_transform = border_colour_transform,
     border_fill_transform = border_fill_transform,
@@ -202,7 +214,15 @@ gg_smooth <- function(
     colour_palette = colour_palette,
     colour_na = colour_na,
     fill_palette = fill_palette,
-    fill_na = fill_na, alpha_title = alpha_title, shape_palette = shape_palette, shape_na = shape_na, shape_title = shape_title, linetype_palette = linetype_palette, linetype_title = linetype_title, linewidth_title = linewidth_title, size_title = size_title,
+    fill_na = fill_na,
+    alpha_title = alpha_title,
+    shape_palette = shape_palette,
+    shape_na = shape_na,
+    shape_title = shape_title,
+    linetype_palette = linetype_palette,
+    linetype_title = linetype_title,
+    linewidth_title = linewidth_title,
+    size_title = size_title,
     facet_axes = facet_axes,
     facet_axis_labels = facet_axis_labels,
     facet_drop = facet_drop,
@@ -215,7 +235,7 @@ gg_smooth <- function(
     title = title,
     subtitle = subtitle,
     caption = caption,
-    
+
     ...
   )
 }

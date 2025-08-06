@@ -240,7 +240,6 @@ test_that("legend positioning works", {
 })
 
 test_that("panel sizes work", {
-
   penguins |>
     gg_point(
       x = bill_length_mm,
@@ -331,7 +330,7 @@ test_that("annotate_axis_line works", {
     ) +
     annotate_axis_line("x", position = "bottom") +
     annotate_axis_ticks("x", breaks = 210, position = "bottom")
-    geom_point()
+  geom_point()
 })
 
 test_that("annotate_axis_ticks works", {

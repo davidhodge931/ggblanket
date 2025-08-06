@@ -46,33 +46,33 @@
 #' )
 #'
 set_blanket <- function(
-    theme = theme_lighter(),
+  theme = theme_lighter(),
 
-    col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
-    linewidth = 0.66,
-    linetype = 1,
-    size = 1.5,
-    shape = 21,
-    stroke = 0.5,
+  col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
+  linewidth = 0.66,
+  linetype = 1,
+  size = 1.5,
+  shape = 21,
+  stroke = 0.5,
 
-    border_colour_transform = \(x) {
-      ifelse(is_panel_dark(), col_screen(x), col_multiply(x))
-    },
-    border_fill_transform = NULL,
-    border_linewidth = 0.25,
+  border_colour_transform = \(x) {
+    ifelse(is_panel_dark(), col_screen(x), col_multiply(x))
+  },
+  border_fill_transform = NULL,
+  border_linewidth = 0.25,
 
-    col_palette_d = scales::pal_hue(),
-    col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
-    col_palette_o = NULL,
-    col_na = "#A6A6A6FF",
-    shape_palette_d = c(21, 24, 22, 23, 25),
-    shape_na = 4,
-    linetype_palette_d = 1:6,
+  col_palette_d = scales::pal_hue(),
+  col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
+  col_palette_o = NULL,
+  col_na = "#A6A6A6FF",
+  shape_palette_d = c(21, 24, 22, 23, 25),
+  shape_na = 4,
+  linetype_palette_d = 1:6,
 
-    aspect_axis_line = "transparent",
-    aspect_axis_ticks = "transparent",
-    aspect_panel_grid = "transparent",
-    ...
+  aspect_axis_line = "transparent",
+  aspect_axis_ticks = "transparent",
+  aspect_panel_grid = "transparent",
+  ...
 ) {
   # Set the theme first
   ggplot2::set_theme(theme)

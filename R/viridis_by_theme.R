@@ -19,12 +19,12 @@
 #' viridis_by_panel(5, "magma", 0.1, 0.9)
 #' viridis_by_panel(3, "plasma")
 viridis_by_panel <- function(
-    n,
-    option = "viridis",
-    begin = 0,
-    end = 1,
-    ...,
-    rev = FALSE
+  n,
+  option = "viridis",
+  begin = 0,
+  end = 1,
+  ...,
+  rev = FALSE
 ) {
   direction <- if (!rev) {
     ifelse(is_panel_light(), -1, 1)
