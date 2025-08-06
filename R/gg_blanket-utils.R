@@ -961,8 +961,8 @@ create_ordinal_palette_wrapper <- function(palette) {
 add_matching_aesthetic_guides <- function(
     plot, plot_build, col_legend_rev,
     col_legend_ncol, col_legend_nrow,
-    geom_name = NULL, is_bordered_geom = FALSE,
-    bordered_colour = NULL, bordered_fill = NULL,
+    geom_name = NULL, is_border_geom = FALSE,
+    border_colour_transform = NULL, border_fill_transform = NULL,
     aes_list = NULL, data = NULL
 ) {
   # Fixed grey color for legend key overrides
@@ -1023,12 +1023,12 @@ add_matching_aesthetic_guides <- function(
         aes_name,
         "linetype" = list(colour = grey_col),
         "shape" = {
-          if (geom_name %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
+          if (geom_name %in% c("point", "jitter", "count", "qq", "pointrange") && is_border_geom) {
             list(
-              colour = if (!rlang::is_null(bordered_colour) && is.function(bordered_colour))
-                bordered_colour(grey_col) else grey_col,
-              fill = if (!rlang::is_null(bordered_fill) && is.function(bordered_fill))
-                bordered_fill(grey_col) else grey_col
+              colour = if (!rlang::is_null(border_colour_transform) && is.function(border_colour_transform))
+                border_colour_transform(grey_col) else grey_col,
+              fill = if (!rlang::is_null(border_fill_transform) && is.function(border_fill_transform))
+                border_fill_transform(grey_col) else grey_col
             )
           } else {
             list(colour = grey_col)
@@ -1036,20 +1036,20 @@ add_matching_aesthetic_guides <- function(
         },
         "size" = ,
         "alpha" = {
-          if (geom_name %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
+          if (geom_name %in% c("point", "jitter", "count", "qq", "pointrange") && is_border_geom) {
             list(
-              colour = if (!rlang::is_null(bordered_colour) && is.function(bordered_colour))
-                bordered_colour(grey_col) else grey_col,
-              fill = if (!rlang::is_null(bordered_fill) && is.function(bordered_fill))
-                bordered_fill(grey_col) else grey_col
+              colour = if (!rlang::is_null(border_colour_transform) && is.function(border_colour_transform))
+                border_colour_transform(grey_col) else grey_col,
+              fill = if (!rlang::is_null(border_fill_transform) && is.function(border_fill_transform))
+                border_fill_transform(grey_col) else grey_col
             )
           } else {
             list(colour = grey_col, fill = grey_col)
           }
         },
         "linewidth" = {
-          if (is_bordered_geom && !rlang::is_null(bordered_colour) && is.function(bordered_colour)) {
-            list(colour = bordered_colour(grey_col), fill = grey_col)
+          if (is_border_geom && !rlang::is_null(border_colour_transform) && is.function(border_colour_transform)) {
+            list(colour = border_colour_transform(grey_col), fill = grey_col)
           } else {
             list(colour = grey_col, fill = grey_col)
           }
@@ -1720,9 +1720,9 @@ is_in_mapping <- function(mapping, aesthetic) {
 
 #' Determine if geom_name should be treated as having borders
 #' @noRd
-is_bordered <- function(geom_name, theme_defaults) {
+is_border <- function(geom_name, theme_defaults) {
   # Define which geom_names are treated as border polygons
-  bordered_polygons <- c(
+  border_polygons <- c(
     "area",
     "blank",
     "bar",
@@ -1749,18 +1749,18 @@ is_bordered <- function(geom_name, theme_defaults) {
   )
 
   # Define point geom_names that can be border based on shape
-  bordered_points <- c("point", "jitter", "count", "qq", "pointrange")
+  border_points <- c("point", "jitter", "count", "qq", "pointrange")
 
-  is_bordered_polygon <- geom_name %in% bordered_polygons
+  is_border_polygon <- geom_name %in% border_polygons
 
-  is_bordered_point <- geom_name %in%
-    bordered_points &&
+  is_border_point <- geom_name %in%
+    border_points &&
     !rlang::is_null(theme_defaults$geom$pointshape) &&
     theme_defaults$geom$pointshape %in% 21:25
 
-  is_bordered <- is_bordered_polygon || is_bordered_point
+  is_border <- is_border_polygon || is_border_point
 
-  return(is_bordered)
+  return(is_border)
 }
 
 # Title extraction functions ----
@@ -1962,14 +1962,14 @@ initialise_ggplot_from_list <- function(
 #' @noRd
 add_col_scale <- function(
     plot, geom_name, stat_name = NULL, col_scale_class, aes_list, data, plot_data,
-    plot_build, x_limits_to_breaks, is_bordered_geom, col_breaks, col_breaks_n, col_drop,
+    plot_build, x_limits_to_breaks, is_border_geom, col_breaks, col_breaks_n, col_drop,
     col_limits_include, col_labels, col_legend_ncol, col_legend_nrow,
     col_legend_rev, col_rescale, col_scale_type, col_transform,
     colour_palette_d, colour_palette_c, colour_palette_o,
     colour_na, fill_palette_d, fill_palette_c,
     fill_palette_o, fill_na,
-    bordered_colour = NULL,
-    bordered_fill = NULL
+    border_colour_transform = NULL,
+    border_fill_transform = NULL
 ) {
 
   # Get NA colors with defaults
@@ -2005,7 +2005,7 @@ add_col_scale <- function(
   } else if (col_scale_class %in% c("continuous", "date", "datetime", "time")) {
     plot <- add_col_scale_continuous(
       plot, colour_palette_c, fill_palette_c,
-      na_colour, na_fill, is_bordered_geom, col_breaks, col_breaks_n,
+      na_colour, na_fill, is_border_geom, col_breaks, col_breaks_n,
       col_labels, col_legend_rev, col_rescale, col_scale_type,
       col_transform, aes_list, plot_build
     )
@@ -2025,9 +2025,9 @@ add_col_scale <- function(
     plot, plot_build, col_legend_rev,
     col_legend_ncol, col_legend_nrow,
     geom_name = geom_name,
-    is_bordered_geom = is_bordered_geom,
-    bordered_colour = bordered_colour,
-    bordered_fill = bordered_fill,
+    is_border_geom = is_border_geom,
+    border_colour_transform = border_colour_transform,
+    border_fill_transform = border_fill_transform,
     aes_list = aes_list,
     data = data
   )
@@ -2300,7 +2300,7 @@ add_col_scale_continuous <- function(
   fill_palette,
   na_colour,
   na_fill,
-  is_bordered_geom,
+  is_border_geom,
   col_breaks,
   col_breaks_n,
   col_labels,
@@ -2344,7 +2344,7 @@ add_col_scale_continuous <- function(
 
     if (same_mapping) {
       # Same variable mapped to both - hide one guide
-      if (is_bordered_geom) {
+      if (is_border_geom) {
         plot <- plot +
           ggplot2::guides(
             colour = ggplot2::guide_none(),
@@ -2405,7 +2405,7 @@ add_col_scale_continuous <- function(
 
     if (same_mapping) {
       # Same variable mapped to both - hide one guide
-      if (is_bordered_geom) {
+      if (is_border_geom) {
         plot <- plot +
           ggplot2::guides(
             colour = ggplot2::guide_none(),
@@ -2478,8 +2478,8 @@ check_same_colour_fill_mapping <- function(plot) {
 #' Apply grey styling to legend key override guides
 #' @noRd
 apply_secondary_grey_guides <- function(
-    plot, aes_list, data, geom_name, is_bordered_geom,
-    bordered_colour, bordered_fill,
+    plot, aes_list, data, geom_name, is_border_geom,
+    border_colour_transform, border_fill_transform,
     col_legend_ncol, col_legend_nrow,
     shape_legend_rev, linetype_legend_rev
 ) {
@@ -2507,12 +2507,12 @@ apply_secondary_grey_guides <- function(
       aes_are_same(aes_list$shape, aes_list$fill, data)
 
     if (!same_as_col) {
-      if (geom_name %in% c("point", "jitter", "count", "qq", "pointrange") && is_bordered_geom) {
+      if (geom_name %in% c("point", "jitter", "count", "qq", "pointrange") && is_border_geom) {
         override_aes <- list(
-          colour = if (!rlang::is_null(bordered_colour) && is.function(bordered_colour))
-            bordered_colour(grey_col) else grey_col,
-          fill = if (!rlang::is_null(bordered_fill) && is.function(bordered_fill))
-            bordered_fill(grey_col) else grey_col
+          colour = if (!rlang::is_null(border_colour_transform) && is.function(border_colour_transform))
+            border_colour_transform(grey_col) else grey_col,
+          fill = if (!rlang::is_null(border_fill_transform) && is.function(border_fill_transform))
+            border_fill_transform(grey_col) else grey_col
         )
       } else {
         override_aes <- list(colour = grey_col)

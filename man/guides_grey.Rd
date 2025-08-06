@@ -9,9 +9,9 @@ guides_grey(
   col = "#8991A1",
   colour = NULL,
   fill = NULL,
-  bordered = NULL,
-  bordered_colour = NULL,
-  bordered_fill = NULL,
+  border = NULL,
+  border_colour_transform = NULL,
+  border_fill_transform = NULL,
   ...
 )
 }
@@ -22,16 +22,16 @@ guides_grey(
 \item{col}{Base hex for the legend colour/fill. Defaults to "#8991A1".}
 
 \item{colour}{Direct override for the colour aesthetic in the legend. If NULL,
-determined by \code{col} and \code{bordered_colour}.}
+determined by \code{col} and \code{border_colour_transform}.}
 
 \item{fill}{Direct override for the fill aesthetic in the legend. If NULL,
-determined by \code{fill} and \code{bordered_fill}.}
+determined by \code{fill} and \code{border_fill_transform}.}
 
-\item{bordered}{TRUE or FALSE of whether to treat as a bordered geom.}
+\item{border}{TRUE or FALSE of whether to treat as a border geom.}
 
-\item{bordered_colour}{Function to transform the colour and colour_palette for bordered geoms.}
+\item{border_colour_transform}{Function to transform the colour and colour_palette for border geoms.}
 
-\item{bordered_fill}{Function to transform the fill and fill_palette for bordered geoms.}
+\item{border_fill_transform}{Function to transform the fill and fill_palette for border geoms.}
 
 \item{...}{Other arguments passed to \code{\link[ggplot2:guide_legend]{ggplot2::guide_legend()}}.}
 }

@@ -258,10 +258,10 @@ update_geom_stroke <- function(
     ...
 ) {
   ggplot2::update_theme(
-    geom.point = ggplot2::element_geom(borderwidth = stroke),
-    geom.jitter = ggplot2::element_geom(borderwidth = stroke),
-    geom.count = ggplot2::element_geom(borderwidth = stroke),
-    geom.qq = ggplot2::element_geom(borderwidth = stroke)
+    geom.point = ggplot2::element_geom(border_linewidth = stroke),
+    geom.jitter = ggplot2::element_geom(border_linewidth = stroke),
+    geom.count = ggplot2::element_geom(border_linewidth = stroke),
+    geom.qq = ggplot2::element_geom(border_linewidth = stroke)
   )
 }
 

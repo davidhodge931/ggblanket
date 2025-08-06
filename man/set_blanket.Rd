@@ -12,12 +12,12 @@ set_blanket(
   size = 1.5,
   shape = 21,
   stroke = 0.5,
-  bordered_colour = function(x) {
+  border_colour_transform = function(x) {
      ifelse(is_panel_dark(), col_screen(x),
     col_multiply(x))
  },
-  bordered_fill = NULL,
-  bordered_linewidth = 0.25,
+  border_fill_transform = NULL,
+  border_linewidth = 0.25,
   col_palette_d = scales::pal_hue(),
   col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
   col_palette_o = NULL,
@@ -47,11 +47,11 @@ set_blanket(
 
 \item{stroke}{A default stroke for point geoms.}
 
-\item{bordered_colour}{A function with input of the set \code{col}.}
+\item{border_colour_transform}{A function with input of the set \code{col}.}
 
-\item{bordered_fill}{A function with input of the set \code{col}.}
+\item{border_fill_transform}{A function with input of the set \code{col}.}
 
-\item{bordered_linewidth}{A number, or a function with input of the set linewidth.}
+\item{border_linewidth}{A number, or a function with input of the set linewidth.}
 
 \item{col_palette_d}{For a discrete colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 

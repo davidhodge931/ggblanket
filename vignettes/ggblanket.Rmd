@@ -44,13 +44,13 @@ Computational speed has been traded-off.
 5.  A `facet2` argument to facet by a 2nd variable
 6.  All other aesthetics supported
 7.  Prefixed arguments to customise
-8.  Smart `*_title` defaults for axis and legend titles
+8.  `*_title` defaults to `snakecase::to_sentence_case`
 9.  Other `ggplot2::geom_*` arguments via `...`
 10. `theme_lighter` and `theme_darker` themes 
 11. Set and forget with `set_blanket()`
 12. An `aspect` for vertical/horizontal ease 
 13. A `*_limits_to_breaks` continuous scale
-14. A `bordered` style 
+14. `border` style ease
 15. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
@@ -179,11 +179,9 @@ palmerpenguins::penguins |>
   )
 ```
 
-### 8.  Smart `*_title` defaults for axis and legend titles
+### 8.  `*_title` defaults to `snakecase::to_sentence_case`
 
-The `x_title`, `y_title` and `col_title` for the axis and legend titles can be manually specified with the applicable `*_title` argument. All other titles will need to use `+ ggplot2::labs(...)`. 
-
-If titles are not specified, they will first take any label attribute associated with the applicable variable. If no label attribute, they will then convert the variable name to a label name using the `titles_case` function, which defaults to sentence case. 
+The `*_title` for the axis and legend titles default to `snakecase::to_sentence_case` (or the label attribute). Otherwise, they take on any value provided by the user, including `NULL` which removes the title.
 
 ```{r, fig.asp=0.6}
 palmerpenguins::penguins |>
@@ -212,7 +210,7 @@ palmerpenguins::penguins |>
 
 `theme_lighter` and `theme_darker`. 
 
-These functions were built for use within `set_blanket`, as then `bordered_colour` and `bordered_fill` adjustments can apply based on these (e.g. if the panel is dark). 
+These functions were built for use within `set_blanket`, as then `border_colour_transform` and `border_fill_transform` adjustments can apply based on these (e.g. if the panel is dark). 
 
 ```{r, fig.asp=0.65}
 set_blanket(theme = theme_darker())
@@ -288,8 +286,8 @@ p1 <- palmerpenguins::penguins |>
     x = sex,
     y = bill_depth_mm,
     col = sex,
-  ) +
-  labs(x = NULL)
+    x_title = NULL
+  ) 
 
 p2 <- palmerpenguins::penguins |>
   drop_na() |>
@@ -312,19 +310,19 @@ The default `*_limits_to_breaks`is largely determined by the `aspect` of the plo
 
 Note all continuous scales ensure all data is kept using `scales::oob_keep` - and, by default, are unclipped (i.e. `coord_cartesian(clip = "off")`. 
 
-### 14. A `bordered` style 
+### 14.`border` style ease 
 
-Certain geoms are classified as bordered (e.g. bar, area, tile, polygon etc). Point geoms with shapes 21-25 are also considered bordered. 
+Certain geoms are classified as being with a border (e.g. bar, area, tile, polygon etc). Point geoms with shapes 21-25 are also considered with a border. 
 
-This classification determines whether border logic applies to the underlying colour/fill and equivalent palettes for these aesthetics. By default bordered polygons are applied a multiply blending of their colour to itself, and fill is left unchanged. 
+This classification determines whether border logic applies to the underlying colour/fill and equivalent palettes for these aesthetics. By default border polygons are applied a `col_multiply` blend, and fill is left unchanged. 
 
-Use `bordered = FALSE` to turn this off within the `gg_*` function, or `set_blanket(bordered_colour = \(x) x, bordered_fill = \(x) x, ...)`.
+Use `border = FALSE` to turn this off within the `gg_*` function (or globally with `set_blanket(border_colour_transform = \(x) x, border_fill_transform = \(x) x, ...)`).
 
 ```{r}
 set_blanket(
   theme = theme_lighter(),
-  bordered_colour = \(x) scales::col_darker(x, amount = 40),
-  bordered_linewidth = 0.5,
+  border_colour_transform = \(x) scales::col_darker(x, amount = 40),
+  border_linewidth = 0.5,
 )
   
 palmerpenguins::penguins |> 
@@ -343,7 +341,7 @@ All other functions wrap this function with a fixed `geom`, and their own defaul
 
 This function can often be used (1) where a annotation is needed to be plotted first, or (2) where a geom is needed to be plotted that is not provided as a `gg_*` function.
 
-The `blank` geom gets `bordered = TRUE` unless otherwise specified. As such, bordered colouring/filling only passes through to `+ geom_` layers for mapped `col` aesthetics. Where `col` is not mapped, use `col_multiply` and `col_screen` in subsequent layers to replicate the default ggblanket look.
+The `blank` geom gets `border = TRUE` unless otherwise specified. As such, border colouring/filling only passes through to `+ geom_` layers for mapped `col` aesthetics. Where `col` is not mapped, use `col_multiply` and `col_screen` in subsequent layers to replicate the default ggblanket look.
 
 ```{r}
 palmerpenguins::penguins |>
@@ -353,7 +351,7 @@ palmerpenguins::penguins |>
     y = body_mass_g,
     size = bill_length_mm,
     shape = sex,
-    bordered = TRUE,
+    border = TRUE,
   ) +
   annotate("rect", 
            xmin = I(0.9), xmax = Inf,
@@ -384,3 +382,4 @@ expand.grid(x = 1:10, y = 1:10) |>
 ## Further information 
 
 See the ggblanket [website](https://davidhodge931.github.io/ggblanket/index.html) for further information, including [articles](https://davidhodge931.github.io/ggblanket/articles/) and [function reference](https://davidhodge931.github.io/ggblanket/reference/index.html).
+border_linewidth = border_linewidth

@@ -40,9 +40,9 @@ gg_contour(
   text = NULL,
   sample = NULL,
   mapping = NULL,
-  bordered = NULL,
-  bordered_colour = NULL,
-  bordered_fill = NULL,
+  border = NULL,
+  border_colour_transform = NULL,
+  border_fill_transform = NULL,
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_expand = NULL,
@@ -129,11 +129,11 @@ gg_contour(
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} for advanced edge-case situations (e.g.delayed evaluation etc).}
 
-\item{bordered}{\code{TRUE} or \code{FALSE} of whether the \code{bordered_colour} and \code{bordered_fill} should be applied.}
+\item{border}{\code{TRUE} or \code{FALSE} of whether the \code{border_colour_transform} and \code{border_fill_transform} should be applied.}
 
-\item{bordered_colour}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
+\item{border_colour_transform}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
 
-\item{bordered_fill}{A function with input of \code{col} or \code{col_palette}. Defaults to NULL.}
+\item{border_fill_transform}{A function with input of \code{col} or \code{col_palette}. Defaults to NULL.}
 
 \item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 

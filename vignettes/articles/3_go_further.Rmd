@@ -250,8 +250,8 @@ p1 <- penguins2 |>
     position = position_dodge(),
     x_labels = \(x) str_sub(x, 1, 1),
     subtitle = "\nsymmetric = 'y'",
-  ) +
-  labs(y = NULL)
+    y_title = NULL,
+  ) 
 
 p2 <- penguins2 |>
   gg_pointrange(
@@ -262,8 +262,8 @@ p2 <- penguins2 |>
     symmetric = "none",
     x_labels = \(x) str_sub(x, 1, 1),
     subtitle = "\nsymmetric = 'none'",
-  ) +
-  labs(y = NULL)
+    y_title = NULL,
+  ) 
 
 p1 + p2
 ```

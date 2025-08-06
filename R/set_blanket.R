@@ -20,9 +20,9 @@
 #' @param shape_palette_d For shape scales, a numeric vector of shape codes.
 #' @param shape_na A NA shape value.
 #' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function.
-#' @param bordered_colour A function with input of the set `col`.
-#' @param bordered_fill A function with input of the set `col`.
-#' @param bordered_linewidth A number, or a function with input of the set linewidth.
+#' @param border_colour_transform A function with input of the set `col`.
+#' @param border_fill_transform A function with input of the set `col`.
+#' @param border_linewidth A number, or a function with input of the set linewidth.
 #' @param titles_case A function to apply to unspecified/unlabelled titles in `gg_*` functions.
 #' @param aspect_axis_line `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
 #' @param aspect_axis_ticks `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
@@ -56,11 +56,11 @@ set_blanket <- function(
     shape = 21,
     stroke = 0.5,
 
-    bordered_colour = \(x) {
+    border_colour_transform = \(x) {
       ifelse(is_panel_dark(), col_screen(x), col_multiply(x))
     },
-    bordered_fill = NULL,
-    bordered_linewidth = 0.25,
+    border_fill_transform = NULL,
+    border_linewidth = 0.25,
 
     col_palette_d = scales::pal_hue(),
     col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
@@ -99,10 +99,10 @@ set_blanket <- function(
     linetype_palette_d = linetype_palette_d
   )
 
-  update_geom_bordered(
-    bordered_colour = bordered_colour,
-    bordered_fill = bordered_fill,
-    bordered_linewidth = bordered_linewidth
+  update_geom_border(
+    border_colour_transform = border_colour_transform,
+    border_fill_transform = border_fill_transform,
+    border_linewidth = border_linewidth
   )
 
   update_geom_font()
